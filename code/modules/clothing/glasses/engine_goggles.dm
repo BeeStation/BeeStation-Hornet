@@ -15,6 +15,7 @@
 
 	vision_flags = NONE
 	darkness_view = 2
+	lighting_alpha = null
 	invis_view = SEE_INVISIBLE_LIVING
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
@@ -66,7 +67,7 @@
 		return
 	switch(mode)
 		if(MODE_TRAY)
-			t_ray_scan(user, 8, range)
+			t_ray_scan(user, 16, range)
 		if(MODE_RAD)
 			show_rads()
 		if(MODE_SHUTTLE)
@@ -92,8 +93,7 @@
 		var/mutable_appearance/MA = new()
 		MA.maptext = MAPTEXT("[strength]k")
 		MA.color = "#04e66d"
-		MA.layer = RAD_TEXT_LAYER
-		MA.plane = GAME_PLANE
+		MA.plane = TEXT_EFFECT_PLANE
 		pic.appearance = MA
 		flick_overlay(pic, list(user.client), 10)
 
@@ -103,9 +103,8 @@
 	if(!port)
 		return
 	var/list/shuttle_areas = port.shuttle_areas
-	for(var/r in shuttle_areas)
-		var/area/region = r
-		for(var/turf/place in region.contents)
+	for(var/area/region as anything in shuttle_areas)
+		for(var/turf/place as anything in region.get_contained_turfs())
 			if(get_dist(user, place) > 7)
 				continue
 			var/image/pic

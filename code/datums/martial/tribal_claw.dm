@@ -28,19 +28,19 @@
 		return TRUE
 	return FALSE
 
-//Tail Sweep, triggers an effect similar to Space Dragon's tail sweep but only affects stuff 1 tile next to you, basically 3x3.
+//Tail Sweep, triggers an effect similar to Alien Queen's tail sweep but only affects stuff 1 tile next to you, basically 3x3.
 /datum/martial_art/tribal_claw/proc/tailSweep(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(A == current_target)
 		return
 	log_combat(A, D, "tail sweeped(Tribal Claw)")
 	D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
 						"<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
-	var/static/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new
+	var/static/obj/effect/proc_holder/spell/aoe_turf/repulse/xeno/R = new
 	R.cast(RANGE_TURFS(1,A))
 
 //Face Scratch, deals 10 brute to head(reduced by armor), blurs the target's vision and gives them the confused effect for a short time.
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
+	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	log_combat(A, D, "face scratched (Tribal Claw)")
 	D.visible_message("<span class='warning'>[A] scratches [D]'s face with their claws!</span>", \
 						"<span class='userdanger'>[A] scratches your face with their claws!</span>")
@@ -55,7 +55,7 @@ Jugular Cut, can only be done if the target is in crit, being held in a tier 3 g
 Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect similar to throat slicing someone with a sharp item.
 */
 /datum/martial_art/tribal_claw/proc/jugularCut(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
+	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if((D.health <= D.crit_threshold || (A.pulling == D && A.grab_state >= GRAB_NECK) || D.IsSleeping()))
 		log_combat(A, D, "jugular cut (Tribal Claw)")
 		D.visible_message("<span class='warning'>[A] cuts [D]'s jugular vein with their claws!</span>", \

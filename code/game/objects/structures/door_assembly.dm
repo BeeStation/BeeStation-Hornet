@@ -5,6 +5,7 @@
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	anchored = FALSE
 	density = TRUE
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 200
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/base_name = "airlock"
@@ -349,6 +350,7 @@
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			qdel(src)
 			return TRUE
 	return FALSE

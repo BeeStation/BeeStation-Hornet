@@ -1,9 +1,8 @@
 //Nearsightedness restricts your vision by several tiles.
 /datum/mutation/nearsight
 	name = "Near Sightness"
-	desc = "The holder of this mutation has poor eyesight."
+	desc = "A hereditary mutation causing Myopia and poor vision."
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='danger'>You can't see very well.</span>"
 
 /datum/mutation/nearsight/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -19,9 +18,8 @@
 //Blind makes you blind. Who knew?
 /datum/mutation/blind
 	name = "Blindness"
-	desc = "Renders the subject completely blind."
+	desc = "A hereditary mutation which renders the optic nerves of the individual inert, making them effectively blind. No amount of corrective surgery can fix this."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='danger'>You can't seem to see anything.</span>"
 
 /datum/mutation/blind/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -36,10 +34,9 @@
 
 /datum/mutation/thermal
 	name = "Thermal Vision"
-	desc = "The user of this genome can visually percieve the unique human thermal signature."
+	desc = "The mutation enables the growth of Heat Pits in the eyes, not unlike those of a reptile, which can visually percieve the unique infrared thermal signature of living creatures."
 	quality = POSITIVE
 	difficulty = 18
-	text_gain_indication = "<span class='notice'>You can see the heat rising off of your skin...</span>"
 	instability = 25
 	locked = TRUE
 	var/visionflag = TRAIT_THERMAL_VISION
@@ -60,8 +57,7 @@
 //X-ray Vision lets you see through walls.
 /datum/mutation/thermal/x_ray
 	name = "X Ray Vision"
-	desc = "A strange genome that allows the user to see between the spaces of walls." //actual x-ray would mean you'd constantly be blasting rads, wich might be fun for later //hmb
-	text_gain_indication = "<span class='notice'>The walls suddenly disappear!</span>"
+	desc = "A strange mutation that allows the user to see between the spaces of walls." //actual x-ray would mean you'd constantly be blasting rads, wich might be fun for later //hmb
 	instability = 35
 	locked = TRUE
 	visionflag = TRAIT_XRAY_VISION
@@ -69,11 +65,10 @@
 //Laser Eyes lets you shoot lasers from your eyes!
 /datum/mutation/laser_eyes
 	name = "Laser Eyes"
-	desc = "Reflects concentrated light back from the eyes."
+	desc = "A mutation that allows for the reflection of concentrated light from the back of the eyes."
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
-	text_gain_indication = "<span class='notice'>You feel pressure building up behind your eyes.</span>"
 	layer_used = FRONT_MUTATIONS_LAYER
 	limb_req = BODY_ZONE_HEAD
 

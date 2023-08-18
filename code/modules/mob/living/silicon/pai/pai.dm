@@ -13,6 +13,7 @@
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
+	radio = /obj/item/radio/headset/silicon/pai
 	move_force = 0
 	pull_force = 0
 	move_resist = 0
@@ -88,7 +89,7 @@
 	var/can_transmit = TRUE
 	var/can_receive = TRUE
 	var/chassis = "repairbot"
-	var/list/possible_chassis = list("bat" = TRUE, "bee" = TRUE, "butterfly" = TRUE, "carp" = TRUE, "cat" = TRUE, "corgi" = TRUE, "corgi_puppy" = TRUE, "crow" = TRUE, "duffel" = TRUE, "fox" = TRUE, "frog" = TRUE, "hawk" = TRUE, "lizard" = TRUE, "monkey" = TRUE, "mouse" = TRUE, "mushroom" = TRUE, "phantom" = TRUE, "rabbit" = TRUE, "repairbot" = TRUE, "snake" = TRUE, "spider" = TRUE)		//assoc value is whether it can be picked up.
+	var/list/possible_chassis = list("bat" = TRUE, "bee" = TRUE, "butterfly" = TRUE, "carp" = TRUE, "cat" = TRUE, "corgi" = TRUE, "corgi_puppy" = TRUE, "crow" = TRUE, "duffel" = TRUE, "fox" = TRUE, "frog" = TRUE, "hawk" = TRUE, "lizard" = TRUE, "monkey" = TRUE, "mothroach" = TRUE, "mouse" = TRUE, "mushroom" = TRUE, "phantom" = TRUE, "rabbit" = TRUE, "repairbot" = TRUE, "snake" = TRUE, "spider" = TRUE)		//assoc value is whether it can be picked up.
 	var/static/item_head_icon = 'icons/mob/pai_item_head.dmi'
 	var/static/item_lh_icon = 'icons/mob/pai_item_lh.dmi'
 	var/static/item_rh_icon = 'icons/mob/pai_item_rh.dmi'
@@ -163,8 +164,6 @@
 	signaler = new /obj/item/assembly/signaler/internal(src)
 	hostscan = new /obj/item/healthanalyzer(src)
 	atmos_analyzer = new /obj/item/analyzer(src)
-	if(!radio)
-		radio = new /obj/item/radio/headset/silicon/pai(src)
 	newscaster = new /obj/machinery/newscaster/pai(src)
 	if(!aicamera)
 		aicamera = new /obj/item/camera/siliconcam/ai_camera(src)
@@ -175,7 +174,7 @@
 	create_modularInterface()
 
 	emittersemicd = TRUE
-	addtimer(CALLBACK(src, .proc/emittercool), 600)
+	addtimer(CALLBACK(src, PROC_REF(emittercool)), 600)
 	return INITIALIZE_HINT_LATELOAD
 
 
@@ -218,8 +217,7 @@
 	..()
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
 	mind.assigned_role = JOB_NAME_PAI
-	if(!notes_assets.send(client))
-		return
+	notes_assets.send(client)
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)
 		client.eye = src
@@ -239,7 +237,7 @@
 
 // See software.dm for Topic()
 
-/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE

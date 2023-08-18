@@ -1,7 +1,9 @@
 /datum/job/research_director
 	title = JOB_NAME_RESEARCHDIRECTOR
 	flag = RD_JF
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
+	description = "Oversee the scientists and roboticists and keep up with their research projects, take care of any issues with the station's AI that may arise, ensure research is being prioritized in accordance with the needs of the station."
+	department_for_prefs = DEPT_BITFLAG_SCI
+	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Science")
@@ -17,12 +19,12 @@
 
 	outfit = /datum/outfit/job/research_director
 
-	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_EXPLORATION,
+	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_MORGUE, ACCESS_EXPLORATION,
 			            ACCESS_TOX_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS, ACCESS_MECH_SCIENCE,
 			            ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM,
 			            ACCESS_TECH_STORAGE, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_NETWORK, ACCESS_AUX_BASE, ACCESS_RD_SERVER, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_EXPLORATION,
+	minimal_access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_MORGUE, ACCESS_EXPLORATION,
 			            ACCESS_TOX_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS, ACCESS_MECH_SCIENCE,
 			            ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM,
@@ -42,6 +44,18 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/rd
 	)
 	biohazard = 40
+
+	minimal_lightup_areas = list(
+		/area/crew_quarters/heads/hor,
+		/area/science/explab,
+		/area/science/misc_lab,
+		/area/science/mixing,
+		/area/science/nanite,
+		/area/science/robotics,
+		/area/science/server,
+		/area/science/storage,
+		/area/science/xenobiology
+	)
 
 /datum/outfit/job/research_director
 	name = JOB_NAME_RESEARCHDIRECTOR

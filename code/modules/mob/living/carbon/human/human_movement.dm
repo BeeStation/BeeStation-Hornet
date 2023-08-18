@@ -7,22 +7,19 @@
 			if(data[MOVESPEED_DATA_INDEX_FLAGS] & IGNORE_NOSLOW)
 				.[id] = data
 
-/mob/living/carbon/human/movement_delay()
-	. = ..()
-	if(dna?.species)
-		. += dna.species.movement_delay(src)
-
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube, paralyze, forcedrop)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
-		return 0
-	if (!(lube&GALOSHES_DONT_HELP))
-		if(HAS_TRAIT(src, TRAIT_NOSLIPWATER))
-			return 0
-		if(shoes && isclothing(shoes))
-			var/obj/item/clothing/CS = shoes
-			if (CS.clothing_flags & NOSLIP)
-				return 0
+		return FALSE
+	if (lube & GALOSHES_DONT_HELP)
+		return ..()
+	if(HAS_TRAIT(src, TRAIT_NOSLIPWATER))
+		return FALSE
+	if(shoes && isclothing(shoes))
+		var/obj/item/clothing/CS = shoes
+		if (CS.clothing_flags & NOSLIP)
+			return FALSE
 	return ..()
+
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference)
 	if(pressure_difference > 100)

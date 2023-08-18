@@ -27,8 +27,11 @@ Slimecrossing Armor
 
 /obj/item/clothing/mask/nobreath/dropped(mob/living/carbon/human/user)
 	..()
-	REMOVE_TRAIT(user, TRAIT_NOBREATH, "breathmask_[REF(src)]")
-	user.remove_status_effect(/datum/status_effect/rebreathing)
+	if(user.wear_mask != src)
+		return
+	else
+		REMOVE_TRAIT(user, TRAIT_NOBREATH, "breathmask_[REF(src)]")
+		user.remove_status_effect(/datum/status_effect/rebreathing)
 
 /obj/item/clothing/glasses/prism_glasses
 	name = "prism glasses"
@@ -70,7 +73,7 @@ Slimecrossing Armor
 	if(!IsAvailable())
 		return
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
-	var/new_color = input(owner, "Choose the lens color:", "Color change",glasses.glasses_color) as color|null
+	var/new_color = tgui_color_picker(owner, "Choose the lens color:", "Color change",glasses.glasses_color)
 	if(!new_color)
 		return
 	glasses.glasses_color = new_color
@@ -117,7 +120,10 @@ Slimecrossing Armor
 
 /obj/item/clothing/head/peaceflower/dropped(mob/living/carbon/human/user)
 	..()
-	REMOVE_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[REF(src)]")
+	if(user.head != src)
+		return
+	else
+		REMOVE_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[REF(src)]")
 
 /obj/item/clothing/head/peaceflower/attack_hand(mob/user)
 	if(iscarbon(user))

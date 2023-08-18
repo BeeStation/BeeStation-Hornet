@@ -36,6 +36,10 @@
 	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_roundstart_list)
 	H.dna.features["moth_antennae"] = pick(GLOB.moth_antennae_roundstart_list)
 	H.dna.features["moth_markings"] = pick(GLOB.moth_markings_roundstart_list)
+	H.dna.features["apid_antenna"] = pick(GLOB.apid_antenna_list)
+	H.dna.features["apid_stripes"] = pick(GLOB.apid_stripes_list)
+	H.dna.features["apid_headstripes"] = pick(GLOB.apid_headstripes_list)
+	H.dna.features["body_model"] = H.gender
 
 	H.update_body()
 	H.update_hair()

@@ -52,16 +52,14 @@
 
 	discovery_points = 10000
 
-
-
 // No movement while seen code.
 
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
 	. = ..()
 	// Give spells
-	mob_spell_list += new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(src)
-	mob_spell_list += new /obj/effect/proc_holder/spell/aoe_turf/blindness(src)
-	mob_spell_list += new /obj/effect/proc_holder/spell/targeted/night_vision(src)
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights)
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness)
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision)
 
 	// Set creator
 	if(creator)
@@ -126,10 +124,10 @@
 	// This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
 		for(var/mob/living/M in viewers(getexpandedview(world.view, 1, 1), check))
-			if(M != src && M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege && !M.eye_blind)
+			if(M != src && M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege && !M.is_blind())
 				return M
 		for(var/obj/mecha/M in view(getexpandedview(world.view, 1, 1), check)) //assuming if you can see them they can see you
-			if(M.occupant?.client && !M.occupant.eye_blind)
+			if(M.occupant?.client && !M.occupant.is_blind())
 				return M.occupant
 	return null
 
@@ -190,7 +188,7 @@
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L.loc)
 		if(T && (T in targets))
-			L.blind_eyes(4)
+			L.adjust_blindness(4)
 	return
 
 //Toggle Night Vision

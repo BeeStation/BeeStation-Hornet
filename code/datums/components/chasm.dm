@@ -12,7 +12,7 @@
 		/obj/docking_port,
 		/obj/structure/lattice,
 		/obj/structure/stone_tile,
-		/obj/item/projectile,
+		/obj/projectile,
 		/obj/effect/projectile,
 		/obj/effect/portal,
 		/obj/effect/abstract,
@@ -26,7 +26,7 @@
 		))
 
 /datum/component/chasm/Initialize(turf/target)
-	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/Entered)
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(Entered))
 	target_turf = target
 	START_PROCESSING(SSobj, src) // process on create, in case stuff is still there
 
@@ -60,7 +60,7 @@
 	for (var/thing in to_check)
 		if (droppable(thing))
 			. = TRUE
-			INVOKE_ASYNC(src, .proc/drop, thing)
+			INVOKE_ASYNC(src, PROC_REF(drop), thing)
 
 /datum/component/chasm/proc/droppable(atom/movable/AM)
 	var/datum/weakref/falling_ref = WEAKREF(AM)

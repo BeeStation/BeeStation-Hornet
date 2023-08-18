@@ -106,7 +106,7 @@
 		else
 			sections += T.antag_listing_entry()
 
-	sortTim(all_antagonists, /proc/cmp_antag_category)
+	sortTim(all_antagonists, GLOBAL_PROC_REF(cmp_antag_category))
 
 	var/current_category
 	var/list/current_section = list()

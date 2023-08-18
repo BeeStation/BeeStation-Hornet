@@ -67,7 +67,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "C" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -85,7 +85,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "K" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light,
 /turf/open/floor/plasteel,
@@ -114,7 +114,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "T" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,

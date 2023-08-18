@@ -13,6 +13,8 @@
 /datum/reagent/medicine/on_mob_life(mob/living/carbon/M)
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate / M.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
+	if(metabolite)
+		holder.add_reagent(metabolite, metabolization_rate / M.metabolism_efficiency * METABOLITE_RATE)
 
 /datum/reagent/medicine/leporazine
 	name = "Leporazine"
@@ -253,6 +255,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 100
+	metabolite = /datum/reagent/metabolite/medicine/silver_sulfadiazine
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -310,6 +313,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 100
+	metabolite = /datum/reagent/metabolite/medicine/styptic_powder
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -850,7 +854,7 @@
 		to_chat(M, "<span class='warning'>The blackness in your peripheral vision fades.</span>")
 		M.cure_nearsighted(EYE_DAMAGE)
 		M.blur_eyes(10)
-	else if(M.eye_blind || M.eye_blurry)
+	else if(M.is_blind() || M.eye_blurry)
 		M.set_blindness(0)
 		M.set_blurriness(0)
 	..()
@@ -949,9 +953,9 @@
 			M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
 			M.notify_ghost_cloning(source = M)
 			M.do_jitter_animation(10)
-			addtimer(CALLBACK(M, /mob/living/carbon.proc/do_jitter_animation, 10), 40) //jitter immediately, then again after 4 and 8 seconds
-			addtimer(CALLBACK(M, /mob/living/carbon.proc/do_jitter_animation, 10), 80)
-			addtimer(CALLBACK(M, /mob/living.proc/revive, FALSE, FALSE), 100)
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 10), 40) //jitter immediately, then again after 4 and 8 seconds
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 10), 80)
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, revive), FALSE, FALSE), 100)
 	..()
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/carbon/M)
@@ -1132,18 +1136,18 @@
 	color = "#bf0000"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolite = /datum/reagent/metabolite/medicine/bicaridine
 	overdose_threshold = 30
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
-	if(M.getBruteLoss() < 50)
-		M.adjustBruteLoss(-1.5*REM, 0)
-	else
-		M.adjustBruteLoss(-0.5*REM, 0)
+	M.adjustBruteLoss(-1/METABOLITE_PENALTY(metabolite), 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
+	M.reagents.add_reagent(metabolite, 1)
+	M.reagents.remove_reagent(/datum/reagent/medicine/bicaridine, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
 
@@ -1156,10 +1160,7 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M)
-	if(M.getOxyLoss() < 50)
-		M.adjustOxyLoss(-1.5*REM, 0)
-	else
-		M.adjustOxyLoss(-0.5*REM, 0)
+	M.adjustOxyLoss(-1.5*REM, 0)
 	..()
 	. = 1
 
@@ -1195,41 +1196,41 @@
 	color = "#FFa800"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolite = /datum/reagent/metabolite/medicine/kelotane
 	overdose_threshold = 30
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M)
-	if(M.getFireLoss() < 50)
-		M.adjustFireLoss(-1.5*REM, 0)
-	else
-		M.adjustFireLoss(-0.5*REM, 0)
+	M.adjustFireLoss(-1/METABOLITE_PENALTY(metabolite), 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
+	M.reagents.add_reagent(metabolite, 1)
+	M.reagents.remove_reagent(/datum/reagent/medicine/kelotane, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
 
 /datum/reagent/medicine/antitoxin
 	name = "Anti-Toxin"
-	description = "Heals toxin damage and removes toxins in the bloodstream. Overdose causes toxin damage."
+	description = "Heals toxin damage and removes toxins in the bloodstream. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#00a000"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	overdose_threshold = 30
 	taste_description = "a roll of gauze"
+	metabolite = /datum/reagent/metabolite/medicine/antitoxin
+	overdose_threshold = 30
 
 /datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M)
-	if(M.getToxLoss() < 50)
-		M.adjustToxLoss(-1.5*REM, 0)
-	else
-		M.adjustToxLoss(-0.5*REM, 0)
+	M.adjustToxLoss(-1/METABOLITE_PENALTY(metabolite), 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/antitoxin/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
+	M.reagents.add_reagent(metabolite, 1)
+	M.reagents.remove_reagent(/datum/reagent/medicine/antitoxin, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
 
@@ -1328,21 +1329,22 @@
 	reagent_state = LIQUID
 	color = "#707A00" //tricord's component chems mixed together, olive.
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	metabolization_rate = 3 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	taste_description = "grossness"
+	metabolite = /datum/reagent/metabolite/medicine/tricordrazine
 
 /datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/carbon/M)
-	if(prob(80))
-		M.adjustBruteLoss(-1*REM, 0)
-		M.adjustFireLoss(-1*REM, 0)
-		M.adjustOxyLoss(-1*REM, 0)
-		M.adjustToxLoss(-1*REM, 0)
-		. = 1
+	M.adjustBruteLoss(-2/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustFireLoss(-2/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustToxLoss(-2/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustOxyLoss(-2/METABOLITE_PENALTY(metabolite), 0)
+	. = 1
 	..()
 
 /datum/reagent/medicine/tricordrazine/overdose_process(mob/living/M)
 	M.adjustToxLoss(2*REM, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 3)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
 
@@ -1355,22 +1357,6 @@
 	taste_description = "jelly"
 
 /datum/reagent/medicine/regen_jelly/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-1.5*REM, 0)
-	M.adjustFireLoss(-1.5*REM, 0)
-	M.adjustOxyLoss(-1.5*REM, 0)
-	M.adjustToxLoss(-1.5*REM, 0, TRUE) //heals TOXINLOVERs
-	. = 1
-	..()
-
-/datum/reagent/medicine/regen_ooze
-	name = "Regenerative Ooze"
-	description = "Gradually regenerates all types of damage, without harming slime anatomy."
-	reagent_state = LIQUID
-	color = "#65d891"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "jelly"
-
-/datum/reagent/medicine/regen_ooze/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-0.5*REM, 0)
 	M.adjustFireLoss(-0.5*REM, 0)
 	M.adjustOxyLoss(-0.5*REM, 0)
@@ -1474,7 +1460,7 @@
 //used for changeling's adrenaline power
 /datum/reagent/medicine/changelingadrenaline
 	name = "Changeling Adrenaline"
-	description = "Reduces the duration of unconciousness, knockdown and stuns. Restores stamina, but deals toxin damage when overdosed."
+	description = "Reduces the duration of unconsciousness, knockdown and stuns. Restores stamina, but deals toxin damage when overdosed."
 	color = "#C1151D"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30

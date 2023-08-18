@@ -1,3 +1,8 @@
+//world/proc/shelleo
+#define SHELLEO_ERRORLEVEL 1
+#define SHELLEO_STDOUT 2
+#define SHELLEO_STDERR 3
+
 /client/proc/play_sound(S as sound)
 	set category = "Fun"
 	set name = "Play Global Sound"
@@ -31,7 +36,7 @@
 	message_admins("[key_name_admin(src)] played sound [S]")
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client.prefs.toggles & PREFTOGGLE_SOUND_MIDI)
+		if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
 			admin_sound.volume = vol * M.client.admin_music_volume
 			SEND_SOUND(M, admin_sound)
 			admin_sound.volume = vol
@@ -95,6 +100,11 @@
 						webpage_url = "<a href=\"[data["webpage_url"]]\">[title]</a>"
 					music_extra_data["start"] = data["start_time"]
 					music_extra_data["end"] = data["end_time"]
+					music_extra_data["duration"] = DisplayTimeText(data["duration"] * 1 SECONDS)
+					music_extra_data["link"] = data["webpage_url"]
+					music_extra_data["artist"] = data["artist"]
+					music_extra_data["upload_date"] = data["upload_date"]
+					music_extra_data["album"] = data["album"]
 
 					var/res = alert(usr, "Show the title of and link to this song to the players?\n[title]",, "No", "Yes", "Cancel")
 					switch(res)
@@ -102,6 +112,12 @@
 							music_extra_data["title"] = data["title"]
 							music_extra_data["link"] = data["webpage_url"]
 							to_chat(world, "<span class='boldannounce'>An admin played: [webpage_url]</span>")
+						if("No")
+							music_extra_data["link"] = "Song Link Hidden"
+							music_extra_data["title"] = "Song Title Hidden"
+							music_extra_data["artist"] = "Song Artist Hidden"
+							music_extra_data["upload_date"] = "Song Upload Date Hidden"
+							music_extra_data["album"] = "Song Album Hidden"
 						if("Cancel")
 							return
 
@@ -126,7 +142,7 @@
 			for(var/m in GLOB.player_list)
 				var/mob/M = m
 				var/client/C = M.client
-				if(C.prefs.toggles & PREFTOGGLE_SOUND_MIDI)
+				if(C.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
 					if(!stop_web_sounds)
 						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
 					else
@@ -146,6 +162,24 @@
 	message_admins("[key_name_admin(src)] set the round end sound to [S]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Round End Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/play_soundtrack()
+	set category = "Fun"
+	set name = "Play Soundtrack Music"
+	set desc = "Choose a song to play from the available soundtrack."
+
+	var/station_only = alert(usr, "Play only on station?", "Station Setting", "Station Only", "All", "Cancel")
+	if(station_only == "Cancel" || station_only == null)
+		return
+	var/soundtracks = subtypesof(/datum/soundtrack_song)
+	for(var/datum/soundtrack_song/song as() in soundtracks)
+		if(initial(song.file) != null)
+			continue
+		soundtracks -= song
+	var/song_choice = input(usr, "Choose a song", "Song Choice", null) as null|anything in soundtracks
+	if(!ispath(song_choice, /datum/soundtrack_song))
+		return
+	play_soundtrack_music(song_choice, only_station = (station_only == "Station Only" ? SOUNDTRACK_PLAY_ONLYSTATION : SOUNDTRACK_PLAY_ALL))
+
 /client/proc/stop_sounds()
 	set category = "Debug"
 	set name = "Stop All Playing Sounds"
@@ -160,3 +194,7 @@
 			var/client/C = M.client
 			C?.tgui_panel?.stop_music()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stop All Playing Sounds") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+#undef SHELLEO_ERRORLEVEL
+#undef SHELLEO_STDOUT
+#undef SHELLEO_STDERR

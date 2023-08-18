@@ -160,8 +160,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/mob/living/carbon/human/H = user
 			if(H.put_in_hands(A))
 				to_chat(H, "[A] materializes into your hands!")
+				log_uplink_purchase(user, A)
 				return A
 	to_chat(user, "[A] materializes onto the floor.")
+	log_uplink_purchase(user, A)
 	return A
 
 //Discounts (dynamically filled above)
@@ -315,7 +317,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/index = rand(1, 20)
 	starting_crate_value = index * 5
 	if(index == 1)
-		to_chat(user, "<span class='warning'><b>Incomming transmission from the syndicate.</b></span>")
+		to_chat(user, "<span class='warning'><b>Incoming transmission from the syndicate.</b></span>")
 		to_chat(user, "<span class='warning'>You feel an overwhelming sense of pride and accomplishment.</span>")
 		var/obj/item/clothing/mask/joy/funny_mask = new(get_turf(user))
 		ADD_TRAIT(funny_mask, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -360,7 +362,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC/telecrystal
 	name = "1 Raw Telecrystal"
 	desc = "A telecrystal in its rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal
+	item = /obj/item/stack/sheet/telecrystal
 	cost = 1
 	// Don't add telecrystals to the purchase_log since
 	// it's just used to buy more items (including itself!)
@@ -369,13 +371,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC/telecrystal/five
 	name = "5 Raw Telecrystals"
 	desc = "Five telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/five
+	item = /obj/item/stack/sheet/telecrystal/five
 	cost = 5
 
 /datum/uplink_item/bundles_TC/telecrystal/twenty
 	name = "20 Raw Telecrystals"
 	desc = "Twenty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/twenty
+	item = /obj/item/stack/sheet/telecrystal/twenty
 	cost = 20
 
 /datum/uplink_item/bundles_TC/crate
@@ -423,7 +425,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
 	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
 	contents = list(
-		/obj/machinery/portable_atmospherics/canister/toxins = 1,
+		/obj/machinery/portable_atmospherics/canister/plasma = 1,
 		/obj/item/construction/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 2,
 		/obj/item/shuttle_creator = 1,
@@ -444,9 +446,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/poisonknife
 	name = "Poisoned Knife"
-	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something."
+	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something. Can hold up to forty units of reagents but comes empty."
 	item = /obj/item/kitchen/knife/poison
-	cost = 8 // all in all it's not super stealthy and you have to get some chemicals yourself
+	cost = 6 // all in all it's not super stealthy and you have to get some chemicals yourself
 
 /datum/uplink_item/dangerous/rawketlawnchair
 	name = "84mm Rocket Propelled Grenade Launcher"
@@ -621,7 +623,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
 	desc = "Ranged fury, Syndicate style. Guaranteed to cause shock and awe or your TC back!"
-	item = /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate
+	item = /obj/item/gun/ballistic/sniper_rifle/syndicate
 	cost = 16
 	surplus = 25
 	purchasable_from = UPLINK_NUKE_OPS
@@ -808,10 +810,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
+	desc = "A spring loaded, single-use syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
 			strong anesthetic and a chemical that prevents the target from speaking. \
-			The pen holds one dose of the mixture, and can be refilled with any chemicals. Note that before the target \
-			falls asleep, they will be able to move and act."
+			The mixture that the pen comes with can be replaced as long as the pen hasn't been used already. Note that the mechanism takes time to \
+			trigger, is obvious to anyone nearby (excluding the target) and the victim may still be able to move and act for a brief period of time before falling unconcious."
 	item = /obj/item/pen/sleepy
 	cost = 5
 	purchasable_from = ~UPLINK_NUKE_OPS
@@ -940,27 +942,58 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	illegal_tech = FALSE
 
 /datum/uplink_item/ammo/sniper
-	cost = 4
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
 
-/datum/uplink_item/ammo/sniper/basic
+/datum/uplink_item/ammo/sniper/magazine
 	name = ".50 Magazine"
-	desc = "An additional standard 6-round magazine for use with .50 sniper rifles."
-	item = /obj/item/ammo_box/magazine/sniper_rounds
+	desc = "An additional standard 6-round magazine for use with .50 sniper rifles. Bullets are not included."
+	item = /obj/item/ammo_box/magazine/sniper_rounds/empty
+	cost = 2
+
+/datum/uplink_item/ammo/sniper/basic
+	name = ".50 Rounds"
+	desc = "An ammo box containing 6 highly powerful .50 caliber projectiles which can be inserted into .50 magazines to be used in a sniper rifle."
+	item = /obj/item/ammo_box/sniper
+	cost = 2
 
 /datum/uplink_item/ammo/sniper/penetrator
-	name = ".50 Penetrator Magazine"
-	desc = "A 5-round magazine of penetrator ammo designed for use with .50 sniper rifles. \
+	name = ".50 Penetrator Rounds"
+	desc = "2 rounds of penetrator ammo designed for use with .50 sniper rifles. \
 			Can pierce walls and multiple enemies."
-	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
-	cost = 5
+	item = /obj/item/ammo_box/sniper/penetrator
+	cost = 2
 
 /datum/uplink_item/ammo/sniper/soporific
-	name = ".50 Soporific Magazine"
-	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
-	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
-	cost = 6
+	name = ".50 Soporific Rounds"
+	desc = "2 rounds of .50 cal soporific bullets, for use in a sniper rifle's magazine. Put your enemies to sleep today!"
+	item = /obj/item/ammo_box/sniper/soporific
+	cost = 3
+
+/datum/uplink_item/ammo/sniper/emp
+	name = ".50 Emp Shell"
+	desc = "A single EMP shell for the sniper rifle. Upon impact will release an EMP which disables nearby electronics \
+		temporarilly."
+	item = /obj/item/ammo_casing/p50/emp
+	cost = 1
+
+/datum/uplink_item/ammo/sniper/explosive
+	name = ".50 Explosive Shell"
+	desc = "An explosive shell for the sniper rifle, upon impact will create a small explosion which damages nearby targets."
+	item = /obj/item/ammo_casing/p50/explosive
+	cost = 3
+
+/datum/uplink_item/ammo/sniper/inferno
+	name = ".50 Inferno Shell"
+	desc = "A shell for the sniper rifle with a highly volatile flammable core. Upon impact will release a fireball which consumes anything nearby."
+	item = /obj/item/ammo_casing/p50/inferno
+	cost = 2
+
+/datum/uplink_item/ammo/sniper/antimatter
+	name = ".50 Antimatter-tipped Shell"
+	desc = "An antimatter-tipped sniper rifle shell. Upon impact the antimatter core will collapse, releasing the energy contained within. Handle with extreme care."
+	item = /obj/item/ammo_casing/p50/antimatter
+	cost = 14
 
 /datum/uplink_item/ammo/carbine
 	name = "5.56mm Toploader Magazine"
@@ -1220,7 +1253,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The minibomb is a grenade with a five-second fuse. Upon detonation, it will create a small hull breach \
 			in addition to dealing high amounts of damage to nearby personnel."
 	item = /obj/item/grenade/syndieminibomb
-	cost = 5
+	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
 /datum/uplink_item/explosives/tearstache
@@ -1475,7 +1508,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hardsuit/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
 	var/obj/item/clothing/suit/space/hardsuit/suit = ..()
 	var/datum/component/tracking_beacon/beacon = suit.GetComponent(/datum/component/tracking_beacon)
-	var/datum/component/team_monitor/hud = suit.helmet.GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/hud = suit.helmet.GetComponent(/datum/component/team_monitor/worn)
 
 	var/datum/antagonist/nukeop/nukie = is_nuclear_operative(user)
 	if(nukie?.nuke_team?.team_frequency)
@@ -1606,13 +1639,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	illegal_tech = FALSE
 
 /datum/uplink_item/device_tools/syndicate_teleporter
-	name = "Experimental Syndicate Teleporter"
-	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
-			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
-			but if that emergency teleport fails, it will kill you instantly. \
-			Has 4 charges, recharges automatically. Warranty voided if exposed to EMP."
-	item = /obj/item/storage/box/syndie_kit/teleporter
-	cost = 8
+	name = "Experimental Syndicate Jaunter"
+	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
+		Anyone caught in the wake of the jaunter will be knocked off their feet and recieve minor damage. \
+		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
+		through solid matter nor is it capable of teleporting them across longer ranges."
+	item = /obj/item/teleporter
+	cost = 7
 
 /datum/uplink_item/device_tools/frame
 	name = "F.R.A.M.E. PDA Disk"
@@ -2042,17 +2075,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	restricted_roles = list(JOB_NAME_CLOWN)
 
-
-/datum/uplink_item/role_restricted/spider_injector
-	name = "Australicus Slime Mutator"
-	desc = "Crikey mate, it's been a wild travel from the Australicus sector but we've managed to get \
-			some special spider extract from the giant spiders down there. Use this injector on a gold slime core \
-			to create a few of the same type of spiders we found on the planets over there. They're a bit tame until you \
-			also give them a bit of sentience though."
-	item = /obj/item/reagent_containers/syringe/spider_extract
-	cost = 10
-	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)
-
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
 	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
@@ -2146,7 +2168,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell.\
 			At least. thats what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
-	cost = 14
+	cost = 12
 	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
 
 /datum/uplink_item/role_restricted/retrovirus
@@ -2154,16 +2176,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts.\
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/retrovirus
-	cost = 14
+	cost = 12
 	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
-
-/datum/uplink_item/role_restricted/random_disease
-	name = "Experimental Disease"
-	desc = "A random disease. Maybe you'll get lucky with another level nine."
-	item = /obj/item/reagent_containers/glass/bottle/random_virus
-	cost = 5
-	restricted_roles = list(JOB_NAME_VIROLOGIST)
-	surplus = 20
 
 /datum/uplink_item/role_restricted/anxiety
 	name = "Anxiety Culture Bottle"
@@ -2329,6 +2343,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Nothing is more terrifying than clowns with fully automatic weaponry."
 	item = /obj/item/storage/backpack/duffelbag/clown/syndie
 
+/datum/uplink_item/badass/surprise_cake
+	name = "Rigged towering cake"
+	desc = "For hosting a surprise birthday party for the Captain, with a flashy surprise."
+	item = /obj/structure/popout_cake/nukeop
+	cost = 4
+	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
 /datum/uplink_item/badass/balloon
 	name = "Syndicate Balloon"
 	desc = "For showing that you are THE BOSS: A useless red balloon with the Syndicate logo on it. \
@@ -2386,7 +2407,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/implants/deathrattle
 	name = "Box of Deathrattle Implants"
 	desc = "A collection of implants (and one reusable implanter) that should be injected into the team. When one of the team \
-	dies, all other implant holders recieve a mental message informing them of their teammates' name \
+	dies, all other implant holders receive a mental message informing them of their teammates' name \
 	and the location of their death. Unlike most implants, these are designed to be implanted \
 	in any creature, biological or mechanical."
 	item = /obj/item/storage/box/syndie_kit/imp_deathrattle

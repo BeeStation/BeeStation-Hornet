@@ -112,7 +112,7 @@
 	if(. && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.Togglewings())
-			addtimer(CALLBACK(H,/mob/living/carbon/human.proc/Togglewings), wing_time)
+			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
@@ -391,7 +391,7 @@
 			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
 			if(type == "Hearable")
 				emote_type |= EMOTE_AUDIBLE
-			message = custom_emote
+			message = user.say_emphasis(custom_emote)
 	else
 		message = params
 		if(type_override)
@@ -417,7 +417,7 @@
 			if(P.can_run_emote(user, status_check = FALSE , intentional = TRUE))
 				keys += P.key
 
-	keys = sortList(keys)
+	keys = sort_list(keys)
 
 	for(var/emote in keys)
 		if(LAZYLEN(message) > 1)

@@ -18,6 +18,7 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	icon_state = "jumpskirt"
+	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
@@ -83,7 +84,7 @@
 	can_adjust = FALSE
 
 /obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	owner.forcesay(GLOB.hit_appends)
+	owner.force_say(hitby)
 	return 0
 
 /obj/item/clothing/under/color/blue
@@ -212,7 +213,13 @@
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
+	armor = list(MELEE = 10, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20)
+
+/obj/item/clothing/under/color/jumpskirt/durathread
+	name = "durathread jumpskirt"
+	desc = "A jumpskirt made from durathread, its resilient fibres provide some protection to the wearer."
+	greyscale_colors = "#8291a1"
+	armor = list(MELEE = 10, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20)
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"

@@ -12,7 +12,7 @@
 	max_integrity = 100
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BRUTE)
 				damage_amount *= 0.25
@@ -59,7 +59,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
 	density = TRUE
-	opacity = 1
+	opacity = TRUE
 	anchored = TRUE
 	max_integrity = 200
 	var/resintype = null
@@ -95,7 +95,7 @@
 	base_icon_state = "resin_membrane"
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
-	opacity = 0
+	opacity = FALSE
 	max_integrity = 160
 
 /obj/structure/alien/resin/attack_paw(mob/user)
@@ -121,7 +121,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS)
-	transform = matrix(1, 0, -4, 0, 1, -4)
 	max_integrity = 15
 	var/last_expand = 0 //last world.time this weed expanded
 	var/growth_cooldown_low = 150
@@ -237,7 +236,7 @@
 	if(status == GROWING || status == GROWN)
 		child = new(src)
 	if(status == GROWING)
-		addtimer(CALLBACK(src, .proc/Grow), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+		addtimer(CALLBACK(src, PROC_REF(Grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 	proximity_monitor = new(src, status == GROWN ? 1 : 0)
 	if(status == BURST)
 		obj_integrity = integrity_failure
@@ -296,7 +295,7 @@
 		status = BURSTING
 		update_icon()
 		flick("egg_opening", src)
-		addtimer(CALLBACK(src, .proc/finish_bursting, kill), 15)
+		addtimer(CALLBACK(src, PROC_REF(finish_bursting), kill), 15)
 
 /obj/structure/alien/egg/proc/finish_bursting(kill = TRUE)
 	status = BURST

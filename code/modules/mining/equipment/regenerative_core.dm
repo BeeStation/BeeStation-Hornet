@@ -34,7 +34,7 @@
 
 /obj/item/organ/regenerative_core/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/inert_check), 2400)
+	addtimer(CALLBACK(src, PROC_REF(inert_check)), 2400)
 
 /obj/item/organ/regenerative_core/proc/inert_check()
 	if(!preserved)
@@ -85,7 +85,7 @@
 			if(H != user)
 				to_chat(user, "<span class='notice'>You begin to rub the regenerative core on [H]...</span>")
 				to_chat(H, "<span class='userdanger'>[user] begins to smear the regenerative core all over you...</span>")
-				if(do_mob(user, H, 30))
+				if(do_after(user, 3 SECONDS, H))
 					H.visible_message("[user] forces [H] to apply [src]... [H.p_they()] quickly regenerates all injuries!")
 					SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 				else
@@ -109,20 +109,17 @@
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		applyto(user, user)
 
-/obj/item/organ/regenerative_core/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
+/obj/item/organ/regenerative_core/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	if(!preserved && !inert)
 		preserved(TRUE)
 		owner.visible_message("<span class='notice'>[src] stabilizes as it's inserted.</span>")
 
-/obj/item/organ/regenerative_core/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/regenerative_core/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(!inert && !special)
 		owner.visible_message("<span class='notice'>[src] rapidly decays as it's removed.</span>")
 		go_inert()
 	return ..()
-
-/obj/item/organ/regenerative_core/prepare_eat()
-	return null
 
 /*************************Legion core********************/
 /obj/item/organ/regenerative_core/legion

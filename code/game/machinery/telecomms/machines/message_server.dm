@@ -14,7 +14,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	var/obj/item/stored
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
@@ -96,12 +96,6 @@
 	else
 		modular_msgs += new /datum/data_tablet_msg("System Administrator", "system", MESSAGE_SERVER_FUNCTIONING_MESSAGE)
 
-/obj/machinery/telecomms/message_server/Destroy()
-	for(var/obj/machinery/computer/message_monitor/monitor in GLOB.telecomms_list)
-		if(monitor.linkedServer && monitor.linkedServer == src)
-			monitor.linkedServer = null
-	. = ..()
-
 /obj/machinery/telecomms/message_server/examine(mob/user)
 	. = ..()
 	if(calibrating)
@@ -128,7 +122,7 @@
 	// log the signal
 	if(istype(signal, /datum/signal/subspace/messaging/tablet_msg))
 		var/datum/signal/subspace/messaging/tablet_msg/PDAsignal = signal
-		var/datum/data_tablet_msg/msg = new(PDAsignal.format_target(), "[PDAsignal.data["name"]] ([PDAsignal.data["job"]])", PDAsignal.data["message"], PDAsignal.data["photo"])
+		var/datum/data_tablet_msg/msg = new(PDAsignal.format_target(), "[PDAsignal.data["name"]] ([PDAsignal.data["job"]])", PDAsignal.data["message"], PDAsignal.data["photo"], PDAsignal.data["emojis"])
 		modular_msgs += msg
 		signal.logged = msg
 	else if(istype(signal, /datum/signal/subspace/messaging/rc))
@@ -204,9 +198,11 @@
 	var/recipient = "Unspecified"
 	var/message = "Blank"  // transferred message
 	var/datum/picture/picture  // attached photo
-	var/automated = 0 //automated message
+	var/automated = FALSE //automated message
+	/// If this message is allowed to render emojis
+	var/emojis = FALSE
 
-/datum/data_tablet_msg/New(param_rec, param_sender, param_message, param_photo)
+/datum/data_tablet_msg/New(param_rec, param_sender, param_message, param_photo, param_emojis)
 	if(param_rec)
 		recipient = param_rec
 	if(param_sender)
@@ -215,6 +211,8 @@
 		message = param_message
 	if(param_photo)
 		picture = param_photo
+	if(param_emojis)
+		emojis = param_emojis
 
 /datum/data_tablet_msg/Topic(href,href_list)
 	..()

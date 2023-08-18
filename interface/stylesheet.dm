@@ -80,6 +80,7 @@ h1.alert, h2.alert		{color: #000000;}
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
 .boldnotice				{color: #000099;	font-weight: bold;}
+.usernotice				{color: #000099;	font-weight: bold; font-size: 3;}
 .adminnotice			{color: #0000ff;}
 .adminhelp              {color: #ff0000;    font-weight: bold;}
 .adminhelp_conclusion {
@@ -186,6 +187,7 @@ h1.alert, h2.alert		{color: #000000;}
 .reallybig				{font-size: 4;}
 .extremelybig			{font-size: 5;}
 .greentext				{color: #00FF00;	font-size: 3;}
+.infotext				{color: #36f1e2;	font-size: 3;}
 .redtext				{color: #FF0000;	font-size: 3;}
 .clown					{color: #FF69Bf;	font-size: 3; font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 .singing				{font-family: "Trebuchet MS", cursive, sans-serif; font-style: italic;}

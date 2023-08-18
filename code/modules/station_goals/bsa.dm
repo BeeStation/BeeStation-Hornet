@@ -6,15 +6,17 @@
 	name = "Bluespace Artillery"
 
 /datum/station_goal/bluespace_cannon/get_report()
-	return {"Our military presence is inadequate in your sector.
-	 We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.
-
-	 Base parts are available for shipping via cargo.
-	 -Nanotrasen Naval Command"}
+	return list(
+		"<blockquote>Our military presence is inadequate in your sector.",
+		"We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.",
+		"",
+		"Base parts are available for shipping via cargo.",
+		"-Nanotrasen Naval Command</blockquote>",
+	).Join("\n")
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_pack/engineering/bsa/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/bsa]
+	var/datum/supply_pack/engineering/bsa/P = SSsupply.supply_packs[/datum/supply_pack/engineering/bsa]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_cannon/check_completion()
@@ -40,26 +42,25 @@
 	desc = "Generates cannon pulse. Needs to be linked with a fusor."
 	icon_state = "power_box"
 
-/obj/machinery/bsa/back/multitool_act(mob/living/user, obj/item/I)
-	if(!multitool_check_buffer(user, I)) //make sure it has a data buffer
-		return
-	var/obj/item/multitool/M = I
-	M.buffer = src
-	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
-	return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/bsa/back)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/back)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
 	desc = "Do not stand in front of cannon during operation. Needs to be linked with a fusor."
 	icon_state = "emitter_center"
 
-/obj/machinery/bsa/front/multitool_act(mob/living/user, obj/item/I)
-	if(!multitool_check_buffer(user, I)) //make sure it has a data buffer
-		return
-	var/obj/item/multitool/M = I
-	M.buffer = src
-	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
-	return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/bsa/front)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/front)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
+	return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
@@ -68,23 +69,22 @@
 	var/datum/weakref/back_ref
 	var/datum/weakref/front_ref
 
-/obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/I)
-	if(!multitool_check_buffer(user, I))
-		return
-	var/obj/item/multitool/M = I
-	if(M.buffer)
-		if(istype(M.buffer, /obj/machinery/bsa/back))
-			back_ref = WEAKREF(M.buffer)
-			to_chat(user, "<span class='notice'>You link [src] with [M.buffer].</span>")
-			M.buffer = null
-			to_chat(user, "<span class='notice'>You link [src] with [M.buffer].</span>")
-		else if(istype(M.buffer, /obj/machinery/bsa/front))
-			front_ref = WEAKREF(M.buffer)
-			to_chat(user, "<span class='notice'>You link [src] with [M.buffer].</span>")
-			M.buffer = null
+REGISTER_BUFFER_HANDLER(/obj/machinery/bsa/middle)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
+	if(buffer)
+		if(istype(buffer, /obj/machinery/bsa/back))
+			back_ref = WEAKREF(buffer)
+			to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
+			FLUSH_BUFFER(buffer_parent)
+			to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
+		else if(istype(buffer, /obj/machinery/bsa/front))
+			front_ref = WEAKREF(buffer)
+			to_chat(user, "<span class='notice'>You link [src] with [buffer].</span>")
+			FLUSH_BUFFER(buffer_parent)
 	else
-		to_chat(user, "<span class='warning'>[I]'s data buffer is empty!</span>")
-	return TRUE
+		to_chat(user, "<span class='warning'>[buffer_parent]'s data buffer is empty!</span>")
+	return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	var/obj/machinery/bsa/front/front = front_ref?.resolve()
@@ -207,7 +207,7 @@
 		else
 			SSexplosions.highturf += tile
 
-	point.Beam(target, icon_state = "bsa_beam", time = 50, maxdistance = world.maxx) //ZZZAP
+	point.Beam(target, icon_state = "bsa_beam", time = 5 SECONDS, maxdistance = world.maxx) //ZZZAP
 	new /obj/effect/temp_visual/bsa_splash(point, dir)
 
 	if(!blocker)

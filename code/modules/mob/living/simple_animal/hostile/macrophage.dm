@@ -16,7 +16,7 @@
 	move_to_delay = 0
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
@@ -67,7 +67,7 @@
 		else if(aggressive)
 			M.visible_message("<span class='danger'>the [src] begins penetrating [M]' protection!</span>", \
 	 				 "<span class='danger'>[src] begins penetrating your protection!</span>")
-			if(do_mob(src, M, 15))
+			if(do_after(src, 1.5 SECONDS, M))
 				for(var/datum/disease/D in infections)
 					if(M.ForceContractDisease(D))
 						to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")

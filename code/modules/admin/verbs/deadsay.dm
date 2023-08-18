@@ -26,15 +26,16 @@
 		rank_name = pick(strings(DSAY_NICKNAME_FILE, "ranks", CONFIG_DIRECTORY))
 		admin_name = pick(strings(DSAY_NICKNAME_FILE, "names", CONFIG_DIRECTORY))
 	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>[rank_name]([admin_name])</span> says, <span class='message'>\"[emoji_parse(msg)]\"</span></span>"
+	send_chat_to_discord(CHAT_TYPE_DEADCHAT, "[rank_name]([admin_name])", msg)
 
 	for (var/mob/M in GLOB.player_list)
 		if(isnewplayer(M))
 			continue
-		if (M.stat == DEAD || (M.client && M.client.holder && (M.client.prefs.chat_toggles & CHAT_DEAD))) //admins can toggle deadchat on and off. This is a proc in admin.dm and is only give to Administrators and above
+		if (M.stat == DEAD || (M.client && M.client.holder && M.client.prefs.read_player_preference(/datum/preference/toggle/chat_dead))) //admins can toggle deadchat on and off. This is a proc in admin.dm and is only give to Administrators and above
 			to_chat(M, rendered)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_dead_say()
-	var/msg = capped_input(src, null, "dsay \"text\"")
+	var/msg = tgui_input_text(src, null, "dsay \"text\"", encode = FALSE) // we don't encode/sanitize here because dsay does it anyways.
 	dsay(msg)

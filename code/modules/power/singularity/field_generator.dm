@@ -33,7 +33,7 @@ field_generator power level display
 	use_power = NO_POWER_USE
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 25,  BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	var/power_level = 0
 	var/active = FG_OFFLINE
 	var/power = 20  // Current amount of power
@@ -48,7 +48,7 @@ field_generator power level display
 	. = ..()
 	fields = list()
 	connected_gens = list()
-	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity_if_active)
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, PROC_REF(block_singularity_if_active))
 
 /obj/machinery/field/generator/ComponentInitialize()
 	. = ..()
@@ -157,8 +157,8 @@ field_generator power level display
 	else
 		..()
 
-/obj/machinery/field/generator/bullet_act(obj/item/projectile/Proj)
-	if(Proj.flag != "bullet")
+/obj/machinery/field/generator/bullet_act(obj/projectile/Proj)
+	if(Proj.armor_flag != BULLET)
 		power = min(power + Proj.damage, field_generator_max_power)
 		check_power_level()
 	. = ..()
@@ -253,10 +253,10 @@ field_generator power level display
 	move_resist = INFINITY
 	CanAtmosPass = ATMOS_PASS_NO
 	air_update_turf(TRUE)
-	addtimer(CALLBACK(src, .proc/setup_field, 1), 1)
-	addtimer(CALLBACK(src, .proc/setup_field, 2), 2)
-	addtimer(CALLBACK(src, .proc/setup_field, 4), 3)
-	addtimer(CALLBACK(src, .proc/setup_field, 8), 4)
+	addtimer(CALLBACK(src, PROC_REF(setup_field), 1), 1)
+	addtimer(CALLBACK(src, PROC_REF(setup_field), 2), 2)
+	addtimer(CALLBACK(src, PROC_REF(setup_field), 4), 3)
+	addtimer(CALLBACK(src, PROC_REF(setup_field), 8), 4)
 	addtimer(VARSET_CALLBACK(src, active, FG_ONLINE), 5)
 
 

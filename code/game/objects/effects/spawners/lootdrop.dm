@@ -8,27 +8,31 @@
 	var/fan_out_items = FALSE //Whether the items should be distributed to offsets 0,1,-1,2,-2,3,-3.. This overrides pixel_x/y on the spawner itself
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
-	..()
-	if(loot?.len)
-		var/turf/T = get_turf(src)
-		var/loot_spawned = 0
-		while((lootcount-loot_spawned) && loot.len)
-			var/lootspawn = pickweight(loot)
-			if(!lootdoubles)
-				loot.Remove(lootspawn)
+	. = ..()
+	spawn_loot()
 
-			if(lootspawn)
-				var/atom/movable/spawned_loot = new lootspawn(T)
-				if (!fan_out_items)
-					if (pixel_x != 0)
-						spawned_loot.pixel_x = pixel_x
-					if (pixel_y != 0)
-						spawned_loot.pixel_y = pixel_y
-				else
-					if (loot_spawned)
-						spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
-			loot_spawned++
-	return INITIALIZE_HINT_QDEL
+/obj/effect/spawner/lootdrop/proc/spawn_loot()
+	if(!length(loot))
+		return
+	var/turf/T = get_turf(src)
+	var/loot_spawned = 0
+	while((lootcount-loot_spawned) && loot.len)
+		var/lootspawn = pick_weight(loot)
+		if(!lootdoubles)
+			loot.Remove(lootspawn)
+
+		if(lootspawn)
+			var/atom/movable/spawned_loot = new lootspawn(T)
+			if (!fan_out_items)
+				if (pixel_x != 0)
+					spawned_loot.pixel_x = pixel_x
+				if (pixel_y != 0)
+					spawned_loot.pixel_y = pixel_y
+			else
+				if (loot_spawned)
+					spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
+		loot_spawned++
+
 
 /obj/effect/spawner/lootdrop/donkpockets
 	icon_state = "random_donk"
@@ -265,7 +269,8 @@
 		/obj/item/organ/wings/cybernetic = 2,
 		/obj/item/organ/tongue/robot/clockwork/better = 2,
 		/obj/effect/gibspawner/robot = 4,
-		/obj/item/drone_shell = 1)
+		/obj/effect/mob_spawn/drone = 1,
+		)
 
 /obj/effect/spawner/lootdrop/teratoma/major/clown
 	name = "funny teratoma spawner"

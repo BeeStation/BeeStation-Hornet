@@ -76,7 +76,7 @@
 
 /datum/objective/crew/fatstacks/update_explanation_text()
 	. = ..()
-	explanation_text = "Have at least [target_amount] mining points on your ID at the end of the shift."
+	explanation_text = "Have at least [target_amount] mining points on your bank account at the end of the shift."
 
 /datum/objective/crew/fatstacks/check_completion()
 	if(..())
@@ -84,7 +84,7 @@
 	var/mob/living/carbon/human/H = owner?.current
 	if(!istype(H))
 		return FALSE
-	var/obj/item/card/id/theID = H.get_idcard()
-	if(!istype(theID))
-		return FALSE
-	return theID.mining_points >= target_amount
+	var/datum/bank_account/your_account = SSeconomy.get_bank_account_by_id(owner.account_id)
+	if(your_account.report_currency(ACCOUNT_CURRENCY_MINING) >= target_amount)
+		return TRUE
+	return FALSE

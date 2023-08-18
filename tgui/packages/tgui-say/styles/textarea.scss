@@ -1,0 +1,34 @@
+@use 'sass:color';
+@use './colors.scss';
+
+.textarea {
+  background-color: #0f0f0f;
+  border: 1px solid #252525;
+  border-radius: 2px;
+  color: white;
+  flex-grow: 1;
+  font-family: 'Lucida Console', monospace;
+  font-size: 1.1rem;
+  margin-left: 5px;
+  padding: 7px;
+  // This doesn't work in IE11. Oh well.
+  &:focus-within {
+    border-color: #303030;
+  }
+}
+
+.textarea-lightMode {
+  @extend .textarea;
+  background-color: #cecece;
+  color: black;
+  border-color: colors.$lightBorder;
+}
+
+@each $channel, $color in colors.$restricted-channel-map {
+  .textarea-#{$channel} {
+    border-color: darken($color, 15%);
+    &:focus-within {
+      border-color: $color;
+    }
+  }
+}

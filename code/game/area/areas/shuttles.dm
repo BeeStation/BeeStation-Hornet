@@ -16,6 +16,7 @@
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	//The mobile port attached to this area
 	var/obj/docking_port/mobile/mobile_port
+	area_limited_icon_smoothing = /area/shuttle
 
 /area/shuttle/Initialize(mapload)
 	if(!canSmoothWithAreas)
@@ -98,7 +99,7 @@
 
 /area/shuttle/hunter
 	name = "Hunter Shuttle"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	requires_power = TRUE
 	canSmoothWithAreas = /area/shuttle/hunter
 
 ////////////////////////////White Ship////////////////////////////

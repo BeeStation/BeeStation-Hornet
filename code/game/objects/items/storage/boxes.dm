@@ -82,29 +82,14 @@
 	name = "compression box of invisible outfits"
 	desc = "a box with bluespace compression technology that nanotrasen has approved, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
 	w_class = WEIGHT_CLASS_HUGE
+	item_flags = SLOWS_WHILE_IN_HAND
+	slowdown = 4
 	drag_slowdown = 4 // do not steal by dragging
 	/* Note for the compression box:
 		Do not put any box (or suit) into this box, or it will allow infinite storage.
 		non-storage items are only legit for this box. (suits are storage too, so, no.)
 		nor it will allow a glitch when you can access different boxes at the same time.
 		examples exist in `closets/secure/security.dm` */
-
-/obj/item/storage/box/suitbox/pickup(mob/user)
-	. = ..()
-	user.add_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, update=TRUE, priority=100, multiplicative_slowdown=4)
-
-/obj/item/storage/box/suitbox/dropped(mob/living/user)
-	..()
-	addtimer(CALLBACK(src, .proc/box_check, user), 1 SECONDS)
-	// character's contents are checked too earlier than when it supposed to be done, making you perma-slow down.
-
-/obj/item/storage/box/suitbox/proc/box_check(mob/living/user)
-	var/box_exists = FALSE
-	for(var/obj/item/storage/box/suitbox/B in user.get_contents())
-		box_exists = TRUE // `var/obj/item/storage/box/suitbox/B` is already type check
-		break
-	if(!box_exists)
-		user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, TRUE)
 
 /obj/item/storage/box/suitbox/wardrobe // for `wardrobe.dm`
 	name = "compression box of crew outfits"
@@ -464,7 +449,7 @@
 /obj/item/storage/box/bodybags/PopulateContents()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/bodybag(src)
+		new /obj/item/deployable/bodybag(src)
 
 /obj/item/storage/box/rxglasses
 	name = "box of prescription glasses"
@@ -940,6 +925,16 @@
 	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/breacher(src)
 
+/obj/item/storage/box/incapacitateshot
+	name = "box of incapacitating shotgun shots"
+	desc = "A box full of incapacitating shots, designed for shotguns."
+	icon_state = "incapacitateshot_box"
+	illustration = null
+
+/obj/item/storage/box/incapacitateshot/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/incapacitate(src)
+
 /obj/item/storage/box/actionfigure
 	name = "box of action figures"
 	desc = "The latest set of collectable action figures."
@@ -977,7 +972,7 @@
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
 			return
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILEY, "Cancel")
-		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) in sortList(designs)
+		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) in sort_list(designs)
 		if(get_dist(usr, src) > 1)
 			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
 			return
@@ -1136,7 +1131,7 @@
 	new /obj/item/reagent_containers/food/snacks/grown/wheat(src)
 	new /obj/item/reagent_containers/food/snacks/grown/cocoapod(src)
 	new /obj/item/reagent_containers/honeycomb(src)
-	new /obj/item/seeds/poppy(src)
+	new /obj/item/seeds/flower/poppy(src)
 
 /obj/item/storage/box/ingredients/carnivore
 	theme_name = "carnivore"
@@ -1282,54 +1277,16 @@
 		/obj/item/stack/sheet/mineral/bananium=50,\
 		/obj/item/stack/sheet/plastic/fifty=1,\
 		/obj/item/stack/sheet/runed_metal/fifty=1,\
-		/obj/item/stack/tile/brass/fifty=1,\
+		/obj/item/stack/sheet/brass/fifty=1,\
 		/obj/item/stack/sheet/mineral/abductor=50,\
 		/obj/item/stack/sheet/mineral/adamantine=50,\
-		/obj/item/stack/sheet/mineral/wood=50,\
+		/obj/item/stack/sheet/wood=50,\
 		/obj/item/stack/sheet/cotton/cloth=50,\
 		/obj/item/stack/sheet/leather=50,\
 		/obj/item/stack/sheet/bone=12,\
 		/obj/item/stack/sheet/cardboard/fifty=1,\
 		/obj/item/stack/sheet/mineral/sandstone=50,\
-		/obj/item/stack/sheet/mineral/snow=50
-		)
-	generate_items_inside(items_inside,src)
-
-/obj/item/storage/box/debugtools
-	name = "box of debug tools"
-	icon_state = "syndiebox"
-
-/obj/item/storage/box/debugtools/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 1000
-	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.max_items = 1000
-	STR.allow_big_nesting = TRUE
-
-/obj/item/storage/box/debugtools/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/flashlight/emp/debug=1,\
-		/obj/item/modular_computer/tablet/pda=1,\
-		/obj/item/modular_computer/tablet/preset/advanced=1,\
-		/obj/item/storage/belt/military/abductor/full=1,\
-		/obj/item/geiger_counter=1,\
-		/obj/item/holosign_creator/atmos=1,\
-		/obj/item/pipe_dispenser=1,\
-		/obj/item/construction/rcd/combat/admin=1,\
-		/obj/item/areaeditor/blueprints=1,\
-		/obj/item/card/emag=1,\
-		/obj/item/stack/spacecash/c1000=50,\
-		/obj/item/storage/belt/medical/ert=1,\
-		/obj/item/disk/tech_disk/debug=1,\
-		/obj/item/disk/surgery/debug=1,\
-		/obj/item/disk/data/debug=1,\
-		/obj/item/uplink/debug=1,\
-		/obj/item/uplink/nuclear/debug=1,\
-		/obj/item/spellbook=1,\
-		/obj/item/storage/box/beakers/bluespace=1,\
-		/obj/item/storage/box/beakers/variety=1,\
-		/obj/item/storage/box/material=1
+		/obj/item/stack/sheet/snow=50
 		)
 	generate_items_inside(items_inside,src)
 

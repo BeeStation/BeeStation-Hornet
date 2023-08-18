@@ -8,7 +8,7 @@
 	var/obj/structure/ladder/down   //the ladder below this one
 	var/obj/structure/ladder/up     //the ladder above this one
 	max_integrity = 100
-	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN
+	z_flags = Z_BLOCK_OUT_DOWN
 
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	..()
@@ -34,13 +34,13 @@
 	var/obj/structure/ladder/L
 
 	if (!down)
-		L = locate() in SSmapping.get_turf_below(T)
+		L = locate() in GET_TURF_BELOW(T)
 		if (L)
 			down = L
 			L.up = src  // Don't waste effort looping the other way
 			L.update_icon()
 	if (!up)
-		L = locate() in SSmapping.get_turf_above(T)
+		L = locate() in GET_TURF_ABOVE(T)
 		if (L)
 			up = L
 			L.down = src  // Don't waste effort looping the other way
@@ -99,7 +99,7 @@
 		)
 
 	if (up && down)
-		var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+		var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 		if (!is_ghost && !in_range(src, user))
 			return  // nice try
 		switch(result)
@@ -138,23 +138,21 @@
 	return use(user)
 
 /obj/structure/ladder/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_DECONSTRUCT)
-			return list("mode" = RCD_DECONSTRUCT, "delay" = 30, "cost" = 15)
+	if(the_rcd.mode == RCD_DECONSTRUCT)
+		return list("mode" = RCD_DECONSTRUCT, "delay" = 30, "cost" = 15)
 	return FALSE
 
 /obj/structure/ladder/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='notice'>You deconstruct the ladder.</span>")
-			qdel(src)
-			return TRUE
+	if(passed_mode == RCD_DECONSTRUCT)
+		to_chat(user, "<span class='notice'>You deconstruct the ladder.</span>")
+		qdel(src)
+		return TRUE
+	return FALSE
 
 /obj/structure/ladder/unbreakable/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
-			return FALSE
+	if(RCD_DECONSTRUCT == passed_mode)
+		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+		return FALSE
 
 /obj/structure/ladder/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

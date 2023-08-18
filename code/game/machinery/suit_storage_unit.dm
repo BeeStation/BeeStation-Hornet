@@ -4,13 +4,13 @@
 	desc = "An industrial unit made to hold and decontaminate irradiated equipment. It comes with a built-in UV cauterization mechanism. A small warning label advises that organic matter should not be placed into the unit."
 	icon = 'icons/obj/machines/suit_storage.dmi'
 	icon_state = "close"
+	obj_flags = CAN_BE_HIT | USES_TGUI
 	use_power = ACTIVE_POWER_USE
 	active_power_usage = 60
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	max_integrity = 250
-
-
+	circuit = /obj/item/circuitboard/machine/suit_storage_unit
 
 	var/obj/item/clothing/suit/space/suit = null
 	var/obj/item/clothing/head/helmet/space/helmet = null
@@ -42,6 +42,10 @@
 	* * If FALSE, decontamination sequence will clear radiation for all atoms (and their contents) contained inside the unit, and burn any mobs inside.
 	* * If TRUE, decontamination sequence will burn and decontaminate all items contained within, and if occupied by a mob, intensifies burn damage delt. All wires will be cut at the end.
 	*/
+	///how strong is the burn damage during cook(), decreases with micro laser tier
+	var/laser_strength = 10
+	///how strong is the burn damage if hacked/emagged during cook(), increases with micro laser tier
+	var/laser_strength_hacked = 20
 	var/uv_super = FALSE
 	/// For managing the messages sent back when the machine was hacked
 	var/toasted = FALSE
@@ -138,6 +142,12 @@
 	helmet_type = /obj/item/clothing/head/radiation
 	storage_type = /obj/item/geiger_counter
 
+/obj/machinery/suit_storage_unit/bounty
+	name = "bounty suit storage unit"
+	helmet_type = /obj/item/clothing/head/helmet/space/hunter
+	suit_type = /obj/item/clothing/suit/space/hunter
+	mask_type = /obj/item/clothing/mask/breath
+
 /obj/machinery/suit_storage_unit/open
 	state_open = TRUE
 	density = FALSE
@@ -153,6 +163,7 @@
 		mask = new mask_type(src)
 	if(storage_type)
 		storage = new storage_type(src)
+	RefreshParts()
 	update_icon()
 
 /obj/machinery/suit_storage_unit/Destroy()
@@ -191,13 +202,23 @@
 		dump_contents()
 	update_icon()
 
+/obj/machinery/suit_storage_unit/RefreshParts()
+	var/calculated_laser_rating = 0
+	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
+		calculated_laser_rating += laser.rating
+	laser_strength_hacked = 15 + (5 * (calculated_laser_rating)) //20 on T1, 35 on T4
+	laser_strength = 12 - (2 * (calculated_laser_rating)) //10 on T1, 4 on T4
+
 /obj/machinery/suit_storage_unit/proc/dump_contents()
 	dropContents()
 	helmet = null
 	suit = null
 	mask = null
 	storage = null
-	occupant = null
+	set_occupant(null)
+
+/obj/machinery/suit_storage_unit/proc/is_empty()
+	return isnull(helmet) && isnull(suit) && isnull(mask) && isnull(storage) && isnull(occupant)
 
 /obj/machinery/suit_storage_unit/emp_act()
 	. = ..()
@@ -213,7 +234,10 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		open_machine()
 		dump_contents()
-		new /obj/item/stack/sheet/iron (loc, 2)
+		spawn_frame(disassembled)
+		for(var/obj/item/I in component_parts)
+			I.forceMove(loc)
+			component_parts.Cut()
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/living/user)
@@ -238,7 +262,7 @@
 	else
 		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
 
-	if(do_mob(user, target, 30))
+	if(do_after(user, 30, target))
 		if(occupant || helmet || suit || storage)
 			return
 		if(target == user)
@@ -258,41 +282,40 @@
 */
 /obj/machinery/suit_storage_unit/proc/cook()
 	var/mob/living/mob_occupant = occupant
+	var/burn_damage = uv_super || (obj_flags & EMAGGED) ? laser_strength_hacked : laser_strength
 	if(uv_cycles)
 		uv_cycles--
 		uv = TRUE
 		locked = TRUE
 		update_icon()
-		if(occupant)
-			if(uv_super || (obj_flags & EMAGGED))
-				mob_occupant.adjustFireLoss(rand(20, 36))
-			else
-				mob_occupant.adjustFireLoss(rand(10, 16))
+		if(mob_occupant)
+			mob_occupant.adjustFireLoss(rand(burn_damage, burn_damage * 1.5))
 			mob_occupant.emote("scream")
-		addtimer(CALLBACK(src, .proc/cook), 50)
+		addtimer(CALLBACK(src, PROC_REF(cook)), 50)
 	else
 		uv_cycles = initial(uv_cycles)
 		uv = FALSE
 		locked = FALSE
 		if(uv_super || (obj_flags & EMAGGED))
 			toasted = TRUE
-			if(occupant)
+			if(mob_occupant)
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A foul stench and a cloud of smoke exit the chamber.</span>")
+				mob_occupant.radiation = 0 //The guy inside is toasted to a crisp, no need to leave him with the rads
 			else
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
 			if(helmet)
-				helmet.take_damage(100,BURN,"fire")
+				helmet.take_damage(burn_damage * 10, BURN, FIRE)
 			if(suit)
-				suit.take_damage(100,BURN,"fire")
+				suit.take_damage(burn_damage * 10, BURN, FIRE)
 			if(mask)
-				mask.take_damage(100,BURN,"fire")
+				mask.take_damage(burn_damage * 10, BURN, FIRE)
 			if(storage)
-				storage.take_damage(100,BURN,"fire")
+				storage.take_damage(burn_damage * 10, BURN, FIRE)
 			// The wires get damaged too.
 			wires.cut_all()
 		if(!toasted) //Special toast check to prevent a double finishing message.
-			if(occupant)
+			if(mob_occupant)
 				visible_message("<span class='warning'>[src]'s door slides open, barraging you with the nauseating smell of charred flesh.</span>")
 				mob_occupant.radiation = 0
 			else
@@ -312,16 +335,16 @@
 		if(storage)
 			things_to_clear += storage
 			things_to_clear += storage.GetAllContents()
-		if(occupant)
-			things_to_clear += occupant
-			things_to_clear += occupant.GetAllContents()
+		if(mob_occupant)
+			things_to_clear += mob_occupant
+			things_to_clear += mob_occupant.GetAllContents()
 		for(var/atom/movable/AM in things_to_clear) //Scorches away blood and forensic evidence, although the SSU itself is unaffected
 			SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRONG)
 			var/datum/component/radioactive/contamination = AM.GetComponent(/datum/component/radioactive)
 			if(contamination)
 				qdel(contamination)
 		open_machine(FALSE)
-		if(occupant)
+		if(mob_occupant)
 			dump_contents()
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
@@ -356,29 +379,35 @@
 			return
 		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
 			"<span class='notice'>You successfully break out of [src]!</span>")
+		locked = FALSE
 		open_machine()
 		dump_contents()
 
 	add_fingerprint(user)
-	if(locked)
-		visible_message("<span class='notice'>You see [user] kicking against the doors of [src]!</span>", \
-			"<span class='notice'>You start kicking against the doors...</span>")
-		addtimer(CALLBACK(src, .proc/resist_open, user), 300)
-	else
-		open_machine()
-		dump_contents()
 
-/obj/machinery/suit_storage_unit/proc/resist_open(mob/user)
-	if(!state_open && occupant && (user in src) && user.stat == 0) // Check they're still here.
-		visible_message("<span class='notice'>You see [user] burst out of [src]!</span>", \
-			"<span class='notice'>You escape the cramped confines of [src]!</span>")
-		open_machine()
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_CROWBAR && user.a_intent == INTENT_HARM && !panel_open && machine_stat & NOPOWER)
+		if(locked)
+			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
+			return
+		if(!state_open)
+			visible_message("<span class='notice'>[user] starts prying open the doors of [src]!</span>", "<span class='notice'>You start prying open the doors of [src]!</span>")
+			I.play_tool_sound(src, 50)
+			if(do_after(user, 20, target=src))
+				playsound(src, 'sound/effects/bin_open.ogg', 50, TRUE)
+				open_machine(0)
+				return
+		else
+			I.play_tool_sound(src, 50)
+			visible_message("<span class='notice'>[user] pulls out the contents of [src] outside!</span>", "<span class='notice'>You pull [src]'s contents outside!</span>")
+			dump_contents()
+			update_icon()
+			return
 	if(state_open && is_operational)
 		if(istype(I, /obj/item/clothing/suit))
 			if(suit)
-				to_chat(user, "<span class='warning'>The unit already contains a suit!.</span>")
+				to_chat(user, "<span class='warning'>The unit already contains a suit!</span>")
 				return
 			if(!user.transferItemToLoc(I, src))
 				return
@@ -417,6 +446,9 @@
 		if(default_deconstruction_screwdriver(user, "panel", "close", I))
 			ui_update() // Wires might've changed availability of decontaminate button
 			return
+		if(is_empty())
+			if(default_deconstruction_crowbar(I))
+				return
 	if(default_pry_open(I))
 		dump_contents()
 		return

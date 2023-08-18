@@ -38,10 +38,15 @@
 #define MODE_ALIEN "alientalk"
 #define MODE_HOLOPAD "holopad"
 
+#define MODE_SLIMELINK "slimelink"
+#define MODE_KEY_SLIMELINK "j"
+
 #define MODE_VOCALCORDS "cords"
 #define MODE_KEY_VOCALCORDS "x"
 
-#define MODE_SING "%"
+#define MODE_SING "sing"
+#define MODE_CUSTOM_SAY_EMOTE "custom_say"
+#define MODE_CUSTOM_SAY_ERASE_INPUT "erase_input"
 
 //Spans. Robot speech, italics, etc. Applied in compose_message().
 #define SPAN_ROBOT "robot"
@@ -93,10 +98,6 @@
 // Audio/Visual Flags. Used to determine what sense are required to notice a message.
 #define MSG_VISUAL (1<<0)
 #define MSG_AUDIBLE (1<<1)
-
-#define INVOCATION_SHOUT "shout"
-#define INVOCATION_EMOTE "emote"
-#define INVOCATION_WHISPER "whisper"
 
 //Used in visible_message_flags, audible_message_flags and message_mods
 #define CHATMESSAGE_EMOTE "emotemessage"

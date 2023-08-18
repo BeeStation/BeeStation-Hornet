@@ -4,11 +4,13 @@
 	name = "Cultist"
 	roundend_category = "cultists"
 	antagpanel_category = "Cult"
+	ui_name = "AntagInfoBloodCult"
 	antag_moodlet = /datum/mood_event/cult
 	var/datum/action/innate/cult/comm/communion = new
 	var/datum/action/innate/cult/mastervote/vote = new
 	var/datum/action/innate/cult/blood_magic/magic = new
-	job_rank = ROLE_CULTIST
+	banning_key = ROLE_CULTIST
+	required_living_playtime = 4
 	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
@@ -67,7 +69,6 @@
 
 	if(cult_team.blood_target && cult_team.blood_target_image && current.client)
 		current.client.images += cult_team.blood_target_image
-
 
 /datum/antagonist/cult/proc/equip_cultist(metal=TRUE)
 	var/mob/living/carbon/C = owner.current
@@ -167,9 +168,9 @@
 
 /datum/antagonist/cult/get_admin_commands()
 	. = ..()
-	.["Dagger"] = CALLBACK(src,.proc/admin_give_dagger)
-	.["Dagger and Metal"] = CALLBACK(src,.proc/admin_give_metal)
-	.["Remove Dagger and Metal"] = CALLBACK(src, .proc/admin_take_all)
+	.["Dagger"] = CALLBACK(src,PROC_REF(admin_give_dagger))
+	.["Dagger and Metal"] = CALLBACK(src,PROC_REF(admin_give_metal))
+	.["Remove Dagger and Metal"] = CALLBACK(src, PROC_REF(admin_take_all))
 
 /datum/antagonist/cult/proc/admin_give_dagger(mob/admin)
 	if(!equip_cultist(metal=FALSE))
@@ -244,7 +245,7 @@
 		H.update_body()
 
 /datum/team/cult
-	name = "Cult"
+	name = "Bloodcult"
 
 	var/blood_target
 	var/image/blood_target_image
@@ -274,7 +275,8 @@
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
 				to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...")
-				addtimer(CALLBACK(src, .proc/rise, B.current), 200)
+				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
+				addtimer(CALLBACK(src, PROC_REF(rise), B.current), 200)
 		cult_risen = TRUE
 
 	if(ratio > CULT_ASCENDENT && !cult_ascendent)
@@ -282,8 +284,10 @@
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
 				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")
-				addtimer(CALLBACK(src, .proc/ascend, B.current), 200)
+				log_game("The blood cult was given halos at cult population of [cultplayers].")
+				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
 		cult_ascendent = TRUE
+		set_dynamic_high_impact_event("cult has gained halos")
 
 
 /datum/team/cult/proc/rise(cultist)
@@ -314,7 +318,7 @@
 		for(var/datum/data/record/R as() in GLOB.data_core.locked)
 			var/datum/mind/M = R.fields["mindref"]
 			if(target == M)
-				reshape = R.fields["image"]
+				reshape = R.fields["character_appearance"]
 				break
 	if(!reshape)
 		reshape = icon('icons/mob/mob.dmi', "ghost", SOUTH)
@@ -336,7 +340,7 @@
 		for(var/datum/mind/possible_target in get_crewmember_minds())
 			if(is_valid_target(possible_target) && !(possible_target in blacklist))
 				target_candidates += possible_target
-	listclearnulls(target_candidates)
+	list_clear_nulls(target_candidates)
 	if(LAZYLEN(target_candidates))
 		set_target(pick(target_candidates))
 	else
@@ -393,7 +397,7 @@
 	..()
 	var/sanity = 0
 	while(summon_spots.len < SUMMON_POSSIBILITIES && sanity < 100)
-		var/area/summon_area = pick(GLOB.sortedAreas - summon_spots)
+		var/area/summon_area = pick(GLOB.areas - summon_spots)
 		if(summon_area && is_station_level(summon_area.z) && (summon_area.area_flags & VALID_TERRITORY))
 			summon_spots += summon_area
 		sanity++
@@ -434,10 +438,7 @@
 		parts += "<b>The cultists' objectives were:</b>"
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
-			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			parts += "<b>Objective #[count]</b>: [objective.get_completion_message()]"
 			count++
 
 	if(members.len)

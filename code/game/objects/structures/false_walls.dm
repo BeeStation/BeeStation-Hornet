@@ -13,7 +13,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 	layer = LOW_OBJ_LAYER
 	density = TRUE
-	opacity = 1
+	opacity = TRUE
 	max_integrity = 100
 	can_be_unanchored = FALSE
 	CanAtmosPass = ATMOS_PASS_DENSITY
@@ -48,12 +48,13 @@
 		for(var/mob/living/obstacle in srcturf) //Stop people from using this as a shield
 			opening = FALSE
 			return
-	addtimer(CALLBACK(src, /obj/structure/falsewall/proc/toggle_open), 5)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/falsewall, toggle_open)), 5)
 
 /obj/structure/falsewall/proc/toggle_open()
 	if(!QDELETED(src))
-		density = !density
+		set_density(!density)
 		set_opacity(density)
+		z_flags &= density ? (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP) : ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		opening = FALSE
 		update_icon()
 		air_update_turf(TRUE)
@@ -262,22 +263,23 @@
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)
-		var/turf/T = get_turf(src)
-		message_admins("Plasma falsewall ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]")
-		burnbabyburn()
+		if(plasma_ignition(6, user))
+			new /obj/structure/girder/displaced(loc)
+
 	else
 		return ..()
 
-/obj/structure/falsewall/plasma/proc/burnbabyburn(user)
-	playsound(src, 'sound/items/welder.ogg', 100, 1)
-	atmos_spawn_air("plasma=400;TEMP=1000")
-	new /obj/structure/girder/displaced(loc)
-	qdel(src)
-
 /obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		burnbabyburn()
+		if(plasma_ignition(6))
+			new /obj/structure/girder/displaced(loc)
+
+
+/obj/structure/falsewall/plasma/bullet_act(obj/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		if(plasma_ignition(6, Proj?.firer))
+			new /obj/structure/girder/displaced(loc)
+	. = ..()
 
 /obj/structure/falsewall/bananium
 	name = "bananium wall"
@@ -313,7 +315,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
-	mineral = /obj/item/stack/sheet/mineral/wood
+	mineral = /obj/item/stack/sheet/wood
 	walltype = /turf/closed/wall/mineral/wood
 
 /obj/structure/falsewall/bamboo
@@ -325,7 +327,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BAMBOO_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BAMBOO_WALLS)
-	mineral = /obj/item/stack/sheet/mineral/bamboo
+	mineral = /obj/item/stack/sheet/bamboo
 	walltype = /turf/closed/wall/mineral/bamboo
 
 /obj/structure/falsewall/iron
@@ -390,7 +392,7 @@
 	mineral_amount = 1
 	girder_type = /obj/structure/girder/bronze
 	walltype = /turf/closed/wall/clockwork
-	mineral = /obj/item/stack/tile/brass
+	mineral = /obj/item/stack/sheet/brass
 
 /obj/structure/falsewall/brass/New(loc)
 	..()

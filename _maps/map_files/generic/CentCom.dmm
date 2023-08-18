@@ -530,6 +530,7 @@
 	pixel_y = 12
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
 "cg" = (
@@ -1894,7 +1895,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/stack/telecrystal/five,
+/obj/item/stack/sheet/telecrystal/five,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
@@ -3578,8 +3579,8 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/xeno,
 /obj/item/reagent_containers/food/snacks/meat/slab/xeno,
 /obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/spaghetti,
-/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/food/spaghetti/raw,
+/obj/item/food/spaghetti/raw,
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet,
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet,
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet,
@@ -5173,7 +5174,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/evac)
 "uC" = (
-/obj/machinery/computer/camera_advanced,
+/obj/machinery/computer/camera_advanced/wizard,
 /turf/open/floor/wood,
 /area/wizard_station)
 "uD" = (
@@ -6968,10 +6969,7 @@
 /area/ctf)
 "BV" = (
 /obj/machinery/chem_dispenser/drinks/beer,
-/turf/closed/indestructible{
-	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood"
-	},
+/turf/closed/indestructible/hotelwall,
 /area/centcom/holding)
 "BW" = (
 /obj/item/storage/firstaid/regular,
@@ -8192,6 +8190,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"HN" = (
+/obj/machinery/smartfridge,
+/turf/closed/indestructible/hotelwall,
+/area/centcom/holding)
 "HP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -9383,7 +9385,7 @@
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "ME" = (
-/obj/machinery/computer/camera_advanced{
+/obj/machinery/computer/camera_advanced/wizard{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -9502,10 +9504,7 @@
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
 "Nd" = (
-/turf/closed/indestructible{
-	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood"
-	},
+/turf/closed/indestructible/hotelwall,
 /area/centcom/holding)
 "Nf" = (
 /obj/item/kirbyplants{
@@ -10195,7 +10194,7 @@
 /obj/structure/closet,
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/machinery/iv_drip,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/item/storage/firstaid/regular,
 /obj/item/reagent_containers/medspray/synthflesh,
 /obj/item/reagent_containers/medspray/synthflesh,
@@ -10331,10 +10330,7 @@
 /area/tdome/tdomeadmin)
 "QT" = (
 /obj/machinery/chem_dispenser/drinks,
-/turf/closed/indestructible{
-	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood"
-	},
+/turf/closed/indestructible/hotelwall,
 /area/centcom/holding)
 "QU" = (
 /obj/structure/table/glass,
@@ -10868,8 +10864,6 @@
 /turf/open/floor/plasteel,
 /area/centcom/control)
 "Te" = (
-/obj/item/paper_bin,
-/obj/item/pen/fourcolor,
 /obj/structure/table/reinforced,
 /obj/machinery/light{
 	dir = 4
@@ -10878,6 +10872,7 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/fax/centcom,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
 "Tf" = (
@@ -11331,10 +11326,11 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "UU" = (
-/obj/item/storage/fancy/donut_box,
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/paper_bin,
+/obj/item/pen/fourcolor,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
 "UV" = (
@@ -38219,7 +38215,7 @@ Nd
 XL
 Nd
 Nd
-py
+HN
 Nd
 Xk
 Yo

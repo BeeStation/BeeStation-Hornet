@@ -3,7 +3,8 @@
 	roundend_category = "blobs"
 	antagpanel_category = "Blob"
 	show_to_ghosts = TRUE
-	job_rank = ROLE_BLOB
+	banning_key = ROLE_BLOB
+	ui_name = "AntagInfoBlob"
 
 	var/datum/action/innate/blobpop/pop_action
 	var/starting_points_human_blob = 60
@@ -31,6 +32,26 @@
 /datum/antagonist/blob/on_gain()
 	create_objectives()
 	. = ..()
+
+/datum/antagonist/blob/ui_data(mob/user)
+	var/list/data = list()
+
+	data["objectives"] = get_objectives()
+
+	if(!isovermind(user))
+		return data
+	var/mob/camera/blob/blob = user
+	var/datum/blobstrain/reagent/blobstrain = blob.blobstrain
+
+	if(!blobstrain)
+		return data
+
+	data["color"] = blobstrain.color
+	data["description"] = blobstrain.description
+	data["effects"] = blobstrain.effectdesc
+	data["name"] = blobstrain.name
+
+	return data
 
 /datum/antagonist/blob/proc/create_objectives()
 	if(!give_objectives)

@@ -6,7 +6,7 @@
 	desc = "It's good to be emperor."
 	item_state = "that"
 	flags_inv = NONE
-	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
+	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
 
@@ -59,7 +59,7 @@
 	icon_state = "syndicate-helm-black-red"
 	item_state = "syndicate-helm-black-red"
 	desc = "A plastic replica of a Syndicate agent's space helmet. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/cueball
@@ -68,7 +68,7 @@
 	icon_state = "cueball"
 	item_state="cueball"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/snowman
@@ -77,7 +77,7 @@
 	icon_state = "snowman_h"
 	item_state = "snowman_h"
 	flags_cover = HEADCOVERSEYES
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/justice
@@ -85,7 +85,7 @@
 	desc = "Fight for what's righteous!"
 	icon_state = "justicered"
 	item_state = "justicered"
-	flags_inv = HIDEHAIR|HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR
+	flags_inv = HIDEHAIR|HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES
 	clothing_flags = SNUG_FIT
 
@@ -167,7 +167,7 @@
 	desc = "Bkaw!"
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/griffin
@@ -175,7 +175,7 @@
 	desc = "Why not 'eagle head'? Who knows."
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/bearpelt
@@ -189,7 +189,7 @@
 	icon_state = "xenos"
 	item_state = "xenos_helm"
 	desc = "A helmet made out of chitinous alien hide."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/fedora
@@ -243,14 +243,6 @@
 	icon_state = "flat_cap"
 	item_state = "detective"
 
-/obj/item/clothing/head/hunter
-	name = "bounty hunting hat"
-	desc = "Ain't nobody gonna cheat the hangman in my town."
-	icon_state = "hunter"
-	item_state = "hunter"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 20)
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
 /obj/item/clothing/head/cone
 	desc = "This cone is trying to warn you of something!"
 	name = "warning cone"
@@ -295,20 +287,20 @@
 	name = "paper sack hat"
 	desc = "A paper sack with crude holes cut out for eyes. Useful for hiding one's identity or ugliness."
 	icon_state = "papersack"
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
+	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDESNOUT
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/papersack/smiley
 	name = "paper sack hat"
 	desc = "A paper sack with crude holes cut out for eyes and a sketchy smile drawn on the front. Not creepy at all."
 	icon_state = "papersack_smile"
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
+	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDESNOUT
 
 /obj/item/clothing/head/crown
 	name = "crown"
 	desc = "A crown fit for a king, a petty king maybe."
 	icon_state = "crown"
-	armor = list("melee" = 15, "bullet" = 0, "laser" = 0,"energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 40)
+	armor = list(MELEE = 15,  BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 40)
 	resistance_flags = FIRE_PROOF
 	dynamic_hair_suffix = ""
 
@@ -367,7 +359,7 @@
 /obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
+		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
 
@@ -429,13 +421,31 @@
 	icon_state = "intern_hat"
 	item_state = "intern_hat"
 
-/obj/item/clothing/head/rainbowbunchcrown
-	name = "rainbow flower crown"
-	desc = "A flower crown made out of the flowers of the rainbow bunch plant."
+/obj/item/clothing/head/flowercrown
+	name = "generic flower crown"
+	desc = "You should not be seeing this"
+	icon_state = "lily_crown"
 	dynamic_hair_suffix = ""
 	attack_verb = list("crowned")
 
-/obj/item/clothing/head/rainbowbunchcrown/Initialize(mapload)
+/obj/item/clothing/head/flowercrown/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_crown_worn", /datum/mood_event/flower_crown_worn, src)
+
+/obj/item/clothing/head/flowercrown/dropped(mob/living/carbon/user)
+	..()
+	if(user.head != src)
+		return
+	else
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_crown_worn")
+
+/obj/item/clothing/head/flowercrown/rainbowbunch
+	name = "rainbow flower crown"
+	desc = "A flower crown made out of the flowers of the rainbow bunch plant."
+	icon_state_preview = "rainbow_bunch_crown_1"
+
+/obj/item/clothing/head/flowercrown/rainbowbunch/Initialize(mapload)
 	. = ..()
 	var/crown_type = rand(1,4)
 	switch(crown_type)
@@ -452,26 +462,20 @@
 			desc += " This one has yellow, green and white flowers."
 			icon_state = "rainbow_bunch_crown_4"
 
-/obj/item/clothing/head/sunflowercrown
+/obj/item/clothing/head/flowercrown/sunflower
 	name = "sunflower crown"
 	desc = "A bright flower crown made out sunflowers that is sure to brighten up anyone's day!"
 	icon_state = "sunflower_crown"
-	dynamic_hair_suffix = ""
-	attack_verb = list("crowned")
 
-/obj/item/clothing/head/poppycrown
+/obj/item/clothing/head/flowercrown/poppy
 	name = "poppy crown"
 	desc = "A flower crown made out of a string of bright red poppies."
 	icon_state = "poppy_crown"
-	dynamic_hair_suffix = ""
-	attack_verb = list("crowned")
 
-/obj/item/clothing/head/lilycrown
+/obj/item/clothing/head/flowercrown/lily
 	name = "lily crown"
 	desc = "A leafy flower crown with a cluster of large white lilies at at the front."
 	icon_state = "lily_crown"
-	dynamic_hair_suffix = ""
-	attack_verb = list("crowned")
 
 /obj/item/clothing/head/cowboy
 	name = "ranching hat"

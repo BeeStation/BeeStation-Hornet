@@ -20,6 +20,7 @@
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 	throw_speed = 3
 	throw_range = 7
 	materials = list(/datum/material/iron=10)
@@ -86,7 +87,7 @@
 /datum/crafting_recipe/charcoal_stylus
 	name = "Charcoal Stylus"
 	result = /obj/item/pen/charcoal
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 1, /datum/reagent/ash = 30)
+	reqs = list(/obj/item/stack/sheet/wood = 1, /datum/reagent/ash = 30)
 	time = 30
 	category = CAT_PRIMAL
 
@@ -102,7 +103,7 @@
 	materials = list(/datum/material/gold = 750)
 	sharpness = IS_SHARP
 	resistance_flags = FIRE_PROOF
-	unique_reskin = list("Oak" = "pen-fountain-o",
+	unique_reskin_icon = list("Oak" = "pen-fountain-o",
 						"Gold" = "pen-fountain-g",
 						"Rosewood" = "pen-fountain-r",
 						"Black and Silver" = "pen-fountain-b",
@@ -115,9 +116,17 @@
 	AddComponent(/datum/component/butchering, 200, 115) //the pen is mightier than the sword
 
 /obj/item/pen/fountain/captain/reskin_obj(mob/M)
-	..()
+	if(isnull(unique_reskin))
+		unique_reskin = list(
+			"Oak" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-o"),
+			"Gold" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-g"),
+			"Rosewood" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-r"),
+			"Black and Silver" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-b"),
+			"Command Blue" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-cb")
+		)
 	if(current_skin)
 		desc = "It's an expensive [current_skin] fountain pen. The nib is quite sharp."
+	. = ..()
 
 /obj/item/pen/attack_self(mob/living/carbon/user)
 	var/deg = input(user, "What angle would you like to rotate the pen head to? (1-360)", "Rotate Pen Head") as null|num
@@ -168,19 +177,37 @@
 			O.desc = input
 			to_chat(user, "You have successfully changed \the [O.name]'s description.")
 
+/obj/item/pen/get_writing_implement_details()
+	return list(
+		interaction_mode = MODE_WRITING,
+		font = font,
+		color = colour,
+		use_bold = FALSE,
+	)
+
 /*
  * Sleepypens
  */
+
+/obj/item/pen/sleepy
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 
-	if(..())
-		if(reagents.total_volume)
-			if(M.reagents)
-				reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
-
+	if(reagents?.total_volume && M.reagents)
+		// Obvious message to other people, so that they can call out suspicious activity.
+		to_chat(user, "<span class='notice'>You prepare to engage the sleepy pen's internal mechanism!</span>")
+		if (!do_after(user, 0.5 SECONDS, M) || !..())
+			to_chat(user, "<span class='warning'>You fail to engage the sleepy pen mechanism!</span>")
+			return
+		reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
+		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='notice'>You successfully inject [M] with the pen's contents!</span>", vision_distance = COMBAT_MESSAGE_RANGE, ignored_mobs = list(M))
+		// Looks like a normal pen once it has been used
+		qdel(reagents)
+		reagents = null
+	else
+		return ..()
 
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
@@ -198,7 +225,7 @@
 
 /obj/item/pen/edagger/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/blade1.ogg', TRUE)
+	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/edagger.ogg', TRUE)
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
@@ -210,6 +237,7 @@
 		hitsound = initial(hitsound)
 		embedding = list(embed_chance = EMBED_CHANCE, armour_block = 30)
 		throwforce = initial(throwforce)
+		sharpness = initial(sharpness)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 	else
@@ -218,9 +246,10 @@
 		throw_speed = 4
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
-		hitsound = 'sound/weapons/blade1.ogg'
+		hitsound = 'sound/weapons/edagger.ogg'
 		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
 		throwforce = 35
+		sharpness = IS_SHARP
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 	updateEmbedding()

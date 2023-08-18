@@ -57,6 +57,10 @@
 	message = "mumbles"
 	emote_type = EMOTE_AUDIBLE
 
+/datum/emote/living/carbon/human/offer
+	key = "offer"
+	message = "offers an item"
+
 /datum/emote/living/carbon/human/moth
 	// allow mothroach as well as human base mob - species check is done in can_run_emote
 	mob_type_allowed_typecache = list(/mob/living/carbon/human,/mob/living/simple_animal/mothroach)
@@ -129,25 +133,22 @@
 	if(!.)
 		return
 	var/mob/living/carbon/human/H = user
-	if(!istype(H) || !H.dna || !H.dna.species || !H.dna.species.can_wag_tail(H))
+	var/obj/item/organ/tail/tail = H?.getorganslot(ORGAN_SLOT_TAIL)
+	if(!tail)
 		return
-	if(!H.dna.species.is_wagging_tail())
-		H.dna.species.start_wagging_tail(H)
-	else
-		H.dna.species.stop_wagging_tail(H)
+	tail.toggle_wag(H)
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	return H.dna?.species?.can_wag_tail(user)
+	return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	if(!H.dna || !H.dna.species)
-		return
-	if(H.dna.species.is_wagging_tail())
+	var/obj/item/organ/tail/tail = H.getorganslot(ORGAN_SLOT_TAIL)
+	if(tail?.is_wagging(H))
 		. = null
 
 /datum/emote/living/carbon/human/wing
@@ -187,6 +188,8 @@
 		return FALSE
 	var/obj/item/organ/wings/wings = getorganslot(ORGAN_SLOT_WINGS)
 	if(istype(wings))
+		if(ismoth(src) && HAS_TRAIT(src, TRAIT_MOTH_BURNT))
+			return FALSE
 		if(wings.toggleopen(src))
 			return TRUE
 	return FALSE
@@ -204,6 +207,16 @@
 		return
 	return 'sound/misc/fart1.ogg'
 
+/datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
+	if(ishuman(user))
+		var/mob/living/carbon/human/fartee = user
+		if(COOLDOWN_FINISHED(fartee, special_emote_cooldown))
+			..()
+			COOLDOWN_START(fartee, special_emote_cooldown, 20 SECONDS)
+		else
+			to_chat(user, "<span class='warning'>You strain, but can't seem to fart again just yet.</span>")
+		return TRUE
+
 // Robotic Tongue emotes. Beep!
 
 /datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user, status_check = TRUE , intentional)
@@ -218,6 +231,12 @@
 	key_third_person = "beeps"
 	message = "beeps"
 	message_param = "beeps at %t"
+
+/datum/emote/living/carbon/human/robot_tongue/boop
+	key = "boop"
+	key_third_person = "boops"
+	message = "boops."
+	sound = 'sound/machines/boop.ogg'
 
 /datum/emote/living/carbon/human/robot_tongue/beep/run_emote(mob/user, params)
 	if(..())

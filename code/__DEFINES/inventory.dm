@@ -54,6 +54,13 @@
 #define HIDEHAIR		(1<<8)
 #define HIDEFACIALHAIR	(1<<9)
 #define HIDENECK		(1<<10)
+/// for wigs, only obscures the headgear
+//#define HIDEHEADGEAR (1<<11)
+///for lizard snouts, because some HIDEFACE clothes don't actually conceal that portion of the head.
+#define HIDESNOUT (1<<12)
+///hides mutant/moth wings, does not apply to functional wings
+//#define HIDEMUTWINGS (1<<13)
+
 
 //bitflags for clothing coverage - also used for limbs
 #define HEAD		(1<<0)
@@ -90,8 +97,12 @@
 
 //flags for outfits that have mutantrace variants (try not to use this): Currently only needed if you're trying to add tight fitting bootyshorts
 //This system takes priority over Sprite Sheets.
-#define NO_VARIATION			(1<<0)
-#define DIGITIGRADE_VARIATION	(1<<1)
+
+///No alternative sprites based on bodytype
+#define NO_VARIATION (1<<0)
+///Has a sprite for digitigrade legs specifically.
+#define DIGITIGRADE_VARIATION (1<<1)
+///The sprite works fine for digitigrade legs as-is.
 #define DIGITIGRADE_VARIATION_NO_NEW_ICON (1<<2)
 
 #define NOT_DIGITIGRADE				0
@@ -116,7 +127,7 @@ GLOBAL_LIST_INIT(advanced_hardsuit_allowed, typecacheof(list(
 	/obj/item/flashlight,
 	/obj/item/gun,
 	/obj/item/melee/baton,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals)))
 
@@ -128,7 +139,7 @@ GLOBAL_LIST_INIT(security_hardsuit_allowed, typecacheof(list(
 	/obj/item/gun/energy,
 	/obj/item/gun/grenadelauncher,
 	/obj/item/melee/baton,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals)))
 
@@ -144,7 +155,7 @@ GLOBAL_LIST_INIT(detective_vest_allowed, typecacheof(list(
 	/obj/item/lighter,
 	/obj/item/melee/baton,
 	/obj/item/melee/classic_baton/police,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/tank/internals/emergency_oxygen,
@@ -160,7 +171,7 @@ GLOBAL_LIST_INIT(security_vest_allowed, typecacheof(list(
 	/obj/item/kitchen/knife/combat,
 	/obj/item/melee/baton,
 	/obj/item/melee/classic_baton/police/telescopic,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman)))
@@ -176,7 +187,7 @@ GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
 	/obj/item/lighter,
 	/obj/item/melee/baton,
 	/obj/item/melee/classic_baton/police/telescopic,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman,

@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		mat1.f
 		)
 
-//returns the dwidth, dheight, width, and height in the order of the union bounds of all shuttles relative to our shuttle.
+//returns the dwidth, dheight, width, and height in that order of the union bounds of all shuttles relative to our shuttle.
 /obj/docking_port/proc/return_union_bounds(var/list/obj/docking_port/others)
 	var/list/coords =  return_union_coords(others, 0, 0, NORTH)
 	var/X0 = min(coords[1],coords[3]) //This will be the negative dwidth of the combined bounds
@@ -353,6 +353,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	//If the shuttle is unable to be moved by non-untowable shuttles.
 	//Stops interference with the arrival and escape shuttle. Use this sparingly.
 	var/untowable = FALSE
+	//If docking on this shuttle is not allowed.
+	//For important shuttles such as the arrivals shuttle where access to its shuttle area type is needed at any moment
+	var/undockable = FALSE
 
 	//The designated virtual Z-Value of this shuttle
 	var/virtual_z
@@ -395,7 +398,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			return TRUE
 
 	if(!bypass_skipover_insertion)
-		T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
+		T.baseturfs = islist(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
 		var/base_length = length(T.baseturfs)
 		var/skipover_index = 2 //We should always leave atleast something else below our skipover
 
@@ -409,7 +412,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			if(GLOB.shuttle_turf_blacklist[BT])
 				skipover_index = base_length - i + 1
 				break
-		T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+		var/list/sanity = T.baseturfs.Copy()
+		sanity.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+		T.baseturfs = baseturfs_string_list(sanity, T)
 
 	var/area/shuttle/current_area = T.loc
 	//Account for building on shuttles
@@ -420,7 +425,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		underlying_turf_area[T] = current_area
 	//Change areas
 	current_area.contents -= T
-	A.contents += T
 	T.change_area(current_area, A)
 
 /obj/docking_port/mobile/proc/remove_turf(var/turf/T)
@@ -467,7 +471,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	underlying_turf_area -= T
 	if(top_shuttle == src) //Only change the area if we aren't covered by another shuttle
 		A.contents -= T
-		new_area.contents += T
 		T.change_area(A, new_area)
 	else if(bottom_shuttle) //update the underlying turfs of the shuttle on top of us
 		bottom_shuttle.underlying_turf_area[T] = new_area
@@ -750,7 +753,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		for(var/obj/docking_port/mobile/bottom_shuttle as() in all_towed_shuttles)
 			if(bottom_shuttle.underlying_turf_area[oldT])
 				var/area/underlying_area = bottom_shuttle.underlying_turf_area[oldT]
-				underlying_area.contents += oldT
 				oldT.change_area(old_area, underlying_area)
 				oldT.empty(FALSE)
 				break
@@ -1081,7 +1083,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			if(M.get_virtual_z_level() != get_virtual_z_level())
 				continue
 			if(dist_far <= long_range && dist_far > range)
-				M.playsound_local(distant_source, "sound/effects/[selected_sound]_distance.ogg", 100, falloff_exponent = 20)
+				M.playsound_local(distant_source, "sound/effects/[selected_sound]_distance.ogg", 60, falloff_exponent = 20)
 			else if(dist_far <= range)
 				var/source
 				if(engines.len == 0)
@@ -1093,7 +1095,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 						if(dist_near < closest_dist)
 							source = O
 							closest_dist = dist_near
-				M.playsound_local(source, "sound/effects/[selected_sound].ogg", 100, falloff_exponent = range / 2)
+				M.playsound_local(source, "sound/effects/[selected_sound].ogg", 70, falloff_exponent = range / 2)
 
 // Losing all initial engines should get you 2
 // Adding another set of engines at 0.5 time

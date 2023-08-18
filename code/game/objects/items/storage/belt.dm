@@ -74,6 +74,42 @@
 		))
 	STR.can_hold = can_hold
 
+/obj/item/storage/belt/botanical
+	name = "botanical belt"
+	desc = "Can hold various botanical equipment."
+	icon_state = "botanical"
+	item_state = "botanical"
+	worn_icon_state = "botanical"
+	content_overlays = TRUE
+
+/obj/item/storage/belt/botanical/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 21
+	var/static/list/can_hold = typecacheof(list(
+		/obj/item/reagent_containers/spray,
+		/obj/item/reagent_containers/glass/beaker,//those will usually be used for fertilizer
+		/obj/item/reagent_containers/glass/bottle,//fertilizer bottles
+		/obj/item/reagent_containers/syringe,//blood samples for pod cloning
+		/obj/item/reagent_containers/dropper,//on request by forums users
+		/obj/item/plant_analyzer,
+		/obj/item/cultivator,
+		/obj/item/hatchet,
+		/obj/item/shovel/spade,
+		/obj/item/disk/plantgene,
+		/obj/item/wrench,//because botanists move around trays with those
+		/obj/item/seeds,
+		/obj/item/clothing/gloves/botanic_leather,
+		/obj/item/rollingpaper,//dudeweed
+		/obj/item/lighter,
+		/obj/item/clothing/mask/cigarette/pipe/cobpipe,
+		/obj/item/clothing/mask/cigarette/rollie,//dudeweedlmao
+		/obj/item/gun/energy/floragun
+		))
+	STR.can_hold = can_hold
+
 /obj/item/storage/belt/utility/chief
 	name = "\improper Chief Engineer's toolbelt" //"the Chief Engineer's toolbelt", because "Chief Engineer's toolbelt" is not a proper noun
 	desc = "Holds tools, looks snazzy."
@@ -190,7 +226,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_BULKY
 	STR.max_combined_w_class = 21
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
@@ -243,6 +279,7 @@
 		/obj/item/plunger,
 		/obj/item/extrapolator
 		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/medical/ert
 	name = "emergency response medical belt"
@@ -267,6 +304,7 @@
 	desc = "Can hold security gear like handcuffs and flashes."
 	icon_state = "securitybelt"
 	item_state = "security"//Could likely use a better one.
+	worn_icon_state = "security"
 	content_overlays = TRUE
 
 /obj/item/storage/belt/security/ComponentInitialize()
@@ -275,11 +313,11 @@
 	STR.max_items = 5
 	STR.max_combined_w_class = 18
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton/police,
 		/obj/item/grenade,
-		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/restraints/handcuffs,
 		/obj/item/assembly/flash/handheld,
 		/obj/item/clothing/glasses,
@@ -296,9 +334,10 @@
 		/obj/item/club,
 		/obj/item/shield/riot/tele
 		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/security/full/PopulateContents()
-	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
@@ -312,7 +351,7 @@
 	new /obj/item/melee/classic_baton/police/deputy(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/restraints/handcuffs/cable(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/flashlight/seclite(src)
 	update_icon()
 
@@ -345,7 +384,7 @@
 	STR.max_items = 6
 	STR.max_w_class = WEIGHT_CLASS_BULKY
 	STR.max_combined_w_class = 20
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
 		/obj/item/screwdriver,
@@ -392,6 +431,7 @@
 		/obj/item/exploration_detonator,
 		/obj/item/research_disk_pinpointer
 		))
+	STR.can_hold = can_hold
 
 
 /obj/item/storage/belt/mining/vendor
@@ -425,9 +465,10 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/soulstone
 		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/soulstone/full/PopulateContents()
 	for(var/i in 1 to 6)
@@ -453,9 +494,10 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 1
-	STR.can_hold = list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/clothing/mask/luchador
-		)
+		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/military
 	name = "chest rig"
@@ -483,11 +525,11 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
 	STR.max_w_class = WEIGHT_CLASS_SMALL
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/drinks
 		))
-
+	STR.can_hold = can_hold
 	var/amount = 5
 	var/rig_snacks
 	while(contents.len <= amount)
@@ -503,7 +545,7 @@
 		/obj/item/reagent_containers/food/snacks/cheesynachos,
 		/obj/item/reagent_containers/food/snacks/cubannachos,
 		/obj/item/reagent_containers/food/snacks/nugget,
-		/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato,
+		/obj/item/food/spaghetti/pastatomato,
 		/obj/item/reagent_containers/food/snacks/rofflewaffles,
 		/obj/item/reagent_containers/food/snacks/donkpocket,
 		/obj/item/reagent_containers/food/drinks/soda_cans/cola,
@@ -567,7 +609,7 @@
 	STR.display_numerical_stacking = TRUE
 	STR.max_combined_w_class = 60
 	STR.max_w_class = WEIGHT_CLASS_BULKY
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/grenade,
 		/obj/item/screwdriver,
 		/obj/item/lighter,
@@ -577,6 +619,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/cherry_bomb,
 		/obj/item/reagent_containers/food/snacks/grown/firelemon
 		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/grenade/full/PopulateContents()
 	var/static/items_inside = list(
@@ -611,9 +654,10 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/gun/magic/wand
 		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/wands/full/PopulateContents()
 	new /obj/item/gun/magic/wand/death(src)
@@ -639,7 +683,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
 	STR.max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/grenade/chem_grenade,
 		/obj/item/lightreplacer,
 		/obj/item/flashlight,
@@ -654,6 +698,7 @@
 		/obj/item/paint/paint_remover,
 		/obj/item/pushbroom
 		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/janitor/full/PopulateContents()
 	new /obj/item/lightreplacer(src)
@@ -674,9 +719,10 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 18
 	STR.display_numerical_stacking = TRUE
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/ammo_casing/shotgun
 		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/quiver
 	name = "leather quiver"
@@ -690,12 +736,13 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 15
 	STR.display_numerical_stacking = TRUE
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/ammo_casing/caseless/arrow/wood,
 		/obj/item/ammo_casing/caseless/arrow/ash,
 		/obj/item/ammo_casing/caseless/arrow/bone,
 		/obj/item/ammo_casing/caseless/arrow/bronze
 		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
@@ -793,9 +840,10 @@
 	STR.max_items = 1
 	STR.rustle_sound = FALSE
 	STR.max_w_class = WEIGHT_CLASS_BULKY
-	STR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/melee/sabre
 		))
+	STR.can_hold = can_hold
 
 /obj/item/storage/belt/sabre/examine(mob/user)
 	. = ..()
@@ -850,9 +898,10 @@
 	MTR.max_items = 1
 	MTR.rustle_sound = FALSE
 	MTR.max_w_class = WEIGHT_CLASS_BULKY
-	MTR.can_hold = typecacheof(list(
+	var/static/list/can_hold = typecacheof(list(
 		/obj/item/melee/sabre/mime
 		))
+	MTR.can_hold = can_hold
 
 /obj/item/storage/belt/sabre/mime/PopulateContents()
 	new /obj/item/melee/sabre/mime(src)

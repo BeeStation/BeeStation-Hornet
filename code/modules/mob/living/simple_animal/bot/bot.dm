@@ -44,6 +44,8 @@
 	var/emagged = FALSE
 	var/list/prev_access = list()
 	var/on = TRUE
+	var/booting
+	var/boot_delay = 4 SECONDS //how long the bot takes to turn on from the control panel
 	var/open = FALSE//Maint panel
 	var/locked = TRUE
 	var/hacked = FALSE //Used to differentiate between being hacked by silicons and emagged by humans.
@@ -100,6 +102,7 @@
 	var/reset_access_timer_id
 	var/ignorelistcleanuptimer = 1 // This ticks up every automated action, at 300 we clean the ignore list
 	var/robot_arm = /obj/item/bodypart/r_arm/robot
+	var/carryable = TRUE
 
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD, DIAG_PATH_HUD = HUD_LIST_LIST) //Diagnostic HUD views
 
@@ -132,11 +135,22 @@
 /mob/living/simple_animal/bot/proc/turn_on()
 	if(stat)
 		return FALSE
+	booting = FALSE
 	on = TRUE
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), "Boot sequence complete, [name] operational")
 	update_mobility()
 	set_light_on(on)
 	update_icon()
 	diag_hud_set_botstat()
+	return TRUE
+
+/mob/living/simple_animal/bot/proc/boot_up_sequence()
+	if(stat || booting || !isopenturf(loc))
+		return FALSE
+	booting = TRUE
+	set_light_on(TRUE) //override the actual state here because the bot is not actually powered on yet
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), "[name] powering on, please wait for boot sequence to complete.")
+	addtimer(CALLBACK(src, PROC_REF(turn_on)), boot_delay)
 	return TRUE
 
 /mob/living/simple_animal/bot/proc/turn_off()
@@ -151,7 +165,7 @@
 	GLOB.bots_list += src
 	access_card = new /obj/item/card/id(src)
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
-	access_card.access += ACCESS_ROBOTICS
+	access_card.access |= ACCESS_ROBOTICS
 	set_custom_texts()
 	Radio = new/obj/item/radio(src)
 	if(radio_key)
@@ -177,8 +191,8 @@
 	if(path_hud)
 		path_hud.add_to_hud(src)
 		path_hud.add_hud_to(src)
-	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
-	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
+	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
+	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 
 /mob/living/simple_animal/bot/update_mobility()
 	. = ..()
@@ -354,7 +368,7 @@
 		return
 	togglelock(user)
 
-/mob/living/simple_animal/bot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		if(prob(75) && Proj.damage > 0)
 			do_sparks(5, TRUE, src)
@@ -532,8 +546,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/step_count = move_speed ? move_speed : base_speed //If a value is passed into move_speed, use that instead of the default speed var.
 
 	if(step_count >= 1 && tries < BOT_STEP_MAX_RETRIES)
-		for(var/step_number = 0, step_number < step_count,step_number++)
-			spawn(BOT_STEP_DELAY*step_number)
+		for(var/step_number in 1 to step_count)
+			spawn(BOT_STEP_DELAY*(step_number-1))
 				bot_step(dest)
 	else
 		return FALSE
@@ -554,7 +568,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	else if(path.len == 1)
 		step_to(src, dest)
 		if(last_waypoint != null)
-			if(z != last_waypoint.z)
+			var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
+			if(z != last_waypoint.z && E)
 				bot_z_movement()
 		set_path(null)
 	return TRUE
@@ -562,7 +577,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/check_bot_access()
 	if(mode != BOT_SUMMON && mode != BOT_RESPONDING)
-		access_card.access = prev_access
+		access_card.access = prev_access.Copy()
 
 /mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message=TRUE)
 	bot_reset() //Reset a bot before setting it to call mode.
@@ -590,7 +605,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		access_card = all_access //Give the bot all-access while under the AI's command.
 		if(client)
-			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
+			reset_access_timer_id = addtimer(CALLBACK (src, PROC_REF(bot_reset)), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [icon2html(calling_ai, src)] <b>[caller]</b>. Proceed to <b>[end_area]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		if(message)
 			to_chat(calling_ai, "<span class='notice'>[icon2html(src, calling_ai)] [name] called to [end_area]. [path.len-1] meters to destination.</span>")
@@ -622,14 +637,22 @@ Pass a positive integer as an argument to override a bot's default speed.
 	set_path(null)
 	summon_target = null
 	pathset = 0
-	access_card.access = prev_access
+	access_card.access = prev_access.Copy()
 	tries = 0
 	mode = BOT_IDLE
+	hard_reset()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
 
-
+//Hard Reset - Literally tries to make it forget everything about it's last path in the hopes that resetting it will make it start fresh.
+/mob/living/simple_animal/bot/proc/hard_reset()
+	patrol_target = null
+	last_waypoint = null
+	ai_waypoint = null
+	original_patrol = null
+	nearest_beacon = null
+	nearest_beacon_loc = null
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Patrol and summon code!
@@ -677,7 +700,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	if(loc == patrol_target)		// reached target
 		if(original_patrol != null)
-			if(z != original_patrol.z)
+			var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
+			if(z != original_patrol.z && E)
 				bot_z_movement()
 				return
 		//Find the next beacon matching the target.
@@ -834,7 +858,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	if(loc == summon_target)		// Arrived to summon location.
 		if(last_summon != null)
-			if(z != last_summon.z)
+			var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
+			if(z != last_summon.z && E)
 				bot_z_movement()
 				return
 		bot_reset()
@@ -898,7 +923,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(on)
 			turn_off()
 		else
-			turn_on()
+			boot_up_sequence()
 
 	switch(href_list["operation"])
 		if("patrol")
@@ -936,6 +961,28 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/update_icon_state()
 	. = ..()
 	icon_state = "[initial(icon_state)][on]"
+
+
+/mob/living/simple_animal/bot/MouseDrop(over_object, src_location, over_location)
+	. = ..()
+	if(over_object == usr && Adjacent(usr))
+		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+			return FALSE
+		if(!carryable)
+			to_chat(usr, "<span class='notice'>[src] too large to carry!</span>")
+			return FALSE
+		if(on || booting)
+			to_chat(usr, "<span class='notice'>You need to turn [src] off before carrying it around.</span>")
+			return FALSE
+		usr.visible_message("<span class='notice'>[usr] picks up the [src].</span>", "<span class='notice'>You pick up [src].</span>")
+		var/obj/item/deployable/bot/carried = new(loc)
+		carried.name = name
+		carried.desc = desc
+		carried.icon = icon
+		carried.icon_state = icon_state
+		carried.update_icon()
+		usr.put_in_hands(carried)
+		forceMove(carried)
 
 // Machinery to simplify topic and access calls
 /obj/machinery/bot_core
@@ -1003,7 +1050,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				bot_name = name
 				name = paicard.pai.name
 				faction = user.faction.Copy()
-				copy_languages(paicard.pai)
+				copy_languages(paicard.pai, blocked=TRUE) // this is full-copy, so it should be blocked=TRUE
 				log_combat(user, paicard.pai, "uploaded to [bot_name],")
 				return TRUE
 			else
@@ -1040,7 +1087,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/Login()
 	. = ..()
-	access_card.access += player_access
+	access_card.access |= player_access
 	diag_hud_set_botmode()
 
 /mob/living/simple_animal/bot/Logout()
@@ -1126,6 +1173,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/rust_heretic_act()
 	adjustBruteLoss(400)
+	return TRUE
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1177,6 +1225,10 @@ Pass a positive integer as an argument to override a bot's default speed.
 				E.travel(TRUE, src, FALSE, E.up, FALSE)
 				ai_waypoint = last_waypoint
 				call_bot(calling_ai, ai_waypoint)
+		if(!E) //We're stuck in a loop, terminate our attempt because we're not where we're supposed to be.
+			bot_z_mode = null
+			last_waypoint = null
+			summon_step() //We've gotten stuck, as such the loop needs to be broken, so re-run the summon_step().
 
 	if(bot_z_mode == BOT_Z_MODE_PATROLLING)
 		if(E)
@@ -1188,6 +1240,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 				E.travel(TRUE, src, FALSE, E.up, FALSE)
 				patrol_target = original_patrol
 				calc_path()
+		if(!E) //We're stuck in a loop, terminate our attempt because we're not where we're supposed to be.
+			bot_z_mode = null
+			original_patrol = null
+			patrol_step() //We've gotten stuck, as such the loop needs to be broken, so re-run the patrol_step().
+
 	if(bot_z_mode == BOT_Z_MODE_SUMMONED)
 		if(E)
 			if(z > last_summon.z)
@@ -1198,6 +1255,10 @@ Pass a positive integer as an argument to override a bot's default speed.
 				E.travel(TRUE, src, FALSE, E.up, FALSE)
 				summon_target = last_summon
 				calc_summon_path()
+		if(!E) //We're stuck in a loop, terminate our attempt because we're not where we're supposed to be.
+			bot_z_mode = null
+			last_summon = null
+			summon_step() //We've gotten stuck, as such the loop needs to be broken. so re-run the summon_step().
 
 //BOT MULTI-Z MOVEMENT
 /mob/living/simple_animal/bot/proc/call_bot_z_move(caller, turf/ori_dest, message=TRUE)
@@ -1232,7 +1293,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		access_card = all_access //Give the bot all-access while under the AI's command.
 		if(client)
-			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
+			reset_access_timer_id = addtimer(CALLBACK (src, PROC_REF(bot_reset)), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [icon2html(calling_ai, src)] <b>[caller]</b>. Proceed to <b>[end_area]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		pathset = 1
 		mode = BOT_RESPONDING
@@ -1247,8 +1308,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/go_up_or_down(direction)
 	//For giving the bot temporary all-access.
 	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/all = new/datum/job/captain
-	all_access.access = all.get_access()
+	all_access.access = get_all_accesses()
 	bot_z_mode = BOT_Z_MODE_PATROLLING
 
 	if(!is_reserved_level(z) && is_station_level(z))
@@ -1272,4 +1332,3 @@ Pass a positive integer as an argument to override a bot's default speed.
 		last_summon = summon_target
 		summon_target = target
 		set_path(get_path_to(src, summon_target, 200, id=access_card))
-

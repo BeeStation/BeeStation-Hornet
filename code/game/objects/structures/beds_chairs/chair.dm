@@ -27,11 +27,11 @@
 /obj/structure/chair/Initialize(mapload)
 	. = ..()
 	if(!anchored)	//why would you put these on the shuttle?
-		addtimer(CALLBACK(src, .proc/RemoveFromLatejoin), 0)
+		addtimer(CALLBACK(src, PROC_REF(RemoveFromLatejoin)), 0)
 
 /obj/structure/chair/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, .proc/can_user_rotate),CALLBACK(src, .proc/can_be_rotated),null)
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, PROC_REF(can_user_rotate)),CALLBACK(src, PROC_REF(can_be_rotated)),null)
 
 /obj/structure/chair/proc/can_be_rotated(mob/user)
 	return TRUE
@@ -154,7 +154,7 @@
 	desc = "Old is never too old to not be in fashion."
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-	buildstacktype = /obj/item/stack/sheet/mineral/wood
+	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 3
 	item_chair = /obj/item/chair/wood
 
@@ -257,7 +257,7 @@
 	. = ..()
 	anchored = TRUE
 	if(iscarbon(M))
-		INVOKE_ASYNC(src, .proc/snap_check, M)
+		INVOKE_ASYNC(src, PROC_REF(snap_check), M)
 
 /obj/structure/chair/fancy/plastic/post_unbuckle_mob()
 	. = ..()
@@ -276,7 +276,7 @@
 	desc = "A spinny chair made of brass. It looks uncomfortable."
 	icon_state = "brass_chair"
 	max_integrity = 150
-	buildstacktype = /obj/item/stack/tile/brass
+	buildstacktype = /obj/item/stack/sheet/brass
 	buildstackamount = 1
 	item_chair = null
 	var/turns = 0
@@ -322,7 +322,7 @@
 	desc = "A spinny chair made of bronze. It has little cogs for wheels!"
 	anchored = FALSE
 	icon_state = "brass_chair"
-	buildstacktype = /obj/item/stack/tile/bronze
+	buildstacktype = /obj/item/stack/sheet/bronze
 	buildstackamount = 1
 	item_chair = null
 
@@ -402,6 +402,6 @@
 	icon_state = "bamboo_stool"
 	resistance_flags = FLAMMABLE
 	max_integrity = 60
-	buildstacktype = /obj/item/stack/sheet/mineral/bamboo
+	buildstacktype = /obj/item/stack/sheet/bamboo
 	buildstackamount = 2
 	item_chair = /obj/item/chair/stool/bamboo

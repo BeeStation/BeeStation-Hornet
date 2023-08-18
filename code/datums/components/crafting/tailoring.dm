@@ -1,7 +1,7 @@
 /datum/crafting_recipe/durathread_vest
 	name = "Durathread Vest"
 	result = /obj/item/clothing/suit/armor/vest/durathread
-	reqs = list(/obj/item/stack/sheet/durathread = 5,
+	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 5,
 				/obj/item/stack/sheet/leather = 4)
 	time = 50
 	category = CAT_CLOTHING
@@ -9,7 +9,7 @@
 /datum/crafting_recipe/durathread_helmet
 	name = "Durathread Helmet"
 	result = /obj/item/clothing/head/helmet/durathread
-	reqs = list(/obj/item/stack/sheet/durathread = 4,
+	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 4,
 				/obj/item/stack/sheet/leather = 5)
 	time = 40
 	category = CAT_CLOTHING
@@ -17,35 +17,42 @@
 /datum/crafting_recipe/durathread_jumpsuit
 	name = "Durathread Jumpsuit"
 	result = /obj/item/clothing/under/color/durathread
-	reqs = list(/obj/item/stack/sheet/durathread = 4)
+	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 4)
+	time = 40
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/durathread_jumpskirt
+	name = "Durathread Jumpskirt"
+	result = /obj/item/clothing/under/color/jumpskirt/durathread
+	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 4)
 	time = 40
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/durathread_hoodie
-	name = "Durathread hoodie"
+	name = "Durathread Hoodie"
 	result = /obj/item/clothing/suit/hooded/hoodie/durathread
-	reqs = list(/obj/item/stack/sheet/durathread = 5)
+	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 5)
 	time = 50
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/durathread_beret
 	name = "Durathread Beret"
 	result = /obj/item/clothing/head/beret/durathread
-	reqs = list(/obj/item/stack/sheet/durathread = 2)
+	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 2)
 	time = 40
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/durathread_beanie
 	name = "Durathread Beanie"
 	result = /obj/item/clothing/head/beanie/durathread
-	reqs = list(/obj/item/stack/sheet/durathread = 2)
+	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 2)
 	time = 40
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/durathread_bandana
 	name = "Durathread Bandana"
 	result = /obj/item/clothing/mask/bandana/durathread
-	reqs = list(/obj/item/stack/sheet/durathread = 1)
+	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 1)
 	time = 25
 	category = CAT_CLOTHING
 
@@ -55,6 +62,16 @@
 	reqs = list(/obj/item/stack/sheet/cotton/cloth = 2,
 				/obj/item/stack/sheet/leather = 1)
 	time = 20
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/voice_modulator
+	name = "Voice Modulator Mask"
+	result = /obj/item/clothing/mask/gas/old/modulator
+	time = 45
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
+	reqs = list(/obj/item/clothing/mask/gas/old = 1,
+				  /obj/item/assembly/voice = 1,
+				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudsunsec
@@ -305,15 +322,15 @@
 
 /datum/crafting_recipe/rainbowbunchcrown
 	name = "Rainbow Flower Crown"
-	result = /obj/item/clothing/head/rainbowbunchcrown/
+	result = /obj/item/clothing/head/flowercrown/rainbowbunch
 	time = 20
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/rainbow_flower = 5,
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/rainbow = 5,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/sunflowercrown
 	name = "Sunflower Crown"
-	result = /obj/item/clothing/head/sunflowercrown/
+	result = /obj/item/clothing/head/flowercrown/sunflower
 	time = 20
 	reqs = list(/obj/item/grown/sunflower = 5,
 				/obj/item/stack/cable_coil = 3)
@@ -321,16 +338,16 @@
 
 /datum/crafting_recipe/poppycrown
 	name = "Poppy Crown"
-	result = /obj/item/clothing/head/poppycrown/
+	result = /obj/item/clothing/head/flowercrown/poppy
 	time = 20
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/poppy = 5,
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 5,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/lilycrown
 	name = "Lily Crown"
-	result = /obj/item/clothing/head/lilycrown/
+	result = /obj/item/clothing/head/flowercrown/lily
 	time = 20
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/poppy/lily = 3,
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/lily = 3,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING

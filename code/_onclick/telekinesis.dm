@@ -27,11 +27,6 @@
 		return ..()
 	attack_tk_grab(user)
 
-/obj/item/attack_tk(mob/user)
-	if(user.stat)
-		return
-	attack_tk_grab(user)
-
 /obj/proc/attack_tk_grab(mob/user)
 	var/obj/item/tk_grab/O = new(src)
 	O.tk_user = user
@@ -70,10 +65,10 @@
 	desc = "Magic"
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
-	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL
+	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL | ISWEAPON
 	//item_state = null
 	w_class = WEIGHT_CLASS_GIGANTIC
-	layer = ABOVE_HUD_LAYER
+
 	plane = ABOVE_HUD_PLANE
 
 	var/atom/movable/focus = null

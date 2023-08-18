@@ -62,8 +62,10 @@
 #define COMSIG_ATOM_EMP_ACT "atom_emp_act"
 ///! from base of atom/fire_act(): (exposed_temperature, exposed_volume)
 #define COMSIG_ATOM_FIRE_ACT "atom_fire_act"
-///! from base of atom/bullet_act(): (/obj/item/projectile, def_zone)
+///! from base of atom/bullet_act(): (/obj/projectile, def_zone)
 #define COMSIG_ATOM_BULLET_ACT "atom_bullet_act"
+///from base of atom/CheckParts(): (list/parts_list, datum/crafting_recipe/R)
+#define COMSIG_ATOM_CHECKPARTS "atom_checkparts"
 ///! from base of atom/blob_act(): (/obj/structure/blob)
 #define COMSIG_ATOM_BLOB_ACT "atom_blob_act"
 /// if returned, forces nothing to happen when the atom is attacked by a blob
@@ -111,6 +113,8 @@
 ///! from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_BLOCK_REACH 1
+///for when an atom has been created through processing (atom/original_atom, list/chosen_processing_option)
+#define COMSIG_ATOM_CREATEDBY_PROCESSING "atom_createdby_processing"
 ///! called when teleporting into a protected turf: (channel, turf/origin)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"
 	#define COMPONENT_BLOCK_TELEPORT 1
@@ -138,13 +142,16 @@
 ///! from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
 ///This signal return value bitflags can be found in __DEFINES/misc.dm
-///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
+///called for each movable in a turf contents on /turf/attempt_z_impact(): (atom/movable/A, levels)
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
+
+///from base of atom/set_opacity(): (new_opacity)
+#define COMSIG_ATOM_SET_OPACITY "atom_set_opacity"
 
 /// Sent when the amount of materials in silo connected to remote_materials changes. Does not apply when remote_materials is not connected to a silo.
 #define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"

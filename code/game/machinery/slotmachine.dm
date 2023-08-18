@@ -44,7 +44,7 @@
 	toggle_reel_spin(1) //The reels won't spin unless we activate them
 
 	var/list/reel = reels[1]
-	for(var/i = 0, i < reel.len, i++) //Populate the reels.
+	for(var/i in 1 to reel.len) //Populate the reels.
 		randomize_reels()
 
 	toggle_reel_spin(0)
@@ -261,7 +261,7 @@
 		if(paymode == HOLOCHIP)
 			new /obj/item/holochip(loc,JACKPOT)
 		else
-			for(var/i = 0, i < 5, i++)
+			for(var/i in 1 to 5)
 				cointype = pick(subtypesof(/obj/item/coin))
 				var/obj/item/coin/C = new cointype(loc)
 				random_step(C, 2, 50)
@@ -285,7 +285,7 @@
 /obj/machinery/computer/slot_machine/proc/get_lines()
 	var/amountthesame
 
-	for(var/i = 1, i <= 3, i++)
+	for(var/i in 1 to 3)
 		var/inputtext = reels[1][i] + reels[2][i] + reels[3][i] + reels[4][i] + reels[5][i]
 		for(var/symbol in symbols)
 			var/j = 3 //The lowest value we have to check for.

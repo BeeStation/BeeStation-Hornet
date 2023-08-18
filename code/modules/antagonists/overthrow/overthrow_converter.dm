@@ -41,7 +41,7 @@
 		to_chat(user, "<span class='danger'>This mind is too strong to convert, try to remove whatever is protecting it first!</span>")
 		return
 	M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>")
-	if(do_mob(user, M, 50))
+	if(do_after(user, 5 SECONDS, M))
 		if(convert(M,user))
 			M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
 			uses--

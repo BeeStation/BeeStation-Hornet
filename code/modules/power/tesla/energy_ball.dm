@@ -10,14 +10,14 @@
 	anchored = TRUE
 	appearance_flags = LONG_GLIDE
 	density = TRUE
-	layer = MASSIVE_OBJ_LAYER
+	plane = MASSIVE_OBJ_PLANE
+	zmm_flags = ZMM_WIDE_LOAD
 	light_range = 6
 	move_resist = INFINITY
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
 	pixel_x = -32
 	pixel_y = -32
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	flags_1 = SUPERMATTER_IGNORES_1
 	var/target
 	var/list/orbiting_balls = list()
 	dissipate = TRUE //Do we lose energy over time?
@@ -103,7 +103,7 @@
 		energy_to_raise = energy_to_raise * 1.25
 
 		playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, 1, extrarange = 30)
-		addtimer(CALLBACK(src, .proc/new_mini_ball), 100)
+		addtimer(CALLBACK(src, PROC_REF(new_mini_ball)), 100)
 
 	else if(energy < energy_to_lower && orbiting_balls.len)
 		energy_to_raise = energy_to_raise / 1.25
@@ -293,7 +293,7 @@
 	//Alright, we've done our loop, now lets see if was anything interesting in range
 	if(closest_atom)
 		//common stuff
-		source.Beam(closest_atom, icon_state="lightning[rand(1,12)]", time=5, maxdistance = INFINITY)
+		source.Beam(closest_atom, icon_state="lightning[rand(1,12)]", time = 5)
 		if(!(tesla_flags & TESLA_ALLOW_DUPLICATES))
 			LAZYSET(shocked_targets, closest_atom, TRUE)
 		var/zapdir = get_dir(source, closest_atom)

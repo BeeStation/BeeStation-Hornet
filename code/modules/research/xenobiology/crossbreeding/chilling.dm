@@ -142,6 +142,7 @@ Chilling extracts:
 	effect_desc = "Touching people with this extract adds them to a list, when it is activated it teleports everyone on that list to the user."
 	var/list/allies = list()
 	var/active = FALSE
+	dangerous = TRUE
 
 /obj/item/slimecross/chilling/bluespace/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !isliving(target) || active)
@@ -165,6 +166,8 @@ Chilling extracts:
 		S.target = user
 	if(do_after(user, 100, target=src))
 		to_chat(user, "<span class='notice'>[src] shatters as it tears a hole in reality, snatching the linked individuals from the void!</span>")
+		log_game("[user] has activated [src] at [AREACOORD(user)]")
+		message_admins("[ADMIN_LOOKUPFLW(user)] has activated [src] at [ADMIN_VERBOSEJMP(user)]")
 		for(var/mob/living/M in allies)
 			var/datum/status_effect/slimerecall/S = M.has_status_effect(/datum/status_effect/slimerecall)
 			M.remove_status_effect(S)
@@ -281,7 +284,7 @@ Chilling extracts:
 
 /obj/item/slimecross/chilling/oil/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] begins to shake with muted intensity!</span>")
-	addtimer(CALLBACK(src, .proc/boom), 50)
+	addtimer(CALLBACK(src, PROC_REF(boom)), 50)
 
 /obj/item/slimecross/chilling/oil/proc/boom()
 	explosion(get_turf(src), -1, -1, 10, 0) //Large radius, but mostly light damage, and no flash.

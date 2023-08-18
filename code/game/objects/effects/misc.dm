@@ -21,6 +21,18 @@
 /obj/effect/spawner
 	name = "object spawner"
 
+// Brief explanation:
+// Rather then setting up and then deleting spawners, we block all atomlike setup
+// and do the absolute bare minimum
+// This is with the intent of optimizing mapload
+/obj/effect/spawner/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/Destroy(force)
+	SHOULD_CALL_PARENT(FALSE)
+	moveToNullspace()
+
 /obj/effect/list_container
 	name = "list container"
 
@@ -43,7 +55,7 @@
 /obj/effect/overlay/thermite/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -59,7 +71,6 @@
 	icon = 'icons/effects/alphacolors.dmi'
 	icon_state = "white"
 	plane = LIGHTING_PLANE
-	layer = LIGHTING_LAYER
 	blend_mode = BLEND_ADD
 
 /obj/effect/abstract/marker
