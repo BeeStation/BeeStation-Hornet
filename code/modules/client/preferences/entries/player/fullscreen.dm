@@ -1,5 +1,6 @@
 /datum/preference/toggle/fullscreen
 	db_key = "fullscreen"
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	preference_type = PREFERENCE_PLAYER
 	default_value = FALSE
 
