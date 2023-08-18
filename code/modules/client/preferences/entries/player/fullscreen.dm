@@ -5,8 +5,6 @@
 	default_value = FALSE
 
 /datum/preference/toggle/fullscreen/apply_to_client(client/client, value)
-	if (isobserver(client?.mob))
-		client?.mob.hud_used?.show_hud()
 	if (value)
 		// Delete the menu
 		winset(client, "mainwindow", "menu=\"\"")
