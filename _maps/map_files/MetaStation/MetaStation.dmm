@@ -4406,13 +4406,13 @@
 /area/maintenance/starboard)
 "avt" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /obj/structure/railing{
 	dir = 4;
 	layer = 3.2
 	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "avY" = (
 /obj/machinery/door/airlock/external{
 	name = "Labor Camp Shuttle Airlock";
@@ -28970,14 +28970,12 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "doR" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "doU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -29346,12 +29344,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
-"duB" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
 "duE" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -31024,9 +31016,6 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "ebq" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
@@ -31034,8 +31023,9 @@
 	c_tag = "Asteroid Bay Control";
 	dir = 1
 	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "ebu" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -33850,13 +33840,11 @@
 /area/hallway/primary/central)
 "fng" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 8
-	},
 /obj/machinery/recharger,
 /obj/structure/table,
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "fnm" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -33926,8 +33914,9 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "fpi" = (
 /obj/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -35695,6 +35684,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"fWc" = (
+/obj/machinery/door/airlock/external{
+	name = "Mining Dock Airlock"
+	},
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "fWf" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/grid/steel,
@@ -39166,12 +39161,9 @@
 /area/security/prison)
 "huR" = (
 /obj/machinery/computer/asteroid_magnet_controller,
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "huT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -44080,12 +44072,6 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"jzf" = (
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
 "jzU" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L9"
@@ -45896,12 +45882,6 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/prison)
-"kmq" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
 "kmB" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -48244,6 +48224,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"lja" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "ljp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -62149,15 +62141,13 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "reY" = (
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 4
-	},
 /obj/structure/railing{
 	dir = 4;
 	layer = 3.2
 	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "rfV" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/table,
@@ -64752,12 +64742,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"sjf" = (
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
 "sjC" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -66415,13 +66399,11 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
 "sRS" = (
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 1
-	},
 /obj/machinery/recharger,
 /obj/structure/table,
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
+/obj/structure/lattice/catwalk,
+/turf/open/space/basic,
+/area/space/nearstation)
 "sRT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -69046,12 +69028,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
-"tXS" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless/dark,
-/area/quartermaster/miningoffice)
 "tYe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -72973,9 +72949,6 @@
 /turf/open/floor/plasteel,
 /area/medical/patients_rooms)
 "vJh" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
@@ -91465,7 +91438,7 @@ diz
 diz
 diz
 diz
-aDb
+diz
 rKh
 aWY
 aYE
@@ -92740,8 +92713,8 @@ aaa
 aaa
 aaa
 aie
-sjf
-tXS
+aie
+aie
 ebq
 aDb
 diz
@@ -92999,7 +92972,7 @@ aaa
 iCQ
 huR
 fpc
-kmq
+aie
 aDb
 diz
 diz
@@ -93254,8 +93227,8 @@ aaa
 aaa
 aaa
 aie
-jzf
-duB
+aie
+aie
 doR
 aDb
 diz
@@ -95562,9 +95535,9 @@ aaa
 aaa
 dhC
 ayj
+ayi
 aBS
-aBS
-aBS
+fWc
 ayj
 lMJ
 aaa
@@ -97352,7 +97325,7 @@ fFu
 atu
 dnk
 dnk
-tfz
+lja
 ayj
 kSC
 rnY
