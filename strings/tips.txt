@@ -292,7 +292,6 @@ Hypnotic flashes will only induce a trance under certain conditions: the target 
 Advanced surgeries can only be started on an operating table. Don't try to start a revival surgery on a stasis bed, you won't see the option.
 Don't overuse bruise packs or ointment on people, as these contain styptic powder and silver sulfadiazine respectively, which are capable of overdosing someone and causing suffocation damage if overused!
 Wound tending surgery works perfectly fine on IPCs. Don't question it.
-You can throw a pair of gloves and a crayon in a washing machine to dye the gloves, making them appear as simple colored gloves, while keeping any properties (such as insulation) the gloves have!
 The brain traumas associated with hypnotic flashes and obsessions can only be cured through surgery — nanites and viruses will completely ignore them!
 You can free someone from an abductor-induced brainwashing by replacing the fleshy gland in their chest with a proper heart, and then performing a lobotomy on them.
 Changeling transformation stings can be reversed using clonexadone — it does not require a specific unit amount, and instead will be reversed after clonexadone has been in the victim's body for about a minute or so.
