@@ -114,3 +114,6 @@
 		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holder.holoparasites)
 			to_chat(holopara, "<span class='notice holoparasite'>Your summoner has <b>unlocked</b> you, allowing you to manifest freely again.</span>")
 			holopara.balloon_alert(holopara, "unlocked", show_in_chat = FALSE)
+			if(holopara.hud_used)
+				var/atom/movable/screen/holoparasite/manifest_recall/mr_hud = locate() in holopara.hud_used.static_inventory
+				mr_hud?.update_appearance()

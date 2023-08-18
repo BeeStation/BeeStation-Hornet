@@ -320,6 +320,9 @@
 	else
 		owner.manifest()
 
+/atom/movable/screen/holoparasite/manifest_recall/should_be_transparent()
+	return owner.parent_holder.locked
+
 /atom/movable/screen/holoparasite/communicate
 	name = "Communicate"
 	desc = "Communicate telepathically with your summoner. Nobody except yourself, your summoner, and any other holoparasites linked to your summoner can hear this communication.\nYou can also use :p / .p in order to communicate."
