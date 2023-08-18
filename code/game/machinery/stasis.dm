@@ -22,7 +22,7 @@
 // dir check for buckle_lying state
 /obj/machinery/stasis/Initialize()
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
-	dir_changed()
+	dir_changed(new_dir = dir)
 	return ..()
 
 /obj/machinery/stasis/Initialize(mapload)
