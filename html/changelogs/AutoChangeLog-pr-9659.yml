@@ -1,8 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - refactor: Refactored mentor loading, and moved it before preferences fixing mentor-related
-      prefs and keybinds.
-  - bugfix: Improved handling of "mentor datum created without a ckey" case, making
-      it more clear what caused it.
-  - bugfix: Added a check to prevent admins from adding an empty ckey as a mentor.
