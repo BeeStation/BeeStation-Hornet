@@ -3,12 +3,12 @@
 	greyscale_colors = "#545454#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"
 	desc = "A pair of black shoes."
 	custom_price = 20
-	greyscale_colors = "#545454#ffffff"
 
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
@@ -50,17 +50,20 @@
 	name = "rainbow shoes"
 	desc = "Very gay shoes."
 	icon_state = "rain_bow"
+
 	greyscale_colors = null
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/sneakers/orange
 	name = "orange shoes"
 	greyscale_colors = "#eb7016#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers_orange
 	greyscale_config_worn = /datum/greyscale_config/sneakers_orange_worn
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/sneakers/orange/attack_self(mob/user)
 	if (src.chained)
@@ -98,3 +101,24 @@
 			if(!do_after(hummie,15 SECONDS, src))
 				return FALSE
 	return ..()
+
+/obj/item/clothing/shoes/sneakers/mime
+	name = "mime shoes"
+	greyscale_colors = "#ffffff#ffffff"
+
+/obj/item/clothing/shoes/sneakers/marisa
+	desc = "A pair of magic black shoes."
+	name = "magic shoes"
+	worn_icon_state = "marisa"
+	greyscale_colors = "#545454#ffffff"
+	greyscale_config = /datum/greyscale_config/sneakers_marisa
+	greyscale_config_worn = null
+	strip_delay = 5
+	equip_delay_other = 50
+	permeability_coefficient = 0.9
+	resistance_flags = FIRE_PROOF |  ACID_PROOF
+
+/obj/item/clothing/shoes/sneakers/cyborg
+	name = "cyborg boots"
+	desc = "Shoes for a cyborg costume."
+	greyscale_colors = "#4e4e4e#4e4e4e"

@@ -1,5 +1,7 @@
 /obj/item/clothing/under/color
+	name = "jumpsuit"
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
+	dying_key = DYE_REGISTRY_UNDER
 	greyscale_colors = "#3f3f3f"
 	greyscale_config = /datum/greyscale_config/jumpsuit
 	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
@@ -10,7 +12,7 @@
 	worn_icon_state = "jumpsuit"
 	worn_icon = 'icons/mob/clothing/uniform.dmi'
 	supports_variations = DIGITIGRADE_VARIATION
-	dying_key = DYE_REGISTRY_UNDER
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/under/color/jumpskirt
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
@@ -22,7 +24,6 @@
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
-	can_adjust = FALSE
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	..()
@@ -226,11 +227,12 @@
 	desc = "A multi-colored jumpsuit!"
 	icon_state = "rainbow"
 	item_state = "rainbow"
-	can_adjust = FALSE
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	can_adjust = FALSE
+	flags_1 = NONE
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
 	name = "rainbow jumpskirt"
@@ -241,3 +243,5 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	can_adjust = FALSE
+	flags_1 = NONE
