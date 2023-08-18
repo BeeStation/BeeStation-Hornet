@@ -111,5 +111,5 @@ SUBSYSTEM_DEF(parallax)
 	if (!random_colour_assigned)
 		random_parallax_color = pick(COLOR_TEAL, COLOR_GREEN, COLOR_SILVER, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE, COLOR_PURPLE)//Special color for random_layer1. Has to be done here so everyone sees the same color.
 		random_colour_assigned = TRUE
-		set_starlight_colour(color_lightness_max(random_parallax_color, 0.9), 0)
+		set_starlight_colour(color_lightness_max(random_parallax_color, 0.75), 0)
 	return random_parallax_color
