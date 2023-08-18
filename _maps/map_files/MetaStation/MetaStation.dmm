@@ -19312,10 +19312,6 @@
 "bPy" = (
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
-"bPz" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "bPD" = (
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating{
@@ -22623,10 +22619,6 @@
 	dir = 8
 	},
 /turf/open/floor/engine/o2,
-/area/engine/atmos)
-"cji" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/air,
 /area/engine/atmos)
 "cjj" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -122669,7 +122661,7 @@ cei
 cfy
 cgB
 chT
-cji
+ckI
 ckI
 bAR
 aaf
@@ -125224,7 +125216,7 @@ bJd
 bKJ
 bMn
 bAR
-bPz
+bPy
 bQZ
 bSl
 bAR

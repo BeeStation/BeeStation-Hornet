@@ -51718,10 +51718,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plasteel/dark/side,
 /area/engine/atmos)
-"nwz" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/air/light,
-/area/engine/atmos)
 "nwC" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/secure/safe/caps_spare{
@@ -70697,7 +70693,6 @@
 "sgB" = (
 /obj/machinery/atmospherics/miner/plasma,
 /obj/machinery/light/floor,
-/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine/plasma/light,
 /area/engine/atmos)
 "sgY" = (
@@ -143111,7 +143106,7 @@ wNp
 lVB
 fVd
 vEb
-nwz
+wVT
 wVT
 cKm
 ufF
