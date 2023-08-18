@@ -2240,6 +2240,7 @@
 #include "code\modules\client\preferences\entries\character\species_features\mutants.dm"
 #include "code\modules\client\preferences\entries\character\species_features\plasmaman.dm"
 #include "code\modules\client\preferences\entries\player\admin.dm"
+#include "code\modules\client\preferences\entries\player\afk.dm"
 #include "code\modules\client\preferences\entries\player\ambient_occlusion.dm"
 #include "code\modules\client\preferences\entries\player\auto_fit_viewport.dm"
 #include "code\modules\client\preferences\entries\player\buttons_locked.dm"

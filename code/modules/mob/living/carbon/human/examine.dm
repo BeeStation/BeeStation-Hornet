@@ -310,7 +310,7 @@
 				msg += "<span class='deadsay'>[t_He] do[t_es]n't appear to be [t_him]self.</span>\n"
 			if(!key)
 				msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
-			else if(!client)
+			else if(!client || (client && client.is_afk(client.prefs.read_player_preference(/datum/preference/numeric/afk_time) MINUTES)))
 				msg += "[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.\n"
 
 	//handcuffed?
