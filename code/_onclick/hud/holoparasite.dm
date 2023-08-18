@@ -321,7 +321,7 @@
 		owner.manifest()
 
 /atom/movable/screen/holoparasite/manifest_recall/should_be_transparent()
-	return owner.parent_holder.locked
+	return ..() || owner.parent_holder.locked
 
 /atom/movable/screen/holoparasite/communicate
 	name = "Communicate"
