@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: made examining the power fist show mols and pressure of the mounted tank
+  - bugfix: fixes the power fist not working
