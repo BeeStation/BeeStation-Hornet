@@ -115,6 +115,10 @@
 		attached_can.release_pressure = clamp(round(pressure), attached_can.can_min_release_pressure, attached_can.can_max_release_pressure)
 		investigate_log("[attached_can.name] was set to [pressure] kPa by [parent.get_creator()]'s circuit'.", INVESTIGATE_ATMOS)
 
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/gags_recolorable)
+
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Error - Unauthorized User</span>")
