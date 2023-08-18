@@ -579,6 +579,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.clients -= src
 	GLOB.mentors -= src
 	SSambience.remove_ambience_client(src)
+	SSping.currentrun -= src
 	Master.UpdateTickRate()
 	return ..()
 
