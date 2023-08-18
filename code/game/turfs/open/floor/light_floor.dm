@@ -11,6 +11,7 @@
 	var/currentcolor = 1
 	var/can_modify_colour = TRUE
 	tiled_dirt = FALSE
+	max_integrity = 250
 
 
 /turf/open/floor/light/examine(mob/user)

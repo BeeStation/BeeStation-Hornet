@@ -84,6 +84,7 @@
 	desc = "If you see this, and you're not a ghost, yell at coders"
 	icon = 'icons/turf/debug.dmi'
 	icon_state = "genturf"
+	resistance_flags = INDESTRUCTIBLE
 	///Can be: null, GENTURF_HINT_OPEN or GENTURF_HINT_CLOSED
 	var/genturf_hint
 	///Should the generation be ran even if the area forbids it?

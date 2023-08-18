@@ -5,6 +5,7 @@
 	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
 	allow_z_travel = TRUE
+	resistance_flags = INDESTRUCTIBLE
 
 	FASTDMM_PROP(\
 		pipe_astar_cost = 100\

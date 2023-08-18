@@ -110,7 +110,7 @@
 	user.do_attack_animation(O)
 	O.attacked_by(src, user)
 
-/atom/movable/proc/attacked_by()
+/atom/proc/attacked_by()
 	return
 
 /obj/attacked_by(obj/item/I, mob/living/user)

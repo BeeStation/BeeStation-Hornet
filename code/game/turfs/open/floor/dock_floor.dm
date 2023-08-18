@@ -10,6 +10,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	intact = FALSE //Makes it clearer to players that pipes/wires are destroyed when a shuttle lands on them
+	max_integrity = 500
 
 /turf/open/floor/dock/crowbar_act(mob/living/user, obj/item/I)
 	return pry_tile(I, user)
