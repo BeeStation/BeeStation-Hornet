@@ -14,7 +14,7 @@ The resist button will allow you to resist out of handcuffs, being buckled to a 
 You can move an item out of the way by dragging it and then clicking on an adjacent tile with an empty hand.
 You can recolor certain items like jumpsuits and gloves in washing machines by also throwing in a crayon.
 Maintenance is full of equipment that is randomized every round. Look around and see if anything is worth using.
-Some roles cannot be antagonists by default, but antag selection is decided first. For instance, you can set Security Officer to High without affecting your chances of becoming an antag -- the game will just select a different role.
+Some roles cannot be antagonists by default, but antag selection is decided first. For instance, you can set Security Officer to High without affecting your chances of becoming an antag — the game will just select a different role.
 There are many places around the station to hide contraband. A few for starters: linen boxes, toilet cisterns, body bags. Experiment to find more!
 You can use a machine in the vault to deposit cash or rob Cargo's department funds.
 When in doubt about technicial issues, clear your cache (byond launcher > cogwheel > preferences > game prefs), update your BYOND, and relog.
@@ -50,6 +50,7 @@ As a Medical Doctor, treating plasmamen is not impossible! Salbutamol stops them
 As a Medical Doctor, you can point your penlight at people to create a medical hologram. This lets them know that you're coming to treat them.
 As a Medical Doctor, you can extract implants without breaking them by holding an empty implant case in your offhand while performing the extraction step.
 As a Medical Doctor, clone scanning people will implant them with a health tracker that displays their vitals in the clone records. Useful to check on crew members that didn't activate suit sensors!
+As a Medical Doctor, you can always reference the wiki for blood type compatibility: https://wiki.beestation13.com/view/Guide_to_medicine#Bleeding
 As a Chemist, there are dozens of chemicals that can heal, and even more that can cause harm. Experiment!
 As a Chemist, some chemicals can only be synthesized by heating up the contents with a chemical heater or manually with lighters and similar tools.
 As a Chemist, you will be expected to supply crew with certain chemicals. For example, clonexadone and mannitol for the cryo tubes, plastic for crafting purposes, unstable mutagen and saltpetre for botany as well as healing pills and patches for the front desk.
@@ -197,7 +198,7 @@ As a Traitor, subverting the AI to serve you can make it an extremely powerful a
 As a Traitor, the Captain and the Head of Security are two of the most difficult to kill targets on the station. If either one is your target, plan carefully.
 As a Traitor, you can manufacture and recycle revolver bullets at a hacked autolathe, making the revolver an extremely powerful tool.
 As a Traitor, you may sometimes be assigned to hunt other traitors, and in turn be hunted by others.
-As a Traitor, the syndicate encryption key is very useful for coordinating plans with your fellow traitors -- or, of course, betraying them.
+As a Traitor, the syndicate encryption key is very useful for coordinating plans with your fellow traitors — or, of course, betraying them.
 As a Traitor, plasma can be injected into many things to sabotage them. Power cells, light bulbs, welding tools, cigars and e-cigs will all explode when used.
 As a Nuclear Operative, communication is key! Use ; to speak to your fellow operatives and coordinate an attack plan.
 As a Nuclear Operative, you should look into purchasing a syndicate cyborg, as they can provide heavy fire support, full access, are immune to conventional stuns, and can easily take down the AI.
@@ -273,7 +274,7 @@ Fun fact: reading this (https://beestation13.com/rules) may lead to an increase 
 You can whisper by putting # before your message. You can also whisper in critical, however it may kill you depending on how hurt you are.
 Fore = north, aft = south, starboard = east and port = west.
 If you use a Cup Ramen on a sink twice, it becomes warm.
-Death is normal. Chances are you'll get cloned, anyways.
+Death is normal. Chances are you'll get revived, anyways.
 Emping the AI has a chance to call the emergency shuttle.
 Beating revolutionaries over the head has a chance to deconvert them.
 You can examine someone to tell if their red eyes are natural or cultist.
@@ -281,3 +282,19 @@ You can put holy water in darts to make them more effective against cultists. Or
 Don't know what a word means? https://wiki.beestation13.com/view/Terminology
 You are able to block with most weapons! Being on any intent but harm and walking speed allows almost anything to block. More info: https://wiki.beestation13.com/view/Guide_to_Combat#Blocking
 Embedded items can be removed safely using a hemostat. If you don't have one on hand, try using a screwdriver or wirecutters; get creative!
+Whenever you have a corpse that's not on a stasis bed, jab them with an epi-pen, as they contain formaldehyde, which will halt organ decay.
+The tools in the surgical toolset arm are the second fastest surgical tools available, outsped only by alien tools.
+There are multiple ways to make surgery steps take less time. Operating tables will provide a speed boost compared to stasis beds (and alien operating tables even more so), surgery on sleeping or dead patients will be faster than awake patients, and various reagents such as honey, sterilizer spray, or alcohol can be applied after a surgery is started to provide a minor speed boost.
+You can use Cortex Imprint surgery, unlocked by Experimental Surgery tech, in order to render someone immune to mild brain traumas. This will not heal damage to the brain itself, however.
+Inacusiate will instantly heal all hearing damage whenever it is ingested, regardless of the amount ingested. A 0.1 unit pill will cure deafness just fine.
+The Mind Control nanite program, unlocked with Hazard Nanite Programs (which itself requires Alien Technology), completely bypasses mindshields, however it only lasts for 1 minute, and has a 3 minute cooldown before it can be triggered again.
+Hypnotic flashes will only induce a trance under certain conditions: the target must not be mindshielded, and they must either be asleep, hallucinating, suffering from reduced brain activity, or have low sanity.
+Advanced surgeries can only be started on an operating table. Don't try to start a revival surgery on a stasis bed, you won't see the option.
+Don't overuse bruise packs or ointment on people, as these contain styptic powder and silver sulfadiazine respectively, which are capable of overdosing someone and causing suffocation damage if overused!
+Wound tending surgery works perfectly fine on IPCs. Don't question it.
+You can throw a pair of gloves and a crayon in a washing machine to dye the gloves, making them appear as simple colored gloves, while keeping any properties (such as insulation) the gloves have!
+The brain traumas associated with hypnotic flashes and obsessions can only be cured through surgery — nanites and viruses will completely ignore them!
+You can free someone from an abductor-induced brainwashing by replacing the fleshy gland in their chest with a proper heart, and then performing a lobotomy on them.
+Changeling transformation stings can be reversed using clonexadone — it does not require a specific unit amount, and instead will be reversed after clonexadone has been in the victim's body for about a minute or so.
+When performing wound tending or blood filtering surgery, you can hold a health analyzer in your other hand in order to see how much damage is remaining on your patient.
+Oozelings can hug flaming people in order to help extinguish them.
