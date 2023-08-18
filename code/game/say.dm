@@ -49,11 +49,13 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		create_chat_message(src, message_language, show_overhead_message_to, message, spans, message_mods)
 
 /// this creates runechat, so that they can communicate better
-/atom/movable/proc/create_private_chat_message(message, datum/language/message_language=/datum/language/metalanguage, list/hearers)
+/atom/movable/proc/create_private_chat_message(message, datum/language/message_language=/datum/language/metalanguage, list/hearers, includes_ghosts=TRUE)
 	if(!hearers || !islist(hearers))
 		return
+	if(includes_ghosts)
+		hearers += GLOB.dead_mob_list.Copy()
 	var/list/runechat_readers = list()
-	for(var/mob/each_mob in hearers+GLOB.dead_mob_list)
+	for(var/mob/each_mob in hearers)
 		if(!each_mob.should_show_chat_message(src, message_language))
 			continue
 		runechat_readers += each_mob

@@ -12,6 +12,9 @@
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
 
+	/// Acts the same way holder does towards admin: it holds the mentor datum. if set, the client is a mentor.
+	var/datum/mentors/mentor_datum = null
+
 	/// Whether the client has ai interacting as a ghost enabled or not
 	var/AI_Interact		= 0
 

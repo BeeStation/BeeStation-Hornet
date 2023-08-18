@@ -178,12 +178,15 @@
 		return
 	..()
 
-/obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/living/user, obj/item/multitool/I)
-	if (istype(I) && istype(I.buffer,/obj/machinery/monkey_recycler))
-		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-		connected_recycler = I.buffer
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
+	if (istype(buffer,/obj/machinery/monkey_recycler) && connected_recycler != buffer)
+		to_chat(user, "<span class='notice'>You link [src] with [buffer] in [buffer_parent] buffer.</span>")
+		connected_recycler = buffer
 		connected_recycler.connected += src
-		return TRUE
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /datum/action/innate/slime_place
 	name = "Place Slimes"
