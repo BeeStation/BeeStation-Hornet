@@ -122,7 +122,7 @@
 	if(!chassis)
 		return
 	var/C = chassis.loc
-	. = do_after(chassis.occupant, delay, target=target, add_item = src)
+	. = do_after(chassis.occupant, delay, target=target, add_item = src, show_to_target = TRUE)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target)&chassis.dir))
 		return 0
 
