@@ -12,7 +12,7 @@
 	bioware_target = BIOWARE_CIRCULATION
 
 /datum/surgery_step/muscled_veins
-	name = "shape vein muscles"
+	name = "shape vein muscles (hand)"
 	accept_hand = TRUE
 	time = 125
 

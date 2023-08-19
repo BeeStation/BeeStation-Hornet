@@ -12,7 +12,7 @@
 	bioware_target = BIOWARE_NERVES
 
 /datum/surgery_step/splice_nerves
-	name = "splice nerves"
+	name = "splice nerves (hand)"
 	accept_hand = TRUE
 	time = 155
 

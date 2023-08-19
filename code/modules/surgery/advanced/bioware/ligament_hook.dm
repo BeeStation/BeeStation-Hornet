@@ -13,7 +13,7 @@
 	bioware_target = BIOWARE_LIGAMENTS
 
 /datum/surgery_step/reshape_ligaments
-	name = "reshape ligaments"
+	name = "reshape ligaments (hand)"
 	accept_hand = TRUE
 	time = 125
 
