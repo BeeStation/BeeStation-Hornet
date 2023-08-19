@@ -1,5 +1,0 @@
-author: Impish_Delights
-delete-after: true
-changes:
-  - tweak: Hoods for winter coats/hoodies/explorer suits are now stored in nullspace
-      instead of the suit's inventory
