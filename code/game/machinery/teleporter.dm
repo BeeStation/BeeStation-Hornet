@@ -198,7 +198,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
 			if(linked_stations.len < efficiency)
 				linked_stations.Add(buffer)
 				buffer = null
-				to_chat(user, "<span class='notion'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
+				to_chat(user, "<span class='notice'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
 			return COMPONENT_BUFFER_RECIEVED
