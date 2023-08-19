@@ -10,7 +10,7 @@
 		),
 		list(
 			"stat" = "Potential",
-			"desc" = "Increases the armor pentration of projectiles."
+			"desc" = "Increases the armor penetration of projectiles."
 		)
 	)
 
