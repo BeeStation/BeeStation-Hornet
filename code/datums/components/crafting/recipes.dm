@@ -1159,3 +1159,23 @@
 	reqs = list(/obj/item/stack/sheet/mineral/silver = 1, /obj/item/stack/sheet/glass = 2)
 	tools = list(TOOL_WRENCH)
 	category = CAT_STRUCTURE
+
+/datum/crafting_recipe/anesthetic_machine
+	name = "Anesthetic Tank Holder"
+	result = /obj/machinery/anesthetic_machine
+	time = 10 SECONDS
+	reqs = list(/obj/item/stack/sheet/iron = 10,
+				/obj/item/stack/rods = 5,
+				/obj/item/clothing/mask/breath = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
+	category = CAT_STRUCTURE
+
+/datum/crafting_recipe/iv_drip
+	name = "IV Drip"
+	result = /obj/machinery/iv_drip
+	time = 10 SECONDS
+	reqs = list(/obj/item/stack/sheet/iron = 10,
+				/obj/item/stack/rods = 5,
+				/obj/item/reagent_containers/syringe = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
+	category = CAT_STRUCTURE
