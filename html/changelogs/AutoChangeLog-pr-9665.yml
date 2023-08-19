@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed a load of runtimes
+  - bugfix: Fixed assets not properly sending in the permissions panel
