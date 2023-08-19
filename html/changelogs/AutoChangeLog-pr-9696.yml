@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixed maps having the "omnibelt" parent object instead of toolbelts
