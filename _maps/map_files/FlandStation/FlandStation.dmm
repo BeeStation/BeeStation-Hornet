@@ -22412,7 +22412,6 @@
 /area/hallway/primary/central)
 "fOU" = (
 /obj/structure/table,
-/obj/item/storage/belt,
 /obj/item/radio,
 /obj/machinery/light{
 	dir = 4
@@ -22426,6 +22425,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/storage/belt/utility,
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
