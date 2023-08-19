@@ -1,7 +1,7 @@
 #define ATMOSBOT_MAX_AREA_SCAN 100
 #define ATMOSBOT_HOLOBARRIER_COOLDOWN 150
 
-#define ATMOSBOT_MAX_PRESSURE_CHANGE 5
+#define ATMOSBOT_MAX_PRESSURE_CHANGE 1
 #define ATMOSBOT_MAX_SCRUB_CHANGE 0.4
 
 #define ATMOSBOT_CHECK_BREACH 0
@@ -202,7 +202,10 @@
 
 /mob/living/simple_animal/bot/atmosbot/proc/vent_air()
 	//Just start pumping out air
+	var/turf/source_turf = get_turf(src)
 	for (var/turf/T in RANGE_TURFS(atmos_range, src))
+		if (!inLineOfSight(source_turf.x, source_turf.y, T.x, T.y, T.z))
+			continue
 		var/datum/gas_mixture/environment = T.return_air()
 		var/environment_pressure = environment.return_pressure()
 
@@ -220,6 +223,8 @@
 
 /mob/living/simple_animal/bot/atmosbot/proc/scrub_toxins()
 	for (var/turf/T in RANGE_TURFS(atmos_range, src))
+		if (!inLineOfSight(source_turf.x, source_turf.y, T.x, T.y, T.z))
+			continue
 		var/datum/gas_mixture/environment = T.return_air()
 		for(var/G in gasses)
 			if(gasses[G])
