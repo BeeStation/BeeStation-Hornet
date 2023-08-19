@@ -222,6 +222,7 @@
 	new /obj/effect/temp_visual/vent_wind(get_turf(src))
 
 /mob/living/simple_animal/bot/atmosbot/proc/scrub_toxins()
+	var/turf/source_turf = get_turf(src)
 	for (var/turf/T in RANGE_TURFS(atmos_range, src))
 		if (!inLineOfSight(source_turf.x, source_turf.y, T.x, T.y, T.z))
 			continue
