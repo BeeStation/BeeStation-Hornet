@@ -25729,7 +25729,6 @@
 /area/bridge/showroom/corporate)
 "cES" = (
 /obj/structure/table,
-/obj/item/storage/belt,
 /obj/item/radio,
 /obj/item/radio,
 /obj/item/radio,
@@ -25739,6 +25738,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
+/obj/item/storage/belt/utility,
 /turf/open/floor/plasteel,
 /area/gateway)
 "cET" = (
@@ -62581,11 +62581,11 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "mVG" = (
-/obj/item/storage/belt,
 /obj/item/radio,
 /obj/machinery/light,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/storage/belt/utility,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "mVL" = (

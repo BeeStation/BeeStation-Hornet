@@ -338,14 +338,22 @@
 		balloon_alert(user, "You start slicing apart [src]...")
 		if(W.use_tool(src, user, 40, volume=50))
 			balloon_alert(user, "You slice [src] apart.")
-			var/obj/item/stack/sheet/runed_metal/R = new(drop_location(), 1)
-			transfer_fingerprints_to(R)
+			var/drop_loc = drop_location()
+			var/obj/item/stack/sheet/runed_metal/R = new(drop_loc, 1)
+			if(QDELETED(R))
+				R = locate(/obj/item/stack/sheet/runed_metal) in drop_loc
+			if(R)
+				transfer_fingerprints_to(R)
 			qdel(src)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through [src]!</span>")
-		var/obj/item/stack/sheet/runed_metal/R = new(drop_location(), 2)
-		transfer_fingerprints_to(R)
+		var/drop_loc = drop_location()
+		var/obj/item/stack/sheet/runed_metal/R = new(drop_loc, 2)
+		if(QDELETED(R))
+			R = locate(/obj/item/stack/sheet/runed_metal) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
 		W.play_tool_sound(src)
 		qdel(src)
 
@@ -417,14 +425,22 @@
 		balloon_alert(user, "You start slicing apart [src]...")
 		if(W.use_tool(src, user, 40, volume=50))
 			balloon_alert(user, "You slice apart [src].")
-			var/obj/item/stack/sheet/bronze/B = new(drop_location(), 2)
-			transfer_fingerprints_to(B)
+			var/drop_loc = drop_location()
+			var/obj/item/stack/sheet/bronze/B = new(drop_loc, 2)
+			if(QDELETED(B))
+				B = locate(/obj/item/stack/sheet/bronze) in drop_loc
+			if(B)
+				transfer_fingerprints_to(B)
 			qdel(src)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through [src]!</span>")
-		var/obj/item/stack/sheet/bronze/B = new(drop_location(), 2)
-		transfer_fingerprints_to(B)
+		var/drop_loc = drop_location()
+		var/obj/item/stack/sheet/bronze/B = new(drop_loc, 2)
+		if(QDELETED(B))
+			B = locate(/obj/item/stack/sheet/bronze) in drop_loc
+		if(B)
+			transfer_fingerprints_to(B)
 		W.play_tool_sound(src)
 		qdel(src)
 

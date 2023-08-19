@@ -127,7 +127,6 @@
 		QDEL_NULL(chambered)
 	if(azoom)
 		QDEL_NULL(azoom)
-	UnregisterSignal(list(COMSIG_TWOHANDED_WIELD, COMSIG_TWOHANDED_UNWIELD))
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)

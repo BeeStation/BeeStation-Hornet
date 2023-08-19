@@ -229,16 +229,24 @@
 	if(!loc) //if already qdel'd somehow, we do nothing
 		return
 	if(!(flags_1&NODECONSTRUCT_1))
-		var/obj/R = new rods_type(drop_location(), rods_amount)
-		transfer_fingerprints_to(R)
+		var/drop_loc = drop_location()
+		var/obj/R = new rods_type(drop_loc, rods_amount)
+		if(QDELETED(R)) // the rods merged with something on the tile
+			R = locate(rods_type) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
 		qdel(src)
 	..()
 
 /obj/structure/grille/obj_break()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		new broken_type(src.loc)
-		var/obj/R = new rods_type(drop_location(), rods_broken)
-		transfer_fingerprints_to(R)
+		var/drop_loc = drop_location()
+		var/obj/R = new rods_type(drop_loc, rods_broken)
+		if(QDELETED(R)) // the rods merged with something on the tile
+			R = locate(rods_type) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
 		qdel(src)
 
 
