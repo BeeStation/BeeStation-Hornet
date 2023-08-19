@@ -327,10 +327,6 @@ datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0)
 	var/datum/progressbar/progbar
 	if(progress)
 		if(add_item)
-			//var/mutable_appearance/itemappearance = add_item.appearance
-			//itemappearance.color = add_item.color
-			//itemappearance.overlays = add_item.overlays
-			//itemappearance.underlays = add_item.underlays
 			progbar = new(user, delay, target || user, show_to_target, add_item.appearance, left_border, right_border, x_offset, y_offset, scale, targeted_client)
 		else
 			progbar = new(user, delay, target || user, show_to_target, targeted_client = targeted_client)

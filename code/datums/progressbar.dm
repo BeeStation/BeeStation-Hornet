@@ -99,7 +99,7 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 		animate(shown_image_darkened, pixel_y = 32 + y_image_offset + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
 
 /datum/progressbar/proc/update(progress)
-	if (!user || !user.client)
+	if ((!user || !user.client) && (!target_client))
 		shown = FALSE
 		return
 	if (user.client != client)
@@ -128,11 +128,12 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 		alpha_filter = filter(type = "alpha", x = -33 + leftmost_pixel + round(((progress / goal) * (rightmost_pixel - leftmost_pixel + 1)), 1) , y = 0, icon = alpha_icon)
 		shown_image.filters += alpha_filter
 	if (!shown)
-		if(show_bar)
+		if(show_bar && user && user?.client)
 			user.client.images += bar
 		if(shown_image)
-			user.client.images += shown_image
-			user.client.images += shown_image_darkened
+			if(user && user?.client)
+				user.client.images += shown_image
+				user.client.images += shown_image_darkened
 			if(target_client)
 				target_client?.images += shown_image
 				target_client?.images += shown_image_darkened

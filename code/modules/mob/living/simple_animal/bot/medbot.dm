@@ -476,6 +476,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			tip_over(H)
 
 	else if(H.a_intent == INTENT_HELP && tipped)
+		if(src in H.do_afters)
+			to_chat(H, "<span class='warning'>You're already trying to right [src]!</span>")
+			return
 		H.visible_message("<span class='notice'>[H] begins righting [src].</span>", "<span class='notice'>You begin righting [src]...</span>")
 		if(do_after(H, 3 SECONDS, target=src, show_to_target = TRUE))
 			set_right(H)
