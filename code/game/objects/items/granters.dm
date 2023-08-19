@@ -57,7 +57,7 @@
 			on_reading_stopped()
 			reading = FALSE
 			return
-	if(do_after(user, 5 SECONDS, user, add_item = TRUE))
+	if(do_after(user, 5 SECONDS, user, add_item = src))
 		on_reading_finished(user)
 	reading = FALSE
 	return TRUE
