@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed runtimes and fingerprints not getting properly applied when a stack
+      merges with something during deconstruction.
