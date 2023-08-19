@@ -25,11 +25,17 @@
 	var/list/acted_recently = list()
 	var/hijack_last_stage_increase = 0 SECONDS
 	var/hijack_stage_time = 5 SECONDS
-	var/hijack_stage_cooldown = 5 SECONDS
+	var/hijack_stage_cooldown = 2 SECONDS
 	var/hijack_flight_time_increase = 30 SECONDS
 	var/hijack_completion_flight_time_set = 10 SECONDS	//How long in deciseconds to set shuttle's timer after hijack is done.
 	var/hijack_hacking = FALSE
 	var/hijack_announce = TRUE
+
+	var/emag_multiplier = 2 //speed at which emag reduces time, increase to reduce time more.
+	var/emag_cooldown = 2 SECONDS //no spamming the emag ya dingus
+	var/emag_last_used = 0
+	var/emag_attempts = 0
+	var/emag_required_attempts = 0
 
 /obj/machinery/computer/emergency_shuttle/examine(mob/user)
 	. = ..()
@@ -171,12 +177,21 @@
 		return .
 
 	// Check to see if we've reached criteria for early launch
-	if((authorized.len >= auth_need) || (obj_flags & EMAGGED))
-		// shuttle timers use 1/10th seconds internally
-		SSshuttle.emergency.setTimer(ENGINES_START_TIME)
-		var/system_error = obj_flags & EMAGGED ? "SYSTEM ERROR:" : null
+	if(obj_flags & EMAGGED) //Check for emagging first because we want the silly console authorizations
+		if(emag_attempts <= emag_required_attempts)
+			return
+		var/reduced_time = TIME_LEFT / emag_multiplier * 10
+		if(reduced_time < ENGINES_START_TIME)
+			SSshuttle.emergency.setTimer(ENGINES_START_TIME)
+		else
+			SSshuttle.emergency.setTimer(reduced_time)
+		minor_announce("The emergency shuttle will launch in [TIME_LEFT] seconds", "SYSTEM ERROR:", alert=TRUE)
+		emag_required_attempts++
+		. = TRUE
+	else if(authorized.len >= auth_need)
+		SSshuttle.emergency.setTimer(ENGINES_START_TIME) //A proper authorization would give the okay to get the hell outta there
 		minor_announce("The emergency shuttle will launch in \
-			[TIME_LEFT] seconds", system_error, alert=TRUE)
+		[TIME_LEFT] seconds", "Emergency timer authorized", alert=TRUE)
 		. = TRUE
 
 /obj/machinery/computer/emergency_shuttle/proc/increase_hijack_stage()
@@ -211,7 +226,7 @@
 	if(SSshuttle.emergency.hijack_status >= HIJACKED)
 		to_chat(user, "<span class='warning'>The emergency shuttle is already loaded with a corrupt navigational payload. What more do you want from it?</span>")
 		return
-	if(hijack_last_stage_increase >= world.time + hijack_stage_cooldown)
+	if(hijack_last_stage_increase + world.time>=  hijack_stage_cooldown)
 		say("Error - Catastrophic software error detected. Input is currently on timeout.")
 		return
 	hijack_hacking = TRUE
@@ -253,31 +268,26 @@
 	// How did you even get on the shuttle before it go to the station?
 	if(!IS_DOCKED)
 		return FALSE
-	if(!..() || ENGINES_STARTED)
+	if(ENGINES_STARTED)
 		//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
 		to_chat(user, "<span class='warning'>The shuttle is already launching!</span>")
+		return FALSE
+	if((emag_last_used + emag_cooldown) >= world.time) //if emagging is on cooldown
+		say("Error - Catastrophic software error detected. Input is currently on timeout.")
 		return FALSE
 	return TRUE
 
 /obj/machinery/computer/emergency_shuttle/on_emag(mob/user)
 	..()
 	var/time = TIME_LEFT
-	message_admins("[ADMIN_LOOKUPFLW(user.client)] has emagged the emergency shuttle, [time] seconds before launch.")
-	log_game("[key_name(user)] has emagged the emergency shuttle in [COORD(src)] [time] seconds before launch.")
-
-	SSshuttle.emergency.movement_force = list("KNOCKDOWN" = 60, "THROW" = 20)//YOUR PUNY SEATBELTS can SAVE YOU NOW, MORTAL
-	var/datum/species/S = new
-	for(var/i in 1 to 10)
-		// the shuttle system doesn't know who these people are, but they
-		// must be important, surely
-		var/obj/item/card/id/ID = new(src)
-		var/datum/job/J = pick(SSjob.occupations)
-		ID.registered_name = S.random_name(pick(MALE, FEMALE))
-		ID.assignment = J.title
-
-		authorized += ID
-
-	process(SSMACHINES_DT)
+	if((obj_flags & EMAGGED))
+		SSshuttle.emergency.movement_force = list("KNOCKDOWN" = 60, "THROW" = 20)//YOUR PUNY SEATBELTS can SAVE YOU NOW, MORTAL
+		emag_attempts++
+		emag_last_used = world.time
+		message_admins("[ADMIN_LOOKUPFLW(user.client)] has emagged the emergency shuttle [emag_attempts] times, [time] seconds before launch.")
+		log_game("[key_name(user)] has emagged the emergency shuttle in [COORD(src)] [time] seconds before launch.  This has occurred [emag_attempts] times.")
+		process(SSMACHINES_DT)
+		return
 
 /obj/machinery/computer/emergency_shuttle/Destroy()
 	// Our fake IDs that the emag generated are just there for colour
