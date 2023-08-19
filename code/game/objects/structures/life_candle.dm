@@ -67,7 +67,7 @@
 	for(var/m in linked_minds)
 		var/datum/mind/mind = m
 		if(!mind.current || (mind.current && mind.current.stat == DEAD))
-			addtimer(CALLBACK(src, .proc/respawn, mind), respawn_time, TIMER_UNIQUE)
+			addtimer(CALLBACK(src, PROC_REF(respawn), mind), respawn_time, TIMER_UNIQUE)
 
 /obj/structure/life_candle/proc/respawn(datum/mind/mind)
 	var/turf/T = get_turf(src)
@@ -80,8 +80,7 @@
 	if(!body)
 		body = new mob_type(T)
 		var/mob/ghostie = mind.get_ghost(TRUE)
-		if(ghostie.client?.prefs)
-			ghostie.client.prefs.active_character.copy_to(body)
+		ghostie.client?.prefs?.safe_transfer_prefs_to(body)
 		mind.transfer_to(body)
 	else
 		body.forceMove(T)

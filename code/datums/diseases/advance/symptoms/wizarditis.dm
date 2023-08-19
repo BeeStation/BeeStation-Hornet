@@ -1,6 +1,6 @@
 /datum/symptom/wizarditis
 	name = "Wizarditis"
-	desc = "Causes the host to subconciously believe they are in fact, a wizard."
+	desc = "Causes the host to subconsciously believe they are in fact, a wizard."
 	stealth = 1
 	resistance = -2
 	stage_speed = -3

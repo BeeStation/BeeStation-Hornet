@@ -3,7 +3,6 @@
 	name = "massive gear"
 	icon_state = "wall_gear"
 	unanchored_icon = "wall_gear"
-	climbable = TRUE
 	max_integrity = 100
 	layer = BELOW_OBJ_LAYER
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
@@ -18,6 +17,7 @@
 /obj/structure/destructible/clockwork/wall_gear/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
+	AddElement(/datum/element/climbable)
 
 /obj/structure/destructible/clockwork/wall_gear/emp_act(severity)
 	return
@@ -35,8 +35,8 @@
 				to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 				deconstruct(TRUE)
 		return 1
-	else if(istype(I, /obj/item/stack/tile/brass))
-		var/obj/item/stack/tile/brass/W = I
+	else if(istype(I, /obj/item/stack/sheet/brass))
+		var/obj/item/stack/sheet/brass/W = I
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
 			return
@@ -69,5 +69,5 @@
 
 /obj/structure/destructible/clockwork/wall_gear/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1) && disassembled)
-		new /obj/item/stack/tile/brass(loc, 3)
+		new /obj/item/stack/sheet/brass(loc, 3)
 	return ..()

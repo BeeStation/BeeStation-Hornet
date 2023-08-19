@@ -36,14 +36,14 @@
 	name = "cult"
 	config_tag = "cult"
 	report_type = "cult"
-	antag_flag = ROLE_CULTIST
+	role_preference = /datum/role_preference/antagonist/blood_cultist
+	antag_datum = /datum/antagonist/cult
 	false_report_weight = 1
 	restricted_jobs = list(JOB_NAME_CHAPLAIN,JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL)
 	protected_jobs = list()
 	required_players = 29
 	required_enemies = 4
 	recommended_enemies = 4
-	enemy_minimum_age = 14
 
 	announce_span = "cult"
 	announce_text = "Some crew members are trying to start a cult to Nar'Sie!\n\
@@ -84,7 +84,7 @@
 	for(var/cultists_number = 1 to recommended_enemies)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultist = antag_pick(antag_candidates, ROLE_CULTIST)
+		var/datum/mind/cultist = antag_pick(antag_candidates, /datum/role_preference/antagonist/blood_cultist)
 		antag_candidates -= cultist
 		if(!cultist)
 			cultists_number--
@@ -95,6 +95,8 @@
 		log_game("[key_name(cultist)] has been selected as a cultist")
 
 	if(cultists_to_cult.len>=required_enemies)
+		for(var/antag in cultists_to_cult)
+			GLOB.pre_setup_antags += antag
 		return TRUE
 	else
 		setup_error = "Not enough cultist candidates"
@@ -106,6 +108,7 @@
 
 	for(var/datum/mind/cult_mind in cultists_to_cult)
 		add_cultist(cult_mind, 0, equip=TRUE, cult_team = main_cult)
+		GLOB.pre_setup_antags -= cult_mind
 
 	main_cult.setup_objectives() //Wait until all cultists are assigned to make sure none will be chosen as sacrifice.
 

@@ -35,12 +35,12 @@
 	var/mob/living/carbon/M = A.affected_mob
 	var/list/warningstrings = list()
 	switch(A.stage + severity)
-		if(4 to 5)
-			warningstrings = list("You feel buzzed", "You feel a bit tipsy")
 		if(6 to 7)
 			warningstrings = list("You feel drunk", "You feel a bit woozy")
 		if(8 to INFINITY)
 			warningstrings = list("ahyguabngaghabyugbauwf", "You feel sick", "It feels like you drank too much", "You feel like doing something unwise")
+		else
+			warningstrings = list("You feel buzzed", "You feel a bit tipsy")
 	M.drunkenness = CLAMP(M.drunkenness + target * ((A.stage - 1) * 0.1), M.drunkenness, target)
 	if(prob(5 * A.stage))
 		to_chat(M, "<span class='warning'>[pick(warningstrings)]</span>")

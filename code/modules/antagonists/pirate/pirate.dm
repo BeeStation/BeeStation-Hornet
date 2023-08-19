@@ -1,10 +1,18 @@
 /datum/antagonist/pirate
 	name = "Space Pirate"
-	job_rank = ROLE_TRAITOR
+	banning_key = ROLE_SPACE_PIRATE
 	roundend_category = "space pirates"
 	antagpanel_category = "Pirate"
 	show_to_ghosts = TRUE
 	var/datum/team/pirate/crew
+
+/datum/antagonist/pirate/captain
+	name = "Space Pirate Captain"
+
+/datum/antagonist/pirate/captain/on_gain()
+	. = ..()
+	var/mob/living/current = owner.current
+	set_antag_hud(current, "pirate-captain")
 
 /datum/antagonist/pirate/greet()
 	to_chat(owner, "<span class='boldannounce'>You are a Space Pirate!</span>")
@@ -12,6 +20,22 @@
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Pirate",
 		"The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot.")
+
+/datum/antagonist/pirate/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give pirate appearance on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/piratehud = GLOB.huds[ANTAG_HUD_PIRATE]
+	piratehud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "pirate")
+
+/datum/antagonist/pirate/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/piratehud = GLOB.huds[ANTAG_HUD_PIRATE]
+	piratehud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "pirate" || owner.antag_hud_icon_state == "pirate-captain")
+		set_antag_hud(owner.current, null)
 
 /datum/antagonist/pirate/get_team()
 	return crew
@@ -37,8 +61,20 @@
 		objectives |= crew.objectives
 	. = ..()
 
+/datum/antagonist/pirate/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/owner_mob = mob_override || owner.current
+	var/datum/language_holder/holder = owner_mob.get_language_holder()
+	holder.grant_language(/datum/language/piratespeak, TRUE, TRUE, LANGUAGE_PIRATE)
+	holder.selected_language = /datum/language/piratespeak
+
+/datum/antagonist/pirate/remove_innate_effects(mob/living/mob_override)
+	var/mob/living/owner_mob = mob_override || owner.current
+	owner_mob.remove_language(/datum/language/piratespeak, TRUE, TRUE, LANGUAGE_PIRATE)
+	return ..()
+
 /datum/team/pirate
-	name = "Pirate crew"
+	name = "Space Pirates"
 
 /datum/team/pirate/proc/forge_objectives()
 	var/datum/objective/loot/getbooty = new()
@@ -71,7 +107,7 @@
 	//Lists notable loot.
 	if(!cargo_hold || !cargo_hold.total_report)
 		return "Nothing"
-	cargo_hold.total_report.total_value = sortTim(cargo_hold.total_report.total_value, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
+	cargo_hold.total_report.total_value = sortTim(cargo_hold.total_report.total_value, cmp = GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
 	var/count = 0
 	var/list/loot_texts = list()
 	for(var/datum/export/E in cargo_hold.total_report.total_value)

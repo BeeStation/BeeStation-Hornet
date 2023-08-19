@@ -19,8 +19,8 @@
 	tracked = target
 	src.listener = listener
 
-	while(ismovableatom(target))
-		RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/move_react)
+	while(ismovable(target))
+		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
 		target = target.loc
 
 /// Stops tracking
@@ -28,7 +28,7 @@
 	if(!tracked)
 		return
 	var/atom/movable/target = tracked
-	while(ismovableatom(target))
+	while(ismovable(target))
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 		target = target.loc
 
@@ -43,13 +43,13 @@
 
 	if(oldloc && !isturf(oldloc))
 		var/atom/target = oldloc
-		while(ismovableatom(target))
+		while(ismovable(target))
 			UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 			target = target.loc
 	if(tracked.loc != newturf)
 		var/atom/target = mover.loc
-		while(ismovableatom(target))
-			RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/move_react, TRUE)
+		while(ismovable(target))
+			RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(move_react), TRUE)
 			target = target.loc
 
 	listener.Invoke(tracked, mover, oldloc, direction)

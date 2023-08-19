@@ -25,11 +25,11 @@
 /datum/viewData/proc/assertFormat()//T-Pose
 	winset(chief, "mapwindow.map", "zoom=0")
 
-/datum/viewData/proc/resetFormat()//Cuck
-	winset(chief, "mapwindow.map", "zoom=[chief.prefs.pixel_size]")
+/datum/viewData/proc/resetFormat()
+	winset(chief, "mapwindow.map", "zoom=[chief.prefs.read_player_preference(/datum/preference/numeric/pixel_size)]")
 
 /datum/viewData/proc/setZoomMode()
-	winset(chief, "mapwindow.map", "zoom-mode=[chief.prefs.scaling_method]")
+	winset(chief, "mapwindow.map", "zoom-mode=[chief.prefs.read_player_preference(/datum/preference/choiced/scaling_method)]")
 
 /datum/viewData/proc/isZooming()
 	return (width || height)
@@ -118,7 +118,10 @@
 	//Ready for this one?
 	setTo(radius)
 
-/proc/getScreenSize(mob/M) //IMPORTANT: If widescreen toggle preference gets ported, several uses of this proc need to be changed from FALSE to the player pref
-	if(CONFIG_GET(flag/menu_square_view) && M && istype(M, /mob/dead/new_player))
-		return "15x15"	//Return 15x15 for new players because we have normal sized menu screens
-	return CONFIG_GET(string/default_view) //IMPORTANT: If widescreen toggle preference gets ported, this needs to be set to the square view config
+/// Returns the size that the screen should be
+/proc/getScreenSize(mob/M)
+	// New players on the menu get the size of the lobby art
+	if(istype(M, /mob/dead/new_player))
+		return SStitle.lobby_screen_size
+	// Otherwise, they get the default view
+	return CONFIG_GET(string/default_view)

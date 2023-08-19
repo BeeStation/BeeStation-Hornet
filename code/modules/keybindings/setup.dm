@@ -34,9 +34,12 @@
 /client/proc/set_macros()
 	set waitfor = FALSE
 
+	var/list/macro_sets = SSinput.macro_sets
+	if(!length(macro_sets))
+		return
+
 	erase_all_macros()
 
-	var/list/macro_sets = SSinput.macro_sets
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
 		if(setname != "default")
@@ -46,8 +49,82 @@
 			var/key = macro_set[k]
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
-
-	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
+		winset(src, "[setname]-close-tgui-say", "parent=[setname];name=Escape;command=[tgui_say_create_close_command()]")
+	if(hotkeys)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
+
+	update_special_keybinds()
+
+
+/**
+  * Updates the keybinds for special keys
+  *
+  * Handles adding macros for the keys that need it
+  * At the time of writing this, communication(OOC, Say, IC) require macros
+  * Arguments:
+  * * direct_prefs - the preference we're going to get keybinds from
+  */
+/client/proc/update_special_keybinds(datum/preferences/direct_prefs)
+	var/datum/preferences/D = prefs || direct_prefs
+	if(!D?.key_bindings)
+		return
+
+	var/list/macro_sets = SSinput.macro_sets
+	if(!length(macro_sets))
+		return
+
+	var/use_tgui_say = !prefs || prefs.read_player_preference(/datum/preference/toggle/tgui_say)
+	var/use_tgui_asay = !prefs || prefs.read_player_preference(/datum/preference/toggle/tgui_asay)
+	var/say = use_tgui_say ? tgui_say_create_open_command(SAY_CHANNEL) : "\".winset \\\"command=\\\".start_typing say\\\";command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true\\\"\""
+	var/me = use_tgui_say ? tgui_say_create_open_command(ME_CHANNEL) : "\".winset \\\"command=\\\".start_typing me\\\";command=.init_me;mewindow.is-visible=true;mewindow.input.focus=true\\\"\""
+	var/ooc = use_tgui_say ? tgui_say_create_open_command(OOC_CHANNEL) : "ooc"
+	var/asay = use_tgui_asay ? tgui_say_create_open_command(ASAY_CHANNEL, "tgui_asay") : null
+	var/dsay = use_tgui_asay ? tgui_say_create_open_command(DSAY_CHANNEL, "tgui_asay") : null
+	var/msay = use_tgui_asay ? tgui_say_create_open_command(MSAY_CHANNEL, "tgui_asay") : null
+	var/radio = tgui_say_create_open_command(RADIO_CHANNEL)
+	var/looc = tgui_say_create_open_command(LOOC_CHANNEL)
+
+	var/is_mentor = is_mentor()
+
+	for(var/kb_name in D.key_bindings)
+		for(var/key in D.key_bindings[kb_name])
+			for(var/i in 1 to macro_sets.len)
+				var/setname = macro_sets[i]
+				switch(kb_name)
+					if("say")
+						winset(src, "[setname]-say", "parent=[setname];name=[key];command=[say]")
+					if("ooc")
+						winset(src, "[setname]-ooc", "parent=[setname];name=[key];command=[ooc]")
+					if("me")
+						winset(src, "[setname]-me", "parent=[setname];name=[key];command=[me]")
+				if(use_tgui_say)
+					switch(kb_name)
+						if("radio")
+							winset(src, "[setname]-radio", "parent=[setname];name=[key];command=[radio]")
+						if("looc")
+							winset(src, "[setname]-looc", "parent=[setname];name=[key];command=[looc]")
+				else
+					switch(kb_name)
+						if("radio")
+							winset(src, "[setname]-radio", "parent=null")
+						if("looc")
+							winset(src, "[setname]-looc", "parent=null")
+				if(holder)
+					switch(kb_name)
+						if("admin_say")
+							winset(src, "[setname]-asay", "parent=[setname];name=[key];command=[asay]")
+						if("dead_say")
+							winset(src, "[setname]-dsay", "parent=[setname];name=[key];command=[dsay]")
+				else
+					switch(kb_name)
+						if("admin_say")
+							winset(src, "[setname]-asay", "parent=null")
+						if("dead_say")
+							winset(src, "[setname]-dsay", "parent=null")
+				if(kb_name == "mentor_say")
+					if(is_mentor)
+						winset(src, "[setname]-msay", "parent=[setname];name=[key];command=[msay]")
+					else
+						winset(src, "[setname]-msay", "parent=null")

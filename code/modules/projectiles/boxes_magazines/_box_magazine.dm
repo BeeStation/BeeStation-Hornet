@@ -34,7 +34,7 @@
 			material_amount /= max_ammo
 			LAZYSET(bullet_cost, material, material_amount)
 	if(!start_empty)
-		for(var/i = 1, i <= max_ammo, i++)
+		for(var/i in 1 to max_ammo)
 			stored_ammo += new ammo_type(src)
 	update_icon()
 

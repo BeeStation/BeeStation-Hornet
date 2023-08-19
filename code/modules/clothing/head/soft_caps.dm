@@ -25,6 +25,12 @@
 			to_chat(user, "<span class='notice'>You flip the hat back in normal position.</span>")
 		user.update_inv_head()	//so our mob-overlays update
 
+/obj/item/clothing/head/soft/equipped(mob/user, slot)
+	if(slot == ITEM_SLOT_HEAD)
+		if(HAS_TRAIT(user, TRAIT_PROSKATER))
+			if(!flipped)
+				flip(user)
+
 /obj/item/clothing/head/soft/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click the cap to flip it [flipped ? "forwards" : "backwards"].</span>"
@@ -88,7 +94,7 @@
 	desc = "It's a robust baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	soft_color = "sec"
-	armor = list("melee" = 30, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50, "stamina" = 30)
+	armor = list(MELEE = 30,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30)
 	strip_delay = 60
 
 /obj/item/clothing/head/soft/sec/brig_physician

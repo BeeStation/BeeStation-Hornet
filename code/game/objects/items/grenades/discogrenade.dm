@@ -55,7 +55,7 @@
 	var/launch_distance = rand(2, 6)
 	for(var/i in 1 to launch_distance)
 		step_away(src, loc)
-	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
+	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 	randomiseLightColor()
 
 /obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
@@ -88,7 +88,7 @@
 	set_light(range, power, lightcolor)
 	add_atom_colour("#[lightcolor]", FIXED_COLOUR_PRIORITY)
 	update_icon()
-	timerID = addtimer(CALLBACK(src, .proc/randomiseLightColor), 2, TIMER_STOPPABLE)
+	timerID = addtimer(CALLBACK(src, PROC_REF(randomiseLightColor)), 2, TIMER_STOPPABLE)
 
 /obj/item/grenade/discogrenade/subgrenade/proc/forcedance(turf/T , mob/living/carbon/human/M)
 	if(!T)

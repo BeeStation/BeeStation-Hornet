@@ -26,6 +26,14 @@
 	QDEL_NULL(beaker)
 	return ..()
 
+/obj/machinery/iv_drip/obj_destruction()
+	if(beaker)
+		beaker.forceMove(drop_location())
+		beaker.SplashReagents(drop_location())
+		beaker.visible_message("<span class='notice'>[beaker] falls to the ground from the destroyed IV drip.</span>")
+		beaker = null
+	return ..()
+
 /obj/machinery/iv_drip/update_icon()
 	if(attached)
 		if(mode)
@@ -213,20 +221,25 @@
 
 	if(beaker)
 		if(beaker.reagents && beaker.reagents.reagent_list.len)
-			. += "<span class='notice'>Attached is \a [beaker] with [beaker.reagents.total_volume] units of liquid.</span>"
+			. += "<span class='notice'>[icon2html(beaker, user)] Attached is \a [beaker] with [beaker.reagents.total_volume] units of liquid.</span>"
 		else
 			. += "<span class='notice'>Attached is an empty [beaker.name].</span>"
 	else
 		. += "<span class='notice'>No chemicals are attached.</span>"
 
 	. += "<span class='notice'>[attached ? attached : "No one"] is attached.</span>"
+	if(!attached && !beaker)
+		. += "<span class='notice'>A breath mask could be <b>attached</b> to it.</span>"
 
 
 /obj/machinery/iv_drip/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
+	if(beaker)
+		to_chat(user, "<span class='warning'>You need to remove the [beaker] first!</span>")
+		return
 	if(user.is_holding_item_of_type(/obj/item/clothing/mask/breath) && can_convert)
 		visible_message("<span class='warning'>[user] attempts to attach the breath mask to [src].</span>", "<span class='notice'>You attempt to attach the breath mask to [src].</span>")
-		if(!do_after(user, 100, FALSE, src))
+		if(!do_after(user, 100, src, timed_action_flags = IGNORE_HELD_ITEM))
 			to_chat(user, "<span class='warning'>You fail to attach the breath mask to [src]!</span>")
 			return
 		var/item = user.is_holding_item_of_type(/obj/item/clothing/mask/breath)

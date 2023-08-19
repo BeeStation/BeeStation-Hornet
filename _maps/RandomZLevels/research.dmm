@@ -1615,14 +1615,7 @@
 	},
 /area/awaymission/research/interior/dorm)
 "jp" = (
-/obj/structure/barricade/wooden{
-	desc = "A wooden table hastily flipped over for cover.";
-	icon = 'icons/obj/smooth_structures/wood_table.dmi';
-	icon_state = "wood_table";
-	max_integrity = 55;
-	name = "flipped table";
-	obj_integrity = 55
-	},
+/obj/structure/barricade/wooden,
 /turf/open/floor/plasteel/yellowsiding{
 	dir = 1
 	},
@@ -1646,17 +1639,6 @@
 	},
 /area/awaymission/research/interior/dorm)
 "jF" = (
-/turf/open/floor/plasteel,
-/area/awaymission/research/interior/dorm)
-"jG" = (
-/obj/structure/barricade/wooden{
-	desc = "A wooden table hastily flipped over for cover.";
-	icon = 'icons/obj/smooth_structures/wood_table.dmi';
-	icon_state = "wood_table";
-	max_integrity = 55;
-	name = "flipped table";
-	obj_integrity = 55
-	},
 /turf/open/floor/plasteel,
 /area/awaymission/research/interior/dorm)
 "jK" = (
@@ -1721,14 +1703,7 @@
 /turf/open/floor/plasteel/yellowsiding/corner,
 /area/awaymission/research/interior/dorm)
 "kb" = (
-/obj/structure/barricade/wooden{
-	desc = "A wooden table hastily flipped over for cover.";
-	icon = 'icons/obj/smooth_structures/wood_table.dmi';
-	icon_state = "wood_table";
-	max_integrity = 55;
-	name = "flipped table";
-	obj_integrity = 55
-	},
+/obj/structure/barricade/wooden,
 /turf/open/floor/plasteel/yellowsiding,
 /area/awaymission/research/interior/dorm)
 "kc" = (
@@ -2488,7 +2463,7 @@
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior)
 "pY" = (
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
@@ -4418,7 +4393,7 @@
 /area/awaymission/research/interior/engineering)
 "Ui" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /obj/machinery/button/door{
 	id = "cryopodg1";
 	name = "panic lockdown button"
@@ -4784,7 +4759,7 @@
 /area/awaymission/research/interior)
 "ZQ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /obj/machinery/button/door{
 	id = "cryopodg2";
 	name = "panic lockdown button"
@@ -41691,7 +41666,7 @@ id
 iT
 iX
 jp
-jG
+kR
 kb
 iX
 iX

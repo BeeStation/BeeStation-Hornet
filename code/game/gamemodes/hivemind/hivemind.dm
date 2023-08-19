@@ -4,7 +4,8 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	name = "assimilation"
 	config_tag = "hivemind"
 	report_type = "hivemind"
-	antag_flag = ROLE_HIVE
+	role_preference = /datum/role_preference/antagonist/hivemind_host
+	antag_datum = /datum/antagonist/hivemind
 	false_report_weight = 5
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
@@ -12,7 +13,6 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	required_enemies = 3
 	recommended_enemies = 3
 	reroll_friendly = 1
-	enemy_minimum_age = 0
 
 	announce_span = "danger"
 	announce_text = "The hosts of several psionic hiveminds have infiltrated the station and are looking to assimilate the crew!\n\
@@ -62,10 +62,11 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	for(var/j = 0, j < num_hosts, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/host = antag_pick(antag_candidates, ROLE_HIVE)
+		var/datum/mind/host = antag_pick(antag_candidates, /datum/role_preference/antagonist/hivemind_host)
 		hosts += host
 		host.special_role = ROLE_HIVE
 		host.restricted_roles = restricted_jobs
+		GLOB.pre_setup_antags += host
 		log_game("[key_name(host)] has been selected as a hivemind host")
 		antag_candidates.Remove(host)
 
@@ -79,6 +80,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 /datum/game_mode/hivemind/post_setup()
 	for(var/datum/mind/i in hosts)
 		i.add_antag_datum(/datum/antagonist/hivemind)
+		GLOB.pre_setup_antags -= i
 	return ..()
 
 /datum/game_mode/hivemind/generate_report()

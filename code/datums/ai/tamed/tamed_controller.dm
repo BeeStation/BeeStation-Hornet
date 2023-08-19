@@ -1,7 +1,10 @@
-#define TAMED_COMMAND_FOLLOW "tamed_command_follow"
-#define TAMED_COMMAND_STOP "tamed_command_stop"
-#define TAMED_COMMAND_WANDER "tamed_command_wander"
-#define TAMED_COMMAND_ATTACK "tamed_command_attack"
+#define TAMED_COMMAND_FOLLOW "Follow"
+#define TAMED_COMMAND_STOP "Stop"
+#define TAMED_COMMAND_WANDER "Wander"
+#define TAMED_COMMAND_ATTACK "Attack"
+
+#define ANGER_THRESHOLD_ATTACK 3 // How many attacks it takes to anger a tamed mob
+#define ANGER_RESET_TIME 5 MINUTES // How long it takes for a tamed mob's anger to expire (resets after every attack)
 
 ///default jps fails pathfinding too often, this work better
 /datum/ai_movement/jps/expensive
@@ -20,6 +23,7 @@
 	var/icon/stop_icon
 	var/icon/wander_icon
 	var/icon/attack_icon
+	var/anger = 0
 
 /datum/ai_controller/tamed/process(delta_time)
 	if(ismob(pawn))
@@ -31,8 +35,9 @@
 	if(!isliving(new_pawn))
 		return AI_CONTROLLER_INCOMPATIBLE
 
-	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
-	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, .proc/check_altclicked)
+	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(new_pawn, COMSIG_MOB_ITEM_ATTACKBY, PROC_REF(on_item_attack))
+	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
 	return ..()
 
 /datum/ai_controller/tamed/UnpossessPawn(destroy)
@@ -60,7 +65,7 @@
 
 	if(!istype(clicker) || !blackboard[BB_DOG_FRIENDS][WEAKREF(clicker)])
 		return
-	INVOKE_ASYNC(src, .proc/command_radial, clicker)
+	INVOKE_ASYNC(src, PROC_REF(command_radial), clicker)
 
 /// Show the command radial menu
 /datum/ai_controller/tamed/proc/command_radial(mob/living/clicker)
@@ -71,7 +76,7 @@
 		TAMED_COMMAND_WANDER = wander_icon
 		)
 
-	var/choice = show_radial_menu(clicker, pawn, commands, custom_check = CALLBACK(src, .proc/check_menu, clicker), tooltips = TRUE)
+	var/choice = show_radial_menu(clicker, pawn, commands, custom_check = CALLBACK(src, PROC_REF(check_menu), clicker), tooltips = TRUE)
 	if(!choice || !check_menu(clicker))
 		return
 	set_command_mode(clicker, choice)
@@ -121,6 +126,8 @@
 			if(!can_see(pawn, blackboard[BB_ATTACK_TARGET], AI_DOG_VISION_RANGE))
 				pawn.visible_message("[pawn] can't see [blackboard[BB_ATTACK_TARGET]]!")
 				return
+			if(commander && ismob(blackboard[BB_ATTACK_TARGET]))
+				log_combat(commander, blackboard[BB_ATTACK_TARGET], "ordered [pawn] to attack")
 			current_movement_target = blackboard[BB_ATTACK_TARGET]
 			queue_behavior(/datum/ai_behavior/tamed_follow/attack)
 
@@ -133,10 +140,33 @@
 /// Someone's interacting with us by hand, see if they're being nice or mean
 /datum/ai_controller/tamed/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
+	if(user.a_intent == INTENT_HELP)
+		if(prob(25))
+			user.visible_message("[source] nuzzles [user]!", "<span class='notice'>[source] nuzzles you!</span>")
+		return
+	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
+		anger++
+		if(anger >= ANGER_THRESHOLD_ATTACK)
+			unfriend(user)
+		else
+			addtimer(VARSET_CALLBACK(src, anger, 0), ANGER_RESET_TIME, TIMER_UNIQUE|TIMER_OVERRIDE)
+			return
+	blackboard[BB_ATTACK_TARGET] = user
+	set_command_mode(null, TAMED_COMMAND_ATTACK)
 
-	if(user.a_intent == INTENT_HARM && !blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
-		blackboard[BB_ATTACK_TARGET] = user
-		set_command_mode(null, TAMED_COMMAND_ATTACK)
+/datum/ai_controller/tamed/proc/on_item_attack(datum/source, mob/living/user, obj/item/I)
+	SIGNAL_HANDLER
+	if(!I.force)
+		return
+	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
+		anger++
+		if(anger >= ANGER_THRESHOLD_ATTACK)
+			unfriend(user)
+		else
+			addtimer(VARSET_CALLBACK(src, anger, 0), ANGER_RESET_TIME, TIMER_UNIQUE|TIMER_OVERRIDE)
+			return
+	blackboard[BB_ATTACK_TARGET] = user
+	set_command_mode(null, TAMED_COMMAND_ATTACK)
 
 /// Someone is being nice to us, let's make them a friend!
 /datum/ai_controller/tamed/proc/befriend(mob/living/new_friend)
@@ -145,9 +175,9 @@
 	if(friends[friend_ref])
 		return
 	friends[friend_ref] = TRUE
-	RegisterSignal(new_friend, COMSIG_MOB_POINTED, .proc/check_point)
-	RegisterSignal(new_friend, COMSIG_MOB_SAY, .proc/check_verbal_command)
-	RegisterSignal(new_friend, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
+	RegisterSignal(new_friend, COMSIG_MOB_POINTED, PROC_REF(check_point))
+	RegisterSignal(new_friend, COMSIG_MOB_SAY, PROC_REF(check_verbal_command))
+	RegisterSignal(new_friend, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 
 /// Someone is being mean to us, take them off our friends (add actual enemies behavior later)
 /datum/ai_controller/tamed/proc/unfriend(mob/living/ex_friend)

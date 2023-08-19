@@ -5,6 +5,7 @@
  */
 
 export { AnimatedNumber } from './AnimatedNumber';
+export { Autofocus } from './Autofocus';
 export { Blink } from './Blink';
 export { BlockQuote } from './BlockQuote';
 export { Box } from './Box';
@@ -19,10 +20,13 @@ export { DraggableControl } from './DraggableControl';
 export { DraggableClickableControl } from './DraggableClickableControl';
 export { Dropdown } from './Dropdown';
 export { Flex } from './Flex';
+export { FitText } from './FitText';
 export { Grid } from './Grid';
 export { Icon } from './Icon';
 export { InfinitePlane } from './InfinitePlane';
+export { Interactive } from './Interactive';
 export { Input } from './Input';
+export { KeyListener } from './KeyListener';
 export { Knob } from './Knob';
 export { LabeledControls } from './LabeledControls';
 export { LabeledList } from './LabeledList';
@@ -33,7 +37,9 @@ export { OrbitalMapComponent } from './OrbitalMapComponent';
 export { OrbitalMapSvg } from './OrbitalMapSvg';
 export { ProgressBar } from './ProgressBar';
 export { ScrollableBox } from './ScrollableBox';
+export { Pointer } from './Pointer';
 export { Popper } from './Popper';
+export { RestrictedInput } from './RestrictedInput';
 export { Section } from './Section';
 export { Slider } from './Slider';
 export { Stack } from './Stack';
@@ -41,4 +47,5 @@ export { Table } from './Table';
 export { Tabs } from './Tabs';
 export { TextArea } from './TextArea';
 export { TimeDisplay } from './TimeDisplay';
+export { TrackOutsideClicks } from './TrackOutsideClicks';
 export { Tooltip } from './Tooltip';

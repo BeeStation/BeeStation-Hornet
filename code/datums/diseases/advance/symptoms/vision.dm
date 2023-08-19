@@ -3,7 +3,7 @@
 
 Hyphema (Eye bleeding)
 
-	Slightly noticable.
+	Slightly noticeable.
 	Lowers resistance tremendously.
 	Decreases stage speed tremendously.
 	Decreases transmittablity.
@@ -69,7 +69,7 @@ Bonus
 					M.become_nearsighted(EYE_DAMAGE)
 				if(prob(eyes.damage - 10 + 1))
 					if(!remove_eyes)
-						if(!HAS_TRAIT(M, TRAIT_BLIND))
+						if(!M.is_blind())
 							to_chat(M, "<span class='userdanger'>You go blind!</span>")
 							eyes.applyOrganDamage(eyes.maxHealth)
 					else

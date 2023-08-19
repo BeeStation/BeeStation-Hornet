@@ -64,23 +64,24 @@
 		/obj/item/stack/sheet/mineral/titanium	    = /datum/species/golem/titanium,
 		/obj/item/stack/sheet/mineral/plastitanium	= /datum/species/golem/plastitanium,
 		/obj/item/stack/sheet/mineral/abductor	    = /datum/species/golem/alloy,
-		/obj/item/stack/sheet/mineral/wood	        = /datum/species/golem/wood,
+		/obj/item/stack/sheet/wood	        		= /datum/species/golem/wood,
 		/obj/item/stack/ore/bluespace_crystal	    = /datum/species/golem/bluespace,
 		/obj/item/stack/sheet/runed_metal	        = /datum/species/golem/runic,
 		/obj/item/stack/medical/gauze	            = /datum/species/golem/cloth,
 		/obj/item/stack/sheet/cotton/cloth			= /datum/species/golem/cloth,
 		/obj/item/stack/sheet/mineral/adamantine	= /datum/species/golem/adamantine,
 		/obj/item/stack/sheet/plastic	            = /datum/species/golem/plastic,
-		/obj/item/stack/tile/brass					= /datum/species/golem/clockwork,
-		/obj/item/stack/tile/bronze					= /datum/species/golem/bronze,
+		/obj/item/stack/sheet/brass					= /datum/species/golem/clockwork,
+		/obj/item/stack/sheet/bronze				= /datum/species/golem/bronze,
 		/obj/item/stack/sheet/cardboard				= /datum/species/golem/cardboard,
 		/obj/item/stack/sheet/leather				= /datum/species/golem/leather,
 		/obj/item/stack/sheet/bone					= /datum/species/golem/bone,
-		/obj/item/stack/sheet/durathread			= /datum/species/golem/durathread,
+		/obj/item/stack/sheet/cotton/cloth/durathread			= /datum/species/golem/durathread,
 		/obj/item/stack/sheet/cotton/durathread		= /datum/species/golem/durathread,
-		/obj/item/stack/sheet/mineral/snow			= /datum/species/golem/snow,
+		/obj/item/stack/sheet/snow					= /datum/species/golem/snow,
 		/obj/item/stack/sheet/capitalisium			= /datum/species/golem/capitalist,
-		/obj/item/stack/sheet/stalinium				= /datum/species/golem/soviet)
+		/obj/item/stack/sheet/stalinium				= /datum/species/golem/soviet,
+		)
 
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/O = I
@@ -115,13 +116,14 @@
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
 	use_cooldown = TRUE
+	banType = ROLE_LAVALAND_SYNDICATE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/new_spawn)
 	new_spawn.grant_language(/datum/language/codespeak)
 
 /datum/outfit/lavaland_syndicate
 	name = "Lavaland Syndicate Agent"
-	r_hand = /obj/item/gun/ballistic/automatic/sniper_rifle
+	r_hand = /obj/item/gun/ballistic/sniper_rifle
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/toggle/labcoat
 	shoes = /obj/item/clothing/shoes/combat
@@ -133,7 +135,7 @@
 	implants = list(/obj/item/implant/weapons_auth)
 
 /datum/outfit/lavaland_syndicate/post_equip(mob/living/carbon/human/H)
-	H.faction |= ROLE_SYNDICATE
+	H.faction |= FACTION_SYNDICATE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms
 	name = "Syndicate Comms Agent"
@@ -156,6 +158,7 @@
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
 	r_hand = /obj/item/melee/transforming/energy/sword/saber
+	l_hand = /obj/item/megaphone/nospam
 	mask = /obj/item/clothing/mask/chameleon/gps
 	suit = /obj/item/clothing/suit/armor/vest
 

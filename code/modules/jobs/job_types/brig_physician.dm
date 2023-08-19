@@ -1,6 +1,9 @@
 /datum/job/brig_physician
 	title = JOB_NAME_BRIGPHYSICIAN
 	flag = BRIG_PHYS
+	description = "Tend to the health of Security Officers and Prisoners, help out at Medbay if you have free time."
+	department_for_prefs = DEPT_BITFLAG_SEC
+	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "chief medical officer"
 	faction = "Station"
@@ -29,6 +32,8 @@
 	)
 	biohazard = 25 //still deals with the sick and injured, just less than a medical doctor
 
+	minimal_lightup_areas = list(/area/medical/morgue)
+
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN
 	jobtype = /datum/job/brig_physician
@@ -41,8 +46,8 @@
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit = /obj/item/clothing/suit/hazardvest/brig_physician
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	suit_store = /obj/item/flashlight/seclite
-	l_hand = /obj/item/storage/firstaid/medical
+	suit_store = /obj/item/storage/firstaid/medical
+	l_pocket = /obj/item/flashlight/seclite
 	head = /obj/item/clothing/head/soft/sec/brig_physician
 
 	backpack = /obj/item/storage/backpack/medic

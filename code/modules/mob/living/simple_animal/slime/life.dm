@@ -64,7 +64,7 @@
 	reset_processing()
 
 /mob/living/simple_animal/slime/proc/reset_processing()
-	var/sleeptime = movement_delay()
+	var/sleeptime = cached_multiplicative_slowdown
 	if(sleeptime <= 0)
 		sleeptime = 1
 	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
@@ -132,14 +132,14 @@
 	temp_change = (temperature - current)
 	return temp_change
 
-/mob/living/simple_animal/slime/handle_status_effects()
+/mob/living/simple_animal/slime/handle_status_effects(delta_time)
 	..()
-	if(prob(30) && !stat)
+	if(DT_PROB(30, delta_time) && !stat)
 		var/heal = 1
 		if(transformeffects & SLIME_EFFECT_PURPLE)
 			heal += 0.5
 		adjustBruteLoss(-heal)
-	if((transformeffects & SLIME_EFFECT_RAINBOW) && prob(5))
+	if((transformeffects & SLIME_EFFECT_RAINBOW) && DT_PROB(5, delta_time))
 		random_colour()
 
 /mob/living/simple_animal/slime/proc/handle_feeding()
@@ -434,7 +434,7 @@
 	if (to_say)
 		INVOKE_ASYNC(src, /atom/movable/proc/say, to_say)
 	else if(prob(1))
-		INVOKE_ASYNC(src, /mob.proc/emote, pick("bounce","sway","light","vibrate","jiggle"))
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), pick("bounce","sway","light","vibrate","jiggle"))
 	else
 		var/t = 10
 		var/slimes_near = 0
@@ -545,8 +545,3 @@
 		return 0
 	return 1
 
-
-/mob/living/simple_animal/slime/movement_delay()
-	. = ..()
-	if(transformeffects & SLIME_EFFECT_SEPIA)
-		. *= 0.7

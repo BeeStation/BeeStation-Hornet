@@ -105,7 +105,7 @@
 		return
 	switch(action)
 		if("name")
-			guardian_name = params["name"]
+			guardian_name = reject_bad_name(params["name"], TRUE)
 			. = TRUE
 		if("set")
 			switch(params["name"])
@@ -135,7 +135,7 @@
 						saved_stats.range = lvl
 						. = TRUE
 		if("color")
-			var/color = input(usr, "What would you like your guardian's color to be?", "Choose Your Color", "#ffffff") as color|null
+			var/color = tgui_color_picker(usr, "What would you like your guardian's color to be?", "Choose Your Color", "#ffffff")
 			if(color)
 				guardian_color = color
 				. = TRUE
@@ -225,7 +225,7 @@
 		used = FALSE
 		return FALSE
 	// IMPORTANT - if we're debugging, the user gets thrown into the stand
-	var/list/mob/dead/observer/candidates = debug_mode ? list(user) : pollGhostCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_HOLOPARASITE, null, FALSE, 100, POLL_IGNORE_HOLOPARASITE)
+	var/list/mob/dead/observer/candidates = debug_mode ? list(user) : pollGhostCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_HOLOPARASITE, null, 10 SECONDS)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		var/mob/living/simple_animal/hostile/guardian/G = new(user, theme, guardian_color)
@@ -235,9 +235,9 @@
 		G.summoner = user.mind
 		G.key = C.key
 		G.mind.enslave_mind_to_creator(user)
-		G.RegisterSignal(user, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)
-		G.RegisterSignal(user, COMSIG_LIVING_REVIVE, /mob/living/simple_animal/hostile/guardian.proc/Reviveify)
-		G.RegisterSignal(user.mind, COMSIG_MIND_TRANSFER_TO, /mob/living/simple_animal/hostile/guardian.proc/OnMindTransfer)
+		G.RegisterSignal(user, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, OnMoved))
+		G.RegisterSignal(user, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, Reviveify))
+		G.RegisterSignal(user.mind, COMSIG_MIND_TRANSFER_TO, TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, OnMindTransfer))
 		var/datum/antagonist/guardian/S = new
 		S.stats = saved_stats
 		S.summoner = user.mind
@@ -270,6 +270,7 @@
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
+	item_flags = ISWEAPON
 	var/datum/guardianbuilder/builder
 	var/use_message = "<span class='holoparasite'>You shuffle the deck...</span>"
 	var/used_message = "<span class='holoparasite'>All the cards seem to be blank now.</span>"

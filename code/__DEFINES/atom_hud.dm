@@ -26,6 +26,7 @@
 #define DIAG_LAUNCHPAD_HUD "22" //Displays launchpads' targeting reticle
 //for antag huds. these are used at the /mob level
 #define ANTAG_HUD		"23"
+#define DIAG_WAKE_HUD	"24" // Bluespace Wakes
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -58,12 +59,21 @@
 #define ANTAG_HUD_SOULLESS		21
 #define ANTAG_HUD_CLOCKWORK		22
 #define ANTAG_HUD_BROTHER		23
-#define ANTAG_HUD_OBSESSED	24
-#define ANTAG_HUD_FUGITIVE	25
+#define ANTAG_HUD_OBSESSED		24
+#define ANTAG_HUD_FUGITIVE		25
 #define ANTAG_HUD_BRAINWASHED   26
 #define ANTAG_HUD_SURVIVALIST   27
-#define ANTAG_HUD_INCURSION 28
-#define ANTAG_HUD_HERETIC	29
+#define ANTAG_HUD_INCURSION 	28
+#define ANTAG_HUD_HERETIC		29
+#define ANTAG_HUD_HYPNOTIZED 	30
+#define ANTAG_HUD_XENOMORPH 	31
+#define ANTAG_HUD_NIGHTMARE 	32
+#define ANTAG_HUD_MORPH			33
+#define ANTAG_HUD_SWARMER		34
+#define ANTAG_HUD_PIRATE		35
+#define ANTAG_HUD_SPIDER		36
+#define ANTAG_HUD_VALENTINE		37
+#define ANTAG_HUD_HEARTBREAKER	38
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

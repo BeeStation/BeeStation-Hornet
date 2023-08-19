@@ -40,7 +40,6 @@
 		hands_overlays += r_hand_overlay
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.layer = ABOVE_HUD_LAYER
 			r_hand.plane = ABOVE_HUD_PLANE
 			r_hand.screen_loc = ui_hand_position(get_held_index_of_item(r_hand))
 			client.screen |= r_hand
@@ -58,7 +57,6 @@
 		hands_overlays += l_hand_overlay
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.layer = ABOVE_HUD_LAYER
 			l_hand.plane = ABOVE_HUD_PLANE
 			l_hand.screen_loc = ui_hand_position(get_held_index_of_item(l_hand))
 			client.screen |= l_hand
@@ -104,28 +102,28 @@
 	update_inv_internal_storage()
 
 
-/mob/living/simple_animal/drone/proc/pickVisualAppearence()
+/mob/living/simple_animal/drone/proc/pickVisualAppearance()
 	picked = FALSE
-	var/appearence = input("Choose your appearance!", "Appearance", "Maintenance Drone") in sortList(list("Maintenance Drone", "Repair Drone", "Scout Drone"))
-	switch(appearence)
+	var/appearance = input("Choose your appearance!", "Appearance", "Maintenance Drone") in sort_list(list("Maintenance Drone", "Repair Drone", "Scout Drone"))
+	switch(appearance)
 		if("Maintenance Drone")
-			visualAppearence = MAINTDRONE
-			colour = input("Choose your colour!", "Colour", "grey") in sortList(list("grey", "blue", "red", "green", "pink", "orange"))
-			icon_state = "[visualAppearence]_[colour]"
-			icon_living = "[visualAppearence]_[colour]"
-			icon_dead = "[visualAppearence]_dead"
+			visualAppearance = MAINTDRONE
+			colour = input("Choose your colour!", "Colour", "grey") in sort_list(list("grey", "blue", "red", "green", "pink", "orange"))
+			icon_state = "[visualAppearance]_[colour]"
+			icon_living = "[visualAppearance]_[colour]"
+			icon_dead = "[visualAppearance]_dead"
 
 		if("Repair Drone")
-			visualAppearence = REPAIRDRONE
-			icon_state = visualAppearence
-			icon_living = visualAppearence
-			icon_dead = "[visualAppearence]_dead"
+			visualAppearance = REPAIRDRONE
+			icon_state = visualAppearance
+			icon_living = visualAppearance
+			icon_dead = "[visualAppearance]_dead"
 
 		if("Scout Drone")
-			visualAppearence = SCOUTDRONE
-			icon_state = visualAppearence
-			icon_living = visualAppearence
-			icon_dead = "[visualAppearence]_dead"
+			visualAppearance = SCOUTDRONE
+			icon_state = visualAppearance
+			icon_living = visualAppearance
+			icon_dead = "[visualAppearance]_dead"
 
 		else
 			return
@@ -135,7 +133,7 @@
 
 
 /mob/living/simple_animal/drone/proc/getItemPixelShiftY()
-	switch(visualAppearence)
+	switch(visualAppearance)
 		if(MAINTDRONE)
 			. = 0
 		if(REPAIRDRONE,SCOUTDRONE,CLOCKDRONE)

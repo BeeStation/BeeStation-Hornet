@@ -17,6 +17,8 @@
 	light_power = 1
 	light_on = FALSE
 	var/on = FALSE
+	var/sound_on = 'sound/items/flashlight_on.ogg'
+	var/sound_off = 'sound/items/flashlight_off.ogg'
 
 
 /obj/item/flashlight/Initialize(mapload)
@@ -28,10 +30,12 @@
 /obj/item/flashlight/proc/update_brightness(mob/user)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		playsound(src, 'sound/items/flashlight_on.ogg', 25, 1)
+		if(sound_on)
+			playsound(src, sound_on, 25, 1)
 	else
 		icon_state = initial(icon_state)
-		playsound(src, 'sound/items/flashlight_off.ogg', 25, 1)
+		if(sound_off)
+			playsound(src, sound_off, 25, 1)
 	set_light_on(on)
 	if(light_system == STATIC_LIGHT)
 		update_light()
@@ -46,7 +50,7 @@
 	return 1
 
 /obj/item/flashlight/suicide_act(mob/living/carbon/human/user)
-	if (user.eye_blind)
+	if (user.is_blind())
 		user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -90,7 +94,7 @@
 				else
 					user.visible_message("<span class='warning'>[user] directs [src] to [M]'s eyes.</span>", \
 										 "<span class='danger'>You direct [src] to [M]'s eyes.</span>")
-					if(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_BLIND)) || !M.flash_act(visual = 1)) //mob is dead or fully blind
+					if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
 						to_chat(user, "<span class='warning'>[M]'s pupils don't react to the light!</span>")
 					else if(M.has_dna() && M.dna.check_mutation(XRAY))	//mob has X-ray vision
 						to_chat(user, "<span class='danger'>[M]'s pupils give an eerie glow!</span>")
@@ -266,6 +270,8 @@
 	heat = 1000
 	light_color = LIGHT_COLOR_FLARE
 	grind_results = list(/datum/reagent/sulfur = 15)
+	sound_on = 'sound/items/matchstick_lit.ogg'
+	sound_off = null
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()
@@ -304,10 +310,12 @@
 
 	// Usual checks
 	if(fuel <= 0)
-		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
+		if(user)
+			balloon_alert(user, "out of fuel!")
 		return
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is already on.</span>")
+		if(user)
+			balloon_alert(user, "already lit!")
 		return
 
 	. = ..()
@@ -315,7 +323,7 @@
 	if(.)
 		user.visible_message("<span class='notice'>[user] lights \the [src].</span>", "<span class='notice'>You light \the [src]!</span>")
 		force = on_damage
-		damtype = "fire"
+		damtype = BURN
 		if(!istype(src, /obj/item/flashlight/flare/torch))
 			add_emitter(/obj/emitter/sparks/flare, "spark", 10)
 			add_emitter(/obj/emitter/flare_smoke, "smoke", 9)

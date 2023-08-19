@@ -94,9 +94,9 @@
 	name = "oxygen supply control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/tank/oxygen_tank
 
-/obj/item/circuitboard/computer/atmos_control/tank/toxin_tank
+/obj/item/circuitboard/computer/atmos_control/tank/plasma_tank
 	name = "plasma supply control (Computer Board)"
-	build_path = /obj/machinery/computer/atmos_control/tank/toxin_tank
+	build_path = /obj/machinery/computer/atmos_control/tank/plasma_tank
 
 /obj/item/circuitboard/computer/atmos_control/tank/air_tank
 	name = "mixed air supply control (Computer Board)"
@@ -121,6 +121,14 @@
 /obj/item/circuitboard/computer/atmos_control/tank/incinerator
 	name = "incinerator air control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/tank/incinerator
+
+/obj/item/circuitboard/computer/atmos_control/tank/sm_waste
+	name = "supermatter waste control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/tank/sm_waste
+
+/obj/item/circuitboard/computer/atmos_control/tank/toxins_waste
+	name = "toxins waste control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/tank/toxins_waste_tank
 
 /obj/item/circuitboard/computer/auxillary_base
 	name = "auxillary base management console (Computer Board)"
@@ -194,6 +202,14 @@
 	name = "advanced camera console (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/camera_advanced/syndie
+
+/obj/item/circuitboard/computer/advanced_camera/cyan
+	name = "advanced camera console: cyan (Computer Board)"
+	build_path = /obj/machinery/computer/camera_advanced/bounty_hunter
+
+/obj/item/circuitboard/computer/advanced_camera/darkblue
+	name = "advanced camera console: darkblue (Computer Board)"
+	build_path = /obj/machinery/computer/camera_advanced/wizard
 
 /obj/item/circuitboard/computer/arcade/amputation
 	name = "Mediborg's Amputation Adventure (Computer Board)"

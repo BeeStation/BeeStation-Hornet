@@ -263,14 +263,10 @@
 
 //Checks conditions then fires the nanite trigger effect
 /datum/nanite_program/proc/trigger(delayed = FALSE, comm_message)
-	if(!can_trigger)
-		return
-	if(!activated)
+	if(!can_trigger || !activated || world.time < next_trigger)
 		return
 	if(timer_trigger_delay && !delayed)
 		timer_trigger_delay_next = world.time + timer_trigger_delay
-		return
-	if(world.time < next_trigger)
 		return
 	if(!check_conditions())
 		return
@@ -333,13 +329,13 @@
 /datum/nanite_program/proc/receive_signal(code, source)
 	if(activation_code && code == activation_code && !activated)
 		activate()
-		host_mob.investigate_log("'s [name] nanite program was activated by [source] with code [code].", INVESTIGATE_NANITES)
+		host_mob.investigate_log("'s [name] nanite program was activated by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)
 	else if(deactivation_code && code == deactivation_code && activated)
 		deactivate()
-		host_mob.investigate_log("'s [name] nanite program was deactivated by [source] with code [code].", INVESTIGATE_NANITES)
+		host_mob.investigate_log("'s [name] nanite program was deactivated by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)
 	if(can_trigger && trigger_code && code == trigger_code)
 		trigger()
-		host_mob.investigate_log("'s [name] nanite program was triggered by [source] with code [code].", INVESTIGATE_NANITES)
+		host_mob.investigate_log("'s [name] nanite program was triggered by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)
 	if(kill_code && code == kill_code)
-		host_mob.investigate_log("'s [name] nanite program was deleted by [source] with code [code].", INVESTIGATE_NANITES)
+		host_mob.investigate_log("'s [name] nanite program was deleted by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)
 		qdel(src)

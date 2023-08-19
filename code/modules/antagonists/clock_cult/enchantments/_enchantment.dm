@@ -15,7 +15,7 @@
 	//Apply effect
 	apply_effect(I)
 	//Add in examine effect
-	RegisterSignal(I, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+	RegisterSignal(I, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/enchantment/Destroy()
 	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)

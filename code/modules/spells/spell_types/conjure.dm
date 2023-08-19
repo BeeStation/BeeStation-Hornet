@@ -21,7 +21,7 @@
 		if(T.density && !summon_ignore_density)
 			targets -= T
 
-	for(var/i=0,i<summon_amt,i++)
+	for(var/i in 1 to summon_amt)
 		if(!targets.len)
 			break
 		var/summoned_object_type = pick(summon_type)
@@ -57,7 +57,7 @@
 	summon_type = list(/mob/living/simple_animal/bot/ed209)
 	summon_amt = 10
 	range = 3
-	newVars = list("emagged" = 2, "remote_disabled" = 1,"shoot_sound" = 'sound/weapons/laser.ogg',"projectile" = /obj/item/projectile/beam/laser, "declare_arrests" = 0,"name" = "Wizard's Justicebot")
+	newVars = list("emagged" = 2, "remote_disabled" = 1,"shoot_sound" = 'sound/weapons/laser.ogg',"projectile" = /obj/projectile/beam/laser, "declare_arrests" = 0,"name" = "Wizard's Justicebot")
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/linkWorlds
 	name = "Link Worlds"
@@ -74,7 +74,7 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item
 	name = "Summon weapon"
 	desc = "A generic spell that should not exist.  This summons an instance of a specific type of item, or if one already exists, un-summons it.  Summons into hand if possible."
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	include_user = TRUE
 	range = -1
 	clothes_req = FALSE

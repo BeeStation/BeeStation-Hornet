@@ -32,8 +32,8 @@ GLOBAL_VAR(clockcult_eminence)
 	required_players = 24
 	required_enemies = 4
 	recommended_enemies = 4
-	antag_flag = ROLE_SERVANT_OF_RATVAR
-	enemy_minimum_age = 14
+	role_preference = /datum/role_preference/antagonist/clock_cultist
+	antag_datum = /datum/antagonist/servant_of_ratvar
 
 	title_icon = "clockcult"
 	announce_span = "danger"
@@ -58,7 +58,7 @@ GLOBAL_VAR(clockcult_eminence)
 	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/clockie = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
+		var/datum/mind/clockie = antag_pick(antag_candidates, /datum/role_preference/antagonist/clock_cultist)
 		//In case antag_pick breaks
 		if(!clockie)
 			continue
@@ -66,6 +66,7 @@ GLOBAL_VAR(clockcult_eminence)
 		selected_servants += clockie
 		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
 		clockie.special_role = ROLE_SERVANT_OF_RATVAR
+		GLOB.pre_setup_antags += clockie
 	generate_clockcult_scriptures()
 	return TRUE
 
@@ -87,6 +88,7 @@ GLOBAL_VAR(clockcult_eminence)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
 		S.prefix = CLOCKCULT_PREFIX_MASTER
+		GLOB.pre_setup_antags -= S
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()
@@ -256,14 +258,15 @@ GLOBAL_VAR(clockcult_eminence)
 	if(span)
 		hierophant_message += "</span>"
 	for(var/datum/mind/mind in GLOB.all_servants_of_ratvar)
-		send_hierophant_message_to(mind, hierophant_message)
+		send_hierophant_message_to(sender, mind, hierophant_message)
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
 		if(istype(sender))
-			to_chat(O, "[FOLLOW_LINK(O, sender)] [hierophant_message]")
+			to_chat(O, "[FOLLOW_LINK(O, sender)] [hierophant_message]", type = MESSAGE_TYPE_RADIO)
 		else
-			to_chat(O, hierophant_message)
+			to_chat(O, hierophant_message, type = MESSAGE_TYPE_RADIO)
+	sender.log_talk(msg, LOG_SAY, tag="clock cult")
 
-/proc/send_hierophant_message_to(datum/mind/mind, hierophant_message)
+/proc/send_hierophant_message_to(mob/living/sender, datum/mind/mind, hierophant_message)
 	var/mob/M = mind.current
 	if(!isliving(M) || QDELETED(M))
 		return
@@ -272,4 +275,4 @@ GLOBAL_VAR(clockcult_eminence)
 			if(pick(20))
 				to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
 			return
-	to_chat(M, hierophant_message)
+	to_chat(M, hierophant_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == sender)

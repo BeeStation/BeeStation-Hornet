@@ -6,6 +6,7 @@
 	var/datum/objective/mission
 	var/datum/team/ert/ert_team
 	show_to_ghosts = TRUE
+	banning_key = ROLE_ERT
 
 /datum/antagonist/official/greet()
 	to_chat(owner, "<B><font size=3 color=red>You are a CentCom Official.</font></B>")
@@ -20,8 +21,7 @@
 		return
 	if(isplasmaman(H))
 		H.equipOutfit(/datum/outfit/plasmaman/official)
-		H.internal = H.get_item_for_held_index(2)
-		H.update_internals_hud_icon(1)
+		H.open_internals(H.get_item_for_held_index(2))
 	H.equipOutfit(/datum/outfit/centcom_official)
 	if(CONFIG_GET(flag/enforce_human_authority))
 		H.set_species(/datum/species/human)

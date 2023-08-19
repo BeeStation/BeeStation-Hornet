@@ -66,7 +66,7 @@
 	icon_state = "advmag0"
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50, "stamina" = 30)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50, STAMINA = 30)
 	clothing_flags = NOSLIP
 
 /obj/item/clothing/shoes/magboots/commando/attack_self(mob/user) //Code for the passive no-slip of the commando magboots to always apply, kind of a shit code solution though.
@@ -93,22 +93,22 @@
 		return
 	var/turf/T = user.loc
 	for (var/mob/living/A in T)
-		if (A != user && A.lying)
+		if (A != user && !(A.mobility_flags & MOBILITY_STAND))
 			A.adjustBruteLoss(rand(10,13))
 			to_chat(A,"<span class='userdanger'>[user]'s magboots press down on you, crushing you!</span>")
-			INVOKE_ASYNC(A, /mob.proc/emote, "scream")
+			INVOKE_ASYNC(A, TYPE_PROC_REF(/mob, emote), "scream")
 
 /obj/item/clothing/shoes/magboots/crushing/attack_self(mob/user)
 	. = ..()
 	if (magpulse)
-		RegisterSignal(user, COMSIG_MOVABLE_MOVED,.proc/crush)
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED,PROC_REF(crush))
 	else
 		UnregisterSignal(user,COMSIG_MOVABLE_MOVED)
 
 /obj/item/clothing/shoes/magboots/crushing/equipped(mob/user,slot)
 	. = ..()
 	if (slot == ITEM_SLOT_FEET && magpulse)
-		RegisterSignal(user, COMSIG_MOVABLE_MOVED,.proc/crush)
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED,PROC_REF(crush))
 
 /obj/item/clothing/shoes/magboots/crushing/dropped(mob/user)
 	..()

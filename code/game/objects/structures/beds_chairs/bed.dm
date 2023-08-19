@@ -23,6 +23,15 @@
 	var/buildstackamount = 2
 	var/bolts = TRUE
 
+// dir check for buckle_lying state
+/obj/structure/bed/Initialize()
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed)) //This gets called later during initialization
+	. = ..()
+
+/obj/structure/bed/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
+	return ..()
+
 /obj/structure/bed/examine(mob/user)
 	. = ..()
 	if(bolts)
@@ -44,6 +53,14 @@
 	else
 		return ..()
 
+/obj/structure/bed/proc/dir_changed(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+	switch(new_dir)
+		if(WEST, SOUTH)
+			buckle_lying = 90
+		if(EAST, NORTH)
+			buckle_lying = 270
+
 /*
  * Roller beds
  */
@@ -54,11 +71,11 @@
 	anchored = FALSE
 	resistance_flags = NONE
 	move_resist = MOVE_FORCE_WEAK
-	var/foldabletype = /obj/item/roller
+	var/foldabletype = /obj/item/deployable/rollerbed
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/roller/robo))
-		var/obj/item/roller/robo/R = W
+	if(istype(W, /obj/item/deployable/rollerbed/robo))
+		var/obj/item/deployable/rollerbed/robo/R = W
 		if(R.loaded)
 			to_chat(user, "<span class='warning'>You already have a roller bed docked!</span>")
 			return
@@ -70,10 +87,11 @@
 			else
 				user_unbuckle_mob(buckled_mobs[1],user)
 		else
-			R.loaded = src
-			forceMove(R)
 			user.visible_message("[user] collects [src].", "<span class='notice'>You collect [src].</span>")
-		return 1
+			R.loaded = TRUE
+			R.update_icon()
+			qdel(src)
+		return TRUE
 	else
 		return ..()
 
@@ -90,9 +108,11 @@
 		qdel(src)
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
-	density = TRUE
+	set_density(TRUE)
 	icon_state = "up"
-	M.pixel_y = initial(M.pixel_y)
+	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
+	//Push them up from the normal lying position
+	M.pixel_y = M.base_pixel_y
 
 /obj/structure/bed/roller/Moved()
 	. = ..()
@@ -100,66 +120,10 @@
 		playsound(src, 'sound/effects/roll.ogg', 100, 1)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
-	density = FALSE
+	set_density(FALSE)
 	icon_state = "down"
-	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
-	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
-
-/obj/item/roller
-	name = "roller bed"
-	desc = "A collapsed roller bed that can be carried around."
-	icon = 'icons/obj/beds_chairs/rollerbed.dmi'
-	icon_state = "folded"
-	w_class = WEIGHT_CLASS_NORMAL // No more excuses, stop getting blood everywhere
-
-/obj/item/roller/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/roller/robo))
-		var/obj/item/roller/robo/R = I
-		if(R.loaded)
-			to_chat(user, "<span class='warning'>[R] already has a roller bed loaded!</span>")
-			return
-		user.visible_message("<span class='notice'>[user] loads [src].</span>", "<span class='notice'>You load [src] into [R].</span>")
-		R.loaded = new/obj/structure/bed/roller(R)
-		qdel(src) //"Load"
-		return
-	else
-		return ..()
-
-/obj/item/roller/attack_self(mob/user)
-	deploy_roller(user, user.loc)
-
-/obj/item/roller/afterattack(obj/target, mob/user , proximity)
-	. = ..()
-	if(!proximity)
-		return
-	if(isopenturf(target))
-		deploy_roller(user, target)
-
-/obj/item/roller/proc/deploy_roller(mob/user, atom/location)
-	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(location)
-	R.add_fingerprint(user)
-	qdel(src)
-
-/obj/item/roller/robo //ROLLER ROBO DA!
-	name = "roller bed dock"
-	desc = "A collapsed roller bed that can be ejected for emergency use. Must be collected or replaced after use."
-	var/obj/structure/bed/roller/loaded = null
-
-/obj/item/roller/robo/Initialize(mapload)
-	. = ..()
-	loaded = new(src)
-
-/obj/item/roller/robo/examine(mob/user)
-	. = ..()
-	. += "The dock is [loaded ? "loaded" : "empty"]."
-
-/obj/item/roller/robo/deploy_roller(mob/user, atom/location)
-	if(loaded)
-		loaded.forceMove(location)
-		user.visible_message("[user] deploys [loaded].", "<span class='notice'>You deploy [loaded].</span>")
-		loaded = null
-	else
-		to_chat(user, "<span class='warning'>The dock is empty!</span>")
+	//Set them back down to the normal lying position
+	M.pixel_y = M.base_pixel_y + M.body_position_pixel_y_offset
 
 //Dog bed
 
@@ -168,7 +132,7 @@
 	icon_state = "dogbed"
 	desc = "A comfy-looking dog bed. You can even strap your pet in, in case the gravity turns off."
 	anchored = FALSE
-	buildstacktype = /obj/item/stack/sheet/mineral/wood
+	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 10
 	var/owned = FALSE
 
@@ -242,13 +206,14 @@
 	var/mob/living/goldilocks
 
 /obj/structure/bed/double/post_buckle_mob(mob/living/M)
+	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
 	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
-		M.pixel_y = initial(M.pixel_y) + 6
+		M.pixel_y = M.base_pixel_y + 6
 		goldilocks = M
-		RegisterSignal(goldilocks, COMSIG_PARENT_QDELETING, .proc/goldilocks_deleted)
+		RegisterSignal(goldilocks, COMSIG_PARENT_QDELETING, PROC_REF(goldilocks_deleted))
 
 /obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
-	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying)
+	M.pixel_y = base_pixel_y + M.body_position_pixel_y_offset
 	if(M == goldilocks)
 		UnregisterSignal(goldilocks, COMSIG_PARENT_QDELETING)
 		goldilocks = null

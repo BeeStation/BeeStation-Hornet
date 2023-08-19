@@ -12,7 +12,7 @@
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
@@ -114,7 +114,7 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-	item_flags = NOBLUDGEON | ABSTRACT  // don't put in storage
+	item_flags = NOBLUDGEON | ABSTRACT | ISWEAPON  // don't put in storage
 	slot_flags = 0
 
 	var/obj/item/watertank/tank
@@ -288,7 +288,7 @@
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT  // don't put in storage
+	item_flags = ABSTRACT | ISWEAPON  // don't put in storage
 	var/obj/item/watertank/atmos/tank
 	var/nozzle_mode = 0
 	var/resin_synthesis_cooldown = 0
@@ -370,8 +370,8 @@
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
 		var/delay = 2
 		var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/resin_stop_check)
-		RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/resin_landed)
+		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
+		RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(resin_landed))
 
 		if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
 			var/obj/effect/resin_container/selfdestruct/resin = new (get_turf(src))
@@ -402,8 +402,8 @@
 		if(resin_synthesis_cooldown < max_foam)
 			var/obj/effect/particle_effect/foam/metal/resin/F = new (get_turf(target))
 			F.amount = 0
-			resin_synthesis_cooldown++
-			addtimer(CALLBACK(src, .proc/reduce_metal_synth_cooldown), nozzle_cooldown)
+			metal_synthesis_cooldown++
+			addtimer(CALLBACK(src, PROC_REF(reduce_metal_synth_cooldown)), 10 SECONDS)
 		else
 			to_chat(user, "<span class='warning'>The resin foam mix is still being synthesized...</span>")
 			return

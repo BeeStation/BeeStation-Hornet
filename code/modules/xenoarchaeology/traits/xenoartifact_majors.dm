@@ -15,15 +15,15 @@
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
-		holder.dropItemToGround(X, thrown = TRUE)
+		holder.dropItemToGround(X, force = TRUE)
 	if(ismovable(target) && (istype(target, /obj/item) || istype(target, /mob/living)))
 		var/atom/movable/AM = target
 		if(AM?.anchored || !AM)
 			return
-		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(release), X, AM), X.charge*0.5 SECONDS)
 		AM.forceMove(X)
 		X.buckle_mob(AM)
-		if(isliving(target)) //stop awful hobbit-sis from wriggling 
+		if(isliving(target)) //stop awful hobbit-sis from wriggling
 			var/mob/living/victim = target
 			victim.Paralyze(X.charge*0.5 SECONDS, ignore_canstun = TRUE)
 		X.cooldownmod = X.charge*0.6 SECONDS
@@ -56,7 +56,7 @@
 	if(istype(target, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = target //Have to type convert to work with other traits
 		C.give((X.charge/100)*C.maxcharge)
-		
+
 	else if(istype(target, /mob/living))
 		var/damage = X.charge*0.25
 		var/mob/living/carbon/victim = target
@@ -98,26 +98,26 @@
 		victim.IgniteMob()
 		return
 	//otherwise shoot laser
-	var/obj/item/projectile/A
+	var/obj/projectile/A
 	switch(X.charge)
 		if(0 to 24)
-			A = new /obj/item/projectile/beam/disabler
+			A = new /obj/projectile/beam/disabler
 		if(25 to 79)
-			A = new /obj/item/projectile/beam/laser
+			A = new /obj/projectile/beam/laser
 		if(80 to 200)
-			A = new /obj/item/projectile/beam/laser/heavylaser
+			A = new /obj/projectile/beam/laser/heavylaser
 	//If target is our own turf, aka someone probably threw us, target a random direction to avoid always shooting east
 	if(istype(target, /turf) && X.loc == target)
 		target = get_edge_target_turf(pick(NORTH, EAST, SOUTH, WEST))
 	//FIRE!
 	A.preparePixelProjectile(get_turf(target), X)
 	A.fire()
-	playsound(get_turf(src), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE) 
+	playsound(get_turf(src), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE)
 
 ///============
 /// Corginator, turns the target into a corgi for a short time
 ///============
-/datum/xenoartifact_trait/major/corginator ///All of this is stolen from corgium. 
+/datum/xenoartifact_trait/major/corginator ///All of this is stolen from corgium.
 	desc = "Fuzzy" //Weirdchamp
 	label_desc = "Fuzzy: The shape is hard to discern under all the hair sprouting out from the surface. You swear you've heard it bark before."
 	flags = BLUESPACE_TRAIT
@@ -130,7 +130,7 @@
 	X.say(pick("Woof!", "Bark!", "Yap!"))
 	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)) && !IS_DEAD_OR_INCAP(target))
 		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(target)
-		timer = addtimer(CALLBACK(src, .proc/transform_back, new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
+		timer = addtimer(CALLBACK(src, PROC_REF(transform_back), new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
 		victims |= new_corgi
 		X.cooldownmod = (X.charge*0.8) SECONDS
 
@@ -150,14 +150,14 @@
 		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(hat?.dog_fashion)
 			new_corgi.place_on_head(hat,null,FALSE)
-	RegisterSignal(new_corgi, COMSIG_MOB_DEATH, .proc/transform_back)
+	RegisterSignal(new_corgi, COMSIG_MOB_DEATH, PROC_REF(transform_back))
 	return new_corgi
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/simple_animal/pet/dog/corgi/new_corgi)
 	//Kill timer
 	deltimer(timer)
 	timer = null
-	
+
 	var/obj/shapeshift_holder/H = locate() in new_corgi
 	if(!H)
 		return
@@ -212,7 +212,7 @@
 	if(isliving(target))
 		victims += WEAKREF(target)
 		hide(target)
-		addtimer(CALLBACK(src, .proc/reveal, target), ((X.charge*0.4) SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(reveal), target), ((X.charge*0.4) SECONDS))
 		X.cooldownmod = ((X.charge*0.4)+1) SECONDS
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
@@ -260,7 +260,7 @@
 /datum/xenoartifact_trait/major/lamp/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	X.visible_message("<span class='notice'>The [X] lights up!</span>")
 	X.set_light(X.charge*0.08, max(X.charge*0.05, 5), X.light_color)
-	addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(unlight), X), (X.charge*0.6) SECONDS)
 	X.cooldownmod = (X.charge*0.6) SECONDS
 
 /datum/xenoartifact_trait/major/lamp/proc/unlight(var/obj/item/xenoartifact/X)
@@ -294,7 +294,7 @@
 		new /obj/effect/forcefield/xenoartifact_type(get_step(X, EAST), (X.charge*0.4) SECONDS)
 
 	X.cooldownmod = (X.charge*0.4) SECONDS
-	
+
 /obj/effect/forcefield/xenoartifact_type //Special wall type for artifact
 	desc = "An impenetrable artifact wall."
 
@@ -309,7 +309,7 @@
 	var/healing_type
 
 /datum/xenoartifact_trait/major/heal/on_init(obj/item/xenoartifact/X)
-	healing_type = pick("brute", "burn", "toxin")
+	healing_type = pick(BRUTE, BURN, TOX)
 
 /datum/xenoartifact_trait/major/heal/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/healthanalyzer))
@@ -322,11 +322,11 @@
 	if(istype(target, /mob/living))
 		var/mob/living/victim = target
 		switch(healing_type)
-			if("brute")
+			if(BRUTE)
 				victim.adjustBruteLoss((X.charge*0.25)*-1)
-			if("burn")
+			if(BURN)
 				victim.adjustFireLoss((X.charge*0.25)*-1)
-			if("toxin")
+			if(TOX)
 				victim.adjustToxLoss((X.charge*0.25)*-1)
 
 ///============
@@ -399,7 +399,7 @@
 	var/sound
 
 /datum/xenoartifact_trait/major/horn/on_init(obj/item/xenoartifact/X)
-	sound = pick(list('sound/effects/adminhelp.ogg', 'sound/effects/applause.ogg', 'sound/effects/bubbles.ogg', 
+	sound = pick(list('sound/effects/adminhelp.ogg', 'sound/effects/applause.ogg', 'sound/effects/bubbles.ogg',
 					'sound/effects/empulse.ogg', 'sound/effects/explosion1.ogg', 'sound/effects/explosion_distant.ogg',
 					'sound/effects/laughtrack.ogg', 'sound/effects/magic.ogg', 'sound/effects/meteorimpact.ogg',
 					'sound/effects/phasein.ogg', 'sound/effects/supermatter.ogg', 'sound/weapons/armbomb.ogg',
@@ -433,9 +433,9 @@
 	var/datum/gas/output
 
 /datum/xenoartifact_trait/major/gas/on_init(obj/item/xenoartifact/X)
-	input = pickweight(valid_inputs)
+	input = pick_weight(valid_inputs)
 	valid_outputs -= input //in the rare case the artifact wants to exhcange plasma for more plasma.
-	output = pickweight(valid_outputs)
+	output = pick_weight(valid_outputs)
 
 /datum/xenoartifact_trait/major/gas/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))

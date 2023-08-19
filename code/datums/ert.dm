@@ -63,6 +63,15 @@
 	mission = "Clean up EVERYTHING."
 	polldesc = "a Nanotrasen Janitorial Response Team"
 
+/datum/ert/engineer
+	roles = list(/datum/antagonist/ert/engineer)
+	leader_role = /datum/antagonist/ert/engineer
+	teamsize = 3
+	opendoors = FALSE
+	rename_team = "Nanotrasen Repair Crew"
+	mission = "Restore the station to working order."
+	polldesc = "a Nanotrasen Engineering Response Team"
+
 /datum/ert/intern
 	roles = list(/datum/antagonist/ert/intern)
 	leader_role = /datum/antagonist/ert/intern/leader
@@ -71,6 +80,15 @@
 	rename_team = "Horde of Interns"
 	mission = "Assist in conflict resolution."
 	polldesc = "an unpaid internship opportunity with Nanotrasen"
+
+/datum/ert/lawyer
+	roles = list(/datum/antagonist/ert/lawyer)
+	leader_role = /datum/antagonist/ert/lawyer
+	teamsize = 7
+	opendoors = FALSE
+	rename_team = "Law-Firm-In-A-Box"
+	mission = "Assist in legal matters."
+	polldesc = "a partnership with an up-and-coming Nanotrasen law firm"
 
 /datum/ert/doomguy
 	roles = list(/datum/antagonist/ert/doomguy)

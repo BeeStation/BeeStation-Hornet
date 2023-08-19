@@ -73,9 +73,7 @@
 /area/ruin/powered/pride)
 "Y" = (
 /obj/machinery/door/airlock/diamond,
-/turf/open/floor/mineral/silver{
-	blocks_air = 1
-	},
+/turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 
 (1,1,1) = {"

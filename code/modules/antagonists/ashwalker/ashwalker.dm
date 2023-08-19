@@ -4,7 +4,7 @@
 
 /datum/antagonist/ashwalker
 	name = "Ash Walker"
-	job_rank = ROLE_LAVALAND
+	banning_key = ROLE_ASHWALKER
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
@@ -26,14 +26,15 @@
 /datum/antagonist/ashwalker/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
 	UnregisterSignal(old_body, COMSIG_MOB_EXAMINATE)
-	RegisterSignal(new_body, COMSIG_MOB_EXAMINATE, .proc/on_examinate)
+	RegisterSignal(new_body, COMSIG_MOB_EXAMINATE, PROC_REF(on_examinate))
 
 /datum/antagonist/ashwalker/on_gain()
 	. = ..()
-	RegisterSignal(owner.current, COMSIG_MOB_EXAMINATE, .proc/on_examinate)
+	RegisterSignal(owner.current, COMSIG_MOB_EXAMINATE, PROC_REF(on_examinate))
 	owner.teach_crafting_recipe(/datum/crafting_recipe/skeleton_key)
 	owner.teach_crafting_recipe(/datum/crafting_recipe/drakecloak)
 	owner.teach_crafting_recipe(/datum/crafting_recipe/primal_lasso)
+	owner.teach_crafting_recipe(/datum/crafting_recipe/dragon_lasso)
 
 /datum/antagonist/ashwalker/on_removal()
 	. = ..()

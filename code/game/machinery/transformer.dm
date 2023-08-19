@@ -58,7 +58,7 @@
 			AM.forceMove(drop_location())
 			do_transform(AM)
 
-/obj/machinery/transformer/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/machinery/transformer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	// Allows items to go through,
 	// to stop them from blocking the conveyor belt.
@@ -104,7 +104,7 @@
 		R.connected_ai = masterAI
 		R.lawsync()
 		R.lawupdate = TRUE
-	addtimer(CALLBACK(src, .proc/unlock_new_robot, R), 50)
+	addtimer(CALLBACK(src, PROC_REF(unlock_new_robot), R), 50)
 
 /obj/machinery/transformer/proc/unlock_new_robot(mob/living/silicon/robot/R)
 	playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)

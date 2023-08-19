@@ -11,14 +11,17 @@ GLOBAL_LIST(admin_antag_list)
 	var/silent = FALSE							//Silent will prevent the gain/lose texts to show
 	var/can_coexist_with_others = TRUE			//Whether or not the person will be able to have more than one datum
 	var/list/typecache_datum_blacklist = list()	//List of datums this type can't coexist with
-	var/delete_on_mind_deletion = TRUE
-	var/job_rank
+	/// The ROLE_X key used for this antagonist.
+	var/banning_key
+	/// Required living playtime to be included in the rolling for this antagonist
+	var/required_living_playtime = 0
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()
 	var/delay_roundend = TRUE
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
+	var/ui_name = "AntagInfoGeneric"
 
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
@@ -29,6 +32,9 @@ GLOBAL_LIST(admin_antag_list)
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
 	var/show_name_in_check_antagonists = FALSE //Will append antagonist name in admin listings - use for categories that share more than one antag type
 	var/show_to_ghosts = FALSE // Should this antagonist be shown as antag to ghosts? Shouldn't be used for stealthy antagonists like traitors
+
+	/// Weakref to button to access antag interface
+	var/datum/weakref/info_button_ref
 
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
@@ -76,6 +82,10 @@ GLOBAL_LIST(admin_antag_list)
 	remove_innate_effects(old_body)
 	if(old_body.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
 		old_body.remove_from_current_living_antags()
+	var/datum/action/antag_info/info_button = info_button_ref?.resolve()
+	if(info_button)
+		info_button.Remove(old_body)
+		info_button.Grant(new_body)
 	apply_innate_effects(new_body)
 	if(count_against_dynamic_roll_chance && new_body.stat != DEAD)
 		new_body.add_to_current_living_antags()
@@ -99,27 +109,42 @@ GLOBAL_LIST(admin_antag_list)
 		CRASH("[src] ran on_gain() without a mind")
 	if(!owner.current)
 		CRASH("[src] ran on_gain() on a mind without a mob")
-	if(!silent && tips)
-		show_tips(tips)
+	var/datum/action/antag_info/info_button = make_info_button()
+	if(!silent)
+		if(tips)
+			show_tips(tips)
+		if(ui_name)
+			to_chat(owner.current, "<span class='boldnotice'>For more info, read the panel. \
+				You can always come back to it using the button in the top left.</span>")
+			info_button?.Trigger()
 	greet()
 	apply_innate_effects()
 	give_antag_moodies()
 	if(is_banned(owner.current) && replace_banned)
 		replace_banned_player()
-	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & PREFTOGGLE_DEADMIN_ANTAGONIST))
+	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)))
 		owner.current.client.holder.auto_deadmin()
 	if(count_against_dynamic_roll_chance && owner.current.stat != DEAD && owner.current.client)
 		owner.current.add_to_current_living_antags()
 
+//in the future, this should entirely replace greet.
+/datum/antagonist/proc/make_info_button()
+	if(!ui_name)
+		return
+	var/datum/action/antag_info/info_button = new(src)
+	info_button.Grant(owner.current)
+	info_button_ref = WEAKREF(info_button)
+	return info_button
+
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
 		return FALSE
-	. = (is_banned_from(M.ckey, list(ROLE_SYNDICATE, job_rank)) || QDELETED(M))
+	. = (is_banned_from(M.ckey, banning_key) || QDELETED(M))
 
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [name]?", job_rank, null, job_rank, 50, owner.current)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [name]?", banning_key, null, 7.5 SECONDS, owner.current, ignore_category = FALSE)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
@@ -127,6 +152,7 @@ GLOBAL_LIST(admin_antag_list)
 		owner.current.ghostize(FALSE)
 		owner.current.key = C.key
 	else
+		owner.current.playable_bantype = banning_key
 		owner.current.ghostize(FALSE,SENTIENCE_FORCE)
 
 ///Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
@@ -134,6 +160,8 @@ GLOBAL_LIST(admin_antag_list)
 	SHOULD_CALL_PARENT(TRUE)
 	remove_innate_effects()
 	clear_antag_moodies()
+	if(info_button_ref)
+		QDEL_NULL(info_button_ref)
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
 		if(!LAZYLEN(owner.antag_datums))
@@ -150,6 +178,10 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/proc/farewell()
 	return
+
+/// gets antag name for orbit category. Reasoning is described in each subtype
+/datum/antagonist/proc/get_antag_name()
+	return name
 
 /datum/antagonist/proc/give_antag_moodies()
 	if(!antag_moodlet)
@@ -197,6 +229,42 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/roundend_report_footer()
 	return
 
+///ANTAGONIST UI STUFF
+
+/datum/antagonist/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, ui_name, name)
+		ui.open()
+
+/datum/antagonist/ui_state(mob/user)
+	return GLOB.always_state
+
+///generic helper to send objectives as data through tgui.
+/datum/antagonist/proc/get_objectives()
+	var/objective_count = 1
+	var/list/objective_data = list()
+	//all obj
+	for(var/datum/objective/objective in objectives)
+		objective_data += list(list(
+			"count" = objective_count,
+			"name" = objective.name,
+			"explanation" = objective.explanation_text,
+			"complete" = objective.completed,
+		))
+		objective_count++
+	return objective_data
+
+/datum/antagonist/ui_static_data(mob/user)
+	var/list/data = list()
+	data["antag_name"] = name
+	data["objectives"] = get_objectives()
+	return data
+
+/datum/antagonist/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/bee_antags),
+	)
 
 //ADMIN TOOLS
 
@@ -220,14 +288,6 @@ GLOBAL_LIST(admin_antag_list)
 //nuke disk code, genome count, etc
 /datum/antagonist/proc/antag_panel_data()
 	return ""
-
-/datum/antagonist/proc/enabled_in_preferences(datum/mind/M)
-	if(job_rank)
-		if(M.current && M.current.client && (job_rank in M.current.client.prefs.be_special))
-			return TRUE
-		else
-			return FALSE
-	return TRUE
 
 // List if ["Command"] = CALLBACK(), user will be appeneded to callback arguments on execution
 /datum/antagonist/proc/get_admin_commands()
@@ -324,3 +384,30 @@ GLOBAL_LIST(admin_antag_list)
 				to_chat(C, "<span class='boldnotice'>[message]</span>")
 		else
 			C.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy
+
+//button for antags to review their descriptions/info
+/datum/action/antag_info
+	name = "Open Special Role Information:"
+	button_icon_state = "round_end"
+
+/datum/action/antag_info/New(Target)
+	. = ..()
+	name = "Open [target] Information"
+
+/datum/action/antag_info/Trigger(trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
+	target.ui_interact(owner)
+
+/datum/action/antag_info/IsAvailable(feedback = FALSE)
+	if(!target)
+		stack_trace("[type] was used without a target antag datum!")
+		return FALSE
+	. = ..()
+	if(!.)
+		return
+	if(!owner.mind || !(target in owner.mind.antag_datums))
+		return FALSE
+	return TRUE

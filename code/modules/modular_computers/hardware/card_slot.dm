@@ -107,6 +107,7 @@
 	current_identification = null
 	current_job = null
 	holder?.update_icon()
+	holder?.ui_update()
 	return TRUE
 
 /obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)

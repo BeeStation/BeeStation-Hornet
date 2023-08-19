@@ -13,8 +13,10 @@
 	lighting_colour_tube = "#fff0dd"
 	lighting_colour_bulb = "#ffe1c1"
 	sound_environment = SOUND_ENVIRONMENT_ROOM
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	//The mobile port attached to this area
 	var/obj/docking_port/mobile/mobile_port
+	area_limited_icon_smoothing = /area/shuttle
 
 /area/shuttle/Initialize(mapload)
 	if(!canSmoothWithAreas)
@@ -33,6 +35,7 @@
 	var/area/shuttle/A
 	var/obj/docking_port/mobile/S
 	var/list/shuttle_stack = list(mobile_port) //Indexing through a list helps prevent looped directed graph errors.
+	. = 0
 	while(i++ < shuttle_stack.len)
 		S = shuttle_stack[i]
 		A = S.underlying_turf_area[T]
@@ -66,6 +69,7 @@
 	name = "Syndicate Infiltrator"
 	ambience_index = AMBIENCE_DANGER
 	canSmoothWithAreas = /area/shuttle/syndicate
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 
 /area/shuttle/syndicate/bridge
 	name = "Syndicate Infiltrator Control"
@@ -95,7 +99,7 @@
 
 /area/shuttle/hunter
 	name = "Hunter Shuttle"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	requires_power = TRUE
 	canSmoothWithAreas = /area/shuttle/hunter
 
 ////////////////////////////White Ship////////////////////////////
@@ -219,6 +223,7 @@
 
 /area/shuttle/syndicate_scout
 	name = "Syndicate Scout"
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
 
 /area/shuttle/caravan
 	requires_power = TRUE

@@ -7,7 +7,9 @@
 	light_color = LIGHT_COLOR_SLIME_LAMP
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	products = list(/obj/item/clothing/under/rank/engineering/chief_engineer = 4,
+					/obj/item/clothing/under/rank/engineering/chief_engineer/skirt = 4,
 		            /obj/item/clothing/under/rank/engineering/engineer = 4,
+					/obj/item/clothing/under/rank/engineering/engineer/skirt = 4,
 		            /obj/item/clothing/shoes/sneakers/orange = 4,
 		            /obj/item/clothing/head/hardhat = 4,
 					/obj/item/storage/belt/utility = 4,

@@ -17,7 +17,7 @@ The process of creating these numbers occurs in `/datum/game_mode/dynamic/proc/g
 In `/datum/game_mode/dynamic/proc/roundstart()` (called when no admin chooses the rulesets explicitly), Dynamic uses the available roundstart budget to pick threats. This is done through the following system:
 
 - All roundstart rulesets (remember, `/datum/dynamic_ruleset/roundstart`) are put into an associative list with their weight as the values (`drafted_rules`).
-- Until there is either no roundstart budget left, or until there is no ruleset we can choose from with the available threat, a `pickweight` is done based on the drafted_rules. If the same threat is picked twice, it will "scale up". The meaning of this depends on the ruleset itself, using the `scaled_times` variable; traitors for instance will create more the higher they scale.
+- Until there is either no roundstart budget left, or until there is no ruleset we can choose from with the available threat, a `pick_weight` is done based on the drafted_rules. If the same threat is picked twice, it will "scale up". The meaning of this depends on the ruleset itself, using the `scaled_times` variable; traitors for instance will create more the higher they scale.
 	- If a ruleset is chosen with the `HIGH_IMPACT_RULESET` in its `flags`, then all other `HIGH_IMPACT_RULESET`s will be removed from `drafted_rules`. This is so that only one can ever be chosen.
 	- If a ruleset has `LONE_RULESET` in its `flags`, then it will be removed from `drafted_rules`. This is to ensure it will only ever be picked once. An example of this in use is Wizard, to avoid creating multiple wizards.
 - After all roundstart threats are chosen, `/datum/dynamic_ruleset/proc/picking_roundstart_rule` is called for each, passing in the ruleset and the number of times it is scaled.
@@ -144,7 +144,6 @@ Rulesets have the following variables notable to developers and those interested
 		- Traitor: `antag_cap = list("denominator" = 24)`. This means that for every 24 players, 1 traitor will be added (assuming no scaling).
 		- Nuclear Emergency: `antag_cap = list("denominator" = 18, "offset" = 1)`. For every 18 players, 1 nuke op will be added. Starts at 1, meaning at 30 players, 3 nuke ops will be created, rather than 2.
 		- Revolution: `antag_cap = 3`. There will always be 3 rev-heads, no matter what.
-- `minimum_required_age` - The minimum age in order to apply for the ruleset.
 - `weight` - How likely this ruleset is to be picked. A higher weight results in a higher chance of drafting.
 - `cost` - The initial cost of the ruleset. This cost is taken from either the roundstart or midround budget, depending on the ruleset.
 - `scaling_cost` - Cost for every *additional* application of this ruleset.

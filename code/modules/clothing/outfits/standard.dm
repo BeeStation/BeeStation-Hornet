@@ -1,25 +1,37 @@
 /datum/outfit/debug //Debug objs plus hardsuit
 	name = "Debug outfit"
 	uniform = /obj/item/clothing/under/misc/patriotsuit
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/debug
 	mask = /obj/item/clothing/mask/gas/welding/up
 	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	id = /obj/item/card/id/syndicate/debug
-	suit_store = /obj/item/tank/internals/oxygen
+	suit_store = /obj/item/tank/internals/emergency_oxygen/magic_oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
 	glasses = /obj/item/clothing/glasses/hud/debug
-	ears = /obj/item/radio/headset/headset_cent/commander
+	ears = /obj/item/radio/headset/headset_cent/debug
 	box = /obj/item/storage/box/debugtools
-	back = /obj/item/storage/backpack/holding
+	back = /obj/item/storage/backpack/debug
 	backpack_contents = list(/obj/item/gun/magic/wand/resurrection/debug=1,\
 		/obj/item/melee/transforming/energy/axe=1,\
 		/obj/item/storage/part_replacer/bluespace/tier4=1,\
 		/obj/item/debug/human_spawner=1,\
 		/obj/item/debug/omnitool=1,\
-		/obj/item/xenoartifact_labeler/debug=1
+		/obj/item/xenoartifact_labeler/debug=1,\
+		/obj/item/debug/orb_of_power=1
 		)
+
+/datum/outfit/debug/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(isplasmaman(H))
+		suit_store = /obj/item/tank/internals/plasmaman/belt/full/debug
+
+/datum/outfit/debug/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/obj/item/clothing/shoes/magboots/boots = H.shoes
+	boots.toggle()
+
 
 /datum/outfit/space
 	name = "Standard Space Gear"
@@ -250,12 +262,12 @@
 		return
 
 	if(isplasmaman(H))
-		H.internal = H.get_item_for_held_index(2)
-		H.update_internals_hud_icon(1)
+		H.open_internals(H.get_item_for_held_index(2))
+
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access(JOB_CENTCOM_COMMANDER)
+	W.access |= get_centcom_access(JOB_CENTCOM_COMMANDER)
 	W.assignment = JOB_CENTCOM_COMMANDER
 	W.registered_name = H.real_name
 	W.update_label()
@@ -284,7 +296,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.access |= get_centcom_access(JOB_CENTCOM_ADMIRAL)
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
@@ -365,7 +377,7 @@
 	var/obj/item/card/id/silver/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.access |= get_centcom_access(JOB_CENTCOM_ADMIRAL)
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
@@ -400,7 +412,6 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman
 	uniform = /obj/item/clothing/under/plasmaman
 	r_hand= /obj/item/tank/internals/plasmaman/belt/full
-	mask = /obj/item/clothing/mask/breath
 
 /datum/outfit/chrono_agent
 	name = "Timeline Eradication Agent"

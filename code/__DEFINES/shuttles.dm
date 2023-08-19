@@ -84,3 +84,12 @@
 #define SHUTTLE_UNLOCK_ALIENTECH "abductor"
 #define SHUTTLE_UNLOCK_MEDISIM "holodeck"
 #define SHUTTLE_UNLOCK_NARNAR "bcult"
+
+//Shuttle preset danger levels
+
+/// Generally safe for station consumption, has everything a typical shuttle needs
+#define SHUTTLE_DANGER_SAFE 0
+/// Missing key components or has mild elements of danger, but generally won't kill you
+#define SHUTTLE_DANGER_SUBPAR 1
+/// Possibility for most people on this shuttle to die with little effort
+#define SHUTTLE_DANGER_HIGH 2

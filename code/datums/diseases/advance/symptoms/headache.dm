@@ -3,7 +3,7 @@
 
 Headache
 
-	Noticable.
+	noticeable.
 	Highly resistant.
 	Increases stage speed.
 	Not transmittable.

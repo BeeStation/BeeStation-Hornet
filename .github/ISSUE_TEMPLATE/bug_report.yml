@@ -1,0 +1,72 @@
+name: Bug Report
+description: Create a report to help us improve
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > _Thanks for filing a bug ticket. We appreciate your time and effort! If you need real-time support, consider joining us on Discord!_
+  - type: input
+    id: byond
+    attributes:
+      label: BYOND Version
+      description: What version of BYOND are you using?
+      placeholder: "514.1589"
+    validations:
+      required: false
+  - type: input
+    id: round-date
+    attributes:
+      label: Round Date
+      placeholder: "YYYY/MM/DD"
+    validations:
+      required: false
+  - type: input
+    id: round-id
+    attributes:
+      label: Round ID
+      placeholder: "12345"
+    validations:
+      required: false
+  - type: textarea
+    id: testmerges
+    attributes:
+      label: Test merges
+      description: A list of currently active test merges (you can get this from the Message of the Day when you connect to the server, or the `Show Server Revision` OOC verb)
+      placeholder: |
+        - #pr-number
+        - #pr-number2
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: ------
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is. Plain-text snippets preferred, but screenshots welcome.
+      placeholder: Tell us what you saw
+      value: "When I did [...], I noticed [...]"
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: What did you expect?
+      description: A clear and concise description of what you expect to happen
+      placeholder: Tell us what you expected
+      value: "I expected [...]"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproducible steps
+      description: "How would we reproduce this bug? Please walk us through it step by step. Plain text is preferred, but screenshots are also welcome."
+      placeholder: |
+        1.
+        2.
+        3.
+        ...
