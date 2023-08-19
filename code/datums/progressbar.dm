@@ -70,7 +70,7 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 		bar.alpha = 0
 		if(user?.client)
 			user?.client.images += bar
-		if(show_to_target)
+		if(show_to_target && target_client)
 			target_client?.images += bar
 		animate(bar, pixel_y = 32 + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
 	if(shown_image)
@@ -85,36 +85,38 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 		alpha_icon = icon('icons/effects/64x64.dmi', "black_pillar")
 		alpha_filter = filter(type = "alpha", x = -33 + leftmost_pixel , y = 0, icon = alpha_icon)
 		shown_image.filters = alpha_filter
-		user?.client.images += shown_image
-		if(show_to_target)
+		if(user?.client)
+			user?.client.images += shown_image
+		if(show_to_target && target_client)
 			target_client?.images += shown_image
 		animate(shown_image, pixel_y = 32 + y_image_offset + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
 		shown_image_darkened.filters += filter(type = "color", color = list(0.07,0.07,0.07,0,0.07,0.07,0.07,0,0.07,0.07,0.07,0,0,0,0,1))
 		if(user?.client?.prefs)
 			current_outline_color = user.client.prefs.read_player_preference(/datum/preference/color/outline_color)
 		shown_image_darkened.filters += filter(type = "outline", size = 1, color = current_outline_color)
-		user?.client.images += shown_image_darkened
+		if(user?.client)
+			user?.client.images += shown_image_darkened
 		if(show_to_target)
 			target_client?.images += shown_image_darkened
 		animate(shown_image_darkened, pixel_y = 32 + y_image_offset + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
 
 /datum/progressbar/proc/update(progress)
-	if ((!user || !user.client) && (!target_client))
+	if ((!user || !user?.client) && (!target_client))
 		shown = FALSE
 		return
-	if (user.client != client)
+	if (user?.client != client)
 		if (client)
 			if(show_bar)
 				client.images -= bar
 			if(shown_image)
 				client.images -= shown_image
 				client.images -= shown_image_darkened
-		if (user.client)
+		if (user?.client)
 			if(show_bar)
-				user.client.images += bar
+				user?.client.images += bar
 			if(shown_image)
-				user.client.images += shown_image
-				user.client.images += shown_image_darkened
+				user?.client.images += shown_image
+				user?.client.images += shown_image_darkened
 	if(target_client && shown_image && !shown)
 		target_client?.images -= shown_image
 		target_client?.images -= shown_image_darkened
@@ -167,7 +169,7 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 	if(show_bar)
 		QDEL_IN(bar, PROGRESSBAR_ANIMATION_TIME * 2) //for garbage collection safety
 	if(shown_image)
-		if(user?.client?.images)
+		if(user?.client)
 			user.client.images -= shown_image
 			user.client.images -= shown_image_darkened
 		if(target_client)
@@ -179,7 +181,7 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 			current_outline_color = COLOR_DARK_RED
 			shown_image_darkened.filters += filter(type = "color", color = rgb(128, 0, 0))
 			shown_image_darkened.filters += filter(type = "outline", size = 1, color = current_outline_color)
-		if(user?.client?.images)
+		if(user?.client)
 			user.client.images += shown_image
 			user.client.images += shown_image_darkened
 		if(target_client)
