@@ -19,7 +19,7 @@
 		return FALSE
 
 /datum/surgery_step/pacify
-	name = "rewire brain"
+	name = "rewire brain (hemostat)"
 	implements = list(TOOL_HEMOSTAT = 100, TOOL_SCREWDRIVER = 35, /obj/item/pen = 15)
 	time = 40
 	preop_sound = 'sound/surgery/hemostat1.ogg'

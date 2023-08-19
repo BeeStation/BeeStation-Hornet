@@ -1,7 +1,7 @@
 
 //make incision
 /datum/surgery_step/incise
-	name = "make incision"
+	name = "make incision (scalpel)"
 	implements = list(TOOL_SCALPEL = 100, /obj/item/melee/transforming/energy/sword = 75, /obj/item/kitchen/knife = 65,
 		/obj/item/shard = 45, /obj/item = 30) // 30% success with any sharp item.
 	time = 16
@@ -41,7 +41,7 @@
 
 //clamp bleeders
 /datum/surgery_step/clamp_bleeders
-	name = "clamp bleeders"
+	name = "clamp bleeders (hemostat)"
 	implements = list(TOOL_HEMOSTAT = 100, TOOL_WIRECUTTER = 60, /obj/item/stack/package_wrap = 35, /obj/item/stack/cable_coil = 15)
 	time = 24
 	preop_sound = 'sound/surgery/hemostat1.ogg'
@@ -59,7 +59,7 @@
 
 //retract skin
 /datum/surgery_step/retract_skin
-	name = "retract skin"
+	name = "retract skin (retractor)"
 	implements = list(TOOL_RETRACTOR = 100, TOOL_SCREWDRIVER = 45, TOOL_WIRECUTTER = 35)
 	time = 24
 	preop_sound = 'sound/surgery/retractor1.ogg'
@@ -74,7 +74,7 @@
 
 //close incision
 /datum/surgery_step/close
-	name = "mend incision"
+	name = "mend incision (cautery)"
 	implements = list(TOOL_CAUTERY = 100, /obj/item/gun/energy/laser = 90, TOOL_WELDER = 70,
 		/obj/item = 30) // 30% success with any hot item.
 	time = 24
@@ -101,7 +101,7 @@
 
 //saw bone
 /datum/surgery_step/saw
-	name = "saw bone"
+	name = "saw bone (circular saw)"
 	implements = list(TOOL_SAW = 100,/obj/item/melee/arm_blade = 75,
 	/obj/item/fireaxe = 50, /obj/item/hatchet = 35, /obj/item/kitchen/knife/butcher = 25)
 	time = 54
@@ -129,7 +129,7 @@
 
 //drill bone
 /datum/surgery_step/drill
-	name = "drill bone"
+	name = "drill bone (surgical drill)"
 	implements = list(TOOL_DRILL = 100, /obj/item/powertool/hand_drill = 80, /obj/item/pickaxe/drill = 60, TOOL_SCREWDRIVER = 20)
 	time = 30
 

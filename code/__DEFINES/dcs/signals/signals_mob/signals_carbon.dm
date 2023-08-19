@@ -24,3 +24,7 @@
 /// Called from bodypart being removed /obj/item/bodypart/proc/drop_limb(mob/living/carbon/old_owner, dismembered)
 #define COMSIG_BODYPART_REMOVED "bodypart_removed"
 #define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"			//! Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
+/// Called from a mouse moving over a carbon (mob/user, location, control, params)
+#define COMSIG_CARBON_MOUSE_ENTERED "carbon_mouse_entered"
+/// Called from a mouse moving off a carbon (mob/user, location, control, params)
+#define COMSIG_CARBON_MOUSE_EXITED "carbon_mouse_exited"

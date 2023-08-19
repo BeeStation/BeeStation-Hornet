@@ -21,7 +21,7 @@
 		return FALSE
 
 /datum/surgery_step/dissection
-	name = "dissection"
+	name = "dissection (scalpel)"
 	implements = list(TOOL_SCALPEL = 60, /obj/item/kitchen/knife = 30, /obj/item/shard = 15)
 	time = 125
 

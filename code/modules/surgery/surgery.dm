@@ -20,16 +20,18 @@
 	var/requires_tech = FALSE										//handles techweb-oriented surgeries, previously restricted to the /advanced subtype (You still need to add designs)
 	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
 	var/failed_step = FALSE											//used for bypassing the 'poke on help intent' on failing a surgery step and forcing the doctor to damage the patient
-	var/abductor_surgery_blacklist = FALSE
-	//Blacklisted surgeries aren't innately known by Abductor Scientists
-	//However, they can still be used by them if they meet the normal requirements to access the surgery
-
+	var/abductor_surgery_blacklist = FALSE							//Blacklisted surgeries aren't innately known by Abductor Scientists. However, they can still be used by them if they meet the normal requirements to access the surgery
+	var/list/outlined_items = list()
+	var/list/outlined_items_by_user = list()
+	var/list/hovering_users = list()
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(surgery_target)
 		target = surgery_target
 		target.surgeries += src
+		RegisterSignal(target, COMSIG_CARBON_MOUSE_ENTERED, PROC_REF(on_mouse_entered))
+		RegisterSignal(target, COMSIG_CARBON_MOUSE_EXITED, PROC_REF(on_mouse_exited))
 		if(surgery_location)
 			location = surgery_location
 		if(surgery_bodypart)
@@ -38,8 +40,12 @@
 /datum/surgery/Destroy()
 	if(target)
 		target.surgeries -= src
+		UnregisterSignal(target, list(COMSIG_CARBON_MOUSE_ENTERED, COMSIG_CARBON_MOUSE_EXITED))
 	target = null
 	operated_bodypart = null
+	remove_all_outlines()
+	for(var/mob/living/user in hovering_users)
+		UnregisterSignal(user, list(COMSIG_MOB_LOGOUT, COMSIG_LIVING_DEATH, COMSIG_PARENT_PREQDELETED))
 	return ..()
 
 
@@ -140,6 +146,86 @@
 /datum/surgery/proc/complete()
 	SSblackbox.record_feedback("tally", "surgeries_completed", 1, type)
 	qdel(src)
+
+/datum/surgery/proc/on_mouse_entered(datum/_source, mob/living/user)
+	SIGNAL_HANDLER
+	if(!istype(user) || user.zone_selected != location || (user in hovering_users))
+		return
+	add_outlines(user)
+	hovering_users += user
+
+/datum/surgery/proc/on_mouse_exited(datum/_source, mob/living/user)
+	SIGNAL_HANDLER
+	if(!istype(user) || !(user in hovering_users))
+		return
+	remove_outlines_from_user(user)
+	hovering_users -= user
+
+/datum/surgery/proc/add_outlines(mob/living/target)
+	var/datum/surgery_step/current_step = get_surgery_step()
+	if(!current_step)
+		return
+	var/list/user_items = list()
+	for(var/obj/item/item as() in target.GetAllContents(/obj/item))
+		for(var/key in current_step.implements)
+			var/match = FALSE
+
+			if(ispath(key) && key != /obj/item && istype(item, key))
+				match = TRUE
+			else if(item.tool_behaviour == key)
+				match = TRUE
+
+			if(match)
+				if(current_step.tool_check(target, item))
+					var/outline_color
+					switch(current_step.implements[key])
+						if(80 to INFINITY)
+							outline_color = "#00ff00"
+						if(45 to 80)
+							outline_color = "#ffff00"
+						else
+							outline_color = "#ff0000"
+					item.add_filter("surgery_helper_outline", 1, outline_filter(size = 1, color = outline_color))
+					outlined_items |= item
+					user_items += item
+					RegisterSignal(item, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_PREQDELETED), PROC_REF(remove_tool_outline))
+					break
+	if(length(user_items))
+		outlined_items_by_user[target] = user_items
+		RegisterSignal(target, list(COMSIG_MOB_LOGOUT, COMSIG_LIVING_DEATH, COMSIG_PARENT_PREQDELETED), PROC_REF(remove_outlines_from_user))
+
+/datum/surgery/proc/refresh_outlines()
+	for(var/mob/living/target in hovering_users)
+		remove_outlines_from_user(target)
+		add_outlines(target)
+
+/datum/surgery/proc/remove_outlines_from_user(mob/living/target)
+	SIGNAL_HANDLER
+	if(!istype(target))
+		return
+	for(var/obj/item/item in outlined_items_by_user[target])
+		item.remove_filter("surgery_helper_outline")
+		UnregisterSignal(item, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_PREQDELETED))
+		outlined_items -= item
+	outlined_items_by_user -= target
+	UnregisterSignal(target, list(COMSIG_MOB_LOGOUT, COMSIG_LIVING_DEATH, COMSIG_PARENT_PREQDELETED))
+
+/datum/surgery/proc/remove_all_outlines()
+	for(var/obj/item/item in outlined_items)
+		item.remove_filter("surgery_helper_outline")
+		UnregisterSignal(item, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_PREQDELETED))
+	outlined_items.Cut()
+	outlined_items_by_user.Cut()
+
+/datum/surgery/proc/remove_tool_outline(obj/item/item)
+	SIGNAL_HANDLER
+	if(!istype(item) || !(item in outlined_items))
+		return
+	for(var/key in outlined_items_by_user)
+		outlined_items_by_user[key] -= item
+	outlined_items -= item
+	item.remove_filter("surgery_helper_outline")
+	UnregisterSignal(item, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_PREQDELETED))
 
 /datum/surgery/advanced
 	name = "advanced surgery"

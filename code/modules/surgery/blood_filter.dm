@@ -34,7 +34,7 @@
 	return ..()
 
 /datum/surgery_step/filter_blood
-	name = "Filter blood"
+	name = "filter blood (blood filter)"
 	implements = list(/obj/item/blood_filter = 95)
 	repeatable = TRUE
 	time = 2.5 SECONDS

@@ -9,7 +9,7 @@
 
 
 /datum/surgery_step/sever_limb
-	name = "sever limb"
+	name = "sever limb (circular saw)"
 	implements = list(TOOL_SCALPEL = 100, TOOL_SAW = 100, /obj/item/melee/arm_blade = 80, /obj/item/fireaxe = 50, /obj/item/hatchet = 40, /obj/item/kitchen/knife/butcher = 25)
 	time = 64
 	preop_sound = 'sound/surgery/scalpel1.ogg'

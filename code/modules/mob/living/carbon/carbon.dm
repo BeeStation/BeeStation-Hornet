@@ -67,6 +67,7 @@
 		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
 			if((S.self_operable || user != src) && (user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM))
 				if(S.next_step(user,user.a_intent))
+					S.refresh_outlines()
 					return TRUE
 	return ..()
 
@@ -1070,3 +1071,13 @@
 	if(update_icon)
 		update_body()
 		update_body_parts(TRUE)
+
+/mob/living/carbon/MouseEntered(location, control, params)
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_CARBON_MOUSE_ENTERED, usr, location, control, params)
+
+/mob/living/carbon/MouseExited(location, control, params)
+	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_CARBON_MOUSE_EXITED, usr, location, control, params)

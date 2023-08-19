@@ -135,6 +135,7 @@
 		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
 			if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 				if(S.next_step(user, user.a_intent))
+					S.refresh_outlines()
 					return 1
 	return 0
 

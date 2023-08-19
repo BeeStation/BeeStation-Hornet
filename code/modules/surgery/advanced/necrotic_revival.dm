@@ -18,7 +18,7 @@
 		return FALSE
 
 /datum/surgery_step/bionecrosis
-	name = "start bionecrosis"
+	name = "start bionecrosis (syringe)"
 	implements = list(/obj/item/reagent_containers/syringe = 100, /obj/item/pen = 30)
 	time = 50
 	chems_needed = list(/datum/reagent/toxin/zombiepowder, /datum/reagent/medicine/rezadone)

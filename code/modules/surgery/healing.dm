@@ -22,7 +22,7 @@
 					/datum/surgery_step/close)
 
 /datum/surgery_step/heal
-	name = "repair body"
+	name = "repair body (hemostat)"
 	implements = list(TOOL_HEMOSTAT = 100, TOOL_SCREWDRIVER = 35, /obj/item/pen = 15)
 	repeatable = TRUE
 	time = 25
