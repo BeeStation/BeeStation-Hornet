@@ -27,7 +27,6 @@
 /area/ruin/unpowered)
 "m" = (
 /obj/effect/turf_decal/bot_white/right,
-/obj/item/circuitboard/machine/ore_silo,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)

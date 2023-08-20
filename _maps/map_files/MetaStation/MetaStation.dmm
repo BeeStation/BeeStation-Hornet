@@ -41776,7 +41776,6 @@
 /area/maintenance/starboard/aft)
 "iGf" = (
 /obj/effect/turf_decal/bot_white/right,
-/obj/machinery/ore_silo,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)

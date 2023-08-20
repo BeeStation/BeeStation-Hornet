@@ -39305,7 +39305,6 @@
 /turf/closed/wall/rust,
 /area/vacant_room/commissary/commissary2)
 "mnF" = (
-/obj/machinery/ore_silo,
 /obj/effect/turf_decal/delivery,
 /obj/structure/sign/warning/securearea{
 	pixel_y = 33

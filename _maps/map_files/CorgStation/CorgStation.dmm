@@ -1538,7 +1538,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
 "ari" = (
-/obj/machinery/ore_silo,
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
 "ark" = (
@@ -36639,7 +36638,6 @@
 /area/crew_quarters/heads/hop)
 "lQL" = (
 /obj/structure/table/reinforced,
-/obj/item/circuitboard/machine/ore_silo,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)

@@ -47685,7 +47685,6 @@
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "hOV" = (
-/obj/machinery/ore_silo,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)

@@ -79689,7 +79689,6 @@
 "tvM" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/ore_silo,
 /obj/machinery/airalarm{
 	pixel_y = 22
 	},

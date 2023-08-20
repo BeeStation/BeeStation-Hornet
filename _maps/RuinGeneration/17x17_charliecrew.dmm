@@ -94,7 +94,6 @@
 "gZ" = (
 /obj/item/stack/cable_coil,
 /obj/item/stock_parts/micro_laser,
-/obj/item/circuitboard/machine/ore_silo,
 /obj/structure/table/glass/plasma,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4

@@ -23145,7 +23145,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "fZC" = (
-/obj/machinery/ore_silo,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 5
 	},

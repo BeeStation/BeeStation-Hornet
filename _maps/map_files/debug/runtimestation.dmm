@@ -680,7 +680,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/ore_silo,
 /turf/open/floor/plasteel,
 /area/science)
 "cs" = (
