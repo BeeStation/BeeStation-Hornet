@@ -32,6 +32,16 @@
 	category = list("Mining Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
+/datum/design/energy_pickaxe
+	name = "Energy Pickaxe"
+	desc = "A powered pickaxe for breaking through tough rocks."
+	id = "energypickaxe"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 8000, /datum/material/plasma = 2000)
+	build_path = /obj/item/pickaxe/energy_pickaxe
+	category = list("Mining Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+
 /datum/design/drill_diamond
 	name = "Diamond-Tipped Mining Drill"
 	desc = "Yours is the drill that will pierce the heavens!"
