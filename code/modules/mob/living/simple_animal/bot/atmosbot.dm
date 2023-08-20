@@ -135,7 +135,7 @@
 			if(ATMOSBOT_BAD_TEMP)
 				target = get_vent_turf()
 				action = ATMOSBOT_TEMPERATURE_CONTROL
-				try_speak("The atmospheric temperature in [get_area(src)] exceeds allows operating limits.")
+				try_speak("The atmospheric temperature in [get_area(src)] exceeds allowed operating limits.")
 			if(ATMOSBOT_AREA_STABLE)
 				if(emagged == 2)
 					if(prob(20))
