@@ -42,20 +42,23 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 		bar = image('icons/effects/progessbar.dmi', target, "prog_bar_0")
 		bar.plane = ABOVE_HUD_PLANE
 		bar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		bar.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	user = User
 	if(user)
 		client = user.client
 	if(additional_image)
 		shown_image = image(additional_image.icon, target, additional_image.icon_state, (ABOVE_HUD_PLANE - 0.1))
+		shown_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		shown_image.appearance_flags = KEEP_TOGETHER | APPEARANCE_UI_IGNORE_ALPHA
-		shown_image.color = additional_image.color
+		if(color_hex2num(additional_image.color) >= 350)//Colors that are too hard to see are rejected
+			shown_image.color = additional_image.color
 		shown_image.underlays = additional_image.underlays
 		shown_image.overlays = additional_image.overlays
 		shown_image.plane = HUD_PLANE
 		shown_image.transform = shown_image.transform.Scale(scale, scale)
 		shown_image_darkened = image(additional_image.icon, target, additional_image.icon_state, (ABOVE_HUD_PLANE - 0.2))
+		shown_image_darkened.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		shown_image_darkened.appearance_flags = KEEP_TOGETHER | APPEARANCE_UI_IGNORE_ALPHA
-		shown_image_darkened.color = additional_image.color
 		shown_image_darkened.underlays = additional_image.underlays
 		shown_image_darkened.overlays = additional_image.overlays
 		shown_image_darkened.plane = HUD_PLANE
