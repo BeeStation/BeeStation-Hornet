@@ -41168,7 +41168,7 @@
 /area/crew_quarters/heads/cmo)
 "ium" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "iuw" = (
@@ -44784,7 +44784,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "jXA" = (
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
@@ -77848,7 +77848,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /turf/open/floor/plasteel,
 /area/maintenance/aft)
 "xMM" = (
