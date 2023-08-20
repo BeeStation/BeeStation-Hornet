@@ -3,7 +3,7 @@
 #define ALUMINUM_FOAM 1
 #define IRON_FOAM 2
 #define RESIN_FOAM 3
-#define RESIN_FOAM_SELFDESTRUCT 4
+#define RESIN_FOAM_CHAINREACT 4
 
 
 /obj/effect/particle_effect/foam
@@ -85,9 +85,9 @@
 	name = "resin foam"
 	metal = RESIN_FOAM
 
-/obj/effect/particle_effect/foam/metal/selfdestruct_resin
+/obj/effect/particle_effect/foam/metal/chainreact_resin
 	name = "self-destruct resin foam"
-	metal = RESIN_FOAM_SELFDESTRUCT
+	metal = RESIN_FOAM_CHAINREACT
 
 /obj/effect/particle_effect/foam/long_life
 	lifetime = 150
@@ -117,8 +117,8 @@
 			new /obj/structure/foamedmetal/iron(get_turf(src))
 		if(RESIN_FOAM)
 			new /obj/structure/foamedmetal/resin(get_turf(src))
-		if(RESIN_FOAM_SELFDESTRUCT)
-			new /obj/structure/foamedmetal/resin/selfdestruct(get_turf(src))
+		if(RESIN_FOAM_CHAINREACT)
+			new /obj/structure/foamedmetal/resin/chainreact(get_turf(src))
 	flick("[icon_state]-disolve", src)
 	QDEL_IN(src, 5)
 
@@ -333,24 +333,23 @@
 		for(var/obj/item/Item in O)
 			Item.extinguish()
 
-/obj/structure/foamedmetal/resin/selfdestruct
+/obj/structure/foamedmetal/resin/chainreact
 	name = "\improper Advanced ATMOS Resin"
 	desc = "A lightweight, transparent resin used to suffocate fires, scrub the air of toxins, and restore the air to a safe temperature.\
 	 Will begin a self-descruction sequence if touched by the firefighting backpack's nozzle."
 	opacity = FALSE
-	icon_state = "atmos_resin_selfdestruct"
+	icon_state = "atmos_resin_chainreact"
 	alpha = 120
 	max_integrity = 10
-	pass_flags_self = PASSGLASS
 	var/dissolving = FALSE
 
-/obj/structure/foamedmetal/resin/selfdestruct/proc/find_nearby_foam(var/loc_direction, var/count)
-	var/obj/structure/foamedmetal/resin/selfdestruct/R = locate(/obj/structure/foamedmetal/resin/selfdestruct) in get_step(get_turf(src), loc_direction)
+/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction, var/count)
+	var/obj/structure/foamedmetal/resin/chainreact/R = locate(/obj/structure/foamedmetal/resin/chainreact) in get_step(get_turf(src), loc_direction)
 	if(istype(R))
 		R.start_the_chain(count)
 	return
 
-/obj/structure/foamedmetal/resin/selfdestruct/proc/start_the_chain(var/count)
+/obj/structure/foamedmetal/resin/chainreact/proc/start_the_chain(var/count)
 	count = count + 1
 	if(count > 40)
 		dissapear()
@@ -364,7 +363,7 @@
 	find_nearby_foam(WEST, count)
 	return
 
-/obj/structure/foamedmetal/resin/selfdestruct/proc/dissapear()
+/obj/structure/foamedmetal/resin/chainreact/proc/dissapear()
 	if(dissolving)
 		return
 	dissolving = TRUE
@@ -375,7 +374,7 @@
 	return
 
 
-/obj/structure/foamedmetal/resin/selfdestruct/attackby(obj/item/I, mob/living/user)
+/obj/structure/foamedmetal/resin/chainreact/attackby(obj/item/I, mob/living/user)
 	if(!istype(I, /obj/item/extinguisher/mini/nozzle))
 		return
 		//explosion(get_turf(src), 0, 0, 1)

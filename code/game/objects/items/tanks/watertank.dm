@@ -362,33 +362,21 @@
 			return
 		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
 		R.remove_any(resin_cost)
-		var/obj/effect/resin_container/resin = new (get_turf(src))
+		var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
 		if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
-			qdel(resin)
-			var/obj/effect/resin_container/selfdestruct/resin = new (get_turf(src))
-		log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
-		playsound(src,'sound/items/syringeproj.ogg',40,1)
-		var/delay = 2
-		var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
-		RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(resin_landed))
-
-		if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
-			var/obj/effect/resin_container/selfdestruct/resin = new (get_turf(src))
-			log_game("[key_name(user)] used Advanced Resin Launcher at [AREACOORD(user)].")
-			playsound(src,'sound/items/syringeproj.ogg',40,1)
-			var/delay = 2
-			var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-			RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/resin_stop_check)
-			RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/resin_landed)
-		else
-			var/obj/effect/resin_container/resin = new (get_turf(src))
+			resin_projectile = new /obj/effect/resin_container/chainreact(get_turf(src))
 			log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
 			playsound(src,'sound/items/syringeproj.ogg',40,1)
-			var/delay = 2
-			var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-			RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/resin_stop_check)
-			RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/resin_landed)
+		var/delay = 2
+		var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
+		RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(resin_landed))
+		playsound(src,'sound/items/syringeproj.ogg',40,1)
+
+		if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
+			log_game("[key_name(user)] used Advanced Resin Launcher at [AREACOORD(user)].")
+		else
+			log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
 
 		return
 
@@ -402,7 +390,7 @@
 		if(resin_synthesis_cooldown < max_foam)
 			var/obj/effect/particle_effect/foam/metal/resin/F = new (get_turf(target))
 			F.amount = 0
-			metal_synthesis_cooldown++
+			resin_synthesis_cooldown++
 			addtimer(CALLBACK(src, PROC_REF(reduce_metal_synth_cooldown)), 10 SECONDS)
 		else
 			to_chat(user, "<span class='warning'>The resin foam mix is still being synthesized...</span>")
@@ -420,7 +408,7 @@
 	if(!istype(source.moving, /obj/effect/resin_container) || QDELETED(source.moving))
 		return
 	if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
-		var/obj/effect/resin_container/selfdestruct/resin = source.moving
+		var/obj/effect/resin_container/chainreact/resin = source.moving
 		resin.Smoke()
 	else
 		var/obj/effect/resin_container/resin = source.moving
@@ -452,17 +440,17 @@
 /obj/effect/resin_container/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
 	return TRUE
 
-/obj/effect/resin_container/selfdestruct
+/obj/effect/resin_container/chainreact
 	name = "advanced resin container"
 	desc = "A compacted ball of expansive resin, used to repair the atmosphere in a room, or seal off breaches."
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "frozen_smoke_capsule_selfdestruct"
+	icon_state = "frozen_smoke_capsule_chainreact"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pass_flags = PASSTABLE
 	anchored = TRUE
 
-/obj/effect/resin_container/selfdestruct/Smoke()
-	var/obj/effect/particle_effect/foam/metal/selfdestruct_resin/S = new /obj/effect/particle_effect/foam/metal/selfdestruct_resin(get_turf(loc))
+/obj/effect/resin_container/chainreact/Smoke()
+	var/obj/effect/particle_effect/foam/metal/chainreact_resin/S = new /obj/effect/particle_effect/foam/metal/chainreact_resin(get_turf(loc))
 	S.amount = 4
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
