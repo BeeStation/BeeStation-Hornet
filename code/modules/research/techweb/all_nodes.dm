@@ -1578,20 +1578,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
-/datum/techweb_node/adv_rcd_upgrade
-	id = "adv_rcd_upgrade"
-	tech_tier = 4
-	display_name = "Advanced RCD Designs Upgrade"
-	description = "Unlocks new RCD designs."
-	design_ids = list("rcd_upgrade_silo_link")
-	prereq_ids = list(
-		"bluespace_travel",
-		"rcd_upgrade",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	export_price = 5000
-
-
 /////////////////////////weaponry tech/////////////////////////
 /datum/techweb_node/landmine
 	id = "nonlethal_mines"
