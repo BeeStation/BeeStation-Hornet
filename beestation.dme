@@ -2019,7 +2019,6 @@
 #include "code\modules\antagonists\spider\spider.dm"
 #include "code\modules\antagonists\survivalist\survivalist.dm"
 #include "code\modules\antagonists\swarmer\swarmer.dm"
-#include "code\modules\antagonists\swarmer\swarmer_event.dm"
 #include "code\modules\antagonists\traitor\datum_traitor.dm"
 #include "code\modules\antagonists\traitor\syndicate_contract.dm"
 #include "code\modules\antagonists\traitor\traitor_spawner.dm"
