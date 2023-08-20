@@ -15,6 +15,8 @@
 	var/list/exception_hold							//if set, these items will be the exception to the max size of object that can fit.
 	/// If set can only contain stuff with this single trait present.
 	var/list/can_hold_trait
+	/// If set, can only contain the exact items referenced in this list.
+	var/list/can_hold_weakref
 
 	var/list/mob/is_using							//lazy list of mobs looking at the contents of this storage.
 
@@ -32,6 +34,7 @@
 	var/allow_quick_empty = FALSE					//allow empty verb which allows dumping on the floor of everything inside quickly.
 	var/allow_quick_gather = FALSE					//allow toggle mob verb which toggles collecting all items from a tile.
 	var/insert_while_closed = TRUE					//the user can insert items while the storage is closed, if not the user will have to click/alt click to open it before they can insert items
+	var/can_hold_used_storage = TRUE				//if FALSE, this won't allow any items with a storage component + anything in contents to be stored.
 
 	var/collection_mode = COLLECT_EVERYTHING
 
@@ -631,6 +634,10 @@
 		if(!stop_messages)
 			host.balloon_alert(M, "It doesn't fit")
 		return FALSE
+	if(length(can_hold_weakref) && !(I.weak_reference in can_hold_weakref))
+		if(!stop_messages)
+			host.balloon_alert(M, "It doesn't fit")
+		return FALSE
 	if(I.w_class > max_w_class)
 		if(!stop_messages)
 			host.balloon_alert(M, "[I] is too big")
@@ -645,10 +652,15 @@
 	if(isitem(host))
 		var/obj/item/IP = host
 		var/datum/component/storage/STR_I = I.GetComponent(/datum/component/storage)
-		if((I.w_class >= IP.w_class) && STR_I && !allow_big_nesting)
-			if(!stop_messages)
-				host.balloon_alert(M, "It's too big")
-			return FALSE //To prevent the stacking of same sized storage items.
+		if(STR_I)
+			if(!can_hold_used_storage && length(I.contents))
+				if(!stop_messages)
+					host.balloon_alert(M, "Cannot nest storage")
+				return FALSE
+			if(!allow_big_nesting && I.w_class >= IP.w_class)
+				if(!stop_messages)
+					host.balloon_alert(M, "It's too big")
+				return FALSE //To prevent the stacking of same sized storage items.
 	if(HAS_TRAIT(I, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
 		if(!stop_messages)
 			host.balloon_alert(M, "[I] is stuck to your hand")

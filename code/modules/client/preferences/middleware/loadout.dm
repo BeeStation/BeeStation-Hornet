@@ -64,11 +64,11 @@
 		to_chat(user, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to purchase \the [TG.display_name]!</span>")
 
 /datum/preference_middleware/loadout/proc/equip_gear(list/params, mob/user)
-	var/datum/gear/TG = GLOB.gear_datums[params["id"]]
-	if(!istype(TG))
+	var/datum/gear/new_gear = GLOB.gear_datums[params["id"]]
+	if(!istype(new_gear))
 		return
-	if(TG.id in preferences.equipped_gear)
-		preferences.equipped_gear -= TG.id
+	if(new_gear.id in preferences.equipped_gear)
+		preferences.equipped_gear -= new_gear.id
 		preferences.character_preview_view?.update_body()
 		preferences.mark_undatumized_dirty_character()
 		return TRUE
@@ -76,20 +76,27 @@
 		var/list/type_blacklist = list()
 		var/list/slot_blacklist = list()
 		for(var/gear_id in preferences.equipped_gear)
-			var/datum/gear/G = GLOB.gear_datums[gear_id]
-			if(istype(G))
-				if(!(G.subtype_path in type_blacklist))
-					type_blacklist += G.subtype_path
-				if(!(G.slot in slot_blacklist))
-					slot_blacklist += G.slot
-		if((TG.id in preferences.purchased_gear))
-			if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
-				preferences.equipped_gear += TG.id
+			var/datum/gear/other_gear = GLOB.gear_datums[gear_id]
+			if(istype(other_gear))
+				// Don't add to blacklist if this has different requirements (i.e department-specific coats)
+				var/list/n_roles = new_gear.allowed_roles
+				var/list/o_roles = other_gear.allowed_roles
+				var/list/n_specs = new_gear.species_whitelist
+				var/list/o_specs = other_gear.species_whitelist
+				if((length(n_roles) && length(o_roles) && n_roles ~! o_roles) || (length(n_specs) && length(o_specs) && n_specs ~! o_specs))
+					continue
+				if(!(other_gear.subtype_path in type_blacklist))
+					type_blacklist += other_gear.subtype_path
+				if(!(other_gear.slot in slot_blacklist))
+					slot_blacklist += other_gear.slot
+		if((new_gear.id in preferences.purchased_gear))
+			if(!(new_gear.subtype_path in type_blacklist) || !(new_gear.slot in slot_blacklist))
+				preferences.equipped_gear += new_gear.id
 				preferences.character_preview_view?.update_body()
 				preferences.mark_undatumized_dirty_character()
 				return TRUE
 			else
-				to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
+				to_chat(user, "<span class='warning'>Can't equip [new_gear.display_name]. It conflicts with an already-equipped item.</span>")
 		else
-			log_href_exploit(user, "Attempting to equip [TG.type] when they do not own it.")
+			log_href_exploit(user, "Attempting to equip [new_gear.type] when they do not own it.")
 			return TRUE

@@ -1371,3 +1371,38 @@
 	new /obj/item/encryptionkey/heads/ce/fake(src)
 	new /obj/item/encryptionkey/heads/cmo/fake(src)
 	new /obj/item/encryptionkey/heads/hop/fake(src)
+
+/obj/item/storage/box/suitbox/loadout
+	name = "compression loadout box"
+	icon_state = "hugbox"
+	illustration = "glasses"
+	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/item/storage/box/suitbox/loadout/Initialize(_mapload, mob/living/owner)
+	. = ..()
+	if(owner)
+		var/owner_name = owner.mind?.name || owner.real_name || owner.name
+		name = "[initial(name)] ([owner_name])"
+		desc = "A special box using bluespace technology to compress any leftover clothing or accessories held by <span class='name'>[owner_name]</span>, taking up very little space, while only allowing [owner.p_their()] items to be placed in it."
+
+/obj/item/storage/box/suitbox/loadout/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
+	storage.allow_big_nesting = TRUE
+	storage.can_hold_used_storage = FALSE
+	storage.max_items = 0
+	storage.max_combined_w_class = 0
+	storage.max_w_class = WEIGHT_CLASS_TINY
+
+/obj/item/storage/box/suitbox/loadout/proc/add_loadout_item(obj/item/item)
+	if(QDELETED(item))
+		return
+	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
+	if(!storage.handle_item_insertion(item, prevent_warning = TRUE))
+		item.forceMove(drop_location())
+		return
+	LAZYADD(storage.can_hold_weakref, WEAKREF(item))
+	storage.max_items++
+	storage.max_combined_w_class += item.w_class
+	storage.max_w_class = max(storage.max_w_class, item.w_class)

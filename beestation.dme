@@ -2220,6 +2220,7 @@
 #include "code\modules\client\preferences\entries\character\body_model.dm"
 #include "code\modules\client\preferences\entries\character\clothing.dm"
 #include "code\modules\client\preferences\entries\character\gender.dm"
+#include "code\modules\client\preferences\entries\character\loadout.dm"
 #include "code\modules\client\preferences\entries\character\names.dm"
 #include "code\modules\client\preferences\entries\character\pda.dm"
 #include "code\modules\client\preferences\entries\character\random.dm"

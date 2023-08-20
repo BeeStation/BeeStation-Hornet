@@ -137,88 +137,104 @@
 		return
 	apply_loadout_to_mob(H, M, preference_source, on_dummy)
 
-/proc/apply_loadout_to_mob(mob/living/carbon/human/H, mob/M, client/preference_source, on_dummy = FALSE)
-	var/mob/living/carbon/human/human = H
+/proc/apply_loadout_to_mob(mob/living/carbon/human/human, mob/mob, client/preference_source, on_dummy = FALSE)
 	var/list/gear_leftovers = list()
+	var/list/original_items = list()
+	var/list/used_subtypes = list()
 	var/jumpsuit_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/jumpsuit_style)
+	var/always_equip_loadout_items = preference_source.prefs.read_character_preference(/datum/preference/toggle/always_equip_loadout_items)
 	if(preference_source && LAZYLEN(preference_source.prefs.equipped_gear))
-		for(var/gear in preference_source.prefs.equipped_gear)
-			var/datum/gear/G = GLOB.gear_datums[gear]
-			if(G)
-				if(!G.is_equippable)
-					continue
-				var/permitted = FALSE
-
-				if(G.allowed_roles && H.mind && (H.mind.assigned_role in G.allowed_roles))
-					permitted = TRUE
-				else if(!G.allowed_roles)
-					permitted = TRUE
-				else
-					permitted = FALSE
-
-				if(G.species_blacklist && (human.dna.species.id in G.species_blacklist))
-					permitted = FALSE
-
-				if(G.species_whitelist && !(human.dna.species.id in G.species_whitelist))
-					permitted = FALSE
-
-				if(!permitted)
-					if(M.client)
-						to_chat(M, "<span class='warning'>Your current species or role does not permit you to spawn with [G.display_name]!</span>")
-					continue
-
-				if(G.slot)
-					var/obj/o
-					if(on_dummy) // remove the old item
-						o = H.get_item_by_slot(G.slot)
-						H.doUnEquip(H.get_item_by_slot(G.slot), newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
-					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = jumpsuit_style), G.slot))
-						if(M.client)
-							to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
-						if(on_dummy && o)
-							qdel(o)
-					else
-						gear_leftovers += G
-				else
-					gear_leftovers += G
-
-			else
+		for(var/gear_key in preference_source.prefs.equipped_gear)
+			var/datum/gear/gear = GLOB.gear_datums[gear_key]
+			if(!gear)
 				preference_source.prefs.equipped_gear -= gear
 				preference_source.prefs.mark_undatumized_dirty_character()
+				continue
+			if(!gear.is_equippable)
+				continue
+			var/permitted = FALSE
 
-	if(gear_leftovers.len)
-		for(var/datum/gear/G in gear_leftovers)
-			var/metadata = preference_source.prefs.equipped_gear[G.id]
-			var/item = G.spawn_item(null, metadata, jumpsuit_style)
-			var/atom/placed_in = human.equip_or_collect(item)
+			if(gear.allowed_roles && human.mind && (human.mind.assigned_role in gear.allowed_roles))
+				permitted = TRUE
+			else if(!gear.allowed_roles)
+				permitted = TRUE
+			else
+				permitted = FALSE
 
-			if(istype(placed_in))
-				if(isturf(placed_in))
-					if(M.client)
-						to_chat(M, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
+			if(gear.species_blacklist && (human.dna.species.id in gear.species_blacklist))
+				permitted = FALSE
+
+			if(gear.species_whitelist && !(human.dna.species.id in gear.species_whitelist))
+				permitted = FALSE
+
+			if(!permitted)
+				if(mob.client)
+					to_chat(mob, "<span class='warning'>Your current species or role does not permit you to spawn with [gear.display_name]!</span>")
+				continue
+
+			var/datum/gear/conflicting_gear = used_subtypes[gear.subtype_path]
+			if(conflicting_gear)
+				if(mob.client)
+					to_chat(mob, "<span class='warning'>You didn't spawn with [gear.display_name], as it conflicts with the [conflicting_gear.display_name] you spawned with!</span>")
+				continue
+			used_subtypes[gear.subtype_path] = gear
+
+			if(gear.slot)
+				var/obj/old_item
+				var/obj/item/spawned_gear = gear.spawn_item(human, skirt_pref = jumpsuit_style)
+				if(on_dummy || always_equip_loadout_items) // remove the old item
+					old_item = human.get_item_by_slot(gear.slot)
+					human.doUnEquip(old_item, newloc = human.drop_location(), invdrop = FALSE, silent = TRUE)
+				if(always_equip_loadout_items && istype(spawned_gear, /obj/item/storage/backpack) && istype(old_item, /obj/item/storage/backpack))
+					var/obj/item/storage/backpack/old_backpack = old_item
+					var/obj/item/storage/backpack/new_backpack = spawned_gear
+					var/datum/component/storage/new_storage = new_backpack.GetComponent(/datum/component/storage)
+					for(var/obj/item/item in old_backpack.contents)
+						if(!new_storage.can_be_inserted(item, stop_messages = TRUE) || !new_storage.handle_item_insertion(item, prevent_warning = TRUE))
+							original_items += item
+				if(human.equip_to_slot_or_del(spawned_gear, gear.slot))
+					if(mob.client)
+						to_chat(mob, "<span class='notice'>Equipping you with [gear.display_name]!</span>")
+					if(!QDELETED(old_item))
+						if(on_dummy)
+							qdel(old_item)
+						else if(always_equip_loadout_items)
+							original_items += old_item
 				else
-					if(M.client)
-						to_chat(M, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]]")
-				continue
+					gear_leftovers += gear
+			else
+				gear_leftovers += gear
 
-			if(H.equip_to_appropriate_slot(item))
-				if(M.client)
-					to_chat(M, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
-				continue
-			if(H.put_in_hands(item))
-				if(M.client)
-					to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
-				continue
+	if(!on_dummy && (length(gear_leftovers) || length(original_items)))
+		var/list/gear_names = list()
+		var/list/old_names = list()
+		var/list/spawned_text = list()
+		var/obj/item/storage/box/suitbox/loadout/loadout_box = new(human.drop_location(), human)
+		for(var/datum/gear/gear in gear_leftovers)
+			var/metadata = preference_source.prefs.equipped_gear[gear.id]
+			var/spawned_item = gear.spawn_item(null, metadata, jumpsuit_style)
+			loadout_box.add_loadout_item(spawned_item)
+			gear_names |= "<span class='name'>[gear.display_name]</span>"
+		for(var/obj/item/old_item in original_items)
+			loadout_box.add_loadout_item(old_item)
+			old_names |= "<span class='name'>[old_item.name]</span>"
+		if(!length(loadout_box.contents)) // this SHOULDN'T happen, but better safe than sorry.
+			qdel(loadout_box)
+			return
+		var/static/list/slots = list(
+			"in your left pocket" = ITEM_SLOT_LPOCKET,
+			"in your right pocket" = ITEM_SLOT_RPOCKET,
+			"in your backpack" = ITEM_SLOT_BACKPACK,
+			"in your hands" = ITEM_SLOT_HANDS
+		)
+		var/where = human.equip_in_one_of_slots(loadout_box, slots, FALSE) || "at your feet"
+		if(mob.client)
+			if(length(gear_names))
+				spawned_text += "unused gear ([english_list(gear_names)])"
+			if(length(old_names))
+				spawned_text += "unequipped outfit items ([english_list(old_names)])"
+			to_chat(mob, "<span class='notice'>There is a box [where] containing your [english_list(spawned_text)]. This box is special, and can only contain those specific items!</span>")
 
-			var/obj/item/storage/B = (locate() in H)
-			if(B)
-				G.spawn_item(B, metadata, jumpsuit_style)
-				if(M.client)
-					to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
-				continue
-			if(M.client)
-				to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
-			qdel(item)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)
