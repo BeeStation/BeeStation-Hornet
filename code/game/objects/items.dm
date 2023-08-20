@@ -1090,7 +1090,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// No delay means there is no start message, and no reason to call tool_start_check before use_tool.
 	// Run the start check here so we wouldn't have to call it manually.
 	if(!delay && !tool_start_check(user, amount))
-		return
+		return TRUE
 
 	delay *= toolspeed
 
@@ -1100,24 +1100,24 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(delay)
 		if(target in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already using [src] on \the [target]!</span>")
-			return COMPONENT_NO_AFTERATTACK
+			return FALSE
 		// Create a callback with checks that would be called every tick by do_after.
 		var/datum/callback/tool_check = CALLBACK(src, PROC_REF(tool_check_callback), user, amount, extra_checks)
 		if(ismob(target))
 			if(!do_after(user, delay, target, extra_checks=tool_check, show_to_target = TRUE, add_item = src))
-				return
+				return FALSE
 
 		else
 			if(!do_after(user, delay, target=target, extra_checks=tool_check, show_to_target = TRUE, add_item = src))
-				return
+				return TRUE
 	else
 		// Invoke the extra checks once, just in case.
 		if(extra_checks && !extra_checks.Invoke())
-			return
+			return TRUE
 
 	// Use tool's fuel, stack sheets or charges if amount is set.
 	if(amount && !use(amount))
-		return
+		return FALSE
 
 	// Play tool sound at the end of tool usage,
 	// but only if the delay between the beginning and the end is not too small
