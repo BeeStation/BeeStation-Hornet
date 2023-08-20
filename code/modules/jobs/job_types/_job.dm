@@ -142,7 +142,6 @@
 	var/list/original_items = list()
 	var/list/used_subtypes = list()
 	var/jumpsuit_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/jumpsuit_style)
-	var/always_equip_loadout_items = preference_source.prefs.read_character_preference(/datum/preference/toggle/always_equip_loadout_items)
 	if(preference_source && LAZYLEN(preference_source.prefs.equipped_gear))
 		for(var/gear_key in preference_source.prefs.equipped_gear)
 			var/datum/gear/gear = GLOB.gear_datums[gear_key]
@@ -180,12 +179,11 @@
 			used_subtypes[gear.subtype_path] = gear
 
 			if(gear.slot)
-				var/obj/old_item
+				var/obj/old_item = human.get_item_by_slot(gear.slot)
 				var/obj/item/spawned_gear = gear.spawn_item(human, skirt_pref = jumpsuit_style)
-				if(on_dummy || always_equip_loadout_items) // remove the old item
-					old_item = human.get_item_by_slot(gear.slot)
-					human.doUnEquip(old_item, newloc = human.drop_location(), invdrop = FALSE, silent = TRUE)
-				if(always_equip_loadout_items && istype(spawned_gear, /obj/item/storage/backpack) && istype(old_item, /obj/item/storage/backpack))
+				// remove the old item
+				human.doUnEquip(old_item, newloc = human.drop_location(), invdrop = FALSE, silent = TRUE)
+				if(istype(spawned_gear, /obj/item/storage/backpack) && istype(old_item, /obj/item/storage/backpack))
 					var/obj/item/storage/backpack/old_backpack = old_item
 					var/obj/item/storage/backpack/new_backpack = spawned_gear
 					var/datum/component/storage/new_storage = new_backpack.GetComponent(/datum/component/storage)
@@ -198,7 +196,7 @@
 					if(!QDELETED(old_item))
 						if(on_dummy)
 							qdel(old_item)
-						else if(always_equip_loadout_items)
+						else
 							original_items += old_item
 				else
 					gear_leftovers += gear

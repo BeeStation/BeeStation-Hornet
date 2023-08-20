@@ -82,8 +82,7 @@ ALTER TABLE `SS13_characters`
     MODIFY COLUMN `all_quirks` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
     MODIFY COLUMN `equipped_gear` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
     MODIFY COLUMN `role_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
-    ADD COLUMN IF NOT EXISTS `randomize` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL AFTER `role_preferences`,
-	ADD COLUMN IF NOT EXISTS `always_equip_loadout_items` TINYINT(1) NULL AFTER `randomize`;
+    ADD COLUMN IF NOT EXISTS `randomize` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL AFTER `role_preferences`;
 
 /* Copy eye colors onto IPC screen color, now that it's separate */
 UPDATE `SS13_characters` SET `feature_ipc_screen` = `eye_color`;
