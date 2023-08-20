@@ -86,6 +86,18 @@ It is possible to destroy the net by the occupant or someone else.
 	// If you get gibbed or deleted, your soul will be trapped forever
 	if (QDELETED(target))
 		return
+	// Drop any items acquired from the location
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		for(var/obj/item/W in H)
+			if(W == H.w_uniform)
+				continue//So all they're left with are shoes and uniform.
+			if(W == H.shoes)
+				continue
+			H.dropItemToGround(W)
+		// After we remove items, at least give them what they need to live.
+		H.dna.species.give_important_for_life(H)
+	// Teleport
 	var/turf/safe_location = get_safe_random_station_turfs()
 	do_teleport(target, safe_location, channel = TELEPORT_CHANNEL_FREE, forced = TRUE)
 	target.Unconscious(3 SECONDS)
