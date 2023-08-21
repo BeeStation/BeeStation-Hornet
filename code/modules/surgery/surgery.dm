@@ -149,7 +149,7 @@
 
 /datum/surgery/proc/on_mouse_entered(datum/_source, mob/living/user)
 	SIGNAL_HANDLER
-	if(!istype(user) || user.zone_selected != location || !HAS_TRAIT(user, TRAIT_MEDICAL_HUD) || (user in hovering_users))
+	if(!istype(user) || user.zone_selected != location || !(HAS_TRAIT(user, TRAIT_MEDICAL_HUD) || HAS_TRAIT(user, TRAIT_SURGEON) || HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON)) || (user in hovering_users))
 		return
 	add_outlines(user)
 	hovering_users += user
