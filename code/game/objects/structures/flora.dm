@@ -1,6 +1,6 @@
 /obj/structure/flora
 	resistance_flags = FLAMMABLE
-	max_integrity = 150
+	max_integrity = 20
 	anchored = TRUE
 
 //trees

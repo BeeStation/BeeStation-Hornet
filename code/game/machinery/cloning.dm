@@ -404,6 +404,25 @@
 			icon_state = "pod_0"
 		use_power(200)
 
+REGISTER_BUFFER_HANDLER(/obj/machinery/clonepod)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
+	if(istype(buffer, /obj/machinery/computer/cloning))
+		if(get_area(buffer) != get_area(src))
+			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
+			FLUSH_BUFFER(buffer_parent)
+			return NONE
+		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
+		var/obj/machinery/computer/cloning/comp = buffer
+		if(connected)
+			connected.DetachCloner(src)
+		comp.AttachCloner(src)
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
+	else
+		return NONE
+	return COMPONENT_BUFFER_RECIEVED
+
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)
 	if(!(occupant || mess))
@@ -411,26 +430,6 @@
 			return
 
 	if(default_deconstruction_crowbar(W))
-		return
-
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/P = W
-
-		if(istype(P.buffer, /obj/machinery/computer/cloning))
-			if(get_area(P.buffer) != get_area(src))
-				to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
-				P.buffer = null
-				return
-			to_chat(user, "<font color = #666633>-% Successfully linked [P.buffer] with [src] %-</font color>")
-			var/obj/machinery/computer/cloning/comp = P.buffer
-			if(connected)
-				connected.DetachCloner(src)
-			comp.AttachCloner(src)
-		else
-			P.buffer = src
-			to_chat(user, "<font color = #666633>-% Successfully stored [REF(P.buffer)] [P.buffer.name] in buffer %-</font color>")
 		return
 
 	var/mob/living/mob_occupant = occupant

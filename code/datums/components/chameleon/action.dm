@@ -79,7 +79,7 @@
 			"slot" = slot_name,
 			"ref" = REF(chameleon),
 			"type" = "[chameleon.parent.type]",
-			"extra_actions" = assoc_list_strip_value(chameleon.extra_actions),
+			"extra_actions" = assoc_to_keys(chameleon.extra_actions),
 			"disguises" = disguise_choices,
 			"current_disguise" = "[chameleon.current_disguise]"
 		))

@@ -32,7 +32,7 @@
 				used_hashes += icon_hash
 				. += clothing_path
 			qdel(outfit)
-	for(var/path in disguise_whitelist ? assoc_list_strip_value(disguise_whitelist) : typesof(base_disguise_path))
+	for(var/path in disguise_whitelist ? assoc_to_keys(disguise_whitelist) : typesof(base_disguise_path))
 		if(!path || (path in .) || !ispath(path, /obj/item) || is_type_in_typecache(path, disguise_blacklist))
 			continue
 		var/obj/item/base_disguise = path

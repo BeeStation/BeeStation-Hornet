@@ -356,17 +356,13 @@
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
 	if(isipc(C))
 		C.set_species(/datum/species/human)
-		var/replacementName = random_unique_name(C.gender)
-		if(C.client.prefs.active_character.custom_names["human"])
-			C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
-		else
-			C.fully_replace_character_name(C.real_name, replacementName)
+		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 		for(var/datum/data/record/E in GLOB.data_core.general)
 			if(E.fields["name"] == C.real_name)
 				E.fields["species"] = "\improper Human"
 				var/client/Clt = C.client
 				var/static/list/show_directions = list(SOUTH, WEST)
-				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions, TRUE)
+				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions)
 				var/datum/picture/pf = new
 				var/datum/picture/ps = new
 				pf.picture_name = "[C]"

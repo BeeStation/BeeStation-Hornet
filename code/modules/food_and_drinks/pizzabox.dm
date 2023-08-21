@@ -123,6 +123,7 @@
 			if(wires.is_all_cut() && bomb_defused)
 				user.put_in_hands(bomb)
 				to_chat(user, "<span class='notice'>You carefully remove the [bomb] from [src].</span>")
+				bomb.installed = FALSE
 				bomb = null
 				update_icon()
 				return
@@ -191,6 +192,7 @@
 				return
 			wires = new /datum/wires/explosive/pizza(src)
 			bomb = I
+			bomb.installed = TRUE
 			to_chat(user, "<span class='notice'>You put [I] in [src]. Sneeki breeki...</span>")
 			update_icon()
 			return
@@ -271,6 +273,7 @@
 	var/randompizza = pick(subtypesof(/obj/item/reagent_containers/food/snacks/pizza))
 	pizza = new randompizza(src)
 	bomb = new(src)
+	bomb.installed = TRUE
 	wires = new /datum/wires/explosive/pizza(src)
 
 /obj/item/pizzabox/margherita/Initialize(mapload)

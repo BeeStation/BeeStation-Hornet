@@ -113,14 +113,13 @@
 	var/x = round((world.maxx - width)/2)
 	var/y = round((world.maxy - height)/2)
 
-	var/datum/space_level/level = SSmapping.add_new_zlevel(name, level_traits, orbital_body_type = orbital_body_type)
-	var/datum/parsed_map/parsed = load_map(file(mappath), x, y, level.z_value, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
+	var/datum/space_level/level = SSmapping.add_new_zlevel(name, level_traits, orbital_body_type = orbital_body_type, contain_turfs = FALSE)
+	var/datum/parsed_map/parsed = load_map(file(mappath), x, y, level.z_value, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top, new_z = TRUE)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		return FALSE
 
-	repopulate_sorted_areas()
-
+	require_area_resort()
 	//initialize things that are normally initialized after map load
 	initTemplateBounds(bounds)
 	smooth_zlevel(world.maxz)
@@ -162,6 +161,7 @@
 	var/list/turf_blacklist = list()
 	update_blacklist(T, turf_blacklist)
 
+	UNSETEMPTY(turf_blacklist)
 	parsed.turf_blacklist = turf_blacklist
 	var/datum/map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
 	map_placer.on_completion(CALLBACK(src, PROC_REF(on_placement_completed)))
@@ -180,8 +180,7 @@
 		message_admins("NO PARSED BOUNDS!")
 		return
 
-	if(!SSmapping.loading_ruins) //Will be done manually during mapping ss init
-		repopulate_sorted_areas()
+	require_area_resort()
 
 	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
 	if(finalize)
