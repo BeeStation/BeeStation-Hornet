@@ -68,7 +68,6 @@
  * return list Statuic Data to be sent to the UI.
  */
 /datum/proc/ui_static_data(mob/user)
-	SHOULD_NOT_SLEEP(TRUE) // Optional, but good code practice. Remove this if you have a valid use case.
 	return list()
 
 /**
