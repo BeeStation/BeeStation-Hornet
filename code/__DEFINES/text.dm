@@ -34,9 +34,10 @@
 #define ADMIN_SCRUB "admin_scrub"
 
 #define APPLY_PLACEHOLDER_TEXT(typepath, text) ##typepath{;\
-	maptext = "<span class='maptext'>" + ##text + "</span>";\
+	maptext = "<span class='maptext center'>" + ##text + "</span>";\
 	maptext_height = 32;\
 	maptext_width = 64;\
 	maptext_x = -16;\
-	maptext_y = 24\
+	maptext_y = 24;\
+	layer = 5\
 	}

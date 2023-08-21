@@ -4410,9 +4410,11 @@
 	dir = 4;
 	layer = 3.2
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "avY" = (
 /obj/machinery/door/airlock/external{
 	name = "Labor Camp Shuttle Airlock";
@@ -28957,9 +28959,8 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "doU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -31007,9 +31008,8 @@
 	c_tag = "Asteroid Bay Control";
 	dir = 1
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "ebu" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -33826,9 +33826,8 @@
 /obj/machinery/light/small,
 /obj/machinery/recharger,
 /obj/structure/table,
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "fnm" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -33898,9 +33897,8 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "fpi" = (
 /obj/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -39141,9 +39139,11 @@
 /area/security/prison)
 "huR" = (
 /obj/machinery/computer/asteroid_magnet_controller,
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "huT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -50397,6 +50397,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
+"meV" = (
+/obj/structure/railing{
+	dir = 4;
+	layer = 3.2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "mfc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -53771,6 +53781,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"nFl" = (
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "nFP" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -56348,6 +56361,12 @@
 /obj/structure/sign/departments/minsky/medical/medical2,
 /turf/closed/wall,
 /area/medical/surgery)
+"oHY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "oIa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -62162,9 +62181,11 @@
 	dir = 4;
 	layer = 3.2
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "rfV" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/table,
@@ -62233,6 +62254,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/aft)
+"rhK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "rhR" = (
 /obj/structure/sign/departments/minsky/engineering/atmospherics{
 	pixel_y = -32
@@ -66422,9 +66449,8 @@
 "sRS" = (
 /obj/machinery/recharger,
 /obj/structure/table,
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/quartermaster/miningoffice)
 "sRT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -67808,6 +67834,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
+"tvW" = (
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/space/basic,
+/area/space)
 "tvY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -92500,7 +92530,7 @@ aaa
 aaa
 aaa
 aie
-aie
+rhK
 sRS
 fng
 aDb
@@ -92757,8 +92787,8 @@ aaa
 aaa
 aaa
 aie
-aie
-aie
+oHY
+nFl
 ebq
 aDb
 taO
@@ -93016,7 +93046,7 @@ aaa
 iCQ
 huR
 fpc
-aie
+nFl
 aDb
 taO
 diz
@@ -93271,8 +93301,8 @@ aaa
 aaa
 aaa
 aie
-aie
-aie
+oHY
+nFl
 doR
 aDb
 diz
@@ -93528,7 +93558,7 @@ aaa
 aaa
 aaa
 fgA
-atr
+meV
 reY
 avt
 aDb
@@ -94553,7 +94583,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tvW
 aaa
 iCQ
 aaa

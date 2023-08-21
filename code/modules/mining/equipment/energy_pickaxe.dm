@@ -8,9 +8,9 @@
 	var/efficiency = 1
 	var/cooldown = 1.5 SECONDS
 	var/mining_radius = 1
-	var/mineral_damage = 400
-	var/max_charge = 1400
-	var/charge = 1400
+	var/mineral_damage = 600
+	var/max_charge = 1800
+	var/charge = 1800
 	var/consumed_power = 100
 
 /obj/item/pickaxe/energy_pickaxe/Initialize(mapload)

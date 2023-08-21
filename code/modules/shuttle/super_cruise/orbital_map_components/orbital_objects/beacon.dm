@@ -101,7 +101,7 @@
 	for (var/turf/closed/mineral/mineral_path as() in minerals)
 		var/atom/mineral_type = mineral_path
 		index ++
-		if (mineral_path == /turf/closed/mineral || !mineral_path)
+		if (mineral_path == /turf/closed/mineral || !mineral_path || mineral_path == /datum)
 			continue
 		if (ispath(mineral_type, /turf/closed/mineral))
 			mineral_type = initial(mineral_path.mineralType)
