@@ -26896,11 +26896,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"cWK" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "cXc" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -93285,7 +93280,7 @@ lMJ
 aqF
 fFu
 atq
-cWK
+aie
 aaa
 aaa
 aaa

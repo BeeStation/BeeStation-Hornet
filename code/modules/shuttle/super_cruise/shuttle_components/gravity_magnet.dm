@@ -11,6 +11,9 @@ APPLY_PLACEHOLDER_TEXT(/obj/machinery/gravity_magnet, "passive gravity anchor")
 	/// The gravity magnet which we are currently linked to, 2 way link
 	var/obj/machinery/gravity_magnet/linked
 
+	/// What do we get when we pick this up?
+	var/pickup_type = /obj/item/deployable/gravity_magnet
+
 /obj/machinery/gravity_magnet/Initialize(mapload)
 	. = ..()
 	GLOB.zclear_blockers += src
@@ -27,6 +30,17 @@ APPLY_PLACEHOLDER_TEXT(/obj/machinery/gravity_magnet, "passive gravity anchor")
 /obj/machinery/gravity_magnet/examine(mob/user)
 	. = ..()
 	. += "Use a multitool to link it to a gravity magnet."
+
+/obj/machinery/gravity_magnet/attack_hand(mob/living/user)
+	if (pickup_type != null)
+		to_chat(user, "<span class='notice'>You begin picking up [src]...</span>")
+		if (do_after(user, 5 SECONDS, src))
+			var/obj/item/created = new pickup_type(loc)
+			if (istype(created))
+				user.put_in_active_hand(created)
+			qdel(src)
+	else
+		return ..()
 
 /obj/machinery/gravity_magnet/proc/handle_buffer_action(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
 	if (istype(buffer, /obj/machinery/gravity_magnet))
@@ -60,6 +74,8 @@ APPLY_PLACEHOLDER_TEXT(/obj/machinery/gravity_magnet/active, "active gravity anc
 	icon_state = "ore_redemption"
 
 	circuit = /obj/item/circuitboard/machine/gravity_magnet
+
+	pickup_type = null
 
 	// Distance that the object follows behind us
 	var/pull_distance = 60.1
