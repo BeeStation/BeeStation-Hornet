@@ -5,7 +5,7 @@ import { ColorSelector } from './ColorPickerModal';
 import { BooleanLike } from 'common/react';
 import { sortBy } from 'common/collections';
 import { AbilityThreshold, Ability, AvailableAbilities, StatThreshold, is_actually_a_threshold, threshold_title, sort_thresholds, sort_abilities } from './common/Holoparasite';
-import { hexToHsva, HsvaColor, hsvaToHex } from 'common/color';
+import { hexToHsva, HsvaColor, hsvaToHex, hexToRgba, RgbColor, contrast, luminance } from 'common/color';
 
 /**
  * The validity of an input field.
@@ -175,42 +175,13 @@ const is_threshold_met = (thresholds: StatThreshold[], skills: Skill[]): boolean
  * The background colors for dark/light mode chat, used for calculating the contrast of the accent color.
  */
 const chat_background_colors = {
-  dark: [23, 23, 23] as Rgb,
-  light: [255, 255, 255] as Rgb,
+  dark: { r: 23, g: 23, b: 23 } as RgbColor,
+  light: { r: 255, g: 255, b: 255 } as RgbColor,
 };
 /**
  * The minimum recommended contrast for accent colors, to ensure that they are readable in chat (a value of 4.5:1).
  */
 const minimum_recommended_contrast = 0.14285;
-
-// Source for the following luminance and contrast calculation code: https://blog.cristiana.tech/calculating-color-contrast-in-typescript-using-web-content-accessibility-guidelines-wcag
-type Rgb = [r: number, g: number, b: number];
-
-const rgb_from_hex = (hex: string): Rgb => {
-  hex = hex.replace('#', '');
-  const value = parseInt(hex, 16);
-  const r = (value >> 16) & 255;
-  const g = (value >> 8) & 255;
-  const b = value & 255;
-
-  return [r, g, b];
-};
-
-const luminance = (rgb: Rgb): number => {
-  const [r, g, b] = rgb.map((v) => {
-    v /= 255;
-    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
-  });
-  return r * 0.2126 + g * 0.7152 + b * 0.0722;
-};
-
-const contrast = (foreground: Rgb, background: Rgb): number => {
-  const foreground_luminance = luminance(foreground);
-  const background_luminance = luminance(background);
-  return background_luminance < foreground_luminance
-    ? (background_luminance + 0.05) / (foreground_luminance + 0.05)
-    : (foreground_luminance + 0.05) / (background_luminance + 0.05);
-};
 
 const InputValidity = (props: { field: string; validity: Validity }, context) => {
   const { data } = useBackend<Info>(context);
@@ -323,7 +294,7 @@ const BasicNameInput = (_props, context) => {
 const BasicColorInput = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const [_color_select, set_color_select] = useLocalState<HsvaColor | null>(context, 'color_select', null);
-  const accent_color_rgb = rgb_from_hex(data.accent_color);
+  const accent_color_rgb = hexToRgba(data.accent_color);
   // these are reversed and I'm too lazy to figure out why
   const light_mode_contrast = contrast(chat_background_colors.light, accent_color_rgb);
   const dark_mode_contrast = contrast(chat_background_colors.dark, accent_color_rgb);
