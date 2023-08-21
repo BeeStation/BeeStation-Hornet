@@ -3,9 +3,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, Section, Slider, Stack, Input, ProgressBar, ColorBox, Dimmer, Icon, Box, Tabs, Tooltip, Flex, TextArea, Collapsible, Autofocus } from '../components';
 import { ColorSelector } from './ColorPickerModal';
 import { BooleanLike } from 'common/react';
-import { sortBy } from 'common/collections';
 import { AbilityThreshold, Ability, AvailableAbilities, StatThreshold, is_actually_a_threshold, threshold_title, sort_thresholds, sort_abilities } from './common/Holoparasite';
-import { hexToHsva, HsvaColor, hsvaToHex, hexToRgba, RgbColor, contrast, luminance } from 'common/color';
+import { hexToHsva, HsvaColor, hsvaToHex, hexToRgba, RgbColor, contrast } from 'common/color';
 
 /**
  * The validity of an input field.
