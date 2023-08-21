@@ -56,6 +56,70 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">21 August 2023</h2>
+			<h3 class="author">AnturK, esainane, MrMelbert, Son-of-Space, san7890, Ghommie, ported by mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Various fixes to the UpdatePaths tool</li>
+				<li class="bugfix">UpdatePaths will now handle lists that contain strings.</li>
+				<li class="code_imp">Adds support for simple subtype repathing, outright deletion,  for UpdatePaths scripts</li>
+				<li class="code_imp">Orginizes UpdatePaths folder and adds a well-documented readme.md</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the jobless role preference (Join as assistant, random job, return to lobby, etc) not saving properly.</li>
+				<li class="bugfix">Fixed a runtime from prefs if a player disconnected during their client initialization.</li>
+			</ul>
+
+			<h2 class="date">20 August 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds a specific preference to enable/disable AI VOX (text-to-speech) announcements.</li>
+				<li class="rscadd">You can now examine organs and implants to see which part of the body it fits in.</li>
+			</ul>
+			<h3 class="author">Absolucy, Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the obsessed "take picture" objective.</li>
+				<li class="bugfix">Fixed some possible edge cases with obsession targets being cloned or body swapped or whatever.</li>
+				<li class="tweak">Obsessed people now get a protect instead of a kill objective on their obsession, and new flavor text leaning more into the whole 'yandere' thing.</li>
+				<li class="tweak">Obsession trauma now requires a lobotomy to cure.</li>
+				<li class="tweak">Obsessed people are now guaranteed to pick someone who is on-station as their obsession target.</li>
+				<li class="tweak">Obsession targets are much more likely to be someone who will likely remain ON-station.</li>
+				<li class="tweak">Headpats now count as hugs for the sake of the 'hug x times' obsession objective.</li>
+				<li class="admin">Admins can now give someone a specific obsession.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">abductor gland storage now uses smartfridge UI instead of too-alieny-UI.</li>
+				<li class="balance">gland names will be revealed when these are in abductor's new organ storage.</li>
+				<li class="tweak">abductor gland storage now has 2~7 glands per each at starting.</li>
+				<li class="rscadd">broken glands will be restored once you put these into a new storage (old one doesn't work)</li>
+				<li class="tweak">antagonists can open abductor gland storage even if they're not an abductor species.</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Reworked all of Lavaland Mining Station Airlocks to use Tiny Fans instead of Airlock Controllers.</li>
+				<li class="tweak">Mining EVA now has wider doorways, and moved Officer Fastmosky to inside the emergency locker.</li>
+				<li class="tweak">Lavaland's Laborcamp External Access now has its own atmosbot (Sergeant Airhead) inside an emergency locker.</li>
+				<li class="tweak">Put tiny fans under the shutters at the Science Shuttle Dock on Lavaland</li>
+			</ul>
+
+			<h2 class="date">19 August 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">The Syndicate has upgraded its chameleon gear with the ability to completely hide any and all chameleon functionality with a multitool. Be sure not to confuse your own gear for a plain old piece of clothing, agent!</li>
+				<li class="bugfix">Fixed maps having the "omnibelt" parent object instead of toolbelts</li>
+			</ul>
+			<h3 class="author">Impish_Delights updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Hoods for winter coats/hoodies/explorer suits are now stored in nullspace instead of the suit's inventory</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed runtimes and fingerprints not getting properly applied when a stack merges with something during deconstruction.</li>
+				<li class="bugfix">Fixed a load of runtimes</li>
+				<li class="bugfix">Fixed assets not properly sending in the permissions panel</li>
+			</ul>
+
 			<h2 class="date">18 August 2023</h2>
 			<h3 class="author">CydiaLamiales updated:</h3>
 			<ul class="changes bgimages16">
@@ -1141,36 +1205,6 @@
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Headmins can now ban more than 1 admin.</li>
-			</ul>
-
-			<h2 class="date">18 June 2023</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Adjusted the CI's caching to also target yarn and pip</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Made sleek titanium tiles create the tile items of their respective color when removed with a crowbar</li>
-			</ul>
-
-			<h2 class="date">17 June 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">the Detective can no longer roll antag</li>
-				<li class="rscadd">Gave the Detective the mindshield back</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">debug outfit is faster and knows all surgeries, and can see ghosts.</li>
-			</ul>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Exploration VIP targets now memorize why they have strange abilities, or an uplink in their head.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">AI tracking now requires a target to stand still for X seconds in order to acquire a track when used from the menu or from radio. X is calculated using the following formula. If the target has GPS tracking beacon, X is 0. If not X starts at 4. Subtract 1 second if the target is in the light. Subtract 1 second if the target's ID matches their name. Subtract 1 second if the target's face is visible and not disfigured.</li>
-				<li class="balance">AI tracking can instantly track a target if they have sensors enabled, or are a robot.</li>
 			</ul>
 		</div>
 
