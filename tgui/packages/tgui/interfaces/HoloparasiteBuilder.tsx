@@ -352,8 +352,8 @@ const BasicColorSelector = (_props, context) => {
                 pl={2}
                 pr={2}
                 pt={0.33}
-                disabled={color_select!.v >= 50}
-                tooltip={color_select!.v >= 50 && 'Selected color too dark!'}
+                disabled={color_select!.v < 50}
+                tooltip={color_select!.v < 50 && 'Selected color too dark!'}
                 textAlign="center">
                 Submit
               </Button>

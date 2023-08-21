@@ -228,7 +228,7 @@ const Notes = (_props, context) => {
     );
   }
   return (
-    <Section scrollable>
+    <Section fill height="90%" scrollable>
       <Stack vertical>
         <Stack.Item>
           <Box color="label" textAlign="center">
@@ -236,7 +236,9 @@ const Notes = (_props, context) => {
           </Box>
         </Stack.Item>
         <Stack.Item>
-          <BlockQuote>{data.notes}</BlockQuote>
+          <BlockQuote style={{ 'text-overflow': 'wrap' }} width="100%">
+            {data.notes}
+          </BlockQuote>
         </Stack.Item>
       </Stack>
     </Section>

@@ -104,7 +104,7 @@
 			)
 		),
 		"validation" = list(
-			"color" = is_color_dark(accent_color, 50) ? "too dark" : "invalid",
+			"color" = is_color_dark(accent_color, 50) ? "too dark" : "valid",
 			"name" = check_name_validity(),
 			"notes" = check_notes_validity()
 		)
