@@ -412,7 +412,7 @@ const BasicPointsInfo = (_props, context) => {
           </Tooltip>
         </Stack.Item>
       )}
-      {data.points > 0 && (
+      {data.points > 0 && data.max_points < 99 && (
         <Stack.Item>
           <Tooltip
             content={
@@ -460,7 +460,7 @@ const BasicSection = (_props, context) => {
                 disabled={manifest_disabled}
                 tooltip={manifest_disabled && `Some of the fields for your ${data.themed_name} are invalid!`}
                 onClick={() => {
-                  if (data.points > 0) {
+                  if (data.points > 0 && data.max_points < 99) {
                     set_unused_points_dialog(true);
                   } else {
                     act('spawn');
