@@ -176,8 +176,8 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 			user.client.images -= shown_image
 			user.client.images -= shown_image_darkened
 		if(target_client)
-			target_client?.images -= shown_image
-			target_client?.images -= shown_image_darkened
+			target_client.images -= shown_image
+			target_client.images -= shown_image_darkened
 		if(goal != last_progress)
 			shown_image.filters += filter(type = "color", color = rgb(255, 0, 51))
 			shown_image_darkened.filters -= filter(type = "outline", size = 1, color = current_outline_color)
@@ -192,6 +192,9 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 			target_client?.images += shown_image_darkened
 		animate(shown_image, alpha = 0, time = PROGRESSBAR_ANIMATION_TIME)
 		animate(shown_image_darkened, alpha = 0, time = PROGRESSBAR_ANIMATION_TIME)
+		if(target_client)
+			target_client.images -= shown_image
+			target_client.images -= shown_image_darkened
 		QDEL_IN(shown_image, PROGRESSBAR_ANIMATION_TIME * 2) //for garbage collection safety
 		QDEL_IN(shown_image_darkened, PROGRESSBAR_ANIMATION_TIME * 2) //same as above
 	. = ..()
@@ -204,15 +207,6 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 			client.images -= shown_image
 			client.images -= shown_image_darkened
 		client = null
-/*
-///Called on progress end, be it successful or a failure. Wraps up things to delete the datum and bar.
-/datum/progressbar/proc/end_progress()
 
-	bar.icon_state = "prog_bar_[round(((progress / goal) * 100), 5)]"
-	animate(bar, alpha = 0, time = PROGRESSBAR_ANIMATION_TIME)
-	if(shown_image)
-		animate(shown_image, alpha = 0, time = PROGRESSBAR_ANIMATION_TIME)
-	QDEL_IN(src, PROGRESSBAR_ANIMATION_TIME)
-*/
 #undef PROGRESSBAR_ANIMATION_TIME
 #undef PROGRESSBAR_HEIGHT
