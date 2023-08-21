@@ -175,12 +175,9 @@
 	if(!istype(user))
 		return
 	var/user_has_chameleon_panel = FALSE
-	for(var/O in user.contents)
-		if(!isitem(O))
+	for(var/obj/item/item in user.contents)
+		if(!include_self && item == parent)
 			continue
-		if(!include_self && O == parent)
-			continue
-		var/obj/item/item = O
 		var/datum/component/chameleon/item_chameleon = item.GetComponent(/datum/component/chameleon)
 		if(item_chameleon?.can_use(user))
 			user_has_chameleon_panel = TRUE
