@@ -63581,11 +63581,6 @@
 /obj/effect/loot_jobscale/armoury/laser_gun,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
-"rMY" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "rNi" = (
 /obj/item/paper_bin{
 	pixel_x = 1;
@@ -89661,7 +89656,7 @@ aaa
 aaa
 aaa
 lMJ
-rMY
+lMJ
 lMJ
 dne
 aRG
@@ -96087,7 +96082,7 @@ ahp
 aqH
 wlP
 dne
-rMY
+lMJ
 lMJ
 aaa
 aaa
