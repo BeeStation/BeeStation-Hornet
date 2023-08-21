@@ -6981,6 +6981,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"aIK" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "aIL" = (
 /obj/structure/closet/secure_closet/courtroom,
 /obj/machinery/light_switch{
@@ -9193,6 +9197,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"aSr" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "aSw" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow{
@@ -42239,6 +42249,15 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"iKm" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "iKA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -42907,6 +42926,15 @@
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
+"iYE" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "iYJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -46980,7 +47008,8 @@
 /area/crew_quarters/fitness/recreation)
 "kIQ" = (
 /obj/machinery/mineral/ore_redemption{
-	dir = 4
+	dir = 4;
+	input_dir = 4
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
@@ -47686,6 +47715,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
+"kWO" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "kWW" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -52662,6 +52697,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"nct" = (
+/obj/machinery/power/apc{
+	areastring = "/area/security/checkpoint/customs";
+	dir = 1;
+	name = "Customs APC";
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "ncH" = (
 /mob/living/carbon/monkey,
 /obj/structure/window/reinforced{
@@ -63472,6 +63519,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "rKA" = (
@@ -63864,6 +63914,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
+"rTE" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "rTX" = (
 /obj/machinery/door/airlock{
 	name = "Unisex Showers"
@@ -66746,6 +66802,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"taO" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "taV" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -71019,6 +71081,17 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"uSd" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/grunge{
+	name = "Room that I haven't decided what to put here yet";
+	req_access_txt = "32";
+	desc = "WTF THIS MADMAN FILLED THIS ROOM WITH LIGHTS. OPEN THIS DOOR! ITS INSANE!!!"
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "uSe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -76096,6 +76169,12 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"wVM" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "wVV" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel/white,
@@ -90886,12 +90965,12 @@ dne
 aip
 dne
 dne
-diz
-diz
-diz
-diz
-diz
-diz
+taO
+aSr
+aSr
+aSr
+aSr
+aSr
 diz
 diz
 aDb
@@ -91143,11 +91222,11 @@ aie
 aie
 aie
 aDb
+taO
 diz
 diz
-diz
-diz
-diz
+kWO
+kWO
 diz
 diz
 diz
@@ -91400,15 +91479,15 @@ aie
 azj
 aie
 aDb
+taO
 diz
 diz
-diz
-diz
-diz
-diz
-diz
-diz
-diz
+aDb
+aDb
+aDb
+iKm
+wVM
+uSd
 rKh
 aWY
 aYE
@@ -91657,14 +91736,14 @@ aaa
 aie
 aie
 aDb
-diz
-diz
-diz
-diz
-diz
-diz
-diz
-diz
+iKm
+wVM
+wVM
+iYE
+iYE
+iYE
+rTE
+aIK
 aDb
 xAI
 aWU
@@ -91914,14 +91993,14 @@ aaa
 aie
 aie
 aDb
+nct
 diz
 diz
 diz
 diz
 diz
 diz
-diz
-diz
+aIK
 aDb
 jRt
 cXv
@@ -92173,12 +92252,12 @@ aie
 aDb
 aDb
 aDb
+taO
+aIK
+aDb
+taO
 diz
-diz
-diz
-diz
-diz
-diz
+aIK
 aDb
 uQr
 aWU
@@ -92430,12 +92509,12 @@ aie
 sRS
 fng
 aDb
+taO
 diz
+aDb
+taO
 diz
-diz
-diz
-diz
-diz
+aIK
 aDb
 ewZ
 mNy
@@ -92687,12 +92766,12 @@ aie
 aie
 ebq
 aDb
+taO
+diz
+aDb
 diz
 diz
-diz
-diz
-diz
-diz
+aIK
 aDb
 ibE
 aXb
@@ -92944,12 +93023,12 @@ huR
 fpc
 aie
 aDb
+taO
+diz
+aSr
 diz
 diz
-diz
-diz
-diz
-diz
+aIK
 aDb
 egR
 aXc
@@ -93202,9 +93281,9 @@ aie
 doR
 aDb
 diz
-diz
-diz
-diz
+kWO
+kWO
+kWO
 diz
 diz
 aDb
