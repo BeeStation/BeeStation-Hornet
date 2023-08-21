@@ -17,6 +17,8 @@
 	var/current_disguise
 	/// A callback to run whenever the disguise is changed, with the arguments (mob/living/user, datum/component/chameleon/source, old_disguise_path, new_disguise_path)
 	var/datum/callback/on_disguise
+	/// Whether the chameleon functionality is 'locked' or not.
+	var/locked = FALSE
 	/// Whether to hide duplicates or not.
 	var/hide_duplicates = TRUE
 	///	Whenever the EMP effect will end.
@@ -60,9 +62,10 @@
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL), PROC_REF(on_multitool_act))
 
 /datum/component/chameleon/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED, COMSIG_ATOM_EMP_ACT, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED, COMSIG_ATOM_EMP_ACT, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL)))
 
 /datum/component/chameleon/process()
 	random_look()
@@ -86,9 +89,23 @@
 	if(isobserver(user) || can_use(user, dist_limit = 3))
 		examine_list += "<span class='boldnotice'>It has a hidden panel, revealing a mechanism for changing its appearance!</span>"
 
+/datum/component/chameleon/proc/on_multitool_act(datum/_source, mob/user, obj/item/tool)
+	SIGNAL_HANDLER
+	if(locked)
+		locked = FALSE
+		log_game("[key_name(user)] has removed the disguise lock on \the [parent] ([original_name]) with [tool]")
+	else
+		locked = TRUE
+		log_game("[key_name(user)] has locked the disguise of \the [parent] ([original_name]) with [tool]")
+	user.playsound_local(get_turf(user), 'sound/machines/click.ogg', vol = 30, vary = TRUE)
+	setup_action(user)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
 /datum/component/chameleon/proc/can_use(mob/living/user, dist_limit = 0)
 	. = anyone_can_use
 	if(!istype(user))
+		return FALSE
+	if(locked)
 		return FALSE
 	if(dist_limit ? (get_dist(user, parent) > dist_limit) : !(parent in user.contents))
 		return FALSE
