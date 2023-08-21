@@ -391,18 +391,29 @@ class RenderableObjectType {
         <text x={textXPos} y={textYPos} fill={this.fontFill} fontSize={Math.min(this.textSize * lockedZoomScale, 14)}>
           {this.name}
         </text>
-        {this.inBounds && Object.keys(this.scan_data).map(element => (
-          <Fragment key={element}>
-            <text key={element} x={textXPos} y={textYPos + (currentPosition += 0.6) * Math.min(this.textSize * lockedZoomScale, 14)} fill="#bbbbbb" fontSize={Math.min(this.textSize * 0.6 * lockedZoomScale, 14 * 0.6)}>
-              {element}
-            </text>
-            {this.scan_data[element].map(entry => (
-              <text key={element} x={textXPos + 10} y={textYPos + (currentPosition += 0.6) * Math.min(this.textSize * lockedZoomScale, 14)} fill="#bbbbbb" fontSize={Math.min(this.textSize * 0.6 * lockedZoomScale, 14 * 0.6)}>
-                - {entry}
+        {this.inBounds &&
+          Object.keys(this.scan_data).map((element) => (
+            <Fragment key={element}>
+              <text
+                key={element}
+                x={textXPos}
+                y={textYPos + (currentPosition += 0.6) * Math.min(this.textSize * lockedZoomScale, 14)}
+                fill="#bbbbbb"
+                fontSize={Math.min(this.textSize * 0.6 * lockedZoomScale, 14 * 0.6)}>
+                {element}
               </text>
-            ))}
-          </Fragment>
-        ))}
+              {this.scan_data[element].map((entry) => (
+                <text
+                  key={element}
+                  x={textXPos + 10}
+                  y={textYPos + (currentPosition += 0.6) * Math.min(this.textSize * lockedZoomScale, 14)}
+                  fill="#bbbbbb"
+                  fontSize={Math.min(this.textSize * 0.6 * lockedZoomScale, 14 * 0.6)}>
+                  - {entry}
+                </text>
+              ))}
+            </Fragment>
+          ))}
       </>
     );
   }
