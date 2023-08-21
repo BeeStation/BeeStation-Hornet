@@ -31,6 +31,10 @@ enum Validity {
    * The given input is invalid due to violating the server's filter.
    */
   FilterViolation = 'filtered',
+  /**
+   * The given color input is invalid due to being too dark.
+   */
+  TooDark = 'too dark',
 }
 
 /**
@@ -62,6 +66,10 @@ type Skill = {
 };
 
 type Validation = {
+  /**
+   * The validity of the holoparasite's accent color..
+   */
+  color: Validity;
   /**
    * The validity of the holoparasite's custom name.
    */
@@ -272,6 +280,13 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         </Tooltip>
       );
     }
+    case Validity.TooDark: {
+      return (
+        <Tooltip content={<>The chosen {props.field} is too dark!</>}>
+          <Icon name="exclamation-triangle" color="red" />
+        </Tooltip>
+      );
+    }
     default: {
       break;
     }
@@ -320,6 +335,9 @@ const BasicColorInput = (_props, context) => {
       <Stack.Item grow>
         <ColorBox color={data.accent_color} onClick={() => set_color_select(hexToHsva(data.accent_color))} />
       </Stack.Item>
+      <Stack.Item>
+        <InputValidity field="accent color" validity={data.validation.color} />
+      </Stack.Item>
       {dark_mode_contrast < minimum_recommended_contrast && (
         <Stack.Item>
           <Tooltip content={`This color may be difficult to read with light mode chat!`}>
@@ -364,6 +382,8 @@ const BasicColorSelector = (_props, context) => {
                 pl={2}
                 pr={2}
                 pt={0.33}
+                disabled={color_select!.v >= 50}
+                tooltip={color_select!.v >= 50 && 'Selected color too dark!'}
                 textAlign="center">
                 Submit
               </Button>

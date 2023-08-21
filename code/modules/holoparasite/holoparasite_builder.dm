@@ -104,6 +104,7 @@
 			)
 		),
 		"validation" = list(
+			"color" = is_color_dark(accent_color, 50) ? "too dark" : "invalid",
 			"name" = check_name_validity(),
 			"notes" = check_notes_validity()
 		)
@@ -194,7 +195,11 @@
 			var/color = params["color"]
 			if(!istext(color) || length(color) != 7)
 				return
-			accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_blood_brothers))
+			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_blood_brothers))
+			if(is_color_dark(new_accent_color, 50))
+				to_chat(usr, "<span class='warning'>Selected accent color is too dark!</span>")
+				return
+			accent_color = new_accent_color
 			. = TRUE
 		if("set:notes")
 			var/value = params["notes"]
@@ -260,7 +265,7 @@
 			saved_stats.weapon = new /datum/holoparasite_ability/weapon/punch
 		calc_points()
 
-/datum/holoparasite_builder/proc/enforce_ability_weapon(new_weapon_path)
+/datum/holoparasite_builder/proc/enforce_ability_weapon(new_weapon_path, silent = FALSE)
 	. = FALSE
 	var/forced_weapon_path = saved_stats.ability?.forced_weapon
 	if(!forced_weapon_path || !is_valid_ability(forced_weapon_path, /datum/holoparasite_ability/weapon))
