@@ -26432,32 +26432,6 @@
 /obj/structure/disposaloutlet,
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"cSm" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door/airlock/virology/glass{
-	name = "Virology Reception";
-	req_access_txt = "39"
-	},
-/turf/closed/wall,
-/area/medical/morgue)
 "cSn" = (
 /turf/open/floor/engine,
 /area/science/xenobiology)
@@ -36889,10 +36863,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
-	},
-/obj/machinery/light_switch{
-	pixel_x = 26;
-	pixel_y = 39
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -101773,7 +101743,7 @@ bXK
 pjl
 hqk
 qwz
-cSm
+cCe
 hro
 gfp
 cas

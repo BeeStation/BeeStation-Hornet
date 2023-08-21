@@ -8,6 +8,7 @@
 	. = _generate_asteroids(center_x, center_y, center_z, min_radius, max_radius, weight_offset, scale, biome, ores_list)
 	space_level.generating = FALSE
 
+// TODO: Tie this into map generator
 /proc/_generate_asteroids(center_x, center_y, center_z, min_radius, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0), ores_list = null)
 
 	SSair.pause_z(center_z)
