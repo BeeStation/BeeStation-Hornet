@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed the jobless role preference (Join as assistant, random job, return
+      to lobby, etc) not saving properly.
