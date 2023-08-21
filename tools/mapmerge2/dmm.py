@@ -31,7 +31,7 @@ class DMM:
 
     def to_file(self, fname, *, tgm = True):
         self._presave_checks()
-        with open(fname, 'w', newline='\n', encoding=ENCODING) as f:
+        with open(fname, 'w', newline='\r\n', encoding=ENCODING) as f:
             (save_tgm if tgm else save_dmm)(self, f)
 
     def to_bytes(self, *, tgm = True):
@@ -82,6 +82,14 @@ class DMM:
         for k, v in self.grid.items():
             # reassign the grid entries which used the old key
             self.grid[k] = bad_keys.get(v, v)
+
+    def remove_unused_keys(self, modified_keys = None):
+        unused_keys = list(set(modified_keys)) if modified_keys is not None else self.dictionary.keys()
+        for key in self.grid.values():
+            if key in unused_keys:
+                unused_keys.remove(key)
+        for key in unused_keys:
+            self.dictionary.pop(key, None)
 
     def _presave_checks(self):
         # last-second handling of bogus keys to help prevent and fix broken maps
