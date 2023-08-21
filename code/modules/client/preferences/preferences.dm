@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /datum/preferences/New(client/parent)
 	if(!istype(parent))
-		QDEL_IN(src, 0)
+		qdel(src)
 		return
 	src.parent = parent
 
