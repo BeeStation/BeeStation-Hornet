@@ -1,0 +1,8 @@
+author: AnturK, esainane, MrMelbert, Son-of-Space, san7890, Ghommie, ported by mystery3525
+delete-after: true
+changes:
+  - bugfix: Various fixes to the UpdatePaths tool
+  - bugfix: UpdatePaths will now handle lists that contain strings.
+  - code_imp: Adds support for simple subtype repathing, outright deletion,  for UpdatePaths
+      scripts
+  - code_imp: Orginizes UpdatePaths folder and adds a well-documented readme.md
