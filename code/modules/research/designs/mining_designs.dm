@@ -42,6 +42,16 @@
 	category = list("Mining Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
+/datum/design/gravity_magnet
+	name = "Passive Gravity Magnet"
+	desc = "An unpowered gravity magnet, the one that you deploy on asteroids themselves."
+	id = "gravitymagnet"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/copper)
+	build_path = /obj/item/deployable/gravity_magnet
+	category = list("Mining Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+
 /datum/design/drill_diamond
 	name = "Diamond-Tipped Mining Drill"
 	desc = "Yours is the drill that will pierce the heavens!"

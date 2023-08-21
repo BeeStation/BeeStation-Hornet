@@ -82,6 +82,8 @@
 // Upgrade Station
 //===============================
 
+APPLY_PLACEHOLDER_TEXT(/obj/machinery/energy_pickaxe_modification, "pickaxe modification station")
+
 /obj/machinery/energy_pickaxe_modification
 	name = "energy pickaxe modification station"
 	desc = "A station for applying modifications to energy pickaxes in order to make them more effective tools."

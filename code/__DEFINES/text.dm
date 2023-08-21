@@ -32,3 +32,11 @@
 #define SANITIZE "sanitize"
 #define SANITIZE_SIMPLE "sanitize_simple"
 #define ADMIN_SCRUB "admin_scrub"
+
+#define APPLY_PLACEHOLDER_TEXT(typepath, text) ##typepath{;\
+	maptext = "<span class='maptext'>" + ##text + "</span>";\
+	maptext_height = 32;\
+	maptext_width = 64;\
+	maptext_x = -16;\
+	maptext_y = 24\
+	}

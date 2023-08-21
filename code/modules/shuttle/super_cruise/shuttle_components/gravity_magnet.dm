@@ -1,3 +1,5 @@
+APPLY_PLACEHOLDER_TEXT(/obj/machinery/gravity_magnet, "passive gravity anchor")
+
 /obj/machinery/gravity_magnet
 	name = "gravity anchor"
 	desc = "A machine which can be attached onto asteroids in order to tow them with a gravity magnet."
@@ -48,6 +50,8 @@
 		return null
 	var/virtual_z = location.get_virtual_z_level()
 	return SSorbits.assoc_z_levels["[virtual_z]"]
+
+APPLY_PLACEHOLDER_TEXT(/obj/machinery/gravity_magnet/active, "active gravity anchor")
 
 /obj/machinery/gravity_magnet/active
 	name = "gravity-tow generator"
@@ -140,6 +144,8 @@
  *
  * Allows for a gravity magnet to be quickly destroyed.
  */
+
+APPLY_PLACEHOLDER_TEXT(/obj/item/deployable/gravity_magnet, "gravity anchor")
 
 /obj/item/deployable/gravity_magnet
 	name = "gravity anchor deployer"
