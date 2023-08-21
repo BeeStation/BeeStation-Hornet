@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed a runtime from prefs if a player disconnected during their client
+      initialization.
