@@ -303,7 +303,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	add_overlay(receiving)
 	src.receiving = receiving
 	src.offerer = offerer
-	src.offerer = offerer
+	src.taker = taker
 	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, PROC_REF(check_in_range))
 
 /atom/movable/screen/alert/give/Click(location, control, params)
@@ -314,7 +314,10 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /// An overrideable proc used simply to hand over the item when claimed, this is a proc so that high-fives can override them since nothing is actually transferred
 /atom/movable/screen/alert/give/proc/handle_transfer()
-	var/mob/living/carbon/taker = owner
+	var/mob/living/carbon/taker = owner || src.taker
+	if(!taker)
+		qdel(src)
+		return
 	taker.take(offerer, receiving)
 
 /// Simply checks if the other person is still in range
