@@ -41,6 +41,9 @@
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
 			if(C)
 				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.</span>"
+			else if (istype(charging, /obj/item/pickaxe/energy_pickaxe))
+				var/obj/item/pickaxe/energy_pickaxe/pickaxe = charging
+				. += "<span class='notice'>- \The [charging]'s cell is at <b>[FLOOR(100 * pickaxe.charge / pickaxe.max_charge, 1)]%</b>.</span>"
 			else
 				. += "<span class='notice'>- \The [charging] has no power cell installed.</span>"
 
@@ -173,6 +176,10 @@
 			var/obj/item/melee/baton/B = charging
 			if(B.cell)
 				B.cell.charge = 0
+
+		if (istype(charging, /obj/item/pickaxe/energy_pickaxe))
+			var/obj/item/pickaxe/energy_pickaxe/e_pick = charging
+			e_pick.charge = 0
 
 
 /obj/machinery/recharger/update_icon(scan)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
