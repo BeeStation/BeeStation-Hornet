@@ -62104,6 +62104,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
+"riO" = (
+/mob/living/basic/cockroach,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "rjv" = (
 /obj/effect/turf_decal/numbers/two_nine{
 	dir = 2
@@ -95698,7 +95702,7 @@ wrk
 geN
 tqB
 avr
-avr
+riO
 gyd
 avr
 avr
