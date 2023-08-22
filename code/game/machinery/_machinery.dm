@@ -502,7 +502,6 @@ Class Procs:
 	if(A == occupant)
 		set_occupant(null)
 		update_icon()
-		updateUsrDialog()
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
@@ -523,10 +522,14 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I)
+/**
+ * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
+ */
+/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I, turns = 1)
+	turns *= -90
 	if(panel_open && I.tool_behaviour == TOOL_WRENCH)
 		I.play_tool_sound(src, 50)
-		setDir(turn(dir,-90))
+		setDir(turn(dir,turns))
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		return 1
 	return 0

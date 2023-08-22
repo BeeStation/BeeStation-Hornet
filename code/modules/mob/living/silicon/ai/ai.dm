@@ -142,7 +142,7 @@
 	create_modularInterface()
 
 	if(client)
-		apply_pref_name("ai",client)
+		INVOKE_ASYNC(src, PROC_REF(apply_pref_name), /datum/preference/name/ai, client)
 
 	INVOKE_ASYNC(src, PROC_REF(set_core_display_icon))
 
@@ -190,7 +190,7 @@
 			return
 		if("1", "2", "3", "4", "5", "6", "7", "8", "9")
 			_key = text2num(_key)
-			if(client.keys_held["Ctrl"]) //do we assign a new hotkey?
+			if(user.keys_held["Ctrl"]) //do we assign a new hotkey?
 				cam_hotkeys[_key] = eyeobj.loc
 				to_chat(src, "Location saved to Camera Group [_key].")
 				return
@@ -226,10 +226,10 @@
 /mob/living/silicon/ai/proc/set_core_display_icon(input, client/C)
 	if(client && !C)
 		C = client
-	if(!input && !C?.prefs?.active_character.preferred_ai_core_display)
+	if(!input && !C?.prefs?.read_character_preference(/datum/preference/choiced/ai_core_display))
 		icon_state = initial(icon_state)
 	else
-		var/preferred_icon = input ? input : C.prefs.active_character.preferred_ai_core_display
+		var/preferred_icon = input ? input : C.prefs.read_character_preference(/datum/preference/choiced/ai_core_display)
 		icon_state = resolve_ai_icon(preferred_icon)
 
 /mob/living/silicon/ai/verb/pick_icon()
@@ -921,12 +921,17 @@
 
 	var/rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b>[treated_message]</span>"
 	show_message(rendered, 2)
+	speaker.create_private_chat_message(
+		message = message,
+		message_language = message_language,
+		hearers = list(src),
+		includes_ghosts = FALSE) // ghosts already see this except for you...
 
 	// renders message for ghosts
 	rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
 	var/rendered_scrambled_message
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
-		if(!each_ghost.client || !(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
+		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
 			continue
 		var/follow_link = FOLLOW_LINK(each_ghost, speaker)
 		if(each_ghost.has_language(message_language))
