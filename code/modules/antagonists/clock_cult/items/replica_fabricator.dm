@@ -51,26 +51,21 @@
 			to_chat(user, "<span class='nzcrentr'>You're already trying to repair [target]!</span>")
 			return
 		to_chat(user, "<span class='nzcrentr'>You begin repairing [C]...</span>")
-		var/looping = TRUE
 		var/speed_mult = 1
-		while(looping)
-			if(do_after(user, 6 SECONDS * speed_mult, target=target, add_item = src))
-				if(C.max_integrity == C.obj_integrity)
-					to_chat(user, "<span class='nzcrentr'>\The [C] is already repaired!</span>")
-					looping = FALSE
-					return
-				if(GLOB.clockcult_power < 200)
-					to_chat(user, "<span class='nzcrentr'>You need [200 - GLOB.clockcult_power]W more to repair the [C]...</span>")
-					looping = FALSE
-					return
-				GLOB.clockcult_power -= 200
-				to_chat(user, "<span class='nzcrentr'>You repair some of the damage on \the [C].</span>")
-				C.obj_integrity = CLAMP(C.obj_integrity + 15, 0, C.max_integrity)
-				if(speed_mult > 0.5)
-					speed_mult -= 0.15
-			else
-				to_chat(user, "<span class='nzcrentr'>You fail to repair the damage of \the [C]...</span>")
-				looping = FALSE
+		while(GLOB.clockcult_power >= 200)
+			if(!do_after(user, 6 SECONDS * speed_mult, target=target, add_item = src))
+				return
+			if(C.max_integrity == C.obj_integrity)
+				to_chat(user, "<span class='nzcrentr'>\The [C] is already repaired!</span>")
+				return
+			if(GLOB.clockcult_power < 200)
+				to_chat(user, "<span class='nzcrentr'>You need [200 - GLOB.clockcult_power]W more to repair the [C]...</span>")
+				return
+			GLOB.clockcult_power -= 200
+			to_chat(user, "<span class='nzcrentr'>You repair some of the damage on \the [C].</span>")
+			C.obj_integrity = CLAMP(C.obj_integrity + 15, 0, C.max_integrity)
+			if(speed_mult > 0.5)
+				speed_mult -= 0.15
 
 /obj/item/clockwork/replica_fabricator/proc/fabricate_sheets(turf/target, mob/user)
 	var/sheets = FLOOR(CLAMP(GLOB.clockcult_power / BRASS_POWER_COST, 0, 50), 1)
