@@ -69,7 +69,7 @@
 			return
 
 		if(src in user.do_afters)
-			to_chat(user, "<span class='warning'>You're already swiping your card on [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already inserting a power control board into [src]!</span>")
 			return
 
 		user.visible_message("[user.name] inserts the power control board into [src].", \
