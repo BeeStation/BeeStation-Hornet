@@ -5,18 +5,6 @@
 "ac" = (
 /turf/open/indestructible/binary,
 /area/tear_in_reality)
-"ad" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 7;
-	id = "supply_away";
-	json_key = "cargo";
-	name = "CentCom";
-	width = 20
-	},
-/turf/open/space,
-/area/space)
 "ag" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -2672,6 +2660,13 @@
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/grimy,
 /area/centcom/control)
+"mp" = (
+/obj/structure/lattice{
+	name = "The supports of the universe";
+	desc = "A not so lightweight support lattice. These hold our universe together."
+	},
+/turf/open/space/basic,
+/area/space)
 "mq" = (
 /obj/structure/chair{
 	dir = 8
@@ -2748,6 +2743,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"mX" = (
+/obj/structure/lattice{
+	name = "The supports of the universe";
+	desc = "A not so lightweight support lattice. These hold our universe together."
+	},
+/obj/item/reagent_containers/food/snacks/egg/rainbow{
+	desc = "I bet you think you're pretty clever... well you are.";
+	name = "easter egg"
+	},
+/turf/open/space/basic,
+/area/space)
 "mY" = (
 /obj/structure/chair{
 	dir = 1
@@ -3828,9 +3834,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
-"sv" = (
-/turf/open/floor/plating,
-/area/start)
 "sx" = (
 /obj/structure/chair/fancy/comfy,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -4879,6 +4882,18 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"xp" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 8;
+	height = 7;
+	id = "supply_away";
+	json_key = "cargo";
+	name = "CentCom";
+	width = 20
+	},
+/turf/open/space,
+/area/space)
 "xr" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/directions/engineering{
@@ -5451,6 +5466,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/two)
+"Bq" = (
+/turf/open/floor/plating,
+/area/start)
 "Br" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -7412,13 +7430,6 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/errorroom)
-"Mc" = (
-/obj/structure/lattice{
-	name = "The supports of the universe";
-	desc = "A not so lightweight support lattice. These hold our universe together."
-	},
-/turf/open/space/basic,
-/area/space)
 "Mh" = (
 /obj/machinery/door/poddoor{
 	id = "thunderdome";
@@ -8407,17 +8418,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
-"RA" = (
-/obj/structure/lattice{
-	name = "The supports of the universe";
-	desc = "A not so lightweight support lattice. These hold our universe together."
-	},
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
-	desc = "I bet you think you're pretty clever... well you are.";
-	name = "easter egg"
-	},
-/turf/open/space/basic,
-/area/space)
 "RC" = (
 /obj/machinery/door/poddoor/shuttledock,
 /obj/effect/turf_decal/delivery,
@@ -11832,9 +11832,9 @@ fX
 fX
 fX
 fX
-sv
-sv
-sv
+Bq
+Bq
+Bq
 fX
 fX
 fX
@@ -12089,9 +12089,9 @@ fX
 fX
 fX
 fX
-sv
+Bq
 fY
-sv
+Bq
 fX
 fX
 fX
@@ -12346,9 +12346,9 @@ fX
 fX
 fX
 fX
-sv
-sv
-sv
+Bq
+Bq
+Bq
 fX
 fX
 fX
@@ -48980,7 +48980,7 @@ aa
 aa
 aa
 aa
-ad
+xp
 aa
 aa
 aa
@@ -75557,6 +75557,6 @@ Rk
 Rk
 Rk
 Rk
-RA
-Mc
+mX
+mp
 "}

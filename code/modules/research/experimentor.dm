@@ -138,7 +138,7 @@
 		if(istype(loaded_item,/obj/item/relic))
 			dat += "<b><a href='byond://?src=[REF(src)];item=[REF(loaded_item)];function=[SCANTYPE_DISCOVER]'>Discover</A></b>"
 		dat += "<b><a href='byond://?src=[REF(src)];function=eject'>Eject</A>"
-		var/list/listin = techweb_item_boost_check(src)
+		var/list/listin = SSresearch.techweb_boost_items
 		if(listin)
 			var/list/output = list("<b><font color='purple'>Research Boost Data:</font></b>")
 			var/list/res = list("<b><font color='blue'>Already researched:</font></b>")
