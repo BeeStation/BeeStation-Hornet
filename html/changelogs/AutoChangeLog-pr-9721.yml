@@ -1,0 +1,4 @@
+author: bluezorua
+delete-after: true
+changes:
+  - rscdel: Certain Medical Banners on some maps no longer magically heal
