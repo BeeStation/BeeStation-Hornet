@@ -432,6 +432,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	obj_flags = USES_TGUI
+	item_flags = EXAMINE_SKIP | NOBLUDGEON | NO_MAT_REDEMPTION
 	w_class = WEIGHT_CLASS_SMALL
 	/// The internal holoparasite builder object, which handles actually, well, building the holoparasite.
 	var/datum/holoparasite_builder/builder
