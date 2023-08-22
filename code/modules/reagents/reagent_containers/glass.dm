@@ -43,17 +43,16 @@
 				M.visible_message("<span class='danger'>[user] attempts to feed [M] something from [src].</span>", \
 						"<span class='userdanger'>[user] attempts to feed you something from [src].</span>")
 				var/feeding_time = 3 SECONDS
-				if(M.last_time_fed + 5 SECONDS >= world.time)
+				if(COOLDOWN_TIMELEFT(M, faster_feeding))
 					feeding_time = feeding_time / 3
 				if(!do_after(user, feeding_time, target = M, show_to_target = TRUE, add_item = src))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay
-				M.last_time_fed = world.time
+				COOLDOWN_START(M, faster_feeding, 5 SECONDS)
 				M.visible_message("<span class='danger'>[user] feeds [M] something from [src].</span>", \
 						"<span class='userdanger'>[user] feeds you something from [src].</span>")
 				log_combat(user, M, "fed", reagents.log_list())
-				M.last_time_fed = world.time
 			else
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
 			var/fraction = min(5/reagents.total_volume, 1)

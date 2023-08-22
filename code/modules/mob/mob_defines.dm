@@ -234,6 +234,6 @@
 	var/thinking_IC = FALSE
 
 	///Used for speeding up the process of feeding someone if they were recently fed
-	var/last_time_fed = 0
+	COOLDOWN_DECLARE(faster_feeding)
 	///used for speeding up the process of stripping someone if they were recently stripped
-	var/last_time_stripped = 0
+	COOLDOWN_DECLARE(faster_stripping)

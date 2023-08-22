@@ -313,14 +313,14 @@
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay, obscured = FALSE)
 	var/strip_time = strip_delay || item.strip_delay
-	if(source.last_time_stripped + 5 SECONDS >= world.time)
+	if(COOLDOWN_TIMELEFT(source, faster_stripping))
 		strip_time = strip_time / 3
 	if(obscured)
 		if(!do_after(user, strip_time, source, show_to_target = TRUE))
 			return FALSE
 	else if(!do_after(user, strip_time, source, show_to_target = TRUE, add_item = item))
 		return FALSE
-	source.last_time_stripped = world.time
+	COOLDOWN_START(source, faster_stripping, 5 SECONDS)
 	return TRUE
 
 /// A utility function for `/datum/strippable_item`s to finish unequipping an item from a mob.

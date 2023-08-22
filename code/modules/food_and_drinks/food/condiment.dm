@@ -88,7 +88,7 @@
 		M.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>", \
 			"<span class='warning'>[user] attempts to feed you from [src].</span>")
 		var/time_to_eat = 3 SECONDS
-		if(M.last_time_fed + 5 SECONDS >= world.time)
+		if(COOLDOWN_TIMELEFT(M, faster_feeding))
 			time_to_eat = time_to_eat / 3
 		if(!do_after(user, delay = time_to_eat, target = M, show_to_target = TRUE, add_item = src))
 			return
@@ -97,7 +97,7 @@
 		M.visible_message("<span class='warning'>[user] fed [M] from [src].</span>", \
 			"<span class='warning'>[user] fed you from [src].</span>")
 		log_combat(user, M, "fed", reagents.log_list())
-		M.last_time_fed = world.time
+		COOLDOWN_START(M, faster_feeding, 5 SECONDS)
 
 	var/fraction = min(10/reagents.total_volume, 1)
 	reagents.reaction(M, INGEST, fraction)
