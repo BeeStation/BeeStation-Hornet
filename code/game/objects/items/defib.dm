@@ -540,7 +540,7 @@
 		"<span class='warning'>You overcharge the paddles and begin to place them onto [H]'s chest...</span>")
 	busy = TRUE
 	update_icon()
-	var/atom/temp_paddles = src//make a temporary set of paddles that have both paddles showing instead of one
+	var/atom/temp_paddles = new type//make a temporary set of paddles that have both paddles showing instead of one
 	temp_paddles.appearance = appearance
 	temp_paddles.icon_state = initial(icon_state)
 	if(do_after(user, 1.5  SECONDS, target = H, show_to_target = TRUE, add_item = temp_paddles))
@@ -553,6 +553,7 @@
 		else
 			user.audible_message("<span class='warning'>[src] let out an urgent beep.</span>")
 		if(do_after(user, 1.5  SECONDS, target = H, show_to_target = TRUE, add_item = temp_paddles)) //Takes longer due to overcharging
+			QDEL_NULL(temp_paddles)
 			if(!H)
 				busy = FALSE
 				update_icon()
@@ -586,6 +587,8 @@
 				recharge(60)
 			if(req_defib && (defib.cooldowncheck(user)))
 				return
+	if(temp_paddles)
+		QDEL_NULL(temp_paddles)
 	busy = FALSE
 	update_icon()
 
@@ -596,7 +599,7 @@
 	user.visible_message("<span class='warning'>[user] begins to place [src] on [H]'s chest.</span>", "<span class='warning'>You begin to place [src] on [H]'s chest...</span>")
 	busy = TRUE
 	update_icon()
-	var/atom/temp_paddles = src
+	var/atom/temp_paddles = new type
 	temp_paddles.appearance = appearance
 	temp_paddles.icon_state = initial(icon_state)
 	if(do_after(user, 3 SECONDS, target = H, show_to_target = TRUE, add_item = temp_paddles)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
@@ -606,7 +609,8 @@
 		var/total_brute	= 0
 		var/tplus = world.time - H.timeofdeath	//length of time spent dead
 		var/obj/item/organ/heart = H.getorgan(/obj/item/organ/heart)
-		if(do_after(user, 2 SECONDS, target = H, show_to_target = TRUE, add_item = src)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+		if(do_after(user, 2 SECONDS, target = H, show_to_target = TRUE, add_item = temp_paddles)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+			QDEL_NULL(temp_paddles)
 			for(var/obj/item/carried_item in H.contents)
 				if(istype(carried_item, /obj/item/clothing/suit/space))
 					if((!combat && !req_defib) || (req_defib && !defib.combat))
@@ -693,6 +697,8 @@
 			else
 				user.visible_message("<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Patient is not in a valid state. Operation aborted.</span>")
 				playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
+	if(temp_paddles)
+		QDEL_NULL(temp_paddles)
 	busy = FALSE
 	update_icon()
 
