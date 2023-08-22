@@ -38,32 +38,14 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 		target_client = targeted_client
 	if(additional_image)
 		show_bar = FALSE
+	user = User
+	if(user)
+		client = user.client
 	if(show_bar)
 		bar = image('icons/effects/progessbar.dmi', target, "prog_bar_0")
 		bar.plane = ABOVE_HUD_PLANE
 		bar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		bar.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	user = User
-	if(user)
-		client = user.client
-	if(additional_image)
-		shown_image = image(additional_image.icon, target, additional_image.icon_state, (ABOVE_HUD_PLANE - 0.1))
-		shown_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		shown_image.appearance_flags = KEEP_TOGETHER | APPEARANCE_UI_IGNORE_ALPHA
-		if(color_hex2num(additional_image.color) >= 350)//Colors that are too hard to see are rejected
-			shown_image.color = additional_image.color
-		shown_image.underlays = additional_image.underlays
-		shown_image.overlays = additional_image.overlays
-		shown_image.plane = HUD_PLANE
-		shown_image.transform = shown_image.transform.Scale(scale, scale)
-		shown_image_darkened = image(additional_image.icon, target, additional_image.icon_state, (ABOVE_HUD_PLANE - 0.2))
-		shown_image_darkened.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		shown_image_darkened.appearance_flags = KEEP_TOGETHER | APPEARANCE_UI_IGNORE_ALPHA
-		shown_image_darkened.underlays = additional_image.underlays
-		shown_image_darkened.overlays = additional_image.overlays
-		shown_image_darkened.plane = HUD_PLANE
-		shown_image_darkened.transform = shown_image_darkened.transform.Scale(scale, scale)
-	if(show_bar)
 		LAZYINITLIST(user.progressbars)
 		LAZYINITLIST(user.progressbars[bar.loc])
 		var/list/bars = user.progressbars[bar.loc]
@@ -76,11 +58,27 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 		if(show_to_target && target_client)
 			target_client?.images += bar
 		animate(bar, pixel_y = 32 + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
-	if(shown_image)
+	if(additional_image)
+		shown_image = image(additional_image.icon, target, additional_image.icon_state, (ABOVE_HUD_PLANE - 0.1))
+		shown_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+		shown_image.appearance_flags = KEEP_TOGETHER | APPEARANCE_UI_IGNORE_ALPHA
+		if(color_hex2num(additional_image.color) >= 350)//Colors that are too hard to see are rejected
+			shown_image.color = additional_image.color
+		shown_image.underlays = additional_image.underlays
+		shown_image.overlays = additional_image.overlays
+		shown_image.plane = HUD_PLANE
+		shown_image.transform = shown_image.transform.Scale(scale, scale)
 		shown_image.pixel_y = 0 + y_image_offset
 		shown_image.pixel_x = 0 + x_image_offset
 		shown_image.alpha = 0
 
+		shown_image_darkened = image(additional_image.icon, target, additional_image.icon_state, (ABOVE_HUD_PLANE - 0.2))
+		shown_image_darkened.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+		shown_image_darkened.appearance_flags = KEEP_TOGETHER | APPEARANCE_UI_IGNORE_ALPHA
+		shown_image_darkened.underlays = additional_image.underlays
+		shown_image_darkened.overlays = additional_image.overlays
+		shown_image_darkened.plane = HUD_PLANE
+		shown_image_darkened.transform = shown_image_darkened.transform.Scale(scale, scale)
 		shown_image_darkened.pixel_y = 0 + y_image_offset
 		shown_image_darkened.pixel_x = 0 + x_image_offset
 		shown_image_darkened.alpha = 0
@@ -207,6 +205,12 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 			client.images -= shown_image
 			client.images -= shown_image_darkened
 		client = null
+	if(target_client)
+		if(show_bar)
+			client.images -= bar
+		if(shown_image)
+			client.images -= shown_image
+			client.images -= shown_image_darkened
 
 #undef PROGRESSBAR_ANIMATION_TIME
 #undef PROGRESSBAR_HEIGHT
