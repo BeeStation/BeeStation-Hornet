@@ -48,20 +48,15 @@
 	// Handles cable repairs
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = I
-		var/looping = TRUE
 		var/speed_mod = 1
-		while(looping)
-			if(affecting.burn_dam <= 0)
-				looping = FALSE
-				user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
-				return COMPONENT_NO_AFTERATTACK
+		while(affecting.burn_dam > 0)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] starts to fix some of the burn wires in [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 				"<span class='notice'>You start fixing some of the burnt wires in [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
 				if(!do_after(user, 1.5 SECONDS * speed_mod, target, show_to_target = TRUE, add_item = coil))
-					looping = FALSE
-					return COMPONENT_NO_AFTERATTACK
-			if(coil.amount && item_heal_robotic(target, user, 0, 15, affecting))
+					break
+			item_heal_robotic(target, user, 0, 15, affecting)
+			if(coil.amount)
 				coil.use(1)
 			if(speed_mod > 0.2)
 				speed_mod -= 0.1

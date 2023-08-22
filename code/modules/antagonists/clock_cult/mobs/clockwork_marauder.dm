@@ -91,20 +91,16 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		to_chat(user, "<span class='warning'>You're already repairing [src]!</span>")
 		return
 	var/speed_mult = 1
-	var/looping = TRUE
-	while(looping)
+	while(shield_health < MARAUDER_SHIELD_MAX)
 		if(!do_after(user, 2.5 SECONDS * speed_mult, target=src, add_item = I))
-			looping = FALSE
 			return TRUE
 		health = min(health + 10, maxHealth)
 		to_chat(user, "<span class='notice'>You repair some of [src]'s damage.</span>")
-		if(shield_health >= MARAUDER_SHIELD_MAX)
-			looping = FALSE
-		else
-			shield_health ++
-			playsound(src, 'sound/magic/charge.ogg', 60, TRUE)
+		shield_health ++
+		playsound(src, 'sound/magic/charge.ogg', 60, TRUE)
 		if(speed_mult > 0.25)
 			speed_mult -= 0.15
+	to_chat(user, "<span class='notice'>You finish repairing [src]'s damage.</span>")
 	return TRUE
 
 #undef MARAUDER_SHIELD_RECHARGE

@@ -563,23 +563,18 @@
 		to_chat(src, "<span class='warning'>Remove [p_their()] mask first!</span>")
 		return FALSE
 
-	var/looping = TRUE
 	var/speed_mult = 1
-	while(looping)
+	while(C.health <= C.crit_threshold)
 		visible_message("<span class='notice'>[src] is trying to perform CPR on [C.name]!</span>", \
 						"<span class='notice'>You try to perform CPR on [C.name]... Hold still!</span>")
 		if(!do_after(src, delay = 3 SECONDS * speed_mult, target = C, show_to_target = TRUE))
 			to_chat(src, "<span class='warning'>You fail to perform CPR on [C]!</span>")
-			looping = FALSE
 			return FALSE
 		if(speed_mult > 0.2)
 			speed_mult -= 0.1
 
 		var/they_breathe = !HAS_TRAIT(C, TRAIT_NOBREATH)
 		var/they_lung = C.getorganslot(ORGAN_SLOT_LUNGS)
-
-		if(C.health > C.crit_threshold)
-			return
 
 		src.visible_message("[src] performs CPR on [C.name]!", "<span class='notice'>You perform CPR on [C.name].</span>")
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "perform_cpr", /datum/mood_event/perform_cpr)
