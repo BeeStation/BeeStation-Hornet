@@ -1,0 +1,2240 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ai" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/wizard_station)
+"au" = (
+/turf/closed/indestructible/cordon,
+/area/space)
+"aL" = (
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/wizard_station)
+"aR" = (
+/obj/structure/destructible/cult/tome,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"bc" = (
+/obj/structure/chair/wood/wings,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"cx" = (
+/obj/structure/table/wood,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"cE" = (
+/obj/structure/bed,
+/obj/item/bedsheet/wiz,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"dl" = (
+/obj/structure/chair/wood/wings{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/wizard_station)
+"dA" = (
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"dL" = (
+/obj/structure/chair/wood/wings,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"dZ" = (
+/obj/structure/showcase{
+	desc = "A historical figure of great importance to the wizard federation. He spent his long life learning magic, stealing artifacts, and harassing idiots with swords. May he rest forever, Rodney.";
+	icon = 'icons/mob/mob.dmi';
+	icon_state = "nim";
+	name = "wizard of yendor showcase"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"fc" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Engine Room"
+	},
+/obj/structure/barricade/wooden,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"fe" = (
+/turf/open/floor/grass,
+/area/wizard_station)
+"fj" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/grass,
+/area/wizard_station)
+"fw" = (
+/obj/machinery/vending/snack,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"gb" = (
+/obj/item/coin/antagtoken,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/wizard_station)
+"gu" = (
+/turf/closed/indestructible/fakeglass{
+	color = "#008000"
+	},
+/area/wizard_station)
+"gG" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"ik" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/magusred,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/staff,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"iy" = (
+/obj/item/soap/homemade,
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/wizard_station)
+"jd" = (
+/obj/effect/decal/remains/xeno,
+/turf/open/floor/grass,
+/area/wizard_station)
+"kS" = (
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/carpet,
+/area/wizard_station)
+"lp" = (
+/turf/open/floor/carpet,
+/area/wizard_station)
+"lJ" = (
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime,
+/turf/open/floor/grass,
+/area/wizard_station)
+"mi" = (
+/obj/effect/landmark/start/wizard,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"mp" = (
+/obj/structure/table/wood/fancy,
+/obj/item/skub{
+	pixel_y = 16
+	},
+/turf/open/floor/plasteel/white,
+/area/wizard_station)
+"mq" = (
+/obj/structure/table/wood/fancy,
+/obj/item/radio/headset,
+/turf/open/floor/wood,
+/area/wizard_station)
+"mt" = (
+/obj/structure/urinal{
+	pixel_y = 28
+	},
+/turf/open/floor/plasteel/white,
+/area/wizard_station)
+"ng" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Cockpit"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"nt" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"pa" = (
+/obj/structure/closet/cardboard,
+/obj/item/banhammer,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/wizard_station)
+"pq" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/wizard_station)
+"pS" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Observation Deck"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"qg" = (
+/obj/structure/bookcase/random/adult,
+/turf/open/floor/plasteel/white,
+/area/wizard_station)
+"rk" = (
+/obj/structure/table/wood,
+/obj/item/storage/bag/tray,
+/obj/item/reagent_containers/food/snacks/burger/spell,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"rq" = (
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"rF" = (
+/obj/structure/bookcase/random/reference,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"rY" = (
+/obj/structure/table/wood/fancy,
+/obj/item/storage/pill_bottle/dice{
+	icon_state = "magicdicebag"
+	},
+/turf/open/floor/carpet,
+/area/wizard_station)
+"tL" = (
+/obj/structure/table/wood/fancy,
+/obj/item/camera/spooky,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"uB" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/open/floor/grass,
+/area/wizard_station)
+"vv" = (
+/obj/structure/table/wood,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/ointment,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"vw" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/grass,
+/area/wizard_station)
+"vX" = (
+/turf/open/floor/wood,
+/area/wizard_station)
+"wo" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/magusblue,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/staff,
+/obj/structure/mirror/magic{
+	pixel_y = 28
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"xc" = (
+/obj/machinery/computer/camera_advanced/wizard{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
+"xm" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Storage"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"xn" = (
+/obj/structure/shuttle/engine/heater{
+	resistance_flags = 3
+	},
+/obj/structure/window/reinforced{
+	color = "#008000";
+	dir = 1;
+	resistance_flags = 3
+	},
+/turf/open/lava/airless,
+/area/wizard_station)
+"xy" = (
+/obj/item/clothing/suit/wizrobe/black,
+/obj/item/clothing/head/wizard/black,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/wizard_station)
+"xN" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/wizard_station)
+"xV" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Personal Quarters"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"xY" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/mob/living/simple_animal/hostile/netherworld{
+	name = "Experiment 35b"
+	},
+/turf/open/floor/grass,
+/area/wizard_station)
+"yw" = (
+/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
+/turf/open/floor/grass,
+/area/wizard_station)
+"zr" = (
+/obj/item/cautery/alien,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/wizard_station)
+"zG" = (
+/obj/structure/table/wood/fancy,
+/obj/item/storage/photo_album,
+/obj/machinery/light,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"zS" = (
+/obj/structure/table/wood,
+/obj/item/gun/magic/wand{
+	desc = "Used in emergencies to reignite magma engines.";
+	max_charges = 0;
+	name = "wand of emergency engine ignition"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"zX" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Bathroom"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Ap" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/space,
+/area/wizard_station)
+"AA" = (
+/obj/structure/closet/crate{
+	opened = 1
+	},
+/obj/item/clothing/suit/wizrobe/red,
+/obj/item/clothing/head/wizard/red,
+/obj/item/staff,
+/obj/item/clothing/shoes/sandal/magic,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Bo" = (
+/obj/structure/destructible/cult/talisman{
+	desc = "An altar dedicated to the Wizards' Federation"
+	},
+/obj/item/kitchen/knife/ritual,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Bv" = (
+/mob/living/simple_animal/bot/medbot/mysterious{
+	desc = "If you don't accidentally blow yourself up from time to time you're not really a wizard anyway.";
+	faction = list("neutral","silicon","creature");
+	name = "Nobody's Perfect"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"BF" = (
+/obj/item/clothing/shoes/sneakers/marisa,
+/obj/item/clothing/suit/wizrobe/marisa,
+/obj/item/clothing/head/wizard/marisa,
+/obj/item/staff/broom,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"BT" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Game Room"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Da" = (
+/obj/structure/showcase{
+	desc = "A strange machine supposedly from another world. The Wizard Federation has been meddling with it for years.";
+	icon = 'icons/obj/machines/telecomms.dmi';
+	icon_state = "processor";
+	name = "byond random number generator"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Dm" = (
+/turf/open/space/transit,
+/area/space)
+"DK" = (
+/turf/closed/indestructible/riveted/uranium,
+/area/wizard_station)
+"DT" = (
+/obj/item/reagent_containers/food/snacks/egg/rainbow{
+	desc = "I bet you think you're pretty clever... well you are.";
+	name = "easter egg"
+	},
+/turf/open/space,
+/area/space)
+"EC" = (
+/obj/item/cardboard_cutout,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/wizard_station)
+"Ib" = (
+/obj/structure/window/reinforced{
+	color = "#008000";
+	dir = 1;
+	resistance_flags = 3
+	},
+/turf/open/lava,
+/area/wizard_station)
+"Iz" = (
+/obj/item/statuebust{
+	pixel_y = 12
+	},
+/obj/structure/table/wood/fancy,
+/turf/open/floor/wood,
+/area/wizard_station)
+"II" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Je" = (
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Jm" = (
+/obj/machinery/computer/camera_advanced/wizard,
+/turf/open/floor/wood,
+/area/wizard_station)
+"KK" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Observation Room"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"KP" = (
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Lm" = (
+/obj/structure/punching_bag,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"MH" = (
+/obj/structure/table/wood,
+/obj/item/bikehorn/golden{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Nc" = (
+/turf/open/floor/plasteel/white,
+/area/wizard_station)
+"NP" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Oq" = (
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/wizard_station)
+"Oy" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Study"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"OD" = (
+/obj/vehicle/ridden/scooter/skateboard{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light/small,
+/turf/open/floor/plasteel,
+/area/wizard_station)
+"PW" = (
+/obj/machinery/door/airlock{
+	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
+	name = "Break Room"
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"QK" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/wizard_station)
+"QR" = (
+/obj/structure/dresser,
+/obj/item/storage/backpack/satchel,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"QS" = (
+/obj/machinery/computer/shuttle_flight,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"SD" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/figure/wizard,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"ST" = (
+/obj/machinery/vending/magivend,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Um" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
+"UE" = (
+/obj/machinery/light,
+/turf/open/floor/wood,
+/area/wizard_station)
+"UJ" = (
+/obj/structure/table/wood,
+/obj/item/dice/d20,
+/obj/item/dice,
+/turf/open/floor/carpet,
+/area/wizard_station)
+"VF" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"VR" = (
+/obj/structure/table/wood,
+/obj/item/retractor,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Wh" = (
+/obj/machinery/light,
+/turf/open/floor/engine/cult,
+/area/wizard_station)
+"Wy" = (
+/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
+/turf/open/floor/grass,
+/area/wizard_station)
+"WL" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/turf/open/floor/carpet,
+/area/wizard_station)
+"XQ" = (
+/obj/effect/decal/remains/xeno/larva,
+/turf/open/floor/grass,
+/area/wizard_station)
+"Zy" = (
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
+"ZM" = (
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
+/turf/open/floor/grass,
+/area/wizard_station)
+"ZW" = (
+/obj/structure/mirror/magic{
+	pixel_y = 28
+	},
+/obj/structure/sink{
+	pixel_y = 20
+	},
+/turf/open/floor/plasteel/white,
+/area/wizard_station)
+
+(1,1,1) = {"
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+"}
+(2,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(3,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(4,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(5,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(6,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(7,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(8,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(9,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+gu
+gu
+gu
+DK
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(10,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+DK
+DK
+bc
+aR
+rF
+aR
+rq
+DK
+gu
+gu
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(11,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+xc
+vX
+Oy
+Je
+Je
+Je
+Je
+Je
+pS
+Je
+Je
+DK
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(12,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+mq
+Um
+vX
+DK
+Je
+Je
+Je
+Je
+Je
+DK
+Je
+lp
+Je
+DK
+DK
+DK
+DK
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(13,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+vX
+vX
+vX
+vX
+DK
+bc
+aR
+Je
+aR
+rq
+DK
+Je
+Je
+Je
+DK
+xy
+zr
+pa
+DK
+DK
+gu
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(14,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+Jm
+Zy
+vX
+vX
+UE
+DK
+DK
+gu
+gu
+gu
+DK
+DK
+II
+lp
+Je
+xm
+ai
+ai
+xN
+fc
+Je
+Je
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(15,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+DK
+DK
+mq
+vX
+vX
+vX
+Iz
+DK
+vv
+Je
+Je
+Je
+Bv
+DK
+Je
+Je
+Je
+DK
+EC
+gb
+OD
+DK
+DK
+fc
+DK
+DK
+DK
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(16,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+NP
+Da
+DK
+DK
+DK
+KK
+DK
+DK
+DK
+VR
+Je
+Je
+Je
+Wh
+DK
+Je
+lp
+Je
+DK
+DK
+DK
+DK
+DK
+Je
+Je
+KP
+Ib
+DK
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(17,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+gu
+Je
+Je
+Je
+gu
+Je
+Je
+Je
+dA
+ST
+DK
+Je
+Je
+Je
+Je
+Je
+gu
+Je
+Je
+Je
+DK
+UJ
+kS
+QR
+DK
+cx
+Je
+Je
+Ib
+xn
+Ap
+Dm
+Dm
+Dm
+au
+"}
+(18,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+gu
+QS
+Je
+Je
+ng
+Je
+Je
+Je
+Je
+Je
+PW
+Je
+Je
+Bo
+mi
+Je
+pS
+Je
+lp
+Je
+xV
+lp
+cE
+lp
+gu
+zS
+Je
+Je
+Ib
+xn
+Ap
+Dm
+Dm
+DT
+au
+"}
+(19,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+gu
+Je
+Je
+Je
+gu
+Je
+Je
+Je
+nt
+fw
+DK
+Je
+Je
+Je
+Je
+Je
+gu
+Je
+Je
+Je
+DK
+Lm
+pq
+rk
+DK
+cx
+Je
+Je
+Ib
+xn
+Ap
+Dm
+Dm
+Dm
+au
+"}
+(20,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+VF
+dZ
+DK
+DK
+DK
+BT
+DK
+DK
+DK
+wo
+Je
+Je
+Je
+Wh
+DK
+Je
+lp
+Je
+DK
+DK
+DK
+DK
+DK
+MH
+Je
+KP
+Ib
+DK
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(21,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+DK
+DK
+lp
+dl
+lp
+tL
+rY
+DK
+ik
+AA
+BF
+Je
+Je
+DK
+Je
+Je
+Je
+DK
+mt
+iy
+qg
+DK
+DK
+gu
+DK
+DK
+DK
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(22,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+dL
+SD
+Oq
+lp
+zG
+DK
+DK
+gu
+gu
+gu
+DK
+DK
+II
+lp
+Je
+zX
+Nc
+Nc
+aL
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(23,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+WL
+lp
+dl
+lp
+gu
+ZM
+vw
+xY
+fj
+vw
+gu
+Je
+Je
+Je
+DK
+ZW
+QK
+mp
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(24,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+dL
+gG
+Oq
+gu
+uB
+fe
+uB
+lJ
+uB
+gu
+Je
+lp
+Je
+DK
+DK
+DK
+DK
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(25,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+WL
+lp
+gu
+XQ
+yw
+vw
+fe
+vw
+gu
+Je
+Je
+DK
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(26,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+DK
+DK
+vw
+fe
+uB
+jd
+Wy
+DK
+gu
+gu
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(27,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+DK
+DK
+DK
+DK
+DK
+DK
+DK
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(28,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(29,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(30,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(31,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(32,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(33,1,1) = {"
+au
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+Dm
+au
+"}
+(34,1,1) = {"
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+"}

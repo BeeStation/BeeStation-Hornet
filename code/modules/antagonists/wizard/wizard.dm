@@ -16,6 +16,11 @@
 	var/wiz_age = WIZARD_AGE_MIN /* Wizards by nature cannot be too young. */
 	show_to_ghosts = TRUE
 
+/datum/antagonist/wizard/New()
+	if(move_to_lair) // kick off loading of your lair, if you want to be moved to it
+		INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, lazy_load_template), LAZY_TEMPLATE_KEY_WIZARDDEN)
+	return ..()
+
 /datum/antagonist/wizard/on_gain()
 	register()
 	equip_wizard()
@@ -59,6 +64,9 @@
 	update_wiz_icons_added(owner.current)
 
 /datum/antagonist/wizard/proc/send_to_lair()
+	// And now we ensure that its loaded
+	SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_WIZARDDEN)
+
 	if(!owner || !owner.current)
 		return
 	if(!GLOB.wizardstart.len)

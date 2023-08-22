@@ -13,6 +13,11 @@
 	var/landmark_type
 	var/greet_text
 
+/datum/antagonist/abductor/New()
+	// lets get the loading started now, but don't block waiting for it
+	INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, lazy_load_template), LAZY_TEMPLATE_KEY_ABDUCTOR_SHIPS)
+	return ..()
+
 /datum/antagonist/abductor/agent
 	name = "Abductor Agent"
 	sub_role = "Agent"
@@ -89,6 +94,9 @@
 
 	H.real_name = "[team.name] [sub_role]"
 	H.equipOutfit(outfit)
+
+	// We require that the template be loaded here, so call it in a blocking manner, if its already done loading, this won't block
+	SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_ABDUCTOR_SHIPS)
 
 	//Teleport to ship
 	for(var/obj/effect/landmark/abductor/LM in GLOB.landmarks_list)

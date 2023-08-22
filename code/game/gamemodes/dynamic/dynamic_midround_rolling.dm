@@ -62,6 +62,7 @@
 			continue
 
 		ruleset.trim_candidates()
+		ruleset.load_templates()
 		if (!ruleset.ready())
 			log_game("DYNAMIC: FAIL: [ruleset] is not ready()")
 			continue

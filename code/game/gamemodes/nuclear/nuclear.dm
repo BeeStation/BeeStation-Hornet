@@ -145,6 +145,8 @@
 	tc = 0
 
 /datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
+	// We don't *REALLY* require the nukiebase be loaded to function, but lets go ahead and kick off loading just in case
+	INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, lazy_load_template), LAZY_TEMPLATE_KEY_NUKIEBASE)
 	var/obj/item/radio/R = H.ears
 	R.set_frequency(FREQ_SYNDICATE)
 	R.freqlock = TRUE
