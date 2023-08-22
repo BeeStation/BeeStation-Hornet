@@ -1103,17 +1103,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return FALSE
 		// Create a callback with checks that would be called every tick by do_after.
 		var/datum/callback/tool_check = CALLBACK(src, PROC_REF(tool_check_callback), user, amount, extra_checks)
-		if(ismob(target))
-			if(!do_after(user, delay, target, extra_checks=tool_check, show_to_target = TRUE, add_item = src))
-				return FALSE
-
-		else
-			if(!do_after(user, delay, target=target, extra_checks=tool_check, show_to_target = TRUE, add_item = src))
-				return TRUE
+		if(!do_after(user, delay, target, extra_checks=tool_check, show_to_target = TRUE, add_item = src))
+			return FALSE
 	else
 		// Invoke the extra checks once, just in case.
 		if(extra_checks && !extra_checks.Invoke())
-			return TRUE
+			return FALSE
 
 	// Use tool's fuel, stack sheets or charges if amount is set.
 	if(amount && !use(amount))
