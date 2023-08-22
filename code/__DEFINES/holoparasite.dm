@@ -85,3 +85,5 @@
 #define HOLOPARA_TOTAL_LAYERS				1
 /// The layer for the holoparasite's hands.
 #define HOLOPARA_HANDS_LAYER				1
+/// The maximum lightness (HSL) value for a holopara's accent color
+#define HOLOPARA_MAX_ACCENT_LIGHTNESS		50
