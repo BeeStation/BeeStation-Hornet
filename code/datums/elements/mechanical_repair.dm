@@ -29,24 +29,19 @@
 
 	// Handles welder repairs on human limbs
 	if(I.tool_behaviour == TOOL_WELDER)
-		var/looping = TRUE
 		var/speed_mod = 1
-		while(looping)
-			if(affecting.brute_dam <= 0)
-				looping = FALSE
-				user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
-				return COMPONENT_NO_AFTERATTACK
+		while(affecting.brute_dam > 0)
 			if(I.use_tool(source, user, 0, volume=50, amount=1))
 				if(user == target)
 					user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 					"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
 					if(!do_after(user, 1.5 SECONDS * speed_mod, target, show_to_target = TRUE, add_item = I))
-						return COMPONENT_NO_AFTERATTACK
+						break
 				item_heal_robotic(target, user, 15, 0, affecting)
 				if(speed_mod > 0.2)
 					speed_mod -= 0.1
 			else
-				looping = FALSE
+				break
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
 		return COMPONENT_NO_AFTERATTACK
 
