@@ -292,7 +292,7 @@
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		if(I in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already using trying to erase [src]!</span>")
-			return COMPONENT_NO_AFTERATTACK
+			return
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 1.5 SECONDS, target = src, add_item = I))
 			to_chat(user, "<span class='clowntext'>It's not within your power to erase the [lowertext(cultist_name)].</span>")

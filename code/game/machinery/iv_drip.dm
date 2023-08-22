@@ -240,7 +240,7 @@
 	if(user.is_holding_item_of_type(/obj/item/clothing/mask/breath) && can_convert)
 		if(src in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already attempting to attach a breath mask to [src]!</span>")
-			return COMPONENT_NO_AFTERATTACK
+			return
 		visible_message("<span class='warning'>[user] attempts to attach the breath mask to [src].</span>", "<span class='notice'>You attempt to attach the breath mask to [src].</span>")
 		if(!do_after(user, 10 SECONDS, src, timed_action_flags = IGNORE_HELD_ITEM, add_item = I))
 			to_chat(user, "<span class='warning'>You fail to attach the breath mask to [src]!</span>")

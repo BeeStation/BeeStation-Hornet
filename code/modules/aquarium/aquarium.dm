@@ -109,7 +109,7 @@
 				return
 			if(src in user.do_afters)
 				to_chat(user, "<span class='warning'>You're already trying to fix [src]!</span>")
-				return COMPONENT_NO_AFTERATTACK
+				return
 			to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
 			if(do_after(user, 2 SECONDS, target = src, add_item = I))
 				glass.use(2)

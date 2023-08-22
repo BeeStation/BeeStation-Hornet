@@ -64,7 +64,7 @@
 	if(!harvested && needs_sharp_harvest && W.is_sharp())
 		if(src in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already trying to harvest [src]!</span>")
-			return COMPONENT_NO_AFTERATTACK
+			return
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
 		if(do_after(user, harvest_time, target = src, add_item = W))
 			harvest(user)

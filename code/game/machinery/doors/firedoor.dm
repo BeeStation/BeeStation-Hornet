@@ -207,7 +207,7 @@
 				access_log.Remove(access_log[1])
 			if(src in user.do_afters)
 				to_chat(user, "<span class='warning'>You're already attempting to force open [src]!</span>")
-				return COMPONENT_NO_AFTERATTACK
+				return
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors whine...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 			if(!crowbar.use_tool(src, user, 10 SECONDS))
@@ -215,7 +215,7 @@
 		else
 			if(src in user.do_afters)
 				to_chat(user, "<span class='warning'>You're already attempting to force open [src]!</span>")
-				return COMPONENT_NO_AFTERATTACK
+				return
 			to_chat(user, "<span class='notice'>You begin forcing open \the [src], the motors don't resist...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 			if(!crowbar.use_tool(src, user, 1 SECONDS))
@@ -600,7 +600,7 @@
 					return
 				if(src in user.do_afters)
 					to_chat(user, "<span class='warning'>You're already attempting to reinforce [src]!</span>")
-					return COMPONENT_NO_AFTERATTACK
+					return
 				user.visible_message("<span class='notice'>[user] begins reinforcing [src]...</span>", \
 									 "<span class='notice'>You begin reinforcing [src]...</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
@@ -665,7 +665,7 @@
 					return
 				if(src in user.do_afters)
 					to_chat(user, "<span class='warning'>You're already wiring up [src]!</span>")
-					return COMPONENT_NO_AFTERATTACK
+					return
 				user.visible_message("<span class='notice'>[user] begins wiring [src]...</span>", \
 									 "<span class='notice'>You begin adding wires to [src]...</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
@@ -709,7 +709,7 @@
 			if(istype(C, /obj/item/electronics/firelock))
 				if(src in user.do_afters)
 					to_chat(user, "<span class='warning'>You're already adding [C] to [src]!</span>")
-					return COMPONENT_NO_AFTERATTACK
+					return
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									 "<span class='notice'>You begin adding a circuit board to [src]...</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)

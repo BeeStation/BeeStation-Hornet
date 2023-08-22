@@ -25,7 +25,7 @@
 	//can only do one progress bar at a time
 	if(target in user.do_afters)
 		to_chat(user, "<span class ='warning'>You're already trying to repair [target == user ? "you" : "[target]'s"] structural damage!</span>")
-		return COMPONENT_NO_AFTERATTACK
+		return
 
 	// Handles welder repairs on human limbs
 	if(I.tool_behaviour == TOOL_WELDER)

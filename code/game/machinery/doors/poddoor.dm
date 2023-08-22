@@ -42,7 +42,7 @@
 		if(W.tool_behaviour == TOOL_CROWBAR &&deconstruction == BLASTDOOR_FINISHED)
 			if(src in user.do_afters)
 				to_chat(user, "<span class='warning'>You're already removing the airlock electronics from [src]!</span>")
-				return COMPONENT_NO_AFTERATTACK
+				return
 			to_chat(user, "<span class='notice'>You start to remove the airlock electronics.</span>")
 			if(do_after(user, 10 SECONDS, target = src, add_item = W))
 				new /obj/item/electronics/airlock(loc)
@@ -52,7 +52,7 @@
 		else if(W.tool_behaviour == TOOL_WIRECUTTER && deconstruction == BLASTDOOR_NEEDS_ELECTRONICS)
 			if(src in user.do_afters)
 				to_chat(user, "<span class='warning'>You're already attempting to remove the internal cables from [src]!</span>")
-				return COMPONENT_NO_AFTERATTACK
+				return
 			to_chat(user, "<span class='notice'>You start to remove the internal cables.</span>")
 			if(do_after(user, 10 SECONDS, target = src, add_item = W))
 				deconstruction = TRUE
@@ -66,7 +66,7 @@
 				return
 			if(src in user.do_afters)
 				to_chat(user, "<span class='warning'>You're already tearing apart the [src]!</span>")
-				return COMPONENT_NO_AFTERATTACK
+				return
 			to_chat(user, "<span class='notice'>You start tearing apart the [src].</span>")
 			playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
 			if(do_after(user, 15 SECONDS, target = src, add_item = W))

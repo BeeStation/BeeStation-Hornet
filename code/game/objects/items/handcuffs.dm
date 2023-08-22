@@ -56,7 +56,7 @@
 		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
 			if(C in user.do_afters)
 				to_chat(user, "<span class='warning'>You're already trying to cuff [C]!</span>")
-				return COMPONENT_NO_AFTERATTACK
+				return
 			C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
 								"<span class='userdanger'>[user] is trying to put [src.name] on you!</span>")
 
@@ -170,7 +170,7 @@
 			return
 		if(src in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already applying [I] to [src]!</span>")
-			return COMPONENT_NO_AFTERATTACK
+			return
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
 		var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
 		if(do_after(user, 3.5  SECONDS, target = src, add_item = S))

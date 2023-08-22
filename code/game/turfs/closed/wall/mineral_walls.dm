@@ -165,7 +165,7 @@
 	if(W.is_sharp() && W.force)
 		if(src in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already taking apart [src]!</span>")
-			return COMPONENT_NO_AFTERATTACK
+			return
 		var/duration = (48/W.force) * 2 //In seconds, for now.
 		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.

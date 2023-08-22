@@ -143,7 +143,7 @@
 			return
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already placing something on \the [src]!</span>")
-		return COMPONENT_NO_AFTERATTACK
+		return
 
 	to_chat(user, "<span class='notice'>You start placing the poster on the wall...</span>"	)
 

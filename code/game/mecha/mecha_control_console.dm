@@ -127,7 +127,7 @@
 /obj/item/mecha_parts/mecha_tracking/try_attach_part(mob/user, obj/mecha/M)
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already attaching \the [src] to \the [M]!</span>")
-		return COMPONENT_NO_AFTERATTACK
+		return
 	if(!do_after(user, 1.5 SECONDS, M, add_item = src))
 		return
 	if(!..())

@@ -153,7 +153,7 @@
 				return
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already trying to unwrap [src]!</span>")
-		return COMPONENT_NO_AFTERATTACK
+		return
 	user.visible_message("[user] start to unwrap a package...", \
 			"<span class='notice'>You start to unwrap the package...</span>", \
 			"<span class='italics'>You hear paper ripping.</span>")

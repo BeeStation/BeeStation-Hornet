@@ -90,7 +90,7 @@
 		if(!target_mmi.brainmob)
 			return
 		add_mmi(item)
-		return COMPONENT_NO_AFTERATTACK
+		return
 
 /obj/item/circuit_component/mmi/proc/add_mmi(obj/item/mmi/to_add)
 	remove_current_brain()

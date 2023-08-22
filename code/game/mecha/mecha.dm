@@ -937,7 +937,7 @@
 		return
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already climbing into \the [name]!</span>")
-		return COMPONENT_NO_AFTERATTACK
+		return
 
 	visible_message("[user] starts to climb into [name].")
 
@@ -990,7 +990,7 @@
 
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already inserting an MMI into \the [name]!</span>")
-		return COMPONENT_NO_AFTERATTACK
+		return
 	visible_message("<span class='notice'>[user] starts to insert an MMI into [name].</span>")
 
 	if(do_after(user, 4 SECONDS, target = src, add_item = mmi_as_oc))

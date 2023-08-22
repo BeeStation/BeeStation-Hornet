@@ -55,7 +55,7 @@
 	else
 		if(M in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already trying to feed [M] [src]'s contents!</span>")
-			return COMPONENT_NO_AFTERATTACK
+			return
 		M.visible_message("<span class='danger'>[user] attempts to feed [M] the contents of [src].</span>", \
 			"<span class='userdanger'>[user] attempts to feed you the contents of [src].</span>")
 		var/drinking_time = 3 SECONDS

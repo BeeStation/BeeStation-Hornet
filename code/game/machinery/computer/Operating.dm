@@ -34,7 +34,7 @@
 	if(istype(O, /obj/item/disk/surgery))
 		if(src in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already inserting [O] into [src]!</span>")
-			return COMPONENT_NO_AFTERATTACK
+			return
 		user.visible_message("[user] begins to load \the [O] in \the [src]...",
 			"You begin to load a surgery protocol from \the [O]...",
 			"You hear the chatter of a floppy drive.")

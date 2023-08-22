@@ -28,7 +28,7 @@
 		if(M != user)
 			if(M in user.do_afters)
 				to_chat(user, "<span class='warning'>You're already trying to implant [M]!</span>")
-				return COMPONENT_NO_AFTERATTACK
+				return
 			M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>", \
 				"<span class='userdanger'>[user] is trying to implant you with [src]!</span>")
 

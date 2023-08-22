@@ -60,7 +60,7 @@
 	if(target != user)
 		if(target in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already trying to inject [target]!</span>")
-			return COMPONENT_NO_AFTERATTACK
+			return
 		target.visible_message("<span class='danger'>[user] is trying to inject [target] with [src]!</span>", \
 			"<span class='userdanger'>[user] is trying to inject you with [src]!</span>")
 		if(!do_after(user, target = target, show_to_target = TRUE, add_item = src) || used)

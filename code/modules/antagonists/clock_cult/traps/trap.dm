@@ -52,7 +52,7 @@
 	. = ..()
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already unwrenching [src]!</span>")
-		return COMPONENT_NO_AFTERATTACK
+		return
 	to_chat(user, "<span class='warning'>You begin unwrenching [src]...</span>")
 	if(do_after(user, 5 SECONDS, target=src, add_item = I))
 		to_chat(user, "<span class='warning'>You detach [src], clearing all the connections associated with it.</span>")
