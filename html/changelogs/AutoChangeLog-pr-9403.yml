@@ -1,0 +1,6 @@
+author: EvilDragonfiend, HowToLoLu(sprite)
+delete-after: true
+changes:
+  - rscadd: You can now print 'nullifiers' from Genetics console.
+  - tweak: handheld genetic sequence scanner now tells the genetic stability level
+  - imageadd: dna nullifier sprite
