@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - rscdel: Xenos, morphs, and nightmares can no longer spawn in the atmos gas tanks.
