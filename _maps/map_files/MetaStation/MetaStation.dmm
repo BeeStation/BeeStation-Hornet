@@ -19312,10 +19312,6 @@
 "bPy" = (
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
-"bPz" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "bPD" = (
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating{
@@ -22623,10 +22619,6 @@
 	dir = 8
 	},
 /turf/open/floor/engine/o2,
-/area/engine/atmos)
-"cji" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/air,
 /area/engine/atmos)
 "cjj" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -41168,7 +41160,7 @@
 /area/crew_quarters/heads/cmo)
 "ium" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "iuw" = (
@@ -44784,7 +44776,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "jXA" = (
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
@@ -77848,7 +77840,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /turf/open/floor/plasteel,
 /area/maintenance/aft)
 "xMM" = (
@@ -122669,7 +122661,7 @@ cei
 cfy
 cgB
 chT
-cji
+ckI
 ckI
 bAR
 aaf
@@ -125224,7 +125216,7 @@ bJd
 bKJ
 bMn
 bAR
-bPz
+bPy
 bQZ
 bSl
 bAR

@@ -241,10 +241,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				to_chat_immediate(src, "<span class='userdanger'>Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab.</span>")
 			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 			new /datum/admins(localhost_rank, ckey, 1, 1)
+
+	// This needs to go after admin loading but before prefs
+	assign_mentor_datum_if_exists()
+
 	// Retrieve cached metabalance
 	get_metabalance_db()
 	// Retrieve cached antag token count
 	get_antag_token_count_db()
+	if(!src) // Yes this is possible, because the procs above sleep.
+		return
 	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
 	prefs = GLOB.preferences_datums[ckey]
 	if(prefs)
