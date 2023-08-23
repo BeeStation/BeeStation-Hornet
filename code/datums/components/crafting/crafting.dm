@@ -201,12 +201,13 @@
 		if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
 			if(!user.put_in_hands(result))
 				var/turf/front_turf = get_step(user, user.dir)
-				var/obj/structure/rack/found_rack = locate(/obj/structure/rack) in front_turf
-				var/obj/structure/table/found_table = locate(/obj/structure/table) in front_turf
-				if(found_rack || found_table)
-					result.forceMove(front_turf)
-					result.pixel_x = rand(-4, 4)
-					result.pixel_y = rand(-4, 4)
+				if(user.TurfAdjacent(front_turf))
+					var/obj/structure/rack/found_rack = locate(/obj/structure/rack) in front_turf
+					var/obj/structure/table/found_table = locate(/obj/structure/table) in front_turf
+					if(found_rack || found_table)
+						result.forceMove(front_turf)
+						result.pixel_x = rand(-4, 4)
+						result.pixel_y = rand(-4, 4)
 		else
 			result.forceMove(user.drop_location())
 		to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")
