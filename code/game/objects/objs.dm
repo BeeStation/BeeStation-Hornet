@@ -188,7 +188,7 @@
 
 		// check for TK users
 
-		if(usr.has_dna())
+		if(usr?.has_dna())
 			var/mob/living/carbon/C = usr
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src)
