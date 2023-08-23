@@ -58,9 +58,9 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..() | extrapolator_diseases
-	if(vector_disease)
-		. |= vector_disease
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., extrapolator_diseases)
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., vector_disease)
 
 /mob/living/simple_animal/pet/hamster/vector/proc/on_entered(datum/source, M as mob)
 	SIGNAL_HANDLER

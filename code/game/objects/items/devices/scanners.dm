@@ -1104,14 +1104,16 @@ GENE SCANNER
 		to_chat(user, "<span class='warning'>[icon2html(src, user)] The extrapolator is still recharging!</span>")
 		return
 	if(scanner)
-		var/list/diseases = target?.extrapolator_act(user, src, dry_run = TRUE)
+		var/list/result = target?.extrapolator_act(user, src, dry_run = TRUE)
+		var/list/diseases = result && result[EXTRAPOLATOR_RESULT_DISEASES]
 		if(!length(diseases))
 			var/list/atom/targets = find_valid_targets(user, target)
 			var/target_amt = length(targets)
 			if(target_amt)
 				target = target_amt > 1 ? tgui_input_list(user, "Select object to analyze", "Viral Extrapolation", targets, default = targets[1]) : targets[1]
 			if(target)
-				diseases = target.extrapolator_act(user, src, dry_run = TRUE)
+				result = target.extrapolator_act(user, src, dry_run = TRUE)
+				diseases = result && result[EXTRAPOLATOR_RESULT_DISEASES]
 		if(!target)
 			return
 		if(!length(diseases))
@@ -1120,7 +1122,7 @@ GENE SCANNER
 			else
 				to_chat(user, "<span class='notice'>[icon2html(src, user)] \The [src]'s probe detects no diseases.</span>")
 			return
-		if(EXTRAPOLATOR_SPECIAL_HANDLED in diseases)
+		if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL))
 			// extrapolator_act did some sort of special behavior, we don't need to do anything further
 			return
 		if(scan)
@@ -1136,7 +1138,8 @@ GENE SCANNER
 	if(!target_turf)
 		return
 	for(var/atom/target_to_try in target_turf.contents - target)
-		if(length(target_to_try.extrapolator_act(user, src, dry_run = TRUE)))
+		var/list/result = target_to_try.extrapolator_act(user, src, dry_run = TRUE)
+		if(length(result[EXTRAPOLATOR_RESULT_DISEASES]))
 			. += target_to_try
 
 /**
@@ -1144,10 +1147,11 @@ GENE SCANNER
  */
 /obj/item/extrapolator/proc/scan(mob/living/user, atom/target)
 	. = TRUE
-	var/list/diseases = target?.extrapolator_act(user, target)
+	var/list/result = target?.extrapolator_act(user, target)
+	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]
 	if(!length(diseases))
 		return FALSE
-	if(EXTRAPOLATOR_SPECIAL_HANDLED in diseases) // hardcoded "we handled this ourselves" response
+	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL))
 		return
 	var/list/message = list()
 	if(length(diseases))
@@ -1174,12 +1178,13 @@ GENE SCANNER
  */
 /obj/item/extrapolator/proc/extrapolate(mob/living/user, atom/target, isolate = FALSE)
 	. = FALSE
-	var/list/diseases = target?.extrapolator_act(user, target)
+	var/list/result = target?.extrapolator_act(user, target)
+	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]
 	if(!length(diseases))
 		return
-	if(EXTRAPOLATOR_SPECIAL_HANDLED in diseases) // hardcoded "we handled this ourselves" response
+	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL)) // hardcoded "we handled this ourselves" response
 		return TRUE
-	if(EXTRAPOLATOR_SPECIAL_ISOLATE in diseases)
+	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_ISOLATE))
 		isolate = TRUE
 	var/list/advance_diseases = list()
 	for(var/datum/disease/advance/candidate in diseases)

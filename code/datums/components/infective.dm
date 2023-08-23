@@ -116,7 +116,6 @@
 	for(var/V in diseases)
 		L.ContactContractDisease(V, target_zone)
 
-/datum/component/infective/proc/extrapolation(datum/source, mob/user, obj/item/extrapolator/extrapolator, dry_run = FALSE, list/diseases)
+/datum/component/infective/proc/extrapolation(datum/source, mob/user, obj/item/extrapolator/extrapolator, dry_run = FALSE, list/result)
 	SIGNAL_HANDLER
-
-	diseases += src.diseases
+	EXTRAPOLATOR_ACT_ADD_DISEASES(result, diseases)

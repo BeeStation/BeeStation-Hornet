@@ -175,7 +175,7 @@
 
 /obj/item/reagent_containers/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	// Always attempt to isolate diseases from reagent containers, if possible.
-	. = ..() | EXTRAPOLATOR_SPECIAL_ISOLATE
-	var/datum/reagent/blood/blood = locate() in reagents.reagent_list
-	if(blood)
-		. |= blood.get_diseases()
+	. = ..()
+	EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_ISOLATE)
+	var/datum/reagent/blood/blood = reagents.get_reagent(/datum/reagent/blood)
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., blood?.get_diseases())

@@ -49,7 +49,8 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	return ..() | rat_diseases
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., rat_diseases)
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0
@@ -149,5 +150,6 @@
 	reagents.clear_reagents()
 
 /obj/item/reagent_containers/food/snacks/deadmouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run)
-	// So we can actually extract diseases from dead mice, rather than isolating individual symptoms.
-	return ..() - EXTRAPOLATOR_SPECIAL_ISOLATE
+	. = ..()
+	if(EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_ISOLATE))
+		. -= EXTRAPOLATOR_RESULT_ACT_PRIORITY

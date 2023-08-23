@@ -144,4 +144,5 @@
 		qdel(src)
 
 /obj/item/fugu_gland/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	return ..() | fugu_diseases
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., fugu_diseases)

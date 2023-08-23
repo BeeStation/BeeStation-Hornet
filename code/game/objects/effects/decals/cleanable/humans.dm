@@ -32,7 +32,8 @@
 		src.diseases += new_disease
 
 /obj/effect/decal/cleanable/blood/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	return ..() | diseases
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /obj/effect/decal/cleanable/blood/splatter
 	icon_state = "gibbl1"
@@ -168,7 +169,8 @@
 		src.diseases += new_disease
 
 /obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	return ..() | diseases
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"

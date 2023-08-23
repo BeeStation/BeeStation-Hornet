@@ -157,7 +157,8 @@
 		src.diseases += new_disease
 
 /obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	return ..() | diseases
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /obj/effect/decal/cleanable/chem_pile
 	name = "chemical pile"

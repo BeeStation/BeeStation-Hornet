@@ -95,8 +95,7 @@
 
 /mob/living/simple_animal/hostile/redgrub/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	. = ..()
-	if(length(grub_diseases))
-		. |= grub_diseases
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., grub_diseases)
 
 /mob/living/simple_animal/hostile/redgrub/proc/togglehibernation()
 	if(hibernating)
