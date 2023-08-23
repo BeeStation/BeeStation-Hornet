@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(zclear)
 
 /datum/controller/subsystem/zclear/New()
 	. = ..()
-	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /obj/effect/abstract/mirage_holder))
+	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /atom/movable/mirage_holder))
 
 /datum/controller/subsystem/zclear/Recover()
 	if(!islist(autowipe)) autowipe = list()
@@ -307,15 +307,15 @@ SUBSYSTEM_DEF(zclear)
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 
-	var/list/possible_transtitons = list()
+	var/list/possible_transitions = list()
 	for(var/datum/space_level/D as() in SSmapping.z_list)
 		if (D.linkage == CROSSLINKED)
-			possible_transtitons += D.z_value
+			possible_transitions += D.z_value
 
-	if(!length(possible_transtitons))
-		possible_transtitons = list(SSmapping.empty_space)
+	if(!length(possible_transitions))
+		possible_transitions = list(SSmapping.empty_space)
 
-	var/_z = pick(possible_transtitons)
+	var/_z = pick(possible_transitions)
 
 	//now select coordinates for a border turf
 	var/_x = rand(min,max)
@@ -332,10 +332,10 @@ SUBSYSTEM_DEF(zclear)
 			newT = T
 		else
 			newT = T.ChangeTurf(/turf/open/space, flags = CHANGETURF_IGNORE_AIR | CHANGETURF_DEFER_CHANGE)
+		var/area/old_area = newT.loc
 		if(!istype(newT.loc, /area/space))
 			var/area/newA = GLOB.areas_by_type[/area/space]
-			newA.contents += newT
-			newT.change_area(newT.loc, newA)
+			newT.change_area(old_area, newA)
 		newT.flags_1 &= ~NO_RUINS_1
 		new_turfs += newT
 	return new_turfs

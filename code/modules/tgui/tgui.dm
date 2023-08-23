@@ -31,10 +31,14 @@
 	var/closing = FALSE
 	/// The status/visibility of the UI.
 	var/status = UI_INTERACTIVE
+	/// Timed refreshing state
+	var/refreshing = FALSE
 	/// Topic state used to determine status/interactability.
 	var/datum/ui_state/state = null
 	/// If the window should update
 	var/needs_update = FALSE
+	/// Rate limit client refreshes to prevent DoS.
+	COOLDOWN_DECLARE(refresh_cooldown)
 
 /**
  * public
@@ -53,7 +57,7 @@
 /datum/tgui/New(mob/user, datum/src_object, interface, title, ui_x, ui_y)
 	if(!user.client) // No client to show the TGUI to, so stop here
 		return
-	log_tgui(user, "new [interface] fancy [user.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI]")
+	log_tgui(user, "new [interface] fancy [user?.client?.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy)]")
 	src.user = user
 	src.src_object = src_object
 	src.window_key = "[REF(src_object)]-main"
@@ -64,7 +68,7 @@
 		if(isatom(src_object))
 			var/atom/A = src_object
 			src.title = A.name
-	src.state = src_object.ui_state(user)	//Bee edit: For some reason user wasn't passed to a proc that takes user as a parameter.
+	src.state = src_object.ui_state(user)
 	// Deprecated
 	if(ui_x && ui_y)
 		src.window_size = list(ui_x, ui_y)
@@ -96,13 +100,20 @@
 	window.acquire_lock(src)
 	if(!window.is_ready())
 		window.initialize(
-			fancy = (user.client.prefs.toggles & PREFTOGGLE_2_FANCY_TGUI),
+			strict_mode = TRUE,
+			fancy = !user.client || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy),
 			assets = list(
 				get_asset_datum(/datum/asset/simple/tgui),
 			))
+		// initialize sleeps, so client can become null
+		if(!user?.client)
+			return FALSE
 	else
 		window.send_message("ping")
 	send_assets()
+	// send_assets sleeps, so client can become null.
+	if(!user?.client)
+		return FALSE
 	window.send_message("update", get_payload(
 		with_data = TRUE,
 		with_static_data = TRUE))
@@ -186,14 +197,22 @@
  * optional custom_data list Custom data to send instead of ui_data.
  * optional force bool Send an update even if UI is not interactive.
  */
-/datum/tgui/proc/send_full_update(custom_data, force)
+/datum/tgui/proc/send_full_update(custom_data, force, bypass_cooldown = FALSE)
 	if(!user.client || !initialized || closing)
 		return
+	if(!bypass_cooldown && !COOLDOWN_FINISHED(src, refresh_cooldown))
+		refreshing = TRUE
+		addtimer(CALLBACK(src, PROC_REF(send_full_update)), TGUI_REFRESH_FULL_UPDATE_COOLDOWN, TIMER_UNIQUE)
+		return
+	refreshing = FALSE
 	var/should_update_data = force || status >= UI_UPDATE
-	window.send_message("update", get_payload(
+	var/payload = get_payload(
 		custom_data,
 		with_data = should_update_data,
-		with_static_data = TRUE))
+		with_static_data = TRUE)
+	if(payload)
+		window.send_message("update", payload)
+		COOLDOWN_START(src, refresh_cooldown, TGUI_REFRESH_FULL_UPDATE_COOLDOWN)
 
 /**
  * public
@@ -204,12 +223,14 @@
  * optional force bool Send an update even if UI is not interactive.
  */
 /datum/tgui/proc/send_update(custom_data, force)
-	if(!user.client || !initialized || closing)
+	if(!user.client || !initialized || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
 		return
 	var/should_update_data = force || status >= UI_UPDATE
-	window.send_message("update", get_payload(
+	var/payload = get_payload(
 		custom_data,
-		with_data = should_update_data))
+		with_data = should_update_data)
+	if(payload)
+		window.send_message("update", payload)
 
 /**
  * private
@@ -224,11 +245,12 @@
 		"title" = title,
 		"status" = status,
 		"interface" = interface,
+		"refreshing" = refreshing,
 		"window" = list(
 			"key" = window_key,
 			"size" = window_size,
-			"fancy" = (user.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI),
-			"locked" = (user.client.prefs.toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS),
+			"fancy" = user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy),
+			"locked" = user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_lock),
 		),
 		"client" = list(
 			"ckey" = user.client.ckey,
@@ -243,9 +265,15 @@
 	var/data = custom_data || with_data && src_object.ui_data(user)
 	if(data)
 		json_data["data"] = data
+	// if ui_data sleeps, prevent errors
+	if(!user?.client || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
+		return
 	var/static_data = with_static_data && src_object.ui_static_data(user)
 	if(static_data)
 		json_data["static_data"] = static_data
+	// if ui_static_data sleeps, prevent errors
+	if(!user?.client || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
+		return
 	if(src_object.tgui_shared_states)
 		json_data["shared"] = src_object.tgui_shared_states
 	return json_data
@@ -310,6 +338,9 @@
 		return FALSE
 	switch(type)
 		if("ready")
+			// Send a full update when the user manually refreshes the UI
+			if(initialized)
+				send_full_update()
 			initialized = TRUE
 		if("pingReply")
 			initialized = TRUE

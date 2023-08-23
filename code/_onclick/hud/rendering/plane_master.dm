@@ -30,30 +30,18 @@
 	if(!isnull(render_relay_plane))
 		relay_render_to_plane(mymob, render_relay_plane)
 
-///Things rendered on "openspace"; holes in multi-z
-/atom/movable/screen/plane_master/openspace_backdrop
-	name = "open space backdrop plane master"
-	plane = OPENSPACE_BACKDROP_PLANE
-	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_MULTIPLY
-	alpha = 255
-/atom/movable/screen/plane_master/openspace
-	name = "open space plane master"
-	plane = OPENSPACE_PLANE
-	appearance_flags = PLANE_MASTER
-
-/atom/movable/screen/plane_master/openspace/Initialize(mapload)
-	. = ..()
-	add_filter("first_stage_openspace", 1, drop_shadow_filter(color = "#04080FAA", size = -10))
-	add_filter("second_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -15))
-	add_filter("third_stage_openspace", 3, drop_shadow_filter(color = "#04080FAA", size = -20))
-
 ///Contains just the floor
 /atom/movable/screen/plane_master/floor
 	name = "floor plane master"
 	plane = FLOOR_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
+	. = ..()
+	remove_filter("openspace_shadow")
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
+		add_filter("openspace_shadow", 1, drop_shadow_filter(color = "#04080FAA", size = 10))
 
 ///Contains most things in the game world
 /atom/movable/screen/plane_master/game_world
@@ -65,7 +53,7 @@
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	. = ..()
 	remove_filter("AO")
-	if(istype(mymob) && (mymob.client?.prefs?.toggles2 & PREFTOGGLE_2_AMBIENT_OCCLUSION))
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 	remove_filter("eye_blur")
 	if(istype(mymob) && mymob.eye_blurry)
@@ -184,7 +172,7 @@
 /atom/movable/screen/plane_master/runechat/backdrop(mob/mymob)
 	. = ..()
 	remove_filter("AO")
-	if(istype(mymob) && (mymob.client?.prefs?.toggles2 & PREFTOGGLE_2_AMBIENT_OCCLUSION))
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 
 /atom/movable/screen/plane_master/gravpulse
@@ -200,9 +188,9 @@
 	name = "area plane"
 	plane = AREA_PLANE
 
-/atom/movable/screen/plane_master/radtext
-	name = "radtext plane"
-	plane = RAD_TEXT_PLANE
+/atom/movable/screen/plane_master/text_effect
+	name = "text effect plane"
+	plane = TEXT_EFFECT_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
 
 /atom/movable/screen/plane_master/balloon_chat

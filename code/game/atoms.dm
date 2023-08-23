@@ -112,9 +112,6 @@
 	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
 	var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
 
-	///Used for changing icon states for different base sprites.
-	var/base_icon_state
-
 	///The config type to use for greyscaled sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
@@ -128,6 +125,18 @@
 
 	/// Lazylist of all messages currently on this atom
 	var/list/chat_messages
+
+	// Use SET_BASE_PIXEL(x, y) to set these in typepath definitions, it'll handle pixel_x and y for you
+	///Default pixel x shifting for the atom's icon.
+	var/base_pixel_x = 0
+	///Default pixel y shifting for the atom's icon.
+	var/base_pixel_y = 0
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
+
+	///Used to show a specific icon state in certain situations - i.e.) crafting menu
+	var/icon_state_preview
+	// This veriable exists BECAUSE animating sprite (bola) has an issue to render to TGUI crafting window - it shows wrong icons.
 
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
@@ -144,7 +153,7 @@
   */
 /atom/New(loc, ...)
 	//atom creation method that preloads variables at creation
-	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
+	if(GLOB.use_preloader && src.type == GLOB._preloader_path)//in case the instanciated atom is creating other atoms in New()
 		world.preloader_load(src)
 
 	if(datum_flags & DF_USE_TAG)
@@ -209,10 +218,6 @@
 	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
-	if (opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
-
 	if(custom_materials && custom_materials.len)
 		var/temp_list = list()
 		for(var/i in custom_materials)
@@ -226,10 +231,14 @@
 	InitializeAIController()
 
 	if(length(smoothing_groups))
-		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		#ifdef UNIT_TESTS
+		assert_sorted(smoothing_groups, "[type].smoothing_groups")
+		#endif
 		SET_BITFLAG_LIST(smoothing_groups)
 	if(length(canSmoothWith))
-		sortTim(canSmoothWith)
+		#ifdef UNIT_TESTS
+		assert_sorted(canSmoothWith, "[type].canSmoothWith")
+		#endif
 		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
@@ -276,7 +285,9 @@
 
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
-	LAZYCLEARLIST(overlays)
+	// Checking length(overlays) before cutting has significant speed benefits
+	if (length(overlays))
+		overlays.Cut()
 	LAZYNULL(managed_overlays)
 
 	QDEL_NULL(light)
@@ -290,7 +301,7 @@
 
 	return ..()
 
-/atom/proc/handle_ricochet(obj/item/projectile/P)
+/atom/proc/handle_ricochet(obj/projectile/P)
 	var/turf/p_turf = get_turf(P)
 	var/face_direction = get_dir(src, p_turf)
 	var/face_angle = dir2angle(face_direction)
@@ -305,19 +316,19 @@
 	P.setAngle(new_angle_s)
 	return TRUE
 
-///Can the mover object pass this atom, while heading for the target turf
-/atom/proc/CanPass(atom/movable/mover, turf/target)
+/// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
+/atom/proc/CanPass(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	if(mover.movement_type & PHASING)
 		return TRUE
-	. = CanAllowThrough(mover, target)
+	. = CanAllowThrough(mover, border_dir)
 	// This is cheaper than calling the proc every time since most things dont override CanPassThrough
 	if(!mover.generic_canpass)
-		return mover.CanPassThrough(src, target, .)
+		return mover.CanPassThrough(src, REVERSE_DIR(border_dir), .)
 
 /// Returns true or false to allow the mover to move through src
-/atom/proc/CanAllowThrough(atom/movable/mover, turf/target)
+/atom/proc/CanAllowThrough(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
 	//SHOULD_BE_PURE(TRUE)
 	if(mover.pass_flags & pass_flags_self)
@@ -408,25 +419,23 @@
   *
   * Otherwise it simply forceMoves the atom into this atom
   */
-/atom/proc/CheckParts(list/parts_list)
-	for(var/A in parts_list)
-		if(istype(A, /datum/reagent))
-			if(!reagents)
-				reagents = new()
-			reagents.reagent_list.Add(A)
-			reagents.conditional_update()
-		else if(ismovable(A))
-			var/atom/movable/M = A
-			if(isliving(M.loc))
-				var/mob/living/L = M.loc
-				L.transferItemToLoc(M, src)
-			else
-				M.forceMove(src)
-	parts_list.Cut()
-
-///Hook for multiz???
-/atom/proc/update_multiz(prune_on_fail = FALSE)
-	return FALSE
+/atom/proc/CheckParts(list/parts_list, datum/crafting_recipe/R)
+	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
+	if(parts_list)
+		for(var/A in parts_list)
+			if(istype(A, /datum/reagent))
+				if(!reagents)
+					reagents = new()
+				reagents.reagent_list.Add(A)
+				reagents.conditional_update()
+			else if(ismovable(A))
+				var/atom/movable/M = A
+				if(isliving(M.loc))
+					var/mob/living/L = M.loc
+					L.transferItemToLoc(M, src)
+				else
+					M.forceMove(src)
+		parts_list.Cut()
 
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -528,7 +537,7 @@
  * def_zone - zone hit
  * piercing_hit - is this hit piercing or normal?
  */
-/atom/proc/bullet_act(obj/item/projectile/P, def_zone, piercing_hit = FALSE)
+/atom/proc/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone, piercing_hit)
 
@@ -573,6 +582,10 @@
 
 	if(desc)
 		. += desc
+
+	if(z && user.z != z) // Z-mimic
+		var/diff = abs(user.z - z)
+		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
 
 	if(custom_materials)
 		for(var/i in custom_materials)
@@ -641,6 +654,9 @@
 	if(updates & UPDATE_ICON)
 		. |= update_icon(updates)
 
+	if (ismovable(src))
+		UPDATE_OO_IF_PRESENT
+
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)
@@ -653,6 +669,7 @@
 
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates=ALL)
+	// SHOULD_CALL_PARENT(TRUE) this should eventually be set when all update_icons() are updated. As of current this makes zmimic sometimes not catch updates
 	SIGNAL_HANDLER
 
 	. = NONE
@@ -678,6 +695,8 @@
 		. |= UPDATE_OVERLAYS
 
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
+	if (ismovable(src)) // need to update here as well since update_appearance() is not always called
+		UPDATE_OO_IF_PRESENT
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
@@ -833,8 +852,8 @@
 	else
 		return FALSE
 
-///Called when gravity returns after floating I think
-/atom/proc/handle_fall()
+///Used for making a sound when a mob involuntarily falls into the ground.
+/atom/proc/handle_fall(mob/faller)
 	return
 
 ///Respond to the singularity eating this atom
@@ -1032,6 +1051,7 @@
   */
 /atom/proc/setDir(newdir)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
+	. = dir != newdir
 	dir = newdir
 
 /// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.
@@ -1115,9 +1135,23 @@
   * the object has been admin edited
   */
 /atom/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, base_pixel_x))
+			set_base_pixel_x(var_value)
+			. = TRUE
+		if(NAMEOF(src, base_pixel_y))
+			set_base_pixel_y(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
 	if(!GLOB.Debug2)
 		flags_1 |= ADMIN_SPAWNED_1
+
 	. = ..()
+
 	switch(var_name)
 		if(NAMEOF(src, color))
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
@@ -1285,26 +1319,70 @@
   */
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	var/signal_result
-	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I)
-	if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
-		return TOOL_ACT_SIGNAL_BLOCKING
+
+	var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
+	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I, processing_recipes)
+	if(processing_recipes.len)
+		process_recipes(user, I, processing_recipes)
+	if(QDELETED(I))
+		return TRUE
 	switch(tool_type)
 		if(TOOL_CROWBAR)
-			return crowbar_act(user, I)
+			. = crowbar_act(user, I)
 		if(TOOL_MULTITOOL)
-			return multitool_act(user, I)
+			. = multitool_act(user, I)
 		if(TOOL_SCREWDRIVER)
-			return screwdriver_act(user, I)
+			. = screwdriver_act(user, I)
 		if(TOOL_WRENCH)
-			return wrench_act(user, I)
+			. = wrench_act(user, I)
 		if(TOOL_WIRECUTTER)
-			return wirecutter_act(user, I)
+			. = wirecutter_act(user, I)
 		if(TOOL_WELDER)
-			return welder_act(user, I)
+			. = welder_act(user, I)
 		if(TOOL_ANALYZER)
-			return analyzer_act(user, I)
+			. = analyzer_act(user, I)
+	if(. || signal_result & COMPONENT_BLOCK_TOOL_ATTACK) //Either the proc or the signal handled the tool's events in some way.
+		return TRUE
 
-//! Tool-specific behavior procs. To be overridden in subtypes.
+/atom/proc/process_recipes(mob/living/user, obj/item/I, list/processing_recipes)
+	//Only one recipe? use the first
+	if(processing_recipes.len == 1)
+		StartProcessingAtom(user, I, processing_recipes[1])
+		return
+	//Otherwise, select one with a radial
+	ShowProcessingGui(user, I, processing_recipes)
+
+///Creates the radial and processes the selected option
+/atom/proc/ShowProcessingGui(mob/living/user, obj/item/I, list/possible_options)
+	var/list/choices_to_options = list() //Dict of object name | dict of object processing settings
+	var/list/choices = list()
+
+	for(var/i in possible_options)
+		var/list/current_option = i
+		var/atom/current_option_type = current_option[TOOL_PROCESSING_RESULT]
+		choices_to_options[initial(current_option_type.name)] = current_option
+		var/image/option_image = image(icon = initial(current_option_type.icon), icon_state = initial(current_option_type.icon_state))
+		choices += list("[initial(current_option_type.name)]" = option_image)
+
+	var/pick = show_radial_menu(user, src, choices, radius = 36, require_near = TRUE)
+
+	StartProcessingAtom(user, I, choices_to_options[pick])
+
+
+/atom/proc/StartProcessingAtom(mob/living/user, obj/item/I, list/chosen_option)
+	to_chat(user, "<span class='notice'>You start working on [src]</span>")
+	if(I.use_tool(src, user, chosen_option[TOOL_PROCESSING_TIME], volume=50))
+		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
+		for(var/i = 1 to chosen_option[TOOL_PROCESSING_AMOUNT])
+			new atom_to_create(loc)
+		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.name)] from [src]</span>")
+		qdel(src)
+		return
+
+/atom/proc/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
+	return
+
+//! Tool-specific behavior procs.
 ///
 
 ///Crowbar act
@@ -1314,14 +1392,6 @@
 ///Multitool act
 /atom/proc/multitool_act(mob/living/user, obj/item/I)
 	return
-
-///Check if the multitool has an item in it's data buffer
-/atom/proc/multitool_check_buffer(user, obj/item/I, silent = FALSE)
-	if(!istype(I, /obj/item/multitool))
-		if(user && !silent)
-			to_chat(user, "<span class='warning'>[I] has no data buffer!</span>")
-		return FALSE
-	return TRUE
 
 ///Screwdriver act
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)
@@ -1392,6 +1462,8 @@
 			log_mecha(log_text)
 		if(LOG_RADIO_EMOTE)
 			log_radio_emote(log_text)
+		if(LOG_SPEECH_INDICATORS)
+			log_speech_indicators(log_text)
 		else
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
@@ -1419,13 +1491,16 @@
   * 2 argument is for the item being created
   * 3 argument is for if admins should be notified if a non-antag crafts this
  */
-/proc/log_crafting(mob/blacksmith, atom/object, dangerous = FALSE)
+/proc/log_crafting(mob/blacksmith, object, result, dangerous = FALSE)
 	var/message = "has crafted [object]"
 	blacksmith.log_message(message, LOG_GAME)
 	if(!dangerous)
 		return
 	if(isnull(locate(/datum/antagonist) in blacksmith.mind?.antag_datums))
-		message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
+		if(istext(result))
+			message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has attempted to craft [object] as a non-antagonist, but failed: [result]")
+		else
+			message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
 /**
   * Log a combat message in the attack log
   *
@@ -1436,11 +1511,18 @@
   * 5 is any additional text, which will be appended to the rest of the log line
   */
 /proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+	if(isweakref(user))
+		var/datum/weakref/A_ref = user
+		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
+	var/stam
+	if(iscarbon(living_target))
+		var/mob/living/carbon/C = living_target
+		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
 	if(object)
@@ -1449,7 +1531,7 @@
 	if(addition)
 		saddition = " [addition]"
 
-	var/postfix = "[sobject][saddition][hp]"
+	var/postfix = "[sobject][saddition][hp][stam]"
 
 	var/message = "has [what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
@@ -1529,9 +1611,6 @@
 	filter_data = null
 	filters = null
 
-/atom/proc/intercept_zImpact(atom/movable/AM, levels = 1)
-	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
-
 ///Sets the custom materials for an item.
 /atom/proc/set_custom_materials(var/list/materials, multiplier = 1)
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
@@ -1595,6 +1674,69 @@
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
+
+///Setter for the "base_pixel_x" var to append behavior related to it's changing
+/atom/proc/set_base_pixel_x(var/new_value)
+	if(base_pixel_x == new_value)
+		return
+	. = base_pixel_x
+	base_pixel_x = new_value
+
+	pixel_x = pixel_x + base_pixel_x - .
+
+///Setter for the "base_pixel_y" var to append behavior related to it's changing
+/atom/proc/set_base_pixel_y(new_value)
+	if(base_pixel_y == new_value)
+		return
+	. = base_pixel_y
+	base_pixel_y = new_value
+
+	pixel_y = pixel_y + base_pixel_y - .
+
+/**
+ * Returns true if this atom has gravity for the passed in turf
+ *
+ * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
+ * the forced gravity var.
+ *
+ * Gravity situations:
+ * * No gravity if you're not in a turf
+ * * No gravity if this atom is in is a space turf
+ * * Gravity if the area it's in always has gravity
+ * * Gravity if there's a gravity generator on the z level
+ * * Gravity if the Z level has an SSMappingTrait for ZTRAIT_GRAVITY
+ * * otherwise no gravity
+ */
+/atom/proc/has_gravity(turf/gravity_turf)
+	if(!isturf(gravity_turf))
+		gravity_turf = get_turf(src)
+
+		if(!gravity_turf)
+			return FALSE
+
+	var/list/forced_gravity = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
+	if(!length(forced_gravity))
+		SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+	if(length(forced_gravity))
+		var/max_grav
+		for(var/i in forced_gravity)
+			max_grav = max(max_grav, i)
+		return max_grav
+
+	if(!gravity_turf.check_gravity()) // Turf never has gravity
+		return FALSE
+	var/area/A = get_area(gravity_turf)
+	if(A.has_gravity) // Areas which always has gravity
+		return TRUE
+	else if(SSmapping.level_trait(gravity_turf.z, ZTRAIT_GRAVITY)) // If the z-level always has gravity
+		return TRUE
+	else if(GLOB.gravity_generators["[gravity_turf.get_virtual_z_level()]"]) // If there's a gravity generator on our z level
+		var/max_grav = 0
+		for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[gravity_turf.get_virtual_z_level()]"])
+			max_grav = max(G.setting,max_grav)
+		return max_grav
+	return FALSE
 
 /*
 * Called when something made out of plasma is exposed to high temperatures.

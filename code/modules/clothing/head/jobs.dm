@@ -95,6 +95,11 @@
 		else
 			to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
 
+/obj/item/clothing/head/fedora/det_hat/noir
+	name = "noir fedora"
+	desc = "An essential accessory for the world-weary private eye."
+	icon_state = "fedora"
+	dog_fashion = /datum/dog_fashion/head/noir
 
 //Mime
 /obj/item/clothing/head/beret

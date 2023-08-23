@@ -127,7 +127,6 @@
 		QDEL_NULL(chambered)
 	if(azoom)
 		QDEL_NULL(azoom)
-	UnregisterSignal(list(COMSIG_TWOHANDED_WIELD, COMSIG_TWOHANDED_UNWIELD))
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)
@@ -497,7 +496,7 @@
 		return
 	if((can_flashlight && gun_light) && (can_bayonet && bayonet)) //give them a choice instead of removing both
 		var/list/possible_items = list(gun_light, bayonet)
-		var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in sortNames(possible_items)
+		var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in sort_names(possible_items)
 		if(!item_to_remove || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 			return
 		return remove_gun_attachment(user, I, item_to_remove)
@@ -686,8 +685,8 @@
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
 	if(aimed && chambered?.BB)
-		chambered.BB.speed = initial(chambered.BB.speed) *= 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
-		chambered.BB.damage = initial(chambered.BB.damage) *= 1.25
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
+		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
 
 /////////////
 // ZOOMING //

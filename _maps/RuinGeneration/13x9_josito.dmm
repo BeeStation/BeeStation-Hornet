@@ -27,7 +27,7 @@
 /area/ruin/unpowered)
 "k" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "m" = (

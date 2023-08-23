@@ -67,7 +67,9 @@ All ShuttleMove procs go here
 	var/area/shuttle/new_loc = get_area(newT)
 	if(istype(new_loc) && new_loc.mobile_port)
 		for(var/i in 0 to new_loc.get_missing_shuttles(newT)) //Start at 0 because get_missing_shuttles() will report 1 less missing shuttle because of the CopyOnTop()
-			newT.baseturfs.Insert(inject_index, /turf/baseturf_skipover/shuttle)
+			var/list/sanity = newT.baseturfs.Copy()
+			sanity.Insert(inject_index, /turf/baseturf_skipover/shuttle)
+			newT.baseturfs = baseturfs_string_list(sanity, newT)
 
 	if(isopenturf(src))
 		var/turf/open/after_src_terf = src
@@ -147,6 +149,8 @@ All ShuttleMove procs go here
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
+	if(proximity_monitor)
+		proximity_monitor.HandleMove()
 
 	return TRUE
 
@@ -176,16 +180,12 @@ All ShuttleMove procs go here
 	if(newT == oldT) // In case of in place shuttle rotation shenanigans.
 		return TRUE
 
-	contents -= oldT
-	underlying_old_area.contents += oldT
 	oldT.change_area(src, underlying_old_area)
 	//The old turf has now been given back to the area that turf originaly belonged to
 
 	var/area/old_dest_area = newT.loc
 	parallax_movedir = old_dest_area.parallax_movedir
 
-	old_dest_area.contents -= newT
-	contents += newT
 	newT.change_area(old_dest_area, src)
 	return TRUE
 
@@ -414,5 +414,5 @@ All ShuttleMove procs go here
 
 /obj/effect/abstract/proximity_checker/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
 	//timer so it only happens once
-	addtimer(CALLBACK(monitor, /datum/proximity_monitor/proc/SetRange, monitor.current_range, TRUE), 0, TIMER_UNIQUE)
+	addtimer(CALLBACK(monitor, TYPE_PROC_REF(/datum/proximity_monitor, SetRange), monitor.current_range, TRUE), 0, TIMER_UNIQUE)
 	return FALSE

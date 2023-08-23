@@ -6,6 +6,7 @@
 	icon_dead = "frog_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("ribbit","croak")
+	speak_language = /datum/language/metalanguage
 	emote_see = list("hops in a circle.", "shakes.")
 	speak_chance = 1
 	turns_per_move = 5
@@ -21,7 +22,7 @@
 	faction = list("hostile")
 	attack_sound = 'sound/effects/reee.ogg'
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/nugget = 1)
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/stepped_sound = 'sound/effects/huuu.ogg'

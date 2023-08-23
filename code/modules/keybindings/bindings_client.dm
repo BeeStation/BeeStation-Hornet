@@ -52,15 +52,18 @@ GLOBAL_LIST_INIT(valid_keys, list(
 
 	// Client-level keybindings are ones anyone should be able to do at any time
 	// Things like taking screenshots, hitting tab, and adminhelps.
-	var/AltMod = keys_held["Alt"] ? "Alt-" : ""
-	var/CtrlMod = keys_held["Ctrl"] ? "Ctrl-" : ""
-	var/ShiftMod = keys_held["Shift"] ? "Shift-" : ""
-	var/full_key = "[_key]"
-	if (!(_key in list("Alt", "Ctrl", "Shift")))
-		full_key = "[AltMod][CtrlMod][ShiftMod][_key]"
+	var/AltMod = keys_held["Alt"] ? "Alt" : ""
+	var/CtrlMod = keys_held["Ctrl"] ? "Ctrl" : ""
+	var/ShiftMod = keys_held["Shift"] ? "Shift" : ""
+	var/full_key
+	switch(_key)
+		if("Alt", "Ctrl", "Shift")
+			full_key = "[AltMod][CtrlMod][ShiftMod]"
+		else
+			full_key = "[AltMod][CtrlMod][ShiftMod][_key]"
 
 	var/list/kbs = list()
-	for (var/kb_name in prefs.key_bindings[full_key])
+	for (var/kb_name in prefs.key_bindings_by_key[full_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
 	// WASD-type movement keys (not the native arrow keys) are handled through the keybind system here.
@@ -68,19 +71,17 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	// since these modifier keys toggle effects like "change facing" that require the movement keys to function.
 	// Note that this doesn't prevent the user from binding CTRL-W to North: In that case *only* CTRL-W will function.
 	if (full_key != _key)
-		for (var/kb_name in prefs.key_bindings[_key])
+		for (var/kb_name in prefs.key_bindings_by_key[_key])
 			var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 			if (kb.any_modifier)
 				kbs += kb
-	kbs = sortList(kbs, GLOBAL_PROC_REF(cmp_keybinding_dsc))
+	kbs = sort_list(kbs, GLOBAL_PROC_REF(cmp_keybinding_dsc))
 	for(var/datum/keybinding/kb in kbs)
 		if(kb.can_use(src) && kb.down(src))
 			break
 
-	if(holder)
-		holder.key_down(_key, src)  //full_key is not necessary here, _key is enough
-	if(mob.focus)
-		mob.focus.key_down(_key, src) //same as above
+	holder?.key_down(_key, src)  //full_key is not necessary here, _key is enough
+	mob.focus?.key_down(_key, src) //same as above
 
 /client/verb/keyUp(_key as text)
 	set instant = TRUE
@@ -97,15 +98,13 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	// We don't do full key for release, because for mod keys you
 	// can hold different keys and releasing any should be handled by the key binding specifically
 	var/list/kbs = list()
-	for (var/kb_name in prefs.key_bindings[_key])
+	for (var/kb_name in prefs.key_bindings_by_key[_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
-	kbs = sortList(kbs, GLOBAL_PROC_REF(cmp_keybinding_dsc))
+	kbs = sort_list(kbs, GLOBAL_PROC_REF(cmp_keybinding_dsc))
 	for(var/datum/keybinding/kb in kbs)
 		if(kb.can_use(src) && kb.up(src))
 			break
 
-	if(holder)
-		holder.key_up(_key, src)
-	if(mob.focus)
-		mob.focus.key_up(_key, src)
+	holder?.key_up(_key, src)
+	mob.focus?.key_up(_key, src)

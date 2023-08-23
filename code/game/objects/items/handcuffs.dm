@@ -1,5 +1,6 @@
 /obj/item/restraints
 	breakouttime = 600
+	item_flags = ISWEAPON
 
 /obj/item/restraints/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -291,7 +292,7 @@
 	icon_state = "e_snare"
 	trap_damage = 0
 	breakouttime = 30
-	item_flags = DROPDEL
+	item_flags = DROPDEL | ISWEAPON
 	flags_1 = NONE
 
 /obj/item/restraints/legcuffs/beartrap/energy/Initialize(mapload)

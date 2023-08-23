@@ -37,8 +37,8 @@
 /obj/machinery/computer/message_monitor/proc/after_emag()
 	// Print an "error" decryption key, leaving physical evidence of the hack.
 	if(linked_server)
-		var/obj/item/paper/monitorkey/MK = new(loc, linked_server)
-		MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
+		var/obj/item/paper/monitorkey/monitor_key_paper = new(loc, linked_server)
+		monitor_key_paper.add_raw_text("<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>")
 	else
 		say("Error: Server link lost!")
 	obj_flags &= ~EMAGGED
@@ -261,7 +261,8 @@
 			to_chat(usr, "<span class='notice'>The console flashes a message: 'NOTICE: Log entry deleted.'</span>")
 			var/turf/the_turf = get_turf(src)
 			usr.log_message("cleared [type] log entry \"[msg]\" using [src] at [AREACOORD(the_turf)]", LOG_GAME)
-			message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] deleted [type] log entry \"[msg]\" using [src] at [ADMIN_VERBOSEJMP(the_turf)]")
+			if(isnull(locate(/datum/antagonist) in usr.mind?.antag_datums) && usr.mind?.assigned_role != "Lavaland Syndicate")
+				message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] deleted [type] log entry \"[msg]\" as a non-antagonist using [src] at [ADMIN_VERBOSEJMP(the_turf)]")
 			return TRUE
 		if("admin_message")
 			if(!usr || !authenticated)
@@ -290,7 +291,7 @@
 		return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/monitorkey/proc/print(obj/machinery/telecomms/message_server/server)
-	info = "<h2>Telecommunications Security Notice</h2><br />\
+	add_raw_text("<h2>Telecommunications Security Notice</h2><br />\
 	<strong><pre>INCOMING TRANSMISSION - KEY RESET REPORT</pre></strong><br />\
 	<p>\
 	<pre>\
@@ -304,8 +305,9 @@
 	UPDATE KEY IF NECESSARY.<br />\
 	TRANSMISSION END.<br />\
 	SENDER: CentCom Telecommunications Data Retention\
-	</pre></p>"
+	</pre></p>")
 	add_overlay("paper_words")
+	update_appearance()
 
 /obj/item/paper/monitorkey/LateInitialize()
 	for (var/obj/machinery/telecomms/message_server/preset/server in GLOB.telecomms_list)

@@ -35,11 +35,11 @@ window.close()
 
 ## Sending assets
 
-TGUI in /tg/station codebase has `/datum/asset`, that packs scripts and stylesheets for delivery via CDN for efficiency. TGUI internally uses this asset system to render TGUI interfaces *proper* and TGUI chat. This is a snippet from internal TGUI code:
+TGUI in /tg/station codebase has `/datum/asset`, that packs scripts and stylesheets for delivery via CDN for efficiency. TGUI internally uses this asset system to render TGUI interfaces _proper_ and TGUI chat. This is a snippet from internal TGUI code:
 
 ```dm
 window.initialize(
-  fancy = user.client.prefs.read_preference(
+  fancy = user.client.prefs.read_player_preference(
     /datum/preference/toggle/tgui_fancy
   ),
   assets = list(
@@ -64,8 +64,8 @@ Finally, you can use the `Byond` API object to load JS and CSS files directly vi
 
 ```html
 <script>
-Byond.loadJs('https://example.com/bundle.js');
-Byond.loadCss('https://example.com/bundle.css');
+  Byond.loadJs('https://example.com/bundle.js');
+  Byond.loadCss('https://example.com/bundle.css');
 </script>
 ```
 
@@ -85,13 +85,13 @@ You can also do the same by splitting your code into separate files, and then le
 
 ```dm
 window.initialize(
-  inline_html = file2text('code/modules/thing/thing.html'),
-  inline_js = file2text('code/modules/thing/thing.js'),
-  inline_css = file2text('code/modules/thing/thing.css'),
+  inline_html = file("code/modules/thing/thing.html"),
+  inline_js = file("code/modules/thing/thing.js"),
+  inline_css = file("code/modules/thing/thing.css"),
 )
 ```
 
-If you need to inline multiple JS or CSS files, you can concatenate them for now, and separate contents of each file with an `\n` symbol. *This can be a point of improvement (add support for file lists)*.
+If you need to inline multiple JS or CSS files, you can concatenate them for now, and separate contents of each file with an `\n` symbol. _This can be a point of improvement (add support for file lists)_.
 
 ## Fancy mode
 
@@ -134,7 +134,7 @@ You can think of it in these terms:
 
 Of course we're not working with functions here, but hopefully this analogy makes the concept easier to understand.
 
-Finally, message can contain custom properties, and how you use them is *completely up to you*. They have an important limitation - all additional properties are string-typed, and require you to use a slightly more verbose API for sending them (more about it in the next section).
+Finally, message can contain custom properties, and how you use them is _completely up to you_. They have an important limitation - all additional properties are string-typed, and require you to use a slightly more verbose API for sending them (more about it in the next section).
 
 ```js
 Byond.sendMessage({
@@ -209,8 +209,8 @@ You can send messages with custom fields in case if you want to bypass JSON seri
 
 ```js
 Byond.sendMessage({
-  type: "something",
-  ref: "[0x12345678]",
+  type: 'something',
+  ref: '[0x12345678]',
 });
 ```
 
@@ -261,3 +261,21 @@ Byond.winget(null, 'url').then((serverUrl) => {
   Byond.command('.quit');
 });
 ```
+
+## Strict Mode
+
+Strict mode is a flag that you can set on tgui window.
+
+```dm
+window.initialize(strict_mode = TRUE)
+```
+
+If `TRUE`, unhandled errors and common mistakes result in a blue screen of death with a stack trace of the error, which you can use to debug it. Bluescreened window stops handling incoming messages and closes the active instance of tgui datum if there was one, to avoid a massive spam of errors and help to deal with them one by one.
+
+It can be defined in `window.initialize()` in DM, as shown above, or changed in runtime at runtime via `Byond.strictMode` to `true` or `false`.
+
+```js
+Byond.strictMode = true;
+```
+
+It is recommended that you keep this **ON** to detect hard to find bugs.

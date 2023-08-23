@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 	use_power(500)
 	stored_matter += cube_production
-	addtimer(VARSET_CALLBACK(src, pixel_x, initial(pixel_x)))
+	addtimer(VARSET_CALLBACK(src, pixel_x, base_pixel_x))
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, "<span class='notice'>The machine now has [stored_matter] monkey\s worth of material stored.</span>"))
 
 /obj/machinery/monkey_recycler/interact(mob/user)
@@ -94,8 +94,10 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	else
 		to_chat(user, "<span class='danger'>The machine needs at least 1 monkey worth of material to produce a monkey cube. It currently has [stored_matter].</span>")
 
-/obj/machinery/monkey_recycler/multitool_act(mob/living/user, obj/item/multitool/I)
-	if(istype(I))
-		to_chat(user, "<span class='notice'>You log [src] in the multitool's buffer.</span>")
-		I.buffer = src
-		return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/monkey_recycler)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/monkey_recycler)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You log [src] in the [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE

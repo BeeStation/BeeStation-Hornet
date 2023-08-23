@@ -8,7 +8,7 @@
 		damageoverlaytemp = 0
 		update_damage_hud()
 
-	if(!IsInStasis())
+	if(!IS_IN_STASIS(src))
 
 		//Reagent processing needs to come before breathing, to prevent edge cases.
 		if(stat != DEAD)
@@ -276,19 +276,23 @@
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
 	return
 
+/// Attempts to take a breath from the external or internal air tank.
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
-	if(internal)
-		if(internal.loc != src && !(wear_mask.clothing_flags & MASKEXTENDRANGE)) // If the mask has extended range, do not check for internal.loc
-			internal = null
-			update_internals_hud_icon(0)
-		else if ((!wear_mask || !(wear_mask.clothing_flags & MASKINTERNALS)) && !getorganslot(ORGAN_SLOT_BREATHING_TUBE))
-			internal = null
-			update_internals_hud_icon(0)
-		else
-			update_internals_hud_icon(1)
-			. = internal.remove_air_volume(volume_needed)
-			if(!.)
-				return FALSE //to differentiate between no internals and active, but empty internals
+	if(invalid_internals())
+		// Unexpectely lost breathing apparatus and ability to breathe from the internal air tank.
+		cutoff_internals()
+		return
+	if(external)
+		. = external.remove_air_volume(volume_needed)
+		update_internals_hud_icon(1)
+	else if(internal)
+		. = internal.remove_air_volume(volume_needed)
+		update_internals_hud_icon(1)
+	else
+		// Return without taking a breath if there is no air tank.
+		return
+	// To differentiate between no internals and active, but empty internals.
+	return . || FALSE
 
 /mob/living/carbon/proc/handle_blood()
 	return

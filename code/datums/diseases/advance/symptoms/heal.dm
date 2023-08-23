@@ -742,7 +742,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						candidates[prospect] += (candidate.stat - 1)
 						candidates[prospect] += (3 - get_dist(candidate, H)) * 2
 						candidates[prospect] += round(candidate.blood_volume / 150)
-				bloodbag = pickweight(candidates) //dont return here
+				bloodbag = pick_weight(candidates) //dont return here
 
 	if(bloodpoints >= maxbloodpoints)
 		return 0
@@ -845,7 +845,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		power += 1
 
 /datum/symptom/parasite/proc/isslimetarget(var/mob/living/carbon/M)
-	if(isslimeperson(M) || isluminescent(M) || isjellyperson(M) || isoozeling(M) || isstargazer(M))
+	if(isoozeling(M))
+//	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M))
 		return TRUE
 	else
 		return FALSE

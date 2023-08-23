@@ -62,7 +62,7 @@
 			to_chat(user, "<span class='notice'>You start tearing apart the [src].</span>")
 			playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
 			if(do_after(user, 15 SECONDS, target = src))
-				new /obj/item/stack/sheet/plasteel(loc, 5)
+				new /obj/item/stack/sheet/plasteel(loc, 15)
 				qdel(src)
 
 /obj/machinery/door/poddoor/examine(mob/user)
@@ -78,7 +78,8 @@
 /obj/machinery/door/poddoor/preopen
 	icon_state = "blast_open"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
+	z_flags = NONE // reset zblock
 
 /obj/machinery/door/poddoor/ert
 	name = "hardened blast door"

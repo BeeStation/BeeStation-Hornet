@@ -9,6 +9,7 @@
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	item_flags = ISWEAPON
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
@@ -22,6 +23,8 @@
 
 /obj/item/clockwork/weapon/pickup(mob/user)
 	..()
+	if(!user.mind)
+		return
 	user.mind.RemoveSpell(SS)
 	if(is_servant_of_ratvar(user))
 		SS = new
@@ -67,7 +70,7 @@
 		var/mob/living/target = hit_atom
 		if(!.)
 			if(!target.anti_magic_check(magic=FALSE,holy=TRUE) && !is_servant_of_ratvar(target))
-				hit_effect(target, throwingdatum.thrower, TRUE)
+				hit_effect(target, throwingdatum?.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	return
@@ -187,9 +190,9 @@
 	name = "energy bolt"
 	desc = "An arrow made from a strange energy."
 	icon_state = "arrow_redlight"
-	projectile_type = /obj/item/projectile/energy/clockbolt
+	projectile_type = /obj/projectile/energy/clockbolt
 
-/obj/item/projectile/energy/clockbolt
+/obj/projectile/energy/clockbolt
 	name = "energy bolt"
 	icon_state = "arrow_energy"
 	damage = 24

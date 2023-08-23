@@ -16,6 +16,7 @@
 	desc = "Does card things."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 
 	var/list/files = list()
 
@@ -66,7 +67,7 @@
 	item_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
-	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
+	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON | ISWEAPON
 	var/prox_check = TRUE //If the emag requires you to be in range
 
 /obj/item/card/emag/bluespace
@@ -457,6 +458,8 @@ update_label("John Doe", "Clowny")
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
+	if(chameleon_action.hidden)
+		return ..()
 	if(isliving(user) && user.mind)
 		var/first_use = registered_name ? FALSE : TRUE
 		if(!(user.mind.special_role || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
@@ -528,6 +531,22 @@ update_label("John Doe", "Clowny")
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+
+/obj/item/card/id/syndicate/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_MULTITOOL)
+		if(chameleon_action.hidden)
+			chameleon_action.hidden = FALSE
+			actions += chameleon_action
+			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the agent ID ([name]) with [W]")
+			return
+		else
+			chameleon_action.hidden = TRUE
+			actions -= chameleon_action
+			chameleon_action.Remove(user)
+			log_game("[key_name(user)] has locked the disguise of the agent ID ([name]) with [W]")
+			return
+	. = ..()
 
 // broken chameleon agent card
 /obj/item/card/id/syndicate/broken

@@ -9,6 +9,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
+	item_flags = ISWEAPON
 	force = 8
 	throwforce = 10
 	block_upgrade_walk = 1

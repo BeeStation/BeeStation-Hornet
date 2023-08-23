@@ -10,6 +10,9 @@ NANITE SCANNER
 GENE SCANNER
 
 */
+#define MODE_TRAY 1 //Normal mode, shows objects under floors
+#define MODE_BLUEPRINT 2 //Blueprint mode, shows how wires and pipes are by default
+
 /obj/item/t_scanner
 	name = "\improper T-ray scanner"
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
@@ -17,6 +20,9 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
 	var/on = FALSE
+	var/mode = MODE_TRAY
+	var/list/image/showing = list()
+	var/client/viewing
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
@@ -30,11 +36,33 @@ GENE SCANNER
 
 /obj/item/t_scanner/proc/toggle_on()
 	on = !on
-	icon_state = copytext_char(icon_state, 1, -1) + "[on]"
 	if(on)
 		START_PROCESSING(SSobj, src)
 	else
 		STOP_PROCESSING(SSobj, src)
+	update_appearance()
+
+/obj/item/t_scanner/proc/toggle_mode(mob/user)
+	if(mode == MODE_TRAY)
+		mode = MODE_BLUEPRINT
+		to_chat(user, "<span class='notice'>You switch the [src] to work in the 'blueprint' mode.</span>")
+		if(on)
+			set_viewer(user)
+	else
+		to_chat(user, "<span class='notice'>You switch the [src] to work in the 'scanner' mode.</span>")
+		mode = MODE_TRAY
+		clear_viewer(user)
+	update_appearance()
+
+/obj/item/t_scanner/update_icon_state()
+	if(on)
+		icon_state = copytext_char(icon_state, 1, -1) + "[mode]"
+	else
+		icon_state = copytext_char(icon_state, 1, -1) + "[on]"
+	return ..()
+
+/obj/item/t_scanner/AltClick(mob/user)
+	toggle_mode(user)
 
 /obj/item/t_scanner/attack_self(mob/user)
 	toggle_on()
@@ -44,16 +72,25 @@ GENE SCANNER
 		return
 	toggle_on()
 
+/obj/item/t_scanner/dropped(mob/user)
+	..()
+	clear_viewer(user)
+
 /obj/item/t_scanner/process()
 	if(!on)
 		STOP_PROCESSING(SSobj, src)
 		return null
-	scan()
+	if(mode == MODE_TRAY)
+		scan()
+	else
+		clear_viewer(loc)
+		set_viewer(loc)
+
 
 /obj/item/t_scanner/proc/scan()
 	t_ray_scan(loc)
 
-/proc/t_ray_scan(mob/viewer, flick_time = 8, distance = 3)
+/proc/t_ray_scan(mob/viewer, flick_time = 16, distance = 3)
 	if(!ismob(viewer) || !viewer.client)
 		return
 	var/list/t_ray_images = list()
@@ -68,6 +105,33 @@ GENE SCANNER
 			t_ray_images += I
 	if(t_ray_images.len)
 		flick_overlay(t_ray_images, list(viewer.client), flick_time)
+
+/obj/item/t_scanner/proc/get_images(turf/T, viewsize)
+	. = list()
+	for(var/turf/TT in range(viewsize, T))
+		if(TT.blueprint_data)
+			. += TT.blueprint_data
+
+/obj/item/t_scanner/proc/set_viewer(mob/user)
+	if(!ismob(user) || !user.client)
+		return
+	if(user?.client)
+		if(viewing)
+			clear_viewer()
+		viewing = user.client
+		showing = get_images(get_turf(user), viewing.view)
+		viewing.images |= showing
+
+/obj/item/t_scanner/proc/clear_viewer(mob/user)
+	if(!ismob(user) || !user.client)
+		return
+	if(viewing)
+		viewing.images -= showing
+		viewing = null
+	showing.Cut()
+
+#undef MODE_TRAY //Normal mode, shows objects under floors
+#undef MODE_BLUEPRINT //Blueprint mode, shows how wires and pipes are by default
 
 /obj/item/healthanalyzer
 	name = "health analyzer"
@@ -186,8 +250,8 @@ GENE SCANNER
 				trauma_desc += B.scan_desc
 				trauma_text += trauma_desc
 			message += "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>"
-		if(C.roundstart_quirks.len)
-			message += "\t<span class='info'>Subject has the following physiological traits: [C.get_trait_string()].</span>"
+		if(length(C.last_mind?.quirks))
+			message += "\t<span class='info'>Subject has the following physiological traits: [C.last_mind.get_quirk_string()].</span>"
 	if(advanced)
 		message += "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>"
 
@@ -332,6 +396,8 @@ GENE SCANNER
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
+			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
+				message += "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>"
 
 	// Species and body temperature
 	if(ishuman(M))
@@ -541,7 +607,7 @@ GENE SCANNER
 			else
 				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
 		cooldown = TRUE
-		addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
@@ -865,9 +931,23 @@ GENE SCANNER
 		return
 	buffer = C.dna.mutation_index
 	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
-	if(LAZYLEN(buffer))
-		for(var/A in buffer)
-			to_chat(user, "<span class='notice'>[get_display_name(A)]</span>")
+
+	var/list/full_list_mutations = list()
+	for(var/each in buffer) // get inherent mutations first
+		full_list_mutations[each] = FALSE
+	for(var/datum/mutation/each_mutation in C.dna.mutations)
+		if(each_mutation.type in buffer) // active inherent mutation
+			full_list_mutations[each_mutation.type] = "Activated"
+		else // active artificial mutation
+			full_list_mutations[each_mutation.type] = "Injected"
+	for(var/datum/mutation/each_mutation in C.dna.temporary_mutations)
+		full_list_mutations[each_mutation.type] = "Temporary"
+
+	for(var/A in full_list_mutations)
+		to_chat(user, "\t<span class='notice'>[get_display_name(A)]</span>") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
+	to_chat(user, "\t<span class='info'>Genetic Stability: [C.dna.stability]%.</span>")
+	if(C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
+		to_chat(user, "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>")
 
 
 /obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
@@ -877,7 +957,7 @@ GENE SCANNER
 	for(var/A in buffer)
 		options += get_display_name(A)
 
-	var/answer = input(user, "Analyze Potential", "Sequence Analyzer")  as null|anything in sortList(options)
+	var/answer = input(user, "Analyze Potential", "Sequence Analyzer")  as null|anything in sort_list(options)
 	if(answer && ready && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		var/sequence
 		for(var/A in buffer) //this physically hurts but i dont know what anything else short of an assoc list
@@ -902,14 +982,14 @@ GENE SCANNER
 	icon_state = initial(icon_state)
 	ready = TRUE
 
-/obj/item/sequence_scanner/proc/get_display_name(mutation)
+/obj/item/sequence_scanner/proc/get_display_name(mutation, active_detail=FALSE)
 	var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"
 	if(discovered[mutation])
-		return  "[HM.name] ([HM.alias])"
+		return !active_detail ? "[HM.name] ([HM.alias])" : "<span class='green'>[HM.name] ([HM.alias]) - [active_detail]</span>"
 	else
-		return HM.alias
+		return !active_detail ? HM.alias : "<span class='green'>[HM.alias] - [active_detail]</span>"
 
 /obj/item/extrapolator
 	name = "virus extrapolator"
@@ -1005,7 +1085,7 @@ GENE SCANNER
 		else
 			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</font></span>")
 
-/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
+/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 100)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
 	if(using)
@@ -1037,7 +1117,7 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>You begin isolating [chosen].</span>")
-		if(do_after(user, (300 / (scanner.rating + 1)), target = AM))
+		if(do_after(user, (150 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
 	else
 		using = TRUE

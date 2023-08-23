@@ -82,6 +82,7 @@
 	anchored = TRUE
 	pass_flags_self = PASSTRANSPARENT
 	density = TRUE
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	resistance_flags = INDESTRUCTIBLE
 	CanAtmosPass = ATMOS_PASS_DENSITY

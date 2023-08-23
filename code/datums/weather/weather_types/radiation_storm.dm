@@ -19,7 +19,7 @@
 	area_type = /area
 	protected_areas = list(/area/maintenance, /area/ai_monitored/turret_protected/ai_upload, /area/ai_monitored/turret_protected/ai_upload_foyer,
 	/area/ai_monitored/turret_protected/ai, /area/storage/emergency/starboard, /area/storage/emergency/port, /area/shuttle, /area/security/prison/asteroid/shielded,
-	/area/security/prison/asteroid/service, /area/space/nearstation)
+	/area/security/prison/asteroid/service, /area/space/nearstation, /area/solar)
 	target_trait = ZTRAIT_STATION
 
 	immunity_type = RAD

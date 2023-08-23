@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	var/title = "book"
+	item_flags = ISWEAPON
 
 /obj/item/storage/book/ComponentInitialize()
 	. = ..()

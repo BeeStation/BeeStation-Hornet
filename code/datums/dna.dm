@@ -67,6 +67,15 @@
 	new_dna.update_body_size() //Must come after features.Copy()
 	new_dna.mutations = mutations.Copy()
 
+/datum/dna/proc/compare_dna(datum/dna/other)
+	if (!other)
+		return FALSE
+	return unique_enzymes == other.unique_enzymes \
+		&& uni_identity == other.uni_identity \
+		&& blood_type == other.blood_type \
+		&& species?.type == other.species?.type \
+		&& real_name == other.real_name
+
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
 /datum/dna/proc/add_mutation(mutation, class = MUT_OTHER, time)
 	var/mutation_type = mutation
@@ -117,6 +126,8 @@
 		L[DNA_FACIAL_HAIR_COLOR_BLOCK] = sanitize_hexcolor(H.facial_hair_color)
 		L[DNA_SKIN_TONE_BLOCK] = construct_block(GLOB.skin_tones.Find(H.skin_tone), GLOB.skin_tones.len)
 		L[DNA_EYE_COLOR_BLOCK] = sanitize_hexcolor(H.eye_color)
+		L[DNA_HAIR_GRADIENT_COLOR_BLOCK] = sanitize_hexcolor(H.gradient_color)
+		L[DNA_HAIR_GRADIENT_STYLE_BLOCK] = construct_block(GLOB.hair_gradients_list.Find(H.gradient_style), GLOB.hair_gradients_list.len)
 
 	for(var/i=1, i<=DNA_UNI_IDENTITY_BLOCKS, i++)
 		if(L[i])
@@ -205,6 +216,10 @@
 			setblock(uni_identity, blocknumber, construct_block(GLOB.facial_hair_styles_list.Find(H.facial_hair_style), GLOB.facial_hair_styles_list.len))
 		if(DNA_HAIR_STYLE_BLOCK)
 			setblock(uni_identity, blocknumber, construct_block(GLOB.hair_styles_list.Find(H.hair_style), GLOB.hair_styles_list.len))
+		if(DNA_HAIR_GRADIENT_COLOR_BLOCK)
+			setblock(uni_identity, blocknumber, sanitize_hexcolor(H.gradient_color))
+		if(DNA_HAIR_GRADIENT_STYLE_BLOCK)
+			setblock(uni_identity, blocknumber, construct_block(GLOB.hair_gradients_list.Find(H.gradient_style), GLOB.hair_gradients_list.len))
 
 //Please use add_mutation or activate_mutation instead
 /datum/dna/proc/force_give(datum/mutation/HM)
@@ -287,7 +302,7 @@
 
 	var/desired_size = GLOB.body_sizes[features["body_size"]]
 
-	if(desired_size == current_body_size)
+	if(desired_size == current_body_size || current_body_size == 0)
 		return
 
 	var/change_multiplier = desired_size / current_body_size
@@ -386,7 +401,7 @@
 /mob/living/carbon/proc/create_dna()
 	dna = new /datum/dna(src)
 	if(!dna.species)
-		var/rando_race = pick(GLOB.roundstart_races)
+		var/rando_race = pick(get_selectable_species())
 		dna.species = new rando_race()
 
 //proc used to update the mob's appearance after its dna UI has been changed
@@ -395,11 +410,11 @@
 		return
 	switch(deconstruct_block(getblock(dna.uni_identity, DNA_GENDER_BLOCK), 3))
 		if(G_MALE)
-			set_gender(MALE, TRUE)
+			set_gender(MALE, TRUE, forced = TRUE)
 		if(G_FEMALE)
-			set_gender(FEMALE, TRUE)
+			set_gender(FEMALE, TRUE, forced = TRUE)
 		else
-			set_gender(PLURAL, TRUE)
+			set_gender(PLURAL, TRUE, forced = TRUE)
 
 /mob/living/carbon/human/updateappearance(icon_update=1, mutcolor_update=0, mutations_overlay_update=0)
 	..()
@@ -410,6 +425,17 @@
 	eye_color = sanitize_hexcolor(getblock(structure, DNA_EYE_COLOR_BLOCK))
 	facial_hair_style = GLOB.facial_hair_styles_list[deconstruct_block(getblock(structure, DNA_FACIAL_HAIR_STYLE_BLOCK), GLOB.facial_hair_styles_list.len)]
 	hair_style = GLOB.hair_styles_list[deconstruct_block(getblock(structure, DNA_HAIR_STYLE_BLOCK), GLOB.hair_styles_list.len)]
+	gradient_color = sanitize_hexcolor(getblock(structure, DNA_HAIR_GRADIENT_COLOR_BLOCK))
+	gradient_style = GLOB.hair_gradients_list[deconstruct_block(getblock(structure, DNA_HAIR_GRADIENT_STYLE_BLOCK), GLOB.hair_gradients_list.len)]
+	// Ensure we update the skin tone of all non-foreign bodyparts
+	for(var/obj/item/bodypart/part in bodyparts)
+		if(part.no_update)
+			continue
+		part.update_limb(dropping_limb = FALSE, source = src, is_creating = TRUE)
+	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
+	if(organ_eyes)
+		organ_eyes.eye_color = eye_color
+		organ_eyes.old_eye_color = eye_color
 	if(icon_update)
 		update_body()
 		update_hair()
@@ -442,7 +468,7 @@
 
 //Return the active mutation of a type if there is one
 /datum/dna/proc/get_mutation(A)
-	for(var/datum/mutation/HM as() in mutations)
+	for(var/datum/mutation/HM in mutations)
 		if(HM.type == A)
 			return HM
 

@@ -46,7 +46,7 @@
 	if(owner.stat == DEAD || !owner.mind)
 		qdel(src)
 		return
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s imaginary friend?", ROLE_PAI, null, null, 75, friend, POLL_IGNORE_IMAGINARYFRIEND)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s imaginary friend?", ROLE_IMAGINARY_FRIEND, null, 7.5 SECONDS, friend)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		friend.key = C.key
@@ -66,6 +66,7 @@
 	see_invisible = SEE_INVISIBLE_LIVING
 	invisibility = INVISIBILITY_MAXIMUM
 	can_hear_init = TRUE // Enable hearing sensitive trait
+	initial_language_holder = /datum/language_holder/empty // language will be changed from init()
 	var/icon/human_image
 	var/image/current_image
 	var/hidden = FALSE
@@ -91,7 +92,9 @@
 
 	trauma = _trauma
 	owner = trauma.owner
-	copy_languages(owner, LANGUAGE_FRIEND)
+	copy_languages(owner, LANGUAGE_FRIEND, spoken=FALSE) // they don't have to speak in a language of their owner knows - as their language is imaginary echoes from their owner.
+	grant_language(/datum/language/metalanguage) // they only speak in metalanguage
+	language_holder.selected_language = /datum/language/metalanguage
 
 	setup_friend()
 
@@ -183,8 +186,8 @@
 	src.log_talk(message, LOG_SAY, tag="imaginary friend")
 
 	// Display message
-	var/owner_chat_map = owner.client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
-	var/friend_chat_map = client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
+	var/owner_chat_map = owner.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat) && owner.client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs)
+	var/friend_chat_map = client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat) && client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs)
 	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
@@ -196,6 +199,7 @@
 			hearers += client
 		if(owner_chat_map)
 			hearers += owner.client
+		new /datum/chatmessage(message, src, hearers, null)
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[say_quote(message)]</span></span>"
 	var/dead_rendered = "<span class='game say'><span class='name'>[name] (Imaginary friend of [owner])</span> <span class='message'>[say_quote(message)]</span></span>"
@@ -291,7 +295,7 @@
 	desc = "Patient appears to be targeted by an invisible entity."
 	gain_text = ""
 	lose_text = ""
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/special/imaginary_friend/trapped_owner/make_friend()
 	friend = new /mob/camera/imaginary_friend/trapped(get_turf(owner), src)

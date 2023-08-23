@@ -12,7 +12,8 @@
 	//worn_icon_state = "electronic"	//remember to change it
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	light_range = FALSE
+
+	light_system = MOVABLE_LIGHT
 
 /obj/item/controller/Initialize(mapload)
 	. = ..()
@@ -22,24 +23,21 @@
 
 /obj/item/circuit_component/controller
 	display_name = "Controller"
-	display_desc = "Used to receive inputs from the controller shell. Use the shell in hand to trigger the output signal. Alt-click for the alternate signal. Right click for the extra signal."
+	desc = "Used to receive inputs from the controller shell. Use the shell in hand to trigger the output signal. Alt-click for the alternate signal. Right click for the extra signal."
 
 	/// The three separate buttons that are called in attack_hand on the shell.
 	var/datum/port/output/signal
 	var/datum/port/output/alt
 	var/datum/port/output/right
 
-/obj/item/circuit_component/controller/Initialize(mapload)
-	. = ..()
+	/// The entity output
+	var/datum/port/output/entity
+
+/obj/item/circuit_component/controller/populate_ports()
+	entity = add_output_port("User", PORT_TYPE_ATOM)
 	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
 	alt = add_output_port("Alternate Signal", PORT_TYPE_SIGNAL)
 	right = add_output_port("Extra Signal", PORT_TYPE_SIGNAL)
-
-/obj/item/circuit_component/controller/Destroy()
-	signal = null
-	alt = null
-	right = null
-	return ..()
 
 /obj/item/circuit_component/controller/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, PROC_REF(send_trigger))
@@ -52,7 +50,7 @@
 	))
 
 /**
- * Called when the shell item is used in hand, including right click.
+ * Called when the shell item is used in hand
  */
 /obj/item/circuit_component/controller/proc/send_trigger(atom/source, mob/user)
 	SIGNAL_HANDLER
@@ -60,6 +58,7 @@
 		return
 	source.balloon_alert(user, "Clicked the primary button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
+	entity.set_output(user)
 	signal.set_output(COMPONENT_SIGNAL)
 
 /**
@@ -71,13 +70,18 @@
 		return
 	source.balloon_alert(user, "Clicked the alternate button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
+	entity.set_output(user)
 	alt.set_output(COMPONENT_SIGNAL)
 	return COMPONENT_INTERCEPT_ALT
 
+/**
+ * Called when the shell item is right-clicked in active hand
+ */
 /obj/item/circuit_component/controller/proc/send_right_signal(atom/source, mob/user)
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
 	source.balloon_alert(user, "Clicked the extra button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
+	entity.set_output(user)
 	right.set_output(COMPONENT_SIGNAL)

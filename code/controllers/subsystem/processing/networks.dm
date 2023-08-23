@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(networks)
 
 /datum/controller/subsystem/networks/Initialize()
 	station_network.register_map_supremecy() // sigh
-	assign_areas_root_ids(GLOB.sortedAreas) // setup area names before Initialize
+	assign_areas_root_ids(get_sorted_areas()) // setup area names before Initialize
 	station_network.build_software_lists()
 	syndie_network.build_software_lists()
 
@@ -140,7 +140,8 @@ SUBSYSTEM_DEF(networks)
 		/// Check if we are a list.  If so process the list
 		if(islist(current.receiver_id)) // are we a broadcast list
 			var/list/receivers = current.receiver_id
-			var/receiver_id = receivers[receivers.len--] // pop it
+			var/receiver_id = receivers[receivers.len] // pop it
+			receivers.len--
 			_process_packet(receiver_id, current)
 			if(receivers.len == 0) // pop it if done
 				count_broadcasts_packets++

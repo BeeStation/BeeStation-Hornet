@@ -54,20 +54,19 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Maximum range: <b>[range]</b> units.</span>"
 
+REGISTER_BUFFER_HANDLER(/obj/machinery/launchpad)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
+	if (stationary && panel_open && TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You save the data in the [buffer_parent.name]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
+
 /obj/machinery/launchpad/attackby(obj/item/I, mob/user, params)
 	if(stationary)
 		if(default_deconstruction_screwdriver(user, "lpad-idle-o", "lpad-idle", I))
 			update_indicator()
 			return
-
-		if(panel_open)
-			if(I.tool_behaviour == TOOL_MULTITOOL)
-				if(!multitool_check_buffer(user, I))
-					return
-				var/obj/item/multitool/M = I
-				M.buffer = src
-				to_chat(user, "<span class='notice'>You save the data in the [I.name]'s buffer.</span>")
-				return 1
 
 		if(default_deconstruction_crowbar(I))
 			return
@@ -110,7 +109,7 @@
 		y_offset = clamp(y, -range, range)
 	update_indicator()
 
-/obj/machinery/launchpad/proc/doteleport(mob/user, sending)
+/obj/machinery/launchpad/proc/doteleport(mob/user, sending, alternate_log_name = null)
 	if(teleporting)
 		to_chat(user, "<span class='warning'>ERROR: Launchpad busy.</span>")
 		return
@@ -155,7 +154,7 @@
 
 	var/turf/source = target
 	var/list/log_msg = list()
-	log_msg += ": [key_name(user)] has teleported "
+	log_msg += ": [alternate_log_name || key_name(user)] has teleported "
 
 	if(sending)
 		source = dest

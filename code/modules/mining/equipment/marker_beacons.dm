@@ -1,5 +1,5 @@
 /*****************Marker Beacons**************************/
-GLOBAL_LIST_INIT(marker_beacon_colors, sortList(list(
+GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 "Random" = FALSE, //not a true color, will pick a random color
 "Burgundy" = LIGHT_COLOR_FLARE,
 "Bronze" = LIGHT_COLOR_ORANGE,
@@ -109,6 +109,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sortList(list(
 	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 	if(do_after(user, remove_speed, target = src))
 		var/obj/item/stack/marker_beacon/M = new(loc)
+		if(QDELETED(M))
+			M = locate(/obj/item/stack/marker_beacon) in loc
+		if(!M)
+			return
 		M.picked_color = picked_color
 		M.update_icon()
 		transfer_fingerprints_to(M)

@@ -86,6 +86,8 @@
 	var/frequency = FREQ_ATMOS_CONTROL
 	var/alarm_frequency = FREQ_ATMOS_ALARMS
 	var/datum/radio_frequency/radio_connection
+	///Represents a signel source of atmos alarms, complains to all the listeners if one of our thresholds is violated
+	var/datum/alarm_handler/alarm_manager
 
 	var/list/TLV = list( // Breathable air.
 		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa. Values are min2, min1, max1, max2
@@ -206,17 +208,19 @@
 	if(name == initial(name))
 		name = "[get_area_name(src)] Air Alarm"
 
-	update_icon()
+	alarm_manager = new(src)
+	update_appearance()
 
 	set_frequency(frequency)
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/air_alarm,
+	))
 	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/Destroy()
 	SSradio.remove_object(src, frequency)
-	qdel(wires)
-	wires = null
-	var/area/ourarea = get_area(src)
-	ourarea.atmosalert(FALSE, src)
+	QDEL_NULL(wires)
+	QDEL_NULL(alarm_manager)
 	GLOB.zclear_atoms -= src
 	return ..()
 
@@ -258,7 +262,7 @@
 	)
 
 	var/area/A = get_area(src)
-	data["atmos_alarm"] = A.atmosalm
+	data["atmos_alarm"] = !!A.active_alarms[ALARM_ATMOS]
 	data["fire_alarm"] = A.fire
 
 	var/turf/T = get_turf(src)
@@ -383,7 +387,7 @@
 			if(usr.has_unlimited_silicon_privilege && !wires.is_cut(WIRE_IDSCAN))
 				locked = !locked
 				. = TRUE
-		if("power", "toggle_filter", "widenet", "scrubbing")
+		if("power", "toggle_filter", "widenet", "scrubbing", "direction")
 			send_signal(device_id, list("[action]" = params["val"]), usr)
 			. = TRUE
 		if("excheck")
@@ -426,17 +430,15 @@
 			apply_mode(usr)
 			. = TRUE
 		if("alarm")
-			var/area/A = get_area(src)
-			if(A.atmosalert(TRUE, src))
+			if(alarm_manager.send_alarm(ALARM_ATMOS))
 				post_alert(2)
 			. = TRUE
 		if("reset")
-			var/area/A = get_area(src)
-			if(A.atmosalert(FALSE, src))
+			if(alarm_manager.clear_alarm(ALARM_ATMOS))
 				post_alert(0)
 			. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 
 
 /obj/machinery/airalarm/proc/reset(wire)
@@ -632,8 +634,8 @@
 		icon_state = "alarmp"
 		return
 
-	var/area/A = get_area(src)
-	switch(max(danger_level, A.atmosalm))
+	var/area/our_area = get_area(src)
+	switch(max(danger_level, !!our_area.active_alarms[ALARM_ATMOS]))
 		if(0)
 			icon_state = "alarm0"
 		if(1)
@@ -691,12 +693,13 @@
 	var/area/A = get_area(src)
 	if(alert_level==2)
 		alert_signal.data["alert"] = "severe"
-		A.set_vacuum_alarm_effect()
+		A.set_pressure_alarm_effect()
 	else if (alert_level==1)
 		alert_signal.data["alert"] = "minor"
+		A.set_pressure_alarm_effect()
 	else if (alert_level==0)
 		alert_signal.data["alert"] = "clear"
-		A.unset_vacuum_alarm_effect()
+		A.unset_pressure_alarm_effect()
 
 	frequency.post_signal(src, alert_signal, range = -1)
 
@@ -707,10 +710,16 @@
 	for(var/obj/machinery/airalarm/AA in A)
 		if (!(AA.machine_stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = clamp(max(new_area_danger_level, AA.danger_level), 0, 1)
-	if(A.atmosalert(new_area_danger_level,src)) //if area was in normal state or if area was in alert state
+
+	var/did_anything_happen
+	if(new_area_danger_level)
+		did_anything_happen = alarm_manager.send_alarm(ALARM_ATMOS)
+	else
+		did_anything_happen = alarm_manager.clear_alarm(ALARM_ATMOS)
+	if(did_anything_happen) //if something actually changed
 		post_alert(new_area_danger_level)
 
-	update_icon()
+	update_appearance()
 
 /obj/machinery/airalarm/attackby(obj/item/W, mob/user, params)
 	switch(buildstage)
@@ -850,6 +859,82 @@
 			I.obj_integrity = I.max_integrity * 0.5
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
+
+/obj/item/circuit_component/air_alarm
+	display_name = "Air Alarm"
+	desc = "Controls levels of gases and their temperature as well as all vents and scrubbers in the room."
+
+	var/datum/port/input/option/air_alarm_options
+
+	var/datum/port/input/min_2
+	var/datum/port/input/min_1
+	var/datum/port/input/max_1
+	var/datum/port/input/max_2
+
+	var/datum/port/input/request_data
+
+	var/datum/port/output/pressure
+	var/datum/port/output/temperature
+	var/datum/port/output/gas_amount
+
+	var/obj/machinery/airalarm/connected_alarm
+	var/list/options_map
+
+/obj/item/circuit_component/air_alarm/populate_ports()
+	min_2 = add_input_port("Min 2", PORT_TYPE_NUMBER)
+	min_1 = add_input_port("Min 1", PORT_TYPE_NUMBER)
+	max_1 = add_input_port("Max 1", PORT_TYPE_NUMBER)
+	max_2 = add_input_port("Max 2", PORT_TYPE_NUMBER)
+	request_data = add_input_port("Request Atmosphere Data", PORT_TYPE_SIGNAL)
+
+	pressure = add_output_port("Pressure", PORT_TYPE_NUMBER)
+	temperature = add_output_port("Temperature", PORT_TYPE_NUMBER)
+	gas_amount = add_output_port("Chosen Gas Amount", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/air_alarm/populate_options()
+	var/static/list/component_options
+
+	if(!component_options)
+		component_options = list(
+			"Pressure" = "pressure",
+			"Temperature" = "temperature"
+		)
+
+		for(var/gas_id in GLOB.gas_data.ids)
+			component_options[GLOB.gas_data.names[gas_id]] = gas_id
+
+	air_alarm_options = add_option_port("Air Alarm Options", component_options)
+	options_map = component_options
+
+/obj/item/circuit_component/air_alarm/register_usb_parent(atom/movable/parent)
+	. = ..()
+	if(istype(parent, /obj/machinery/airalarm))
+		connected_alarm = parent
+
+/obj/item/circuit_component/air_alarm/unregister_usb_parent(atom/movable/parent)
+	connected_alarm = null
+	return ..()
+
+/obj/item/circuit_component/air_alarm/input_received(datum/port/input/port)
+	if(!connected_alarm || connected_alarm.locked)
+		return
+
+	var/current_option = air_alarm_options.value
+
+	if(COMPONENT_TRIGGERED_BY(request_data, port))
+		var/turf/alarm_turf = get_turf(connected_alarm)
+		var/datum/gas_mixture/environment = alarm_turf.return_air()
+		pressure.set_output(round(environment.return_pressure()))
+		temperature.set_output(round(environment.return_temperature()))
+		if(ispath(options_map[current_option]))
+			gas_amount.set_output(round(environment.get_moles(current_option)))
+		return
+
+	var/datum/tlv/settings = connected_alarm.TLV[options_map[current_option]]
+	settings.min2 = min_2
+	settings.min1 = min_1
+	settings.max1 = max_1
+	settings.max2 = max_2
 
 #undef AALARM_MODE_SCRUBBING
 #undef AALARM_MODE_VENTING

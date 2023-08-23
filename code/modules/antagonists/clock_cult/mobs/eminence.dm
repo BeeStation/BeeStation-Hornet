@@ -5,7 +5,7 @@
 	icon_state = "eminence"
 	mob_biotypes = list(MOB_SPIRIT)
 	incorporeal_move = INCORPOREAL_MOVE_EMINENCE
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_SPIRIT
 	health = INFINITY
 	maxHealth = INFINITY
 	plane = GHOST_PLANE
@@ -89,7 +89,7 @@
 	trigger_event = new
 	AddSpell(trigger_event)
 	//Wooooo, you are a ghost
-	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	internal_radio = new(src)
 	cog_change()
 
@@ -125,7 +125,7 @@
 		return
 	. = ..()
 
-/mob/living/simple_animal/eminence/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/eminence/bullet_act(obj/projectile/Proj)
 	return BULLET_ACT_FORCE_PIERCE
 
 /mob/living/simple_animal/eminence/proc/run_global_event(datum/round_event_control/E)

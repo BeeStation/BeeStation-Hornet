@@ -63,13 +63,13 @@
 		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=subtract;mob=[REF(M)]'>-</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=set;mob=[REF(M)]'>=</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=zero;mob=[REF(M)]'>0</a>"
-		var/antag_tokens = M.client.get_antag_token_count()
+		var/antag_tokens = M.client.get_antag_token_count_db()
 		body += "<br><b>Antag Tokens</b>: [antag_tokens] "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=add;mob=[REF(M)]'>+</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=subtract;mob=[REF(M)]'>-</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=set;mob=[REF(M)]'>=</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=zero;mob=[REF(M)]'>0</a>"
-		var/metabalance = M.client.get_metabalance()
+		var/metabalance = M.client.get_metabalance_db()
 		body += "<br><b>[CONFIG_GET(string/metacurrency_name)]s</b>: [metabalance] "
 		var/full_version = "Unknown"
 		if(M.client.byond_version)
@@ -92,8 +92,8 @@
 	body += "<a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a> "
 	//Default to client logs if available
 	var/source = LOGSRC_MOB
-	if(M.client)
-		source = LOGSRC_CLIENT
+	if(M.ckey)
+		source = LOGSRC_CKEY
 	body += "<a href='?_src_=holder;[HrefToken()];individuallog=[REF(M)];log_src=[source]'>LOGS</a><br>"
 
 	body += "<br><b>Mob Type:</b> [M.type]<br><br>"
@@ -235,7 +235,7 @@
 		"}
 	if(GLOB.master_mode == "secret")
 		dat += "<A href='?src=[REF(src)];[HrefToken()];f_secret=1'>(Force Secret Mode)</A><br>"
-	if(SSticker.is_mode("dynamic"))
+	if(istype(SSticker.mode, /datum/game_mode/dynamic))
 		if(SSticker.current_state <= GAME_STATE_PREGAME)
 			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart=1'>(Force Roundstart Rulesets)</A><br>"
 			if (GLOB.dynamic_forced_roundstart_ruleset.len > 0)
@@ -360,7 +360,7 @@
 			message = adminscrub(message,500)
 		to_chat(world, "<span class='adminnotice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b></span>\n \t [message]")
 		log_admin("Announce: [key_name(usr)] : [message]")
-		discordsendmsg("ooc", "***[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:***\n       [message]")
+		sendooc2ext("***[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:***\n       [message]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/set_admin_notice()
@@ -785,8 +785,16 @@
 		if(logout && CONFIG_GET(flag/announce_admin_logout))
 			string = pick(
 				"Admin logout: [key_name(src)]")
-		else if(!logout && CONFIG_GET(flag/announce_admin_login) && (prefs.toggles & PREFTOGGLE_ANNOUNCE_LOGIN))
+		else if(!logout && CONFIG_GET(flag/announce_admin_login) && prefs?.read_player_preference(/datum/preference/toggle/announce_login))
 			string = pick(
 				"Admin login: [key_name(src)]")
 		if(string)
 			message_admins("[string]")
+
+///Plays a sound to all admins who have that preference on, with the var being the sound filepath
+/proc/play_sound_to_all_admins(var/sound = null)
+	if(isnull(sound))
+		return
+	for(var/client/C as anything in GLOB.admins)
+		if(C.prefs.read_player_preference(/datum/preference/toggle/sound_adminalert))
+			SEND_SOUND(C, sound)

@@ -66,6 +66,7 @@
 	item_state = "rapid"
 	worn_icon_state = "rapid"
 	transfer_prints = TRUE
+	item_flags = ISWEAPON
 	var/warcry = "AT"
 
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)

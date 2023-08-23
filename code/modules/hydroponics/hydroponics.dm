@@ -91,12 +91,12 @@
 	return connected
 
 
-/obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
+/obj/machinery/hydroponics/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
 		return ..()
-	if(istype(Proj , /obj/item/projectile/energy/floramut))
+	if(istype(Proj , /obj/projectile/energy/floramut))
 		mutate()
-	else if(istype(Proj , /obj/item/projectile/energy/florayield))
+	else if(istype(Proj , /obj/projectile/energy/florayield))
 		return myseed.bullet_act(Proj)
 	else
 		return ..()
@@ -369,7 +369,7 @@
 		if(14 to 15)
 			myseed = new /obj/item/seeds/nettle(src)
 		if(12 to 13)
-			myseed = new /obj/item/seeds/harebell(src)
+			myseed = new /obj/item/seeds/flower/harebell(src)
 		if(10 to 11)
 			myseed = new /obj/item/seeds/amanita(src)
 		if(8 to 9)

@@ -6,6 +6,7 @@
 	block_flags = BLOCKING_PROJECTILE
 	block_power = 50
 	max_integrity =  75
+	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/durability = TRUE //the shield uses durability instead of stamina
 
@@ -19,7 +20,7 @@
 	if(durability)
 		var/attackforce = 0
 		if(isprojectile(hitby))
-			var/obj/item/projectile/P = hitby
+			var/obj/projectile/P = hitby
 			if(P.damage_type != STAMINA)// disablers dont do shit to shields
 				attackforce = (P.damage / 2)
 		else if(isitem(hitby))
@@ -285,7 +286,7 @@
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		if(isprojectile(hitby))
-			var/obj/item/projectile/P = hitby
+			var/obj/projectile/P = hitby
 			if(P.reflectable)
 				P.firer = src
 				P.setAngle(get_dir(owner, hitby))
