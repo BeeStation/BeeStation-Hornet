@@ -415,7 +415,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(src in user.do_afters)
-		to_chat(user, "<span class='warning'>You're already to shortening \the [src]!</span>")
+		to_chat(user, "<span class='warning'>You're already trying to shorten \the [src]!</span>")
 		return
 
 	user.visible_message("[user] begins to shorten \the [src].", "<span class='notice'>You begin to shorten \the [src]...</span>")
