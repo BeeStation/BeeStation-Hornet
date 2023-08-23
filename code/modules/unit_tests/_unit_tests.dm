@@ -64,6 +64,7 @@
 #include "create_and_destroy.dm"
 #endif
 
+#include "dcs_get_id_from_elements.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
 #include "gamemode_sanity.dm"
