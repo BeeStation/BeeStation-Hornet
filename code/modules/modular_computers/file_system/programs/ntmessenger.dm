@@ -390,6 +390,13 @@
 		if(signal.data["automated"])
 			reply = "\[Automated Message\]"
 
+		var/datum/antagonist/traitor/receiver_traitor = L.mind?.has_antag_datum(/datum/antagonist/traitor)
+		if(receiver_traitor?.should_give_codewords)
+			var/message = signal.data["message"]
+			message = GLOB.syndicate_code_phrase_regex.Replace(message, "<span class='blue'>$1</span>")
+			message = GLOB.syndicate_code_response_regex.Replace(message, "<span class='red'>$1</span>")
+			signal.data["message"] = message
+
 		var/inbound_message = signal.format_message(include_photo = TRUE)
 		if(signal.data["emojis"] == TRUE)//so will not parse emojis as such from pdas that don't send emojis
 			inbound_message = emoji_parse(inbound_message)
