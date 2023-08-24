@@ -149,16 +149,12 @@
 				to_chat(user, "<span class='notice'>You can't open somebody else's mail! That's <em>immoral</em>!</span>")
 				return
 			var/can_open = FALSE
-			if(user?.mind?.has_antag_datum(/datum/antagonist/obsessed))
-				for(var/antag_datum in user.mind.antag_datums)
-					if(istype(antag_datum, /datum/antagonist/obsessed))
-						var/datum/antagonist/obsessed/obs_datum = antag_datum
-						if(obs_datum?.trauma?.obsession.name != recipient.name)
-							to_chat(user, "<span class='notice'>This <em>worthless</em> piece of parchment isn't adressed to your beloved!</span>")
-							return
-						else
-							can_open = TRUE
-							break
+			var/datum/antagonist/obsessed/obs_datum = locate() in user?.mind?.antag_datums
+			if(obs_datum)
+				if(obs_datum.trauma.obsession.name != recipient.name)
+					to_chat(user, "<span class='notice'>This <em>worthless</em> piece of parchment isn't adressed to your beloved!</span>")
+					return
+				can_open = TRUE
 			if(user.real_name != recipient.name && !can_open)
 				to_chat(user, "<span class='warning'>We must keep our disguise intact.</span>")  // cuz your disguise cant open the mail so you shouldnt either
 				return
