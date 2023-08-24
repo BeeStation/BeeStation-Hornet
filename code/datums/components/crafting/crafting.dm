@@ -202,9 +202,7 @@
 			if(!user.put_in_hands(result))
 				var/turf/front_turf = get_step(user, user.dir)
 				if(user.TurfAdjacent(front_turf))
-					var/obj/structure/rack/found_rack = locate(/obj/structure/rack) in front_turf
-					var/obj/structure/table/found_table = locate(/obj/structure/table) in front_turf
-					if(found_rack || found_table)
+					if((locate(/obj/structure/table) in front_turf) || (locate(/obj/structure/rack) in front_turf))
 						result.forceMove(front_turf)
 						result.pixel_x = rand(-4, 4)
 						result.pixel_y = rand(-4, 4)
