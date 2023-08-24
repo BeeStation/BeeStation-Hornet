@@ -13,11 +13,6 @@
 
 	var/obj/machinery/computer/holodeck/linked
 
-/datum/map_template/holodeck/stage
-	name ="Holodeck - Stage"
-	template_id = "stage"
-	mappath = "_maps/holodeck/stage.dmm"
-
 /datum/map_template/holodeck/offline
 	name = "Holodeck - Offline"
 	template_id = "offline"
@@ -72,6 +67,11 @@
 	name = "Holodeck - Chapel Courtroom"
 	template_id = "chapelcourt"
 	mappath = "_maps/holodeck/chapelcourt.dmm"
+
+/datum/map_template/holodeck/stage
+	name ="Holodeck - Stage"
+	template_id = "stage"
+	mappath = "_maps/holodeck/stage.dmm"
 
 /datum/map_template/holodeck/spacechess
 	name = "Holodeck - Space Chess"
