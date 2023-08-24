@@ -1,5 +1,5 @@
 import { BooleanLike } from 'common/react';
-import { Box, Section, Stack } from '../../components';
+import { Section, Stack } from '../../components';
 import { sanitizeText } from '../../sanitize';
 
 export type Objective = {

@@ -2,6 +2,7 @@ import { useBackend } from '../backend';
 import { Icon, Section, Stack } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
+import { sanitizeText } from '../sanitize';
 
 type Objective = {
   count: number;
@@ -44,7 +45,7 @@ export const AntagInfoBrainwashed = () => {
   );
 };
 
-const ObjectivePrintout = (props, context) => {
+const ObjectivePrintout = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
@@ -57,7 +58,13 @@ const ObjectivePrintout = (props, context) => {
           objectives.map((objective) => (
             <>
               <Stack.Item key={objective.count}>
-                {objective.count}. {objective.explanation}
+                {objective.count}.{' '}
+                <span
+                  // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeText(objective.explanation), // brainwashing objectives are sanitized anyways
+                  }}
+                />
               </Stack.Item>
               <Stack.Item bold textColor="red">
                 This Directive must be followed.
