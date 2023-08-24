@@ -1,0 +1,53 @@
+"a" = (/obj/effect/turf_decal/siding/wood{dir = 10},/obj/item/kirbyplants/random,/turf/open/floor/carpet/royalblack,/area/template_noop)
+"b" = (/obj/structure/curtain/bounty,/turf/open/floor/wood,/area/template_noop)
+"c" = (/obj/effect/turf_decal/siding/wood{dir = 4; layer = 2},/obj/effect/turf_decal/siding/wood{dir = 8},/turf/open/floor/plasteel/stairs/medium,/area/template_noop)
+"d" = (/obj/structure/chair/wood/normal{dir = 1},/turf/open/floor/carpet,/area/template_noop)
+"g" = (/obj/item/kirbyplants/random,/obj/structure/railing{dir = 6},/obj/effect/turf_decal/siding/wood{dir = 6},/turf/open/floor/carpet/red,/area/template_noop)
+"h" = (/obj/effect/turf_decal/siding/wood,/obj/structure/railing,/turf/open/floor/carpet/red,/area/template_noop)
+"i" = (/obj/structure/chair/wood/normal{dir = 1},/obj/effect/turf_decal/siding/wood{layer = 1},/turf/open/floor/carpet,/area/template_noop)
+"j" = (/obj/effect/turf_decal/siding/wood{dir = 4; layer = 2},/obj/effect/turf_decal/siding/wood{dir = 1},/turf/open/floor/carpet/red,/area/template_noop)
+"k" = (/obj/effect/turf_decal/siding/wood{dir = 4; layer = 2},/turf/open/floor/carpet/royalblack,/area/template_noop)
+"l" = (/obj/structure/chair/wood/normal{dir = 1},/obj/effect/turf_decal/siding/wood{dir = 5},/turf/open/floor/carpet,/area/template_noop)
+"n" = (/obj/structure/chair/wood/normal{dir = 1},/obj/effect/turf_decal/siding/wood{dir = 9},/turf/open/floor/carpet,/area/template_noop)
+"o" = (/obj/effect/turf_decal/siding/wood{dir = 9},/turf/open/floor/carpet/royalblack,/area/template_noop)
+"p" = (/obj/item/kirbyplants/random,/obj/structure/railing{dir = 10},/obj/effect/turf_decal/siding/wood{dir = 10},/turf/open/floor/carpet/red,/area/template_noop)
+"q" = (/obj/effect/turf_decal/siding/wood{dir = 8},/obj/effect/turf_decal/siding/wood{dir = 4; layer = 2},/turf/open/floor/plasteel/stairs/medium,/area/template_noop)
+"r" = (/obj/structure/window/reinforced/tinted,/obj/structure/window/reinforced/tinted{dir = 4},/obj/structure/table/wood,/obj/effect/turf_decal/siding/wood{layer = 1},/turf/open/floor/wood,/area/template_noop)
+"s" = (/obj/structure/window/reinforced/tinted,/obj/structure/window/reinforced/tinted{dir = 8},/obj/structure/table/wood,/obj/effect/turf_decal/siding/wood{layer = 1},/turf/open/floor/wood,/area/template_noop)
+"t" = (/turf/open/floor/wood,/area/template_noop)
+"u" = (/obj/structure/window/reinforced/tinted,/turf/open/floor/wood,/area/template_noop)
+"v" = (/obj/effect/turf_decal/siding/wood{dir = 1},/turf/open/floor/carpet/red,/area/template_noop)
+"x" = (/obj/effect/turf_decal/siding/wood,/obj/structure/railing,/obj/structure/chair/stool{dir = 8; pixel_y = 12; pixel_x = 8},/turf/open/floor/carpet/red,/area/template_noop)
+"y" = (/obj/structure/chair/wood/normal{dir = 1},/obj/effect/turf_decal/siding/wood{dir = 8},/turf/open/floor/carpet,/area/template_noop)
+"z" = (/obj/structure/table/wood,/obj/structure/window/reinforced/tinted{dir = 4},/obj/structure/window/reinforced/tinted{dir = 1},/turf/open/floor/wood,/area/template_noop)
+"B" = (/obj/structure/chair/wood/normal{dir = 1},/obj/effect/turf_decal/siding/wood{dir = 1},/turf/open/floor/carpet,/area/template_noop)
+"C" = (/obj/structure/table/wood,/obj/structure/window/reinforced/tinted{dir = 1},/obj/structure/window/reinforced/tinted{dir = 8},/turf/open/floor/wood,/area/template_noop)
+"D" = (/obj/structure/window/reinforced/tinted{dir = 1},/turf/open/floor/wood,/area/template_noop)
+"F" = (/obj/effect/turf_decal/siding/wood{layer = 1},/turf/open/floor/carpet/royalblack,/area/template_noop)
+"G" = (/obj/structure/chair/wood/normal{dir = 1},/obj/effect/turf_decal/siding/wood{dir = 6},/turf/open/floor/carpet,/area/template_noop)
+"H" = (/obj/structure/window/reinforced/tinted{dir = 4},/turf/open/floor/wood,/area/template_noop)
+"I" = (/obj/structure/chair/wood/normal{dir = 1},/obj/effect/turf_decal/siding/wood{dir = 4; layer = 2},/turf/open/floor/carpet,/area/template_noop)
+"J" = (/obj/structure/table/wood,/obj/structure/window/reinforced/tinted{dir = 4},/turf/open/floor/wood,/area/template_noop)
+"K" = (/turf/open/floor/carpet/royalblack,/area/template_noop)
+"L" = (/obj/effect/turf_decal/siding/wood{dir = 5},/turf/open/floor/carpet/royalblack,/area/template_noop)
+"N" = (/obj/structure/chair/wood/normal{dir = 1},/obj/effect/turf_decal/siding/wood{dir = 10},/turf/open/floor/carpet,/area/template_noop)
+"P" = (/obj/structure/window/reinforced/tinted{dir = 8},/turf/open/floor/wood,/area/template_noop)
+"Q" = (/obj/effect/turf_decal/siding/wood{dir = 8},/obj/effect/turf_decal/siding/wood{dir = 1},/turf/open/floor/carpet/red,/area/template_noop)
+"R" = (/obj/effect/turf_decal/siding/wood{dir = 1},/obj/item/kirbyplants/random,/turf/open/floor/carpet/royalblack,/area/template_noop)
+"U" = (/obj/effect/turf_decal/siding/wood,/obj/structure/railing,/obj/structure/musician/piano{icon_state = "piano"; pixel_y = 8; pixel_x = 8},/turf/open/floor/carpet/red,/area/template_noop)
+"V" = (/obj/effect/turf_decal/siding/wood{dir = 6},/obj/item/kirbyplants/random,/turf/open/floor/carpet/royalblack,/area/template_noop)
+"X" = (/obj/effect/turf_decal/siding/wood{dir = 8},/turf/open/floor/carpet/royalblack,/area/template_noop)
+"Z" = (/obj/structure/table/wood,/obj/structure/window/reinforced/tinted{dir = 8},/turf/open/floor/wood,/area/template_noop)
+
+(1,1,1) = {"
+CDDDDDDDz
+ZtuuuuutJ
+PtttttttH
+urbbbbbsu
+Qvvvvvvvj
+qphUxhhgc
+KnBlRnBlK
+XydIKydIk
+XLiGKNiok
+aFFFFFFFV
+"}
