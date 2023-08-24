@@ -1358,7 +1358,7 @@
 
 /datum/techweb_node/cyber_implants
 	id = "cyber_implants"
-	tech_tier = 4
+	tech_tier = 3
 	display_name = "Cybernetic Implants"
 	description = "Electronic implants that improve humans."
 	prereq_ids = list(
@@ -1379,7 +1379,7 @@
 
 /datum/techweb_node/adv_cyber_implants
 	id = "adv_cyber_implants"
-	tech_tier = 5
+	tech_tier = 4
 	display_name = "Advanced Cybernetic Implants"
 	description = "Upgraded and more powerful cybernetic implants."
 	prereq_ids = list(
