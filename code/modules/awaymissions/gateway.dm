@@ -44,6 +44,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
 	if(!pre_check_teleport(AM, dest_turf))
+		to_chat(user, "<span class='warning'>You can't seem to push [AM] into [src]...")
 		return
 
 	if(ismob(AM))
@@ -53,12 +54,11 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 			"<span class='warning'>You try to shove [M] into [src]...</span>",
 			ignored_mobs = list(M))
 		to_chat(M, "<span class='userdanger'>[user] is pushing you into [src]!</span>")
-		if(do_after(user, 5 SECONDS, src))
-
-		else
+		if(!do_after(user, 5 SECONDS, src))
 			return // failed do_after, we don't teleport
+		user.visible_message("<span class='notice'>[user] shoves [M] into [src].</span>", "<span class='notice'>You shove [M] into [src].</span>")
 	else
-		user.visible_message("<span class='notice'>[AM] is pushed into [src].</span>") //
+		user.visible_message("<span class='notice'>[AM] is pushed into [src].</span>", "<span class='warning'>You push [AM] into [src].</span>")
 
 	actually_teleport(AM, dest_turf)
 
