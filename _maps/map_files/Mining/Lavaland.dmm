@@ -387,7 +387,7 @@
 /turf/open/floor/plasteel/dark,
 /area/mine/storage)
 "cP" = (
-/obj/effect/turf_decal/tile/brown{
+/obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -1153,9 +1153,6 @@
 /area/mine/living_quarters)
 "hK" = (
 /obj/machinery/gateway,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "hP" = (
@@ -1477,18 +1474,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/checker,
 /area/mine/living_quarters)
-"jH" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Gateway Access";
-	req_access_txt = "48"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/mine/production)
 "jK" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/bot,
@@ -1648,9 +1633,6 @@
 "kO" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
@@ -2426,15 +2408,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/mine/maintenance)
-"rp" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel,
-/area/mine/production)
 "rr" = (
 /obj/machinery/shower{
 	dir = 8
@@ -3025,7 +2998,7 @@
 /turf/open/floor/carpet/black,
 /area/mine/science)
 "vR" = (
-/obj/effect/turf_decal/tile/brown{
+/obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -3682,6 +3655,10 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/science)
+"BH" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/space/basic,
+/area/mine/production)
 "BL" = (
 /obj/machinery/light{
 	dir = 8;
@@ -3992,12 +3969,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
-"DI" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel,
-/area/mine/production)
 "DJ" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -4336,10 +4307,7 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
@@ -6477,15 +6445,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Vo" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel,
-/area/mine/production)
 "Vq" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/structure/barricade/wooden/crude,
@@ -36761,7 +36720,7 @@ DN
 DN
 AZ
 DK
-Hc
+jw
 vR
 uF
 DN
@@ -37011,7 +36970,7 @@ Zd
 Zd
 Zd
 Zd
-aT
+BH
 CF
 mZ
 vq
@@ -37273,10 +37232,10 @@ CF
 lG
 BW
 hK
-DI
-rp
-jH
-Vo
+DN
+nF
+Hc
+CF
 Gd
 Rl
 jw
@@ -37789,7 +37748,7 @@ DN
 DN
 iZ
 nF
-Hc
+jw
 cP
 AE
 eU
