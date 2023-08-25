@@ -363,17 +363,17 @@
 		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
 		R.remove_any(resin_cost)
 		var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
-		if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
+		if(tank.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
+			QDEL_NULL(resin_projectile)
 			resin_projectile = new /obj/effect/resin_container/chainreact(get_turf(src))
-			log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
-			playsound(src,'sound/items/syringeproj.ogg',40,1)
+		playsound(src,'sound/items/syringeproj.ogg',40,1)
 		var/delay = 2
 		var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
 		RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(resin_landed))
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
 
-		if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
+		if(tank.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
 			log_game("[key_name(user)] used Advanced Resin Launcher at [AREACOORD(user)].")
 		else
 			log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
@@ -407,7 +407,7 @@
 	SIGNAL_HANDLER
 	if(!istype(source.moving, /obj/effect/resin_container) || QDELETED(source.moving))
 		return
-	if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
+	if(tank.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
 		var/obj/effect/resin_container/chainreact/resin = source.moving
 		resin.Smoke()
 	else
@@ -451,7 +451,7 @@
 
 /obj/effect/resin_container/chainreact/Smoke()
 	var/obj/effect/particle_effect/foam/metal/chainreact_resin/S = new /obj/effect/particle_effect/foam/metal/chainreact_resin(get_turf(loc))
-	S.amount = 4
+	S.amount = 6
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
 

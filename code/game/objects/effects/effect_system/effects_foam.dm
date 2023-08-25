@@ -89,6 +89,17 @@
 	name = "self-destruct resin foam"
 	metal = RESIN_FOAM_CHAINREACT
 
+/obj/effect/particle_effect/foam/dissipating
+	name = "dissipating foam"
+	icon_state = ""
+	lifetime = 7 //doesn't last as long as normal foam
+	amount = 0 //no spread
+	slippery_foam = FALSE
+
+/obj/effect/particle_effect/foam/dissipating/Initialize(mapload)
+	flick("[icon_state]_dissolving", src)
+	QDEL_IN(src, 6)
+
 /obj/effect/particle_effect/foam/long_life
 	lifetime = 150
 
@@ -343,47 +354,44 @@
 	max_integrity = 10
 	var/dissolving = FALSE
 
-/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction, var/count)
+/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction)
 	var/obj/structure/foamedmetal/resin/chainreact/R = locate(/obj/structure/foamedmetal/resin/chainreact) in get_step(get_turf(src), loc_direction)
 	if(istype(R))
-		R.start_the_chain(count)
+		addtimer(CALLBACK(R, PROC_REF(start_the_chain)), 0.5 SECONDS)
 	return
 
-/obj/structure/foamedmetal/resin/chainreact/proc/start_the_chain(var/count)
-	count = count + 1
-	if(count > 40)
-		dissapear()
-		return
-	if(dissolving)
-		return
-	dissapear()
-	find_nearby_foam(NORTH, count)
-	find_nearby_foam(EAST, count)
-	find_nearby_foam(SOUTH, count)
-	find_nearby_foam(WEST, count)
-	return
-
-/obj/structure/foamedmetal/resin/chainreact/proc/dissapear()
+/obj/structure/foamedmetal/resin/chainreact/proc/start_the_chain()
 	if(dissolving)
 		return
 	dissolving = TRUE
-	addtimer(CALLBACK(src, .proc/explosion, get_turf(src), 0, 0, 1), 10)
-	//explosion(get_turf(src), 0, 0, 1)
-	//addtimer(CALLBACK(src, explosion(get_turf(src), 0, 0, 1)),100)
-	dissolving = null
+	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), NORTH)
+	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), EAST)
+	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), SOUTH)
+	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), WEST)
+	addtimer(CALLBACK(src, PROC_REF(dissapear)), 1 SECONDS)
+	return
+
+/obj/structure/foamedmetal/resin/chainreact/proc/dissapear()
+	new /obj/effect/particle_effect/foam/dissipating(get_turf(src))
+	QDEL_NULL(src)
 	return
 
 
 /obj/structure/foamedmetal/resin/chainreact/attackby(obj/item/I, mob/living/user)
-	if(!istype(I, /obj/item/extinguisher/mini/nozzle))
+	if(istype(I, /obj/item/extinguisher/mini/nozzle))
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src, "smash", I)
+		playsound(user.loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
+		//addtimer(CALLBACK(src, PROC_REF(start_the_chain)), 0.5 SECONDS) //Dramatic effect
+		start_the_chain()
 		return
-		//explosion(get_turf(src), 0, 0, 1)
-	addtimer(CALLBACK(src, .proc/explosion, get_turf(src), 0, 0, 1), 10)
-	//dissapear()
-	//start_the_chain(0)
 	return ..()
+		//explosion(get_turf(src), 0, 0, 1)
+	//addtimer(CALLBACK(src, .proc/explosion, get_turf(src), 0, 0, 1), 10)
+	//dissapear()
 
 
 #undef ALUMINUM_FOAM
 #undef IRON_FOAM
 #undef RESIN_FOAM
+#undef RESIN_FOAM_CHAINREACT
