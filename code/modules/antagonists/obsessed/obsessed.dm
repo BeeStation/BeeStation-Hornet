@@ -108,9 +108,9 @@
 	var/datum/objective/protect/obsessed/yandere = new
 	yandere.owner = owner
 	yandere.set_target(obsession_mind)
-	var/datum/quirk/family_heirloom/family_heirloom
+	var/datum/quirk/family_heirloom/family_heirloom = locate() in obsession_mind.quirks
 
-	if(obsession_mind.has_quirk(/datum/quirk/family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
+	if(!QDELETED(family_heirloom?.heirloom))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
 	if(obsession_mind.assigned_role && obsession_mind.assigned_role != JOB_NAME_CAPTAIN)
