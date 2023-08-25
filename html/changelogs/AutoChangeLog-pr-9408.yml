@@ -1,0 +1,8 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: Changed how special/faction faxes work and removed all except centcom and
+      syndicate. Login is no longer required to use special faxes.
+  - admin: Removed old fax manager in favor of Requests Manager, added "Send Fax Message"
+      verb to send admin faxes via a menu.
+  - bugfix: Fixed runtime when ghosts tried to view paper.
