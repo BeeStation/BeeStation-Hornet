@@ -116,30 +116,38 @@
 			effectout = sparks
 
 	// perform the teleport
-	var/turf/curturf = get_turf(teleatom)
-	var/turf/destturf = get_teleport_turf(get_turf(destination), precision)
+	var/turf/cur_turf = get_turf(teleatom)
+	var/turf/dest_turf = get_teleport_turf(get_turf(destination), precision)
 
 	// ghosts get a free pass
 	if(isobserver(teleatom))
-		teleatom.abstract_move(destturf)
+		teleatom.abstract_move(dest_turf)
 		return TRUE
 
 	if(!ignore_check_teleport) // If we've already done it let's not check again
-		if(!check_teleport(teleatom, destturf, channel, forced, teleport_mode))
+		if(!check_teleport(teleatom, dest_turf, channel, forced, teleport_mode))
 			return FALSE
+
+	teleport_play_specials(teleatom, cur_turf, effectin, asoundin)
+
+	// Actually teleport them
+	var/success = teleatom.forceMove(dest_turf)
+	if (!success)
+		return FALSE
+
+	log_game("[key_name(teleatom)] has teleported from [loc_name(cur_turf)] to [loc_name(dest_turf)]")
+	teleport_play_specials(teleatom, dest_turf, effectout, asoundout)
 
 	// If we leave behind a wake, then create that here.
 	// Only leave a wake if we are going to a location that we can actually teleport to.
-	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC) && A.teleport_restriction == TELEPORT_MODE_DEFAULT && B.teleport_restriction == TELEPORT_MODE_DEFAULT && teleport_mode == TELEPORT_MODE_DEFAULT)
-		new /obj/effect/temp_visual/teleportation_wake(get_turf(teleatom), destturf)
+	if(!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC))
+		var/area/cur_area = cur_turf.loc
+		var/area/dest_area = dest_turf.loc
+		if(cur_area.teleport_restriction == TELEPORT_MODE_DEFAULT && dest_area.teleport_restriction == TELEPORT_MODE_DEFAULT && teleport_mode == TELEPORT_MODE_DEFAULT)
+			new /obj/effect/temp_visual/teleportation_wake(cur_turf, dest_turf)
 
-	tele_play_specials(teleatom, curturf, effectin, asoundin)
-	var/success = teleatom.forceMove(destturf)
-	if (success)
-		log_game("[key_name(teleatom)] has teleported from [loc_name(curturf)] to [loc_name(destturf)]")
-		teleport_play_specials(teleatom, destturf, effectout, asoundout)
-		if(ismegafauna(teleatom))
-			message_admins("[teleatom] [ADMIN_FLW(teleatom)] has teleported from [ADMIN_VERBOSEJMP(curturf)] to [ADMIN_VERBOSEJMP(destturf)].")
+	if(ismegafauna(teleatom))
+		message_admins("[teleatom] [ADMIN_FLW(teleatom)] has teleported from [ADMIN_VERBOSEJMP(cur_turf)] to [ADMIN_VERBOSEJMP(dest_turf)].")
 
 	if(ismob(teleatom))
 		var/mob/M = teleatom
