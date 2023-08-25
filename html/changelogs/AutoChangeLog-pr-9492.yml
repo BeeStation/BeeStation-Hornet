@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - code_imp: Cached \ref values for datums, reducing init time spent resolving qdel
-      refs
