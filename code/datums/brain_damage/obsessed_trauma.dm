@@ -1,5 +1,5 @@
 /// The amount of time spent near a target until the obsession trauma reveals its true form to health scanners
-#define OBSESSION_REVEAL_TIME				25 MINUTES
+#define OBSESSION_REVEAL_TIME				5 MINUTES
 #define OBSESSION_INSANITY_FLAVOR_COOLDOWN	1.5 MINUTES
 
 /datum/brain_trauma/special/obsessed
