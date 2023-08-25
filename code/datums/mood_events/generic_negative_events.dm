@@ -169,23 +169,27 @@
 	mood_change = -3
 	timeout = 2 MINUTES
 
-/datum/mood_event/notcreeping
+/datum/mood_event/obsessed_not_creeping
 	description = "<span class='warning'>The voices are not happy, and they painfully contort my thoughts into getting back on task.</span>\n"
 	mood_change = -6
-	timeout = 30
+	timeout = 3 SECONDS
 	hidden = TRUE
 
-/datum/mood_event/notcreepingsevere//not hidden since it's so severe
+/datum/mood_event/obsessed_not_creeping_severe//not hidden since it's so severe
 	description = "<span class='boldwarning'>THEY NEEEEEEED OBSESSIONNNN!!</span>\n"
 	mood_change = -30
-	timeout = 30
+	timeout = 3 SECONDS
 
-/datum/mood_event/notcreepingsevere/add_effects(name)
-	var/list/unstable = list(name)
-	for(var/i in 1 to rand(3,5))
-		unstable += copytext_char(name, -1)
-	var/unhinged = uppertext(unstable.Join(""))//example Tinea Luxor > TINEA LUXORRRR (with randomness in how long that slur is)
-	description = "<span class='boldwarning'>THEY NEEEEEEED [unhinged]!!</span>\n"
+/datum/mood_event/obsessed_not_creeping_severe/add_effects(name)
+	description = "<span class='boldwarning'>THEY NEEEEEEED <span class='name obsessedshadow'>[unhinged(name)]</span>!!</span>\n"
+
+/datum/mood_event/obsessed_saw_dead
+	description = "<span class='big boldwarning'>No... <i>no....</i> <span class='extremelybig hypnophrase'>NO</span>!! It can't be! Wake up, obsession, please wake up!</span>\n"
+	mood_change = -150
+	timeout = 3 MINUTES
+
+/datum/mood_event/obsessed_saw_dead/add_effects(name)
+	description = "<span class='big boldwarning'>No... no.... <span class='extremelybig hypnophrase'>NO</span>!! It can't be! Wake up, <span class='name obsessedshadow'>[name]</span>, please wake up!</span>\n"
 
 /datum/mood_event/sapped
 	description = "<span class='boldwarning'>Some unexplainable sadness is consuming me...</span>\n"

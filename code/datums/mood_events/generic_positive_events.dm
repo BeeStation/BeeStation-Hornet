@@ -91,9 +91,9 @@
 	special_screen_obj = "badass_sun"
 	special_screen_replace = FALSE
 
-/datum/mood_event/creeping
+/datum/mood_event/obsessed_creeping
 	description = "<span class='greentext'>The voices have released their hooks on my mind! I feel free again!</span>\n" //creeps get it when they are around their obsession
-	mood_change = 18
+	mood_change = 20
 	timeout = 3 SECONDS
 	hidden = TRUE
 

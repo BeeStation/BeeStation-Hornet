@@ -74,7 +74,7 @@
 	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
 		M.blood_volume = BLOOD_VOLUME_NORMAL
 
-	M.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
+	M.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC, special_method = TRUE)
 	for(var/organ in M.internal_organs)
 		var/obj/item/organ/O = organ
 		O.setOrganDamage(0)

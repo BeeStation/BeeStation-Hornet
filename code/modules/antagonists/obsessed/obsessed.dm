@@ -1,10 +1,11 @@
 /datum/antagonist/obsessed
 	name = "Obsessed"
-	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
-	banning_key = ROLE_OBSESSED
-	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
+	banning_key = ROLE_OBSESSED
+	show_in_antagpanel = TRUE
+	show_name_in_check_antagonists = TRUE
+	show_to_ghosts = TRUE
 	count_against_dynamic_roll_chance = FALSE
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.
 	var/datum/brain_trauma/special/obsessed/trauma
@@ -14,13 +15,23 @@
 	if(istype(_trauma))
 		trauma = _trauma
 
+/datum/antagonist/obsessed/antag_panel_data()
+	if(QDELETED(trauma))
+		return "<span class='red bold italics'>No valid trauma!</span>"
+	var/list/parts = list()
+	parts += "<b>Obsession:</b> [key_name(trauma.obsession)]"
+	parts += "<b>Time spent near obsession:</b> [DisplayTimeText(trauma.total_time_creeping)]"
+	parts += "<b>Hug count:</b> [trauma.obsession_hug_count]"
+	parts += "Actual trauma <b>[trauma.revealed ? "HAS" : "HAS NOT"]</b> been revealed (currently: <i>[trauma.scan_desc]</i>)"
+	return "<br>[parts.Join("<br>")]<br>"
+
 /datum/antagonist/obsessed/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/current = new_owner.current
 	if(!istype(current))
-		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to at least be a carbon!")
+		to_chat(admin, "[name] comes from a brain trauma, so they need to at least be a carbon!")
 		return
 	if(!current.getorgan(/obj/item/organ/brain)) // If only I had a brain
-		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to HAVE A BRAIN.")
+		to_chat(admin, "[name] comes from a brain trauma, so they need to HAVE A BRAIN.")
 		return
 	var/datum/mind/forced_target
 	if(tgui_alert(admin, "Would you like to force a specific obsession target?", "MY BELOVED", list("Yes", "No")) == "Yes")
@@ -32,7 +43,7 @@
 			var/name = key_name(mind)
 			targets[name] = mind
 			names |= name
-		var/forced_target_name = tgui_input_list(admin, "Select a target for the obsession", "MY BELOVED", sort_names(names))
+		var/forced_target_name = tgui_input_list(admin, "Select a target for the obsession", "MY BELOVED", sort_list(names))
 		if(forced_target_name)
 			forced_target = targets[forced_target_name]
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name][forced_target ? ", with [key_name_admin(forced_target)] as their obsession" : ""].")
@@ -40,14 +51,40 @@
 	//PRESTO FUCKIN MAJESTO
 	current.gain_trauma(/datum/brain_trauma/special/obsessed, null, forced_target)//ZAP
 
+/datum/antagonist/obsessed/get_admin_commands()
+	. = ..()
+	.["Set Obsession Target"] = CALLBACK(src, PROC_REF(admin_set_target))
+
+/datum/antagonist/obsessed/proc/admin_set_target(mob/admin)
+	if(QDELETED(trauma))
+		to_chat(admin, "<span class='danger'>Obsession trauma for [key_name_admin(owner)] doesn't exist!</span>")
+		return
+	var/datum/mind/new_obsession
+	var/list/targets = list()
+	var/list/names = list()
+	for(var/datum/mind/mind in SSticker.minds)
+		if(!mind.key || QDELETED(mind.current))
+			continue
+		var/name = key_name(mind)
+		targets[name] = mind
+		names |= name
+	var/target_name = tgui_input_list(admin, "Select a target for the obsession", "MY BELOVED", sort_list(names))
+	if(target_name)
+		new_obsession = targets[target_name]
+	if(QDELETED(new_obsession))
+		return
+	trauma.set_new_obsession(new_obsession)
+	message_admins("[key_name_admin(admin)] has set the [name] target of [key_name_admin(owner)] to [key_name_admin(new_obsession)].")
+	log_admin("[key_name(admin)] has set the [name] target of [key_name(owner)] to [key_name(new_obsession)].")
+
 /datum/antagonist/obsessed/greet()
 	if(!trauma?.obsession)
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-	to_chat(owner, "<span class='userdanger'>You are the Obsessed!</span>")
-	to_chat(owner, "<span class='bold'>Realization floods over you and everything that's happened this shift makes sense.</span>")
-	to_chat(owner, "<span class='bold'>[trauma.obsession.name] has no idea how much danger they're in and you're the only person that can be there for them.</span>")
-	to_chat(owner, "<span class='bold'>Nobody else can be trusted, they are all liars and will use deceit to stab you and [trauma.obsession.name] in the back as soon as they can.</span>")
+	to_chat(owner, "<span class='obsession big'>You are the Obsessed!</span>")
+	to_chat(owner, "<span class='obsession bold'>Realization floods over you and everything that's happened this shift makes sense.</span>")
+	to_chat(owner, "<span class='obsession bold'><span class='name obsessedshadow'>[trauma.obsession.name]</span> has no idea how much danger they're in and you're the only person that can be there for them.</span>")
+	to_chat(owner, "<span class='obsession bold'>Nobody else can be trusted, they are all liars and will use deceit to stab you and <span class='name obsessedshadow'>[trauma.obsession.name]</span> in the back as soon as they can.</span>")
 	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",

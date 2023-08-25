@@ -16,7 +16,7 @@
 	return "[output[1]]x[output[2]]"
 
 /proc/in_view_range(mob/user, atom/A)
-	var/list/view_range = getviewsize(user.client.view)
+	var/list/view_range = getviewsize(user.client?.view || world.view)
 	var/turf/source = get_turf(user)
 	var/turf/target = get_turf(A)
 	return ISINRANGE(target.x, source.x - view_range[1], source.x + view_range[1]) && ISINRANGE(target.y, source.y - view_range[1], source.y + view_range[1])

@@ -1029,6 +1029,28 @@ em {
   }
 }
 
+.obsession {
+  color: #980002;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+.obsessedshadow {
+  font-weight: bold;
+  animation: obsessedshadow 1500ms infinite;
+  animation-direction: alternate;
+}
+@keyframes obsessedshadow {
+  0% {
+    text-shadow: 0 0 5px #202020;
+  }
+  50% {
+    text-shadow: 0 0 5px #4b02ac;
+  }
+  100% {
+    text-shadow: 0 0 3px #9f41f1;
+  }
+}
+
 .phobia {
   color: #dd0000;
   font-weight: bold;

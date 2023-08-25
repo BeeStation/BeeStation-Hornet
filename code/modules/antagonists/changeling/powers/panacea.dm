@@ -44,7 +44,7 @@
 		L.drunkenness = 0
 		L.setToxLoss(0, 0)
 		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -100)
-		L.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
+		L.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY, special_method = TRUE)
 		for(var/thing in L.diseases)
 			var/datum/disease/D = thing
 			if(D.danger == DISEASE_POSITIVE || D.danger == DISEASE_BENEFICIAL || D.spread_flags == DISEASE_SPREAD_SPECIAL)

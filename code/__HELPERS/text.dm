@@ -1120,3 +1120,13 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	if(!.)
 		. = "not measurable. Ask the space god for what's wrong with this drink."
 		CRASH("not valid booze power value is detected: [booze_power]")
+
+/**
+ * Makes a name seem more 'unhinged', i.e:
+ * Tinea Luxor -> TINEA LUXORRRR (with randomness in how long that slur is)
+ */
+/proc/unhinged(name, slur_min = 3, slur_max = 5)
+	var/list/unstable = list(name)
+	for(var/i in 1 to rand(slur_min, slur_max))
+		unstable += copytext_char(name, -1)
+	return uppertext(unstable.Join(""))
