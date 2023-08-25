@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// List of themes for this device to allow.
 	var/list/allowed_themes
 	/// Color used for the Thinktronic Classic theme.
-	var/classic_color = "#808000"
+	var/classic_color = COLOR_OLIVE
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
 	var/hardware_flag = 0									// A flag that describes this device type
 	var/last_power_usage = 0

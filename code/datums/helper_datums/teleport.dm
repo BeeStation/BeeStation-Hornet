@@ -72,8 +72,9 @@
  * * forced: Do we ignore atom and area TRAIT_NO_TELEPORT restrictions, defaults to FALSE
  * * teleport_mode: Teleport mode which allows ONLY clockies and abductors to teleport in their area, and other restrictions
  * * ignore_check_teleport: Set this to true ONLY IF you already run check_teleport()
+ * * no_wake: Do not produce a teleportation wake which players can follow with a handtele
  */
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision = null, datum/effect_system/effectin = null, datum/effect_system/effectout = null, asoundin = null, asoundout = null, no_effects = FALSE, channel = TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT, ignore_check_teleport = FALSE)
+/proc/do_teleport(atom/movable/teleatom, atom/destination, precision = null, datum/effect_system/effectin = null, datum/effect_system/effectout = null, asoundin = null, asoundout = null, no_effects = FALSE, channel = TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT, ignore_check_teleport = FALSE, no_wake = FALSE)
 	// teleporting most effects just deletes them
 	var/static/list/delete_atoms = typecacheof(list(
 		/obj/effect,
@@ -127,8 +128,12 @@
 		if(!check_teleport(teleatom, destturf, channel, forced, teleport_mode))
 			return FALSE
 
-	// Successful Teleport
-	teleport_play_specials(teleatom, curturf, effectin, asoundin)
+	// If we leave behind a wake, then create that here.
+	// Only leave a wake if we are going to a location that we can actually teleport to.
+	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC) && A.teleport_restriction == TELEPORT_MODE_DEFAULT && B.teleport_restriction == TELEPORT_MODE_DEFAULT && teleport_mode == TELEPORT_MODE_DEFAULT)
+		new /obj/effect/temp_visual/teleportation_wake(get_turf(teleatom), destturf)
+
+	tele_play_specials(teleatom, curturf, effectin, asoundin)
 	var/success = teleatom.forceMove(destturf)
 	if (success)
 		log_game("[key_name(teleatom)] has teleported from [loc_name(curturf)] to [loc_name(destturf)]")
@@ -291,3 +296,54 @@
 		return COMPONENT_BLOCK_TELEPORT
 
 	return COMPONENT_ALLOW_TELEPORT
+
+/obj/effect/temp_visual/teleportation_wake
+	name = "slipspace wake"
+	duration = 30 SECONDS
+	randomdir = FALSE
+	icon = 'icons/effects/effects.dmi'
+	icon_state = null
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	hud_possible = list(DIAG_WAKE_HUD)
+	var/turf/destination
+	var/has_hud_icon = FALSE
+
+/obj/effect/temp_visual/teleportation_wake/Initialize(mapload, turf/destination)
+	// Replace any portals on the current turf
+	for (var/obj/effect/temp_visual/teleportation_wake/conflicting_portal in loc)
+		if (conflicting_portal == src)
+			continue
+		conflicting_portal.destination = destination
+		return INITIALIZE_HINT_QDEL
+	. = ..()
+	src.destination = destination
+	prepare_huds()
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_to_hud(src)
+	var/image/holder = hud_list[DIAG_WAKE_HUD]
+	var/mutable_appearance/MA = new /mutable_appearance()
+	MA.icon = 'icons/effects/effects.dmi'
+	MA.icon_state = "bluestream"
+	MA.layer = ABOVE_OPEN_TURF_LAYER
+	MA.plane = GAME_PLANE
+	holder.appearance = MA
+	has_hud_icon = TRUE
+
+/obj/effect/temp_visual/teleportation_wake/Destroy()
+	if (has_hud_icon)
+		for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+			diag_hud.remove_from_hud(src)
+	return ..()
+
+/obj/effect/temp_visual/portal_opening
+	name = "Portal Opening"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "portal"
+	alpha = 0
+	duration = 11 SECONDS
+
+/obj/effect/temp_visual/portal_opening/Initialize(mapload)
+	. = ..()
+	transform = matrix() * 0
+	animate(src, time = 10 SECONDS, transform = matrix(), alpha = 255)
+	animate(time = 0.5 SECONDS, transform = matrix() * 0, alpha = 0)

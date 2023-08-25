@@ -2940,7 +2940,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/disabler,
+/obj/effect/loot_jobscale/armoury/disabler,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "asw" = (
@@ -11291,8 +11291,8 @@
 	c_tag = "Armory Motion Sensor"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_vest,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_helmet,
+/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/loot_jobscale/armoury/bulletproof_helmet,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "bKH" = (
@@ -13831,10 +13831,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
-"bXY" = (
-/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bYe" = (
@@ -18297,10 +18293,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"cBP" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/air,
-/area/engine/atmos)
 "cBQ" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
@@ -24382,9 +24374,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_suit,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shield,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_helmet,
+/obj/effect/loot_jobscale/armoury/riot_suit,
+/obj/effect/loot_jobscale/armoury/riot_shield,
+/obj/effect/loot_jobscale/armoury/riot_helmet,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "fem" = (
@@ -34322,7 +34314,7 @@
 	red_alert_access = 1;
 	req_access_txt = "5"
 	},
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "kbn" = (
@@ -35958,7 +35950,7 @@
 	pixel_x = -3
 	},
 /obj/item/assembly/flash/handheld,
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
@@ -38248,7 +38240,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/energy_gun,
+/obj/effect/loot_jobscale/armoury/energy_gun,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "lPJ" = (
@@ -42202,7 +42194,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/laser_gun,
+/obj/effect/loot_jobscale/armoury/laser_gun,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "nQK" = (
@@ -45697,7 +45689,7 @@
 /obj/item/beacon/nettingportal,
 /obj/item/gun/grenadelauncher/security,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/dragnet,
+/obj/effect/loot_jobscale/armoury/dragnet,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "pJT" = (
@@ -55462,7 +55454,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shotgun,
+/obj/effect/loot_jobscale/armoury/riot_shotgun,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "ukk" = (
@@ -55609,7 +55601,7 @@
 	red_alert_access = 1;
 	req_access_txt = "5"
 	},
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "uoc" = (
@@ -56090,7 +56082,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "uCq" = (
@@ -61741,7 +61733,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/job_scale/medical/first_aid_kit,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "xBJ" = (
@@ -97381,7 +97373,7 @@ upK
 ckV
 clb
 cla
-cBP
+cmW
 cmW
 bLK
 aaa
@@ -99421,7 +99413,7 @@ bTW
 bUW
 bTW
 bLK
-bXY
+bXW
 bYW
 bXW
 bLK

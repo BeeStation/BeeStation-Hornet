@@ -111,7 +111,8 @@
 		choosable_races = sort_list(choosable_races)
 
 /obj/structure/mirror/magic/lesser/Initialize(mapload)
-	choosable_races = GLOB.roundstart_races.Copy()
+	var/list/selectable = get_selectable_species()
+	choosable_races = selectable.Copy()
 	return ..()
 
 /obj/structure/mirror/magic/badmin/Initialize(mapload)
@@ -248,7 +249,7 @@
 
 
 //basically stolen from human_defense.dm
-/obj/structure/mirror/bullet_act(obj/item/projectile/P)
+/obj/structure/mirror/bullet_act(obj/projectile/P)
 	if(P.reflectable & REFLECT_NORMAL)
 		if(P.starting)
 			var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)

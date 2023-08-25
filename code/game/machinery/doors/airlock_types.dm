@@ -226,7 +226,7 @@
 		if(plasma_ignition(6))
 			PlasmaBurn()
 
-/obj/machinery/door/airlock/plasma/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/door/airlock/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
 		if(plasma_ignition(6, Proj?.firer))
 			PlasmaBurn()

@@ -302,7 +302,7 @@
 
 	var/desired_size = GLOB.body_sizes[features["body_size"]]
 
-	if(desired_size == current_body_size)
+	if(desired_size == current_body_size || current_body_size == 0)
 		return
 
 	var/change_multiplier = desired_size / current_body_size
@@ -401,7 +401,7 @@
 /mob/living/carbon/proc/create_dna()
 	dna = new /datum/dna(src)
 	if(!dna.species)
-		var/rando_race = pick(GLOB.roundstart_races)
+		var/rando_race = pick(get_selectable_species())
 		dna.species = new rando_race()
 
 //proc used to update the mob's appearance after its dna UI has been changed
@@ -468,7 +468,7 @@
 
 //Return the active mutation of a type if there is one
 /datum/dna/proc/get_mutation(A)
-	for(var/datum/mutation/HM as() in mutations)
+	for(var/datum/mutation/HM in mutations)
 		if(HM.type == A)
 			return HM
 

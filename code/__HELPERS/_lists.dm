@@ -342,6 +342,41 @@
 
 	return null
 
+/// Takes a weighted list (see above) and expands it into raw entries
+/// This eats more memory, but saves time when actually picking from it
+/proc/expand_weights(list/list_to_pick)
+	var/list/values = list()
+	for(var/item in list_to_pick)
+		var/value = list_to_pick[item]
+		if(!value)
+			continue
+		values += value
+
+	var/gcf = greatest_common_factor(values)
+
+	var/list/output = list()
+	for(var/item in list_to_pick)
+		var/value = list_to_pick[item]
+		if(!value)
+			continue
+		for(var/i in 1 to value / gcf)
+			output += item
+	return output
+
+/// Takes a list of numbers as input, returns the highest value that is cleanly divides them all
+/// Note: this implementation is expensive as heck for large numbers, I only use it because most of my usecase
+/// Is < 10 ints
+/proc/greatest_common_factor(list/values)
+	var/smallest = min(arglist(values))
+	for(var/i in smallest to 1 step -1)
+		var/safe = TRUE
+		for(var/entry in values)
+			if(entry % i != 0)
+				safe = FALSE
+				break
+		if(safe)
+			return i
+
 /// Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/list_to_pick)
 	RETURN_TYPE(list_to_pick[_].type)
@@ -679,11 +714,26 @@
 		else
 			L1[key] = other_value
 
-/proc/assoc_list_strip_value(list/input)
-	var/list/ret = list()
+/// Turns an associative list into a flat list of keys
+/proc/assoc_to_keys(list/input)
+	var/list/keys = list()
 	for(var/key in input)
-		ret += key
-	return ret
+		keys += key
+	return keys
+
+/// Checks if a value is contained in an associative list's values
+/proc/assoc_contains_value(list/input, check_for)
+	for(var/key in input)
+		if(input[key] == check_for)
+			return TRUE
+	return FALSE
+
+/// Gets the first key that contains the given value in an associative list, otherwise, returns null.
+/proc/assoc_key_for_value(list/input, check_for)
+	for(var/key in input)
+		if(input[key] == check_for)
+			return key
+	return null
 
 /proc/compare_list(list/l,list/d)
 	if(!islist(l) || !islist(d))

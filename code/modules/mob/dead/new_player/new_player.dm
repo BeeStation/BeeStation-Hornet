@@ -119,7 +119,10 @@
 		relevant_cap = max(hpc, epc)
 
 	if(href_list["show_preferences"])
-		client.prefs.ShowChoices(src)
+		var/datum/preferences/preferences = client.prefs
+		preferences.current_window = PREFERENCE_TAB_CHARACTER_PREFERENCES
+		preferences.update_static_data(usr)
+		preferences.ui_interact(usr)
 		return 1
 
 	if(href_list["ready"])
@@ -149,7 +152,7 @@
 			return
 
 		if(SSticker.queued_players.len || (relevant_cap && living_player_count() >= relevant_cap))
-			if(IS_PATRON(src.ckey) || (client in GLOB.admins))
+			if(IS_PATRON(src.ckey) || is_admin(src.ckey))
 				LateChoices()
 				return
 			to_chat(usr, "<span class='danger'>[CONFIG_GET(string/hard_popcap_message)]</span>")
@@ -177,7 +180,7 @@
 			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 			return
 
-		if(SSticker.queued_players.len && !(ckey(key) in GLOB.admin_datums) && !IS_PATRON(ckey(key)))
+		if(SSticker.queued_players.len && !is_admin(ckey(key)) && !IS_PATRON(ckey(key)))
 			if((living_player_count() >= relevant_cap) || (src != SSticker.queued_players[1]))
 				to_chat(usr, "<span class='warning'>Server is full.</span>")
 				return
@@ -210,7 +213,11 @@
 	if(!force_observe)
 		this_is_like_playing_right = tgui_alert(src, "Are you sure you wish to observe? You will not be able to play this round!", "Player Setup", list("Yes", "No"))
 
-	if(QDELETED(src) || !src.client || this_is_like_playing_right != "Yes")
+	if(QDELETED(src) || !src.client)
+		ready = PLAYER_NOT_READY
+		return FALSE
+
+	if(this_is_like_playing_right != "Yes")
 		ready = PLAYER_NOT_READY
 		src << browse(null, "window=playersetup") //closes the player setup window
 		new_player_panel()
@@ -232,7 +239,7 @@
 	observer.client = client
 	observer.set_ghost_appearance()
 	if(observer.client && observer.client.prefs)
-		observer.real_name = observer.client.prefs.active_character.real_name
+		observer.real_name = observer.client.prefs.read_character_preference(/datum/preference/name/real_name)
 		observer.name = observer.real_name
 	observer.update_icon()
 	observer.stop_sound_channel(CHANNEL_LOBBYMUSIC)
@@ -438,22 +445,16 @@
 	popup.set_content(jointext(dat, ""))
 	popup.open(FALSE) // 0 is passed to open so that it doesn't use the onclose() proc
 
+/// Creates, assigns and returns the new_character to spawn as. Assumes a valid mind.assigned_role exists.
 /mob/dead/new_player/proc/create_character(transfer_after)
-	spawning = 1
+	spawning = TRUE
 	close_spawn_windows()
 
 	var/mob/living/carbon/human/H = new(loc)
 
-	var/frn = CONFIG_GET(flag/force_random_names)
-	if(!frn)
-		frn = is_banned_from(ckey, "Appearance")
-		if(QDELETED(src))
-			return
-	if(frn)
-		client.prefs.active_character.randomise()
-		client.prefs.active_character.real_name = client.prefs.active_character.pref_species.random_name(gender,1)
-	client.prefs.active_character.copy_to(H)
-	H.dna.update_dna_identity()
+	H.apply_prefs_job(client, SSjob.GetJob(mind.assigned_role))
+	if(QDELETED(src) || !client)
+		return // Disconnected while checking for the appearance ban.
 	if(mind)
 		if(transfer_after)
 			mind.late_joiner = TRUE
@@ -508,11 +509,11 @@
 /mob/dead/new_player/proc/check_preferences()
 	if(!client)
 		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
-	if(client.prefs.active_character.joblessrole != RETURNTOLOBBY)
+	if(client.prefs.read_character_preference(/datum/preference/choiced/jobless_role) != RETURNTOLOBBY)
 		return TRUE
 	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
-	var/has_antags = (length(client.prefs.role_preferences) + length(client.prefs.active_character?.role_preferences_character)) > 0
-	if(!length(client.prefs.active_character.job_preferences))
+	var/has_antags = (length(client.prefs.role_preferences_global) + length(client.prefs.role_preferences)) > 0
+	if(!length(client.prefs.job_preferences))
 		if(!ineligible_for_roles)
 			to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
 		ineligible_for_roles = TRUE

@@ -55,7 +55,7 @@
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
 	var/mob/living/L = owner
-	if(L.IsInStasis())
+	if(IS_IN_STASIS(L))
 		return
 	if(!next_stage_time)
 		COOLDOWN_START(src, next_stage_time, 30 SECONDS)

@@ -2508,12 +2508,6 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
-"hu" = (
-/obj/machinery/gateway/centeraway,
-/turf/open/floor/plasteel/dark{
-	heat_capacity = 1e+006
-	},
-/area/awaymission/undergroundoutpost45/gateway)
 "hw" = (
 /obj/structure/chair{
 	dir = 8
@@ -10728,6 +10722,21 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/engineering)
+"FA" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
+/obj/item/restraints/handcuffs,
+/obj/item/assembly/flash/handheld,
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/structure/closet/secure_closet{
+	icon_state = "sec";
+	name = "security officer's locker";
+	req_access_txt = "201"
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/awaymission/undergroundoutpost45/research)
 "FH" = (
 /obj/structure/closet/secure_closet{
 	icon_state = "hydro";
@@ -10813,21 +10822,6 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/mining)
-"Gh" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
-/obj/item/restraints/handcuffs,
-/obj/item/assembly/flash/handheld,
-/obj/item/reagent_containers/spray/pepper,
-/obj/structure/closet/secure_closet{
-	icon_state = "sec";
-	name = "security officer's locker";
-	req_access_txt = "201"
-	},
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/awaymission/undergroundoutpost45/research)
 "Gi" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -12598,6 +12592,12 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
+"Yg" = (
+/obj/machinery/gateway/centeraway,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/awaymission/undergroundoutpost45/gateway)
 "Yo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -32472,7 +32472,7 @@ ad
 gv
 gJ
 Zk
-hu
+Yg
 LS
 iu
 iP
@@ -40710,7 +40710,7 @@ zR
 DX
 Ev
 Ev
-Gh
+FA
 pL
 qp
 qV

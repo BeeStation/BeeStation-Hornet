@@ -86,9 +86,10 @@
 		user.update_action_buttons_icon() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.
 
 /obj/item/clothing/mask/compile_monkey_icon()
+	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing
 	//If the icon, for this type of item, is already made by something else, don't make it again
-	if(GLOB.monkey_icon_cache[type])
-		monkey_icon = GLOB.monkey_icon_cache[type]
+	if(GLOB.monkey_icon_cache[identity])
+		monkey_icon = GLOB.monkey_icon_cache[identity]
 		return
 
 	//Start with two sides
@@ -115,4 +116,4 @@
 
 	//Finished
 	monkey_icon = main
-	GLOB.monkey_icon_cache[type] = icon(monkey_icon)
+	GLOB.monkey_icon_cache[identity] = icon(monkey_icon)

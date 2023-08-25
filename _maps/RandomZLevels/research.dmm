@@ -396,10 +396,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/research/interior/gateway)
-"bT" = (
-/obj/machinery/gateway/centeraway,
-/turf/open/floor/plasteel/dark,
-/area/awaymission/research/interior/gateway)
 "bU" = (
 /obj/machinery/gateway{
 	dir = 4
@@ -2460,14 +2456,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior)
-"pY" = (
-/obj/item/reagent_containers/spray/pepper,
-/obj/effect/decal/cleanable/blood/drip,
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/awaymission/research/interior/cryo)
 "qa" = (
 /mob/living/simple_animal/hostile/syndicate,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -2991,6 +2979,20 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior/cryo)
+"yP" = (
+/obj/structure/table,
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/machinery/button/door{
+	id = "cryopodg1";
+	name = "panic lockdown button"
+	},
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/research/interior/genetics)
 "za" = (
 /obj/effect/mob_spawn/human/engineer{
 	brute_damage = 200
@@ -3180,6 +3182,19 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior/escapepods)
+"Br" = (
+/obj/structure/table,
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/machinery/button/door{
+	id = "cryopodg2";
+	name = "panic lockdown button"
+	},
+/obj/machinery/airalarm{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/research/interior/genetics)
 "Bw" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -3362,6 +3377,10 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior)
+"DG" = (
+/obj/machinery/gateway/centeraway,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/research/interior/gateway)
 "DK" = (
 /obj/machinery/airalarm{
 	pixel_y = 32
@@ -3837,6 +3856,14 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior/security)
+"KN" = (
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/awaymission/research/interior/cryo)
 "KP" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -4389,20 +4416,6 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior/engineering)
-"Ui" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/pepper,
-/obj/machinery/button/door{
-	id = "cryopodg1";
-	name = "panic lockdown button"
-	},
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/awaymission/research/interior/genetics)
 "Uk" = (
 /obj/item/stack/sheet/plasteel,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -4755,19 +4768,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior)
-"ZQ" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/pepper,
-/obj/machinery/button/door{
-	id = "cryopodg2";
-	name = "panic lockdown button"
-	},
-/obj/machinery/airalarm{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/awaymission/research/interior/genetics)
 "ZZ" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
@@ -33411,7 +33411,7 @@ ji
 ji
 bl
 bB
-bT
+DG
 bZ
 ck
 bz
@@ -37527,7 +37527,7 @@ ji
 aH
 cd
 cx
-ZQ
+Br
 HB
 HB
 AU
@@ -38051,7 +38051,7 @@ Yb
 KB
 TV
 Go
-pY
+KN
 KB
 Eo
 ea
@@ -38059,7 +38059,7 @@ HB
 AU
 SP
 HB
-Ui
+yP
 cx
 cd
 id
