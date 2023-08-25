@@ -56,7 +56,42 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">25 August 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Added logs for when mobs stop pulling other mobs</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Chapel, Law office, virology, morgue, chemistry, genetics, cargo bay and tech storage will now have their airlock shock wires labelled.</li>
+				<li class="balance">Electricuted airlocks will no longer shock people with the UI open, only when performing a pulse action or using a multitool on the door for the first time. This means that low tier airlocks are now safe to hack.</li>
+				<li class="balance">Airlocks now have an indication when they are shocked (Test light is bright and flickering).</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Changed how special/faction faxes work and removed all except centcom and syndicate. Login is no longer required to use special faxes.</li>
+				<li class="admin">Removed old fax manager in favor of Requests Manager, added "Send Fax Message" verb to send admin faxes via a menu.</li>
+				<li class="bugfix">Fixed runtime when ghosts tried to view paper.</li>
+				<li class="code_imp">Cached \ref values for datums, reducing init time spent resolving qdel refs</li>
+			</ul>
+
+			<h2 class="date">23 August 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Xenos, morphs, and nightmares can no longer spawn in the atmos gas tanks.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend, HowToLoLu(sprite) updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">You can now print 'nullifiers' from Genetics console.</li>
+				<li class="tweak">handheld genetic sequence scanner now tells the genetic stability level</li>
+				<li class="imageadd">dna nullifier sprite</li>
+			</ul>
+
 			<h2 class="date">22 August 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the logging for the gas tanks rupturing not working correctly</li>
+			</ul>
 			<h3 class="author">bluezorua updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscdel">Certain Medical Banners on some maps no longer magically heal</li>
@@ -1132,70 +1167,6 @@
 			<h3 class="author">Rukofamicom updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscdel">Replaces the barber's chainsaw with a hatchet because the baboons won't stop valid-hunting with the chainsaw.</li>
-			</ul>
-
-			<h2 class="date">23 June 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Vendors now vend into hand</li>
-			</ul>
-			<h3 class="author">PowerfulBacon, MrStonedOne updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Admins making SDQL requests from the command line will need to confirm their action before running it.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed exploit in CentCom faxes</li>
-			</ul>
-
-			<h2 class="date">22 June 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">The option to highlight your own chat messages works once again.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Changes the way item pickup works in order to reduce overtime from sending images to all clients in the game.</li>
-				<li class="tweak">Optimises turf decal init time slightly</li>
-				<li class="bugfix">Speeds up init times by reducing the amount of work to load space turfs.</li>
-			</ul>
-			<h3 class="author">RKz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">medhud medical eval doesnt time out immediately</li>
-			</ul>
-
-			<h2 class="date">21 June 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Updating the tool speed of an arm implant will now update the tool speed of all of its stored items.</li>
-				<li class="admin">Added VV options to add/remove items from arm implants.</li>
-			</ul>
-			<h3 class="author">Absolucy, SomeRandomOwl, stanalbatross, thedonkified updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Modified the Play Internet Sound Verb so it now displays extra info about any song being actively played as well as showing the link</li>
-				<li class="rscadd">added the ability to make up to 10 individual highlights in tgchat, customise their colours, and toggle if they highlight the whole message or not. Ported from CM and /tg/.</li>
-				<li class="rscadd">you can now use regex for text highlighting. The syntax is /[regex expression]/, eg /dog[0-9]/. There are no quantifiers, but you can use capture groups. The regex must read a minimum of two characters.</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Crafting menu now shows icons</li>
-				<li class="rscadd">icon_state_preview variable to atom. this is used as an icon preview without being changed.</li>
-				<li class="imageadd">bolas image references without frames. (bola_ref, gonbola_ref, bola_watcher_ref)</li>
-				<li class="bugfix">fixed a possible minor bug in morph UI</li>
-				<li class="bugfix">fixed 'Pingles.png' bad name format in dmi.</li>
-			</ul>
-			<h3 class="author">Haliris updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="spellcheck">fixed atmosbots displaying their temperature in Celsius rather than Kelvin.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes projectiles sometimes failing to be blocked.</li>
-				<li class="bugfix">Fixes an exploit regarding limb grower categories.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed an exploit that allowed for gentle crossbreed cooldowns to be bypassed. They now properly mirror luminescent behavior.</li>
 			</ul>
 		</div>
 
