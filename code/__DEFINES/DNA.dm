@@ -47,15 +47,16 @@
 #define BADBLINK	/datum/mutation/badblink
 #define SPASTIC		/datum/mutation/spastic
 #define EXTRASTUN	/datum/mutation/extrastun
-#define GELADIKINESIS		/datum/mutation/geladikinesis
-#define CRYOKINESIS /datum/mutation/cryokinesis
-#define CLUWNEMUT   /datum/mutation/cluwne
-#define WAXSALIVA   /datum/mutation/wax_saliva
-#define STRONGWINGS /datum/mutation/strongwings
-#define CATCLAWS    /datum/mutation/catclaws
-#define OVERLOAD    /datum/mutation/overload
-#define ACIDOOZE    /datum/mutation/acidooze
-#define MEDIEVAL    /datum/mutation/medieval
+#define GELADIKINESIS	/datum/mutation/geladikinesis
+#define CRYOKINESIS 	/datum/mutation/cryokinesis
+#define CLUWNEMUT   	/datum/mutation/cluwne
+#define CURSEDCLUWNEMUT	/datum/mutation/cluwne/cursed
+#define WAXSALIVA		/datum/mutation/wax_saliva
+#define STRONGWINGS		/datum/mutation/strongwings
+#define CATCLAWS		/datum/mutation/catclaws
+#define OVERLOAD		/datum/mutation/overload
+#define ACIDOOZE		/datum/mutation/acidooze
+#define MEDIEVAL		/datum/mutation/medieval
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"

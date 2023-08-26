@@ -3,6 +3,8 @@
 	desc = "Turns a person into a Cluwne, a poor soul cursed to a short and miserable life by the honkmother."
 	quality = NEGATIVE
 	locked = TRUE
+	mutadone_proof = TRUE
+	var/list/datum/weakref/clothing_weakrefs = list()
 
 /datum/mutation/cluwne/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -10,32 +12,20 @@
 	owner.dna.add_mutation(CLOWNMUT)
 	owner.dna.add_mutation(EPILEPSY)
 	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
-
-	playsound(owner.loc, 'sound/misc/bikehorn_creepy.ogg', 50, 1)
+	playsound(owner.loc, 'sound/misc/bikehorn_creepy.ogg', vol = 50, vary = TRUE)
 	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), ITEM_SLOT_BACK) // this is purely for cosmetic purposes incase they aren't wearing anything in that slot
-	if(!istype(owner.wear_mask, /obj/item/clothing/mask/cluwne))
-		if(!owner.doUnEquip(owner.wear_mask))
-			qdel(owner.wear_mask)
-		owner.equip_to_slot_or_del(new /obj/item/clothing/mask/cluwne(owner), ITEM_SLOT_MASK)
-
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		if(!istype(H.w_uniform, /obj/item/clothing/under/cluwne))
-			if(!H.doUnEquip(H.w_uniform))
-				qdel(H.w_uniform)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/cluwne(H), ITEM_SLOT_ICLOTHING)
-		if(!istype(H.shoes, /obj/item/clothing/shoes/cluwne))
-			if(!H.doUnEquip(H.shoes))
-				qdel(H.shoes)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/cluwne(H), ITEM_SLOT_FEET)
-		owner.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/white(owner), ITEM_SLOT_GLOVES) // ditto
+	equip_cursed_clothing(/obj/item/clothing/mask/cluwne, ITEM_SLOT_MASK)
+	equip_cursed_clothing(/obj/item/clothing/under/cluwne, ITEM_SLOT_ICLOTHING)
+	equip_cursed_clothing(/obj/item/clothing/shoes/cluwne, ITEM_SLOT_FEET)
+	equip_cursed_clothing(/obj/item/clothing/gloves/color/white, ITEM_SLOT_GLOVES)
+	owner.regenerate_icons()
 
 /datum/mutation/cluwne/on_life()
 	if(prob(15) && owner.IsUnconscious())
 		owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
 		switch(rand(1, 6))
 			if(1)
-				owner.say("HONK")
+				owner.say("HONK", forced = "cluwne")
 			if(2 to 5)
 				owner.emote("scream")
 			if(6)
@@ -44,17 +34,42 @@
 				owner.Jitter(500)
 
 /datum/mutation/cluwne/on_losing(mob/living/carbon/owner)
+	owner.emote("scream")
+	owner.visible_message("<span class='warning'><span class='name'>[owner]</span> faints as [owner.p_their()] cursed cluwne clothing melts away!</span>")
+	owner.Unconscious(rand(45 SECONDS, 70 SECONDS))
+	owner.dna.remove_mutation(CLOWNMUT)
+	owner.dna.remove_mutation(EPILEPSY)
+	for(var/datum/weakref/clothing_weakref in clothing_weakrefs)
+		var/obj/item/clothing/clothing = clothing_weakref.resolve()
+		if(QDELETED(clothing))
+			continue
+		if(!owner.doUnEquip(clothing, force = TRUE, silent = TRUE))
+			qdel(clothing)
+	clothing_weakrefs.Cut()
+
+/datum/mutation/cluwne/proc/equip_cursed_clothing(type, slot)
+	var/obj/item/clothing/original_clothing = owner.get_item_by_slot(slot)
+	if(istype(original_clothing, type))
+		return
+	if(!QDELETED(original_clothing) && !owner.doUnEquip(original_clothing, silent = TRUE))
+		qdel(original_clothing)
+	var/obj/item/clothing/cursed_clothing = new type(owner)
+	if(owner.equip_to_slot_or_del(cursed_clothing, slot))
+		clothing_weakrefs += WEAKREF(cursed_clothing)
+
+/mob/living/carbon/proc/cluwneify(cursed = FALSE)
+	dna.add_mutation(cursed ? CURSEDCLUWNEMUT : CLUWNEMUT)
+	emote("scream")
+	visible_message("<span class='danger'><span class='name'>[src]'s</span> body glows green, the glow dissipating only to leave behind a cluwne formerly known as <span class='name'>[src]</span>!</span>", \
+					"<span class='danger'>Your brain feels like it's being torn apart, there is only the honkmother now.</span>")
+	flash_act(override_blindness_check = TRUE)
+	client?.give_award(/datum/award/achievement/misc/cluwne, src)
+
+/datum/mutation/cluwne/cursed
+	mutadone_proof = FALSE // we have our own on_losing handler
+	scrambled = TRUE
+
+/datum/mutation/cluwne/cursed/on_losing(mob/living/carbon/owner)
 	owner.adjust_fire_stacks(1)
 	owner.IgniteMob()
-	owner.dna.add_mutation(CLUWNEMUT)
-
-/mob/living/carbon/proc/cluwneify()
-	dna.add_mutation(CLUWNEMUT)
-	emote("scream")
-	regenerate_icons()
-	visible_message("<span class='danger'>[src]'s body glows green, the glow dissipating only to leave behind a cluwne formerly known as [src]!</span>", \
-					"<span class='danger'>Your brain feels like it's being torn apart, there is only the honkmother now.</span>")
-	flash_act()
-
-	if (client)
-		client.give_award(/datum/award/achievement/misc/cluwne, src)
+	owner.dna.add_mutation(CURSEDCLUWNEMUT)
