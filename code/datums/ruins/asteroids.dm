@@ -2,8 +2,8 @@
 #define RUIN_ARTIFACT 1
 #define RUIN_LEGENDARY 3
 #define RUIN_RARE 6
-#define RUIN_UNCOMMON 10
-#define RUIN_COMMON 18
+#define RUIN_UNCOMMON 9
+#define RUIN_COMMON 15
 
 /datum/map_template/asteroid
 	var/weight = 10
@@ -26,3 +26,15 @@
 /datum/map_template/asteroid/cult_altar
 	name = "cult_alter"
 	weight = RUIN_LEGENDARY
+
+/datum/map_template/asteroid/mining_mech
+	name = "mining_mech"
+	weight = RUIN_RARE
+
+/datum/map_template/asteroid/survival_pod
+	name = "survival_pod"
+	weight = RUIN_UNCOMMON
+
+/datum/map_template/asteroid/lava_ruin
+	name = "lava_ruin"
+	weight = RUIN_UNCOMMON

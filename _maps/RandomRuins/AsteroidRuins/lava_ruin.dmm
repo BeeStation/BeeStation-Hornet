@@ -1,0 +1,744 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aY" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"ch" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"cF" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/stone_tile/center,
+/obj/item/candle/infinite,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"cZ" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/glowshroom/single{
+	icon_state = "glowshroom3"
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"dk" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 9
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 6
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/open/lava/smooth,
+/area/space)
+"ee" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"ei" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/turf/open/lava/smooth/lava_land_surface,
+/area/space)
+"eC" = (
+/obj/structure/stone_tile/center,
+/obj/structure/glowshroom/single,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"fn" = (
+/obj/structure/stone_tile/surrounding,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"hu" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"hU" = (
+/turf/open/lava/smooth/lava_land_surface,
+/area/space)
+"jr" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/open/lava/smooth/lava_land_surface,
+/area/space)
+"ky" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/center/cracked,
+/obj/item/candle/infinite,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"kC" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/turf/open/lava/smooth/lava_land_surface,
+/area/space)
+"kH" = (
+/obj/structure/stone_tile/slab,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/space)
+"ln" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"lD" = (
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/center/cracked,
+/obj/item/candle/infinite,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"mP" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/open/lava/smooth,
+/area/space)
+"nd" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/glowshroom/single{
+	icon_state = "glowshroom1";
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"oM" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/turf/open/lava/smooth,
+/area/space)
+"pk" = (
+/obj/structure/stone_tile/slab,
+/turf/open/lava/smooth,
+/area/space)
+"pq" = (
+/obj/effect/decal/remains/xeno,
+/obj/item/borg/sight/meson,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"pW" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/flora/ash/stem_shroom,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"qf" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/open/lava/smooth,
+/area/space)
+"rc" = (
+/obj/structure/stone_tile,
+/obj/effect/decal/remains/xeno,
+/obj/item/clothing/under/costume/gladiator/ash_walker,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"to" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/flora/ash/stem_shroom,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"uM" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/open/lava/smooth,
+/area/space)
+"vO" = (
+/turf/closed/indestructible/riveted/boss,
+/area/space)
+"wE" = (
+/obj/structure/stone_tile/slab/burnt,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Cl" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/turf/open/lava/smooth,
+/area/space)
+"DV" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Fh" = (
+/obj/structure/stone_tile/slab/burnt,
+/turf/open/lava/smooth,
+/area/space)
+"Fq" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/open/lava/smooth,
+/area/space)
+"Gk" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Gv" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block/cracked,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Hg" = (
+/obj/structure/stone_tile/center/burnt,
+/turf/open/lava/smooth/lava_land_surface,
+/area/space)
+"IE" = (
+/obj/structure/stone_tile/slab,
+/turf/open/lava/smooth/lava_land_surface,
+/area/space)
+"IR" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Kq" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/rank/cargo/miner/lavaland,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Kt" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"KB" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 1
+	},
+/turf/open/lava/smooth,
+/area/space)
+"KI" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/open/lava/smooth,
+/area/space)
+"LV" = (
+/turf/closed/mineral/volcanic/lava_land_surface,
+/area/space)
+"Ne" = (
+/obj/structure/stone_tile/surrounding,
+/turf/open/lava/smooth,
+/area/space)
+"OL" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/open/lava/smooth/lava_land_surface,
+/area/space)
+"OO" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/stone_tile/center/burnt,
+/obj/item/candle/infinite,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"PL" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/turf/open/lava/smooth,
+/area/space)
+"PZ" = (
+/obj/structure/stone_tile/slab,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"QP" = (
+/obj/structure/stone_tile/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/block/burnt{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Rb" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 4
+	},
+/turf/open/lava/smooth,
+/area/space)
+"RZ" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/open/lava/smooth,
+/area/space)
+"Sy" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"SP" = (
+/obj/structure/flora/ash/cacti,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Tp" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 8
+	},
+/turf/closed/mineral/volcanic/lava_land_surface,
+/area/space)
+"Tq" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/flora/ash/tall_shroom,
+/obj/structure/glowshroom/single,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Tz" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/glowshroom/single{
+	icon_state = "glowshroom3";
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"TP" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/open/lava/smooth,
+/area/space)
+"Uc" = (
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Um" = (
+/turf/template_noop,
+/area/space)
+"UF" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block/burnt,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"UG" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/glowshroom/single,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"VD" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 9
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Wx" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/open/lava/smooth,
+/area/space)
+"WC" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/turf/open/lava/smooth,
+/area/space)
+"WZ" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/open/lava/smooth/lava_land_surface,
+/area/space)
+"Xq" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"XI" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/turf/open/lava/smooth/lava_land_surface,
+/area/space)
+"Yx" = (
+/obj/structure/stone_tile,
+/obj/structure/flora/ash/stem_shroom,
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"YE" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 1
+	},
+/turf/open/lava/smooth,
+/area/space)
+"YH" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/burnt{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"Ze" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/glowshroom/single,
+/obj/structure/glowshroom/single{
+	icon_state = "glowshroom3"
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+
+(1,1,1) = {"
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+"}
+(2,1,1) = {"
+Um
+Um
+Um
+LV
+LV
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+"}
+(3,1,1) = {"
+Um
+LV
+LV
+LV
+LV
+vO
+VD
+ee
+YH
+vO
+ei
+hU
+Um
+Um
+Um
+"}
+(4,1,1) = {"
+LV
+LV
+LV
+vO
+nd
+Sy
+pW
+IR
+PZ
+jr
+WZ
+vO
+hU
+Um
+Um
+"}
+(5,1,1) = {"
+LV
+LV
+LV
+Ze
+PZ
+Kq
+PZ
+wE
+fn
+Hg
+OL
+IE
+hU
+Um
+Um
+"}
+(6,1,1) = {"
+Um
+LV
+vO
+cZ
+Uc
+cF
+Fq
+TP
+dk
+ky
+DV
+Hg
+vO
+Um
+Um
+"}
+(7,1,1) = {"
+Um
+Um
+Tz
+DV
+Xq
+mP
+YE
+KI
+Rb
+Wx
+Kq
+wE
+Gv
+Um
+Um
+"}
+(8,1,1) = {"
+Um
+Um
+hu
+aY
+QP
+PL
+Wx
+pk
+oM
+qf
+SP
+PZ
+Gk
+Um
+Um
+"}
+(9,1,1) = {"
+Um
+Um
+to
+ln
+rc
+Fh
+WC
+uM
+KB
+RZ
+Sy
+wE
+UF
+Um
+Um
+"}
+(10,1,1) = {"
+Um
+Um
+Uc
+Yx
+ch
+OO
+Ne
+qf
+Cl
+lD
+eC
+LV
+vO
+LV
+Um
+"}
+(11,1,1) = {"
+Um
+Um
+hU
+Hg
+hU
+wE
+pq
+wE
+DV
+UG
+LV
+Tp
+LV
+Um
+Um
+"}
+(12,1,1) = {"
+Um
+LV
+LV
+vO
+IE
+hU
+Kt
+Uc
+Sy
+Tq
+kH
+vO
+LV
+Um
+Um
+"}
+(13,1,1) = {"
+Um
+Um
+LV
+LV
+LV
+vO
+XI
+kC
+Hg
+vO
+LV
+LV
+Um
+Um
+Um
+"}
+(14,1,1) = {"
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+"}
+(15,1,1) = {"
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+Um
+"}
