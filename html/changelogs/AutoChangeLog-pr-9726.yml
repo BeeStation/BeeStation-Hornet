@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Adds a note onto objectives that require a stash informing players to
+      read their notes.
