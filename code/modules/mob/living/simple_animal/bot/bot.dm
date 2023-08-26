@@ -975,7 +975,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			to_chat(usr, "<span class='notice'>You need to turn [src] off before carrying it around.</span>")
 			return FALSE
 		usr.visible_message("<span class='notice'>[usr] picks up the [src].</span>", "<span class='notice'>You pick up [src].</span>")
-		var/obj/item/deployable/bot/carried = new(loc)
+		var/obj/item/carried_bot/carried = new(loc)
 		carried.name = name
 		carried.desc = desc
 		carried.icon = icon

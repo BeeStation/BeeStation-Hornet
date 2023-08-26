@@ -15590,15 +15590,15 @@
 /area/science/shuttledock)
 "eOo" = (
 /obj/structure/table/reinforced,
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_x = 8;
 	pixel_y = 12
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_x = 8;
 	pixel_y = 7
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -15606,10 +15606,10 @@
 	pixel_x = -6;
 	pixel_y = 9
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_y = 10
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_y = 5
 	},
 /obj/item/storage/lockbox/loyalty,
@@ -25231,7 +25231,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "hEO" = (
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "hES" = (
