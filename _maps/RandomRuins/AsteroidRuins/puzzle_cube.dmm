@@ -1,0 +1,84 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"s" = (
+/turf/open/floor/plating/asteroid/airless,
+/area/template_noop)
+"E" = (
+/obj/item/paper/crumpled,
+/obj/item/pen,
+/turf/open/floor/plating/asteroid/airless,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/plating/asteroid/airless,
+/area/template_noop)
+"W" = (
+/obj/effect/sliding_puzzle/lavaland,
+/turf/open/floor/plating/asteroid/airless,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+s
+E
+s
+a
+a
+"}
+(2,1,1) = {"
+a
+s
+s
+s
+s
+s
+a
+"}
+(3,1,1) = {"
+s
+s
+s
+s
+s
+R
+s
+"}
+(4,1,1) = {"
+s
+s
+s
+W
+s
+s
+s
+"}
+(5,1,1) = {"
+s
+s
+s
+s
+s
+s
+s
+"}
+(6,1,1) = {"
+a
+s
+s
+s
+s
+s
+a
+"}
+(7,1,1) = {"
+a
+a
+s
+s
+s
+a
+a
+"}

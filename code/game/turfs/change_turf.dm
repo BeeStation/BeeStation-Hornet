@@ -101,10 +101,18 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, new_baseturfs, flags, post_change_callbacks)
 
 	changing_turf = TRUE
+
+	// Quickly handle components before, as they should be transfered and not deleted
+	// as the datum destroy logic will remove all signals and components.
+	var/list/old_datum_components = datum_components
+	var/list/old_comp_lookup = comp_lookup
+	var/list/old_signal_procs = signal_procs
+	// Clear the list references so that they don't get deleted by /datum/Destroy()
+	datum_components = null
+	comp_lookup = null
+	signal_procs = null
+
 	qdel(src) //Just get the side effects and call Destroy
-	//We do this here so anything that doesn't want to persist can clear itself
-	var/list/old_comp_lookup = comp_lookup?.Copy()
-	var/list/old_signal_procs = signal_procs?.Copy()
 	var/turf/new_turf = new path(src)
 
 	// WARNING WARNING
@@ -114,6 +122,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		LAZYOR(new_turf.comp_lookup, old_comp_lookup)
 	if(old_signal_procs)
 		LAZYOR(new_turf.signal_procs, old_signal_procs)
+	if (old_datum_components)
+		LAZYOR(new_turf.datum_components, old_datum_components)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
 		callback.InvokeAsync(new_turf)
@@ -154,7 +164,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 	if(old_opacity != opacity && SSticker)
 		GLOB.cameranet.bareMajorChunkChange(src)
-
+		
+	SEND_SIGNAL(src, COMSIG_POST_TURF_CHANGE, path, new_baseturfs, flags, post_change_callbacks)
 	return new_turf
 
 /turf/open/ChangeTurf(path, list/new_baseturfs, flags)

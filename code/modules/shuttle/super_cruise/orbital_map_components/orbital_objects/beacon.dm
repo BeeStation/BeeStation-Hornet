@@ -85,7 +85,15 @@
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	var/list/sizes = generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 4, 7, rand(-0.4, -0.6), rand(20, 40), list(/turf/closed/mineral = 0, /turf/closed/mineral/tough = rare_material_point * 0.3, /turf/closed/mineral/hard = rare_material_point * 0.6, /turf/closed/mineral/dense = rare_material_point), minerals)
+	var/datum/asteroid_generator/asteroid_generator = new()
+	asteroid_generator.min_radius = 4
+	asteroid_generator.max_radius = 7
+	asteroid_generator.weight_offset = rand(-0.4, -0.6)
+	asteroid_generator.scale = rand(20, 40)
+	asteroid_generator.biome = list(/turf/closed/mineral = 0, /turf/closed/mineral/tough = rare_material_point * 0.3, /turf/closed/mineral/hard = rare_material_point * 0.6, /turf/closed/mineral/dense = rare_material_point)
+	asteroid_generator.ores_list = minerals
+	asteroid_generator.generate_interior = TRUE
+	var/list/sizes = asteroid_generator.generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value)
 	contained_zones += new /datum/orbital_zone(name, sizes[1], sizes[3], sizes[4], sizes[2], assigned_space_level.z_value)
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
@@ -174,7 +182,12 @@
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 40, 120, -0.4, 40)
+	var/datum/asteroid_generator/asteroid_generator = new()
+	asteroid_generator.min_radius = 40
+	asteroid_generator.max_radius = 120
+	asteroid_generator.weight_offset = -0.4
+	asteroid_generator.scale = 40
+	asteroid_generator.generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 40, 120, -0.4, 40)
 
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/post_map_setup()
 	return

@@ -573,6 +573,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		GLOB.the_gateway.wait = world.time
 
 /datum/controller/subsystem/mapping/proc/RequestBlockReservation(width, height, z, type = /datum/turf_reservation, turf_type_override)
+	RETURN_TYPE(/datum/turf_reservation)
 	UNTIL((!z || reservation_ready["[z]"]) && !clearing_reserved_turfs)
 	var/datum/turf_reservation/reserve = new type
 	if(turf_type_override)

@@ -1,0 +1,353 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/engine/cult{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"f" = (
+/obj/effect/decal/remains/human,
+/obj/item/melee/cultblade,
+/turf/open/floor/engine/cult{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/template_noop)
+"h" = (
+/turf/template_noop,
+/area/space)
+"k" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/engine/cult{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/template_noop)
+"p" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/engine/cult{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/template_noop)
+"q" = (
+/obj/structure/destructible/cult/pylon,
+/turf/open/floor/plating/asteroid/airless,
+/area/template_noop)
+"s" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/engine/cult{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/template_noop)
+"x" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/shoes/cult,
+/obj/item/clothing/suit/cultrobes,
+/turf/open/floor/engine/cult{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/template_noop)
+"y" = (
+/turf/open/lava/smooth/lava_land_surface,
+/area/template_noop)
+"K" = (
+/turf/closed/wall/mineral/cult,
+/area/template_noop)
+"N" = (
+/turf/template_noop,
+/area/template_noop)
+"Q" = (
+/obj/effect/rune/narsie{
+	color = "#ff0000";
+	used = 1
+	},
+/obj/item/cult_shift,
+/obj/effect/decal/remains/human,
+/obj/item/melee/cultblade/dagger,
+/obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
+	name = "a grave mistake";
+	sound = 'sound/hallucinations/i_see_you1.ogg';
+	triggerer_only = 1
+	},
+/obj/effect/step_trigger/message{
+	message = "<span class='cult italic'><b><span class='big'>You've made a grave mistake, haven't you?</span></b></span>";
+	name = "ohfuck"
+	},
+/turf/open/floor/engine/cult{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/template_noop)
+"S" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/shoes/cult,
+/obj/item/clothing/suit/cultrobes,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/engine/cult{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/template_noop)
+"T" = (
+/turf/open/floor/plating/asteroid/airless,
+/area/template_noop)
+"V" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/plating/asteroid/airless,
+/area/template_noop)
+
+(1,1,1) = {"
+N
+N
+N
+N
+N
+N
+a
+y
+a
+N
+N
+N
+N
+N
+N
+"}
+(2,1,1) = {"
+N
+K
+V
+N
+T
+y
+a
+a
+a
+y
+T
+N
+T
+K
+N
+"}
+(3,1,1) = {"
+N
+V
+q
+T
+K
+y
+y
+k
+y
+y
+K
+V
+q
+T
+N
+"}
+(4,1,1) = {"
+N
+N
+T
+y
+y
+y
+y
+a
+y
+y
+y
+y
+V
+N
+N
+"}
+(5,1,1) = {"
+N
+T
+K
+y
+y
+a
+a
+a
+a
+a
+y
+y
+K
+b
+N
+"}
+(6,1,1) = {"
+N
+y
+y
+y
+a
+a
+x
+K
+f
+a
+a
+y
+y
+y
+N
+"}
+(7,1,1) = {"
+a
+a
+y
+y
+k
+s
+a
+a
+a
+x
+a
+y
+y
+a
+a
+"}
+(8,1,1) = {"
+h
+a
+k
+a
+a
+K
+a
+Q
+a
+K
+a
+a
+k
+a
+N
+"}
+(9,1,1) = {"
+a
+a
+y
+y
+a
+f
+a
+a
+a
+p
+a
+y
+y
+a
+a
+"}
+(10,1,1) = {"
+N
+y
+y
+y
+k
+a
+p
+K
+S
+a
+a
+y
+y
+y
+N
+"}
+(11,1,1) = {"
+N
+T
+K
+y
+y
+a
+a
+a
+a
+a
+y
+y
+K
+T
+N
+"}
+(12,1,1) = {"
+N
+N
+T
+y
+y
+y
+y
+a
+y
+y
+y
+y
+V
+N
+N
+"}
+(13,1,1) = {"
+N
+V
+q
+T
+K
+y
+y
+k
+y
+y
+K
+V
+q
+T
+N
+"}
+(14,1,1) = {"
+N
+K
+V
+N
+T
+y
+a
+a
+a
+y
+T
+N
+T
+K
+N
+"}
+(15,1,1) = {"
+N
+N
+N
+N
+N
+N
+a
+N
+a
+N
+N
+N
+N
+N
+N
+"}

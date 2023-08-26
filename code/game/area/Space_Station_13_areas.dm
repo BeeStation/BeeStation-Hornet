@@ -75,6 +75,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
+/area/asteroid/interior
+	name = "Asteroid Interior"
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	always_unpowered = FALSE
+	area_flags = HIDDEN_AREA
+
+/area/asteroid/interior/border
+	name = "Asteroid Border"
+	virtual_z = ASTEORID_BORDER_VIRTUAL_Z
+
 //STATION13
 
 //Docking Areas

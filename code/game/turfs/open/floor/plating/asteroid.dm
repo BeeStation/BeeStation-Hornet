@@ -13,7 +13,8 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	max_integrity = 200
+	// Needs to be strong to deflect weak explosions
+	max_integrity = 800
 	damage_deflection = 0
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/open/floor/plating/asteroid //Because caves do whacky shit to revert to normal

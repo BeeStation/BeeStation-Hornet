@@ -136,7 +136,9 @@
 	var/datum/parsed_map/parsed = new(file(mappath))
 	parsed.load(T.x, T.y, T.z, cropMap=TRUE, no_changeturf=TRUE, placeOnTop=should_place_on_top)
 
+/// Loads a map template, returning a map generator datum (an async result)
 /datum/map_template/proc/load(turf/T, centered = FALSE, init_atmos = TRUE, finalize = TRUE, ...)
+	RETURN_TYPE(/datum/map_generator/map_place)
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 	if(!T)
