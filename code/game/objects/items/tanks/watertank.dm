@@ -272,6 +272,8 @@
 		icon_state = "waterbackpackatmos_upgraded"
 	upgrade_flags |= frp_up.upgrade_flags
 	var/obj/item/extinguisher/mini/nozzle/N = noz
+	if(frp_up.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+		N.toggled = TRUE
 	N.update_nozzle_stats()
 	update_icon()
 	to_chat(user, "<span class='notice'>You install this upgrade into [src].</span>")
@@ -360,12 +362,8 @@
 /obj/item/extinguisher/mini/nozzle/update_overlays()
 	. = ..()
 	var/fill_icon = "nozzle_overlay"
-	if(tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-		. += "upgraded_handle_overlay[toggled]"
-		if(toggled)
-			fill_icon = "nozzle_overlay_on"
-	else
-		. += "handle_overlay"
+	if(tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM && toggled)
+		fill_icon = "nozzle_overlay_on"
 
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/atmospherics/equipment.dmi', "[fill_icon][tank.fill_icon_thresholds[1]]")
 
@@ -376,6 +374,11 @@
 		if(threshold <= percent && percent < threshold_end)
 			filling.icon_state = "[fill_icon][tank.fill_icon_thresholds[i]]"
 	. += filling
+
+	if(tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+		. += "upgraded_handle_overlay[toggled]"
+	else
+		. += "handle_overlay"
 
 
 /obj/item/extinguisher/mini/nozzle/AltClick(mob/user)
