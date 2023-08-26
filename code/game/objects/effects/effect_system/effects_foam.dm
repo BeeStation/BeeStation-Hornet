@@ -383,13 +383,9 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, "smash", I)
 		playsound(user.loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
-		//addtimer(CALLBACK(src, PROC_REF(start_the_chain)), 0.5 SECONDS) //Dramatic effect
 		start_the_chain()
 		return
 	return ..()
-		//explosion(get_turf(src), 0, 0, 1)
-	//addtimer(CALLBACK(src, .proc/explosion, get_turf(src), 0, 0, 1), 10)
-	//dissapear()
 
 
 #undef ALUMINUM_FOAM
