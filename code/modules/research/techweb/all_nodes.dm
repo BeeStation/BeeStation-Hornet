@@ -1597,7 +1597,7 @@
 	tech_tier = 2
 	display_name = "Backpack Firefighter Tank Upgrade Designs"
 	description = "Unlocks new designs that improve backpack firefighter tanks."
-	design_ids = list("bft_upgrade_size", "bft_upgrade_efficiency")
+	design_ids = list("bft_upgrade_smartfoam", "bft_upgrade_efficiency")
 	prereq_ids = list("engineering")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000

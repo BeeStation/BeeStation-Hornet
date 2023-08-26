@@ -113,13 +113,13 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/rpd_upgrade/size
+/datum/design/rpd_upgrade/smartfoam
 	name = "Backpack Firefighter Tank size upgrade"
 	desc = "Upgrades the tank volume of the backpack, increasing the amount of reagents held and how much resin foam mix can be synthesized."
-	id = "bft_upgrade_size"
+	id = "bft_upgrade_smartfoam"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 5000)
-	build_path = /obj/item/firepack_upgrade/size
+	build_path = /obj/item/firepack_upgrade/smartfoam
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 

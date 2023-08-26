@@ -176,7 +176,7 @@
 #define EXTINGUISHER 0
 #define RESIN_LAUNCHER 1
 #define RESIN_FOAM 2
-#define FIREPACK_UPGRADE_SIZE (1<<0)
+#define FIREPACK_UPGRADE_SMARTFOAM (1<<0)
 #define FIREPACK_UPGRADE_EFFICIENCY (1<<1)
 
 /obj/item/watertank/atmos
@@ -213,15 +213,17 @@
 	return ..()
 
 /obj/item/watertank/atmos/proc/install_upgrade(obj/item/firepack_upgrade/frp_up, mob/user)
+	if(noz && !locate(noz) in src)
+		to_chat(user, "<span class='warning'>[src] can only have upgrades installed while the nozzle is retracted!</span>")
+		return
 	if(frp_up.upgrade_flags & upgrade_flags)
 		to_chat(user, "<span class='warning'>[src] already has this upgrade installed!</span>")
 		return
 	switch(frp_up.upgrade_flags)
-		if(FIREPACK_UPGRADE_SIZE)
+		if(FIREPACK_UPGRADE_EFFICIENCY)
 			volume = 400
 			reagents.maximum_volume = 400
 			max_foam = 10
-		if(FIREPACK_UPGRADE_EFFICIENCY)
 			nozzle_cooldown = 4 SECONDS
 			resin_cost = 50
 	upgrade_flags |= frp_up.upgrade_flags
@@ -255,7 +257,7 @@
 
 /obj/item/watertank/atmos/examine(mob/user)
 	. = ..()
-	if(upgrade_flags & FIREPACK_UPGRADE_SIZE)
+	if(upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
 		. += "Its maximum tank volume was increased."
 
 /obj/item/firepack_upgrade
@@ -265,9 +267,9 @@
 	icon_state = "datadisk4"
 	var/upgrade_flags
 
-/obj/item/firepack_upgrade/size
+/obj/item/firepack_upgrade/smartfoam
 	desc = "It upgrades the maximum volume of the tank, increasing the amount of reagents and resin foam mix it can hold"
-	upgrade_flags = FIREPACK_UPGRADE_SIZE
+	upgrade_flags = FIREPACK_UPGRADE_SMARTFOAM
 
 /obj/item/firepack_upgrade/efficiency
 	desc = "It improves the nozzle of the firepack, increasing its efficiency and decreasing the downtime between uses"
@@ -363,21 +365,24 @@
 		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
 		R.remove_any(resin_cost)
 		var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
-		if(tank.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
+		if(tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
 			QDEL_NULL(resin_projectile)
 			resin_projectile = new /obj/effect/resin_container/chainreact(get_turf(src))
-		playsound(src,'sound/items/syringeproj.ogg',40,1)
 		var/delay = 2
-		var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+		var/timeout = 10
+		if(tank.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
+			delay = 1.5
+			timeout = 15
+			var/obj/effect/resin_container/resin = resin_projectile
+			resin.smoke_amount = 6
+		playsound(src,'sound/items/syringeproj.ogg',40,1)
+		var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = timeout, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, extra_info = target)
 		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
 		RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(resin_landed))
-		playsound(src,'sound/items/syringeproj.ogg',40,1)
+		if(tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+			RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(resin_landed))
 
-		if(tank.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-			log_game("[key_name(user)] used Advanced Resin Launcher at [AREACOORD(user)].")
-		else
-			log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
-
+		log_game("[key_name(user)] used \the [tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM ? "Advanced" : ""] Resin Launcher at [AREACOORD(user)].")
 		return
 
 	if(nozzle_mode == RESIN_FOAM)
@@ -388,8 +393,12 @@
 				to_chat(user, "<span class='warning'>There's already resin here!</span>")
 				return
 		if(resin_synthesis_cooldown < max_foam)
-			var/obj/effect/particle_effect/foam/metal/resin/F = new (get_turf(target))
-			F.amount = 0
+			if(tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+				var/obj/effect/particle_effect/foam/metal/chainreact_resin/foam = new (get_turf(target))
+				foam.amount = 0
+			else
+				var/obj/effect/particle_effect/foam/metal/resin/foam = new (get_turf(target))
+				foam.amount = 0
 			resin_synthesis_cooldown++
 			addtimer(CALLBACK(src, PROC_REF(reduce_metal_synth_cooldown)), 10 SECONDS)
 		else
@@ -407,12 +416,8 @@
 	SIGNAL_HANDLER
 	if(!istype(source.moving, /obj/effect/resin_container) || QDELETED(source.moving))
 		return
-	if(tank.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-		var/obj/effect/resin_container/chainreact/resin = source.moving
-		resin.Smoke()
-	else
-		var/obj/effect/resin_container/resin = source.moving
-		resin.Smoke()
+	var/obj/effect/resin_container/resin = source.moving
+	resin.Smoke()
 
 /obj/item/extinguisher/mini/nozzle/proc/reduce_metal_synth_cooldown()
 	resin_synthesis_cooldown--
@@ -430,10 +435,11 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pass_flags = PASSTABLE
 	anchored = TRUE
+	var/smoke_amount = 4
 
 /obj/effect/resin_container/proc/Smoke()
 	var/obj/effect/particle_effect/foam/metal/resin/S = new /obj/effect/particle_effect/foam/metal/resin(get_turf(loc))
-	S.amount = 4
+	S.amount = smoke_amount
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
 
@@ -446,19 +452,26 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "frozen_smoke_capsule_chainreact"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSFOAM
 	anchored = TRUE
 
 /obj/effect/resin_container/chainreact/Smoke()
+	if(locate(/obj/effect/particle_effect/foam/metal/chainreact_resin) in get_turf(src) || locate(/obj/effect/particle_effect/foam/metal/resin) in get_turf(src))
+		qdel(src)
+		return
 	var/obj/effect/particle_effect/foam/metal/chainreact_resin/S = new /obj/effect/particle_effect/foam/metal/chainreact_resin(get_turf(loc))
-	S.amount = 6
+	S.amount = smoke_amount
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
+
+/obj/effect/resin_container/chainreact/Initialize(mapload)
+	. = ..()
+
 
 #undef EXTINGUISHER
 #undef RESIN_LAUNCHER
 #undef RESIN_FOAM
-#undef FIREPACK_UPGRADE_SIZE
+#undef FIREPACK_UPGRADE_SMARTFOAM
 #undef FIREPACK_UPGRADE_EFFICIENCY
 
 /obj/item/reagent_containers/chemtank

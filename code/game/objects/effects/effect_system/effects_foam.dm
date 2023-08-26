@@ -88,16 +88,18 @@
 /obj/effect/particle_effect/foam/metal/chainreact_resin
 	name = "self-destruct resin foam"
 	metal = RESIN_FOAM_CHAINREACT
+	lifetime = 20
 
 /obj/effect/particle_effect/foam/dissipating
 	name = "dissipating foam"
 	icon_state = ""
+	alpha = 120
 	lifetime = 7 //doesn't last as long as normal foam
 	amount = 0 //no spread
 	slippery_foam = FALSE
 
 /obj/effect/particle_effect/foam/dissipating/Initialize(mapload)
-	flick("[icon_state]_dissolving", src)
+	flick("atmos_resin_chainreact_dissolving", src)
 	QDEL_IN(src, 6)
 
 /obj/effect/particle_effect/foam/long_life
@@ -316,6 +318,7 @@
 	desc = "A lightweight, transparent resin used to suffocate fires, scrub the air of toxins, and restore the air to a safe temperature."
 	opacity = FALSE
 	icon_state = "atmos_resin"
+	pass_flags_self = PASSFOAM
 	alpha = 120
 	max_integrity = 10
 
@@ -348,16 +351,14 @@
 	name = "\improper Advanced ATMOS Resin"
 	desc = "A lightweight, transparent resin used to suffocate fires, scrub the air of toxins, and restore the air to a safe temperature.\
 	 Will begin a self-descruction sequence if touched by the firefighting backpack's nozzle."
-	opacity = FALSE
 	icon_state = "atmos_resin_chainreact"
-	alpha = 120
-	max_integrity = 10
+	max_integrity = 30
 	var/dissolving = FALSE
 
 /obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction)
 	var/obj/structure/foamedmetal/resin/chainreact/R = locate(/obj/structure/foamedmetal/resin/chainreact) in get_step(get_turf(src), loc_direction)
 	if(istype(R))
-		addtimer(CALLBACK(R, PROC_REF(start_the_chain)), 0.5 SECONDS)
+		addtimer(CALLBACK(R, PROC_REF(start_the_chain)), 0.2 SECONDS)
 	return
 
 /obj/structure/foamedmetal/resin/chainreact/proc/start_the_chain()
@@ -368,7 +369,7 @@
 	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), EAST)
 	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), SOUTH)
 	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), WEST)
-	addtimer(CALLBACK(src, PROC_REF(dissapear)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(dissapear)), 0.5 SECONDS)
 	return
 
 /obj/structure/foamedmetal/resin/chainreact/proc/dissapear()
