@@ -3153,10 +3153,6 @@
 	icon_state = "alien7"
 	},
 /area/abductor_ship)
-"mt" = (
-/obj/machinery/abductor/gland_dispenser,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "mu" = (
 /obj/structure/table/abductor,
 /obj/item/surgicaldrill/alien,
@@ -8754,6 +8750,10 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"Kt" = (
+/obj/machinery/abductor/gland_dispenser,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "KA" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -10190,17 +10190,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
-"Qg" = (
-/obj/structure/closet,
-/obj/item/storage/backpack/duffelbag/med/surgery,
-/obj/machinery/iv_drip,
-/obj/item/deployable/rollerbed,
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/medspray/synthflesh,
-/obj/item/reagent_containers/medspray/synthflesh,
-/obj/item/reagent_containers/medspray/synthflesh,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "Qi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -11411,6 +11400,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"Vr" = (
+/obj/structure/closet,
+/obj/item/storage/backpack/duffelbag/med/surgery,
+/obj/machinery/iv_drip,
+/obj/item/rollerbed,
+/obj/item/storage/firstaid/regular,
+/obj/item/reagent_containers/medspray/synthflesh,
+/obj/item/reagent_containers/medspray/synthflesh,
+/obj/item/reagent_containers/medspray/synthflesh,
+/turf/open/floor/wood,
+/area/centcom/holding)
 "Vs" = (
 /obj/structure/closet/secure_closet/security,
 /obj/item/storage/belt/security/full,
@@ -13769,7 +13769,7 @@ kM
 li
 lD
 li
-mt
+Kt
 nc
 Rk
 aa
@@ -13796,7 +13796,7 @@ Au
 li
 BQ
 li
-mt
+Kt
 nc
 Rk
 aa
@@ -13826,7 +13826,7 @@ JA
 li
 JM
 li
-mt
+Kt
 nc
 Rk
 aa
@@ -13853,7 +13853,7 @@ LK
 li
 LT
 li
-mt
+Kt
 nc
 Rk
 LV
@@ -41576,7 +41576,7 @@ Xk
 NT
 vt
 Mx
-Qg
+Vr
 Tb
 Uh
 tW

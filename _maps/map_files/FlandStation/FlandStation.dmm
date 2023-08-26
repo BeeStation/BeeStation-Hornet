@@ -15165,6 +15165,18 @@
 "dYE" = (
 /turf/closed/mineral/random/low_chance,
 /area/asteroid/nearstation)
+"dYF" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/backpack/duffelbag/med,
+/obj/item/flashlight/pen,
+/obj/item/rollerbed,
+/obj/item/crowbar,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/medical)
 "dYL" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -22410,26 +22422,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"fOU" = (
-/obj/structure/table,
-/obj/item/storage/belt,
-/obj/item/radio,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/requests_console{
-	department = "EVA";
-	name = "E.V.A. RC";
-	pixel_x = 30
-	},
-/obj/item/wrench,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel/dark/side{
-	dir = 4
-	},
-/area/ai_monitored/storage/eva)
 "fPc" = (
 /obj/structure/table/reinforced,
 /obj/item/aiModule/reset,
@@ -44620,18 +44612,6 @@
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
-"lGw" = (
-/obj/structure/rack,
-/obj/item/crowbar,
-/obj/item/storage/pill_bottle,
-/obj/item/deployable/rollerbed,
-/obj/item/clothing/glasses/eyepatch,
-/obj/item/wrench,
-/obj/machinery/airalarm{
-	pixel_y = 22
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical)
 "lGz" = (
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/effect/turf_decal/trimline/red/filled/warning{
@@ -51718,10 +51698,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plasteel/dark/side,
 /area/engine/atmos)
-"nwz" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/air/light,
-/area/engine/atmos)
 "nwC" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/secure/safe/caps_spare{
@@ -51912,18 +51888,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/escape)
-"nzb" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/storage/backpack/duffelbag/med,
-/obj/item/flashlight/pen,
-/obj/item/deployable/rollerbed,
-/obj/item/crowbar,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical)
 "nzd" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -66042,6 +66006,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
+"rcg" = (
+/obj/structure/rack,
+/obj/item/crowbar,
+/obj/item/storage/pill_bottle,
+/obj/item/rollerbed,
+/obj/item/clothing/glasses/eyepatch,
+/obj/item/wrench,
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/medical)
 "rci" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -70694,12 +70670,6 @@
 /obj/structure/chair/wood/normal,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
-"sgB" = (
-/obj/machinery/atmospherics/miner/plasma,
-/obj/machinery/light/floor,
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/plasma/light,
-/area/engine/atmos)
 "sgY" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -72633,6 +72603,10 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/techmaint,
 /area/science/nanite)
+"sEV" = (
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/engine/air/light,
+/area/engine/atmos)
 "sEY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -77970,6 +77944,21 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/dorms)
+"tVe" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate{
+	name = "disposal supplies"
+	},
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/shovel,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/maintenance/starboard/aft)
 "tVl" = (
 /obj/machinery/door/poddoor/incinerator_atmos_main,
 /obj/effect/turf_decal/stripes/closeup{
@@ -81268,6 +81257,12 @@
 /obj/machinery/vending/cigarette,
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
+"uLj" = (
+/obj/machinery/atmospherics/miner/plasma,
+/obj/machinery/light/floor,
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/engine/plasma/light,
+/area/engine/atmos)
 "uLm" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
@@ -84291,6 +84286,26 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
+"vsp" = (
+/obj/structure/table,
+/obj/item/storage/belt,
+/obj/item/radio,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/requests_console{
+	department = "EVA";
+	name = "E.V.A. RC";
+	pixel_x = 30
+	},
+/obj/item/wrench,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/ai_monitored/storage/eva)
 "vsD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -91595,21 +91610,6 @@
 "wYw" = (
 /turf/closed/wall/r_wall,
 /area/security/prison)
-"wYz" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate{
-	name = "disposal supplies"
-	},
-/obj/item/deployable/bodybag,
-/obj/item/deployable/bodybag,
-/obj/item/shovel,
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/starboard/aft)
 "wYE" = (
 /obj/structure/table/wood,
 /obj/structure/showcase/machinery/tv{
@@ -124256,7 +124256,7 @@ kTT
 eDs
 xLS
 rZN
-nzb
+dYF
 ygM
 tZK
 oAX
@@ -130437,7 +130437,7 @@ qTd
 yio
 eGs
 yio
-lGw
+rcg
 mJM
 fHr
 bdu
@@ -136349,7 +136349,7 @@ jZV
 kBb
 lcG
 mWE
-fOU
+vsp
 mpB
 mNn
 txO
@@ -143111,7 +143111,7 @@ wNp
 lVB
 fVd
 vEb
-nwz
+sEV
 wVT
 cKm
 ufF
@@ -146706,7 +146706,7 @@ arB
 lsS
 qfq
 hoi
-sgB
+uLj
 hoi
 qfq
 iqy
@@ -153615,7 +153615,7 @@ cGp
 cGp
 cGp
 mpL
-wYz
+tVe
 sIe
 tLq
 dHH

@@ -353,7 +353,7 @@
 
 /obj/structure/closet/crate/capsule/proc/compress()
 	visible_message("<span class='notice'>[src] compresses back into a small capsule!.</span>")
-	var/obj/item/deployable/capsule/C = new(loc)
+	var/obj/item/bluespace_capsule/C = new(loc)
 	for(var/atom/movable/A in contents)
 		A.forceMove(C)
 	qdel(src)

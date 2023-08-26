@@ -2257,6 +2257,17 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
+"ahv" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig";
+	req_access_txt = "63"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/plasteel/dark,
+/area/security/warden)
 "ahx" = (
 /obj/structure/sign/poster/official/random,
 /turf/closed/wall,
@@ -30825,17 +30836,6 @@
 /obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/aft)
-"cpR" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig";
-	req_access_txt = "63"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/dark,
-/area/security/warden)
 "cpS" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment{
@@ -39895,17 +39895,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
-"cOS" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig";
-	req_access_txt = "63"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/warden)
 "cOT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -48464,6 +48453,18 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
+"gqV" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate{
+	name = "disposal supplies"
+	},
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/shovel,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/maintenance/aft)
 "grj" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/libraryconsole/bookmanagement{
@@ -48778,6 +48779,16 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
+"gAd" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 4;
+	req_access = null
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/construction/mining/aux_base)
 "gAW" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -51143,16 +51154,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"hAI" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 4;
-	req_access = null
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/construction/mining/aux_base)
 "hAJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -61398,6 +61399,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"lQz" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 8;
+	req_access = null
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/miningoffice)
 "lQH" = (
 /obj/structure/closet/secure_closet/brig{
 	id = "Cell 4";
@@ -65901,17 +65913,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/sorting)
-"nTo" = (
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 8;
-	req_access = null
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/miningoffice)
 "nTq" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/structure/cable/yellow{
@@ -69774,18 +69775,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
-"pxu" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate{
-	name = "disposal supplies"
-	},
-/obj/item/deployable/bodybag,
-/obj/item/deployable/bodybag,
-/obj/item/shovel,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/aft)
 "pxA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -85195,6 +85184,17 @@
 	icon_state = "panelscorched"
 	},
 /area/quartermaster/warehouse)
+"vSp" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig";
+	req_access_txt = "63"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/warden)
 "vSy" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/effect/turf_decal/delivery,
@@ -113025,7 +113025,7 @@ mTN
 dhW
 cOQ
 mSz
-cOS
+vSp
 cOT
 htc
 aio
@@ -113282,7 +113282,7 @@ qMU
 evs
 cjO
 waN
-cpR
+ahv
 cxM
 riz
 cjM
@@ -122280,7 +122280,7 @@ cgD
 che
 bGG
 bEV
-pxu
+gqV
 awN
 ate
 aCx
@@ -125553,7 +125553,7 @@ nHk
 sId
 eqn
 kIa
-hAI
+gAd
 evG
 iny
 cDD
@@ -132784,7 +132784,7 @@ bbp
 bgf
 bhH
 oAK
-nTo
+lQz
 pWu
 etV
 yao
