@@ -259,11 +259,9 @@
 
 /obj/item/watertank/atmos/proc/install_upgrade(obj/item/atmostank_upgrade/upgrade, mob/user)
 	if(noz && !locate(noz) in src)
-		//to_chat(user, "<span class='warning'>[src] can only have upgrades installed while the nozzle is retracted!</span>")
-		balloon_alert(user, "Retract nozzle")
+		balloon_alert(user, "Retract nozzle!")
 		return
 	if(upgrade.upgrade_flags & src.upgrade_flags)
-		//to_chat(user, "<span class='warning'>[src] already has this upgrade installed!</span>")
 		balloon_alert(user, "Already installed")
 		return
 	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
@@ -279,7 +277,6 @@
 		N.toggled = TRUE
 	N.update_nozzle_stats()
 	update_icon()
-	//to_chat(user, "<span class='notice'>You install this upgrade into [src].</span>")
 	balloon_alert(user, "Upgrade installed")
 	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(upgrade)
@@ -432,19 +429,16 @@
 		if(EXTINGUISHER)
 			nozzle_mode = RESIN_LAUNCHER
 			tank.update_icon()
-			//to_chat(user, "Swapped to resin launcher")
 			balloon_alert(user, "Launcher mode")
 			return
 		if(RESIN_LAUNCHER)
 			nozzle_mode = RESIN_FOAM
 			tank.update_icon()
-			//to_chat(user, "Swapped to resin foamer")
 			balloon_alert(user, "Foamer mode")
 			return
 		if(RESIN_FOAM)
 			nozzle_mode = EXTINGUISHER
 			tank.update_icon()
-			//to_chat(user, "Swapped to water extinguisher")
 			balloon_alert(user, "Extinguisher mode")
 			return
 	return
@@ -467,7 +461,6 @@
 			balloon_alert(user, "Not enough water")
 			return
 		if(!COOLDOWN_FINISHED(src, resin_cooldown))
-			//to_chat(user, "<span class='warning'>Resin launcher is still recharging...</span>")
 			balloon_alert(user, "Recharging")
 			return
 		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
@@ -514,7 +507,6 @@
 			tank.update_icon()
 			update_icon()
 		else
-			//to_chat(user, "<span class='warning'>The resin foam mix is still being synthesized...</span>")
 			balloon_alert(user, "Recharging")
 			return
 
