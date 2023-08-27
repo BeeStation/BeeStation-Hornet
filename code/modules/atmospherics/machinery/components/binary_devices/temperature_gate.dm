@@ -127,3 +127,25 @@
 		else
 			balloon_alert(user, "You set the sensors to release when the temperature is below the target value.")
 	return TRUE
+
+// mapping
+
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2
+	piping_layer = 2
+	icon_state = "tgate_map-2"
+
+/obj/machinery/atmospherics/components/binary/volume_pump/layer4
+	piping_layer = 4
+	icon_state = "tgate_map-4"
+
+/obj/machinery/atmospherics/components/binary/volume_pump/on
+	on = TRUE
+	icon_state = "tgate_on_map-3"
+
+/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2
+	piping_layer = 2
+	icon_state = "tgate_on_map-2"
+
+/obj/machinery/atmospherics/components/binary/volume_pump/on/layer4
+	piping_layer = 4
+	icon_state = "tgate_on_map-4"
