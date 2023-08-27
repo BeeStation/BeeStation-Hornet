@@ -1592,13 +1592,23 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
-/datum/techweb_node/firepack_upgrade
-	id = "firepack_upgrades"
+/datum/techweb_node/atmos_packpack_efficiency_upgrade
+	id = "atmos_packpack_efficiency_upgrade"
 	tech_tier = 2
-	display_name = "Backpack Firefighter Tank Upgrade Designs"
-	description = "Unlocks new designs that improve backpack firefighter tanks."
-	design_ids = list("bft_upgrade_smartfoam", "bft_upgrade_efficiency")
+	display_name = "Backpack Firefighter Tank Efficiency Upgrade Design"
+	description = "Unlocks a new design that improves the backpack firefighter tanks."
+	design_ids = list("bft_upgrade_efficiency")
 	prereq_ids = list("engineering")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	export_price = 5000
+
+/datum/techweb_node/atmos_packpack_smartfoam_upgrade
+	id = "atmos_packpack_efficiency_upgrade"
+	tech_tier = 4
+	display_name = "Backpack Firefighter Tank Efficiency Upgrade Design"
+	description = "Unlocks a new design that improves the backpack firefighter tanks."
+	design_ids = list("bft_upgrade_smartfoam")
+	prereq_ids = list("adv_engi", "atmos_packpack_efficiency_upgrade")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 

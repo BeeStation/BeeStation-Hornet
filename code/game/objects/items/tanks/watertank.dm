@@ -299,10 +299,10 @@
 		//Detach the nozzle into the user's hands
 		var/obj/item/extinguisher/mini/nozzle/N = noz
 		N.update_nozzle_stats()
-		update_icon()
 		if(!user.put_in_hands(noz))
 			to_chat(user, "<span class='warning'>You need a free hand to hold the mister!</span>")
 			return
+		update_icon()
 	else
 		//Remove from their hands and put back "into" the tank
 		remove_noz()
@@ -369,9 +369,10 @@
 	. = ..()
 	if(nozzle_mode == RESIN_LAUNCHER)
 		. += "<span class='notice'>Uses [resin_cost] units of water per resin launch.</span>"
-		. += "<span class'notice'>Is dispensing [toggled ? "advanced" : ""] ATMOS resin.</span>"
-	if(nozzle_mode == RESIN_FOAM)
-		. += "<span class'notice'>Is dispensing [toggled ? "advanced" : ""] ATMOS resin.</span>"
+	if(nozzle_mode == RESIN_FOAM || nozzle_mode == RESIN_LAUNCHER)
+		. += "<span class='notice'>Is dispensing [toggled ? "advanced" : ""] ATMOS resin.</span>"
+		if(tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+			. += "<span class='notice'>Alt-click to switch to [toggled ? "normal" : "advanced"] ATMOS resin.</span>"
 
 /obj/item/extinguisher/mini/nozzle/update_overlays()
 	. = ..()
@@ -398,6 +399,7 @@
 /obj/item/extinguisher/mini/nozzle/AltClick(mob/user)
 	if(tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
 		toggled = !toggled
+		balloon_alert(user, "[toggled ? "Advanced" : "Normal"] foam mode")
 		playsound(src, 'sound/machines/click.ogg', 50)
 		update_icon()
 		tank.update_icon()
@@ -501,7 +503,7 @@
 				to_chat(user, "<span class='warning'>There's already resin here!</span>")
 				return
 		if(resin_synthesis_cooldown < max_foam)
-			if(tank.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+			if(toggled)
 				var/obj/effect/particle_effect/foam/metal/chainreact_resin/foam = new (get_turf(target))
 				foam.amount = 0
 			else
