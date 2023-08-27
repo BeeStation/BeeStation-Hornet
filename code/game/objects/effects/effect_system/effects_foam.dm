@@ -349,11 +349,14 @@
 
 /obj/structure/foamedmetal/resin/chainreact
 	name = "\improper Advanced ATMOS Resin"
-	desc = "A lightweight, transparent resin used to suffocate fires, scrub the air of toxins, and restore the air to a safe temperature.\
-	 Will begin a self-descruction sequence if touched by the firefighting backpack's nozzle."
+	desc = "A lightweight, transparent resin used to suffocate fires, scrub the air of toxins, and restore the air to a safe temperature."
 	icon_state = "atmos_resin_chainreact"
 	max_integrity = 30
 	var/dissolving = FALSE
+
+/obj/structure/foamedmetal/resin/chainreact/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It will begin a chain reaction sequence of dissipation if touched by the firefighting backpack's nozzle in the smart foam mode.</span>"
 
 /obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction)
 	var/obj/structure/foamedmetal/resin/chainreact/R = locate(/obj/structure/foamedmetal/resin/chainreact) in get_step(get_turf(src), loc_direction)
@@ -380,6 +383,9 @@
 
 /obj/structure/foamedmetal/resin/chainreact/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/extinguisher/mini/nozzle))
+		var/obj/item/extinguisher/mini/nozzle/sprayer = I
+		if(!sprayer.toggled)
+			return ..()
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, "smash", I)
 		playsound(user.loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)

@@ -179,6 +179,7 @@
 /obj/item/watertank/janitor/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/space_cleaner, 500)
+	update_icon()
 
 /obj/item/reagent_containers/spray/mister/janitor
 	name = "janitor spray nozzle"
@@ -237,7 +238,7 @@
 	update_icon()
 
 /obj/item/watertank/atmos/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/firepack_upgrade))
+	if(istype(W, /obj/item/atmostank_upgrade))
 		install_upgrade(W, user)
 		return TRUE
 	return ..()
@@ -256,29 +257,32 @@
 	return "#0066FF"
 
 
-/obj/item/watertank/atmos/proc/install_upgrade(obj/item/firepack_upgrade/frp_up, mob/user)
+/obj/item/watertank/atmos/proc/install_upgrade(obj/item/atmostank_upgrade/upgrade, mob/user)
 	if(noz && !locate(noz) in src)
-		to_chat(user, "<span class='warning'>[src] can only have upgrades installed while the nozzle is retracted!</span>")
+		//to_chat(user, "<span class='warning'>[src] can only have upgrades installed while the nozzle is retracted!</span>")
+		balloon_alert(user, "Retract nozzle")
 		return
-	if(frp_up.upgrade_flags & upgrade_flags)
-		to_chat(user, "<span class='warning'>[src] already has this upgrade installed!</span>")
+	if(upgrade.upgrade_flags & src.upgrade_flags)
+		//to_chat(user, "<span class='warning'>[src] already has this upgrade installed!</span>")
+		balloon_alert(user, "Already installed")
 		return
-	if(frp_up.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
+	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
 		volume = 400
 		reagents.maximum_volume = 400
 		max_foam = 10
 		nozzle_cooldown = 4 SECONDS
 		resin_cost = 50
 		icon_state = "waterbackpackatmos_upgraded"
-	upgrade_flags |= frp_up.upgrade_flags
+	upgrade_flags |= upgrade.upgrade_flags
 	var/obj/item/extinguisher/mini/nozzle/N = noz
-	if(frp_up.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
 		N.toggled = TRUE
 	N.update_nozzle_stats()
 	update_icon()
-	to_chat(user, "<span class='notice'>You install this upgrade into [src].</span>")
+	//to_chat(user, "<span class='notice'>You install this upgrade into [src].</span>")
+	balloon_alert(user, "Upgrade installed")
 	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
-	qdel(frp_up)
+	qdel(upgrade)
 
 /obj/item/watertank/atmos/toggle_mister(mob/living/user)
 	if(!istype(user))
@@ -306,9 +310,11 @@
 /obj/item/watertank/atmos/examine(mob/user)
 	. = ..()
 	if(upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-		. += "Its maximum tank volume was increased."
+		. += "<span class='notice'>Its maximum tank volume was increased.</span>"
+	if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+		. += "<span class='notice'>It's capable of producing advanced ATMOS resin.</span>"
 
-/obj/item/firepack_upgrade
+/obj/item/atmostank_upgrade
 	name = "Backpack Firefighter Tank upgrade disk"
 	desc = "It seems to be empty."
 	icon = 'icons/obj/module.dmi'
@@ -316,12 +322,12 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/upgrade_flags
 
-/obj/item/firepack_upgrade/smartfoam
-	desc = "It upgrades the maximum volume of the tank, increasing the amount of reagents and resin foam mix it can hold"
+/obj/item/atmostank_upgrade/smartfoam
+	desc = "It allows for the advanced ATMOS resin to be synthesized."
 	upgrade_flags = FIREPACK_UPGRADE_SMARTFOAM
 
-/obj/item/firepack_upgrade/efficiency
-	desc = "It improves the nozzle of the firepack, increasing its efficiency and decreasing the downtime between uses"
+/obj/item/atmostank_upgrade/efficiency
+	desc = "It improves the nozzle of the firepack, increasing its efficiency and decreasing the downtime between uses, as well as increasing the volume of the tank."
 	icon = 'icons/obj/atmospherics/equipment.dmi'
 	icon_state = "efficiency_upgrade"
 	upgrade_flags = FIREPACK_UPGRADE_EFFICIENCY
@@ -358,6 +364,14 @@
 		return INITIALIZE_HINT_QDEL
 	update_nozzle_stats()
 	update_icon()
+
+/obj/item/extinguisher/mini/nozzle/examine(mob/user)
+	. = ..()
+	if(nozzle_mode == RESIN_LAUNCHER)
+		. += "<span class='notice'>Uses [resin_cost] units of water per resin launch.</span>"
+		. += "<span class'notice'>Is dispensing [toggled ? "advanced" : ""] ATMOS resin.</span>"
+	if(nozzle_mode == RESIN_FOAM)
+		. += "<span class'notice'>Is dispensing [toggled ? "advanced" : ""] ATMOS resin.</span>"
 
 /obj/item/extinguisher/mini/nozzle/update_overlays()
 	. = ..()
@@ -416,17 +430,20 @@
 		if(EXTINGUISHER)
 			nozzle_mode = RESIN_LAUNCHER
 			tank.update_icon()
-			to_chat(user, "Swapped to resin launcher")
+			//to_chat(user, "Swapped to resin launcher")
+			balloon_alert(user, "Launcher mode")
 			return
 		if(RESIN_LAUNCHER)
 			nozzle_mode = RESIN_FOAM
 			tank.update_icon()
-			to_chat(user, "Swapped to resin foamer")
+			//to_chat(user, "Swapped to resin foamer")
+			balloon_alert(user, "Foamer mode")
 			return
 		if(RESIN_FOAM)
 			nozzle_mode = EXTINGUISHER
 			tank.update_icon()
-			to_chat(user, "Swapped to water extinguisher")
+			//to_chat(user, "Swapped to water extinguisher")
+			balloon_alert(user, "Extinguisher mode")
 			return
 	return
 
@@ -445,9 +462,11 @@
 		var/datum/reagents/R = reagents
 		if(R.total_volume < resin_cost)
 			to_chat(user, "<span class='warning'>You need at least [resin_cost] units of water to use the resin launcher!</span>")
+			balloon_alert(user, "Not enough water")
 			return
 		if(!COOLDOWN_FINISHED(src, resin_cooldown))
-			to_chat(user, "<span class='warning'>Resin launcher is still recharging...</span>")
+			//to_chat(user, "<span class='warning'>Resin launcher is still recharging...</span>")
+			balloon_alert(user, "Recharging")
 			return
 		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
 		R.remove_any(resin_cost)
@@ -493,7 +512,8 @@
 			tank.update_icon()
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>The resin foam mix is still being synthesized...</span>")
+			//to_chat(user, "<span class='warning'>The resin foam mix is still being synthesized...</span>")
+			balloon_alert(user, "Recharging")
 			return
 
 /obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, succeeded)
@@ -512,11 +532,6 @@
 
 /obj/item/extinguisher/mini/nozzle/proc/reduce_metal_synth_cooldown()
 	resin_synthesis_cooldown--
-
-/obj/item/extinguisher/mini/nozzle/examine(mob/user)
-	. = ..()
-	if(nozzle_mode == RESIN_LAUNCHER)
-		. += "It uses [resin_cost] units of reagents per resin launch"
 
 /obj/effect/resin_container
 	name = "resin container"
@@ -539,7 +554,7 @@
 
 /obj/effect/resin_container/chainreact
 	name = "advanced resin container"
-	desc = "A compacted ball of expansive resin, used to repair the atmosphere in a room, or seal off breaches."
+	desc = "A compacted ball of expansive advanced resin, used to repair the atmosphere in a room, or seal off breaches."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "frozen_smoke_capsule_chainreact"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -554,10 +569,6 @@
 	S.amount = smoke_amount
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
-
-/obj/effect/resin_container/chainreact/Initialize(mapload)
-	. = ..()
-
 
 #undef EXTINGUISHER
 #undef RESIN_LAUNCHER
