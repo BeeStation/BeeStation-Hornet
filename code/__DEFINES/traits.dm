@@ -393,6 +393,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a bad soundcloud rapper's name
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
+#define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
