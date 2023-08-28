@@ -1,5 +1,3 @@
-#define CHAMELEON_MANUAL_COOLDOWN 2 MINUTES
-
 /// The action for the chameleon panel.
 /datum/action/chameleon_panel
 	name = "Chameleon Outfit Panel"
@@ -231,5 +229,3 @@
 		var/datum/component/chameleon/chameleon = item.GetComponent(/datum/component/chameleon)
 		if(chameleon?.can_use(user))
 			. += chameleon
-
-#undef CHAMELEON_MANUAL_COOLDOWN
