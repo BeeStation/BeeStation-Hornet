@@ -1603,7 +1603,7 @@
 	export_price = 5000
 
 /datum/techweb_node/atmos_packpack_smartfoam_upgrade
-	id = "atmos_packpack_efficiency_upgrade"
+	id = "atmos_packpack_smartfoam_upgrade"
 	tech_tier = 4
 	display_name = "Backpack Firefighter Tank Efficiency Upgrade Design"
 	description = "Unlocks a new design that improves the backpack firefighter tanks."
