@@ -5,10 +5,12 @@
 	var/list/disguises = list()
 	// First, get everything we need to make icons of.
 	for(var/chameleon_path in subtypesof(/datum/component/chameleon))
-		var/datum/component/chameleon/chameleon = chameleon_path
-		if(!initial(chameleon.base_disguise_path) && !initial(chameleon.disguise_whitelist))
+		var/datum/component/chameleon/chameleon = new chameleon_path
+		if(!chameleon.base_disguise_path && !chameleon.disguise_whitelist)
+			qdel(chameleon)
 			continue
-		disguises |= list_chameleon_disguises(initial(chameleon.base_disguise_path), typecacheof(initial(chameleon.disguise_whitelist)), typecacheof(initial(chameleon.disguise_blacklist), only_root_path = TRUE), initial(chameleon.hide_duplicates))
+		disguises |= list_chameleon_disguises(chameleon.base_disguise_path, typecacheof(chameleon.disguise_whitelist), typecacheof(chameleon.disguise_blacklist, only_root_path = TRUE), chameleon.hide_duplicates)
+		qdel(chameleon)
 	// Then, we need to generate the actual icons.
 	for(var/item_path in disguises)
 		add_item(item_path)
