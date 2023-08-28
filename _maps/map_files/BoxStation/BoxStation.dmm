@@ -13833,10 +13833,6 @@
 	},
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
-"bXY" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "bYe" = (
 /obj/effect/landmark/start/medical_doctor,
 /obj/effect/turf_decal/tile/blue{
@@ -18297,10 +18293,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"cBP" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/air,
-/area/engine/atmos)
 "cBQ" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
@@ -97381,7 +97373,7 @@ upK
 ckV
 clb
 cla
-cBP
+cmW
 cmW
 bLK
 aaa
@@ -99421,7 +99413,7 @@ bTW
 bUW
 bTW
 bLK
-bXY
+bXW
 bYW
 bXW
 bLK

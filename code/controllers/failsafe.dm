@@ -169,7 +169,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		text="Defcon: [defcon_pretty()] (Interval: [Failsafe.processing_interval] | Iteration: [Failsafe.master_iteration])",
 		action = "statClickDebug",
 		params=list(
-			"targetRef" = REF(src),
+			"targetRef" = FAST_REF(src),
 			"class"="controller",
 		),
 		type=STAT_BUTTON,

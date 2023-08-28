@@ -397,6 +397,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAITOR_TRAIT "traitor"
 #define INCURSION_TRAIT "incursion"
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
+#define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"

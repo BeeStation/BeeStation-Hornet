@@ -9,12 +9,9 @@ type FaxData = {
   fax_name: string;
   visible: boolean;
   has_paper: string;
-  access_additional_faxes: boolean;
-  сan_switch_access: boolean;
-  additional_faxes_list: AdditionalFaxesList[];
   syndicate_network: boolean;
-  syndicate_faxes_list: AdditionalFaxesList[];
   fax_history: FaxHistory[];
+  special_faxes: FaxSpecial[];
 };
 
 type FaxInfo = {
@@ -25,15 +22,17 @@ type FaxInfo = {
   syndicate_network: boolean;
 };
 
-type AdditionalFaxesList = {
-  fax_name: string;
-  button_color: string;
-};
-
 type FaxHistory = {
   history_type: string;
   history_fax_name: string;
   history_time: string;
+};
+
+type FaxSpecial = {
+  fax_name: string;
+  fax_id: string;
+  color: string;
+  emag_needed: boolean;
 };
 
 export const Fax = (props, context) => {
@@ -65,51 +64,27 @@ export const Fax = (props, context) => {
             {data.has_paper ? <Box color="green">Paper in tray</Box> : <Box color="red">No paper</Box>}
           </LabeledList.Item>
         </Section>
-        <Section
-          title="Send"
-          buttons={
-            <Button
-              color={data.access_additional_faxes ? 'bad' : 'good'}
-              onClick={() => act('access_additional_faxes_toggle')}
-              disabled={!data.сan_switch_access}
-              tooltip="Manage access to the expanded fax list.">
-              {data.access_additional_faxes ? 'Logout' : 'Login'}
-            </Button>
-          }>
+        <Section title="Send">
           {faxes.length !== 0 ? (
             <Box mt={0.4}>
-              {!!data.access_additional_faxes &&
-                data.additional_faxes_list.map((fax: AdditionalFaxesList) => (
-                  <Button
-                    key={fax.fax_name}
-                    title={fax.fax_name}
-                    disabled={!data.has_paper}
-                    backgroundColor={fax.button_color}
-                    onClick={() =>
-                      act('send_to_additional_fax', {
-                        name: fax.fax_name,
-                        color: fax.button_color,
-                      })
-                    }>
-                    {fax.fax_name}
-                  </Button>
-                ))}
-              {!!data.syndicate_network &&
-                data.syndicate_faxes_list.map((fax: AdditionalFaxesList) => (
-                  <Button
-                    key={fax.fax_name}
-                    title={fax.fax_name}
-                    disabled={!data.has_paper}
-                    backgroundColor={fax.button_color}
-                    onClick={() =>
-                      act('send_to_additional_fax', {
-                        name: fax.fax_name,
-                        color: fax.button_color,
-                      })
-                    }>
-                    {fax.fax_name}
-                  </Button>
-                ))}
+              {(data.syndicate_network
+                ? data.special_faxes
+                : data.special_faxes.filter((fax: FaxSpecial) => !fax.emag_needed)
+              ).map((special: FaxSpecial) => (
+                <Button
+                  key={special.fax_id}
+                  title={special.fax_name}
+                  disabled={!data.has_paper}
+                  color={special.color}
+                  onClick={() =>
+                    act('send_special', {
+                      id: special.fax_id,
+                      name: special.fax_name,
+                    })
+                  }>
+                  {special.fax_name}
+                </Button>
+              ))}
               {faxes.map((fax: FaxInfo) => (
                 <Button
                   key={fax.fax_id}
