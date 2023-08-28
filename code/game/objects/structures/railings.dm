@@ -62,8 +62,12 @@
 
 /obj/structure/railing/deconstruct(disassembled)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		var/obj/item/stack/rods/rod = new /obj/item/stack/rods(drop_location(), 3)
-		transfer_fingerprints_to(rod)
+		var/drop_loc = drop_location()
+		var/obj/R = new /obj/item/stack/rods(drop_loc, 3)
+		if(QDELETED(R)) // the rods merged with something on the tile
+			R = locate(/obj/item/stack/rods) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
 	return ..()
 
 ///Implements behaviour that makes it possible to unanchor the railing.

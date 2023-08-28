@@ -408,11 +408,15 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
-	if(get_eye_protection() < intensity && (override_blindness_check || !is_blind()))
-		overlay_fullscreen("flash", type)
-		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
-		return TRUE
-	return FALSE
+	if(get_eye_protection() >= intensity)
+		return FALSE
+	if(!override_blindness_check && is_blind())
+		return FALSE
+	if(client.prefs.read_player_preference(/datum/preference/toggle/darkened_flash))
+		type = /atom/movable/screen/fullscreen/flash/black
+	overlay_fullscreen("flash", type)
+	addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 2.5 SECONDS), 2.5 SECONDS)
+	return TRUE
 
 //called when the mob receives a loud bang
 /mob/living/proc/soundbang_act()

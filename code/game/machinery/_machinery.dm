@@ -502,7 +502,6 @@ Class Procs:
 	if(A == occupant)
 		set_occupant(null)
 		update_icon()
-		updateUsrDialog()
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
