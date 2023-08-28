@@ -198,7 +198,5 @@
 		action.Grant(user)
 
 /datum/component/chameleon/proc/take_action(mob/living/user)
-	if(!GLOB.user_chameleon_actions[user])
-		return
 	var/datum/action/chameleon_panel/action = GLOB.user_chameleon_actions[user]
-	action.Remove(user)
+	action?.Remove(user)
