@@ -92,7 +92,7 @@
 			if(!istext(ref) || !istext(action_name))
 				return FALSE
 			var/datum/component/chameleon/chameleon = locate(ref)
-			if(!chameleon || !istype(chameleon) || !chameleon?.can_use(user))
+			if(!istype(chameleon) || !chameleon?.can_use(user))
 				return FALSE
 			var/datum/callback/callback = chameleon.extra_actions[action_name]
 			if(!callback)
