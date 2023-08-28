@@ -62,22 +62,6 @@
 	reading = FALSE
 	return TRUE
 
-///MISC///
-/obj/item/book/granter/chameleon
-	name = "Chameleon Disguises 101"
-	desc = "A short and sweet manual on how to use Syndicate-produced chameleon clothing"
-	icon_state = "stealthmanual"
-
-/obj/item/book/granter/chameleon/already_known(mob/user)
-	return HAS_TRAIT(user.mind, TRAIT_CHAMELEON_USER)
-
-/obj/item/book/granter/chameleon/on_reading_finished(mob/user)
-	to_chat("<span class='notice'>You now know how to operate chameleon clothing!</span>")
-	ADD_TRAIT(user.mind, TRAIT_CHAMELEON_USER, LEARNED_TRAIT)
-	if(oneuse)
-		visible_message("<span class='warning'>[src] burns to a crisp!</span>")
-		qdel(src)
-
 ///ACTION BUTTONS///
 
 /obj/item/book/granter/action

@@ -6,8 +6,6 @@ import { Button, Box, Stack, Section, Icon, Input, Flex, Tabs, Tooltip } from '.
 import { createSearch } from 'common/string';
 
 export const ChameleonPanel = (_, context) => {
-  const { act, data } = useBackend(context);
-  const { manual } = data;
   const [compact, setCompact] = useLocalState(context, 'compact', false);
   const [tab] = useLocalState(context, 'tab', 1);
   return (
@@ -17,24 +15,13 @@ export const ChameleonPanel = (_, context) => {
       width={900}
       height={700}
       buttons={
-        <>
-          {!!manual.can_craft && (
-            <Button
-              content={manual.cooldown > 0 ? `Create Manual (in ${manual.cooldown}s)` : 'Create Manual'}
-              disabled={manual.cooldown > 0}
-              icon="book"
-              m={1}
-              onClick={() => act('create_manual')}
-            />
-          )}
-          <Button.Checkbox
-            checked={compact} // jerma985
-            content="List Mode"
-            icon="list"
-            m={1}
-            onClick={() => setCompact(!compact)}
-          />
-        </>
+        <Button.Checkbox
+          checked={compact} // jerma985
+          content="List Mode"
+          icon="list"
+          m={1}
+          onClick={() => setCompact(!compact)}
+        />
       }>
       <Window.Content scrollable>
         <ChameleonPanelTabs />

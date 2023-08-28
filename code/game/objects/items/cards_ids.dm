@@ -414,9 +414,11 @@ update_label("John Doe", "Clowny")
 		"Forge Job" = CALLBACK(src, PROC_REF(change_job)),
 		"Change Account ID" = CALLBACK(src, PROC_REF(set_new_account)),
 	)
-	AddComponent(/datum/component/chameleon/id, extra_actions=extra_actions, anyone_can_use=anyone, on_disguise=CALLBACK(src, PROC_REF(on_disguise)))
+	AddComponent(/datum/component/chameleon/id, extra_actions=extra_actions, on_disguise=CALLBACK(src, PROC_REF(on_disguise)))
 
 /obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
+	if(is_chameleon_locked())
+		return ..()
 	if(!proximity)
 		return
 	if(istype(O, /obj/item/card/id))
@@ -464,6 +466,8 @@ update_label("John Doe", "Clowny")
 		h_user.sec_hud_set_ID()
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
+	if(is_chameleon_locked())
+		return ..()
 	if(isliving(user) && user.mind)
 		var/first_use = registered_name ? FALSE : TRUE
 		if(!(user.mind.special_role || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
@@ -528,6 +532,10 @@ update_label("John Doe", "Clowny")
 			set_new_account(user)
 			return
 	return ..()
+
+/obj/item/card/id/syndicate/proc/is_chameleon_locked()
+	var/datum/component/chameleon/chameleon = GetComponent(/datum/component/chameleon)
+	return chameleon?.locked
 
 // broken chameleon agent card
 /obj/item/card/id/syndicate/broken

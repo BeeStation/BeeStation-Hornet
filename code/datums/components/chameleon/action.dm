@@ -5,13 +5,12 @@
 	name = "Chameleon Outfit Panel"
 	button_icon_state = "chameleon_outfit"
 	var/opened_message = FALSE
-	COOLDOWN_DECLARE(next_manual)
 
 /datum/action/chameleon_panel/Trigger()
 	if(!IsAvailable())
 		return
 	if(!opened_message)
-		to_chat(owner, "<span class='warning'>The chameleon panel UI may take a few seconds to load upon opening it for the first time! Click the action button again if it doesn't load after a few seconds!</span>")
+		to_chat(owner, EXAMINE_BLOCK("<span class='warning'>The chameleon panel UI may take a few seconds to load upon opening it for the first time! Click the action button again if it doesn't load after a few seconds!</span>"))
 		opened_message = TRUE
 	ui_interact(owner)
 
@@ -32,7 +31,7 @@
 			"outfits" = list()
 		)
 	)
-	var/list/assets_to_send = list()
+	var/list/assets_to_send
 	for(var/outfit_path in subtypesof(/datum/outfit/job))
 		var/datum/outfit/outfit = outfit_path
 		if(initial(outfit.can_be_admin_equipped))
@@ -43,19 +42,15 @@
 			var/outfit_asset = get_outfit_icon(outfit_path)
 			if(outfit_asset)
 				.["icons"]["outfits"]["[outfit]"] = SSassets.transport.get_asset_url(outfit_asset)
-				assets_to_send += outfit_asset
+				LAZYADD(assets_to_send, outfit_asset)
+			CHECK_TICK
 	sortTim(.["outfits"], GLOBAL_PROC_REF(cmp_list_type_asc))
 	if(user.client && LAZYLEN(assets_to_send))
 		SSassets.transport.send_assets(user.client, assets_to_send)
 
 /datum/action/chameleon_panel/ui_data(mob/user)
-	var/mob/living/l_user = isliving(user) ? user : null
 	. = list(
-		"chameleon_items" = list(),
-		"manual" = list(
-			"can_craft" = HAS_TRAIT(user, TRAIT_CHAMELEON_USER) || (l_user?.mind && HAS_TRAIT(l_user.mind, TRAIT_CHAMELEON_USER)),
-			"cooldown" = round(max(COOLDOWN_TIMELEFT(src, next_manual) / 10, 0))
-		)
+		"chameleon_items" = list()
 	)
 	var/list/names = list()
 	for(var/C in get_chameleon_items(user))
@@ -119,7 +114,7 @@
 			else if(isnum(slot))
 				var/obj/item/slot_item = user.get_item_by_slot(slot)
 				chameleon = slot_item?.GetComponent(/datum/component/chameleon)
-			if(!chameleon || !istype(chameleon) || !chameleon?.can_use(user) || !(disguise_path in chameleon.disguise_paths))
+			if(!istype(chameleon) || !chameleon?.can_use(user) || !(disguise_path in chameleon.disguise_paths))
 				return FALSE
 			chameleon.disguise(user, disguise_path)
 		if("equip_outfit")
@@ -128,21 +123,9 @@
 			if(!istext(outfit))
 				return FALSE
 			var/outfit_path = text2path(outfit)
-			if(!ispath(outfit_path, /datum/outfit))
+			if(!ispath(outfit_path, /datum/outfit/job))
 				return FALSE
 			load_outfit(usr, outfit_path)
-		if("create_manual")
-			. = TRUE
-			if(!HAS_TRAIT(usr, TRAIT_CHAMELEON_USER) && !HAS_TRAIT(usr.mind, TRAIT_CHAMELEON_USER))
-				to_chat(usr, "<span class='warning'>You don't know how to make a chameleon manual!</span>")
-				return FALSE
-			if(!COOLDOWN_FINISHED(src, next_manual))
-				to_chat(usr, "<span class='warning'>Please wait [DisplayTimeText(next_manual - world.time)] before creating another manual!</span>")
-				return FALSE
-			var/obj/item/book/granter/chameleon/manual = new(usr.drop_location())
-			usr.put_in_hands(manual)
-			to_chat(usr, "<span class='notice'>You swiftly put together a manual to teach others how to use chameleon items!</span>")
-			COOLDOWN_START(src, next_manual, CHAMELEON_MANUAL_COOLDOWN)
 
 /datum/action/chameleon_panel/ui_assets(mob/user)
 	return list(
@@ -167,9 +150,7 @@
 	COMPILE_OVERLAYS(mannequin)
 	var/asset = fcopy_rsc(getFlatIcon(mannequin, no_anim=TRUE))
 	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_OUTFIT)
-	if(!asset)
-		return
-	if(!SSassets.transport.register_asset(asset_name, asset))
+	if(!asset || !SSassets.transport.register_asset(asset_name, asset))
 		return
 	return asset_name
 
@@ -227,10 +208,7 @@
 
 /datum/action/chameleon_panel/proc/get_chameleon_items(mob/user)
 	. = list()
-	for(var/O in user.contents)
-		if(!isitem(O))
-			continue
-		var/obj/item/item = O
+	for(var/obj/item/item in user.contents)
 		var/datum/component/chameleon/chameleon = item.GetComponent(/datum/component/chameleon)
 		if(chameleon?.can_use(user))
 			. += chameleon

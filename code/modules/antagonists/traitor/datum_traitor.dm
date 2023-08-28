@@ -32,11 +32,9 @@
 
 /datum/antagonist/traitor/apply_innate_effects()
 	handle_clown_mutation(owner.current, silent ? null : "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-	ADD_TRAIT(owner, TRAIT_CHAMELEON_USER, TRAITOR_TRAIT)
 
 /datum/antagonist/traitor/remove_innate_effects()
 	handle_clown_mutation(owner.current, removing=FALSE)
-	REMOVE_TRAIT(owner, TRAIT_CHAMELEON_USER, TRAITOR_TRAIT)
 
 /datum/antagonist/traitor/on_removal()
 	//Remove malf powers.

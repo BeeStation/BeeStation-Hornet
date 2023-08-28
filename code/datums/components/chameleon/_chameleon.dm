@@ -11,8 +11,6 @@
 	var/list/disguise_paths = list()
 	/// An associative list (name = callback(mob/living/user, datum/component/chameleon/source)) of "extra actions" to present in the UI for this item.
 	var/list/extra_actions = list()
-	/// Whether anyone is allowed to use this chameleon item, or just specific people.
-	var/anyone_can_use = FALSE
 	/// The typepath that is currently being disguised as.
 	var/current_disguise
 	/// A callback to run whenever the disguise is changed, with the arguments (mob/living/user, datum/component/chameleon/source, old_disguise_path, new_disguise_path)
@@ -24,7 +22,7 @@
 	///	Whenever the EMP effect will end.
 	COOLDOWN_DECLARE(emp_timer)
 
-/datum/component/chameleon/Initialize(original_name, base_disguise_path, list/disguise_whitelist, list/disguise_blacklist, anyone_can_use, hide_duplicates, list/extra_actions, datum/callback/on_disguise)
+/datum/component/chameleon/Initialize(original_name, base_disguise_path, list/disguise_whitelist, list/disguise_blacklist, hide_duplicates, list/extra_actions, datum/callback/on_disguise)
 	if(!(base_disguise_path || src.base_disguise_path) && !(disguise_whitelist || src.disguise_whitelist))
 		return COMPONENT_INCOMPATIBLE
 	if(original_name && !istext(original_name))
@@ -47,8 +45,6 @@
 		src.disguise_blacklist = typecacheof(src.disguise_blacklist, only_root_path = TRUE)
 	else
 		src.disguise_blacklist = list()
-	if(!isnull(anyone_can_use))
-		src.anyone_can_use = anyone_can_use
 	if(!isnull(hide_duplicates))
 		src.hide_duplicates = hide_duplicates
 	if(LAZYLEN(extra_actions))
@@ -102,15 +98,13 @@
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /datum/component/chameleon/proc/can_use(mob/living/user, dist_limit = 0)
-	. = anyone_can_use
+	. = TRUE
 	if(!istype(user))
 		return FALSE
 	if(locked)
 		return FALSE
 	if(dist_limit ? (get_dist(user, parent) > dist_limit) : !(parent in user.contents))
 		return FALSE
-	if(HAS_TRAIT(user, TRAIT_CHAMELEON_USER) || HAS_TRAIT(user?.mind, TRAIT_CHAMELEON_USER))
-		return TRUE
 
 /datum/component/chameleon/proc/random_look()
 	if(!LAZYLEN(disguise_paths))

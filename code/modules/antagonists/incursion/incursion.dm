@@ -76,11 +76,9 @@
 			SSticker.mode.update_incursion_icons_added(owner)
 	else
 		SSticker.mode.update_incursion_icons_added(owner)
-		ADD_TRAIT(owner, TRAIT_CHAMELEON_USER, INCURSION_TRAIT)
 
 /datum/antagonist/incursion/remove_innate_effects(mob/living/mob_override)
 	SSticker.mode.update_incursion_icons_removed(owner)
-	REMOVE_TRAIT(owner, TRAIT_CHAMELEON_USER, INCURSION_TRAIT)
 
 /datum/antagonist/incursion/proc/finalize_incursion()
 	equip()
