@@ -4,7 +4,22 @@
 /datum/action/chameleon_panel
 	name = "Chameleon Outfit Panel"
 	button_icon_state = "chameleon_outfit"
+	var/datum/weakref/user_ref
 	var/opened_message = FALSE
+
+/datum/action/chameleon_panel/New(target, mob/living/user)
+	. = ..()
+	if(istype(user))
+		user_ref = WEAKREF(user)
+		RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(on_user_qdel))
+
+/datum/action/chameleon_panel/Destroy()
+	var/mob/living/user = user_ref?.resolve()
+	if(istype(user))
+		UnregisterSignal(user, COMSIG_PARENT_QDELETING)
+		if(GLOB.user_chameleon_actions[user] == src)
+			GLOB.user_chameleon_actions -= user
+	return ..()
 
 /datum/action/chameleon_panel/Trigger()
 	if(!IsAvailable())
@@ -131,6 +146,10 @@
 	return list(
 		get_asset_datum(/datum/asset/spritesheet/chameleon)
 	)
+
+/datum/action/chameleon_panel/proc/on_user_qdel()
+	SIGNAL_HANDLER
+	qdel(src)
 
 /datum/action/chameleon_panel/proc/get_outfit_icon(outfit_path)
 	if(!ispath(outfit_path))

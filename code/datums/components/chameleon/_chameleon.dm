@@ -190,7 +190,7 @@
 
 /datum/component/chameleon/proc/give_action(mob/living/user)
 	if(!GLOB.user_chameleon_actions[user])
-		GLOB.user_chameleon_actions[user] = new /datum/action/chameleon_panel
+		GLOB.user_chameleon_actions[user] = new /datum/action/chameleon_panel(user = user)
 	var/datum/action/chameleon_panel/action = GLOB.user_chameleon_actions[user]
 	if(action in user.actions)
 		action.update_static_data(user)
