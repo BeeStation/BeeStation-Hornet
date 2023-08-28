@@ -442,7 +442,7 @@
 	if (bound_overlay)
 		// The overlay will handle cleaning itself up on non-openspace turfs.
 		if (isturf(loc))
-			bound_overlay.forceMove(get_step(src, UP))
+			bound_overlay.forceMove(get_step_multiz(src, UP))
 			if (bound_overlay && dir != bound_overlay.dir)
 				bound_overlay.setDir(dir)
 		else	// Not a turf, so we need to destroy immediately instead of waiting for the destruction timer to proc.

@@ -81,8 +81,8 @@
 /datum/orbital_object/meteor/proc/meteor_impact(turf/T)
 	//Make it so meteors fall from high Z and will impact the top Z-Levels first
 	var/turf/target_turf = T
-	var/turf/next = target_turf.above()
+	var/turf/next = GET_TURF_ABOVE(target_turf)
 	while (next != null)
 		target_turf = next
-		next = target_turf.above()
+		next = GET_TURF_ABOVE(target_turf)
 	new /obj/effect/falling_meteor(target_turf, meteor_types ? pick(meteor_types) : null)

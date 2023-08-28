@@ -26,10 +26,6 @@ SUBSYSTEM_DEF(zcopy)
 	var/multiqueue_skips_turf = 0
 	var/multiqueue_skips_object = 0
 
-	// Highest Z level in a given Z-group for absolute layering.
-	// zstm[zlev] = group_max
-	var/list/zlev_maximums = list()
-
 	// Caches for fixup.
 	var/list/fixup_cache = list()
 	var/list/fixup_known_good = list()
@@ -114,8 +110,6 @@ SUBSYSTEM_DEF(zcopy)
 /datum/controller/subsystem/zcopy/stat_entry(msg)
 	var/list/entries = list(
 		"",	// newline
-		"\tZSt: [build_zstack_display()]",	// This is a human-readable list of the z-stacks known to ZM.
-		"\tZMx: [zlev_maximums.Join(", ")]",	// And this is the raw internal state.
 		// This one gets broken out from the below because it's more important.
 		"\tQ: { T: [queued_turfs.len - (qt_idex - 1)] O: [queued_overlays.len - (qo_idex - 1)] }",
 		// In order: Total, Skipped
@@ -124,50 +118,11 @@ SUBSYSTEM_DEF(zcopy)
 	)
 	return ..() + entries.Join("\n")
 
-// 1, 2, 3..=7, 8
-/datum/controller/subsystem/zcopy/proc/build_zstack_display()
-	if (!zlev_maximums.len)
-		return "<none>"
-	var/list/zmx = list()
-	var/idx = 1
-	var/span_ctr = 0
-	do
-		if (zlev_maximums[idx] != idx)
-			span_ctr += 1
-		else if (span_ctr)
-			zmx += "[idx - span_ctr]..=[idx]"
-			span_ctr = 0
-		else
-			zmx += "[idx]"
-		idx += 1
-	while (idx <= zlev_maximums.len)
-	return jointext(zmx, ", ")
 
 /datum/controller/subsystem/zcopy/Initialize(timeofday)
-	calculate_zstack_limits()
 	// Flush the queue.
 	fire(FALSE, TRUE)
 	return ..()
-
-// If you add a new Zlevel or change Z-connections, call this.
-/datum/controller/subsystem/zcopy/proc/calculate_zstack_limits()
-	zlev_maximums = new(world.maxz)
-	var/start_zlev = 1
-	for (var/z in 1 to world.maxz)
-		var/offset = SSmapping.level_trait(z, ZTRAIT_UP)
-		if (offset != 1)
-			if (offset > 1)
-				log_game("Z-Mimic: WARNING: Z-level [z] is nonlinear (offset [offset]), it is being ignored.")
-
-			for (var/member_zlev in start_zlev to z)
-				zlev_maximums[member_zlev] = z
-			if (z - start_zlev > ZMIMIC_MAX_DEPTH)
-				log_game("Z-Mimic: WARNING: Z-levels [start_zlev] through [z] exceed maximum depth of [ZMIMIC_MAX_DEPTH]; layering may behave strangely in this Z-stack.")
-			else if (z - start_zlev > 1)
-				log_game("Z-Mimic: Found Z-Stack: [start_zlev] -> [z] = [z - start_zlev + 1] zl")
-			start_zlev = z + 1
-
-	log_game("Z-Mimic: Z-Level maximums: [json_encode(zlev_maximums)]")
 
 /datum/controller/subsystem/zcopy/StartLoadingMap()
 	can_fire = FALSE
@@ -244,8 +199,7 @@ SUBSYSTEM_DEF(zcopy)
 			Td = Td.below
 
 		// Depth must be the depth of the *visible* turf, not self.
-		var/turf_depth
-		turf_depth = T.z_depth = zlev_maximums[Td.z] - Td.z
+		var/turf_depth = ZMIMIC_MAX_DEPTH - GET_TURF_DEPTH(Td)
 
 		var/t_target = ZMIMIC_MAX_PLANE - turf_depth	// This is where the turf (but not the copied atoms) gets put.
 
@@ -343,7 +297,7 @@ SUBSYSTEM_DEF(zcopy)
 
 			var/override_depth
 			var/original_type = object.type
-			var/original_z = object.z
+			var/original_depth = GET_TURF_DEPTH(T.below)
 			var/have_performed_fixup = FALSE
 
 			switch (object.type)
@@ -352,7 +306,7 @@ SUBSYSTEM_DEF(zcopy)
 					var/atom/movable/openspace/mimic/OOO = object
 					original_type = OOO.mimiced_type
 					override_depth = OOO.override_depth
-					original_z = OOO.original_z
+					original_depth = OOO.original_depth
 					have_performed_fixup = OOO.have_performed_fixup
 
 				// If this is a turf proxy (the mimic for a non-OVERWRITE turf), it needs to respect space parallax if relevant.
@@ -362,7 +316,7 @@ SUBSYSTEM_DEF(zcopy)
 						override_depth = ZMIMIC_MAX_PLANE - PLANE_SPACE
 
 				if (/atom/movable/openspace/turf_mimic)
-					original_z += 1
+					original_depth += 1
 
 			var/atom/movable/openspace/mimic/OO = object.bound_overlay
 
@@ -371,7 +325,7 @@ SUBSYSTEM_DEF(zcopy)
 				deltimer(OO.destruction_timer)
 				OO.destruction_timer = null
 
-			OO.depth = override_depth || min(zlev_maximums[T.z] - original_z, ZMIMIC_MAX_DEPTH)
+			OO.depth = override_depth || min(ZMIMIC_MAX_DEPTH - original_depth, ZMIMIC_MAX_DEPTH)
 
 			// These types need to be pushed a layer down for bigturfs to function correctly.
 			switch (original_type)
@@ -381,7 +335,7 @@ SUBSYSTEM_DEF(zcopy)
 
 			OO.mimiced_type = original_type
 			OO.override_depth = override_depth
-			OO.original_z = original_z
+			OO.original_depth = original_depth
 			OO.have_performed_fixup ||= have_performed_fixup
 
 			// Multi-queue to maintain ordering of updates to these
@@ -652,7 +606,7 @@ SUBSYSTEM_DEF(zcopy)
 		"<b>Has above copy:</b> [T.mimic_above_copy ? "Yes" : "No"]",
 		"<b>Has mimic underlay:</b> [T.mimic_underlay ? "Yes" : "No"]",
 		"<b>Below:</b> [!T.below ? "(nothing)" : "[T.below] at [T.below.x],[T.below.y],[T.below.z]"]",
-		"<b>Depth:</b> [FMT_DEPTH(T.z_depth)] [T.z_depth == ZMIMIC_MAX_DEPTH ? "(max)" : ""]",
+		"<b>Depth:</b> [FMT_DEPTH(GET_TURF_DEPTH(T))] [GET_TURF_DEPTH(T) == ZMIMIC_MAX_DEPTH ? "(max)" : ""]",
 		"<b>Generation:</b> [T.z_generation]",
 		"<b>Update count:</b> Claimed [claimed_update_count], Actual [real_update_count] - [claimed_update_count == real_update_count ? "<font color='green'>OK</font>" : "<font color='red'>MISMATCH</font>"]",
 		"<ul>"
@@ -667,7 +621,7 @@ SUBSYSTEM_DEF(zcopy)
 	var/turf/Tbelow = T
 	while ((Tbelow = Tbelow.below))
 		var/atom/movable/openspace/debug/turf/VTO = new
-		VTO.computed_depth = SSzcopy.zlev_maximums[Tbelow.z] - Tbelow.z
+		VTO.computed_depth = ZMIMIC_MAX_DEPTH - GET_TURF_DEPTH(Tbelow)
 		VTO.appearance = Tbelow
 		VTO.parent = Tbelow
 		VTO.plane = ZMIMIC_MAX_PLANE - VTO.computed_depth
