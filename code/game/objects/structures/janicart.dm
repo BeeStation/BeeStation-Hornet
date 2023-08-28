@@ -14,15 +14,20 @@
 	var/obj/item/lightreplacer/myreplacer
 	var/signs = 0
 	var/max_signs = 4
+	var/list/fill_icon_thresholds = list(1, 20, 30, 40, 50, 70, 90)
 
 /obj/structure/janitorialcart/Initialize(mapload)
 	. = ..()
 	create_reagents(100, OPENCONTAINER)
 	GLOB.janitor_devices += src
+	update_icon()
 
 /obj/structure/janitorialcart/Destroy()
 	GLOB.janitor_devices -= src
 	return ..()
+
+/obj/structure/janitorialcart/on_reagent_change(changetype)
+	update_icon()
 
 /obj/structure/janitorialcart/proc/wet_mop(obj/item/mop, mob/user)
 	if(reagents.total_volume < 1)
@@ -210,25 +215,35 @@
 			return
 	update_icon()
 
-/obj/structure/janitorialcart/update_icon()
-	cut_overlays()
+/obj/structure/janitorialcart/update_overlays()
+	. = ..()
 	if(mybag)
 		if(istype(mybag, /obj/item/storage/bag/trash/bluespace))
-			add_overlay("cart_garbage_bluespace")
+			. += "cart_garbage_bluespace"
 		else
-			add_overlay("cart_garbage")
+			. += "cart_garbage"
 	if(mymop)
-		add_overlay("cart_mop")
+		. += "cart_mop"
 	if(mybroom)
-		add_overlay("cart_broom")
+		. += "cart_broom"
 	if(myspray)
-		add_overlay("cart_spray")
+		. += "cart_spray"
 	if(myreplacer)
-		add_overlay("cart_replacer")
+		. += "cart_replacer"
 	if(signs)
-		add_overlay("cart_sign[signs]")
+		. += "cart_sign[signs]"
 	if(reagents.total_volume > 0)
-		add_overlay("cart_water")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/janitor.dmi', "cart_water[fill_icon_thresholds[1]]")
+
+		var/percent = round((reagents.total_volume / reagents.maximum_volume) * 100)
+		for(var/i in 1 to length(fill_icon_thresholds))
+			var/threshold = fill_icon_thresholds[i]
+			var/threshold_end = (i == length(fill_icon_thresholds)) ? INFINITY : fill_icon_thresholds[i+1]
+			if(threshold <= percent && percent < threshold_end)
+				filling.icon_state = "cart_water[fill_icon_thresholds[i]]"
+		//var/mutable_appearance/filling = mutable_appearance('icons/obj/janitor.dmi', "cart_water")
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		. += filling
 
 /obj/structure/janitorialcart/examine(mob/user)
 	. = ..()
