@@ -26,13 +26,12 @@
 
 /obj/structure/janitorialcart/proc/wet_mop(obj/item/mop, mob/user)
 	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>[src] is out of water!</span>")
+		balloon_alert(user, "Out of water!")
 		return 0
 	else
 		var/obj/item/mop/M = mop
 		reagents.trans_to(mop, M.mopcap, transfered_by = user)
-		balloon_alert(user, "Wet the [mop]")
-		to_chat(user, "<span class='notice'>You wet [mop] in [src].</span>")
+		balloon_alert(user, "Wet \the [mop]")
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return 1
 
@@ -40,14 +39,13 @@
 	if(!user.transferItemToLoc(I, src))
 		return
 	updateUsrDialog()
-	balloon_alert(user, "Put [I] into [src]")
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	balloon_alert(user, "Put \the [I] into \the [src]")
 	return
 
 /obj/structure/janitorialcart/AltClick(mob/user)
 	if(!mymop)
 		return
-	balloon_alert(user, "Removed [mymop]")
+	balloon_alert(user, "Removed \the [mymop]")
 	user.put_in_hands(mymop)
 	mymop = null
 	update_icon()
@@ -63,7 +61,6 @@
 			m.janicart_insert(user, src)
 		else
 			balloon_alert(user, "Already has \a [mymop]!")
-			to_chat(user, "<span class='notice'>There is already \a [mymop] in [src]!</span>")
 		return
 	if(istype(I, /obj/item/pushbroom))
 		if(!mybroom)
@@ -71,7 +68,6 @@
 			b.janicart_insert(user,src)
 		else
 			balloon_alert(user, "Already has \a [mybroom]!")
-			to_chat(user, "<span class='notice'>There is already \a [mybroom] in [src]!</span>")
 		return
 	if(istype(I, /obj/item/storage/bag/trash))
 		if(!mybag)
@@ -79,7 +75,6 @@
 			t.janicart_insert(user, src)
 		else
 			balloon_alert(user, "Already has \a [mybag]!")
-			to_chat(user, "<span class='notice'>There is already \a [mybag] in [src]!</span>")
 		return
 	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 		if(!myspray)
@@ -88,14 +83,12 @@
 			update_icon()
 		else
 			balloon_alert(user, "Already has \a [myspray]!")
-			to_chat(user, "<span class='notice'>There is already \a [myspray] in [src]!</span>")
 	else if(istype(I, /obj/item/lightreplacer))
 		if(!myreplacer)
 			var/obj/item/lightreplacer/l=I
 			l.janicart_insert(user,src)
 		else
 			balloon_alert(user, "Already has \a [myreplacer]!")
-			to_chat(user, "<span class='notice'>There is already \a [myreplacer] in [src]!</span>")
 		return
 	if(istype(I, /obj/item/clothing/suit/caution))
 		if(signs < max_signs)
@@ -104,14 +97,12 @@
 			update_icon()
 		else
 			balloon_alert(user, "The sign rack is full!")
-			to_chat(user, "<span class='notice'>The [src] can't hold any more signs!</span>")
 		return
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		user.balloon_alert_to_viewers("Starts dumping [src]...", "Started dumping [src]...")
 		user.visible_message("[user] begins to dump the contents of [src].", "<span class='notice'>You begin to dump the contents of [src]...</span>")
 		if(I.use_tool(src, user, 30))
 			balloon_alert(user, "Dumped [src]")
-			to_chat(usr, "<span class='notice'>You dump the contents of [src]'s bucket onto the floor.</span>")
 			reagents.reaction(src.loc)
 			src.reagents.clear_reagents()
 		return
@@ -120,19 +111,15 @@
 			return ..()
 		if(obj_integrity >= max_integrity)
 			balloon_alert(user, "Doesn't need repairs!")
-			to_chat(user, "<span class='notice'>\The [src] doesn't need repairing!</span>")
 			return
 		else
 			var/obj/item/stack/rods/rocks_stack = I
 			if(rocks_stack.amount < 1) //If that somehow happens
 				balloon_alert(user, "Not enough rods!")
-				to_chat(user, "<span class='notice'>There's not enough rods to repair \the [src]!</span>")
 				return ..()
 			balloon_alert(user, "Repairing...")
-			to_chat(user, "<span class='notice'>You begin repairing \the [src] with \the [I]</span>")
 			if(do_after(user, 2 SECONDS, src))
-				balloon_alert(user, "Repaired!")
-				to_chat(user, "<span class='warning'>You fix some of the dents on \the [src].</span>")
+				balloon_alert(user, "Repaired")
 				obj_integrity += 25
 				if(obj_integrity > max_integrity)
 					obj_integrity = max_integrity
@@ -180,36 +167,31 @@
 		if("Trash bag")
 			if(!mybag)
 				return
-			balloon_alert(user, "Detached [mybag]")
-			to_chat(user, "<span class='notice'>You take [mybag] from [src].</span>")
+			balloon_alert(user, "Detached \the [mybag]")
 			user.put_in_hands(mybag)
 			mybag = null
 		if("Mop")
 			if(!mymop)
 				return
-			balloon_alert(user, "Removed [mymop]")
-			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
+			balloon_alert(user, "Removed \the [mymop]")
 			user.put_in_hands(mymop)
 			mymop = null
 		if("Broom")
 			if(!mybroom)
 				return
-			balloon_alert(user, "Removed [mybroom]")
-			to_chat(user, "<span class='notice'>You take [mybroom] from [src].</span>")
+			balloon_alert(user, "Removed \the [mybroom]")
 			user.put_in_hands(mybroom)
 			mybroom = null
 		if("Spray bottle")
 			if(!myspray)
 				return
-			balloon_alert(user, "Removed [myspray]")
-			to_chat(user, "<span class='notice'>You take [myspray] from [src].</span>")
+			balloon_alert(user, "Removed \the [myspray]")
 			user.put_in_hands(myspray)
 			myspray = null
 		if("Light replacer")
 			if(!myreplacer)
 				return
-			balloon_alert(user, "Removed [myreplacer]")
-			to_chat(user, "<span class='notice'>You take [myreplacer] from [src].</span>")
+			balloon_alert(user, "Removed \the [myreplacer]")
 			user.put_in_hands(myreplacer)
 			myreplacer = null
 		if("Sign")
@@ -221,10 +203,9 @@
 				user.put_in_hands(Sign)
 				signs--
 			else
-				balloon_alert(user, "Removed [Sign]")
+				balloon_alert(user, "Removed \the [Sign]")
 				user.put_in_hands(Sign)
 				signs = 0
-			to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")
 		else
 			return
 	update_icon()
