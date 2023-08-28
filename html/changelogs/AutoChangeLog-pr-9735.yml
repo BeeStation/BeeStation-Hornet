@@ -1,4 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Fixed the obsessed greeting text displaying twice.
