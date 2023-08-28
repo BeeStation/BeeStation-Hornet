@@ -56,13 +56,13 @@
 /datum/component/chameleon/RegisterWithParent()
 	RegisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_PICKUP), PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
-	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(on_pre_qdel))
+	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(on_pre_qdel))
 	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL), PROC_REF(on_multitool_act))
 
 /datum/component/chameleon/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED, COMSIG_PARENT_PREQDELETED, COMSIG_ATOM_EMP_ACT, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL)))
+	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING, COMSIG_ATOM_EMP_ACT, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL)))
 
 /datum/component/chameleon/process()
 	random_look()
