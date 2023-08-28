@@ -87,8 +87,10 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_directional_opacity = directional_opacity
 	var/old_opacity = opacity
 
-	// Z-Mimic: copy above
-	var/old_above = above
+	// Dynamic Z-Linking
+	var/turf/old_above = above
+	var/turf/old_below = below
+	var/old_zdepth = z_depth
 
 	var/old_exl = explosion_level
 	var/old_exi = explosion_id
@@ -105,7 +107,23 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	//We do this here so anything that doesn't want to persist can clear itself
 	var/list/old_comp_lookup = comp_lookup?.Copy()
 	var/list/old_signal_procs = signal_procs?.Copy()
+
+	var/old_atoms_state = SSatoms.initialized
+	SSatoms.initialized = INITIALIZATION_INSSATOMS
 	var/turf/new_turf = new path(src)
+
+	// These need to be set prior to initialisation, otherwise we will have to regenerate
+	// zmimic twice for turfs that are linked to other locations.
+	new_turf.above = old_above
+	old_above?.below = new_turf
+	new_turf.below = old_below
+	old_below?.above = new_turf
+	new_turf.z_depth = old_zdepth
+
+	var/is_mapload = old_atoms_state == INITIALIZATION_INNEW_MAPLOAD
+	SSatoms.InitAtom(src, new_turf, is_mapload)
+
+	SSatoms.initialized = old_atoms_state
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
@@ -122,8 +140,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		new_turf.baseturfs = baseturfs_string_list(new_baseturfs, new_turf)
 	else
 		new_turf.baseturfs = baseturfs_string_list(old_baseturfs, new_turf) //Just to be safe
-
-	new_turf.above = old_above
 
 	new_turf.explosion_id = old_exi
 	new_turf.explosion_level = old_exl
