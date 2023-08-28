@@ -117,7 +117,7 @@ GLOBAL_LIST(admin_antag_list)
 			to_chat(owner.current, "<span class='boldnotice'>For more info, read the panel. \
 				You can always come back to it using the button in the top left.</span>")
 			info_button?.Trigger()
-	greet()
+		greet()
 	apply_innate_effects()
 	give_antag_moodies()
 	if(is_banned(owner.current) && replace_banned)
