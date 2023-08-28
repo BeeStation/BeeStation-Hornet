@@ -64,21 +64,24 @@
 		else
 			balloon_alert(user, "Already has \a [mymop]!")
 			to_chat(user, "<span class='notice'>There is already \a [mymop] in [src]!</span>")
-	else if(istype(I, /obj/item/pushbroom))
+		return
+	if(istype(I, /obj/item/pushbroom))
 		if(!mybroom)
 			var/obj/item/pushbroom/b=I
 			b.janicart_insert(user,src)
 		else
 			balloon_alert(user, "Already has \a [mybroom]!")
 			to_chat(user, "<span class='notice'>There is already \a [mybroom] in [src]!</span>")
-	else if(istype(I, /obj/item/storage/bag/trash))
+		return
+	if(istype(I, /obj/item/storage/bag/trash))
 		if(!mybag)
 			var/obj/item/storage/bag/trash/t=I
 			t.janicart_insert(user, src)
 		else
 			balloon_alert(user, "Already has \a [mybag]!")
 			to_chat(user, "<span class='notice'>There is already \a [mybag] in [src]!</span>")
-	else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
+		return
+	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 		if(!myspray)
 			put_in_cart(I, user)
 			myspray=I
@@ -93,7 +96,8 @@
 		else
 			balloon_alert(user, "Already has \a [myreplacer]!")
 			to_chat(user, "<span class='notice'>There is already \a [myreplacer] in [src]!</span>")
-	else if(istype(I, /obj/item/clothing/suit/caution))
+		return
+	if(istype(I, /obj/item/clothing/suit/caution))
 		if(signs < max_signs)
 			put_in_cart(I, user)
 			signs++
@@ -101,9 +105,8 @@
 		else
 			balloon_alert(user, "The sign rack is full!")
 			to_chat(user, "<span class='notice'>The [src] can't hold any more signs!</span>")
-	else if(mybag)
-		mybag.attackby(I, user)
-	else if(I.tool_behaviour == TOOL_CROWBAR)
+		return
+	if(I.tool_behaviour == TOOL_CROWBAR)
 		user.balloon_alert_to_viewers("Starts dumping [src]...", "Started dumping [src]...")
 		user.visible_message("[user] begins to dump the contents of [src].", "<span class='notice'>You begin to dump the contents of [src]...</span>")
 		if(I.use_tool(src, user, 30))
@@ -111,6 +114,33 @@
 			to_chat(usr, "<span class='notice'>You dump the contents of [src]'s bucket onto the floor.</span>")
 			reagents.reaction(src.loc)
 			src.reagents.clear_reagents()
+		return
+	if(istype(I, /obj/item/stack/rods))
+		if(user.a_intent == INTENT_HARM)
+			return ..()
+		if(obj_integrity >= max_integrity)
+			balloon_alert(user, "Doesn't need repairs!")
+			to_chat(user, "<span class='notice'>\The [src] doesn't need repairing!</span>")
+			return
+		else
+			var/obj/item/stack/rods/rocks_stack = I
+			if(rocks_stack.amount < 1) //If that somehow happens
+				balloon_alert(user, "Not enough rods!")
+				to_chat(user, "<span class='notice'>There's not enough rods to repair \the [src]!</span>")
+				return ..()
+			balloon_alert(user, "Repairing...")
+			to_chat(user, "<span class='notice'>You begin repairing \the [src] with \the [I]</span>")
+			if(do_after(user, 2 SECONDS, src))
+				balloon_alert(user, "Repaired!")
+				to_chat(user, "<span class='warning'>You fix some of the dents on \the [src].</span>")
+				obj_integrity += 25
+				if(obj_integrity > max_integrity)
+					obj_integrity = max_integrity
+				rocks_stack.use(1)
+		return
+	if(mybag)
+		mybag.attackby(I, user)
+		return
 	else
 		return ..()
 
@@ -221,8 +251,10 @@
 
 /obj/structure/janitorialcart/examine(mob/user)
 	. = ..()
+	if((obj_integrity/max_integrity) < 1)//If it's damaged
+		. += "<span class='notice'>It can be repaired with some iron rods.</span>"
 	if(contents.len)
-		. += ("<span class='notice'><b>\nIt is carrying:</b></span>")
+		. += "<span class='notice'><b>\nIt is carrying:</b></span>"
 		for(var/thing in sort_names(contents))
 			if(istype(thing, /obj/item/clothing/suit/caution))
 				continue //we'll do this after.
