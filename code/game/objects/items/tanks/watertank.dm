@@ -192,8 +192,6 @@
 /obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
 	if(target.loc == loc) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it
 		return
-	//if(..())
-		//tank.update_icon()
 
 //Janitor tank
 /obj/item/watertank/janitor
@@ -278,6 +276,10 @@
 			item_state = "[initial(item_state)]_on"
 		else
 			item_state = initial(item_state)
+		if(istype(loc, /mob/living/carbon))
+			var/mob/living/carbon/wearer = loc
+			if(wearer.back == src)
+				wearer.update_inv_back()
 
 /obj/item/watertank/atmos/update_overlays()
 	. = ..()
@@ -312,10 +314,10 @@
 	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
 		N.toggled = TRUE
 	N.update_nozzle_stats()
-	update_icon()
 	balloon_alert(user, "Upgrade installed")
 	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(upgrade)
+	update_icon()
 
 /obj/item/watertank/atmos/toggle_mister(mob/living/user)
 	if(!istype(user))
