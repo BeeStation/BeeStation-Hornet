@@ -64,30 +64,9 @@
 		return TRUE
 
 	if(panel_open)
-		if(I.tool_behaviour == TOOL_MULTITOOL)
-			if(!multitool_check_buffer(user, I))
-				return
-			var/obj/item/multitool/M = I
-			M.buffer = src
-			to_chat(user, "<span class='notice'>You save the data in [I]'s buffer. It can now be saved to pads with closed panels.</span>")
-			return TRUE
-	else if(I.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, I))
-			return
-		var/obj/item/multitool/M = I
-		if(istype(M.buffer, /obj/machinery/quantumpad))
-			if(M.buffer == src)
-				to_chat(user, "<span class='warning'>You cannot link a pad to itself!</span>")
-				return TRUE
-			else
-				linked_pad = M.buffer
-				to_chat(user, "<span class='notice'>You link [src] to the one in [I]'s buffer.</span>")
-				return TRUE
-		else
-			to_chat(user, "<span class='warning'>There is no quantum pad data saved in [I]'s buffer!</span>")
-			return TRUE
+		return
 
-	else if(istype(I, /obj/item/quantum_keycard))
+	if(istype(I, /obj/item/quantum_keycard))
 		var/obj/item/quantum_keycard/K = I
 		if(K.qpad)
 			to_chat(user, "<span class='notice'>You insert [K] into [src]'s card slot, activating it.</span>")
@@ -102,6 +81,26 @@
 		return
 
 	return ..()
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/quantumpad)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/quantumpad)
+	if (panel_open)
+		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+			to_chat(user, "<span class='notice'>You save the data in [buffer_parent]'s buffer. It can now be saved to pads with closed panels.</span>")
+			return COMPONENT_BUFFER_RECIEVED
+		return NONE
+	if(istype(buffer, /obj/machinery/quantumpad))
+		if(buffer == src)
+			to_chat(user, "<span class='warning'>You cannot link a pad to itself!</span>")
+			return COMPONENT_BUFFER_RECIEVED
+		else
+			linked_pad = buffer
+			to_chat(user, "<span class='notice'>You link [src] to the one in [buffer_parent]'s buffer.</span>")
+			return COMPONENT_BUFFER_RECIEVED
+	else
+		to_chat(user, "<span class='warning'>There is no quantum pad data saved in [buffer_parent]'s buffer!</span>")
+		return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/quantumpad/interact(mob/user, obj/machinery/quantumpad/target_pad = linked_pad)
 	if(!target_pad || QDELETED(target_pad))
