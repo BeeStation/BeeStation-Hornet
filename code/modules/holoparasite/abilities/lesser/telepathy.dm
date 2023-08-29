@@ -40,14 +40,14 @@
 	QDEL_NULL(telepathy_hud)
 
 /datum/holoparasite_ability/lesser/telepathy/apply()
-	. = ..()
+	..()
 	scanning_range = master_stats.range + 2
 	valid_time = master_stats.potential * 3 MINUTES
 	can_respond = master_stats.potential >= 5
 	START_PROCESSING(SSprocessing, src)
 
 /datum/holoparasite_ability/lesser/telepathy/remove()
-	. = ..()
+	..()
 	STOP_PROCESSING(SSprocessing, src)
 
 /datum/holoparasite_ability/lesser/telepathy/register_signals()

@@ -5,9 +5,9 @@
 	cost = 1
 
 /datum/holoparasite_ability/lesser/babelfish/apply()
-	. = ..()
+	..()
 	owner.grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_HOLOPARA)
 
 /datum/holoparasite_ability/lesser/babelfish/remove()
-	. = ..()
+	..()
 	owner.remove_all_languages(LANGUAGE_HOLOPARA)

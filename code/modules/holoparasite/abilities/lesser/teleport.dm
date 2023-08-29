@@ -42,6 +42,7 @@
 
 /datum/holoparasite_ability/lesser/teleport/Destroy()
 	. = ..()
+	QDEL_NULL(beacon)
 	QDEL_NULL(deploy_hud)
 	QDEL_NULL(warp_hud)
 
@@ -49,10 +50,6 @@
 	..()
 	leaves_tear_behind = master_stats.potential < 4
 	cross_z_warping = master_stats.potential >= 5
-
-/datum/holoparasite_ability/lesser/teleport/remove()
-	. = ..()
-	QDEL_NULL(beacon)
 
 /datum/holoparasite_ability/lesser/teleport/register_signals()
 	..()

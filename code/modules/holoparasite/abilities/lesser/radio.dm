@@ -20,8 +20,14 @@
 	var/regex/prefix_regex
 	var/obj/item/radio/holoparasite/radio
 
-/datum/holoparasite_ability/lesser/misaka/apply()
+/datum/holoparasite_ability/lesser/misaka/Destroy()
 	. = ..()
+	QDEL_NULL(radio)
+
+/datum/holoparasite_ability/lesser/misaka/apply()
+	..()
+	if(radio)
+		QDEL_NULL(radio)
 	radio = new(owner)
 	can_talk = master_stats.range >= 4
 	if(master_stats.potential >= 4)
@@ -31,10 +37,6 @@
 		radio.wires.cut(WIRE_TX)
 	radio.recalculateChannels()
 	generate_regex()
-
-/datum/holoparasite_ability/lesser/misaka/remove()
-	. = ..()
-	QDEL_NULL(radio)
 
 /**
  * Generates a regex for detecting if a message is meant to go over this radio or not.

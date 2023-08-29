@@ -27,22 +27,19 @@
 	. = ..()
 	QDEL_NULL(arm_hud)
 	QDEL_NULL(disarm_hud)
-
-/datum/holoparasite_ability/lesser/snare/apply()
-	. = ..()
-	audio_relay = (master_stats.potential >= 3)
-
-/datum/holoparasite_ability/lesser/snare/register_signals()
-	. = ..()
-	RegisterSignal(owner, COMSIG_HOLOPARA_SETUP_HUD, PROC_REF(on_hud_setup))
-
-/datum/holoparasite_ability/lesser/snare/remove()
-	. = ..()
 	QDEL_LIST(snares)
 	snare_names.Cut()
 
+/datum/holoparasite_ability/lesser/snare/apply()
+	..()
+	audio_relay = (master_stats.potential >= 3)
+
+/datum/holoparasite_ability/lesser/snare/register_signals()
+	..()
+	RegisterSignal(owner, COMSIG_HOLOPARA_SETUP_HUD, PROC_REF(on_hud_setup))
+
 /datum/holoparasite_ability/lesser/snare/unregister_signals()
-	. = ..()
+	..()
 	UnregisterSignal(owner, COMSIG_HOLOPARA_SETUP_HUD)
 
 /datum/holoparasite_ability/lesser/snare/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)

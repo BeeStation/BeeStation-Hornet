@@ -47,12 +47,12 @@
 	QDEL_NULL(toggle_hud)
 
 /datum/holoparasite_ability/major/scout/apply()
-	. = ..()
+	..()
 	can_cloak = master_stats.potential >= 3
 	falloff_range = clamp(round((master_stats.range + master_stats.potential) * 0.5, 1), 2, 6)
 
 /datum/holoparasite_ability/major/scout/remove()
-	. = ..()
+	..()
 	stop_cloaking(forced = TRUE)
 	exit_scout(forced = TRUE)
 

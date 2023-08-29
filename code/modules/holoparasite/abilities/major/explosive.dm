@@ -89,7 +89,7 @@
 	QDEL_NULL(detonate_hud)
 
 /datum/holoparasite_ability/major/explosive/apply()
-	. = ..()
+	..()
 	arming_cooldown_length = HOLOPARA_BASE_ARM_COOLDOWN / master_stats.range
 	detonate_cooldown_length = HOLOPARA_BASE_DETONATE_COOLDOWN / master_stats.potential
 

@@ -39,7 +39,7 @@
 	var/purge_amt = 0
 
 /datum/holoparasite_ability/major/healing/apply()
-	. = ..()
+	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(owner)
 	heal_clone = (master_stats.potential >= 5)
@@ -51,7 +51,7 @@
 	owner.possible_a_intents = list(INTENT_HELP, INTENT_HARM)
 
 /datum/holoparasite_ability/major/healing/remove()
-	. = ..()
+	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.remove_hud_from(owner)
 	owner.possible_a_intents = null
