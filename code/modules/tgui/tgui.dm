@@ -101,13 +101,19 @@
 	if(!window.is_ready())
 		window.initialize(
 			strict_mode = TRUE,
-			fancy = user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy),
+			fancy = !user.client || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy),
 			assets = list(
 				get_asset_datum(/datum/asset/simple/tgui),
 			))
+		// initialize sleeps, so client can become null
+		if(!user?.client)
+			return FALSE
 	else
 		window.send_message("ping")
 	send_assets()
+	// send_assets sleeps, so client can become null.
+	if(!user?.client)
+		return FALSE
 	window.send_message("update", get_payload(
 		with_data = TRUE,
 		with_static_data = TRUE))

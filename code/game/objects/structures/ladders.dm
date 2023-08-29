@@ -167,8 +167,12 @@
 				user.visible_message("<span class='notice'>[user] cuts [src].</span>", \
 									 "<span class='notice'>You cut [src].</span>")
 				I.play_tool_sound(src, 100)
-				var/obj/R = new /obj/item/stack/rods(drop_location(), 10)
-				transfer_fingerprints_to(R)
+				var/drop_loc = drop_location()
+				var/obj/R = new /obj/item/stack/rods(drop_loc, 10)
+				if(QDELETED(R)) // the rods merged with something on the tile
+					R = locate(/obj/item/stack/rods) in drop_loc
+				if(R)
+					transfer_fingerprints_to(R)
 				qdel(src)
 				return TRUE
 	else

@@ -25,7 +25,8 @@
 
 // dir check for buckle_lying state
 /obj/structure/bed/Initialize()
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed)) //This gets called later during initialization
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
+	dir_changed(new_dir = dir)
 	. = ..()
 
 /obj/structure/bed/Destroy()

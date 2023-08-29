@@ -420,6 +420,8 @@
 	plane = PLANE_SPACE
 	tiled_dirt = FALSE
 	max_integrity = 100
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /turf/open/floor/fakespace/Initialize(mapload)
 	. = ..()

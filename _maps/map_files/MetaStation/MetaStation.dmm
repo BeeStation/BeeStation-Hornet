@@ -21606,6 +21606,9 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "ccP" = (
@@ -34724,7 +34727,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "fPx" = (
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
@@ -37356,10 +37359,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"gZL" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "gZS" = (
 /obj/machinery/button/door{
 	id = "prisonereducation";
@@ -38285,6 +38284,9 @@
 	},
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
@@ -48231,6 +48233,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "lvM" = (
@@ -49103,10 +49108,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"lPu" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/air,
-/area/engine/atmos)
 "lPx" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -59822,6 +59823,9 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "qgf" = (
@@ -64178,6 +64182,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
@@ -70336,7 +70343,7 @@
 /area/maintenance/solars/starboard/aft)
 "uIh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "uIA" = (
@@ -78948,7 +78955,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /turf/open/floor/plasteel,
 /area/maintenance/aft)
 "ybn" = (
@@ -122903,7 +122910,7 @@ cei
 cfy
 cgB
 chT
-lPu
+ckI
 ckI
 bAR
 aaf
@@ -125458,7 +125465,7 @@ bJd
 bKJ
 bMn
 bAR
-gZL
+bPy
 bQZ
 bSl
 bAR

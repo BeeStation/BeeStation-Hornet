@@ -72603,10 +72603,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/techmaint,
 /area/science/nanite)
-"sEV" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/air/light,
-/area/engine/atmos)
 "sEY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -81260,7 +81256,6 @@
 "uLj" = (
 /obj/machinery/atmospherics/miner/plasma,
 /obj/machinery/light/floor,
-/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine/plasma/light,
 /area/engine/atmos)
 "uLm" = (
@@ -84288,7 +84283,6 @@
 /area/quartermaster/storage)
 "vsp" = (
 /obj/structure/table,
-/obj/item/storage/belt,
 /obj/item/radio,
 /obj/machinery/light{
 	dir = 4
@@ -84302,6 +84296,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/storage/belt/utility,
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
@@ -143111,7 +143106,7 @@ wNp
 lVB
 fVd
 vEb
-sEV
+wVT
 wVT
 cKm
 ufF

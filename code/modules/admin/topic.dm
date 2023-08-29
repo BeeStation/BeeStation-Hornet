@@ -1917,6 +1917,15 @@
 			message_admins("[key_name_admin(usr)] selected backstory: [choice]")
 			log_admin("[key_name(usr)] selected backstory: [choice]")
 
+	else if(href_list["show_paper"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/obj/item/paper/paper_to_show = locate(href_list["show_paper"])
+		if(!istype(paper_to_show))
+			return
+		paper_to_show.ui_interact(usr)
+
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))
 		return

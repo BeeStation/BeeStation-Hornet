@@ -46602,7 +46602,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "hws" = (
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "hxc" = (
@@ -74069,11 +74069,11 @@
 /turf/open/floor/plasteel/dark,
 /area/library)
 "qRS" = (
-/obj/item/storage/belt,
 /obj/item/radio,
 /obj/machinery/light,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/storage/belt/utility,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "qRV" = (
@@ -89111,7 +89111,6 @@
 /area/quartermaster/office)
 "wbz" = (
 /obj/structure/table,
-/obj/item/storage/belt,
 /obj/item/radio,
 /obj/item/radio,
 /obj/item/radio,
@@ -89121,6 +89120,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
+/obj/item/storage/belt/utility,
 /turf/open/floor/plasteel,
 /area/gateway)
 "wbG" = (

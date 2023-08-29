@@ -19,7 +19,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "af" = (
-/obj/machinery/computer/shuttle_flight,
+/obj/machinery/computer/emergency_shuttle,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
