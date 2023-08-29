@@ -202,7 +202,7 @@
 	. = ..()
 
 /datum/antagonist/abductee/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/brainwash.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/brainwash.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='warning'><b>Your mind snaps!</b></span>")
 	to_chat(owner, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
 	owner.announce_objectives()

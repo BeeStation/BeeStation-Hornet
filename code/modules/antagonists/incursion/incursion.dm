@@ -82,7 +82,7 @@
 
 /datum/antagonist/incursion/proc/finalize_incursion()
 	equip()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/incursion.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/incursion.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/incursion/admin_add(datum/mind/new_owner,mob/admin)
 	//show list of possible brothers
