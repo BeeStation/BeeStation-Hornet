@@ -105,8 +105,7 @@
 	if(owner.has_matching_summoner(target))
 		to_chat(owner, "<span class='warning'>There's no need to stalk <span class='name'>[target]</span>...</span>")
 		return
-	var/list/view_size = getviewsize(world.view)
-	if(!isturf(target.loc) || target.get_virtual_z_level() != owner.get_virtual_z_level() || get_dist(owner, target) > max(view_size[1], view_size[2]))
+	if(!isturf(target.loc) || target.get_virtual_z_level() != owner.get_virtual_z_level() || !in_view_range(owner, target))
 		to_chat(owner, "<span class='warning'><span class='name'>[target]</span> is too far away to begin stalking!</span>")
 		return
 	begin_stalking(target)

@@ -32,9 +32,7 @@
 	ASSERT_ABILITY_USABILITY
 	if(!COOLDOWN_FINISHED(src, spatial_rending_cooldown) || owner.Adjacent(target) || !isturf(owner.loc))
 		return
-	var/list/view_size = getviewsize(world.view)
-	var/view_distance = max(view_size[1], view_size[2])
-	if(get_dist(owner, target) > view_distance)
+	if(!in_view_range(owner, target))
 		to_chat(owner, "<span class='warning'>You cannot pull something so far away!</span>")
 		return
 	var/turf/hand_turf = get_step(owner, get_dir(owner, target))
@@ -54,7 +52,7 @@
 	owner.face_atom(hand_turf)
 	if(things_pulled)
 		playsound(owner, 'sound/magic/blink.ogg', vol = 100, vary = TRUE) // blink lol
-		var/datum/beam/beam = target_turf.Beam(hand_turf, "bsa_beam_greyscale", time = 1.5 SECONDS, maxdistance = view_distance)
+		var/datum/beam/beam = target_turf.Beam(hand_turf, "bsa_beam_greyscale", time = 1.5 SECONDS)
 		for(var/obj/effect/ebeam/beam_part in beam.elements)
 			beam_part.add_atom_colour(owner.accent_color, FIXED_COLOUR_PRIORITY)
 		owner.visible_message("<span class='danger'>[owner.color_name] compresses space, bringing the objects on [target_turf] directly to it!</span>")
