@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Made the gas analyzers show the contents of a gas tank inside of a portable
+      pump/scrubber/canister
