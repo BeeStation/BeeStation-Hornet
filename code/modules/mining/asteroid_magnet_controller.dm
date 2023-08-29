@@ -133,6 +133,8 @@
 		new_location.baseturfs += new_location.type
 		new_location.baseturfs += baseturfs
 		T.copyTurf(new_location)
+		// Update the linked below turf
+		new_location.set_below(T.below)
 		// TODO: Deal with onShuttleMove
 		// Transfer objects from the previous location
 		for (var/atom/movable/thing as() in T.contents)
