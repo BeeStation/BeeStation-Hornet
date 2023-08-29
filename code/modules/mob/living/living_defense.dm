@@ -419,7 +419,7 @@
 		return FALSE
 	if(!override_blindness_check && is_blind())
 		return FALSE
-	if(client.prefs.read_player_preference(/datum/preference/toggle/darkened_flash))
+	if(client?.prefs?.read_player_preference(/datum/preference/toggle/darkened_flash))
 		type = /atom/movable/screen/fullscreen/flash/black
 	overlay_fullscreen("flash", type)
 	addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 2.5 SECONDS), 2.5 SECONDS)
