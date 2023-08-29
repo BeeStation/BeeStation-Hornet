@@ -149,6 +149,7 @@
 	H.equipOutfit(outfit_type)
 
 /datum/antagonist/wizard/greet()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/wizard.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='boldannounce'>You are the Space Wizard!</span>")
 	to_chat(owner, "<B>The Space Wizards Federation has given you the following tasks:</B>")
 	owner.announce_objectives()

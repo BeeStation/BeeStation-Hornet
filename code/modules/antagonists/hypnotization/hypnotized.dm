@@ -46,6 +46,7 @@
 
 
 /datum/antagonist/hypnotized/greet()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/hypnosis.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	var/i = 1
 	for(var/X in objectives)
 		var/datum/objective/O = X
