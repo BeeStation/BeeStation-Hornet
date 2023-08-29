@@ -224,20 +224,6 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		switch (pick_weight(list("airlock" = 3)))
 			if("airlock")
 				atom_text = "An airlock"
-				//Valid areas
-				var/static/list/valid_areas = list(
-					/area/medical,
-					/area/commons,
-					/area/crew_quarters,
-					/area/service,
-					/area/library,
-					/area/maintenance,
-					/area/hallway,
-					/area/chapel,
-					/area/hydroponics,
-					/area/holodeck,
-					/area/lawoffice,
-				)
 				// If our airlock isn't accessible to these accesses, then we won't allow the item to spawn here
 				var/list/safe_access_list = list(ACCESS_CARGO, ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_THEATRE, ACCESS_LAWYER, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 				//Pick a valid airlock
@@ -248,12 +234,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 						continue
 					//Make sure its publicly accessible
 					var/area/area = get_area(A)
-					var/valid = FALSE
-					for(var/area_type in valid_areas)
-						if(istype(area, area_type))
-							valid = TRUE
-							break
-					if(!valid)
+					if (!(area.area_flags & HIDDEN_STASH_LOCATION))
 						continue
 					//This airlock is good for us
 					A.AddComponent(/datum/component/stash, receiver, secret_bag)
