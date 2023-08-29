@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Implements a new system for determining when a jammer moves into range
-      of an object.
-  - balance: Cameras will now visibly turn off when a singal jammer is nearby.

@@ -1,4 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: Beds now actually properly initialize their lying angle on map load
