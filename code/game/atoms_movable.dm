@@ -177,6 +177,10 @@
 /atom/movable/proc/stop_pulling()
 	if(pulling)
 		pulling.pulledby = null
+		if(ismob(usr))
+			log_combat(usr, pulling, "has stopped pulling", addition = "at [AREACOORD(usr)]")
+		if(ismob(pulling))
+			log_combat(pulling, usr, "stopped being pulled by", addition = "at [AREACOORD(pulling)]")
 		var/mob/living/ex_pulled = pulling
 		pulling = null
 		setGrabState(0)

@@ -3154,7 +3154,7 @@
 	},
 /area/abductor_ship)
 "mt" = (
-/obj/machinery/abductor/gland_dispenser,
+/obj/machinery/smartfridge/abductor,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "mu" = (

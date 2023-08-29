@@ -16,6 +16,10 @@
 	thermal_conductivity = 0
 	heat_capacity = 700000
 
+	// Since we have a lighting layer that extends further than the turf, make this turf
+	// create luminosity to nearby turfs.
+	luminosity = 2
+
 	var/destination_z
 	var/destination_x
 	var/destination_y
@@ -26,7 +30,7 @@
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	fullbright_type = FULLBRIGHT_STARLIGHT
 	bullet_bounce_sound = null
 
 	z_eventually_space = TRUE
@@ -61,8 +65,8 @@
 	flags_1 |= INITIALIZED_1
 
 	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		overlays += GLOB.fullbright_overlay
+	if(IS_DYNAMIC_LIGHTING(A))
+		overlays += GLOB.starlight_overlay
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -98,16 +102,6 @@
 
 /turf/open/space/remove_air_ratio(amount)
 	return null
-
-/turf/open/space/proc/update_starlight()
-	if(CONFIG_GET(flag/starlight))
-		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			if(isspaceturf(t))
-				//let's NOT update this that much pls
-				continue
-			set_light(2)
-			return
-		set_light(0)
 
 /turf/open/space/attack_paw(mob/user)
 	return attack_hand(user)
