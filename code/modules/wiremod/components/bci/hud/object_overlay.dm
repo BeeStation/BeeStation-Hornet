@@ -85,7 +85,7 @@
 		show_to_owner(target_atom, owner)
 
 	if(COMPONENT_TRIGGERED_BY(signal_off, port) && (target_atom in active_overlays))
-		QDEL_NULL(active_overlays[target_atom])
+		target_atom.remove_alt_appearance("object_overlay_[REF(src)]")
 		active_overlays.Remove(target_atom)
 
 /obj/item/circuit_component/object_overlay/proc/show_to_owner(atom/target_atom, mob/living/owner)
