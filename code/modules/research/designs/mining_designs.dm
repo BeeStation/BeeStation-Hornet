@@ -48,7 +48,7 @@
 	id = "gravitymagnet"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/copper)
-	build_path = /obj/item/deployable/gravity_magnet
+	build_path = /obj/item/gravity_magnet
 	category = list("Mining Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 

@@ -12,7 +12,7 @@ APPLY_PLACEHOLDER_TEXT(/obj/machinery/gravity_magnet, "passive gravity anchor")
 	var/obj/machinery/gravity_magnet/linked
 
 	/// What do we get when we pick this up?
-	var/pickup_type = /obj/item/deployable/gravity_magnet
+	var/pickup_type = /obj/item/gravity_magnet
 
 /obj/machinery/gravity_magnet/Initialize(mapload)
 	. = ..()
@@ -161,12 +161,15 @@ APPLY_PLACEHOLDER_TEXT(/obj/machinery/gravity_magnet/active, "active gravity anc
  * Allows for a gravity magnet to be quickly destroyed.
  */
 
-APPLY_PLACEHOLDER_TEXT(/obj/item/deployable/gravity_magnet, "gravity anchor")
+APPLY_PLACEHOLDER_TEXT(/obj/item/gravity_magnet, "gravity anchor")
 
-/obj/item/deployable/gravity_magnet
+/obj/item/gravity_magnet
 	name = "gravity anchor deployer"
 	desc = "A device which deploys a gravity anchor, capable of being connected to a gravity magnet."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
 	w_class = WEIGHT_CLASS_SMALL
-	deployed_object = /obj/machinery/gravity_magnet
+
+/obj/item/gravity_magnet/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/deployable, /obj/machinery/gravity_magnet, time_to_deploy = 3 SECONDS)
