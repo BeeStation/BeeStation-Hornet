@@ -5860,6 +5860,17 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"xj" = (
+/obj/structure/closet,
+/obj/item/storage/backpack/duffelbag/med/surgery,
+/obj/machinery/iv_drip,
+/obj/item/rollerbed,
+/obj/item/storage/firstaid/regular,
+/obj/item/reagent_containers/medspray/synthflesh,
+/obj/item/reagent_containers/medspray/synthflesh,
+/obj/item/reagent_containers/medspray/synthflesh,
+/turf/open/floor/wood,
+/area/centcom/holding)
 "xo" = (
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
@@ -8246,6 +8257,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Ik" = (
+/obj/machinery/smartfridge/abductor,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "Il" = (
 /turf/closed/indestructible/fakeglass,
 /area/tdome/tdomeobserve)
@@ -8750,10 +8765,6 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
-"Kt" = (
-/obj/machinery/smartfridge/abductor,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "KA" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -11400,17 +11411,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
-"Vr" = (
-/obj/structure/closet,
-/obj/item/storage/backpack/duffelbag/med/surgery,
-/obj/machinery/iv_drip,
-/obj/item/rollerbed,
-/obj/item/storage/firstaid/regular,
-/obj/item/reagent_containers/medspray/synthflesh,
-/obj/item/reagent_containers/medspray/synthflesh,
-/obj/item/reagent_containers/medspray/synthflesh,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "Vs" = (
 /obj/structure/closet/secure_closet/security,
 /obj/item/storage/belt/security/full,
@@ -13769,7 +13769,7 @@ kM
 li
 lD
 li
-Kt
+Ik
 nc
 Rk
 aa
@@ -13796,7 +13796,7 @@ Au
 li
 BQ
 li
-Kt
+Ik
 nc
 Rk
 aa
@@ -13826,7 +13826,7 @@ JA
 li
 JM
 li
-Kt
+Ik
 nc
 Rk
 aa
@@ -13853,7 +13853,7 @@ LK
 li
 LT
 li
-Kt
+Ik
 nc
 Rk
 LV
@@ -41576,7 +41576,7 @@ Xk
 NT
 vt
 Mx
-Vr
+xj
 Tb
 Uh
 tW

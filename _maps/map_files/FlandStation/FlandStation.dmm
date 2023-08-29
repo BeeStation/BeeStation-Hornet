@@ -15165,18 +15165,6 @@
 "dYE" = (
 /turf/closed/mineral/random/low_chance,
 /area/asteroid/nearstation)
-"dYF" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/storage/backpack/duffelbag/med,
-/obj/item/flashlight/pen,
-/obj/item/rollerbed,
-/obj/item/crowbar,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical)
 "dYL" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -46430,6 +46418,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"meq" = (
+/obj/machinery/atmospherics/miner/plasma,
+/obj/machinery/light/floor,
+/turf/open/floor/engine/plasma/light,
+/area/engine/atmos)
 "mer" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -56641,6 +56634,21 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
+"oMr" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate{
+	name = "disposal supplies"
+	},
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/shovel,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/maintenance/starboard/aft)
 "oMx" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating,
@@ -62991,6 +62999,26 @@
 	},
 /turf/open/floor/carpet,
 /area/vacant_room/office)
+"qqP" = (
+/obj/structure/table,
+/obj/item/radio,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/requests_console{
+	department = "EVA";
+	name = "E.V.A. RC";
+	pixel_x = 30
+	},
+/obj/item/wrench,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/storage/belt/utility,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/ai_monitored/storage/eva)
 "qqV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -66006,18 +66034,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
-"rcg" = (
-/obj/structure/rack,
-/obj/item/crowbar,
-/obj/item/storage/pill_bottle,
-/obj/item/rollerbed,
-/obj/item/clothing/glasses/eyepatch,
-/obj/item/wrench,
-/obj/machinery/airalarm{
-	pixel_y = 22
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical)
 "rci" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -72056,6 +72072,18 @@
 /obj/machinery/shieldwallgen,
 /turf/open/floor/engine,
 /area/maintenance/department/engine)
+"syt" = (
+/obj/structure/rack,
+/obj/item/crowbar,
+/obj/item/storage/pill_bottle,
+/obj/item/rollerbed,
+/obj/item/clothing/glasses/eyepatch,
+/obj/item/wrench,
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/medical)
 "syG" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -77940,21 +77968,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/dorms)
-"tVe" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate{
-	name = "disposal supplies"
-	},
-/obj/item/bodybag,
-/obj/item/bodybag,
-/obj/item/shovel,
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/starboard/aft)
 "tVl" = (
 /obj/machinery/door/poddoor/incinerator_atmos_main,
 /obj/effect/turf_decal/stripes/closeup{
@@ -81253,11 +81266,6 @@
 /obj/machinery/vending/cigarette,
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
-"uLj" = (
-/obj/machinery/atmospherics/miner/plasma,
-/obj/machinery/light/floor,
-/turf/open/floor/engine/plasma/light,
-/area/engine/atmos)
 "uLm" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
@@ -84281,26 +84289,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
-"vsp" = (
-/obj/structure/table,
-/obj/item/radio,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/requests_console{
-	department = "EVA";
-	name = "E.V.A. RC";
-	pixel_x = 30
-	},
-/obj/item/wrench,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/item/storage/belt/utility,
-/turf/open/floor/plasteel/dark/side{
-	dir = 4
-	},
-/area/ai_monitored/storage/eva)
 "vsD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -85544,6 +85532,18 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/starboard/fore)
+"vGh" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/backpack/duffelbag/med,
+/obj/item/flashlight/pen,
+/obj/item/rollerbed,
+/obj/item/crowbar,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/medical)
 "vGi" = (
 /obj/machinery/photocopier{
 	pixel_y = 3
@@ -124251,7 +124251,7 @@ kTT
 eDs
 xLS
 rZN
-dYF
+vGh
 ygM
 tZK
 oAX
@@ -130432,7 +130432,7 @@ qTd
 yio
 eGs
 yio
-rcg
+syt
 mJM
 fHr
 bdu
@@ -136344,7 +136344,7 @@ jZV
 kBb
 lcG
 mWE
-vsp
+qqP
 mpB
 mNn
 txO
@@ -146701,7 +146701,7 @@ arB
 lsS
 qfq
 hoi
-uLj
+meq
 hoi
 qfq
 iqy
@@ -153610,7 +153610,7 @@ cGp
 cGp
 cGp
 mpL
-tVe
+oMr
 sIe
 tLq
 dHH
