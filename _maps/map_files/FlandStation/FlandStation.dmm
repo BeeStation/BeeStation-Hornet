@@ -1348,16 +1348,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"asm" = (
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/construction)
 "asn" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating,
@@ -12505,9 +12495,6 @@
 /area/hallway/primary/central)
 "dmS" = (
 /obj/effect/decal/cleanable/oil,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/construction)
 "dnd" = (
@@ -12950,9 +12937,6 @@
 /area/chapel/office)
 "dtM" = (
 /obj/structure/bookcase,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /turf/open/floor/plating,
 /area/construction)
 "dtO" = (
@@ -16622,15 +16606,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
-"evw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/entry)
 "evD" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom,
@@ -23918,18 +23893,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"gjD" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/disposalpipe/junction{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/entry)
 "gjH" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -24485,9 +24448,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/cryo)
@@ -25315,9 +25275,6 @@
 	req_access_txt = "32"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plasteel/techmaint,
 /area/construction)
 "gCq" = (
@@ -29917,9 +29874,6 @@
 /area/maintenance/disposal)
 "hOC" = (
 /obj/effect/landmark/xeno_spawn,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/construction)
 "hOE" = (
@@ -33660,9 +33614,6 @@
 /area/crew_quarters/heads/captain/private)
 "iMm" = (
 /obj/effect/landmark/blobstart,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/construction)
 "iMp" = (
@@ -34396,9 +34347,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/medical/cryo)
@@ -42801,9 +42749,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "liM" = (
@@ -52164,9 +52109,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/construction)
 "nBr" = (
@@ -58473,9 +58415,6 @@
 /area/quartermaster/office)
 "plC" = (
 /obj/effect/decal/cleanable/vomit/old,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/construction)
 "plN" = (
@@ -62468,9 +62407,6 @@
 /area/crew_quarters/bar/atrium)
 "qiP" = (
 /obj/effect/decal/cleanable/glass,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/construction)
 "qiV" = (
@@ -63692,12 +63628,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
-"qwT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/construction)
 "qwZ" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/effect/turf_decal/tile/yellow{
@@ -76164,6 +76094,9 @@
 "tyl" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -90447,7 +90380,6 @@
 /area/security/brig)
 "wMi" = (
 /obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk,
 /turf/open/floor/plating,
 /area/construction)
 "wMp" = (
@@ -117195,7 +117127,7 @@ qdt
 qgC
 qgC
 qgC
-gjD
+qgC
 qgC
 qgC
 qgC
@@ -117452,7 +117384,7 @@ vEQ
 xuO
 wpP
 uZN
-evw
+xuO
 xuO
 xuO
 fyG
@@ -117966,7 +117898,7 @@ uId
 kvd
 abm
 chd
-asm
+klr
 wTj
 klr
 cIk
@@ -119765,7 +119697,7 @@ bOO
 bOO
 abm
 wLC
-qwT
+pSO
 wIz
 pSO
 dIU
