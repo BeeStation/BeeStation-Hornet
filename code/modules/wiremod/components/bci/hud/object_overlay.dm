@@ -93,7 +93,7 @@
 		return
 
 	if(active_overlays[target_atom])
-		QDEL_NULL(active_overlays[target_atom])
+		target_atom.remove_alt_appearance("object_overlay_[REF(src)]")
 
 	var/image/cool_overlay = image(icon = 'icons/mob/screen_bci.dmi', loc = target_atom, icon_state = options_map[object_overlay_options.value], layer = RIPPLE_LAYER)
 
@@ -121,7 +121,7 @@
 	SIGNAL_HANDLER
 
 	for(var/atom/target_atom in active_overlays)
-		QDEL_NULL(active_overlays[target_atom])
+		target_atom.remove_alt_appearance("object_overlay_[REF(src)]")
 		active_overlays.Remove(target_atom)
 
 #undef OBJECT_OVERLAY_LIMIT
