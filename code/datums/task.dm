@@ -2,6 +2,7 @@
 	var/result = null
 	var/completed = FALSE
 	var/list/subtasks
+	var/list/continuation_tasks = list()
 
 /// Add a subtask to this subtask. When awaiting a parent task, it will wait for all subtasks to complete
 /// and then will return a list containing all the results.
@@ -14,6 +15,8 @@
 		CRASH("Attempting to mark a subtask holder as completed. This is not allowed")
 	completed = TRUE
 	src.result = result
+	for (var/datum/callback/callback as() in continuation_tasks)
+		callback.InvokeAsync(result)
 
 /// Wait for the task to be completed, or the timeout to expire
 /// Returns true if the task was completed
@@ -41,3 +44,13 @@
 				return FALSE
 		return TRUE
 	return completed
+
+/// Continue with a callback once the task has completed,
+/// invokes immediately unlike AWAIT which may have a 1 second
+/// delay causing it to be unresponsive.
+/// This is the most effective option for use with UI or player-controlled
+/// responses.
+/datum/task/proc/continue_with(datum/callback/callback)
+	if (!callback)
+		return
+	continuation_tasks += callback

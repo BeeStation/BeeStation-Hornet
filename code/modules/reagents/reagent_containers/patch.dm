@@ -10,17 +10,27 @@
 	self_delay = 3 SECONDS
 	dissolvable = FALSE
 
-/obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user, obj/item/bodypart/affecting)
+/obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user)
 	if(!ishuman(L))
 		return ..()
-	affecting = L.get_bodypart(check_zone(user.zone_selected))
+	var/accurate_health = HAS_TRAIT(user, TRAIT_MEDICAL_HUD) || istype(user.get_inactive_held_item(), /obj/item/healthanalyzer)
+	if (!accurate_health)
+		to_chat(user, "<span class='warning'>You could more easilly determine how injured [L] was if you had a medical hud or a health analyser!</span>")
+	var/datum/task/task = user.select_bodyzone(L, icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health))
+	task.continue_with(CALLBACK(src, PROC_REF(apply_part), L, user))
+	return TRUE
+
+/obj/item/reagent_containers/pill/patch/proc/apply_part(mob/living/L, mob/user, selected_target)
+	if (!selected_target)
+		return
+	var/obj/item/bodypart/affecting = L.get_bodypart(selected_target)
 	if(!affecting)
 		balloon_alert(user, "The limb is missing.")
 		return
 	if(!IS_ORGANIC_LIMB(affecting))
 		balloon_alert(user, "[src] doesn't work on robotic limbs.")
 		return
-	return ..()
+	perform_application(L, user, affecting)
 
 /obj/item/reagent_containers/pill/patch/canconsume(mob/eater, mob/user)
 	if(!iscarbon(eater))
