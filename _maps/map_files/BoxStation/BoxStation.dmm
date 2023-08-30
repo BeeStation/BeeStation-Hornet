@@ -614,7 +614,7 @@
 "aGY" = (/obj/machinery/airalarm{pixel_y = 25},/turf/open/floor/plasteel/grimy,/area/chapel/office)
 "aGZ" = (/obj/machinery/door/airlock/security{name = "Security Checkpoint"; req_access_txt = "1"},/obj/machinery/door/firedoor,/turf/open/floor/plasteel,/area/security/checkpoint/auxiliary)
 "aHa" = (/obj/structure/table/reinforced,/obj/item/paper,/obj/machinery/door/window/westright{dir = 1; name = "Security Checkpoint"; req_access_txt = "1"},/obj/effect/turf_decal/delivery,/turf/open/floor/plasteel,/area/hallway/secondary/entry)
-"aHc" = (/obj/machinery/vending/games,/obj/structure/disposalpipe/sorting/mail{dir = 4; sortType = 16},/turf/open/floor/wood,/area/library)
+"aHc" = (/obj/machinery/vending/games,/turf/open/floor/wood,/area/library)
 "aHd" = (/obj/machinery/disposal/bin,/obj/structure/disposalpipe/trunk,/turf/open/floor/wood,/area/library)
 "aHe" = (/obj/structure/table,/obj/item/storage/toolbox/electrical{pixel_x = 1; pixel_y = -1},/turf/open/floor/plasteel,/area/storage/primary)
 "aHf" = (/obj/item/radio/intercom{pixel_y = 25},/obj/machinery/vending/wardrobe/chap_wardrobe,/turf/open/floor/plasteel/grimy,/area/chapel/office)
