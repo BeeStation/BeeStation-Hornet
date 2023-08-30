@@ -1,3 +1,6 @@
+// How many items per tile until we just completely give up?
+#define MAX_ITEMS_TO_READ 500
+// How many unique entries should we show per-tile before giving up?
 #define MAX_ICONS_PER_TILE 50
 
 /client
@@ -73,32 +76,8 @@
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
 			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
-				client.stat_update_mode = STAT_MEDIUM_UPDATE
-				var/list/overrides = list()
-				for(var/image/I in client.images)
-					if(I.loc && I.loc.loc == listed_turf && I.override)
-						overrides += I.loc
-				tab_data[REF(listed_turf)] = list(
-					text="[listed_turf.name]",
-					type=STAT_ATOM
-				)
-				var/sanity = MAX_ICONS_PER_TILE
-				for(var/atom/A in listed_turf)
-					if(!A.mouse_opacity)
-						continue
-					if(A.invisibility > see_invisible)
-						continue
-					if(overrides.len && (A in overrides))
-						continue
-					if(A.IsObscured())
-						continue
-					sanity --
-					tab_data[REF(A)] = list(
-						text="[A.name]",
-						type=STAT_ATOM
-					)
-					if(sanity < 0)
-						break
+				// Check if we can actually see the turf
+				render_stat_information(tab_data)
 			if(mind)
 				tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
 			tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
@@ -107,6 +86,57 @@
 		log_admin("[ckey] attempted to access the [selected_tab] tab without sufficient rights.")
 		return list()
 	return tab_data
+
+/turf/proc/render_stat_information(list/tab_data)
+	client.stat_update_mode = STAT_MEDIUM_UPDATE
+	var/list/overrides = list()
+	for(var/image/I in client.images)
+		if(I.loc && I.loc.loc == listed_turf && I.override)
+			overrides[I.loc] = I
+	tab_data[REF(listed_turf)] = list(
+		text="[listed_turf.name]",
+		type=STAT_ATOM
+	)
+	var/max_item_sanity = MAX_ITEMS_TO_READ
+	var/icon_count_sanity = MAX_ICONS_PER_TILE
+	var/list/atom_count = list()
+	// Find items and group them by both name and count
+	for (var/atom/A as() in listed_turf)
+		// Too many items read
+		if(max_item_sanity-- < 0)
+			break
+		if(!A.mouse_opacity)
+			continue
+		if(A.invisibility > see_invisible)
+			continue
+		if(A.IsObscured())
+			continue
+		var/atom_type = A.type
+		var/atom_name = A.name
+		if(overrides.len && overrides[A])
+			var/image/override_image = overrides[A]
+			atom_name = override_image.name
+		var/list/item_group = atom_count["[atom_type][atom_name]"]
+		if (item_group)
+			item_group += A
+		else
+			atom_count["[A.type][A.name]"] = list(A)
+			// To many icon types per tile
+			if (icon_count_sanity-- <= 0)
+				break
+	// Display the atoms
+	for(var/atom_type in atom_count)
+		var/atom_items = atom_count[atom_type]
+		var/item_count = length(atom_items)
+		var/atom/first_atom = atom_items[1]
+		if (istype(first_atom, /obj/item/stack))
+			item_count = 0
+			for (var/obj/item/stack/stack_item as() in atom_items)
+				item_count += stack_item.amount
+		tab_data[REF(first_atom)] = list(
+			text="[initial(first_atom.name)][length(atom_items) > 1 ? " (x[length(atom_items)])" : ""]",
+			type=STAT_ATOM
+		)
 
 /mob/proc/get_all_verbs()
 	var/list/all_verbs = new
@@ -399,4 +429,5 @@
 	var/list/status_data = get_stat(client.selected_stat_tab)
 	client.tgui_panel.set_panel_infomation(status_data)
 
+#undef MAX_ITEMS_TO_READ
 #undef MAX_ICONS_PER_TILE
