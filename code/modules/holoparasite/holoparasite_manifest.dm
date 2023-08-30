@@ -39,8 +39,7 @@
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/recall(forced = FALSE)
 	. = TRUE
-	if(is_summoner_dead())
-		moveToNullspace()
+	if(nullspace_if_dead())
 		return FALSE
 	if(!is_manifested())
 		return FALSE

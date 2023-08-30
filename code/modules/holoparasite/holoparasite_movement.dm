@@ -77,8 +77,7 @@
  * Snap the holoparasite back to its summoner, if it is too far away.
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/snapback()
-	if(is_summoner_dead())
-		moveToNullspace()
+	if(nullspace_if_dead())
 		return
 	if(summoner.current)
 		if(!can_be_manifested())
@@ -101,6 +100,9 @@
 /**
  * Ensure the holoparasite is ghosted before being nullspaced, to ensure it doesn't get sent to the error room.
  */
-/mob/living/simple_animal/hostile/holoparasite/moveToNullspace()
+/mob/living/simple_animal/hostile/holoparasite/proc/nullspace_if_dead(forced = FALSE)
+	if(!forced && stat != DEAD && !is_summoner_dead())
+		return FALSE
 	ghostize(can_reenter_corpse = FALSE)
-	return ..()
+	moveToNullspace()
+	return TRUE
