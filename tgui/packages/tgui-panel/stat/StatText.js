@@ -4,6 +4,7 @@ import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { Divider, Table } from '../../tgui/components';
 import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_BLANK } from './constants';
+import { capitalize } from 'common/string';
 
 export const StatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -19,7 +20,9 @@ export const StatText = (props, context) => {
     <div className="StatBorder">
       <Box>
         {statPanelData
-          ? Object.keys(statPanelData).map(
+          ? Object.keys(statPanelData).sort((a, b) => {
+              return StatTagToPriority(statPanelData[b].tag) - StatTagToPriority(statPanelData[a].tag);
+            }).map(
             (key) =>
               !!statPanelData[key] &&
               ((statPanelData[key].type === STAT_TEXT && <StatTextText title={key} text={statPanelData[key].text} />) ||
@@ -34,7 +37,7 @@ export const StatText = (props, context) => {
                   />
                 )) ||
                 (statPanelData[key].type === STAT_ATOM && (
-                  <StatTextAtom atom_ref={key} atom_name={statPanelData[key].text} />
+                  <StatTextAtom atom_ref={key} atom_name={statPanelData[key].text} atom_tag={statPanelData[key].tag} />
                 )) ||
                 (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
                 (statPanelData[key].type === STAT_BLANK && <br />))
@@ -46,6 +49,42 @@ export const StatText = (props, context) => {
       </Box>
     </div>
   );
+};
+
+const StatTagToPriority = (text) => {
+  switch (text) {
+    case "Human":
+      return 10;
+    case "Mob":
+      return 9;
+    case "Structure":
+      return 8;
+    case "Machinery":
+      return 7;
+    case "Item":
+      return 6;
+    case "Turf":
+      return 4;
+  }
+  return 5;
+};
+
+const StatTagToClassName = (text) => {
+  switch (text) {
+    case "Turf":
+    return "StatAtomTag Turf";
+    case "Human":
+    return "StatAtomTag Human";
+    case "Mob":
+    return "StatAtomTag Mob";
+    case "Structure":
+    return "StatAtomTag Structure";
+    case "Machinery":
+    return "StatAtomTag Machinery";
+    case "Item":
+    return "StatAtomTag Item";
+  }
+  return "StatAtomTag Other";
 };
 
 /*
@@ -131,13 +170,20 @@ const storeAtomRef = (value) => {
 const retrieveAtomRef = () => janky_storage;
 
 export const StatTextAtom = (props, context) => {
-  const { atom_name, atom_ref } = props;
+  const {
+    atom_name,
+    atom_ref,
+    atom_tag,
+  } = props;
 
   storeAtomRef(null);
 
   return (
-    <Flex.Item mt={1}>
+    <Flex.Item mt={0.5}>
       <Button
+        pl={0}
+        width="100%"
+        overflowX="hidden"
         draggable
         onDragStart={(e) => {
           // e.dataTransfer.setData("text", atom_ref);
@@ -182,7 +228,16 @@ export const StatTextAtom = (props, context) => {
           })
         }
         color="transparent">
-        {atom_name}
+        <div className="StatAtomElement">
+          <Flex direction="row" wrap="wrap">
+            <Flex.Item basis={6} mr={2}>
+              <div className={StatTagToClassName(atom_tag)}>
+                {atom_tag}
+              </div>
+            </Flex.Item>
+            <Flex.Item grow={1}>{capitalize(atom_name)}</Flex.Item>
+          </Flex>
+        </div>
       </Button>
     </Flex.Item>
   );

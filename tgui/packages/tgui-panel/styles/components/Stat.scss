@@ -57,3 +57,44 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
 .StatTabBackground {
   border-bottom: math.div(1em, 6) solid #666666;
 }
+
+.StatAtomElement {
+  cursor: pointer;
+  color: lighten($color: $background-color, $amount: 65%);
+}
+
+.StatAtomTag {
+  background-color: #ff94f1;
+  color: #2b2b2b;
+  border-radius: 5px;
+  text-align: center;
+
+  &.Structure {
+    background-color: #b2aaf1;
+  }
+
+  &.Turf {
+    background-color: #f1eaaa;
+  }
+
+  &.Human {
+    background-color: #aff1aa;
+  }
+
+  &.Mob {
+    background-color: #aaf1d3;
+  }
+
+  &.Machinery {
+    background-color: #f5b59c;
+  }
+
+  &.Item {
+    background-color: #f59cbb;
+  }
+
+  &.Other {
+    background-color: #adadad;
+  }
+
+}

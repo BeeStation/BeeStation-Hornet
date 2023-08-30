@@ -1,7 +1,24 @@
-// How many items per tile until we just completely give up?
+/// How many items per tile until we just completely give up?
 #define MAX_ITEMS_TO_READ 500
-// How many unique entries should we show per-tile before giving up?
+/// How many unique entries should we show per-tile before giving up?
 #define MAX_ICONS_PER_TILE 50
+
+/// Determine the priority of this item in the stat panel
+/// I decided to do it this way to reduce the amount of memory wasted on all atoms.
+/// There is a reason for this madness
+#define STAT_PANEL_TAG(atom) ishuman(atom) \
+	? "Human" \
+	: ismob(atom) \
+		? "Mob" \
+		: isitem(atom) \
+			? "Item" \
+			: isstructure(atom) \
+				? "Structure" \
+				: ismachinery(atom) \
+					? "Machinery" \
+					: isturf(atom) \
+						? "Turf" \
+						: "Other"
 
 /client
 	var/stat_update_mode = STAT_FAST_UPDATE
@@ -77,7 +94,7 @@
 			// ===== LISTEDS TURFS =====
 			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
 				// Check if we can actually see the turf
-				render_stat_information(tab_data)
+				listed_turf.render_stat_information(client, tab_data)
 			if(mind)
 				tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
 			tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
@@ -87,27 +104,28 @@
 		return list()
 	return tab_data
 
-/turf/proc/render_stat_information(list/tab_data)
+/turf/proc/render_stat_information(client/client, list/tab_data)
 	client.stat_update_mode = STAT_MEDIUM_UPDATE
 	var/list/overrides = list()
 	for(var/image/I in client.images)
-		if(I.loc && I.loc.loc == listed_turf && I.override)
+		if(I.loc && I.loc.loc == src && I.override)
 			overrides[I.loc] = I
-	tab_data[REF(listed_turf)] = list(
-		text="[listed_turf.name]",
+	tab_data[REF(src)] = list(
+		text="[name]",
+		tag = STAT_PANEL_TAG(src),
 		type=STAT_ATOM
 	)
 	var/max_item_sanity = MAX_ITEMS_TO_READ
 	var/icon_count_sanity = MAX_ICONS_PER_TILE
 	var/list/atom_count = list()
 	// Find items and group them by both name and count
-	for (var/atom/A as() in listed_turf)
+	for (var/atom/A as() in src)
 		// Too many items read
 		if(max_item_sanity-- < 0)
 			break
 		if(!A.mouse_opacity)
 			continue
-		if(A.invisibility > see_invisible)
+		if(A.invisibility > client.mob.see_invisible)
 			continue
 		if(A.IsObscured())
 			continue
@@ -134,8 +152,9 @@
 			for (var/obj/item/stack/stack_item as() in atom_items)
 				item_count += stack_item.amount
 		tab_data[REF(first_atom)] = list(
-			text="[initial(first_atom.name)][length(atom_items) > 1 ? " (x[length(atom_items)])" : ""]",
-			type=STAT_ATOM
+			text = "[initial(first_atom.name)][length(atom_items) > 1 ? " (x[length(atom_items)])" : ""]",
+			tag = STAT_PANEL_TAG(first_atom),
+			type = STAT_ATOM
 		)
 
 /mob/proc/get_all_verbs()
