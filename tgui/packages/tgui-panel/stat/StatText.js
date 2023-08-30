@@ -20,28 +20,30 @@ export const StatText = (props, context) => {
     <div className="StatBorder">
       <Box>
         {statPanelData
-          ? Object.keys(statPanelData).sort((a, b) => {
+          ? Object.keys(statPanelData)
+            .sort((a, b) => {
               return StatTagToPriority(statPanelData[b].tag) - StatTagToPriority(statPanelData[a].tag);
-            }).map(
-            (key) =>
-              !!statPanelData[key] &&
-              ((statPanelData[key].type === STAT_TEXT && <StatTextText title={key} text={statPanelData[key].text} />) ||
-                (statPanelData[key].type === STAT_BUTTON && (
-                  <StatTextButton
-                    title={key}
-                    text={statPanelData[key].text}
-                    action_id={statPanelData[key].action}
-                    params={statPanelData[key].params}
-                    multirow={statPanelData[key].multirow}
-                    buttons={statPanelData[key].buttons}
-                  />
-                )) ||
-                (statPanelData[key].type === STAT_ATOM && (
-                  <StatTextAtom atom_ref={key} atom_name={statPanelData[key].text} atom_tag={statPanelData[key].tag} />
-                )) ||
-                (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
-                (statPanelData[key].type === STAT_BLANK && <br />))
-          )
+            })
+            .map(
+              (key) =>
+                !!statPanelData[key] &&
+                ((statPanelData[key].type === STAT_TEXT && <StatTextText title={key} text={statPanelData[key].text} />) ||
+                  (statPanelData[key].type === STAT_BUTTON && (
+                    <StatTextButton
+                      title={key}
+                      text={statPanelData[key].text}
+                      action_id={statPanelData[key].action}
+                      params={statPanelData[key].params}
+                      multirow={statPanelData[key].multirow}
+                      buttons={statPanelData[key].buttons}
+                    />
+                  )) ||
+                  (statPanelData[key].type === STAT_ATOM && (
+                    <StatTextAtom atom_ref={key} atom_name={statPanelData[key].text} atom_tag={statPanelData[key].tag} />
+                  )) ||
+                  (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
+                  (statPanelData[key].type === STAT_BLANK && <br />))
+            )
           : 'No data'}
         {Object.keys(verbs).map((verb) => (
           <StatTextVerb key={verb} title={verb} action_id={verbs[verb].action} params={verbs[verb].params} />
@@ -53,17 +55,17 @@ export const StatText = (props, context) => {
 
 const StatTagToPriority = (text) => {
   switch (text) {
-    case "Human":
+    case 'Human':
       return 10;
-    case "Mob":
+    case 'Mob':
       return 9;
-    case "Structure":
+    case 'Structure':
       return 8;
-    case "Machinery":
+    case 'Machinery':
       return 7;
-    case "Item":
+    case 'Item':
       return 6;
-    case "Turf":
+    case 'Turf':
       return 4;
   }
   return 5;
@@ -71,20 +73,20 @@ const StatTagToPriority = (text) => {
 
 const StatTagToClassName = (text) => {
   switch (text) {
-    case "Turf":
-    return "StatAtomTag Turf";
-    case "Human":
-    return "StatAtomTag Human";
-    case "Mob":
-    return "StatAtomTag Mob";
-    case "Structure":
-    return "StatAtomTag Structure";
-    case "Machinery":
-    return "StatAtomTag Machinery";
-    case "Item":
-    return "StatAtomTag Item";
+    case 'Turf':
+      return 'StatAtomTag Turf';
+    case 'Human':
+      return 'StatAtomTag Human';
+    case 'Mob':
+      return 'StatAtomTag Mob';
+    case 'Structure':
+      return 'StatAtomTag Structure';
+    case 'Machinery':
+      return 'StatAtomTag Machinery';
+    case 'Item':
+      return 'StatAtomTag Item';
   }
-  return "StatAtomTag Other";
+  return 'StatAtomTag Other';
 };
 
 /*
@@ -170,11 +172,7 @@ const storeAtomRef = (value) => {
 const retrieveAtomRef = () => janky_storage;
 
 export const StatTextAtom = (props, context) => {
-  const {
-    atom_name,
-    atom_ref,
-    atom_tag,
-  } = props;
+  const { atom_name, atom_ref, atom_tag } = props;
 
   storeAtomRef(null);
 
@@ -231,9 +229,7 @@ export const StatTextAtom = (props, context) => {
         <div className="StatAtomElement">
           <Flex direction="row" wrap="wrap">
             <Flex.Item basis={6} mr={2}>
-              <div className={StatTagToClassName(atom_tag)}>
-                {atom_tag}
-              </div>
+              <div className={StatTagToClassName(atom_tag)}>{atom_tag}</div>
             </Flex.Item>
             <Flex.Item grow={1}>{capitalize(atom_name)}</Flex.Item>
           </Flex>
