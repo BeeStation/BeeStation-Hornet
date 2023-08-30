@@ -19,7 +19,6 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/stop_sounds,
 	/client/proc/mark_datum_mapview,
 	/client/proc/requests,
-	/client/proc/fax_manager
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 GLOBAL_PROTECT(admin_verbs_admin)
@@ -76,6 +75,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/battle_royale,
 	/client/proc/delete_book,
 	/client/proc/cmd_admin_send_pda_msg,
+	/client/proc/fax_panel, /*send a paper to fax*/
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
