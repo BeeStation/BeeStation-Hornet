@@ -6,8 +6,7 @@
 	tracking_beacon.toggle_visibility(FALSE)
 	tracking_beacon.remove_from_huds()
 	SSblackbox.record_feedback("amount", "holoparasites_killed", 1)
-	ghostize(can_reenter_corpse = FALSE)
-	nullspace()
+	moveToNullspace()
 
 /**
  * Prevents holoparasites from being wabbajacked - instead, it will forward a random amount of toxin + clone damage to the summoner.

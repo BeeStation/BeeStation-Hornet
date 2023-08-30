@@ -78,7 +78,7 @@
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/snapback()
 	if(is_summoner_dead())
-		nullspace()
+		moveToNullspace()
 		return
 	if(summoner.current)
 		if(!can_be_manifested())
@@ -99,8 +99,8 @@
 			COOLDOWN_START(src, range_balloon_cooldown, 1 SECONDS)
 
 /**
- * Send the holoparasite to nullspace if it is dead.
+ * Ensure the holoparasite is ghosted before being nullspaced, to ensure it doesn't get sent to the error room.
  */
-/mob/living/simple_animal/hostile/holoparasite/proc/nullspace()
-	if(stat == DEAD)
-		moveToNullspace()
+/mob/living/simple_animal/hostile/holoparasite/moveToNullspace()
+	ghostize(can_reenter_corpse = FALSE)
+	return ..()
