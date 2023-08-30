@@ -405,7 +405,7 @@
 			var/scream_sound = human_body?.dna?.species?.get_scream_sound(human_body)
 			if(scream_sound)
 				playsound(human_body, scream_sound, vol = 100, vary = TRUE, frequency = 0.5)
-		body.visible_message("<span class='danger'>[body] lets out a pained, agonizing wail, [body.p_their()] expression consumed with fear, as [body.p_their()] body rapidly crumbles to dust!</span>", blind_message = "<i>You hear a pained, agonizing wail...</i>")
+		body.visible_message("<span class='danger'><span class='name'>[body]</span> lets out a pained, agonizing wail, [body.p_their()] expression consumed with fear, as [body.p_their()] body rapidly crumbles to dust!</span>", blind_message = "<i>You hear a pained, agonizing wail...</i>")
 		var/traumatized = 0
 		for(var/mob/living/viewer in viewers(world.view, body))
 			if(viewer == body || (viewer in holoparasites) || viewer.is_blind())
