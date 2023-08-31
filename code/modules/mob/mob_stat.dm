@@ -168,7 +168,7 @@
 			var/image/override_image = image_overrides[first_atom]
 			atom_name = override_image.name
 		tab_data[REF(first_atom)] = list(
-			text = "[atom_name][length(atom_items) > 1 ? " (x[length(atom_items)])" : ""]",
+			text = "[atom_name][item_count > 1 ? " (x[item_count])" : ""]",
 			tag = STAT_PANEL_TAG(first_atom),
 			type = STAT_ATOM
 		)
