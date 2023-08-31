@@ -118,6 +118,7 @@
 	var/max_item_sanity = MAX_ITEMS_TO_READ
 	var/icon_count_sanity = MAX_ICONS_PER_TILE
 	var/list/atom_count = list()
+	var/list/image_overrides = list()
 	// Find items and group them by both name and count
 	for (var/atom/A as() in src)
 		// Too many items read
@@ -134,6 +135,7 @@
 		if(overrides.len && overrides[A])
 			var/image/override_image = overrides[A]
 			atom_name = override_image.name
+			image_overrides[A] = override_image
 		var/list/item_group = atom_count["[atom_type][atom_name]"]
 		if (item_group)
 			item_group += A
@@ -151,8 +153,12 @@
 			item_count = 0
 			for (var/obj/item/stack/stack_item as() in atom_items)
 				item_count += stack_item.amount
+		var/atom_name = first_atom.name
+		if (image_overrides[first_atom])
+			var/image/override_image = image_overrides[first_atom]
+			atom_name = override_image.name
 		tab_data[REF(first_atom)] = list(
-			text = "[initial(first_atom.name)][length(atom_items) > 1 ? " (x[length(atom_items)])" : ""]",
+			text = "[atom_name][length(atom_items) > 1 ? " (x[length(atom_items)])" : ""]",
 			tag = STAT_PANEL_TAG(first_atom),
 			type = STAT_ATOM
 		)
