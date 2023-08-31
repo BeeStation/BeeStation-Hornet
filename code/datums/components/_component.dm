@@ -275,7 +275,7 @@
 		var/list/arguments = raw_args.Copy()
 		arguments[1] = new_comp
 		var/make_new_component = TRUE
-		for(var/datum/component/existing_component as anything in GetComponents(new_type))
+		for(var/datum/component/existing_component in GetComponents(new_type))
 			if(existing_component.CheckDupeComponent(arglist(arguments)))
 				make_new_component = FALSE
 				QDEL_NULL(new_comp)
