@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Tabs, LabeledList, Section, Stack, ColorBox, Box, BlockQuote, Flex, Icon, Collapsible } from '../components';
+import { Tabs, LabeledList, Section, Stack, ColorBox, Box, BlockQuote, Flex, Icon, Collapsible, RadarChart } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
 import { Ability, AbilityThreshold, GivenAbilities, is_actually_a_threshold, threshold_title, sort_thresholds, sort_abilities } from './common/Holoparasite';
@@ -313,9 +313,9 @@ const StatsSection = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { stats } = data;
   return (
-    <Section fill title="Stats">
-      <Stack fill vertical>
-        <Stack.Item grow>
+    <Section>
+      <Stack vertical>
+        <Stack.Item>
           <StatBox name="Damage" description="Amount of damage you can deal per hit." value={stats.damage} />
           <StatBox
             name="Defense"
@@ -336,6 +336,21 @@ const StatsSection = (_props, context) => {
         </Stack.Item>
       </Stack>
     </Section>
+  );
+};
+
+const StatsChartSection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
+  const { accent_color, stats } = data;
+  return (
+    <RadarChart
+      axes={['Damage', 'Defense', 'Speed', 'Potential', 'Range']}
+      stages={['1', '2', '3', '4', '5']}
+      values={[stats.damage, stats.defense, stats.speed, stats.potential, stats.range]}
+      areaColor={accent_color}
+      width={300}
+      height={300}
+    />
   );
 };
 
@@ -489,7 +504,7 @@ const LesserAbilitiesSection = (_props, context) => {
   );
 };
 
-const AbilitiesSection = (_props, context) => {
+const AbilitiesSection = () => {
   return (
     <Stack fill grow>
       <Stack.Item width="50%">
@@ -509,10 +524,9 @@ const AbilitiesSection = (_props, context) => {
   );
 };
 
-export const AntagInfoHoloparasite = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoHoloparasite = () => {
   return (
-    <Window width={1000} height={800} theme="neutral">
+    <Window width={1000} height={850} theme="neutral">
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item height="200px">
@@ -525,8 +539,18 @@ export const AntagInfoHoloparasite = (_props, context) => {
               </Stack.Item>
             </Stack>
           </Stack.Item>
-          <Stack.Item height="250px">
-            <StatsSection />
+          <Stack.Item height="425px">
+            <Section title="Stats">
+              <Stack>
+                <Stack.Item width="450px">
+                  <StatsChartSection />
+                </Stack.Item>
+                <Stack.Divider />
+                <Stack.Item width="100%">
+                  <StatsSection />
+                </Stack.Item>
+              </Stack>
+            </Section>
           </Stack.Item>
           <Stack.Item height="300px">
             <AbilitiesSection />

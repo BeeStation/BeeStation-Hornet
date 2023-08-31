@@ -220,18 +220,13 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 /mob/living/simple_animal/hostile/holoparasite/examine(mob/user)
 	. = ..()
 	if(isobserver(user) || has_matching_summoner(user))
-		var/max_level = max(5, stats.damage, stats.defense, stats.speed, stats.potential, stats.range)
-		. += "<span class='holoparasite'><b>DAMAGE:</b> [stats.damage]/[max_level]</span>"
-		. += "<span class='holoparasite'><b>DEFENSE:</b> [stats.defense]/[max_level]</span>"
-		. += "<span class='holoparasite'><b>SPEED:</b> [stats.speed]/[max_level]</span>"
-		. += "<span class='holoparasite'><b>POTENTIAL:</b> [stats.potential]/[max_level]</span>"
-		. += "<span class='holoparasite'><b>RANGE:</b> [stats.range]/[max_level]</span>"
 		if(!stats.weapon.hidden)
 			. += "<span class='holoparasite'><b>WEAPON:</b> [stats.weapon.name] - [replacetext(stats.weapon.desc, "$theme", lowertext(theme.name))]</span>"
 		if(stats.ability)
 			. += "<span class='holoparasite'><b>SPECIAL ABILITY:</b> [stats.ability.name] - [replacetext(stats.ability.desc, "$theme", lowertext(theme.name))]</span>"
 		for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
 			. += "<span class='holoparasite'><b>LESSER ABILITY:</b> [ability.name] - [replacetext(ability.desc, "$theme", lowertext(theme.name))]</span>"
+		. += "<span data-component=\"RadarChart\" data-width="300" data-height="400" data-area-color=\"[accent_color]\" data-axes=\"Damage,Defense,Speed,Potential,Range\" data-stages=\"1,2,3,4,5\" data-values=\"[stats.damage],[stats.defense],[stats.speed],[stats.potential],[stats.range]\" />"
 
 /mob/living/simple_animal/hostile/holoparasite/get_idcard(hand_first = TRUE)
 	//Check hands
