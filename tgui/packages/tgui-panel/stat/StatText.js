@@ -55,7 +55,7 @@ export const StatText = (props, context) => {
 
 const StatTagToPriority = (text) => {
   switch (text) {
-    case "You":
+    case 'You':
       return 11;
     case 'Human':
       return 10;
@@ -75,8 +75,8 @@ const StatTagToPriority = (text) => {
 
 const StatTagToClassName = (text) => {
   switch (text) {
-    case "You":
-      return "StatAtomTag Self";
+    case 'You':
+      return 'StatAtomTag Self';
     case 'Turf':
       return 'StatAtomTag Turf';
     case 'Human':
@@ -139,9 +139,12 @@ export const StatTextButton = (props, context) => {
                 </Button>
               </Flex.Item>
             ))}
-            <Flex.Item grow={1} ml={1.5} style={{
+            <Flex.Item
+              grow={1}
+              ml={1.5}
+              style={{
                 'white-space': 'normal',
-            }}>
+              }}>
               {text}
             </Flex.Item>
           </Flex>
