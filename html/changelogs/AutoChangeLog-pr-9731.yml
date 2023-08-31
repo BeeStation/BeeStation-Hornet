@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixed cloning mindless mobs throwing a runtime
