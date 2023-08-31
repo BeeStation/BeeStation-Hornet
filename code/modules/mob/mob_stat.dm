@@ -106,6 +106,7 @@
 
 /turf/proc/render_stat_information(client/client, list/tab_data)
 	client.stat_update_mode = STAT_MEDIUM_UPDATE
+	// Display the turf
 	var/list/overrides = list()
 	for(var/image/I in client.images)
 		if(I.loc && I.loc.loc == src && I.override)
@@ -119,6 +120,10 @@
 	var/icon_count_sanity = MAX_ICONS_PER_TILE
 	var/list/atom_count = list()
 	var/list/image_overrides = list()
+	// Caching for A.IsObscured to improve performance, in is faster than dictionary lookups for
+	// small (and even quite large) lists.
+	var/list/checked_layers = list()
+	var/list/obscured_layers = list()
 	// Find items and group them by both name and count
 	for (var/atom/A as() in src)
 		// Too many items read
@@ -128,8 +133,13 @@
 			continue
 		if(A.invisibility > client.mob.see_invisible)
 			continue
-		if(A.IsObscured())
-			continue
+		if(A.layer in checked_layers)
+			if (A.layer in obscured_layers)
+				continue
+		else
+			checked_layers += A.layer
+			if (A.IsObscured())
+				obscured_layers += A.layer
 		var/atom_type = A.type
 		var/atom_name = A.name
 		if(overrides.len && overrides[A])
@@ -160,6 +170,12 @@
 		tab_data[REF(first_atom)] = list(
 			text = "[atom_name][length(atom_items) > 1 ? " (x[length(atom_items)])" : ""]",
 			tag = STAT_PANEL_TAG(first_atom),
+			type = STAT_ATOM
+		)
+	// Display self
+	tab_data[REF(client.mob)] = list(
+			text = client.mob.name,
+			tag = "You",
 			type = STAT_ATOM
 		)
 

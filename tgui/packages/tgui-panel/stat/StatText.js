@@ -55,6 +55,8 @@ export const StatText = (props, context) => {
 
 const StatTagToPriority = (text) => {
   switch (text) {
+    case "You":
+      return 11;
     case 'Human':
       return 10;
     case 'Mob':
@@ -73,6 +75,8 @@ const StatTagToPriority = (text) => {
 
 const StatTagToClassName = (text) => {
   switch (text) {
+    case "You":
+      return "StatAtomTag Self";
     case 'Turf':
       return 'StatAtomTag Turf';
     case 'Human':
@@ -118,20 +122,29 @@ export const StatTextButton = (props, context) => {
         }
         color="transparent">
         {!multirow ? (
-          <>
-            <Box bold inline mr="5px" verticalAlign="top">
-              {title}
-            </Box>
-            <Box
-              width="100%"
-              pr="80px"
-              inline
-              style={{
+          <Flex direction="row">
+            <Flex.Item bold>{title}</Flex.Item>
+            {buttons.map((buttonInfo) => (
+              <Flex.Item shrink={1} key={buttonInfo}>
+                <Button
+                  color={buttonInfo['color']}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    Byond.sendMessage('stat/pressed', {
+                      action_id: buttonInfo['action_id'],
+                      params: buttonInfo['params'],
+                    });
+                  }}>
+                  {buttonInfo['title']}
+                </Button>
+              </Flex.Item>
+            ))}
+            <Flex.Item grow={1} ml={1.5} style={{
                 'white-space': 'normal',
-              }}>
+            }}>
               {text}
-            </Box>
-          </>
+            </Flex.Item>
+          </Flex>
         ) : (
           <>
             <Flex bold direction="row">

@@ -77,6 +77,10 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
     background-color: #f1eaaa;
   }
 
+  &.Self {
+    background-color: #fafafa;
+  }
+
   &.Human {
     background-color: #aff1aa;
   }
