@@ -269,21 +269,27 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/area/current_area = get_area(src)
 	var/list/found_container = list()
 
-	var/content_holder
-	if(search_view_range < 0) // -1: area search
-		content_holder = current_area
-	else if(search_view_range > 0) // +1: view range search
-		content_holder = view(search_view_range, get_turf(src))
-	else // 0: onto itself
-		content_holder = get_turf(src)
-
-	for(var/obj/each_container in content_holder)
-		if(get_area(each_container) != current_area)
-			continue // we don't want to put a deadbody to a wrong area
-		for(var/acceptable_path in accepted_list)
-			if(istype(each_container, acceptable_path))
-				found_container += each_container
-				break
+	// search_view_range
+	//   [Negative]: area search, get_contained_turfs()
+	if(search_view_range < 0)
+		for(var/turf/each_turf in current_area.get_contained_turfs())
+			for(var/obj/each_container in each_turf)
+				if(get_area(each_container) != current_area)
+					continue // we don't want to put a deadbody to a wrong area
+				for(var/acceptable_path in accepted_list)
+					if(istype(each_container, acceptable_path))
+						found_container += each_container
+						break
+	//  [Positive]: view range search, view()
+	//      [Zero]: onto itself, get_turf()
+	else
+		for(var/obj/each_container in (search_view_range ? view(search_view_range, get_turf(src)) : get_turf(src)))
+			if(get_area(each_container) != current_area)
+				continue // we don't want to put a deadbody to a wrong area
+			for(var/acceptable_path in accepted_list)
+				if(istype(each_container, acceptable_path))
+					found_container += each_container
+					break
 
 	while(bodycount-- > 0)
 		if(length(found_container))
