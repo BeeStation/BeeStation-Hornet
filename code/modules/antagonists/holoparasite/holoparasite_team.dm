@@ -22,7 +22,7 @@
 	var/list/parts = list()
 	parts += "<span class='header'>[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:</span>"
 	parts += print_all_holoparas()
-	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
+	return "<div class='panel [considered_alive(holder.owner) ? "green" : "red"]border'>[parts.Join("<br>")]</div>"
 
 /datum/team/holoparasites/proc/print_holopara(datum/mind/holopara_mind)
 	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = holopara_mind?.current
