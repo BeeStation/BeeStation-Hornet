@@ -6,7 +6,7 @@
 
 /datum/team/holoparasites/New(starting_members, datum/holoparasite_holder/holder)
 	. = ..()
-	if(!holder)
+	if(!istype(holder))
 		CRASH("Attempted to create holoparasite team without holder")
 	if(holder.team)
 		CRASH("Attempted to create duplicate holoparasite team for the holder of [key_name(holder.owner)]")
