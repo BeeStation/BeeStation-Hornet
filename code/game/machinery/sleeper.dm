@@ -106,9 +106,9 @@
 		if (length(inserted_vials) >= max_vials)
 			to_chat(user, "<span class='warning'>[src] cannot hold any more!</span>")
 			return
+		if(!user.transferItemToLoc(I, null))
+			return
 		user.visible_message("<span class='notice'>[user] inserts \the [I] into \the [src]</span>", "<span class='notice'>You insert \the [I] into \the [src]</span>")
-		user.temporarilyRemoveItemFromInventory(I)
-		I.forceMove(null)
 		inserted_vials += I
 		ui_update()
 		return
