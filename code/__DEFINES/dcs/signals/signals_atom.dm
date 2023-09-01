@@ -115,7 +115,6 @@
 #define COMSIG_ATOM_CREATEDBY_PROCESSING "atom_createdby_processing"
 ///! called when teleporting into a protected turf: (channel, turf/origin)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"
-	#define COMPONENT_ALLOW_TELEPORT 0
 	#define COMPONENT_BLOCK_TELEPORT 1
 ///! called when we've successfully teleported an atom: ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"

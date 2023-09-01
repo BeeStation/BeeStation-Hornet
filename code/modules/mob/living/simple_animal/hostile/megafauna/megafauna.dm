@@ -164,7 +164,7 @@
 /// No fun allowed
 /mob/living/simple_animal/hostile/megafauna/handle_teleport_interception(datum/source, channel, turf/origin, turf/destination)
 	if(channel != TELEPORT_CHANNEL_GATEWAY)
-		return COMPONENT_ALLOW_TELEPORT
+		return
 
 	visible_message("<span class='warning'>[src] can't seem to pierce through the portal!</span>", "<span class='warning'>You can't seem to pierce through the portal!</span>")
 

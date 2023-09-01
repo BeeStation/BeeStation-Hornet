@@ -290,7 +290,7 @@
 	SIGNAL_HANDLER
 
 	if(channel != TELEPORT_CHANNEL_GATEWAY)
-		return COMPONENT_ALLOW_TELEPORT
+		return
 
 	//Checking that there is an exile implant
 	if(!isnull(implants))
@@ -303,7 +303,7 @@
 		visible_message("<span class='warning'>The portal rejects [src]!</span>", "<span class='warning'>The portal has blocked your entry!</span>")
 		return COMPONENT_BLOCK_TELEPORT
 
-	return COMPONENT_ALLOW_TELEPORT
+	return
 
 /obj/effect/temp_visual/teleportation_wake
 	name = "slipspace wake"
