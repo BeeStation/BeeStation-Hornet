@@ -30,7 +30,7 @@
 		if(hud_used)
 			var/atom/movable/screen/holoparasite/manifest_recall/mr_hud = locate() in hud_used.static_inventory
 			mr_hud?.begin_timer(HOLOPARASITE_MANIFEST_COOLDOWN)
-		playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 50, vary = TRUE, extrarange = -2)
+		playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 75, vary = TRUE, extrarange = -2)
 		SEND_SIGNAL(src, COMSIG_HOLOPARA_POST_MANIFEST, forced)
 		return TRUE
 	return FALSE
@@ -64,5 +64,5 @@
 		if(hud_used)
 			var/atom/movable/screen/holoparasite/manifest_recall/mr_hud = locate() in hud_used.static_inventory
 			mr_hud?.begin_timer(HOLOPARASITE_MANIFEST_COOLDOWN)
-	playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 50, vary = TRUE, extrarange = -2, frequency = -1)
+	playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 75, vary = TRUE, extrarange = -2, frequency = -1)
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_RECALL, forced)

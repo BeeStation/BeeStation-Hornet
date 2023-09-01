@@ -538,7 +538,6 @@
 /obj/item/holoparasite_creator/debug/preset
 	name = "debug preset holoparasite injector"
 	max_points = 99
-	max_level = 10
 
 /obj/item/holoparasite_creator/debug/preset/Initialize()
 	. = ..()
