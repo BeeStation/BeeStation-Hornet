@@ -89,7 +89,7 @@
 	return {"
 	<div class="holopara-info-container">
 		<div class="holopara-info-item">
-			<svg id="holopara-radar-[id]" width="300" height="300"></svg>
+			<svg id="holopara-radar-[id]" width="220" height="220"></svg>
 		</div>
 		<div class="holopara-info-item">
 			[side_stats.Join("<br>")]
@@ -112,9 +112,9 @@
 	explanation_text = "Protect and serve your summoner."
 
 /datum/objective/holoparasite/New(datum/mind/summoner, datum/team/holoparasites/holopara_team)
-	if(!summoner)
+	if(!istype(summoner))
 		CRASH("Attempted to create holoparasite objective without summoner!")
-	if(!holopara_team)
+	if(!istype(holopara_team))
 		CRASH("Attempted to create holoparasite objective without team!")
 	target = summoner
 	team = holopara_team
