@@ -247,7 +247,7 @@
 	owner.alpha = 45
 	owner.range = -1
 	owner.can_use_abilities = FALSE
-	owner.add_filter("holoparasite_scout_blur", 1, gauss_blur_filter(size = 1))
+	owner.add_filter("holoparasite_scout_blur", 2, gauss_blur_filter(size = 1))
 	scouting = TRUE
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
