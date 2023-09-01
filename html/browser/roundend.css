@@ -121,12 +121,16 @@ body {
 	order: 0;
 	flex: 0 1 auto;
 	align-self: auto;
+	padding-left: 0.5em;
+	padding-right: 0.25em;
 }
 
 .holopara-info-item:nth-child(2) {
 	order: 0;
 	flex: 0 1 auto;
 	align-self: auto;
+	padding-left: 0.25em;
+	padding-right: 0.5em;
 }
 
 .holopara-other-stats {
