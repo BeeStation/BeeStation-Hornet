@@ -110,7 +110,7 @@ function drawRadar(container, data) {
 	createAndAppendSVGElement(container, "circle", {
 		cx: midX.toString(),
 		cy: midY.toString(),
-		r: (data.width / 2).toString(),
+		r: (data.width / 1.9).toString(),
 		stroke: baseColor,
 		fill: "rgba(255, 255, 255, 0)", //invisible fill
 	});
@@ -178,7 +178,7 @@ function drawRadar(container, data) {
 			stroke: "black",
 			"stroke-width": "0.1",
 			"font-family": fontFamily,
-			"font-size": Math.round(data.fontSize / 2.5).toString(),
+			"font-size": Math.round(data.fontSize / 1.75).toString(),
 			"text-anchor": "middle",
 		});
 		keyText.textContent = data.axes[i];

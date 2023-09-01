@@ -98,7 +98,7 @@ export class RadarChart extends Component<RadarChartProps> {
     const innerCircle = <circle cx={midX} cy={midY} r={radarSize} stroke={color} fill={'rgba(0, 0, 0, 0)'} />;
     elements.push(innerCircle);
 
-    const outerCircle = <circle cx={midX} cy={midY} r={width / 2} stroke={color} fill={'rgba(0, 0, 0, 0)'} />;
+    const outerCircle = <circle cx={midX} cy={midY} r={width / 1.9} stroke={color} fill={'rgba(0, 0, 0, 0)'} />;
     elements.push(outerCircle);
 
     for (let i = 0; i < axes.length; i++) {
@@ -135,7 +135,7 @@ export class RadarChart extends Component<RadarChartProps> {
           stroke={'black'}
           stroke-width={'0.1'}
           font-family={fontFamily}
-          font-size={Math.round(fontSize / 2.5)}
+          font-size={Math.round(fontSize / 1.75)}
           text-anchor={'middle'}
           dominant-baseline={'middle'}
           transform={'rotate(' + Math.round(Math.ceil(rotation / rounding) * rounding) + ' ' + keyX + ' ' + keyY + ')'}>
@@ -170,7 +170,7 @@ export class RadarChart extends Component<RadarChartProps> {
               stroke={'black'}
               stroke-width={'0.1'}
               fill={color}
-              font-size={fontSize / 3}
+              font-size={fontSize / 2.3}
               font-family={fontFamily}>
               {stages[j - 1]}
             </text>
