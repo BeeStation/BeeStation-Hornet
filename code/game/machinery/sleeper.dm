@@ -344,8 +344,7 @@
 	var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
 	for (var/datum/reagent/reagent in stored_vial.reagents.reagent_list)
 		var/amount = mob_occupant.reagents.get_reagent_amount(reagent.type) + 10 <= 16 * efficiency
-		var/occ_health = mob_occupant.health > min_health || reagent.type == /datum/reagent/medicine/epinephrine
-		if (!amount || !occ_health)
+		if(!amount)
 			return FALSE
 	return TRUE
 
