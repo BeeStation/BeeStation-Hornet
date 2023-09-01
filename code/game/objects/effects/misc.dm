@@ -73,6 +73,10 @@
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_ADD
 
+/obj/effect/fullbright/starlight
+	plane = STARLIGHT_PLANE
+	transform = matrix(2, 0, 0, 0, 2, 0)
+
 /obj/effect/abstract/marker
 	name = "marker"
 	icon = 'icons/effects/effects.dmi'

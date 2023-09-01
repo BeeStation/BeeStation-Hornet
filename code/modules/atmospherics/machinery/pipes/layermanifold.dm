@@ -137,3 +137,4 @@
 
 /obj/machinery/atmospherics/pipe/layer_manifold/visible
 	layer = GAS_PIPE_VISIBLE_LAYER
+	hide = FALSE

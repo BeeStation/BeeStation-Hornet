@@ -1,4 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Fixed the logging for the gas tanks rupturing not working correctly
