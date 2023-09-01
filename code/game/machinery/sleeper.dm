@@ -15,7 +15,6 @@
 	clicksound = 'sound/machines/pda_button1.ogg'
 
 	var/efficiency = 1.25
-	var/min_health = -25
 	var/list/available_chems
 	var/controls_inside = FALSE
 	/// the maximum amount of chem containers the sleeper can hold. Value can be changed by parts tier and RefreshParts()
@@ -86,7 +85,6 @@
 
 	max_vials = 5 + E
 	efficiency = initial(efficiency) * sqrt(I)
-	min_health = initial(min_health) * E
 	available_chems = list()
 
 	//Eject chems
