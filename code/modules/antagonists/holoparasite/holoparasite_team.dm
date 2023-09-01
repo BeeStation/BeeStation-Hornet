@@ -19,10 +19,13 @@
 
 /datum/team/holoparasites/roundend_report()
 	record_to_blackbox() // bleh I don't like doing this here, but there's no other place to do it without adding new signals, and I've added WAY too many signals already...
-	var/list/parts = list()
-	parts += "<span class='header'>[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:</span>"
-	parts += print_all_holoparas()
-	return "<div class='panel [considered_alive(holder.owner) ? "green" : "red"]border'>[parts.Join("<br>")]</div>"
+	return {"
+		<div class='panel [considered_alive(holder.owner) ? "green" : "red"]border'>
+			<span class='header'>[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:</span>
+			<br>
+			[print_all_holoparas()]
+		</div>
+	"}
 
 /datum/team/holoparasites/proc/print_holopara(datum/mind/holopara_mind)
 	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = holopara_mind?.current
@@ -43,7 +46,6 @@
 
 /datum/team/holoparasites/proc/print_all_holoparas()
 	var/list/parts = list()
-
 	parts += "<ul class='playerlist'>"
 	for(var/datum/mind/mind in members)
 		parts += "<li>[print_holopara(mind)]</li>"
@@ -88,19 +90,19 @@
 	var/fa_name = fa_outline_regex.Replace(icon, "")
 	var/icon_class = "[(fa_regular ? "far" : "fas")] fa-[fa_name]"
 	return {"
-	<div class="section">
-		<div class="section-title">
-			<i class="[icon_class]"></i>
-			<span class="section-title-text">
-				[html_encode(title)]
+		<div class="section">
+			<div class="section-title">
+				<i class="[icon_class]"></i>
+				<span class="section-title-text">
+					[html_encode(title)]
+				</span>
+			</div>
+			<div class="section-rest">
+				<div class="section-content">
+					[html_encode(replacetext(body, "$theme", lowertext(holoparasite.theme.name)))]
+				</div>
 			</span>
 		</div>
-		<div class="section-rest">
-			<div class="section-content">
-				[html_encode(replacetext(body, "$theme", lowertext(holoparasite.theme.name)))]
-			</div>
-		</span>
-	</div>
 	"}
 
 /datum/team/holoparasites/proc/generate_stack(list/items)
@@ -119,24 +121,24 @@
 	for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
 		sections += generate_section(holoparasite, "Lesser Ability: [ability.name]", ability.ui_icon, ability.desc)
 	return {"
-	<div class="holopara-info-container">
-		<div class="holopara-info-item">
-			<svg id="holopara-radar-[id]" width="220" height="220"></svg>
+		<div class="holopara-info-container">
+			<div class="holopara-info-item">
+				<svg id="holopara-radar-[id]" width="220" height="220"></svg>
+			</div>
+			<div class="holopara-info-item holopara-other-stats">
+				[generate_stack(sections)]
+			</div>
 		</div>
-		<div class="holopara-info-item holopara-other-stats">
-			[generate_stack(sections)]
-		</div>
-	</div>
-	<script type='text/javascript'>
-		document.addEventListener("DOMContentLoaded", function() {
-			drawRadarChart("holopara-radar-[id]", {
-				axes: \['Damage', 'Defense', 'Speed', 'Potential', 'Range'\],
-				stages: \['1', '2', '3', '4', '5'\],
-				values: \[[stats.damage], [stats.defense], [stats.speed], [stats.potential], [stats.range]\],
-				color: "[holoparasite.accent_color]"
+		<script type='text/javascript'>
+			document.addEventListener("DOMContentLoaded", function() {
+				drawRadarChart("holopara-radar-[id]", {
+					axes: \['Damage', 'Defense', 'Speed', 'Potential', 'Range'\],
+					stages: \['1', '2', '3', '4', '5'\],
+					values: \[[stats.damage], [stats.defense], [stats.speed], [stats.potential], [stats.range]\],
+					color: "[holoparasite.accent_color]"
+				});
 			});
-		});
-	</script>
+		</script>
 	"}
 
 /datum/objective/holoparasite
