@@ -375,7 +375,7 @@
 			current_location = previous
 			break
 
-	do_teleport(C, current_location, channel = TELEPORT_CHANNEL_BLINK, ignore_check_teleport = TRUE) // We've already checked above
+	do_teleport(C, current_location, channel = TELEPORT_CHANNEL_BLINK)
 
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(get_turf(user))
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
