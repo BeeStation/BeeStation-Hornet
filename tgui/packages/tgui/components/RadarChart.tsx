@@ -31,7 +31,7 @@ export class RadarChart extends Component<RadarChartProps> {
 
   constructor(props) {
     super(props);
-    const { areaColor = '#f36e36', axes, stages, values, maxValue } = props;
+    const { areaColor = '#f36e36', axes, stages, values } = props;
     const rgba = hexToRgba(areaColor);
     this.fillColor = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, 0.5)`;
     this.strokeColor = areaColor;
