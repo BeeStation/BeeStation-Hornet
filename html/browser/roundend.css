@@ -128,3 +128,59 @@ body {
 	flex: 0 1 auto;
 	align-self: auto;
 }
+
+.holopara-other-stats {
+	font-size: x-small;
+	line-height: normal;
+	text-overflow: wrap;
+	align-content: space-between;
+	width: 520px;
+}
+
+.section {
+	position: relative;
+	margin-bottom: 0.5em;
+	background-color: #191919;
+	background-color: rgba(39, 39, 39, 0.33);
+	box-sizing: border-box;
+	border-radius: 1em;
+}
+
+.section:last-child {
+	margin-bottom: 0;
+}
+
+.section-title {
+	position: relative;
+	padding: 0.5em;
+	border-bottom: 0.1666666667em solid #4972a1;
+}
+
+.section-title-text {
+	font-size: 1.1666666667em;
+	font-weight: bold;
+	color: #fff;
+	margin-left: 1;
+	margin-right: 1;
+}
+
+.section-rest {
+	position: relative;
+}
+
+.section-content {
+	padding: 0.66em 0.5em;
+}
+
+.stack {
+	display: -ms-flexbox;
+	display: flex;
+	flex-direction: column;
+}
+
+.stack > .stack-item {
+	margin-top: 0.5em;
+}
+.stack > .stack-item:first-child {
+	margin-top: 0;
+}

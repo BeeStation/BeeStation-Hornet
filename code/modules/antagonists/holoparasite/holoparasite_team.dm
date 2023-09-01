@@ -18,24 +18,28 @@
 	return "Holoparasites of [holder.owner.name]"
 
 /datum/team/holoparasites/roundend_report()
-	// bleh I don't like doing this here, but there's no other place to do it without adding new signals, and I've added WAY too many signals already...
-	record_to_blackbox()
-
+	record_to_blackbox() // bleh I don't like doing this here, but there's no other place to do it without adding new signals, and I've added WAY too many signals already...
 	var/list/parts = list()
-
 	parts += "<span class='header'>[holder.owner.name] had the following holoparasite[is_solo() ? "" : "s"]:</span>"
 	parts += print_all_holoparas()
-
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
 /datum/team/holoparasites/proc/print_holopara(datum/mind/holopara_mind)
 	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = holopara_mind?.current
 	if(!istype(holoparasite))
 		return
-	var/list/parts = list()
-	parts += "<b>[holopara_mind.key]</b> was <b>[holoparasite.color_name]</b>, the <b>[holoparasite.theme.name]</b>"
-	parts += generate_stat_chart(holoparasite)
-	return parts.Join("<br>")
+	return {"
+		<div class="section">
+			<div class="section-title">
+				<b>[holopara_mind.key]</b> was <b>[holoparasite.color_name]</b>, the <b>[holoparasite.theme.name]</b><br>
+			</div>
+			<div class="section-rest">
+				<div class="section-content">
+					[generate_stat_chart(holoparasite)]
+				</div>
+			</div>
+		</div>
+	"}
 
 /datum/team/holoparasites/proc/print_all_holoparas()
 	var/list/parts = list()
@@ -78,21 +82,49 @@
 	SSblackbox.record_feedback("associative", "holoparasite_user_roundend_stat", 1, info)
 	SSblackbox.record_feedback("tally", "holoparasites_per_summoner", 1, length(members))
 
+/datum/team/holoparasites/proc/generate_section(title, icon, body)
+	var/static/regex/fa_outline_regex = new(@"/-o$/")
+	var/fa_regular = fa_outline_regex.Find(icon)
+	var/fa_name = fa_outline_regex.Replace(icon, "")
+	var/icon_class = "[(fa_regular ? "far" : "fas")] fa-[fa_name]"
+	return {"
+	<div class="section">
+		<div class="section-title">
+			<i class="[icon_class]"></i>
+			<span class="section-title-text">
+				[html_encode(title)]
+			</span>
+		</div>
+		<div class="section-rest">
+			<div class="section-content">
+				[html_encode(replacetext(body, "$theme", "holoparasite"))]
+			</div>
+		</span>
+	</div>
+	"}
+
+/datum/team/holoparasites/proc/generate_stack(list/items)
+	var/list/stacked_items = list()
+	for(var/item in items)
+		stacked_items += "<div class=\"stack-item\">[item]</div>"
+	return "<div class=\"stack\">[stacked_items.Join()]</div>"
+
 /datum/team/holoparasites/proc/generate_stat_chart(mob/living/simple_animal/hostile/holoparasite/holoparasite)
 	var/datum/holoparasite_stats/stats = holoparasite.stats
 	var/id = ckey(REF(holoparasite))
-	var/list/side_stats = list("<b>Weapon</b>: [stats.weapon.name]")
+	var/list/sections = list()
+	sections += generate_section("Weapon: [stats.weapon.name]", stats.weapon.ui_icon, stats.weapon.desc)
 	if(stats.ability)
-		side_stats += "<b>Special Ability</b>: [stats.ability.name]"
+		sections += generate_section("Ability: [stats.ability.name]", stats.ability.ui_icon, stats.ability.desc)
 	for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
-		side_stats += "<b>Lesser Ability</b>: [ability.name]"
+		sections += generate_section("Lesser Ability: [ability.name]", ability.ui_icon, ability.desc)
 	return {"
 	<div class="holopara-info-container">
 		<div class="holopara-info-item">
 			<svg id="holopara-radar-[id]" width="220" height="220"></svg>
 		</div>
-		<div class="holopara-info-item">
-			[side_stats.Join("<br>")]
+		<div class="holopara-info-item holopara-other-stats">
+			[generate_stack(sections)]
 		</div>
 	</div>
 	<script type='text/javascript'>

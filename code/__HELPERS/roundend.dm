@@ -399,7 +399,9 @@
 	else
 		content = rustg_file_read(filename)
 	roundend_report.set_content(content)
-	roundend_report.add_script("radarchart", 'html/radarchart.js', defer = TRUE)
+	roundend_report.scripts = list()
+	roundend_report.add_script("radarchart", 'html/radarchart.js')
+	roundend_report.stylesheets = list()
 	roundend_report.add_stylesheet("roundend", 'html/browser/roundend.css')
 	roundend_report.add_stylesheet("font-awesome", 'html/font-awesome/css/all.min.css')
 	roundend_report.open(FALSE)

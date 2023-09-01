@@ -1,5 +1,6 @@
 const outlineWidth = 2;
 const fontFamily = "Verdana";
+const baseColor = "white";
 const tickWidth = 4;
 
 function toDegrees(rad) {
@@ -102,7 +103,7 @@ function drawRadar(container, data) {
 		cx: midX.toString(),
 		cy: midY.toString(),
 		r: radarSize.toString(),
-		stroke: data.color,
+		stroke: baseColor,
 		fill: "rgba(255, 255, 255, 0)", //invisible fill
 	});
 
@@ -110,7 +111,7 @@ function drawRadar(container, data) {
 		cx: midX.toString(),
 		cy: midY.toString(),
 		r: (data.width / 2).toString(),
-		stroke: data.color,
+		stroke: baseColor,
 		fill: "rgba(255, 255, 255, 0)", //invisible fill
 	});
 
@@ -141,11 +142,12 @@ function drawRadar(container, data) {
 		let valueText = createAndAppendSVGElement(container, "text", {
 			x: valuePoint.x.toString(),
 			y: valuePoint.y.toString(),
-			fill: data.color,
+			fill: baseColor,
 			stroke: "black",
 			"stroke-width": "0.1",
 			"font-family": fontFamily,
 			"font-size": data.fontSize.toString(),
+			"font-weight": "lighter",
 			"text-anchor": "middle",
 			"dominant-baseline": "middle",
 		});
@@ -178,11 +180,11 @@ function drawRadar(container, data) {
 		keyText.setAttribute("y", keyPoint.y.toString());
 		keyText.setAttribute("stroke", "black");
 		keyText.setAttribute("stroke-width", "0.1");
-		keyText.setAttribute("fill", data.color);
+		keyText.setAttribute("fill", baseColor);
 		keyText.setAttribute("font-family", fontFamily);
 		keyText.setAttribute(
 			"font-size",
-			Math.round(data.fontSize / 2.5).toString()
+			Math.round(data.fontSize / 2.25).toString()
 		);
 		container.appendChild(keyText);
 
@@ -203,7 +205,7 @@ function drawRadar(container, data) {
 		line.setAttribute("y1", midY.toString());
 		line.setAttribute("x2", linePoint.x.toString());
 		line.setAttribute("y2", linePoint.y.toString());
-		line.setAttribute("stroke", data.color);
+		line.setAttribute("stroke", baseColor);
 		container.appendChild(line);
 
 		for (let j = 1; j <= data.stages.length; j++) {
@@ -235,7 +237,7 @@ function drawRadar(container, data) {
 			tick.setAttribute("y1", p1.y.toString());
 			tick.setAttribute("x2", p2.x.toString());
 			tick.setAttribute("y2", p2.y.toString());
-			tick.setAttribute("stroke", data.color);
+			tick.setAttribute("stroke", baseColor);
 			container.appendChild(tick);
 
 			if (i === 0) {
@@ -250,7 +252,7 @@ function drawRadar(container, data) {
 				stageText.setAttribute("y", p2.y.toString());
 				stageText.setAttribute("stroke", "black");
 				stageText.setAttribute("stroke-width", "0.1");
-				stageText.setAttribute("fill", data.color);
+				stageText.setAttribute("fill", baseColor);
 				stageText.setAttribute(
 					"font-size",
 					(data.fontSize / 3).toString()
