@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added the ability for Obsessed people to open the mail addressed to their
+      obsessions
