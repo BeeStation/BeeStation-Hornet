@@ -66,7 +66,11 @@ SUBSYSTEM_DEF(asteroid_generation)
 	for (var/x in 0 to width)
 		for (var/y in 0 to height)
 			var/turf/interior_turf = locate(bottom_left.x + x, bottom_left.y + y, bottom_left.z)
-			var/turf/surface_turf = locate(asteroid_center.x - (width - 1) / 2, asteroid_center.y - (height - 1) / 2, asteroid_center.z)
+			var/turf/surface_turf = locate(asteroid_center.x - (width - 1) / 2 + x, asteroid_center.y - (height - 1) / 2 + y, asteroid_center.z)
+			// Add on the component if we have already opened the cavity before asteroidation
+			if (/turf/baseturf_skipover/asteroid in surface_turf.baseturfs)
+				// Add the asteroid tracker component
+				surface_turf.AddComponent(/datum/component/asteroid_tracker, interior_turf)
 			// Fix the baseturfs so that we will never fall through to space
 			interior_turf.baseturfs = baseturfs_string_list(list(/turf/open/floor/plating/asteroid/airless), interior_turf)
 			// Interior turf should be open, surface turf should be asteroid sand

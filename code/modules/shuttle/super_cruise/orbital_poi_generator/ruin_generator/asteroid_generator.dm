@@ -88,9 +88,9 @@
 								spawned_ore = ore_type
 								break
 					if (ispath(spawned_ore, /turf))
-						T.ChangeTurf(spawned_ore, list(/turf/open/space, /turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+						T.ChangeTurf(spawned_ore, list(/turf/open/space, /turf/baseturf_skipover/asteroid, /turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
 					else
-						T.ChangeTurf(turf, list(/turf/open/space, /turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+						T.ChangeTurf(turf, list(/turf/open/space, /turf/baseturf_skipover/asteroid, /turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
 						var/turf/closed/mineral/mineral_rock = T
 						if (spawned_ore && istype(mineral_rock))
 							mineral_rock.Change_Ore(spawned_ore)
@@ -100,7 +100,7 @@
 			output[3] = max(output[3], T.x)
 			output[4] = max(output[4], T.y)
 		else if((noise_at_coord >= sand_value) || force_floor)
-			var/turf/newT = T.ChangeTurf(/turf/open/floor/plating/asteroid/airless, list(/turf/open/space), flags = CHANGETURF_IGNORE_AIR)
+			var/turf/newT = T.ChangeTurf(/turf/open/floor/plating/asteroid/airless, list(/turf/open/space, /turf/baseturf_skipover/asteroid), flags = CHANGETURF_IGNORE_AIR)
 			output[1] = min(output[1], T.x)
 			output[2] = min(output[2], T.y)
 			output[3] = max(output[3], T.x)

@@ -119,22 +119,9 @@
 		var/dx = T.x - minx
 		var/dy = T.y - miny
 		var/turf/new_location = locate(linked_zone.minx + dx, linked_zone.miny + dy, linked_zone.z)
-		// Put the skipover and then the asteroid on top of it
-		var/list/baseturfs = list(/turf/baseturf_skipover/asteroid)
-		for (var/baseturf in T.baseturfs)
-			if (ispath(baseturfs, /turf/baseturf_bottom))
-				continue
-			baseturfs += baseturf
-		if (!length(new_location.baseturfs))
-			if (new_location.baseturfs)
-				new_location.baseturfs = list(new_location.baseturfs)
-			else
-				new_location.baseturfs = list()
-		new_location.baseturfs += new_location.type
-		new_location.baseturfs += baseturfs
+		// Copy the turf
 		T.copyTurf(new_location)
-		// Update the linked below turf
-		new_location.set_below(T.below)
+		new_location.baseturfs = T.baseturfs
 		// TODO: Deal with onShuttleMove
 		// Transfer objects from the previous location
 		for (var/atom/movable/thing as() in T.contents)
