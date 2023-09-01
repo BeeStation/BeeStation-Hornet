@@ -158,4 +158,4 @@
 	explanation_text = "Protect and serve [target.name], your summoner."
 
 /datum/objective/holoparasite/check_completion()
-	return considered_alive(target, enforce_human = FALSE)
+	return considered_alive(target)
