@@ -87,3 +87,8 @@
 #define HOLOPARA_HANDS_LAYER				1
 /// The maximum lightness (HSL) value for a holopara's accent color
 #define HOLOPARA_MAX_ACCENT_LIGHTNESS		50
+
+/// The extra range applied to the holoparasite manifestation sound effect
+#define HOLOPARA_MANIFEST_SOUND_EXTRARANGE	SHORT_RANGE_SOUND_EXTRARANGE
+/// The extra range applied to the holoparasite recall sound effect
+#define HOLOPARA_RECALL_SOUND_EXTRARANGE	-5
