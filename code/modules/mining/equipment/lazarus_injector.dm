@@ -27,7 +27,9 @@
 				return
 			if(M.stat == DEAD)
 				M.revive(full_heal = 1, admin_revive = 1)
-				if(!M.mind) // only do this to mindless mobs
+				if(M.mind)
+					M.AIStatus = AI_OFF // don't let them attack people randomly after revived
+				else // only do this to mindless mobs
 					M.faction = list("neutral")
 					if(ishostile(target))
 						var/mob/living/simple_animal/hostile/H = M
@@ -39,8 +41,6 @@
 							log_game("[key_name(user)] has revived hostile mob [key_name(target)] with a malfunctioning lazarus injector")
 						else
 							H.attack_same = 0
-				else
-					M.AIStatus = AI_OFF // don't let them attack people randomly after revived
 				loaded = 0
 				user.visible_message("<span class='notice'>[user] injects [M] with [src], reviving it.</span>")
 				SSblackbox.record_feedback("tally", "lazarus_injector", 1, M.type)
