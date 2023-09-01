@@ -29,25 +29,12 @@
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
 /datum/team/holoparasites/proc/print_holopara(datum/mind/holopara_mind)
-	if(!holopara_mind)
-		return
-	if(!holopara_mind.current || !istype(holopara_mind.current, /mob/living/simple_animal/hostile/holoparasite))
+	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = holopara_mind?.current
+	if(!istype(holoparasite))
 		return
 	var/list/parts = list()
-	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = holopara_mind.current
 	parts += "<b>[holopara_mind.key]</b> was <b>[holoparasite.color_name]</b>, the <b>[holoparasite.theme.name]</b>"
-	if(holoparasite.stats)
-		var/datum/holoparasite_stats/stats = holoparasite.stats
-		parts += "<b>Damage:</b> [stats.damage]/5"
-		parts += "<b>Defense:</b> [stats.defense]/5"
-		parts += "<b>Speed:</b> [stats.speed]/5"
-		parts += "<b>Potential:</b> [stats.potential]/5"
-		parts += "<b>Range:</b> [stats.range]/5"
-		parts += "<b>Weapon:</b> [stats.weapon.name]"
-		if(stats.ability)
-			parts += "<b>Special Ability:</b> [stats.ability.name]"
-		for(var/datum/holoparasite_ability/lesser/ability in stats.lesser_abilities)
-			parts += "<b>Minor Ability:</b> [ability.name]"
+	parts += generate_stat_chart(holoparasite)
 	return parts.Join("<br>")
 
 /datum/team/holoparasites/proc/print_all_holoparas()
@@ -90,6 +77,35 @@
 			info["crit"] = summoner.InCritical()
 	SSblackbox.record_feedback("associative", "holoparasite_user_roundend_stat", 1, info)
 	SSblackbox.record_feedback("tally", "holoparasites_per_summoner", 1, length(members))
+
+/datum/team/holoparasites/proc/generate_stat_chart(mob/living/simple_animal/hostile/holoparasite/holoparasite)
+	var/datum/holoparasite_stats/stats = holoparasite.stats
+	var/id = ckey(REF(holoparasite))
+	var/list/side_stats = list("<b>Weapon</b>: [stats.weapon.name]")
+	if(stats.ability)
+		side_stats += "<b>Special Ability</b>: [stats.ability.name]"
+	for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
+		side_stats += "<b>Lesser Ability</b>: [ability.name]"
+	return {"
+	<div class="holopara-info-container">
+		<div class="holopara-info-item">
+			<svg id="holopara-radar-[id]" width="300" height="300"></svg>
+		</div>
+		<div class="holopara-info-item">
+			[side_stats.Join("<br>")]
+		</div>
+	</div>
+	<script type='text/javascript'>
+		document.addEventListener("DOMContentLoaded", function() {
+			drawRadarChart("holopara-radar-[id]", {
+				axes: \['Damage', 'Defense', 'Speed', 'Potential', 'Range'\],
+				stages: \['1', '2', '3', '4', '5'\],
+				values: \[[stats.damage], [stats.defense], [stats.speed], [stats.potential], [stats.range]\],
+				color: "[holoparasite.accent_color]"
+			});
+		});
+	</script>
+	"}
 
 /datum/objective/holoparasite
 	name = "protect holoparasite summoner"
