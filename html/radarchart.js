@@ -239,7 +239,7 @@ function drawRadar(container, data) {
 					stroke: "black",
 					"stroke-width": "0.1",
 					"font-family": fontFamily,
-					"font-size": (data.fontSize / 3).toString(),
+					"font-size": (data.fontSize / 2.3).toString(),
 				});
 				stageText.textContent = data.stages[j - 1];
 			}
