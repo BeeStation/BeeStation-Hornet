@@ -30,7 +30,7 @@
 		if(hud_used)
 			var/atom/movable/screen/holoparasite/manifest_recall/mr_hud = locate() in hud_used.static_inventory
 			mr_hud?.begin_timer(HOLOPARASITE_MANIFEST_COOLDOWN)
-		playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 75, vary = TRUE, extrarange = -2)
+		playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 75, vary = FALSE, extrarange = -2)
 		SEND_SIGNAL(src, COMSIG_HOLOPARA_POST_MANIFEST, forced)
 		return TRUE
 	return FALSE
@@ -50,6 +50,7 @@
 	tracking_beacon.toggle_visibility(FALSE)
 	tracking_beacon.remove_from_huds()
 	new /obj/effect/temp_visual/holoparasite/phase/out(loc)
+	playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 75, vary = FALSE, extrarange = -2, frequency = -1)
 	forceMove(summoner.current)
 	pixel_x = initial(pixel_x)
 	pixel_y = initial(pixel_y)
@@ -64,5 +65,4 @@
 		if(hud_used)
 			var/atom/movable/screen/holoparasite/manifest_recall/mr_hud = locate() in hud_used.static_inventory
 			mr_hud?.begin_timer(HOLOPARASITE_MANIFEST_COOLDOWN)
-	playsound(loc, 'sound/creatures/holopara_summon.ogg', vol = 75, vary = TRUE, extrarange = -2, frequency = -1)
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_RECALL, forced)

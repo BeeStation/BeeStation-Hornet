@@ -160,6 +160,18 @@ body {
 	border-bottom: 0.1666666667em solid #4972a1;
 }
 
+.section-title .section-weapon {
+	border-bottom: 0.1666666667em solid #c41e3a;
+}
+
+.section-title .section-ability {
+	border-bottom: 0.1666666667em solid #33ffbd;
+}
+
+.section-title .section-lesser-ability {
+	border-bottom: 0.1666666667em solid #bd33ff;
+}
+
 .section-title-text {
 	font-size: 1.1666666667em;
 	font-weight: bold;

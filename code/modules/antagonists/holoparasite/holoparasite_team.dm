@@ -84,14 +84,14 @@
 	SSblackbox.record_feedback("associative", "holoparasite_user_roundend_stat", 1, info)
 	SSblackbox.record_feedback("tally", "holoparasites_per_summoner", 1, length(members))
 
-/datum/team/holoparasites/proc/generate_section(mob/living/simple_animal/hostile/holoparasite/holoparasite, title, icon, body)
+/datum/team/holoparasites/proc/generate_section(mob/living/simple_animal/hostile/holoparasite/holoparasite, title, icon, body, title_class = "")
 	var/static/regex/fa_outline_regex = new(@"/-o$/")
 	var/fa_regular = fa_outline_regex.Find(icon)
 	var/fa_name = fa_outline_regex.Replace(icon, "")
 	var/icon_class = "[(fa_regular ? "far" : "fas")] fa-[fa_name]"
 	return {"
 		<div class="section">
-			<div class="section-title">
+			<div class="section-title [title_class]">
 				<i class="[icon_class]"></i>
 				<span class="section-title-text">
 					[html_encode(title)]
@@ -115,11 +115,11 @@
 	var/datum/holoparasite_stats/stats = holoparasite.stats
 	var/id = ckey(REF(holoparasite))
 	var/list/sections = list()
-	sections += generate_section(holoparasite, "Weapon: [stats.weapon.name]", stats.weapon.ui_icon, stats.weapon.desc)
+	sections += generate_section(holoparasite, "Weapon: [stats.weapon.name]", stats.weapon.ui_icon, stats.weapon.desc, "section-weapon")
 	if(stats.ability)
-		sections += generate_section(holoparasite, "Ability: [stats.ability.name]", stats.ability.ui_icon, stats.ability.desc)
+		sections += generate_section(holoparasite, "Ability: [stats.ability.name]", stats.ability.ui_icon, stats.ability.desc, "section-ability")
 	for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
-		sections += generate_section(holoparasite, "Lesser Ability: [ability.name]", ability.ui_icon, ability.desc)
+		sections += generate_section(holoparasite, "Lesser Ability: [ability.name]", ability.ui_icon, ability.desc, "section-lesser-ability")
 	return {"
 		<div class="holopara-info-container">
 			<div class="holopara-info-item">

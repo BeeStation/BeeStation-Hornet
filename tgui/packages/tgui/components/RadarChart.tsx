@@ -106,7 +106,7 @@ export class RadarChart extends Component<RadarChartProps> {
       const valueText = (
         <text
           x={midX + Math.cos(angle) * valueOffset}
-          y={midY - Math.sin(angle) * valueOffset + fontSize / 2}
+          y={midY - Math.sin(angle) * valueOffset + fontSize / 3}
           fill={color}
           stroke={'black'}
           stroke-width={'0.1'}

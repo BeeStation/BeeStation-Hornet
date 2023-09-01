@@ -117,7 +117,16 @@ function drawRadar(container, data) {
 
 	let axesCount = data.axes.length;
 	let angle = Math.PI / 2;
+	let rounding = 180 / data.axes.length;
 	for (let i = 0; i < axesCount; i++) {
+		let rotation = -toDegrees(angle - Math.PI / 2) % 360;
+		let pivotFix = 0;
+		if (rotation > 90 && rotation < 270) {
+			rotation += 180;
+			pivotFix = 1;
+		}
+		let pivotFixMultiplier = (9 + pivotFix * 2) / 6;
+
 		let dir = {
 			x: Math.cos(angle),
 			y: -Math.sin(angle),
@@ -127,13 +136,14 @@ function drawRadar(container, data) {
 			y: dir.y * (radarSize + data.fontSize * 0.75),
 		};
 		let keyOffset = {
-			x: dir.x * (radarSize + data.fontSize * 1.5),
-			y: dir.y * (radarSize + data.fontSize * 1.5),
+			x: dir.x * (radarSize + data.fontSize * pivotFixMultiplier),
+			y: dir.y * (radarSize + data.fontSize * pivotFixMultiplier),
 		};
 		let valuePoint = {
 			x: midX + valueOffset.x,
 			y: midY + valueOffset.y,
 		};
+		valuePoint.y += data.fontSize / 3;
 		let keyPoint = {
 			x: midX + keyOffset.x,
 			y: midY + keyOffset.y,
@@ -149,44 +159,29 @@ function drawRadar(container, data) {
 			"font-size": data.fontSize.toString(),
 			"font-weight": "lighter",
 			"text-anchor": "middle",
-			"dominant-baseline": "middle",
 		});
 		valueText.textContent = data.stages[data.values[i] - 1];
 
-		let rotation = -toDegrees(angle - Math.PI / 2) % 360;
-		if (rotation > 90 && rotation < 270) {
-			rotation += 180;
-		}
-		let rounding = 180 / data.axes.length;
-
-		let keyText = document.createElementNS(
-			"http://www.w3.org/2000/svg",
-			"text"
-		);
-		keyText.setAttribute(
-			"transform",
+		let transformValue =
 			"rotate(" +
-				Math.round(Math.ceil(rotation / rounding) * rounding) +
-				" " +
-				keyPoint.x.toString() +
-				" " +
-				keyPoint.y.toString() +
-				")"
-		);
+			Math.round(Math.ceil(rotation / rounding) * rounding) +
+			" " +
+			keyPoint.x.toString() +
+			" " +
+			keyPoint.y.toString() +
+			")";
+		let keyText = createAndAppendSVGElement(container, "text", {
+			x: keyPoint.x.toString(),
+			y: keyPoint.y.toString(),
+			transform: transformValue,
+			fill: baseColor,
+			stroke: "black",
+			"stroke-width": "0.1",
+			"font-family": fontFamily,
+			"font-size": Math.round(data.fontSize / 2.5).toString(),
+			"text-anchor": "middle",
+		});
 		keyText.textContent = data.axes[i];
-		keyText.setAttribute("text-anchor", "middle");
-		keyText.setAttribute("dominant-baseline", "middle");
-		keyText.setAttribute("x", keyPoint.x.toString());
-		keyText.setAttribute("y", keyPoint.y.toString());
-		keyText.setAttribute("stroke", "black");
-		keyText.setAttribute("stroke-width", "0.1");
-		keyText.setAttribute("fill", baseColor);
-		keyText.setAttribute("font-family", fontFamily);
-		keyText.setAttribute(
-			"font-size",
-			Math.round(data.fontSize / 2.25).toString()
-		);
-		container.appendChild(keyText);
 
 		let lineOffset = {
 			x: dir.x * radarSize,
@@ -197,16 +192,14 @@ function drawRadar(container, data) {
 			y: midY + lineOffset.y,
 		};
 
-		let line = document.createElementNS(
-			"http://www.w3.org/2000/svg",
-			"line"
-		);
-		line.setAttribute("x1", midX.toString());
-		line.setAttribute("y1", midY.toString());
-		line.setAttribute("x2", linePoint.x.toString());
-		line.setAttribute("y2", linePoint.y.toString());
-		line.setAttribute("stroke", baseColor);
-		container.appendChild(line);
+		//line
+		createAndAppendSVGElement(container, "line", {
+			x1: midX.toString(),
+			y1: midY.toString(),
+			x2: linePoint.x.toString(),
+			y2: linePoint.y.toString(),
+			stroke: baseColor,
+		});
 
 		for (let j = 1; j <= data.stages.length; j++) {
 			let mid = {
@@ -229,36 +222,26 @@ function drawRadar(container, data) {
 				y: mid.y + perpendicularDir.y * tickWidth,
 			};
 
-			let tick = document.createElementNS(
-				"http://www.w3.org/2000/svg",
-				"line"
-			);
-			tick.setAttribute("x1", p1.x.toString());
-			tick.setAttribute("y1", p1.y.toString());
-			tick.setAttribute("x2", p2.x.toString());
-			tick.setAttribute("y2", p2.y.toString());
-			tick.setAttribute("stroke", baseColor);
-			container.appendChild(tick);
+			//tick
+			createAndAppendSVGElement(container, "line", {
+				x1: p1.x.toString(),
+				y1: p1.y.toString(),
+				x2: p2.x.toString(),
+				y2: p2.y.toString(),
+				stroke: baseColor,
+			});
 
 			if (i === 0) {
-				let stageText = document.createElementNS(
-					"http://www.w3.org/2000/svg",
-					"text"
-				);
+				let stageText = createAndAppendSVGElement(container, "text", {
+					x: (p2.x + tickWidth).toString(),
+					y: p2.y.toString(),
+					fill: baseColor,
+					stroke: "black",
+					"stroke-width": "0.1",
+					"font-family": fontFamily,
+					"font-size": (data.fontSize / 3).toString(),
+				});
 				stageText.textContent = data.stages[j - 1];
-				//stageText.setAttribute("text-anchor", "middle")
-				//stageText.setAttribute("dominant-baseline", "middle")
-				stageText.setAttribute("x", (p2.x + tickWidth).toString());
-				stageText.setAttribute("y", p2.y.toString());
-				stageText.setAttribute("stroke", "black");
-				stageText.setAttribute("stroke-width", "0.1");
-				stageText.setAttribute("fill", baseColor);
-				stageText.setAttribute(
-					"font-size",
-					(data.fontSize / 3).toString()
-				);
-				stageText.setAttribute("font-family", fontFamily);
-				container.appendChild(stageText);
 			}
 		}
 
