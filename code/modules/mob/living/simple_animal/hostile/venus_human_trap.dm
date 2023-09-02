@@ -65,9 +65,9 @@
 	var/list/grasping = list()
 	var/list/tethers = list()
 	var/max_grasps = 4
-	var/grasp_chance = 20
-	var/grasp_pull_chance = 85
-	var/grasp_range = 4
+	var/grasp_chance = 10
+	var/grasp_pull_chance = 20
+	var/grasp_range = 3
 	del_on_death = TRUE
 	discovery_points = 2000
 
