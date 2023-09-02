@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - rscdel: Abductors can no longer customize abductee objectives.
