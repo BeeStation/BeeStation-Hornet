@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - balance: Made the shove intent stun of an emagged/EMP'd/combat defib be blocked
+      by shields
