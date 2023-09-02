@@ -39,8 +39,8 @@
 							"<span class='userdanger'>[A] stomped you in the head!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		D.apply_damage(20, A.dna.species.attack_type, BODY_ZONE_HEAD, def_check)
-		D.apply_damage(10, STAMINA, BODY_ZONE_HEAD, def_check)
+		D.apply_damage_old(20, A.dna.species.attack_type, BODY_ZONE_HEAD, def_check)
+		D.apply_damage_old(10, STAMINA, BODY_ZONE_HEAD, def_check)
 		return 1
 	return basic_hit(A,D)
 
@@ -55,7 +55,7 @@
 							"<span class='userdanger'>[A] roundhouse kicked you in the calf!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		D.apply_damage(50, STAMINA, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), def_check)
+		D.apply_damage_old(50, STAMINA, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), def_check)
 		return 1
 	return basic_hit(A,D)
 
@@ -71,7 +71,7 @@
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		D.emote("gasp")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		D.apply_damage(30, STAMINA, BODY_ZONE_CHEST, def_check)
+		D.apply_damage_old(30, STAMINA, BODY_ZONE_CHEST, def_check)
 		D.Knockdown(10)
 		return 1
 	return basic_hit(A,D)

@@ -169,7 +169,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			if(invocation)
 				L.say(invocation, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
 			if(invoke_damage)
-				L.apply_damage(invoke_damage, BRUTE)
+				L.apply_damage(/datum/damage_source/magic/abstract, /datum/damage/brute, invoke_damage)
+
 				to_chat(L, "<span class='cult italic'>[src] saps your strength!</span>")
 		else if(istype(M, /obj/item/toy/plush/narplush))
 			var/obj/item/toy/plush/narplush/P = M
@@ -686,8 +687,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	user.visible_message("<span class='warning'>[user] [carbon_user ? "places [user.p_their()] hands on":"stares intently at"] [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"].</span>", \
 						 "<span class='cult italic'>You channel [carbon_user ? "your life ":""]energy into [src], [density ? "temporarily preventing" : "allowing"] passage above it.</span>")
 	if(carbon_user)
-		var/mob/living/carbon/C = user
-		C.apply_damage(2, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		user.apply_damage(/datum/damage_source/magic/abstract, /datum/damage/brute, 2, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 /obj/effect/rune/wall/proc/spread_density()
 	for(var/R in GLOB.wall_runes)
@@ -918,7 +918,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		while(!QDELETED(src) && !QDELETED(user) && !QDELETED(new_human) && (user in T))
 			if(user.stat || new_human.InCritical())
 				break
-			user.apply_damage(0.1, BRUTE)
+			user.apply_damage(/datum/damage_source/magic/abstract, /datum/damage/brute, 0.1)
 			sleep(1)
 
 		qdel(N)

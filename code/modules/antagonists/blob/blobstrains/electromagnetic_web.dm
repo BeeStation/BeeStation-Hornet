@@ -35,4 +35,4 @@
 	if(prob(reac_volume*2))
 		M.emp_act(EMP_LIGHT)
 	if(M)
-		M.apply_damage(reac_volume, BURN)
+		M.apply_damage(/datum/damage_source/chemical, /datum/damage/burn, reac_volume)

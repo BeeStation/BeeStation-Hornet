@@ -284,7 +284,7 @@
 				close_trap()
 				L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
 						"<span class='userdanger'>You trigger \the [src]!</span>")
-				L.apply_damage(trap_damage, BRUTE, def_zone)
+				L.apply_damage(/datum/damage_source/sharp/heavy, /datum/damage/brute, trap_damage, def_zone)
 
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"

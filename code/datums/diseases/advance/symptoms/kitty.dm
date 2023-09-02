@@ -53,7 +53,7 @@
 					tail.Remove(M)
 					tail.forceMove(get_turf(M))
 					M.add_splatter_floor(get_turf(M))
-					M.apply_damage(5, BRUTE)
+					M.apply_damage(/datum/damage_source/forceful_laceration, /datum/damage/brute, 5, BODY_ZONE_PRECISE_GROIN)
 					M.emote("laugh")
 					playsound(M, 'sound/misc/desecration-01.ogg', 50, 1)
 			else if(!ears || !tail)
@@ -90,7 +90,7 @@
 		to_chat(H, "<span class='hypnophrase'>You pet [cat]!</span>")
 		cat.visible_message("<span class='warning'>[H] grabs [cat] roughly!</span>", "<span class='userdanger'>[H] roughly grabs you by the neck!</span>")
 		H.emote("laugh")
-		cat.apply_damage(5, BRUTE)
+		cat.apply_damage(/datum/damage_source/impact, /datum/damage/brute, 5)
 		dnacounter += 2 //real cats are purer, scarcer, and all around better
 	else if(H.throw_at(cat, 7, 2))
 		if(get_dist(cat, H) > 1)
@@ -110,7 +110,7 @@
 					targettail.forceMove(get_turf(target))
 					target.emote("scream")
 					target.add_splatter_floor(get_turf(target))
-					target.apply_damage(5, BRUTE)
+					target.apply_damage(/datum/damage_source/forceful_laceration, /datum/damage/brute, 5, BODY_ZONE_PRECISE_GROIN)
 					H.put_in_hands(targettail)
 					dnacounter += 1
 					playsound(target, 'sound/misc/desecration-01.ogg', 50, 1)
@@ -129,14 +129,14 @@
 					targetears.forceMove(get_turf(target))
 					target.emote("scream")
 					target.add_splatter_floor(get_turf(target))
-					target.apply_damage(5, BRUTE)
+					target.apply_damage(/datum/damage_source/forceful_laceration, /datum/damage/brute, 5, BODY_ZONE_HEAD)
 					H.put_in_hands(targetears)
 					playsound(target, 'sound/misc/desecration-01.ogg', 50, 1)
 				else
 					H.visible_message("<span class='warning'>[H] yanks on [target]'s ears!</span>", "<span class='hypnophrase'>You scratch behind [target]'s ears!</span>")
 					to_chat(target, "<span class='userdanger'>[H] yanks on your ears!</span>")
 					H.emote("laugh")
-			target.apply_damage(rand(1, 10), BRUTE)
+			target.apply_damage(/datum/damage_source/forceful_laceration, /datum/damage/brute, rand(1, 10))
 
 /datum/symptom/toxoplasmosis/End(datum/disease/advance/A)
 	. = ..()

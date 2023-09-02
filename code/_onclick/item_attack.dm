@@ -125,7 +125,7 @@
 	send_item_attack_message(I, user)
 	if(I.force)
 		var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
-		apply_damage(I.force, I.damtype, blocked = armour_block)
+		apply_damage_old(I.force, I.damtype, blocked = armour_block)
 		if(I.damtype == BRUTE)
 			if(prob(33))
 				I.add_mob_blood(src)

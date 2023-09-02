@@ -32,4 +32,4 @@
 	M.losebreath += round(0.2*reac_volume)
 	M.adjustStaminaLoss(reac_volume)
 	if(M)
-		M.apply_damage(0.6*reac_volume, OXY)
+		M.apply_damage(/datum/damage_source/chemical, /datum/damage/suffocation, 0.6 * reac_volume)

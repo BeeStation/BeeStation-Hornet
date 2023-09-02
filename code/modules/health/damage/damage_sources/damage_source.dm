@@ -23,4 +23,5 @@
 		var/datum/damage/damage = GET_DAMAGE(damage_type)
 		damage.apply_living(target, damage_amount, update_health, forced)
 
-/datum/damage_source/proc/deal_attack(mob/living/attacker, obj/item/sttacking_item, atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
+/// Attacker may be null
+/datum/damage_source/proc/deal_attack(mob/living/attacker, obj/item/attacking_item, atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)

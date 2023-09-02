@@ -151,16 +151,16 @@
 	var/mob/living/carbon/ML = A
 	if(istype(ML))
 		var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-		var/obj/item/bodypart/affecting = null
-		if(ishuman(ML))
-			var/mob/living/carbon/human/H = ML
-			affecting = H.get_bodypart(ran_zone(dam_zone))
-		var/armor = ML.run_armor_check(affecting, MELEE)
 		if(prob(75))
-			ML.apply_damage(rand(1,3), BRUTE, affecting, armor)
+			var/datum/damage_source/sharp/light/bite_source = FIND_DAMAGE_SOURCE
 			ML.visible_message("<span class='danger'>[name] bites [ML]!</span>", \
 							"<span class='userdanger'>[name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
-			if(armor >= 2)
+			// Returns false if blocked
+			var/target_zone = ran_zone(dam_zone)
+			if(!bite_source.deal_attack(src, null, H, /datum/damage/brute, rand(1, 3), target_zone))
+				return
+			// Check bio armour
+			if (prob(ML.run_armor_check(target_zone, BIO, silent = TRUE)))
 				return
 			for(var/thing in diseases)
 				var/datum/disease/D = thing

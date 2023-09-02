@@ -35,7 +35,7 @@
   * defaults to 80
   */
 /proc/ran_zone(zone, probability = 80)
-	if(prob(probability))
+	if(zone && prob(probability))
 		zone = check_zone(zone)
 	else
 		zone = pick_weight(list(BODY_ZONE_HEAD = 1, BODY_ZONE_CHEST = 1, BODY_ZONE_L_ARM = 4, BODY_ZONE_R_ARM = 4, BODY_ZONE_L_LEG = 4, BODY_ZONE_R_LEG = 4))

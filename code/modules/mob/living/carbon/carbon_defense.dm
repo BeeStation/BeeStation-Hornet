@@ -79,7 +79,7 @@
 	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
 	if(I.force)
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
-		apply_damage(I.force, I.damtype, affecting, armour_block)
+		apply_damage_old(I.force, I.damtype, affecting, armour_block)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
 			if(I.is_sharp() || I.force >= 10)
 				I.add_mob_blood(src)

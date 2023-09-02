@@ -21,7 +21,7 @@
 		if(target.stat == DEAD)
 			continue
 		target.Jitter(14)
-		target.apply_damage(35 + rand(0,15), STAMINA, target.get_bodypart(BODY_ZONE_HEAD))
+		target.apply_damage(/datum/damage_source/mental_health, /datum/damage/stamina, 35 + rand(0,15), BODY_ZONE_HEAD)
 		if(IS_HIVEHOST(target))
 			continue
 		if(prob(20))
@@ -47,7 +47,7 @@
 			if(4)
 				to_chat(target, "<span class='userdanger'>You feel nauseous as dread washes over you!</span>")
 				target.Dizzy(15)
-				target.apply_damage(30, STAMINA, target.get_bodypart(BODY_ZONE_HEAD))
+				target.apply_damage(/datum/damage_source/mental_health, /datum/damage/stamina, 30, BODY_ZONE_HEAD)
 				target.hallucination += 45
 
 	for(var/mob/living/silicon/target in targets)

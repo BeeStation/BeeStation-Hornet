@@ -517,14 +517,14 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 							qdel(O)
 							new /obj/effect/gibspawner/human/bodypartless(get_turf(C))
 
-				C.apply_damage(max(0, squish_damage - crit_rebate), forced=TRUE)
+				C.apply_damage_old(max(0, squish_damage - crit_rebate), forced=TRUE)
 				C.AddElement(/datum/element/squish, 80 SECONDS)
 			else
 				L.visible_message("<span class='danger'>[L] is crushed by [src]!</span>", \
 				"<span class='userdanger'>You are crushed by [src]!</span>")
-				L.apply_damage(squish_damage, forced=TRUE)
+				L.apply_damage_old(squish_damage, forced=TRUE)
 				if(crit_case)
-					L.apply_damage(squish_damage, forced=TRUE)
+					L.apply_damage_old(squish_damage, forced=TRUE)
 
 			L.Paralyze(60)
 			L.emote("scream")

@@ -163,7 +163,7 @@
 	if(istype(P, /obj/projectile/energy) || istype(P, /obj/projectile/beam))
 		var/reflectchance = 40 - round(P.damage/3)
 		if(prob(reflectchance))
-			apply_damage(P.damage * 0.5, P.damage_type)
+			apply_damage_old(P.damage * 0.5, P.damage_type)
 			visible_message("<span class='danger'>The [P.name] is reflected by [src]'s armored shell!</span>", \
 							"<span class='userdanger'>The [P.name] is reflected by your armored shell!</span>")
 

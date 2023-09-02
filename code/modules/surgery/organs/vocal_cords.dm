@@ -315,7 +315,7 @@
 		cooldown = COOLDOWN_DAMAGE
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.apply_damage(15 * power_multiplier, def_zone = BODY_ZONE_CHEST)
+			L.apply_damage_old(15 * power_multiplier, def_zone = BODY_ZONE_CHEST)
 
 	//BLEED
 	else if((findtext(message, bleed_words)))

@@ -21,9 +21,8 @@
 		var/mob/living/silicon/robot/R = user
 		if(!R.cell.use(charge_cost))
 			return
-	M.apply_damage(80, STAMINA, blocked = armor_block)
-	user.do_attack_animation(M)
-	M.apply_effect(EFFECT_STUTTER, 5)
+	var/datum/damage_source/stun/stun_source = FIND_DAMAGE_SOURCE
+	stun_source.deal_attack(user, src, M, /datum/damage/stamina, 80)
 
 	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
 					"<span class='userdanger'>[user] has prodded you with [src]!</span>")

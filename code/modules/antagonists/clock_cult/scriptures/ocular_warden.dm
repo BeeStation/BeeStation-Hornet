@@ -51,7 +51,7 @@
 	if(!target)
 		return
 	dir = get_dir(get_turf(src), get_turf(target))
-	target.apply_damage(max(10 - (get_dist(src, target)*2.5), 5)*delta_time, BURN)
+	target.apply_damage(/datum/damage_source/magic, /datum/damage/burn, max(10 - (get_dist(src, target)*2.5), 5)*delta_time, ran_zone())
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(target))
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(src))
 	playsound(get_turf(target), 'sound/machines/clockcult/ocularwarden-dot1.ogg', 60, TRUE)

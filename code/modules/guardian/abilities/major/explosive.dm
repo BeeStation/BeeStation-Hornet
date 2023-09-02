@@ -30,7 +30,7 @@
 				if(guardian.hasmatchingsummoner(L)) //if the summoner matches don't hurt them
 					continue
 				if(L != guardian && L != guardian.summoner?.current)
-					L.apply_damage(15, BRUTE)
+					L.apply_damage(/datum/damage_source/explosion, /datum/damage/brute, 15)
 			new /obj/effect/temp_visual/explosion(get_turf(M))
 
 /datum/guardian_ability/major/explosive/AltClickOn(atom/A)

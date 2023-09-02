@@ -137,7 +137,8 @@
 				addtimer(CALLBACK(C, TYPE_PROC_REF(/mob, emote), "clap"), delay_offset * 0.3)
 				delay_offset++
 		else
-			H.apply_damage(15 * blade_sharpness, BRUTE, head)
+			// Even though its blunt, its going to be sharp and heavy
+			H.apply_damage(/datum/damage_source/sharp/heavy, /datum/damage/brute, 15 * blade_sharpness, head)
 			log_combat(user, H, "dropped the blade on", src, " non-fatally")
 			H.emote("scream")
 

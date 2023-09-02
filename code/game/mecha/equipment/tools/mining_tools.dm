@@ -124,8 +124,8 @@
 			target.gib()
 	else
 		//drill makes a hole
-		var/obj/item/bodypart/target_part = target.get_bodypart(ran_zone(BODY_ZONE_CHEST))
-		target.apply_damage(10, BRUTE, BODY_ZONE_CHEST, target.run_armor_check(target_part, MELEE))
+		var/obj/item/bodypart/target_part = target.get_bodypart(ran_zone(BODY_ZONE_CHEST))#
+		target.apply_damage(/datum/damage_source/drill, /datum/damage/brute, 10, BODY_ZONE_CHEST)
 
 		//blood splatters and sparks
 		if(issilicon(target)  || isbot(target) || isswarmer(target) || !IS_ORGANIC_LIMB(target_part))

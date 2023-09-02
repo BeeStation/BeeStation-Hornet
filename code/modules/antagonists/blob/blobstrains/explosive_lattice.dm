@@ -34,8 +34,8 @@
 			if(FACTION_BLOB in L.faction) //no friendly fire
 				continue
 			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.get_permeability_protection(), O)
-			L.apply_damage(0.4*aoe_volume, BRUTE)
+			L.apply_damage(/datum/damage_source/explosion, /datum/damage/burn, 0.4 * aoe_volume)
 		if(M)
-			M.apply_damage(0.6*reac_volume, BRUTE)
+			M.apply_damage(/datum/damage_source/explosion, /datum/damage/burn, 0.6 * reac_volume)
 	else
-		M.apply_damage(0.6*reac_volume, BRUTE)
+		M.apply_damage(/datum/damage_source/chemical, /datum/damage/brute, 0.6 * reac_volume)

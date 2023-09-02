@@ -848,7 +848,7 @@
 				H.visible_message("<span class='danger'>[user] headbutts the airlock.</span>", \
 									"<span class='userdanger'>You headbutt the airlock!</span>")
 				H.Paralyze(100)
-				H.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
+				H.apply_damage(/datum/damage_source/impact, /datum/damage/brute, 10, BODY_ZONE_HEAD)
 			else
 				visible_message("<span class='danger'>[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet.</span>")
 
@@ -1188,7 +1188,7 @@
 			H.Unconscious(160)
 			H.adjust_fire_stacks(20)
 			H.IgniteMob() //Guaranteed knockout and ignition for nearby people
-			H.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
+			H.apply_damage(/datum/damage_source/explosion, /datum/damage/burn, 40)
 		return
 	if(forced < 2)
 		if(!ignore_emagged && (obj_flags & EMAGGED))

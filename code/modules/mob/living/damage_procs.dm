@@ -1,6 +1,6 @@
 
 /*
-	apply_damage(a,b,c)
+	apply_damage_old(a,b,c)
 	args
 	a:damage - How much damage to take
 	b:damage_type - What type of damage to take, brute, burn
@@ -8,7 +8,7 @@
 	Returns
 	standard 0 if fail
 */
-/mob/living/proc/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
+/mob/living/proc/apply_damage_old(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
 	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
 	var/hit_percent = (100-blocked)/100
 	if(!damage || (!forced && hit_percent <= 0))
@@ -29,7 +29,7 @@
 			adjustStaminaLoss(damage_amount, forced = forced)
 	return 1
 
-/mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
+/mob/living/proc/apply_damage_old_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
 	switch(damagetype)
 		if(BRUTE)
 			return adjustBruteLoss(damage)
@@ -60,23 +60,23 @@
 			return getStaminaLoss()
 
 
-/mob/living/proc/apply_damages(brute = 0, burn = 0, tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = FALSE, stamina = 0, brain = 0)
+/mob/living/proc/apply_damage_olds(brute = 0, burn = 0, tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = FALSE, stamina = 0, brain = 0)
 	if(blocked >= 100)
 		return 0
 	if(brute)
-		apply_damage(brute, BRUTE, def_zone, blocked)
+		apply_damage_old(brute, BRUTE, def_zone, blocked)
 	if(burn)
-		apply_damage(burn, BURN, def_zone, blocked)
+		apply_damage_old(burn, BURN, def_zone, blocked)
 	if(tox)
-		apply_damage(tox, TOX, def_zone, blocked)
+		apply_damage_old(tox, TOX, def_zone, blocked)
 	if(oxy)
-		apply_damage(oxy, OXY, def_zone, blocked)
+		apply_damage_old(oxy, OXY, def_zone, blocked)
 	if(clone)
-		apply_damage(clone, CLONE, def_zone, blocked)
+		apply_damage_old(clone, CLONE, def_zone, blocked)
 	if(stamina)
-		apply_damage(stamina, STAMINA, def_zone, blocked)
+		apply_damage_old(stamina, STAMINA, def_zone, blocked)
 	if(brain)
-		apply_damage(brain, BRAIN, def_zone, blocked)
+		apply_damage_old(brain, BRAIN, def_zone, blocked)
 	return 1
 
 
@@ -137,7 +137,7 @@
 	if(drowsy)
 		apply_effect(drowsy, EFFECT_DROWSY, blocked)
 	if(stamina)
-		apply_damage(stamina, STAMINA, null, blocked)
+		apply_damage_old(stamina, STAMINA, null, blocked)
 	if(jitter)
 		apply_effect(jitter, EFFECT_JITTER, blocked)
 	return BULLET_ACT_HIT
@@ -282,7 +282,7 @@
 	for(var/i in damage_types)
 		var/amount_to_heal = min(amount, get_damage_amount(i)) //heal only up to the amount of damage we have
 		if(amount_to_heal)
-			apply_damage_type(-amount_to_heal, i)
+			apply_damage_old_type(-amount_to_heal, i)
 			amount -= amount_to_heal //remove what we healed from our current amount
 		if(!amount)
 			break

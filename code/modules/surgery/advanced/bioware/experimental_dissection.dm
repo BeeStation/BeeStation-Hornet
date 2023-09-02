@@ -50,7 +50,7 @@
 	user.visible_message("[user] dissects [target]!", "<span class='notice'>You dissect [target], and add your discoveries to the research database!</span>")
 	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_DISCOVERY = check_value(target)))
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)
-	target.apply_damage(80, BRUTE, L)
+	target.apply_damage_old(80, BRUTE, L)
 	ADD_TRAIT(target, TRAIT_DISSECTED, "surgery")
 	return TRUE
 
@@ -58,6 +58,6 @@
 	user.visible_message("[user] dissects [target]!", "<span class='notice'>You dissect [target], but do not find anything particularly interesting.</span>")
 	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_DISCOVERY = (check_value(target) * 0.2)))
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)
-	target.apply_damage(80, BRUTE, L)
+	target.apply_damage_old(80, BRUTE, L)
 	ADD_TRAIT(target, TRAIT_DISSECTED, "surgery")
 	return TRUE

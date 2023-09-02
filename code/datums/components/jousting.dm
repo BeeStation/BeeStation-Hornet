@@ -55,7 +55,7 @@
 		var/msg
 		if(damage)
 			msg += "[user] [sharp? "impales" : "slams into"] [target] [sharp? "on" : "with"] their [parent]"
-			target.apply_damage(damage, BRUTE, user.zone_selected, 0)
+			I.deal_attack(user, target, user.zone_selected, override_damage = damage)
 		if(prob(knockdown_chance))
 			msg += " and knocks [target] [target_buckled? "off of [target.buckled]" : "down"]"
 			if(target_buckled)

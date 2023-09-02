@@ -210,7 +210,7 @@
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
 		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-		apply_damage(20, BRUTE, affecting, armor_block)
+		apply_damage_old(20, BRUTE, affecting, armor_block)
 		return 1
 
 /mob/living/carbon/human/attack_hand(mob/user)
@@ -244,7 +244,7 @@
 		if(..()) //successful monkey bite, this handles disease contraction.
 			var/damage = rand(1, 3)
 			if(stat != DEAD)
-				apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
+				apply_damage_old(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
 		return 1
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
@@ -268,7 +268,7 @@
 			log_combat(M, src, "attacked")
 			if(!dismembering_strike(M, M.zone_selected)) //Dismemberment successful
 				return 1
-			apply_damage(20, BRUTE, affecting, armor_block)
+			apply_damage_old(20, BRUTE, affecting, armor_block)
 
 		if(M.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
@@ -278,7 +278,7 @@
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-			apply_damage(30, STAMINA, affecting, armor_block)
+			apply_damage_old(30, STAMINA, affecting, armor_block)
 			visible_message("<span class='danger'>[M] tackles [src] down!</span>", \
 					"<span class='userdanger'>[M] tackles you down!</span>")
 
@@ -295,7 +295,7 @@
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			var/armor_block = run_armor_check(affecting, MELEE)
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			apply_damage_old(damage, BRUTE, affecting, armor_block)
 
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
@@ -311,7 +311,7 @@
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
 		var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
-		apply_damage(damage, M.melee_damage_type, affecting, armor)
+		apply_damage_old(damage, M.melee_damage_type, affecting, armor)
 
 
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
@@ -334,7 +334,7 @@
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
 		var/armor_block = run_armor_check(affecting, MELEE)
-		apply_damage(damage, BRUTE, affecting, armor_block)
+		apply_damage_old(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 
@@ -423,8 +423,8 @@
 				adjustEarDamage(15,60)
 			Knockdown(160 - (bomb_armor * 1.6))		//100 bomb armor will prevent knockdown altogether
 
-	apply_damage(brute_loss, BRUTE, blocked = (bomb_armor * 0.6))
-	apply_damage(burn_loss, BURN, blocked = (bomb_armor * 0.6))
+	apply_damage_old(brute_loss, BRUTE, blocked = (bomb_armor * 0.6))
+	apply_damage_old(burn_loss, BURN, blocked = (bomb_armor * 0.6))
 
 	//attempt to dismember bodyparts
 	if(severity >= EXPLODE_HEAVY || !bomb_armor)
@@ -452,7 +452,7 @@
 	show_message("<span class='userdanger'>The blob attacks you!</span>")
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
+	apply_damage_old(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 
 //Added a safety check in case you want to shock a human mob directly through electrocute_act.

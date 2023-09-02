@@ -925,8 +925,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		if(H.check_shields(src, breakforce))
 			return
 		else
-			var/def_check = H.getarmor(type = MELEE)
-			H.apply_damage(stamforce, STAMINA, blocked = def_check)
+			H.apply_damage(/datum/damage_source/blunt/heavy, /datum/damage/stamina, stamforce)
 	return ..()
 
 /obj/item/club/tailclub

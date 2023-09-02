@@ -7,7 +7,7 @@
 		visible_message("<span class='danger'>[M] kicks [src]!</span>", \
 				"<span class='userdanger'>[M] kicks you!</span>", null, COMBAT_MESSAGE_RANGE)
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
-		apply_damage(M.dna.species.punchdamage, BRUTE, affecting)
+		apply_damage_old(M.dna.species.punchdamage, BRUTE, affecting)
 
 /mob/living/carbon/alien/larva/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(user.a_intent == INTENT_HARM)

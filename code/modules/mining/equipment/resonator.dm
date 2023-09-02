@@ -113,7 +113,7 @@
 		if(creator)
 			log_combat(creator, L, "used a resonator field on", "resonator")
 		to_chat(L, "<span class='userdanger'>[src] ruptured with you in it!</span>")
-		L.apply_damage(resonance_damage, BRUTE)
+		L.apply_damage(/datum/damage_source/explosion, /datum/damage/brute, resonance_damage)
 	qdel(src)
 
 /obj/effect/temp_visual/resonance_crush

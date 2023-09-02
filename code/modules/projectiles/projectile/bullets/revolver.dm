@@ -100,7 +100,7 @@
 		var/mob/living/carbon/human/M = target
 		if(M.job == JOB_NAME_MIME)
 			var/defense = M.getarmor(CHEST, BULLET, armour_penetration)
-			M.apply_damage(5, BRUTE, CHEST, defense)
+			M.apply_damage_old(5, BRUTE, CHEST, defense)
 			M.visible_message("<span class='danger'>A bullet wound appears in [M]'s chest!</span>", \
 							"<span class='userdanger'>You get hit with a .38 bullet from a finger gun! Those hurt!...</span>")
 		else

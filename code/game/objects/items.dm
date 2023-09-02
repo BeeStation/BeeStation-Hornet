@@ -661,7 +661,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else
 				L.attackby(src, owner)
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
-	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
+	owner.apply_damage(/datum/damage_source/fatigue, /datum/damage/stamina, attackforce * ((100 - block_power) / 100), blockhand)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
 	if(attackforce)
@@ -811,7 +811,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		)
 	if(is_human_victim)
 		var/mob/living/carbon/human/U = M
-		U.apply_damage(7, BRUTE, affecting)
+		U.apply_damage_old(7, BRUTE, affecting)
 
 	else
 		M.take_bodypart_damage(7)
@@ -1282,10 +1282,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		victim.visible_message("<span class='warning'>[victim] looks like [victim.p_theyve()] just bit something they shouldn't have!</span>", \
 							"<span class='boldwarning'>OH GOD! Was that a crunch? That didn't feel good at all!!</span>")
 
-		victim.apply_damage(max(15, force), BRUTE, BODY_ZONE_HEAD)
+		victim.apply_damage(/datum/damage_source/consumption, /datum/damage/brute, max(15, force), BODY_ZONE_HEAD)
 		victim.losebreath += 2
 		if(tryEmbed(victim.get_bodypart(BODY_ZONE_CHEST), forced = TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
-			victim.apply_damage(max(25, force*1.5), BRUTE, BODY_ZONE_CHEST)
+			victim.apply_damage(/datum/damage_source/consumption, /datum/damage/brute, max(25, force*1.5), BODY_ZONE_CHEST)
 			victim.losebreath += 6
 			discover_after = FALSE
 		if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)

@@ -64,7 +64,7 @@
 
 		H.visible_message("<span class='danger'>[user] slits [H]'s throat!</span>", \
 					"<span class='userdanger'>[user] slits your throat...</span>")
-		H.apply_damage(item_force, BRUTE, BODY_ZONE_HEAD)
+		source.damage_direct(user, H, BODY_ZONE_HEAD)
 		H.bleed_rate = CLAMP(H.bleed_rate + 20, 0, 30)
 		H.apply_status_effect(/datum/status_effect/neck_slice)
 

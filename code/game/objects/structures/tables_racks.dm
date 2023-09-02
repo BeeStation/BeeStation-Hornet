@@ -151,7 +151,7 @@
 	if(pushed_mob.loc != loc) //Something prevented the tabling
 		return
 	pushed_mob.Knockdown(30)
-	pushed_mob.apply_damage(40, STAMINA)
+	pushed_mob.apply_damage(/datum/damage_source/impact, /datum/damage/stamina, 40)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)
 	playsound(pushed_mob, "sound/effects/tableslam.ogg", 90, TRUE)
@@ -162,8 +162,8 @@
 
 /obj/structure/table/proc/tableheadsmash(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.Knockdown(30)
-	pushed_mob.apply_damage(40, BRUTE, BODY_ZONE_HEAD)
-	pushed_mob.apply_damage(60, STAMINA)
+	pushed_mob.apply_damage(/datum/damage_source/impact, /datum/damage/brute, 40, BODY_ZONE_HEAD)
+	pushed_mob.apply_damage(/datum/damage_source/impact, /datum/damage/stamina, 60)
 	take_damage(50)
 	if(user.mind?.martial_art?.smashes_tables)
 		deconstruct(FALSE)

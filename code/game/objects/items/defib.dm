@@ -571,7 +571,7 @@
 					H.visible_message("<span class='warning'>[H] thrashes wildly, clutching at [H.p_their()] chest!</span>",
 						"<span class='userdanger'>You feel a horrible agony in your chest!</span>")
 				H.set_heartattack(TRUE)
-			H.apply_damage(50, BURN, BODY_ZONE_CHEST)
+			H.apply_damage(/datum/damage_source/shock, /datum/damage/burn, 50, BODY_ZONE_CHEST)
 			log_combat(user, H, "overloaded the heart of", defib)
 			H.Paralyze(100)
 			H.Jitter(100)

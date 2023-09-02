@@ -54,7 +54,7 @@ In all, this is a lot like the monkey code. /N
 		return
 	if(stat != DEAD)
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
-		apply_damage(rand(3), BRUTE, affecting)
+		apply_damage_old(rand(3), BRUTE, affecting)
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.
@@ -69,7 +69,7 @@ In all, this is a lot like the monkey code. /N
 			visible_message("<span class='danger'>[M] punches [src]!</span>", \
 					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
-			apply_damage(M.dna.species.punchdamage, BRUTE, affecting)
+			apply_damage_old(M.dna.species.punchdamage, BRUTE, affecting)
 			log_combat(M, src, "attacked")
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 

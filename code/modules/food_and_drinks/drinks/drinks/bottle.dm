@@ -62,7 +62,6 @@
 
 	var/obj/item/bodypart/affecting = user.zone_selected //Find what the player is aiming at
 
-	var/armor_block = 0 //Get the target's armor values for normal attack damage.
 	var/armor_duration = 0 //The more force the bottle has, the longer the duration.
 
 	//Calculating duration and calculating damage.
@@ -70,7 +69,6 @@
 
 		var/mob/living/carbon/human/H = target
 		var/headarmor = 0 // Target's head armor
-		armor_block = H.run_armor_check(affecting, MELEE,"","",armour_penetration) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
 		if(istype(H.head, /obj/item/clothing/head) && affecting == BODY_ZONE_HEAD)
@@ -82,14 +80,11 @@
 		armor_duration = (bottle_knockdown_duration - headarmor) + force
 
 	else
-		//Only humans can have armor, right?
-		armor_block = target.run_armor_check(affecting, MELEE)
 		if(affecting == BODY_ZONE_HEAD)
 			armor_duration = bottle_knockdown_duration + force
 
 	//Apply the damage!
-	armor_block = min(90,armor_block)
-	target.apply_damage(force, BRUTE, affecting, armor_block)
+	damage_source.deal_attack(user, src, target, /datum/damage/brute, force, user.zone_selected)
 
 	// You are going to knock someone down for longer if they are not wearing a helmet.
 	var/head_attack_message = ""

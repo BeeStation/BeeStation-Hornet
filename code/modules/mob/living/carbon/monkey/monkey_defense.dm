@@ -15,7 +15,7 @@
 			dismembering_strike(M, affecting.body_zone)
 		if(stat != DEAD)
 			var/dmg = rand(1, 5)
-			apply_damage(dmg, BRUTE, affecting)
+			apply_damage_old(dmg, BRUTE, affecting)
 
 /mob/living/carbon/monkey/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
@@ -25,7 +25,7 @@
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.zone_selected))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
-			apply_damage(damage, BRUTE, affecting)
+			apply_damage_old(damage, BRUTE, affecting)
 
 /mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M)
 	if(..())	//To allow surgery to return properly.
@@ -45,7 +45,7 @@
 			var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.zone_selected))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
-			apply_damage(damage, BRUTE, affecting)
+			apply_damage_old(damage, BRUTE, affecting)
 			log_combat(M, src, "attacked")
 		if("disarm")
 			if(!IsUnconscious())
@@ -79,7 +79,7 @@
 					affecting = get_bodypart(BODY_ZONE_CHEST)
 				if(!dismembering_strike(M, affecting.body_zone)) //Dismemberment successful
 					return 1
-				apply_damage(damage, BRUTE, affecting)
+				apply_damage_old(damage, BRUTE, affecting)
 
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
@@ -114,7 +114,7 @@
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
-		apply_damage(damage, M.melee_damage_type, affecting)
+		apply_damage_old(damage, M.melee_damage_type, affecting)
 
 /mob/living/carbon/monkey/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -129,7 +129,7 @@
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
-		apply_damage(damage, BRUTE, affecting)
+		apply_damage_old(damage, BRUTE, affecting)
 
 /mob/living/carbon/monkey/acid_act(acidpwr, acid_volume, bodyzone_hit)
 	. = 1

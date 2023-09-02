@@ -243,11 +243,7 @@
 		user.adjustStaminaLoss(stamina_damage)
 
 		additional_effects_carbon(user) // user is the target here
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
-		else
-			user.take_bodypart_damage(2*force)
+		deal_attack(user, target, BODY_ZONE_HEAD, override_damage = 2 * force)
 		return
 	if(iscyborg(target))
 		// We don't stun if we're on harm.
@@ -292,7 +288,8 @@
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
 			additional_effects_carbon(target, user)
 			if((user.zone_selected == BODY_ZONE_HEAD) || (user.zone_selected == BODY_ZONE_CHEST))
-				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
+				// Uses the default armour penetration source of the current held thing
+				damage_source.deal_attack(user, src, target, /datum/damage/stamina, stamina_damage, BODY_ZONE_CHEST)
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visiblestun"], desc["localstun"])
 			if((user.zone_selected == BODY_ZONE_R_LEG) || (user.zone_selected == BODY_ZONE_L_LEG))
@@ -300,11 +297,11 @@
 				log_combat(user, target, "tripped", src)
 				target.visible_message(desc["visibletrip"], desc["localtrip"])
 			if(user.zone_selected == BODY_ZONE_L_ARM)
-				target.apply_damage(50, STAMINA, BODY_ZONE_L_ARM, def_check)
+				damage_source.deal_attack(user, src, target, /datum/damage/stamina, 50, BODY_ZONE_L_ARM)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 			if(user.zone_selected == BODY_ZONE_R_ARM)
-				target.apply_damage(50, STAMINA, BODY_ZONE_R_ARM, def_check)
+				damage_source.deal_attack(user, src, target, /datum/damage/stamina, 50, BODY_ZONE_R_ARM)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 
@@ -482,7 +479,7 @@
 		additional_effects_carbon(user) // user is the target here
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+			damage_source.deal_attack(user, src, target, /datum/damage/brute, 2 * force, BODY_ZONE_HEAD)
 		else
 			user.take_bodypart_damage(2*force)
 		return

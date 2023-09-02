@@ -127,7 +127,7 @@
 			BP.receive_damage(brute = 200) // Kill them dead
 			BP.dismember()
 		else
-			owner.apply_damage(200)
+			owner.apply_damage_old(200)
 	else
 		new_xeno.visible_message("<span class='danger'>[new_xeno] wriggles out of [owner]!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>")
 		owner.adjustBruteLoss(40)

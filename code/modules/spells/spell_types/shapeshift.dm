@@ -107,7 +107,7 @@
 		var/damage_percent = (stored.maxHealth - stored.health)/stored.maxHealth;
 		var/damapply = damage_percent * shape.maxHealth;
 
-		shape.apply_damage(damapply, source.convert_damage_type, forced = TRUE);
+		shape.apply_damage_old(damapply, source.convert_damage_type, forced = TRUE);
 
 	slink = soullink(/datum/soullink/shapeshift, stored , shape)
 	slink.source = src
@@ -166,7 +166,7 @@
 		var/damage_percent = (shape.maxHealth - shape.health)/shape.maxHealth;
 		var/damapply = stored.maxHealth * damage_percent
 
-		stored.apply_damage(damapply, (istype(source) ? source.convert_damage_type : BRUTE), forced = TRUE) //brute is the default damage convert
+		stored.apply_damage_old(damapply, (istype(source) ? source.convert_damage_type : BRUTE), forced = TRUE) //brute is the default damage convert
 		stored.blood_volume = original_blood_volume
 	if(!QDELETED(shape))
 		qdel(shape)

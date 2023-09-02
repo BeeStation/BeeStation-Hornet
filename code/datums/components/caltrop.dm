@@ -62,7 +62,8 @@
 		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
 			damage *= 0.5
 
-		H.apply_damage(damage, BRUTE, picked_def_zone)
+		var/datum/damage_source/sharp/light/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.deal_attack(null, parent, H, damage, /datum/damage/brute, picked_def_zone)
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.

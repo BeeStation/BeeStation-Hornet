@@ -120,7 +120,7 @@
 
 /mob/living/carbon/true_devil/attacked_by(obj/item/I, mob/living/user, def_zone)
 	var/weakness = check_weakness(I, user)
-	apply_damage(I.force * weakness, I.damtype, def_zone)
+	apply_damage_old(I.force * weakness, I.damtype, def_zone)
 	var/message_verb = ""
 	if(I.attack_verb?.len)
 		message_verb = "[pick(I.attack_verb)]"

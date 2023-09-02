@@ -20,7 +20,7 @@
 	if(M.reagents)
 		M.reagents.add_reagent(/datum/reagent/blob/regenerative_materia, 0.2*reac_volume)
 		M.reagents.add_reagent(/datum/reagent/toxin/spore, 0.2*reac_volume)
-	M.apply_damage(0.7*reac_volume, TOX)
+	M.apply_damage(/datum/damage_source/chemical, /datum/damage/toxin, 0.7 * reac_volume)
 
 /datum/reagent/blob/regenerative_materia/on_mob_life(mob/living/carbon/C)
 	C.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
