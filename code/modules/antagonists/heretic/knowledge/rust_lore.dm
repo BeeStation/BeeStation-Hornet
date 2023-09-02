@@ -71,6 +71,8 @@
 
 /datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
+	if(source.a_intent == INTENT_HARM && !iscarbon(target))
+		return
 	return target.rust_heretic_act()
 
 
