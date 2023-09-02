@@ -57,7 +57,7 @@
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
 	desc = "Your Mansus Grasp will deal 500 damage to non-living matter and rust any surface it touches. \
-		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted by using Disarm intent."
+		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted while in Help, Disarm or Grab intent."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
 	next_knowledge = list(/datum/heretic_knowledge/rust_regen)
 	cost = 1
