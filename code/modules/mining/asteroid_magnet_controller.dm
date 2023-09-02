@@ -8,6 +8,41 @@
 	/// The range of the asteroid magnet in orbital units
 	var/range = 500
 
+/obj/machinery/computer/asteroid_magnet_controller/Initialize(mapload, obj/item/circuitboard/C)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/asteroid_magnet_controller/LateInitialize()
+	. = ..()
+	// Attempt to automatically link to a zone
+	for (var/obj/machinery/asteroid_magnet_border_marker/border_zone in GLOB.machines)
+		if (border_zone.get_virtual_z_level() != get_virtual_z_level())
+			continue
+		if (!border_zone.linked_zone)
+			// Try to build the area
+			border_zone.try_build_area()
+			if (!border_zone.linked_zone)
+				return
+		linked_zone = border_zone.linked_zone
+		break
+	// Unable to be linked at roundstart
+	if (!linked_zone)
+		return
+	// Spawn an asteroid
+	var/datum/orbital_object/z_linked/beacon/ruin/asteroid/created_asteroid = new(null, null, 0)
+	created_asteroid.minerals = list(
+		/obj/item/stack/ore/iron = 0,
+		/obj/item/stack/ore/copper = rand(25, 35) / 100,
+		/obj/item/stack/ore/silver = rand(36, 45) / 100,
+		/obj/item/stack/ore/gold = rand(46, 50) / 100,
+	)
+	// This zone will clear itself after 60 seconds of no activity
+	created_asteroid.assign_z_level()
+	var/datum/orbital_zone/zone = created_asteroid.contained_zones[1]
+	if (!is_zone_blocked() && !(zone.right - zone.left > linked_zone.maxx - linked_zone.minx || zone.top - zone.bottom > linked_zone.maxy - linked_zone.miny))
+		pull_asteroid(zone.z, zone.left, zone.right, zone.bottom, zone.top)
+	qdel(created_asteroid)
+
 /obj/machinery/computer/asteroid_magnet_controller/ComponentInitialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(handle_buffer_action))

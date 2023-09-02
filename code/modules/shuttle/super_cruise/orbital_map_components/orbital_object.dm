@@ -74,6 +74,9 @@
 	. = ..()
 	//Calculate relevant grav range
 	relevant_gravity_range = sqrt((mass * GRAVITATIONAL_CONSTANT) / MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCEELRATION)
+	// Abstract object not on a map
+	if (!orbital_map_index)
+		return
 	//Process this
 	if(!static_object)
 		START_PROCESSING(SSorbits, src)
@@ -86,13 +89,14 @@
 
 /datum/orbital_object/Destroy()
 	STOP_PROCESSING(SSorbits, src)
-	var/datum/orbital_map/map = SSorbits.orbital_maps[orbital_map_index]
-	map.remove_body(src)
-	LAZYREMOVE(target_orbital_body?.orbitting_bodies, src)
-	if(length(orbitting_bodies))
-		for(var/datum/orbital_object/orbitting_bodies in orbitting_bodies)
-			orbitting_bodies.target_orbital_body = null
-		orbitting_bodies.Cut()
+	if (orbital_map_index)
+		var/datum/orbital_map/map = SSorbits.orbital_maps[orbital_map_index]
+		map.remove_body(src)
+		LAZYREMOVE(target_orbital_body?.orbitting_bodies, src)
+		if(length(orbitting_bodies))
+			for(var/datum/orbital_object/orbitting_bodies in orbitting_bodies)
+				orbitting_bodies.target_orbital_body = null
+			orbitting_bodies.Cut()
 	. = ..()
 
 /datum/orbital_object/proc/explode()
