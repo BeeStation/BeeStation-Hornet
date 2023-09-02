@@ -155,7 +155,7 @@
 	else
 		pressure_bars = round(pressure / maxpressure * 5 + 0.01)
 
-	var/new_overlays_hash = "[pressure_bars]-[cyclestate]-[buildstage]-[panel_open]-[machine_stat]-[shorted]-[locked]-\ref[vis_target]"
+	var/new_overlays_hash = "[pressure_bars]-[cyclestate]-[buildstage]-[panel_open]-[machine_stat]-[shorted]-[locked]-[vis_target]"
 	if(use_hash && new_overlays_hash == overlays_hash)
 		return
 	overlays_hash = new_overlays_hash

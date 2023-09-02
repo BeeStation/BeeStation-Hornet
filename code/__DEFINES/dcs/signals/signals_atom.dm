@@ -62,7 +62,7 @@
 #define COMSIG_ATOM_EMP_ACT "atom_emp_act"
 ///! from base of atom/fire_act(): (exposed_temperature, exposed_volume)
 #define COMSIG_ATOM_FIRE_ACT "atom_fire_act"
-///! from base of atom/bullet_act(): (/obj/item/projectile, def_zone)
+///! from base of atom/bullet_act(): (/obj/projectile, def_zone)
 #define COMSIG_ATOM_BULLET_ACT "atom_bullet_act"
 ///from base of atom/CheckParts(): (list/parts_list, datum/crafting_recipe/R)
 #define COMSIG_ATOM_CHECKPARTS "atom_checkparts"
@@ -171,3 +171,10 @@
 #define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
 /// Do the emag action (if CHECK is FALSE)
 #define COMSIG_ATOM_ON_EMAG "atom_on_emag"
+
+/////////////////
+/// Radio jamming signals
+/////////////////
+
+#define COMSIG_ATOM_JAMMED "become_jammed"						//! Relayed to atoms when they become jammed if they have the jam_receiver components.
+#define COMSIG_ATOM_UNJAMMED "become_unjammed"					//! Relayed to atoms when they become unjammed if they have the jam_receiver components.

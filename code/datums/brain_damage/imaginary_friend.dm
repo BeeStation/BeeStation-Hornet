@@ -186,8 +186,8 @@
 	src.log_talk(message, LOG_SAY, tag="imaginary friend")
 
 	// Display message
-	var/owner_chat_map = owner.client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
-	var/friend_chat_map = client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
+	var/owner_chat_map = owner.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat) && owner.client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs)
+	var/friend_chat_map = client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat) && client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs)
 	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
@@ -199,6 +199,7 @@
 			hearers += client
 		if(owner_chat_map)
 			hearers += owner.client
+		new /datum/chatmessage(message, src, hearers, null)
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[say_quote(message)]</span></span>"
 	var/dead_rendered = "<span class='game say'><span class='name'>[name] (Imaginary friend of [owner])</span> <span class='message'>[say_quote(message)]</span></span>"

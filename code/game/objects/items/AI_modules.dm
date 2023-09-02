@@ -54,7 +54,7 @@ AI MODULES
 				if(mylaw != "")
 					tot_laws++
 		if(tot_laws > CONFIG_GET(number/silicon_max_law_amount) && !bypass_law_amt_check)//allows certain boards to avoid this check, eg: reset
-			to_chat(user, "<span class='caution'>Not enough memory allocated to [law_datum.owner ? law_datum.owner : "the AI core"]'s law processor to handle this amount of laws.</span>")
+			to_chat(user, "<span class='warning'>Not enough memory allocated to [law_datum.owner ? law_datum.owner : "the AI core"]'s law processor to handle this amount of laws.</span>")
 			message_admins("[ADMIN_LOOKUPFLW(user)] tried to upload laws to [law_datum.owner ? ADMIN_LOOKUPFLW(law_datum.owner) : "an AI core"] that would exceed the law cap.")
 			log_game("[ADMIN_LOOKUP(user)] tried to upload laws to [law_datum.owner ? ADMIN_LOOKUP(law_datum.owner) : "an AI core"] that would exceed the law cap.")
 			overflow = TRUE
@@ -259,7 +259,7 @@ AI MODULES
 			return
 		newpos = 15
 	lawpos = min(newpos, 50)
-	var/targName = stripped_input(user, "Please enter a new law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len))
+	var/targName = stripped_input(user, "Please enter a new law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len), strip_method=STRIP_HTML_SIMPLE)
 	if(!targName)
 		return
 	if(CHAT_FILTER_CHECK(targName))
@@ -389,7 +389,7 @@ AI MODULES
 	var/subject = "human being"
 
 /obj/item/aiModule/core/full/asimov/attack_self(var/mob/user as mob)
-	var/targName = stripped_input(user, "Please enter a new subject that asimov is concerned with.", "Asimov to whom?", subject, MAX_NAME_LEN)
+	var/targName = stripped_input(user, "Please enter a new subject that asimov is concerned with.", "Asimov to whom?", subject, MAX_NAME_LEN, strip_method=STRIP_HTML_SIMPLE)
 	if(!targName)
 		return
 	subject = targName
@@ -471,7 +471,7 @@ AI MODULES
 	laws = list("")
 
 /obj/item/aiModule/core/freeformcore/attack_self(mob/user)
-	var/targName = stripped_input(user, "Please enter a new core law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len))
+	var/targName = stripped_input(user, "Please enter a new core law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len), strip_method=STRIP_HTML_SIMPLE)
 	if(!targName)
 		return
 	if(CHAT_FILTER_CHECK(targName))
@@ -526,7 +526,7 @@ AI MODULES
 	laws = list("")
 
 /obj/item/aiModule/syndicate/attack_self(mob/user)
-	var/targName = stripped_input(user, "Please enter a new law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len))
+	var/targName = stripped_input(user, "Please enter a new law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len), strip_method=STRIP_HTML_SIMPLE)
 	if(!targName)
 		return
 	if(CHAT_FILTER_CHECK(targName)) // not even the syndicate can uwu

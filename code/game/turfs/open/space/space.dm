@@ -14,15 +14,21 @@
 	thermal_conductivity = 0
 	heat_capacity = 700000
 
+	// Since we have a lighting layer that extends further than the turf, make this turf
+	// create luminosity to nearby turfs.
+	luminosity = 2
+
 	var/destination_z
 	var/destination_x
 	var/destination_y
 
 	var/static/datum/gas_mixture/immutable/space/space_gas
+	// We do NOT want atmos adjacent turfs
+	init_air = FALSE
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	fullbright_type = FULLBRIGHT_STARLIGHT
 	bullet_bounce_sound = null
 
 	z_eventually_space = TRUE
@@ -57,8 +63,8 @@
 	flags_1 |= INITIALIZED_1
 
 	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		overlays += GLOB.fullbright_overlay
+	if(IS_DYNAMIC_LIGHTING(A))
+		overlays += GLOB.starlight_overlay
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -75,9 +81,6 @@
 	if(destination_z)
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)
-
-/turf/open/space/Initalize_Atmos(times_fired)
-	return
 
 /turf/open/space/TakeTemperature(temp)
 
@@ -97,16 +100,6 @@
 
 /turf/open/space/remove_air_ratio(amount)
 	return null
-
-/turf/open/space/proc/update_starlight()
-	if(CONFIG_GET(flag/starlight))
-		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			if(isspaceturf(t))
-				//let's NOT update this that much pls
-				continue
-			set_light(2)
-			return
-		set_light(0)
 
 /turf/open/space/attack_paw(mob/user)
 	return attack_hand(user)
@@ -226,21 +219,20 @@
 	if(!CanBuildHere())
 		return FALSE
 
-	switch(the_rcd.mode)
-		if(RCD_FLOORWALL)
-			var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-			if(L)
-				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 1)
-			else
-				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
+	if(the_rcd.mode == RCD_FLOORWALL)
+		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+		if(L)
+			return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 1)
+		else
+			return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
 	return FALSE
 
 /turf/open/space/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_FLOORWALL)
-			to_chat(user, "<span class='notice'>You build a floor.</span>")
-			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			return TRUE
+	if(passed_mode == RCD_FLOORWALL)
+		to_chat(user, "<span class='notice'>You build a floor.</span>")
+		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		return TRUE
 	return FALSE
 
 /turf/open/space/rust_heretic_act()

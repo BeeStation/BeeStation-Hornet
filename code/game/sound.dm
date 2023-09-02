@@ -61,8 +61,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
 	/// Everyone that actually heard the sound
 	var/list/hearers = list()
-	var/turf/above_turf = SSmapping.get_turf_above(turf_source)
-	var/turf/below_turf = SSmapping.get_turf_below(turf_source)
+	var/turf/above_turf = GET_TURF_ABOVE(turf_source)
+	var/turf/below_turf = GET_TURF_BELOW(turf_source)
 	if(ignore_walls)
 		if(above_turf && istransparentturf(above_turf))
 			listeners += SSmobs.clients_by_zlevel[above_turf.z]
@@ -208,7 +208,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		if (!M.client)
 			continue
 
-		if (!ignore_prefs && !(M.client.prefs?.toggles2 & PREFTOGGLE_2_SOUNDTRACK))
+		if (!ignore_prefs && !M.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack))
 			continue
 
 		if (!play_to_lobby && isnewplayer(M))
@@ -254,8 +254,8 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	set waitfor = FALSE
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 
-	if(prefs && (prefs.toggles & PREFTOGGLE_SOUND_LOBBY))
-		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 0, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+	if(prefs?.read_player_preference(/datum/preference/toggle/sound_lobby))
+		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = vol, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.
