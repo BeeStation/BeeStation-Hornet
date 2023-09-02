@@ -55,15 +55,15 @@
 	// Generate spawned minerals
 	minerals[/datum] = rand(100, 300)
 	// Generate some rich materials
-	for (var/i in 1 to rand(0, 3))
+	for (var/i in 1 to rand(1, 3))
 		var/selected_type = pick_weight(common_minerals)
 		minerals[selected_type] = max(rand(50, 150), minerals[selected_type])
 	// Generate other materials
-	for (var/i in 1 to rand(2, 4))
+	for (var/i in 1 to rand(3, 5))
 		var/selected_type = pick_weight(common_minerals)
 		minerals[selected_type] = max(rand(5, 30), minerals[selected_type])
 	// Generate rare materials
-	for (var/i in 1 to rand(0, 2))
+	for (var/i in 1 to rand(0, 3))
 		var/selected_type = pick_weight(rare_minerals)
 		minerals[selected_type] = max(rand(5, 30), minerals[selected_type])
 	// Convert into 0 to 1 ranges
