@@ -73,7 +73,7 @@
 		return
 	pick_sign(user)
 
-/obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
+/obj/structure/sign/barsign/item_interact(obj/item/I, mob/user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
@@ -89,18 +89,20 @@
 			else
 				set_sign(new /datum/barsign/hiddensigns/empbarsign)
 			panel_open = FALSE
+		return TRUE
 
 	else if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
 		if(!broken)
 			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
-			return
+			return TRUE
 
 		if(C.use(2))
 			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
 			broken = FALSE
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
+		return TRUE
 	else
 		return ..()
 

@@ -60,37 +60,37 @@
 	return FALSE
 
 
-/obj/item/inducer/attackby(obj/item/W, mob/user)
+/obj/item/inducer/item_interact(obj/item/W, mob/user)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		W.play_tool_sound(src)
 		if(!opened)
 			to_chat(user, "<span class='notice'>You unscrew the battery compartment.</span>")
 			opened = TRUE
 			update_icon()
-			return
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You close the battery compartment.</span>")
 			opened = FALSE
 			update_icon()
-			return
+			return TRUE
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(opened)
 			if(!cell)
 				if(!user.transferItemToLoc(W, src))
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You insert [W] into [src].</span>")
 				cell = W
 				update_icon()
-				return
+				return TRUE
 			else
 				to_chat(user, "<span class='notice'>[src] already has \a [cell] installed!</span>")
-				return
+				return TRUE
 
 	if(cantbeused(user))
-		return
+		return TRUE
 
 	if(recharge(W, user))
-		return
+		return TRUE
 
 	return ..()
 

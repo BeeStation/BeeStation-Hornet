@@ -33,10 +33,11 @@
 	var/target_dept = 1
 	var/list/dept_list = list("General","Security","Medical","Science","Engineering")
 
-/obj/item/circuitboard/computer/card/minor/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/computer/card/minor/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		target_dept = (target_dept == dept_list.len) ? 1 : (target_dept + 1)
 		to_chat(user, "<span class='notice'>You set the board to \"[dept_list[target_dept]]\".</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -51,7 +52,7 @@
 	build_path = /obj/machinery/computer/communications
 	var/insecure = FALSE // Forbids shuttles that are set as illegal.
 
-/obj/item/circuitboard/computer/communications/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/computer/communications/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		insecure = !insecure
 		if(insecure)
@@ -60,6 +61,7 @@
 		else
 			desc = "Can be modified using a screwdriver."
 			to_chat(user, "<span class='notice'>You re-enable the shuttle safety features of the board.</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -236,7 +238,7 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/libraryconsole
 
-/obj/item/circuitboard/computer/libraryconsole/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/computer/libraryconsole/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(build_path == /obj/machinery/computer/libraryconsole/bookmanagement)
 			name = "Library Visitor Console (Computer Board)"
@@ -246,6 +248,7 @@
 			name = "Book Inventory Management Console (Computer Board)"
 			build_path = /obj/machinery/computer/libraryconsole/bookmanagement
 			to_chat(user, "<span class='notice'>Access protocols successfully updated.</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -371,7 +374,7 @@
 	name = "R&D console - production only (Computer Board)"
 	build_path = /obj/machinery/computer/rdconsole/production
 
-/obj/item/circuitboard/computer/rdconsole/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/computer/rdconsole/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(build_path == /obj/machinery/computer/rdconsole/core)
 			name = "R&D Console - Robotics (Computer Board)"
@@ -381,6 +384,7 @@
 			name = "R&D Console (Computer Board)"
 			build_path = /obj/machinery/computer/rdconsole/core
 			to_chat(user, "<span class='notice'>Defaulting access protocols.</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -496,14 +500,14 @@
 /obj/item/circuitboard/computer/shuttle
 	var/hacked = FALSE
 
-/obj/item/circuitboard/computer/shuttle/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/computer/shuttle/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		hacked = !hacked
 		if(hacked)
 			to_chat(user, "<span class='notice'>You disable the circuitboard's ID scanning protocols.</span>")
 		else
 			to_chat(user, "<span class='notice'>You reset the circuitboard's ID scanning protocols.</span>")
-		return
+		return TRUE
 	. = ..()
 
 /obj/item/circuitboard/computer/shuttle/white_ship

@@ -228,12 +228,12 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	if(!(flags_1 & ADMIN_SPAWNED_1) && isliving(user))
 		user.client.give_award(/datum/award/achievement/misc/meteor_examine, user)
 
-/obj/effect/meteor/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_MINING)
+/obj/effect/meteor/tool_act(mob/living/user, obj/item/I, tool_type)
+	if (tool_type == TOOL_MINING)
 		make_debris()
 		qdel(src)
-	else
-		. = ..()
+		return TRUE
+	return ..()
 
 /obj/effect/meteor/proc/make_debris()
 	for(var/throws = dropamt, throws > 0, throws--)

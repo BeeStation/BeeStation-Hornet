@@ -54,7 +54,7 @@
 		icon_state = "[base_state]1-p"
 
 //Don't want to render prison breaks impossible
-/obj/machinery/flasher/attackby(obj/item/W, mob/user, params)
+/obj/machinery/flasher/item_interact(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if (W.tool_behaviour == TOOL_WIRECUTTER)
 		if (bulb)
@@ -64,6 +64,7 @@
 				bulb.forceMove(loc)
 				bulb = null
 				power_change()
+		return TRUE
 
 	else if (istype(W, /obj/item/assembly/flash/handheld))
 		if (!bulb)
@@ -74,6 +75,7 @@
 			power_change()
 		else
 			to_chat(user, "<span class='warning'>A flashbulb is already installed in [src]!</span>")
+		return TRUE
 
 	else if (W.tool_behaviour == TOOL_WRENCH)
 		if(!bulb)
@@ -83,8 +85,8 @@
 				deconstruct(TRUE)
 		else
 			to_chat(user, "<span class='warning'>Remove a flashbulb from [src] first!</span>")
-	else
-		return ..()
+		return TRUE
+	return ..()
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai()
@@ -174,7 +176,7 @@
 		if (M.m_intent != MOVE_INTENT_WALK && anchored)
 			flash()
 
-/obj/machinery/flasher/portable/attackby(obj/item/W, mob/user, params)
+/obj/machinery/flasher/portable/item_interact(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WRENCH)
 		W.play_tool_sound(src, 100)
 
@@ -190,7 +192,7 @@
 			setAnchored(FALSE)
 			power_change()
 			proximity_monitor.SetRange(0)
-
+		return TRUE
 	else
 		return ..()
 

@@ -761,7 +761,7 @@
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_bodypart_damage(10)
 
-/obj/item/melee/transforming/cleaving_saw/target_clicked(mob/user, atom/target, params)
+/obj/item/melee/transforming/cleaving_saw/use_on(mob/user, atom/target, params)
 	..()
 	if(!active)
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
@@ -790,7 +790,7 @@
 			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
 			for(var/mob/living/L in T)
 				if(user.Adjacent(L) && L.density)
-					target_clicked(user, L)
+					use_on(user, L)
 		swiping = FALSE
 
 //Dragon

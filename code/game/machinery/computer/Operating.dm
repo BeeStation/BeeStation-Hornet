@@ -30,7 +30,7 @@
 		sbed.op_computer = null
 	. = ..()
 
-/obj/machinery/computer/operating/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/operating/item_interact(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/disk/surgery))
 		user.visible_message("[user] begins to load \the [O] in \the [src]...",
 			"You begin to load a surgery protocol from \the [O]...",

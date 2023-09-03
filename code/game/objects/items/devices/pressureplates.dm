@@ -53,10 +53,11 @@
 	if(istype(sigdev))
 		sigdev.signal()
 
-/obj/item/pressure_plate/attackby(obj/item/I, mob/living/L)
+/obj/item/pressure_plate/item_interact(obj/item/I, mob/living/L)
 	if(istype(I, /obj/item/assembly/signaler) && !istype(sigdev) && removable_signaller && L.transferItemToLoc(I, src))
 		sigdev = I
 		to_chat(L, "<span class='notice'>You attach [I] to [src]!</span>")
+		return TRUE
 	return ..()
 
 /obj/item/pressure_plate/attack_self(mob/living/L)

@@ -128,7 +128,7 @@
 		postmark_image.appearance_flags |= RESET_COLOR
 		add_overlay(postmark_image)
 
-/obj/item/mail/attackby(obj/item/W, mob/user, params)
+/obj/item/mail/item_interact(obj/item/W, mob/user, params)
 	// Destination tagging
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/destination_tag = W
@@ -138,6 +138,8 @@
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sort_tag = destination_tag.currTag
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, 1)
+		return TRUE
+	return ..()
 
 /obj/item/mail/attack_self(mob/user)
 	if(recipient_ref)

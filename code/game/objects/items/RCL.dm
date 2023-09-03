@@ -44,31 +44,31 @@
 
 	active = FALSE
 
-/obj/item/rcl/attackby(obj/item/W, mob/user)
+/obj/item/rcl/item_interact(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 
 		if(!loaded)
 			if(!user.transferItemToLoc(W, src))
 				to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
-				return
+				return TRUE
 			else
 				loaded = W //W.loc is src at this point.
 				loaded.max_amount = max_amount //We store a lot.
 				update_icon()
-				return
+				return TRUE
 
 		if(loaded.amount < max_amount)
 			var/transfer_amount = min(max_amount - loaded.amount, C.amount)
 			C.use(transfer_amount)
 			loaded.amount += transfer_amount
 		else
-			return
+			return TRUE
 		update_icon()
 		to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!loaded)
-			return
+			return TRUE
 		if(ghetto && prob(10)) //Is it a ghetto RCL? If so, give it a 10% chance to fall apart
 			to_chat(user, "<span class='warning'>You attempt to loosen the securing screws on the side, but it falls apart!</span>")
 			while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
@@ -80,7 +80,7 @@
 					loaded.use(30)
 					new /obj/item/stack/cable_coil(get_turf(user), 30)
 			qdel(src)
-			return
+			return TRUE
 
 		to_chat(user, "<span class='notice'>You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires.</span>")
 		while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
@@ -97,8 +97,9 @@
 
 		loaded = null
 		update_icon()
+		return TRUE
 	else
-		..()
+		return ..()
 
 /obj/item/rcl/examine(mob/user)
 	. = ..()

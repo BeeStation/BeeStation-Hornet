@@ -414,7 +414,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		Radio.set_frequency(radio_freq)
 		Radio.talk_into(src, "[alert]: <i>[message]</i>", radio_freq)
 
-/obj/machinery/requests_console/attackby(obj/item/O, mob/user, params)
+/obj/machinery/requests_console/item_interact(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_CROWBAR)
 		if(open)
 			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
@@ -423,7 +423,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 			open = TRUE
 		update_icon()
-		return
+		return TRUE
 	if(O.tool_behaviour == TOOL_SCREWDRIVER)
 		if(open)
 			hackState = !hackState
@@ -434,7 +434,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You must open the maintenance panel first!</span>")
-		return
+		return TRUE
 
 	var/obj/item/card/id/ID = O.GetID()
 
@@ -451,13 +451,13 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				announceAuth = FALSE
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements!</span>")
 			updateUsrDialog()
-		return
+		return TRUE
 	if (istype(O, /obj/item/stamp))
 		if(screen == REQ_SCREEN_AUTHENTICATE)
 			var/obj/item/stamp/T = O
 			msgStamped = "<span class='boldnotice'>Stamped with the [T.name]</span>"
 			updateUsrDialog()
-		return
+		return TRUE
 	return ..()
 
 #undef REQ_EMERGENCY_SECURITY

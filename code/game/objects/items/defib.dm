@@ -110,9 +110,10 @@
 			var/atom/movable/screen/inventory/hand/H = over_object
 			M.putItemFromInventoryInHandIfPossible(src, H.held_index)
 
-/obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
+/obj/item/defibrillator/item_interact(obj/item/W, mob/user, params)
 	if(W == paddles)
 		toggle_paddles()
+		return TRUE
 	else if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
@@ -120,12 +121,13 @@
 		else
 			if(C.maxcharge < paddles.revivecost)
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
-				return
+				return TRUE
 			if(!user.transferItemToLoc(W, src))
-				return
+				return TRUE
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon()
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(cell)
@@ -134,8 +136,8 @@
 			cell = null
 			to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
 			update_icon()
-	else
-		return ..()
+		return TRUE
+	return ..()
 
 /obj/item/defibrillator/should_emag(mob/user)
 	return TRUE
@@ -276,11 +278,12 @@
 	cell = new /obj/item/stock_parts/cell/infinite(src)
 	update_icon()
 
-/obj/item/defibrillator/compact/combat/loaded/attackby(obj/item/W, mob/user, params)
+/obj/item/defibrillator/compact/combat/loaded/item_interact(obj/item/W, mob/user, params)
 	if(W == paddles)
 		toggle_paddles()
 		update_icon()
-		return
+		return TRUE
+	return ..()
 
 //paddles
 

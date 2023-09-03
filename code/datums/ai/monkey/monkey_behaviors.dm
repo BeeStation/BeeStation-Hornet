@@ -190,14 +190,14 @@
 	// attack with weapon if we have one
 	if(living_pawn.CanReach(target, weapon))
 		if(weapon)
-			weapon.target_clicked(living_pawn, target)
+			weapon.use_on(living_pawn, target)
 		else
 			if(disarm)
 				living_pawn.a_intent = INTENT_DISARM
-				living_pawn.UnarmedAttack(target)
+				living_pawn.primary_interact(target)
 				living_pawn.a_intent = INTENT_HARM
 			else
-				living_pawn.UnarmedAttack(target)
+				living_pawn.primary_interact(target)
 		controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE // We reset their memory of the gun being 'broken' if they accomplish some other attack
 	else if(weapon)
 		var/atom/real_target = target

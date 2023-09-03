@@ -263,7 +263,7 @@
 	new /obj/item/ammo_box/a762(src)
 
 //floorbot assembly
-/obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
+/obj/item/storage/toolbox/item_interact(obj/item/stack/tile/plasteel/T, mob/user, params)
 	var/list/allowed_toolbox = list(/obj/item/storage/toolbox/emergency,	//which toolboxes can be made into floorbots
 							/obj/item/storage/toolbox/electrical,
 							/obj/item/storage/toolbox/mechanical,
@@ -271,13 +271,12 @@
 							/obj/item/storage/toolbox/syndicate)
 
 	if(!istype(T, /obj/item/stack/tile/plasteel))
-		..()
-		return
+		return ..()
 	if(!is_type_in_list(src, allowed_toolbox) && (type != /obj/item/storage/toolbox))
-		return
+		return TRUE
 	if(contents.len >= 1)
 		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside!</span>")
-		return
+		return TRUE
 	if(T.use(10))
 		var/obj/item/bot_assembly/floorbot/B = new
 		B.toolbox = type
@@ -296,6 +295,7 @@
 		B.update_icon()
 		to_chat(user, "<span class='notice'>You add the tiles into the empty [name]. They protrude from the top.</span>")
 		qdel(src)
+		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You need 10 floor tiles to start building a floorbot!</span>")
-		return
+		return TRUE

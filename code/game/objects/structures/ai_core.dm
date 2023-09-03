@@ -70,11 +70,11 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/AIcore/latejoin_inactive/attackby(obj/item/P, mob/user, params)
+/obj/structure/AIcore/latejoin_inactive/item_interact(obj/item/P, mob/user, params)
 	if(P.tool_behaviour == TOOL_MULTITOOL)
 		active = !active
 		to_chat(user, "You [active? "activate" : "deactivate"] \the [src]'s transmitters.")
-		return
+		return TRUE
 	return ..()
 
 /obj/structure/AIcore/latejoin_inactive/Initialize(mapload)
@@ -85,42 +85,43 @@
 	GLOB.latejoin_ai_cores -= src
 	return ..()
 
-/obj/structure/AIcore/attackby(obj/item/P, mob/user, params)
+/obj/structure/AIcore/item_interact(obj/item/P, mob/user, params)
 	if(P.tool_behaviour == TOOL_WRENCH)
-		return default_unfasten_wrench(user, P, 20)
+		default_unfasten_wrench(user, P, 20)
+		return TRUE
 	if(!anchored)
 		if(P.tool_behaviour == TOOL_WELDER && can_deconstruct)
 			if(state != EMPTY_CORE)
 				to_chat(user, "<span class='warning'>The core must be empty to deconstruct it!</span>")
-				return
+				return TRUE
 
 			if(!P.tool_start_check(user, amount=0))
-				return
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You start to deconstruct the frame...</span>")
 			if(P.use_tool(src, user, 20, volume=50) && state == EMPTY_CORE)
 				to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
 				deconstruct(TRUE)
-			return
+			return TRUE
 	else
 		switch(state)
 			if(EMPTY_CORE)
 				if(istype(P, /obj/item/circuitboard/aicore))
 					if(!user.transferItemToLoc(P, src))
-						return
+						return TRUE
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					update_icon()
 					state = CIRCUIT_CORE
 					circuit = P
-					return
+					return TRUE
 			if(CIRCUIT_CORE)
 				if(P.tool_behaviour == TOOL_SCREWDRIVER)
 					P.play_tool_sound(src)
 					to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 					state = SCREWED_CORE
 					update_icon()
-					return
+					return TRUE
 				if(P.tool_behaviour == TOOL_CROWBAR)
 					P.play_tool_sound(src)
 					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
@@ -128,14 +129,14 @@
 					update_icon()
 					circuit.forceMove(loc)
 					circuit = null
-					return
+					return TRUE
 			if(SCREWED_CORE)
 				if(P.tool_behaviour == TOOL_SCREWDRIVER && circuit)
 					P.play_tool_sound(src)
 					to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 					state = CIRCUIT_CORE
 					update_icon()
-					return
+					return TRUE
 				if(istype(P, /obj/item/stack/cable_coil))
 					var/obj/item/stack/cable_coil/C = P
 					if(C.get_amount() >= 5)
@@ -147,7 +148,7 @@
 							update_icon()
 					else
 						to_chat(user, "<span class='warning'>You need five lengths of cable to wire the AI core!</span>")
-					return
+					return TRUE
 			if(CABLED_CORE)
 				if(P.tool_behaviour == TOOL_WIRECUTTER)
 					if(brain)
@@ -158,7 +159,7 @@
 						state = SCREWED_CORE
 						update_icon()
 						new /obj/item/stack/cable_coil(drop_location(), 5)
-					return
+					return TRUE
 
 				if(istype(P, /obj/item/stack/sheet/rglass))
 					var/obj/item/stack/sheet/rglass/G = P
@@ -171,45 +172,45 @@
 							update_icon()
 					else
 						to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to insert them into the AI core!</span>")
-					return
+					return TRUE_THRESHOLD
 
 				if(istype(P, /obj/item/aiModule))
 					if(brain && brain.laws.id != DEFAULT_AI_LAWID)
 						to_chat(user, "<span class='warning'>The installed [brain.name] already has set laws!</span>")
-						return
+						return TRUE
 					var/obj/item/aiModule/module = P
 					module.install(laws, user)
-					return
+					return TRUE
 
 				if(istype(P, /obj/item/mmi) && !brain)
 					var/obj/item/mmi/M = P
 					if(!M.brainmob)
 						to_chat(user, "<span class='warning'>Sticking an empty [M.name] into the frame would sort of defeat the purpose!</span>")
-						return
+						return TRUE
 					if(M.brainmob.stat == DEAD)
 						to_chat(user, "<span class='warning'>Sticking a dead [M.name] into the frame would sort of defeat the purpose!</span>")
-						return
+						return TRUE
 
 					if(!M.brainmob.client)
 						to_chat(user, "<span class='warning'>Sticking an inactive [M.name] into the frame would sort of defeat the purpose.</span>")
-						return
+						return TRUE
 
 					if(!CONFIG_GET(flag/allow_ai) || (is_banned_from(M.brainmob.ckey, JOB_NAME_AI) && !QDELETED(src) && !QDELETED(user) && !QDELETED(M) && !QDELETED(user) && Adjacent(user)))
 						if(!QDELETED(M))
 							to_chat(user, "<span class='warning'>This [M.name] does not seem to fit!</span>")
-						return
+						return TRUE
 
 					if(!M.brainmob.mind)
 						to_chat(user, "<span class='warning'>This [M.name] is mindless!</span>")
-						return
+						return TRUE
 
 					if(!user.transferItemToLoc(M,src))
-						return
+						return TRUE
 
 					brain = M
 					to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")
 					update_icon()
-					return
+					return TRUE
 
 				if(P.tool_behaviour == TOOL_CROWBAR && brain)
 					P.play_tool_sound(src)
@@ -217,7 +218,7 @@
 					brain.forceMove(loc)
 					brain = null
 					update_icon()
-					return
+					return TRUE
 
 			if(GLASS_CORE)
 				if(P.tool_behaviour == TOOL_CROWBAR)
@@ -226,7 +227,7 @@
 					state = CABLED_CORE
 					update_icon()
 					new /obj/item/stack/sheet/rglass(loc, 2)
-					return
+					return TRUE
 
 				if(P.tool_behaviour == TOOL_SCREWDRIVER)
 					P.play_tool_sound(src)
@@ -249,18 +250,18 @@
 					else
 						state = AI_READY_CORE
 						update_icon()
-					return
+					return TRUE
 
 			if(AI_READY_CORE)
 				if(istype(P, /obj/item/aicard))
-					return //handled by /obj/structure/ai_core/transfer_ai()
+					return TRUE //handled by /obj/structure/ai_core/transfer_ai()
 
 				if(P.tool_behaviour == TOOL_SCREWDRIVER)
 					P.play_tool_sound(src)
 					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 					state = GLASS_CORE
 					update_icon()
-					return
+					return TRUE
 	return ..()
 
 /obj/structure/AIcore/update_icon()

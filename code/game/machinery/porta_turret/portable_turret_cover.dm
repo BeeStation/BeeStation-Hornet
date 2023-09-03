@@ -39,10 +39,10 @@
 	return parent_turret.attack_hand(user)
 
 
-/obj/machinery/porta_turret_cover/attackby(obj/item/I, mob/user, params)
+/obj/machinery/porta_turret_cover/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && !parent_turret.on)
 		if(parent_turret.raised)
-			return
+			return TRUE
 
 		if(!parent_turret.anchored)
 			parent_turret.setAnchored(TRUE)
@@ -55,6 +55,7 @@
 			parent_turret.invisibility = INVISIBILITY_MAXIMUM
 			parent_turret.update_icon()
 			qdel(src)
+		return TRUE
 
 	else if(I.GetID())
 		if(parent_turret.allowed(user))
@@ -63,6 +64,7 @@
 			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
+		return TRUE
 	else
 		return ..()
 

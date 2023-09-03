@@ -58,7 +58,7 @@
 		else
 			icon_state = skin
 
-/obj/machinery/button/attackby(obj/item/W, mob/user, params)
+/obj/machinery/button/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(panel_open || allowed(user))
 			default_deconstruction_screwdriver(user, "button-open", "[skin]",W)
@@ -66,7 +66,7 @@
 		else
 			to_chat(user, "<span class='danger'>Maintenance Access Denied.</span>")
 			flick("[skin]-denied", src)
-		return
+		return TRUE
 
 	if(panel_open)
 		if(!device && istype(W, /obj/item/assembly))
@@ -97,12 +97,8 @@
 				qdel(src)
 
 		update_icon()
-		return
-
-	if(user.a_intent != INTENT_HARM && !(W.item_flags & NOBLUDGEON))
-		return attack_hand(user)
-	else
-		return ..()
+		return TRUE
+	return ..()
 
 /obj/machinery/button/on_emag(mob/user)
 	..()

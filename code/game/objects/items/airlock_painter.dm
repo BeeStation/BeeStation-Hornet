@@ -157,17 +157,18 @@
 	. += "<span class='notice'>Its ink levels look [ink_level].</span>"
 
 
-/obj/item/airlock_painter/attackby(obj/item/W, mob/user, params)
+/obj/item/airlock_painter/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toner))
 		if(ink)
 			to_chat(user, "<span class='notice'>[src] already contains \a [ink].</span>")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(W, src))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You install [W] into [src].</span>")
 		ink = W
 		update_icon()
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+		return TRUE
 	else
 		return ..()
 

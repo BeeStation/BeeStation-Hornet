@@ -203,6 +203,6 @@
 	var/old_melee_damage = living_pawn.melee_damage
 	living_pawn.melee_damage = max(7, old_melee_damage)
 
-	living_pawn.UnarmedAttack(living_target, FALSE)
+	living_pawn.primary_interact(living_target, FALSE)
 
 	living_pawn.melee_damage = old_melee_damage

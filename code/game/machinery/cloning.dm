@@ -424,22 +424,22 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 	return COMPONENT_BUFFER_RECIEVED
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
-/obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)
+/obj/machinery/clonepod/item_interact(obj/item/W, mob/user, params)
 	if(!(occupant || mess))
 		if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]",W))
-			return
+			return TRUE
 
 	if(default_deconstruction_crowbar(W))
-		return
+		return TRUE
 
 	var/mob/living/mob_occupant = occupant
 	if(W.GetID())
 		if(!check_access(W))
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
-			return
+			return TRUE
 		if(!(mob_occupant || mess))
 			to_chat(user, "<span class='danger'>Error: Pod has no occupant.</span>")
-			return
+			return TRUE
 		else
 			add_fingerprint(user)
 			connected_message("Emergency Ejection")
@@ -448,8 +448,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 			go_out()
 			log_cloning("[key_name(user)] manually ejected [key_name(mob_occupant)] from [src] at [AREACOORD(src)].")
 			log_combat(user, mob_occupant, "ejected", W, "from [src]")
-	else
-		return ..()
+			return TRUE
+	return ..()
 
 /obj/machinery/clonepod/should_emag(mob/user)
 	return !!occupant

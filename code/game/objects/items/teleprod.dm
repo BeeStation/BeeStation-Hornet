@@ -28,7 +28,7 @@
 				SEND_SIGNAL(M, COMSIG_LIVING_MINOR_SHOCK)
 				do_teleport(M, get_turf(M), 15, channel = TELEPORT_CHANNEL_BLUESPACE)
 
-/obj/item/melee/baton/cattleprod/attackby(obj/item/I, mob/user, params)//handles sticking a crystal onto a stunprod to make a teleprod
+/obj/item/melee/baton/cattleprod/item_interact(obj/item/I, mob/user, params)//handles sticking a crystal onto a stunprod to make a teleprod
 	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
 		if(!cell)
 			var/obj/item/stack/ore/bluespace_crystal/BSC = I
@@ -41,5 +41,6 @@
 			log_crafting(user, S, TRUE)
 		else
 			user.visible_message("<span class='warning'>You can't put the crystal onto the stunprod while it has a power cell installed!</span>")
+		return TRUE
 	else
 		return ..()

@@ -37,14 +37,14 @@
 			return
 	return ..()
 
-/obj/item/electropack/attackby(obj/item/W, mob/user, params)
+/obj/item/electropack/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/clothing/head/helmet))
 		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(user)
 		A.icon = 'icons/obj/assemblies.dmi'
 
 		if(!user.transferItemToLoc(W, A))
 			to_chat(user, "<span class='warning'>[W] is stuck to your hand, you cannot attach it to [src]!</span>")
-			return
+			return TRUE
 		W.master = A
 		A.helmet_part = W
 
@@ -54,6 +54,7 @@
 
 		user.put_in_hands(A)
 		A.add_fingerprint(user)
+		return TRUE
 	else
 		return ..()
 

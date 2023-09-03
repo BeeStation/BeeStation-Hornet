@@ -228,11 +228,12 @@
 		user.visible_message("[user] empties out \the [src] onto the floor using the release valve.", "<span class='info'>You quietly empty out \the [src] using its release valve.</span>")
 
 //firebot assembly
-/obj/item/extinguisher/attackby(obj/O, mob/user, params)
+/obj/item/extinguisher/item_interact(obj/O, mob/user, params)
 	if(istype(O, /obj/item/bodypart/l_arm/robot) || istype(O, /obj/item/bodypart/r_arm/robot))
 		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
 		qdel(O)
 		qdel(src)
 		user.put_in_hands(new /obj/item/bot_assembly/firebot)
+		return TRUE
 	else
-		..()
+		return ..()

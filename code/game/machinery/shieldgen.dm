@@ -147,7 +147,7 @@
 			to_chat(user, "<span class='warning'>The device must first be secured to the floor!</span>")
 	return
 
-/obj/machinery/shieldgen/attackby(obj/item/W, mob/user, params)
+/obj/machinery/shieldgen/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		W.play_tool_sound(src, 100)
 		panel_open = !panel_open
@@ -155,6 +155,7 @@
 			to_chat(user, "<span class='notice'>You open the panel and expose the wiring.</span>")
 		else
 			to_chat(user, "<span class='notice'>You close the panel.</span>")
+		return TRUE
 	else if(istype(W, /obj/item/stack/cable_coil) && (machine_stat & BROKEN) && panel_open)
 		var/obj/item/stack/cable_coil/coil = W
 		if (coil.get_amount() < 1)
@@ -169,6 +170,7 @@
 			set_machine_stat(machine_stat & ~BROKEN)
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 			update_icon()
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(locked)
@@ -185,6 +187,7 @@
 				to_chat(user, "<span class='notice'>\The [src] shuts off!</span>")
 				shields_down()
 			setAnchored(FALSE)
+		return TRUE
 
 	else if(W.GetID())
 		if(allowed(user) && !(obj_flags & EMAGGED))
@@ -194,6 +197,7 @@
 			to_chat(user, "<span class='danger'>Error, access controller damaged!</span>")
 		else
 			to_chat(user, "<span class='danger'>Access denied.</span>")
+		return TRUE
 
 	else
 		return ..()
@@ -351,9 +355,10 @@
 		return FAILED_UNFASTEN
 	return ..()
 
-/obj/machinery/shieldwallgen/attackby(obj/item/W, mob/user, params)
+/obj/machinery/shieldwallgen/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, W, 0)
+		return TRUE
 
 	else if(W.GetID())
 		if(allowed(user) && !(obj_flags & EMAGGED))
@@ -363,6 +368,7 @@
 			to_chat(user, "<span class='danger'>Error, access controller damaged!</span>")
 		else
 			to_chat(user, "<span class='danger'>Access denied.</span>")
+		return TRUE
 
 	else
 		add_fingerprint(user)

@@ -109,10 +109,10 @@
 
 			for(var/mob/living/carbon/victim in loc)
 				if(victim != target)
-					UnarmedAttack(victim) // Acid spray
+					primary_interact(victim) // Acid spray
 
 			if(prob(15)) // Wets floors and spawns foam randomly
-				UnarmedAttack(src)
+				primary_interact(src)
 
 	else if(prob(5))
 		audible_message("[src] makes an excited beeping booping sound!")
@@ -153,7 +153,7 @@
 
 		if(loc == get_turf(target))
 			if(!(check_bot(target) && prob(50)))	//Target is not defined at the parent. 50% chance to still try and clean so we dont get stuck on the last blood drop.
-				UnarmedAttack(target)	//Rather than check at every step of the way, let's check before we do an action, so we can rescan before the other bot.
+				primary_interact(target)	//Rather than check at every step of the way, let's check before we do an action, so we can rescan before the other bot.
 				if(QDELETED(target)) //We done here.
 					target = null
 					mode = BOT_IDLE
@@ -209,7 +209,7 @@
 
 	target_types = typecacheof(target_types)
 
-/mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/cleanbot/primary_interact(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
 		anchored = TRUE
 		icon_state = "cleanbot-c"
@@ -323,7 +323,7 @@
 	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
 
-/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/cleanbot/larry/primary_interact(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
 		anchored = TRUE
 		icon_state = "larry-c"

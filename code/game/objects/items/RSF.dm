@@ -26,15 +26,16 @@ RSF
 /obj/item/rsf/cyborg
 	matter = 30
 
-/obj/item/rsf/attackby(obj/item/W, mob/user, params)
+/obj/item/rsf/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcd_ammo))
 		if((matter + 10) > 30)
 			to_chat(user, "The RSF can't hold any more matter.")
-			return
+			return TRUE
 		qdel(W)
 		matter += 10
 		playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
 		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+		return TRUE
 	else
 		return ..()
 
@@ -138,9 +139,6 @@ RSF
 /obj/item/cookiesynth/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It currently holds [matter]/10 cookie-units.</span>"
-
-/obj/item/cookiesynth/attackby()
-	return
 
 /obj/item/cookiesynth/on_emag(mob/user)
 	..()

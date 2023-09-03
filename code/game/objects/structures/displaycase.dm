@@ -137,7 +137,7 @@
 	else if(!open)
 		. += "[initial(icon_state)]_closed"
 
-/obj/structure/displaycase/attackby(obj/item/W, mob/user, params)
+/obj/structure/displaycase/item_interact(obj/item/W, mob/user, params)
 	if(W.GetID() && !broken && openable)
 		if(open)	//You do not require access to close a case, only to open it.
 			to_chat(user, "<span class='notice'>You close [src].</span>")
@@ -147,10 +147,11 @@
 		else
 			to_chat(user, "<span class='notice'>You open [src].</span>")
 			toggle_lock(user)
+		return TRUE
 	else if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
 		if(obj_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=5))
-				return
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 			if(W.use_tool(src, user, 40, amount=5, volume=50))
@@ -159,7 +160,7 @@
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
-		return
+		return TRUE
 	else if(!alert && W.tool_behaviour == TOOL_CROWBAR && openable) //Only applies to the lab cage and player made display cases
 		if(broken)
 			if(showpiece)
@@ -172,6 +173,7 @@
 			if(W.use_tool(src, user, 20))
 				to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
 				toggle_lock(user)
+		return TRUE
 	else if(open && !showpiece)
 		if(showpiece_type && !istype(W, showpiece_type))
 			to_chat(user, "<span class='notice'>This doesn't belong in this kind of display.</span>")
@@ -180,17 +182,19 @@
 			showpiece = W
 			to_chat(user, "<span class='notice'>You put [W] on display.</span>")
 			update_icon()
+		return TRUE
 	else if(glass_fix && broken && istype(W, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = W
 		if(G.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
 		if(do_after(user, 20, target = src))
 			G.use(2)
 			broken = FALSE
 			obj_integrity = max_integrity
 			update_icon()
+		return TRUE
 	else
 		return ..()
 
@@ -234,7 +238,7 @@
 	var/obj/item/electronics/airlock/electronics
 
 
-/obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
+/obj/structure/displaycase_chassis/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH) //The player can only deconstruct the wooden frame
 		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
 		I.play_tool_sound(src)
@@ -242,6 +246,7 @@
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			new /obj/item/stack/sheet/wood(get_turf(src), 5)
 			qdel(src)
+		return TRUE
 
 	else if(istype(I, /obj/item/electronics/airlock))
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
@@ -249,6 +254,7 @@
 		if(do_after(user, 30, target = src) && user.transferItemToLoc(I,src))
 			electronics = I
 			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
+		return TRUE
 
 	else if(istype(I, /obj/item/stock_parts/manipulator))
 		var/obj/item/stock_parts/manipulator/M = I
@@ -264,12 +270,13 @@
 					sale.req_access = electronics.accesses
 			qdel(src)
 			qdel(M)
+		return TRUE
 
 	else if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 10)
 			to_chat(user, "<span class='warning'>You need ten glass sheets to do this!</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
 		if(do_after(user, 20, target = src))
 			G.use(10)
@@ -282,6 +289,7 @@
 				else
 					display.req_access = electronics.accesses
 			qdel(src)
+		return TRUE
 	else
 		return ..()
 
@@ -321,14 +329,12 @@
 	GLOB.trophy_cases -= src
 	return ..()
 
-/obj/structure/displaycase/trophy/attackby(obj/item/W, mob/living/user, params)
+/obj/structure/displaycase/trophy/item_interact(obj/item/W, mob/living/user, params)
 
 	if(!user.Adjacent(src)) //no TK museology
-		return
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+		return TRUE
 	if(W.tool_behaviour == TOOL_WELDER && !broken)
-		return ..()
+		return  TRUE
 
 	if(user.is_holding_item_of_type(/obj/item/key/displaycase))
 		if(added_roundstart)
@@ -336,24 +342,24 @@
 			to_chat(user, "<span class='notice'>You [!is_locked ? "un" : ""]lock the case.</span>")
 		else
 			to_chat(user, "<span class='warning'>The lock is stuck shut!</span>")
-		return
+		return TRUE
 
 	if(is_locked)
 		to_chat(user, "<span class='warning'>The case is shut tight with an old-fashioned physical lock. Maybe you should ask the curator for the key?</span>")
-		return
+		return TRUE
 
 	if(!added_roundstart)
 		to_chat(user, "<span class='warning'>You've already put something new in this case!</span>")
-		return
+		return TRUE
 
 	if(is_type_in_typecache(W, GLOB.blacklisted_cargo_types))
 		to_chat(user, "<span class='warning'>The case rejects the [W]!</span>")
-		return
+		return TRUE
 
 	for(var/a in W.GetAllContents())
 		if(is_type_in_typecache(a, GLOB.blacklisted_cargo_types))
 			to_chat(user, "<span class='warning'>The case rejects the [W]!</span>")
-			return
+			return TRUE
 
 	if(user.transferItemToLoc(W, src))
 
@@ -383,8 +389,9 @@
 
 	else
 		to_chat(user, "<span class='warning'>\The [W] is stuck to your hand, you can't put it in the [src.name]!</span>")
+		return TRUE
 
-	return
+	return ..()
 
 /obj/structure/displaycase/trophy/dump()
 	if (showpiece)
@@ -541,21 +548,21 @@
 			to_chat(usr, "<span class='notice'>The cost is now set to [sale_price].</span>")
 			. = TRUE
 
-/obj/structure/displaycase/forsale/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/displaycase/forsale/item_interact(obj/item/I, mob/living/user, params)
 	if(isidcard(I))
 		//Card Registration
 		var/obj/item/card/id/potential_acc = I
 		if(!potential_acc.registered_account)
 			to_chat(user, "<span class='warning'>This ID card has no account registered!</span>")
-			return
+			return TRUE
 		if(payments_acc == potential_acc.registered_account)
 			playsound(src, 'sound/machines/click.ogg', 20, TRUE)
 			toggle_lock()
-			return
+			return TRUE
 	if(istype(I, /obj/item/modular_computer))
 		return TRUE
 	ui_update()
-	. = ..()
+	return ..()
 
 
 /obj/structure/displaycase/forsale/multitool_act(mob/living/user, obj/item/I)

@@ -49,10 +49,11 @@
 	if(temperature > T0C+100)
 		burst()
 
-/obj/item/latexballon/attackby(obj/item/W, mob/user, params)
+/obj/item/latexballon/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))
 		var/obj/item/tank/T = W
 		blow(T, user)
-		return
+		return TRUE
 	if (W.is_sharp() || W.is_hot() || is_pointed(W))
 		burst()
+	return ..()

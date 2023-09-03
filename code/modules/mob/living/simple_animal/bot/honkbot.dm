@@ -142,7 +142,7 @@
 		retaliate(Proj.firer)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/honkbot/primary_interact(atom/A)
 	if(!on)
 		return
 	if(iscarbon(A))

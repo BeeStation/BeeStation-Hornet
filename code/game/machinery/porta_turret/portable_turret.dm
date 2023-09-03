@@ -262,7 +262,7 @@
 	check_should_process()
 
 
-/obj/machinery/porta_turret/attackby(obj/item/I, mob/user, params)
+/obj/machinery/porta_turret/item_interact(obj/item/I, mob/user, params)
 	if(machine_stat & BROKEN)
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			//If the turret is destroyed, you can remove it with a crowbar to
@@ -280,10 +280,11 @@
 				else
 					to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
 				qdel(src)
+			return TRUE
 
 	else if((I.tool_behaviour == TOOL_WRENCH) && (!on))
 		if(raised)
-			return
+			return TRUE
 
 		//This code handles moving the turret around. After all, it's a portable turret!
 		if(!anchored && !isinspace())
@@ -300,6 +301,7 @@
 			power_change()
 			invisibility = 0
 			qdel(cover) //deletes the cover, and the turret instance itself becomes its own cover.
+		return TRUE
 
 	else if(I.GetID())
 		//Behavior lock/unlock mangement
@@ -308,6 +310,7 @@
 			to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -887,14 +890,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		. += "<span class='notice'>Ctrl-click [src] to [ enabled ? "disable" : "enable"] turrets.</span>\n"+\
 				"<span class='notice'>Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].</span>"
 
-/obj/machinery/turretid/attackby(obj/item/I, mob/user, params)
+/obj/machinery/turretid/item_interact(obj/item/I, mob/user, params)
 	if(machine_stat & BROKEN)
-		return
+		return ..()
 
 	if (issilicon(user))
 		return attack_hand(user)
 
-	if ( get_dist(src, user) == 0 )		// trying to unlock the interface
+	if (get_dist(src, user) == 0 && I.GetAccess())		// trying to unlock the interface
 		if (allowed(usr))
 			if(obj_flags & EMAGGED)
 				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")
@@ -904,6 +907,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return TRUE
+	return TRUE
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/turretid)
 

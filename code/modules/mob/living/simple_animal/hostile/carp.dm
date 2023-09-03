@@ -196,7 +196,7 @@
 			disky = null
 			update_icon()
 		else
-			disky.target_clicked(src, target)
+			disky.use_on(src, target)
 		return
 	if(istype(target, /obj/machinery/nuclearbomb))
 		var/obj/machinery/nuclearbomb/nuke = target

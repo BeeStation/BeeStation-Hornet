@@ -46,21 +46,21 @@
 	playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
 	flick("synthesizer_beam", src)
 
-/obj/machinery/dish_drive/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/dish_drive/item_interact(obj/item/I, mob/living/user, params)
 	if(is_type_in_list(I, collectable_items) && user.a_intent != INTENT_HARM)
 		if(!user.transferItemToLoc(I, src))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You put [I] in [src], and it's beamed into energy!</span>")
 		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
 		flick("synthesizer_beam", src)
-		return
+		return TRUE
 	else if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
-		return
+		return TRUE
 	else if(default_unfasten_wrench(user, I))
-		return
+		return TRUE
 	else if(default_deconstruction_crowbar(I, FALSE))
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/machinery/dish_drive/RefreshParts()
 	idle_power_usage = initial(idle_power_usage)

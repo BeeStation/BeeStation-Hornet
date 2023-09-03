@@ -104,7 +104,7 @@
 		var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
 		slipper.Slip(src, hit_atom)
 
-/obj/item/melee/transforming/energy/sword/bananium/attackby(obj/item/I, mob/living/user, params)
+/obj/item/melee/transforming/energy/sword/bananium/item_interact(obj/item/I, mob/living/user, params)
 	if((world.time > next_trombone_allowed) && istype(I, /obj/item/melee/transforming/energy/sword/bananium))
 		next_trombone_allowed = world.time + 50
 		to_chat(user, "You slap the two swords together. Sadly, they do not seem to fit.")

@@ -82,7 +82,7 @@
 	..()
 	update_icon()
 
-/obj/machinery/computer/slot_machine/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/computer/slot_machine/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/coin))
 		var/obj/item/coin/C = I
 		if(paymode == COIN)
@@ -102,6 +102,7 @@
 				qdel(C)
 		else
 			to_chat(user, "<span class='warning'>This machine is only accepting holochips!</span>")
+		return TRUE
 	else if(istype(I, /obj/item/holochip))
 		if(paymode == HOLOCHIP)
 			var/obj/item/holochip/H = I
@@ -112,6 +113,7 @@
 			qdel(H)
 		else
 			to_chat(user, "<span class='warning'>This machine is only accepting coins!</span>")
+		return TRUE
 	else if(I.tool_behaviour == TOOL_MULTITOOL)
 		if(balance > 0)
 			visible_message("<b>[src]</b> says, 'ERROR! Please empty the machine balance before altering paymode'") //Prevents converting coins into holocredits and vice versa
@@ -122,6 +124,7 @@
 			else
 				paymode = HOLOCHIP
 				visible_message("<b>[src]</b> says, 'This machine now works with HOLOCHIPS!'")
+		return TRUE
 	else
 		return ..()
 

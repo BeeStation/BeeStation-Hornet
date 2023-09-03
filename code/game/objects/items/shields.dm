@@ -53,11 +53,11 @@
 	else
 		return ..()
 
-/obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
+/obj/item/shield/item_interact(obj/item/weldingtool/W, mob/living/user, params)
 	if(istype(W))
 		if(obj_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=0))
-				return
+				return TRUE
 			user.visible_message("[user] is welding the [src].", \
 									"<span class='notice'>You begin repairing the [src]]...</span>")
 			if(W.use_tool(src, user, 40, volume=50))
@@ -66,6 +66,7 @@
 									"<span class='notice'>You finish repairing some of the dents on [src].</span>")
 			else
 				to_chat(user, "<span class='notice'>The [src] doesn't need repairing.</span>")
+		return TRUE
 	return ..()
 
 /obj/item/shield/examine(mob/user)
@@ -102,12 +103,13 @@
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
 
-/obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
+/obj/item/shield/riot/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/melee/baton))
 		if(cooldown < world.time - 25)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
+		return TRUE
 	else if(istype(W, /obj/item/stack/sheet/mineral/titanium))
 		if (obj_integrity >= max_integrity)
 			to_chat(user, "<span class='notice'>[src] is already in perfect condition.</span>")
@@ -116,6 +118,7 @@
 			T.use(1)
 			obj_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair [src] with [T].</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -208,24 +211,24 @@
 		update_icon()
 
 
-/obj/item/shield/riot/flash/attackby(obj/item/W, mob/user)
+/obj/item/shield/riot/flash/item_interact(obj/item/W, mob/user)
 	if(istype(W, /obj/item/assembly/flash/handheld))
 		var/obj/item/assembly/flash/handheld/flash = W
 		if(flash.burnt_out)
 			to_chat(user, "No sense replacing it with a broken bulb.")
-			return
+			return TRUE
 		else
 			to_chat(user, "You begin to replace the bulb.")
 			if(do_after(user, 20, target = user))
 				if(flash.burnt_out || !flash || QDELETED(flash))
-					return
+					return TRUE
 				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 				qdel(embedded_flash)
 				embedded_flash = flash
 				flash.forceMove(src)
 				update_icon()
-				return
-	..()
+			return TRUE
+	return ..()
 
 /obj/item/shield/riot/flash/emp_act(severity)
 	. = ..()

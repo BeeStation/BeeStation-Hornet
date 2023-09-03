@@ -400,18 +400,18 @@
 	generate_items_inside(items_inside,src)
 
 //medibot assembly
-/obj/item/storage/firstaid/attackby(obj/item/bodypart/S, mob/user, params)
+/obj/item/storage/firstaid/item_interact(obj/item/bodypart/S, mob/user, params)
 	if((!istype(S, /obj/item/bodypart/l_arm/robot)) && (!istype(S, /obj/item/bodypart/r_arm/robot)))
 		return ..()
 
 	//Making a medibot!
 	if(contents.len >= 1)
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
-		return
+		return TRUE
 
 	if(!src.skin_type)
 		to_chat(user, "<span class='warning'>[src] cannot be used to make a medibot!</span>")
-		return
+		return TRUE
 
 	var/obj/item/bot_assembly/medbot/A = new
 	A.skin = src.skin_type
@@ -423,6 +423,7 @@
 	A.firstaid = type
 	qdel(S)
 	qdel(src)
+	return TRUE
 
 /*
  * Pill Bottles

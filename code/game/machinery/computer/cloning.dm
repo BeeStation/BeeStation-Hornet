@@ -156,14 +156,15 @@
 	pod.connected = null
 	LAZYREMOVE(pods, pod)
 
-/obj/machinery/computer/cloning/attackby(obj/item/W, mob/user, params)
+/obj/machinery/computer/cloning/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
 		if (!diskette)
 			if (!user.transferItemToLoc(W,src))
-				return
+				return TRUE
 			diskette = W
 			to_chat(user, "<span class='notice'>You insert [W].</span>")
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		return TRUE
 	else
 		return ..()
 

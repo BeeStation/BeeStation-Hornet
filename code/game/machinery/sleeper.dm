@@ -101,20 +101,19 @@
 	. = ..()
 	icon_state = "[initial(icon_state)][state_open ? "-open" : ""]"
 
-/obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/sleeper/item_interact(obj/item/I, mob/living/user, params)
 	if ((istype(I, /obj/item/reagent_containers/glass) \
-		|| istype(I, /obj/item/reagent_containers/chem_bag)) \
-		&& user.a_intent != INTENT_HARM)
+		|| istype(I, /obj/item/reagent_containers/chem_bag)))
 		if (length(inserted_vials) >= max_vials)
 			to_chat(user, "<span class='warning'>[src] cannot hold any more!</span>")
-			return
+			return TRUE
 		user.visible_message("<span class='notice'>[user] inserts \the [I] into \the [src]</span>", "<span class='notice'>You insert \the [I] into \the [src]</span>")
 		user.temporarilyRemoveItemFromInventory(I)
 		I.forceMove(null)
 		inserted_vials += I
 		ui_update()
-		return
-	. = ..()
+		return TRUE
+	return ..()
 
 /obj/machinery/sleeper/on_deconstruction()
 	for(var/atom/movable/A as anything in inserted_vials)

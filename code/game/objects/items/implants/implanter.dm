@@ -42,20 +42,21 @@
 				else
 					to_chat(user, "<span class='warning'>[src] fails to implant [M].</span>")
 
-/obj/item/implanter/attackby(obj/item/W, mob/user, params)
+/obj/item/implanter/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You prod at [src] with [W]!</span>")
-			return
+			return TRUE
 		var/t = stripped_input(user, "What would you like the label to be?", name, null)
 		if(user.get_active_held_item() != W)
-			return
+			return TRUE
 		if(!user.canUseTopic(src, BE_CLOSE))
-			return
+			return TRUE
 		if(t)
 			name = "implanter ([t])"
 		else
 			name = "implanter"
+		return TRUE
 	else
 		return ..()
 

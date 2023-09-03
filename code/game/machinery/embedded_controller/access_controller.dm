@@ -12,9 +12,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/idSelf
 
-/obj/machinery/doorButtons/attackby(obj/O, mob/user)
-	return attack_hand(user)
-
 /obj/machinery/doorButtons/proc/findObjsByTag()
 	return
 

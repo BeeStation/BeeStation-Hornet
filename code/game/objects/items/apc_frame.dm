@@ -58,13 +58,14 @@
 /obj/item/wallframe/proc/after_attach(var/obj/O)
 	transfer_fingerprints_to(O)
 
-/obj/item/wallframe/attackby(obj/item/W, mob/user, params)
+/obj/item/wallframe/item_interact(obj/item/W, mob/user, params)
 	..()
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		// For camera-building borgs
 		var/turf/T = get_step(get_turf(user), user.dir)
 		if(iswallturf(T))
 			T.attackby(src, user, params)
+		return TRUE
 
 	var/iron_amt = round(materials[/datum/material/iron]/MINERAL_MATERIAL_AMOUNT) //Replace this shit later
 	var/glass_amt = round(materials[/datum/material/glass]/MINERAL_MATERIAL_AMOUNT) //Replace this shit later
@@ -76,8 +77,8 @@
 		if(glass_amt)
 			new /obj/item/stack/sheet/glass(get_turf(src), glass_amt)
 		qdel(src)
-
-
+		return TRUE
+	return ..()
 
 // APC HULL
 /obj/item/wallframe/apc

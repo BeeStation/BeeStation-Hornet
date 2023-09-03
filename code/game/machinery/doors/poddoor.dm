@@ -21,13 +21,11 @@
 	var/pod_close_sound = 'sound/machines/blastdoor.ogg'
 	icon_state = "blast_closed"
 
-/obj/machinery/door/poddoor/attackby(obj/item/W, mob/user, params)
-	. = ..()
-
+/obj/machinery/door/poddoor/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(density)
 			to_chat(user, "<span class='warning'>You need to open [src] before opening its maintenance panel.</span>")
-			return
+			return TRUE
 		else if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
 			to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance hatch of [src].</span>")
 			return TRUE
@@ -38,6 +36,7 @@
 			if(change_id)
 				id = clamp(round(change_id, 1), 1, 100)
 				to_chat(user, "<span class='notice'>You change the ID to [id].</span>")
+			return TRUE
 
 		if(W.tool_behaviour == TOOL_CROWBAR &&deconstruction == BLASTDOOR_FINISHED)
 			to_chat(user, "<span class='notice'>You start to remove the airlock electronics.</span>")
@@ -45,6 +44,7 @@
 				new /obj/item/electronics/airlock(loc)
 				id = null
 				deconstruction = BLASTDOOR_NEEDS_ELECTRONICS
+			return TRUE
 
 		else if(W.tool_behaviour == TOOL_WIRECUTTER && deconstruction == BLASTDOOR_NEEDS_ELECTRONICS)
 			to_chat(user, "<span class='notice'>You start to remove the internal cables.</span>")
@@ -54,16 +54,19 @@
 				var/amount = recipe.reqs[/obj/item/stack/cable_coil]
 				new /obj/item/stack/cable_coil(loc, amount)
 				deconstruction = BLASTDOOR_NEEDS_WIRES
+			return TRUE
 
 		else if(W.tool_behaviour == TOOL_WELDER && deconstruction == BLASTDOOR_NEEDS_WIRES)
 			if(!W.tool_start_check(user, amount=0))
-				return
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You start tearing apart the [src].</span>")
 			playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
 			if(do_after(user, 15 SECONDS, target = src))
 				new /obj/item/stack/sheet/plasteel(loc, 15)
 				qdel(src)
+			return TRUE
+	return ..()
 
 /obj/machinery/door/poddoor/examine(mob/user)
 	. = ..()

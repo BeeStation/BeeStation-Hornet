@@ -150,29 +150,29 @@ Possible to do for anyone motivated enough:
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Current projection range: <b>[holo_range]</b> units.</span>"
 
-/obj/machinery/holopad/attackby(obj/item/P, mob/user, params)
+/obj/machinery/holopad/item_interact(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", P))
-		return
+		return TRUE
 
 	if(default_pry_open(P))
-		return
+		return TRUE
 
 	if(default_unfasten_wrench(user, P))
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(P))
-		return
+		return TRUE
 
 	if(istype(P,/obj/item/disk/holodisk))
 		if(disk)
 			to_chat(user,"<span class='notice'>There's already a disk inside [src]</span>")
-			return
+			return TRUE
 		if (!user.transferItemToLoc(P,src))
-			return
+			return TRUE
 		to_chat(user,"<span class='notice'>You insert [P] into [src]</span>")
 		disk = P
 		updateDialog()
-		return
+		return TRUE
 
 	return ..()
 

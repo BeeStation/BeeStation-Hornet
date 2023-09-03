@@ -44,7 +44,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
+/obj/item/bedsheet/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
 		var/turf/T = get_turf(src)
 		var/obj/item/stack/sheet/cotton/cloth/C = new (T, 3)
@@ -55,6 +55,7 @@
 			C.add_fingerprint(user)
 		qdel(src)
 		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
+		return TRUE
 	else
 		return ..()
 

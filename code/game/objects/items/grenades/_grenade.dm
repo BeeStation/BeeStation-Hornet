@@ -137,7 +137,7 @@
 		var/mob/M = loc
 		M.dropItemToGround(src)
 
-/obj/item/grenade/attackby(obj/item/W, mob/user, params)
+/obj/item/grenade/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		switch(det_time)
 			if(1)
@@ -150,6 +150,7 @@
 				det_time = 1
 				to_chat(user, "<span class='notice'>You set the [name] for instant detonation.</span>")
 		add_fingerprint(user)
+		return TRUE
 	else
 		return ..()
 

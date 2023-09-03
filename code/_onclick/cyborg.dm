@@ -70,7 +70,7 @@
 
 		// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc in contents)
 		if(A == loc || (A in loc) || (A in contents))
-			W.target_clicked(src, A, params)
+			W.use_on(src, A, params)
 			return
 
 		if(!isturf(loc))
@@ -79,7 +79,7 @@
 		// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc && isturf(A.loc.loc))
 		if(isturf(A) || isturf(A.loc))
 			if(A.Adjacent(src)) // see adjacent.dm
-				W.target_clicked(src, A, params)
+				W.use_on(src, A, params)
 				return
 			else
 				W.afterattack(A, src, 0, params)
@@ -167,7 +167,7 @@
 	clicks, you can do so here, but you will have to
 	change attack_robot() above to the proper function
 */
-/mob/living/silicon/robot/UnarmedAttack(atom/A)
+/mob/living/silicon/robot/primary_interact(atom/A)
 	A.attack_robot(src)
 /mob/living/silicon/robot/primary_ranged_attack(atom/A)
 	A.attack_robot(src)

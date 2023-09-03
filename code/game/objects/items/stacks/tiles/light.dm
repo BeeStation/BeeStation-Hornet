@@ -15,16 +15,17 @@
 	max_amount = 60
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/copper = 5)
 
-/obj/item/stack/light_w/attackby(obj/item/O, mob/user, params)
+/obj/item/stack/light_w/item_interact(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/stack/sheet/iron))
 		return ..()
 	var/obj/item/stack/sheet/iron/M = O
 	if(!M.use(1))
 		to_chat(user, "<span class='warning'>You need one iron sheet to finish the light tile!</span>")
-		return
+		return TRUE
 	new /obj/item/stack/tile/light(user.drop_location(), null, TRUE, user)
 	to_chat(user, "<span class='notice'>You make a light tile.</span>")
 	use(1)
+	return TRUE
 
 /obj/item/stack/light_w/wirecutter_act(mob/living/user, obj/item/I)
 	var/atom/Tsec = user.drop_location()
@@ -55,13 +56,14 @@
 	else
 		state = 0 //fine
 
-/obj/item/stack/tile/light/attackby(obj/item/O, mob/user, params)
+/obj/item/stack/tile/light/item_interact(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_CROWBAR)
 		new/obj/item/stack/sheet/iron(user.loc)
 		amount--
 		new/obj/item/stack/light_w(user.loc)
 		if(amount <= 0)
 			qdel(src)
+		return TRUE
 	else
 		return ..()
 
@@ -70,5 +72,6 @@
 	is_cyborg = 1
 	cost = 125
 
-/obj/item/stack/tile/light/cyborg/attackby(obj/item/O, mob/user, params)
-	return
+// Do not allow inserting things
+/obj/item/stack/tile/light/cyborg/item_interact(obj/item/O, mob/user, params)
+	return FALSE

@@ -307,7 +307,7 @@
 					Goto(C, move_to_delay)
 					addtimer(CALLBACK(src, PROC_REF(GiveUp)), 20 SECONDS) //to prevent infinite chases
 		if(heal_target && get_dist(src, heal_target) <= 1)
-			UnarmedAttack(heal_target)
+			primary_interact(heal_target)
 			if(!heal_target || heal_target.health >= heal_target.maxHealth)
 				GiveUp()
 	..() //Do normal stuff after giving priority to healing attempts

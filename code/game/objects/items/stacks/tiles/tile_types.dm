@@ -27,15 +27,15 @@
 		tile_reskin_types = tile_reskin_list(tile_reskin_types)
 
 
-/obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/tile/item_interact(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WELDER)
 		if(get_amount() < 4)
 			to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
-			return
+			return TRUE
 
 		if(!mineralType)
 			to_chat(user, "<span class='warning'>You can not reform this!</span>")
-			return
+			return TRUE
 
 		if(W.use_tool(src, user, 0, volume=40))
 			if(mineralType == "plasma")
@@ -43,7 +43,7 @@
 				user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
 									"<span class='warning'>You set the plasma tiles on fire!</span>")
 				qdel(src)
-				return
+				return TRUE
 
 			if (mineralType == "iron")
 				var/obj/item/stack/sheet/iron/new_item = new(user.loc)
@@ -69,6 +69,7 @@
 				R.use(4)
 				if (!R && replace)
 					user.put_in_hands(new_item)
+		return TRUE
 	else
 		return ..()
 
@@ -82,7 +83,7 @@
 	turf_type = /turf/open/floor/grass
 	resistance_flags = FLAMMABLE
 
-/obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/tile/grass/item_interact(obj/item/W, mob/user, params)
 	if((W.tool_behaviour == TOOL_SHOVEL) && params)
 		to_chat(user, "<span class='notice'>You start digging up [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
@@ -91,6 +92,7 @@
 			user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
 			playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 			qdel(src)
+		return TRUE
 	else
 		return ..()
 

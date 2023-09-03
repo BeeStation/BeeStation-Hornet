@@ -770,20 +770,21 @@
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	add_fingerprint(user)
 
-/obj/item/melee/roastingstick/attackby(atom/target, mob/user)
-	..()
+/obj/item/melee/roastingstick/item_interact(atom/target, mob/user)
 	if (istype(target, /obj/item/reagent_containers/food/snacks/sausage))
 		if (!on)
 			to_chat(user, "<span class='warning'>You must extend [src] to attach anything to it!</span>")
-			return
+			return TRUE
 		if (held_sausage)
 			to_chat(user, "<span class='warning'>[held_sausage] is already attached to [src]!</span>")
-			return
+			return TRUE
 		if (user.transferItemToLoc(target, src))
 			held_sausage = target
 		else
 			to_chat(user, "<span class='warning'>[target] doesn't seem to want to get on [src]!</span>")
-	update_icon()
+		update_icon()
+		return TRUE
+	return ..()
 
 /obj/item/melee/roastingstick/attack_hand(mob/user)
 	..()

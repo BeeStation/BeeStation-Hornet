@@ -96,7 +96,7 @@
 		proxy_module = null
 
 
-/obj/structure/camera_assembly/attackby(obj/item/W, mob/living/user, params)
+/obj/structure/camera_assembly/item_interact(obj/item/W, mob/living/user, params)
 	switch(state)
 		if(STATE_WRENCHED)
 			if(W.tool_behaviour == TOOL_WELDER)
@@ -104,7 +104,7 @@
 					to_chat(user, "<span class='notice'>You weld [src] securely into place.</span>")
 					setAnchored(TRUE)
 					state = STATE_WELDED
-				return
+			return TRUE
 
 		if(STATE_WELDED)
 			if(istype(W, /obj/item/stack/cable_coil))
@@ -114,8 +114,8 @@
 					state = STATE_WIRED
 				else
 					to_chat(user, "<span class='warning'>You need two lengths of cable to wire a camera!</span>")
-					return
-				return
+					return TRUE
+				return TRUE
 
 			else if(W.tool_behaviour == TOOL_WELDER)
 
@@ -123,31 +123,31 @@
 					to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
 					state = STATE_WRENCHED
 					setAnchored(TRUE)
-				return
+				return TRUE
 
 		if(STATE_WIRED)	// Upgrades!
 			if(istype(W, /obj/item/stack/sheet/mineral/plasma)) //emp upgrade
 				if(emp_module)
 					to_chat(user, "<span class='warning'>[src] already contains a [emp_module]!</span>")
-					return
+					return TRUE
 				if(!W.use_tool(src, user, 0, amount=1)) //only use one sheet, otherwise the whole stack will be consumed.
-					return
+					return TRUE
 				emp_module = new(src)
 				if(malf_xray_firmware_active)
 					malf_xray_firmware_active = FALSE //flavor reason: MALF AI Upgrade Camera Network ability's firmware is incompatible with the new part
 														//real reason: make it a normal upgrade so the finished camera's icons and examine texts are restored.
 				to_chat(user, "<span class='notice'>You attach [W] into [src]'s inner circuits.</span>")
-				return
+				return TRUE
 
 			else if(istype(W, /obj/item/assembly/prox_sensor)) //motion sensing upgrade
 				if(proxy_module)
 					to_chat(user, "<span class='warning'>[src] already contains a [proxy_module]!</span>")
-					return
+					return TRUE
 				if(!user.transferItemToLoc(W, src))
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You attach [W] into [src]'s inner circuits.</span>")
 				proxy_module = W
-				return
+				return TRUE
 
 	return ..()
 

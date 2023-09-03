@@ -28,6 +28,12 @@
 
 /// Attacker may be null
 /datum/damage_source/proc/deal_attack(mob/living/attacker, obj/item/attacking_item, atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
+	// Determine the target_zone
+	if (!target_zone)
+		target_zone = ran_zone(attacker?.zone_selected || BODY_ZONE_CHEST)
+	var/final_damage_amount = calculate_damage(living_target, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
+	if (final_damage_amount <= 0)
+		return
 	// Play the animation
 	if (attacking_item)
 		if (attacker)
@@ -37,9 +43,11 @@
 	else
 		if (attacker)
 			attacker.do_attack_animation(target, isanimal(attacker) ? pick(ATTACK_EFFECT_BITE, ATTACK_EFFECT_CLAW) : pick(ATTACK_EFFECT_KICK, ATTACK_EFFECT_PUNCH))
-	// Determine the target_zone
-	if (!target_zone)
-		target_zone = ran_zone(attacker?.zone_selected || BODY_ZONE_CHEST)
+	// Pacifism check
+	if (attacker && HAS_TRAIT(attacker, TRAIT_PACIFISM) && final_damage_amount > 0 && ispath(damage_type, /datum/damage/stamina))
+		to_chat(attacker, "<span class='notice'>You don't want to hurt anyone!</span>")
+		return
+	// Deal the damage
 	if (isliving(target))
 		var/mob/living/living_target = target
 		// Get the bodypart that we are going to target
@@ -51,9 +59,6 @@
 		if (isanimal(attacker))
 			var/mob/living/simple_animal/animal_attacker = attacker
 			armour_penetration_value ||= animal_attacker.armour_penetration
-		var/final_damage_amount = calculate_damage(living_target, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
-		if (final_damage_amount <= 0)
-			return
 		if (attacking_item && attacker)
 			living_target.send_item_attack_message(attacking_item, attacker, parse_zone(target_zone))
 		// Get the damage applyer

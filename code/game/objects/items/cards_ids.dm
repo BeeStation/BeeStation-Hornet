@@ -175,10 +175,10 @@
 		else
 			to_chat(usr, "Success: [target_value] points have been added. [registered_account.account_holder]'s account now holds [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 
-/obj/item/card/id/attackby(obj/item/W, mob/user, params)
+/obj/item/card/id/item_interact(obj/item/W, mob/user, params)
 	if(iscash(W))
 		insert_money(W, user)
-		return
+		return TRUE
 	else if(istype(W, /obj/item/storage/bag/money))
 		var/obj/item/storage/bag/money/money_bag = W
 		var/list/money_contained = money_bag.contents
@@ -187,7 +187,7 @@
 
 		if (money_added)
 			to_chat(user, "<span class='notice'>You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of credits to the linked account.</span>")
-		return
+		return TRUE
 	else
 		return ..()
 
@@ -532,21 +532,21 @@ update_label("John Doe", "Clowny")
 		return
 	chameleon_action.emp_randomise()
 
-/obj/item/card/id/syndicate/attackby(obj/item/W, mob/user, params)
+/obj/item/card/id/syndicate/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the agent ID ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the agent ID ([name]) with [W]")
-			return
-	. = ..()
+			return TRUE
+	return ..()
 
 // broken chameleon agent card
 /obj/item/card/id/syndicate/broken
@@ -782,13 +782,15 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_PAPER
 	electric = FALSE
 
-/obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
+/obj/item/card/id/paper/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
 		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
 		registered_name = target_name || registered_name  // in case they hit cancel
 		assignment = "Unknown"
 		to_chat(user, "<span class='notice'>You scribble the name [target_name] onto the slip.</span>")
 		update_label()
+		return TRUE
+	return ..()
 
 /obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
 	to_chat(user, "<span class='warning'>There's no money circuitry in here!</span>")

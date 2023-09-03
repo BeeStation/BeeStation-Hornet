@@ -39,26 +39,26 @@
 	target = null
 	..()
 
-/obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/item_interact(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
 		var/obj/item/assembly_holder/A = I
 		if(!user.transferItemToLoc(I, src))
-			return ..()
+			return TRUE
 		nadeassembly = A
 		A.master = src
 		assemblyattacher = user.ckey
 		to_chat(user, "<span class='notice'>You add [A] to the [name].</span>")
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
 		update_icon()
-		return
+		return TRUE
 	if(nadeassembly && I.tool_behaviour == TOOL_WIRECUTTER)
 		I.play_tool_sound(src, 20)
 		nadeassembly.forceMove(get_turf(src))
 		nadeassembly.master = null
 		nadeassembly = null
 		update_icon()
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/item/grenade/plastic/prime(mob/living/lanced_by)
 	. = ..()
@@ -211,12 +211,14 @@
 	prime()
 	user.gib(1, 1)
 
-/obj/item/grenade/plastic/c4/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/c4/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		open_panel = !open_panel
 		to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
+		return TRUE
 	else if(is_wire_tool(I))
 		wires.interact(user)
+		return TRUE
 	else
 		return ..()
 

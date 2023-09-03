@@ -19,12 +19,12 @@
 	STR.max_items = 4
 	STR.locked = TRUE
 
-/obj/item/storage/lockbox/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/lockbox/item_interact(obj/item/W, mob/user, params)
 	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
 	if(W.GetID())
 		if(broken)
 			to_chat(user, "<span class='danger'>It appears to be broken.</span>")
-			return
+			return TRUE
 		if(allowed(user))
 			SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, !locked)
 			locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
@@ -33,19 +33,20 @@
 				item_state = "[base_icon_state]+l"
 				to_chat(user, "<span class='danger'>You lock the [src.name]!</span>")
 				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
-				return
+				return TRUE
 			else
 				icon_state = "[base_icon_state]"
 				item_state = "[base_icon_state]"
 				to_chat(user, "<span class='danger'>You unlock the [src.name]!</span>")
-				return
+				return TRUE
 		else
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
-			return
+			return TRUE
 	if(!locked)
 		return ..()
 	else
 		to_chat(user, "<span class='danger'>It's locked!</span>")
+		return FALSE
 
 /obj/item/storage/lockbox/should_emag(mob/user)
 	return !broken && ..()

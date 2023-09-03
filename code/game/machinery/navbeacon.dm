@@ -70,10 +70,10 @@
 /obj/machinery/navbeacon/update_icon()
 	icon_state = "navbeacon[open]"
 
-/obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
+/obj/machinery/navbeacon/item_interact(obj/item/I, mob/user, params)
 	var/turf/T = loc
 	if(T.intact)
-		return		// prevent intraction when T-scanner revealed
+		return TRUE		// prevent intraction when T-scanner revealed
 
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		open = !open
@@ -81,6 +81,7 @@
 		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
 
 		update_icon()
+		return TRUE
 
 	else if (istype(I, /obj/item/card/id) || istype(I, /obj/item/modular_computer/tablet))
 		if(open)
@@ -92,6 +93,7 @@
 			updateDialog()
 		else
 			to_chat(user, "<span class='warning'>You must open the cover first!</span>")
+		return TRUE
 	else
 		return ..()
 

@@ -81,7 +81,7 @@
 			security_interface_locked = TRUE
 			. = TRUE
 
-/obj/machinery/modular_fabricator/autolathe/attackby(obj/item/O, mob/user, params)
+/obj/machinery/modular_fabricator/autolathe/item_interact(obj/item/O, mob/user, params)
 
 	if((ACCESS_SECURITY in O.GetAccess()) && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
@@ -102,11 +102,8 @@
 		wires.interact(user)
 		return TRUE
 
-	if(user.a_intent == INTENT_HARM) //so we can hit the machine
-		return ..()
-
 	if(machine_stat)
-		return TRUE
+		return ..()
 
 	if(istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] loads \the [O] into \the [src]...",

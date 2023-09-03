@@ -276,13 +276,13 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(panel_open)
 		add_overlay("wm_panel")
 
-/obj/machinery/washing_machine/attackby(obj/item/W, mob/user, params)
+/obj/machinery/washing_machine/item_interact(obj/item/W, mob/user, params)
 	if(panel_open && !busy && default_unfasten_wrench(user, W))
-		return
+		return TRUE
 
 	if(default_deconstruction_screwdriver(user, null, null, W))
 		update_icon()
-		return
+		return TRUE
 
 	else if(user.a_intent != INTENT_HARM)
 
@@ -305,6 +305,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if(W.dye_color)
 			color_source = W
 		update_icon()
+		return TRUE
 
 	else
 		return ..()

@@ -77,20 +77,21 @@
 
 	area.power_change()
 
-/obj/machinery/light_switch/attackby(obj/item/I, mob/user, params)
+/obj/machinery/light_switch/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		screwdrivered = !screwdrivered
 		user.visible_message("<span class='notice'>[user] [screwdrivered ? "un" : ""]secures [name].</span>", \
 		"<span class='notice'>You [screwdrivered ? "un" : ""]secure [name].</span>")
 		I.play_tool_sound(src)
 		update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
-		return
+		return TRUE
 	if(I.tool_behaviour == TOOL_CROWBAR && screwdrivered)
 		I.play_tool_sound(src)
 		user.visible_message("<span class='notice'>[user] pries [name] off the wall.</span>","<span class='notice'>You pry [name] off the wall.</span>")
 		new /obj/item/wallframe/light_switch(loc)
 		qdel(src)
-		return
+		return TRUE
+	return ..()
 
 /obj/machinery/light_switch/power_change()
 	if(area == get_area(src))

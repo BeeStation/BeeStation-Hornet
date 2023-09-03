@@ -211,7 +211,7 @@
 /obj/item/melee/transforming/energy/sword/saber/purple
 	possible_colors = list("purple" = LIGHT_COLOR_LAVENDER)
 
-/obj/item/melee/transforming/energy/sword/saber/attackby(obj/item/W, mob/living/user, params)
+/obj/item/melee/transforming/energy/sword/saber/item_interact(obj/item/W, mob/living/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(!hacked)
 			hacked = TRUE
@@ -223,6 +223,7 @@
 				user.update_inv_hands()
 		else
 			balloon_alert(user, "It's already fabulous!")
+		return TRUE
 	else
 		return ..()
 

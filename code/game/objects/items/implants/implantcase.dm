@@ -23,25 +23,26 @@
 		reagents = null
 
 
-/obj/item/implantcase/attackby(obj/item/W, mob/user, params)
+/obj/item/implantcase/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on the side of [src]!</span>")
-			return
+			return TRUE
 		var/t = stripped_input(user, "What would you like the label to be?", name, null)
 		if(user.get_active_held_item() != W)
-			return
+			return TRUE
 		if(!user.canUseTopic(src, BE_CLOSE))
-			return
+			return TRUE
 		if(t)
 			name = "implant case - '[t]'"
 		else
 			name = "implant case"
+		return TRUE
 	else if(istype(W, /obj/item/implanter))
 		var/obj/item/implanter/I = W
 		if(I.imp)
 			if(imp || I.imp.imp_in)
-				return
+				return TRUE
 			I.imp.forceMove(src)
 			imp = I.imp
 			I.imp = null
@@ -50,13 +51,13 @@
 		else
 			if(imp)
 				if(I.imp)
-					return
+					return TRUE
 				imp.forceMove(I)
 				I.imp = imp
 				imp = null
 				update_icon()
 			I.update_icon()
-
+		return TRUE
 	else
 		return ..()
 

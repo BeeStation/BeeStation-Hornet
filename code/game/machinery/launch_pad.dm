@@ -62,14 +62,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 		return COMPONENT_BUFFER_RECIEVED
 	return NONE
 
-/obj/machinery/launchpad/attackby(obj/item/I, mob/user, params)
+/obj/machinery/launchpad/item_interact(obj/item/I, mob/user, params)
 	if(stationary)
 		if(default_deconstruction_screwdriver(user, "lpad-idle-o", "lpad-idle", I))
 			update_indicator()
-			return
+			return TRUE
 
 		if(default_deconstruction_crowbar(I))
-			return
+			return TRUE
 
 	return ..()
 
@@ -258,13 +258,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 			closed = TRUE
 			update_indicator()
 
-/obj/machinery/launchpad/briefcase/attackby(obj/item/I, mob/user, params)
+/obj/machinery/launchpad/briefcase/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/launchpad_remote))
 		var/obj/item/launchpad_remote/L = I
 		if(L.pad == WEAKREF(src)) //do not attempt to link when already linked
-			return ..()
+			return TRUE
 		L.pad = WEAKREF(src)
 		to_chat(user, "<span class='notice'>You link [src] to [L].</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -297,7 +298,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 		user.transferItemToLoc(src, pad, TRUE)
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
 
-/obj/item/storage/briefcase/launchpad/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/briefcase/launchpad/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/launchpad_remote))
 		var/obj/item/launchpad_remote/L = I
 		if(L.pad == WEAKREF(src.pad)) //do not attempt to link when already linked

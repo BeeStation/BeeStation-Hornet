@@ -34,14 +34,14 @@
 	if(AI)
 		. += "<span class='notice'>The AI recovery beacon is active.</span>"
 
-/obj/structure/mecha_wreckage/attackby(obj/item/I, mob/user, params)
+/obj/structure/mecha_wreckage/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WELDER)
 		if(salvage_num <= 0 || !length(welder_salvage))
 			to_chat(user, "<span class='warning'>You don't see anything that can be cut with [I]!</span>")
-			return
+			return TRUE
 
 		if(!I.use_tool(src, user, 0, volume=50))
-			return
+			return TRUE
 
 		var/type = prob(70) ? pick(welder_salvage) : null
 		if(type)
@@ -52,12 +52,12 @@
 			salvage_num--
 		else
 			to_chat(user, "<span class='warning'>You fail to salvage anything valuable from [src]!</span>")
-		return
+		return TRUE
 
 	else if(I.tool_behaviour == TOOL_WIRECUTTER)
 		if(salvage_num <= 0)
 			to_chat(user, "<span class='warning'>You don't see anything that can be cut with [I]!</span>")
-			return
+			return TRUE
 		else if(wirecutters_salvage && wirecutters_salvage.len)
 			var/type = prob(70) ? pick(wirecutters_salvage) : null
 			if(type)
@@ -66,6 +66,7 @@
 				salvage_num--
 			else
 				to_chat(user, "<span class='warning'>You fail to salvage anything valuable from [src]!</span>")
+		return TRUE
 
 	else if(I.tool_behaviour == TOOL_CROWBAR)
 		if(crowbar_salvage?.len)
@@ -74,10 +75,11 @@
 				S.forceMove(user.drop_location())
 				crowbar_salvage -= S
 				user.visible_message("[user] pries [S] from [src].", "<span class='notice'>You pry [S] from [src].</span>")
-			return
+			return TRUE
 		else
 			to_chat(user, "<span class='warning'>You don't see anything that can be pried with [I]!</span>")
-
+		return TRUE
+	return ..()
 
 /obj/structure/mecha_wreckage/transfer_ai(interaction, mob/user, mob/living/silicon/ai/ai_mob, obj/item/aicard/card)
 	if(!..())

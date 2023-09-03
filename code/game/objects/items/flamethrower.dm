@@ -85,7 +85,7 @@
 			log_combat(user, target, "flamethrowered", src)
 			flame_turf(turflist)
 
-/obj/item/flamethrower/attackby(obj/item/W, mob/user, params)
+/obj/item/flamethrower/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !status)//Taking this apart
 		var/turf/T = get_turf(src)
 		if(weldtool)
@@ -99,25 +99,25 @@
 			ptank = null
 		new /obj/item/stack/rods(T)
 		qdel(src)
-		return
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER && igniter && !lit)
 		status = !status
 		to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
 		update_icon()
-		return
+		return TRUE
 
 	else if(isigniter(W))
 		var/obj/item/assembly/igniter/I = W
 		if(I.secured)
-			return
+			return TRUE
 		if(igniter)
-			return
+			return TRUE
 		if(!user.transferItemToLoc(W, src))
-			return
+			return TRUE
 		igniter = I
 		update_icon()
-		return
+		return TRUE
 
 	else if(istype(W, /obj/item/tank/internals/plasma))
 		if(ptank)
@@ -125,12 +125,12 @@
 				ptank.forceMove(get_turf(src))
 				ptank = W
 				to_chat(user, "<span class='notice'>You swap the plasma tank in [src]!</span>")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(W, src))
-			return
+			return TRUE
 		ptank = W
 		update_icon()
-		return
+		return TRUE
 
 	else
 		return ..()

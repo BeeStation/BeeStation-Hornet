@@ -131,7 +131,7 @@
 
 //Step one to make leather - dehairing
 
-/obj/item/stack/sheet/animalhide/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/animalhide/item_interact(obj/item/W, mob/user, params)
 	if(W.is_sharp())
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
 		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
@@ -139,6 +139,7 @@
 			to_chat(user, "<span class='notice'>You cut the hair from this [src.singular_name].</span>")
 			new /obj/item/stack/sheet/leather/hairlesshide(user.drop_location(), 1)
 			use(1)
+		return TRUE
 	else
 		return ..()
 

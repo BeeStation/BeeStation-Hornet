@@ -1559,7 +1559,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
-		user.dna.species.spec_unarmedattacked(user, target)
+		user.dna.species.spec_primary_interacted(user, target)
 
 		var/target_zone = ran_zone(user.zone_selected)
 		if(user.limb_destroyer)
@@ -1577,7 +1577,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				target.force_say()
 			log_combat(user, target, "punched")
 
-/datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/species/proc/spec_primary_interacted(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)

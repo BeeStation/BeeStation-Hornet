@@ -24,9 +24,10 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/nuke_core/attackby(obj/item/nuke_core_container/container, mob/user)
+/obj/item/nuke_core/item_interact(obj/item/nuke_core_container/container, mob/user)
 	if(istype(container))
 		container.load(src, user)
+		return TRUE
 	else
 		return ..()
 
@@ -73,13 +74,13 @@
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [core]'s radiation is contained.</span>")
 
-/obj/item/nuke_core_container/attackby(obj/item/nuke_core/core, mob/user)
+/obj/item/nuke_core_container/item_interact(obj/item/nuke_core/core, mob/user)
 	if(istype(core))
 		if(!user.temporarilyRemoveItemFromInventory(core))
 			to_chat(user, "<span class='warning'>The [core] is stuck to your hand!</span>")
-			return
 		else
 			load(core, user)
+		return TRUE
 	else
 		return ..()
 
@@ -133,24 +134,27 @@
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
 	return FALSE
 
-/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/W, mob/living/user, params)
+///BACONTODO: Attackby here since harm mode shouldnt let you safely use a suermatter
+/obj/item/nuke_core/supermatter_sliver/item_interact(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/hemostat/supermatter))
 		var/obj/item/hemostat/supermatter/tongs = W
 		if (tongs.sliver)
 			to_chat(user, "<span class='notice'>\The [tongs] is already holding a supermatter sliver!</span>")
-			return FALSE
+			return TRUE
 		forceMove(tongs)
 		tongs.sliver = src
 		tongs.update_icon()
 		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
+		return TRUE
 	else if(istype(W, /obj/item/scalpel/supermatter) || istype(W, /obj/item/nuke_core_container/supermatter/)) // we don't want it to dust
-		return
+		return TRUE
 	else
 		to_chat(user, "<span class='notice'>As it touches \the [src], both \the [src] and \the [W] burst into dust!</span>")
 		radiation_pulse(user, 100)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, 1)
 		qdel(W)
 		qdel(src)
+		return TRUE
 
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
 	..()
@@ -193,10 +197,11 @@
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [sliver] is safely contained.</span>")
 
-/obj/item/nuke_core_container/supermatter/attackby(obj/item/hemostat/supermatter/tongs, mob/user)
+/obj/item/nuke_core_container/supermatter/item_interact(obj/item/hemostat/supermatter/tongs, mob/user)
 	if(istype(tongs))
 		//try to load shard into core
 		load(tongs, user)
+		return TRUE
 	else
 		return ..()
 

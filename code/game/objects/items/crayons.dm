@@ -545,19 +545,20 @@
 	for(var/obj/item/toy/crayon/crayon in contents)
 		add_overlay(mutable_appearance('icons/obj/crayons.dmi', crayon.crayon_color))
 
-/obj/item/storage/crayons/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/crayons/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		switch(C.crayon_color)
 			if("mime")
 				to_chat(usr, "This crayon is too sad to be contained in this box.")
-				return
+				return TRUE
 			if("rainbow")
 				to_chat(usr, "This crayon is too powerful to be contained in this box.")
-				return
+				return TRUE
 		if(istype(W, /obj/item/toy/crayon/spraycan))
 			to_chat(user, "Spraycans are not crayons.")
-			return
+			return TRUE
+		return TRUE
 	return ..()
 
 /obj/item/storage/crayons/attack_self(mob/user)

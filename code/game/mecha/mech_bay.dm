@@ -74,16 +74,16 @@
 			recharge_console.ui_update()
 
 
-/obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mech_bay_recharge_port/item_interact(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
-		return
+		return TRUE
 
 	if(default_change_direction_wrench(user, I))
 		recharging_turf = get_step(loc, dir)
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 	return ..()
 
 /obj/machinery/computer/mech_bay_power_console

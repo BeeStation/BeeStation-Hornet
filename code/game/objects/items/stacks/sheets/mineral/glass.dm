@@ -31,17 +31,18 @@
 /obj/item/stack/sheet/glass/get_recipes()
 	return GLOB.glass_recipes
 
-/obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/glass/item_interact(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if (get_amount() < 1 || CC.get_amount() < 5)
 			to_chat(user, "<span class='warning>You need five lengths of coil and one sheet of glass to make wired glass!</span>")
-			return
+			return TRUE
 		CC.use(5)
 		use(1)
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
 		new /obj/item/stack/light_w(user.loc, 5, TRUE, user)
+		return TRUE
 	else if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V = W
 		if (V.get_amount() >= 1 && get_amount() >= 1)
@@ -53,7 +54,7 @@
 				user.put_in_hands(RG)
 		else
 			to_chat(user, "<span class='warning'>You need one rod and one sheet of glass to make reinforced glass!</span>")
-			return
+		return TRUE
 	else
 		return ..()
 
@@ -71,10 +72,6 @@
 	merge_type = /obj/item/stack/sheet/rglass
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/iron = 10)
 	point_value = 4
-
-/obj/item/stack/sheet/rglass/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	..()
 
 /obj/item/stack/sheet/rglass/cyborg
 	materials = list()
@@ -114,9 +111,7 @@
 /obj/item/stack/sheet/plasmaglass/get_recipes()
 	return GLOB.pglass_recipes
 
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-
+/obj/item/stack/sheet/plasmaglass/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V = W
 		if (V.get_amount() >= 1 && get_amount() >= 1)
@@ -128,7 +123,7 @@
 				user.put_in_hands(RG)
 		else
 			to_chat(user, "<span class='warning'>You need one rod and one sheet of plasma glass to make reinforced plasma glass!</span>")
-			return
+		return TRUE
 	else
 		return ..()
 
@@ -255,9 +250,10 @@
 			M.apply_damage(/datum/damage_source/skin_prick, /datum/damage/brute, force * 0.5, hit_hand)
 
 
-/obj/item/shard/attackby(obj/item/I, mob/user, params)
+/obj/item/shard/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/lightreplacer))
-		I.attackby(src, user)
+		use_on(user, I)
+		return TRUE
 	else
 		return ..()
 

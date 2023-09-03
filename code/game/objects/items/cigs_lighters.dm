@@ -160,7 +160,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/item/clothing/mask/cigarette/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/mask/cigarette/item_interact(obj/item/W, mob/user, params)
 	if(!lit && smoketime > 0)
 		var/lighting_text = W.ignition_effect(src, user)
 		if(lighting_text)
@@ -524,7 +524,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		handle_reagents()
 
 
-/obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/O, mob/user, params)
+/obj/item/clothing/mask/cigarette/pipe/item_interact(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/G = O
 		if(!packeditem)
@@ -540,6 +540,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				to_chat(user, "<span class='warning'>It has to be dried first!</span>")
 		else
 			to_chat(user, "<span class='warning'>It is already packed!</span>")
+		return TRUE
 	else
 		var/lighting_text = O.ignition_effect(src,user)
 		if(lighting_text)
@@ -547,8 +548,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				light(lighting_text)
 			else
 				to_chat(user, "<span class='warning'>There is nothing to smoke!</span>")
-		else
-			return ..()
+			return TRUE
+	return ..()
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user)
 	var/turf/location = get_turf(user)
@@ -855,7 +856,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		icon_state = "[param_color]_vape"
 		item_state = "[param_color]_vape"
 
-/obj/item/clothing/mask/vape/attackby(obj/item/O, mob/user, params)
+/obj/item/clothing/mask/vape/item_interact(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!screw)
 			screw = TRUE
@@ -872,6 +873,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			to_chat(user, "<span class='notice'>You close the cap on [src].</span>")
 			DISABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 			cut_overlays()
+		return TRUE
 
 	if(O.tool_behaviour == TOOL_MULTITOOL)
 		if(screw && !(obj_flags & EMAGGED))//also kinky
@@ -885,11 +887,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				super = 0
 				to_chat(user, "<span class='notice'>You decrease the voltage of [src].</span>")
 				add_overlay("vapeopen_low")
+			return TRUE
 
 		if(screw && (obj_flags & EMAGGED))
 			to_chat(user, "<span class='notice'>[src] can't be modified!</span>")
-		else
-			..()
+		return TRUE
+	..()
 
 /obj/item/clothing/mask/vape/should_emag(mob/user)
 	if(!..())

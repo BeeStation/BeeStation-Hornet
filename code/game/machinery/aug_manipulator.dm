@@ -52,31 +52,32 @@
 		storedpart = null
 		update_icon()
 
-/obj/machinery/aug_manipulator/attackby(obj/item/O, mob/user, params)
+/obj/machinery/aug_manipulator/item_interact(obj/item/O, mob/user, params)
 	if(default_unfasten_wrench(user, O))
 		power_change()
-		return
+		return TRUE
 
 	else if(istype(O, /obj/item/bodypart))
 		var/obj/item/bodypart/B = O
 		if(IS_ORGANIC_LIMB(B))
 			to_chat(user, "<span class='warning'>The machine only accepts cybernetics!</span>")
-			return
+			return TRUE
 		if(storedpart)
 			to_chat(user, "<span class='warning'>There is already something inside!</span>")
-			return
+			return TRUE
 		else
 			O = user.get_active_held_item()
 			if(!user.transferItemToLoc(O, src))
-				return
+				return TRUE
 			storedpart = O
 			O.add_fingerprint(user)
 			update_icon()
+			return TRUE
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		if(obj_integrity < max_integrity)
 			if(!O.tool_start_check(user, amount=0))
-				return
+				return TRUE
 
 			user.visible_message("[user] begins repairing [src].", \
 				"<span class='notice'>You begin repairing [src]...</span>", \
@@ -84,13 +85,15 @@
 
 			if(O.use_tool(src, user, 40, volume=50))
 				if(!(machine_stat & BROKEN))
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				set_machine_stat(machine_stat & ~BROKEN)
 				obj_integrity = max(obj_integrity, max_integrity)
 				update_icon()
+				return TRUE
 		else
 			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+			return TRUE
 	else
 		return ..()
 

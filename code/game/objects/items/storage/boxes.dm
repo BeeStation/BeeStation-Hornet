@@ -72,9 +72,9 @@
 	qdel(src)
 	user.put_in_hands(I)
 
-/obj/item/storage/box/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/package_wrap))
-		return 0
+		return TRUE
 	return ..()
 
 //Locker overloading issue solving boxes
@@ -764,10 +764,12 @@
 /obj/item/storage/box/matches/PopulateContents()
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_FILL_TYPE, /obj/item/match)
 
-/obj/item/storage/box/matches/attackby(obj/item/match/W as obj, mob/user as mob, params)
+/obj/item/storage/box/matches/item_interact(obj/item/match/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/match))
 		W.matchignite()
 		playsound(src.loc, 'sound/items/matchstick_lit.ogg', 100, 1)
+		return TRUE
+	return ..()
 
 /obj/item/storage/box/lights
 	name = "box of replacement bulbs"
@@ -850,18 +852,19 @@
 	desc = "A colorful cardboard box for the clown"
 	illustration = "clown"
 
-/obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/box/clown/item_interact(obj/item/I, mob/user, params)
 	if((istype(I, /obj/item/bodypart/l_arm/robot)) || (istype(I, /obj/item/bodypart/r_arm/robot)))
 		if(contents.len) //prevent accidently deleting contents
 			to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
-			return
+			return TRUE
 		if(!user.temporarilyRemoveItemFromInventory(I))
-			return
+			return TRUE
 		qdel(I)
 		to_chat(user, "<span class='notice'>You add some wheels to the [src]! You've got a honkbot assembly now! Honk!</span>")
 		var/obj/item/bot_assembly/honkbot/A = new
 		qdel(src)
 		user.put_in_hands(A)
+		return TRUE
 	else
 		return ..()
 
@@ -965,20 +968,20 @@
 		icon_state = "[item_state]"
 	else icon_state = "[item_state]_closed"
 
-/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/papersack/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
-			return
+			return TRUE
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILEY, "Cancel")
 		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) in sort_list(designs)
 		if(get_dist(usr, src) > 1)
 			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
-			return
+			return TRUE
 		var/choice = designs.Find(switchDesign)
 		if(design == designs[choice] || designs[choice] == "Cancel")
-			return 0
+			return TRUE
 		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
 		design = designs[choice]
 		icon_state = "paperbag_[design]"
@@ -994,19 +997,18 @@
 				desc = "A paper sack with a heart etched onto the side."
 			if(SMILEY)
 				desc = "A paper sack with a crude smile etched onto the side."
-		return 0
+		return TRUE
 	else if(W.is_sharp())
 		if(!contents.len)
 			if(item_state == "paperbag_None")
 				user.show_message("<span class='notice'>You cut eyeholes into [src].</span>", MSG_VISUAL)
 				new /obj/item/clothing/head/papersack(user.loc)
 				qdel(src)
-				return 0
 			else if(item_state == "paperbag_SmileyFace")
 				user.show_message("<span class='notice'>You cut eyeholes into [src] and modify the design.</span>", MSG_VISUAL)
 				new /obj/item/clothing/head/papersack/smiley(user.loc)
 				qdel(src)
-				return 0
+		return TRUE
 	return ..()
 
 #undef NODESIGN

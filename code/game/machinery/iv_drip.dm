@@ -103,19 +103,19 @@
 			to_chat(usr, "<span class='warning'>There's nothing attached to the IV drip!</span>")
 
 
-/obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
+/obj/machinery/iv_drip/item_interact(obj/item/W, mob/user, params)
 	if(is_type_in_typecache(W, drip_containers))
 		if(beaker)
 			to_chat(user, "<span class='warning'>There is already a reagent container loaded!</span>")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(W, src))
-			return
+			return TRUE
 		beaker = W
 		to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
 		user.log_message("attached a [W] to [src] at [AREACOORD(src)] containing ([beaker.reagents.log_list()])", LOG_ATTACK)
 		add_fingerprint(user)
 		update_icon()
-		return
+		return TRUE
 	else
 		return ..()
 

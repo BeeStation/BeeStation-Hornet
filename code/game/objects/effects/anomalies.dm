@@ -100,9 +100,11 @@
 	qdel(src)
 
 
-/obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
+/obj/effect/anomaly/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_ANALYZER)
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
+		return TRUE
+	return ..()
 
 ///////////////////////
 /atom/movable/warp_effect

@@ -68,7 +68,7 @@
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon()
 
-/obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/balloon/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(I.reagents)
 			if(I.reagents.total_volume <= 0)
@@ -80,8 +80,10 @@
 				to_chat(user, "<span class='notice'>You fill the balloon with the contents of [I].</span>")
 				I.reagents.trans_to(src, 10, transfered_by = user)
 				update_icon()
+		return TRUE
 	else if(I.is_sharp())
 		balloon_burst()
+		return ..()
 	else
 		return ..()
 
@@ -175,7 +177,7 @@
 	. = ..()
 	. += "There [bullets == 1 ? "is" : "are"] [bullets] cap\s left."
 
-/obj/item/toy/gun/attackby(obj/item/toy/ammo/gun/A, mob/user, params)
+/obj/item/toy/gun/item_interact(obj/item/toy/ammo/gun/A, mob/user, params)
 
 	if(istype(A, /obj/item/toy/ammo/gun))
 		if (src.bullets >= 7)
@@ -193,7 +195,7 @@
 			A.amount_left -= 7 - src.bullets
 			src.bullets = 7
 		A.update_icon()
-		return 1
+		return  RUE
 	else
 		return ..()
 
@@ -269,11 +271,10 @@
 	add_fingerprint(user)
 
 // Copied from /obj/item/melee/transforming/energy/sword/attackby
-/obj/item/toy/sword/attackby(obj/item/W, mob/living/user, params)
+/obj/item/toy/sword/item_interact(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/toy/sword))
 		if(HAS_TRAIT(W, TRAIT_NODROP) || HAS_TRAIT(src, TRAIT_NODROP))
 			to_chat(user, "<span class='warning'>\the [HAS_TRAIT(src, TRAIT_NODROP) ? src : W] is stuck to your hand, you can't attach it to \the [HAS_TRAIT(src, TRAIT_NODROP) ? W : src]!</span>")
-			return
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
 			var/obj/item/dualsaber/toy/newSaber = new /obj/item/dualsaber/toy(user.loc)
@@ -282,6 +283,7 @@
 				newSaber.saber_color = "rainbow"
 			qdel(W)
 			qdel(src)
+		return TRUE
 	else if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(!hacked)
 			hacked = TRUE
@@ -293,6 +295,7 @@
 				user.update_inv_hands()
 		else
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -781,31 +784,33 @@
 		user.visible_message("<span class='notice'>[user] shuffles the deck.</span>", "<span class='notice'>You shuffle the deck.</span>")
 		cooldown = world.time
 
-/obj/item/toy/cards/deck/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/deck/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/cards/singlecard))
 		var/obj/item/toy/cards/singlecard/SC = I
 		if(SC.parentdeck == src)
 			if(!user.temporarilyRemoveItemFromInventory(SC))
 				to_chat(user, "<span class='warning'>The card is stuck to your hand, you can't add it to the deck!</span>")
-				return
+				return TRUE
 			cards += SC.cardname
 			user.visible_message("<span class='notice'>[user] adds a card to the bottom of the deck.</span>","<span class='notice'>You add the card to the bottom of the deck.</span>")
 			qdel(SC)
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 		update_icon()
+		return TRUE
 	else if(istype(I, /obj/item/toy/cards/cardhand))
 		var/obj/item/toy/cards/cardhand/CH = I
 		if(CH.parentdeck == src)
 			if(!user.temporarilyRemoveItemFromInventory(CH))
 				to_chat(user, "<span class='warning'>The hand of cards is stuck to your hand, you can't add it to the deck!</span>")
-				return
+				return TRUE
 			cards += CH.currenthand
 			user.visible_message("<span class='notice'>[user] puts [user.p_their()] hand of cards in the deck.</span>", "<span class='notice'>You put the hand of cards in the deck.</span>")
 			qdel(CH)
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 		update_icon()
+		return TRUE
 	else
 		return ..()
 
@@ -889,7 +894,7 @@
 				cardUser << browse(null, "window=cardhand")
 		return
 
-/obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
+/obj/item/toy/cards/cardhand/item_interact(obj/item/toy/cards/singlecard/C, mob/living/user, params)
 	if(istype(C))
 		if(C.parentdeck == src.parentdeck)
 			src.currenthand += C.cardname
@@ -899,6 +904,7 @@
 			update_sprite()
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -971,7 +977,7 @@
 		src.name = "card"
 		src.pixel_x = -5
 
-/obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/singlecard/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/cards/singlecard/))
 		var/obj/item/toy/cards/singlecard/C = I
 		if(C.parentdeck == src.parentdeck)
@@ -986,6 +992,7 @@
 			user.put_in_active_hand(H)
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
+		return TRUE
 
 	if(istype(I, /obj/item/toy/cards/cardhand/))
 		var/obj/item/toy/cards/cardhand/H = I
@@ -997,6 +1004,7 @@
 			H.update_sprite()
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -1618,9 +1626,6 @@
 /obj/item/gobbler/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The Coin Gobbler holds [money] credits.</span>"
-
-/obj/item/gobbler/attackby()
-	return
 
 /obj/item/gobbler/attack_self(mob/user)
 	if(cooldown > world.time)

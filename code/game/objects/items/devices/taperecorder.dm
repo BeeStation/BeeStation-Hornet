@@ -38,14 +38,15 @@
 	. += "The wire panel is [open_panel ? "opened" : "closed"]."
 
 
-/obj/item/taperecorder/attackby(obj/item/I, mob/user, params)
+/obj/item/taperecorder/item_interact(obj/item/I, mob/user, params)
 	if(!mytape && istype(I, /obj/item/tape))
 		if(!user.transferItemToLoc(I,src))
-			return
+			return TRUE
 		mytape = I
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		update_icon()
-
+		return TRUE
+	return ..()
 
 /obj/item/taperecorder/proc/eject(mob/user)
 	if(mytape)
@@ -307,12 +308,14 @@
 	ruined = 0
 
 
-/obj/item/tape/attackby(obj/item/I, mob/user, params)
+/obj/item/tape/item_interact(obj/item/I, mob/user, params)
 	if(ruined && I.tool_behaviour == TOOL_SCREWDRIVER || istype(I, /obj/item/pen))
 		to_chat(user, "<span class='notice'>You start winding the tape back in...</span>")
 		if(I.use_tool(src, user, 120))
 			to_chat(user, "<span class='notice'>You wound the tape back in.</span>")
 			fix()
+		return TRUE
+	return ..()
 
 //Random colour tapes
 /obj/item/tape/random

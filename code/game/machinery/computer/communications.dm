@@ -61,9 +61,10 @@
 		return TRUE
 	return authenticated
 
-/obj/machinery/computer/communications/attackby(obj/I, mob/user, params)
+/obj/machinery/computer/communications/item_interact(obj/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		attack_hand(user)
+		return TRUE
 	else
 		return ..()
 

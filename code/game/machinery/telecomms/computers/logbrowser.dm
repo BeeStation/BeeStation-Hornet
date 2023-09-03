@@ -210,6 +210,6 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/telecomms/server/attackby()
+/obj/machinery/computer/telecomms/server/item_interact()
 	. = ..()
 	updateUsrDialog()

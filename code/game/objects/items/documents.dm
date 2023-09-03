@@ -45,7 +45,7 @@
 			var/obj/item/documents/photocopy/C = copy
 			copy_type = C.copy_type
 
-/obj/item/documents/photocopy/attackby(obj/item/O, mob/user, params)
+/obj/item/documents/photocopy/item_interact(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/toy/crayon/red) || istype(O, /obj/item/toy/crayon/blue))
 		if (forgedseal)
 			to_chat(user, "<span class='warning'>You have already forged a seal on [src]!</span>")
@@ -56,3 +56,5 @@
 			forgedseal = C.crayon_color
 			to_chat(user, "<span class='notice'>You forge the official seal with a [C.crayon_color] crayon. No one will notice... right?</span>")
 			update_icon()
+		return TRUE
+	return ..()

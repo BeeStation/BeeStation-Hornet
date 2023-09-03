@@ -128,15 +128,15 @@
 		rad_pulse()
 		return
 
-/obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/scan_consolenew/item_interact(obj/item/I, mob/user, params)
 	if (istype(I, /obj/item/disk/data)) //INSERT SOME DISKETTES
 		if (!src.diskette)
 			if (!user.transferItemToLoc(I,src))
-				return
+				return TRUE
 			src.diskette = I
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
 			src.updateUsrDialog()
-			return
+			return TRUE
 	if (istype(I, /obj/item/chromosome))
 		if(LAZYLEN(stored_chromosomes) < max_chromosomes)
 			I.forceMove(src)
@@ -144,7 +144,7 @@
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
 		else
 			to_chat(user, "<span class='warning'>You cannot store any more chromosomes.</span>")
-		return
+		return TRUE
 	if(istype(I, /obj/item/dnainjector/activator))
 		var/obj/item/dnainjector/activator/A = I
 		if(A.used)
@@ -157,7 +157,7 @@
 					stored_chromosomes += CM
 					to_chat(user,"<span class='notice'>[capitalize(CM.name)] added to storage.</span>")
 			qdel(I)
-			return
+			return TRUE
 
 	else
 		return ..()

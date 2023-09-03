@@ -301,7 +301,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /obj/item/pipe_dispenser/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/pipe_dispenser/attackby(obj/item/W, mob/user, params)
+/obj/item/pipe_dispenser/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rpd_upgrade))
 		install_upgrade(W, user)
 		return TRUE

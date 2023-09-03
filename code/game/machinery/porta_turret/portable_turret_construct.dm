@@ -19,7 +19,7 @@
 	var/finish_name = "turret"	//the name applied to the product turret
 	var/obj/item/gun/installed_gun = null
 
-/obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user, params)
+/obj/machinery/porta_turret_construct/item_interact(obj/item/I, mob/user, params)
 	//this is a bit unwieldy but self-explanatory
 	switch(build_step)
 		if(PTURRET_UNSECURED)	//first step
@@ -28,14 +28,14 @@
 				to_chat(user, "<span class='notice'>You secure the external bolts.</span>")
 				setAnchored(TRUE)
 				build_step = PTURRET_BOLTED
-				return
+				return TRUE
 
 			else if(I.tool_behaviour == TOOL_CROWBAR && !anchored)
 				I.play_tool_sound(src, 75)
 				to_chat(user, "<span class='notice'>You dismantle the turret construction.</span>")
 				new /obj/item/stack/sheet/iron( loc, 5)
 				qdel(src)
-				return
+				return TRUE
 
 		if(PTURRET_BOLTED)
 			if(istype(I, /obj/item/stack/sheet/iron))
@@ -46,14 +46,14 @@
 					icon_state = "turret_frame2"
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of iron to continue construction!</span>")
-				return
+				return TRUE
 
 			else if(I.tool_behaviour == TOOL_WRENCH)
 				I.play_tool_sound(src, 75)
 				to_chat(user, "<span class='notice'>You unfasten the external bolts.</span>")
 				setAnchored(FALSE)
 				build_step = PTURRET_UNSECURED
-				return
+				return TRUE
 
 
 		if(PTURRET_START_INTERNAL_ARMOUR)
@@ -61,11 +61,11 @@
 				I.play_tool_sound(src, 100)
 				to_chat(user, "<span class='notice'>You bolt the metal armor into place.</span>")
 				build_step = PTURRET_INTERNAL_ARMOUR_ON
-				return
+				return TRUE
 
 			else if(I.tool_behaviour == TOOL_WELDER)
 				if(!I.tool_start_check(user, amount=5)) //uses up 5 fuel
-					return
+					return TRUE
 
 				to_chat(user, "<span class='notice'>You start to remove the turret's interior metal armor...</span>")
 
@@ -73,18 +73,18 @@
 					build_step = PTURRET_BOLTED
 					to_chat(user, "<span class='notice'>You remove the turret's interior metal armor.</span>")
 					new /obj/item/stack/sheet/iron(drop_location(), 2)
-					return
+					return TRUE
 
 
 		if(PTURRET_INTERNAL_ARMOUR_ON)
 			if(istype(I, /obj/item/gun/energy)) //the gun installation part
 				var/obj/item/gun/energy/E = I
 				if(!user.transferItemToLoc(E, src))
-					return
+					return TRUE
 				installed_gun = E
 				to_chat(user, "<span class='notice'>You add [I] to the turret.</span>")
 				build_step = PTURRET_GUN_EQUIPPED
-				return
+				return TRUE
 
 			else if(I.tool_behaviour == TOOL_WRENCH)
 				I.play_tool_sound(src, 100)
@@ -96,10 +96,10 @@
 			if(isprox(I))
 				build_step = PTURRET_SENSORS_ON
 				if(!user.temporarilyRemoveItemFromInventory(I))
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You add the proximity sensor to the turret.</span>")
 				qdel(I)
-				return
+				return TRUE
 
 
 		if(PTURRET_SENSORS_ON)
@@ -107,7 +107,7 @@
 				I.play_tool_sound(src, 100)
 				build_step = PTURRET_CLOSED
 				to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
-				return
+				return TRUE
 
 
 		if(PTURRET_CLOSED)
@@ -118,18 +118,18 @@
 					build_step = PTURRET_START_EXTERNAL_ARMOUR
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of iron to continue construction!</span>")
-				return
+				return TRUE
 
 			else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 				I.play_tool_sound(src, 100)
 				build_step = PTURRET_SENSORS_ON
 				to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
-				return
+				return TRUE
 
 		if(PTURRET_START_EXTERNAL_ARMOUR)
 			if(I.tool_behaviour == TOOL_WELDER)
 				if(!I.tool_start_check(user, amount=5))
-					return
+					return TRUE
 
 				to_chat(user, "<span class='notice'>You begin to weld the turret's armor down...</span>")
 				if(I.use_tool(src, user, 30, volume=50, amount=5))
@@ -154,17 +154,17 @@
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/iron(loc, 2)
 				build_step = PTURRET_CLOSED
-				return
+				return TRUE
 
 	if(istype(I, /obj/item/pen))	//you can rename turrets like bots!
 		var/t = stripped_input(user, "Enter new turret name", name, finish_name)
 		if(!t)
-			return
+			return TRUE
 		if(!Adjacent(user))
-			return
+			return TRUE
 
 		finish_name = t
-		return
+		return TRUE
 	return ..()
 
 

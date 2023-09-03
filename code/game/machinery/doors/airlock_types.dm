@@ -245,12 +245,11 @@
 /obj/machinery/door/airlock/plasma/BlockThermalConductivity() //we don't stop the heat~
 	return 0
 
-/obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/airlock/plasma/item_interact(obj/item/C, mob/user, params)
 	if(C.is_hot() > 300)//If the temperature of the object is over 300, then ignite
 		if(plasma_ignition(6, user))
 			PlasmaBurn()
-	else
-		return ..()
+	return ..()
 
 /obj/machinery/door/airlock/plasma/glass
 	opacity = FALSE

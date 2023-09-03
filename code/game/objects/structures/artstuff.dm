@@ -14,7 +14,7 @@
 	var/obj/item/canvas/painting = null
 
 //Adding canvases
-/obj/structure/easel/attackby(obj/item/I, mob/user, params)
+/obj/structure/easel/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/canvas))
 		var/obj/item/canvas/canvas = I
 		user.dropItemToGround(canvas)
@@ -22,6 +22,7 @@
 		canvas.forceMove(get_turf(src))
 		canvas.layer = layer+0.1
 		user.visible_message("<span class='notice'>[user] puts \the [canvas] on \the [src].</span>", "<span class='notice'>You place \the [canvas] on \the [src].</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -89,11 +90,9 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/item/canvas/attackby(obj/item/I, mob/living/user, params)
-	if(user.a_intent == INTENT_HELP)
-		ui_interact(user)
-	else
-		return ..()
+/obj/item/canvas/item_interact(obj/item/I, mob/living/user, params)
+	ui_interact(user)
+	return TRUE
 
 /obj/item/canvas/ui_data(mob/user)
 	. = ..()
@@ -264,11 +263,13 @@
 	. = ..()
 	SSpersistence.painting_frames -= src
 
-/obj/structure/sign/painting/attackby(obj/item/I, mob/user, params)
+/obj/structure/sign/painting/item_interact(obj/item/I, mob/user, params)
 	if(!current_canvas && istype(I, /obj/item/canvas))
 		frame_canvas(user,I)
+		return TRUE
 	else if(current_canvas && current_canvas.painting_name == initial(current_canvas.painting_name) && istype(I,/obj/item/pen))
 		try_rename(user)
+		return TRUE
 	else
 		return ..()
 

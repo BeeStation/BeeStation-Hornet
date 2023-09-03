@@ -56,15 +56,15 @@
 	teleport_cooldown = initial(teleport_cooldown)
 	teleport_cooldown -= (E * 100)
 
-/obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
+/obj/machinery/quantumpad/item_interact(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I))
-		return
+		return TRUE
 	else if(panel_open && I.tool_behaviour == TOOL_WIRECUTTER)
 		wires.interact(user)
 		return TRUE
 
 	if(panel_open)
-		return
+		return TRUE
 
 	if(istype(I, /obj/item/quantum_keycard))
 		var/obj/item/quantum_keycard/K = I
@@ -76,9 +76,10 @@
 			if(do_after(user, 40, target = src))
 				to_chat(user, "<span class='notice'>You complete the link between [K] and [src].</span>")
 				K.qpad = src
+		return TRUE
 
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 
 	return ..()
 

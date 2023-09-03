@@ -575,7 +575,7 @@ Class Procs:
 	return TRUE
 
 // Power cell in hand replacement
-/obj/machinery/attackby(obj/item/C, mob/user)
+/obj/machinery/item_interact(obj/item/C, mob/user)
 	if(istype(C, /obj/item/stock_parts/cell) && panel_open)
 		for(var/obj/item/P in component_parts)
 			if(istype(P,/obj/item/stock_parts/cell))
@@ -586,8 +586,8 @@ Class Procs:
 					RefreshParts()
 					playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
 					to_chat(user, "<span class='notice'>You replace [P.name] with [C.name].</span>")
-					return
-	..()
+		return TRUE
+	return ..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))

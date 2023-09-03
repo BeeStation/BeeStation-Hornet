@@ -368,7 +368,7 @@
 	if (in_range(src, user) && !headset)
 		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
 
-/obj/item/radio/attackby(obj/item/W, mob/user, params)
+/obj/item/radio/item_interact(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		unscrewed = !unscrewed
@@ -376,6 +376,7 @@
 			to_chat(user, "<span class='notice'>The radio can now be attached and modified!</span>")
 		else
 			to_chat(user, "<span class='notice'>The radio can no longer be modified or attached!</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -422,7 +423,7 @@
 	. = ..()
 	set_frequency(FREQ_SYNDICATE)
 
-/obj/item/radio/borg/attackby(obj/item/W, mob/user, params)
+/obj/item/radio/borg/item_interact(obj/item/W, mob/user, params)
 
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(keyslot)
@@ -443,20 +444,22 @@
 
 		else
 			to_chat(user, "<span class='warning'>This radio doesn't have any encryption keys!</span>")
+		return TRUE
 
 	else if(istype(W, /obj/item/encryptionkey/))
 		if(keyslot)
 			to_chat(user, "<span class='warning'>The radio can't hold another key!</span>")
-			return
+			return TRUE
 
 		if(!keyslot)
 			if(!user.transferItemToLoc(W, src))
-				return
+				return TRUE
 			keyslot = W
 
 		recalculateChannels()
 		ui_update()
-
+		return TRUE
+	return ..()
 
 /obj/item/radio/off	// Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	listening = 0			// And it's nice to have a subtype too for future features.

@@ -111,12 +111,13 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/atom/movable/the_prize = new redeemselect(drop_location())
 	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
 
-/obj/machinery/computer/arcade/attackby(obj/item/W, mob/user)
+/obj/machinery/computer/arcade/item_interact(obj/item/W, mob/user)
 	if(istype(W, /obj/item/coin/arcade_token) || istype(W, /obj/item/coin/bananium))
 		to_chat(user, "<span class='notice'>You insert the [W] into the [src].")
 		redeem(user)
 		qdel(W)
-		return
+		return TRUE
+	return ..()
 
 /obj/machinery/computer/arcade/emp_act(severity)
 	. = ..()

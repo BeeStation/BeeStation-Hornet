@@ -542,14 +542,15 @@ GENE SCANNER
 	user.visible_message("<span class='suicide'>[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!</span>")
 	return BRUTELOSS
 
-/obj/item/analyzer/attackby(obj/O, mob/living/user)
+/obj/item/analyzer/item_interact(obj/O, mob/living/user)
 	if(istype(O, /obj/item/bodypart/l_arm/robot) || istype(O, /obj/item/bodypart/r_arm/robot))
 		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
 		qdel(O)
 		qdel(src)
 		user.put_in_hands(new /obj/item/bot_assembly/atmosbot)
+		return TRUE
 	else
-		..()
+		return ..()
 
 /obj/item/analyzer/attack_self(mob/user)
 	add_fingerprint(user)
@@ -1008,21 +1009,23 @@ GENE SCANNER
 	. = ..()
 	scanner = new(src)
 
-/obj/item/extrapolator/attackby(obj/item/W, mob/user, params)
+/obj/item/extrapolator/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/scanning_module))
 		if(!scanner)
 			if(!user.transferItemToLoc(W, src))
-				return
+				return TRUE
 			scanner = W
 			to_chat(user, "<span class='notice'>You install a [scanner.name] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] already has a scanner installed.</span>")
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(scanner)
 			to_chat(user, "<span class='notice'>You remove the [scanner.name] from \the [src].</span>")
 			scanner.forceMove(drop_location())
 			scanner = null
+		return TRUE
 	else
 		return ..()
 

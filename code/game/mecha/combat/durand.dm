@@ -110,12 +110,14 @@ Expects a turf. Returns true if the attack should be blocked, false if not.*/
 	else
 		. = ..()
 
+/// TODO: Convertme!
 /obj/mecha/combat/durand/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(defense_check(user.loc))
 		log_message("Attack absorbed by defense field. Attacker - [user], with [W]", LOG_MECHA, color="orange")
 		shield.attackby(W, user, params)
+		return TRUE
 	else
-		. = ..()
+		return ..()
 
 /obj/mecha/combat/durand/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(defense_check(AM.loc))

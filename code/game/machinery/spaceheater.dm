@@ -158,7 +158,7 @@
 	default_unfasten_wrench(user, tool)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/space_heater/attackby(obj/item/I, mob/user, params)
+/obj/machinery/space_heater/item_interact(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
@@ -172,12 +172,12 @@
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(!panel_open)
 			balloon_alert(user, "Hatch must be open!")
-			return
+			return TRUE
 		if(cell)
 			balloon_alert(user, "Already a power cell inside!")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(I, src))
-			return
+			return TRUE
 		cell = I
 		I.add_fingerprint(usr)
 		user.visible_message("<span class='notice'>\The [user] inserts a power cell into \the [src].</span>", "<span class ='notice'>You insert the power cell into \the [src].<span>")

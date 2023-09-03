@@ -81,7 +81,7 @@
 		assembly.malf_emp_firmware_active = TRUE //don't add parts to drop, update icon, ect. reconstructing it will also retain the upgrade.
 		assembly.malf_emp_firmware_present = TRUE //so the upgrade is retained after incompatible parts are removed.
 
-	else if(!assembly.emp_module) //only happens via upgrading in camera/attackby()
+	else if(!assembly.emp_module) //only happens via upgrading in camera/item_interact()
 		assembly.emp_module = new(assembly)
 		if(assembly.malf_emp_firmware_active)
 			assembly.malf_emp_firmware_active = FALSE //make it appear like it's just normally upgraded so the icons and examine texts are restored.

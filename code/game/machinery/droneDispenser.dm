@@ -204,27 +204,28 @@
 	else
 		icon_state = icon_on
 
-/obj/machinery/droneDispenser/attackby(obj/item/I, mob/living/user)
+/obj/machinery/droneDispenser/item_interact(obj/item/I, mob/living/user)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 		materials.retrieve_all()
 		I.play_tool_sound(src)
 		to_chat(user, "<span class='notice'>You retrieve the materials from [src].</span>")
+		return TRUE
 
 	else if(I.tool_behaviour == TOOL_WELDER)
 		if(!(machine_stat & BROKEN))
 			to_chat(user, "<span class='warning'>[src] doesn't need repairs.</span>")
-			return
+			return TRUE
 
 		if(!I.tool_start_check(user, amount=1))
-			return
+			return TRUE
 
 		user.visible_message(
 			"<span class='notice'>[user] begins patching up [src] with [I].</span>",
 			"<span class='notice'>You begin restoring the damage to [src]...</span>")
 
 		if(!I.use_tool(src, user, 40, volume=50, amount=1))
-			return
+			return TRUE
 
 		user.visible_message(
 			"<span class='notice'>[user] fixes [src]!</span>",
@@ -233,6 +234,7 @@
 		set_machine_stat(machine_stat & ~BROKEN)
 		obj_integrity = max_integrity
 		update_icon()
+		return TRUE
 	else
 		return ..()
 

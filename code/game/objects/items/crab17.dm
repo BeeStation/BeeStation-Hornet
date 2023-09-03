@@ -67,22 +67,23 @@
 	. = ..()
 	. += "<span class='info'>It's integrated integrity meter reads: <b>HEALTH: [obj_integrity]</b>.</span>"
 
-/obj/structure/checkoutmachine/attackby(obj/item/W, mob/user, params)
+/obj/structure/checkoutmachine/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/card = W
 		if(!card.registered_account)
 			to_chat(user, "<span class='warning'>This card does not have a registered account!</span>")
-			return
+			return TRUE
 		if(protected_accounts["[card.registered_account.account_id]"])
 			to_chat(user, "<span class='warning'>It appears that your funds are safe from draining!</span>")
-			return
+			return TRUE
 		if(do_after(user, 40, target = src))
 			if(protected_accounts["[card.registered_account.account_id]"])
-				return
+				return TRUE
 			to_chat(user, "<span class='warning'>You quickly cash out your funds to a more secure banking location. Funds are safu.</span>") // This is a reference and not a typo
 			protected_accounts["[card.registered_account.account_id]"] = TRUE
 			card.registered_account.withdrawDelay = 0
 			next_health_to_teleport -= RUN_AWAY_DELAYED_HP // swipe your card, then it will likely less run away
+		return TRUE
 	else
 		return ..()
 

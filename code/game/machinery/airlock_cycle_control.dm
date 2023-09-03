@@ -441,7 +441,7 @@
 				vent.update_icon()
 	update_icon(TRUE)
 
-/obj/machinery/advanced_airlock_controller/attackby(obj/item/W, mob/user, params)
+/obj/machinery/advanced_airlock_controller/item_interact(obj/item/W, mob/user, params)
 	switch(buildstage)
 		if(2)
 			if(W.tool_behaviour == TOOL_WIRECUTTER && panel_open && wires.is_all_cut())
@@ -450,19 +450,19 @@
 				new /obj/item/stack/cable_coil(loc, 5)
 				buildstage = 1
 				update_icon()
-				return
+				return TRUE
 			else if(W.tool_behaviour == TOOL_SCREWDRIVER)  // Opening that up.
 				W.play_tool_sound(src)
 				panel_open = !panel_open
 				to_chat(user, "<span class='notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
 				update_icon()
-				return
+				return TRUE
 			else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda))// trying to unlock the interface with an ID card
 				togglelock(user)
-				return
+				return TRUE
 			else if(panel_open && is_wire_tool(W))
 				wires.interact(user)
-				return
+				return TRUE
 		if(1)
 			if(W.tool_behaviour == TOOL_CROWBAR)
 				user.visible_message("[user.name] removes the electronics from [src.name].",\
@@ -475,13 +475,13 @@
 						playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 						buildstage = 0
 						update_icon()
-				return
+				return TRUE
 
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/cable = W
 				if(cable.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the airlock controller!</span>")
-					return
+					return TRUE
 				user.visible_message("[user.name] wires the airlock controller.", \
 									"<span class='notice'>You start wiring the airlock controller...</span>")
 				if (do_after(user, 20, target = src))
@@ -496,7 +496,7 @@
 						shorted = 0
 						buildstage = 2
 						update_icon()
-				return
+				return TRUE
 		if(0)
 			if(istype(W, /obj/item/electronics/advanced_airlock_controller))
 				if(user.temporarilyRemoveItemFromInventory(W))
@@ -504,7 +504,7 @@
 					buildstage = 1
 					update_icon()
 					qdel(W)
-				return
+				return TRUE
 
 			if(istype(W, /obj/item/electroadaptive_pseudocircuit))
 				var/obj/item/electroadaptive_pseudocircuit/P = W
@@ -514,14 +514,14 @@
 				"<span class='notice'>You adapt an airlock controller circuit and slot it into the assembly.</span>")
 				buildstage = 1
 				update_icon()
-				return
+				return TRUE
 
 			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
 				W.play_tool_sound(src)
 				new /obj/item/wallframe/advanced_airlock_controller( user.loc )
 				qdel(src)
-				return
+				return TRUE
 
 	return ..()
 

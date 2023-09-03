@@ -478,7 +478,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	else
 		..()
 
-/mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/medbot/primary_interact(atom/A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		set_patient(C)

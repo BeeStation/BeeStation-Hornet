@@ -386,72 +386,73 @@
 	add_fingerprint(user)
 
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
+/obj/machinery/suit_storage_unit/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR && user.a_intent == INTENT_HARM && !panel_open && machine_stat & NOPOWER)
 		if(locked)
 			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
-			return
+			return TRUE
 		if(!state_open)
 			visible_message("<span class='notice'>[user] starts prying open the doors of [src]!</span>", "<span class='notice'>You start prying open the doors of [src]!</span>")
 			I.play_tool_sound(src, 50)
 			if(do_after(user, 20, target=src))
 				playsound(src, 'sound/effects/bin_open.ogg', 50, TRUE)
 				open_machine(0)
-				return
+				return TRUE
+			return TRUE
 		else
 			I.play_tool_sound(src, 50)
 			visible_message("<span class='notice'>[user] pulls out the contents of [src] outside!</span>", "<span class='notice'>You pull [src]'s contents outside!</span>")
 			dump_contents()
 			update_icon()
-			return
+			return TRUE
 	if(state_open && is_operational)
 		if(istype(I, /obj/item/clothing/suit))
 			if(suit)
 				to_chat(user, "<span class='warning'>The unit already contains a suit!</span>")
-				return
+				return TRUE
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			suit = I
 		else if(istype(I, /obj/item/clothing/head))
 			if(helmet)
 				to_chat(user, "<span class='warning'>The unit already contains a helmet!</span>")
-				return
+				return TRUE
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			helmet = I
 		else if(istype(I, /obj/item/clothing/mask))
 			if(mask)
 				to_chat(user, "<span class='warning'>The unit already contains a mask!</span>")
-				return
+				return TRUE
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			mask = I
 		else
 			if(storage)
 				to_chat(user, "<span class='warning'>The auxiliary storage compartment is full!</span>")
-				return
+				return TRUE
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			storage = I
 
 		visible_message("<span class='notice'>[user] inserts [I] into [src]</span>", "<span class='notice'>You load [I] into [src].</span>")
 		update_icon()
 		ui_update()
-		return
+		return TRUE
 
 	if(panel_open && is_wire_tool(I))
 		wires.interact(user)
-		return
+		return TRUE
 	if(!state_open)
 		if(default_deconstruction_screwdriver(user, "panel", "close", I))
 			ui_update() // Wires might've changed availability of decontaminate button
-			return
+			return TRUE
 		if(is_empty())
 			if(default_deconstruction_crowbar(I))
-				return
+				return TRUE
 	if(default_pry_open(I))
 		dump_contents()
-		return
+		return TRUE
 
 	return ..()
 

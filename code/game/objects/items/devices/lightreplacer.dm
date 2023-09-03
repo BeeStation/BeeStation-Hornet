@@ -73,46 +73,45 @@
 	. = ..()
 	. += status_string()
 
-/obj/item/lightreplacer/attackby(obj/item/W, mob/user, params)
+/obj/item/lightreplacer/item_interact(obj/item/W, mob/user, params)
 
 	if(istype(W, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = W
 		if(uses >= max_uses)
 			to_chat(user, "<span class='warning'>[src.name] is full.</span>")
-			return
 		else if(G.use(decrement))
 			AddUses(increment)
 			to_chat(user, "<span class='notice'>You insert a piece of glass into \the [src.name]. You have [uses] light\s remaining.</span>")
-			return
 		else
 			to_chat(user, "<span class='warning'>You need one sheet of glass to replace lights!</span>")
+		return TRUE
 
 	if(istype(W, /obj/item/shard))
 		if(uses >= max_uses)
 			to_chat(user, "<span class='warning'>\The [src] is full.</span>")
-			return
+			return TRUE
 		if(!user.temporarilyRemoveItemFromInventory(W))
-			return
+			return TRUE
 		AddUses(round(increment*0.75))
 		to_chat(user, "<span class='notice'>You insert a shard of glass into \the [src]. You have [uses] light\s remaining.</span>")
 		qdel(W)
-		return
+		return TRUE
 
 	if(istype(W, /obj/item/light))
 		var/obj/item/light/L = W
 		if(L.status == 0) // LIGHT OKAY
 			if(uses < max_uses)
 				if(!user.temporarilyRemoveItemFromInventory(W))
-					return
+					return TRUE
 				AddUses(1)
 				qdel(L)
 		else
 			if(!user.temporarilyRemoveItemFromInventory(W))
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You insert [L] into \the [src].</span>")
 			AddShards(1, user)
 			qdel(L)
-		return
+		return TRUE
 
 	if(istype(W, /obj/item/storage))
 		var/obj/item/storage/S = W
@@ -137,13 +136,15 @@
 
 		if(!found_lightbulbs)
 			to_chat(user, "<span class='warning'>\The [S] contains no bulbs.</span>")
-			return
+			return TRUE
 
 		if(!replaced_something && src.uses == max_uses)
 			to_chat(user, "<span class='warning'>\The [src] is full!</span>")
-			return
+			return TRUE
 
 		to_chat(user, "<span class='notice'>You fill \the [src] with lights from \the [S]. " + status_string() + "</span>")
+		return TRUE
+	return ..()
 
 /obj/item/lightreplacer/should_emag(mob/user)
 	return emaggable && ..()

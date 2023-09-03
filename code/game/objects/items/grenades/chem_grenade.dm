@@ -57,16 +57,17 @@
 	if(stage == GRENADE_WIRED)
 		wires.interact(user)
 
-/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/item_interact(obj/item/I, mob/user, params)
 	if(istype(I,/obj/item/assembly) && stage == GRENADE_WIRED)
 		wires.interact(user)
+		return TRUE
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(dud_flags & GRENADE_USED)
 			to_chat(user, "<span class='notice'>You started to reset the trigger.</span>")
 			if (do_after(user, 2 SECONDS, src))
 				to_chat(user, "<span class='notice'>You reset the trigger.</span>")
 				dud_flags &= ~GRENADE_USED
-			return
+			return TRUE
 		if(stage == GRENADE_WIRED)
 			if(beakers.len)
 				stage_change(GRENADE_READY)
@@ -82,25 +83,26 @@
 			to_chat(user, "<span class='notice'>You modify the time delay. It's set for [DisplayTimeText(det_time)].</span>")
 		else
 			to_chat(user, "<span class='warning'>You need to add a wire!</span>")
-		return
+		return TRUE
 	else if(stage == GRENADE_WIRED && is_type_in_list(I, allowed_containers))
 		. = TRUE //no afterattack
 		if(is_type_in_list(I, banned_containers))
 			to_chat(user, "<span class='warning'>[src] is too small to fit [I]!</span>") // this one hits home huh anon?
-			return
+			return TRUE
 		if(beakers.len == 2)
 			to_chat(user, "<span class='warning'>[src] can not hold more containers!</span>")
-			return
+			return TRUE
 		else
 			if(I.reagents.total_volume)
 				if(!user.transferItemToLoc(I, src))
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You add [I] to the [initial(name)] assembly.</span>")
 				beakers += I
 				var/reagent_list = pretty_string_from_reagent_list(I.reagents)
 				user.log_message("inserted [I] ([reagent_list]) into [src]",LOG_GAME)
 			else
 				to_chat(user, "<span class='warning'>[I] is empty!</span>")
+		return TRUE
 
 	else if(stage == GRENADE_EMPTY && istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
@@ -110,11 +112,12 @@
 			to_chat(user, "<span class='notice'>You rig the [initial(name)] assembly.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need one length of coil to wire the assembly!</span>")
-			return
+		return TRUE
 
 	else if(stage == GRENADE_READY && I.tool_behaviour == TOOL_WIRECUTTER && !active)
 		stage_change(GRENADE_WIRED)
 		to_chat(user, "<span class='notice'>You unlock the [initial(name)] assembly.</span>")
+		return TRUE
 
 	else if(stage == GRENADE_WIRED && I.tool_behaviour == TOOL_WRENCH)
 		if(beakers.len)
@@ -127,10 +130,11 @@
 			beakers = list()
 			to_chat(user, "<span class='notice'>You open the [initial(name)] assembly and remove the payload.</span>")
 			wires.detach_assembly(wires.get_wire(1))
-			return
+			return TRUE
 		new /obj/item/stack/cable_coil(get_turf(src),1)
 		stage_change(GRENADE_EMPTY)
 		to_chat(user, "<span class='notice'>You remove the activation mechanism from the [initial(name)] assembly.</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -254,12 +258,13 @@
 	//I tried to just put it in the allowed_containers list but
 	//if you do that it must have reagents.  If you're going to
 	//make a special case you might as well do it explicitly. -Sayu
-/obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/large/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
 		if(!user.transferItemToLoc(I, src))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You add [I] to the [initial(name)] assembly.</span>")
 		beakers += I
+		return TRUE
 	else
 		return ..()
 
@@ -285,7 +290,7 @@
 	icon_state = "timeg"
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
-/obj/item/grenade/chem_grenade/adv_release/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/adv_release/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		switch(unit_spread)
 			if(0 to 24)
@@ -295,8 +300,8 @@
 			else
 				unit_spread = 5
 		to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/item/grenade/chem_grenade/adv_release/prime(mob/living/lanced_by)
 	if(stage != GRENADE_READY || dud_flags)

@@ -44,11 +44,11 @@
 	else
 		icon_state = "rods"
 
-/obj/item/stack/rods/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/rods/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
-			return
+			return TRUE
 
 		if(W.use_tool(src, user, 0, volume=40))
 			var/obj/item/stack/sheet/iron/new_item = new(usr.loc)
@@ -61,6 +61,7 @@
 			R.use(2)
 			if (!R && replace)
 				user.put_in_hands(new_item)
+		return TRUE
 
 	else if(istype(W, /obj/item/reagent_containers/food/snacks))
 		var/obj/item/reagent_containers/food/snacks/S = W
@@ -71,6 +72,7 @@
 		else
 			var/obj/item/reagent_containers/food/snacks/customizable/A = new/obj/item/reagent_containers/food/snacks/customizable/kebab(get_turf(src))
 			A.initialize_custom_food(src, S, user)
+		return TRUE
 	else
 		return ..()
 

@@ -55,28 +55,29 @@
 	else
 		to_chat(user, "<span class='warning'>You need to screw \the [src] to the floor first!</span>")
 
-/obj/machinery/power/singularity_beacon/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/singularity_beacon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(active)
 			to_chat(user, "<span class='warning'>You need to deactivate \the [src] first!</span>")
-			return
+			return TRUE
 
 		if(anchored)
 			setAnchored(FALSE)
 			to_chat(user, "<span class='notice'>You unbolt \the [src] from the floor and detach it from the cable.</span>")
 			disconnect_from_network()
-			return
+			return TRUE
 		else
 			if(!connect_to_network())
 				to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")
-				return
+				return TRUE
 			setAnchored(TRUE)
 			to_chat(user, "<span class='notice'>You bolt \the [src] to the floor and attach it to the cable.</span>")
-			return
+			return TRUE
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		user.visible_message( \
 			"[user] messes with \the [src] for a bit.", \
 			"<span class='notice'>You can't fit the screwdriver into \the [src]'s bolts! Try using a wrench.</span>")
+		return TRUE
 	else
 		return ..()
 

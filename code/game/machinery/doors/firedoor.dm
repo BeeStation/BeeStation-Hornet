@@ -108,44 +108,45 @@
 						 "You bang on \the [src].")
 	playsound(loc, 'sound/effects/glassknock.ogg', 10, FALSE, frequency = 32000)
 
-/obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/firedoor/item_interact(obj/item/C, mob/user, params)
 	add_fingerprint(user)
 	if(operating)
-		return
+		return ..()
 
 	if(istype(C, /obj/item/modular_computer/tablet/pda))
 		var/attack_verb = pick("smushes","rubs","smashes","presses","taps")
 		visible_message("<span class='warning'>[user] [attack_verb] \the [C] against [src]\s card reader.</span>", "<span class='warning'>You [attack_verb] \the [C] against [src]\s card reader. It doesn't do anything.</span>", "You hear plastic click against metal.")
-		return
+		return TRUE
 
 	if(welded)
 		if(C.tool_behaviour == TOOL_WRENCH)
 			if(boltslocked)
 				to_chat(user, "<span class='notice'>There are screws locking the bolts in place!</span>")
-				return
+				return TRUE
 			C.play_tool_sound(src)
 			user.visible_message("<span class='notice'>[user] starts undoing [src]'s bolts...</span>", \
 								 "<span class='notice'>You start unfastening [src]'s floor bolts...</span>")
 			if(!C.use_tool(src, user, 50))
-				return
+				return TRUE
 			playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 			user.visible_message("<span class='notice'>[user] unfastens [src]'s bolts.</span>", \
 								 "<span class='notice'>You undo [src]'s floor bolts.</span>")
 			deconstruct(TRUE)
-			return
+			return TRUE
 		if(C.tool_behaviour == TOOL_SCREWDRIVER)
 			user.visible_message("<span class='notice'>[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts.</span>", \
 								 "<span class='notice'>You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.</span>")
 			C.play_tool_sound(src)
 			boltslocked = !boltslocked
-			return
+			return TRUE
 	if(C.tool_behaviour == TOOL_MULTITOOL)
 		if(!access_log)
 			to_chat(user, "<span class='warning'>\the [C] beeps, 'Access Log Empty.'</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>\the [C] beeps, 'Dumping access log...'</span>")
 		for(var/entry in access_log)
 			to_chat(user, "<span class='notice robot'>[entry]</span>")
+		return TRUE
 
 	return ..()
 
@@ -546,7 +547,7 @@
 	..()
 	icon_state = "frame[constructionStep]"
 
-/obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
+/obj/structure/firelock_frame/item_interact(obj/item/C, mob/user)
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
 			if(C.tool_behaviour == TOOL_CROWBAR)
@@ -554,28 +555,28 @@
 				user.visible_message("<span class='notice'>[user] starts prying something out from [src]...</span>", \
 									 "<span class='notice'>You begin prying out the wire cover...</span>")
 				if(!C.use_tool(src, user, 50))
-					return
+					return TRUE
 				if(constructionStep != CONSTRUCTION_PANEL_OPEN)
-					return
+					return TRUE
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				user.visible_message("<span class='notice'>[user] pries out a metal plate from [src], exposing the wires.</span>", \
 									 "<span class='notice'>You remove the cover plate from [src], exposing the wires.</span>")
 				constructionStep = CONSTRUCTION_WIRES_EXPOSED
 				update_icon()
-				return
+				return TRUE
 			if(C.tool_behaviour == TOOL_WRENCH)
 				var/obj/machinery/door/firedoor/A = locate(/obj/machinery/door/firedoor) in get_turf(src)
 				if(A && A.dir == src.dir)
 					to_chat(user, "<span class='warning'>There's already a firelock there.</span>")
-					return
+					return TRUE
 				C.play_tool_sound(src)
 				user.visible_message("<span class='notice'>[user] starts bolting down [src]...</span>", \
 									 "<span class='notice'>You begin bolting [src]...</span>")
 				if(!C.use_tool(src, user, 30))
-					return
+					return TRUE
 				var/obj/machinery/door/firedoor/D = locate(/obj/machinery/door/firedoor) in get_turf(src)
 				if(D && D.dir == src.dir)
-					return
+					return TRUE
 				user.visible_message("<span class='notice'>[user] finishes the firelock.</span>", \
 									 "<span class='notice'>You finish the firelock.</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
@@ -583,28 +584,28 @@
 				F.dir = src.dir
 				F.update_icon()
 				qdel(src)
-				return
+				return TRUE
 			if(istype(C, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/P = C
 				if(reinforced)
 					to_chat(user, "<span class='warning'>[src] is already reinforced.</span>")
-					return
+					return TRUE
 				if(P.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need more plasteel to reinforce [src].</span>")
-					return
+					return TRUE
 				user.visible_message("<span class='notice'>[user] begins reinforcing [src]...</span>", \
 									 "<span class='notice'>You begin reinforcing [src]...</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				if(do_after(user, 60, target = src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
-						return
+						return TRUE
 					user.visible_message("<span class='notice'>[user] reinforces [src].</span>", \
 										 "<span class='notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					P.use(2)
 					reinforced = TRUE
 					firelock_type = /obj/machinery/door/firedoor/heavy
-				return
+				return TRUE
 
 		if(CONSTRUCTION_WIRES_EXPOSED)
 			if(C.tool_behaviour == TOOL_WIRECUTTER)
@@ -612,61 +613,61 @@
 				user.visible_message("<span class='notice'>[user] starts cutting the wires from [src]...</span>", \
 									 "<span class='notice'>You begin removing [src]'s wires...</span>")
 				if(!C.use_tool(src, user, 60))
-					return
+					return TRUE
 				if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
-					return
+					return TRUE
 				user.visible_message("<span class='notice'>[user] removes the wires from [src].</span>", \
 									 "<span class='notice'>You remove the wiring from [src], exposing the circuit board.</span>")
 				new/obj/item/stack/cable_coil(get_turf(src), 5)
 				constructionStep = CONSTRUCTION_GUTTED
 				update_icon()
-				return
+				return TRUE
 			if(C.tool_behaviour == TOOL_CROWBAR)
 				C.play_tool_sound(src)
 				user.visible_message("<span class='notice'>[user] starts prying a metal plate into [src]...</span>", \
 									 "<span class='notice'>You begin prying the cover plate back onto [src]...</span>")
 				if(!C.use_tool(src, user, 80))
-					return
+					return TRUE
 				if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
-					return
+					return TRUE
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				user.visible_message("<span class='notice'>[user] pries the metal plate into [src].</span>", \
 									 "<span class='notice'>You pry [src]'s cover plate into place, hiding the wires.</span>")
 				constructionStep = CONSTRUCTION_PANEL_OPEN
 				update_icon()
-				return
+				return TRUE
 		if(CONSTRUCTION_GUTTED)
 			if(C.tool_behaviour == TOOL_CROWBAR)
 				user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", \
 									 "<span class='notice'>You begin prying out the circuit board from [src]...</span>")
 				if(!C.use_tool(src, user, 50, volume=50))
-					return
+					return TRUE
 				if(constructionStep != CONSTRUCTION_GUTTED)
-					return
+					return TRUE
 				user.visible_message("<span class='notice'>[user] removes [src]'s circuit board.</span>", \
 									 "<span class='notice'>You remove the circuit board from [src].</span>")
 				new /obj/item/electronics/firelock(drop_location())
 				constructionStep = CONSTRUCTION_NOCIRCUIT
 				update_icon()
-				return
+				return TRUE
 			if(istype(C, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/B = C
 				if(B.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more wires to add wiring to [src].</span>")
-					return
+					return TRUE
 				user.visible_message("<span class='notice'>[user] begins wiring [src]...</span>", \
 									 "<span class='notice'>You begin adding wires to [src]...</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				if(do_after(user, 60, target = src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
-						return
+						return TRUE
 					user.visible_message("<span class='notice'>[user] adds wires to [src].</span>", \
 										 "<span class='notice'>You wire [src].</span>")
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					B.use(5)
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
 					update_icon()
-				return
+				return TRUE
 		if(CONSTRUCTION_NOCIRCUIT)
 			if(C.tool_behaviour == TOOL_WELDER)
 				if(!C.tool_start_check(user, amount=1))
@@ -676,7 +677,7 @@
 
 				if(C.use_tool(src, user, 40, volume=50, amount=1))
 					if(constructionStep != CONSTRUCTION_NOCIRCUIT)
-						return
+						return TRUE
 					var/turf/T = get_turf(src)
 					switch(firelock_type)
 						if(/obj/machinery/door/firedoor/heavy)
@@ -693,31 +694,31 @@
 										 "<span class='notice'>You cut [src] into iron.</span>")
 							new /obj/item/stack/sheet/iron(T, 3)
 					qdel(src)
-				return
+				return TRUE
 			if(istype(C, /obj/item/electronics/firelock))
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									 "<span class='notice'>You begin adding a circuit board to [src]...</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				if(!do_after(user, 40, target = src))
-					return
+					return TRUE
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
-					return
+					return TRUE
 				qdel(C)
 				user.visible_message("<span class='notice'>[user] adds a circuit to [src].</span>", \
 									 "<span class='notice'>You insert and secure [C].</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				constructionStep = CONSTRUCTION_GUTTED
 				update_icon()
-				return
+				return TRUE
 			if(istype(C, /obj/item/electroadaptive_pseudocircuit))
 				var/obj/item/electroadaptive_pseudocircuit/P = C
 				if(!P.adapt_circuit(user, 30))
-					return
+					return TRUE
 				user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 				"<span class='notice'>You adapt a firelock circuit and slot it into the assembly.</span>")
 				constructionStep = CONSTRUCTION_GUTTED
 				update_icon()
-				return
+				return TRUE
 	return ..()
 
 /obj/structure/firelock_frame/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)

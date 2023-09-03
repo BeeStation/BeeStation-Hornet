@@ -59,7 +59,7 @@
 	internal_ext.max_water = INFINITY
 	internal_ext.refill()
 
-/mob/living/simple_animal/bot/firebot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/firebot/primary_interact(atom/A)
 	if(!on)
 		return
 	if(internal_ext)

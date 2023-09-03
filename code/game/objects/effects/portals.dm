@@ -59,10 +59,11 @@
 			return FALSE
 	return ..()
 
-/obj/effect/portal/attackby(obj/item/W, mob/user, params)
+/obj/effect/portal/item_interact(obj/item/W, mob/user, params)
 	if(user && Adjacent(user))
 		teleport(user)
 		return TRUE
+	return ..()
 
 /obj/effect/portal/Bumped(atom/movable/bumper)
 	teleport(bumper)

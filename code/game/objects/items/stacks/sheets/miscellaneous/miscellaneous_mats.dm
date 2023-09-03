@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	icon_state = "sandbags"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/emptysandbag/attackby(obj/item/W, mob/user, params)
+/obj/item/emptysandbag/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore/glass))
 		var/obj/item/stack/ore/glass/G = W
 		to_chat(user, "<span class='notice'>You fill the sandbag.</span>")
@@ -58,6 +58,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 		if (Adjacent(user) && !issilicon(user))
 			user.put_in_hands(I)
 		G.use(1)
+		return TRUE
 	else
 		return ..()
 
@@ -110,7 +111,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	return GLOB.cardboard_recipes
 
 
-/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/sheet/cardboard/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !istype(loc, /obj/item/storage))
 		var/atom/droploc = drop_location()
 		if(use(1))
@@ -118,6 +119,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
 			if (amount >= 0)
 				new/obj/item/storage/box/clown(droploc) //bugfix
+		return TRUE
 	else
 		. = ..()
 

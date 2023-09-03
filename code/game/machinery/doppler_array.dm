@@ -116,7 +116,7 @@
 
 		update_icon()
 
-/obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
+/obj/machinery/doppler_array/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(!anchored && !isinspace())
 			anchored = TRUE
@@ -127,7 +127,7 @@
 			power_change()
 			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
 		I.play_tool_sound(src)
-		return
+		return TRUE
 	return ..()
 
 /obj/machinery/doppler_array/proc/rot_message(mob/user)

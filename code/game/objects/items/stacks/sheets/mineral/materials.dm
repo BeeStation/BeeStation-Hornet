@@ -91,11 +91,11 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/plasma/get_recipes()
 	return GLOB.plasma_recipes
 
-/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
+/// BACONTODO: Make it so attacking this ignites it too
+/obj/item/stack/sheet/mineral/plasma/item_interact(obj/item/W as obj, mob/user as mob, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(amount/5, user)
-	else
-		return ..()
+	return ..()
 
 /obj/item/stack/sheet/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -208,15 +208,14 @@ Mineral Sheets
 	grind_results = list(/datum/reagent/carbon = 20)
 	novariants = TRUE
 
-/obj/item/stack/sheet/mineral/coal/attackby(obj/item/W, mob/user, params)
+/// BACONTODO: Attacking needs to ignite this too
+/obj/item/stack/sheet/mineral/coal/item_interact(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
 		var/turf/T = get_turf(src)
 		message_admins("Coal ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
 		log_game("Coal ignited by [key_name(user)] in [AREACOORD(T)]")
 		fire_act(W.is_hot())
-		return TRUE
-	else
-		return ..()
+	return ..()
 
 /obj/item/stack/sheet/mineral/coal/fire_act(exposed_temperature, exposed_volume)
 	atmos_spawn_air("co2=[amount*10];TEMP=[exposed_temperature]")

@@ -156,7 +156,7 @@
 	if(build_path)
 		build_path = PATH_POWERCOIL
 
-/obj/item/circuitboard/machine/tesla_coil/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/machine/tesla_coil/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		var/obj/item/circuitboard/new_type
 		var/new_setting
@@ -171,6 +171,7 @@
 		build_path = initial(new_type.build_path)
 		I.play_tool_sound(src)
 		to_chat(user, "<span class='notice'>You change the circuitboard setting to \"[new_setting]\".</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -485,12 +486,13 @@
 		build_path = new_type
 	return ..()
 
-/obj/item/circuitboard/machine/smartfridge/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/machine/smartfridge/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		var/position = fridges_name_paths.Find(build_path, fridges_name_paths)
 		position = (position == fridges_name_paths.len) ? 1 : (position + 1)
 		build_path = fridges_name_paths[position]
 		to_chat(user, "<span class='notice'>You set the board to [fridges_name_paths[build_path]].</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -574,7 +576,7 @@
 		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections",
 		/obj/machinery/vending/custom = "Custom Vendor")
 
-/obj/item/circuitboard/machine/vendor/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/machine/vendor/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		var/static/list/display_vending_names_paths
 		if(!display_vending_names_paths)
@@ -583,6 +585,7 @@
 				display_vending_names_paths[vending_names_paths[path]] = path
 		var/choice =  input(user,"Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
 		set_type(display_vending_names_paths[choice])
+		return TRUE
 	else
 		return ..()
 
@@ -708,7 +711,7 @@
 		/obj/item/reagent_containers/glass/beaker = /obj/item/reagent_containers/glass/beaker/large)
 	needs_anchored = FALSE
 
-/obj/item/circuitboard/machine/chem_master/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/machine/chem_master/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		var/new_name = "ChemMaster"
 		var/new_path = /obj/machinery/chem_master
@@ -720,6 +723,7 @@
 		build_path = new_path
 		name = "[new_name] 3000 (Machine Board)"
 		to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -1142,7 +1146,7 @@
 		/obj/item/stock_parts/manipulator = 1)
 	needs_anchored = FALSE
 
-/obj/item/circuitboard/machine/processor/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/machine/processor/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(build_path == /obj/machinery/processor)
 			name = "Slime Processor (Machine Board)"
@@ -1152,6 +1156,7 @@
 			name = "Food Processor (Machine Board)"
 			build_path = /obj/machinery/processor
 			to_chat(user, "<span class='notice'>Defaulting name protocols.</span>")
+		return TRUE
 	else
 		return ..()
 

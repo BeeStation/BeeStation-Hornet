@@ -50,7 +50,7 @@
 		if(get_dist(pawn, controller.blackboard[BB_ATTACK_TARGET]) > 1)
 			pawn.primary_ranged_attack(target)
 		else
-			pawn.UnarmedAttack(target)
+			pawn.primary_interact(target)
 		COOLDOWN_START(src, attack_cooldown, 1.3 SECONDS)
 	..()
 

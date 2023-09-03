@@ -36,20 +36,20 @@
 	if(can_hack_open)
 		. += "The service panel is currently <b>[open ? "unscrewed" : "screwed shut"]</b>."
 
-/obj/item/storage/secure/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/secure/item_interact(obj/item/W, mob/user, params)
 	if(can_hack_open && SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
 		if (W.tool_behaviour == TOOL_SCREWDRIVER)
 			if (W.use_tool(src, user, 20))
 				open = !open
 				to_chat(user, "<span class='notice'>You [open ? "open" : "close"] the service panel.</span>")
-			return
+			return TRUE
 		if (W.tool_behaviour == TOOL_WIRECUTTER)
 			to_chat(user, "<span class='danger'>[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>.</span>")
-			return
+			return TRUE
 		if ((W.tool_behaviour == TOOL_MULTITOOL))
 			if(l_hacking)
 				to_chat(user, "<span class='danger'>This safe is already being hacked.</span>")
-				return
+				return TRUE
 			if(open)
 				to_chat(user, "<span class='danger'>Now attempting to reset internal memory, please hold.</span>")
 				l_hacking = TRUE
@@ -58,11 +58,11 @@
 					l_set = FALSE
 
 				l_hacking = FALSE
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You must <b>unscrew</b> the service panel before you can pulse the wiring.</span>")
-			return
+			return TRUE
 
-	// -> storage/attackby() what with handle insertion, etc
+	// -> storage/item_interact() what with handle insertion, etc
 	return ..()
 
 /obj/item/storage/secure/attack_self(mob/user)

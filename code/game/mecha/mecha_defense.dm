@@ -176,35 +176,35 @@
 		log_message("Exposed to dangerous temperature.", LOG_MECHA, color="red")
 		take_damage(5, BURN, 0, 1)
 
-/obj/mecha/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/mecha/item_interact(obj/item/W as obj, mob/user as mob, params)
 
 	if(istype(W, /obj/item/mmi))
 		var/obj/item/mmi/M = W
 		var/mob/living/brain/BM = M.brainmob
 		if(is_banned_from(BM.ckey, JOB_NAME_CYBORG) || BM.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
 			to_chat(user, "<span class='warning'>This [M.name] is not compatible, try a different one!</span>")
-			return
+			return TRUE
 		if(mmi_move_inside(W,user))
 			to_chat(user, "[src]-[W] interface initialized successfully.")
 		else
 			to_chat(user, "[src]-[W] interface initialization failed.")
-		return
+		return TRUE
 
 	if(W.GetID())
 		if(add_req_access || maint_access)
 			if(internals_access_allowed(user))
 				output_maintenance_dialog(W.GetID(), user)
-				return
+				return TRUE
 			to_chat(user, "<span class='warning'>Invalid ID: Access denied.</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='warning'>Maintenance protocols disabled by operator.</span>")
-		return
+		return TRUE
 
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(construction_state == MECHA_OPEN_HATCH)
 			if(!cell)
 				if(!user.transferItemToLoc(W, src, silent = FALSE))
-					return
+					return TRUE
 				var/obj/item/stock_parts/cell/C = W
 				to_chat(user, "<span class='notice'>You install the power cell.</span>")
 				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
@@ -212,13 +212,13 @@
 				log_message("Power cell installed", LOG_MECHA)
 			else
 				to_chat(user, "<span class='notice'>There's already a power cell installed.</span>")
-		return
+		return TRUE
 
 	if(istype(W, /obj/item/stock_parts/scanning_module))
 		if(construction_state == MECHA_OPEN_HATCH)
 			if(!scanmod)
 				if(!user.transferItemToLoc(W, src))
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You install the scanning module.</span>")
 				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
 				scanmod = W
@@ -226,13 +226,13 @@
 				update_part_values()
 			else
 				to_chat(user, "<span class='notice'>There's already a scanning module installed.</span>")
-		return
+		return TRUE
 
 	if(istype(W, /obj/item/stock_parts/capacitor))
 		if(construction_state == MECHA_OPEN_HATCH)
 			if(!capacitor)
 				if(!user.transferItemToLoc(W, src))
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You install the capacitor.</span>")
 				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
 				capacitor = W
@@ -240,7 +240,7 @@
 				update_part_values()
 			else
 				to_chat(user, "<span class='notice'>There's already a capacitor installed.</span>")
-		return
+		return TRUE
 
 	if(istype(W, /obj/item/stack/cable_coil))
 		if(construction_state == MECHA_OPEN_HATCH && (internal_damage & MECHA_INT_SHORT_CIRCUIT))
@@ -250,12 +250,12 @@
 				to_chat(user, "<span class='notice'>You replace the fused wires.</span>")
 			else
 				to_chat(user, "<span class='warning'>You need two lengths of cable to fix this mech!</span>")
-		return
+		return TRUE
 
 	if(istype(W, /obj/item/mecha_parts))
 		var/obj/item/mecha_parts/P = W
 		P.try_attach_part(user, src)
-		return
+		return TRUE
 	log_message("Attacked by [W]. Attacker - [user]", LOG_MECHA)
 	return ..()
 

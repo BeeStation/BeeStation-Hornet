@@ -32,13 +32,13 @@
 		. += "<span class='notice'>Its pressure gauge reads [round(tank.air_contents.total_moles(), 0.01)] mol at [round(tank.air_contents.return_pressure(),0.01)] kPa.</span>"
 
 
-/obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
+/obj/item/melee/powerfist/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals))
 		if(!tank)
 			var/obj/item/tank/internals/IT = W
 			if(IT.volume <= 3)
 				to_chat(user, "<span class='warning'>\The [IT] is too small for \the [src].</span>")
-				return
+				return TRUE
 			updateTank(W, 0, user)
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		switch(fisto_setting)
@@ -50,9 +50,12 @@
 				fisto_setting = 1
 		W.play_tool_sound(src)
 		to_chat(user, "<span class='notice'>You tweak \the [src]'s piston valve to [fisto_setting].</span>")
+		return TRUE
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(tank)
 			updateTank(tank, 1, user)
+		return TRUE
+	return ..()
 
 /obj/item/melee/powerfist/proc/updateTank(obj/item/tank/internals/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)

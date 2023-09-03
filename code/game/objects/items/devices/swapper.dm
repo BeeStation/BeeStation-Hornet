@@ -27,20 +27,21 @@
 		icon_state = "swapper"
 	..()
 
-/obj/item/swapper/attackby(obj/item/I, mob/user, params)
+/obj/item/swapper/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/swapper))
 		var/obj/item/swapper/other_swapper = I
 		if(other_swapper.linked_swapper)
 			to_chat(user, "<span class='warning'>[other_swapper] is already linked. Break the current link to establish a new one.</span>")
-			return
+			return TRUE
 		if(linked_swapper)
 			to_chat(user, "<span class='warning'>[src] is already linked. Break the current link to establish a new one.</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You establish a quantum link between the two devices.</span>")
 		linked_swapper = other_swapper
 		other_swapper.linked_swapper = src
 		update_icon()
 		linked_swapper.update_icon()
+		return TRUE
 	else
 		return ..()
 

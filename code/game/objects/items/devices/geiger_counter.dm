@@ -158,19 +158,19 @@
 	else
 		to_chat(user, "<span class='notice'>[icon2html(src, user)] Target is free of radioactive contamination.</span>")
 
-/obj/item/geiger_counter/attackby(obj/item/I, mob/user, params)
+/obj/item/geiger_counter/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER && (obj_flags & EMAGGED))
 		if(scanning)
 			to_chat(user, "<span class='warning'>Turn off [src] before you perform this action!</span>")
-			return 0
+			return  TRUE
 		user.visible_message("<span class='notice'>[user] unscrews [src]'s maintenance panel and begins fiddling with its innards...</span>", "<span class='notice'>You begin resetting [src]...</span>")
 		if(!I.use_tool(src, user, 40, volume=50))
-			return 0
+			return  TRUE
 		user.visible_message("<span class='notice'>[user] refastens [src]'s maintenance panel!</span>", "<span class='notice'>You reset [src] to its factory settings!</span>")
 		obj_flags &= ~EMAGGED
 		radiation_count = 0
 		update_icon()
-		return 1
+		return  TRUE
 	else
 		return ..()
 

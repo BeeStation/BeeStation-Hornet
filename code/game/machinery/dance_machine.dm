@@ -67,9 +67,9 @@
 	dance_over()
 	return ..()
 
-/obj/machinery/jukebox/attackby(obj/item/O, mob/user, params)
-	if(!active && !(flags_1 & NODECONSTRUCT_1))
-		if(O.tool_behaviour == TOOL_WRENCH)
+/obj/machinery/jukebox/item_interact(obj/item/O, mob/user, params)
+	if(O.tool_behaviour == TOOL_WRENCH)
+		if(!active && !(flags_1 & NODECONSTRUCT_1))
 			if(!anchored && !isinspace())
 				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
 				setAnchored(TRUE)
@@ -77,7 +77,13 @@
 				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
 				setAnchored(FALSE)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			return
+			return TRUE
+		else
+			if (!(flags_1 & NODECONSTRUCT_1))
+				to_chat(user, "<span class='notice'>You must turn off [src] first!</span>")
+			else
+				return FALSE
+			return TRUE
 	return ..()
 
 /obj/machinery/jukebox/update_icon()

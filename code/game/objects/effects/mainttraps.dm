@@ -288,14 +288,17 @@
 	rune_in_use = FALSE
 	can_be_scribed = FALSE
 
-/obj/effect/rune/cluwne/attackby(obj/I, mob/user, params)
+/obj/effect/rune/cluwne/item_interact(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 15, target = src))
 			to_chat(user, "<span class='clowntext'>It's not within your power to erase the [lowertext(cultist_name)].</span>")
+		return TRUE
 	else if(istype(I, /obj/item/nullrod))
 		user.say("BEGONE FOUL MAGIKS!!", forced = "nullrod")
 		to_chat(user, "<span class='danger'>You try to disrupt the magic of [src] with the [I], and nothing happens to the crude crayon markings. You feel foolish.</span>")
+		return TRUE
+	return ..()
 
 /obj/effect/rune/cluwne/attack_hand(mob/living/user)//this is where we check if someone is able to use the rune
 	var/cluwne = FALSE

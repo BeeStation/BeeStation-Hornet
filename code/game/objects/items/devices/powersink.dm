@@ -61,7 +61,7 @@
 	update_appearance()
 	set_light(0)
 
-/obj/item/powersink/attackby(obj/item/I, mob/user, params)
+/obj/item/powersink/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(mode == DISCONNECTED)
 			var/turf/T = loc
@@ -83,11 +83,13 @@
 				"[user] detaches \the [src] from the cable.", \
 				"<span class='notice'>You unbolt \the [src] from the floor and detach it from the cable.</span>",
 				"<span class='italics'>You hear some wires being disconnected from something.</span>")
+		return TRUE
 
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		user.visible_message( \
 			"[user] messes with \the [src] for a bit.", \
 			"<span class='notice'>You can't fit the screwdriver into \the [src]'s bolts! Try using a wrench.</span>")
+		return TRUE
 	else
 		return ..()
 

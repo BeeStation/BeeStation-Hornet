@@ -121,6 +121,6 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/telecomms/monitor/attackby()
+/obj/machinery/computer/telecomms/monitor/item_interact()
 	. = ..()
 	updateUsrDialog()

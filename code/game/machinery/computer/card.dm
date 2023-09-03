@@ -84,7 +84,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(inserted_scan_id || inserted_modify_id)
 		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
 
-/obj/machinery/computer/card/attackby(obj/I, mob/user, params)
+/obj/machinery/computer/card/item_interact(obj/I, mob/user, params)
 	if(isidcard(I))
 		if(check_access(I) && !inserted_scan_id)
 			if(id_insert(user, I, inserted_scan_id))
@@ -93,6 +93,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		else if(id_insert(user, I, inserted_modify_id))
 			inserted_modify_id = I
 			updateUsrDialog()
+		return TRUE
 	else
 		return ..()
 

@@ -88,7 +88,7 @@
 	else
 		. += "<span class='warning'>\The [src] does not have a power source installed.</span>"
 
-/obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
+/obj/item/melee/baton/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
@@ -102,6 +102,7 @@
 			cell = W
 			balloon_alert(user, "You insert the power cell.")
 			update_icon()
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(cell)
@@ -111,6 +112,7 @@
 			balloon_alert(user, "You remove the power cell.")
 			turned_on = FALSE
 			update_icon()
+		return TRUE
 	else
 		return ..()
 

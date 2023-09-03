@@ -121,7 +121,7 @@
 	else
 		. = timer_set
 
-/obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
+/obj/machinery/syndicatebomb/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && can_unanchor)
 		if(!anchored)
 			if(!isturf(loc) || isspaceturf(loc))
@@ -132,6 +132,7 @@
 				setAnchored(TRUE)
 				if(active)
 					to_chat(user, "<span class='notice'>The bolts lock in place.</span>")
+			return TRUE
 		else
 			if(!active)
 				to_chat(user, "<span class='notice'>You wrench the bomb from the floor.</span>")
@@ -139,14 +140,17 @@
 				setAnchored(FALSE)
 			else
 				to_chat(user, "<span class='warning'>The bolts are locked down!</span>")
+			return TRUE
 
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		open_panel = !open_panel
 		update_icon()
 		to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
+		return TRUE
 
 	else if(is_wire_tool(I) && open_panel)
 		wires.interact(user)
+		return TRUE
 
 	else if(I.tool_behaviour == TOOL_CROWBAR)
 		if(open_panel && wires.is_all_cut())
@@ -163,6 +167,7 @@
 			to_chat(user, "<span class='warning'>The wires connecting the shell to the explosives are holding it down!</span>")
 		else
 			to_chat(user, "<span class='warning'>The cover is screwed on, it won't pry off!</span>")
+		return TRUE
 	else if(istype(I, /obj/item/bombcore) || istype(I, /obj/item/transfer_valve))
 		if(!payload)
 			if(!user.transferItemToLoc(I, src))
@@ -174,30 +179,35 @@
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[payload] is already loaded into [src]! You'll have to remove it first.</span>")
+		return TRUE
 	else if(I.tool_behaviour == TOOL_WELDER)
 		if(payload || !wires.is_all_cut() || !open_panel)
-			return
+			return TRUE
 
 		if(!I.tool_start_check(user, amount=5))  //uses up 5 fuel
-			return
+			return TRUE
 
 		to_chat(user, "<span class='notice'>You start to cut [src] apart...</span>")
 		if(I.use_tool(src, user, 20, volume=50, amount=5)) //uses up 5 fuel
 			to_chat(user, "<span class='notice'>You cut [src] apart.</span>")
 			new /obj/item/stack/sheet/plasteel( loc, 5)
 			qdel(src)
+		return TRUE
 	else if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/stack_sheets = I
 		if(stack_sheets.amount < PLASTEEL_REPAIR_AMOUNT)
 			to_chat(user, "<span class='notice'>You need at least [PLASTEEL_REPAIR_AMOUNT] sheets of plasteel to repair [src].</span>")
-			return
+			return TRUE
 		if(do_after(user, delay = 2.5 SECONDS, target = src) && stack_sheets.use(PLASTEEL_REPAIR_AMOUNT))
 			obj_integrity = min(obj_integrity + 100, max_integrity)
+		return TRUE
 	else
 		var/old_integ = obj_integrity
 		. = ..()
 		if((old_integ > obj_integrity) && active  && (payload in src))
 			to_chat(user, "<span class='warning'>That seems like a really bad idea...</span>")
+		return TRUE
+	return ..()
 
 /obj/machinery/syndicatebomb/interact(mob/user)
 	wires.interact(user)
@@ -467,23 +477,23 @@
 		qdel(loc)
 	qdel(src)
 
-/obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
+/obj/item/bombcore/chemical/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR && beakers.len > 0)
 		I.play_tool_sound(src)
 		for (var/obj/item/B in beakers)
 			B.forceMove(drop_location())
 			beakers -= B
-		return
+		return TRUE
 	else if(istype(I, /obj/item/reagent_containers/glass/beaker) || istype(I, /obj/item/reagent_containers/glass/bottle))
 		if(beakers.len < max_beakers)
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			beakers += I
 			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
 		else
 			to_chat(user, "<span class='warning'>[I] won't fit! \The [src] can only hold up to [max_beakers] containers.</span>")
-			return
-	..()
+			return TRUE
+	return ..()
 
 /obj/item/bombcore/chemical/CheckParts(list/parts_list)
 	..()

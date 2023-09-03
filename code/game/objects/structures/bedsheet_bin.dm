@@ -41,36 +41,38 @@
 		update_icon()
 	..()
 
-/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
+/obj/structure/bedsheetbin/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
 		if(!user.transferItemToLoc(I, src))
-			return
+			return TRUE
 		sheets.Add(I)
 		amount++
 		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 		update_icon()
 
 	else if(default_unfasten_wrench(user, I, 5))
-		return
+		return TRUE
 
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(flags_1 & NODECONSTRUCT_1)
-			return
+			return TRUE
 		if(amount)
 			to_chat(user, "<span clas='warn'>The [src] must be empty first!</span>")
-			return
+			return TRUE
 		if(I.use_tool(src, user, 5, volume=50))
 			to_chat(user, "<span clas='notice'>You disassemble the [src].</span>")
 			new /obj/item/stack/rods(loc, 2)
 			qdel(src)
+		return TRUE
 
 	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		if(!user.transferItemToLoc(I, src))
 			to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot hide it among the sheets!</span>")
-			return
+			return TRUE
 		hidden = I
 		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
-
+		return TRUE
+	return ..()
 
 /obj/structure/bedsheetbin/attack_paw(mob/user)
 	return attack_hand(user)

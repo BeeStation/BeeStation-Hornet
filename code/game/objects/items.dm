@@ -762,7 +762,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 
 	if(usr.get_active_held_item() == null) // Let me know if this has any problems -Yota
-		usr.UnarmedAttack(src)
+		usr.primary_interact(src)
 
 //This proc is executed when someone clicks the on-screen UI button.
 //The default action is attack_self().

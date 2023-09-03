@@ -48,13 +48,13 @@
 	. = ..()
 	icon_state = "igniter[on]"
 
-/obj/machinery/igniter/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/igniter/item_interact(obj/item/I, mob/living/user, params)
 
 	if(default_deconstruction_screwdriver(user, "igniter_o", "igniter[on]", I))
 		on = FALSE
-		return
+		return TRUE
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 
 	return ..()
 
@@ -102,7 +102,7 @@
 		icon_state = "[base_state]-p"
 //		src.sd_SetLuminosity(0)
 
-/obj/machinery/sparker/attackby(obj/item/W, mob/user, params)
+/obj/machinery/sparker/item_interact(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_SCREWDRIVER)
 		add_fingerprint(user)
 		src.disable = !src.disable
@@ -115,6 +115,7 @@
 				icon_state = "[base_state]"
 			else
 				icon_state = "[base_state]-p"
+		return TRUE
 	else
 		return ..()
 

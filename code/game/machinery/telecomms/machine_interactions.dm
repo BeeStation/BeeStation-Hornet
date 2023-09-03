@@ -10,7 +10,7 @@
 	var/tempfreq = FREQ_COMMON
 	emp_disable_time = 5 MINUTES
 
-/obj/machinery/telecomms/attackby(obj/item/P, mob/user, params)
+/obj/machinery/telecomms/item_interact(obj/item/P, mob/user, params)
 
 	var/icon_closed = initial(icon_state)
 	var/icon_open = "[initial(icon_state)]_o"
@@ -19,13 +19,14 @@
 		icon_open = "[initial(icon_state)]_o_off"
 
 	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, P))
-		return
+		return TRUE
 	// Using a multitool lets you access the receiver's interface
 	else if(P.tool_behaviour == TOOL_MULTITOOL)
 		attack_hand(user)
+		return TRUE
 
 	else if(default_deconstruction_crowbar(P))
-		return
+		return TRUE
 	else
 		return ..()
 

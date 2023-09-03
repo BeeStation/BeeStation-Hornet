@@ -54,14 +54,14 @@
 	if(is_ready())
 		teleport(AM)
 
-/obj/machinery/teleport/hub/attackby(obj/item/W, mob/user, params)
+/obj/machinery/teleport/hub/item_interact(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", W))
 		if(power_station?.engaged)
 			power_station.engaged = 0 //hub with panel open is off, so the station must be informed.
 			update_icon()
-		return
+		return TRUE
 	if(default_deconstruction_crowbar(W))
-		return
+		return TRUE
 	return ..()
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
@@ -170,19 +170,19 @@
 		teleporter_console = null
 	return ..()
 
-/obj/machinery/teleport/station/attackby(obj/item/W, mob/user, params)
+/obj/machinery/teleport/station/item_interact(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", W))
 		update_icon()
-		return
+		return TRUE
 
 	else if(default_deconstruction_crowbar(W))
-		return
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(panel_open)
 			link_console_and_hub()
 			to_chat(user, "<span class='notice'>You reconnect the station to nearby machinery.</span>")
-			return
+			return TRUE
 	else
 		return ..()
 

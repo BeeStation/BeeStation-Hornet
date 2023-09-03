@@ -116,12 +116,12 @@
 	else
 		to_chat(user, "<span class='notice'>You try to pet [src], but it has no stuffing. Aww...</span>")
 
-/obj/item/toy/plush/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/plush/item_interact(obj/item/I, mob/living/user, params)
 	if(I.is_sharp())
 		if(!grenade)
 			if(!stuffed)
 				to_chat(user, "<span class='warning'>You already murdered it!</span>")
-				return
+				return TRUE
 			if(!divine)
 				user.visible_message("<span class='notice'>[user] tears out the stuffing from [src]!</span>", "<span class='notice'>You rip a bunch of the stuffing from [src]. Murderer.</span>")
 				I.play_tool_sound(src)
@@ -132,25 +132,25 @@
 			to_chat(user, "<span class='notice'>You remove the grenade from [src].</span>")
 			user.put_in_hands(grenade)
 			grenade = null
-		return
+		return TRUE
 	if(istype(I, /obj/item/grenade))
 		if(stuffed)
 			to_chat(user, "<span class='warning'>You need to remove some stuffing first!</span>")
-			return
+			return TRUE
 		if(grenade)
 			to_chat(user, "<span class='warning'>[src] already has a grenade!</span>")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(I, src))
-			return
+			return TRUE
 		user.visible_message("<span class='warning'>[user] slides [grenade] into [src].</span>", \
 		"<span class='danger'>You slide [I] into [src].</span>")
 		grenade = I
 		var/turf/grenade_turf = get_turf(src)
 		log_game("[key_name(user)] added a grenade ([I.name]) to [src] at [AREACOORD(grenade_turf)].")
-		return
+		return TRUE
 	if(istype(I, /obj/item/toy/plush))
 		love(I, user)
-		return
+		return TRUE
 	return ..()
 
 /obj/item/toy/plush/proc/love(obj/item/toy/plush/Kisser, mob/living/user)	//~<3

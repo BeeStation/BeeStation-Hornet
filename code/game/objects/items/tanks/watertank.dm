@@ -87,10 +87,10 @@
 		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
 	return ..()
 
-/obj/item/watertank/attackby(obj/item/W, mob/user, params)
+/obj/item/watertank/item_interact(obj/item/W, mob/user, params)
 	if(W == noz)
 		remove_noz()
-		return 1
+		return  TRUE
 	else
 		return ..()
 

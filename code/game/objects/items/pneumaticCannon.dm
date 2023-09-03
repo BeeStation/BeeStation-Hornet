@@ -70,18 +70,18 @@
 		out += "<span class='notice'>[icon2html(tank, user)] It has \a [tank] mounted onto it.</span>"
 	. += out.Join("\n")
 
-/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+/obj/item/pneumatic_cannon/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals))
 		if(!tank)
 			var/obj/item/tank/internals/IT = W
 			if(IT.volume <= 3)
 				to_chat(user, "<span class='warning'>\The [IT] is too small for \the [src].</span>")
-				return
+				return TRUE
 			updateTank(W, 0, user)
+		return TRUE
 	else if(W.type == type)
 		to_chat(user, "<span class='warning'>You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption.</span>")
+		return TRUE
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		switch(pressureSetting)
 			if(1)
@@ -91,14 +91,19 @@
 			if(3)
 				pressureSetting = 1
 		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
+		return TRUE
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(tank)
 			updateTank(tank, 1, user)
+		return TRUE
 	else if(loadedWeightClass >= maxWeightClass)
 		to_chat(user, "<span class='warning'>\The [src] can't hold any more items!</span>")
+		return TRUE
 	else if(isitem(W))
 		var/obj/item/IW = W
 		load_item(IW, user)
+		return TRUE
+	return ..()
 
 /obj/item/pneumatic_cannon/proc/can_load_item(obj/item/I, mob/user)
 	if(!istype(I))			//Players can't load non items, this allows for admin varedit inserts.

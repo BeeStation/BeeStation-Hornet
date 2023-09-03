@@ -1,8 +1,12 @@
 
-/obj/item/proc/target_clicked(mob/user, atom/target, params)
+/obj/item/proc/use_on(mob/user, atom/target, params)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	if (tool_action(user, target))
+	// Harm intent always disables safe interactions and goes straight to attacking
+	if (user.a_intent != INTENT_HARM && tool_action(user, target))
 		return
+	if (QDELETED(src))
+		return
+	// Perform pre attack actions
 	if(!pre_attack(target, user, params))
 		return
 	// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
@@ -16,9 +20,18 @@
  * performing an action here, but you can add specific tool behaviours in here if you want.
  */
 /obj/item/proc/tool_action(mob/user, atom/target)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if (target.item_interact(src, user) || QDELETED(src))
+		return TRUE
 	if(!tool_behaviour)
 		return FALSE
 	return target.tool_act(user, src, tool_behaviour)
+
+/**
+ * Called when someone attempts to use an item on this device
+ */
+/atom/proc/item_interact(obj/item/item, mob/user)
+	return
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)

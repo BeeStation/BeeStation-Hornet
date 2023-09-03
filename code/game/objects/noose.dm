@@ -14,7 +14,7 @@
 	flags_1 = NODECONSTRUCT_1
 	var/mutable_appearance/overlay
 
-/obj/structure/chair/noose/attackby(obj/item/W, mob/user, params)
+/obj/structure/chair/noose/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		user.visible_message("[user] cuts the noose.", "<span class='notice'>You cut the noose.</span>")
 		if(has_buckled_mobs())
@@ -27,8 +27,8 @@
 		var/obj/item/stack/cable_coil/C = new(get_turf(src))
 		C.amount = 25
 		qdel(src)
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/structure/chair/noose/Initialize(mapload)
 	. = ..()

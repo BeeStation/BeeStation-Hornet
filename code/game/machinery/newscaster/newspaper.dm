@@ -158,25 +158,26 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 		if(ismob(loc))
 			attack_self(loc)
 
-/obj/item/newspaper/attackby(obj/item/W, mob/living/user, params)
+/obj/item/newspaper/item_interact(obj/item/W, mob/living/user, params)
 	if(burn_paper_product_attackby_check(W, user))
-		return
+		return TRUE
 
 	if(istype(W, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
-			return
+			return TRUE
 		if(scribble_page == curr_page)
 			to_chat(user, "<span class='warning'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
 		else
 			var/s = stripped_input(user, "Write something", "Newspaper")
 			if (!s)
-				return
+				return TRUE
 			if(!user.canUseTopic(src, BE_CLOSE))
-				return
+				return TRUE
 			scribble_page = curr_page
 			scribble = s
 			attack_self(user)
 			add_fingerprint(user)
+		return TRUE
 	else
 		return ..()

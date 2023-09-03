@@ -72,14 +72,15 @@
 	else
 		return 0
 
-/obj/item/holochip/attackby(obj/item/I, mob/user, params)
-	..()
+/obj/item/holochip/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/holochip))
 		var/obj/item/holochip/H = I
 		credits += H.credits
 		to_chat(user, "<span class='notice'>You insert the credits into [src].</span>")
 		update_icon()
 		qdel(H)
+		return TRUE
+	return ..()
 
 /obj/item/holochip/AltClick(mob/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))

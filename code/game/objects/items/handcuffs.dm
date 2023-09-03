@@ -147,7 +147,7 @@
 	desc = "Fake handcuffs meant for gag purposes."
 	breakouttime = 10 //Deciseconds = 1s
 
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
+/obj/item/restraints/handcuffs/cable/item_interact(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
@@ -159,22 +159,23 @@
 			qdel(src)
 		else
 			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
-			return
+		return TRUE
 	else if(istype(I, /obj/item/stack/sheet/iron))
 		var/obj/item/stack/sheet/iron/M = I
 		if(M.get_amount() < 6)
 			to_chat(user, "<span class='warning'>You need at least six iron sheets to make good enough weights!</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
 		if(do_after(user, 35, target = src))
 			if(M.get_amount() < 6 || !M)
-				return
+				return TRUE
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
 			M.use(6)
 			user.put_in_hands(S)
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
 			remove_item_from_storage(user)
 			qdel(src)
+		return TRUE
 	else
 		return ..()
 

@@ -45,7 +45,7 @@
 		var/mob/M = loc
 		M.update_inv_gloves()
 
-// Called just before an attack_hand(), in mob/UnarmedAttack()
+// Called just before an attack_hand(), in mob/primary_interact()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
 	return FALSE // return 1 to cancel attack_hand()
 

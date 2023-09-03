@@ -513,7 +513,7 @@
 	return TRUE
 
 
-/obj/machinery/newscaster/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/newscaster/item_interact(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [name]...</span>")
 		I.play_tool_sound(src)
@@ -528,31 +528,33 @@
 				to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
 				new /obj/item/wallframe/newscaster(loc)
 			qdel(src)
-	else if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
+		return TRUE
+	else if(I.tool_behaviour == TOOL_WELDER)
 		if(machine_stat & BROKEN)
 			if(!I.tool_start_check(user, amount=0))
-				return
+				return TRUE
 			user.visible_message("<span class='notice'>[user] is repairing [src].</span>", \
 							"<span class='notice'>You begin repairing [src]...</span>", \
 							"<span class='hear'>You hear welding.</span>")
 			if(I.use_tool(src, user, 40, volume=50))
 				if(!(machine_stat & BROKEN))
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				obj_integrity = max_integrity
 				set_machine_stat(machine_stat & ~BROKEN)
 				update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		return TRUE
 
 	else if(istype(I, /obj/item/paper))
 		if(!user.temporarilyRemoveItemFromInventory(I))
-			return
+			return TRUE
 		else
 			paper_remaining ++
 			to_chat(user, "<span class='notice'>You insert the [I] into \the [src]! It now holds [paper_remaining] sheets of paper.</span>")
 			qdel(I)
-			return
+			return TRUE
 	return ..()
 
 /obj/machinery/newscaster/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)

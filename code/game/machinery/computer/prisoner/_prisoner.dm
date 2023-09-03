@@ -51,8 +51,9 @@
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 		updateUsrDialog()
 
-/obj/machinery/computer/prisoner/attackby(obj/item/I, mob/user)
+/obj/machinery/computer/prisoner/item_interact(obj/item/I, mob/user)
 	if(istype(I, /obj/item/card/id/prisoner))
 		id_insert(user, I)
+		return TRUE
 	else
 		return ..()

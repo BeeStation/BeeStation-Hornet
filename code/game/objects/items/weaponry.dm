@@ -283,19 +283,20 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	materials = list(/datum/material/iron=1150, /datum/material/glass=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
-/obj/item/wirerod/attackby(obj/item/I, mob/user, params)
+/obj/item/wirerod/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shard))
 		var/obj/item/spear/S = new /obj/item/spear
 
 		remove_item_from_storage(user)
 		if (!user.transferItemToLoc(I, S))
-			return
+			return TRUE
 		S.CheckParts(list(I))
 		qdel(src)
 
 		user.put_in_hands(S)
 		log_crafting(user, S, TRUE)
 		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
+		return TRUE
 
 	else if(istype(I, /obj/item/assembly/igniter) && !(HAS_TRAIT(I, TRAIT_NODROP)))
 		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
@@ -309,6 +310,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 		user.put_in_hands(P)
 		log_crafting(user, P, TRUE)
+		return TRUE
 	else
 		return ..()
 

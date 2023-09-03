@@ -34,28 +34,30 @@
 	if(mergeable_decal)
 		return TRUE
 
-/obj/effect/decal/cleanable/attackby(obj/item/W, mob/user, params)
+/obj/effect/decal/cleanable/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/glass) || istype(W, /obj/item/reagent_containers/food/drinks))
 		if(src.reagents && W.reagents)
 			. = 1 //so the containers don't splash their content on the src while scooping.
 			if(!src.reagents.total_volume)
 				to_chat(user, "<span class='notice'>[src] isn't thick enough to scoop up!</span>")
-				return
+				return TRUE
 			if(W.reagents.total_volume >= W.reagents.maximum_volume)
 				to_chat(user, "<span class='notice'>[W] is full!</span>")
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You scoop up [src] into [W]!</span>")
 			reagents.trans_to(W, reagents.total_volume, transfered_by = user)
 			if(!reagents.total_volume) //scooped up all of it
 				qdel(src)
-				return
+				return TRUE
+			return TRUE
 	if(W.is_hot()) //todo: make heating a reagent holder proc
 		if(istype(W, /obj/item/clothing/mask/cigarette))
-			return
+			return TRUE
 		else
 			var/hotness = W.is_hot()
 			reagents.expose_temperature(hotness)
 			to_chat(user, "<span class='notice'>You heat [name] with [W]!</span>")
+			return TRUE
 	else
 		return ..()
 

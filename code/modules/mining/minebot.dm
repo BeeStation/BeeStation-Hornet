@@ -211,7 +211,7 @@
 	if(istype(item, /obj/item/borg/upgrade/modkit))
 		if(!do_after(user, 20, src))
 			return TRUE
-		item.target_clicked(user, stored_pka, params) // This handles any install messages
+		item.use_on(user, stored_pka, params) // This handles any install messages
 		return TRUE
 	if(item.tool_behaviour == TOOL_CROWBAR)
 		uninstall_upgrades()
@@ -347,7 +347,7 @@
 	if(!client && isliving(target)) // Switching to offense mode if we've got a target
 		set_offense_behavior()
 	if(stored_drill)
-		stored_drill.target_clicked(src, target) // Use the drill if the target's adjacent
+		stored_drill.use_on(src, target) // Use the drill if the target's adjacent
 
 /// Ranged attack handling (PKA/plasma cutter)
 /mob/living/simple_animal/hostile/mining_drone/OpenFire(atom/target)

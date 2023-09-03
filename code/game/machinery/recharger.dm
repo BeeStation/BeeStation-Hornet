@@ -54,51 +54,51 @@
 		use_power = IDLE_POWER_USE
 		update_icon()
 
-/obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
+/obj/machinery/recharger/item_interact(obj/item/G, mob/user, params)
 	if(G.tool_behaviour == TOOL_WRENCH)
 		if(charging)
 			to_chat(user, "<span class='notice'>Remove the charging item first!</span>")
-			return
+			return TRUE
 		setAnchored(!anchored)
 		power_change()
 		to_chat(user, "<span class='notice'>You [anchored ? "attached" : "detached"] [src].</span>")
 		G.play_tool_sound(src)
-		return
+		return TRUE
 
 	var/allowed = is_type_in_typecache(G, allowed_devices)
 
 	if(allowed)
 		if(anchored)
 			if(charging || panel_open)
-				return 1
+				return TRUE
 
 			//Checks to make sure he's not in space doing it, and that the area got proper power.
 			var/area/a = get_area(src)
 			if(!isarea(a) || a.power_equip == 0)
 				to_chat(user, "<span class='notice'>[src] blinks red as you try to insert [G].</span>")
-				return 1
+				return TRUE
 
 			if (istype(G, /obj/item/gun/energy))
 				var/obj/item/gun/energy/E = G
 				if(!E.can_charge)
 					to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")
-					return 1
+					return TRUE
 
 			if(!user.transferItemToLoc(G, src))
-				return 1
+				return TRUE
 			setCharging(G)
 
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
-		return 1
+		return TRUE
 
 	if(anchored && !charging)
 		if(default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", G))
-			return
+			return TRUE
 
 		if(panel_open && G.tool_behaviour == TOOL_CROWBAR)
 			default_deconstruction_crowbar(G)
-			return
+			return TRUE
 
 	return ..()
 

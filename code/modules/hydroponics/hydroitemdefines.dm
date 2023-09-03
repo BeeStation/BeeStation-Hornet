@@ -140,7 +140,7 @@
 			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
 			for(var/obj/structure/spacevine/V in T)
 				if(user.Adjacent(V))
-					target_clicked(user, V)
+					use_on(user, V)
 		swiping = FALSE
 
 // *************************************

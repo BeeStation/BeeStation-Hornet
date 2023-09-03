@@ -6,12 +6,8 @@
 	..()
 	return
 
-
-/obj/machinery/door/unpowered/attackby(obj/item/I, mob/user, params)
-	if(locked)
-		return
-	else
-		return ..()
+/obj/machinery/door/unpowered/item_interact(obj/item/I, mob/user, params)
+	return FALSE
 
 /obj/machinery/door/unpowered/shuttle
 	icon = 'icons/turf/shuttle.dmi'

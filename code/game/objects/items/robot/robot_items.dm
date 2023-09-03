@@ -906,15 +906,14 @@
 			update_icon()
 			return
 	else
-		stored.target_clicked(user, A, params)
+		stored.use_on(user, A, params)
 		return
 	. = ..()
 
-/obj/item/borg/apparatus/attackby(obj/item/W, mob/user, params)
+/obj/item/borg/apparatus/item_interact(obj/item/W, mob/user, params)
 	if(stored)
-		W.target_clicked(user, stored, params)
-		return
-	. = ..()
+		return W.use_on(user, stored, params)
+	return  ..()
 
 /////////////////
 //beaker holder//

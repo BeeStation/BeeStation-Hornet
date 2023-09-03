@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/silicon/can_receive(freq, level)
 	return ..(freq, level, TRUE)
 
-/obj/item/radio/headset/attackby(obj/item/W, mob/user, params)
+/obj/item/radio/headset/item_interact(obj/item/W, mob/user, params)
 	user.set_machine(src)
 
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
@@ -317,25 +317,27 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 		else
 			to_chat(user, "<span class='warning'>This headset doesn't have any unique encryption keys!  How useless...</span>")
+		return TRUE
 
 	else if(istype(W, /obj/item/encryptionkey))
 		if(keyslot && keyslot2)
 			to_chat(user, "<span class='warning'>The headset can't hold another key!</span>")
-			return
+			return TRUE
 
 		if(!keyslot)
 			if(!user.transferItemToLoc(W, src))
-				return
+				return TRUE
 			keyslot = W
 
 		else
 			if(!user.transferItemToLoc(W, src))
-				return
+				return TRUE
 			keyslot2 = W
 
 
 		recalculateChannels()
 		ui_update()
+		return TRUE
 	else
 		return ..()
 

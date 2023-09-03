@@ -47,13 +47,14 @@
 	updateSelfDialog()
 	update_icon()
 
-/obj/item/implantpad/attackby(obj/item/implantcase/C, mob/user, params)
+/obj/item/implantpad/item_interact(obj/item/implantcase/C, mob/user, params)
 	if(istype(C, /obj/item/implantcase) && !case)
 		if(!user.transferItemToLoc(C, src))
-			return
+			return TRUE
 		case = C
 		updateSelfDialog()
 		update_icon()
+		return TRUE
 	else
 		return ..()
 

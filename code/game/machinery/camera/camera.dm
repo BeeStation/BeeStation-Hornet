@@ -252,7 +252,7 @@
 
 	return TRUE
 
-/obj/machinery/camera/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/camera/item_interact(obj/item/attacking_item, mob/living/user, params)
 	// UPGRADES
 	if(panel_open)
 		var/obj/structure/camera_assembly/assembly = assembly_ref?.resolve()
@@ -266,18 +266,18 @@
 					to_chat(user, "<span class='notice'>You attach [attacking_item] into [assembly]'s inner circuits.</span>")
 			else
 				to_chat(user, "<span class='notice'>[src] already has that upgrade!</span>")
-			return
+			return TRUE
 
 		else if(istype(attacking_item, /obj/item/assembly/prox_sensor))
 			if(!isMotion())
 				if(!user.temporarilyRemoveItemFromInventory(attacking_item))
-					return
+					return TRUE
 				upgradeMotion()
 				to_chat(user, "<span class='notice'>You attach [attacking_item] into [assembly]'s inner circuits.</span>")
 				qdel(attacking_item)
 			else
 				to_chat(user, "<span class='notice'>[src] already has that upgrade!</span>")
-			return
+			return TRUE
 
 	// OTHER
 	if(istype(attacking_item, /obj/item/modular_computer/tablet) && isliving(user))
@@ -296,7 +296,7 @@
 			if(isAI(O))
 				var/mob/living/silicon/ai/AI = O
 				if(AI.control_disabled || (AI.stat == DEAD))
-					return
+					return TRUE
 
 				AI.last_tablet_note_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
 
@@ -309,7 +309,7 @@
 			if (O.client?.eye == src)
 				to_chat(O, "[user] holds \a [itemname] up to one of the cameras ...")
 				O << browse("<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>", "window=[itemname]")
-		return
+		return TRUE
 
 	if(istype(attacking_item, /obj/item/paper))
 		// Grab the paper, sanitise the name as we're about to just throw it into chat wrapped in HTML tags.
@@ -351,12 +351,12 @@
 			if (potential_viewer.client?.eye == src)
 				log_paper("[key_name(user)] held [last_shown_paper] up to [src], and [key_name(potential_viewer)] may read it.")
 				to_chat(potential_viewer, "<span class='name'[user]</span> holds <a href='?_src_=usr;show_paper_note=[REF(last_shown_paper)];'>\a [item_name]</a> up to your camera...")
-		return
+		return TRUE
 
 	else if(istype(attacking_item, /obj/item/camera_bug))
 		if(!can_use())
 			to_chat(user, "<span class='notice'>Camera non-functional.</span>")
-			return
+			return TRUE
 		if(bug)
 			to_chat(user, "<span class='notice'>Camera bug removed.</span>")
 			bug.bugged_cameras -= src.c_tag
@@ -365,7 +365,7 @@
 			to_chat(user, "<span class='notice'>Camera bugged.</span>")
 			bug = attacking_item
 			bug.bugged_cameras[src.c_tag] = WEAKREF(src)
-		return
+		return TRUE
 
 	return ..()
 

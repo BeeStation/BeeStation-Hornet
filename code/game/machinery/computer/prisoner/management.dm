@@ -68,12 +68,13 @@
 	popup.open()
 	return
 
-/obj/machinery/computer/prisoner/management/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/prisoner/management/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		if(screen)
 			id_insert(user)
 		else
 			to_chat(user, "<span class='danger'>Unauthorized access.</span>")
+		return TRUE
 	else
 		return ..()
 

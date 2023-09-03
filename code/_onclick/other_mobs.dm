@@ -4,7 +4,7 @@
 
 	Otherwise pretty standard.
 */
-/mob/living/carbon/human/UnarmedAttack(atom/A, proximity)
+/mob/living/carbon/human/primary_interact(atom/A, proximity)
 
 	if(!has_active_hand()) //can't attack without a hand.
 		to_chat(src, "<span class='notice'>You look at your arm and sigh.</span>")
@@ -107,7 +107,7 @@
 /*
 	Animals & All Unspecified
 */
-/mob/living/UnarmedAttack(atom/A)
+/mob/living/primary_interact(atom/A)
 	A.attack_animal(src)
 
 /atom/proc/attack_animal(mob/user)
@@ -120,7 +120,7 @@
 /*
 	Monkeys
 */
-/mob/living/carbon/monkey/UnarmedAttack(atom/A, proximity)
+/mob/living/carbon/monkey/primary_interact(atom/A, proximity)
 	var/override = 0
 	for(var/datum/mutation/HM as() in dna.mutations)
 		override += HM.on_attack_hand(A, proximity)
@@ -173,7 +173,7 @@
 	Aliens
 	Defaults to same as monkey in most places
 */
-/mob/living/carbon/alien/UnarmedAttack(atom/A)
+/mob/living/carbon/alien/primary_interact(atom/A)
 	A.attack_alien(src)
 
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
@@ -184,7 +184,7 @@
 	return
 
 // Babby aliens
-/mob/living/carbon/alien/larva/UnarmedAttack(atom/A)
+/mob/living/carbon/alien/larva/primary_interact(atom/A)
 	if (A.larva_attack_intercept(src))
 		return
 	var/damage_dealt = deal_generic_attack(A)
@@ -203,10 +203,6 @@
 			return FALSE
 
 		else
-			if(HAS_TRAIT(src, TRAIT_PACIFISM))
-				to_chat(src, "<span class='notice'>You don't want to hurt anyone!</span>")
-				return
-
 			if(prob(90))
 				log_combat(L, src, "attacked")
 				var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/sharp/light)
@@ -223,7 +219,7 @@
 	Slimes
 	Nothing happening here
 */
-/mob/living/simple_animal/slime/UnarmedAttack(atom/A)
+/mob/living/simple_animal/slime/primary_interact(atom/A)
 	A.attack_slime(src)
 
 /atom/proc/attack_slime(mob/user)
@@ -236,7 +232,7 @@
 /*
 	Drones
 */
-/mob/living/simple_animal/drone/UnarmedAttack(atom/A)
+/mob/living/simple_animal/drone/primary_interact(atom/A)
 	A.attack_drone(src)
 
 /atom/proc/attack_drone(mob/living/simple_animal/drone/user)
@@ -250,14 +246,14 @@
 	True Devil
 */
 
-/mob/living/carbon/true_devil/UnarmedAttack(atom/A, proximity)
+/mob/living/carbon/true_devil/primary_interact(atom/A, proximity)
 	A.attack_hand(src)
 
 /*
 	Brain
 */
 
-/mob/living/brain/UnarmedAttack(atom/A)//Stops runtimes due to attack_animal being the default
+/mob/living/brain/primary_interact(atom/A)//Stops runtimes due to attack_animal being the default
 	return
 
 
@@ -265,7 +261,7 @@
 	pAI
 */
 
-/mob/living/silicon/pai/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+/mob/living/silicon/pai/primary_interact(atom/attack_target, proximity_flag, list/modifiers)
 	attack_target.attack_pai(src, modifiers)
 
 /atom/proc/attack_pai(mob/user, list/modifiers)
@@ -275,7 +271,7 @@
 	Simple animals
 */
 
-/mob/living/simple_animal/UnarmedAttack(atom/A, proximity)
+/mob/living/simple_animal/primary_interact(atom/A, proximity)
 	if(!dextrous || a_intent == INTENT_HARM)
 		return ..()
 	if(!ismob(A))
@@ -287,7 +283,7 @@
 	Hostile animals
 */
 
-/mob/living/simple_animal/hostile/UnarmedAttack(atom/A)
+/mob/living/simple_animal/hostile/primary_interact(atom/A)
 	GiveTarget(A)
 	if(dextrous && !ismob(A))
 		..()

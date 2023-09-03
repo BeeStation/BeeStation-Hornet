@@ -87,7 +87,7 @@
 	ruined = initial(selected.ruined)
 
 
-/obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
+/obj/structure/sign/poster/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER)
 		I.play_tool_sound(src, 100)
 		if(ruined)
@@ -96,6 +96,8 @@
 		else
 			to_chat(user, "<span class='notice'>You carefully remove the poster from the wall.</span>")
 			roll_and_drop(user.loc)
+		return TRUE
+	return ..()
 
 /obj/structure/sign/poster/attack_hand(mob/user)
 	. = ..()
@@ -119,7 +121,7 @@
 	forceMove(P)
 	return P
 
-//separated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/attackby()
+//separated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/item_interact()
 /turf/closed/wall/proc/place_poster(obj/item/poster/P, mob/user)
 	if(!P.poster_structure)
 		to_chat(user, "<span class='warning'>[P] has no poster... inside it? Inform a coder!</span>")

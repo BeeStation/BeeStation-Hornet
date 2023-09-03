@@ -54,18 +54,18 @@
 	update_icon()
 
 
-/obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
+/obj/machinery/recycler/item_interact(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
-		return
+		return TRUE
 
 	if(default_pry_open(I))
-		return
+		return TRUE
 
 	if(default_unfasten_wrench(user, I))
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 	return ..()
 
 /obj/machinery/recycler/on_emag(mob/user)

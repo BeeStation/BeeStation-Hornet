@@ -79,37 +79,37 @@
 		return
 	user.put_in_hands(defib.paddles)
 
-/obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/defibrillator_mount/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/defibrillator))
 		if(defib)
 			to_chat(user, "<span class='warning'>There's already a defibrillator in [src]!</span>")
-			return
+			return TRUE
 		if(HAS_TRAIT(I, TRAIT_NODROP) || !user.transferItemToLoc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
+			return TRUE
 		user.visible_message("<span class='notice'>[user] hooks up [I] to [src]!</span>", \
 		"<span class='notice'>You press [I] into the mount, and it clicks into place.</span>")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
 		begin_processing()
 		update_icon()
-		return
+		return TRUE
 	else if(defib && I == defib.paddles)
 		defib.paddles.snap_back()
-		return
+		return TRUE
 	var/obj/item/card/id = I.GetID()
 	if(id)
 		if(check_access(id) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
 			if(!defib)
 				to_chat(user, "<span class='warning'>You can't engage the clamps on a defibrillator that isn't there.</span>")
-				return
+				return TRUE
 			clamps_locked = !clamps_locked
 			to_chat(user, "<span class='notice'>Clamps [clamps_locked ? "" : "dis"]engaged.</span>")
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>Insufficient access.</span>")
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/machinery/defibrillator_mount/multitool_act(mob/living/user, obj/item/multitool)
 	if(!defib)

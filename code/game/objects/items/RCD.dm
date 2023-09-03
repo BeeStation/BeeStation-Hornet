@@ -61,16 +61,16 @@ RLD
 	silo_mats = null
 	return ..()
 
-/obj/item/construction/attackby(obj/item/W, mob/user, params)
+/obj/item/construction/item_interact(obj/item/W, mob/user, params)
 	if(iscyborg(user))
-		return
+		return ..()
 	var/loaded = 0
 	if(istype(W, /obj/item/rcd_ammo))
 		var/obj/item/rcd_ammo/R = W
 		var/load = min(R.ammoamt, max_matter - matter)
 		if(load <= 0)
 			to_chat(user, "<span class='warning'>[src] can't hold any more matter-units!</span>")
-			return
+			return TRUE
 		R.ammoamt -= load
 		if(R.ammoamt <= 0)
 			qdel(R)
@@ -102,6 +102,7 @@ RLD
 	else
 		return ..()
 	update_icon()	//ensures that ammo counters (if present) get updated
+	return TRUE
 
 /obj/item/construction/proc/loadwithsheets(obj/item/stack/sheet/S, value, mob/user)
 	var/maxsheets = round((max_matter-matter)/value)    //calculate the max number of sheets that will fit in RCD

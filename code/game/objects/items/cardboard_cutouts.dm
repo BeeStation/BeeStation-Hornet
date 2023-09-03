@@ -44,13 +44,13 @@
 	icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
 	pushed_over = FALSE
 
-/obj/item/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
+/obj/item/cardboard_cutout/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/crayon))
 		change_appearance(I, user)
-		return
+		return TRUE
 	// Why yes, this does closely resemble mob and object attack code.
 	if(I.item_flags & NOBLUDGEON)
-		return
+		return ..()
 	if(!I.force)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else if(I.hitsound)
@@ -64,6 +64,7 @@
 			"<span class='danger'>You hit [src] with [I]!</span>")
 		if(prob(I.force))
 			push_over()
+	return TRUE
 
 /obj/item/cardboard_cutout/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	if(istype(P, /obj/projectile/bullet/reusable))

@@ -426,11 +426,12 @@
 		F.add_fingerprint(user)
 	zero_amount()
 
-/obj/item/stack/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/item_interact(obj/item/W, mob/user, params)
 	if(merge_check(W))
 		var/obj/item/stack/S = W
 		if(merge(S))
 			to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
+		return TRUE
 	else
 		return ..()
 

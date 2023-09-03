@@ -242,21 +242,17 @@
 	desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
 	open(2)
 
-/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
-
-	if(operating)
-		return
-
+/obj/machinery/door/window/item_interact(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
 	if(!(flags_1&NODECONSTRUCT_1))
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
 			if(density || operating)
 				to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
-				return
+				return TRUE
 			I.play_tool_sound(src)
 			panel_open = !panel_open
 			to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [name].</span>")
-			return
+			return TRUE
 
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
@@ -285,7 +281,7 @@
 						if(obj_flags & EMAGGED)
 							to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
 							qdel(src)
-							return
+							return TRUE
 
 						to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 
@@ -303,7 +299,7 @@
 							ae.forceMove(drop_location())
 
 						qdel(src)
-				return
+				return TRUE
 	return ..()
 
 /obj/machinery/door/window/interact(mob/user)		//for sillycones
@@ -440,10 +436,10 @@
 /obj/machinery/door/window/clockwork/ratvar_act()
 	return FALSE
 
-/obj/machinery/door/window/clockwork/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/clockwork/item_interact(obj/item/I, mob/living/user, params)
 
 	if(operating)
-		return
+		return FALSE
 
 	add_fingerprint(user)
 	if(!(flags_1&NODECONSTRUCT_1))
@@ -451,7 +447,7 @@
 			I.play_tool_sound(src)
 			panel_open = !panel_open
 			to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [name].</span>")
-			return
+			return TRUE
 
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
@@ -460,7 +456,7 @@
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						qdel(src)
-				return
+				return TRUE
 	return ..()
 
 /obj/machinery/door/window/northleft

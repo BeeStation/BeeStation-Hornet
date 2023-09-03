@@ -55,16 +55,16 @@
 		if (!(. & EMP_PROTECT_SELF))
 			open_machine()
 
-/obj/machinery/recharge_station/attackby(obj/item/P, mob/user, params)
+/obj/machinery/recharge_station/item_interact(obj/item/P, mob/user, params)
 	if(state_open)
 		if(default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", P))
-			return
+			return TRUE
 
 	if(default_pry_open(P))
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(P))
-		return
+		return TRUE
 	return ..()
 
 /obj/machinery/recharge_station/interact(mob/user)

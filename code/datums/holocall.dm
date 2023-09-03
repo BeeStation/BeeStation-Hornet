@@ -232,7 +232,7 @@
 	QDEL_NULL(record)
 	return ..()
 
-/obj/item/disk/holodisk/attackby(obj/item/W, mob/user, params)
+/obj/item/disk/holodisk/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/disk/holodisk))
 		var/obj/item/disk/holodisk/holodiskOriginal = W
 		if (holodiskOriginal.record)
@@ -246,7 +246,8 @@
 			name = holodiskOriginal.name
 		else
 			to_chat(user, "[holodiskOriginal] has no record on it!")
-	..()
+		return TRUE
+	return ..()
 
 /obj/item/disk/holodisk/proc/build_record()
 	record = new

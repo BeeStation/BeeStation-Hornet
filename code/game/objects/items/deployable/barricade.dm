@@ -56,15 +56,16 @@
 /obj/structure/barricade/proc/make_debris()
 	return
 
-/obj/structure/barricade/attackby(obj/item/I, mob/user, params)
+/obj/structure/barricade/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM && bar_material == METAL)
 		if(obj_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
-				return
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=40))
 				obj_integrity = CLAMP(obj_integrity + 20, 0, max_integrity)
+		return TRUE
 
 	else if(I.GetID() && initial(locked_down))
 		if(allowed(user))
@@ -72,7 +73,7 @@
 			to_chat(user, "<span class='notice'>You [locked_down ? "lock" : "unlock"] the release mechanism.</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
+		return TRUE
 
 	else
 		return ..()
@@ -131,12 +132,12 @@
 	pickup_delay = 15 SECONDS
 	drop_amount = 5
 
-/obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
+/obj/structure/barricade/wooden/item_interact(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
 		if(W.amount < 5)
 			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
-			return
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
 			if(do_after(user, 50, target=src))
@@ -145,7 +146,7 @@
 				T.PlaceOnTop(/turf/closed/wall/mineral/wood/nonmetal)
 				transfer_fingerprints_to(T)
 				qdel(src)
-				return
+				return TRUE
 	return ..()
 
 /obj/structure/barricade/wooden/pick_up_barricade()

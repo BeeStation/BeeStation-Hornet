@@ -23,20 +23,20 @@
 /obj/item/transfer_valve/IsAssemblyHolder()
 	return TRUE
 
-/obj/item/transfer_valve/attackby(obj/item/item, mob/user, params)
+/obj/item/transfer_valve/item_interact(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/tank))
 		if(tank_one && tank_two)
 			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first!</span>")
-			return
+			return TRUE
 
 		if(!tank_one)
 			if(!user.transferItemToLoc(item, src))
-				return
+				return TRUE
 			tank_one = item
 			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
 		else if(!tank_two)
 			if(!user.transferItemToLoc(item, src))
-				return
+				return TRUE
 			tank_two = item
 			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
 
@@ -45,17 +45,18 @@
 
 
 		update_icon()
+		return TRUE
 //TODO: Have this take an assemblyholder
 	else if(isassembly(item))
 		var/obj/item/assembly/A = item
 		if(A.secured)
 			to_chat(user, "<span class='notice'>The device is secured.</span>")
-			return
+			return TRUE
 		if(attached_device)
 			to_chat(user, "<span class='warning'>There is already a device attached to the valve, remove it first!</span>")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(item, src))
-			return
+			return TRUE
 		attached_device = A
 		to_chat(user, "<span class='notice'>You attach the [item] to the valve controls and secure it.</span>")
 		A.on_attach()
@@ -63,7 +64,8 @@
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 		log_bomber(user, "attached a [item.name] to a ttv -", src, null, FALSE)
 		attacher = user
-	return
+		return TRUE
+	return ..()
 
 //Attached device memes
 /obj/item/transfer_valve/Move()

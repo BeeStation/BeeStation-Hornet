@@ -329,7 +329,7 @@
 		return
 	icon_state = "atmosbot[on][on?"_[action]":""]"
 
-/mob/living/simple_animal/bot/atmosbot/UnarmedAttack(atom/A, proximity)
+/mob/living/simple_animal/bot/atmosbot/primary_interact(atom/A, proximity)
 	if(isturf(A) && A == get_turf(src))
 		return deploy_holobarrier()
 	return ..()

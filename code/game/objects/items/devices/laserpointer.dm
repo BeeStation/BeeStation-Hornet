@@ -38,21 +38,23 @@
 	. = ..()
 	diode = new /obj/item/stock_parts/micro_laser/ultra
 
-/obj/item/laser_pointer/attackby(obj/item/W, mob/user, params)
+/obj/item/laser_pointer/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/micro_laser))
 		if(!diode)
 			if(!user.transferItemToLoc(W, src))
-				return
+				return TRUE
 			diode = W
 			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] already has a diode installed.</span>")
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(diode)
 			to_chat(user, "<span class='notice'>You remove the [diode.name] from \the [src].</span>")
 			diode.forceMove(drop_location())
 			diode = null
+		return TRUE
 	else
 		return ..()
 

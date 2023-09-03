@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed","smacked")
 	resistance_flags = FLAMMABLE
-	
+
 
 	var/label = ""
 	var/last_wave = 0
@@ -28,9 +28,10 @@
 		name = "[label] sign"
 		desc =	"It reads: [label]"
 
-/obj/item/picket_sign/attackby(obj/item/W, mob/user, params)
+/obj/item/picket_sign/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 		retext(user)
+		return TRUE
 	else
 		return ..()
 

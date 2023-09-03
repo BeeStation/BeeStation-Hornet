@@ -95,7 +95,7 @@
 		user.visible_message("<span class='notice'>[user] starts to apply [src] on [user.p_them()]self...</span>", "<span class='notice'>You begin applying [src] on yourself...</span>")
 		if(!do_after(user, self_delay, M))
 			return
-		//After the do_mob to ensure metabolites have had time to process at least one tick. 
+		//After the do_mob to ensure metabolites have had time to process at least one tick.
 		if(reagent && (C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/styptic_powder) || C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/silver_sulfadiazine)))
 			to_chat(user, "<span class='warning'>That stuff really hurt! You'll need to wait for the pain to go away before you can apply [src] to your wounds again, maybe someone else can help put it on for you.</span>")
 			return
@@ -154,16 +154,17 @@
 	heal_brute = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
 
-/obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/medical/gauze/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
 		if(get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
-			return
+			return TRUE
 		new /obj/item/stack/sheet/cotton/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
 					"<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
 					"<span class='italics'>You hear cutting.</span>")
 		use(2)
+		return TRUE
 	else
 		return ..()
 

@@ -60,12 +60,12 @@
 		piping_layer = CLAMP(--piping_layer, PIPING_LAYER_MIN, PIPING_LAYER_MAX)
 	return
 
-/obj/machinery/pipedispenser/attackby(obj/item/W, mob/user, params)
+/obj/machinery/pipedispenser/item_interact(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if (istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter))
 		to_chat(usr, "<span class='notice'>You put [W] back into [src].</span>")
 		qdel(W)
-		return
+		return TRUE
 	else
 		return ..()
 

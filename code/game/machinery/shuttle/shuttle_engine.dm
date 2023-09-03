@@ -126,15 +126,15 @@
 	env.set_temperature(env.return_temperature() + deltaTemperature)
 	air_update_turf()
 
-/obj/machinery/shuttle/engine/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/shuttle/engine/item_interact(obj/item/I, mob/living/user, params)
 	check_setup()
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
-		return
+		return TRUE
 	if(default_pry_open(I))
-		return
+		return TRUE
 	if(panel_open)
 		if(default_change_direction_wrench(user, I))
-			return
+			return TRUE
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 	return ..()

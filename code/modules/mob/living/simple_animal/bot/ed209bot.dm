@@ -514,7 +514,7 @@
 /mob/living/simple_animal/bot/ed209/redtag
 	lasercolor = "r"
 
-/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/primary_interact(atom/A)
 	if(!on)
 		return
 	if(iscarbon(A))

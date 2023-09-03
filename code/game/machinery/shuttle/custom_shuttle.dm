@@ -20,14 +20,14 @@
 	. = ..()
 	GLOB.custom_shuttle_machines -= src
 
-/obj/machinery/shuttle/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/shuttle/item_interact(obj/item/I, mob/living/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
-		return
+		return TRUE
 	if(default_pry_open(I))
-		return
+		return TRUE
 	if(panel_open)
 		if(default_change_direction_wrench(user, I))
-			return
+			return TRUE
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 	return ..()

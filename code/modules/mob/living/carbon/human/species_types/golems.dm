@@ -1072,7 +1072,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/golem/durathread
 	species_r_leg = /obj/item/bodypart/r_leg/golem/durathread
 
-/datum/species/golem/durathread/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/species/golem/durathread/spec_primary_interacted(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	target.apply_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 
@@ -1249,7 +1249,7 @@
 	for(var/obj/effect/proc_holder/spell/aoe_turf/knock/spell in C.mob_spell_list)
 		C.RemoveSpell(spell)
 
-/datum/species/golem/capitalist/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/species/golem/capitalist/spec_primary_interacted(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	..()
 	if(isgolem(target))
 		return
@@ -1292,7 +1292,7 @@
 		C.RemoveSpell(spell)
 	UnregisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/species/golem/soviet/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/species/golem/soviet/spec_primary_interacted(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	..()
 	if(isgolem(target))
 		return

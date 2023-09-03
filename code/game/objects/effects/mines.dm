@@ -106,13 +106,15 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/mine/attackby(obj/I, mob/user, params)
+/obj/effect/mine/item_interact(obj/I, mob/user, params)
 	if(istype(I, /obj/item/multitool))
 		to_chat(user, "<span class='notice'>You begin to disarm the [src]...</span>")
 		if(do_after(user, disarm_time, target = src))
 			to_chat(user, "<span class='notice'>You disarm the [src].</span>")
 			new disarm_product(src.loc)
 			qdel(src)
+		return TRUE
+	return ..()
 
 /obj/effect/mine/proc/mineEffect(mob/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
@@ -270,11 +272,12 @@
 /obj/effect/mine/sound/mineEffect(mob/victim)
 	playsound(loc, sound, volume, 1)
 
-/obj/effect/mine/sound/attackby(obj/item/soundsynth/J, mob/user, params)
+/obj/effect/mine/sound/item_interact(obj/item/soundsynth/J, mob/user, params)
 	if(istype(J, /obj/item/soundsynth))
 		to_chat(user, "<span class='notice'>You change the sound settings of the [src].</span>")
 		sound = J.selected_sound
-
+		return TRUE
+	return ..()
 
 /obj/effect/mine/sound/bwoink
 	name = "bwoink mine"

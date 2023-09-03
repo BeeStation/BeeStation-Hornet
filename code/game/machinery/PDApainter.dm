@@ -127,33 +127,35 @@
 		storedid = null
 		update_icon()
 
-/obj/machinery/pdapainter/attackby(obj/item/O, mob/user, params)
+/obj/machinery/pdapainter/item_interact(obj/item/O, mob/user, params)
 	if(default_unfasten_wrench(user, O))
 		power_change()
-		return
+		return TRUE
 
 	else if(istype(O, /obj/item/modular_computer/tablet/pda))
 		if(storedpda)
 			to_chat(user, "<span class='warning'>There is already a PDA inside!</span>")
-			return
+			return TRUE
 		else if(!user.transferItemToLoc(O, src))
-			return
+			return TRUE
 		storedpda = O
 		O.add_fingerprint(user)
 		update_icon()
+		return TRUE
 
 	else if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/new_id = O
 		if(!new_id.electric)
-			return
+			return TRUE
 		if(storedid)
 			to_chat(user, "<span class='warning'>There is already an ID card inside!</span>")
-			return
+			return TRUE
 		else if(!user.transferItemToLoc(O, src))
-			return
+			return TRUE
 		storedid = O
 		O.add_fingerprint(user)
 		update_icon()
+		return TRUE
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		if(machine_stat & BROKEN)

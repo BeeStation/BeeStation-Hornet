@@ -59,7 +59,7 @@
 	check whether you're adjacent to the target, then pass off the click to whoever
 	is receiving it.
 	The most common are:
-	* mob/UnarmedAttack(atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
+	* mob/primary_interact(atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
 	* atom/attackby(item,user) - used only when adjacent
 	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
 	* mob/primary_ranged_attack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
@@ -137,7 +137,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A)
+			primary_interact(A)
 		return
 
 	//Can't reach anything else in lockers or other weirdness
@@ -147,11 +147,11 @@
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A,W))
 		if(W)
-			W.target_clicked(src, A, params)
+			W.use_on(src, A, params)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A,1)
+			primary_interact(A,1)
 	else
 		if(W)
 			W.afterattack(A,src,0,params)
@@ -259,7 +259,7 @@
 	proximity_flag is not currently passed to attack_hand, and is instead used
 	in human click code to allow glove touches only at melee range.
 */
-/mob/proc/UnarmedAttack(atom/A, proximity_flag)
+/mob/proc/primary_interact(atom/A, proximity_flag)
 	if(ismob(A))
 		changeNext_move(CLICK_CD_MELEE)
 	return

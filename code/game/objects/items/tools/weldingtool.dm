@@ -95,14 +95,17 @@
 	return (FIRELOSS)
 
 
-/obj/item/weldingtool/attackby(obj/item/I, mob/user, params)
+/obj/item/weldingtool/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		flamethrower_screwdriver(I, user)
+		update_icon()
+		return TRUE
 	else if(istype(I, /obj/item/stack/rods))
 		flamethrower_rods(I, user)
+		update_icon()
+		return TRUE
 	else
-		. = ..()
-	update_icon()
+		return ..()
 
 /obj/item/weldingtool/proc/explode()
 	var/turf/T = get_turf(loc)

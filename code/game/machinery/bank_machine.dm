@@ -21,7 +21,7 @@
 	QDEL_NULL(radio)
 	. = ..()
 
-/obj/machinery/computer/bank_machine/attackby(obj/item/I, mob/user)
+/obj/machinery/computer/bank_machine/item_interact(obj/item/I, mob/user)
 	var/value = 0
 	if(istype(I, /obj/item/stack/spacecash))
 		var/obj/item/stack/spacecash/C = I
@@ -35,7 +35,7 @@
 			D.adjust_money(value)
 			to_chat(user, "<span class='notice'>You deposit [I]. The Cargo Budget is now $[D.account_balance].</span>")
 		qdel(I)
-		return
+		return TRUE
 	return ..()
 
 /obj/machinery/computer/bank_machine/process(delta_time)

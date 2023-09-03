@@ -32,17 +32,18 @@
 	else
 		to_chat(user, "<span class='warning'>It seems that the blackbox is missing...</span>")
 
-/obj/machinery/blackbox_recorder/attackby(obj/item/I, mob/living/user, params)
-	. = ..()
+/obj/machinery/blackbox_recorder/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/blackbox))
 		if(HAS_TRAIT(I, TRAIT_NODROP) || !user.transferItemToLoc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
+			return TRUE
 		user.visible_message("<span class='notice'>[user] clicks [I] into [src]!</span>", \
 		"<span class='notice'>You press the device into [src], and it clicks into place. The tapes begin spinning again.</span>")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		stored = I
 		update_icon()
+		return TRUE
+	return ..()
 
 /obj/machinery/blackbox_recorder/Destroy()
 	if(stored)

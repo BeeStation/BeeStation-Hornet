@@ -411,16 +411,16 @@
 			fuel.amount += units
 			P.use(units)
 			occupant_message("[units] unit\s of [fuel] successfully loaded.")
-			return units
+			return TRUE
 		else
 			occupant_message("Unit is full.")
-			return 0
-	else
-		occupant_message("<span class='warning'>[fuel] traces in target minimal! [P] cannot be used as fuel.</span>")
-		return
+			return TRUE
+	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
-	load_fuel(weapon)
+/obj/item/mecha_parts/mecha_equipment/generator/item_interact(weapon,mob/user, params)
+	if (load_fuel(weapon))
+		return TRUE
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/generator/process()
 	if(!chassis)

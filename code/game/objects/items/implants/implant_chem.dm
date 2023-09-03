@@ -57,7 +57,7 @@
 	desc = "A glass case containing a remote chemical implant."
 	imp_type = /obj/item/implant/chem
 
-/obj/item/implantcase/chem/attackby(obj/item/W, mob/user, params)
+/obj/item/implantcase/chem/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/syringe) && imp)
 		W.afterattack(imp, user, TRUE, params)
 		return TRUE

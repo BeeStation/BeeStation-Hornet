@@ -231,16 +231,16 @@
 	T.ImmediateCalculateAdjacentTurfs() // alright lets put it back
 	return max_moles - min_moles > 20
 
-/obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent != INTENT_HARM && (I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/fireaxe)))
+/obj/machinery/door/item_interact(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/fireaxe))
 		try_to_crowbar(I, user)
-		return 1
+		return TRUE
 	else if(I.tool_behaviour == TOOL_WELDER)
 		try_to_weld(I, user)
-		return 1
-	else if(!(I.item_flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
+		return TRUE
+	else if(!(I.item_flags & NOBLUDGEON))
 		try_to_activate_door(I, user)
-		return 1
+		return TRUE
 	return ..()
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)

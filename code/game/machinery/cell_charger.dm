@@ -30,39 +30,38 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Charging power: <b>[charge_rate]W</b>.</span>"
 
-/obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
+/obj/machinery/cell_charger/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell) && !panel_open)
 		if(machine_stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is broken!</span>")
-			return
+			return TRUE
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] isn't attached to the ground!</span>")
-			return
+			return TRUE
 		if(charging)
 			to_chat(user, "<span class='warning'>There is already a cell in the charger!</span>")
-			return
-		else
-			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
-			if(!isarea(a))
-				return
-			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
-				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the cell!</span>")
-				return
-			if(!user.transferItemToLoc(W,src))
-				return
+			return TRUE
+		var/area/a = loc.loc // Gets our locations location, like a dream within a dream
+		if(!isarea(a))
+			return TRUE
+		if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
+			to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the cell!</span>")
+			return TRUE
+		if(!user.transferItemToLoc(W,src))
+			return TRUE
 
-			charging = W
-			user.visible_message("[user] inserts a cell into [src].", "<span class='notice'>You insert a cell into [src].</span>")
-			chargelevel = -1
-			update_icon()
-	else
-		if(!charging && default_deconstruction_screwdriver(user, icon_state, icon_state, W))
-			return
-		if(default_deconstruction_crowbar(W))
-			return
-		if(!charging && default_unfasten_wrench(user, W))
-			return
-		return ..()
+		charging = W
+		user.visible_message("[user] inserts a cell into [src].", "<span class='notice'>You insert a cell into [src].</span>")
+		chargelevel = -1
+		update_icon()
+		return TRUE
+	if(!charging && default_deconstruction_screwdriver(user, icon_state, icon_state, W))
+		return TRUE
+	if(default_deconstruction_crowbar(W))
+		return TRUE
+	if(!charging && default_unfasten_wrench(user, W))
+		return TRUE
+	return ..()
 
 /obj/machinery/cell_charger/deconstruct()
 	if(charging)
