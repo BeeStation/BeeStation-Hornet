@@ -187,7 +187,7 @@
 		text="[msg]",
 		action = "statClickDebug",
 		params=list(
-			"targetRef" = REF(src),
+			"targetRef" = FAST_REF(src),
 			"class"="subsystem",
 		),
 		type=STAT_BUTTON,

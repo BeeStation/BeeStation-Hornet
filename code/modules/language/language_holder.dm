@@ -55,7 +55,7 @@ Key procs
 /// Initializes, and copies in the languages from the current atom if available.
 /datum/language_holder/New(atom/_owner)
 	if(_owner && QDELING(_owner))
-		CRASH("Langauge holder added to a qdeleting thing, what the fuck \ref[_owner]")
+		CRASH("Langauge holder added to a qdeleting thing, what the fuck [REF(_owner)]")
 	owner = _owner
 	if(istype(owner, /datum/mind))
 		var/datum/mind/M = owner
