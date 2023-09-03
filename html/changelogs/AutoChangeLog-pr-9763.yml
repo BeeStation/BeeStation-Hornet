@@ -1,5 +1,0 @@
-author: Absolucy, Itsmeowdev
-delete-after: true
-changes:
-  - bugfix: The PDA/NtOS notepad is now actually usable, you won't hit rate limits
-      just typing into it normally!
