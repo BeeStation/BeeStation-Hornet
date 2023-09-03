@@ -1153,4 +1153,4 @@
 			break
 
 	if(ai_notice_jingle && found_mention)
-		playsound_local(get_turf(src), 'sound/machines/twobeep.ogg', 50)
+		playsound_local(get_turf(src), 'sound/machines/twobeep.ogg', 25)
