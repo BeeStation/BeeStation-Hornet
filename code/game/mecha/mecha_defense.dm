@@ -115,7 +115,7 @@
 	if (!enclosed && occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
 		occupant.bullet_act(Proj) //If the sides are open, the occupant can be hit
 		return BULLET_ACT_HIT
-	log_message("Hit by projectile. Type: [Proj.name]([Proj.armor_flag]).", LOG_MECHA, color="red")
+	log_message("Hit by projectile. Type: [Proj.name]([Proj.damage_source]).", LOG_MECHA, color="red")
 	. = ..()
 
 /obj/mecha/ex_act(severity, target)

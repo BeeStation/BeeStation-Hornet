@@ -15,7 +15,7 @@
 			dismembering_strike(M, affecting.body_zone)
 		if(stat != DEAD)
 			var/dmg = rand(1, 5)
-			apply_damage_old(dmg, BRUTE, affecting)
+			apply_damage(/datum/damage_source/sharp/light, /datum/damage/brute, dmg, affecting)
 
 /mob/living/carbon/monkey/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
@@ -25,7 +25,7 @@
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.zone_selected))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
-			apply_damage_old(damage, BRUTE, affecting)
+			apply_damage(/datum/damage_source/sharp/light, /datum/damage/brute, damage, affecting)
 
 /mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M)
 	if(..())	//To allow surgery to return properly.
@@ -45,7 +45,7 @@
 			var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.zone_selected))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
-			apply_damage_old(damage, BRUTE, affecting)
+			apply_damage(M.dna.species.damage_source_type, M.dna.species.damage_type, damage, affecting)
 			log_combat(M, src, "attacked")
 		if("disarm")
 			if(!IsUnconscious())

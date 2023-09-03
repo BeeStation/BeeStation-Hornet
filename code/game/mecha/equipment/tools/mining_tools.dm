@@ -124,7 +124,7 @@
 			target.gib()
 	else
 		//drill makes a hole
-		var/obj/item/bodypart/target_part = target.get_bodypart(ran_zone(BODY_ZONE_CHEST))#
+		var/obj/item/bodypart/target_part = target.get_bodypart(ran_zone(BODY_ZONE_CHEST))
 		target.apply_damage(/datum/damage_source/drill, /datum/damage/brute, 10, BODY_ZONE_CHEST)
 
 		//blood splatters and sparks

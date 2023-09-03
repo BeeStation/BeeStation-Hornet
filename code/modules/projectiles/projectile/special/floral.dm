@@ -4,7 +4,7 @@
 	damage = 0
 	damage_type = TOX
 	nodamage = TRUE
-	armor_flag = ENERGY
+	damage_source = /datum/damage_source/radiation_burn
 	martial_arts_no_deflect = TRUE
 
 /obj/projectile/energy/florayield
@@ -13,5 +13,5 @@
 	damage = 0
 	damage_type = TOX
 	nodamage = TRUE
-	armor_flag = ENERGY
+	damage_source = /datum/damage_source/radiation_burn
 	martial_arts_no_deflect = TRUE

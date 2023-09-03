@@ -5,7 +5,7 @@
 	damage = 0
 	damage_type = BRUTE
 	nodamage = TRUE
-	armor_flag = BULLET
+	damage_source = /datum/damage_source/impact
 
 /obj/projectile/meteor/Bump(atom/A)
 	if(A == firer)

@@ -1,5 +1,6 @@
 
 /datum/damage/burn
+	display_name = "burn"
 
 /datum/damage/burn/apply_living(mob/living/target, damage, update_health = TRUE, forced = FALSE)
 	target.adjustFireLoss(damage, update_health, forced)

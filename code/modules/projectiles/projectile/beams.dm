@@ -6,7 +6,7 @@
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
-	armor_flag = LASER
+	damage_source = /datum/damage_source/laser
 	eyeblur = 2
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_system = MOVABLE_LIGHT
@@ -77,7 +77,7 @@
 	icon_state = "omnilaser"
 	damage = 28
 	damage_type = STAMINA
-	armor_flag = ENERGY
+	damage_source = /datum/damage_source/energy
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -139,8 +139,8 @@
 	icon_state = "omnilaser"
 	hitsound = null
 	damage = 0
-	damage_type = STAMINA
-	armor_flag = ENERGY
+	damage_type = /datum/damage/stamina
+	damage_source = /datum/damage_source/energy
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE

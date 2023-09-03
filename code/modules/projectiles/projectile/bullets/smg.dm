@@ -24,5 +24,5 @@
 /obj/projectile/bullet/c46x30mm_rubber
 	name = "4.6x30mm rubber bullet"
 	damage_type = STAMINA
-	armor_flag = STAMINA
+	damage_source = /datum/damage_source/bullet/beanbag
 	damage = 20

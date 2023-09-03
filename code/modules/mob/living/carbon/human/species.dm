@@ -48,7 +48,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/clonemod = 1
 	var/toxmod = 1
 	var/staminamod = 1		// multiplier for stun duration
-	var/attack_type = BRUTE //Type of damage attack does
+	var/damage_source_type = /datum/damage_source/punch
+	var/damage_type = /datum/damage/brute //Type of damage attack does
 	var/punchdamage = 7      //highest possible punch damage
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/damage_overlay_type = "human" //what kind of damage overlays (if any) appear on our species when wounded?
@@ -1544,16 +1545,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/damage = user.dna.species.punchdamage
 
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
-
-		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
+		if(!damage)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
 			target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>",\
 			"<span class='userdanger'>[user]'s [atk_verb] misses you!</span>", null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, target, "attempted to punch")
 			return FALSE
-
-		var/armor_block = target.run_armor_check(affecting, MELEE)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
@@ -1564,17 +1561,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		target.lastattackerckey = user.ckey
 		user.dna.species.spec_unarmedattacked(user, target)
 
+		var/target_zone = ran_zone(user.zone_selected)
 		if(user.limb_destroyer)
-			target.dismembering_strike(user, affecting.body_zone)
+			target.dismembering_strike(user,target_zone)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage_old(damage*1.5, attack_type, affecting, armor_block)
+			target.apply_damage(damage_source_type, damage_type, damage * 1.5, target_zone)
 			if((damage * 1.5) >= 9)
 				target.force_say()
 			log_combat(user, target, "kicked")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage_old(damage, attack_type, affecting, armor_block)
-			target.apply_damage_old(damage*1.5, STAMINA, affecting, armor_block)
+			target.apply_damage(damage_source_type, damage_type, damage, target_zone)
+			target.apply_damage(damage_source_type, /datum/damage/stamina, damage * 1.5, target_zone)
 			if(damage >= 9)
 				target.force_say()
 			log_combat(user, target, "punched")
@@ -2427,12 +2425,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/create_pref_combat_perks()
 	var/list/to_add = list()
 
-	if(attack_type != BRUTE)
+	if(damage_type != /datum/damage/brute)
+		var/datum/damage/dealt_damage = GET_DAMAGE(damage_type)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "fist-raised",
 			SPECIES_PERK_NAME = "Elemental Attacker",
-			SPECIES_PERK_DESC = "[plural_form] deal [attack_type] damage with their punches instead of brute.",
+			SPECIES_PERK_DESC = "[plural_form] deal [dealt_damage.display_name] damage with their punches instead of brute.",
 		))
 
 	return to_add

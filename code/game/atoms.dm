@@ -309,7 +309,7 @@
 	var/a_incidence_s = abs(incidence_s)
 	if(a_incidence_s > 90 && a_incidence_s < 270)
 		return FALSE
-	if((P.armor_flag in list(BULLET, BOMB)) && P.ricochet_incidence_leeway)
+	if((ispath(P.damage_source, /datum/damage_source/bullet) || ispath(P.damage_source, /datum/damage_source/explosion)) && P.ricochet_incidence_leeway)
 		if((a_incidence_s < 90 && a_incidence_s < 90 - P.ricochet_incidence_leeway) || (a_incidence_s > 270 && a_incidence_s -270 > P.ricochet_incidence_leeway))
 			return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)

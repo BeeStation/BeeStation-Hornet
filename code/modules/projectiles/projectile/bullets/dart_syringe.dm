@@ -49,7 +49,7 @@
 	name = "bee"
 	icon_state = "bee"
 	damage = 1
-	armor_flag = MELEE
+	damage_source = /datum/damage_source/biohazard
 	piercing = TRUE
 
 /obj/projectile/bullet/dart/bee/on_hit(atom/target, blocked)

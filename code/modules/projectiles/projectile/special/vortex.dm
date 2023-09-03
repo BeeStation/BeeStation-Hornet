@@ -5,7 +5,7 @@
 	damage_type = BURN
 	reflectable = REFLECT_NORMAL
 	nodamage = FALSE
-	armor_flag = ENERGY
+	damage_source = /datum/damage_source/magic
 	range = 10
 	projectile_phasing = ALL
 	projectile_piercing = NONE

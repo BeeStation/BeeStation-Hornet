@@ -61,7 +61,7 @@
 
 /mob/living/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
-	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
+	var/armor = run_armor_check(def_zone, P.damage_source, "","",P.armour_penetration)
 	if(!P.nodamage)
 		apply_damage(P.damage_source, P.damage_type, P.damage, def_zone)
 		if(P.dismemberment)
@@ -83,7 +83,6 @@
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
-		var/dtype = BRUTE
 		var/volume = I.get_volume_by_throwforce_and_or_w_class()
 		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 		if(nosell_hit)

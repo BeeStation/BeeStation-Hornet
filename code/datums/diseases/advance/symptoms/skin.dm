@@ -406,7 +406,6 @@ Thresholds
 				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 			for(var/mob/living/carbon/C in ohearers(1, H))
 				if(C.pulling && C.pulling == H)
-					var/def_check = C.getarmor(type = MELEE)
 					C.apply_damage(/datum/damage_source/sharp/light, /datum/damage/brute, 3 * power, ran_zone())
 					C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
 					playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
@@ -522,7 +521,7 @@ Thresholds
 	speed = 5
 	damage_type = TOX
 	icon_state = "energy2"
-	armor_flag = BIO
+	damage_source = /datum/damage_source/biohazard
 	var/list/diseases
 
 /obj/projectile/pimple/on_hit(atom/target, blocked)

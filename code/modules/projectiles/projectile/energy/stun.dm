@@ -4,7 +4,7 @@
 	color = "#FFFF00"
 	damage = 40
 	damage_type = STAMINA
-	armor_flag = STAMINA
+	damage_source = /datum/damage_source/stun
 	nodamage = FALSE
 	knockdown = 30
 	stutter = 5

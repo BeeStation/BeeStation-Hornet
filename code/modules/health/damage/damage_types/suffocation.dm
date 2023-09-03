@@ -1,5 +1,6 @@
 
 /datum/damage/suffocation
+	display_name = "suffocation"
 
 /datum/damage/suffocation/apply_living(mob/living/target, damage, update_health = TRUE, forced = FALSE)
 	target.adjustOxyLoss(damage, update_health, forced)

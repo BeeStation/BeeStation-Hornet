@@ -1,5 +1,6 @@
 
 /datum/damage/brute
+	display_name = "brute"
 
 /datum/damage/brute/apply_living(mob/living/target, damage, update_health = TRUE, forced = FALSE)
 	target.adjustBruteLoss(damage, update_health, forced)

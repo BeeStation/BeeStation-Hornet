@@ -122,15 +122,10 @@
 	var/mob/living/carbon/host = owner
 	if(kill_on_success)
 		new_xeno.visible_message("<span class='danger'>[new_xeno] bursts out of [owner] in a shower of gore!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
-		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
-		if(BP)
-			BP.receive_damage(brute = 200) // Kill them dead
-			BP.dismember()
-		else
-			owner.apply_damage_old(200)
+		owner.apply_damage(/datum/damage_source/internal_rupture, /datum/damage/brute, 200, BODY_ZONE_CHEST)
 	else
 		new_xeno.visible_message("<span class='danger'>[new_xeno] wriggles out of [owner]!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>")
-		owner.adjustBruteLoss(40)
+		owner.apply_damage(/datum/damage_source/internal_rupture, /datum/damage/brute, 40, BODY_ZONE_CHEST)
 	host.cut_overlay(overlay)
 	qdel(src)
 

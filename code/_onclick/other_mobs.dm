@@ -157,7 +157,7 @@
 							"<span class='userdanger'>[name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
 			// Returns false if blocked
 			var/target_zone = ran_zone(dam_zone)
-			if(!bite_source.deal_attack(src, null, H, /datum/damage/brute, rand(1, 3), target_zone))
+			if(!bite_source.deal_attack(src, null, ML, /datum/damage/brute, rand(1, 3), target_zone))
 				return
 			// Check bio armour
 			if (prob(ML.run_armor_check(target_zone, BIO, silent = TRUE)))

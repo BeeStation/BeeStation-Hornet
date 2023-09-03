@@ -121,10 +121,9 @@
 	var/homing_offset_y = 0
 
 	var/damage = 10
-	var/damage_source = /datum/damage_source/bullet
+	damage_source = /datum/damage_source/bullet //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
 	var/damage_type = /datum/damage/brute //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
-	var/armor_flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
 	///How much armor this projectile pierces.
 	var/armour_penetration = 0
 	var/projectile_type = /obj/projectile
@@ -585,10 +584,10 @@
 	return FALSE
 
 /obj/projectile/proc/check_ricochet_flag(atom/A)
-	if((armor_flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
+	if((ispath(damage_source, /datum/damage_source/energy) || ispath(damage_source, /datum/damage_source/laser)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
-	if((armor_flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
+	if((ispath(damage_source, /datum/damage_source/explosion) || ispath(damage_source, /datum/damage_source/bullet)) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
 	return FALSE

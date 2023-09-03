@@ -235,7 +235,6 @@
 /obj/item/melee/classic_baton/police/attack(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
-	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
@@ -477,11 +476,7 @@
 		user.adjustStaminaLoss(stamina_damage)
 
 		additional_effects_carbon(user) // user is the target here
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			damage_source.deal_attack(user, src, target, /datum/damage/brute, 2 * force, BODY_ZONE_HEAD)
-		else
-			user.take_bodypart_damage(2*force)
+		damage_source.deal_attack(user, src, target, /datum/damage/brute, 2 * force, BODY_ZONE_HEAD)
 		return
 	if(iscyborg(target))
 		// We don't stun if we're on harm.

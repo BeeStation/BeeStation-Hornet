@@ -1,5 +1,6 @@
 
 /datum/damage/clone
+	display_name = "cellular"
 
 /datum/damage/clone/apply_living(mob/living/target, damage, update_health = TRUE, forced = FALSE)
 	target.adjustCloneLoss(damage, update_health, forced)

@@ -40,7 +40,7 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = TRUE
-	armor_flag = ENERGY
+	damage_source = /datum/damage_source/energy
 	temperature = 50
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)

@@ -397,7 +397,7 @@
 
 /datum/species/golem/sand/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H))
-		if(P.armor_flag == BULLET || P.armor_flag == BOMB)
+		if(ispath(P.damage_source, /datum/damage_source/bullet) || ispath(P.damage_source, /datum/damage_source/explosion))
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
 			H.visible_message("<span class='danger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>", \
 			"<span class='userdanger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>")
@@ -429,7 +429,7 @@
 
 /datum/species/golem/glass/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
-		if(P.armor_flag == LASER || P.armor_flag == ENERGY)
+		if(ispath(P.damage_source, /datum/damage_source/laser) || ispath(P.damage_source, /datum/damage_source/energy))
 			H.visible_message("<span class='danger'>The [P.name] gets reflected by [H]'s glass skin!</span>", \
 			"<span class='userdanger'>The [P.name] gets reflected by [H]'s glass skin!</span>")
 			if(P.starting)
@@ -938,7 +938,7 @@
 /datum/species/golem/bronze/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(world.time > last_gong_time + gong_cooldown))
 		return ..()
-	if(P.armor_flag == BULLET || P.armor_flag == BOMB)
+	if (ispath(P.damage_source, /datum/damage_source/bullet) || ispath(P.damage_source, /datum/damage_source/explosion))
 		gong(H)
 		return ..()
 

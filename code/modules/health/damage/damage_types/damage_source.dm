@@ -1,5 +1,6 @@
 
 /datum/damage
+	var/display_name = ""
 
 /datum/damage/proc/apply_living(mob/living/target, damage, update_health = TRUE, forced = FALSE)
 

@@ -4,7 +4,7 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = FALSE
-	armor_flag = ENERGY
+	damage_source = /datum/damage_source/temperature
 	var/temperature = 100
 
 /obj/projectile/temp/on_hit(atom/target, blocked = 0)

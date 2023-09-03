@@ -1,5 +1,6 @@
 
 /datum/damage/stamina
+	display_name = "stamina"
 
 /datum/damage/stamina/apply_living(mob/living/target, damage, update_health = TRUE, forced = FALSE)
 	target.adjustStaminaLoss(damage, update_health, forced)

@@ -103,7 +103,7 @@
 
 /obj/machinery/am_shielding/bullet_act(obj/projectile/Proj)
 	. = ..()
-	if(Proj.armor_flag != BULLET)
+	if(!ispath(Proj.damage_source, /datum/damage_source/bullet))
 		stability -= Proj.force/2
 		check_stability()
 

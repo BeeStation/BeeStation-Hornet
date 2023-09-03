@@ -30,7 +30,6 @@
 
 //Floor Stomp - brute and stamina damage if target isn't standing
 /datum/martial_art/karate/proc/floorKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(!(D.mobility_flags & MOBILITY_STAND))
@@ -39,14 +38,13 @@
 							"<span class='userdanger'>[A] stomped you in the head!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		D.apply_damage_old(20, A.dna.species.attack_type, BODY_ZONE_HEAD, def_check)
-		D.apply_damage_old(10, STAMINA, BODY_ZONE_HEAD, def_check)
+		D.apply_damage(A.dna.species.damage_source_type, A.dna.species.damage_type, 20, BODY_ZONE_HEAD)
+		D.apply_damage(A.dna.species.damage_source_type, /datum/damage/stamina, 20, BODY_ZONE_HEAD)
 		return 1
 	return basic_hit(A,D)
 
 //Calf Kick - paralyse one leg with stamina damage
 /datum/martial_art/karate/proc/calfKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_L_LEG, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
@@ -55,13 +53,12 @@
 							"<span class='userdanger'>[A] roundhouse kicked you in the calf!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		D.apply_damage_old(50, STAMINA, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), def_check)
+		D.apply_damage(A.dna.species.damage_source_type, /datum/damage/stamina, 50, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		return 1
 	return basic_hit(A,D)
 
 //Jumping Knee - brief knockdown and decent stamina damage
 /datum/martial_art/karate/proc/jumpingKnee(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
@@ -71,7 +68,7 @@
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		D.emote("gasp")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		D.apply_damage_old(30, STAMINA, BODY_ZONE_CHEST, def_check)
+		D.apply_damage(A.dna.species.damage_source_type, /datum/damage/stamina, 30, BODY_ZONE_CHEST)
 		D.Knockdown(10)
 		return 1
 	return basic_hit(A,D)

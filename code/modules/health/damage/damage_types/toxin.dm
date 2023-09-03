@@ -1,5 +1,6 @@
 
 /datum/damage/toxin
+	display_name = "toxic"
 
 /datum/damage/toxin/apply_living(mob/living/target, damage, update_health = TRUE, forced = FALSE)
 	target.adjustToxLoss(damage, update_health, forced)

@@ -1093,13 +1093,15 @@
 	return ..()
 
 /mob/living/carbon/human/proc/stub_toe(var/power)
+	// If you are super heavilly armoured, the damage might be deflected
+	if (!apply_damage(/datum/damage_source/impact, /datum/damage/brute, power, pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)))
+		return
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
 		power *= 0.5
-		src.emote("gasp")
+		emote("gasp")
 	else
-		src.emote("scream")
-	src.apply_damage_old(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
-	src.Paralyze(10 * power)
+		emote("scream")
+	Paralyze(10 * power)
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
