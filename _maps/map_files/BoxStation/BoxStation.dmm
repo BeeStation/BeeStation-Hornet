@@ -10355,7 +10355,7 @@
 	name = "test chamber blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bJJ" = (
 /obj/structure/cable/yellow{
@@ -10366,7 +10366,7 @@
 	name = "test chamber blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bJL" = (
 /obj/machinery/door/window/southleft{
@@ -10392,7 +10392,7 @@
 	name = "test chamber blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bJN" = (
 /turf/closed/wall,
@@ -11581,7 +11581,7 @@
 	name = "containment blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bRX" = (
 /obj/structure/disposalpipe/segment,
@@ -11628,7 +11628,7 @@
 	name = "containment blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bSe" = (
 /obj/machinery/airalarm{
@@ -12022,7 +12022,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bUf" = (
 /obj/structure/disposalpipe/segment,
@@ -12057,7 +12057,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bUi" = (
 /obj/structure/disposalpipe/trunk{
@@ -12367,7 +12367,7 @@
 	name = "containment blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bWm" = (
 /obj/structure/window/reinforced,
@@ -12398,7 +12398,7 @@
 	name = "containment blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bWB" = (
 /obj/machinery/telecomms/processor/preset_four,
@@ -12773,7 +12773,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bYr" = (
 /obj/machinery/door/airlock/maintenance{
@@ -13190,7 +13190,7 @@
 	name = "containment blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "bZW" = (
 /obj/structure/window/reinforced,
@@ -13221,7 +13221,7 @@
 	name = "containment blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "cab" = (
 /obj/machinery/computer/shuttle_flight/mining{
@@ -13554,7 +13554,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "cbT" = (
 /obj/structure/disposalpipe/segment,
@@ -13573,7 +13573,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "cca" = (
 /obj/machinery/power/solar{
@@ -16707,7 +16707,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/general/visible,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "cyT" = (
 /obj/docking_port/stationary{
@@ -30403,12 +30403,12 @@
 /turf/open/floor/plasteel/dark,
 /area/science/storage)
 "izg" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "izh" = (
@@ -40911,7 +40911,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/xenobiology)
 "njz" = (
 /obj/structure/table,
@@ -59720,19 +59720,6 @@
 /obj/structure/bed/roller,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
-"wdI" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/black/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/research)
 "wdN" = (
 /obj/machinery/light{
 	dir = 1
@@ -111646,7 +111633,7 @@ nhN
 djb
 tZc
 izg
-wdI
+ceh
 dcY
 dLT
 nMw
