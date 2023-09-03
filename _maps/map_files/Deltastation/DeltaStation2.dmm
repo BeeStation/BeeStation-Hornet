@@ -90874,7 +90874,7 @@
 	},
 /area/maintenance/port)
 "wFn" = (
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "wFq" = (

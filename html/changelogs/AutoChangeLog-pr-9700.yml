@@ -1,0 +1,7 @@
+author: Kapu1178,CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Lockers, crates, and machines no longer block click attempts in adjacency
+      checks. Basically, you can reach tables cornered between lockers/machines.
+  - code_imp: Adds a new pass_flags_self flag called LETPASSCLICKS that lets you mark
+      an atom to not block ClickCross() attempts.

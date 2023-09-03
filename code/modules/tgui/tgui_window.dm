@@ -113,6 +113,8 @@
 	client << browse(html, "window=[id];[options]")
 	// Detect whether the control is a browser
 	is_browser = winexists(client, id) == "BROWSER"
+	if(!client) // winexists() sleeps so the client can become null
+		return
 	// Instruct the client to signal UI when the window is closed.
 	if(!is_browser)
 		winset(client, id, "on-close=\"uiclose [id]\"")

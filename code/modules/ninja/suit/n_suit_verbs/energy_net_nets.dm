@@ -54,8 +54,14 @@ It is possible to destroy the net by the occupant or someone else.
 		var/mob/living/carbon/human/H = affecting
 		for(var/obj/item/W in H)
 			if(W == H.w_uniform)
+				ADD_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
+				for (var/obj/item/subitem in W)
+					H.dropItemToGround(subitem)
 				continue//So all they're left with are shoes and uniform.
 			if(W == H.shoes)
+				ADD_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
+				for (var/obj/item/subitem in W)
+					H.dropItemToGround(subitem)
 				continue
 			H.dropItemToGround(W)
 
@@ -68,6 +74,7 @@ It is possible to destroy the net by the occupant or someone else.
 	visible_message("[affecting] suddenly vanishes!")
 	affecting.forceMove(pick(GLOB.holdingfacility)) //Throw mob in to the holding facility.
 	to_chat(affecting, "<span class='danger'>You appear in a strange place!</span>")
+	to_chat(affecting, "<span class='hypnotext'>You have been captured by a ninja! The portal that brought you here will collapse in 5 minutes and return you to the station.</span>")
 
 	if(!QDELETED(master))//As long as they still exist.
 		to_chat(master, "<span class='notice'><b>SUCCESS</b>: transport procedure of [affecting] complete.</span>")
@@ -86,6 +93,25 @@ It is possible to destroy the net by the occupant or someone else.
 	// If you get gibbed or deleted, your soul will be trapped forever
 	if (QDELETED(target))
 		return
+	// Drop any items acquired from the location
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		for(var/obj/item/W in H)
+			if(W == H.w_uniform)
+				REMOVE_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
+				// So no cheeky buggers can store stuff in their boots to bring it back
+				for (var/obj/item/subitem in W)
+					H.dropItemToGround(subitem)
+				continue//So all they're left with are shoes and uniform.
+			if(W == H.shoes)
+				REMOVE_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
+				for (var/obj/item/subitem in W)
+					H.dropItemToGround(subitem)
+				continue
+			H.dropItemToGround(W)
+		// After we remove items, at least give them what they need to live.
+		H.dna.species.give_important_for_life(H)
+	// Teleport
 	var/turf/safe_location = get_safe_random_station_turfs()
 	do_teleport(target, safe_location, channel = TELEPORT_CHANNEL_FREE, forced = TRUE)
 	target.Unconscious(3 SECONDS)
