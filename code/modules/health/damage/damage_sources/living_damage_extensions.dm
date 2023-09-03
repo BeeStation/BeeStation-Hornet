@@ -9,7 +9,7 @@
 		source = GET_DAMAGE_SOURCE(damage_source)
 	return source.apply_direct(src, damage_type, damage, target_zone)
 
-/// Perform the mobs default attack damage
+/// Perform the mobs default attack protocols (punching/biting/whatever)
 /// Returns the amount of damage dealt
 /mob/living/proc/deal_generic_attack(atom/target)
 	return FALSE
