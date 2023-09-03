@@ -176,11 +176,8 @@
 		if(!deductcharge(hitcost))
 			return FALSE
 
-	target.apply_damage(/datum/damage_source/stun, /datum/damage/stamina, stunforce, ran_zone(user.zone_selected))
-	target.apply_effect(EFFECT_STUTTER, stunforce)
-	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
-	target.stuttering = 20
-	target.do_jitter_animation(20)
+	var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/stun)
+	source.deal_attack(user, src, target, /datum/damage/stamina, stunforce, ran_zone(user.zone_selected))
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey

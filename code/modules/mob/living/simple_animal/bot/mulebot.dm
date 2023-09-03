@@ -765,12 +765,12 @@
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/damage = rand(5,15)
-	H.apply_damage_old(2*damage, BRUTE, BODY_ZONE_HEAD, run_armor_check(BODY_ZONE_HEAD, MELEE))
-	H.apply_damage_old(2*damage, BRUTE, BODY_ZONE_CHEST, run_armor_check(BODY_ZONE_CHEST, MELEE))
-	H.apply_damage_old(0.5*damage, BRUTE, BODY_ZONE_L_LEG, run_armor_check(BODY_ZONE_L_LEG, MELEE))
-	H.apply_damage_old(0.5*damage, BRUTE, BODY_ZONE_R_LEG, run_armor_check(BODY_ZONE_R_LEG, MELEE))
-	H.apply_damage_old(0.5*damage, BRUTE, BODY_ZONE_L_ARM, run_armor_check(BODY_ZONE_L_ARM, MELEE))
-	H.apply_damage_old(0.5*damage, BRUTE, BODY_ZONE_R_ARM, run_armor_check(BODY_ZONE_R_ARM, MELEE))
+	H.apply_damage(/datum/damage_source/crush, /datum/damage/brute, 2 * damage, BODY_ZONE_HEAD)
+	H.apply_damage(/datum/damage_source/crush, /datum/damage/brute, 2 * damage, BODY_ZONE_CHEST)
+	H.apply_damage(/datum/damage_source/crush, /datum/damage/brute, 0.5 * damage, BODY_ZONE_L_LEG)
+	H.apply_damage(/datum/damage_source/crush, /datum/damage/brute, 0.5 * damage, BODY_ZONE_R_LEG)
+	H.apply_damage(/datum/damage_source/crush, /datum/damage/brute, 0.5 * damage, BODY_ZONE_L_ARM)
+	H.apply_damage(/datum/damage_source/crush, /datum/damage/brute, 0.5 * damage, BODY_ZONE_R_ARM)
 
 	var/turf/T = get_turf(src)
 	T.add_mob_blood(H)

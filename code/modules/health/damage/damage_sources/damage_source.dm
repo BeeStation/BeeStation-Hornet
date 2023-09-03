@@ -34,6 +34,9 @@
 			attacker.do_attack_animation(target, used_item = attacking_item)
 		else
 			attacking_item.do_attack_animation(target, used_item = attacking_item)
+	else
+		if (attacker)
+			attacker.do_attack_animation(target, isanimal(attacker) ? pick(ATTACK_EFFECT_BITE, ATTACK_EFFECT_CLAW) : pick(ATTACK_EFFECT_KICK, ATTACK_EFFECT_PUNCH))
 	// Determine the target_zone
 	if (!target_zone)
 		target_zone = ran_zone(attacker?.zone_selected || BODY_ZONE_CHEST)
@@ -44,7 +47,11 @@
 		if (!targetted_part)
 			targetted_part = living_target.get_bodypart(BODY_ZONE_CHEST)
 		// Determine armour
-		var/final_damage_amount = calculate_damage(living_target, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, attacking_item?.armour_penetration)
+		var/armour_penetration_value = attacking_item?.armour_penetration
+		if (isanimal(attacker))
+			var/mob/living/simple_animal/animal_attacker = attacker
+			armour_penetration_value ||= animal_attacker.armour_penetration
+		var/final_damage_amount = calculate_damage(living_target, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
 		// Get the damage applyer
 		var/datum/damage/damage = damage_type
 		if (!istype(damage))

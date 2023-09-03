@@ -213,9 +213,9 @@ Burning extracts:
 	effect_desc = "The user gets a dull arm blade in the hand it is used in."
 
 /obj/item/slimecross/burning/green/do_effect(mob/user)
-	var/which_hand = "l_hand"
+	var/which_hand = BODY_ZONE_PRECISE_L_HAND
 	if(!(user.active_hand_index % 2))
-		which_hand = "r_hand"
+		which_hand = BODY_ZONE_PRECISE_R_HAND
 	var/mob/living/L = user
 	if(!istype(user))
 		return
@@ -228,7 +228,7 @@ Burning extracts:
 	else
 		user.visible_message("<span class='danger'>[src] sublimates the flesh around [user]'s arm, transforming the bone into a gruesome blade!</span>")
 	user.emote("scream")
-	L.apply_damage_old(30,BURN,which_hand)
+	L.apply_damage(/datum/damage_source/temperature, /datum/damage/burn, 30, which_hand)
 	..()
 
 /obj/item/slimecross/burning/pink

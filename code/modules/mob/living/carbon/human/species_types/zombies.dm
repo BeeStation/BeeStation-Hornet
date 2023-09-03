@@ -44,17 +44,22 @@
 	var/regen_cooldown = 0
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
+/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	. = ..()
+	RegisterSignal(C, COMSIG_MOB_APPLY_DAMGE, PROC_REF(on_taken_damage))
+
+/datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMGE)
+
+/datum/species/zombie/infectious/proc/on_taken_damage(datum/source, damage, damagetype, def_zone)
+	regen_cooldown = world.time + REGENERATION_DELAY
+
 /datum/species/zombie/infectious/check_roundstart_eligible()
 	return FALSE
 
-
 /datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H,amount)
 	. = min(20, amount)
-
-/datum/species/zombie/infectious/apply_damage_old(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
-	. = ..()
-	if(.)
-		regen_cooldown = world.time + REGENERATION_DELAY
 
 /datum/species/zombie/infectious/spec_life(mob/living/carbon/C)
 	. = ..()

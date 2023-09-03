@@ -84,7 +84,8 @@
 			armor_duration = bottle_knockdown_duration + force
 
 	//Apply the damage!
-	damage_source.deal_attack(user, src, target, /datum/damage/brute, force, user.zone_selected)
+	var/datum/damage_source/source = GET_DAMAGE_SOURCE(damage_source)
+	source.deal_attack(user, src, target, /datum/damage/brute, force, user.zone_selected)
 
 	// You are going to knock someone down for longer if they are not wearing a helmet.
 	var/head_attack_message = ""

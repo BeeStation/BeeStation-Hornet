@@ -80,6 +80,7 @@
 				if(!dismembering_strike(M, affecting.body_zone)) //Dismemberment successful
 					return 1
 				apply_damage_old(damage, BRUTE, affecting)
+				
 
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)

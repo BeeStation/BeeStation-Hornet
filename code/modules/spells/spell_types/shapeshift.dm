@@ -14,7 +14,7 @@
 	var/revert_on_death = TRUE
 	var/die_with_shapeshifted_form = TRUE
 	var/convert_damage = TRUE //If you want to convert the caster's health to the shift, and vice versa.
-	var/convert_damage_type = BRUTE //Since simplemobs don't have advanced damagetypes, what to convert damage back into.
+	var/convert_damage_type = /datum/damage/brute //Since simplemobs don't have advanced damagetypes, what to convert damage back into.
 
 	var/shapeshift_type
 	var/list/possible_shapes = list(/mob/living/simple_animal/mouse,\
@@ -104,10 +104,10 @@
 	stored.forceMove(src)
 	stored.notransform = TRUE
 	if(convert_damage || istype(source) && source.convert_damage)
-		var/damage_percent = (stored.maxHealth - stored.health)/stored.maxHealth;
-		var/damapply = damage_percent * shape.maxHealth;
+		var/damage_percent = (stored.maxHealth - stored.health)/stored.maxHealth
+		var/damapply = damage_percent * shape.maxHealth
 
-		shape.apply_damage_old(damapply, source.convert_damage_type, forced = TRUE);
+		shape.apply_damage(/datum/damage_source/abstract, source.convert_damage_type, damapply, forced = TRUE)
 
 	slink = soullink(/datum/soullink/shapeshift, stored , shape)
 	slink.source = src
@@ -166,7 +166,7 @@
 		var/damage_percent = (shape.maxHealth - shape.health)/shape.maxHealth;
 		var/damapply = stored.maxHealth * damage_percent
 
-		stored.apply_damage_old(damapply, (istype(source) ? source.convert_damage_type : BRUTE), forced = TRUE) //brute is the default damage convert
+		stored.apply_damage(/datum/damage_source/abstract, (istype(source) ? source.convert_damage_type : /datum/damage/brute), damapply, forced = TRUE)
 		stored.blood_volume = original_blood_volume
 	if(!QDELETED(shape))
 		qdel(shape)

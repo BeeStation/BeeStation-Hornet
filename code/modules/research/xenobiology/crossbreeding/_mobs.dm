@@ -14,7 +14,7 @@ Slimecrossing Mobs
 	invocation_type = INVOCATION_NONE
 	shapeshift_type = /mob/living/simple_animal/slime/transformedslime
 	convert_damage = TRUE
-	convert_damage_type = CLONE
+	convert_damage_type = /datum/damage/clone
 	var/remove_on_restore = FALSE
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/slimeform/Restore(mob/living/M)

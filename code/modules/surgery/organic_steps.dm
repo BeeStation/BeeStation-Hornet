@@ -121,7 +121,7 @@
 		"[user] begins to saw through the bone in [target]'s [parse_zone(target_zone)].")
 
 /datum/surgery_step/saw/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	target.apply_damage_old(50, BRUTE, "[target_zone]")
+	target.apply_damage(/datum/damage_source/sharp/incision, /datum/damage/brute, 50, target_zone)
 	display_results(user, target, "<span class='notice'>You saw [target]'s [parse_zone(target_zone)] open.</span>",
 		"[user] saws [target]'s [parse_zone(target_zone)] open!",
 		"[user] saws [target]'s [parse_zone(target_zone)] open!")

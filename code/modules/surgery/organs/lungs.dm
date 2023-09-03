@@ -25,7 +25,7 @@
 	var/safe_breath_max = 50
 	var/safe_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/safe_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
-	var/safe_damage_type = OXY
+	var/safe_damage_type = /datum/damage/suffocation
 	var/list/gas_min = list()
 	var/list/gas_max = list(
 		GAS_CO2 = 30, // Yes it's an arbitrary value who cares?
@@ -35,12 +35,12 @@
 		"default" = list(
 			min = MIN_TOXIC_GAS_DAMAGE,
 			max = MAX_TOXIC_GAS_DAMAGE,
-			damage_type = OXY
+			damage_type = /datum/damage/suffocation
 		),
 		GAS_PLASMA = list(
 			min = MIN_TOXIC_GAS_DAMAGE,
 			max = MAX_TOXIC_GAS_DAMAGE,
-			damage_type = TOX
+			damage_type = /datum/damage/toxin
 		)
 	)
 
@@ -57,7 +57,7 @@
 	var/cold_level_1_damage = COLD_GAS_DAMAGE_LEVEL_1 //Keep in mind with gas damage levels, you can set these to be negative, if you want someone to heal, instead.
 	var/cold_level_2_damage = COLD_GAS_DAMAGE_LEVEL_2
 	var/cold_level_3_damage = COLD_GAS_DAMAGE_LEVEL_3
-	var/cold_damage_type = BURN
+	var/cold_damage_type = /datum/damage/burn
 
 	var/hot_message = "your face burning and a searing heat"
 	var/heat_level_1_threshold = 360
@@ -66,7 +66,7 @@
 	var/heat_level_1_damage = HEAT_GAS_DAMAGE_LEVEL_1
 	var/heat_level_2_damage = HEAT_GAS_DAMAGE_LEVEL_2
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
-	var/heat_damage_type = BURN
+	var/heat_damage_type = /datum/damage/burn
 
 	var/crit_stabilizing_reagent = /datum/reagent/medicine/epinephrine
 
@@ -198,7 +198,7 @@
 				H.reagents.add_reagent(danger_reagent,1)
 			var/list/damage_info = (entry in gas_damage) ? gas_damage[entry] : gas_damage["default"]
 			var/dam = found_pp / gas_max[entry] * 10
-			H.apply_damage_old_type(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
+			H.apply_damage(/datum/damage_source/temperature, damage_info["damage_type"], clamp(dam, damage_info["min"], damage_info["max"]))
 			if(alert_category && alert_type)
 				H.throw_alert(alert_category, alert_type)
 		else if(alert_category)
@@ -293,11 +293,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
 		var/cold_modifier = H.dna.species.coldmod
 		if(breath_temperature < cold_level_3_threshold)
-			H.apply_damage_old_type(cold_level_3_damage*cold_modifier, cold_damage_type)
+			H.apply_damage(/datum/damage_source/temperature/internal, cold_damage_type, cold_level_3_damage*cold_modifier)
 		if(breath_temperature > cold_level_3_threshold && breath_temperature < cold_level_2_threshold)
-			H.apply_damage_old_type(cold_level_2_damage*cold_modifier, cold_damage_type)
+			H.apply_damage(/datum/damage_source/temperature/internal, cold_damage_type, cold_level_2_damage*cold_modifier)
 		if(breath_temperature > cold_level_2_threshold && breath_temperature < cold_level_1_threshold)
-			H.apply_damage_old_type(cold_level_1_damage*cold_modifier, cold_damage_type)
+			H.apply_damage(/datum/damage_source/temperature/internal, cold_damage_type, cold_level_1_damage*cold_modifier)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
@@ -305,11 +305,11 @@
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/heat_modifier = H.dna.species.heatmod
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
-			H.apply_damage_old_type(heat_level_1_damage*heat_modifier, heat_damage_type)
+			H.apply_damage(/datum/damage_source/temperature/internal, heat_damage_type, heat_level_1_damage*heat_modifier)
 		if(breath_temperature > heat_level_2_threshold && breath_temperature < heat_level_3_threshold)
-			H.apply_damage_old_type(heat_level_2_damage*heat_modifier, heat_damage_type)
+			H.apply_damage(/datum/damage_source/temperature/internal, heat_damage_type, heat_level_2_damage*heat_modifier)
 		if(breath_temperature > heat_level_3_threshold)
-			H.apply_damage_old_type(heat_level_3_damage*heat_modifier, heat_damage_type)
+			H.apply_damage(/datum/damage_source/temperature/internal, heat_damage_type, heat_level_3_damage*heat_modifier)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")

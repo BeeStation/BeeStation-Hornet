@@ -925,7 +925,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		if(H.check_shields(src, breakforce))
 			return
 		else
-			H.apply_damage(/datum/damage_source/blunt/heavy, /datum/damage/stamina, stamforce)
+			var/datum/damage_source/source = GET_DAMAGE_SOURCE(damage_source)
+			source.deal_attack(user, src, M, /datum/damage/stamina, stamforce)
 	return ..()
 
 /obj/item/club/tailclub

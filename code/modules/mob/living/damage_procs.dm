@@ -29,21 +29,6 @@
 			adjustStaminaLoss(damage_amount, forced = forced)
 	return 1
 
-/mob/living/proc/apply_damage_old_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
-	switch(damagetype)
-		if(BRUTE)
-			return adjustBruteLoss(damage)
-		if(BURN)
-			return adjustFireLoss(damage)
-		if(TOX)
-			return adjustToxLoss(damage)
-		if(OXY)
-			return adjustOxyLoss(damage)
-		if(CLONE)
-			return adjustCloneLoss(damage)
-		if(STAMINA)
-			return adjustStaminaLoss(damage)
-
 /mob/living/proc/get_damage_amount(damagetype = BRUTE)
 	switch(damagetype)
 		if(BRUTE)
@@ -58,28 +43,6 @@
 			return getCloneLoss()
 		if(STAMINA)
 			return getStaminaLoss()
-
-
-/mob/living/proc/apply_damage_olds(brute = 0, burn = 0, tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = FALSE, stamina = 0, brain = 0)
-	if(blocked >= 100)
-		return 0
-	if(brute)
-		apply_damage_old(brute, BRUTE, def_zone, blocked)
-	if(burn)
-		apply_damage_old(burn, BURN, def_zone, blocked)
-	if(tox)
-		apply_damage_old(tox, TOX, def_zone, blocked)
-	if(oxy)
-		apply_damage_old(oxy, OXY, def_zone, blocked)
-	if(clone)
-		apply_damage_old(clone, CLONE, def_zone, blocked)
-	if(stamina)
-		apply_damage_old(stamina, STAMINA, def_zone, blocked)
-	if(brain)
-		apply_damage_old(brain, BRAIN, def_zone, blocked)
-	return 1
-
-
 
 /mob/living/proc/apply_effect(effect = 0,effecttype = EFFECT_STUN, blocked = FALSE)
 	var/hit_percent = (100-blocked)/100

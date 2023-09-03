@@ -9,6 +9,12 @@
 /// penetrate the skin and cause internal damage and bleeding.
 /datum/damage_source/sharp/heavy
 
+/// Surgical incisions. Causes bleeding but won't deal massive amounts
+/// of unpredictable internal damage.
+/// Should cause extreme amounts of pain compared to other damage types
+/// to enforce surgery painkilling/sleeping.
+/datum/damage_source/sharp/incision
+
 /datum/damage_source/blunt
 	armour_flag = MELEE
 
@@ -37,6 +43,10 @@
 /datum/damage_source/impact
 	armour_flag = MELEE
 
+/// Caused by being crushed
+/datum/damage_source/crush
+	armour_flag = MELEE
+
 /// Caused by an object inside of a mob bursting out through their skin
 /// Causes intense bleeding and internal damage
 /datum/damage_source/internal_rupture
@@ -61,9 +71,12 @@
 /datum/damage_source/accidental_burn
 	armour_flag = FIRE
 
-/// Damage caused by exposure to high temperatures, reduced by wearing temperature resistant
-/// clothing.
+/// Damage caused by exposure to various temperatures.
 /datum/damage_source/temperature
+
+/// Damaged caused by internal exosure to high temperatures from breathing
+/// in cold/hot air.
+/datum/damage_source/temperature/internal
 
 /// Electrical damage.
 /// Applies the stutter effect.
@@ -78,6 +91,9 @@
 /datum/damage_source/magic/abstract
 	armour_flag = null
 
+//SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
+//target.stuttering = 20
+//target.do_jitter_animation(20)
 /// Damaged caused by stun shock weapons.
 /// Blocked by the stamina damage flag.
 /// Applies the stutter effect.
@@ -128,12 +144,38 @@
 /// Caused by a slime attacking something. Might have digestive enzymes
 /// or something.
 /datum/damage_source/slime
-	armour_flag = MELEE
+
+/datum/damage_source/slime/calculate_damage(mob/living/target, input_damage, target_zone, armour_penetration = 0)
+	// Determine armour
+	var/blocked = 0
+	if (armour_flag)
+		var/bio_flag = target.run_armor_check(target_zone || BODY_ZONE_CHEST, BIO, armour_penetration = armour_penetration, silent = TRUE)
+		var/melee_flag = target.run_armor_check(target_zone || BODY_ZONE_CHEST, MELEE, armour_penetration = armour_penetration)
+		blocked = (bio_flag + melee_flag) / 2
+	if (blocked >= 100)
+		return 0
+	return input_damage * (1 - (blocked / 100))
 
 /// Similar to above, but specific to blobs
 /datum/damage_source/blob
-	armour_flag = MELEE
+
+/datum/damage_source/blob/calculate_damage(mob/living/target, input_damage, target_zone, armour_penetration = 0)
+	// Determine armour
+	var/blocked = 0
+	if (armour_flag)
+		var/bio_flag = target.run_armor_check(target_zone || BODY_ZONE_CHEST, BIO, armour_penetration = armour_penetration, silent = TRUE)
+		var/melee_flag = target.run_armor_check(target_zone || BODY_ZONE_CHEST, MELEE, armour_penetration = armour_penetration)
+		blocked = (bio_flag + melee_flag) / 2
+	if (blocked >= 100)
+		return 0
+	return input_damage * (1 - (blocked / 100))
 
 /// Biohazard damage.
 /datum/damage_source/biohazard
 	armour_flag = BIO
+
+/// Abstract damage. Unavoidable
+/datum/damage_source/abstract
+
+/// Damage caused from bodilly processes
+/datum/damage_source/body
