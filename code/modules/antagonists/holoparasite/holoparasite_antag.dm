@@ -32,6 +32,11 @@
 	. = ..()
 	team.add_member(owner)
 
+/datum/antagonist/holoparasite/greet()
+	. = ..()
+	owner.current.client?.tgui_panel?.give_antagonist_popup(theme.name,
+		"Protect your summoner and follow [holder.owner.current.p_their()] commands. Your existence is bound to their life, and you will die if [holder.owner.current.p_they()] die[holder.owner.current.p_s()].")
+
 /datum/antagonist/holoparasite/can_be_owned(datum/mind/new_owner)
 	. = ..()
 	if(.)
@@ -39,7 +44,7 @@
 		return istype(tested?.current, /mob/living/simple_animal/hostile/holoparasite)
 
 /datum/antagonist/holoparasite/antag_panel_data()
-	return "<B>Summoner: [key_name(holder.owner)]</B>"
+	return "<b>Summoner</b>: [key_name(holder.owner)]<br>[stats.tldr()]"
 
 /datum/antagonist/holoparasite/get_antag_name()
 	return "[theme.name] of [holder.owner.name]"
