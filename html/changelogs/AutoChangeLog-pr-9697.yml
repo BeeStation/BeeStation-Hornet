@@ -1,4 +1,0 @@
-author: PowerfulBacon, KubeRoot, Victor239, stylemistake
-delete-after: true
-changes:
-  - rscadd: Adds fullscreen mode, toggleable with F11 or via game preferences.
