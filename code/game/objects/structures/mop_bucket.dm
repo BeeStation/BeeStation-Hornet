@@ -5,7 +5,7 @@
 	icon_state = "mopbucket"
 	density = TRUE
 	var/amount_per_transfer_from_this = 5	//shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
-
+	var/list/fill_icon_thresholds = list(1, 30, 50, 70, 90)
 
 /obj/structure/mopbucket/Initialize(mapload)
 	. = ..()
@@ -24,7 +24,20 @@
 		. = ..()
 		update_icon()
 
-/obj/structure/mopbucket/update_icon()
-	cut_overlays()
-	if(reagents.total_volume > 0)
-		add_overlay("mopbucket_water")
+/obj/structure/mopbucket/on_reagent_change(changetype)
+	. = ..()
+	update_icon()
+
+/obj/structure/mopbucket/update_overlays()
+	. = ..()
+	if(reagents.total_volume < 1)
+		return
+	var/mutable_appearance/filling = mutable_appearance('icons/obj/janitor.dmi', "mopbucket_water[fill_icon_thresholds[1]]")
+	var/percent = round((reagents.total_volume / reagents.maximum_volume) * 100)
+	for(var/i in 1 to length(fill_icon_thresholds))
+		var/threshold = fill_icon_thresholds[i]
+		var/threshold_end = (i == length(fill_icon_thresholds)) ? INFINITY : fill_icon_thresholds[i+1]
+		if(threshold <= percent && percent < threshold_end)
+			filling.icon_state = "mopbucket_water[fill_icon_thresholds[i]]"
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
+	. += filling

@@ -241,7 +241,6 @@
 			var/threshold_end = (i == length(fill_icon_thresholds)) ? INFINITY : fill_icon_thresholds[i+1]
 			if(threshold <= percent && percent < threshold_end)
 				filling.icon_state = "cart_water[fill_icon_thresholds[i]]"
-		//var/mutable_appearance/filling = mutable_appearance('icons/obj/janitor.dmi', "cart_water")
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
