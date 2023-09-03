@@ -275,7 +275,7 @@
 	uni_identity = generate_uni_identity()
 	if(!skip_index) //I hate this
 		generate_dna_blocks()
-	features = random_features()
+	features = random_features(holder.gender)
 
 
 /datum/dna/stored //subtype used by brain mob's stored_dna
