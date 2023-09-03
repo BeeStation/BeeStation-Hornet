@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - config: Made unstaffed departments having their lights be turned off at roundstart
-      a config option
