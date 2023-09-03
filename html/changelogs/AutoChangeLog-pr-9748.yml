@@ -1,5 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: RadStation's Air Mixer no longer requires roundstart attention due to
-      being improperly setup
