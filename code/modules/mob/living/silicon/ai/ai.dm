@@ -104,6 +104,9 @@
 	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
 	var/obj/machinery/holopad/current_holopad
 
+	var/regex/ai_chat_highlights
+	var/ai_notice_jingle = TRUE
+
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
 	. = ..()
@@ -167,7 +170,8 @@
 			/mob/living/silicon/ai/proc/ai_hologram_change,
 			/mob/living/silicon/ai/proc/botcall,
 			/mob/living/silicon/ai/proc/control_integrated_radio,
-			/mob/living/silicon/ai/proc/set_automatic_say_channel
+			/mob/living/silicon/ai/proc/set_automatic_say_channel,
+			/mob/living/silicon/ai/proc/toggle_notice_jingle
 		))
 
 	GLOB.ai_list += src
@@ -179,6 +183,10 @@
 	alert_control = new(src, list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER, ALARM_CAMERA, ALARM_BURGLAR, ALARM_MOTION), list(z), camera_view = TRUE)
 	RegisterSignal(alert_control.listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
 	RegisterSignal(alert_control.listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
+	RegisterSignal(src, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
+	if(!ai_chat_highlights)
+		var/words = "ai|AI|Ai|aI|[name]|[replacetext(name,".","")]"
+		ai_chat_highlights = new("([words])", "ig")
 
 /mob/living/silicon/ai/key_down(_key, client/user)
 	if(findtext(_key, "numpad")) //if it's a numpad number, we can convert it to just the number
@@ -210,6 +218,7 @@
 	QDEL_NULL(doomsday_device)
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(alert_control)
+	UnregisterSignal(src, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 	malfhack = null
 	current_holopad = null
 	//bot_ref = null
@@ -825,6 +834,14 @@
 		return
 	set_autosay()
 
+/mob/living/silicon/ai/proc/toggle_notice_jingle()
+	set name = "Toggle name notice jingle"
+	set desc = "Toggle the sound that plays whenever AI or your name is mentioned on the radio."
+	set category = "AI Commands"
+
+	ai_notice_jingle = !ai_notice_jingle
+	to_chat(src, "<span class='notice'>You will [ai_notice_jingle ?  "now" : "no longer"] hear a sound whenever someone mentions AI or your name</span>")
+
 /mob/living/silicon/ai/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
 		return
@@ -949,6 +966,9 @@
 		if(eyeobj)
 			eyeobj.name = "[newname] (AI Eye)"
 			modularInterface.saved_identification = real_name
+		ai_chat_highlights = null
+		var/words = "ai|AI|Ai|aI|[newname]|[replacetext(newname,".","")]"
+		ai_chat_highlights = new("([words])", "ig")
 
 		// Notify Cyborgs
 		for(var/mob/living/silicon/robot/Slave in connected_robots)
@@ -1113,3 +1133,24 @@
 
 /mob/living/silicon/ai/zMove(dir, feedback = FALSE, feedback_to = src)
 	. = eyeobj.zMove(dir, feedback, feedback_to)
+
+/mob/living/silicon/ai/proc/handle_hearing(datum/source, list/hearing_args)
+	SIGNAL_HANDLER
+	var/atom/user = hearing_args[HEARING_SPEAKER]
+	if(!ai_chat_highlights || user?.name == name)
+		return
+	var/message = hearing_args[HEARING_RAW_MESSAGE]
+	message = ai_chat_highlights.Replace(message, "<span style='color:pink'>$1</span>")
+	hearing_args[HEARING_RAW_MESSAGE] = message
+	var/temp_holder = ai_chat_highlights.name
+	temp_holder = replacetext(temp_holder, "(", "")
+	temp_holder = replacetext(temp_holder, ")", "")
+	var/list/words = splittext(temp_holder, "|")
+	var/found_mention = FALSE
+	for(var/found_word in words)
+		if(findtext(message, found_word))
+			found_mention = TRUE
+			break
+
+	if(ai_notice_jingle && found_mention)
+		playsound_local(get_turf(src), 'sound/machines/twobeep.ogg', 50)
