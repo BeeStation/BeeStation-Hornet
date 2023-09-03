@@ -17,16 +17,6 @@
 			var/dmg = rand(1, 5)
 			apply_damage(/datum/damage_source/sharp/light, /datum/damage/brute, dmg, affecting)
 
-/mob/living/carbon/monkey/attack_larva(mob/living/carbon/alien/larva/L)
-	if(..()) //successful larva bite.
-		var/damage = rand(1, 3)
-		if(stat != DEAD)
-			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.zone_selected))
-			if(!affecting)
-				affecting = get_bodypart(BODY_ZONE_CHEST)
-			apply_damage(/datum/damage_source/sharp/light, /datum/damage/brute, damage, affecting)
-
 /mob/living/carbon/monkey/attack_hand(mob/living/carbon/human/M)
 	if(..())	//To allow surgery to return properly.
 		return
@@ -80,7 +70,7 @@
 				if(!dismembering_strike(M, affecting.body_zone)) //Dismemberment successful
 					return 1
 				apply_damage_old(damage, BRUTE, affecting)
-				
+
 
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)

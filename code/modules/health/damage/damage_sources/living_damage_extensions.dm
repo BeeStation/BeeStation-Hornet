@@ -7,4 +7,9 @@
 	var/datum/damage_source/source = damage_source
 	if (!istype(source))
 		source = GET_DAMAGE_SOURCE(damage_source)
-	source.apply_direct(src, damage_type, damage, target_zone)
+	return source.apply_direct(src, damage_type, damage, target_zone)
+
+/// Perform the mobs default attack damage
+/// Returns the amount of damage dealt
+/mob/living/proc/deal_generic_attack(atom/target)
+	return FALSE

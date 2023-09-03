@@ -185,10 +185,39 @@
 
 // Babby aliens
 /mob/living/carbon/alien/larva/UnarmedAttack(atom/A)
-	A.attack_larva(src)
-/atom/proc/attack_larva(mob/user)
-	return
+	if (A.larva_attack_intercept(src))
+		return
+	var/damage_dealt = deal_generic_attack(A)
+	if (damage_dealt <= 0)
+		return
+	amount_grown = min(amount_grown + damage_dealt, max_grown)
 
+/atom/proc/larva_attack_intercept(mob/user)
+	return FALSE
+
+/mob/living/carbon/alien/larva/deal_generic_attack(atom/target)
+	switch(a_intent)
+		if(INTENT_HELP)
+			target.visible_message("<span class='notice'>[name] rubs its head against [target].</span>", \
+							"<span class='notice'>[name] rubs its head against you.</span>")
+			return FALSE
+
+		else
+			if(HAS_TRAIT(src, TRAIT_PACIFISM))
+				to_chat(src, "<span class='notice'>You don't want to hurt anyone!</span>")
+				return
+
+			if(prob(90))
+				log_combat(L, src, "attacked")
+				var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/sharp/light)
+				source.deal_attack(src, null, target, /datum/damage/brute, rand(3, 10), ran_zone(zone_selected))
+				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				return TRUE
+			else
+				L.do_attack_animation(target)
+				target.visible_message("<span class='danger'>[name]'s bite misses [target]!</span>", \
+								"<span class='userdanger'>[name]'s bite misses you!</span>", null, COMBAT_MESSAGE_RANGE)
+	return FALSE
 
 /*
 	Slimes

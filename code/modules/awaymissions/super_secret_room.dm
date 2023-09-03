@@ -98,7 +98,7 @@
 /obj/structure/speaking_tile/attack_hulk(mob/user, does_attack_animation = 0)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_larva(mob/user)
+/obj/structure/speaking_tile/larva_attack_intercept(mob/user)
 	return interact(user)
 
 /obj/structure/speaking_tile/attack_ai(mob/user)

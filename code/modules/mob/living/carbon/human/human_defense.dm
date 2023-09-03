@@ -277,7 +277,7 @@
 					"<span class='userdanger'>[M] tackles you down!</span>")
 
 
-/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/carbon/human/larva_attack_intercept(mob/living/carbon/alien/larva/L)
 
 	if(..()) //successful larva bite.
 		var/damage = rand(1, 3)

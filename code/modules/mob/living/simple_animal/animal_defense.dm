@@ -36,7 +36,11 @@
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>",\
 				"<span class='userdanger'>[M] [response_harm] you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, attacked_sound, 25, 1, -1)
-			attack_threshold_check(M.dna.species.punchdamage)
+			if (is_damage_deflected(M.dna.species.punchdamage))
+				log_combat(M, src, "attacked (entirely deflected)")
+				return
+			var/datum/damage_source/source = GET_DAMAGE_SOURCE(M.dna.species.damage_source_type)
+			source.deal_attack(M, null, src, M.dna.species.damage_type, M.dna.species.punchdamage)
 			log_combat(M, src, "attacked")
 			updatehealth()
 			return TRUE
@@ -57,6 +61,9 @@
 	if(..()) //successful monkey bite.
 		if(stat != DEAD)
 			var/damage = rand(1, 3)
+			if (is_damage_deflected(damage))
+				log_combat(M, src, "attacked (entirely deflected)")
+				return
 			attack_threshold_check(damage)
 			return 1
 	if (M.a_intent == INTENT_HELP)
@@ -78,14 +85,20 @@
 			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
 					"<span class='userdanger'>[M] slashes at you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			if (is_damage_deflected(damage))
+				log_combat(M, src, "attacked (entirely deflected)")
+				return
 			attack_threshold_check(damage)
 			log_combat(M, src, "attacked")
 		return 1
 
-/mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/simple_animal/larva_attack_intercept(mob/living/carbon/alien/larva/L)
 	. = ..()
 	if(. && stat != DEAD) //successful larva bite
 		var/damage = rand(5, 10)
+		if (is_damage_deflected(damage))
+			log_combat(L, src, "attacked (entirely deflected)")
+			return
 		. = attack_threshold_check(damage)
 		if(.)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
@@ -94,7 +107,10 @@
 	. = ..()
 	if(.)
 		var/damage = M.melee_damage
-		return attack_threshold_check(damage, M.melee_damage_type)
+		if (is_damage_deflected(damage))
+			log_combat(M, src, "attacked (entirely deflected)")
+			return
+		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -103,6 +119,9 @@
 			damage = 30
 		if(M.transformeffects & SLIME_EFFECT_RED)
 			damage *= 1.1
+		if (is_damage_deflected(damage))
+			log_combat(M, src, "attacked (entirely deflected)")
+			return
 		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)
@@ -110,7 +129,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = /datum/damage/brute, armorcheck = MELEE)
+/mob/living/simple_animal/proc/is_damage_deflected(damage)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -120,10 +139,7 @@
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 		return FALSE
-	else
-		apply_damage_old(damage, damagetype, null, getarmor(null, armorcheck))
-		apply_damage()
-		return TRUE
+	return TRUE
 
 /mob/living/simple_animal/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
 	Proj.deal_attack(null, src, Proj.def_zone, override_damage = Proj.damage)

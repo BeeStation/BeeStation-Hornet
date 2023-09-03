@@ -46,7 +46,7 @@ In all, this is a lot like the monkey code. /N
 				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
 
 
-/mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/carbon/alien/larva_attack_intercept(mob/living/carbon/alien/larva/L)
 	return attack_alien(L)
 
 /mob/living/carbon/alien/attack_paw(mob/living/carbon/monkey/M)

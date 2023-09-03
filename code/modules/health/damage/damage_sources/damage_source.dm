@@ -139,7 +139,7 @@
 	)
 	if (!istype(target) || !damage_amount)
 		return
-	target.bleed_rate = max(min(target.bleed_rate + (damage_amount * intensity) * rand(4, 8) / 10, damage_amount * intensity), target.bleed_rate )
+	target.bleed_rate = max(min(target.bleed_rate + (damage_amount * intensity_multiplier) * rand(4, 8) / 10, damage_amount * intensity_multiplier), target.bleed_rate )
 
 /// Deepends any pre-existing wounds and causes blood to splatter
 /// if they are already bleeding.
@@ -173,7 +173,7 @@
 	if (!location)
 		return
 	// Add blood to the surrounding location
-	add_splatter_floor(location)
+	target.add_splatter_floor(location)
 	// Check if we are in range
 	if (attacker && get_dist(attacker, target) <= 1)
 		attacker.add_mob_blood(target)

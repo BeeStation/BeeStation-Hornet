@@ -39,7 +39,7 @@
 /obj/structure/signpost/attack_hulk(mob/user, does_attack_animation = 0)
 	return interact(user)
 
-/obj/structure/signpost/attack_larva(mob/user)
+/obj/structure/signpost/larva_attack_intercept(mob/user)
 	return interact(user)
 
 /obj/structure/signpost/attack_robot(mob/user)
