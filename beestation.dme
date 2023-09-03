@@ -2257,6 +2257,7 @@
 #include "code\modules\client\preferences\entries\player\darkened_flash.dm"
 #include "code\modules\client\preferences\entries\player\deadmin.dm"
 #include "code\modules\client\preferences\entries\player\fps.dm"
+#include "code\modules\client\preferences\entries\player\fullscreen.dm"
 #include "code\modules\client\preferences\entries\player\ghost.dm"
 #include "code\modules\client\preferences\entries\player\glasses.dm"
 #include "code\modules\client\preferences\entries\player\hotkeys.dm"
