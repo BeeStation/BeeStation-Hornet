@@ -378,14 +378,6 @@
 			priority_absorb_key["stuns_absorbed"] += amount
 		return TRUE
 
-/////////////////////////////////// STASIS ///////////////////////////////////
-
-/mob/living/proc/IsInStasis()
-	. = has_status_effect(STATUS_EFFECT_STASIS)
-
-/mob/living/proc/SetStasis(apply, updating = TRUE)
-	. = apply ? apply_status_effect(STATUS_EFFECT_STASIS, null, updating) : remove_status_effect(STATUS_EFFECT_STASIS)
-
 /////////////////////////////////// QUIRKS ///////////////////////////////////
 /* These are here to make checking quirks more straightforward, actual functionality is in mind.dm */
 
@@ -397,12 +389,14 @@
 /mob/living/proc/cure_blind(source)
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
 	if(!is_blind())
-		adjust_blindness(-1)
+		update_blindness()
 
 /mob/living/proc/become_blind(source)
-	if(!is_blind())
-		blind_eyes(1)
-	ADD_TRAIT(src, TRAIT_BLIND, source)
+	if(!HAS_TRAIT(src, TRAIT_BLIND)) // not blind already, add trait then overlay
+		ADD_TRAIT(src, TRAIT_BLIND, source)
+		update_blindness()
+	else
+		ADD_TRAIT(src, TRAIT_BLIND, source)
 
 /mob/living/proc/cure_nearsighted(source)
 	REMOVE_TRAIT(src, TRAIT_NEARSIGHT, source)

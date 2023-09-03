@@ -5,6 +5,7 @@
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_NORMAL // No more excuses, stop getting blood everywhere
 	deployed_object = /obj/structure/bed/roller
+	ignores_mob_density = TRUE
 
 /obj/item/deployable/rollerbed/robo //ROLLER ROBO DA!
 	name = "roller bed dock"

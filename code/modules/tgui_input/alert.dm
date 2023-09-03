@@ -20,7 +20,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		switch(length(buttons))
 			if(1)
 				return alert(user, message, title, buttons[1])
@@ -60,7 +60,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		if(length(buttons) == 2)
 			return alert(user, message, title, buttons[1], buttons[2])
 		if(length(buttons) == 3)
@@ -120,6 +120,7 @@
 	if(!ui)
 		ui = new(user, src, "AlertModal")
 		ui.open()
+		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_modal/ui_close(mob/user)
 	. = ..()
@@ -133,8 +134,8 @@
 	.["autofocus"] = autofocus
 	.["buttons"] = buttons
 	.["message"] = message
-	.["large_buttons"] = !user.client?.prefs || (user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
-	.["swapped_buttons"] = !user.client?.prefs || (user.client.prefs.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
+	.["large_buttons"] = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input_large)
+	.["swapped_buttons"] = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input_swapped)
 	.["title"] = title
 
 /datum/tgui_modal/ui_data(mob/user)

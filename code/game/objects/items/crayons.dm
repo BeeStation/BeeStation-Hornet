@@ -237,7 +237,7 @@
 				paint_mode = PAINT_NORMAL
 		if("select_colour")
 			if(can_change_colour)
-				var/chosen_colour = input(usr,"","Choose Color",paint_color) as color|null
+				var/chosen_colour = tgui_color_picker(usr,"","Choose Color",paint_color)
 
 				if (!isnull(chosen_colour))
 					paint_color = chosen_colour
@@ -679,7 +679,7 @@
 
 		if(C.client)
 			C.blur_eyes(3)
-			C.blind_eyes(1)
+			C.adjust_blindness(1)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.confused = max(C.confused, 3)
 			C.Paralyze(60)

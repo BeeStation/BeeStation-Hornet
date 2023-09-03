@@ -1,5 +1,0 @@
-author: PowerfulBacon, MothBlocks
-delete-after: true
-changes:
-  - tweak: Speeds up the initialisation times of closets.
-  - tweak: Crew pinpointers are no longer indestructible.

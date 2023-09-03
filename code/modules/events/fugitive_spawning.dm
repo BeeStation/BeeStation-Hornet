@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/candidates = get_candidates(ROLE_FUGITIVE, null, ROLE_FUGITIVE)
+	var/list/candidates = get_candidates(ROLE_FUGITIVE, /datum/role_preference/midround_ghost/fugitive)
 	var/result = spawn_fugitives(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
@@ -40,14 +40,18 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	var/list/possible_backstories = list()
 	for(var/type_key as() in GLOB.fugitive_types)
 		var/datum/fugitive_type/F = GLOB.fugitive_types[type_key]
-		if(length(candidates) > F.max_amount)
+		// without this second check it will filter out "safe" backstories even if there are enough players to fill it
+		if(length(candidates) > F.max_amount_allowed && F.max_amount_allowed < MAXIMUM_TOTAL_FUGITIVES)
+			continue
+		// Not enough for this backstory
+		if(length(candidates) < F.min_spawn_amount)
 			continue
 		possible_backstories += type_key
 	if(!length(possible_backstories) || length(candidates) < 1)
 		return NOT_ENOUGH_PLAYERS
 
 	var/datum/fugitive_type/backstory = GLOB.fugitive_types[admin_select_backstory(possible_backstories)]
-	var/member_size = min(length(candidates), backstory.max_amount)
+	var/member_size = min(length(candidates), backstory.max_spawn_amount)
 	var/leader
 	if(backstory.has_leader)
 		leader = pick_n_take(candidates)
@@ -93,7 +97,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 /proc/spawn_hunters()
 	set waitfor = FALSE
 	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[admin_select_backstory(GLOB.hunter_types)]
-	var/list/candidates = pollGhostCandidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_FUGITIVE_HUNTER)
+	var/list/candidates = pollGhostCandidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_FUGITIVE_HUNTER, /datum/role_preference/midround_ghost/fugitive_hunter, 15 SECONDS)
 	var/datum/map_template/shuttle/ship = new backstory.ship_type
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)

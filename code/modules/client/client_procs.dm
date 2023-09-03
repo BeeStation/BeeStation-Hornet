@@ -122,13 +122,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			hsrc = mentor_datum
 		if("usr")
 			hsrc = mob
-		if("prefs")
-			if (inprefs)
-				return
-			inprefs = TRUE
-			. = prefs.process_link(usr,href_list)
-			inprefs = FALSE
-			return
 		if("vars")
 			return view_var_Topic(href,href_list,hsrc)
 
@@ -142,11 +135,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	..()	//redirect to hsrc.Topic()
 
+/// If this client is BYOND member.
 /client/proc/is_content_unlocked()
-	if(!prefs.unlock_content)
-		to_chat(src, "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. Only 10 bucks for 3 months! <a href=\"https://secure.byond.com/membership\">Click Here to find out more</a>.")
-		return 0
-	return 1
+	return prefs.unlock_content
+
 /*
  * Call back proc that should be checked in all paths where a client can send messages
  *
@@ -215,6 +207,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	tgui_panel = new(src, "browseroutput")
 
 	tgui_say = new(src, "tgui_say")
+	tgui_asay = new(src, "tgui_asay")
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	GLOB.mhelp_tickets.ClientLogin(src)
@@ -248,20 +241,26 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				to_chat_immediate(src, "<span class='userdanger'>Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab.</span>")
 			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 			new /datum/admins(localhost_rank, ckey, 1, 1)
+
+	// This needs to go after admin loading but before prefs
+	assign_mentor_datum_if_exists()
+
 	// Retrieve cached metabalance
 	get_metabalance_db()
 	// Retrieve cached antag token count
 	get_antag_token_count_db()
+	if(!src) // Yes this is possible, because the procs above sleep.
+		return
 	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
 	prefs = GLOB.preferences_datums[ckey]
 	if(prefs)
 		prefs.parent = src
+		prefs.apply_all_client_preferences()
 	else
 		prefs = new /datum/preferences(src)
 		GLOB.preferences_datums[ckey] = prefs
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
-	fps = prefs.clientfps
 
 	prefs.handle_donator_items()
 
@@ -349,6 +348,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	// Initialize tgui panel
 	tgui_panel.Initialize()
 	tgui_say.initialize()
+	tgui_asay.initialize()
 
 	if(alert_mob_dupe_login && !holder)
 		var/dupe_login_message = "Your ComputerID has already logged in with another key this round, please log out of this one NOW or risk being banned!"
@@ -414,7 +414,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		add_admin_verbs()
 		to_chat(src, get_message_output("memo"))
 		adminGreet()
-
 	add_verbs_from_config()
 	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
 
@@ -466,8 +465,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	to_chat(src, get_message_output("message", ckey))
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
-
-	update_ambience_pref()
 
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
@@ -584,7 +581,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.clients -= src
 	GLOB.mentors -= src
 	SSambience.remove_ambience_client(src)
-	QDEL_LIST_ASSOC_VAL(char_render_holders)
 	Master.UpdateTickRate()
 	return ..()
 
@@ -955,27 +951,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, "<span class='danger'>Your previous click was ignored because you've done too many in a second</span>")
 			return
 
-	if (prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
+	if (hotkeys)
 		// If hotkey mode is enabled, then clicking the map will automatically
 		// unfocus the text bar. This removes the red color from the text bar
 		// so that the visual focus indicator matches reality.
 		winset(src, null, "input.background-color=[COLOR_INPUT_DISABLED]")
+	else
+		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED]")
 
 	..()
-
-/client/proc/canGhostRole(role, use_cooldown = FALSE, spawned_by_admin)
-	if(!SSticker.HasRoundStarted())
-		return FALSE
-	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(spawned_by_admin & ADMIN_SPAWNED_1))
-		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
-		return FALSE
-	if(role && is_banned_from(key, role)) //role can be null, no reason to check for a roleban if there is no special role assigned
-		to_chat(src, "<span class='warning'>You are jobanned!</span>")
-		return FALSE
-	if(use_cooldown && next_ghost_role_tick > world.time)
-		to_chat(src, "<span class='warning'>You have died recently, you must wait [(next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
-		return FALSE
-	return TRUE
 
 /client/proc/add_verbs_from_config()
 	if (interviewee)
@@ -1056,7 +1040,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
-	if (prefs.toggles2 & PREFTOGGLE_2_AUTO_FIT_VIEWPORT)
+	if (prefs?.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
 		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
 
 /client/proc/generate_clickcatcher()
@@ -1070,36 +1054,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/AnnouncePR(announcement)
-	if(prefs && prefs.chat_toggles & CHAT_PULLR)
+	if(prefs && prefs.read_player_preference(/datum/preference/toggle/chat_pullr))
 		to_chat(src, announcement)
-
-/client/proc/show_character_previews(mutable_appearance/source)
-	LAZYINITLIST(char_render_holders)
-	if(!LAZYLEN(char_render_holders))
-		for (var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
-			var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
-			char_render_holders["plane_master-[plane_master.plane]"] = plane_master
-			screen |= plane_master
-			plane_master.screen_loc = "character_preview_map:0,CENTER"
-
-	var/pos = 0
-	for(var/D in GLOB.cardinals)
-		pos++
-		var/atom/movable/screen/O = LAZYACCESS(char_render_holders, "[D]")
-		if(!O)
-			O = new
-			LAZYSET(char_render_holders, "[D]", O)
-			screen |= O
-		O.appearance = source
-		O.dir = D
-		O.screen_loc = "character_preview_map:0,[pos]"
-
-/client/proc/clear_character_previews()
-	for(var/index in char_render_holders)
-		var/atom/movable/screen/S = char_render_holders[index]
-		screen -= S
-		qdel(S)
-	char_render_holders = null
 
 /client/proc/show_account_identifier()
 	set name = "Show Account Identifier"
@@ -1169,12 +1125,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(holder)
 		holder.particool = new /datum/particle_editor(in_atom)
 		holder.particool.ui_interact(mob)
-
-/client/proc/update_ambience_pref()
-	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)
-		SSambience.add_ambience_client(src)
-	else
-		SSambience.remove_ambience_client(src)
 
 /client/proc/give_award(achievement_type, mob/user)
 	return player_details.achievements.unlock(achievement_type, user)

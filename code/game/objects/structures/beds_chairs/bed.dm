@@ -23,6 +23,16 @@
 	var/buildstackamount = 2
 	var/bolts = TRUE
 
+// dir check for buckle_lying state
+/obj/structure/bed/Initialize()
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
+	dir_changed(new_dir = dir)
+	. = ..()
+
+/obj/structure/bed/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
+	return ..()
+
 /obj/structure/bed/examine(mob/user)
 	. = ..()
 	if(bolts)
@@ -43,6 +53,14 @@
 		deconstruct(TRUE)
 	else
 		return ..()
+
+/obj/structure/bed/proc/dir_changed(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+	switch(new_dir)
+		if(WEST, SOUTH)
+			buckle_lying = 90
+		if(EAST, NORTH)
+			buckle_lying = 270
 
 /*
  * Roller beds
@@ -93,6 +111,7 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	set_density(TRUE)
 	icon_state = "up"
+	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
 	//Push them up from the normal lying position
 	M.pixel_y = M.base_pixel_y
 
@@ -188,6 +207,7 @@
 	var/mob/living/goldilocks
 
 /obj/structure/bed/double/post_buckle_mob(mob/living/M)
+	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
 	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
 		M.pixel_y = M.base_pixel_y + 6
 		goldilocks = M

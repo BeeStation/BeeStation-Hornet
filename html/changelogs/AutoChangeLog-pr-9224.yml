@@ -1,4 +1,0 @@
-author: RKz, LemonInTheDark
-delete-after: true
-changes:
-  - code_imp: cleans up click code, converts to defines, converts to LAZY ACCESS

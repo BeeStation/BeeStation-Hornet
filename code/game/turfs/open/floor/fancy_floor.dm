@@ -413,6 +413,8 @@
 	broken_states = list("damaged")
 	plane = PLANE_SPACE
 	tiled_dirt = FALSE
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /turf/open/floor/fakespace/Initialize(mapload)
 	. = ..()

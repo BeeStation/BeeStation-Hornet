@@ -81,6 +81,11 @@
 /// Define for the heretic faction applied to heretics and heretic mobs.
 #define FACTION_HERETIC "heretics"
 
+#define FACTION_SYNDICATE "Syndicate"
+#define FACTION_BLOB "Blob"
+#define FACTION_ALIEN "Xenomorph"
+#define FACTION_WIZARD "Wizard"
+
 // Heretic path defines.
 #define HERETIC_PATH_START "Heretic Start Path"
 #define HERETIC_PATH_SIDE "Heretic Side Path"
@@ -115,6 +120,9 @@
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
 
+// Max of all fugitive types
+#define MAXIMUM_TOTAL_FUGITIVES 4
+
 // Fugitive hunter types
 #define FUGITIVE_HUNTER_SPACE_POLICE "space_police"
 #define FUGITIVE_HUNTER_RUSSIAN "russian"
@@ -128,3 +136,6 @@
 
 //Spider webs
 #define MAX_WEBS_PER_TILE 3
+
+/// The dimensions of the antagonist preview icon. Will be scaled to this size.
+#define ANTAGONIST_PREVIEW_ICON_SIZE 96

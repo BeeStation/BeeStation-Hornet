@@ -176,7 +176,7 @@
 	size_y = CLAMP(size_y, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
 	var/list/desc = list("This is a photo of an area of [(2*size_x)+1] meters by [(2*size_y)+1] meters.")
 	var/list/mobs_spotted = list()
-	var/list/dead_spotted = list()
+	var/list/minds_spotted = list()
 	var/ai_user = isAI(user)
 	var/list/seen
 	var/list/viewlist = user?.client ? getviewsize(user.client.view) : getviewsize(world.view)
@@ -188,27 +188,27 @@
 	var/blueprints = FALSE
 	var/clone_area = SSmapping.RequestBlockReservation(size_x * 2 + 1, size_y * 2 + 1)
 	for(var/turf/placeholder in block(locate(target_turf.x - size_x, target_turf.y - size_y, target_turf.z), locate(target_turf.x + size_x, target_turf.y + size_y, target_turf.z)))
-		var/turf/T = placeholder
-		while(istype(T, /turf/open/openspace)) //Multi-z photography
-			T = SSmapping.get_turf_below(T)
-			if(!T)
+		var/turf/turf = placeholder
+		while(istype(turf, /turf/open/openspace)) //Multi-z photography
+			turf = GET_TURF_BELOW(turf)
+			if(!turf)
 				break
 
-		if(T && ((ai_user && GLOB.cameranet.checkTurfVis(placeholder)) || (placeholder in seen)))
-			turfs += T
-			for(var/mob/M in T)
-				mobs += M
-			if(locate(/obj/item/areaeditor/blueprints) in T)
+		if(turf && ((ai_user && GLOB.cameranet.checkTurfVis(placeholder)) || (placeholder in seen)))
+			turfs += turf
+			for(var/mob/mob in turf)
+				mobs += mob
+			if(locate(/obj/item/areaeditor/blueprints) in turf)
 				blueprints = TRUE
-	for(var/mob/M in mobs)
+	for(var/mob/mob in mobs)
 		// No describing invisible stuff (except ghosts)!
-		if(M.alpha <= 50 || !((M.invisibility < SEE_INVISIBLE_LIVING) || (see_ghosts && can_camera_see_atom(M))))
+		if(mob.alpha <= 50 || !((mob.invisibility < SEE_INVISIBLE_LIVING) || (see_ghosts && can_camera_see_atom(mob))))
 			continue
-		mobs_spotted += M
-		if(M.stat == DEAD)
-			dead_spotted += M
+		mobs_spotted[mob] = mob.stat
+		if(mob.mind)
+			minds_spotted[mob.mind] = considered_alive(mob.mind) ? mob.stat : DEAD // if you're a silicon, you're dead
 		// |=, let's not spam "You can also see a ... thing? 8 times"
-		desc |= M.get_photo_description(src)
+		desc |= mob.get_photo_description(src)
 
 	var/psize_x = (size_x * 2 + 1) * world.icon_size
 	var/psize_y = (size_y * 2 + 1) * world.icon_size
@@ -219,7 +219,7 @@
 	temp.Scale(psize_x, psize_y)
 	temp.Blend(get_icon, ICON_OVERLAY)
 
-	var/datum/picture/P = new("picture", desc.Join(" "), mobs_spotted, dead_spotted, temp, null, psize_x, psize_y, blueprints)
+	var/datum/picture/P = new("picture", desc.Join(" "), mobs_spotted, minds_spotted, temp, null, psize_x, psize_y, blueprints)
 	after_picture(user, P, flag)
 	blending = FALSE
 
