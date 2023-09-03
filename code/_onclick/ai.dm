@@ -88,14 +88,14 @@
 	A.attack_ai(src)
 
 /*
-	AI has no need for the UnarmedAttack() and RangedAttack() procs,
+	AI has no need for the UnarmedAttack() and primary_ranged_attack() procs,
 	because the AI code is not generic;	attack_ai() is used instead.
 	The below is only really for safety, or you can alter the way
 	it functions and re-insert it above.
 */
 /mob/living/silicon/ai/UnarmedAttack(atom/A)
 	A.attack_ai(src)
-/mob/living/silicon/ai/RangedAttack(atom/A)
+/mob/living/silicon/ai/primary_ranged_attack(atom/A)
 	A.attack_ai(src)
 
 /atom/proc/attack_ai(mob/user)

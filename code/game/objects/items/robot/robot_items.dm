@@ -906,13 +906,13 @@
 			update_icon()
 			return
 	else
-		stored.melee_attack_chain(user, A, params)
+		stored.target_clicked(user, A, params)
 		return
 	. = ..()
 
 /obj/item/borg/apparatus/attackby(obj/item/W, mob/user, params)
 	if(stored)
-		W.melee_attack_chain(user, stored, params)
+		W.target_clicked(user, stored, params)
 		return
 	. = ..()
 

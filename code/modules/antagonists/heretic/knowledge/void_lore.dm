@@ -209,7 +209,7 @@
 
 /datum/heretic_knowledge/void_blade_upgrade/proc/follow_up_attack(mob/living/user, mob/living/target)
 	var/obj/item/melee/sickly_blade/blade = user.get_active_held_item()
-	blade?.melee_attack_chain(user, target)
+	blade?.target_clicked(user, target)
 
 /datum/heretic_knowledge/spell/voidpull
 	name = "Void Pull"

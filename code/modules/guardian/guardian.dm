@@ -368,11 +368,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	P.fire()
 	return P
 
-/mob/living/simple_animal/hostile/guardian/RangedAttack(atom/A, params)
+/mob/living/simple_animal/hostile/guardian/primary_ranged_attack(atom/A, params)
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
 		return
-	if(stats.ability && stats.ability.RangedAttack(A))
+	if(stats.ability && stats.ability.primary_ranged_attack(A))
 		return
 	return ..()
 

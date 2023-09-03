@@ -100,7 +100,7 @@
 
 	pawn.a_intent = INTENT_HELP
 	if(held_item)
-		held_item.melee_attack_chain(pawn, target)
+		held_item.target_clicked(pawn, target)
 	else
 		pawn.UnarmedAttack(target, TRUE)
 
@@ -165,7 +165,7 @@
 
 		pawn.put_in_hands(target)
 
-	target.melee_attack_chain(pawn, pawn)
+	target.target_clicked(pawn, pawn)
 
 	if(QDELETED(target) || prob(10)) // Even if we don't finish it all we can randomly decide to be done
 		finish_action(controller, TRUE)

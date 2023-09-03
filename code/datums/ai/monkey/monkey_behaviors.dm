@@ -190,7 +190,7 @@
 	// attack with weapon if we have one
 	if(living_pawn.CanReach(target, weapon))
 		if(weapon)
-			weapon.melee_attack_chain(living_pawn, target)
+			weapon.target_clicked(living_pawn, target)
 		else
 			if(disarm)
 				living_pawn.a_intent = INTENT_DISARM

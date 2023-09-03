@@ -26,11 +26,14 @@
 	clear_marked_atom()
 	return TRUE
 
-/obj/item/multitool/circuit/melee_attack_chain(mob/user, atom/target, params)
-	if(marked_atom || !user.Adjacent(target))
-		return ..()
+/obj/item/multitool/circuit/tool_action(mob/user, atom/target, params)
+	if (..())
+		return TRUE
+	if(marked_atom)
+		balloon_alert(user, "You already have a marked object!")
+		return
 
-	say("Marked [target].")
+	balloon_alert(user, "Marked [target].")
 	marked_atom = target
 	RegisterSignal(marked_atom, COMSIG_PARENT_QDELETING, PROC_REF(cleanup_marked_atom))
 	update_icon()

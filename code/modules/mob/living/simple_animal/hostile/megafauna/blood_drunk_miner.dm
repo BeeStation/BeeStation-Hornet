@@ -162,7 +162,7 @@ Difficulty: Medium
 			L.gib()
 			return TRUE
 	changeNext_move(CLICK_CD_MELEE)
-	miner_saw.melee_attack_chain(src, target)
+	miner_saw.target_clicked(src, target)
 	if(guidance)
 		adjustHealth(-2)
 	return TRUE

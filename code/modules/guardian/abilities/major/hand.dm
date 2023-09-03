@@ -5,7 +5,7 @@
 	cost = 5
 	var/next_hand = 0
 
-/datum/guardian_ability/major/hand/RangedAttack(atom/target)
+/datum/guardian_ability/major/hand/primary_ranged_attack(atom/target)
 	if(world.time < next_hand || guardian.Adjacent(target) || !isturf(guardian.loc) || !guardian.is_deployed())
 		return ..()
 	playsound(guardian, 'sound/magic/blink.ogg', 100, TRUE) // blink lol

@@ -110,7 +110,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE)
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = /datum/damage/brute, armorcheck = MELEE)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -122,10 +122,11 @@
 		return FALSE
 	else
 		apply_damage_old(damage, damagetype, null, getarmor(null, armorcheck))
+		apply_damage()
 		return TRUE
 
 /mob/living/simple_animal/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
-	apply_damage_old(Proj.damage, Proj.damage_type)
+	Proj.deal_attack(null, src, Proj.def_zone, override_damage = Proj.damage)
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 

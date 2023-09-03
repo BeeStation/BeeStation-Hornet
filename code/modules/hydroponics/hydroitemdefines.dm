@@ -140,7 +140,7 @@
 			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
 			for(var/obj/structure/spacevine/V in T)
 				if(user.Adjacent(V))
-					melee_attack_chain(user, V)
+					target_clicked(user, V)
 		swiping = FALSE
 
 // *************************************

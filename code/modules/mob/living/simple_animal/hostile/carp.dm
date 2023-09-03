@@ -196,7 +196,7 @@
 			disky = null
 			update_icon()
 		else
-			disky.melee_attack_chain(src, target)
+			disky.target_clicked(src, target)
 		return
 	if(istype(target, /obj/machinery/nuclearbomb))
 		var/obj/machinery/nuclearbomb/nuke = target

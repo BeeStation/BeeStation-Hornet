@@ -1,18 +1,24 @@
 
-/obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
-		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
-		var/resolved = target.attackby(src, user, params)
-		if(!resolved && target && !QDELETED(src))
-			afterattack(target, user, 1, params)
+/obj/item/proc/target_clicked(mob/user, atom/target, params)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if (tool_action(user, target))
+		return
+	if(!pre_attack(target, user, params))
+		return
+	// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
+	var/resolved = target.attackby(src, user, params)
+	if(!resolved && target && !QDELETED(src))
+		afterattack(target, user, 1, params)
 
-//Checks if the item can work as a tool, calling the appropriate tool behavior on the target
-/obj/item/proc/tool_attack_chain(mob/user, atom/target)
+/**
+ * Called to perform actions specific to certain tools.
+ * By default will pass on the tool behaviour to be used by the target instead of
+ * performing an action here, but you can add specific tool behaviours in here if you want.
+ */
+/obj/item/proc/tool_action(mob/user, atom/target)
 	if(!tool_behaviour)
 		return FALSE
-
 	return target.tool_act(user, src, tool_behaviour)
-
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
@@ -122,18 +128,7 @@
 	take_damage(I.force, I.damtype, MELEE, 1)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user)
-	send_item_attack_message(I, user)
-	if(I.force)
-		var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
-		apply_damage_old(I.force, I.damtype, blocked = armour_block)
-		if(I.damtype == BRUTE)
-			if(prob(33))
-				I.add_mob_blood(src)
-				var/turf/location = get_turf(src)
-				add_splatter_floor(location)
-				if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
-					user.add_mob_blood(src)
-		return TRUE //successful attack
+	return I.deal_attack(user, src, ran_zone(user.zone_selected))
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
 	if(I.force < force_threshold || I.damtype == STAMINA || nonharmfulhit)

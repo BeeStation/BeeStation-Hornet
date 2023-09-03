@@ -35,7 +35,7 @@
 
 /datum/guardian_ability/major/proc/Attack(atom/target)
 
-/datum/guardian_ability/major/proc/RangedAttack(atom/target)
+/datum/guardian_ability/major/proc/primary_ranged_attack(atom/target)
 
 /datum/guardian_ability/major/proc/AfterAttack(atom/target)
 

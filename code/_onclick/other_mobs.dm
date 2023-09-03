@@ -86,14 +86,14 @@
 /mob/living/carbon/RestrainedClickOn(atom/A)
 	return 0
 
-/mob/living/carbon/RangedAttack(atom/A, mouseparams)
+/mob/living/carbon/primary_ranged_attack(atom/A, mouseparams)
 	. = ..()
 	if(!dna)
 		return
 	for(var/datum/mutation/HM as() in dna.mutations)
 		HM.on_ranged_attack(A, mouseparams)
 
-/mob/living/carbon/human/RangedAttack(atom/A, mouseparams)
+/mob/living/carbon/human/primary_ranged_attack(atom/A, mouseparams)
 	. = ..()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves

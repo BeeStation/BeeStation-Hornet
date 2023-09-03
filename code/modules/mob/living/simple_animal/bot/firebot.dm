@@ -67,7 +67,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/firebot/RangedAttack(atom/A)
+/mob/living/simple_animal/bot/firebot/primary_ranged_attack(atom/A)
 	if(!on)
 		return
 	if(internal_ext)
