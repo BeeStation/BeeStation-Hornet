@@ -108,7 +108,7 @@
 //Showcases can be any sprite, so it makes sense that they can't be constructed.
 //However if a player wants to move an existing showcase or remove one, this is for that.
 
-/obj/structure/showcase/attackby(obj/item/W, mob/user)
+/obj/structure/showcase/item_interact(obj/item/W, mob/user)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && !anchored)
 		if(deconstruction_state == SHOWCASE_SCREWDRIVERED)
 			to_chat(user, "<span class='notice'>You screw the screws back into the showcase.</span>")
@@ -118,15 +118,18 @@
 			to_chat(user, "<span class='notice'>You unscrew the screws.</span>")
 			W.play_tool_sound(src, 100)
 			deconstruction_state = SHOWCASE_SCREWDRIVERED
+		return TRUE
 
 	if(W.tool_behaviour == TOOL_CROWBAR && deconstruction_state == SHOWCASE_SCREWDRIVERED)
 		if(W.use_tool(src, user, 20, volume=100))
 			to_chat(user, "<span class='notice'>You start to crowbar the showcase apart...</span>")
 			new /obj/item/stack/sheet/iron(drop_location(), 4)
 			qdel(src)
+		return TRUE
 
 	if(deconstruction_state == SHOWCASE_CONSTRUCTED && default_unfasten_wrench(user, W))
-		return
+		return TRUE
+	return ..()
 
 //Feedback is given in examine because showcases can basically have any sprite assigned to them
 

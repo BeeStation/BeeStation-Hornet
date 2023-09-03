@@ -1,4 +1,7 @@
 
+/**
+ * Attempt to use an item on a specific target.
+ */
 /obj/item/proc/use_on(mob/user, atom/target, params)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	// Harm intent always disables safe interactions and goes straight to attacking
@@ -28,7 +31,15 @@
 	return target.tool_act(user, src, tool_behaviour)
 
 /**
- * Called when someone attempts to use an item on this device
+ * The majority of attackby was converted to this.
+ * Called when someone attempts to use an item on this device.
+ * Returns true if the interaction happened meaning that the user will not proceed to hit
+ * the object.
+ * You should **always** return true if the item has any interaction at all, even if that interaction
+ * did not go through.
+ * If the user is on harm intent, this will never be called in the first place. If you want a response
+ * on harm intent, then it needs to respond to being attacked rather than trying to use an item
+ * peacefully on it.
  */
 /atom/proc/item_interact(obj/item/item, mob/user)
 	return

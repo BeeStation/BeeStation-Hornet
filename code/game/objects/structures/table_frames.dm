@@ -21,25 +21,26 @@
 	var/framestack = /obj/item/stack/rods
 	var/framestackamount = 2
 
-/obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 30))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			deconstruct(TRUE)
-		return
+		return TRUE
 
 	var/obj/item/stack/material = I
 	if (istype(I, /obj/item/stack) && material?.tableVariant)
 		if(material.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one [material.name] sheet to do this!</span>")
-			return
+			return TRUE
 		if(!check_turf_contents(user))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
 		if(do_after(user, 20, target = src) && material.use(1))
 			make_new_table(material.tableVariant, user)
+		return TRUE
 	else
 		return ..()
 

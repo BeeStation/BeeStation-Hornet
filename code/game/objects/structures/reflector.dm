@@ -78,20 +78,20 @@
 	P.decayedRange = max(P.decayedRange--, 0)
 	return BULLET_ACT_FORCE_PIERCE
 
-/obj/structure/reflector/attackby(obj/item/W, mob/user, params)
+/obj/structure/reflector/item_interact(obj/item/W, mob/user, params)
 	if(admin)
-		return
+		return ..()
 
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		can_rotate = !can_rotate
 		to_chat(user, "<span class='notice'>You [can_rotate ? "unlock" : "lock"] [src]'s rotation.</span>")
 		W.play_tool_sound(src)
-		return
+		return TRUE
 
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(anchored)
 			to_chat(user, "<span class='warning'>Unweld [src] from the floor first!</span>")
-			return
+			return TRUE
 		user.visible_message("[user] starts to dismantle [src].", "<span class='notice'>You start to dismantle [src]...</span>")
 		if(W.use_tool(src, user, 80, volume=50))
 			to_chat(user, "<span class='notice'>You dismantle [src].</span>")
@@ -99,10 +99,11 @@
 			if(buildstackamount)
 				new buildstacktype(drop_location(), buildstackamount)
 			qdel(src)
+		return TRUE
 	else if(W.tool_behaviour == TOOL_WELDER)
 		if(obj_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=0))
-				return
+				return TRUE
 
 			user.visible_message("[user] starts to repair [src].",
 								"<span class='notice'>You begin repairing [src]...</span>",
@@ -114,7 +115,7 @@
 
 		else if(!anchored)
 			if(!W.tool_start_check(user, amount=0))
-				return
+				return TRUE
 
 			user.visible_message("[user] starts to weld [src] to the floor.",
 								"<span class='notice'>You start to weld [src] to the floor...</span>",
@@ -124,7 +125,7 @@
 				to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
 		else
 			if(!W.tool_start_check(user, amount=0))
-				return
+				return TRUE
 
 			user.visible_message("[user] starts to cut [src] free from the floor.",
 								"<span class='notice'>You start to cut [src] free from the floor...</span>",
@@ -132,11 +133,12 @@
 			if (W.use_tool(src, user, 20, volume=50))
 				setAnchored(FALSE)
 				to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
+		return TRUE
 
 	//Finishing the frame
 	else if(istype(W, /obj/item/stack/sheet))
 		if(finished)
-			return
+			return TRUE
 		var/obj/item/stack/sheet/S = W
 		if(istype(S, /obj/item/stack/sheet/glass))
 			if(S.use(5))
@@ -144,18 +146,19 @@
 				qdel(src)
 			else
 				to_chat(user, "<span class='warning'>You need five sheets of glass to create a reflector!</span>")
-				return
+				return TRUE
 		if(istype(S, /obj/item/stack/sheet/rglass))
 			if(S.use(10))
 				new /obj/structure/reflector/double(drop_location())
 				qdel(src)
 			else
 				to_chat(user, "<span class='warning'>You need ten sheets of reinforced glass to create a double reflector!</span>")
-				return
+				return TRUE
 		if(istype(S, /obj/item/stack/sheet/mineral/diamond))
 			if(S.use(1))
 				new /obj/structure/reflector/box(drop_location())
 				qdel(src)
+		return TRUE
 	else
 		return ..()
 

@@ -32,14 +32,13 @@
 
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)),CALLBACK(src, PROC_REF(after_rotation)))
 
-/obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
-	..()
+/obj/structure/railing/item_interact(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
 
 	if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
 		if(obj_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
-				return
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=50))
@@ -47,7 +46,8 @@
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
-		return
+		return TRUE
+	return ..()
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()

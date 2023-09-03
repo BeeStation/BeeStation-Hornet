@@ -22,7 +22,7 @@
 	desc = "A shower frame, that needs 2 plastic sheets to finish construction."
 	anchored = FALSE
 
-/obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/showerframe/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a shower...")
 		if(do_after(user, 4 SECONDS, target = src))
@@ -31,7 +31,7 @@
 			var/obj/machinery/shower/new_shower = new /obj/machinery/shower(loc)
 			new_shower.setDir(dir)
 			qdel(src)
-			return
+		return TRUE
 	return ..()
 
 /obj/structure/showerframe/Initialize(mapload)
@@ -76,9 +76,10 @@
 			var/turf/open/tile = loc
 			tile.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
 
-/obj/machinery/shower/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shower/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_ANALYZER)
 		to_chat(user, "<span class='notice'>The water temperature seems to be [current_temperature].</span>")
+		return TRUE
 	else
 		return ..()
 

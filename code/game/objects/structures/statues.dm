@@ -10,15 +10,15 @@
 	var/material_drop_type = /obj/item/stack/sheet/iron
 	CanAtmosPass = ATMOS_PASS_DENSITY
 
-/obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
+/obj/structure/statue/item_interact(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(default_unfasten_wrench(user, W))
-			return
+			return TRUE
 		if(W.tool_behaviour == TOOL_WELDER)
 			if(!W.tool_start_check(user, amount=0))
-				return FALSE
+				return TRUE
 
 			user.visible_message("[user] is slicing apart the [name].", \
 								"<span class='notice'>You are slicing apart the [name]...</span>")
@@ -26,7 +26,7 @@
 				user.visible_message("[user] slices apart the [name].", \
 									"<span class='notice'>You slice apart the [name]!</span>")
 				deconstruct(TRUE)
-			return
+		return TRUE
 	return ..()
 
 /obj/structure/statue/attack_hand(mob/living/user)
@@ -68,7 +68,7 @@
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
 
-/obj/structure/statue/uranium/attackby(obj/item/W, mob/user, params)
+/obj/structure/statue/uranium/item_interact(obj/item/W, mob/user, params)
 	radiate()
 	return ..()
 
@@ -115,11 +115,10 @@
 		plasma_ignition(6, Proj?.firer)
 	. = ..()
 
-/obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/statue/plasma/item_interact(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(6, user)
-	else
-		return ..()
+	return ..()
 
 //////////////////////gold///////////////////////////////////////
 
@@ -210,7 +209,7 @@
 	honk()
 	..()
 
-/obj/structure/statue/bananium/attackby(obj/item/W, mob/user, params)
+/obj/structure/statue/bananium/item_interact(obj/item/W, mob/user, params)
 	honk()
 	return ..()
 

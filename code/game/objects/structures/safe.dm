@@ -153,22 +153,23 @@ FLOOR SAFES
 				updateUsrDialog()
 
 
-/obj/structure/safe/attackby(obj/item/I, mob/user, params)
+/obj/structure/safe/item_interact(obj/item/I, mob/user, params)
 	if(open)
 		. = 1 //no afterattack
 		if(I.w_class + space <= maxspace)
 			space += I.w_class
 			if(!user.transferItemToLoc(I, src))
 				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 			updateUsrDialog()
-			return
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>[I] won't fit in [src].</span>")
-			return
+			return TRUE
 	else if(istype(I, /obj/item/clothing/neck/stethoscope))
 		to_chat(user, "<span class='warning'>Hold [I] in one of your hands while you manipulate the dial!</span>")
+		return TRUE
 	else
 		return ..()
 
