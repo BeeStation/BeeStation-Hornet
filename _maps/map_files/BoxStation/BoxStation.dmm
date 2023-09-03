@@ -4524,7 +4524,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "aIg" = (
@@ -9628,8 +9627,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel,
 /area/science/robotics/mechbay)
 "bAl" = (
 /obj/machinery/disposal/bin,
@@ -19776,7 +19774,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "dqn" = (
@@ -23737,7 +23734,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "fph" = (
@@ -38484,8 +38480,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "mef" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/mech_bay_recharge_floor,
 /area/science/robotics/mechbay)
 "met" = (
 /obj/structure/cable/yellow{
@@ -39300,7 +39295,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "mxN" = (
@@ -50395,7 +50389,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "rAb" = (
@@ -51248,7 +51241,6 @@
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "rWo" = (
@@ -58035,7 +58027,6 @@
 /area/medical/apothecary)
 "vjl" = (
 /obj/machinery/recharge_station,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "vjv" = (
@@ -58765,7 +58756,6 @@
 /area/maintenance/starboard/aft)
 "vEE" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/camera/autoname{
 	dir = 1;
@@ -60714,7 +60704,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "wDX" = (
@@ -63534,8 +63523,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel,
 /area/science/robotics/mechbay)
 "xUw" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -63947,7 +63935,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "yeY" = (
