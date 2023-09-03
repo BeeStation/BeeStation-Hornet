@@ -10,9 +10,9 @@
 	density = TRUE
 	anchored = TRUE
 
-/obj/structure/loom/attackby(obj/item/I, mob/user)
+/obj/structure/loom/item_interact(obj/item/I, mob/user)
 	if(weave(I, user))
-		return
+		return TRUE
 	return ..()
 
 /obj/structure/loom/wrench_act(mob/living/user, obj/item/I)

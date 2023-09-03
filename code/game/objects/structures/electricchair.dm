@@ -10,14 +10,14 @@
 	. = ..()
 	add_overlay(mutable_appearance('icons/obj/beds_chairs/chairs.dmi', "echair_over", MOB_LAYER + 1))
 
-/obj/structure/chair/e_chair/attackby(obj/item/W, mob/user, params)
+/obj/structure/chair/e_chair/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
 		var/obj/structure/chair/C = new /obj/structure/chair(loc)
 		W.play_tool_sound(src)
 		C.setDir(dir)
 		qdel(src)
 		part.forceMove(loc)
-		return
+		return TRUE
 	. = ..()
 
 /obj/structure/chair/e_chair/proc/shock()

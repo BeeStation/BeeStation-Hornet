@@ -57,18 +57,18 @@
 	icon_state = "straight_cut3"
 	hole_size = LARGE_HOLE
 
-/obj/structure/fence/attackby(obj/item/W, mob/user)
+/obj/structure/fence/item_interact(obj/item/W, mob/user)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(!cuttable)
 			to_chat(user, "<span class='notice'>This section of the fence can't be cut.</span>")
-			return
+			return TRUE
 		if(invulnerable)
 			to_chat(user, "<span class='notice'>This fence is too strong to cut through.</span>")
-			return
+			return TRUE
 		var/current_stage = hole_size
 		if(current_stage >= MAX_HOLE_SIZE)
 			to_chat(user, "<span class='notice'>This fence has too much cut out of it already.</span>")
-			return
+			return TRUE
 
 		user.visible_message("<span class='danger'>\The [user] starts cutting through \the [src] with \the [W].</span>",\
 		"<span class='danger'>You start cutting through \the [src] with \the [W].</span>")
@@ -86,8 +86,8 @@
 						RemoveElement(/datum/element/climbable)
 
 				update_cut_status()
-
-	return TRUE
+		return TRUE
+	return ..()
 
 /obj/structure/fence/proc/update_cut_status()
 	if(!cuttable)

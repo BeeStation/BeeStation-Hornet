@@ -38,13 +38,15 @@
 
 /obj/structure/lattice/attackby(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
-		return
+		return TRUE
 	if(C.tool_behaviour == TOOL_WIRECUTTER)
 		to_chat(user, "<span class='notice'>Slicing [name] joints ...</span>")
 		deconstruct()
+		return TRUE
 	else
 		var/turf/T = get_turf(src)
-		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+		C.use_on(user, T)
+		return TRUE
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

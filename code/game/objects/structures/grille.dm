@@ -146,20 +146,21 @@
 	if(istype(caller))
 		. = . || (caller.pass_flags & PASSGRILLE)
 
-/obj/structure/grille/attackby(obj/item/W, mob/user, params)
+/obj/structure/grille/item_interact(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(!shock(user, 100))
 			W.play_tool_sound(src, 100)
 			deconstruct()
+		return TRUE
 	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && (isturf(loc) || anchored))
 		if(!shock(user, 90))
 			W.play_tool_sound(src, 100)
 			setAnchored(!anchored)
 			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
 								 "<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
-			return
+		return TRUE
 	else if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
 		if(!shock(user, 90))
@@ -168,7 +169,7 @@
 			new grille_type(src.loc)
 			R.use(1)
 			qdel(src)
-			return
+		return TRUE
 
 //window placing begin
 	else if(is_glass_sheet(W))
@@ -176,20 +177,20 @@
 			var/obj/item/stack/ST = W
 			if (ST.get_amount() < 2)
 				to_chat(user, "<span class='warning'>You need at least two sheets of glass for that!</span>")
-				return
+				return TRUE
 			var/dir_to_set = SOUTHWEST
 			if(!anchored)
 				to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
-				return
+				return TRUE
 			for(var/obj/structure/window/WINDOW in loc)
 				to_chat(user, "<span class='warning'>There is already a window there!</span>")
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You start placing the window...</span>")
 			if(do_after(user,20, target = src))
 				if(!src.loc || !anchored) //Grille broken or unanchored while waiting
-					return
+					return TRUE
 				for(var/obj/structure/window/WINDOW in loc) //Another window already installed on grille
-					return
+					return TRUE
 				var/obj/structure/window/WD
 				if(istype(W, /obj/item/stack/sheet/plasmarglass))
 					WD = new/obj/structure/window/plasma/reinforced/fulltile(drop_location()) //reinforced plasma window
@@ -208,7 +209,7 @@
 				WD.state = 0
 				ST.use(2)
 				to_chat(user, "<span class='notice'>You place [WD] on [src].</span>")
-			return
+		return TRUE
 //window placing end
 
 	else if(istype(W, /obj/item/shard) || !shock(user, 70))

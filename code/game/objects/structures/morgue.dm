@@ -82,21 +82,22 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 		return
 	return attack_hand(user)
 
-/obj/structure/bodycontainer/attackby(obj/P, mob/user, params)
+/obj/structure/bodycontainer/item_interact(obj/P, mob/user, params)
 	add_fingerprint(user)
 	if(istype(P, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on the side of [src]!</span>")
-			return
+			return TRUE
 		var/t = stripped_input(user, "What would you like the label to be?", "[name]", null)
 		if (user.get_active_held_item() != P)
-			return
+			return TRUE
 		if(!user.canUseTopic(src, BE_CLOSE))
-			return
+			return TRUE
 		if (t)
 			name = "[initial(name)]- '[t]'"
 		else
 			name = initial(name)
+		return TRUE
 	else
 		return ..()
 
@@ -348,16 +349,17 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	else
 		to_chat(user, "<span class='warning'>That's not connected to anything!</span>")
 
-/obj/structure/tray/attackby(obj/P, mob/user, params)
+/obj/structure/tray/item_interact(obj/P, mob/user, params)
 	if(!istype(P, /obj/item/riding_offhand))
 		return ..()
 
 	var/obj/item/riding_offhand/riding_item = P
 	var/mob/living/carried_mob = riding_item.rider
 	if(carried_mob == user) //Piggyback user.
-		return
+		return TRUE
 	user.unbuckle_mob(carried_mob)
 	MouseDrop_T(carried_mob, user)
+	return TRUE
 
 /obj/structure/tray/MouseDrop_T(atom/movable/O as mob|obj, mob/user)
 	if(!ismovable(O) || O.anchored || !Adjacent(user) || !user.Adjacent(O) || O.loc == user)

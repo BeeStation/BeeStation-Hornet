@@ -23,13 +23,14 @@
 		QDEL_NULL(fireaxe)
 	return ..()
 
-/obj/structure/fireaxecabinet/attackby(obj/item/I, mob/user, params)
+/obj/structure/fireaxecabinet/item_interact(obj/item/I, mob/user, params)
 	if(iscyborg(user) || I.tool_behaviour == TOOL_MULTITOOL)
 		toggle_lock(user)
+		return TRUE
 	else if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
 		if(obj_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=2))
-				return
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You begin repairing [src].</span>")
 			if(I.use_tool(src, user, 40, volume=50, amount=2))
@@ -38,31 +39,33 @@
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
-		return
+		return TRUE
 	else if(istype(I, /obj/item/stack/sheet/glass) && broken)
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two glass sheets to fix [src]!</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
 		if(do_after(user, 20, target = src) && G.use(2))
 			broken = 0
 			obj_integrity = max_integrity
 			update_appearance()
+		return TRUE
 	else if(open || broken)
 		if(istype(I, /obj/item/fireaxe) && !fireaxe)
 			var/obj/item/fireaxe/F = I
 			if(F && ISWIELDED(F))
 				to_chat(user, "<span class='warning'>Unwield the [F.name] first.</span>")
-				return
+				return TRUE
 			if(!user.transferItemToLoc(F, src))
-				return
+				return TRUE
 			fireaxe = F
 			to_chat(user, "<span class='notice'>You place the [F.name] back in the [name].</span>")
 			update_appearance()
-			return
+			return TRUE
 		else if(!broken)
 			toggle_open()
+			return TRUE
 	else
 		return ..()
 

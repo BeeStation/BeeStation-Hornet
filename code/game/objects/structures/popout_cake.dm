@@ -74,7 +74,7 @@
 			user.forceMove(get_turf(src))
 			occupant = null
 
-/obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
+/obj/structure/popout_cake/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
 		user.visible_message("<span class='notice'>[user] sticks the [W] inside [src] and stars fiddling around!</span>", \
 		"<span class='notice>You start to rewind the hidden mechanism inside [src] with [W].</span>")
@@ -82,8 +82,8 @@
 		if(do_after(user, 20, target=src, timed_action_flags = IGNORE_HELD_ITEM))
 			used_string = FALSE
 			user.visible_message("<span class='notice'>After hearing a click from [src], [user] pulls the [W] outside.</span>", \
-		"<span class='notice>You successfully rewind the string inside [src]!</span>")
-			return FALSE
+				"<span class='notice>You successfully rewind the string inside [src]!</span>")
+		return TRUE
 	if(W.is_sharp())
 		user.visible_message("<span class= notice'>[user] begins cutting into [src] with [W]!</span>", "<span class='notice>You starts cutting [src] with [W]!</span>")
 		if(do_after(user, 60, src, timed_action_flags = IGNORE_HELD_ITEM))
@@ -93,7 +93,7 @@
 					var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
 					slice.initialize_slice(slice, 0)
 			qdel(src)
-			return FALSE
+		return TRUE
 	if(istype(W, /obj/item/grenade/flashbang))
 		if(strong_surprise)
 			to_chat(user, "<span class='notice'>There's no space for [src] inside!</span>")
@@ -103,9 +103,9 @@
 				strong_surprise = TRUE
 				user.visible_message("<span class='notice'>After some fiddling, [user] inserts [W] into [src]!</span>", "<span class='notice'>You attach [W] to the hidden mechanism inside!</span>")
 				qdel(W)
-				return FALSE
+		return TRUE
 	else
-		..()
+		return ..()
 
 /obj/structure/popout_cake/proc/do_popout()
 	if(isnull(occupant))

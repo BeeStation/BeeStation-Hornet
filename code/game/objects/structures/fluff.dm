@@ -10,7 +10,7 @@
 	opacity = FALSE
 	var/deconstructible = TRUE
 
-/obj/structure/fluff/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/fluff/item_interact(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && deconstructible)
 		user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
 		I.play_tool_sound(src)
@@ -19,7 +19,7 @@
 			playsound(user, 'sound/items/deconstruct.ogg', 50, 1)
 			new/obj/item/stack/sheet/iron(drop_location())
 			qdel(src)
-		return
+		return TRUE
 	..()
 
 /obj/structure/fluff/empty_terrarium //Empty terrariums are created when a preserved terrarium in a lavaland seed vault is activated.

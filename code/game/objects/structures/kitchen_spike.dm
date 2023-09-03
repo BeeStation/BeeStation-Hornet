@@ -10,10 +10,10 @@
 	anchored = FALSE
 	max_integrity = 200
 
-/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/kitchenspike_frame/item_interact(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 	if(default_unfasten_wrench(user, I))
-		return
+		return TRUE
 	else if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
@@ -22,9 +22,10 @@
 			var/obj/F = new /obj/structure/kitchenspike(src.loc)
 			transfer_fingerprints_to(F)
 			qdel(src)
+		return TRUE
 	else if(I.tool_behaviour == TOOL_WELDER)
 		if(!I.tool_start_check(user, amount=0))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You begin cutting \the [src] apart...</span>")
 		if(I.use_tool(src, user, 50, volume=50))
 			visible_message("<span class='notice'>[user] slices apart \the [src].</span>",
@@ -32,7 +33,7 @@
 				"<span class='italics'>You hear welding.</span>")
 			new /obj/item/stack/sheet/iron(src.loc, 4)
 			qdel(src)
-		return
+		return TRUE
 	else
 		return ..()
 

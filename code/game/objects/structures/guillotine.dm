@@ -148,11 +148,11 @@
 	blade_status = GUILLOTINE_BLADE_DROPPED
 	icon_state = "guillotine"
 
-/obj/structure/guillotine/attackby(obj/item/W, mob/user, params)
+/obj/structure/guillotine/item_interact(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/sharpener))
 		add_fingerprint(user)
 		if (blade_status == GUILLOTINE_BLADE_SHARPENING)
-			return
+			return TRUE
 
 		if (blade_status == GUILLOTINE_BLADE_RAISED)
 			if (blade_sharpness < GUILLOTINE_BLADE_MAX_SHARP)
@@ -163,16 +163,16 @@
 						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")
 					blade_sharpness += 1
 					playsound(src, 'sound/items/unsheath.ogg', 100, 1)
-					return
+					return TRUE
 				else
 					blade_status = GUILLOTINE_BLADE_RAISED
-					return
+					return TRUE
 			else
 				to_chat(user, "<span class='warning'>The blade is sharp enough!</span>")
-				return
+				return TRUE
 		else
 			to_chat(user, "<span class='warning'>You need to raise the blade in order to sharpen it!</span>")
-			return
+			return TRUE
 	else
 		return ..()
 

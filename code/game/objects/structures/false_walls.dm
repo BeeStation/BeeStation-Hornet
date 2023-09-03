@@ -84,31 +84,34 @@
 		qdel(src)
 	return T
 
-/obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/item_interact(obj/item/W, mob/user, params)
 	if(opening)
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving!</span>")
-		return
+		return ..()
 
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(density)
 			var/turf/T = get_turf(src)
 			if(T.density)
 				to_chat(user, "<span class='warning'>[src] is blocked!</span>")
-				return
+				return TRUE
 			if(!isfloorturf(T))
 				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
-				return
+				return TRUE
 			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='notice'>You tighten the bolts on the wall.</span>")
 			ChangeToWall()
 		else
 			to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_WELDER)
 		if(W.use_tool(src, user, 0, volume=50))
 			dismantle(user, TRUE)
+		return TRUE
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		W.play_tool_sound(src)
 		dismantle(user, TRUE)
+		return TRUE
 	else
 		return ..()
 
@@ -154,10 +157,11 @@
 	to_chat(user, "<span class='notice'>The outer <b>grille</b> is fully intact.</span>")
 	return null
 
-/obj/structure/falsewall/reinforced/attackby(obj/item/tool, mob/user)
-	..()
+/obj/structure/falsewall/reinforced/item_interact(obj/item/tool, mob/user)
 	if(tool.tool_behaviour == TOOL_WIRECUTTER)
 		dismantle(user, TRUE, tool)
+		return TRUE
+	return ..()
 
 /*
  * Uranium Falsewalls
@@ -177,7 +181,7 @@
 	var/active = null
 	var/last_event = 0
 
-/obj/structure/falsewall/uranium/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/uranium/item_interact(obj/item/W, mob/user, params)
 	radiate()
 	return ..()
 
@@ -261,13 +265,11 @@
 	mineral = /obj/item/stack/sheet/mineral/plasma
 	walltype = /turf/closed/wall/mineral/plasma
 
-/obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/plasma/item_interact(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)
 		if(plasma_ignition(6, user))
 			new /obj/structure/girder/displaced(loc)
-
-	else
-		return ..()
+	return ..()
 
 /obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)

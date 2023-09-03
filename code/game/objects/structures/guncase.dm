@@ -34,24 +34,19 @@
 	else
 		add_overlay("[icon_state]_door")
 
-/obj/structure/guncase/attackby(obj/item/I, mob/user, params)
+/obj/structure/guncase/item_interact(obj/item/I, mob/user, params)
 	if(iscyborg(user) || isalien(user))
-		return
+		return ..()
 	if(istype(I, gun_category) && open)
 		if(LAZYLEN(contents) < capacity)
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You place [I] in [src].</span>")
 			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
-		return
-
-	else if(user.a_intent != INTENT_HARM)
-		open = !open
-		update_appearance()
-	else
-		return ..()
+		return TRUE
+	return ..()
 
 /obj/structure/guncase/attack_hand(mob/user)
 	. = ..()

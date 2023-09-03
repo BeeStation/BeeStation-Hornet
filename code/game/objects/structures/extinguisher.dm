@@ -46,7 +46,7 @@
 		stored_extinguisher = null
 		update_icon()
 
-/obj/structure/extinguisher_cabinet/attackby(obj/item/I, mob/user, params)
+/obj/structure/extinguisher_cabinet/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && !stored_extinguisher)
 		to_chat(user, "<span class='notice'>You start unsecuring [name]...</span>")
 		I.play_tool_sound(src)
@@ -54,22 +54,24 @@
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You unsecure [name].</span>")
 			deconstruct(TRUE)
-		return
+		return TRUE
 
 	if(iscyborg(user) || isalien(user))
-		return
+		return ..()
 	if(istype(I, /obj/item/extinguisher))
 		if(!stored_extinguisher && opened)
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			stored_extinguisher = I
 			to_chat(user, "<span class='notice'>You place [I] in [src].</span>")
 			update_icon()
 			return TRUE
 		else
 			toggle_cabinet(user)
+		return TRUE
 	else if(user.a_intent != INTENT_HARM)
 		toggle_cabinet(user)
+		return TRUE
 	else
 		return ..()
 

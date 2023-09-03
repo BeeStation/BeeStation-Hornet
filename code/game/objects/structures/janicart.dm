@@ -52,18 +52,19 @@
 	mymop = null
 	update_icon()
 
-/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
+/obj/structure/janitorialcart/item_interact(obj/item/I, mob/user, params)
 
 	if(istype(I, /obj/item/mop))
 		var/obj/item/mop/m=I
 		if(m.reagents.total_volume < m.reagents.maximum_volume)
 			if (wet_mop(m, user))
-				return
+				return TRUE
 		if(!mymop)
 			m.janicart_insert(user, src)
 		else
 			balloon_alert(user, "Already has \a [mymop]!")
 			to_chat(user, "<span class='notice'>There is already \a [mymop] in [src]!</span>")
+		return TRUE
 	else if(istype(I, /obj/item/pushbroom))
 		if(!mybroom)
 			var/obj/item/pushbroom/b=I
@@ -71,6 +72,7 @@
 		else
 			balloon_alert(user, "Already has \a [mybroom]!")
 			to_chat(user, "<span class='notice'>There is already \a [mybroom] in [src]!</span>")
+		return TRUE
 	else if(istype(I, /obj/item/storage/bag/trash))
 		if(!mybag)
 			var/obj/item/storage/bag/trash/t=I
@@ -78,6 +80,7 @@
 		else
 			balloon_alert(user, "Already has \a [mybag]!")
 			to_chat(user, "<span class='notice'>There is already \a [mybag] in [src]!</span>")
+		return TRUE
 	else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 		if(!myspray)
 			put_in_cart(I, user)
@@ -86,6 +89,7 @@
 		else
 			balloon_alert(user, "Already has \a [myspray]!")
 			to_chat(user, "<span class='notice'>There is already \a [myspray] in [src]!</span>")
+		return TRUE
 	else if(istype(I, /obj/item/lightreplacer))
 		if(!myreplacer)
 			var/obj/item/lightreplacer/l=I
@@ -93,6 +97,7 @@
 		else
 			balloon_alert(user, "Already has \a [myreplacer]!")
 			to_chat(user, "<span class='notice'>There is already \a [myreplacer] in [src]!</span>")
+		return TRUE
 	else if(istype(I, /obj/item/clothing/suit/caution))
 		if(signs < max_signs)
 			put_in_cart(I, user)
@@ -101,8 +106,10 @@
 		else
 			balloon_alert(user, "The sign rack is full!")
 			to_chat(user, "<span class='notice'>The [src] can't hold any more signs!</span>")
+		return TRUE
 	else if(mybag)
 		mybag.attackby(I, user)
+		return TRUE
 	else if(I.tool_behaviour == TOOL_CROWBAR)
 		user.balloon_alert_to_viewers("Starts dumping [src]...", "Started dumping [src]...")
 		user.visible_message("[user] begins to dump the contents of [src].", "<span class='notice'>You begin to dump the contents of [src]...</span>")
@@ -111,6 +118,7 @@
 			to_chat(usr, "<span class='notice'>You dump the contents of [src]'s bucket onto the floor.</span>")
 			reagents.reaction(src.loc)
 			src.reagents.clear_reagents()
+		return TRUE
 	else
 		return ..()
 

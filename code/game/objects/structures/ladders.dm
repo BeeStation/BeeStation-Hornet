@@ -154,18 +154,18 @@
 		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
 		return FALSE
 
-/obj/structure/ladder/attackby(obj/item/I, mob/user, params)
+/obj/structure/ladder/item_interact(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
-	if(!(resistance_flags & INDESTRUCTIBLE))
-		if(I.tool_behaviour == TOOL_WELDER)
-			if(!I.tool_start_check(user, amount=0))
-				return FALSE
+	if(I.tool_behaviour == TOOL_WELDER)
+		if(!(resistance_flags & INDESTRUCTIBLE))
+		if(!I.tool_start_check(user, amount=0))
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You begin cutting [src]...</span>")
 			if(I.use_tool(src, user, 50, volume=100))
 				user.visible_message("<span class='notice'>[user] cuts [src].</span>", \
-									 "<span class='notice'>You cut [src].</span>")
+										"<span class='notice'>You cut [src].</span>")
 				I.play_tool_sound(src, 100)
 				var/drop_loc = drop_location()
 				var/obj/R = new /obj/item/stack/rods(drop_loc, 10)
@@ -174,10 +174,11 @@
 				if(R)
 					transfer_fingerprints_to(R)
 				qdel(src)
-				return TRUE
-	else
-		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
-		return FALSE
+			return TRUE
+		else
+			to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+			return TRUE
+	return ..()
 
 /obj/structure/ladder/attack_robot(mob/living/silicon/robot/R)
 	if(R.Adjacent(src))

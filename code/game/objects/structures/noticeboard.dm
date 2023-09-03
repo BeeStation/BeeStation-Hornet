@@ -27,19 +27,20 @@
 	icon_state = "nboard0[notices]"
 
 //attaching papers!!
-/obj/structure/noticeboard/attackby(obj/item/O, mob/user, params)
+/obj/structure/noticeboard/item_interact(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo))
 		if(!allowed(user))
 			to_chat(user, "<span class='info'>You are not authorized to add notices</span>")
-			return
+			return TRUE
 		if(notices < MAX_NOTICES)
 			if(!user.transferItemToLoc(O, src))
-				return
+				return TRUE
 			notices++
 			icon_state = "nboard0[notices]"
 			to_chat(user, "<span class='notice'>You pin the [O] to the noticeboard.</span>")
 		else
 			to_chat(user, "<span class='notice'>The notice board is full</span>")
+		return TRUE
 	else
 		return ..()
 

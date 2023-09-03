@@ -122,13 +122,10 @@
 	icon_state = "[initial(icon_state)][door_opened ? "open":""]"
 	return ..()
 
-/obj/structure/mineral_door/attackby(obj/item/I, mob/user)
+/obj/structure/mineral_door/item_interact(obj/item/I, mob/user)
 	if(pickaxe_door(user, I))
-		return
-	else if(user.a_intent != INTENT_HARM)
-		return attack_hand(user)
-	else
-		return ..()
+		return TRUE
+	return attack_hand(user)
 
 /obj/structure/mineral_door/setAnchored(anchorvalue) //called in default_unfasten_wrench() chain
 	. = ..()
@@ -254,11 +251,10 @@
 /obj/structure/mineral_door/transparent/plasma/welder_act(mob/living/user, obj/item/I)
 	return
 
-/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/mineral_door/transparent/plasma/item_interact(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)
 		plasma_ignition(6, user)
-	else
-		return ..()
+	return ..()
 
 /obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -295,11 +291,9 @@
 /obj/structure/mineral_door/wood/crowbar_act(mob/living/user, obj/item/I)
 	return crowbar_door(user, I)
 
-/obj/structure/mineral_door/wood/attackby(obj/item/I, mob/living/user)
+/obj/structure/mineral_door/wood/item_interact(obj/item/I, mob/living/user)
 	if(I.is_hot())
 		fire_act(I.is_hot())
-		return
-
 	return ..()
 
 /obj/structure/mineral_door/paperframe
@@ -330,19 +324,19 @@
 /obj/structure/mineral_door/paperframe/crowbar_act(mob/living/user, obj/item/I)
 	return crowbar_door(user, I)
 
-/obj/structure/mineral_door/paperframe/attackby(obj/item/I, mob/living/user)
+/obj/structure/mineral_door/paperframe/item_interact(obj/item/I, mob/living/user)
 	if(I.is_hot()) //BURN IT ALL DOWN JIM
 		fire_act(I.is_hot())
-		return
+		return TRUE
 
-	if((user.a_intent != INTENT_HARM) && istype(I, /obj/item/paper) && (obj_integrity < max_integrity))
+	if(istype(I, /obj/item/paper) && obj_integrity < max_integrity)
 		user.visible_message("[user] starts to patch the holes in [src].", "<span class='notice'>You start patching some of the holes in [src]!</span>")
 		if(do_after(user, 20, src))
 			obj_integrity = min(obj_integrity+4,max_integrity)
 			qdel(I)
 			user.visible_message("[user] patches some of the holes in [src].", "<span class='notice'>You patch some of the holes in [src]!</span>")
 			return TRUE
-
+		return TRUE
 	return ..()
 
 /obj/structure/mineral_door/paperframe/ComponentInitialize()
