@@ -71,7 +71,7 @@
 	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
-/obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	active = 0
 	if(initial(uses) == 1)
 		uses = initial(uses)
@@ -131,12 +131,12 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/heart/gland/slime/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/gland/slime/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	owner.faction |= "slime"
 	owner.grant_language(/datum/language/slime, TRUE, TRUE, LANGUAGE_GLAND)
 
-/obj/item/organ/heart/gland/slime/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/gland/slime/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	owner.faction -= "slime"
 	owner.remove_language(/datum/language/slime, TRUE, TRUE, LANGUAGE_GLAND)
@@ -298,11 +298,11 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/heart/gland/electric/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/gland/electric/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
 
-/obj/item/organ/heart/gland/electric/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/gland/electric/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
 	..()
 

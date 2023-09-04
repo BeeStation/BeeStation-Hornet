@@ -884,7 +884,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				grub.food = 10
 				grubs += grub
 				grub.togglehibernation()
-				grub.grubdisease = list(A)
+				grub.grub_diseases += A
 			if(prob(LAZYLEN(grubs) * (6/power)))// so you know its working. power lowers this so it doesnt spam you at high grub counts
 				to_chat(M, "<span class='warning'>You feel something squirming inside of you!</span>")
 			M.add_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = max(slowdown - 0.5, 0))
@@ -912,7 +912,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(isslimetarget(M) && A.stage >= 3)
 		for(var/I in 1 to (rand(1, A.stage)))
 			var/mob/living/simple_animal/hostile/redgrub/grub = new(M.loc)
-			grub.grubdisease = list(A)
+			grub.grub_diseases += A
 		M.gib()
 		M.visible_message("<span class='warning'>[M] is eaten alive by a swarm of red grubs!</span>")
 

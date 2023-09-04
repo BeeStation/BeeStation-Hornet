@@ -244,12 +244,13 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/sending_state = "lpad-beam"
 	var/cargo_hold_id
 
-/obj/machinery/piratepad/multitool_act(mob/living/user, obj/item/multitool/I)
-	. = ..()
-	if (istype(I))
-		to_chat(user, "<span class='notice'>You register [src] in [I]s buffer.</span>")
-		I.buffer = src
-		return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/piratepad)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/piratepad)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You register [src] in [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/computer/piratepad_control
 	name = "cargo hold control terminal"
@@ -268,13 +269,15 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/computer/piratepad_control/multitool_act(mob/living/user, obj/item/multitool/I)
-	. = ..()
-	if (istype(I) && istype(I.buffer,/obj/machinery/piratepad))
-		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-		set_pad(I.buffer)
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
+	if (istype(buffer,/obj/machinery/piratepad))
+		to_chat(user, "<span class='notice'>You link [src] with [buffer] in [buffer_parent] buffer.</span>")
+		set_pad(buffer)
 		ui_update()
-		return TRUE
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()
 	. = ..()

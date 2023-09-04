@@ -29,6 +29,7 @@
 		return
 	if(tank)
 		. += "<span class='notice'>[icon2html(tank, user)] It has \a [tank] mounted onto it.</span>"
+		. += "<span class='notice'>Its pressure gauge reads [round(tank.air_contents.total_moles(), 0.01)] mol at [round(tank.air_contents.return_pressure(),0.01)] kPa.</span>"
 
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
@@ -80,8 +81,6 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	T.assume_air(gasused)
-	T.air_update_turf()
 	if(!gasused)
 		to_chat(user, "<span class='warning'>\The [src]'s tank is empty!</span>")
 		force = (baseforce / 5)
@@ -95,12 +94,14 @@
 				return
 		return ..()
 	if(gasused.total_moles() < gasperfist * fisto_setting)
+		T.assume_air(gasused)
+		T.air_update_turf()
 		to_chat(user, "<span class='warning'>\The [src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
 		playsound(loc, 'sound/weapons/punch4.ogg', 50, 1)
 		force = (baseforce / 2)
 		attack_weight = 1
 		target.visible_message("<span class='danger'>[user]'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] [target.name]!</span>", \
-			"<span class='userdanger'>[user]'s punch strikes with force!</span>")
+			"<span class='userdanger'>[user]'s punch strikes with force!</span>", ignored_mobs = list(user))
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			if(H.check_shields(src, force))
@@ -111,9 +112,11 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, force))
+			T.assume_air(gasused)
+			T.air_update_turf()
 			return
 	target.visible_message("<span class='danger'>[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!</span>", \
-		"<span class='userdanger'>You cry out in pain as [user]'s punch flings you backwards!</span>")
+		"<span class='userdanger'>You cry out in pain as [user]'s punch flings you backwards!</span>", ignored_mobs = list(user))
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)
 	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
 	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)
@@ -125,5 +128,8 @@
 	log_combat(user, target, "power fisted", src)
 
 	user.changeNext_move(CLICK_CD_MELEE * click_delay)
+
+	T.assume_air(gasused)
+	T.air_update_turf()
 
 	return ..()

@@ -23,6 +23,16 @@
 	var/buildstackamount = 2
 	var/bolts = TRUE
 
+// dir check for buckle_lying state
+/obj/structure/bed/Initialize()
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
+	dir_changed(new_dir = dir)
+	. = ..()
+
+/obj/structure/bed/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
+	return ..()
+
 /obj/structure/bed/examine(mob/user)
 	. = ..()
 	if(bolts)
@@ -43,6 +53,14 @@
 		deconstruct(TRUE)
 	else
 		return ..()
+
+/obj/structure/bed/proc/dir_changed(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+	switch(new_dir)
+		if(WEST, SOUTH)
+			buckle_lying = 90
+		if(EAST, NORTH)
+			buckle_lying = 270
 
 /*
  * Roller beds
