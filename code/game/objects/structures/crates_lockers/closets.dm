@@ -284,9 +284,9 @@
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		bust_open()
 
-/obj/structure/closet/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/item_interact(obj/item/W, mob/user, params)
 	if(user in src)
-		return
+		return ..()
 	if(src.tool_interact(W,user))
 		return 1 // No afterattack
 	else

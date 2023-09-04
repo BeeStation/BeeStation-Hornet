@@ -27,28 +27,30 @@
 		QDEL_NULL(foldedbag_instance)
 	return ..()
 
-/obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/body_bag/item_interact(obj/item/I, mob/user, params)
 	if (istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
-			return
+			return TRUE
 		var/t = stripped_input(user, "What would you like the label to be?", name, null, 53)
 		if(user.get_active_held_item() != I)
-			return
+			return TRUE
 		if(!user.canUseTopic(src, BE_CLOSE))
-			return
+			return TRUE
 		if(t)
 			name = "body bag - [t]"
 			tagged = 1
 			update_icon()
 		else
 			name = "body bag"
-		return
+		return TRUE
 	else if(I.tool_behaviour == TOOL_WIRECUTTER)
 		to_chat(user, "<span class='notice'>You cut the tag off [src].</span>")
 		name = "body bag"
 		tagged = 0
 		update_icon()
+		return TRUE
+	return ..()
 
 /obj/structure/closet/body_bag/update_icon()
 	..()

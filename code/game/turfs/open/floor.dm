@@ -140,14 +140,15 @@
 	W.update_icon()
 	return W
 
-/turf/open/floor/attackby(obj/item/C, mob/user, params)
+/turf/open/floor/item_interact(obj/item/C, mob/user, params)
 	if(!C || !user)
-		return 1
+		return TRUE
 	if(..())
-		return 1
+		return TRUE
 	if(intact && istype(C, /obj/item/stack/tile))
 		try_replace_tile(C, user, params)
-	return 0
+		return TRUE
+	return ..()
 
 /turf/open/floor/crowbar_act(mob/living/user, obj/item/I)
 	return intact ? pry_tile(I, user) : FALSE

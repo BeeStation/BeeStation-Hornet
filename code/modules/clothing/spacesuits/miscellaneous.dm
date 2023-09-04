@@ -534,8 +534,8 @@ Contains:
 	max_heat_protection_temperature = 100
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 
-/obj/item/clothing/suit/space/hardsuit/skinsuit/attackby(obj/item/I, mob/user, params)
-	return
+/obj/item/clothing/suit/space/hardsuit/skinsuit/item_interact(obj/item/I, mob/user, params)
+	return FALSE
 
 /obj/item/clothing/head/helmet/space/hunter
 	name = "bounty hunting helmet"

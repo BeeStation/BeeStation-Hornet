@@ -36,7 +36,7 @@
 	new /obj/item/instrument/piano_synth(src)
 	new /obj/item/radio/headset( src )
 
-/obj/structure/closet/secure_closet/personal/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/secure_closet/personal/item_interact(obj/item/W, mob/user, params)
 	var/obj/item/card/id/I = W.GetID()
 	if(istype(I))
 		if(broken)
@@ -54,5 +54,6 @@
 				desc = "Owned by [I.registered_name]."
 		else
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
+		return TRUE
 	else
 		return ..()

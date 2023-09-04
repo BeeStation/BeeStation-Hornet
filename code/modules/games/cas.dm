@@ -79,7 +79,7 @@
 	user.visible_message("[user] draws a card from the deck.", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
 
-/obj/item/toy/cards/deck/cas/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/deck/cas/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/cards/singlecard/cas))
 		var/obj/item/toy/cards/singlecard/cas/SC = I
 		if(!user.temporarilyRemoveItemFromInventory(SC))
@@ -92,7 +92,9 @@
 		cards += RC
 		user.visible_message("[user] adds a card to the bottom of the deck.","<span class='notice'>You add the card to the bottom of the deck.</span>")
 		qdel(SC)
-	update_icon()
+		update_icon()
+		return TRUE
+	return ..()
 
 /obj/item/toy/cards/deck/cas/update_icon()
 	if(cards.len < 26)
@@ -141,17 +143,19 @@
 	else
 		icon_state = "[card_face]"
 
-/obj/item/toy/cards/singlecard/cas/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/singlecard/cas/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
-			return
+			return TRUE
 		if(!blank)
 			to_chat(user, "You cannot write on that card.")
-			return
+			return TRUE
 		var/cardtext = stripped_input(user, "What do you wish to write on the card?", "Card Writing", "", 50)
 		if(!cardtext || !user.canUseTopic(src, BE_CLOSE))
-			return
+			return TRUE
 		name = cardtext
 		buffertext = cardtext
 		blank = 0
+		return TRUE
+	return FALSE

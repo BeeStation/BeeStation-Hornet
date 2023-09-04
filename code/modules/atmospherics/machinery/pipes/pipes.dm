@@ -68,11 +68,12 @@
 /obj/machinery/atmospherics/pipe/remove_air_ratio(ratio)
 	return parent.air.remove_ratio(ratio)
 
-/obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/pipe/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pipe_meter))
 		var/obj/item/pipe_meter/meter = W
 		user.dropItemToGround(meter)
 		meter.setAttachLayer(piping_layer)
+		return TRUE
 	else
 		return ..()
 

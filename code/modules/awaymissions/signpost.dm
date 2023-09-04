@@ -30,7 +30,7 @@
 		else
 			to_chat(user, "Nothing happens. You feel that this is a bad sign.")
 
-/obj/structure/signpost/attackby(obj/item/W, mob/user, params)
+/obj/structure/signpost/item_interact(obj/item/W, mob/user, params)
 	return interact(user)
 
 /obj/structure/signpost/attack_paw(mob/user)

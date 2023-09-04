@@ -31,12 +31,12 @@
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
 
-/obj/structure/transit_tube/attackby(obj/item/W, mob/user, params)
+/obj/structure/transit_tube/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(tube_construction)
 			for(var/obj/structure/transit_tube_pod/pod in src.loc)
 				to_chat(user, "<span class='warning'>Remove the pod first!</span>")
-				return
+				return TRUE
 			user.visible_message("<span class='notice'>[user] starts to detach \the [src].</span>", "<span class='notice'>You start to detach the [name]...</span>")
 			if(W.use_tool(src, user, 2 SECONDS, volume=50))
 				to_chat(user, "<span class='notice'>You detach the [name].</span>")
@@ -45,9 +45,11 @@
 				transfer_fingerprints_to(R)
 				R.add_fingerprint(user)
 				qdel(src)
+		return TRUE
 	else if(W.tool_behaviour == TOOL_CROWBAR)
 		for(var/obj/structure/transit_tube_pod/pod in src.loc)
 			pod.attackby(W, user)
+		return TRUE
 	else
 		return ..()
 

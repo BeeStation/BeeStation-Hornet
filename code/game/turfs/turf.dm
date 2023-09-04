@@ -243,7 +243,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			C.wiringGuiUpdate(user)
 		C.is_empty(user)
 
-/turf/attackby(obj/item/C, mob/user, params)
+/turf/item_interact(obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
 	if(can_lay_cable() && istype(C, /obj/item/stack/cable_coil))
@@ -251,14 +251,13 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		for(var/obj/structure/cable/LC in src)
 			if(!LC.d1 || !LC.d2)
 				LC.attackby(C,user)
-				return
+				return TRUE
 		coil.place_turf(src, user)
 		return TRUE
 
 	else if(istype(C, /obj/item/rcl))
 		handleRCL(C, user)
-
-	return FALSE
+	return TRUE
 
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
 /turf/Enter(atom/movable/mover)

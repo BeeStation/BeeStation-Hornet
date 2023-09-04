@@ -173,35 +173,35 @@
 	log_combat(user, pushed_mob, "head slammed", null, "against [src]")
 	SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table_headsmash)
 
-/obj/structure/table/attackby(obj/item/I, mob/user, params)
+/obj/structure/table/item_interact(obj/item/I, mob/user, params)
 	var/list/modifiers = params2list(params)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready && user.a_intent != INTENT_HELP)
 			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
 			if(I.use_tool(src, user, 20, volume=50))
 				deconstruct(TRUE)
-			return
+			return TRUE
 
 		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready && user.a_intent != INTENT_HELP)
 			to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=50))
 				playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 				deconstruct(TRUE, 1)
-			return
+			return TRUE
 
 	if(istype(I, /obj/item/storage/bag/tray))
 		var/obj/item/storage/bag/tray/T = I
 		if(T.contents.len > 0) // If the tray isn't empty
 			SEND_SIGNAL(I, COMSIG_TRY_STORAGE_QUICK_EMPTY, drop_location())
 			user.visible_message("[user] empties [I] on [src].")
-			return
+			return TRUE
 		// If the tray IS empty, continue on (tray will be placed on the table like other items)
 
 	if(istype(I, /obj/item/riding_offhand))
 		var/obj/item/riding_offhand/riding_item = I
 		var/mob/living/carried_mob = riding_item.rider
 		if(carried_mob == user) //Piggyback user.
-			return
+			return TRUE
 		switch(user.a_intent)
 			if(INTENT_HARM)
 				user.unbuckle_mob(carried_mob)
@@ -225,17 +225,16 @@
 				tablepush(user, carried_mob)
 		return TRUE
 
-	if(user.a_intent != INTENT_HARM && !(I.item_flags & ABSTRACT))
+	if(!(I.item_flags & ABSTRACT))
 		if(user.transferItemToLoc(I, drop_location(), silent = FALSE))
 			//Center the icon where the user clicked.
 			if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
-				return
+				return TRUE
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
-			return 1
-	else
-		return ..()
+			return TRUE
+	return ..()
 
 
 /obj/structure/table/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
@@ -474,10 +473,10 @@
 	else
 		return "<span class='notice'>The top cover is firmly <b>welded</b> on.</span>"
 
-/obj/structure/table/reinforced/attackby(obj/item/W, mob/user, params)
+/obj/structure/table/reinforced/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(!W.tool_start_check(user, amount=0))
-			return
+			return TRUE
 
 		if(deconstruction_ready)
 			to_chat(user, "<span class='notice'>You start strengthening the reinforced table...</span>")
@@ -489,6 +488,7 @@
 			if (W.use_tool(src, user, 50, volume=50))
 				to_chat(user, "<span class='notice'>You weaken the table.</span>")
 				deconstruction_ready = 1
+		return TRUE
 	else
 		. = ..()
 
@@ -660,15 +660,14 @@
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
 
-/obj/structure/rack/attackby(obj/item/W, mob/user, params)
+/obj/structure/rack/item_interact(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1) && user.a_intent != INTENT_HELP)
 		W.play_tool_sound(src)
 		deconstruct(TRUE)
-		return
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+		return TRUE
 	if(user.transferItemToLoc(W, drop_location()))
-		return 1
+		return TRUE
+	return ..()
 
 /obj/structure/rack/attack_paw(mob/living/user)
 	attack_hand(user)
@@ -719,10 +718,11 @@
 	materials = list(/datum/material/iron=2000)
 	var/building = FALSE
 
-/obj/item/rack_parts/attackby(obj/item/W, mob/user, params)
+/obj/item/rack_parts/item_interact(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WRENCH)
 		new /obj/item/stack/sheet/iron(user.loc)
 		qdel(src)
+		return TRUE
 	else
 		. = ..()
 

@@ -151,7 +151,7 @@
 		update_icon()
 		user.regenerate_icons()
 
-/obj/item/pizzabox/attackby(obj/item/I, mob/user, params)
+/obj/item/pizzabox/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pizzabox))
 		var/obj/item/pizzabox/newbox = I
 		if(!open && !newbox.open)
@@ -159,7 +159,7 @@
 			add += newbox
 			add += newbox.boxes
 			if(!user.transferItemToLoc(newbox, src))
-				return
+				return TRUE
 			boxes += add
 			newbox.boxes.Cut()
 			to_chat(user, "<span class='notice'>You put [newbox] on top of [src]!</span>")
@@ -172,50 +172,53 @@
 					disperse_pizzas()
 				else
 					to_chat(user, "<span class='warning'>The stack is getting a little high...</span>")
-			return
 		else
 			to_chat(user, "<span class='notice'>Close [open ? src : newbox] first!</span>")
+		return TRUE
 	else if(istype(I, /obj/item/reagent_containers/food/snacks/pizza) || istype(I, /obj/item/reagent_containers/food/snacks/customizable/pizza))
 		if(open)
 			if(pizza)
 				to_chat(user, "<span class='warning'>[src] already has \a [pizza.name]!</span>")
-				return
+				returnt
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			pizza = I
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 			update_icon()
-			return
+		return TRUE
 	else if(istype(I, /obj/item/bombcore/miniature/pizza))
 		if(open && !bomb)
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			wires = new /datum/wires/explosive/pizza(src)
 			bomb = I
 			bomb.installed = TRUE
 			to_chat(user, "<span class='notice'>You put [I] in [src]. Sneeki breeki...</span>")
 			update_icon()
-			return
+			return TRUE
 		else if(bomb)
 			to_chat(user, "<span class='notice'>[src] already has a bomb in it!</span>")
+		return TRUE
 	else if(istype(I, /obj/item/pen))
 		if(!open)
 			if(!user.is_literate())
 				to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
-				return
+				return TRUE
 			var/obj/item/pizzabox/box = boxes.len ? boxes[boxes.len] : src
 			box.boxtag += stripped_input(user, "Write on [box]'s tag:", box, "", 30)
 			if(!user.canUseTopic(src, BE_CLOSE))
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You write with [I] on [src].</span>")
 			update_icon()
-			return
+		return TRUE
 	else if(is_wire_tool(I))
 		if(wires && bomb)
 			wires.interact(user)
+		return TRUE
 	else if(istype(I, /obj/item/reagent_containers/food))
 		to_chat(user, "<span class='warning'>That's not a pizza!</span>")
-	..()
+		return TRUE
+	return ..()
 
 /obj/item/pizzabox/process(delta_time)
 	if(bomb_active && !bomb_defused && (bomb_timer > 0))

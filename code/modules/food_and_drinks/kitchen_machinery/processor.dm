@@ -44,21 +44,21 @@
 			continue
 		return recipe
 
-/obj/machinery/processor/attackby(obj/item/O, mob/user, params)
+/obj/machinery/processor/item_interact(obj/item/O, mob/user, params)
 	if(processing)
 		to_chat(user, "<span class='warning'>[src] is in the process of processing!</span>")
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "processor", "processor1", O))
-		return
+		return TRUE
 
 	if(default_pry_open(O))
-		return
+		return TRUE
 
 	if(default_unfasten_wrench(user, O))
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(O))
-		return
+		return TRUE
 
 	if(istype(O, /obj/item/storage/bag/tray))
 		var/obj/item/storage/T = O
@@ -71,21 +71,17 @@
 
 		if(loaded)
 			to_chat(user, "<span class='notice'>You insert [loaded] items into [src].</span>")
-		return
+		return TRUE
 
 	var/datum/food_processor_process/P = select_recipe(O)
 	if(P)
 		user.visible_message("[user] put [O] into [src].", \
 			"You put [O] into [src].")
 		user.transferItemToLoc(O, src, TRUE)
-		return 1
+		return TRUE
 	else
-		if(user.a_intent != INTENT_HARM)
-			to_chat(user, "<span class='warning'>That probably won't blend!</span>")
-			return 1
-		else
-			return ..()
-
+		to_chat(user, "<span class='warning'>That probably won't blend!</span>")
+		return TRUE
 /obj/machinery/processor/interact(mob/user)
 	if(processing)
 		to_chat(user, "<span class='warning'>[src] is in the process of processing!</span>")

@@ -35,7 +35,7 @@
 		size = "monster"
 	. += "It contains [ingredients.len?"[ingredients_listed]":"no ingredient, "]making a [size]-sized [initial(name)]."
 
-/obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/customizable/ && (Keys)vkCode != Keys.C(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/reagent_containers/food/snacks/customizable) && istype(I, /obj/item/reagent_containers/food/snacks))
 		var/obj/item/reagent_containers/food/snacks/S = I
 		if(I.w_class > WEIGHT_CLASS_SMALL)
@@ -46,7 +46,7 @@
 			to_chat(user, "<span class='warning'>Adding [I.name] to [src] would make a mess.</span>")
 		else
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			if(S.trash)
 				S.generate_trash(get_turf(user))
 			ingredients += S
@@ -56,8 +56,9 @@
 			update_customizable_overlays(S)
 			to_chat(user, "<span class='notice'>You add the [I.name] to the [name].</span>")
 			update_food_name(S)
+		return TRUE
 	else
-		. = ..()
+		return ..()
 
 
 /obj/item/reagent_containers/food/snacks/customizable/proc/update_food_name(obj/item/reagent_containers/food/snacks/S)
@@ -236,7 +237,7 @@
 	materials = list(/datum/material/glass = 500)
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/reagent_containers/glass/bowl/attackby(obj/item/I,mob/user, params)
+/obj/item/reagent_containers/glass/bowl/ && (Keys)vkCode != Keys.C(obj/item/I,mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks))
 		var/obj/item/reagent_containers/food/snacks/S = I
 		if(I.w_class > WEIGHT_CLASS_SMALL)
@@ -250,9 +251,8 @@
 			else
 				var/obj/item/reagent_containers/food/snacks/customizable/A = new/obj/item/reagent_containers/food/snacks/customizable/salad(get_turf(src))
 				A.initialize_custom_food(src, S, user)
-	else
-		. = ..()
-	return
+		return TRUE
+	return ..()
 
 /obj/item/reagent_containers/glass/bowl/on_reagent_change(changetype)
 	..()

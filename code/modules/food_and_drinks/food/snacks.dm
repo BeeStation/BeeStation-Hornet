@@ -173,31 +173,30 @@ All foods are distributed among various categories. Use common sense.
 		else
 			. += "[src] was bitten multiple times!"
 
-/obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
+/obj/item/reagent_containers/food/snacks/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage))
-		..() // -> item/attackby()
-		return 0
+		return ..() // -> item/item_interact()
 	if(istype(W, /obj/item/reagent_containers/food/snacks))
 		var/obj/item/reagent_containers/food/snacks/S = W
 		if(custom_food_type && ispath(custom_food_type))
 			if(S.w_class > WEIGHT_CLASS_SMALL)
 				to_chat(user, "<span class='warning'>[S] is too big for [src]!</span>")
-				return 0
+				return TRUE
 			if(!S.customfoodfilling || istype(W, /obj/item/reagent_containers/food/snacks/customizable) || istype(W, /obj/item/reagent_containers/food/snacks/pizzaslice/custom))
 				to_chat(user, "<span class='warning'>[src] can't be filled with [S]!</span>")
-				return 0
+				return TRUE
 			if(contents.len >= 20)
 				to_chat(user, "<span class='warning'>You can't add more ingredients to [src]!</span>")
-				return 0
+				return TRUE
 			var/obj/item/reagent_containers/food/snacks/customizable/C = new custom_food_type(get_turf(src))
 			C.initialize_custom_food(src, S, user)
-			return 0
+		return TRUE
 	var/sharp = W.is_sharp()
 	if(sharp)
-		if(slice(sharp, W, user))
-			return 1
+		slice(sharp, W, user)
+		return 1
 	else
-		..()
+		return ..()
 
 //Called when you finish tablecrafting a snack.
 /obj/item/reagent_containers/food/snacks/CheckParts(list/parts_list, datum/crafting_recipe/food/R)

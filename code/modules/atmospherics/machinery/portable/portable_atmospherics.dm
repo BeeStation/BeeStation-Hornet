@@ -117,16 +117,17 @@
 	update_icon()
 	return TRUE
 
-/obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
+/obj/machinery/portable_atmospherics/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))
 		if(!(machine_stat & BROKEN))
 			var/obj/item/tank/T = W
 			if(!user.transferItemToLoc(T, src))
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
 			investigate_log("had its internal [holding] swapped with [T] by [key_name(user)].", INVESTIGATE_ATMOS)
 			replace_tank(user, FALSE, T)
 			update_icon()
+		return TRUE
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(!(machine_stat & BROKEN))
 			if(connected_port)
@@ -138,15 +139,15 @@
 					"<span class='notice'>You unfasten [src] from the port.</span>", \
 					"<span class='italics'>You hear a ratchet.</span>")
 				update_icon()
-				return
+				return TRUE
 			else
 				var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
 				if(!possible_port)
 					to_chat(user, "<span class='notice'>Nothing happens.</span>")
-					return
+					return TRUE
 				if(!connect(possible_port))
 					to_chat(user, "<span class='notice'>[name] failed to connect to the port.</span>")
-					return
+					return TRUE
 				W.play_tool_sound(src)
 				user.visible_message( \
 					"[user] connects [src].", \
@@ -154,8 +155,8 @@
 					"<span class='italics'>You hear a ratchet.</span>")
 				update_icon()
 				investigate_log("was connected to [possible_port] by [key_name(user)].", INVESTIGATE_ATMOS)
-	else
-		return ..()
+		return TRUE
+	return ..()
 
 /obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
 	if(I.force < 10 && !(machine_stat & BROKEN))

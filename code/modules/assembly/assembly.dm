@@ -102,7 +102,7 @@
 	return secured
 
 
-/obj/item/assembly/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/item_interact(obj/item/W, mob/user, params)
 	if(isassembly(W))
 		var/obj/item/assembly/A = W
 		if((!A.secured) && (!secured))
@@ -111,7 +111,7 @@
 			to_chat(user, "<span class='notice'>You attach and secure \the [A] to \the [src]!</span>")
 		else
 			to_chat(user, "<span class='warning'>Both devices must be in attachable mode to be attached together.</span>")
-		return
+		return TRUE
 	..()
 
 /obj/item/assembly/screwdriver_act(mob/living/user, obj/item/I)

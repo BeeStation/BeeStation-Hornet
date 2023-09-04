@@ -74,15 +74,16 @@
 	B.setDir(dir)
 	qdel(src)
 
-/obj/structure/chair/attackby(obj/item/W, mob/user, params)
+/obj/structure/chair/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1 & NODECONSTRUCT_1))
 		to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
 		if(W.use_tool(src, user, 30, volume=50))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			deconstruct(TRUE, 1)
+		return TRUE
 	else if(istype(W, /obj/item/assembly/shock_kit))
 		if(!user.temporarilyRemoveItemFromInventory(W))
-			return
+			return TRUE
 		var/obj/item/assembly/shock_kit/SK = W
 		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(src.loc)
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -91,6 +92,7 @@
 		SK.forceMove(E)
 		SK.master = E
 		qdel(src)
+		return TRUE
 	else
 		return ..()
 
@@ -195,10 +197,10 @@
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/fancy/attackby(obj/item/I, mob/living/user)
+/obj/structure/chair/fancy/item_interact(obj/item/I, mob/living/user)
 	. = ..()
 	if(!colorable)
-		return
+		return ..()
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
 		var/new_color = C.paint_color
@@ -206,10 +208,12 @@
 		hsl[3] = max(hsl[3], 0.4)
 		var/list/rgb = hsl2rgb(arglist(hsl))
 		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		. = TRUE
 	if(color)
 		cut_overlay(armrest)
 		armrest = GetArmrest()
 		update_armrest()
+	return . || ..()
 
 /obj/structure/chair/fancy/Initialize(mapload)
 	armrest = GetArmrest()

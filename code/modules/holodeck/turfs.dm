@@ -5,8 +5,8 @@
 	flags_1 = NONE
 	var/direction = SOUTH
 
-/turf/open/floor/holofloor/attackby(obj/item/I, mob/living/user)
-	return // HOLOFLOOR DOES NOT GIVE A FUCK
+/turf/open/floor/holofloor/item_interact(obj/item/I, mob/living/user)
+	return FALSE // HOLOFLOOR DOES NOT GIVE A FUCK
 
 /turf/open/floor/holofloor/tool_act(mob/living/user, obj/item/I, tool_type)
 	return

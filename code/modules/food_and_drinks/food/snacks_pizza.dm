@@ -184,17 +184,20 @@
 	if(istype(I, /obj/item/reagent_containers/food/snacks/pineappleslice))
 		to_chat(user, "<font color='red' size='7'>If you want something crazy like pineapple, I'll kill you.</font>") //this is in bigger text because it's hard to spam something that gibs you, and so that you're perfectly aware of the reason why you died
 		user.gib() //if you want something crazy like pineapple, i'll kill you
+		return TRUE
 	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/mushroom) && iscarbon(user))
 		to_chat(user, "<span class='userdanger'>So, if you want mushroom, shut up.</span>") //not as large as the pineapple text, because you could in theory spam it
 		var/mob/living/carbon/shutup = user
 		shutup.gain_trauma(/datum/brain_trauma/severe/mute)
+		return TRUE
 
 /obj/item/reagent_containers/food/snacks/pizza/arnold/attack(mob/living/M, mob/living/user)
 	. = ..()
 	try_break_off(M, user)
 
-/obj/item/reagent_containers/food/snacks/pizza/arnold/attackby(obj/item/I, mob/user)
-	i_kill_you(I, user)
+/obj/item/reagent_containers/food/snacks/pizza/arnold/item_interact(obj/item/I, mob/user)
+	if (i_kill_you(I, user))
+		return TRUE
 	. = ..()
 
 
@@ -210,8 +213,9 @@
 	. =..()
 	try_break_off(M, user)
 
-/obj/item/reagent_containers/food/snacks/pizzaslice/arnold/attackby(obj/item/I, mob/user)
-	i_kill_you(I, user)
+/obj/item/reagent_containers/food/snacks/pizzaslice/arnold/item_interact(obj/item/I, mob/user)
+	if (i_kill_you(I, user))
+		return TRUE
 	. = ..()
 
 

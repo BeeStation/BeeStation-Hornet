@@ -104,10 +104,12 @@
 	anchored = TRUE
 	density = TRUE
 
-/obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/holohoop/item_interact(obj/item/W as obj, mob/user as mob, params)
 	if(get_dist(src,user)<2)
 		if(user.transferItemToLoc(W, drop_location()))
 			visible_message("<span class='warning'> [user] dunks [W] into \the [src]!</span>")
+			return TRUE
+	return FALSE
 
 /obj/structure/holohoop/attack_hand(mob/user)
 	. = ..()
@@ -165,8 +167,8 @@
 	to_chat(user, "<span class='warning'>You are too primitive to use this device!</span>")
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
-	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
+/obj/machinery/readybutton/item_interact(obj/item/W as obj, mob/user as mob, params)
+	return FALSE
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 	. = ..()
@@ -217,9 +219,10 @@
 
 /obj/machinery/conveyor/holodeck
 
-/obj/machinery/conveyor/holodeck/attackby(obj/item/I, mob/user, params)
+/obj/machinery/conveyor/holodeck/item_interact(obj/item/I, mob/user, params)
 	if(!user.transferItemToLoc(I, drop_location()))
 		return ..()
+	return TRUE
 
 /obj/item/paper/fluff/holodeck/trek_diploma
 	name = "paper - Starfleet Academy Diploma"
@@ -240,8 +243,8 @@
 /obj/vehicle/ridden/scooter/skateboard/pro/holodeck/pick_up_board() //picking up normal skateboards spawned in the holodeck gets rid of the holo flag, now you cant pick them up.
 	return
 
-/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/rods))
-		return
+		return TRUE
 	else
 		return ..()

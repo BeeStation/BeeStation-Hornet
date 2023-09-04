@@ -30,7 +30,7 @@
 /obj/machinery/food_cart/proc/isFull()
 	return food_stored >= STORAGE_CAPACITY
 
-/obj/machinery/food_cart/attackby(obj/item/O, mob/user, params)
+/obj/machinery/food_cart/item_interact(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, O, 0)
 		return TRUE
@@ -40,23 +40,29 @@
 			qdel(DG)
 			glasses++
 			to_chat(user, "<span class='notice'>[src] accepts the drinking glass, sterilizing it.</span>")
+		updateDialog()
+		return TRUE
 	else if(istype(O, /obj/item/reagent_containers/food/snacks))
 		if(isFull())
 			to_chat(user, "<span class='warning'>[src] is at full capacity.</span>")
 		else
 			var/obj/item/reagent_containers/food/snacks/S = O
 			if(!user.transferItemToLoc(S, src))
-				return
+				return TRUE
 			if(stored_food[sanitize(S.name)])
 				stored_food[sanitize(S.name)]++
 			else
 				stored_food[sanitize(S.name)] = 1
+		updateDialog()
+		return TRUE
 	else if(istype(O, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = O
 		if(G.get_amount() >= 1)
 			G.use(1)
 			glasses += 4
 			to_chat(user, "<span class='notice'>[src] accepts a sheet of glass.</span>")
+		updateDialog()
+		return TRUE
 	else if(istype(O, /obj/item/storage/bag/tray))
 		var/obj/item/storage/bag/tray/T = O
 		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
@@ -69,11 +75,13 @@
 						stored_food[sanitize(S.name)]++
 					else
 						stored_food[sanitize(S.name)] = 1
+		updateDialog()
+		return TRUE
 	else if(O.is_drainable())
-		return
+		updateDialog()
+		return TRUE
 	else
-		. = ..()
-	updateDialog()
+		return ..()
 
 /obj/machinery/food_cart/ui_interact(mob/user)
 	. = ..()

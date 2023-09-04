@@ -93,14 +93,14 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, params)
+/obj/structure/windoor_assembly/item_interact(obj/item/W, mob/user, params)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	add_fingerprint(user)
 	switch(state)
 		if("01")
 			if(W.tool_behaviour == TOOL_WELDER && !anchored)
 				if(!W.tool_start_check(user, amount=0))
-					return
+					return TRUE
 
 				user.visible_message("[user] disassembles the windoor assembly.",
 					"<span class='notice'>You start to disassemble the windoor assembly...</span>")
@@ -111,30 +111,35 @@
 					if(secure)
 						new /obj/item/stack/rods(get_turf(src), 4, TRUE, user)
 					qdel(src)
-				return
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
 
 			//Wrenching an unsecure assembly anchors it in place. Step 4 complete
 			if(W.tool_behaviour == TOOL_WRENCH && !anchored)
 				for(var/obj/machinery/door/window/WD in loc)
 					if(WD.dir == dir)
 						to_chat(user, "<span class='warning'>There is already a windoor in that location!</span>")
-						return
+						return TRUE
 				user.visible_message("[user] secures the windoor assembly to the floor.",
 					"<span class='notice'>You start to secure the windoor assembly to the floor...</span>")
 
 				if(W.use_tool(src, user, 40, volume=100))
 					if(anchored)
-						return
+						return TRUE
 					for(var/obj/machinery/door/window/WD in loc)
 						if(WD.dir == dir)
 							to_chat(user, "<span class='warning'>There is already a windoor in that location!</span>")
-							return
+							return TRUE
 					to_chat(user, "<span class='notice'>You secure the windoor assembly.</span>")
 					setAnchored(TRUE)
 					if(secure)
 						name = "secure anchored windoor assembly"
 					else
 						name = "anchored windoor assembly"
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
 
 			//Unwrenching an unsecure assembly un-anchors it. Step 4 undone
 			else if(W.tool_behaviour == TOOL_WRENCH && anchored)
@@ -143,25 +148,28 @@
 
 				if(W.use_tool(src, user, 40, volume=100))
 					if(!anchored)
-						return
+						return TRUE
 					to_chat(user, "<span class='notice'>You unsecure the windoor assembly.</span>")
 					setAnchored(FALSE)
 					if(secure)
 						name = "secure windoor assembly"
 					else
 						name = "windoor assembly"
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
 
 			//Adding plasteel makes the assembly a secure windoor assembly. Step 2 (optional) complete.
 			else if(istype(W, /obj/item/stack/sheet/plasteel) && !secure)
 				var/obj/item/stack/sheet/plasteel/P = W
 				if(P.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need more plasteel to do this!</span>")
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You start to reinforce the windoor with plasteel...</span>")
 
 				if(do_after(user,40, target = src))
 					if(!src || secure || P.get_amount() < 2)
-						return
+						return TRUE
 
 					P.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the windoor.</span>")
@@ -170,6 +178,9 @@
 						name = "secure anchored windoor assembly"
 					else
 						name = "secure windoor assembly"
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
 
 			//Adding cable to the assembly. Step 5 complete.
 			else if(istype(W, /obj/item/stack/cable_coil) && anchored)
@@ -177,17 +188,20 @@
 
 				if(do_after(user, 40, target = src))
 					if(!src || !anchored || src.state != "01")
-						return
+						return TRUE
 					var/obj/item/stack/cable_coil/CC = W
 					if(!CC.use(1))
 						to_chat(user, "<span class='warning'>You need more cable to do this!</span>")
-						return
+						return TRUE
 					to_chat(user, "<span class='notice'>You wire the windoor.</span>")
 					state = "02"
 					if(secure)
 						name = "secure wired windoor assembly"
 					else
 						name = "wired windoor assembly"
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
 			else
 				return ..()
 
@@ -199,7 +213,7 @@
 
 				if(W.use_tool(src, user, 40, volume=100))
 					if(state != "02")
-						return
+						return TRUE
 
 					to_chat(user, "<span class='notice'>You cut the windoor wires.</span>")
 					new/obj/item/stack/cable_coil(get_turf(user), 1)
@@ -208,11 +222,14 @@
 						name = "secure anchored windoor assembly"
 					else
 						name = "anchored windoor assembly"
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
 
 			//Adding airlock electronics for access. Step 6 complete.
 			else if(istype(W, /obj/item/electronics/airlock))
 				if(!user.transferItemToLoc(W, src))
-					return
+					return TRUE
 				W.play_tool_sound(src, 100)
 				user.visible_message("[user] installs the electronics into the airlock assembly.",
 					"<span class='notice'>You start to install electronics into the airlock assembly...</span>")
@@ -220,12 +237,15 @@
 				if(do_after(user, 40, target = src))
 					if(!src || electronics)
 						W.forceMove(drop_location())
-						return
+						return TRUE
 					to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 					name = "near finished windoor assembly"
 					electronics = W
 				else
 					W.forceMove(drop_location())
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
 
 			//Adding an electroadaptive pseudocircuit for access. Step 6 complete.
 			else if(istype(W, /obj/item/electroadaptive_pseudocircuit))
@@ -237,7 +257,7 @@
 					AE.unres_sides = EP.electronics.unres_sides
 					if(!user.transferItemToLoc(AE, src))
 						qdel(AE)
-						return
+						return TRUE
 					AE.play_tool_sound(src, 100)
 					user.visible_message("[user] installs the electronics into the airlock assembly.",
 						"<span class='notice'>You start to install electronics into the airlock assembly...</span>")
@@ -245,17 +265,20 @@
 					if(do_after(user, 40, target = src))
 						if(!src || electronics)
 							qdel(AE)
-							return
+							return TRUE
 						to_chat(user, "<span class='notice'>You install the electroadaptive pseudocircuit.</span>")
 						name = "near finished windoor assembly"
 						electronics = AE
 					else
 						qdel(AE)
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
 
 			//Screwdriver to remove airlock electronics. Step 6 undone.
 			else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				if(!electronics)
-					return
+					return TRUE
 
 				user.visible_message("[user] removes the electronics from the airlock assembly.",
 					"<span class='notice'>You start to uninstall electronics from the airlock assembly...</span>")
@@ -267,21 +290,24 @@
 					ae = electronics
 					electronics = null
 					ae.forceMove(drop_location())
+				return TRUE
 
 			else if(istype(W, /obj/item/pen))
 				var/t = stripped_input(user, "Enter the name for the door.", name, created_name,MAX_NAME_LEN)
 				if(!t)
-					return
+					return TRUE
 				if(!in_range(src, usr) && loc != usr)
-					return
+					return TRUE
 				created_name = t
-				return
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
 
 			//Crowbar to complete the assembly, Step 7 complete.
 			else if(W.tool_behaviour == TOOL_CROWBAR)
 				if(!electronics)
 					to_chat(usr, "<span class='warning'>The assembly is missing electronics!</span>")
-					return
+					return TRUE
 				user << browse(null, "window=windoor_access")
 				user.visible_message("[user] pries the windoor into the frame.",
 					"<span class='notice'>You start prying the windoor into the frame...</span>")
@@ -335,13 +361,10 @@
 							windoor.name = created_name
 						qdel(src)
 						windoor.close()
-
-
-			else
-				return ..()
-
-	//Update to reflect changes(if applicable)
-	update_appearance()
+				//Update to reflect changes(if applicable)
+				update_appearance()
+				return TRUE
+	return ..()
 
 /obj/structure/windoor_assembly/ComponentInitialize()
 	. = ..()

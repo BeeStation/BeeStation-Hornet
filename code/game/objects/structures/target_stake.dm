@@ -37,16 +37,20 @@
 	if(pinned_target)
 		pinned_target.forceMove(loc)
 
-/obj/structure/target_stake/attackby(obj/item/target/T, mob/user)
+/obj/structure/target_stake/item_interact(obj/item/target/T, mob/user)
 	if(pinned_target)
-		return
-	if(istype(T) && user.transferItemToLoc(T, drop_location()))
+		return TRUE
+	if(istype(T))
+		if (!user.transferItemToLoc(T, drop_location()))
+			return TRUE
 		pinned_target = T
 		T.pinnedLoc = src
 		T.density = TRUE
 		T.layer = OBJ_LAYER + 0.01
 		handle_density()
 		to_chat(user, "<span class='notice'>You slide the target into the stake.</span>")
+		return TRUE
+	return ..()
 
 /obj/structure/target_stake/attack_hand(mob/user)
 	. = ..()

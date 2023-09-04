@@ -35,15 +35,15 @@
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 
-/obj/item/grown/attackby(obj/item/O, mob/user, params)
-	..()
+/obj/item/grown/item_interact(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/plant_analyzer))
 		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		msg += "</span>"
 		to_chat(usr, EXAMINE_BLOCK(msg))
-		return
+		return TRUE
+	return ..()
 
 /obj/item/grown/proc/add_juice()
 	if(reagents)

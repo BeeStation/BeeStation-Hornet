@@ -47,10 +47,11 @@
 /obj/structure/bed/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/structure/bed/attackby(obj/item/W, mob/user, params)
+/obj/structure/bed/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		W.play_tool_sound(src)
 		deconstruct(TRUE)
+		return TRUE
 	else
 		return ..()
 
@@ -74,12 +75,12 @@
 	move_resist = MOVE_FORCE_WEAK
 	var/foldabletype = /obj/item/deployable/rollerbed
 
-/obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
+/obj/structure/bed/roller/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/deployable/rollerbed/robo))
 		var/obj/item/deployable/rollerbed/robo/R = W
 		if(R.loaded)
 			to_chat(user, "<span class='warning'>You already have a roller bed docked!</span>")
-			return
+			return TRUE
 
 		if(has_buckled_mobs())
 			if(buckled_mobs.len > 1)

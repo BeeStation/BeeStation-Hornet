@@ -68,29 +68,29 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/attackby(obj/item/O, mob/user, params)
+/obj/machinery/smartfridge/item_interact(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, O))
 		cut_overlays()
 		if(panel_open)
 			add_overlay("[initial(icon_state)]-panel")
 		ui_update()
-		return
+		return TRUE
 
 	if(default_pry_open(O))
-		return
+		return TRUE
 
 	if(default_unfasten_wrench(user, O))
 		power_change()
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(O))
-		return
+		return TRUE
 
 	if(!machine_stat)
 
 		if(contents.len >= max_n_of_items)
 			to_chat(user, "<span class='warning'>\The [src] is full!</span>")
-			return FALSE
+			return TRUE
 
 		if(accept_check(O))
 			load(O)
@@ -123,7 +123,7 @@
 				return TRUE
 			else
 				to_chat(user, "<span class='warning'>There is nothing in [O] to put in [src]!</span>")
-				return FALSE
+				return TRUE
 
 		if(istype(O, /obj/item/organ_storage))
 			var/obj/item/organ_storage/S = O
@@ -141,17 +141,13 @@
 					return TRUE
 				else
 					to_chat(user, "<span class='warning'>[src] does not accept [I]!</span>")
-					return FALSE
+					return TRUE
 			else
 				to_chat(user, "<span class='warning'>There is nothing in [O] to put into [src]!</span>")
-				return FALSE
+				return TRUE
 
-	if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>\The [src] smartly refuses [O].</span>")
-		return FALSE
-	else
-		return ..()
-
+	to_chat(user, "<span class='warning'>\The [src] smartly refuses [O].</span>")
+	return TRUE
 
 /obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(!machine_stat)

@@ -100,13 +100,13 @@
 	if(default_unfasten_wrench(user,I))
 		return TRUE
 
-/obj/structure/aquarium/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/aquarium/item_interact(obj/item/I, mob/living/user, params)
 	if(broken)
 		var/obj/item/stack/sheet/glass/glass = I
 		if(istype(glass))
 			if(glass.get_amount() < 2)
 				to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
 			if(do_after(user, 2 SECONDS, target = src))
 				glass.use(2)

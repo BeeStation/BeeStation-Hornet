@@ -81,13 +81,10 @@
 		icon_state = "biogen-work"
 	return
 
-/obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-
+/obj/machinery/biogenerator/item_interact(obj/item/O, mob/user, params)
 	if(processing)
 		to_chat(user, "<span class='warning'>The biogenerator is currently processing.</span>")
-		return
+		return TRUE
 
 	if(default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", O))
 		if(beaker)
@@ -96,10 +93,10 @@
 			beaker = null
 			ui_update()
 		update_icon()
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(O))
-		return
+		return TRUE
 
 	if(istype(O, /obj/item/reagent_containers/glass))
 		. = 1 //no afterattack
@@ -108,14 +105,14 @@
 				to_chat(user, "<span class='warning'>A container is already loaded into the machine.</span>")
 			else
 				if(!user.transferItemToLoc(O, src))
-					return
+					return TRUE
 				beaker = O
 				to_chat(user, "<span class='notice'>You add the container to the machine.</span>")
 				update_icon()
 				ui_update()
 		else
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-		return
+		return TRUE
 
 	else if(istype(O, /obj/item/storage/bag/plants))
 		var/obj/item/storage/bag/plants/PB = O
@@ -166,6 +163,7 @@
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You cannot put this in [src.name]!</span>")
+		return TRUE
 
 /obj/machinery/biogenerator/AltClick(mob/living/user)
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) && can_interact(user))

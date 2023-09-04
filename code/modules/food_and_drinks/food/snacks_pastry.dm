@@ -858,14 +858,14 @@
 		. += "It contains [contents.len?"[ingredients_listed]":"no ingredient, "]on top of a [initial(name)]."
 	bitecount = originalBites
 
-/obj/item/reagent_containers/food/snacks/pancakes/attackby(obj/item/I, mob/living/user, params)
+/obj/item/reagent_containers/food/snacks/pancakes/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/pancakes/))
 		var/obj/item/reagent_containers/food/snacks/pancakes/P = I
 		if((contents.len >= PANCAKE_MAX_STACK) || ((P.contents.len + contents.len) > PANCAKE_MAX_STACK) || (reagents.total_volume >= volume))
 			to_chat(user, "<span class='warning'>You can't add that many pancakes to [src]!</span>")
 		else
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You add the [I] to the [name].</span>")
 			P.name = initial(P.name)
 			contents += P
@@ -878,11 +878,11 @@
 					update_customizable_overlays(P)
 			P = I
 			P.contents.Cut()
-		return
+		return TRUE
 	else if(contents.len)
 		var/obj/O = contents[contents.len]
-		return O.attackby(I, user, params)
-	..()
+		return O.item_interact(I, user, params)
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/pancakes/update_customizable_overlays(obj/item/reagent_containers/food/snacks/P)
 	var/mutable_appearance/pancake = mutable_appearance(icon, "[P.item_state]_[rand(1,3)]")

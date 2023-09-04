@@ -91,7 +91,7 @@
 	name = "Nuka Cola"
 	list_reagents = list(/datum/reagent/consumable/nuka_cola = 50)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/drinks/drinkingglass/ && (Keys)vkCode != Keys.C(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		var/obj/item/reagent_containers/food/snacks/egg/E = I
 		if(reagents)
@@ -101,9 +101,9 @@
 				to_chat(user, "<span class='notice'>You break [E] in [src].</span>")
 				reagents.add_reagent(/datum/reagent/consumable/eggyolk, 5)
 				qdel(E)
-			return
+		return TRUE
 	else
-		..()
+		return ..()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attack(obj/target, mob/user)
 	if(user.a_intent == INTENT_HARM && ismob(target) && target.reagents && reagents.total_volume)

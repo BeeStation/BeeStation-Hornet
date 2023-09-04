@@ -106,12 +106,13 @@
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_head()
 
-/obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/item, mob/living/user)
+/obj/item/clothing/head/helmet/space/plasmaman/item_interact(obj/item/item, mob/living/user)
 	. = ..()
 	if(istype(item, /obj/item/light/bulb) && !lamp_functional)
 		lamp_functional = TRUE
 		qdel(item)
 		to_chat(user, "<span class='notice'>You repair the broken headlamp!</span>")
+		return TRUE
 	if(istype(item, /obj/item/toy/crayon))
 		if(smile)
 			to_chat(user, "<span class='notice'>Seems like someone already drew something on the helmet's visor.</span>")
@@ -124,7 +125,7 @@
 				to_chat(user, "You draw a smiley on the helmet visor.")
 				update_icon()
 				update_button_icons(user)
-		return
+		return TRUE
 	if(istype(item, /obj/item/clothing/head) \
 		// i know someone is gonna do it after i thought about it
 		&& !istype(item, /obj/item/clothing/head/helmet/space/plasmaman) \
@@ -133,7 +134,7 @@
 		var/obj/item/clothing/head/hat = item
 		if(attached_hat)
 			to_chat(user, "<span class='notice'>There's already a hat on the helmet!</span>")
-			return
+			return TRUE
 		attached_hat = hat
 		hat.forceMove(src)
 		if (user.get_item_by_slot(ITEM_SLOT_HEAD) == src)
@@ -141,6 +142,7 @@
 		update_icon()
 		update_button_icons(user)
 		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
+		return TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/user, slot)
 	. = ..()

@@ -74,7 +74,7 @@
 	icon_state = "toilet[open][cistern]"
 
 
-/obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/toilet/item_interact(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]...</span>")
 		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
@@ -82,29 +82,31 @@
 			user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", "<span class='notice'>You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!</span>", "<span class='italics'>You hear grinding porcelain.</span>")
 			cistern = !cistern
 			update_icon()
+		return TRUE
 
 	else if(cistern)
 		if(user.a_intent != INTENT_HARM)
 			if(I.w_class > WEIGHT_CLASS_NORMAL)
 				to_chat(user, "<span class='warning'>[I] does not fit!</span>")
-				return
+				return TRUE
 			if(w_items + I.w_class > WEIGHT_CLASS_HUGE)
 				to_chat(user, "<span class='warning'>The cistern is full!</span>")
-				return
+				return TRUE
 			if(!user.transferItemToLoc(I, src))
 				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the cistern!</span>")
-				return
+				return TRUE
 			w_items += I.w_class
 			to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
+		return TRUE
 
 	else if(istype(I, /obj/item/reagent_containers))
 		if (!open)
-			return
+			return TRUE
 		var/obj/item/reagent_containers/RG = I
 		RG.reagents.add_reagent(/datum/reagent/water, min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
 		to_chat(user, "<span class='notice'>You fill [RG] from [src]. Gross.</span>")
-	else
-		return ..()
+		return TRUE
+	return ..()
 
 /obj/structure/toilet/secret
 	var/secret_type = null
@@ -157,19 +159,20 @@
 	else
 		..()
 
-/obj/structure/urinal/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/urinal/item_interact(obj/item/I, mob/living/user, params)
 	if(exposed)
 		if (hiddenitem)
 			to_chat(user, "<span class='warning'>There is already something in the drain enclosure.</span>")
-			return
+			return TRUE
 		if(I.w_class > 1)
 			to_chat(user, "<span class='warning'>[I] is too large for the drain enclosure.</span>")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(I, src))
 			to_chat(user, "<span class='warning'>\[I] is stuck to your hand, you cannot put it in the drain enclosure!</span>")
-			return
+			return TRUE
 		hiddenitem = I
 		to_chat(user, "<span class='notice'>You place [I] into the drain enclosure.</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -225,7 +228,7 @@
 	desc = "A sink frame, that needs 2 plastic sheets to finish construction."
 	anchored = FALSE
 
-/obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/sinkframe/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a sink...")
 		if(do_after(user, 4 SECONDS, target = src))
@@ -234,7 +237,7 @@
 			var/obj/structure/sink/new_sink = new /obj/structure/sink(loc)
 			new_sink.setDir(dir)
 			qdel(src)
-			return
+		return TRUE
 	return ..()
 
 /obj/structure/sinkframe/Initialize(mapload)
@@ -287,10 +290,10 @@
 	else
 		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 
-/obj/structure/sink/attackby(obj/item/O, mob/living/user, params)
+/obj/structure/sink/item_interact(obj/item/O, mob/living/user, params)
 	if(busy)
 		to_chat(user, "<span class='warning'>Someone's already washing here!</span>")
-		return
+		return ..()
 
 	if(istype(O, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/RG = O
@@ -300,7 +303,7 @@
 				to_chat(user, "<span class='notice'>You fill [RG] from [src].</span>")
 				return TRUE
 			to_chat(user, "<span class='notice'>\The [RG] is full.</span>")
-			return FALSE
+		return TRUE
 
 	if(istype(O, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = O
@@ -314,43 +317,40 @@
 				user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [B.name]!</span>", \
 									"<span class='userdanger'>You unwisely attempt to wash [B] while it's still on.</span>")
 				playsound(src, "sparks", 50, 1)
-				return
+		return TRUE
 
 	if(istype(O, /obj/item/mop))
 		O.reagents.add_reagent(dispensedreagent, 5)
 		to_chat(user, "<span class='notice'>You wet [O] in [src].</span>")
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-		return
+		return TRUE
 
 	if(istype(O, /obj/item/stack/medical/gauze))
 		var/obj/item/stack/medical/gauze/G = O
 		new /obj/item/reagent_containers/glass/rag(src.loc)
 		to_chat(user, "<span class='notice'>You tear off a strip of gauze and make a rag.</span>")
 		G.use(1)
-		return
+		return TRUE
 
 	if(!istype(O))
-		return
-	if(O.item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
-		return
-
-	if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='notice'>You start washing [O]...</span>")
-		busy = TRUE
-		if(!do_after(user, 40, target = src))
-			busy = FALSE
-			return 1
-		busy = FALSE
-		SEND_SIGNAL(O, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
-		O.acid_level = 0
-		create_reagents(5)
-		reagents.add_reagent(dispensedreagent, 5)
-		reagents.reaction(O, TOUCH)
-		user.visible_message("<span class='notice'>[user] washes [O] using [src].</span>", \
-							"<span class='notice'>You wash [O] using [src].</span>")
-		return 1
-	else
 		return ..()
+	if(O.item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You start washing [O]...</span>")
+	busy = TRUE
+	if(!do_after(user, 40, target = src))
+		busy = FALSE
+		return TRUE
+	busy = FALSE
+	SEND_SIGNAL(O, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+	O.acid_level = 0
+	create_reagents(5)
+	reagents.add_reagent(dispensedreagent, 5)
+	reagents.reaction(O, TOUCH)
+	user.visible_message("<span class='notice'>[user] washes [O] using [src].</span>", \
+						"<span class='notice'>You wash [O] using [src].</span>")
+	return TRUE
 
 /obj/structure/sink/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/iron (loc, 3)
@@ -374,7 +374,7 @@
 	. = ..()
 	icon_state = "puddle"
 
-/obj/structure/sink/puddle/attackby(obj/item/O, mob/user, params)
+/obj/structure/sink/puddle/item_interact(obj/item/O, mob/user, params)
 	icon_state = "puddle-splash"
 	. = ..()
 	icon_state = "puddle"
@@ -416,9 +416,10 @@
 		set_opacity(FALSE)
 		open = TRUE
 
-/obj/structure/curtain/attackby(obj/item/W, mob/user)
+/obj/structure/curtain/item_interact(obj/item/W, mob/user)
 	if (istype(W, /obj/item/toy/crayon))
 		color = tgui_color_picker(user,"","Choose Color",color)
+		return TRUE
 	else
 		return ..()
 

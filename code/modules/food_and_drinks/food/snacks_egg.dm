@@ -41,19 +41,20 @@
 		reagents.reaction(hit_atom, TOUCH)
 		qdel(src)
 
-/obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/W, mob/user, params)
+/obj/item/reagent_containers/food/snacks/egg/ && (Keys)vkCode != Keys.C(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		var/clr = C.crayon_color
 
 		if(!(clr in list("blue", "green", "mime", "orange", "purple", "rainbow", "red", "yellow")))
 			to_chat(usr, "<span class='notice'>[src] refuses to take on this colour!</span>")
-			return
+			return TRUE
 
 		to_chat(usr, "<span class='notice'>You colour [src] with [W].</span>")
 		icon_state = "egg-[clr]"
+		return TRUE
 	else
-		..()
+		return ..()
 
 /obj/item/reagent_containers/food/snacks/egg/blue
 	icon_state = "egg-blue"
@@ -114,7 +115,7 @@
 	tastes = list("egg" = 1, "cheese" = 1)
 	foodtype = MEAT | BREAKFAST
 
-/obj/item/reagent_containers/food/snacks/omelette/attackby(obj/item/W, mob/user, params)
+/obj/item/reagent_containers/food/snacks/omelette/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/fork))
 		var/obj/item/kitchen/fork/F = W
 		if(F.forkload)
@@ -129,8 +130,8 @@
 			F.forkload = R
 			if(reagents.total_volume <= 0)
 				qdel(src)
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/benedict
 	name = "eggs benedict"

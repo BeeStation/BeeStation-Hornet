@@ -133,14 +133,14 @@
 	..()
 	update_icon()
 
-/obj/machinery/atmospherics/components/unary/thermomachine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/components/unary/thermomachine/item_interact(obj/item/I, mob/user, params)
 	if(!on)
 		if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_off, I))
-			return
+			return TRUE
 	if(default_change_direction_wrench(user, I))
-		return
+		return TRUE
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/default_change_direction_wrench(mob/user, obj/item/I)

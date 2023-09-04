@@ -169,15 +169,15 @@
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 
-/turf/closed/wall/attackby(obj/item/W, mob/user, params)
+/turf/closed/wall/item_interact(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return
+		return ..()
 
 	//get the user's location
 	if(!isturf(user.loc))
-		return	//can't do this stuff whilst inside objects and such
+		return TRUE	//can't do this stuff whilst inside objects and such
 
 	add_fingerprint(user)
 
@@ -185,7 +185,7 @@
 
 	//the istype cascade has been spread among various procs for easy overriding
 	if(try_clean(W, user, T) || try_wallmount(W, user, T) || try_decon(W, user, T) || try_destroy(W, user, T))
-		return
+		return TRUE
 
 	return ..()
 

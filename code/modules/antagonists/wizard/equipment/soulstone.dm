@@ -148,18 +148,19 @@
 		"A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.\n"+\
 		"A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
-/obj/structure/constructshell/attackby(obj/item/O, mob/user, params)
+/obj/structure/constructshell/item_interact(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		if(!iscultist(user) && !iswizard(user) && !SS.purified)
 			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell. It would be wise to be rid of this quickly.</span>")
 			user.Dizzy(30)
-			return
+			return TRUE
 		if(SS.purified && iscultist(user))
 			SS.hot_potato(user)
-			return
+			return TRUE
 		SS.transfer_soul("CONSTRUCT",src,user)
 		SS.was_used()
+		return TRUE
 	else
 		return ..()
 

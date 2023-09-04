@@ -146,9 +146,10 @@
 		for(var/turf/AT in T.GetAtmosAdjacentTurfs(alldir = TRUE))
 			scrub(AT.return_air())
 
-/obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user)
+/obj/machinery/portable_atmospherics/scrubber/huge/item_interact(obj/item/W, mob/user)
 	if(default_unfasten_wrench(user, W))
 		if(!movable)
 			on = FALSE
+		return TRUE
 	else
 		return ..()

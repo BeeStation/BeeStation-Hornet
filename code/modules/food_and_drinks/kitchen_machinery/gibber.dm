@@ -103,18 +103,18 @@
 	else
 		startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
+/obj/machinery/gibber/item_interact(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
-		return
+		return TRUE
 
 	else if(default_pry_open(P))
-		return
+		return TRUE
 
 	else if(default_unfasten_wrench(user, P))
-		return
+		return TRUE
 
 	else if(default_deconstruction_crowbar(P))
-		return
+		return TRUE
 	else
 		return ..()
 

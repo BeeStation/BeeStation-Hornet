@@ -28,7 +28,7 @@
 	else
 		icon_state = "grill_open"
 
-/obj/machinery/grill/attackby(obj/item/I, mob/user)
+/obj/machinery/grill/item_interact(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/sheet/mineral/coal) || istype(I, /obj/item/stack/sheet/wood))
 		var/obj/item/stack/S = I
 		var/stackamount = S.get_amount()
@@ -39,31 +39,32 @@
 			grill_fuel += (50 * stackamount)
 		S.use(stackamount)
 		update_icon()
-		return
+		return TRUE
 	if(I.resistance_flags & INDESTRUCTIBLE)
 		to_chat(user, "<span class='warning'>You don't feel it would be wise to grill [I]...</span>")
-		return ..()
+		return TRUE
 	if(istype(I, /obj/item/reagent_containers))
 		if(istype(I, /obj/item/reagent_containers/food) && !istype(I, /obj/item/reagent_containers/food/drinks))
 			if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & (ABSTRACT | DROPDEL)))
-				return ..()
+				to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+				return TRUE
 			else if(!grill_fuel)
 				to_chat(user, "<span class='notice'>There is not enough fuel.</span>")
-				return
+				return TRUE
 			else if(!grilled_item && user.transferItemToLoc(I, src))
 				grilled_item = I
 				to_chat(user, "<span class='notice'>You put the [grilled_item] on [src].</span>")
 				update_icon()
 				grill_loop.start()
-				return
+				return TRUE
 		else
 			if(I.reagents.has_reagent(/datum/reagent/consumable/monkey_energy))
 				grill_fuel += (20 * (I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy)))
 				to_chat(user, "<span class='notice'>You pour the Monkey Energy in [src].</span>")
 				I.reagents.remove_reagent(/datum/reagent/consumable/monkey_energy, I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy))
 				update_icon()
-				return
-	..()
+				return TRUE
+	return ..()
 
 /obj/machinery/grill/process(delta_time)
 	..()

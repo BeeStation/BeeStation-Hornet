@@ -24,7 +24,7 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, 1)
 
-/obj/structure/sign/attackby(obj/item/I, mob/user, params)
+/obj/structure/sign/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && buildable_sign)
 		user.visible_message("<span class='notice'>[user] starts removing [src]...</span>", \
 							 "<span class='notice'>You start unfastening [src].</span>")
@@ -38,7 +38,7 @@
 			SB.sign_path = type
 			SB.setDir(dir)
 			qdel(src)
-		return
+		return TRUE
 	else if(istype(I, /obj/item/pen) && buildable_sign)
 		var/list/sign_types = list("Secure Area", "Biohazard", "High Voltage", "Radiation", "Hard Vacuum Ahead", "Disposal: Leads To Space", "Danger: Fire", "No Smoking", "Medbay", "Science", "Chemistry", \
 		"Hydroponics", "Xenobiology")
@@ -75,10 +75,10 @@
 
 		//Make sure user is adjacent still
 		if(!Adjacent(user))
-			return
+			return TRUE
 
 		if(!sign_type)
-			return
+			return TRUE
 
 		//It's import to clone the pixel layout information
 		//Otherwise signs revert to being on the turf and
@@ -87,6 +87,7 @@
 		newsign.pixel_x = pixel_x
 		newsign.pixel_y = pixel_y
 		qdel(src)
+		return TRUE
 	else
 		return ..()
 

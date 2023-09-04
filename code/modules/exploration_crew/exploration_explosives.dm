@@ -25,13 +25,13 @@
 	attached_detonators = null
 	. = ..()
 
-/obj/item/grenade/exploration/attackby(obj/item/W, mob/user, params)
+/obj/item/grenade/exploration/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/exploration_detonator))
 		var/obj/item/exploration_detonator/detonator = W
 		detonator.linked_explosives |= src
 		attached_detonators |= detonator
 		to_chat(user, "<span class='notice'>You link [src] to [W].</span>")
-		return
+		return TRUE
 	. = ..()
 
 /obj/item/grenade/exploration/afterattack(atom/movable/AM, mob/user, flag)

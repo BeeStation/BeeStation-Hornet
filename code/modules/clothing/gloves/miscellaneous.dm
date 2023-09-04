@@ -102,7 +102,7 @@
 	item_state = "wgloves"
 	var/range = 3
 
-/obj/item/clothing/gloves/color/white/magic/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/gloves/color/white/magic/item_interact(obj/item/W, mob/user, params)
 	. = ..()
 	if(istype(W, /obj/item/upgradewand))
 		var/obj/item/upgradewand/wand = W
@@ -111,6 +111,7 @@
 			range = 6
 			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
+		return TRUE
 
 /obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
 	var/mob/living/user = loc

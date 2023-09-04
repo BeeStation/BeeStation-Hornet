@@ -71,15 +71,15 @@
 		A.UpdateButtonIcon()
 
 
-/obj/item/clothing/head/helmet/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/head/helmet/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flashlight/seclite))
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight && !attached_light)
 			if(up)
 				to_chat(user, "<span class='notice'>You need to pull the visor down before attaching \the [S].</span>")
-				return
+				return TRUE
 			if(!user.transferItemToLoc(S, src))
-				return
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 			set_attached_light(S)
@@ -87,7 +87,7 @@
 			alight = new(src)
 			if(loc == user)
 				alight.Grant(user)
-		return
+		return TRUE
 	return ..()
 
 
@@ -140,12 +140,12 @@
 	can_flashlight = TRUE
 	dog_fashion = /datum/dog_fashion/head/helmet
 
-/obj/item/clothing/head/helmet/sec/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/head/helmet/sec/item_interact(obj/item/I, mob/user, params)
 	if(issignaler(I))
 		var/obj/item/assembly/signaler/S = I
 		if(attached_light) //Has a flashlight. Player must remove it, else it will be lost forever.
 			to_chat(user, "<span class='warning'>The mounted flashlight is in the way, remove it first!</span>")
-			return
+			return TRUE
 
 		if(S.secured)
 			qdel(S)
@@ -153,7 +153,7 @@
 			user.put_in_hands(A)
 			to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
 			qdel(src)
-			return
+		return TRUE
 	return ..()
 
 /obj/item/clothing/head/helmet/alt

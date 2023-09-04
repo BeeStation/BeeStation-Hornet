@@ -29,11 +29,11 @@
 		beacon.unlink_console()
 	return ..()
 
-/obj/machinery/computer/cargo/express/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/computer/cargo/express/item_interact(obj/item/W, mob/living/user, params)
 	if((istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda)) && allowed(user))
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the interface.</span>")
-		return
+		return TRUE
 	else if(istype(W, /obj/item/disk/cargo/bluespace_pod))
 		podType = /obj/structure/closet/supplypod/bluespacepod//doesnt effect circuit board, making reversal possible
 		to_chat(user, "<span class='notice'>You insert the disk into [src], allowing for advanced supply delivery vehicles.</span>")
@@ -46,7 +46,8 @@
 			return TRUE
 		else
 			to_chat(user, "<span class='notice'>[src] is already linked to [sb].</span>")
-	..()
+		return TRUE
+	return ..()
 
 /obj/machinery/computer/cargo/express/on_emag(mob/user)
 	..()

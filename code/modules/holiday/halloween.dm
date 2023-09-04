@@ -230,6 +230,7 @@
 	if(prob(5))
 		playsound(loc, 'sound/spookoween/insane_low_laugh.ogg', 300, 1)
 
+///TODO: Convert to on_damage
 /mob/living/simple_animal/hostile/retaliate/clown/insane/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/nullrod))
 		if(prob(5))
@@ -238,8 +239,9 @@
 			qdel(src)
 		else
 			visible_message("<span class='danger'>[src] seems to be resisting the effect!</span>")
+		return TRUE
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/retaliate/clown/insane/handle_temperature_damage()
 	return

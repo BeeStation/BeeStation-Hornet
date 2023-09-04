@@ -409,21 +409,21 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/clothing/under/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/under/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon jumpsuit ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon jumpsuit ([name]) with [W]")
-			return
-	. = ..()
+			return TRUE
+	return ..()
 
 /obj/item/clothing/suit/chameleon
 	name = "armor"
@@ -454,21 +454,21 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/clothing/suit/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/suit/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon suit ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon suit ([name]) with [W]")
-			return
-	. = ..()
+			return TRUE
+	return ..()
 
 /obj/item/clothing/glasses/chameleon
 	name = "Optical Meson Scanner"
@@ -498,20 +498,20 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/clothing/glasses/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/glasses/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon glasses ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon glasses ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/clothing/glasses/chameleon/flashproof
@@ -551,20 +551,20 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/clothing/gloves/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/gloves/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon gloves ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon gloves ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/clothing/gloves/chameleon/combat
@@ -611,20 +611,20 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/clothing/head/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/head/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon hat ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon hat ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/clothing/head/chameleon/envirohelm
@@ -756,7 +756,7 @@
 			return idcard.registered_name
 	return default_name
 
-/obj/item/clothing/mask/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/mask/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
@@ -765,14 +765,14 @@
 			actions += tongue_action
 			tongue_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon mask ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon mask ([name]) with [W]")
 			tongue_action.Remove(user)
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/clothing/mask/chameleon/drone
@@ -821,20 +821,20 @@
 		return
 	chameleon_action.emp_randomise()
 
-/obj/item/clothing/shoes/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/shoes/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon shoes ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon shoes ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/clothing/shoes/chameleon/noslip
@@ -866,20 +866,20 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/storage/backpack/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/backpack/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon backpack ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon backpack ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/storage/belt/chameleon
@@ -910,20 +910,20 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/storage/belt/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/belt/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon belt ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon belt ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/radio/headset/chameleon
@@ -947,20 +947,20 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/radio/headset/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/radio/headset/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon headset ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon headset ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/radio/headset/chameleon/bowman
@@ -991,20 +991,20 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/modular_computer/tablet/pda/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/modular_computer/tablet/pda/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon PDA ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon PDA ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/stamp/chameleon
@@ -1021,20 +1021,20 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/stamp/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/stamp/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon stamp ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon stamp ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()
 
 /obj/item/clothing/neck/chameleon
@@ -1060,18 +1060,18 @@
 		return
 	chameleon_action.emp_randomise()
 
-/obj/item/clothing/neck/chameleon/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/neck/chameleon/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(chameleon_action.hidden)
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
 			log_game("[key_name(user)] has removed the disguise lock on the chameleon necktie ([name]) with [W]")
-			return
+			return TRUE
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon necktie ([name]) with [W]")
-			return
+			return TRUE
 	. = ..()

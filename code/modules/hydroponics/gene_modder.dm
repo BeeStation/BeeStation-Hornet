@@ -68,37 +68,39 @@
 	if(panel_open)
 		add_overlay("dnamod-open")
 
-/obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/plantgenes/item_interact(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
 		update_icon()
-		return
+		return TRUE
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 	if(iscyborg(user))
-		return
+		return FALSE
 
 	if(istype(I, /obj/item/seeds))
 		if (operation)
 			to_chat(user, "<span class='notice'>Please complete current operation.</span>")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(I, src))
-			return
+			return TRUE
 		eject_seed()
 		insert_seed(I)
 		to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 		interact(user)
+		return TRUE
 	else if(istype(I, /obj/item/disk/plantgene))
 		if (operation)
 			to_chat(user, "<span class='notice'>Please complete current operation.</span>")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(I, src))
-			return
+			return TRUE
 		eject_disk()
 		disk = I
 		to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 		interact(user)
+		return TRUE
 	else
-		..()
+		return ..()
 
 /obj/machinery/plantgenes/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

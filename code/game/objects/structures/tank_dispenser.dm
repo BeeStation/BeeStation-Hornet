@@ -38,7 +38,7 @@
 		if(5 to TANK_DISPENSER_CAPACITY)
 			add_overlay("plasma-5")
 
-/obj/structure/tank_dispenser/attackby(obj/item/I, mob/user, params)
+/obj/structure/tank_dispenser/item_interact(obj/item/I, mob/user, params)
 	var/full
 	if(istype(I, /obj/item/tank/internals/plasma))
 		if(plasmatanks < TANK_DISPENSER_CAPACITY)
@@ -52,26 +52,24 @@
 			full = TRUE
 	else if(I.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, I, time = 20)
-		return
+		return TRUE
 	else if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='notice'>[I] does not fit into [src].</span>")
-		return
-	else
-		return ..()
+		return TRUE
 	if(full)
 		to_chat(user, "<span class='notice'>[src] can't hold any more of [I].</span>")
-		return
+		return TRUE
 
 	if(!user.transferItemToLoc(I, src))
 		if(istype(I, /obj/item/tank/internals/plasma))
 			plasmatanks--
 		else if(istype(I, /obj/item/tank/internals/oxygen))
 			oxygentanks--
-		return
+		return TRUE
 	to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 	update_icon()
 	ui_update()
-
+	return TRUE
 
 /obj/structure/tank_dispenser/ui_state(mob/user)
 	return GLOB.physical_state

@@ -112,7 +112,7 @@
 	if(.)
 		update_icon()
 
-/obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/signaler/item_interact(obj/item/W, mob/user, params)
 	if(issignaler(W))
 		var/obj/item/assembly/signaler/signaler2 = W
 		if(secured && signaler2.secured)
@@ -120,6 +120,7 @@
 			set_frequency(signaler2.frequency)
 			to_chat(user, "You transfer the frequency and code of \the [signaler2.name] to \the [name]")
 			ui_update()
+		return TRUE
 	..()
 
 /obj/item/assembly/signaler/proc/signal()
@@ -207,10 +208,11 @@
 	user.suicide_log()
 	user.gib()
 
-/obj/item/assembly/signaler/anomaly/attackby(obj/item/I, mob/user, params)
+/obj/item/assembly/signaler/anomaly/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_ANALYZER)
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s stabilized field is fluctuating along frequency [format_frequency(frequency)], code [code].</span>")
-	..()
+		return TRUE
+	return ..()
 
 //Anomaly cores
 /obj/item/assembly/signaler/anomaly/pyro
@@ -260,8 +262,9 @@
 
 /obj/item/assembly/signaler/cyborg
 
-/obj/item/assembly/signaler/cyborg/attackby(obj/item/W, mob/user, params)
-	return
+/obj/item/assembly/signaler/cyborg/item_interact(obj/item/W, mob/user, params)
+	return FALSE
+
 /obj/item/assembly/signaler/cyborg/screwdriver_act(mob/living/user, obj/item/I)
 	return
 
@@ -271,8 +274,8 @@
 /obj/item/assembly/signaler/internal/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/assembly/signaler/internal/attackby(obj/item/W, mob/user, params)
-	return
+/obj/item/assembly/signaler/internal/item_interact(obj/item/W, mob/user, params)
+	return FALSE
 
 /obj/item/assembly/signaler/internal/screwdriver_act(mob/living/user, obj/item/I)
 	return

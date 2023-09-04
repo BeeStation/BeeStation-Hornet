@@ -102,28 +102,36 @@
 	else
 		icon_state = "mw"
 
-/obj/machinery/microwave/attackby(obj/item/O, mob/user, params)
-	if(operating)
-		return
+/obj/machinery/microwave/item_interact(obj/item/O, mob/user, params)
 	if(default_deconstruction_crowbar(O))
-		return
+		if(operating)
+			return TRUE
+		return TRUE
 
 	if(dirty < 100)
 		if(default_deconstruction_screwdriver(user, icon_state, icon_state, O) || default_unfasten_wrench(user, O))
+			if(operating)
+				return TRUE
 			update_icon()
-			return
+			return TRUE
 
 	if(panel_open && is_wire_tool(O))
+		if(operating)
+			return TRUE
 		wires.interact(user)
 		return TRUE
 
 	if(broken > 0)
 		if(broken == 2 && O.tool_behaviour == TOOL_WIRECUTTER) // If it's broken and they're using a screwdriver
+			if(operating)
+				return TRUE
 			user.visible_message("[user] starts to fix part of \the [src].", "<span class='notice'>You start to fix part of \the [src]...</span>")
 			if(O.use_tool(src, user, 20))
 				user.visible_message("[user] fixes part of \the [src].", "<span class='notice'>You fix part of \the [src].</span>")
 				broken = 1 // Fix it a bit
 		else if(broken == 1 && O.tool_behaviour == TOOL_WELDER) // If it's broken and they're doing the wrench
+			if(operating)
+				return TRUE
 			user.visible_message("[user] starts to fix part of \the [src].", "<span class='notice'>You start to fix part of \the [src]...</span>")
 			if(O.use_tool(src, user, 20))
 				user.visible_message("[user] fixes \the [src].", "<span class='notice'>You fix \the [src].</span>")
@@ -131,11 +139,15 @@
 				update_icon()
 				return FALSE //to use some fuel
 		else
+			if(operating)
+				return TRUE
 			to_chat(user, "<span class='warning'>It's broken!</span>")
 			return TRUE
-		return
+		return TRUE
 
 	if(istype(O, /obj/item/reagent_containers/spray))
+		if(operating)
+			return TRUE
 		var/obj/item/reagent_containers/spray/clean_spray = O
 		if(clean_spray.reagents.has_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this))
 			clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this,1)
@@ -148,6 +160,8 @@
 		return TRUE
 
 	if(istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/glass/rag))
+		if(operating)
+			return TRUE
 		var/cleanspeed = 50
 		if(istype(O, /obj/item/soap))
 			var/obj/item/soap/used_soap = O
@@ -160,10 +174,14 @@
 		return TRUE
 
 	if(dirty == 100) // The microwave is all dirty so can't be used!
+		if(operating)
+			return TRUE
 		to_chat(user, "<span class='warning'>\The [src] is dirty!</span>")
 		return TRUE
 
 	if(istype(O, /obj/item/storage/bag/tray))
+		if(operating)
+			return TRUE
 		var/obj/item/storage/T = O
 		var/loaded = 0
 		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
@@ -175,21 +193,23 @@
 				ingredients += S
 		if(loaded)
 			to_chat(user, "<span class='notice'>You insert [loaded] items into \the [src].</span>")
-		return
+		return TRUE
 
 	if(O.w_class <= WEIGHT_CLASS_NORMAL && !istype(O, /obj/item/storage) && user.a_intent == INTENT_HELP)
+		if(operating)
+			return TRUE
 		if(ingredients.len >= max_n_of_items)
 			to_chat(user, "<span class='warning'>\The [src] is full, you can't put anything in!</span>")
 			return TRUE
 		if(!user.transferItemToLoc(O, src))
 			to_chat(user, "<span class='warning'>\The [O] is stuck to your hand!</span>")
-			return FALSE
+			return TRUE
 
 		ingredients += O
 		user.visible_message("[user] has added \a [O] to \the [src].", "<span class='notice'>You add [O] to \the [src].</span>")
-		return
+		return TRUE
 
-	..()
+	return ..()
 
 /obj/machinery/microwave/AltClick(mob/user)
 	if(user.canUseTopic(src, !issilicon(usr)))

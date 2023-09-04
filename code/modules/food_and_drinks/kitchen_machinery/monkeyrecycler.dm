@@ -39,22 +39,22 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Producing <b>[cube_production]</b> cubes for every monkey inserted.</span>"
 
-/obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
+/obj/machinery/monkey_recycler/item_interact(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
-		return
+		return TRUE
 
 	if(default_pry_open(O))
-		return
+		return TRUE
 
 	if(default_unfasten_wrench(user, O))
 		power_change()
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(O))
-		return
+		return TRUE
 
 	if(machine_stat) //NOPOWER etc
-		return
+		return FALSE
 	else
 		return ..()
 

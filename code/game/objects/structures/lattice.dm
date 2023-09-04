@@ -36,7 +36,7 @@
 /obj/structure/lattice/ratvar_act()
 	new /obj/structure/lattice/clockwork(loc)
 
-/obj/structure/lattice/attackby(obj/item/C, mob/user, params)
+/obj/structure/lattice/item_interact(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return TRUE
 	if(C.tool_behaviour == TOOL_WIRECUTTER)
@@ -45,7 +45,7 @@
 		return TRUE
 	else
 		var/turf/T = get_turf(src)
-		C.use_on(user, T)
+		return  T.item_interact(C, user, params)
 		return TRUE
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)

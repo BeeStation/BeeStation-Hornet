@@ -91,7 +91,7 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/machinery/icecream_vat/attackby(obj/item/O, mob/user, params)
+/obj/machinery/icecream_vat/item_interact(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/icecream))
 		var/obj/item/reagent_containers/food/snacks/icecream/I = O
 		if(!I.ice_creamed)
@@ -105,9 +105,9 @@
 				to_chat(user, "<span class='warning'>There is not enough ice cream left!</span>")
 		else
 			to_chat(user, "<span class='notice'>[O] already has ice cream in it.</span>")
-		return 1
+		return TRUE
 	else if(O.is_drainable())
-		return
+		return TRUE
 	else
 		return ..()
 

@@ -47,12 +47,13 @@
 	new /obj/machinery/bluespace_anchor(get_turf(user), stored_cell)
 	qdel(src)
 
-/obj/item/bluespace_anchor/attackby(obj/item/I, mob/living/user, params)
+/obj/item/bluespace_anchor/item_interact(obj/item/I, mob/living/user, params)
 	var/obj/item/stock_parts/cell/cell = I
 	if(!istype(cell))
 		return ..()
 	if(power_cell)
 		to_chat(user, "<span class='notice'>Remove the power cell inside [src] first!</span>")
-		return
+		return TRUE
 	set_cell(cell)
 	to_chat(user, "<span class='notice'>You insert [cell] into [src].</span>")
+	return TRUE

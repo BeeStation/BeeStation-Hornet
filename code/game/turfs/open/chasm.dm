@@ -51,7 +51,7 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/open/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
+/turf/open/chasm/item_interact(obj/item/C, mob/user, params, area/area_restriction)
 	..()
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
@@ -64,7 +64,7 @@
 				new /obj/structure/lattice(src)
 			else
 				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-			return
+		return TRUE
 	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
@@ -79,6 +79,8 @@
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place iron rods first.</span>")
+		return TRUE
+	return ..()
 
 /// Lets people walk into chasms.
 /turf/open/chasm/CanAllowThrough(atom/movable/mover, border_dir)

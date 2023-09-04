@@ -82,31 +82,31 @@ God bless America.
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Frying at <b>[fry_speed*100]%</b> speed.<br>Using <b>[oil_use]</b> units of oil per second.</span>"
 
-/obj/machinery/deepfryer/attackby(obj/item/I, mob/user)
+/obj/machinery/deepfryer/item_interact(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/pill))
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>There's nothing to dissolve [I] in!</span>")
-			return
+			return TRUE
 		user.visible_message("<span class='notice'>[user] drops [I] into [src].</span>", "<span class='notice'>You dissolve [I] in [src].</span>")
 		I.reagents.trans_to(src, I.reagents.total_volume, transfered_by = user)
 		qdel(I)
-		return
+		return TRUE
 	if(!reagents.has_reagent(/datum/reagent/consumable/cooking_oil))
 		to_chat(user, "<span class='warning'>[src] has no cooking oil to fry with!</span>")
-		return
+		return TRUE
 	if(I.resistance_flags & INDESTRUCTIBLE)
 		to_chat(user, "<span class='warning'>You don't feel it would be wise to fry [I]...</span>")
-		return
+		return TRUE
 	if(istype(I, /obj/item/food/deepfryholder))
 		to_chat(user, "<span class='userdanger'>Your cooking skills are not up to the legendary Doublefry technique.</span>")
-		return
+		return TRUE
 	if(istype(I, /obj/item/clothing/head/mob_holder))
 		var/obj/item/clothing/head/mob_holder/P = I
 		QDEL_NULL(P.held_mob)	//just so the pet doesn't escape his incoming death
 	if(default_unfasten_wrench(user, I))
-		return
+		return TRUE
 	else if(default_deconstruction_screwdriver(user, "fryer_off", "fryer_off" ,I))	//where's the open maint panel icon?!
-		return
+		return TRUE
 	else
 		if(is_type_in_typecache(I, deepfry_blacklisted_items) || HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & (ABSTRACT | DROPDEL)))
 			return ..()
@@ -117,6 +117,7 @@ God bless America.
 			frying = new/obj/item/food/deepfryholder(src, I)
 			icon_state = "fryer_on"
 			fry_loop.start()
+		return TRUE
 
 /obj/machinery/deepfryer/process(delta_time)
 	..()

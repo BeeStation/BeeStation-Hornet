@@ -14,9 +14,10 @@
 		return
 	evidencebagEquip(I, user)
 
-/obj/item/evidencebag/attackby(obj/item/I, mob/user, params)
+/obj/item/evidencebag/item_interact(obj/item/I, mob/user, params)
 	if(evidencebagEquip(I, user))
 		return 1
+	return ..()
 
 /obj/item/evidencebag/handle_atom_del(atom/A)
 	cut_overlays()

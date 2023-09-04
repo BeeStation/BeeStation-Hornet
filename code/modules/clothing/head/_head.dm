@@ -31,15 +31,15 @@
 			H.update_inv_head()
 	attached_wig?.dropped(user)
 
-/obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/head/item_interact(obj/item/W, mob/user, params)
 	. = ..()
 	if(istype(W, /obj/item/clothing/head/wig))
 		if(flags_inv && HIDEHAIR)
 			to_chat(user, "<span class='notice'>You can't attach a wig to [src]!</span>")
-			return
+			return TRUE
 		if(attached_wig)
 			to_chat(user,"<span class='notice'>[src] already has a wig attached!</span>")
-			return
+			return TRUE
 		else
 			attached_wig = W
 			attached_wig.hat_attached_to = src
@@ -48,6 +48,7 @@
 			update_icon()
 			strip_delay = 10 //The fake hair makes it really easy to swipe the hat off the head
 			attached_wig.equipped(user, ITEM_SLOT_HEAD)
+		return TRUE
 
 
 /obj/item/clothing/head/verb/unattach_wig()

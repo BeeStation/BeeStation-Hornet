@@ -141,18 +141,19 @@
 	if(holder)
 		holder.update_icon()
 
-/obj/item/assembly/flash/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/flash/item_interact(obj/item/W, mob/user, params)
 	. = ..()
 	var/obj/item/flashbulb/newflash = W
 	if(!istype(newflash))
-		return
+		return ..()
 	if(bulb)
 		to_chat("<span class='warning'>You fail to put the bulb into \the [src] as it already has a bulb in it.</spawn>")
-		return
+		return TRUE
 	user.transferItemToLoc(newflash, src)
 	bulb = newflash
 	burnt_out = !bulb.check_working()
 	update_icon()
+	return TRUE
 
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -353,8 +354,8 @@
 	..()
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
 
-/obj/item/assembly/flash/cyborg/attackby(obj/item/W, mob/user, params)
-	return
+/obj/item/assembly/flash/cyborg/item_interact(obj/item/W, mob/user, params)
+	return FALSE
 
 /obj/item/assembly/flash/cyborg/screwdriver_act(mob/living/user, obj/item/I)
 	return

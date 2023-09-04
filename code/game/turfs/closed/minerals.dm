@@ -56,18 +56,17 @@
 	return ..()
 
 
-/turf/closed/mineral/attackby(obj/item/I, mob/user, params)
-	if (!user.IsAdvancedToolUser())
-		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return
-
+/turf/closed/mineral/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_MINING)
+		if (!user.IsAdvancedToolUser())
+			to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
+			return TRUE
 		var/turf/T = user.loc
 		if (!isturf(T))
-			return
+			return TRUE
 
 		if(last_act + (40 * I.toolspeed) > world.time)//prevents message spam
-			return
+			return TRUE
 		last_act = world.time
 		to_chat(user, "<span class='notice'>You start picking...</span>")
 
@@ -76,6 +75,7 @@
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				gets_drilled(user)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.type)
+		return TRUE
 	else
 		return attack_hand(user)
 
@@ -450,10 +450,11 @@
 	det_time = rand(8,10) //So you don't know exactly when the hot potato will explode
 	. = ..()
 
-/turf/closed/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
+/turf/closed/mineral/gibtonite/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) && stage == 1)
 		user.visible_message("<span class='notice'>[user] holds [I] to [src]...</span>", "<span class='notice'>You use [I] to locate where to cut off the chain reaction and attempt to stop it...</span>")
 		defuse()
+		return TRUE
 	..()
 
 /turf/closed/mineral/gibtonite/proc/explosive_reaction(mob/user = null, triggered_by_explosion = 0)

@@ -537,7 +537,7 @@
 		new /obj/effect/hotspot(get_turf(hit_atom))
 	..()
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/drinks/bottle/molotov/item_interact(obj/item/I, mob/user, params)
 	if(I.is_hot() && !active)
 		active = TRUE
 		log_bomber(user, "has primed a", src, "for detonation")
@@ -558,6 +558,8 @@
 						SplashReagents(A)
 						A.fire_act()
 					qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attack_self(mob/user)
 	if(active)

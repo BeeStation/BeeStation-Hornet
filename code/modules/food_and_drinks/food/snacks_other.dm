@@ -620,7 +620,7 @@
 	. = ..()
 	. += "<span class='notice'>If you had a rod you could make <b>butter on a stick</b>.</span>"
 
-/obj/item/reagent_containers/food/snacks/butter/attackby(obj/item/W, mob/user, params)
+/obj/item/reagent_containers/food/snacks/butter/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = W
 		if(!R.use(1))//borgs can still fail this if they have no metal
@@ -633,7 +633,7 @@
 			user.put_in_hands(new_item)
 		qdel(src)
 		return TRUE
-	..()
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/butter/on_a_stick //there's something so special about putting it on a stick.
 	name = "butter on a stick"

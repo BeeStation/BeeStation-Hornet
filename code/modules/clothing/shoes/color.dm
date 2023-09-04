@@ -70,15 +70,15 @@
 		src.icon_state = ""
 	return
 
-/obj/item/clothing/shoes/sneakers/orange/attackby(obj/H, loc, params)
-	..()
+/obj/item/clothing/shoes/sneakers/orange/item_interact(obj/H, loc, params)
+	. = ..()
 	// Note: not using istype here because we want to ignore all subtypes
 	if (!chained && H.type == /obj/item/restraints/handcuffs)
 		qdel(H)
 		src.chained = 1
 		src.slowdown = 15
 		src.icon_state = "sneakers_chained"
-	return
+		return TRUE
 
 /obj/item/clothing/shoes/sneakers/orange/allow_attack_hand_drop(mob/user)
 	if(ishuman(user))

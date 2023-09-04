@@ -15,7 +15,7 @@
 
 
 // Dough + rolling pin = flat dough
-/obj/item/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/dough/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/kitchen/rollingpin))
 		if(isturf(loc))
 			new /obj/item/reagent_containers/food/snacks/flatdough(loc)
@@ -23,8 +23,9 @@
 			qdel(src)
 		else
 			to_chat(user, "<span class='warning'>You need to put [src] on a surface to roll it out!</span>")
+		return TRUE
 	else
-		..()
+		return ..()
 
 
 // sliceable into 3xdoughslices
@@ -87,7 +88,7 @@
 	foodtype = GRAIN | DAIRY
 
 // Cake batter + rolling pin = pie dough
-/obj/item/reagent_containers/food/snacks/cakebatter/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/cakebatter/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/kitchen/rollingpin))
 		if(isturf(loc))
 			new /obj/item/reagent_containers/food/snacks/piedough(loc)
@@ -95,8 +96,9 @@
 			qdel(src)
 		else
 			to_chat(user, "<span class='warning'>You need to put [src] on a surface to roll it out!</span>")
+		return TRUE
 	else
-		..()
+		return ..()
 
 /obj/item/reagent_containers/food/snacks/piedough
 	name = "pie dough"

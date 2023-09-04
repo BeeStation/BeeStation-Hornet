@@ -504,7 +504,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
 
-/obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/glasses/godeye/item_interact(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
 		if(W.icon_state == "godeye")
 			W.icon_state = "doublegodeye"
@@ -516,6 +516,7 @@
 		else
 			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
 		qdel(src)
+		return TRUE
 	..()
 
 /obj/item/clothing/glasses/AltClick(mob/user)

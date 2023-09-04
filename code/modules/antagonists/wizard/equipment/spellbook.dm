@@ -665,11 +665,11 @@
 			qdel(E)
 	tab = categories[1]
 
-/obj/item/spellbook/attackby(obj/item/O, mob/user, params)
-	if(refuses_refund)
-		to_chat(user, "<span class='warning'>Your book is powerless because of Wild Magic Manipulation ritual. The book doesn't accept the item.</span>")
-		return
+/obj/item/spellbook/item_interact(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/antag_spawner/contract))
+		if(refuses_refund)
+			to_chat(user, "<span class='warning'>Your book is powerless because of Wild Magic Manipulation ritual. The book doesn't accept the item.</span>")
+			return TRUE
 		var/obj/item/antag_spawner/contract/contract = O
 		if(contract.used)
 			to_chat(user, "<span class='warning'>The contract has been used, you can't get your points back now!</span>")
@@ -680,13 +680,19 @@
 				if(!isnull(CT.limit))
 					CT.limit++
 			qdel(O)
+		return TRUE
 	else if(istype(O, /obj/item/antag_spawner/slaughter_demon))
+		if(refuses_refund)
+			to_chat(user, "<span class='warning'>Your book is powerless because of Wild Magic Manipulation ritual. The book doesn't accept the item.</span>")
+			return TRUE
 		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
 		uses++
 		for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
 			if(!isnull(BB.limit))
 				BB.limit++
 		qdel(O)
+		return TRUE
+	return ..()
 
 /obj/item/spellbook/proc/GetCategoryHeader(category)
 	var/dat = ""

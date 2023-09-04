@@ -26,7 +26,7 @@
 	else
 		add_overlay("largebino")
 
-/obj/structure/closet/crate/bin/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/crate/bin/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/bag/trash))
 		var/obj/item/storage/bag/trash/T = W
 		to_chat(user, "<span class='notice'>You fill the bag.</span>")

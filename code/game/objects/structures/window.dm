@@ -176,16 +176,16 @@
 		return
 	..()
 
-/obj/structure/window/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/window/item_interact(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
-		return 1 //skip the afterattack
+		return ..()
 
 	add_fingerprint(user)
 
-	if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
+	if(I.tool_behaviour == TOOL_WELDER)
 		if(obj_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=0))
-				return
+				return TRUE
 
 			to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=50))
@@ -194,7 +194,7 @@
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
-		return
+		return TRUE
 
 	if(!(flags_1&NODECONSTRUCT_1))
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -215,7 +215,7 @@
 				if(I.use_tool(src, user, decon_speed, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 					setAnchored(!anchored)
 					to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
-			return
+			return TRUE
 
 
 		else if(I.tool_behaviour == TOOL_CROWBAR && reinf && (state == WINDOW_OUT_OF_FRAME || state == WINDOW_IN_FRAME))
@@ -224,7 +224,7 @@
 			if(I.use_tool(src, user, decon_speed, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
 				to_chat(user, "<span class='notice'>You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame.</span>")
-			return
+			return TRUE
 
 		else if(I.tool_behaviour == TOOL_WRENCH && !anchored)
 			I.play_tool_sound(src, 75)
@@ -234,7 +234,7 @@
 				playsound(src, 'sound/items/Deconstruct.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You successfully disassemble [src].</span>")
 				qdel(src)
-			return
+			return TRUE
 	return ..()
 
 /obj/structure/window/setAnchored(anchorvalue)
@@ -729,12 +729,9 @@
 	QUEUE_SMOOTH(src)
 
 
-/obj/structure/window/paperframe/attackby(obj/item/W, mob/user)
+/obj/structure/window/paperframe/item_interact(obj/item/W, mob/user)
 	if(W.is_hot())
 		fire_act(W.is_hot())
-		return
-	if(user.a_intent == INTENT_HARM)
-		return ..()
 	if(istype(W, /obj/item/paper) && obj_integrity < max_integrity)
 		user.visible_message("[user] starts to patch the holes in \the [src].")
 		if(do_after(user, 20, target = src))
@@ -743,9 +740,9 @@
 			user.visible_message("[user] patches some of the holes in \the [src].")
 			if(obj_integrity == max_integrity)
 				update_appearance()
-			return
-	..()
+			return TRUE
 	update_appearance()
+	return ..()
 
 /obj/structure/window/bronze
 	name = "brass window"

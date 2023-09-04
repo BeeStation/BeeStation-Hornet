@@ -53,13 +53,14 @@
 		active = FALSE
 		toggleFirepit()
 
-/obj/structure/firepit/attackby(obj/item/W,mob/living/user,params)
+/obj/structure/firepit/item_interact(obj/item/W,mob/living/user,params)
 	if(!active)
 		var/msg = W.ignition_effect(src, user)
 		if(msg)
 			active = TRUE
 			visible_message(msg)
 			toggleFirepit()
+			return TRUE
 		else
 			return ..()
 	else

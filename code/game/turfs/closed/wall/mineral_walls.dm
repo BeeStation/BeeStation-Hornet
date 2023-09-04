@@ -112,7 +112,7 @@
 	radiate()
 	. = ..()
 
-/turf/closed/wall/mineral/uranium/attackby(obj/item/W, mob/user, params)
+/turf/closed/wall/mineral/uranium/item_interact(obj/item/W, mob/user, params)
 	radiate()
 	..()
 
@@ -131,7 +131,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_PLASMA_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 
-/turf/closed/wall/mineral/plasma/attackby(obj/item/W, mob/user, params)
+/turf/closed/wall/mineral/plasma/item_interact(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
 		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
@@ -161,14 +161,14 @@
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
 
-/turf/closed/wall/mineral/wood/attackby(obj/item/W, mob/user)
+/turf/closed/wall/mineral/wood/item_interact(obj/item/W, mob/user)
 	if(W.is_sharp() && W.force)
 		var/duration = (48/W.force) * 2 //In seconds, for now.
 		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.
 		if(do_after(user, duration*10, target=src)) //Into deciseconds.
 			dismantle_wall(FALSE,FALSE)
-			return
+		return TRUE
 	return ..()
 
 /turf/closed/wall/mineral/wood/nonmetal

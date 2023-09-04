@@ -154,13 +154,16 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PURPLE
 
-/turf/open/lava/plasma/attackby(obj/item/I, mob/user, params)
+/turf/open/lava/plasma/item_interact(obj/item/I, mob/user, params)
 	var/obj/item/reagent_containers/glass/C = I
+	if (!istype(C))
+		return ..()
 	if(C.reagents.total_volume >= C.volume)
 		to_chat(user, "<span class='danger'>[C] is full.</span>")
-		return
+		return TRUE
 	C.reagents.add_reagent(/datum/reagent/toxin/plasma, rand(5, 10))
 	user.visible_message("[user] scoops some plasma from the [src] with \the [C].", "<span class='notice'>You scoop out some plasma from the [src] using \the [C].</span>")
+	return TRUE
 
 /turf/open/lava/plasma/burn_stuff(AM)
 	. = 0
