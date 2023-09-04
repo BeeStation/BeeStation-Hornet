@@ -577,7 +577,6 @@
 
 /obj/item/storage/belt/military/assault/ComponentInitialize()
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
