@@ -96,7 +96,7 @@
 	desc = "A compact semi-auto shotgun designed to fire breaching slugs and create rapid entry points."
 	icon_state = "breachingshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/breaching
-	w_class = WEIGHT_CLASS_NORMAL //compact so it fits in backpacks
+	w_class = WEIGHT_CLASS_LARGE
 
 //Dual Feed Shotgun
 
@@ -152,7 +152,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	can_suppress = FALSE
@@ -281,7 +281,7 @@
 	desc = "A single-shot shotgun. Better not miss."
 	icon_state = "ishotgun"
 	item_state = "gun"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	sawn_off = TRUE
 	slot_flags = ITEM_SLOT_BELT
 	recoil = SAWN_OFF_RECOIL

@@ -8,7 +8,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
 	attack_verb = list("enforced the law upon")
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)

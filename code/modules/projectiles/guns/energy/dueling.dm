@@ -309,7 +309,7 @@
 	icon_state = "medalbox+l"
 	item_state = "medalbox+l"
 	base_icon_state = "medalbox"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	req_access = list(ACCESS_CAPTAIN)
 
 /obj/item/storage/lockbox/dueling/ComponentInitialize()

@@ -249,7 +249,7 @@
 	icon_state = "defibcompact"
 	item_state = "defibcompact"
 	worn_icon_state = "defibcompact"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)

@@ -11,7 +11,7 @@
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	var/max_amount = 90
 	var/active = FALSE
 	actions_types = list(/datum/action/item_action/rcl_col,/datum/action/item_action/rcl_gui,)
