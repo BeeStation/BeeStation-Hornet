@@ -376,6 +376,7 @@
 
 /datum/component/storage/proc/show_to(mob/M)
 	if(!can_be_opened)
+		to_chat(M, "<span class='warning'>You shouldn't rummage through garbage!</span>")
 		return FALSE
 	if(!M.client)
 		return FALSE
