@@ -665,7 +665,6 @@
 /obj/item/storage/belt/janitor/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/grenade/chem_grenade,
 		/obj/item/lightreplacer,
