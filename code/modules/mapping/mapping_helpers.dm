@@ -274,8 +274,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	if(search_view_range < 0)
 		for(var/turf/each_turf in current_area.get_contained_turfs())
 			for(var/obj/each_container in each_turf)
-				if(get_area(each_container) != current_area)
-					continue // we don't want to put a deadbody to a wrong area
 				for(var/acceptable_path in accepted_list)
 					if(istype(each_container, acceptable_path))
 						found_container += each_container
