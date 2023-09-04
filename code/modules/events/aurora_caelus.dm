@@ -12,7 +12,7 @@
 
 /datum/round_event/aurora_caelus
 	announceWhen = 1
-	startWhen = 6
+	startWhen = 9
 	endWhen = 50
 	var/list/aurora_colors = list("#A2FF80", "#A2FFB6", "#92FFD8", "#8AFFEA", "#72FCFF", "#C6A8FF", "#F89EFF", "#FFA0F1")
 	var/aurora_progress = 0 //this cycles from 1 to 8, slowly changing colors from gentle green to gentle blue
@@ -30,8 +30,6 @@
 	if(activeFor % 5 == 0)
 		if(aurora_progress < 8)
 			aurora_progress++
-		if(!length(affected_turfs))
-			return
 		var/aurora_color = aurora_colors[aurora_progress]
 		set_starlight_colour(aurora_color, 5 SECONDS)
 
@@ -46,5 +44,5 @@
 		var/mob/M = V
 		if(is_station_level(M.z))
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "star_gazing", /datum/mood_event/witnessed_starlight)
-			if(M.client.prefs.toggles & PREFTOGGLE_SOUND_MIDI)
+			if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
 				M.playsound_local(M, 'sound/ambience/aurora_caelus.ogg', 20, FALSE, pressure_affected = FALSE)

@@ -60,8 +60,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
-	///Only used for the Aurora Calcaeus event
-	var/starlit = FALSE
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
