@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Trash bags can no longer be opened to view contents, the bag must be dumped
+      out onto the floor instead.
