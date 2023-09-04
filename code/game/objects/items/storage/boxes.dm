@@ -223,7 +223,7 @@
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
 // Security survival box
-/obj/item/storage/box/security/PopulateContents()
+/obj/item/storage/box/survival/security/PopulateContents()
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -232,7 +232,7 @@
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
-/obj/item/storage/box/security/radio/PopulateContents()
+/obj/item/storage/box/survival/security/radio/PopulateContents()
 	..() // we want the regular stuff too
 	new /obj/item/radio/off(src)
 
