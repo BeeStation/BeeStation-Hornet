@@ -281,7 +281,7 @@
 	id = "bluespace_capsule"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/titanium = 1000, /datum/material/diamond = 500, /datum/material/bluespace = 500)
-	build_path = /obj/item/deployable/capsule
+	build_path = /obj/item/bluespace_capsule
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 

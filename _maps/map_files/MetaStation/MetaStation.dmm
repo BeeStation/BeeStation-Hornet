@@ -24810,7 +24810,7 @@
 "cCL" = (
 /obj/structure/safe,
 /obj/item/storage/secure/briefcase{
-	contents = newlist(/obj/item/clothing/suit/armor/vest,/obj/item/gun/ballistic/automatic/pistol,/obj/item/suppressor,/obj/item/melee/classic_baton/police/telescopic,/obj/item/clothing/mask/balaclava,/obj/item/deployable/bodybag,/obj/item/soap/nanotrasen)
+	contents = newlist(/obj/item/clothing/suit/armor/vest,/obj/item/gun/ballistic/automatic/pistol,/obj/item/suppressor,/obj/item/melee/classic_baton/police/telescopic,/obj/item/clothing/mask/balaclava,/obj/item/bodybag,/obj/item/soap/nanotrasen)
 	},
 /obj/item/storage/backpack/duffelbag/syndie/hitman,
 /obj/item/card/id/silver/reaper,
@@ -61484,14 +61484,14 @@
 "qRV" = (
 /obj/machinery/airalarm/directional/north,
 /obj/structure/rack,
-/obj/item/deployable/rollerbed{
+/obj/item/rollerbed{
 	pixel_x = -2
 	},
-/obj/item/deployable/rollerbed{
+/obj/item/rollerbed{
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/item/deployable/rollerbed{
+/obj/item/rollerbed{
 	pixel_x = 5;
 	pixel_y = 8
 	},

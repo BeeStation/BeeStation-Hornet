@@ -20,7 +20,7 @@
 	name = "Bluespace Storage Capsule"
 	description = "Nanotrasen would make good use of compact, high-capacity storage devices. If you have any, please ship them."
 	reward = 10000
-	wanted_types = list(/obj/item/deployable/capsule)
+	wanted_types = list(/obj/item/bluespace_capsule)
 
 /datum/bounty/item/science/nightvision_goggles
 	name = "Night Vision Goggles"
