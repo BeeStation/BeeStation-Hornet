@@ -56,6 +56,21 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">04 September 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Made the viral extrapolator output look much better.</li>
+				<li class="rscadd">Added some additional info to the viral extrapolator's examine - telling the user the maximum stealth / level it can extract, and how long extractions take.</li>
+				<li class="rscadd">The viral extrapolator will now tell you when scanning if it has extracted that same virus previously.</li>
+				<li class="tweak">You no longer have to click on an exact sprite to scan or extract a virus from something with the viral extrapolator - if you click on something that doesn't have any valid diseases (such as a floor tile), you will instead scan/extract whatever thing on that tile that does have a valid disease. (And if there's multiple things on the tile, you can choose which one to scan from a popup)</li>
+				<li class="tweak">Extracting a virus from someone now displays a visible message, rather than being completely silent except for the beep afterwards.</li>
+				<li class="rscadd">Vector (the virologist's pet hamster) is always guaranteed to have at least one level 9 symptom in its freebie virus.</li>
+				<li class="rscadd">Morgue corpses and roundstart monkeys can also generate with dormant diseases now, although they can be less reliable and more of a wildcard than diseases in dried blood/vomit/gibs or crew members.</li>
+				<li class="bugfix">Fixed only being able to extract symptoms rather than full diseases from rats.</li>
+				<li class="bugfix">Morgue corpses now have a small chance to be a non-human (and non-IPC) roundstart race.</li>
+				<li class="refactor">Refactored how `extrapolator_act` works.</li>
+			</ul>
+
 			<h2 class="date">03 September 2023</h2>
 			<h3 class="author">Absolucy, Itsmeowdev updated:</h3>
 			<ul class="changes bgimages16">
@@ -1175,27 +1190,6 @@
 				<li class="code_imp">datumizes smiting</li>
 				<li class="admin">converts some rather obnoxious admin tools to TGUI lists. Should make em easier to use</li>
 				<li class="rscadd">buildmode smiting sprite</li>
-			</ul>
-
-			<h2 class="date">03 July 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Made the wearable headphones into a musical instrument</li>
-				<li class="rscadd">Added the ability to mass tag items inside of a container using the price tagger</li>
-				<li class="tweak">Made the price tagger tag bags before being put inside of them</li>
-				<li class="rscadd">Made the Custom Vendor machine board printable at a lathe</li>
-				<li class="tweak">Reduced the prices of the Custom Vendor Board, Custom Vendor Refill Unit and Price Tagger, as well as increasing their amount sold by 1</li>
-				<li class="tweak">Increased the maximum capacity of Custom Vendors to 100 items</li>
-				<li class="rscadd">Added the name and job title of the owner to the description of the Custom Vendor when examining it</li>
-				<li class="rscadd">Added the ability to purchase items from a vendor without an ID card equipped, while holding a stack of holochips in your hand, or while having an ID card or holochips inside of a worn or held wallet</li>
-				<li class="tweak">Made hitting a vendor with a stack of holochips open the vendor's menu</li>
-				<li class="tweak">Made custom vendors differentiate between items based on their type AND name at the same time</li>
-				<li class="rscadd">Made custom vendors message the person with the linked bank account when an item is bought from them</li>
-				<li class="bugfix">Fixed custom vendors not displaying the item count of their goods</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Armblades will now damage targets on help intent.</li>
 			</ul>
 		</div>
 
