@@ -234,6 +234,10 @@
 		SSdisease.archive_diseases[the_id] = Copy()
 		if(new_name)
 			AssignName()
+	else
+		var/actual_name = SSdisease.get_disease_name(GetDiseaseID())
+		if(actual_name != "Unknown")
+			name = actual_name
 
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
