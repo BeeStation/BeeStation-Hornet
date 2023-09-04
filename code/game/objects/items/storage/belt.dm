@@ -2,6 +2,7 @@
 	name = "belt"
 	desc = "Can hold various things."
 	icon = 'icons/obj/clothing/belts.dmi'
+	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	worn_icon_state = "utility"
