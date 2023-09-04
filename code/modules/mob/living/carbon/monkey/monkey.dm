@@ -66,6 +66,10 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	check_if_natural()
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
 
+	// Give random dormant diseases to roundstart monkeys.
+	if(mapload)
+		give_random_dormant_disease(30, min_symptoms = 1, max_symptoms = 3)
+
 /mob/living/carbon/monkey/proc/check_if_natural()
 	for(var/datum/mutation/race/monke in dna.mutations)
 		if(natural)

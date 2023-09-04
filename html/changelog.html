@@ -56,6 +56,73 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">04 September 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Made the viral extrapolator output look much better.</li>
+				<li class="rscadd">Added some additional info to the viral extrapolator's examine - telling the user the maximum stealth / level it can extract, and how long extractions take.</li>
+				<li class="rscadd">The viral extrapolator will now tell you when scanning if it has extracted that same virus previously.</li>
+				<li class="tweak">You no longer have to click on an exact sprite to scan or extract a virus from something with the viral extrapolator - if you click on something that doesn't have any valid diseases (such as a floor tile), you will instead scan/extract whatever thing on that tile that does have a valid disease. (And if there's multiple things on the tile, you can choose which one to scan from a popup)</li>
+				<li class="tweak">Extracting a virus from someone now displays a visible message, rather than being completely silent except for the beep afterwards.</li>
+				<li class="rscadd">Vector (the virologist's pet hamster) is always guaranteed to have at least one level 9 symptom in its freebie virus.</li>
+				<li class="rscadd">Morgue corpses and roundstart monkeys can also generate with dormant diseases now, although they can be less reliable and more of a wildcard than diseases in dried blood/vomit/gibs or crew members.</li>
+				<li class="bugfix">Fixed only being able to extract symptoms rather than full diseases from rats.</li>
+				<li class="bugfix">Morgue corpses now have a small chance to be a non-human (and non-IPC) roundstart race.</li>
+				<li class="refactor">Refactored how `extrapolator_act` works.</li>
+				<li class="bugfix">Fix incorrect custom virus names being shown by health analyzers and viral extrapolators.</li>
+				<li class="bugfix">Obsession objectives no longer bug out if the target has a heirloom.</li>
+			</ul>
+
+			<h2 class="date">03 September 2023</h2>
+			<h3 class="author">Absolucy, Itsmeowdev updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">The PDA/NtOS notepad is now actually usable, you won't hit rate limits just typing into it normally!</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="config">Made unstaffed departments having their lights be turned off at roundstart a config option</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">RadStation's Air Mixer no longer requires roundstart attention due to being improperly setup</li>
+			</ul>
+			<h3 class="author">Kapu1178,CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Lockers, crates, and machines no longer block click attempts in adjacency checks. Basically, you can reach tables cornered between lockers/machines.</li>
+				<li class="code_imp">Adds a new pass_flags_self flag called LETPASSCLICKS that lets you mark an atom to not block ClickCross() attempts.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon, KubeRoot, Victor239, stylemistake updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds fullscreen mode, toggleable with F11 or via game preferences.</li>
+			</ul>
+
+			<h2 class="date">02 September 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Abductors can no longer customize abductee objectives.</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Made the shove intent stun of an emagged/EMP'd/combat defib be blocked by shields</li>
+				<li class="tweak">Made crafting an item be put on a table or rack in front of the user if their hands are full</li>
+			</ul>
+
+			<h2 class="date">01 September 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added the ability for Obsessed people to open the mail addressed to their obsessions</li>
+			</ul>
+
+			<h2 class="date">31 August 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed cloning mindless mobs throwing a runtime</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes not being able to stand while cuffed</li>
+			</ul>
+
 			<h2 class="date">29 August 2023</h2>
 			<h3 class="author">CydiaLamiales updated:</h3>
 			<ul class="changes bgimages16">
@@ -1125,62 +1192,6 @@
 				<li class="code_imp">datumizes smiting</li>
 				<li class="admin">converts some rather obnoxious admin tools to TGUI lists. Should make em easier to use</li>
 				<li class="rscadd">buildmode smiting sprite</li>
-			</ul>
-
-			<h2 class="date">03 July 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Made the wearable headphones into a musical instrument</li>
-				<li class="rscadd">Added the ability to mass tag items inside of a container using the price tagger</li>
-				<li class="tweak">Made the price tagger tag bags before being put inside of them</li>
-				<li class="rscadd">Made the Custom Vendor machine board printable at a lathe</li>
-				<li class="tweak">Reduced the prices of the Custom Vendor Board, Custom Vendor Refill Unit and Price Tagger, as well as increasing their amount sold by 1</li>
-				<li class="tweak">Increased the maximum capacity of Custom Vendors to 100 items</li>
-				<li class="rscadd">Added the name and job title of the owner to the description of the Custom Vendor when examining it</li>
-				<li class="rscadd">Added the ability to purchase items from a vendor without an ID card equipped, while holding a stack of holochips in your hand, or while having an ID card or holochips inside of a worn or held wallet</li>
-				<li class="tweak">Made hitting a vendor with a stack of holochips open the vendor's menu</li>
-				<li class="tweak">Made custom vendors differentiate between items based on their type AND name at the same time</li>
-				<li class="rscadd">Made custom vendors message the person with the linked bank account when an item is bought from them</li>
-				<li class="bugfix">Fixed custom vendors not displaying the item count of their goods</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Armblades will now damage targets on help intent.</li>
-			</ul>
-
-			<h2 class="date">01 July 2023</h2>
-			<h3 class="author">Absolucy, tralezab updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added tgui-based antag info popups for multiple antags, replacing the previous basic popups and info.</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Sprite image of Dark Honker and Dark Gygax is now corrected. These don't show normal version.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removes the syndicate surgery implant</li>
-			</ul>
-
-			<h2 class="date">30 June 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Eye Color and Body Size are now respected when cloning</li>
-			</ul>
-
-			<h2 class="date">29 June 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Bartenders now are given a Weapons Permit regardless of player count at the round start.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes some icon failures related to maploading, fixing the biodomes black floor tiles.</li>
-				<li class="tweak">Atom init times now export to CSV instead of JSON if you compile the game with the PROFILE_MAPLOAD_INIT_ATOM flag</li>
-			</ul>
-			<h3 class="author">SandPoot,CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Pointing will make the arrow face it and you can also pixel-perfect point.</li>
 			</ul>
 		</div>
 
