@@ -53,7 +53,7 @@
 	var/list/status = list()
 	status += "The door bolts [A.locked ? "have fallen!" : "look up."]"
 	status += "The test light is [A.hasPower() ? (A.isElectrified() ? "bright and flicking" : "on") : "off"]."
-	status += "The AI connection light is [A.aiControlDisabled || (A.obj_flags & EMAGGED) ? "off" : "on"]."
+	status += "The AI connection light is [A.aiControlDisabled ? "off" : "on"]."
 	status += "The check wiring light is [A.safe ? "off" : "on"]."
 	status += "The timer is powered [A.autoclose ? "on" : "off"]."
 	status += "The speed light is [A.normalspeed ? "on" : "off"]."
@@ -75,9 +75,7 @@
 			A.loseBackupPower()
 	if(A.hasPower()) //Multitool has no effect on other wires if the door has no power
 		switch(wire)
-			if(WIRE_OPEN) // Pulse to open door (only works not emagged and ID wire is cut or no access is required).
-				if(A.obj_flags & EMAGGED)
-					return
+			if(WIRE_OPEN) // Pulse to open door
 				if(A.id_scan_hacked() || A.check_access(null))
 					if(A.density)
 						INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, open))
