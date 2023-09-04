@@ -308,7 +308,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	corpse.death()
 	for (var/obj/item/organ/organ in corpse.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
 		if (prob(40))
-			qdel(part)
+			qdel(organ)
 		else
 			organ.organ_flags |= ORGAN_FROZEN
 	container.update_icon()
