@@ -9,17 +9,22 @@
 	count_against_dynamic_roll_chance = FALSE
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.
 	var/datum/brain_trauma/special/obsessed/trauma
+	var/datum/mind/obsession
+	var/cured = FALSE
 
 /datum/antagonist/obsessed/New(datum/brain_trauma/special/obsessed/_trauma)
 	. = ..()
 	if(istype(_trauma))
 		trauma = _trauma
+		obsession = trauma.obsession
 
 /datum/antagonist/obsessed/antag_panel_data()
+	if(cured)
+		return "<span class='blue bold italics'>Cured</span>"
 	if(QDELETED(trauma))
 		return "<span class='red bold italics'>No valid trauma!</span>"
 	var/list/parts = list()
-	parts += "<b>Obsession:</b> [key_name(trauma.obsession)]"
+	parts += "<b>Obsession:</b> [key_name(obsession)]"
 	parts += "<b>Time spent near obsession:</b> [DisplayTimeText(trauma.total_time_creeping)]"
 	parts += "<b>Hug count:</b> [trauma.obsession_hug_count]"
 	parts += "Actual trauma <b>[trauma.revealed ? "HAS" : "HAS NOT"]</b> been revealed (currently: <i>[trauma.scan_desc]</i>)"
@@ -78,13 +83,13 @@
 	log_admin("[key_name(admin)] has set the [name] target of [key_name(owner)] to [key_name(new_obsession)].")
 
 /datum/antagonist/obsessed/greet()
-	if(!trauma?.obsession)
+	if(QDELETED(obsession))
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='obsession big'>You are the Obsessed!</span>")
 	to_chat(owner, "<span class='obsession bold'>Realization floods over you and everything that's happened this shift makes sense.</span>")
-	to_chat(owner, "<span class='obsession bold'><span class='name obsessedshadow'>[trauma.obsession.name]</span> has no idea how much danger they're in and you're the only person that can be there for them.</span>")
-	to_chat(owner, "<span class='obsession bold'>Nobody else can be trusted, they are all liars and will use deceit to stab you and <span class='name obsessedshadow'>[trauma.obsession.name]</span> in the back as soon as they can.</span>")
+	to_chat(owner, "<span class='obsession bold'><span class='name obsessedshadow'>[obsession.name]</span> has no idea how much danger they're in and you're the only person that can be there for them.</span>")
+	to_chat(owner, "<span class='obsession bold'>Nobody else can be trusted, they are all liars and will use deceit to stab you and <span class='name obsessedshadow'>[obsession.name]</span> in the back as soon as they can.</span>")
 	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",
@@ -93,7 +98,7 @@
 /datum/antagonist/obsessed/Destroy()
 	if(trauma)
 		qdel(trauma)
-	. = ..()
+	return ..()
 
 /datum/antagonist/obsessed/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/current = mob_override || owner.current
@@ -103,17 +108,17 @@
 	var/mob/living/current = mob_override || owner.current
 	update_obsession_icons_removed(current)
 
-/datum/antagonist/obsessed/proc/forge_objectives(datum/mind/obsession_mind)
+/datum/antagonist/obsessed/proc/forge_objectives()
 	var/list/objectives_left = list("spendtime", "polaroid", "hug")
 	var/datum/objective/protect/obsessed/yandere = new
 	yandere.owner = owner
-	yandere.set_target(obsession_mind)
-	var/datum/quirk/family_heirloom/family_heirloom = locate() in obsession_mind.quirks
+	yandere.set_target(obsession)
+	var/datum/quirk/family_heirloom/family_heirloom = locate() in obsession.quirks
 
 	if(!QDELETED(family_heirloom?.heirloom))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
-	if(obsession_mind.assigned_role && obsession_mind.assigned_role != JOB_NAME_CAPTAIN)
+	if(obsession_mind.assigned_role && obsession.assigned_role != JOB_NAME_CAPTAIN)
 		objectives_left += "jealous"//if they have no coworkers, jealousy will pick someone else on the station. this will never be a free objective, nice.
 
 	for(var/i in 1 to 3)
@@ -123,32 +128,32 @@
 			if("spendtime")
 				var/datum/objective/spendtime/spendtime = new
 				spendtime.owner = owner
-				spendtime.set_target(obsession_mind)
+				spendtime.set_target(obsession)
 				objectives += spendtime
 				log_objective(owner, spendtime.explanation_text)
 			if("polaroid")
 				var/datum/objective/polaroid/polaroid = new
 				polaroid.owner = owner
-				polaroid.set_target(obsession_mind)
+				polaroid.set_target(obsession)
 				objectives += polaroid
 				log_objective(owner, polaroid.explanation_text)
 			if("hug")
 				var/datum/objective/hug/hug = new
 				hug.owner = owner
-				hug.set_target(obsession_mind)
+				hug.set_target(obsession)
 				objectives += hug
 				log_objective(owner, hug.explanation_text)
 			if("heirloom")
 				var/datum/objective/steal/heirloom_thief/heirloom_thief = new
 				heirloom_thief.owner = owner
-				heirloom_thief.set_target(obsession_mind)//while you usually wouldn't need this for stealing, we need the name of the obsession
+				heirloom_thief.set_target(obsession)//while you usually wouldn't need this for stealing, we need the name of the obsession
 				heirloom_thief.steal_target = family_heirloom.heirloom
 				objectives += heirloom_thief
 				log_objective(owner, heirloom_thief.explanation_text)
 			if("jealous")
 				var/datum/objective/assassinate/jealous/jealous = new
 				jealous.owner = owner
-				jealous.obsession = obsession_mind
+				jealous.obsession = obsession
 				jealous.find_target()//will reroll into a coworker on the objective itself
 				objectives += jealous
 				log_objective(owner, jealous.explanation_text)
@@ -176,18 +181,21 @@
 			if(!objective.check_completion())
 				objectives_complete = FALSE
 				break
-	if(trauma)
-		if(trauma.total_time_creeping > 0)
-			report += "<span class='greentext'>The [name] spent a total of [DisplayTimeText(trauma.total_time_creeping)] being near [trauma.obsession]!</span>"
+	if(!cured)
+		if(trauma)
+			if(trauma.total_time_creeping > 0)
+				report += "<span class='greentext'>The [name] spent a total of [DisplayTimeText(trauma.total_time_creeping)] being near [obsession]!</span>"
+			else
+				report += "<span class='redtext'>The [name] did not go near their obsession the entire round! That's extremely impressive, but you are a shit [name]!</span>"
 		else
-			report += "<span class='redtext'>The [name] did not go near their obsession the entire round! That's extremely impressive, but you are a shit [name]!</span>"
-	else
-		report += "<span class='redtext'>The [name] had no trauma attached to their antagonist ways! Either it bugged out or an admin incorrectly gave this good samaritan antag and it broke! You might as well show yourself!!</span>"
+			report += "<span class='redtext'>The [name] had no trauma attached to their antagonist ways! Either it bugged out or an admin incorrectly gave this good samaritan antag and it broke! You might as well show yourself!!</span>"
 
-	if(!length(objectives) || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
+		if(!length(objectives) || objectives_complete)
+			report += "<span class='greentext big'>The [name] was successful!</span>"
+		else
+			report += "<span class='redtext big'>The [name] has failed!</span>"
 	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+		report += "<span class='bluetext big'>The [name] was cured of their obsession...</span>"
 
 	return report.Join("<br>")
 

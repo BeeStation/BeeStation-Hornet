@@ -16,6 +16,7 @@
 	var/datum/antagonist/obsessed/antagonist
 	var/regex/name_regex
 	var/viewing = FALSE //it's a lot better to store if the owner is watching the obsession than checking it twice between two procs
+	var/saw_dead = FALSE
 	var/revealed = FALSE
 	var/child_trauma = FALSE
 	var/static/revealed_scan_desc = "psychotic schizophrenic delusions"
@@ -54,13 +55,14 @@
 			return
 	setup_name_regex()
 	RegisterSignal(obsession, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
+	RegisterSignal(owner.mind, COMSIG_MIND_TRANSFER_TO, PROC_REF(on_mind_transfer))
 	gain_text = "<span class='warning'>You hear a sickening, raspy voice in your head. It wants one small task of you...</span>"
 	if(QDELETED(antagonist))
 		antagonist = owner.mind.add_antag_datum(new /datum/antagonist/obsessed(src))
 	..()
 	if(!length(antagonist.objectives))
 		//antag stuff//
-		antagonist.forge_objectives(obsession)
+		antagonist.forge_objectives()
 		antagonist.greet()
 
 /datum/brain_trauma/special/obsessed/on_life()
@@ -79,8 +81,13 @@
 	if(viewing)
 		if(obsession_body.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/obsessed_saw_dead, obsession.name)
+			saw_dead = TRUE
 			return
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/obsessed_creeping, obsession.name)
+		if(saw_dead) // HOLY SHIT THEY'RE ALIVE!!! THANK GOODNESS!!
+			saw_dead = FALSE
+			var/datum/component/mood/mood = owner.GetComponent(/datum/component/mood)
+			mood.setSanity(SANITY_MAXIMUM, maximum = SANITY_MAXIMUM)
 		total_time_creeping += 2 SECONDS
 		if(!revealed && (total_time_creeping >= OBSESSION_REVEAL_TIME))
 			reveal()
@@ -92,6 +99,14 @@
 
 /datum/brain_trauma/special/obsessed/on_clone()
 	return new /datum/brain_trauma/special/obsessed(src)
+
+/datum/brain_trauma/special/obsessed/proc/on_mind_transfer(datum/_source, mob/living/carbon/old_mob, mob/living/carbon/new_mob)
+	SIGNAL_HANDLER
+	if(!istype(new_mob) || new_mob.has_trauma_type(type))
+		return
+	new_mob.gain_trauma(on_clone())
+	if(istype(old_mob))
+		qdel(src)
 
 /datum/brain_trauma/special/obsessed/proc/reveal()
 	revealed = TRUE
@@ -110,17 +125,20 @@
 
 /datum/brain_trauma/special/obsessed/proc/out_of_view()
 	time_spent_away += 2 SECONDS
-	if(time_spent_away > 3 MINUTES) //3 minutes
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/obsessed_not_creeping_severe, obsession.name)
-	else
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/obsessed_not_creeping, obsession.name)
+	var/moodlet = (time_spent_away > 3 MINUTES) ? /datum/mood_event/obsessed_not_creeping_severe : /datum/mood_event/obsessed_not_creeping
+	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", moodlet, obsession.name)
 
 /datum/brain_trauma/special/obsessed/on_lose()
-	..()
-	UnregisterSignal(obsession, COMSIG_MIND_CRYOED)
+	. = ..()
 	if(antagonist?.trauma == src)
+		UnregisterSignal(obsession, COMSIG_MIND_CRYOED)
 		antagonist.trauma = null
-		owner.mind.remove_antag_datum(/datum/antagonist/obsessed)
+		antagonist.cured = TRUE
+		if(!QDELETED(owner))
+			SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "obsession")
+			var/datum/component/mood/mood = owner.GetComponent(/datum/component/mood)
+			if(mood.sanity < SANITY_NEUTRAL)
+				mood.setSanity(SANITY_NEUTRAL)
 
 /datum/brain_trauma/special/obsessed/on_hug(mob/living/hugger, mob/living/hugged)
 	if(hugged == obsession.current)
@@ -151,15 +169,22 @@
 	RegisterSignal(obsession, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
 	reset_variables()
 	to_chat(owner, "<span class='warning'>The voices have a new task for you...</span>")
+	antagonist.obsession = obsession
 	antagonist.objectives.Cut()
-	antagonist.forge_objectives(obsession)
+	antagonist.forge_objectives()
 	to_chat(owner, "<span class='obsession bold'>You don't know their connection, but The Voices compel you to stalk <span class='name obsessedshadow'>[obsession.name]</span>, forcing them into a state of constant paranoia.</span>")
 	owner.mind.announce_objectives()
 
 /datum/brain_trauma/special/obsessed/proc/reset_variables()
+	if(!QDELETED(owner))
+		SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "obsession")
+		var/datum/component/mood/mood = owner.GetComponent(/datum/component/mood)
+		if(mood.sanity < SANITY_NEUTRAL)
+			mood.setSanity(SANITY_NEUTRAL)
 	scan_desc = initial(scan_desc)
 	QDEL_NULL(attachedobsessedobj)
 	name_regex = null
+	saw_dead = FALSE
 	viewing = FALSE
 	revealed = FALSE
 	total_time_creeping = 0
