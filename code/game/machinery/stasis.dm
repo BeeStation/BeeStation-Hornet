@@ -6,6 +6,7 @@
 	icon_state = "stasis"
 	density = FALSE
 	can_buckle = TRUE
+	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
 	idle_power_usage = 50
 	active_power_usage = 500
@@ -20,14 +21,8 @@
 
 // dir check for buckle_lying state
 /obj/machinery/stasis/Initialize()
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed)) //This gets called later during initialization
-	return ..()
-
-/obj/machinery/stasis/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/stasis/LateInitialize()
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
+	dir_changed(new_dir = dir)
 	. = ..()
 	initial_link()
 
@@ -169,17 +164,17 @@
 /obj/machinery/stasis/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(I)
 
-/obj/machinery/stasis/multitool_act(mob/living/user, obj/item/I)
-	var/obj/item/multitool/multitool = I
-	if(!I || !istype(I))
-		return ..()
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+REGISTER_BUFFER_HANDLER(/obj/machinery/stasis)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/stasis)
 	if(!panel_open)
-		to_chat(user, "<span class='warning'>\The [src]'s panel must be open in order to add it to \the [multitool]'s buffer.</span>")
-		return
-	multitool.buffer = src
-	to_chat(user, "<span class='notice'>You store the linking data of \the [src] in \the [multitool]'s buffer. Use it on an operating computer to complete linking.</span>")
-	balloon_alert(user, "saved in buffer")
+		to_chat(user, "<span class='warning'>\The [src]'s panel must be open in order to add it to \the [buffer_parent]'s buffer.</span>")
+		return NONE
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You store the linking data of \the [src] in \the [buffer_parent]'s buffer. Use it on an operating computer to complete linking.</span>")
+		balloon_alert(user, "saved in buffer")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/stasis/wrench_act(mob/living/user, obj/item/I) //We want to rotate, but we need to do it in 180 degree rotations.
 	if(panel_open && has_buckled_mobs())

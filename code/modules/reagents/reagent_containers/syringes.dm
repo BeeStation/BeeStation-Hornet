@@ -18,7 +18,7 @@
 	var/proj_piercing = 0 //does it pierce through thick clothes when shot with syringe gun
 	materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
-	var/list/syringediseases = list()
+	var/list/datum/disease/syringe_diseases = list()
 	var/units_per_tick = 1.5
 	var/initial_inject = 5
 
@@ -54,24 +54,19 @@
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
 
-/obj/item/reagent_containers/syringe/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(!syringediseases.len)
-		return ..()
-	if(scan)
-		E.scan(src, syringediseases, user)
-	else
-		E.extrapolate(src, syringediseases, user)
-	return TRUE
+/obj/item/reagent_containers/syringe/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., syringe_diseases)
 
 /obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
-	for(var/datum/disease/D in syringediseases)
+	for(var/datum/disease/D in syringe_diseases)
 		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 			continue
 		L.ForceContractDisease(D)
 	for(var/datum/disease/D in L.diseases)
 		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 			continue
-		syringediseases += D
+		syringe_diseases += D
 
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	. = ..()
@@ -234,7 +229,7 @@
 	. = ..()
 	if(prob(75))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(7, 9), rand(3,4), infected = src)
-		syringediseases += R
+		syringe_diseases += R
 
 /obj/item/reagent_containers/syringe/epinephrine
 	name = "syringe (epinephrine)"

@@ -104,6 +104,8 @@
 	name = "\proper space"
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /turf/open/floor/holofloor/space/Initialize(mapload)
 	icon_state = SPACE_ICON_STATE // so realistic
@@ -115,6 +117,8 @@
 	icon_state = "speedspace_ns_1"
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /turf/open/floor/holofloor/hyperspace/nograv/check_gravity()
     return FALSE

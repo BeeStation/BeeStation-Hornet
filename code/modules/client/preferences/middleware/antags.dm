@@ -94,6 +94,8 @@
 	return any_changed
 
 /datum/preference_middleware/antags/proc/get_antag_bans()
+	if(!preferences.parent)
+		return list()
 	var/list/antag_bans = list()
 	for(var/type in GLOB.role_preference_entries)
 		var/datum/role_preference/pref = GLOB.role_preference_entries[type]
@@ -106,6 +108,8 @@
 	return antag_bans
 
 /datum/preference_middleware/antags/proc/get_antag_living_playtime_hours_left()
+	if(!preferences.parent)
+		return list()
 	var/list/antag_living_playtime_hours_left = list()
 
 	for(var/type in GLOB.role_preference_entries)

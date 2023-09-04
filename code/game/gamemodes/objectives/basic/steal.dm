@@ -38,10 +38,20 @@ GLOBAL_LIST_EMPTY(possible_items)
 		explanation_text = "Steal [targetinfo.name]"
 		if (length(targetinfo.special_equipment))
 			generate_stash(targetinfo.special_equipment)
+		update_explanation_text()
 		return steal_target
 	else
 		explanation_text = "Free objective"
 		return
+
+/datum/objective/steal/update_explanation_text()
+	if (!targetinfo)
+		explanation_text = "Free objective"
+		return
+	explanation_text = "Steal [targetinfo.name]"
+	if (length(targetinfo.special_equipment))
+		explanation_text += " Check your character's notes for the location of your special equipment."
+	return ..()
 
 /datum/objective/steal/admin_edit(mob/admin)
 	var/list/possible_items_all = GLOB.possible_items
