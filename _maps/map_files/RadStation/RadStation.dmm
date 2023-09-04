@@ -2928,16 +2928,12 @@
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "aUl" = (
-/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
-	dir = 4;
-	node1_concentration = 0.21;
-	node2_concentration = 0.79
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped/inverse,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "aUt" = (
@@ -53774,7 +53770,7 @@
 /obj/effect/decal/cleanable/glass{
 	dir = 8
 	},
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "qHl" = (
@@ -67440,7 +67436,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/banner/medical,
+/obj/item/banner/medical/mundane,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical/morgue)

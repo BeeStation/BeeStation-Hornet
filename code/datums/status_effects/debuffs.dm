@@ -1068,7 +1068,7 @@
 				var/spawns = rand(1, 3 + (adult * 3))
 				for(var/I in 1 to (spawns + spawnbonus))
 					var/mob/living/simple_animal/hostile/redgrub/grub = new(S.loc)
-					grub.grubdisease = diseases
+					grub.grub_diseases |= diseases
 					grub.food += 15
 				playsound(S, 'sound/effects/attackblob.ogg', 60, 1)
 				S.visible_message("<span class='warning'>[S] is eaten from the inside by [spawns] red grubs, leaving no trace!</span>")

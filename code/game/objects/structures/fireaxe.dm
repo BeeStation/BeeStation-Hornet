@@ -58,7 +58,7 @@
 			if(!user.transferItemToLoc(F, src))
 				return
 			fireaxe = F
-			to_chat(user, "<span class='caution'>You place the [F.name] back in the [name].</span>")
+			to_chat(user, "<span class='notice'>You place the [F.name] back in the [name].</span>")
 			update_appearance()
 			return
 		else if(!broken)
@@ -113,7 +113,7 @@
 		if(fireaxe)
 			user.put_in_hands(fireaxe)
 			fireaxe = null
-			to_chat(user, "<span class='caution'>You take the fire axe from the [name].</span>")
+			to_chat(user, "<span class='notice'>You take the fire axe from the [name].</span>")
 			add_fingerprint(user)
 			update_appearance()
 			return
@@ -167,10 +167,10 @@
 		add_overlay("glass_raised")
 
 /obj/structure/fireaxecabinet/proc/toggle_lock(mob/user)
-	to_chat(user, "<span class = 'caution'> Resetting circuitry...</span>")
+	to_chat(user, "<span class='notice'> Resetting circuitry...</span>")
 	playsound(src, 'sound/machines/locktoggle.ogg', 50, 1)
 	if(do_after(user, 20, target = src))
-		to_chat(user, "<span class='caution'>You [locked ? "disable" : "re-enable"] the locking modules.</span>")
+		to_chat(user, "<span class='notice'>You [locked ? "disable" : "re-enable"] the locking modules.</span>")
 		locked = !locked
 		update_appearance()
 

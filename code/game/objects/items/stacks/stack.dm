@@ -163,7 +163,7 @@
 		"res_amount" = R.res_amount,
 		"max_res_amount" = R.max_res_amount,
 		"req_amount" = R.req_amount,
-		"ref" = "\ref[R]",
+		"ref" = "[REF(R)]",
 	)
 
 /**
