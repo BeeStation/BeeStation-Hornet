@@ -327,8 +327,7 @@
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/holosign_creator/security,
 		/obj/item/club,
-		/obj/item/shield/riot/tele,
-		/obj/item/gun/energy/disabler
+		/obj/item/shield/riot/tele
 		))
 	STR.can_hold = can_hold
 
