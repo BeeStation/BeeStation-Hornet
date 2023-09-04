@@ -65,12 +65,13 @@
 /datum/wires/airlock/on_pulse(wire)
 	set waitfor = FALSE
 	var/obj/machinery/door/airlock/A = holder
-	if(A.hasPower()) //Multitool has no effect at all if the door has lost power
+	switch(wire)
+		if(WIRE_POWER1, WIRE_POWER2) // Pulse to lose power, or reset the delay before restoring power if already lost
+			A.loseMainPower()
+		if(WIRE_BACKUP1, WIRE_BACKUP2) // Pulse to lose backup power, or reset the delay before restoring power if already lost
+			A.loseBackupPower()
+	if(A.hasPower()) //Multitool has no effect on other wires if the door has no power
 		switch(wire)
-			if(WIRE_POWER1, WIRE_POWER2) // Pulse to loose power.
-				A.loseMainPower()
-			if(WIRE_BACKUP1, WIRE_BACKUP2) // Pulse to loose backup power.
-				A.loseBackupPower()
 			if(WIRE_OPEN) // Pulse to open door (only works not emagged and ID wire is cut or no access is required).
 				if(A.obj_flags & EMAGGED)
 					return

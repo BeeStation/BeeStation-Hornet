@@ -493,19 +493,20 @@
 	ui_update()
 	update_icon()
 
-/obj/machinery/door/airlock/proc/loseMainPower()
-	if(secondsMainPowerLost <= 0)
+/obj/machinery/door/airlock/proc/loseMainPower(emagged_powerloss)
+	if(emagged_powerloss)
+		secondsMainPowerLost = 36000 //Ten hours, effectively indefinite - may be reset by power cycling the airlock with a multitool or wirecutters
+		secondsBackupPowerLost = 36000
+	else
 		secondsMainPowerLost = 60
-		if(secondsBackupPowerLost < 10)
-			secondsBackupPowerLost = 10
+		secondsBackupPowerLost = CLAMP(10, secondsBackupPowerLost, 60)
 	if(!spawnPowerRestoreRunning)
 		spawnPowerRestoreRunning = TRUE
 		handlePowerRestoreLoop()
 	update_icon()
 
 /obj/machinery/door/airlock/proc/loseBackupPower()
-	if(secondsBackupPowerLost < 60)
-		secondsBackupPowerLost = 60
+	secondsBackupPowerLost = 60
 	if(!spawnPowerRestoreRunning)
 		spawnPowerRestoreRunning = TRUE
 		handlePowerRestoreLoop()
@@ -1340,8 +1341,7 @@
 	if(!open())
 		update_icon(AIRLOCK_CLOSED, 1)
 	bolt()
-	loseMainPower()
-	loseBackupPower()
+	loseMainPower(TRUE)
 
 /obj/machinery/door/airlock/attack_alien(mob/living/carbon/alien/humanoid/user)
 	add_fingerprint(user)
