@@ -23,13 +23,6 @@
 /obj/machinery/stasis/Initialize()
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
 	dir_changed(new_dir = dir)
-	return ..()
-
-/obj/machinery/stasis/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/stasis/LateInitialize()
 	. = ..()
 	initial_link()
 

@@ -86,7 +86,7 @@
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"
 ///! from base of atom/teleport_act(): ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
-///! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+///! from base of atom/Exited(): (mob/user, obj/item/extrapolator/extrapolator, dry_run, list/result)
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"
 ///!from base of atom/singularity_pull(): (/datum/component/singularity, current_size)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"

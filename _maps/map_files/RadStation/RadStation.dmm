@@ -2928,16 +2928,12 @@
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "aUl" = (
-/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
-	dir = 4;
-	node1_concentration = 0.21;
-	node2_concentration = 0.79
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped/inverse,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "aUt" = (
@@ -15590,15 +15586,15 @@
 /area/science/shuttledock)
 "eOo" = (
 /obj/structure/table/reinforced,
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_x = 8;
 	pixel_y = 12
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_x = 8;
 	pixel_y = 7
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -15606,10 +15602,10 @@
 	pixel_x = -6;
 	pixel_y = 9
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_y = 10
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_y = 5
 	},
 /obj/item/storage/lockbox/loyalty,
@@ -25231,7 +25227,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "hEO" = (
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "hES" = (
