@@ -138,11 +138,11 @@
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
 
-/obj/machinery/vendor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/vendor/item_interact(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
-		return
+		return TRUE
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 	return ..()
 
 /obj/machinery/vendor/ex_act(severity, target)
@@ -233,10 +233,10 @@
 	src.equipment_path = path
 	src.cost = cost
 
-/obj/machinery/vendor/mining/attackby(obj/item/I, mob/user, params)
+/obj/machinery/vendor/mining/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_voucher))
 		RedeemVoucher(I, user)
-		return
+		return TRUE
 	return ..()
 
 /obj/machinery/vendor/mining/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
@@ -309,18 +309,19 @@
 	icon_state = "data_1"
 	var/points = 500
 
-/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
+/obj/item/card/mining_point_card/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		if(points)
 			var/obj/item/card/id/C = I
 			if(!C.registered_account)
 				to_chat(user, "<span class='info'>[C] has no registered account!</span>")
-				return ..()
+				return TRUE
 			C.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, points)
 			to_chat(user, "<span class='info'>You transfer [points] points to [C.registered_account.account_holder]'s bank account.</span>")
 			points = 0
 		else
 			to_chat(user, "<span class='info'>There's no points left on [src].</span>")
+		return TRUE
 	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)

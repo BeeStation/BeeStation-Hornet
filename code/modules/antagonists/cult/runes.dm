@@ -542,18 +542,19 @@ structure_check() searches for nearby cultist structures required for the invoca
 	else
 		new /obj/eldritch/narsie(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
-/obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+/obj/effect/rune/narsie/item_interact(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
 		user.visible_message("<span class='warning'>[user.name] begins erasing [src]...</span>", "<span class='notice'>You begin erasing [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
 			log_game("Summon Narsie rune erased by [key_name(user)] with [I.name]")
 			message_admins("[ADMIN_LOOKUPFLW(user)] erased a Narsie rune with [I.name]")
-			..()
+		return TRUE
 	else
 		if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
 			log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
 			message_admins("[ADMIN_LOOKUPFLW(user)] erased a Narsie rune with a null rod")
-			..()
+			return TRUE
+		return ..()
 
 //Rite of Resurrection: Requires a dead or inactive cultist. When reviving the dead, you can only perform one revival for every sacrifice your cult has carried out.
 /obj/effect/rune/raise_dead

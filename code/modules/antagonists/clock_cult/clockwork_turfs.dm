@@ -394,9 +394,10 @@
 /obj/machinery/door/airlock/clockwork/ratvar_act()
 	return 0
 
-/obj/machinery/door/airlock/clockwork/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/airlock/clockwork/item_interact(obj/item/I, mob/living/user, params)
 	if(!attempt_construction(I, user))
 		return ..()
+	return TRUE
 
 /obj/machinery/door/airlock/clockwork/allowed(mob/M)
 	if(is_servant_of_ratvar(M))

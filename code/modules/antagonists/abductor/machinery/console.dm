@@ -243,11 +243,13 @@
 	vest = V
 	return TRUE
 
-/obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
+/obj/machinery/abductor/console/item_interact(obj/O, mob/user, params)
 	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
 		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
+		return TRUE
 	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
 		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
+		return TRUE
 	else
 		return ..()
 

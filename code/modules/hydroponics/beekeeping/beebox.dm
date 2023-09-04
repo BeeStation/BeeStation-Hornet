@@ -144,26 +144,26 @@
 		. += "<span class='warning'>There's no room for more honeycomb!</span>"
 
 
-/obj/structure/beebox/attackby(obj/item/I, mob/user, params)
+/obj/structure/beebox/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/honey_frame))
 		var/obj/item/honey_frame/HF = I
 		if(honey_frames.len < BEEBOX_MAX_FRAMES)
 			visible_message("<span class='notice'>[user] adds a frame to the apiary.</span>")
 			if(!user.transferItemToLoc(HF, src))
-				return
+				return TRUE
 			honey_frames += HF
 		else
 			to_chat(user, "<span class='warning'>There's no room for any more frames in the apiary!</span>")
-		return
+		return TRUE
 
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(default_unfasten_wrench(user, I, time = 20))
-			return
+			return TRUE
 
 	if(istype(I, /obj/item/queen_bee))
 		if(queen_bee)
 			to_chat(user, "<span class='warning'>This hive already has a queen!</span>")
-			return
+			return TRUE
 
 		var/obj/item/queen_bee/qb = I
 		user.temporarilyRemoveItemFromInventory(qb)
@@ -191,9 +191,9 @@
 			to_chat(user, "<span class='warning'>The queen bee disappeared! Disappearing bees have been in the news lately...</span>")
 
 		qdel(qb)
-		return
+		return TRUE
 
-	..()
+	return ..()
 
 /obj/structure/beebox/interact(mob/user)
 	. = ..()

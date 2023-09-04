@@ -40,11 +40,12 @@
 	throw_speed = 3
 	throw_range = 7
 
-/obj/item/grown/corncob/attackby(obj/item/W, mob/user, params)
+/obj/item/grown/corncob/item_interact(obj/item/W, mob/user, params)
 	if(W.is_sharp())
 		to_chat(user, "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>")
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
 		qdel(src)
+		return TRUE
 	else
 		return ..()
 

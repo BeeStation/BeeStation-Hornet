@@ -387,24 +387,24 @@
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  //in case seeds have some special interaction with special chems
 	return
 
-/obj/item/seeds/attackby(obj/item/O, mob/user, params)
+/obj/item/seeds/item_interact(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/plant_analyzer))
 		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, EXAMINE_BLOCK("<span class='notice'>[text]</span>"))
 
-		return
+		return TRUE
 
 	if (istype(O, /obj/item/pen))
 		var/penchoice = input(user, "What would you like to edit?") as null|anything in list("Plant Name","Plant Description","Seed Description")
 		if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
-			return
+			return TRUE
 
 		if(penchoice == "Plant Name")
 			var/input = stripped_input(user,"What do you want to name the plant?", default=plantname, max_length=MAX_NAME_LEN)
 			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
-				return
+				return TRUE
 			name = "pack of [input] seeds"
 			plantname = input
 			renamedByPlayer = TRUE
@@ -412,15 +412,16 @@
 		if(penchoice == "Plant Description")
 			var/input = stripped_input(user,"What do you want to change the description of the plant to?", default=plantdesc, max_length=MAX_NAME_LEN)
 			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
-				return
+				return TRUE
 			plantdesc = input
 
 		if(penchoice == "Seed Description")
 			var/input = stripped_input(user,"What do you want to change the description of the seeds to?", default=desc, max_length=MAX_NAME_LEN)
 			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
-				return
+				return TRUE
 			desc = input
-	..() // Fallthrough to item/attackby() so that bags can pick seeds up
+		return TRUE
+	return ..() // Fallthrough to item/item_interact() so that bags can pick seeds up
 
 /obj/item/seeds/proc/randomize_stats()
 	set_lifespan(rand(25, 60))

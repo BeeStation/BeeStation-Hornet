@@ -110,17 +110,16 @@
 /turf/open/space/handle_slip()
 	return
 
-/turf/open/space/attackby(obj/item/C, mob/user, params)
-	..()
+/turf/open/space/item_interact(obj/item/C, mob/user, params)
 	if(!CanBuildHere())
-		return
+		return ..()
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
 		if(W)
 			to_chat(user, "<span class='warning'>There is already a catwalk here!</span>")
-			return
+			return TRUE
 		if(L)
 			if(R.use(1))
 				to_chat(user, "<span class='notice'>You construct a catwalk.</span>")
@@ -128,14 +127,14 @@
 				new/obj/structure/lattice/catwalk(src)
 			else
 				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
-			return
+			return TRUE
 		if(R.use(1))
 			to_chat(user, "<span class='notice'>You construct a lattice.</span>")
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			ReplaceWithLattice()
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-		return
+		return TRUE
 	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
@@ -149,6 +148,8 @@
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place iron rods first.</span>")
+		return TRUE
+	return ..()
 
 /turf/open/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

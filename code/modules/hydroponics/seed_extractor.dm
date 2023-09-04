@@ -78,19 +78,19 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Extracting <b>[seed_multiplier]</b> seed(s) per piece of produce.<br>Machine can store up to <b>[max_seeds]%</b> seeds.</span>"
 
-/obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
+/obj/machinery/seed_extractor/item_interact(obj/item/O, mob/user, params)
 
 	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", O))
-		return
+		return TRUE
 
 	if(default_pry_open(O))
-		return
+		return TRUE
 
 	if(default_unfasten_wrench(user, O))
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(O))
-		return
+		return TRUE
 
 	if(istype(O, /obj/item/storage/bag/plants))
 		var/obj/item/storage/P = O
@@ -104,20 +104,17 @@
 			to_chat(user, "<span class='notice'>You put as many seeds from \the [O.name] into [src] as you can.</span>")
 		else
 			to_chat(user, "<span class='notice'>There are no seeds in \the [O.name].</span>")
-		return
+		return TRUE
 
 	else if(seedify(O,-1, src, user))
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
-		return
+		return TRUE
 	else if (istype(O, /obj/item/seeds))
 		if(add_seed(O))
 			to_chat(user, "<span class='notice'>You add [O] to [src.name].</span>")
 			updateUsrDialog()
-		return
-	else if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
-	else
-		return ..()
+		return TRUE
+	to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
 
 /**
   * Generate seed string

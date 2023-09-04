@@ -15,14 +15,16 @@
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/stack/ore)
 
-/obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
+/obj/structure/ore_box/item_interact(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/stack/ore))
 		user.transferItemToLoc(W, src)
 		ui_update()
+		return TRUE
 	else if(SEND_SIGNAL(W, COMSIG_CONTAINS_STORAGE))
 		SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src)
 		to_chat(user, "<span class='notice'>You empty the ore in [W] into \the [src].</span>")
 		ui_update()
+		return TRUE
 	else
 		return ..()
 

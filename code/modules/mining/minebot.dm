@@ -187,11 +187,9 @@
 	check_friendly_fire = FALSE
 
 /// Handles installing new tools/upgrades and interacting with the minebot
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/user, params)
+/mob/living/simple_animal/hostile/mining_drone/item_interact(obj/item/item, mob/user, params)
 	if(user == src)
 		return TRUE // Returning true in most cases prevents afterattacks from going off and whacking/shooting the minebot
-	if(user.a_intent != INTENT_HELP)
-		return ..() // For smacking
 	if(istype(item, /obj/item/minebot_upgrade))
 		if(!do_after(user, 20, src))
 			return TRUE
@@ -219,7 +217,7 @@
 		return TRUE
 	if(istype(item, /obj/item/gun/energy/plasmacutter))
 		if(health != maxHealth)
-			return // For repairs
+			return TRUE // For repairs
 		if(!do_after(user, 20, src))
 			return TRUE
 		if(stored_cutter)
@@ -243,8 +241,8 @@
 		RegisterSignal(stored_drill, COMSIG_PARENT_QDELETING, PROC_REF(on_drill_qdel))
 		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
-	..()
 	check_friendly_fire = FALSE
+	return ..()
 
 // Procs handling deletion of items
 /mob/living/simple_animal/hostile/mining_drone/proc/on_scanner_qdel()
@@ -673,7 +671,7 @@
 	return list("Stored Medipen", "None")
 
 // Handles manually loading/unloading medipens.
-/obj/item/minebot_upgrade/medical/attackby(obj/item/item, mob/living/user, params)
+/obj/item/minebot_upgrade/medical/item_interact(obj/item/item, mob/living/user, params)
 	if(istype(item, /obj/item/reagent_containers/hypospray/medipen))
 		if(stored_medipen)
 			to_chat(user, "<span class='notice'>You replace [stored_medipen] with [item].</span>")

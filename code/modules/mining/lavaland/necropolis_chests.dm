@@ -529,8 +529,8 @@
 	can_destroy = TRUE
 	qdel(src)
 
-/obj/effect/immortality_talisman/attackby()
-	return
+/obj/effect/immortality_talisman/item_interact()
+	return FALSE
 
 /obj/effect/immortality_talisman/ex_act()
 	return

@@ -50,7 +50,7 @@
 	/obj/item/reagent_containers/food/snacks/grown/ambrosia,
 	/obj/item/reagent_containers/food/snacks/grown/wheat))
 
-/obj/item/grown/log/attackby(obj/item/W, mob/user, params)
+/obj/item/grown/log/item_interact(obj/item/W, mob/user, params)
 	if(W.is_sharp())
 		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", MSG_VISUAL)
 		var/seed_modifier = 0
@@ -64,6 +64,7 @@
 		if(plank.amount > old_plank_amount)
 			to_chat(user, "<span class='notice'>You add the newly-formed [plank_name] to the stack. It now contains [plank.amount] [plank_name].</span>")
 		qdel(src)
+		return TRUE
 
 	if(CheckAccepted(W))
 		var/obj/item/reagent_containers/food/snacks/grown/leaf = W
@@ -74,9 +75,9 @@
 			usr.put_in_active_hand(T)
 			qdel(leaf)
 			qdel(src)
-			return
 		else
 			to_chat(usr, "<span class ='warning'>You must dry this first!</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -187,7 +188,7 @@
 	)
 	AddComponent(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
+/obj/structure/bonfire/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle && !grill)
 		var/obj/item/stack/rods/R = W
 		var/choice = input(user, "What would you like to construct?", "Bonfire") as null|anything in list("Stake","Grill")
@@ -206,11 +207,11 @@
 				to_chat(user, "<span class='italics'>You add a grill to \the [src].")
 				add_overlay("bonfire_grill")
 			else
-				return ..()
+				return TRUE
 	if(W.is_hot())
 		StartBurning()
 	if(grill)
-		if(user.a_intent != INTENT_HARM && !(W.item_flags & ABSTRACT))
+		if(!(W.item_flags & ABSTRACT))
 			if(user.temporarilyRemoveItemFromInventory(W))
 				W.forceMove(get_turf(src))
 				var/list/modifiers = params2list(params)
@@ -222,6 +223,7 @@
 				W.pixel_y = W.base_pixel_y + clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
 		else
 			return ..()
+	return TRUE
 
 
 /obj/structure/bonfire/attack_hand(mob/user)

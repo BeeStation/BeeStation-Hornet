@@ -96,18 +96,18 @@
 	else
 		return TRUE
 
-/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
+/obj/machinery/nuclearbomb/item_interact(obj/item/I, mob/user, params)
 	if (istype(I, /obj/item/disk/nuclear))
 		if(!disk_check(I))
-			return
+			return TRUE
 		if(!user.transferItemToLoc(I, src))
-			return
+			return TRUE
 		auth = I
 		update_ui_mode()
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 		add_fingerprint(user)
 		ui_update()
-		return
+		return TRUE
 
 	switch(deconstruction_state)
 		if(NUKESTATE_INTACT)
@@ -117,18 +117,18 @@
 					deconstruction_state = NUKESTATE_UNSCREWED
 					to_chat(user, "<span class='notice'>You remove the screws from [src]'s front panel.</span>")
 					update_icon()
-				return
+				return TRUE
 
 		if(NUKESTATE_PANEL_REMOVED)
 			if(I.tool_behaviour == TOOL_WELDER)
 				if(!I.tool_start_check(user, amount=1))
-					return
+					return TRUE
 				to_chat(user, "<span class='notice'>You start cutting [src]'s inner plate...</span>")
 				if(I.use_tool(src, user, 80, volume=100, amount=1))
 					to_chat(user, "<span class='notice'>You cut [src]'s inner plate.</span>")
 					deconstruction_state = NUKESTATE_WELDED
 					update_icon()
-				return
+				return TRUE
 		if(NUKESTATE_CORE_EXPOSED)
 			if(istype(I, /obj/item/nuke_core_container))
 				var/obj/item/nuke_core_container/core_box = I
@@ -141,10 +141,10 @@
 						core = null
 					else
 						to_chat(user, "<span class='warning'>You fail to load the plutonium core into [core_box]. [core_box] has already been used!</span>")
-				return
+				return TRUE
 			if(istype(I, /obj/item/stack/sheet/iron))
 				if(!I.tool_start_check(user, amount=20))
-					return
+					return TRUE
 
 				to_chat(user, "<span class='notice'>You begin repairing [src]'s inner metal plate...</span>")
 				if(I.use_tool(src, user, 100, amount=20))
@@ -152,7 +152,7 @@
 					deconstruction_state = NUKESTATE_PANEL_REMOVED
 					STOP_PROCESSING(SSobj, core)
 					update_icon()
-				return
+				return TRUE
 	. = ..()
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/tool)
@@ -557,7 +557,7 @@
 	else
 		to_chat(user, "<span class='danger'>It's empty.</span>")
 
-/obj/machinery/nuclearbomb/beer/attackby(obj/item/W, mob/user, params)
+/obj/machinery/nuclearbomb/beer/item_interact(obj/item/W, mob/user, params)
 	if(W.is_refillable())
 		W.afterattack(keg, user, TRUE) 	// redirect refillable containers to the keg, allowing them to be filled
 		return TRUE 										// pretend we handled the attack, too.
@@ -719,14 +719,14 @@ This is here to make the tiles around the station mininuke change when it's arme
 	if(isobserver(user) || HAS_TRAIT(user.mind, TRAIT_DISK_VERIFIER))
 		. += "<span class='warning'>The serial numbers on [src] are incorrect.</span>"
 
-/obj/item/disk/nuclear/attackby(obj/item/I, mob/living/user, params)
+/obj/item/disk/nuclear/item_interact(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/claymore/highlander) && !fake)
 		var/obj/item/claymore/highlander/H = I
 		if(H.nuke_disk)
 			to_chat(user, "<span class='notice'>Wait... what?</span>")
 			qdel(H.nuke_disk)
 			H.nuke_disk = null
-			return
+			return TRUE
 		user.visible_message("<span class='warning'>[user] captures [src]!</span>", "<span class='userdanger'>You've got the disk! Defend it with your life!</span>")
 		forceMove(H)
 		H.nuke_disk = src

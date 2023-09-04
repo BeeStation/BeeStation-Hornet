@@ -175,15 +175,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	return COMPONENT_BUFFER_RECIEVED
 
-/obj/machinery/mineral/processing_unit_console/attackby(obj/item/W, mob/user, params)
+/obj/machinery/mineral/processing_unit_console/item_interact(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
-		return
+		return TRUE
 
 	if(default_unfasten_wrench(user, W))
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(W))
-		return
+		return TRUE
 
 	return ..()
 
@@ -250,15 +250,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 		register_input_turf() // register the new one
 		return TRUE
 
-/obj/machinery/mineral/processing_unit/attackby(obj/item/W, mob/user, params)
+/obj/machinery/mineral/processing_unit/item_interact(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
-		return
+		return TRUE
 
 	if(default_unfasten_wrench(user, W))
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(W))
-		return
+		return TRUE
 
 	return ..()
 

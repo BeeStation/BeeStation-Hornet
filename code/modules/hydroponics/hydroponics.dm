@@ -58,18 +58,17 @@
 		myseed = null
 	return ..()
 
-/obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
-	if (user.a_intent != INTENT_HARM)
-		// handle opening the panel
-		if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
-			return
+/obj/machinery/hydroponics/constructable/item_interact(obj/item/I, mob/user, params)
+	// handle opening the panel
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+		return TRUE
 
-		// handle deconstructing the machine, if permissible
-		if(I.tool_behaviour == TOOL_CROWBAR && using_irrigation)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
-			return
-		else if(default_deconstruction_crowbar(I))
-			return
+	// handle deconstructing the machine, if permissible
+	if(I.tool_behaviour == TOOL_CROWBAR && using_irrigation)
+		to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+		return TRUE
+	else if(default_deconstruction_crowbar(I))
+		return TRUE
 
 	return ..()
 
@@ -710,12 +709,12 @@
 			else
 				to_chat(user, "<span class='warning'>Nothing happens...</span>")
 
-/obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
+/obj/machinery/hydroponics/item_interact(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
 	if(istype(O, /obj/item/reagent_containers) || IS_EDIBLE(O))  // Syringe stuff (and other reagent containers now too). Edibles also have reagents.
 		if(SEND_SIGNAL(O, COMSIG_EDIBLE_ON_COMPOST) & COMPONENT_EDIBLE_BLOCK_COMPOST)
 			to_chat(user, "<span class='warning'>You can't compost that!</span>")
-			return ..()
+			return TRUE
 
 		var/obj/item/reagent_containers/reagent_source = O
 
@@ -723,11 +722,11 @@
 			var/obj/item/reagent_containers/syringe/syr = reagent_source
 			if(syr.mode != 1)
 				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")
-				return
+				return TRUE
 
 		if(!reagent_source.reagents.total_volume)
 			to_chat(user, "<span class='notice'>[reagent_source] is empty.</span>")
-			return 1
+			return TRUE
 
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : src
@@ -787,14 +786,14 @@
 			H.update_icon()
 		if(reagent_source) // If the source wasn't composted and destroyed
 			reagent_source.update_icon()
-		return 1
+		return TRUE
 
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at [AREACOORD(src)]","kudzu")
 			if(!user.transferItemToLoc(O, src))
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
@@ -805,6 +804,7 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
+		return TRUE
 
 	else if(istype(O, /obj/item/plant_analyzer))
 		var/list/message = list()
@@ -822,6 +822,7 @@
 		message += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
 		message += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
 		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+		return TRUE
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
@@ -830,30 +831,33 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
+		return TRUE
 
 	else if(istype(O, /obj/item/storage/bag/plants))
 		harvest_plant(user)
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			SEND_SIGNAL(O, COMSIG_TRY_STORAGE_INSERT, G, user, TRUE)
+		return TRUE
 
 	else if(default_unfasten_wrench(user, O))
-		return
+		return TRUE
 
 	else if((O.tool_behaviour == TOOL_WIRECUTTER) && unwrenchable)
 		if (!anchored)
 			to_chat(user, "<span class='warning'>Anchor the tray first!</span>")
-			return
+			return TRUE
 		using_irrigation = !using_irrigation
 		O.play_tool_sound(src)
 		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
 		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
 		for(var/obj/machinery/hydroponics/h in range(1,src))
 			h.update_icon()
+		return TRUE
 
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
-			return
+			return TRUE
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>",
 			"<span class='notice'>You start digging out [src]'s plants...</span>")
 		if(O.use_tool(src, user, 50, volume=50) || (!myseed && !weedlevel))
@@ -868,9 +872,8 @@
 				myseed = null
 			weedlevel = 0 //Has a side effect of cleaning up those nasty weeds
 			update_icon()
-
-	else
-		return ..()
+		return TRUE
+	return ..()
 
 /obj/machinery/hydroponics/can_be_unfasten_wrench(mob/user, silent)
 	if (!unwrenchable)  // case also covered by NODECONSTRUCT checks in default_unfasten_wrench
@@ -983,9 +986,10 @@
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights
 
-/obj/machinery/hydroponics/soil/attackby(obj/item/O, mob/user, params)
+/obj/machinery/hydroponics/soil/item_interact(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_SHOVEL && !istype(O, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
 		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
 		qdel(src)
+		return TRUE
 	else
 		return ..()

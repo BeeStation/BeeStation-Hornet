@@ -141,10 +141,11 @@ GLOBAL_LIST(labor_sheet_values)
 	points += inp.point_value * inp.amount
 	..()
 
-/obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
+/obj/machinery/mineral/stacking_machine/laborstacker/item_interact(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/inp = I
 		points += inp.point_value * inp.amount
+		return TRUE
 	return ..()
 
 /**********************Point Lookup Console**************************/
@@ -161,7 +162,7 @@ GLOBAL_LIST(labor_sheet_values)
 		return
 	user.examinate(src)
 
-/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/labor_points_checker/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		if(istype(I, /obj/item/card/id/prisoner))
 			var/obj/item/card/id/prisoner/prisoner_id = I
@@ -171,5 +172,6 @@ GLOBAL_LIST(labor_sheet_values)
 			to_chat(user, "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>")
 		else
 			to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
+		return TRUE
 	else
 		return ..()

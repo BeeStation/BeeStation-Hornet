@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			qdel(src) //otherwise delete us
 
-/obj/structure/marker_beacon/attackby(obj/item/I, mob/user, params)
+/obj/structure/marker_beacon/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/marker_beacon))
 		var/obj/item/stack/marker_beacon/M = I
 		to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
@@ -128,14 +128,14 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 			M.add(1)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			qdel(src)
-			return
+		return TRUE
 	if(istype(I, /obj/item/light_eater))
 		var/obj/effect/decal/cleanable/ash/A = new /obj/effect/decal/cleanable/ash(drop_location())
 		A.desc += "\nLooks like this used to be \a [src] some time ago."
 		visible_message("<span class='danger'>[src] is disintegrated by [I]!</span>")
 		playsound(src, 'sound/items/welder.ogg', 50, 1)
 		qdel(src)
-		return
+		return TRUE
 	return ..()
 
 /obj/structure/marker_beacon/AltClick(mob/living/user)

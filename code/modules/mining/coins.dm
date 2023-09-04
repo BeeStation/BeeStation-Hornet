@@ -103,11 +103,10 @@
 		plasma_ignition(0, Proj?.firer)
 	. = ..()
 
-/obj/item/coin/plasma/attackby(obj/item/W, mob/user, params)
+/obj/item/coin/plasma/item_interact(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(0, user)
-	else
-		return ..()
+	return ..()
 
 /obj/item/coin/uranium
 	name = "uranium coin"
@@ -162,12 +161,12 @@
 	desc = "A coin that allows you to redeem a prize from an arcade machine."
 	value = 0
 
-/obj/item/coin/attackby(obj/item/W, mob/user, params)
+/obj/item/coin/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
 			to_chat(user, "<span class='warning'>There already is a string attached to this coin!</span>")
-			return
+			return TRUE
 
 		if (CC.use(1))
 			add_overlay("coin_string_overlay")
@@ -175,9 +174,9 @@
 			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need one length of cable to attach a string to the coin!</span>")
-			return
+		return TRUE
 	else
-		..()
+		return ..()
 
 /obj/item/coin/wirecutter_act(mob/living/user, obj/item/I)
 	if(!string_attached)

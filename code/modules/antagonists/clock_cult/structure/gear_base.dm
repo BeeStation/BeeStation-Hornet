@@ -22,7 +22,7 @@
 	for(var/obj/structure/destructible/clockwork/sigil/transmission/ST in transmission_sigils)
 		ST.linked_structures -= src
 
-/obj/structure/destructible/clockwork/gear_base/attackby(obj/item/I, mob/user, params)
+/obj/structure/destructible/clockwork/gear_base/item_interact(obj/item/I, mob/user, params)
 	if(is_servant_of_ratvar(user) && I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
 		if(I.use_tool(src, user, 20, volume=50))

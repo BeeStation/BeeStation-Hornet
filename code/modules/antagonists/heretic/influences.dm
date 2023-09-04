@@ -239,17 +239,14 @@
 
 	return
 
-/obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, params)
-	. = ..()
-	if(.)
-		return
-
+/obj/effect/heretic_influence/item_interact(obj/item/weapon, mob/user, params)
 	// Using a codex will give you two knowledge points for draining.
 	if(!being_drained && istype(weapon, /obj/item/codex_cicatrix))
 		var/obj/item/codex_cicatrix/codex = weapon
 		codex.open_animation()
 		INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 2)
 		return TRUE
+	return ..()
 
 
 /**

@@ -62,7 +62,7 @@
 		return
 	return attack_hand(user) //this helps you not blow up so easily by overriding unlocking which results in an immediate boom.
 
-/obj/structure/closet/crate/secure/loot/attackby(obj/item/W, mob/user)
+/obj/structure/closet/crate/secure/loot/item_interact(obj/item/W, mob/user)
 	if(locked)
 		if(W.tool_behaviour == TOOL_MULTITOOL)
 			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
@@ -94,7 +94,7 @@
 					code_it += length(code_char)
 
 				to_chat(user, "<span class='notice'>Last code attempt, [lastattempt], had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
-			return
+			return TRUE
 	return ..()
 
 /obj/structure/closet/secure/loot/dive_into(mob/living/user)

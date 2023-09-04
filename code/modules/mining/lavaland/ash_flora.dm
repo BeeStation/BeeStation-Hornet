@@ -60,11 +60,12 @@
 	desc = initial(desc)
 	harvested = FALSE
 
-/obj/structure/flora/ash/attackby(obj/item/W, mob/user, params)
+/obj/structure/flora/ash/item_interact(obj/item/W, mob/user, params)
 	if(!harvested && needs_sharp_harvest && W.is_sharp())
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
 		if(do_after(user, harvest_time, target = src))
 			harvest(user)
+		return TRUE
 	else
 		return ..()
 
@@ -321,7 +322,7 @@
 	else
 		icon_state = "mushroom_bowl"
 
-/obj/item/reagent_containers/glass/bowl/mushroom_bowl/attackby(obj/item/I,mob/user, params)
+/obj/item/reagent_containers/glass/bowl/mushroom_bowl/item_interact(obj/item/I,mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks))
 		var/obj/item/reagent_containers/food/snacks/S = I
 		if(I.w_class > WEIGHT_CLASS_SMALL)
@@ -335,5 +336,6 @@
 			else
 				var/obj/item/reagent_containers/food/snacks/customizable/A = new/obj/item/reagent_containers/food/snacks/customizable/salad/ashsalad(get_turf(src))
 				A.initialize_custom_food(src, S, user)
+		return TRUE
 	else
 		. = ..()

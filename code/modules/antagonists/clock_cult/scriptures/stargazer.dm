@@ -94,32 +94,30 @@
 		mobs_in_range = FALSE
 		sg_light.close()
 
-/obj/structure/destructible/clockwork/gear_base/stargazer/attackby(obj/item/I, mob/living/user, params)
-	if(user.a_intent != INTENT_HELP)
-		. = ..()
-		return
+/obj/structure/destructible/clockwork/gear_base/stargazer/item_interact(obj/item/I, mob/living/user, params)
 	if(!anchored)
 		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor first.</span>")
-		return
+		return TRUE
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
-		return
+		return TRUE
 	if(HAS_TRAIT(I, TRAIT_STARGAZED))
 		to_chat(user, "<span class='brass'>[I] has already been enhanced!</span>")
-		return
+		return TRUE
 	to_chat(user, "<span class='brass'>You begin placing [I] onto [src].</span>")
 	if(do_after(user, 60, target=I))
 		if(cooldowntime > world.time)
 			to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
-			return
+			return TRUE
 		if(HAS_TRAIT(I, TRAIT_STARGAZED))
 			to_chat(user, "<span class='brass'>[I] has already been enhanced!</span>")
-			return
+			return TRUE
 		if(istype(I, /obj/item) && !istype(I, /obj/item/clothing) && I.force)
 			upgrade_weapon(I, user)
 			cooldowntime = world.time + STARGAZER_COOLDOWN
-			return
+			return TRUE
 		to_chat(user, "<span class='brass'>You cannot upgrade [I].</span>")
+	return TRUE
 
 /obj/structure/destructible/clockwork/gear_base/stargazer/proc/upgrade_weapon(obj/item/I, mob/living/user)
 	//Prevent re-enchanting

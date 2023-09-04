@@ -34,16 +34,17 @@
 		return
 	to_chat(user, "<span class='notice'>Picking up the swarmer may cause it to activate. You should be careful about this.</span>")
 
-/obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent != INTENT_HARM)
+/obj/effect/mob_spawn/swarmer/item_interact(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		user.visible_message("<span class='warning'>[usr.name] deactivates [src].</span>",
 			"<span class='notice'>After some fiddling, you find a way to disable [src]'s power source.</span>",
 			"<span class='italics'>You hear clicking.</span>")
 		W.play_tool_sound(src, 50)
 		new /obj/item/deactivated_swarmer(get_turf(src))
 		qdel(src)
+		return TRUE
 	else
-		..()
+		return ..()
 
 ////The Mob itself////
 

@@ -22,10 +22,10 @@
 /obj/structure/destructible/clockwork/wall_gear/emp_act(severity)
 	return
 
-/obj/structure/destructible/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
+/obj/structure/destructible/clockwork/wall_gear/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, I, 10)
-		return 1
+		return TRUE
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(anchored)
 			to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
@@ -34,22 +34,22 @@
 			if(I.use_tool(src, user, 30, volume=100) && !anchored)
 				to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 				deconstruct(TRUE)
-		return 1
+		return TRUE
 	else if(istype(I, /obj/item/stack/sheet/brass))
 		var/obj/item/stack/sheet/brass/W = I
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
-			return
+			return TRUE
 		var/turf/T = get_turf(src)
 		if(iswallturf(T))
 			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
-			return
+			return TRUE
 		if(!isfloorturf(T))
 			to_chat(user, "<span class='warning'>A floor must be present to build a [anchored ? "false ":""]wall!</span>")
-			return
+			return TRUE
 		if(locate(/obj/structure/falsewall) in T.contents)
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
 		if(do_after(user, 20, target = src))
 			var/brass_floor = FALSE
@@ -64,7 +64,7 @@
 				qdel(src)
 			else
 				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")
-		return 1
+		return TRUE
 	return ..()
 
 /obj/structure/destructible/clockwork/wall_gear/deconstruct(disassembled = TRUE)

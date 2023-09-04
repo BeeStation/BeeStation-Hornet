@@ -101,34 +101,35 @@
 		L.mind.transfer_to(brainmob)
 	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a brain.</span>")
 
-/obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
+/obj/item/organ/brain/item_interact(obj/item/O, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(istype(O, /obj/item/organ_storage))
-		return //Borg organ bags shouldn't be killing brains
+		return TRUE //Borg organ bags shouldn't be killing brains
 
 	if((organ_flags & ORGAN_FAILING) && O.is_drainable() && O.reagents.has_reagent(/datum/reagent/medicine/mannitol)) //attempt to heal the brain
 		. = TRUE //don't do attack animation.
 
 		if(!O.reagents.has_reagent(/datum/reagent/medicine/mannitol, 10))
 			to_chat(user, "<span class='warning'>There's not enough mannitol in [O] to restore [src]!</span>")
-			return
+			return TRUE
 
 		user.visible_message("[user] starts to pour the contents of [O] onto [src].", "<span class='notice'>You start to slowly pour the contents of [O] onto [src].</span>")
 		if(!do_after(user, 60, src))
 			to_chat(user, "<span class='warning'>You failed to pour [O] onto [src]!</span>")
-			return
+			return TRUE
 
 		user.visible_message("[user] pours the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink.", "<span class='notice'>You pour the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink.</span>")
 		setOrganDamage(damage - (0.05 * maxHealth))	//heals a small amount, and by using "setorgandamage", we clear the failing variable if that was up
 		O.reagents.clear_reagents()
-		return
+		return TRUE
 
 	if(brainmob) //if we aren't trying to heal the brain, pass the attack onto the brainmob.
 		O.attack(brainmob, user) //Oh noooeeeee
 
-  if(O.force != 0 && !(O.item_flags & NOBLUDGEON))
+	if(O.force != 0 && !(O.item_flags & NOBLUDGEON))
 	  setOrganDamage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
+	return TRUE
 
 /obj/item/organ/brain/examine(mob/user)
 	. = ..()

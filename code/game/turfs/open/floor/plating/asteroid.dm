@@ -53,28 +53,29 @@
 /turf/open/floor/plating/asteroid/MakeDry()
 	return
 
-/turf/open/floor/plating/asteroid/attackby(obj/item/W, mob/user, params)
-	. = ..()
-	if(!.)
-		if(W.tool_behaviour == TOOL_SHOVEL || W.tool_behaviour == TOOL_MINING)
+/turf/open/floor/plating/asteroid/item_interact(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_SHOVEL || W.tool_behaviour == TOOL_MINING)
+		if(!can_dig(user))
+			return TRUE
+
+		if(!isturf(user.loc))
+			return TRUE
+
+		to_chat(user, "<span class='notice'>You start digging...</span>")
+
+		if(W.use_tool(src, user, 40, volume=50))
 			if(!can_dig(user))
 				return TRUE
-
-			if(!isturf(user.loc))
-				return
-
-			to_chat(user, "<span class='notice'>You start digging...</span>")
-
-			if(W.use_tool(src, user, 40, volume=50))
-				if(!can_dig(user))
-					return TRUE
-				to_chat(user, "<span class='notice'>You dig a hole.</span>")
-				getDug()
-				SSblackbox.record_feedback("tally", "pick_used_mining", 1, W.type)
-				return TRUE
-		else if(istype(W, /obj/item/storage/bag/ore))
-			for(var/obj/item/stack/ore/O in src)
-				SEND_SIGNAL(W, COMSIG_PARENT_ATTACKBY, O)
+			to_chat(user, "<span class='notice'>You dig a hole.</span>")
+			getDug()
+			SSblackbox.record_feedback("tally", "pick_used_mining", 1, W.type)
+			return TRUE
+		return TRUE
+	else if(istype(W, /obj/item/storage/bag/ore))
+		for(var/obj/item/stack/ore/O in src)
+			SEND_SIGNAL(W, COMSIG_PARENT_ATTACKBY, O)
+		return TRUE
+	return ..()
 
 /turf/open/floor/plating/asteroid/ex_act(severity, target)
 	. = SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)

@@ -658,9 +658,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	. = ..()
 	make_syndie()
 
-/obj/item/radio/headset/abductor/attackby(obj/item/W, mob/user, params)
+/obj/item/radio/headset/abductor/item_interact(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		return // Stops humans from disassembling abductor headsets.
+		return TRUE // Stops humans from disassembling abductor headsets.
 	return ..()
 
 /obj/item/abductor_machine_beacon
@@ -760,7 +760,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	framestackamount = 1
 
-/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/abductor/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
 		I.play_tool_sound(src)
@@ -769,28 +769,30 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			for(var/i in 1 to framestackamount)
 				new framestack(get_turf(src))
 			qdel(src)
-			return
+		return TRUE
 	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
 		var/obj/item/stack/sheet/P = I
 		if(P.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
 		if(do_after(user, 50, target = src))
 			P.use(1)
 			new /obj/structure/table/abductor(src.loc)
 			qdel(src)
-		return
+		return TRUE
 	if(istype(I, /obj/item/stack/sheet/mineral/silver))
 		var/obj/item/stack/sheet/P = I
 		if(P.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
 		if(do_after(user, 50, target = src))
 			P.use(1)
 			new /obj/structure/table/optable/abductor(src.loc)
 			qdel(src)
+		return TRUE
+	return FALSE
 
 /obj/structure/table/abductor
 	name = "alien table"

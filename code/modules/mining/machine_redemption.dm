@@ -168,17 +168,17 @@
 	else
 		unregister_input_turf() // someone just un-wrenched us, unregister the turf
 
-/obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
+/obj/machinery/mineral/ore_redemption/item_interact(obj/item/W, mob/user, params)
 	if(default_unfasten_wrench(user, W))
-		return
+		return TRUE
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
 		updateUsrDialog()
-		return
+		return TRUE
 	if(default_deconstruction_crowbar(W))
-		return
+		return TRUE
 
 	if(!powered())
-		return ..()
+		return TRUE
 
 	if(istype(W, /obj/item/disk/design_disk))
 		if(user.transferItemToLoc(W, src))
@@ -189,7 +189,7 @@
 	if(istype(O))
 		if(O.refined_type == null)
 			to_chat(user, "<span class='notice'>[O] has already been refined!</span>")
-			return
+		return TRUE
 
 	return ..()
 

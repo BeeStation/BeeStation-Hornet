@@ -63,14 +63,15 @@
 			Dispense(gland_id)
 			return TRUE
 
-/obj/machinery/abductor/gland_dispenser/attackby(obj/item/W, mob/user, params)
+/obj/machinery/abductor/gland_dispenser/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/organ/heart/gland))
 		if(!user.transferItemToLoc(W, src))
-			return
+			return TRUE
 		for(var/i in 1 to gland_colors.len)
 			if(gland_types[i] == W.type)
 				amounts[i]++
 		ui_update()
+		return TRUE
 	else
 		return ..()
 

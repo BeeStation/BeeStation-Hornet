@@ -25,23 +25,23 @@
 	wires = null
 	return ..()
 
-/obj/item/gibtonite/attackby(obj/item/I, mob/user, params)
+/obj/item/gibtonite/item_interact(obj/item/I, mob/user, params)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
 		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
 		wires = new /datum/wires/explosive/gibtonite(src)
 		attacher = key_name(user)
 		qdel(I)
 		add_overlay("Gibtonite_igniter")
-		return
+		return TRUE
 
 	if(wires && !primed)
 		if(is_wire_tool(I))
 			wires.interact(user)
-			return
+			return TRUE
 
 	if(I.tool_behaviour == TOOL_MINING || istype(I, /obj/item/resonator) || I.force >= 10)
 		GibtoniteReaction(user)
-		return
+		return TRUE
 	if(primed)
 		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || I.tool_behaviour == TOOL_MULTITOOL)
 			primed = FALSE
@@ -50,8 +50,8 @@
 			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
 			icon_state = "Gibtonite ore"
 			quality = GIBTONITE_QUALITY_LOW
-			return
-	..()
+			return TRUE
+	return ..()
 
 /obj/item/gibtonite/attack_self(user)
 	if(wires)

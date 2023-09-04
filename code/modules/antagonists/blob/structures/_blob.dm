@@ -221,7 +221,7 @@
 /obj/structure/blob/hulk_damage()
 	return 15
 
-/obj/structure/blob/attackby(obj/item/I, mob/user, params)
+/obj/structure/blob/item_interact(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_ANALYZER)
 		user.changeNext_move(CLICK_CD_MELEE)
 		to_chat(user, "<b>The analyzer beeps once, then reports:</b><br>")
@@ -232,6 +232,7 @@
 		else
 			to_chat(user, "<b>Blob core neutralized. Critical mass no longer attainable.</b>")
 		to_chat(user, typereport(user).Join("\n"))
+		return TRUE
 	else
 		return ..()
 

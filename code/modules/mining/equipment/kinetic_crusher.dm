@@ -46,7 +46,7 @@
 		var/obj/item/crusher_trophy/T = t
 		. += "<span class='notice'>[icon2html(T, user)]It has \a [T] attached, which causes [T.effect_desc()].</span>"
 
-/obj/item/kinetic_crusher/attackby(obj/item/I, mob/living/user)
+/obj/item/kinetic_crusher/item_interact(obj/item/I, mob/living/user)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		if(LAZYLEN(trophies))
 			to_chat(user, "<span class='notice'>You remove [src]'s trophies.</span>")
@@ -56,9 +56,11 @@
 				T.remove_from(src, user)
 		else
 			to_chat(user, "<span class='warning'>There are no trophies on [src].</span>")
+		return TRUE
 	else if(istype(I, /obj/item/crusher_trophy))
 		var/obj/item/crusher_trophy/T = I
 		T.add_to(src, user)
+		return TRUE
 	else
 		return ..()
 
@@ -200,11 +202,12 @@
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
 
-/obj/item/crusher_trophy/attackby(obj/item/A, mob/living/user)
+/obj/item/crusher_trophy/item_interact(obj/item/A, mob/living/user)
 	if(istype(A, /obj/item/kinetic_crusher))
 		add_to(A, user)
+		return TRUE
 	else
-		..()
+		return ..()
 
 /obj/item/crusher_trophy/proc/add_to(obj/item/kinetic_crusher/H, mob/living/user)
 	for(var/t in H.trophies)

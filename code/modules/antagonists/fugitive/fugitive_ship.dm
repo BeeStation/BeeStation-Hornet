@@ -31,16 +31,16 @@
 /obj/machinery/fugitive_capture/updateUsrDialog()
 	return
 
-/obj/machinery/fugitive_capture/attackby(obj/item/I, mob/user)
+/obj/machinery/fugitive_capture/item_interact(obj/item/I, mob/user)
 	if(!occupant && default_deconstruction_screwdriver(user, "[icon_state]", "[icon_state]",I))
 		update_icon()
-		return
+		return TRUE
 
 	if(default_deconstruction_crowbar(I))
-		return
+		return TRUE
 
 	if(default_pry_open(I))
-		return
+		return TRUE
 
 	return ..()
 

@@ -49,30 +49,28 @@
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
-/turf/open/floor/plating/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return
+/turf/open/floor/plating/item_interact(obj/item/C, mob/user, params)
 	if(istype(C, /obj/item/stack/rods) && attachment_holes)
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return
+			return TRUE
 		if(locate(/obj/structure/lattice/catwalk/over, src))
-			return
+			return TRUE
 		if (istype(C, /obj/item/stack/rods))
 			var/obj/item/stack/rods/R = C
 			if (R.use(2))
 				to_chat(user, "<span class='notice'>You lay down the catwalk.</span>")
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
-				return
+		returnt
 	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes)
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
-			return
+			return TRUE
 		var/obj/item/stack/sheet/iron/R = C
 		if (R.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one sheet to make a reinforced floor!</span>")
-			return
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30, target = src))
@@ -81,16 +79,16 @@
 					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
 					R.use(1)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
-				return
+		return TRUE
 	else if(istype(C, /obj/item/stack/tile) && !locate(/obj/structure/lattice/catwalk, src))
 		if(!broken && !burnt)
 			for(var/obj/O in src)
 				for(var/M in O.buckled_mobs)
 					to_chat(user, "<span class='warning'>Someone is buckled to \the [O]! Unbuckle [M] to move \him out of the way.</span>")
-					return
+					return TRUE
 			var/obj/item/stack/tile/W = C
 			if(!W.use(1))
-				return
+				return TRUE
 			var/turf/open/floor/T = PlaceOnTop(W.turf_type, flags = CHANGETURF_INHERIT_AIR)
 			if(istype(W, /obj/item/stack/tile/light)) //TODO: get rid of this ugly check somehow
 				var/obj/item/stack/tile/light/L = W
@@ -99,6 +97,8 @@
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
+		return TRUE
+	return ..()
 
 /turf/open/floor/plating/welder_act(mob/living/user, obj/item/I)
 	if((broken || burnt) && I.use_tool(src, user, 0, volume=80))
@@ -128,7 +128,7 @@
 /turf/open/floor/plating/foam/break_tile()
 	return //jetfuel can't break steel foam...
 
-/turf/open/floor/plating/foam/attackby(obj/item/I, mob/user, params)
+/turf/open/floor/plating/foam/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/tile/plasteel/P = I
 		if(P.use(1))
@@ -138,6 +138,7 @@
 			to_chat(user, "<span class='notice'>You reinforce the foamed plating with tiling.</span>")
 			playsound(src, 'sound/weapons/Genhit.ogg', 50, TRUE)
 			ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		return TRUE
 	else
 		playsound(src, 'sound/weapons/tap.ogg', 100, TRUE) //The attack sound is muffled by the foam itself
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -148,6 +149,7 @@
 			ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 		else
 			to_chat(user, "<span class='danger'>You hit [src], to no effect!</span>")
+		return TRUE
 
 /turf/open/floor/plating/foam/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(the_rcd.mode == RCD_FLOORWALL)

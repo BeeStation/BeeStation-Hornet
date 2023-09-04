@@ -298,7 +298,7 @@
 		if(istype(ghost))
 			attack_ghost(ghost)
 
-/obj/machinery/capture_the_flag/attackby(obj/item/I, mob/user, params)
+/obj/machinery/capture_the_flag/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ctf))
 		var/obj/item/ctf/flag = I
 		if(flag.team != src.team)
@@ -310,6 +310,8 @@
 					to_chat(M, "<span class='userdanger [team_span]'>[user.real_name] has captured \the [flag], scoring a point for [team] team! They now have [points]/[points_to_win] points!</span>")
 		if(points >= points_to_win)
 			victory()
+		return TRUE
+	return ..()
 
 /obj/machinery/capture_the_flag/proc/victory()
 	for(var/mob/M in GLOB.mob_list)
@@ -701,8 +703,9 @@
 		if(controlling.control_points >= controlling.control_points_to_win)
 			controlling.victory()
 
-/obj/machinery/control_point/attackby(mob/user, params)
+/obj/machinery/control_point/item_interact(mob/user, params)
 	capture(user)
+	return TRUE
 
 /obj/machinery/control_point/attack_hand(mob/user)
 	. = ..()

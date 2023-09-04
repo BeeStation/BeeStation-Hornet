@@ -223,6 +223,7 @@
 	return
 
 //damage, gibbing, and dying
+///BACONTODO: Make this an on attack thing
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	. = ..()
 	if(istype(W, /obj/item/nullrod))

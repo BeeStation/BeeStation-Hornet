@@ -62,10 +62,10 @@
 	else
 		mode() // Activate held item
 
-/mob/living/carbon/attackby(obj/item/I, mob/user, params)
+/mob/living/carbon/item_interact(obj/item/I, mob/user, params)
 	for(var/datum/surgery/S in surgeries)
 		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
-			if((S.self_operable || user != src) && (user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM))
+			if(S.self_operable || user != src)
 				if(S.next_step(user,user.a_intent))
 					return TRUE
 	return ..()

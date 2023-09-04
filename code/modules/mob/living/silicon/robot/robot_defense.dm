@@ -1,11 +1,14 @@
-/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user)
-	if(I.slot_flags & ITEM_SLOT_HEAD && hat_offset != INFINITY && user.a_intent == INTENT_HELP && !is_type_in_typecache(I, blacklisted_hats))
+/mob/living/silicon/robot/item_interact(obj/item/I, mob/living/user)
+	if(I.slot_flags & ITEM_SLOT_HEAD && hat_offset != INFINITY && !is_type_in_typecache(I, blacklisted_hats))
 		to_chat(user, "<span class='notice'>You begin to place [I] on [src]'s head...</span>")
 		to_chat(src, "<span class='notice'>[user] is placing [I] on your head...</span>")
 		if(do_after(user, 30, target = src))
 			if (user.temporarilyRemoveItemFromInventory(I, TRUE))
 				place_on_head(I)
-		return
+		return TRUE
+	return ..()
+
+/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user, params)
 	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
 		spark_system.start()
 	return ..()

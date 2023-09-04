@@ -353,15 +353,15 @@
 
 	return ..()
 
-/obj/item/paicard/attackby(obj/item/used, mob/user, params)
+/obj/item/paicard/item_interact(obj/item/used, mob/user, params)
 	if(pai && (istype(used, /obj/item/encryptionkey) || used.tool_behaviour == TOOL_SCREWDRIVER))
 		if(!pai.encryptmod)
 			to_chat(user, "<span class='alert'>Encryption Key ports not configured.</span>")
-			return
+			return TRUE
 		user.set_machine(src)
 		pai.radio.attackby(used, user, params)
 		to_chat(user, "<span class='notice'>You insert [used] into the [src].</span>")
-		return
+		return TRUE
 
 	return ..()
 

@@ -59,11 +59,11 @@
 	if(spawn_amt_left <= 0)
 		qdel(src)
 
-/obj/effect/rend/attackby(obj/item/I, mob/user, params)
+/obj/effect/rend/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/nullrod))
 		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
 		qdel(src)
-		return
+		return TRUE
 	else
 		return ..()
 
@@ -323,7 +323,7 @@
 	resistance_flags = FLAMMABLE
 	item_flags = ISWEAPON
 
-/obj/item/voodoo/attackby(obj/item/I, mob/user, params)
+/obj/item/voodoo/item_interact(obj/item/I, mob/user, params)
 	if(target && cooldown < world.time)
 		if(I.is_hot())
 			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
@@ -339,7 +339,7 @@
 			target.adjustEarDamage(0,3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
-		return
+		return TRUE
 
 	if(!voodoo_link)
 		if(I.loc == user && istype(I) && I.w_class <= WEIGHT_CLASS_SMALL)
@@ -347,6 +347,8 @@
 				voodoo_link = I
 				to_chat(user, "You attach [I] to the doll.")
 				update_targets()
+			return TRUE
+	return ..()
 
 /obj/item/voodoo/check_eye(mob/user)
 	if(loc != user)

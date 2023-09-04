@@ -46,19 +46,19 @@
 	else
 		add_overlay("mmi_dead")
 
-/obj/item/mmi/attackby(obj/item/O, mob/user, params)
+/obj/item/mmi/item_interact(obj/item/O, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(istype(O, /obj/item/organ/brain)) //Time to stick a brain in it --NEO
 		var/obj/item/organ/brain/newbrain = O
 		if(brain)
 			to_chat(user, "<span class='warning'>There's already a brain in the MMI!</span>")
-			return
+			return TRUE
 		if(!newbrain.brainmob)
 			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain!</span>")
-			return
+			return TRUE
 
 		if(!user.transferItemToLoc(O, src))
-			return
+			return TRUE
 		var/mob/living/brain/B = newbrain.brainmob
 		if(!B.key)
 			B.notify_ghost_cloning("Someone has put your brain in a MMI!", source = src)
@@ -90,9 +90,11 @@
 		update_icon()
 
 		SSblackbox.record_feedback("amount", "mmis_filled", 1)
+		return TRUE
 
 	else if(brainmob)
 		O.attack(brainmob, user) //Oh noooeeeee
+		return TRUE
 	else
 		return ..()
 

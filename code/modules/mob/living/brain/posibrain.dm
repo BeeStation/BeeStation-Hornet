@@ -184,9 +184,8 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	if(autoping)
 		ping_ghosts("created", TRUE)
 
-/obj/item/mmi/posibrain/attackby(obj/item/O, mob/user)
-	return
-
+/obj/item/mmi/posibrain/item_interact(obj/item/O, mob/user)
+	return FALSE
 
 /obj/item/mmi/posibrain/update_icon()
 	if(searching)

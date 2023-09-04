@@ -105,18 +105,18 @@
 
 	return dat
 
-/mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
+/mob/living/simple_animal/bot/floorbot/item_interact(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
 		to_chat(user, "<span class='notice'>The floorbot can produce normal tiles itself.</span>")
-		return
+		return TRUE
 	if(specialtiles && istype(W, /obj/item/stack/tile))
 		var/obj/item/stack/tile/usedtile = W
 		if(usedtile.type != tiletype)
 			to_chat(user, "<span class='warning'>Different custom tiles are already inside the floorbot.</span>")
-			return
+		return TRUE
 	if(istype(W, /obj/item/stack/tile))
 		if(specialtiles >= maxtiles)
-			return
+			return TRUE
 		var/obj/item/stack/tile/tiles = W //used only to get the amount
 		tiletype = W.type
 		var/loaded = min(maxtiles-specialtiles, tiles.amount)
@@ -126,8 +126,9 @@
 			to_chat(user, "<span class='notice'>You load [loaded] tiles into the floorbot. It now contains [specialtiles] tiles.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need at least one floor tile to put into [src]!</span>")
+		return TRUE
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/bot/floorbot/on_emag(atom/target, mob/user)
 	..()
