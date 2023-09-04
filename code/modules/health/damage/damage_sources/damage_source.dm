@@ -39,6 +39,10 @@
 	var/final_damage_amount = calculate_damage(target, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
 	if (final_damage_amount <= 0)
 		return
+	// Pacifism check
+	if (attacker && HAS_TRAIT(attacker, TRAIT_PACIFISM) && final_damage_amount > 0 && ispath(damage_type, /datum/damage/stamina))
+		to_chat(attacker, "<span class='notice'>You don't want to hurt anyone!</span>")
+		return
 	// Play the animation
 	if (attacking_item)
 		if (attacker)
@@ -48,10 +52,10 @@
 	else
 		if (attacker)
 			attacker.do_attack_animation(target, isanimal(attacker) ? pick(ATTACK_EFFECT_BITE, ATTACK_EFFECT_CLAW) : pick(ATTACK_EFFECT_KICK, ATTACK_EFFECT_PUNCH))
-	// Pacifism check
-	if (attacker && HAS_TRAIT(attacker, TRAIT_PACIFISM) && final_damage_amount > 0 && ispath(damage_type, /datum/damage/stamina))
-		to_chat(attacker, "<span class='notice'>You don't want to hurt anyone!</span>")
-		return
+	// Get the damage applyer
+	var/datum/damage/damage = damage_type
+	if (!istype(damage))
+		damage = GET_DAMAGE(damage_type)
 	// Deal the damage
 	if (isliving(target))
 		var/mob/living/living_target = target
@@ -62,18 +66,21 @@
 		// Determine armour
 		if (attacking_item && attacker)
 			living_target.send_item_attack_message(attacking_item, attacker, parse_zone(target_zone))
-		// Get the damage applyer
-		var/datum/damage/damage = damage_type
-		if (!istype(damage))
-			damage = GET_DAMAGE(damage_type)
 		if (targetted_part)
 			damage.apply_bodypart(targetted_part, final_damage_amount, update_health, forced)
 			after_attack_limb(attacker, attacking_item, target, targetted_part, damage, final_damage_amount, target_zone)
+			if (attacker && attacking_item)
+				target.on_attacked(attacking_item, attacker)
 		else
 			damage.apply_living(target, final_damage_amount, update_health, forced)
+			if (attacker && attacking_item)
+				target.on_attacked(attacking_item, attacker)
 		after_attack(attacker, attacking_item, target, damage, final_damage_amount, target_zone)
+	else if(isobj(target))
+		// Send straight to damaging
+		damage.apply_object(target, final_damage_amount)
 	else
-		CRASH("Not implemented")
+		CRASH("Cannot attack non-objects and non-living entities as they do not recieve damage.")
 
 /// Get the amount of damage blocked by armour. 0 to 100.
 /datum/damage_source/proc/get_armour_block(atom/target, input_damage, target_zone, armour_penetration = 0)

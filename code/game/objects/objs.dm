@@ -7,8 +7,8 @@
 	var/set_obj_flags
 
 	/// The type of the damage source we use. Never instantiated
-	var/damage_source
-	var/damtype = BRUTE
+	var/damage_source = /datum/damage_source/blunt/light
+	var/damtype = /datum/damage/brute
 	var/force = 0
 
 	var/datum/armor/armor

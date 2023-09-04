@@ -3,7 +3,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 0
-	damtype = STAMINA
+	damtype = /datum/damage/stamina
 	w_class = WEIGHT_CLASS_BULKY
 	block_sound = 'sound/weapons/tap.ogg'
 	attack_verb = list("wacked")

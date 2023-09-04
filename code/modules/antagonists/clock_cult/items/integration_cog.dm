@@ -8,9 +8,9 @@
 /obj/item/clockwork/integration_cog/interact_with(atom/target, mob/user, params)
 	if(!is_servant_of_ratvar(user))
 		return ..()
-	if(!istype(O, /obj/machinery/power/apc))
+	if(!istype(target, /obj/machinery/power/apc))
 		return ..()
-	var/obj/machinery/power/apc/A = O
+	var/obj/machinery/power/apc/A = target
 	if(A.integration_cog)
 		to_chat(user, "<span class='brass'>There is already \an [src] in \the [A].</span>")
 		return TRUE

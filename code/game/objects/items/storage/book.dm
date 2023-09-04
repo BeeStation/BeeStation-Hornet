@@ -277,7 +277,7 @@
 	throw_range = 7
 	force = 18
 	hitsound = 'sound/weapons/sear.ogg'
-	damtype = BURN
+	damtype = /datum/damage/burn
 	name = "Syndicate Tome"
 	attack_verb = list("attacked", "burned", "blessed", "damned", "scorched")
 	var/uses = 1

@@ -37,7 +37,7 @@
 	if(cantbeused(user))
 		return TRUE
 
-	if(recharge(O, user))
+	if(recharge(target, user))
 		return TRUE
 
 	return ..()

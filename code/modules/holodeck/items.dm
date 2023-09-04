@@ -8,7 +8,7 @@
 //
 
 /obj/item/holo
-	damtype = STAMINA
+	damtype = /datum/damage/stamina
 
 /obj/item/holo/esword
 	name = "holographic energy sword"

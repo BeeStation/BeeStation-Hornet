@@ -411,7 +411,7 @@
 	item_flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
-	damtype = BURN
+	damtype = /datum/damage/burn
 	attack_verb = list("punched", "cross countered", "pummeled")
 	block_upgrade_walk = 0
 

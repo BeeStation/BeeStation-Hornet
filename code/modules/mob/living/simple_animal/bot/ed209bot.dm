@@ -180,7 +180,7 @@
 
 /mob/living/simple_animal/bot/ed209/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER && (!target)) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
-		if(I.force && I.damage != STAMINA)//If force is non-zero and damage type isn't stamina.
+		if(I.force && I.damtype != /datum/damage/stamina)//If force is non-zero and damage type isn't stamina.
 			retaliate(user)
 			if(lasercolor)//To make up for the fact that lasertag bots don't hunt
 				shootAt(user)

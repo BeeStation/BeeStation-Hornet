@@ -25,7 +25,7 @@
 	if(guardian.summoner?.current)
 		guardian.summoner.current.remove_movespeed_modifier("frenzy")
 
-/datum/guardian_ability/major/frenzy/attack_mob_target(atom/target)
+/datum/guardian_ability/major/frenzy/Attack(atom/target)
 	return world.time < next_rush	//True if on cooldown
 
 /datum/guardian_ability/major/frenzy/AfterAttack(atom/target)

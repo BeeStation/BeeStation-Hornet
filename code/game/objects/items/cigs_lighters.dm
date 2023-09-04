@@ -44,7 +44,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		playsound(src, "sound/items/match_strike.ogg", 15, TRUE)
 		lit = TRUE
 		icon_state = "match_lit"
-		damtype = BURN
+		damtype = /datum/damage/burn
 		force = 3
 		hitsound = 'sound/items/welder.ogg'
 		item_state = "cigon"
@@ -58,7 +58,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
-		damtype = BRUTE
+		damtype = /datum/damage/brute
 		force = initial(force)
 		icon_state = "match_burnt"
 		item_state = "cigoff"
@@ -202,7 +202,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = "lit [name]"
 	attack_verb = list("burnt", "singed")
 	hitsound = 'sound/items/welder.ogg'
-	damtype = BURN
+	damtype = /datum/damage/burn
 	force = 4
 	var/turf/T = get_turf(src)
 	if(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)) // the plasma explodes when exposed to fire
@@ -236,7 +236,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = copytext_char(name, 5) //5 == length_char("lit ") + 1
 	attack_verb = null
 	hitsound = null
-	damtype = BRUTE
+	damtype = /datum/damage/brute
 	force = 0
 	icon_state = icon_off
 	item_state = icon_off
@@ -646,7 +646,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	lit = new_lit
 	if(lit)
 		force = 5
-		damtype = BURN
+		damtype = /datum/damage/burn
 		hitsound = 'sound/items/welder.ogg'
 		attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)

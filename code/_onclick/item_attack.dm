@@ -13,7 +13,7 @@
 	if(!pre_attack(target, user, params))
 		return
 	// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
-	var/resolved = target.attackby(src, user, params)
+	var/resolved = attack(user, target, params) || target.attackby(src, user, params)
 	if(!resolved && target && !QDELETED(src))
 		afterattack(target, user, 1, params)
 
@@ -37,7 +37,6 @@
 	//	return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(target)
-	target.on_attacked(src, user)
 	// By default deal our generic attack
 	deal_attack(user, target, user.zone_selected)
 
@@ -162,7 +161,7 @@
 	log_combat(user, M, "[nonharmfulhit ? "poked" : "attacked"]", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 	add_fingerprint(user)
 
-/atom/movable/proc/on_attacked()
+/atom/proc/on_attacked()
 	return
 
 /obj/on_attacked(obj/item/I, mob/living/user)

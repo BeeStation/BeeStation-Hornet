@@ -433,11 +433,11 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 /obj/item/pipe_dispenser/interact_with(atom/target, mob/user, params)
 	// this shouldn't use early return because checking less condition is good
-	if(isturf(A) || is_type_in_typecache(A, atmos_constructs) || is_type_in_typecache(A, rpd_targets) || is_type_in_typecache(A, rpd_whitelist))
+	if(isturf(target) || is_type_in_typecache(target, atmos_constructs) || is_type_in_typecache(target, rpd_targets) || is_type_in_typecache(target, rpd_whitelist))
 		if(!user.IsAdvancedToolUser() || istype(target, /turf/open/space/transit))
 			return TRUE
-		if(proximity || ranged)
-			rpd_create(A, user)
+		if(get_dist(user, target) <= 1 || ranged)
+			rpd_create(target, user)
 		return TRUE
 	return ..()
 

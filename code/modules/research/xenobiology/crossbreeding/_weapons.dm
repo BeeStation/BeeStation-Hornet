@@ -31,25 +31,25 @@ Slimecrossing Weapons
 	item_state = "rainbowknife"
 	force = 15
 	throwforce = 15
-	damtype = BRUTE
+	damtype = /datum/damage/brute
 
 /obj/item/kitchen/knife/rainbowknife/afterattack(atom/O, mob/user, proximity)
 	if(proximity && istype(O, /mob/living))
-		damtype = pick(BRUTE, BURN, TOX, OXY, CLONE)
+		damtype = pick(/datum/damage/brute, /datum/damage/burn, /datum/damage/toxin, /datum/damage/suffocation, /datum/damage/clone)
 	switch(damtype)
-		if(BRUTE)
+		if(/datum/damage/brute)
 			hitsound = 'sound/weapons/bladeslice.ogg'
 			attack_verb = list("slashed","sliced","cut")
-		if(BURN)
+		if(/datum/damage/burn)
 			hitsound = 'sound/weapons/sear.ogg'
 			attack_verb = list("burned","singed","heated")
-		if(TOX)
+		if(/datum/damage/toxin)
 			hitsound = 'sound/weapons/pierce.ogg'
 			attack_verb = list("poisoned","dosed","toxified")
-		if(OXY)
+		if(/datum/damage/suffocation)
 			hitsound = 'sound/effects/space_wind.ogg'
 			attack_verb = list("suffocated","winded","vacuumed")
-		if(CLONE)
+		if(/datum/damage/clone)
 			hitsound = 'sound/items/geiger/ext1.ogg'
 			attack_verb = list("irradiated","mutated","maligned")
 	return ..()

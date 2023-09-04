@@ -437,7 +437,7 @@
 /obj/item/gun/proc/reset_semicd()
 	semicd = FALSE
 
-/obj/item/gun/attack_mob_target(mob/living/user, atom/target, params)
+/obj/item/gun/attack_mob_target(mob/living/M, mob/living/user)
 	if(bayonet)
 		bayonet.attack_mob_target(M, user)
 		return
