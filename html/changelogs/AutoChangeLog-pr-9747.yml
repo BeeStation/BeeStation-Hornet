@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Deployables are now a component.
-  - tweak: Dragging a bodybag onto your mob while it is open will try to zip it up
-      instead of instantly failing.

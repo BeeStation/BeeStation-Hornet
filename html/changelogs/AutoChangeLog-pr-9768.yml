@@ -1,7 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: Made sleeper beds no longer block chemicals other than Epinephrine from
-      being injected into patients in critical state.
-  - bugfix: Fixed the contents of the sleeper being duplicated after the person who
-      inserted them got forcestripped.
