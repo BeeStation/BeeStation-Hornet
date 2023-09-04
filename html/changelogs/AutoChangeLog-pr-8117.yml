@@ -1,0 +1,11 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added an efficiency and smart foam for the Backpack Firefighting Tank
+  - rscadd: Added the research node for the BFT upgrades
+  - rscadd: Added a new advanced ATMOS resin
+  - rscadd: Added reagent overlays to the water backpacks and the atmos nozzle
+  - imageadd: added reagent overlays for liquid holder backpacks, alternative appearances
+      for the atmos waterpack and nozzle
+  - balance: Decreased the default cooldown time of the BFT's resin modes from 10
+      to 8 seconds

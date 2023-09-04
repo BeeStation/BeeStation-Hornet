@@ -178,6 +178,10 @@
 /atom/movable/proc/stop_pulling()
 	if(pulling)
 		pulling.pulledby = null
+		if(ismob(usr))
+			log_combat(usr, pulling, "has stopped pulling", addition = "at [AREACOORD(usr)]")
+		if(ismob(pulling))
+			log_combat(pulling, usr, "stopped being pulled by", addition = "at [AREACOORD(pulling)]")
 		var/mob/living/ex_pulled = pulling
 		pulling = null
 		setGrabState(0)
@@ -201,8 +205,7 @@
 		return
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
-	step(pulling, get_dir(pulling.loc, A))
-	return TRUE
+	return step(pulling, get_dir(pulling.loc, A))
 
 /mob/living/Move_Pulled(atom/A)
 	. = ..()

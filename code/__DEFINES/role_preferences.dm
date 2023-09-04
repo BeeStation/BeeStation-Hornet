@@ -181,11 +181,13 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 		CRASH("Invalid role_preference_key [role_preference_key] passed to role_preference_enabled!")
 	if(!src.prefs)
 		return FALSE
-	var/list/source = src.prefs.role_preferences
 	var/datum/role_preference/pref = role_preference_key
+	// If this is per character, check if it's disabled. Otherwise continue and check the global value
 	if(initial(pref.per_character))
-		source = src.prefs.active_character.role_preferences_character
-	var/role_preference_value = source["[role_preference_key]"]
+		var/role_preference_value = src.prefs.role_preferences["[role_preference_key]"]
+		if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
+			return FALSE
+	var/role_preference_value = src.prefs.role_preferences_global["[role_preference_key]"]
 	if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
 		return FALSE
 	return TRUE
@@ -239,7 +241,15 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 
 #define ROLE_PREFERENCE_CATEGORY_ANAGONIST "Antagonists"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING "Midrounds (Living)"
-#define ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST "Midrounds (Ghost Poll)"
+#define ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST "Midrounds (Ghost)"
+#define ROLE_PREFERENCE_CATEGORY_LEGACY "Legacy Roles (Out of Rotation)"
+
+GLOBAL_LIST_INIT(role_preference_categories, list(
+	ROLE_PREFERENCE_CATEGORY_ANAGONIST,
+	ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST,
+	ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING,
+	ROLE_PREFERENCE_CATEGORY_LEGACY,
+))
 
 GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())
 

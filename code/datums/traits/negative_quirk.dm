@@ -3,6 +3,7 @@
 /datum/quirk/badback
 	name = "Bad Back"
 	desc = "Thanks to your poor posture, backpacks and other bags never sit right on your back. More evently weighted objects are fine, though."
+	icon = "hiking"
 	value = -2
 	mood_quirk = TRUE
 	gain_text = "<span class='danger'>Your back REALLY hurts!</span>"
@@ -19,6 +20,7 @@
 /datum/quirk/blooddeficiency
 	name = "Blood Deficiency"
 	desc = "Your body can't produce enough blood to sustain itself."
+	icon = "tint"
 	value = -2
 	gain_text = "<span class='danger'>You feel your vigor slowly fading away.</span>"
 	lose_text = "<span class='notice'>You feel vigorous again.</span>"
@@ -35,6 +37,7 @@
 /datum/quirk/blindness
 	name = "Blind"
 	desc = "You are completely blind, nothing can counteract this."
+	icon = "eye-slash"
 	value = -4
 	gain_text = "<span class='danger'>You can't see anything.</span>"
 	lose_text = "<span class='notice'>You miraculously gain back your vision.</span>"
@@ -56,6 +59,7 @@
 /datum/quirk/brainproblems
 	name = "Brain Tumor"
 	desc = "You have a little friend in your brain that is slowly destroying it. Thankfully, you start with a bottle of mannitol pills."
+	icon = "brain"
 	mob_trait = TRAIT_BRAIN_TUMOR
 	value = -3
 	gain_text = "<span class='danger'>You feel smooth.</span>"
@@ -100,6 +104,7 @@
 /datum/quirk/deafness
 	name = "Deaf"
 	desc = "You are incurably deaf."
+	icon = "deaf"
 	value = -2
 	mob_trait = TRAIT_DEAF
 	gain_text = "<span class='danger'>You can't hear anything.</span>"
@@ -109,6 +114,7 @@
 /datum/quirk/depression
 	name = "Depression"
 	desc = "You sometimes just hate life."
+	icon = "frown"
 	mob_trait = TRAIT_DEPRESSION
 	value = -1
 	gain_text = "<span class='danger'>You start feeling depressed.</span>"
@@ -124,6 +130,7 @@
 /datum/quirk/family_heirloom
 	name = "Family Heirloom"
 	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
+	icon = "toolbox"
 	value = -1
 	mood_quirk = TRUE
 	process = TRUE
@@ -185,11 +192,11 @@
 				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
 			//Medical
 			if(JOB_NAME_CHIEFMEDICALOFFICER)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/deployable/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
 			if(JOB_NAME_MEDICALDOCTOR)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/deployable/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
 			if(JOB_NAME_PARAMEDIC)
-				heirloom_type = pick(/obj/item/deployable/bodybag)
+				heirloom_type = pick(/obj/item/bodybag)
 			if(JOB_NAME_CHEMIST)
 				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
 			if(JOB_NAME_VIROLOGIST)
@@ -250,6 +257,7 @@
 /datum/quirk/frail
 	name = "Frail"
 	desc = "Your bones might as well be made of glass! Your limbs can take less damage before they become disabled."
+	icon = "skull"
 	value = -2
 	mob_trait = TRAIT_EASYLIMBDISABLE
 	gain_text = "<span class='danger'>You feel frail.</span>"
@@ -259,6 +267,7 @@
 /datum/quirk/foreigner
 	name = "Foreigner"
 	desc = "You're not from around here. You don't know Galactic Common!"
+	icon = "question-circle"
 	value = -1
 	gain_text = "<span class='notice'>The words being spoken around you don't make any sense."
 	lose_text = "<span class='notice'>You've developed fluency in Galactic Common."
@@ -279,6 +288,7 @@
 /datum/quirk/heavy_sleeper
 	name = "Heavy Sleeper"
 	desc = "You sleep like a rock! Whenever you're put to sleep or knocked unconscious, you take a little bit longer to wake up."
+	icon = "bed"
 	value = -1
 	mob_trait = TRAIT_HEAVY_SLEEPER
 	gain_text = "<span class='danger'>You feel sleepy.</span>"
@@ -288,6 +298,7 @@
 /datum/quirk/hypersensitive
 	name = "Hypersensitive"
 	desc = "For better or worse, everything seems to affect your mood more than it should."
+	icon = "flushed"
 	value = -1
 	gain_text = "<span class='danger'>You seem to make a big deal out of everything.</span>"
 	lose_text = "<span class='notice'>You don't seem to make a big deal out of everything anymore.</span>"
@@ -305,6 +316,7 @@
 /datum/quirk/light_drinker
 	name = "Light Drinker"
 	desc = "You just can't handle your drinks and get drunk very quickly."
+	icon = "cocktail"
 	value = -1
 	mob_trait = TRAIT_LIGHT_DRINKER
 	gain_text = "<span class='notice'>Just the thought of drinking alcohol makes your head spin.</span>"
@@ -313,6 +325,7 @@
 /datum/quirk/nearsighted //t. errorage
 	name = "Nearsighted"
 	desc = "You are nearsighted without prescription glasses, but spawn with a pair."
+	icon = "glasses"
 	value = -1
 	gain_text = "<span class='danger'>Things far away from you start looking blurry.</span>"
 	lose_text = "<span class='notice'>You start seeing faraway things normally again.</span>"
@@ -334,6 +347,7 @@
 /datum/quirk/nyctophobia
 	name = "Nyctophobia"
 	desc = "As far as you can remember, you've always been afraid of the dark. While in the dark without a light source, you instinctually act careful, and constantly feel a sense of dread."
+	icon = "lightbulb"
 	value = -1
 	process = TRUE
 
@@ -353,6 +367,7 @@
 /datum/quirk/nonviolent
 	name = "Pacifist"
 	desc = "The thought of violence makes you sick. So much so, in fact, that you can't hurt anyone."
+	icon = "peace"
 	value = -2
 	mob_trait = TRAIT_PACIFISM
 	gain_text = "<span class='danger'>You feel repulsed by the thought of violence!</span>"
@@ -362,6 +377,7 @@
 /datum/quirk/trauma/paraplegic
 	name = "Paraplegic"
 	desc = "Your legs do not function. Nothing will ever fix this. But hey, free wheelchair!"
+	icon = "wheelchair"
 	value = -3
 	medical_record_text = "Patient has an untreatable impairment in motor function in the lower extremities."
 	trauma_type = /datum/brain_trauma/severe/paralysis/paraplegic/
@@ -389,6 +405,7 @@
 /datum/quirk/poor_aim
 	name = "Poor Aim"
 	desc = "You're terrible with guns and can't line up a straight shot to save your life. Dual-wielding is right out."
+	icon = "bullseye"
 	value = -1
 	mob_trait = TRAIT_POOR_AIM
 	medical_record_text = "Patient possesses a strong tremor in both hands."
@@ -396,6 +413,7 @@
 /datum/quirk/prosopagnosia
 	name = "Prosopagnosia"
 	desc = "You have a mental disorder that prevents you from being able to recognize faces at all."
+	icon = "user-secret"
 	value = -1
 	mob_trait = TRAIT_PROSOPAGNOSIA
 	medical_record_text = "Patient suffers from prosopagnosia and cannot recognize faces."
@@ -403,6 +421,7 @@
 /datum/quirk/prosthetic_limb
 	name = "Prosthetic Limb"
 	desc = "An accident caused you to lose one of your limbs. Because of this, you now have a random prosthetic!"
+	icon = "tg-prosthetic-leg"
 	value = -1
 	var/slot_string = "limb"
 
@@ -435,6 +454,7 @@
 /datum/quirk/pushover
 	name = "Pushover"
 	desc = "Your first instinct is always to let people push you around. Resisting out of grabs will take conscious effort."
+	icon = "handshake"
 	value = -2
 	mob_trait = TRAIT_GRABWEAKNESS
 	gain_text = "<span class='danger'>You feel like a pushover.</span>"
@@ -443,7 +463,8 @@
 
 /datum/quirk/insanity
 	name = "Reality Dissociation Syndrome"
-	desc = "You suffer from a severe disorder that causes very vivid hallucinations. Mindbreaker toxin can suppress its effects, and you are immune to mindbreaker's hallucinogenic properties. <b>This is not a license to grief.</b>"
+	desc = "You suffer from a severe disorder that causes very vivid hallucinations. Mindbreaker toxin can suppress its effects, and you are immune to mindbreaker's hallucinogenic properties. This is NOT a license to grief."
+	icon = "grin-tongue-wink"
 	value = -2
 	//no mob trait because it's handled uniquely
 	gain_text = "<span class='userdanger'>...</span>"
@@ -470,6 +491,7 @@
 /datum/quirk/social_anxiety
 	name = "Social Anxiety"
 	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
+	icon = "comment-slash"
 	value = -1
 	gain_text = "<span class='danger'>You start worrying about what you're saying.</span>"
 	lose_text = "<span class='notice'>You feel comfortable with talking again.</span>" //if only it were that easy!
@@ -501,6 +523,7 @@
 /datum/quirk/junkie
 	name = "Junkie"
 	desc = "You can't get enough of hard drugs."
+	icon = "pills"
 	value = -2
 	gain_text = "<span class='danger'>You suddenly feel the craving for drugs.</span>"
 	lose_text = "<span class='notice'>You feel like you should kick your drug habit.</span>"
@@ -569,6 +592,7 @@
 /datum/quirk/junkie/smoker
 	name = "Smoker"
 	desc = "Sometimes you just really want a smoke. Probably not great for your lungs."
+	icon = "smoking"
 	value = -1
 	gain_text = "<span class='danger'>You could really go for a smoke right about now.</span>"
 	lose_text = "<span class='notice'>You feel like you should quit smoking.</span>"
@@ -604,6 +628,7 @@
 /datum/quirk/alcoholic
 	name = "Alcoholic"
 	desc = "You can't stand being sober."
+	icon = "angry"
 	value = -1
 	gain_text = "<span class='danger'>You could really go for a drink right about now.</span>"
 	lose_text = "<span class='notice'>You feel like you should quit drinking.</span>"
@@ -664,6 +689,7 @@
 /datum/quirk/unstable
 	name = "Unstable"
 	desc = "Due to past troubles, you are unable to recover your sanity if you lose it. Be very careful managing your mood!"
+	icon = "cloud-rain"
 	value = -2
 	mob_trait = TRAIT_UNSTABLE
 	gain_text = "<span class='danger'>There's a lot on your mind right now.</span>"
@@ -673,6 +699,7 @@
 /datum/quirk/trauma //Generic for quirks that apply a brain trauma
 	name = "Phobia"
 	desc = "Because of a traumatic event in your past you have developed a strong phobia."
+	icon = "spider"
 	value = -2
 	gain_text = null // these are handled by the trauma itself
 	lose_text = null

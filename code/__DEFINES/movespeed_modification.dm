@@ -65,26 +65,27 @@
 #define MOVESPEED_ID_CYBER_THRUSTER						"CYBER_IMPLANT_THRUSTER"
 #define MOVESPEED_ID_JETPACK							"JETPACK"
 
-#define MOVESPEED_ID_SLAUGHTER                          "SLAUGHTER"
-#define MOVESPEED_ID_DIE_OF_FATE                        "DIE_OF_FATE"
+#define MOVESPEED_ID_SLAUGHTER							"SLAUGHTER"
+#define MOVESPEED_ID_DIE_OF_FATE						"DIE_OF_FATE"
 
-#define MOVESPEED_ID_SHOVE                              "SHOVE"
-#define MOVESPEED_ID_BULKY_DRAGGING                     "BULKY_DRAG"
-#define MOVESPEED_ID_HUMAN_CARRYING                     "HUMAN_CARRY"
-#define MOVESPEED_ID_PEPPER_SPRAY                       "PEPPER_SPRAYED"
+#define MOVESPEED_ID_SHOVE								"SHOVE"
+#define MOVESPEED_ID_BULKY_DRAGGING						"BULKY_DRAG"
+#define MOVESPEED_ID_HUMAN_CARRYING						"HUMAN_CARRY"
+#define MOVESPEED_ID_PEPPER_SPRAY						"PEPPER_SPRAYED"
 
-#define MOVESPEED_ID_FAT                                "FAT"
+#define MOVESPEED_ID_FAT								"FAT"
 
-#define MOVESPEED_ID_COLD                               "COLD"
+#define MOVESPEED_ID_COLD								"COLD"
 
-#define MOVESPEED_ID_HUNGRY                             "HUNGRY"
-#define MOVESPEED_ID_NO_POWERCELL                       "NO POWERCELL"
+#define MOVESPEED_ID_HUNGRY															"HUNGRY"
+#define MOVESPEED_ID_NO_POWERCELL												"NO POWERCELL"
 
-#define MOVESPEED_ID_DAMAGE_SLOWDOWN                    "DAMAGE"
+
+#define MOVESPEED_ID_DAMAGE_SLOWDOWN					"DAMAGE"
 #define MOVESPEED_ID_DAMAGE_SLOWDOWN_FLYING				"FLYING"
 
-#define MOVESPEED_ID_SLOW_ARMOR		                    	"SLOW_ARMOR "
-#define MOVESPEED_ID_SLOW_SUITBOX	               		"SLOW_SUITBOX"
+#define MOVESPEED_ID_SLOW_ARMOR							"SLOW_ARMOR "
+#define MOVESPEED_ID_SLOW_SUITBOX						"SLOW_SUITBOX"
 
 #define MOVESPEED_ID_INTERDICTION						"interdiction"
 
@@ -94,4 +95,6 @@
 
 #define MOVESPEED_ID_SWIMMING							"SWIMMING_SPEED_MOD"
 
-#define MOVESPEED_ID_DRAGON_RAGE                        "DRAGON_RAGE"
+#define MOVESPEED_ID_DRAGON_RAGE						"DRAGON_RAGE"
+
+#define MOVESPEED_ID_SMOKE								"SMOKE"
