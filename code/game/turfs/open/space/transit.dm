@@ -8,7 +8,7 @@
 
 /turf/open/space/transit/Initialize(mapload)
 	. = ..()
-	update_appearance()
+	update_icon()
 	RegisterSignal(src, COMSIG_TURF_RESERVATION_RELEASED, PROC_REF(launch_contents))
 
 	for(var/atom/movable/movable in src)
@@ -124,12 +124,6 @@
 
 /turf/open/space/transit/south
 	dir = SOUTH
-
-/turf/open/space/transit/Initialize(mapload)
-	. = ..()
-	transform = turn(matrix(), get_transit_angle(src))
-	for(var/atom/movable/AM in src)
-		throw_atom(AM, src)
 
 /turf/open/space/transit/horizontal
 	dir = WEST
