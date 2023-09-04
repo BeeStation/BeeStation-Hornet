@@ -1,0 +1,5 @@
+author: lowwy
+delete-after: true
+changes:
+  - tweak: Rust heretic will no longer mansus grasping floors/walls/objects when on
+      harm intent
