@@ -25,6 +25,7 @@
 /obj/item/storage/box
 	name = "box"
 	desc = "It's just an ordinary box."
+	w_class = WEIGHT_CLASS_LARGE
 	icon_state = "box"
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -38,8 +39,8 @@
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 7
-	STR.max_combined_w_class = 7
+	STR.max_items = 8
+	STR.max_combined_w_class = 8
 	update_icon()
 
 /obj/item/storage/box/suicide_act(mob/living/carbon/user)
