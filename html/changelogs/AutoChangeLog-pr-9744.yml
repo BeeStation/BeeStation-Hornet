@@ -1,4 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Obsession objectives no longer bug out if the target has a heirloom.
