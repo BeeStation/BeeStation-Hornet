@@ -6,6 +6,7 @@
 	icon_state = "stasis"
 	density = FALSE
 	can_buckle = TRUE
+	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
 	idle_power_usage = 50
 	active_power_usage = 500
@@ -20,7 +21,8 @@
 
 // dir check for buckle_lying state
 /obj/machinery/stasis/Initialize()
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed)) //This gets called later during initialization
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
+	dir_changed(new_dir = dir)
 	return ..()
 
 /obj/machinery/stasis/Initialize(mapload)

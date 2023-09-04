@@ -66,7 +66,7 @@
 	phage.health += A.resistance
 	phage.maxHealth += A.resistance
 	phage.infections += A
-	phage.basedisease = A
+	phage.base_disease = A
 	if(A.transmission >= 12)
 		for(var/datum/disease/D in M.diseases)
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
