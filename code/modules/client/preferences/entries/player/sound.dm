@@ -86,3 +86,12 @@
 		client.mob?.play_current_soundtrack()
 	else
 		client.mob?.stop_sound_channel(CHANNEL_SOUNDTRACK)
+
+/datum/preference/toggle/sound_vox
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "sound_vox"
+	preference_type = PREFERENCE_PLAYER
+
+/datum/preference/toggle/sound_vox/apply_to_client(client/client, value)
+	if (!value)
+		client.mob?.stop_sound_channel(CHANNEL_VOX)

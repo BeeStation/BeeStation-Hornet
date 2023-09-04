@@ -308,14 +308,16 @@
 			to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
-	else if(I.tool_behaviour == TOOL_MULTITOOL && !locked)
-		if(!multitool_check_buffer(user, I))
-			return
-		var/obj/item/multitool/M = I
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You add [src] to multitool buffer.</span>")
 	else
 		return ..()
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/porta_turret)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You add [src] to multitool buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/porta_turret/on_emag(mob/user)
 	..()
@@ -889,15 +891,6 @@
 	if(machine_stat & BROKEN)
 		return
 
-	if(I.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, I))
-			return
-		var/obj/item/multitool/M = I
-		if(M.buffer && istype(M.buffer, /obj/machinery/porta_turret))
-			turrets |= M.buffer
-			to_chat(user, "You link \the [M.buffer] with \the [src]")
-			return
-
 	if (issilicon(user))
 		return attack_hand(user)
 
@@ -911,6 +904,15 @@
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/turretid)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
+	if(buffer && istype(buffer, /obj/machinery/porta_turret))
+		turrets |= buffer
+		to_chat(user, "You link \the [buffer] with \the [src]")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/turretid/on_emag(mob/user)
 	..()

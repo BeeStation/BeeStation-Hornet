@@ -100,12 +100,12 @@
 
 /datum/antagonist/abductor/scientist/on_gain()
 	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	ADD_TRAIT(owner, TRAIT_SURGEON, ABDUCTOR_ANTAGONIST)
+	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SURGEON, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/scientist/on_removal()
 	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	REMOVE_TRAIT(owner, TRAIT_SURGEON, ABDUCTOR_ANTAGONIST)
+	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_SURGEON, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/admin_add(datum/mind/new_owner,mob/admin)
@@ -189,13 +189,6 @@
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
 	banning_key = UNBANNABLE_ANTAGONIST
-	var/list/cured_objectives = list()
-	var/custom_objective
-
-/datum/antagonist/abductee/New(custom_objective)
-	. = ..()
-	if(custom_objective)
-		src.custom_objective = custom_objective
 
 /datum/antagonist/abductee/on_gain()
 	give_objective()
@@ -212,14 +205,10 @@
 
 /datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current
-	var/datum/objective/abductee/objective
-	if(custom_objective)
-		objective = new /datum/objective/abductee/custom(custom_objective)
-	else
-		var/objective_type = (prob(75) ? /datum/objective/abductee/random : pick(subtypesof(/datum/objective/abductee/) - /datum/objective/abductee/random))
-		objective = new objective_type
-	objectives += objective
-	log_objective(H, objective.explanation_text)
+	var/objtype = (prob(75) ? /datum/objective/abductee/random : pick(subtypesof(/datum/objective/abductee/) - /datum/objective/abductee/random))
+	var/datum/objective/abductee/O = new objtype()
+	objectives += O
+	log_objective(H, O.explanation_text)
 
 /datum/antagonist/abductee/apply_innate_effects(mob/living/mob_override)
 	update_abductor_icons_added(mob_override ? mob_override.mind : owner,"abductee")
@@ -227,30 +216,6 @@
 /datum/antagonist/abductee/remove_innate_effects(mob/living/mob_override)
 	update_abductor_icons_removed(mob_override ? mob_override.mind : owner)
 
-/datum/antagonist/abductee/roundend_report()
-	var/list/report = list()
-
-	if(!owner)
-		CRASH("antagonist datum without owner")
-
-	report += printplayer(owner)
-
-	if(length(objectives))
-		report += "<b>[owner.name] was <span class='redtext'>burdened</span> with the following obsessions:</b>"
-		var/count = 1
-		for(var/datum/objective/objective as() in objectives)
-			report += "<b>Objective #[count]</b>: [objective.explanation_text]"
-			count++
-	if(length(cured_objectives))
-		report += "<b>[owner.name] was <span class='greentext'>freed</span> from the following obsessions:</b>"
-		var/count = 1
-		for(var/cured_objective in cured_objectives)
-			report += "<b>Objective #[count]</b>: [cured_objective]"
-			count++
-	if(!length(objectives))
-		report += "<span class='big greentext'>[owner.name] was freed from the obsessions imprinted upon them!</span>"
-
-	return report.Join("<br>")
 
 // LANDMARKS
 /obj/effect/landmark/abductor

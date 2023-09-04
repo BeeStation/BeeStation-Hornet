@@ -28,7 +28,8 @@
 		name = "light switch ([area.name])"
 
 	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
-	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(turn_off))
+	if(CONFIG_GET(flag/dark_unstaffed_departments))
+		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(turn_off))
 	return
 
 /obj/machinery/light_switch/update_overlays()

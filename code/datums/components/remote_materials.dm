@@ -25,6 +25,7 @@ handles linking back and forth.
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_z_disconnect))
+	RegisterSignal(parent, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(recieve_buffer))
 
 	var/turf/T = get_turf(parent)
 	if (force_connect || (mapload && is_station_level(T.z)))
@@ -113,35 +114,32 @@ handles linking back and forth.
 /datum/component/remote_materials/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
 
-	if(I.tool_behaviour == TOOL_MULTITOOL)
-		if(!I.multitool_check_buffer(user, I))
-			return COMPONENT_NO_AFTERATTACK
-		var/obj/item/multitool/M = I
-		if (!QDELETED(M.buffer) && istype(M.buffer, /obj/machinery/ore_silo))
-			var/atom/P = parent
-			if (!is_valid_link(P, M.buffer))
-				to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of Range.</span>")
-				return COMPONENT_NO_AFTERATTACK
-			if (silo == M.buffer)
-				to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")
-				return COMPONENT_NO_AFTERATTACK
-			if (silo)
-				silo.connected -= src
-				silo.updateUsrDialog()
-			else if (mat_container)
-				mat_container.retrieve_all()
-				qdel(mat_container)
-			set_silo(M.buffer)
-			silo.connected += src
-			silo.updateUsrDialog()
-			mat_container = silo.GetComponent(/datum/component/material_container)
-			to_chat(user, "<span class='notice'>You connect [parent] to [silo] from the multitool's buffer.</span>")
-			SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)
-			return COMPONENT_NO_AFTERATTACK
-
-	else if (silo && istype(I, /obj/item/stack))
+	if (silo && istype(I, /obj/item/stack))
 		if (silo.remote_attackby(parent, user, I))
 			return COMPONENT_NO_AFTERATTACK
+
+/datum/component/remote_materials/proc/recieve_buffer(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
+	if (!QDELETED(buffer) && istype(buffer, /obj/machinery/ore_silo))
+		var/atom/P = parent
+		if (!is_valid_link(P, buffer))
+			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of Range.</span>")
+			return COMPONENT_NO_AFTERATTACK
+		if (silo == buffer)
+			to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")
+			return COMPONENT_NO_AFTERATTACK
+		if (silo)
+			silo.connected -= src
+			silo.updateUsrDialog()
+		else if (mat_container)
+			mat_container.retrieve_all()
+			qdel(mat_container)
+		set_silo(buffer)
+		silo.connected += src
+		silo.updateUsrDialog()
+		mat_container = silo.GetComponent(/datum/component/material_container)
+		to_chat(user, "<span class='notice'>You connect [parent] to [silo] from the multitool's buffer.</span>")
+		SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)
+		return COMPONENT_BUFFER_RECIEVED
 
 /datum/component/remote_materials/proc/on_hold()
 	return silo && silo.holds["[get_area(parent)]/[category]"]

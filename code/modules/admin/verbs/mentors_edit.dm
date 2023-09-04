@@ -45,6 +45,9 @@ its mentors, not actual dangerous perms
 
 		if(href_list["mentor_edit"] == "add")
 			var/newguy = input("Enter the key of the mentor you wish to add.", "")
+			if(!length(newguy))
+				to_chat(usr, "<span class='admin'>Failed to add empty mentor. Please specify a ckey.</span>")
+				return
 			var/datum/DBQuery/query_add_mentor = SSdbcore.NewQuery(
 				"INSERT INTO [format_table_name("mentor")] (ckey) VALUES (:newguy)",
 				list("newguy" = newguy)

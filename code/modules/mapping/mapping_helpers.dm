@@ -300,12 +300,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	qdel(src)
 
 /obj/effect/mapping_helpers/dead_body_placer/proc/spawn_dead_human_in_tray(atom/container)
-	var/mob/living/carbon/human/H = new /mob/living/carbon/human(container)
-	H.death()
-	for (var/part in H.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
+	var/mob/living/carbon/human/corpse = new(container)
+	var/list/possible_alt_species = GLOB.roundstart_races.Copy() - list(SPECIES_HUMAN, SPECIES_IPC)
+	if(prob(15) && length(possible_alt_species))
+		corpse.set_species(GLOB.species_list[pick(possible_alt_species)])
+	corpse.give_random_dormant_disease(25, min_symptoms = 1, max_symptoms = 5) // slightly more likely that an average stationgoer to have a dormant disease, bc who KNOWS how they died?
+	corpse.death()
+	for (var/obj/item/organ/organ in corpse.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
 		if (prob(40))
 			qdel(part)
 		else
-			var/obj/item/organ/O = part
-			O.organ_flags |= ORGAN_FROZEN
+			organ.organ_flags |= ORGAN_FROZEN
 	container.update_icon()

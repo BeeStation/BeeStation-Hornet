@@ -13,8 +13,13 @@
 	var/obj/item/organ/brain/brain_target
 	if(human_check)
 		brain_target = target?.current.getorganslot(ORGAN_SLOT_BRAIN)
-	//Protect will always suceed when someone suicides
-	return ..() || !target || considered_alive(target, enforce_human = human_check) || (human_check == TRUE && brain_target)? brain_target.suicided : FALSE
+	if(..() || !target)
+		return TRUE
+	if(considered_alive(target, enforce_human = human_check))
+		return TRUE
+	//Protect will always succeed when someone suicides
+	return (human_check && brain_target) ? brain_target.suicided : FALSE
+
 
 /datum/objective/protect/update_explanation_text()
 	..()

@@ -86,7 +86,7 @@
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"
 ///! from base of atom/teleport_act(): ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
-///! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+///! from base of atom/Exited(): (mob/user, obj/item/extrapolator/extrapolator, dry_run, list/result)
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"
 ///!from base of atom/singularity_pull(): (/datum/component/singularity, current_size)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"
@@ -171,3 +171,10 @@
 #define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
 /// Do the emag action (if CHECK is FALSE)
 #define COMSIG_ATOM_ON_EMAG "atom_on_emag"
+
+/////////////////
+/// Radio jamming signals
+/////////////////
+
+#define COMSIG_ATOM_JAMMED "become_jammed"						//! Relayed to atoms when they become jammed if they have the jam_receiver components.
+#define COMSIG_ATOM_UNJAMMED "become_unjammed"					//! Relayed to atoms when they become unjammed if they have the jam_receiver components.
