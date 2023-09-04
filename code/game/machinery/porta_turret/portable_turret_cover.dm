@@ -76,8 +76,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 		return COMPONENT_BUFFER_RECIEVED
 	return NONE
 
-/obj/machinery/porta_turret_cover/attacked_by(obj/item/I, mob/user)
-	parent_turret.attacked_by(I, user)
+/obj/machinery/porta_turret_cover/on_attacked(obj/item/I, mob/user)
+	parent_turret.on_attacked(I, user)
 
 /obj/machinery/porta_turret_cover/attack_alien(mob/living/carbon/alien/humanoid/user)
 	parent_turret.attack_alien(user)

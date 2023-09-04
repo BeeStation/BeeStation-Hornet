@@ -64,7 +64,7 @@
 			if (is_damage_deflected(damage))
 				log_combat(M, src, "attacked (entirely deflected)")
 				return
-			attack_threshold_check(damage)
+			//BACONTODO attack_threshold_check(damage)
 			return 1
 	if (M.a_intent == INTENT_HELP)
 		if (health > 0)
@@ -88,7 +88,7 @@
 			if (is_damage_deflected(damage))
 				log_combat(M, src, "attacked (entirely deflected)")
 				return
-			attack_threshold_check(damage)
+			//BACONTODO attack_threshold_check(damage)
 			log_combat(M, src, "attacked")
 		return 1
 
@@ -99,9 +99,9 @@
 		if (is_damage_deflected(damage))
 			log_combat(L, src, "attacked (entirely deflected)")
 			return
-		. = attack_threshold_check(damage)
-		if(.)
-			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+		//BACONTODO . = attack_threshold_check(damage)
+		//if(.)
+		//	L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -110,7 +110,7 @@
 		if (is_damage_deflected(damage))
 			log_combat(M, src, "attacked (entirely deflected)")
 			return
-		return attack_threshold_check(damage)
+		//BACONTODO return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -122,7 +122,7 @@
 		if (is_damage_deflected(damage))
 			log_combat(M, src, "attacked (entirely deflected)")
 			return
-		return attack_threshold_check(damage)
+		//BACONTODO return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.a_intent == INTENT_HARM) //No kicking dogs even as a rogue drone. Use a weapon.
@@ -131,10 +131,10 @@
 
 /mob/living/simple_animal/proc/is_damage_deflected(damage)
 	var/temp_damage = damage
-	if(!damage_coeff[damagetype])
-		temp_damage = 0
-	else
-		temp_damage *= damage_coeff[damagetype]
+	//if(!damage_coeff[damagetype])
+	//	temp_damage = 0
+	//else
+	//	temp_damage *= damage_coeff[damagetype]
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")

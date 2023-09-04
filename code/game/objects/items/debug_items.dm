@@ -42,7 +42,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/debug/omnitool/attack(mob/living/M, mob/living/user)
+/obj/item/debug/omnitool/attack_mob_target(mob/living/M, mob/living/user)
 	if(tool_behaviour == "drapes")
 		attempt_initiate_surgery(src, M, user)
 	..()

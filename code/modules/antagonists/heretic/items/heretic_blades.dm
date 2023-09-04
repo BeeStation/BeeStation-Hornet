@@ -17,7 +17,7 @@
 	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	var/after_use_message = ""
 
-/obj/item/melee/sickly_blade/attack(mob/living/M, mob/living/user)
+/obj/item/melee/sickly_blade/attack_mob_target(mob/living/M, mob/living/user)
 	if(!IS_HERETIC_OR_MONSTER(user))
 		to_chat(user, "<span class='danger'>You feel a pulse of alien intellect lash out at your mind!</span>")
 		var/mob/living/carbon/human/human_user = user

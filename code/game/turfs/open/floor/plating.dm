@@ -62,7 +62,7 @@
 				to_chat(user, "<span class='notice'>You lay down the catwalk.</span>")
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
-		returnt
+		return TRUE
 	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes)
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")

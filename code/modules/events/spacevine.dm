@@ -360,7 +360,7 @@
 	if(!override)
 		qdel(src)
 
-/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/spacevine/on_attacked(obj/item/I, mob/living/user)
 	var/damage_dealt = I.force
 	if(I.is_sharp())
 		damage_dealt *= 4

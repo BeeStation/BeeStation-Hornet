@@ -81,7 +81,7 @@
 		playsound(user, 'sound/machines/boltsup.ogg', 30, TRUE)
 	update_icon()
 
-/obj/item/pet_carrier/attack(mob/living/target, mob/living/user)
+/obj/item/pet_carrier/attack_mob_target(mob/living/target, mob/living/user)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(!open)

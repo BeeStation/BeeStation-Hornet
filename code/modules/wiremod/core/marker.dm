@@ -26,12 +26,12 @@
 	clear_marked_atom()
 	return TRUE
 
-/obj/item/multitool/circuit/tool_action(mob/user, atom/target, params)
+/obj/item/multitool/circuit/interact_with(atom/target, mob/user, params)
 	if (..())
 		return TRUE
 	if(marked_atom)
 		balloon_alert(user, "You already have a marked object!")
-		return
+		return TRUE
 
 	balloon_alert(user, "Marked [target].")
 	marked_atom = target

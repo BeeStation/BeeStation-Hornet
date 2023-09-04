@@ -10,7 +10,7 @@
 	icon_state = "elecarm"
 	var/charge_cost = 30
 
-/obj/item/borg/stun/attack(mob/living/M, mob/living/user)
+/obj/item/borg/stun/attack_mob_target(mob/living/M, mob/living/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, 0, "[M]'s [name]", MELEE_ATTACK))
@@ -62,7 +62,7 @@
 		if(3)
 			to_chat(user, "ERROR: ARM ACTUATORS OVERLOADED.")
 
-/obj/item/borg/cyborghug/attack(mob/living/M, mob/living/silicon/robot/user)
+/obj/item/borg/cyborghug/attack_mob_target(mob/living/M, mob/living/silicon/robot/user)
 	if(M == user)
 		return
 	switch(mode)

@@ -200,14 +200,10 @@
 /obj/item/gun_control/CanItemAutoclick()
 	return TRUE
 
-/obj/item/gun_control/attack_obj(obj/O, mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	O.attacked_by(src, user)
-
-/obj/item/gun_control/attack(mob/living/M, mob/living/user)
+/obj/item/gun_control/attack_mob_target(mob/living/M, mob/living/user)
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey
-	M.attacked_by(src, user)
+	M.on_attacked(src, user)
 	add_fingerprint(user)
 
 /obj/item/gun_control/afterattack(atom/targeted_atom, mob/user, flag, params)

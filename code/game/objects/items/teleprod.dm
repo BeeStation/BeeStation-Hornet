@@ -6,7 +6,7 @@
 	item_state = "teleprod"
 	slot_flags = null
 
-/obj/item/melee/baton/cattleprod/teleprod/attack(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
+/obj/item/melee/baton/cattleprod/teleprod/attack_mob_target(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
 	..()
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>", \

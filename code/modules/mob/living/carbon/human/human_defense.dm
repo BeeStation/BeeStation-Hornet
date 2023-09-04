@@ -170,7 +170,7 @@
 	..()
 
 
-/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user)
+/mob/living/carbon/human/on_attacked(obj/item/I, mob/living/user)
 	if(!I || !user)
 		return 0
 

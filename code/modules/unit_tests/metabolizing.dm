@@ -7,7 +7,7 @@
 
 	// Give them enough meth to be consumed in 2 metabolizations
 	pill.reagents.add_reagent(meth, initial(meth.metabolization_rate) * 1.9)
-	pill.attack(user, user)
+	pill.attack_mob_target(user, user)
 	user.Life()
 
 	TEST_ASSERT(user.reagents.has_reagent(meth), "User does not have meth in their system after consuming it")

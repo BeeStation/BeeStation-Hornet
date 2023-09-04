@@ -88,7 +88,7 @@
 	var/mob/living/silicon/pai/pAI = usr
 	var/mob/living/carbon/holder = get(pAI.card.loc, /mob/living/carbon)
 	if(holder)
-		pAI.hostscan.attack(holder, pAI)
+		pAI.hostscan.attack_mob_target(holder, pAI)
 	else
 		to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
 		return 0

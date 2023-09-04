@@ -9,7 +9,7 @@
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
 
-/obj/item/reagent_containers/glass/attack(mob/M, mob/user, obj/target)
+/obj/item/reagent_containers/glass/attack_mob_target(mob/M, mob/user, obj/target)
 	if(!canconsume(M, user))
 		return
 
@@ -353,7 +353,7 @@
 		return FALSE
 	. = ..()
 
-/obj/item/reagent_containers/glass/waterbottle/attack(mob/M, mob/user, obj/target)
+/obj/item/reagent_containers/glass/waterbottle/attack_mob_target(mob/M, mob/user, obj/target)
 	if(cap_on && reagents.total_volume && istype(M))
 		to_chat(user, "<span class='warning'>You must remove the cap before you can do that!</span>")
 		return

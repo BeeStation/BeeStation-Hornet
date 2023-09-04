@@ -108,13 +108,9 @@
 		..()
 	return
 
-/obj/item/light/attack(mob/living/M, mob/living/user, def_zone)
-	..()
+/obj/item/light/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	shatter()
-
-/obj/item/light/attack_obj(obj/O, mob/living/user)
-	..()
-	shatter()
+	return ..()
 
 /obj/item/light/proc/shatter()
 	if(status == LIGHT_OK || status == LIGHT_BURNED)

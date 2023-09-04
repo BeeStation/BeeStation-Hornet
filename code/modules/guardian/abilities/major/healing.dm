@@ -16,7 +16,7 @@
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.remove_hud_from(guardian)
 
-/datum/guardian_ability/major/healing/Attack(atom/target)
+/datum/guardian_ability/major/healing/attack_mob_target(atom/target)
 	if(mode)
 		if(target == guardian)
 			to_chat(guardian, "<span class='danger bold'>You can't heal yourself!</span>")

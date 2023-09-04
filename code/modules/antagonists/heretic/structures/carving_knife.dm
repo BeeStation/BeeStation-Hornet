@@ -186,7 +186,7 @@
 		return
 	return ..()
 
-/obj/structure/trap/eldritch/attacked_by(obj/item/weapon, mob/living/user)
+/obj/structure/trap/eldritch/on_attacked(obj/item/weapon, mob/living/user)
 	if(istype(weapon, /obj/item/melee/rune_carver) || istype(weapon, /obj/item/nullrod))
 		loc.balloon_alert(user, "Carving dispelled")
 		playsound(src, 'sound/items/sheath.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, ignore_walls = FALSE)

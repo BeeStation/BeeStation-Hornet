@@ -172,7 +172,7 @@
 							update_icon()
 					else
 						to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to insert them into the AI core!</span>")
-					return TRUE_THRESHOLD
+					return TRUE
 
 				if(istype(P, /obj/item/aiModule))
 					if(brain && brain.laws.id != DEFAULT_AI_LAWID)

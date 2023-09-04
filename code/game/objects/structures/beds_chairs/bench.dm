@@ -72,7 +72,7 @@
 	cover = mutable_appearance('icons/obj/beds_chairs/benches.dmi', "[icon_state]_cover", color = cover_color) //this supports colouring, but not the base bench
 	add_overlay(cover)
 
-/obj/structure/chair/fancy/bench/corporate/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/chair/fancy/bench/corporate/on_attacked(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I

@@ -31,7 +31,7 @@
 	add_raw_text("<center>Conditions of Employment</center><BR><BR><BR><BR>This Agreement is made and entered into as of the date of last signature below, by and between [target] (hereafter referred to as SLAVE), and Nanotrasen (hereafter referred to as the omnipresent and helpful watcher of humanity).<BR>WITNESSETH:<BR>WHEREAS, SLAVE is a natural born human or humanoid, possessing skills upon which he can aid the omnipresent and helpful watcher of humanity, who seeks employment in the omnipresent and helpful watcher of humanity.<BR>WHEREAS, the omnipresent and helpful watcher of humanity agrees to sporadically provide payment to SLAVE, in exchange for permanent servitude.<BR>NOW THEREFORE in consideration of the mutual covenants herein contained, and other good and valuable consideration, the parties hereto mutually agree as follows:<BR>In exchange for paltry payments, SLAVE agrees to work for the omnipresent and helpful watcher of humanity, for the remainder of his or her current and future lives.<BR>Further, SLAVE agrees to transfer ownership of his or her soul to the loyalty department of the omnipresent and helpful watcher of humanity.<BR>Should transfership of a soul not be possible, a lien shall be placed instead.<BR>Signed,<BR><i>[target]</i>")
 
 
-/obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
+/obj/item/paper/contract/employment/attack_mob_target(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = FALSE
 	if(M.mind == target && !M.owns_soul())
 		if(user.mind && (user.mind.assigned_role == JOB_NAME_LAWYER))
@@ -180,7 +180,7 @@
 	else
 		return ..()
 
-/obj/item/paper/contract/infernal/attack(mob/M, mob/living/user)
+/obj/item/paper/contract/infernal/attack_mob_target(mob/M, mob/living/user)
 	add_fingerprint(user)
 	if(M == user && target == M.mind && M.mind.soulOwner != owner && attempt_signature(user, 1))
 		user.visible_message("<span class='danger'>[user] slices [user.p_their()] wrist with [src], and scrawls [user.p_their()] name in blood.</span>", "<span class='danger'>You slice your wrist open and scrawl your name in blood.</span>")
@@ -219,7 +219,7 @@
 
 
 
-/obj/item/paper/contract/infernal/revive/attack(mob/M, mob/living/user)
+/obj/item/paper/contract/infernal/revive/attack_mob_target(mob/M, mob/living/user)
 	if (target == M.mind && M.stat == DEAD && M.mind.soulOwner == M.mind)
 		if (cooldown)
 			to_chat(user, "<span class='notice'>Give [M] a chance to think through the contract, don't rush [M.p_them()].</span>")

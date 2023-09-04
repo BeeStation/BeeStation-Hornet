@@ -5,7 +5,7 @@
 	clockwork_desc = "A sharp cog that can cut through and be inserted into APCs to extract power for the gateway."
 	item_flags = ISWEAPON
 
-/obj/item/clockwork/integration_cog/attack_obj(obj/O, mob/living/user)
+/obj/item/clockwork/integration_cog/interact_with(atom/target, mob/user, params)
 	if(!is_servant_of_ratvar(user))
 		return ..()
 	if(!istype(O, /obj/machinery/power/apc))
@@ -13,7 +13,7 @@
 	var/obj/machinery/power/apc/A = O
 	if(A.integration_cog)
 		to_chat(user, "<span class='brass'>There is already \an [src] in \the [A].</span>")
-		return
+		return TRUE
 	if(!A.panel_open)
 		//Cut open the panel
 		to_chat(user, "<span class='notice'>You begin cutting open \the [A].</span>")
@@ -21,8 +21,8 @@
 			to_chat(user, "<span class='brass'>You cut open \the [A] with \the [src].</span>")
 			A.panel_open = TRUE
 			A.update_icon()
-			return
-		return
+			return TRUE
+		return TRUE
 	//Insert the cog
 	to_chat(user, "<span class='notice'>You begin inserting \the [src] into \the [A].</span>")
 	if(do_after(user, 40, target=A))
@@ -42,3 +42,4 @@
 			if(GLOB.clockcult_eminence)
 				var/mob/living/simple_animal/eminence/eminence = GLOB.clockcult_eminence
 				eminence.cog_change()
+	return TRUE

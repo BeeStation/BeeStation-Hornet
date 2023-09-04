@@ -49,7 +49,7 @@
 	. = ..()
 	create_reagents(10)
 
-/obj/item/toy/balloon/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/toy/balloon/attack_mob_target(mob/living/carbon/human/M, mob/user)
 	return
 
 /obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user, proximity)
@@ -195,7 +195,7 @@
 			A.amount_left -= 7 - src.bullets
 			src.bullets = 7
 		A.update_icon()
-		return  RUE
+		return TRUE
 	else
 		return ..()
 
@@ -1685,7 +1685,7 @@
 	icon_state = "disco_active"
 	var/flip_cooldown = 0
 
-/obj/item/dance_trance/attack()
+/obj/item/dance_trance/attack_mob_target()
 	if(flip_cooldown < world.time)
 		flip_mobs()
 	return ..()

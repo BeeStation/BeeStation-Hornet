@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 			new item(get_turf(src))
 	qdel(src)
 
-/mob/living/simple_animal/hostile/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/clockwork_marauder/on_attacked(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/nullrod))
 		apply_damage(/datum/damage_source/magic, /datum/damage/burn, 15)
 		if(shield_health > 0)

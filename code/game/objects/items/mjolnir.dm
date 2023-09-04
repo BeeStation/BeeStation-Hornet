@@ -42,7 +42,7 @@
 	target.throw_at(throw_target, 200, 4)
 	return
 
-/obj/item/mjolnir/attack(mob/living/M, mob/user)
+/obj/item/mjolnir/attack_mob_target(mob/living/M, mob/user)
 	..()
 	if(ISWIELDED(src))
 		playsound(src.loc, "sparks", 50, 1)

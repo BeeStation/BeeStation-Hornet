@@ -81,7 +81,7 @@
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 
-/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/soulstone/attack_mob_target(mob/living/carbon/human/M, mob/living/user)
 	if(!iscultist(user) && !iswizard(user) && !usability)
 		user.Unconscious(100)
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")

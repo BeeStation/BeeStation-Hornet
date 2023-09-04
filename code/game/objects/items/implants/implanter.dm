@@ -21,7 +21,7 @@
 		icon_state = "implanter0"
 
 
-/obj/item/implanter/attack(mob/living/M, mob/user)
+/obj/item/implanter/attack_mob_target(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 	if(user && imp)

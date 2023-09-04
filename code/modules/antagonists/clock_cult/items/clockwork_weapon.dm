@@ -36,7 +36,7 @@
 	if(is_servant_of_ratvar(user) && clockwork_hint)
 		. += clockwork_hint
 
-/obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
+/obj/item/clockwork/weapon/attack_mob_target(mob/living/target, mob/living/user)
 	if(!is_reebe(user.z))
 		return ..()
 	//Gain a slight buff when fighting near to the Ark.
@@ -130,15 +130,14 @@
 	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
-/obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
-	..()
-	if(!(istype(O, /obj/mecha) && is_reebe(user.z)))
+/obj/item/clockwork/weapon/brass_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!(istype(target, /obj/mecha) && is_reebe(user.z)))
 		return
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
 
-	var/obj/mecha/target = O
 	target.emp_act(EMP_HEAVY)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
 	addtimer(CALLBACK(src, PROC_REF(send_message), user), 20 SECONDS)

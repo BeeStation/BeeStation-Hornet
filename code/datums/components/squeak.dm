@@ -29,7 +29,7 @@
 		RegisterSignal(parent, COMSIG_ATOM_EMINENCE_ACT, PROC_REF(play_squeak_crossed))
 		RegisterSignal(parent, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposing_react))
 		if(isitem(parent))
-			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), PROC_REF(play_squeak))
+			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_INTERACT_WITH, COMSIG_ITEM_HIT_REACT), PROC_REF(play_squeak))
 			RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(use_squeak))
 			RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 			RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))

@@ -70,7 +70,7 @@
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 
-/mob/living/carbon/attacked_by(obj/item/I, mob/living/user)
+/mob/living/carbon/on_attacked(obj/item/I, mob/living/user)
 	var/obj/item/bodypart/affecting
 	var/target_zone = check_zone(user.zone_selected)
 	affecting = get_bodypart(check_zone(user.zone_selected))

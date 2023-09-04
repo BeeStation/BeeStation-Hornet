@@ -223,7 +223,7 @@
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 
-/obj/item/grown/sunflower/attack(mob/M, mob/user)
+/obj/item/grown/sunflower/attack_mob_target(mob/M, mob/user)
 	to_chat(M, "<font color='green'><b> [user] smacks you with a sunflower! </font><font color='yellow'><b>FLOWER POWER<b></font>")
 	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
 
@@ -291,7 +291,7 @@
 	..()
 	force = round((5 + seed.potency / 5), 1)
 
-/obj/item/grown/novaflower/attack(mob/living/carbon/M, mob/user)
+/obj/item/grown/novaflower/attack_mob_target(mob/living/carbon/M, mob/user)
 	if(!..())
 		return
 	if(isliving(M))

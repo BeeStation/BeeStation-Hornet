@@ -31,7 +31,12 @@
 	// Determine the target_zone
 	if (!target_zone)
 		target_zone = ran_zone(attacker?.zone_selected || BODY_ZONE_CHEST)
-	var/final_damage_amount = calculate_damage(living_target, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
+	// Determine armour penetration
+	var/armour_penetration_value = attacking_item?.armour_penetration
+	if (isanimal(attacker))
+		var/mob/living/simple_animal/animal_attacker = attacker
+		armour_penetration_value ||= animal_attacker.armour_penetration
+	var/final_damage_amount = calculate_damage(target, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
 	if (final_damage_amount <= 0)
 		return
 	// Play the animation
@@ -55,10 +60,6 @@
 		if (!targetted_part)
 			targetted_part = living_target.get_bodypart(BODY_ZONE_CHEST)
 		// Determine armour
-		var/armour_penetration_value = attacking_item?.armour_penetration
-		if (isanimal(attacker))
-			var/mob/living/simple_animal/animal_attacker = attacker
-			armour_penetration_value ||= animal_attacker.armour_penetration
 		if (attacking_item && attacker)
 			living_target.send_item_attack_message(attacking_item, attacker, parse_zone(target_zone))
 		// Get the damage applyer
@@ -75,14 +76,21 @@
 		CRASH("Not implemented")
 
 /// Get the amount of damage blocked by armour. 0 to 100.
-/datum/damage_source/proc/get_armour_block(mob/living/target, input_damage, target_zone, armour_penetration = 0)
+/datum/damage_source/proc/get_armour_block(atom/target, input_damage, target_zone, armour_penetration = 0)
+	if (!armour_flag)
+		return 0
 	// Determine armour
-	if (armour_flag)
-		return target.run_armor_check(target_zone || BODY_ZONE_CHEST, armour_flag, armour_penetration = armour_penetration)
+	if (isliving(target))
+		var/mob/living/living_target = target
+		return living_target.run_armor_check(target_zone || BODY_ZONE_CHEST, armour_flag, armour_penetration = armour_penetration)
+	if (isobj(target))
+		//var/obj/object_target = target
+		//object_target.run_obj_armor(input_damage, )
+		// BACONTODO
 	return 0
 
 /// Calculate the damage caused by a specific attack
-/datum/damage_source/proc/calculate_damage(mob/living/target, input_damage, target_zone, armour_penetration = 0)
+/datum/damage_source/proc/calculate_damage(atom/target, input_damage, target_zone, armour_penetration = 0)
 	// Determine armour
 	var/blocked = get_armour_block(target, input_damage, target_zone, armour_penetration)
 	if (blocked >= 100)

@@ -244,7 +244,7 @@
 		explosion(location,0,0,3)
 	qdel(src)
 
-/obj/item/grenade/plastic/c4/attack(mob/M, mob/user, def_zone)
+/obj/item/grenade/plastic/c4/attack_mob_target(mob/M, mob/user, def_zone)
 	return
 
 // X4 is an upgraded directional variant of c4 which is relatively safe to be standing next to. And much less safe to be standing on the other side of.

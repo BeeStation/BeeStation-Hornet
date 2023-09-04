@@ -199,7 +199,7 @@
 	else
 		cut_overlays()
 
-/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/storage/fancy/cigarettes/attack_mob_target(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!ismob(M))
 		return
 

@@ -46,7 +46,7 @@
 /datum/component/cult_ritual_item/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(try_scribe_rune))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_purge_holywater))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, PROC_REF(try_hit_object))
+	RegisterSignal(parent, COMSIG_ITEM_INTERACT_WITH, PROC_REF(try_hit_object))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, PROC_REF(try_clear_rune))
 
 	if(examine_message)
@@ -56,7 +56,7 @@
 	UnregisterSignal(parent, list(
 		COMSIG_ITEM_ATTACK_SELF,
 		COMSIG_ITEM_ATTACK,
-		COMSIG_ITEM_ATTACK_OBJ,
+		COMSIG_ITEM_INTERACT_WITH,
 		COMSIG_ITEM_ATTACK_EFFECT,
 		))
 	if(examine_message)
@@ -115,10 +115,10 @@
 	INVOKE_ASYNC(src, PROC_REF(do_purge_holywater), user)
 
 /*
- * Signal proc for [COMSIG_ITEM_ATTACK_OBJ].
+ * Signal proc for [COMSIG_ITEM_INTERACT_WITH].
  * Allows the ritual items to unanchor cult buildings or destroy rune girders.
  */
-/datum/component/cult_ritual_item/proc/try_hit_object(datum/source, obj/structure/target, mob/cultist)
+/datum/component/cult_ritual_item/proc/try_hit_object(datum/source, mob/cultist, obj/structure/target)
 	SIGNAL_HANDLER
 
 	if(!isliving(cultist) || !IS_CULTIST(cultist))
@@ -126,11 +126,11 @@
 
 	if(istype(target, /obj/structure/girder/cult))
 		INVOKE_ASYNC(src, PROC_REF(do_destroy_girder), target, cultist)
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_INTERACTION_SUCCESS
 
 	if(istype(target, /obj/structure/destructible/cult))
 		INVOKE_ASYNC(src, PROC_REF(do_unanchor_structure), target, cultist)
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_INTERACTION_SUCCESS
 
 /*
  * Signal proc for [COMSIG_ITEM_ATTACK_EFFECT].

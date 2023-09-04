@@ -135,7 +135,7 @@
 		to_chat(user, "<span class='notice'>You rotate the top of the pen to [degrees] degrees.</span>")
 		SEND_SIGNAL(src, COMSIG_PEN_ROTATED, deg, user)
 
-/obj/item/pen/attack(mob/living/M, mob/user,stealth)
+/obj/item/pen/attack_mob_target(mob/living/M, mob/user,stealth)
 	if(!istype(M))
 		return
 
@@ -191,7 +191,7 @@
 
 /obj/item/pen/sleepy
 
-/obj/item/pen/sleepy/attack(mob/living/M, mob/user)
+/obj/item/pen/sleepy/attack_mob_target(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 

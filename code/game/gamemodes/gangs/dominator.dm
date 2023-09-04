@@ -142,7 +142,7 @@
 		new /obj/item/stack/sheet/plasteel(src.loc)
 	qdel(src)
 
-/obj/machinery/dominator/attacked_by(obj/item/I, mob/living/user)
+/obj/machinery/dominator/on_attacked(obj/item/I, mob/living/user)
 	add_fingerprint(user)
 	..()
 

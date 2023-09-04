@@ -232,7 +232,7 @@
 /obj/item/melee/classic_baton/police
 	name = "police baton"
 
-/obj/item/melee/classic_baton/police/attack(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/police/attack_mob_target(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
 
@@ -460,7 +460,7 @@
 /obj/item/melee/classic_baton/retractible_stun/proc/check_disabled(mob/living/target, mob/living/user)
 	return FALSE
 
-/obj/item/melee/classic_baton/retractible_stun/attack(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/retractible_stun/attack_mob_target(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
 
@@ -697,7 +697,7 @@
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/whip.ogg'
 
-/obj/item/melee/curator_whip/attack(mob/living/target, mob/living/user)
+/obj/item/melee/curator_whip/attack_mob_target(mob/living/target, mob/living/user)
 	. = ..()
 	if(!ishuman(target))
 		return
@@ -864,7 +864,7 @@
 	var/cooldown = 0
 	var/knockbackpower = 6
 
-/obj/item/melee/knockback_stick/attack(mob/living/target, mob/living/user)
+/obj/item/melee/knockback_stick/attack_mob_target(mob/living/target, mob/living/user)
 	add_fingerprint(user)
 
 	if(cooldown <= world.time)

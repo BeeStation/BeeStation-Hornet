@@ -179,7 +179,7 @@
 		if(open)
 			if(pizza)
 				to_chat(user, "<span class='warning'>[src] already has \a [pizza.name]!</span>")
-				returnt
+				return TRUE
 			if(!user.transferItemToLoc(I, src))
 				return TRUE
 			pizza = I
@@ -237,7 +237,7 @@
 			unprocess()
 	return
 
-/obj/item/pizzabox/attack(mob/living/target, mob/living/user, def_zone)
+/obj/item/pizzabox/attack_mob_target(mob/living/target, mob/living/user, def_zone)
 	. = ..()
 	if(boxes.len >= 3 && prob(25 * boxes.len))
 		disperse_pizzas()

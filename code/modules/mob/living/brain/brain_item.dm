@@ -125,10 +125,10 @@
 		return TRUE
 
 	if(brainmob) //if we aren't trying to heal the brain, pass the attack onto the brainmob.
-		O.attack(brainmob, user) //Oh noooeeeee
+		O.attack_mob_target(brainmob, user) //Oh noooeeeee
 
 	if(O.force != 0 && !(O.item_flags & NOBLUDGEON))
-	  setOrganDamage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
+		setOrganDamage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
 	return TRUE
 
 /obj/item/organ/brain/examine(mob/user)

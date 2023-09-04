@@ -46,7 +46,7 @@
 	desc = "A long noodle made of foam. Helping those with fears of swimming swim since the 1980s."
 	var/suiciding = FALSE
 
-/obj/item/pool/pool_noodle/attack(mob/target, mob/living/carbon/human/user)
+/obj/item/pool/pool_noodle/attack_mob_target(mob/target, mob/living/carbon/human/user)
 	. = ..()
 	if(ISWIELDED(src) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)

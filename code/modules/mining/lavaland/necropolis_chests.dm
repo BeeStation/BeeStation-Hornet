@@ -761,8 +761,8 @@
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_bodypart_damage(10)
 
-/obj/item/melee/transforming/cleaving_saw/use_on(mob/user, atom/target, params)
-	..()
+/obj/item/melee/transforming/cleaving_saw/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
 	if(!active)
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
 
@@ -774,7 +774,7 @@
 	else
 		B.add_bleed(B.bleed_buildup)
 
-/obj/item/melee/transforming/cleaving_saw/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/transforming/cleaving_saw/attack_mob_target(mob/living/target, mob/living/carbon/human/user)
 	if(!active || swiping || !target.density || get_turf(target) == get_turf(user))
 		if(!active)
 			faction_bonus_force = 0
@@ -887,7 +887,7 @@
 
 	return ghost_counter
 
-/obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/ghost_sword/attack_mob_target(mob/living/target, mob/living/carbon/human/user)
 	force = 0
 	var/ghost_counter = ghost_check()
 

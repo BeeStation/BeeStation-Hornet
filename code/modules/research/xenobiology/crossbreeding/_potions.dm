@@ -39,7 +39,7 @@ Slimecrossing Potions
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potlightpink"
 
-/obj/item/slimepotion/peacepotion/attack(mob/living/M, mob/user)
+/obj/item/slimepotion/peacepotion/attack_mob_target(mob/living/M, mob/user)
 	if(!isliving(M) || M.stat == DEAD)
 		to_chat(user, "<span class='warning'>[src] only works on the living.</span>")
 		return ..()
@@ -73,7 +73,7 @@ Slimecrossing Potions
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potpink"
 
-/obj/item/slimepotion/lovepotion/attack(mob/living/M, mob/user)
+/obj/item/slimepotion/lovepotion/attack_mob_target(mob/living/M, mob/user)
 	if(!isliving(M) || M.stat == DEAD)
 		to_chat(user, "<span class='warning'>The love potion only works on living things, sicko!</span>")
 		return ..()
@@ -179,7 +179,7 @@ Slimecrossing Potions
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potsilver"
 
-/obj/item/slimepotion/slime_reviver/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime_reviver/attack_mob_target(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The potion only works on slimes!</span>")
 		return ..()
@@ -203,7 +203,7 @@ Slimecrossing Potions
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potcyan"
 
-/obj/item/slimepotion/slime/chargedstabilizer/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/chargedstabilizer/attack_mob_target(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The stabilizer only works on slimes!</span>")
 		return ..()

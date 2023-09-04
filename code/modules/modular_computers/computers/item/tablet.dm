@@ -99,21 +99,22 @@
 		return FALSE
 	return ..()
 
-/obj/item/modular_computer/tablet/attack(atom/target, mob/living/user, params)
+/obj/item/modular_computer/tablet/attack_mob_target(atom/target, mob/living/user, params)
 	// Send to programs for processing - this should go LAST
 	// Used to implement the physical scanner.
 	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack && !thread.attack(target, user, params))
+		if(thread.use_attack && !thread.attack_mob_target(target, user, params))
 			return
 	..()
 
-/obj/item/modular_computer/tablet/attack_obj(obj/target, mob/living/user)
-	// Send to programs for processing - this should go LAST
-	// Used to implement the gas scanner.
-	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack_obj && !thread.attack_obj(target, user))
-			return
-	..()
+/obj/item/modular_computer/tablet/interact_with(atom/target, mob/user, params)
+	if (isobj(target))
+		// Send to programs for processing - this should go LAST
+		// Used to implement the gas scanner.
+		for(var/datum/computer_file/program/thread in (idle_threads + active_program))
+			if(thread.use_attack_obj && !thread.attack_obj(target, user))
+				return TRUE
+	return ..()
 
 // Eject the pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)

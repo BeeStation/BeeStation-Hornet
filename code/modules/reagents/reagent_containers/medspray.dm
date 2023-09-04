@@ -32,7 +32,7 @@
 		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
 	to_chat(user, "<span class='notice'>You will now apply the medspray's contents in [squirt_mode ? "short bursts":"extended sprays"]. You'll now use [amount_per_transfer_from_this] units per use.</span>")
 
-/obj/item/reagent_containers/medspray/attack(mob/living/carbon/M, mob/user, def_zone)
+/obj/item/reagent_containers/medspray/attack_mob_target(mob/living/carbon/M, mob/user, def_zone)
 	if(!iscarbon(M))
 		return
 

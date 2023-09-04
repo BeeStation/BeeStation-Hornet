@@ -18,7 +18,7 @@
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
 
-/obj/item/stand_arrow/attack(mob/living/M, mob/living/user)
+/obj/item/stand_arrow/attack_mob_target(mob/living/M, mob/living/user)
 	if(in_use)
 		return
 	if(!M.client)

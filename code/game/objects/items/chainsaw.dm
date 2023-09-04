@@ -141,6 +141,6 @@
 	var/knockdown = 1
 	light_range = 6
 
-/obj/item/chainsaw/energy/doom/attack(mob/living/target)
+/obj/item/chainsaw/energy/doom/attack_mob_target(mob/living/target)
 	..()
 	target.Knockdown(4)

@@ -4,7 +4,7 @@
 	var/resistcap = 6 //one higher than what it can cure
 	icon_state = "antivirus4"
 
-/obj/item/disk/antivirus/attack(mob/M, mob/user, def_zone)
+/obj/item/disk/antivirus/attack_mob_target(mob/M, mob/user, def_zone)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/cured = 0

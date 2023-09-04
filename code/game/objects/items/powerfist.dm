@@ -76,7 +76,7 @@
 		tank = thetank
 
 
-/obj/item/melee/powerfist/attack(mob/living/target, mob/living/user)
+/obj/item/melee/powerfist/attack_mob_target(mob/living/target, mob/living/user)
 	if(!tank)
 		to_chat(user, "<span class='warning'>\The [src] can't operate without a source of gas!</span>")
 		return

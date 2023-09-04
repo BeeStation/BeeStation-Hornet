@@ -46,7 +46,7 @@
 	qdel(src)
 	target.Bumped(B)
 
-/obj/item/reagent_containers/food/drinks/bottle/attack(mob/living/target, mob/living/user)
+/obj/item/reagent_containers/food/drinks/bottle/attack_mob_target(mob/living/target, mob/living/user)
 
 	if(!target)
 		return

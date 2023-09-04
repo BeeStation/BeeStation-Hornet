@@ -61,7 +61,7 @@ Striking a noncultist, however, will tear their flesh."}
 	. = ..()
 	AddComponent(/datum/component/butchering, 40, 100)
 
-/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/cultblade/attack_mob_target(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
 		user.visible_message("<span class='warning'>[user] cringes as they strike [target]!</span>", \
 							 "<span class='userdanger'>Your arm throbs and your brain hurts!</span>")
@@ -193,7 +193,7 @@ Striking a noncultist, however, will tear their flesh."}
 			var/mob/living/carbon/human/H = target
 			if(H.stat != CONSCIOUS)
 				var/obj/item/soulstone/SS = new /obj/item/soulstone(src)
-				SS.attack(H, user)
+				SS.attack_mob_target(H, user)
 				if(!LAZYLEN(SS.contents))
 					qdel(SS)
 		if(istype(target, /obj/structure/constructshell) && contents.len)

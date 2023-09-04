@@ -21,11 +21,11 @@
 			if(user_unbuckle_mob(buckled_mobs[1],user))
 				return 1
 
-/atom/movable/item_interact(obj/item/W, mob/user, params)
-	if(!can_buckle || !istype(W, /obj/item/riding_offhand) || !user.Adjacent(src))
+/atom/movable/item_interact(obj/item/item, mob/user, params)
+	if(!can_buckle || !istype(item, /obj/item/riding_offhand) || !user.Adjacent(src))
 		return ..()
 
-	var/obj/item/riding_offhand/riding_item = W
+	var/obj/item/riding_offhand/riding_item = item
 	var/mob/living/carried_mob = riding_item.rider
 	if(carried_mob == user) //Piggyback user.
 		return TRUE

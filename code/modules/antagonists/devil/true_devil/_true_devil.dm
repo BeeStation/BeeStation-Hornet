@@ -118,7 +118,7 @@
 	return 2
 
 
-/mob/living/carbon/true_devil/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/carbon/true_devil/on_attacked(obj/item/I, mob/living/user, def_zone)
 	var/weakness = check_weakness(I, user)
 	apply_damage(/datum/damage_source/magic/abstract, I.damtype, I.force * weakness, def_zone)
 	var/message_verb = ""

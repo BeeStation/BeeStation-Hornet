@@ -48,7 +48,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/dnainjector/attack(mob/living/target, mob/living/user)
+/obj/item/dnainjector/attack_mob_target(mob/living/target, mob/living/user)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return

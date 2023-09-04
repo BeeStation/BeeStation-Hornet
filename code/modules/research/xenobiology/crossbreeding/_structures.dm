@@ -214,7 +214,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	. = ..()
 	set_light(3)
 
-/obj/structure/slime_crystal/yellow/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/slime_crystal/yellow/on_attacked(obj/item/I, mob/living/user)
 	if(istype(I,/obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/cell = I
 		//Punishment for greed
@@ -470,7 +470,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/type = pick(/obj/item/reagent_containers/food/snacks/meat/slab,/obj/item/organ/heart,/obj/item/organ/lungs,/obj/item/organ/liver,/obj/item/organ/eyes,/obj/item/organ/tongue,/obj/item/organ/stomach,/obj/item/organ/ears)
 	new type(get_turf(src))
 
-/obj/structure/slime_crystal/red/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/slime_crystal/red/on_attacked(obj/item/I, mob/living/user)
 	if(blood_amt < 10)
 		return ..()
 
@@ -628,7 +628,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	for(var/X in subtypesof(/obj/item/slimecross/crystalline) - /obj/item/slimecross/crystalline/rainbow)
 		inserted_cores[X] = FALSE
 
-/obj/structure/slime_crystal/rainbow/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/slime_crystal/rainbow/on_attacked(obj/item/I, mob/living/user)
 	. = ..()
 
 	if(!istype(I,/obj/item/slimecross/crystalline) || istype(I,/obj/item/slimecross/crystalline/rainbow))
@@ -656,9 +656,9 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 			SC.attack_hand(user)
 	. = ..()
 
-/obj/structure/slime_crystal/rainbow/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/slime_crystal/rainbow/on_attacked(obj/item/I, mob/living/user)
 	for(var/X in inserted_cores)
 		if(inserted_cores[X])
 			var/obj/structure/slime_crystal/SC = inserted_cores[X]
-			SC.attacked_by(user)
+			SC.on_attacked(user)
 	. = ..()

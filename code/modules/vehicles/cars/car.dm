@@ -69,7 +69,7 @@
 	mob_exit(M, silent)
 	return TRUE
 
-/obj/vehicle/sealed/car/attacked_by(obj/item/I, mob/living/user)
+/obj/vehicle/sealed/car/on_attacked(obj/item/I, mob/living/user)
 	if(!I.force)
 		return
 	if(occupants[user])

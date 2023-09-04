@@ -45,8 +45,7 @@
 		return TRUE
 	else
 		var/turf/T = get_turf(src)
-		return  T.item_interact(C, user, params)
-		return TRUE
+		return T.item_interact(C, user, params)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

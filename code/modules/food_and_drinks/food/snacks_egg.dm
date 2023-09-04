@@ -41,7 +41,7 @@
 		reagents.reaction(hit_atom, TOUCH)
 		qdel(src)
 
-/obj/item/reagent_containers/food/snacks/egg/ && (Keys)vkCode != Keys.C(obj/item/W, mob/user, params)
+/obj/item/reagent_containers/food/snacks/egg/item_interact(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		var/clr = C.crayon_color

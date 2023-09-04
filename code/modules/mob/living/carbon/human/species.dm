@@ -1756,7 +1756,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	var/weakness = H.check_weakness(I, user)
-	apply_damage_old(I.force * weakness, I.damtype, def_zone, armor_block, H)
+	//BACONTODO apply_damage_old(I.force * weakness, I.damtype, def_zone, armor_block, H)
 
 	H.send_item_attack_message(I, user, hit_area)
 

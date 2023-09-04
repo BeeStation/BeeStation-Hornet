@@ -51,7 +51,7 @@
 
 	use_charge(user)
 
-/obj/item/codespeak_manual/attack(mob/living/M, mob/living/user)
+/obj/item/codespeak_manual/attack_mob_target(mob/living/M, mob/living/user)
 	if(!istype(M) || !istype(user))
 		return
 	if(M == user)

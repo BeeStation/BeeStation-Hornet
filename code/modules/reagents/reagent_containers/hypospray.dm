@@ -19,7 +19,7 @@
 /obj/item/reagent_containers/hypospray/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/attack_mob_target(mob/living/M, mob/user)
 	inject(M, user)
 
 ///Handles all injection checks, injection and logging.

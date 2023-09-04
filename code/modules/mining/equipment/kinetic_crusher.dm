@@ -64,7 +64,7 @@
 	else
 		return ..()
 
-/obj/item/kinetic_crusher/attack(mob/living/target, mob/living/carbon/user)
+/obj/item/kinetic_crusher/attack_mob_target(mob/living/target, mob/living/carbon/user)
 	if(!ISWIELDED(src))
 		to_chat(user, "<span class='warning'>[src] is too heavy to use with one hand. You fumble and drop everything.")
 		user.drop_all_held_items()

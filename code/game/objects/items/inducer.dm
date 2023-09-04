@@ -33,15 +33,12 @@
 	if(cell && !(. & EMP_PROTECT_CONTENTS))
 		cell.emp_act(severity)
 
-/obj/item/inducer/attack_obj(obj/O, mob/living/carbon/user)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-
+/obj/item/inducer/interact_with(atom/target, mob/user, params)
 	if(cantbeused(user))
-		return
+		return TRUE
 
 	if(recharge(O, user))
-		return
+		return TRUE
 
 	return ..()
 
@@ -144,7 +141,7 @@
 	recharging = FALSE
 
 
-/obj/item/inducer/attack(mob/M, mob/user)
+/obj/item/inducer/attack_mob_target(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

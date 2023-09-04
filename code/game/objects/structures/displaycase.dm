@@ -391,8 +391,6 @@
 		to_chat(user, "<span class='warning'>\The [W] is stuck to your hand, you can't put it in the [src.name]!</span>")
 		return TRUE
 
-	return ..()
-
 /obj/structure/displaycase/trophy/dump()
 	if (showpiece)
 		if(added_roundstart)

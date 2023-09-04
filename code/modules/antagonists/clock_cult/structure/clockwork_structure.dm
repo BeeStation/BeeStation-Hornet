@@ -26,7 +26,7 @@
 	else if(desc)
 		. += desc
 
-/obj/structure/destructible/clockwork/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/destructible/clockwork/on_attacked(obj/item/I, mob/living/user)
 	if(immune_to_servant_attacks && is_servant_of_ratvar(user))
 		return
 	. = ..()

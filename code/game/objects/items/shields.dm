@@ -196,8 +196,8 @@
 	. = ..()
 	embedded_flash = new(src)
 
-/obj/item/shield/riot/flash/attack(mob/living/M, mob/user)
-	. =  embedded_flash.attack(M, user)
+/obj/item/shield/riot/flash/attack_mob_target(mob/living/M, mob/user)
+	. =  embedded_flash.attack_mob_target(M, user)
 	update_icon()
 
 /obj/item/shield/riot/flash/attack_self(mob/living/carbon/user)

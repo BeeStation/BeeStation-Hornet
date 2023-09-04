@@ -30,7 +30,7 @@
 	if(retract_mask())
 		visible_message("<span class='notice'>[user] retracts the mask back into \the [src].</span>")
 
-/obj/machinery/anesthetic_machine/attacked_by(obj/item/I, mob/living/user)
+/obj/machinery/anesthetic_machine/on_attacked(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/tank))
 		if(attached_tank) // If there is an attached tank, remove it and drop it on the floor
 			attached_tank.forceMove(loc)

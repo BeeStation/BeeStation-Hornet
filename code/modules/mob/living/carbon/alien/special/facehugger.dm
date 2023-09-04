@@ -21,6 +21,7 @@
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	layer = MOB_LAYER
 	max_integrity = 100
+	obj_flags = CAN_BE_HIT
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 	var/sterile = FALSE
@@ -62,9 +63,6 @@
 	if(obj_integrity < 90)
 		Die()
 
-/obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
-	return O.attack_obj(src, user)
-
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)
 
@@ -75,7 +73,7 @@
 			return
 	return ..()
 
-/obj/item/clothing/mask/facehugger/attack(mob/living/M, mob/user)
+/obj/item/clothing/mask/facehugger/attack_mob_target(mob/living/M, mob/user)
 	. = ..()
 	if(user.transferItemToLoc(src, get_turf(M)))
 		Leap(M)

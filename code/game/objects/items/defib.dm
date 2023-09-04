@@ -436,7 +436,7 @@
 	listeningTo = null
 	defib.update_icon()
 
-/obj/item/shockpaddles/attack(mob/M, mob/user)
+/obj/item/shockpaddles/attack_mob_target(mob/M, mob/user)
 	if(busy)
 		return
 	if(req_defib && !defib.powered)
@@ -698,7 +698,7 @@
 	item_state = "defibpaddles0"
 	req_defib = FALSE
 
-/obj/item/shockpaddles/cyborg/attack(mob/M, mob/user)
+/obj/item/shockpaddles/cyborg/attack_mob_target(mob/M, mob/user)
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		if(R.emagged)

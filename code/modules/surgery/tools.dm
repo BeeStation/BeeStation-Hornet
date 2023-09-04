@@ -233,7 +233,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb = list("slapped")
 
-/obj/item/surgical_drapes/attack(mob/living/M, mob/user)
+/obj/item/surgical_drapes/attack_mob_target(mob/living/M, mob/user)
 	if(!attempt_initiate_surgery(src, M, user))
 		..()
 

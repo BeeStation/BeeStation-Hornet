@@ -39,7 +39,7 @@
     playsound(src, 'sound/items/bikehorn.ogg', 20, 2)
     ..()
 
-/mob/living/simple_animal/cluwne/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/cluwne/on_attacked(obj/item/I, mob/living/user)
     playsound(src, 'sound/items/bikehorn.ogg', 20, 2)
     ..()
 

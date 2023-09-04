@@ -191,7 +191,7 @@
 		shutup.gain_trauma(/datum/brain_trauma/severe/mute)
 		return TRUE
 
-/obj/item/reagent_containers/food/snacks/pizza/arnold/attack(mob/living/M, mob/living/user)
+/obj/item/reagent_containers/food/snacks/pizza/arnold/attack_mob_target(mob/living/M, mob/living/user)
 	. = ..()
 	try_break_off(M, user)
 
@@ -209,7 +209,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pepperoni" = 2, "9 millimeter bullets" = 2)
 	foodtype = GRAIN | VEGETABLES | DAIRY | MEAT
 
-/obj/item/reagent_containers/food/snacks/pizzaslice/arnold/attack(mob/living/M, mob/living/user)
+/obj/item/reagent_containers/food/snacks/pizzaslice/arnold/attack_mob_target(mob/living/M, mob/living/user)
 	. =..()
 	try_break_off(M, user)
 

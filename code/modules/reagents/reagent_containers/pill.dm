@@ -27,7 +27,7 @@
 	return
 
 
-/obj/item/reagent_containers/pill/attack(mob/M, mob/user, obj/item/bodypart/affecting)
+/obj/item/reagent_containers/pill/attack_mob_target(mob/M, mob/user, obj/item/bodypart/affecting)
 	if(!canconsume(M, user))
 		return FALSE
 	if(iscarbon(M))

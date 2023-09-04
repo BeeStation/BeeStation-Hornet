@@ -129,7 +129,7 @@
 	var/commended = FALSE
 
 //Pinning medals on people
-/obj/item/clothing/accessory/medal/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/clothing/accessory/medal/attack_mob_target(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && (user.a_intent == INTENT_HELP))
 
 		if(M.wear_suit)

@@ -414,7 +414,7 @@
 		reagents.trans_to(t, ., volume_multiplier, transfered_by = user)
 	check_empty(user)
 
-/obj/item/toy/crayon/attack(mob/M, mob/user)
+/obj/item/toy/crayon/attack_mob_target(mob/M, mob/user)
 	if(edible && (M == user))
 		to_chat(user, "You take a bite of the [src.name]. Delicious!")
 		var/eaten = use_charges(user, 5, FALSE)

@@ -117,7 +117,7 @@
 	force = 19 + power
 	throwforce = 22 + power
 
-/obj/item/storage/toolbox/mechanical/old/clean/attack(mob/target, mob/living/user)
+/obj/item/storage/toolbox/mechanical/old/clean/attack_mob_target(mob/target, mob/living/user)
 	calc_damage()
 	..()
 

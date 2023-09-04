@@ -190,7 +190,7 @@ Slimecrossing Items
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "capturedevice"
 
-/obj/item/capturedevice/attack(mob/living/M, mob/user)
+/obj/item/capturedevice/attack_mob_target(mob/living/M, mob/user)
 	if(length(contents))
 		to_chat(user, "<span class='warning'>The device already has something inside.</span>")
 		return

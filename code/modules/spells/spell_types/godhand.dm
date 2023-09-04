@@ -21,7 +21,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
-/obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)
+/obj/item/melee/touch_attack/attack_mob_target(mob/target, mob/living/carbon/user)
 	if(!iscarbon(user)) //Look ma, no hands
 		return
 	if(!(user.mobility_flags & MOBILITY_USE))

@@ -245,7 +245,7 @@
 	for(var/i in damage_types)
 		var/amount_to_heal = min(amount, get_damage_amount(i)) //heal only up to the amount of damage we have
 		if(amount_to_heal)
-			apply_damage_old_type(-amount_to_heal, i)
+			//BACONTODO apply_damage_old_type(-amount_to_heal, i)
 			amount -= amount_to_heal //remove what we healed from our current amount
 		if(!amount)
 			break

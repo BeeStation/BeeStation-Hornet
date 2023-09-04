@@ -332,7 +332,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.insert_preposition = "on"
 
-/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
+/obj/item/storage/bag/tray/attack_mob_target(mob/living/M, mob/living/user)
 	. = ..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()

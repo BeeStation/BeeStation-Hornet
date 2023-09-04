@@ -92,7 +92,7 @@
 	else
 		qdel(GetComponent(/datum/component/slippery))
 
-/obj/item/melee/transforming/energy/sword/bananium/attack(mob/living/M, mob/living/user)
+/obj/item/melee/transforming/energy/sword/bananium/attack_mob_target(mob/living/M, mob/living/user)
 	..()
 	if(active)
 		var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)

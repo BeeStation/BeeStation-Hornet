@@ -91,7 +91,7 @@
 	name = "Nuka Cola"
 	list_reagents = list(/datum/reagent/consumable/nuka_cola = 50)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/ && (Keys)vkCode != Keys.C(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/drinks/drinkingglass/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		var/obj/item/reagent_containers/food/snacks/egg/E = I
 		if(reagents)
@@ -105,7 +105,7 @@
 	else
 		return ..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/attack(obj/target, mob/user)
+/obj/item/reagent_containers/food/drinks/drinkingglass/attack_mob_target(obj/target, mob/user)
 	if(user.a_intent == INTENT_HARM && ismob(target) && target.reagents && reagents.total_volume)
 		target.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
 						"<span class='userdanger'>[user] splashes the contents of [src] onto you!</span>")

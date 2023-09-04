@@ -188,7 +188,7 @@
 		icon_state = "gizmo_scan"
 	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
 
-/obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
+/obj/item/abductor/gizmo/attack_mob_target(mob/living/M, mob/user)
 	if(!ScientistCheck(user))
 		return
 	if(!console)
@@ -463,7 +463,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			icon_state = "wonderprodProbe"
 			item_state = "wonderprodProbe"
 
-/obj/item/abductor/baton/attack(mob/target, mob/living/user)
+/obj/item/abductor/baton/attack_mob_target(mob/target, mob/living/user)
 	if(!AbductorCheck(user))
 		return
 

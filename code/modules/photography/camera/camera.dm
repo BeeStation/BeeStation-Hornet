@@ -73,7 +73,7 @@
 		return
 	adjust_zoom(user)
 
-/obj/item/camera/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/camera/attack_mob_target(mob/living/carbon/human/M, mob/user)
 	return
 
 /obj/item/camera/attackby(obj/item/I, mob/user, params)

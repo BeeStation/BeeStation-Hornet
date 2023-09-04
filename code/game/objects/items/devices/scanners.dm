@@ -164,7 +164,7 @@ GENE SCANNER
 		to_chat(user, "<span class='notice'>You switch the health analyzer to check physical health.</span>")
 		scanmode = 0
 
-/obj/item/healthanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
+/obj/item/healthanalyzer/attack_mob_target(mob/living/M, mob/living/carbon/human/user)
 	flick("[icon_state]-scan", src)	//makes it so that it plays the scan animation upon scanning, including clumsy scanning
 	playsound(src, 'sound/effects/fastbeep.ogg', 10)
 
@@ -756,7 +756,7 @@ GENE SCANNER
 	throw_range = 7
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
-/obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
+/obj/item/slime_scanner/attack_mob_target(mob/living/M, mob/living/user)
 	if(user.stat || user.is_blind())
 		return
 	if(!isslime(M))
@@ -866,7 +866,7 @@ GENE SCANNER
 	throw_range = 7
 	materials = list(/datum/material/iron=200)
 
-/obj/item/nanite_scanner/attack(mob/living/M, mob/living/carbon/human/user)
+/obj/item/nanite_scanner/attack_mob_target(mob/living/M, mob/living/carbon/human/user)
 	user.visible_message("<span class='notice'>[user] analyzes [M]'s nanites.</span>", \
 						"<span class='notice'>You analyze [M]'s nanites.</span>")
 
@@ -897,7 +897,7 @@ GENE SCANNER
 	var/ready = TRUE
 	var/cooldown = 200
 
-/obj/item/sequence_scanner/attack(mob/living/M, mob/living/user)
+/obj/item/sequence_scanner/attack_mob_target(mob/living/M, mob/living/user)
 	add_fingerprint(user)
 	if(!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
 		user.visible_message("<span class='notice'>[user] analyzes [M]'s genetic sequence.</span>", \
@@ -1050,7 +1050,7 @@ GENE SCANNER
 			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.</span>"
 
 
-/obj/item/extrapolator/attack(atom/AM, mob/living/user)
+/obj/item/extrapolator/attack_mob_target(atom/AM, mob/living/user)
 	return
 
 /obj/item/extrapolator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)

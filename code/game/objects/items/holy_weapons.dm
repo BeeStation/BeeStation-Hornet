@@ -508,7 +508,7 @@
 	item_state = "multiverse"
 	slot_flags = ITEM_SLOT_BELT
 
-/obj/item/nullrod/claymore/multiverse/attack(mob/living/carbon/M, mob/living/carbon/user)
+/obj/item/nullrod/claymore/multiverse/attack_mob_target(mob/living/carbon/M, mob/living/carbon/user)
 	force = rand(1, 30)
 	..()
 

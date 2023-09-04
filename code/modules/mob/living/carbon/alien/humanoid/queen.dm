@@ -157,7 +157,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
-/obj/item/queenpromote/attack(mob/living/M, mob/living/carbon/alien/humanoid/user)
+/obj/item/queenpromote/attack_mob_target(mob/living/M, mob/living/carbon/alien/humanoid/user)
 	if(!isalienadult(M) || isalienroyal(M))
 		to_chat(user, "<span class='noticealien'>You may only use this with your adult, non-royal children!</span>")
 		return

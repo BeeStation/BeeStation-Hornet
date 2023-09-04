@@ -431,23 +431,14 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		spark_system.start()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, FALSE)
 
-/obj/item/pipe_dispenser/attack_obj(obj/O, mob/living/user)
-	// don't attempt to attack what we don't want to attack
-	if(is_type_in_typecache(O, atmos_constructs) || is_type_in_typecache(O, rpd_targets) || is_type_in_typecache(O, rpd_whitelist))
-		return
-
-	return ..()
-
-/obj/item/pipe_dispenser/afterattack(atom/A, mob/user, proximity)
-	if(!user.IsAdvancedToolUser() || istype(A, /turf/open/space/transit))
-		return ..()
-
+/obj/item/pipe_dispenser/interact_with(atom/target, mob/user, params)
 	// this shouldn't use early return because checking less condition is good
 	if(isturf(A) || is_type_in_typecache(A, atmos_constructs) || is_type_in_typecache(A, rpd_targets) || is_type_in_typecache(A, rpd_whitelist))
+		if(!user.IsAdvancedToolUser() || istype(target, /turf/open/space/transit))
+			return TRUE
 		if(proximity || ranged)
 			rpd_create(A, user)
-			return
-
+		return TRUE
 	return ..()
 
 /obj/item/pipe_dispenser/proc/rpd_create(atom/A, mob/user)

@@ -76,11 +76,11 @@
 	tastes = list("dust" = 1, "lint" = 1)
 	foodtype = CLOTH
 
-/obj/item/clothing/attack(mob/M, mob/user, def_zone)
+/obj/item/clothing/attack_mob_target(mob/M, mob/user, def_zone)
 	if(user.a_intent != INTENT_HARM && ismoth(M) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) == 0))
 		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
 		clothing_as_food.name = name
-		if(clothing_as_food.attack(M, user, def_zone))
+		if(clothing_as_food.attack_mob_target(M, user, def_zone))
 			take_damage(15, sound_effect=FALSE)
 		qdel(clothing_as_food)
 	else

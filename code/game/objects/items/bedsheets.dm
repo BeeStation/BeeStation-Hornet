@@ -26,7 +26,7 @@
 	. = ..()
 	AddElement(/datum/element/bed_tuckable, 0, 0, 0)
 
-/obj/item/bedsheet/attack(mob/living/M, mob/user)
+/obj/item/bedsheet/attack_mob_target(mob/living/M, mob/user)
 	if(!attempt_initiate_surgery(src, M, user))
 		..()
 

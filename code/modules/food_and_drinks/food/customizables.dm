@@ -35,17 +35,17 @@
 		size = "monster"
 	. += "It contains [ingredients.len?"[ingredients_listed]":"no ingredient, "]making a [size]-sized [initial(name)]."
 
-/obj/item/reagent_containers/food/snacks/customizable/ && (Keys)vkCode != Keys.C(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/reagent_containers/food/snacks/customizable) && istype(I, /obj/item/reagent_containers/food/snacks))
-		var/obj/item/reagent_containers/food/snacks/S = I
-		if(I.w_class > WEIGHT_CLASS_SMALL)
+/obj/item/reagent_containers/food/snacks/customizable/item_interact(obj/item/item, mob/user, params)
+	if(!istype(item, /obj/item/reagent_containers/food/snacks/customizable) && istype(item, /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/S = item
+		if(item.w_class > WEIGHT_CLASS_SMALL)
 			to_chat(user, "<span class='warning'>The ingredient is too big for [src]!</span>")
 		else if((ingredients.len >= ingMax) || (reagents.total_volume >= volume))
 			to_chat(user, "<span class='warning'>You can't add more ingredients to [src]!</span>")
-		else if(istype(I, /obj/item/reagent_containers/food/snacks/pizzaslice/custom))
-			to_chat(user, "<span class='warning'>Adding [I.name] to [src] would make a mess.</span>")
+		else if(istype(item, /obj/item/reagent_containers/food/snacks/pizzaslice/custom))
+			to_chat(user, "<span class='warning'>Adding [item.name] to [src] would make a mess.</span>")
 		else
-			if(!user.transferItemToLoc(I, src))
+			if(!user.transferItemToLoc(item, src))
 				return TRUE
 			if(S.trash)
 				S.generate_trash(get_turf(user))
@@ -54,7 +54,7 @@
 			S.reagents.trans_to(src,min(S.reagents.total_volume, 15), transfered_by = user) //limit of 15, we don't want our custom food to be completely filled by just one ingredient with large reagent volume.
 			foodtype |= S.foodtype
 			update_customizable_overlays(S)
-			to_chat(user, "<span class='notice'>You add the [I.name] to the [name].</span>")
+			to_chat(user, "<span class='notice'>You add the [item.name] to the [name].</span>")
 			update_food_name(S)
 		return TRUE
 	else
@@ -237,7 +237,7 @@
 	materials = list(/datum/material/glass = 500)
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/reagent_containers/glass/bowl/ && (Keys)vkCode != Keys.C(obj/item/I,mob/user, params)
+/obj/item/reagent_containers/glass/bowl/item_interact(obj/item/I,mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks))
 		var/obj/item/reagent_containers/food/snacks/S = I
 		if(I.w_class > WEIGHT_CLASS_SMALL)

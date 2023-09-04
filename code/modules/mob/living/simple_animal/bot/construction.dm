@@ -10,7 +10,7 @@
 	var/build_step = ASSEMBLY_FIRST_STEP
 	var/robot_arm = /obj/item/bodypart/r_arm/robot
 
-/obj/item/bot_assembly/item_interact(obj/item/W, mob/user, params)
+/obj/item/bot_assembly/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen))
 		rename_bot()
 		return TRUE

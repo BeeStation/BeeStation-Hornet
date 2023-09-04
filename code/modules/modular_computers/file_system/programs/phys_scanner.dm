@@ -38,7 +38,7 @@
 /datum/computer_file/program/phys_scanner/proc/ReadCurrent()
 	return mode_to_names(current_mode)
 
-/datum/computer_file/program/phys_scanner/attack(atom/target, mob/living/user, params)
+/datum/computer_file/program/phys_scanner/attack_mob_target(atom/target, mob/living/user, params)
 	switch(current_mode)
 		if(DISK_CHEM)
 			var/mob/living/carbon/carbon = target

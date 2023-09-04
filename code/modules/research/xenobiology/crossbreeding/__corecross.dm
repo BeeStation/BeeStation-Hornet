@@ -149,7 +149,7 @@ To add a crossbreed:
 	. = ..()
 	reagents.flags = DRAWABLE // Cannot be refilled, since it's basically an autoinjector!
 
-/obj/item/slimecrossbeaker/autoinjector/attack(mob/living/M, mob/user)
+/obj/item/slimecrossbeaker/autoinjector/attack_mob_target(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return

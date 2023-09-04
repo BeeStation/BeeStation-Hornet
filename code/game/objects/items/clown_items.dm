@@ -162,7 +162,7 @@
 	//LoadComponent so child types dont stack squeak components
 	LoadComponent(/datum/component/squeak, sound_list, 50)
 
-/obj/item/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
+/obj/item/bikehorn/attack_mob_target(mob/living/carbon/M, mob/living/carbon/user)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "honk", /datum/mood_event/honk)
 	return ..()
 
@@ -186,7 +186,7 @@
 	item_state = "gold_horn"
 	var/flip_cooldown = 0
 
-/obj/item/bikehorn/golden/attack()
+/obj/item/bikehorn/golden/attack_mob_target()
 	if(flip_cooldown < world.time)
 		flip_mobs()
 	return ..()

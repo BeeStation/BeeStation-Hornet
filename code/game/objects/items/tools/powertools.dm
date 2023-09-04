@@ -136,7 +136,7 @@
 				playsound(loc,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
 	return BRUTELOSS
 
-/obj/item/powertool/jaws_of_life/attack(mob/living/carbon/C, mob/living/user)
+/obj/item/powertool/jaws_of_life/attack_mob_target(mob/living/carbon/C, mob/living/user)
 	if(tool_behaviour == TOOL_WIRECUTTER && istype(C) && C.handcuffed)
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
 		log_combat(user, C, "cut handcuffs from")

@@ -131,7 +131,7 @@
 	distill_reagent = /datum/reagent/consumable/ethanol/demonsblood
 	discovery_points = 300
 
-/obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack_mob_target(mob/M, mob/user, def_zone)
 	if(awakening)
 		to_chat(user, "<span class='warning'>The tomato is twitching and shaking, preventing you from eating it.</span>")
 		return
@@ -145,7 +145,7 @@
 	awakening = TRUE
 	log_game("[key_name(user)] awakened a killer tomato at [AREACOORD(user)].")
 	addtimer(CALLBACK(src, PROC_REF(make_killer_tomato)), 30)
-	
+
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/proc/make_killer_tomato()
 	if(!QDELETED(src))
 		var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(get_turf(src.loc))

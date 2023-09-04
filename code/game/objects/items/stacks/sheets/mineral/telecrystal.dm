@@ -9,7 +9,7 @@
 	item_flags = NOBLUDGEON | ISWEAPON
 	merge_type = /obj/item/stack/sheet/telecrystal
 
-/obj/item/stack/sheet/telecrystal/attack(mob/target, mob/user)
+/obj/item/stack/sheet/telecrystal/attack_mob_target(mob/target, mob/user)
 	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
 		for(var/obj/item/implant/uplink/I in target)
 			if(I?.imp_in)

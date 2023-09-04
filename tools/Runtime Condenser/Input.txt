@@ -543,11 +543,11 @@ proc name: cure (/datum/disease/proc/cure)
 runtime error: Cannot read null.viruses
 proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
-runtime error: undefined proc or verb /obj/machinery/space_heater/attack().
+runtime error: undefined proc or verb /obj/machinery/space_heater/attack_mob_target().
 
 proc name: attackby (/mob/attackby)
   source file: items.dm,334
-runtime error: undefined proc or verb /obj/machinery/space_heater/attack().
+runtime error: undefined proc or verb /obj/machinery/space_heater/attack_mob_target().
 
 proc name: attackby (/mob/attackby)
   source file: items.dm,334
@@ -668,7 +668,7 @@ Borg module reset board (/obj/item/borg/upgrade/reset): action(Engineering Cybor
 Engineering Cyborg -133 (/mob/living/silicon/robot): attackby(Borg module reset board (/obj/item/borg/upgrade/reset), Michigan Slim (/mob/living/carbon/human))
 Engineering Cyborg -133 (/mob/living/silicon/robot): DblClick(the floor (95,85,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=18;left=1;scr...")
 Engineering Cyborg -133 (/mob/living/silicon/robot): Click(the floor (95,85,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=18;left=1;scr...")
-runtime error: undefined proc or verb /obj/machinery/portable_atmospherics/canister/toxins/attack().
+runtime error: undefined proc or verb /obj/machinery/portable_atmospherics/canister/toxins/attack_mob_target().
 
 proc name: attackby (/mob/attackby)
   source file: items.dm,334

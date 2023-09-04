@@ -67,7 +67,7 @@
 			"<span class='warning'>\"As you pick up [src] your arms ignite, reminding you of all your past sins.\"</span>")
 		U.apply_damage(/datum/damage_source/magic, /datum/damage/burn, rand(force/2, force), pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
-/obj/item/pitchfork/demonic/attack(mob/target, mob/living/carbon/human/user)
+/obj/item/pitchfork/demonic/attack_mob_target(mob/target, mob/living/carbon/human/user)
 	if(user.mind && user.owns_soul() && !is_devil(user))
 		to_chat(user, "<span class='warning'>[src] burns in your hands.</span>")
 		user.apply_damage(/datum/damage_source/magic, /datum/damage/burn, rand(force/2, force), pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))

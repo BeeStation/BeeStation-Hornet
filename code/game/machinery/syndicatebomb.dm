@@ -207,7 +207,6 @@
 		if((old_integ > obj_integrity) && active  && (payload in src))
 			to_chat(user, "<span class='warning'>That seems like a really bad idea...</span>")
 		return TRUE
-	return ..()
 
 /obj/machinery/syndicatebomb/interact(mob/user)
 	wires.interact(user)

@@ -155,7 +155,7 @@
 	decay_factor = 0
 
 
-/obj/item/organ/heart/nightmare/attack(mob/M, mob/living/carbon/user, obj/target)
+/obj/item/organ/heart/nightmare/attack_mob_target(mob/M, mob/living/carbon/user, obj/target)
 	if(M != user)
 		return ..()
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \

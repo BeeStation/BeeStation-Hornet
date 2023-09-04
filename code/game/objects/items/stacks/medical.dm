@@ -29,7 +29,7 @@
 		create_reagents(REAGENT_AMOUNT_PER_ITEM)
 		reagents.add_reagent_list(reagent)
 
-/obj/item/stack/medical/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/attack_mob_target(mob/living/M, mob/user)
 	if(!M || !user || (isliving(M) && !M.can_inject(user, TRUE))) //If no mob, user and if we can't inject the mob just return
 		return
 

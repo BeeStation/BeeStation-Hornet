@@ -437,21 +437,12 @@
 /obj/item/gun/proc/reset_semicd()
 	semicd = FALSE
 
-/obj/item/gun/attack(mob/M as mob, mob/user)
-	if(user.a_intent == INTENT_HARM) //Flogging
-		if(bayonet)
-			M.attackby(bayonet, user)
-			return
-		else
-			return ..()
-	return
-
-/obj/item/gun/attack_obj(obj/O, mob/user)
-	if(user.a_intent == INTENT_HARM)
-		if(bayonet)
-			O.attackby(bayonet, user)
-			return
-	return ..()
+/obj/item/gun/attack_mob_target(mob/living/user, atom/target, params)
+	if(bayonet)
+		bayonet.attack_mob_target(M, user)
+		return
+	else
+		return ..()
 
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

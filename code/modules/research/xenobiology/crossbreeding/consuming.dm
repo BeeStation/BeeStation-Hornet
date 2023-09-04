@@ -59,7 +59,7 @@ Consuming extracts:
 /obj/item/slime_cookie/proc/do_effect(mob/living/M, mob/user)
 	return
 
-/obj/item/slime_cookie/attack(mob/living/M, mob/user)
+/obj/item/slime_cookie/attack_mob_target(mob/living/M, mob/user)
 	var/fed = FALSE
 	if(M == user)
 		M.visible_message("<span class='notice'>[user] eats [src]!</span>", "<span class='notice'>You eat [src].</span>")

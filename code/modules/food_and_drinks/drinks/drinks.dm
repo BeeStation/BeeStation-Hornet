@@ -20,7 +20,7 @@
 	. = ..()
 	gulp_size = max(round(reagents.total_volume / 5), 5)
 
-/obj/item/reagent_containers/food/drinks/attack(mob/living/M, mob/user, def_zone)
+/obj/item/reagent_containers/food/drinks/attack_mob_target(mob/living/M, mob/user, def_zone)
 
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
@@ -488,7 +488,7 @@
 	sleep(20) //dramatic pause
 	return TOXLOSS
 
-/obj/item/reagent_containers/food/drinks/soda_cans/attack(mob/M, mob/user)
+/obj/item/reagent_containers/food/drinks/soda_cans/attack_mob_target(mob/M, mob/user)
 	if(M == user && !src.reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == BODY_ZONE_HEAD)
 		user.visible_message("<span class='warning'>[user] crushes the can of [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead.</span>")
 		playsound(user.loc,'sound/weapons/pierce.ogg', rand(10,50), 1)

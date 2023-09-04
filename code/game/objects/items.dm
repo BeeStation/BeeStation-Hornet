@@ -774,14 +774,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return 0
 
 /obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
-
-	var/is_human_victim
-	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
-	if(ishuman(M))
-		if(!affecting) //no head!
-			return
-		is_human_victim = TRUE
-
 	if(M.is_eyes_covered())
 		// you can't stab someone in the eyes wearing a mask!
 		to_chat(user, "<span class='danger'>You're going to need to remove [M.p_their()] eye protection first!</span>")

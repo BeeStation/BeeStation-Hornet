@@ -76,7 +76,7 @@
 	icon_state = "emag_bs"
 	prox_check = FALSE
 
-/obj/item/card/emag/attack()
+/obj/item/card/emag/attack_mob_target()
 	return
 
 /obj/item/card/emag/afterattack(atom/target, mob/user, proximity)

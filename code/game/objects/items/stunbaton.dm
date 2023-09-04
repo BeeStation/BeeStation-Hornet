@@ -130,7 +130,7 @@
 	update_icon()
 	add_fingerprint(user)
 
-/obj/item/melee/baton/attack(mob/M, mob/living/carbon/human/user)
+/obj/item/melee/baton/attack_mob_target(mob/M, mob/living/carbon/human/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !(obj_flags & OBJ_EMPED))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src], electrocuting yourself badly!</span>")

@@ -891,11 +891,11 @@
 	add_overlay(pancake)
 	update_icon()
 
-/obj/item/reagent_containers/food/snacks/pancakes/attack(mob/M, mob/user, def_zone, stacked = TRUE)
+/obj/item/reagent_containers/food/snacks/pancakes/attack_mob_target(mob/M, mob/user, def_zone, stacked = TRUE)
 	if(user.a_intent == INTENT_HARM || !contents.len || !stacked)
 		return ..()
 	var/obj/item/O = contents[contents.len]
-	. = O.attack(M, user, def_zone, FALSE)
+	. = O.attack_mob_target(M, user, def_zone, FALSE)
 	update_icon()
 
 /obj/item/reagent_containers/food/snacks/ravtart

@@ -184,7 +184,7 @@
 	icon_state = "bostaff0"
 	..()
 
-/obj/item/staff/bostaff/attack(mob/target, mob/living/user)
+/obj/item/staff/bostaff/attack_mob_target(mob/target, mob/living/user)
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")

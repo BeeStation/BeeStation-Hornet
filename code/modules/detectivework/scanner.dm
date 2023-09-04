@@ -36,7 +36,7 @@
 	else
 		to_chat(user, "<span class='notice'>The scanner has no logs or is in use.</span>")
 
-/obj/item/detective_scanner/attack(mob/living/M, mob/user)
+/obj/item/detective_scanner/attack_mob_target(mob/living/M, mob/user)
 	return
 
 /obj/item/detective_scanner/proc/PrintReport()

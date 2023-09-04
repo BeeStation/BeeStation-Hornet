@@ -43,7 +43,7 @@
 	else
 		icon_state = "lipstick"
 
-/obj/item/lipstick/attack(mob/M, mob/user)
+/obj/item/lipstick/attack_mob_target(mob/M, mob/user)
 	if(!open)
 		return
 
@@ -77,7 +77,7 @@
 		to_chat(user, "<span class='warning'>Where are the lips on that?</span>")
 
 //you can wipe off lipstick with paper!
-/obj/item/paper/attack(mob/M, mob/user)
+/obj/item/paper/attack_mob_target(mob/M, mob/user)
 	if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		if(!ismob(M))
 			return
@@ -124,7 +124,7 @@
 	playsound(loc, 'sound/items/welder2.ogg', 20, 1)
 
 
-/obj/item/razor/attack(mob/M, mob/user)
+/obj/item/razor/attack_mob_target(mob/M, mob/user)
 	if(ishuman(M) && extended == 1 && user.a_intent != INTENT_HARM)
 		var/mob/living/carbon/human/H = M
 		var/location = user.zone_selected
@@ -258,7 +258,7 @@
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS)
 
-/obj/item/razor/attack(mob/M, mob/user)
+/obj/item/razor/attack_mob_target(mob/M, mob/user)
 	. = ..()
 	if(ishuman(M) && extended == 1 && (user.a_intent == INTENT_HARM))
 		var/mob/living/carbon/human/H = M

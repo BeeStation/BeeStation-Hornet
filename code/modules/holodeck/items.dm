@@ -41,7 +41,7 @@
 		return ..()
 	return 0
 
-/obj/item/holo/esword/attack(target as mob, mob/user as mob)
+/obj/item/holo/esword/attack_mob_target(target as mob, mob/user as mob)
 	..()
 
 /obj/item/holo/esword/Initialize(mapload)

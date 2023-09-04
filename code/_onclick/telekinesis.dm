@@ -159,7 +159,7 @@
 		return
 	return TRUE
 
-/obj/item/tk_grab/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/tk_grab/attack_mob_target(mob/living/M, mob/living/user, def_zone)
 	return
 
 /obj/item/tk_grab/proc/focus_object(obj/target)

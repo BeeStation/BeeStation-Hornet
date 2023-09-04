@@ -174,7 +174,7 @@
 				to_chat(src, "<span class='warning'>You should bring food to your broodmother!</span>")
 				return
 			var/mob/living/M = cocoon_target
-			M.attacked_by(null, src)
+			M.on_attacked(null, src)
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>","<span class='notice'>You begin wrapping [cocoon_target] into a cocoon.</span>")
 		stop_automated_movement = TRUE

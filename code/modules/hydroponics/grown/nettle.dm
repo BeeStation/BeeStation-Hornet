@@ -103,7 +103,7 @@
 			user.Paralyze(100)
 			to_chat(user, "<span class='userdanger'>You are stunned by [src] as you try picking it up!</span>")
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/death/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/food/snacks/grown/nettle/death/attack_mob_target(mob/living/M, mob/user)
 	if(!M.can_inject(user) && user.a_intent == INTENT_HARM)
 		to_chat(user, "<span class='warning'>The [src] harmlessly bounces off of [M]! They're protected from its needles!</span>")
 		return FALSE

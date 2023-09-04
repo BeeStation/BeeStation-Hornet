@@ -158,7 +158,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
+/obj/machinery/portable_atmospherics/on_attacked(obj/item/I, mob/user)
 	if(I.force < 10 && !(machine_stat & BROKEN))
 		take_damage(0)
 	else

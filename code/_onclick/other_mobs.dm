@@ -204,13 +204,13 @@
 
 		else
 			if(prob(90))
-				log_combat(L, src, "attacked")
+				log_combat(src, target, "attacked")
 				var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/sharp/light)
 				source.deal_attack(src, null, target, /datum/damage/brute, rand(3, 10), ran_zone(zone_selected))
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				return TRUE
 			else
-				L.do_attack_animation(target)
+				do_attack_animation(target)
 				target.visible_message("<span class='danger'>[name]'s bite misses [target]!</span>", \
 								"<span class='userdanger'>[name]'s bite misses you!</span>", null, COMBAT_MESSAGE_RANGE)
 	return FALSE

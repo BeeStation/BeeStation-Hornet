@@ -58,7 +58,7 @@
 		return "<span class='notice'>It's at <b>[round(obj_integrity * 100 / max_integrity)]%</b> stability.</span>"
 	return ..()
 
-/obj/structure/destructible/eldritch_crucible/attacked_by(obj/item/weapon, mob/living/user)
+/obj/structure/destructible/eldritch_crucible/on_attacked(obj/item/weapon, mob/living/user)
 	if(!iscarbon(user))
 		return ..()
 

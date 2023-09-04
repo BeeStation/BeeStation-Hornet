@@ -159,7 +159,7 @@
 	add_fingerprint(user)
 	if(I.tool_behaviour == TOOL_WELDER)
 		if(!(resistance_flags & INDESTRUCTIBLE))
-		if(!I.tool_start_check(user, amount=0))
+			if(!I.tool_start_check(user, amount=0))
 				return TRUE
 
 			to_chat(user, "<span class='notice'>You begin cutting [src]...</span>")

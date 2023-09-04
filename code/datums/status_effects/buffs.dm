@@ -313,7 +313,7 @@
 	var/obj/item/slashy
 	slashy = owner.get_active_held_item()
 	for(var/mob/living/M in ohearers(1,owner))
-		slashy.attack(M, owner)
+		slashy.attack_mob_target(M, owner)
 
 /datum/status_effect/sword_spin/on_remove()
 	owner.visible_message("<span class='warning'>[owner]'s inhuman strength dissipates and the sword's runes grow cold!</span>")

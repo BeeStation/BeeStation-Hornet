@@ -60,7 +60,7 @@
 		return TRUE
 
 /mob/living/simple_animal/bot/secbot/grievous/stun_attack(mob/living/carbon/C) //Criminals don't deserve to live
-	weapon.attack(C, src)
+	weapon.attack_mob_target(C, src)
 	playsound(src, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	if(C.stat == DEAD)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 2)

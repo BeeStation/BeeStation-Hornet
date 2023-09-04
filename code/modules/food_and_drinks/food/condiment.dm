@@ -69,7 +69,7 @@
 	user.visible_message("<span class='suicide'>[user] is trying to eat the entire [src]! It looks like [user.p_they()] forgot how food works!</span>")
 	return OXYLOSS
 
-/obj/item/reagent_containers/food/condiment/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/food/condiment/attack_mob_target(mob/M, mob/user, def_zone)
 
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
@@ -255,7 +255,7 @@
 /obj/item/reagent_containers/food/condiment/pack/update_icon()
 	return
 
-/obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
+/obj/item/reagent_containers/food/condiment/pack/attack_mob_target(mob/M, mob/user, def_zone) //Can't feed these to people directly.
 	return
 
 /obj/item/reagent_containers/food/condiment/pack/afterattack(obj/target, mob/user , proximity)

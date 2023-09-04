@@ -18,12 +18,38 @@
 		afterattack(target, user, 1, params)
 
 /**
+ * Deals an attack to the target, by default using this
+ * item's damage source profile.
+ *
+ * You may override this if you want to completely replace an object's
+ * attack function with another one that does something else. For example,
+ * play a sound instead of deal damage.
+ *
+ * If you want something to happen as a result of an attack use afterattack or
+ * pre_attack instead. Overriding this proc is strictly for replacing the
+ * damage dealing property of an item with some other property.
+ *
+ * If introducing swing combat, then that should be introduced at either the
+ * damage_source level or deal_attack level.
+ */
+/obj/item/proc/attack(mob/living/user, atom/target, params)
+	//if(item_flags & NOBLUDGEON)
+	//	return
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(target)
+	target.on_attacked(src, user)
+	// By default deal our generic attack
+	deal_attack(user, target, user.zone_selected)
+
+/**
  * Called to perform actions specific to certain tools.
  * By default will pass on the tool behaviour to be used by the target instead of
  * performing an action here, but you can add specific tool behaviours in here if you want.
  */
 /obj/item/proc/tool_action(mob/user, atom/target)
 	SHOULD_NOT_OVERRIDE(TRUE)
+	if (interact_with(src, target) || QDELETED(src))
+		return TRUE
 	if (target.item_interact(src, user) || QDELETED(src))
 		return TRUE
 	if(!tool_behaviour)
@@ -41,8 +67,18 @@
  * on harm intent, then it needs to respond to being attacked rather than trying to use an item
  * peacefully on it.
  */
-/atom/proc/item_interact(obj/item/item, mob/user)
-	return
+/atom/proc/item_interact(obj/item/item, mob/user, params)
+	return FALSE
+
+/**
+ * Check if this item can interact with another item.
+ * Returns false if no interact occurred, returns true if an interact
+ * happened in which case attack will not continue.
+ */
+/obj/item/proc/interact_with(atom/target, mob/user, params)
+	if ((SEND_SIGNAL(src, COMSIG_ITEM_INTERACT_WITH, target, user, params)) & COMPONENT_INTERACTION_SUCCESS)
+		return TRUE
+	return FALSE
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
@@ -61,9 +97,6 @@
 		return TRUE
 	return FALSE
 
-/obj/attackby(obj/item/I, mob/living/user, params)
-	return ..() || ((obj_flags & CAN_BE_HIT) && I.attack_obj(src, user))
-
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	if(..())
 		return TRUE
@@ -80,10 +113,10 @@
 			I.AddComponent(/datum/component/butchering, 80 * I.toolspeed)
 			attackby(I, user, params) //call the attackby again to refresh and do the butchering check again
 			return
-	return I.attack(src, user)
+	return I.attack_mob_target(src, user)
 
 
-/obj/item/proc/attack(mob/living/M, mob/living/user)
+/obj/item/proc/attack_mob_target(mob/living/M, mob/living/user)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user) & COMPONENT_ITEM_NO_ATTACK)
 		return
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
@@ -121,7 +154,7 @@
 		user.time_of_last_poke = time
 	else
 		user.record_accidental_poking()
-		M.attacked_by(src, user)
+		M.on_attacked(src, user)
 		M.time_of_last_attack_recieved = time
 		user.time_of_last_attack_dealt = time
 		user.check_for_accidental_attack()
@@ -129,21 +162,10 @@
 	log_combat(user, M, "[nonharmfulhit ? "poked" : "attacked"]", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 	add_fingerprint(user)
 
-
-//the equivalent of the standard version of attack() but for object targets.
-/obj/item/proc/attack_obj(obj/O, mob/living/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
-		return
-	if(item_flags & NOBLUDGEON)
-		return
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(O)
-	O.attacked_by(src, user)
-
-/atom/movable/proc/attacked_by()
+/atom/movable/proc/on_attacked()
 	return
 
-/obj/attacked_by(obj/item/I, mob/living/user)
+/obj/on_attacked(obj/item/I, mob/living/user)
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] hits [src] with [I]!</span>", \
 					"<span class='danger'>You hit [src] with [I]!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -151,10 +173,10 @@
 		log_combat(user, src, "attacked", I)
 	take_damage(I.force, I.damtype, MELEE, 1)
 
-/mob/living/attacked_by(obj/item/I, mob/living/user)
+/mob/living/on_attacked(obj/item/I, mob/living/user)
 	return I.deal_attack(user, src, ran_zone(user.zone_selected))
 
-/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
+/mob/living/simple_animal/on_attacked(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
 	if(I.force < force_threshold || I.damtype == STAMINA || nonharmfulhit)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
 	else

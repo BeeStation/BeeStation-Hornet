@@ -17,7 +17,7 @@
 		RegisterSignal(parent, COMSIG_MOVABLE_IMPACT, PROC_REF(explodable_impact))
 		RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(explodable_bump))
 		if(isitem(parent))
-			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), PROC_REF(explodable_attack))
+			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_INTERACT_WITH, COMSIG_ITEM_HIT_REACT), PROC_REF(explodable_attack))
 			RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 			RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 

@@ -54,7 +54,7 @@
 	return 5 SECONDS
 
 //Core-crossing: Feeding adult slimes extracts to obtain a much more powerful, single extract.
-/obj/item/slime_extract/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slime_extract/attack_mob_target(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		return ..()
 	if(M.stat)
@@ -693,7 +693,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potsilver"
 
-/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/docility/attack_mob_target(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The potion only works on slimes!</span>")
 		return ..()
@@ -727,7 +727,7 @@
 	var/being_used = FALSE
 	var/sentience_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/slime/sentience/attack(mob/living/M, mob/user)
+/obj/item/slimepotion/slime/sentience/attack_mob_target(mob/living/M, mob/user)
 	if(being_used || !ismob(M))
 		return
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
@@ -835,7 +835,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potred"
 
-/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/steroid/attack_mob_target(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))//If target is not a slime.
 		to_chat(user, "<span class='warning'>The steroid only works on baby slimes!</span>")
 		return ..()
@@ -865,7 +865,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potcyan"
 
-/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/stabilizer/attack_mob_target(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The stabilizer only works on slimes!</span>")
 		return ..()
@@ -886,7 +886,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potgreen"
 
-/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/mutator/attack_mob_target(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The mutator only works on slimes!</span>")
 		return ..()
@@ -987,7 +987,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potlightpink"
 
-/obj/item/slimepotion/genderchange/attack(mob/living/target, mob/user)
+/obj/item/slimepotion/genderchange/attack_mob_target(mob/living/target, mob/user)
 	if(!isliving(target) || target.stat == DEAD)
 		to_chat(user, "<span class='warning'>[src] can only be used on living things!</span>")
 		return
@@ -1016,7 +1016,7 @@
 
 	var/being_used = FALSE
 
-/obj/item/slimepotion/slime/renaming/attack(mob/living/target, mob/living/user)
+/obj/item/slimepotion/slime/renaming/attack_mob_target(mob/living/target, mob/living/user)
 	if(!ismob(target))
 		return ..()
 	if(being_used)
@@ -1094,7 +1094,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potgrey"
 
-/obj/item/slimepotion/slime/slimeradio/attack(mob/living/target, mob/user)
+/obj/item/slimepotion/slime/slimeradio/attack_mob_target(mob/living/target, mob/user)
 	if(!isanimal(target))
 		to_chat(user, "<span class='warning'><span class='name'>[target]</span> is too complex for the potion!</span>")
 		return

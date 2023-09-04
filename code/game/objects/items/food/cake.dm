@@ -259,7 +259,7 @@
 	user.apply_damage(/datum/damage_source/consumption, /datum/damage/burn, 30, BODY_ZONE_HEAD) // ITs an ENERGY sword, so it burns, duh
 	playsound(user, 'sound/weapons/blade1.ogg', 5, TRUE)
 
-/obj/item/food/cake/birthday/energy/attack(mob/living/target_mob, mob/living/user)
+/obj/item/food/cake/birthday/energy/attack_mob_target(mob/living/target_mob, mob/living/user)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) && target_mob != user) //Prevents pacifists from attacking others directly
 		return
@@ -285,7 +285,7 @@
 	user.apply_damage(/datum/damage_source/consumption, /datum/damage/burn, 18, BODY_ZONE_HEAD)
 	playsound(user, 'sound/weapons/blade1.ogg', 5, TRUE)
 
-/obj/item/food/cakeslice/birthday/energy/attack(mob/living/target_mob, mob/living/user)
+/obj/item/food/cakeslice/birthday/energy/attack_mob_target(mob/living/target_mob, mob/living/user)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) && target_mob != user) //Prevents pacifists from attacking others directly
 		return

@@ -20,7 +20,7 @@
 		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(rad_examine))
 		if(istype(parent, /obj/item))
 			RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(rad_attack))
-			RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, PROC_REF(rad_attack))
+			RegisterSignal(parent, COMSIG_ITEM_INTERACT_WITH, PROC_REF(rad_attack))
 	else
 		return COMPONENT_INCOMPATIBLE
 	if(strength * (RAD_CONTAMINATION_STR_COEFFICIENT * RAD_CONTAMINATION_BUDGET_SIZE) > RAD_COMPONENT_MINIMUM)

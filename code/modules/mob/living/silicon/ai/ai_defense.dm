@@ -1,5 +1,5 @@
 
-/mob/living/silicon/ai/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/silicon/ai/on_attacked(obj/item/I, mob/living/user, def_zone)
 	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
 		spark_system.start()
 	return ..()

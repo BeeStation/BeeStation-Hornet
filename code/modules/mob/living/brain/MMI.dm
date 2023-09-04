@@ -93,7 +93,7 @@
 		return TRUE
 
 	else if(brainmob)
-		O.attack(brainmob, user) //Oh noooeeeee
+		O.attack_mob_target(brainmob, user) //Oh noooeeeee
 		return TRUE
 	else
 		return ..()

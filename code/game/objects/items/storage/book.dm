@@ -149,7 +149,7 @@
 		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return 1
 
-/obj/item/storage/book/bible/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
+/obj/item/storage/book/bible/attack_mob_target(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
 
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
@@ -293,7 +293,7 @@
 		var/ownername = H.real_name
 		desc += "<span class='warning'>The name [ownername] is written in blood inside the cover.</span>"
 
-/obj/item/storage/book/bible/syndicate/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
+/obj/item/storage/book/bible/syndicate/attack_mob_target(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
 	if (user.a_intent == INTENT_HELP)
 		return ..()
 	else

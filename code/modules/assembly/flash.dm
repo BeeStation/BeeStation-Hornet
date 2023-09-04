@@ -285,7 +285,7 @@
 	else
 		M.flash_act(2)
 
-/obj/item/assembly/flash/attack(mob/living/M, mob/user)
+/obj/item/assembly/flash/attack_mob_target(mob/living/M, mob/user)
 	if(!try_use_flash(user))
 		return FALSE
 	if(iscarbon(M))
@@ -346,7 +346,7 @@
 /obj/item/assembly/flash/cyborg
 	bulb = /obj/item/flashbulb/recharging/cyborg
 
-/obj/item/assembly/flash/cyborg/attack(mob/living/M, mob/user)
+/obj/item/assembly/flash/cyborg/attack_mob_target(mob/living/M, mob/user)
 	..()
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
 

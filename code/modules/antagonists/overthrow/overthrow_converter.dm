@@ -28,7 +28,7 @@
 		log_combat(user, target, "implanted", "\a [name]")
 		return TRUE
 
-/obj/item/overthrow_converter/attack(mob/living/carbon/human/M, mob/living/carbon/human/user)
+/obj/item/overthrow_converter/attack_mob_target(mob/living/carbon/human/M, mob/living/carbon/human/user)
 	if(!istype(M) || !istype(user))
 		return
 	if(!uses)

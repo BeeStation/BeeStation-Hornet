@@ -41,7 +41,7 @@
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
 
-/obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/user)
+/obj/item/restraints/handcuffs/attack_mob_target(mob/living/carbon/C, mob/living/user)
 	if(!istype(C))
 		return
 
@@ -195,7 +195,7 @@
 	icon_state = "cuff_used"
 	item_state = "cuff"
 
-/obj/item/restraints/handcuffs/cable/zipties/used/attack()
+/obj/item/restraints/handcuffs/cable/zipties/used/attack_mob_target()
 	return
 
 //Legcuffs

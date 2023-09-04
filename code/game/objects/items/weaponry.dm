@@ -23,7 +23,7 @@ oranges says: This is a meme relating to the english translation of the ss13 rus
 mrdoombringer sez: and remember kids, if you try and PR a fix for this item's grammar, you are admitting that you are, indeed, a newfriend.
 for further reading, please see: https://github.com/tgstation/tgstation/pull/30173 and https://translate.google.com/translate?sl=auto&tl=en&js=y&prev=_t&hl=en&ie=UTF-8&u=%2F%2Flurkmore.to%2FSS13&edit-text=&act=url
 */
-/obj/item/banhammer/attack(mob/M, mob/user)
+/obj/item/banhammer/attack_mob_target(mob/M, mob/user)
 	if(user.zone_selected == BODY_ZONE_HEAD)
 		M.visible_message("<span class='danger'>[user] are stroking the head of [M] with a bangammer</span>", "<span class='userdanger'>[user] are stroking the head with a bangammer</span>", "you hear a bangammer stroking a head");
 	else
@@ -145,7 +145,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(nuke_disk)
 		. += "<span class='boldwarning'>It's holding the nuke disk!</span>"
 
-/obj/item/claymore/highlander/attack(mob/living/target, mob/living/user)
+/obj/item/claymore/highlander/attack_mob_target(mob/living/target, mob/living/user)
 	. = ..()
 	if(!QDELETED(target) && iscarbon(target) && target.stat == DEAD && target.mind && target.mind.special_role == "highlander")
 		user.fully_heal() //STEAL THE LIFE OF OUR FALLEN FOES
@@ -597,7 +597,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(part)
 		part.drop_limb()
 
-/obj/item/mounted_chainsaw/super/attack(mob/living/target)
+/obj/item/mounted_chainsaw/super/attack_mob_target(mob/living/target)
 	..()
 	target.Knockdown(4)
 
@@ -708,7 +708,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		homerun_ready = 1
 	..()
 
-/obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
+/obj/item/melee/baseball_bat/attack_mob_target(mob/living/target, mob/living/user)
 	. = ..()
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(homerun_ready)
@@ -803,7 +803,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
 
-/obj/item/slapper/attack(mob/living/M, mob/living/carbon/human/user)
+/obj/item/slapper/attack_mob_target(mob/living/M, mob/living/carbon/human/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/L = M
 		if(L && L.dna && L.dna.species)
@@ -873,7 +873,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "\improper ACME Extendo-Hand"
 	desc = "A novelty extendo-hand produced by the ACME corporation. Originally designed to knock out roadrunners."
 
-/obj/item/extendohand/attack(atom/M, mob/living/carbon/human/user)
+/obj/item/extendohand/attack_mob_target(atom/M, mob/living/carbon/human/user)
 	var/dist = get_dist(M, user)
 	if(dist < reach)
 		to_chat(user, "<span class='warning'>[M] is too close to use [src] on.</span>")
@@ -892,7 +892,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_flags = DROPDEL | ABSTRACT | ISWEAPON
 	attack_verb = list("is left hanging by")
 
-/obj/item/highfive/attack(mob/target, mob/user)
+/obj/item/highfive/attack_mob_target(mob/target, mob/user)
 	if(target == user)
 		to_chat(user, "<span class='notice'>You can't high-five yourself! Go get a friend!</span>")
 	else if(ishuman(target) && (target.stat == CONSCIOUS) && (istype(target.get_active_held_item(), /obj/item/highfive)) )
@@ -921,7 +921,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/breakforce = 30
 	var/stamforce = 15
 
-/obj/item/club/attack(mob/living/M, mob/living/user)
+/obj/item/club/attack_mob_target(mob/living/M, mob/living/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, breakforce))

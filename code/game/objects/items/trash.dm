@@ -101,5 +101,5 @@
 	pixel_x = rand(-4,4)
 	pixel_y = rand(-4,4)
 
-/obj/item/trash/attack(mob/M, mob/living/user)
+/obj/item/trash/attack_mob_target(mob/M, mob/living/user)
 	return

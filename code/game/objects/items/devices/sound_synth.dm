@@ -98,7 +98,7 @@
 		return
 	pick_sound()
 
-/obj/item/soundsynth/attack(mob/living/target, mob/living/user, def_zone)
+/obj/item/soundsynth/attack_mob_target(mob/living/target, mob/living/user, def_zone)
 	if(target == user)
 		pick_sound()
 		return

@@ -95,7 +95,7 @@ Borg Hypospray
 					R.cell.use(charge_cost) 					//Take power from borg...
 					RG.add_reagent(reagent_ids[i], 5)		//And fill hypo with reagent.
 
-/obj/item/reagent_containers/borghypo/attack(mob/living/carbon/M, mob/user)
+/obj/item/reagent_containers/borghypo/attack_mob_target(mob/living/carbon/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
 		to_chat(user, "<span class='notice'>The injector is empty.</span>")
@@ -212,7 +212,7 @@ Borg Shaker
 			/datum/reagent/consumable/tomatojuice,
 			/datum/reagent/consumable/tonic)
 
-/obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
+/obj/item/reagent_containers/borghypo/borgshaker/attack_mob_target(mob/M, mob/user)
 	return //Can't inject stuff with a shaker, can we? //not with that attitude
 
 /obj/item/reagent_containers/borghypo/borgshaker/regenerate_reagents()

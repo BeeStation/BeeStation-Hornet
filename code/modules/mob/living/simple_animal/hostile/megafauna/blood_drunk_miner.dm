@@ -107,7 +107,7 @@ Difficulty: Medium
 	force = 6
 	force_on = 10
 
-/obj/item/melee/transforming/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/transforming/cleaving_saw/miner/attack_mob_target(mob/living/target, mob/living/carbon/human/user)
 	target.add_stun_absorption("miner", 10, INFINITY)
 	..()
 	target.stun_absorption -= "miner"

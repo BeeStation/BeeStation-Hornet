@@ -694,7 +694,7 @@
 		return
 	if(istype(target, /mob/living/carbon))
 		if(stored_medipen)
-			stored_medipen.attack(target, linked_bot)
+			stored_medipen.attack_mob_target(target, linked_bot)
 		return
 	if(istype(target, /obj/item/reagent_containers/hypospray/medipen))
 		var/obj/item/reagent_containers/hypospray/medipen/new_medipen = target
@@ -733,7 +733,7 @@
 	var/cooldown_time = 600
 	var/timer
 
-/obj/item/slimepotion/slime/sentience/mining/attack(mob/living/M, mob/user)
+/obj/item/slimepotion/slime/sentience/mining/attack_mob_target(mob/living/M, mob/user)
 	if(timer > world.time)
 		to_chat(user, "<span class='warning'>Please wait [(timer - world.time)/10] seconds before trying again.</span>")
 		return

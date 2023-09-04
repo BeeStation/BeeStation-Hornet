@@ -32,7 +32,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     ejectRooms()
     return ..()
 
-/obj/item/hilbertshotel/attack(mob/living/M, mob/living/user)
+/obj/item/hilbertshotel/attack_mob_target(mob/living/M, mob/living/user)
     if(M.mind)
         to_chat(user, "<span class='notice'>You invite [M] to the hotel.</span>")
         promptAndCheckIn(M)
@@ -301,7 +301,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /turf/closed/indestructible/hoteldoor/larva_attack_intercept(mob/user)
     promptExit(user)
-	return TRUE
+    return TRUE
 
 /turf/closed/indestructible/hoteldoor/attack_slime(mob/user)
     promptExit(user)
