@@ -25,9 +25,8 @@
 	)
 
 /datum/preference_middleware/keybindings/proc/reset_all_keybinds(list/params, mob/user)
-	preferences.set_default_key_bindings(save = TRUE)
+	preferences.set_default_key_bindings(save = TRUE) // this also updates special keybinds
 	preferences.update_static_data(user)
-
 	return TRUE
 
 /datum/preference_middleware/keybindings/proc/reset_keybinds_to_defaults(list/params, mob/user)
@@ -41,10 +40,10 @@
 
 	preferences.update_static_data(user)
 	preferences.mark_undatumized_dirty_player()
-
+	user.client.update_special_keybinds(src)
 	return TRUE
 
-/datum/preference_middleware/keybindings/proc/set_keybindings(list/params)
+/datum/preference_middleware/keybindings/proc/set_keybindings(list/params, mob/user)
 	var/keybind_name = params["keybind_name"]
 
 	if (isnull(GLOB.keybindings_by_name[keybind_name]))
@@ -71,6 +70,7 @@
 		hotkeys += hotkey
 
 	preferences.set_keybind(keybind_name, hotkeys)
+	user.client.update_special_keybinds(src)
 	return TRUE
 
 /datum/asset/json/keybindings

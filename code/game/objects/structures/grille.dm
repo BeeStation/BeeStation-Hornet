@@ -63,6 +63,7 @@
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the grille.</span>")
+			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			qdel(src)
 			return TRUE
 		if(RCD_WINDOWGRILLE)
@@ -77,6 +78,7 @@
 				to_chat(user, "<span class='notice'>Already a window in this direction!.</span>")
 				return FALSE
 			to_chat(user, "<span class='notice'>You construct the window.</span>")
+			log_attack("[key_name(user)] has constructed a window at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/structure/window/WD = new the_rcd.window_type(T, user.dir)
 			WD.setAnchored(TRUE)
 			return TRUE
@@ -227,16 +229,24 @@
 	if(!loc) //if already qdel'd somehow, we do nothing
 		return
 	if(!(flags_1&NODECONSTRUCT_1))
-		var/obj/R = new rods_type(drop_location(), rods_amount)
-		transfer_fingerprints_to(R)
+		var/drop_loc = drop_location()
+		var/obj/R = new rods_type(drop_loc, rods_amount)
+		if(QDELETED(R)) // the rods merged with something on the tile
+			R = locate(rods_type) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
 		qdel(src)
 	..()
 
 /obj/structure/grille/obj_break()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		new broken_type(src.loc)
-		var/obj/R = new rods_type(drop_location(), rods_broken)
-		transfer_fingerprints_to(R)
+		var/drop_loc = drop_location()
+		var/obj/R = new rods_type(drop_loc, rods_broken)
+		if(QDELETED(R)) // the rods merged with something on the tile
+			R = locate(rods_type) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
 		qdel(src)
 
 

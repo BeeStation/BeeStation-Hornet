@@ -54967,7 +54967,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
@@ -56183,7 +56183,7 @@
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
@@ -60267,7 +60267,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -63157,8 +63157,8 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_vest,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_helmet,
+/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/loot_jobscale/armoury/bulletproof_helmet,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -64770,7 +64770,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/energy_gun,
+/obj/effect/loot_jobscale/armoury/energy_gun,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
@@ -67408,9 +67408,9 @@
 "oAi" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_suit,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_helmet,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shield,
+/obj/effect/loot_jobscale/armoury/riot_suit,
+/obj/effect/loot_jobscale/armoury/riot_helmet,
+/obj/effect/loot_jobscale/armoury/riot_shield,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -67666,7 +67666,7 @@
 	name = "First-Aid Supplies";
 	req_access_txt = "5"
 	},
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
@@ -69783,8 +69783,8 @@
 /obj/structure/closet/crate{
 	name = "disposal supplies"
 	},
-/obj/item/deployable/bodybag,
-/obj/item/deployable/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
 /obj/item/shovel,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -76228,7 +76228,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/beacon/nettingportal,
-/obj/effect/spawner/lootdrop/job_scale/armoury/dragnet,
+/obj/effect/loot_jobscale/armoury/dragnet,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -77349,7 +77349,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shotgun,
+/obj/effect/loot_jobscale/armoury/riot_shotgun,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
@@ -77613,7 +77613,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/laser_gun,
+/obj/effect/loot_jobscale/armoury/laser_gun,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
@@ -88047,7 +88047,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/disabler,
+/obj/effect/loot_jobscale/armoury/disabler,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/ai_monitored/security/armory)

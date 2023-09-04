@@ -4,7 +4,7 @@
 			continue
 
 		for(var/turf/T as anything in A.get_contained_turfs())
-			if(!IS_DYNAMIC_LIGHTING(T))
+			if(T.fullbright_type)
 				continue
 
 			new/atom/movable/lighting_object(T)

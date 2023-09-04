@@ -199,6 +199,7 @@
 			hearers += client
 		if(owner_chat_map)
 			hearers += owner.client
+		new /datum/chatmessage(message, src, hearers, null)
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[say_quote(message)]</span></span>"
 	var/dead_rendered = "<span class='game say'><span class='name'>[name] (Imaginary friend of [owner])</span> <span class='message'>[say_quote(message)]</span></span>"

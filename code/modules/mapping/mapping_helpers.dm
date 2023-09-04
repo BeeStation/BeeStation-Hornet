@@ -239,23 +239,28 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/bodycount = 2 //number of bodies to spawn
 
 /obj/effect/mapping_helpers/dead_body_placer/LateInitialize()
-	var/area/a = get_area(src)
+	var/area/area = get_area(src)
 	var/list/trays = list()
-	for (var/i in a.contents)
-		if (istype(i, /obj/structure/bodycontainer/morgue))
-			trays += i
-	if(!trays.len)
+	for (var/thingy in area.contents)
+		if (istype(thingy, /obj/structure/bodycontainer/morgue))
+			trays += thingy
+	if(!length(trays))
 		log_mapping("[src] at [x],[y] could not find any morgues.")
 		return
 	for (var/i = 1 to bodycount)
-		var/obj/structure/bodycontainer/morgue/j = pick(trays)
-		var/mob/living/carbon/human/h = new /mob/living/carbon/human(j, 1)
-		h.death()
-		for (var/part in h.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
-			if (prob(40))
-				qdel(part)
-			else
-				var/obj/item/organ/O = part
-				O.organ_flags |= ORGAN_FROZEN
-		j.update_icon()
+		create_corpse(pick(trays))
 	qdel(src)
+
+/obj/effect/mapping_helpers/dead_body_placer/proc/create_corpse(obj/structure/bodycontainer/morgue/morgue_tray)
+	var/mob/living/carbon/human/corpse = new(morgue_tray)
+	var/list/possible_alt_species = GLOB.roundstart_races.Copy() - list(SPECIES_HUMAN, SPECIES_IPC)
+	if(prob(15) && length(possible_alt_species))
+		corpse.set_species(GLOB.species_list[pick(possible_alt_species)])
+	corpse.give_random_dormant_disease(25, min_symptoms = 1, max_symptoms = 5) // slightly more likely that an average stationgoer to have a dormant disease, bc who KNOWS how they died?
+	corpse.death()
+	for (var/obj/item/organ/organ as anything in corpse.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
+		if (prob(40))
+			qdel(organ)
+		else
+			organ.organ_flags |= ORGAN_FROZEN
+	morgue_tray.update_icon()
