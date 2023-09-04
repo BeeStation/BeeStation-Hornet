@@ -10,3 +10,7 @@
 
 /datum/damage/clone/apply_organ(obj/item/organ/organ, damage, update_health = TRUE, forced = FALSE)
 	organ.owner?.adjustCloneLoss(damage, update_health, forced)
+
+/datum/damage/clone/apply_object(obj/target, damage)
+	target.take_damage(damage, CLONE)
+

@@ -10,3 +10,7 @@
 
 /datum/damage/suffocation/apply_organ(obj/item/organ/organ, damage, update_health = TRUE, forced = FALSE)
 	CRASH("Cannot apply oxyloss damage to internal organs.")
+
+/datum/damage/suffocation/apply_object(obj/target, damage)
+	target.take_damage(damage, OXY)
+

@@ -10,3 +10,6 @@
 
 /datum/damage/brute/apply_organ(obj/item/organ/organ, damage, update_health = TRUE, forced = FALSE)
 	organ.applyOrganDamage(damage)
+
+/datum/damage/brute/apply_object(obj/target, damage)
+	target.take_damage(damage, BRUTE)
