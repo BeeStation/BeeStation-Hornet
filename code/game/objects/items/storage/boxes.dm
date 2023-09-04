@@ -159,6 +159,7 @@
 //Parent box to accomodate station trait and apply unique restrictions
 /obj/item/storage/box/survival
 	name = "survival box"
+	illustration = "survival"
 	desc = "A compact box that is designed to hold specific emergency supplies"
 	w_class = WEIGHT_CLASS_SMALL //So the roundstart box takes up less space.
 
@@ -232,9 +233,20 @@
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
-/obj/item/storage/box/survival/security/radio/PopulateContents()
-	..() // we want the regular stuff too
-	new /obj/item/radio/off(src)
+// Clown survival box
+
+/obj/item/storage/box/survival/hug
+	icon_state = "hugbox"
+	illustration = "heart"
+
+/obj/item/storage/box/survival/hug/PopulateContents()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/reagent_containers/hypospray/medipen(src)
+
+	if(!isplasmaman(loc))
+		new /obj/item/tank/internals/emergency_oxygen/clown(src)
+	else
+		new /obj/item/tank/internals/plasmaman/belt(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
@@ -888,20 +900,6 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
-
-// Clown survival box
-/obj/item/storage/box/hug/survival/PopulateContents()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/reagent_containers/hypospray/medipen(src)
-
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen/clown(src)
-	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
-
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
-		new /obj/item/radio/off(src)
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"

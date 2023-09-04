@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/box/lethalshot,
 		/obj/item/storage/box/gorillacubes,
 		/obj/item/storage/box/teargas,
-		/obj/item/storage/box/survival/security/radio,
+		/obj/item/storage/box/survival/security,
 		/obj/item/storage/box/medsprays,
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/storage/box/syndie_kit/bee_grenades,
