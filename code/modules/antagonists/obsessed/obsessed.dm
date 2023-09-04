@@ -32,7 +32,7 @@
 			var/name = key_name(mind)
 			targets[name] = mind
 			names |= name
-		var/forced_target_name = tgui_input_list(admin, "Select a target for the obsession", "MY BELOVED", sort_names(names))
+		var/forced_target_name = tgui_input_list(admin, "Select a target for the obsession", "MY BELOVED", sort_list(names))
 		if(forced_target_name)
 			forced_target = targets[forced_target_name]
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name][forced_target ? ", with [key_name_admin(forced_target)] as their obsession" : ""].")
