@@ -1,6 +1,6 @@
 
 //the essential proc to call when an obj must receive damage of any kind.
-/obj/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	if(QDELETED(src))
 		stack_trace("[src] taking damage after deletion")
 		return
@@ -8,7 +8,6 @@
 		play_attack_sound(damage_amount, damage_type, damage_flag)
 	if((resistance_flags & INDESTRUCTIBLE) || obj_integrity <= 0)
 		return
-	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration)
 	if(damage_amount < DAMAGE_PRECISION)
 		return
 	. = damage_amount
@@ -34,7 +33,7 @@
 		armor_protection = armor.getRating(damage_flag)
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = CLAMP(armor_protection - armour_penetration, min(armor_protection, 0), 100)
-	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
+	return armor_protection
 
 //the sound played when the obj is damaged.
 /obj/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

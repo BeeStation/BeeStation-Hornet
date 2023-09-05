@@ -152,8 +152,8 @@
 		dismemberthreshold = dismemberthreshold / 3
 	if(multipler * damage_amount >= dismemberthreshold && damage_amount >= 10)
 		if(limb.dismember(damage))
-			attacking_item.add_mob_blood(src)
-			playsound(get_turf(src), attacking_item.get_dismember_sound(), 80, 1)
+			attacking_item.add_mob_blood(target)
+			playsound(get_turf(target), attacking_item.get_dismember_sound(), 80, 1)
 
 /// Causes bleeding on the target
 /datum/damage_source/proc/run_bleeding(

@@ -20,7 +20,7 @@
 			to_chat(user, "<span class='danger'>The [I] gets stuck in \the [src]!</span>")
 	return ..()
 
-/obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BURN)

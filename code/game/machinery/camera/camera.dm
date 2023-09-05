@@ -369,7 +369,7 @@
 
 	return ..()
 
-/obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(damage_flag == MELEE && damage_amount < 12 && !(machine_stat & BROKEN))
 		return 0
 	. = ..()

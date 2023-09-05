@@ -268,7 +268,7 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/blob/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/structure/blob/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	switch(damage_type)
 		if(BRUTE)
 			damage_amount *= brute_resist

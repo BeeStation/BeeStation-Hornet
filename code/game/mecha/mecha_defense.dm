@@ -21,7 +21,7 @@
 			occupant_message("<span class='userdanger'>Taking damage!</span>")
 		log_message("Took [damage_amount] points of damage. Damage type: [damage_type].", LOG_MECHA)
 
-/obj/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(!damage_amount)
 		return 0

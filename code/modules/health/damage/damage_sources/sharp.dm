@@ -48,10 +48,10 @@
 	// Revolutionary remove
 	var/mob/living/carbon/human/H = target
 	if (attacking_item && target_zone == BODY_ZONE_HEAD && istype(H))
-		if(H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
+		if(H.mind && H.stat == CONSCIOUS && H != attacker && (H.health - (attacking_item.force * attacking_item.attack_weight)) <= 0) // rev deconversion through blunt trauma.
 			var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
 			if(rev)
-				rev.remove_revolutionary(FALSE, user)
+				rev.remove_revolutionary(FALSE, attacker)
 
 /// Light and blunt weaker weapons like toolboxes
 /datum/damage_source/blunt/light

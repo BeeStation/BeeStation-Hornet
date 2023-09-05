@@ -503,7 +503,7 @@ Class Procs:
 		set_occupant(null)
 		update_icon()
 
-/obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
+/obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
 	return ..()

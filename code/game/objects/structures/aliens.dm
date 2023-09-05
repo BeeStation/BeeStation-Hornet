@@ -11,7 +11,7 @@
 	icon = 'icons/mob/alien.dmi'
 	max_integrity = 100
 
-/obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BRUTE)
