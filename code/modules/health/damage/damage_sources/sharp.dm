@@ -45,6 +45,13 @@
 
 /datum/damage_source/blunt/after_attack_limb(mob/living/attacker, obj/item/attacking_item, mob/living/target, obj/item/bodypart/limb, datum/damage/damage, damage_amount, target_zone)
 	run_deepen_wounds(attacker, attacking_item, target, limb, damage, damage_amount, target_zone)
+	// Revolutionary remove
+	var/mob/living/carbon/human/H = target
+	if (attacking_item && target_zone == BODY_ZONE_HEAD && istype(H))
+		if(H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
+			var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
+			if(rev)
+				rev.remove_revolutionary(FALSE, user)
 
 /// Light and blunt weaker weapons like toolboxes
 /datum/damage_source/blunt/light

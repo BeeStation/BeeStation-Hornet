@@ -160,7 +160,7 @@
 		which_hand = BODY_ZONE_PRECISE_R_HAND
 	return get_bodypart(check_zone(which_hand))
 
-//Helper for quickly creating a new limb - used by augment code in species.dm spec_attacked_by
+//Helper for quickly creating a new limb - used by augment code in species.dm spec_on_attacked
 //
 // FUCK YOU AUGMENT CODE - With love, Kapu
 /mob/living/carbon/proc/newBodyPart(zone, robotic, fixed_icon)

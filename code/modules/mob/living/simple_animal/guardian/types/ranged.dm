@@ -10,7 +10,7 @@
 	a_intent = INTENT_HELP
 	friendly = "quietly assesses"
 	melee_damage = 10
-	damage_coeff = list(BRUTE = 0.9, BURN = 0.9, TOX = 0.9, CLONE = 0.9, STAMINA = 0, OXY = 0.9)
+	damage_coeff = list(BRUTE = 0.9, BURN = 0.9, TOX = 0.9, CLONE = 0.9, STAMINA_DAMTYPE = 0, OXY = 0.9)
 	projectiletype = /obj/projectile/guardian
 	ranged_cooldown_time = 1 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'

@@ -27,7 +27,7 @@
 	health = 350
 	spacewalk = TRUE
 	a_intent = INTENT_HARM
-	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0.5, OXY = 1)
+	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA_DAMTYPE = 0.5, OXY = 1)
 	speed = 0
 	attacktext = "chomps"
 	attack_sound = 'sound/magic/demon_attack1.ogg'

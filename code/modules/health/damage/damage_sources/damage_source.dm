@@ -2,6 +2,7 @@
 	var/armour_flag = null
 
 /datum/damage_source/proc/apply_direct(mob/living/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
+	SHOULD_NOT_SLEEP(TRUE)
 	if (target_zone)
 		// Apply the damage
 		var/datum/damage/damage = GET_DAMAGE(damage_type)
@@ -14,20 +15,21 @@
 					damage.apply_living(target, damage_amount, update_health, forced)
 					return
 				targetted_bodypart = pick(carbon_target.bodyparts)
-		var/final_damage_amount = calculate_damage(target, damage_amount, target_zone)
+		var/final_damage_amount = calculate_damage(target, null, damage_amount, target_zone)
 		if (targetted_bodypart)
 			damage.apply_bodypart(targetted_bodypart, final_damage_amount, update_health, forced)
 		else
 			damage.apply_living(target, final_damage_amount, update_health, forced)
 	else
 		// Determine armour
-		var/final_damage_amount = calculate_damage(target, damage_amount, target_zone)
+		var/final_damage_amount = calculate_damage(target, null, damage_amount, target_zone)
 		// Target the whole body and apply the damage
 		var/datum/damage/damage = GET_DAMAGE(damage_type)
 		damage.apply_living(target, final_damage_amount, update_health, forced)
 
 /// Attacker may be null
 /datum/damage_source/proc/deal_attack(mob/living/attacker, obj/item/attacking_item, atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
+	SHOULD_NOT_SLEEP(TRUE)
 	// Determine the target_zone
 	if (!target_zone)
 		target_zone = ran_zone(attacker?.zone_selected || BODY_ZONE_CHEST)
@@ -36,7 +38,7 @@
 	if (isanimal(attacker))
 		var/mob/living/simple_animal/animal_attacker = attacker
 		armour_penetration_value ||= animal_attacker.armour_penetration
-	var/final_damage_amount = calculate_damage(target, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
+	var/final_damage_amount = calculate_damage(target, attacking_item, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
 	if (final_damage_amount <= 0)
 		return
 	// Pacifism check
@@ -91,17 +93,19 @@
 		var/mob/living/living_target = target
 		return living_target.run_armor_check(target_zone || BODY_ZONE_CHEST, armour_flag, armour_penetration = armour_penetration)
 	if (isobj(target))
-		//var/obj/object_target = target
-		//object_target.run_obj_armor(input_damage, )
-		// BACONTODO
+		var/obj/object_target = target
+		return object_target.run_obj_armor(input_damage, BRUTE, armour_flag, armour_penetration = armour_penetration)
 	return 0
 
 /// Calculate the damage caused by a specific attack
-/datum/damage_source/proc/calculate_damage(atom/target, input_damage, target_zone, armour_penetration = 0)
+/datum/damage_source/proc/calculate_damage(atom/target, obj/item/weapon, input_damage, target_zone, armour_penetration = 0)
 	// Determine armour
 	var/blocked = get_armour_block(target, input_damage, target_zone, armour_penetration)
 	if (blocked >= 100)
 		return 0
+	if (isliving(target) && weapon)
+		var/mob/living/living_target = target
+		return input_damage * (1 - (blocked / 100)) * living_target.check_weakness(weapon, target)
 	return input_damage * (1 - (blocked / 100))
 
 /// Called after a successful attack
@@ -178,16 +182,7 @@
 		return
 	// Get blood on themselves
 	target.add_mob_blood(target)
-	if(target_zone == BODY_ZONE_HEAD)
-		if(target.wear_mask)
-			target.wear_mask.add_mob_blood(target)
-			target.update_inv_wear_mask()
-		if(target.wear_neck)
-			target.wear_neck.add_mob_blood(target)
-			target.update_inv_neck()
-		if(target.head)
-			target.head.add_mob_blood(target)
-			target.update_inv_head()
+	run_apply_blood(target, target, BODY_ZONE_CHEST)
 	// Get our location
 	var/turf/location = get_turf(target)
 	if (!location)
@@ -199,13 +194,34 @@
 		attacker.add_mob_blood(target)
 		if (ishuman(attacker))
 			var/mob/living/carbon/human/human_attacker = attacker
-			if(target_zone == BODY_ZONE_HEAD)
-				if(human_attacker.wear_mask)
-					human_attacker.wear_mask.add_mob_blood(target)
-					human_attacker.update_inv_wear_mask()
-				if(human_attacker.wear_neck)
-					human_attacker.wear_neck.add_mob_blood(target)
-					human_attacker.update_inv_neck()
-				if(human_attacker.head)
-					human_attacker.head.add_mob_blood(target)
-					human_attacker.update_inv_head()
+			run_apply_blood(target, human_attacker, target_zone)
+
+/// Apply blood from a source to a target
+/datum/damage_source/proc/run_apply_blood(mob/living/blood_source, mob/living/carbon/human/blood_target, def_zone)
+	if (!istype(blood_target))
+		return
+	switch (def_zone)
+		if (BODY_ZONE_HEAD)
+			if(blood_target.wear_mask)
+				blood_target.wear_mask.add_mob_blood(blood_source)
+				blood_target.update_inv_wear_mask()
+			if(blood_target.wear_neck)
+				blood_target.wear_neck.add_mob_blood(blood_source)
+				blood_target.update_inv_neck()
+			if(blood_target.head)
+				blood_target.head.add_mob_blood(blood_source)
+				blood_target.update_inv_head()
+		if (BODY_ZONE_CHEST)
+			if(blood_target.wear_suit)
+				blood_target.wear_suit.add_mob_blood(blood_source)
+				blood_target.update_inv_wear_suit()
+			if(blood_target.w_uniform)
+				blood_target.w_uniform.add_mob_blood(blood_source)
+				blood_target.update_inv_w_uniform()
+
+/// Force the target to say their message
+/datum/damage_source/proc/run_force_say(mob/living/carbon/human/target, damage_amount)
+	if (!istype(target))
+		return
+	if (damage_amount > 10 || damage_amount > 10 && prob(33))
+		target.force_say()

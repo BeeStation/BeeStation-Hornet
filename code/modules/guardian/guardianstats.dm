@@ -19,7 +19,7 @@
 		guardian.melee_damage = damage * 5
 		guardian.obj_damage = damage * 16
 	var/armor = CLAMP((max(6 - defense, 1)/2.5)/2, 0.25, 1)
-	guardian.damage_coeff = list(BRUTE = armor, BURN = armor, TOX = armor, CLONE = armor, STAMINA = 0, OXY = armor)
+	guardian.damage_coeff = list(BRUTE = armor, BURN = armor, TOX = armor, CLONE = armor, STAMINA_DAMTYPE = 0, OXY = armor)
 	if(damage == 5)
 		guardian.environment_smash = ENVIRONMENT_SMASH_WALLS
 	guardian.atk_cooldown = (15 / speed) * 1.5

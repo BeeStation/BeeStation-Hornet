@@ -20,7 +20,7 @@
 	response_harm   = "thumps"
 	speed = 1
 	melee_damage = 16
-	damage_coeff = list(BRUTE = 1, BURN = 1.5, TOX = 1.5, CLONE = 0, STAMINA = 0, OXY = 1.5)
+	damage_coeff = list(BRUTE = 1, BURN = 1.5, TOX = 1.5, CLONE = 0, STAMINA_DAMTYPE = 0, OXY = 1.5)
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attacktext = "pummels"
@@ -122,6 +122,6 @@
 	loot = list(/obj/effect/gibspawner/generic/animal)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/gorilla = 4)
 	melee_damage = 20
-	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
+	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA_DAMTYPE = 0, OXY = 1)
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS

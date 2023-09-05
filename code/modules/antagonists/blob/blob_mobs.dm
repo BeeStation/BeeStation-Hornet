@@ -240,7 +240,7 @@
 	icon_dead = "blobbernaut_dead"
 	health = 200
 	maxHealth = 200
-	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
+	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA_DAMTYPE = 0, OXY = 1)
 	melee_damage = 20
 	obj_damage = 60
 	attacktext = "slams"
