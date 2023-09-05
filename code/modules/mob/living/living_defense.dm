@@ -412,7 +412,7 @@
 		return FALSE
 	if(!override_blindness_check && is_blind())
 		return FALSE
-	if(client.prefs.read_player_preference(/datum/preference/toggle/darkened_flash))
+	if(client?.prefs?.read_player_preference(/datum/preference/toggle/darkened_flash))
 		type = /atom/movable/screen/fullscreen/flash/black
 	overlay_fullscreen("flash", type)
 	addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 2.5 SECONDS), 2.5 SECONDS)
@@ -433,15 +433,9 @@
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
-/mob/living/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(istype(E) && diseases.len)
-		if(scan)
-			E.scan(src, diseases, user)
-		else
-			E.extrapolate(src, diseases, user)
-		return TRUE
-	else
-		return FALSE
+/mob/living/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /mob/living/proc/sethellbound()
 	if(mind)

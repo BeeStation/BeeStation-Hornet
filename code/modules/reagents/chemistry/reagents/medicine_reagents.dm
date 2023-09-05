@@ -13,7 +13,7 @@
 /datum/reagent/medicine/on_mob_life(mob/living/carbon/M)
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate / M.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
-	if(metabolite)
+	if(!QDELETED(holder) && metabolite) // removing a reagent can sometimes delete the holder
 		holder.add_reagent(metabolite, metabolization_rate / M.metabolism_efficiency * METABOLITE_RATE)
 
 /datum/reagent/medicine/leporazine

@@ -15,7 +15,6 @@
 	clicksound = 'sound/machines/pda_button1.ogg'
 
 	var/efficiency = 1.25
-	var/min_health = -25
 	var/list/available_chems
 	var/controls_inside = FALSE
 	/// the maximum amount of chem containers the sleeper can hold. Value can be changed by parts tier and RefreshParts()
@@ -86,7 +85,6 @@
 
 	max_vials = 5 + E
 	efficiency = initial(efficiency) * sqrt(I)
-	min_health = initial(min_health) * E
 	available_chems = list()
 
 	//Eject chems
@@ -108,9 +106,9 @@
 		if (length(inserted_vials) >= max_vials)
 			to_chat(user, "<span class='warning'>[src] cannot hold any more!</span>")
 			return
+		if(!user.transferItemToLoc(I, null))
+			return
 		user.visible_message("<span class='notice'>[user] inserts \the [I] into \the [src]</span>", "<span class='notice'>You insert \the [I] into \the [src]</span>")
-		user.temporarilyRemoveItemFromInventory(I)
-		I.forceMove(null)
 		inserted_vials += I
 		ui_update()
 		return
@@ -344,8 +342,7 @@
 	var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
 	for (var/datum/reagent/reagent in stored_vial.reagents.reagent_list)
 		var/amount = mob_occupant.reagents.get_reagent_amount(reagent.type) + 10 <= 16 * efficiency
-		var/occ_health = mob_occupant.health > min_health || reagent.type == /datum/reagent/medicine/epinephrine
-		if (!amount || !occ_health)
+		if(!amount)
 			return FALSE
 	return TRUE
 

@@ -657,3 +657,6 @@ SPARE_ENFORCE_COC
 
 ## Uncomment to disable local bans, effectively enforcing only global bans
 DISABLE_LOCAL_BANS
+
+## Comment this to disable roundstart lights being turned off in non-staffed departments
+#DARK_UNSTAFFED_DEPARTMENTS

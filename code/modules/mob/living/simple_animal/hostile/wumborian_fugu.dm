@@ -120,7 +120,12 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	var/list/datum/disease/fugu_diseases = list()
 	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/guardian)
+
+/obj/item/fugu_gland/Initialize()
+	. = ..()
+	fugu_diseases += new /datum/disease/advance/random(rand(1, 6), 4 + (rand(1, 5)), guaranteed_symptoms = list(/datum/symptom/growth))
 
 /obj/item/fugu_gland/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
@@ -138,11 +143,6 @@
 		to_chat(user, "<span class='info'>You increase the size of [A], giving it a surge of strength!</span>")
 		qdel(src)
 
-/obj/item/fugu_gland/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(scan)
-		to_chat(user, "<span class='info'>[src] has potential for extrapolation.</span>")
-	else
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 4+(rand(1, 5)), /datum/symptom/growth)
-		if(E.create_culture(R, user))
-			qdel(src)
-	return TRUE
+/obj/item/fugu_gland/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., fugu_diseases)

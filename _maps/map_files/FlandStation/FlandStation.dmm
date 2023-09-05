@@ -22412,7 +22412,6 @@
 /area/hallway/primary/central)
 "fOU" = (
 /obj/structure/table,
-/obj/item/storage/belt,
 /obj/item/radio,
 /obj/machinery/light{
 	dir = 4
@@ -22426,6 +22425,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/storage/belt/utility,
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
@@ -44624,7 +44624,7 @@
 /obj/structure/rack,
 /obj/item/crowbar,
 /obj/item/storage/pill_bottle,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/clothing/glasses/eyepatch,
 /obj/item/wrench,
 /obj/machinery/airalarm{
@@ -51718,10 +51718,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plasteel/dark/side,
 /area/engine/atmos)
-"nwz" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/air/light,
-/area/engine/atmos)
 "nwC" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/secure/safe/caps_spare{
@@ -51917,7 +51913,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/backpack/duffelbag/med,
 /obj/item/flashlight/pen,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/crowbar,
 /obj/machinery/light/small{
 	dir = 4
@@ -70697,7 +70693,6 @@
 "sgB" = (
 /obj/machinery/atmospherics/miner/plasma,
 /obj/machinery/light/floor,
-/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine/plasma/light,
 /area/engine/atmos)
 "sgY" = (
@@ -91600,8 +91595,8 @@
 /obj/structure/closet/crate{
 	name = "disposal supplies"
 	},
-/obj/item/deployable/bodybag,
-/obj/item/deployable/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
 /obj/item/shovel,
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
@@ -143111,7 +143106,7 @@ wNp
 lVB
 fVd
 vEb
-nwz
+wVT
 wVT
 cKm
 ufF
