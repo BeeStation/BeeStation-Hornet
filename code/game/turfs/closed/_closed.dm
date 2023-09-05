@@ -7,6 +7,10 @@
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF
 
+/turf/closed/Initialize(mapload)
+	. = ..()
+
+
 /turf/closed/AfterChange()
 	. = ..()
 	SSair.high_pressure_delta -= src
