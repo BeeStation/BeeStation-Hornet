@@ -1,9 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: fixed installing the efficiency upgrade to the firefighting atmos backpack
-      breaking the worn icon
-  - bugfix: fixed not being able to shoot normal foam with an upgraded firefighting
-      atmos backpack
-  - bugfix: fixed the resin launcher mode of the nozzle shooting a capsule when breaking
-      placed resin point-blank
