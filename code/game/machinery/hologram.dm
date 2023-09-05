@@ -634,6 +634,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/holopad/proc/replay_entry(entry_number)
 	if(!replay_mode)
 		return
+	if(!anchored || (machine_stat & NOPOWER))
+		record_stop()
+		replay_stop()
+		return
 	if (!disk.record.entries.len) // check for zero entries such as photographs and no text recordings
 		return // and pretty much just display them statically until manually stopped
 	if(disk.record.entries.len < entry_number)
