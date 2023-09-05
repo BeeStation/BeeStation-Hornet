@@ -132,6 +132,7 @@
 	label_name = "ammonia"
 	desc = "A small bottle of ammonia."
 	list_reagents = list(/datum/reagent/ammonia = 30)
+	vendor_icon_preview = "bottle_ammonia"
 
 /obj/item/reagent_containers/glass/bottle/diethylamine
 	name = "diethylamine bottle"
@@ -504,7 +505,7 @@
 	name = "ethanol bottle"
 	label_name = "ethanol"
 	list_reagents = list(/datum/reagent/consumable/ethanol = 30)
-	vendor_icon_preview = "ethanol"
+	vendor_icon_preview = "bottle_ethanol"
 
 /obj/item/reagent_containers/glass/bottle/sugar
 	name = "sugar bottle"
