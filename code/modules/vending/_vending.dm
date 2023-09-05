@@ -663,9 +663,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			max_amount = R.max_amount,
 			ref = REF(R)
 		)
-		var/obj/item/fake_item = R.product_path
-		if(initial(fake_item?.vendor_icon_preview))
-			data["img"] = icon2base64(icon('icons/obj/vendor_item_icons.dmi', initial(fake_item.vendor_icon_preview), frame=1))
 		.["product_records"] += list(data)
 	.["coin_records"] = list()
 	for (var/datum/data/vending_product/R in coin_records)
@@ -677,9 +674,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			ref = REF(R),
 			premium = TRUE
 		)
-		var/obj/item/fake_item = R.product_path
-		if(initial(fake_item?.vendor_icon_preview))
-			data["img"] = icon2base64(icon('icons/obj/vendor_item_icons.dmi', initial(fake_item.vendor_icon_preview), frame=1))
 		.["coin_records"] += list(data)
 	.["hidden_records"] = list()
 	for (var/datum/data/vending_product/R in hidden_records)
@@ -691,9 +685,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			ref = REF(R),
 			premium = TRUE
 		)
-		var/obj/item/fake_item = R.product_path
-		if(initial(fake_item?.vendor_icon_preview))
-			data["img"] = icon2base64(icon('icons/obj/vendor_item_icons.dmi', initial(fake_item.vendor_icon_preview), frame=1))
 		.["hidden_records"] += list(data)
 
 /obj/machinery/vending/ui_data(mob/user)

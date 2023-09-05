@@ -424,7 +424,11 @@
 	else
 		icon_file = initial(item.icon)
 	var/icon_state = initial(item.icon_state)
-
+	if(ispath(item, /obj/item))
+		var/obj/item/fake_item = item
+		if(initial(fake_item.vendor_icon_preview))
+			icon_state = initial(fake_item.vendor_icon_preview)
+			icon_file = 'icons/obj/vendor_item_icons.dmi'
 	#ifdef UNIT_TESTS
 	var/icon_states_list = icon_states(icon_file)
 	if (!(icon_state in icon_states_list))
