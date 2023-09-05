@@ -996,11 +996,11 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 					item_price = T.custom_price
 					item_path = T.type
 					if(!base64)
-						if(base64_cache["T.type[T.icon_state]"])
-							base64 = base64_cache["T.type[T.icon_state]"]
+						if(base64_cache["[T.icon]_[T.icon_state]"])
+							base64 = base64_cache["[T.icon]_[T.icon_state]"]
 						else
 							base64 = icon2base64(icon(T.icon, T.icon_state, frame=1))
-							base64_cache["T.type[T.icon_state]"] = base64
+							base64_cache["[T.icon]_[T.icon_state]"] = base64
 					break
 			var/list/data = list(
 				name = O,
