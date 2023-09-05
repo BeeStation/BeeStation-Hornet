@@ -3,7 +3,7 @@
 	icon_state = "spark"
 	color = "#FFFF00"
 	damage = 40
-	damage_type = STAMINA
+	damage_type = STAMINA_DAMTYPE
 	damage_source = /datum/damage_source/stun
 	nodamage = FALSE
 	knockdown = 30

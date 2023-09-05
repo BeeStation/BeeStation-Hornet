@@ -12,5 +12,5 @@
 	return
 
 /datum/damage/stamina/apply_object(obj/target, damage)
-	target.take_damage(damage, STAMINA)
+	target.take_damage(damage, STAMINA_DAMTYPE)
 

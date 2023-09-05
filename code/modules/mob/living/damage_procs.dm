@@ -25,7 +25,7 @@
 			adjustOxyLoss(damage_amount, forced = forced)
 		if(CLONE)
 			adjustCloneLoss(damage_amount, forced = forced)
-		if(STAMINA)
+		if(STAMINA_DAMTYPE)
 			adjustStaminaLoss(damage_amount, forced = forced)
 	return 1
 
@@ -41,7 +41,7 @@
 			return getOxyLoss()
 		if(CLONE)
 			return getCloneLoss()
-		if(STAMINA)
+		if(STAMINA_DAMTYPE)
 			return getStaminaLoss()
 
 /mob/living/proc/apply_effect(effect = 0,effecttype = EFFECT_STUN, blocked = FALSE)
@@ -100,7 +100,7 @@
 	if(drowsy)
 		apply_effect(drowsy, EFFECT_DROWSY, blocked)
 	if(stamina)
-		apply_damage_old(stamina, STAMINA, null, blocked)
+		apply_damage_old(stamina, STAMINA_DAMTYPE, null, blocked)
 	if(jitter)
 		apply_effect(jitter, EFFECT_JITTER, blocked)
 	return BULLET_ACT_HIT

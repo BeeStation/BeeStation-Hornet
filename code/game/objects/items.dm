@@ -632,7 +632,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			blockhand = BODY_ZONE_L_ARM
 	if(isprojectile(hitby))
 		var/obj/projectile/P = hitby
-		if(P.damage_type != STAMINA)// disablers dont do shit to shields
+		if(P.damage_type != STAMINA_DAMTYPE)// disablers dont do shit to shields
 			attackforce = (P.damage)
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
@@ -642,7 +642,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!I.damtype == BRUTE)
 			attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
 		attackforce = (attackforce * I.attack_weight)
-		if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
+		if(I.damtype == STAMINA_DAMTYPE)//pure stamina damage wont affect blocks
 			attackforce = 0
 	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
 		var/mob/living/L = hitby

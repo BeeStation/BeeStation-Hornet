@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(duplicate_forbidden_vars,list(
 
 		if(nerf && isitem(O))
 			var/obj/item/I = O
-			I.damtype = STAMINA // thou shalt not
+			I.damtype = STAMINA_DAMTYPE // thou shalt not
 
 		N.update_icon()
 		if(ismachinery(O))

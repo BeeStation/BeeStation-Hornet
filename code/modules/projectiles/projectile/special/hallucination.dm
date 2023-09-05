@@ -175,7 +175,7 @@
 
 /obj/projectile/hallucination/disabler
 	name = "disabler beam"
-	damage_type = STAMINA
+	damage_type = STAMINA_DAMTYPE
 	damage_source = /datum/damage_source/mental_health
 	hal_icon_state = "omnilaser"
 	hal_fire_sound = 'sound/weapons/taser2.ogg'

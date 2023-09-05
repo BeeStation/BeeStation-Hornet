@@ -175,7 +175,7 @@ have ways of interacting with a specific mob and control it.
 
 /datum/ai_controller/monkey/proc/on_attackby(datum/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
-	if(I.force && I.damtype != STAMINA)
+	if(I.force && I.damtype != STAMINA_DAMTYPE)
 		retaliate(user)
 
 /datum/ai_controller/monkey/proc/on_attack_hand(datum/source, mob/living/user)

@@ -95,7 +95,7 @@ In all, this is a lot like the monkey code. /N
 			adjustOxyLoss(damage)
 		if(CLONE)
 			adjustCloneLoss(damage)
-		if(STAMINA)
+		if(STAMINA_DAMTYPE)
 			adjustStaminaLoss(damage)
 
 /mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)

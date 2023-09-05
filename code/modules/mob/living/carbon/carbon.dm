@@ -516,7 +516,7 @@
 			enter_stamcrit()
 	else if(stam_paralyzed)
 		stam_paralyzed = FALSE
-		REMOVE_TRAIT(src,TRAIT_INCAPACITATED, STAMINA)
+		REMOVE_TRAIT(src,TRAIT_INCAPACITATED, STAMINA_DAMTYPE)
 	else
 		return
 	update_health_hud()

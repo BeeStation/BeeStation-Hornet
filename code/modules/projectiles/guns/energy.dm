@@ -283,7 +283,7 @@
 		var/obj/projectile/energy/BB = E.BB
 		if(!BB)
 			. = ""
-		else if(BB.nodamage || !BB.damage || BB.damage_type == STAMINA)
+		else if(BB.nodamage || !BB.damage || BB.damage_type == STAMINA_DAMTYPE)
 			user.visible_message("<span class='danger'>[user] tries to light [A.loc == user ? "[user.p_their()] [A.name]" : A] with [src], but it doesn't do anything. Dumbass.</span>")
 			playsound(user, E.fire_sound, 50, 1)
 			playsound(user, BB.hitsound, 50, 1)

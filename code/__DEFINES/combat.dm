@@ -4,17 +4,17 @@
 
 //Damage defines //TODO: merge these down to reduce on defines
 /// Physical fracturing and warping of the material.
-#define BRUTE "brute"
+#define BRUTE /datum/damage/brute
 /// Scorching and charring of the material.
-#define BURN "burn"
+#define BURN /datum/damage/burn
 /// Poisoning. Mostly caused by reagents.
-#define TOX "toxin"
+#define TOX /datum/damage/toxin
 /// Suffocation.
-#define OXY "oxygen"
+#define OXY /datum/damage/suffocation
 /// Cellular degredation. Rare and difficult to treat.
-#define CLONE "clone"
-/// Exhaustion and nonlethal damage.
-#define STAMINA "stamina"
+#define CLONE /datum/damage/clone
+/// Stamina damage type
+#define STAMINA_DAMTYPE /datum/damage/stamina
 /// Brain damage. Should probably be decomissioned and replaced with proper organ damage.
 #define BRAIN "brain"
 
@@ -42,6 +42,8 @@
 #define MELEE "melee"
 /// Involves magic.
 #define MAGIC "magic"
+/// Exhaustion and nonlethal damage.
+#define STAMINA "stamina"
 
 /*
 /// Involved in checking the likelihood of applying a wound to a mob.

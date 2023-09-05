@@ -368,7 +368,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	if (!nerf_this && is_loading)
 		return
 	for(var/obj/item/to_be_nerfed in spawned)
-		to_be_nerfed.damtype = nerf_this ? STAMINA : initial(to_be_nerfed.damtype)
+		to_be_nerfed.damtype = nerf_this ? STAMINA_DAMTYPE : initial(to_be_nerfed.damtype)
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		holo_effect.safety(nerf_this)
 

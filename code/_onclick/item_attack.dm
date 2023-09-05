@@ -176,7 +176,7 @@
 	return I.deal_attack(user, src, ran_zone(user.zone_selected))
 
 /mob/living/simple_animal/on_attacked(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
-	if(I.force < force_threshold || I.damtype == STAMINA || nonharmfulhit)
+	if(I.force < force_threshold || I.damtype == STAMINA_DAMTYPE || nonharmfulhit)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
 	else
 		return ..()

@@ -21,7 +21,7 @@
 		var/attackforce = 0
 		if(isprojectile(hitby))
 			var/obj/projectile/P = hitby
-			if(P.damage_type != STAMINA)// disablers dont do shit to shields
+			if(P.damage_type != STAMINA_DAMTYPE)// disablers dont do shit to shields
 				attackforce = (P.damage / 2)
 		else if(isitem(hitby))
 			var/obj/item/I = hitby
@@ -29,7 +29,7 @@
 			if(!I.damtype == BRUTE)
 				attackforce = (attackforce / 2)
 			attackforce = (attackforce * I.attack_weight)
-			if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
+			if(I.damtype == STAMINA_DAMTYPE)//pure stamina damage wont affect blocks
 				attackforce = 0
 		else if(isliving(hitby)) //not putting an anti stamina clause in here. only stamina damage simplemobs i know of are swarmers, and them eating shields makes sense
 			var/mob/living/L = hitby

@@ -36,7 +36,7 @@
 			adjustOxyLoss(damage_amount, forced = forced)
 		if(CLONE)
 			adjustCloneLoss(damage_amount, forced = forced)
-		if(STAMINA)
+		if(STAMINA_DAMTYPE)
 			if(BP)
 				if(BP.receive_damage(0, 0, damage_amount))
 					update_damage_overlays()
@@ -187,7 +187,7 @@
 	if(!parts.len)
 		return
 	var/obj/item/bodypart/picked = pick(parts)
-	if(picked.receive_damage(brute, burn, stamina,check_armor ? run_armor_check(picked, (brute ? MELEE : burn ? FIRE : stamina ? STAMINA : null)) : FALSE))
+	if(picked.receive_damage(brute, burn, stamina,check_armor ? run_armor_check(picked, (brute ? MELEE : burn ? FIRE : stamina ? STAMINA_DAMTYPE : null)) : FALSE))
 		update_damage_overlays()
 
 //Heal MANY bodyparts, in random order
