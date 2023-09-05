@@ -8,7 +8,7 @@
 
 #define AIRLOCK_WIRE_SECURITY_NONE 0	// Airlocks that are super easy to hack and have mostly labelled wires. No risk.
 #define AIRLOCK_WIRE_SECURITY_SIMPLE 1	// Airlock with less labelled wires, takes longer to hack but not shock risk.
-#define AIRLOCK_WIRE_SECURITY_PROTECTED 2	// Airlock has no labelled wires and has a single shock wire
+#define AIRLOCK_WIRE_SECURITY_PROTECTED 2	// Airlock has no labelled wires and has a single shock wire that is labelled
 #define AIRLOCK_WIRE_SECURITY_ADVANCED 3	// Airlock has 2 duds and 1 shock wire
 #define AIRLOCK_WIRE_SECURITY_ELITE 4	// Airlock has 2 duds and 2 shock wires
 #define AIRLOCK_WIRE_SECURITY_MAXIMUM 5	// Airlock has 2 duds, 2 shock wires and only a single power cable.

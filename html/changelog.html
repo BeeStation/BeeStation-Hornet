@@ -56,6 +56,260 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">05 September 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed installing the efficiency upgrade to the firefighting atmos backpack breaking the worn icon</li>
+				<li class="bugfix">fixed not being able to shoot normal foam with an upgraded firefighting atmos backpack</li>
+				<li class="bugfix">fixed the resin launcher mode of the nozzle shooting a capsule when breaking placed resin point-blank</li>
+			</ul>
+
+			<h2 class="date">04 September 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Made the viral extrapolator output look much better.</li>
+				<li class="rscadd">Added some additional info to the viral extrapolator's examine - telling the user the maximum stealth / level it can extract, and how long extractions take.</li>
+				<li class="rscadd">The viral extrapolator will now tell you when scanning if it has extracted that same virus previously.</li>
+				<li class="tweak">You no longer have to click on an exact sprite to scan or extract a virus from something with the viral extrapolator - if you click on something that doesn't have any valid diseases (such as a floor tile), you will instead scan/extract whatever thing on that tile that does have a valid disease. (And if there's multiple things on the tile, you can choose which one to scan from a popup)</li>
+				<li class="tweak">Extracting a virus from someone now displays a visible message, rather than being completely silent except for the beep afterwards.</li>
+				<li class="rscadd">Vector (the virologist's pet hamster) is always guaranteed to have at least one level 9 symptom in its freebie virus.</li>
+				<li class="rscadd">Morgue corpses and roundstart monkeys can also generate with dormant diseases now, although they can be less reliable and more of a wildcard than diseases in dried blood/vomit/gibs or crew members.</li>
+				<li class="bugfix">Fixed only being able to extract symptoms rather than full diseases from rats.</li>
+				<li class="bugfix">Morgue corpses now have a small chance to be a non-human (and non-IPC) roundstart race.</li>
+				<li class="refactor">Refactored how `extrapolator_act` works.</li>
+				<li class="bugfix">Fix incorrect custom virus names being shown by health analyzers and viral extrapolators.</li>
+				<li class="bugfix">Obsession objectives no longer bug out if the target has a heirloom.</li>
+				<li class="code_imp">Fixed the unit test for operating computer linking.</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Made sleeper beds no longer block chemicals other than Epinephrine from being injected into patients in critical state.</li>
+				<li class="bugfix">Fixed the contents of the sleeper being duplicated after the person who inserted them got forcestripped.</li>
+				<li class="rscadd">Added a new mood event associated with the Aurora Caelus event</li>
+				<li class="tweak">Tweaked the colors of the Aurora Caelus event</li>
+				<li class="rscadd">Added an efficiency and smart foam for the Backpack Firefighting Tank</li>
+				<li class="rscadd">Added the research node for the BFT upgrades</li>
+				<li class="rscadd">Added a new advanced ATMOS resin</li>
+				<li class="rscadd">Added reagent overlays to the water backpacks and the atmos nozzle</li>
+				<li class="imageadd">added reagent overlays for liquid holder backpacks, alternative appearances for the atmos waterpack and nozzle</li>
+				<li class="balance">Decreased the default cooldown time of the BFT's resin modes from 10 to 8 seconds</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Deployables are now a component.</li>
+				<li class="tweak">Dragging a bodybag onto your mob while it is open will try to zip it up instead of instantly failing.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Trash bags can no longer be opened to view contents, the bag must be dumped out onto the floor instead.</li>
+			</ul>
+			<h3 class="author">lowwy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Rust heretic will no longer mansus grasping floors/walls/objects when on harm intent</li>
+			</ul>
+
+			<h2 class="date">03 September 2023</h2>
+			<h3 class="author">Absolucy, Itsmeowdev updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">The PDA/NtOS notepad is now actually usable, you won't hit rate limits just typing into it normally!</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="config">Made unstaffed departments having their lights be turned off at roundstart a config option</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">RadStation's Air Mixer no longer requires roundstart attention due to being improperly setup</li>
+			</ul>
+			<h3 class="author">Kapu1178,CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Lockers, crates, and machines no longer block click attempts in adjacency checks. Basically, you can reach tables cornered between lockers/machines.</li>
+				<li class="code_imp">Adds a new pass_flags_self flag called LETPASSCLICKS that lets you mark an atom to not block ClickCross() attempts.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon, KubeRoot, Victor239, stylemistake updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds fullscreen mode, toggleable with F11 or via game preferences.</li>
+			</ul>
+
+			<h2 class="date">02 September 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Abductors can no longer customize abductee objectives.</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Made the shove intent stun of an emagged/EMP'd/combat defib be blocked by shields</li>
+				<li class="tweak">Made crafting an item be put on a table or rack in front of the user if their hands are full</li>
+			</ul>
+
+			<h2 class="date">01 September 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added the ability for Obsessed people to open the mail addressed to their obsessions</li>
+			</ul>
+
+			<h2 class="date">31 August 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed cloning mindless mobs throwing a runtime</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes not being able to stand while cuffed</li>
+			</ul>
+
+			<h2 class="date">29 August 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Moved the Digital and Manual pipes to the "Pipe" category of the RPD.</li>
+				<li class="rscadd">Made the gas analyzers show the contents of a gas tank inside of a portable pump/scrubber/canister</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Beds now actually properly initialize their lying angle on map load</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Implements a new system for determining when a jammer moves into range of an object.</li>
+				<li class="balance">Cameras will now visibly turn off when a singal jammer is nearby.</li>
+			</ul>
+
+			<h2 class="date">28 August 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Protect objectives now properly greentext</li>
+				<li class="bugfix">Fixed the obsessed greeting text displaying twice.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed a massive assortment of runtimes.</li>
+			</ul>
+
+			<h2 class="date">27 August 2023</h2>
+			<h3 class="author">Absolucy, ShizCalev updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">The Rod of Asclepius now has a proper inhand sprite.</li>
+			</ul>
+			<h3 class="author">Bokkiewokkie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed raven emergency shuttle console not working</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You can no longer bring items back from the hotel.</li>
+			</ul>
+
+			<h2 class="date">26 August 2023</h2>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds a note onto objectives that require a stash informing players to read their notes.</li>
+			</ul>
+
+			<h2 class="date">25 August 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Added logs for when mobs stop pulling other mobs</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Chapel, Law office, virology, morgue, chemistry, genetics, cargo bay and tech storage will now have their airlock shock wires labelled.</li>
+				<li class="balance">Electricuted airlocks will no longer shock people with the UI open, only when performing a pulse action or using a multitool on the door for the first time. This means that low tier airlocks are now safe to hack.</li>
+				<li class="balance">Airlocks now have an indication when they are shocked (Test light is bright and flickering).</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Changed how special/faction faxes work and removed all except centcom and syndicate. Login is no longer required to use special faxes.</li>
+				<li class="admin">Removed old fax manager in favor of Requests Manager, added "Send Fax Message" verb to send admin faxes via a menu.</li>
+				<li class="bugfix">Fixed runtime when ghosts tried to view paper.</li>
+				<li class="code_imp">Cached \ref values for datums, reducing init time spent resolving qdel refs</li>
+			</ul>
+
+			<h2 class="date">23 August 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Xenos, morphs, and nightmares can no longer spawn in the atmos gas tanks.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend, HowToLoLu(sprite) updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">You can now print 'nullifiers' from Genetics console.</li>
+				<li class="tweak">handheld genetic sequence scanner now tells the genetic stability level</li>
+				<li class="imageadd">dna nullifier sprite</li>
+			</ul>
+
+			<h2 class="date">22 August 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the logging for the gas tanks rupturing not working correctly</li>
+			</ul>
+			<h3 class="author">bluezorua updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Certain Medical Banners on some maps no longer magically heal</li>
+			</ul>
+
+			<h2 class="date">21 August 2023</h2>
+			<h3 class="author">AnturK, esainane, MrMelbert, Son-of-Space, san7890, Ghommie, ported by mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Various fixes to the UpdatePaths tool</li>
+				<li class="bugfix">UpdatePaths will now handle lists that contain strings.</li>
+				<li class="code_imp">Adds support for simple subtype repathing, outright deletion,  for UpdatePaths scripts</li>
+				<li class="code_imp">Orginizes UpdatePaths folder and adds a well-documented readme.md</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the jobless role preference (Join as assistant, random job, return to lobby, etc) not saving properly.</li>
+				<li class="bugfix">Fixed a runtime from prefs if a player disconnected during their client initialization.</li>
+			</ul>
+
+			<h2 class="date">20 August 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds a specific preference to enable/disable AI VOX (text-to-speech) announcements.</li>
+				<li class="rscadd">You can now examine organs and implants to see which part of the body it fits in.</li>
+			</ul>
+			<h3 class="author">Absolucy, Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the obsessed "take picture" objective.</li>
+				<li class="bugfix">Fixed some possible edge cases with obsession targets being cloned or body swapped or whatever.</li>
+				<li class="tweak">Obsessed people now get a protect instead of a kill objective on their obsession, and new flavor text leaning more into the whole 'yandere' thing.</li>
+				<li class="tweak">Obsession trauma now requires a lobotomy to cure.</li>
+				<li class="tweak">Obsessed people are now guaranteed to pick someone who is on-station as their obsession target.</li>
+				<li class="tweak">Obsession targets are much more likely to be someone who will likely remain ON-station.</li>
+				<li class="tweak">Headpats now count as hugs for the sake of the 'hug x times' obsession objective.</li>
+				<li class="admin">Admins can now give someone a specific obsession.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">abductor gland storage now uses smartfridge UI instead of too-alieny-UI.</li>
+				<li class="balance">gland names will be revealed when these are in abductor's new organ storage.</li>
+				<li class="tweak">abductor gland storage now has 2~7 glands per each at starting.</li>
+				<li class="rscadd">broken glands will be restored once you put these into a new storage (old one doesn't work)</li>
+				<li class="tweak">antagonists can open abductor gland storage even if they're not an abductor species.</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Reworked all of Lavaland Mining Station Airlocks to use Tiny Fans instead of Airlock Controllers.</li>
+				<li class="tweak">Mining EVA now has wider doorways, and moved Officer Fastmosky to inside the emergency locker.</li>
+				<li class="tweak">Lavaland's Laborcamp External Access now has its own atmosbot (Sergeant Airhead) inside an emergency locker.</li>
+				<li class="tweak">Put tiny fans under the shutters at the Science Shuttle Dock on Lavaland</li>
+			</ul>
+
+			<h2 class="date">19 August 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">The Syndicate has upgraded its chameleon gear with the ability to completely hide any and all chameleon functionality with a multitool. Be sure not to confuse your own gear for a plain old piece of clothing, agent!</li>
+				<li class="bugfix">Fixed maps having the "omnibelt" parent object instead of toolbelts</li>
+			</ul>
+			<h3 class="author">Impish_Delights updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Hoods for winter coats/hoodies/explorer suits are now stored in nullspace instead of the suit's inventory</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed runtimes and fingerprints not getting properly applied when a stack merges with something during deconstruction.</li>
+				<li class="bugfix">Fixed a load of runtimes</li>
+				<li class="bugfix">Fixed assets not properly sending in the permissions panel</li>
+			</ul>
+
 			<h2 class="date">18 August 2023</h2>
 			<h3 class="author">CydiaLamiales updated:</h3>
 			<ul class="changes bgimages16">
@@ -960,217 +1214,6 @@
 				<li class="refactor">Refactored barrier grenades to be a subtype of deployable - these are no longer grenades and are instead collapsible barriers now. The barriers may only be dismantled after being unlocked by swiping an ID with security clearance.</li>
 				<li class="tweak">The amount of security barriers available at roundstart and within cargo orders has been roughly doubled because they are now always deployed one.</li>
 				<li class="tweak">Sandbags and wooden barricades can now be recollected as well by dragging them onto the user's sprite. Damage sustained to these barricades affects their return yield when picked up.</li>
-			</ul>
-
-			<h2 class="date">04 July 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Healing holoparasites will no longer damage toxinlovers (oozelings, etc) when healing.</li>
-			</ul>
-			<h3 class="author">RKz, Mothblocks updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">adds smiting to buildmode</li>
-				<li class="code_imp">datumizes smiting</li>
-				<li class="admin">converts some rather obnoxious admin tools to TGUI lists. Should make em easier to use</li>
-				<li class="rscadd">buildmode smiting sprite</li>
-			</ul>
-
-			<h2 class="date">03 July 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Made the wearable headphones into a musical instrument</li>
-				<li class="rscadd">Added the ability to mass tag items inside of a container using the price tagger</li>
-				<li class="tweak">Made the price tagger tag bags before being put inside of them</li>
-				<li class="rscadd">Made the Custom Vendor machine board printable at a lathe</li>
-				<li class="tweak">Reduced the prices of the Custom Vendor Board, Custom Vendor Refill Unit and Price Tagger, as well as increasing their amount sold by 1</li>
-				<li class="tweak">Increased the maximum capacity of Custom Vendors to 100 items</li>
-				<li class="rscadd">Added the name and job title of the owner to the description of the Custom Vendor when examining it</li>
-				<li class="rscadd">Added the ability to purchase items from a vendor without an ID card equipped, while holding a stack of holochips in your hand, or while having an ID card or holochips inside of a worn or held wallet</li>
-				<li class="tweak">Made hitting a vendor with a stack of holochips open the vendor's menu</li>
-				<li class="tweak">Made custom vendors differentiate between items based on their type AND name at the same time</li>
-				<li class="rscadd">Made custom vendors message the person with the linked bank account when an item is bought from them</li>
-				<li class="bugfix">Fixed custom vendors not displaying the item count of their goods</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Armblades will now damage targets on help intent.</li>
-			</ul>
-
-			<h2 class="date">01 July 2023</h2>
-			<h3 class="author">Absolucy, tralezab updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added tgui-based antag info popups for multiple antags, replacing the previous basic popups and info.</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Sprite image of Dark Honker and Dark Gygax is now corrected. These don't show normal version.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removes the syndicate surgery implant</li>
-			</ul>
-
-			<h2 class="date">30 June 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Eye Color and Body Size are now respected when cloning</li>
-			</ul>
-
-			<h2 class="date">29 June 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Bartenders now are given a Weapons Permit regardless of player count at the round start.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes some icon failures related to maploading, fixing the biodomes black floor tiles.</li>
-				<li class="tweak">Atom init times now export to CSV instead of JSON if you compile the game with the PROFILE_MAPLOAD_INIT_ATOM flag</li>
-			</ul>
-			<h3 class="author">SandPoot,CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Pointing will make the arrow face it and you can also pixel-perfect point.</li>
-			</ul>
-
-			<h2 class="date">27 June 2023</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Techweb searched nodes are now sorted in where it belongs to - researched, researchable, future</li>
-				<li class="rscadd">VV drop menu that adds research points. Accessible by R&D console.</li>
-				<li class="rscadd">Added a new botany trait: Richer Juice. Doubles 2x chem results. Not compatible with Densified Chemicals. You can't take both. available from 3D orange</li>
-				<li class="balance">deathnettle now has 12% Fluorosulfuric acid</li>
-			</ul>
-			<h3 class="author">Isy232 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Security hardsuit ballistic armour 15 => 35</li>
-				<li class="balance">Security hardsuit disabler armour 40 => 50</li>
-				<li class="balance">Security hardsuit bomb armour 10 => 40</li>
-				<li class="balance">Head of Security's hardsuit is now equal in stats to the security hardsuit, excluding the additional jetpack.</li>
-				<li class="balance">Security, Durathread and Syndicate jumpsuit stamina armour 30 => 10</li>
-				<li class="balance">The Captain's jumpsuit is now equal in stats to the security jumpsuit.</li>
-				<li class="balance">Syndicate hardsuit disabler armour 40 => 55</li>
-				<li class="balance">Elite syndicate hardsuit disabler armour 60 => 80</li>
-				<li class="tweak">Security jumpsuit description improved.</li>
-			</ul>
-
-			<h2 class="date">26 June 2023</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed id card console and guardian builder html exploit</li>
-			</ul>
-
-			<h2 class="date">24 June 2023</h2>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Replaces the barber's chainsaw with a hatchet because the baboons won't stop valid-hunting with the chainsaw.</li>
-			</ul>
-
-			<h2 class="date">23 June 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Vendors now vend into hand</li>
-			</ul>
-			<h3 class="author">PowerfulBacon, MrStonedOne updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Admins making SDQL requests from the command line will need to confirm their action before running it.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed exploit in CentCom faxes</li>
-			</ul>
-
-			<h2 class="date">22 June 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">The option to highlight your own chat messages works once again.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Changes the way item pickup works in order to reduce overtime from sending images to all clients in the game.</li>
-				<li class="tweak">Optimises turf decal init time slightly</li>
-				<li class="bugfix">Speeds up init times by reducing the amount of work to load space turfs.</li>
-			</ul>
-			<h3 class="author">RKz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">medhud medical eval doesnt time out immediately</li>
-			</ul>
-
-			<h2 class="date">21 June 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Updating the tool speed of an arm implant will now update the tool speed of all of its stored items.</li>
-				<li class="admin">Added VV options to add/remove items from arm implants.</li>
-			</ul>
-			<h3 class="author">Absolucy, SomeRandomOwl, stanalbatross, thedonkified updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Modified the Play Internet Sound Verb so it now displays extra info about any song being actively played as well as showing the link</li>
-				<li class="rscadd">added the ability to make up to 10 individual highlights in tgchat, customise their colours, and toggle if they highlight the whole message or not. Ported from CM and /tg/.</li>
-				<li class="rscadd">you can now use regex for text highlighting. The syntax is /[regex expression]/, eg /dog[0-9]/. There are no quantifiers, but you can use capture groups. The regex must read a minimum of two characters.</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Crafting menu now shows icons</li>
-				<li class="rscadd">icon_state_preview variable to atom. this is used as an icon preview without being changed.</li>
-				<li class="imageadd">bolas image references without frames. (bola_ref, gonbola_ref, bola_watcher_ref)</li>
-				<li class="bugfix">fixed a possible minor bug in morph UI</li>
-				<li class="bugfix">fixed 'Pingles.png' bad name format in dmi.</li>
-			</ul>
-			<h3 class="author">Haliris updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="spellcheck">fixed atmosbots displaying their temperature in Celsius rather than Kelvin.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes projectiles sometimes failing to be blocked.</li>
-				<li class="bugfix">Fixes an exploit regarding limb grower categories.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed an exploit that allowed for gentle crossbreed cooldowns to be bypassed. They now properly mirror luminescent behavior.</li>
-			</ul>
-
-			<h2 class="date">20 June 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Added the 'Crew Manifest' program to the list of default PDA apps</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a toggle for guard spiders that makes it impossible for other mobs to force their way around.</li>
-				<li class="balance">Guards can now actually block narrow passages</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Headmins can now ban more than 1 admin.</li>
-			</ul>
-
-			<h2 class="date">18 June 2023</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Adjusted the CI's caching to also target yarn and pip</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Made sleek titanium tiles create the tile items of their respective color when removed with a crowbar</li>
-			</ul>
-
-			<h2 class="date">17 June 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">the Detective can no longer roll antag</li>
-				<li class="rscadd">Gave the Detective the mindshield back</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">debug outfit is faster and knows all surgeries, and can see ghosts.</li>
-			</ul>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Exploration VIP targets now memorize why they have strange abilities, or an uplink in their head.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">AI tracking now requires a target to stand still for X seconds in order to acquire a track when used from the menu or from radio. X is calculated using the following formula. If the target has GPS tracking beacon, X is 0. If not X starts at 4. Subtract 1 second if the target is in the light. Subtract 1 second if the target's ID matches their name. Subtract 1 second if the target's face is visible and not disfigured.</li>
-				<li class="balance">AI tracking can instantly track a target if they have sensors enabled, or are a robot.</li>
 			</ul>
 		</div>
 

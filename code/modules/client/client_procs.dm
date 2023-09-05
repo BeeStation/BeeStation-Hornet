@@ -249,6 +249,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	get_metabalance_db()
 	// Retrieve cached antag token count
 	get_antag_token_count_db()
+	if(!src) // Yes this is possible, because the procs above sleep.
+		return
 	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
 	prefs = GLOB.preferences_datums[ckey]
 	if(prefs)
@@ -363,6 +365,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
 	winset(src, null, "command=\".configure graphics-hwmode on\"")
+
 	var/breaking_version = CONFIG_GET(number/client_error_version)
 	var/breaking_build = CONFIG_GET(number/client_error_build)
 	var/warn_version = CONFIG_GET(number/client_warn_version)
@@ -1039,7 +1042,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
-	if (prefs.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
+	if (prefs?.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
 		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
 
 /client/proc/generate_clickcatcher()

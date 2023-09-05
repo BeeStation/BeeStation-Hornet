@@ -227,7 +227,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			set_operating(FALSE)
 			if(!(machine_stat & BROKEN))
 				var/obj/item/stack/conveyor/C = new /obj/item/stack/conveyor(loc, 1, TRUE, null, id)
-				if(!QDELETED(C)) //God I hate stacks
+				if(QDELETED(C))
+					C = locate(/obj/item/stack/conveyor) in loc
+				if(C)
 					transfer_fingerprints_to(C)
 			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 
