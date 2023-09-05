@@ -19,16 +19,16 @@
 		/obj/effect/extraction_holder,
 		))
 	var/static/list/anchor_immune_channels = list(
-		TELEPORT_CHANNEL_WORMHOLE,
-		TELEPORT_CHANNEL_QUANTUM,
-		TELEPORT_CHANNEL_FREE
+		TELEPORT_CHANNEL_WORMHOLE = TRUE,
+		TELEPORT_CHANNEL_QUANTUM = TRUE,
+		TELEPORT_CHANNEL_FREE = TRUE
 	)
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)
 		return FALSE
 
 	//Check bluespace anchors
-	if(!(channel in anchor_immune_channels))
+	if(!anchor_immune_channels[channel])
 		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
 			//Not nearby
 			if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || (get_dist(teleatom, anchor) > anchor.range && get_dist(destination, anchor) > anchor.range))
