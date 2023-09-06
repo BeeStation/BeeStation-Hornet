@@ -1226,7 +1226,7 @@ GENE SCANNER
 	symptom_holder.symptoms += chosen
 	symptom_holder.Finalize()
 	symptom_holder.Refresh()
-	if(do_after(user, extract_time, target = target))
+	if(do_after(user, extract_time, target = target, show_to_target = TRUE, add_item = src))
 		create_culture(user, symptom_holder, target)
 		return TRUE
 
@@ -1237,7 +1237,7 @@ GENE SCANNER
 	. = FALSE
 	user.visible_message("<span class='notice'>[user] begins to thoroughly scan [target] with [src]...</span>", \
 		"<span class='notice'>[icon2html(src, user)] You begin isolating <b>[target_disease.name]</b> from [target]...</span>")
-	if(do_after(user, isolate_time, target = target))
+	if(do_after(user, isolate_time, target = target, show_to_target = TRUE, add_item = src))
 		create_culture(user, target_disease, target)
 		return TRUE
 
