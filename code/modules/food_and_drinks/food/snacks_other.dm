@@ -338,8 +338,8 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 3)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/capsaicin = 5, /datum/reagent/consumable/nutriment/vitamin = 3)
 	filling_color = "#FF2000"
-	tastes = list("tortilla" = 2, "meat" = 3, "hot peppers" = 1)
-	foodtype = GRAIN | MEAT
+	tastes = list("tortilla" = 2, "hot peppers" = 1)
+	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/yakiimo
 	name = "yaki imo"
