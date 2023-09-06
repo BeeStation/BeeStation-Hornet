@@ -1,8 +1,37 @@
+#define INITIAL_SETUP \
+	src.transformed_damage_source = src;\
+	src.damage_amount = damage_amount;\
+	src.armour_penetration = 0;\
+	src.target = target;
+
 /datum/damage_source
+	// ===========================
+	// Initial Variables
+	// ===========================
+
+	/// The armour flag to use when calculating armour
+	/// and armour penetration. If null then armour will
+	/// be entirely bypassed.
 	var/armour_flag = null
 
-/datum/damage_source/proc/apply_direct(mob/living/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
+	// NOTE: For maximum performance of a potentially hot path, we store our data here to be passed around the damage_sources and to be
+	// manipulated later on.
+	// !!! This means that our damage application procs that use this must NEVER sleep. !!!
+
+	/// The damage source instance that we should be using when applying damage. This
+	/// allows things like armour to transform our damage type from sharp to blunt.
+	var/transformed_damage_source
+	/// The amount of damage that we are attempting to apply. Can be mutated by armour
+	var/damage_amount
+	/// The armour penetration value of this attack
+	var/armour_penetration
+	/// The target of these attacks
+	var/atom/target
+
+/datum/damage_source/proc/apply_direct(atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	INITIAL_SETUP
 	if (target_zone)
 		// Apply the damage
 		var/datum/damage/damage = GET_DAMAGE(damage_type)
@@ -30,14 +59,18 @@
 /// Attacker may be null
 /datum/damage_source/proc/deal_attack(mob/living/attacker, obj/item/attacking_item, atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	INITIAL_SETUP
 	// Determine the target_zone
 	if (!target_zone)
 		target_zone = ran_zone(attacker?.zone_selected || BODY_ZONE_CHEST)
+
 	// Determine armour penetration
-	var/armour_penetration_value = attacking_item?.armour_penetration
-	if (isanimal(attacker))
-		var/mob/living/simple_animal/animal_attacker = attacker
-		armour_penetration_value ||= animal_attacker.armour_penetration
+	if (attacking_item)
+		attacking_item.damage_get_armour_penetration(src)
+	else
+		attacker.damage_get_armour_penetration(src)
+
 	var/final_damage_amount = calculate_damage(target, attacking_item, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
 	if (final_damage_amount <= 0)
 		return
@@ -86,6 +119,7 @@
 
 /// Get the amount of damage blocked by armour. 0 to 100.
 /datum/damage_source/proc/get_armour_block(atom/target, input_damage, target_zone, armour_penetration = 0)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	if (!armour_flag)
 		return 0
 	// Determine armour
@@ -99,6 +133,7 @@
 
 /// Calculate the damage caused by a specific attack
 /datum/damage_source/proc/calculate_damage(atom/target, obj/item/weapon, input_damage, target_zone, armour_penetration = 0)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	// Determine armour
 	var/blocked = get_armour_block(target, input_damage, target_zone, armour_penetration)
 	if (blocked >= 100)
@@ -142,6 +177,7 @@
 		target_zone,
 		multipler = 1
 	)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	if (!attacking_item || !damage_amount)
 		return
 	var/dismemberthreshold = limb.max_damage * 2 - (limb.get_damage() + ((attacking_item.w_class - 3) * 10) + ((attacking_item.attack_weight - 1) * 15))
@@ -157,13 +193,14 @@
 
 /// Causes bleeding on the target
 /datum/damage_source/proc/run_bleeding(
-		mob/living/carbon/human/target,
+		atom/target,
 		damage_amount,
 		intensity_multiplier = 1
 	)
-	if (!istype(target) || !damage_amount)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if (!damage_amount)
 		return
-	target.bleed_rate = max(min(target.bleed_rate + (damage_amount * intensity_multiplier) * rand(4, 8) / 10, damage_amount * intensity_multiplier), target.bleed_rate )
+	target.apply_bleeding((damage_amount * intensity_multiplier) * rand(2, 4) / 10, damage_amount * intensity_multiplier)
 
 /// Deepends any pre-existing wounds and causes blood to splatter
 /// if they are already bleeding.
@@ -177,6 +214,7 @@
 		target_zone,
 		force = FALSE
 	)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	// Check if we are bleeding already
 	if (!istype(target) || (target.bleed_rate < damage_amount && !force))
 		return
@@ -198,6 +236,7 @@
 
 /// Apply blood from a source to a target
 /datum/damage_source/proc/run_apply_blood(mob/living/blood_source, mob/living/carbon/human/blood_target, def_zone)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	if (!istype(blood_target))
 		return
 	switch (def_zone)
@@ -221,6 +260,7 @@
 
 /// Force the target to say their message
 /datum/damage_source/proc/run_force_say(mob/living/carbon/human/target, damage_amount)
+	SHOULD_NOT_OVERRIDE(TRUE)
 	if (!istype(target))
 		return
 	if (damage_amount > 10 || damage_amount > 10 && prob(33))

@@ -1,0 +1,2 @@
+
+/datum/damage_data
