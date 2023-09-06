@@ -39,6 +39,10 @@
 
 	return ..()
 
+/obj/machinery/portable_atmospherics/analyzer_act(mob/living/user, obj/item/I)
+	if(..() && holding)
+		return atmosanalyzer_scan(user, holding, TRUE)
+
 /obj/machinery/portable_atmospherics/process_atmos()
 	if(!connected_port && air_contents != null && src != null) // Pipe network handles reactions if connected.
 		air_contents.react(src)

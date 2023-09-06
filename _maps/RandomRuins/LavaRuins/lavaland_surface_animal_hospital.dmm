@@ -63,7 +63,7 @@
 /obj/item/storage/bag/trash,
 /obj/item/trash/cheesie,
 /obj/item/reagent_containers/syringe/antiviral,
-/obj/item/deployable/bodybag,
+/obj/item/bodybag,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"

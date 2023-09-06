@@ -265,7 +265,7 @@
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		var/explosion_mod = 1
 		if(!istype(src.loc, /obj/item/transfer_valve))
-			log_bomber("[src.fingerprintslast], was last key to touch [src], which ruptured explosively")
+			log_bomber(details = "[src.fingerprintslast] was the last key to touch", bomb = src, additional_details = ", which ruptured explosively")
 		else if(!istype(src.loc?.loc, /obj/machinery/syndicatebomb))
 			explosion_mod = TTV_NO_CASING_MOD
 		//Give the gas a chance to build up more pressure through reacting

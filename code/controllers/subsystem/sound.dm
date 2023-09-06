@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(sound_effects)
 /datum/sound_effect/proc/generate_id()
 	var/id = "[name][sound.file]"
 	for(var/A in listeners)
-		id = "[id][REF(A)]"
+		id = "[id][FAST_REF(A)]"
 	return id
 
 /datum/sound_effect/proc/send_sound()

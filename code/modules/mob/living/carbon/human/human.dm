@@ -1106,9 +1106,9 @@
 /mob/living/carbon/human/species
 	var/race = null
 
-/mob/living/carbon/human/species/Initialize(mapload)
+/mob/living/carbon/human/species/Initialize(mapload, specific_race)
 	. = ..()
-	set_species(race)
+	set_species(race || specific_race)
 
 /mob/living/carbon/human/species/abductor
 	race = /datum/species/abductor
