@@ -44624,7 +44624,7 @@
 /obj/structure/rack,
 /obj/item/crowbar,
 /obj/item/storage/pill_bottle,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/clothing/glasses/eyepatch,
 /obj/item/wrench,
 /obj/machinery/airalarm{
@@ -51913,7 +51913,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/backpack/duffelbag/med,
 /obj/item/flashlight/pen,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/crowbar,
 /obj/machinery/light/small{
 	dir = 4
@@ -91595,8 +91595,8 @@
 /obj/structure/closet/crate{
 	name = "disposal supplies"
 	},
-/obj/item/deployable/bodybag,
-/obj/item/deployable/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
 /obj/item/shovel,
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
