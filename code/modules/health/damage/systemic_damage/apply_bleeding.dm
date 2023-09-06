@@ -5,5 +5,5 @@
 /atom/proc/apply_bleeding(bleed_amount, max_intensity)
 	return
 
-/mob/living/apply_bleeding(bleed_amount, max_intensity)
-	target.bleed_rate = max(target.bleed_rate + bleed_amount, max_intensity)
+/mob/living/carbon/human/apply_bleeding(bleed_amount, max_intensity)
+	bleed_rate = max(bleed_rate + bleed_amount, max_intensity)

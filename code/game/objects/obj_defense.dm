@@ -22,7 +22,7 @@
 		obj_destruction(damage_flag)
 
 //returns the damage value of the attack after processing the obj's various armor protections
-/obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
+/obj/proc/run_obj_armor(damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	switch(damage_type)
 		if(BRUTE)
 		if(BURN)

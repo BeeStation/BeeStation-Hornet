@@ -2,7 +2,14 @@
 	src.transformed_damage_source = src;\
 	src.damage_amount = damage_amount;\
 	src.armour_penetration = 0;\
-	src.target = target;
+	src.target = target;\
+	src.target_zone = target_zone;\
+	src.weapon = null;\
+	src.damage_type = damage_type;
+
+#define CLEAR_REFERENCES \
+	src.weapon = null;\
+	src.target = null;
 
 /datum/damage_source
 	// ===========================
@@ -27,40 +34,49 @@
 	var/armour_penetration
 	/// The target of these attacks
 	var/atom/target
+	/// The target zone of the attack
+	var/target_zone
+	/// The weapon used for the attack
+	var/atom/weapon
+	/// The type of damage being given to the victim
+	var/damage_type
 
 /datum/damage_source/proc/apply_direct(atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
+
+	// Set the state
 	INITIAL_SETUP
-	if (target_zone)
-		// Apply the damage
-		var/datum/damage/damage = GET_DAMAGE(damage_type)
-		// Target a specific bodypart
-		var/obj/item/bodypart/targetted_bodypart = target.get_bodypart(check_zone(target_zone))
-		if (!targetted_bodypart)
-			if (iscarbon(target))
-				var/mob/living/carbon/carbon_target = target
-				if (!length(carbon_target.bodyparts))
-					damage.apply_living(target, damage_amount, update_health, forced)
-					return
-				targetted_bodypart = pick(carbon_target.bodyparts)
-		var/final_damage_amount = calculate_damage(target, null, damage_amount, target_zone)
-		if (targetted_bodypart)
-			damage.apply_bodypart(targetted_bodypart, final_damage_amount, update_health, forced)
-		else
-			damage.apply_living(target, final_damage_amount, update_health, forced)
-	else
-		// Determine armour
-		var/final_damage_amount = calculate_damage(target, null, damage_amount, target_zone)
-		// Target the whole body and apply the damage
-		var/datum/damage/damage = GET_DAMAGE(damage_type)
-		damage.apply_living(target, final_damage_amount, update_health, forced)
+
+	// Run the armour calculation
+	target.damage_run_armour(src)
+
+	// Not enough damage
+	if (damage_amount <= 0)
+		CLEAR_REFERENCES
+		return
+
+	// Get the thing we are actually targetting
+	target.damage_get_target(src)
+
+	if (QDELETED(target))
+		CLEAR_REFERENCES
+		return
+
+	// Apply the damage at this point
+	target.damage_apply_damage(src)
+
+	CLEAR_REFERENCES
 
 /// Attacker may be null
 /datum/damage_source/proc/deal_attack(mob/living/attacker, obj/item/attacking_item, atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
+
+	// Set the state
 	INITIAL_SETUP
+	weapon = attacking_item
+
 	// Determine the target_zone
 	if (!target_zone)
 		target_zone = ran_zone(attacker?.zone_selected || BODY_ZONE_CHEST)
@@ -71,13 +87,14 @@
 	else
 		attacker.damage_get_armour_penetration(src)
 
-	var/final_damage_amount = calculate_damage(target, attacking_item, isnull(damage_amount) ? attacking_item?.force : damage_amount, target_zone, armour_penetration_value)
-	if (final_damage_amount <= 0)
-		return
+	target.damage_run_armour(src)
+
 	// Pacifism check
-	if (attacker && HAS_TRAIT(attacker, TRAIT_PACIFISM) && final_damage_amount > 0 && ispath(damage_type, /datum/damage/stamina))
+	if (attacker && HAS_TRAIT(attacker, TRAIT_PACIFISM) && !ispath(damage_type, /datum/damage/stamina))
 		to_chat(attacker, "<span class='notice'>You don't want to hurt anyone!</span>")
+		CLEAR_REFERENCES
 		return
+
 	// Play the animation
 	if (attacking_item)
 		if (attacker)
@@ -87,61 +104,23 @@
 	else
 		if (attacker)
 			attacker.do_attack_animation(target, isanimal(attacker) ? pick(ATTACK_EFFECT_BITE, ATTACK_EFFECT_CLAW) : pick(ATTACK_EFFECT_KICK, ATTACK_EFFECT_PUNCH))
-	// Get the damage applyer
-	var/datum/damage/damage = damage_type
-	if (!istype(damage))
-		damage = GET_DAMAGE(damage_type)
-	// Deal the damage
-	if (isliving(target))
-		var/mob/living/living_target = target
-		// Get the bodypart that we are going to target
-		var/obj/item/bodypart/targetted_part = living_target.get_bodypart(target_zone)
-		if (!targetted_part)
-			targetted_part = living_target.get_bodypart(BODY_ZONE_CHEST)
-		// Determine armour
-		if (attacking_item && attacker)
-			living_target.send_item_attack_message(attacking_item, attacker, parse_zone(target_zone))
-		if (targetted_part)
-			damage.apply_bodypart(targetted_part, final_damage_amount, update_health, forced)
-			after_attack_limb(attacker, attacking_item, target, targetted_part, damage, final_damage_amount, target_zone)
-			if (attacker && attacking_item)
-				target.on_attacked(attacking_item, attacker)
-		else
-			damage.apply_living(target, final_damage_amount, update_health, forced)
-			if (attacker && attacking_item)
-				target.on_attacked(attacking_item, attacker)
-		after_attack(attacker, attacking_item, target, damage, final_damage_amount, target_zone)
-	else if(isobj(target))
-		// Send straight to damaging
-		damage.apply_object(target, final_damage_amount)
-	else
-		CRASH("Cannot attack non-objects and non-living entities as they do not recieve damage.")
 
-/// Get the amount of damage blocked by armour. 0 to 100.
-/datum/damage_source/proc/get_armour_block(atom/target, input_damage, target_zone, armour_penetration = 0)
-	SHOULD_NOT_OVERRIDE(TRUE)
-	if (!armour_flag)
-		return 0
-	// Determine armour
-	if (isliving(target))
-		var/mob/living/living_target = target
-		return living_target.run_armor_check(target_zone || BODY_ZONE_CHEST, armour_flag, armour_penetration = armour_penetration)
-	if (isobj(target))
-		var/obj/object_target = target
-		return object_target.run_obj_armor(input_damage, BRUTE, armour_flag, armour_penetration = armour_penetration)
-	return 0
+	if (damage_amount <= 0)
+		CLEAR_REFERENCES
+		return
 
-/// Calculate the damage caused by a specific attack
-/datum/damage_source/proc/calculate_damage(atom/target, obj/item/weapon, input_damage, target_zone, armour_penetration = 0)
-	SHOULD_NOT_OVERRIDE(TRUE)
+	// Apply the damage at this point
+	target.damage_apply_damage(src)
+
 	// Determine armour
-	var/blocked = get_armour_block(target, input_damage, target_zone, armour_penetration)
-	if (blocked >= 100)
-		return 0
-	if (isliving(target) && weapon)
-		var/mob/living/living_target = target
-		return input_damage * (1 - (blocked / 100)) * living_target.check_weakness(weapon, target)
-	return input_damage * (1 - (blocked / 100))
+	//if (attacking_item && attacker)
+	//	living_target.send_item_attack_message(attacking_item, attacker, parse_zone(target_zone))
+
+	if (attacker && attacking_item)
+		target.on_attacked(attacking_item, attacker)
+
+	after_attack(attacker, attacking_item, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
+	CLEAR_REFERENCES
 
 /// Called after a successful attack
 /datum/damage_source/proc/after_attack(

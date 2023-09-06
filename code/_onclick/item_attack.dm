@@ -161,7 +161,7 @@
 	log_combat(user, M, "[nonharmfulhit ? "poked" : "attacked"]", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 	add_fingerprint(user)
 
-/atom/proc/on_attacked()
+/atom/proc/on_attacked(obj/item/I, mob/living/user)
 	return
 
 /obj/on_attacked(obj/item/I, mob/living/user)

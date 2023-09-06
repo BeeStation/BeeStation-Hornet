@@ -228,5 +228,5 @@ It remains quite flush against the wall, and there only seems to be enough room 
 	new /obj/item/card/id/captains_spare(src)
 
 /obj/item/storage/secure/safe/caps_spare/rust_heretic_act()
-	take_damage(damage_amount = 100, damage_type = BRUTE, damage_flag = MELEE, armour_penetration = 100)
+	take_damage(damage_amount = 100, damage_type = BRUTE, damage_flag = MELEE)
 	return TRUE

@@ -3,7 +3,7 @@
  * Get the armour penetration value of this item as the attacker
  * and mutate source with that.
  */
-/atom/damage_get_armour_penetration(datum/damage_source/source)
+/atom/proc/damage_get_armour_penetration(datum/damage_source/source)
 	return
 
 /obj/item/damage_get_armour_penetration(datum/damage_source/source)
