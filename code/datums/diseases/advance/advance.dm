@@ -43,6 +43,8 @@
 	var/mutability = 1
 	var/dormant = FALSE //this prevents a disease from having any effects or spreading
 	var/keepid = FALSE
+	/// Whether to always keep the name, and never update it based on the archive
+	var/name_locked = FALSE
 	var/archivecure
 	var/static/list/advance_cures = list(
 		list(/datum/reagent/water, /datum/reagent/consumable/nutriment, /datum/reagent/ash, /datum/reagent/iron),
@@ -165,6 +167,7 @@
 	A.speed = speed
 	A.keepid = keepid
 	A.id = id
+	A.name_locked = name_locked
 	//this is a new disease starting over at stage 1, so processing is not copied
 	return A
 
@@ -234,7 +237,7 @@
 		SSdisease.archive_diseases[the_id] = Copy()
 		if(new_name)
 			AssignName()
-	else
+	else if(!name_locked)
 		var/actual_name = SSdisease.get_disease_name(GetDiseaseID())
 		if(actual_name != "Unknown")
 			name = actual_name
@@ -479,7 +482,8 @@
 
 	 // Should be only 1 entry left, but if not let's only return a single entry
 	var/datum/disease/advance/to_return = pick(diseases)
-	to_return.Refresh(1)
+	to_return.name_locked = FALSE
+	to_return.Refresh(TRUE)
 	return to_return
 
 /proc/SetViruses(datum/reagent/R, list/data)

@@ -1163,7 +1163,14 @@ GENE SCANNER
 				var/datum/disease/advance/advance_disease = disease
 				if(advance_disease.stealth >= maximum_stealth) //the extrapolator can detect diseases of higher stealth than a normal scanner
 					continue
-				message += "<span class='info'><b>[advance_disease.name]</b>, [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
+				var/list/properties
+				if(!advance_disease.mutable)
+					LAZYADD(properties, "immutable")
+				if(advance_disease.faltered)
+					LAZYADD(properties, "faltered")
+				if(advance_disease.carrier)
+					LAZYADD(properties, "carrier")
+				message += "<span class='info'><b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
 				if(extracted_ids[advance_disease.GetDiseaseID()])
 					message += "<span class='info italics'>This virus has been extracted by \the [src] previously.</span>"
 				message += "<span class='info bold'>[advance_disease.name] has the following symptoms:</span>"
@@ -1224,6 +1231,7 @@ GENE SCANNER
 	var/datum/disease/advance/symptom_holder = new
 	symptom_holder.name = chosen.name
 	symptom_holder.symptoms += chosen
+	symptom_holder.name_locked = TRUE
 	symptom_holder.Finalize()
 	symptom_holder.Refresh()
 	if(do_after(user, extract_time, target = target))

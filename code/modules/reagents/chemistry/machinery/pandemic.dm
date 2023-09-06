@@ -54,10 +54,12 @@
 	if(B && B.data[thing])
 		return B.data[thing][index]
 
+/obj/machinery/computer/pandemic/proc/get_virus_by_index(index)
+	return get_by_index("viruses", index)
+
 /obj/machinery/computer/pandemic/proc/get_virus_id_by_index(index)
-	var/datum/disease/D = get_by_index("viruses", index)
-	if(D)
-		return D.GetDiseaseID()
+	var/datum/disease/virus = get_virus_by_index(index)
+	return virus?.GetDiseaseID()
 
 /obj/machinery/computer/pandemic/proc/get_viruses_data(datum/reagent/blood/B)
 	. = list()
@@ -210,23 +212,29 @@
 				A.AssignName(new_name)
 				. = TRUE
 		if("create_culture_bottle")
-			if (wait)
+			if(wait)
 				return
-			var/id = get_virus_id_by_index(text2num(params["index"]))
-			var/datum/disease/advance/A = SSdisease.archive_diseases[id]
-			if(!istype(A) || !A.mutable)
+			var/datum/disease/advance/inserted_disease = get_virus_by_index(text2num(params["index"]))
+			if(!istype(inserted_disease))
+				to_chat(usr, "<span class='warning'>ERROR: Virus not found.</span>")
+				return
+			var/id = inserted_disease.GetDiseaseID()
+			var/datum/disease/advance/archived_disease = SSdisease.archive_diseases[id]
+			if(!istype(archived_disease) || !archived_disease.mutable)
 				to_chat(usr, "<span class='warning'>ERROR: Cannot replicate virus strain.</span>")
 				return
-			A = A.Copy()
-			var/list/data = list("viruses" = list(A))
-			var/obj/item/reagent_containers/glass/bottle/B = new(drop_location())
-			B.name = "[A.name] culture bottle"
-			B.desc = "A small bottle. Contains [A.agent] culture in synthblood medium."
-			B.reagents.add_reagent(/datum/reagent/blood, 20, data)
+			var/datum/disease/advance/new_disease = inserted_disease.Copy()
+			new_disease.name_locked = FALSE
+			new_disease.Refresh()
+			var/list/data = list("viruses" = list(new_disease))
+			var/obj/item/reagent_containers/glass/bottle/culture_bottle = new(drop_location())
+			culture_bottle.name = "[new_disease.name] culture bottle"
+			culture_bottle.desc = "A small bottle. Contains [new_disease.agent] culture in synthblood medium."
+			culture_bottle.reagents.add_reagent(/datum/reagent/blood, 20, data)
 			wait = TRUE
 			update_icon()
 			var/turf/source_turf = get_turf(src)
-			log_virus("A culture bottle was printed for the virus [A.admin_details()] at [loc_name(source_turf)] by [key_name(usr)]")
+			log_virus("A culture bottle was printed for the virus [new_disease.admin_details()] at [loc_name(source_turf)] by [key_name(usr)]")
 			addtimer(CALLBACK(src, PROC_REF(reset_replicator_cooldown)), 50)
 			. = TRUE
 		if("create_vaccine_bottle")
