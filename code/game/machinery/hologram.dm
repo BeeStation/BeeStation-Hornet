@@ -157,9 +157,6 @@ Possible to do for anyone motivated enough:
 	if(default_pry_open(P))
 		return
 
-	if(default_unfasten_wrench(user, P))
-		return
-
 	if(default_deconstruction_crowbar(P))
 		return
 
