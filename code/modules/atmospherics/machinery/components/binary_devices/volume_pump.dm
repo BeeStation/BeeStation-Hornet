@@ -198,6 +198,10 @@
 		to_chat(user, "The pump quiets down as you turn its limiters back on.")
 	return TRUE
 
+/obj/machinery/atmospherics/components/binary/volume_pump/can_crawl_through()
+	. = ..()
+	return . && on // If a pump is off, it'll block even when not powered
+
 // mapping
 
 /obj/machinery/atmospherics/components/binary/volume_pump/layer2
