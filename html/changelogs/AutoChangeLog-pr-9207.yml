@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: a random maint with three fridges no longer shows dead body placer icons.
+  - code_imp: dead_body_placer mapping effect has more subtypes
