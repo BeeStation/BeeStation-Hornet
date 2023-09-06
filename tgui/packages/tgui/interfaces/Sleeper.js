@@ -122,7 +122,7 @@ export const Sleeper = (props, context) => {
                     fluid
                     content={chem.name + ' (' + chem.amount + 'u)'}
                     tooltip={chem.name + ' (' + chem.amount + 'u)'}
-                    disabled={!(occupied && chem.allowed)}
+                    disabled={!occupied}
                     onClick={() =>
                       act('inject', {
                         chem: chem.id,
