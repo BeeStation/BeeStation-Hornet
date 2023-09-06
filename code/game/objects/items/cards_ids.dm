@@ -1027,6 +1027,10 @@ update_label("John Doe", "Clowny")
 	assignment = JOB_NAME_CLOWN
 	hud_state = JOB_HUD_CLOWN
 
+/obj/item/card/id/job/clown/bridge
+	name = "Job card (Serv) - Clown (+bridge)"
+	desc = "A card used to provide ID and determine access across the station.\n<b>You can see the word \"<span class='clown'>BRIDGE</span>\" hastily scribbled over it in crayon, and nobody knows why the system recognizes this as valid.</sb"
+
 /obj/item/card/id/job/mime
 	name = "Job card (Serv) - Mime"
 	icon_state = "mime"

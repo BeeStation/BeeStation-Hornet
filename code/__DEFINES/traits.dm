@@ -408,6 +408,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_DISTANT_SUPPLY_LINES "distant_supply_lines"
 #define STATION_TRAIT_STRONG_SUPPLY_LINES "strong_supply_lines"
 #define STATION_TRAIT_UNITED_BUDGET "united_budget"
+#define STATION_TRAIT_CLOWN_BRIDGE "clown_bridge"
 
 /// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]
 #define TRAIT_COMPONENT_MMI "component_mmi"

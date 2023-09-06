@@ -32,12 +32,16 @@
 
 /datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
-	if(!ishuman(H))
-		return
-	if(!M.client || on_dummy)
+	if(!ishuman(H) || !M.client || on_dummy)
 		return
 	H.apply_pref_name(/datum/preference/name/clown, preference_source)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CLOWN_BRIDGE))
+		to_chat(M, "<span class='notice bold'>The <span class='clown bold'>Clown Planet</span> has given all clowns access to a specific weakness in airlock ID scanners, resulting in all clowns having <b>bridge access</b>! Honk!</span>")
 
+/datum/job/clown/get_access()
+	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CLOWN_BRIDGE))
+		. |= ACCESS_HEADS
 
 /datum/outfit/job/clown
 	name = JOB_NAME_CLOWN
@@ -71,12 +75,13 @@
 	. = ..()
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_BANANIUM_SHIPMENTS))
 		backpack_contents[/obj/item/stack/sheet/mineral/bananium/five] = 1
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CLOWN_BRIDGE))
+		id = /obj/item/card/id/job/clown/bridge
 
 /datum/outfit/job/clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
-
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names)) //rename the mob AFTER they're equipped so their ID gets updated properly.
 	H.dna.add_mutation(CLOWNMUT)
 	ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)
