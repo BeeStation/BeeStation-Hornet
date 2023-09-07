@@ -116,8 +116,6 @@
 
 	/// movable atoms buckled to this mob
 	var/atom/movable/buckled = null//Living
-	/// movable atom we are buckled to
-	var/atom/movable/buckling
 
 	//Hands
 	///What hand is the active hand
