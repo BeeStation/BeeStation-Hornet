@@ -13,8 +13,6 @@
 	var/fake_delayed_hesitate = FALSE
 	/// If the time's been cut in half by a bad pulse
 	var/time_cut = FALSE
-	/// If mercy's already been shown for a bad pulse
-	var/
 
 /datum/wires/syndicatebomb/New(atom/holder)
 	wires = list(
