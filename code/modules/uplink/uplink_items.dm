@@ -1689,6 +1689,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Glue"
 	desc = "A cheap bottle of one use syndicate brand super glue. \
 			Use on any item to make it undroppable. \
+			Takes approximately thirty seconds to dry up once used. \
+			Sudden movement may cause it to dry up instantly. \
 			Be careful not to glue an item you're already holding!"
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	item = /obj/item/syndie_glue
