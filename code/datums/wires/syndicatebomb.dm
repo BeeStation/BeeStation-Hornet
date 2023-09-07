@@ -13,6 +13,8 @@
 	var/fake_delayed_hesitate = FALSE
 	/// If the time's been cut in half by a bad pulse
 	var/time_cut = FALSE
+	/// If mercy's already been shown for a bad pulse
+	var/
 
 /datum/wires/syndicatebomb/New(atom/holder)
 	wires = list(
@@ -56,15 +58,15 @@
 		if(WIRE_PROCEED)
 			holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] The bomb buzzes ominously!</span>")
 			playsound(B, 'sound/machines/buzz-sigh.ogg', 30, 1)
-			var/seconds = B.seconds_remaining()
-			if(seconds >= LONG_FUSE_THRESHOLD) // Long fuse bombs can suddenly become more dangerous if you tinker with them.
+			var/seconds_left = B.seconds_remaining()
+			if(seconds_left >= LONG_FUSE_THRESHOLD) // Long fuse bombs can suddenly become more dangerous if you tinker with them.
 				B.detonation_timer = world.time + 60 SECONDS
-			else if(seconds >= MEDIUM_FUSE_THRESHOLD)
+			else if(seconds_left >= MEDIUM_FUSE_THRESHOLD)
 				if(time_cut)
 					return
-				B.detonation_timer *= 0.5
+				B.detonation_timer -= seconds_left * 0.5
 				time_cut = TRUE
-			else if(seconds >= SHORT_FUSE_THRESHOLD) // Both to prevent negative timers and to have a little mercy.
+			else if(seconds_left >= SHORT_FUSE_THRESHOLD) // Both to prevent negative timers and to have a little mercy.
 				B.detonation_timer = world.time + 10 SECONDS
 		if(WIRE_ACTIVATE)
 			if(!B.active)
