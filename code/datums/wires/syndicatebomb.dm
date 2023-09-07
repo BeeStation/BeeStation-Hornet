@@ -62,7 +62,7 @@
 			else if(seconds_left >= MEDIUM_FUSE_THRESHOLD)
 				if(time_cut)
 					return
-				B.detonation_timer -= seconds_left * 0.5
+				B.detonation_timer -= seconds_left * 0.5 SECONDS
 				time_cut = TRUE
 			else if(seconds_left >= SHORT_FUSE_THRESHOLD) // Both to prevent negative timers and to have a little mercy.
 				B.detonation_timer = world.time + 10 SECONDS
