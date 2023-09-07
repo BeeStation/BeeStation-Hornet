@@ -135,6 +135,9 @@
 	buckled_mob.anchored = initial(buckled_mob.anchored)
 	buckled_mob.update_mobility()
 	buckled_mob.clear_alert("buckled")
+	/*
+	buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.total_multiplicative_slowdown()))
+	*/
 	buckled_mobs -= buckled_mob
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, buckled_mob, force)
 
@@ -180,12 +183,6 @@
 	// Check if this atom can have things buckled to it.
 	if(!can_buckle && !force)
 		return FALSE
-
-/*
-	// Check if this atom can buckle, proc wise.
-	if(!target.can_buckle() && !force)
-		return FALSE
-*/
 
 	// If we're checking the loc, make sure the target is on the thing we're bucking them to.
 	if(check_loc && target.loc != loc)
@@ -269,7 +266,7 @@
 			M.visible_message(\
 				"<span class='notice'>[M] buckles [M.p_them()]self to [src].</span>",\
 				"<span class='notice'>You buckle yourself to [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+				"<span class='hear'>You hear metal clanking.</span>")
 		else
 			M.visible_message("<span class='warning'>[user] buckles [M] to [src]!</span>",\
 				"<span class='warning'>[user] buckles you to [src]!</span>",\
@@ -291,12 +288,12 @@
 			M.visible_message(\
 				"<span class='notice'>[user] unbuckles [M] from [src].</span>",\
 				"<span class='notice'>[user] unbuckles you from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+				"<span class='hear'>You hear metal clanking.</span>")
 		else
 			M.visible_message(\
 				"<span class='notice'>[M] unbuckles [M.p_them()]self from [src].</span>",\
 				"<span class='notice'>You unbuckle yourself from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+				"<span class='hear'>You hear metal clanking.</span>")
 		add_fingerprint(user)
 		if(isliving(M.pulledby))
 			var/mob/living/L = M.pulledby
