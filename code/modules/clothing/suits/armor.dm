@@ -11,6 +11,7 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	clothing_flags = THICKMATERIAL
+	slowdown = 0.02
 
 /obj/item/clothing/suit/armor/Initialize(mapload)
 	. = ..()
@@ -155,6 +156,7 @@
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 35,  BULLET = 25, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
+	slowdown = 0.04
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "bulletproof armor"
@@ -209,6 +211,7 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, STAMINA = 70)
+	slowdown = 0.04
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
@@ -222,6 +225,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, STAMINA = 60)
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	slowdown = 0.1
 
 /obj/item/clothing/suit/armor/tdome
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -265,6 +269,7 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	move_sound = null
+	slowdown = 0.08
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
@@ -295,6 +300,7 @@
 	icon_state = "rus_armor"
 	item_state = "rus_armor"
 	armor = list(MELEE = 25,  BULLET = 30, LASER = 0, ENERGY = 15, BOMB = 10, BIO = 0, RAD = 20, FIRE = 20, ACID = 50, STAMINA = 25)
+	slowdown = 0.01
 
 /obj/item/clothing/suit/armor/vest/russian_coat
 	name = "russian battle coat"
