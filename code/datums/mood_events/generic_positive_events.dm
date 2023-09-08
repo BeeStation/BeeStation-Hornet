@@ -255,3 +255,8 @@
 
 /datum/mood_event/flower_crown_worn/add_effects(obj/item/I)
 	description = "<span class='nicegreen'>The [I.name] on my head is beautiful.</span>\n"
+
+/datum/mood_event/witnessed_starlight
+	description = "<span class='nicegreen'>The starlight emanating from space is so mesmerizing.</span>\n"
+	mood_change = 10
+	timeout = 10 MINUTES

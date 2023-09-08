@@ -236,29 +236,80 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	name = "Dead Body placer"
 	late = TRUE
 	icon_state = "deadbodyplacer"
-	var/bodycount = 2 //number of bodies to spawn
+	/// number of bodies to spawn
+	var/bodycount = 1
+	/// -1: area search (VERY expensive - do not use this in maint/ruin type)
+	/// 0: spawns onto itself
+	/// +1: turfs from this dead body placer
+	var/search_view_range = 0
+	/// the list of container typepath which accepts dead bodies
+	var/list/accepted_list = list(
+		/obj/structure/bodycontainer/morgue,
+		/obj/structure/closet
+	)
+
+/// as long as this body placer is contained within medbay morgue, this is fine to be expensive.
+/// DO NOT USE this outside of medbay morgue
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue
+	bodycount = 2
+	accepted_list = list(/obj/structure/bodycontainer/morgue)
+	search_view_range = -1
+
+/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue
+	bodycount = 2
+	accepted_list = list(/obj/structure/bodycontainer/morgue)
+	search_view_range = 7
+
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge
+	bodycount = 2
+	accepted_list = list(/obj/structure/closet)
+	search_view_range = 0
 
 /obj/effect/mapping_helpers/dead_body_placer/LateInitialize()
-	var/area/a = get_area(src)
-	var/list/trays = list()
-	for (var/i in a.contents)
-		if (istype(i, /obj/structure/bodycontainer/morgue))
-			trays += i
-	if(!trays.len)
-		log_mapping("[src] at [x],[y] could not find any morgues.")
-		return
-	for (var/i = 1 to bodycount)
-		var/obj/structure/bodycontainer/morgue/j = pick(trays)
-		var/mob/living/carbon/human/h = new /mob/living/carbon/human(j, 1)
-		h.death()
-		for (var/part in h.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
-			if (prob(40))
-				qdel(part)
-			else
-				var/obj/item/organ/O = part
-				O.organ_flags |= ORGAN_FROZEN
-		j.update_icon()
+	var/area/current_area = get_area(src)
+	var/list/found_container = list()
+
+	// search_view_range
+	//   [Negative]: area search, get_contained_turfs()
+	if(search_view_range < 0)
+		for(var/turf/each_turf in current_area.get_contained_turfs())
+			for(var/obj/each_container in each_turf)
+				for(var/acceptable_path in accepted_list)
+					if(istype(each_container, acceptable_path))
+						found_container += each_container
+						break
+	//  [Positive]: view range search, view()
+	//      [Zero]: onto itself, get_turf()
+	else
+		for(var/obj/each_container in (search_view_range ? view(search_view_range, get_turf(src)) : get_turf(src)))
+			if(get_area(each_container) != current_area)
+				continue // we don't want to put a deadbody to a wrong area
+			for(var/acceptable_path in accepted_list)
+				if(istype(each_container, acceptable_path))
+					found_container += each_container
+					break
+
+	while(bodycount-- > 0)
+		if(length(found_container))
+			spawn_dead_human_in_tray(pick(found_container))
+		else // if we have found no container, just spawn onto a turf
+			spawn_dead_human_in_tray(get_turf(src))
+
 	qdel(src)
+
+/obj/effect/mapping_helpers/dead_body_placer/proc/spawn_dead_human_in_tray(atom/container)
+	var/mob/living/carbon/human/corpse = new(container)
+	var/list/possible_alt_species = GLOB.roundstart_races.Copy() - list(SPECIES_HUMAN, SPECIES_IPC)
+	if(prob(15) && length(possible_alt_species))
+		corpse.set_species(GLOB.species_list[pick(possible_alt_species)])
+	corpse.give_random_dormant_disease(25, min_symptoms = 1, max_symptoms = 5) // slightly more likely that an average stationgoer to have a dormant disease, bc who KNOWS how they died?
+	corpse.death()
+	for (var/obj/item/organ/organ in corpse.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
+		if (prob(40))
+			qdel(organ)
+		else
+			organ.organ_flags |= ORGAN_FROZEN
+	container.update_icon()
 
 //helper for carp migration
 /obj/effect/mapping_helpers/set_carp_abyssal
