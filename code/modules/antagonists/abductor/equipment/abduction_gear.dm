@@ -22,6 +22,7 @@
 		/obj/item/gun/energy,
 		/obj/item/restraints/handcuffs
 		)
+	slowdown = 0
 	var/mode = VEST_STEALTH
 	var/stealth_active = FALSE
 	/// Cooldown in seconds
