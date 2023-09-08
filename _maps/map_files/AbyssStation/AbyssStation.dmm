@@ -75026,6 +75026,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
+"vHs" = (
+/obj/item/toy/plush/moth/gothic,
+/turf/open/floor/plasteel/checker,
+/area/security/prison)
 "vHy" = (
 /obj/structure/chair{
 	dir = 4
@@ -112410,7 +112414,7 @@ ulG
 xmR
 tsd
 aRF
-bMG
+vHs
 bMG
 bMG
 gJr
