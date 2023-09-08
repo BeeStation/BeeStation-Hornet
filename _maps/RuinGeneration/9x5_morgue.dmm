@@ -72,7 +72,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
-/obj/effect/mapping_helpers/dead_body_placer{
+/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue{
 	bodycount = 1
 	},
 /turf/open/floor/plasteel,

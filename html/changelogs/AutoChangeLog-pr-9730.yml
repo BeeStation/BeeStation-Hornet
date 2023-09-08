@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: Made crafting an item be put on a table or rack in front of the user if
-      their hands are full

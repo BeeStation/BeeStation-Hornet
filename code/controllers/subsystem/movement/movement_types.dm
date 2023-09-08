@@ -23,6 +23,8 @@
 	///Used primarially as a hint to be reasoned about by our [controller], and as the id of our bucket
 	///Should not be modified directly outside of [start_loop]
 	var/timer = 0
+	///Used for the COMSIG_MOVELOOP_REACHED_TARGET signal
+	var/atom/destination
 
 /datum/move_loop/New(datum/movement_packet/owner, datum/controller/subsystem/movement/controller, atom/moving, priority, flags, datum/extra_info)
 	src.owner = owner
@@ -30,6 +32,8 @@
 	src.extra_info = extra_info
 	if(extra_info)
 		RegisterSignal(extra_info, COMSIG_PARENT_QDELETING, PROC_REF(info_deleted))
+		if(isatom(extra_info))
+			destination = extra_info
 	src.moving = moving
 	src.priority = priority
 	src.flags = flags
@@ -95,6 +99,8 @@
 	var/success = move()
 
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_POSTPROCESS, success, delay * visual_delay)
+	if(destination?.x == owner?.parent.x && destination?.y == owner?.parent.y && destination?.z == owner?.parent.z)
+		SEND_SIGNAL(src, COMSIG_MOVELOOP_REACHED_TARGET)
 
 	if(QDELETED(src) || !success) //Can happen
 		return

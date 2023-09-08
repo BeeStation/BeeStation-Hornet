@@ -26878,7 +26878,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/reagent_containers/blood/random,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -49031,7 +49031,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/wrench,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "ipD" = (
@@ -68764,7 +68764,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/reagent_containers/blood,
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
@@ -81846,14 +81846,14 @@
 	dir = 8
 	},
 /obj/structure/rack,
-/obj/item/deployable/rollerbed{
+/obj/item/rollerbed{
 	pixel_x = -2
 	},
-/obj/item/deployable/rollerbed{
+/obj/item/rollerbed{
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/item/deployable/rollerbed{
+/obj/item/rollerbed{
 	pixel_x = 5;
 	pixel_y = 8
 	},
