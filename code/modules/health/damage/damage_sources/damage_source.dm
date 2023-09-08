@@ -48,6 +48,9 @@
 	// Set the state
 	INITIAL_SETUP
 
+	// Get the thing we are actually targetting
+	target.damage_get_target(src)
+
 	// Run the armour calculation
 	target.damage_run_armour(src)
 
@@ -55,9 +58,6 @@
 	if (damage_amount <= 0)
 		CLEAR_REFERENCES
 		return
-
-	// Get the thing we are actually targetting
-	target.damage_get_target(src)
 
 	if (QDELETED(target))
 		CLEAR_REFERENCES
@@ -81,12 +81,16 @@
 	if (!target_zone)
 		target_zone = ran_zone(attacker?.zone_selected || BODY_ZONE_CHEST)
 
+	// Get the thing we are actually targetting
+	target.damage_get_target(src)
+
 	// Determine armour penetration
 	if (attacking_item)
 		attacking_item.damage_get_armour_penetration(src)
 	else
 		attacker.damage_get_armour_penetration(src)
 
+	// Run the armour calculations
 	target.damage_run_armour(src)
 
 	// Pacifism check
@@ -120,17 +124,14 @@
 		target.on_attacked(attacking_item, attacker)
 
 	after_attack(attacker, attacking_item, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
+	if (istype(target, /obj/item/bodypart))
+		var/obj/item/bodypart/part = target
+		if (part.owner)
+			after_attack_limb(attacker, attacking_item, part.owner, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
 	CLEAR_REFERENCES
 
 /// Called after a successful attack
-/datum/damage_source/proc/after_attack(
-		mob/living/attacker,
-		obj/item/attacking_item,
-		atom/target,
-		datum/damage/damage,
-		damage_amount,
-		target_zone
-	)
+/datum/damage_source/proc/after_attack()
 	return
 
 /// Called after a specific limb was attacked

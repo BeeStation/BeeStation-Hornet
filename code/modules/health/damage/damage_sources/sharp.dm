@@ -206,6 +206,7 @@
 /// or something.
 /datum/damage_source/slime
 
+/*
 /datum/damage_source/slime/calculate_damage(mob/living/target, input_damage, target_zone, armour_penetration = 0)
 	// Determine armour
 	var/blocked = 0
@@ -216,10 +217,12 @@
 	if (blocked >= 100)
 		return 0
 	return input_damage * (1 - (blocked / 100))
+*/
 
 /// Similar to above, but specific to blobs
 /datum/damage_source/blob
 
+/*
 /datum/damage_source/blob/calculate_damage(mob/living/target, input_damage, target_zone, armour_penetration = 0)
 	// Determine armour
 	var/blocked = 0
@@ -230,6 +233,7 @@
 	if (blocked >= 100)
 		return 0
 	return input_damage * (1 - (blocked / 100))
+*/
 
 /// Biohazard damage.
 /datum/damage_source/biohazard
