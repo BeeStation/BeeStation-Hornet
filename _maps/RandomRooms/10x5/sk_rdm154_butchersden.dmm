@@ -27,7 +27,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/open/floor/plating,
@@ -68,7 +68,7 @@
 	},
 /area/template_noop)
 "E" = (
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
@@ -103,7 +103,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "N" = (
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/kitchen/knife/butcher,

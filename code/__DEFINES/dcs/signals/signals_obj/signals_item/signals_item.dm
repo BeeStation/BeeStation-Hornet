@@ -10,7 +10,7 @@
 	#define COMPONENT_NO_ATTACK_OBJ 1
 #define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"				//! from base of obj/item/pre_attack(): (atom/target, mob/user, params)
 	#define COMPONENT_NO_ATTACK 1
-#define COMSIG_ITEM_AFTERATTACK "item_afterattack"				//! from base of obj/item/afterattack(): (atom/target, mob/user, params)
+#define COMSIG_ITEM_AFTERATTACK "item_afterattack"				//! from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, params)
 #define COMSIG_ITEM_EQUIPPED "item_equip"						//! from base of obj/item/equipped(): (/mob/equipper, slot)
 #define COMSIG_ITEM_DROPPED "item_drop"							//! from base of obj/item/dropped(): (mob/user)
 #define COMSIG_ITEM_PICKUP "item_pickup"						//! from base of obj/item/pickup(): (/mob/taker)
@@ -68,3 +68,8 @@
 	#define COMPONENT_BUFFER_STORE_SUCCESS (1 << 0)
 /// Puts a target atom into the push (datum/source, mob/user)
 #define COMSIG_ITEM_FLUSH_BUFFER "flush_buffer"
+
+// Deployable signals
+/// Tell a deployable item to force its deployment  (datum/source, atom/location)
+#define COMSIG_DEPLOYABLE_FORCE_DEPLOY "force_deploy"
+	#define DEPLOYMENT_SUCCESS	(1 << 0)	//Indicates that something was successfully deployed

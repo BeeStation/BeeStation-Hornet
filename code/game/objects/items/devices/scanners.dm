@@ -999,36 +999,65 @@ GENE SCANNER
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
+	/// Whether the extrapolator is currently in use.
 	var/using = FALSE
+	/// Whether the extrapolator is currently in SCAN or EXTRACT mode.
 	var/scan = TRUE
-	var/cooldown
-	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
+	/// The scanning module installed in the extrapolator. Used to determine extraction speed, and the stealthiest virus that's possible to extract.
+	var/obj/item/stock_parts/scanning_module/scanner
+	/// A list of advance disease IDs that this extrapolator has already extracted.
+	var/list/extracted_ids = list()
+	/// How long it takes, in deciseconds, for the extrapolator to extract a virus.
+	var/extract_time = 10 SECONDS
+	/// How long it takes, in deciseconds, for the extrapolator to isolate a symptom.
+	var/isolate_time = 15 SECONDS
+	/// The extrapolator can extract any virus with a stealth below this value.
+	var/maximum_stealth = 3
+	/// The extrapolator can extract any symptom with a stealth below this value.
+	var/maximum_level = 7
+	/// The typepath of the default scanning module that will generate in the extrapolator, if it starts with none.
+	var/default_scanning_module = /obj/item/stock_parts/scanning_module
+	/// Cooldown for when the extrapolator can be used next.
+	COOLDOWN_DECLARE(usage_cooldown)
 
-/obj/item/extrapolator/Initialize(mapload)
+/obj/item/extrapolator/Initialize(mapload, obj/item/stock_parts/scanning_module/starting_scanner)
 	. = ..()
-	scanner = new(src)
+	starting_scanner = starting_scanner || default_scanning_module
+	if(ispath(starting_scanner, /obj/item/stock_parts/scanning_module))
+		scanner = new starting_scanner(src)
+	else if(istype(starting_scanner))
+		starting_scanner.forceMove(src)
+		scanner = starting_scanner
+	refresh_parts()
 
-/obj/item/extrapolator/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/scanning_module))
+/obj/item/extrapolator/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/stock_parts/scanning_module))
 		if(!scanner)
-			if(!user.transferItemToLoc(W, src))
+			if(!user.transferItemToLoc(item, src))
 				return
-			scanner = W
-			to_chat(user, "<span class='notice'>You install a [scanner.name] in [src].</span>")
+			scanner = item
+			to_chat(user, "<span class='notice'>You install \the [scanner] in [src].</span>")
+			refresh_parts()
 		else
-			to_chat(user, "<span class='notice'>[src] already has a scanner installed.</span>")
+			to_chat(user, "<span class='notice'>[src] already has \the [scanner] installed.</span>")
+		return
+	return ..()
 
-	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(scanner)
-			to_chat(user, "<span class='notice'>You remove the [scanner.name] from \the [src].</span>")
-			scanner.forceMove(drop_location())
-			scanner = null
-	else
-		return ..()
+/obj/item/extrapolator/screwdriver_act(mob/living/user, obj/item/item)
+	. = TRUE
+	if(..())
+		return
+	if(!scanner)
+		to_chat(user, "<span class='warning'>\The [src] has no scanner to remove!</span>")
+		return FALSE
+	to_chat(user, "<span class='notice'>You remove \the [scanner] from \the [src].</span>")
+	scanner.forceMove(drop_location())
+	scanner = null
+	item.play_tool_sound(src)
 
 /obj/item/extrapolator/attack_self(mob/user)
 	. = ..()
-	playsound(src, 'sound/machines/click.ogg', 50, 1)
+	playsound(src, 'sound/machines/click.ogg', vol = 50, vary = TRUE)
 	if(scan)
 		icon_state = "extrapolator_sample"
 		scan = FALSE
@@ -1045,99 +1074,191 @@ GENE SCANNER
 			. += "<span class='notice'>The scanner is missing.</span>"
 		else
 			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.</span>"
+			. += "<span class='notice'>Can detect diseases <b>below stealth [maximum_stealth]</b>.</span>"
+			. += "<span class='notice'>Can extract diseases in <b>[DisplayTimeText(extract_time)]</b>.</span>"
+			. += "<span class='notice'>Can isolate symptoms <b>[maximum_level >= 9 ? "of any level" : "below level [maximum_level]"]</b>, in <b>[DisplayTimeText(isolate_time)]</b>.</span>"
 
+/**
+ * Updates the extraction and isolation times based on the scanner's rating.
+ */
+/obj/item/extrapolator/proc/refresh_parts()
+	if(!scanner)
+		return
+	var/effective_scanner_rating = scanner.rating + 1
+	extract_time = (10 SECONDS) / effective_scanner_rating
+	isolate_time = (15 SECONDS) / effective_scanner_rating
+	maximum_stealth = scanner.rating + 2
+	maximum_level = scanner.rating + 7
 
 /obj/item/extrapolator/attack(atom/AM, mob/living/user)
 	return
 
-/obj/item/extrapolator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/extrapolator/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag && !scan)
 		return
+	if(using)
+		to_chat(user, "<span class='warning'>[icon2html(src, user)] The extrapolator is already in use.</span>")
+		return
+	if(!COOLDOWN_FINISHED(src, usage_cooldown))
+		to_chat(user, "<span class='warning'>[icon2html(src, user)] The extrapolator is still recharging!</span>")
+		return
 	if(scanner)
-		if(!target.extrapolator_act(user, src, scan))
-			if(locate(/datum/component/infective) in target.datum_components)
-				return //so the failure message does not show when we can actually extrapolate from a component
+		var/list/result = target?.extrapolator_act(user, src, dry_run = TRUE)
+		var/list/diseases = result && result[EXTRAPOLATOR_RESULT_DISEASES]
+		if(!length(diseases))
+			var/list/atom/targets = find_valid_targets(user, target)
+			var/target_amt = length(targets)
+			if(target_amt)
+				target = target_amt > 1 ? tgui_input_list(user, "Select object to analyze", "Viral Extrapolation", targets, default = targets[1]) : targets[1]
+			if(target)
+				result = target.extrapolator_act(user, src, dry_run = TRUE)
+				diseases = result && result[EXTRAPOLATOR_RESULT_DISEASES]
+		if(!target)
+			return
+		if(!length(diseases))
 			if(scan)
-				to_chat(user, "<span class='notice'>The extrapolator fails to return any data.</span>")
+				to_chat(user, "<span class='notice'>[icon2html(src, user)] \The [src] fails to return any data.</span>")
 			else
-				to_chat(user, "<span class='notice'>The extrapolator's probe detects no diseases.</span>")
+				to_chat(user, "<span class='notice'>[icon2html(src, user)] \The [src]'s probe detects no diseases.</span>")
+			return
+		if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL))
+			// extrapolator_act did some sort of special behavior, we don't need to do anything further
+			return
+		if(scan)
+			scan(user, target)
+		else
+			extrapolate(user, target)
 	else
 		to_chat(user, "<span class='warning'>The extrapolator has no scanner installed!</span>")
 
-/obj/item/extrapolator/proc/scan(atom/AM, var/list/diseases = list(), mob/user)
-	to_chat(user, "<span class='notice'><b>[src] detects the following diseases:</b></span>")
-	for(var/datum/disease/D in diseases)
-		if(istype(D, /datum/disease/advance))
-			var/datum/disease/advance/A = D
-			if(A.stealth >= (2 + scanner.rating)) //the extrapolator can detect diseases of higher stealth than a normal scanner
-				continue
-			if(A.dormant)
-				to_chat(user, "<span class='info'><font color='A19D9C'><b>[A.name]</b>, dormant virus</font></span>")
-				to_chat(user, "<span class='info'><font color='BAB9B9'><b>[A] has the following symptoms:</b></font></span>")
-				for(var/datum/symptom/S in A.symptoms)
-					to_chat(user, "<span class='info'><font color='BAB9B9'>[S.name]</font></span>")
-			else
-				to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</font></span>")
-				to_chat(user, "<span class='info'><b>[A] has the following symptoms:</b></span>")
-				for(var/datum/symptom/S in A.symptoms)
-					to_chat(user, "<span class='info'>[S.name]</span>")
-		else
-			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</font></span>")
+/obj/item/extrapolator/proc/find_valid_targets(mob/living/user, atom/target)
+	. = list()
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf)
+		return
+	for(var/atom/target_to_try in target_turf.contents - target)
+		var/list/result = target_to_try.extrapolator_act(user, src, dry_run = TRUE)
+		if(length(result[EXTRAPOLATOR_RESULT_DISEASES]))
+			. += target_to_try
 
-/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 100)
-	var/list/advancediseases = list()
-	var/list/symptoms = list()
-	if(using)
-		to_chat(user, "<span class='warning'>The extrapolator is already in use.</span>")
+/**
+ * Scans an atom, showing any (detectable) diseases they may have.
+ */
+/obj/item/extrapolator/proc/scan(mob/living/user, atom/target)
+	. = TRUE
+	var/list/result = target?.extrapolator_act(user, target)
+	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]
+	if(!length(diseases))
+		return FALSE
+	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL))
 		return
-	for(var/datum/disease/advance/cantidate in diseases)
-		advancediseases += cantidate
-	if(!LAZYLEN(advancediseases))
-		to_chat(user, "<span class='warning'>There are no valid diseases to make a culture from.</span>")
+	var/list/message = list()
+	if(length(diseases))
+		// costly_icon2html should be okay, as the extrapolator has a cooldown and is NOT spammable
+		message += "<span class='boldnotice'>[costly_icon2html(target, user)] [target] scan results</span>"
+		message += "<span class='boldnotice'>[icon2html(src, user)] \The [src] detects the following diseases:</span>"
+		for(var/datum/disease/disease in diseases)
+			if(istype(disease, /datum/disease/advance))
+				var/datum/disease/advance/advance_disease = disease
+				if(advance_disease.stealth >= maximum_stealth) //the extrapolator can detect diseases of higher stealth than a normal scanner
+					continue
+				message += "<span class='info'><b>[advance_disease.name]</b>, [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
+				if(extracted_ids[advance_disease.GetDiseaseID()])
+					message += "<span class='info italics'>This virus has been extracted by \the [src] previously.</span>"
+				message += "<span class='info bold'>[advance_disease.name] has the following symptoms:</span>"
+				for(var/datum/symptom/symptom in advance_disease.symptoms)
+					message += "[symptom.name]"
+			else
+				message += "<span class='info'><b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].</span>"
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+
+/**
+ * Attempts to either extract a disease from an atom, or isolate a symptom from an advance disease.
+ */
+/obj/item/extrapolator/proc/extrapolate(mob/living/user, atom/target, isolate = FALSE)
+	. = FALSE
+	var/list/result = target?.extrapolator_act(user, target)
+	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]
+	if(!length(diseases))
 		return
-	if(cooldown > world.time - (10))
-		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
+	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_SPECIAL)) // hardcoded "we handled this ourselves" response
+		return TRUE
+	if(EXTRAPOLATOR_ACT_CHECK(result, EXTRAPOLATOR_ACT_PRIORITY_ISOLATE))
+		isolate = TRUE
+	var/list/advance_diseases = list()
+	for(var/datum/disease/advance/candidate in diseases)
+		advance_diseases += candidate
+	if(!length(advance_diseases))
+		to_chat(user, "<span class='warning'>[icon2html(src, user)] There are no valid diseases to make a culture from.</span>")
 		return
-	var/datum/disease/advance/A = input(user,"Which disease do you wish to extract?") in null|advancediseases
+	var/datum/disease/advance/target_disease = length(advance_diseases) > 1 ? tgui_input_list(user, "Select disease to extract", "Viral Extraction", advance_diseases, default = advance_diseases[1]) : advance_diseases[1]
+	if(!target_disease)
+		return
+	using = TRUE
 	if(isolate)
-		using = TRUE
-		for(var/datum/symptom/S in A.symptoms)
-			if(S.level <= 6 + scanner.rating)
-				symptoms += S
-			continue
-		var/datum/symptom/chosen = input(user,"Which symptom do you wish to isolate?") in null|symptoms
-		var/datum/disease/advance/symptomholder = new
-		if(!symptoms.len || !chosen)
-			using = FALSE
-			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")
-			return
-		symptomholder.name = chosen.name
-		symptomholder.symptoms += chosen
-		symptomholder.Finalize()
-		symptomholder.Refresh()
-		to_chat(user, "<span class='warning'>You begin isolating [chosen].</span>")
-		if(do_after(user, (150 / (scanner.rating + 1)), target = AM))
-			create_culture(symptomholder, user, AM)
+		. = isolate_symptom(user, target, target_disease)
 	else
-		using = TRUE
-		if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
-			create_culture(A, user, AM)
+		. = isolate_disease(user, target, target_disease)
 	using = FALSE
 
-/obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
-	if(cooldown > world.time - (10))
-		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
+/**
+ * Attempts to isolate a single symptom from an advance disease.
+ */
+/obj/item/extrapolator/proc/isolate_symptom(mob/living/user, atom/target, datum/disease/advance/target_disease)
+	. = FALSE
+	var/list/symptoms = list()
+	for(var/datum/symptom/symptom in target_disease.symptoms)
+		if(symptom.level <= maximum_level)
+			symptoms += symptom
+			continue
+	if(!length(symptoms))
+		to_chat(user, "<span class='warning'>[icon2html(src, user)] There are no symptoms that could be isolated..</span>")
 		return
-	var/list/data = list("viruses" = list(A))
-	var/obj/item/reagent_containers/glass/bottle/B = new(user.loc)
-	cooldown = world.time
-	if(!(user.get_item_for_held_index(user.active_hand_index) == src))
+	var/datum/symptom/chosen = length(symptoms) > 1 ? tgui_input_list(user, "Select symptom to isolate", "Symptom Extraction", symptoms, default = symptoms[1]) : symptoms[1]
+	if(!chosen)
+		return
+	user.visible_message("<span class='notice'>[user] slots [target] into [src], which begins to whir and beep!</span>", \
+		"<span class='notice'>[icon2html(src, user)] You begin isolating <b>[chosen.name]</b> from [target]...</span>", \
+		vision_distance = COMBAT_MESSAGE_RANGE)
+	var/datum/disease/advance/symptom_holder = new
+	symptom_holder.name = chosen.name
+	symptom_holder.symptoms += chosen
+	symptom_holder.Finalize()
+	symptom_holder.Refresh()
+	if(do_after(user, extract_time, target = target))
+		create_culture(user, symptom_holder, target)
+		return TRUE
+
+/**
+ * Attempts to isolate an advance disease from a target.
+ */
+/obj/item/extrapolator/proc/isolate_disease(mob/living/user, atom/target, datum/disease/advance/target_disease, timer = 10 SECONDS)
+	. = FALSE
+	user.visible_message("<span class='notice'>[user] begins to thoroughly scan [target] with [src]...</span>", \
+		"<span class='notice'>[icon2html(src, user)] You begin isolating <b>[target_disease.name]</b> from [target]...</span>")
+	if(do_after(user, isolate_time, target = target))
+		create_culture(user, target_disease, target)
+		return TRUE
+
+/**
+ * Creates a culture of an advance disease.
+ */
+/obj/item/extrapolator/proc/create_culture(mob/living/user, datum/disease/advance/disease)
+	. = FALSE
+	var/list/data = list("viruses" = list(disease))
+	if(user.get_active_held_item() != src)
 		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")
-		return FALSE
-	B.name = "[A.name] culture bottle"
-	B.desc = "A small bottle. Contains [A.agent] culture in synthblood medium."
-	B.reagents.add_reagent(/datum/reagent/blood, 20, data)
-	user.put_in_hands(B)
-	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
+		return
+	var/obj/item/reagent_containers/glass/bottle/culture_bottle = new(user.drop_location())
+	culture_bottle.name = "[disease.name] culture bottle"
+	culture_bottle.desc = "A small bottle. Contains [disease.agent] culture in synthblood medium."
+	culture_bottle.reagents.add_reagent(/datum/reagent/blood, 20, data)
+	user.put_in_hands(culture_bottle)
+	playsound(src, 'sound/machines/ping.ogg', vol = 30, vary = TRUE)
+	COOLDOWN_START(src, usage_cooldown, 1 SECONDS)
+	extracted_ids[disease.GetDiseaseID()] = TRUE
 	return TRUE
+
+/obj/item/extrapolator/tier4
+	default_scanning_module = /obj/item/stock_parts/scanning_module/triphasic

@@ -32,7 +32,7 @@
 			var/name = key_name(mind)
 			targets[name] = mind
 			names |= name
-		var/forced_target_name = tgui_input_list(admin, "Select a target for the obsession", "MY BELOVED", sort_names(names))
+		var/forced_target_name = tgui_input_list(admin, "Select a target for the obsession", "MY BELOVED", sort_list(names))
 		if(forced_target_name)
 			forced_target = targets[forced_target_name]
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name][forced_target ? ", with [key_name_admin(forced_target)] as their obsession" : ""].")
@@ -71,9 +71,9 @@
 	var/datum/objective/protect/obsessed/yandere = new
 	yandere.owner = owner
 	yandere.set_target(obsession_mind)
-	var/datum/quirk/family_heirloom/family_heirloom
+	var/datum/quirk/family_heirloom/family_heirloom = locate() in obsession_mind.quirks
 
-	if(obsession_mind.has_quirk(/datum/quirk/family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
+	if(!QDELETED(family_heirloom?.heirloom))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
 	if(obsession_mind.assigned_role && obsession_mind.assigned_role != JOB_NAME_CAPTAIN)
