@@ -150,6 +150,9 @@
 /obj/effect/turf_decal/trimline/purple/warning{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-16"
+	},
 /turf/open/floor/plasteel/white,
 /area/ai_monitored/turret_protected/ai)
 "acJ" = (
@@ -14492,6 +14495,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"eft" = (
+/obj/machinery/porta_turret/ai{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/ai_monitored/turret_protected/ai)
 "efu" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -14680,6 +14694,15 @@
 /obj/structure/plasticflaps/opaque,
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"eiu" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "eix" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
@@ -15409,7 +15432,6 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/spray/pepper,
 /obj/item/assembly/flash/handheld{
 	pixel_x = 7
 	},
@@ -22194,6 +22216,13 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/restrooms)
+"gxe" = (
+/obj/machinery/power/apc/auto_name/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "gxh" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -23471,14 +23500,10 @@
 	},
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/trimline/purple/filled/line,
-/obj/machinery/ai_slipper{
-	uses = 10
+/obj/structure/cable/yellow{
+	icon_state = "1-32"
 	},
-/obj/effect/turf_decal/trimline/purple/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai)
 "gQb" = (
 /obj/structure/lattice/catwalk/over,
@@ -26065,6 +26090,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tcom)
+"hxb" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/turret_protected/ai)
 "hxo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -27054,6 +27085,15 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"hIY" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "hJc" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -30256,6 +30296,9 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "iHy" = (
@@ -30425,6 +30468,9 @@
 "iJq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/stairs,
 /area/ai_monitored/turret_protected/ai)
 "iJF" = (
@@ -31377,6 +31423,11 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"iXA" = (
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "iXQ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -33547,6 +33598,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"jHt" = (
+/obj/structure/railing,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "jHJ" = (
 /turf/open/openspace,
 /area/maintenance/fore)
@@ -34513,6 +34569,15 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"jUX" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "jVg" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -35191,6 +35256,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"kfN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/turret_protected/ai)
 "kfR" = (
 /obj/effect/turf_decal/trimline/dark_red/filled/line,
 /obj/effect/turf_decal/trimline/dark_red/line{
@@ -38993,6 +39064,19 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
+"lqx" = (
+/obj/machinery/porta_turret/ai{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/turret_protected/ai)
 "lqA" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
@@ -45601,6 +45685,15 @@
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible,
 /turf/open/floor/plasteel/dark,
 /area/engine/supermatter)
+"niH" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "niN" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
@@ -48411,6 +48504,9 @@
 /obj/effect/turf_decal/trimline/purple/warning,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "oaq" = (
@@ -52977,6 +53073,15 @@
 /obj/machinery/newscaster/directionl/west,
 /turf/open/floor/plasteel/grimy,
 /area/lawoffice)
+"ppn" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "ppt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -53399,6 +53504,19 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
+"pwo" = (
+/obj/machinery/porta_turret/ai{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/turret_protected/ai)
 "pww" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -53585,6 +53703,9 @@
 /obj/effect/turf_decal/trimline/purple/warning,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/white,
 /area/ai_monitored/turret_protected/ai)
 "pzR" = (
@@ -53618,7 +53739,6 @@
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
 /obj/item/assembly/flash/handheld,
-/obj/item/reagent_containers/spray/pepper,
 /obj/effect/turf_decal/trimline/dark_red/line{
 	dir = 4
 	},
@@ -66900,6 +67020,15 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/security/warden)
+"ttm" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "ttn" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -69677,6 +69806,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
+"ugF" = (
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/ai)
 "ugK" = (
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 6
@@ -74363,6 +74495,12 @@
 /obj/structure/railing,
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"vyC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/turret_protected/ai)
 "vyK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/teleport/hub,
@@ -177173,11 +177311,11 @@ sYU
 sYU
 sYU
 sYU
-sYU
-sYU
-sYU
-sYU
-sYU
+tFK
+qWU
+qWU
+tFK
+tFK
 sYU
 sYU
 sYU
@@ -177688,9 +177826,9 @@ qWU
 qWU
 qWU
 qWU
-qWU
-qWU
-qWU
+vyC
+pwo
+vyC
 qWU
 qWU
 qWU
@@ -177939,20 +178077,20 @@ sYU
 sYU
 sYU
 sYU
+tFK
 qWU
-qWU
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
 qWU
 qWU
 sYU
@@ -178198,18 +178336,18 @@ sYU
 sYU
 qWU
 qWU
-jza
-oRQ
-bDO
-bDO
-bDO
-aMr
-bDO
-bDO
-bDO
-bDO
-akC
-jza
+ugF
+iXA
+ttm
+ttm
+ttm
+ttm
+ttm
+ttm
+ttm
+ttm
+ppn
+ugF
 qWU
 qWU
 sYU
@@ -178455,8 +178593,8 @@ sYU
 sYU
 qWU
 qWU
-jza
-sKD
+ugF
+jHt
 lnW
 lnW
 lnW
@@ -178465,8 +178603,8 @@ lnW
 lnW
 lnW
 lnW
-sei
-jza
+eiu
+ugF
 qWU
 qWU
 sYU
@@ -178712,8 +178850,8 @@ sYU
 sYU
 qWU
 qWU
-jza
-sKD
+ugF
+jHt
 lnW
 lnW
 lnW
@@ -178722,11 +178860,11 @@ lnW
 lnW
 lnW
 lnW
-fVB
-jza
+eiu
+ugF
 qWU
 qWU
-sYU
+tFK
 sYU
 sYU
 sYU
@@ -178969,8 +179107,8 @@ sYU
 sYU
 qWU
 qWU
-jza
-sKD
+ugF
+jHt
 lnW
 lnW
 lnW
@@ -178979,11 +179117,11 @@ lnW
 lnW
 lnW
 lnW
-wMB
-jza
+eiu
+ugF
+kfN
 qWU
 qWU
-sYU
 sYU
 sYU
 sYU
@@ -179226,7 +179364,7 @@ sYU
 sYU
 qWU
 qWU
-jza
+gxe
 gPP
 lnW
 lnW
@@ -179236,11 +179374,11 @@ lnW
 lnW
 lnW
 lnW
-xyM
-jza
+eiu
+ugF
+eft
 qWU
 qWU
-sYU
 sYU
 sYU
 sYU
@@ -179483,8 +179621,8 @@ sYU
 sYU
 qWU
 qWU
-jza
-sKD
+ugF
+jHt
 lnW
 lnW
 lnW
@@ -179493,11 +179631,11 @@ lnW
 lnW
 lnW
 lnW
-qqj
-jza
+eiu
+ugF
+kfN
 qWU
 qWU
-sYU
 sYU
 sYU
 sYU
@@ -179740,8 +179878,8 @@ sYU
 sYU
 qWU
 qWU
-jza
-sKD
+ugF
+jHt
 lnW
 lnW
 lnW
@@ -179750,11 +179888,11 @@ lnW
 lnW
 lnW
 lnW
-aUe
-jza
+eiu
+ugF
 qWU
 qWU
-sYU
+tFK
 sYU
 sYU
 sYU
@@ -179997,8 +180135,8 @@ sYU
 sYU
 qWU
 qWU
-jza
-sKD
+ugF
+jHt
 lnW
 lnW
 lnW
@@ -180007,8 +180145,8 @@ lnW
 lnW
 lnW
 lnW
-sei
-jza
+eiu
+ugF
 qWU
 qWU
 sYU
@@ -180254,18 +180392,18 @@ sYU
 sYU
 qWU
 qWU
-jza
-dyI
-igO
-igO
-igO
-oLR
-igO
-igO
-igO
-igO
-ece
-jza
+ugF
+niH
+hIY
+hIY
+hIY
+hIY
+hIY
+hIY
+hIY
+hIY
+jUX
+ugF
 qWU
 qWU
 sYU
@@ -180509,20 +180647,20 @@ sYU
 sYU
 sYU
 sYU
+tFK
 qWU
-qWU
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
-jza
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
+ugF
 qWU
 qWU
 sYU
@@ -180772,9 +180910,9 @@ qWU
 qWU
 qWU
 qWU
-qWU
-qWU
-qWU
+hxb
+lqx
+hxb
 qWU
 qWU
 qWU
@@ -181285,11 +181423,11 @@ sYU
 sYU
 sYU
 sYU
-sYU
-sYU
-sYU
-sYU
-sYU
+tFK
+qWU
+qWU
+qWU
+tFK
 sYU
 sYU
 sYU
