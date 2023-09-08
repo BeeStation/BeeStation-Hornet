@@ -432,22 +432,21 @@ Difficulty: Hard
 		did_reset = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/AttackingTarget()
-	if(!blinking)
-		if(target && isliving(target))
-			var/mob/living/L = target
-			if(L.stat != DEAD)
-				if(ranged_cooldown <= world.time)
-					calculate_rage()
-					ranged_cooldown = world.time + max(5, ranged_cooldown_time - anger_modifier * 0.75)
-					INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src))
-				else
-					burst_range = 3
-					INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src), 0.25) //melee attacks on living mobs cause it to release a fast burst if on cooldown
-				OpenFire()
-			else
-				devour(L)
-		else
-			return ..()
+	if(blinking)
+		return
+	if(!target || !isliving(target))
+		return ..()
+	var/mob/living/L = target
+	if(L.stat == DEAD)
+		return
+	if(ranged_cooldown <= world.time)
+		calculate_rage()
+		ranged_cooldown = world.time + max(5, ranged_cooldown_time - anger_modifier * 0.75)
+		INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src))
+	else
+		burst_range = 3
+		INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src), 0.25) //melee attacks on living mobs cause it to release a fast burst if on cooldown
+	OpenFire()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/DestroySurroundings()
 	if(!blinking)

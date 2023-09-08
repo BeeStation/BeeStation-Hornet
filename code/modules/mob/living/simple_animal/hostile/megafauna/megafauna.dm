@@ -104,30 +104,15 @@
 	if(recovery_time >= world.time)
 		return
 	. = ..()
-	if(. && isliving(target))
-		var/mob/living/L = target
-		if(L.stat != DEAD)
-			if(!client && ranged && ranged_cooldown <= world.time)
-				OpenFire()
+	if(!. || !isliving(target))
+		return
 
-			if(L.health <= HEALTH_THRESHOLD_DEAD && HAS_TRAIT(L, TRAIT_NODEATH)) //Nope, it still gibs yall
-				devour(L)
-		else
-			devour(L)
+	var/mob/living/L = target
+	if(L.stat == DEAD)
+		return
 
-/mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
-	if(!L)
-		return FALSE
-	visible_message(
-		"<span class='danger'>[src] devours [L]!</span>",
-		"<span class='userdanger'>You feast on [L], restoring your health!</span>")
-	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
-		adjustBruteLoss(-L.maxHealth/2)
-	for(var/obj/item/W in L)
-		if(!L.dropItemToGround(W))
-			qdel(W)
-	L.gib()
-	return TRUE
+	if(!client && ranged && ranged_cooldown <= world.time)
+		OpenFire()
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)
 	switch (severity)
