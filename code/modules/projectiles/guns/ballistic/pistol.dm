@@ -33,6 +33,7 @@
 	desc = "An 'Infiltrator' double-barreled derringer, chambered in .38-special. Not the best for head-on engagements."
 	icon_state = "derringer"
 	w_class = WEIGHT_CLASS_SMALL
+	weapon_weight = WEAPON_EX_LIGHT //Weight 0; Only +20 spread while unwielded
 	item_state = null //Too small to show in hand, unless examined
 	throwforce = 0 //Derringers are light and tiny, no hurtie
 	mag_type = /obj/item/ammo_box/magazine/internal/der38
@@ -44,6 +45,7 @@
 	bolt_type = BOLT_TYPE_NO_BOLT
 	tac_reloads = FALSE
 	fire_sound_volume = 60
+	spread = 20 //Innate spread of 20 degrees, 40 spread while unwielded; same as Stechkin
 
 /obj/item/gun/ballistic/automatic/pistol/m1911
 	name = "\improper M1911"
