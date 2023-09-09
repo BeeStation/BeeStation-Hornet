@@ -636,6 +636,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 7
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
+/datum/uplink_item/dangerous/derringer
+	name = "'Infiltrator' Coat Pistol"
+	desc = "For the deeply embedded agent; a very compact dual-barreled handgun chambered in .38-special. Compatible with \
+			standard production NT speed loaders. Loaded with .38 Match ammunition and includes a spare speedloader."
+	item = /obj/item/storage/box/syndie_kit/derringer
+	cost = 4
+	purchasable_from = ~UPLINK_CLOWN_OPS
+
 /datum/uplink_item/dangerous/bolt_action
 	name = "Surplus Rifle"
 	desc = "A horribly outdated bolt action weapon. You've got to be desperate to use this."
@@ -915,6 +923,42 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			For when you really need a lot of things dead."
 	item = /obj/item/ammo_box/a357
 	cost = 2
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38
+	name = ".38-special Speed Loader"
+	desc = "A standard issue .38-special speed loader, for use with the Detective's revolver or 'Infiltrator' coat pistol."
+	item = /obj/item/ammo_box/c38
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38blister
+	name = ".38-special 'Blister' Speed Loader"
+	desc = "For when you can't deside between a coat pistol and a dart pistol! These 6 cartridges can \
+			be injected with up to 10 units of your favorite poison for remote application via sidearm."
+	item = /obj/item/ammo_box/c38/dart
+	cost = 2
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38dumdum
+	name = ".38-special DumDum Speed Loader"
+	desc = "6 specialized fragmenting .38-special catridges, excellent for dispatching unarmored targets. \
+			Shrapnel can embed within the victim and provide a debilitating effect. Not advised for use \
+			against armored targets."
+	item = /obj/item/ammo_box/c38/dumdum
+	cost = 2
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38icyhot
+	name = ".38-special 'Thermal' Speed Loader 2-Pack"
+	desc = "A 2-pack of .38-special speed loaders, offering 6 Iceblox and 6 Hot Shot cartridges. Set your \
+	targets alight or freeze them in place with these specialized ammo types."
+	item = /obj/item/storage/box/syndie_kit/c38icyhot
+	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 

@@ -7,6 +7,12 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/rubber
 	ammo_type = /obj/item/ammo_casing/c38/match/bouncy
 
+/obj/item/ammo_box/magazine/internal/der38
+	name = "derringer internal chambering"
+	ammo_type = /obj/item/ammo_casing/c38/match
+	caliber = "38"
+	max_ammo = 2
+
 /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	name = "\improper Nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762

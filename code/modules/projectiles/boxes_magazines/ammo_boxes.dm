@@ -50,6 +50,11 @@
 	desc = "Designed to quickly reload revolvers. Iceblox bullets contain a cryogenic payload."
 	ammo_type = /obj/item/ammo_casing/c38/iceblox
 
+/obj/item/ammo_box/c38/dart
+	name = "speed loader (.38 Blister)"
+	desc = "Designed to quickly reload revolvers. Blister bullets can be injected with up to 10 units of chemicals."
+	ammo_type = /obj/item/ammo_casing/c38/dart
+
 /obj/item/ammo_box/c38/mime
 	name = "speed loader (.38 finger)"
 	max_ammo = 6

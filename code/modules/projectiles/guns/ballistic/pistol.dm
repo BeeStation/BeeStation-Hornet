@@ -28,6 +28,23 @@
 	var/obj/item/suppressor/S = new(src)
 	install_suppressor(S)
 
+/obj/item/gun/ballistic/automatic/pistol/der38
+	name = "palm pistol"
+	desc = "An 'Infiltrator' double-barreled derringer, chambered in .38-special. Not the best for head-on engagements."
+	icon_state = "derringer"
+	w_class = WEIGHT_CLASS_SMALL
+	item_state = null //Too small to show in hand, unless examined
+	throwforce = 0 //Derringers are light and tiny, no hurtie
+	mag_type = /obj/item/ammo_box/magazine/internal/der38
+	load_sound = 'sound/weapons/revolverload.ogg'
+	eject_sound = 'sound/weapons/revolverempty.ogg'
+	can_suppress = FALSE
+	casing_ejector = FALSE
+	internal_magazine = TRUE
+	bolt_type = BOLT_TYPE_NO_BOLT
+	tac_reloads = FALSE
+	fire_sound_volume = 60
+
 /obj/item/gun/ballistic/automatic/pistol/m1911
 	name = "\improper M1911"
 	desc = "A classic .45 handgun with a small magazine capacity."
