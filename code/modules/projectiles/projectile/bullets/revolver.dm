@@ -66,19 +66,19 @@
 
 /obj/projectile/bullet/c38/hotshot //similar to incendiary bullets, but do not leave a flaming trail
 	name = ".38 Hot Shot bullet"
-	damage = 20
+	damage = 12
 	ricochets_max = 0
 
 /obj/projectile/bullet/c38/hotshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(6)
+		M.adjust_fire_stacks(2)
 		M.IgniteMob()
 
 /obj/projectile/bullet/c38/iceblox //see /obj/projectile/temp for the original code
 	name = ".38 Iceblox bullet"
-	damage = 20
+	damage = 15
 	var/temperature = 100
 	ricochets_max = 0
 
