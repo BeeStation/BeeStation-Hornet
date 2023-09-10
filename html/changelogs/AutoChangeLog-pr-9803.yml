@@ -1,0 +1,4 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Syndicate bombs no longer gain a negative timer when pulsing.
