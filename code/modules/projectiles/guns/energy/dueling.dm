@@ -171,10 +171,9 @@
 
 /obj/item/gun/energy/dueling/update_overlays()
 	. = ..()
-	if(setting_overlay)
-		. += setting_iconstate()
-		if (emissive_charge)
-			. += emissive_appearance(icon, setting_iconstate(), layer, alpha = src.alpha * 0.3)
+	. += setting_iconstate()
+	if (emissive_charge)
+		. += emissive_appearance(icon, setting_iconstate(), layer, alpha = src.alpha * 0.3)
 
 /obj/item/gun/energy/dueling/Destroy()
 	. = ..()
