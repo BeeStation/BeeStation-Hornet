@@ -106,6 +106,7 @@
 	source.failed_last_breath = FALSE
 	for(var/alert_category in thrown_alerts)
 		source.clear_alert(alert_category)
+	LAZYNULL(thrown_alerts)
 	for(var/moodlet in breath_moodlets)
 		SEND_SIGNAL(source, COMSIG_CLEAR_MOOD_EVENT, moodlet)
 
