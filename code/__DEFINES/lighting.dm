@@ -107,16 +107,19 @@
 #define EMISSIVE_COLOR list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 1,1,1,0)
 /// A globaly cached version of [EMISSIVE_COLOR] for quick access.
 GLOBAL_LIST_INIT(emissive_color, EMISSIVE_COLOR)
-/// The color matrix applied to all emissive blockers. Should be solely dependent on alpha and not have RGB overlap with [EMISSIVE_COLOR].
-#define EM_BLOCK_COLOR list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
-/// A globaly cached version of [EM_BLOCK_COLOR] for quick access.
-GLOBAL_LIST_INIT(em_block_color, EM_BLOCK_COLOR)
 /// A set of appearance flags applied to all emissive and emissive blocker overlays.
 #define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|KEEP_TOGETHER|RESET_COLOR|RESET_TRANSFORM)
-/// The color matrix used to mask out emissive blockers on the emissive plane. Alpha should default to zero, be solely dependent on the RGB value of [EMISSIVE_COLOR], and be independent of the RGB value of [EM_BLOCK_COLOR].
-#define EM_MASK_MATRIX list(0,0,0,1/3, 0,0,0,1/3, 0,0,0,1/3, 0,0,0,0, 1,1,1,0)
-/// A globaly cached version of [EM_MASK_MATRIX] for quick access.
-GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)
+
+/// Colour matrix used to convert items into blockers. The only thing that should be taken into account is the alpha value, an#
+/// alpha of 1 should be fully white and an alpha of 0 should be black.
+/// The alpha value should always be 1 because masks work from black to white instead of with alpha.
+/// Red = alpha
+/// Blue = alpha
+/// Green = alpha
+/// Alpha = 1
+#define EM_BLOCKER_MATRIX list(0,0,0,0, 0,0,0,0, 0,0,0,0, 1,1,1,0, 0,0,0,1)
+/// A globaly cached version of [EM_BLOCKER_MATRIX] for quick access.
+GLOBAL_LIST_INIT(em_blocker_matrix, EM_BLOCKER_MATRIX)
 
 /// Returns the red part of a #RRGGBB hex sequence as number
 #define GETREDPART(hexa) hex2num(copytext(hexa, 2, 4))

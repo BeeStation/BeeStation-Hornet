@@ -153,7 +153,21 @@
 
 /atom/movable/screen/plane_master/emissive/Initialize(mapload)
 	. = ..()
-	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))
+	add_filter("em_block_mask", 1, alpha_mask_filter(render_source = EMISSIVE_BLOCKER_RENDER_TARGET, flags = MASK_INVERSE))
+
+/**
+ * Plane for emissive blocking
+ */
+/atom/movable/screen/plane_master/emissive_blocker
+	name = "emissive blocker plane master"
+	plane = EMISSIVE_BLOCKER_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_target = EMISSIVE_BLOCKER_RENDER_TARGET
+	render_relay_plane = null
+
+/atom/movable/screen/plane_master/emissive_blocker/Initialize(mapload)
+	. = ..()
+	add_filter("em_block_colour_to_mask", 1, color_matrix_filter(GLOB.em_blocker_matrix))
 
 /atom/movable/screen/plane_master/above_lighting
 	name = "above lighting plane master"
