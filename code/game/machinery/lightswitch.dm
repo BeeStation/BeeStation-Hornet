@@ -38,7 +38,7 @@
 		return
 	var/state = "light-[area.lightswitch ? "on" : "off"]"
 	. += mutable_appearance(icon, state)
-	. += emissive_appearance(icon, state, alpha = src.alpha)
+	. += emissive_appearance(icon, state, layer, alpha = src.alpha)
 
 /obj/machinery/light_switch/proc/turn_off()
 	if(!is_station_level(z))//Only affects on-station lights

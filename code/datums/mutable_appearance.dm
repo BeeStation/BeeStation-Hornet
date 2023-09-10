@@ -25,12 +25,18 @@
 	return MA
 
 /// Produces a mutable appearance glued to the [EMISSIVE_PLANE] dyed to be the [EMISSIVE_COLOR].
+/// Setting the layer is highly important
 /proc/emissive_appearance(icon, icon_state = "", layer = FLOAT_LAYER, alpha = 255, appearance_flags = NONE)
-	var/mutable_appearance/appearance = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE, alpha, appearance_flags | EMISSIVE_APPEARANCE_FLAGS)
+	// We actually increase the layer ever so slightly so that emissives overpower blockers.
+	// We do this because emissives and blockers can be applied to the same item and in that case
+	// we do not want the item to block its own emissive overlay.
+	var/mutable_appearance/appearance = mutable_appearance(icon, icon_state, layer + 0.01, EMISSIVE_PLANE, alpha, appearance_flags | EMISSIVE_APPEARANCE_FLAGS)
 	appearance.color = GLOB.emissive_color
 	return appearance
 
-/// Produces a mutable appearance glued to the [EMISSIVE_BLOCKER_PLANE].
+/// Produces a mutable appearance glued to the [EMISSIVE_PLANE], but instead of more opaque being white, more opaque is black.
+/// Setting the layer is highly important
 /proc/emissive_blocker(icon, icon_state = "", layer = FLOAT_LAYER, alpha = 255, appearance_flags = NONE)
-	var/mutable_appearance/appearance = mutable_appearance(icon, icon_state, layer, EMISSIVE_BLOCKER_PLANE, alpha, appearance_flags | EMISSIVE_APPEARANCE_FLAGS)
+	var/mutable_appearance/appearance = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE, alpha, appearance_flags | EMISSIVE_APPEARANCE_FLAGS)
+	appearance.color = GLOB.em_blocker_matrix
 	return appearance

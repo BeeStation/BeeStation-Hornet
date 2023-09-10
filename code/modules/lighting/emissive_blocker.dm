@@ -8,7 +8,7 @@
   */
 /atom/movable/emissive_blocker
 	name = ""
-	plane = EMISSIVE_BLOCKER_PLANE
+	plane = EMISSIVE_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	//Why?
 	//render_targets copy the transform of the target as well, but vis_contents also applies the transform
@@ -21,6 +21,10 @@
 	verbs.Cut() //Cargo culting from lighting object, this maybe affects memory usage?
 
 	render_source = source
+	// Set the colour to be more opaque meaning more black.
+	color = GLOB.em_blocker_matrix
+	// Join the layer of our source object, so that we can respect layering
+	layer = loc.layer
 
 /atom/movable/emissive_blocker/ex_act(severity)
 	return FALSE

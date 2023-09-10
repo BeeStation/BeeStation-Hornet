@@ -92,24 +92,24 @@
 	if(is_station_level(z))
 		. += "fire_[GLOB.security_level]"
 		. += mutable_appearance(icon, "fire_[GLOB.security_level]")
-		. += emissive_appearance(icon, "fire_[GLOB.security_level]", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_[GLOB.security_level]", layer, alpha = src.alpha)
 	else
 		. += "fire_[SEC_LEVEL_GREEN]"
 		. += mutable_appearance(icon, "fire_[SEC_LEVEL_GREEN]")
-		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", layer, alpha = src.alpha)
 
 	if(!detecting || !A.fire) //If this is false, leave the green light missing. A good hint to anyone paying attention.
 		. += "fire_off"
 		. += mutable_appearance(icon, "fire_off")
-		. += emissive_appearance(icon, "fire_off", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_off", layer, alpha = src.alpha)
 	else if(obj_flags & EMAGGED)
 		. += "fire_emagged"
 		. += mutable_appearance(icon, "fire_emagged")
-		. += emissive_appearance(icon, "fire_emagged", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_emagged", layer, alpha = src.alpha)
 	else
 		. += "fire_on"
 		. += mutable_appearance(icon, "fire_on")
-		. += emissive_appearance(icon, "fire_on", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_on", layer, alpha = src.alpha)
 
 /obj/machinery/firealarm/emp_act(severity)
 	. = ..()

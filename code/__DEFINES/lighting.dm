@@ -104,20 +104,26 @@
 /// Uses a dedicated render_target object to copy the entire appearance in real time to the blocking layer. For things that can change in appearance a lot from the base state, like humans.
 #define EMISSIVE_BLOCK_UNIQUE 2
 
+/// The colour for emissive items; the more white it is, the more emissive it is.
+/// Red = 1
+/// Blue = 1
+/// Green = 1
+/// Alpha = alpha
 #define EMISSIVE_COLOR list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 1,1,1,0)
 /// A globaly cached version of [EMISSIVE_COLOR] for quick access.
 GLOBAL_LIST_INIT(emissive_color, EMISSIVE_COLOR)
 /// A set of appearance flags applied to all emissive and emissive blocker overlays.
 #define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|KEEP_TOGETHER|RESET_COLOR|RESET_TRANSFORM)
 
-/// Colour matrix used to convert items into blockers. The only thing that should be taken into account is the alpha value, an#
-/// alpha of 1 should be fully white and an alpha of 0 should be black.
-/// The alpha value should always be 1 because masks work from black to white instead of with alpha.
-/// Red = alpha
-/// Blue = alpha
-/// Green = alpha
-/// Alpha = 1
-#define EM_BLOCKER_MATRIX list(0,0,0,0, 0,0,0,0, 0,0,0,0, 1,1,1,0, 0,0,0,1)
+/// Colour matrix used to convert items into blockers. The only thing that should be taken into account is the alpha value, and
+/// alpha of 1 should be fully black and an alpha of 0 should be black but transparent
+/// The reason we aren't working with just white and black here is because white means that the item emits light, and we do not
+/// want blockers to start emitting light just because they are transparent. We only want their blocking effect to be reduced.
+/// Red = 0
+/// Blue = 0
+/// Green = 0
+/// Alpha = alpha
+#define EM_BLOCKER_MATRIX list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
 /// A globaly cached version of [EM_BLOCKER_MATRIX] for quick access.
 GLOBAL_LIST_INIT(em_blocker_matrix, EM_BLOCKER_MATRIX)
 
