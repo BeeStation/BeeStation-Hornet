@@ -86,13 +86,3 @@
 			units_total += container.reagents?.get_reagent_amount(target_chemical)
 	return units_total >= target_amount
 
-/datum/objective/crew/noinfections/check_completion()
-	if(..())
-		return TRUE
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
-		if(H.stat == DEAD || (!is_station_level(H.z) && !SSshuttle.emergency.shuttle_areas[get_area(H)]))
-			continue
-		for(var/datum/disease/D as anything in H.diseases)
-			if(get_disease_danger_value(D.danger) >= 6) // >= DISEASE_HARMFUL
-				return FALSE
-	return TRUE
