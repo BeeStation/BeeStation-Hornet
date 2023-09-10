@@ -42,7 +42,7 @@
 	can_suppress = FALSE
 	casing_ejector = FALSE
 	internal_magazine = TRUE
-	bolt_type = BOLT_TYPE_NO_BOLT
+	bolt_type = BOLT_TYPE_NO_BOLT //Functionally a double-barrel shotgun
 	tac_reloads = FALSE
 	fire_sound_volume = 60
 	spread = 20 //Innate spread of 20 degrees, 40 spread while unwielded; same as Stechkin

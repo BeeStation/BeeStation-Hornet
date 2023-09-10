@@ -264,11 +264,11 @@
 				playsound(src, hitsound, volume, TRUE, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 					"<span class='userdanger'>You're hit by \a [src][organ_hit_text]!</span>", null, COMBAT_MESSAGE_RANGE)
-		if(shrapnel_type != null)
-			var/obj/item/S = new shrapnel_type
-			L.hitby(S)
+		if(shrapnel_type != null) //Check if projectile CAN shrapnel
+			var/obj/item/S = new shrapnel_type //If it can, generate shrapnel in null space
+			L.hitby(S, TRUE) //Proc 'hitby' to allow embedding behavior to work properly, skip catching
 			if(S.loc == null)
-				qdel(S)
+				qdel(S) //If it fails to embed, delete it
 		L.on_hit(src)
 
 	var/reagent_note
