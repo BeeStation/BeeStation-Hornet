@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: Holocall runechat will not show sayer mods (xx says part)
