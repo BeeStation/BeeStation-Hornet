@@ -659,15 +659,10 @@
 
 /datum/quirk/alcoholic/on_spawn()
 	var/client/C = GLOB.directory[ckey(quirk_holder.key)]
-	message_admins("ckey is [C]")
 	if(C)
-		message_admins("doing customized, drink is [C.prefs.read_character_preference(/datum/preference/choiced/quirk_alcohol_type)]")
 		drink_instance = C.prefs.read_character_preference(/datum/preference/choiced/quirk_alcohol_type)
-		message_admins("drink instance [drink_instance]")
 	else
-		message_admins("fallback to normal")
 		drink_instance = pick(drink_types)
-		message_admins("drink instance [drink_instance]")
 	drink_instance = new drink_instance()
 	var/list/slots = list("in your backpack" = ITEM_SLOT_BACKPACK)
 	var/mob/living/carbon/human/H = quirk_target
