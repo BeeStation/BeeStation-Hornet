@@ -20,10 +20,14 @@
 		return
 	if(can_buckle && has_buckled_mobs())
 		if(buckled_mobs.len > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
-			return user_unbuckle_mob(unbuckled,user)
+			var/mob/living/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle", sort_names(buckled_mobs))
+			if(isnull(unbuckled))
+				return
+			if(user_unbuckle_mob(unbuckled,user))
+				return TRUE
 		else
-			return user_unbuckle_mob(buckled_mobs[1], user)
+			if(user_unbuckle_mob(buckled_mobs[1],user))
+				return TRUE
 
 /atom/movable/attackby(obj/item/W, mob/user, params)
 	if(!can_buckle || !istype(W, /obj/item/riding_offhand) || !user.Adjacent(src))
@@ -36,6 +40,20 @@
 	user.unbuckle_mob(carried_mob)
 	carried_mob.forceMove(get_turf(src))
 	return mouse_buckle_handling(carried_mob, user)
+
+//literally just the above extension of attack_hand(), but for silicons instead (with an adjacency check, since attack_robot() being called doesn't mean that you're adjacent to something)
+/atom/movable/attack_robot(mob/living/user)
+	. = ..()
+	if(.)
+		return
+	if(Adjacent(user) && can_buckle && has_buckled_mobs())
+		if(length(buckled_mobs) > 1)
+			var/mob/living/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle", sort_names(buckled_mobs))
+			if(isnull(unbuckled))
+				return
+			return user_unbuckle_mob(unbuckled,user)
+		else
+			return user_unbuckle_mob(buckled_mobs[1], user)
 
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
