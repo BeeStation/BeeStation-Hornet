@@ -111,7 +111,7 @@
 
 /atom/movable/screen/plane_master/lighting/Initialize(mapload)
 	. = ..()
-	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET))
+	add_filter("emissives", 1, layering_filter(render_source = EMISSIVE_RENDER_TARGET, blend_mode = BLEND_ADD))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
 
 /**
@@ -150,6 +150,10 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = EMISSIVE_RENDER_TARGET
 	render_relay_plane = null
+
+/atom/movable/screen/plane_master/emissive/backdrop(mob/mymob)
+	. = ..()
+	mymob.overlay_fullscreen("emissive_backdrop", /atom/movable/screen/fullscreen/lighting_backdrop/emissive_backdrop)
 
 /atom/movable/screen/plane_master/above_lighting
 	name = "above lighting plane master"

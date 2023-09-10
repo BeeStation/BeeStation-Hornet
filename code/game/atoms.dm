@@ -1156,6 +1156,11 @@
 
 	. = ..()
 
+	// Check for appearance updates
+	var/static/list/appearance_updaters = list("layer", "plane", "alpha", "icon", "icon_state", "name", "desc", "blocks_emissive", "appearance_flags")
+	if (var_name in appearance_updaters)
+		update_appearance()
+
 	switch(var_name)
 		if(NAMEOF(src, color))
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
