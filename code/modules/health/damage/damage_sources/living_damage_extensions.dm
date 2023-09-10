@@ -12,4 +12,6 @@
 /// Perform the mobs default attack protocols (punching/biting/whatever)
 /// Returns the amount of damage dealt
 /mob/living/proc/deal_generic_attack(atom/target)
+	apply_damage_old(rand(3), BRUTE, affecting)
+	//TODO
 	return FALSE

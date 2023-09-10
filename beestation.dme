@@ -2586,6 +2586,7 @@
 #include "code\modules\health\damage\systemic_damage\armour_penetration.dm"
 #include "code\modules\health\damage\systemic_damage\calculate_armour.dm"
 #include "code\modules\health\damage\systemic_damage\locate_target.dm"
+#include "code\modules\health\damage\systemic_damage\on_damage.dm"
 #include "code\modules\holiday\easter.dm"
 #include "code\modules\holiday\holidays.dm"
 #include "code\modules\holodeck\area_copy.dm"

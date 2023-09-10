@@ -53,8 +53,7 @@ In all, this is a lot like the monkey code. /N
 	if(!..())
 		return
 	if(stat != DEAD)
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
-		apply_damage_old(rand(3), BRUTE, affecting)
+		M.deal_generic_attack(src)
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.
