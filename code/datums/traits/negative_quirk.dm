@@ -426,8 +426,11 @@
 	var/slot_string = "limb"
 
 /datum/quirk/prosthetic_limb/on_spawn()
-	var/limb_slot = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/limb_slot = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) // default to random
 	var/mob/living/carbon/human/H = quirk_target
+	var/client/C = GLOB.directory[ckey(quirk_holder.key)] // this was the only way I could find to get the client during on_spawn()
+	if(C)
+		limb_slot = C.prefs.read_character_preference(/datum/preference/choiced/quirk_prosthetic_limb_location)
 	var/obj/item/bodypart/old_part = H.get_bodypart(limb_slot)
 	var/obj/item/bodypart/prosthetic
 	switch(limb_slot)
@@ -542,7 +545,11 @@
 /datum/quirk/junkie/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	if (!reagent_type)
-		reagent_type = pick(drug_list)
+		var/client/C = GLOB.directory[ckey(quirk_holder.key)]
+		if(C)
+			reagent_type = C.prefs.read_character_preference(/datum/preference/choiced/quirk_junkie_drug)
+		else
+			reagent_type = pick(drug_list)
 	reagent_instance = new reagent_type()
 	H.reagents.addiction_list.Add(reagent_instance)
 	var/current_turf = get_turf(quirk_target)
@@ -602,7 +609,11 @@
 	process = TRUE
 
 /datum/quirk/junkie/smoker/on_spawn()
-	drug_container_type = pick(/obj/item/storage/fancy/cigarettes,
+	var/client/C = GLOB.directory[ckey(quirk_holder.key)]
+	if(C)
+		drug_container_type = C.prefs.read_character_preference(/datum/preference/choiced/quirk_smoker_cigarettes)
+	else
+		drug_container_type = pick(/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/fancy/cigarettes/cigpack_midori,
 		/obj/item/storage/fancy/cigarettes/cigpack_uplift,
 		/obj/item/storage/fancy/cigarettes/cigpack_robust,
@@ -647,7 +658,16 @@
 	var/obj/item/reagent_containers/food/drinks/bottle/drink_instance
 
 /datum/quirk/alcoholic/on_spawn()
-	drink_instance = pick(drink_types)
+	var/client/C = GLOB.directory[ckey(quirk_holder.key)]
+	message_admins("ckey is [C]")
+	if(C)
+		message_admins("doing customized, drink is [C.prefs.read_character_preference(/datum/preference/choiced/quirk_alcohol_type)]")
+		drink_instance = C.prefs.read_character_preference(/datum/preference/choiced/quirk_alcohol_type)
+		message_admins("drink instance [drink_instance]")
+	else
+		message_admins("fallback to normal")
+		drink_instance = pick(drink_types)
+		message_admins("drink instance [drink_instance]")
 	drink_instance = new drink_instance()
 	var/list/slots = list("in your backpack" = ITEM_SLOT_BACKPACK)
 	var/mob/living/carbon/human/H = quirk_target
@@ -708,7 +728,11 @@
 	var/trauma
 
 /datum/quirk/trauma/add()
-	trauma = new trauma_type
+	var/client/C = GLOB.directory[ckey(quirk_holder.key)]
+	if(C)
+		trauma = new trauma_type(C.prefs.read_character_preference(/datum/preference/choiced/quirk_phobia))
+	else
+		trauma = new trauma_type
 	var/mob/living/carbon/human/H = quirk_target
 	H.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 

@@ -139,7 +139,10 @@
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
 /datum/quirk/multilingual/add()
-	if(!known_language)
+	var/client/C = GLOB.directory[ckey(quirk_holder.key)]
+	if(C)
+		known_language = C.prefs.read_character_preference(/datum/preference/choiced/quirk_multilingual_language)
+	if(!known_language) // default to random
 		set_up_language()
 	var/datum/language_holder/LH = quirk_holder.get_language_holder()
 	LH.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)

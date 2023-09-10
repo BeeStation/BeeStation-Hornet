@@ -45,3 +45,19 @@
 #define LANGUAGE_REAGENT "reagent"
 #define LANGUAGE_MULTILINGUAL "multilingual"
 #define LANGUAGE_EMP "emp"
+
+// Languages available from Multilingual
+#define AVAILABLE_MULTILINGIAL_LANGUAGES_LIST list(\
+		/datum/language/apidite,\
+		/datum/language/beachbum,\
+		/datum/language/buzzwords,\
+		/datum/language/calcic,\
+		/datum/language/draconic,\
+		/datum/language/moffic,\
+		/datum/language/monkey,\
+		/datum/language/piratespeak,\
+		/datum/language/shadowtongue,\
+		/datum/language/slime,\
+		/datum/language/sylvan,\
+		/datum/language/terrum,\
+		/datum/language/uncommon)

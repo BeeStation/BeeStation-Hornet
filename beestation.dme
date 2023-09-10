@@ -2229,6 +2229,7 @@
 #include "code\modules\client\preferences\entries\character\jobless_role.dm"
 #include "code\modules\client\preferences\entries\character\names.dm"
 #include "code\modules\client\preferences\entries\character\pda.dm"
+#include "code\modules\client\preferences\entries\character\quirkoptions.dm"
 #include "code\modules\client\preferences\entries\character\random.dm"
 #include "code\modules\client\preferences\entries\character\security_department.dm"
 #include "code\modules\client\preferences\entries\character\skin_tone.dm"
