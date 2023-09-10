@@ -153,7 +153,7 @@
 
 /obj/item/bedsheet/medical
 	name = "medical blanket"
-	desc = "It's a sterilized* blanket commonly used in the Medbay.  <i>*Sterilization is voided if a virologist is present onboard the station.</i>"
+	desc = "It's a sterilized* blanket commonly used in the Medbay.  <i>*Sterilization if someone is working in virology.</i>"
 	icon_state = "sheetmedical"
 	item_state = "sheetmedical"
 	dream_messages = list("healing", "life", "surgery", "a doctor")
@@ -398,7 +398,7 @@
 	icon_state = "double_sheetmedical"
 	item_state = "sheetmedical"
 	dream_messages = list("healing", "life", "surgery", "a doctor")
-	desc = "It's a sterilized* blanket commonly used in the Medbay.  <i>*Sterilization is voided if a virologist is present onboard the station.</i>"
+	desc = "It's a sterilized* blanket commonly used in the Medbay.  <i>*Sterilization is voided if someone is working in virology.</i>"
 
 /obj/item/bedsheet/double/cmo
 	name = "double chief medical officer's bedsheet"

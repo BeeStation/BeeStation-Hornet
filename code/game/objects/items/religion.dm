@@ -102,7 +102,7 @@
 	item_state = "banner_medical"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_CHIEFMEDICALOFFICER)
+	job_loyalties = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_PARAMEDIC, JOB_NAME_CHIEFMEDICALOFFICER)
 	warcry = "No wounds cannot be healed!"
 
 /obj/item/banner/medical/mundane

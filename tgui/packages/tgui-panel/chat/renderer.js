@@ -102,7 +102,6 @@ const formatHighContrast = (inputHtml) => {
     'shaftminer',
     'explorationcrew',
     'stationengineer',
-    'virologist',
     'warden',
     'centcom',
     'prisoner',

@@ -199,8 +199,6 @@
 				heirloom_type = pick(/obj/item/bodybag)
 			if(JOB_NAME_CHEMIST)
 				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
-			if(JOB_NAME_VIROLOGIST)
-				heirloom_type = /obj/item/reagent_containers/dropper
 			if(JOB_NAME_GENETICIST)
 				heirloom_type = /obj/item/clothing/under/shorts/purple
 			//Engineering

@@ -2170,7 +2170,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			At least. thats what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
 	cost = 12
-	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
+	restricted_roles = list(JOB_NAME_CHAPLAIN)
 
 /datum/uplink_item/role_restricted/retrovirus
 	name = "Retrovirus Culture Bottle"
@@ -2178,7 +2178,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/retrovirus
 	cost = 12
-	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
+	restricted_roles = list(JOB_NAME_GENETICIST)
 
 /datum/uplink_item/role_restricted/anxiety
 	name = "Anxiety Culture Bottle"
@@ -2186,7 +2186,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			At least, that's what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/anxiety
 	cost = 4
-	restricted_roles = list(JOB_NAME_VIROLOGIST)
+	restricted_roles = list(JOB_NAME_MEDICALDOCTOR)
 
 /datum/uplink_item/role_restricted/explosive_hot_potato
 	name = "Exploding Hot Potato"

@@ -408,22 +408,6 @@
 		/obj/item/clothing/gloves/color/yellow = 4,
 	)
 
-//VIROLOGIST
-/datum/job/virologist
-	mail_goodies = list(
-		/obj/item/reagent_containers/syringe/used = 15,
-		//keep your workplace clean, please.
-		/obj/item/reagent_containers/spray/cleaner = 15,
-		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
-		/obj/item/reagent_containers/glass/bottle/formaldehyde = 10,
-		/obj/item/reagent_containers/glass/bottle/random_virus/minor = 10,
-		/obj/item/reagent_containers/glass/bottle/random_virus = 5,
-		/obj/item/stock_parts/scanning_module/phasic = 5,
-		//hampter.
-		/obj/item/choice_beacon/pet/hamster = 5,
-
-	)
-
 //VIP / VIP GIMMICK
 /datum/job/gimmick/vip
 	mail_goodies = list(

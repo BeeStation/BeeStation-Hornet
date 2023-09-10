@@ -300,8 +300,8 @@
 	item_state = "satchel-med"
 
 /obj/item/storage/backpack/satchel/vir
-	name = "virologist satchel"
-	desc = "A sterile satchel with virologist colours."
+	name = "virology satchel"
+	desc = "A sterile satchel with virology colours."
 	icon_state = "satchel-vir"
 	item_state = "satchel-vir"
 

@@ -1793,7 +1793,7 @@
 
 /datum/supply_pack/medical/virology
 	name = "Junior Epidemiology Kit"
-	desc = "Contains the necessary supplies to start an epidemiological research lab. P.A.N.D.E.M.I.C. not included. Comes with a free virologist action figure!"
+	desc = "Contains the necessary supplies to start an epidemiological research lab. P.A.N.D.E.M.I.C. not included."
 	cost = 1500
 	max_supply = 4
 	access = ACCESS_VIROLOGY
@@ -1802,8 +1802,7 @@
 					/obj/item/reagent_containers/glass/bottle/mutagen,
 					/obj/item/reagent_containers/glass/bottle/formaldehyde,
 					/obj/item/reagent_containers/glass/bottle/synaptizine,
-					/obj/item/storage/box/beakers,
-					/obj/item/toy/figure/virologist)
+					/obj/item/storage/box/beakers,)
 	crate_name = "Junior Epidemiology Kit"
 	dangerous = TRUE
 

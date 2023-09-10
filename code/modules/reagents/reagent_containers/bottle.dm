@@ -382,7 +382,7 @@
 /obj/item/reagent_containers/glass/bottle/necropolis_seed
 	name = "bowl of blood"
 	label_name = "blood"
-	desc = "A clay bowl containing a fledgling Necropolis, preserved in blood. A robust virologist may be able to unlock its full potential..."
+	desc = "A clay bowl containing a fledgling Necropolis, preserved in blood. A robust medical staff may be able to unlock its full potential..."
 	icon_state = "mortar"
 	spawned_disease = /datum/disease/advance/random/necropolis
 	label_icon = null

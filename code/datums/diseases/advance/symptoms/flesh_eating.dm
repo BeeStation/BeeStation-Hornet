@@ -104,7 +104,7 @@ Bonus
 /datum/symptom/flesh_death
 
 	name = "Autophagocytosis Necrosis"
-	desc = "The virus rapidly consumes infected cells, leading to heavy and widespread damage. Contains dormant prions- expert virologists believe it to be the precursor to Romerol, though the mechanism through which they are activated is largely unknown"
+	desc = "The virus rapidly consumes infected cells, leading to heavy and widespread damage. Contains dormant prions- expert epidemiologists believe it to be the precursor to Romerol, though the mechanism through which they are activated is largely unknown"
 	stealth = -2
 	resistance = -2
 	stage_speed = 1

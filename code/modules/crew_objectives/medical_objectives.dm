@@ -86,10 +86,6 @@
 			units_total += container.reagents?.get_reagent_amount(target_chemical)
 	return units_total >= target_amount
 
-/datum/objective/crew/noinfections
-	explanation_text = "Make sure there are no living crew members with harmful diseases at the end of the shift."
-	jobs = JOB_NAME_VIROLOGIST
-
 /datum/objective/crew/noinfections/check_completion()
 	if(..())
 		return TRUE

@@ -22308,7 +22308,6 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "eaM" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 4
 	},
@@ -26918,11 +26917,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/nanite)
-"gwt" = (
-/obj/structure/closet/emcloset,
-/obj/item/toy/figure/virologist,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "gxm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -46114,7 +46108,6 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
@@ -56239,7 +56232,6 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
@@ -101779,7 +101771,7 @@ tsY
 bNd
 bNd
 vJz
-gwt
+clf
 cfj
 qwH
 cmZ

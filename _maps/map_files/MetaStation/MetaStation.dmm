@@ -28812,7 +28812,6 @@
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "dle" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 1
 	},
@@ -30722,7 +30721,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -36326,7 +36324,6 @@
 /area/maintenance/starboard/fore)
 "gpX" = (
 /obj/structure/closet/l3closet/virology,
-/obj/item/toy/figure/virologist,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -43365,7 +43362,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/shuttledock)
 "jqv" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 4
 	},

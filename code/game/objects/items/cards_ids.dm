@@ -1111,12 +1111,6 @@ update_label("John Doe", "Clowny")
 	assignment = JOB_NAME_PARAMEDIC
 	hud_state = JOB_HUD_PARAMEDIC
 
-/obj/item/card/id/job/virologist
-	name = "Job card (Med) - Virologist"
-	icon_state = "viro"
-	assignment = JOB_NAME_VIROLOGIST
-	hud_state = JOB_HUD_VIROLOGIST
-
 /obj/item/card/id/job/chemist
 	name = "Job card (Med) - Chemist"
 	icon_state = "chemist"

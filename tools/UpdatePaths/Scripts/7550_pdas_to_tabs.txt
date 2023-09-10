@@ -25,7 +25,6 @@
 /obj/item/pda : /obj/item/modular_computer/tablet/pda
 /obj/item/pda/medical : /obj/item/modular_computer/tablet/pda/medical
 /obj/item/pda/paramedic : /obj/item/modular_computer/tablet/pda/paramedic
-/obj/item/pda/virologist : /obj/item/modular_computer/tablet/pda/virologist
 /obj/item/pda/engineering : /obj/item/modular_computer/tablet/pda/engineering
 /obj/item/pda/security : /obj/item/modular_computer/tablet/pda/security
 /obj/item/pda/detective : /obj/item/modular_computer/tablet/pda/detective

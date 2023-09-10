@@ -52608,7 +52608,6 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "rcs" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -53671,7 +53670,6 @@
 /turf/open/floor/plasteel,
 /area/science/shuttle)
 "rtL" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
 	dir = 1
 	},
@@ -67810,7 +67808,6 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "wbI" = (
-/obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
