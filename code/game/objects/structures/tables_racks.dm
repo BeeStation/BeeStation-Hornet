@@ -19,7 +19,7 @@
 	icon = 'icons/obj/smooth_structures/tables/table.dmi'
 	icon_state = "table-0"
 	base_icon_state = "table"
-	plane = GAME_PLANE_NON_INTEGRAL
+	//TODO: plane = GAME_PLANE_NON_INTEGRAL
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_TABLES)
