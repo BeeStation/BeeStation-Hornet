@@ -1,3 +1,5 @@
+#define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
+
 //Largely negative status effects go here, even if they have small benificial effects
 //STUN EFFECTS
 /datum/status_effect/incapacitating
@@ -20,10 +22,21 @@
 	owner.update_mobility()
 	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
 		owner.update_stat()
+	return ..()
 
 //STUN
 /datum/status_effect/incapacitating/stun
 	id = "stun"
+
+/datum/status_effect/incapacitating/stun/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/stun/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	return ..()
 
 //KNOCKDOWN
 /datum/status_effect/incapacitating/knockdown
@@ -36,10 +49,30 @@
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
 
+/datum/status_effect/incapacitating/paralyzed/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/paralyzed/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
 //UNCONSCIOUS
 /datum/status_effect/incapacitating/unconscious
 	id = "unconscious"
 	needs_update_stat = TRUE
+
+/datum/status_effect/incapacitating/unconscious/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/unconscious/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	return ..()
 
 /datum/status_effect/incapacitating/unconscious/tick()
 	if(owner.getStaminaLoss())
@@ -94,43 +127,55 @@
 	icon_state = "asleep"
 
 //STASIS
-/datum/status_effect/incapacitating/stasis
-        id = "stasis"
-        duration = -1
-        tick_interval = 10
-        alert_type = /atom/movable/screen/alert/status_effect/stasis
-        var/last_dead_time
+/datum/status_effect/grouped/stasis
+	id = "stasis"
+	duration = -1
+	tick_interval = 10
+	alert_type = /atom/movable/screen/alert/status_effect/stasis
+	var/last_dead_time
 
-/datum/status_effect/incapacitating/stasis/proc/update_time_of_death()
-        if(last_dead_time)
-                var/delta = world.time - last_dead_time
-                var/new_timeofdeath = owner.timeofdeath + delta
-                owner.timeofdeath = new_timeofdeath
-                owner.tod = station_time_timestamp(wtime=new_timeofdeath)
-                last_dead_time = null
-        if(owner.stat == DEAD)
-                last_dead_time = world.time
+/datum/status_effect/grouped/stasis/proc/update_time_of_death()
+	if(last_dead_time)
+		var/delta = world.time - last_dead_time
+		var/new_timeofdeath = owner.timeofdeath + delta
+		owner.timeofdeath = new_timeofdeath
+		owner.tod = station_time_timestamp(wtime=new_timeofdeath)
+		last_dead_time = null
+	if(owner.stat == DEAD)
+		last_dead_time = world.time
 
-/datum/status_effect/incapacitating/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
-        . = ..()
-        update_time_of_death()
-        owner.reagents?.end_metabolization(owner, FALSE)
+/datum/status_effect/grouped/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+	. = ..()
+	if(.)
+		update_time_of_death()
+		owner.reagents?.end_metabolization(owner, FALSE)
+		owner.update_mobility()
 
-/datum/status_effect/incapacitating/stasis/tick()
-        update_time_of_death()
+/* Mobility refactor
+/datum/status_effect/grouped/stasis/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+*/
 
-/datum/status_effect/incapacitating/stasis/on_remove()
-        update_time_of_death()
-        return ..()
+/datum/status_effect/grouped/stasis/tick()
+	update_time_of_death()
 
-/datum/status_effect/incapacitating/stasis/be_replaced()
-        update_time_of_death()
-        return ..()
+/datum/status_effect/grouped/stasis/on_remove()
+	/* Mobility refactor
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	*/
+	owner.update_mobility()
+	update_time_of_death()
+	return ..()
 
 /atom/movable/screen/alert/status_effect/stasis
-        name = "Stasis"
-        desc = "Your biological functions have halted. You could live forever this way, but it's pretty boring."
-        icon_state = "stasis"
+	name = "Stasis"
+	desc = "Your biological functions have halted. You could live forever this way, but it's pretty boring."
+	icon_state = "stasis"
 
 //GOLEM GANG
 
@@ -493,7 +538,7 @@
 	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
 	playsound(spawn_turf, 'sound/effects/curse2.ogg', 80, 1, -1)
 	var/turf/ownerloc = get_turf(owner)
-	var/obj/item/projectile/curse_hand/C = new (spawn_turf)
+	var/obj/projectile/curse_hand/C = new (spawn_turf)
 	C.preparePixelProjectile(ownerloc, spawn_turf)
 	C.fire()
 
@@ -1023,7 +1068,7 @@
 				var/spawns = rand(1, 3 + (adult * 3))
 				for(var/I in 1 to (spawns + spawnbonus))
 					var/mob/living/simple_animal/hostile/redgrub/grub = new(S.loc)
-					grub.grubdisease = diseases
+					grub.grub_diseases |= diseases
 					grub.food += 15
 				playsound(S, 'sound/effects/attackblob.ogg', 60, 1)
 				S.visible_message("<span class='warning'>[S] is eaten from the inside by [spawns] red grubs, leaving no trace!</span>")
@@ -1106,6 +1151,35 @@
 /datum/status_effect/cloudstruck/Destroy()
 	. = ..()
 	QDEL_NULL(mob_overlay)
+
+/datum/status_effect/smoke
+	id = "smoke"
+	duration = -1
+	tick_interval = 10
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/smoke
+
+/datum/status_effect/smoke/on_apply()
+	owner.add_movespeed_modifier(MOVESPEED_ID_SMOKE, multiplicative_slowdown=1.5)
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(check_deletion))
+	return TRUE
+
+/datum/status_effect/smoke/on_remove()
+	owner.remove_movespeed_modifier(MOVESPEED_ID_SMOKE)
+
+/datum/status_effect/smoke/tick()
+	check_deletion()
+
+/datum/status_effect/smoke/proc/check_deletion()
+	SIGNAL_HANDLER
+	var/turf/location = get_turf(owner)
+	if (!(locate(/obj/effect/particle_effect/smoke) in location))
+		qdel(src)
+
+/atom/movable/screen/alert/status_effect/smoke
+	name = "Smoke"
+	desc = "There is a thick cloud of smoke here, breathing it could have consequences!"
+	icon_state = "smoke"
 
 /datum/status_effect/ling_transformation
 	id = "ling_transformation"

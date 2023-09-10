@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 #define ishumanbasic(A) (is_species(A, /datum/species/human) && !is_species(A, /datum/species/human/krokodil_addict))
-#define iscatperson(A) (ishumanbasic(A) && istype(A.dna.species, /datum/species/human/felinid) )
+#define iscatperson(A) (is_species(A, /datum/species/human/felinid) )
 #define isethereal(A) (is_species(A, /datum/species/ethereal))
 #define isvampire(A) (is_species(A,/datum/species/vampire))
 #define isipc(A) (is_species(A, /datum/species/ipc))
@@ -262,7 +262,7 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 
 #define isbodypart(A) (istype(A, /obj/item/bodypart))
 
-#define isprojectile(A) (istype(A, /obj/item/projectile))
+#define isprojectile(A) (istype(A, /obj/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
 

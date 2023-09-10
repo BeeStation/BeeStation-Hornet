@@ -778,8 +778,6 @@
 	)
 	design_ids = list(
 		"assembly_shell",
-		"bci_implanter",
-		"bci_shell",
 		"bot_shell",
 		"controller_shell",
 		"door_shell",
@@ -788,6 +786,25 @@
 		"scanner_shell",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/bci_shells
+	id = "bci_shells"
+	tech_tier = 2
+	display_name = "Brain-Computer Interfaces"
+	description = "Grants access to biocompatable shell designs and components."
+	prereq_ids = list("adv_shells")
+	design_ids = list(
+		"bci_implanter",
+		"bci_shell",
+		"comp_bci_action",
+		"comp_bar_overlay",
+		"comp_counter_overlay",
+		"comp_object_overlay",
+		"comp_target_intercept",
+		"comp_thought_listener",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500)
+
 
 /datum/techweb_node/movable_shells_tech
 	id = "movable_shells"
@@ -1575,6 +1592,25 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
+/datum/techweb_node/atmos_packpack_efficiency_upgrade
+	id = "atmos_packpack_efficiency_upgrade"
+	tech_tier = 2
+	display_name = "Backpack Firefighter Tank Efficiency Upgrade Design"
+	description = "Unlocks a new design that improves the backpack firefighter tanks."
+	design_ids = list("bft_upgrade_efficiency")
+	prereq_ids = list("engineering")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	export_price = 5000
+
+/datum/techweb_node/atmos_packpack_smartfoam_upgrade
+	id = "atmos_packpack_smartfoam_upgrade"
+	tech_tier = 4
+	display_name = "Backpack Firefighter Tank Efficiency Upgrade Design"
+	description = "Unlocks a new design that improves the backpack firefighter tanks."
+	design_ids = list("bft_upgrade_smartfoam")
+	prereq_ids = list("adv_engi", "atmos_packpack_efficiency_upgrade")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
 
 /////////////////////////weaponry tech/////////////////////////
 /datum/techweb_node/landmine

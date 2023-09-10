@@ -153,7 +153,7 @@
   */
 /atom/New(loc, ...)
 	//atom creation method that preloads variables at creation
-	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
+	if(GLOB.use_preloader && src.type == GLOB._preloader_path)//in case the instanciated atom is creating other atoms in New()
 		world.preloader_load(src)
 
 	if(datum_flags & DF_USE_TAG)
@@ -231,10 +231,14 @@
 	InitializeAIController()
 
 	if(length(smoothing_groups))
-		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		#ifdef UNIT_TESTS
+		assert_sorted(smoothing_groups, "[type].smoothing_groups")
+		#endif
 		SET_BITFLAG_LIST(smoothing_groups)
 	if(length(canSmoothWith))
-		sortTim(canSmoothWith)
+		#ifdef UNIT_TESTS
+		assert_sorted(canSmoothWith, "[type].canSmoothWith")
+		#endif
 		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
@@ -281,7 +285,9 @@
 
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
-	LAZYCLEARLIST(overlays)
+	// Checking length(overlays) before cutting has significant speed benefits
+	if (length(overlays))
+		overlays.Cut()
 	LAZYNULL(managed_overlays)
 
 	QDEL_NULL(light)
@@ -295,7 +301,7 @@
 
 	return ..()
 
-/atom/proc/handle_ricochet(obj/item/projectile/P)
+/atom/proc/handle_ricochet(obj/projectile/P)
 	var/turf/p_turf = get_turf(P)
 	var/face_direction = get_dir(src, p_turf)
 	var/face_angle = dir2angle(face_direction)
@@ -531,7 +537,7 @@
  * def_zone - zone hit
  * piercing_hit - is this hit piercing or normal?
  */
-/atom/proc/bullet_act(obj/item/projectile/P, def_zone, piercing_hit = FALSE)
+/atom/proc/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone, piercing_hit)
 
@@ -953,13 +959,17 @@
 	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
 
 /**
-  * Respond to our atom being checked by a virus extrapolator
+  * Respond to our atom being checked by a virus extrapolator.
   *
-  * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return FALSE
+  * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return an empty list (which may be populated by the signal)
+  *
+  * Returns a list of viruses in the atom.
+  * Include EXTRAPOLATOR_SPECIAL_HANDLED in the list if the extrapolation act has been handled by this proc or a signal, and should not be handled by the extrapolator itself.
   */
-/atom/proc/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	SEND_SIGNAL(src,COMSIG_ATOM_EXTRAPOLATOR_ACT, user, E, scan)
-	return FALSE
+/atom/proc/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = list(EXTRAPOLATOR_RESULT_DISEASES = list())
+	SEND_SIGNAL(src, COMSIG_ATOM_EXTRAPOLATOR_ACT, user, extrapolator, dry_run, .)
+
 /**
   * Implement the behaviour for when a user click drags a storage object to your atom
   *
@@ -1386,14 +1396,6 @@
 ///Multitool act
 /atom/proc/multitool_act(mob/living/user, obj/item/I)
 	return
-
-///Check if the multitool has an item in it's data buffer
-/atom/proc/multitool_check_buffer(user, obj/item/I, silent = FALSE)
-	if(!istype(I, /obj/item/multitool))
-		if(user && !silent)
-			to_chat(user, "<span class='warning'>[I] has no data buffer!</span>")
-		return FALSE
-	return TRUE
 
 ///Screwdriver act
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)

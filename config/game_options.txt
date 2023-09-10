@@ -249,7 +249,7 @@ SECURITY_SCALING_COEFF 10
 
 ## The number of objectives traitors get.
 ## Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 3
+TRAITOR_OBJECTIVES_AMOUNT 2
 BROTHER_OBJECTIVES_AMOUNT 2
 
 ## Uncomment to prohibit jobs that start with loyalty
@@ -492,30 +492,40 @@ ROUNDSTART_RACES lizard
 ROUNDSTART_RACES moth
 #ROUNDSTART_RACES fly
 
-
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES apid
 ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES ipc
 ROUNDSTART_RACES oozeling
 ROUNDSTART_RACES plasmaman
-#ROUNDSTART_RACES abductor
+
+## Golems
+## ----------------
+
 #ROUNDSTART_RACES adamantine_golem
 #ROUNDSTART_RACES diamond_golem
 #ROUNDSTART_RACES gold_golem
 #ROUNDSTART_RACES iron_golem
-#ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES plasma_golem
-#ROUNDSTART_RACES shadow
 #ROUNDSTART_RACES silver_golem
 #ROUNDSTART_RACES uranium_golem
 
-## Races that are straight upgrades. If these are on expect powergamers to always pick them
-#ROUNDSTART_RACES agent
-#ROUNDSTART_RACES pod
+## Halloween races
+## ----------------
+
+#ROUNDSTART_RACES abductor
+#ROUNDSTART_RACES shadow
+#ROUNDSTART_RACES dullahan
+#ROUNDSTART_RACES pumpkin_man
+#ROUNDSTART_RACES vampire
+
+## OP Halloween races:
 #ROUNDSTART_RACES skeleton
-#ROUNDSTART_RACES slime
 #ROUNDSTART_RACES zombie
+
+## Races that are straight upgrades. If these are on expect powergamers to always pick them
+#ROUNDSTART_RACES pod
+
 
 ## Roundstart no-reset races
 ##-------------------------------------------------------------------------------------------
@@ -646,3 +656,6 @@ SPARE_ENFORCE_COC
 
 ## Uncomment to disable local bans, effectively enforcing only global bans
 DISABLE_LOCAL_BANS
+
+## Comment this to disable roundstart lights being turned off in non-staffed departments
+#DARK_UNSTAFFED_DEPARTMENTS

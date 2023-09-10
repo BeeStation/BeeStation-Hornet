@@ -66,6 +66,10 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	check_if_natural()
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
 
+	// Give random dormant diseases to roundstart monkeys.
+	if(mapload)
+		give_random_dormant_disease(30, min_symptoms = 1, max_symptoms = 3)
+
 /mob/living/carbon/monkey/proc/check_if_natural()
 	for(var/datum/mutation/race/monke in dna.mutations)
 		if(natural)
@@ -184,6 +188,11 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
 
+/mob/living/carbon/monkey/IsAdvancedToolUser()
+	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED)) //Obtainable with Brain trauma
+		return FALSE
+	return TRUE //Something about an infinite amount of monkeys on typewriters writing Shakespeare...
+
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
 
@@ -247,7 +256,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /obj/item/organ/brain/tumor
 	name = "teratoma brain"
 
-/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer)
+/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load = FALSE)
 	. = ..()
 	//Removing it deletes it
 	if(!QDELETED(src))

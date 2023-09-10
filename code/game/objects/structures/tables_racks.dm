@@ -556,13 +556,16 @@
 	var/mob/living/carbon/human/patient = null
 	var/obj/machinery/computer/operating/computer = null
 
-/obj/structure/table/optable/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/structure/table/optable/LateInitialize()
+/obj/structure/table/optable/Initialize()
 	. = ..()
 	initial_link()
+
+/obj/structure/table/optable/examine(mob/user)
+	. = ..()
+	if(computer)
+		. += "<span class='notice'>[src] is <b>linked</b> to an operating computer to the [dir2text(get_dir(src, computer))].</span>"
+	else
+		. += "<span class='notice'>[src] is <b>NOT linked</b> to an operating computer.</span>"
 
 /obj/structure/table/optable/proc/initial_link()
 	if(!QDELETED(computer))

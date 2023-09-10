@@ -334,11 +334,10 @@
 	return FALSE
 
 /obj/structure/closet/crate/capsule/insertion_allowed(atom/movable/AM)
-	if(isitem(AM))
-		var/obj/item/I = AM
-		if(I.w_class >= WEIGHT_CLASS_BULKY) //capsule pod can't hold bulky or larger objects
-			return FALSE
-	if(ismob(AM)) //capsule pod can't hold mobs
+	if(!isitem(AM))
+		return FALSE //Capsule pod can only hold items, not mobs, structures or otherwise
+	var/obj/item/I = AM
+	if(I.w_class >= WEIGHT_CLASS_BULKY) //capsule pod can't hold bulky or larger objects
 		return FALSE
 	return ..()
 
@@ -354,7 +353,7 @@
 
 /obj/structure/closet/crate/capsule/proc/compress()
 	visible_message("<span class='notice'>[src] compresses back into a small capsule!.</span>")
-	var/obj/item/deployable/capsule/C = new(loc)
+	var/obj/item/bluespace_capsule/C = new(loc)
 	for(var/atom/movable/A in contents)
 		A.forceMove(C)
 	qdel(src)

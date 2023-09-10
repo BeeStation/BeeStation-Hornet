@@ -317,7 +317,7 @@
 	icon_state = "catwalk_clockwork-0"
 	base_icon_state = "catwalk_clockwork"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_OPEN_FLOOR)
+	smoothing_groups = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_LATTICE)
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)

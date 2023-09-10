@@ -87,7 +87,7 @@ Class Procs:
 	verb_say = "beeps"
 	verb_yell = "blares"
 	pressure_resistance = 15
-	pass_flags_self = PASSMACHINE
+	pass_flags_self = PASSMACHINE | LETPASSCLICKS
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER //keeps shit coming out of the machine from ending up underneath it.
 	flags_ricochet = RICOCHET_HARD
@@ -413,6 +413,14 @@ Class Procs:
 /obj/machinery/attack_robot(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
+	if(Adjacent(user) && can_buckle && has_buckled_mobs()) //so that borgs (but not AIs, sadly (perhaps in a future PR?)) can unbuckle people from machines
+		if(buckled_mobs.len > 1)
+			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
+			if(user_unbuckle_mob(unbuckled,user))
+				return TRUE
+		else
+			if(user_unbuckle_mob(buckled_mobs[1],user))
+				return TRUE
 	return _try_interact(user)
 
 /obj/machinery/attack_ai(mob/user)
@@ -502,7 +510,6 @@ Class Procs:
 	if(A == occupant)
 		set_occupant(null)
 		update_icon()
-		updateUsrDialog()
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
@@ -523,10 +530,14 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I)
+/**
+ * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
+ */
+/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I, turns = 1)
+	turns *= -90
 	if(panel_open && I.tool_behaviour == TOOL_WRENCH)
 		I.play_tool_sound(src, 50)
-		setDir(turn(dir,-90))
+		setDir(turn(dir,turns))
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		return 1
 	return 0
@@ -672,7 +683,7 @@ Class Procs:
 /obj/machinery/tesla_act(power, tesla_flags, shocked_objects)
 	..()
 	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE)
 	if(tesla_flags & TESLA_OBJ_DAMAGE)
 		take_damage(power/2000, BURN, ENERGY)
 		if(prob(40))

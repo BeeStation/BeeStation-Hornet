@@ -3,20 +3,16 @@
 #define WOOD 2
 #define SAND 3
 
-//Largely unutilized subtype, add some more types of barricades!
-/obj/item/deployable/barricade
-	name = "Generic Barricade"
-	desc = "You should never see this"
-	time_to_deploy = 3 SECONDS
-
-/obj/item/deployable/barricade/security
+/obj/item/security_barricade
 	name = "security barricade"
 	desc = "A very sturdy barricade for use by Nanotrasen security personnel."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "barrier0"
-	deployed_object = /obj/structure/barricade/security
-	time_to_deploy = 3 SECONDS
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/security_barricade/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/deployable, /obj/structure/barricade/security, time_to_deploy = 3 SECONDS)
 
 /obj/item/storage/box/sec_barricades
 	name = "box of barricades"
@@ -26,7 +22,7 @@
 
 /obj/item/storage/box/sec_barricades/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/deployable/barricade/security(src)
+		new /obj/item/security_barricade(src)
 
 //Barricades in structure form
 /obj/structure/barricade
@@ -81,10 +77,10 @@
 	. = ..()
 	if(locate(/obj/structure/barricade) in get_turf(mover))
 		return TRUE
-	else if(istype(mover, /obj/item/projectile))
+	else if(istype(mover, /obj/projectile))
 		if(!anchored)
 			return TRUE
-		var/obj/item/projectile/proj = mover
+		var/obj/projectile/proj = mover
 		if(proj.firer && Adjacent(proj.firer))
 			return TRUE
 		if(prob(proj_pass_rate))
@@ -177,7 +173,7 @@
 	base_icon_state = "sandbags"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SANDBAGS)
-	canSmoothWith = list(SMOOTH_GROUP_SANDBAGS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SECURITY_BARRICADE)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SECURITY_BARRICADE, SMOOTH_GROUP_SANDBAGS)
 	max_integrity = 280
 	proj_pass_rate = 20
 	pass_flags_self = LETPASSTHROW
@@ -204,7 +200,7 @@
 	locked_down = TRUE
 
 /obj/structure/barricade/security/pick_up_barricade()
-	var/obj/item/deployable/barricade/security/carryable = new(loc)
+	var/obj/item/security_barricade/carryable = new(loc)
 	usr.put_in_hands(carryable)
 
 #undef METAL
