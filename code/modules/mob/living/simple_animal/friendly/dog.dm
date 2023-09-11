@@ -715,3 +715,35 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	else
 		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
 			emote("me", 1, "growls!")
+
+/mob/living/simple_animal/pet/dog/corgi/cardigancorgi
+	name = "\improper cardigan corgi"
+	real_name = "Cardigan Welsh corgi"
+	desc = "Ian's tailed cousin"
+	icon_state = "cardigan_corgi"
+	icon_living = "cardigan_corgi"
+	icon_dead = "cardigan_corgi_dead"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
+	childtype = /mob/living/simple_animal/pet/dog/corgi/cardigan_puppy  //Only one type of puppy
+	animal_species = /mob/living/simple_animal/pet/dog
+	gold_core_spawnable = FRIENDLY_SPAWN
+	collar_type = "corgi"
+	held_state = "cardigan_corgi"
+	var/obj/item/inventory_head
+	var/obj/item/inventory_back
+	worn_slot_flags = ITEM_SLOT_HEAD
+	var/shaved = FALSE
+	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+
+	/mob/living/simple_animal/pet/dog/corgi/puppy
+	name = "\improper cardigan corgi puppy"
+	real_name = "Cardigan Welsh corgi"
+	desc = "It's a corgi puppy!"
+	icon_state = "cardigan_puppy"
+	icon_living = "cardigan_puppy"
+	icon_dead = "cardigan_puppy_dead"
+	density = FALSE
+	pass_flags = PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	collar_type = "puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD
