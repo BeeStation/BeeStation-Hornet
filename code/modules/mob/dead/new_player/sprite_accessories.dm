@@ -2527,6 +2527,30 @@
 	name = "Pleurotus"
 	icon_state = "flat"
 
+/datum/sprite_accessory/psyphoza_cap/string
+	name = "Aseroe"
+	icon_state = "string"
+
+/datum/sprite_accessory/psyphoza_cap/fuzz
+	name = "Enoki"
+	icon_state = "fuzz"
+
+/datum/sprite_accessory/psyphoza_cap/rizz
+	name = "Verpa"
+	icon_state = "rizz"
+
+/datum/sprite_accessory/psyphoza_cap/brain
+	name = "Laetiporus"
+	icon_state = "brain"
+
+/datum/sprite_accessory/psyphoza_cap/crown
+	name = "Morel"
+	icon_state = "crown"
+
+/datum/sprite_accessory/psyphoza_cap/sponge
+	name = "Helvella"
+	icon_state = "sponge"
+
 //apids
 
 /datum/sprite_accessory/apid_antenna
