@@ -42,6 +42,7 @@
 		. += mutable_appearance(icon, "decloner_spin")
 		if (emissive_charge)
 			. += emissive_appearance(icon, "decloner_spin", layer, alpha = src.alpha * 0.3)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/gun/energy/decloner/unrestricted
 	pin = /obj/item/firing_pin

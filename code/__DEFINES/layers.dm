@@ -73,13 +73,14 @@
 #define BELOW_MOB_LAYER 3.7
 #define LYING_MOB_LAYER 3.8
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
-#define MOB_SHIELD_LAYER 4.01
-#define ABOVE_MOB_LAYER 4.1
-#define WALL_OBJ_LAYER 4.25
-#define EDGED_TURF_LAYER 4.3
-#define ON_EDGED_TURF_LAYER 4.35
-#define LARGE_MOB_LAYER 4.4
-#define ABOVE_ALL_MOB_LAYER 4.5
+#define MOB_MAX_CLOTHING_LAYER 4.1
+#define MOB_SHIELD_LAYER 4.11
+#define ABOVE_MOB_LAYER 4.2
+#define WALL_OBJ_LAYER 4.35
+#define EDGED_TURF_LAYER 4.4
+#define ON_EDGED_TURF_LAYER 4.45
+#define LARGE_MOB_LAYER 4.5
+#define ABOVE_ALL_MOB_LAYER 4.6
 
 #define METEOR_SHADOW_LAYER 4.69
 #define METEOR_LAYER 4.7

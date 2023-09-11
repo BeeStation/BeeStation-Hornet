@@ -77,6 +77,7 @@
 
 	. += mutable_appearance(icon, icon_screen)
 	. += emissive_appearance(icon, icon_screen, layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/computer/power_change()
 	..()

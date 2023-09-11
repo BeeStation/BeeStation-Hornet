@@ -174,6 +174,7 @@
 	. += setting_iconstate()
 	if (emissive_charge)
 		. += emissive_appearance(icon, setting_iconstate(), layer, alpha = src.alpha * 0.3)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/gun/energy/dueling/Destroy()
 	. = ..()

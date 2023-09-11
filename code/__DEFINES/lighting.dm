@@ -164,3 +164,29 @@ GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
 	var/image/lighting_effect = new()
 	lighting_effect.appearance = /obj/effect/fullbright/starlight
 	return lighting_effect
+
+/// Luminosity source for glasses
+#define LUM_SOURCE_GLASSES (1 << 3)
+/// Lum source from mutant bodyparts
+#define LUM_SOURCE_MUTANT_BODYPART (1 << 2)
+/// Mutually exclusive holy statuses such as cult halos
+#define LUM_SOURCE_HOLY (1 << 1)
+/// Overlay based luminosity, cleared when overlays are cleared.
+/// This is for managed overlays only. You should not be using this.
+#define LUM_SOURCE_MANAGED_OVERLAY (1 << 0)
+
+/// Add a luminosity source to a target
+#define ADD_LUM_SOURCE(target, em_source) \
+target._emissive_count |= em_source;\
+if (target._emissive_count == em_source)\
+{\
+	target.update_luminosity();\
+}
+
+/// Remove a luminosity source to a target
+#define REMOVE_LUM_SOURCE(target, em_source) \
+target._emissive_count &= ~(em_source);\
+if (target._emissive_count == 0)\
+{\
+	target.update_luminosity();\
+}

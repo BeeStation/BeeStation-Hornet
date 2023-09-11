@@ -3,8 +3,6 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
-	// Uses emissives, so needs to make the turf its on invisible
-	luminosity = 1
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell
@@ -229,6 +227,7 @@
 				if (!emissive_charge)
 					continue
 				var/mutable_appearance/charge_overlay_emissive = emissive_appearance(icon, iconState, layer = src.layer, alpha = src.alpha * 0.3)
+				ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 				charge_overlay_emissive.pixel_x = ammo_x_offset * (i - 1)
 				charge_overlay_emissive.pixel_y = ammo_y_offset * (i - 1)
 				. += charge_overlay_emissive
@@ -236,6 +235,7 @@
 			. += "[icon_state]_charge[ratio]"
 			if (emissive_charge)
 				. += emissive_appearance(icon, "[icon_state]_charge[ratio]", layer = src.layer, alpha = src.alpha * 0.3)
+				ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/gun/energy/suicide_act(mob/living/user)
 	if (istype(user) && can_shoot() && can_trigger_gun(user) && user.get_bodypart(BODY_ZONE_HEAD))

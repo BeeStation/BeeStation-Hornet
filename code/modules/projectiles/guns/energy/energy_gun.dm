@@ -163,17 +163,21 @@
 		. += "[icon_state]_fail_3"
 		if (emissive_charge)
 			. += emissive_appearance(icon, "[icon_state]_fail_3", layer, alpha = src.alpha * 0.3)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		switch(fail_tick)
 			if(0)
 				. += "[icon_state]_fail_0"
 				if (emissive_charge)
 					. += emissive_appearance(icon, "[icon_state]_fail_0", layer, alpha = src.alpha * 0.3)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 			if(1 to 150)
 				. += "[icon_state]_fail_1"
 				if (emissive_charge)
 					. += emissive_appearance(icon, "[icon_state]_fail_1", layer, alpha = src.alpha * 0.3)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 			if(151 to INFINITY)
 				. += "[icon_state]_fail_2"
 				if (emissive_charge)
 					. += emissive_appearance(icon, "[icon_state]_fail_2", layer, alpha = src.alpha * 0.3)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
