@@ -2505,6 +2505,52 @@
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
 
+//Psyphoza caps
+
+/datum/sprite_accessory/psyphoza_cap
+	icon = 'icons/mob/psyphoza_caps.dmi'
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/psyphoza_cap/wide
+	name = "Portobello"
+	icon_state = "wide"
+
+/datum/sprite_accessory/psyphoza_cap/cup
+	name = "Chanterelle"
+	icon_state = "cup"
+
+/datum/sprite_accessory/psyphoza_cap/round
+	name = "Psilocybe"
+	icon_state = "round"
+
+/datum/sprite_accessory/psyphoza_cap/flat
+	name = "Pleurotus"
+	icon_state = "flat"
+
+/datum/sprite_accessory/psyphoza_cap/string
+	name = "Aseroe"
+	icon_state = "string"
+
+/datum/sprite_accessory/psyphoza_cap/fuzz
+	name = "Enoki"
+	icon_state = "fuzz"
+
+/datum/sprite_accessory/psyphoza_cap/rizz
+	name = "Verpa"
+	icon_state = "rizz"
+
+/datum/sprite_accessory/psyphoza_cap/brain
+	name = "Laetiporus"
+	icon_state = "brain"
+
+/datum/sprite_accessory/psyphoza_cap/crown
+	name = "Morel"
+	icon_state = "crown"
+
+/datum/sprite_accessory/psyphoza_cap/sponge
+	name = "Helvella"
+	icon_state = "sponge"
+
 //apids
 
 /datum/sprite_accessory/apid_antenna
@@ -2666,24 +2712,3 @@
 /datum/sprite_accessory/apid_headstripes/arachnid
 	name = "Arachnid Headstripes"
 	icon_state = "arachnid"
-//Psyphoza caps
-
-/datum/sprite_accessory/psyphoza_cap
-	icon = 'icons/mob/psyphoza_caps.dmi'
-	color_src = MUTCOLORS
-
-/datum/sprite_accessory/psyphoza_cap/wide
-	name = "Portobello"
-	icon_state = "wide"
-
-/datum/sprite_accessory/psyphoza_cap/cup
-	name = "Chanterelle"
-	icon_state = "cup"
-
-/datum/sprite_accessory/psyphoza_cap/round
-	name = "Psilocybe"
-	icon_state = "round"
-
-/datum/sprite_accessory/psyphoza_cap/flat
-	name = "Pleurotus"
-	icon_state = "flat"

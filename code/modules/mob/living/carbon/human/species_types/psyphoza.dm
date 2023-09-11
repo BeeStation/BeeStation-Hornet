@@ -44,11 +44,8 @@
 
 /datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
-	C.client?.show_popup_menus = TRUE
-
-/datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
-	. = ..()
 	PH = null
+	C.client?.show_popup_menus = TRUE
 
 /datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.psyphoza_first_names)] [pick(GLOB.psyphoza_last_names)]"
@@ -139,6 +136,10 @@
 	QDEL_NULL(auto_action)
 	QDEL_NULL(texture_change)
 	QDEL_NULL(overlay_change)
+	owner?.clear_fullscreen("psychic_highlight")
+	owner?.clear_fullscreen("psychic_highlight_mask")
+	owner?.clear_fullscreen("menu_boundry")
+	owner?.client?.show_popup_menus = TRUE
 	return ..()
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
