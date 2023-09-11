@@ -556,11 +556,7 @@
 	var/mob/living/carbon/human/patient = null
 	var/obj/machinery/computer/operating/computer = null
 
-/obj/structure/table/optable/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/structure/table/optable/LateInitialize()
+/obj/structure/table/optable/Initialize()
 	. = ..()
 	initial_link()
 

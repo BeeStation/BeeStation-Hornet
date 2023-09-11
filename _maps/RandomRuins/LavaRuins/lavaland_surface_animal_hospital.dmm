@@ -58,17 +58,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
-"ax" = (
-/obj/structure/closet/crate/trashcart,
-/obj/item/storage/bag/trash,
-/obj/item/trash/cheesie,
-/obj/item/reagent_containers/syringe/antiviral,
-/obj/item/deployable/bodybag,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/turf/open/floor/grass{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/lavaland/surface/outdoors)
 "aA" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/open/floor/plasteel/white,
@@ -750,6 +739,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
+"xK" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/storage/bag/trash,
+/obj/item/trash/cheesie,
+/obj/item/reagent_containers/syringe/antiviral,
+/obj/item/bodybag,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/open/floor/grass{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/lavaland/surface/outdoors)
 "yl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -1007,14 +1007,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
-"Mf" = (
-/mob/living/basic/cockroach,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/powered/animal_hospital)
 "Ms" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/open/floor/plasteel/white,
@@ -1070,6 +1062,14 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
+/area/ruin/powered/animal_hospital)
+"Qm" = (
+/mob/living/basic/cockroach,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "QL" = (
 /obj/structure/chair/office{
@@ -1413,7 +1413,7 @@ aa
 aa
 ab
 cp
-ax
+xK
 ac
 aJ
 ac
@@ -1480,7 +1480,7 @@ Nl
 zK
 dC
 oj
-Mf
+Qm
 zK
 Nl
 Ik
