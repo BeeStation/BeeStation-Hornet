@@ -60,7 +60,7 @@
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
-///Contains most things in the game world that arent super important
+///Contains most things in the game world that psyphoza shouldn't see, like cult structures
 /atom/movable/screen/plane_master/non_integral
 	name = "game world non integral plane master"
 	plane = GAME_PLANE_NON_INTEGRAL

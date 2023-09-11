@@ -3,7 +3,6 @@
 	name = "grille"
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
-	plane = GAME_PLANE_NON_INTEGRAL
 	density = TRUE
 	anchored = TRUE
 	flags_1 = CONDUCT_1

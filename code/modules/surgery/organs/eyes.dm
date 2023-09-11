@@ -423,10 +423,19 @@
 	//If someone somehow heals psyphoza blindness
 	var/mob/living/carbon/C = owner
 	if(!HAS_TRAIT(C, TRAIT_BLIND))
+		sight_flags = 0
 		C.clear_fullscreen("psychic_highlight")
+		var/atom/movable/screen/fullscreen/menu_boundry/B = C.screens["menu_boundry"]
+		B?.menu_check = FALSE
+		C.client?.show_popup_menus = TRUE
 	//And then cruely makes them blind again
 	else if(!C.screens["psychic_highlight"])
+		sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 		C.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
+		var/atom/movable/screen/fullscreen/menu_boundry/B = C.screens["menu_boundry"]
+		B?.menu_check = TRUE
+		C.client?.show_popup_menus = FALSE
+	owner.update_sight()
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()
