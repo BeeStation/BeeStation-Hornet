@@ -3,7 +3,8 @@
 	preference_type = PREFERENCE_CHARACTER
 	can_randomize = TRUE
 	abstract_type = /datum/preference/choiced/quirk
-	var/required_quirk_name // name of the quirk to be checked for (caps sensitive)
+	/// name of the quirk to be checked for (caps sensitive)
+	var/required_quirk_name
 
 /datum/preference/choiced/quirk/apply_to_human(mob/living/carbon/human/target, value)
 	return
@@ -38,7 +39,7 @@
 	db_key = "quirk_phobia"
 	required_quirk_name = "Phobia"
 
-/datum/preference/choiced/quirk/phobia/init_possible_values() // tried to use the SStraumas.phobia_types but it seems that subsystem hasnt initialized before youre able to access character creation
+/datum/preference/choiced/quirk/phobia/init_possible_values()
 	return assoc_to_keys(GLOB.available_random_trauma_list)
 
 /datum/preference/choiced/quirk/multilingual_language
