@@ -248,7 +248,7 @@
 	name = "eyepatch HUD"
 	desc = "A heads-up display that connects directly to the optical nerve of the user, replacing the need for that useless eyeball."
 	icon_state = "hudpatch"
-	emissive_state = "hudpath_emissive"
+	emissive_state = "hudpatch_emissive"
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "security HUDSunglasses"
