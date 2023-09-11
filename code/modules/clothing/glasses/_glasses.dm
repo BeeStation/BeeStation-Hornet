@@ -36,14 +36,14 @@
 /obj/item/clothing/glasses/update_overlays()
 	. = ..()
 	if (emissive_state)
-		. += emissive_appearance(icon, emissive_state, layer, 255)
+		. += emissive_appearance(icon, emissive_state, layer, 60)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/clothing/glasses/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	// If we have an emissive state, add it to the worn icon too
 	if (!isinhands && emissive_state)
-		. += emissive_appearance(icon_file, emissive_state, item_layer, 255)
+		. += emissive_appearance(icon_file, emissive_state, item_layer, 60)
 		ADD_LUM_SOURCE(origin, LUM_SOURCE_GLASSES)
 
 /obj/item/clothing/glasses/visor_toggling()
@@ -175,6 +175,7 @@
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
 	item_state = "glasses"
+	emissive_state = "nvg_emissive"
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green

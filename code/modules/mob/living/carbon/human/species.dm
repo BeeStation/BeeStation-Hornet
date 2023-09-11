@@ -578,6 +578,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			facial_overlay.alpha = hair_alpha
 
 			standing += facial_overlay
+			standing += emissive_blocker(facial_overlay.icon, facial_overlay.icon_state, facial_overlay.layer, facial_overlay.alpha)
 
 	if(H.head)
 		var/obj/item/I = H.head
@@ -670,6 +671,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(hair_overlay.icon)
 			standing += hair_overlay
 			standing += gradient_overlay
+			standing += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, hair_overlay.layer, hair_overlay.alpha)
 
 	if(standing.len)
 		H.overlays_standing[HAIR_LAYER] = standing

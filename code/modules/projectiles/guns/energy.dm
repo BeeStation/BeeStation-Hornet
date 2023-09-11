@@ -226,7 +226,7 @@
 				. += charge_overlay
 				if (!emissive_charge)
 					continue
-				var/mutable_appearance/charge_overlay_emissive = emissive_appearance(icon, iconState, layer = src.layer, alpha = src.alpha * 0.3)
+				var/mutable_appearance/charge_overlay_emissive = emissive_appearance(icon, iconState, layer = src.layer, alpha = 80)
 				ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 				charge_overlay_emissive.pixel_x = ammo_x_offset * (i - 1)
 				charge_overlay_emissive.pixel_y = ammo_y_offset * (i - 1)
@@ -234,7 +234,7 @@
 		else
 			. += "[icon_state]_charge[ratio]"
 			if (emissive_charge)
-				. += emissive_appearance(icon, "[icon_state]_charge[ratio]", layer = src.layer, alpha = src.alpha * 0.3)
+				. += emissive_appearance(icon, "[icon_state]_charge[ratio]", layer = src.layer, alpha = 80)
 				ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/gun/energy/suicide_act(mob/living/user)

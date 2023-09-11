@@ -232,7 +232,6 @@
 					hair_overlay.alpha = hair_alpha
 					. += hair_overlay
 
-
 			// lipstick
 			if(lip_style)
 				var/image/lips_overlay = image('icons/mob/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)

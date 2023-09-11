@@ -41,7 +41,7 @@
 	if(!QDELETED(cell) && (cell.charge > shot.e_cost))
 		. += mutable_appearance(icon, "decloner_spin")
 		if (emissive_charge)
-			. += emissive_appearance(icon, "decloner_spin", layer, alpha = src.alpha * 0.3)
+			. += emissive_appearance(icon, "decloner_spin", layer, alpha = 80)
 			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/gun/energy/decloner/unrestricted

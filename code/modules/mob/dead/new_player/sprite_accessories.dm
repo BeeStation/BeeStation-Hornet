@@ -2264,7 +2264,7 @@
 /datum/sprite_accessory/ipc_screens
 	icon = 'icons/mob/ipc_accessories.dmi'
 	emissive_state = "m_ipc_screen_emissive"
-	emissive_alpha = 80
+	emissive_alpha = 30
 	color_src = EYECOLOR
 
 /datum/sprite_accessory/ipc_screens/blue

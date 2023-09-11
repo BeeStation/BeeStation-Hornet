@@ -104,14 +104,8 @@
 /// Uses a dedicated render_target object to copy the entire appearance in real time to the blocking layer. For things that can change in appearance a lot from the base state, like humans.
 #define EMISSIVE_BLOCK_UNIQUE 2
 
-/// The colour for emissive items; the more white it is, the more emissive it is.
-/// Red = 1
-/// Blue = 1
-/// Green = 1
-/// Alpha = alpha
-#define EMISSIVE_COLOR list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 1,1,1,0)
-/// A globaly cached version of [EMISSIVE_COLOR] for quick access.
-GLOBAL_LIST_INIT(emissive_color, EMISSIVE_COLOR)
+/// A globaly cached version of [EMISSIVE_COLOR] for quick access. Indexed by alpha value
+GLOBAL_LIST_INIT(emissive_color, new(256))
 /// A set of appearance flags applied to all emissive and emissive blocker overlays.
 #define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|KEEP_TOGETHER|RESET_COLOR|RESET_TRANSFORM)
 
