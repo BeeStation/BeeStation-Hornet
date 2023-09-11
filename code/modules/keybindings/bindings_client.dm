@@ -25,7 +25,8 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	"Gamepad4Face3" = 1, "Gamepad4Face4" = 1, "Gamepad4R1" = 1, "Gamepad4R2" = 1, "Gamepad4R3" = 1, "Gamepad4L1" = 1, "Gamepad4L2" = 1, "Gamepad4L3" = 1,
 	"Gamepad4Start" = 1, "Gamepad4Select" = 1, "VolumeUp" = 1, "VolumeDown" = 1, "VolumeMute" = 1, "MediaPlayPause" = 1, "MediaStop" = 1, "MediaNext" = 1,	"MediaPrev" = 1,
 	// AZERTY support
-	"&" = 1, "é" = 1, "\"" = 1, "(" = 1, "è" = 1, "_" = 1, "ç" = 1, "à" = 1, ")" = 1, "*" = 1, "$" = 1, "!" = 1, ":" = 1, "²" = 1, "ù" = 1,
+	"&" = 1, "É" = 1, "\"" = 1, "(" = 1, "È" = 1, "_" = 1, "Ç" = 1, "À" = 1, ")" = 1, "*" = 1, "$" = 1, "!" = 1, ":" = 1, "²" = 1, "Ù" = 1,
+	"é" = 1, "è" = 1, "ç" = 1, "à" = 1, "ù" = 1,
 ))
 
 /proc/input_sanity_check(client/C, key)

@@ -39,6 +39,11 @@ const isStandardKey = (event: KeyboardEvent): boolean => {
   return event.key !== 'Alt' && event.key !== 'Control' && event.key !== 'Shift' && event.key !== 'Esc';
 };
 
+/**
+ * Keys that JS wants to capitalize but BYOND does not.
+ */
+const NO_CAPS_KEYS = ['é', 'è', 'ç', 'à', 'ù'];
+
 const KEY_CODE_TO_BYOND: Record<string, string> = {
   'DEL': 'Delete',
   'DOWN': 'South',
@@ -88,7 +93,10 @@ const formatKeyboardEvent = (event: KeyboardEvent): string => {
   }
 
   if (isStandardKey(event)) {
-    const key = event.key.toUpperCase();
+    let key = event.key;
+    if (!NO_CAPS_KEYS.includes(key)) {
+      key = key.toUpperCase();
+    }
     text += KEY_CODE_TO_BYOND[key] || key;
   }
 
