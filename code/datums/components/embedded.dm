@@ -230,9 +230,6 @@
 		else
 			INVOKE_ASYNC(weapon, TYPE_PROC_REF(/atom/movable, forceMove), get_turf(victim))
 
-	if(istype(weapon,/obj/item/shrapnel))
-		qdel(weapon)
-
 	qdel(src)
 
 /datum/component/embedded/proc/tryPullOutOther(mob/living/carbon/victim, mob/user)
