@@ -4,7 +4,6 @@
 	name = "disposal pipe"
 	desc = "An underfloor disposal pipe."
 	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
-	plane = GAME_PLANE_NON_INTEGRAL
 	anchored = TRUE
 	density = FALSE
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS

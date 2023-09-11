@@ -1,4 +1,5 @@
 /obj/structure/destructible/cult
+	plane = GAME_PLANE_NON_INTEGRAL
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/cult.dmi'

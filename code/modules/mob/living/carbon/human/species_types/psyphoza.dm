@@ -39,6 +39,7 @@
 
 /datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
+	C.client?.show_popup_menus = FALSE
 	PH = locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions
 
 /datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
@@ -141,6 +142,8 @@
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 	M.overlay_fullscreen("psychic_highlight_mask", /atom/movable/screen/fullscreen/blind/psychic/mask)
+	var/atom/movable/screen/fullscreen/menu_boundry/B = M.overlay_fullscreen("menu_boundry", /atom/movable/screen/fullscreen/menu_boundry)
+	B.owner = M
 	//Add option to change visuals
 	if(!(locate(/datum/action/change_psychic_visual) in owner.actions))
 		overlay_change = new(src)
@@ -249,7 +252,7 @@
 	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
 	render_target = "blind_psychic"
-	//The color we return to after going black & back.
+	///The color we return to after going black & back.
 	var/origin_color = "#111"
 
 /atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
@@ -326,6 +329,28 @@
 				icon_state = "trip_static_white"
 	//Wrap index back around
 	texture_index = texture_index >= 3 ? 0 :  texture_index
+
+//menu boundry
+/atom/movable/screen/fullscreen/menu_boundry
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "click_boundry"
+	mouse_opacity = MOUSE_OPACITY_ICON
+	screen_loc = "CENTER-1, CENTER-1"
+	alpha = 0
+	///The mob / client we belong to
+	var/mob/owner
+	///Are we actively checking, or disabled for blindness stuff
+	var/menu_check = TRUE
+
+/atom/movable/screen/fullscreen/menu_boundry/MouseEntered(location, control, params)
+	. = ..()
+	if(menu_check)
+		owner?.client?.show_popup_menus = TRUE
+
+/atom/movable/screen/fullscreen/menu_boundry/MouseExited(location, control, params)
+	. = ..()
+	if(menu_check)
+		owner?.client?.show_popup_menus = FALSE
 
 //Action for changing screen color
 /datum/action/change_psychic_visual
