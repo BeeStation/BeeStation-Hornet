@@ -10,10 +10,9 @@ SUBSYSTEM_DEF(traumas)
 
 /datum/controller/subsystem/traumas/Initialize()
 	//phobia types is to pull from randomly for brain traumas, e.g. conspiracies is for special assignment only
+	//defined in __DEFINES/mobs.dm
 	//5 is the default weight, lower it for more punishing phobias
-	phobia_types = sort_list(list("spiders" = 5, "space" = 2, "security" = 5, "clowns" = 5, "greytide" = 5, "lizards" = 5,
-						"skeletons" = 5, "snakes" = 5, "robots" = 4, "doctors" = 4, "authority" = 5, "the supernatural" = 5,
-						"aliens" = 5, "strangers" = 5, "birds" = 5, "falling" = 5, "anime" = 5))
+	phobia_types = sort_list(GLOB.available_random_trauma_list)
 
 	phobia_words = list("spiders"   = strings(PHOBIA_FILE, "spiders"),
 						"space"     = strings(PHOBIA_FILE, "space"),

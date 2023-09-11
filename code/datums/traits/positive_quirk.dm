@@ -141,7 +141,7 @@
 /datum/quirk/multilingual/add()
 	var/client/C = GLOB.directory[ckey(quirk_holder.key)]
 	if(C)
-		known_language = C.prefs.read_character_preference(/datum/preference/choiced/quirk_multilingual_language)
+		known_language = C.prefs.read_character_preference(/datum/preference/choiced/quirk/multilingual_language)
 	if(!known_language) // default to random
 		set_up_language()
 	var/datum/language_holder/LH = quirk_holder.get_language_holder()

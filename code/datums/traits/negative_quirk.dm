@@ -428,9 +428,10 @@
 /datum/quirk/prosthetic_limb/on_spawn()
 	var/limb_slot = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) // default to random
 	var/mob/living/carbon/human/H = quirk_target
-	var/client/C = GLOB.directory[ckey(quirk_holder.key)] // this was the only way I could find to get the client during on_spawn()
-	if(C)
-		limb_slot = C.prefs.read_character_preference(/datum/preference/choiced/quirk_prosthetic_limb_location)
+	var/clientkey = ckey(quirk_holder.key)
+	var/client/C = GLOB.directory[clientkey]
+	if(C?.prefs)
+		limb_slot = C.prefs.read_character_preference(/datum/preference/choiced/quirk/prosthetic_limb_location)
 	var/obj/item/bodypart/old_part = H.get_bodypart(limb_slot)
 	var/obj/item/bodypart/prosthetic
 	switch(limb_slot)
@@ -545,9 +546,10 @@
 /datum/quirk/junkie/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	if (!reagent_type)
-		var/client/C = GLOB.directory[ckey(quirk_holder.key)]
-		if(C)
-			reagent_type = C.prefs.read_character_preference(/datum/preference/choiced/quirk_junkie_drug)
+		var/clientkey = ckey(quirk_holder.key)
+		var/client/C = GLOB.directory[clientkey]
+		if(C?.prefs)
+			reagent_type = C.prefs.read_character_preference(/datum/preference/choiced/quirk/junkie_drug)
 		else
 			reagent_type = pick(drug_list)
 	reagent_instance = new reagent_type()
@@ -609,9 +611,10 @@
 	process = TRUE
 
 /datum/quirk/junkie/smoker/on_spawn()
-	var/client/C = GLOB.directory[ckey(quirk_holder.key)]
-	if(C)
-		drug_container_type = C.prefs.read_character_preference(/datum/preference/choiced/quirk_smoker_cigarettes)
+	var/clientkey = ckey(quirk_holder.key)
+	var/client/C = GLOB.directory[clientkey]
+	if(C?.prefs)
+		drug_container_type = C.prefs.read_character_preference(/datum/preference/choiced/quirk/smoker_cigarettes)
 	else
 		drug_container_type = pick(/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/fancy/cigarettes/cigpack_midori,
@@ -658,9 +661,10 @@
 	var/obj/item/reagent_containers/food/drinks/bottle/drink_instance
 
 /datum/quirk/alcoholic/on_spawn()
-	var/client/C = GLOB.directory[ckey(quirk_holder.key)]
-	if(C)
-		drink_instance = C.prefs.read_character_preference(/datum/preference/choiced/quirk_alcohol_type)
+	var/clientkey = ckey(quirk_holder.key)
+	var/client/C = GLOB.directory[clientkey]
+	if(C?.prefs)
+		drink_instance = C.prefs.read_character_preference(/datum/preference/choiced/quirk/alcohol_type)
 	else
 		drink_instance = pick(drink_types)
 	drink_instance = new drink_instance()
@@ -723,9 +727,10 @@
 	var/trauma
 
 /datum/quirk/trauma/add()
-	var/client/C = GLOB.directory[ckey(quirk_holder.key)]
-	if(C)
-		trauma = new trauma_type(C.prefs.read_character_preference(/datum/preference/choiced/quirk_phobia))
+	var/clientkey = ckey(quirk_holder.key)
+	var/client/C = GLOB.directory[clientkey]
+	if(C?.prefs)
+		trauma = new trauma_type(C.prefs.read_character_preference(/datum/preference/choiced/quirk/phobia))
 	else
 		trauma = new trauma_type
 	var/mob/living/carbon/human/H = quirk_target
