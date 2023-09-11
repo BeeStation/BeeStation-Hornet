@@ -396,6 +396,8 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
           <br />
           Contact a maintainer or create an issue report by pressing Report Issue in the top right of the game window.
           <br />
+          Reconnecting will also likely fix this issue.
+          <br />
           <Box textAlign="left" fontSize="12px" textColor="white" style={{ 'white-space': 'pre-wrap' }}>
             Error Details:{'\n'}
             {typeof this.state.error === 'object' && Object.keys(this.state.error).includes('stack')

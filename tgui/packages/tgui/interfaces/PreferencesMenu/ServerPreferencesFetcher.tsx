@@ -67,6 +67,8 @@ export class ServerPreferencesFetcher extends Component<
         <br />
         Contact a maintainer or create an issue report by pressing Report Issue in the top right of the game window.
         <br />
+        Reconnecting will also likely fix this issue.
+        <br />
         <Box textAlign="left" fontSize="12px" textColor="white" style={{ 'white-space': 'pre-wrap' }}>
           Error Details:{'\n'}
           {typeof lastError === 'object' && Object.keys(lastError).includes('stack') ? lastError.stack : lastError.toString()}
