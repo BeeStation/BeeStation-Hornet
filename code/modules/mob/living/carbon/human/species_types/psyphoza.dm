@@ -44,6 +44,10 @@
 
 /datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
+	C.client?.show_popup_menus = TRUE
+
+/datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
 	PH = null
 
 /datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
@@ -337,6 +341,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	screen_loc = "CENTER-1, CENTER-1"
 	alpha = 0
+	plane = GAME_PLANE_NON_INTEGRAL
 	///The mob / client we belong to
 	var/mob/owner
 	///Are we actively checking, or disabled for blindness stuff
