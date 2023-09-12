@@ -4,6 +4,7 @@
 	desc = "A flowing circle of shapes and runes is etched into the floor, filled with a thick black tar-like fluid."
 	anchored = TRUE
 	icon_state = ""
+	plane = GAME_PLANE_NON_INTEGRAL
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = SIGIL_LAYER
