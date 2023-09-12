@@ -605,6 +605,7 @@
 					if(QDELETED(candidate))
 						channeling = FALSE
 						return
+					candidate.grab_ghost()
 					user.visible_message("<span class='danger'>The dark cloud receedes from what was formerly [candidate], revealing a\n [construct_class]!</span>")
 					make_new_construct_from_class(construct_class, THEME_CULT, candidate, user, FALSE, T)
 					SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
