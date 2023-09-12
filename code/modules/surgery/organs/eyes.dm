@@ -425,18 +425,12 @@
 	if(!HAS_TRAIT(C, TRAIT_BLIND))
 		sight_flags = 0
 		C.clear_fullscreen("psychic_highlight")
-		var/atom/movable/screen/fullscreen/menu_boundry/B = C.screens["menu_boundry"]
-		B?.menu_check = FALSE
-		C.client?.show_popup_menus = TRUE
 		var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions
 		qdel(P)
 	//And then cruely makes them blind again
 	else if(!C.screens["psychic_highlight"])
 		sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 		C.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
-		var/atom/movable/screen/fullscreen/menu_boundry/B = C.screens["menu_boundry"]
-		B?.menu_check = TRUE
-		C.client?.show_popup_menus = FALSE
 		if(!(locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions))
 			var/datum/action/item_action/organ_action/psychic_highlight/P = new()
 			P.Grant(owner)

@@ -34,6 +34,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 	anchored = TRUE
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
+	plane = GAME_PLANE_NON_INTEGRAL
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = SIGIL_LAYER
 	color = RUNE_COLOR_RED
