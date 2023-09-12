@@ -724,18 +724,13 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	icon_living = "cardigan_corgi"
 	icon_dead = "cardigan_corgi_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
-	childtype = /mob/living/simple_animal/pet/dog/corgi/cardigan_puppy  //Only one type of puppy
+	childtype = /mob/living/simple_animal/pet/dog/corgi/cardigancorgi_puppy  //Only one type of puppy
 	animal_species = /mob/living/simple_animal/pet/dog
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "corgi"
 	held_state = "cardigan_corgi"
-	var/obj/item/inventory_head
-	var/obj/item/inventory_back
-	worn_slot_flags = ITEM_SLOT_HEAD
-	var/shaved = FALSE
-	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 
-	/mob/living/simple_animal/pet/dog/corgi/puppy
+/mob/living/simple_animal/pet/dog/corgi/cardigancorgi_puppy
 	name = "\improper cardigan corgi puppy"
 	real_name = "Cardigan Welsh corgi"
 	desc = "It's a corgi puppy!"
