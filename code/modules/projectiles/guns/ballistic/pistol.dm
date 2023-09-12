@@ -33,7 +33,6 @@
 	desc = "An 'Infiltrator' double-barreled derringer, chambered in .38-special. Not the best for head-on engagements."
 	icon_state = "derringer"
 	w_class = WEIGHT_CLASS_SMALL
-	weapon_weight = WEAPON_EX_LIGHT //Weight 0; Only +20 spread while unwielded
 	item_state = null //Too small to show in hand, unless examined
 	throwforce = 0 //Derringers are light and tiny, no hurtie
 	mag_type = /obj/item/ammo_box/magazine/internal/der38
@@ -45,7 +44,8 @@
 	bolt_type = BOLT_TYPE_NO_BOLT //Functionally a double-barrel shotgun
 	tac_reloads = FALSE
 	fire_sound_volume = 60
-	spread = 18 //Innate spread of 18 degrees, 38 spread while unwielded; Slightly lower than a wielded Stechkin
+	spread = 18 //Innate spread of 18 degrees, unwielded spread of 48; Stechkin is unwielded 40
+	spread_unwielded = 30 //Manually set unwielded spread to 30; Equivelant weight to 0.5 (Stechkin has weight 1)
 	wild_spread = TRUE
 	wild_factor = 0.70 //Minimum spread is 70% of spread value
 
