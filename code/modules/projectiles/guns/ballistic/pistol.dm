@@ -46,6 +46,8 @@
 	tac_reloads = FALSE
 	fire_sound_volume = 60
 	spread = 20 //Innate spread of 20 degrees, 40 spread while unwielded; same as Stechkin
+	wild_spread = TRUE
+	wild_factor = 0.4
 
 /obj/item/gun/ballistic/automatic/pistol/m1911
 	name = "\improper M1911"
