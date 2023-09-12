@@ -42,7 +42,8 @@
 	var/can_repair_self = FALSE
 	var/runetype
 	var/datum/action/innate/cult/create_rune/our_rune
-	var/holy = FALSE
+	/// Theme controls color. THEME_CULT is red THEME_WIZARD is purple and THEME_HOLY is blue
+	var/theme = THEME_CULT
 	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
 	discovery_points = 1000
@@ -73,7 +74,7 @@
 		var/pos = 2+spellnum*31
 		our_rune.button.screen_loc = "6:[pos],4:-2"
 		our_rune.button.moved = "6:[pos],4:-2"
-	add_overlay("glow_[icon_state][holy]")
+	add_overlay("glow_[icon_state]_[theme]")
 
 /mob/living/simple_animal/hostile/construct/Destroy()
 	QDEL_NULL(our_rune)
@@ -99,7 +100,7 @@
 		var/mob/living/simple_animal/hostile/construct/C = M
 		if(!C.can_repair_constructs || (C == src && !C.can_repair_self))
 			return ..()
-		if(holy != C.holy)
+		if(theme != C.theme)
 			return ..()
 		if(health < maxHealth)
 			adjustHealth(-5)
@@ -189,11 +190,17 @@
 
 	return ..()
 
-//////////////////////////Angelic-Juggernaut////////////////////////////
+//////////////////////////Juggernaut-alts////////////////////////////
 /mob/living/simple_animal/hostile/construct/juggernaut/angelic
-	holy = TRUE
+	theme = THEME_HOLY
 	loot = list(/obj/item/ectoplasm/angelic)
 	chat_color = "#AED2FF"
+
+/*
+/mob/living/simple_animal/hostile/construct/juggernaut/mystic
+	theme = THEME_WIZARD
+	loot = list(/obj/item/ectoplasm/mystic)
+*/
 
 /mob/living/simple_animal/hostile/construct/juggernaut/noncult
 
@@ -241,12 +248,18 @@
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 
-//////////////////////////Angelic-Wraith////////////////////////////
+//////////////////////////Wraith-alts////////////////////////////
 /mob/living/simple_animal/hostile/construct/wraith/angelic
-	holy = TRUE
+	theme = THEME_HOLY
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/angelic)
 	loot = list(/obj/item/ectoplasm/angelic)
 	chat_color = "#AED2FF"
+
+/*
+/mob/living/simple_animal/hostile/construct/wraith/mystic
+	theme = THEME_WIZARD
+	loot = list(/obj/item/ectoplasm/mystic)
+*/
 
 /mob/living/simple_animal/hostile/construct/wraith/noncult
 
@@ -323,15 +336,21 @@
 	AIStatus = AI_ON
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //only token destruction, don't smash the cult wall NO STOP
 
-/////////////////////////////Angelic Artificer/////////////////////////
+/////////////////////////////Artificer-alts/////////////////////////
 /mob/living/simple_animal/hostile/construct/artificer/angelic
 	desc = "A bulbous construct dedicated to building and maintaining holy armies."
-	holy = TRUE
+	theme = THEME_HOLY
 	chat_color = "#AED2FF"
 	loot = list(/obj/item/ectoplasm/angelic)
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult/purified,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
+
+/*
+/mob/living/simple_animal/hostile/construct/artificer/mystic
+	theme = THEME_WIZARD
+	loot = list(/obj/item/ectoplasm/mystic)
+*/
 
 /mob/living/simple_animal/hostile/construct/artificer/noncult
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,

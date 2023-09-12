@@ -244,14 +244,14 @@
 
 	else if(istype(A, /obj/item/soulstone) && !iscultist(user))
 		var/obj/item/soulstone/SS = A
-		if(SS.purified)
+		if(SS.theme == THEME_HOLY)
 			return
 		to_chat(user, "<span class='notice'>You begin to exorcise [SS].</span>")
 		playsound(src,'sound/hallucinations/veryfar_noise.ogg',40,1)
 		if(do_after(user, 40, target = SS))
 			playsound(src,'sound/effects/pray_chaplain.ogg',60,1)
 			SS.usability = TRUE
-			SS.purified = TRUE
+			SS.theme = THEME_HOLY
 			SS.icon_state = "purified_soulstone"
 			for(var/mob/M in SS.contents)
 				if(M.mind)
