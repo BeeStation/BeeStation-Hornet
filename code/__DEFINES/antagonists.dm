@@ -102,10 +102,11 @@
 /// A define used in ritual priority for heretics.
 #define MAX_KNOWLEDGE_PRIORITY 100
 
-//soulstone & construct themes
-/*#define THEME_WIZARD "wizard"*/
-#define THEME_CULT "cult"
-#define THEME_HOLY "holy"
+//Cult Construct defines
+
+#define CONSTRUCT_JUGGERNAUT "Juggernaut"
+#define CONSTRUCT_WRAITH "Wraith"
+#define CONSTRUCT_ARTIFICER "Artificer"
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40

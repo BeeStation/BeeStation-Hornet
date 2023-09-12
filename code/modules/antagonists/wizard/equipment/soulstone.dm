@@ -253,55 +253,12 @@
 			var/obj/structure/constructshell/T = target
 			var/mob/living/simple_animal/shade/A = locate() in src
 			if(A)
-				var/list/constructs = list(
-					"Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = "juggernaut"),
-					"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = "wraith"),
-					"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = "artificer")
-					)
-				var/construct_class = show_radial_menu(user, src, constructs, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+				var/construct_class = show_radial_menu(user, src, GLOB.construct_radial_images, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
 				if(!T || !T.loc)
 					return
-				switch(construct_class)
-					if(iscultist(user))
-							/*
-							if(theme == THEME_WIZARD)
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut/mystic, A, user, 0, T.loc)
-							else
-							*/
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut, A, user, 0, T.loc)
-						else
-							if(theme == THEME_HOLY)
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut/angelic, A, user, 0, T.loc)
-							else
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut/noncult, A, user, 0, T.loc)
-					if("Wraith")
-						if(iscultist(user))
-							/*
-							if(theme == THEME_WIZARD)
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith/mystic, A, user, 0, T.loc)
-							else
-							*/
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith, A, user, 0, T.loc)
-						else
-							if((theme == THEME_HOLY))
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith/angelic, A, user, 0, T.loc)
-							else
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith/noncult, A, user, 0, T.loc)
-					if("Artificer")
-						if(iscultist(user))
-							/*
-							if(theme == THEME_WIZARD)
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer/mystic, A, user, 0, T.loc)
-							else
-							*/
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer, A, user, 0, T.loc)
-						else
-							if((theme == THEME_HOLY))
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer/angelic, A, user, 0, T.loc)
-							else
-								makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer/noncult, A, user, 0, T.loc)
-					else
-						return
+
+				make_new_construct_from_class(construct_class, theme, A, user, FALSE, T.loc)
+
 				for(var/datum/mind/B in SSticker.mode.cult)
 					if(B == A.mind)
 						SSticker.mode.cult -= A.mind
@@ -309,7 +266,7 @@
 				qdel(T)
 				qdel(src)
 			else
-				to_chat(user, "<span class='userdanger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
+				to_chat(user, "<span class='userdanger'>Creation failed!</span>: [src] is empty! Go kill someone!")
 
 /obj/item/soulstone/proc/check_menu(mob/user)
 	if(!istype(user))
@@ -317,6 +274,45 @@
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
 	return TRUE
+
+/proc/make_new_construct_from_class(construct_class, theme, mob/target, mob/creator, cultoverride, loc_override)
+	switch(construct_class)
+		if(CONSTRUCT_JUGGERNAUT)
+			if(IS_CULTIST(creator))
+				makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut, target, creator, cultoverride, loc_override) // ignore themes, the actual giving of cult info is in the makeNewConstruct proc
+			switch(theme)
+				/*
+				if(THEME_WIZARD)
+					makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut/mystic, target, creator, cultoverride, loc_override)
+				*/
+				if(THEME_HOLY)
+					makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut/angelic, target, creator, cultoverride, loc_override)
+				if(THEME_CULT)
+					makeNewConstruct(/mob/living/simple_animal/hostile/construct/juggernaut/noncult, target, creator, cultoverride, loc_override)
+		if(CONSTRUCT_WRAITH)
+			if(IS_CULTIST(creator))
+				makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith, target, creator, cultoverride, loc_override) // ignore themes, the actual giving of cult info is in the makeNewConstruct proc
+			switch(theme)
+				/*
+				if(THEME_WIZARD)
+					makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith/mystic, target, creator, cultoverride, loc_override)
+				*/
+				if(THEME_HOLY)
+					makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith/angelic, target, creator, cultoverride, loc_override)
+				if(THEME_CULT)
+					makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith/noncult, target, creator, cultoverride, loc_override)
+		if(CONSTRUCT_ARTIFICER)
+			if(IS_CULTIST(creator))
+				makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer, target, creator, cultoverride, loc_override) // ignore themes, the actual giving of cult info is in the makeNewConstruct proc
+			switch(theme)
+				/*
+				if(THEME_WIZARD)
+					makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer/mystic, target, creator, cultoverride, loc_override)
+				*/
+				if(THEME_HOLY)
+					makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer/angelic, target, creator, cultoverride, loc_override)
+				if(THEME_CULT)
+					makeNewConstruct(/mob/living/simple_animal/hostile/construct/artificer/noncult, target, creator, cultoverride, loc_override)
 
 /proc/makeNewConstruct(mob/living/simple_animal/hostile/construct/ctype, mob/target, mob/stoner = null, cultoverride = 0, loc_override = null)
 	if(QDELETED(target))
