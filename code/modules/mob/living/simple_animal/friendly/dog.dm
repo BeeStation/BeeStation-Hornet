@@ -723,11 +723,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	icon_state = "cardigan_corgi"
 	icon_living = "cardigan_corgi"
 	icon_dead = "cardigan_corgi_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = /mob/living/simple_animal/pet/dog/corgi/puppy/cardigan //Only one type of puppy
-	animal_species = /mob/living/simple_animal/pet/dog
-	gold_core_spawnable = FRIENDLY_SPAWN
-	collar_type = "corgi"
 	held_state = "cardigan_corgi"
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/cardigan
