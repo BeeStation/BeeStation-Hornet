@@ -100,7 +100,7 @@
 		return
 	if(iscultist(M))
 		if(iscultist(user))
-			to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your bretheren's soul.\"</span>")
+			to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your brethren's soul.\"</span>")
 			return
 	if(theme == THEME_HOLY && iscultist(user))
 		hot_potato(user)
@@ -253,7 +253,7 @@
 			var/obj/structure/constructshell/T = target
 			var/mob/living/simple_animal/shade/A = locate() in src
 			if(A)
-				var/construct_class = show_radial_menu(user, src, GLOB.construct_radial_images, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+				var/construct_class = show_radial_menu(user, src, GLOB.construct_radial_images, custom_check = CALLBACK(src, PROC_REF(check_menu), user, shell), require_near = TRUE, tooltips = TRUE)
 				if(!T || !T.loc)
 					return
 

@@ -600,7 +600,7 @@
 				if(do_after(user, 90, target = candidate))
 					candidate.undeploy()
 					candidate.emp_act(EMP_HEAVY)
-					var/construct_class = show_radial_menu(user, src, GLOB.construct_radial_images, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+					var/construct_class = show_radial_menu(user, src, GLOB.construct_radial_images, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 					if(!check_menu(user))
 						return
 					if(QDELETED(candidate))
