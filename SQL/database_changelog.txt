@@ -16,12 +16,12 @@ Version 7.1, 9 September 2023, by that0neperson
 Added customization for quirks.
 
 ALTER TABLE `SS13_characters`
-	ADD COLUMN `quirk_prosthetic_limb_location` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `all_quirks`,
-	ADD COLUMN `quirk_phobia` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_prosthetic_limb_location`,
-	ADD COLUMN `quirk_multilingual_language` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_phobia`,
-	ADD COLUMN `quirk_smoker_cigarettes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_multilingual_language` ,
-	ADD COLUMN `quirk_junkie_drug` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_smoker_cigarettes`,
-	ADD COLUMN `quirk_alcohol_type` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_junkie_drug`;
+	ADD COLUMN IF NOT EXISTS `quirk_prosthetic_limb_location` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `all_quirks`,
+	ADD COLUMN IF NOT EXISTS `quirk_phobia` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_prosthetic_limb_location`,
+	ADD COLUMN IF NOT EXISTS `quirk_multilingual_language` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_phobia`,
+	ADD COLUMN IF NOT EXISTS `quirk_smoker_cigarettes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_multilingual_language` ,
+	ADD COLUMN IF NOT EXISTS `quirk_junkie_drug` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_smoker_cigarettes`,
+	ADD COLUMN IF NOT EXISTS `quirk_alcohol_type` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_junkie_drug`;
 
 -----------------------------------------------------
 
