@@ -36,7 +36,6 @@
 	var/last_message = 0
 	var/add_req_access = 1
 	var/maint_access = 0
-	var/dna_lock //dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = FALSE
@@ -456,7 +455,6 @@
 	..()
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the mech suit's internal controls.</span>")
-	dna_lock = null
 	equipment_disabled = TRUE
 	log_message("System emagged detected", LOG_MECHA, color="red")
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, restore_equipment)), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
@@ -810,7 +808,7 @@
 			if(AI.stat || !AI.client)
 				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
 				return
-			if(occupant || dna_lock) //Normal AIs cannot steal mechs!
+			if(occupant) //Normal AIs cannot steal mechs!
 				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].</span>")
 				return
 			AI.control_disabled = FALSE
@@ -913,16 +911,6 @@
 		to_chat(usr, "<span class='warning'>The [name] is already occupied!</span>")
 		log_message("Permission denied (Occupied).", LOG_MECHA)
 		return
-	if(dna_lock)
-		var/passed = FALSE
-		if(user.has_dna())
-			var/mob/living/carbon/C = user
-			if(C.dna.unique_enzymes==dna_lock)
-				passed = TRUE
-		if (!passed)
-			to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
-			log_message("Permission denied (DNA LOCK).", LOG_MECHA)
-			return
 	if(!operation_allowed(user))
 		to_chat(user, "<span class='warning'>Access denied. Insufficient operation keycodes.</span>")
 		log_message("Permission denied (No keycode).", LOG_MECHA)
@@ -981,10 +969,6 @@
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
 		return FALSE
-	else if(dna_lock && (!mmi_as_oc.brainmob.stored_dna || (dna_lock != mmi_as_oc.brainmob.stored_dna.unique_enzymes)))
-		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
-		return FALSE
-
 	visible_message("<span class='notice'>[user] starts to insert an MMI into [name].</span>")
 
 	if(do_after(user, 40, target = src))

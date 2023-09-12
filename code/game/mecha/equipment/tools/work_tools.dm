@@ -525,7 +525,6 @@
 		E.detach()
 		E.attach(N)
 		M.equipment -= E
-	N.dna_lock = M.dna_lock
 	N.maint_access = M.maint_access
 	N.strafe = M.strafe
 	N.obj_integrity = M.obj_integrity //This is not a repair tool
