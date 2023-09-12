@@ -106,7 +106,7 @@
 	icon_state = "phase_shift2_holy"
 
 /obj/effect/temp_visual/dir_setting/wraith/mystic
-	icon_state = "phase_shift2_wizard""
+	icon_state = "phase_shift2_wizard"
 
 /obj/effect/temp_visual/dir_setting/wraith/out
 	icon_state = "phase_shift_cult"

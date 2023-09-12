@@ -145,11 +145,10 @@
 			if(THEME_CULT)
 				icon_state = "soulstone"
 		name = initial(name)
-		if(!silent)
-			if(iscultist(user))
-				to_chat(A, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
-			else if(role_check(user))
-				to_chat(A, "<b>You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.</b>")
+		if(iscultist(user))
+			to_chat(A, "<b>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</b>")
+		else if(role_check(user))
+			to_chat(A, "<b>You have been released from your prison, but you are still bound to [user.real_name]'s will. Help [user.p_them()] succeed in [user.p_their()] goals at all costs.</b>")
 		was_used()
 
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
@@ -225,7 +224,7 @@
 							return FALSE
 						for(var/obj/item/W in T)
 							T.dropItemToGround(W)
-						init_shade(T, user, vic = 1)
+						init_shade(T, user, message_user = 1)
 						qdel(T)
 				else
 					to_chat(user, "<span class='userdanger'>Capture failed!</span>: Kill or maim the victim first!")
@@ -347,7 +346,9 @@
 	newstruct.cancel_camera()
 
 
-/obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/U, vic = 0)
+/obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/user, message_user = FALSE, mob/shade_controller)
+	if(!shade_controller)
+		shade_controller = T
 	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
 	T.stop_sound_channel(CHANNEL_HEARTBEAT)
 	T.invisibility = INVISIBILITY_ABSTRACT
@@ -357,14 +358,14 @@
 	S.mobility_flags = NONE //Can't move out of the soul stone
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
-	S.key = T.key
+	S.key = shade_controller.key
 	S.copy_languages(T, LANGUAGE_MIND)//Copies the old mobs languages into the new mob holder.
-	S.copy_languages(U, LANGUAGE_MASTER)
+	S.copy_languages(user, LANGUAGE_MASTER)
 	S.update_atom_languages()
 	grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
-	if(U)
-		S.faction |= "[REF(U)]" //Add the master as a faction, allowing inter-mob cooperation
-	if(U && iscultist(U))
+	if(user)
+		S.faction |= "[REF(user)]" //Add the master as a faction, allowing inter-mob cooperation
+	if(user && iscultist(user))
 		SSticker.mode.add_cultist(S.mind, 0)
 	S.cancel_camera()
 	name = "soulstone: Shade of [T.real_name]"
@@ -386,28 +387,24 @@
 			to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from [T.p_their()] body and stored within [src].")
 
 
-/obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
+/obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/user)
 	var/mob/dead/observer/chosen_ghost
 
-	for(var/mob/dead/observer/ghost in GLOB.player_list) //We put them back in their body
-		if(ghost.mind && ghost.mind.current == T && ghost.client && ghost.can_reenter_corpse)
-			chosen_ghost = ghost
-			break
+	chosen_ghost = T.get_ghost(TRUE,TRUE) //Try to grab original owner's ghost first
 
-	if(!chosen_ghost)	//Failing that, we grab a ghost
+	if(!chosen_ghost || !chosen_ghost.client) //Failing that, we grab a ghosts
 		var/list/consenting_candidates = pollGhostCandidates("Would you like to play as a Shade?", ROLE_CULTIST, null, 5 SECONDS, ignore_category = POLL_IGNORE_CULT_SHADE)
 		if(consenting_candidates.len)
 			chosen_ghost = pick(consenting_candidates)
 	if(!T)
 		return FALSE
 	if(!chosen_ghost)
-		to_chat(U, "<span class='danger'>There were no spirits willing to become a shade.</span>")
+		to_chat(user, "<span class='danger'>There were no spirits willing to become a shade.</span>")
 		return FALSE
 	if(contents.len) //If they used the soulstone on someone else in the meantime
 		return FALSE
-	T.ckey = chosen_ghost.ckey
 	for(var/obj/item/W in T)
 		T.dropItemToGround(W)
-	init_shade(T, U)
+	init_shade(T, user , shade_controller = chosen_ghost)
 	qdel(T)
 	return TRUE
