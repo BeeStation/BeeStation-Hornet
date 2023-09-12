@@ -71,7 +71,7 @@
 		S.status_flags &= ~GODMODE
 		S.mobility_flags = MOBILITY_FLAGS_DEFAULT
 		S.cancel_camera()
-		if(purified)
+		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
 			S.name = "Purified [initial(S.name)]"
 
