@@ -45,9 +45,14 @@
 	bolt_type = BOLT_TYPE_NO_BOLT //Functionally a double-barrel shotgun
 	tac_reloads = FALSE
 	fire_sound_volume = 60
-	spread = 20 //Innate spread of 20 degrees, 40 spread while unwielded; same as Stechkin
+	spread = 18 //Innate spread of 18 degrees, 38 spread while unwielded; Slightly lower than a wielded Stechkin
 	wild_spread = TRUE
-	wild_factor = 0.4
+	wild_factor = 0.70 //Minimum spread is 70% of spread value
+
+/obj/item/gun/ballistic/automatic/pistol/der38/twelveshooter //For debugging only, or meme shit
+	name = "palm pistol devastator"
+	desc = "By the locker of Davy Jones, it be a fuhckin' twelve barreled derringer!"
+	mag_type = /obj/item/ammo_box/magazine/internal/der38/twelveshooter
 
 /obj/item/gun/ballistic/automatic/pistol/m1911
 	name = "\improper M1911"

@@ -370,19 +370,24 @@
 		return
 
 	var/sprd = 0
-	var/min_sprd = 0
+	var/min_gun_sprd = 0
+	var/min_rand_sprd = 0
 	var/randomized_gun_spread = 0
 	var/rand_spr = rand()
+
+	if(wild_spread)
+		var/S
+		S = sprd * wild_factor //If a gun has WILD SPREAD get the minimum by multiplying spread by its WILD FACTOR
+		min_gun_sprd = round(S, 0.5) //Clean up that value a tiny bit
+		S = spread_unwielded * wild_factor //Do the same for the gun's unwielded spread
+		min_rand_sprd = round(S, 0.5)
 	if(spread)
-		if(wild_spread)
-			var/S = sprd * wild_factor //If a gun has WILD SPREAD get the minimum by multiplying spread by its WILD FACTOR
-			min_sprd = round(S, 0.5) //Clean up that value a tiny bit
-		randomized_gun_spread =	rand(min_sprd,spread)
-	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
+		randomized_gun_spread =	rand(min_gun_sprd,spread)
+	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex //Does not modify minimum spread, only maximum spread
 		bonus_spread += 25
 	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
-	var/randomized_bonus_spread = rand(0, bonus_spread)
+	var/randomized_bonus_spread = rand(min_rand_sprd, bonus_spread)
 
 	if(burst_size > 1)
 		firing_burst = TRUE
