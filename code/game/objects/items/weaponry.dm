@@ -929,6 +929,17 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 			H.apply_damage(stamforce, STAMINA, blocked = def_check)
 	return ..()
 
+/obj/item/club/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(istype(A, /obj/structure/window)) //Bonus damage to windows and grilles
+		var/obj/structure/window/W = A
+		W.take_damage(30, BRUTE, MELEE, 0)
+	else if(istype(A, /obj/structure/grille))
+		var/obj/structure/grille/G = A
+		G.take_damage(10, BRUTE, MELEE, 0)
+
 /obj/item/club/tailclub
 	name = "tail club"
 	desc = "For the beating to death of lizards with their own tails."
