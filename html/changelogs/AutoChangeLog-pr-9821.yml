@@ -1,0 +1,9 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: 'You can now use keybinds bound to common AZERTY keys such as: & é " (
+      è _ ç à ) ² $ ù : * !'
+  - bugfix: Keys will no longer get stuck down when using key combinations like Alt,
+      Shift, and Ctrl.
+  - tweak: Improved the error message when preferences/keybinds fail to fetch client
+      data, stating that reconnecting will likely fix it.
