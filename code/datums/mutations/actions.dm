@@ -309,7 +309,6 @@
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
-	species_allowed = list(SPECIES_PSYPHOZA)
 
 /obj/effect/proc_holder/spell/self/spores
 	name = "Release Spores"
