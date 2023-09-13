@@ -6,16 +6,6 @@
 	difficulty = 8
 	var/datum/weakref/radio_weakref
 
-/obj/item/implant/radio/antenna
-	name = "internal antenna organ"
-	desc = "The internal organ part of the antenna. Science has not yet given it a good name."
-	icon = 'icons/obj/radio.dmi'//maybe make a unique sprite later. not important
-	icon_state = "walkietalkie"
-
-/obj/item/implant/radio/antenna/Initialize(mapload)
-	..()
-	radio.name = "internal antenna"
-
 /datum/mutation/antenna/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
@@ -37,3 +27,13 @@
 
 /datum/mutation/antenna/get_visual_indicator()
 	return visual_indicators[type][1]
+
+/obj/item/implant/radio/antenna
+	name = "internal antenna organ"
+	desc = "The internal organ part of the antenna. Science has not yet given it a good name."
+	icon = 'icons/obj/radio.dmi'//maybe make a unique sprite later. not important
+	icon_state = "walkietalkie"
+
+/obj/item/implant/radio/antenna/Initialize()
+	. = ..()
+	radio.name = "internal antenna"

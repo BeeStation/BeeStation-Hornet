@@ -39,19 +39,16 @@
 	difficulty = 18
 	instability = 25
 	locked = TRUE
-	var/visionflag = TRAIT_THERMAL_VISION
+	traits = TRAIT_THERMAL_VISION
 
 /datum/mutation/thermal/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-
-	ADD_TRAIT(owner, visionflag, GENETIC_MUTATION)
 	owner.update_sight()
 
 /datum/mutation/thermal/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
-	REMOVE_TRAIT(owner, visionflag, GENETIC_MUTATION)
 	owner.update_sight()
 
 //X-ray Vision lets you see through walls.
@@ -60,7 +57,7 @@
 	desc = "A strange mutation that allows the user to see between the spaces of walls." //actual x-ray would mean you'd constantly be blasting rads, wich might be fun for later //hmb
 	instability = 35
 	locked = TRUE
-	visionflag = TRAIT_XRAY_VISION
+	traits = TRAIT_XRAY_VISION
 
 //Laser Eyes lets you shoot lasers from your eyes!
 /datum/mutation/laser_eyes

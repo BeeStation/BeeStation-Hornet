@@ -5,8 +5,6 @@
 	difficulty = 12
 	power = /obj/effect/proc_holder/spell/targeted/telepathy
 	instability = 10
-	energy_coeff = 1
-
 
 /datum/mutation/olfaction
 	name = "Transcendent Olfaction"
@@ -15,13 +13,12 @@
 	difficulty = 12
 	power = /obj/effect/proc_holder/spell/targeted/olfaction
 	instability = 30
-	synchronizer_coeff = 1
-	var/reek = 200
+	energy_coeff = 1
 
 /obj/effect/proc_holder/spell/targeted/olfaction
 	name = "Remember the Scent"
 	desc = "Get a scent off of the item you're currently holding to track it. With an empty hand, you'll track the scent you've remembered."
-	charge_max = 100
+	charge_max = 10 SECONDS
 	clothes_req = FALSE
 	range = -1
 	include_user = TRUE
@@ -35,13 +32,13 @@
 		var/old_target = tracking_target
 		possible = list()
 		var/list/prints = sniffed.return_fingerprints()
-		for(var/mob/living/carbon/C in GLOB.carbon_list)
-			if(prints[rustg_hash_string(RUSTG_HASH_MD5, C.dna.uni_identity)])
-				possible |= C
+		for(var/mob/living/carbon/potential_target in GLOB.carbon_list)
+			if(prints[rustg_hash_string(RUSTG_HASH_MD5, potential_target.dna.uni_identity)])
+				possible |= potential_target
 		if(!length(possible))
-			to_chat(user,"<span class='warning'>Despite your best efforts, there are no scents to be found on [sniffed]...</span>")
+			to_chat(user, "<span class='warning'>Despite your best efforts, there are no scents to be found on [sniffed]...</span>")
 			return
-		tracking_target = input(user, "Choose a scent to remember.", "Scent Tracking") as null|anything in sort_names(possible)
+		tracking_target = tgui_input_list(user, "Choose a scent to remember.", "Scent Tracking", sort_names(possible))
 		if(!tracking_target)
 			if(!old_target)
 				to_chat(user,"<span class='warning'>You decide against remembering any scents. Instead, you notice your own nose in your peripheral vision. This goes on to remind you of that one time you started breathing manually and couldn't stop. What an awful day that was.</span>")
@@ -49,7 +46,7 @@
 			tracking_target = old_target
 			on_the_trail(user)
 			return
-		to_chat(user,"<span class='notice'>You pick up the scent of [tracking_target]. The hunt begins.</span>")
+		to_chat(user,"<span class='notice'>You pick up the scent of <span class='name'>[tracking_target]</span>. The hunt begins.</span>")
 		on_the_trail(user)
 		return
 
@@ -74,7 +71,7 @@
 		return
 	var/direction_text = "[dir2text(get_dir(usr, tracking_target))]"
 	if(direction_text)
-		to_chat(user,"<span class='notice'>You consider [tracking_target]'s scent. The trail leads <b>[direction_text].</b></span>")
+		to_chat(user,"<span class='notice'>You consider <span class='name'>[tracking_target]</span>'s scent. The trail leads <b>[direction_text].</b></span>")
 
 /datum/mutation/firebreath
 	name = "Fire Breath"
@@ -91,8 +88,8 @@
 /datum/mutation/firebreath/modify()
 	..()
 	if(power)
-		var/obj/effect/proc_holder/spell/aimed/firebreath/S = power
-		S.strength = GET_MUTATION_POWER(src)
+		var/obj/effect/proc_holder/spell/aimed/firebreath/firebreath = power
+		firebreath.strength = GET_MUTATION_POWER(src)
 
 /obj/effect/proc_holder/spell/aimed/firebreath
 	name = "Fire Breath"
@@ -100,7 +97,7 @@
 	school = "evocation"
 	invocation = ""
 	invocation_type = INVOCATION_NONE
-	charge_max = 600
+	charge_max = 1 MINUTES
 	clothes_req = FALSE
 	range = 20
 	projectile_type = /obj/projectile/magic/fireball/firebreath
@@ -113,27 +110,27 @@
 
 /obj/effect/proc_holder/spell/aimed/firebreath/before_cast(list/targets)
 	. = ..()
-	if(iscarbon(usr))
-		var/mob/living/carbon/C = usr
-		if(C.is_mouth_covered())
-			C.adjust_fire_stacks(2)
-			C.IgniteMob()
-			to_chat(C,"<span class='warning'>Something in front of your mouth caught fire!</span>")
-			return FALSE
-
-/obj/effect/proc_holder/spell/aimed/firebreath/ready_projectile(obj/projectile/P, atom/target, mob/user, iteration)
-	if(!istype(P, /obj/projectile/magic/fireball))
+	var/mob/living/carbon/user = usr
+	if(!istype(user))
 		return
-	var/obj/projectile/magic/fireball/F = P
-	F.exp_light = strength-1
-	F.exp_fire += strength
+	if(user.is_mouth_covered())
+		user.adjust_fire_stacks(2)
+		user.IgniteMob()
+		to_chat(user, "<span class='warning'>Something in front of your mouth caught fire!</span>")
+		return FALSE
+
+/obj/effect/proc_holder/spell/aimed/firebreath/ready_projectile(obj/projectile/magic/fireball/fireball, atom/target, mob/user, iteration)
+	if(!istype(fireball))
+		return
+	fireball.exp_light = strength - 1
+	fireball.exp_fire += strength
 
 /obj/projectile/magic/fireball/firebreath
 	name = "fire breath"
 	exp_heavy = 0
 	exp_light = 0
 	exp_flash = 0
-	exp_fire= 4
+	exp_fire = 4
 	magic = FALSE
 
 /datum/mutation/void
@@ -148,7 +145,7 @@
 /datum/mutation/void/on_life()
 	if(!isturf(owner.loc))
 		return
-	if(prob((0.5+((100-dna.stability)/20))) * GET_MUTATION_SYNCHRONIZER(src)) //very rare, but enough to annoy you hopefully. +0.5 probability for every 10 points lost in stability
+	if(prob((0.5 + ((100 - dna.stability) / 20))) * GET_MUTATION_SYNCHRONIZER(src)) //very rare, but enough to annoy you hopefully. +0.5 probability for every 10 points lost in stability
 		new /obj/effect/immortality_talisman/void(get_turf(owner), owner)
 
 /obj/effect/proc_holder/spell/self/void
@@ -156,15 +153,15 @@
 	desc = "A rare genome that attracts odd forces not usually observed. May sometimes pull you in randomly."
 	school = "evocation"
 	clothes_req = FALSE
-	charge_max = 600
+	charge_max = 1 MINUTES
 	invocation = "DOOOOOOOOOOOOOOOOOOOOM!!!"
 	invocation_type = INVOCATION_SHOUT
 	action_icon_state = "void_magnet"
 
 /obj/effect/proc_holder/spell/self/void/can_cast(mob/user = usr)
-	. = ..()
 	if(!isturf(user.loc))
 		return FALSE
+	return ..()
 
 /obj/effect/proc_holder/spell/self/void/cast(mob/user = usr)
 	. = ..()
@@ -176,37 +173,28 @@
 	quality = POSITIVE
 	instability = 30
 	power = /obj/effect/proc_holder/spell/self/self_amputation
-
 	energy_coeff = 1
-	synchronizer_coeff = 1
 
 /obj/effect/proc_holder/spell/self/self_amputation
 	name = "Drop a limb"
 	desc = "Concentrate to make a random limb pop right off your body."
 	clothes_req = FALSE
 	human_req = FALSE
-	charge_max = 100
+	charge_max = 10 SECONDS
 	action_icon_state = "autotomy"
 
-/obj/effect/proc_holder/spell/self/self_amputation/cast(mob/user = usr)
-	if(!iscarbon(user))
+/obj/effect/proc_holder/spell/self/self_amputation/cast(mob/living/carbon/user = usr)
+	if(!istype(user) || HAS_TRAIT(user, TRAIT_NODISMEMBER))
 		return
-
-	var/mob/living/carbon/C = user
-	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
-		return
-
 	var/list/parts = list()
-	for(var/obj/item/bodypart/BP as() in C.bodyparts)
-		if(BP.body_part != HEAD && BP.body_part != CHEST)
-			if(BP.dismemberable)
-				parts += BP
-	if(!parts.len)
-		to_chat(usr, "<span class='notice'>You can't shed any more limbs!</span>")
+	for(var/obj/item/bodypart/part as() in user.bodyparts)
+		if(part.body_part != HEAD && part.body_part != CHEST && part.dismemberable)
+			parts += part
+	if(!length(parts))
+		to_chat(user, "<span class='notice'>You can't shed any more limbs!</span>")
 		return
-
-	var/obj/item/bodypart/BP = pick(parts)
-	BP.dismember()
+	var/obj/item/bodypart/yeeted_limb = pick(parts)
+	yeeted_limb.dismember()
 
 /datum/mutation/overload
 	name = "Overload"
@@ -216,84 +204,30 @@
 	instability = 30
 	power = /obj/effect/proc_holder/spell/self/overload
 	species_allowed = list(SPECIES_ETHEREAL)
+	energy_coeff = 1
+	power_coeff = 1
+
+/datum/mutation/overload/modify()
+	..()
+	if(power)
+		var/static/max_range = min(getviewsize(world.view)[1], getviewsize(world.view)[2]) - 2
+		var/obj/effect/proc_holder/spell/self/overload/overload = power
+		overload.max_distance = min(max_range, initial(overload.max_distance) * GET_MUTATION_POWER(src))
 
 /obj/effect/proc_holder/spell/self/overload
 	name = "Overload"
 	desc = "Concentrate to make your skin energize."
 	clothes_req = FALSE
 	human_req = FALSE
-	charge_max = 400
+	charge_max = 40 SECONDS
 	action_icon_state = "blind"
 	var/max_distance = 4
 
-/obj/effect/proc_holder/spell/self/overload/cast(mob/user = usr)
+/obj/effect/proc_holder/spell/self/overload/cast(mob/living/carbon/human/user)
 	if(!isethereal(user))
 		return
-
 	var/list/mob/targets = oviewers(max_distance, get_turf(user))
 	visible_message("<span class='disarm'>[user] emits a blinding light!</span>")
-	for(var/mob/living/carbon/C in targets)
-		if(C.flash_act(1))
-			C.Paralyze(10 + (5*max_distance))
-
-/datum/mutation/overload/modify()
-	if(power)
-		var/obj/effect/proc_holder/spell/self/overload/S = power
-		S.max_distance = 4 * GET_MUTATION_POWER(src)
-
-/datum/mutation/acidooze
-	name = "Acidic Hands"
-	desc = "Allows an Oozeling to metabolize some of their blood into acid, concentrated on their hands."
-	quality = POSITIVE
-	locked = TRUE
-	instability = 30
-	power = /obj/effect/proc_holder/spell/targeted/touch/acidooze
-	species_allowed = list(SPECIES_OOZELING)
-
-/obj/effect/proc_holder/spell/targeted/touch/acidooze
-	name = "Acidic Hands"
-	desc = "Concentrate to make some of your blood become acidic."
-	clothes_req = FALSE
-	human_req = FALSE
-	charge_max = 100
-	action_icon_state = "summons"
-	var/volume = 10
-	hand_path = /obj/item/melee/touch_attack/acidooze
-	drawmessage = "You secrete acid into your hand."
-	dropmessage = "You let the acid in your hand dissipate."
-
-/obj/item/melee/touch_attack/acidooze
-	name = "\improper acidic hand"
-	desc = "Keep away from children, paperwork, and children doing paperwork."
-	catchphrase = null
-	icon = 'icons/effects/blood.dmi'
-	var/icon_left = "bloodhand_left"
-	var/icon_right = "bloodhand_right"
-	icon_state = "bloodhand_left"
-	item_state = "fleshtostone"
-
-/obj/item/melee/touch_attack/acidooze/equipped(mob/user, slot)
-	. = ..()
-	//these are intentionally inverted
-	var/i = user.get_held_index_of_item(src)
-	if(!(i % 2))
-		icon_state = icon_left
-	else
-		icon_state = icon_right
-
-/obj/item/melee/touch_attack/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || !isoozeling(user))
-		return
-	var/mob/living/carbon/C = user
-	if(!target || user.incapacitated())
-		return FALSE
-	if(C.blood_volume < 40)
-		to_chat(user, "<span class='warning'>You don't have enough blood to do that!</span>")
-		return FALSE
-	if(target.acid_act(50, 15))
-		user.visible_message("<span class='warning'>[user] rubs globs of vile stuff all over [target].</span>")
-		C.blood_volume = max(C.blood_volume - 20, 0)
-		return ..()
-	else
-		to_chat(user, "<span class='notice'>You cannot dissolve this object.</span>")
-		return FALSE
+	for(var/mob/living/carbon/target in targets)
+		if(target.flash_act(1))
+			target.Paralyze(10 + (5 * max_distance))

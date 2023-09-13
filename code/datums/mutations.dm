@@ -5,6 +5,8 @@
 	var/quality
 	var/static/list/visual_indicators = list()
 	var/obj/effect/proc_holder/spell/power
+	/// A list of traits to apply to the user whenever this mutation is active.
+	var/list/traits
 	var/layer_used = MUTATIONS_LAYER //which mutation layer to use
 	var/list/species_allowed = list() //to restrict mutation to only certain species
 	var/list/mobtypes_allowed = list() //to restrict mutation to only certain mobs
@@ -46,9 +48,11 @@
 		timed = TRUE
 	if(copymut && istype(copymut, /datum/mutation))
 		copy_mutation(copymut)
+	if(traits && !islist(traits))
+		traits = list(traits)
 
 /datum/mutation/proc/on_acquiring(mob/living/carbon/C)
-	if(!C || !istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
+	if(!istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
 		return TRUE
 	if(length(mobtypes_allowed) && !mobtypes_allowed.Find(C.type))
 		return TRUE
@@ -78,6 +82,8 @@
 	if(!modified && can_chromosome == CHROMOSOME_USED)
 		addtimer(CALLBACK(src, PROC_REF(modify), 5)) //gonna want children calling ..() to run first
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	for(var/trait in traits)
+		ADD_TYPED_TRAIT(C, trait)
 
 /datum/mutation/proc/get_visual_indicator()
 	return
@@ -96,7 +102,7 @@
 	return
 
 /datum/mutation/proc/on_losing(mob/living/carbon/owner)
-	if(owner && istype(owner) && (owner.dna.mutations.Remove(src)))
+	if(istype(owner) && (owner.dna.mutations.Remove(src)))
 		if(length(visual_indicators))
 			var/list/mut_overlay = list()
 			if(owner.overlays_standing[layer_used])
@@ -109,8 +115,9 @@
 			owner.RemoveSpell(power)
 			qdel(src)
 		UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-		return 0
-	return 1
+		REMOVE_TYPED_TRAITS(owner)
+		return FALSE
+	return TRUE
 
 /mob/living/carbon/proc/update_mutations_overlay()
 	if(!has_dna())
@@ -143,7 +150,7 @@
 	modified = TRUE
 
 /datum/mutation/proc/copy_mutation(datum/mutation/HM)
-	if(!HM)
+	if(!istype(HM))
 		return
 	chromosome_name = HM.chromosome_name
 	stabilizer_coeff = HM.stabilizer_coeff
@@ -173,7 +180,10 @@
 	if(!ispath(power) || !owner)
 		return FALSE
 
-	power = new power()
+	if(ispath(power, /obj/effect/proc_holder/spell/targeted/touch/mutation))
+		power = new power(null, src)
+	else
+		power = new power()
 	power.action_background_icon_state = "bg_tech_blue_on"
 	power.panel = "Genetic"
 	owner.AddSpell(power)

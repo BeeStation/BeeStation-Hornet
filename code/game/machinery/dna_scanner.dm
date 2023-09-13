@@ -35,6 +35,9 @@
 		precision_coeff = M.rating
 	for(var/obj/item/stock_parts/micro_laser/P in component_parts)
 		damage_coeff = P.rating
+	for(var/obj/machinery/computer/scan_consolenew/console in view(1))
+		if(console.connected_scanner == src)
+			console.calculate_timeouts()
 
 /obj/machinery/dna_scannernew/examine(mob/user)
 	. = ..()
