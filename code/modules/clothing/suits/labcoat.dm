@@ -32,23 +32,23 @@
 	item_state = "labcoat_sec"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 50, acid = 50, stamina = 30)
 
-/obj/item/clothing/suit/toggle/labcoat/mad
+/obj/item/clothing/suit/toggle/labcoat/med/mad
 	name = "\proper The Mad's labcoat"
 	desc = "It makes you look capable of konking someone on the noggin and shooting them into space."
 	icon_state = "labgreen"
 	item_state = "labgreen"
 
-/obj/item/clothing/suit/toggle/labcoat/genetics
+/obj/item/clothing/suit/toggle/labcoat/med/genetics
 	name = "geneticist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a blue stripe on the shoulder."
 	icon_state = "labcoat_gen"
 
-/obj/item/clothing/suit/toggle/labcoat/chemist
+/obj/item/clothing/suit/toggle/labcoat/med/chemist
 	name = "chemist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has an orange stripe on the shoulder."
 	icon_state = "labcoat_chem"
 
-/obj/item/clothing/suit/toggle/labcoat/virologist
+/obj/item/clothing/suit/toggle/labcoat/med/virologist
 	name = "virologist labcoat"
 	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has a green stripe on the shoulder."
 	icon_state = "labcoat_vir"

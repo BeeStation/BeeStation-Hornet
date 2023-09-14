@@ -87,7 +87,7 @@
 	color = "#00FF00"
 	hat = /obj/item/clothing/head/soft/green
 	outfit = /obj/item/clothing/under/color/green
-	suit = /obj/item/clothing/suit/toggle/labcoat/mad
+	suit = /obj/item/clothing/suit/toggle/labcoat/med/mad
 
 /datum/team/gang/gib
 	name = "Gib"

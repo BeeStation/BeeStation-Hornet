@@ -31,7 +31,7 @@
 	items = list(
 		/obj/item/clothing/under/rank/captain/suit,
 		/obj/item/clothing/head/flatcap,
-		/obj/item/clothing/suit/toggle/labcoat/mad)
+		/obj/item/clothing/suit/toggle/labcoat/med/mad)
 
 /obj/effect/spawner/bundle/costume/elpresidente
 	name = "el presidente costume spawner"

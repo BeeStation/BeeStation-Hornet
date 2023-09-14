@@ -456,7 +456,7 @@
 					/obj/item/clothing/under/plasmaman/chemist = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/chemist = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
-					/obj/item/clothing/suit/toggle/labcoat/chemist = 2,
+					/obj/item/clothing/suit/toggle/labcoat/med/chemist = 2,
 					/obj/item/storage/backpack/chemistry = 2,
 					/obj/item/storage/backpack/satchel/chem = 2,
 					/obj/item/storage/bag/chemistry = 2,
@@ -477,7 +477,7 @@
 					/obj/item/clothing/under/plasmaman/genetics = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/genetics = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
-					/obj/item/clothing/suit/toggle/labcoat/genetics = 2,
+					/obj/item/clothing/suit/toggle/labcoat/med/genetics = 2,
 					/obj/item/storage/backpack/genetics = 2,
 					/obj/item/storage/backpack/satchel/gen = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/gene_wardrobe
@@ -496,7 +496,7 @@
 					/obj/item/clothing/under/plasmaman/viro = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/viro = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
-					/obj/item/clothing/suit/toggle/labcoat/virologist = 2,
+					/obj/item/clothing/suit/toggle/labcoat/med/virologist = 2,
 					/obj/item/clothing/mask/surgical = 2,
 					/obj/item/storage/backpack/virology = 2,
 					/obj/item/storage/backpack/satchel/vir = 2)

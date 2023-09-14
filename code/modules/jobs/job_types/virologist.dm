@@ -50,7 +50,7 @@
 	uniform = /obj/item/clothing/under/rank/medical/virologist
 	mask = /obj/item/clothing/mask/surgical
 	shoes = /obj/item/clothing/shoes/sneakers/white
-	suit =  /obj/item/clothing/suit/toggle/labcoat/virologist
+	suit =  /obj/item/clothing/suit/toggle/labcoat/med/virologist
 	suit_store =  /obj/item/flashlight/pen
 	r_pocket = /obj/item/modular_computer/tablet/pda/virologist
 

@@ -167,7 +167,7 @@
 			new /obj/item/slimepotion/slime/sentience(src)
 
 		if("mad_scientist")
-			new /obj/item/clothing/suit/toggle/labcoat/mad(src) // 0 tc
+			new /obj/item/clothing/suit/toggle/labcoat/med/mad(src) // 0 tc
 			new /obj/item/clothing/shoes/jackboots(src) // 0 tc
 			new /obj/item/megaphone(src) // 0 tc (because how else are they to know you're mad?)
 			new /obj/item/grenade/clusterbuster/random(src) // 10 tc?

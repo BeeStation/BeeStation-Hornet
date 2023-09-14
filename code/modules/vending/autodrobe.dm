@@ -18,7 +18,7 @@
 					/obj/item/clothing/head/helmet/gladiator = 1,
 					/obj/item/clothing/under/rank/captain/suit = 1,
 					/obj/item/clothing/head/flatcap = 1,
-					/obj/item/clothing/suit/toggle/labcoat/mad = 1,
+					/obj/item/clothing/suit/toggle/labcoat/med/mad = 1,
 					/obj/item/clothing/shoes/jackboots = 1,
 					/obj/item/clothing/under/costume/schoolgirl = 1,
 					/obj/item/clothing/under/costume/schoolgirl/red = 1,

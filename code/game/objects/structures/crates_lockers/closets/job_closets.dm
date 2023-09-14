@@ -251,7 +251,7 @@
 	var/static/items_inside = list(
 		/obj/item/clothing/under/rank/medical/chemist = 2,
 		/obj/item/clothing/shoes/sneakers/white = 2,
-		/obj/item/clothing/suit/toggle/labcoat/chemist = 2,
+		/obj/item/clothing/suit/toggle/labcoat/med/chemist = 2,
 		/obj/item/storage/backpack/chemistry = 2,
 		/obj/item/storage/backpack/satchel/chem = 2,
 		/obj/item/storage/bag/chemistry = 2)
@@ -267,7 +267,7 @@
 	var/static/items_inside = list(
 		/obj/item/clothing/under/rank/medical/geneticist = 2,
 		/obj/item/clothing/shoes/sneakers/white = 2,
-		/obj/item/clothing/suit/toggle/labcoat/genetics = 2,
+		/obj/item/clothing/suit/toggle/labcoat/med/genetics = 2,
 		/obj/item/storage/backpack/genetics = 2,
 		/obj/item/storage/backpack/satchel/gen = 2)
 	generate_items_inside(items_inside,src)
@@ -282,7 +282,7 @@
 	var/static/items_inside = list(
 		/obj/item/clothing/under/rank/medical/virologist = 2,
 		/obj/item/clothing/shoes/sneakers/white = 2,
-		/obj/item/clothing/suit/toggle/labcoat/virologist = 2,
+		/obj/item/clothing/suit/toggle/labcoat/med/virologist = 2,
 		/obj/item/clothing/mask/surgical = 2,
 		/obj/item/storage/backpack/virology = 2,
 		/obj/item/storage/backpack/satchel/vir = 2,
