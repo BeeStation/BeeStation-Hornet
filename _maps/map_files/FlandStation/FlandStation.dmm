@@ -20202,7 +20202,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/miningdock)
 "fok" = (
-/obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/bot_white,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -60322,7 +60321,6 @@
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
-/obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -85837,7 +85835,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "vJC" = (
-/obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -95342,8 +95339,8 @@
 /turf/open/floor/carpet/red,
 /area/library)
 "xIF" = (
-/obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/bot_white,
+/obj/structure/weightmachine,
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/fitness/recreation)
 "xII" = (
