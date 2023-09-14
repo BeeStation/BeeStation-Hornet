@@ -523,6 +523,7 @@
 
 	var/mob/living/silicon/robot/R = new /mob/living/silicon/robot(loc)
 
+	R.job = JOB_NAME_CYBORG
 	R.gender = gender
 	R.invisibility = 0
 
@@ -537,15 +538,7 @@
 		R.key = key
 
 	if(R.mmi)
-		R.mmi.name = "[initial(R.mmi.name)]: [real_name]"
-		if(R.mmi.brain)
-			R.mmi.brain.name = "[real_name]'s brain"
-		if(R.mmi.brainmob)
-			R.mmi.brainmob.real_name = real_name //the name of the brain inside the cyborg is the robotized human's name.
-			R.mmi.brainmob.name = real_name
-
-	R.job = JOB_NAME_CYBORG
-	R.notify_ai(NEW_BORG)
+		R.mmi.transfer_identity(src)
 
 	. = R
 	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))
