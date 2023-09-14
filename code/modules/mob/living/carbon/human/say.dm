@@ -5,29 +5,30 @@
 		verb_ask = pick(T.ask_mod)
 		verb_yell = pick(T.yell_mod)
 		verb_exclaim = pick(T.exclaim_mod)
+	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
+		var/obj/item/clothing/mask/worn_mask = wear_mask
+		if(!isnull(worn_mask.chosen_tongue))
+			verb_say = pick(initial(worn_mask.chosen_tongue.say_mod))
+			verb_ask = pick(initial(worn_mask.chosen_tongue.ask_mod))
+			verb_yell = pick(initial(worn_mask.chosen_tongue.yell_mod))
+			verb_exclaim = pick(initial(worn_mask.chosen_tongue.exclaim_mod))
 	if(slurring || !T)
 		return "slurs"
 	else
 		. = ..()
 
 /mob/living/carbon/human/GetVoice()
-	if(istype(wear_mask, /obj/item/clothing/mask/chameleon))
-		var/obj/item/clothing/mask/chameleon/V = wear_mask
-		if(V.vchange && wear_id)
-			var/obj/item/card/id/idcard = wear_id.GetID()
-			if(istype(idcard) && idcard.electric)
-				return idcard.registered_name
-			else
-				return real_name
-		else
-			return real_name
+	var/current_name = real_name
+	if(GetSpecialVoice())
+		current_name = GetSpecialVoice()
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling && changeling.mimicing )
-			return changeling.mimicing
-	if(GetSpecialVoice())
-		return GetSpecialVoice()
-	return real_name
+			current_name = changeling.mimicing
+	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
+		var/obj/item/clothing/mask/modulator = wear_mask
+		current_name = modulator.get_name(usr, current_name)
+	return current_name
 
 /mob/living/carbon/human/IsVocal()
 	// how do species that don't breathe talk? magic, that's what.
@@ -79,26 +80,3 @@
 /mob/living/carbon/human/get_alt_name()
 	if(name != GetVoice())
 		return " (as [get_id_name("Unknown")])"
-
-/mob/living/carbon/human/proc/forcesay(list/append) //this proc is at the bottom of the file because quote fuckery makes notepad++ cri
-	if(stat == CONSCIOUS)
-		if(client)
-			var/temp = winget(client, "input", "text")
-			var/say_starter = "Say \"" //"
-			if(findtextEx(temp, say_starter, 1, length(say_starter) + 1) && length(temp) > length(say_starter))	//case sensitive means
-
-				temp = trim_left(copytext(temp, length(say_starter) + 1))
-				temp = replacetext(temp, ";", "", 1, 2)	//general radio
-				while(trim_left(temp)[1] == ":")	//dept radio again (necessary)
-					temp = copytext_char(trim_left(temp), 3)
-
-				if(temp[1] == "*")	//emotes
-					return
-
-				var/trimmed = trim_left(temp)
-				if(length(trimmed))
-					if(append)
-						trimmed  += pick(append)
-
-					say(trimmed)
-				winset(client, "input", "text=[null]")

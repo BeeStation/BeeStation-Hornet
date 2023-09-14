@@ -35,7 +35,7 @@
 	if(!(. & EMP_PROTECT_CONTENTS))
 		obj_flags |= OBJ_EMPED
 		update_icon()
-		addtimer(CALLBACK(src, .proc/emp_reset), rand(1, 200 / severity))
+		addtimer(CALLBACK(src, PROC_REF(emp_reset)), rand(1, 200 / severity))
 		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
 
 /obj/item/gun/energy/proc/emp_reset()
@@ -74,9 +74,9 @@
 	var/frequency_to_use = 0
 
 	if(shot.e_cost > 0)
-		shot_cost_percent = FLOOR(clamp(shot.e_cost / cell.maxcharge, 0, 1) * 100, 1)
-		max_shots = round(100/shot_cost_percent)
-		shots_left = round(batt_percent/shot_cost_percent)
+		shot_cost_percent = FLOOR(clamp(shot.e_cost / cell.maxcharge, 0.01, 1) * 100, 1)
+		max_shots = shot_cost_percent ? round(100/shot_cost_percent) : 0 //Division by 0 protection
+		shots_left = shot_cost_percent  ? round(batt_percent/shot_cost_percent) : 0 //Division by 0 protection
 		frequency_to_use = sin((90/max_shots) * shots_left)
 
 	var/click_frequency_to_use = 1 - frequency_to_use * 0.75
@@ -280,7 +280,7 @@
 		. = ""
 	else
 		var/obj/item/ammo_casing/energy/E = ammo_type[select]
-		var/obj/item/projectile/energy/BB = E.BB
+		var/obj/projectile/energy/BB = E.BB
 		if(!BB)
 			. = ""
 		else if(BB.nodamage || !BB.damage || BB.damage_type == STAMINA)

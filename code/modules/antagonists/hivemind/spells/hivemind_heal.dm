@@ -26,7 +26,7 @@
 	to_chat(user, "<span class='notice'>We begin siphoning power from our many vessels!</span>")
 	while(iterations < 7)
 		var/mob/living/carbon/target = pick(carbon_members)
-		if(!do_after(user,15,0,user))
+		if(!do_after(user, 15, user, timed_action_flags = IGNORE_HELD_ITEM))
 			to_chat(user, "<span class='warning'>Our concentration has been broken!</span>")
 			break
 		if(!target)

@@ -36,7 +36,7 @@
 			user.do_attack_animation(src)
 			if (user.name == master)
 				visible_message("<span class='notice'>Responding to its master's touch, [src] disengages its holochassis emitter, rapidly losing coherence.</span>")
-				addtimer(CALLBACK(src, .proc/fold_into_hand, user), 10)
+				addtimer(CALLBACK(src, PROC_REF(fold_into_hand), user), 10)
 			else
 				visible_message("<span class='danger'>[user] stomps on [src]!.</span>")
 				take_holo_damage(2)
@@ -46,7 +46,7 @@
 	if(user.put_in_hands(card))
 		user.visible_message("<span class='notice'>[user] promptly scoops up [user.p_their()] pAI's card.</span>")
 
-/mob/living/silicon/pai/bullet_act(obj/item/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(obj/projectile/Proj)
 	if(Proj.stun)
 		fold_in(force = TRUE)
 		src.visible_message("<span class='warning'>The electrically-charged projectile disrupts [src]'s holomatrix, forcing [src] to fold in!</span>")

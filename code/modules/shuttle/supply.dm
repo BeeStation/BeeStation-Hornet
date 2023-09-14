@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		/obj/item/warp_cube,
 		/obj/machinery/rnd/production, //print tracking beacons, send shuttle
 		/obj/machinery/modular_fabricator/autolathe, //same
-		/obj/item/projectile/beam/wormhole,
+		/obj/projectile/beam/wormhole,
 		/obj/effect/portal,
 		/obj/item/shared_storage,
 		/obj/structure/extraction_point,
@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
 		for(var/turf/open/floor/T in shuttle_area)
-			if(is_blocked_turf(T))
+			if(T.is_blocked_turf())
 				continue
 			empty_turfs += T
 
@@ -137,7 +137,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 					misc_contents[D.account_holder] += item
 				misc_order_num[D.account_holder] = "[misc_order_num[D.account_holder]]#[SO.id]  "
 				if(SO.pack.access)
-					miscboxes[D.account_holder].req_access += SO.pack.access
+					miscboxes[D.account_holder].req_access |= SO.pack.access
 			else //No private payment, so we just stuff it all into a generic crate
 				if(!miscboxes.len || !miscboxes["Cargo"])
 					miscboxes["Cargo"] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 					misc_contents["Cargo"] += item
 					//new item(miscboxes["Cargo"])
 				if(SO.pack.access)
-					miscboxes["Cargo"].req_access += SO.pack.access
+					miscboxes["Cargo"].req_access |= SO.pack.access
 				misc_order_num["Cargo"] = "[misc_order_num["Cargo"]]#[SO.id]  "
 		else
 			SO.generate(pick_n_take(empty_turfs))
@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 //	Generates a box of mail depending on our exports and imports.
 //	Applied in the cargo shuttle sending/arriving, by building the crate if the round is ready to introduce mail based on the economy subsystem.
-// Then, fills the mail crate with mail, by picking applicable crew who can recieve mail at the time to sending.
+// Then, fills the mail crate with mail, by picking applicable crew who can receive mail at the time to sending.
 
 /obj/docking_port/mobile/supply/proc/create_mail()
 	//Early return if there's no mail waiting to prevent taking up a slot.
@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	var/list/empty_turfs = list()
 	for(var/area/shuttle/shuttle_area in shuttle_areas)
 		for(var/turf/open/floor/T in shuttle_area)
-			if(is_blocked_turf(T))
+			if(T.is_blocked_turf())
 				continue
 			empty_turfs += T
 

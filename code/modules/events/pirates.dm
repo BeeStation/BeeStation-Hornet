@@ -44,8 +44,8 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 		PIRATE_RESPONSE_PAY = "We'll pay.",
 		PIRATE_RESPONSE_NO_PAY = "No way.",
 	)
-	threat.answer_callback = CALLBACK(GLOBAL_PROC, .proc/pirates_answered, threat, payoff, ship_name, initial_send_time, response_max_time)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/spawn_pirates, threat, FALSE), response_max_time)
+	threat.answer_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pirates_answered), threat, payoff, ship_name, initial_send_time, response_max_time)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_pirates), threat, FALSE), response_max_time)
 	SScommunications.send_message(threat,unique = TRUE)
 
 /proc/pirates_answered(datum/comm_message/threat, payoff, ship_name, initial_send_time, response_max_time)
@@ -71,7 +71,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
-	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE)
+	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE, /datum/role_preference/midround_ghost/space_pirate, 15 SECONDS)
 	shuffle_inplace(candidates)
 
 	var/datum/map_template/shuttle/pirate/default/ship = new
@@ -83,7 +83,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 		CRASH("Pirate event found no turf to load in")
 
 	var/datum/map_generator/template_placer = ship.load(T)
-	template_placer.on_completion(CALLBACK(GLOBAL_PROC, /proc/after_pirate_spawn, ship, candidates))
+	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(after_pirate_spawn), ship, candidates))
 
 	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
@@ -244,12 +244,13 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/sending_state = "lpad-beam"
 	var/cargo_hold_id
 
-/obj/machinery/piratepad/multitool_act(mob/living/user, obj/item/multitool/I)
-	. = ..()
-	if (istype(I))
-		to_chat(user, "<span class='notice'>You register [src] in [I]s buffer.</span>")
-		I.buffer = src
-		return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/piratepad)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/piratepad)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You register [src] in [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/computer/piratepad_control
 	name = "cargo hold control terminal"
@@ -268,13 +269,15 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/computer/piratepad_control/multitool_act(mob/living/user, obj/item/multitool/I)
-	. = ..()
-	if (istype(I) && istype(I.buffer,/obj/machinery/piratepad))
-		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-		set_pad(I.buffer)
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
+	if (istype(buffer,/obj/machinery/piratepad))
+		to_chat(user, "<span class='notice'>You link [src] with [buffer] in [buffer_parent] buffer.</span>")
+		set_pad(buffer)
 		ui_update()
-		return TRUE
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()
 	. = ..()
@@ -293,7 +296,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	pad = newpad
 
 	if(pad)
-		RegisterSignal(pad, COMSIG_PARENT_QDELETING, .proc/handle_pad_deletion)
+		RegisterSignal(pad, COMSIG_PARENT_QDELETING, PROC_REF(handle_pad_deletion))
 
 /obj/machinery/computer/piratepad_control/proc/handle_pad_deletion()
 	pad = null
@@ -402,7 +405,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	status_report = "Sending..."
 	pad.visible_message("<span class='notice'>[pad] starts charging up.</span>")
 	pad.icon_state = pad.warmup_state
-	sending_timer = addtimer(CALLBACK(src,.proc/send),warmup_time, TIMER_STOPPABLE)
+	sending_timer = addtimer(CALLBACK(src,PROC_REF(send)),warmup_time, TIMER_STOPPABLE)
 
 /obj/machinery/computer/piratepad_control/proc/stop_sending()
 	if(!sending)

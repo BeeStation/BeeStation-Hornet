@@ -32,7 +32,7 @@
 
 
 /datum/computer_file/program/notepad/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	var/obj/item/modular_computer/tablet/tablet = computer
 	if(!istype(tablet))
 		return data

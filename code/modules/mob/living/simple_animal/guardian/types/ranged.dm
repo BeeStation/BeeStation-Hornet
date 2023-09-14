@@ -1,5 +1,5 @@
 //Ranged
-/obj/item/projectile/guardian
+/obj/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
 	damage = 5
@@ -11,7 +11,7 @@
 	friendly = "quietly assesses"
 	melee_damage = 10
 	damage_coeff = list(BRUTE = 0.9, BURN = 0.9, TOX = 0.9, CLONE = 0.9, STAMINA = 0, OXY = 0.9)
-	projectiletype = /obj/item/projectile/guardian
+	projectiletype = /obj/projectile/guardian
 	ranged_cooldown_time = 1 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
@@ -52,8 +52,8 @@
 
 /mob/living/simple_animal/hostile/guardian/ranged/Shoot(atom/targeted_atom)
 	. = ..()
-	if(istype(., /obj/item/projectile))
-		var/obj/item/projectile/P = .
+	if(istype(., /obj/projectile))
+		var/obj/projectile/P = .
 		if(guardiancolor)
 			P.color = guardiancolor
 
@@ -94,7 +94,7 @@
 	set name = "Remove Surveillance Snare"
 	set category = "Guardian"
 	set desc = "Disarm unwanted surveillance snares."
-	var/picked_snare = input(src, "Pick which snare to remove", "Remove Snare") as null|anything in sortNames(src.snares)
+	var/picked_snare = input(src, "Pick which snare to remove", "Remove Snare") as null|anything in sort_names(src.snares)
 	if(picked_snare)
 		src.snares -= picked_snare
 		qdel(picked_snare)
@@ -109,7 +109,7 @@
 /obj/effect/snare/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 

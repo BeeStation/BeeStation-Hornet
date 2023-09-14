@@ -70,7 +70,7 @@
 		else
 			if(setting_type)
 				if(step_away(X, T) && moving_power > 1) //Can happen twice at most. So this is fine.
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/_step_away, X, T), 2)
+					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step_away), X, T), 2)
 			else
 				if(step_towards(X, T) && moving_power > 1)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/_step_towards, X, T), 2)
+					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step_towards), X, T), 2)

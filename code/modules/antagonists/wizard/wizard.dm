@@ -2,9 +2,11 @@
 	name = "Space Wizard"
 	roundend_category = "wizards/witches"
 	antagpanel_category = "Wizard"
-	job_rank = ROLE_WIZARD
+	banning_key = ROLE_WIZARD
+	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
+	ui_name = "AntagInfoWizard"
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	var/hud_version = "wizard"
@@ -24,7 +26,10 @@
 	. = ..()
 	if(allow_rename)
 		rename_wizard()
-	owner.current.remove_all_quirks()
+	owner.remove_all_quirks()
+
+/datum/antagonist/wizard/get_antag_name() // wizards are not in the same team
+	return "Space Wizard [owner.name]"
 
 /datum/antagonist/wizard/proc/register()
 	SSticker.mode.wizards |= owner
@@ -47,8 +52,9 @@
 	var/datum/antagonist/wizard/master_wizard
 
 /datum/antagonist/wizard/proc/create_wiz_team()
+	var/static/count = 0
 	wiz_team = new(owner)
-	wiz_team.name = "[owner.current.real_name] team"
+	wiz_team.name = "Wizard team No.[++count]" // it will be only displayed to admins
 	wiz_team.master_wizard = src
 	update_wiz_icons_added(owner.current)
 
@@ -59,6 +65,13 @@
 		SSjob.SendToLateJoin(owner.current)
 		to_chat(owner, "HOT INSERTION, GO GO GO")
 	owner.current.forceMove(pick(GLOB.wizardstart))
+
+/datum/team/wizard/get_team_name() // team name is based on the master wizard's current form
+	var/mind_name = master_wizard.owner.name
+	var/mob_name = master_wizard.owner?.current.real_name
+	if(mind_name == mob_name)
+		return "Spece Wizard [mind_name]"
+	return "Space Wizard [mind_name] in [mob_name]" // tells which one is the real master
 
 /datum/antagonist/wizard/proc/create_objectives()
 	if(!give_objectives)
@@ -166,17 +179,17 @@
 /datum/antagonist/wizard/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
 	update_wiz_icons_added(M, wiz_team ? TRUE : FALSE) //Don't bother showing the icon if you're solo wizard
-	M.faction |= ROLE_WIZARD
+	M.faction |= FACTION_WIZARD
 
 /datum/antagonist/wizard/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
 	update_wiz_icons_removed(M)
-	M.faction -= ROLE_WIZARD
+	M.faction -= FACTION_WIZARD
 
 
 /datum/antagonist/wizard/get_admin_commands()
 	. = ..()
-	.["Send to Lair"] = CALLBACK(src,.proc/admin_send_to_lair)
+	.["Send to Lair"] = CALLBACK(src,PROC_REF(admin_send_to_lair))
 
 /datum/antagonist/wizard/proc/admin_send_to_lair(mob/admin)
 	owner.current.forceMove(pick(GLOB.wizardstart))
@@ -241,7 +254,7 @@
 					if(chosen_spell.spell_type == my_spell.type) // You don't learn the same spell
 						failsafe = TRUE
 						break
-					if(is_type_in_typecache(my_spell.type, chosen_spell.no_coexistance_typecache)) // You don't learn a spell that isn't compatible with another
+					if(is_type_in_typecache(my_spell.type, chosen_spell.no_coexistence_typecache)) // You don't learn a spell that isn't compatible with another
 						failsafe = TRUE
 						break
 				if(failsafe)

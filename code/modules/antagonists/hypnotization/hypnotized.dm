@@ -26,7 +26,7 @@
 
 /datum/antagonist/hypnotized
 	name = "Hypnotized Victim"
-	job_rank = ROLE_HYPNOTIZED
+	banning_key = ROLE_HYPNOTIZED
 	roundend_category = "hypnotized victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
@@ -46,6 +46,7 @@
 
 
 /datum/antagonist/hypnotized/greet()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/hypnosis.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	var/i = 1
 	for(var/X in objectives)
 		var/datum/objective/O = X
@@ -60,7 +61,7 @@
 
 /datum/antagonist/hypnotized/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give traitor appearence on hud (If they are not an antag already)
+	//Give traitor appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_HYPNOTIZED]
 	traitorhud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)

@@ -11,7 +11,7 @@
 	. = ..()
 	master = spider_master
 	if(spider_master)
-		RegisterSignal(spider_master, COMSIG_PARENT_QDELETING, .proc/handle_master_qdel)
+		RegisterSignal(spider_master, COMSIG_PARENT_QDELETING, PROC_REF(handle_master_qdel))
 		if(length(possible_colors))
 			team_huds[spider_master] = pick_n_take(possible_colors)
 
@@ -25,6 +25,7 @@
 		to_chat(spider.owner, "<span class='spiderlarge'>Your directives have been updated!</span>")
 		to_chat(spider.owner, "<span class='spiderlarge'>New directive: [directive]</span>")
 		spider.owner.store_memory("<b>Directive: [directive]</b>")
+		spider.update_static_data(spider.owner?.current)
 
 /datum/team/spiders/proc/handle_master_qdel()
 	SIGNAL_HANDLER
@@ -43,15 +44,16 @@
 
 /datum/antagonist/spider
 	name = "Spider"
-	job_rank = ROLE_SPIDER
+	banning_key = ROLE_SPIDER
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE
+	ui_name = "AntagInfoSpider"
 	var/datum/team/spiders/spider_team
 
 /datum/antagonist/spider/create_team(datum/team/spiders/new_team)
 	if(!new_team)
-		for(var/datum/antagonist/spider/spooder in GLOB.antagonists) 
+		for(var/datum/antagonist/spider/spooder in GLOB.antagonists)
 			if(!spooder.owner || !spooder.spider_team)
 				continue
 			spider_team = spooder.spider_team //if we can find any existing team, use that one
@@ -61,6 +63,7 @@
 		if(!istype(new_team))
 			CRASH("Wrong spider team type provided to create_team")
 		spider_team = new_team
+	update_static_data(owner?.current)
 
 /datum/antagonist/spider/proc/set_spider_team(datum/team/spiders/new_team)
 	var/datum/team/spiders/old_team = spider_team
@@ -81,6 +84,15 @@
 
 	if(!length(old_team.get_team_antags()))
 		qdel(old_team)
+	update_static_data(owner?.current)
+
+/datum/antagonist/spider/ui_static_data(mob/user)
+	return list(
+		"directive" = spider_team.directive,
+		"master" = spider_team.master ? (spider_team.master.mind?.name || spider_team.master.real_name || spider_team.master.name) : null,
+		"color" = spider_team.master ? (spider_team.team_huds[spider_team.master] || "purple") : "purple",
+		"type" = initial(owner.current.name)
+	)
 
 /datum/antagonist/spider/get_team()
 	return spider_team

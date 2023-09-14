@@ -216,9 +216,7 @@ world
 #define TO_HEX_DIGIT(n) ascii2text((n&15) + ((n&15)<10 ? 48 : 87))
 
 //Dummy mob reserve slots
-#define DUMMY_HUMAN_SLOT_PREFERENCES "dummy_preference_preview"
 #define DUMMY_HUMAN_SLOT_ADMIN "admintools"
-#define DUMMY_HUMAN_SLOT_MANIFEST "dummy_manifest_generation"
 
 	// Multiply all alpha values by this float
 /icon/proc/ChangeOpacity(opacity = 1)
@@ -837,7 +835,7 @@ world
 						break
 				layers[current] = current_layer
 
-		//sortTim(layers, /proc/cmp_image_layer_asc)
+		//sortTim(layers, GLOBAL_PROC_REF(cmp_image_layer_asc))
 
 		var/icon/add // Icon of overlay being added
 
@@ -1109,14 +1107,15 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		return J
 	return 0
 
-//For creating consistent icons for human looking simple animals
-/proc/get_flat_human_icon(icon_id, datum/job/J, datum/character_save/CS, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
+/// # If you already have a human and need to get its flat icon, call `get_flat_existing_human_icon()` instead.
+/// For creating consistent icons for human looking simple animals.
+/proc/get_flat_human_icon(icon_id, datum/job/J, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
 	var/static/list/humanoid_icon_cache = list()
 	if(!icon_id || !humanoid_icon_cache[icon_id])
 		var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
 
-		if(CS)
-			CS.copy_to(body,TRUE,FALSE)
+		if(prefs)
+			prefs.apply_prefs_to(body, icon_updates = TRUE)
 		if(J)
 			J.equip(body, TRUE, FALSE, outfit_override = outfit_override)
 		else if (outfit_override)
@@ -1136,31 +1135,40 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	else
 		return humanoid_icon_cache[icon_id]
 
+/**
+ * A simpler version of get_flat_human_icon() that uses an existing human as a base to create the icon.
+ * Does not feature caching yet, since I could not think of a good way to cache them without having a possibility
+ * of using the cached version when we don't want to, so only use this proc if you just need this flat icon
+ * generated once and handle the caching yourself if you need to access that icon multiple times, or
+ * refactor this proc to feature caching of icons.
+ *
+ * Arguments:
+ * * existing_human - The human we want to get a flat icon out of.
+ * * directions_to_output - The directions of the resulting flat icon, defaults to all cardinal directions.
+ */
+/proc/get_flat_existing_human_icon(mob/living/carbon/human/existing_human, directions_to_output = GLOB.cardinals)
+	RETURN_TYPE(/icon)
+	if(!existing_human || !istype(existing_human))
+		CRASH("Attempted to call get_flat_existing_human_icon on a [existing_human ? existing_human.type : "null"].")
+
+	// We need to force the dir of the human so we can take those pictures, we'll set it back afterwards.
+	var/initial_human_dir = existing_human.dir
+	existing_human.dir = SOUTH
+	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
+	COMPILE_OVERLAYS(existing_human)
+	for(var/direction in directions_to_output)
+		var/icon/partial = getFlatIcon(existing_human, defdir = direction)
+		out_icon.Insert(partial, dir = direction)
+
+	existing_human.dir = initial_human_dir
+
+	return out_icon
+
 //Hook, override to run code on- wait this is images
 //Images have dir without being an atom, so they get their own definition.
 //Lame.
 /image/proc/setDir(newdir)
 	dir = newdir
-
-GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0,0,0)))
-
-/obj/proc/make_frozen_visual()
-	// Used to make the frozen item visuals for Freon.
-	if(resistance_flags & FREEZE_PROOF)
-		return
-	if(!(obj_flags & FROZEN))
-		name = "frozen [name]"
-		add_atom_colour(GLOB.freon_color_matrix, TEMPORARY_COLOUR_PRIORITY)
-		alpha -= 25
-		obj_flags |= FROZEN
-
-//Assumes already frozed
-/obj/proc/make_unfrozen()
-	if(obj_flags & FROZEN)
-		name = replacetext(name, "frozen ", "")
-		remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, GLOB.freon_color_matrix)
-		alpha += 25
-		obj_flags &= ~FROZEN
 
 /// generates a filename for a given asset.
 /// like generate_asset_name(), except returns the rsc reference and the rsc file hash as well as the asset name (sans extension)
@@ -1230,7 +1238,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	if(isicon(icon) && isfile(icon))
 		//icons compiled in from 'icons/path/to/dmi_file.dmi' at compile time are weird and arent really /icon objects,
 		///but they pass both isicon() and isfile() checks. theyre the easiest case since stringifying them gives us the path we want
-		var/icon_ref = "\ref[icon]"
+		var/icon_ref = FAST_REF(icon)
 		var/locate_icon_string = "[locate(icon_ref)]"
 
 		icon_path = locate_icon_string
@@ -1241,7 +1249,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 		// the rsc reference returned by fcopy_rsc() will be stringifiable to "icons/path/to/dmi_file.dmi"
 		var/rsc_ref = fcopy_rsc(icon)
 
-		var/icon_ref = "\ref[rsc_ref]"
+		var/icon_ref = FAST_REF(rsc_ref)
 
 		var/icon_path_string = "[locate(icon_ref)]"
 
@@ -1251,7 +1259,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 		var/rsc_ref = fcopy_rsc(icon)
 		//if its the text path of an existing dmi file, the rsc reference returned by fcopy_rsc() will be stringifiable to a dmi path
 
-		var/rsc_ref_ref = "\ref[rsc_ref]"
+		var/rsc_ref_ref = FAST_REF(rsc_ref)
 		var/rsc_ref_string = "[locate(rsc_ref_ref)]"
 
 		icon_path = rsc_ref_string
@@ -1298,7 +1306,8 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	if (!isicon(icon2collapse))
 		if (isfile(thing)) //special snowflake
 			var/name = SANITIZE_FILENAME("[generate_asset_name(thing)].png")
-			SSassets.transport.register_asset(name, thing)
+			if (!SSassets.cache[name])
+				SSassets.transport.register_asset(name, thing)
 			for (var/thing2 in targets)
 				SSassets.transport.send_assets(thing2, name)
 			if(sourceonly)
@@ -1337,7 +1346,8 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	var/file_hash = name_and_ref[2]
 	key = "[name_and_ref[3]].png"
 
-	SSassets.transport.register_asset(key, rsc_ref, file_hash, icon_path)
+	if(!SSassets.cache[key])
+		SSassets.transport.register_asset(key, rsc_ref, file_hash, icon_path)
 	for (var/client_target in targets)
 		SSassets.transport.send_assets(client_target, key)
 	if(sourceonly)
@@ -1363,11 +1373,12 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 
 	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
 	var/atom/A = thing
-	var/key = "[istype(A.icon, /icon) ? "[REF(A.icon)]" : A.icon]:[A.icon_state]"
+	var/icon/the_icon = A.icon
+	var/key = "[istype(the_icon) ? "[FAST_REF(the_icon)]" : the_icon]:[A.icon_state]"
 
 
 	if (!bicon_cache[key]) // Doesn't exist, make it.
-		var/icon/I = icon(A.icon, A.icon_state, SOUTH, 1)
+		var/icon/I = icon(the_icon, A.icon_state, SOUTH, 1)
 		if (ishuman(thing)) // Shitty workaround for a BYOND issue.
 			var/icon/temp = I
 			I = icon()

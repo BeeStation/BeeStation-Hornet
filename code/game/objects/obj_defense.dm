@@ -49,7 +49,7 @@
 
 /obj/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..()
-	take_damage(AM.throwforce, BRUTE, "melee", 1, get_dir(src, AM))
+	take_damage(AM.throwforce, BRUTE, MELEE, 1, get_dir(src, AM))
 
 /obj/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)
@@ -58,23 +58,23 @@
 	if(QDELETED(src))
 		return
 	if(target == src)
-		take_damage(INFINITY, BRUTE, "bomb", 0)
+		take_damage(INFINITY, BRUTE, BOMB, 0)
 		return
 	switch(severity)
 		if(1)
-			take_damage(INFINITY, BRUTE, "bomb", 0)
+			take_damage(INFINITY, BRUTE, BOMB, 0)
 		if(2)
-			take_damage(rand(100, 250), BRUTE, "bomb", 0)
+			take_damage(rand(100, 250), BRUTE, BOMB, 0)
 		if(3)
-			take_damage(rand(10, 90), BRUTE, "bomb", 0)
+			take_damage(rand(10, 90), BRUTE, BOMB, 0)
 
-/obj/bullet_act(obj/item/projectile/P)
+/obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, 1)
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>", null, null, COMBAT_MESSAGE_RANGE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
-		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
+		take_damage(P.damage, P.damage_type, P.armor_flag, 0, turn(P.dir, 180), P.armour_penetration)
 
 /obj/proc/hulk_damage()
 	return 150 //the damage hulks do on punches to this object, is affected by melee armor
@@ -88,7 +88,7 @@
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
 		else
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		take_damage(hulk_damage(), BRUTE, "melee", 0, get_dir(src, user))
+		take_damage(hulk_damage(), BRUTE, MELEE, 0, get_dir(src, user))
 		return 1
 	return 0
 
@@ -99,7 +99,7 @@
 		var/turf/T = loc
 		if(T.intact && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
 			return
-	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
+	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
 /obj/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
 	user.do_attack_animation(src)
@@ -107,21 +107,21 @@
 	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
 
 /obj/attack_alien(mob/living/carbon/alien/humanoid/user)
-	if(attack_generic(user, 60, BRUTE, "melee", 0))
+	if(attack_generic(user, 60, BRUTE, MELEE, 0))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if(!M.melee_damage && !M.obj_damage)
-		INVOKE_ASYNC(M, /mob.proc/emote, "custom", null, "[M.friendly] [src].")
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "custom", null, "[M.friendly] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1
 		if(M.environment_smash)
 			play_soundeffect = 0
 		if(M.obj_damage)
-			. = attack_generic(M, M.obj_damage, M.melee_damage_type, "melee", play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.obj_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration)
 		else
-			. = attack_generic(M, M.melee_damage, M.melee_damage_type, "melee", play_soundeffect, M.armour_penetration)
+			. = attack_generic(M, M.melee_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration)
 		if(. && !play_soundeffect)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 
@@ -142,7 +142,7 @@
 	var/damage = rand(15)
 	if(M.transformeffects & SLIME_EFFECT_RED)
 		damage *= 1.1
-	attack_generic(M, damage, "melee", 1)
+	attack_generic(M, damage, MELEE, 1)
 
 /obj/mech_melee_attack(obj/mecha/M)
 	M.do_attack_animation(src)
@@ -163,7 +163,7 @@
 			else
 				return 0
 	M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='danger'>You hit [src]!</span>", null, COMBAT_MESSAGE_RANGE)
-	return take_damage(M.force*3, mech_damtype, "melee", play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
+	return take_damage(M.force*3, mech_damtype, MELEE, play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/singularity_act()
 	SSexplosions.high_mov_atom += src
@@ -193,11 +193,11 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
 		for(var/armour_value in armor.getList())
-			if(armour_value != "acid" && armour_value != "fire")
+			if(armour_value != ACID && armour_value != FIRE)
 				armor = armor.modifyAllRatings(0 - round(sqrt(acid_level)*0.1))
 		if(prob(33))
 			playsound(loc, 'sound/items/welder.ogg', 150, 1)
-		take_damage(min(1 + round(sqrt(acid_level)*0.3), 300), BURN, "acid", 0)
+		take_damage(min(1 + round(sqrt(acid_level)*0.3), 300), BURN, ACID, 0)
 
 	acid_level = max(acid_level - (5 + 3*round(sqrt(acid_level))), 0)
 	if(!acid_level)
@@ -216,7 +216,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		if(T.intact && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
 			return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		take_damage(CLAMP(0.02 * exposed_temperature, 0, 20), BURN, "fire", 0)
+		take_damage(CLAMP(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfire_burning.processing[src] = src
@@ -239,7 +239,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	obj_flags |= BEING_SHOCKED
 	var/power_bounced = power / 2
 	tesla_zap(src, 3, power_bounced, tesla_flags, shocked_targets)
-	addtimer(CALLBACK(src, .proc/reset_shocked), 10)
+	addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
 
 //The surgeon general warns that being buckled to certain objects receiving powerful shocks is greatly hazardous to your health
 //Only tesla coils and grounding rods currently call this because mobs are already targeted over all other objects, but this might be useful for more things later.
@@ -263,9 +263,9 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 //what happens when the obj's integrity reaches zero.
 /obj/proc/obj_destruction(damage_flag)
-	if(damage_flag == "acid")
+	if(damage_flag == ACID)
 		acid_melt()
-	else if(damage_flag == "fire")
+	else if(damage_flag == FIRE)
 		burn()
 	else
 		deconstruct(FALSE)

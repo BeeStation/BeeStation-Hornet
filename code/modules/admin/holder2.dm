@@ -100,6 +100,7 @@ GLOBAL_PROTECT(href_token)
 	if ((C = owner) || (C = GLOB.directory[target]))
 		disassociate()
 		C.add_verb(/client/proc/readmin)
+		C.update_special_keybinds()
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())
@@ -120,6 +121,7 @@ GLOBAL_PROTECT(href_token)
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
 		owner.remove_verb(/client/proc/readmin)
+		owner.update_special_keybinds()
 		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()

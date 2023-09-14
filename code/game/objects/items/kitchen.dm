@@ -13,6 +13,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	item_flags = ISWEAPON
 
 /obj/item/kitchen/fork
 	name = "fork"
@@ -27,7 +28,7 @@
 	flags_1 = CONDUCT_1
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
 	var/datum/reagent/forkload //used to eat omelette
 
 /obj/item/kitchen/fork/suicide_act(mob/living/carbon/user)
@@ -85,9 +86,10 @@
 	materials = list(/datum/material/iron=12000)
 	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	sharpness = IS_SHARP_ACCURATE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0)
 	var/bayonet = FALSE	//Can this be attached to a gun?
 	custom_price = 30
+	tool_behaviour = TOOL_KNIFE
 
 /obj/item/kitchen/knife/Initialize(mapload)
 	. = ..()
@@ -144,7 +146,7 @@
 	throwforce = 15
 	throw_speed = 5
 	throw_range = 7
-	var/amount_per_transfer_from_this = 5
+	var/amount_per_transfer_from_this = 10
 	var/list/possible_transfer_amounts
 	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
 	materials = null
@@ -152,7 +154,7 @@
 /obj/item/kitchen/knife/poison/Initialize(mapload)
 	. = ..()
 	create_reagents(40,OPENCONTAINER)
-	possible_transfer_amounts = list(3,5)
+	possible_transfer_amounts = list(5, 10)
 
 /obj/item/kitchen/knife/poison/attack_self(mob/user)
 	if(possible_transfer_amounts.len)
@@ -164,6 +166,7 @@
 					amount_per_transfer_from_this = possible_transfer_amounts[i+1]
 				else
 					amount_per_transfer_from_this = possible_transfer_amounts[1]
+				balloon_alert(user, "Transferring [amount_per_transfer_from_this]u.")
 				to_chat(user, "<span class='notice'>[src]'s transfer amount is now [amount_per_transfer_from_this] units.</span>")
 				return
 
@@ -215,7 +218,7 @@
 	throwforce = 12//fuck git
 	materials = list()
 	attack_verb = list("shanked", "shivved")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 // Shank - Makeshift weapon that can embed on throw
 /obj/item/kitchen/knife/shank

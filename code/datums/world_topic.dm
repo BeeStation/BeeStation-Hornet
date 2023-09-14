@@ -155,7 +155,7 @@
 	. = ..()
 	if(CHAT_FILTER_CHECK(input["message"])) // prevents any.. diplomatic incidents
 		minor_announce("In the interest of station productivity and mental hygiene, a message from [input["message_sender"]] was intercepted by the CCC and determined to be unfit for crew-level access.", "CentCom Communications Commission")
-		message_admins("Incomming cross-comms message from [input["message_sender"]] blocked: [input["message"]]")
+		message_admins("Incoming cross-comms message from [input["message_sender"]] blocked: [input["message"]]")
 		statuscode = 451 // "Unavailable for legal reasons" ahaha; i.e. censored
 		response = "Censored - Message blocked by chat filter"
 		return
@@ -323,7 +323,7 @@
 	msg = emoji_parse(msg)
 	log_ooc("DISCORD: [unm]: [msg]")
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.chat_toggles & CHAT_OOC)
+		if(C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			if(!("discord-[unm]" in C.prefs.ignoring))
 				to_chat(C, "<span class='dooc'><b><span class='prefix'>OOC: </span> <EM>[unm]:</EM> <span class='message linkify'>[msg]</span></b></span>")
 	statuscode = 200

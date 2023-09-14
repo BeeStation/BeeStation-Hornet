@@ -20,7 +20,7 @@
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets,mob/user = usr) //magnets, so mostly hardcoded
 	play_sound("enter",user)
 	for(var/mob/living/target in targets)
-		INVOKE_ASYNC(src, .proc/do_jaunt, target)
+		INVOKE_ASYNC(src, PROC_REF(do_jaunt), target)
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/do_jaunt(mob/living/target)
 	target.notransform = 1
@@ -100,7 +100,7 @@
 	if(newLoc.flags_1 & NOJAUNT_1)
 		to_chat(user, "<span class='warning'>Some strange aura is blocking the way.</span>")
 		return
-	if (locate(/obj/effect/blessing, newLoc))
+	if (newLoc.is_holy())
 		to_chat(user, "<span class='warning'>Holy energies block your path!</span>")
 		return
 

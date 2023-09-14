@@ -68,8 +68,8 @@ SUBSYSTEM_DEF(vote)
 			else if(mode == "map")
 				for (var/non_voter_ckey in non_voters)
 					var/client/C = non_voters[non_voter_ckey]
-					if(C.prefs.preferred_map)
-						var/preferred_map = C.prefs.preferred_map
+					var/preferred_map = C.prefs.read_player_preference(/datum/preference/choiced/preferred_map)
+					if(preferred_map && preferred_map != "Default")
 						choices[preferred_map] += 1
 						greatest_votes = max(greatest_votes, choices[preferred_map])
 					else if(global.config.defaultmap)
@@ -92,7 +92,7 @@ SUBSYSTEM_DEF(vote)
 				choices["Initiate Crew Transfer"] += round(non_voters.len * factor)
 	. = list()
 	if(mode == "map")
-		. += pickweight(choices) //map is chosen by drawing votes from a hat, instead of automatically going to map with the most votes.
+		. += pick_weight(choices) //map is chosen by drawing votes from a hat, instead of automatically going to map with the most votes.
 		return .
 	//get all options with that many votes and return them in a list
 	if(greatest_votes)
@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(vote)
 			text += "<b>[question]</b>"
 		else
 			text += "<b>[capitalize(mode)] Vote</b>"
-		for(var/i in 1 to choices)
+		for(var/i in 1 to choices.len)
 			var/votes = choices[choices[i]]
 			if(!votes)
 				votes = 0
@@ -247,6 +247,7 @@ SUBSYSTEM_DEF(vote)
 		log_vote(text)
 		var/vp = CONFIG_GET(number/vote_period)
 		to_chat(world, "\n<font color='purple'><b>[text]</b>\nType <b>vote</b> or click <a href='byond://winset?command=vote'>here</a> to place your votes.\nYou have [DisplayTimeText(vp)] to vote.</font>")
+		sound_to_playing_players('sound/misc/server-ready.ogg')
 		time_remaining = round(vp/10)
 		for(var/c in GLOB.clients)
 			var/client/C = c

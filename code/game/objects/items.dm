@@ -221,6 +221,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///Icon for monkey
 	var/icon/monkey_icon
 
+
 /obj/item/Initialize(mapload)
 
 	materials =	typelist("materials", materials)
@@ -253,9 +254,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		pickup(parent_robot)
 
 	if(!hitsound)
-		if(damtype == "fire")
+		if(damtype == BURN)
 			hitsound = 'sound/items/welder.ogg'
-		if(damtype == "brute")
+		if(damtype == BRUTE)
 			hitsound = "swing_hit"
 
 	if(LAZYLEN(embedding))
@@ -361,6 +362,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of cold-resistant materials."
 		if(resistance_flags & FIRE_PROOF)
 			. += "[src] is made of fire-retardant materials."
+	if(!(item_flags & NOBLUDGEON) && !(item_flags & ISWEAPON) && force != 0)
+		. += "<span class='notice'>You'll have to apply a <b>conscious effort</b> to harm someone with [src].</span>"
 	if(block_level || block_upgrade_walk)
 		if(block_upgrade_walk == 1 && !block_level)
 			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."
@@ -484,7 +487,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(grav > STANDARD_GRAVITY)
 		var/grav_power = min(3,grav - STANDARD_GRAVITY)
 		to_chat(user,"<span class='notice'>You start picking up [src]...</span>")
-		if(!do_mob(user,src,30*grav_power))
+		if(!do_after(user, 30*grav_power, src))
 			return
 
 
@@ -578,15 +581,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
-	if(owner.a_intent == INTENT_HELP) //you can choose not to block an attack
-		return 0
 	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return 0
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(block_flags & BLOCKING_PROJECTILE)
 			if(P.movement_type & PHASING) //you can't block piercing rounds!
 				return 0
+			// Recalculate the relative_dir based on the projectile angle
+			relative_dir = dir2angle(angle2dir(P.Angle)) - dir2angle(owner.dir)
 		else
 			return 0
 	if(owner.m_intent == MOVE_INTENT_WALK)
@@ -628,7 +631,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			blockhand = BODY_ZONE_L_ARM
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.damage_type != STAMINA)// disablers dont do shit to shields
 			attackforce = (P.damage)
 	else if(isitem(hitby))
@@ -687,12 +690,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	log_item(user, INVESTIGATE_VERB_DROPPED)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+	user.update_equipment_speed_mods()
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	item_flags |= PICKED_UP
+	if(item_flags & WAS_THROWN)
+		item_flags &= ~WAS_THROWN
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
 	log_item(user, INVESTIGATE_VERB_PICKEDUP)
@@ -723,6 +729,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot == ITEM_SLOT_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
+	user.update_equipment_speed_mods()
+
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -835,6 +843,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else
 		return
 
+/obj/item/on_exit_storage(datum/component/storage/concrete/master_storage)
+	. = ..()
+	var/atom/location = master_storage.real_location()
+	do_drop_animation(location)
+
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(hit_atom && !QDELETED(hit_atom))
 		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
@@ -865,7 +878,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		return
 	thrownby = WEAKREF(thrower)
-	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
+	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
 
 /obj/item/proc/after_throw(datum/callback/callback)
@@ -981,6 +994,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		..()
 
 /obj/item/proc/microwave_act(obj/machinery/microwave/M)
+	SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M)
 	if(istype(M) && M.dirty < 100)
 		M.dirty++
 
@@ -1033,10 +1047,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && (usr.client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TIPS) && !QDELETED(src))
-		var/timedelay = usr.client.prefs.tip_delay/100
+	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips) && !QDELETED(src))
+		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
 		var/user = usr
-		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
+		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
 	var/mob/living/L = usr
 	if(istype(L) && L.incapacitated())
 		apply_outline(COLOR_RED_GRAY)
@@ -1055,20 +1069,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/apply_outline(colour = null)
 	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
-	if(usr.client)
-		if(!(usr.client.prefs.toggles & PREFTOGGLE_OUTLINE_ENABLED))
-			return
+	if(!usr.client?.prefs?.read_player_preference(/datum/preference/toggle/item_outlines))
+		return
 	if(!colour)
-		if(usr.client)
-			colour = usr.client.prefs.outline_color
-			if(!colour)
-				colour = COLOR_BLUE_GRAY
+		if(usr?.client?.prefs)
+			colour = usr.client.prefs.read_player_preference(/datum/preference/color/outline_color)
 		else
 			colour = COLOR_BLUE_GRAY
-	add_filter("item_outline", 1, list(type="outline", size=1, color=colour))
+	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))
 
 /obj/item/proc/remove_outline()
-	remove_filter("item_outline")
+	remove_filter(HOVER_OUTLINE_FILTER)
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.
@@ -1085,10 +1096,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(delay)
 		// Create a callback with checks that would be called every tick by do_after.
-		var/datum/callback/tool_check = CALLBACK(src, .proc/tool_check_callback, user, amount, extra_checks)
+		var/datum/callback/tool_check = CALLBACK(src, PROC_REF(tool_check_callback), user, amount, extra_checks)
 
 		if(ismob(target))
-			if(!do_mob(user, target, delay, extra_checks=tool_check))
+			if(!do_after(user, delay, target, extra_checks=tool_check))
 				return
 
 		else
@@ -1164,6 +1175,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return TRUE
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
+	SHOULD_BE_PURE(TRUE)
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
@@ -1176,15 +1188,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(QDELETED(src))
 		return
 	if(target == src)
-		take_damage(INFINITY, BRUTE, "bomb", 0)
+		take_damage(INFINITY, BRUTE, BOMB, 0)
 		return
 	switch(severity)
 		if(1)
-			take_damage(250, BRUTE, "bomb", 0)
+			take_damage(250, BRUTE, BOMB, 0)
 		if(2)
-			take_damage(75, BRUTE, "bomb", 0)
+			take_damage(75, BRUTE, BOMB, 0)
 		if(3)
-			take_damage(20, BRUTE, "bomb", 0)
+			take_damage(20, BRUTE, BOMB, 0)
 
 /obj/item/proc/get_armor_rating(d_type, mob/wearer)
 	return armor.getRating(d_type)
@@ -1199,6 +1211,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & DROPDEL)
 		QDEL_NULL(src)
 		return TRUE
+	if(istype(src, /obj/item/shrapnel))
+		src.disableEmbedding()
 
 /**
   * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.
@@ -1244,6 +1258,98 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		armour_block = (!isnull(embedding["armour_block"]) ? embedding["armour_block"] : EMBEDDED_ARMOUR_BLOCK))
 	return TRUE
 
+/// How many different types of mats will be counted in a bite?
+#define MAX_MATS_PER_BITE 2
+
+/*
+ * On accidental consumption: when you somehow end up eating an item accidentally (currently, this is used for when items are hidden in food like bread or cake)
+ *
+ * The base proc will check if the item is sharp and has a decent force.
+ * Then, it checks the item's mat datums for the effects it applies afterwards.
+ * Then, it checks tiny items.
+ * After all that, it returns TRUE if the item is set to be discovered. Otherwise, it returns FALSE.
+ *
+ * This works similarily to /suicide_act: if you want an item to have a unique interaction, go to that item
+ * and give it an /on_accidental_consumption proc override. For a simple example of this, check out the nuke disk.
+ *
+ * Arguments
+ * * M - the mob accidentally consuming the item
+ * * user - the mob feeding M the item - usually, it's the same as M
+ * * source_item - the item that held the item being consumed - bread, cake, etc
+ * * discover_after - if the item will be discovered after being chomped (FALSE will usually mean it was swallowed, TRUE will usually mean it was bitten into and discovered)
+ */
+/obj/item/proc/on_accidental_consumption(mob/living/carbon/victim, mob/living/carbon/user, obj/item/source_item, discover_after = TRUE)
+	if(is_sharp() && force >= 5) //if we've got something sharp with a decent force (ie, not plastic)
+		INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "scream")
+		victim.visible_message("<span class='warning'>[victim] looks like [victim.p_theyve()] just bit something they shouldn't have!</span>", \
+							"<span class='boldwarning'>OH GOD! Was that a crunch? That didn't feel good at all!!</span>")
+
+		victim.apply_damage(max(15, force), BRUTE, BODY_ZONE_HEAD)
+		victim.losebreath += 2
+		if(tryEmbed(victim.get_bodypart(BODY_ZONE_CHEST), forced = TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
+			victim.apply_damage(max(25, force*1.5), BRUTE, BODY_ZONE_CHEST)
+			victim.losebreath += 6
+			discover_after = FALSE
+		if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)
+			return
+		source_item?.reagents?.add_reagent(/datum/reagent/blood, 2)
+
+	else if(custom_materials?.len) //if we've got materials, lets see whats in it
+		/// How many mats have we found? You can only be affected by two material datums by default
+		var/found_mats = 0
+		/// How much of each material is in it? Used to determine if the glass should break
+		var/total_material_amount = 0
+
+		for(var/mats in custom_materials)
+			total_material_amount += custom_materials[mats]
+			if(found_mats >= MAX_MATS_PER_BITE)
+				continue //continue instead of break so we can finish adding up all the mats to the total
+
+			var/datum/material/discovered_mat = mats
+			if(discovered_mat.on_accidental_mat_consumption(victim, source_item))
+				found_mats++
+
+		//if there's glass in it and the glass is more than 60% of the item, then we can shatter it
+		if(custom_materials[getmaterialref(/datum/material/glass)] >= total_material_amount * 0.60)
+			if(prob(66)) //66% chance to break it
+				/// The glass shard that is spawned into the source item
+				var/obj/item/shard/broken_glass = new /obj/item/shard(loc)
+				broken_glass.name = "broken [name]"
+				broken_glass.desc = "This used to be \a [name], but it sure isn't anymore."
+				playsound(victim, "shatter", 25, TRUE)
+				qdel(src)
+				if(QDELETED(source_item))
+					broken_glass.on_accidental_consumption(victim, user)
+			else //33% chance to just "crack" it (play a sound) and leave it in the bread
+				playsound(victim, "shatter", 15, TRUE)
+			discover_after = FALSE
+
+		victim.adjust_disgust(33)
+		victim.visible_message(
+			"<span class='warning'>[victim] looks like [victim.p_theyve()] just bitten into something hard.</span>", \
+			"<span class='warning'>Eugh! Did I just bite into something?</span>")
+
+	else if(w_class == WEIGHT_CLASS_TINY) //small items like soap or toys that don't have mat datums
+		/// victim's chest (for cavity implanting the item)
+		var/obj/item/bodypart/chest/victim_cavity = victim.get_bodypart(BODY_ZONE_CHEST)
+		if(victim_cavity.cavity_item)
+			victim.vomit(5, FALSE, FALSE, distance = 0)
+			forceMove(drop_location())
+			to_chat(victim, "<span class='warning'>You vomit up a [name]! [source_item? "Was that in \the [source_item]?" : ""]</span>")
+		else
+			victim.transferItemToLoc(src, victim, TRUE)
+			victim.losebreath += 2
+			victim_cavity.cavity_item = src
+			to_chat(victim, "<span class='warning'>You swallow hard. [source_item? "Something small was in \the [source_item]..." : ""]</span>")
+		discover_after = FALSE
+
+	else
+		to_chat(victim, "<span class='warning'>[source_item? "Something strange was in the \the [source_item]..." : "I just bit something strange..."] </span>")
+
+	return discover_after
+
+#undef MAX_MATS_PER_BITE
+
 /**
  * * An interrupt for offering an item to other people, called mainly from [/mob/living/carbon/proc/give], in case you want to run your own offer behavior instead.
  *
@@ -1278,3 +1384,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
 /obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	CRASH("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
+
+/**
+ * Returns null if this object cannot be used to interact with physical writing mediums such as paper.
+ * Returns a list of key attributes for this object interacting with paper otherwise.
+ */
+/obj/item/proc/get_writing_implement_details()
+	return null

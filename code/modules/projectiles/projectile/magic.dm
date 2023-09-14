@@ -1,19 +1,19 @@
-/obj/item/projectile/magic
+/obj/projectile/magic
 	name = "bolt of nothing"
 	icon_state = "energy"
 	damage = 0
 	damage_type = OXY
 	nodamage = TRUE
 	armour_penetration = 100
-	flag = "magic"
+	armor_flag = MAGIC
 	martial_arts_no_deflect = TRUE
 
-/obj/item/projectile/magic/death
+/obj/projectile/magic/death
 	name = "bolt of death"
 	icon_state = "pulse1_bl"
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/death/on_hit(target)
+/obj/projectile/magic/death/on_hit(target)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
@@ -22,7 +22,7 @@
 			return BULLET_ACT_BLOCK
 		M.death(0)
 
-/obj/item/projectile/magic/resurrection
+/obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
 	icon_state = "ion"
 	damage = 0
@@ -30,7 +30,7 @@
 	nodamage = TRUE
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
+/obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(isliving(target))
 		if(target.ishellbound())
@@ -48,7 +48,7 @@
 		else if(target.stat != DEAD)
 			to_chat(target, "<span class='notice'>You feel great!</span>")
 
-/obj/item/projectile/magic/teleport
+/obj/projectile/magic/teleport
 	name = "bolt of teleportation"
 	icon_state = "bluespace"
 	damage = 0
@@ -58,7 +58,7 @@
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
-/obj/item/projectile/magic/teleport/on_hit(mob/target)
+/obj/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
@@ -77,7 +77,7 @@
 				smoke.set_up(max(round(4 - teleammount),0), stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 				smoke.start()
 
-/obj/item/projectile/magic/safety
+/obj/projectile/magic/safety
 	name = "bolt of safety"
 	icon_state = "bluespace"
 	damage = 0
@@ -85,7 +85,7 @@
 	nodamage = TRUE
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/safety/on_hit(atom/target)
+/obj/projectile/magic/safety/on_hit(atom/target)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
@@ -104,7 +104,7 @@
 			smoke.set_up(0, t)
 			smoke.start()
 
-/obj/item/projectile/magic/door
+/obj/projectile/magic/door
 	name = "bolt of door creation"
 	icon_state = "energy"
 	damage = 0
@@ -112,7 +112,7 @@
 	nodamage = TRUE
 	var/list/door_types = list(/obj/structure/mineral_door/wood, /obj/structure/mineral_door/iron, /obj/structure/mineral_door/copper, /obj/structure/mineral_door/silver, /obj/structure/mineral_door/gold, /obj/structure/mineral_door/uranium, /obj/structure/mineral_door/sandstone, /obj/structure/mineral_door/transparent/plasma, /obj/structure/mineral_door/transparent/diamond)
 
-/obj/item/projectile/magic/door/on_hit(atom/target)
+/obj/projectile/magic/door/on_hit(atom/target)
 	. = ..()
 	if(istype(target, /obj/machinery/door))
 		OpenDoor(target)
@@ -121,19 +121,19 @@
 		if(isclosedturf(T) && !isindestructiblewall(T))
 			CreateDoor(T)
 
-/obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
+/obj/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
 	var/obj/structure/mineral_door/D = new door_type(T)
 	T.ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 	D.Open()
 
-/obj/item/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
+/obj/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
 	if(istype(D, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		A.locked = FALSE
 	D.open()
 
-/obj/item/projectile/magic/change
+/obj/projectile/magic/change
 	name = "bolt of change"
 	icon_state = "ice_1"
 	damage = 0
@@ -141,7 +141,7 @@
 	nodamage = TRUE
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/change/on_hit(atom/change)
+/obj/projectile/magic/change/on_hit(atom/change)
 	. = ..()
 	if(ismob(change))
 		var/mob/M = change
@@ -251,7 +251,7 @@
 			new_mob = new path(M.loc)
 
 		if("humanoid")
-			new_mob = new /mob/living/carbon/human(M.loc)
+			var/mob/living/carbon/human/new_human = new(M.loc)
 
 			if(prob(50))
 				var/list/chooseable_races = list()
@@ -261,15 +261,14 @@
 						chooseable_races += speciestype
 
 				if(chooseable_races.len)
-					new_mob.set_species(pick(chooseable_races))
+					new_human.set_species(pick(chooseable_races))
 
-			var/datum/character_save/CS = new()	//Randomize appearance for the human
-			CS.copy_to(new_mob, icon_updates=0)
-
-			var/mob/living/carbon/human/H = new_mob
-			H.update_hair()
-			H.update_body_parts(TRUE)
-			H.dna.update_dna_identity()
+			// Randomize everything but the species, which was already handled above.
+			new_human.randomize_human_appearance(~RANDOMIZE_SPECIES)
+			new_human.update_hair()
+			new_human.update_body() // is_creating = TRUE
+			new_human.dna.update_dna_identity()
+			new_mob = new_human
 
 	if(!new_mob)
 		return
@@ -296,14 +295,14 @@
 	qdel(M)
 	return new_mob
 
-/obj/item/projectile/magic/animate
+/obj/projectile/magic/animate
 	name = "bolt of animation"
 	icon_state = "red_1"
 	damage = 0
 	damage_type = BURN
 	nodamage = TRUE
 
-/obj/item/projectile/magic/animate/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/magic/animate/on_hit(atom/target, blocked = FALSE)
 	target.animate_atom_living(firer)
 	..()
 
@@ -341,17 +340,17 @@
 		if(owner)
 			C.ChangeOwner(owner)
 
-/obj/item/projectile/magic/spellblade
+/obj/projectile/magic/spellblade
 	name = "blade energy"
 	icon_state = "lavastaff"
 	damage = 15
 	damage_type = BURN
-	flag = "magic"
+	armor_flag = MAGIC
 	dismemberment = 50
 	nodamage = FALSE
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/spellblade/on_hit(target)
+/obj/projectile/magic/spellblade/on_hit(target)
 	if(ismob(target))
 		var/mob/M = target
 		if(M.anti_magic_check())
@@ -360,18 +359,18 @@
 			return BULLET_ACT_BLOCK
 	. = ..()
 
-/obj/item/projectile/magic/arcane_barrage
+/obj/projectile/magic/arcane_barrage
 	name = "arcane bolt"
 	icon_state = "arcane_barrage"
 	damage = 20
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 0
-	flag = "magic"
+	armor_flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/arcane_barrage/on_hit(target)
+/obj/projectile/magic/arcane_barrage/on_hit(target)
 	if(ismob(target))
 		var/mob/M = target
 		if(M.anti_magic_check())
@@ -381,18 +380,18 @@
 	. = ..()
 
 
-/obj/item/projectile/magic/locker
+/obj/projectile/magic/locker
 	name = "locker bolt"
 	icon_state = "locker"
 	nodamage = TRUE
-	flag = "magic"
+	armor_flag = MAGIC
 	martial_arts_no_deflect = FALSE
 	var/weld = TRUE
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
 	var/locker_suck = TRUE
 
 
-/obj/item/projectile/magic/locker/prehit_pierce(atom/A)
+/obj/projectile/magic/locker/prehit_pierce(atom/A)
 	. = ..()
 	if(isliving(A) && locker_suck)
 		var/mob/living/M = A
@@ -404,7 +403,7 @@
 		M.forceMove(src)
 		return PROJECTILE_PIERCE_PHASE
 
-/obj/item/projectile/magic/locker/on_hit(target)
+/obj/projectile/magic/locker/on_hit(target)
 	if(created)
 		return ..()
 	var/obj/structure/closet/decay/C = new(get_turf(src))
@@ -416,7 +415,7 @@
 	created = TRUE
 	return ..()
 
-/obj/item/projectile/magic/locker/Destroy()
+/obj/projectile/magic/locker/Destroy()
 	locker_suck = FALSE
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(get_turf(src))
@@ -431,15 +430,15 @@
 
 /obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/locker_magic_timer), 5)
+	addtimer(CALLBACK(src, PROC_REF(locker_magic_timer)), 5)
 
 /obj/structure/closet/decay/proc/locker_magic_timer()
 	if(welded)
-		addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(bust_open)), 5 MINUTES)
 		icon_state = magic_icon
 		update_icon()
 	else
-		addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
 /obj/structure/closet/decay/after_weld(weld_state)
 	if(weld_state)
@@ -447,7 +446,7 @@
 
 /obj/structure/closet/decay/proc/decay()
 	animate(src, alpha = 0, time = 30)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, src), 30)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 30)
 
 /obj/structure/closet/decay/open(mob/living/user)
 	. = ..()
@@ -455,19 +454,19 @@
 		if(icon_state == magic_icon) //check if we used the magic icon at all before giving it the lesser magic icon
 			unmagify()
 		else
-			addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
 /obj/structure/closet/decay/proc/unmagify()
 	icon_state = weakened_icon
 	update_icon()
-	addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
-/obj/item/projectile/magic/flying
+/obj/projectile/magic/flying
 	name = "bolt of flying"
 	icon_state = "flight"
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/flying/on_hit(target)
+/obj/projectile/magic/flying/on_hit(target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -477,12 +476,12 @@
 		var/atom/throw_target = get_edge_target_turf(L, angle2dir(Angle))
 		L.throw_at(throw_target, 200, 4)
 
-/obj/item/projectile/magic/bounty
+/obj/projectile/magic/bounty
 	name = "bolt of bounty"
 	icon_state = "bounty"
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/bounty/on_hit(target)
+/obj/projectile/magic/bounty/on_hit(target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -491,12 +490,12 @@
 			return BULLET_ACT_BLOCK
 		L.apply_status_effect(STATUS_EFFECT_BOUNTY, firer)
 
-/obj/item/projectile/magic/antimagic
+/obj/projectile/magic/antimagic
 	name = "bolt of antimagic"
 	icon_state = "antimagic"
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/antimagic/on_hit(target)
+/obj/projectile/magic/antimagic/on_hit(target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -505,12 +504,12 @@
 			return BULLET_ACT_BLOCK
 		L.apply_status_effect(STATUS_EFFECT_ANTIMAGIC)
 
-/obj/item/projectile/magic/fetch
+/obj/projectile/magic/fetch
 	name = "bolt of fetching"
 	icon_state = "fetch"
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/fetch/on_hit(target)
+/obj/projectile/magic/fetch/on_hit(target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -520,12 +519,12 @@
 		var/atom/throw_target = get_edge_target_turf(L, get_dir(L, firer))
 		L.throw_at(throw_target, 200, 4)
 
-/obj/item/projectile/magic/sapping
+/obj/projectile/magic/sapping
 	name = "bolt of sapping"
 	icon_state = "sapping"
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/sapping/on_hit(target)
+/obj/projectile/magic/sapping/on_hit(target)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
@@ -534,12 +533,12 @@
 			return BULLET_ACT_BLOCK
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/sapped)
 
-/obj/item/projectile/magic/necropotence
+/obj/projectile/magic/necropotence
 	name = "bolt of necropotence"
 	icon_state = "necropotence"
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/necropotence/on_hit(target)
+/obj/projectile/magic/necropotence/on_hit(target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -557,12 +556,12 @@
 			spell.recharging = FALSE
 			spell.update_icon()
 
-/obj/item/projectile/magic/wipe
+/obj/projectile/magic/wipe
 	name = "bolt of possession"
 	icon_state = "wipe"
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/wipe/on_hit(target)
+/obj/projectile/magic/wipe/on_hit(target)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -577,18 +576,20 @@
 		possession_test(M)
 		return BULLET_ACT_HIT
 
-/obj/item/projectile/magic/wipe/proc/possession_test(var/mob/living/carbon/M)
+/obj/projectile/magic/wipe/proc/possession_test(var/mob/living/carbon/M)
 	var/datum/brain_trauma/special/imaginary_friend/trapped_owner/trauma = M.gain_trauma(/datum/brain_trauma/special/imaginary_friend/trapped_owner)
 	var/poll_message = "Do you want to play as [M.real_name]?"
+	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
 	if(M.mind?.assigned_role)
 		poll_message = "[poll_message] Job:[M.mind.assigned_role]."
 	if(M.mind?.special_role)
 		poll_message = "[poll_message] Status:[M.mind.special_role]."
 	else if(M.mind)
-		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist/)
+		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist)
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ROLE_PAI, null, FALSE, 100, M)
+			ban_key = A.banning_key
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
 	if(M.stat == DEAD)//boo.
 		return
 	if(LAZYLEN(candidates))
@@ -605,14 +606,14 @@
 		to_chat(M, "<span class='notice'>Your mind has managed to go unnoticed in the spirit world.</span>")
 		qdel(trauma)
 
-/obj/item/projectile/magic/aoe
+/obj/projectile/magic/aoe
 	name = "Area Bolt"
 	desc = "What the fuck does this do?!"
 	damage = 0
 	var/proxdet = TRUE
 	martial_arts_no_deflect = FALSE
 
-/obj/item/projectile/magic/aoe/Range()
+/obj/projectile/magic/aoe/Range()
 	if(proxdet)
 		for(var/mob/living/L in range(1, get_turf(src)))
 			if(L.stat != DEAD && L != firer && !L.anti_magic_check())
@@ -620,14 +621,14 @@
 	..()
 
 
-/obj/item/projectile/magic/aoe/lightning
+/obj/projectile/magic/aoe/lightning
 	name = "lightning bolt"
 	icon_state = "tesla_projectile"	//Better sprites are REALLY needed and appreciated!~
 	damage = 15
 	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.3
-	flag = "magic"
+	armor_flag = MAGIC
 
 	var/tesla_power = 20000
 	var/tesla_range = 15
@@ -635,17 +636,17 @@
 	var/chain
 	var/mob/living/caster
 
-/obj/item/projectile/magic/aoe/lightning/New(loc, spell_level)
+/obj/projectile/magic/aoe/lightning/New(loc, spell_level)
 	. = ..()
 	tesla_power += 5000 * spell_level
 	tesla_range += 2 * spell_level
 
-/obj/item/projectile/magic/aoe/lightning/fire(setAngle)
+/obj/projectile/magic/aoe/lightning/fire(setAngle)
 	if(caster)
-		chain = caster.Beam(src, icon_state = "lightning[rand(1, 12)]", time = INFINITY, maxdistance = INFINITY)
+		chain = caster.Beam(src, icon_state = "lightning[rand(1, 12)]")
 	..()
 
-/obj/item/projectile/magic/aoe/lightning/on_hit(target)
+/obj/projectile/magic/aoe/lightning/on_hit(target)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
@@ -656,11 +657,11 @@
 	tesla_zap(src, tesla_range, tesla_power, tesla_flags)
 	qdel(src)
 
-/obj/item/projectile/magic/aoe/lightning/Destroy()
+/obj/projectile/magic/aoe/lightning/Destroy()
 	qdel(chain)
 	. = ..()
 
-/obj/item/projectile/magic/fireball
+/obj/projectile/magic/fireball
 	name = "bolt of fireball"
 	icon_state = "fireball"
 	damage = 10
@@ -675,14 +676,14 @@
 	var/magic = TRUE
 	var/holy = FALSE
 
-/obj/item/projectile/magic/fireball/New(loc, spell_level)
+/obj/projectile/magic/fireball/New(loc, spell_level)
 	. = ..()
 	exp_fire += spell_level
 	exp_flash += spell_level
 	exp_light += spell_level
 	exp_heavy = max(spell_level - 2, 0)
 
-/obj/item/projectile/magic/fireball/on_hit(target)
+/obj/projectile/magic/fireball/on_hit(target)
 	. = ..()
 	if(ismob(target))
 		var/mob/living/M = target
@@ -693,7 +694,7 @@
 	var/turf/T = get_turf(target)
 	explosion(T, -1, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, magic = magic, holy = holy)
 
-/obj/item/projectile/magic/fireball/infernal
+/obj/projectile/magic/fireball/infernal
 	name = "infernal fireball"
 	exp_heavy = -1
 	exp_light = -1
@@ -702,7 +703,7 @@
 	magic = FALSE
 	holy = TRUE
 
-/obj/item/projectile/magic/fireball/infernal/on_hit(target)
+/obj/projectile/magic/fireball/infernal/on_hit(target)
 	. = ..()
 	if(ismob(target))
 		var/mob/living/M = target
@@ -710,11 +711,11 @@
 			return BULLET_ACT_BLOCK
 	var/turf/T = get_turf(target)
 	for(var/i=0, i<50, i+=10)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, T, -1, exp_heavy, exp_light, exp_flash, FALSE, FALSE, FALSE, TRUE), i)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), T, -1, exp_heavy, exp_light, exp_flash, FALSE, FALSE, FALSE, TRUE), i)
 
 //still magic related, but a different path
 
-/obj/item/projectile/temp/chill
+/obj/projectile/temp/chill
 	name = "bolt of chills"
 	icon_state = "ice_2"
 	damage = 0
@@ -722,4 +723,4 @@
 	nodamage = FALSE
 	armour_penetration = 100
 	temperature = 50
-	flag = "magic"
+	armor_flag = MAGIC

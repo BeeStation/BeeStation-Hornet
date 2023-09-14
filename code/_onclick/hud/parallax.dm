@@ -30,16 +30,17 @@
 
 	C.screen |= (C.parallax_layers)
 	var/atom/movable/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
-	if(screenmob != mymob)
-		C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen
-		C.screen += PM
-	PM.color = list(
-		0, 0, 0, 0,
-		0, 0, 0, 0,
-		0, 0, 0, 0,
-		1, 1, 1, 1,
-		0, 0, 0, 0
-		)
+	if(PM)
+		if(screenmob != mymob)
+			C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen
+			C.screen += PM
+		PM.color = list(
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			1, 1, 1, 1,
+			0, 0, 0, 0
+			)
 
 
 /datum/hud/proc/remove_parallax(mob/viewmob)
@@ -47,20 +48,21 @@
 	var/client/C = screenmob.client
 	C.screen -= (C.parallax_layers_cached)
 	var/atom/movable/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
-	if(screenmob != mymob)
-		C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen
-		C.screen += PM
-	PM.color = initial(PM.color)
+	if(PM)
+		if(screenmob != mymob)
+			C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen
+			C.screen += PM
+		PM.color = initial(PM.color)
 	C.parallax_layers = null
 
 /datum/hud/proc/apply_parallax_pref(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
 	if(C.prefs)
-		var/pref = C.prefs.parallax
+		var/pref = C.prefs.read_player_preference(/datum/preference/choiced/parallax)
 		if (isnull(pref))
 			pref = PARALLAX_HIGH
-		switch(C.prefs.parallax)
+		switch(pref)
 			if (PARALLAX_INSANE)
 				C.parallax_layers_max = 5
 				return TRUE
@@ -133,7 +135,7 @@
 	C.parallax_movedir = new_parallax_movedir
 	if (C.parallax_animate_timer)
 		deltimer(C.parallax_animate_timer)
-	var/datum/callback/CB = CALLBACK(src, .proc/update_parallax_motionblur, C, animatedir, new_parallax_movedir, newtransform)
+	var/datum/callback/CB = CALLBACK(src, PROC_REF(update_parallax_motionblur), C, animatedir, new_parallax_movedir, newtransform)
 	if(skip_windups)
 		CB.Invoke()
 	else
@@ -314,7 +316,7 @@
 	icon_state = "random_layer1"
 
 /atom/movable/screen/parallax_layer/random/space_gas/Initialize(mapload, view)
-	src.add_atom_colour(SSparallax.random_parallax_color, ADMIN_COLOUR_PRIORITY)
+	src.add_atom_colour(SSparallax.assign_random_parallax_colour(), ADMIN_COLOUR_PRIORITY)
 
 /atom/movable/screen/parallax_layer/random/asteroids
 	icon_state = "random_layer2"

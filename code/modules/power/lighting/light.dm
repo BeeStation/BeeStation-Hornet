@@ -1,3 +1,5 @@
+#define LIGHT_ON_DELAY_UPPER 3 SECONDS
+#define LIGHT_ON_DELAY_LOWER 1 SECONDS
 // the standard tube light fixture
 /obj/machinery/light
 	name = "light fixture"
@@ -47,6 +49,9 @@
 	var/bulb_vacuum_brightness = 8
 	var/static/list/lighting_overlays	// dictionary for lighting overlays
 
+	///More stress stuff.
+	var/turning_on = FALSE
+
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
 	icon_state = "tube-broken"
@@ -78,7 +83,7 @@
 /obj/machinery/light/built/Initialize(mapload)
 	. = ..()
 	status = LIGHT_EMPTY
-	update(0)
+	update(FALSE, TRUE)
 
 /obj/machinery/light/small/built
 	icon_state = "bulb-empty"
@@ -87,14 +92,14 @@
 /obj/machinery/light/small/built/Initialize(mapload)
 	. = ..()
 	status = LIGHT_EMPTY
-	update(0)
+	update(FALSE, TRUE)
 
 /obj/machinery/light/proc/store_cell(new_cell)
 	if(cell)
 		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 	cell = new_cell
 	if(cell)
-		RegisterSignal(cell, COMSIG_PARENT_QDELETING, .proc/remove_cell)
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
 
 /obj/machinery/light/proc/remove_cell()
 	SIGNAL_HANDLER
@@ -121,9 +126,8 @@
 		nightshift_brightness = A.lighting_brightness_night
 
 	if(!mapload) //sync up nightshift lighting for player made lights
-		var/obj/machinery/power/apc/temp_apc = A.get_apc()
+		var/obj/machinery/power/apc/temp_apc = A.apc
 		nightshift_enabled = temp_apc?.nightshift_lights
-
 	if(start_with_cell && !no_emergency)
 		store_cell(new/obj/item/stock_parts/cell/emergency_light(src))
 	spawn(2)
@@ -136,8 +140,20 @@
 				brightness = A.lighting_brightness_bulb
 				if(prob(5))
 					break_light_tube(1)
-		spawn(1)
-			update(0)
+		if(!mapload)
+			spawn(1)
+				update(FALSE, FALSE, FALSE)
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/light/LateInitialize()
+	. = ..()
+	var/area/A = get_area(src)
+	if(A.apc)
+		var/obj/machinery/power/apc/temp_apc = A.apc
+		nightshift_enabled = temp_apc?.nightshift_lights
+		if(nightshift_enabled)
+			update(FALSE, TRUE, TRUE)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -169,10 +185,14 @@
 	. = ..()
 	if(!on || status != LIGHT_OK)
 		return
-
+	if(on && turning_on)
+		return
 	var/area/local_area = get_area(src)
 	if(emergency_mode || (local_area?.fire))
 		. += mutable_appearance(overlayicon, "[base_state]_emergency")
+		return
+	if(local_area?.vacuum)
+		. += mutable_appearance(overlayicon, "[base_state]_nightshift")
 		return
 	if(nightshift_enabled)
 		. += mutable_appearance(overlayicon, "[base_state]_nightshift")
@@ -180,40 +200,17 @@
 	. += mutable_appearance(overlayicon, base_state)
 
 // update the icon_state and luminosity of the light depending on its state
-/obj/machinery/light/proc/update(trigger = TRUE)
+/obj/machinery/light/proc/update(trigger = TRUE, quiet = FALSE, instant = FALSE)
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
 	emergency_mode = FALSE
 	if(on)
-		var/BR = brightness
-		var/PO = bulb_power
-		var/CO = bulb_colour
-		if(color)
-			CO = color
-		var/area/A = get_area(src)
-		if (A?.fire)
-			CO = bulb_emergency_colour
-		else if (A?.vacuum)
-			CO = bulb_vacuum_colour
-			BR = bulb_vacuum_brightness
-		else if (nightshift_enabled)
-			BR = nightshift_brightness
-			PO = nightshift_light_power
-			if(!color)
-				CO = nightshift_light_color
-		var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
-		if(!matching)
-			switchcount++
-			if(rigged)
-				if(status == LIGHT_OK && trigger)
-					explode()
-			else if( prob( min(60, (switchcount**2)*0.01) ) )
-				if(trigger)
-					burn_out()
-			else
-				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO)
+		if(instant)
+			turn_on(trigger, quiet)
+		else if(!turning_on)
+			turning_on = TRUE
+			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger, quiet), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		emergency_mode = TRUE
@@ -234,6 +231,45 @@
 
 	broken_sparks(start_only=TRUE)
 
+/obj/machinery/light/proc/turn_on(trigger, quiet = FALSE)
+	if(QDELETED(src))
+		return FALSE
+	turning_on = FALSE
+	if(!on)
+		return FALSE
+	var/BR = brightness
+	var/PO = bulb_power
+	var/CO = bulb_colour
+	if(color)
+		CO = color
+	var/area/A = get_area(src)
+	if (A?.fire)
+		CO = bulb_emergency_colour
+	else if (A?.vacuum)
+		CO = bulb_vacuum_colour
+		BR = bulb_vacuum_brightness
+	else if (nightshift_enabled)
+		BR = nightshift_brightness
+		PO = nightshift_light_power
+		if(!color)
+			CO = nightshift_light_color
+	var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
+	if(!matching)
+		switchcount++
+		if(rigged)
+			if(status == LIGHT_OK && trigger)
+				plasma_ignition(4)
+		else if( prob( min(60, (switchcount^2)*0.01) ) )
+			if(trigger)
+				burn_out()
+		else
+			use_power = ACTIVE_POWER_USE
+			set_light(BR, PO, CO)
+			if(!quiet)
+				playsound(src.loc, 'sound/effects/light_on.ogg', 50)
+	update_icon()
+	return TRUE
+
 /obj/machinery/light/update_atom_colour()
 	..()
 	update()
@@ -243,7 +279,7 @@
 		if(!start_only)
 			do_sparks(3, TRUE, src)
 		var/delay = rand(BROKEN_SPARKS_MIN, BROKEN_SPARKS_MAX)
-		addtimer(CALLBACK(src, .proc/broken_sparks), delay, TIMER_UNIQUE | TIMER_NO_HASH_WAIT)
+		addtimer(CALLBACK(src, PROC_REF(broken_sparks)), delay, TIMER_UNIQUE | TIMER_NO_HASH_WAIT)
 
 /obj/machinery/light/process()
 	if (!cell)
@@ -261,12 +297,14 @@
 		icon_state = "[base_state]-burned"
 		on = FALSE
 		set_light(0)
+		playsound(src.loc, 'sound/effects/burnout.ogg', 65)
+		update_icon()
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
 /obj/machinery/light/proc/seton(s)
 	on = (s && status == LIGHT_OK)
-	update()
+	update(FALSE)
 
 /obj/machinery/light/get_cell()
 	return cell
@@ -324,7 +362,7 @@
 				qdel(L)
 
 				if(on && rigged)
-					explode()
+					plasma_ignition(4)
 			else
 				to_chat(user, "<span class='warning'>This type of light requires a [fitting]!</span>")
 
@@ -572,7 +610,7 @@
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
-	if(!skip_sound_and_sparks && Master.current_runlevel) //not completly sure disabling this during initialize is needed but then again there are broken lights after initialize
+	if(!skip_sound_and_sparks && Master.current_runlevel) //not completely sure disabling this during initialize is needed but then again there are broken lights after initialize
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
 		if(on)
@@ -611,17 +649,6 @@
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
 
-// explode the light
-
-/obj/machinery/light/proc/explode()
-	set waitfor = 0
-	var/turf/T = get_turf(src.loc)
-	break_light_tube()	// break it first to give a warning
-	sleep(2)
-	explosion(T, 0, 0, 2, 2)
-	sleep(1)
-	qdel(src)
-
 /obj/machinery/light/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
 	break_light_tube()
@@ -635,3 +662,11 @@
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
+
+/proc/flicker_all_lights()
+	for(var/obj/machinery/light/L in GLOB.machines)
+		if(is_station_level(L.z))
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
+
+#undef LIGHT_ON_DELAY_UPPER
+#undef LIGHT_ON_DELAY_LOWER

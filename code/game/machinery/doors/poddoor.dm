@@ -11,7 +11,7 @@
 	heat_proof = TRUE
 	safe = FALSE
 	max_integrity = 600
-	armor = list("melee" = 50, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 50, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
 	var/datum/crafting_recipe/recipe_type = /datum/crafting_recipe/blast_doors
@@ -62,7 +62,7 @@
 			to_chat(user, "<span class='notice'>You start tearing apart the [src].</span>")
 			playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
 			if(do_after(user, 15 SECONDS, target = src))
-				new /obj/item/stack/sheet/plasteel(loc, 5)
+				new /obj/item/stack/sheet/plasteel(loc, 15)
 				qdel(src)
 
 /obj/machinery/door/poddoor/examine(mob/user)
@@ -78,7 +78,8 @@
 /obj/machinery/door/poddoor/preopen
 	icon_state = "blast_open"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
+	z_flags = NONE // reset zblock
 
 /obj/machinery/door/poddoor/ert
 	name = "hardened blast door"
@@ -93,9 +94,9 @@
 /obj/machinery/door/poddoor/shuttledock/proc/check()
 	var/turf/T = get_step(src, checkdir)
 	if(!istype(T, turftype))
-		INVOKE_ASYNC(src, .proc/open)
+		INVOKE_ASYNC(src, PROC_REF(open))
 	else
-		INVOKE_ASYNC(src, .proc/close)
+		INVOKE_ASYNC(src, PROC_REF(close))
 
 /obj/machinery/door/poddoor/incinerator_toxmix
 	name = "combustion chamber vent"

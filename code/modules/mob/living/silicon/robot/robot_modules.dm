@@ -199,7 +199,7 @@
 	R.update_module_innate()
 	RM.rebuild_modules()
 	R.set_modularInterface_theme()
-	INVOKE_ASYNC(RM, .proc/do_transform_animation)
+	INVOKE_ASYNC(RM, PROC_REF(do_transform_animation))
 	qdel(src)
 	return RM
 
@@ -310,7 +310,7 @@
 		/obj/item/circular_saw,
 		/obj/item/blood_filter,
 		/obj/item/extinguisher/mini,
-		/obj/item/roller/robo,
+		/obj/item/rollerbed/robo,
 		/obj/item/borg/cyborghug/medical,
 		/obj/item/stack/medical/gauze/cyborg,
 		/obj/item/organ_storage,
@@ -439,7 +439,7 @@
 		/obj/item/holosign_creator/cyborg,
 		/obj/item/borg/cyborghug/peacekeeper,
 		/obj/item/extinguisher,
-		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/borg/projectile_dampen)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 	ratvar_modules = list(
@@ -578,7 +578,7 @@
 		"Kent" = image(icon = 'icons/mob/robots.dmi', icon_state = "kent"),
 		"Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat")
 	)
-	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 42, require_near = TRUE)
+	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
 	switch(service_robot_icon)
 		if("Waitress")
 			cyborg_base_icon = "service_f"
@@ -641,7 +641,7 @@
 		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
 		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin")
 	)
-	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 42, require_near = TRUE)
+	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
 	switch(miner_robot_icon)
 		if("Lavaland Miner")
 			cyborg_base_icon = "miner"
@@ -707,7 +707,7 @@
 		/obj/item/surgicaldrill,
 		/obj/item/scalpel,
 		/obj/item/melee/transforming/energy/sword/cyborg/saw,
-		/obj/item/roller/robo,
+		/obj/item/rollerbed/robo,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,
 		/obj/item/extinguisher/mini,

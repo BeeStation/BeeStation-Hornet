@@ -35,7 +35,7 @@
 	. = ..()
 	if(hijack_announce)
 		. += "<span class='danger'>Security systems present on console. Any unauthorized tampering will result in an emergency announcement.</span>"
-	if(user?.mind?.get_hijack_speed())
+	if(user?.mind?.get_hijack_speed() && user?.mind?.is_murderbone())
 		. += "<span class='danger'>Alt click on this to attempt to hijack the shuttle. This will take multiple tries (current: stage [SSshuttle.emergency.hijack_status]/[HIJACKED]).</span>"
 		. += "<span class='notice'>It will take you [(hijack_stage_time * user.mind.get_hijack_speed()) / 10] seconds to reprogram a stage of the shuttle's navigational firmware, and the console will undergo automated timed lockout for [hijack_stage_cooldown/10] seconds after each stage.</span>"
 		if(hijack_announce)
@@ -94,7 +94,6 @@
 	if(!ID)
 		to_chat(user, "<span class='warning'>You don't have an ID.</span>")
 		return
-
 	if(!(ACCESS_HEADS in ID.access))
 		to_chat(user, "<span class='warning'>The access level of your card is not high enough.</span>")
 		return
@@ -103,7 +102,7 @@
 		return
 
 	var/old_len = authorized.len
-	addtimer(CALLBACK(src, .proc/clear_recent_action, user), SHUTTLE_CONSOLE_ACTION_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(clear_recent_action), user), SHUTTLE_CONSOLE_ACTION_DELAY)
 
 	switch(action)
 		if("authorize")
@@ -201,7 +200,7 @@
 /obj/machinery/computer/emergency_shuttle/proc/attempt_hijack_stage(mob/living/user)
 	if(!user.CanReach(src))
 		return
-	if(!user?.mind?.get_hijack_speed())
+	if(!user?.mind?.get_hijack_speed() || !user?.mind?.is_murderbone())
 		to_chat(user, "<span class='warning'>You manage to open a user-mode shell on [src], and hundreds of lines of debugging output fly through your vision. It is probably best to leave this alone.</span.")
 		return
 	if(!EMERGENCY_AT_LEAST_DOCKED) // prevent advancing hijack stages on BYOS shuttles until the shuttle has "docked"
@@ -350,7 +349,7 @@
 	priority_announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ][SSshuttle.adminEmergencyNoRecall ? "\n\nWarning: Shuttle recall subroutines disabled; Recall not possible." : ""]", null, ANNOUNCER_SHUTTLECALLED, "Priority", null, TRUE)
 
 	if(SSshuttle.checkInfestedEnvironment()) //If an Alien Queen exists, set a delayed alert
-		infestation_alert_timer = addtimer(CALLBACK(src, .proc/infested_shuttle), rand(150 SECONDS, call_time), TIMER_STOPPABLE) //Delay timer is random from 2:30 to the full duration of the shuttle call
+		infestation_alert_timer = addtimer(CALLBACK(src, PROC_REF(infested_shuttle)), rand(150 SECONDS, call_time), TIMER_STOPPABLE) //Delay timer is random from 2:30 to the full duration of the shuttle call
 
 /obj/docking_port/mobile/emergency/proc/infested_shuttle()
 	if(SSshuttle.checkInfestedEnvironment()) //Check again to ensure the queen is still present
@@ -502,7 +501,7 @@
 			if(time_left <= 50 && !sound_played) //4 seconds left:REV UP THOSE ENGINES BOYS. - should sync up with the launch
 				sound_played = 1 //Only rev them up once.
 				var/list/areas = list()
-				for(var/area/shuttle/escape/E in GLOB.sortedAreas)
+				for(var/area/shuttle/escape/E in GLOB.areas)
 					areas += E
 				hyperspace_sound(HYPERSPACE_WARMUP, areas)
 
@@ -514,7 +513,7 @@
 
 				//now move the actual emergency shuttle to its transit dock
 				var/list/areas = list()
-				for(var/area/shuttle/escape/E in GLOB.sortedAreas)
+				for(var/area/shuttle/escape/E in GLOB.areas)
 					areas += E
 				hyperspace_sound(HYPERSPACE_LAUNCH, areas)
 				enterTransit()
@@ -529,7 +528,7 @@
 		if(SHUTTLE_ESCAPE)
 			if(sound_played && time_left <= HYPERSPACE_END_TIME)
 				var/list/areas = list()
-				for(var/area/shuttle/escape/E in GLOB.sortedAreas)
+				for(var/area/shuttle/escape/E in GLOB.areas)
 					areas += E
 				hyperspace_sound(HYPERSPACE_END, areas)
 			if(time_left <= PARALLAX_LOOP_TIME)
@@ -613,7 +612,7 @@
 
 /obj/machinery/computer/shuttle_flight/pod/Initialize()
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, .proc/handle_alert)
+	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
 
 /obj/machinery/computer/shuttle_flight/pod/proc/handle_alert(datum/source, new_alert)
 	SIGNAL_HANDLER

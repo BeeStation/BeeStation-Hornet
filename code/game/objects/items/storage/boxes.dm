@@ -82,29 +82,14 @@
 	name = "compression box of invisible outfits"
 	desc = "a box with bluespace compression technology that nanotrasen has approved, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
 	w_class = WEIGHT_CLASS_HUGE
+	item_flags = SLOWS_WHILE_IN_HAND
+	slowdown = 4
 	drag_slowdown = 4 // do not steal by dragging
 	/* Note for the compression box:
 		Do not put any box (or suit) into this box, or it will allow infinite storage.
 		non-storage items are only legit for this box. (suits are storage too, so, no.)
 		nor it will allow a glitch when you can access different boxes at the same time.
 		examples exist in `closets/secure/security.dm` */
-
-/obj/item/storage/box/suitbox/pickup(mob/user)
-	. = ..()
-	user.add_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, update=TRUE, priority=100, multiplicative_slowdown=4)
-
-/obj/item/storage/box/suitbox/dropped(mob/living/user)
-	..()
-	addtimer(CALLBACK(src, .proc/box_check, user), 1 SECONDS)
-	// character's contents are checked too earlier than when it supposed to be done, making you perma-slow down.
-
-/obj/item/storage/box/suitbox/proc/box_check(mob/living/user)
-	var/box_exists = FALSE
-	for(var/obj/item/storage/box/suitbox/B in user.get_contents())
-		box_exists = TRUE // `var/obj/item/storage/box/suitbox/B` is already type check
-		break
-	if(!box_exists)
-		user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, TRUE)
 
 /obj/item/storage/box/suitbox/wardrobe // for `wardrobe.dm`
 	name = "compression box of crew outfits"
@@ -940,6 +925,16 @@
 	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/breacher(src)
 
+/obj/item/storage/box/incapacitateshot
+	name = "box of incapacitating shotgun shots"
+	desc = "A box full of incapacitating shots, designed for shotguns."
+	icon_state = "incapacitateshot_box"
+	illustration = null
+
+/obj/item/storage/box/incapacitateshot/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/incapacitate(src)
+
 /obj/item/storage/box/actionfigure
 	name = "box of action figures"
 	desc = "The latest set of collectable action figures."
@@ -977,7 +972,7 @@
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
 			return
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILEY, "Cancel")
-		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) in sortList(designs)
+		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) in sort_list(designs)
 		if(get_dist(usr, src) > 1)
 			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
 			return
@@ -1136,7 +1131,7 @@
 	new /obj/item/reagent_containers/food/snacks/grown/wheat(src)
 	new /obj/item/reagent_containers/food/snacks/grown/cocoapod(src)
 	new /obj/item/reagent_containers/honeycomb(src)
-	new /obj/item/seeds/poppy(src)
+	new /obj/item/seeds/flower/poppy(src)
 
 /obj/item/storage/box/ingredients/carnivore
 	theme_name = "carnivore"

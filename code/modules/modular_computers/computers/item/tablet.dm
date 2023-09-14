@@ -14,6 +14,8 @@
 	has_light = TRUE //LED flashlight!
 	comp_light_luminosity = 2.3 //Same as the PDA
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
+	can_save_id = TRUE
+	saved_auto_imprint = TRUE
 
 	var/has_variants = TRUE
 	var/finish_color = null
@@ -48,11 +50,19 @@
 		icon_state_unpowered = "tablet-[finish_color]"
 		icon_state_powered = "tablet-[finish_color]"
 
+/obj/item/modular_computer/tablet/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	var/obj/item/card/id/inserted_id = GetID() // chain EMP to cards
+	if(inserted_id)
+		inserted_id.emp_act(severity)
+
 /obj/item/modular_computer/tablet/proc/try_scan_paper(obj/target, mob/user)
 	if(!istype(target, /obj/item/paper))
 		return FALSE
 	var/obj/item/paper/paper = target
-	if (!paper.info)
+	if (!paper.default_raw_text)
 		to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
 	else
 		// clean up after ourselves
@@ -60,6 +70,7 @@
 			qdel(stored_paper)
 		stored_paper = paper.copy(src)
 		to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>")
+		ui_update()
 	return TRUE
 
 /obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user)
@@ -352,13 +363,10 @@
 	equipped = TRUE
 	if(!user.client.prefs)
 		return
-	var/pref_theme = user.client.prefs.pda_theme
-	if(!theme_locked && !ignore_theme_pref)
-		for(var/key in allowed_themes) // i am going to scream. DM lists stop sucking please
-			if(allowed_themes[key] == pref_theme)
-				device_theme = pref_theme
-				break
-	classic_color = user.client.prefs.pda_color
+	var/pref_theme = user.client.prefs.read_character_preference(/datum/preference/choiced/pda_theme)
+	if(!theme_locked && !ignore_theme_pref && (pref_theme in allowed_themes))
+		device_theme = allowed_themes[pref_theme]
+	classic_color = user.client.prefs.read_character_preference(/datum/preference/color/pda_classic_color)
 
 /obj/item/modular_computer/tablet/pda/update_icon()
 	..()

@@ -1,14 +1,21 @@
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "melee", absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
-	var/armor = getarmor(def_zone, attack_flag)
+/// Runs an armour check against a mob and returns the armour value to use.
+/// 0 represents 0% protection, while 100 represents 100% protection.
+/// The return value for this proc can be negative, indicating that the damage values should be increased.
+/// A message will be thrown to the user if their armour protects them, unless the silent flag is set.
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
+	var/armor = getarmor(def_zone, attack_flag, penetration = armour_penetration)
 
 	if(armor <= 0)
 		return armor
+
+	// This equation will reach a max value of 75
+	armor = STANDARDISE_ARMOUR(armor)
+
 	if(silent)
-		return max(0, armor - armour_penetration)
+		return armor
 
 	//the if "armor" check is because this is used for everything on /living, including humans
 	if(armour_penetration)
-		armor = max(0, armor - armour_penetration)
 		if(penetrated_text)
 			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
 		else
@@ -25,7 +32,14 @@
 			to_chat(src, "<span class='warning'>Your armor softens the blow!</span>")
 	return armor
 
-/mob/living/proc/getarmor(def_zone, type)
+/// Get the armour value for a specific damage type, targetting a particular zone.
+/// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.
+/// type: The damage type to test for. Must not be null.
+/// penetration: The amount of penetration to add. A value of 20 will reduce the effectiveness of each individual armour piece by 80%.
+/// Returns: An integer value with 0 representing 0% protection and 100 representing 100% protection.
+/// - The return value can be negative which indicates additional armour, but will never exceed 100.
+/// - Armour penetration should not be applied on the return value of this proc, due to its upper bound of 100.
+/mob/living/proc/getarmor(def_zone, type, penetration = 0)
 	return 0
 
 //this returns the mob's protection against eye damage (number between -1 and 2) from bright lights
@@ -42,19 +56,19 @@
 /mob/living/proc/is_eyes_covered(check_glasses = 1, check_head = 1, check_mask = 1)
 	return FALSE
 
-/mob/living/proc/on_hit(obj/item/projectile/P)
+/mob/living/proc/on_hit(obj/projectile/P)
 	return BULLET_ACT_HIT
 
-/mob/living/bullet_act(obj/item/projectile/P, def_zone, piercing_hit = FALSE)
+/mob/living/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
-	var/armor = run_armor_check(def_zone, P.flag, "","",P.armour_penetration)
+	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 		if(P.dismemberment)
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, piercing_hit)? BULLET_ACT_HIT : BULLET_ACT_BLOCK
 
-/mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+/mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	return 0
 
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
@@ -94,7 +108,7 @@
 		if(!blocked)
 			visible_message("<span class='danger'>[src] is hit by [I]!</span>", \
 							"<span class='userdanger'>You're hit by [I]!</span>")
-			var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].",I.armour_penetration)
+			var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].",I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor)
 
 			var/mob/thrown_by = I.thrownby?.resolve()
@@ -112,7 +126,7 @@
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
 		M.do_attack_animation(src)
-		if(M.damtype == "brute")
+		if(M.damtype == BRUTE)
 			step_away(src,M,15)
 		switch(M.damtype)
 			if(BRUTE)
@@ -177,7 +191,7 @@
 					log_combat(user, src, "attempted to neck grab", addition="neck grab")
 				if(GRAB_NECK)
 					log_combat(user, src, "attempted to strangle", addition="kill grab")
-			if(!do_mob(user, src, grab_upgrade_time))
+			if(!do_after(user, grab_upgrade_time, src))
 				return 0
 			if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
 				return 0
@@ -375,8 +389,8 @@
 		if((GLOB.cult_narsie.souls == GLOB.cult_narsie.soul_goal) && (GLOB.cult_narsie.resolved == FALSE))
 			GLOB.cult_narsie.resolved = TRUE
 			sound_to_playing_players('sound/machines/alarm.ogg')
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/cult_ending_helper, 1), 120)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/ending_helper), 270)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(cult_ending_helper), 1), 120)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(ending_helper)), 270)
 	if(client)
 		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, cultoverride = TRUE)
 	else
@@ -394,11 +408,15 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
-	if(get_eye_protection() < intensity && (override_blindness_check || !is_blind()))
-		overlay_fullscreen("flash", type)
-		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
-		return TRUE
-	return FALSE
+	if(get_eye_protection() >= intensity)
+		return FALSE
+	if(!override_blindness_check && is_blind())
+		return FALSE
+	if(client?.prefs?.read_player_preference(/datum/preference/toggle/darkened_flash))
+		type = /atom/movable/screen/fullscreen/flash/black
+	overlay_fullscreen("flash", type)
+	addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 2.5 SECONDS), 2.5 SECONDS)
+	return TRUE
 
 //called when the mob receives a loud bang
 /mob/living/proc/soundbang_act()
@@ -415,15 +433,9 @@
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
-/mob/living/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(istype(E) && diseases.len)
-		if(scan)
-			E.scan(src, diseases, user)
-		else
-			E.extrapolate(src, diseases, user)
-		return TRUE
-	else
-		return FALSE
+/mob/living/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /mob/living/proc/sethellbound()
 	if(mind)
@@ -435,5 +447,5 @@
 /mob/living/proc/ishellbound()
 	return mind?.hellbound
 
-/mob/living/proc/force_hit_projectile(obj/item/projectile/projectile)
+/mob/living/proc/force_hit_projectile(obj/projectile/projectile)
 	return FALSE

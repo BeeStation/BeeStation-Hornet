@@ -4,7 +4,7 @@
 	set invisibility = 0
 	if (notransform)
 		return
-	if(..() && !IsInStasis()) //not dead and not in stasis
+	if(..() && !IS_IN_STASIS(src)) //not dead and not in stasis
 		// GROW!
 		if(amount_grown < max_grown)
 			amount_grown++
@@ -21,12 +21,12 @@
 		if(IsUnconscious() || IsSleeping() || getOxyLoss() > 50 || (HAS_TRAIT(src, TRAIT_DEATHCOMA)) || health <= crit_threshold)
 			if(stat == CONSCIOUS)
 				set_stat(UNCONSCIOUS)
-				blind_eyes(1)
+				become_blind(UNCONSCIOUS_BLIND)
 				update_mobility()
 		else
 			if(stat == UNCONSCIOUS)
 				set_stat(CONSCIOUS)
+				cure_blind(UNCONSCIOUS_BLIND)
 				set_resting(FALSE)
-				adjust_blindness(-1)
 	update_damage_hud()
 	update_health_hud()

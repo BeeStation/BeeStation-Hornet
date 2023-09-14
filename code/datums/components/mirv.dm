@@ -16,7 +16,7 @@
 
 /datum/component/mirv/RegisterWithParent()
 	if(ismachinery(parent) || isstructure(parent) || isgun(parent)) // turrets, etc
-		RegisterSignal(parent, COMSIG_PROJECTILE_ON_HIT, .proc/projectile_hit)
+		RegisterSignal(parent, COMSIG_PROJECTILE_ON_HIT, PROC_REF(projectile_hit))
 
 /datum/component/mirv/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_PROJECTILE_ON_HIT))
@@ -24,7 +24,7 @@
 /datum/component/mirv/proc/projectile_hit(atom/fired_from, atom/movable/firer, atom/target, Angle)
 	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, .proc/do_shrapnel, firer, target)
+	INVOKE_ASYNC(src, PROC_REF(do_shrapnel), firer, target)
 
 /datum/component/mirv/proc/do_shrapnel(mob/firer, atom/target)
 	if(radius < 1)
@@ -32,7 +32,7 @@
 	var/turf/target_turf = get_turf(target)
 	for(var/turf/shootat_turf in RANGE_TURFS(radius, target) - RANGE_TURFS(radius-1, target))
 
-		var/obj/item/projectile/P = new projectile_type(target_turf)
+		var/obj/projectile/P = new projectile_type(target_turf)
 		//Shooting Code:
 		P.range = radius+1
 		if(override_projectile_range)

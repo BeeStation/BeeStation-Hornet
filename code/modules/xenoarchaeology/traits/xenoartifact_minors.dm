@@ -9,7 +9,7 @@
 
 /datum/xenoartifact_trait/minor/looped/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
-		to_chat(user, "<span class='info'>The [item.name] displays a resistance reading of [X.charge_req*0.1].</span>") 
+		to_chat(user, "<span class='info'>The [item.name] displays a resistance reading of [X.charge_req*0.1].</span>")
 		return TRUE
 	return ..()
 
@@ -41,13 +41,13 @@
 		X.cooldown = -1000 SECONDS //This is better than making a unique interaction in xenoartifact.dm
 		return
 	charges = pick(0, 1, 2)
-	playsound(get_turf(X), 'sound/machines/capacitor_charge.ogg', 50, TRUE) 
+	playsound(get_turf(X), 'sound/machines/capacitor_charge.ogg', 50, TRUE)
 	X.cooldown = saved_cooldown
 	saved_cooldown = null
 
 /datum/xenoartifact_trait/minor/capacitive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
-		to_chat(user, "<span class='info'>The [item.name] displays an overcharge reading of [charges/3].</span>") 
+		to_chat(user, "<span class='info'>The [item.name] displays an overcharge reading of [charges/3].</span>")
 		return TRUE
 	return ..()
 
@@ -122,8 +122,8 @@
 	return TRUE
 
 /datum/xenoartifact_trait/minor/sentient/on_init(obj/item/xenoartifact/X)
-	addtimer(CALLBACK(src, .proc/get_canidate, X), 5 SECONDS)
-	RegisterSignal(X, COMSIG_PARENT_EXAMINE, .proc/handle_ghost, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(get_canidate), X), 5 SECONDS)
+	RegisterSignal(X, COMSIG_PARENT_EXAMINE, PROC_REF(handle_ghost), TRUE)
 
 //Proc used to give access to ghosts when original player leaves
 /datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
@@ -131,7 +131,7 @@
 		man.key = M.ckey
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X, mob/M)
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", ROLE_SENTIENCE, null, FALSE, 8 SECONDS, POLL_IGNORE_SENTIENCE_POTION)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", ROLE_SENTIENT_XENOARTIFACT, null, 8 SECONDS)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		setup_sentience(X, C.ckey)
@@ -141,8 +141,8 @@
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)
 	if(!(SSzclear.get_free_z_level()))
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) 
-		return	
+		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
 	man = new(get_turf(X))
 	man.name = pick(GLOB.xenoa_artifact_names)
 	man.real_name = "[man.name] - [X]"
@@ -197,6 +197,7 @@
 	short_desc = "You're a maleviolent sentience, possesing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE
+	banType = ROLE_SENTIENT_XENOARTIFACT
 	invisibility = 101
 	var/obj/item/xenoartifact/artifact
 
@@ -232,7 +233,7 @@
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
 		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
 		A.color = X.material
-		playsound(get_turf(X), 'sound/effects/glassbr1.ogg', 50, TRUE) 
+		playsound(get_turf(X), 'sound/effects/glassbr1.ogg', 50, TRUE)
 		qdel(X)
 
 //============
@@ -280,7 +281,7 @@
 
 /datum/xenoartifact_trait/minor/wearable/on_init(obj/item/xenoartifact/X)
 	X.slot_flags = ITEM_SLOT_GLOVES
-	
+
 /datum/xenoartifact_trait/minor/wearable/activate(obj/item/xenoartifact/X, atom/user)
 	X.true_target |= list(user)
 
@@ -405,11 +406,11 @@
 
 /datum/xenoartifact_trait/minor/haunted/on_init(obj/item/xenoartifact/X)
 	controller = X._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
-			 "up" = CALLBACK(src, .proc/haunted_step, X, NORTH),
-			 "down" = CALLBACK(src, .proc/haunted_step, X, SOUTH),
-			 "left" = CALLBACK(src, .proc/haunted_step, X, WEST),
-			 "right" = CALLBACK(src, .proc/haunted_step, X, EAST),
-			 "activate" = CALLBACK(src, .proc/activate_parent, X)), 10 SECONDS))
+			 "up" = CALLBACK(src, PROC_REF(haunted_step), X, NORTH),
+			 "down" = CALLBACK(src, PROC_REF(haunted_step), X, SOUTH),
+			 "left" = CALLBACK(src, PROC_REF(haunted_step), X, WEST),
+			 "right" = CALLBACK(src, PROC_REF(haunted_step), X, EAST),
+			 "activate" = CALLBACK(src, PROC_REF(activate_parent), X)), 10 SECONDS))
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(obj/item/xenoartifact/ref, dir)
 	if(isliving(ref.loc)) //Make any mobs drop this before it moves
@@ -464,7 +465,7 @@
 	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")
 	confiscate = new(get_turf(X))
 	X.forceMove(confiscate)
-	addtimer(CALLBACK(src, .proc/comeback, X), X.charge*0.20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(comeback), X), X.charge*0.20 SECONDS)
 
 /datum/xenoartifact_trait/minor/blink/proc/comeback(obj/item/xenoartifact/X)
 	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")

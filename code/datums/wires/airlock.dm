@@ -39,13 +39,12 @@
 		//At security level 1, there are duds and the open, bolt and shock wires are not revealed.
 		labelled_wires[WIRE_SAFETY] = TRUE
 		labelled_wires[WIRE_TIMING] = TRUE
-
+	if (security_level == AIRLOCK_WIRE_SECURITY_PROTECTED)
+		labelled_wires[WIRE_ZAP1] = TRUE
 	..()
 
 /datum/wires/airlock/interactable(mob/user)
 	var/obj/machinery/door/airlock/A = holder
-	if(!issilicon(user) && A.isElectrified() && A.shock(user, 100))
-		return FALSE
 	if(A.panel_open)
 		return TRUE
 
@@ -53,7 +52,7 @@
 	var/obj/machinery/door/airlock/A = holder
 	var/list/status = list()
 	status += "The door bolts [A.locked ? "have fallen!" : "look up."]"
-	status += "The test light is [A.hasPower() ? "on" : "off"]."
+	status += "The test light is [A.hasPower() ? (A.isElectrified() ? "bright and flicking" : "on") : "off"]."
 	status += "The AI connection light is [A.aiControlDisabled || (A.obj_flags & EMAGGED) ? "off" : "on"]."
 	status += "The check wiring light is [A.safe ? "off" : "on"]."
 	status += "The timer is powered [A.autoclose ? "on" : "off"]."
@@ -65,6 +64,10 @@
 /datum/wires/airlock/on_pulse(wire)
 	set waitfor = FALSE
 	var/obj/machinery/door/airlock/A = holder
+	// Pulsing a wire while it is shocked will shock you
+	if(isliving(usr) && A.hasPower() && A.isElectrified())
+		if (A.shock(usr, 100))
+			return
 	if(A.hasPower()) //Multitool has no effect at all if the door has lost power
 		switch(wire)
 			if(WIRE_POWER1, WIRE_POWER2) // Pulse to loose power.
@@ -76,9 +79,9 @@
 					return
 				if(A.id_scan_hacked() || A.check_access(null))
 					if(A.density)
-						INVOKE_ASYNC(A, /obj/machinery/door/airlock.proc/open)
+						INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, open))
 					else
-						INVOKE_ASYNC(A, /obj/machinery/door/airlock.proc/close)
+						INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, close))
 			if(WIRE_BOLTS) // Pulse to toggle bolts
 				if(!A.locked)
 					A.bolt()
@@ -96,7 +99,7 @@
 					A.aiControlDisabled = 1
 				else if(A.aiControlDisabled == -1)
 					A.aiControlDisabled = 2
-				addtimer(CALLBACK(A, /obj/machinery/door/airlock.proc/reset_ai_wire), 1 SECONDS)
+				addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/door/airlock, reset_ai_wire)), 1 SECONDS)
 			if(WIRE_SHOCK) // Pulse to shock the door for 10 ticks.
 				if(!A.secondsElectrified)
 					A.set_electrified(MACHINE_DEFAULT_ELECTRIFY_TIME, usr)

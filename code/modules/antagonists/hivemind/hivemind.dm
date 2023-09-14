@@ -2,9 +2,9 @@
 	name = "Hivemind Host"
 	roundend_category = "hiveminds"
 	antagpanel_category = "Hivemind Host"
-	job_rank = ROLE_HIVE
+	banning_key = ROLE_HIVE
+	required_living_playtime = 4
 	antag_moodlet = /datum/mood_event/hivehost
-	var/special_role = ROLE_HIVE
 	var/list/hivemembers = list()
 	var/list/avessels = list()
 	var/hive_size = 0
@@ -45,7 +45,7 @@
 
 
 /datum/antagonist/hivemind/proc/calc_size()
-	listclearnulls(hivemembers)
+	list_clear_nulls(hivemembers)
 	var/temp = 0
 	for(var/datum/mind/M in hivemembers)
 		if(M.current && M.current.stat != DEAD)
@@ -92,15 +92,15 @@
 	var/datum/mind/M = C.mind
 	if(M)
 		hivemembers |= M
-		RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/handle_mind_deletion)
+		RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(handle_mind_deletion))
 		add_hive_overlay(C)
 		calc_size()
 
 	var/user_warning = "<span class='userdanger'>We have detected an enemy hivemind using our physical form as a vessel and have begun ejecting their mind! They will be alerted of our disappearance once we succeed!</span>"
 	if(IS_HIVEHOST(C))
 		var/eject_time = rand(1400,1600) //2.5 minutes +- 10 seconds
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, user_warning), rand(500,1300)) // If the host has assimilated an enemy hive host, alert the enemy before booting them from the hive after a short while
-		addtimer(CALLBACK(src, .proc/handle_ejection, C), eject_time)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, user_warning), rand(500,1300)) // If the host has assimilated an enemy hive host, alert the enemy before booting them from the hive after a short while
+		addtimer(CALLBACK(src, PROC_REF(handle_ejection), C), eject_time)
 
 /datum/antagonist/hivemind/proc/handle_mind_deletion(datum/mind/M)
 	SIGNAL_HANDLER
@@ -156,7 +156,7 @@
 
 
 /datum/antagonist/hivemind/on_gain()
-	owner.special_role = special_role
+	owner.special_role = ROLE_HIVE
 	GLOB.hivehosts += src
 	generate_flavour()
 	create_actions()
@@ -256,7 +256,7 @@
 		you assimilate the crew, you will gain more powers to use. Most are silent and won't help you in a fight, but grant you great power over your \
 		vessels. Hover your mouse over a power's action icon for an extended description on what it does. There are other hiveminds onboard the station, \
 		collaboration is possible, but a strong enough hivemind can reap many rewards from a well planned betrayal.</b>")
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/assimilation.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/assimilation.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE)
 
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Hivemind",

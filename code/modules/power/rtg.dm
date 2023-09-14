@@ -76,9 +76,9 @@
 		"<span class='italics'>You hear a loud electrical crack!</span>")
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 5, power_gen * 0.05)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, get_turf(src), 2, 3, 4, 8), 100) // Not a normal explosion.
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), get_turf(src), 2, 3, 4, 8), 100) // Not a normal explosion.
 
-/obj/machinery/power/rtg/abductor/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/power/rtg/abductor/bullet_act(obj/projectile/Proj)
 	. = ..()
 	if(!going_kaboom && istype(Proj) && !Proj.nodamage && ((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE)))
 		log_bomber(Proj.firer, "triggered a", src, "explosion via projectile")

@@ -221,7 +221,7 @@
 		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !M.is_blind())
 			show_to += M
 
-		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = M == src)
 
 	//Create the chat message
 	if(length(show_to))
@@ -281,16 +281,18 @@
 
 ///Returns the client runechat visible messages preference according to the message type.
 /atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL) || !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_NONMOBS))
+	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES))
+	if (!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs))
+		return FALSE
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL))
+	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES))
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
@@ -538,39 +540,6 @@
 	return TRUE
 
 /**
-  * Point at an atom
-  *
-  * mob verbs are faster than object verbs. See
-  * [this byond forum post](https://secure.byond.com/forum/?post=1326139&page=2#comment8198716)
-  * for why this isn't atom/verb/pointed()
-  *
-  * note: ghosts can point, this is intended
-  *
-  * visible_message will handle invisibility properly
-  *
-  * overridden here and in /mob/dead/observer for different point span classes and sanity checks
-  */
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
-	set name = "Point To"
-	set category = "Object"
-
-	if(!src || !isturf(src.loc) || !(A in view(src.loc)))
-		return FALSE
-	if(istype(A, /obj/effect/temp_visual/point))
-		return FALSE
-
-	var/turf/tile = get_turf(A)
-	if (!tile)
-		return FALSE
-
-	var/turf/our_tile = get_turf(src)
-	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
-	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
-
-	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
-	return TRUE
-
-/**
   * Called by using Activate Held Object with an empty hand/limb
   *
   * Does nothing by default. The intended use is to allow limbs to call their
@@ -678,9 +647,16 @@
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
+	var/alert_yes
 
 	if (CONFIG_GET(flag/norespawn))
-		return
+		if(!check_rights_for(client, R_ADMIN))
+			to_chat(usr, "<span class='boldnotice'>Respawning is disabled.</span>")
+			return
+		alert_yes = alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No")
+		if(alert_yes != "Yes")
+			return
+
 	if ((stat != DEAD || !( SSticker )))
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
@@ -703,6 +679,9 @@
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		qdel(M)
 		return
+	if(alert_yes)
+		log_admin("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
+		message_admins("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
 
 	M.key = key
 //	M.Login()	//wat
@@ -739,7 +718,7 @@
   */
 /mob/Topic(href, href_list)
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
+		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
 		src << browse(null, t1)
 
@@ -813,7 +792,7 @@
   *
   * Conditions:
   * * client.last_turn > world.time
-  * * not dead or unconcious
+  * * not dead or unconscious
   * * not anchored
   * * no transform not set
   * * we are not restrained
@@ -883,6 +862,14 @@
 
 ///Add a spell to the mobs spell list
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
+	// HACK: Preferences menu creates one of every selectable species.
+	// Some species, like vampires, create spells when they're made.
+	// The "action" is created when those spells Initialize.
+	// Preferences menu can create these assets at *any* time, primarily before
+	// the atoms SS initializes.
+	// That means "action" won't exist.
+	if (isnull(S.action))
+		return
 	mob_spell_list += S
 	S.action.Grant(src)
 
@@ -1266,7 +1253,7 @@
 		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
 	active_storage = new_active_storage
 	if(active_storage)
-		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, .proc/active_storage_deleted)
+		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, PROC_REF(active_storage_deleted))
 
 /mob/proc/active_storage_deleted(datum/source)
 	SIGNAL_HANDLER

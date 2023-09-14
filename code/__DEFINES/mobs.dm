@@ -86,81 +86,6 @@
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
 
-//Defines for Species IDs
-#define SPECIES_ABDUCTOR "abductor"
-#define SPECIES_ANDROID "android"
-#define SPECIES_APID "apid"
-#define SPECIES_DEBUG "debug"
-#define SPECIES_DULLAHAN "dullahan"
-#define SPECIES_ETHEREAL "ethereal"
-#define SPECIES_FELINID "felinid"
-#define SPECIES_FLY "fly"
-#define SPECIES_HUMAN "human"
-#define SPECIES_IPC "ipc"
-#define SPECIES_JELLYPERSON "jelly"
- #define SPECIES_LUMINESCENT "lum"
- #define SPECIES_SLIMEPERSON "slime"
- #define SPECIES_STARGAZER "stargazer"
-#define SPECIES_LIZARD "lizard"
- #define SPECIES_ASHWALKER "ashlizard"
-#define SPECIES_MONKEY "monkey"
-#define SPECIES_MOTH "moth"
-#define SPECIES_OOZELING "oozeling"
-#define SPECIES_PLASMAMAN "plasmaman"
-#define SPECIES_PODPERSON "pod"
-#define SPECIES_PUMPKINPERSON "pumpkin_man"
-#define SPECIES_SHADOWPERSON "shadow"
-#define SPECIES_SKELETON "skeleton"
-#define SPECIES_SNAILPERSON "snail"
-#define SPECIES_SUPERSOILDER "supersoldier"
-#define SPECIES_VAMPIRE "vampire"
-
-//Defines for Golem Species IDs
-#define SPECIES_GOLEM_ADAMANTINE "adamantine_golem"
-#define SPECIES_GOLEM_ALLOY "alloy_golem"
-#define SPECIES_GOLEM_BANANIUM "bananium_golem"
-#define SPECIES_GOLEM_BLUESPACE "bluespace_golem"
-#define SPECIES_GOLEM_BONE "bone_golem"
-#define SPECIES_GOLEM_BRONZE "bronze_golem"
-#define SPECIES_GOLEM_CAPITALIST "capitalist_golem"
-#define SPECIES_GOLEM_CARDBOARD "cardboard_golem"
-#define SPECIES_GOLEM_CLOCKWORK "clockwork_golem"
-#define SPECIES_GOLEM_CLOCKWORK_SERVANT "clockwork golem servant"
-#define SPECIES_GOLEM_CLOTH "cloth_golem"
-#define SPECIES_GOLEM_COPPER "copper_golem"
-#define SPECIES_GOLEM_DIAMOND "diamond_golem"
-#define SPECIES_GOLEM_DURATHREAD "durathread_golem"
-#define SPECIES_GOLEM_GLASS "glass_golem"
-#define SPECIES_GOLEM_GOLD "gold_golem"
-#define SPECIES_GOLEM_IRON "iron_golem"
-#define SPECIES_GOLEM_LEATHER "leather_golem"
-#define SPECIES_GOLEM_PLASMA "plasma_golem"
-#define SPECIES_GOLEM_PLASTEEL "plasteel_golem"
-#define SPECIES_GOLEM_PLASTIC "plastic_golem"
-#define SPECIES_GOLEM_PLASTITANIUM "plastitanium_golem"
-#define SPECIES_GOLEM_RUNIC "cult_golem"
-#define SPECIES_GOLEM_SAND "sand_golem"
-#define SPECIES_GOLEM_SILVER "silver_golem"
-#define SPECIES_GOLEM_SNOW "snow_golem"
-#define SPECIES_GOLEM_SOVIET "soviet_golem"
-#define SPECIES_GOLEM_TITANIUM "titanium_golem"
-#define SPECIES_GOLEM_URANIUM "uranium_golem"
-#define SPECIES_GOLEM_WOOD "wood_golem"
-
-//Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
-#define FLAG_HUMAN			(1<<0)
-#define FLAG_IPC			(1<<1)
-#define FLAG_ETHEREAL		(1<<2)
-#define FLAG_PLASMAMAN		(1<<3)
-#define	FLAG_APID			(1<<4)
-#define FLAG_MOTH			(1<<5)
-#define FLAG_LIZARD			(1<<6)
-#define FLAG_FELINID		(1<<7)
-#define FLAG_OOZELING		(1<<8)
-#define FLAG_FLY			(1<<9)
-#define FLAG_DEBUG_SPECIES	(1<<10)
-#define FLAG_MONKEY (1<<11)
-
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1
 #define DIGITIGRADE_FORCED 2
@@ -223,6 +148,15 @@
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
 
+/// This trauma cannot be cured through "special" means, such as nanites or viruses.
+#define TRAUMA_SPECIAL_CURE_PROOF	(1<<0)
+/// This trauma transfers on cloning.
+#define TRAUMA_CLONEABLE			(1<<1)
+/// This trauma CANNOT be obtained randomly.
+#define TRAUMA_NOT_RANDOM			(1<<2)
+/// Default trauma flags.
+#define TRAUMA_DEFAULT_FLAGS		(TRAUMA_CLONEABLE)
+
 //Limit of traumas for each resilience tier
 #define TRAUMA_LIMIT_BASIC 3
 #define TRAUMA_LIMIT_SURGERY 2
@@ -243,6 +177,7 @@
 #define BIOWARE_NERVES "nerves"
 #define BIOWARE_CIRCULATION "circulation"
 #define BIOWARE_LIGAMENTS "ligaments"
+#define BIOWARE_CORTEX "cortex"
 
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
@@ -441,22 +376,6 @@
 #define PULL_PRONE_SLOWDOWN 1.5
 #define HUMAN_CARRY_SLOWDOWN 0.35
 
-//! ## control what things can spawn species
-/// Badmin magic mirror
-#define MIRROR_BADMIN (1<<0)
-/// Standard magic mirror (wizard)
-#define MIRROR_MAGIC  (1<<1)
-/// Pride ruin mirror
-#define MIRROR_PRIDE  (1<<2)
-/// Race swap wizard event
-#define RACE_SWAP     (1<<3)
-/// ERT spawn template (avoid races that don't function without correct gear)
-#define ERT_SPAWN     (1<<4)
-/// xenobio black crossbreed
-#define SLIME_EXTRACT (1<<5)
-/// Wabbacjack staff projectiles
-#define WABBAJACK     (1<<6)
-
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
 #define INTERACTING_WITH(X, Y) (Y in X.do_afters)
 
@@ -479,6 +398,9 @@
 
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
+
+///How much a mob's sprite should be moved when they're lying down
+#define PIXEL_Y_OFFSET_LYING -6
 
 //Body sizes
 #define BODY_SIZE_NORMAL 1

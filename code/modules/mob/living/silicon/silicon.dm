@@ -24,10 +24,10 @@
 	var/obj/item/camera/siliconcam/aicamera = null //photography
 	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_TRACK_HUD)
 
-	var/obj/item/radio/borg/radio = null //All silicons make use of this, with (p)AI's creating headsets
+	var/obj/item/radio/borg/radio = null ///If this is a path, this gets created as an object in Initialize.
 
-	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
-	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarm_types_show = list(ALARM_ATMOS = 0, ALARM_FIRE = 0, ALARM_POWER = 0, ALARM_CAMERA = 0, ALARM_MOTION = 0)
+	var/list/alarm_types_clear = list(ALARM_ATMOS = 0, ALARM_FIRE = 0, ALARM_POWER = 0, ALARM_CAMERA = 0, ALARM_MOTION = 0)
 
 	var/lawcheck[1]
 	var/ioncheck[1]
@@ -60,12 +60,25 @@
 	. = ..()
 	GLOB.silicon_mobs += src
 	faction += "silicon"
+	if(ispath(radio))
+		radio = new radio(src)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
 	create_access_card(default_access_list)
 	default_access_list = null
+
+/mob/living/silicon/Destroy()
+	QDEL_NULL(radio)
+	QDEL_NULL(aicamera)
+	QDEL_NULL(builtInCamera)
+	laws?.owner = null //Laws will refuse to die otherwise.
+	QDEL_NULL(laws)
+	QDEL_NULL(modularInterface)
+	QDEL_NULL(internal_id_card)
+	GLOB.silicon_mobs -= src
+	return ..()
 
 /mob/living/silicon/proc/create_access_card(list/access_list)
 	if(!internal_id_card)
@@ -103,28 +116,10 @@
 /mob/living/silicon/med_hud_set_status()
 	return //we use a different hud
 
-/mob/living/silicon/Destroy()
-	radio = null
-	aicamera = null
-	modularInterface = null
-	QDEL_NULL(builtInCamera)
-	QDEL_NULL(internal_id_card)
-	GLOB.silicon_mobs -= src
-	return ..()
-
 /mob/living/silicon/contents_explosion(severity, target)
 	return
 
-/mob/living/silicon/proc/cancelAlarm()
-	return
-
-/mob/living/silicon/proc/freeCamera()
-	return
-
-/mob/living/silicon/proc/triggerAlarm()
-	return
-
-/mob/living/silicon/proc/queueAlarm(message, type, incoming = 1)
+/mob/living/silicon/proc/queueAlarm(message, type, incoming = FALSE)
 	var/in_cooldown = (alarms_to_show.len > 0 || alarms_to_clear.len > 0)
 	if(incoming)
 		alarms_to_show += message
@@ -134,7 +129,7 @@
 		alarm_types_clear[type] += 1
 
 	if(!in_cooldown)
-		addtimer(CALLBACK(src, .proc/handle_alarms), 30) //3 second cooldown
+		addtimer(CALLBACK(src, PROC_REF(handle_alarms)), 30) //3 second cooldown
 
 /mob/living/silicon/proc/handle_alarms()
 	if(alarms_to_show.len < 5)
@@ -144,23 +139,8 @@
 
 		var/msg = "--- "
 
-		if(alarm_types_show["Burglar"])
-			msg += "BURGLAR: [alarm_types_show["Burglar"]] alarms detected. - "
-
-		if(alarm_types_show["Motion"])
-			msg += "MOTION: [alarm_types_show["Motion"]] alarms detected. - "
-
-		if(alarm_types_show["Fire"])
-			msg += "FIRE: [alarm_types_show["Fire"]] alarms detected. - "
-
-		if(alarm_types_show["Atmosphere"])
-			msg += "ATMOSPHERE: [alarm_types_show["Atmosphere"]] alarms detected. - "
-
-		if(alarm_types_show["Power"])
-			msg += "POWER: [alarm_types_show["Power"]] alarms detected. - "
-
-		if(alarm_types_show["Camera"])
-			msg += "CAMERA: [alarm_types_show["Camera"]] alarms detected. - "
+		for(var/alarm_type in alarm_types_show)
+			msg += "[uppertext(alarm_type)]: [alarm_types_show[alarm_type]] alarms detected. - "
 
 		msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
 		to_chat(src, msg)
@@ -172,20 +152,8 @@
 	else if(alarms_to_clear.len)
 		var/msg = "--- "
 
-		if(alarm_types_clear["Motion"])
-			msg += "MOTION: [alarm_types_clear["Motion"]] alarms cleared. - "
-
-		if(alarm_types_clear["Fire"])
-			msg += "FIRE: [alarm_types_clear["Fire"]] alarms cleared. - "
-
-		if(alarm_types_clear["Atmosphere"])
-			msg += "ATMOSPHERE: [alarm_types_clear["Atmosphere"]] alarms cleared. - "
-
-		if(alarm_types_clear["Power"])
-			msg += "POWER: [alarm_types_clear["Power"]] alarms cleared. - "
-
-		if(alarm_types_show["Camera"])
-			msg += "CAMERA: [alarm_types_clear["Camera"]] alarms cleared. - "
+		for(var/alarm_type in alarm_types_clear)
+			msg += "[uppertext(alarm_type)]: [alarm_types_clear[alarm_type]] alarms cleared. - "
 
 		msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
 		to_chat(src, msg)
@@ -259,65 +227,50 @@
 	return
 
 
-/mob/living/silicon/proc/statelaws(force = 0)
+/mob/living/silicon/proc/statelaws(force = FALSE)
 	var/mob/living/silicon/S = usr
 	var/total_laws_count = 0
-	currently_stating_laws = TRUE
-
-	//"radiomod" is inserted before a hardcoded message to change if and how it is handled by an internal radio.
-	say("[radiomod] Current Active Laws:")
-	S.client.silicon_spam_grace()
 	//laws_sanity_check()
 	//laws.show_laws(world)
 	var/number = 1
-	sleep(10)
 
-	if (laws.devillaws?.len)
+	var/list/laws_to_state = list()
+
+	if (length(laws.devillaws))
 		for(var/index = 1, index <= laws.devillaws.len, index++)
 			if (force || devillawcheck[index] == "Yes")
-				say("[radiomod] 666. [laws.devillaws[index]]")
-				S.client.silicon_spam_grace()
+				laws_to_state += "666. [laws.devillaws[index]]"
 				total_laws_count++
-				sleep(10)
-
 
 	if (laws.zeroth)
 		if (force || lawcheck[1] == "Yes")
-			say("[radiomod] 0. [laws.zeroth]")
-			S.client.silicon_spam_grace()
+			laws_to_state += "0. [laws.zeroth]"
 			total_laws_count++
-			sleep(10)
 
 	for (var/index in 1 to laws.hacked.len)
 		var/law = laws.hacked[index]
 		var/num = ion_num()
 		if (length(law) > 0)
 			if (force || hackedcheck[index] == "Yes")
-				say("[radiomod] [num]. [law]")
-				S.client.silicon_spam_grace()
+				laws_to_state += "[num]. [law]"
 				total_laws_count++
-				sleep(10)
 
 	for (var/index in 1 to laws.ion.len)
 		var/law = laws.ion[index]
 		var/num = ion_num()
 		if (length(law) > 0)
 			if (force || ioncheck[index] == "Yes")
-				say("[radiomod] [num]. [law]")
-				S.client.silicon_spam_grace()
+				laws_to_state += "[num]. [law]"
 				total_laws_count++
-				sleep(10)
 
 	for (var/index in 1 to laws.inherent.len)
 		var/law = laws.inherent[index]
 
 		if (length(law) > 0)
 			if (force || lawcheck[index+1] == "Yes")
-				say("[radiomod] [number]. [law]")
-				S.client.silicon_spam_grace()
+				laws_to_state += "[number]. [law]"
 				total_laws_count++
 				number++
-				sleep(10)
 
 	for (var/index in 1 to laws.supplied.len)
 		var/law = laws.supplied[index]
@@ -325,14 +278,44 @@
 		if (length(law) > 0)
 			if(lawcheck.len >= number+1)
 				if (force || lawcheck[number+1] == "Yes")
-					say("[radiomod] [number]. [law]")
-					S.client.silicon_spam_grace()
+					laws_to_state += "[number]. [law]"
 					total_laws_count++
 					number++
-					sleep(10)
 
-	S.client.silicon_spam_grace_done(total_laws_count)
+	if(!force)
+		var/static/regex/dont_state_regex = regex("Do(?:n'?t| not) state", "i")
+		var/list/bad_idea_laws = list()
+		for(var/law in laws_to_state)
+			if(findtext(law, dont_state_regex))
+				bad_idea_laws |= law
+		if(length(bad_idea_laws))
+			var/all_bad_idea_laws = english_list(bad_idea_laws)
+			if(tgui_alert(usr, "Are you sure you want to state these laws? Stating some of your selected laws may be a bad idea!:\n[all_bad_idea_laws]", buttons = list("Yes", "No")) != "Yes")
+				return
+
+	if(currently_stating_laws)
+		return
+
+	currently_stating_laws = TRUE
+
+	//"radiomod" is inserted before a hardcoded message to change if and how it is handled by an internal radio.
+	say("[radiomod] Current Active Laws:", ignore_spam = TRUE, forced = "state laws")
+	S.client?.silicon_spam_grace()
+
+	for(var/law_index = 1 to length(laws_to_state))
+		var/law = laws_to_state[law_index]
+		addtimer(CALLBACK(src, PROC_REF(state_singular_law), S, law), 1 SECONDS * law_index)
+
+	addtimer(CALLBACK(src, PROC_REF(finished_stating_laws), S, total_laws_count), 1 SECONDS * (length(laws_to_state) + 1))
+
+
+/mob/living/silicon/proc/finished_stating_laws(mob/living/silicon/silicon, total_laws_count)
+	silicon.client?.silicon_spam_grace_done(total_laws_count)
 	currently_stating_laws = FALSE
+
+/mob/living/silicon/proc/state_singular_law(mob/living/silicon/silicon, law)
+	say("[radiomod] [law]", ignore_spam = TRUE, forced = "state laws")
+	silicon.client?.silicon_spam_grace()
 
 /mob/living/silicon/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
 
@@ -486,6 +469,7 @@
 
 /mob/living/silicon/rust_heretic_act()
 	adjustBruteLoss(500)
+	return TRUE
 
 /mob/living/silicon/hears_radio()
 	return FALSE

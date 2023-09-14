@@ -100,7 +100,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health
 	back = /obj/item/storage/backpack/ert/medical
 	belt = /obj/item/storage/belt/medical/ert
-	l_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/reagent_containers/hypospray/combat=1,
 		/obj/item/melee/baton/loaded=1)
@@ -119,7 +119,7 @@
 	name = "ERT Medic - High Alert"
 
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	l_hand = /obj/item/storage/firstaid/advanced
+	l_hand = /obj/item/storage/firstaid/advanced/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
@@ -135,7 +135,7 @@
 	back = /obj/item/storage/backpack/ert/engineer
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/rcd_ammo/large
-	l_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/construction/rcd/loaded=1,
@@ -189,7 +189,7 @@
 	W.icon_state = "centcom"
 	W.access = list() // wipe access - they shouldn't get all centcom access.
 	W.access = get_centcom_access(JOB_CENTCOM_OFFICIAL)
-	W.access += ACCESS_WEAPONS
+	W.access |= ACCESS_WEAPONS
 	W.assignment = JOB_CENTCOM_OFFICIAL
 	W.registered_name = H.real_name
 	W.update_label()
@@ -362,7 +362,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.access = list() //wipe access - they shouldn't get all centcom access.
 	W.access = get_centcom_access(name)
-	W.access += ACCESS_WEAPONS
+	W.access |= ACCESS_WEAPONS
 	W.assignment = name
 	W.registered_name = H.real_name
 	W.update_label()
@@ -411,7 +411,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name
-	W.access += ACCESS_THEATRE
+	W.access |= ACCESS_THEATRE
 	W.update_label(W.registered_name, W.assignment)
 	H.dna.add_mutation(CLOWNMUT)
 
@@ -453,7 +453,7 @@
 
 	backpack_contents = list(/obj/item/storage/box=1,\
 		/obj/item/ammo_box/a357=1,\
-		/obj/item/storage/firstaid/regular=1,\
+		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\
 		/obj/item/flashlight=1,\
 		/obj/item/grenade/plastic/x4=1)
@@ -473,8 +473,8 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = list() //wipe access first
-	W.access = get_all_accesses()//They get full station access.
-	W.access += get_centcom_access(JOB_ERT_DEATHSQUAD)//Let's add their alloted CentCom access.
+	W.access = get_all_accesses()  //They get full station access.
+	W.access |= get_centcom_access(JOB_ERT_DEATHSQUAD) //Let's add their alloted CentCom access.
 	W.assignment = JOB_ERT_DEATHSQUAD
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)
@@ -484,7 +484,7 @@
 	head = /obj/item/clothing/head/helmet/space/beret
 	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad=1,\
 		/obj/item/ammo_box/a357=1,\
-		/obj/item/storage/firstaid/regular=1,\
+		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\
 		/obj/item/flashlight=1,\
 		/obj/item/grenade/plastic/x4=1,
@@ -506,6 +506,6 @@
 		/obj/item/reagent_containers/hypospray/combat,\
 		/obj/item/radio=1,\
 		/obj/item/chainsaw/energy/doom=1,\
-		/obj/item/gun/ballistic/automatic/sniper_rifle=1,\
+		/obj/item/gun/ballistic/sniper_rifle=1,\
 		/obj/item/gun/grenadelauncher/security=1,\
 		/obj/item/gun/ballistic/automatic/ar=1)

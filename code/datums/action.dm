@@ -48,7 +48,7 @@
 				return
 			Remove(owner)
 		owner = M
-		RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/owner_deleted)
+		RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(owner_deleted))
 
 		//button id generation
 		var/counter = 0
@@ -68,7 +68,7 @@
 		M.actions += src
 		if(M.client)
 			M.client.screen += button
-			button.locked = (M.client.prefs.toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS) || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
+			button.locked = M.client.prefs.read_player_preference(/datum/preference/toggle/buttons_locked) || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
 			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
 			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
@@ -184,7 +184,7 @@
 /datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	if(button_icon && button_icon_state)
 		// If set, use the custom icon that we set instead
-		// of the item appearence
+		// of the item appearance
 		..()
 	else if((target && current_button.appearance_cache != target.appearance) || force) //replace with /ref comparison if this is not valid.
 		var/obj/item/I = target
@@ -284,13 +284,13 @@
 		H.toggle_welding_screen(owner)
 
 /datum/action/item_action/toggle_headphones
-	name = "Toggle Headphones"
+	name = "Open Music Menu"
 	desc = "UNTZ UNTZ UNTZ"
 
 /datum/action/item_action/toggle_headphones/Trigger()
 	var/obj/item/clothing/ears/headphones/H = target
 	if(istype(H))
-		H.toggle(owner)
+		H.interact(owner)
 
 /datum/action/item_action/toggle_unfriendly_fire
 	name = "Toggle Friendly Fire \[ON\]"
@@ -351,6 +351,9 @@
 	name = "Toggle Hardsuit Locator HUD"
 	icon_icon = 'icons/mob/actions.dmi'
 	button_icon_state = "toggle-hud"
+
+/datum/action/item_action/toggle_beacon_hud/explorer
+	button_icon_state = "toggle-hud-explo"
 
 /datum/action/item_action/toggle_beacon_frequency
 	name = "Toggle Hardsuit Locator Frequency"

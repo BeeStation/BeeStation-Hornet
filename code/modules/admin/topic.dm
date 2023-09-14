@@ -223,11 +223,11 @@
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode.", null, null, null, null)
 		var/roundstart_rules = list()
 		for (var/rule in subtypesof(/datum/dynamic_ruleset/roundstart))
-			var/datum/dynamic_ruleset/roundstart/newrule = new rule()
+			var/datum/dynamic_ruleset/roundstart/newrule = new rule(SSticker.mode)
 			roundstart_rules[newrule.name] = newrule
 		var/added_rule = input(usr,"What ruleset do you want to force? This will bypass threat level and population restrictions.", "Rigging Roundstart", null) as null|anything in roundstart_rules
 		if (added_rule)
@@ -258,12 +258,12 @@
 			return
 		if(!SSticker || !SSticker.mode)
 			return alert(usr, "The game must start first.", null, null, null, null)
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 		var/latejoin_rules = list()
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		for (var/rule in subtypesof(/datum/dynamic_ruleset/latejoin))
-			var/datum/dynamic_ruleset/latejoin/newrule = new rule()
+			var/datum/dynamic_ruleset/latejoin/newrule = new rule(SSticker.mode)
 			mode.configure_ruleset(newrule)
 			latejoin_rules[newrule.name] = newrule
 		var/added_rule = input(usr,"What ruleset do you want to force upon the next latejoiner? This will bypass threat level and population restrictions.", "Rigging Latejoin", null) as null|anything in latejoin_rules
@@ -288,12 +288,12 @@
 			return
 		if(!SSticker || !SSticker.mode)
 			return alert(usr, "The game must start first.", null, null, null, null)
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 		var/midround_rules = list()
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		for (var/rule in subtypesof(/datum/dynamic_ruleset/midround))
-			var/datum/dynamic_ruleset/midround/newrule = new rule()
+			var/datum/dynamic_ruleset/midround/newrule = new rule(SSticker.mode)
 			mode.configure_ruleset(newrule)
 			midround_rules[newrule.name] = rule
 		var/added_rule = input(usr,"What ruleset do you want to force right now? This will bypass threat level and population restrictions.", "Execute Ruleset", null) as null|anything in midround_rules
@@ -308,7 +308,7 @@
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		dynamic_mode_options(usr)
@@ -317,7 +317,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
@@ -329,7 +329,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_no_stacking = !GLOB.dynamic_no_stacking
@@ -341,7 +341,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
@@ -356,7 +356,7 @@
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		var/new_value = input(usr, "Enter the forced threat level for dynamic mode.", "Forced threat level") as num
@@ -1906,6 +1906,25 @@
 		if(!check_rights(R_ADMIN))
 			return
 		GLOB.interviews.ui_interact(usr)
+
+	else if(href_list["backstory_select"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/list/L = locate(href_list["backstory_select"])
+		var/choice = input(usr, "Select backstory to use", "Select backstory") as null|anything in L
+		if(choice != null)
+			GLOB.fugitive_backstory_selection = list(choice)
+			message_admins("[key_name_admin(usr)] selected backstory: [choice]")
+			log_admin("[key_name(usr)] selected backstory: [choice]")
+
+	else if(href_list["show_paper"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/obj/item/paper/paper_to_show = locate(href_list["show_paper"])
+		if(!istype(paper_to_show))
+			return
+		paper_to_show.ui_interact(usr)
 
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))

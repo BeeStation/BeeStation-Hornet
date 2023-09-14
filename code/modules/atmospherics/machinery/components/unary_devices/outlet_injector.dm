@@ -141,7 +141,7 @@
 		var/datum/gas_mixture/air_contents = airs[1]
 		volume_rate = CLAMP(number, 0, air_contents.return_volume())
 
-	addtimer(CALLBACK(src, .proc/broadcast_status), 2)
+	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 2)
 
 	if(!("status" in signal.data)) //do not update_icon
 		update_icon()
@@ -227,9 +227,9 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste
 	name = "engine outlet injector"
 	id = ATMOS_GAS_MONITOR_WASTE_ENGINE
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input
 	name = "plasma tank input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_TOX
+	id = ATMOS_GAS_MONITOR_INPUT_PLASMA
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input
 	name = "oxygen tank input injector"
 	id = ATMOS_GAS_MONITOR_INPUT_O2

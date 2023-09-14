@@ -74,7 +74,7 @@ SUBSYSTEM_DEF(garbage)
 	var/list/dellog = list()
 
 	//sort by how long it's wasted hard deleting
-	sortTim(items, cmp=/proc/cmp_qdel_item_time, associative = TRUE)
+	sortTim(items, cmp=GLOBAL_PROC_REF(cmp_qdel_item_time), associative = TRUE)
 	for(var/path in items)
 		var/datum/qdel_item/I = items[path]
 		dellog += "Path: [path]"
@@ -163,7 +163,7 @@ SUBSYSTEM_DEF(garbage)
 		var/datum/D
 		D = locate(refID)
 
-		if (!D || D.gc_destroyed != GCd_at_time) // So if something else coincidently gets the same ref, it's not deleted by mistake
+		if (!D || D.gc_destroyed != GCd_at_time) // So if something else coincidentally gets the same ref, it's not deleted by mistake
 			++gcedlasttick
 			++totalgcs
 			pass_counts[level]++
@@ -185,11 +185,11 @@ SUBSYSTEM_DEF(garbage)
 			if (GC_QUEUE_CHECK)
 				#ifdef REFERENCE_TRACKING
 				if(reference_find_on_fail[refID])
-					INVOKE_ASYNC(D, /datum/proc/find_references)
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum,find_references))
 					ref_searching = TRUE
 				#ifdef GC_FAILURE_HARD_LOOKUP
 				else
-					INVOKE_ASYNC(D, /datum/proc/find_references)
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum,find_references))
 					ref_searching = TRUE
 				#endif
 				reference_find_on_fail -= refID
@@ -197,7 +197,7 @@ SUBSYSTEM_DEF(garbage)
 				var/type = D.type
 				var/datum/qdel_item/I = items[type]
 
-				log_world("## TESTING: GC: -- \ref[D] | [type] was unable to be GC'd --")
+				log_world("## TESTING: GC: -- [FAST_REF(D)] | [type] was unable to be GC'd --")
 				#ifdef TESTING
 				for(var/c in GLOB.admins) //Using testing() here would fill the logs with ADMIN_VV garbage
 					var/client/admin = c
@@ -239,7 +239,7 @@ SUBSYSTEM_DEF(garbage)
 		HardDelete(D)
 		return
 	var/gctime = world.time
-	var/refid = "\ref[D]"
+	var/refid = FAST_REF(D)
 
 	D.gc_destroyed = gctime
 	var/list/queue = queues[level]
@@ -251,7 +251,7 @@ SUBSYSTEM_DEF(garbage)
 	++delslasttick
 	++totaldels
 	var/type = D.type
-	var/refID = "\ref[D]"
+	var/refID = FAST_REF(D)
 
 	var/tick_usage = TICK_USAGE
 	del(D)
@@ -367,7 +367,7 @@ SUBSYSTEM_DEF(garbage)
 				D.find_references() //This breaks ci. Consider it insurance against somehow pring reftracking on accident
 			if (QDEL_HINT_IFFAIL_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled and the object fails to collect, display all references to this object.
 				SSgarbage.Queue(D)
-				SSgarbage.reference_find_on_fail["\ref[D]"] = TRUE
+				SSgarbage.reference_find_on_fail[FAST_REF(D)] = TRUE
 			#endif
 			else
 				#ifdef TESTING

@@ -24,9 +24,6 @@
 	myturf.lighting_object = src
 	myturf.luminosity = 0
 
-	for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-		S.update_starlight()
-
 	needs_update = TRUE
 	SSlighting.objects_queue += src
 
@@ -39,7 +36,7 @@
 			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 		if (isturf(myturf))
 			myturf.lighting_object = null
-			myturf.luminosity = 1
+			myturf.luminosity = initial(myturf.luminosity)
 		myturf = null
 
 		return ..()
@@ -73,7 +70,7 @@
 	var/datum/lighting_corner/cb = myturf.lighting_corner_NW || dummy_lighting_corner
 	var/datum/lighting_corner/ca = myturf.lighting_corner_NE || dummy_lighting_corner
 
-	var/max = max(cr.cache_mx, cg.cache_mx, cb.cache_mx, ca.cache_mx)
+	var/max = max(cr.largest_color_luminosity, cg.largest_color_luminosity, cb.largest_color_luminosity, ca.largest_color_luminosity)
 
 	var/rr = cr.cache_r
 	var/rg = cr.cache_g
@@ -117,6 +114,12 @@
 		)
 
 	luminosity = set_luminosity
+
+	if (myturf.above)
+		if(myturf.above.shadower)
+			myturf.above.shadower.copy_lighting(src, myturf.loc)
+		else
+			myturf.above.update_mimic()
 
 // Variety of overrides so the overlays don't get affected by weird things.
 

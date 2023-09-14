@@ -1,16 +1,8 @@
 #define TRANSFORMATION_DURATION 22
 
-/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE)
+/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE, keep_original_species = FALSE)
 	if (notransform || transformation_timer)
 		return
-
-	var/list/stored_implants = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 	var/list/int_organs = list()
@@ -40,6 +32,9 @@
 
 	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
 
+	// Make it be able to be turned back into a human with mutadone
+	O.natural = FALSE
+	O.check_if_natural()
 	// hash the original name?
 	if(tr_flags & TR_HASHNAME)
 		O.name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
@@ -50,6 +45,13 @@
 	O.set_species(/datum/species/monkey)
 	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(RACEMUT))
 	O.updateappearance(icon_update=0)
+
+	//store original species
+	if(keep_original_species)
+		for(var/datum/mutation/race/M in O.dna.mutations)
+			if(!isnull(dna.species))
+				M.original_species = dna.species.type
+			break //Can't be more than one monkified in a DNA set so, no need to continue the loop
 
 	if(suiciding)
 		O.set_suicide(suiciding)
@@ -74,11 +76,10 @@
 		O.updatehealth()
 		O.radiation = radiation
 
-	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/Y in implants)
-			var/obj/item/implant/IMP = Y
-			IMP.implant(O, null, 1)
+	//move implants to new mob
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
+			IMP.transfer_implant(src, O)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
@@ -139,6 +140,7 @@
 
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a monkey.</B>")
+	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
@@ -158,16 +160,8 @@
 		return
 	//Handle items on mob
 
-	//first implants & organs
-	var/list/stored_implants = list()
+	//first organs
 	var/list/int_organs = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
-
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 
 	var/obj/item/cavity_object
@@ -232,11 +226,10 @@
 		O.updatehealth()
 		O.radiation = radiation
 
-	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/Y in implants)
-			var/obj/item/implant/IMP = Y
-			IMP.implant(O, null, 1)
+	//move implants to new mob
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
+			IMP.transfer_implant(src, O)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
@@ -291,6 +284,8 @@
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a living teratoma.</B>")
 
+	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
+
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
 			loc.vars[A] = O
@@ -304,18 +299,11 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI))
+/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, var/datum/species/original_species)
 	if (notransform || transformation_timer)
 		return
 
-	var/list/stored_implants = list()
 	var/list/int_organs = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 
@@ -385,11 +373,10 @@
 		O.updatehealth()
 		O.radiation = radiation
 
-	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/Y in implants)
-			var/obj/item/implant/IMP = Y
-			IMP.implant(O, null, 1)
+	//move implants to new mob
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
+			IMP.transfer_implant(src, O)
 
 	if(tr_flags & TR_KEEPORGANS)
 		for(var/X in O.internal_organs)
@@ -446,15 +433,28 @@
 		else if(O.ai_controller)
 			QDEL_NULL(O.ai_controller)
 
-	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
-		O.set_species(O.dna.species)
-	else
-		O.set_species(/datum/species/human)
+	if(keep_original_species && isnull(original_species))
+		original_species = /datum/species/human
 
+	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
+		if(isnull(O.dna.species))
+			O.set_species(/datum/species/human)
+		else
+			O.set_species(O.dna.species)
+	else
+		if(keep_original_species)
+			if(isnull(original_species) || !ispath(original_species, /datum/species))
+				O.set_species(/datum/species/human)
+			else
+				O.set_species(original_species)
+		else
+			O.set_species(/datum/species/human)
 
 	O.a_intent = INTENT_HELP
 	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now a human.</B>")
+		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
+
+	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	transfer_observers_to(O)
 
@@ -515,7 +515,7 @@
 	. = new /mob/living/silicon/ai(pick(landmark_loc), null, src)
 
 	if(preference_source)
-		apply_pref_name("ai",preference_source)
+		apply_pref_name(/datum/preference/name/ai, preference_source)
 
 	qdel(src)
 
@@ -531,7 +531,7 @@
 	if(client)
 		R.updatename(client)
 
-	if(mind)		//TODO
+	if(mind)//TODO //huh?
 		if(!transfer_after)
 			mind.active = FALSE
 		mind.transfer_to(R)
@@ -550,7 +550,21 @@
 	R.notify_ai(NEW_BORG)
 
 	. = R
+	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))
+		INVOKE_ASYNC(R, TYPE_PROC_REF(/mob/living/silicon/robot, replace_banned_cyborg))
 	qdel(src)
+
+/mob/living/silicon/robot/proc/replace_banned_cyborg()
+	to_chat(src, "<span class='userdanger'>You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!</span>")
+	ghostize(FALSE)
+
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [src]?", JOB_NAME_CYBORG, null, 7.5 SECONDS, src, ignore_category = FALSE)
+	if(LAZYLEN(candidates))
+		var/mob/dead/observer/chosen_candidate = pick(candidates)
+		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
+		key = chosen_candidate.key
+	else
+		set_playable(JOB_NAME_CYBORG)
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()
@@ -647,8 +661,9 @@
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sortList(mobtypes, /proc/cmp_typepaths_asc)
-
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a type", sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+	if(isnull(mobpath))
+		return
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
@@ -661,15 +676,16 @@
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
 
-
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	. = new_mob
 	qdel(src)
 
 /mob/proc/Animalize()
-	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sortList(mobtypes, /proc/cmp_typepaths_asc)
 
+	var/list/mobtypes = typesof(/mob/living/simple_animal)
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a type", sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+	if(isnull(mobpath))
+		return
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
@@ -678,7 +694,7 @@
 
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
-	to_chat(new_mob, "You feel more... animalistic")
+	to_chat(new_mob, "<span class='boldnotice'>You feel more... animalistic!</span>")
 
 	. = new_mob
 	qdel(src)

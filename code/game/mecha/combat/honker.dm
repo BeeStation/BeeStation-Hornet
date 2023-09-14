@@ -7,7 +7,7 @@
 	max_integrity = 140
 	deflect_chance = 60
 	internal_damage_threshold = 60
-	armor = list("melee" = -20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = -20,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	max_temperature = 25000
 	infra_luminosity = 5
 	operation_req_access = list(ACCESS_THEATRE)
@@ -93,6 +93,9 @@
 						<div id='commands'>
 						[src.get_commands()]
 						</div>
+						<div id='equipment_menu'>
+						[get_equipment_menu()]
+						</div>
 						</body>
 						</html>
 					 "}
@@ -121,6 +124,18 @@
 	output += ..()
 	return output
 
+/obj/mecha/honker/get_equipment_menu() //outputs mecha html equipment menu
+	. = {"
+	<div class='wr'>
+	<div class='header'>EquipHONK</div>
+	<div class='links'>"}
+	if(equipment.len)
+		for(var/X in equipment)
+			var/obj/item/mecha_parts/mecha_equipment/W = X
+			. += "[W.name] [W.detachable?"<a href='?src=[REF(W)];detach=1'>Detach</a><br>":"\[Non-removable\]<br>"]"
+	. += {"<b>Available equipment slots:</b> [max_equip-equipment.len]
+	</div>
+	</div>"}
 
 /obj/mecha/combat/honker/get_equipment_list()
 	if(!equipment.len)

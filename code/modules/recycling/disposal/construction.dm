@@ -36,7 +36,8 @@
 
 	update_icon()
 
-	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidable under floor tiles
+		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 /obj/structure/disposalconstruct/Move()
 	var/old_dir = dir
@@ -84,7 +85,7 @@
 
 /obj/structure/disposalconstruct/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, .proc/can_be_rotated), CALLBACK(src, .proc/after_rot))
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)), CALLBACK(src, PROC_REF(after_rot)))
 
 /obj/structure/disposalconstruct/proc/after_rot(mob/user,rotation_type)
 	if(rotation_type == ROTATION_FLIP)

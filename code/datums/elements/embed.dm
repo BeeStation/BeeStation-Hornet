@@ -29,18 +29,18 @@
 	var/armour_block
 	var/payload_type
 
-/datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, max_damage_mult, remove_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, armour_block, projectile_payload=/obj/item/shard)
+/datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, max_damage_mult, remove_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, armour_block)
 	. = ..()
 
 	if(!isitem(target) && !isprojectile(target))
 		return ELEMENT_INCOMPATIBLE
 
 	if(isitem(target))
-		RegisterSignal(target, COMSIG_MOVABLE_IMPACT_ZONE, .proc/checkEmbed)
-		RegisterSignal(target, COMSIG_ELEMENT_ATTACH, .proc/severancePackage)
-		RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/examined)
-		RegisterSignal(target, COMSIG_EMBED_TRY_FORCE, .proc/tryForceEmbed)
-		RegisterSignal(target, COMSIG_ITEM_DISABLE_EMBED, .proc/detachFromWeapon)
+		RegisterSignal(target, COMSIG_MOVABLE_IMPACT_ZONE, PROC_REF(checkEmbed))
+		RegisterSignal(target, COMSIG_ELEMENT_ATTACH, PROC_REF(severancePackage))
+		RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(examined))
+		RegisterSignal(target, COMSIG_EMBED_TRY_FORCE, PROC_REF(tryForceEmbed))
+		RegisterSignal(target, COMSIG_ITEM_DISABLE_EMBED, PROC_REF(detachFromWeapon))
 		if(!initialized)
 			src.embed_chance = embed_chance
 			src.fall_chance = fall_chance
@@ -56,8 +56,9 @@
 			src.armour_block = armour_block
 			initialized = TRUE
 	else
-		payload_type = projectile_payload
-		RegisterSignal(target, COMSIG_PROJECTILE_SELF_ON_HIT, .proc/checkEmbedProjectile)
+		var/obj/projectile/P = target
+		payload_type = P.shrapnel_type
+		RegisterSignal(target, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(checkEmbedProjectile))
 
 
 /datum/element/embed/Detach(obj/target)
@@ -146,7 +147,7 @@
   * If we hit a valid target, we create the shrapnel_type object and immediately call tryEmbed() on it, targeting what we impacted. That will lead
   *	it to call tryForceEmbed() on its own embed element (it's out of our hands here, our projectile is done), where it will run through all the checks it needs to.
   */
-/datum/element/embed/proc/checkEmbedProjectile(obj/item/projectile/P, atom/movable/firer, atom/hit, angle, hit_zone)
+/datum/element/embed/proc/checkEmbedProjectile(obj/projectile/P, atom/movable/firer, atom/hit, angle, hit_zone)
 	SIGNAL_HANDLER
 
 	if(!iscarbon(hit))
@@ -192,5 +193,6 @@
 	else if(isbodypart(target))
 		limb = target
 		C = limb.owner
+		hit_zone = limb.body_zone
 
 	return checkEmbed(I, C, hit_zone, forced=TRUE)

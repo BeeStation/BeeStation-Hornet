@@ -2,6 +2,11 @@
 // When the signal is called: (signal arguments)
 // All signals send the source datum of the signal as the first argument
 
+// /obj access signals
+
+#define COMSIG_OBJ_ALLOWED "door_try_to_activate"
+	#define COMPONENT_OBJ_ALLOW (1<<0)
+
 // /obj/machinery/door/airlock signals
 
 //from /obj/machinery/door/airlock/open(): (forced)

@@ -7,7 +7,7 @@
 		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
 		/obj/item/clothing/mask/gas/old = 10,
 		/obj/item/clothing/gloves/color/fyellow = 7,
-		/obj/item/choice_beacon/music = 5,
+		/obj/item/choice_beacon/radial/music = 5,
 		/obj/item/toy/crayon/spraycan = 3,
 		/obj/item/crowbar/large = 2,
 	)
@@ -284,7 +284,7 @@
 		/obj/item/toy/cards/deck = 10,
 		/obj/item/clothing/glasses/sunglasses/advanced/big = 5,
 		/obj/item/book/manual/wiki/security_space_law = 5,
-		//Harrassing security has never been this fun
+		//Harassing security has never been this fun
 		/obj/item/megaphone = 3,
 	)
 
@@ -312,7 +312,7 @@
 //MIME
 /datum/job/mime
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/baguette/mime = 15,
+		/obj/item/food/baguette/mime = 15,
 		/obj/item/reagent_containers/food/snacks/store/cheesewheel = 10,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,

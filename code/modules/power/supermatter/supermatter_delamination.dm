@@ -89,7 +89,8 @@
 		light_impact_range = supermatter_explosion_power * max(supermatter_gasmix_power_ratio, 0.205) + 4,
 		flash_range = supermatter_explosion_power * max(supermatter_gasmix_power_ratio, 0.205) + 6,
 		adminlog = TRUE,
-		ignorecap = TRUE)
+		ignorecap = TRUE,
+		explosion_type = /datum/effect_system/explosion/delamination)
 
 /datum/supermatter_delamination/proc/setup_anomalies()
 	anomalies_to_spawn = max(round(0.005 * supermatter_power, 1) + rand(-2, 5), 1)
@@ -100,7 +101,7 @@
 	var/currently_spawning_anomalies = round(anomalies_to_spawn * 0.5, 1)
 	anomalies_to_spawn -= currently_spawning_anomalies
 	for(var/i in 1 to currently_spawning_anomalies)
-		var/anomaly_to_spawn = pickweight(ANOMALY_WEIGHTS)
+		var/anomaly_to_spawn = pick_weight(ANOMALY_WEIGHTS)
 		var/area/target_event_spawn = pick_n_take(anomaly_areas)
 		if(!target_event_spawn)
 			return
@@ -114,7 +115,7 @@
 
 	var/current_spawn = rand(5 SECONDS, 10 SECONDS)
 	for(var/i in 1 to anomalies_to_spawn)
-		var/anomaly_to_spawn = pickweight(ANOMALY_WEIGHTS)
+		var/anomaly_to_spawn = pick_weight(ANOMALY_WEIGHTS)
 		var/area/target_event_spawn = pick_n_take(anomaly_areas)
 		if(!target_event_spawn)
 			return
@@ -123,7 +124,7 @@
 		var/extended_spawn = 0
 		if(DT_PROB(1, next_spawn))
 			extended_spawn = rand(5 MINUTES, 15 MINUTES)
-		addtimer(CALLBACK(src, .proc/spawn_anomaly, target_event_spawn, anomaly_to_spawn), current_spawn + extended_spawn)
+		addtimer(CALLBACK(src, PROC_REF(spawn_anomaly), target_event_spawn, anomaly_to_spawn), current_spawn + extended_spawn)
 		current_spawn += next_spawn
 
 /datum/supermatter_delamination/proc/spawn_anomaly(turf/location, type)

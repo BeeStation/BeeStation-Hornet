@@ -23,7 +23,7 @@
 		synthesizing = TRUE
 		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
 		owner.adjust_nutrition(50)
-		addtimer(CALLBACK(src, .proc/synth_cool), 50)
+		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
 /obj/item/organ/cyberimp/chest/nutriment/proc/synth_cool()
 	synthesizing = FALSE
@@ -56,8 +56,8 @@
 
 /obj/item/organ/cyberimp/chest/reviver/on_life()
 	if(reviving)
-		if(owner.stat == UNCONSCIOUS)
-			addtimer(CALLBACK(src, .proc/heal), 30)
+		if(owner.stat)
+			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
 		else
 			cooldown = revive_cost + world.time
 			reviving = FALSE
@@ -66,7 +66,7 @@
 
 	if(cooldown > world.time)
 		return
-	if(owner.stat != UNCONSCIOUS)
+	if(!owner.stat)
 		return
 	if(owner.suiciding)
 		return
@@ -104,7 +104,7 @@
 		if(H.stat != DEAD && prob(50 / severity) && H.can_heartattack())
 			H.set_heartattack(TRUE)
 			to_chat(H, "<span class='userdanger'>You feel a horrible agony in your chest!</span>")
-			addtimer(CALLBACK(src, .proc/undo_heart_attack), 600 / severity)
+			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), 600 / severity)
 
 /obj/item/organ/cyberimp/chest/reviver/proc/undo_heart_attack()
 	var/mob/living/carbon/human/H = owner
@@ -130,13 +130,13 @@
 	var/on = FALSE
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
-/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	if(!ion_trail)
 		ion_trail = new
 	ion_trail.set_up(M)
 
-/obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(on)
 		toggle(silent = TRUE)
 	..()
@@ -153,8 +153,8 @@
 		on = TRUE
 		if(allow_thrust(THRUST_REQUIREMENT_SPACEMOVE))
 			ion_trail.start()
-			RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/move_react)
-			owner.add_movespeed_modifier(MOVESPEED_ID_CYBER_THRUSTER, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
+			RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
+			JETPACK_SPEED_CHECK(owner, MOVESPEED_ID_CYBER_THRUSTER, -1, TRUE)
 			if(!silent)
 				to_chat(owner, "<span class='notice'>You turn your thrusters set on.</span>")
 	else

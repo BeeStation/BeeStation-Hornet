@@ -7,9 +7,9 @@
 	config_tag = "incursion"
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
-	antag_flag = ROLE_INCURSION
+	role_preference = /datum/role_preference/antagonist/incursionist
+	antag_datum = /datum/antagonist/incursion
 	false_report_weight = 10
-	enemy_minimum_age = 0
 
 	announce_span = "danger"
 	announce_text = "A large force of syndicate operatives have infiltrated the ranks of the station and wish to take it by force!\n\
@@ -30,8 +30,6 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += JOB_NAME_ASSISTANT
 
-	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_INCURSION)
-
 	var/datum/team/incursion/team = new
 	var/cost_base = CONFIG_GET(number/incursion_cost_base)
 	var/cost_increment = CONFIG_GET(number/incursion_cost_increment)
@@ -41,15 +39,15 @@
 	team_size = CLAMP(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 
 	for(var/k = 1 to team_size)
-		var/datum/mind/incursion = antag_pick(possible_traitors, ROLE_INCURSION)
+		var/datum/mind/incursion = antag_pick(antag_candidates, /datum/role_preference/antagonist/incursionist)
 		if(!incursion)
 			message_admins("Ran out of people to put in an incursion team, wanted [team_size] but only got [k-1]")
 			break
-		possible_traitors -= incursion
 		antag_candidates -= incursion
 		team.add_member(incursion)
 		incursion.special_role = ROLE_INCURSION
 		incursion.restricted_roles = restricted_jobs
+		GLOB.pre_setup_antags += incursion
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team
 	gamemode_ready = TRUE
@@ -60,6 +58,7 @@
 	team.forge_team_objectives()
 	for(var/datum/mind/M in team.members)
 		M.add_antag_datum(/datum/antagonist/incursion, team)
+		GLOB.pre_setup_antags -= M
 	incursion_team = pre_incursionist_team
 	return ..()
 

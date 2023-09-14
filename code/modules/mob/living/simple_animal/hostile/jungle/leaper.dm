@@ -14,10 +14,11 @@
 	maxHealth = 300
 	health = 300
 	ranged = TRUE
-	projectiletype = /obj/item/projectile/leaper
+	projectiletype = /obj/projectile/leaper
 	projectilesound = 'sound/weapons/pierce.ogg'
 	ranged_cooldown_time = 30
 	pixel_x = -16
+	base_pixel_x = -16
 	layer = LARGE_MOB_LAYER
 	speed = 10
 	stat_attack = UNCONSCIOUS
@@ -28,7 +29,7 @@
 
 	do_footstep = TRUE
 
-/obj/item/projectile/leaper
+/obj/projectile/leaper
 	name = "leaper bubble"
 	icon_state = "leaper"
 	paralyze = 50
@@ -38,7 +39,7 @@
 	nondirectional_sprite = TRUE
 	impact_effect_type = /obj/effect/temp_visual/leaper_projectile_impact
 
-/obj/item/projectile/leaper/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/leaper/on_hit(atom/target, blocked = FALSE)
 	..()
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
@@ -48,7 +49,7 @@
 		var/mob/living/simple_animal/L = target
 		L.adjustHealth(25)
 
-/obj/item/projectile/leaper/on_range()
+/obj/projectile/leaper/on_range()
 	var/turf/T = get_turf(src)
 	..()
 	new /obj/structure/leaper_bubble(T)
@@ -83,7 +84,7 @@
 	float(on = TRUE)
 	QDEL_IN(src, 100)
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -128,8 +129,7 @@
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "lily_pad"
 	layer = BELOW_MOB_LAYER
-	pixel_x = -32
-	pixel_y = -32
+	SET_BASE_PIXEL(-32, -32)
 	duration = 30
 
 /mob/living/simple_animal/hostile/jungle/leaper/Initialize(mapload)
@@ -210,7 +210,7 @@
 	if(AIStatus == AI_ON && ranged_cooldown <= world.time)
 		projectile_ready = TRUE
 		update_icons()
-	throw_at(new_turf, max(3,get_dist(src,new_turf)), 1, src, FALSE, callback = CALLBACK(src, .proc/FinishHop))
+	throw_at(new_turf, max(3,get_dist(src,new_turf)), 1, src, FALSE, callback = CALLBACK(src, PROC_REF(FinishHop)))
 
 /mob/living/simple_animal/hostile/jungle/leaper/proc/FinishHop()
 	set_density(TRUE)
@@ -220,18 +220,18 @@
 	playsound(src.loc, 'sound/effects/meteorimpact.ogg', 100, 1)
 	if(target && AIStatus == AI_ON && projectile_ready && !ckey)
 		face_atom(target)
-		addtimer(CALLBACK(src, .proc/OpenFire, target), 5)
+		addtimer(CALLBACK(src, PROC_REF(OpenFire), target), 5)
 
 /mob/living/simple_animal/hostile/jungle/leaper/proc/BellyFlop()
 	var/turf/new_turf = get_turf(target)
 	hopping = TRUE
 	notransform = TRUE
 	new /obj/effect/temp_visual/leaper_crush(new_turf)
-	addtimer(CALLBACK(src, .proc/BellyFlopHop, new_turf), 30)
+	addtimer(CALLBACK(src, PROC_REF(BellyFlopHop), new_turf), 30)
 
 /mob/living/simple_animal/hostile/jungle/leaper/proc/BellyFlopHop(turf/T)
 	set_density(FALSE)
-	throw_at(T, get_dist(src,T),1,src, FALSE, callback = CALLBACK(src, .proc/Crush))
+	throw_at(T, get_dist(src,T),1,src, FALSE, callback = CALLBACK(src, PROC_REF(Crush)))
 
 /mob/living/simple_animal/hostile/jungle/leaper/proc/Crush()
 	hopping = FALSE

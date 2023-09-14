@@ -19,13 +19,7 @@ const COLORS_ARBITRARY = [
   'grey',
 ];
 
-const COLORS_STATES = [
-  'good',
-  'average',
-  'bad',
-  'black',
-  'white',
-];
+const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
 const PAGES = [
   {
@@ -75,18 +69,14 @@ export const KitchenSink = (props, context) => {
   const [pageIndex, setPageIndex] = useLocalState(context, 'pageIndex', 0);
   const PageComponent = PAGES[pageIndex].component();
   return (
-    <Window
-      theme={theme}>
+    <Window theme={theme}>
       <Window.Content scrollable>
         <Section>
           <Flex>
             <Flex.Item>
               <Tabs vertical>
                 {PAGES.map((page, i) => (
-                  <Tabs.Tab
-                    key={i}
-                    selected={i === pageIndex}
-                    onClick={() => setPageIndex(i)}>
+                  <Tabs.Tab key={i} selected={i === pageIndex} onClick={() => setPageIndex(i)}>
                     {page.title}
                   </Tabs.Tab>
                 ))}
@@ -102,7 +92,7 @@ export const KitchenSink = (props, context) => {
   );
 };
 
-const KitchenSinkButton = props => {
+const KitchenSinkButton = (props) => {
   return (
     <Box>
       <Box mb={1}>
@@ -114,33 +104,19 @@ const KitchenSinkButton = props => {
         <Button icon="cog" content="Icon" />
         <Button icon="power-off" />
         <Button fluid content="Fluid" />
-        <Button
-          my={1}
-          lineHeight={2}
-          minWidth={15}
-          textAlign="center"
-          content="With Box props" />
+        <Button my={1} lineHeight={2} minWidth={15} textAlign="center" content="With Box props" />
       </Box>
       <Box mb={1}>
-        {COLORS_STATES.map(color => (
-          <Button
-            key={color}
-            color={color}
-            content={color} />
+        {COLORS_STATES.map((color) => (
+          <Button key={color} color={color} content={color} />
         ))}
         <br />
-        {COLORS_ARBITRARY.map(color => (
-          <Button
-            key={color}
-            color={color}
-            content={color} />
+        {COLORS_ARBITRARY.map((color) => (
+          <Button key={color} color={color} content={color} />
         ))}
         <br />
-        {COLORS_ARBITRARY.map(color => (
-          <Box inline
-            mx="7px"
-            key={color}
-            color={color}>
+        {COLORS_ARBITRARY.map((color) => (
+          <Box inline mx="7px" key={color} color={color}>
             {color}
           </Box>
         ))}
@@ -149,42 +125,23 @@ const KitchenSinkButton = props => {
   );
 };
 
-const KitchenSinkBox = props => {
+const KitchenSinkBox = (props) => {
   return (
     <Box>
-      <Box bold>
-        bold
-      </Box>
-      <Box italic>
-        italic
-      </Box>
-      <Box opacity={0.5}>
-        opacity 0.5
-      </Box>
-      <Box opacity={0.25}>
-        opacity 0.25
-      </Box>
-      <Box m={2}>
-        m: 2
-      </Box>
-      <Box textAlign="left">
-        left
-      </Box>
-      <Box textAlign="center">
-        center
-      </Box>
-      <Box textAlign="right">
-        right
-      </Box>
+      <Box bold>bold</Box>
+      <Box italic>italic</Box>
+      <Box opacity={0.5}>opacity 0.5</Box>
+      <Box opacity={0.25}>opacity 0.25</Box>
+      <Box m={2}>m: 2</Box>
+      <Box textAlign="left">left</Box>
+      <Box textAlign="center">center</Box>
+      <Box textAlign="right">right</Box>
     </Box>
   );
 };
 
 const KitchenSinkProgressBar = (props, context) => {
-  const [
-    progress,
-    setProgress,
-  ] = useLocalState(context, 'progress', 0.5);
+  const [progress, setProgress] = useLocalState(context, 'progress', 0.5);
 
   return (
     <Box>
@@ -200,12 +157,8 @@ const KitchenSinkProgressBar = (props, context) => {
         Value: {Number(progress).toFixed(1)}
       </ProgressBar>
       <Box mt={1}>
-        <Button
-          content="-0.1"
-          onClick={() => setProgress(progress - 0.1)} />
-        <Button
-          content="+0.1"
-          onClick={() => setProgress(progress + 0.1)} />
+        <Button content="-0.1" onClick={() => setProgress(progress - 0.1)} />
+        <Button content="+0.1" onClick={() => setProgress(progress + 0.1)} />
       </Box>
     </Box>
   );
@@ -219,24 +172,12 @@ const KitchenSinkTabs = (props, context) => {
   return (
     <Box>
       <Box mb={2}>
-        <Button.Checkbox
-          inline
-          content="vertical"
-          checked={vertical}
-          onClick={() => setVertical(!vertical)} />
-        <Button.Checkbox
-          inline
-          content="altSelection"
-          checked={altSelection}
-          onClick={() => setAltSelection(!altSelection)} />
+        <Button.Checkbox inline content="vertical" checked={vertical} onClick={() => setVertical(!vertical)} />
+        <Button.Checkbox inline content="altSelection" checked={altSelection} onClick={() => setAltSelection(!altSelection)} />
       </Box>
       <Tabs vertical={vertical}>
         {TAB_RANGE.map((number, i) => (
-          <Tabs.Tab
-            key={i}
-            altSelection={altSelection}
-            selected={i === tabIndex}
-            onClick={() => setTabIndex(i)}>
+          <Tabs.Tab key={i} altSelection={altSelection} selected={i === tabIndex} onClick={() => setTabIndex(i)}>
             Tab #{number}
           </Tabs.Tab>
         ))}
@@ -245,15 +186,8 @@ const KitchenSinkTabs = (props, context) => {
   );
 };
 
-const KitchenSinkTooltip = props => {
-  const positions = [
-    'top',
-    'left',
-    'right',
-    'bottom',
-    'bottom-left',
-    'bottom-right',
-  ];
+const KitchenSinkTooltip = (props) => {
+  const positions = ['top', 'left', 'right', 'bottom', 'bottom-left', 'bottom-right'];
   return (
     <Fragment>
       <Box>
@@ -262,18 +196,11 @@ const KitchenSinkTooltip = props => {
             Box (hover me).
           </Box>
         </Tooltip>
-        <Button
-          tooltip="Tooltip text."
-          content="Button" />
+        <Button tooltip="Tooltip text." content="Button" />
       </Box>
       <Box mt={1}>
-        {positions.map(position => (
-          <Button
-            key={position}
-            color="transparent"
-            tooltip="Tooltip text."
-            tooltipPosition={position}
-            content={position} />
+        {positions.map((position) => (
+          <Button key={position} color="transparent" tooltip="Tooltip text." tooltipPosition={position} content={position} />
         ))}
       </Box>
     </Fragment>
@@ -281,28 +208,18 @@ const KitchenSinkTooltip = props => {
 };
 
 const KitchenSinkInput = (props, context) => {
-  const [
-    number,
-    setNumber,
-  ] = useLocalState(context, 'number', 0);
+  const [number, setNumber] = useLocalState(context, 'number', 0);
 
-  const [
-    text,
-    setText,
-  ] = useLocalState(context, 'text', "Sample text");
+  const [text, setText] = useLocalState(context, 'text', 'Sample text');
 
   return (
     <Box>
       <LabeledList>
         <LabeledList.Item label="Input (onChange)">
-          <Input
-            value={text}
-            onChange={(e, value) => setText(value)} />
+          <Input value={text} onChange={(e, value) => setText(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Input (onInput)">
-          <Input
-            value={text}
-            onInput={(e, value) => setText(value)} />
+          <Input value={text} onInput={(e, value) => setText(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="NumberInput (onChange)">
           <NumberInput
@@ -313,7 +230,8 @@ const KitchenSinkInput = (props, context) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onChange={(e, value) => setNumber(value)} />
+            onChange={(e, value) => setNumber(value)}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="NumberInput (onDrag)">
           <NumberInput
@@ -324,7 +242,8 @@ const KitchenSinkInput = (props, context) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)} />
+            onDrag={(e, value) => setNumber(value)}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Slider (onDrag)">
           <Slider
@@ -333,7 +252,8 @@ const KitchenSinkInput = (props, context) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)} />
+            onDrag={(e, value) => setNumber(value)}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Knob (onDrag)">
           <Knob
@@ -344,7 +264,8 @@ const KitchenSinkInput = (props, context) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)} />
+            onDrag={(e, value) => setNumber(value)}
+          />
           <Knob
             ml={1}
             inline
@@ -355,7 +276,8 @@ const KitchenSinkInput = (props, context) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)} />
+            onDrag={(e, value) => setNumber(value)}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Rotating Icon">
           <Box inline position="relative">
@@ -367,13 +289,9 @@ const KitchenSinkInput = (props, context) => {
               step={1}
               stepPixelSize={5}
               onDrag={(e, value) => setNumber(value)}>
-              {control => (
+              {(control) => (
                 <Box onMouseDown={control.handleDragStart}>
-                  <Icon
-                    size={4}
-                    color="yellow"
-                    name="times"
-                    rotation={control.displayValue * 4} />
+                  <Icon size={4} color="yellow" name="times" rotation={control.displayValue * 4} />
                   {control.inputElement}
                 </Box>
               )}
@@ -385,13 +303,9 @@ const KitchenSinkInput = (props, context) => {
   );
 };
 
-const KitchenSinkCollapsible = props => {
+const KitchenSinkCollapsible = (props) => {
   return (
-    <Collapsible
-      title="Collapsible Demo"
-      buttons={(
-        <Button icon="cog" />
-      )}>
+    <Collapsible title="Collapsible Demo" buttons={<Button icon="cog" />}>
       <Section>
         <BoxWithSampleText />
       </Section>
@@ -399,22 +313,18 @@ const KitchenSinkCollapsible = props => {
   );
 };
 
-const BoxWithSampleText = props => {
+const BoxWithSampleText = (props) => {
   return (
     <Box {...props}>
-      <Box italic>
-        Jackdaws love my big sphinx of quartz.
-      </Box>
+      <Box italic>Jackdaws love my big sphinx of quartz.</Box>
       <Box mt={1} bold>
-        The wide electrification of the southern
-        provinces will give a powerful impetus to the
-        growth of agriculture.
+        The wide electrification of the southern provinces will give a powerful impetus to the growth of agriculture.
       </Box>
     </Box>
   );
 };
 
-const KitchenSinkBlockQuote = props => {
+const KitchenSinkBlockQuote = (props) => {
   return (
     <BlockQuote>
       <BoxWithSampleText />
@@ -426,14 +336,13 @@ const KitchenSinkByondUi = (props, context) => {
   const { config } = useBackend(context);
   return (
     <Box>
-      <Section
-        title="Button"
-        level={2}>
+      <Section title="Button" level={2}>
         <ByondUi
           params={{
             type: 'button',
             text: 'Button',
-          }} />
+          }}
+        />
       </Section>
     </Box>
   );
@@ -445,10 +354,7 @@ const KitchenSinkThemes = (props, context) => {
     <Box>
       <LabeledList>
         <LabeledList.Item label="Use theme">
-          <Input
-            placeholder="theme_name"
-            value={theme}
-            onInput={(e, value) => setTheme(value)} />
+          <Input placeholder="theme_name" value={theme} onInput={(e, value) => setTheme(value)} />
         </LabeledList.Item>
       </LabeledList>
     </Box>

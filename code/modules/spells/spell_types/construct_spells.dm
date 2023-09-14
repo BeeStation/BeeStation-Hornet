@@ -168,13 +168,13 @@
 	max_targets = 6
 	action_icon_state = "magicm"
 	action_background_icon_state = "bg_demon"
-	proj_type = /obj/item/projectile/magic/spell/magic_missile/lesser
+	proj_type = /obj/projectile/magic/spell/magic_missile/lesser
 
-/obj/item/projectile/magic/spell/magic_missile/lesser
+/obj/projectile/magic/spell/magic_missile/lesser
 	color = "red" //Looks more culty this way
 	range = 10
 
-/obj/item/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
+/obj/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
 	if(ismob(target) && iscultist(target))
 		return FALSE
 	return ..()
@@ -237,7 +237,7 @@
 	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	user.playsound_local(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	target.become_blind(MAGIC_BLIND)
-	addtimer(CALLBACK(src, .proc/cure_blindness, target), 40)
+	addtimer(CALLBACK(src, PROC_REF(cure_blindness), target), 40)
 	target.adjust_bodytemperature(-200)
 
 /obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/living/L)
@@ -310,7 +310,7 @@
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/juggernaut
 	name = "Gauntlet Echo"
 	desc = "Channels energy into your gauntlet - firing its essence forward in a slow moving, yet devastating, attack."
-	proj_type = /obj/item/projectile/magic/spell/juggernaut
+	proj_type = /obj/projectile/magic/spell/juggernaut
 	charge_max = 350
 	clothes_req = FALSE
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
@@ -318,7 +318,7 @@
 	action_background_icon_state = "bg_demon"
 	sound = 'sound/weapons/resonator_blast.ogg'
 
-/obj/item/projectile/magic/spell/juggernaut
+/obj/projectile/magic/spell/juggernaut
 	name = "Gauntlet Echo"
 	icon_state = "cultfist"
 	alpha = 180
@@ -332,12 +332,12 @@
 	range = 15
 	speed = 7
 
-/obj/item/projectile/magic/spell/juggernaut/on_hit(atom/target, blocked)
+/obj/projectile/magic/spell/juggernaut/on_hit(atom/target, blocked)
 	. = ..()
 	var/turf/T = get_turf(src)
 	playsound(T, 'sound/weapons/resonator_blast.ogg', 100, FALSE)
 	new /obj/effect/temp_visual/cult/sac(T)
 	for(var/obj/O in range(1, src))
 		if(O.density && !istype(O, /obj/structure/destructible/cult))
-			O.take_damage(90, BRUTE, "melee", 0)
+			O.take_damage(90, BRUTE, MELEE, 0)
 			new /obj/effect/temp_visual/cult/turf/floor(get_turf(O))

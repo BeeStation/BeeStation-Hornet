@@ -87,7 +87,7 @@ Class Procs:
 	verb_say = "beeps"
 	verb_yell = "blares"
 	pressure_resistance = 15
-	pass_flags_self = PASSMACHINE
+	pass_flags_self = PASSMACHINE | LETPASSCLICKS
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER //keeps shit coming out of the machine from ending up underneath it.
 	flags_ricochet = RICOCHET_HARD
@@ -130,20 +130,25 @@ Class Procs:
 	/// [Bitflag] the machine sends its profit to the corresponding department budget. if this is not specified, this will follow `dept_req_for_free` value.
 	var/seller_department
 
-	var/clickvol = 40	// sound volume played on succesful click
+	var/clickvol = 40	// sound volume played on successful click
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
-	var/clicksound	// sound played on succesful interface use by a carbon lifeform
+	var/clicksound	// sound played on successful interface use by a carbon lifeform
 
 	// For storing and overriding ui id and dimensions
 	var/tgui_id // ID of TGUI interface
 	var/ui_style // ID of custom TGUI style (optional)
+
+	///Is this machine currently in the atmos machinery queue?
+	var/atmos_processing = FALSE
+	///Is this machine currently in the atmos machinery queue, but also interacting with turf air?
+	var/interacts_with_air = FALSE
 
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
+		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	. = ..()
 	GLOB.machines += src
 
@@ -155,13 +160,19 @@ Class Procs:
 		begin_processing()
 
 	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, .proc/power_change)
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
 	if(!seller_department)
 		seller_department = dept_req_for_free
+
+/obj/machinery/proc/set_occupant(atom/movable/new_occupant)
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_MACHINERY_SET_OCCUPANT, new_occupant)
+	occupant = new_occupant
 
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
 /obj/machinery/proc/begin_processing()
@@ -214,7 +225,7 @@ Class Procs:
 		//Set the machine to be EMPed
 		machine_stat |= EMPED
 		//Reset EMP state in 120/60 seconds
-		addtimer(CALLBACK(src, .proc/emp_reset), (emp_disable_time / severity) + rand(-10, 10))
+		addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
 		//Update power
 		power_change()
 		new /obj/effect/temp_visual/emp(loc)
@@ -244,7 +255,7 @@ Class Procs:
 		if(isliving(A))
 			var/mob/living/L = A
 			L.update_mobility()
-	occupant = null
+	set_occupant(null)
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
@@ -268,7 +279,7 @@ Class Procs:
 
 	var/mob/living/mobtarget = target
 	if(target && !target.has_buckled_mobs() && (!isliving(target) || !mobtarget.buckled))
-		occupant = target
+		set_occupant(target)
 		target.forceMove(src)
 	updateUsrDialog()
 	update_icon()
@@ -341,12 +352,12 @@ Class Procs:
 				var/datum/bank_account/insurance = I.registered_account
 				if(!insurance)
 					say("[market_verb] NAP Violation: No bank account found.")
-					nap_violation(occupant)
+					nap_violation(H)
 					return FALSE
 				else
 					if(!insurance.adjust_money(-fair_market_price))
 						say("[market_verb] NAP Violation: Unable to pay.")
-						nap_violation(occupant)
+						nap_violation(H)
 						return FALSE
 
 					// each department (seller_department) will earn the profit
@@ -358,7 +369,7 @@ Class Procs:
 								D.adjust_money(fair_market_price)
 			else
 				say("[market_verb] NAP Violation: No ID card found.")
-				nap_violation(occupant)
+				nap_violation(H)
 				return FALSE
 	return TRUE
 
@@ -397,11 +408,19 @@ Class Procs:
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		user.visible_message("<span class='danger'>[user.name] smashes against \the [src.name] with its paws.</span>", null, null, COMBAT_MESSAGE_RANGE)
-		take_damage(4, BRUTE, "melee", 1)
+		take_damage(4, BRUTE, MELEE, 1)
 
 /obj/machinery/attack_robot(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
+	if(Adjacent(user) && can_buckle && has_buckled_mobs()) //so that borgs (but not AIs, sadly (perhaps in a future PR?)) can unbuckle people from machines
+		if(buckled_mobs.len > 1)
+			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
+			if(user_unbuckle_mob(unbuckled,user))
+				return TRUE
+		else
+			if(user_unbuckle_mob(buckled_mobs[1],user))
+				return TRUE
 	return _try_interact(user)
 
 /obj/machinery/attack_ai(mob/user)
@@ -447,37 +466,53 @@ Class Procs:
 				component_parts.Cut()
 	qdel(src)
 
+/**
+ * Spawns a frame where this machine is. If the machine was not disassmbled, the
+ * frame is spawned damaged. If the frame couldn't exist on this turf, it's smashed
+ * down to metal sheets.
+ *
+ * Arguments:
+ * * disassembled - If FALSE, the machine was destroyed instead of disassembled and the frame spawns at reduced integrity.
+ */
 /obj/machinery/proc/spawn_frame(disassembled)
-	var/obj/structure/frame/machine/M = new /obj/structure/frame/machine(loc)
-	. = M
-	M.setAnchored(anchored)
+	var/obj/structure/frame/machine/new_frame = new /obj/structure/frame/machine(loc)
+
+	new_frame.state = 2
+
+	// If the new frame shouldn't be able to fit here due to the turf being blocked, spawn the frame deconstructed.
+	if(isturf(loc))
+		var/turf/machine_turf = loc
+		// We're spawning a frame before this machine is qdeleted, so we want to ignore it. We've also just spawned a new frame, so ignore that too.
+		if(machine_turf.is_blocked_turf(TRUE, source_atom = new_frame, ignore_atoms = list(src)))
+			new_frame.deconstruct(disassembled)
+			return
+
+	new_frame.icon_state = "box_1"
+	. = new_frame
+	new_frame.anchored = TRUE
 	if(!disassembled)
-		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
-	transfer_fingerprints_to(M)
-	M.state = 2
-	M.icon_state = "box_1"
+		new_frame.obj_integrity = new_frame.max_integrity * 0.5 //the frame is already half broken
+	transfer_fingerprints_to(new_frame)
 
 /obj/machinery/obj_break(damage_flag)
-	SHOULD_CALL_PARENT(1)
+	SHOULD_CALL_PARENT(TRUE)
 	. = ..()
 	if(!(machine_stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
 		set_machine_stat(machine_stat | BROKEN)
 		SEND_SIGNAL(src, COMSIG_MACHINERY_BROKEN, damage_flag) //ILL THINK ABOUT IT LATER, NOW ONTO MORE OF THIS
-		update_icon()
+		update_appearance()
 		return TRUE
 
 /obj/machinery/contents_explosion(severity, target)
-	if(occupant)
-		occupant.ex_act(severity, target)
+	occupant?.ex_act(severity, target)
 
 /obj/machinery/handle_atom_del(atom/A)
 	if(A == occupant)
-		occupant = null
+		set_occupant(null)
 		update_icon()
-		updateUsrDialog()
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
-	if(damage_flag == "melee" && damage_amount < damage_deflection)
+	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
 	return ..()
 
@@ -495,10 +530,14 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I)
+/**
+ * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
+ */
+/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I, turns = 1)
+	turns *= -90
 	if(panel_open && I.tool_behaviour == TOOL_WRENCH)
 		I.play_tool_sound(src, 50)
-		setDir(turn(dir,-90))
+		setDir(turn(dir,turns))
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		return 1
 	return 0
@@ -509,24 +548,32 @@ Class Procs:
 		return FAILED_UNFASTEN
 	return SUCCESSFUL_UNFASTEN
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20) //try to unwrench an object in a WONDERFUL DYNAMIC WAY
-	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_WRENCH)
-		var/can_be_unfasten = can_be_unfasten_wrench(user)
-		if(!can_be_unfasten || can_be_unfasten == FAILED_UNFASTEN)
-			return can_be_unfasten
-		if(time)
-			to_chat(user, "<span class='notice'>You begin [anchored ? "un" : ""]securing [src]...</span>")
-		I.play_tool_sound(src, 50)
-		var/prev_anchored = anchored
-		//as long as we're the same anchored state and we're either on a floor or are anchored, toggle our anchored state
-		if(I.use_tool(src, user, time, extra_checks = CALLBACK(src, .proc/unfasten_wrench_check, prev_anchored, user)))
-			to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-			setAnchored(!anchored)
-			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			SEND_SIGNAL(src, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, anchored)
-			return SUCCESSFUL_UNFASTEN
+/obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench, time = 20) //try to unwrench an object in a WONDERFUL DYNAMIC WAY
+	if((flags_1 & NODECONSTRUCT_1) || wrench.tool_behaviour != TOOL_WRENCH)
+		return CANT_UNFASTEN
+
+	var/turf/ground = get_turf(src)
+	if(!anchored && ground.is_blocked_turf(exclude_mobs = TRUE, source_atom = src))
+		to_chat(user, "<span class='notice'>You fail to secure [src].</span>")
+		return CANT_UNFASTEN
+	var/can_be_unfasten = can_be_unfasten_wrench(user)
+	if(!can_be_unfasten || can_be_unfasten == FAILED_UNFASTEN)
+		return can_be_unfasten
+	if(time)
+		to_chat(user, "<span class='notice'>You begin [anchored ? "un" : ""]securing [src]...</span>")
+	wrench.play_tool_sound(src, 50)
+	var/prev_anchored = anchored
+	//as long as we're the same anchored state and we're either on a floor or are anchored, toggle our anchored state
+	if(!wrench.use_tool(src, user, time, extra_checks = CALLBACK(src, PROC_REF(unfasten_wrench_check), prev_anchored, user)))
 		return FAILED_UNFASTEN
-	return CANT_UNFASTEN
+	if(!anchored && ground.is_blocked_turf(exclude_mobs = TRUE, source_atom = src))
+		to_chat(user, "<span class='notice'>You fail to secure [src].</span>")
+		return CANT_UNFASTEN
+	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
+	setAnchored(!anchored)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+	SEND_SIGNAL(src, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, anchored)
+	return SUCCESSFUL_UNFASTEN
 
 /obj/proc/unfasten_wrench_check(prev_anchored, mob/user) //for the do_after, this checks if unfastening conditions are still valid
 	if(anchored != prev_anchored)
@@ -636,16 +683,16 @@ Class Procs:
 /obj/machinery/tesla_act(power, tesla_flags, shocked_objects)
 	..()
 	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE)
 	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, "energy")
+		take_damage(power/2000, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()
 	if (gone == occupant)
-		occupant = null
+		set_occupant(null)
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
@@ -661,4 +708,12 @@ Class Procs:
 		playsound(src, custom_clicksound, clickvol)
 
 /obj/machinery/rust_heretic_act()
-	take_damage(500, BRUTE, "melee", 1)
+	take_damage(500, BRUTE, MELEE, 1)
+	return TRUE
+
+/obj/machinery/vv_edit_var(vname, vval)
+	if(vname == "occupant")
+		set_occupant(vval)
+		datum_flags |= DF_VAR_EDITED
+		return TRUE
+	return ..()

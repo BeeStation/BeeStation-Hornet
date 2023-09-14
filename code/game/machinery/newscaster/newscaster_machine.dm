@@ -8,7 +8,7 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "fire" = 50, "acid" = 30)
+	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 0.25
 	///How much paper is contained within the newscaster?
@@ -132,14 +132,11 @@
 		data["user"]["name"] = card.registered_account.account_holder
 		var/datum/data/record/R = find_record("name", card.registered_account.account_holder, GLOB.data_core.general)
 		if(R)
-			data["user"]["job"] = R.fields["name"]
-			data["user"]["department"] = R.fields[""]
+			data["user"]["job"] = R.fields["rank"]
 		else if(card.registered_account.account_job)
 			data["user"]["job"] = card.registered_account.account_job.title
-			data["user"]["department"] = card.registered_account.account_job.bank_account_department
 		else
 			data["user"]["job"] = "No Job"
-			data["user"]["department"] = "No Department"
 	else if(issilicon(user))
 		data["user"]["authenticated"] = TRUE
 		data["user"]["silicon"] = TRUE
@@ -149,7 +146,6 @@
 	else
 		data["user"]["name"] = "Unknown"
 		data["user"]["job"] = "N/A"
-		data["user"]["department"] = "N/A"
 
 	data["photo_data"] = !isnull(current_image)
 	data["creating_channel"] = creating_channel
@@ -225,7 +221,7 @@
 	data["editor"]["channelDesc"] = channel_desc
 	data["editor"]["channelLocked"] = channel_locked
 
-	//We send all the information about all messages in existance.
+	//We send all the information about all messages in existence.
 	data["messages"] = message_list
 	data["wanted"] = wanted_info
 
@@ -587,7 +583,7 @@
 	if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>The newscaster controls are far too complicated for your tiny brain!</span>")
 	else
-		take_damage(5, BRUTE, "melee")
+		take_damage(5, BRUTE, MELEE)
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -657,7 +653,7 @@
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 75, TRUE)
 		alert = TRUE
 		update_overlays()
-		addtimer(CALLBACK(src, .proc/remove_alert), ALERT_DELAY, TIMER_UNIQUE|TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, PROC_REF(remove_alert)), ALERT_DELAY, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 	else if(!channel && update_alert)
 		say("Attention! Wanted issue distributed!")

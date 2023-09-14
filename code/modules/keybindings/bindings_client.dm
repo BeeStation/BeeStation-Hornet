@@ -23,7 +23,10 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	"Gamepad3L1" = 1, "Gamepad3L2" = 1, "Gamepad3L3" = 1, "Gamepad3Start" = 1, "Gamepad3Select" = 1, "Gamepad4Up" = 1, "Gamepad4Down" = 1, "Gamepad4Left" = 1,
 	"Gamepad4Right" = 1, "Gamepad4DownLeft" = 1,"Gamepad4DownRight" = 1, "Gamepad4UpLeft" = 1, "Gamepad4UpRight" = 1, "Gamepad4Face1" = 1, "Gamepad4Face2" = 1,
 	"Gamepad4Face3" = 1, "Gamepad4Face4" = 1, "Gamepad4R1" = 1, "Gamepad4R2" = 1, "Gamepad4R3" = 1, "Gamepad4L1" = 1, "Gamepad4L2" = 1, "Gamepad4L3" = 1,
-	"Gamepad4Start" = 1, "Gamepad4Select" = 1, "VolumeUp" = 1, "VolumeDown" = 1, "VolumeMute" = 1, "MediaPlayPause" = 1, "MediaStop" = 1, "MediaNext" = 1,	"MediaPrev" = 1
+	"Gamepad4Start" = 1, "Gamepad4Select" = 1, "VolumeUp" = 1, "VolumeDown" = 1, "VolumeMute" = 1, "MediaPlayPause" = 1, "MediaStop" = 1, "MediaNext" = 1,	"MediaPrev" = 1,
+	// AZERTY support
+	"&" = 1, "É" = 1, "\"" = 1, "(" = 1, "È" = 1, "_" = 1, "Ç" = 1, "À" = 1, ")" = 1, "*" = 1, "$" = 1, "!" = 1, ":" = 1, "²" = 1, "Ù" = 1,
+	"é" = 1, "è" = 1, "ç" = 1, "à" = 1, "ù" = 1,
 ))
 
 /proc/input_sanity_check(client/C, key)
@@ -52,15 +55,22 @@ GLOBAL_LIST_INIT(valid_keys, list(
 
 	// Client-level keybindings are ones anyone should be able to do at any time
 	// Things like taking screenshots, hitting tab, and adminhelps.
-	var/AltMod = keys_held["Alt"] ? "Alt-" : ""
-	var/CtrlMod = keys_held["Ctrl"] ? "Ctrl-" : ""
-	var/ShiftMod = keys_held["Shift"] ? "Shift-" : ""
-	var/full_key = "[_key]"
-	if (!(_key in list("Alt", "Ctrl", "Shift")))
-		full_key = "[AltMod][CtrlMod][ShiftMod][_key]"
+	var/AltMod = keys_held["Alt"] ? "Alt" : ""
+	var/CtrlMod = keys_held["Ctrl"] ? "Ctrl" : ""
+	var/ShiftMod = keys_held["Shift"] ? "Shift" : ""
+	var/full_key
+	switch(_key)
+		if("Alt", "Ctrl", "Shift")
+			full_key = "[AltMod][CtrlMod][ShiftMod]"
+		else
+			if(AltMod || CtrlMod || ShiftMod)
+				full_key = "[AltMod][CtrlMod][ShiftMod][_key]"
+				key_combos_held[_key] = full_key
+			else
+				full_key = _key
 
 	var/list/kbs = list()
-	for (var/kb_name in prefs.key_bindings[full_key])
+	for (var/kb_name in prefs.key_bindings_by_key[full_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
 	// WASD-type movement keys (not the native arrow keys) are handled through the keybind system here.
@@ -68,19 +78,17 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	// since these modifier keys toggle effects like "change facing" that require the movement keys to function.
 	// Note that this doesn't prevent the user from binding CTRL-W to North: In that case *only* CTRL-W will function.
 	if (full_key != _key)
-		for (var/kb_name in prefs.key_bindings[_key])
+		for (var/kb_name in prefs.key_bindings_by_key[_key])
 			var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 			if (kb.any_modifier)
 				kbs += kb
-	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
+	kbs = sort_list(kbs, GLOBAL_PROC_REF(cmp_keybinding_dsc))
 	for(var/datum/keybinding/kb in kbs)
 		if(kb.can_use(src) && kb.down(src))
 			break
 
-	if(holder)
-		holder.key_down(_key, src)  //full_key is not necessary here, _key is enough
-	if(mob.focus)
-		mob.focus.key_down(_key, src) //same as above
+	holder?.key_down(_key, src)  //full_key is not necessary here, _key is enough
+	mob.focus?.key_down(_key, src) //same as above
 
 /client/verb/keyUp(_key as text)
 	set instant = TRUE
@@ -88,6 +96,11 @@ GLOBAL_LIST_INIT(valid_keys, list(
 
 	if(input_sanity_check(src, _key))
 		return
+
+	var/key_combo = key_combos_held[_key]
+	if(key_combo)
+		key_combos_held -= _key
+		keyUp(key_combo)
 
 	keys_held -= _key
 	var/movement = SSinput.movement_keys[_key]
@@ -97,15 +110,13 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	// We don't do full key for release, because for mod keys you
 	// can hold different keys and releasing any should be handled by the key binding specifically
 	var/list/kbs = list()
-	for (var/kb_name in prefs.key_bindings[_key])
+	for (var/kb_name in prefs.key_bindings_by_key[_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
-	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
+	kbs = sort_list(kbs, GLOBAL_PROC_REF(cmp_keybinding_dsc))
 	for(var/datum/keybinding/kb in kbs)
 		if(kb.can_use(src) && kb.up(src))
 			break
 
-	if(holder)
-		holder.key_up(_key, src)
-	if(mob.focus)
-		mob.focus.key_up(_key, src)
+	holder?.key_up(_key, src)
+	mob.focus?.key_up(_key, src)

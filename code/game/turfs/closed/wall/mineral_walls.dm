@@ -128,35 +128,24 @@
 	base_icon_state = "plasma_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	thermal_conductivity = 0.04
-	canSmoothWith = list(/turf/closed/wall/mineral/plasma, /obj/structure/falsewall/plasma)
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_PLASMA_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 
 /turf/closed/wall/mineral/plasma/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma wall ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("Plasma wall ignited by [key_name(user)] in [AREACOORD(src)]")
-		ignite(W.is_hot())
-		return
+		if(plasma_ignition(6))
+			new /obj/structure/girder/displaced(loc)
 	..()
-
-/turf/closed/wall/mineral/plasma/proc/PlasmaBurn(temperature)
-	new girder_type(src)
-	ScrapeAway()
-	var/turf/open/T = src
-	T.atmos_spawn_air("plasma=400;TEMP=[temperature]")
 
 /turf/closed/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		if(plasma_ignition(6))
+			new /obj/structure/girder/displaced(loc)
 
-/turf/closed/wall/mineral/plasma/proc/ignite(exposed_temperature)
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
-
-/turf/closed/wall/mineral/plasma/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/beam))
-		PlasmaBurn(2500)
-	else if(istype(Proj, /obj/item/projectile/ion))
-		PlasmaBurn(500)
+/turf/closed/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		if(plasma_ignition(6))
+			new /obj/structure/girder/displaced(loc)
 	. = ..()
 
 /turf/closed/wall/mineral/wood
@@ -299,7 +288,7 @@
 	icon_state = "survival_pod_walls-0"
 	base_icon_state = "survival_pod_walls"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
-	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /turf/closed/wall/mineral/titanium/survival/nodiagonal
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
@@ -323,7 +312,7 @@
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /turf/closed/wall/mineral/plastitanium/try_destroy(obj/item/I, mob/user, turf/T)
 	return FALSE
@@ -343,6 +332,7 @@
 
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
 	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
+	bombcore.installed = TRUE
 	bombcore.detonate()
 	..()
 

@@ -6,6 +6,7 @@
 	icon_dead = "mouse_gray_dead"
 	speak = list("Squeak!","SQUEAK!","Squeak?")
 	speak_emote = list("squeaks")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("squeaks.")
 	emote_see = list("runs in a circle.", "shakes.")
 	speak_chance = 1
@@ -19,17 +20,17 @@
 	response_harm   = "splats"
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	var/body_color //brown, gray and white, leave blank for random
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
 	chat_color = "#82AF84"
-	var/list/ratdisease = list()
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
-
+	/// A list of diseases carried by this rat.
+	var/list/datum/disease/rat_diseases = list()
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -41,22 +42,15 @@
 	icon_dead = "mouse_[body_color]_dead"
 	held_state = "mouse_[body_color]"
 	if(prob(75))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 9, 1, infected = src)
-		ratdisease += R
+		rat_diseases += new /datum/disease/advance/random(rand(1, 6), 9, 1, infected = src)
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/mob/living/simple_animal/mouse/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(!ratdisease.len)
-		return FALSE
-	if(scan)
-		E.scan(src, ratdisease, user)
-	else
-		E.extrapolate(src, ratdisease, user)
-	return TRUE
-
+/mob/living/simple_animal/mouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., rat_diseases)
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0
@@ -64,7 +58,7 @@
 	death()
 
 /mob/living/simple_animal/mouse/death(gibbed, toast)
-	var/list/data = list("viruses" = ratdisease)
+	var/list/data = list("viruses" = rat_diseases)
 	if(!ckey)
 		..(1)
 		if(!gibbed)
@@ -137,7 +131,7 @@
 	bitesize = 3
 	eatverb = "devour"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
-	foodtype = GROSS | MEAT | RAW
+	foodtype = GORE | MEAT | RAW
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5)
 
 
@@ -154,3 +148,8 @@
 
 /obj/item/reagent_containers/food/snacks/deadmouse/on_grind()
 	reagents.clear_reagents()
+
+/obj/item/reagent_containers/food/snacks/deadmouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run)
+	. = ..()
+	if(EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_ISOLATE))
+		. -= EXTRAPOLATOR_RESULT_ACT_PRIORITY

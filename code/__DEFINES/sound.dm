@@ -1,13 +1,16 @@
 //max channel is 1024. Only go lower from here, because byond tends to pick the first availiable channel to play sounds on
-#define CHANNEL_LOBBYMUSIC 1024
-#define CHANNEL_ADMIN 1023
-#define CHANNEL_VOX 1022
-#define CHANNEL_JUKEBOX 1021
-#define CHANNEL_JUSTICAR_ARK 1020
-#define CHANNEL_HEARTBEAT 1019 //sound channel for heartbeats
-#define CHANNEL_AMBIENT_EFFECTS 1018
-#define CHANNEL_AMBIENT_MUSIC 1017
-#define CHANNEL_BUZZ 1017
+#define CHANNEL_LOBBYMUSIC		1024
+#define CHANNEL_ADMIN			1023
+#define CHANNEL_VOX				1022
+#define CHANNEL_JUKEBOX			1021
+#define CHANNEL_JUSTICAR_ARK	1020
+#define CHANNEL_HEARTBEAT		1019 //sound channel for heartbeats
+#define CHANNEL_AMBIENT_EFFECTS	1018
+#define CHANNEL_AMBIENT_MUSIC	1017
+#define CHANNEL_BUZZ			1017
+#define CHANNEL_ELEVATOR_MUSIC	1016
+#define CHANNEL_SOUNDTRACK		1015
+#define CHANNEL_ANTAG_GREETING	1014
 
 ///Default range of a sound.
 #define SOUND_RANGE 17
@@ -23,7 +26,7 @@
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED
 
-#define CHANNEL_HIGHEST_AVAILABLE 1015
+#define CHANNEL_HIGHEST_AVAILABLE 1014
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 
@@ -42,6 +45,7 @@
 #define AMBIENCE_ENGI "engi"
 #define AMBIENCE_MINING "mining"
 #define AMBIENCE_MEDICAL "med"
+#define AMBIENCE_VIROLOGY "viro"
 #define AMBIENCE_SPOOKY "spooky"
 #define AMBIENCE_SPACE "space"
 #define AMBIENCE_MAINT "maint"
@@ -110,3 +114,7 @@
 #define ANNOUNCER_SHUTTLEDOCK		"announcer_shuttledock"
 #define ANNOUNCER_SHUTTLERECALLED	"announcer_shuttlerecalled"
 #define ANNOUNCER_SPANOMALIES		"announcer_spanomalies"
+
+#define SOUNDTRACK_PLAY_RESPECT 0
+#define SOUNDTRACK_PLAY_ALL 1
+#define SOUNDTRACK_PLAY_ONLYSTATION 2

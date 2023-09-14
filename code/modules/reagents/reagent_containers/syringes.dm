@@ -18,9 +18,11 @@
 	var/proj_piercing = 0 //does it pierce through thick clothes when shot with syringe gun
 	materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
-	var/list/syringediseases = list()
+	var/list/datum/disease/syringe_diseases = list()
 	var/units_per_tick = 1.5
 	var/initial_inject = 5
+	fill_icon_state = "syringe"
+	fill_icon_thresholds = list(1, 5, 10, 15)
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
@@ -54,24 +56,19 @@
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
 
-/obj/item/reagent_containers/syringe/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(!syringediseases.len)
-		return ..()
-	if(scan)
-		E.scan(src, syringediseases, user)
-	else
-		E.extrapolate(src, syringediseases, user)
-	return TRUE
+/obj/item/reagent_containers/syringe/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., syringe_diseases)
 
 /obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
-	for(var/datum/disease/D in syringediseases)
+	for(var/datum/disease/D in syringe_diseases)
 		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 			continue
 		L.ForceContractDisease(D)
 	for(var/datum/disease/D in L.diseases)
 		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 			continue
-		syringediseases += D
+		syringe_diseases += D
 
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	. = ..()
@@ -107,7 +104,7 @@
 					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
 									"<span class='userdanger'>[user] is trying to take a blood sample from you!</span>")
 					busy = TRUE
-					if(!do_mob(user, target, extra_checks=CALLBACK(L, /mob/living/proc/can_inject, user, TRUE)))
+					if(!do_after(user, target = target, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE)))
 						busy = FALSE
 						return
 					if(reagents.total_volume >= reagents.maximum_volume)
@@ -164,7 +161,7 @@
 				if(user.a_intent == INTENT_HARM && iscarbon(L) && iscarbon(user))
 					L.visible_message("<span class='danger'>[user] lines a syringe up to [L]!", \
 							"<span class='userdanger'>[user] rears their arm back, ready to stab you with [src]</span>")
-					if(do_mob(user, L, 10))
+					if(do_after(user, 1 SECONDS, L))
 						var/mob/living/carbon/C = L
 						embed(C, 0.5)
 						log_combat(user, C, "injected (embedding)", src, addition="which had [contained]")
@@ -175,7 +172,7 @@
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
 											"<span class='userdanger'>[user] is trying to inject you!</span>")
-					if(!do_mob(user, L, extra_checks=CALLBACK(L, /mob/living/proc/can_inject, user, TRUE)))
+					if(!do_after(user, target = L, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE)))
 						return
 					if(!reagents.total_volume)
 						return
@@ -234,7 +231,7 @@
 	. = ..()
 	if(prob(75))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(7, 9), rand(3,4), infected = src)
-		syringediseases += R
+		syringe_diseases += R
 
 /obj/item/reagent_containers/syringe/epinephrine
 	name = "syringe (epinephrine)"
@@ -324,6 +321,8 @@
 	base_icon_state = "cryo"
 	volume = 20
 	var/processing = FALSE
+	fill_icon_state = null
+	fill_icon_thresholds = null
 
 /obj/item/reagent_containers/syringe/cryo/Destroy()
 	if(processing)
@@ -363,6 +362,8 @@
 	icon_state = "crude_0"
 	base_icon_state = "crude"
 	volume = 5
+	fill_icon_state = "syringe_crude"
+	fill_icon_thresholds = list(5, 10, 15)
 
 #undef SYRINGE_DRAW
 #undef SYRINGE_INJECT

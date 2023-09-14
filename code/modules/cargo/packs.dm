@@ -22,7 +22,7 @@
 
 /datum/supply_pack/New()
 	. = ..()
-	//Randomise the starting supply to promote variation in purchases. Higher tendancy to have lower roundstart supply as it builds up over time.
+	//Randomise the starting supply to promote variation in purchases. Higher tendency to have lower roundstart supply as it builds up over time.
 	current_supply = rand(0, rand(1, max_supply))
 
 /datum/supply_pack/proc/generate(atom/A, datum/bank_account/paying_account)
@@ -302,7 +302,7 @@
 	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER WILL MAKE YOU STYLISH SYNDICATE STYLE. CONTAINS A COLLECTION OF THREE TACTICAL TURTLENECKS, THREE COMBAT BOOTS, THREE COMBAT GLOVES, THREE BALACLAVAS, THREE SYNDICATE BERETS AND THREE ARMOR VESTS!#@*$"
 	hidden = TRUE
 	cost = 3000
-	max_supply = 1
+	max_supply = 3
 	contains = list(/obj/item/clothing/under/syndicate,
 					/obj/item/clothing/under/syndicate,
 					/obj/item/clothing/under/syndicate,
@@ -407,15 +407,19 @@
 	crate_name = ".38 match crate"
 
 /datum/supply_pack/security/securitybarriers
-	name = "Security Barrier Grenades"
-	desc = "Stem the tide with four Security Barrier grenades. Requires Security access to open."
+	name = "Security Barricades"
+	desc = "Stem the tide with eight security barricades. Requires Security access to open."
 	cost = 1500
 	max_supply = 2
 	access_budget = ACCESS_BRIG
-	contains = list(/obj/item/grenade/barrier,
-					/obj/item/grenade/barrier,
-					/obj/item/grenade/barrier,
-					/obj/item/grenade/barrier)
+	contains = list(/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade)
 	crate_name = "security barriers crate"
 
 /datum/supply_pack/security/securityclothes
@@ -1108,14 +1112,18 @@
 
 /datum/supply_pack/engineering/shield_sat
 	name = "Shield Generator Satellite"
-	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains three Shield Generator Satellites."
-	cost = 3000
-	max_supply = 5
+	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains seven bluespace capsules which a single unit of Shield Generator Satellite is compressed within each."
+	cost = 7000
+	max_supply = 2
 	access_budget = ACCESS_HEADS
 	contains = list(
-					/obj/machinery/satellite/meteor_shield,
-					/obj/machinery/satellite/meteor_shield,
-					/obj/machinery/satellite/meteor_shield
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
 					)
 	crate_name= "shield sat crate"
 
@@ -1146,7 +1154,7 @@
 	cost = 5000
 	max_supply = 2
 	contains = list(
-		/obj/machinery/portable_atmospherics/canister/toxins,
+		/obj/machinery/portable_atmospherics/canister/plasma,
 		/obj/item/construction/rcd/loaded,
 		/obj/item/rcd_ammo/large,
 		/obj/item/rcd_ammo/large,
@@ -1756,7 +1764,7 @@
 	max_supply = 4
 	contains = list(/obj/item/storage/backpack/duffelbag/med/surgery,
 					/obj/item/reagent_containers/medspray/sterilizine,
-					/obj/item/roller)
+					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
 
 /datum/supply_pack/medical/salglucanister
@@ -1954,6 +1962,15 @@
 	max_supply = 4
 	contains = list(/obj/item/vending_refill/modularpc)
 	crate_name = "computer supply crate"
+
+/datum/supply_pack/science/monkey_helmets
+	name = "Monkey Mind Magnification Helmet Crate"
+	desc = "Some research is best done with monkeys, yet sometimes they're just too dumb to complete more complicated tasks. These helmets should help."
+	cost = 1500
+	max_supply = 1
+	contains = list(/obj/item/clothing/head/monkey_sentience_helmet,
+					/obj/item/clothing/head/monkey_sentience_helmet)
+	crate_name = "monkey mind magnification crate"
 
 /datum/supply_pack/science/transfer_valves
 	name = "Tank Transfer Valves Crate"
@@ -2330,8 +2347,8 @@
 					/obj/item/seeds/banana,
 					/obj/item/seeds/bamboo,
 					/obj/item/seeds/eggplant/eggy,
-					/obj/item/seeds/rainbow_bunch,
-					/obj/item/seeds/rainbow_bunch,
+					/obj/item/seeds/flower/rainbow_bunch,
+					/obj/item/seeds/flower/rainbow_bunch,
 					/obj/item/seeds/random,
 					/obj/item/seeds/random)
 	crate_name = "exotic seeds crate"
@@ -2436,7 +2453,7 @@
 				anomalous_box_provided = TRUE
 				log_game("An anomalous pizza box was provided in a pizza crate at during cargo delivery")
 				if(prob(50))
-					addtimer(CALLBACK(src, .proc/anomalous_pizza_report), rand(300, 1800))
+					addtimer(CALLBACK(src, PROC_REF(anomalous_pizza_report)), rand(300, 1800))
 				else
 					message_admins("An anomalous pizza box was silently created with no command report in a pizza crate delivery.")
 				break
@@ -2960,7 +2977,7 @@
 	var/the_toy
 	for(var/i in 1 to num_contained)
 		if(prob(50))
-			the_toy = pickweight(GLOB.arcade_prize_pool)
+			the_toy = pick_weight(GLOB.arcade_prize_pool)
 		else
 			the_toy = pick(subtypesof(/obj/item/toy/plush))
 		new the_toy(C)
@@ -3291,8 +3308,8 @@
 	max_supply = 4
 	access_budget = ACCESS_CHAPEL_OFFICE
 	contains = list(/obj/item/clothing/under/misc/burial,
-					/obj/item/reagent_containers/food/snacks/grown/harebell,
-					/obj/item/reagent_containers/food/snacks/grown/poppy/geranium)
+					/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+					/obj/item/reagent_containers/food/snacks/grown/flower/geranium)
 	crate_name = "coffin"
 	crate_type = /obj/structure/closet/crate/coffin
 

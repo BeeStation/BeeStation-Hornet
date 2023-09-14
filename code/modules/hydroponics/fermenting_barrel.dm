@@ -48,7 +48,7 @@
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return TRUE
 		to_chat(user, "<span class='notice'>You place [I] into [src] to start the fermentation process.</span>")
-		addtimer(CALLBACK(src, .proc/makeWine, fruit), rand(80, 120) * speed_multiplier)
+		addtimer(CALLBACK(src, PROC_REF(makeWine), fruit), rand(80, 120) * speed_multiplier)
 		return TRUE
 	else
 		return ..()

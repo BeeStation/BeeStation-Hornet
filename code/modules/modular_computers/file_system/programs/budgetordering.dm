@@ -48,13 +48,12 @@
 	return TRUE
 
 /datum/computer_file/program/budgetorders/ui_data(mob/user)
-	. = ..()
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["location"] = SSshuttle.supply.getStatusText()
 	var/datum/bank_account/buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/obj/item/card/id/id_card = get_buyer_id(user)
 	if(get_buyer_id(user))
-		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
+		if((ACCESS_QM in id_card.access) || (ACCESS_HEADS in id_card.access))
 			requestonly = FALSE
 			buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			can_approve_requests = TRUE

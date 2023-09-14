@@ -6,7 +6,7 @@
 	icon_living = "cat_butcher"
 	icon_dead = "syndicate_dead"
 	icon_gib = "syndicate_gib"
-	projectiletype = /obj/item/projectile/bullet/dart/tranq
+	projectiletype = /obj/projectile/bullet/dart/tranq
 	projectilesound = 'sound/items/syringeproj.ogg'
 	retreat_distance = 3
 	ranged = TRUE
@@ -102,9 +102,9 @@
 			maxHealth = (100 + (20 * LAZYLEN(victims)))
 		else
 			maxHealth = (300 + (5 * (LAZYLEN(victims)-10)))
-		switch(LAZYLEN(victims))	
+		switch(LAZYLEN(victims))
 			if(2)
-				projectiletype = /obj/item/projectile/bullet/dart/tranq/plus
+				projectiletype = /obj/projectile/bullet/dart/tranq/plus
 			if(4)//gain space adaptation to make cheesing harder
 				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 				icon_state = "cat_butcher_fire"
@@ -114,7 +114,7 @@
 				rapid_melee = 3
 				transform *= 1.25
 			if(8)
-				projectiletype = /obj/item/projectile/bullet/dart/tranq/plusplus
+				projectiletype = /obj/projectile/bullet/dart/tranq/plusplus
 			if(10)
 				ranged_cooldown_time = 10
 			if(15)//if he's gotten this powerful, someone has really fucked up
@@ -175,7 +175,7 @@
 				Targets[H] = CLAMP(healthdiff,1,12)
 	if(!Targets.len)//sanity check
 		return
-	return pickweight(Targets)//Pick the remaining targets (if any) at random
+	return pick_weight(Targets)//Pick the remaining targets (if any) at random
 
 /mob/living/simple_animal/hostile/cat_butcherer/death(gibbed)
 	if(LAZYLEN(victims) >= 5)

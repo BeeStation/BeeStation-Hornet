@@ -7,7 +7,8 @@
 	item_state = "atoxinbottle"
 	possible_transfer_amounts = list(5,10,15,25,30)
 	volume = 30
-	fill_icon_thresholds = list(0, 10, 30, 50, 70)
+	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
+	label_icon = "label_bottle"
 
 /obj/item/reagent_containers/glass/bottle/Initialize(mapload)
 	. = ..()
@@ -76,6 +77,7 @@
 	desc = "A small bottle of Choral Hydrate. Mickey's Favorite!"
 	icon_state = "bottle20"
 	list_reagents = list(/datum/reagent/toxin/chloralhydrate = 30)
+	label_icon = null
 
 /obj/item/reagent_containers/glass/bottle/mannitol
 	name = "mannitol bottle"
@@ -144,6 +146,7 @@
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/medicine/adminordrazine = 30)
+	label_icon = null
 
 /obj/item/reagent_containers/glass/bottle/viralbase
 	name = "Highly potent Viral Base bottle"
@@ -332,6 +335,7 @@
 	desc = "A small bottle. Contains Cryptococcus Cosmosis culture in synthblood medium."
 	icon_state = "bottle3"
 	spawned_disease = /datum/disease/brainrot
+	label_icon = null
 
 /obj/item/reagent_containers/glass/bottle/magnitis
 	name = "Magnitis culture bottle"
@@ -381,6 +385,7 @@
 	desc = "A clay bowl containing a fledgling Necropolis, preserved in blood. A robust virologist may be able to unlock its full potential..."
 	icon_state = "mortar"
 	spawned_disease = /datum/disease/advance/random/necropolis
+	label_icon = null
 
 /obj/item/reagent_containers/glass/bottle/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis culture bottle"
@@ -497,8 +502,8 @@
 	list_reagents = list(/datum/reagent/consumable/sugar = 30)
 
 /obj/item/reagent_containers/glass/bottle/sacid
-	name = "sulphuric acid bottle"
-	label_name = "sulphuric acid"
+	name = "sulfuric acid bottle"
+	label_name = "sulfuric acid"
 	list_reagents = list(/datum/reagent/toxin/acid = 30)
 
 /obj/item/reagent_containers/glass/bottle/welding_fuel

@@ -333,12 +333,12 @@
 	var/mob/dead/observer/chosen_ghost
 
 	for(var/mob/dead/observer/ghost in GLOB.player_list) //We put them back in their body
-		if(ghost.mind && ghost.mind.current == T && ghost.client)
+		if(ghost.mind && ghost.mind.current == T && ghost.client && ghost.can_reenter_corpse)
 			chosen_ghost = ghost
 			break
 
 	if(!chosen_ghost)	//Failing that, we grab a ghost
-		var/list/consenting_candidates = pollGhostCandidates("Would you like to play as a Shade?", "Cultist", null, ROLE_CULTIST, 50, POLL_IGNORE_SHADE)
+		var/list/consenting_candidates = pollGhostCandidates("Would you like to play as a Shade?", ROLE_CULTIST, null, 5 SECONDS, ignore_category = POLL_IGNORE_CULT_SHADE)
 		if(consenting_candidates.len)
 			chosen_ghost = pick(consenting_candidates)
 	if(!T)

@@ -43,7 +43,7 @@
 						   "<span class='danger'>Your eyes hurt as they start smoking, you panic as you realise you're blind!</span>")
 	target.emote("scream")
 	target.become_blind(MAGIC_BLIND)
-	addtimer(CALLBACK(src, .proc/cure_blindness, target), duration)
+	addtimer(CALLBACK(src, PROC_REF(cure_blindness), target), duration)
 
 /obj/effect/proc_holder/spell/targeted/blind/proc/cure_blindness(mob/living/L)
 	L.cure_blind(MAGIC_BLIND)

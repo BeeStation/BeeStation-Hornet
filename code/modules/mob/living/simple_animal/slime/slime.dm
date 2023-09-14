@@ -113,7 +113,7 @@
 	. = ..()
 	set_nutrition(SLIME_DEFAULT_NUTRITION)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		set_playable()
+		set_playable(ROLE_SENTIENCE)
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)
@@ -261,7 +261,7 @@
 		amount = -abs(amount)
 	return ..() //Heals them
 
-/mob/living/simple_animal/slime/bullet_act(obj/item/projectile/Proj, def_zone, piercing_hit = FALSE)
+/mob/living/simple_animal/slime/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
 	attacked += 10
 	if((Proj.damage_type == BURN))
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
@@ -500,7 +500,7 @@
 	if(user)
 		step_away(src,user,15)
 
-	addtimer(CALLBACK(src, .proc/slime_move, user), 3)
+	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 3)
 
 /mob/living/simple_animal/slime/proc/slime_move(mob/user)
 	if(user)
@@ -531,6 +531,9 @@
 		blocked += 50
 	. = ..(damage, damagetype, def_zone, blocked, forced)
 
+/mob/living/simple_animal/slime/get_discovery_id()
+	return "[colour] slime"
+
 /mob/living/simple_animal/slime/give_mind(mob/user)
 	. = ..()
 	if (.)
@@ -557,7 +560,7 @@
 	if(old_target && !SLIME_CARES_ABOUT(old_target))
 		UnregisterSignal(old_target, COMSIG_PARENT_QDELETING)
 	if(Target)
-		RegisterSignal(Target, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(Target, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/set_leader(new_leader)
 	var/old_leader = Leader
@@ -565,19 +568,19 @@
 	if(old_leader && !SLIME_CARES_ABOUT(old_leader))
 		UnregisterSignal(old_leader, COMSIG_PARENT_QDELETING)
 	if(Leader)
-		RegisterSignal(Leader, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(Leader, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/add_friendship(new_friend, amount = 1)
 	if(!Friends[new_friend])
 		Friends[new_friend] = 0
 	Friends[new_friend] += amount
 	if(new_friend)
-		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/set_friendship(new_friend, amount = 1)
 	Friends[new_friend] = amount
 	if(new_friend)
-		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/remove_friend(friend)
 	Friends -= friend

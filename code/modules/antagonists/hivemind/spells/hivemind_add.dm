@@ -35,8 +35,8 @@
 	else
 		to_chat(user, "<span class='notice'>We begin linking our mind with [target.name]!</span>")
 
-	if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (user in viewers(range, target)))
-		if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (user in viewers(range, target)))
+	if(do_after(user, 5*(1.5**get_dist(user, target)), user, timed_action_flags = IGNORE_HELD_ITEM) && (user in viewers(range, target)))
+		if(do_after(user, 5*(1.5**get_dist(user, target)), user, timed_action_flags = IGNORE_HELD_ITEM) && (user in viewers(range, target)))
 			if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && (user in viewers(range, target)))
 				to_chat(user, "<span class='notice'>[target.name] was added to the Hive!</span>")
 				success = TRUE

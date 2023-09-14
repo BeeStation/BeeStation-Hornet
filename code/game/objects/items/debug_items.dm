@@ -71,7 +71,7 @@
 		"Wire Brush" = image(icon = 'icons/obj/tools.dmi', icon_state = "wirebrush")
 	)
 
-	var/tool_result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/tool_result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(tool_result)
@@ -149,11 +149,13 @@
 	destroy_speed = 0.1
 	paint_speed = 0.1
 	ranged = TRUE
+	upgrade_flags = RPD_UPGRADE_UNWRENCH
 
 /obj/item/spellbook/debug
 	name = "\improper Robehator's spell book"
 	uses = 200
-	debug = TRUE
+	everything_robeless = TRUE
+	bypass_lock = TRUE
 
 //Debug suit
 /obj/item/clothing/head/helmet/space/hardsuit/debug
@@ -161,7 +163,7 @@
 	desc = "very powerful."
 	icon_state = "hardsuit0-syndielite"
 	hardsuit_type = "syndielite"
-	armor = list("melee" = 300, "bullet" = 300, "laser" = 300, "energy" = 300, "bomb" = 300, "bio" = 300, "rad" = 300, "fire" = 300, "acid" = 300, "stamina" = 300) // prevent armor penetration
+	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
 	strip_delay = 6000
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -174,7 +176,7 @@
 	hardsuit_type = "syndielite"
 	w_class = WEIGHT_CLASS_TINY
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/debug
-	armor = list("melee" = 300, "bullet" = 300, "laser" = 300, "energy" = 300, "bomb" = 300, "bio" = 300, "rad" = 300, "fire" = 300, "acid" = 300, "stamina" = 300) // prevent armor penetration
+	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
 	gas_transfer_coefficient = 0
 	permeability_coefficient = 0
 	siemens_coefficient = 0
@@ -196,7 +198,7 @@
 	item_state = "holdingpack"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
 
 /obj/item/storage/backpack/debug/ComponentInitialize()
 	. = ..()
@@ -263,7 +265,6 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_PIERCEIMMUNE,
-		TRAIT_IGNORESLOWDOWN,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOLIMBDISABLE,
@@ -280,13 +281,14 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOBREATH,
-		TRAIT_MINDSHIELD,
 		TRAIT_SELF_AWARE,
 		TRAIT_SIXTHSENSE,
 		TRAIT_XRAY_VISION,
 		TRAIT_MEDICAL_HUD,
 		TRAIT_SECURITY_HUD,
-		TRAIT_BARMASTER
+		TRAIT_BARMASTER,
+		TRAIT_SURGEON,
+		TRAIT_METALANGUAGE_KEY_ALLOWED
 	)
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
@@ -294,13 +296,21 @@
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
-	user.update_sight()
+	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
+
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	hud.add_hud_to(user)
 	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	hud.add_hud_to(user)
 	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 	hud.add_hud_to(user)
+
+	if(!isliving(user))
+		user.update_sight()
+		return
+	var/mob/living/picker = user
+	picker.see_override = SEE_INVISIBLE_OBSERVER
+	picker.update_sight()
 
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
@@ -311,6 +321,8 @@
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
 	user.remove_all_languages("debug")
+	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
+	user.see_override = initial(user.see_override)
 	user.update_sight()
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]

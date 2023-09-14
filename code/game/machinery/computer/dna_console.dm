@@ -203,8 +203,8 @@
 		UnregisterSignal(connected_scanner, COMSIG_MACHINE_CLOSE)
 
 	if(scanner)
-		RegisterSignal(scanner, COMSIG_MACHINE_OPEN, .proc/on_scanner_open)
-		RegisterSignal(scanner, COMSIG_MACHINE_CLOSE, .proc/on_scanner_close)
+		RegisterSignal(scanner, COMSIG_MACHINE_OPEN, PROC_REF(on_scanner_open))
+		RegisterSignal(scanner, COMSIG_MACHINE_CLOSE, PROC_REF(on_scanner_close))
 
 	connected_scanner = scanner
 
@@ -629,6 +629,25 @@
 			// GUARD CHECK - This should not be possible. Unexpected result
 			if(!HM)
 				return
+
+			// nullifier part
+			// this exists earlier before activator part because "activator" items doesn't work as nullifier because of inject() proc does
+			var/is_nullifier = text2num(params["is_nullifier"])
+			if(is_nullifier)
+				var/obj/item/dnainjector/I = new /obj/item/dnainjector(loc)
+				I.remove_mutations += HM.type // this should accept a typepath, not an actual type reference
+				I.name = "DNA nullifier"
+				I.desc = "Removes a specific mutation on injection."
+				I.icon_state = "dnanullifier"
+				I.base_icon_state = "dnanullifier"
+				// printing nullifiers a lot wouldn't be good, so it has some cooldown
+				if(scanner_operational())
+					I.damage_coeff = connected_scanner.damage_coeff
+					injectorready = world.time + INJECTOR_TIMEOUT * 3 * (1 - 0.1 * connected_scanner.precision_coeff)
+				else
+					injectorready = world.time + INJECTOR_TIMEOUT * 3
+				return
+
 
 			// Create a new DNA Injector and add the appropriate mutations to it
 			var/obj/item/dnainjector/activator/I = new /obj/item/dnainjector/activator(loc)

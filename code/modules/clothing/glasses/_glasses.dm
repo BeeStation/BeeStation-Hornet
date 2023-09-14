@@ -51,7 +51,7 @@
 			if(H.glasses == src)
 				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
 				H.flash_act(visual = 1)
-				H.blind_eyes(3)
+				H.adjust_blindness(3)
 				H.blur_eyes(5)
 				eyes.applyOrganDamage(5)
 
@@ -120,7 +120,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100, STAMINA = 0)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -131,7 +131,7 @@
 	desc = "A crude combination between a pair of prescription glasses and the electronics of science goggles."
 	icon_state = "prescscihud"
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 40, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 0)
 	vision_correction = 1
 
 /obj/item/clothing/glasses/science/sciencesun
@@ -253,7 +253,12 @@
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
 	..()
-	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.glasses != src)
+			return
+		else
+			REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
@@ -327,7 +332,7 @@
 /obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
 	. = ..()
 	//Have the HUD enabled by default, since the glasses start in the down position.
-	var/datum/component/team_monitor/ghost_vision = AddComponent(/datum/component/team_monitor, "ghost", 1)
+	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)
 	ghost_vision.toggle_hud(TRUE, null)
 
 /obj/item/clothing/glasses/welding/ghostbuster/weldingvisortoggle()
@@ -347,7 +352,7 @@
 			C = null
 	//Toggle the hud of the component
 	//Pass in the wearer, or null if they are not wearing the goggles
-	var/datum/component/team_monitor/ghost_vision = GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/ghost_vision = GetComponent(/datum/component/team_monitor/worn)
 	ghost_vision.toggle_hud(!ghost_vision.hud_visible, C)
 	//Update the hud colour
 	if(ghost_vision.hud_visible)
@@ -521,12 +526,13 @@
 		if(H.client)
 			if(H.client.prefs)
 				if(src == H.glasses)
-					H.client.prefs.toggles2 ^= PREFTOGGLE_2_USES_GLASSES_COLOUR
-					if(H.client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR)
+					var/current_color = H.client.prefs.read_player_preference(/datum/preference/toggle/glasses_color)
+					H.client.prefs.update_preference(/datum/preference/toggle/glasses_color, !current_color)
+					if(!current_color)
 						to_chat(H, "You will now see glasses colors.")
 					else
 						to_chat(H, "You will no longer see glasses colors.")
-					H.update_glasses_color(src, 1)
+					H.update_glasses_color(src, TRUE)
 
 /obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type
@@ -540,7 +546,9 @@
 
 
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
-	if(((client && client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR) || G.force_glass_colour) && glasses_equipped)
+	if(!client)
+		return
+	if((client.prefs?.read_player_preference(/datum/preference/toggle/glasses_color) || G.force_glass_colour) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)

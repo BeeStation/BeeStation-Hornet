@@ -116,10 +116,10 @@
 
 /datum/reagent/consumable/cooking_oil/reaction_obj(obj/O, reac_volume)
 	if(holder && holder.chem_temp >= fry_temperature)
-		if(isitem(O) && !istype(O, /obj/item/reagent_containers/food/snacks/deepfryholder))
+		if(isitem(O) && !istype(O, /obj/item/food/deepfryholder))
 			log_game("[O.name] ([O.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(O)].")
 			O.loc.visible_message("<span class='warning'>[O] rapidly fries as it's splashed with hot oil! Somehow.</span>")
-			var/obj/item/reagent_containers/food/snacks/deepfryholder/F = new(O.drop_location(), O)
+			var/obj/item/food/deepfryholder/F = new(O.drop_location(), O)
 			F.fry(volume)
 			F.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
 
@@ -297,13 +297,13 @@
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.blur_eyes(5) // 10 seconds
-			victim.blind_eyes(3) // 6 seconds
+			victim.adjust_blindness(3) // 6 seconds
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
 			victim.confused = max(M.confused, 5) // 10 seconds
 			victim.add_movespeed_modifier(MOVESPEED_ID_PEPPER_SPRAY, update=TRUE, priority=100, multiplicative_slowdown=0.25, blacklisted_movetypes=(FLYING|FLOATING))
-			addtimer(CALLBACK(victim, /mob.proc/remove_movespeed_modifier, MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
+			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
 		victim.update_damage_hud()
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/carbon/M)
@@ -635,7 +635,7 @@
 		else
 			if(!M.eye_blurry)
 				to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
-			M.blind_eyes(2)
+			M.adjust_blindness(2)
 			M.blur_eyes(5)
 	..()
 
@@ -645,7 +645,7 @@
 		M.blur_eyes(4)
 		if(prob(10))
 			to_chat(M, "<span class = 'warning'>Your eyes sting!</span>")
-			M.blind_eyes(2)
+			M.adjust_blindness(2)
 
 
 /datum/reagent/consumable/nutriment/stabilized
@@ -707,7 +707,7 @@
 /datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
 	LAZYSET(mobs_affected, living_holder, mob_light_obj)
-	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, .proc/on_living_holder_deletion)
+	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, PROC_REF(on_living_holder_deletion))
 
 /datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
 	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)

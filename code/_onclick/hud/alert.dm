@@ -65,7 +65,7 @@
 	animate(thealert, transform = matrix(), time = 2.5, easing = CUBIC_EASING)
 
 	if(thealert.timeout)
-		addtimer(CALLBACK(src, .proc/alert_timeout, thealert, category), thealert.timeout)
+		addtimer(CALLBACK(src, PROC_REF(alert_timeout), thealert, category), thealert.timeout)
 		thealert.timeout = world.time + thealert.timeout - world.tick_lag
 	return thealert
 
@@ -303,8 +303,8 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	add_overlay(receiving)
 	src.receiving = receiving
 	src.offerer = offerer
-	src.offerer = offerer
-	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+	src.taker = taker
+	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, PROC_REF(check_in_range))
 
 /atom/movable/screen/alert/give/Click(location, control, params)
 	. = ..()
@@ -314,7 +314,10 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /// An overrideable proc used simply to hand over the item when claimed, this is a proc so that high-fives can override them since nothing is actually transferred
 /atom/movable/screen/alert/give/proc/handle_transfer()
-	var/mob/living/carbon/taker = owner
+	var/mob/living/carbon/taker = owner || src.taker
+	if(!taker)
+		qdel(src)
+		return
 	taker.take(offerer, receiving)
 
 /// Simply checks if the other person is still in range
@@ -704,8 +707,8 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
 		return
-	var/paramslist = params2list(params)
-	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
 		return
 	if(usr != owner)
