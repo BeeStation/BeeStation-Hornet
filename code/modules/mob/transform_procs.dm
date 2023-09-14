@@ -481,8 +481,6 @@
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
-	for(var/t in bodyparts)
-		qdel(t)
 
 /mob/living/carbon/AIize(transfer_after = TRUE, client/preference_source)
 	return pre_transform() ? null : ..()
