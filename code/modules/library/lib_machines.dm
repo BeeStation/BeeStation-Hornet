@@ -19,15 +19,22 @@
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
+
 	circuit = /obj/item/circuitboard/computer/libraryconsole
 	desc = "Checked out books MUST be returned on time."
+	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	var/screenstate = 0
 	var/title
 	var/category = "Any"
 	var/author
 	var/search_page = 0
-	clockwork = TRUE //it'd look weird
-	broken_overlay_emissive = TRUE
 
 /obj/machinery/computer/libraryconsole/ui_interact(mob/user)
 	. = ..()
