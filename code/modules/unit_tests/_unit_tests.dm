@@ -87,6 +87,7 @@
 #include "subsystem_metric_sanity.dm"
 #include "surgery_linking.dm"
 #include "techweb_sanity.dm"
+#include "test_mob_attacks.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"

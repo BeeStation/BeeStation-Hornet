@@ -7,7 +7,10 @@
 		/mob/living/simple_animal/hostile/bear
 	)
 	var/list/mob_targets = list(
-		/mob/living/carbon/human
+		/mob/living/carbon/human,
+		/mob/living/carbon/monkey,
+		/mob/living/simple_animal/hostile/bear,
+		/mob/living/simple_animal/chicken
 	)
 
 /datum/unit_test/mob_attacks/Run()
