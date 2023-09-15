@@ -66,10 +66,26 @@
 	PH?.Trigger()
 
 /datum/species/psyphoza/get_species_description()
-	return "..."
+	return "Psyphoza are a species of extra-sensory lesser-sensory fungal, \
+	based humanoids, infamous for their invulnerability to occlusion based \
+	magic tricks."
 
 /datum/species/psyphoza/get_species_lore()
-	return list("...")
+	return list(
+		"A standing testament to the humor of mother nature, Psyphoza have evolved powerful and mystical \
+			psychic abilities, which are almost completely mitigated by the fact they are absolutely \
+			blind, and depend entirely on their psychic abilities to navigate their surroundings.",
+
+		"Psyphoza culture is deeply rooted in superstition, mysticism, and the occult. It is their belief \
+			that the morphology of their cap deeply impacts the course of their life, with characteristics \
+			such as size, colour, and shape influencing how irrespectively lucky or unlucky they might be in \
+			their experiences.",
+
+		"An unfortunate superstition that Psyphoza 'meat' and 'blood' contain powerful psychedelics has caused \
+			many individuals of the species to be targeted, and hunted, by rich & eccentric individuals who wish \
+			to taste their flesh, and learn the truth for themselves. Unfortunately for Psyphoza, \
+			this superstition is completely true..."
+	)
 
 /datum/species/psyphoza/create_pref_unique_perks()
 	var/list/to_add = list()
