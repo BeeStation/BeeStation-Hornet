@@ -12,6 +12,5 @@
 /// Perform the mobs default attack protocols (punching/biting/whatever)
 /// Returns the amount of damage dealt
 /mob/living/proc/deal_generic_attack(atom/target)
-	apply_damage_old(rand(3), BRUTE, affecting)
-	//TODO
-	return FALSE
+	var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/blunt/light)
+	return source.deal_attack(src, null, target, BRUTE, 3, ran_zone(zone_selected))

@@ -97,7 +97,7 @@
 	if (attacker && HAS_TRAIT(attacker, TRAIT_PACIFISM) && !ispath(damage_type, /datum/damage/stamina))
 		to_chat(attacker, "<span class='notice'>You don't want to hurt anyone!</span>")
 		CLEAR_REFERENCES
-		return
+		return 0
 
 	// Play the animation
 	if (attacking_item)
@@ -111,7 +111,7 @@
 
 	if (damage_amount <= 0)
 		CLEAR_REFERENCES
-		return
+		return 0
 
 	// Apply the damage at this point
 	target.damage_apply_damage(src)
@@ -129,6 +129,7 @@
 		if (part.owner)
 			after_attack_limb(attacker, attacking_item, part.owner, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
 	CLEAR_REFERENCES
+	return damage_amount
 
 /// Called after a successful attack
 /datum/damage_source/proc/after_attack()
