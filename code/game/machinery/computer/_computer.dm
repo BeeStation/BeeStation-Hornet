@@ -30,6 +30,9 @@
 
 /obj/machinery/computer/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
+	if(smoothing_flags & SMOOTH_BITMASK)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 	power_change()
 	if(!QDELETED(C))
 		qdel(circuit)
