@@ -257,7 +257,11 @@
 	name = "solar panel control"
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "computer-0
+	base_icon_state = "computer"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL
+	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
+	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
@@ -278,6 +282,9 @@
 
 /obj/machinery/power/solar_control/Initialize(mapload)
 	. = ..()
+	if(smoothing_flags & SMOOTH_BITMASK)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 	if(powernet)
 		set_panels(currentdir)
 	connect_to_network()
