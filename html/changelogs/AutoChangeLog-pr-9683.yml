@@ -1,0 +1,6 @@
+author: CidyaLamiales,PestoVerde332
+delete-after: true
+changes:
+  - balance: Made the emag have four charges that each take 30 seconds to recharge
+      individually
+  - imageadd: added new icons and overlays for the emag that show its charges
