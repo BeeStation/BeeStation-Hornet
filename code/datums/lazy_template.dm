@@ -64,8 +64,8 @@
 /datum/lazy_template/nukie_base
 	key = LAZY_TEMPLATE_KEY_NUKIEBASE
 	map_name = "nukie_base"
-	map_width = 89
-	map_height = 100
+	map_width = 60
+	map_height = 91
 
 /datum/lazy_template/wizard_dem
 	key = LAZY_TEMPLATE_KEY_WIZARDDEN
