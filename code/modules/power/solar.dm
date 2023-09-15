@@ -257,7 +257,7 @@
 	name = "solar panel control"
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer-0
+	icon_state = "computer-0"
 	base_icon_state = "computer"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL
 	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
