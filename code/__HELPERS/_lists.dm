@@ -768,3 +768,10 @@
 			stack_trace("[name] is not sorted. value at [index] ([value]) is in the wrong place compared to the previous value of [last_value] (when compared to by [cmp])")
 
 		last_value = value
+
+/proc/list_to_assoc_index(list/input)
+	. = list()
+	for(var/i = 1 to length(input))
+		var/key = "[input[i]]"
+		if(isnull(.[key]))
+			.[key] = i
