@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(ping)
 	var/list/currentrun = list()
 
 /datum/controller/subsystem/ping/stat_entry()
-	..("P:[length(GLOB.clients)]")
+	. = ..("P:[length(GLOB.clients)]")
 
 /datum/controller/subsystem/ping/fire(resumed = FALSE)
 	// Prepare the new batch of clients
