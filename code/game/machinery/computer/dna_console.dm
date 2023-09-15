@@ -2153,6 +2153,8 @@
 	to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
 
 /////////////////////////// DNA MACHINES
+
+#undef CALCULATE_UPGRADED_TIMEOUT
 #undef INJECTOR_TIMEOUT
 #undef NUMBER_OF_BUFFERS
 #undef SCRAMBLE_TIMEOUT
