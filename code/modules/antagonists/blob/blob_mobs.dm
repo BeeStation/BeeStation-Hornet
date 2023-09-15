@@ -113,7 +113,7 @@
 	var/death_cloud_size = 1 //size of cloud produced from a dying spore
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
-	var/list/disease = list()
+	var/list/datum/disease/spore_diseases = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
@@ -124,15 +124,13 @@
 	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
 	disease += R*/
 
-/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(scan)
-		E.scan(src, disease, user)
-	else
-		if(E.create_culture(disease, user))
-			dust()
-			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
-	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
-	return TRUE
+/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	if(!dry_run && !EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL) && extrapolator.create_culture(user, spore_diseases))
+		user.visible_message("<span class='danger'>[user] stabs [src] with [extrapolator], sucking it up!</span>", \
+				"<span class='danger'>You stab [src] with [extrapolator]'s probe, destroying it!</span>")
+		dust()
+		EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life()
 	if(!is_zombie && isturf(src.loc))

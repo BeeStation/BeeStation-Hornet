@@ -3,6 +3,7 @@
 #define ALUMINUM_FOAM 1
 #define IRON_FOAM 2
 #define RESIN_FOAM 3
+#define RESIN_FOAM_CHAINREACT 4
 
 
 /obj/effect/particle_effect/foam
@@ -84,6 +85,23 @@
 	name = "resin foam"
 	metal = RESIN_FOAM
 
+/obj/effect/particle_effect/foam/metal/chainreact_resin
+	name = "self-destruct resin foam"
+	metal = RESIN_FOAM_CHAINREACT
+	lifetime = 20
+
+/obj/effect/particle_effect/foam/dissipating
+	name = "dissipating foam"
+	icon_state = ""
+	alpha = 120
+	lifetime = 7 //doesn't last as long as normal foam
+	amount = 0 //no spread
+	slippery_foam = FALSE
+
+/obj/effect/particle_effect/foam/dissipating/Initialize(mapload)
+	flick("atmos_resin_chainreact_dissolving", src)
+	QDEL_IN(src, 6)
+
 /obj/effect/particle_effect/foam/long_life
 	lifetime = 150
 
@@ -112,6 +130,8 @@
 			new /obj/structure/foamedmetal/iron(get_turf(src))
 		if(RESIN_FOAM)
 			new /obj/structure/foamedmetal/resin(get_turf(src))
+		if(RESIN_FOAM_CHAINREACT)
+			new /obj/structure/foamedmetal/resin/chainreact(get_turf(src))
 	flick("[icon_state]-disolve", src)
 	QDEL_IN(src, 5)
 
@@ -298,6 +318,7 @@
 	desc = "A lightweight, transparent resin used to suffocate fires, scrub the air of toxins, and restore the air to a safe temperature."
 	opacity = FALSE
 	icon_state = "atmos_resin"
+	pass_flags_self = PASSFOAM
 	alpha = 120
 	max_integrity = 10
 
@@ -326,6 +347,54 @@
 		for(var/obj/item/Item in O)
 			Item.extinguish()
 
+/obj/structure/foamedmetal/resin/chainreact
+	name = "\improper Advanced ATMOS Resin"
+	desc = "A lightweight, transparent resin used to suffocate fires, scrub the air of toxins, and restore the air to a safe temperature."
+	icon_state = "atmos_resin_chainreact"
+	max_integrity = 30
+	var/dissolving = FALSE
+
+/obj/structure/foamedmetal/resin/chainreact/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It will begin a chain reaction sequence of dissipation if touched by the firefighting backpack's nozzle in the smart foam mode.</span>"
+
+/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction)
+	var/obj/structure/foamedmetal/resin/chainreact/R = locate(/obj/structure/foamedmetal/resin/chainreact) in get_step(get_turf(src), loc_direction)
+	if(istype(R))
+		addtimer(CALLBACK(R, PROC_REF(start_the_chain)), 0.2 SECONDS)
+	return
+
+/obj/structure/foamedmetal/resin/chainreact/proc/start_the_chain()
+	if(dissolving)
+		return
+	dissolving = TRUE
+	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), NORTH)
+	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), EAST)
+	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), SOUTH)
+	INVOKE_ASYNC(src, PROC_REF(find_nearby_foam), WEST)
+	addtimer(CALLBACK(src, PROC_REF(dissapear)), 0.5 SECONDS)
+	return
+
+/obj/structure/foamedmetal/resin/chainreact/proc/dissapear()
+	new /obj/effect/particle_effect/foam/dissipating(get_turf(src))
+	QDEL_NULL(src)
+	return
+
+
+/obj/structure/foamedmetal/resin/chainreact/attackby(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/extinguisher/mini/nozzle))
+		var/obj/item/extinguisher/mini/nozzle/sprayer = I
+		if(!sprayer.toggled)
+			return ..()
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src, "smash", I)
+		playsound(user.loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
+		start_the_chain()
+		return
+	return ..()
+
+
 #undef ALUMINUM_FOAM
 #undef IRON_FOAM
 #undef RESIN_FOAM
+#undef RESIN_FOAM_CHAINREACT

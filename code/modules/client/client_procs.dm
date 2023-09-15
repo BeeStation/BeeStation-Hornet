@@ -365,6 +365,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
 	winset(src, null, "command=\".configure graphics-hwmode on\"")
+
 	var/breaking_version = CONFIG_GET(number/client_error_version)
 	var/breaking_build = CONFIG_GET(number/client_error_build)
 	var/warn_version = CONFIG_GET(number/client_warn_version)
@@ -1040,7 +1041,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
-	if (prefs.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
+	if (prefs?.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
 		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
 
 /client/proc/generate_clickcatcher()

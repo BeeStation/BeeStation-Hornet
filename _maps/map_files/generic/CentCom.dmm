@@ -193,6 +193,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/control)
+"aL" = (
+/obj/structure/lattice{
+	name = "The supports of the universe";
+	desc = "A not so lightweight support lattice. These hold our universe together."
+	},
+/obj/item/reagent_containers/food/snacks/egg/rainbow{
+	desc = "I bet you think you're pretty clever... well you are.";
+	name = "easter egg"
+	},
+/turf/open/space/basic,
+/area/space)
 "aM" = (
 /obj/machinery/computer/operating{
 	dir = 1
@@ -2660,13 +2671,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/grimy,
 /area/centcom/control)
-"mp" = (
-/obj/structure/lattice{
-	name = "The supports of the universe";
-	desc = "A not so lightweight support lattice. These hold our universe together."
-	},
-/turf/open/space/basic,
-/area/space)
 "mq" = (
 /obj/structure/chair{
 	dir = 8
@@ -2743,17 +2747,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
-"mX" = (
-/obj/structure/lattice{
-	name = "The supports of the universe";
-	desc = "A not so lightweight support lattice. These hold our universe together."
-	},
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
-	desc = "I bet you think you're pretty clever... well you are.";
-	name = "easter egg"
-	},
-/turf/open/space/basic,
-/area/space)
 "mY" = (
 /obj/structure/chair{
 	dir = 1
@@ -4882,18 +4875,6 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/centcom/control)
-"xp" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 7;
-	id = "supply_away";
-	json_key = "cargo";
-	name = "CentCom";
-	width = 20
-	},
-/turf/open/space,
-/area/space)
 "xr" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/directions/engineering{
@@ -5343,6 +5324,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"AF" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 8;
+	height = 7;
+	id = "supply_away";
+	json_key = "cargo";
+	name = "CentCom";
+	width = 20
+	},
+/turf/open/space,
+/area/space)
 "AG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -5466,9 +5459,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/two)
-"Bq" = (
-/turf/open/floor/plating,
-/area/start)
 "Br" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -5748,6 +5738,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"Dc" = (
+/turf/open/floor/plating,
+/area/start)
 "Di" = (
 /turf/closed/indestructible/riveted,
 /area/ai_multicam_room)
@@ -6469,6 +6462,13 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"HH" = (
+/obj/structure/lattice{
+	name = "The supports of the universe";
+	desc = "A not so lightweight support lattice. These hold our universe together."
+	},
+/turf/open/space/basic,
+/area/space)
 "HK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -11832,9 +11832,9 @@ fX
 fX
 fX
 fX
-Bq
-Bq
-Bq
+Dc
+Dc
+Dc
 fX
 fX
 fX
@@ -12089,9 +12089,9 @@ fX
 fX
 fX
 fX
-Bq
+Dc
 fY
-Bq
+Dc
 fX
 fX
 fX
@@ -12346,9 +12346,9 @@ fX
 fX
 fX
 fX
-Bq
-Bq
-Bq
+Dc
+Dc
+Dc
 fX
 fX
 fX
@@ -48980,7 +48980,7 @@ aa
 aa
 aa
 aa
-xp
+AF
 aa
 aa
 aa
@@ -75557,6 +75557,6 @@ Rk
 Rk
 Rk
 Rk
-mX
-mp
+aL
+HH
 "}
