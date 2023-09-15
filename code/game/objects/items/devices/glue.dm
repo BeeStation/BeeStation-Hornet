@@ -49,4 +49,3 @@
 	ADD_TRAIT(src, TRAIT_NODROP, GLUED_ITEM_TRAIT)
 	desc += "<span class='notice'> It looks sticky.</span>"
 	UnregisterSignal(src, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
-	return
