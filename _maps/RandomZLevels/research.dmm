@@ -2166,7 +2166,7 @@
 	brute_damage = 145;
 	id_job = "Geneticist";
 	oxy_damage = 55;
-	suit = /obj/item/clothing/suit/toggle/labcoat/genetics;
+	suit = /obj/item/clothing/suit/toggle/labcoat/med/genetics;
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -3192,7 +3192,7 @@
 	brute_damage = 145;
 	id_job = "Geneticist";
 	oxy_damage = 55;
-	suit = /obj/item/clothing/suit/toggle/labcoat/genetics;
+	suit = /obj/item/clothing/suit/toggle/labcoat/med/genetics;
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
 	},
 /obj/effect/decal/cleanable/blood,
@@ -4283,7 +4283,7 @@
 	brute_damage = 145;
 	id_job = "Geneticist";
 	oxy_damage = 55;
-	suit = /obj/item/clothing/suit/toggle/labcoat/genetics;
+	suit = /obj/item/clothing/suit/toggle/labcoat/med/genetics;
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
 	},
 /obj/effect/decal/cleanable/blood,
@@ -4697,7 +4697,7 @@
 	brute_damage = 145;
 	id_job = "Geneticist";
 	oxy_damage = 55;
-	suit = /obj/item/clothing/suit/toggle/labcoat/genetics;
+	suit = /obj/item/clothing/suit/toggle/labcoat/med/genetics;
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
 	},
 /obj/effect/decal/cleanable/blood,
