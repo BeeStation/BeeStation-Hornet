@@ -20,7 +20,7 @@
 /obj/structure/showcase/fakeid/Initialize(mapload)
 	. = ..()
 	add_overlay("id")
-	add_overlay("id_key")
+	add_overlay("generic_key")
 
 /obj/structure/showcase/fakesec
 	name = "\improper CentCom security records"
