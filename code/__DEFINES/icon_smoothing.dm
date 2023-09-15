@@ -11,7 +11,8 @@
 #define SMOOTH_QUEUED	(1<<4)
 /// Smooths with objects, and will thus need to scan turfs for contents.
 #define SMOOTH_OBJ		(1<<5)
-
+/// Smooths with atoms facing the same direction only
+#define SMOOTH_DIRECTIONAL (1<<6)
 
 DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_CORNERS" = SMOOTH_CORNERS,
@@ -20,6 +21,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_BORDER" = SMOOTH_BORDER,
 	"SMOOTH_QUEUED" = SMOOTH_QUEUED,
 	"SMOOTH_OBJ" = SMOOTH_OBJ,
+	"SMOOTH_DIRECTIONALS" = SMOOTH_OBJ,
 ))
 
 
