@@ -116,7 +116,10 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_HEDGE_FLUFF S_OBJ(65)				///obj/structure/fluff/hedge
 #define SMOOTH_GROUP_SHUTTLE_PARTS S_OBJ(66)			///obj/structure/window/shuttle, /obj/structure/window/plasma/reinforced/plastitanium, /turf/closed/indestructible/opsglass, /obj/structure/shuttle
 #define SMOOTH_GROUP_CLEANABLE_DIRT	S_OBJ(67)			///obj/effect/decal/cleanable/dirt
-#define SMOOTH_GROUP_COMPUTERS S_OBJ (68)				///obj/machinery/computer/_computer
+///obj/machinery/computer/_computer
+#define SMOOTH_GROUP_COMPUTERS S_OBJ (68)
+///obj/machinery/modular_computer/console
+#define SMOOTH_GROUP_CONSOLE S_OBJ (69)
 
 //LIQUIDS
 

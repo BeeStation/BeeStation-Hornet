@@ -8,8 +8,8 @@
 	screen_icon_state_menu = "menu"
 	base_icon_state = "console"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL
-	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
-	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
+	smoothing_groups = list(SMOOTH_GROUP_CONSOLE)
+	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS, SMOOTH_GROUP_CONSOLE)
 	hardware_flag = PROGRAM_CONSOLE
 	density = TRUE
 	base_idle_power_usage = 100
