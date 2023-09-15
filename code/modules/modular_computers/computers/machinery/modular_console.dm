@@ -3,8 +3,6 @@
 	desc = "A stationary computer."
 	icon = 'icons/obj/modular_console.dmi'
 	icon_state = "console-0"
-	icon_state_powered = "console-0"
-	icon_state_unpowered = "console-off"
 	screen_icon_state_menu = "menu"
 	base_icon_state = "console"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL
@@ -36,6 +34,7 @@
 	if(smoothing_flags & SMOOTH_BITMASK)
 		QUEUE_SMOOTH(src)
 		QUEUE_SMOOTH_NEIGHBORS(src)
+
 	var/obj/item/computer_hardware/battery/battery_module = cpu.all_components[MC_CELL]
 	if(battery_module)
 		qdel(battery_module)
@@ -59,3 +58,21 @@
 	if(cpu)
 		cpu.screen_on = 1
 	update_icon()
+
+// Same as parent code, but without the smoothing handling
+/obj/machinery/modular_computer/update_icon()
+	cut_overlays()
+
+	if(!cpu || !cpu.enabled)
+		if (!(machine_stat & NOPOWER) && (cpu && cpu.use_power()))
+			add_overlay(screen_icon_screensaver)
+	else
+		if(cpu.active_program)
+			add_overlay(cpu.active_program.program_icon_state ? cpu.active_program.program_icon_state : screen_icon_state_menu)
+		else
+			add_overlay(screen_icon_state_menu)
+
+	if(cpu && cpu.obj_integrity <= cpu.integrity_failure)
+		add_overlay("bsod")
+		add_overlay("broken")
+
