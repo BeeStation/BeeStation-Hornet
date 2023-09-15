@@ -1,12 +1,15 @@
 /obj/machinery/modular_computer/console
 	name = "console"
 	desc = "A stationary computer."
-
 	icon = 'icons/obj/modular_console.dmi'
-	icon_state = "console"
-	icon_state_powered = "console"
+	icon_state = "console-0"
+	icon_state_powered = "console-0"
 	icon_state_unpowered = "console-off"
 	screen_icon_state_menu = "menu"
+	base_icon_state = "console"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
+	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	hardware_flag = PROGRAM_CONSOLE
 	density = TRUE
 	base_idle_power_usage = 100
