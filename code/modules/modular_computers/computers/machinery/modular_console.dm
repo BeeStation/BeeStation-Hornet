@@ -7,7 +7,7 @@
 	icon_state_unpowered = "console-off"
 	screen_icon_state_menu = "menu"
 	base_icon_state = "console"
-	smoothing_flags = SMOOTH_BITMASK
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL
 	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	hardware_flag = PROGRAM_CONSOLE
@@ -33,6 +33,9 @@
 
 /obj/machinery/modular_computer/console/Initialize(mapload)
 	. = ..()
+	if(smoothing_flags & SMOOTH_BITMASK)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 	var/obj/item/computer_hardware/battery/battery_module = cpu.all_components[MC_CELL]
 	if(battery_module)
 		qdel(battery_module)
