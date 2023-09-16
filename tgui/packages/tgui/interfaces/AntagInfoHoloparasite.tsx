@@ -217,8 +217,10 @@ const ExtraInfo = (_props, context) => {
 };
 
 const Notes = (_props, context) => {
-  const { data } = useBackend<Info>(context);
-  if (!data.notes || data.notes.length === 0) {
+  const {
+    data: { notes },
+  } = useBackend<Info>(context);
+  if (!notes || notes.length === 0) {
     return (
       <Section>
         <Box color="label" textAlign="center">
@@ -237,7 +239,7 @@ const Notes = (_props, context) => {
         </Stack.Item>
         <Stack.Item>
           <BlockQuote style={{ 'text-overflow': 'wrap' }} width="100%">
-            {data.notes}
+            {notes}
           </BlockQuote>
         </Stack.Item>
       </Stack>
@@ -245,9 +247,39 @@ const Notes = (_props, context) => {
   );
 };
 
+const AntagInfo = (props: { antag_info: SummonerAntag }, context) => {
+  const {
+    antag_info: { objectives, allies, extra_info },
+  } = props;
+  const [tab, set_tab] = useLocalState<SummonerTab>(context, 'summoner_tab', SummonerTab.Notes);
+  return (
+    <>
+      {!!objectives && (
+        <Tabs.Tab
+          icon="clipboard-list"
+          selected={tab === SummonerTab.Objectives}
+          onClick={() => set_tab(SummonerTab.Objectives)}>
+          Objectives
+        </Tabs.Tab>
+      )}
+      {!!allies && (
+        <Tabs.Tab icon="users" selected={tab === SummonerTab.Allies} onClick={() => set_tab(SummonerTab.Allies)}>
+          Allies
+        </Tabs.Tab>
+      )}
+      {!!extra_info && (
+        <Tabs.Tab icon="mask" selected={tab === SummonerTab.ExtraInfo} onClick={() => set_tab(SummonerTab.ExtraInfo)}>
+          Extra Info
+        </Tabs.Tab>
+      )}
+    </>
+  );
+};
+
 const SummonerInfo = (_props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { summoner } = data;
+  const {
+    data: { summoner },
+  } = useBackend<Info>(context);
   const [tab, set_tab] = useLocalState<SummonerTab>(context, 'summoner_tab', SummonerTab.Notes);
   return (
     <Section fill title="Summoner Info">
@@ -255,24 +287,7 @@ const SummonerInfo = (_props, context) => {
         <Tabs.Tab icon="sticky-note" selected={tab === SummonerTab.Notes} onClick={() => set_tab(SummonerTab.Notes)}>
           Notes
         </Tabs.Tab>
-        {!!summoner.antag_info?.objectives && (
-          <Tabs.Tab
-            icon="clipboard-list"
-            selected={tab === SummonerTab.Objectives}
-            onClick={() => set_tab(SummonerTab.Objectives)}>
-            Objectives
-          </Tabs.Tab>
-        )}
-        {!!summoner.antag_info?.allies && (
-          <Tabs.Tab icon="users" selected={tab === SummonerTab.Allies} onClick={() => set_tab(SummonerTab.Allies)}>
-            Allies
-          </Tabs.Tab>
-        )}
-        {!!summoner.antag_info?.extra_info && (
-          <Tabs.Tab icon="mask" selected={tab === SummonerTab.ExtraInfo} onClick={() => set_tab(SummonerTab.ExtraInfo)}>
-            Extra Info
-          </Tabs.Tab>
-        )}
+        {!!summoner.antag_info && <AntagInfo antag_info={summoner.antag_info} />}
       </Tabs>
       {tab === SummonerTab.Notes && <Notes />}
       {!!summoner.antag_info?.objectives && tab === SummonerTab.Objectives && <ObjectiveInfo />}
