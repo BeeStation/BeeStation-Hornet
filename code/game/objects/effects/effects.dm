@@ -3,7 +3,6 @@
 //Effects are mostly temporary visual effects like sparks, smoke, as well as decals, etc...
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
-	plane = GAME_PLANE_NON_INTEGRAL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
 	obj_flags = 0
