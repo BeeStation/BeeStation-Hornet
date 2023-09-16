@@ -1,0 +1,4 @@
+author: RKz, LemonInTheDark
+delete-after: true
+changes:
+  - bugfix: fixes visual bug with movement delay calculation, making it cleaner
