@@ -17,6 +17,8 @@
 
 /datum/unit_test/mob_attacks/Run()
 	. = list()
+	// Always pass probability checks
+	GLOB.rigged_prob = TRUE
 	for (var/attacker in combat_mobs)
 		for (var/target in mob_targets)
 			var/mob/living/attacker_mob = new attacker(run_loc_floor_bottom_left)

@@ -203,7 +203,7 @@
 			return FALSE
 
 		else
-			if(prob(90))
+			if(safe_prob(90))
 				log_combat(src, target, "attacked")
 				var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/sharp/light)
 				source.deal_attack(src, null, target, /datum/damage/brute, rand(3, 10), ran_zone(zone_selected))
