@@ -610,25 +610,17 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_speed = 5
 	throw_range = 2
 	attack_verb = list("busted")
+	var/impressiveness = 45
+
+/obj/item/statuebust/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/art, impressiveness)
 
 /obj/item/statuebust/hippocratic
 	name = "hippocrates bust"
 	desc = "A bust of the famous Greek physician Hippocrates of Kos, often referred to as the father of western medicine."
 	icon_state = "hippocratic"
-
-/obj/item/statuebust/attack_self(mob/living/user)
-	add_fingerprint(user)
-	user.examinate(src)
-
-/obj/item/statuebust/examine(mob/living/user)
-	. = ..()
-	if(.)
-		return
-	if (!isliving(user))
-		return
-	user.visible_message("[user] stops to admire [src].", \
-						 "<span class='notice'>You take in [src], admiring its fine craftsmanship.</span>")
-	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artgood", /datum/mood_event/artgood)
+	impressiveness = 50
 
 /obj/item/melee/chainofcommand/tailwhip
 	name = "liz o' nine tails"
