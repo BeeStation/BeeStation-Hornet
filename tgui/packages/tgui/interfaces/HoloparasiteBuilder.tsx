@@ -183,7 +183,9 @@ const chat_background_colors = {
 const minimum_recommended_contrast = 0.14285;
 
 const InputValidity = (props: { field: string; validity: Validity }, context) => {
-  const { data } = useBackend<Info>(context);
+  const {
+    data: { themed_name },
+  } = useBackend<Info>(context);
   const is_are = props.field.endsWith('s') ? 'are' : 'is';
   switch (props.validity) {
     case Validity.Valid: {
@@ -191,7 +193,7 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} {is_are} <b>valid</b>, and can be used for your {data.themed_name}.
+              The chosen {props.field} {is_are} <b>valid</b>, and can be used for your {themed_name}.
             </>
           }>
           <Icon name="smile" color="green" />
@@ -203,8 +205,8 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} {is_are} <b>blank</b>, and you will not be able to summon your {data.themed_name} with
-              this value!
+              The chosen {props.field} {is_are} <b>blank</b>, and you will not be able to summon your {themed_name} with this
+              value!
             </>
           }>
           <Icon name="exclamation-triangle" color="yellow" />
@@ -216,8 +218,8 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} {is_are} <b>too long</b>, and you will not be able to summon your {data.themed_name} with
-              this value!
+              The chosen {props.field} {is_are} <b>too long</b>, and you will not be able to summon your {themed_name} with this
+              value!
             </>
           }>
           <Icon name="exclamation-triangle" color="yellow" />
@@ -229,8 +231,8 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} {is_are} <b>invalid</b>, and you will not be able to summon your {data.themed_name} with
-              this value!
+              The chosen {props.field} {is_are} <b>invalid</b>, and you will not be able to summon your {themed_name} with this
+              value!
             </>
           }>
           <Icon name="exclamation-triangle" color="red" />
@@ -242,8 +244,8 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} contains <b>filtered phrases</b>, and you will not be able to summon your{' '}
-              {data.themed_name} with this value!
+              The chosen {props.field} contains <b>filtered phrases</b>, and you will not be able to summon your {themed_name}{' '}
+              with this value!
             </>
           }>
           <Icon name="exclamation-triangle" color="red" />
@@ -264,7 +266,10 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
 };
 
 const BasicNameInput = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
+  const {
+    act,
+    data: { custom_name, max_lengths, themed_name, validation },
+  } = useBackend<Info>(context);
   const set_name = (_, name: string) => {
     act('set:name', { 'name': name });
   };
@@ -275,25 +280,27 @@ const BasicNameInput = (_props, context) => {
       }}>
       <Stack.Item grow>
         <Input
-          value={data.custom_name}
-          maxLength={data.max_lengths.name}
-          placeholder={`${data.themed_name} Name`}
+          value={custom_name}
+          maxLength={max_lengths.name}
+          placeholder={`${themed_name} Name`}
           width="100%"
           onChange={set_name}
           onInput={set_name}
         />
       </Stack.Item>
       <Stack.Item>
-        <InputValidity field="name" validity={data.validation.name} />
+        <InputValidity field="name" validity={validation.name} />
       </Stack.Item>
     </Stack>
   );
 };
 
 const BasicColorInput = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+  const {
+    data: { accent_color, validation },
+  } = useBackend<Info>(context);
   const [_color_select, set_color_select] = useLocalState<HsvaColor | null>(context, 'color_select', null);
-  const accent_color_rgb = hexToRgba(data.accent_color);
+  const accent_color_rgb = hexToRgba(accent_color);
   // these are reversed and I'm too lazy to figure out why
   const light_mode_contrast = contrast(chat_background_colors.light, accent_color_rgb);
   const dark_mode_contrast = contrast(chat_background_colors.dark, accent_color_rgb);
@@ -303,10 +310,10 @@ const BasicColorInput = (_props, context) => {
         'vertical-align': 'middle',
       }}>
       <Stack.Item grow>
-        <ColorBox color={data.accent_color} onClick={() => set_color_select(hexToHsva(data.accent_color))} />
+        <ColorBox color={accent_color} onClick={() => set_color_select(hexToHsva(accent_color))} />
       </Stack.Item>
       <Stack.Item>
-        <InputValidity field="accent color" validity={data.validation.color} />
+        <InputValidity field="accent color" validity={validation.color} />
       </Stack.Item>
       {dark_mode_contrast < minimum_recommended_contrast && (
         <Stack.Item>
@@ -327,8 +334,10 @@ const BasicColorInput = (_props, context) => {
 };
 
 const BasicColorSelector = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
-  const { accent_color } = data;
+  const {
+    act,
+    data: { accent_color },
+  } = useBackend<Info>(context);
   const [color_select, set_color_select] = useLocalState<HsvaColor | null>(context, 'color_select', hexToHsva(accent_color));
   return (
     <Section fill title="Accent Color Selection">
@@ -380,7 +389,9 @@ const BasicColorSelector = (_props, context) => {
 };
 
 const BasicPointsInfo = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+  const {
+    data: { points, max_points, themed_name },
+  } = useBackend<Info>(context);
   return (
     <Stack
       style={{
@@ -388,36 +399,36 @@ const BasicPointsInfo = (_props, context) => {
       }}>
       <Stack.Item grow>
         <ProgressBar
-          value={data.points}
-          maxValue={data.max_points}
+          value={points}
+          maxValue={max_points}
           ranges={{
             bad: [-Infinity, -1],
             good: [0, 0],
-            yellow: [1, data.max_points / 2],
-            orange: [data.max_points / 2, data.max_points - 1],
-            red: [data.max_points, Infinity],
+            yellow: [1, max_points / 2],
+            orange: [max_points / 2, max_points - 1],
+            red: [max_points, Infinity],
           }}>
-          {data.points.toLocaleString()} / {data.max_points.toLocaleString()} points
+          {points.toLocaleString()} / {max_points.toLocaleString()} points
         </ProgressBar>
       </Stack.Item>
-      {data.points < 0 && (
+      {points < 0 && (
         <Stack.Item>
           <Tooltip
             content={
               <>
-                You will not be able to summon your {data.themed_name} with <b>negative points</b>!
+                You will not be able to summon your {themed_name} with <b>negative points</b>!
               </>
             }>
             <Icon name="exclamation-triangle" color="orange" />
           </Tooltip>
         </Stack.Item>
       )}
-      {data.points > 0 && data.max_points < 99 && (
+      {points > 0 && max_points < 99 && (
         <Stack.Item>
           <Tooltip
             content={
               <>
-                You have not used all your points yet, you have <b>{data.points.toLocaleString()} points</b> left to spend!
+                You have not used all your points yet, you have <b>{points.toLocaleString()} points</b> left to spend!
               </>
             }>
             <Icon name="exclamation-triangle" color="yellow" />
@@ -429,17 +440,19 @@ const BasicPointsInfo = (_props, context) => {
 };
 
 const BasicSection = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
+  const {
+    act,
+    data: { themed_name, points, max_points, validation },
+  } = useBackend<Info>(context);
   const [_unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
-  const manifest_disabled =
-    data.points < 0 || data.validation.name !== Validity.Valid || data.validation.notes !== Validity.Valid;
+  const manifest_disabled = points < 0 || validation.name !== Validity.Valid || validation.notes !== Validity.Valid;
   return (
     <Section fill title="Basic Info">
       <Stack fill vertical p={0.5}>
         <Stack.Item grow>
           <LabeledList>
             <LabeledList.Item label="Theme" className="candystripe">
-              <b>{data.themed_name}</b>
+              <b>{themed_name}</b>
             </LabeledList.Item>
             <LabeledList.Item label="Name" className="candystripe">
               <BasicNameInput />
@@ -456,11 +469,11 @@ const BasicSection = (_props, context) => {
           <Flex.Item align="center">
             <Box align="center">
               <Button
-                content={`Manifest ${data.themed_name}`}
+                content={`Manifest ${themed_name}`}
                 disabled={manifest_disabled}
-                tooltip={manifest_disabled && `Some of the fields for your ${data.themed_name} are invalid!`}
+                tooltip={manifest_disabled && `Some of the fields for your ${themed_name} are invalid!`}
                 onClick={() => {
-                  if (data.points > 0 && data.max_points < 99) {
+                  if (points > 0 && max_points < 99) {
                     set_unused_points_dialog(true);
                   } else {
                     act('spawn');
@@ -476,7 +489,10 @@ const BasicSection = (_props, context) => {
 };
 
 const NotesSection = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
+  const {
+    act,
+    data: { themed_name, notes, max_lengths, validation },
+  } = useBackend<Info>(context);
   return (
     <Section fill title="Notes">
       <Stack fill vertical p={0.5}>
@@ -486,13 +502,13 @@ const NotesSection = (_props, context) => {
               'vertical-align': 'middle',
             }}>
             <Stack.Item>
-              <InputValidity field="notes" validity={data.validation.notes} />
+              <InputValidity field="notes" validity={validation.notes} />
             </Stack.Item>
             <Stack.Item>
               <Box textAlign="justify" textColor="label">
-                Notes will be displayed to your {data.themed_name}, and can be anything from alerting them to any tasks you wish
-                to accomplish, the identities of any allies or enemies you may have, or explaining a gimmick you are attempting
-                to roleplay, and can be IC, OOC, or a mixture of both.
+                Notes will be displayed to your {themed_name}, and can be anything from alerting them to any tasks you wish to
+                accomplish, the identities of any allies or enemies you may have, or explaining a gimmick you are attempting to
+                roleplay, and can be IC, OOC, or a mixture of both.
               </Box>
             </Stack.Item>
           </Stack>
@@ -500,9 +516,9 @@ const NotesSection = (_props, context) => {
         <Stack.Item grow>
           <TextArea
             scrollbar
-            value={data.notes}
-            maxLength={data.max_lengths.notes}
-            placeholder={`Enter any notes for your ${data.themed_name} here!`}
+            value={notes}
+            maxLength={max_lengths.notes}
+            placeholder={`Enter any notes for your ${themed_name} here!`}
             textColor="white"
             fluid
             height="100%"
@@ -517,8 +533,9 @@ const NotesSection = (_props, context) => {
 };
 
 const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[] }, context) => {
-  const { data } = useBackend<Info>(context);
-  const { rated_skills } = data;
+  const {
+    data: { rated_skills, themed_name },
+  } = useBackend<Info>(context);
   return (
     <Collapsible title={props.title}>
       <Stack vertical>
@@ -558,7 +575,7 @@ const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[
                   ))
                 }>
                 <Box textAlign="justify" textColor="label">
-                  {threshold.desc.replace('$theme', data.themed_name.toLocaleLowerCase())}
+                  {threshold.desc.replace('$theme', themed_name.toLocaleLowerCase())}
                 </Box>
               </Section>
             </Stack.Item>
@@ -573,14 +590,16 @@ const Abilities = (
   props: { abilities: Ability[]; on_click: (ability: Ability, selected: boolean) => void; only_path?: string },
   context
 ) => {
-  const { data } = useBackend<Info>(context);
+  const {
+    data: { selected_abilities, themed_name },
+  } = useBackend<Info>(context);
   const abilities = props.only_path
     ? (props.abilities || []).filter((ability: Ability) => ability.path === props.only_path)
-    : (props.abilities || []).filter((ability: Ability) => !ability.hidden || data.selected_abilities.includes(ability.path));
+    : (props.abilities || []).filter((ability: Ability) => !ability.hidden || selected_abilities.includes(ability.path));
   return (
     <Stack vertical>
       {sort_abilities(abilities).map((ability: Ability, _index: number) => {
-        const selected = data.selected_abilities.includes(ability.path);
+        const selected = selected_abilities.includes(ability.path);
         const [stat_thresholds, stat_info] = ability.thresholds.reduce(
           ([p, f], e) => (is_actually_a_threshold(e) ? [[...p, e], f] : [p, [...f, e]]),
           [[], []]
@@ -608,7 +627,7 @@ const Abilities = (
               <Stack vertical>
                 <Stack.Item>
                   <Box textAlign="justify" textColor="label">
-                    {ability.desc.replace('$theme', data.themed_name.toLocaleLowerCase())}
+                    {ability.desc.replace('$theme', themed_name.toLocaleLowerCase())}
                   </Box>
                 </Stack.Item>
                 {stat_info.length > 0 && (
@@ -631,19 +650,25 @@ const Abilities = (
 };
 
 const MajorAbilitiesTab = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
+  const {
+    act,
+    data: {
+      themed_name,
+      abilities: { major },
+    },
+  } = useBackend<Info>(context);
   return (
     <Section fill scrollable>
       <Stack vertical>
         <Stack.Item>
           <Box textColor="label">
-            Abilities allow your {data.themed_name} to assist you in unique, powerful ways. You may only have a single ability
-            (or none), however.
+            Abilities allow your {themed_name} to assist you in unique, powerful ways. You may only have a single ability (or
+            none), however.
           </Box>
         </Stack.Item>
         <Stack.Item>
           <Abilities
-            abilities={data.abilities.major}
+            abilities={major}
             on_click={(ability: Ability, selected: boolean) => {
               if (selected) {
                 act('ability:major:take');
@@ -659,7 +684,12 @@ const MajorAbilitiesTab = (_props, context) => {
 };
 
 const LesserAbilitiesTab = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
+  const {
+    act,
+    data: {
+      abilities: { lesser },
+    },
+  } = useBackend<Info>(context);
   return (
     <Section fill scrollable>
       <Stack vertical>
@@ -671,7 +701,7 @@ const LesserAbilitiesTab = (_props, context) => {
         </Stack.Item>
         <Stack.Item>
           <Abilities
-            abilities={data.abilities.lesser}
+            abilities={lesser}
             on_click={(ability: Ability, selected: boolean) =>
               act(`ability:lesser:${selected ? 'take' : 'add'}`, { path: ability.path })
             }
@@ -683,21 +713,28 @@ const LesserAbilitiesTab = (_props, context) => {
 };
 
 const WeaponsTab = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
+  const {
+    act,
+    data: {
+      abilities: { weapons },
+      forced_weapon,
+      themed_name,
+    },
+  } = useBackend<Info>(context);
   return (
     <Section fill scrollable>
       <Stack vertical>
         <Stack.Item>
           <Box textColor="label">
-            Weapons are abilities determine through what method your {data.themed_name} will attack people. You may only have a
+            Weapons are abilities determine through what method your {themed_name} will attack people. You may only have a
             single weapon at any given time.
           </Box>
         </Stack.Item>
         <Stack.Item>
           <Abilities
-            abilities={data.abilities.weapons}
+            abilities={weapons}
             on_click={(ability: Ability, _selected: boolean) => act('ability:weapon:set', { path: ability.path })}
-            only_path={data.forced_weapon}
+            only_path={forced_weapon}
           />
         </Stack.Item>
       </Stack>
@@ -782,31 +819,35 @@ const AbilitiesTabs = (_props, context) => {
 };
 
 const ResetButton = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+  const {
+    data: { used, waiting, themed_name },
+  } = useBackend<Info>(context);
   const [unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
   const [reset_dialog, set_reset_dialog] = useLocalState<boolean>(context, 'reset_dialog', false);
   return (
     <Button
       icon="undo"
       content="Reset"
-      tooltip={`Reset the stats and abilities you have chosen for your ${data.themed_name}, allowing you to work from a blank slate again.`}
+      tooltip={`Reset the stats and abilities you have chosen for your ${themed_name}, allowing you to work from a blank slate again.`}
       tooltipPosition="bottom"
-      disabled={reset_dialog || unused_points_dialog || !!data.used || !!data.waiting}
+      disabled={reset_dialog || unused_points_dialog || !!used || !!waiting}
       onClick={() => set_reset_dialog(true)}
     />
   );
 };
 
 const WaitingDialog = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+  const {
+    data: { themed_name, waiting },
+  } = useBackend<Info>(context);
   return (
-    !!data.waiting && (
+    !!waiting && (
       <Dimmer fontSize="32px">
         <Stack align="center" fill justify="center" vertical>
           <Stack.Item>
             <Icon name="cog" spin />
           </Stack.Item>
-          <Stack.Item>{`Attempting to manifest your ${data.themed_name}. Please wait...`}</Stack.Item>
+          <Stack.Item>{`Attempting to manifest your ${themed_name}. Please wait...`}</Stack.Item>
         </Stack>
       </Dimmer>
     )
@@ -814,15 +855,17 @@ const WaitingDialog = (_props, context) => {
 };
 
 const UsedDialog = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+  const {
+    data: { used, themed_name },
+  } = useBackend<Info>(context);
   return (
-    !!data.used && (
+    !!used && (
       <Dimmer fontSize="32px">
         <Stack align="center" fill justify="center" vertical>
           <Stack.Item>
             <Icon name="exclamation-triangle" color="orange" />
           </Stack.Item>
-          <Stack.Item>{`This ${data.themed_name} manifestation apparatus has already been used.`}</Stack.Item>
+          <Stack.Item>{`This ${themed_name} manifestation apparatus has already been used.`}</Stack.Item>
         </Stack>
       </Dimmer>
     )
@@ -876,7 +919,10 @@ const ResetDialog = (_props, context) => {
 };
 
 const UnusedPointsDialog = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
+  const {
+    act,
+    data: { points, themed_name },
+  } = useBackend<Info>(context);
   const [unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
   return (
     !!unused_points_dialog && (
@@ -892,11 +938,10 @@ const UnusedPointsDialog = (_props, context) => {
           <Stack.Item fontSize="18px">
             <Stack vertical textAlign="center">
               <Stack.Item>
-                You have <b>{data.points.toLocaleString()} unused points</b>!
+                You have <b>{points.toLocaleString()} unused points</b>!
               </Stack.Item>
               <Stack.Item>
-                Are you <i>sure</i> you would like to summon your {data.themed_name} without having allocated all of your
-                points?
+                Are you <i>sure</i> you would like to summon your {themed_name} without having allocated all of your points?
               </Stack.Item>
             </Stack>
           </Stack.Item>
