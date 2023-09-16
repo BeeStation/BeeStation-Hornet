@@ -46,7 +46,7 @@
 	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
 	var/wild_spread = FALSE				//Sets a minimum level of bullet spread per shot; meant for difficult to aim / inaccurate guns.
-	var/wild_factor = 0.25				//Multiplied by spread to calculate the minimum spread per shot.
+	var/wild_factor = 0.25				//Multiplied by spread to calculate the 'minimum' spread per shot.
 
 	var/is_wielded = FALSE
 
