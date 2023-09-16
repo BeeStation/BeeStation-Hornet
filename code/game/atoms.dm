@@ -221,8 +221,7 @@
 	if(custom_materials && custom_materials.len)
 		var/temp_list = list()
 		for(var/i in custom_materials)
-			var/datum/material/material = getmaterialref(i) || i
-			temp_list[material] = custom_materials[material] //Get the proper instanced version
+			temp_list[getmaterialref(i)] = custom_materials[i] //Get the proper instanced version
 
 		custom_materials = null //Null the list to prepare for applying the materials properly
 		set_custom_materials(temp_list)
@@ -896,9 +895,9 @@
   * For COMSIG_ATOM_SHOULD_EMAG, /obj uses should_emag.
   * - Parent calls do not need to be maintained.
   */
-/atom/proc/use_emag(mob/user)
+/atom/proc/use_emag(mob/user, obj/item/card/emag/hacker)
 	if(!SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
-		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user, hacker)
 
 /**
   * Respond to a radioactive wave hitting this atom
