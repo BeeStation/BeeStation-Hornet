@@ -226,7 +226,10 @@
 /obj/item/clothing/proc/armor_to_protection_class(armor_value, compare_value)
 	if (armor_value < 0)
 		. = "-"
-	. += "\Roman[round(abs(armor_value), 10) / 10]"
+	if (armor_value == 0)
+		. += "None"
+	else
+		. += "\Roman[round(abs(armor_value), 10) / 10]"
 	if (!isnull(compare_value))
 		if (armor_value > compare_value)
 			. = "<span class='green'>[.]</span>"
