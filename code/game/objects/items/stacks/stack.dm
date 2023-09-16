@@ -55,10 +55,6 @@
 		return
 	return TRUE
 
-/obj/item/stack/proc/get_recipes()
-	SHOULD_CALL_PARENT(FALSE)
-	return
-
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	if(new_amount != null)
 		amount = new_amount
@@ -219,7 +215,7 @@
 
 /obj/item/stack/ui_static_data(mob/user)
 	var/list/data = list()
-	data["recipes"] = recursively_build_recipes(get_recipes())
+	data["recipes"] = recursively_build_recipes(get_main_recipes())
 	return data
 
 /obj/item/stack/ui_act(action, params)
@@ -233,7 +229,7 @@
 				qdel(src)
 				return
 			var/datum/stack_recipe/R = locate(params["ref"])
-			if(!is_valid_recipe(R, get_recipes())) //href exploit protection
+			if(!is_valid_recipe(R, get_main_recipes())) //href exploit protection
 				return
 			var/multiplier = text2num(params["multiplier"])
 			if(!isnum_safe(multiplier) || (multiplier <= 0)) //href exploit protection

@@ -21,8 +21,9 @@ Miscellaneous material sheets
 	grind_results = list(/datum/reagent/consumable/honey = 20)
 	merge_type = /obj/item/stack/sheet/wax
 
-/obj/item/stack/sheet/wax/get_recipes()
-	return GLOB.wax_recipes
+/obj/item/stack/sheet/wax/get_main_recipes()
+	. = ..()
+	. += GLOB.wax_recipes
 
 /* Sandbags */
 

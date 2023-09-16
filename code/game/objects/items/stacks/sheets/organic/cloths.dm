@@ -84,5 +84,6 @@ Various Cloths
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
-/obj/item/stack/sheet/silk/get_recipes()
-	return GLOB.silk_recipes
+/obj/item/stack/sheet/silk/get_main_recipes()
+	. = ..()
+	. += GLOB.silk_recipes

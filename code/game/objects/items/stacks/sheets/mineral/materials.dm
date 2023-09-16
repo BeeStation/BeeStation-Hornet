@@ -159,8 +159,9 @@ Mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/copper
 
 
-/obj/item/stack/sheet/mineral/copper/get_recipes()
-	return GLOB.copper_recipes
+/obj/item/stack/sheet/mineral/copper/get_main_recipes()
+	. = ..()
+	. += GLOB.copper_recipes
 
 /* Titanium */
 

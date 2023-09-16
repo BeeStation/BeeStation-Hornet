@@ -49,7 +49,7 @@ Woods Sheets
 /obj/item/stack/sheet/bamboo/Topic(href, href_list)
 	. = ..()
 	if(href_list["make"])
-		var/list/recipes_list = get_recipes()
+		var/list/recipes_list = get_main_recipes()
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		if(R.result_type == /obj/structure/punji_sticks)
 			var/turf/T = get_turf(src)
