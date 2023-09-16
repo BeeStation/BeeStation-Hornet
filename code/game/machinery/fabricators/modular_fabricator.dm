@@ -501,6 +501,9 @@
 
 			if(length(picked_materials))
 				new_item.set_custom_materials(picked_materials, 1 / multiplier) //Ensure we get the non multiplied amount
+	var/location = get_step(src,(dir))
+	var/obj/item/I = new being_built.build_path(location)
+	I.material_flags |= MATERIAL_NO_EFFECTS //Find a better way to do this.
 	being_built = null
 	set_default_sprite()
 	busy = FALSE

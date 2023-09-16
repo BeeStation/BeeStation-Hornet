@@ -18,7 +18,7 @@
 /obj/item/stack
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
-	material_modifier = 0.1
+	material_modifier = 0.01
 	var/list/datum/stack_recipe/recipes
 	///The name of the thing when it's singular
 	var/singular_name
