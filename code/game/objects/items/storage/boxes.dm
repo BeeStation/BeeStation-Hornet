@@ -186,6 +186,7 @@
 
 // Ordinary survival box
 /obj/item/storage/box/survival/normal/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -196,6 +197,7 @@
 
 // Mining survival box
 /obj/item/storage/box/survival/mining/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -206,6 +208,7 @@
 
 // Engineer survival box
 /obj/item/storage/box/survival/engineer/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -225,6 +228,7 @@
 
 // Security survival box
 /obj/item/storage/box/survival/security/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -240,6 +244,7 @@
 	illustration = "heart"
 
 /obj/item/storage/box/survival/hug/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
