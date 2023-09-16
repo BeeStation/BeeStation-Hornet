@@ -307,7 +307,6 @@
 			M.add_nutrition(25 + (20 * M.is_adult))
 		if(health > 0)
 			M.apply_damage(/datum/damage_source/slime,  BRUTE, -10 + (-10 * M.is_adult), null)
-			M.updatehealth()
 
 /mob/living/simple_animal/slime/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -437,7 +436,7 @@
 	var/new_damage = rand(15,20)
 	if(transformeffects & SLIME_EFFECT_DARK_BLUE)
 		new_damage *= 0.5
-	adjustBruteLoss(new_damage)
+	apply_damage(/datum/damage_source/body, BRUTE, new_damage)
 	if(!client)
 		if(Target) // Like cats
 			set_target(null)

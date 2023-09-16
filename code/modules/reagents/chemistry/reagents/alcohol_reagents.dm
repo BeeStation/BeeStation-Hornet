@@ -902,7 +902,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(ishuman(M)) //Barefoot causes the imbiber to quickly regenerate brute trauma if they're not wearing shoes.
 		var/mob/living/carbon/human/H = M
 		if(!H.shoes)
-			H.adjustBruteLoss(-3, FALSE)
+			H.adjustBruteLoss(-3)
 			. = 1
 	return ..() || .
 
@@ -1645,7 +1645,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(L.health <= 0)
 		heal_points = 20 //heal more if we're in softcrit
 	for(var/i in 1 to min(volume, heal_points)) //only heals 1 point of damage per unit on add, for balance reasons
-		L.adjustBruteLoss(-1, FALSE)
+		L.adjustBruteLoss(-1)
 		L.adjustFireLoss(-1, FALSE)
 		L.adjustToxLoss(-1, FALSE)
 		L.adjustOxyLoss(-1, FALSE)
@@ -1656,7 +1656,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_life(mob/living/L)
 	if(L.health > 0)
-		L.adjustBruteLoss(-1, FALSE)
+		L.adjustBruteLoss(-1)
 		L.adjustFireLoss(-1, FALSE)
 		L.adjustToxLoss(-0.5, FALSE)
 		L.adjustOxyLoss(-3, FALSE)
@@ -2503,7 +2503,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/beesknees/on_mob_life(mob/living/carbon/M)
 	if(is_species(M, /datum/species/apid))
-		M.adjustBruteLoss(-1.5, FALSE)
+		M.adjustBruteLoss(-1.5)
 		M.adjustFireLoss(-1.5, FALSE)
 		M.adjustToxLoss(-1, TRUE)
 	. = ..()

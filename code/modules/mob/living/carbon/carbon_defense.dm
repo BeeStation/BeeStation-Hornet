@@ -144,7 +144,6 @@
 				adjust_fire_stacks(2)
 				IgniteMob()
 			adjustFireLoss(M.powerlevel * 3)
-			updatehealth()
 		return TRUE
 
 /mob/living/carbon/proc/dismembering_strike(mob/living/attacker, dam_zone)

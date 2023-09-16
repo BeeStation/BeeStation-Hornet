@@ -71,7 +71,6 @@
 			if(!M)
 				return
 			M.adjustOxyLoss(round(dam_force/2))
-			M.updatehealth()
 			target.visible_message("<span class='danger'>[chassis] squeezes [target]!</span>", \
 								"<span class='userdanger'>[chassis] squeezes you!</span>",\
 								"<span class='italics'>You hear something crack.</span>")
@@ -132,7 +131,6 @@
 				if(!M)
 					return
 				M.adjustOxyLoss(round(dam_force/2))
-				M.updatehealth()
 				target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury!</span>", \
 									"<span class='userdanger'>[chassis] destroys you in an unholy fury!</span>")
 				log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYPE: [uppertext(damtype)])")

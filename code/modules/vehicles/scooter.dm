@@ -113,7 +113,6 @@
 			if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
 				if(prob(multiplier * 100)) //pro skaters get a 70% chance to not get the brain damage
 					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
-					H.updatehealth()
 			visible_message("<span class='danger'>[src] crashes into [A], sending [H] flying!</span>")
 			H.Paralyze(80 * multiplier)
 		else
@@ -306,6 +305,5 @@
 		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
 			if(prob(multiplier * 100)) //Pro skaters have a 70% chance to not get the brain damage
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
-				H.updatehealth()
 		visible_message("<span class='danger'>[src] crashes into [A], sending [H] flying!</span>")
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)

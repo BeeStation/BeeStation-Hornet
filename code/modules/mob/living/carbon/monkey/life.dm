@@ -105,7 +105,7 @@
 	var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
 	switch(adjusted_pressure)
 		if(HAZARD_HIGH_PRESSURE to INFINITY)
-			adjustBruteLoss( min( ( (adjusted_pressure / HAZARD_HIGH_PRESSURE) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE) )
+			apply_damage(/datum/damage_source/pressure, BRUTE, min( ( (adjusted_pressure / HAZARD_HIGH_PRESSURE) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE))
 			throw_alert("pressure", /atom/movable/screen/alert/highpressure, 2)
 		if(WARNING_HIGH_PRESSURE to HAZARD_HIGH_PRESSURE)
 			throw_alert("pressure", /atom/movable/screen/alert/highpressure, 1)
@@ -117,7 +117,7 @@
 			if(HAS_TRAIT(src, TRAIT_RESISTLOWPRESSURE))
 				clear_alert("pressure")
 			else
-				adjustBruteLoss( LOW_PRESSURE_DAMAGE )
+				apply_damage(/datum/damage_source/pressure, BRUTE, LOW_PRESSURE_DAMAGE)
 				throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
 
 	return

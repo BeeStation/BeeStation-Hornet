@@ -13,7 +13,8 @@
 
 /mob/living/simple_animal/hostile/guardian/protector/ex_act(severity)
 	if(severity == 1)
-		adjustBruteLoss(400) //if in protector mode, will do 20 damage and not actually necessarily kill the summoner
+		//if in protector mode, will do 20 damage and not actually necessarily kill the summoner
+		apply_damage(/datum/damage_source/explosion, BRUTE, 400)
 	else
 		..()
 	if(QDELETED(src))

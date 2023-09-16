@@ -146,10 +146,10 @@
 
 /mob/living/simple_animal/hostile/alien/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
-		adjustBruteLoss(2)
+		apply_damage(/datum/damage_source/temperature/internal, BRUTE, 2)
 		throw_alert("temp", /atom/movable/screen/alert/cold, 1)
 	else if(bodytemperature > maxbodytemp)
-		adjustBruteLoss(20)
+		apply_damage(/datum/damage_source/temperature/internal, BRUTE, 20)
 		throw_alert("temp", /atom/movable/screen/alert/hot, 3)
 	else
 		clear_alert("temp")

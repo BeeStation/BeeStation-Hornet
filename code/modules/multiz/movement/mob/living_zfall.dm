@@ -39,7 +39,7 @@
 	if(right_leg && !right_leg.disabled)
 		total_damage_percent_left -= 0.45
 		apply_damage(/datum/damage_source/impact, /datum/damage/brute, amount_total * 0.45, BODY_ZONE_R_LEG)
-	adjustBruteLoss(amount_total * total_damage_percent_left)
+	apply_damage(/datum/damage_source/impact, BRUTE, amount_total * total_damage_percent_left)
 	Knockdown(levels * 50)
 
 // Let the species handle it instead

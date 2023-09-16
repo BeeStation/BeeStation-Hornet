@@ -413,7 +413,6 @@
 	if (InCritical())
 		log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
-		updatehealth()
 		if(!whispered)
 			to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
@@ -544,6 +543,7 @@
 	update_stat()
 	med_hud_set_health()
 	med_hud_set_status()
+	health_dirty = HEALTH_DIRTY_NOT_DIRTY
 
 //proc used to ressuscitate a mob
 /mob/living/proc/revive(full_heal = 0, admin_revive = 0)
@@ -587,7 +587,7 @@
 	var/oxy_to_heal = heal_to - getOxyLoss()
 	var/tox_to_heal = heal_to - getToxLoss()
 	if(brute_to_heal < 0)
-		adjustBruteLoss(brute_to_heal, FALSE)
+		adjustBruteLoss(brute_to_heal)
 	if(burn_to_heal < 0)
 		adjustFireLoss(burn_to_heal, FALSE)
 	if(oxy_to_heal < 0)
@@ -595,18 +595,12 @@
 	if(tox_to_heal < 0)
 		adjustToxLoss(tox_to_heal, FALSE, TRUE)
 
-	// Run updatehealth once to set health for the revival check
-	updatehealth()
-
 	// We've given them a decent heal.
 	// If they happen to be dead too, try to revive them - if possible.
 	if(stat == DEAD && can_be_revived())
 		// If the revive is successful, show our revival message (if present).
 		if(revive(FALSE, FALSE, 10) && revive_message)
 			visible_message(revive_message)
-
-	// Finally update health again after we're all done
-	updatehealth()
 
 	return stat != DEAD
 
@@ -663,6 +657,7 @@
 //proc called by revive(), to check if we can actually ressuscitate the mob (we don't want to revive him and have him instantly die again)
 /mob/living/proc/can_be_revived()
 	. = 1
+	RESOLVE_HEALTH(src)
 	if(health <= HEALTH_THRESHOLD_DEAD)
 		return 0
 

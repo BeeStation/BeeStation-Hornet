@@ -122,7 +122,7 @@
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
-	source.adjustBruteLoss(-2, FALSE)
+	source.adjustBruteLoss(-2)
 	source.adjustFireLoss(-2, FALSE)
 	source.adjustToxLoss(-2, FALSE, forced = TRUE)
 	source.adjustOxyLoss(-0.5, FALSE)
@@ -317,7 +317,7 @@
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
-	source.adjustBruteLoss(-4, FALSE)
+	source.adjustBruteLoss(-4)
 	source.adjustFireLoss(-4, FALSE)
 	source.adjustToxLoss(-4, FALSE, forced = TRUE)
 	source.adjustOxyLoss(-4, FALSE)

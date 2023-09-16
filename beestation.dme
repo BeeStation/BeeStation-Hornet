@@ -2585,6 +2585,7 @@
 #include "code\modules\health\damage\systemic_damage\apply_dismemberment.dm"
 #include "code\modules\health\damage\systemic_damage\armour_penetration.dm"
 #include "code\modules\health\damage\systemic_damage\calculate_armour.dm"
+#include "code\modules\health\damage\systemic_damage\display_attack_message.dm"
 #include "code\modules\health\damage\systemic_damage\locate_target.dm"
 #include "code\modules\health\damage\systemic_damage\on_damage.dm"
 #include "code\modules\holiday\easter.dm"

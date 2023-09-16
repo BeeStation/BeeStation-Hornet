@@ -39,9 +39,8 @@ In all, this is a lot like the monkey code. /N
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				visible_message("<span class='danger'>[M.name] playfully bites [src]!</span>", \
 						"<span class='userdanger'>[M.name] playfully bites you!</span>", null, COMBAT_MESSAGE_RANGE)
-				adjustBruteLoss(1)
+				apply_damage(/datum/damage_source/blunt/light, BRUTE, 1)
 				log_combat(M, src, "attacked")
-				updatehealth()
 			else
 				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
 
@@ -78,36 +77,6 @@ In all, this is a lot like the monkey code. /N
 
 		if("grab")
 			grabbedby(M)
-
-/mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
-	if(!..())
-		return
-	var/damage = M.melee_damage
-	switch(M.melee_damage_type)
-		if(BRUTE)
-			adjustBruteLoss(damage)
-		if(BURN)
-			adjustFireLoss(damage)
-		if(TOX)
-			adjustToxLoss(damage)
-		if(OXY)
-			adjustOxyLoss(damage)
-		if(CLONE)
-			adjustCloneLoss(damage)
-		if(STAMINA_DAMTYPE)
-			adjustStaminaLoss(damage)
-
-/mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
-	if(!..())
-		return //gotta be a successful slime attack
-	var/damage = rand(20)
-	if(M.is_adult)
-		damage = rand(30)
-	if(M.transformeffects & SLIME_EFFECT_RED)
-		damage *= 1.1
-	adjustBruteLoss(damage)
-	log_combat(M, src, "attacked")
-	updatehealth()
 
 /mob/living/carbon/alien/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))

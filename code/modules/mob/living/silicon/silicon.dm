@@ -468,7 +468,7 @@
 	return
 
 /mob/living/silicon/rust_heretic_act()
-	adjustBruteLoss(500)
+	apply_damage(/datum/damage_source/magic, BRUTE, 500)
 	return TRUE
 
 /mob/living/silicon/hears_radio()

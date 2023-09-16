@@ -272,9 +272,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			gib()
 			return
 		if(2)
-			adjustBruteLoss(60)
+			apply_damage(/datum/damage_source/explosion, BRUTE, 60)
 		if(3)
-			adjustBruteLoss(30)
+			apply_damage(/datum/damage_source/explosion, BRUTE, 30)
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)

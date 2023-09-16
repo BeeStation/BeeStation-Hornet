@@ -49,7 +49,6 @@
 				else
 					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")
 					M.adjustToxLoss(5)
-					M.updatehealth()
 		if(4, 5)
 			if(honey)
 				ADD_TRAIT(M, TRAIT_BEEFRIEND, DISEASE_TRAIT)
@@ -62,7 +61,6 @@
 				else
 					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")
 					M.adjustToxLoss(5)
-					M.updatehealth()
 			if(prob(10))
 				M.visible_message("<span class='danger'>[M] buzzes.</span>", \
 								  "<span class='userdanger'>Your stomach buzzes violently!</span>")

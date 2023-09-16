@@ -38,7 +38,7 @@
 	if(..()) //successful slime shock
 		flash_act()
 		if(M.powerlevel)
-			adjustBruteLoss(M.powerlevel * 4)
+			apply_damage(/datum/damage_source/slime, BRUTE, M.powerlevel * 4)
 			M.powerlevel --
 
 	var/damage = rand(3)
@@ -50,7 +50,7 @@
 	if(M.transformeffects & SLIME_EFFECT_RED)
 		damage *= 1.1
 	damage = round(damage / 2) // borgs receive half damage
-	adjustBruteLoss(damage)
+	apply_damage(/datum/damage_source/slime, BRUTE, damage)
 	updatehealth()
 
 	return
@@ -167,7 +167,7 @@
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
-		adjustBruteLoss(30)
+		apply_damage(/datum/damage_source/blob, BRUTE, 30)
 	else
 		gib()
 	return TRUE
@@ -179,11 +179,11 @@
 			return
 		if(2)
 			if (stat != DEAD)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
+				apply_damage(/datum/damage_source/explosion, BRUTE, 60)
+				apply_damage(/datum/damage_source/explosion, BURN, 60)
 		if(3)
 			if (stat != DEAD)
-				adjustBruteLoss(30)
+				apply_damage(/datum/damage_source/explosion, BRUTE, 30)
 
 /mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj, def_zone)
 	. = ..()

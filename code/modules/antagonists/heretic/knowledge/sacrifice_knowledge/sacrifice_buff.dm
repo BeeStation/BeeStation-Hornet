@@ -82,7 +82,7 @@
 
 	owner.adjustToxLoss(-amount, FALSE, TRUE)
 	owner.adjustOxyLoss(-amount, FALSE)
-	owner.adjustBruteLoss(-amount, FALSE)
+	owner.adjustBruteLoss(-amount)
 	owner.adjustFireLoss(-amount)
 
 /*

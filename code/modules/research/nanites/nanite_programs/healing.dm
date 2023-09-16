@@ -26,8 +26,8 @@
 			if(L.heal_damage(0.5/parts.len, 0.5/parts.len, null, BODYTYPE_ORGANIC))
 				host_mob.update_damage_overlays()
 	else
-		host_mob.adjustBruteLoss(-0.5, TRUE)
-		host_mob.adjustFireLoss(-0.5, TRUE)
+		host_mob.adjustBruteLoss(-0.5)
+		host_mob.adjustFireLoss(-0.5)
 
 /datum/nanite_program/temperature
 	name = "Temperature Adjustment"

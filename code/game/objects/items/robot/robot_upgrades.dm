@@ -433,7 +433,6 @@
 				cyborg.adjustFireLoss(repair_amount)
 			playsound(cyborg.loc, 'sound/items/welder2.ogg', 10) //Quiet so it isn't obnoxious, but still making itself known
 			cyborg.cell.use(powercost)
-			cyborg.updatehealth()
 		else
 			to_chat(cyborg, "<span class='warning'>Unit fully repaired. [src] deactivated.</span>")
 			deactivate_sr()

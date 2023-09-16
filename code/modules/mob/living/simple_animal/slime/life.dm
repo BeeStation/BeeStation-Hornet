@@ -83,9 +83,9 @@
 
 		if(bodytemperature <= (T0C - 50)) // hurt temperature
 			if(bodytemperature <= 50) // sqrting negative numbers is bad
-				adjustBruteLoss(200)
+				apply_damage(/datum/damage_source/temperature/internal, BRUTE, 200)
 			else
-				adjustBruteLoss(round(sqrt(bodytemperature)) * 2)
+				apply_damage(/datum/damage_source/temperature/internal, BRUTE, round(sqrt(bodytemperature)) * 2)
 
 	if(stat != DEAD)
 		var/bz_percentage = environment.total_moles() ? (environment.get_moles(GAS_BZ) / environment.total_moles()) : 0
@@ -109,9 +109,6 @@
 			set_stat(CONSCIOUS)
 			update_mobility()
 			regenerate_icons()
-
-	updatehealth()
-
 
 	return //TODO: DEFERRED
 
@@ -203,7 +200,7 @@
 
 	if(nutrition <= 0)
 		set_nutrition(0)
-		adjustBruteLoss(1)
+		apply_damage(/datum/damage_source/body, BRUTE, 1)
 	else if (nutrition >= get_grow_nutrition() && amount_grown < SLIME_EVOLUTION_THRESHOLD)
 		adjust_nutrition(-20)
 		amount_grown++

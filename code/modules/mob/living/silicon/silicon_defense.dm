@@ -10,14 +10,8 @@
 		var/damage = 20
 		if (prob(90))
 			log_combat(M, src, "attacked")
-			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
-							"<span class='userdanger'>[M] slashes at you!</span>")
 			if(prob(8))
 				flash_act(affect_silicon = 1)
-			log_combat(M, src, "attacked")
-			adjustBruteLoss(damage)
-			updatehealth()
 		else
 			playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M]'s swipe misses [src]!</span>", \
@@ -33,19 +27,6 @@
 				unbuckle_mob(N)
 				N.visible_message("<span class='boldwarning'>[N] is knocked off of [src] by [M]!</span>", \
 							"<span class='boldwarning'>You're knocked off of [src] by [M]!</span>")
-		switch(M.melee_damage_type)
-			if(BRUTE)
-				adjustBruteLoss(damage)
-			if(BURN)
-				adjustFireLoss(damage)
-			if(TOX)
-				adjustToxLoss(damage)
-			if(OXY)
-				adjustOxyLoss(damage)
-			if(CLONE)
-				adjustCloneLoss(damage)
-			if(STAMINA_DAMTYPE)
-				adjustStaminaLoss(damage)
 
 /mob/living/silicon/attack_paw(mob/living/user)
 	return attack_hand(user)
@@ -53,7 +34,7 @@
 /mob/living/silicon/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(user.a_intent == INTENT_HARM)
 		..(user, 1)
-		adjustBruteLoss(rand(10, 15))
+		apply_damage(/datum/damage_source/blunt/light, BRUTE, rand(10, 15))
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message("<span class='danger'>[user] punches [src]!</span>", \
 				"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -76,7 +57,7 @@
 				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
 				return
 			if(M.dna.species.punchdamage >= 10)
-				adjustBruteLoss(M.dna.species.punchdamage)
+				apply_damage(M.dna.species.damage_source_type, M.dna.species.damage_type, M.dna.species.punchdamage)
 				playsound(loc, "punch", 25, 1, -1)
 				visible_message("<span class='danger'>[M] punches [src]!</span>", \
 					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -121,7 +102,7 @@
 /mob/living/silicon/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, Proj, def_zone)
 	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		adjustBruteLoss(Proj.damage)
+		apply_damage(Proj.damtype, BRUTE, Proj.damage, ran_zone(def_zone))
 		if(prob(Proj.damage*1.5))
 			for(var/mob/living/M in buckled_mobs)
 				M.visible_message("<span class='boldwarning'>[M] is knocked off of [src]!</span>")

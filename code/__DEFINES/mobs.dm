@@ -511,3 +511,22 @@
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+
+/// Update the health of a specific target
+#define UPDATE_HEALTH(target) \
+if (target.health_dirty == HEALTH_DIRTY_NOT_DIRTY) {\
+	target.health_dirty = HEALTH_DIRTY_QUEUED;
+	spawn(0) {\
+		if (target.health_dirty == HEALTH_DIRTY_NOT_DIRTY) { return ; }\
+		target.updateHealth();\
+	};\
+}
+
+#define RESOLVE_HEALTH(target) if (target.health_dirty == HEALTH_DIRTY_QUEUED) {\
+	target.updateHealth();\
+}
+
+/// Health does not need updating
+#define HEALTH_DIRTY_NOT_DIRTY 0
+/// Health needs updating and has not been queued
+#define HEALTH_DIRTY_QUEUED 1

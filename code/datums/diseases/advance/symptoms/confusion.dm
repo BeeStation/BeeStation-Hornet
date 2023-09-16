@@ -63,6 +63,5 @@ Bonus
 			M.confused = min(100 * power, M.confused + 8)
 			if(brain_damage)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN,3 * power, 80)
-				M.updatehealth()
 
 	return

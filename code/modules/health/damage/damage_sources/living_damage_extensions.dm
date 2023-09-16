@@ -15,3 +15,7 @@
 /mob/living/proc/deal_generic_attack(atom/target)
 	var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/blunt/light)
 	return source.deal_attack(src, null, target, BRUTE, 3, ran_zone(zone_selected))
+
+/mob/living/carbon/alien/humanoid/deal_generic_attack(atom/target)
+	var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/sharp/light)
+	return source.deal_attack(src, null, target, BRUTE, 20, ran_zone(zone_selected))

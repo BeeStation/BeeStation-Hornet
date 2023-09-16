@@ -745,10 +745,10 @@
 // Flat 10 brute if they're out of safe temperature, making them vulnerable to fire or spacing
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
-		adjustBruteLoss(10)
+		apply_damage(/datum/damage_source/temperature/internal, BRUTE, 10)
 		throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 	else if(bodytemperature > maxbodytemp)
-		adjustBruteLoss(10)
+		apply_damage(/datum/damage_source/temperature/internal, BRUTE, 10)
 		throw_alert("temp", /atom/movable/screen/alert/hot, 3)
 	else
 		clear_alert("temp")

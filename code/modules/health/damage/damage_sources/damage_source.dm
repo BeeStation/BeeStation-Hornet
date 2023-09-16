@@ -5,7 +5,8 @@
 	src.target = target;\
 	src.target_zone = target_zone;\
 	src.weapon = null;\
-	src.damage_type = damage_type;
+	src.damage_type = damage_type;\
+	src.attacker = null;
 
 #define CLEAR_REFERENCES \
 	src.weapon = null;\
@@ -40,6 +41,8 @@
 	var/atom/weapon
 	/// The type of damage being given to the victim
 	var/damage_type
+	/// Who is attacking with this?
+	var/atom/attacker
 
 /datum/damage_source/proc/apply_direct(atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
@@ -76,7 +79,8 @@
 
 	// Set the state
 	INITIAL_SETUP
-	weapon = attacking_item
+	src.weapon = attacking_item
+	src.attacker = attacker
 
 	// Determine the target_zone
 	if (!target_zone)
@@ -117,9 +121,11 @@
 	// Apply the damage at this point
 	target.damage_apply_damage(src)
 
-	// Determine armour
-	//if (attacking_item && attacker)
-	//	living_target.send_item_attack_message(attacking_item, attacker, parse_zone(target_zone))
+	// Display the attack message
+	if (attacking_item)
+		attacking_item.display_attack_message(src)
+	else if(attacker)
+		attacker.display_attack_message(src)
 
 	if (attacker && attacking_item)
 		target.on_attacked(attacking_item, attacker)

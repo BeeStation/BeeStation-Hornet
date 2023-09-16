@@ -66,7 +66,6 @@
 	playsound(get_turf(target), 'sound/magic/lightningbolt.ogg', 50, 1)
 	target.grab_ghost()
 	target.adjustOxyLoss(-50, 0)
-	target.updatehealth()
 	if(target.revive())
 		target.visible_message("...[target] wakes up, alive and aware!")
 		target.emote("gasp")

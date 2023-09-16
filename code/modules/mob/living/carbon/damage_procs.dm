@@ -124,6 +124,7 @@
 		if(required_status && O.status != required_status)
 			return FALSE
 		O.applyOrganDamage(amount, maximum)
+	UPDATE_HEALTH(src)
 
 /** setOrganLoss
   * inputs: slot (organ slot, like ORGAN_SLOT_HEART), amount(damage to be set to)
@@ -135,6 +136,7 @@
 	var/obj/item/organ/O = getorganslot(slot)
 	if(O && !(status_flags & GODMODE))
 		O.setOrganDamage(amount)
+	UPDATE_HEALTH(src)
 
 /** getOrganLoss
   * inputs: slot (organ slot, like ORGAN_SLOT_HEART)
@@ -209,8 +211,8 @@
 		stamina = round(stamina - (stamina_was - picked.stamina_dam), DAMAGE_PRECISION)
 
 		parts -= picked
+	UPDATE_HEALTH(src)
 	if(updating_health)
-		updatehealth()
 		update_stamina(stamina >= DAMAGE_PRECISION)
 	if(update)
 		update_damage_overlays()
@@ -240,8 +242,7 @@
 		stamina = round(stamina - (picked.stamina_dam - stamina_was), DAMAGE_PRECISION)
 
 		parts -= picked
-	if(updating_health)
-		updatehealth()
+	UPDATE_HEALTH(src)
 	if(update)
 		update_damage_overlays()
 	update_stamina(stamina >= DAMAGE_PRECISION)

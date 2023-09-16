@@ -42,7 +42,6 @@
 			var/datum/damage_source/source = GET_DAMAGE_SOURCE(M.dna.species.damage_source_type)
 			source.deal_attack(M, null, src, M.dna.species.damage_type, M.dna.species.punchdamage)
 			log_combat(M, src, "attacked")
-			updatehealth()
 			return TRUE
 
 /mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
@@ -54,7 +53,7 @@
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message("<span class='danger'>[user] punches [src]!</span>", \
 			"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-		adjustBruteLoss(15)
+		apply_damage(/datum/damage_source/blunt/light, BRUTE, 15)
 		return TRUE
 
 /mob/living/simple_animal/attack_paw(mob/living/carbon/monkey/M)
@@ -156,7 +155,7 @@
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(prob(bomb_armor))
-				adjustBruteLoss(500)
+				apply_damage(/datum/damage_source/explosion, BRUTE, 500)
 			else
 				gib()
 				return
@@ -164,16 +163,16 @@
 			var/bloss = 60
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
+			apply_damage(/datum/damage_source/explosion, BRUTE, bloss)
 
 		if(EXPLODE_LIGHT)
 			var/bloss = 30
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
-			adjustBruteLoss(bloss)
+			apply_damage(/datum/damage_source/explosion, BRUTE, bloss)
 
 /mob/living/simple_animal/blob_act(obj/structure/blob/B)
-	adjustBruteLoss(20)
+	apply_damage(/datum/damage_source/blob, BRUTE, 20)
 	return
 
 /mob/living/simple_animal/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)

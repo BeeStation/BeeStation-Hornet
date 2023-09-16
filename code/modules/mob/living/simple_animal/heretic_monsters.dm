@@ -302,7 +302,7 @@
 		back.heal()
 		return
 
-	adjustBruteLoss(-maxHealth * 0.5, FALSE)
+	adjustBruteLoss(-maxHealth * 0.5)
 	adjustFireLoss(-maxHealth * 0.5, FALSE)
 
 	if(health < maxHealth * 0.8)
@@ -402,7 +402,7 @@
 
 	var/turf/our_turf = get_turf(src)
 	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
-		adjustBruteLoss(-1.5 * delta_time, FALSE)
+		adjustBruteLoss(-1.5 * delta_time)
 		adjustFireLoss(-1.5 * delta_time, FALSE)
 
 	return ..()

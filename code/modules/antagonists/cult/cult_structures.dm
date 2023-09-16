@@ -167,9 +167,8 @@
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 			if(ishuman(L))
-				L.adjustBruteLoss(-5*delta_time, 0)
+				L.adjustBruteLoss(-5*delta_time)
 				L.adjustFireLoss(-5*delta_time, 0)
-				L.updatehealth()
 				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1.0
 			else if(isshade(L) || isconstruct(L))

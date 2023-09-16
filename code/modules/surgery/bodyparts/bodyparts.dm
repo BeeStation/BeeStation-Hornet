@@ -211,7 +211,6 @@
 
 
 	if(owner && updating_health)
-		owner.updatehealth()
 		if(stamina >= DAMAGE_PRECISION)
 			owner.update_stamina(TRUE)
 			owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
@@ -230,8 +229,7 @@
 	brute_dam	= round(max(brute_dam - brute, 0), DAMAGE_PRECISION)
 	burn_dam	= round(max(burn_dam - burn, 0), DAMAGE_PRECISION)
 	stamina_dam = round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION)
-	if(owner && updating_health)
-		owner.updatehealth()
+	UPDATE_HEALTH(owner)
 	if(owner.dna && owner.dna.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
 		if(owner.health > 0 && !owner.ishellbound())
 			owner.revive(0)
@@ -295,6 +293,8 @@
 		brute_dam = 0
 		brutestate = 0
 		burnstate = 0
+		if (owner)
+			UPDATE_HEALTH(owner)
 
 	if(change_icon_to_default)
 		if(IS_ORGANIC_LIMB(src))
@@ -303,7 +303,6 @@
 			icon = DEFAULT_BODYPART_ICON_ROBOTIC
 
 	if(owner)
-		owner.updatehealth()
 		owner.update_body() //if our head becomes robotic, we remove the lizard horns and human hair.
 		owner.update_hair()
 		owner.update_damage_overlays()
