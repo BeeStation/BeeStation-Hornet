@@ -1,6 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: Made applying glue to an item make it stuck either after 30 seconds pass
-      or after you drop/move/equip the item
-  - bugfix: Fixed being able to add/remove glued wigs to hats
