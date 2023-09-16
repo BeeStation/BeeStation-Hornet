@@ -16,7 +16,7 @@
 	desc = "Glass forged by melting sand."
 	color = "#dae6f0"
 	greyscale_colors = "#dae6f0"
-	alpha = 210
+	alpha = 150
 	categories = list(MAT_CATEGORY_RIGID = TRUE)
 	integrity_modifier = 0.1
 	sheet_type = /obj/item/stack/sheet/glass
@@ -39,8 +39,8 @@
 	name = "gold"
 	id = "gold"
 	desc = "Gold"
-	color = "#f0972b"
-	greyscale_colors = "#f0972b"
+	color = "#C7ED55"
+	greyscale_colors = "#C7ED55"
 	strength_modifier = 1.2
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/gold
@@ -53,6 +53,7 @@
 	desc = "Highly pressurized carbon"
 	color = "#22c2d4"
 	greyscale_colors = "#22c2d4"
+	alpha = 150
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	value_per_unit = 0.25
@@ -76,14 +77,13 @@
 	. = ..()
 	qdel(source.GetComponent(/datum/component/radioactive))
 
-
 ///Adds firestacks on hit (Still needs support to turn into gas on destruction)
 /datum/material/plasma
 	name = "plasma"
 	id = "plasma"
 	desc = "Isn't plasma a state of matter? Oh whatever."
-	color = "#c716b8"
-	greyscale_colors = "#c716b8"
+	color = "#D30EB0"
+	greyscale_colors = "#D30EB0"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	value_per_unit = 0.1
@@ -104,8 +104,8 @@
 	name = "bluespace crystal"
 	id = "bluespace_crystal"
 	desc = "Crystals with bluespace properties"
-	color = "#506bc7"
-	greyscale_colors = "#506bc7"
+	color = "#3E65D1"
+	greyscale_colors = "#3E65D1"
 	categories = list(MAT_CATEGORY_ORE = TRUE)
 	sheet_type = /obj/item/stack/ore/bluespace_crystal/refined
 	value_per_unit = 0.15

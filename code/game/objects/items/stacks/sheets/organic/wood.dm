@@ -22,8 +22,9 @@ Woods Sheets
 	merge_type = /obj/item/stack/sheet/wood
 	grind_results = list(/datum/reagent/carbon = 20)
 
-/obj/item/stack/sheet/wood/get_recipes()
-	return GLOB.wood_recipes
+/obj/item/stack/sheet/wood/get_main_recipes()
+	. = ..()
+	. += GLOB.wood_recipes
 
 /* Bamboo */
 
@@ -41,8 +42,9 @@ Woods Sheets
 	merge_type = /obj/item/stack/sheet/bamboo
 	grind_results = list("carbon" = 5)
 
-/obj/item/stack/sheet/bamboo/get_recipes()
-	return GLOB.bamboo_recipes
+/obj/item/stack/sheet/bamboo/get_main_recipes()
+	. = ..()
+	. += GLOB.bamboo_recipes
 
 /obj/item/stack/sheet/bamboo/Topic(href, href_list)
 	. = ..()
@@ -66,5 +68,6 @@ Woods Sheets
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/paperframes
 
-/obj/item/stack/sheet/paperframes/get_recipes()
-	return GLOB.paperframe_recipes
+/obj/item/stack/sheet/paperframes/get_main_recipes()
+	. = ..()
+	. += GLOB.paperframe_recipes

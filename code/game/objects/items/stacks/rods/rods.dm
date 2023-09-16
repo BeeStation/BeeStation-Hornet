@@ -10,7 +10,7 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	materials = list(/datum/material/iron=1000)
+	custom_materials = list(/datum/material/iron=1000)
 	max_amount = 50
 	merge_type = /obj/item/stack/rods
 	attack_verb = list("hit", "bludgeoned", "whacked")
@@ -22,9 +22,6 @@
 	user.visible_message("<span class='suicide'>[user] begins to stuff \the [src] down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide!</span>")//it looks like theyre ur mum
 	return BRUTELOSS
 
-/obj/item/stack/rods/get_recipes()
-	return GLOB.rod_recipes
-
 /obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	if(QDELETED(src)) // we can be deleted during merge, check before doing stuff
@@ -32,6 +29,10 @@
 
 	update_icon()
 	AddElement(/datum/element/openspace_item_click_handler)
+
+/obj/item/stack/rods/get_main_recipes()
+	. = ..()
+	. += GLOB.rod_recipes
 
 /obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)

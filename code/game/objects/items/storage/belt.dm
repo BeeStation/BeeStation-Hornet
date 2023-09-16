@@ -488,7 +488,7 @@
 	icon_state = "championbelt"
 	item_state = "champion"
 	worn_icon_state = "champion"
-	materials = list(/datum/material/gold=400)
+	custom_materials = list(/datum/material/gold=400)
 
 /obj/item/storage/belt/champion/ComponentInitialize()
 	. = ..()

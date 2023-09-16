@@ -48,7 +48,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_RESEARCH, PROC_REF(alert_research))
 
 /obj/machinery/rnd/production/Destroy()
-	materials = null
+	custom_materials = null
 	cached_designs = null
 	matching_designs = null
 	QDEL_NULL(stored_research)
@@ -305,7 +305,8 @@
 	for(var/i in 1 to amount)
 		var/obj/item/I = new path(get_turf(src))
 		if(efficient_with(I.type))
-			I.materials = matlist.Copy()
+			I.set_custom_materials(matlist.Copy())
+			I.material_flags |= MATERIAL_NO_EFFECTS //Find a better way to do this.
 	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[type]", "[path]"))
 
 /obj/machinery/rnd/production/proc/check_mat(datum/design/being_built, var/mat)	// now returns how many times the item can be built with the material

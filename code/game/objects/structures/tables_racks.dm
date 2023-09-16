@@ -34,8 +34,9 @@
 	var/framestackamount = 2
 	var/deconstruction_ready = 1
 	var/last_bump = 0
+	custom_materials = list(/datum/material/iron = 2000)
 	max_integrity = 100
-	integrity_failure = 30
+	integrity_failure = 0.33
 
 /obj/structure/table/Initialize(mapload, _buildstack)
 	. = ..()
@@ -248,6 +249,8 @@
 			new framestack(T, framestackamount)
 	qdel(src)
 
+/obj/structure/table/greyscale
+	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR
 
 /*
  * Glass tables
@@ -465,7 +468,7 @@
 	deconstruction_ready = 0
 	buildstack = /obj/item/stack/sheet/plasteel
 	max_integrity = 200
-	integrity_failure = 50
+	integrity_failure = 0.25
 	armor = list(MELEE = 10,  BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70, STAMINA = 0)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
@@ -712,7 +715,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rack_parts"
 	flags_1 = CONDUCT_1
-	materials = list(/datum/material/iron=2000)
+	custom_materials = list(/datum/material/iron=2000)
 	var/building = FALSE
 
 /obj/item/rack_parts/attackby(obj/item/W, mob/user, params)

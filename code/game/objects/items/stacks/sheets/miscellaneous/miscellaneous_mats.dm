@@ -39,8 +39,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
 	))
 
-/obj/item/stack/sheet/sandbags/get_recipes()
-	return GLOB.sandbag_recipes
+/obj/item/stack/sheet/sandbags/get_main_recipes()
+	. = ..()
+	. += GLOB.sandbag_recipes
 
 /obj/item/emptysandbag
 	name = "empty sandbag"
@@ -74,8 +75,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	grind_results = list(/datum/reagent/consumable/ice = 20)
 	merge_type = /obj/item/stack/sheet/snow
 
-/obj/item/stack/sheet/snow/get_recipes()
-	return GLOB.snow_recipes
+/obj/item/stack/sheet/snow/get_main_recipes()
+	. = ..()
+	. += GLOB.snow_recipes
 
 /* Plastic */
 
@@ -85,12 +87,13 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "plastic sheet"
 	icon_state = "sheet-plastic"
 	item_state = "sheet-plastic"
-	materials = list(/datum/material/plastic=MINERAL_MATERIAL_AMOUNT)
+	custom_materials = list(/datum/material/plastic=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 7
 	merge_type = /obj/item/stack/sheet/plastic
 
-/obj/item/stack/sheet/plastic/get_recipes()
-	return GLOB.plastic_recipes
+/obj/item/stack/sheet/plastic/get_main_recipes()
+	. = ..()
+	. += GLOB.plastic_recipes
 
 /* Cardboard */
 
@@ -106,8 +109,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cardboard
 
-/obj/item/stack/sheet/cardboard/get_recipes()
-	return GLOB.cardboard_recipes
+/obj/item/stack/sheet/cardboard/get_main_recipes()
+	. = ..()
+	. += GLOB.cardboard_recipes
 
 
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)

@@ -8,8 +8,8 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 STACKSIZE_MACRO(/obj/item/stack/sheet/glass)
 
 /obj/item/stack/sheet/glass/cyborg
-	materials = list()
-	is_cyborg = 1
+	custom_materials = null
+	is_cyborg = TRUE
 	cost = 500
 
 

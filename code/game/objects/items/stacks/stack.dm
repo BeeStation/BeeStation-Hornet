@@ -18,6 +18,8 @@
 /obj/item/stack
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
+	material_modifier = 0.1
+	var/list/datum/stack_recipe/recipes
 	///The name of the thing when it's singular
 	var/singular_name
 	///The amount of thing in the stack
@@ -36,6 +38,8 @@
 	var/full_w_class = WEIGHT_CLASS_NORMAL
 	//Determines whether the item should update it's sprites based on amount.
 	var/novariants = TRUE
+	///Datum material type that this stack is made of
+	var/material_type
 	///Stores table variant to be built from this stack
 	var/obj/structure/table/tableVariant
 
@@ -56,7 +60,6 @@
 	return
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
-	. = ..()
 	if(new_amount != null)
 		amount = new_amount
 	if(user)
@@ -64,12 +67,25 @@
 	check_max_amount()
 	if(!merge_type)
 		merge_type = type
+	if(custom_materials && custom_materials.len)
+		for(var/i in custom_materials)
+			custom_materials[getmaterialref(i)] = MINERAL_MATERIAL_AMOUNT * amount
+	. = ..()
 	if(merge)
 		for(var/obj/item/stack/S in loc)
 			if(S.merge_type == merge_type)
 				merge(S)
 				if(QDELETED(src))
 					return
+	var/list/temp_recipes = get_main_recipes()
+	recipes = temp_recipes.Copy()
+	if(material_type)
+		var/datum/material/M = getmaterialref(material_type) //First/main material
+		for(var/i in M.categories)
+			switch(i)
+				if(MAT_CATEGORY_RIGID)
+					var/list/temp = SSmaterials.rigid_stack_recipes.Copy()
+					recipes += temp
 	update_weight()
 	update_icon()
 	var/static/list/loc_connections = list(
@@ -82,6 +98,10 @@
 		amount -= max_amount
 		ui_update()
 		new type(loc, max_amount, FALSE)
+
+/obj/item/stack/proc/get_main_recipes()
+	SHOULD_CALL_PARENT(TRUE)
+	return list()//empty list
 
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
@@ -241,13 +261,11 @@
 				O.setDir(usr.dir)
 			use(R.req_amount * multiplier)
 
-			/* // We don't have R.applies_mats, leaving this in here for convenience in case we get it
 			if(R.applies_mats && custom_materials && custom_materials.len)
 				var/list/used_materials = list()
 				for(var/i in custom_materials)
-					used_materials[SSmaterials.GetMaterialRef(i)] = R.req_amount / R.res_amount * (MINERAL_MATERIAL_AMOUNT / custom_materials.len)
+					used_materials[getmaterialref(i)] = R.req_amount * (MINERAL_MATERIAL_AMOUNT / custom_materials.len)
 				O.set_custom_materials(used_materials)
-			*/
 
 			if(QDELETED(O))
 				return //It's a stack and has already been merged
@@ -354,6 +372,10 @@
 		source.add_charge(amount * cost)
 	else
 		src.amount += amount
+	if(custom_materials && custom_materials.len)
+		for(var/i in custom_materials)
+			custom_materials[getmaterialref(i)] = MINERAL_MATERIAL_AMOUNT * src.amount
+		set_custom_materials() //Refresh
 		check_max_amount()
 	update_icon()
 	update_weight()
@@ -477,8 +499,9 @@
 	var/on_floor = FALSE
 	///Do we do placement checks while placing the recipe?
 	var/placement_checks = FALSE
+	var/applies_mats = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE )
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, applies_mats = FALSE)
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount
@@ -488,6 +511,8 @@
 	src.one_per_turf = one_per_turf
 	src.on_floor = on_floor
 	src.placement_checks = placement_checks
+	src.applies_mats = applies_mats
+
 /*
  * Recipe list datum
  */
