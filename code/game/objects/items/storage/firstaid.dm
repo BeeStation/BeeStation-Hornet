@@ -18,8 +18,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_LARGE
 	var/skin_type = MEDBOT_SKIN_DEFAULT
 	var/empty = FALSE
 	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
@@ -60,11 +59,13 @@
 
 //First MD kit
 /obj/item/storage/firstaid/medical
-	name = "medical aid kit"
-	icon_state = "firstaid-surgery"
-	item_state = "firstaid-surgery"
-	desc = "A high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
-	skin_type = MEDBOT_SKIN_SURGERY
+	name = "doctor's bag"
+	icon_state = "firstaid-surgeryalt"
+	item_state = "firstaid-surgeryalt"
+	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
+	skin_type = null
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/storage/firstaid/medical/ComponentInitialize()
 	. = ..()
@@ -136,13 +137,6 @@
 		/obj/item/hemostat = 1,
 		/obj/item/cautery = 1)
 	generate_items_inside(items_inside,src)
-
-/obj/item/storage/firstaid/medical/doctorbag
-	name = "doctor's bag"
-	icon_state = "firstaid-surgeryalt"
-	item_state = "firstaid-surgeryalt"
-	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
-	skin_type = null
 
 //First Aid kit (ancient)
 /obj/item/storage/firstaid/ancient
