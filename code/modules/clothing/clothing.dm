@@ -173,43 +173,49 @@
 	. = ..()
 
 	if(href_list["list_armor"])
+		var/obj/item/clothing/compare_to = null
+		for (var/flag in bitfield_to_list(slot_flags))
+			var/thing = usr.get_item_by_slot(flag)
+			if (istype(thing, /obj/item/clothing))
+				compare_to = thing
+				break
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.magic || armor.melee || armor.rad || armor.stamina)
-			readout += "\n<b>ARMOR (I-X)</b>"
-			if(armor.bio)
-				readout += "\nTOXIN [armor_to_protection_class(armor.bio)]"
-			if(armor.bomb)
-				readout += "\nEXPLOSIVE [armor_to_protection_class(armor.bomb)]"
-			if(armor.bullet)
-				readout += "\nBULLET [armor_to_protection_class(armor.bullet)]"
-			if(armor.energy)
-				readout += "\nENERGY [armor_to_protection_class(armor.energy)]"
-			if(armor.laser)
-				readout += "\nLASER [armor_to_protection_class(armor.laser)]"
-			if(armor.magic)
-				readout += "\nMAGIC [armor_to_protection_class(armor.magic)]"
-			if(armor.melee)
-				readout += "\nMELEE [armor_to_protection_class(armor.melee)]"
-			if(armor.rad)
-				readout += "\nRADIATION [armor_to_protection_class(armor.rad)]"
-			if(armor.stamina)
-				readout += "\nSTAMINA [armor_to_protection_class(armor.stamina)]"
+			readout += "<br /><b>ARMOR (I-X)</b>"
+			if(armor.bio || compare_to?.armor?.bio)
+				readout += "<br />TOXIN [armor_to_protection_class(armor.bio, compare_to?.armor?.bio)]"
+			if(armor.bomb || compare_to?.armor?.bomb)
+				readout += "<br />EXPLOSIVE [armor_to_protection_class(armor.bomb, compare_to?.armor?.bomb)]"
+			if(armor.bullet || compare_to?.armor?.bullet)
+				readout += "<br />BULLET [armor_to_protection_class(armor.bullet, compare_to?.armor?.bullet)]"
+			if(armor.energy || compare_to?.armor?.energy)
+				readout += "<br />ENERGY [armor_to_protection_class(armor.energy, compare_to?.armor?.energy)]"
+			if(armor.laser || compare_to?.armor?.laser)
+				readout += "<br />LASER [armor_to_protection_class(armor.laser, compare_to?.armor?.laser)]"
+			if(armor.magic || compare_to?.armor?.magic)
+				readout += "<br />MAGIC [armor_to_protection_class(armor.magic, compare_to?.armor?.magic)]"
+			if(armor.melee || compare_to?.armor?.melee)
+				readout += "<br />MELEE [armor_to_protection_class(armor.melee, compare_to?.armor?.melee)]"
+			if(armor.rad || compare_to?.armor?.rad)
+				readout += "<br />RADIATION [armor_to_protection_class(armor.rad, compare_to?.armor?.rad)]"
+			if(armor.stamina || compare_to?.armor?.stamina)
+				readout += "<br />STAMINA [armor_to_protection_class(armor.stamina, compare_to?.armor?.stamina)]"
 		if(armor.fire || armor.acid)
-			readout += "\n<b>DURABILITY (I-X)</b>"
-			if(armor.fire)
-				readout += "\nFIRE [armor_to_protection_class(armor.fire)]"
-			if(armor.acid)
-				readout += "\nACID [armor_to_protection_class(armor.acid)]"
+			readout += "<br /><b>DURABILITY (I-X)</b>"
+			if(armor.fire || compare_to?.armor?.fire)
+				readout += "<br />FIRE [armor_to_protection_class(armor.fire, compare_to?.armor?.fire)]"
+			if(armor.acid || compare_to?.armor?.acid)
+				readout += "<br />ACID [armor_to_protection_class(armor.acid, compare_to?.armor?.acid)]"
 		if(flags_cover & HEADCOVERSMOUTH)
-			readout += "\n<b>COVERAGE</b>"
-			readout += "\nIt will block Facehuggers."
+			readout += "<br /><b>COVERAGE</b>"
+			readout += "<br />It will block Facehuggers."
 			/* We dont have the tooltips for this
 			readout += "<span class='tooltip'>Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them</span>."
 			*/
 
 		readout += "</span>"
 
-		to_chat(usr, "[readout.Join()]")
+		to_chat(usr, EXAMINE_BLOCK("[readout.Join()]"))
 
 /**
  * Rounds armor_value down to the nearest 10, divides it by 10 and then converts it to Roman numerals.
@@ -217,10 +223,15 @@
  * Arguments:
  * * armor_value - Number we're converting
  */
-/obj/item/clothing/proc/armor_to_protection_class(armor_value)
+/obj/item/clothing/proc/armor_to_protection_class(armor_value, compare_value)
 	if (armor_value < 0)
 		. = "-"
 	. += "\Roman[round(abs(armor_value), 10) / 10]"
+	if (!isnull(compare_value))
+		if (armor_value > compare_value)
+			. = "<span class='green'>[.]</span>"
+		else if (armor_value < compare_value)
+			. = "<span class='red'>[.]</span>"
 
 /obj/item/clothing/obj_break(damage_flag)
 	if(!damaged_clothes)
