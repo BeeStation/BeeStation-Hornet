@@ -397,13 +397,13 @@
 			if(4)
 				if(prob(75))
 					to_chat(M, "You scratch at an itch.")
-					M.adjustBruteLoss(2*REM, 0)
+					M.apply_damage(/datum/damage_source/chemical,  BRUTE, 2*REM, null, 0)
 					. = 1
 	..()
 
 /datum/reagent/toxin/histamine/overdose_process(mob/living/M)
 	M.adjustOxyLoss(2*REM, 0)
-	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
+	M.apply_damage(/datum/damage_source/chemical,  BRUTE, 2*REM, FALSE, null, FALSE, BODYTYPE_ORGANIC)
 	M.adjustToxLoss(2*REM, 0)
 	..()
 	. = 1
@@ -533,15 +533,15 @@
 /datum/reagent/toxin/itching_powder/on_mob_life(mob/living/carbon/M)
 	if(prob(15))
 		to_chat(M, "You scratch at your head.")
-		M.adjustBruteLoss(0.2*REM, 0)
+		M.apply_damage(/datum/damage_source/chemical,  BRUTE, 0.2*REM, null, 0)
 		. = 1
 	if(prob(15))
 		to_chat(M, "You scratch at your leg.")
-		M.adjustBruteLoss(0.2*REM, 0)
+		M.apply_damage(/datum/damage_source/chemical,  BRUTE, 0.2*REM, null, 0)
 		. = 1
 	if(prob(15))
 		to_chat(M, "You scratch at your arm.")
-		M.adjustBruteLoss(0.2*REM, 0)
+		M.apply_damage(/datum/damage_source/chemical,  BRUTE, 0.2*REM, null, 0)
 		. = 1
 	if(prob(3))
 		M.reagents.add_reagent(/datum/reagent/toxin/histamine,rand(1,3))
@@ -735,7 +735,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.bleed_rate = min(H.bleed_rate + 2, 8)
-		H.adjustBruteLoss(1, 0) //Brute damage increases with the amount they're bleeding
+		H.apply_damage(/datum/damage_source/chemical,  BRUTE, 1, null, 0) //Brute damage increases with the amount they're bleeding
 		. = 1
 	return ..() || .
 
@@ -805,10 +805,10 @@
 		return
 	reac_volume = round(reac_volume,0.1)
 	if(method == INGEST)
-		C.adjustBruteLoss(min(6*toxpwr, reac_volume * toxpwr))
+		C.apply_damage(/datum/damage_source/chemical,  BRUTE, min(6*toxpwr, reac_volume * toxpwr), null)
 		return
 	if(method == INJECT)
-		C.adjustBruteLoss(1.5 * min(6*toxpwr, reac_volume * toxpwr))
+		C.apply_damage(/datum/damage_source/chemical,  BRUTE, 1.5 * min(6*toxpwr, reac_volume * toxpwr), null)
 		return
 	C.acid_act(acidpwr, reac_volume)
 

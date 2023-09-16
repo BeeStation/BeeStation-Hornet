@@ -893,7 +893,8 @@ Striking a noncultist, however, will tear their flesh."}
 					var/mob/living/L = target
 					if(L.density)
 						L.Paralyze(20)
-						L.adjustBruteLoss(45)
+						var/datum/damage_source/magic/religion/damage_source = FIND_DAMAGE_SOURCE
+						damage_source.apply_direct(L, BRUTE, 45, null)
 						playsound(L, 'sound/hallucinations/wail.ogg', 50, 1)
 						L.emote("scream")
 		user.Beam(temp_target, icon_state="blood_beam", time = 7, beam_type = /obj/effect/ebeam/blood)

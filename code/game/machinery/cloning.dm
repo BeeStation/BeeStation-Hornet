@@ -496,7 +496,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 
 	if(HAS_TRAIT(mob_occupant, TRAIT_NOCLONELOSS))
 		var/cl_loss = mob_occupant.getCloneLoss()
-		mob_occupant.adjustBruteLoss(cl_loss, FALSE)
+		var/datum/damage_source/body/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(mob_occupant, BRUTE, cl_loss, null, FALSE)
 		mob_occupant.setCloneLoss(0, FALSE, TRUE)
 
 	current_insurance = null

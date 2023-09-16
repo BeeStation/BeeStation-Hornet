@@ -109,7 +109,8 @@
 		var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.5
 		H.apply_damage(/datum/damage_source/impact, /datum/damage/brute, amount_total * 0.45, BODY_ZONE_L_LEG)
 		H.apply_damage(/datum/damage_source/impact, /datum/damage/brute, amount_total * 0.45, BODY_ZONE_R_LEG)
-		H.adjustBruteLoss(amount_total * 0.1)
+		// Finally, deal overall damage
+		H.apply_damage(/datum/damage_source/impact, /datum/damage/brute, amount_total * 0.45)
 		H.Stun(levels * 50)
 		// SPLAT!
 		// 5: 25%, 4: 16%, 3: 9%

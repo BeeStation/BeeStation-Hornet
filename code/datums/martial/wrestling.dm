@@ -297,11 +297,13 @@
 
 			switch(rand(1,3))
 				if (2)
-					D.adjustBruteLoss(rand(20,30))
+					var/datum/damage_source/impact/damage_source = FIND_DAMAGE_SOURCE
+					damage_source.apply_direct(D, BRUTE, rand(20,30), null)
 				if (3)
 					D.ex_act(EXPLODE_LIGHT)
 				else
-					D.adjustBruteLoss(rand(10,20))
+					var/datum/damage_source/impact/damage_source = FIND_DAMAGE_SOURCE
+					damage_source.apply_direct(D, BRUTE, rand(10,20), null)
 		else
 			D.ex_act(EXPLODE_LIGHT)
 
@@ -334,7 +336,8 @@
 
 		D.visible_message("<span class='danger'><B>[A] headbutts [D]!</B></span>", \
 						"<span class='userdanger'>[A] headbutts you!</span>", null, COMBAT_MESSAGE_RANGE)
-		D.adjustBruteLoss(rand(10,20))
+		var/datum/damage_source/damage_source = GET_DAMAGE_SOURCE(A.dna.species.damage_type)
+		damage_source.apply_direct(D, BRUTE, rand(10,20), null)
 		playsound(A.loc, "swing_hit", 50, 1)
 		D.Unconscious(20)
 	log_combat(A, D, "headbutted")
@@ -349,7 +352,8 @@
 	D.visible_message("<span class='danger'><B>[A] roundhouse-kicks [D]!</B></span>", \
 					"<span class='userdanger'>[A] roundhouse-kicks you!</span>", null, COMBAT_MESSAGE_RANGE)
 	playsound(A.loc, "swing_hit", 50, 1)
-	D.adjustBruteLoss(rand(10,20))
+	var/datum/damage_source/blunt/light/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(D, BRUTE, rand(10,20), null)
 
 	var/turf/T = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))
 	if (T && isturf(T))
@@ -391,7 +395,8 @@
 			if (falling == 1)
 				A.visible_message("<span class='danger'><B>...and dives head-first into the ground, ouch!</B></span>", \
 								"<span class='userdanger'>...and dive head-first into the ground, ouch!</span>")
-				A.adjustBruteLoss(rand(10,20))
+				var/datum/damage_source/impact/damage_source = FIND_DAMAGE_SOURCE
+				damage_source.apply_direct(A, BRUTE, rand(10,20), null)
 				A.Paralyze(60)
 			to_chat(A, "[D] is too far away!")
 			return 0
@@ -418,9 +423,11 @@
 			if (prob(33) || D.stat)
 				D.ex_act(EXPLODE_LIGHT)
 			else
-				D.adjustBruteLoss(rand(20,30))
+				var/datum/damage_source/impact/damage_source = FIND_DAMAGE_SOURCE
+				damage_source.apply_direct(D, BRUTE, rand(20,30), null)
 		else
-			D.adjustBruteLoss(rand(20,30))
+			var/datum/damage_source/impact/damage_source = FIND_DAMAGE_SOURCE
+			damage_source.apply_direct(D, BRUTE, rand(20,30), null)
 
 		D.Paralyze(40)
 

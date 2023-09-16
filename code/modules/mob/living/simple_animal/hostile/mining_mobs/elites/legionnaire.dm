@@ -129,13 +129,13 @@
 		to_chat(L, "<span class='userdanger'>[src] grabs you and throws you with much force!</span>")
 		L.safe_throw_at(throwtarget, 10, 1, src)
 		L.Paralyze(20)
-		L.adjustBruteLoss(50)
+		L.apply_damage(/datum/damage_source/impact,  BRUTE, 50, null)
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_2), move_dir, (times_ran + 1)), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/head_detach(target)
 	ranged_cooldown = world.time + 10
 	if(myhead != null)
-		myhead.adjustBruteLoss(600)
+		myhead.apply_damage(/datum/damage_source/impact,  BRUTE, 600, null)
 		return
 	if(has_head)
 		has_head = FALSE

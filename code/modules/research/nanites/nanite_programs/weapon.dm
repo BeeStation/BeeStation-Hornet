@@ -12,7 +12,7 @@
 		var/mob/living/carbon/C = host_mob
 		C.take_bodypart_damage(1, 0, 0)
 	else
-		host_mob.adjustBruteLoss(1, TRUE)
+		host_mob.apply_damage(/datum/damage_source/chemical,  BRUTE, 1, null, TRUE)
 	if(prob(3))
 		to_chat(host_mob, "<span class='warning'>You feel a stab of pain from somewhere inside you.</span>")
 
@@ -52,7 +52,7 @@
 /datum/nanite_program/aggressive_replication/active_effect()
 	var/extra_regen = round(nanites.nanite_volume / 200, 0.1)
 	nanites.adjust_nanites(null, extra_regen)
-	host_mob.adjustBruteLoss(extra_regen / 2, TRUE)
+	host_mob.apply_damage(/datum/damage_source/body,  BRUTE, extra_regen / 2, null, TRUE)
 
 /datum/nanite_program/meltdown
 	name = "Meltdown"

@@ -32,12 +32,14 @@
 	for(var/mob/living/living_mob in range(1, user) - user)
 		if(IS_HERETIC_OR_MONSTER(living_mob))
 			continue
-		living_mob.adjustBruteLoss(40)
+		var/datum/damage_source/magic/religion/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(living_mob, BRUTE, 40, null)
 
 	for(var/mob/living/living_mob in range(1, targeted_turf) - user)
 		if(IS_HERETIC_OR_MONSTER(living_mob))
 			continue
-		living_mob.adjustBruteLoss(40)
+		var/datum/damage_source/magic/religion/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(living_mob, BRUTE, 40, null)
 
 	do_teleport(user,targeted_turf,TRUE,no_effects = TRUE,channel=TELEPORT_CHANNEL_MAGIC)
 

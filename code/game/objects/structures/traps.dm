@@ -216,7 +216,8 @@
 /obj/structure/trap/damage/trap_effect(mob/living/L)
 	to_chat(L, "<span class='danger'><B>The ground quakes beneath your feet!</B></span>")
 	L.Paralyze(100)
-	L.adjustBruteLoss(35)
+	var/datum/damage_source/magic/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(L, BRUTE, 35, null)
 
 /obj/structure/trap/damage/flare()
 	..()

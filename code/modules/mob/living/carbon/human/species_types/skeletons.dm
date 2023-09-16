@@ -38,7 +38,7 @@
 		return TRUE
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
 		H.adjustStaminaLoss(7.5, 0)
-		H.adjustBruteLoss(0.5, 0)
+		H.apply_damage(/datum/damage_source/chemical,  BRUTE, 0.5, null, 0)
 		if(prob(20))
 			switch(rand(1, 3))
 				if(1)

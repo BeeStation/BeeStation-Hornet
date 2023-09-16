@@ -68,7 +68,7 @@
 	//keep damage?
 	if (tr_flags & TR_KEEPDAMAGE)
 		O.setToxLoss(getToxLoss(), 0)
-		O.adjustBruteLoss(getBruteLoss(), 0)
+		O.apply_damage(/datum/damage_source/abstract, BRUTE, getBruteLoss(), null)
 		O.setOxyLoss(getOxyLoss(), 0)
 		O.setCloneLoss(getCloneLoss(), 0)
 		O.adjustFireLoss(getFireLoss(), 0)
@@ -218,7 +218,7 @@
 	//keep damage?
 	if (tr_flags & TR_KEEPDAMAGE)
 		O.setToxLoss(getToxLoss(), 0)
-		O.adjustBruteLoss(getBruteLoss(), 0)
+		O.apply_damage(/datum/damage_source/abstract, BRUTE, getBruteLoss(), null)
 		O.setOxyLoss(getOxyLoss(), 0)
 		O.setCloneLoss(getCloneLoss(), 0)
 		O.adjustFireLoss(getFireLoss(), 0)
@@ -365,7 +365,7 @@
 	//keep damage?
 	if (tr_flags & TR_KEEPDAMAGE)
 		O.setToxLoss(getToxLoss(), 0)
-		O.adjustBruteLoss(getBruteLoss(), 0)
+		O.apply_damage(/datum/damage_source/abstract, BRUTE, getBruteLoss(), null)
 		O.setOxyLoss(getOxyLoss(), 0)
 		O.setCloneLoss(getCloneLoss(), 0)
 		O.adjustFireLoss(getFireLoss(), 0)

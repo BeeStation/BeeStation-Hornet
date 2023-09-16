@@ -25,7 +25,8 @@
 	M.apply_damage(/datum/damage_source/chemical, /datum/damage/brute, 0.2*reac_volume)
 
 /datum/reagent/blob/cryogenic_poison/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(0.3*REAGENTS_EFFECT_MULTIPLIER, 0)
+	var/datum/damage_source/chemical/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(M, BRUTE, 0.3*REAGENTS_EFFECT_MULTIPLIER, null, 0)
 	M.adjustFireLoss(0.3*REAGENTS_EFFECT_MULTIPLIER, 0)
 	M.adjustToxLoss(0.3*REAGENTS_EFFECT_MULTIPLIER, 0)
 	. = 1

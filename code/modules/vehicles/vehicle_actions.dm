@@ -251,7 +251,7 @@
 		if(prob(15))
 			V.visible_message("<span class='userdanger'>You smack against the board, hard.</span>", "<span class='danger'>[L] misses the landing and falls on [L.p_their()] face!</span>")
 			L.emote("scream")
-			L.adjustBruteLoss(10)  // thats gonna leave a mark
+			L.apply_damage(/datum/damage_source/impact,  BRUTE, 10, null)  // thats gonna leave a mark
 			return
 		V.visible_message("<span class='userdanger'>You fall flat onto the board!</span>", "<span class='danger'>[L] misses the landing and falls on [L.p_their()] face!</span>")
 	else

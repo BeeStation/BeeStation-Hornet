@@ -90,7 +90,7 @@
 	display_results(user, target, "<span class='warning'>You screw up, brusing [target]'s chest!</span>",
 		"<span class='warning'>[user] screws up, brusing [target]'s chest!</span>",
 		"<span class='warning'>[user] screws up!</span>")
-	target.adjustBruteLoss(5)
+	target.apply_damage(/datum/damage_source/sharp/incision,  BRUTE, 5, null)
 
 /datum/surgery/blood_filter/upgraded
 	name = "Filter Blood (Adv.)"

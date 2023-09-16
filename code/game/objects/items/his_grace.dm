@@ -95,7 +95,8 @@
 				master.remove_status_effect(STATUS_EFFECT_HISGRACE)
 				REMOVE_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
 				master.Paralyze(60)
-				master.adjustBruteLoss(master.maxHealth)
+				var/datum/damage_source/damage_source = GET_DAMAGE_SOURCE(damtype)
+				damage_source.apply_direct(master, BRUTE, master.maxHealth, null)
 				playsound(master, 'sound/effects/splat.ogg', 100, 0)
 			else
 				master.apply_status_effect(STATUS_EFFECT_HISGRACE)
@@ -119,7 +120,8 @@
 			do_attack_animation(L, null, src)
 			playsound(L, 'sound/weapons/smash.ogg', 50, 1)
 			playsound(L, 'sound/misc/desecration-01.ogg', 50, 1)
-			L.adjustBruteLoss(force)
+			var/datum/damage_source/damage_source = GET_DAMAGE_SOURCE(damtype)
+			damage_source.apply_direct(L, BRUTE, force, null)
 			adjust_bloodthirst(-5) //Don't stop attacking they're right there!
 		else
 			consume(L)
@@ -181,7 +183,8 @@
 		return
 	var/victims = 0
 	meal.visible_message("<span class='warning'>[src] swings open and devours [meal]!</span>", "<span class='his_grace big bold'>[src] consumes you!</span>")
-	meal.adjustBruteLoss(200)
+	var/datum/damage_source/damage_source = GET_DAMAGE_SOURCE(damtype)
+	damage_source.apply_direct(meal, BRUTE, 200, null)
 	playsound(meal, 'sound/misc/desecration-02.ogg', 75, 1)
 	playsound(src, 'sound/items/eatfood.ogg', 100, 1)
 	meal.forceMove(src)

@@ -157,9 +157,9 @@
 		if(1)
 			death()
 		if(2)
-			adjustBruteLoss(60)
+			apply_damage(/datum/damage_source/explosion, BRUTE, 60, null)
 		if(3)
-			adjustBruteLoss(30)
+			apply_damage(/datum/damage_source/explosion, BRUTE, 30, null)
 
 /mob/living/simple_animal/slaughter/laughter/proc/release_friends()
 	if(!consumed_mobs)

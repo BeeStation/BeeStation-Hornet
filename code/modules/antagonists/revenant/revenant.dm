@@ -229,7 +229,7 @@
 	if(istype(W, /obj/item/nullrod))
 		visible_message("<span class='warning'>[src] violently flinches!</span>", \
 						"<span class='revendanger'>As \the [W] passes through you, you feel your essence draining away!</span>")
-		adjustBruteLoss(25) //hella effective
+		apply_damage(/datum/damage_source/magic, BRUTE, 25, null)
 		inhibited = TRUE
 		update_action_buttons_icon()
 		addtimer(CALLBACK(src, PROC_REF(reset_inhibit)), 30)

@@ -35,7 +35,7 @@
 				"Blood pools around the incision in [H]'s heart.",
 				"")
 			H.bleed_rate += 10
-			H.adjustBruteLoss(10)
+			H.apply_damage(/datum/damage_source/sharp/incision,  BRUTE, 10, null)
 	return TRUE
 
 /datum/surgery_step/incise_heart/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -46,7 +46,7 @@
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest!</span>")
 		H.bleed_rate += 20
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 10)
-		H.adjustBruteLoss(10)
+		H.apply_damage(/datum/damage_source/sharp/incision,  BRUTE, 10, null)
 
 //grafts a coronary bypass onto the individual's heart, success chance is 90% base again
 /datum/surgery_step/coronary_bypass

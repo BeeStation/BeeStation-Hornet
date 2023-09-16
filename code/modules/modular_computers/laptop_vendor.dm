@@ -245,36 +245,36 @@
 		ui = new(user, src, "ComputerFabricator")
 		ui.open()
 
-/obj/machinery/lapvend/attackby(obj/item/I, mob/user)
+/obj/machinery/lapvend/item_interact(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/spacecash))
 		var/obj/item/stack/spacecash/c = I
 		if(!user.temporarilyRemoveItemFromInventory(c))
-			return
+			return TRUE
 		credits += c.value
 		visible_message("<span class='info'><span class='name'>[user]</span> inserts [c.value] credits into [src].</span>")
 		qdel(c)
 		ui_update()
-		return
+		return TRUE
 	else if(istype(I, /obj/item/holochip))
 		var/obj/item/holochip/HC = I
 		credits += HC.credits
 		visible_message("<span class='info'>[user] inserts a $[HC.credits] holocredit chip into [src].</span>")
 		qdel(HC)
 		ui_update()
-		return
+		return TRUE
 	else if(istype(I, /obj/item/card/id))
 		if(state != 2)
-			return
+			return TRUE
 		var/obj/item/card/id/ID = I
 		var/datum/bank_account/account = ID.registered_account
 		var/target_credits = total_price - credits
 		if(!account.adjust_money(-target_credits))
 			say("Insufficient money on card to purchase!")
-			return
+			return TRUE
 		credits += target_credits
 		say("[target_credits] cr have been withdrawn from your account.")
 		ui_update()
-		return
+		return TRUE
 	return ..()
 
 // Simplified payment processing, returns 1 on success.

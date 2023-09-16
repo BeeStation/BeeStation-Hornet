@@ -306,7 +306,7 @@
 			adjust_nutrition(-(50 + (40 * M.is_adult)))
 			M.add_nutrition(25 + (20 * M.is_adult))
 		if(health > 0)
-			M.adjustBruteLoss(-10 + (-10 * M.is_adult))
+			M.apply_damage(/datum/damage_source/slime,  BRUTE, -10 + (-10 * M.is_adult), null)
 			M.updatehealth()
 
 /mob/living/simple_animal/slime/attack_animal(mob/living/simple_animal/M)

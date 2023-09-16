@@ -88,7 +88,7 @@
 		var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
 		to_chat(M, "<span class='notice'>[high_message]</span>")
 	if(prob(8))
-		M.adjustBruteLoss(rand(1,4))
+		M.apply_damage(/datum/damage_source/chemical,  BRUTE, rand(1,4), null)
 		M.Stun(5, 0)
 		to_chat(M, "<span class='notice'>You stop to furiously scratch at your skin.</span>")
 	M.AdjustStun(-20, FALSE)
@@ -104,7 +104,7 @@
 /datum/reagent/drug/crank/overdose_process(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM)
 	M.adjustToxLoss(2*REM, 0)
-	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
+	M.apply_damage(/datum/damage_source/chemical,  BRUTE, 2*REM, FALSE, null, FALSE, BODYTYPE_ORGANIC)
 	..()
 	. = 1
 
@@ -118,14 +118,14 @@
 	. = 1
 
 /datum/reagent/drug/crank/addiction_act_stage3(mob/living/M)
-	M.adjustBruteLoss(5*REM, 0)
+	M.apply_damage(/datum/damage_source/chemical,  BRUTE, 5*REM, null, 0)
 	..()
 	. = 1
 
 /datum/reagent/drug/crank/addiction_act_stage4(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3*REM)
 	M.adjustToxLoss(5*REM, 0)
-	M.adjustBruteLoss(5*REM, 0)
+	M.apply_damage(/datum/damage_source/chemical,  BRUTE, 5*REM, null, 0)
 	..()
 	. = 1
 
@@ -165,7 +165,7 @@
 /datum/reagent/drug/krokodil/addiction_act_stage3(mob/living/M)
 	if(prob(25))
 		to_chat(M, "<span class='danger'>Your skin starts to peel away...</span>")
-	M.adjustBruteLoss(3*REM, 0)
+	M.apply_damage(/datum/damage_source/chemical,  BRUTE, 3*REM, null, 0)
 	..()
 	. = 1
 
@@ -174,13 +174,13 @@
 	if(ishumanbasic(M))
 		if(!istype(M.dna.species, /datum/species/human/krokodil_addict))
 			to_chat(M, "<span class='userdanger'>Your skin falls off easily!</span>")
-			M.adjustBruteLoss(50*REM, 0) // holy shit your skin just FELL THE FUCK OFF
+			M.apply_damage(/datum/damage_source/chemical,  BRUTE, 50*REM, null, 0) // holy shit your skin just FELL THE FUCK OFF
 			M.set_species(/datum/species/human/krokodil_addict)
 		else
-			M.adjustBruteLoss(5*REM, 0)
+			M.apply_damage(/datum/damage_source/chemical,  BRUTE, 5*REM, null, 0)
 	else
 		to_chat(M, "<span class='danger'>Your skin peels and tears!</span>")
-		M.adjustBruteLoss(5*REM, 0) // repeats 5 times and then you get over it
+		M.apply_damage(/datum/damage_source/chemical,  BRUTE, 5*REM, null, 0) // repeats 5 times and then you get over it
 
 	..()
 	. = 1

@@ -1119,7 +1119,7 @@
 		return TRUE
 
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
-		H.adjustBruteLoss(0.5, 0)
+		apply_damage(/datum/damage_source/chemical, BRUTE, 0.5, null, FALSE)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
 		return TRUE
 	return ..()

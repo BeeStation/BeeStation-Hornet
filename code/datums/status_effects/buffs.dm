@@ -38,7 +38,7 @@
 
 /datum/status_effect/void_price/tick()
 	SEND_SOUND(owner, sound('sound/magic/summon_karp.ogg', volume = 25))
-	owner.adjustBruteLoss(3)
+	owner.apply_damage(/datum/damage_source/magic, BRUTE, 3)
 
 /datum/status_effect/cyborg_power_regen
 	id = "power_regen"

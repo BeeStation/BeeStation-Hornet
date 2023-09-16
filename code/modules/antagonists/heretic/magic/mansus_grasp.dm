@@ -74,12 +74,13 @@
 	if(SEND_SIGNAL(heretic, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, hit) & COMPONENT_BLOCK_CHARGE_USE)
 		return FALSE
 
-	hit.adjustBruteLoss(10)
+	var/datum/damage_source/magic/religion/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(hit, BRUTE, 10, null)
 	if(iscarbon(hit))
 		var/mob/living/carbon/carbon_hit = hit
 		carbon_hit.AdjustKnockdown(5 SECONDS)
 		carbon_hit.adjustStaminaLoss(80)
-		carbon_hit.adjustBruteLoss(10)
+		damage_source.apply_direct(carbon_hit, BRUTE, 10, null)
 		carbon_hit.silent = 3 SECONDS
 
 	use_charge(heretic)

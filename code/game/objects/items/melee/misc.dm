@@ -126,11 +126,13 @@
 	if(!QDELETED(affecting) && affecting.dismemberable && affecting.owner == user && !QDELETED(user))
 		playsound(user, hitsound, 25, 1)
 		affecting.dismember(BRUTE)
-		user.adjustBruteLoss(20)
+		var/datum/damage_source/damage_source = GET_DAMAGE_SOURCE(damtype)
+		damage_source.apply_direct(user, BRUTE, 20, null)
 
 /obj/item/melee/sabre/proc/manual_suicide(mob/living/user, originally_nodropped)
 	if(!QDELETED(user))
-		user.adjustBruteLoss(200)
+		var/datum/damage_source/damage_source = GET_DAMAGE_SOURCE(damtype)
+		damage_source.apply_direct(user, BRUTE, 200, null)
 		user.death(FALSE)
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 

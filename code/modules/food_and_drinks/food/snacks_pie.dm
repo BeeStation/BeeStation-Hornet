@@ -74,7 +74,8 @@
 				M.visible_message("[src] bursts out of [M]!</span>")
 			M.emote("scream")
 			M.Knockdown(40)
-			M.adjustBruteLoss(60)
+			var/datum/damage_source/consumption/damage_source = FIND_DAMAGE_SOURCE
+			damage_source.apply_direct(M, BRUTE, 60, null)
 	return ..()
 
 /obj/item/reagent_containers/food/snacks/pie/berryclafoutis

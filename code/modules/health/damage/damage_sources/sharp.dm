@@ -95,6 +95,7 @@
 	run_deepen_wounds(attacker, attacking_item, target, limb, damage, damage_amount, target_zone)
 
 /// Caused by being crushed
+/// Might break some bones
 /datum/damage_source/crush
 	armour_flag = MELEE
 
@@ -129,6 +130,9 @@
 /datum/damage_source/accidental_burn
 	armour_flag = FIRE
 
+/// Caused by external pressure
+/datum/damage_source/pressure
+
 /// Damage caused by exposure to various temperatures.
 /datum/damage_source/temperature
 
@@ -149,6 +153,8 @@
 /datum/damage_source/magic/abstract
 	armour_flag = null
 
+/datum/damage_source/magic/religion
+
 //SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
 //target.stuttering = 20
 //target.do_jitter_animation(20)
@@ -160,6 +166,7 @@
 
 /// Caused by chemicals injested inside the body. Bypasses armour and causes
 /// internal damage.
+/// Only causes damage to organic limbs
 /datum/damage_source/chemical
 
 /// Damage caused by external acid burns. Respects acid armour
@@ -176,6 +183,12 @@
 
 /// Rubber bullets and beanbag bullets.
 /datum/damage_source/bullet/beanbag
+
+/// Unstoppable things like the immovable rod
+/// This will entirely penetrate literally all armour and will rip a giant
+/// hole through your body.
+/datum/damage_source/bullet/unstoppable
+	armour_flag = NONE
 
 /// Laser projectiles
 /datum/damage_source/laser

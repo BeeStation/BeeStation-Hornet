@@ -107,7 +107,7 @@
 
 	if(victim.reagents && victim.reagents.has_reagent(/datum/reagent/consumable/ethanol/devilskiss, needs_metabolizing = TRUE))
 		to_chat(src, "<span class='warning'><b>AAH! THEIR FLESH! IT BURNS!</b></span>")
-		adjustBruteLoss(25) //I can't use adjustHealth() here because bloodcrawl affects /mob/living and adjustHealth() only affects simple mobs
+		apply_damage(/datum/damage_source/chemical, BRUTE, 25, null)
 		var/found_bloodpool = FALSE
 		for(var/obj/effect/decal/cleanable/target in range(1,get_turf(victim)))
 			if(target.can_bloodcrawl_in())
@@ -127,7 +127,8 @@
 	src.revive(full_heal = 1)
 
 	// No defib possible after laughter
-	victim.adjustBruteLoss(1000)
+	var/datum/damage_source/abstract/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(victim, BRUTE, 1000, null)
 	victim.death()
 	bloodcrawl_swallow(victim)
 	return TRUE

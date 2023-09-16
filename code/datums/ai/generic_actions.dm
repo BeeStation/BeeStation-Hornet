@@ -55,7 +55,8 @@
 				continue
 			bodypart_to_break.receive_damage(brute = 15)
 	else
-		batman.adjustBruteLoss(150)
+		var/datum/damage_source/crush/crush_source = FIND_DAMAGE_SOURCE
+		crush_source.apply_direct(batman, BRUTE, 150)
 
 	finish_action(controller, TRUE, target_key)
 

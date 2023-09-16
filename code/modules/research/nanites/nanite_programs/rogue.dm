@@ -18,7 +18,7 @@
 	rogue_types = list(/datum/nanite_program/glitch)
 
 /datum/nanite_program/necrotic/active_effect()
-	host_mob.adjustBruteLoss(0.75, TRUE)
+	host_mob.apply_damage(/datum/damage_source/chemical,  BRUTE, 0.75, null, TRUE)
 	if(prob(1))
 		to_chat(host_mob, "<span class='warning'>You feel a mild ache from somewhere inside you.</span>")
 
@@ -90,7 +90,7 @@
 	rogue_types = list(/datum/nanite_program/necrotic)
 
 /datum/nanite_program/skin_decay/active_effect()
-	host_mob.adjustBruteLoss(0.25)
+	host_mob.apply_damage(/datum/damage_source/chemical,  BRUTE, 0.25, null)
 	if(prob(5)) //itching
 		var/picked_bodypart = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 		var/obj/item/bodypart/bodypart = host_mob.get_bodypart(picked_bodypart)

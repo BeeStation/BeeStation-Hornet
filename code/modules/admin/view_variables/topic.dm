@@ -90,6 +90,7 @@
 			switch(Text)
 				if("brute")
 					L.adjustBruteLoss(amount,TRUE,TRUE)
+					H.apply_damage(/datum/damage_source/abstract, BRUTE, damage_here, null)
 					newamt = L.getBruteLoss()
 				if("fire")
 					L.adjustFireLoss(amount,TRUE,TRUE)

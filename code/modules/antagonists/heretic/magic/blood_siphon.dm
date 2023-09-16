@@ -30,8 +30,8 @@
 		"<span class='danger'>You turn pale as a red glow enevelops you!</span>",
 	)
 
-	real_target.adjustBruteLoss(20)
-	living_user.adjustBruteLoss(-20)
+	var/datum/damage_source/magic/damage_source = FIND_DAMAGE_SOURCE
+	living_user.adjustBruteLoss(-damage_source.apply_direct(real_target, BRUTE, 20, null))
 
 	if(!living_user.blood_volume)
 		return

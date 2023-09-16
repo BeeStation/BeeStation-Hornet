@@ -11,7 +11,7 @@
 /mob/living/carbon/alien/larva/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(user.a_intent == INTENT_HARM)
 		..(user, 1)
-		adjustBruteLoss(5 + rand(1,9))
+		apply_damage(/datum/damage_source/blunt/light, BRUTE, 5 + rand(1, 9), null)
 		user.AddComponent(/datum/component/force_move, get_step_away(user,src, 30))
 		return 1
 

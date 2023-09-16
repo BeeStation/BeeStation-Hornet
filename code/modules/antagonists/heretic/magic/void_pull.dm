@@ -17,7 +17,8 @@
 	for(var/mob/living/living_mob in range(1, user) - user)
 		if(IS_HERETIC_OR_MONSTER(living_mob))
 			continue
-		living_mob.adjustBruteLoss(30)
+		var/datum/damage_source/magic/religion/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(living_mob, BRUTE, 30, null)
 
 	playsound(user,'sound/magic/voidblink.ogg',100)
 	new /obj/effect/temp_visual/voidin(user.drop_location())

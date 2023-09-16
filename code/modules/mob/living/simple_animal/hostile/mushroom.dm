@@ -100,7 +100,7 @@
 			if(level_gain < 1)//So we still gain a level if two mushrooms were the same level
 				level_gain = 1
 			M.LevelUp(level_gain)
-		M.adjustBruteLoss(-M.maxHealth)
+		M.apply_damage(/datum/damage_source/sharp/light,  BRUTE, -M.maxHealth, null)
 		qdel(src)
 		return TRUE
 	return ..()

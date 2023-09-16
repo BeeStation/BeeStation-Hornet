@@ -25,7 +25,9 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, 1)
 		swirlie.visible_message("<span class='danger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='userdanger'>[user] slams the toilet seat onto your head!</span>", "<span class='italics'>You hear reverberating porcelain.</span>")
-		swirlie.adjustBruteLoss(5)
+		// The toilet seat has the power of a battle hammer
+		var/datum/damage_source/blunt/heavy/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(swirlie, BRUTE, 5, null)
 
 	else if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -50,7 +52,8 @@
 				else
 					playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
 					GM.visible_message("<span class='danger'>[user] slams [GM.name] into [src]!</span>", "<span class='userdanger'>[user] slams you into [src]!</span>")
-					GM.adjustBruteLoss(5)
+					var/datum/damage_source/impact/damage_source = FIND_DAMAGE_SOURCE
+					damage_source.apply_direct(GM, BRUTE, 5, null)
 		else
 			to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
@@ -142,7 +145,8 @@
 				return
 			user.changeNext_move(CLICK_CD_MELEE)
 			user.visible_message("<span class='danger'>[user] slams [GM] into [src]!</span>", "<span class='danger'>You slam [GM] into [src]!</span>")
-			GM.adjustBruteLoss(8)
+			var/datum/damage_source/impact/damage_source = FIND_DAMAGE_SOURCE
+			damage_source.apply_direct(GM, BRUTE, 8, null)
 		else
 			to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 

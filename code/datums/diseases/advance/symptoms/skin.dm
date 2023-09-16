@@ -452,14 +452,22 @@ Thresholds
 	switch(A.stage)
 		if(2, 3)
 			var/buboes = (rand(1, 3) * power)
-			M.adjustBruteLoss(buboes / 2)
-			M.adjustToxLoss(buboes)
+			// Bursts through the skin and ruptures it
+			var/datum/damage_source/internal_rupture/source = FIND_DAMAGE_SOURCE
+			source.apply_direct(L, BRUTE, buboes / 2)
+			// Releases poisonous chemicals on the way out
+			var/datum/damage_source/chemical/chemical_source = FIND_DAMAGE_SOURCE
+			chemical_source.apply_direct(L, TOX, buboes)
 			pustules = min(pustules + buboes, 10)
 			to_chat(M, "<span class='warning'>painful sores open on your skin!</span>")
 		if(4, 5)
 			var/buboes = (rand(3, 6) * power)
-			M.adjustBruteLoss(buboes / 2)
-			M.adjustToxLoss(buboes)
+			// Bursts through the skin and ruptures it
+			var/datum/damage_source/internal_rupture/source = FIND_DAMAGE_SOURCE
+			source.apply_direct(L, BRUTE, buboes / 2)
+			// Releases poisonous chemicals on the way out
+			var/datum/damage_source/chemical/chemical_source = FIND_DAMAGE_SOURCE
+			chemical_source.apply_direct(L, TOX, buboes)
 			pustules = min(pustules + buboes, 20)
 			to_chat(M, "<span class='warning'>painful sores open on your skin!</span>")
 			if((prob(pustules * 5) || pustules >= 20) && shoot)

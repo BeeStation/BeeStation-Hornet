@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		return
 	switch(type)
 		if("bruteloss")
-			target.adjustBruteLoss(amount)
+			target.apply_damage(/datum/damage_source/abstract,  BRUTE, amount, null)
 		if("fireloss")
 			target.adjustFireLoss(amount)
 		if("toxloss")

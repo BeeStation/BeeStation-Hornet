@@ -107,7 +107,8 @@
 		if(isliving(AM))
 			var/mob/living/L = AM
 			L.Paralyze(100)
-			L.adjustBruteLoss(30)
+			var/datum/damage_source/impact/source = FIND_DAMAGE_SOURCE
+			source.apply_direct(L, BRUTE, 30)
 		falling_atoms -= falling_ref
 
 	else

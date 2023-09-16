@@ -78,7 +78,8 @@
 			L.forceMove(drop_location())
 			L.emote("scream")
 			L.add_splatter_floor()
-			L.adjustBruteLoss(30)
+			var/datum/damage_source/sharp/heavy/damage_source = FIND_DAMAGE_SOURCE
+			damage_source.apply_direct(L, BRUTE, 30, null)
 			L.setDir(2)
 			buckle_mob(L, force=1)
 			var/matrix/m180 = matrix(L.transform)
@@ -116,7 +117,8 @@
 			"<span class='warning'>[M] struggles to break free from [src]!</span>",\
 			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
-			M.adjustBruteLoss(30)
+			var/datum/damage_source/sharp/heavy/damage_source = FIND_DAMAGE_SOURCE
+			damage_source.apply_direct(M, BRUTE, 30, null)
 			if(!do_after(M, 1200, target = src, timed_action_flags = IGNORE_RESTRAINED))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
@@ -130,7 +132,8 @@
 	m180.Turn(180)
 	animate(M, transform = m180, time = 3)
 	M.pixel_y = M.base_pixel_y + PIXEL_Y_OFFSET_LYING
-	M.adjustBruteLoss(30)
+	var/datum/damage_source/sharp/heavy/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(M, BRUTE, 30, null)
 	src.visible_message("<span class='danger'>[M] falls free of [src]!</span>")
 	unbuckle_mob(M,force=1)
 	M.emote("scream")

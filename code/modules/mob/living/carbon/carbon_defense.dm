@@ -175,7 +175,7 @@
 		return
 	else
 		show_message("<span class='userdanger'>The blob attacks!</span>")
-		adjustBruteLoss(10)
+		apply_damage(/datum/damage_source/blob, BRUTE, 10, null)
 
 /mob/living/carbon/emp_act(severity)
 	. = ..()

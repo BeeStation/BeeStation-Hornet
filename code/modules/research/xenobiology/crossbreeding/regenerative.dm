@@ -261,7 +261,7 @@ Regenerative extracts:
 		T.dna.transfer_identity(D)
 		D.updateappearance(mutcolor_update=1)
 		D.real_name = T.real_name
-	dummy.adjustBruteLoss(target.getBruteLoss())
+	dummy.apply_damage(/datum/damage_source/slime,  BRUTE, target.getBruteLoss(), null)
 	dummy.adjustFireLoss(target.getFireLoss())
 	dummy.adjustToxLoss(target.getToxLoss())
 	dummy.adjustOxyLoss(200)

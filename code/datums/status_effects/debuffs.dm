@@ -324,7 +324,8 @@
 	for(var/obj/item/his_grace/HG in owner.held_items)
 		qdel(src)
 		return
-	owner.adjustBruteLoss(0.1)
+	var/datum/damage_source/magic/abstract/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(owner, BRUTE, 0.1, null)
 	owner.adjustFireLoss(0.1)
 	owner.adjustToxLoss(0.2, TRUE, TRUE)
 
@@ -443,7 +444,8 @@
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
 		playsound(T, "desecration", 200, 1, -1)
-		owner.adjustBruteLoss(bleed_damage)
+		var/datum/damage_source/body/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(owner, BRUTE, bleed_damage, null)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
 

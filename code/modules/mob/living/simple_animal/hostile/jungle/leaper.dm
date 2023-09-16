@@ -239,7 +239,7 @@
 	notransform = FALSE
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, 1)
 	for(var/mob/living/L in orange(1, src))
-		L.adjustBruteLoss(35)
+		L.apply_damage(/datum/damage_source/crush,  BRUTE, 35, null)
 		if(!QDELETED(L)) // Some mobs are deleted on death
 			var/throw_dir = get_dir(src, L)
 			if(L.loc == loc)

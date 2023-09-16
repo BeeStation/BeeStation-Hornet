@@ -218,7 +218,8 @@
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
 		victim.adjustStaminaLoss(stun_time)
-		victim.adjustBruteLoss(damage)
+		var/datum/damage_source/explosion/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(victim, BRUTE, damage, null)
 
 /obj/effect/mine/shrapnel
 	name = "shrapnel mine"

@@ -424,7 +424,8 @@
 		H.bleed_rate = 5
 		H.gib_animation()
 		sleep(3)
-		H.adjustBruteLoss(1000) //to make the body super-bloody
+		var/datum/damage_source/explosion/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(H, BRUTE, 1000, null) //to make the body super-bloody
 		H.spawn_gibs()
 		H.spill_organs()
 		H.spread_bodyparts()

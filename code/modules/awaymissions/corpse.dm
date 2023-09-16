@@ -91,7 +91,8 @@
 		M.death(1) //Kills the new mob
 
 	M.adjustOxyLoss(oxy_damage)
-	M.adjustBruteLoss(brute_damage)
+	var/datum/damage_source/abstract/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(M, BRUTE, brute_damage, null)
 	M.adjustFireLoss(burn_damage)
 	M.color = mob_color
 	equip(M)

@@ -113,7 +113,7 @@
 		for(var/mob/living/L in ohearers(5,src))
 			if(L == original || istype(L, type))
 				continue
-			L.adjustBruteLoss(50)
+			L.apply_damage(/datum/damage_source/abstract,  BRUTE, 50, null)
 		qdel(src)
 	else
 		. = ..()

@@ -532,7 +532,8 @@
 
 /obj/item/reagent_containers/food/snacks/lollipop/long/proc/on_trip(mob/living/carbon/user)
 	visible_message("<span class='danger'>[user] is impailed by the [src]!</span>", "<span class='danger'>You are impaled by the [src]!</span>")
-	user.adjustBruteLoss(50)
+	var/datum/damage_source/consumption/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(user, BRUTE, 50, null)
 	user.adjustOxyLoss(50)
 
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg

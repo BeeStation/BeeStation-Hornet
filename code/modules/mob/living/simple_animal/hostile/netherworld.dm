@@ -100,7 +100,7 @@
 	for(var/mob/living/M in contents)
 		if(M)
 			playsound(src, 'sound/magic/demon_consume.ogg', 50, 1)
-			M.adjustBruteLoss(60 * delta_time)
+			M.apply_damage(/datum/damage_source/magic/abstract,  BRUTE, 60 * delta_time, null)
 			new /obj/effect/gibspawner/generic(get_turf(M), M)
 			if(M.stat == DEAD)
 				var/mob/living/simple_animal/hostile/netherworld/blankbody/blank

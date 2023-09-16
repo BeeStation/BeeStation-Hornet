@@ -170,7 +170,7 @@
 		visible_message("<span class='danger'>[src] is torn open, harming the Mothperson within!</span>")
 	for(var/mob/living/carbon/human/H in contents)
 		if(H.has_status_effect(STATUS_EFFECT_COCOONED) && !done_regenerating)
-			H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
+			H.apply_damage(/datum/damage_source/forceful_laceration,  BRUTE, COCOON_HARM_AMOUNT, null, FALSE)
 			H.SetSleeping(0, FALSE)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.dna.species.handle_mutant_bodyparts(H)
@@ -188,7 +188,7 @@
 
 /datum/status_effect/cocooned/tick()
 	owner.SetSleeping(10, TRUE)
-	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), FALSE)
+	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY), FALSE)
 	owner.adjustFireLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), FALSE)
 	owner.adjust_nutrition(-((COCOON_NUTRITION_AMOUNT * 10 ) / (COCOON_EMERGE_DELAY)))
 

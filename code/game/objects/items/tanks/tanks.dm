@@ -141,7 +141,9 @@
 		H.bleed_rate = 5
 		H.gib_animation()
 		sleep(3)
-		H.adjustBruteLoss(1000) //to make the body super-bloody
+		// The pressure will blow everything on the inside out
+		var/datum/damage_source/forceful_laceration/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(H, BRUTE, 1000, null) //to make the body super-bloody
 		H.spawn_gibs()
 		H.spill_organs()
 		H.spread_bodyparts()

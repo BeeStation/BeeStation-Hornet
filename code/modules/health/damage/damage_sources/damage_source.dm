@@ -57,16 +57,17 @@
 	// Not enough damage
 	if (damage_amount <= 0)
 		CLEAR_REFERENCES
-		return
+		return 0
 
 	if (QDELETED(target))
 		CLEAR_REFERENCES
-		return
+		return 0
 
 	// Apply the damage at this point
 	target.damage_apply_damage(src)
 
 	CLEAR_REFERENCES
+	return damage_amount
 
 /// Attacker may be null
 /datum/damage_source/proc/deal_attack(mob/living/attacker, obj/item/attacking_item, atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)

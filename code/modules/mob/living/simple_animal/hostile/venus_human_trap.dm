@@ -44,7 +44,7 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!("vines" in L.faction))
-			L.adjustBruteLoss(5)
+			L.apply_damage(/datum/damage_source/sharp/heavy,  BRUTE, 5, null)
 			to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
 
 /mob/living/simple_animal/hostile/venus_human_trap

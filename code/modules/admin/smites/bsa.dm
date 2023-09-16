@@ -25,7 +25,8 @@
 			/* no_organs = */ TRUE,
 		)
 	else
-		target.adjustBruteLoss(min(BSA_MAX_DAMAGE, target.health - 1))
+		var/datum/damage_source/explosion/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(target, BRUTE, min(BSA_MAX_DAMAGE, target.health - 1), null)
 		target.Paralyze(BSA_PARALYZE_TIME)
 		target.stuttering = BSA_STUTTER_TIME
 

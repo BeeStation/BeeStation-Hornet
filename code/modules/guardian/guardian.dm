@@ -427,7 +427,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(summoner?.current)
 		if(!is_deployed())
 			return FALSE
-		summoner.current.adjustBruteLoss(amount)
+		summoner.current.apply_damage(/datum/damage_source/abstract, BRUTE, amount, null)
 		if(amount > 0)
 			to_chat(summoner.current, "<span class='danger'><B>Your [name] is under attack! You take damage!</span></B>")
 			if(summoner_visible)
@@ -445,9 +445,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			gib()
 			return
 		if(2)
-			adjustBruteLoss(60)
+			apply_damage(/datum/damage_source/explosion, BRUTE, 60, null)
 		if(3)
-			adjustBruteLoss(30)
+			apply_damage(/datum/damage_source/explosion, BRUTE, 30, null)
 
 /mob/living/simple_animal/hostile/guardian/examine(mob/user)
 	. = ..()

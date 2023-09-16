@@ -37,7 +37,7 @@
 				adjustOxyLoss(8)
 				Unconscious(80)
 			// Tissues die without blood circulation
-			adjustBruteLoss(2)
+			apply_damage(/datum/damage_source/body, BRUTE, 2, null)
 
 		dna.species.spec_life(src) // for mutantraces
 

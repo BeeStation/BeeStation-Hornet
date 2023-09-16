@@ -130,7 +130,8 @@
 			return
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
 		L.Stun(40)
-		L.adjustBruteLoss(rand(1,10))
+		var/datum/damage_source/impact/source = FIND_DAMAGE_SOURCE
+		source.apply_direct(L, BRUTE, rand(1,10))
 		latched = TRUE
 	if(!latched)
 		retract()

@@ -332,7 +332,7 @@
 		M.adjustToxLoss(2, 0)
 		M.adjustFireLoss(2, 0)
 		M.adjustOxyLoss(2, 0)
-		M.adjustBruteLoss(2, 0)
+		M.apply_damage(/datum/damage_source/chemical,  BRUTE, 2, null, 0)
 	holder.remove_reagent(type, 1)
 	return TRUE
 
@@ -1171,7 +1171,7 @@
 	taste_description = "acid"
 
 /datum/reagent/space_cleaner/ez_clean/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(3.33)
+	M.apply_damage(/datum/damage_source/chemical,  BRUTE, 3.33, null)
 	M.adjustFireLoss(3.33)
 	M.adjustToxLoss(3.33)
 	..()
@@ -1179,7 +1179,7 @@
 /datum/reagent/space_cleaner/ez_clean/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	..()
 	if((method == TOUCH || method == VAPOR) && !issilicon(M))
-		M.adjustBruteLoss(1.5)
+		M.apply_damage(/datum/damage_source/chemical,  BRUTE, 1.5, null)
 		M.adjustFireLoss(1.5)
 
 /datum/reagent/cryptobiolin
@@ -2169,7 +2169,7 @@
 		M.adjustToxLoss(2, FALSE)
 		M.adjustFireLoss(2, FALSE)
 		M.adjustOxyLoss(2, FALSE)
-		M.adjustBruteLoss(2, FALSE)
+		M.apply_damage(/datum/damage_source/chemical,  BRUTE, 2, null, FALSE)
 	..()
 	return TRUE
 

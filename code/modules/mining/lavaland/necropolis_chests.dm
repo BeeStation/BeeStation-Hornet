@@ -647,8 +647,8 @@
 					newwings.Insert(H)
 				to_chat(C, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
 				playsound(C.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
-				C.adjustBruteLoss(20)
-				C.emote("scream")
+				var/datum/damage_source/forceful_laceration/damage_source = FIND_DAMAGE_SOURCE
+				damage_source.apply_direct(C, BRUTE, 20, null)
 		if(holycheck)
 			to_chat(C, "<span class='notice'>You feel blessed!</span>")
 			ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)

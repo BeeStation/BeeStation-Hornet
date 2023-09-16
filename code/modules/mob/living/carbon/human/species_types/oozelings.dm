@@ -56,7 +56,7 @@
 		return
 	if(!H.blood_volume)
 		H.blood_volume += 5
-		H.adjustBruteLoss(5)
+		H.apply_damage(/datum/damage_source/body,  BRUTE, 5, null)
 		to_chat(H, "<span class='danger'>You feel empty!</span>")
 	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
 		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
@@ -173,7 +173,7 @@
 		"<span class='warning'>You fall [levels] level\s into [T]. Your body flattens upon landing!</span>")
 	H.Paralyze(levels * 8 SECONDS)
 	var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.45
-	H.adjustBruteLoss(amount_total)
+	H.apply_damage(/datum/damage_source/impact,  BRUTE, amount_total, null)
 	playsound(H, 'sound/effects/blobattack.ogg', 40, TRUE)
 	playsound(H, 'sound/effects/splat.ogg', 50, TRUE)
 	H.AddElement(/datum/element/squish, levels * 15 SECONDS)

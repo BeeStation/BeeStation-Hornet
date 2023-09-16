@@ -90,7 +90,8 @@
 			var/turf/trg = get_edge_target_turf(i, pick(NORTH, EAST, SOUTH, WEST))
 			i.throw_at(trg, 8, 8)
 			i.Paralyze(8 SECONDS)
-			i.adjustBruteLoss(15)
+			var/datum/damage_source/crush/damage_source = FIND_DAMAGE_SOURCE
+			damage_source.apply_direct(i, BRUTE, 150, null)
 			i.AddElement(/datum/element/squish, 18 SECONDS)
 			playsound(i, 'sound/effects/blobattack.ogg', 40, TRUE)
 			playsound(i, 'sound/effects/splat.ogg', 50, TRUE)

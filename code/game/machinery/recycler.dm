@@ -192,7 +192,8 @@
 
 	// Instantly lie down, also go unconscious from the pain, before you die.
 	L.Unconscious(100)
-	L.adjustBruteLoss(crush_damage)
+	var/datum/damage_source/crush/damage_source = FIND_DAMAGE_SOURCE
+	damage_source.apply_direct(L, BRUTE, crush_damage, null)
 	L.log_message("has been crushed by a recycler that was emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
 	if(L.stat == DEAD && (L.butcher_results || L.guaranteed_butcher_results))
 		var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering)

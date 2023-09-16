@@ -176,7 +176,7 @@
 /datum/status_effect/slime_clone_decay/tick()
 	owner.adjustToxLoss(1, 0)
 	owner.adjustOxyLoss(1, 0)
-	owner.adjustBruteLoss(1, 0)
+	owner.apply_damage(/datum/damage_source/slime,  BRUTE, 1, null, 0)
 	owner.adjustFireLoss(1, 0)
 	owner.color = "#007BA7"
 
@@ -488,7 +488,7 @@
 /datum/status_effect/stabilized/purple/tick()
 	var/is_healing = FALSE
 	if(owner.getBruteLoss() > 0)
-		owner.adjustBruteLoss(-0.2)
+		owner.apply_damage(/datum/damage_source/slime,  BRUTE, -0.2, null)
 		is_healing = TRUE
 	if(owner.getFireLoss() > 0)
 		owner.adjustFireLoss(-0.2)

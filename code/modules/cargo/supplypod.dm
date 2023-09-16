@@ -256,11 +256,13 @@
 						sleep(1)
 
 		if (effectGib) //effectGib is on, that means whatever's underneath us better be fucking oof'd on
-			target_living.adjustBruteLoss(5000) //THATS A LOT OF DAMAGE (called just in case gib() doesnt work on em)
+			var/datum/damage_source/crush/damage_source = FIND_DAMAGE_SOURCE
+			damage_source.apply_direct(target_living, BRUTE, 5000, null) //THATS A LOT OF DAMAGE (called just in case gib() doesnt work on em)
 			if (!QDELETED(target_living))
 				target_living.gib() //After adjusting the fuck outta that brute loss we finish the job with some satisfying gibs
 		else
-			target_living.adjustBruteLoss(damage)
+			var/datum/damage_source/crush/damage_source = FIND_DAMAGE_SOURCE
+			damage_source.apply_direct(target_living, BRUTE, damage, null)
 	var/explosion_sum = B[1] + B[2] + B[3] + B[4]
 	if (explosion_sum != 0) //If the explosion list isn't all zeroes, call an explosion
 		explosion(turf_underneath, B[1], B[2], B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod)) //less advanced equipment than bluespace pod, so larger explosion when landing

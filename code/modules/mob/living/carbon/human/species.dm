@@ -1045,7 +1045,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		if((H.health <= H.crit_threshold) && takes_crit_damage)
-			H.adjustBruteLoss(1)
+			var/datum/damage_source/body/damage_source = FIND_DAMAGE_SOURCE
+			damage_source.apply_direct(H, BRUTE, 1, null)
 	if(H.getorgan(/obj/item/organ/wings))
 		handle_flight(H)
 
@@ -1855,7 +1856,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	switch(adjusted_pressure)
 		if(HAZARD_HIGH_PRESSURE to INFINITY)
 			if(!HAS_TRAIT(H, TRAIT_RESISTHIGHPRESSURE))
-				H.adjustBruteLoss(min(((adjusted_pressure / HAZARD_HIGH_PRESSURE) -1 ) * PRESSURE_DAMAGE_COEFFICIENT, MAX_HIGH_PRESSURE_DAMAGE) * H.physiology.pressure_mod)
+				H.apply_damage(/datum/damage_source/pressure, BRUTE, min(((adjusted_pressure / HAZARD_HIGH_PRESSURE) -1 ) * PRESSURE_DAMAGE_COEFFICIENT, MAX_HIGH_PRESSURE_DAMAGE), null)
 				H.throw_alert("pressure", /atom/movable/screen/alert/highpressure, 2)
 			else
 				H.clear_alert("pressure")
@@ -1869,7 +1870,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(HAS_TRAIT(H, TRAIT_RESISTLOWPRESSURE))
 				H.clear_alert("pressure")
 			else
-				H.adjustBruteLoss(LOW_PRESSURE_DAMAGE * H.physiology.pressure_mod)
+				H.apply_damage(/datum/damage_source/pressure, BRUTE, LOW_PRESSURE_DAMAGE, null)
 				H.throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
 
 //////////

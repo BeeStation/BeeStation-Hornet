@@ -184,7 +184,8 @@
 				"<span class='userdanger'>You are smashed by a large vine!</span>")
 				log_combat(S, M, "aggressively smashed")
 	else //Living but not a carbon? Maybe a silicon? Can't be wounded so have a big chunk of simple bruteloss with no special effects. They can be entangled.
-		M.adjustBruteLoss(75)
+		var/datum/damage_source/sharp/light/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(M, BRUTE, 75, null)
 		playsound(M, 'sound/weapons/whip.ogg', 50, TRUE, -1)
 		M.visible_message("<span class='danger'>[M] is brutally threshed by [S]!</span>", \
 		"<span class='userdanger'>You are brutally threshed by [S]!</span>")
@@ -256,13 +257,15 @@
 /datum/spacevine_mutation/thorns/on_cross(obj/structure/spacevine/holder, mob/living/crosser)
 	if(prob(severity) && istype(crosser) && !isvineimmune(holder))
 		var/mob/living/M = crosser
-		M.adjustBruteLoss(5)
+		var/datum/damage_source/sharp/light/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(M, BRUTE, 5, null)
 		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
 
 /datum/spacevine_mutation/thorns/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
 	if(prob(severity) && istype(hitter) && !isvineimmune(holder))
 		var/mob/living/M = hitter
-		M.adjustBruteLoss(5)
+		var/datum/damage_source/sharp/light/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(M, BRUTE, 5, null)
 		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
 	. =	expected_damage
 

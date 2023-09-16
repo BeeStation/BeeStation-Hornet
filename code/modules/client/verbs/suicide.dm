@@ -63,7 +63,7 @@
 
 				//Do 200 damage divided by the number of damage types applied.
 				if(damagetype & BRUTELOSS)
-					adjustBruteLoss(200/damage_mod)
+					apply_damage(/datum/damage_source/abstract, BRUTE, 200/damage_mod, null)
 
 				if(damagetype & FIRELOSS)
 					adjustFireLoss(200/damage_mod)
