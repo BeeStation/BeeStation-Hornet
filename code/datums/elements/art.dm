@@ -8,7 +8,7 @@
 	if(!isatom(target) || isarea(target))
 		return ELEMENT_INCOMPATIBLE
 	impressiveness = impress
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/element/art/Detach(datum/target)
 	UnregisterSignal(target, COMSIG_PARENT_EXAMINE)
@@ -37,9 +37,10 @@
 
 /datum/element/art/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
-
+	if(!isliving(user))
+		return
 	if(!INTERACTING_WITH(user, source))
-		INVOKE_ASYNC(src, .proc/appraise, source, user) //Do not sleep the proc.
+		INVOKE_ASYNC(src, PROC_REF(appraise), source, user) //Do not sleep the proc.
 
 /datum/element/art/proc/appraise(atom/source, mob/user)
 	to_chat(user, "<span class='notice'>You start appraising [source]...</span>")
@@ -52,6 +53,7 @@
 
 	apply_moodlet(source, user, impressiveness * mult)
 
+/* when we add it https://github.com/tgstation/tgstation/pull/46163
 /datum/element/art/rev
 
 /datum/element/art/rev/apply_moodlet(atom/source, mob/user, impress)
@@ -64,3 +66,4 @@
 
 	user.visible_message("<span class='notice'>[user] stops to inspect [source].</span>", \
 						 "<span class='notice'>You appraise [source], inspecting the fine craftsmanship of the proletariat... [msg]</span>")
+*/
