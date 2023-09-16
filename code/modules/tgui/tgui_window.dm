@@ -356,6 +356,9 @@
 	// If not locked, handle these message types
 	switch(type)
 		if("ping")
+			if(client)
+				client.afk_end()
+				addtimer(CALLBACK(src, TYPE_PROC_REF(/client, afk_start)), CONFIG_GET(number/inactivity_period) + 5, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_DELETE_ME)
 			send_message("ping/reply", payload)
 		if("suspend")
 			close(can_be_suspended = TRUE)

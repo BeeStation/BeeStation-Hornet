@@ -125,3 +125,6 @@
 
 	/// Whether or not this client has standard hotkeys enabled
 	var/hotkeys = TRUE
+
+	/// Whether the AFK inactivity period has been passed or not.
+	var/inactive = FALSE

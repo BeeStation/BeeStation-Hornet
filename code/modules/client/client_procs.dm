@@ -983,6 +983,20 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return inactivity
 	return FALSE
 
+/client/proc/afk_start()
+	if(inactive)
+		return
+	inactive = TRUE
+	if(!QDELETED(mob))
+		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_AFK)
+
+/client/proc/afk_end()
+	if(!inactive)
+		return
+	inactive = FALSE
+	if(!QDELETED(mob))
+		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_UNAFK)
+
 /// Send resources to the client.
 /// Sends both game resources and browser assets.
 /client/proc/send_resources()

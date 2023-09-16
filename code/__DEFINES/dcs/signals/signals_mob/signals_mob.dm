@@ -63,3 +63,5 @@
 ///Called after a client connects to a mob and all UI elements have been setup
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 #define COMSIG_MOB_MOUSE_SCROLL_ON "comsig_mob_mouse_scroll_on"	//! from base of /mob/MouseWheelOn(): (atom/A, delta_x, delta_y, params)
+#define COMSIG_MOB_CLIENT_AFK "comsig_mob_client_afk"			//! from base of /client/on_afk(): ()
+#define COMSIG_MOB_CLIENT_UNAFK "comsig_mob_client_afk"			//! from base of /client/on_unafk(): ()

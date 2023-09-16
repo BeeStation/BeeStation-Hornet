@@ -6,8 +6,7 @@
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	GLOB.carbon_list += src
-	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
-	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
+	RegisterSignal(src, list(COMSIG_MOB_LOGOUT, COMSIG_MOB_LOGIN, COMSIG_MOB_CLIENT_AFK, COMSIG_MOB_CLIENT_UNAFK), PROC_REF(med_hud_set_status))
 
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
