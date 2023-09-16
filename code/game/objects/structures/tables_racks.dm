@@ -250,7 +250,9 @@
 	qdel(src)
 
 /obj/structure/table/greyscale
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR
+	icon = 'icons/obj/smooth_structures/table_greyscale.dmi'
+	icon_state = "table"
+	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 
 /*
  * Glass tables

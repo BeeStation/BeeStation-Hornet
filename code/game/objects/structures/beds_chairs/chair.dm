@@ -151,7 +151,7 @@
 
 ///Material chair
 /obj/structure/chair/greyscale
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR
+	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	item_chair = /obj/item/chair/greyscale
 
 /obj/structure/chair/wood

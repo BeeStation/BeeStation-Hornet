@@ -84,7 +84,7 @@
 	origin_type = /obj/structure/chair/fancy
 
 /obj/item/chair/greyscale
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR
+	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	origin_type = /obj/structure/chair/greyscale
 
 /obj/item/chair/stool
