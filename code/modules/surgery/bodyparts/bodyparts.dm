@@ -209,7 +209,8 @@
 	var/applied_damage = min(max_stamina_damage - stamina_dam, available_damage)
 	stamina_dam += round(CLAMP(stamina, 0, applied_damage), DAMAGE_PRECISION)
 
-
+	if (owner)
+		UPDATE_HEALTH(owner)
 	if(owner && updating_health)
 		if(stamina >= DAMAGE_PRECISION)
 			owner.update_stamina(TRUE)
@@ -229,7 +230,8 @@
 	brute_dam	= round(max(brute_dam - brute, 0), DAMAGE_PRECISION)
 	burn_dam	= round(max(burn_dam - burn, 0), DAMAGE_PRECISION)
 	stamina_dam = round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION)
-	UPDATE_HEALTH(owner)
+	if (owner)
+		UPDATE_HEALTH(owner)
 	if(owner.dna && owner.dna.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
 		if(owner.health > 0 && !owner.ishellbound())
 			owner.revive(0)

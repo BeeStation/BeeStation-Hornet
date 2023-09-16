@@ -23,7 +23,7 @@
 /mob/living/simple_animal/damage_run_armour(datum/damage_source/source)
 	. = ..()
 	// Convert damage coeff
-	source.damage_amount = source.damage_amount * damage_coeff[source.transformed_damage_source.type]
+	source.damage_amount = source.damage_amount * damage_coeff[source.damage_type]
 	// Simple animals can entirely deflect damage
 	if (is_damage_deflected(source.damage_amount))
 		source.damage_amount = 0

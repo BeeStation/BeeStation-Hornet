@@ -21,11 +21,11 @@
 		for (var/target in mob_targets)
 			var/mob/living/attacker_mob = new attacker(run_loc_floor_bottom_left)
 			var/mob/living/target_mob = new target(run_loc_floor_bottom_left)
-			// Instantly resolve health for now
-			RESOLVE_HEALTH(target_mob)
 			var/original_health = target_mob.health
 			attacker_mob.a_intent = INTENT_HARM
 			attacker_mob.ClickOn(target_mob)
+			// Instantly resolve health for now
+			RESOLVE_HEALTH(target_mob)
 			if (target_mob.health >= original_health)
 				. += "[target] did not take damage when attacked by [attacker]"
 			qdel(attacker_mob)

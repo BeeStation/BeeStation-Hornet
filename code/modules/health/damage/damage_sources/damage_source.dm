@@ -1,11 +1,11 @@
 #define INITIAL_SETUP \
 	src.transformed_damage_source = src;\
-	src.damage_amount = damage_amount;\
+	src.damage_amount = _damage_amount;\
 	src.armour_penetration = 0;\
-	src.target = target;\
-	src.target_zone = target_zone;\
+	src.target = _target;\
+	src.target_zone = _target_zone;\
 	src.weapon = null;\
-	src.damage_type = damage_type;\
+	src.damage_type = _damage_type;\
 	src.attacker = null;
 
 #define CLEAR_REFERENCES \
@@ -38,13 +38,13 @@
 	/// The target zone of the attack
 	var/target_zone
 	/// The weapon used for the attack
-	var/atom/weapon
+	var/obj/item/weapon
 	/// The type of damage being given to the victim
 	var/damage_type
 	/// Who is attacking with this?
-	var/atom/attacker
+	var/mob/living/attacker
 
-/datum/damage_source/proc/apply_direct(atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
+/datum/damage_source/proc/apply_direct(atom/_target, _damage_type, _damage_amount, _target_zone = null, update_health = TRUE, forced = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
@@ -78,14 +78,14 @@
 	return damage_amount
 
 /// Attacker may be null
-/datum/damage_source/proc/deal_attack(mob/living/attacker, obj/item/attacking_item, atom/target, damage_type, damage_amount, target_zone = null, update_health = TRUE, forced = FALSE)
+/datum/damage_source/proc/deal_attack(mob/living/_attacker, obj/item/_attacking_item, atom/_target, _damage_type, _damage_amount, _target_zone = null, update_health = TRUE, forced = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	// Set the state
 	INITIAL_SETUP
-	src.weapon = attacking_item
-	src.attacker = attacker
+	src.weapon = _attacking_item
+	src.attacker = _attacker
 
 	// Pre attack hooks
 	pre_attack()
@@ -100,8 +100,8 @@
 	target.damage_get_target(src)
 
 	// Determine armour penetration
-	if (attacking_item)
-		attacking_item.damage_get_armour_penetration(src)
+	if (weapon)
+		weapon.damage_get_armour_penetration(src)
 	else
 		attacker.damage_get_armour_penetration(src)
 
@@ -115,11 +115,11 @@
 		return 0
 
 	// Play the animation
-	if (attacking_item)
+ 	if (weapon)
 		if (attacker)
-			attacker.do_attack_animation(target, used_item = attacking_item)
+			attacker.do_attack_animation(target, used_item = weapon)
 		else
-			attacking_item.do_attack_animation(target, used_item = attacking_item)
+			weapon.do_attack_animation(target, used_item = weapon)
 	else
 		if (attacker)
 			attacker.do_attack_animation(target, isanimal(attacker) ? pick(ATTACK_EFFECT_BITE, ATTACK_EFFECT_CLAW) : pick(ATTACK_EFFECT_KICK, ATTACK_EFFECT_PUNCH))
@@ -132,19 +132,19 @@
 	target.damage_apply_damage(src)
 
 	// Display the attack message
-	if (attacking_item)
-		attacking_item.display_attack_message(src)
+	if (weapon)
+		weapon.display_attack_message(src)
 	else if(attacker)
 		attacker.display_attack_message(src)
 
-	if (attacker && attacking_item)
-		target.on_attacked(attacking_item, attacker)
+	if (attacker && weapon)
+		target.on_attacked(weapon, attacker)
 
-	after_attack(attacker, attacking_item, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
+	after_attack(attacker, weapon, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
 	if (istype(target, /obj/item/bodypart))
 		var/obj/item/bodypart/part = target
 		if (part.owner)
-			after_attack_limb(attacker, attacking_item, part.owner, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
+			after_attack_limb(attacker, weapon, part.owner, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
 	CLEAR_REFERENCES
 	return damage_amount
 
