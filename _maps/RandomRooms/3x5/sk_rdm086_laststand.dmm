@@ -36,11 +36,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/item/clothing/suit/armor/reactive/table{
-	name = "reactive tableport armor";
-	tele_range = 2
-	},
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised,
+},
 /obj/effect/mob_spawn/human/corpse/assistant,
 /obj/effect/decal/cleanable/blood/gibs/core,
 /obj/effect/decal/cleanable/blood/old,
