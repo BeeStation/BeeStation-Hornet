@@ -1,7 +1,7 @@
 @use '../colors.scss';
 
 .CrewManifest {
-  @each $department-name, $color-value in colors.$department_map {
+  @each $department-name, $color-value in colors.$departments {
     &--#{$department-name} {
       .Section {
         &__title {
