@@ -653,7 +653,7 @@
 		/obj/item/sensor_device,
 		/obj/item/stack/medical,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/storage/firstaid,
+		/obj/item/storage/firstaid/medical,
 		/obj/item/storage/pill_bottle,
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman,
