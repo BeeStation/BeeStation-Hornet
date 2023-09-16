@@ -110,7 +110,7 @@ IGNORE_PROC_IF_NOT_TARGET(attack_alien)
 
 IGNORE_PROC_IF_NOT_TARGET(attack_animal)
 
-IGNORE_PROC_IF_NOT_TARGET(attack_slime)
+IGNORE_PROC_IF_NOT_TARGET(after_attacked_by_slime)
 
 /mob/living/simple_animal/hostile/asteroid/curseblob/bullet_act(obj/projectile/Proj)
 	if(Proj.firer != set_target)

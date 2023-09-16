@@ -4,13 +4,15 @@
 		/mob/living/carbon/monkey,
 		/mob/living/carbon/alien/humanoid/drone,
 		/mob/living/carbon/alien/larva,
-		/mob/living/simple_animal/hostile/bear
+		/mob/living/simple_animal/hostile/bear,
+		/mob/living/simple_animal/slime,
 	)
 	var/list/mob_targets = list(
 		/mob/living/carbon/human,
 		/mob/living/carbon/monkey,
 		/mob/living/simple_animal/hostile/bear,
-		/mob/living/simple_animal/chicken
+		/mob/living/simple_animal/chicken,
+		/mob/living/simple_animal/slime,
 	)
 
 /datum/unit_test/mob_attacks/Run()

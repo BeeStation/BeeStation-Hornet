@@ -34,27 +34,6 @@
 		..()
 	return
 
-/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime shock
-		flash_act()
-		if(M.powerlevel)
-			apply_damage(/datum/damage_source/slime, BRUTE, M.powerlevel * 4)
-			M.powerlevel --
-
-	var/damage = rand(3)
-
-	if(M.is_adult)
-		damage = 30
-	else
-		damage = 20
-	if(M.transformeffects & SLIME_EFFECT_RED)
-		damage *= 1.1
-	damage = round(damage / 2) // borgs receive half damage
-	apply_damage(/datum/damage_source/slime, BRUTE, damage)
-	updatehealth()
-
-	return
-
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)

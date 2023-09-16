@@ -49,7 +49,7 @@
 				reset_processing()
 				return
 		if((attacked || rabid) && Adjacent(Target))
-			Target.attack_slime(src)
+			deal_generic_attack(Target)
 			attack_cooldown = world.time + attack_cooldown_time
 	else if(src in viewers(7, Target))
 		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel >= 5)

@@ -234,7 +234,7 @@
 			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
 				if(attack_cooldown < world.time && nutrition <= get_hunger_nutrition())
 					if (is_adult || prob(5))
-						O.attack_slime(src)
+						deal_generic_attack(O)
 						attack_cooldown = world.time + attack_cooldown_time
 
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0)
@@ -292,21 +292,18 @@
 /mob/living/simple_animal/slime/attack_ui(slot)
 	return
 
-/mob/living/simple_animal/slime/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime attack
-		if(M == src)
-			return
-		if(buckled)
-			Feedstop(silent = TRUE)
-			visible_message("<span class='danger'>[M] pulls [src] off!</span>", \
-				"<span class='danger'>You pull [src] off!</span>")
-			return
-		attacked += 5
-		if(nutrition >= 100) //steal some nutrition. negval handled in life()
-			adjust_nutrition(-(50 + (40 * M.is_adult)))
-			M.add_nutrition(25 + (20 * M.is_adult))
-		if(health > 0)
-			M.apply_damage(/datum/damage_source/slime,  BRUTE, -10 + (-10 * M.is_adult), null)
+/mob/living/simple_animal/slime/after_attacked_by_slime(mob/living/simple_animal/slime/M)
+	if(M == src)
+		return
+	if(buckled)
+		Feedstop(silent = TRUE)
+		visible_message("<span class='danger'>[M] pulls [src] off!</span>", \
+			"<span class='danger'>You pull [src] off!</span>")
+		return
+	attacked += 5
+	if(nutrition >= 100) //steal some nutrition. negval handled in life()
+		adjust_nutrition(-(50 + (40 * M.is_adult)))
+		M.add_nutrition(25 + (20 * M.is_adult))
 
 /mob/living/simple_animal/slime/attack_animal(mob/living/simple_animal/M)
 	. = ..()

@@ -220,9 +220,12 @@
 	Nothing happening here
 */
 /mob/living/simple_animal/slime/primary_interact(atom/A)
-	A.attack_slime(src)
+	deal_generic_attack(A)
 
-/atom/proc/attack_slime(mob/user)
+/**
+ * 
+ */
+/atom/proc/after_attacked_by_slime(mob/user)
 	return
 
 /mob/living/simple_animal/slime/RestrainedClickOn(atom/A)

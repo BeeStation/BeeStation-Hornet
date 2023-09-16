@@ -111,34 +111,16 @@
 			return
 		//BACONTODO return attack_threshold_check(damage)
 
-/mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime attack
-		var/damage = 20
-		if(M.is_adult)
-			damage = 30
-		if(M.transformeffects & SLIME_EFFECT_RED)
-			damage *= 1.1
-		if (is_damage_deflected(damage))
-			log_combat(M, src, "attacked (entirely deflected)")
-			return
-		//BACONTODO return attack_threshold_check(damage)
-
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.a_intent == INTENT_HARM) //No kicking dogs even as a rogue drone. Use a weapon.
 		return
 	return ..()
 
 /mob/living/simple_animal/proc/is_damage_deflected(damage)
-	var/temp_damage = damage
-	//if(!damage_coeff[damagetype])
-	//	temp_damage = 0
-	//else
-	//	temp_damage *= damage_coeff[damagetype]
-
-	if(temp_damage >= 0 && temp_damage <= force_threshold)
+	if(damage >= 0 && damage <= force_threshold)
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
 	Proj.deal_attack(null, src, Proj.def_zone, override_damage = Proj.damage)

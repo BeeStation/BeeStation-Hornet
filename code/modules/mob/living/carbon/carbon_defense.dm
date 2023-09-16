@@ -130,21 +130,19 @@
 		return 1
 
 
-/mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime attack
-		if(M.powerlevel > 0)
-			M.powerlevel--
-			visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
-				"<span class='userdanger'>The [M.name] has shocked you!</span>")
-			do_sparks(5, TRUE, src)
-			Knockdown(M.powerlevel*5)
-			if(stuttering < M.powerlevel)
-				stuttering = M.powerlevel
-			if(M.transformeffects & SLIME_EFFECT_ORANGE)
-				adjust_fire_stacks(2)
-				IgniteMob()
-			adjustFireLoss(M.powerlevel * 3)
-		return TRUE
+/mob/living/carbon/after_attacked_by_slime(mob/living/simple_animal/slime/M)
+	if(M.powerlevel > 0)
+		M.powerlevel--
+		visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
+			"<span class='userdanger'>The [M.name] has shocked you!</span>")
+		do_sparks(5, TRUE, src)
+		Knockdown(M.powerlevel*5)
+		if(stuttering < M.powerlevel)
+			stuttering = M.powerlevel
+		if(M.transformeffects & SLIME_EFFECT_ORANGE)
+			adjust_fire_stacks(2)
+			IgniteMob()
+		adjustFireLoss(M.powerlevel * 3)
 
 /mob/living/carbon/proc/dismembering_strike(mob/living/attacker, dam_zone)
 	if(!attacker.limb_destroyer)

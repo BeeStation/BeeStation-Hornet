@@ -187,7 +187,7 @@
 		meat.AddComponent(/datum/component/infective, grubdisease)
 	return ..()
 
-/mob/living/simple_animal/hostile/redgrub/attack_slime(mob/living/simple_animal/slime/M)//this is pretty unlikely to happen in game.
+/mob/living/simple_animal/hostile/redgrub/after_attacked_by_slime(mob/living/simple_animal/slime/M)//this is pretty unlikely to happen in game.
 	if(!SSticker.HasRoundStarted()) //since i need to skip simple_animal/attack slime
 		to_chat(M, "You cannot attack people before the game has started.")
 		return

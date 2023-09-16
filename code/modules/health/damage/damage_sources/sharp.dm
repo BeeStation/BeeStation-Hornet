@@ -219,6 +219,29 @@
 /// or something.
 /datum/damage_source/slime
 
+/datum/damage_source/slime/pre_attack()
+	// Slime cannot damage AI units
+	if (isAI(target))
+		damage_amount = 0
+		return
+	// Spark carbons
+	if (iscarbon(target))
+		do_sparks(5, TRUE, target)
+	// Stop feeding if we attacked the thing we are on
+	if (isslime(attacker) && isliving(target))
+		var/mob/living/living_target = target
+		var/mob/living/simple_animal/slime/slime = attacker
+		if (slime in living_target.buckled_mobs)
+			slime.Feedstop()
+			return
+
+/datum/damage_source/slime/after_attack()
+	// Slimes stun if they have a power level
+	if (isslime(attacker))
+		var/mob/living/simple_animal/slime/slime = attacker
+		if (slime.powerlevel)
+			return
+
 /*
 /datum/damage_source/slime/calculate_damage(mob/living/target, input_damage, target_zone, armour_penetration = 0)
 	// Determine armour

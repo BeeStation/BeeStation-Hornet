@@ -20,6 +20,15 @@
 		return
 	source.damage_amount = source.damage_amount * (1 - (armour_value / 100)) * (source.weapon ? check_weakness(source.weapon, src) : 1)
 
+/mob/living/simple_animal/damage_run_armour(datum/damage_source/source)
+	. = ..()
+	// Convert damage coeff
+	source.damage_amount = source.damage_amount * damage_coeff[source.transformed_damage_source.type]
+	// Simple animals can entirely deflect damage
+	if (is_damage_deflected(source.damage_amount))
+		source.damage_amount = 0
+		return
+
 /**
  * Mobs:
  * Mutate damage to reduce it according to armour block.

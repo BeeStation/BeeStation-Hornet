@@ -107,21 +107,6 @@
 			affecting = get_bodypart(BODY_ZONE_CHEST)
 		apply_damage_old(damage, M.melee_damage_type, affecting)
 
-/mob/living/carbon/monkey/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime attack
-		var/damage = 20
-		if(M.is_adult)
-			damage = 30
-		if(M.transformeffects & SLIME_EFFECT_RED)
-			damage *= 1.1
-		var/dam_zone = dismembering_strike(M, pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-		if(!dam_zone) //Dismemberment successful
-			return 1
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
-		apply_damage_old(damage, BRUTE, affecting)
-
 /mob/living/carbon/monkey/acid_act(acidpwr, acid_volume, bodyzone_hit)
 	. = 1
 	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_HEAD)

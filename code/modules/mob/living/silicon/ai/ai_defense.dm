@@ -11,9 +11,6 @@
 		return
 	..()
 
-/mob/living/silicon/ai/attack_slime(mob/living/simple_animal/slime/user)
-	return //immune to slimes
-
 /mob/living/silicon/ai/blob_act(obj/structure/blob/B)
 	if (stat != DEAD)
 		apply_damage(/datum/damage_source/blob, BRUTE, 60)

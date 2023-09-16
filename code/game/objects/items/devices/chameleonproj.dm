@@ -147,7 +147,7 @@
 /obj/effect/dummy/chameleon/attack_animal()
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_slime()
+/obj/effect/dummy/chameleon/after_attacked_by_slime()
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_alien()

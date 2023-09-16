@@ -28,7 +28,7 @@
 
 	/// The damage source instance that we should be using when applying damage. This
 	/// allows things like armour to transform our damage type from sharp to blunt.
-	var/transformed_damage_source
+	var/datum/damage_source/transformed_damage_source
 	/// The amount of damage that we are attempting to apply. Can be mutated by armour
 	var/damage_amount
 	/// The armour penetration value of this attack
@@ -50,6 +50,11 @@
 
 	// Set the state
 	INITIAL_SETUP
+
+	// Pre attack hooks
+	pre_attack()
+	if (damage_amount <= 0)
+		return 0
 
 	// Get the thing we are actually targetting
 	target.damage_get_target(src)
@@ -81,6 +86,11 @@
 	INITIAL_SETUP
 	src.weapon = attacking_item
 	src.attacker = attacker
+
+	// Pre attack hooks
+	pre_attack()
+	if (damage_amount <= 0)
+		return 0
 
 	// Determine the target_zone
 	if (!target_zone)
@@ -137,6 +147,9 @@
 			after_attack_limb(attacker, attacking_item, part.owner, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
 	CLEAR_REFERENCES
 	return damage_amount
+
+/datum/damage_source/proc/pre_attack()
+	return
 
 /// Called after a successful attack
 /datum/damage_source/proc/after_attack()

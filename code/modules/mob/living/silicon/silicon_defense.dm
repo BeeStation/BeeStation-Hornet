@@ -7,7 +7,6 @@
 
 /mob/living/silicon/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent
-		var/damage = 20
 		if (prob(90))
 			log_combat(M, src, "attacked")
 			if(prob(8))

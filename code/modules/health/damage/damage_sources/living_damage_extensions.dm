@@ -19,3 +19,13 @@
 /mob/living/carbon/alien/humanoid/deal_generic_attack(atom/target)
 	var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/sharp/light)
 	return source.deal_attack(src, null, target, BRUTE, 20, ran_zone(zone_selected))
+
+/mob/living/simple_animal/slime/deal_generic_attack(atom/target)
+	var/datum/damage_source/slime_damage_source = GET_DAMAGE_SOURCE(/datum/damage_source/slime)
+	var/damage = 20
+	if (is_adult)
+		damage = 30
+	if (transformeffects & SLIME_EFFECT_RED)
+		damage *= 1.1
+	slime_damage_source.deal_attack(src, null, target, melee_damage_type, damage, ran_zone(zone_selected))
+	target.after_attacked_by_slime(src)

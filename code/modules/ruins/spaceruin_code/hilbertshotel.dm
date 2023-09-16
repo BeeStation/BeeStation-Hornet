@@ -303,7 +303,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     promptExit(user)
     return TRUE
 
-/turf/closed/indestructible/hoteldoor/attack_slime(mob/user)
+/turf/closed/indestructible/hoteldoor/after_attacked_by_slime(mob/user)
     promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_robot(mob/user)

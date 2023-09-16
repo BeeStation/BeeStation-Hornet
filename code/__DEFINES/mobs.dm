@@ -515,15 +515,15 @@
 /// Update the health of a specific target
 #define UPDATE_HEALTH(target) \
 if (target.health_dirty == HEALTH_DIRTY_NOT_DIRTY) {\
-	target.health_dirty = HEALTH_DIRTY_QUEUED;
+	target.health_dirty = HEALTH_DIRTY_QUEUED;\
 	spawn(0) {\
 		if (target.health_dirty == HEALTH_DIRTY_NOT_DIRTY) { return ; }\
-		target.updateHealth();\
-	};\
+		target.updatehealth();\
+	}\
 }
 
 #define RESOLVE_HEALTH(target) if (target.health_dirty == HEALTH_DIRTY_QUEUED) {\
-	target.updateHealth();\
+	target.updatehealth();\
 }
 
 /// Health does not need updating
