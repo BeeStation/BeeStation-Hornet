@@ -78,7 +78,7 @@
 
 /obj/structure/sign/picture_frame/Initialize(mapload, dir, building)
 	. = ..()
-	AddComponent(/datum/component/art, 20)
+	AddElement(/datum/element/art, OK_ART)
 	LAZYADD(SSpersistence.photo_frames, src)
 
 /obj/structure/sign/picture_frame/Destroy()

@@ -1,6 +1,3 @@
-#define BAD_ART 12.5
-#define GOOD_ART 25
-#define GREAT_ART 50
 
 /obj/structure/statue
 	name = "statue"
@@ -10,14 +7,17 @@
 	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
+	CanAtmosPass = ATMOS_PASS_DENSITY
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/iron
+	/// Beauty component mood modifier
 	var/impressiveness = 15
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	/// Art component subtype added to this statue
+	var/art_type = /datum/element/art
 
 /obj/structure/statue/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/art, impressiveness)
+	AddElement(art_type, impressiveness)
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
