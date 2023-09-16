@@ -149,7 +149,7 @@
 			QDEL_IN(bs_tear, HOLOPARA_TELEPORT_BLUESPACE_TEAR_TIME)
 			animate(bs_tear, alpha = 255, time = 1 MINUTES)
 	log_game("[key_name(owner)] teleported [isliving(target) ? key_name(target) : "[target] ([target.type])"] from [AREACOORD(target_turf)] to the bluespace beacon at [AREACOORD(beacon_turf)]")
-	do_teleport(target, beacon_turf, precision = 0, asoundin = 'sound/effects/telepad.ogg', asoundout = 'sound/effects/telepad.ogg', channel = TELEPORT_CHANNEL_QUANTUM)
+	do_teleport(target, beacon_turf, precision = 0, asoundin = 'sound/effects/telepad.ogg', asoundout = 'sound/effects/telepad.ogg', channel = TELEPORT_CHANNEL_FREE)
 	new /obj/effect/temp_visual/holoparasite/phase(beacon_turf)
 
 	// pulling this outta my ass
