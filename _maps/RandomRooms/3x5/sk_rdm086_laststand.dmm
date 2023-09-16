@@ -37,6 +37,7 @@
 /area/template_noop)
 "h" = (
 },
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised,
 /obj/effect/mob_spawn/human/corpse/assistant,
 /obj/effect/decal/cleanable/blood/gibs/core,
 /obj/effect/decal/cleanable/blood/old,
