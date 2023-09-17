@@ -809,7 +809,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	user.do_attack_animation(M)
 
 	var/slap_volume = 50
-	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, 50))
+	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, simplified_probability = 50))
 		user.visible_message("<span class='danger'>[user] slaps [M] in the face!</span>",
 			"<span class='notice'>You slap [M] in the face!</span>",
 			"<span class='hear'>You hear a slap.</span>")
