@@ -63,6 +63,15 @@
 /obj/item/stack/medical/proc/do_application(mob/living/M, mob/user, zone_selected)
 	if (!zone_selected)
 		return
+	if (!user.can_interact_with(M, TRUE))
+		to_chat(user, "<span class='danger'>You cannot reach [M]!</span>")
+		return
+	if(M.stat == DEAD && !stop_bleeding)
+		to_chat(user, "<span class='danger'>\The [M] is dead, you cannot help [M.p_them()]!</span>")
+		return
+	if(!iscarbon(M))
+		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
+		return
 	var/obj/item/bodypart/affecting
 	var/mob/living/carbon/C = M
 	affecting = C.get_bodypart(check_zone(zone_selected))

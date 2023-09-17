@@ -46,6 +46,9 @@
 /obj/item/reagent_containers/medspray/proc/do_spray(mob/living/carbon/M, mob/user, def_zone)
 	if (!def_zone)
 		return
+	if (!user.can_interact_with(M, TRUE))
+		balloon_alert(user, "[L] is too far away!")
+		return
 	var/obj/item/bodypart/affecting = M.get_bodypart(check_zone(def_zone))
 	if(!affecting)
 		balloon_alert(user, "The limb is missing.")

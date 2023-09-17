@@ -141,6 +141,9 @@
 	select_bodyzone.continue_with(CALLBACK(src, PROC_REF(razor_action), H, user, mirror))
 
 /obj/item/razor/proc/razor_action(mob/living/carbon/human/H, mob/user, mirror, location)
+	if (!user.can_interact_with(H, TRUE))
+		to_chat(user, "<span class='warning'>[L] is too far away!</span>")
+		return
 	if(location == BODY_ZONE_PRECISE_MOUTH)
 		if(user.a_intent == INTENT_HELP)
 			if(H.gender == MALE)

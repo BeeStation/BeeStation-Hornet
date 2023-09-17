@@ -362,7 +362,6 @@
 	select_zone_task.continue_with(CALLBACK(PROC_REF(perform_voodoo), user))
 
 /obj/item/voodoo/proc/perform_voodoo(mob/user, zone_selected)
-
 	if (!can_interact(user))
 		to_chat(user, "<span class='warning'>You are too far away!</span>")
 		return

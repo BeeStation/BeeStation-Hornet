@@ -20,6 +20,9 @@
 /obj/item/reagent_containers/pill/patch/proc/apply_part(mob/living/L, mob/user, selected_target)
 	if (!selected_target)
 		return
+	if (!user.can_interact_with(L, TRUE))
+		balloon_alert(user, "[L] is too far away!")
+		return
 	var/obj/item/bodypart/affecting = L.get_bodypart(selected_target)
 	if(!affecting)
 		balloon_alert(user, "The limb is missing.")
