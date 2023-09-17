@@ -10,7 +10,7 @@
 /// Precise: Toggle to include groin, eyes and mouth. If true, implies hide_non_present will be forced to false.
 /// Icon Callback: The callback to run in order to get the selection zone overlay.
 /// If you want to wait for the result use: AWAIT(select_bodyzone(target))
-/mob/proc/select_bodyzone(atom/target, precise = FALSE, datum/callback/icon_callback)
+/mob/proc/select_bodyzone_from_wheel(atom/target, precise = FALSE, datum/callback/icon_callback)
 	DECLARE_ASYNC
 	if (!client || !client.prefs)
 		ASYNC_RETURN(null)

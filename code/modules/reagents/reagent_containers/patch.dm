@@ -13,8 +13,8 @@
 /obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user)
 	if(!ishuman(L))
 		return ..()
-	var/datum/task/select_bodyzone = user.select_body_zone(L, FALSE, BODYZONE_STYLE_MEDICAL)
-	task.continue_with(CALLBACK(src, PROC_REF(apply_part), L, user))
+	var/datum/task/select_bodyzone = user.select_bodyzone(L, FALSE, BODYZONE_STYLE_MEDICAL)
+	select_bodyzone.continue_with(CALLBACK(src, PROC_REF(apply_part), L, user))
 	return TRUE
 
 /obj/item/reagent_containers/pill/patch/proc/apply_part(mob/living/L, mob/user, selected_target)

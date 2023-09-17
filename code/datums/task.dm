@@ -22,10 +22,7 @@
 /// Returns true if the task was completed
 /datum/task/proc/await(timeout = 30 SECONDS)
 	var/start_time = world.time
-	var/sleep_time = 1
-	while(world.time < start_time + timeout && !is_completed())
-		sleep(sleep_time)
-		sleep_time = min(sleep_time * 2, 1 SECONDS)
+	UNTIL (world.time >= start_time + timeout || is_completed())
 	// Check for success
 	var/success = length(subtasks) ? TRUE : completed
 	if (length(subtasks) && !result)
@@ -52,5 +49,10 @@
 /// responses.
 /datum/task/proc/continue_with(datum/callback/callback)
 	if (!callback)
+		return
+	// If the async function wasn't async then
+	// immediately invoke the continuation task
+	if (completed)
+		callback.InvokeAsync(result)
 		return
 	continuation_tasks += callback

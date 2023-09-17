@@ -626,16 +626,16 @@
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED)
 		switch (style)
 			if (BODYZONE_STYLE_DEFAULT)
-				ASYNC_RETURN(AWAIT(user.select_bodyzone(L, precise), INFINITY))
+				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise))
 			if (BODYZONE_STYLE_MEDICAL)
 				var/accurate_health = HAS_TRAIT(src, TRAIT_MEDICAL_HUD) || istype(get_inactive_held_item(), /obj/item/healthanalyzer)
-				if (!accurate_health)
-					to_chat(src, "<span class='warning'>You could more easilly determine how injured [L] was if you had a medical hud or a health analyser!</span>")
-				ASYNC_RETURN(AWAIT(user.select_bodyzone(L, precise, icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health)), INFINITY))
+				if (!accurate_health && isliving(target))
+					to_chat(src, "<span class='warning'>You could more easilly determine how injured [target] was if you had a medical hud or a health analyser!</span>")
+				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise, icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health)))
 	// Return the value instantly
 	if (precise)
-		ASYNC_RETURN(user.zone_selected)
-	ASYNC_RETURN(check_zone(user.zone_selected))
+		ASYNC_RETURN(zone_selected)
+	ASYNC_RETURN(check_zone(zone_selected))
 
 #define BODYZONE_CONTEXT_COMBAT 0
 #define BODYZONE_CONTEXT_INJECTION 1
@@ -678,7 +678,7 @@
 				var/can_inject_left = living_target.can_inject(BODY_ZONE_L_LEG)
 				var/can_inject_right = living_target.can_inject(BODY_ZONE_R_LEG)
 				if (can_inject_left && can_inject_right)
-					pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+					return pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 				if (can_inject_left)
 					return BODY_ZONE_L_LEG
 				if (can_inject_right)
@@ -691,7 +691,7 @@
 					var/can_inject_left = living_target.can_inject(BODY_ZONE_L_ARM)
 					var/can_inject_right = living_target.can_inject(BODY_ZONE_R_ARM)
 					if (can_inject_left && can_inject_right)
-						pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+						return pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 					if (can_inject_left)
 						return BODY_ZONE_L_ARM
 					if (can_inject_right)
@@ -702,13 +702,13 @@
 					return BODY_ZONE_R_ARM
 			return pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
-/mob/proc/is_zone_selected(requested_zone = BODY_ZONE_CHEST, precise_probability = 100, precise_only = FALSE)
+/mob/proc/is_zone_selected(requested_zone = BODY_ZONE_CHEST, simplified_probability = 100, precise_only = FALSE)
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)
 		return zone_selected == requested_zone
 	if (precise_only)
 		return FALSE
 	// Check if we randomly don't hit the selected zone
-	if (precise_probability != 100 && !prob(precise_probability) && (requested_zone == BODY_ZONE_PRECISE_L_FOOT || requested_zone == BODY_ZONE_PRECISE_R_FOOT || requested_zone == BODY_ZONE_PRECISE_GROIN || requested_zone == BODY_ZONE_PRECISE_L_HAND || requested_zone == BODY_ZONE_PRECISE_R_HAND || requested_zone == BODY_ZONE_PRECISE_EYES || requested_zone == BODY_ZONE_PRECISE_MOUTH))
+	if (simplified_probability != 100 && !prob(simplified_probability))
 		return FALSE
 	if (requested_zone == zone_selected)
 		return TRUE

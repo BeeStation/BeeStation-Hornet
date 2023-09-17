@@ -17,9 +17,13 @@
 #define ASYNC_RETURN(value) created_task.mark_completed(value);\
 	return;
 
+#define ASYNC_RETURN_TASK(value) return value;
+
 /// Waits for the provided task to be completed, or the timeout to expire.
 /// Returns null if the timeout expires, or the task's result otherwise.
 /// Note that if a task's result is null, then null will be returned.
+/// This adds a delay for long periods of waiting, so using continue_with
+/// is preferred.
 #define AWAIT(TASK, TIMEOUT) get_result(TASK, TIMEOUT)
 
 /proc/get_result(datum/task/task, timeout)

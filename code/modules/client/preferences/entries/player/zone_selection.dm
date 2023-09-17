@@ -18,8 +18,11 @@
 	return PREFERENCE_BODYZONE_INTENT
 
 /datum/preference/choiced/zone_select/apply_to_client(client/client, value)
+	var/atom/movable/screen/zone_sel/selector = client.mob.hud_used.zone_select
+	if (!selector)
+		return
 	// Reset zone selected to a sane value
 	if (value == PREFERENCE_BODYZONE_SIMPLIFIED)
-		client.mob.zone_selected = BODY_GROUP_CHEST_HEAD
+		selector.set_selected_zone(BODY_GROUP_CHEST_HEAD, client.mob)
 	else
-		client.mob.zone_selected = BODY_ZONE_CHEST
+		selector.set_selected_zone(BODY_ZONE_CHEST, client.mob)

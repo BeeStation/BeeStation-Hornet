@@ -298,7 +298,7 @@
 		else
 			M.visible_message("<span class='notice'>[M] shakes [src]'s hand.</span>", \
 						"<span class='notice'>You shake [src]'s hand.</span>")
-	else if(M.is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_zone_selected(BODY_GROUP_LEGS))
+	else if(M.is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || M.is_zone_selected(BODY_GROUP_LEGS))
 		to_chat(M, "<span class='warning'>ERP is not allowed on this server!</span>")
 	AdjustStun(-60)
 	AdjustKnockdown(-60)
