@@ -683,7 +683,7 @@
 					return BODY_ZONE_L_LEG
 				if (can_inject_right)
 					return BODY_ZONE_R_LEG
-			return pick(BODY_ZONE_L_LEG. BODY_ZONE_R_LEG)
+			return pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 		if (BODY_GROUP_ARMS)
 			if (isliving(target))
 				var/mob/living/living_target = target
@@ -700,7 +700,7 @@
 					if (living_target.active_hand_index == 1)
 						return BODY_ZONE_L_ARM
 					return BODY_ZONE_R_ARM
-			return pick(BODY_ZONE_L_ARM. BODY_ZONE_R_ARM)
+			return pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
 /mob/proc/is_zone_selected(requested_zone = BODY_ZONE_CHEST, precise_probability = 100, precise_only = FALSE)
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)
