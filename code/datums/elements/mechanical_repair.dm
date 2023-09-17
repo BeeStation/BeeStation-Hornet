@@ -16,14 +16,26 @@
 
 /datum/element/mechanical_repair/proc/try_repair(datum/source, obj/item/I, mob/user)
 	var/mob/living/carbon/human/target = source
-	var/obj/item/bodypart/affecting = target.get_bodypart(check_zone(user.zone_selected))
+
+	if(!istype(I, /obj/item/stack/cable_coil) && I.tool_behaviour != TOOL_WELDER)
+		return
 
 	// Check to make sure we can repair
-	if((!affecting || (IS_ORGANIC_LIMB(affecting))) || user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM)
 		return
 
 	if(target in user.do_afters)
 		return COMPONENT_NO_AFTERATTACK
+
+	var/datum/task/fetch_selected_limb = target.get_bodypart(check_zone(user.select_bodyzone(target, style = BODYZONE_STYLE_MEDICAL)))
+	fetch_selected_limb.continue_with(CALLBACK(src, PROC_REF(complete_repairs), target, I, user))
+
+/datum/element/mechanical_repair/proc/complete_repairs(mob/living/carbon/human/target, obj/item/I, mob/user, selected_zone)
+	var/obj/item/bodypart/affecting = target.get_bodypart(check_zone(selected_zone))
+
+	if (!affecting || (IS_ORGANIC_LIMB(affecting)))
+		to_chat(user, "<span class='warning'>That limb is not robotic!.</span>")
+		return
 
 	// Handles welder repairs on human limbs
 	if(I.tool_behaviour == TOOL_WELDER)
