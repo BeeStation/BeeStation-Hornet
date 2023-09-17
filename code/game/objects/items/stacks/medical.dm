@@ -40,6 +40,9 @@
 	if(!iscarbon(M) && !isanimal(M))
 		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
 		return
+	
+	if(M in user.do_afters) //One at a time, please.
+		return
 
 	if(isanimal(M))
 		var/mob/living/simple_animal/critter = M
