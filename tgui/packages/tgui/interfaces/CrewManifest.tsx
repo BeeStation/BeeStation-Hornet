@@ -50,7 +50,7 @@ export const CrewManifest = (_props, context) => {
         {Object.entries(manifest).map(([dept, crew]) => {
           const sorted_jobs = dept === 'Command' ? sortSpecific(crew, command.order) : sortSpecific(crew, order);
           return (
-            <Section className={'CrewManifest--' + dept} key={dept} title={dept}>
+            <Section className={classes(['CrewManifest', `CrewManifest--${dept}`])} key={dept} title={dept}>
               <Table>
                 {Object.entries(sorted_jobs).map(([crewIndex, crewMember]) => {
                   const is_command = command.huds.includes(crewMember.hud) || command.jobs.includes(crewMember.rank);
