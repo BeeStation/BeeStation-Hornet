@@ -713,3 +713,9 @@
 			return requested_zone == BODY_ZONE_L_ARM || requested_zone == BODY_ZONE_R_ARM || requested_zone == BODY_ZONE_PRECISE_L_HAND || requested_zone == BODY_ZONE_PRECISE_R_HAND
 		if (BODY_GROUP_CHEST_HEAD)
 			return requested_zone == BODY_ZONE_CHEST || requested_zone == BODY_ZONE_HEAD || requested_zone == BODY_ZONE_PRECISE_EYES || requested_zone == BODY_ZONE_PRECISE_MOUTH
+
+/**
+ * Don't use this
+ */
+/mob/proc/_set_zone_selected(zone_selected)
+	src.zone_selected = zone_selected

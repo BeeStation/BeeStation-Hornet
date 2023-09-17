@@ -566,7 +566,7 @@
 	cut_overlay(selecting_appearance)
 	selecting_appearance = mutable_appearance('icons/mob/screen_gen.dmi', "[selecting]")
 	add_overlay(selecting_appearance)
-	hud?.mymob?.zone_selected = selecting
+	hud?.mymob?._set_zone_selected(selecting)
 
 /atom/movable/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'
@@ -576,7 +576,7 @@
 	cut_overlay(selecting_appearance)
 	selecting_appearance = mutable_appearance('icons/mob/screen_alien.dmi', "[selecting]")
 	add_overlay(selecting_appearance)
-	hud?.mymob?.zone_selected = selecting
+	hud?.mymob?._set_zone_selected(selecting)
 
 /atom/movable/screen/zone_sel/robot
 	icon = 'icons/mob/screen_cyborg.dmi'

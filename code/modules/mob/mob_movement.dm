@@ -456,6 +456,34 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_L_LEG, mob)
 
+/client/verb/body_up()
+	set name = "body-up"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
+	switch (selector.selecting)
+		if (BODY_GROUP_LEGS, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			selector.set_selected_zone(BODY_GROUP_ARMS, mob)
+		if (BODY_GROUP_ARMS, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			selector.set_selected_zone(BODY_GROUP_CHEST_HEAD, mob)
+
+/client/verb/body_down()
+	set name = "body-down"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
+	switch (selector.selecting)
+		if (BODY_GROUP_CHEST_HEAD, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_GROIN)
+			selector.set_selected_zone(BODY_GROUP_ARMS, mob)
+		if (BODY_GROUP_ARMS, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			selector.set_selected_zone(BODY_GROUP_LEGS, mob)
+
 ///Verb to toggle the walk or run status
 /client/verb/toggle_walk_run()
 	set name = "toggle-walk-run"

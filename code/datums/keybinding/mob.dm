@@ -291,6 +291,34 @@
 	M.toggle_move_intent()
 	return TRUE
 
+/datum/keybinding/mob/prevent_movement
+	keys = list("Ctrl")
+	name = "block_movement"
+	full_name = "Hold to change facing"
+	description = "While pressed, prevents movement when pressing directional keys; instead just changes your facing direction"
+	keybind_signal = COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN
+
+/datum/keybinding/mob/prevent_movement/down(client/user)
+	. = ..()
+	if(.)
+		return
+	user.movement_locked = TRUE
+
+/datum/keybinding/mob/prevent_movement/up(client/user)
+	. = ..()
+	if(.)
+		return
+	user.movement_locked = FALSE
+
+/**
+ * ===========================
+ * Bodyzone targetting section
+ * ===========================
+ *
+ * Precise hotkeys
+ *
+ */
+
 /datum/keybinding/mob/target_head_cycle
 	keys = list("Numpad8")
 	name = "target_head_cycle"
@@ -410,22 +438,49 @@
 	user.body_l_leg()
 	return TRUE
 
-/datum/keybinding/mob/prevent_movement
-	keys = list("Ctrl")
-	name = "block_movement"
-	full_name = "Hold to change facing"
-	description = "While pressed, prevents movement when pressing directional keys; instead just changes your facing direction"
-	keybind_signal = COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN
+/**
+ * ===========================
+ * Bodyzone targetting section
+ * ===========================
+ *
+ * Simplified hotkeys
+ *
+ */
 
-/datum/keybinding/mob/prevent_movement/down(client/user)
+/datum/keybinding/mob/target_higher_zone
+	keys = list("ScrollUp")
+	name = "target_higher_zone"
+	full_name = "Target: Cycle zone up"
+	description = "Cycles the targetted bodyzone upwards. Leg targetting will become arm targetting, and arm targetting will become body/head targetting."
+	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEUP_DOWN
+	required_pref_key = "zone_select"
+	required_pref_value = PREFERENCE_BODYZONE_SIMPLIFIED
+
+/datum/keybinding/mob/target_higher_zone/down(client/user)
 	. = ..()
 	if(.)
 		return
-	user.movement_locked = TRUE
+	if(!user.mob)
+		return
+	user.body_up()
+	return TRUE
 
-/datum/keybinding/mob/prevent_movement/up(client/user)
+
+/datum/keybinding/mob/target_lower_zone
+	keys = list("ScrollDown")
+	name = "target_lower_zone"
+	full_name = "Target: Cycle zone down"
+	description = "Cycles the targetted bodyzone downwards. Head/body targetting will become arm targetting and arm targetting will become leg targetting.."
+	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEDOWN_DOWN
+	required_pref_key = "zone_select"
+	required_pref_value = PREFERENCE_BODYZONE_SIMPLIFIED
+
+/datum/keybinding/mob/target_lower_zone/down(client/user)
 	. = ..()
 	if(.)
 		return
-	user.movement_locked = FALSE
+	if(!user.mob)
+		return
+	user.body_down()
+	return TRUE
 
