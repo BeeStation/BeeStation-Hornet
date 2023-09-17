@@ -18,7 +18,7 @@
 		icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health))
 	// Determine what parts we want to show
 	var/list/bodyzone_options = list()
-	var/list/parts = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+	var/list/parts = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_CHEST, BODY_ZONE_R_LEG, BODY_ZONE_R_ARM)
 	var/list/precise_parts = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
 	if (precise)
 		parts += precise_parts
