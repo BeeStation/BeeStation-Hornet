@@ -344,7 +344,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = IS_BLUNT
 	force = 0
 	throwforce = 0
-	embedding = list("pain_mult" = 0, "jostle_pain_mult" = 0, "embed_chance" = 300, "fall_chance" = 0, "armour_block" = 70)
+	embedding = list("pain_mult" = 0, "jostle_pain_mult" = 0, "embed_chance" = 300, "fall_chance" = 75, "armour_block" = 70)
 
 /obj/item/throwing_star/magspear
 	name = "magnetic spear"
