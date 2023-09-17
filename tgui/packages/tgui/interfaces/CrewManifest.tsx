@@ -1,7 +1,7 @@
 import { sortBy } from '../../common/collections';
 import { BooleanLike, classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Icon, Section, Table, Tooltip, Flex } from '../components';
+import { Box, Icon, Section, Table, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 type DepartmentCrew = { [department: string]: ManifestEntry[] };
