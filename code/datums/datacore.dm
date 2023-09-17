@@ -191,8 +191,8 @@
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
-		var/dept_bitflags = t.fields["active_dept"]
 		var/hud = t.fields["hud"]
+		var/dept_bitflags = t.fields["active_dept"]
 		var/has_department = FALSE
 		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
 		for(var/department in get_job_departments(dept_bitflags))
