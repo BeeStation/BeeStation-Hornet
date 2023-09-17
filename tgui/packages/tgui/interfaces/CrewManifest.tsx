@@ -1,5 +1,5 @@
 import { sortBy } from '../../common/collections';
-import { classes } from 'common/react';
+import { BooleanLike, classes } from 'common/react';
 import { useBackend } from '../backend';
 import { Box, Icon, Section, Table, Tooltip, Flex } from '../components';
 import { Window } from '../layouts';
@@ -9,7 +9,7 @@ type DepartmentCrew = { [department: string]: ManifestEntry[] };
 type JobOrdering = { [job: string]: number };
 
 const sortSpecific = (entries: ManifestEntry[], chain: JobOrdering) =>
-  sortBy<ManifestEntry>((entry) => chain[entry.rank] ?? Object.keys(chain).length + 1)(entries);
+  sortBy<ManifestEntry>((entry) => chain[entry.hud] ?? Object.keys(chain).length + 1)(entries);
 
 type DepartmentInfo = {
   /** A list of jobs that have no position lab. */
@@ -28,7 +28,9 @@ type ManifestEntry = {
 };
 
 type CommandInfo = {
-  /** A (static) list of jobs considered to be command roles. */
+  /** A (static) list of HUD icons used by command roles. */
+  huds: string[];
+  /** A (static) list of job titles considered to be command roles. */
   jobs: string[];
   /** The ordering of which heads of staff should be listed in the command section, according to chain of command. */
   order: JobOrdering;
@@ -39,48 +41,33 @@ type CrewManifestData = {
   command: CommandInfo;
   /** The crew staffing each department. */
   manifest: DepartmentCrew;
-  /** How many positions each department has open. */
-  positions: DepartmentPositions;
-  /** The ordering of which jobs should be listed. */
+  /** The ordering of which jobs should be listed, based on HUD icon. */
   order: JobOrdering;
+  /** Use the generic TGUI theme. */
+  generic: BooleanLike;
 };
 
 export const CrewManifest = (_props, context) => {
   const {
-    data: { command, order, manifest, positions },
+    data: { command, order, manifest, generic },
   } = useBackend<CrewManifestData>(context);
 
   return (
-    <Window title="Crew Manifest" width={350} height={500}>
+    <Window title="Crew Manifest" width={350} height={500} theme={generic ? 'generic' : undefined}>
       <Window.Content scrollable>
         {Object.entries(manifest).map(([dept, crew]) => {
-          const department_positions = positions[dept] || [];
           const sorted_jobs = dept === 'Command' ? sortSpecific(crew, command.order) : sortSpecific(crew, order);
           return (
-            <Section
-              className={'CrewManifest--' + dept}
-              key={dept}
-              title={
-                <Flex justify="space-between" align="center">
-                  <Flex.Item>{dept}</Flex.Item>
-                  {dept !== 'Misc' && <Flex.Item fontSize={0.9}>({department_positions.open} positions open)</Flex.Item>}
-                </Flex>
-              }>
+            <Section className={'CrewManifest--' + dept} key={dept} title={dept}>
               <Table>
                 {Object.entries(sorted_jobs).map(([crewIndex, crewMember]) => {
-                  const exceptions = department_positions.exceptions || [];
-                  const is_command = command.jobs.includes(crewMember.rank);
+                  const is_command = command.huds.includes(crewMember.hud) || command.jobs.includes(crewMember.rank);
                   return (
                     <Table.Row key={crewIndex}>
                       <Table.Cell className={'CrewManifest__Cell'} bold={is_command}>
                         {crewMember.name}
                       </Table.Cell>
                       <Table.Cell className={classes(['CrewManifest__Cell', 'CrewManifest__Icons'])} collapsing>
-                        {exceptions.includes(crewMember.rank) && (
-                          <Tooltip content="No position limit" position="bottom">
-                            <Icon className="CrewManifest__Icon" name="infinity" />
-                          </Tooltip>
-                        )}
                         {is_command && (
                           <Tooltip content="Head of Staff" position="bottom">
                             <Icon
