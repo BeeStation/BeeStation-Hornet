@@ -43,7 +43,7 @@
 	return ..()
 
 
-/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target) //FALSE to not show in list
+/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target, target_zone) //FALSE to not show in list
 	. = TRUE
 	if(replaced_by == /datum/surgery)
 		return FALSE
@@ -119,7 +119,7 @@
 
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
-		if(S.try_op(user, target, user.zone_selected, user.get_active_held_item(), src, try_to_fail))
+		if(S.try_op(user, target, user.get_active_held_item(), src, try_to_fail))
 			return TRUE
 		if(iscyborg(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
 			return TRUE
@@ -145,7 +145,7 @@
 	name = "advanced surgery"
 	requires_tech = TRUE
 
-/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())
 		return FALSE
 	// True surgeons (like abductor scientists) need no instructions

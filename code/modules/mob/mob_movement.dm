@@ -378,8 +378,10 @@
 	if(!check_has_body_select())
 		return
 
+	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
+
 	var/next_in_line
-	switch(mob.zone_selected)
+	switch(selector.selecting)
 		if(BODY_ZONE_HEAD)
 			next_in_line = BODY_ZONE_PRECISE_EYES
 		if(BODY_ZONE_PRECISE_EYES)
@@ -387,7 +389,6 @@
 		else
 			next_in_line = BODY_ZONE_HEAD
 
-	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line, mob)
 
 ///Hidden verb to target the right arm, bound to 4

@@ -653,48 +653,41 @@
 	// Implicitly determine the bodypart we were trying to target
 	switch (zone_selected)
 		if (BODY_GROUP_CHEST_HEAD)
-			if (zone_context == BODYZONE_CONTEXT_INJECTION && isliving(target))
-				var/mob/living/living_target = target
-				var/can_inject_head = living_target.can_inject(target_zone = BODY_ZONE_HEAD)
-				var/can_inject_chest = living_target.can_inject(target_zone = BODY_ZONE_CHEST)
-				if (can_inject_chest)
-					return BODY_ZONE_CHEST
-				if (can_inject_head)
-					return BODY_ZONE_HEAD
-				return BODY_ZONE_CHEST
-			// Pick either the chest or head randomly
-			if (prob(70))
-				return BODY_ZONE_CHEST
-			return BODY_ZONE_HEAD
+			var/head_priority = is_priority_zone(target, BODY_ZONE_HEAD, zone_context)
+			var/chest_priority = is_priority_zone(target, BODY_ZONE_CHEST, zone_context)
+			return head_priority == chest_priority ? (prob(70) ? BODY_ZONE_CHEST : BODY_ZONE_HEAD) : (head_priority ? BODY_ZONE_HEAD : BODY_ZONE_CHEST)
 		if (BODY_GROUP_LEGS)
-			if (zone_context == BODYZONE_CONTEXT_INJECTION && isliving(target))
-				var/mob/living/living_target = target
-				var/can_inject_left = living_target.can_inject(target_zone = BODY_ZONE_L_LEG)
-				var/can_inject_right = living_target.can_inject(target_zone = BODY_ZONE_R_LEG)
-				if (can_inject_left && can_inject_right)
-					return pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-				if (can_inject_left)
-					return BODY_ZONE_L_LEG
-				if (can_inject_right)
-					return BODY_ZONE_R_LEG
-			return pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			var/left_priority = is_priority_zone(target, BODY_ZONE_L_LEG, zone_context)
+			var/right_priority = is_priority_zone(target, BODY_ZONE_R_LEG, zone_context)
+			return left_priority == right_priority ? pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) : (left_priority ? BODY_ZONE_R_LEG : BODY_ZONE_R_LEG)
 		if (BODY_GROUP_ARMS)
+			var/left_priority = is_priority_zone(target, BODY_ZONE_L_ARM, zone_context)
+			var/right_priority = is_priority_zone(target, BODY_ZONE_R_ARM, zone_context)
+			return left_priority == right_priority ? pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM) : (left_priority ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)
+
+/mob/proc/is_priority_zone(atom/target, target_zone, context)
+	switch (context)
+		// Prioritise active hand
+		if (BODYZONE_CONTEXT_COMBAT)
+			if (living_target.active_hand_index == 1)
+				return target_zone == BODY_ZONE_L_ARM
+			else
+				return target_zone == BODY_ZONE_R_ARM
+		// Prioritise things that aren't injection proof
+		if (BODYZONE_CONTEXT_INJECTION)
 			if (isliving(target))
 				var/mob/living/living_target = target
-				if (zone_context == BODYZONE_CONTEXT_INJECTION)
-					var/can_inject_left = living_target.can_inject(target_zone = BODY_ZONE_L_ARM)
-					var/can_inject_right = living_target.can_inject(target_zone = BODY_ZONE_R_ARM)
-					if (can_inject_left && can_inject_right)
-						return pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-					if (can_inject_left)
-						return BODY_ZONE_L_ARM
-					if (can_inject_right)
-						return BODY_ZONE_R_ARM
-				else
-					if (living_target.active_hand_index == 1)
-						return BODY_ZONE_L_ARM
-					return BODY_ZONE_R_ARM
-			return pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+				return living_target.can_inject(target_zone = target_zone)
+			return FALSE
+		// Prioritise robotic limbs
+		if (BODYZONE_CONTEXT_ROBOTIC_LIMB)
+			if (isliving(target))
+				var/mob/living/living_target = target
+				var/obj/item/bodypart/limb = living_target.get_bodypart(target_zone)
+				if (!limb)
+					return FALSE
+				return !IS_ORGANIC_LIMB(limb)
+			return FALSE
 
 /mob/proc/is_zone_selected(requested_zone = BODY_ZONE_CHEST, simplified_probability = 100, precise_only = FALSE, precise = TRUE)
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)

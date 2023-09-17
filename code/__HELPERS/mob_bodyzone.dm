@@ -19,17 +19,35 @@
 	// Determine what parts we want to show
 	var/list/bodyzone_options = list()
 	var/list/parts = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_CHEST, BODY_ZONE_R_LEG, BODY_ZONE_R_ARM)
-	var/list/precise_parts = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
-	if (precise)
-		parts += precise_parts
 	if (override_zones)
 		parts = override_zones
 	for (var/bodyzone in parts)
 		var/image/created_image = image(icon = ui_style2icon(client.prefs?.read_player_preference(/datum/preference/choiced/ui_style)), icon_state = "zone_sel")
-		var/selection_overlay = icon_callback.Invoke(src, target, bodyzone, bodyzone in precise_parts)
+		var/selection_overlay = icon_callback.Invoke(src, target, bodyzone, FALSE)
 		created_image.overlays += selection_overlay
 		bodyzone_options[bodyzone] = created_image
 	var/result = show_radial_menu(src, target, bodyzone_options, radius = 40, require_near = TRUE, tooltips = TRUE)
+
+	// Disconnected or no result
+	if (!result || !client)
+		ASYNC_RETURN(null)
+
+	// Let the user choose more zones
+	var/list/suboptions = null
+	if (precise && result == BODY_ZONE_HEAD)
+		suboptions = list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
+	else if (precise && result == BODY_ZONE_CHEST)
+		suboptions = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN)
+
+	if (suboptions)
+		bodyzone_options = list()
+		for (var/bodyzone in suboptions)
+			var/image/created_image = image(icon = ui_style2icon(client.prefs?.read_player_preference(/datum/preference/choiced/ui_style)), icon_state = "zone_sel")
+			var/selection_overlay = icon_callback.Invoke(src, target, bodyzone, !(bodyzone in parts))
+			created_image.overlays += selection_overlay
+			bodyzone_options[bodyzone] = created_image
+		result = show_radial_menu(src, target, bodyzone_options, radius = 40, require_near = TRUE, tooltips = TRUE)
+
 	// Disconnected or no result
 	if (!result || !client)
 		ASYNC_RETURN(null)

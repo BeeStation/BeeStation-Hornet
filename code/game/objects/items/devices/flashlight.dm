@@ -406,7 +406,7 @@
 	return TRUE
 
 /obj/item/flashlight/emp/attack(mob/living/M, mob/living/user)
-	if(on && (user.zone_selected in list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH))) // call original attack when examining organs
+	if(on && (user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, precise_only = TRUE))) // call original attack when examining organs
 		..()
 	return
 

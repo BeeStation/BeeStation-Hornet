@@ -234,8 +234,7 @@
 	attack_verb = list("slapped")
 
 /obj/item/surgical_drapes/attack(mob/living/M, mob/user)
-	if(!attempt_initiate_surgery(src, M, user))
-		..()
+	attempt_initiate_surgery(src, M, user)
 
 /obj/item/organ_storage //allows medical cyborgs to manipulate organs without hands
 	name = "organ storage bag"

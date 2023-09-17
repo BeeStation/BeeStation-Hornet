@@ -149,8 +149,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/proc/check_for_surgery(mob/living/carbon/human/H)
 	for(var/datum/surgery/S in H.surgeries)
-		if(S.location == H.zone_selected)
-			return	TRUE			//no snacks mid surgery
+		return TRUE			//no snacks mid surgery
 	return FALSE
 
 /obj/item/organ/item_action_slot_check(slot,mob/user)
