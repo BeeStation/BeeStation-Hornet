@@ -88,6 +88,8 @@
 		keybindings[keybinding.category][keybinding.name] = list(
 			"name" = keybinding.full_name,
 			"description" = keybinding.description,
+			"pref_key" = keybinding.required_pref_key,
+			"pref_value" = keybinding.required_pref_value,
 		)
 
 	return keybindings
