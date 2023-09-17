@@ -167,8 +167,8 @@
 		did_we_charge = TRUE
 
 	//if we're not targeting a robot part we stop early
-	var/obj/item/bodypart/bodypart = blessed.get_bodypart(chap.get_combat_bodyzone(target, zone_context = BODYZONE_CONTEXT_ROBOTIC_LIMB))
-	if(!IS_ORGANIC_LIMB(bodypart))
+	var/obj/item/bodypart/bodypart = blessed.get_bodypart(chap.get_combat_bodyzone(target, zone_context = BODYZONE_CONTEXT_ROBOTIC_LIMB_HEALING))
+	if(IS_ORGANIC_LIMB(bodypart))
 		if(!did_we_charge)
 			to_chat(chap, "<span class='warning'>[GLOB.deity] scoffs at the idea of healing such fleshy matter!</span>")
 		else

@@ -29,6 +29,7 @@
 
 	var/datum/task/fetch_selected_limb = user.select_bodyzone(target, style = BODYZONE_STYLE_MEDICAL)
 	fetch_selected_limb.continue_with(CALLBACK(src, PROC_REF(complete_repairs), target, I, user))
+	return COMPONENT_NO_AFTERATTACK
 
 /datum/element/mechanical_repair/proc/complete_repairs(mob/living/carbon/human/target, obj/item/I, mob/user, selected_zone)
 	var/obj/item/bodypart/affecting = target.get_bodypart(check_zone(selected_zone))

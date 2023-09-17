@@ -683,13 +683,13 @@
 				return living_target.can_inject(target_zone = target_zone)
 			return FALSE
 		// Prioritise robotic limbs
-		if (BODYZONE_CONTEXT_ROBOTIC_LIMB)
+		if (BODYZONE_CONTEXT_ROBOTIC_LIMB_HEALING)
 			if (isliving(target))
 				var/mob/living/living_target = target
 				var/obj/item/bodypart/limb = living_target.get_bodypart(target_zone)
 				if (!limb)
 					return FALSE
-				return !IS_ORGANIC_LIMB(limb)
+				return !IS_ORGANIC_LIMB(limb) && (limb.get_damage() > 0)
 			return FALSE
 
 /mob/proc/is_zone_selected(requested_zone = BODY_ZONE_CHEST, simplified_probability = 100, precise_only = FALSE, precise = TRUE)
