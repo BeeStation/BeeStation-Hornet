@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Looking at the protection stats of armour will now compare it to what you
+      are wearing
