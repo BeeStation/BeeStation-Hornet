@@ -180,7 +180,6 @@
 #define SDQL2_OPTION_BLOCKING_CALLS						(1<<1)
 #define SDQL2_OPTION_HIGH_PRIORITY						(1<<2)		//High priority SDQL query, allow using almost all of the tick.
 #define SDQL2_OPTION_DO_NOT_AUTOGC						(1<<3)
-#define SDQL2_OPTION_SEQUENTIAL							(1<<4)
 
 #define SDQL2_OPTIONS_DEFAULT		(SDQL2_OPTION_SELECT_OUTPUT_SKIP_NULLS)
 
@@ -236,7 +235,7 @@
 		return
 	var/list/datum/SDQL2_query/running = list()
 	var/list/datum/SDQL2_query/waiting_queue = list() //Sequential queries queue.
-	
+
 	for(var/list/query_tree in querys)
 		var/datum/SDQL2_query/query = new /datum/SDQL2_query(query_tree)
 		if(QDELETED(query))
@@ -244,7 +243,8 @@
 		if(usr)
 			query.show_next_to_key = usr.ckey
 		waiting_queue += query
-		if(query.options & SDQL2_OPTION_SEQUENTIAL)
+		//This needs to be done before Run() is used, unlike every other query option, so we're checking it here and we're doing it differently
+		if(query.options && findtext(query_text, "sequential = true"))
 			sequential = TRUE
 
 	if(sequential) //Start first one
@@ -263,7 +263,7 @@
 				to_chat(usr, "<span class='admin'>[msg]</span>")
 			log_admin(msg)
 			query.ARun()
-	
+
 	var/finished = FALSE
 	var/objs_all = 0
 	var/objs_eligible = 0
@@ -497,10 +497,7 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 			switch(value)
 				if("keep_alive")
 					ENABLE_BITFIELD(options, SDQL2_OPTION_DO_NOT_AUTOGC)
-		if("sequential")
-			switch(value)
-				if("true")
-					ENABLE_BITFIELD(options,SDQL2_OPTION_SEQUENTIAL)
+
 
 /datum/SDQL2_query/proc/ARun()
 	INVOKE_ASYNC(src, PROC_REF(Run))
