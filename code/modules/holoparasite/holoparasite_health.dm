@@ -6,20 +6,20 @@
 		var/summoner_max_health = current.maxHealth
 		var/health_amount = min(current.health, summoner_max_health - current.getStaminaLoss())
 		switch(health_amount)
-			if(summoner_max_health to INFINITY)
-				hud_used.healths.icon_state = "health0"
-			if((summoner_max_health * 0.8) to summoner_max_health)
-				hud_used.healths.icon_state = "health1"
-			if((summoner_max_health * 0.6) to (summoner_max_health * 0.8))
-				hud_used.healths.icon_state = "health2"
-			if((summoner_max_health * 0.4) to (summoner_max_health * 0.6))
-				hud_used.healths.icon_state = "health3"
-			if((summoner_max_health * 0.2) to (summoner_max_health * 0.4))
-				hud_used.healths.icon_state = "health4"
-			if(1 to (summoner_max_health * 0.2))
-				hud_used.healths.icon_state = "health5"
-			else
-				hud_used.healths.icon_state = "health6"
+		if(health_amount >= summoner_max_health)
+			hud_used.healths.icon_state = "health0"
+		else if(health_amount >= (summoner_max_health * 0.8))
+			hud_used.healths.icon_state = "health1"
+		else if(health_amount >= (summoner_max_health * 0.6))
+			hud_used.healths.icon_state = "health2"
+		else if(health_amount >= (summoner_max_health * 0.4))
+			hud_used.healths.icon_state = "health3"
+		else if(health_amount >= (summoner_max_health * 0.2))
+			hud_used.healths.icon_state = "health4"
+		else if(health_amount >= 1)
+			hud_used.healths.icon_state = "health5"
+		else
+			hud_used.healths.icon_state = "health6"
 	else
 		hud_used.healths.icon_state = "health7"
 
