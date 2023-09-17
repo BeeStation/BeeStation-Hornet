@@ -15,7 +15,7 @@
 	if (!client || !client.prefs)
 		ASYNC_RETURN(null)
 	if (!icon_callback)
-		icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), FALSE)
+		icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_default))
 	// Determine what parts we want to show
 	var/list/bodyzone_options = list()
 	var/list/parts = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_CHEST, BODY_ZONE_R_LEG, BODY_ZONE_R_ARM)
@@ -54,6 +54,11 @@
 	if (!(result in parts))
 		ASYNC_RETURN(null)
 	ASYNC_RETURN(result)
+
+/proc/select_bodyzone_limb_default( mob/user, atom/target, bodyzone, is_precise_part = FALSE)
+	// Create the overlay
+	var/image/selection_overlay = image(icon = 'icons/mob/zone_sel.dmi', icon_state = bodyzone)
+	return selection_overlay
 
 /proc/select_bodyzone_limb_health(accurate_health = FALSE, mob/user, atom/target, bodyzone, is_precise_part = FALSE)
 	// Get the colours
