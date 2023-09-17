@@ -262,3 +262,11 @@
 	description = "<span class='boldwarning'>I'm not safe! I can't trust anybody!</span>\n"
 	mood_change = -6
 	timeout = 30 SECONDS
+
+/datum/mood_event/saw_holopara_death
+	description = "<span class='warning'>Oh god, they just painfully turned to dust... What an horrifying sight...</span>\n"
+	mood_change = -10
+	timeout = 15 MINUTES
+
+/datum/mood_event/saw_holopara_death/add_effects(name)
+	description = "<span class='warning'>Oh god, [name] just painfully turned to dust... What an horrifying sight...</span>\n"

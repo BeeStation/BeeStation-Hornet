@@ -343,6 +343,7 @@
 		return
 	health = maxHealth - getBruteLoss() - getFireLoss()
 	update_stat()
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
 
 /mob/living/silicon/pai/process(delta_time)
 	emitterhealth = CLAMP((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)

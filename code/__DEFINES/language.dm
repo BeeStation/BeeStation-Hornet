@@ -45,6 +45,7 @@
 #define LANGUAGE_REAGENT "reagent"
 #define LANGUAGE_MULTILINGUAL "multilingual"
 #define LANGUAGE_EMP "emp"
+#define LANGUAGE_HOLOPARA "holoparasite"
 
 // Languages available from Multilingual
 GLOBAL_LIST_INIT(multilingual_language_list, typecacheof(list(
