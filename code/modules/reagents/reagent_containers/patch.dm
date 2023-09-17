@@ -13,11 +13,7 @@
 /obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user)
 	if(!ishuman(L))
 		return ..()
-	if (user.client?.prefs.)
-	var/accurate_health = HAS_TRAIT(user, TRAIT_MEDICAL_HUD) || istype(user.get_inactive_held_item(), /obj/item/healthanalyzer)
-	if (!accurate_health)
-		to_chat(user, "<span class='warning'>You could more easilly determine how injured [L] was if you had a medical hud or a health analyser!</span>")
-	var/datum/task/task = user.select_bodyzone(L, icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health))
+	var/datum/task/select_bodyzone = user.select_body_zone(L, FALSE, BODYZONE_STYLE_MEDICAL)
 	task.continue_with(CALLBACK(src, PROC_REF(apply_part), L, user))
 	return TRUE
 

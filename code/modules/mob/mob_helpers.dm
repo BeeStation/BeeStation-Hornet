@@ -608,3 +608,31 @@
 		return TRUE
 	else if(HAS_TRAIT(src, TRAIT_BARMASTER))
 		return TRUE
+
+/**
+ * Zone selection helpers.
+ *
+ * There are 2 ways to get the zone selected, a combat mode
+ * which determines the zone to target based on what target was
+ * pressed and a non-combat mode which displays a wheel of options.
+ */
+
+#define BODYZONE_STYLE_DEFAULT 0
+#define BODYZONE_STYLE_MEDICAL 1
+
+/mob/proc/select_body_zone(atom/target, precise, style = BODYZONE_STYLE_DEFAULT)
+	DECLARE_ASYNC
+	// Get the selected bodyzone
+	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED)
+		switch (style)
+			if (BODYZONE_STYLE_DEFAULT)
+				return AWAIT(user.select_bodyzone(L), precise, INFINITY)
+			if (BODYZONE_STYLE_MEDICAL)
+				var/accurate_health = HAS_TRAIT(src, TRAIT_MEDICAL_HUD) || istype(get_inactive_held_item(), /obj/item/healthanalyzer)
+				if (!accurate_health)
+					to_chat(src, "<span class='warning'>You could more easilly determine how injured [L] was if you had a medical hud or a health analyser!</span>")
+				return AWAIT(user.select_bodyzone(L, precise, icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health)), INFINITY)
+	// Return the value instantly
+	if (precise)
+		ASYNC_RETURN user.zone_selected
+	ASYNC_RETURN check_zone(user.zone_selected)
