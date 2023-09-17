@@ -325,7 +325,7 @@
 	full_name = "Target: Cycle head"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEHEAD_DOWN
-	required_pref_key = "zone_select"
+	required_pref_key = /datum/preference/choiced/zone_select
 	required_pref_value = PREFERENCE_BODYZONE_INTENT
 
 /datum/keybinding/mob/target_head_cycle/down(client/user)
@@ -342,7 +342,7 @@
 	full_name = "Target: right arm"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_TARGETRIGHTARM_DOWN
-	required_pref_key = "zone_select"
+	required_pref_key = /datum/preference/choiced/zone_select
 	required_pref_value = PREFERENCE_BODYZONE_INTENT
 
 /datum/keybinding/mob/target_r_arm/down(client/user)
@@ -359,7 +359,7 @@
 	full_name = "Target: Body"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_TARGETBODYCHEST_DOWN
-	required_pref_key = "zone_select"
+	required_pref_key = /datum/preference/choiced/zone_select
 	required_pref_value = PREFERENCE_BODYZONE_INTENT
 
 /datum/keybinding/mob/target_body_chest/down(client/user)
@@ -376,7 +376,7 @@
 	full_name = "Target: left arm"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_TARGETLEFTARM_DOWN
-	required_pref_key = "zone_select"
+	required_pref_key = /datum/preference/choiced/zone_select
 	required_pref_value = PREFERENCE_BODYZONE_INTENT
 
 /datum/keybinding/mob/target_left_arm/down(client/user)
@@ -393,7 +393,7 @@
 	full_name = "Target: Right leg"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_TARGETRIGHTLEG_DOWN
-	required_pref_key = "zone_select"
+	required_pref_key = /datum/preference/choiced/zone_select
 	required_pref_value = PREFERENCE_BODYZONE_INTENT
 
 /datum/keybinding/mob/target_right_leg/down(client/user)
@@ -410,7 +410,7 @@
 	full_name = "Target: Groin"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_TARGETBODYGROIN_DOWN
-	required_pref_key = "zone_select"
+	required_pref_key = /datum/preference/choiced/zone_select
 	required_pref_value = PREFERENCE_BODYZONE_INTENT
 
 /datum/keybinding/mob/target_body_groin/down(client/user)
@@ -427,7 +427,7 @@
 	full_name = "Target: left leg"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_TARGETLEFTLEG_DOWN
-	required_pref_key = "zone_select"
+	required_pref_key = /datum/preference/choiced/zone_select
 	required_pref_value = PREFERENCE_BODYZONE_INTENT
 
 /datum/keybinding/mob/target_left_leg/down(client/user)
@@ -453,7 +453,7 @@
 	full_name = "Target: Cycle zone up"
 	description = "Cycles the targeted bodyzone upwards. Leg targeting will become arm targeting, and arm targeting will become body/head targeting."
 	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEUP_DOWN
-	required_pref_key = "zone_select"
+	required_pref_key = /datum/preference/choiced/zone_select
 	required_pref_value = PREFERENCE_BODYZONE_SIMPLIFIED
 
 /datum/keybinding/mob/target_higher_zone/down(client/user)
@@ -472,7 +472,7 @@
 	full_name = "Target: Cycle zone down"
 	description = "Cycles the targeted bodyzone downwards. Head/body targeting will become arm targeting and arm targeting will become leg targeting.."
 	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEDOWN_DOWN
-	required_pref_key = "zone_select"
+	required_pref_key = /datum/preference/choiced/zone_select
 	required_pref_value = PREFERENCE_BODYZONE_SIMPLIFIED
 
 /datum/keybinding/mob/target_lower_zone/down(client/user)
