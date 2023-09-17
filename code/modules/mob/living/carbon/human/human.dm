@@ -414,7 +414,7 @@
 
 	if(!target_zone)
 		if(user)
-			target_zone = user.zone_selected
+			target_zone = user.get_combat_bodyzone(src, FALSE, BODYZONE_CONTEXT_INJECTION)
 		else
 			target_zone = BODY_ZONE_CHEST
 	// If targeting the head, see if the head item is thin enough.

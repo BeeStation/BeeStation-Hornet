@@ -27,7 +27,7 @@
 	if(target in user.do_afters)
 		return COMPONENT_NO_AFTERATTACK
 
-	var/datum/task/fetch_selected_limb = target.get_bodypart(check_zone(user.select_bodyzone(target, style = BODYZONE_STYLE_MEDICAL)))
+	var/datum/task/fetch_selected_limb = user.select_bodyzone(target, style = BODYZONE_STYLE_MEDICAL)
 	fetch_selected_limb.continue_with(CALLBACK(src, PROC_REF(complete_repairs), target, I, user))
 
 /datum/element/mechanical_repair/proc/complete_repairs(mob/living/carbon/human/target, obj/item/I, mob/user, selected_zone)
@@ -39,7 +39,7 @@
 
 	// Handles welder repairs on human limbs
 	if(I.tool_behaviour == TOOL_WELDER)
-		if(I.use_tool(source, user, 0, volume=50, amount=1))
+		if(I.use_tool(target, user, 0, volume=50, amount=1))
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 				"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")

@@ -10,18 +10,20 @@
 /// Precise: Toggle to include groin, eyes and mouth. If true, implies hide_non_present will be forced to false.
 /// Icon Callback: The callback to run in order to get the selection zone overlay.
 /// If you want to wait for the result use: AWAIT(select_bodyzone(target))
-/mob/proc/select_bodyzone_from_wheel(atom/target, precise = FALSE, datum/callback/icon_callback)
+/mob/proc/select_bodyzone_from_wheel(atom/target, precise = FALSE, datum/callback/icon_callback, override_zones = null)
 	DECLARE_ASYNC
 	if (!client || !client.prefs)
 		ASYNC_RETURN(null)
 	if (!icon_callback)
-		icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health))
+		icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), FALSE)
 	// Determine what parts we want to show
 	var/list/bodyzone_options = list()
 	var/list/parts = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_CHEST, BODY_ZONE_R_LEG, BODY_ZONE_R_ARM)
 	var/list/precise_parts = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
 	if (precise)
 		parts += precise_parts
+	if (override_zones)
+		parts = override_zones
 	for (var/bodyzone in parts)
 		var/image/created_image = image(icon = ui_style2icon(client.prefs?.read_player_preference(/datum/preference/choiced/ui_style)), icon_state = "zone_sel")
 		var/selection_overlay = icon_callback.Invoke(src, target, bodyzone, bodyzone in precise_parts)

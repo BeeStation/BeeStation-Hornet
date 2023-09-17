@@ -617,28 +617,22 @@
  * pressed and a non-combat mode which displays a wheel of options.
  */
 
-#define BODYZONE_STYLE_DEFAULT 0
-#define BODYZONE_STYLE_MEDICAL 1
-
-/mob/proc/select_bodyzone(atom/target, precise = FALSE, style = BODYZONE_STYLE_DEFAULT)
+/mob/proc/select_bodyzone(atom/target, precise = FALSE, style = BODYZONE_STYLE_DEFAULT, override_zones = null)
 	DECLARE_ASYNC
 	// Get the selected bodyzone
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED)
 		switch (style)
 			if (BODYZONE_STYLE_DEFAULT)
-				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise))
+				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise, override_zones = override_zones))
 			if (BODYZONE_STYLE_MEDICAL)
 				var/accurate_health = HAS_TRAIT(src, TRAIT_MEDICAL_HUD) || istype(get_inactive_held_item(), /obj/item/healthanalyzer)
 				if (!accurate_health && isliving(target))
 					to_chat(src, "<span class='warning'>You could more easilly determine how injured [target] was if you had a medical hud or a health analyser!</span>")
-				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise, icon_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health)))
+				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health), override_zones))
 	// Return the value instantly
 	if (precise)
 		ASYNC_RETURN(zone_selected)
 	ASYNC_RETURN(check_zone(zone_selected))
-
-#define BODYZONE_CONTEXT_COMBAT 0
-#define BODYZONE_CONTEXT_INJECTION 1
 
 /**
  * Get the zone that we probably wanted to target. This depends on the context.
@@ -661,8 +655,8 @@
 		if (BODY_GROUP_CHEST_HEAD)
 			if (zone_context == BODYZONE_CONTEXT_INJECTION && isliving(target))
 				var/mob/living/living_target = target
-				var/can_inject_head = living_target.can_inject(BODY_ZONE_HEAD)
-				var/can_inject_chest = living_target.can_inject(BODY_ZONE_CHEST)
+				var/can_inject_head = living_target.can_inject(target_zone = BODY_ZONE_HEAD)
+				var/can_inject_chest = living_target.can_inject(target_zone = BODY_ZONE_CHEST)
 				if (can_inject_chest)
 					return BODY_ZONE_CHEST
 				if (can_inject_head)
@@ -675,8 +669,8 @@
 		if (BODY_GROUP_LEGS)
 			if (zone_context == BODYZONE_CONTEXT_INJECTION && isliving(target))
 				var/mob/living/living_target = target
-				var/can_inject_left = living_target.can_inject(BODY_ZONE_L_LEG)
-				var/can_inject_right = living_target.can_inject(BODY_ZONE_R_LEG)
+				var/can_inject_left = living_target.can_inject(target_zone = BODY_ZONE_L_LEG)
+				var/can_inject_right = living_target.can_inject(target_zone = BODY_ZONE_R_LEG)
 				if (can_inject_left && can_inject_right)
 					return pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 				if (can_inject_left)
@@ -688,8 +682,8 @@
 			if (isliving(target))
 				var/mob/living/living_target = target
 				if (zone_context == BODYZONE_CONTEXT_INJECTION)
-					var/can_inject_left = living_target.can_inject(BODY_ZONE_L_ARM)
-					var/can_inject_right = living_target.can_inject(BODY_ZONE_R_ARM)
+					var/can_inject_left = living_target.can_inject(target_zone = BODY_ZONE_L_ARM)
+					var/can_inject_right = living_target.can_inject(target_zone = BODY_ZONE_R_ARM)
 					if (can_inject_left && can_inject_right)
 						return pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 					if (can_inject_left)
@@ -702,9 +696,9 @@
 					return BODY_ZONE_R_ARM
 			return pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
-/mob/proc/is_zone_selected(requested_zone = BODY_ZONE_CHEST, simplified_probability = 100, precise_only = FALSE)
+/mob/proc/is_zone_selected(requested_zone = BODY_ZONE_CHEST, simplified_probability = 100, precise_only = FALSE, precise = TRUE)
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)
-		return zone_selected == requested_zone
+		return zone_selected == requested_zone || (!precise && check_zone(zone_selected) == requested_zone)
 	if (precise_only)
 		return FALSE
 	// Check if we randomly don't hit the selected zone

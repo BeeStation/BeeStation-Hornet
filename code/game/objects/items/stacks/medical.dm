@@ -57,15 +57,21 @@
 		use(1)
 		return
 
+	var/datum/task/select_bodyzone_task = user.select_bodyzone(M, FALSE, BODYZONE_STYLE_MEDICAL)
+	select_bodyzone_task.continue_with(CALLBACK(src, PROC_REF(do_application), M, user))
+
+/obj/item/stack/medical/proc/do_application(mob/living/M, mob/user, zone_selected)
+	if (!zone_selected)
+		return
 	var/obj/item/bodypart/affecting
 	var/mob/living/carbon/C = M
-	affecting = C.get_bodypart(check_zone(user.zone_selected))
+	affecting = C.get_bodypart(check_zone(zone_selected))
 
 	if(M in user.do_afters) //One at a time, please.
 		return
 
 	if(!affecting) //Missing limb?
-		to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
+		to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(zone_selected)]!</span>")
 		return
 
 	if(ishuman(C)) //apparently only humans bleed? funky.
@@ -84,7 +90,7 @@
 		return
 
 	if(!(affecting.brute_dam || affecting.burn_dam))
-		to_chat(user, "<span class='warning'>[M]'s [parse_zone(user.zone_selected)] isn't hurt!</span>")
+		to_chat(user, "<span class='warning'>[M]'s [parse_zone(zone_selected)] isn't hurt!</span>")
 		return
 
 	if((affecting.brute_dam && !affecting.burn_dam && !heal_brute) || (affecting.burn_dam && !affecting.brute_dam && !heal_burn)) //suffer
@@ -95,7 +101,7 @@
 		user.visible_message("<span class='notice'>[user] starts to apply [src] on [user.p_them()]self...</span>", "<span class='notice'>You begin applying [src] on yourself...</span>")
 		if(!do_after(user, self_delay, M))
 			return
-		//After the do_mob to ensure metabolites have had time to process at least one tick. 
+		//After the do_mob to ensure metabolites have had time to process at least one tick.
 		if(reagent && (C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/styptic_powder) || C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/silver_sulfadiazine)))
 			to_chat(user, "<span class='warning'>That stuff really hurt! You'll need to wait for the pain to go away before you can apply [src] to your wounds again, maybe someone else can help put it on for you.</span>")
 			return
