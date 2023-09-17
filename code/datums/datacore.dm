@@ -186,14 +186,15 @@
 
 /datum/datacore/proc/get_manifest()
 	var/list/manifest_out = list()
-	var/static/list/heads = make_associative(GLOB.command_positions + list(JOB_NAME_QUARTERMASTER))
+	var/static/list/heads = make_associative(GLOB.command_positions)
 
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
 		var/dept_bitflags = t.fields["active_dept"]
+		var/hud = t.fields["hud"]
 		var/has_department = FALSE
-		var/entry = list("name" = name, "rank" = rank)
+		var/entry = list("name" = name, "rank" = rank, "hud" = hud)
 		for(var/department in get_job_departments(dept_bitflags))
 			var/list/department_manifest = manifest_out[department]
 			if(!department_manifest)

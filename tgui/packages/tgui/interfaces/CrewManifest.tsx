@@ -6,7 +6,6 @@ import { Window } from '../layouts';
 
 type DepartmentPositions = { [department: string]: DepartmentInfo };
 type DepartmentCrew = { [department: string]: ManifestEntry[] };
-type JobIcons = { [job: string]: string };
 type JobOrdering = { [job: string]: number };
 
 const sortSpecific = (entries: ManifestEntry[], chain: JobOrdering) =>
@@ -24,6 +23,8 @@ type ManifestEntry = {
   name: string;
   /** The rank of this crew member.  */
   rank: string;
+  /** The HUD icon of this crew member.  */
+  hud: string;
 };
 
 type CommandInfo = {
@@ -36,8 +37,6 @@ type CommandInfo = {
 type CrewManifestData = {
   /** Information pertaining to the command department  */
   command: CommandInfo;
-  /** A (static) list of which jobs use what icons. */
-  icons: JobIcons;
   /** The crew staffing each department. */
   manifest: DepartmentCrew;
   /** How many positions each department has open. */
@@ -48,7 +47,7 @@ type CrewManifestData = {
 
 export const CrewManifest = (_props, context) => {
   const {
-    data: { command, order, icons, manifest, positions },
+    data: { command, order, manifest, positions },
   } = useBackend<CrewManifestData>(context);
 
   return (
@@ -69,14 +68,11 @@ export const CrewManifest = (_props, context) => {
               }>
               <Table>
                 {Object.entries(sorted_jobs).map(([crewIndex, crewMember]) => {
-                  const icon = icons[crewMember.rank] || 'unknown';
                   const exceptions = department_positions.exceptions || [];
                   const is_command = command.jobs.includes(crewMember.rank);
                   return (
                     <Table.Row key={crewIndex}>
-                      <Table.Cell
-                        className={'CrewManifest__Cell'}
-                        bold={(dept !== 'Command' && is_command) || crewMember.rank === 'Captain'}>
+                      <Table.Cell className={'CrewManifest__Cell'} bold={is_command}>
                         {crewMember.name}
                       </Table.Cell>
                       <Table.Cell className={classes(['CrewManifest__Cell', 'CrewManifest__Icons'])} collapsing>
@@ -102,7 +98,7 @@ export const CrewManifest = (_props, context) => {
                           mr={0.5}
                           ml={-0.5}
                           style={{ 'transform': 'translateY(18.75%)' }}
-                          className={`job-icon16x16 job-icon-hud${icon}`}
+                          className={`job-icon16x16 job-icon-hud${crewMember.hud}`}
                         />
                       </Table.Cell>
                       <Table.Cell className={classes(['CrewManifest__Cell', 'CrewManifest__Cell--Rank'])} collapsing>

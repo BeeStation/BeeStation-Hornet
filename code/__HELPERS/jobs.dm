@@ -74,6 +74,8 @@
 	)
 	return id_style[jobname] || "noname" // default: a card with no shape
 
+// You really shouldn't use this directly.
+// Use get_hud_by_jobname unless you NEED direct access to this, i.e for the crew manifest tgui data
 GLOBAL_LIST_INIT(id_to_hud, list(
 	// Command
 	"Command (Custom)" = JOB_HUD_RAWCOMMAND,
