@@ -43,6 +43,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/throw_icon
 	var/atom/movable/screen/module_store_icon
 
+	var/custom_hud_locs = FALSE
+
 	var/list/static_inventory = list() //the screen objects which are static
 	var/list/toggleable_inventory = list() //the screen objects which can be hidden
 	var/list/atom/movable/screen/hotkeybuttons = list() //the buttons that can be used via hotkeys
@@ -171,7 +173,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 			screenmob.client.screen += hide_actions_toggle
 
-			if(action_intent)
+			if(action_intent && !custom_hud_locs)
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
 
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
@@ -192,7 +194,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 				var/atom/movable/screen/hand = hand_slots[h]
 				if(hand)
 					screenmob.client.screen += hand
-			if(action_intent)
+			if(action_intent && !custom_hud_locs)
 				screenmob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
 
