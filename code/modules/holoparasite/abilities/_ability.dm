@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_abilities, /datum/holoparasite_ability, init
 	SHOULD_CALL_PARENT(TRUE)
 	register_signals()
 	for(var/trait in traits)
-		ADD_TYPED_TRAIT(owner, trait)
+		add_owner_trait(trait)
 
 /**
  * Removes the effect of the ability from the owner holoparasite.
@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_abilities, /datum/holoparasite_ability, init
 /datum/holoparasite_ability/proc/remove()
 	SHOULD_CALL_PARENT(TRUE)
 	unregister_signals()
-	REMOVE_TYPED_TRAITS(owner)
+	REMOVE_TRAITS_IN(owner, "[type]")
 
 /**
  * Registers the signals associated with this ability.
@@ -75,6 +75,13 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_abilities, /datum/holoparasite_ability, init
  */
 /datum/holoparasite_ability/proc/unregister_signals()
 	SHOULD_CALL_PARENT(TRUE)
+
+/**
+ * Adds a trait to the owner holoparasite.
+ * This trait will automatically be removed when the ability is removed.
+ */
+/datum/holoparasite_ability/proc/add_owner_trait(trait)
+	ADD_TRAIT(owner, trait, "[type]")
 
 /**
  * Determines whether this ability can be bought or not when building a holoparasite.

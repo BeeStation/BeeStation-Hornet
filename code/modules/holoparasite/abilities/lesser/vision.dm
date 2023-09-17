@@ -23,7 +23,7 @@
 /datum/holoparasite_ability/lesser/vision/apply()
 	..()
 	if(master_stats.range >= 4 && master_stats.potential >= 5)
-		ADD_TYPED_TRAIT(owner, TRAIT_XRAY_VISION)
+		add_owner_trait(TRAIT_XRAY_VISION)
 	owner.update_sight()
 
 /datum/holoparasite_ability/lesser/vision/remove()

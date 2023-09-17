@@ -118,11 +118,6 @@
 		: FALSE)
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (length(target.status_traits[trait] - source) > 0) : FALSE) : FALSE)
 
-/// Adds a trait, with the source being the caller's type.
-#define ADD_TYPED_TRAIT(target, trait)	ADD_TRAIT(target, trait, "[type]")
-/// Removes all traits added by ADD_TYPED_TRAIT.
-#define REMOVE_TYPED_TRAITS(target)		REMOVE_TRAITS_IN(target, "[type]")
-
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */

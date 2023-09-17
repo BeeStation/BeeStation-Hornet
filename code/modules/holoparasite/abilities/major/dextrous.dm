@@ -95,7 +95,7 @@
 	can_wield = master_stats.damage >= 4
 	can_use_most_guns = master_stats.damage >= 5 && master_stats.range >= 5
 	if(!can_use_most_guns)
-		ADD_TYPED_TRAIT(owner, TRAIT_POOR_AIM)
+		add_owner_trait(TRAIT_POOR_AIM)
 	owner.dextrous = TRUE
 	owner.a_intent = INTENT_HELP
 	owner.possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_HARM)
