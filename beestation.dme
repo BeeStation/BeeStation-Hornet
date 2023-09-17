@@ -2272,6 +2272,7 @@
 #include "code\modules\client\preferences\entries\player\tooltips.dm"
 #include "code\modules\client\preferences\entries\player\ui_style.dm"
 #include "code\modules\client\preferences\entries\player\window_flashing.dm"
+#include "code\modules\client\preferences\entries\player\zone_selection.dm"
 #include "code\modules\client\preferences\middleware\_middleware.dm"
 #include "code\modules\client\preferences\middleware\antags.dm"
 #include "code\modules\client\preferences\middleware\jobs.dm"
