@@ -32,7 +32,7 @@
 	return COMPONENT_NO_AFTERATTACK
 
 /datum/element/mechanical_repair/proc/complete_repairs(mob/living/carbon/human/target, obj/item/I, mob/user, selected_zone)
-	if(target in user.do_afters || user.can_interact_with(target, TRUE))
+	if(target in user.do_afters || !user.can_interact_with(target, TRUE) || !user.can_interact_with(I, TRUE))
 		return COMPONENT_NO_AFTERATTACK
 
 	var/obj/item/bodypart/affecting = target.get_bodypart(check_zone(selected_zone))

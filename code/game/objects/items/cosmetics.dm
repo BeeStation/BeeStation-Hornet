@@ -144,6 +144,9 @@
 	if (!user.can_interact_with(H, TRUE))
 		to_chat(user, "<span class='warning'>[H] is too far away!</span>")
 		return
+	if (!user.can_interact_with(src, TRUE))
+		to_chat(user, "<span class='warning'>[src] is too far away!</span>")
+		return
 	if(location == BODY_ZONE_PRECISE_MOUTH)
 		if(user.a_intent == INTENT_HELP)
 			if(H.gender == MALE)

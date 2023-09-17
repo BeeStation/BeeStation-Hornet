@@ -66,6 +66,9 @@
 	if (!user.can_interact_with(M, TRUE))
 		to_chat(user, "<span class='danger'>You cannot reach [M]!</span>")
 		return
+	if (!user.can_interact_with(src, TRUE))
+		to_chat(user, "<span class='danger'>You cannot reach [src]!</span>")
+		return
 	if(M.stat == DEAD && !stop_bleeding)
 		to_chat(user, "<span class='danger'>\The [M] is dead, you cannot help [M.p_them()]!</span>")
 		return

@@ -49,6 +49,9 @@
 	if (!user.can_interact_with(M, TRUE))
 		balloon_alert(user, "[M] is too far away!")
 		return
+	if (!user.can_interact_with(src, TRUE))
+		balloon_alert(user, "[src] is too far away!")
+		return
 	var/obj/item/bodypart/affecting = M.get_bodypart(check_zone(def_zone))
 	if(!affecting)
 		balloon_alert(user, "The limb is missing.")
