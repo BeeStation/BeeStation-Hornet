@@ -669,10 +669,13 @@
 	switch (context)
 		// Prioritise active hand
 		if (BODYZONE_CONTEXT_COMBAT)
-			if (living_target.active_hand_index == 1)
-				return target_zone == BODY_ZONE_L_ARM
-			else
-				return target_zone == BODY_ZONE_R_ARM
+			if (isliving(target))
+				var/mob/living/living_target = target
+				if (living_target.active_hand_index == 1)
+					return target_zone == BODY_ZONE_L_ARM
+				else
+					return target_zone == BODY_ZONE_R_ARM
+			return FALSE
 		// Prioritise things that aren't injection proof
 		if (BODYZONE_CONTEXT_INJECTION)
 			if (isliving(target))
