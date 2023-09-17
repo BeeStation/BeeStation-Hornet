@@ -5,7 +5,6 @@
 	if(!QDELETED(current) && current.stat != DEAD)
 		var/summoner_max_health = current.maxHealth
 		var/health_amount = min(current.health, summoner_max_health - current.getStaminaLoss())
-		switch(health_amount)
 		if(health_amount >= summoner_max_health)
 			hud_used.healths.icon_state = "health0"
 		else if(health_amount >= (summoner_max_health * 0.8))
