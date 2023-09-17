@@ -1,4 +1,4 @@
-import { CheckboxInputInverse, createDropdownInput, FeatureToggle, Feature } from '../base';
+import { CheckboxInputInverse, FeatureButtonedDropdownInput, FeatureToggle, Feature } from '../base';
 
 export const hotkeys: FeatureToggle = {
   name: 'Classic hotkeys',
@@ -12,13 +12,5 @@ export const zone_select: Feature<string> = {
   category: 'GAMEPLAY',
   description:
     'When set to simplified, the bodyzone system will be replaced with a grouped system where the bodyparts are put into 3 groups: Arms, Legs and Body/Chest. This setting is recommended if you do not have a numpad or want a simpler experience',
-  component: createDropdownInput(
-    {
-      'simplified': 'Simplified Targeting',
-      'intent': 'Precise Targeting',
-    },
-    {
-      buttons: false,
-    }
-  ),
+  component: FeatureButtonedDropdownInput,
 };

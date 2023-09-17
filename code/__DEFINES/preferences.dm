@@ -154,5 +154,5 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define PREFERENCE_SHEET_LARGE "preferences_l"
 #define PREFERENCE_SHEET_HUGE "preferences_h"
 
-#define PREFERENCE_BODYZONE_SIMPLIFIED "simplified"	// Use the simplified system
-#define PREFERENCE_BODYZONE_INTENT "intent"	// Use the bodyzone intent system
+#define PREFERENCE_BODYZONE_SIMPLIFIED "Simplified Targeting"	// Use the simplified system
+#define PREFERENCE_BODYZONE_INTENT "Precise Targeting"	// Use the bodyzone intent system
