@@ -142,7 +142,7 @@
 
 /obj/item/razor/proc/razor_action(mob/living/carbon/human/H, mob/user, mirror, location)
 	if (!user.can_interact_with(H, TRUE))
-		to_chat(user, "<span class='warning'>[L] is too far away!</span>")
+		to_chat(user, "<span class='warning'>[H] is too far away!</span>")
 		return
 	if(location == BODY_ZONE_PRECISE_MOUTH)
 		if(user.a_intent == INTENT_HELP)

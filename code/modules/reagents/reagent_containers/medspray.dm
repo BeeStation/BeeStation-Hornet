@@ -47,7 +47,7 @@
 	if (!def_zone)
 		return
 	if (!user.can_interact_with(M, TRUE))
-		balloon_alert(user, "[L] is too far away!")
+		balloon_alert(user, "[M] is too far away!")
 		return
 	var/obj/item/bodypart/affecting = M.get_bodypart(check_zone(def_zone))
 	if(!affecting)
