@@ -691,7 +691,7 @@
 					var/can_inject_left = living_target.can_inject(BODY_ZONE_L_ARM)
 					var/can_inject_right = living_target.can_inject(BODY_ZONE_R_ARM)
 					if (can_inject_left && can_inject_right)
-						pick(BODY_ZONE_L_ARM. BODY_ZONE_R_ARM)
+						pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 					if (can_inject_left)
 						return BODY_ZONE_L_ARM
 					if (can_inject_right)

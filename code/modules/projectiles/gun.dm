@@ -270,8 +270,8 @@
 		// On simplified mode, contextually determine if we want to suicide them
 		// If the target is ourselves, they are buckled, restrained or lying down then suicide them
 		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || living_target.restrained() || living_target.buckled || !(living_target.mobility_flags & MOBILITY_STAND)))
-				handle_suicide(user, target, params)
-				return
+			handle_suicide(user, target, params)
+			return
 
 	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can shoot.
 		shoot_with_empty_chamber(user)
