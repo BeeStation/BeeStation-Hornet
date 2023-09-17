@@ -72,7 +72,7 @@
 
 /mob/living/carbon/attacked_by(obj/item/I, mob/living/user)
 	var/obj/item/bodypart/affecting
-	affecting = get_bodypart(check_zone(user.zone_selected))
+	affecting = get_bodypart(check_zone(user.get_combat_bodyzone(src)))
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
@@ -274,7 +274,7 @@
 			return
 		M.visible_message("<span class='notice'>[M] shakes [src] trying to get [p_them()] up!</span>", \
 						"<span class='notice'>You shake [src] trying to get [p_them()] up!</span>")
-	else if(M.zone_selected == BODY_ZONE_CHEST)
+	else if(M.is_zone_selected(BODY_ZONE_CHEST))
 		M.visible_message("<span class='notice'>[M] hugs [src] to make [p_them()] feel better!</span>", \
 					"<span class='notice'>You hug [src] to make [p_them()] feel better!</span>")
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/hug)
@@ -286,19 +286,19 @@
 				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, M)
 		for(var/datum/brain_trauma/trauma in M.get_traumas())
 			trauma.on_hug(M, src)
-	else if(M.zone_selected == BODY_ZONE_HEAD)
+	else if(M.is_zone_selected(BODY_ZONE_HEAD))
 		M.visible_message("<span class='notice'>[M] pats [src] on the head.</span>", \
 					"<span class='notice'>You pat [src] on the head.</span>")
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "headpat", /datum/mood_event/headpat, M)
 		for(var/datum/brain_trauma/trauma in M.get_traumas())
 			trauma.on_hug(M, src)
-	else if((M.zone_selected == BODY_ZONE_L_ARM) || (M.zone_selected == BODY_ZONE_R_ARM))
-		if(!get_bodypart(check_zone(M.zone_selected)))
-			to_chat(M, "<span class='warning'>[src] does not have a [M.zone_selected == BODY_ZONE_L_ARM ? "left" : "right"] arm!</span>")
+	else if((M.is_zone_selected(BODY_ZONE_L_ARM)) || (M.is_zone_selected(BODY_ZONE_R_ARM)))
+		if(!get_bodypart(check_zone(M.get_combat_bodyzone(src))))
+			to_chat(M, "<span class='warning'>[src] does not have a [M.get_combat_bodyzone(src) == BODY_ZONE_L_ARM ? "left" : "right"] arm!</span>")
 		else
 			M.visible_message("<span class='notice'>[M] shakes [src]'s hand.</span>", \
 						"<span class='notice'>You shake [src]'s hand.</span>")
-	else if(M.zone_selected == BODY_ZONE_PRECISE_GROIN)
+	else if(M.is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_zone_selected(BODY_GROUP_LEGS))
 		to_chat(M, "<span class='warning'>ERP is not allowed on this server!</span>")
 	AdjustStun(-60)
 	AdjustKnockdown(-60)

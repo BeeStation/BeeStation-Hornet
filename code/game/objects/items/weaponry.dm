@@ -24,7 +24,7 @@ mrdoombringer sez: and remember kids, if you try and PR a fix for this item's gr
 for further reading, please see: https://github.com/tgstation/tgstation/pull/30173 and https://translate.google.com/translate?sl=auto&tl=en&js=y&prev=_t&hl=en&ie=UTF-8&u=%2F%2Flurkmore.to%2FSS13&edit-text=&act=url
 */
 /obj/item/banhammer/attack(mob/M, mob/user)
-	if(user.zone_selected == BODY_ZONE_HEAD)
+	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = FALSE))
 		M.visible_message("<span class='danger'>[user] are stroking the head of [M] with a bangammer</span>", "<span class='userdanger'>[user] are stroking the head with a bangammer</span>", "you hear a bangammer stroking a head");
 	else
 		M.visible_message("<span class='danger'>[M] has been banned FOR NO REISIN by [user]</span>", "<span class='userdanger'>You have been banned FOR NO REISIN by [user]</span>", "you hear a banhammer banning someone")
@@ -809,7 +809,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	user.do_attack_animation(M)
 
 	var/slap_volume = 50
-	if(user.zone_selected == BODY_ZONE_HEAD || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, 50))
 		user.visible_message("<span class='danger'>[user] slaps [M] in the face!</span>",
 			"<span class='notice'>You slap [M] in the face!</span>",
 			"<span class='hear'>You hear a slap.</span>")

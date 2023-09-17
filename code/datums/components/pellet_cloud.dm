@@ -91,7 +91,7 @@
 	shooter = user
 	var/turf/targloc = get_turf(target)
 	if(!zone_override)
-		zone_override = shooter.zone_selected
+		zone_override = shooter.get_combat_bodyzone(target)
 
 	for(var/i in 1 to num_pellets)
 		shell.ready_proj(target, user, SUPPRESSED_VERY, zone_override, fired_from)

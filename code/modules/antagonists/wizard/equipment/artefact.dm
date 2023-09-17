@@ -330,7 +330,7 @@
 			target.adjust_bodytemperature(50)
 			GiveHint(target)
 		else if(is_pointed(I))
-			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_selected)]!</span>")
+			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.get_combat_bodyzone(target))]!</span>")
 			target.Paralyze(40)
 			GiveHint(target)
 		else if(istype(I, /obj/item/bikehorn))

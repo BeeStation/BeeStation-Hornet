@@ -709,7 +709,7 @@
 	if(QDELETED(thrower) || !istype(thrower))
 		thrower = null //Let's not pass an invalid reference.
 	else
-		target_zone = thrower.zone_selected
+		target_zone = thrower.get_combat_bodyzone(target)
 
 	var/datum/thrownthing/TT = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
 

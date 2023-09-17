@@ -879,7 +879,7 @@
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
-		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
+		if(!src.is_busy && (src.is_zone_selected(BODY_ZONE_HEAD) || src.is_zone_selected(BODY_ZONE_PRECISE_GROIN) ||) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
 			if (!do_after(src, 2.5 SECONDS, T) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
@@ -888,7 +888,7 @@
 
 			T.Stun(6)
 
-			if(src.zone_selected == BODY_ZONE_HEAD) //curbstomp specific code
+			if(src.is_zone_selected(BODY_ZONE_HEAD)) //curbstomp specific code
 
 				var/increment = (T.lying_angle/90)-2
 				setDir(increment > 0 ? WEST : EAST)
@@ -912,7 +912,8 @@
 
 				log_combat(src, T, "curbstomped")
 
-			else if(src.zone_selected == BODY_ZONE_PRECISE_GROIN) //groinkick specific code
+			// Will be legs only on simplified mode since groin is legs
+			else if(src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) //groinkick specific code
 
 				var/increment = (T.lying_angle/90)-2
 				setDir(increment > 0 ? WEST : EAST)

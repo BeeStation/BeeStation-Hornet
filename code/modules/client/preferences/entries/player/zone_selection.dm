@@ -11,7 +11,15 @@
 	)
 
 /datum/preference/choiced/zone_select/create_default_value()
-	return PREFERENCE_BODYZONE_SIMPLIFIED
+	// For the time being the default will be the standard intent system
+	// until we have had some time to play with the new simplified bodyzone
+	// system and determine if its good or not. If playing with it is acceptable
+	// and more intuative than bodyzones, switch the default to simplified.
+	return PREFERENCE_BODYZONE_INTENT
 
 /datum/preference/choiced/zone_select/apply_to_client(client/client, value)
-	client.mob?.hud_used?.update_parallax_pref(client?.mob)
+	// Reset zone selected to a sane value
+	if (value == PREFERENCE_BODYZONE_SIMPLIFIED)
+		client.mob.zone_selected = BODY_GROUP_CHEST_HEAD
+	else
+		client.mob.zone_selected = BODY_ZONE_CHEST

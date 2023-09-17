@@ -48,7 +48,8 @@
 	*/
 
 	/// The zone this mob is currently targeting
-	var/zone_selected = BODY_ZONE_CHEST
+	/// Use select_bodyzone and get_combat_bodyzone to get this value
+	VAR_PRIVATE/zone_selected = BODY_ZONE_CHEST
 
 	var/computer_id = null
 	var/list/logging = list()

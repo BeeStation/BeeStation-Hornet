@@ -72,7 +72,7 @@
 /obj/item/powertool/hand_drill/attack(mob/living/M, mob/living/user)
 	if(!istype(M) || tool_behaviour != TOOL_SCREWDRIVER)
 		return ..()
-	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
+	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && !user.is_zone_selected(BODY_ZONE_HEAD, 40))
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")

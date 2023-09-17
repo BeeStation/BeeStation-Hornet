@@ -34,7 +34,7 @@
 		return 0
 	var/gulp_amount = gulp_size
 	if(M == user)
-		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !beingChugged)
+		if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, precise_only = TRUE) && !beingChugged)
 			beingChugged = TRUE
 			user.visible_message("<span class='notice'>[user] starts chugging [src].</span>", \
 				"<span class='notice'>You start chugging [src].</span>")
@@ -488,7 +488,7 @@
 	return TOXLOSS
 
 /obj/item/reagent_containers/food/drinks/soda_cans/attack(mob/M, mob/user)
-	if(M == user && !src.reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == BODY_ZONE_HEAD)
+	if(M == user && !src.reagents.total_volume && user.a_intent == INTENT_HARM && user.is_zone_selected(BODY_ZONE_HEAD))
 		user.visible_message("<span class='warning'>[user] crushes the can of [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead.</span>")
 		playsound(user.loc,'sound/weapons/pierce.ogg', rand(10,50), 1)
 		var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)

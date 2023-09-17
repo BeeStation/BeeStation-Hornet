@@ -466,7 +466,7 @@
 	var/mob/living/carbon/H = M
 
 
-	if(user.zone_selected != BODY_ZONE_CHEST)
+	if(!user.is_zone_selected(BODY_ZONE_CHEST))
 		to_chat(user, "<span class='warning'>You need to target your patient's chest with [src]!</span>")
 		return
 

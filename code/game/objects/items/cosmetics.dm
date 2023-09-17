@@ -78,7 +78,7 @@
 
 //you can wipe off lipstick with paper!
 /obj/item/paper/attack(mob/M, mob/user)
-	if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 		if(!ismob(M))
 			return
 

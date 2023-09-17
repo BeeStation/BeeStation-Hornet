@@ -252,7 +252,7 @@
 			return
 		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
 			return
-		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
 			return
 
 	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
@@ -261,9 +261,17 @@
 			return
 
 	if(flag)
-		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
-			handle_suicide(user, target, params)
-			return
+		var/simplified_mode = user.client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED
+		var/mob/living/living_target = target
+		if (!simplified_mode)
+			if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
+				handle_suicide(user, target, params)
+				return
+		// On simplified mode, contextually determine if we want to suicide them
+		// If the target is ourselves, they are buckled, restrained or lying down then suicide them
+		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || living_target.restrained() || living_target.buckled || !(living_target.mobility_flags & MOBILITY_STAND)))
+				handle_suicide(user, target, params)
+				return
 
 	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can shoot.
 		shoot_with_empty_chamber(user)
@@ -659,7 +667,7 @@
 
 	semicd = TRUE
 
-	if(!bypass_timer && (!do_after(user, 12 SECONDS, target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH))
+	if(!bypass_timer && (!do_after(user, 12 SECONDS, target) || !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)))
 		if(user)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided not to shoot.</span>")

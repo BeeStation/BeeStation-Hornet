@@ -256,7 +256,7 @@
 /datum/component/embedded/proc/checkRemoval(mob/living/carbon/victim, obj/item/I, mob/user)
 	SIGNAL_HANDLER
 
-	if(!istype(victim) || user.zone_selected != limb.body_zone || user.a_intent != INTENT_HELP)
+	if(!istype(victim) || user.is_zone_selected(limb.body_zone) || user.a_intent != INTENT_HELP)
 		return
 
 	var/damage_multiplier = 1

@@ -512,43 +512,44 @@
 		vis_contents -= hover_overlays_cache[hovering]
 		hovering = null
 
-/atom/movable/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
+/atom/movable/screen/zone_sel/proc/get_zone_at(mob/user, icon_x, icon_y)
+	var/simple_mode = user.client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED
 	switch(icon_y)
 		if(1 to 9) //Legs
 			switch(icon_x)
 				if(10 to 15)
-					return BODY_ZONE_R_LEG
+					return simple_mode ? BODY_GROUP_LEGS : BODY_ZONE_R_LEG
 				if(17 to 22)
-					return BODY_ZONE_L_LEG
+					return simple_mode ? BODY_GROUP_LEGS : BODY_ZONE_L_LEG
 		if(10 to 13) //Hands and groin
 			switch(icon_x)
 				if(8 to 11)
-					return BODY_ZONE_R_ARM
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_R_ARM
 				if(12 to 20)
-					return BODY_ZONE_PRECISE_GROIN
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_PRECISE_GROIN
 				if(21 to 24)
-					return BODY_ZONE_L_ARM
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_L_ARM
 		if(14 to 22) //Chest and arms to shoulders
 			switch(icon_x)
 				if(8 to 11)
-					return BODY_ZONE_R_ARM
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_R_ARM
 				if(12 to 20)
-					return BODY_ZONE_CHEST
+					return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_CHEST
 				if(21 to 24)
-					return BODY_ZONE_L_ARM
+					return simple_mode ? BODY_GROUP_ARMS : BODY_ZONE_L_ARM
 		if(23 to 30) //Head, but we need to check for eye or mouth
 			if(icon_x in 12 to 20)
 				switch(icon_y)
 					if(23 to 24)
 						if(icon_x in 15 to 17)
-							return BODY_ZONE_PRECISE_MOUTH
+							return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_PRECISE_MOUTH
 					if(26) //Eyeline, eyes are on 15 and 17
 						if(icon_x in 14 to 18)
-							return BODY_ZONE_PRECISE_EYES
+							return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_PRECISE_EYES
 					if(25 to 27)
 						if(icon_x in 15 to 17)
-							return BODY_ZONE_PRECISE_EYES
-				return BODY_ZONE_HEAD
+							return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_PRECISE_EYES
+				return simple_mode ? BODY_GROUP_CHEST_HEAD : BODY_ZONE_HEAD
 
 /atom/movable/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
 	if(user != hud?.mymob)
