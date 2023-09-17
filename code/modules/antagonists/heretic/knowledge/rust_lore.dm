@@ -57,7 +57,7 @@
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
 	desc = "Your Mansus Grasp will deal 500 damage to non-living matter and rust any surface it touches. \
-		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted by using Disarm intent."
+		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted while in Help, Disarm or Grab intent."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
 	next_knowledge = list(/datum/heretic_knowledge/rust_regen)
 	cost = 1
@@ -71,6 +71,17 @@
 
 /datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
+	var/static/list/always_hit_typecache = typecacheof(list(
+		/mob/living/carbon,
+		/mob/living/silicon,
+		/mob/living/simple_animal/bot,
+		/obj/item/storage/secure/safe/caps_spare,
+		/obj/machinery/door,
+		/obj/mecha
+	))
+	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
+	if(source.a_intent == INTENT_HARM && !is_type_in_typecache(target, always_hit_typecache))
+		return
 	return target.rust_heretic_act()
 
 

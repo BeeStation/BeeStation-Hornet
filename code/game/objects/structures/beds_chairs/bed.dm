@@ -72,29 +72,7 @@
 	anchored = FALSE
 	resistance_flags = NONE
 	move_resist = MOVE_FORCE_WEAK
-	var/foldabletype = /obj/item/deployable/rollerbed
-
-/obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/deployable/rollerbed/robo))
-		var/obj/item/deployable/rollerbed/robo/R = W
-		if(R.loaded)
-			to_chat(user, "<span class='warning'>You already have a roller bed docked!</span>")
-			return
-
-		if(has_buckled_mobs())
-			if(buckled_mobs.len > 1)
-				unbuckle_all_mobs()
-				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
-			else
-				user_unbuckle_mob(buckled_mobs[1],user)
-		else
-			user.visible_message("[user] collects [src].", "<span class='notice'>You collect [src].</span>")
-			R.loaded = TRUE
-			R.update_icon()
-			qdel(src)
-		return TRUE
-	else
-		return ..()
+	var/foldabletype = /obj/item/rollerbed
 
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
 	. = ..()

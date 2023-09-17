@@ -230,8 +230,16 @@
 		return TRUE // signal is inverted
 	return FALSE
 
-/mob/living/simple_animal/bot/proc/on_emag(atom/target, mob/user)
+/mob/living/simple_animal/bot/proc/on_emag(atom/target, mob/user, obj/item/card/emag/hacker)
 	SIGNAL_HANDLER
+
+	if(hacker)
+		if(hacker.charges <= 0)
+			to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+			user.balloon_alert(user, "out of charges!")
+			return
+		else
+			hacker.use_charge()
 
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
 		locked = FALSE
@@ -975,7 +983,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			to_chat(usr, "<span class='notice'>You need to turn [src] off before carrying it around.</span>")
 			return FALSE
 		usr.visible_message("<span class='notice'>[usr] picks up the [src].</span>", "<span class='notice'>You pick up [src].</span>")
-		var/obj/item/deployable/bot/carried = new(loc)
+		var/obj/item/carried_bot/carried = new(loc)
 		carried.name = name
 		carried.desc = desc
 		carried.icon = icon

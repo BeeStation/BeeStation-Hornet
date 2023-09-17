@@ -221,8 +221,7 @@
 	if(custom_materials && custom_materials.len)
 		var/temp_list = list()
 		for(var/i in custom_materials)
-			var/datum/material/material = getmaterialref(i) || i
-			temp_list[material] = custom_materials[material] //Get the proper instanced version
+			temp_list[getmaterialref(i)] = custom_materials[i] //Get the proper instanced version
 
 		custom_materials = null //Null the list to prepare for applying the materials properly
 		set_custom_materials(temp_list)
@@ -890,9 +889,9 @@
   * For COMSIG_ATOM_SHOULD_EMAG, /obj uses should_emag.
   * - Parent calls do not need to be maintained.
   */
-/atom/proc/use_emag(mob/user)
+/atom/proc/use_emag(mob/user, obj/item/card/emag/hacker)
 	if(!SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
-		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user, hacker)
 
 /**
   * Respond to a radioactive wave hitting this atom
@@ -959,13 +958,17 @@
 	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
 
 /**
-  * Respond to our atom being checked by a virus extrapolator
+  * Respond to our atom being checked by a virus extrapolator.
   *
-  * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return FALSE
+  * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return an empty list (which may be populated by the signal)
+  *
+  * Returns a list of viruses in the atom.
+  * Include EXTRAPOLATOR_SPECIAL_HANDLED in the list if the extrapolation act has been handled by this proc or a signal, and should not be handled by the extrapolator itself.
   */
-/atom/proc/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	SEND_SIGNAL(src,COMSIG_ATOM_EXTRAPOLATOR_ACT, user, E, scan)
-	return FALSE
+/atom/proc/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = list(EXTRAPOLATOR_RESULT_DISEASES = list())
+	SEND_SIGNAL(src, COMSIG_ATOM_EXTRAPOLATOR_ACT, user, extrapolator, dry_run, .)
+
 /**
   * Implement the behaviour for when a user click drags a storage object to your atom
   *

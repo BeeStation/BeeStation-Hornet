@@ -149,7 +149,7 @@
 	var/log_override = FALSE //is this type spammed enough to not log? (KAs)
 	var/martial_arts_no_deflect = FALSE
 
-	///If defined, on hit we create an item of this type then call hitby() on the hit target with this, mainly used for embedding items (bullets) in targets
+	///If defined, gets passed to checkEmbedProjectile() via signalling & adds embed element to projectile
 	var/shrapnel_type
 	///If TRUE, hit mobs even if they're on the floor and not our target
 	var/hit_stunned_targets = FALSE
@@ -162,6 +162,8 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	if(shrapnel_type) //Only add embed element if the project HAS STUFF to try to embed
+		AddElement(/datum/element/embed) //Allows Embed to read signal from COMSIG_PROJECTILE_SELF_ON_HIT, actually embedding handled by shrapnel_type
 
 /obj/projectile/proc/Range()
 	range--
@@ -196,7 +198,7 @@
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
 	// i know that this is probably more with wands and gun mods in mind, but it's a bit silly that the projectile on_hit signal doesn't ping the projectile itself.
 	// maybe we care what the projectile thinks! See about combining these via args some time when it's not 5AM
-	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle)
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, def_zone)
 	var/turf/target_loca = get_turf(target)
 
 	var/hitx
