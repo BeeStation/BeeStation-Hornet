@@ -692,6 +692,12 @@
 				return !IS_ORGANIC_LIMB(limb) && (limb.get_damage() > 0)
 			return FALSE
 
+/// Does the mob have a specific bodyzone group selected?
+/// This will only work if you are using the simplified system (I mean it will work
+/// if the mob isn't, but this proc shouldn't be used for that)
+/mob/proc/is_group_selected(requested_group)
+	return zone_selected == requested_group
+
 /mob/proc/is_zone_selected(requested_zone = BODY_ZONE_CHEST, simplified_probability = 100, precise_only = FALSE, precise = TRUE)
 	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)
 		return zone_selected == requested_zone || (!precise && check_zone(zone_selected) == requested_zone)

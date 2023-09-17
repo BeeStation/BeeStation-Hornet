@@ -451,7 +451,7 @@
 	keys = list("ScrollUp")
 	name = "target_higher_zone"
 	full_name = "Target: Cycle zone up"
-	description = "Cycles the targetted bodyzone upwards. Leg targeting will become arm targeting, and arm targeting will become body/head targeting."
+	description = "Cycles the targeted bodyzone upwards. Leg targeting will become arm targeting, and arm targeting will become body/head targeting."
 	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEUP_DOWN
 	required_pref_key = "zone_select"
 	required_pref_value = PREFERENCE_BODYZONE_SIMPLIFIED
@@ -470,7 +470,7 @@
 	keys = list("ScrollDown")
 	name = "target_lower_zone"
 	full_name = "Target: Cycle zone down"
-	description = "Cycles the targetted bodyzone downwards. Head/body targeting will become arm targeting and arm targeting will become leg targeting.."
+	description = "Cycles the targeted bodyzone downwards. Head/body targeting will become arm targeting and arm targeting will become leg targeting.."
 	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEDOWN_DOWN
 	required_pref_key = "zone_select"
 	required_pref_value = PREFERENCE_BODYZONE_SIMPLIFIED

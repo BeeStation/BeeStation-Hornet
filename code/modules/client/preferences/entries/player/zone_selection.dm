@@ -1,4 +1,4 @@
-/// Determines parallax, "fancy space"
+/// The preference for zone selection
 /datum/preference/choiced/zone_select
 	db_key = "zone_select"
 	preference_type = PREFERENCE_PLAYER

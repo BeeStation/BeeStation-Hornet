@@ -307,7 +307,7 @@
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
-			if (L.getorgan(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_zone_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
+			if (L.getorgan(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
 				M.visible_message("<span class ='warning'>[src] grabs [L] by [L.p_their()] tail!</span>",\
 								"<span class='warning'> [src] grabs you by the tail!</span>", null, null, src) //Message sent to area, Message sent to grabbee
 				to_chat(src, "<span class='notice'>You grab [L] by [L.p_their()] tail!</span>")  //Message sent to grabber
