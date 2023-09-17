@@ -4,19 +4,11 @@ import { useBackend } from '../backend';
 import { Box, Icon, Section, Table, Tooltip, Flex } from '../components';
 import { Window } from '../layouts';
 
-type DepartmentPositions = { [department: string]: DepartmentInfo };
 type DepartmentCrew = { [department: string]: ManifestEntry[] };
 type JobOrdering = { [job: string]: number };
 
 const sortSpecific = (entries: ManifestEntry[], chain: JobOrdering) =>
   sortBy<ManifestEntry>((entry) => chain[entry.hud] ?? Object.keys(chain).length + 1)(entries);
-
-type DepartmentInfo = {
-  /** A list of jobs that have no position lab. */
-  exceptions: string[];
-  /** How many open positions this department has. */
-  open: number;
-};
 
 type ManifestEntry = {
   /** The name of this crew member. */
