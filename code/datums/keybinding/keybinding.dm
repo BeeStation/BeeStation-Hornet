@@ -27,6 +27,6 @@
 	return FALSE
 
 /datum/keybinding/proc/can_use(client/user)
-	if (!required_pref_key)
+	if (!required_pref_type)
 		return TRUE
-	return user.prefs.read_preference(required_pref_key) == required_pref_value
+	return user.prefs.read_preference(required_pref_type) == required_pref_value

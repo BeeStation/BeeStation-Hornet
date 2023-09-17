@@ -85,7 +85,7 @@
 		if (!(keybinding.category in keybindings))
 			keybindings[keybinding.category] = list()
 
-		var/datum/preference/required_type = keybinding.required_pref_key
+		var/datum/preference/required_type = keybinding.required_pref_type
 		keybindings[keybinding.category][keybinding.name] = list(
 			"name" = keybinding.full_name,
 			"description" = keybinding.description,
