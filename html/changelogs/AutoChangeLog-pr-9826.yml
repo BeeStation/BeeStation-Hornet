@@ -1,0 +1,6 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: Fixed SHIT IS FUCK turfs in explo generation, improved debugging message
+      so the root cause can be identified.
+  - bugfix: Fixed large baseturf lists from Z-Clear not clearing baseturfs.
