@@ -80,7 +80,7 @@
 		end_workout()
 		return FALSE
 
-	var/image/workout = image(icon, "[base_icon_state]-o", ABOVE_MOB_LAYER)
+	var/mutable_appearance/workout = mutable_appearance(icon, "[base_icon_state]-o", ABOVE_MOB_LAYER)
 	workout.plane = GAME_PLANE_UPPER //I hate the plane cube
 	flick_overlay_view(workout, 0.8 SECONDS)
 	flick("[base_icon_state]-u", src)
