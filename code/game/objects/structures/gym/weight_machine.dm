@@ -66,6 +66,8 @@
 			user.balloon_alert(user, pick(finished_silicon_message))
 		else
 			user.balloon_alert(user, pick(finished_message))
+		if (user.client)
+			user.client.give_award(/datum/award/achievement/misc/weights, user)
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
 		user.apply_status_effect(STATUS_EFFECT_EXERCISED)
 	end_workout()
@@ -79,15 +81,14 @@
 	if(!has_buckled_mobs())
 		end_workout()
 		return FALSE
-
-	var/mutable_appearance/workout = mutable_appearance(icon, "[base_icon_state]-o", ABOVE_MOB_LAYER)
-	workout.plane = GAME_PLANE_UPPER //I hate the plane cube
-	flick_overlay_view(workout, 0.8 SECONDS)
+	var/image/workout = image(icon, "[base_icon_state]-o", ABOVE_MOB_LAYER)
+	//workout.plane = GAME_PLANE_UPPER //I hate the plane cube
+	flick_overlay_view(workout,0.8 SECONDS)
 	flick("[base_icon_state]-u", src)
 	var/mob/living/user = buckled_mobs[1]
-	animate(user, pixel_y = pixel_shift_y, time = 4)
+	animate(user, pixel_y = pixel_shift_y, time = 4, SINE_EASING)
 	playsound(user, 'sound/machines/creak.ogg', 60, TRUE)
-	animate(pixel_y = user.base_pixel_y, time = 4)
+	animate(pixel_y = user.base_pixel_y, time = 4, SINE_EASING)
 	return TRUE
 
 /**
@@ -99,6 +100,4 @@
 	icon = 'icons/obj/fitness.dmi'
 	icon_state = "benchpress"
 	base_icon_state = "benchpress"
-
 	pixel_shift_y = 5
-
