@@ -73,9 +73,7 @@
 	transform = n_transform
 	add_filter("relfections", 1, alpha_mask_filter(render_source = REFLECTIVE_PLANE_RENDER_TARGET))
 	add_filter("motion_blur", 1.2, motion_blur_filter(y = 0.7))
-
-	add_filter("displacement", 1.1, displacement_map_filter(render_source = REFLECTIVE_PLANE_RENDER_TARGET, size = 1))
-
+	
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"
 	plane = DATA_HUD_PLANE
