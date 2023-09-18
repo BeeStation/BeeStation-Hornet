@@ -23,7 +23,7 @@
 				if(BP.receive_damage(damage_amount, 0))
 					update_damage_overlays()
 			else //no bodypart, we deal damage with a more general method.
-				adjustBruteLoss(damage_amount, forced = forced)
+				adjustBruteLossAbstract(damage_amount, forced = forced)
 		if(BURN)
 			if(BP)
 				if(BP.receive_damage(0, damage_amount))
@@ -35,7 +35,7 @@
 		if(OXY)
 			adjustOxyLoss(damage_amount, forced = forced)
 		if(CLONE)
-			adjustCloneLoss(damage_amount, forced = forced)
+			adjustCloneLossAbstract(damage_amount, forced = forced)
 		if(STAMINA_DAMTYPE)
 			if(BP)
 				if(BP.receive_damage(0, 0, damage_amount))
@@ -59,7 +59,7 @@
 	return amount
 
 
-/mob/living/carbon/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
+/mob/living/carbon/adjustBruteLossAbstract(amount, updating_health = TRUE, forced = FALSE, required_status)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(amount > 0)

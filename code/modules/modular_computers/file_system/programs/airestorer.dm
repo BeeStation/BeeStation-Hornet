@@ -77,7 +77,7 @@
 	A.adjustOxyLoss(-1, 0)
 	A.adjustFireLoss(-1, 0)
 	A.adjustToxLoss(-1, 0)
-	A.adjustBruteLoss(-1, 0)
+	A.adjustBruteLossAbstract(-1, 0)
 	if(A.health >= 0 && A.stat == DEAD)
 		A.revive()
 	// Finished restoring

@@ -280,3 +280,6 @@
 
 /// Damage caused from bodilly processes
 /datum/damage_source/body
+
+/// Disolving in a swimming pool
+/datum/damage_source/dissolving

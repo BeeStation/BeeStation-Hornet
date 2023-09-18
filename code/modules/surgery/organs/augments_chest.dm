@@ -80,7 +80,7 @@
 		owner.adjustOxyLoss(-5)
 		revive_cost += 5
 	if(owner.getBruteLoss())
-		owner.adjustBruteLoss(-2)
+		owner.adjustBruteLossAbstract(-2)
 		revive_cost += 40
 	if(owner.getFireLoss())
 		owner.adjustFireLoss(-2)

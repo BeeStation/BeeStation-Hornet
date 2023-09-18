@@ -587,7 +587,7 @@
 	var/oxy_to_heal = heal_to - getOxyLoss()
 	var/tox_to_heal = heal_to - getToxLoss()
 	if(brute_to_heal < 0)
-		adjustBruteLoss(brute_to_heal)
+		adjustBruteLossAbstract(brute_to_heal)
 	if(burn_to_heal < 0)
 		adjustFireLoss(burn_to_heal, FALSE)
 	if(oxy_to_heal < 0)

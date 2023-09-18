@@ -35,7 +35,7 @@
 	if(is_type_in_typecache(target,edibles)) //Makes sure player lizards only consume edibles.
 		visible_message("[name] consumes [target] in a single gulp.", "<span class='notice'>You consume [target] in a single gulp.</span>")
 		QDEL_NULL(target) //Nom
-		adjustBruteLoss(-2)
+		adjustBruteLossAbstract(-2)
 		return TRUE
 	else
 		return ..()

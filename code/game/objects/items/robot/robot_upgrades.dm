@@ -428,7 +428,7 @@
 				repair_amount = initial(repair_amount)
 				powercost = initial(powercost)
 			if(cyborg.getBruteLoss())
-				cyborg.adjustBruteLoss(repair_amount)
+				cyborg.adjustBruteLossAbstract(repair_amount)
 			else if(cyborg.getFireLoss())
 				cyborg.adjustFireLoss(repair_amount)
 			playsound(cyborg.loc, 'sound/items/welder2.ogg', 10) //Quiet so it isn't obnoxious, but still making itself known

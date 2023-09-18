@@ -323,7 +323,7 @@
 		var/mob/living/victim = target
 		switch(healing_type)
 			if(BRUTE)
-				victim.adjustBruteLoss((X.charge*0.25)*-1)
+				victim.adjustBruteLossAbstract((X.charge*0.25)*-1)
 			if(BURN)
 				victim.adjustFireLoss((X.charge*0.25)*-1)
 			if(TOX)

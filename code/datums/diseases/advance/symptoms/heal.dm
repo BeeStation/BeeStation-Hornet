@@ -312,7 +312,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(4, 5)
 			M.emp_act(EMP_HEAVY)
 			if(cellheal)
-				M.adjustCloneLoss(-30)
+				M.adjustCloneLossAbstract(-30)
 				M.reagents.add_reagent(/datum/reagent/medicine/mutadone = 1)
 			if(bigemp)
 				empulse(M.loc, 0, 1)
@@ -558,7 +558,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(bruteheal)
 				M.heal_overall_damage(2 * power, required_status = BODYTYPE_ORGANIC)
 				if(prob(33) && tetsuo)
-					M.adjustCloneLoss(1)
+					var/datum/damage_source/body/damage_source = FIND_DAMAGE_SOURCE
+					damage_source.apply_direct(affected_mob, CLONE, 1)
 		else
 			if(prob(5))
 				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small.", "You are the strongest.")]</span>")

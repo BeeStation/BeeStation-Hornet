@@ -682,7 +682,7 @@
 		return TRUE
 
 	if(chem.type == /datum/reagent/fuel/unholywater)
-		H.adjustBruteLoss(-4)
+		H.adjustBruteLossAbstract(-4)
 		H.adjustFireLoss(-4)
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE

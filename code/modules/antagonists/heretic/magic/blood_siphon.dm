@@ -31,7 +31,7 @@
 	)
 
 	var/datum/damage_source/magic/damage_source = FIND_DAMAGE_SOURCE
-	living_user.adjustBruteLoss(-damage_source.apply_direct(real_target, BRUTE, 20, null))
+	living_user.adjustBruteLossAbstract(-damage_source.apply_direct(real_target, BRUTE, 20, null))
 
 	if(!living_user.blood_volume)
 		return

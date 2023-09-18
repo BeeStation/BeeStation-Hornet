@@ -26,7 +26,7 @@
 			if(L.heal_damage(0.5/parts.len, 0.5/parts.len, null, BODYTYPE_ORGANIC))
 				host_mob.update_damage_overlays()
 	else
-		host_mob.adjustBruteLoss(-0.5)
+		host_mob.adjustBruteLossAbstract(-0.5)
 		host_mob.adjustFireLoss(-0.5)
 
 /datum/nanite_program/temperature
@@ -138,7 +138,7 @@
 		if(update)
 			host_mob.update_damage_overlays()
 	else
-		host_mob.adjustBruteLoss(-1.5, TRUE)
+		host_mob.adjustBruteLossAbstract(-1.5, TRUE)
 		host_mob.adjustFireLoss(-1.5, TRUE)
 
 /datum/nanite_program/purging_advanced
@@ -186,7 +186,7 @@
 		if(update)
 			host_mob.update_damage_overlays()
 	else
-		host_mob.adjustBruteLoss(-3, TRUE)
+		host_mob.adjustBruteLossAbstract(-3, TRUE)
 		host_mob.adjustFireLoss(-3, TRUE)
 
 /datum/nanite_program/brain_heal_advanced

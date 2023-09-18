@@ -102,7 +102,7 @@
 							if(prob(60))
 								INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "licks up \the [B]")
 							qdel(B)
-							adjustBruteLoss(-5)
+							adjustBruteLossAbstract(-5)
 							stop_automated_movement = 0
 
 		if(prob(1))

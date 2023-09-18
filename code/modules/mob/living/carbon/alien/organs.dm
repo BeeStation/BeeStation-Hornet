@@ -75,10 +75,10 @@
 			if(!isalien(owner))
 				heal_amt *= 0.2
 			owner.adjustPlasma(plasma_rate*0.5)
-			owner.adjustBruteLoss(-heal_amt)
+			owner.adjustBruteLossAbstract(-heal_amt)
 			owner.adjustFireLoss(-heal_amt)
 			owner.adjustOxyLoss(-heal_amt)
-			owner.adjustCloneLoss(-heal_amt)
+			owner.adjustCloneLossAbstract(-heal_amt)
 	else
 		owner.adjustPlasma(plasma_rate * 0.1)
 

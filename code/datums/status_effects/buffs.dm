@@ -16,7 +16,7 @@
 	return ..()
 
 /datum/status_effect/shadow_mend/tick()
-	owner.adjustBruteLoss(-15)
+	owner.adjustBruteLossAbstract(-15)
 	owner.adjustFireLoss(-15)
 
 /datum/status_effect/shadow_mend/on_remove()
@@ -103,11 +103,11 @@
 		qdel(src)
 		return
 	var/grace_heal = bloodlust * 0.05
-	owner.adjustBruteLoss(-grace_heal)
+	owner.adjustBruteLossAbstract(-grace_heal)
 	owner.adjustFireLoss(-grace_heal)
 	owner.adjustToxLoss(-grace_heal, TRUE, TRUE)
 	owner.adjustOxyLoss(-(grace_heal * 2))
-	owner.adjustCloneLoss(-grace_heal)
+	owner.adjustCloneLossAbstract(-grace_heal)
 
 /datum/status_effect/his_grace/on_remove()
 	owner.log_message("lost His Grace's stun immunity", LOG_ATTACK)
@@ -217,7 +217,7 @@
 		var/new_bruteloss = owner.getBruteLoss()
 		if(new_bruteloss < last_bruteloss)
 			var/heal_amount = (new_bruteloss - last_bruteloss) * 10
-			owner.adjustBruteLoss(heal_amount)
+			owner.adjustBruteLossAbstract(heal_amount)
 			new_bruteloss = owner.getBruteLoss()
 			needs_health_update = TRUE
 		last_bruteloss = new_bruteloss
@@ -249,7 +249,7 @@
 		var/new_cloneloss = owner.getCloneLoss()
 		if(new_cloneloss < last_cloneloss)
 			var/heal_amount = (new_cloneloss - last_cloneloss) * 10
-			owner.adjustCloneLoss(heal_amount)
+			owner.adjustCloneLossAbstract(heal_amount)
 			new_cloneloss = owner.getCloneLoss()
 			needs_health_update = TRUE
 		last_cloneloss = new_cloneloss
@@ -338,13 +338,13 @@
 	else if(ticks_passed == 2)
 		to_chat(owner, "<span class=changeling>We begin to repair our tissue damage...</span>")
 	//Heals 2 brute per second, for a total of 60
-	owner.adjustBruteLoss(-2, FALSE, TRUE)
+	owner.adjustBruteLossAbstract(-2, FALSE, TRUE)
 	//Heals 1 fireloss per second, for a total of 30
 	owner.adjustFireLoss(-1, FALSE, TRUE)
 	//Heals 5 oxyloss per second for a total of 150
 	owner.adjustOxyLoss(-5, FALSE, TRUE)
 	//Heals 0.5 cloneloss per second for a total of 15
-	owner.adjustCloneLoss(-0.5, TRUE, TRUE)
+	owner.adjustCloneLossAbstract(-0.5, TRUE, TRUE)
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"
@@ -509,27 +509,27 @@
 			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
 			if(itemUser.health < itemUser.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(itemUser), "#375637")
-			itemUser.adjustBruteLoss(-1.5)
+			itemUser.adjustBruteLossAbstract(-1.5)
 			itemUser.adjustFireLoss(-1.5)
 			itemUser.adjustToxLoss(-1.5, forced = TRUE) //Because Slime People are people too
 			itemUser.adjustOxyLoss(-1.5)
 			itemUser.adjustStaminaLoss(-1.5)
 			itemUser.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1.5)
-			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
+			itemUser.adjustCloneLossAbstract(-0.5) //Becasue apparently clone damage is the bastion of all health
 		//Heal all those around you, unbiased
 		for(var/mob/living/L in hearers(7, owner))
 			if(L.health < L.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
 			if(iscarbon(L))
-				L.adjustBruteLoss(-3.5)
+				L.adjustBruteLossAbstract(-3.5)
 				L.adjustFireLoss(-3.5)
 				L.adjustToxLoss(-3.5, FALSE, TRUE) //Because Slime People are people too
 				L.adjustOxyLoss(-3.5)
 				L.adjustStaminaLoss(-3.5)
 				L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3.5)
-				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
+				L.adjustCloneLossAbstract(-1) //Becasue apparently clone damage is the bastion of all health
 			else if(issilicon(L))
-				L.adjustBruteLoss(-3.5)
+				L.adjustBruteLossAbstract(-3.5)
 				L.adjustFireLoss(-3.5)
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
@@ -557,7 +557,7 @@
 	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
 	if(owner.z == 5)
 		power = 2
-	owner.adjustBruteLoss(-50 * power)
+	owner.adjustBruteLossAbstract(-50 * power)
 	owner.adjustFireLoss(-50 * power)
 	owner.cure_nearsighted()
 	owner.ExtinguishMob()

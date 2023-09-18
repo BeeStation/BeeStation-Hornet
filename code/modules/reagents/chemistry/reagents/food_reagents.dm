@@ -584,7 +584,7 @@
 	if(power == 0)
 		M.reagents.add_reagent(/datum/reagent/consumable/sugar,3)
 	if(prob(55))
-		M.adjustBruteLoss(-1*REM+power)
+		M.adjustBruteLossAbstract(-1*REM+power)
 		M.adjustFireLoss(-1*REM+power, 0)
 		M.adjustOxyLoss(-1*REM+power, 0)
 		M.adjustToxLoss(-1*REM+power, 0)
@@ -727,7 +727,7 @@
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/carbon/M)
 	if(prob(80))
-		M.adjustBruteLoss(-1*REM)
+		M.adjustBruteLossAbstract(-1*REM)
 		M.adjustFireLoss(-1*REM, 0)
 		. = TRUE
 	..()

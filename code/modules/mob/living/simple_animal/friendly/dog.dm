@@ -550,7 +550,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	emote_see = list("communes with the unnameable.", "ponders devouring some souls.", "shakes.")
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/narsie_act()
-	adjustBruteLoss(-maxHealth)
+	adjustBruteLossAbstract(-maxHealth)
 
 
 /mob/living/simple_animal/pet/dog/corgi/regenerate_icons()

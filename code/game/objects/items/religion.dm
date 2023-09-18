@@ -62,7 +62,7 @@
 	return
 
 /obj/item/banner/proc/inspiration(mob/living/carbon/human/H)
-	H.adjustBruteLoss(-15)
+	H.adjustBruteLossAbstract(-15)
 	H.adjustFireLoss(-15)
 	H.AdjustStun(-40)
 	H.AdjustKnockdown(-40)

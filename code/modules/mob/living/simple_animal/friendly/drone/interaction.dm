@@ -19,7 +19,7 @@
 						D.visible_message("<span class='notice'>[D] begins to cannibalize parts from [src].</span>", "<span class='notice'>You begin to cannibalize parts from [src]...</span>")
 						if(do_after(D, 60, 0, target = src))
 							D.visible_message("<span class='notice'>[D] repairs itself using [src]'s remains!</span>", "<span class='notice'>You repair yourself using [src]'s remains.</span>")
-							D.adjustBruteLoss(-src.maxHealth)
+							D.adjustBruteLossAbstract(-src.maxHealth)
 							new /obj/effect/decal/cleanable/oil/streak(get_turf(src))
 							qdel(src)
 						else
@@ -83,7 +83,7 @@
 		if(health < maxHealth)
 			to_chat(user, "<span class='notice'>You start to tighten loose screws on [src]...</span>")
 			if(I.use_tool(src, user, 80))
-				adjustBruteLoss(-getBruteLoss())
+				adjustBruteLossAbstract(-getBruteLoss())
 				visible_message("<span class='notice'>[user] tightens [src == user ? "[user.p_their()]" : "[src]'s"] loose screws!</span>", "<span class='notice'>You tighten [src == user ? "your" : "[src]'s"] loose screws.</span>")
 			else
 				to_chat(user, "<span class='warning'>You need to remain still to tighten [src]'s screws!</span>")

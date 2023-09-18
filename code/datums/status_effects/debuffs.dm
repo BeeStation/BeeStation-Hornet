@@ -109,7 +109,7 @@
 			else
 				if((locate(/obj/structure/table) in owner.loc))
 					healing -= 0.1
-			owner.adjustBruteLoss(healing)
+			owner.adjustBruteLossAbstract(healing)
 			owner.adjustFireLoss(healing)
 			owner.adjustToxLoss(healing * 0.5, TRUE, TRUE)
 			owner.adjustStaminaLoss(healing)

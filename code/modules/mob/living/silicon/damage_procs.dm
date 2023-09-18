@@ -6,7 +6,7 @@
 	var/damage_amount = forced ? damage : damage * hit_percent
 	switch(damagetype)
 		if(BRUTE)
-			adjustBruteLoss(damage_amount, forced = forced)
+			adjustBruteLossAbstract(damage_amount, forced = forced)
 		if(BURN)
 			adjustFireLoss(damage_amount, forced = forced)
 		if(OXY)
@@ -24,7 +24,7 @@
 /mob/living/silicon/setToxLoss(amount, updating_health = TRUE, forced = FALSE)
 	return FALSE
 
-/mob/living/silicon/adjustCloneLoss(amount, updating_health = TRUE, forced = FALSE) //immune to clone damage
+/mob/living/silicon/adjustCloneLossAbstract(amount, updating_health = TRUE, forced = FALSE) //immune to clone damage
 	return FALSE
 
 /mob/living/silicon/setCloneLoss(amount, updating_health = TRUE, forced = FALSE)

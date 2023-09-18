@@ -65,11 +65,11 @@
 		if(GLOB.clockcult_vitality >= healing_performed * 0.3)
 			GLOB.clockcult_vitality -= healing_performed * 0.3
 			//Do healing
-			M.adjustBruteLoss(-5, FALSE)
+			M.adjustBruteLossAbstract(-5, FALSE)
 			M.adjustFireLoss(-5, FALSE)
 			M.adjustOxyLoss(-5, FALSE)
 			M.adjustToxLoss(-5, FALSE, TRUE)
-			M.adjustCloneLoss(-5)
+			M.adjustCloneLossAbstract(-5)
 		else
 			visible_message("<span class='neovgre'>\The [src] fails to heal [M]!</span>", "<span class='neovgre'>There is insufficient vitality to heal your wounds!</span>")
 	else
@@ -80,7 +80,8 @@
 			return
 		M.Paralyze(10)
 		var/before_cloneloss = M.getCloneLoss()
-		M.adjustCloneLoss(20, TRUE, TRUE)
+		var/datum/damage_source/magic/magic_source = FIND_DAMAGE_SOURCE
+		magic_source.apply_direct(M, CLONE, 20, forced = TRUE)
 		var/after_cloneloss = M.getCloneLoss()
 		if(before_cloneloss == after_cloneloss)
 			visible_message("<span class='neovgre'>\The [src] fails to siphon [M]'s spirit!</span>")

@@ -288,7 +288,7 @@
 	if(stat)
 		return
 	if(health < maxHealth)
-		adjustBruteLoss(-8) //Fast life regen
+		adjustBruteLossAbstract(-8) //Fast life regen
 
 /mob/living/simple_animal/pet/cat/cak/Move()
 	. = ..()

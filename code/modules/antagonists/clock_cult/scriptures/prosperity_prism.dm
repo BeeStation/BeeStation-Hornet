@@ -74,7 +74,7 @@
 		if(use_power(2))
 			L.adjustToxLoss(-50*delta_time, FALSE, TRUE)
 			L.adjustStaminaLoss(-50*delta_time)
-			L.adjustBruteLoss(-10*delta_time)
+			L.adjustBruteLossAbstract(-10*delta_time)
 			L.adjustFireLoss(-10*delta_time)
 			new /obj/effect/temp_visual/heal(get_turf(L), "#45dd8a")
 			for(var/datum/reagent/R in L.reagents.reagent_list)

@@ -57,7 +57,8 @@
 		log_game("[key_name(H)] was killed by a stand arrow.")
 		forceMove(H.drop_location())
 		H.mind.no_cloning_at_all = TRUE
-		H.adjustCloneLoss(500)
+		var/datum/damage_source/abstract/damage_source = FIND_DAMAGE_SOURCE
+		damage_source.apply_direct(summoner.current, CLONE, 500) //dying hosts take 50% bonus damage as cloneloss
 		H.dust(TRUE)
 	else
 		INVOKE_ASYNC(src, PROC_REF(generate_stand), H)

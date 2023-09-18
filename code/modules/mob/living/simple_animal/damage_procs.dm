@@ -6,7 +6,7 @@
 	UPDATE_HEALTH(src)
 	return amount
 
-/mob/living/simple_animal/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/adjustBruteLossAbstract(amount, updating_health = TRUE, forced = FALSE)
 	if(forced)
 		. = adjustHealth(amount * CONFIG_GET(number/damage_multiplier), updating_health, forced)
 	else if(damage_coeff[BRUTE])
@@ -30,7 +30,7 @@
 	else if(damage_coeff[TOX])
 		. = adjustHealth(amount * damage_coeff[TOX] * CONFIG_GET(number/damage_multiplier), updating_health, forced)
 
-/mob/living/simple_animal/adjustCloneLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/adjustCloneLossAbstract(amount, updating_health = TRUE, forced = FALSE)
 	if(forced)
 		. = adjustHealth(amount * CONFIG_GET(number/damage_multiplier), updating_health, forced)
 	else if(damage_coeff[CLONE])

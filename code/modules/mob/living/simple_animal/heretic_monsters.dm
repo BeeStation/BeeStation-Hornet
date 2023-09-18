@@ -221,9 +221,9 @@
 	prev.icon_state = "armsy_end"
 	prev.icon_living = "armsy_end"
 
-/mob/living/simple_animal/hostile/heretic_summon/armsy/adjustBruteLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/heretic_summon/armsy/adjustBruteLossAbstract(amount, updating_health, forced)
 	if(back)
-		return back.adjustBruteLoss(amount, updating_health, forced)
+		return back.adjustBruteLossAbstract(amount, updating_health, forced)
 
 	return ..()
 
@@ -302,7 +302,7 @@
 		back.heal()
 		return
 
-	adjustBruteLoss(-maxHealth * 0.5)
+	adjustBruteLossAbstract(-maxHealth * 0.5)
 	adjustFireLoss(-maxHealth * 0.5, FALSE)
 
 	if(health < maxHealth * 0.8)
@@ -402,7 +402,7 @@
 
 	var/turf/our_turf = get_turf(src)
 	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
-		adjustBruteLoss(-1.5 * delta_time)
+		adjustBruteLossAbstract(-1.5 * delta_time)
 		adjustFireLoss(-1.5 * delta_time, FALSE)
 
 	return ..()

@@ -392,7 +392,7 @@ Difficulty: Hard
 		for(var/i in 1 to 3)
 			new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter(death_turf)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLossAbstract(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
 	if(. > 0 && prob(25))
 		var/obj/effect/decal/cleanable/blood/gibs/bubblegum/B = new /obj/effect/decal/cleanable/blood/gibs/bubblegum(loc)
@@ -548,7 +548,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
 	return
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLossAbstract(amount, updating_health = TRUE, forced = FALSE)
 	return
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/OpenFire()

@@ -106,11 +106,11 @@
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#47ac05")
 			if(ispodperson(L) || L.mind?.holy_role)
-				L.adjustBruteLoss(-2*delta_time)
+				L.adjustBruteLossAbstract(-2*delta_time)
 				L.adjustToxLoss(-2*delta_time, 0)
 				L.adjustOxyLoss(-2*delta_time, 0)
 				L.adjustFireLoss(-2*delta_time, 0)
-				L.adjustCloneLoss(-2*delta_time, 0)
+				L.adjustCloneLossAbstract(-2*delta_time, 0)
 				L.updatehealth()
 				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1.0

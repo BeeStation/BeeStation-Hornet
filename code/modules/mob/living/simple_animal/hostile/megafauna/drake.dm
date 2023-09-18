@@ -220,7 +220,7 @@ Difficulty: Medium
 	SLEEP_CHECK_DEATH(0)
 	SetRecoveryTime(80)
 	visible_message("<span class='boldwarning'>[src] starts to glow vibrantly as its wounds close up!</span>")
-	adjustBruteLoss(-250) // yeah you're gonna pay for that, don't run nerd
+	adjustBruteLossAbstract(-250) // yeah you're gonna pay for that, don't run nerd
 	add_atom_colour(rgb(255, 255, 0), TEMPORARY_COLOUR_PRIORITY)
 	move_to_delay = move_to_delay / 2
 	light_range = 10

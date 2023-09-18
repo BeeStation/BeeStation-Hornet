@@ -747,7 +747,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/manly_dorf/on_mob_life(mob/living/carbon/M)
 	if(dorf_mode)
-		M.adjustBruteLoss(-2)
+		M.adjustBruteLossAbstract(-2)
 		M.adjustFireLoss(-2)
 	return ..()
 
@@ -902,7 +902,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(ishuman(M)) //Barefoot causes the imbiber to quickly regenerate brute trauma if they're not wearing shoes.
 		var/mob/living/carbon/human/H = M
 		if(!H.shoes)
-			H.adjustBruteLoss(-3)
+			H.adjustBruteLossAbstract(-3)
 			. = 1
 	return ..() || .
 
@@ -1309,9 +1309,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/hearty_punch/on_mob_life(mob/living/carbon/M)
 	if(M.health <= 0)
-		M.adjustBruteLoss(-3, 0)
+		M.adjustBruteLossAbstract(-3, 0)
 		M.adjustFireLoss(-3, 0)
-		M.adjustCloneLoss(-5, 0)
+		M.adjustCloneLossAbstract(-5, 0)
 		M.adjustOxyLoss(-4, 0)
 		M.adjustToxLoss(-3, 0)
 		. = 1
@@ -1645,7 +1645,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(L.health <= 0)
 		heal_points = 20 //heal more if we're in softcrit
 	for(var/i in 1 to min(volume, heal_points)) //only heals 1 point of damage per unit on add, for balance reasons
-		L.adjustBruteLoss(-1)
+		L.adjustBruteLossAbstract(-1)
 		L.adjustFireLoss(-1, FALSE)
 		L.adjustToxLoss(-1, FALSE)
 		L.adjustOxyLoss(-1, FALSE)
@@ -1656,7 +1656,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_life(mob/living/L)
 	if(L.health > 0)
-		L.adjustBruteLoss(-1)
+		L.adjustBruteLossAbstract(-1)
 		L.adjustFireLoss(-1, FALSE)
 		L.adjustToxLoss(-0.5, FALSE)
 		L.adjustOxyLoss(-3, FALSE)
@@ -1818,11 +1818,11 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(L.IsSleeping())
 		if(L.getBruteLoss() && L.getFireLoss()) //If you are damaged by both types, slightly increased healing but it only heals one. The more the merrier wink wink.
 			if(prob(50))
-				L.adjustBruteLoss(-0.25)
+				L.adjustBruteLossAbstract(-0.25)
 			else
 				L.adjustFireLoss(-0.25)
 		else if(L.getBruteLoss()) //If you have only one, it still heals but not as well.
-			L.adjustBruteLoss(-0.2)
+			L.adjustBruteLossAbstract(-0.2)
 		else if(L.getFireLoss())
 			L.adjustFireLoss(-0.2)
 
@@ -2503,7 +2503,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/beesknees/on_mob_life(mob/living/carbon/M)
 	if(is_species(M, /datum/species/apid))
-		M.adjustBruteLoss(-1.5)
+		M.adjustBruteLossAbstract(-1.5)
 		M.adjustFireLoss(-1.5, FALSE)
 		M.adjustToxLoss(-1, TRUE)
 	. = ..()

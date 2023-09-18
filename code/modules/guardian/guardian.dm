@@ -434,7 +434,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 				summoner.current.visible_message("<span class='danger'><B>Blood sprays from [summoner] as [src] takes damage!</B></span>")
 			if(summoner.current.stat == UNCONSCIOUS)
 				to_chat(summoner.current, "<span class='danger'><B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span></B>")
-				summoner.current.adjustCloneLoss(amount * 0.5) //dying hosts take 50% bonus damage as cloneloss
+				var/datum/damage_source/abstract/damage_source = FIND_DAMAGE_SOURCE
+				damage_source.apply_direct(summoner.current, CLONE, amount * 0.5) //dying hosts take 50% bonus damage as cloneloss
 		update_health_hud()
 	if(stats.ability)
 		stats.ability.Health(amount)

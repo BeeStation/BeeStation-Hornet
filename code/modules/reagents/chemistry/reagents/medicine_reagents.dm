@@ -151,10 +151,10 @@
 	var/power = -0.00003 * (M.bodytemperature ** 2) + 3
 	if(M.bodytemperature < T0C)
 		M.adjustOxyLoss(-3 * power, 0)
-		M.adjustBruteLoss(-power)
+		M.adjustBruteLossAbstract(-power)
 		M.adjustFireLoss(-power, 0)
 		M.adjustToxLoss(-power, 0, TRUE) //heals TOXINLOVERs
-		M.adjustCloneLoss(-power, 0)
+		M.adjustCloneLossAbstract(-power, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC) //fixes common causes for disfiguration
 		. = 1
 	metabolization_rate = REAGENTS_METABOLISM * (0.00001 * (M.bodytemperature ** 2) + 0.5)//Metabolism rate is reduced in colder body temps making it more effective
@@ -170,7 +170,7 @@
 
 /datum/reagent/medicine/clonexadone/on_mob_life(mob/living/carbon/M)
 	if(M.bodytemperature < T0C)
-		M.adjustCloneLoss(0.00006 * (M.bodytemperature ** 2) - 6, 0)
+		M.adjustCloneLossAbstract(0.00006 * (M.bodytemperature ** 2) - 6, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = 1
 	metabolization_rate = REAGENTS_METABOLISM * (0.000015 * (M.bodytemperature ** 2) + 0.75)//Metabolism rate is reduced in colder body temps making it more effective
@@ -198,10 +198,10 @@
 			power *= 2
 
 		M.adjustOxyLoss(-2 * power, 0)
-		M.adjustBruteLoss(-power)
+		M.adjustBruteLossAbstract(-power)
 		M.adjustFireLoss(-1.5 * power, 0)
 		M.adjustToxLoss(-power, 0, TRUE)
-		M.adjustCloneLoss(-power, 0)
+		M.adjustCloneLossAbstract(-power, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = 1
 	else //If not the right temperature for pyroxadone to work
@@ -333,7 +333,7 @@
 
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-0.5*REM)
+	M.adjustBruteLossAbstract(-0.5*REM)
 	..()
 	. = 1
 
@@ -364,7 +364,7 @@
 		last_added = new_blood_level - M.blood_volume
 		M.blood_volume = new_blood_level
 	if(prob(33))
-		M.adjustBruteLoss(-0.5*REM)
+		M.adjustBruteLossAbstract(-0.5*REM)
 		M.adjustFireLoss(-0.5*REM, 0)
 		. = TRUE
 	..()
@@ -394,7 +394,7 @@
 
 /datum/reagent/medicine/mine_salve/on_mob_life(mob/living/carbon/C)
 	C.hal_screwyhud = SCREWYHUD_HEALTHY
-	C.adjustBruteLoss(-0.25*REM)
+	C.adjustBruteLossAbstract(-0.25*REM)
 	C.adjustFireLoss(-0.25*REM, 0)
 	..()
 	return TRUE
@@ -451,7 +451,7 @@
 
 /datum/reagent/medicine/synthflesh/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-0.5*REM, 0)
-	M.adjustBruteLoss(-0.5*REM)
+	M.adjustBruteLossAbstract(-0.5*REM)
 	..()
 	. = 1
 
@@ -526,7 +526,7 @@
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(-0.5*REM, 0)
 	M.adjustOxyLoss(-0.5*REM, 0)
-	M.adjustBruteLoss(-0.5*REM)
+	M.adjustBruteLossAbstract(-0.5*REM)
 	M.adjustFireLoss(-0.5*REM, 0)
 	..()
 	. = 1
@@ -598,14 +598,14 @@
 
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-3*REM)
+	M.adjustBruteLossAbstract(-3*REM)
 	if(M.getBruteLoss() != 0)
 		M.adjustStaminaLoss(3*REM, FALSE)
 	..()
 	. = 1
 
 /datum/reagent/medicine/sal_acid/overdose_process(mob/living/M)
-	M.adjustBruteLoss( -3*REM)
+	M.adjustBruteLossAbstract( -3*REM)
 	M.adjustToxLoss(3*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
@@ -871,7 +871,7 @@
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
 	if(M.health <= 20)
 		M.adjustToxLoss(-4*REM, 0)
-		M.adjustBruteLoss(-4*REM)
+		M.adjustBruteLossAbstract(-4*REM)
 		M.adjustFireLoss(-4*REM, 0)
 		M.adjustOxyLoss(-5*REM, 0)
 		. = 1
@@ -910,7 +910,7 @@
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/carbon/M)
 	if(M.health <= M.crit_threshold)
 		M.adjustToxLoss(-0.5*REM, 0)
-		M.adjustBruteLoss(-0.5*REM)
+		M.adjustBruteLossAbstract(-0.5*REM)
 		M.adjustFireLoss(-0.5*REM, 0)
 		M.adjustOxyLoss(-0.5*REM, 0)
 	if(M.losebreath >= 4)
@@ -1061,7 +1061,7 @@
 	if(M.health < 50 && M.health > 0)
 		M.adjustOxyLoss(-1*REM, 0)
 		M.adjustToxLoss(-1*REM, 0)
-		M.adjustBruteLoss(-1*REM)
+		M.adjustBruteLossAbstract(-1*REM)
 		M.adjustFireLoss(-1*REM, 0)
 	M.AdjustAllImmobility(-60, FALSE)
 	M.adjustStaminaLoss(-35*REM, 0)
@@ -1140,7 +1140,7 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-1/METABOLITE_PENALTY(metabolite))
+	M.adjustBruteLossAbstract(-1/METABOLITE_PENALTY(metabolite))
 	..()
 	. = 1
 
@@ -1335,7 +1335,7 @@
 	metabolite = /datum/reagent/metabolite/medicine/tricordrazine
 
 /datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2/METABOLITE_PENALTY(metabolite))
+	M.adjustBruteLossAbstract(-2/METABOLITE_PENALTY(metabolite))
 	M.adjustFireLoss(-2/METABOLITE_PENALTY(metabolite), 0)
 	M.adjustToxLoss(-2/METABOLITE_PENALTY(metabolite), 0)
 	M.adjustOxyLoss(-2/METABOLITE_PENALTY(metabolite), 0)
@@ -1357,7 +1357,7 @@
 	taste_description = "jelly"
 
 /datum/reagent/medicine/regen_jelly/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-0.5*REM)
+	M.adjustBruteLossAbstract(-0.5*REM)
 	M.adjustFireLoss(-0.5*REM, 0)
 	M.adjustOxyLoss(-0.5*REM, 0)
 	M.adjustToxLoss(-0.5*REM, 0, TRUE) //heals TOXINLOVERs
@@ -1374,12 +1374,12 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-5*REM) //A ton of healing - this is a 50 telecrystal investment.
+	M.adjustBruteLossAbstract(-5*REM) //A ton of healing - this is a 50 telecrystal investment.
 	M.adjustFireLoss(-5*REM, 0)
 	M.adjustOxyLoss(-15, 0)
 	M.adjustToxLoss(-5*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15*REM)
-	M.adjustCloneLoss(-3*REM, 0)
+	M.adjustCloneLossAbstract(-3*REM, 0)
 	..()
 	. = 1
 
@@ -1398,12 +1398,12 @@
 	overdose_threshold = 25
 
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-3 * REM)
+	M.adjustBruteLossAbstract(-3 * REM)
 	M.adjustFireLoss(-3 * REM, 0)
 	M.adjustOxyLoss(-15 * REM, 0)
 	M.adjustToxLoss(-3 * REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
-	M.adjustCloneLoss(-1 * REM, 0)
+	M.adjustCloneLossAbstract(-1 * REM, 0)
 	M.adjustStaminaLoss(-30 * REM, 0)
 	M.jitteriness = min(max(0, M.jitteriness + 3), 30)
 	M.druggy = min(max(0, M.druggy + 10), 15) //See above
@@ -1676,7 +1676,7 @@
 
 /datum/reagent/medicine/polypyr/on_mob_life(mob/living/carbon/M) //I wanted a collection of small positive effects, this is as hard to obtain as coniine after all.
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -0.25)
-	M.adjustBruteLoss(-0.35)
+	M.adjustBruteLossAbstract(-0.35)
 	if(prob(50))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -1709,7 +1709,7 @@
 /datum/reagent/medicine/stabilizing_nanites/on_mob_life(mob/living/carbon/M)
 	if(M.health <= 80)
 		M.adjustToxLoss(-4*REM, 0)
-		M.adjustBruteLoss(-4*REM)
+		M.adjustBruteLossAbstract(-4*REM)
 		M.adjustFireLoss(-4*REM, 0)
 		M.adjustOxyLoss(-5*REM, 0)
 		. = 1

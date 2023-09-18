@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	switch(rand_dam_type)
 		if(0)
-			carbon_mob.adjustBruteLoss(-heal_amt)
+			carbon_mob.adjustBruteLossAbstract(-heal_amt)
 		if(1)
 			carbon_mob.adjustFireLoss(-heal_amt)
 		if(2)
@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(3)
 			carbon_mob.adjustToxLoss(-heal_amt, forced = TRUE)
 		if(4)
-			carbon_mob.adjustCloneLoss(-heal_amt)
+			carbon_mob.adjustCloneLossAbstract(-heal_amt)
 		if(5)
 			carbon_mob.adjustStaminaLoss(-heal_amt)
 		if(6 to 10)
@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(!iscyborg(affected_mob))
 		return
 	var/mob/living/silicon/borgo = affected_mob
-	borgo.adjustBruteLoss(-heal_amt)
+	borgo.adjustBruteLossAbstract(-heal_amt)
 
 /obj/structure/slime_crystal/yellow
 	colour = "yellow"

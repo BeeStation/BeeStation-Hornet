@@ -714,7 +714,7 @@
 	glass_desc = "The space doctor's favorite. Guaranteed to restore bodily injury; side effects include cravings and hunger."
 
 /datum/reagent/consumable/doctor_delight/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-0.5)
+	M.adjustBruteLossAbstract(-0.5)
 	M.adjustFireLoss(-0.5, 0)
 	M.adjustToxLoss(-0.5, 0)
 	M.adjustOxyLoss(-0.5, 0)

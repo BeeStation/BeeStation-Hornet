@@ -42,7 +42,7 @@
 		C.heal_overall_damage(4,4,0, BODYTYPE_ORGANIC)
 		C.adjustToxLoss(-4)
 		C.adjustOxyLoss(-4)
-		C.adjustCloneLoss(-4)
+		C.adjustCloneLossAbstract(-4)
 		return
 	C.blood_volume -= 0.75
 	if(C.blood_volume <= BLOOD_VOLUME_SURVIVE)

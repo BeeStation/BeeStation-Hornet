@@ -345,7 +345,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	else if(istype(O, /obj/item/reagent_containers/food/snacks/cracker)) //Poly wants a cracker.
 		qdel(O)
 		if(health < maxHealth)
-			adjustBruteLoss(-10)
+			adjustBruteLossAbstract(-10)
 		speak_chance *= 1.27 // 20 crackers to go from 1% to 100%
 		speech_shuffle_rate += 10
 		to_chat(user, "<span class='notice'>[src] eagerly devours the cracker.</span>")
@@ -774,7 +774,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		qdel(held_item)
 		held_item = null
 		if(health < maxHealth)
-			adjustBruteLoss(-10)
+			adjustBruteLossAbstract(-10)
 		emote("me", 1, "[src] eagerly downs the cracker.")
 		return 1
 

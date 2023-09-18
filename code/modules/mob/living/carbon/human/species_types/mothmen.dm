@@ -188,7 +188,7 @@
 
 /datum/status_effect/cocooned/tick()
 	owner.SetSleeping(10, TRUE)
-	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / COCOON_EMERGE_DELAY), FALSE)
+	owner.adjustBruteLossAbstract(-(COCOON_HEAL_AMOUNT / COCOON_EMERGE_DELAY), FALSE)
 	owner.adjustFireLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), FALSE)
 	owner.adjust_nutrition(-((COCOON_NUTRITION_AMOUNT * 10 ) / (COCOON_EMERGE_DELAY)))
 

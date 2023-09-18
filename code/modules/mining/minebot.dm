@@ -177,7 +177,7 @@
 			to_chat(user, "<span class='info'>You restart [src].</span>")
 			revive()
 			return TRUE
-		adjustBruteLoss(-15)
+		adjustBruteLossAbstract(-15)
 		to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 		return TRUE
 

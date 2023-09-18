@@ -30,7 +30,9 @@
 			if(prob(2))
 				affected_mob.emote("drool")
 			if(prob(3))
-				affected_mob.adjustCloneLoss(1)
+				var/datum/damage_source/body/damage_source = FIND_DAMAGE_SOURCE
+				damage_source.apply_direct(affected_mob, CLONE, 1)
+
 			if(prob(2))
 				to_chat(affected_mob, "<span class='danger'>Your skin feels strange.</span>")
 
@@ -41,7 +43,8 @@
 				affected_mob.emote("drool")
 			if(prob(5))
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 170)
-				affected_mob.adjustCloneLoss(2)
+				var/datum/damage_source/body/damage_source = FIND_DAMAGE_SOURCE
+				damage_source.apply_direct(affected_mob, CLONE, 2)
 			if(prob(15))
 				affected_mob.stuttering += 3
 		if(5)
@@ -52,7 +55,8 @@
 			if(prob(5))
 				to_chat(affected_mob, "<span class='danger'>Your skin starts degrading!</span>")
 			if(prob(10))
-				affected_mob.adjustCloneLoss(5)
+				var/datum/damage_source/body/damage_source = FIND_DAMAGE_SOURCE
+				damage_source.apply_direct(affected_mob, CLONE, 5)
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 170)
 			if(affected_mob.cloneloss >= 100)
 				affected_mob.visible_message("<span class='danger'>[affected_mob] skin turns to dust!</span>", "<span class='boldwarning'>Your skin turns to dust!</span>")

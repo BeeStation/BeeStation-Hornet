@@ -15,7 +15,8 @@
 			var/obj/item/clothing/CH = H.wear_suit
 			if (CH.clothing_flags & THICKMATERIAL)
 				return
-	L.adjustCloneLoss(1)
+	var/datum/damage_source/dissolving/slime_source = FIND_DAMAGE_SOURCE
+	slime_source.apply_direct(L, CLONE, 1)
 	L.alpha = ((L.health-HEALTH_THRESHOLD_DEAD) / (L.maxHealth - HEALTH_THRESHOLD_DEAD)) * 255
 	if(L.stat == DEAD)
 		L.visible_message("<span class='warning'>[L] dissolves into the pool!</span>")

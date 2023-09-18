@@ -45,7 +45,7 @@
 /mob/living/simple_animal/hostile/mushroom/Life()
 	..()
 	if(!stat)//Mushrooms slowly regenerate if conscious, for people who want to save them from being eaten
-		adjustBruteLoss(-2)
+		adjustBruteLossAbstract(-2)
 
 /mob/living/simple_animal/hostile/mushroom/Initialize(mapload)//Makes every shroom a little unique
 	melee_damage += rand(1,15)
@@ -140,7 +140,7 @@
 		powerlevel += level_gain
 		melee_damage += (level_gain * rand(1,5))
 		maxHealth += (level_gain * rand(1,5))
-	adjustBruteLoss(-maxHealth) //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
+	adjustBruteLossAbstract(-maxHealth) //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
 
 /mob/living/simple_animal/hostile/mushroom/proc/Bruise()
 	if(!bruised && !stat)

@@ -89,7 +89,7 @@
 			var/newamt
 			switch(Text)
 				if("brute")
-					L.adjustBruteLoss(amount,TRUE)
+					L.adjustBruteLossAbstract(amount,TRUE)
 					newamt = L.getBruteLoss()
 				if("fire")
 					L.adjustFireLoss(amount,TRUE,TRUE)
@@ -104,7 +104,7 @@
 					L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount)
 					newamt = L.getOrganLoss(ORGAN_SLOT_BRAIN)
 				if("clone")
-					L.adjustCloneLoss(amount)
+					L.adjustCloneLossAbstract(amount)
 					newamt = L.getCloneLoss()
 				if("stamina")
 					L.adjustStaminaLoss(amount)

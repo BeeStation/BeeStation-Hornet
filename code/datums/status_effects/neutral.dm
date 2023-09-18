@@ -117,11 +117,11 @@
 			spell.charge_counter = spell.charge_max
 			spell.recharging = FALSE
 			spell.update_icon()
-		rewarded.adjustBruteLoss(-25)
+		rewarded.adjustBruteLossAbstract(-25)
 		rewarded.adjustFireLoss(-25)
 		rewarded.adjustToxLoss(-25, FALSE, TRUE)
 		rewarded.adjustOxyLoss(-25)
-		rewarded.adjustCloneLoss(-25)
+		rewarded.adjustCloneLossAbstract(-25)
 
 /datum/status_effect/bugged //Lets another mob hear everything you can
 	id = "bugged"

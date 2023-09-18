@@ -87,7 +87,7 @@
 		L.suppress_bloodloss(1800)
 	if(L.getBruteLoss() >= 50)
 		var/healing = min(L.getBruteLoss(), 120)
-		L.adjustBruteLoss(-healing)
+		L.adjustBruteLossAbstract(-healing)
 		L.suppress_bloodloss(1800)//bandage their ass
 	FindTarget()
 

@@ -393,7 +393,7 @@
 		//repeatedly repairs until the cyborg is fully repaired
 		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 3 SECONDS))
 			W.use(1) //use one fuel for each repair step
-			adjustBruteLoss(-10)
+			adjustBruteLossAbstract(-10)
 			updatehealth()
 			add_fingerprint(user)
 			user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")

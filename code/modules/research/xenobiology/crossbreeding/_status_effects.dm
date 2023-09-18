@@ -897,7 +897,7 @@
 
 		//BACONTODO owner.apply_damage_old_type(-heal_amount, damagetype=pick(healing_types))
 		owner.adjust_nutrition(3)
-		M.adjustCloneLoss(heal_amount * 1.2) //This way, two people can't just convert each other's damage away.
+		M.adjustCloneLossAbstract(heal_amount * 1.2) //This way, two people can't just convert each other's damage away.
 	else
 		messagedelivered = FALSE
 		examine_text = null
