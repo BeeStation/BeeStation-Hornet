@@ -26,11 +26,13 @@
 }
 
 .marooned {
-	color: rgb(109, 109, 255); font-weight: bold;
+	color: rgb(109, 109, 255);
+	font-weight: bold;
 }
 
 .header {
-	font-size: 24px; font-weight: bold;
+	font-size: 24px;
+	font-weight: bold;
 }
 
 .big {
@@ -42,7 +44,7 @@
 }
 
 .codephrase {
-	color : #ef2f3c;
+	color: #ef2f3c;
 }
 
 .redborder {
@@ -54,11 +56,11 @@
 }
 
 .crewborder {
-	border-bottom: 2px solid #08204e
+	border-bottom: 2px solid #08204e;
 }
 
 .clockborder {
-	border-bottom: 2px solid #B18B25;
+	border-bottom: 2px solid #b18b25;
 }
 
 .stationborder {
@@ -93,15 +95,108 @@ body {
 	z-index: 1;
 	width: 220px;
 	font-size: 14px;
-    border-width: 4px;
+	border-width: 4px;
 	border-style: solid;
 	border-color: #272727;
-    background: #363636;
-    color: white;
-    top: 100%;
+	background: #363636;
+	color: white;
+	top: 100%;
 	left: 30px;
 }
 
 .tooltip_container:hover .tooltip_hover {
 	visibility: visible;
+}
+
+.holopara-info-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-content: stretch;
+	align-items: flex-start;
+}
+
+.holopara-info-item:nth-child(1) {
+	order: 0;
+	flex: 0 1 auto;
+	align-self: auto;
+	padding-left: 0.5em;
+	padding-right: 0.25em;
+}
+
+.holopara-info-item:nth-child(2) {
+	order: 0;
+	flex: 0 1 auto;
+	align-self: auto;
+	padding-left: 0.25em;
+	padding-right: 0.5em;
+}
+
+.holopara-other-stats {
+	font-size: x-small;
+	line-height: normal;
+	text-overflow: wrap;
+	align-content: space-between;
+	width: 520px;
+}
+
+.section {
+	position: relative;
+	margin-bottom: 0.5em;
+	background-color: #191919;
+	background-color: rgba(39, 39, 39, 0.33);
+	box-sizing: border-box;
+	border-radius: 1em;
+}
+
+.section:last-child {
+	margin-bottom: 0;
+}
+
+.section-title {
+	position: relative;
+	padding: 0.5em;
+	border-bottom: 0.1666666667em solid #4972a1;
+}
+
+.section-weapon {
+	border-bottom: 0.1666666667em solid #c41e3a;
+}
+
+.section-ability {
+	border-bottom: 0.1666666667em solid #33ffbd;
+}
+
+.section-lesser-ability {
+	border-bottom: 0.1666666667em solid #bd33ff;
+}
+
+.section-title-text {
+	font-size: 1.1666666667em;
+	font-weight: bold;
+	color: #fff;
+	margin-left: 1;
+	margin-right: 1;
+}
+
+.section-rest {
+	position: relative;
+}
+
+.section-content {
+	padding: 0.66em 0.5em;
+}
+
+.stack {
+	display: -ms-flexbox;
+	display: flex;
+	flex-direction: column;
+}
+
+.stack > .stack-item {
+	margin-top: 0.5em;
+}
+.stack > .stack-item:first-child {
+	margin-top: 0;
 }
