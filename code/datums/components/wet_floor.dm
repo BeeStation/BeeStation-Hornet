@@ -34,7 +34,7 @@
 	addtimer(CALLBACK(src, PROC_REF(gc), TRUE), 1)		//GC after initialization.
 	last_process = world.time
 	//
-	reflection = mutable_appearance('icons/turf/overlays.dmi', "specialOverlay", plane = REFLECTIVE_PLANE)
+	reflection = mutable_appearance('icons/turf/overlays.dmi', "whiteOverlay", plane = REFLECTIVE_PLANE)
 	var/turf/T  = parent
 	T.add_overlay(reflection)
 
