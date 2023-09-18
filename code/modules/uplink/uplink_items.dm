@@ -166,6 +166,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	log_uplink_purchase(user, A)
 	return A
 
+/datum/uplink_item/proc/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
+	return refundable
+
 //Discounts (dynamically filled above)
 /datum/uplink_item/discounts
 	category = "Discounts"
@@ -582,16 +585,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/gloves/rapid
 	cost = 8
 
-/datum/uplink_item/dangerous/guardian
+/datum/uplink_item/dangerous/holoparasite
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an \
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
-	item = /obj/item/guardiancreator/tech
+	item = /obj/item/holoparasite_creator/tech
 	cost = 18
 	surplus = 10
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	player_minimum = 25
 	restricted = TRUE
+	refundable = TRUE
+
+/**
+ * Only allow holoparasites to be refunded if the injector is unused.
+ */
+/datum/uplink_item/dangerous/holoparasite/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
+	if(!istype(item, /obj/item/holoparasite_creator/tech))
+		return FALSE
+	var/obj/item/holoparasite_creator/tech/holopara_creator = item
+	return (holopara_creator.builder.uses == initial(holopara_creator.uses)) && !holopara_creator.builder.waiting
 
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
@@ -2210,7 +2223,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
 			to act as a servant and guardian to their host."
-	item = /obj/item/guardiancreator/carp
+	item = /obj/item/holoparasite_creator/carp
 	cost = 18
 	surplus = 5
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
