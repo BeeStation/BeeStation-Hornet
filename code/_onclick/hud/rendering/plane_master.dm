@@ -64,6 +64,7 @@
 	name = "reflection plane master"
 	plane = REFLECTION_PLANE
 	render_source = GAME_PLANE_RENDER_TARGET
+	color = "#ccc"
 
 /atom/movable/screen/plane_master/reflection/Initialize(mapload)
 	. = ..()
@@ -71,7 +72,7 @@
 	n_transform.Translate(0, -32)
 	transform = n_transform
 	add_filter("relfections", 1, alpha_mask_filter(render_source = REFLECTIVE_PLANE_RENDER_TARGET))
-	add_filter("displacement", 1.1, displacement_map_filter(icon = 'icons/480x480.dmi', size = 32))
+	add_filter("radial_blur", 1.1, radial_blur_filter(0.005, y = 32))
 
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"
