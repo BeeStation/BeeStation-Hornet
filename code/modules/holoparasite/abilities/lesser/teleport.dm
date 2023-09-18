@@ -138,7 +138,7 @@
 
 	owner.do_attack_animation(target)
 	owner.balloon_alert(owner, "attempting to warp", show_in_chat = FALSE)
-	if(!do_after(owner, 6 SECONDS, target, extra_checks = CALLBACK(src, PROC_REF(extra_do_after_checks), beacon)))
+	if(!do_after(owner, 6 SECONDS, target, show_to_target = TRUE, extra_checks = CALLBACK(src, PROC_REF(extra_do_after_checks), beacon)))
 		to_chat(owner, "<span class='danger bold'>The warping process was interrupted, both you and your target must stay still!</span>")
 		return
 	owner.balloon_alert(owner, "warped successfully", show_in_chat = FALSE)
