@@ -156,6 +156,9 @@
 	if(!istype(M) || M.stat == DEAD || M.notransform || (GODMODE & M.status_flags))
 		return
 
+	if(SEND_SIGNAL(M, COMSIG_LIVING_PRE_WABBAJACKED) & STOP_WABBAJACK)
+		return
+
 	M.notransform = TRUE
 	M.mobility_flags = NONE
 	M.icon = null
@@ -279,6 +282,8 @@
 		new_mob.equip_to_appropriate_slot(W)
 
 	M.log_message("became [new_mob.real_name]", LOG_ATTACK, color="orange")
+
+	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
 
 	new_mob.a_intent = INTENT_HARM
 

@@ -446,10 +446,19 @@
 /obj/proc/unfreeze()
 	SEND_SIGNAL(src, COMSIG_OBJ_UNFREEZE)
 
-/obj/use_emag(mob/user)
+/obj/use_emag(mob/user, obj/item/card/emag/hacker)
 	if(should_emag(user) && !SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
-		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
-		on_emag(user)
+		if(hacker)
+			if(hacker.charges > 0)
+				SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+				hacker.use_charge()
+				on_emag(user)
+			else
+				to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+				user.balloon_alert(user, "out of charges!")
+		else
+			SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+			on_emag(user)
 
 /// Unlike COMSIG_ATOM_SHOULD_EMAG, this is not inverted. If this is true, on_emag is called.
 /obj/proc/should_emag(mob/user)

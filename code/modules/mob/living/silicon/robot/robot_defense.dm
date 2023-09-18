@@ -104,8 +104,17 @@
 		return TRUE
 	return FALSE
 
-/mob/living/silicon/robot/proc/on_emag(atom/target, mob/user)
+/mob/living/silicon/robot/proc/on_emag(atom/target, mob/user, obj/item/card/emag/hacker)
 	SIGNAL_HANDLER
+
+	if(hacker)
+		if(hacker.charges <= 0)
+			to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+			user.balloon_alert(user, "out of charges!")
+			return
+		else
+			hacker.use_charge()
+
 	if(!opened && locked) //Cover is closed
 		to_chat(user, "<span class='notice'>You emag the cover lock.</span>")
 		locked = FALSE

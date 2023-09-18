@@ -122,8 +122,16 @@
 	SIGNAL_HANDLER
 	return !(!emageffect || !istype(H)) // signal is inverted
 
-/datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user)
+/datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user, obj/item/card/emag/hacker)
 	SIGNAL_HANDLER
+
+	if(hacker)
+		if(hacker.charges <= 0)
+			to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+			user.balloon_alert(user, "out of charges!")
+			return
+		else
+			hacker.use_charge()
 
 	emageffect = TRUE
 	if(user)
