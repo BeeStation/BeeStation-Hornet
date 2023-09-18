@@ -172,6 +172,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		if("safety")
 			if((obj_flags & EMAGGED) && program)
 				emergency_shutdown()
+			log_game("[key_name(usr)] has [(obj_flags & EMAGGED ? "enabled" : "disabled" )] the holodeck safety settings at [loc_name(src)].")
 			nerf(obj_flags & EMAGGED,FALSE)
 			obj_flags ^= EMAGGED
 			say("Safeties reset. Restarting...")
@@ -227,6 +228,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 				holo_turf.baseturfs -= baseturf
 				holo_turf.baseturfs += /turf/open/floor/holofloor/plating
 
+	log_game("[key_name(usr)] has loaded the holodeck program '[program]' at [loc_name(src)].")
 	template = SSmapping.holodeck_templates[map_id]
 	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
 	template_placer.on_completion(CALLBACK(src, PROC_REF(finish_spawn), template))
