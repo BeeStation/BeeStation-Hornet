@@ -19,10 +19,13 @@
 #define ZMIMIC_MAX_DEPTH 10
 
 #define FLOOR_PLANE -7
+
+//This holds the actual reflections
+#define REFLECTION_PLANE -5
+
 #define GAME_PLANE -4
 #define GAME_PLANE_RENDER_TARGET "*GAME_PLANE_RENDER_TARGET"
-//This holds the actual reflections
-#define REFLECTION_PLANE -3
+
 //This holds the reflective objects / masks
 #define REFLECTIVE_PLANE -2
 #define REFLECTIVE_PLANE_RENDER_TARGET "*REFLECTIVE_PLANE_RENDER_TARGET"

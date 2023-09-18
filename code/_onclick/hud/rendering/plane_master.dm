@@ -67,11 +67,11 @@
 
 /atom/movable/screen/plane_master/reflection/Initialize(mapload)
 	. = ..()
-	var/matrix/n_transform = matrix(1, -1, MATRIX_SCALE)
-	//n_transform.Turn(180)
+	var/matrix/n_transform = transform
 	n_transform.Translate(0, -32)
 	transform = n_transform
 	add_filter("relfections", 1, alpha_mask_filter(render_source = REFLECTIVE_PLANE_RENDER_TARGET))
+	add_filter("displacement", 1.1, displacement_map_filter(icon = 'icons/480x480.dmi', size = 32))
 
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"
@@ -252,6 +252,6 @@
 
 /atom/movable/screen/plane_master/reflective/Initialize(mapload)
 	. = ..()
-	//var/matrix/n_transofrm = transform
-	//n_transofrm.Translate(0, 32)
-	//transform = n_transofrm
+	var/matrix/n_transofrm = transform
+	n_transofrm.Translate(0, 32)
+	transform = n_transofrm
