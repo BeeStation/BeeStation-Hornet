@@ -55,8 +55,8 @@ export const CrewManifest = (_props, context) => {
                 {Object.entries(sorted_jobs).map(([crewIndex, crewMember]) => {
                   const is_command = command.huds.includes(crewMember.hud) || command.jobs.includes(crewMember.rank);
                   return (
-                    <Table.Row key={crewIndex}>
-                      <Table.Cell className={'CrewManifest__Cell'} bold={is_command}>
+                    <Table.Row key={crewIndex} className="candystripe">
+                      <Table.Cell className={'CrewManifest__Cell'} bold={is_command} pl={0.5}>
                         {crewMember.name}
                       </Table.Cell>
                       <Table.Cell className={classes(['CrewManifest__Cell', 'CrewManifest__Icons'])} collapsing>
@@ -76,11 +76,11 @@ export const CrewManifest = (_props, context) => {
                           inline
                           mr={0.5}
                           ml={-0.5}
-                          style={{ 'transform': 'translateY(18.75%)' }}
+                          style={{ 'vertical-align': 'middle' }}
                           className={`job-icon16x16 job-icon-hud${crewMember.hud}`}
                         />
                       </Table.Cell>
-                      <Table.Cell className={classes(['CrewManifest__Cell', 'CrewManifest__Cell--Rank'])} collapsing>
+                      <Table.Cell className={classes(['CrewManifest__Cell', 'CrewManifest__Cell--Rank'])} collapsing pr={1}>
                         {crewMember.rank}
                       </Table.Cell>
                     </Table.Row>
