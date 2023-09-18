@@ -37,6 +37,8 @@
 /obj/item/watertank/on_reagent_change(changetype)
 	. = ..()
 	update_icon()
+	if(noz)
+		noz.update_icon()
 	if(istype(loc, /mob/living/carbon))//Someone's wearing it
 		var/mob/living/carbon/wearer = loc
 		wearer.update_inv_back()
@@ -238,6 +240,7 @@
 	icon = 'icons/obj/atmospherics/equipment.dmi'
 	item_state = "waterbackpackatmos"
 	icon_state = "waterbackpackatmos"
+	worn_icon_state = "waterbackpackatmos"
 	volume = 200
 	slowdown = 0
 	var/nozzle_cooldown = 8 SECONDS //Delay between the uses of launcher and foamer mode, all of these are used for the nozzle
@@ -511,7 +514,7 @@
 	if(Adj)
 		AttemptRefill(target, user)
 	if(nozzle_mode == RESIN_LAUNCHER)
-		if(Adj)
+		if(Adj || istype(target, /obj/structure/foamedmetal/resin))
 			return //Safety check so you don't blast yourself trying to refill your tank
 		var/datum/reagents/R = reagents
 		if(R.total_volume < resin_cost)
@@ -524,7 +527,7 @@
 		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
 		R.remove_any(resin_cost)
 		var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
-		if(tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+		if(toggled)
 			QDEL_NULL(resin_projectile)
 			resin_projectile = new /obj/effect/resin_container/chainreact(get_turf(src))
 		var/delay = 2
