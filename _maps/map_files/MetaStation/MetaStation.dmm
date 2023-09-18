@@ -6654,7 +6654,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aGv" = (
-/obj/structure/filingcabinet{
+/obj/structure/filingcabinet/security{
 	pixel_x = 8
 	},
 /obj/structure/filingcabinet{
