@@ -89,6 +89,12 @@
 	build_path = /obj/item/circuit_component/compare/logic
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
+/datum/design/component/forloop
+	name = "For Loop Component"
+	id = "comp_forloop"
+	build_path = /obj/item/circuit_component/forloop
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
 /datum/design/component/delay
 	name = "Delay Component"
 	id = "comp_delay"
