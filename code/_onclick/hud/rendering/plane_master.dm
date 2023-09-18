@@ -67,10 +67,10 @@
 
 /atom/movable/screen/plane_master/reflection/Initialize(mapload)
 	. = ..()
-	var/matrix/n_transofrm = transform
-	n_transofrm.Turn(180)
-	n_transofrm.Translate(0, -32)
-	transform = n_transofrm
+	var/matrix/n_transform = matrix(1, -1, MATRIX_SCALE)
+	//n_transform.Turn(180)
+	n_transform.Translate(0, -32)
+	transform = n_transform
 	add_filter("relfections", 1, alpha_mask_filter(render_source = REFLECTIVE_PLANE_RENDER_TARGET))
 
 /atom/movable/screen/plane_master/data_hud
@@ -249,3 +249,9 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = REFLECTIVE_PLANE_RENDER_TARGET
 	render_relay_plane = null
+
+/atom/movable/screen/plane_master/reflective/Initialize(mapload)
+	. = ..()
+	//var/matrix/n_transofrm = transform
+	//n_transofrm.Translate(0, 32)
+	//transform = n_transofrm
