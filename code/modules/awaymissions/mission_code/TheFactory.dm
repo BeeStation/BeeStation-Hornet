@@ -762,7 +762,7 @@
 		icon_living = "facboss3"
 		ranged_cooldown_time = 10//even faster
 
-/mob/living/simple_animal/hostile/syndicate/factory/boss/updatehealth()
+/mob/living/simple_animal/hostile/syndicate/factory/boss/on_damaged()
 	..()
 	if(health <= 300)
 		var/list/possible_sounds = list('sound/creatures/bosspain.ogg','sound/creatures/bosspain2.ogg')

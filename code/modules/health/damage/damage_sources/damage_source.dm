@@ -74,6 +74,8 @@
 	// Apply the damage at this point
 	target.damage_apply_damage(src)
 
+	// Called when the target is damaged
+	target.on_damaged()
 	CLEAR_REFERENCES
 	return damage_amount
 
@@ -145,6 +147,9 @@
 		var/obj/item/bodypart/part = target
 		if (part.owner)
 			after_attack_limb(attacker, weapon, part.owner, target, GET_DAMAGE(transformed_damage_source), damage_amount, target_zone)
+
+	// Call when the target takes damage
+	target.on_damaged()
 	CLEAR_REFERENCES
 	return damage_amount
 
