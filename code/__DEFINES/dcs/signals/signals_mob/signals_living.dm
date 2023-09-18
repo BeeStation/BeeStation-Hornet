@@ -14,8 +14,10 @@
 #define COMSIG_LIVING_START_PULL "living_start_pull"			///called on /living when someone starts pulling (atom/movable/pulled, state, force)
 /// from base of mob/living/Life() (seconds, times_fired)
 #define COMSIG_LIVING_LIFE "living_life"
-///from base of mob/living/death(): (gibbed)
+///from base of mob/living/death(): (gibbed, was_dead_before)
 #define COMSIG_LIVING_DEATH "living_death"
+/// from base of mob/living/updatehealth(): ()
+#define COMSIG_LIVING_UPDATE_HEALTH "living_update_health"
 
 /// from /datum/component/singularity/proc/can_move(), as well as /obj/anomaly/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
@@ -35,6 +37,16 @@
 #define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"	//! from base of mob/living/Unconscious() (amount, update, ignore)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"			//! from base of mob/living/Sleeping() (amount, update, ignore)
 	#define COMPONENT_NO_STUN 1			//For all of them
+
+#define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
+#define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"		//! sent when a mob exits stasis.
+
+///From wabbajack(): ()
+#define COMSIG_LIVING_PRE_WABBAJACKED "living_mob_wabbajacked"
+	/// Return to stop the rest of the wabbajack from triggering.
+	#define STOP_WABBAJACK (1 << 0)
+///From wabbajack(): (mob/living/new_mob)
+#define COMSIG_LIVING_ON_WABBAJACKED "living_wabbajacked"
 
 // basic mob signals
 /// Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()

@@ -27,7 +27,8 @@
 	return
 
 /mob/living/dust(just_ash, drop_items, force)
-	death(TRUE)
+	if(stat != DEAD)
+		death(TRUE)
 
 	if(drop_items)
 		unequip_everything()
@@ -49,6 +50,7 @@
 /mob/living/death(gibbed)
 	var/was_dead_before = stat == DEAD
 	set_stat(DEAD)
+	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed, was_dead_before)
 	unset_machine()
 	timeofdeath = world.time
 	tod = station_time_timestamp()
