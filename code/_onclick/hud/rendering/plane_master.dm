@@ -49,6 +49,7 @@
 	plane = GAME_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
+	render_target = GAME_PLANE_RENDER_TARGET
 
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	. = ..()
@@ -58,6 +59,19 @@
 	remove_filter("eye_blur")
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
+
+/atom/movable/screen/plane_master/reflection
+	name = "reflection plane master"
+	plane = REFLECTION_PLANE
+	render_source = GAME_PLANE_RENDER_TARGET
+
+/atom/movable/screen/plane_master/reflection/Initialize(mapload)
+	. = ..()
+	var/matrix/n_transofrm = transform
+	n_transofrm.Turn(180)
+	n_transofrm.Translate(0, -32)
+	transform = n_transofrm
+	add_filter("relfections", 1, alpha_mask_filter(render_source = REFLECTIVE_PLANE_RENDER_TARGET))
 
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"
@@ -227,3 +241,11 @@
 	name = "fullscreen alert plane"
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
+
+//
+/atom/movable/screen/plane_master/reflective
+	name = "reflective plane master"
+	plane = REFLECTIVE_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_target = REFLECTIVE_PLANE_RENDER_TARGET
+	render_relay_plane = null
