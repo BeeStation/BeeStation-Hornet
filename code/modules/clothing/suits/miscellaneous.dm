@@ -624,6 +624,7 @@
 	item_state = "coatsecurity"
 	armor = list(MELEE = 25,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
+	slowdown = 0.05
 
 /obj/item/clothing/suit/hooded/wintercoat/security/Initialize(mapload)
 	. = ..()
