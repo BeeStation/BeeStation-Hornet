@@ -16,19 +16,19 @@
 
 	return last_midround_injection_attempt + distance
 
-/datum/game_mode/dynamic/proc/try_midround_roll()
-	if (!forced_injection && next_midround_injection() > world.time)
-		return
+/datum/game_mode/dynamic/proc/try_midround_roll(force = FALSE)
+	if (!forced_injection && next_midround_injection() > (simulated_time || world.time))
+		return null
 
 	if (GLOB.dynamic_forced_extended)
-		return
+		return null
 
 	if (EMERGENCY_ESCAPED_OR_ENDGAMED)
-		return
+		return null
 
 	var/spawn_heavy = prob(get_heavy_midround_injection_chance())
 
-	last_midround_injection_attempt = world.time
+	last_midround_injection_attempt = (simulated_time || world.time)
 	next_midround_injection = null
 	forced_injection = FALSE
 
@@ -44,15 +44,15 @@
 			log_game("DYNAMIC: FAIL: [ruleset] has a weight of 0")
 			continue
 
-		if (!ruleset.acceptable(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len, threat_level))
+		if (!ruleset.acceptable(simulated_alive_players || SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len, threat_level))
 			log_game("DYNAMIC: FAIL: [ruleset] is not acceptable with the current parameters. Alive players: [SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len], threat level: [threat_level]")
 			continue
 
-		if (mid_round_budget < ruleset.cost)
+		if (mid_round_budget < ruleset.cost && !is_lategame())
 			log_game("DYNAMIC: FAIL: [ruleset] is too expensive, and cannot be bought. Midround budget: [mid_round_budget], ruleset cost: [ruleset.cost]")
 			continue
 
-		if (ruleset.minimum_round_time > world.time - SSticker.round_start_time)
+		if (ruleset.minimum_round_time > (simulated_time || world.time) - SSticker.round_start_time)
 			log_game("DYNAMIC: FAIL: [ruleset] is trying to run too early. Minimum round time: [ruleset.minimum_round_time], current round time: [world.time - SSticker.round_start_time]")
 			continue
 
@@ -62,7 +62,7 @@
 			continue
 
 		ruleset.trim_candidates()
-		if (!ruleset.ready())
+		if (!ruleset.ready(force))
 			log_game("DYNAMIC: FAIL: [ruleset] is not ready()")
 			continue
 
@@ -76,9 +76,9 @@
 
 	log_game("DYNAMIC: Rolling [spawn_heavy ? "HEAVY" : "LIGHT"]... [heavy_light_log_count]")
 
-	if (spawn_heavy && drafted_heavies.len > 0 && pick_midround_rule(drafted_heavies, "heavy rulesets"))
+	if (spawn_heavy && drafted_heavies.len > 0 && (. = pick_midround_rule(drafted_heavies, "heavy rulesets")))
 		return
-	else if (drafted_lights.len > 0 && pick_midround_rule(drafted_lights, "light rulesets"))
+	else if (drafted_lights.len > 0 && (. = pick_midround_rule(drafted_lights, "light rulesets")))
 		if (spawn_heavy)
 			dynamic_log("A heavy ruleset was intended to roll, but there weren't any available. [heavy_light_log_count]")
 	else

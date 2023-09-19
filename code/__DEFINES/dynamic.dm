@@ -17,6 +17,11 @@
 /// This ruleset will be logged in persistence, to reduce the chances of it repeatedly rolling several rounds in a row.
 #define PERSISTENT_RULESET (1 << 5)
 
+/// Can this ruleset be executed once we consider the round to be in the late game context?
+/// We generally want lategame rulesets to be chaotic and antagonists which do not require a long setup in order to get started.
+/// These are rulesets that should push the round to a close
+#define LATEGAME_RULESET (1 << 6)
+
 /// This is a "heavy" midround ruleset, and should be run later into the round
 #define MIDROUND_RULESET_STYLE_HEAVY "Heavy"
 
