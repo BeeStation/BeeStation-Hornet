@@ -1,0 +1,5 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - bugfix: Fixes a runtime in antag_panel.dm that prevents you from opening the Antagonist
+      Panel on disconnected observers
