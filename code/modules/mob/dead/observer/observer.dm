@@ -388,7 +388,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(isliving(mind?.current))
 		mind.current.med_hud_set_status()
 	to_chat(src, "You can no longer be brought back into your body.")
-	log_game("[key_name(usr)] has opted to do-not-resuscitate / DNR from their body [current_mob]")
+	src.log_message("[key_name(src)] has opted to do-not-resuscitate / DNR from their body [mind?.current]", LOG_GAME)
 	return TRUE
 
 /mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source, flashwindow = TRUE)

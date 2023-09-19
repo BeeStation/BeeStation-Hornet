@@ -178,6 +178,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.sentience_act()
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", source = mychild, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Lavaland Elite awakened")
 	mychild.log_message("has been awakened by [key_name(activator)]!", LOG_GAME, color="#960000")
+	activator.log_message("has awakened [key_name(mychild)]!", LOG_GAME, color="#960000")
 	icon_state = "tumor_popped"
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
