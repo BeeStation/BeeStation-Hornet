@@ -26,5 +26,5 @@
 	noglow_accent_overlay.layer = holoparasite.layer + 0.1
 	. += noglow_accent_overlay
 
-	. += emissive_blocker(initial(holoparasite.icon), inital(holoparasite.icon_state), holoparasite.layer)
+	. += emissive_blocker(initial(holoparasite.icon), initial(holoparasite.icon_state), holoparasite.layer)
 	. += emissive_appearance(initial(holoparasite.icon), "magic:accent:emissive", holoparasite.layer)
