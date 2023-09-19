@@ -63,6 +63,7 @@
 /atom/movable/screen/plane_master/reflection
 	name = "reflection plane master"
 	plane = REFLECTION_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_source = GAME_PLANE_RENDER_TARGET
 	color = "#ccc"
 
@@ -71,7 +72,7 @@
 	var/matrix/n_transform = transform
 	n_transform.Translate(0, -32)
 	transform = n_transform
-	add_filter("relfections", 1, alpha_mask_filter(render_source = REFLECTIVE_PLANE_RENDER_TARGET))
+	add_filter("reflections", 1, alpha_mask_filter(render_source = REFLECTIVE_PLANE_RENDER_TARGET))
 	add_filter("displacement", 1.1, displacement_map_filter(render_source = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET, size = 42, y = -16))
 	add_filter("motion_blur", 1.2, motion_blur_filter(y = 0.7))
 	
