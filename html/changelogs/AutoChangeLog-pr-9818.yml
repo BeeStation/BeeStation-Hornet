@@ -1,5 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: You will no longer suffocate eternally if you stop needing to breathe
-      while in the middle of suffocating.
