@@ -21,12 +21,12 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/list/categories = list()
 	///The type of sheet this material creates. This should be replaced as soon as possible by greyscale sheets.
 	var/sheet_type
-	///The type of coin this material spawns. This should be replaced as soon as possible by greyscale coins.
-	var/coin_type
 	///This is a modifier for force, and resembles the strength of the material
 	var/strength_modifier = 1
 	///This is a modifier for integrity, and resembles the strength of the material
 	var/integrity_modifier = 1
+	///This is the amount of value per 1 unit of the material
+	var/value_per_unit = 0
 
 ///This proc is called when the material is added to an object.
 /datum/material/proc/on_applied(atom/source, amount, material_flags)
@@ -39,6 +39,9 @@ Simple datum which is instanced once per type and is used for every object of sa
 	if(material_flags & MATERIAL_GREYSCALE)
 		var/config_path = get_greyscale_config_for(source.greyscale_config)
 		source.set_greyscale(greyscale_colors, config_path)
+
+	if(material_flags & MATERIAL_ADD_PREFIX)
+		source.name = "[name] [source.name]"
 
 	if(istype(source, /obj)) //objs
 		on_applied_obj(source, amount, material_flags)
@@ -77,6 +80,9 @@ Simple datum which is instanced once per type and is used for every object of sa
 
 	if(material_flags & MATERIAL_GREYSCALE)
 		source.set_greyscale(initial(source.greyscale_colors), initial(source.greyscale_config))
+
+	if(material_flags & MATERIAL_ADD_PREFIX)
+		source.name = initial(source.name)
 
 	if(istype(source, /obj)) //objs
 		on_removed_obj(source, material_flags)

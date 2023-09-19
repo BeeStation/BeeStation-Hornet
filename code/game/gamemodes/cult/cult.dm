@@ -22,7 +22,7 @@
 			return FALSE
 		if(is_servant_of_ratvar(M))
 			return FALSE
-		if(M.mind.enslaved_to && !iscultist(M.mind.enslaved_to))
+		if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/cult))
 			return FALSE
 		if(M.mind.unconvertable)
 			return FALSE

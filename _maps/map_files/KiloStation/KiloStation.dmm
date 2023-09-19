@@ -21992,9 +21992,6 @@
 /area/crew_quarters/toilet/restrooms)
 "bKU" = (
 /obj/effect/turf_decal/box,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -22020,6 +22017,7 @@
 	pixel_x = 24;
 	pixel_y = -8
 	},
+/obj/machinery/recharge_station,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 "bKX" = (

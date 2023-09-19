@@ -110,11 +110,10 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
 
-	if(vary)
-		if(frequency)
-			S.frequency = frequency
-		else
-			S.frequency = get_rand_frequency()
+	if(frequency)
+		S.frequency = frequency
+	else if(vary)
+		S.frequency = get_rand_frequency()
 
 	if(isturf(turf_source))
 		var/turf/T = get_turf(src)

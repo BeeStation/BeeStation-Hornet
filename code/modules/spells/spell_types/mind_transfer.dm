@@ -71,8 +71,8 @@ Also, you never added distance checking after target is selected. I've went ahea
 		to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is protected by a strange ward on their headgear!</span>")
 		return
 
-	if(istype(target, /mob/living/simple_animal/hostile/guardian))
-		var/mob/living/simple_animal/hostile/guardian/stand = target
+	if(istype(target, /mob/living/simple_animal/hostile/holoparasite))
+		var/mob/living/simple_animal/hostile/holoparasite/stand = target
 		if(stand.summoner)
 			if(stand.summoner == user)
 				if(!silent)
