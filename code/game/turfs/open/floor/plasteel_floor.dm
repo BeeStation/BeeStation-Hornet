@@ -109,7 +109,7 @@
 /turf/open/floor/plasteel/showroomfloor
 	icon_state = "showroomfloor"
 	base_icon_state = "showroomfloor"
-
+	is_shiny = TRUE
 
 /turf/open/floor/plasteel/solarpanel
 	icon_state = "solarpanel"
@@ -123,6 +123,7 @@
 /turf/open/floor/plasteel/freezer
 	icon_state = "freezerfloor"
 	base_icon_state = "freezerfloor"
+	is_shiny = TRUE
 
 /turf/open/floor/plasteel/freezer/airless
 	initial_gas_mix = AIRLESS_ATMOS

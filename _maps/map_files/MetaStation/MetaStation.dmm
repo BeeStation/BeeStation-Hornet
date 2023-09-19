@@ -12571,6 +12571,7 @@
 	pixel_y = 12
 	},
 /obj/structure/curtain,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/captain/private)
 "bkO" = (
@@ -31168,6 +31169,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/captain/private)
 "egv" = (
@@ -52829,6 +52831,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/noslip/white,
 /area/crew_quarters/heads/cmo)
 "njT" = (
@@ -56122,6 +56125,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "oBW" = (
@@ -76187,6 +76191,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/captain/private)
 "xeU" = (
@@ -79238,6 +79243,7 @@
 	pixel_x = null;
 	pixel_y = 32
 	},
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "yki" = (
