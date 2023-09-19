@@ -175,17 +175,6 @@
 			return
 		else
 			to_chat(user, "<span class='notice'>Close [open ? src : newbox] first!</span>")
-	else if(istype(I, /obj/item/food/pizza) || istype(I, /obj/item/reagent_containers/food/snacks/customizable/pizza))
-		if(open)
-			if(pizza)
-				to_chat(user, "<span class='warning'>[src] already has \a [pizza.name]!</span>")
-				return
-			if(!user.transferItemToLoc(I, src))
-				return
-			pizza = I
-			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-			update_icon()
-			return
 	else if(istype(I, /obj/item/bombcore/miniature/pizza))
 		if(open && !bomb)
 			if(!user.transferItemToLoc(I, src))
@@ -353,4 +342,4 @@
 	var/obj/item/pizza_type = pizza_preferences[noms.ckey]
 	pizza = new pizza_type (src)
 	var/obj/item/organ/tongue/T = noms.getorganslot(ORGAN_SLOT_TONGUE)
-	pizza.foodtype = T?.liked_food //it's our favorite!
+	pizza.foodtypes = T?.liked_food //it's our favorite!
