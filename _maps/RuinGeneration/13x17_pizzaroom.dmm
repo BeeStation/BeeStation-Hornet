@@ -7,7 +7,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "d" = (
-/obj/item/reagent_containers/food/snacks/pizzaslice/margherita,
+/obj/item/food/pizzaslice/margherita,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "e" = (
@@ -25,11 +25,11 @@
 /turf/open/indestructible/hierophant,
 /area/ruin/unpowered)
 "p" = (
-/obj/item/reagent_containers/food/snacks/pizza/pineapple,
+/obj/item/food/pizza/pineapple,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "q" = (
-/obj/item/reagent_containers/food/snacks/pizza/meat,
+/obj/item/food/pizza/meat,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "t" = (
@@ -48,7 +48,7 @@
 /turf/template_noop,
 /area/template_noop)
 "F" = (
-/obj/item/reagent_containers/food/snacks/pizza/margherita/robo,
+/obj/item/food/pizza/margherita/robo,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "G" = (
@@ -58,7 +58,7 @@
 /turf/closed/indestructible/riveted/hierophant,
 /area/ruin/unpowered)
 "U" = (
-/obj/item/reagent_containers/food/snacks/pizzaslice/meat,
+/obj/item/food/pizzaslice/meat,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 
