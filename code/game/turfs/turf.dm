@@ -621,7 +621,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	return FALSE
 
 /turf/proc/make_shiny()
-	if(is_shiny)
+	if(reflection || reflection_displacement)
 		return
 	reflection = mutable_appearance('icons/turf/overlays.dmi', "whiteOverlay", plane = REFLECTIVE_PLANE)
 	reflection_displacement = mutable_appearance('icons/turf/overlays.dmi', "flip", plane = REFLECTIVE_DISPLACEMENT_PLANE)
