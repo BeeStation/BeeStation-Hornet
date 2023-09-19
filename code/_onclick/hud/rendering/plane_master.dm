@@ -72,6 +72,7 @@
 	n_transform.Translate(0, -32)
 	transform = n_transform
 	add_filter("relfections", 1, alpha_mask_filter(render_source = REFLECTIVE_PLANE_RENDER_TARGET))
+	add_filter("displacement", 1.1, displacement_map_filter(render_source = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET, size = 42, y = -16))
 	add_filter("motion_blur", 1.2, motion_blur_filter(y = 0.7))
 	
 /atom/movable/screen/plane_master/data_hud
@@ -252,6 +253,17 @@
 	render_relay_plane = null
 
 /atom/movable/screen/plane_master/reflective/Initialize(mapload)
+	. = ..()
+	var/matrix/n_transofrm = transform
+	n_transofrm.Translate(0, 32)
+	transform = n_transofrm
+
+/atom/movable/screen/plane_master/reflective/displacement
+	name = "reflective displacement plane master"
+	plane = REFLECTIVE_DISPLACEMENT_PLANE
+	render_target = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET
+
+/atom/movable/screen/plane_master/reflective/displacement/Initialize(mapload)
 	. = ..()
 	var/matrix/n_transofrm = transform
 	n_transofrm.Translate(0, 32)

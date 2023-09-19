@@ -13,6 +13,7 @@
 	var/last_process = 0
 	///Reflective overlay
 	var/mutable_appearance/reflection
+	var/mutable_appearance/reflection_displacement
 
 /datum/component/wet_floor/InheritComponent(datum/newcomp, orig, strength, duration_minimum, duration_add, duration_maximum, _permanent)
 	if(!newcomp)	//We are getting passed the arguments of a would-be new component, but not a new component
@@ -35,8 +36,10 @@
 	last_process = world.time
 	//
 	reflection = mutable_appearance('icons/turf/overlays.dmi', "whiteOverlay", plane = REFLECTIVE_PLANE)
+	reflection_displacement = mutable_appearance('icons/turf/overlays.dmi', "flip", plane = REFLECTIVE_DISPLACEMENT_PLANE)
 	var/turf/T  = parent
 	T.add_overlay(reflection)
+	T.add_overlay(reflection_displacement)
 
 /datum/component/wet_floor/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_TURF_IS_WET, PROC_REF(is_wet))
@@ -52,6 +55,7 @@
 	if(istype(T))		//If this is false there is so many things wrong with it.
 		T.cut_overlay(current_overlay)
 		T.cut_overlay(reflection)
+		T.cut_overlay(reflection_displacement)
 	else
 		stack_trace("Warning: Wet floor component wasn't on a turf when being destroyed! This is really bad!")
 	return ..()
