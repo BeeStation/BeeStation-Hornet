@@ -73,7 +73,7 @@
 	strip_delay = initial(strip_delay)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.head == user)
+		if(H.head == src)
 			H.update_inv_head()
 
 /obj/item/clothing/head/Destroy()
