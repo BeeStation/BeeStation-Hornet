@@ -159,6 +159,8 @@ GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
 	lighting_effect.appearance = /obj/effect/fullbright/starlight
 	return lighting_effect
 
+/// Innate lum source that cannot be removed
+#define LUM_SOURCE_INNATE (1 << 4)
 /// Luminosity source for glasses
 #define LUM_SOURCE_GLASSES (1 << 3)
 /// Lum source from mutant bodyparts
