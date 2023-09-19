@@ -23,7 +23,7 @@
 	},
 /area/template_noop)
 "k" = (
-/obj/item/reagent_containers/food/snacks/burger/corgi,
+/obj/item/food/burger/corgi,
 /obj/structure/table,
 /obj/machinery/microwave{
 	pixel_y = 8

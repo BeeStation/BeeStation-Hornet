@@ -146,7 +146,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aG" = (
-/obj/item/reagent_containers/food/snacks/burger/empoweredburger{
+/obj/item/food/burger/empoweredburger{
 	pixel_x = 5;
 	pixel_y = -6
 	},
@@ -306,12 +306,12 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bk" = (
-/obj/item/reagent_containers/food/snacks/burger/clown,
+/obj/item/food/burger/clown,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bl" = (
-/obj/item/reagent_containers/food/snacks/burger/mime,
+/obj/item/food/burger/mime,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -399,7 +399,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "bC" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/burger/fish,
+/obj/item/food/burger/fish,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bD" = (
@@ -409,7 +409,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "bE" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/burger/superbite,
+/obj/item/food/burger/superbite,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bG" = (
@@ -419,7 +419,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "bH" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/burger/superbite,
+/obj/item/food/burger/superbite,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -508,7 +508,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bY" = (
-/obj/item/reagent_containers/food/snacks/burger/xeno,
+/obj/item/food/burger/xeno,
 /obj/structure/table/wood/fancy/royalblue,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
@@ -524,7 +524,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cb" = (
-/obj/item/reagent_containers/food/snacks/burger/baconburger,
+/obj/item/food/burger/baconburger,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
@@ -556,7 +556,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cg" = (
-/obj/item/reagent_containers/food/snacks/burger/spell{
+/obj/item/food/burger/spell{
 	pixel_x = -5;
 	pixel_y = 2
 	},
@@ -636,13 +636,13 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cv" = (
-/obj/item/reagent_containers/food/snacks/burger/baseball,
+/obj/item/food/burger/baseball,
 /obj/structure/table/wood/fancy/royalblue,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cx" = (
-/obj/item/reagent_containers/food/snacks/burger/human,
+/obj/item/food/burger/human,
 /obj/structure/table/wood/fancy/royalblue,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet,
@@ -710,7 +710,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cJ" = (
-/obj/item/reagent_containers/food/snacks/burger/rat,
+/obj/item/food/burger/rat,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -953,7 +953,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dE" = (
 /obj/structure/table/wood/fancy/blue,
-/obj/item/reagent_containers/food/snacks/burger/jelly/slime,
+/obj/item/food/burger/jelly/slime,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dF" = (
