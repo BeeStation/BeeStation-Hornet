@@ -17,7 +17,7 @@
 	return last_midround_injection_attempt + distance
 
 /datum/game_mode/dynamic/proc/try_midround_roll(force = FALSE)
-	if (!forced_injection && next_midround_injection() > (simulated_time || world.time))
+	if (!forced_injection && next_midround_injection() > get_time())
 		return null
 
 	if (GLOB.dynamic_forced_extended)
@@ -28,7 +28,7 @@
 
 	var/spawn_heavy = prob(get_heavy_midround_injection_chance())
 
-	last_midround_injection_attempt = (simulated_time || world.time)
+	last_midround_injection_attempt = get_time()
 	next_midround_injection = null
 	forced_injection = FALSE
 
@@ -52,7 +52,7 @@
 			log_game("DYNAMIC: FAIL: [ruleset] is too expensive, and cannot be bought. Midround budget: [mid_round_budget], ruleset cost: [ruleset.cost]")
 			continue
 
-		if (ruleset.minimum_round_time > (simulated_time || world.time) - SSticker.round_start_time)
+		if (ruleset.minimum_round_time > get_time() - SSticker.round_start_time)
 			log_game("DYNAMIC: FAIL: [ruleset] is trying to run too early. Minimum round time: [ruleset.minimum_round_time], current round time: [world.time - SSticker.round_start_time]")
 			continue
 
@@ -76,13 +76,20 @@
 
 	log_game("DYNAMIC: Rolling [spawn_heavy ? "HEAVY" : "LIGHT"]... [heavy_light_log_count]")
 
-	if (spawn_heavy && drafted_heavies.len > 0 && (. = pick_midround_rule(drafted_heavies, "heavy rulesets")))
+	// Attempt to draft a heavy ruleset
+	if (spawn_heavy && drafted_heavies.len > 0)
+		. = pick_midround_rule(drafted_heavies, "heavy rulesets")
+		if (.)
+			return
+	if (drafted_lights.len <= 0)
+		dynamic_log("No midround rulesets could be drafted as there were no drafted rules. ([heavy_light_log_count])")
 		return
-	else if (drafted_lights.len > 0 && (. = pick_midround_rule(drafted_lights, "light rulesets")))
-		if (spawn_heavy)
-			dynamic_log("A heavy ruleset was intended to roll, but there weren't any available. [heavy_light_log_count]")
-	else
-		dynamic_log("No midround rulesets could be drafted. ([heavy_light_log_count])")
+	. = pick_midround_rule(drafted_lights, "light rulesets")
+	if (!.)
+		dynamic_log("No midround rulesets could be drafted as pick midround rules returned nothing. ([heavy_light_log_count])")
+		return
+	if (spawn_heavy)
+		dynamic_log("A heavy ruleset was intended to roll, but there weren't any available. [heavy_light_log_count]")
 
 /// Gets the chance for a heavy ruleset midround injection, the dry_run argument is only used for forced injection.
 /datum/game_mode/dynamic/proc/get_heavy_midround_injection_chance(dry_run)

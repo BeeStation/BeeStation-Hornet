@@ -30,7 +30,7 @@
 		if (!ruleset.acceptable(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len, threat_level))
 			continue
 
-		if (ruleset.minimum_round_time > (simulated_time || world.time) - SSticker.round_start_time)
+		if (ruleset.minimum_round_time > get_time() - SSticker.round_start_time)
 			continue
 
 		if(istype(ruleset, /datum/dynamic_ruleset/midround/from_ghosts) && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
