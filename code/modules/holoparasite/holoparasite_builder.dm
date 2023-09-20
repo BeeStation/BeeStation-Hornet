@@ -380,6 +380,7 @@
 	var/mob/dead/observer/candidate = pick(candidates)
 	var/mob/living/simple_animal/hostile/holoparasite/holoparasite = new(user, candidate.key, holopara_name, theme, accent_color, notes, user.mind, saved_stats)
 	var/datum/antagonist/holoparasite/holopara_antag = holoparasite.mind.add_antag_datum(new /datum/antagonist/holoparasite(user.mind.holoparasite_holder(), saved_stats, theme))
+	saved_stats = new
 	holopara_antag.ui_interact(holoparasite) // Show them the info popup
 	user.log_message("summoned [key_name(holoparasite)], a holoparasite ([theme.name]), with the following stats: [tldr_stats]", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] has summoned [ADMIN_LOOKUPFLW(holoparasite)], a holoparasite ([theme.name]), with the following stats: [tldr_stats]")
