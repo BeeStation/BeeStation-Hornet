@@ -4,6 +4,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_map"
+	base_icon_state = "conveyor"
 	name = "conveyor belt"
 	desc = "A conveyor belt."
 	layer = BELOW_OPEN_DOOR_LAYER
@@ -142,6 +143,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		if(SOUTHWEST)
 			forwards = WEST
 			backwards = NORTH
+
 	if(verted == -1)
 		var/temp = forwards
 		forwards = backwards
@@ -152,11 +154,15 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		movedir = backwards
 	update()
 
+/obj/machinery/conveyor/update_icon_state()
+	icon_state = "[base_icon_state][(machine_stat & BROKEN) ? "-broken" : (operating * verted)]"
+	return ..()
+
 /obj/machinery/conveyor/proc/set_operating(new_value)
 	if(operating == new_value)
 		return
 	operating = new_value
-	update_icon_state()
+	update_appearance()
 	update_move_direction()
 	//If we ever turn off, disable moveloops
 	if(!operating)
@@ -168,6 +174,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(machine_stat & NOPOWER)
 		set_operating(FALSE)
 		return FALSE
+		
 	if(!operating) //If we're on, start conveying so moveloops on our tile can be refreshed if they stopped for some reason
 		return
 	for(var/atom/movable/movable in get_turf(src))
@@ -216,8 +223,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 					C = locate(/obj/item/stack/conveyor) in loc
 				if(C)
 					transfer_fingerprints_to(C)
-			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 
+			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 			qdel(src)
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
