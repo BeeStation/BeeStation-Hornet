@@ -41,12 +41,14 @@
 			to_chat(user,"<span class='notice'>[src] already has a wig attached!</span>")
 			return
 		else
+			if(!user.transferItemToLoc(W, src))
+				to_chat(user, "<span class='warning'>\The [W] is stuck to your hand and can't be attached to \the [src]!</span>")
+				return
 			attached_wig = W
 			attached_wig.hat_attached_to = src
-			W.forceMove(src)
 			add_verb(/obj/item/clothing/head/verb/unattach_wig)
 			update_icon()
-			strip_delay = 10 //The fake hair makes it really easy to swipe the hat off the head
+			strip_delay = 1 SECONDS //The fake hair makes it really easy to swipe the hat off the head
 			attached_wig.equipped(user, ITEM_SLOT_HEAD)
 
 
@@ -55,17 +57,23 @@
 	set category = "Object"
 	set src in usr
 
-	usr.put_in_hands(attached_wig)
-	if (usr.get_item_by_slot(ITEM_SLOT_HEAD) == src)
-		attached_wig.dropped(usr)
+	var/mob/user = usr
+	if(!user)
+		return
+	if(HAS_TRAIT_FROM(attached_wig, TRAIT_NODROP, GLUED_ITEM_TRAIT))
+		to_chat(user, "<span class='warning'>\The [attached_wig] is stuck to \the [src] and can't be detached!</span>")
+		return
+	user.put_in_hands(attached_wig)
+	if (user.get_item_by_slot(ITEM_SLOT_HEAD) == user)
+		attached_wig.dropped(user)
 	attached_wig.hat_attached_to = null
 	attached_wig = null
 	update_icon()
 	remove_verb(/obj/item/clothing/head/verb/unattach_wig)
 	strip_delay = initial(strip_delay)
-	if(ishuman(usr))
-		var/mob/living/carbon/human/H = usr
-		if(H.head == src)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head == user)
 			H.update_inv_head()
 
 /obj/item/clothing/head/Destroy()

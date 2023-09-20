@@ -537,7 +537,13 @@
  * piercing_hit - is this hit piercing or normal?
  */
 /atom/proc/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
-	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
+		return BULLET_ACT_FORCE_PIERCE
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
+		return BULLET_ACT_BLOCK
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
+		return BULLET_ACT_HIT
 	. = P.on_hit(src, 0, def_zone, piercing_hit)
 
 ///Return true if we're inside the passed in atom

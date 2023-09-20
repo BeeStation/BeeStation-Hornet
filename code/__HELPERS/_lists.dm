@@ -507,9 +507,9 @@
 				return_list += wordlist[i]
 			bit = bit << 1
 	else
-		for(var/bit = 1, bit<=65535, bit = bit << 1)
-			if(bitfield & bit)
-				return_list += bit
+		for(var/bit = 0 to 24)
+			if(bitfield & (1 << bit))
+				return_list += (1 << bit)
 
 	return return_list
 
