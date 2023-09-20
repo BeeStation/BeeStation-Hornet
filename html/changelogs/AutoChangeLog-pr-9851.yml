@@ -1,8 +1,0 @@
-author: Tyranicranger4
-delete-after: true
-changes:
-  - rscdel: Removed the duplicate Detective's locker - and thus the duplicate revolver
-      from MetaStation
-  - tweak: Forensics crates now include the detective's camera instead of a normal
-      camera (20 extra charges)
-  - rscadd: Adds a spare detective armor vest to their vendor
