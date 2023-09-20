@@ -1,6 +1,12 @@
 GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
 
-/datum/crew_manifest
+/datum/crew_manifest/New()
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_GLOB_CREW_MANIFEST_UPDATE, PROC_REF(on_manifest_update))
+
+/datum/crew_manifest/proc/on_manifest_update()
+	SIGNAL_HANDLER
+	ui_update()
 
 /datum/crew_manifest/ui_state(mob/user)
 	return GLOB.always_state
@@ -13,7 +19,6 @@ GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CrewManifest")
-		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /datum/crew_manifest/ui_static_data(mob/user)

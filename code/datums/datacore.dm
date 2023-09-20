@@ -175,14 +175,16 @@
 		if(N.new_character)
 			log_manifest(N.ckey,N.new_character.mind,N.new_character)
 		if(ishuman(N.new_character))
-			manifest_inject(N.new_character)
+			manifest_inject(N.new_character, send_signal = FALSE)
 		CHECK_TICK
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /datum/datacore/proc/manifest_modify(name, assignment, hudstate)
 	var/datum/data/record/foundrecord = find_record("name", name, GLOB.data_core.general)
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
 		foundrecord.fields["hud"] = hudstate
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /datum/datacore/proc/get_manifest()
 	var/list/manifest_out = list()
@@ -241,7 +243,7 @@
 	return dat
 
 
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
+/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, send_signal = TRUE)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
@@ -326,6 +328,8 @@
 		L.fields["character_appearance"] = character_appearance
 		L.fields["mindref"]		= H.mind
 		locked += L
+	if(send_signal)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 	return
 
 /**
