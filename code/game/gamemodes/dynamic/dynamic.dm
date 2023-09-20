@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// This number influences where to place midround rolls, making this larger
 	/// will make midround rolls less frequent, and vice versa.
 	/// Once this time has passed, only midround antags with the LATEGAME_RULESET
-	/// flag may roll, and these will roll independant of threat requirements.
+	/// flag may roll, and these will roll independent of threat requirements.
 	var/midround_upper_bound = 100 MINUTES
 
 	/// The distance between the chosen midround roll point (which is deterministic),
