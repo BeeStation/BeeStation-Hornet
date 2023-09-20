@@ -1390,8 +1390,7 @@
 			created_atom.pixel_x = pixel_x
 			created_atom.pixel_y = pixel_y
 			if(i > 1)
-				created_atom.pixel_x += rand(-8,8)
-				created_atom.pixel_y += rand(-8,8)
+				randomize_placement_offsets(created_atom)
 			created_atom.OnCreatedFromProcessing(user, process_item, chosen_option, src)
 		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
 		//SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms) //Custom food
@@ -1404,6 +1403,10 @@
 
 /atom/proc/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
 	return
+
+/atom/proc/randomize_placement_offsets(var/atom/placed_atom)
+	placed_atom.pixel_x += rand(-8,8)
+	placed_atom.pixel_y += rand(-8,8)
 
 //! Tool-specific behavior procs.
 ///
