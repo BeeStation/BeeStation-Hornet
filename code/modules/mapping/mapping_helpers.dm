@@ -314,8 +314,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/floor_shiner
 	name = "Floor Shiner"
 	icon_state = "shiner"
+	///Just how shiny?
+	var/shine = TURF_SHINE_REFLECTIVE
 
 /obj/effect/mapping_helpers/floor_shiner/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
-	T.make_shiny()
+	T.make_shiny(shine)

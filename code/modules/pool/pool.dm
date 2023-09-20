@@ -19,7 +19,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 /obj/effect/overlay/poolwater/Initialize(mapload)
 	. = ..()
 	var/turf/T  = get_turf(src)
-	T.make_shiny()
+	T.make_shiny(TURF_SHINE_SHINY)
 
 /obj/effect/overlay/poolwater/Destroy(force)
 	. = ..()
