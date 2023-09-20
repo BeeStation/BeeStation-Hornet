@@ -88,8 +88,8 @@
 	if(!has_buckled_mobs())
 		end_workout()
 		return FALSE
-	var/image/workout = image(icon, "[base_icon_state]-o", ABOVE_MOB_LAYER)
-	workout.plane = ABOVE_GAME_PLANE //I hate the plane cube
+	var/image/workout = image(icon, "[base_icon_state]-o", layer = ABOVE_MOB_LAYER)
+	workout.plane = GAME_PLANE //I hate the plane cube
 	workout.layer = FLY_LAYER
 	flick_overlay_view(workout,0.8 SECONDS)
 	flick("[base_icon_state]-u", src)
