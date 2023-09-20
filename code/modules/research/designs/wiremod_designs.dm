@@ -89,6 +89,12 @@
 	build_path = /obj/item/circuit_component/compare/logic
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
+/datum/design/component/iterator
+	name = "Iterator Component"
+	id = "comp_iterator"
+	build_path = /obj/item/circuit_component/iterator
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
 /datum/design/component/delay
 	name = "Delay Component"
 	id = "comp_delay"
