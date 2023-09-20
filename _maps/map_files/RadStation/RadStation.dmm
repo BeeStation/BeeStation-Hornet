@@ -26804,7 +26804,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical/morgue)
 "iid" = (
-/obj/structure/weightmachine/stacklifter,
+/obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -58579,7 +58579,7 @@
 /turf/open/floor/grass,
 /area/hallway/primary/central)
 "sqG" = (
-/obj/structure/weightmachine/stacklifter,
+/obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},

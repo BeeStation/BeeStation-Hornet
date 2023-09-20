@@ -32873,11 +32873,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
-"dBD" = (
-/obj/structure/weightmachine/stacklifter,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
 "dBE" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/decal/cleanable/dirt,
@@ -149970,7 +149965,7 @@ gsU
 cgJ
 jQL
 hZo
-dBD
+cgJ
 gaU
 wna
 fAx
@@ -150995,7 +150990,7 @@ aad
 cuM
 twt
 gsU
-dBD
+cgJ
 nvA
 nvA
 cgJ

@@ -1992,7 +1992,7 @@
 	},
 /area/awaymission/cabin/caves/mountain)
 "gg" = (
-/obj/structure/weightmachine/stacklifter,
+/obj/structure/weightmachine/weightlifter,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
 /area/awaymission/cabin/caves/mountain)
