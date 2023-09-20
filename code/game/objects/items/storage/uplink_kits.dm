@@ -621,11 +621,3 @@
 /obj/item/storage/box/syndie_kit/derringer/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/pistol/der38(src)
 	new /obj/item/ammo_box/c38/match(src)
-
-/obj/item/storage/box/syndie_kit/c38icyhot
-	name = ".38-special ammo pack"
-	desc = "A two-pack of specialized .38-special speed loaders; one Iceblox and one Hot Shot speed loader."
-
-/obj/item/storage/box/syndie_kit/c38icyhot/PopulateContents()
-	new /obj/item/ammo_box/c38/iceblox(src)
-	new /obj/item/ammo_box/c38/hotshot(src)

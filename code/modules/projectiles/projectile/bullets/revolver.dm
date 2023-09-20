@@ -88,6 +88,16 @@
 		var/mob/living/M = target
 		M.adjust_bodytemperature(((100-blocked)/100)*(temperature - M.bodytemperature))
 
+/obj/projectile/bullet/c38/emp
+	name = ".38 BLK_OUT bullet"
+	damage = 8
+	ricochets_max = 0
+
+/obj/projectile/bullet/c38/emp/on_hit(atom/target)
+	. = ..()
+	empulse(target, 0, 2)
+	return BULLET_ACT_HIT
+
 /obj/projectile/bullet/c38/mime
 	name = "invisible .38 bullet"
 	icon_state = null

@@ -939,7 +939,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "For when you can't deside between a coat pistol and a dart pistol! These 6 cartridges can \
 			be injected with up to 10 units of your favorite poison for remote application via sidearm."
 	item = /obj/item/ammo_box/c38/dart
-	cost = 2
+	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
@@ -949,16 +949,32 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Shrapnel can embed within the victim and provide a debilitating effect. Not advised for use \
 			against armored targets."
 	item = /obj/item/ammo_box/c38/dumdum
-	cost = 2
+	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
-/datum/uplink_item/ammo/c38icyhot
-	name = ".38-special 'Thermal' Speed Loader 2-Pack"
-	desc = "A 2-pack of .38-special speed loaders, offering 6 Iceblox and 6 Hot Shot cartridges. Set your \
-	targets alight or freeze them in place with these specialized ammo types."
-	item = /obj/item/storage/box/syndie_kit/c38icyhot
-	cost = 4
+/datum/uplink_item/ammo/c38iceblox
+	name = ".38-special Iceblox Speed Loader"
+	desc = "6 .38-special Iceblox cartridges, 'guaranteed' to free your target to the core."
+	item = /obj/item/ammo_box/c38/iceblox
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38hotshot
+	name = ".38-special Hot Shot Speed Loader"
+	desc = "6 .38-special Hot Shot cartridges. Set your target ablaze with this specialized thermal payload."
+	item = /obj/item/ammo_box/c38/hotshot
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38emp
+	name = ".38-special 'BLK_OUT' Speed Loader"
+	desc = "6 specialized 'anti-silicon' .38-special cartridges that release a minor EMP on impact with a hard surface. \
+			From Silicons, to IPCs, to any machinery or energy-based weapons in use by security, leave them in the dark."
+	item = /obj/item/ammo_box/c38/emp
+	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
