@@ -94,9 +94,8 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/c38/emp/on_hit(atom/target)
-	. = ..()
 	empulse(target, 0, 2)
-	return BULLET_ACT_HIT
+	return ..()
 
 /obj/projectile/bullet/c38/mime
 	name = "invisible .38 bullet"
