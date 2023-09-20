@@ -53,9 +53,16 @@
 	. = ..()
 	weight_action.Grant(buckled)
 
+/obj/structure/weightmachine/post_buckle_mob(mob/living/buckled)
+	add_overlay("[base_icon_state]-e")
+	layer = ABOVE_MOB_LAYER
+
 /obj/structure/weightmachine/unbuckle_mob(mob/living/buckled_mob, force, can_fall)
 	. = ..()
 	weight_action.Remove(buckled_mob)
+
+/obj/structure/weightmachine/post_unbuckle_mob(mob/living/buckled)
+	cut_overlays()
 
 /obj/structure/weightmachine/proc/perform_workout(mob/living/user)
 	user.balloon_alert_to_viewers("[pick(more_weight)]")
