@@ -21,6 +21,9 @@
 #define FLOOR_PLANE -7
 #define GAME_PLANE_UPPER -6
 #define GAME_PLANE -4
+#define ABOVE_GAME_PLANE -2
+
+#define DEFAULT_PLANE 0 //Marks out the default plane, even if we don't use it *usually*
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define

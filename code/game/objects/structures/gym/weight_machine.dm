@@ -53,16 +53,16 @@
 	. = ..()
 	weight_action.Grant(buckled)
 
-/obj/structure/weightmachine/post_buckle_mob(mob/living/buckled)
-	add_overlay("[base_icon_state]-e")
-	layer = ABOVE_MOB_LAYER
+// /obj/structure/weightmachine/post_buckle_mob(mob/living/buckled)
+// 	add_overlay("[base_icon_state]-e")
+// 	layer = ABOVE_MOB_LAYER
 
 /obj/structure/weightmachine/unbuckle_mob(mob/living/buckled_mob, force, can_fall)
 	. = ..()
 	weight_action.Remove(buckled_mob)
 
-/obj/structure/weightmachine/post_unbuckle_mob(mob/living/buckled)
-	cut_overlays()
+// /obj/structure/weightmachine/post_unbuckle_mob(mob/living/buckled)
+// 	cut_overlays()
 
 /obj/structure/weightmachine/proc/perform_workout(mob/living/user)
 	user.balloon_alert_to_viewers("[pick(more_weight)]")
@@ -89,7 +89,8 @@
 		end_workout()
 		return FALSE
 	var/image/workout = image(icon, "[base_icon_state]-o", ABOVE_MOB_LAYER)
-	//workout.plane = GAME_PLANE_UPPER //I hate the plane cube
+	workout.plane = ABOVE_GAME_PLANE //I hate the plane cube
+	workout.layer = FLY_LAYER
 	flick_overlay_view(workout,0.8 SECONDS)
 	flick("[base_icon_state]-u", src)
 	var/mob/living/user = buckled_mobs[1]

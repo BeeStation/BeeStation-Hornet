@@ -5,7 +5,7 @@
 /datum/action/push_weights
 	name = "Work out"
 	desc = "Start working out"
-	button_icon = 'icons/obj/fitness.dmi'
+	icon_icon = 'icons/obj/fitness.dmi'
 	button_icon_state = "stacklifter"
 	///Reference to the weightpress we are created inside of.
 	var/obj/structure/weightmachine/weightpress
