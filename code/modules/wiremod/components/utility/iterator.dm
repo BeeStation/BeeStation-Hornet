@@ -12,12 +12,12 @@
 	/// The Final Value the Loop will rollover at
 	var/datum/port/input/final_value
 	/// The Step the internal variable will take on each Iterate trigger
-	var/datum/port/input/iterate_value
+	var/datum/port/input/step_value
 
 	/// Resets the loop to the initial value.
-	var/datum/port/input/init_input
+	var/datum/port/input/reset_input
 	/// Triggers the variable to iterate.
-	var/datum/port/input/iterate_input
+	var/datum/port/input/step_input
 
 	/// Value Output
 	var/datum/port/output/value
@@ -35,11 +35,11 @@
 	initial_value = add_input_port("Initial Value", PORT_TYPE_NUMBER)
 	final_value = add_input_port("Final Value", PORT_TYPE_NUMBER)
 
-	/// No need to trigger when the iterator value changes.
-	iterate_value = add_input_port("Iterate Value", PORT_TYPE_NUMBER, trigger = null)
+	/// No need to trigger when the step value changes.
+	step_value = add_input_port("Step Value", PORT_TYPE_NUMBER, trigger = null)
 
-	init_input = add_input_port("Initialize", PORT_TYPE_SIGNAL)
-	iterate_input = add_input_port("Iterate", PORT_TYPE_SIGNAL)
+	reset_input = add_input_port("Reset", PORT_TYPE_SIGNAL)
+	step_input = add_input_port("Step", PORT_TYPE_SIGNAL)
 
 	value = add_output_port("Value", PORT_TYPE_NUMBER)
 	on_triggered = add_output_port("Triggered", PORT_TYPE_SIGNAL)
@@ -49,7 +49,7 @@
 
 	/// If we don't have any values for the iterator, or
 	/// if the initial value and final values are equivalent
-	if(initial_value.value == final_value.value || !iterate_value.value)
+	if(initial_value.value == final_value.value || !step_value.value)
 		current_value = initial_value.value
 		value.set_output(current_value)
 		return
@@ -57,7 +57,7 @@
 	/// Depending on the bounds of the iterator, we need to either iterate in a positive direction or a negative direction.
 	/// To ensure that we iterate in the correct direction, take the abs of the iterator, and either add or subtract depending on
 	/// direction of iteration. This way silly spacemen can't screw up the sign on the iterator.
-	var/iterate_positive = abs(iterate_value.value)
+	var/iterate_positive = abs(step_value.value)
 
 	/// Used to determine if we increment or decrement, and bounds
 	var/pos_iter = initial_value.value < final_value.value
@@ -87,14 +87,14 @@
 
 
 	/// Reset the Internal Value if the initialization port triggers
-	if(COMPONENT_TRIGGERED_BY(port, init_input))
+	if(COMPONENT_TRIGGERED_BY(port, reset_input))
 		current_value = initial_value.value
 		value.set_output(current_value)
 		on_triggered.set_output(COMPONENT_SIGNAL)
 		return
 
 	/// Let's get iterating
-	if(COMPONENT_TRIGGERED_BY(port, iterate_input))
+	if(COMPONENT_TRIGGERED_BY(port, step_input))
 		if(pos_iter)
 			current_value += iterate_positive
 			/// We've gone over the final value, return to the initial
