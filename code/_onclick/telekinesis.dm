@@ -79,13 +79,14 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/tk_grab/Destroy()
-	focus = null
 	STOP_PROCESSING(SSfastprocess, src)
+	focus = null
+	tk_user = null
 	return ..()
 
 /obj/item/tk_grab/process()
 	if(check_if_focusable(focus)) //if somebody grabs your thing, no waiting for them to put it down and hitting them again.
-		update_icon()
+		update_appearance()
 
 /obj/item/tk_grab/dropped(mob/user)
 	..()
@@ -95,10 +96,10 @@
 
 //stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot)
+	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
 		return
 	qdel(src)
-	return
 
 /obj/item/tk_grab/examine(user)
 	if (focus)

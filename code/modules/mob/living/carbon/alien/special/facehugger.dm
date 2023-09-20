@@ -98,6 +98,7 @@
 		Die()
 
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
+	. = ..()
 	Attach(M)
 	compile_monkey_icon()
 

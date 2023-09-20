@@ -8,6 +8,7 @@
 	var/id_arg_index = INFINITY
 
 /datum/element/proc/Attach(datum/target)
+	SHOULD_CALL_PARENT(TRUE)
 	if(type == /datum/element)
 		return ELEMENT_INCOMPATIBLE
 	SEND_SIGNAL(target, COMSIG_ELEMENT_ATTACH, src)

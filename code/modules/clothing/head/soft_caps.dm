@@ -26,6 +26,7 @@
 		user.update_inv_head()	//so our mob-overlays update
 
 /obj/item/clothing/head/soft/equipped(mob/user, slot)
+	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
 		if(HAS_TRAIT(user, TRAIT_PROSKATER))
 			if(!flipped)

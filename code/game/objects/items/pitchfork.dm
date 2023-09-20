@@ -60,7 +60,7 @@
 	return (BRUTELOSS)
 
 /obj/item/pitchfork/demonic/pickup(mob/living/user)
-	..()
+	. = ..()
 	if(isliving(user) && user.mind && user.owns_soul() && !is_devil(user))
 		var/mob/living/U = user
 		U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
