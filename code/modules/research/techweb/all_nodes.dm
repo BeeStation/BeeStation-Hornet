@@ -181,7 +181,7 @@
 		"comp_concat",
 		"comp_delay",
 		"comp_direction",
-		"comp_forloop",
+		"comp_iterator",
 		"comp_get_column",
 		"comp_get_name",
 		"comp_gps",

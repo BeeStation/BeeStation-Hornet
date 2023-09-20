@@ -1,10 +1,10 @@
 /**
- * # For Loop Component
+ * # Iterator Component
  *
  * Iterates through a range of numbers when the iterate input is triggered.
  */
-/obj/item/circuit_component/forloop
-	display_name = "For Loop"
+/obj/item/circuit_component/iterator
+	display_name = "Iterator"
 	desc = "Iterates through a range of numbers"
 
 	/// The Initial Value the Loop will start at
@@ -27,10 +27,10 @@
 	/// Rollover Output
 	var/datum/port/output/on_rollover
 
-	/// Stores the Internal State of the For Loop
+	/// Stores the Count of the Iterator
 	var/current_value = 0
 
-/obj/item/circuit_component/forloop/populate_ports()
+/obj/item/circuit_component/iterator/populate_ports()
 
 	initial_value = add_input_port("Initial Value", PORT_TYPE_NUMBER)
 	final_value = add_input_port("Final Value", PORT_TYPE_NUMBER)
@@ -45,7 +45,7 @@
 	on_triggered = add_output_port("Triggered", PORT_TYPE_SIGNAL)
 	on_rollover = add_output_port("Rollover", PORT_TYPE_SIGNAL)
 
-/obj/item/circuit_component/forloop/input_received(datum/port/input/port)
+/obj/item/circuit_component/iterator/input_received(datum/port/input/port)
 
 	/// If we don't have any values for the iterator, or
 	/// if the initial value and final values are equivalent
@@ -54,7 +54,7 @@
 		value.set_output(current_value)
 		return
 
-	/// Depending on the bounds of the for loop, we need to either iterate in a positive direction or a negative direction.
+	/// Depending on the bounds of the iterator, we need to either iterate in a positive direction or a negative direction.
 	/// To ensure that we iterate in the correct direction, take the abs of the iterator, and either add or subtract depending on
 	/// direction of iteration. This way silly spacemen can't screw up the sign on the iterator.
 	var/iterate_positive = abs(iterate_value.value)
