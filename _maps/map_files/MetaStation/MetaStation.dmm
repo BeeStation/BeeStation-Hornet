@@ -6384,6 +6384,7 @@
 /area/crew_quarters/toilet/restrooms)
 "aFg" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "aFm" = (
@@ -18262,6 +18263,7 @@
 /area/gateway)
 "bLE" = (
 /obj/machinery/gateway/centerstation,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "bLG" = (
@@ -19574,6 +19576,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel,
 /area/gateway)
 "bQx" = (
@@ -19957,6 +19960,7 @@
 /area/gateway)
 "bRL" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel,
 /area/gateway)
 "bRM" = (
@@ -19969,6 +19973,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel,
 /area/gateway)
 "bRN" = (
@@ -20239,6 +20244,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel,
 /area/gateway)
 "bSP" = (
@@ -29494,6 +29500,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "dtM" = (
@@ -31828,6 +31835,7 @@
 	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "ewK" = (
@@ -32341,6 +32349,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "eGV" = (
@@ -44875,6 +44884,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel,
 /area/gateway)
 "jUG" = (
@@ -46901,6 +46911,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "kHq" = (
@@ -48971,6 +48982,7 @@
 	},
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "lDu" = (
@@ -52741,6 +52753,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "neU" = (
@@ -53334,6 +53347,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel,
 /area/gateway)
 "nvl" = (
@@ -54255,6 +54269,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "nOu" = (
@@ -55834,6 +55849,7 @@
 /obj/effect/landmark/event_spawn,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "osm" = (
@@ -56413,6 +56429,7 @@
 	},
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "oFo" = (
@@ -57618,6 +57635,7 @@
 	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/floor_shiner,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "piG" = (
