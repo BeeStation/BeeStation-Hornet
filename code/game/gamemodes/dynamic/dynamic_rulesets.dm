@@ -83,6 +83,9 @@
 	/// Whether repeated_mode_adjust weight changes have been logged already.
 	var/logged_repeated_mode_adjust = FALSE
 
+	/// Was this ruleset spawned from the lategame mode?
+	var/lategame_spawned = FALSE
+
 
 /datum/dynamic_ruleset/New(datum/game_mode/dynamic/dynamic_mode)
 	// Rulesets can be instantiated more than once, such as when an admin clicks
@@ -91,6 +94,7 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	mode = dynamic_mode
+	lategame_spawned = mode.is_lategame()
 	..()
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart

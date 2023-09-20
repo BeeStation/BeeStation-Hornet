@@ -378,7 +378,10 @@
 				parts += "[FOURSPACES][FOURSPACES][entry]<BR>"
 		parts += "[FOURSPACES]Executed rules:"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
+			if (rule.lategame_spawned)
+				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat (Lategame, threat level ignored)"
+			else
+				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
@@ -742,7 +745,10 @@
         discordmsg += "Threat left: [mode.mid_round_budget]\n"
         discordmsg += "Executed rules:\n"
         for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-            discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
+			if (rule.lategame_spawned)
+				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat (Lategame, threat level ignored)\n"
+            else
+				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
     var/list/ded = SSblackbox.first_death
     if(ded)
         discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
