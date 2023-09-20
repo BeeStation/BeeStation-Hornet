@@ -17,6 +17,7 @@
 #include "code\__byond_version_compat.dm"
 #include "code\_compile_options.dm"
 #include "code\_debugger.dm"
+#include "code\reflection.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_click.dm"
 #include "code\__DEFINES\_globals.dm"

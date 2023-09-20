@@ -141,6 +141,11 @@
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
+	///Reflective overlay
+	var/mutable_appearance/reflection
+	var/mutable_appearance/reflection_displacement
+	var/shine = SHINE_MATTE
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -241,6 +246,9 @@
 		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
+
+	if(shine)
+		make_shiny(shine)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -1787,3 +1795,30 @@
 		return TRUE
 	return FALSE
 
+/atom/proc/make_shiny(_shine = SHINE_REFLECTIVE, _relfection_plane = REFLECTIVE_PLANE)
+	if(reflection || reflection_displacement)
+		if(shine != _shine)
+			cut_overlay(reflection)
+			cut_overlay(reflection_displacement)
+		else
+			return
+	var/r_overlay
+	switch(_shine)
+		if(SHINE_MATTE)
+			return
+		if(SHINE_REFLECTIVE)
+			r_overlay = "partialOverlay"
+		if(SHINE_SHINY)
+			r_overlay = "whiteOverlay"
+	reflection = mutable_appearance('icons/turf/overlays.dmi', r_overlay, plane = _relfection_plane)
+	reflection_displacement = mutable_appearance('icons/turf/overlays.dmi', "flip", plane = REFLECTIVE_DISPLACEMENT_PLANE)
+	//Have to do this to make map work. Why? IDK, displacements are special like that
+	reflection_displacement.pixel_y = -32
+	add_overlay(reflection)
+	add_overlay(reflection_displacement)
+	shine = _shine
+
+/atom/proc/make_unshiny()
+	cut_overlay(reflection)
+	cut_overlay(reflection_displacement)
+	shine = SHINE_MATTE

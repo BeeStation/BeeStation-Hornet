@@ -36,7 +36,7 @@
 	//Reflection
 	var/turf/T  = parent
 	old_shine = T.shine
-	T.make_shiny(TURF_SHINE_SHINY)
+	T.make_shiny(SHINE_SHINY)
 
 /datum/component/wet_floor/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_TURF_IS_WET, PROC_REF(is_wet))

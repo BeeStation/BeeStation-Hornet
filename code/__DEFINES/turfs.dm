@@ -60,8 +60,3 @@
  * Use instead of `A.loc.loc`.
  */
 #define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
-
-//Shine levels
-#define TURF_SHINE_MATTE 0
-#define TURF_SHINE_REFLECTIVE 1
-#define TURF_SHINE_SHINY 2

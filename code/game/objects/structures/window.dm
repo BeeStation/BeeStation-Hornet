@@ -366,6 +366,9 @@
 		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
 		add_overlay(crack_overlay)
 
+		//Essentially, we don't want to reflect walls or other windows
+		make_shiny(SHINE_REFLECTIVE, REFLECTIVE_PLANE_ABOVE)
+
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 
 	if(exposed_temperature > (T0C + heat_resistance))

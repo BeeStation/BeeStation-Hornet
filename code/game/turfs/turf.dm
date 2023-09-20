@@ -60,11 +60,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
-	///Reflective overlay
-	var/mutable_appearance/reflection
-	var/mutable_appearance/reflection_displacement
-	var/shine = TURF_SHINE_MATTE
-
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -132,7 +127,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		update_air_ref(-1)
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
 
-	if (shine)
+	if(shine)
 		make_shiny(shine)
 
 	return INITIALIZE_HINT_NORMAL
@@ -619,33 +614,3 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(istype(loc, /area/chapel))
 		return TRUE
 	return FALSE
-
-/turf/proc/make_shiny(_shine = TURF_SHINE_REFLECTIVE)
-	if(reflection || reflection_displacement)
-		if(shine != _shine)
-			cut_overlay(reflection)
-			cut_overlay(reflection_displacement)
-		else
-			return
-	
-	var/r_overlay
-	switch(_shine)
-		if(TURF_SHINE_MATTE)
-			return
-		if(TURF_SHINE_REFLECTIVE)
-			r_overlay = "partialOverlay"
-		if(TURF_SHINE_SHINY)
-			r_overlay = "whiteOverlay"
-	
-	reflection = mutable_appearance('icons/turf/overlays.dmi', r_overlay, plane = REFLECTIVE_PLANE)
-	reflection_displacement = mutable_appearance('icons/turf/overlays.dmi', "flip", plane = REFLECTIVE_DISPLACEMENT_PLANE)
-	//Have to do this to make map work. Why? IDK, displacements are special like that
-	reflection_displacement.pixel_y = -32
-	add_overlay(reflection)
-	add_overlay(reflection_displacement)
-	shine = _shine
-
-/turf/proc/make_unshiny()
-	cut_overlay(reflection)
-	cut_overlay(reflection_displacement)
-	shine = TURF_SHINE_MATTE
