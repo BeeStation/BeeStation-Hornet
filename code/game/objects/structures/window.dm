@@ -62,6 +62,7 @@
 
 	if(fulltile)
 		setDir()
+		update_shine()
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
 	real_explosion_block = explosion_block
@@ -347,6 +348,7 @@
 	update_appearance()
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH_NEIGHBORS(src)
+	update_shine()
 
 //merges adjacent full-tile windows into one
 /obj/structure/window/update_icon()
@@ -360,14 +362,13 @@
 		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH(src)
 
+		update_shine()
+
 		cut_overlay(crack_overlay)
 		if(ratio > 75)
 			return
 		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
 		add_overlay(crack_overlay)
-
-		//Essentially, we don't want to reflect walls or other windows
-		make_shiny(SHINE_REFLECTIVE, REFLECTIVE_PLANE_ABOVE)
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 
@@ -388,6 +389,13 @@
 
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
+
+/obj/structure/window/proc/update_shine()
+	var/turf/T = get_step(src, NORTH)
+	if(!isclosedturf(T) && !(locate(/obj/structure/window) in T.contents))
+		make_shiny(SHINE_REFLECTIVE, REFLECTIVE_PLANE_ABOVE)
+	else
+		make_unshiny()
 
 /obj/structure/window/spawner/east
 	dir = EAST

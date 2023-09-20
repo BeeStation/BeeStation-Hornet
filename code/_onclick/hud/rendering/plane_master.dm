@@ -65,7 +65,7 @@
 	plane = REFLECTION_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_source = GAME_PLANE_RENDER_TARGET
-	color = "#ccc"
+	color = "#aaaaaa"
 	///What plane we're masked by
 	var/masking_plane = REFLECTIVE_PLANE_RENDER_TARGET
 
