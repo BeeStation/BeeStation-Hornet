@@ -96,7 +96,7 @@
 			continue
 
 		//If there's a dense object on the turf, only allow the click to pass if you can throw items over it or it has a special flag.
-		if(O == target || O == mover || (O.pass_flags_self & LETPASSTHROW|LETPASSCLICKS))
+		if(O.pass_flags_self & (LETPASSTHROW|LETPASSCLICKS))
 			continue // LETPASSTHROW is used for anything you can click through (or the firedoor special case, see above)
 
 		if( O.flags_1&ON_BORDER_1) // windows are on border, check them first
