@@ -26,11 +26,17 @@
 				to_chat(user, "<span class='info'>[src] does not work on this sort of creature.</span>")
 				return
 			if(M.stat == DEAD)
-				M.revive(full_heal = 1, admin_revive = 1)
 				if(M.mind)
+					loaded = 0
+					if(M.suiciding || M.ishellbound())
+						user.visible_message("<span class='notice'>[user] injects [M] with [src], but nothing happened.</span>")
+						return
+					M.revive(full_heal = 1, admin_revive = 1)
 					M.AIStatus = AI_OFF // don't let them attack people randomly after revived
+					M.notify_ghost_cloning("Your body is revived by a lazarus injector!", source=M)
+					log_game("[key_name(user)] has revived a player mob [key_name(target)] with a lazarus injector")
 				else // only do this to mindless mobs
-					M.faction = list("neutral")
+					M.revive(full_heal = 1, admin_revive = 1)
 					if(ishostile(target))
 						var/mob/living/simple_animal/hostile/H = M
 						if(malfunctioning)
