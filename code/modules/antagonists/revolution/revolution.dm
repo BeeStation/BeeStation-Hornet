@@ -7,7 +7,7 @@
 	name = "Revolutionary"
 	roundend_category = "revolutionaries" // if by some miracle revolutionaries without revolution happen
 	antagpanel_category = "Revolution"
-	job_rank = ROLE_REV
+	banning_key = ROLE_REV
 	antag_moodlet = /datum/mood_event/revolution
 	var/hud_type = "rev"
 	var/datum/team/revolution/rev_team
@@ -159,6 +159,8 @@
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
 	hud_type = "rev_head"
+	banning_key = ROLE_REV_HEAD
+	required_living_playtime = 4
 	var/remove_clumsy = FALSE
 	var/give_flash = FALSE
 	var/give_hud = TRUE
@@ -289,6 +291,7 @@
 /datum/antagonist/revolution_enemy
 	name = "Enemy of the Revolution"
 	show_in_antagpanel = FALSE
+	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/antagonist/revolution_enemy/on_gain()
 	owner.special_role = "revolution enemy"
@@ -342,7 +345,7 @@
 			var/list/datum/mind/nonhuman_promotable = list()
 			for(var/datum/mind/khrushchev in non_heads)
 				if(khrushchev.current && !khrushchev.current.incapacitated() && !khrushchev.current.restrained() && khrushchev.current.client && khrushchev.current.stat != DEAD)
-					if(ROLE_REV in khrushchev.current.client.prefs.be_special)
+					if(khrushchev.current.client.should_include_for_role(ROLE_REV_HEAD, /datum/role_preference/antagonist/revolutionary))
 						if(ishuman(khrushchev.current))
 							promotable += khrushchev
 						else

@@ -15,7 +15,7 @@
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	rad_flags = RAD_PROTECT_CONTENTS
 	pass_flags_self = PASSTRANSPARENT
-	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
@@ -79,17 +79,16 @@
 	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)),CALLBACK(src, PROC_REF(after_rotation)))
 
 /obj/structure/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_DECONSTRUCT)
-			return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 5)
+	if(the_rcd.mode == RCD_DECONSTRUCT)
+		return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 5)
 	return FALSE
 
-/obj/structure/window/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='notice'>You deconstruct the window.</span>")
-			qdel(src)
-			return TRUE
+/obj/structure/window/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
+	if(passed_mode == RCD_DECONSTRUCT)
+		to_chat(user, "<span class='notice'>You deconstruct the window.</span>")
+		log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+		qdel(src)
+		return TRUE
 	return FALSE
 
 /obj/structure/window/narsie_act()
@@ -605,10 +604,9 @@
 	icon_state = "rice_window-0"
 	base_icon_state = "rice_window"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_SHUTTLE_PARTS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	max_integrity = 150
-	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile, /obj/structure/window/depleteduranium/fulltile)
 	glass_amount = 2
 
 /obj/structure/window/shuttle
@@ -618,7 +616,7 @@
 	icon_state = "shuttle_window-0"
 	base_icon_state = "shuttle_window"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_SHUTTLE_PARTS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	max_integrity = 500
 	wtype = "shuttle"
@@ -648,7 +646,7 @@
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SHUTTLE_PARTS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 	max_integrity = 200
 	wtype = "shuttle"

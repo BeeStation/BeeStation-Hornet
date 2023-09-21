@@ -9,9 +9,8 @@
 	icon = 'icons/obj/stacks/organic.dmi'
 
 
-/obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.leather_recipes
-	return ..()
+/obj/item/stack/sheet/leather/get_recipes()
+	return GLOB.leather_recipes
 
 /obj/item/stack/sheet/leather/hairlesshide
 	name = "hairless hide"

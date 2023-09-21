@@ -1,4 +1,4 @@
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Icon, ProgressBar, Tabs } from '../components';
 import { Window } from '../layouts';
 
@@ -14,7 +14,7 @@ const directionToIcon = {
 };
 
 export const BluespaceLocator = (props, context) => {
-  const [tab, setTab] = useSharedState(context, 'tab', 'implant');
+  const [tab, setTab] = useLocalState(context, 'tab', 'implant');
   return (
     <Window width={300} height={300}>
       <Window.Content scrollable>

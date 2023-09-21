@@ -116,6 +116,7 @@
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
 	use_cooldown = TRUE
+	banType = ROLE_LAVALAND_SYNDICATE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/new_spawn)
 	new_spawn.grant_language(/datum/language/codespeak)
@@ -134,7 +135,7 @@
 	implants = list(/obj/item/implant/weapons_auth)
 
 /datum/outfit/lavaland_syndicate/post_equip(mob/living/carbon/human/H)
-	H.faction |= ROLE_SYNDICATE
+	H.faction |= FACTION_SYNDICATE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms
 	name = "Syndicate Comms Agent"
@@ -157,6 +158,7 @@
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
 	r_hand = /obj/item/melee/transforming/energy/sword/saber
+	l_hand = /obj/item/megaphone/nospam
 	mask = /obj/item/clothing/mask/chameleon/gps
 	suit = /obj/item/clothing/suit/armor/vest
 

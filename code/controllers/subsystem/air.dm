@@ -558,15 +558,10 @@ SUBSYSTEM_DEF(air)
 	LAZYREMOVE(paused_z_levels, z_level)
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
-	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
 	var/times_fired = ++src.times_fired
 
-	// Clear active turfs - faster than removing every single turf in the world
-	// one-by-one, and Initalize_Atmos only ever adds `src` back in.
-
-	for(var/thing in turfs_to_init)
-		var/turf/T = thing
-		if (isclosedturf(T))
+	for(var/turf/T as anything in ALL_TURFS())
+		if (!T.init_air)
 			continue
 		T.Initalize_Atmos(times_fired)
 		CHECK_TICK

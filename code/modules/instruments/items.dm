@@ -236,16 +236,15 @@
 
 ///
 
-/obj/item/choice_beacon/music
+/obj/item/choice_beacon/radial/music
 	name = "instrument delivery beacon"
 	desc = "Summon your tool of art."
 	icon_state = "gangtool-red"
+	var/static/list/instrument_list
 
-/obj/item/choice_beacon/music/generate_display_names()
-	var/static/list/instruments
-	if(!instruments)
-		instruments = list()
-		var/list/templist = list(/obj/item/instrument/violin,
+/obj/item/choice_beacon/radial/music/Initialize(mapload)
+	. = ..()
+	instrument_list = list(/obj/item/instrument/violin,
 							/obj/item/instrument/piano_synth,
 							/obj/item/instrument/banjo,
 							/obj/item/instrument/guitar,
@@ -258,10 +257,36 @@
 							/obj/item/instrument/recorder,
 							/obj/item/instrument/harmonica
 							)
-		for(var/V in templist)
+
+/obj/item/choice_beacon/radial/music/generate_options(mob/living/M)
+	var/list/item_list = generate_item_list()
+	if(!item_list.len)
+		return
+	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+		for(var/V in instrument_list)
 			var/atom/A = V
-			instruments[initial(A.name)] = A
-	return instruments
+			if(initial(A.name) == choice)
+				spawn_option(A,M)
+				uses--
+				if(!uses)
+					qdel(src)
+				else
+					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
+					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+				return
+
+/obj/item/choice_beacon/radial/music/generate_item_list()
+	var/static/list/item_list
+	if(!item_list)
+		item_list = list()
+		for(var/V in instrument_list)
+			var/obj/item/instrument/I = V
+			var/image/instrument_icon = image(initial(I.icon), initial(I.icon_state))
+			var/datum/radial_menu_choice/choice = new
+			choice.image = instrument_icon
+			item_list[initial(I.name)] = choice
+	return item_list
 
 /obj/item/instrument/musicalmoth
 	name = "musical moth"

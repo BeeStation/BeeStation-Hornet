@@ -13,7 +13,7 @@
 
 /datum/antagonist/xeno
 	name = "Xenomorph"
-	job_rank = ROLE_ALIEN
+	banning_key = ROLE_ALIEN
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE
@@ -51,7 +51,6 @@
 	traitorhud.leave_hud(owner.current)
 	if(owner.antag_hud_icon_state == "xenomorph")
 		set_antag_hud(owner.current, null)
-
 
 //XENO
 /mob/living/carbon/alien/mind_initialize()

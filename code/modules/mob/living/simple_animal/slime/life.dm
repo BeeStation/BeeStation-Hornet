@@ -5,7 +5,6 @@
 	var/monkey_bonus_damage = 2
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
-	role = ROLE_SENTIENCE
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
@@ -65,7 +64,7 @@
 	reset_processing()
 
 /mob/living/simple_animal/slime/proc/reset_processing()
-	var/sleeptime = movement_delay()
+	var/sleeptime = cached_multiplicative_slowdown
 	if(sleeptime <= 0)
 		sleeptime = 1
 	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
@@ -546,8 +545,3 @@
 		return 0
 	return 1
 
-
-/mob/living/simple_animal/slime/movement_delay()
-	. = ..()
-	if(transformeffects & SLIME_EFFECT_SEPIA)
-		. *= 0.7

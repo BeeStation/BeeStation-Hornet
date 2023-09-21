@@ -90,9 +90,8 @@
 			ai.client.eye = src
 		update_ai_detect_hud()
 		//Holopad
-		if(istype(ai.current, /obj/machinery/holopad))
-			var/obj/machinery/holopad/H = ai.current
-			H.move_hologram(ai, destination)
+		if(istype(ai.current_holopad, /obj/machinery/holopad))
+			ai.current_holopad.move_hologram(ai, destination)
 		if(ai.camera_light_on)
 			ai.light_cameras()
 		if(ai.master_multicam)
@@ -176,11 +175,10 @@
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/view_core()
-	if(istype(current,/obj/machinery/holopad))
-		var/obj/machinery/holopad/H = current
-		H.clear_holo(src)
+	if(istype(current_holopad, /obj/machinery/holopad))
+		current_holopad.clear_holo(src)
 	else
-		current = null
+		current_holopad = null
 	if(ai_tracking_target)
 		ai_stop_tracking()
 	unset_machine()

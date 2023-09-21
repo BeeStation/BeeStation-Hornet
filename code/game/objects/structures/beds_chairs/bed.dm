@@ -23,6 +23,16 @@
 	var/buildstackamount = 2
 	var/bolts = TRUE
 
+// dir check for buckle_lying state
+/obj/structure/bed/Initialize()
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
+	dir_changed(new_dir = dir)
+	. = ..()
+
+/obj/structure/bed/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
+	return ..()
+
 /obj/structure/bed/examine(mob/user)
 	. = ..()
 	if(bolts)
@@ -44,6 +54,14 @@
 	else
 		return ..()
 
+/obj/structure/bed/proc/dir_changed(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+	switch(new_dir)
+		if(WEST, SOUTH)
+			buckle_lying = 90
+		if(EAST, NORTH)
+			buckle_lying = 270
+
 /*
  * Roller beds
  */
@@ -54,29 +72,7 @@
 	anchored = FALSE
 	resistance_flags = NONE
 	move_resist = MOVE_FORCE_WEAK
-	var/foldabletype = /obj/item/deployable/rollerbed
-
-/obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/deployable/rollerbed/robo))
-		var/obj/item/deployable/rollerbed/robo/R = W
-		if(R.loaded)
-			to_chat(user, "<span class='warning'>You already have a roller bed docked!</span>")
-			return
-
-		if(has_buckled_mobs())
-			if(buckled_mobs.len > 1)
-				unbuckle_all_mobs()
-				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
-			else
-				user_unbuckle_mob(buckled_mobs[1],user)
-		else
-			user.visible_message("[user] collects [src].", "<span class='notice'>You collect [src].</span>")
-			R.loaded = TRUE
-			R.update_icon()
-			qdel(src)
-		return TRUE
-	else
-		return ..()
+	var/foldabletype = /obj/item/rollerbed
 
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
 	. = ..()
@@ -93,6 +89,7 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	set_density(TRUE)
 	icon_state = "up"
+	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
 	//Push them up from the normal lying position
 	M.pixel_y = M.base_pixel_y
 
@@ -188,6 +185,7 @@
 	var/mob/living/goldilocks
 
 /obj/structure/bed/double/post_buckle_mob(mob/living/M)
+	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
 	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
 		M.pixel_y = M.base_pixel_y + 6
 		goldilocks = M

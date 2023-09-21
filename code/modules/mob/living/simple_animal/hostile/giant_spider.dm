@@ -65,7 +65,6 @@
 	var/enriched_fed = 0
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
 	var/datum/team/spiders/spider_team = null //utilized by AI controlled broodmothers to pass antag team info onto their eggs without a mind
-	role = ROLE_SPIDER
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -309,8 +308,8 @@
 					addtimer(CALLBACK(src, PROC_REF(GiveUp)), 20 SECONDS) //to prevent infinite chases
 		if(heal_target && get_dist(src, heal_target) <= 1)
 			UnarmedAttack(heal_target)
-			if(heal_target.health >= heal_target.maxHealth)
-				GiveUp(heal_target)
+			if(!heal_target || heal_target.health >= heal_target.maxHealth)
+				GiveUp()
 	..() //Do normal stuff after giving priority to healing attempts
 
 //Broodmothers have well rounded stats and are able to lay eggs, but somewhat slow.
@@ -609,7 +608,7 @@
 		return FALSE
 
 	ranged_ability_user.visible_message("<span class='danger'>[ranged_ability_user] throws a web!", "<span class='notice'>You throw the web!</span>")
-	var/obj/item/projectile/bullet/spidernet/A = new /obj/item/projectile/bullet/spidernet(ranged_ability_user.loc)
+	var/obj/projectile/bullet/spidernet/A = new /obj/projectile/bullet/spidernet(ranged_ability_user.loc)
 	A.preparePixelProjectile(target, ranged_ability_user, params)
 	A.firer = ranged_ability_user
 	A.fire()

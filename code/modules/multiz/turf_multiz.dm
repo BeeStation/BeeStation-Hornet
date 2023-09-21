@@ -17,11 +17,3 @@
 /// direction is the direction the air is moving in
 /turf/proc/zAirOut(direction, turf/source)
 	return FALSE
-
-/// Called for propogation on turf deletions to turfs above and below itself
-/turf/proc/multiz_turf_del(turf/T, dir)
-	return
-
-/// Called for propogation on turf additions to turfs above and below itself
-/turf/proc/multiz_turf_new(turf/T, dir)
-	return

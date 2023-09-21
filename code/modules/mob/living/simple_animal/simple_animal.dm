@@ -490,6 +490,7 @@
 
 	if(changed)
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
+	UPDATE_OO_IF_PRESENT
 
 /mob/living/simple_animal/proc/sentience_act(mob/user) //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF) // To prevent any weirdness.
@@ -507,6 +508,14 @@
 	see_invisible = initial(see_invisible)
 	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
+
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		sight |= (SEE_MOBS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_in_dark = max(see_in_dark, 8)
 
 	if(client.eye != src)
 		var/atom/A = client.eye

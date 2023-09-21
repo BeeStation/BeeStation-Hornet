@@ -1,10 +1,10 @@
 /proc/get_step_multiz(ref, dir)
 	if(dir & UP)
 		dir &= ~UP
-		return get_step(SSmapping.get_turf_above(get_turf(ref)), dir)
+		return get_step(GET_TURF_ABOVE(get_turf(ref)), dir)
 	if(dir & DOWN)
 		dir &= ~DOWN
-		return get_step(SSmapping.get_turf_below(get_turf(ref)), dir)
+		return get_step(GET_TURF_BELOW(get_turf(ref)), dir)
 	return get_step(ref, dir)
 
 /proc/get_dir_multiz(turf/us, turf/them)

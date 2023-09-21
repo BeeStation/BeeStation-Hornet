@@ -23,7 +23,7 @@
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	c.chem_charges -= chemical_cost				//I'm taking your chemicals hostage!
 	var/turf/A = get_turf(user)
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as a living teratoma?", ROLE_TERATOMA, null, ROLE_TERATOMA, 5 SECONDS) //players must answer rapidly
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as a living teratoma?", ROLE_TERATOMA, null, 7.5 SECONDS) //players must answer rapidly
 	if(!LAZYLEN(candidates)) //if we got at least one candidate, they're teratoma now
 		to_chat(usr, "<span class='warning'>You fail at creating a tumor. Perhaps you should try again later?</span>")
 		c.chem_charges += chemical_cost				//If it fails we want to refund the chemicals

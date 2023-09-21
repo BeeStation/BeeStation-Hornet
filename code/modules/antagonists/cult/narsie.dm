@@ -208,10 +208,10 @@
 	sleep(50)
 	set_security_level("delta")
 	SSshuttle.registerHostileEnvironment(src)
-	SSshuttle.lockdown = TRUE
 	sleep(600)
 	if(resolved == FALSE)
 		resolved = TRUE
+		SSshuttle.lockdown = TRUE
 		sound_to_playing_players('sound/machines/alarm.ogg')
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(cult_ending_helper)), 120)
 

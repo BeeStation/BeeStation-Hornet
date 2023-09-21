@@ -1,7 +1,10 @@
 /datum/job/head_of_personnel
 	title = JOB_NAME_HEADOFPERSONNEL
 	flag = HOP
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
+	description = "Second in command on the station, oversee the crew assigned to service and cargo positions, handle department transfer requests by consulting relevant heads. Protect Ian at all costs."
+	department_for_prefs = DEPT_BITFLAG_CAPTAIN
+	department_head_for_prefs = JOB_NAME_CAPTAIN
+	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
@@ -45,6 +48,12 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_personnel
 	)
+
+	minimal_lightup_areas = list(/area/crew_quarters/heads/hop, /area/security/nuke_storage)
+
+// Special handling to avoid lighting up the entirety of supply whenever there's a HoP.
+/datum/job/head_of_personnel/areas_to_light_up(minimal_access = TRUE)
+	return minimal_lightup_areas | GLOB.command_lightup_areas
 
 /datum/outfit/job/head_of_personnel
 	name = JOB_NAME_HEADOFPERSONNEL

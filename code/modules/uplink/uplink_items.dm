@@ -166,6 +166,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	log_uplink_purchase(user, A)
 	return A
 
+/datum/uplink_item/proc/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
+	return refundable
+
 //Discounts (dynamically filled above)
 /datum/uplink_item/discounts
 	category = "Discounts"
@@ -446,9 +449,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/poisonknife
 	name = "Poisoned Knife"
-	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something."
+	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something. Can hold up to forty units of reagents but comes empty."
 	item = /obj/item/kitchen/knife/poison
-	cost = 8 // all in all it's not super stealthy and you have to get some chemicals yourself
+	cost = 6 // all in all it's not super stealthy and you have to get some chemicals yourself
 
 /datum/uplink_item/dangerous/rawketlawnchair
 	name = "84mm Rocket Propelled Grenade Launcher"
@@ -582,16 +585,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/gloves/rapid
 	cost = 8
 
-/datum/uplink_item/dangerous/guardian
+/datum/uplink_item/dangerous/holoparasite
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an \
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
-	item = /obj/item/guardiancreator/tech
+	item = /obj/item/holoparasite_creator/tech
 	cost = 18
 	surplus = 10
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	player_minimum = 25
 	restricted = TRUE
+	refundable = TRUE
+
+/**
+ * Only allow holoparasites to be refunded if the injector is unused.
+ */
+/datum/uplink_item/dangerous/holoparasite/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
+	if(!istype(item, /obj/item/holoparasite_creator/tech))
+		return FALSE
+	var/obj/item/holoparasite_creator/tech/holopara_creator = item
+	return (holopara_creator.builder.uses == initial(holopara_creator.uses)) && !holopara_creator.builder.waiting
 
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
@@ -810,10 +823,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
+	desc = "A spring loaded, single-use syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
 			strong anesthetic and a chemical that prevents the target from speaking. \
-			The pen holds one dose of the mixture, and can be refilled with any chemicals. Note that before the target \
-			falls asleep, they will be able to move and act."
+			The mixture that the pen comes with can be replaced as long as the pen hasn't been used already. Note that the mechanism takes time to \
+			trigger, is obvious to anyone nearby (excluding the target) and the victim may still be able to move and act for a brief period of time before falling unconcious."
 	item = /obj/item/pen/sleepy
 	cost = 5
 	purchasable_from = ~UPLINK_NUKE_OPS
@@ -1599,6 +1612,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A disk containing the procedure to perform a brainwashing surgery, allowing you to implant an objective onto a target. \
 	Insert into an Operating Console to enable the procedure."
 	item = /obj/item/disk/surgery/brainwashing
+	player_minimum = 25
 	cost = 5
 
 /datum/uplink_item/device_tools/briefcase_launchpad
@@ -1639,13 +1653,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	illegal_tech = FALSE
 
 /datum/uplink_item/device_tools/syndicate_teleporter
-	name = "Experimental Syndicate Teleporter"
-	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
-			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
-			but if that emergency teleport fails, it will kill you instantly. \
-			Has 4 charges, recharges automatically. Warranty voided if exposed to EMP."
-	item = /obj/item/storage/box/syndie_kit/teleporter
-	cost = 8
+	name = "Experimental Syndicate Jaunter"
+	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
+		Anyone caught in the wake of the jaunter will be knocked off their feet and recieve minor damage. \
+		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
+		through solid matter nor is it capable of teleporting them across longer ranges."
+	item = /obj/item/teleporter
+	cost = 7
 
 /datum/uplink_item/device_tools/frame
 	name = "F.R.A.M.E. PDA Disk"
@@ -1688,6 +1702,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Glue"
 	desc = "A cheap bottle of one use syndicate brand super glue. \
 			Use on any item to make it undroppable. \
+			When applied, will stick the item in either thirty seconds or instantly upon dropping or picking it up. \
 			Be careful not to glue an item you're already holding!"
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	item = /obj/item/syndie_glue
@@ -2208,7 +2223,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
 			to act as a servant and guardian to their host."
-	item = /obj/item/guardiancreator/carp
+	item = /obj/item/holoparasite_creator/carp
 	cost = 18
 	surplus = 5
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)

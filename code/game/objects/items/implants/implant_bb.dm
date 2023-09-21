@@ -24,6 +24,8 @@
 
 		var/my_message = "<font color=\"[implant_colour]\"><b><i>[imp_in.mind.name]:</i></b></font> [input]" //add sender, color source with syndie color
 		var/ghost_message = "<font color=\"[implant_colour]\"><b><i>[imp_in.mind.name] -> Blood Brothers:</i></b></font> [input]"
+		// Reminder: putting a font color directly is bad because color has different readability by your chat theme white/dark
+		// This should be eventually changed to a form of `<span class="red">`, so that a color has a good readability for a chat theme.
 
 		to_chat(imp_in, my_message) // Sends message to the user
 		for(var/obj/item/implant/bloodbrother/i in linked_implants) // Sends message to all linked implnats

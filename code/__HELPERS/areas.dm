@@ -97,9 +97,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 
 	for(var/i in 1 to turfs.len)
 		var/turf/thing = turfs[i]
-		var/area/old_area = thing.loc
-		newA.contents += thing
-		thing.change_area(old_area, newA)
+		thing.change_area(thing.loc, newA)
 
 	newA.reg_in_areas_in_z()
 
@@ -113,18 +111,14 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 
 #undef BP_MAX_ROOM_SIZE
 
-//Repopulates sortedAreas list
-/proc/repopulate_sorted_areas()
-	GLOB.sortedAreas = list()
+/proc/require_area_resort()
+	GLOB.sortedAreas = null
 
-	for(var/area/A in world)
-		GLOB.sortedAreas.Add(A)
-
-	sortTim(GLOB.sortedAreas, GLOBAL_PROC_REF(cmp_name_asc))
-
-/area/proc/addSorted()
-	GLOB.sortedAreas.Add(src)
-	sortTim(GLOB.sortedAreas, GLOBAL_PROC_REF(cmp_name_asc))
+/// Returns a sorted version of GLOB.areas, by name
+/proc/get_sorted_areas()
+	if(!GLOB.sortedAreas)
+		GLOB.sortedAreas = sortTim(GLOB.areas.Copy(), GLOBAL_PROC_REF(cmp_name_asc))
+	return GLOB.sortedAreas
 
 //Takes: Area type as a text string from a variable.
 //Returns: Instance for the area in the world.
@@ -146,15 +140,14 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 
 	var/list/areas = list()
 	if(subtypes)
-		for(var/area/A as() in GLOB.sortedAreas)
-			if(istype(A, areatype))
-				if(target_z == 0 || A.z == target_z)
-					areas += A
+		var/list/cache = typecacheof(areatype)
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(cache[area_to_check.type] && (target_z == 0 || area_to_check.z == target_z))
+				areas += area_to_check
 	else
-		for(var/area/A as() in GLOB.sortedAreas)
-			if(A.type == areatype)
-				if(target_z == 0 || A.z == target_z)
-					areas += A
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(area_to_check.type == areatype && (target_z == 0 || area_to_check.z == target_z))
+				areas += area_to_check
 	return areas
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
@@ -167,20 +160,42 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		areatype = areatemp.type
 	else if(!ispath(areatype))
 		return null
-
-	var/list/turfs = list()
+	// Pull out the areas
+	var/list/areas_to_pull = list()
 	if(subtypes)
-		for(var/area/A as() in GLOB.sortedAreas)
-			if(!istype(A, areatype))
+		var/list/cache = typecacheof(areatype)
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(!cache[area_to_check.type])
 				continue
-			for(var/turf/T in A)
-				if(target_z == 0 || target_z == T.z)
-					turfs += T
+			areas_to_pull += area_to_check
 	else
-		for(var/area/A as() in GLOB.sortedAreas)
-			if(A.type != areatype)
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(area_to_check.type != areatype)
 				continue
-			for(var/turf/T in A)
-				if(target_z == 0 || target_z == T.z)
-					turfs += T
+			areas_to_pull += area_to_check
+
+	// Now their turfs
+	var/list/turfs = list()
+	for(var/area/pull_from as anything in areas_to_pull)
+		var/list/our_turfs = pull_from.get_contained_turfs()
+		if(target_z == 0)
+			turfs += our_turfs
+		else
+			for(var/turf/turf_in_area as anything in our_turfs)
+				if(target_z == turf_in_area.z)
+					turfs += turf_in_area
 	return turfs
+
+
+///Takes: list of area types
+///Returns: all mobs that are in an area type
+/proc/mobs_in_area_type(list/area/checked_areas)
+	var/list/mobs_in_area = list()
+	for(var/mob/living/mob as anything in GLOB.mob_living_list)
+		if(QDELETED(mob))
+			continue
+		for(var/area in checked_areas)
+			if(istype(get_area(mob), area))
+				mobs_in_area += mob
+				break
+	return mobs_in_area

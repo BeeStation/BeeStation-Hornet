@@ -308,8 +308,8 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 1)
 	filling_color = "#FFEFD5"
-	tastes = list("torilla" = 2, "meat" = 3)
-	foodtype = GRAIN | MEAT
+	tastes = list("tortilla" = 2)
+	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/cheesyburrito
 	name = "cheesy burrito"
@@ -318,8 +318,8 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 2)
 	filling_color = "#FFD800"
-	tastes = list("torilla" = 2, "meat" = 3, "cheese" = 1)
-	foodtype = GRAIN | MEAT | DAIRY
+	tastes = list("tortilla" = 2, "cheese" = 1)
+	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/carneburrito
 	name = "carne asada burrito"
@@ -328,7 +328,7 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 	filling_color = "#A0522D"
-	tastes = list("torilla" = 2, "meat" = 4)
+	tastes = list("tortilla" = 2, "meat" = 4)
 	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/fuegoburrito
@@ -338,8 +338,8 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 3)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/capsaicin = 5, /datum/reagent/consumable/nutriment/vitamin = 3)
 	filling_color = "#FF2000"
-	tastes = list("torilla" = 2, "meat" = 3, "hot peppers" = 1)
-	foodtype = GRAIN | MEAT
+	tastes = list("tortilla" = 2, "hot peppers" = 1)
+	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/yakiimo
 	name = "yaki imo"

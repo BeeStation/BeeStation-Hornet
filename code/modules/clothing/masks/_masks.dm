@@ -8,6 +8,8 @@
 	var/modifies_speech = FALSE
 	var/mask_adjusted = 0
 	var/adjusted_flags = null
+	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
+	var/obj/item/organ/tongue/chosen_tongue = null
 
 /obj/item/clothing/mask/attack_self(mob/user)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -26,8 +28,16 @@
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
+/obj/item/clothing/mask/Destroy()
+	chosen_tongue = null
+	. = ..()
+
 /obj/item/clothing/mask/proc/handle_speech()
 	SIGNAL_HANDLER
+
+/obj/item/clothing/mask/proc/get_name(mob/user, default_name)
+	return default_name
+
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
 	if(!isinhands)
@@ -76,9 +86,10 @@
 		user.update_action_buttons_icon() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.
 
 /obj/item/clothing/mask/compile_monkey_icon()
+	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing
 	//If the icon, for this type of item, is already made by something else, don't make it again
-	if(GLOB.monkey_icon_cache[type])
-		monkey_icon = GLOB.monkey_icon_cache[type]
+	if(GLOB.monkey_icon_cache[identity])
+		monkey_icon = GLOB.monkey_icon_cache[identity]
 		return
 
 	//Start with two sides
@@ -105,4 +116,4 @@
 
 	//Finished
 	monkey_icon = main
-	GLOB.monkey_icon_cache[type] = icon(monkey_icon)
+	GLOB.monkey_icon_cache[identity] = icon(monkey_icon)

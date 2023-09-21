@@ -1,83 +1,10 @@
+// Preferences value defines
 
-//Preference toggles
-#define PREFTOGGLE_SOUND_ADMINHELP				(1<<0)
-#define PREFTOGGLE_SOUND_MIDI					(1<<1)
-#define PREFTOGGLE_SOUND_AMBIENCE				(1<<2)
-#define PREFTOGGLE_SOUND_LOBBY					(1<<3)
-#define PREFTOGGLE_MEMBER_PUBLIC				(1<<4)
-#define PREFTOGGLE_INTENT_STYLE					(1<<5)
-#define PREFTOGGLE_MIDROUND_ANTAG				(1<<6)
-#define PREFTOGGLE_SOUND_INSTRUMENTS			(1<<7)
-#define PREFTOGGLE_SOUND_SHIP_AMBIENCE			(1<<8)
-#define PREFTOGGLE_SOUND_PRAYERS				(1<<9)
-#define PREFTOGGLE_ANNOUNCE_LOGIN				(1<<10)
-#define PREFTOGGLE_SOUND_ANNOUNCEMENTS			(1<<11)
-#define PREFTOGGLE_DISABLE_DEATHRATTLE			(1<<12)
-#define PREFTOGGLE_DISABLE_ARRIVALRATTLE		(1<<13)
-#define PREFTOGGLE_COMBOHUD_LIGHTING			(1<<14)
-
-#define PREFTOGGLE_DEADMIN_ALWAYS				(1<<15)
-#define PREFTOGGLE_DEADMIN_ANTAGONIST			(1<<16)
-#define PREFTOGGLE_DEADMIN_POSITION_HEAD		(1<<17)
-#define PREFTOGGLE_DEADMIN_POSITION_SECURITY	(1<<18)
-#define PREFTOGGLE_DEADMIN_POSITION_SILICON		(1<<19)
-
-#define PREFTOGGLE_OUTLINE_ENABLED				(1<<20)
-#define PREFTOGGLE_RUNECHAT_GLOBAL				(1<<21)
-#define PREFTOGGLE_RUNECHAT_NONMOBS				(1<<22)
-#define PREFTOGGLE_RUNECHAT_EMOTES				(1<<23)
-
-#define TOGGLES_DEFAULT (PREFTOGGLE_SOUND_ADMINHELP|PREFTOGGLE_SOUND_MIDI|PREFTOGGLE_SOUND_AMBIENCE|PREFTOGGLE_SOUND_LOBBY|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_INTENT_STYLE|PREFTOGGLE_MIDROUND_ANTAG|PREFTOGGLE_SOUND_INSTRUMENTS|PREFTOGGLE_SOUND_SHIP_AMBIENCE|PREFTOGGLE_SOUND_PRAYERS|PREFTOGGLE_SOUND_ANNOUNCEMENTS|PREFTOGGLE_OUTLINE_ENABLED|PREFTOGGLE_RUNECHAT_GLOBAL|PREFTOGGLE_RUNECHAT_NONMOBS|PREFTOGGLE_RUNECHAT_EMOTES)
-
-// You CANNOT go above 1<<23 in BYOND due to integer limits
-// Please add subsequent ones as PREFTOGGLE_2_[name]
-// If you run out of these, make a third toggles column
-#define PREFTOGGLE_2_FANCY_TGUI					(1<<0)
-#define PREFTOGGLE_2_LOCKED_TGUI				(1<<1)
-#define PREFTOGGLE_2_LOCKED_BUTTONS				(1<<2)
-#define PREFTOGGLE_2_WINDOW_FLASHING			(1<<3)
-#define PREFTOGGLE_2_CREW_OBJECTIVES			(1<<4)
-#define PREFTOGGLE_2_GHOST_HUD					(1<<5)
-#define PREFTOGGLE_2_GHOST_INQUISITIVENESS		(1<<6)
-#define PREFTOGGLE_2_USES_GLASSES_COLOUR		(1<<7)
-#define PREFTOGGLE_2_AMBIENT_OCCLUSION			(1<<8)
-#define PREFTOGGLE_2_AUTO_FIT_VIEWPORT			(1<<9)
-#define PREFTOGGLE_2_ENABLE_TIPS				(1<<10)
-#define PREFTOGGLE_2_SHOW_CREDITS				(1<<11)
-#define PREFTOGGLE_2_HOTKEYS					(1<<12)
-#define PREFTOGGLE_2_SOUNDTRACK					(1<<13)
-#define PREFTOGGLE_2_TGUI_INPUT					(1<<14)
-#define PREFTOGGLE_2_BIG_BUTTONS				(1<<15)
-#define PREFTOGGLE_2_SWITCHED_BUTTONS			(1<<16)
-#define PREFTOGGLE_2_TGUI_SAY					(1<<17)
-#define PREFTOGGLE_2_SAY_LIGHT_THEME			(1<<18)
-#define PREFTOGGLE_2_SAY_SHOW_PREFIX			(1<<19)
-#define PREFTOGGLE_2_SOUND_ADMINALERT			(1<<20)
-
-#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCY_TGUI|PREFTOGGLE_2_LOCKED_TGUI|PREFTOGGLE_2_LOCKED_BUTTONS|PREFTOGGLE_2_WINDOW_FLASHING|PREFTOGGLE_2_CREW_OBJECTIVES|PREFTOGGLE_2_GHOST_HUD|PREFTOGGLE_2_GHOST_INQUISITIVENESS|PREFTOGGLE_2_AMBIENT_OCCLUSION|PREFTOGGLE_2_AUTO_FIT_VIEWPORT|PREFTOGGLE_2_ENABLE_TIPS|PREFTOGGLE_2_SHOW_CREDITS|PREFTOGGLE_2_HOTKEYS|PREFTOGGLE_2_SOUNDTRACK|PREFTOGGLE_2_TGUI_INPUT|PREFTOGGLE_2_BIG_BUTTONS|PREFTOGGLE_2_SWITCHED_BUTTONS|PREFTOGGLE_2_TGUI_SAY|PREFTOGGLE_2_SOUND_ADMINALERT)
-
-//Chat toggles
-#define CHAT_OOC			(1<<0)
-#define CHAT_DEAD			(1<<1)
-#define CHAT_GHOSTEARS		(1<<2)
-#define CHAT_GHOSTSIGHT		(1<<3)
-#define CHAT_PRAYER			(1<<4)
-#define CHAT_RADIO			(1<<5)
-#define CHAT_PULLR			(1<<6)
-#define CHAT_GHOSTWHISPER	(1<<7)
-#define CHAT_GHOSTPDA		(1<<8)
-#define CHAT_GHOSTRADIO 	(1<<9)
-#define CHAT_BANKCARD  (1<<10)
-#define CHAT_GHOSTLAWS	(1<<11)
-#define CHAT_GHOSTFOLLOWMINDLESS (1<<12)
-
-#define TOGGLES_DEFAULT_CHAT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_PULLR|CHAT_GHOSTWHISPER|CHAT_GHOSTPDA|CHAT_GHOSTRADIO|CHAT_BANKCARD|CHAT_GHOSTLAWS|CHAT_GHOSTFOLLOWMINDLESS)
-
-#define PARALLAX_INSANE -1 //for show offs
-#define PARALLAX_HIGH    0 //default.
-#define PARALLAX_MED     1
-#define PARALLAX_LOW     2
-#define PARALLAX_DISABLE 3 //this option must be the highest number
+#define PARALLAX_INSANE "Insane"
+#define PARALLAX_HIGH "High"
+#define PARALLAX_MED "Medium"
+#define PARALLAX_LOW "Low"
+#define PARALLAX_DISABLE "Disabled"
 
 #define PIXEL_SCALING_AUTO 0
 #define PIXEL_SCALING_1X 1
@@ -149,44 +76,80 @@
 #define UPLINK_IMPLANT "Implant"
 #define UPLINK_IMPLANT_WITH_PRICE "[UPLINK_IMPLANT] (-[UPLINK_IMPLANT_TELECRYSTAL_COST] TC)"
 
-//Plasmamen helmet styles, when you edit those remember to edit list in preferences.dm
+//Plasmamen helmet styles
 #define HELMET_DEFAULT "Default"
 #define HELMET_MK2 "Mark II"
 #define HELMET_PROTECTIVE "Protective"
 
-// All DB preference entries go here
-// --- DO NOT EVER CHANGE OR RE-USE VALUES HERE ---
-// If you remove an entry, comment it out and leave it for preservation sake
-// All the values must be strings because they are map entries not list indexes
-#define PREFERENCE_TAG_TOGGLES			"1"
-#define PREFERENCE_TAG_TOGGLES2			"2"
-#define PREFERENCE_TAG_ASAY_COLOUR		"3"
-#define PREFERENCE_TAG_OOC_COLOUR		"4"
-#define PREFERENCE_TAG_LAST_CL			"5"
-#define PREFERENCE_TAG_UI_STYLE			"6"
-#define PREFERENCE_TAG_OUTLINE_COLOUR	"7"
-#define PREFERENCE_TAG_BALLOON_ALERTS	"8"
-#define PREFERENCE_TAG_DEFAULT_SLOT		"9"
-#define PREFERENCE_TAG_CHAT_TOGGLES		"10"
-#define PREFERENCE_TAG_GHOST_FORM		"11"
-#define PREFERENCE_TAG_GHOST_ORBIT		"12"
-#define PREFERENCE_TAG_GHOST_ACCS		"13"
-#define PREFERENCE_TAG_GHOST_OTHERS		"14"
-#define PREFERENCE_TAG_PREFERRED_MAP	"15"
-#define PREFERENCE_TAG_IGNORING			"16"
-#define PREFERENCE_TAG_CLIENTFPS		"17"
-#define PREFERENCE_TAG_PARALLAX			"18"
-#define PREFERENCE_TAG_PIXELSIZE		"19"
-#define PREFERENCE_TAG_SCALING_METHOD	"20"
-#define PREFERENCE_TAG_TIP_DELAY		"21"
-#define PREFERENCE_TAG_PDA_THEME		"22"
-#define PREFERENCE_TAG_PDA_COLOUR		"23"
-#define PREFERENCE_TAG_KEYBINDS			"24"
-#define PREFERENCE_TAG_PURCHASED_GEAR	"25"
-#define PREFERENCE_TAG_BE_SPECIAL		"26"
-#define PREFERENCE_TAG_PAI_NAME			"27"
-#define PREFERENCE_TAG_PAI_DESCRIPTION	"28"
-#define PREFERENCE_TAG_PAI_COMMENT		"29"
+GLOBAL_LIST_INIT(helmet_styles, list(
+	HELMET_DEFAULT,
+	HELMET_MK2,
+	HELMET_PROTECTIVE,
+))
 
 // True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
 #define TRUE_MAX_SAVE_SLOTS 9
+
+// Values for /datum/preference/preference_type
+/// This preference is character specific.
+#define PREFERENCE_CHARACTER "character"
+/// This preference is account specific.
+#define PREFERENCE_PLAYER "player"
+
+// Values for /datum/preferences/current_tab
+/// Open the character preference window
+#define PREFERENCE_TAB_CHARACTER_PREFERENCES 0
+
+/// Open the game preferences window
+#define PREFERENCE_TAB_GAME_PREFERENCES 1
+
+/// These will be shown in the character sidebar, but at the bottom.
+#define PREFERENCE_CATEGORY_FEATURES "features"
+
+/// Any preferences that will show to the sides of the character in the setup menu.
+#define PREFERENCE_CATEGORY_CLOTHING "clothing"
+
+/// Preferences that will be put into the 3rd list, and are not contextual.
+#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
+
+/// Will be put under the game preferences window.
+#define PREFERENCE_CATEGORY_GAME_PREFERENCES "game_preferences"
+
+/// These will show in the list to the right of the character preview.
+#define PREFERENCE_CATEGORY_SECONDARY_FEATURES "secondary_features"
+
+/// These are preferences that are supplementary for main features,
+/// such as hair color being affixed to hair.
+#define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
+
+//randomized elements
+#define RANDOM_ANTAG_ONLY 1
+#define RANDOM_DISABLED 2
+#define RANDOM_ENABLED 3
+
+// randomize_appearance_prefs() and randomize_human_appearance() proc flags
+#define RANDOMIZE_SPECIES (1<<0)
+#define RANDOMIZE_NAME (1<<1)
+
+
+// Undatumized preference tags
+
+#define PREFERENCE_TAG_LAST_CL			"last_changelog"
+#define PREFERENCE_TAG_DEFAULT_SLOT		"default_slot"
+#define PREFERENCE_TAG_IGNORING			"ignoring"
+#define PREFERENCE_TAG_KEYBINDS			"key_bindings"
+#define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
+#define PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL "be_special"
+#define PREFERENCE_TAG_PAI_NAME			"pai_name"
+#define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
+#define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
+
+#define CHARACTER_PREFERENCE_RANDOMIZE "randomize"
+#define CHARACTER_PREFERENCE_JOB_PREFERENCES "job_preferences"
+#define CHARACTER_PREFERENCE_ALL_QUIRKS "all_quirks"
+#define CHARACTER_PREFERENCE_EQUIPPED_GEAR "equipped_gear"
+#define CHARACTER_PREFERENCE_ROLE_PREFERENCES "role_preferences"
+
+#define PREFERENCE_SHEET_NORMAL "preferences"
+#define PREFERENCE_SHEET_LARGE "preferences_l"
+#define PREFERENCE_SHEET_HUGE "preferences_h"

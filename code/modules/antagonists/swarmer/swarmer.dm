@@ -20,6 +20,7 @@
 	roundstart = FALSE
 	assignedrole = ROLE_SWARMER
 	banType = ROLE_SWARMER
+	is_antagonist = TRUE
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
@@ -83,7 +84,7 @@
 	mob_size = MOB_SIZE_TINY
 	ventcrawler = VENTCRAWLER_ALWAYS
 	ranged = 1
-	projectiletype = /obj/item/projectile/beam/disabler
+	projectiletype = /obj/projectile/beam/disabler
 	ranged_cooldown_time = 20
 	projectilesound = 'sound/weapons/taser2.ogg'
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
@@ -140,7 +141,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(mover, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
+	if(istype(mover, /obj/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
 		return TRUE
 	else if(isswarmer(mover))
 		return TRUE
@@ -645,7 +646,7 @@
 
 /obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(isswarmer(mover) || istype(mover, /obj/item/projectile/beam/disabler))
+	if(isswarmer(mover) || istype(mover, /obj/projectile/beam/disabler))
 		return TRUE
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
@@ -701,7 +702,7 @@
 
 /datum/antagonist/swarmer
 	name = "Swarmer"
-	job_rank = ROLE_SWARMER
+	banning_key = ROLE_SWARMER
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE

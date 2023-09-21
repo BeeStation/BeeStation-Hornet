@@ -19,7 +19,7 @@ export const AntagInfoBrother = (_props, context) => {
           <Stack.Item>
             <AntagInfoHeader name={`${antag_name || 'Blood Brother'} of ${brothers}`} asset="traitor.png" />
           </Stack.Item>
-          <Stack.Item>
+          <Stack.Item grow>
             <ObjectivesSection objectives={objectives} />
           </Stack.Item>
         </Stack>

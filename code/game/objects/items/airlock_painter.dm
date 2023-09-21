@@ -342,7 +342,7 @@
 			stored_color = selected_color
 		if("pick custom color")
 			if(supports_custom_color)
-				var/chosen_color = input(usr, "Pick new color", "[src]", "yellow") as color|null
+				var/chosen_color = tgui_color_picker(usr, "Pick new color", "[src]", COLOR_YELLOW)
 				if(!chosen_color || QDELETED(src) || usr.incapacitated() || !usr.is_holding(src))
 					return
 				stored_custom_color = chosen_color

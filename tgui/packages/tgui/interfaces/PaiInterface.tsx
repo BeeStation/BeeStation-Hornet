@@ -1,3 +1,4 @@
+import { BooleanLike } from 'common/react';
 import { useBackend, useSharedState } from '../backend';
 import { Box, Button, LabeledList, Icon, NoticeBox, ProgressBar, Section, Stack, Table, Tabs, Tooltip } from '../components';
 import { Window } from '../layouts';
@@ -13,7 +14,7 @@ type PaiInterfaceData = {
   master: Master;
   ram: number;
   records: Records;
-  refresh_spam: number;
+  refresh_spam: BooleanLike;
 };
 
 type Available = {
@@ -348,7 +349,7 @@ const RecordsDisplay = (props, context) => {
         <Stack>
           <Stack.Item>
             <Button disabled={refresh_spam} onClick={() => act('refresh', { list: record_type })} tooltip="Refresh">
-              <Icon mr={-0.7} name="sync" spin={refresh_spam} />
+              <Icon mr={-0.7} name="sync" spin={!!refresh_spam} />
             </Button>
           </Stack.Item>
           <Stack.Item>

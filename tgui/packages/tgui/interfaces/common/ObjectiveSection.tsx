@@ -24,11 +24,6 @@ export const ObjectivesSection = (props: Props, _context) => {
             objectives.map((objective) => (
               <Stack.Item key={objective.count}>
                 #{objective.count}:{' '}
-                {!!objective.optional && (
-                  <Box inline textColor="green">
-                    Optional:
-                  </Box>
-                )}{' '}
                 <span
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{

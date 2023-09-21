@@ -93,7 +93,7 @@
 		return
 	var/turf/T = user.loc
 	for (var/mob/living/A in T)
-		if (A != user && A.lying)
+		if (A != user && !(A.mobility_flags & MOBILITY_STAND))
 			A.adjustBruteLoss(rand(10,13))
 			to_chat(A,"<span class='userdanger'>[user]'s magboots press down on you, crushing you!</span>")
 			INVOKE_ASYNC(A, TYPE_PROC_REF(/mob, emote), "scream")

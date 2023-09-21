@@ -1,17 +1,3 @@
-GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdrop, new)
-
-/atom/movable/openspace_backdrop
-	name			= "openspace_backdrop"
-
-	anchored		= TRUE
-
-	icon            = 'icons/turf/floors.dmi'
-	icon_state      = "grey"
-	plane           = OPENSPACE_BACKDROP_PLANE
-	mouse_opacity 	= MOUSE_OPACITY_TRANSPARENT
-	vis_flags = VIS_INHERIT_ID
-	//I don't know why the others are aligned but I shall do the same.
-	vis_flags		= VIS_INHERIT_ID
 /turf/open/openspace
 	name = "open space"
 	desc = "Watch your step!"
@@ -29,32 +15,13 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	var/can_build_on = TRUE
 
 	intact = 0
+	z_flags = Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE
 
 /turf/open/openspace/cold
 	initial_gas_mix = FROZEN_ATMOS
 
 /turf/open/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
-
-/turf/open/openspace/debug/update_multiz()
-	..()
-	return TRUE
-
-/turf/open/openspace/Initialize(mapload) // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
-	. = ..()
-	plane = OPENSPACE_PLANE
-	layer = OPENSPACE_LAYER
-
-	overlays += GLOB.openspace_backdrop_one_for_all //Special grey square for projecting backdrop darkness filter on it.
-
-	return INITIALIZE_HINT_LATELOAD
-
-/turf/open/openspace/LateInitialize()
-	update_multiz(TRUE, TRUE)
-
-/turf/open/openspace/Destroy()
-	vis_contents.len = 0
-	return ..()
 
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
@@ -63,28 +30,6 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	if(B)
 		return B.can_lay_cable()
 	return FALSE
-
-/turf/open/openspace/update_multiz(prune_on_fail = FALSE, init = FALSE)
-	. = ..()
-	var/turf/T = below()
-	if(!T)
-		vis_contents.len = 0
-		if(prune_on_fail)
-			ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-		return FALSE
-	if(init)
-		vis_contents += T
-	return TRUE
-
-/turf/open/openspace/multiz_turf_del(turf/T, dir)
-	if(dir != DOWN)
-		return
-	update_multiz()
-
-/turf/open/openspace/multiz_turf_new(turf/T, dir)
-	if(dir != DOWN)
-		return
-	update_multiz()
 
 /turf/open/openspace/zAirIn()
 	return TRUE
@@ -95,12 +40,12 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 /turf/open/openspace/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_IN_DOWN)
+			if(O.z_flags & Z_BLOCK_IN_DOWN)
 				return FALSE
 		return TRUE
 	if(direction == UP)
 		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_IN_UP)
+			if(O.z_flags & Z_BLOCK_IN_UP)
 				return FALSE
 		return TRUE
 	return FALSE
@@ -113,12 +58,12 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		return FALSE
 	if(direction == DOWN)
 		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_OUT_DOWN)
+			if(O.z_flags & Z_BLOCK_OUT_DOWN)
 				return FALSE
 		return TRUE
 	if(direction == UP)
 		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_OUT_UP)
+			if(O.z_flags & Z_BLOCK_OUT_UP)
 				return FALSE
 		return TRUE
 	return FALSE
@@ -185,11 +130,11 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	return FALSE
 
 /turf/open/openspace/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_FLOORWALL)
-			to_chat(user, "<span class='notice'>You build a floor.</span>")
-			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			return TRUE
+	if(passed_mode == RCD_FLOORWALL)
+		to_chat(user, "<span class='notice'>You build a floor.</span>")
+		log_attack("[key_name(user)] has constructed a floor over open space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		return TRUE
 	return FALSE
 
 /turf/open/openspace/rust_heretic_act()
@@ -203,6 +148,10 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	if(isspaceturf(T))
 		return FALSE
 	return TRUE
+
+/turf/open/openspace/examine(mob/user)
+	SHOULD_CALL_PARENT(FALSE)
+	return below.examine(user)
 
 /turf/open/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()

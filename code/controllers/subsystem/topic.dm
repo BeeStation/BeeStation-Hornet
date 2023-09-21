@@ -90,19 +90,20 @@ SUBSYSTEM_DEF(topic)
  * Note that request will fail if a token cannot be found for the target server and anonymous is not set.
  * * nocheck: TRUE or FALSE whether to check if the recieving server is authorized to get the topic call *(default: FALSE)*
 */
-/datum/controller/subsystem/topic/proc/export(addr, query, list/params, anonymous = FALSE, nocheck = FALSE)
+/datum/controller/subsystem/topic/proc/export_async(addr, query, list/params, anonymous = FALSE, nocheck = FALSE)
+	DECLARE_ASYNC
 	var/list/request = list()
 	request["query"] = query
 
 	if(anonymous)
 		var/datum/world_topic/topic = GLOB.topic_commands[query]
 		if((!istype(topic) || !topic.anonymous) && !nocheck)
-			return
+			ASYNC_RETURN(TRUE)
 		request["auth"] = "anonymous"
 	else
 		var/list/servers = CONFIG_GET(keyed_list/cross_server)
 		if(!servers[addr] || (!LAZYACCESS(GLOB.topic_servers[addr], query) && !nocheck))
-			return // Couldn't find an authorized key, or trying to send secure data to unsecure server
+			ASYNC_RETURN(TRUE) // Couldn't find an authorized key, or trying to send secure data to unsecure server
 		request["auth"] = servers[addr]
 
 	request.Add(params)
@@ -111,6 +112,7 @@ SUBSYSTEM_DEF(topic)
 	if(CONFIG_GET(flag/log_world_topic))
 		request["auth"] = "***[copytext(request["auth"], -4)]"
 		log_topic("outgoing: \"[json_encode(request)]\", response: \"[result]\", auth: [request["auth"]], to: [addr], anonymous: [anonymous]")
+	ASYNC_RETURN(TRUE)
 
 /**
  * Broadcast topic to all known authorized servers for things like comms consoles or ahelps.
@@ -122,7 +124,10 @@ SUBSYSTEM_DEF(topic)
  * * msg: message text to send
  * * sender: name of the sending entity (station name, ckey etc)
 */
-/datum/controller/subsystem/topic/proc/crosscomms_send(query, msg, sender)
+/datum/controller/subsystem/topic/proc/crosscomms_send_async(query, msg, sender)
+	RETURN_TYPE(/datum/task)
 	var/list/servers = CONFIG_GET(keyed_list/cross_server)
+	var/datum/task/parent_task = new()
 	for(var/I in servers)
-		export(I, query, list("message" = msg, "message_sender" = sender))
+		parent_task.add_subtask(export_async(I, query, list("message" = msg, "message_sender" = sender)))
+	return parent_task

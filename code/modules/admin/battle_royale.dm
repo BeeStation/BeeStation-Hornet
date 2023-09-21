@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
 		/obj/mecha/combat/marauder/mauler/loaded,
-		/obj/item/guardiancreator/tech,
+		/obj/item/holoparasite_creator/tech,
 		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
@@ -246,6 +246,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		return
 	//Once every 15 seconsd
 	// 1,920 seconds (about 32 minutes per game)
+	if(!field_delay) //Division by 0 protection
+		field_delay = 1
 	if(process_num % (field_delay) == 0)
 		for(var/obj/effect/death_wall/wall as() in death_wall)
 			wall.decrease_size()

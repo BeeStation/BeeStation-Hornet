@@ -221,7 +221,7 @@
 		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !M.is_blind())
 			show_to += M
 
-		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = M == src)
 
 	//Create the chat message
 	if(length(show_to))
@@ -281,16 +281,18 @@
 
 ///Returns the client runechat visible messages preference according to the message type.
 /atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL) || !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_NONMOBS))
+	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES))
+	if (!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs))
+		return FALSE
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL))
+	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES))
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
@@ -860,6 +862,14 @@
 
 ///Add a spell to the mobs spell list
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
+	// HACK: Preferences menu creates one of every selectable species.
+	// Some species, like vampires, create spells when they're made.
+	// The "action" is created when those spells Initialize.
+	// Preferences menu can create these assets at *any* time, primarily before
+	// the atoms SS initializes.
+	// That means "action" won't exist.
+	if (isnull(S.action))
+		return
 	mob_spell_list += S
 	S.action.Grant(src)
 

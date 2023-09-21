@@ -100,7 +100,22 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(!isturf(target) || !isobj(target))
-		return
-	if(target.color != initial(target.color))
-		target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	if(isclothing(target) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED) || target.color != initial(target.color))
+		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
+		if(!do_after(user, 10, target = target))
+			to_chat(user, "<span class='notice'>You fail to clean \the [target.name]!.</span>")
+			return
+		to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+		if(isclothing(target) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED))
+			var/obj/item/clothing/C = target
+			var/mob/living/carbon/human/H = user
+			C.flash_protect -= 1
+			C.tint -= 2
+			H.update_tint()
+			REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
+		if(istype(target, /obj/structure/window))
+			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+			target.set_opacity(initial(target.opacity))
+		if(target.color != initial(target.color))
+			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)

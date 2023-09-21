@@ -63,11 +63,9 @@ const MembersSubsection = (_props, context) => {
   const { members } = data;
   return (
     <Section title="Members">
-      <Stack>
+      <Stack vertical>
         {members.map((member) => (
-          <Stack.Item key={member} className="candystripe">
-            {member}
-          </Stack.Item>
+          <Stack.Item key={member}>{member}</Stack.Item>
         ))}
       </Stack>
     </Section>
@@ -129,7 +127,7 @@ export const AntagInfoIncursion = (_props, context) => {
   const { objectives, antag_name } = data;
   return (
     <Window width={620} height={620} theme="syndicate">
-      <Window.Content>
+      <Window.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
             <AntagInfoHeader name={antag_name || 'Syndicate Incursion Member'} asset="traitor.png" />

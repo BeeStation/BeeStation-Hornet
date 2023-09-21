@@ -660,6 +660,14 @@
 	category = list("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/board/module_printer
+	name = "Machine Design (Module Duplicator)"
+	desc = "The circuit board for a module duplicator"
+	id = "module_duplicator"
+	build_path = /obj/item/circuitboard/machine/module_duplicator
+	category = list("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/board/xeno_listing_console
 	name = "Computer Design (Research and Development Listing Console)"
 	desc = "The circuit board for a research listing console."

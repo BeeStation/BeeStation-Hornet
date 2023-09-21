@@ -51,7 +51,7 @@
 /obj/item/mjolnir/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, quickstart)
 	thrower.visible_message("<span class='warning'>[thrower] throws [src] with impossible strength!</span>", "<span class='notice'>You lightly throw [src] and it accelerates out of your hand!</span>")
 	//Create the mjolnir projectile
-	var/obj/item/projectile/created = new /obj/item/projectile/mjolnir(get_turf(src), src)
+	var/obj/projectile/created = new /obj/projectile/mjolnir(get_turf(src), src)
 	created.preparePixelProjectile(target, thrower)
 	created.firer = thrower
 	created.fire()
@@ -127,7 +127,7 @@
 		user.visible_message("<span class='notice'>[user] attempts to lift [contained], but its too heavy!</span>", "<span class='userdanger'>[contained] is too heavy!</span>")
 
 
-/obj/item/projectile/mjolnir
+/obj/projectile/mjolnir
 	name = "mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir"
@@ -139,19 +139,19 @@
 	speed = 0.3
 	var/obj/item/mjolnir/contained
 
-/obj/item/projectile/mjolnir/Initialize(mapload, obj/item/mjolnir/contained_hammer)
+/obj/projectile/mjolnir/Initialize(mapload, obj/item/mjolnir/contained_hammer)
 	. = ..()
 	contained = contained_hammer
 	if (contained_hammer)
 		contained_hammer.forceMove(src)
 
-/obj/item/projectile/mjolnir/Destroy()
+/obj/projectile/mjolnir/Destroy()
 	if (contained)
 		new /obj/structure/anchored_mjolnir(loc, contained)
 		contained = null
 	. = ..()
 
-/obj/item/projectile/mjolnir/on_hit(atom/target, blocked, pierce_hit)
+/obj/projectile/mjolnir/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
 	if (isobj(target))
 		var/obj/hit_structure = target

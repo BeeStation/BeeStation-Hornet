@@ -9,6 +9,7 @@
 	density = TRUE
 	move_resist = INFINITY
 	plane = MASSIVE_OBJ_PLANE
+	zmm_flags = ZMM_WIDE_LOAD
 	light_range = 6
 	appearance_flags = 0
 	var/current_size = 1
@@ -192,6 +193,8 @@
 		resolved_singularity.disregard_failed_movements = current_size >= STAGE_FIVE
 		resolved_singularity.roaming = move_self && current_size >= STAGE_TWO
 		resolved_singularity.singularity_size = current_size
+
+	UPDATE_OO_IF_PRESENT
 
 	if(current_size == allowed_size)
 		investigate_log("<font color='red'>grew to size [current_size]</font>", INVESTIGATE_ENGINES)

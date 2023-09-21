@@ -2,13 +2,12 @@
 
 /datum/antagonist/hivevessel
 	name = "Awoken Vessel"
-	job_rank = ROLE_BRAINWASHED
+	banning_key = ROLE_HIVE_VESSEL
 	roundend_category = "awoken vessels"
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
 	var/hiveID = "Hivemind"
 	var/datum/antagonist/hivemind/master
-	var/special_role = ROLE_HIVE_VESSEL
 	var/mutable_appearance/glow
 	var/obj/effect/proc_holder/spell/targeted/touch/hive_fist/fist = new
 	show_in_roundend = FALSE
@@ -36,7 +35,7 @@
 	unbrainwash(user, objective)
 
 /datum/antagonist/hivevessel/on_gain()
-	owner.special_role = special_role
+	owner.special_role = ROLE_HIVE_VESSEL
 	owner.AddSpell(fist)
 	..()
 

@@ -22,10 +22,14 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	desc = "You aren't entirely sure what this does, but it's very beepy and boopy."
 	background_icon_state = "bg_tech_blue"
 	icon_icon = 'icons/mob/actions/actions_AI.dmi'
-	var/mob/living/silicon/ai/owner_AI //The owner AI, so we don't have to typecast every time
-	var/uses //If we have multiple uses of the same power
-	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
-	var/cooldown_period //If applicable, the time in deciseconds we have to wait before using any more modules
+	/// The owner AI, so we don't have to typecast every time
+	var/mob/living/silicon/ai/owner_AI
+	/// If we have multiple uses of the same power
+	var/uses
+	/// If we automatically use up uses on each activation
+	var/auto_use_uses = TRUE
+	/// If applicable, the time in deciseconds we have to wait before using any more modules
+	var/cooldown_period
 
 /datum/action/innate/ai/Grant(mob/living/L)
 	. = ..()
@@ -409,9 +413,9 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		turret.obj_integrity = 200
 		turret.emp_proofing = TRUE
 		turret.AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)
-		turret.stun_projectile = /obj/item/projectile/beam/disabler/pass_glass //// AI defenses are often built with glass, so this is big.
+		turret.stun_projectile = /obj/projectile/beam/disabler/pass_glass //// AI defenses are often built with glass, so this is big.
 		turret.stun_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
-		turret.lethal_projectile = /obj/item/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
+		turret.lethal_projectile = /obj/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
 		turret.lethal_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 
 

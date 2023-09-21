@@ -166,9 +166,6 @@
 		if(EAST)
 			icon_state = "beam_splash_e"
 
-/obj/item/projectile/curse_hand/update_icon()
-	icon_state = "[icon_state][handedness]"
-
 /obj/effect/temp_visual/wizard
 	name = "water"
 	icon = 'icons/mob/mob.dmi'
@@ -192,14 +189,14 @@
 	icon_state = "blspell"
 	duration = 5
 
-/obj/effect/temp_visual/guardian
+/obj/effect/temp_visual/holoparasite
 	randomdir = 0
 
-/obj/effect/temp_visual/guardian/phase
+/obj/effect/temp_visual/holoparasite/phase
 	duration = 5
 	icon_state = "phasein"
 
-/obj/effect/temp_visual/guardian/phase/out
+/obj/effect/temp_visual/holoparasite/phase/out
 	icon_state = "phaseout"
 
 /obj/effect/temp_visual/decoy
@@ -421,7 +418,7 @@
 /obj/effect/temp_visual/love_heart/invisible/Initialize(mapload, mob/seer)
 	. = ..()
 	var/image/I = image(icon = 'icons/effects/effects.dmi', icon_state = "heart", layer = ABOVE_MOB_LAYER, loc = src)
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/onePerson, "heart", I, seer)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "heart", I, seer)
 	I.alpha = 255
 	I.appearance_flags = RESET_ALPHA
 	animate(I, alpha = 0, time = duration)

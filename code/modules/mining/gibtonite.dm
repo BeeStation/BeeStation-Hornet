@@ -59,7 +59,7 @@
 	else
 		..()
 
-/obj/item/gibtonite/bullet_act(obj/item/projectile/P)
+/obj/item/gibtonite/bullet_act(obj/projectile/P)
 	GibtoniteReaction(P.firer)
 	. = ..()
 
