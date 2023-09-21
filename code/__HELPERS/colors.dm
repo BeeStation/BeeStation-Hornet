@@ -48,32 +48,23 @@
 
 /// Given a color in the format of "#RRGGBB", will return if the color
 /// is dark.
-/proc/is_color_dark(color, threshold = 25)
-	var/hsl = rgb2num(color, COLORSPACE_HSL)
-	return hsl[3] < threshold
-
-/// Given a 3 character color (no hash), converts it into #RRGGBB (with hash)
-/proc/expand_three_digit_color(color)
-	if (length_char(color) != 3)
-		CRASH("Invalid 3 digit color: [color]")
-
-	var/final_color = "#"
-
-	for (var/digit = 1 to 3)
-		final_color += copytext(color, digit, digit + 1)
-		final_color += copytext(color, digit, digit + 1)
-
-	return final_color
-
+/proc/is_color_dark(hex_string, threshold = 25, method=BRIGHTNESS_BYOND_COLOR)
+	return get_color_brightness_from_hex(hex_string, method) < threshold
 
 /// returns HSV brightness 0 to 100 by color hex
-/proc/get_color_brightness_from_hex(A)
-	if(!A || length(A) != length_char(A))
+/proc/get_color_brightness_from_hex(hex_string, method=BRIGHTNESS_BYOND_COLOR)
+	if(!hex_string || length(hex_string) != length_char(hex_string))
 		return 0
-	var/R = hex2num(copytext(A, 2, 4))
-	var/G = hex2num(copytext(A, 4, 6))
-	var/B = hex2num(copytext(A, 6, 8))
-	return round(max(R, G, B)/2.55, 1)
+	switch(method)
+		if(BRIGHTNESS_BYOND_COLOR)
+			var/hsl = rgb2num(hex_string, COLORSPACE_HSL)
+			return hsl[3]
+		if(BRIGHTNESS_HSV_PURE)
+			var/R = hex2num(copytext(hex_string, 2, 4))
+			var/G = hex2num(copytext(hex_string, 4, 6))
+			var/B = hex2num(copytext(hex_string, 6, 8))
+			return round(max(R, G, B)/255, 1) // devide by 255 to make 0-100 value range.
+	return 0
 
 /// returns HSV saturation 0 to 100 by color hex
 /proc/get_color_saturation_from_hex(A)
@@ -87,3 +78,16 @@
         return 0
 
     return round((brightness - min(R, G, B))/brightness*100, 1)
+
+/// Given a 3 character color (no hash), converts it into #RRGGBB (with hash)
+/proc/expand_three_digit_color(color)
+	if (length_char(color) != 3)
+		CRASH("Invalid 3 digit color: [color]")
+
+	var/final_color = "#"
+
+	for (var/digit = 1 to 3)
+		final_color += copytext(color, digit, digit + 1)
+		final_color += copytext(color, digit, digit + 1)
+
+	return final_color
