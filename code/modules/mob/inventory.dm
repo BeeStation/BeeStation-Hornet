@@ -211,8 +211,9 @@
 //Puts the item into our active hand if possible. returns TRUE on success.
 /mob/proc/put_in_active_hand(obj/item/I, forced = FALSE, ignore_animation = TRUE, offered=FALSE)
 	if(!offered) // check if a clicked item is in possession of someone already unless it's offered.
-		var/owner = I.get_loc_mob()
+		var/owner = I.get_mob_loc()
 		if(ismob(owner) && owner != src)
+			show_message("<span class='notice'>You wanted to pick up [src], but it's already on someone's hand. You feel bad about the space latency...</span>")
 			return FALSE // sorry, you won't get the benefit of your bad latency.
 	return put_in_hand(I, active_hand_index, forced, ignore_animation)
 

@@ -351,8 +351,9 @@ B --><-- A
 
 */
 
-/// returns a mob that possesses this atom(usually item)
-/atom/proc/get_loc_mob(as_first_mob=TRUE)
+/// returns a mob that possesses this atom(usually item),
+/// or returns null if it is possessed by no mob.
+/atom/proc/get_mob_loc(as_first_mob=TRUE)
 	var/atom/upper = src
 	var/final_mob
 	while(upper)
@@ -363,4 +364,4 @@ B --><-- A
 			// if this is FALSE, it will find a final mob when it's chain-contained (i.e. mob in mob in mob...)
 			if(as_first_mob)
 				return final_mob
-	return final_mob || FALSE
+	return final_mob
