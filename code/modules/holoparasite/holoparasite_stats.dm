@@ -15,6 +15,9 @@
 	var/mob/living/simple_animal/hostile/holoparasite/last_holopara
 
 /datum/holoparasite_stats/Destroy()
+	if(!QDELETED(last_holopara))
+		message_admins("Holoparasite stats belonging to [ADMIN_LOOKUPFLW(last_holopara)] tried to be deleted while still attached to a holoparasite! This is very likely a bug!!")
+		CRASH("Holoparasite stats belonging to [key_name(last_holopara)] tried to be deleted while still attached to a holoparasite!")
 	remove()
 	if(ability)
 		QDEL_NULL(ability)
