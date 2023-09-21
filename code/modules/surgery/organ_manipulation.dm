@@ -154,6 +154,7 @@
 		display_results(user, target, "<span class='notice'>You insert [tool] into [target]'s [parse_zone(target_zone)].</span>",
 			"[user] inserts [tool] into [target]'s [parse_zone(target_zone)]!",
 			"[user] inserts something into [target]'s [parse_zone(target_zone)]!")
+		log_combat(user, target, "surgically installed [I.name] into", addition="INTENT: [uppertext(user.a_intent)]")
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)

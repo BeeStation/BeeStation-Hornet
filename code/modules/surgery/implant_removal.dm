@@ -32,6 +32,9 @@
 			"[user] successfully removes something from [target]'s [target_zone]!")
 		I.removed(target)
 
+		//Logs removal of implants, similar to removal of organs during organ manipulation
+		log_combat(user, target, "surgically extracted [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+
 		var/obj/item/implantcase/case
 		for(var/obj/item/implantcase/ic in user.held_items)
 			case = ic

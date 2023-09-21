@@ -46,6 +46,8 @@
 				"[user] stuffs [tool.w_class > WEIGHT_CLASS_SMALL ? tool : "something"] into [target]'s [target_zone].")
 			user.transferItemToLoc(tool, target, TRUE)
 			CH.cavity_item = tool
+			//Logs stowing items in a cavity, similar to organ manipulation
+			log_combat(user, target, "cavity implanted [tool.name] into", addition="INTENT: [uppertext(user.a_intent)]")
 			return 1
 	else
 		if(IC)
@@ -54,6 +56,8 @@
 				"[user] pulls [IC.w_class > WEIGHT_CLASS_SMALL ? IC : "something"] out of [target]'s [target_zone].")
 			user.put_in_hands(IC)
 			CH.cavity_item = null
+			//Log when cavity items are surgically removed, we don't care about it popping out from gibbing
+			log_combat(user, target, "extracted [IC.name] from cavity in", addition="INTENT: [uppertext(user.a_intent)]")
 			return 1
 		else
 			to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")
