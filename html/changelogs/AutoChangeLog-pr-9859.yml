@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixed wigs not properly updating the mob's hair when detached from a worn
+      hat
