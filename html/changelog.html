@@ -56,6 +56,55 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">20 September 2023</h2>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">DNA locking has been removed from mechs.</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Removed the duplicate Detective's locker - and thus the duplicate revolver from MetaStation</li>
+				<li class="tweak">Forensics crates now include the detective's camera instead of a normal camera (20 extra charges)</li>
+				<li class="rscadd">Adds a spare detective armor vest to their vendor</li>
+				<li class="bugfix">Fixes a minor runtime in rust_lore.dm</li>
+			</ul>
+
+			<h2 class="date">19 September 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You will no longer suffocate eternally if you stop needing to breathe while in the middle of suffocating.</li>
+			</ul>
+			<h3 class="author">AgentCitrus, Time-Green updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">You can exit shuttles in transit and cling onto their sides, fly around them with jetpacks, etc.</li>
+				<li class="rscadd">Pulled & no longer pulled signals</li>
+				<li class="tweak">Mobs and items no longer instantly teleport into deep space after walking out of shuttles.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes random spawned humans not having their bodytype setup during DNA generation.</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes a runtime in antag_panel.dm that prevents you from opening the Antagonist Panel on disconnected observers</li>
+				<li class="admin">Improved holodeck logging</li>
+			</ul>
+
+			<h2 class="date">18 September 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Abductor mental interface devices messages are now shown to deadchat.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes being able to access beakers which hold 5000 units of chems.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Fixed SHIT IS FUCK turfs in explo generation, improved debugging message so the root cause can be identified.</li>
+				<li class="bugfix">Fixed large baseturf lists from Z-Clear not clearing baseturfs.</li>
+			</ul>
+
 			<h2 class="date">17 September 2023</h2>
 			<h3 class="author">Absolucy updated:</h3>
 			<ul class="changes bgimages16">
@@ -1133,50 +1182,6 @@
 				<li class="refactor">Rewrote multiz rendering to use Z-Mimic. Should vastly reduce lag caused by multiz rendering. Some things may not render properly.</li>
 				<li class="bugfix">Emissives will no longer leak onto the z-level above.</li>
 				<li class="rscadd">Added multiz lighting. Nonmovable lights will now bleed up and down.</li>
-			</ul>
-
-			<h2 class="date">20 July 2023</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">The CI will correctly use MariaDB instead of MySQL, similar to the actual server</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Made the Altar of the Gods indestructible</li>
-			</ul>
-
-			<h2 class="date">19 July 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">You can no longer get stuck in the lobby upon latejoining if someone unbuckled and stayed on top of a seat.</li>
-			</ul>
-
-			<h2 class="date">18 July 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a warning prompt for silicons if they are going to state a law that explicitly contains "don't state" (or some variation of it).</li>
-				<li class="bugfix">Prying open unpowered firelocks and windoors with a crowbar FINALLY works again.</li>
-				<li class="tweak">Prying open firelocks and windoors now respects tool speed.</li>
-			</ul>
-			<h3 class="author">BlueHNT updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added wt550m9 rubber mag sprite</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">recipes variable in materials is removed. It now uses get_recipes() proc.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Reverts the blindness refactor due to issues with permanently blurred vision.</li>
-			</ul>
-			<h3 class="author">RKz, nightred, Couls, Arturlang, GoblinBackwards updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">no more temporary blindness when spawning in!</li>
-				<li class="refactor">refactored blindness code to be less redundant and poorly applied.</li>
-				<li class="bugfix">no more perma-blindness if blindness is improperly applied to you! Update_stat should actually do its job now.</li>
-				<li class="code_imp">removed duplicate method 'blind_eye', replaced in favor of 'adjust_blindness'</li>
-				<li class="rscadd">The Blind and Unconcious will now have monochromatic vision, because they don't know what colors are. This change is made in anticipation of adding blind-vision in the near-future.</li>
 			</ul>
 		</div>
 

@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: You can no longer interact with stuff through windows, windoors, and anything
+      that should've blocked you from interacting really.
