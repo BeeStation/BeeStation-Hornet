@@ -88,5 +88,11 @@
 	name = "Clown (Bridge Access)"
 	id = /obj/item/card/id/job/clown/bridge
 
-/datum/job/clown/bridge/get_access()
-	return ..() + ACCESS_HEADS
+/datum/outfit/job/clown/bridge/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(visualsOnly)
+		return
+	var/obj/item/card/id/id = H.wear_id || H.get_idcard(FALSE)
+	if(!istype(id))
+		return
+	id.access |= list(ACCESS_HEADS)
