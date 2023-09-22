@@ -2,8 +2,6 @@
 #define GHOUL_MAX_HEALTH 25
 /// The max amount of health a voiceless dead has.
 #define MUTE_MAX_HEALTH 50
-/// The amount of bloodiness required to get the halved rune drawing time.
-#define RUNE_BLOODINESS_THRESHOLD (BLOOD_AMOUNT_PER_DECAL * 1.5)
 
 /**
  * # The path of Flesh.
@@ -367,6 +365,5 @@
 	var/datum/heretic_knowledge/limited_amount/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/base_flesh)
 	blade_ritual.limit = 999
 
-#undef RUNE_BLOODINESS_THRESHOLD
 #undef GHOUL_MAX_HEALTH
 #undef MUTE_MAX_HEALTH
