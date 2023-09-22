@@ -19,6 +19,7 @@
 	antag_moodlet = /datum/mood_event/heretics
 	banning_key = ROLE_HERETIC
 	required_living_playtime = 4
+	ui_name = "AntagInfoHeretic"
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -33,8 +34,12 @@
 	var/total_sacrifices = 0
 	/// A list of TOTAL how many high value sacrifices completed.
 	var/high_value_sacrifices = 0
-	/// Lazy assoc list of [weakrefs to humans] to [image previews of the human]. Humans that we have as sacrifice targets.
+	/// Weakrefs to the minds of monsters have been successfully summoned. Includes ghouls.
+	var/list/datum/weakref/monsters_summoned
+	/// Lazy assoc list of [weakrefs to minds] to [image previews of the human]. Humans that we have as sacrifice targets.
 	var/list/datum/weakref/sac_targets
+	/// A list of minds we won't pick as targets.
+	var/list/datum/mind/target_blacklist
 	/// Whether we're drawing a rune or not
 	var/drawing_rune = FALSE
 	/// A static typecache of all tools we can scribe with.
@@ -42,11 +47,12 @@
 	/// A blacklist of turfs we cannot scribe on.
 	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava, /turf/open/chasm))
 	var/datum/action/innate/hereticmenu/menu
-	ui_name = "AntagInfoHeretic"
+
+/datum/antagonist/heretic/Destroy()
+	. = ..()
+	LAZYCLEARLIST(target_blacklist)
 
 /datum/antagonist/heretic/ui_data(mob/user)
-	var/list/data = list()
-
 	var/static/list/path_to_color = list(
 		HERETIC_PATH_START = "grey",
 		HERETIC_PATH_SIDE = "green",
@@ -56,7 +62,8 @@
 		HERETIC_PATH_VOID = "blue",
 	)
 
-	data["charges"] = knowledge_points
+	var/list/available = list()
+	var/list/researched = list()
 
 	for(var/datum/heretic_knowledge/knowledge as anything in get_researchable_knowledge())
 		var/list/knowledge_data = list()
@@ -74,7 +81,7 @@
 		knowledge_data["hereticPath"] = initial(knowledge.route)
 		knowledge_data["color"] = path_to_color[initial(knowledge.route)] || "grey"
 
-		data["learnableKnowledge"] += list(knowledge_data)
+		available += list(knowledge_data)
 
 	for(var/path in researched_knowledge)
 		var/list/knowledge_data = list()
@@ -86,18 +93,29 @@
 		knowledge_data["hereticPath"] = found_knowledge.route
 		knowledge_data["color"] = path_to_color[found_knowledge.route] || "grey"
 
-		data["learnedKnowledge"] += list(knowledge_data)
+		researched += list(knowledge_data)
 
-	return data
+	return list(
+		"sacrifices" = list(
+			"total" = total_sacrifices,
+			"command" = high_value_sacrifices
+		),
+		"ascended" = ascended,
+		"points" = knowledge_points,
+		"knowledge" = list(
+			"available" = available,
+			"researched" = researched
+		)
+	)
 
 /datum/antagonist/heretic/ui_static_data(mob/user)
-	var/list/data = list()
+	return list("objectives" = get_objectives())
 
-	data["total_sacrifices"] = total_sacrifices
-	data["ascended"] = ascended
-	data["objectives"] = get_objectives()
-
-	return data
+/datum/antagonist/heretic/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, ui_name, name)
+		ui.open()
 
 /datum/antagonist/heretic/make_info_button()
 	return // we already handle this with our own button
@@ -106,19 +124,16 @@
 	. = ..()
 	if(.)
 		return
-
 	switch(action)
 		if("research")
 			var/datum/heretic_knowledge/researched_path = text2path(params["path"])
 			if(!ispath(researched_path))
 				CRASH("Heretic attempted to learn non-heretic_knowledge path! (Got: [researched_path])")
-
 			if(initial(researched_path.cost) > knowledge_points)
 				return
 			if(!gain_knowledge(researched_path))
 				return
-
-			knowledge_points -= initial(researched_path.cost)
+			adjust_knowledge_points(-initial(researched_path.cost))
 			return TRUE
 
 /datum/antagonist/heretic/ui_status(mob/user, datum/ui_state/state)
@@ -216,18 +231,15 @@
  */
 /datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, obj/effect/proc_holder/spell/spell)
 	SIGNAL_HANDLER
-
 	// Non-Heretic spells, we don't care
 	if(!spell.requires_heretic_focus)
 		return
-
 	// If we've got the trait, we don't care
 	if(HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
 		return
 	// All powerful, don't care
 	if(ascended)
 		return
-
 	// We shouldn't be able to cast this! Cancel it.
 	source.balloon_alert(source, "You need a focus")
 	return COMPONENT_CANCEL_SPELL
@@ -241,16 +253,13 @@
  */
 /datum/antagonist/heretic/proc/on_item_afterattack(mob/living/source, atom/target, obj/item/weapon, proximity_flag, click_parameters)
 	SIGNAL_HANDLER
-
 	if(!is_type_in_typecache(weapon, scribing_tools))
 		return
 	if(!isturf(target) || !isliving(source) || !proximity_flag)
 		return
-
 	var/obj/item/offhand = source.get_inactive_held_item()
 	if(QDELETED(offhand) || !istype(offhand, /obj/item/melee/touch_attack/mansus_fist))
 		return
-
 	try_draw_rune(source, target, additional_checks = CALLBACK(src, PROC_REF(check_mansus_grasp_offhand), source))
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -268,15 +277,12 @@
 		if(!isopenturf(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
 			target_turf.balloon_alert(user, "Invalid placement for rune")
 			return
-
 	if(locate(/obj/effect/heretic_rune) in range(3, target_turf))
 		target_turf.balloon_alert(user, "Too close to another rune")
 		return
-
 	if(drawing_rune)
 		target_turf.balloon_alert(user, "Already drawing a rune")
 		return
-
 	INVOKE_ASYNC(src, PROC_REF(draw_rune), user, target_turf, drawing_time, additional_checks)
 
 /**
@@ -290,13 +296,19 @@
  */
 /datum/antagonist/heretic/proc/draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
 	drawing_rune = TRUE
-
 	target_turf.balloon_alert(user, "You start drawing a rune")
+	for(var/knowledge_index in researched_knowledge)
+		var/datum/heretic_knowledge/limited_amount/knowledge = researched_knowledge[knowledge_index]
+		if(!istype(knowledge))
+			continue
+		var/length_mul = knowledge.rune_draw_time_multiplier(user, target_turf)
+		if(isnum_safe(length_mul) && length_mul > 0)
+			drawing_time *= length_mul
+			break
 	if(!do_after(user, drawing_time, target = target_turf, extra_checks = additional_checks))
 		target_turf.balloon_alert(user, "Interrupted")
 		drawing_rune = FALSE
 		return
-
 	target_turf.balloon_alert(user, "Rune created")
 	new /obj/effect/heretic_rune/big(target_turf)
 	drawing_rune = FALSE
@@ -320,54 +332,104 @@
  */
 /datum/antagonist/heretic/proc/fix_influence_network(mob/source)
 	SIGNAL_HANDLER
-
 	GLOB.reality_smash_track.rework_network()
 
 /**
  * Create our objectives for our heretic.
  */
 /datum/antagonist/heretic/proc/forge_objectives()
+	// Give research objective
 	var/datum/objective/heretic_research/research_objective = new()
 	research_objective.owner = owner
 	objectives += research_objective
-
+	// Calculate how many command members there are
 	var/num_heads = 0
 	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
-		if(player.mind.assigned_role in list("Captain", "Head of Personnel", "Chief Engineer", "Head of Security", "Research Director", "Chief Medical Officer"))
+		if((player.mind.assigned_role in GLOB.command_positions) && player.ckey && player.client)
 			num_heads++
-
+	// Give normal sacrifice objective
 	var/datum/objective/minor_sacrifice/sac_objective = new()
 	sac_objective.owner = owner
 	if(num_heads < 2) // They won't get major sacrifice, so bump up minor sacrifice a bit
 		sac_objective.target_amount += 2
 		sac_objective.update_explanation_text()
 	objectives += sac_objective
-
+	// Give command sacrifice objective (if there's at least 2 command staff)
 	if(num_heads >= 2)
 		var/datum/objective/major_sacrifice/other_sac_objective = new()
 		other_sac_objective.owner = owner
 		objectives += other_sac_objective
+	update_static_data_for_all_viewers()
 
 /**
  * Add [target] as a sacrifice target for the heretic.
- * Generates a preview image and associates it with a weakref of the mob.
+ * Generates a preview image and associates it with a weakref of the mob's mind.
  */
-/datum/antagonist/heretic/proc/add_sacrifice_target(mob/living/carbon/human/target)
+/datum/antagonist/heretic/proc/add_sacrifice_target(target)
+	var/datum/mind/target_mind = get_mind(target, TRUE)
+	if(QDELETED(target_mind))
+		return FALSE
+	var/mob/living/carbon/target_body = target_mind.current
+	if(!istype(target_body))
+		return FALSE
+	RegisterSignal(target_mind, COMSIG_MIND_CRYOED, PROC_REF(on_sac_target_cryoed))
+	LAZYSET(sac_targets, WEAKREF(target_mind), getFlatIcon(target_body, defdir = SOUTH))
+	return TRUE
 
-	var/image/target_image = image(icon = target.icon, icon_state = target.icon_state)
-	target_image.overlays = target.overlays
+/**
+ * Remove [target] as a sacrifice target for the heretic.
+ */
+/datum/antagonist/heretic/proc/remove_sacrifice_target(target)
+	var/datum/mind/target_mind = get_mind(target, TRUE)
+	if(!QDELETED(target_mind))
+		UnregisterSignal(target_mind, COMSIG_MIND_CRYOED)
+		LAZYREMOVE(sac_targets, WEAKREF(target_mind))
 
-	LAZYSET(sac_targets, WEAKREF(target), target_image)
+/**
+ * Returns a list of valid sacrifice targets from the current living players.
+ */
+/datum/antagonist/heretic/proc/possible_sacrifice_targets(include_current_targets = TRUE)
+	. = list()
+	for(var/mob/living/carbon/human/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
+		if(!player.mind || !player.client || player.client.is_afk())
+			continue
+		var/datum/mind/possible_target = player.mind
+		if(!include_current_targets && (WEAKREF(possible_target) in sac_targets))
+			continue
+		if(possible_target == src)
+			continue
+		if(possible_target in target_blacklist)
+			continue
+		if(player.stat == DEAD || player.InFullCritical())
+			continue
+		. += possible_target
+
+/datum/antagonist/heretic/proc/on_sac_target_cryoed(datum/mind/sac_mind)
+	SIGNAL_HANDLER
+	if(!istype(sac_mind) || !LAZYLEN(sac_targets))
+		return
+	remove_sacrifice_target(sac_mind)
+	var/list/candidates = possible_sacrifice_targets(include_current_targets = FALSE)
+	if(!length(candidates))
+		to_chat(owner, "<span class='warning'>You feel one of your sacrifice targets leave your reach... but the Mansus remains silent.</span>")
+		return
+	var/datum/mind/new_target = pick(candidates)
+	add_sacrifice_target(new_target)
+	to_chat(owner, "<span class='danger'>The Mansus whispers to you a new name as one of your previous sacrifice targets exits your grasp... <span class='hypnophrase'>[new_target.name]</span>. Go forth and sacrifice [new_target.current.p_them()]!</span>")
 
 /**
  * Increments knowledge by one.
  * Used in callbacks for passive gain over time.
  */
 /datum/antagonist/heretic/proc/passive_influence_gain()
-	knowledge_points++
+	adjust_knowledge_points(1)
 	if(owner.current.stat <= SOFT_CRIT)
 		to_chat(owner.current, "<span class='hear'>You hear a whisper...</span> <span class = 'hypnophrase'>[pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))]</span>")
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
+
+/datum/antagonist/heretic/proc/adjust_knowledge_points(amount)
+	knowledge_points += amount
+	ui_update()
 
 /datum/antagonist/heretic/proc/add_menu_action()
 	menu = new /datum/action/innate/hereticmenu(src)
@@ -384,14 +446,13 @@
 	if(length(objectives))
 		var/count = 1
 		for(var/datum/objective/objective as anything in objectives)
-			parts += "<b>Objective #[count]</b>:  [objective.get_completion_message()]"
+			parts += "<b>Objective #[count]</b>: [objective.get_completion_message()]"
 			if(!objective.check_completion())
 				succeeded = FALSE
 			count++
 
 	if(ascended)
 		parts += "<span class='greentext'><span class='big'>THE HERETIC ASCENDED!</span></span>"
-
 	else
 		if(succeeded)
 			parts += "<span class='greentext'>The heretic was successful, but did not ascend!</span>"
@@ -401,87 +462,71 @@
 	parts += "<b>Knowledge Researched:</b> "
 
 	var/list/string_of_knowledge = list()
-
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		string_of_knowledge += knowledge.name
-
 	parts += english_list(string_of_knowledge)
-
 	return parts.Join("<br>")
 
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()
-
 	switch(has_living_heart())
 		if(HERETIC_NO_LIVING_HEART)
-			.["Give Living Heart"] = CALLBACK(src, PROC_REF(give_living_heart))
+			.["Give Living Heart"] = CALLBACK(src, PROC_REF(admin_give_living_heart))
 		if(HERETIC_HAS_LIVING_HEART)
-			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(add_marked_as_target))
-			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(remove_target))
-
+			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(admin_add_marked_target))
+			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(admin_remove_target))
 	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
 
 /*
  * Admin proc for giving a heretic a Living Heart easily.
  */
-/datum/antagonist/heretic/proc/give_living_heart(mob/admin)
+/datum/antagonist/heretic/proc/admin_give_living_heart(mob/admin)
 	if(!admin.client?.holder)
 		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
 		return
-
 	var/datum/heretic_knowledge/living_heart/heart_knowledge = get_knowledge(/datum/heretic_knowledge/living_heart)
 	if(!heart_knowledge)
 		to_chat(admin, "<span class='warning'>The heretic doesn't have a living heart knowledge for some reason. What?</span>")
 		return
-
 	heart_knowledge.on_research(owner.current)
 
 /*
  * Admin proc for adding a marked mob to a heretic's sac list.
  */
-/datum/antagonist/heretic/proc/add_marked_as_target(mob/admin)
+/datum/antagonist/heretic/proc/admin_add_marked_target(mob/admin)
 	if(!admin.client?.holder)
 		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
 		return
-
 	var/mob/living/carbon/human/new_target = admin.client?.holder.marked_datum
 	if(!istype(new_target))
 		to_chat(admin, "<span class='warning'>You need to mark a human to do this!</span>")
 		return
-
-	if(alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", "Yes", "No") == "Yes")
+	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
 		to_chat(owner.current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
 		to_chat(owner.current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
-
 	add_sacrifice_target(new_target)
 
 /*
  * Admin proc for removing a mob from a heretic's sac list.
  */
-/datum/antagonist/heretic/proc/remove_target(mob/admin)
+/datum/antagonist/heretic/proc/admin_remove_target(mob/admin)
 	if(!admin.client?.holder)
 		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
 		return
-
 	var/list/removable = list()
 	for(var/datum/weakref/ref as anything in sac_targets)
-		var/mob/living/carbon/human/old_target = ref.resolve()
+		var/datum/mind/old_target = ref.resolve()
 		if(!QDELETED(old_target))
 			removable[old_target.name] = old_target
-
-	var/name_of_removed = input(admin, "Choose a human to remove", "Who to Spare") as null|anything in removable
+	var/name_of_removed = tgui_input_list(admin, "Choose a human to remove", "Who to Spare", removable)
 	if(QDELETED(src) || !admin.client?.holder || isnull(name_of_removed))
 		return
-	var/mob/living/carbon/human/chosen_target = removable[name_of_removed]
-	if(QDELETED(chosen_target) || !ishuman(chosen_target))
+	var/datum/mind/chosen_target = removable[name_of_removed]
+	if(!istype(chosen_target) || !(WEAKREF(chosen_target) in sac_targets))
 		return
-	if(!(WEAKREF(chosen_target) in sac_targets))
-		return
-
 	LAZYREMOVE(sac_targets, WEAKREF(chosen_target))
-
-	if(alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", "Yes", "No") == "Yes")
+	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
 		to_chat(owner.current, "<span class='danger'>The Mansus has modified your targets.</span>")
 
 /*
@@ -492,10 +537,10 @@
 		to_chat(admin, "<span class='warning'>You shouldn't be using this!</span>")
 		return
 
-	var/change_num = input(admin, "Add or remove knowledge points", "Points") as null|num
+	var/change_num = tgui_input_number(admin, "Add or remove knowledge points", "Points", 0)
 	if(!change_num || QDELETED(src))
 		return
-	knowledge_points += change_num
+	adjust_knowledge_points(change_num)
 	message_admins("[admin] modified [src]'s knowledge points by [change_num].")
 
 /datum/antagonist/heretic/antag_panel_data()
@@ -512,15 +557,14 @@
 
 /datum/antagonist/heretic/antag_panel_objectives()
 	. = ..()
-
 	. += "<br>"
 	. += "<i><b>Current Targets:</b></i><br>"
 	if(LAZYLEN(sac_targets))
 		for(var/datum/weakref/ref as anything in sac_targets)
-			var/mob/living/carbon/human/actual_target = ref.resolve()
-			if(QDELETED(actual_target))
+			var/datum/mind/actual_target = ref.resolve()
+			if(istype(actual_target))
 				continue
-			. += " - <b>[actual_target.real_name]</b>, the [actual_target.mind?.assigned_role || "Unknown"].<br>"
+			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
 	. += "<br>"
@@ -559,8 +603,28 @@
 /*
  * Check if the wanted type-path is in the list of research knowledge.
  */
-/datum/antagonist/heretic/proc/get_knowledge(wanted)
-	return researched_knowledge[wanted]
+/datum/antagonist/heretic/proc/get_knowledge(wanted, subtypes = FALSE)
+	if(subtypes)
+		for(var/knowledge_path in typesof(wanted))
+			if(researched_knowledge[knowledge_path])
+				return researched_knowledge[knowledge_path]
+	else
+		return researched_knowledge[wanted]
+
+/**
+ * Check to see if the given mob can be sacrificed
+ */
+/datum/antagonist/heretic/proc/can_sacrifice(target)
+	. = FALSE
+	var/datum/mind/target_mind = get_mind(target, TRUE)
+	if(!istype(target_mind))
+		return
+	if(LAZYACCESS(sac_targets, WEAKREF(target_mind)))
+		return TRUE
+	// You can ALWAYS sacrifice heads of staff if you need to do so.
+	var/datum/objective/major_sacrifice/major_sacc_objective = locate() in objectives
+	if(major_sacc_objective && !major_sacc_objective.check_completion() && (target_mind.assigned_role in GLOB.command_positions))
+		return TRUE
 
 /*
  * Get a list of all rituals this heretic can invoke on a rune.
@@ -570,13 +634,11 @@
  */
 /datum/antagonist/heretic/proc/get_rituals()
 	var/list/rituals = list()
-
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		if(!knowledge.can_be_invoked(src))
 			continue
 		rituals[knowledge.name] = knowledge
-
 	return sortTim(rituals, /proc/cmp_heretic_knowledge, associative = TRUE)
 
 /*
@@ -604,10 +666,8 @@
 	var/obj/item/organ/our_living_heart = owner.current?.getorganslot(ORGAN_SLOT_HEART)
 	if(!our_living_heart)
 		return HERETIC_NO_HEART_ORGAN
-
 	if(!HAS_TRAIT(our_living_heart, TRAIT_LIVING_HEART))
 		return HERETIC_NO_LIVING_HEART
-
 	return HERETIC_HAS_LIVING_HEART
 
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
@@ -625,9 +685,7 @@
 
 /datum/objective/minor_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
-	if(!heretic_datum)
-		return FALSE
-	return heretic_datum.total_sacrifices >= target_amount
+	return ..() || (heretic_datum?.total_sacrifices >= target_amount)
 
 /// Heretic's major sacrifice objective. "Major sacrifices" are heads of staff.
 /datum/objective/major_sacrifice
@@ -637,9 +695,7 @@
 
 /datum/objective/major_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
-	if(!heretic_datum)
-		return FALSE
-	return heretic_datum.high_value_sacrifices >= target_amount
+	return ..() || (heretic_datum?.high_value_sacrifices >= target_amount)
 
 /// Heretic's research objective. "Research" is heretic knowledge nodes (You start with some).
 /datum/objective/heretic_research
@@ -649,7 +705,6 @@
 
 /datum/objective/heretic_research/New(text)
 	. = ..()
-
 	if(!main_path_length)
 		// Let's find the length of a main path. We'll use rust because it's the coolest.
 		// (All the main paths are (should be) the same length, so it doesn't matter.)
@@ -657,9 +712,7 @@
 		for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
 			if(initial(knowledge.route) == HERETIC_PATH_RUST)
 				rust_paths_found++
-
 		main_path_length = rust_paths_found
-
 	// Factor in the length of the main path first.
 	target_amount = main_path_length
 	// Add in the base research we spawn with, otherwise it'd be too easy.
@@ -674,9 +727,7 @@
 
 /datum/objective/heretic_research/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
-	if(!heretic_datum)
-		return FALSE
-	return length(heretic_datum.researched_knowledge) >= target_amount
+	return completed || (length(heretic_datum?.researched_knowledge) >= target_amount)
 
 /datum/objective/heretic_summon
 	name = "summon monsters"
@@ -684,19 +735,8 @@
 	explanation_text = "Summon 2 monsters from the Mansus into this realm."
 
 /datum/objective/heretic_summon/check_completion()
-
-	var/num_we_have = 0
-	for(var/datum/antagonist/heretic_monster/monster in GLOB.antagonists)
-		if(!monster.master)
-			continue
-		if(ishuman(monster.owner.current))
-			continue
-		if(monster.master != owner)
-			continue
-
-		num_we_have++
-
-	return completed || (num_we_have >= target_amount)
+	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
+	return ..() || (LAZYLEN(heretic_datum?.monsters_summoned) >= target_amount)
 
 /datum/action/innate/hereticmenu
 	name = "Forbidden Knowledge"

@@ -52,16 +52,19 @@
 	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
 	our_heretic.heretic_path = route
 
+/datum/heretic_knowledge/limited_amount/base_void/rune_draw_time_multiplier(mob/living/user, turf/open/target_turf)
+	. = ..()
+	if(istype(target_turf) && target_turf.GetTemperature() <= T0C)
+		. = min(., 0.65)
+
 /datum/heretic_knowledge/limited_amount/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!isopenturf(loc))
 		loc.balloon_alert(user, "ritual failed, invalid location!")
 		return FALSE
-
 	var/turf/open/our_turf = loc
 	if(our_turf.GetTemperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
-
 	return ..()
 
 /datum/heretic_knowledge/void_grasp

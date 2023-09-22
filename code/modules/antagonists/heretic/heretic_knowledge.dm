@@ -183,7 +183,7 @@
 	/// A list of weakrefs to all items we've created.
 	var/list/datum/weakref/created_items
 
-/datum/heretic_knowledge/limited_amount/Destroy(force, ...)
+/datum/heretic_knowledge/limited_amount/Destroy()
 	LAZYCLEARLIST(created_items)
 	return ..()
 
@@ -192,11 +192,9 @@
 		var/atom/real_thing = ref.resolve()
 		if(QDELETED(real_thing))
 			LAZYREMOVE(created_items, ref)
-
 	if(LAZYLEN(created_items) >= limit)
 		loc.balloon_alert(user, "ritual failed, at limit!")
 		return FALSE
-
 	return TRUE
 
 /datum/heretic_knowledge/limited_amount/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
@@ -206,48 +204,59 @@
 	return TRUE
 
 /*
+ * Returns a multiplier for the time required to draw a rune.
+ */
+/datum/heretic_knowledge/limited_amount/proc/rune_draw_time_multiplier(mob/living/user, turf/target_turf)
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	if(our_heretic.ascended)
+		return 0.2
+	if(our_heretic.can_sacrifice(user.pulling))
+		return 0.5
+	for(var/mob/living/target as anything in range(1, target_turf) + range(1, user))
+		if(istype(target) && our_heretic.can_sacrifice(target))
+			return 0.5
+	return 1
+
+/*
  * A knowledge subtype lets the heretic curse someone with a ritual.
  */
 /datum/heretic_knowledge/curse
 	/// The duration of the curse
 	var/duration = 5 MINUTES
-	/// Cache list of fingerprints (actual fingerprint strings) we have from our current ritual
-	var/list/fingerprints
+	/// Cache list of DNA (UI strings) we have from our current ritual
+	var/list/dna
 
 /datum/heretic_knowledge/curse/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	fingerprints = list()
+	dna = list()
 	for(var/atom/requirements as anything in atoms)
-		fingerprints[requirements.return_fingerprints()] = 1
-	list_clear_nulls(fingerprints)
-
-	// No fingerprints? No ritual
-	if(!length(fingerprints))
-		loc.balloon_alert(user, "ritual failed, no fingerprints!")
+		for(var/fingerprint in requirements.return_fingerprints())
+			dna[fingerprint] = TRUE
+		for(var/blood in requirements.return_blood_DNA())
+			dna[blood] = TRUE
+	list_clear_nulls(dna)
+	// No DNA? No ritual
+	if(!length(dna))
+		loc.balloon_alert(user, "ritual failed, no DNA!")
 		return FALSE
-
 	return TRUE
 
 /datum/heretic_knowledge/curse/on_finished_recipe(mob/living/user, list/selected_atoms,  turf/loc)
-
 	var/list/compiled_list = list()
-
-	for(var/mob/living/carbon/carbon_to_check as anything in GLOB.carbon_list)
-		if(!istype(carbon_to_check, /mob/living/carbon/human))
+	for(var/mob/living/carbon/human/candidate in GLOB.carbon_list)
+		if(candidate == user || QDELETED(candidate.mind) || !length(candidate.dna?.uni_identity))
 			continue
-		var/mob/living/carbon/human/human_to_check = carbon_to_check
-		if(fingerprints[md5(human_to_check.dna.uni_identity)])
-			compiled_list |= human_to_check.real_name
-			compiled_list[human_to_check.real_name] = human_to_check
+		var/dna_string = rustg_hash_string(RUSTG_HASH_MD5, candidate.dna.uni_identity)
+		if(dna[dna_string])
+			compiled_list |= candidate.real_name
+			compiled_list[candidate.real_name] = candidate
 
 	if(!length(compiled_list))
-		loc.balloon_alert(user, "Ritual failed, no fingerprints found")
+		loc.balloon_alert(user, "Ritual failed, no DNA found")
 		return FALSE
 
-	var/chosen_mob = input(user, "Select the person you wish to curse", "Eldritch Curse") as null|anything in sort_list(compiled_list, GLOBAL_PROC_REF(cmp_mob_realname_dsc))
-	if(isnull(chosen_mob))
+	var/mob/living/carbon/human/to_curse = tgui_input_list(user, "Select the person you wish to curse", "Eldritch Curse", sort_list(compiled_list, GLOBAL_PROC_REF(cmp_mob_realname_dsc)))
+	if(isnull(to_curse))
 		return FALSE
-
-	var/mob/living/carbon/human/to_curse = compiled_list[chosen_mob]
 	if(QDELETED(to_curse))
 		loc.balloon_alert(user, "Ritual failed, invalid choice")
 		return FALSE
@@ -307,6 +316,9 @@
 	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	heretic_monster.set_owner(user.mind)
 
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	LAZYOR(our_heretic.monsters_summoned, WEAKREF(summoned.mind))
+
 	return TRUE
 
 /// The amount of knowledge points the knowledge ritual gives on success.
@@ -328,36 +340,36 @@
 	. = ..()
 	var/static/list/potential_organs = list(
 		/obj/item/organ/appendix,
-		/obj/item/organ/tail,
-		/obj/item/organ/eyes,
-		/obj/item/organ/tongue,
 		/obj/item/organ/ears,
+		/obj/item/organ/eyes,
 		/obj/item/organ/heart,
 		/obj/item/organ/liver,
-		/obj/item/organ/stomach,
 		/obj/item/organ/lungs,
+		/obj/item/organ/stomach,
+		/obj/item/organ/tail,
+		/obj/item/organ/tongue
 	)
 
 	var/static/list/potential_easy_items = list(
-		/obj/item/shard,
-		/obj/item/candle,
 		/obj/item/book,
-		/obj/item/pen,
-		/obj/item/paper,
-		/obj/item/toy/crayon,
-		/obj/item/flashlight,
+		/obj/item/candle,
 		/obj/item/clipboard,
+		/obj/item/flashlight,
+		/obj/item/paper,
+		/obj/item/pen,
+		/obj/item/shard,
+		/obj/item/toy/crayon
 	)
 
 	var/static/list/potential_uncommoner_items = list(
-		/obj/item/restraints/legcuffs/beartrap,
-		/obj/item/restraints/handcuffs/cable/zipties,
-		/obj/item/circular_saw,
-		/obj/item/scalpel,
 		/obj/item/binoculars,
+		/obj/item/circular_saw,
+		/obj/item/clothing/glasses/sunglasses,
 		/obj/item/clothing/gloves/color/yellow,
 		/obj/item/melee/baton,
-		/obj/item/clothing/glasses/sunglasses,
+		/obj/item/restraints/handcuffs/cable/zipties,
+		/obj/item/restraints/legcuffs/beartrap,
+		/obj/item/scalpel
 	)
 
 	required_atoms = list()
@@ -392,7 +404,7 @@
 
 /datum/heretic_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
-	our_heretic.knowledge_points += KNOWLEDGE_RITUAL_POINTS
+	our_heretic.adjust_knowledge_points(KNOWLEDGE_RITUAL_POINTS)
 	was_completed = TRUE
 
 	var/drain_message = pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))
@@ -419,25 +431,17 @@
 		total_points += knowledge.cost
 
 /datum/heretic_knowledge/final/can_be_invoked(datum/antagonist/heretic/invoker)
-	if(invoker.ascended)
-		return FALSE
-
-	if(!invoker.can_ascend())
-		return FALSE
-
-	return TRUE
+	return !invoker.ascended && invoker.can_ascend()
 
 /datum/heretic_knowledge/final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!can_be_invoked(heretic_datum))
 		return FALSE
-
 	// Remove all non-dead humans from the atoms list.
 	// (We only want to sacrifice dead folk.)
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		if(!is_valid_sacrifice(sacrifice))
 			atoms -= sacrifice
-
 	// All the non-dead humans are removed in this proc.
 	// We handle checking if we have enough humans in the ritual itself.
 	return TRUE
@@ -463,5 +467,4 @@
 	for(var/mob/living/carbon/human/sacrifice in selected_atoms)
 		selected_atoms -= sacrifice
 		sacrifice.gib()
-
 	return ..()

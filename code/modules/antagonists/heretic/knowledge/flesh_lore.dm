@@ -2,6 +2,8 @@
 #define GHOUL_MAX_HEALTH 25
 /// The max amount of health a voiceless dead has.
 #define MUTE_MAX_HEALTH 50
+/// The amount of bloodiness required to get the halved rune drawing time.
+#define RUNE_BLOODINESS_THRESHOLD (BLOOD_AMOUNT_PER_DECAL * 1.5)
 
 /**
  * # The path of Flesh.
@@ -62,6 +64,7 @@
 	var/datum/objective/heretic_summon/summon_objective = new()
 	summon_objective.owner = our_heretic.owner
 	our_heretic.objectives += summon_objective
+	our_heretic.update_static_data_for_all_viewers()
 
 	to_chat(user, "<span class='hierophant'>Undertaking the Path of Flesh, you are given another objective.</span>")
 	our_heretic.owner.announce_objectives()
@@ -118,6 +121,9 @@
 	human_target.faction |= FACTION_HERETIC
 	var/datum/mind/human_target_mind = human_target.mind
 	INVOKE_ASYNC(human_target_mind, TYPE_PROC_REF(/datum/mind, add_antag_datum), /datum/antagonist/heretic_monster)
+
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(source)
+	LAZYOR(our_heretic.monsters_summoned, WEAKREF(human_target_mind))
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp/proc/remove_ghoul(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
@@ -195,6 +201,9 @@
 
 	var/datum/antagonist/heretic_monster/heretic_monster = soon_to_be_ghoul.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	heretic_monster.set_owner(user.mind)
+
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	LAZYOR(our_heretic.monsters_summoned, WEAKREF(soon_to_be_ghoul.mind))
 
 	selected_atoms -= soon_to_be_ghoul
 	LAZYADD(created_items, WEAKREF(soon_to_be_ghoul))
@@ -358,5 +367,6 @@
 	var/datum/heretic_knowledge/limited_amount/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/base_flesh)
 	blade_ritual.limit = 999
 
+#undef RUNE_BLOODINESS_THRESHOLD
 #undef GHOUL_MAX_HEALTH
 #undef MUTE_MAX_HEALTH

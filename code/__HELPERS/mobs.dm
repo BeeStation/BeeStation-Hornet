@@ -752,6 +752,22 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			. = orange(distance,center)
 	return
 
+/**
+ * Gets the mind from a variable, whether it be a mob, or a mind itself.
+ * If [include_last] is true, then it will also return last_mind for carbons if there isn't a current mind.
+ */
+/proc/get_mind(target, include_last = FALSE)
+	if(istype(target, /datum/mind))
+		return target
+	if(ismob(target))
+		var/mob/mob_target = target
+		if(!QDELETED(mob_target.mind))
+			return mob_target.mind
+		if(include_last && iscarbon(mob_target))
+			var/mob/living/carbon/carbon_target = mob_target
+			if(!QDELETED(carbon_target.last_mind))
+				return carbon_target.last_mind
+
 #undef FACING_SAME_DIR
 #undef FACING_EACHOTHER
 #undef FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR

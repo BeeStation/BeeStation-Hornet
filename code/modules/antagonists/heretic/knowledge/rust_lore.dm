@@ -54,6 +54,15 @@
 	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
 	our_heretic.heretic_path = route
 
+/datum/heretic_knowledge/limited_amount/base_rust/rune_draw_time_multiplier(mob/living/user, turf/target_turf)
+	. = ..()
+	var/rust = 0
+	for(var/turf/open/floor in RANGE_TURFS(1, target_turf))
+		if(HAS_TRAIT(floor, TRAIT_RUSTY))
+			rust++
+	if(rust >= 4)
+		. = min(., 0.65)
+
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
 	desc = "Your Mansus Grasp will deal 500 damage to non-living matter and rust any surface it touches. \

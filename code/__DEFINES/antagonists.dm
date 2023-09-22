@@ -102,6 +102,9 @@
 /// A define used in ritual priority for heretics.
 #define MAX_KNOWLEDGE_PRIORITY 100
 
+/// The maximum (and optimal) number of sacrifice targets a heretic should roll.
+#define HERETIC_MAX_SAC_TARGETS 4
+
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40

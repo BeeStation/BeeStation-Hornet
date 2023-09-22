@@ -27,6 +27,11 @@ const hereticYellow = {
   color: 'yellow',
 };
 
+enum CurrentTab {
+  Info,
+  Research,
+}
+
 type Knowledge = {
   path: string;
   name: string;
@@ -39,8 +44,8 @@ type Knowledge = {
 };
 
 type KnowledgeInfo = {
-  learnableKnowledge: Knowledge[];
-  learnedKnowledge: Knowledge[];
+  available: Knowledge[];
+  researched: Knowledge[];
 };
 
 type Objective = {
@@ -49,11 +54,17 @@ type Objective = {
   explanation: string;
 };
 
+type SacrificeInfo = {
+  total: number;
+  command: number;
+};
+
 type Info = {
-  charges: number;
-  total_sacrifices: number;
+  points: number;
+  sacrifices: SacrificeInfo;
   ascended: BooleanLike;
   objectives: Objective[];
+  knowledge: KnowledgeInfo;
 };
 
 const IntroductionSection = () => {
@@ -64,14 +75,24 @@ const IntroductionSection = () => {
           <Stack vertical>
             <FlavorSection />
             <Stack.Divider />
-
-            <GuideSection />
-            <Stack.Divider />
-
-            <InformationSection />
-            <Stack.Divider />
-
-            <ObjectivePrintout />
+            <Stack.Item>
+              <Stack>
+                <Stack.Item width="45%">
+                  <Stack vertical>
+                    <GuideSection />
+                    <Stack.Divider />
+                  </Stack>
+                </Stack.Item>
+                <Stack.Divider />
+                <Stack.Item width="50%">
+                  <Stack vertical>
+                    <InformationSection />
+                    <Stack.Divider />
+                    <ObjectivePrintout />
+                  </Stack>
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
           </Stack>
         </Section>
       </Stack.Item>
@@ -82,7 +103,7 @@ const IntroductionSection = () => {
 const FlavorSection = () => {
   return (
     <Stack.Item>
-      <Stack vertical textAlign="center" fontSize="14px" width="45%">
+      <Stack vertical textAlign="center" fontSize="14px">
         <Stack.Item>
           <i>
             Another day at a meaningless job. You feel a&nbsp;
@@ -106,7 +127,7 @@ const FlavorSection = () => {
 const GuideSection = () => {
   return (
     <Stack.Item>
-      <Stack vertical fontSize="12px" width="45%">
+      <Stack vertical fontSize="12px">
         <Stack.Item>
           - Find reality smashing&nbsp;
           <span style={hereticPurple}>influences</span>
@@ -134,7 +155,7 @@ const GuideSection = () => {
           <span style={hereticGreen}>transmutation rune</span> to&nbsp;
           <span style={hereticRed}>sacrifice</span> them for&nbsp;
           <span style={hereticBlue}>knowledge points</span>. The Mansus <b>ONLY</b> accepts targets pointed to by the&nbsp;
-          <span style={hereticRed}>Living Heart</span>.
+          <span style={hereticRed}>Living Heart</span> (or any member of Command, if the Mansus asks that of you).
         </Stack.Item>
         <Stack.Item>
           - Create an item to use as a&nbsp;<span style={hereticYellow}>focus</span> for your&nbsp;
@@ -152,9 +173,11 @@ const GuideSection = () => {
   );
 };
 
-const InformationSection = (props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { charges, total_sacrifices, ascended } = data;
+const InformationSection = (_props, context) => {
+  const {
+    data: { points, sacrifices, ascended },
+  } = useBackend<Info>(context);
+
   return (
     <Stack.Item>
       <Stack vertical fill>
@@ -172,22 +195,30 @@ const InformationSection = (props, context) => {
           </Stack.Item>
         )}
         <Stack.Item>
-          You have <b>{charges || 0}</b>&nbsp;
-          <span style={hereticBlue}>knowledge point{charges !== 1 ? 's' : ''}</span>.
+          You have <b>{points || 0}</b>&nbsp;
+          <span style={hereticBlue}>knowledge point{points !== 1 ? 's' : ''}</span>.
         </Stack.Item>
         <Stack.Item>
           You have made a total of&nbsp;
-          <b>{total_sacrifices || 0}</b>&nbsp;
-          <span style={hereticRed}>sacrifices</span>.
+          <b>{sacrifices.total || 0}</b>&nbsp;
+          <span style={hereticRed}>sacrifices</span>
+          {sacrifices.command > 0 && (
+            <>
+              , <b>{sacrifices.command}</b> of which were <span style={hereticPurple}>high-value</span>
+            </>
+          )}
+          .
         </Stack.Item>
       </Stack>
     </Stack.Item>
   );
 };
 
-const ObjectivePrintout = (props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { objectives } = data;
+const ObjectivePrintout = (_props, context) => {
+  const {
+    data: { objectives },
+  } = useBackend<Info>(context);
+
   return (
     <Stack.Item>
       <Stack vertical fill>
@@ -205,16 +236,19 @@ const ObjectivePrintout = (props, context) => {
   );
 };
 
-const ResearchedKnowledge = (props, context) => {
-  const { data } = useBackend<KnowledgeInfo>(context);
-  const { learnedKnowledge } = data;
+const ResearchedKnowledge = (_props, context) => {
+  const {
+    data: {
+      knowledge: { researched },
+    },
+  } = useBackend<Info>(context);
 
   return (
     <Stack.Item grow>
       <Section title="Researched Knowledge" fill scrollable>
         <Stack vertical>
-          {(!learnedKnowledge.length && 'None!') ||
-            learnedKnowledge.map((learned) => (
+          {(!researched.length && 'None!') ||
+            researched.map((learned) => (
               <Stack.Item key={learned.name}>
                 <Button
                   width="100%"
@@ -230,15 +264,19 @@ const ResearchedKnowledge = (props, context) => {
   );
 };
 
-const KnowledgeShop = (props, context) => {
-  const { data, act } = useBackend<KnowledgeInfo>(context);
-  const { learnableKnowledge } = data;
+const KnowledgeShop = (_props, context) => {
+  const {
+    data: {
+      knowledge: { available },
+    },
+    act,
+  } = useBackend<Info>(context);
 
   return (
     <Stack.Item grow>
       <Section title="Potential Knowledge" fill scrollable>
-        {(!learnableKnowledge.length && 'None!') ||
-          learnableKnowledge.map((toLearn) => (
+        {(!available.length && 'None!') ||
+          available.map((toLearn) => (
             <Stack.Item key={toLearn.name} mb={1}>
               <Button
                 width="100%"
@@ -265,17 +303,18 @@ const KnowledgeShop = (props, context) => {
   );
 };
 
-const ResearchInfo = (props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { charges } = data;
+const ResearchInfo = (_props, context) => {
+  const {
+    data: { points },
+  } = useBackend<Info>(context);
 
   return (
     <Stack justify="space-evenly" height="100%" width="100%">
       <Stack.Item grow>
         <Stack vertical height="100%">
           <Stack.Item fontSize="20px" textAlign="center">
-            You have <b>{charges || 0}</b>&nbsp;
-            <span style={hereticBlue}>knowledge point{charges !== 1 ? 's' : ''}</span> to spend.
+            You have <b>{points || 0}</b>&nbsp;
+            <span style={hereticBlue}>knowledge point{points !== 1 ? 's' : ''}</span> to spend.
           </Stack.Item>
           <Stack.Item grow>
             <Stack height="100%">
@@ -289,14 +328,14 @@ const ResearchInfo = (props, context) => {
   );
 };
 
-export const AntagInfoHeretic = (props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { ascended } = data;
-
-  const [currentTab, setTab] = useLocalState(context, 'currentTab', 0);
+export const AntagInfoHeretic = (_props, context) => {
+  const {
+    data: { ascended },
+  } = useBackend<Info>(context);
+  const [currentTab, setTab] = useLocalState<CurrentTab>(context, 'currentTab', CurrentTab.Info);
 
   return (
-    <Window width={675} height={600}>
+    <Window width={675} height={680}>
       <Window.Content
         style={{
           // 'font-family': 'Times New Roman',
@@ -309,15 +348,18 @@ export const AntagInfoHeretic = (props, context) => {
         <Stack vertical fill>
           <Stack.Item>
             <Tabs fluid>
-              <Tabs.Tab icon="info" selected={currentTab === 0} onClick={() => setTab(0)}>
+              <Tabs.Tab icon="info" selected={currentTab === CurrentTab.Info} onClick={() => setTab(CurrentTab.Info)}>
                 Information
               </Tabs.Tab>
-              <Tabs.Tab icon={currentTab === 1 ? 'book-open' : 'book'} selected={currentTab === 1} onClick={() => setTab(1)}>
+              <Tabs.Tab
+                icon={currentTab === CurrentTab.Research ? 'book-open' : 'book'}
+                selected={currentTab === CurrentTab.Research}
+                onClick={() => setTab(CurrentTab.Research)}>
                 Research
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
-          <Stack.Item grow>{(currentTab === 0 && <IntroductionSection />) || <ResearchInfo />}</Stack.Item>
+          <Stack.Item grow>{(currentTab === CurrentTab.Info && <IntroductionSection />) || <ResearchInfo />}</Stack.Item>
         </Stack>
       </Window.Content>
     </Window>

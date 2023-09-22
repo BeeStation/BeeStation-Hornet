@@ -137,32 +137,7 @@
 		if(!isfloorturf(random_location))
 			continue
 		var/turf/open/floor/F = random_location
-		if(!F.air)
-			continue
-
-		var/datum/gas_mixture/A = F.air
-		var/trace_gases
-		for(var/id in A.get_gases())
-			if(id in GLOB.hardcoded_gases)
-				continue
-			trace_gases = TRUE
-			break
-
-		// Can most things breathe?
-		if(trace_gases)
-			continue
-		if(A.get_moles(GAS_O2) < 16)
-			continue
-		if(A.get_moles(GAS_PLASMA))
-			continue
-		if(A.get_moles(GAS_CO2) >= 10)
-			continue
-
-		// Aim for goldilocks temperatures and pressure
-		if((A.return_temperature() <= 270) || (A.return_temperature() >= 360))
-			continue
-		var/pressure = A.return_pressure()
-		if((pressure <= 20) || (pressure >= 550))
+		if(!is_turf_safe(F))
 			continue
 
 		if(extended_safety_checks)

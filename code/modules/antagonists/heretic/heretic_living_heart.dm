@@ -72,26 +72,22 @@
 	desc = "Track a Sacrifice Target"
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_ecult"
-	/// The real name of the last mob we tracked
-	var/last_tracked_name
 	/// Whether the target radial is currently opened.
 	var/radial_open = FALSE
 	/// How long we have to wait between tracking uses.
-	var/track_cooldown_lenth = 8 SECONDS
+	var/track_cooldown_length = 8 SECONDS
 	/// The cooldown between button uses.
 	COOLDOWN_DECLARE(track_cooldown)
 
 /datum/action/item_action/organ_action/track_target/Grant(mob/granted)
 	if(!IS_HERETIC(granted))
 		return
-
 	return ..()
 
 /datum/action/item_action/organ_action/track_target/IsAvailable()
 	. = ..()
 	if(!.)
 		return
-
 	if(!IS_HERETIC(owner))
 		return FALSE
 	if(!HAS_TRAIT(target, TRAIT_LIVING_HEART))
@@ -107,22 +103,25 @@
 		return
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
-	if(!LAZYLEN(heretic_datum.sac_targets))
+	if(!LAZYLEN(heretic_datum.sac_targets) && !length(GLOB.reality_smash_track.smashes))
 		owner.balloon_alert(owner, "No targets, visit a rune")
 		return TRUE
 
 	var/list/targets_to_choose = list()
-	var/list/mob/living/carbon/human/human_targets = list()
+	var/list/mob/living/carbon/tracked_targets = list()
 	for(var/datum/weakref/target_ref as anything in heretic_datum.sac_targets)
-		var/mob/living/carbon/human/real_target = target_ref.resolve()
-		if(QDELETED(real_target))
+		var/datum/mind/target_mind = target_ref.resolve()
+		if(!istype(target_mind) || !iscarbon(target_mind.current))
 			continue
+		tracked_targets[target_mind.name] = target_mind.current
+		targets_to_choose[target_mind.name] = heretic_datum.sac_targets[target_ref]
 
-		human_targets[real_target.real_name] = real_target
-		targets_to_choose[real_target.real_name] = heretic_datum.sac_targets[target_ref]
+	if(length(GLOB.reality_smash_track.smashes))
+		var/static/image/influence_image = image(icon = 'icons/effects/heretic.dmi', icon_state = "reality_smash")
+		targets_to_choose["Nearest Influence"] = influence_image
 
 	radial_open = TRUE
-	last_tracked_name = show_radial_menu(
+	var/tracked = show_radial_menu(
 		owner,
 		owner,
 		targets_to_choose,
@@ -134,39 +133,71 @@
 	radial_open = FALSE
 
 	// If our last tracked name is still null, skip the trigger
-	if(isnull(last_tracked_name))
+	if(isnull(tracked))
 		return FALSE
 
-	var/mob/living/carbon/human/tracked_mob = human_targets[last_tracked_name]
-	if(QDELETED(tracked_mob))
-		last_tracked_name = null
-		return FALSE
-
-	COOLDOWN_START(src, track_cooldown, track_cooldown_lenth)
-	var/balloon_message = "Your target is "
-
-	playsound(owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	if(isturf(tracked_mob.loc) && owner.z != tracked_mob.z)
-		balloon_message += "on another plane"
+	if(tracked == "Nearest Influence")
+		. = track_nearest_influence()
 	else
-		var/dist = get_dist(get_turf(owner), get_turf(tracked_mob))
-		var/dir = get_dir(get_turf(owner), get_turf(tracked_mob))
+		var/mob/living/carbon/tracked_mob = tracked_targets[tracked]
+		if(QDELETED(tracked_mob))
+			return FALSE
+		. = track_sacrifice_target(tracked_mob)
 
-		switch(dist)
-			if(0 to 15)
-				balloon_message += "very near, [dir2text(dir)]"
-			if(16 to 31)
-				balloon_message += "near, [dir2text(dir)]"
-			if(32 to 127)
-				balloon_message += "far, [dir2text(dir)]"
-			else
-				balloon_message += "very far"
+	if(.)
+		COOLDOWN_START(src, track_cooldown, track_cooldown_length)
+		playsound(owner, 'sound/effects/singlebeat.ogg', vol = 50, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 
-	if(tracked_mob.stat == DEAD)
-		balloon_message += "dead, they're " + balloon_message
+/datum/action/item_action/organ_action/track_target/proc/track_nearest_influence()
+	var/obj/effect/heretic_influence/influence
+	var/dist
+	var/turf/owner_turf = get_turf(owner)
+	var/owner_vz = owner_turf.get_virtual_z_level()
+	for(var/obj/effect/heretic_influence/possible_influence as anything in GLOB.reality_smash_track.smashes)
+		var/turf/pturf = get_turf(possible_influence)
+		if(owner_vz != pturf.get_virtual_z_level())
+			continue
+		var/pdist = get_dist(owner_turf, pturf)
+		if(QDELETED(influence) || dist > pdist)
+			influence = possible_influence
+			dist = pdist
+	if(QDELETED(influence))
+		owner.balloon_alert(owner, "Could not find nearby influence")
+		return FALSE
+	var/turf/influence_turf = get_turf(influence)
+	owner.balloon_alert(owner, "The nearest influence is [distance_hint(owner_turf, influence_turf)]")
+	return TRUE
 
+/datum/action/item_action/organ_action/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)
+	var/turf/owner_turf = get_turf(owner)
+	var/turf/tracked_turf = get_turf(tracked)
+	var/balloon_message = "Your target is "
+	if(tracked.stat == DEAD)
+		balloon_message += "dead and "
+	else if(!tracked.ckey)
+		balloon_message += "catatonic and "
+	if(owner_turf.get_virtual_z_level() != tracked_turf.get_virtual_z_level())
+		if(is_reserved_level(tracked_turf.z))
+			balloon_message += "traveling through space"
+		else
+			balloon_message += "on another plane"
+	else
+		balloon_message += distance_hint(owner_turf, tracked_turf)
 	owner.balloon_alert(owner, balloon_message)
 	return TRUE
+
+/datum/action/item_action/organ_action/track_target/proc/distance_hint(turf/source, turf/target)
+	var/dist = get_dist(source, target)
+	var/dir = get_dir(source, target)
+	switch(dist)
+		if(0 to 15)
+			return "very near, [dir2text(dir)]"
+		if(16 to 31)
+			return "near, [dir2text(dir)]"
+		if(32 to 127)
+			return "far away, [dir2text(dir)]"
+		else
+			return "very far away"
 
 /// Callback for the radial to ensure it's closed when not allowed.
 /datum/action/item_action/organ_action/track_target/proc/check_menu()
