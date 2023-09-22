@@ -153,7 +153,7 @@
 	throw_range = 7
 	attack_verb = list("HONKED")
 	tool_behaviour = TOOL_BIKEHORN
-	tool_speed = 1
+	toolspeed = 1
 	///sound file given to the squeaky component we make in Initialize() so sub-types can specify their own sound
 	var/sound_file = 'sound/items/bikehorn.ogg'
 
