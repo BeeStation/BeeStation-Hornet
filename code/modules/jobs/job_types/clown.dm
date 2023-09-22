@@ -41,7 +41,7 @@
 		return
 	H.apply_pref_name(/datum/preference/name/clown, preference_source)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_CLOWN_BRIDGE))
-		to_chat(M, "<span class='notice bold'>The <span class='clown bold'>Clown Planet</span> has given all clowns access to a specific weakness in airlock ID scanners, resulting in all clowns having <b>bridge access</b>! Honk!</span>")
+		to_chat(M, "<span class='notice bold'>The <span class='honk bold'>Clown Planet</span> has given all clowns access to a specific weakness in airlock ID scanners, resulting in all clowns having <b>bridge access</b>! Honk!</span>")
 
 /datum/outfit/job/clown
 	name = JOB_NAME_CLOWN
