@@ -92,7 +92,7 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	var/obj/item/card/id/id = H.wear_id || H.get_idcard(FALSE)
+	var/obj/item/card/id/id = H.get_idcard(FALSE)
 	if(!istype(id))
 		return
 	id.access |= list(ACCESS_HEADS)
