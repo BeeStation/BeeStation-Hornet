@@ -372,13 +372,13 @@
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
-	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
+	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, detective's camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
 	cost = 1700
 	max_supply = 1
 	access_budget = ACCESS_MORGUE
 	contains = list(/obj/item/detective_scanner,
 					/obj/item/storage/box/evidence,
-					/obj/item/camera,
+					/obj/item/camera/detective,
 					/obj/item/taperecorder,
 					/obj/item/toy/crayon/white,
 					/obj/item/clothing/head/fedora/det_hat)
@@ -412,14 +412,14 @@
 	cost = 1500
 	max_supply = 2
 	access_budget = ACCESS_BRIG
-	contains = list(/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security)
+	contains = list(/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade)
 	crate_name = "security barriers crate"
 
 /datum/supply_pack/security/securityclothes
@@ -1117,13 +1117,13 @@
 	max_supply = 2
 	access_budget = ACCESS_HEADS
 	contains = list(
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
 					)
 	crate_name= "shield sat crate"
 
@@ -1764,7 +1764,7 @@
 	max_supply = 4
 	contains = list(/obj/item/storage/backpack/duffelbag/med/surgery,
 					/obj/item/reagent_containers/medspray/sterilizine,
-					/obj/item/deployable/rollerbed)
+					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
 
 /datum/supply_pack/medical/salglucanister

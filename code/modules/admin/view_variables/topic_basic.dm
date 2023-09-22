@@ -42,10 +42,18 @@
 		C.debug_variables(target)
 
 	if(check_rights(R_DEBUG) && href_list[VV_HK_DELETE])
-		usr.client.admin_delete(target)
-		if(isturf(src))	// show the turf that took its place
-			usr.client.debug_variables(src)
+		var/X
+		var/Y
+		var/Z
+		if(isturf(target))
+			var/turf/T = target
+			X = T.x
+			Y = T.y
+			Z = T.z
+		if(!usr.client.admin_delete(target))
 			return
+		if(X)	// Enough to check if we had a turf
+			usr.client.debug_variables(locate(X,Y,Z)) // Show the turf that replaced it
 
 	if(href_list[VV_HK_MARK] && check_rights(R_VAREDIT))
 		usr.client.mark_datum(target)
@@ -62,7 +70,7 @@
 		var/result = input(usr, "Choose a component/element to add","better know what ur fuckin doin pal") as null|anything in names
 		if(!usr || !result || result == "---Components---" || result == "---Elements---")
 			return
-		if(QDELETED(src))
+		if(QDELETED(target))
 			to_chat(usr, "That thing doesn't exist anymore!")
 			return
 		var/list/lst = get_callproc_args()
@@ -76,8 +84,8 @@
 		else
 			datumname = "element"
 			target._AddElement(arglist(lst))
-		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(src)].")
-		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(src)].</span>")
+		log_admin("[key_name(usr)] has added [result] [datumname] to [target].")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [target].</span>")
 
 	if(href_list[VV_HK_MODIFY_GREYSCALE] && check_rights(NONE))
 		var/datum/greyscale_modify_menu/menu = new(target, usr, SSgreyscale.configurations)

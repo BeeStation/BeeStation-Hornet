@@ -116,6 +116,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 	if(damage > high_threshold)
 		. += "<span class='warning'>[src] is starting to look discolored.</span>"
+	. += "<span class='info'>[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.</span>"
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()

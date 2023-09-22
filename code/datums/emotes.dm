@@ -98,8 +98,8 @@
 		if(!M.client || isnewplayer(M))
 			continue
 		var/T = get_turf(user)
-		if(M.stat == DEAD && M.client && M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(M in viewers(T, null)))
-			if(user.mind || M.client.prefs.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
+		if(M.stat == DEAD && M?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(M in viewers(T, null)))
+			if(user.mind || M.client.prefs?.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
 				M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 			else
 				M.show_message("[dchatmsg]")

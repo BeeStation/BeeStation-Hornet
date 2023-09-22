@@ -3154,7 +3154,7 @@
 	},
 /area/abductor_ship)
 "mt" = (
-/obj/machinery/abductor/gland_dispenser,
+/obj/machinery/smartfridge/abductor,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "mu" = (
@@ -10194,7 +10194,7 @@
 /obj/structure/closet,
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/machinery/iv_drip,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/storage/firstaid/regular,
 /obj/item/reagent_containers/medspray/synthflesh,
 /obj/item/reagent_containers/medspray/synthflesh,

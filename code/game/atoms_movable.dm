@@ -172,17 +172,23 @@
 		if(!supress_message)
 			M.visible_message("<span class='warning'>[src] grabs [M] passively.</span>", \
 				"<span class='danger'>[src] grabs you passively.</span>")
+	SEND_SIGNAL(pulling, COMSIG_MOVABLE_PULLED)
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
 		pulling.pulledby = null
+		if(ismob(usr))
+			log_combat(usr, pulling, "has stopped pulling", addition = "at [AREACOORD(usr)]")
+		if(ismob(pulling))
+			log_combat(pulling, usr, "stopped being pulled by", addition = "at [AREACOORD(pulling)]")
 		var/mob/living/ex_pulled = pulling
 		pulling = null
 		setGrabState(0)
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
 			L.update_mobility()// mob gets up if it was lyng down in a chokehold
+		SEND_SIGNAL(ex_pulled, COMSIG_MOVABLE_NO_LONGER_PULLED)
 
 /atom/movable/proc/Move_Pulled(atom/A)
 	if(!pulling)

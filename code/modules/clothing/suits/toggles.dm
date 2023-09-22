@@ -22,6 +22,7 @@
 		var/obj/item/clothing/head/hooded/W = new hoodtype(src)
 		W.suit = src
 		hood = W
+		W.moveToNullspace() //Moves hood to nullspace upon init; jackets on map at round otherwise start with hood in inventory.
 
 /obj/item/clothing/suit/hooded/ui_action_click()
 	ToggleHood()
@@ -45,7 +46,7 @@
 			H.update_inv_wear_suit()
 		else
 			if(!qdel_hood)
-				hood.forceMove(src)
+				hood.moveToNullspace() //Hides hood in nullspace instead of within the pocket of whatever it's on
 		if(qdel_hood)
 			QDEL_NULL(hood)
 	for(var/X in actions)
