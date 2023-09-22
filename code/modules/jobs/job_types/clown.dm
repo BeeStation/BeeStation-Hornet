@@ -85,8 +85,11 @@
 	ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)
 
 /datum/outfit/job/clown/bridge
-	name = "Clown (Bridge Access)"
 	id = /obj/item/card/id/job/clown/bridge
+
+/datum/outfit/job/clown/bridge/New()
+	. = ..()
+	name = "[name] (Bridge Access)"
 
 /datum/outfit/job/clown/bridge/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
