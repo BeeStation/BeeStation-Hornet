@@ -25,6 +25,7 @@ GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
 	var/static/list/ordering = list_to_assoc_index(flatten_list(GLOB.id_to_hud))
 	return list(
 		"command" = list(
+			"name" = "Command",
 			"huds" = GLOB.command_huds,
 			"jobs" = GLOB.command_positions,
 			"order" = SSjob.chain_of_command
@@ -33,7 +34,10 @@ GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
 	)
 
 /datum/crew_manifest/ui_data(mob/user)
-	return list("manifest" = GLOB.data_core.get_manifest(), "generic" = isdead(user))
+	var/user_theme = null
+	if(isdead(user))
+		user_theme = "generic"
+	return list("manifest" = GLOB.data_core.get_manifest(), "user_theme" = user_theme)
 
 /datum/crew_manifest/ui_assets(mob/user)
 	return list(get_asset_datum(/datum/asset/spritesheet/job_icons))

@@ -20,6 +20,8 @@ type ManifestEntry = {
 };
 
 type CommandInfo = {
+  /** The name of the 'superior' department. Honestly, this is always going to be "Command", but well, apparently this shouldn't be hardcoded, so yolo! */
+  dept: string;
   /** A (static) list of HUD icons used by command roles. */
   huds: string[];
   /** A (static) list of job titles considered to be command roles. */
@@ -35,20 +37,20 @@ type CrewManifestData = {
   manifest: DepartmentCrew;
   /** The ordering of which jobs should be listed, based on HUD icon. */
   order: JobOrdering;
-  /** Use the generic TGUI theme. */
-  generic: BooleanLike;
+  /** The TGUI theme to use. */
+  user_theme?: string;
 };
 
 export const CrewManifest = (_props, context) => {
   const {
-    data: { command, order, manifest, generic },
+    data: { command, order, manifest, user_theme },
   } = useBackend<CrewManifestData>(context);
 
   return (
-    <Window title="Crew Manifest" width={350} height={500} theme={generic ? 'generic' : undefined}>
+    <Window title="Crew Manifest" width={350} height={500} theme={user_theme}>
       <Window.Content scrollable>
         {Object.entries(manifest).map(([dept, crew]) => {
-          const sorted_jobs = dept === 'Command' ? sortSpecific(crew, command.order) : sortSpecific(crew, order);
+          const sorted_jobs = dept === command.dept ? sortSpecific(crew, command.order) : sortSpecific(crew, order);
           return (
             <Section className={classes(['CrewManifest', `CrewManifest--${dept}`])} key={dept} title={dept}>
               <Table>

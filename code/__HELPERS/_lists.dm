@@ -769,6 +769,11 @@
 
 		last_value = value
 
+/**
+ * Converts a normal array list to an associated list, with the keys being the original values, and the value being the index of the value in the original list.
+ * All keys are converted to strings.
+ * Example: list("a", "b", 1, 2, 3) -> list("a" = 1, "b" = 2, "1" = 3, "2" = 4, "3" = 5)
+*/
 /proc/list_to_assoc_index(list/input)
 	. = list()
 	for(var/i = 1 to length(input))

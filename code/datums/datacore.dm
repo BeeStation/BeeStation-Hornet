@@ -202,7 +202,7 @@
 			if(!department_manifest)
 				manifest_out[department] = department_manifest = list()
 			// Append to beginning of list if captain or department head
-			var/put_at_top = rank == JOB_NAME_CAPTAIN || (department != DEPT_COMMAND && heads[rank])
+			var/put_at_top = hud == JOB_HUD_CAPTAIN || hud == JOB_HUD_ACTINGCAPTAIN || (department != DEPT_COMMAND && heads[rank])
 			department_manifest.Insert(put_at_top, list(entry))
 			has_department = TRUE
 		if(!has_department)
