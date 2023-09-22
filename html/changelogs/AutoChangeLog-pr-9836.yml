@@ -1,0 +1,4 @@
+author: Absolucy, RKz, celotajstg, Mothblocks
+delete-after: true
+changes:
+  - rscadd: Ports the crew manifest to TGUI.
