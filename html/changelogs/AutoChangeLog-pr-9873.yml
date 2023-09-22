@@ -1,0 +1,5 @@
+author: Impish_Delights
+delete-after: true
+changes:
+  - admin: additional logging for organ manipulation, cavity implant, and implant
+      removal surgeries
