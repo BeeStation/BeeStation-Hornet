@@ -49,3 +49,4 @@ export { TextArea } from './TextArea';
 export { TimeDisplay } from './TimeDisplay';
 export { TrackOutsideClicks } from './TrackOutsideClicks';
 export { Tooltip } from './Tooltip';
+export { RadarChart } from './RadarChart';

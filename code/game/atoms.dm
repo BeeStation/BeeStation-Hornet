@@ -221,8 +221,7 @@
 	if(custom_materials && custom_materials.len)
 		var/temp_list = list()
 		for(var/i in custom_materials)
-			var/datum/material/material = getmaterialref(i) || i
-			temp_list[material] = custom_materials[material] //Get the proper instanced version
+			temp_list[getmaterialref(i)] = custom_materials[i] //Get the proper instanced version
 
 		custom_materials = null //Null the list to prepare for applying the materials properly
 		set_custom_materials(temp_list)
@@ -538,7 +537,13 @@
  * piercing_hit - is this hit piercing or normal?
  */
 /atom/proc/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
-	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
+		return BULLET_ACT_FORCE_PIERCE
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
+		return BULLET_ACT_BLOCK
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
+		return BULLET_ACT_HIT
 	. = P.on_hit(src, 0, def_zone, piercing_hit)
 
 ///Return true if we're inside the passed in atom
@@ -890,9 +895,9 @@
   * For COMSIG_ATOM_SHOULD_EMAG, /obj uses should_emag.
   * - Parent calls do not need to be maintained.
   */
-/atom/proc/use_emag(mob/user)
+/atom/proc/use_emag(mob/user, obj/item/card/emag/hacker)
 	if(!SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
-		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user, hacker)
 
 /**
   * Respond to a radioactive wave hitting this atom

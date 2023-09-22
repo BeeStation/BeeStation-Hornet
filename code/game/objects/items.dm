@@ -1211,6 +1211,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & DROPDEL)
 		QDEL_NULL(src)
 		return TRUE
+	if(istype(src, /obj/item/shrapnel))
+		src.disableEmbedding()
 
 /**
   * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.
