@@ -226,7 +226,7 @@
 			host_mob.visible_message("<span class='warning'>A torrent of metallic grey slurry violently bursts out of [host_mob]'s face and floods out of [host_mob.p_their()] skin!</span>",
 								"<span class='userdanger'>A torrent of metallic grey slurry violently bursts out of your eyes, ears, and mouth, and floods out of your skin!</span>");
 
-			host_mob.blind_eyes(15) //nanites coming out of your eyes
+			host_mob.adjust_blindness(15) //nanites coming out of your eyes
 			host_mob.Paralyze(12 SECONDS)
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob

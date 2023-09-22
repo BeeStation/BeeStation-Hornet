@@ -11,6 +11,8 @@
 	var/trigger_cost = 0		//Amount of nanites required to trigger
 	var/trigger_cooldown = 50	//Deciseconds required between each trigger activation
 	var/next_trigger = 0		//World time required for the next trigger activation
+	var/activate_cooldown = 0	//Deciseconds required between each activation
+	COOLDOWN_DECLARE(next_activate)
 
 	var/program_flags = NONE
 	var/passive_enabled = FALSE //If the nanites have an on/off-style effect, it's tracked by this var
@@ -173,9 +175,14 @@
 		deactivate()
 
 /datum/nanite_program/proc/activate()
+	if(!COOLDOWN_FINISHED(src, next_activate))
+		deactivate()
+		return
 	activated = TRUE
 	if(timer_shutdown)
 		timer_shutdown_next = world.time + timer_shutdown
+	if(activate_cooldown)
+		COOLDOWN_START(src, next_activate, activate_cooldown)
 
 /datum/nanite_program/proc/deactivate()
 	if(passive_enabled)

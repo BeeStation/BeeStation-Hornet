@@ -142,6 +142,7 @@
 	name = "Nanite Blade"
 	desc = "The nanites form a sharp blade around the user's arm when activated."
 	use_rate = 1
+	activate_cooldown = 10 SECONDS
 	rogue_types = list(/datum/nanite_program/necrotic, /datum/nanite_program/skin_decay)
 	var/obj/item/melee/arm_blade/nanite/blade
 
