@@ -122,11 +122,11 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/shoot_projectile(turf/marker, set_angle, var/is_teleshot)
 	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/herald/H = null
+	var/obj/projectile/herald/H = null
 	if(!is_teleshot)
-		H = new /obj/item/projectile/herald(startloc)
+		H = new /obj/projectile/herald(startloc)
 	else
-		H = new /obj/item/projectile/herald/teleshot(startloc)
+		H = new /obj/projectile/herald/teleshot(startloc)
 	H.preparePixelProjectile(marker, startloc)
 	H.firer = src
 	if(target)
@@ -208,7 +208,7 @@
 		my_master.my_mirror = null
 	. = ..()
 
-/obj/item/projectile/herald
+/obj/projectile/herald
 	name ="death bolt"
 	icon_state= "chronobolt"
 	damage = 15
@@ -218,12 +218,12 @@
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
 
-/obj/item/projectile/herald/teleshot
+/obj/projectile/herald/teleshot
 	name ="golden bolt"
 	damage = 0
 	color = rgb(255,255,102)
 
-/obj/item/projectile/herald/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/herald/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(ismineralturf(target))
 		var/turf/closed/mineral/M = target
@@ -235,7 +235,7 @@
 		if(F != null && istype(F, /mob/living/simple_animal/hostile/asteroid/elite) && F.faction_check_mob(L))
 			L.heal_overall_damage(damage)
 
-/obj/item/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	firer.forceMove(get_turf(src))
 
@@ -256,8 +256,8 @@
 
 /obj/item/clothing/neck/cloak/herald_cloak/proc/shoot_projectile(turf/marker, set_angle, mob/living/carbon/owner)
 	var/turf/startloc = get_turf(owner)
-	var/obj/item/projectile/herald/H = null
-	H = new /obj/item/projectile/herald(startloc)
+	var/obj/projectile/herald/H = null
+	H = new /obj/projectile/herald(startloc)
 	H.preparePixelProjectile(marker, startloc)
 	H.firer = owner
 	H.fire(set_angle)

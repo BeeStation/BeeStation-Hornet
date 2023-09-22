@@ -1,12 +1,12 @@
 import { map } from 'common/collections';
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Button, Flex, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const NaniteProgramHub = (props, context) => {
   const { act, data } = useBackend(context);
   const { detail_view, disk, has_disk, has_program, programs = {} } = data;
-  const [selectedCategory, setSelectedCategory] = useSharedState(context, 'category');
+  const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category');
   const programsInCategory = (programs && programs[selectedCategory]) || [];
   return (
     <Window width={500} height={700}>

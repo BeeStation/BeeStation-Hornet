@@ -6,40 +6,33 @@
 	var/lootdoubles = TRUE	//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 	var/fan_out_items = FALSE //Whether the items should be distributed to offsets 0,1,-1,2,-2,3,-3.. This overrides pixel_x/y on the spawner itself
-	var/late_spawn = FALSE
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	. = ..()
-	if (!late_spawn)
-		spawn_loot()
-		return INITIALIZE_HINT_QDEL
-	else
-		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(late_spawn_loot))
-
-/obj/effect/spawner/lootdrop/proc/late_spawn_loot()
 	spawn_loot()
-	qdel(src)
 
 /obj/effect/spawner/lootdrop/proc/spawn_loot()
-	if(loot?.len)
-		var/turf/T = get_turf(src)
-		var/loot_spawned = 0
-		while((lootcount-loot_spawned) && loot.len)
-			var/lootspawn = pick_weight(loot)
-			if(!lootdoubles)
-				loot.Remove(lootspawn)
+	if(!length(loot))
+		return
+	var/turf/T = get_turf(src)
+	var/loot_spawned = 0
+	while((lootcount-loot_spawned) && loot.len)
+		var/lootspawn = pick_weight(loot)
+		if(!lootdoubles)
+			loot.Remove(lootspawn)
 
-			if(lootspawn)
-				var/atom/movable/spawned_loot = new lootspawn(T)
-				if (!fan_out_items)
-					if (pixel_x != 0)
-						spawned_loot.pixel_x = pixel_x
-					if (pixel_y != 0)
-						spawned_loot.pixel_y = pixel_y
-				else
-					if (loot_spawned)
-						spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
-			loot_spawned++
+		if(lootspawn)
+			var/atom/movable/spawned_loot = new lootspawn(T)
+			if (!fan_out_items)
+				if (pixel_x != 0)
+					spawned_loot.pixel_x = pixel_x
+				if (pixel_y != 0)
+					spawned_loot.pixel_y = pixel_y
+			else
+				if (loot_spawned)
+					spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
+		loot_spawned++
+
 
 /obj/effect/spawner/lootdrop/donkpockets
 	icon_state = "random_donk"

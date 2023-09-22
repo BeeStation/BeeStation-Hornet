@@ -290,7 +290,7 @@
 	if(!locked || issilicon(user) || IsAdminGhost(user))
 		dat += "Breach Pressure: <a href='?src=[REF(src)];set_breach_pressure=1'>[breached_pressure]</a><br>"
 		dat += "Temperature Control: <a href='?src=[REF(src)];toggle_temp_control=1'>[temperature_control?"Enabled":"Disabled"]</a><br>"
-		dat += "Temperature Target: <a href='?src=[REF(src)];set_ideal_temperature=[ideal_temperature]'>[ideal_temperature]C</a><br>"
+		dat += "Temperature Target: <a href='?src=[REF(src)];set_ideal_temperature=[ideal_temperature]'>[ideal_temperature]K</a><br>"
 		dat += "Gas Scrubbing Controls<br>"
 		for(var/gas_id in gasses)
 			var/gas_enabled = gasses[gas_id]
@@ -315,7 +315,7 @@
 			if("[G]" == gas_id)
 				gasses[G] = gasses[G] ? FALSE : TRUE
 	else if(href_list["set_ideal_temperature"])
-		var/new_temp = input(usr, "Set Target Temperature ([T0C] to [T20C + 20])", "Target Temperature") as num
+		var/new_temp = input(usr, "Set Target Temperature ([T0C]K to [T20C + 20]K)", "Target Temperature") as num
 		if(!isnum(new_temp) || new_temp < T0C || new_temp > T20C + 20)
 			return
 		ideal_temperature = new_temp

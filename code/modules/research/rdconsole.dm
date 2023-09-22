@@ -286,8 +286,8 @@ Nothing else in the console has ID requirements.
 		.["nodes"] += list(list(
 			"id" = n.id,
 			"can_unlock" = stored_research.can_afford(costs),
-			"costs" = costs,
-			"tier" = stored_research.tiers[n.id]
+			"tier" = stored_research.tiers[n.id],
+			"costs" = costs
 		))
 
 /obj/machinery/computer/rdconsole/proc/compress_id(id)
@@ -538,6 +538,33 @@ Nothing else in the console has ID requirements.
 
 /obj/machinery/computer/rdconsole/experiment
 	name = "E.X.P.E.R.I-MENTOR R&D Console"
+
+
+/obj/machinery/computer/rdconsole/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_ID_GIVE_GENERAL_POINT, "Give General Points")
+	VV_DROPDOWN_OPTION(VV_ID_GIVE_DISCOVERY_POINT, "Give Discovery Points")
+	VV_DROPDOWN_OPTION(VV_ID_GIVE_NANITE_POINT, "Give Nanite Points")
+
+/obj/machinery/computer/rdconsole/vv_do_topic(list/href_list)
+	. = ..()
+
+	var/point_type
+	if(href_list[VV_ID_GIVE_GENERAL_POINT])
+		point_type = TECHWEB_POINT_TYPE_GENERIC
+	else if(href_list[VV_ID_GIVE_DISCOVERY_POINT])
+		point_type = TECHWEB_POINT_TYPE_DISCOVERY
+	else if(href_list[VV_ID_GIVE_NANITE_POINT])
+		point_type = TECHWEB_POINT_TYPE_NANITES
+
+	if(!(point_type in TECHWEB_POINT_TYPE_LIST_ASSOCIATIVE_NAMES))
+		return
+
+	var/target_value = input(usr, "How many [point_type] points would you like to add? (use negative to take)", "Give [point_type] points") as num
+	SSresearch.science_tech.add_point_type(point_type, target_value)
+	to_chat(usr, "Success: [target_value] points have been added to [point_type]")
+
 
 #undef RND_TECH_DISK
 #undef RND_DESIGN_DISK

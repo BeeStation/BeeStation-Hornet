@@ -1,15 +1,19 @@
 //WHY ISN'T THIS COMPONENT
 
+/// The ban type to check if somebody attempts to play this "playable mob"
+/mob/living/var/playable_bantype
+
 /mob/living/ghostize(can_reenter_corpse, sentience_retention)
 	. = ..()
 	switch(sentience_retention)
 		if (SENTIENCE_RETAIN)
 			if (playable)	//so the alert goes through for observing ghosts
-				set_playable()
+				set_playable(playable_bantype)
 		if (SENTIENCE_FORCE)
-			set_playable()
+			set_playable(playable_bantype)
 		if (SENTIENCE_ERASE)
 			playable = FALSE
+			playable_bantype = null
 
 /mob/living/attack_ghost(mob/user)
 	. = ..()
@@ -34,7 +38,9 @@
 	if(key)
 		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
 		return TRUE
-	if(!user?.client.canGhostRole(role, TRUE, flags_1))
+	if(!SSticker.HasRoundStarted())
+		return
+	if(!user?.client?.can_take_ghost_spawner(playable_bantype, TRUE, flags_1 & ADMIN_SPAWNED_1))
 		return
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")
@@ -43,10 +49,11 @@
 		to_chat(src, "<span class='notice'>[get_spawner_flavour_text()]</span>")
 	return TRUE
 
-/mob/living/proc/set_playable()
+/mob/living/proc/set_playable(ban_type = null, poll_ignore_key = null)
 	playable = TRUE
+	playable_bantype = ban_type
 	if (!key)	//check if there is nobody already inhibiting this mob
-		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = name)
+		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		AddElement(/datum/element/point_of_interest)
 		SSmobs.update_spawners()

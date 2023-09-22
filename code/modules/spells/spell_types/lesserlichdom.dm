@@ -26,10 +26,10 @@
 		if(iscarbon(M))
 			hand_items = list(M.get_active_held_item(),M.get_inactive_held_item())
 		if(!length(hand_items))
-			to_chat(M, "<span class='caution'>You must hold an item you wish to make your phylactery...</span>")
+			to_chat(M, "<span class='warning'>You must hold an item you wish to make your phylactery...</span>")
 			return
 		if(!M.mind.hasSoul)
-			to_chat(user, "<span class='caution'>You do not possess a soul.</span>")
+			to_chat(user, "<span class='warning'>You do not possess a soul.</span>")
 			return
 
 		var/obj/item/marked_item
@@ -142,7 +142,7 @@
 		var/wheres_wizdo = dir2text(get_dir(body_turf, item_turf))
 		if(wheres_wizdo)
 			old_body.visible_message("<span class='warning'>Suddenly [old_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!</span>")
-			body_turf.Beam(item_turf,icon_state="lichbeam",time=20+20*resurrections,maxdistance=INFINITY) // beam shows for longer on the lesser spell
+			body_turf.Beam(item_turf,icon_state="lichbeam", time = 20 + 20 * resurrections) // beam shows for longer on the lesser spell
 		old_body.dust()
 	if(resurrections >= 2)
 		to_chat(lich,"<span class='userdanger'>You feel your lesser phylactery break from over-usage. You will no longer be able to resurrect on death.")

@@ -48,7 +48,7 @@
 	M.UnregisterSignal(M, COMSIG_MOB_SAY)
 	return ..()
 
-/obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	UnregisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	M.RegisterSignal(M, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
 	return ..()
@@ -330,7 +330,7 @@
 /obj/item/organ/tongue/slime
 	name = "slimey tongue"
 	desc = "It's a piece of slime, shaped like a tongue."
-	say_mod = list("blorbles", "bubbles")
+	say_mod = "blorbles"
 	ask_mod = "inquisitively blorbles"
 	yell_mod = "shrilly blorbles"
 	exclaim_mod = "loudly blorbles"

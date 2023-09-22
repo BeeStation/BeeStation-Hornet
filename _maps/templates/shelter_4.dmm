@@ -315,7 +315,7 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "bo" = (
-/obj/item/roller,
+/obj/item/rollerbed,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "bp" = (

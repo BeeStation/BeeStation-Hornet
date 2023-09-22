@@ -82,29 +82,14 @@
 	name = "compression box of invisible outfits"
 	desc = "a box with bluespace compression technology that nanotrasen has approved, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
 	w_class = WEIGHT_CLASS_HUGE
+	item_flags = SLOWS_WHILE_IN_HAND
+	slowdown = 4
 	drag_slowdown = 4 // do not steal by dragging
 	/* Note for the compression box:
 		Do not put any box (or suit) into this box, or it will allow infinite storage.
 		non-storage items are only legit for this box. (suits are storage too, so, no.)
 		nor it will allow a glitch when you can access different boxes at the same time.
 		examples exist in `closets/secure/security.dm` */
-
-/obj/item/storage/box/suitbox/pickup(mob/user)
-	. = ..()
-	user.add_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, update=TRUE, priority=100, multiplicative_slowdown=4)
-
-/obj/item/storage/box/suitbox/dropped(mob/living/user)
-	..()
-	addtimer(CALLBACK(src, PROC_REF(box_check), user), 1 SECONDS)
-	// character's contents are checked too earlier than when it supposed to be done, making you perma-slow down.
-
-/obj/item/storage/box/suitbox/proc/box_check(mob/living/user)
-	var/box_exists = FALSE
-	for(var/obj/item/storage/box/suitbox/B in user.get_contents())
-		box_exists = TRUE // `var/obj/item/storage/box/suitbox/B` is already type check
-		break
-	if(!box_exists)
-		user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, TRUE)
 
 /obj/item/storage/box/suitbox/wardrobe // for `wardrobe.dm`
 	name = "compression box of crew outfits"

@@ -200,10 +200,10 @@ have ways of interacting with a specific mob and control it.
 	if(prob(MONKEY_RETALIATE_PROB))
 		retaliate(user)
 
-/datum/ai_controller/monkey/proc/on_bullet_act(datum/source, obj/item/projectile/Proj)
+/datum/ai_controller/monkey/proc/on_bullet_act(datum/source, obj/projectile/Proj)
 	SIGNAL_HANDLER
 	var/mob/living/living_pawn = pawn
-	if(istype(Proj , /obj/item/projectile/beam)||istype(Proj, /obj/item/projectile/bullet))
+	if(istype(Proj , /obj/projectile/beam)||istype(Proj, /obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < living_pawn.health && isliving(Proj.firer))
 				retaliate(Proj.firer)

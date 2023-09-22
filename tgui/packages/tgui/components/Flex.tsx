@@ -5,6 +5,7 @@
  */
 
 import { BooleanLike, classes, pureComponentHooks } from 'common/react';
+import { RefObject } from 'inferno';
 import { BoxProps, computeBoxClassName, computeBoxProps, unit } from './Box';
 
 export type FlexProps = BoxProps & {
@@ -52,6 +53,7 @@ export type FlexItemProps = BoxProps & {
   shrink?: number;
   basis?: string | BooleanLike;
   align?: string | BooleanLike;
+  innerRef?: RefObject<HTMLDivElement>;
 };
 
 export const computeFlexItemClassName = (props: FlexItemProps) => {
@@ -83,7 +85,13 @@ export const computeFlexItemProps = (props: FlexItemProps) => {
 
 const FlexItem = (props) => {
   const { className, ...rest } = props;
-  return <div className={classes([className, computeFlexItemClassName(props)])} {...computeFlexItemProps(rest)} />;
+  return (
+    <div
+      className={classes([className, computeFlexItemClassName(props)])}
+      ref={props.innerRef}
+      {...computeFlexItemProps(rest)}
+    />
+  );
 };
 
 FlexItem.defaultHooks = pureComponentHooks;

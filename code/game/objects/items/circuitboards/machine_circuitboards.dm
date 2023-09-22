@@ -526,7 +526,7 @@
 	name = "custom vendor (Machine Board)"
 	icon_state = "generic"
 	desc = "You can turn the \"brand selection\" dial using a screwdriver."
-	custom_premium_price = 30
+	custom_premium_price = 25
 	build_path = /obj/machinery/vending/custom
 	req_components = list(/obj/item/vending_refill/custom = 1)
 
@@ -619,7 +619,6 @@
 	name = "Fax Machine"
 	build_path = /obj/machinery/fax
 	req_components = list(
-		/obj/item/stock_parts/subspace/crystal = 1,
 		/obj/item/stock_parts/scanning_module = 1,
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 1)

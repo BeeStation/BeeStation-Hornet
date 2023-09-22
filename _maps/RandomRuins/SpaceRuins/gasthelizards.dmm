@@ -183,7 +183,7 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife/butcher,
 /obj/item/restraints/handcuffs,
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /turf/open/floor/plasteel/airless/dark,
 /area/ruin/space/has_grav/gasthelizard)
 "z" = (

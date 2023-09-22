@@ -73,23 +73,36 @@ window "mainwindow"
 		type = MAIN
 		pos = 372,0
 		size = 640x440
-		anchor1 = none
-		anchor2 = none
+		anchor1 = 0,0
+		anchor2 = 100,100
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
 		icon = 'icons\\ss13_64.png'
 		macro = "default"
 		menu = "menu"
+		statusbar = false
+		on-status = ".winset \"status_bar_wide.text = [[*]]\""
 	elem "split"
 		type = CHILD
-		pos = 3,0
-		size = 634x440
+		pos = 0,0
+		size = 640x424
 		anchor1 = 0,0
 		anchor2 = 100,100
 		saved-params = "splitter"
 		left = "mapwindow"
 		right = "infowindow"
 		is-vert = true
+	elem "status_bar_wide"
+		type = LABEL
+		pos = 0,424
+		size=640x16
+		anchor1 = 0,100
+		anchor2 = 100,100
+		text = ""
+		align = left
+		background-color = #ffffff
+		text-color = #222222
+		border = sunken
 	elem "asset_cache_browser"
 		type = BROWSER
 		pos = 0,0
@@ -112,8 +125,8 @@ window "mapwindow"
 		type = MAIN
 		pos = 0,0
 		size = 640x480
-		anchor1 = none
-		anchor2 = none
+		anchor1 = 0,0
+		anchor2 = 100,100
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "map"
@@ -128,6 +141,17 @@ window "mapwindow"
 		is-default = true
 		saved-params = "zoom;letterbox;zoom-mode"
 		style=".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .greentext { color: #00FF00; font-size: 7px; } .redtext { color: #FF0000; font-size: 7px; } .clowntext { color: #FF69Bf !important; font-size: 9px;  font-weight: bold; } .megaphone { font-size: 9px; } .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; } .italics { font-size: 6px; } .emote { font-size: 6px; }"
+	elem "status_bar"
+		type = LABEL
+		pos = 0,464
+		size = 280x16
+		anchor1 = 0,100
+		is-visible = false
+		text = ""
+		align = left
+		background-color = #222222
+		text-color = #ffffff
+		border = line
 
 window "infowindow"
 	elem "infowindow"
@@ -308,32 +332,6 @@ window "popupwindow"
 		statusbar = false
 		can-resize = false
 
-window "preferences_window"
-	elem "preferences_window"
-		type = MAIN
-		pos = 372,0
-		size = 1280x1060
-		anchor1 = none
-		anchor2 = none
-		is-visible = false
-		saved-params = "pos;size;is-minimized;is-maximized"
-		statusbar = false
-	elem "preferences_browser"
-		type = BROWSER
-		pos = 0,0
-		size = 960x1060
-		anchor1 = 0,0
-		anchor2 = 75,100
-		saved-params = ""
-	elem "character_preview_map"
-		type = MAP
-		pos = 960,0
-		size = 320x1060
-		anchor1 = 75,0
-		anchor2 = 100,100
-		right-click = true
-		saved-params = "zoom;letterbox;zoom-mode"
-
 window "input_box"
 	elem "input_box"
 		type = MAIN
@@ -400,3 +398,21 @@ window "tgui_say"
 		anchor2 = 0,0
 		saved-params = ""
 
+window "tgui_asay"
+	elem "tgui_asay"
+		type = MAIN
+		pos = 759,487
+		size = 231x30
+		anchor1 = 50,50
+		anchor2 = 50,50
+		is-visible = false
+		saved-params = ""
+		statusbar = false
+		can-minimize = false
+	elem "browser"
+		type = BROWSER
+		pos = 0,0
+		size = 231x30
+		anchor1 = 0,0
+		anchor2 = 0,0
+		saved-params = ""

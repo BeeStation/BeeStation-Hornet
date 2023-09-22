@@ -7,7 +7,7 @@
  */
 
 import { decodeHtmlEntities } from 'common/string';
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { BountyBoardContent } from './BountyBoard';
 import { BlockQuote, Box, Button, Divider, LabeledList, Modal, Section, Stack, Tabs, TextArea, Icon, NoticeBox, Input } from '../components';
 import { marked } from 'marked';
@@ -23,7 +23,7 @@ export const Newscaster = (props, context) => {
   const { user } = data;
   const NEWSCASTER_SCREEN = 1;
   const BOUNTYBOARD_SCREEN = 2;
-  const [screenmode, setScreenmode] = useSharedState(context, 'tab_main', NEWSCASTER_SCREEN);
+  const [screenmode, setScreenmode] = useLocalState(context, 'tab_main', NEWSCASTER_SCREEN);
   return (
     <>
       <NewscasterChannelCreation override_bg={override_bg} />

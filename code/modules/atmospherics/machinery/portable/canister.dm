@@ -54,6 +54,67 @@
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 
+/obj/machinery/portable_atmospherics/canister/Initialize()
+	. = ..()
+	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/canister_valve))
+
+/obj/item/circuit_component/canister_valve
+	display_name = "Canister Valve"
+	desc = "The interface for communicating with a canister's valve."
+
+	var/obj/machinery/portable_atmospherics/canister/attached_can
+
+	/// Toggles the canister's valve
+	var/datum/port/input/toggle
+	/// Set's the can's target pressure value
+	var/datum/port/input/pressure
+
+/obj/item/circuit_component/canister_valve/populate_ports()
+	toggle = add_input_port("Toggle", PORT_TYPE_SIGNAL)
+	pressure = add_input_port("Target Pressure", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/canister_valve/register_usb_parent(atom/movable/shell)
+	. = ..()
+	if(istype(shell, /obj/machinery/portable_atmospherics/canister))
+		attached_can = shell
+
+/obj/item/circuit_component/canister_valve/unregister_usb_parent(atom/movable/shell)
+	attached_can = null
+	return ..()
+
+/obj/item/circuit_component/canister_valve/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
+
+	if(!attached_can)
+		return
+
+	var/logmsg
+
+	if(COMPONENT_TRIGGERED_BY(toggle, port))
+		logmsg = "Valve was <b>toggled</b> by [parent.get_creator_admin()]'s circuit, starting a transfer into \the [attached_can.holding || "air"].<br>"
+		if(!attached_can.holding)
+			var/list/danger = list()
+			for(var/id in attached_can.air_contents.get_gases())
+				if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
+					continue
+				if(attached_can.air_contents.get_moles(id) > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+					danger[GLOB.gas_data.names[id]] = attached_can.air_contents.get_moles(id) //ex. "plasma" = 20
+
+			if(danger.len && attached_can.valve_open)
+				message_admins("[parent.get_creator_admin()]'s circuit opened a canister that contains the following at [ADMIN_VERBOSEJMP(attached_can)]:")
+				log_admin("[parent.get_creator_admin()]'s circuit opened a canister that contains the following at [AREACOORD(attached_can)]:")
+				for(var/name in danger)
+					var/msg = "[name]: [danger[name]] moles."
+					log_admin(msg)
+					message_admins(msg)
+		attached_can.set_valve()
+		attached_can.release_log += logmsg
+	if(COMPONENT_TRIGGERED_BY(pressure, port))
+		attached_can.release_pressure = clamp(round(pressure), attached_can.can_min_release_pressure, attached_can.can_max_release_pressure)
+		investigate_log("[attached_can.name] was set to [pressure] kPa by [parent.get_creator()]'s circuit'.", INVESTIGATE_ATMOS)
+
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Error - Unauthorized User</span>")
@@ -418,29 +479,7 @@
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
 				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
 		if("valve")
-			var/logmsg
-			valve_open = !valve_open
-			if(valve_open)
-				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into \the [holding || "air"].<br>"
-				if(!holding)
-					var/list/danger = list()
-					for(var/id in air_contents.get_gases())
-						if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
-							continue
-						if(air_contents.get_moles(id) > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-							danger[GLOB.gas_data.names[id]] = air_contents.get_moles(id) //ex. "plasma" = 20
-
-					if(danger.len)
-						message_admins("[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")
-						log_admin("[key_name(usr)] opened a canister that contains the following at [AREACOORD(src)]:")
-						for(var/name in danger)
-							var/msg = "[name]: [danger[name]] moles."
-							log_admin(msg)
-							message_admins(msg)
-			else
-				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into \the [holding || "air"].<br>"
-			investigate_log(logmsg, INVESTIGATE_ATMOS)
-			release_log += logmsg
+			set_valve(usr)
 			. = TRUE
 		/* // Apparently the timer isn't present in TGUI - commenting out so it can't be used via exploits
 		if("timer")
@@ -478,5 +517,33 @@
 					investigate_log("[key_name(usr)] removed the [holding], leaving the valve open and transferring into the <span class='boldannounce'>air</span>.", INVESTIGATE_ATMOS)
 				replace_tank(usr, FALSE)
 				. = TRUE
-	if(.)
-		update_icon()
+	update_icon()
+
+/obj/machinery/portable_atmospherics/canister/proc/set_valve(mob/user)
+	var/logmsg
+	valve_open = !valve_open
+	if(valve_open)
+		SEND_SIGNAL(src, COMSIG_VALVE_SET_OPEN, TRUE)
+		if(user)
+			logmsg = "Valve was <b>opened</b> by [key_name(user)], starting a transfer into \the [holding || "air"].<br>"
+		if(!holding)
+			var/list/danger = list()
+			for(var/id in air_contents.get_gases())
+				if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
+					continue
+				if(air_contents.get_moles(id) > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+					danger[GLOB.gas_data.names[id]] = air_contents.get_moles(id) //ex. "plasma" = 20
+
+			if(danger.len && user)
+				message_admins("[ADMIN_LOOKUPFLW(user)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")
+				log_admin("[key_name(user)] opened a canister that contains the following at [AREACOORD(src)]:")
+				for(var/name in danger)
+					var/msg = "[name]: [danger[name]] moles."
+					log_admin(msg)
+					message_admins(msg)
+	else
+		SEND_SIGNAL(src, COMSIG_VALVE_SET_OPEN, FALSE)
+		if(user)
+			logmsg = "Valve was <b>closed</b> by [key_name(user)], stopping the transfer into \the [holding || "air"].<br>"
+	investigate_log(logmsg, INVESTIGATE_ATMOS)
+	release_log += logmsg

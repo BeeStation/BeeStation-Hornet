@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(title)
 				fast_joiner.client?.view_size.resetToDefault(getScreenSize(fast_joiner))
 			// Execute this immediately, change_view runs through SStimer which doesn't execute until after
 			// initialisation
-			if (fast_joiner.client?.prefs.toggles2 & PREFTOGGLE_2_AUTO_FIT_VIEWPORT)
+			if (fast_joiner.client?.prefs.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
 				fast_joiner.client?.fit_viewport()
 			fast_joiner.forceMove(newplayer_start_loc)
 

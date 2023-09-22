@@ -37,7 +37,7 @@
 			var/flesh_wound = ran_zone(user.zone_selected)
 			if(H.check_shields(src, 0))
 				return
-			if(prob(100-H.getarmor(flesh_wound, MELEE)))
+			if(prob(100-H.getarmor(flesh_wound, MELEE, armour_penetration)))
 				try_to_zombie_infect(target)
 		else
 			check_feast(target, user)

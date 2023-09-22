@@ -1,7 +1,9 @@
 /datum/job/warden
 	title = JOB_NAME_WARDEN
 	flag = WARDEN
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
+	description = "Oversee prisoners in the brig and guard the armory. Hand out equipment when necessary and ensure it is returned after threats have been contained."
+	department_for_prefs = DEPT_BITFLAG_SEC
+	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
 	faction = "Station"
@@ -30,6 +32,9 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/warden
 	)
+
+	lightup_areas = list(/area/security/detectives_office)
+	minimal_lightup_areas = list(/area/security/warden)
 
 /datum/job/warden/get_access()
 	var/list/L = list()

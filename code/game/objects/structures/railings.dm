@@ -3,11 +3,13 @@
 	desc = "Basic railing meant to protect idiots like you from falling."
 	icon = 'icons/obj/fluff.dmi'
 	icon_state = "railing"
+	flags_1 = ON_BORDER_1
 	density = TRUE
 	anchored = TRUE
-	climbable = TRUE
+	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
 	max_integrity = 75
 
+	var/climbable = TRUE
 	///Initial direction of the railing.
 	var/ini_dir
 
@@ -19,9 +21,16 @@
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
 	ini_dir = dir
+	if(climbable)
+		AddElement(/datum/element/climbable)
+
+	if(density && (flags_1 & ON_BORDER_1)) // blocks normal movement from and to the direction it's facing.
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
 
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)),CALLBACK(src, PROC_REF(after_rotation)))
-	init_connect_loc_element()
 
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
 	..()
@@ -53,8 +62,12 @@
 
 /obj/structure/railing/deconstruct(disassembled)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		var/obj/item/stack/rods/rod = new /obj/item/stack/rods(drop_location(), 3)
-		transfer_fingerprints_to(rod)
+		var/drop_loc = drop_location()
+		var/obj/R = new /obj/item/stack/rods(drop_loc, 3)
+		if(QDELETED(R)) // the rods merged with something on the tile
+			R = locate(/obj/item/stack/rods) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
 	return ..()
 
 ///Implements behaviour that makes it possible to unanchor the railing.
@@ -73,17 +86,6 @@
 	if(border_dir & dir)
 		return . || mover.throwing || mover.movement_type & (FLYING | FLOATING)
 	return TRUE
-
-/obj/structure/railing/corner/CanPass()
-	..()
-	return TRUE
-
-/obj/structure/railing/proc/init_connect_loc_element()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
-	)
-
-	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
@@ -108,10 +110,6 @@
 
 	leaving.Bump(src)
 	return COMPONENT_ATOM_BLOCK_EXIT
-
-// Corner railings don't block anything, so they don't create the element.
-/obj/structure/railing/corner/init_connect_loc_element()
-	return
 
 /obj/structure/railing/proc/can_be_rotated(mob/user,rotation_type)
 	if(!in_range(user, src))

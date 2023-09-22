@@ -350,6 +350,7 @@
 /obj/item/reagent_containers/food/snacks/muffin/moffin
 	name = "moffin"
 	icon_state = "moffin"
+	icon_state_preview = "moffin_1"
 	desc = "A delicous and spongy little cake."
 	tastes = list("muffin" = 3, "dust" = 1, "lint" = 1)
 	foodtype = CLOTH | GRAIN | SUGAR | BREAKFAST

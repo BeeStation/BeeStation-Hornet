@@ -275,7 +275,7 @@
 
 /datum/nanite_program/sensor/species/New()
     if(!length(allowed_species))
-        for(var/id in GLOB.roundstart_races)
+        for(var/id in get_selectable_species())
             allowed_species[id] = GLOB.species_list[id]
     . = ..()
 

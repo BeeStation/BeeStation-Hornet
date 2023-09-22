@@ -1,4 +1,4 @@
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Box, Button, Collapsible, Dimmer, Icon, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 
@@ -10,7 +10,7 @@ const ALIGNMENT2COLOR = {
 
 export const ReligiousTool = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tab, setTab] = useSharedState(context, 'tab', 1);
+  const [tab, setTab] = useLocalState(context, 'tab', 1);
   const { sects, alignment, toolname } = data;
   return (
     <Window theme="generic" title={toolname} width={560} height={500}>

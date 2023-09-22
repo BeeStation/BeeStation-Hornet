@@ -1,5 +1,5 @@
 import { Component, createRef } from 'inferno';
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Tabs, Section, Icon, Button, Box, Flex, Dimmer, Table, BlockQuote } from '../components';
 import { ButtonConfirm } from '../components/Button';
 import { Window } from '../layouts';
@@ -36,7 +36,7 @@ export const MessageMonitorContent = (_, context) => {
     request_messages = [],
     emoji_names = [],
   } = data;
-  const [selectedTab, setSelectedTab] = useSharedState(context, 'selected_tab', 'pda');
+  const [selectedTab, setSelectedTab] = useLocalState(context, 'selected_tab', 'pda');
   if (hacking) {
     return (
       <Flex direction="column" height="100%">
@@ -97,7 +97,7 @@ Please Wait...`}
           {no_server ? 'NOT FOUND' : server_on ? 'OK' : 'OFFLINE'}
         </Section>
       </Flex.Item>
-      <Flex.Item mt={1} grow={!authenticated ? 1 : null} basis={!authenticated ? '78vh' : null}>
+      <Flex.Item mt={1} grow={!authenticated ? 1 : null} basis={!authenticated ? '78vh' : 'content'}>
         <Section fill={!authenticated}>
           {!authenticated ? (
             <Dimmer

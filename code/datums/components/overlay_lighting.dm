@@ -278,7 +278,7 @@
 	range = clamp(CEILING(new_range, 0.5), 1, 6)
 	var/pixel_bounds = ((range - 1) * 64) + 32
 	lumcount_range = CEILING(range, 1)
-	if(overlay_lighting_flags & LIGHTING_ON)
+	if((overlay_lighting_flags & LIGHTING_ON) && current_holder)
 		current_holder.underlays -= visible_mask
 	visible_mask.icon = light_overlays["[pixel_bounds]"]
 	if(pixel_bounds == 32)
@@ -288,7 +288,7 @@
 	var/matrix/transform = new
 	transform.Translate(-offset, -offset)
 	visible_mask.transform = transform
-	if(overlay_lighting_flags & LIGHTING_ON)
+	if((overlay_lighting_flags & LIGHTING_ON) && current_holder)
 		current_holder.underlays += visible_mask
 		make_luminosity_update()
 
@@ -299,20 +299,20 @@
 	set_alpha = min(230, (abs(new_power) * 120) + 30)
 	// We need to do this in order to trigger byond to update the overlay
 	if(overlay_lighting_flags & LIGHTING_ON)
-		current_holder.underlays -= visible_mask
+		current_holder?.underlays -= visible_mask
 	visible_mask.alpha = set_alpha
 	if(overlay_lighting_flags & LIGHTING_ON)
-		current_holder.underlays += visible_mask
+		current_holder?.underlays += visible_mask
 
 
 ///Changes the light's color, pretty straightforward.
 /datum/component/overlay_lighting/proc/set_color(atom/source, new_color)
 	// We need to do this in order to trigger byond to update the overlay
 	if(overlay_lighting_flags & LIGHTING_ON)
-		current_holder.underlays -= visible_mask
+		current_holder?.underlays -= visible_mask
 	visible_mask.color = new_color
 	if(overlay_lighting_flags & LIGHTING_ON)
-		current_holder.underlays += visible_mask
+		current_holder?.underlays += visible_mask
 
 ///Toggles the light on and off.
 /datum/component/overlay_lighting/proc/on_toggle(atom/source, new_value)

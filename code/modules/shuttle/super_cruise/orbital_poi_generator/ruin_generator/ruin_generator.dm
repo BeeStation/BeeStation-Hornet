@@ -364,7 +364,7 @@
 					b2.setDir(WEST)
 
 	//Repopulate areas
-	repopulate_sorted_areas()
+	require_area_resort()
 
 /datum/map_generator/space_ruin/proc/put_shit_everywhere()
 	//Place trash

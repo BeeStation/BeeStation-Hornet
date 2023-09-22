@@ -69,12 +69,13 @@
 
 /datum/antagonist/brainwashed
 	name = "Brainwashed Victim"
-	job_rank = ROLE_BRAINWASHED
+	banning_key = ROLE_BRAINWASHED
 	roundend_category = "brainwashed victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
 	count_against_dynamic_roll_chance = FALSE
+	ui_name = "AntagInfoBrainwashed"
 
 /datum/antagonist/brainwashed/on_gain()
 	owner.current.log_message("has been brainwashed!", LOG_ATTACK, color="#960000")
@@ -85,6 +86,7 @@
 	return ..()
 
 /datum/antagonist/brainwashed/greet()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/brainwash.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='warning'>Your mind reels as it begins focusing on a single purpose...</span>")
 	to_chat(owner, "<big><span class='warning'><b>Follow the Directives, at any cost!</b></span></big>")
 	var/i = 1

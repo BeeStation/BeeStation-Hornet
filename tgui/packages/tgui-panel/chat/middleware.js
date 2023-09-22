@@ -6,14 +6,13 @@
 
 import DOMPurify from 'dompurify';
 import { storage } from 'common/storage';
-import { loadSettings, updateSettings } from '../settings/actions';
+import { loadSettings, updateSettings, addHighlightSetting, removeHighlightSetting, updateHighlightSetting } from '../settings/actions';
 import { selectSettings } from '../settings/selectors';
-import { addChatPage, changeChatPage, changeScrollTracking, loadChat, rebuildChat, toggleAcceptedType, updateMessageCount, removeChatPage, saveChatToDisk } from './actions';
+import { addChatPage, changeChatPage, changeScrollTracking, loadChat, rebuildChat, removeChatPage, saveChatToDisk, toggleAcceptedType, updateMessageCount } from './actions';
 import { MAX_PERSISTED_MESSAGES, MESSAGE_SAVE_INTERVAL } from './constants';
 import { createMessage, serializeMessage } from './model';
 import { chatRenderer } from './renderer';
 import { selectChat, selectCurrentChatPage } from './selectors';
-import { logger } from 'tgui/logging';
 
 // List of blacklisted tags
 const FORBID_TAGS = ['a', 'iframe', 'link', 'video'];
@@ -68,7 +67,9 @@ export const chatMiddleware = (store) => {
   chatRenderer.events.on('scrollTrackingChanged', (scrollTracking) => {
     store.dispatch(changeScrollTracking(scrollTracking));
   });
-  setInterval(() => saveChatToStorage(store), MESSAGE_SAVE_INTERVAL);
+  setInterval(() => {
+    saveChatToStorage(store);
+  }, MESSAGE_SAVE_INTERVAL);
   return (next) => (action) => {
     const { type, payload } = action;
     if (!initialized) {
@@ -104,17 +105,19 @@ export const chatMiddleware = (store) => {
       chatRenderer.rebuildChat();
       return next(action);
     }
-    if (type === updateSettings.type || type === loadSettings.type) {
+
+    if (
+      type === updateSettings.type ||
+      type === loadSettings.type ||
+      type === addHighlightSetting.type ||
+      type === removeHighlightSetting.type ||
+      type === updateHighlightSetting.type
+    ) {
       next(action);
       const settings = selectSettings(store.getState());
-      chatRenderer.setHighlight(
-        settings.highlightText,
-        settings.highlightColor,
-        settings.matchWord,
-        settings.matchCase,
-        settings.highlightSelf
-      );
+      chatRenderer.setHighlight(settings.highlightSettings, settings.highlightSettingById);
       chatRenderer.setHighContrast(settings.highContrast);
+
       return;
     }
     if (type === 'roundrestart') {

@@ -13,7 +13,7 @@
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
 
-
+	var/tgui_theme = null // default theme as null is Nanotrasen theme.
 
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE
@@ -223,6 +223,7 @@
 	.["contents"] = listofitems
 	.["name"] = name
 	.["isdryer"] = FALSE
+	.["ui_theme"] = tgui_theme
 
 
 /obj/machinery/smartfridge/handle_atom_del(atom/A) // Update the UIs in case something inside gets deleted

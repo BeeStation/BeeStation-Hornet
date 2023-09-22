@@ -237,7 +237,7 @@
 				paint_mode = PAINT_NORMAL
 		if("select_colour")
 			if(can_change_colour)
-				var/chosen_colour = input(usr,"","Choose Color",paint_color) as color|null
+				var/chosen_colour = tgui_color_picker(usr,"","Choose Color",paint_color)
 
 				if (!isnull(chosen_colour))
 					paint_color = chosen_colour
@@ -332,13 +332,13 @@
 			else
 				graf_rot = 0
 
-	var/list/click_params = params2list(params)
+	var/list/modifiers = params2list(params)
 	var/clickx
 	var/clicky
 
-	if(click_params && click_params["icon-x"] && click_params["icon-y"])
-		clickx = CLAMP(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-		clicky = CLAMP(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+	if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))
+		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
+		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
 
 	if(pre_noise)
 		audible_message("<span class='notice'>You hear spraying.</span>")
@@ -602,6 +602,13 @@
 	pre_noise = TRUE
 	post_noise = FALSE
 
+	var/static/list/spraycan_touch_normally
+
+/obj/item/toy/crayon/spraycan/Initialize()
+	. = ..()
+	if(!spraycan_touch_normally)
+		spraycan_touch_normally = typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal))
+
 /obj/item/toy/crayon/spraycan/isValidSurface(surface)
 	return (istype(surface, /turf/open/floor) || istype(surface, /turf/closed/wall))
 
@@ -651,14 +658,13 @@
 
 /obj/item/toy/crayon/spraycan/pre_attack(atom/target, mob/user, proximity, params)
 	if(!proximity)
-		return
+		return ..()
 
 	if(is_capped)
-		if(istype(target, /obj/machinery/modular_fabricator/autolathe))
+		if(is_type_in_typecache(target, spraycan_touch_normally) || target.GetComponent(/datum/component/storage))
 			return ..()
-		else
-			to_chat(user, "<span class='warning'>Take the cap off first!</span>")
-			return
+		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+		return
 
 	if(check_empty(user))
 		return
@@ -673,7 +679,7 @@
 
 		if(C.client)
 			C.blur_eyes(3)
-			C.blind_eyes(1)
+			C.adjust_blindness(1)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.confused = max(C.confused, 3)
 			C.Paralyze(60)

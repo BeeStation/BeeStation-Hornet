@@ -16,13 +16,13 @@
 	if(!placement_override)
 		if(!pop_override)
 			for(var/mob/living/M in range(7, src))
-				if(ROLE_BLOB in M.faction)
+				if(FACTION_BLOB in M.faction)
 					continue
 				if(M.client)
 					to_chat(src, "<span class='warning'>There is someone too close to place your blob core!</span>")
 					return FALSE
 			for(var/mob/living/M in hearers(13, src))
-				if(ROLE_BLOB in M.faction)
+				if(FACTION_BLOB in M.faction)
 					continue
 				if(M.client)
 					to_chat(src, "<span class='warning'>Someone could see your blob core from here!</span>")
@@ -175,7 +175,7 @@
 
 	B.naut = TRUE	//temporary placeholder to prevent creation of more than one per factory.
 	to_chat(src, "<span class='notice'>You attempt to produce a blobbernaut.</span>")
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as a [blobstrain.name] blobbernaut?", ROLE_BLOB, null, ROLE_BLOB, 50) //players must answer rapidly
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as a [blobstrain.name] blobbernaut?", ROLE_BLOB, /datum/role_preference/midround_ghost/blob, 7.5 SECONDS, ignore_category = POLL_IGNORE_BLOB_HELPER) //players must answer rapidly
 	if(LAZYLEN(candidates)) //if we got at least one candidate, they're a blobbernaut now.
 		B.max_integrity = initial(B.max_integrity) * 0.25 //factories that produced a blobbernaut have much lower health
 		B.obj_integrity = min(B.obj_integrity, B.max_integrity)
@@ -270,7 +270,7 @@
 	if(can_buy(BLOB_SPREAD_COST))
 		var/attacksuccess = FALSE
 		for(var/mob/living/L in T)
-			if(ROLE_BLOB in L.faction) //no friendly/dead fire
+			if(FACTION_BLOB in L.faction) //no friendly/dead fire
 				continue
 			if(L.stat != DEAD)
 				attacksuccess = TRUE

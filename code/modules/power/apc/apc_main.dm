@@ -18,6 +18,7 @@
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
+	zmm_flags = ZMM_MANGLE_PLANES
 
 
 
@@ -78,7 +79,7 @@
 	///Total amount of power used by the three channels
 	var/lastused_total = 0
 	///State of the apc external power (no power, low power, has power)
-	var/main_status = 0
+	var/main_status = APC_NO_POWER
 	powernet = 0 // set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
 	///Is the apc hacked by a malf ai?
 	var/malfhack = 0 //New var for my changes to AI malf. --NeoFite
@@ -124,6 +125,9 @@
 	var/clock_cog_rewarded = FALSE
 	//Clockcult - The integration cog inserted inside of us
 	var/integration_cog = null
+
+	/// To prevent sound loop bugs
+	var/apc_sound_stage = null
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	if (!req_access)
@@ -177,6 +181,7 @@
 		area.power_equip = FALSE
 		area.power_environ = FALSE
 		area.power_change()
+		area.apc = null
 	QDEL_NULL(alarm_manager)
 	if(occupier)
 		malfvacate(TRUE)
@@ -199,27 +204,33 @@
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
 	alarm_manager = new(src)
+
 	if(!mapload)
 		return
 	has_electronics = APC_ELECTRONICS_SECURED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
 		cell = new cell_type
-		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
+		cell.charge = start_charge * cell.maxcharge / 100 // (convert percentage to actual value)
 
-	var/area/A = loc.loc
+	var/area/our_area = loc.loc
 
 	//if area isn't specified use current
 	if(areastring)
 		area = get_area_instance_from_text(areastring)
 		if(!area)
-			area = A
+			area = our_area
 			stack_trace("Bad areastring path for [src], [areastring]")
-	else if(isarea(A) && areastring == null)
-		area = A
+	else if(isarea(our_area) && areastring == null)
+		area = our_area
 
 	if(auto_name)
 		name = "\improper [get_area_name(area, TRUE)] APC"
+
+	if(area)
+		if(area.apc)
+			log_mapping("Duplicate APC created at [AREACOORD(src)] [area.type]. Original at [AREACOORD(area.apc)] [area.type].")
+		area.apc = src
 
 	update_appearance()
 
@@ -439,18 +450,16 @@
 		update_appearance()
 	if(machine_stat & (BROKEN|MAINT))
 		return
-	if(!area?.requires_power)
+	if(!area || !area.requires_power)
 		return
 	if(failure_timer)
-		update()
-		queue_icon_update()
 		failure_timer--
-		force_update = 1
+		force_update = TRUE
 		return
 
-	lastused_light = area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT]
-	lastused_equip = area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP]
-	lastused_environ = area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON]
+	lastused_light = APC_CHANNEL_IS_ON(lighting) ? area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT] : 0
+	lastused_equip = APC_CHANNEL_IS_ON(equipment) ? area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP] : 0
+	lastused_environ = APC_CHANNEL_IS_ON(environ) ? area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON] : 0
 	area.clear_usage()
 
 	lastused_total = lastused_light + lastused_equip + lastused_environ
@@ -464,37 +473,41 @@
 	var/excess = surplus()
 
 	if(!src.avail())
-		main_status = 0
+		main_status = APC_NO_POWER
 	else if(excess < 0)
-		main_status = 1
+		main_status = APC_LOW_POWER
 	else
-		main_status = 2
+		main_status = APC_HAS_POWER
 
+	var/cellused
 	if(cell && !shorted)
 		// draw power from cell as before to power the area
-		var/cellused = min(cell.charge, GLOB.CELLRATE * lastused_total)	// clamp deduction to a max, amount left in cell
+		cellused = min(cell.charge, lastused_total JOULES)	// clamp deduction to a max, amount left in cell
 		cell.use(cellused)
 
-		if(excess > lastused_total)		// if power excess recharge the cell
+	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
+		if(excess > lastused_total)	// if power excess recharge the cell
 										// by the same amount just used
 			cell.give(cellused)
-			add_load(cellused/GLOB.CELLRATE)		// add the load used to recharge the cell
+			if(cell) //make sure the cell didn't expode and actually used power.
+				add_load(cellused WATTS) // add the load used to recharge the cell
 
 
-		else		// no excess, and not enough per-apc
-			if((cell.charge/GLOB.CELLRATE + excess) >= lastused_total)		// can we draw enough from cell+grid to cover last usage?
-				cell.charge = min(cell.maxcharge, cell.charge + GLOB.CELLRATE * excess)	//recharge with what we can
-				add_load(excess)		// so draw what we can from the grid
+		else // no excess, and not enough per-apc
+			if((cell.charge WATTS + excess) >= lastused_total) // can we draw enough from cell+grid to cover last usage?
+				cell.charge = min(cell.maxcharge, cell.charge + excess JOULES) //recharge with what we can
+				add_load(excess) // so draw what we can from the grid
 				charging = APC_NOT_CHARGING
 
-			else	// not enough power available to run the last tick!
+			else // not enough power available to run the last tick!
 				charging = APC_NOT_CHARGING
 				chargecount = 0
 				// This turns everything off in the case that there is still a charge left on the battery, just not enough to run the room.
-				equipment = autoset(equipment, 0)
-				lighting = autoset(lighting, 0)
-				environ = autoset(environ, 0)
+				equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+				lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+				environ = autoset(environ, AUTOSET_FORCE_OFF)
 
+	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after give().
 
 		// set channels depending on how much charge we have left
 
@@ -505,27 +518,27 @@
 			longtermpower -= 2
 
 		if(cell.charge <= 0) // zero charge, turn all off
-			equipment = autoset(equipment, 0)
-			lighting = autoset(lighting, 0)
-			environ = autoset(environ, 0)
+			equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+			lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+			environ = autoset(environ, AUTOSET_FORCE_OFF)
 			alarm_manager.send_alarm(ALARM_POWER)
 
-		else if(cell.percent() < 15 && longtermpower < 0) // <15%, turn off lighting & equipment
-			equipment = autoset(equipment, 2)
-			lighting = autoset(lighting, 2)
-			environ = autoset(environ, 1)
+		else if(cell.percent() < 20 && longtermpower < 0) // <25%, turn off lighting & equipment
+			equipment = autoset(equipment, AUTOSET_OFF)
+			lighting = autoset(lighting, AUTOSET_OFF)
+			environ = autoset(environ, AUTOSET_ON)
 			alarm_manager.send_alarm(ALARM_POWER)
 
-		else if(cell.percent() < 30 && longtermpower < 0) // <30%, turn off equipment
-			equipment = autoset(equipment, 2)
-			lighting = autoset(lighting, 1)
-			environ = autoset(environ, 1)
+		else if(cell.percent() < 50 && longtermpower < 0) // <50%, turn off lighting
+			equipment = autoset(equipment, AUTOSET_ON)
+			lighting = autoset(lighting, AUTOSET_OFF)
+			environ = autoset(environ, AUTOSET_ON)
 			alarm_manager.send_alarm(ALARM_POWER)
 
 		else // otherwise all can be on
-			equipment = autoset(equipment, 1)
-			lighting = autoset(lighting, 1)
-			environ = autoset(environ, 1)
+			equipment = autoset(equipment, AUTOSET_ON)
+			lighting = autoset(lighting, AUTOSET_ON)
+			environ = autoset(environ, AUTOSET_ON)
 			if(cell.percent() > 75)
 				alarm_manager.clear_alarm(ALARM_POWER)
 
@@ -534,14 +547,14 @@
 
 		// now trickle-charge the cell
 		if(chargemode && charging == APC_CHARGING && operating)
-			if(excess > 0)		// check to make sure we have enough to charge
+			if(excess > 0) // check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
-				var/ch = min(excess*GLOB.CELLRATE, cell.maxcharge*GLOB.CHARGELEVEL)
+				var/ch = min(excess JOULES, cell.maxcharge JOULES)
 				add_load(ch/GLOB.CELLRATE) // Removes the power we're taking from the grid
 				cell.give(ch) // actually recharge the cell
 
 			else
-				charging = APC_NOT_CHARGING		// stop charging
+				charging = APC_NOT_CHARGING // stop charging
 				chargecount = 0
 
 		// show cell as fully charged if so
@@ -551,18 +564,16 @@
 
 		if(chargemode)
 			if(!charging)
-				if(excess > cell.maxcharge*GLOB.CHARGELEVEL)
+				if(excess > cell.maxcharge * GLOB.CHARGELEVEL)
 					chargecount++
 				else
 					chargecount = 0
-
 				if(chargecount == 10)
-
 					chargecount = 0
 					charging = APC_CHARGING
 
 		else // chargemode off
-			charging = 0
+			charging = APC_NOT_CHARGING
 			chargecount = 0
 
 		//=====Clock Cult=====
@@ -571,19 +582,34 @@
 			GLOB.clockcult_power += power_delta
 			cell.charge -= power_delta
 
+		/// Sounds for power off and on stages in APCs
+		if(ISINRANGE(cell.percent(), 14, 16) && charging == APC_NOT_CHARGING && apc_sound_stage != 1)
+			playsound(src, 'sound/machines/apc/PowerSwitch_Place.ogg', 20, 1)
+			apc_sound_stage = 1
+		if(ISINRANGE(cell.percent(), 29, 31) && charging == APC_NOT_CHARGING && apc_sound_stage != 2)
+			playsound(src, 'sound/machines/apc/PowerSwitch_Off.ogg', 10, 1)
+			apc_sound_stage = 2
+		if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_NOT_CHARGING  && apc_sound_stage != 3)
+			playsound(src, 'sound/machines/apc/PowerDown_001.ogg', 10, 1)
+			apc_sound_stage = 3
+		if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_CHARGING && apc_sound_stage != 4)
+			playsound(src, 'sound/machines/apc/PowerUp_001.ogg', 10, 1)
+			apc_sound_stage = 4
+
 	else // no cell, switch everything off
 
 		charging = APC_NOT_CHARGING
 		chargecount = 0
-		equipment = autoset(equipment, 0)
-		lighting = autoset(lighting, 0)
-		environ = autoset(environ, 0)
+
+		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+		environ = autoset(environ, AUTOSET_FORCE_OFF)
 		alarm_manager.send_alarm(ALARM_POWER)
 
 	// update icon & area power if anything changed
 
 	if(last_lt != lighting || last_eq != equipment || last_en != environ || force_update)
-		force_update = 0
+		force_update = FALSE
 		queue_icon_update()
 		update()
 	else if (last_ch != charging)

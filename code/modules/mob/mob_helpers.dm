@@ -226,7 +226,6 @@
 	message = replacetext(message, " am ", " ")
 	message = replacetext(message, " is ", " ")
 	message = replacetext(message, " are ", " ")
-	message = replacetext(message, "you", "u")
 	message = replacetext(message, "help", "halp")
 	message = replacetext(message, "grief", "grife")
 	message = replacetext(message, "space", "spess")
@@ -334,6 +333,7 @@
 
 ///Checks if the mob is able to see or not. eye_blind is temporary blindness, the trait is if they're permanently blind.
 /mob/proc/is_blind()
+	SHOULD_BE_PURE(TRUE)
 	return eye_blind ? TRUE : HAS_TRAIT(src, TRAIT_BLIND)
 
 ///Is the mob hallucinating?
@@ -429,8 +429,9 @@
 			if(source)
 				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("[REF(source)]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
-					if(O.client.prefs && O.client.prefs.UI_style)
-						A.icon = ui_style2icon(O.client.prefs.UI_style)
+					var/ui_style = O.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style)
+					if(ui_style)
+						A.icon = ui_style2icon(ui_style)
 					if (header)
 						A.name = header
 					A.desc = message
@@ -487,15 +488,17 @@
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
 	var/poll_message = "Do you want to play as [M.real_name]?"
+	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
 	if(M.mind && M.mind.assigned_role)
 		poll_message = "[poll_message] Job:[M.mind.assigned_role]."
 	if(M.mind && M.mind.special_role)
 		poll_message = "[poll_message] Status:[M.mind.special_role]."
 	else if(M.mind)
-		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist/)
+		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist)
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ROLE_PAI, null, FALSE, 100, M)
+			ban_key = A.banning_key
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)

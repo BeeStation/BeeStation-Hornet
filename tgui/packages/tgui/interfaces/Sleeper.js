@@ -121,8 +121,8 @@ export const Sleeper = (props, context) => {
                     className="button-ellipsis"
                     fluid
                     content={chem.name + ' (' + chem.amount + 'u)'}
-                    tooltip={chem.amount + 'u'}
-                    disabled={!(occupied && chem.allowed)}
+                    tooltip={chem.name + ' (' + chem.amount + 'u)'}
+                    disabled={!occupied}
                     onClick={() =>
                       act('inject', {
                         chem: chem.id,

@@ -2754,7 +2754,7 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
 "iu" = (
-/obj/item/grenade/barrier{
+/obj/item/security_barricade{
 	pixel_x = -14;
 	pixel_y = 14
 	},
@@ -3866,7 +3866,7 @@
 /area/awaymission/cabin/caves)
 "lh" = (
 /obj/effect/decal/remains/human,
-/obj/item/reagent_containers/spray/pepper/empty,
+/obj/item/reagent_containers/peppercloud_deployer/empty,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
 "li" = (

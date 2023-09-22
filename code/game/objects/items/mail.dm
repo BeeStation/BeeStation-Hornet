@@ -145,10 +145,17 @@
 		// If the recipient's mind has gone, then anyone can open their mail
 		// whether a mind can actually be qdel'd is an exercise for the reader
 		if(recipient && recipient != user?.mind)
-			if(!is_changeling(user))
+			if(!is_changeling(user) && !(user?.mind?.has_antag_datum(/datum/antagonist/obsessed)))
 				to_chat(user, "<span class='notice'>You can't open somebody else's mail! That's <em>immoral</em>!</span>")
 				return
-			if(user.real_name != recipient.name)
+			var/can_open = FALSE
+			var/datum/antagonist/obsessed/obs_datum = locate() in user?.mind?.antag_datums
+			if(obs_datum)
+				if(obs_datum.trauma.obsession.name != recipient.name)
+					to_chat(user, "<span class='notice'>This <em>worthless</em> piece of parchment isn't adressed to your beloved!</span>")
+					return
+				can_open = TRUE
+			if(user.real_name != recipient.name && !can_open)
 				to_chat(user, "<span class='warning'>We must keep our disguise intact.</span>")  // cuz your disguise cant open the mail so you shouldnt either
 				return
 
@@ -228,9 +235,11 @@
 	switch(rand(1,10))
 
 		if(1,2)
-			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
+			if (length(GLOB.alive_mob_list))
+				name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
 		if(3,4)
-			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
+			if (length(GLOB.player_list))
+				name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
 		if(5)
 			name = special_name ? junk_names[junk] : "DO NOT OPEN"
 		else

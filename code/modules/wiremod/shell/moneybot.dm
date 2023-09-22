@@ -9,9 +9,14 @@
 	icon_state = "setup_large"
 
 	density = FALSE
-	light_range = FALSE
 
 	var/stored_money = 0
+	var/locked = FALSE
+
+	light_system = MOVABLE_LIGHT
+	light_range = 6
+	light_power = 1
+	light_on = FALSE
 
 /obj/structure/money_bot/deconstruct(disassembled)
 	new /obj/item/holochip(drop_location(), stored_money)
@@ -29,6 +34,8 @@
 	), SHELL_CAPACITY_LARGE)
 
 /obj/structure/money_bot/wrench_act(mob/living/user, obj/item/tool)
+	if(locked)
+		return
 	anchored = !anchored
 	tool.play_tool_sound(src)
 	balloon_alert(user, "You [anchored ? "secure" : "unsecure"] [src].")
@@ -37,7 +44,7 @@
 
 /obj/item/circuit_component/money_dispenser
 	display_name = "Money Dispenser"
-	display_desc = "Used to dispense money from the money bot. Money is taken from the internal storage of money."
+	desc = "Used to dispense money from the money bot. Money is taken from the internal storage of money."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The amount of money to dispense
@@ -48,8 +55,7 @@
 
 	var/obj/structure/money_bot/attached_bot
 
-/obj/item/circuit_component/money_dispenser/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/money_dispenser/populate_ports()
 	dispense_amount = add_input_port("Amount", PORT_TYPE_NUMBER)
 	on_fail = add_output_port("On Failed", PORT_TYPE_SIGNAL)
 
@@ -63,44 +69,36 @@
 	return ..()
 
 /obj/item/circuit_component/money_dispenser/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!attached_bot)
 		return
 
-	var/to_dispense = clamp(dispense_amount.input_value, 0, attached_bot.stored_money)
+	var/to_dispense = clamp(dispense_amount.value, 0, attached_bot.stored_money)
 	if(!to_dispense)
 		on_fail.set_output(COMPONENT_SIGNAL)
 		return
+
 	attached_bot.add_money(-to_dispense)
 	new /obj/item/holochip(drop_location(), to_dispense)
 
-/obj/item/circuit_component/money_dispenser/Destroy()
-	dispense_amount = null
-	attached_bot = null
-	return ..()
-
 /obj/item/circuit_component/money_bot
 	display_name = "Money Bot"
-	display_desc = "Used to receive input signals when money is inserted into the money bot shell and also keep track of the total money in the shell."
 	var/obj/structure/money_bot/attached_bot
+	desc = "Used to receive input signals when money is inserted into the money bot shell and also keep track of the total money in the shell."
 
 	/// Total money in the shell
 	var/datum/port/output/total_money
 	/// Amount of the last money inputted into the shell
 	var/datum/port/output/money_input
-	/// Person that inserted the money
-	var/datum/port/output/payer
 	/// Trigger for when money is inputted into the shell
 	var/datum/port/output/money_trigger
+	/// The person who input the money
+	var/datum/port/output/entity
 
-/obj/item/circuit_component/money_bot/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/money_bot/populate_ports()
 	total_money = add_output_port("Total Money", PORT_TYPE_NUMBER)
 	money_input = add_output_port("Last Input Money", PORT_TYPE_NUMBER)
-	payer = add_output_port("Payer", PORT_TYPE_ATOM)
+	entity = add_output_port("User", PORT_TYPE_ATOM)
 	money_trigger = add_output_port("Money Input", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/money_bot/register_shell(atom/movable/shell)
@@ -110,6 +108,8 @@
 		total_money.set_output(attached_bot.stored_money)
 		RegisterSignal(shell, COMSIG_PARENT_ATTACKBY, PROC_REF(handle_money_insert))
 		RegisterSignal(shell, COMSIG_MONEYBOT_ADD_MONEY, PROC_REF(handle_money_update))
+		RegisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
+		attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/money_bot/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(
@@ -117,15 +117,10 @@
 		COMSIG_MONEYBOT_ADD_MONEY,
 	))
 	total_money.set_output(null)
+	if(attached_bot)
+		attached_bot.locked = FALSE
+		UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
 	attached_bot = null
-	return ..()
-
-/obj/item/circuit_component/money_bot/Destroy()
-	attached_bot = null
-	total_money = null
-	money_input = null
-	payer = null
-	money_trigger = null
 	return ..()
 
 /obj/item/circuit_component/money_bot/proc/handle_money_insert(atom/source, obj/item/item, mob/living/attacker)
@@ -141,7 +136,7 @@
 	attached_bot.add_money(amount_to_insert)
 	balloon_alert(attacker, "Inserted [amount_to_insert] credits.")
 	money_input.set_output(amount_to_insert)
-	payer.set_output(attacker)
+	entity.set_output(attacker)
 	money_trigger.set_output(COMPONENT_SIGNAL)
 	qdel(item)
 
@@ -149,3 +144,12 @@
 	SIGNAL_HANDLER
 	if(attached_bot)
 		total_money.set_output(attached_bot.stored_money)
+
+/**
+ * Locks the attached bot when the circuit is locked.
+ *
+ * Arguments:
+ * * new_value - A boolean that determines if the circuit is locked or not.
+ **/
+/obj/item/circuit_component/money_bot/proc/on_set_locked(datum/source, new_value)
+	attached_bot.locked = new_value

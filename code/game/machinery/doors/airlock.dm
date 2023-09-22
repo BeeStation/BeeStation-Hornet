@@ -116,7 +116,7 @@
 		var/area/A = get_area(src)
 		wire_security_level = max(wire_security_level, A.airlock_hack_difficulty)
 
-	wires = new /datum/wires/airlock(src, wire_security_level)
+	wires = set_wires(wire_security_level)
 	if(frequency)
 		set_frequency(frequency)
 
@@ -486,7 +486,7 @@
 	if (!cont)
 		restorePower()
 	else
-		addtimer(CALLBACK(src, PROC_REF(restorePower)), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(handlePowerRestoreLoop)), 1 SECONDS)
 
 /obj/machinery/door/airlock/proc/restorePower()
 	spawnPowerRestoreRunning = FALSE
@@ -1215,7 +1215,7 @@
 	update_freelook_sight()
 	sleep(open_speed - 1)
 	density = FALSE
-	obj_flags &= ~(BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	air_update_turf(1)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
@@ -1262,12 +1262,12 @@
 	layer = CLOSED_DOOR_LAYER
 	if(air_tight)
 		set_density(TRUE)
-		obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		air_update_turf(1)
 	sleep(1)
 	if(!air_tight)
 		set_density(TRUE)
-		obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		air_update_turf(1)
 	sleep(open_speed - 1)
 	if(!safe)
@@ -1483,11 +1483,11 @@
 	return FALSE
 
 /obj/machinery/door/airlock/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='notice'>You deconstruct the airlock.</span>")
-			qdel(src)
-			return TRUE
+	if(RCD_DECONSTRUCT == passed_mode)
+		to_chat(user, "<span class='notice'>You deconstruct the airlock.</span>")
+		log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+		qdel(src)
+		return TRUE
 	return FALSE
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
@@ -1662,3 +1662,7 @@
 		close()
 	else
 		open()
+
+/obj/machinery/door/airlock/proc/set_wires(wire_security_level)
+	return new /datum/wires/airlock(src, wire_security_level)
+

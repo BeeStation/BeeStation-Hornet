@@ -267,6 +267,7 @@
 
 /datum/asset/spritesheet/pipes
 	name = "pipes"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/pipes/create_spritesheets()
 	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi', 'icons/obj/plumbing/fluid_ducts.dmi'))
@@ -281,6 +282,7 @@
 
 /datum/asset/spritesheet/supplypods
 	name = "supplypods"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/supplypods/create_spritesheets()
 	for (var/style in 1 to length(GLOB.podstyles))
@@ -315,6 +317,7 @@
 // Representative icons for each research design
 /datum/asset/spritesheet/research_designs
 	name = "design"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/research_designs/create_spritesheets()
 	for (var/path in subtypesof(/datum/design))
@@ -327,10 +330,12 @@
 		if(initial(D.research_icon) && initial(D.research_icon_state)) //If the design has an icon replacement skip the rest
 			icon_file = initial(D.research_icon)
 			icon_state = initial(D.research_icon_state)
+			#ifdef UNIT_TESTS
 			if(!(icon_state in icon_states(icon_file)))
-				warning("design [D] with icon '[icon_file]' missing state '[icon_state]'")
+				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
-			I = icon(icon_file, icon_state, SOUTH)
+			#endif
+			I = icon(icon_file, icon_state, SOUTH, 1)
 
 		else
 			// construct the icon and slap it into the resource cache
@@ -354,15 +359,19 @@
 			var/greyscale_colors = initial(item.greyscale_colors)
 			if (greyscale_config && greyscale_colors)
 				icon_file = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+			else if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
+				var/obj/item/bodypart/body_part = item
+				icon_file = initial(body_part.static_icon)
 			else
 				icon_file = initial(item.icon)
 
 			icon_state = initial(item.icon_state)
-
+			#ifdef UNIT_TESTS
 			if(!(icon_state in icon_states(icon_file)))
-				warning("design [D] with icon '[icon_file]' missing state '[icon_state]'")
+				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
-			I = icon(icon_file, icon_state, SOUTH)
+			#endif
+			I = icon(icon_file, icon_state, SOUTH, 1)
 
 			// computers (and snowflakes) get their screen and keyboard sprites
 			if (ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
@@ -371,14 +380,15 @@
 				var/keyboard = initial(C.icon_keyboard)
 				var/all_states = icon_states(icon_file)
 				if (screen && (screen in all_states))
-					I.Blend(icon(icon_file, screen, SOUTH), ICON_OVERLAY)
+					I.Blend(icon(icon_file, screen, SOUTH, 1), ICON_OVERLAY)
 				if (keyboard && (keyboard in all_states))
-					I.Blend(icon(icon_file, keyboard, SOUTH), ICON_OVERLAY)
+					I.Blend(icon(icon_file, keyboard, SOUTH, 1), ICON_OVERLAY)
 
 		Insert(initial(D.id), I)
 
 /datum/asset/spritesheet/vending
 	name = "vending"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/vending/create_spritesheets()
 	// initialising the list of items we need
@@ -399,41 +409,95 @@
 	// building icons for each item
 	for (var/k in target_items)
 		var/atom/item = k
-		if (!ispath(item, /atom))
+		var/icon/I = get_display_icon_for(item)
+		if(!I)
 			continue
+		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
+		Insert(imgid, I)
 
-		var/icon_file
-		if (initial(item.greyscale_colors) && initial(item.greyscale_config))
-			icon_file = SSgreyscale.GetColoredIconByType(initial(item.greyscale_config), initial(item.greyscale_colors))
-		else
-			icon_file = initial(item.icon)
-		var/icon_state = initial(item.icon_state)
-		var/icon/I
+/proc/get_display_icon_for(atom/item)
+	if (!ispath(item, /atom))
+		return FALSE
+	var/icon_file
+	if (initial(item.greyscale_colors) && initial(item.greyscale_config))
+		icon_file = SSgreyscale.GetColoredIconByType(initial(item.greyscale_config), initial(item.greyscale_colors))
+	else
+		icon_file = initial(item.icon)
+	var/icon_state = initial(item.icon_state)
 
+	#ifdef UNIT_TESTS
+	var/icon_states_list = icon_states(icon_file)
+	if (!(icon_state in icon_states_list))
+		var/icon_states_string
+		for (var/an_icon_state in icon_states_list)
+			if (!icon_states_string)
+				icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
+			else
+				icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
+
+		stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+		return FALSE
+	#endif
+
+	var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
+	var/c = initial(item.color)
+	if (!isnull(c) && c != "#FFFFFF")
+		I.Blend(c, ICON_MULTIPLY)
+	return I
+
+/datum/asset/spritesheet/crafting
+	name = "crafting"
+	cross_round_cachable = TRUE
+
+/datum/asset/spritesheet/crafting/create_spritesheets()
+	var/chached_list = list()
+	for(var/datum/crafting_recipe/R in GLOB.crafting_recipes)
+		if(!R.name)
+			continue
+		var/atom/A = R.result
+		if(!ispath(A, /atom))
+			stack_trace("The recipe '[R.type]' has '[A]' which is not atom. This is because our crafting system is not up-to-date to TG's.")
+			continue
+		if(chached_list[A]) // this prevents an icon to be inserted again
+			continue
+		chached_list[A] = TRUE
+
+		var/icon_file = initial(A.icon)
+		var/icon_state = initial(A.icon_state_preview) || initial(A.icon_state)
+
+		#ifdef UNIT_TESTS
 		var/icon_states_list = icon_states(icon_file)
-		if(icon_state in icon_states_list)
-			I = icon(icon_file, icon_state, SOUTH)
-			var/c = initial(item.color)
-			if (!isnull(c) && c != "#FFFFFF")
-				I.Blend(c, ICON_MULTIPLY)
-		else
+		if (!(icon_state in icon_states_list))
 			var/icon_states_string
 			for (var/an_icon_state in icon_states_list)
 				if (!icon_states_string)
 					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
 				else
 					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
-			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
-			I = icon('icons/turf/floors.dmi', "", SOUTH)
+			stack_trace("[A] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+			continue
+		#endif
 
-		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
+		var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
+		var/c = initial(A.color)
+		if (!isnull(c) && c != "#FFFFFF")
+			I.Blend(c, ICON_MULTIPLY)
+		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
 
-		Insert(imgid, I)
+		if(I)
+			I.Scale(42, 42) // 32px is too small. 42px might be fine...
+		Insert(imgid, I, icon_state)
 
 /datum/asset/simple/bee_antags
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',
 		"bloodcult.png" = 'html/img/bloodcult.png',
+		"cult-archives.gif" = 'html/img/cult-archives.gif',
+		"cult-altar.gif" = 'html/img/cult-altar.gif',
+		"cult-forge.gif" = 'html/img/cult-forge.gif',
+		"cult-pylon.gif" = 'html/img/cult-pylon.gif',
+		"cult-carve.png" = 'html/img/cult-carve.png',
+		"cult-comms.png" = 'html/img/cult-comms.png',
 		"dagger.png" = 'html/img/dagger.png',
 		"sacrune.png" = 'html/img/sacrune.png',
 		"archives.png" = 'html/img/archives.png',
@@ -463,6 +527,9 @@
 		"nuke.png" = 'html/img/nuke.png',
 		"eshield.png" = 'html/img/eshield.png',
 		"mech.png" = 'html/img/mech.png',
+		"abaton.png" = 'html/img/abaton.png',
+		"atool.png" = 'html/img/atool.png',
+		"apistol.png" = 'html/img/apistol.png',
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
 		"abaton.png"= 'html/img/abaton.png',
@@ -471,7 +538,7 @@
 		"spidernurse.png"= 'html/img/spidernurse.png',
 		"spiderhunter.png"= 'html/img/spiderhunter.png',
 		"spiderviper.png"= 'html/img/spiderviper.png',
-		"spidertarantula.png"= 'html/img/spidertarantula.png'
+		"spidertarantula.png"= 'html/img/spidertarantula.png',
 	)
 
 /datum/asset/simple/orbit
@@ -488,12 +555,10 @@
 	name = "sheetmaterials"
 
 /datum/asset/spritesheet/sheetmaterials/create_spritesheets()
-	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
-//	InsertAll("", 'icons/obj/stacks/miscellaneous.dmi')
-//	InsertAll("", 'icons/obj/stacks/organic.dmi')
+	InsertAll("", 'icons/obj/stacks/minerals.dmi')
 
-	// Special case to handle Bluespace Crystals
-	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")
+	// Special bee edit to handle Bluespace Crystals
+	Insert("polycrystal", 'icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3")
 
 /datum/asset/simple/pAI
 	assets = list(
@@ -505,10 +570,9 @@
 	assets = list()
 
 /datum/asset/simple/portraits/New()
-	if(!SSpersistence.paintings || !SSpersistence.paintings[tab] || !length(SSpersistence.paintings[tab]))
+	if(!length(SSpersistence.paintings[tab]))
 		return
-	for(var/p in SSpersistence.paintings[tab])
-		var/list/portrait = p
+	for(var/list/portrait as anything in SSpersistence.paintings[tab])
 		var/png = "data/paintings/[tab]/[portrait["md5"]].png"
 		if(fexists(png))
 			var/asset_name = "[tab]_[portrait["md5"]]"

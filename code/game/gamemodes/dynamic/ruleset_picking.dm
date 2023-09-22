@@ -18,7 +18,7 @@
 
 			return null
 
-		if (check_blocking(rule.blocking_rules, executed_rules))
+		if (check_blocking(rule, executed_rules))
 			drafted_rules -= rule
 			if(drafted_rules.len <= 0)
 				return null
@@ -84,7 +84,8 @@
 	var/datum/dynamic_ruleset/rule = sent_rule
 	spend_midround_budget(rule.cost, threat_log, "[worldtime2text()]: [rule.ruletype] [rule.name]")
 	rule.pre_execute(current_players[CURRENT_LIVING_PLAYERS].len)
-	if (rule.execute())
+	var/execute_result = rule.execute()
+	if(execute_result == DYNAMIC_EXECUTE_SUCCESS)
 		log_game("DYNAMIC: Injected a [rule.ruletype == "latejoin" ? "latejoin" : "midround"] ruleset [rule.name].")
 		if(rule.flags & ONLY_RULESET)
 			only_ruleset_executed = TRUE
@@ -97,8 +98,8 @@
 			current_rules += rule
 		new_snapshot(rule)
 		return TRUE
-	rule.clean_up()
-	stack_trace("The [rule.ruletype] rule \"[rule.name]\" failed to execute.")
+	if(!execute_result || execute_result == DYNAMIC_EXECUTE_FAILURE) // not enough players is an expected failure. Any other should be reported
+		CRASH("The [rule.ruletype] rule \"[rule.name]\" failed to execute.")
 	return FALSE
 
 /// Fired when an admin cancels the current midround injection.
