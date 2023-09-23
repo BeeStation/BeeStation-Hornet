@@ -362,9 +362,6 @@
 					if(T in shuttle_area)
 						return TRUE
 
-	if(!is_centcom_level(T.z))//if not, don't bother
-		return FALSE
-
 	//Check for centcom itself
 	if(istype(T.loc, /area/centcom))
 		return TRUE
@@ -377,6 +374,8 @@
 				var/area/shuttle/shuttle_area = place
 				if(T in shuttle_area)
 					return TRUE
+
+	return is_centcom_level(T.z)
 
 /**
   * Is the atom in any of the centcom syndicate areas
