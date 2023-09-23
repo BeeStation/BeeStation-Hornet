@@ -362,8 +362,8 @@
 					if(T in shuttle_area)
 						return TRUE
 
-	if(!is_centcom_level(T.z))//if not, don't bother
-		return FALSE
+	if(is_centcom_level(T.z))
+		return TRUE
 
 	//Check for centcom itself
 	if(istype(T.loc, /area/centcom))
@@ -379,14 +379,14 @@
 	if(!T)
 		return FALSE
 
-	var/area/shuttle/A = get_area(T)
-	if(isnull(A))
+	var/area/shuttle/loc_area = get_area(T)
+	if(isnull(loc_area))
 		return FALSE
 
 	for(var/A in SSshuttle.mobile)
 		var/obj/docking_port/mobile/M = A
 		if(M.launch_status == ENDGAME_LAUNCHED)
-			if(A in M.shuttle_areas)
+			if(loc_area in M.shuttle_areas)
 				return TRUE
 
 /**
