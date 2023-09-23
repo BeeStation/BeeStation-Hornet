@@ -44,8 +44,7 @@
 
 	var/datum/asset/asset_datum = get_asset_datum(/datum/asset/simple/lobby)
 	asset_datum.send(client)
-	var/output = "<center><p><a href='byond://?src=[REF(src)];show_preferences=1'>Setup Character</a></p>"
-
+	var/output = "<center><p><a href='byond://?src=[REF(src)];show_preferences=1'>Setup Character</a></p><hr>"
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		switch(ready)
 			if(PLAYER_NOT_READY)
@@ -58,6 +57,7 @@
 		output += "<p><a href='byond://?src=[REF(src)];manifest=1'>View the Crew Manifest</a></p>"
 		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>Join Game!</a></p>"
 		output += "<p>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</p>"
+	output += "<hr><p><a href='byond://?src=[REF(src)];show_settings=1''>Game Settings</a></p>"
 
 	if(!IS_GUEST_KEY(src.key))
 		if (SSdbcore.Connect())
@@ -92,14 +92,17 @@
 			if(QDELETED(src))
 				return
 
-	output += "</center>"
+	output += "<p><br>🐝</p>"//ha ha bee
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 250, 265)
-	popup.set_window_options("can_close=0")
+	output += "</center>"
+	var/datum/browser/popup = new(src, "playersetup","<center><div>Welcome to BeeStation 13</div></center>", 254, 318)
+	popup.set_window_options("can_close=false")
 	popup.set_content(output)
 	popup.open(FALSE)
 
 /mob/dead/new_player/Topic(href, href_list[])
+	var/datum/preferences/preferences = client.prefs
+
 	if(src != usr)
 		return 0
 
@@ -119,8 +122,13 @@
 		relevant_cap = max(hpc, epc)
 
 	if(href_list["show_preferences"])
-		var/datum/preferences/preferences = client.prefs
 		preferences.current_window = PREFERENCE_TAB_CHARACTER_PREFERENCES
+		preferences.update_static_data(usr)
+		preferences.ui_interact(usr)
+		return 1
+
+	if(href_list["show_settings"])
+		preferences.current_window = PREFERENCE_TAB_GAME_PREFERENCES
 		preferences.update_static_data(usr)
 		preferences.ui_interact(usr)
 		return 1
@@ -384,7 +392,7 @@
 
 
 /*
-	Ported from yogs: https://github.com/yogstation13/Yogstation-TG/blob/master/yogstation/code/modules/mob/dead/new_player/new_player.dm
+	Ported from yogs: https://github.com/yogstation13/Yogstation-TG/blob/master/yogstation/code/modules/mob/dead/new_player/new_player.dm //this link is dead since yog no longer has a new_player.dm!
 */
 
 /mob/dead/new_player/proc/LateChoices()
