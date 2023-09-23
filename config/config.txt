@@ -531,7 +531,7 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 100
 ROUNDS_UNTIL_HARD_RESTART 3
 
 ##Default view size, in tiles.
-##	By default, this is 15x15, which gets simplified to 7 by byond
+##	By default, this is 15x15, which gets simplified to 7 by BYOND, as it is a 1:1 screen ratio.
 ##  15x15 would be the standard square view. 21x15 is what goonstation uses for widescreen.
 ##	Do note that changing this value will affect the title screen. The title screen will have to be updated manually if this is changed.
 DEFAULT_VIEW 17x15
