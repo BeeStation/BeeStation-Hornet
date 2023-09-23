@@ -1,0 +1,7 @@
+author: Impish_Delights
+delete-after: true
+changes:
+  - rscadd: Billy Clubs now deal minor bonus damage to windows, grilles, glass tables,
+      and windoors/windoor assemblies.
+  - rscadd: Fireaxes additionally deal bonus damage to glass tables, windoors, and
+      windoor assemblies.
