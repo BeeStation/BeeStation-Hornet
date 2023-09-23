@@ -366,16 +366,28 @@
 	if(istype(T.loc, /area/centcom))
 		return TRUE
 
-	//Check for centcom shuttles
+	if(!is_centcom_level(T.z))//if not, don't bother
+			return FALSE
+
+	return onCentComShuttle()
+
+/**
+ * Is this atom currently on a centcom roundend escape shuttle?
+ */
+/atom/proc/onCentComShuttle()
+	var/turf/T = get_turf(src)
+	if(!T)
+		return FALSE
+
+	var/area/shuttle/A = get_area(T)
+	if(isnull(A))
+		return FALSE
+
 	for(var/A in SSshuttle.mobile)
 		var/obj/docking_port/mobile/M = A
 		if(M.launch_status == ENDGAME_LAUNCHED)
-			for(var/place in M.shuttle_areas)
-				var/area/shuttle/shuttle_area = place
-				if(T in shuttle_area)
-					return TRUE
-
-	return is_centcom_level(T.z)
+			if(A in M.shuttle_areas)
+				return TRUE
 
 /**
   * Is the atom in any of the centcom syndicate areas
