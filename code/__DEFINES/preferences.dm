@@ -17,10 +17,6 @@
 #define SCALING_METHOD_DISTORT "distort"
 #define SCALING_METHOD_BLUR "blur"
 
-#define SCREENSIZE_SQUARE "1:1 ratio (15x15)"
-#define SCREENSIZE_WIDE "Wide ratio (17x15)"
-#define SCREENSIZE_XWIDE "Extra Wide ratio (19x15)"
-
 #define PARALLAX_DELAY_DEFAULT world.tick_lag
 #define PARALLAX_DELAY_MED     1
 #define PARALLAX_DELAY_LOW     2

@@ -2272,7 +2272,6 @@
 #include "code\modules\client\preferences\entries\player\roundend.dm"
 #include "code\modules\client\preferences\entries\player\runechat.dm"
 #include "code\modules\client\preferences\entries\player\scaling_method.dm"
-#include "code\modules\client\preferences\entries\player\screensize.dm"
 #include "code\modules\client\preferences\entries\player\sound.dm"
 #include "code\modules\client\preferences\entries\player\tgui.dm"
 #include "code\modules\client\preferences\entries\player\tooltips.dm"
