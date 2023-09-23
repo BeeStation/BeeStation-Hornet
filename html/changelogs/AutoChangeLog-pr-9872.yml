@@ -1,0 +1,7 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - tweak: removed the "Sucessfully scraped off the rust!" message from the advanced
+      wirebrush to prevent text overlap
+  - bugfix: fixed the advanced wirebrush irradiating the user on any click instead
+      of only after scraping
