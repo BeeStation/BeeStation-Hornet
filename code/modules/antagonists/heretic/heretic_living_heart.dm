@@ -116,10 +116,6 @@
 		tracked_targets[target_mind.name] = target_mind.current
 		targets_to_choose[target_mind.name] = heretic_datum.sac_targets[target_ref]
 
-	if(length(GLOB.reality_smash_track.smashes))
-		var/static/image/influence_image = image(icon = 'icons/effects/heretic.dmi', icon_state = "reality_smash")
-		targets_to_choose["Nearest Influence"] = influence_image
-
 	radial_open = TRUE
 	var/tracked = show_radial_menu(
 		owner,
@@ -131,42 +127,18 @@
 		tooltips = TRUE,
 	)
 	radial_open = FALSE
-
 	// If our last tracked name is still null, skip the trigger
 	if(isnull(tracked))
 		return FALSE
 
-	if(tracked == "Nearest Influence")
-		. = track_nearest_influence()
-	else
-		var/mob/living/carbon/tracked_mob = tracked_targets[tracked]
-		if(QDELETED(tracked_mob))
-			return FALSE
-		. = track_sacrifice_target(tracked_mob)
+	var/mob/living/carbon/tracked_mob = tracked_targets[tracked]
+	if(QDELETED(tracked_mob))
+		return FALSE
+	. = track_sacrifice_target(tracked_mob)
 
 	if(.)
 		COOLDOWN_START(src, track_cooldown, track_cooldown_length)
 		playsound(owner, 'sound/effects/singlebeat.ogg', vol = 50, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
-
-/datum/action/item_action/organ_action/track_target/proc/track_nearest_influence()
-	var/obj/effect/heretic_influence/influence
-	var/dist
-	var/turf/owner_turf = get_turf(owner)
-	var/owner_vz = owner_turf.get_virtual_z_level()
-	for(var/obj/effect/heretic_influence/possible_influence as anything in GLOB.reality_smash_track.smashes)
-		var/turf/pturf = get_turf(possible_influence)
-		if(owner_vz != pturf.get_virtual_z_level())
-			continue
-		var/pdist = get_dist(owner_turf, pturf)
-		if(QDELETED(influence) || dist > pdist)
-			influence = possible_influence
-			dist = pdist
-	if(QDELETED(influence))
-		owner.balloon_alert(owner, "Could not find nearby influence")
-		return FALSE
-	var/turf/influence_turf = get_turf(influence)
-	owner.balloon_alert(owner, "The nearest influence is [distance_hint(owner_turf, influence_turf)]")
-	return TRUE
 
 /datum/action/item_action/organ_action/track_target/proc/track_sacrifice_target(mob/living/carbon/tracked)
 	var/turf/owner_turf = get_turf(owner)
