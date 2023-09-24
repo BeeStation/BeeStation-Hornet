@@ -362,9 +362,6 @@
 					if(T in shuttle_area)
 						return TRUE
 
-	if(is_centcom_level(T.z))
-		return TRUE
-
 	//Check for centcom itself
 	if(istype(T.loc, /area/centcom))
 		return TRUE
