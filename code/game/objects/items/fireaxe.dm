@@ -41,10 +41,14 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(ISWIELDED(src)) //destroys windows and grilles in one hit
+	if(ISWIELDED(src)) //destroys windows, and grilles in one hit
 		if(istype(A, /obj/structure/window))
 			var/obj/structure/window/W = A
 			W.take_damage(200, BRUTE, MELEE, 0)
+		else if(istype(A, /obj/machinery/door/window) || istype(A, /obj/structure/windoor_assembly)\
+				|| istype(A, /obj/structure/table/glass))
+			var/obj/WD = A
+			WD.take_damage(80, BRUTE, MELEE, 0) //Destroy glass tables in one hit, windoors in two hits.
 		else if(istype(A, /obj/structure/grille))
 			var/obj/structure/grille/G = A
 			G.take_damage(40, BRUTE, MELEE, 0)
