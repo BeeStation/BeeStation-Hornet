@@ -62,8 +62,6 @@
 /// Called in /obj/structure/moneybot/add_money(). (to_add)
 #define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
 
-// Sent when a mob with a mind enters cryo storage
-#define COMSIG_MIND_CRYOED "mind_cryoed"
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
@@ -78,7 +76,10 @@
 	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
 
 // /datum/mind signals
-#define COMSIG_MIND_TRANSFER_TO	"mind_transfer_to"					// (mob/old, mob/new)
+#define COMSIG_MIND_TRANSFER_TO		"mind_transfer_to"		// (mob/old, mob/new)
+#define COMSIG_MIND_JOIN_ANTAG_HUD	"mind_join_antag_hud"	// (datum/atom_hud/antag/hud)
+#define COMSIG_MIND_LEAVE_ANTAG_HUD	"mind_leave_antag_hud"	// (datum/atom_hud/antag/hud)
+#define COMSIG_MIND_CRYOED 			"mind_cryoed"			// Sent when a mob with a mind enters cryo storage: ()
 
 // /datum/component/clockwork_trap signals
 #define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered

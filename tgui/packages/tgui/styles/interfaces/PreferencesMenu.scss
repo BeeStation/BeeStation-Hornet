@@ -3,20 +3,6 @@
 @use '../components/Button.scss';
 @use '../colors.scss';
 
-$department_map: (
-  'Assistant': colors.$grey,
-  'Captain': colors.fg(colors.$blue),
-  'Cargo': colors.$brown,
-  'Civilian': colors.$grey,
-  'Command': colors.$yellow,
-  'Security': colors.$red,
-  'Engineering': #f1a839,
-  'Medical': colors.$teal,
-  'Science': colors.fg(colors.$purple),
-  'Service': colors.$green,
-  'Silicon': colors.$pink,
-);
-
 .PreferencesMenu {
   &__Main {
     .Preferences__standard-palette {
@@ -224,7 +210,7 @@ $department_map: (
     }
 
     &__departments {
-      @each $department-name, $color-value in $department_map {
+      @each $department-name, $color-value in colors.$departments {
         &--#{$department-name} {
           &.head {
             background: $color-value;

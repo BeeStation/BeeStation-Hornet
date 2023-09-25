@@ -60,6 +60,23 @@
 	desc = "A .38 DumDum bullet casing."
 	projectile_type = /obj/projectile/bullet/c38/dumdum
 
+/obj/item/ammo_casing/c38/dart
+	name = ".38 'Blister' bullet casing"
+	desc = "A specialized .38 bullet casing that can be injected with up to 10 units of any chemical."
+	icon_state = "sP-casing"
+	projectile_type = /obj/projectile/bullet/dart/c38
+	var/reagent_amount = 10
+
+/obj/item/ammo_casing/c38/dart/Initialize(mapload)
+	. = ..()
+	create_reagents(reagent_amount, OPENCONTAINER)
+
+/obj/item/ammo_casing/c38/emp
+	name = ".38 'BLK_OUT' bullet casing"
+	desc = "A specialized .38 bullet casing that releases a small electromagnetic burst on impact."
+	icon_state = "sS-casing"
+	projectile_type = /obj/projectile/bullet/c38/emp
+
 /obj/item/ammo_casing/caseless/mime
 	name = "invisible .38 bullet casing"
 	icon_state = null
