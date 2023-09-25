@@ -33,7 +33,7 @@
 	user.whisper("O bidai nabora se[pick("'","`")]sma!", language = /datum/language/common)
 	user.whisper(html_decode(message))
 	var/title = "Acolyte"
-	var/span = "cult italic"
+	var/span = "srt_radio cult italic"
 	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/cult/master))
 		span = "cultlarge"
 		title = "Master"
@@ -66,7 +66,7 @@
 	var/my_message
 	if(!message)
 		return
-	my_message = "<span class='cultboldtalic'>The [user.name]: [message]</span>"
+	my_message = "<span class='srt_radio cultboldtalic'>The [user.name]: [message]</span>"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
 		if(iscultist(M))

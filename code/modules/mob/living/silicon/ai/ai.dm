@@ -919,7 +919,7 @@
 	if(istype(D) && D.display_icon(src))
 		language_icon = "[D.get_icon()] "
 
-	var/rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b>[treated_message]</span>"
+	var/rendered = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b>[treated_message]</span>"
 	show_message(rendered, 2)
 	speaker.create_private_chat_message(
 		message = raw_message,
@@ -928,7 +928,7 @@
 		includes_ghosts = FALSE) // ghosts already see this except for you...
 
 	// renders message for ghosts
-	rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
+	rendered = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
 	var/rendered_scrambled_message
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
 		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
@@ -939,7 +939,7 @@
 		else // ghost removed the language themselves
 			if(!rendered_scrambled_message)
 				rendered_scrambled_message = " <span class='message'>[each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
-				rendered_scrambled_message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[rendered_scrambled_message]</span>"
+				rendered_scrambled_message = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[rendered_scrambled_message]</span>"
 			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
 
 
