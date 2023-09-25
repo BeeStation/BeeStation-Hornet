@@ -22,7 +22,7 @@
 	if(IS_GUEST_KEY(prefs.parent.key) || !query_data(prefs)) // Query direct, otherwise create informed defaults
 		for (var/preference_type in GLOB.preference_entries)
 			var/datum/preference/preference = GLOB.preference_entries[preference_type]
-			if (preference.preference_type != pref_type)
+			if (preference.preference_type != pref_type || !preference.informed) // non-informed values are handled earlier.
 				continue
 			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
 		return FALSE
