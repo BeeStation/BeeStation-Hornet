@@ -1003,7 +1003,6 @@
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/item/toy/figure/virologist,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "Av" = (

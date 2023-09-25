@@ -45325,7 +45325,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "fas" = (
@@ -72527,7 +72526,6 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "qDF" = (
@@ -80635,7 +80633,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "tUa" = (

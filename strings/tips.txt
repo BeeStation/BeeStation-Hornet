@@ -66,9 +66,9 @@ As a Geneticist, you can obtain chromosomes by activating mutations by recycling
 As a Paramedic, it is a good idea to keep your handheld crew monitor's interface open at all times.
 As a Paramedic, you have access to EVA. Use it to save people who received grievous injuries in space.
 As a Paramedic, you should use other methods of transporting bodies that aren't dragging them on the floor : fireman carrying, roller beds, body bags, lockers, etc. Simply dragging the body around drains its blood and leaves a bloody trail behind.
-As the Virologist, your viruses can range from healing powers so great that you can heal out of critical status, or diseases so dangerous they can kill the entire crew with highly contagious spontaneous combustion. Experiment!
-As the Virologist, you only require small amounts of vaccine to heal a sick patient. Work with the Chemist to distribute your cures more efficiently.
-As the Virologist, you can massively boost the stage progression speed of a virus inside a person by injecting them with pure virus food.
+When working in Virology, your viruses can range from healing powers so great that you can heal out of critical status, or diseases so dangerous they can kill the entire crew with highly contagious spontaneous combustion. Experiment!
+When working in Virology, you only require small amounts of vaccine to heal a sick patient. Work with the Chemist to distribute your cures more efficiently.
+When working in Virology, you can massively boost the stage progression speed of a virus inside a person by injecting them with pure virus food.
 As the Brig Physician, you can provide your help to Medbay if there are no people to treat at Security.
 As the Research Director, you can take AIs out of their cores by loading them into an intelliCard, which lets you see their laws, even ion/syndicate ones. It can then be placed into an AI system integrity restorer computer to revive and/or repair them.
 As the Research Director, you can lock down cyborgs instead of blowing them up. Then you can have their laws reset or if that doesn't work, safely dismantled.

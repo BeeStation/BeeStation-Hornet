@@ -47,7 +47,7 @@
 /datum/gear/suit/wintercoat/medical
 	display_name = "medical winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_BRIGPHYSICIAN)
+	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_BRIGPHYSICIAN)
 
 /datum/gear/suit/wintercoat/science
 	display_name = "science winter coat"
@@ -98,7 +98,7 @@
 /datum/gear/suit/oldwintercoat/medical
 	display_name = "nostalgic medical winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical/old
-	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_BRIGPHYSICIAN)
+	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_BRIGPHYSICIAN)
 
 /datum/gear/suit/oldwintercoat/science
 	display_name = "nostalgic science winter coat"

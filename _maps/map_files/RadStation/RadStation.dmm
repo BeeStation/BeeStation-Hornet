@@ -30325,7 +30325,6 @@
 	dir = 8;
 	pixel_y = 3
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "jsk" = (
@@ -36343,7 +36342,6 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "loM" = (

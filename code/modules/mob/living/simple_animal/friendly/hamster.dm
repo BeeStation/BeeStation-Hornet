@@ -45,7 +45,7 @@
 	if(prob(5))
 		var/datum/disease/disease = pick(/datum/disease/cold, /datum/disease/flu, /datum/disease/fluspanish)
 		vector_disease = new disease
-		message_admins("Vector was roundstart infected with [vector_disease.name]. Don't lynch the virologist!")
+		message_admins("Vector was roundstart infected with [vector_disease.name].")
 		log_game("Vector was roundstart infected with [vector_disease.name].")
 	var/list/potential_guaranteed_symptoms = list()
 	for(var/datum/symptom/symptom as anything in subtypesof(/datum/symptom))

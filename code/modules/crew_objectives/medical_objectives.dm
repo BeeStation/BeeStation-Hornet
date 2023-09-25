@@ -88,7 +88,7 @@
 
 /datum/objective/crew/noinfections
 	explanation_text = "Make sure there are no living crew members with harmful diseases at the end of the shift."
-	jobs = JOB_NAME_VIROLOGIST
+	jobs = JOB_NAME_MEDICALDOCTOR
 
 /datum/objective/crew/noinfections/check_completion()
 	if(..())

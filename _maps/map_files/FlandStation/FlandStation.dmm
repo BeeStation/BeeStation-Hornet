@@ -3066,7 +3066,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/port/fore)
 "aLY" = (
-/obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
@@ -5266,7 +5265,6 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/grid,
 /area/medical/virology)
 "bkZ" = (
@@ -10038,7 +10036,6 @@
 	dir = 1;
 	pixel_y = 3
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "cGJ" = (
@@ -68979,7 +68976,6 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/grid,
 /area/medical/virology)
 "rLf" = (

@@ -42,7 +42,6 @@
 		"Medical: Chemist" = "pda-chemistry",
 		"Medical: Paramedic" = "pda-paramedical",
 		"Medical: Geneticist" = "pda-genetics",
-		"Medical: Virologist" = "pda-virology",
 		"Security (Standard)" = "pda-security",
 		"Security: Head of Security" = "pda-hos",
 		"Security: Warden" = "pda-warden",
@@ -252,8 +251,7 @@
 		"----Cargo----","Cargo (Custom)",JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN,JOB_NAME_SHAFTMINER,
 		"----Engineering----","Engineering (Custom)",JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN,
 		"----Science----","Science (Custom)",JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW,
-		"----Medical----","Medical (Custom)",JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST,
-			JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_PSYCHIATRIST,
+		"----Medical----","Medical (Custom)",JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_PARAMEDIC, JOB_NAME_PSYCHIATRIST,
 		"----Security----","Security (Custom)",JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_SECURITYOFFICER,
 			JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY,
 		"----MISC----","Unassigned",JOB_NAME_PRISONER
