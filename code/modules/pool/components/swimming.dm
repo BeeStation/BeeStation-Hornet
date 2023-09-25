@@ -125,9 +125,9 @@
 /datum/component/swimming/proc/drown(mob/living/victim)
 	if(victim.losebreath < 1)
 		victim.losebreath += 1
-	ticks_drowned ++
 	if(victim.stat > CONSCIOUS)
 		return //Unconscious/dead people shouldn't emote
+	ticks_drowned ++
 	if(prob(20))
 		victim.emote("cough")
 	else if(prob(25))
