@@ -1,0 +1,4 @@
+author: Rkz, Fhaxaris
+delete-after: true
+changes:
+  - balance: floating/flying mobs are no longer affected by turf movespeed modifiers
