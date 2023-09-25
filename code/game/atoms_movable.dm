@@ -176,8 +176,8 @@
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
-	if(pulling?.pulledby)
-		if(ismob(pulling.pulledby))
+	if(pulling)
+		if(ismob(pulling?.pulledby))
 			pulling.pulledby.log_message("has stopped pulling [key_name(pulling)] at", LOG_ATTACK)
 		if(ismob(pulling))
 			pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)] at", LOG_ATTACK)
