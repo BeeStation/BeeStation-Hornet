@@ -4,7 +4,6 @@
 	desc = "A flowing circle of shapes and runes is etched into the floor, filled with a thick black tar-like fluid."
 	anchored = TRUE
 	icon_state = ""
-	plane = GAME_PLANE_NON_INTEGRAL
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = SIGIL_LAYER
@@ -16,6 +15,7 @@
 	var/image/silicon_image = image(icon = 'icons/effects/heretic.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)
+	generate_psychic_mask()
 
 /obj/effect/heretic_rune/examine(mob/user)
 	. = ..()

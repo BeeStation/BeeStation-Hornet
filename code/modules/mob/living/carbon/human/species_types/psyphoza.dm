@@ -303,6 +303,7 @@
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
 	filters += filter(type = "alpha", render_source = GAME_PLANE_RENDER_TARGET)
+	filters += filter(type = "alpha", render_source = ANTI_PSYCHIC_PLANE_RENDER_TARGET, flags = MASK_INVERSE)
 	filters += filter(type = "alpha", render_source = "psychic_mask")
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.0125)

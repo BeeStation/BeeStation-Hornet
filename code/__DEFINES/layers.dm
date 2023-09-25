@@ -19,7 +19,6 @@
 #define ZMIMIC_MAX_DEPTH 10
 
 #define FLOOR_PLANE -7
-#define GAME_PLANE_NON_INTEGRAL -5
 #define GAME_PLANE -4
 #define GAME_PLANE_RENDER_TARGET "*GAME_PLANE_RENDER_TARGET"
 
@@ -161,7 +160,10 @@
 
 //Plane for highlighting objects
 #define PSYCHIC_PLANE 550
-#define PSYCHIC_PLANE_RENDER_TARGET "PSYCHIC_PLANE"
+#define PSYCHIC_PLANE_RENDER_TARGET "PSYCHIC_PLANE_RENDER_TARGET"
+//Plane for not-highlighting objects
+#define ANTI_PSYCHIC_PLANE 551
+#define ANTI_PSYCHIC_PLANE_RENDER_TARGET "ANTI_PSYCHIC_PLANE_RENDER_TARGET"
 
 //-------------------- Rendering ---------------------
 #define RENDER_PLANE_GAME 990

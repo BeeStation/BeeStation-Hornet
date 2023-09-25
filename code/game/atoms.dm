@@ -1809,3 +1809,9 @@
 		return TRUE
 	return FALSE
 
+//Used to exclude this atom from the psychic highlight plane
+/atom/proc/generate_psychic_mask()
+	var/mutable_appearance/MA = mutable_appearance()
+	MA.appearance = appearance
+	MA.plane = ANTI_PSYCHIC_PLANE
+	add_overlay(MA)

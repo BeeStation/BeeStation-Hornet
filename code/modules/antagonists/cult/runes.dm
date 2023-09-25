@@ -34,7 +34,6 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 	anchored = TRUE
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
-	plane = GAME_PLANE_NON_INTEGRAL
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = SIGIL_LAYER
 	color = RUNE_COLOR_RED
@@ -81,6 +80,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 	var/image/I = image(icon = 'icons/effects/blood.dmi', icon_state = null, loc = src)
 	I.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cult_runes", I)
+	generate_psychic_mask()
 
 /obj/effect/rune/examine(mob/user)
 	. = ..()

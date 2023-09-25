@@ -29,7 +29,7 @@
 /atom/movable/screen/map_view
 	// Map view has to be on the lowest plane to enable proper lighting
 	layer = GAME_PLANE
-	plane = GAME_PLANE_NON_INTEGRAL
+	plane = GAME_PLANE
 
 /**
  * A generic background object.
@@ -41,7 +41,7 @@
 	icon = 'icons/mob/map_backgrounds.dmi'
 	icon_state = "clear"
 	layer = GAME_PLANE
-	plane = GAME_PLANE_NON_INTEGRAL
+	plane = GAME_PLANE
 
 /**
  * Sets screen_loc of this screen object, in form of point coordinates,
