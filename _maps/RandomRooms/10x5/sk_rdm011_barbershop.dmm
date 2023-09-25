@@ -67,7 +67,7 @@
 /obj/item/retractor,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/suit/apron/surgical,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/tank/internals/anesthetic,
 /obj/structure/closet/cardboard,
 /obj/item/cautery,

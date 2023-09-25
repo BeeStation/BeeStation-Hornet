@@ -12,6 +12,8 @@
 #define MATERIAL_NO_COLOR (1<<0)
 /// Applies the material greyscale color to the atom's greyscale color.
 #define MATERIAL_GREYSCALE (1<<1)
+/// Whether a prefix describing the material should be added to the name
+#define MATERIAL_ADD_PREFIX (1<<2)
 
 /// Create standardized stack sizes.
 

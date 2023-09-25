@@ -1342,7 +1342,7 @@
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Midship)
 "Ht" = (
-/obj/item/deployable/bodybag,
+/obj/item/bodybag,
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Midship)
 "Hz" = (

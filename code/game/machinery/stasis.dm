@@ -23,13 +23,6 @@
 /obj/machinery/stasis/Initialize()
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
 	dir_changed(new_dir = dir)
-	return ..()
-
-/obj/machinery/stasis/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/stasis/LateInitialize()
 	. = ..()
 	initial_link()
 
@@ -200,9 +193,4 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/stasis)
 /obj/machinery/stasis/nap_violation(mob/violator)
 	unbuckle_mob(violator, TRUE)
 
-/obj/machinery/stasis/attack_robot(mob/user)
-	if(Adjacent(user) && occupant)
-		unbuckle_mob(occupant)
-	else
-		..()
 #undef STASIS_TOGGLE_COOLDOWN

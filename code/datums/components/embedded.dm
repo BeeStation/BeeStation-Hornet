@@ -229,6 +229,8 @@
 			INVOKE_ASYNC(to_hands, TYPE_PROC_REF(/mob, put_in_hands), weapon)
 		else
 			INVOKE_ASYNC(weapon, TYPE_PROC_REF(/atom/movable, forceMove), get_turf(victim))
+		if(istype(weapon, /obj/item/shrapnel))
+			weapon.disableEmbedding()
 
 	qdel(src)
 

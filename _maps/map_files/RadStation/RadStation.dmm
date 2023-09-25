@@ -15586,15 +15586,15 @@
 /area/science/shuttledock)
 "eOo" = (
 /obj/structure/table/reinforced,
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_x = 8;
 	pixel_y = 12
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_x = 8;
 	pixel_y = 7
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -15602,10 +15602,10 @@
 	pixel_x = -6;
 	pixel_y = 9
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_y = 10
 	},
-/obj/item/deployable/barricade/security{
+/obj/item/security_barricade{
 	pixel_y = 5
 	},
 /obj/item/storage/lockbox/loyalty,
@@ -20867,7 +20867,7 @@
 /area/quartermaster/miningdock)
 "gnr" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -25227,7 +25227,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "hEO" = (
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "hES" = (
@@ -55904,7 +55904,7 @@
 /area/vacant_room/office)
 "rso" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "rsT" = (
@@ -57807,7 +57807,7 @@
 /area/hallway/primary/aft)
 "sbX" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},

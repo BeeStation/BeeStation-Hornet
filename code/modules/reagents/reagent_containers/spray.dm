@@ -56,7 +56,7 @@
 
 	log_combat(user, T, "sprayed", src, addition="which had [contained]")
 	log_game("[key_name(user)] fired [contained] from \a [src] at [AREACOORD(T)].") //copypasta falling out of my pockets
-	return
+	return TRUE
 
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A, mob/user)
