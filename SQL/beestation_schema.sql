@@ -152,6 +152,7 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	PRIMARY KEY (`slot`, `ckey`) USING BTREE
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
+
 -- Dumping structure for table ss13tgdb.SS13_characters_long
 DROP TABLE IF EXISTS `SS13_characters_long`;
 CREATE TABLE `SS13_characters_long` (
