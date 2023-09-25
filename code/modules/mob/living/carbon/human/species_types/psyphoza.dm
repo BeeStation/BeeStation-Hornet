@@ -160,6 +160,9 @@
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 	M.overlay_fullscreen("psychic_highlight_mask", /atom/movable/screen/fullscreen/blind/psychic/mask)
+	var/atom/movable/screen/fullscreen/blind_context_disable/B = M.overlay_fullscreen("psychic_highlight_click_mask", /atom/movable/screen/fullscreen/blind_context_disable)
+	B.owner = M?.client
+	B.mob_owner = M
 	//Add option to change visuals
 	if(!(locate(/datum/action/change_psychic_visual) in owner.actions))
 		overlay_change = new(src)

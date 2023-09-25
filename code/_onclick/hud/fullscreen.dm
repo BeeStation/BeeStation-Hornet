@@ -193,3 +193,32 @@
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
+
+/atom/movable/screen/fullscreen/blind_context_disable
+	name = "???"
+	icon_state = "blackimageoverlay"
+	layer = BLIND_LAYER+1
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	alpha = 1
+	///Who we're disabling from right clicking - handled elsewhere
+	var/client/owner
+	var/mob/mob_owner
+
+/atom/movable/screen/fullscreen/blind_context_disable/Initialize(mapload)
+	. = ..()
+	var/icon/mask = icon('icons/mob/psychic.dmi', "click_mask")
+	add_filter("click_mask", 1, alpha_mask_filter(icon = mask, flags = MASK_INVERSE))
+	
+/atom/movable/screen/fullscreen/blind_context_disable/MouseEntered(location, control, params)
+	//try and get owner from mob
+	owner = owner || mob_owner?.client
+	if(!owner)
+		return
+	owner?.show_popup_menus = FALSE
+	return ..()
+
+/atom/movable/screen/fullscreen/blind_context_disable/MouseExited(location, control, params)
+	if(!owner)
+		return
+	owner?.show_popup_menus = TRUE
+	return ..()
