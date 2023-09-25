@@ -152,7 +152,16 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	PRIMARY KEY (`slot`, `ckey`) USING BTREE
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
-
+-- Dumping structure for table ss13tgdb.SS13_characters_long
+DROP TABLE IF EXISTS `SS13_characters_long`;
+CREATE TABLE `SS13_characters_long` (
+	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`slot` INT(11) UNSIGNED NOT NULL,
+	`preference_tag` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`preference_value` MEDIUMTEXT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`ckey`, `slot`) USING BTREE,
+	UNIQUE INDEX `prefbinding` (`ckey`, `slot`, `preference_tag`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping structure for table ss13tgdb.SS13_connection_log
 DROP TABLE IF EXISTS `SS13_connection_log`;
@@ -435,8 +444,6 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_vote` (
   KEY `idx_pvote_pollid_ckey` (`pollid`,`ckey`),
   KEY `idx_pvote_optionid_ckey` (`optionid`,`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3936 DEFAULT CHARSET=utf8mb4;
-
-
 
 -- Dumping structure for table ss13tgdb.SS13_preferences
 DROP TABLE IF EXISTS `SS13_preferences`;

@@ -181,9 +181,14 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preferences/proc/get_preference_holder(datum/preference/preference_entry)
 	RETURN_TYPE(/datum/preferences_holder)
-	if(preference_entry.preference_type == PREFERENCE_CHARACTER)
-		return character_data
-	return player_data
+	switch(preference_entry.preference_type)
+		if(PREFERENCE_CHARACTER)
+			return character_data
+		if(PREFERENCE_CHARACTER_LONG)
+			return character_data_long
+		if(PREFERENCE_PLAYER)
+			return player_data
+	return null
 
 /// Read a /datum/preference type and return its value, only using cached values and queueing any necessary writes.
 /datum/preferences/proc/read_preference(preference_typepath)
@@ -213,8 +218,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
 
-	if (preference_entry.preference_type == PREFERENCE_CHARACTER)
-		CRASH("read_player_preference called on PREFERENCE_CHARACTER type preference [preference_typepath].")
+	if (preference_entry.preference_type != PREFERENCE_PLAYER)
+		CRASH("read_player_preference called on [preference_entry.preference_type] type preference [preference_typepath].")
 
 	return player_data.read_preference(src, preference_entry)
 
@@ -232,9 +237,11 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
 
-	if (preference_entry.preference_type == PREFERENCE_PLAYER)
-		CRASH("read_character_preference called on PREFERENCE_PLAYER type preference [preference_typepath].")
+	if (preference_entry.preference_type != PREFERENCE_CHARACTER && preference_entry.preference_type != PREFERENCE_CHARACTER_LONG)
+		CRASH("read_character_preference called on [preference_entry.preference_type] type preference [preference_typepath].")
 
+	if(preference_entry.preference_type == PREFERENCE_CHARACTER_LONG)
+		return character_data_long.read_preference(src, preference_entry)
 	return character_data.read_preference(src, preference_entry)
 
 /// Set a /datum/preference entry.
@@ -313,7 +320,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// appear.
 /datum/preference/proc/should_show_on_page(preference_tab)
 	var/is_on_character_page = preference_tab == PREFERENCE_TAB_CHARACTER_PREFERENCES
-	var/is_character_preference = preference_type == PREFERENCE_CHARACTER
+	var/is_character_preference = preference_type == PREFERENCE_CHARACTER || preference_type == PREFERENCE_CHARACTER_LONG
 	return is_on_character_page == is_character_preference
 
 /// A preference that is a choice of one option among a fixed set.

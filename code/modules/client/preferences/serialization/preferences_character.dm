@@ -18,23 +18,10 @@
 		column_names = get_column_names()
 	..(prefs)
 
-/datum/preferences_holder/preferences_character/proc/load_from_database(datum/preferences/prefs)
-	if(IS_GUEST_KEY(prefs.parent.key) || !query_data(prefs)) // Query direct, otherwise create informed defaults
-		for (var/preference_type in GLOB.preference_entries)
-			var/datum/preference/preference = GLOB.preference_entries[preference_type]
-			if (preference.preference_type != pref_type || !preference.informed) // non-informed values are handled earlier.
-				continue
-			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
-		return FALSE
-	if(!istype(prefs.parent)) // Client was nulled during query execution
-		return FALSE
-	return TRUE
-
-/datum/preferences_holder/preferences_character/proc/query_data(datum/preferences/prefs)
-	if(!SSdbcore.IsConnected())
-		return FALSE
-	if(!istype(prefs.parent))
-		return FALSE
+/datum/preferences_holder/preferences_character/query_data(datum/preferences/prefs)
+	. = ..()
+	if(. != PREFERENCE_LOAD_SUCCESS)
+		return .
 	var/list/values
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
 		"SELECT [db_column_list(column_names)] FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
@@ -42,15 +29,15 @@
 	)
 	if(!Q.warn_execute())
 		qdel(Q)
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	if(Q.NextRow())
 		values = Q.item
 		if(!length(values)) // There is no character
 			qdel(Q)
-			return FALSE
+			return PREFERENCE_LOAD_NO_DATA
 	else
 		qdel(Q)
-		return FALSE
+		return PREFERENCE_LOAD_NO_DATA
 	qdel(Q)
 	if(length(values) != length(column_names))
 		CRASH("Error querying character data: the returned value length is not equal to the number of columns requested.")
@@ -61,15 +48,16 @@
 			CRASH("Could not find preference with db_key [db_key] when querying database.")
 		var/value = values[index]
 		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
-	return TRUE
+	return PREFERENCE_LOAD_SUCCESS
 
-/datum/preferences_holder/preferences_character/proc/write_to_database(datum/preferences/prefs)
+/datum/preferences_holder/preferences_character/write_to_database(datum/preferences/prefs)
 	. = write_data(prefs)
 	dirty_prefs.Cut() // clear all dirty preferences
 
-/datum/preferences_holder/preferences_character/proc/write_data(datum/preferences/prefs)
-	if(!SSdbcore.IsConnected() || !istype(prefs.parent) || IS_GUEST_KEY(prefs.parent.key))
-		return FALSE
+/datum/preferences_holder/preferences_character/write_data(datum/preferences/prefs)
+	. = ..()
+	if(. != PREFERENCE_LOAD_SUCCESS)
+		return .
 	var/list/column_names_short = list()
 	var/list/new_data = list()
 	for(var/db_key in dirty_prefs)
@@ -85,18 +73,16 @@
 		if(length(column_name))
 			column_names_short += column_name
 	if(!length(column_names_short)) // nothing to update
-		return TRUE
+		return PREFERENCE_LOAD_NO_DATA
 	new_data["ckey"] = prefs.parent.ckey
 	new_data["slot"] = slot_number
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("characters")] (ckey, slot, [db_column_list(column_names_short)]) VALUES (:ckey, :slot, [db_column_list(column_names_short, TRUE)]) ON DUPLICATE KEY UPDATE [db_column_values(column_names_short)]", new_data
 	)
 	var/success = Q.warn_execute()
-	if(!success)
-		to_chat(prefs.parent, "<span class='boldannounce'>Failed to save your character. Please inform the server operator or a maintainer of this error.</span>")
 	qdel(Q)
 	prefs.fail_state = success
-	return success
+	return success ? PREFERENCE_LOAD_SUCCESS : PREFERENCE_LOAD_ERROR
 
 /datum/preferences_holder/preferences_character/proc/get_column_names()
 	var/list/result = list()

@@ -13,6 +13,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/max_save_slots = 3
 	/// Cache for the current active character slot
 	var/datum/preferences_holder/preferences_character/character_data
+	/// Cache for the current active character slot's "long" data
+	var/datum/preferences_holder/preferences_character_long/character_data_long
 	/// Cache for player datumized preferences
 	var/datum/preferences_holder/preferences_player/player_data
 
@@ -98,6 +100,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	QDEL_NULL(character_preview_view)
 	QDEL_LIST(middleware)
 	QDEL_NULL(character_data)
+	QDEL_NULL(character_data_long)
 	QDEL_NULL(player_data)
 	return ..()
 
@@ -142,6 +145,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		fetch_character_profiles()
 		var/new_species_path = GLOB.species_list[get_fallback_species_id() || "human"]
 		character_data.write_preference(src, GLOB.preference_entries[/datum/preference/choiced/species], new_species_path)
+		character_data_long = new(src, default_slot)
 	// We couldn't load character data so just randomize the character appearance
 	randomize_appearance_prefs()
 	if(parent)
@@ -402,7 +406,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.features = list()
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (preference.preference_type != PREFERENCE_CHARACTER)
+		if (preference.preference_type != PREFERENCE_CHARACTER && preference.preference_type != PREFERENCE_CHARACTER_LONG)
 			continue
 
 		preference.apply_to_human(character, read_character_preference(preference.type))

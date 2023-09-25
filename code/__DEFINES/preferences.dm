@@ -93,6 +93,8 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 // Values for /datum/preference/preference_type
 /// This preference is character specific.
 #define PREFERENCE_CHARACTER "character"
+/// This preference is character specific, but stored in the "long" table.
+#define PREFERENCE_CHARACTER_LONG "character_long"
 /// This preference is account specific.
 #define PREFERENCE_PLAYER "player"
 
@@ -153,3 +155,12 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define PREFERENCE_SHEET_NORMAL "preferences"
 #define PREFERENCE_SHEET_LARGE "preferences_l"
 #define PREFERENCE_SHEET_HUGE "preferences_h"
+
+/// Stop loading immediately, inform the user. Do not save the data.
+#define PREFERENCE_LOAD_ERROR 0
+/// There is no data to load, they are a guest and will never have this data.a
+#define PREFERENCE_LOAD_IGNORE 1
+/// No data found - create a new character, continue loading
+#define PREFERENCE_LOAD_NO_DATA 2
+/// Normal behavior - success!
+#define PREFERENCE_LOAD_SUCCESS 3
