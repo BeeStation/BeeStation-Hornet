@@ -1,5 +1,6 @@
 /// A cache for character preferences data
 /datum/preferences_holder/preferences_character
+	pref_type = PREFERENCE_CHARACTER
 	/// INT: Slot number. Used for internal tracking. The slot number also correspnds to the number of slots in the characters list
 	var/slot_number = 0
 	/// List of column names to be queried
@@ -77,6 +78,8 @@
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!istype(preference))
 			CRASH("Could not find preference with db_key [db_key] when writing to database.")
+		if(preference.preference_type != pref_type)
+			CRASH("Invalid preference located from db_key [db_key] for the preference type [pref_type] (had [preference.preference_type])")
 		new_data[db_key] = preference.serialize(preference_data[db_key])
 		var/column_name = clean_column_name(preference)
 		if(length(column_name))
