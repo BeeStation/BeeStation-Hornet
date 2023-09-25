@@ -48189,14 +48189,14 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "loj" = (
-/mob/living/simple_animal/bot/medbot{
-	auto_patrol = 1;
-	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
-	name = "Sir debugger"
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
+	},
+/mob/living/simple_animal/bot/medbot{
+	auto_patrol = 1;
+	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
+	name = "Inspector Johnson"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
@@ -61671,6 +61671,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
+"qTO" = (
+/mob/living/simple_animal/bot/medbot{
+	auto_patrol = 1;
+	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
+	name = "Inspector Johnson"
+	},
+/turf/closed/wall,
+/area/hallway/primary/central)
 "qUp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -68966,18 +68974,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"uhq" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/mob/living/simple_animal/bot/medbot{
-	auto_patrol = 1;
-	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
-	name = "Sir debugger"
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/central)
 "uhr" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -101843,7 +101839,7 @@ soT
 fFH
 xdC
 baG
-uhq
+baG
 dCH
 baG
 klp
@@ -111363,7 +111359,7 @@ bUb
 aYX
 sqE
 bSS
-bSS
+qTO
 bSS
 bSS
 bSS
