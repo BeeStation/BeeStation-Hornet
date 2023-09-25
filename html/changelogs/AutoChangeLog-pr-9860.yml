@@ -1,6 +1,0 @@
-author: RKz, Ghommie, tralezab, cacogen, Krysonism, qustinnus
-delete-after: true
-changes:
-  - rscadd: Added Pizza and Burgers to Newfood.
-  - tweak: processable element uses the correct grammar and references
-  - code_imp: split pizzaspaghetti.dmi into pizza.dmi and spaghetti.dmi
