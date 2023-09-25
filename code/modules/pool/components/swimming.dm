@@ -126,11 +126,13 @@
 	if(victim.losebreath < 1)
 		victim.losebreath += 1
 	ticks_drowned ++
+	if(victim.stat > CONSCIOUS)
+		return //Unconscious/dead people shouldn't emote
 	if(prob(20))
 		victim.emote("cough")
 	else if(prob(25))
 		victim.emote("gasp")
-	if(ticks_drowned > 20 && victim.stat < DEAD)
+	if(ticks_drowned > 20)
 		if(prob(10))
 			victim.visible_message("<span class='warning'>[victim] falls unconscious for a moment!</span>")
 			victim.Unconscious(10)
