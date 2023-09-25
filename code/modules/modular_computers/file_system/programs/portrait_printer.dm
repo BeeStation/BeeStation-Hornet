@@ -40,6 +40,9 @@
 	if(.)
 		return
 
+	if(action != "select")
+		return
+
 	//printer check!
 	var/obj/item/computer_hardware/printer/printer
 	if(computer)
