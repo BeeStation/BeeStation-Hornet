@@ -80,7 +80,6 @@
 	var/matrix/n_transform = transform
 	n_transform.Translate(0, -32)
 	transform = n_transform
-	add_filter("distance_mask", 1, alpha_mask_filter(render_source = "shiny_mask_render_target", flags = MASK_INVERSE))
 	add_filter("reflections", 1.1, alpha_mask_filter(render_source = masking_plane))
 	add_filter("displacement", 1.2, displacement_map_filter(render_source = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET, size = 42, y = -16))
 	add_filter("motion_blur", 1.3, motion_blur_filter(y = 0.7))
@@ -258,14 +257,10 @@
 /atom/movable/screen/plane_master/reflective
 	name = "reflective plane master"
 	plane = REFLECTIVE_PLANE
+	appearance_flags = PLANE_MASTER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = REFLECTIVE_PLANE_RENDER_TARGET
 	render_relay_plane = null
-
-/atom/movable/screen/plane_master/reflective/above
-	name = "reflective plane above master"
-	plane = REFLECTIVE_PLANE_ABOVE
-	render_target = REFLECTIVE_PLANE_ABOVE_RENDER_TARGET
 
 /atom/movable/screen/plane_master/reflective/Initialize(mapload)
 	. = ..()
@@ -273,13 +268,12 @@
 	n_transofrm.Translate(0, 32)
 	transform = n_transofrm
 
+/atom/movable/screen/plane_master/reflective/above
+	name = "reflective plane above master"
+	plane = REFLECTIVE_PLANE_ABOVE
+	render_target = REFLECTIVE_PLANE_ABOVE_RENDER_TARGET
+
 /atom/movable/screen/plane_master/reflective/displacement
 	name = "reflective displacement plane master"
 	plane = REFLECTIVE_DISPLACEMENT_PLANE
 	render_target = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET
-
-/atom/movable/screen/plane_master/reflective/displacement/Initialize(mapload)
-	. = ..()
-	var/matrix/n_transofrm = transform
-	n_transofrm.Translate(0, 32)
-	transform = n_transofrm

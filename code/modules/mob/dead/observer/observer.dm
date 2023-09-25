@@ -154,9 +154,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 
-	//Flip overlay for shiny stuff
-	overlay_fullscreen("shiny mask", /atom/movable/screen/fullscreen/shiny_mask)
-
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
 
