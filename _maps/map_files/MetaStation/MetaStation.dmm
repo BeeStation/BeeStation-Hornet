@@ -61671,14 +61671,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
-"qTO" = (
-/mob/living/simple_animal/bot/medbot{
-	auto_patrol = 1;
-	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
-	name = "Inspector Johnson"
-	},
-/turf/closed/wall,
-/area/hallway/primary/central)
 "qUp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -111359,7 +111351,7 @@ bUb
 aYX
 sqE
 bSS
-qTO
+bSS
 bSS
 bSS
 bSS
