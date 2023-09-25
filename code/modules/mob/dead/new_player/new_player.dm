@@ -392,7 +392,7 @@
 
 
 /*
-	Ported from yogs: https://github.com/yogstation13/Yogstation-TG/blob/master/yogstation/code/modules/mob/dead/new_player/new_player.dm //this link is dead since yog no longer has a new_player.dm!
+	Ported from yogs: https://github.com/yogstation13/Yogstation/blob/5bffae65b7421766c7397c0e457989eaf7c92f5d/yogstation/code/modules/mob/dead/new_player/new_player.dm
 */
 
 /mob/dead/new_player/proc/LateChoices()
