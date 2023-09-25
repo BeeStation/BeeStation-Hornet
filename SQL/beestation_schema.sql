@@ -445,6 +445,8 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_vote` (
   KEY `idx_pvote_optionid_ckey` (`optionid`,`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3936 DEFAULT CHARSET=utf8mb4;
 
+
+
 -- Dumping structure for table ss13tgdb.SS13_preferences
 DROP TABLE IF EXISTS `SS13_preferences`;
 CREATE TABLE `SS13_preferences` (
