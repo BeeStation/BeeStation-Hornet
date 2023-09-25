@@ -75,7 +75,7 @@
 	name = "Fish fingers"
 	reqs = list(
 		/datum/reagent/consumable/flour = 5,
-		/obj/item/reagent_containers/food/snacks/bun = 1,
+		/obj/item/food/bun = 1,
 		/obj/item/reagent_containers/food/snacks/carpmeat = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/fishfingers
@@ -165,7 +165,7 @@
 /datum/crafting_recipe/food/rawkhinkali
 	name = "Raw Khinkali"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/doughslice = 1,
+		/obj/item/food/doughslice = 1,
 		/obj/item/reagent_containers/food/snacks/grown/garlic = 1,
 		/obj/item/reagent_containers/food/snacks/meatball = 1
 	)
@@ -175,7 +175,7 @@
 /datum/crafting_recipe/food/pigblanket
 	name = "Pig in a Blanket"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/bun = 1,
+		/obj/item/food/bun = 1,
 		/obj/item/reagent_containers/food/snacks/butter = 1,
 		/obj/item/reagent_containers/food/snacks/meat/cutlet = 1
 	)
