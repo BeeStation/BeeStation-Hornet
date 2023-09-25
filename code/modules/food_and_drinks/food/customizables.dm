@@ -42,8 +42,6 @@
 			to_chat(user, "<span class='warning'>The ingredient is too big for [src]!</span>")
 		else if((ingredients.len >= ingMax) || (reagents.total_volume >= volume))
 			to_chat(user, "<span class='warning'>You can't add more ingredients to [src]!</span>")
-		else if(istype(I, /obj/item/reagent_containers/food/snacks/pizzaslice/custom))
-			to_chat(user, "<span class='warning'>Adding [I.name] to [src] would make a mess.</span>")
 		else
 			if(!user.transferItemToLoc(I, src))
 				return
@@ -175,10 +173,9 @@
 	desc = "Noodles. With stuff. Delicious."
 	ingredients_placement = INGREDIENTS_SCATTER
 	ingMax = 6
-	icon = 'icons/obj/food/pizzaspaghetti.dmi'
+	icon = 'icons/obj/food/spaghetti.dmi'
 	icon_state = "spaghettiboiled"
 	foodtype = GRAIN
-
 
 /obj/item/reagent_containers/food/snacks/customizable/pie
 	name = "pie"
@@ -187,19 +184,6 @@
 	icon_state = "pie"
 	foodtype = GRAIN | DAIRY
 
-
-/obj/item/reagent_containers/food/snacks/customizable/pizza
-	name = "pizza"
-	desc = "A personalized pan pizza meant for only one person."
-	ingredients_placement = INGREDIENTS_SCATTER
-	ingMax = 8
-	slice_path = /obj/item/reagent_containers/food/snacks/pizzaslice/custom
-	slices_num = 6
-	icon = 'icons/obj/food/pizzaspaghetti.dmi'
-	icon_state = "pizzamargherita"
-	foodtype = GRAIN | DAIRY
-
-
 /obj/item/reagent_containers/food/snacks/customizable/salad
 	name = "salad"
 	desc = "Very tasty."
@@ -207,7 +191,6 @@
 	ingMax = 6
 	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "bowl"
-
 
 /obj/item/reagent_containers/food/snacks/customizable/soup
 	name = "soup"

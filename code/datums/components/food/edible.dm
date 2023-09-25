@@ -276,6 +276,9 @@ Behavior that's still missing from this component that original food items had t
 
 	set waitfor = FALSE // We might end up sleeping here, so we don't want to hold up anything
 
+	if(QDELETED(parent))
+		return
+
 	var/atom/owner = parent
 
 	if(feeder.a_intent == INTENT_HARM)
