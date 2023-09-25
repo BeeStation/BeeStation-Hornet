@@ -80,9 +80,10 @@
 	var/matrix/n_transform = transform
 	n_transform.Translate(0, -32)
 	transform = n_transform
-	add_filter("reflections", 1, alpha_mask_filter(render_source = masking_plane))
-	add_filter("displacement", 1.1, displacement_map_filter(render_source = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET, size = 42, y = -16))
-	add_filter("motion_blur", 1.2, motion_blur_filter(y = 0.7))
+	add_filter("distance_mask", 1, alpha_mask_filter(render_source = "shiny_mask_render_target", flags = MASK_INVERSE))
+	add_filter("reflections", 1.1, alpha_mask_filter(render_source = masking_plane))
+	add_filter("displacement", 1.2, displacement_map_filter(render_source = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET, size = 42, y = -16))
+	add_filter("motion_blur", 1.3, motion_blur_filter(y = 0.7))
 	
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"

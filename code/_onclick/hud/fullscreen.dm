@@ -188,3 +188,9 @@
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
+
+/atom/movable/screen/fullscreen/shiny_mask
+	icon_state = "shiny_mask"
+	plane = REFLECTIVE_DISPLACEMENT_PLANE
+	render_target = "shiny_mask_render_target"
+

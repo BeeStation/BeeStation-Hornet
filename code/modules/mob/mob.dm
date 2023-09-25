@@ -94,6 +94,9 @@
 	add_verb(verbs, TRUE)
 	become_hearing_sensitive()
 
+	//Flip overlay for shiny stuff
+	overlay_fullscreen("shiny mask", /atom/movable/screen/fullscreen/shiny_mask)
+
 /**
   * Generate the tag for this mob
   *
