@@ -228,3 +228,15 @@
 	name = "fullscreen alert plane"
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
+
+/atom/movable/screen/plane_master/anti_psychic
+	name = "anti psychic plane master"
+	plane = ANTI_PSYCHIC_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_target = ANTI_PSYCHIC_PLANE_RENDER_TARGET
+	render_relay_plane = null
+
+/atom/movable/screen/plane_master/anti_psychic/backdrop(mob/mymob)
+	. = ..()
+	//fixes issue with bloom outlines
+	add_filter("hide_outline", 1, outline_filter(5, "#fff"))
