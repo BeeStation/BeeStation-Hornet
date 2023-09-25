@@ -125,16 +125,6 @@
 	result = /obj/item/reagent_containers/food/snacks/bearsteak
 	subcategory = CAT_MEAT
 
-/datum/crafting_recipe/food/enchiladas
-	name = "Enchiladas"
-	reqs = list(
-		/obj/item/reagent_containers/food/snacks/meat/cutlet = 2,
-		/obj/item/reagent_containers/food/snacks/grown/chili = 2,
-		/obj/item/reagent_containers/food/snacks/tortilla = 2
-	)
-	result = /obj/item/reagent_containers/food/snacks/enchiladas
-	subcategory = CAT_MEAT
-
 /datum/crafting_recipe/food/stewedsoymeat
 	name = "Stewed soymeat"
 	reqs = list(

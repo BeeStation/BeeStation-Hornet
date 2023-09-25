@@ -156,7 +156,7 @@
 		/obj/item/reagent_containers/food/snacks/soup/monkeysdelight,
 		/obj/item/reagent_containers/food/snacks/soup/stew,
 		/obj/item/reagent_containers/food/snacks/soup/hotchili,
-		/obj/item/reagent_containers/food/snacks/burrito,
+		/obj/item/food/burrito,
 		/obj/item/food/burger/fish,
 		/obj/item/reagent_containers/food/snacks/cubancarp,
 		/obj/item/reagent_containers/food/snacks/fishandchips,
