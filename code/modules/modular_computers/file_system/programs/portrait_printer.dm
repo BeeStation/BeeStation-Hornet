@@ -53,13 +53,20 @@
 	if(printer.stored_paper < CANVAS_PAPER_COST)
 		to_chat(usr, "<span class='notice'>Printing error: Your printer needs at least [CANVAS_PAPER_COST] paper to print a canvas.</span>")
 		return
-	printer.stored_paper -= CANVAS_PAPER_COST
 
 	//canvas printing!
 	var/list/tab2key = list(TAB_LIBRARY = "library", TAB_SECURE = "library_secure", TAB_PRIVATE = "library_private")
+	if(!params["tab"])
+		return
 	var/folder = tab2key[params["tab"]]
+	if(!folder)
+		return
 	var/list/current_list = SSpersistence.paintings[folder]
+	if(!params["selected"])
+		return
 	var/list/chosen_portrait = current_list[params["selected"]]
+	if(!islist(chosen_portrait))
+		return
 	var/author = chosen_portrait["author"]
 	var/title = chosen_portrait["title"]
 	var/png = "data/paintings/[folder]/[chosen_portrait["md5"]].png"
@@ -82,5 +89,6 @@
 	///this is a copy of something that is already in the database- it should not be able to be saved.
 	printed_canvas.no_save = TRUE
 	printed_canvas.update_icon()
+	printer.stored_paper -= CANVAS_PAPER_COST
 	to_chat(usr, "<span class='notice'>You have printed [title] onto a new canvas.</span>")
 	playsound(computer.physical, 'sound/items/poster_being_created.ogg', 100, TRUE)
