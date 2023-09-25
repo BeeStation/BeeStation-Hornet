@@ -26,7 +26,10 @@
   *
   * Will apply the blind alerts if needed
   */
-/mob/proc/adjust_blindness(amount)
+/mob/proc/adjust_blindness(amount, force)
+	//snowflake-ish fix for psyphoza
+	if(!force && HAS_TRAIT_FROM(src, TRAIT_BLIND, "uncurable"))
+		return
 	var/old_eye_blind = eye_blind
 	eye_blind += amount
 	if(!old_eye_blind || !eye_blind && !HAS_TRAIT(src, TRAIT_BLIND))
@@ -35,7 +38,9 @@
 /**
   * Force set the blindness of a mob to some level
   */
-/mob/proc/set_blindness(amount)
+/mob/proc/set_blindness(amount, force)
+	if(!force && HAS_TRAIT_FROM(src, TRAIT_BLIND, "uncurable"))
+		return
 	var/old_eye_blind = eye_blind
 	eye_blind = max(amount, 0)
 	if(!old_eye_blind || !eye_blind && !HAS_TRAIT(src, TRAIT_BLIND))

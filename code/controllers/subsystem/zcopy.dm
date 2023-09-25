@@ -626,7 +626,7 @@ SUBSYSTEM_DEF(zcopy)
 		zmimic_fixed_planes = list(
 			"[MASSIVE_OBJ_PLANE]" = "Massive object plane (Non-Z)",
 			"[GAME_PLANE]" = "Game plane (Non-Z)",
-			"[FLOOR_PLANE]" = "floor plane (Non-Z)",
+			"[FLOOR_PLANE]" = "floor plane (Non-Z)"
 		)
 
 	var/real_update_count = 0

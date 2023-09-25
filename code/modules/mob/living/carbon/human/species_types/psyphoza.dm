@@ -273,6 +273,32 @@
 	render_target = "blind_psychic"
 	///The color we return to after going black & back.
 	var/origin_color = "#111"
+	///Index for texture setting - Useful if we add more presets
+	var/texture_index = 0
+
+/atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
+	. = ..()
+	cycle_textures()
+
+//Copied code, it'll be fine
+/atom/movable/screen/fullscreen/blind/psychic/proc/cycle_textures(new_texture)
+	++texture_index
+	color = origin_color
+	if(new_texture)
+		appearance = new_texture
+		return
+	else
+		//Set animation
+		switch(texture_index)
+			if(1)
+				icon_state = "trip"
+			if(2)
+				icon_state = "trip_static"
+			if(3)
+				icon_state = "trip_static_hole"
+				color = "#000"
+	//Wrap index back around
+	texture_index = texture_index >= 3 ? 0 :  texture_index
 
 /atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
 	. = ..()
@@ -419,13 +445,17 @@
 	button_icon_state = "change_texture"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
+	var/atom/movable/screen/fullscreen/blind/psychic/blind_overlay
 
 /datum/action/change_psychic_texture/New(Target)
 	. = ..()
 	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(blind_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+
 
 /datum/action/change_psychic_texture/Destroy()
 	QDEL_NULL(psychic_overlay)
+	QDEL_NULL(blind_overlay)
 	return ..()
 
 /datum/action/change_psychic_texture/proc/parent_destroy()
@@ -435,9 +465,10 @@
 
 /datum/action/change_psychic_texture/Trigger()
 	. = ..()
-	if(!psychic_overlay)
-		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
+	psychic_overlay = psychic_overlay || owner?.screens["psychic_highlight"]
 	psychic_overlay?.cycle_textures()
+	blind_overlay = blind_overlay || owner?.screens["blind"]
+	blind_overlay?.cycle_textures()
 
 
 #undef PSYPHOZA_BURNMOD
