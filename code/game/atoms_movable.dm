@@ -178,12 +178,9 @@
 /atom/movable/proc/stop_pulling()
 	if(pulling?.pulledby)
 		if(ismob(pulling.pulledby))
-			//log_combat(pulling.pulledby, pulling, "has stopped pulling", addition = "at [AREACOORD(pulling.pulledby)]")
 			pulling.pulledby.log_message("has stopped pulling [key_name(pulling)] at", LOG_ATTACK)
-			//user.log_message("modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", LOG_ATTACK)
 		if(ismob(pulling))
-			//log_combat(pulling, pulling.pulledby, "stopped being pulled by", addition = "at [AREACOORD(pulling)]")
-			pulling.log_message("was stopped being pulled by [key_name(pulling.pulledby)] at", LOG_ATTACK)
+			pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)] at", LOG_ATTACK)
 		pulling.pulledby = null
 		var/mob/living/ex_pulled = pulling
 		pulling = null
