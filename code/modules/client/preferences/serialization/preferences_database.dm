@@ -208,6 +208,8 @@
 			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
 		return PREFERENCE_LOAD_ERROR
 	if(read_result == PREFERENCE_LOAD_IGNORE)
+		character_data_long = new(src, slot)
+		character_data_long.provide_defaults(src, should_use_informed = TRUE)
 		return PREFERENCE_LOAD_IGNORE
 
 	character_data_long = new(src, slot)
@@ -371,27 +373,23 @@
 		CRASH("Preferences holder pref_type is [pref_type]")
 	preference_data = list()
 	dirty_prefs = list()
-	// Read everything into cache
+
+/datum/preferences_holder/proc/provide_defaults(datum/preferences/prefs, should_use_informed)
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
-		if (preference.preference_type != pref_type || preference.informed)
+		if (preference.preference_type != pref_type || (preference.informed != should_use_informed))
 			continue
 
-		// we can't use informed values here. The name will get populated manually
-		preference_data[preference.db_key] = preference.deserialize(preference.create_default_value(), prefs)
+		if(should_use_informed)
+			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
+		else
+			preference_data[preference.db_key] = preference.deserialize(preference.create_default_value(), prefs)
 
 /datum/preferences_holder/proc/load_from_database(datum/preferences/prefs)
 	var/result = !IS_GUEST_KEY(prefs.parent.key) ? query_data(prefs) : PREFERENCE_LOAD_IGNORE
-	if(result != PREFERENCE_LOAD_SUCCESS) // Query direct, otherwise create informed defaults
-		for (var/preference_type in GLOB.preference_entries)
-			var/datum/preference/preference = GLOB.preference_entries[preference_type]
-			if (preference.preference_type != pref_type || !preference.informed) // non-informed values are handled earlier.
-				continue
-			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
-		return result
 	if(!istype(prefs.parent)) // Client was nulled during query execution
 		return PREFERENCE_LOAD_ERROR
-	return PREFERENCE_LOAD_SUCCESS
+	return result
 
 /datum/preferences_holder/proc/query_data(datum/preferences/prefs)
 	SHOULD_CALL_PARENT(TRUE)

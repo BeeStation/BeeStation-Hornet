@@ -127,47 +127,62 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	save_locked = TRUE
 
-	var/loaded_preferences_successfully = load_preferences()
-	var/loaded_character_successfully
-	if(loaded_preferences_successfully == PREFERENCE_LOAD_SUCCESS || loaded_preferences_successfully == PREFERENCE_LOAD_NO_DATA)
+	var/pref_load = load_preferences()
+	var/char_load
+	if(pref_load == PREFERENCE_LOAD_SUCCESS || pref_load == PREFERENCE_LOAD_NO_DATA)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
 			max_save_slots += 1
 		// Apply the loaded preferences!!
 		if(istype(parent))
 			apply_all_client_preferences()
-		loaded_character_successfully = load_character()
+		char_load = load_character()
 	else if(istype(parent) && istype(player_data)) // defaults should already exist because player_data generates them
 		apply_all_client_preferences()
-	else // Ok what the fuck
+	else // Ok what the fuck - abort mission
 		save_locked = FALSE
 		qdel(src) // this will also remove us from the write queue
 		return
 
-	// We need to randomize / make a new character.
-	if(loaded_character_successfully == PREFERENCE_LOAD_IGNORE || loaded_character_successfully == PREFERENCE_LOAD_NO_DATA)
+	// character_data is null, so we need to just set it up manually with defaults.
+	// This means either there is no DB or we are a guest key.
+	if(pref_load == PREFERENCE_LOAD_IGNORE)
 		character_data = new(src, default_slot)
+		character_data.provide_defaults(src, should_use_informed = FALSE)
+		character_data_long = new(src, default_slot)
+		character_data_long.provide_defaults(src, should_use_informed = FALSE)
+
+	// New player or guest/no DB. Use the fallback species
+	if(pref_load == PREFERENCE_LOAD_IGNORE || pref_load == PREFERENCE_LOAD_NO_DATA)
 		var/new_species_path = GLOB.species_list[get_fallback_species_id() || "human"]
 		character_data.write_preference(src, GLOB.preference_entries[/datum/preference/choiced/species], new_species_path)
-		character_data_long = new(src, default_slot)
+
+	// If the character is fresh in any way, we need to randomize it.
+	var/fresh_character = pref_load == PREFERENCE_LOAD_IGNORE || char_load == PREFERENCE_LOAD_IGNORE || char_load == PREFERENCE_LOAD_NO_DATA
+	if(fresh_character)
 		randomize_appearance_prefs()
 
-	// The character name is fresh, update the character list.
-	// We can just get all of them, because they haven't been fetched at all yet.
+	// Provide informed defaults for guests/no DB - these depend on other preferences, so we do that after randomizing.
+	if(pref_load == PREFERENCE_LOAD_IGNORE)
+		character_data.provide_defaults(src, should_use_informed = TRUE)
+		character_data_long.provide_defaults(src, should_use_informed = TRUE)
+
+	// Get character profiles, since they haven't been fetched at all yet
 	fetch_character_profiles()
-	// The database won't have the correct name yet, so manually load it.
-	update_current_character_profile()
+	// The database won't have the correct name yet, so manually load it, if it changed.
+	if(fresh_character)
+		update_current_character_profile()
 	create_character_preview_view()
 
 	save_locked = FALSE
 
 	// If this was a NEW CKEY ENTRY, and not a guest key (handled in save_preferences()), save it.
 	// Guest keys are ignored by mark_undatumized_dirty
-	if(loaded_preferences_successfully == PREFERENCE_LOAD_NO_DATA)
+	if(pref_load == PREFERENCE_LOAD_NO_DATA)
 		// This will essentially force a write, while also using the queueing system.
 		// For new ckeys, it is almost guaranteed we already hit the queue, since write_preference (used for when a datumized entry is null)
 		// Will also queue the CKEY. But this will also ensure that undatumized prefs get written.
 		mark_undatumized_dirty_player()
-	if(loaded_character_successfully == PREFERENCE_LOAD_NO_DATA)
+	if(char_load == PREFERENCE_LOAD_NO_DATA)
 		mark_undatumized_dirty_character()
 
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)

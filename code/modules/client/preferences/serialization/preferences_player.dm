@@ -3,22 +3,13 @@
 	pref_type = PREFERENCE_PLAYER
 
 /datum/preferences_holder/preferences_player/load_from_database(datum/preferences/prefs)
-	var/result = !IS_GUEST_KEY(prefs.parent.key) ? query_data(prefs) : PREFERENCE_LOAD_IGNORE
-	if(result != PREFERENCE_LOAD_SUCCESS) // Query direct, otherwise create informed defaults
-		for (var/preference_type in GLOB.preference_entries)
-			var/datum/preference/preference = GLOB.preference_entries[preference_type]
-			if (preference.preference_type != pref_type || !preference.informed) // non-informed values are handled earlier.
-				continue
-			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
-		// Give the developers +1 sanity points
-		if(Debugger?.enabled)
-			prefs.update_preference(/datum/preference/toggle/sound_ambience, FALSE)
-			prefs.update_preference(/datum/preference/toggle/sound_ship_ambience, FALSE)
-			prefs.update_preference(/datum/preference/toggle/sound_lobby, FALSE)
-		return result
-	if(!istype(prefs.parent)) // Client was nulled during query execution
-		return PREFERENCE_LOAD_ERROR
-	return PREFERENCE_LOAD_SUCCESS
+	. = ..()
+	// Give the developers +1 sanity points
+	if(. == PREFERENCE_LOAD_IGNORE && Debugger?.enabled)
+		prefs.update_preference(/datum/preference/toggle/sound_ambience, FALSE)
+		prefs.update_preference(/datum/preference/toggle/sound_ship_ambience, FALSE)
+		prefs.update_preference(/datum/preference/toggle/sound_lobby, FALSE)
+	return .
 
 /datum/preferences_holder/preferences_player/query_data(datum/preferences/prefs)
 	. = ..()
