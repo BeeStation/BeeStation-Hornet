@@ -128,30 +128,33 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	save_locked = TRUE
 
 	var/loaded_preferences_successfully = load_preferences()
-	if(loaded_preferences_successfully)
+	var/loaded_character_successfully
+	if(loaded_preferences_successfully == PREFERENCE_LOAD_SUCCESS || loaded_preferences_successfully == PREFERENCE_LOAD_NO_DATA)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
 			max_save_slots += 1
-		if(load_character()) // This returns true if there is a database and character in the active slot.
-			// Get the profile data
-			fetch_character_profiles()
-			create_character_preview_view()
-			save_locked = FALSE
-			return
-	// Begin no database / new player logic. This ONLY fires if there is an SQL error or no database / the player and character is new.
+		// Apply the loaded preferences!!
+		if(istype(parent))
+			apply_all_client_preferences()
+		loaded_character_successfully = load_character()
+	else if(istype(parent) && istype(player_data)) // defaults should already exist because player_data generates them
+		apply_all_client_preferences()
+	else // Ok what the fuck
+		save_locked = FALSE
+		qdel(src) // this will also remove us from the write queue
+		return
 
-	if(!loaded_preferences_successfully) // create a new character object
+	// We need to randomize / make a new character.
+	if(loaded_character_successfully == PREFERENCE_LOAD_IGNORE || loaded_character_successfully == PREFERENCE_LOAD_NO_DATA)
 		character_data = new(src, default_slot)
-		// Get the profile data
-		fetch_character_profiles()
 		var/new_species_path = GLOB.species_list[get_fallback_species_id() || "human"]
 		character_data.write_preference(src, GLOB.preference_entries[/datum/preference/choiced/species], new_species_path)
 		character_data_long = new(src, default_slot)
-	// We couldn't load character data so just randomize the character appearance
-	randomize_appearance_prefs()
-	if(parent)
-		apply_all_client_preferences() // apply now since normally this is done in load_preferences(). Defaults were set in preferences_player
+		randomize_appearance_prefs()
 
 	// The character name is fresh, update the character list.
+	// We can just get all of them, because they haven't been fetched at all yet.
+	fetch_character_profiles()
+	// The database won't have the correct name yet, so manually load it.
 	update_current_character_profile()
 	create_character_preview_view()
 
@@ -159,12 +162,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	// If this was a NEW CKEY ENTRY, and not a guest key (handled in save_preferences()), save it.
 	// Guest keys are ignored by mark_undatumized_dirty
-	if(!loaded_preferences_successfully)
+	if(loaded_preferences_successfully == PREFERENCE_LOAD_NO_DATA)
 		// This will essentially force a write, while also using the queueing system.
 		// For new ckeys, it is almost guaranteed we already hit the queue, since write_preference (used for when a datumized entry is null)
 		// Will also queue the CKEY. But this will also ensure that undatumized prefs get written.
 		mark_undatumized_dirty_player()
-	mark_undatumized_dirty_character()
+	if(loaded_character_successfully == PREFERENCE_LOAD_NO_DATA)
+		mark_undatumized_dirty_character()
 
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// IMPORTANT: If someone opens the prefs menu before jobs load, then the jobs menu will be empty for everyone.
@@ -258,10 +262,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			save_character()
 
 			// SAFETY: `load_character` performs sanitization the slot number
-			if (!load_character(new_slot))
+			var/character_load_result = load_character(new_slot)
+			if (character_load_result == PREFERENCE_LOAD_NO_DATA || character_load_result == PREFERENCE_LOAD_IGNORE)
 				// there is no character in the slot. Make a new one. Save it.
 				update_current_character_profile()
 				randomize_appearance_prefs()
+			if(character_load_result == PREFERENCE_LOAD_NO_DATA)
 				// Queue an undatumized save, just in case (it's likely already queued, but we should write undatumized data as well)
 				mark_undatumized_dirty_character()
 

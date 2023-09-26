@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(preferences)
 	for(var/ckey in datums)
 		var/datum/weakref/ref = datums[ckey]
 		var/datum/preferences/prefs = ref.resolve()
-		if(!prefs)
+		if(QDELETED(prefs))
 			datums -= ckey
 			continue
 		if(prefs.save_locked) // don't save right now, but stay queued

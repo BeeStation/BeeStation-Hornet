@@ -43,7 +43,7 @@
 
 /datum/preferences/proc/load_preferences()
 	if(!istype(parent))
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	// Cache their ckey because they can disconnect while datumized prefs read.
 	var/parent_ckey = parent.ckey
 	// Get the datumized stuff first
@@ -52,9 +52,9 @@
 	if(load_result == PREFERENCE_LOAD_ERROR || load_result == null)
 		if(istype(parent))
 			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized preferences. Please inform the server operator or a maintainer of this error.</span>")
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	if(load_result == PREFERENCE_LOAD_IGNORE)
-		return FALSE
+		return PREFERENCE_LOAD_IGNORE
 
 	var/datum/DBQuery/read_player_data = SSdbcore.NewQuery(
 		"SELECT CAST(preference_tag AS CHAR) AS ptag, preference_value FROM [format_table_name("preferences")] WHERE ckey=:ckey",
@@ -67,7 +67,7 @@
 
 	if(!read_player_data.Execute())
 		qdel(read_player_data)
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	else
 		while(read_player_data.NextRow())
 			prefmap[read_player_data.item[1]] = read_player_data.item[2]
@@ -124,9 +124,7 @@
 			if(parent)
 				parent.update_special_keybinds(src)
 			mark_undatumized_dirty_player() // Write the new keybinds to the database.
-	if(parent)
-		apply_all_client_preferences()
-	return TRUE
+	return length(prefmap) ? PREFERENCE_LOAD_SUCCESS : PREFERENCE_LOAD_NO_DATA
 
 #undef READPREF_STR
 #undef READPREF_INT
@@ -191,7 +189,7 @@
 
 /datum/preferences/proc/load_character(slot)
 	if(!istype(parent))
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	if(!slot)
 		slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
@@ -208,9 +206,9 @@
 	if(read_result == PREFERENCE_LOAD_ERROR || read_result == null)
 		if(istype(parent))
 			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	if(read_result == PREFERENCE_LOAD_IGNORE)
-		return FALSE
+		return PREFERENCE_LOAD_IGNORE
 
 	character_data_long = new(src, slot)
 	var/read_result_long = character_data_long.load_from_database(src)
@@ -218,9 +216,9 @@
 	if(read_result_long == PREFERENCE_LOAD_ERROR || read_result_long == null)
 		if(istype(parent))
 			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized 'long' character preferences. Please inform the server operator or a maintainer of this error.</span>")
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	if(read_result_long == PREFERENCE_LOAD_IGNORE)
-		return FALSE
+		return PREFERENCE_LOAD_IGNORE
 
 	// Do NOT statically cache this or I will kill you. You are asking an evil vareditor to break the DB in a BAD way
 	// also DO NOT rename this
@@ -242,15 +240,15 @@
 	var/list/values
 	if(!Q.warn_execute())
 		qdel(Q)
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	if(Q.NextRow())
 		values = Q.item
 		if(!length(values)) // There is no character
 			qdel(Q)
-			return FALSE
+			return PREFERENCE_LOAD_NO_DATA
 	else
 		qdel(Q)
-		return FALSE
+		return PREFERENCE_LOAD_NO_DATA
 	qdel(Q)
 	if(length(values) != length(column_names))
 		CRASH("Error querying character data: the returned value length is not equal to the number of columns requested.")
@@ -298,7 +296,7 @@
 			equipped_gear -= gear_id
 			mark_undatumized_dirty_character()
 
-	return TRUE
+	return PREFERENCE_LOAD_SUCCESS
 
 #undef JSONREAD_PREF
 
