@@ -553,11 +553,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			var/list/custom_names = list()
 			for(var/datum/outfit/D in outfits[dresscode])
 				custom_names[D.name] = D
-			dresscode = tgui_input_list(src, "Select custom equipment", "Robust quick dress shop", sort_list(custom_names)) // this is fine to be tgui_input_list
+			dresscode = tgui_input_list(src, "Select custom equipment", "Robust quick dress shop", sort_list(custom_names))
 			dresscode = custom_names[dresscode]
 		else
+			var/open_hotkey_mode = FALSE
+			if(dresscode == OUTFIT_CATEGORY_JOB || dresscode == OUTFIT_CATEGORY_PLASMAMAN)
+				open_hotkey_mode = TRUE
+
 			var/parent_code = dresscode
-			dresscode = tgui_input_list(src, "Select categorised equipment - [dresscode]", "Robust quick dress shop", sort_list(outfits[parent_code])) // this is fine to be tgui_input_list
+			dresscode = tgui_input_list(src, "Select categorised equipment - [dresscode]", "Robust quick dress shop", sort_list(outfits[parent_code]), hotkey_mode=open_hotkey_mode)
 			dresscode = outfits[parent_code][dresscode]
 		if(isnull(dresscode))
 			return
