@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(assistant_modules_lag_handlers)
 	_count_timeout_interval = timeout
 
 /datum/lag_handler/proc/_calculate_max_count()
-	_max_count = max(1, _base_max_count + rand(_rand_range))
+	_max_count = max(1, _base_max_count + rand(0, _rand_range))
 
 /datum/lag_handler/proc/start_lag_handle()
 	_currently_triggered++
@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(assistant_modules_lag_handlers)
 	check_count_timeout()
 	_count++
 	if(_count >= _max_count)
-		lag_check_reset()
+		_count = 0
 		_calculate_max_count()
 		sleep(_sleep_duration)
 
