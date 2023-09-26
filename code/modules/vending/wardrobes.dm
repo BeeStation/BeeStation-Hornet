@@ -359,7 +359,8 @@
 					/obj/item/storage/bag/trash = 2,
 					/obj/item/clothing/shoes/galoshes = 2,
 					/obj/item/watertank/janitor = 1,
-					/obj/item/storage/belt/janitor = 2)
+					/obj/item/storage/belt/janitor = 2,
+					/obj/item/floor_buffer = 2)
 	contraband = list(
 					/obj/item/holosign_creator/janibarrier = 1,
 					/obj/item/caution = 3, //The really old crusty ones

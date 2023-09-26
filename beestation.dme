@@ -1269,6 +1269,7 @@
 #include "code\game\objects\items\extinguisher.dm"
 #include "code\game\objects\items\fireaxe.dm"
 #include "code\game\objects\items\flamethrower.dm"
+#include "code\game\objects\items\floor_buffer.dm"
 #include "code\game\objects\items\gift.dm"
 #include "code\game\objects\items\granters.dm"
 #include "code\game\objects\items\handcuffs.dm"

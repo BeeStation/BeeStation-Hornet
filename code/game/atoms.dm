@@ -1814,7 +1814,6 @@
 	reflection_displacement = mutable_appearance('icons/turf/overlays.dmi', "flip", plane = REFLECTIVE_DISPLACEMENT_PLANE)
 	reflection_displacement.appearance_flags = 0
 	//Have to do this to make map work. Why? IDK, displacements are special like that
-	//reflection_displacement.pixel_y = -32
 	add_overlay(reflection)
 	add_overlay(reflection_displacement)
 	shine = _shine
