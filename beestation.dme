@@ -1616,7 +1616,7 @@
 #include "code\game\turfs\open\floor\plating\planet.dm"
 #include "code\game\turfs\open\space\space.dm"
 #include "code\game\turfs\open\space\transit.dm"
-#include "code\modules\_assistant_modules\lag_checker.dm"
+#include "code\modules\_assistant_modules\lag_handler.dm"
 #include "code\modules\actionspeed\_actionspeed_modifier.dm"
 #include "code\modules\actionspeed\modifiers\base.dm"
 #include "code\modules\actionspeed\modifiers\mood.dm"
