@@ -13,6 +13,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("polished", "bashed", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
+	custom_price = 500
 	///How fast we polish floors
 	var/buffer_speed = 1
 	///How long it takes to polish a floor
