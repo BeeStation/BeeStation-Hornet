@@ -644,6 +644,23 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	var/list/hprints = return_hiddenprints()
+	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
+		if(!length(hprints))
+			return
+		//If the given ckey doesn't have an assigned soul color
+		if(!GLOB.PSYCHIC_SENSE_SOULS[ckey(hprints[1])])
+			GLOB.PSYCHIC_SENSE_SOULS[ckey(hprints[1])] = pick(GLOB.PSYCHIC_SENSE_COLOURS)
+		//List all the key's soul colours
+		var/message = "<span class='notice'>You sense a <span style='color: [GLOB.PSYCHIC_SENSE_COLOURS[GLOB.PSYCHIC_SENSE_SOULS[ckey(hprints[1])]]]'>[GLOB.PSYCHIC_SENSE_SOULS[ckey(hprints[1])]]</span> presence."
+
+		if(length(hprints) > 2) //> 2 becuase it's weird
+			for(var/key in hprints)
+				if(!GLOB.PSYCHIC_SENSE_SOULS[ckey(key)])
+					GLOB.PSYCHIC_SENSE_SOULS[ckey(key)] = pick(GLOB.PSYCHIC_SENSE_COLOURS)
+				message += "\n<span style='color: [GLOB.PSYCHIC_SENSE_COLOURS[GLOB.PSYCHIC_SENSE_SOULS[ckey(key)]]]'>[GLOB.PSYCHIC_SENSE_SOULS[ckey(key)]]</span>"
+		. += "[message]"
+	
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**

@@ -22,6 +22,14 @@
 		apparent_species = ", \an [dna.species.name]"
 	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
 
+	//Psychic soul stuff
+	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
+		if(ckey(key))
+			if(!GLOB.PSYCHIC_SENSE_SOULS[ckey(key)])
+				GLOB.PSYCHIC_SENSE_SOULS[ckey(key)] = pick(GLOB.PSYCHIC_SENSE_COLOURS)
+			. += "<span class='notice'>You sense a <span style='color: [GLOB.PSYCHIC_SENSE_COLOURS[GLOB.PSYCHIC_SENSE_SOULS[ckey(key)]]]'>[GLOB.PSYCHIC_SENSE_SOULS[ckey(key)]]</span> presence."
+
+
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING) && !(w_uniform.item_flags & EXAMINE_SKIP))
 		//accessory
