@@ -34,9 +34,6 @@ GLOBAL_LIST_EMPTY(spell_list)
 	if(desc)
 		button.desc = desc
 
-/datum/action/proc/on_admin_grant(mob/target_mob)
-	return
-
 /datum/action/proc/link_to(Target)
 	target = Target
 
