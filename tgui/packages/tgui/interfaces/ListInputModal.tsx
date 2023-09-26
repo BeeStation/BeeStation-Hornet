@@ -12,13 +12,18 @@ type ListInputData = {
   message: string;
   timeout: number;
   title: string;
+  hotkey_mode: boolean;
 };
 
 export const ListInputModal = (_, context) => {
   const { act, data } = useBackend<ListInputData>(context);
-  const { items = [], message = '', init_value, large_buttons, timeout, title } = data;
+  const { items = [], message = '', init_value, large_buttons, timeout, title, hotkey_mode } = data;
   const [selected, setSelected] = useLocalState<number>(context, 'selected', items.indexOf(init_value));
-  const [searchBarVisible, setSearchBarVisible] = useLocalState<boolean>(context, 'searchBarVisible', items.length > 9);
+  const [searchBarVisible, setSearchBarVisible] = useLocalState<boolean>(
+    context,
+    'searchBarVisible',
+    items.length > 9 && !hotkey_mode
+  );
   const [searchQuery, setSearchQuery] = useLocalState<string>(context, 'searchQuery', '');
   // User presses up or down on keyboard
   // Simulates clicking an item

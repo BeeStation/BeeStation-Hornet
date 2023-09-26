@@ -10,7 +10,7 @@
  * * default - If an option is already preselected on the UI. Current values, etc.
  * * timeout - The timeout of the input box, after which the menu will close and qdel itself. Set to zero for no timeout.
  */
-/proc/tgui_input_list(mob/user, message, title = "Select", list/items, default, timeout = 0)
+/proc/tgui_input_list(mob/user, message, title = "Select", list/items, default, timeout = 0, hotkey_mode = null)
 	if (!user)
 		user = usr
 	if(!length(items))
@@ -24,7 +24,7 @@
 	// Client does NOT have tgui_input on: Returns regular input
 	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		return input(user, message, title) as null|anything in items
-	var/datum/tgui_list_input/input = new(user, message, title, items, default, timeout)
+	var/datum/tgui_list_input/input = new(user, message, title, items, default, timeout, hotkey_mode)
 	input.ui_interact(user)
 	input.wait()
 	if (input)
@@ -86,8 +86,10 @@
 	var/timeout
 	/// Boolean field describing if the tgui_list_input was closed by the user.
 	var/closed
+	/// Set it TRUE to open this with hotkey mode at default.
+	var/hotkey_mode
 
-/datum/tgui_list_input/New(mob/user, message, title, list/items, default, timeout)
+/datum/tgui_list_input/New(mob/user, message, title, list/items, default, timeout, hotkey_mode=null)
 	src.title = title
 	src.message = message
 	src.items = list()
@@ -114,6 +116,9 @@
 		src.timeout = timeout
 		start_time = world.time
 		QDEL_IN(src, timeout)
+
+	if(hotkey_mode)
+		src.hotkey_mode = hotkey_mode
 
 /datum/tgui_list_input/Destroy(force, ...)
 	SStgui.close_uis(src)
@@ -150,6 +155,7 @@
 	.["swapped_buttons"] = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input_swapped)
 	.["message"] = message
 	.["title"] = title
+	.["hotkey_mode"] = hotkey_mode
 
 /datum/tgui_list_input/ui_data(mob/user)
 	. = list()

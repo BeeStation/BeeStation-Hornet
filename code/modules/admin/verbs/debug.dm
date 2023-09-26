@@ -524,27 +524,27 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/static/initialized = FALSE
 	var/static/list/outfits = list("Naked","Custom",OUTFIT_CATEGORY_JOB,OUTFIT_CATEGORY_PLASMAMAN,"Debug") // we want to see these at first top
 	if(!initialized)
-		var/list/temporary = list()
+		outfits["Naked"] = /datum/outfit
+		outfits["Custom"] = GLOB.custom_outfits
+		outfits["Debug"] = /datum/outfit/debug
+
+		outfits["-----# Categorised Outfits #-----"] = null
+		var/list/non_grouped = list()
 		for(var/datum/outfit/path as() in subtypesof(/datum/outfit))
 			if(!initial(path.can_be_admin_equipped) || !initial(path.name))
 				continue
 			if(!initial(path.debug_window_category))
-				temporary[initial(path.name)] = path // we want to see category option at top
+				non_grouped[initial(path.name)] = path // dump into non-group
 			else
 				if(!outfits[initial(path.debug_window_category)])
 					outfits[initial(path.debug_window_category)] = list()
 				outfits[initial(path.debug_window_category)][initial(path.name)] = path
 
-		outfits["Naked"] = /datum/outfit
-		outfits["Custom"] = GLOB.custom_outfits
-		outfits["Debug"] = /datum/outfit/debug
-		outfits["------------------------"] = null
-		outfits += temporary
+		outfits["-----# Uncategorised #-----"] = null
+		outfits += non_grouped
 		initialized = TRUE
 
-	// var/dresscode = tgui_input_list(usr, "Select outfit", "Robust quick dress shop", outfits)
-	// Note: tgui_input_list() is bad because hotkey (D to debug outfit) doesn't work
-	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
+	var/dresscode = tgui_input_list(src, "Select outfit", "Robust quick dress shop", outfits, hotkey_mode=TRUE)
 	if(isnull(dresscode) || isnull(outfits[dresscode]))
 		return
 
