@@ -656,6 +656,8 @@
 
 		if(length(hprints) > 2) //> 2 becuase it's weird
 			for(var/key in hprints)
+				if(!key || key == "")
+					continue
 				if(!GLOB.PSYCHIC_SENSE_SOULS[ckey(key)])
 					GLOB.PSYCHIC_SENSE_SOULS[ckey(key)] = pick(GLOB.PSYCHIC_SENSE_COLOURS)
 				message += "\n<span style='color: [GLOB.PSYCHIC_SENSE_COLOURS[GLOB.PSYCHIC_SENSE_SOULS[ckey(key)]]]'>[GLOB.PSYCHIC_SENSE_SOULS[ckey(key)]]</span>"
