@@ -950,7 +950,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG))
 		return
 	for(var/type in GLOB.spell_list)
-		var/obj/effect/proc_holder/spell/spell = new GLOB.spell_list[type]
+		var/spell_type = GLOB.spell_list[type]
+		var/obj/effect/proc_holder/spell/spell = new spell_type()
 		mob.AddSpell(spell)
 
 /// A debug verb to check the sources of currently running timers
