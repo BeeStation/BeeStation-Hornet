@@ -140,11 +140,11 @@
 		to_chat(H, "<span class='warning'>You must be in full condition before using the mirror!</span>")
 		return
 
-	var/available_choicse = list("name", "race", "gender", "hair", "eyes")
+	var/available_choices = list("name", "race", "gender", "hair", "eyes")
 	if(uses_preference && !is_banned_from(user.ckey, "Appearance") && length(user.client.prefs.character_profiles_cached))
-		available_choicse += "check your character list"
+		available_choices += "check your character list"
 
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in available_choicse
+	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in available_choices
 
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
