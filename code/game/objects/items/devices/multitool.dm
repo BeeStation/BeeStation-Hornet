@@ -25,30 +25,19 @@
 	throw_range = 7
 	throw_speed = 3
 	materials = list(/datum/material/iron=50, /datum/material/glass=20)
-	var/obj/machinery/buffer // simple machine buffer for device linkage
 	drop_sound = 'sound/items/handling/multitool_drop.ogg'
 	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
 	toolspeed = 1
 	usesound = 'sound/weapons/empty.ogg'
 	var/mode = 0
 
-/obj/item/multitool/Initialize(mapload)
-	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
-	return ..()
-
-/obj/item/multitool/Destroy()
-	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)
-	return ..()
+/obj/item/multitool/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/buffer)
 
 /obj/item/multitool/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src] to [user.p_their()] chest. It looks like [user.p_theyre()] trying to pulse [user.p_their()] heart off!</span>")
 	return OXYLOSS//theres a reason it wasn't recommended by doctors
-
-/obj/item/multitool/proc/on_examine(datum/source, mob/user, list/examine_list)
-	SIGNAL_HANDLER
-
-	if(buffer)
-		examine_list += "<span class='notice'>Its buffer contains [buffer].</span>"
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect

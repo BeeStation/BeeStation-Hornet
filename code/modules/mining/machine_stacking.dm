@@ -55,13 +55,17 @@
 
 	user << browse(dat, "window=console_stacking_machine")
 
-/obj/machinery/mineral/stacking_unit_console/multitool_act(mob/living/user, obj/item/I)
-	if(!multitool_check_buffer(user, I))
-		return
-	var/obj/item/multitool/M = I
-	M.buffer = src
-	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
-	return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
+	if(istype(buffer, /obj/machinery/mineral/stacking_machine))
+		var/obj/machinery/mineral/stacking_machine/stacking_machine = buffer
+		stacking_machine.console = src
+		machine = stacking_machine
+		to_chat(user, "<span class='notice'>You link [src] to the console in [buffer_parent]'s buffer.</span>")
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
+	return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
 	if(..())
@@ -128,13 +132,16 @@
 		else
 			process_sheet(AM)
 
-/obj/machinery/mineral/stacking_machine/multitool_act(mob/living/user, obj/item/multitool/M)
-	if(istype(M))
-		if(istype(M.buffer, /obj/machinery/mineral/stacking_unit_console))
-			console = M.buffer
-			console.machine = src
-			to_chat(user, "<span class='notice'>You link [src] to the console in [M]'s buffer.</span>")
-			return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/mineral/stacking_machine)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_machine)
+	if(istype(buffer, /obj/machinery/mineral/stacking_unit_console))
+		console = buffer
+		console.machine = src
+		to_chat(user, "<span class='notice'>You link [src] to the console in [buffer_parent]'s buffer.</span>")
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
+	return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	if(QDELETED(inp))

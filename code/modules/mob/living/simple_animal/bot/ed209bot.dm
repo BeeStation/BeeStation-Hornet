@@ -40,7 +40,7 @@
 	var/weaponscheck = TRUE //If true, arrest people for weapons if they don't have access
 	var/check_records = TRUE //Does it check security records?
 	var/arrest_type = FALSE //If true, don't handcuff
-	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
+	var/projectile = /obj/projectile/energy/electrode //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser2.ogg'
 	var/cell_type = /obj/item/stock_parts/cell
 	var/vest_type = /obj/item/clothing/suit/armor/vest
@@ -195,8 +195,8 @@
 		icon_state = "[lasercolor]ed209[on]"
 		set_weapon()
 
-/mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj , /obj/item/projectile/beam/laser)||istype(Proj, /obj/item/projectile/bullet))
+/mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
+	if(istype(Proj , /obj/projectile/beam/laser)||istype(Proj, /obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health && ishuman(Proj.firer))
 				retaliate(Proj.firer)
@@ -412,17 +412,17 @@
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
-			projectile = /obj/item/projectile/beam/lasertag
+			projectile = /obj/projectile/beam/lasertag
 		else
-			projectile = /obj/item/projectile/beam
+			projectile = /obj/projectile/beam
 	else
 		if(!lasercolor)
 			shoot_sound = 'sound/weapons/laser.ogg'
-			projectile = /obj/item/projectile/beam/disabler
+			projectile = /obj/projectile/beam/disabler
 		else if(lasercolor == "b")
-			projectile = /obj/item/projectile/beam/lasertag/bluetag
+			projectile = /obj/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
-			projectile = /obj/item/projectile/beam/lasertag/redtag
+			projectile = /obj/projectile/beam/lasertag/redtag
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
 	if(world.time <= lastfired + shot_delay)
@@ -438,7 +438,7 @@
 	if(!projectile)
 		return
 
-	var/obj/item/projectile/A = new projectile (loc)
+	var/obj/projectile/A = new projectile (loc)
 	playsound(src, shoot_sound, 50, TRUE)
 	A.preparePixelProjectile(target, src)
 	A.fire()
@@ -484,14 +484,14 @@
 						mode = BOT_HUNT
 
 
-/mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
 	if(!disabled)
 		var/lasertag_check = 0
 		if((lasercolor == "b"))
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
+			if(istype(Proj, /obj/projectile/beam/lasertag/redtag))
 				lasertag_check++
 		else if((lasercolor == "r"))
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
+			if(istype(Proj, /obj/projectile/beam/lasertag/bluetag))
 				lasertag_check++
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"

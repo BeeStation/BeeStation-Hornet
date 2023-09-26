@@ -74,8 +74,8 @@
 /datum/antagonist/brother/proc/finalize_brother()
 	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
 	I.implant(owner.current, null, TRUE, TRUE)
-	if(team.team_id <= 9)
-		I.implant_colour = COLOR_LIST_BLOOD_BROTHERS[team.team_id]
+	if(team.team_id <= length(GLOB.color_list_blood_brothers))
+		I.implant_colour = GLOB.color_list_blood_brothers[team.team_id]
 	else
 		I.implant_colour = "#ff0000"
 		stack_trace("Blood brother teams exist more than 9 teams, and colour preset is ran out")
@@ -83,7 +83,7 @@
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		I.link_implant(T)
 	SSticker.mode.update_brother_icons_added(owner)
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/brother/admin_add(datum/mind/new_owner,mob/admin)
 	//show list of possible brothers

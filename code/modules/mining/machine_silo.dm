@@ -184,11 +184,13 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		updateUsrDialog()
 		return TRUE
 
-/obj/machinery/ore_silo/multitool_act(mob/living/user, obj/item/multitool/I)
-	if (istype(I))
-		to_chat(user, "<span class='notice'>You log [src] in the multitool's buffer.</span>")
-		I.buffer = src
-		return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/ore_silo)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/ore_silo)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You log [src] in the [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/ore_silo/proc/silo_log(obj/machinery/M, action, amount, noun, list/mats)
 	if (!length(mats))

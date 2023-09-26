@@ -249,6 +249,8 @@
 	if(!isrevenant(user))
 		return FALSE
 	var/mob/living/simple_animal/revenant/revenant = user
+	if(!revenant.castcheck(0))
+		return FALSE
 	// if they're trapped in consecrated tiles, they can get out with this. but they can't hide back on these tiles.
 	if(revenant.incorporeal_move != INCORPOREAL_MOVE_JAUNT)
 		var/turf/open/floor/stepTurf = get_turf(user)

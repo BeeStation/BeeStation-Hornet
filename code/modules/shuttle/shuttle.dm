@@ -398,7 +398,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			return TRUE
 
 	if(!bypass_skipover_insertion)
-		T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
+		T.baseturfs = islist(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
 		var/base_length = length(T.baseturfs)
 		var/skipover_index = 2 //We should always leave atleast something else below our skipover
 
@@ -412,7 +412,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			if(GLOB.shuttle_turf_blacklist[BT])
 				skipover_index = base_length - i + 1
 				break
-		T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+		var/list/sanity = T.baseturfs.Copy()
+		sanity.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+		T.baseturfs = baseturfs_string_list(sanity, T)
 
 	var/area/shuttle/current_area = T.loc
 	//Account for building on shuttles
@@ -423,7 +425,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		underlying_turf_area[T] = current_area
 	//Change areas
 	current_area.contents -= T
-	A.contents += T
 	T.change_area(current_area, A)
 
 /obj/docking_port/mobile/proc/remove_turf(var/turf/T)
@@ -470,7 +471,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	underlying_turf_area -= T
 	if(top_shuttle == src) //Only change the area if we aren't covered by another shuttle
 		A.contents -= T
-		new_area.contents += T
 		T.change_area(A, new_area)
 	else if(bottom_shuttle) //update the underlying turfs of the shuttle on top of us
 		bottom_shuttle.underlying_turf_area[T] = new_area
@@ -753,7 +753,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		for(var/obj/docking_port/mobile/bottom_shuttle as() in all_towed_shuttles)
 			if(bottom_shuttle.underlying_turf_area[oldT])
 				var/area/underlying_area = bottom_shuttle.underlying_turf_area[oldT]
-				underlying_area.contents += oldT
 				oldT.change_area(old_area, underlying_area)
 				oldT.empty(FALSE)
 				break

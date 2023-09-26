@@ -89,6 +89,12 @@
 	build_path = /obj/item/circuit_component/compare/logic
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
+/datum/design/component/iterator
+	name = "Iterator Component"
+	id = "comp_iterator"
+	build_path = /obj/item/circuit_component/iterator
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
 /datum/design/component/delay
 	name = "Delay Component"
 	id = "comp_delay"
@@ -398,6 +404,11 @@
 	name = "Counter Overlay Component"
 	id = "comp_counter_overlay"
 	build_path = /obj/item/circuit_component/counter_overlay
+
+/datum/design/component/bci/thought_listener
+	name = "Thought Listener Component"
+	id = "comp_thought_listener"
+	build_path = /obj/item/circuit_component/thought_listener
 
 /datum/design/compact_remote_shell
 	name = "Compact Remote Shell"

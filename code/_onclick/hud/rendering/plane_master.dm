@@ -40,7 +40,7 @@
 /atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
 	. = ..()
 	remove_filter("openspace_shadow")
-	if(istype(mymob) && (mymob.client?.prefs?.toggles2 & PREFTOGGLE_2_AMBIENT_OCCLUSION))
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("openspace_shadow", 1, drop_shadow_filter(color = "#04080FAA", size = 10))
 
 ///Contains most things in the game world
@@ -53,7 +53,7 @@
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	. = ..()
 	remove_filter("AO")
-	if(istype(mymob) && (mymob.client?.prefs?.toggles2 & PREFTOGGLE_2_AMBIENT_OCCLUSION))
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 	remove_filter("eye_blur")
 	if(istype(mymob) && mymob.eye_blurry)
@@ -113,6 +113,31 @@
 	. = ..()
 	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
+
+/**
+ * Renders extremely blurred white stuff over space to give the effect of starlight lighting.
+ */
+
+/atom/movable/screen/plane_master/starlight
+	name = "starlight plane master"
+	plane = STARLIGHT_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_plane = LIGHTING_PLANE
+	blend_mode_override = BLEND_OVERLAY
+	color = "#bcdaf7"
+
+/atom/movable/screen/plane_master/starlight/Initialize(mapload)
+	. = ..()
+	add_filter("guassian_blur", 1, gauss_blur_filter(6))
+	// Default the colour to whatever the parallax is currently
+	transition_colour(src, GLOB.starlight_colour, 0, FALSE)
+	// Transition the colour to whatever the global tells us to go to
+	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour))
+
+/atom/movable/screen/plane_master/starlight/proc/transition_colour(datum/source, new_colour, transition_time = 5 SECONDS)
+	SIGNAL_HANDLER
+	animate(src, time = transition_time, color = new_colour)
+
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
   *
@@ -172,7 +197,7 @@
 /atom/movable/screen/plane_master/runechat/backdrop(mob/mymob)
 	. = ..()
 	remove_filter("AO")
-	if(istype(mymob) && (mymob.client?.prefs?.toggles2 & PREFTOGGLE_2_AMBIENT_OCCLUSION))
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 
 /atom/movable/screen/plane_master/gravpulse
@@ -188,9 +213,9 @@
 	name = "area plane"
 	plane = AREA_PLANE
 
-/atom/movable/screen/plane_master/radtext
-	name = "radtext plane"
-	plane = RAD_TEXT_PLANE
+/atom/movable/screen/plane_master/text_effect
+	name = "text effect plane"
+	plane = TEXT_EFFECT_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
 
 /atom/movable/screen/plane_master/balloon_chat

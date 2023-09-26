@@ -24,7 +24,7 @@
 	var/obj/item/camera/siliconcam/aicamera = null //photography
 	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_TRACK_HUD)
 
-	var/obj/item/radio/borg/radio = null //All silicons make use of this, with (p)AI's creating headsets
+	var/obj/item/radio/borg/radio = null ///If this is a path, this gets created as an object in Initialize.
 
 	var/list/alarm_types_show = list(ALARM_ATMOS = 0, ALARM_FIRE = 0, ALARM_POWER = 0, ALARM_CAMERA = 0, ALARM_MOTION = 0)
 	var/list/alarm_types_clear = list(ALARM_ATMOS = 0, ALARM_FIRE = 0, ALARM_POWER = 0, ALARM_CAMERA = 0, ALARM_MOTION = 0)
@@ -60,6 +60,8 @@
 	. = ..()
 	GLOB.silicon_mobs += src
 	faction += "silicon"
+	if(ispath(radio))
+		radio = new radio(src)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
@@ -372,15 +374,10 @@
 	usr << browse(list, "window=laws")
 
 /mob/living/silicon/proc/ai_roster()
-	if(!client)
+	if(!client || !COOLDOWN_FINISHED(client, crew_manifest_delay))
 		return
-	if(world.time < client.crew_manifest_delay)
-		return
-	client.crew_manifest_delay = world.time + (1 SECONDS)
-
-	var/datum/browser/popup = new(src, "airoster", "Crew Manifest", 387, 420)
-	popup.set_content(GLOB.data_core.get_manifest_html())
-	popup.open()
+	COOLDOWN_START(client, crew_manifest_delay, 1 SECONDS)
+	GLOB.crew_manifest_tgui.ui_interact(src)
 
 /mob/living/silicon/proc/set_autosay() //For allowing the AI and borgs to set the radio behavior of auto announcements (state laws, arrivals).
 	if(!radio)

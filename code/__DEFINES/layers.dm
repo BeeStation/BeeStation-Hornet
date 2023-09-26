@@ -97,17 +97,19 @@
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
 #define AREA_PLANE 60
+#define TEXT_EFFECT_PLANE 65
 #define MASSIVE_OBJ_PLANE 70
 #define GHOST_PLANE 80
 #define POINT_PLANE 90
-
-#define RAD_TEXT_PLANE 90
 
 #define DATA_HUD_PLANE 15
 
 //---------- LIGHTING -------------
 ///Normal 1 per turf dynamic lighting objects
 #define LIGHTING_PLANE 100
+
+/// The plane for managing the global starlight effect
+#define STARLIGHT_PLANE 105
 
 ///Lighting objects that are "free floating"
 #define O_LIGHTING_VISUAL_PLANE 110

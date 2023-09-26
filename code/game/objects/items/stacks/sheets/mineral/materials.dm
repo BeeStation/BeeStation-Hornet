@@ -101,7 +101,7 @@ Mineral Sheets
 	if(exposed_temperature > 300)
 		plasma_ignition(amount/5)
 
-/obj/item/stack/sheet/mineral/plasma/bullet_act(obj/item/projectile/Proj)
+/obj/item/stack/sheet/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
 		plasma_ignition(amount/5, Proj?.firer)
 	. = ..()

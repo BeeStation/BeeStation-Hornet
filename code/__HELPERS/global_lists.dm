@@ -18,6 +18,7 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails_animated/lizard, GLOB.animated_tails_list_lizard)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_roundstart_list_human, roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails_animated/human, GLOB.animated_tails_list_human)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/snouts, GLOB.snouts_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/horns,GLOB.horns_list)
@@ -28,7 +29,6 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines_animated, GLOB.animated_spines_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.r_wings_list,roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/caps, GLOB.caps_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_roundstart_list, roundstart = TRUE)
@@ -65,17 +65,11 @@
 	// Keybindings
 	for(var/KB in subtypesof(/datum/keybinding))
 		var/datum/keybinding/keybinding = KB
-		if(!initial(keybinding.key) || !initial(keybinding.keybind_signal))
+		if(!initial(keybinding.keys) || !initial(keybinding.keybind_signal))
 			continue
 		var/datum/keybinding/instance = new keybinding
-		GLOB.keybindings_by_name[initial(instance.name)] = instance
-		if (!(initial(instance.key) in GLOB.keybinding_list_by_key))
-			GLOB.keybinding_list_by_key[initial(instance.key)] = list()
-		GLOB.keybinding_list_by_key[initial(instance.key)] += instance.name
-	// Sort all the keybindings by their weight
-	for(var/key in GLOB.keybinding_list_by_key)
-		GLOB.keybinding_list_by_key[key] = sort_list(GLOB.keybinding_list_by_key[key])
-
+		GLOB.keybindings_by_name[instance.name] = instance
+		LAZYADD(GLOB.keybindings_by_name_to_key[instance.name], LAZYCOPY(instance.keys))
 
 	init_crafting_recipes(GLOB.crafting_recipes)
 

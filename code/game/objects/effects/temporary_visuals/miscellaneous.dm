@@ -166,9 +166,6 @@
 		if(EAST)
 			icon_state = "beam_splash_e"
 
-/obj/item/projectile/curse_hand/update_icon()
-	icon_state = "[icon_state][handedness]"
-
 /obj/effect/temp_visual/wizard
 	name = "water"
 	icon = 'icons/mob/mob.dmi'
@@ -192,14 +189,14 @@
 	icon_state = "blspell"
 	duration = 5
 
-/obj/effect/temp_visual/guardian
+/obj/effect/temp_visual/holoparasite
 	randomdir = 0
 
-/obj/effect/temp_visual/guardian/phase
+/obj/effect/temp_visual/holoparasite/phase
 	duration = 5
 	icon_state = "phasein"
 
-/obj/effect/temp_visual/guardian/phase/out
+/obj/effect/temp_visual/holoparasite/phase/out
 	icon_state = "phaseout"
 
 /obj/effect/temp_visual/decoy

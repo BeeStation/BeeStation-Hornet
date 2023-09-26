@@ -776,11 +776,11 @@
 /obj/item/melee/baton/loaded{
 	pixel_x = 1
 	},
-/obj/item/reagent_containers/spray/pepper{
+/obj/item/reagent_containers/peppercloud_deployer{
 	pixel_x = 3;
 	pixel_y = -4
 	},
-/obj/item/reagent_containers/spray/pepper{
+/obj/item/reagent_containers/peppercloud_deployer{
 	pixel_x = 8;
 	pixel_y = -4
 	},

@@ -1,4 +1,4 @@
-/obj/item/projectile/energy/accelerated_particle
+/obj/projectile/energy/accelerated_particle
 	name = "Accelerated Particles"
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "particle"
@@ -12,20 +12,20 @@
 	var/energy = 10
 	var/stop_dissipate = FALSE
 
-/obj/item/projectile/energy/accelerated_particle/singularity_pull()
+/obj/projectile/energy/accelerated_particle/singularity_pull()
 	return
 
-/obj/item/projectile/energy/accelerated_particle/weak
+/obj/projectile/energy/accelerated_particle/weak
 	range = 8
 	energy = 5
 	irradiate = 30
 	stop_dissipate = TRUE //because its supposed to keep the singu/tesla stable at the same size
 
-/obj/item/projectile/energy/accelerated_particle/strong
+/obj/projectile/energy/accelerated_particle/strong
 	range = 15
 	energy = 15
 	irradiate = 90
-/obj/item/projectile/energy/accelerated_particle/powerful
+/obj/projectile/energy/accelerated_particle/powerful
 	range = 20
 	energy = 50
 	irradiate = 300

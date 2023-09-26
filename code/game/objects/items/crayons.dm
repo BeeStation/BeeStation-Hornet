@@ -679,7 +679,7 @@
 
 		if(C.client)
 			C.blur_eyes(3)
-			C.blind_eyes(1)
+			C.adjust_blindness(1)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.confused = max(C.confused, 3)
 			C.Paralyze(60)

@@ -13,6 +13,7 @@
 	var/safety_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
 	var/blood = 0
+	var/emagged_by = null // Used for logging
 	var/eat_dir = WEST
 	var/amount_produced = 50
 	var/crush_damage = 1000
@@ -74,6 +75,8 @@
 		update_appearance()
 	playsound(src, "sparks", 75, 1, -1)
 	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
+	if(user)
+		emagged_by = key_name(user) // key_name is collected here instead of when it's logged so that it gets their current mob name, not whatever future mob they may have
 
 /obj/machinery/recycler/update_icon()
 	..()
@@ -190,6 +193,7 @@
 	// Instantly lie down, also go unconscious from the pain, before you die.
 	L.Unconscious(100)
 	L.adjustBruteLoss(crush_damage)
+	L.log_message("has been crushed by a recycler that was emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
 	if(L.stat == DEAD && (L.butcher_results || L.guaranteed_butcher_results))
 		var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering)
 		butchering.Butcher(src,L)

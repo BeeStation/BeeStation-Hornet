@@ -35,7 +35,7 @@ GLOBAL_DATUM_INIT(typing_indicator, /mutable_appearance, mutable_appearance('ico
 
 /** Sets the mob as "thinking" - with indicator and variable thinking_IC */
 /datum/tgui_say/proc/start_thinking()
-	if(!window_open)
+	if(!window_open || !istype(client.mob))
 		return FALSE
 	/// Special exemptions
 	if(isabductor(client.mob))
@@ -45,6 +45,8 @@ GLOBAL_DATUM_INIT(typing_indicator, /mutable_appearance, mutable_appearance('ico
 
 /** Removes typing/thinking indicators and flags the mob as not thinking */
 /datum/tgui_say/proc/stop_thinking()
+	if(!istype(client.mob))
+		return FALSE
 	client.mob.remove_all_indicators()
 
 /**
@@ -52,6 +54,8 @@ GLOBAL_DATUM_INIT(typing_indicator, /mutable_appearance, mutable_appearance('ico
  * signals the client mob to revert to the "thinking" icon.
  */
 /datum/tgui_say/proc/start_typing()
+	if(!istype(client.mob))
+		return FALSE
 	client.mob.remove_thinking_indicator()
 	if(!window_open || !client.mob.thinking_IC)
 		return FALSE

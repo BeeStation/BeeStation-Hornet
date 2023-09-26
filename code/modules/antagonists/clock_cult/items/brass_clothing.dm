@@ -9,10 +9,14 @@
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/stack/sheet/brass, /obj/item/clockwork, /obj/item/gun/ballistic/bow/clockwork)
+	var/allow_any = FALSE
+
+/obj/item/clothing/suit/clockwork/anyone
+	allow_any = TRUE
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!is_servant_of_ratvar(user) && !allow_any)
 		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
 		user.dropItemToGround(src, TRUE)
 		var/mob/living/carbon/C = user

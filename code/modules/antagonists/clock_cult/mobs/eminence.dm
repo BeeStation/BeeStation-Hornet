@@ -125,7 +125,7 @@
 		return
 	. = ..()
 
-/mob/living/simple_animal/eminence/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/eminence/bullet_act(obj/projectile/Proj)
 	return BULLET_ACT_FORCE_PIERCE
 
 /mob/living/simple_animal/eminence/proc/run_global_event(datum/round_event_control/E)

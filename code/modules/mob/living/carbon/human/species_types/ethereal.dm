@@ -122,8 +122,16 @@
 	SIGNAL_HANDLER
 	return !(!emageffect || !istype(H)) // signal is inverted
 
-/datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user)
+/datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user, obj/item/card/emag/hacker)
 	SIGNAL_HANDLER
+
+	if(hacker)
+		if(hacker.charges <= 0)
+			to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+			user.balloon_alert(user, "out of charges!")
+			return
+		else
+			hacker.use_charge()
 
 	emageffect = TRUE
 	if(user)
@@ -184,3 +192,36 @@
 
 /datum/species/ethereal/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/ethereal/get_features()
+	var/list/features = ..()
+
+	features += "feature_ethcolor"
+
+	return features
+
+/datum/species/ethereal/get_species_description()
+	return "Ethereals are a unique species with liquid electricity for blood and a glowing body. They thrive on electricity, and are naturally agender."
+
+/datum/species/ethereal/get_species_lore()
+	return null
+
+/datum/species/ethereal/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "lightbulb",
+			SPECIES_PERK_NAME = "Disco Ball",
+			SPECIES_PERK_DESC = "Ethereals passively generate their own light.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "biohazard",
+			SPECIES_PERK_NAME = "Starving Artist",
+			SPECIES_PERK_DESC = "Ethereals take toxin damage while starving.",
+		),
+	)
+
+	return to_add

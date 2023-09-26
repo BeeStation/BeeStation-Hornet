@@ -36,7 +36,7 @@ export const handleKeyDown = function (this: Modal, event: KeyboardEvent, value:
     return;
   }
   if (isAlphanumeric(event.keyCode)) {
-    if (channel !== 3 && radioPrefix !== ':b ') {
+    if (channel < 3 && radioPrefix !== ':b ') {
       this.timers.typingThrottle();
     }
   }

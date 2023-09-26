@@ -561,7 +561,7 @@
 	ranged = TRUE
 	rapid = 65
 	rapid_fire_delay = 0.5
-	projectiletype = /obj/item/projectile/beam
+	projectiletype = /obj/projectile/beam
 	ranged_cooldown_time = 110
 	vision_range = 9
 	speak_chance = 0

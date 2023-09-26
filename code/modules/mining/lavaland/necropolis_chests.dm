@@ -31,10 +31,11 @@
 
 /obj/effect/spawner/mail/maintloot
 	name = "\improper Random maintenance loot spawner"
+
 /obj/effect/spawner/mail/maintloot/Initialize()
 	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
 	new mail_maintloot(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
@@ -79,7 +80,10 @@
 	name = "\improper Rod of Asclepius"
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	icon_state = "asclepius_dormant"
+	item_state = "asclepius_dormant"
 	block_upgrade_walk = 1
 	block_level = 1
 	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
@@ -129,12 +133,14 @@
 	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
+	itemUser.regenerate_icons()
 
 /obj/item/rod_of_asclepius/proc/activated()
 	item_flags = DROPDEL
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
 	icon_state = "asclepius_active"
+	item_state = "asclepius_active"
 	activated = TRUE
 
 //Memento Mori
@@ -410,11 +416,11 @@
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
 	desc = "A hook."
-	projectile_type = /obj/item/projectile/hook
+	projectile_type = /obj/projectile/hook
 	caliber = "hook"
 	icon_state = "hook"
 
-/obj/item/projectile/hook
+/obj/projectile/hook
 	name = "hook"
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
@@ -426,13 +432,13 @@
 	knockdown = 30
 	var/chain
 
-/obj/item/projectile/hook/fire(setAngle)
+/obj/projectile/hook/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "chain")
 	..()
 	//TODO: root the firer until the chain returns
 
-/obj/item/projectile/hook/on_hit(atom/target)
+/obj/projectile/hook/on_hit(atom/target)
 	. = ..()
 	if(ismovable(target))
 		var/atom/movable/A = target
@@ -443,7 +449,7 @@
 		//TODO: keep the chain beamed to A
 		//TODO: needs a callback to delete the chain
 
-/obj/item/projectile/hook/Destroy()
+/obj/projectile/hook/Destroy()
 	qdel(chain)
 	return ..()
 
@@ -456,9 +462,9 @@
 	to_chat(user, "<span class='warning'>The [src] isn't ready to fire yet!</span>")
 
 /obj/item/ammo_casing/magic/hook/bounty
-	projectile_type = /obj/item/projectile/hook/bounty
+	projectile_type = /obj/projectile/hook/bounty
 
-/obj/item/projectile/hook/bounty
+/obj/projectile/hook/bounty
 	damage = 0
 	paralyze = 20
 

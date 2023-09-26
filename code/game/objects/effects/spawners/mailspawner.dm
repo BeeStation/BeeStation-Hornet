@@ -8,13 +8,15 @@
 
 /obj/effect/spawner/mail/maintloot
 	name = "\improper Random maintenance loot spawner"
+
 /obj/effect/spawner/mail/maintloot/Initialize()
 	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
 	new mail_maintloot(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()
 
 /obj/effect/spawner/mail/organminor
 	name = "\improper Random minor organs spawner"
+
 /obj/effect/spawner/mail/organminor/Initialize()
 	var/static/list/mail_organminor = pick(
 		/obj/item/organ/tongue,
@@ -40,10 +42,11 @@
 		/obj/item/organ/wings/bee,
 		/obj/item/organ/wings/dragon/fake,)
 	new mail_organminor(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()
 
 /obj/effect/spawner/mail/organmajor
 	name = "\improper Random major organs spawner"
+
 /obj/effect/spawner/mail/organmajor/Initialize()
 	var/static/list/mail_organmajor= pick(
 		/obj/item/organ/adamantine_resonator,
@@ -65,10 +68,11 @@
 		/obj/item/organ/wings/moth/robust,
 		/obj/item/organ/wings/dragon,)
 	new mail_organmajor(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()
 
 /obj/effect/spawner/mail/advmedtool
 	name = "\improper Random advanced medical tool spawner"
+
 /obj/effect/spawner/mail/advmedtool/Initialize()
 	var/static/list/mail_advmedtool= pick(
 		/obj/item/scalpel/advanced,
@@ -79,6 +83,7 @@
 
 /obj/effect/spawner/mail/ayymedtool
 	name = "\improper Random alien medical tool spawner"
+
 /obj/effect/spawner/mail/ayymedtool/Initialize()
 	var/static/list/mail_ayymedtool= pick(
 		/obj/item/scalpel/alien,
@@ -88,10 +93,11 @@
 		/obj/item/surgicaldrill/alien,
 		/obj/item/cautery/alien,)
 	new mail_ayymedtool(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()
 
 /obj/effect/spawner/mail/donut
 	name = "\improper Random common donut spawner"
+
 /obj/effect/spawner/mail/donut/Initialize()
 	var/static/list/mail_donut= pick(
 		/obj/item/reagent_containers/food/snacks/donut/berry,
@@ -100,10 +106,11 @@
 		/obj/item/reagent_containers/food/snacks/donut/choco,
 		/obj/item/reagent_containers/food/snacks/donut/matcha,)
 	new mail_donut(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()
 
 /obj/effect/spawner/mail/rdonut
 	name = "\improper Random rare donut spawner"
+
 /obj/effect/spawner/mail/rdonut/Initialize()
 	var/static/list/mail_rdonut= pick(
 		/obj/item/reagent_containers/food/snacks/donut/meat,
@@ -112,10 +119,11 @@
 		/obj/item/reagent_containers/food/snacks/donut/bungo,
 		/obj/item/reagent_containers/food/snacks/donut/chaos,)
 	new mail_rdonut(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()
 
 /obj/effect/spawner/mail/genes
 	name = "\improper Random genes spawner"
+
 /obj/effect/spawner/mail/genes/Initialize()
 	var/static/list/mail_genes= pick(
 		/obj/item/chromosome/energy,
@@ -124,10 +132,11 @@
 		/obj/item/chromosome/stabilizer,
 		/obj/item/chromosome/synchronizer,)
 	new mail_genes(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()
 
 /obj/effect/spawner/mail/science
 	name = "\improper Random science junk spawner"
+
 /obj/effect/spawner/mail/science/Initialize()
 	var/static/list/mail_science= pick(
 		/obj/item/laser_pointer,
@@ -169,4 +178,4 @@
 		/obj/item/borg/upgrade/defib,
 		/obj/item/taperecorder,)
 	new mail_science(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()

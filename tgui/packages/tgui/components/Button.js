@@ -35,6 +35,7 @@ export const Button = (props) => {
     onclick,
     onClick,
     verticalAlignContent,
+    captureKeys,
     ...rest
   } = props;
   const hasContent = !!(content || children);
@@ -77,6 +78,10 @@ export const Button = (props) => {
       ])}
       tabIndex={!disabled && '0'}
       onKeyDown={(e) => {
+        if (captureKeys === false) {
+          return;
+        }
+
         const keyCode = window.event ? e.which : e.keyCode;
         // Simulate a click when pressing space or enter.
         if (keyCode === KEY_SPACE || keyCode === KEY_ENTER) {

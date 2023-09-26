@@ -122,8 +122,14 @@
 			M.visible_message("<span class='boldwarning'>[M] is thrown off of [src]!</span>")
 	flash_act(affect_silicon = 1)
 
-/mob/living/silicon/bullet_act(obj/item/projectile/Proj, def_zone, piercing_hit = FALSE)
-	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, Proj, def_zone)
+/mob/living/silicon/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, Proj, def_zone)
+	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
+		return BULLET_ACT_FORCE_PIERCE
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
+		return BULLET_ACT_BLOCK
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
+		return BULLET_ACT_HIT
 	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		adjustBruteLoss(Proj.damage)
 		if(prob(Proj.damage*1.5))

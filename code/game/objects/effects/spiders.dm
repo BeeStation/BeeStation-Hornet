@@ -58,7 +58,7 @@
 
 /obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(mover, /obj/item/projectile))
+	if(istype(mover, /obj/projectile))
 		return prob(30)
 
 /obj/structure/spider/eggcluster

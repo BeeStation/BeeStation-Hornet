@@ -269,7 +269,7 @@
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/detective_scanner(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
 	new /obj/item/pinpointer/crew(src)

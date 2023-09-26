@@ -911,31 +911,40 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potyellow"
 
-/obj/item/slimepotion/speed/pre_attack(obj/C, mob/user)
+/obj/item/slimepotion/speed/pre_attack(obj/thingy, mob/user)
 	. = ..()
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
+	if(!.)
 		return
-	if(isitem(C))
-		var/obj/item/I = C
-		if(I.slowdown != initial(I.slowdown) || I.obj_flags & IMMUTABLE_SLOW)
-			to_chat(user, "<span class='warning'>The [C] can't be made any faster!</span>")
-			return ..()
-		I.slowdown = initial(I.slowdown) * 0.5
-
-	if(istype(C, /obj/vehicle))
-		var/obj/vehicle/V = C
-		var/datum/component/riding/R = V.GetComponent(/datum/component/riding)
-		if(R)
+	if(isitem(thingy))
+		var/obj/item/item = thingy
+		if(item.anchored)
+			to_chat(user, "<span class='warning'>[src] can't be used on anchored items!</span>")
+			return
+		if(item.slowdown != initial(item.slowdown) || (item.obj_flags & IMMUTABLE_SLOW))
+			to_chat(user, "<span class='warning'>[item] can't be made any faster!</span>")
+			return
+		if(item.slowdown <= 0)
+			to_chat(user, "<span class='warning'>[item] has no slowdown in the first place!</span>")
+			return
+		item.slowdown *= 0.5
+	else if(istype(thingy, /obj/vehicle))
+		var/obj/vehicle/vehicle = thingy
+		var/datum/component/riding/riding = vehicle.GetComponent(/datum/component/riding)
+		if(riding)
 			var/vehicle_speed_mod = round(1.5 * 0.85, 0.01)
-			if(R.vehicle_move_delay <= vehicle_speed_mod)
-				to_chat(user, "<span class='warning'>The [C] can't be made any faster!</span>")
-				return ..()
-			R.vehicle_move_delay = vehicle_speed_mod
+			if(riding.vehicle_move_delay <= vehicle_speed_mod)
+				to_chat(user, "<span class='warning'>[vehicle] can't be made any faster!</span>")
+				return
+			riding.vehicle_move_delay = vehicle_speed_mod
+		else
+			to_chat(user, "<span class='warning'>[vehicle] can't be made any faster!</span>")
+			return
+	else
+		return
 
-	to_chat(user, "<span class='notice'>You slather the red gunk over the [C], making it faster.</span>")
-	C.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	C.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
+	to_chat(user, "<span class='notice'>You slather the red gunk over [thingy], making it faster.</span>")
+	thingy.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	thingy.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
 	qdel(src)
 	return FALSE
 
@@ -947,24 +956,26 @@
 	resistance_flags = FIRE_PROOF
 	var/uses = 3
 
-/obj/item/slimepotion/fireproof/pre_attack(obj/item/clothing/C, mob/user)
+/obj/item/slimepotion/fireproof/pre_attack(obj/item/clothing/clothing, mob/user)
 	. = ..()
+	if(!.)
+		return
 	if(!uses)
 		qdel(src)
 		return
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+	if(!istype(clothing))
+		to_chat(user, "<span class='warning'>[src] can only be used on clothing!</span>")
 		return
-	if(C.max_heat_protection_temperature >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-		to_chat(user, "<span class='warning'>The [C] is already fireproof!</span>")
+	if(clothing.max_heat_protection_temperature >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		to_chat(user, "<span class='warning'>[clothing] is already fireproof!</span>")
 		return ..()
-	to_chat(user, "<span class='notice'>You slather the blue gunk over the [C], fireproofing it.</span>")
-	C.name = "fireproofed [C.name]"
-	C.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	C.add_atom_colour("#000080", FIXED_COLOUR_PRIORITY)
-	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	C.heat_protection = C.body_parts_covered
-	C.resistance_flags |= FIRE_PROOF
+	to_chat(user, "<span class='notice'>You slather the blue gunk over [clothing], fireproofing it.</span>")
+	clothing.name = "fireproofed [clothing.name]"
+	clothing.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	clothing.add_atom_colour("#000080", FIXED_COLOUR_PRIORITY)
+	clothing.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	clothing.heat_protection = clothing.body_parts_covered
+	clothing.resistance_flags |= FIRE_PROOF
 	uses --
 	if(!uses)
 		qdel(src)
@@ -976,24 +987,24 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potlightpink"
 
-/obj/item/slimepotion/genderchange/attack(mob/living/L, mob/user)
-	if(!istype(L) || L.stat == DEAD)
-		to_chat(user, "<span class='warning'>The potion can only be used on living things!</span>")
+/obj/item/slimepotion/genderchange/attack(mob/living/target, mob/user)
+	if(!isliving(target) || target.stat == DEAD)
+		to_chat(user, "<span class='warning'>[src] can only be used on living things!</span>")
 		return
 
-	if(L.gender != MALE && L.gender != FEMALE)
-		to_chat(user, "<span class='warning'>The potion can only be used on gendered things!</span>")
+	if(target.gender != MALE && target.gender != FEMALE)
+		to_chat(user, "<span class='warning'>[src] can only be used on gendered things!</span>")
 		return
 
-	L.visible_message("<span class='danger'>[user] starts to feed [L] a gender change potion!</span>",
-		"<span class='userdanger'>[user] starts to feed you a gender change potion!</span>")
+	target.visible_message("<span class='danger'><span class='name'>[user]</span> starts to feed <span class='name'>[target]</span> [src]!</span>",
+		"<span class='userdanger'><span class='name'>[user]</span> starts to feed you [src]!</span>")
 
-	if(!do_after(user, 50, target = L))
+	if(!do_after(user, 5 SECONDS, target = target))
 		return
 
-	to_chat(user, "<span class='notice'>You feed [L] the gender change potion!</span>")
+	to_chat(user, "<span class='notice'>You feed <span class='name'>[target]</span> [src]!</span>")
 
-	if(!L.set_gender(L.gender == MALE ? FEMALE : MALE, forced = TRUE))
+	if(!target.set_gender(target.gender == MALE ? FEMALE : MALE, forced = TRUE))
 		return
 	qdel(src)
 
@@ -1005,31 +1016,77 @@
 
 	var/being_used = FALSE
 
-/obj/item/slimepotion/slime/renaming/attack(mob/living/M, mob/user)
-	if(being_used || !ismob(M))
+/obj/item/slimepotion/slime/renaming/attack(mob/living/target, mob/living/user)
+	if(!ismob(target))
+		return ..()
+	if(being_used)
+		to_chat(user, "<span class='warning'>[src] is already being offered to someone!</span>")
 		return
-	if(!M.ckey) //only works on animals that aren't player controlled
-		to_chat(user, "<span class='warning'>[M] is not self aware, and cannot pick its own name.</span>")
+	if(!isliving(target))
+		to_chat(user, "<span class='warning'>You cannot rename <span class='name'>[target]</span>!</span>")
 		return
-
 	being_used = TRUE
+	if(!target.ckey && !target.mind)
+		being_used = rename_other(target, user)
+	else
+		being_used = rename_self(target, user)
+	if(being_used)
+		qdel(src)
 
-	to_chat(user, "<span class='notice'>You offer [src] to [M]...</span>")
+/obj/item/slimepotion/slime/renaming/proc/rename_other(mob/living/target, mob/living/user)
+	. = TRUE
+	var/new_name = tgui_input_text(user, "What would you like to rename [target.real_name] to?", "Input a name", target.real_name, MAX_NAME_LEN, timeout = 2 MINUTES)
+	if(QDELETED(src) || QDELETED(target))
+		return FALSE
+	if(target.stat == DEAD)
+		to_chat(user, "<span class='warning'><span class='name'>[target]</span> died while you were choosing [target.p_their()] new name!</span>")
+		return FALSE
+	if(!new_name || new_name == target.real_name)
+		to_chat(user, "<span class='notice'>You decide against renaming <span class='name'>[target]</span> for now.</span>")
+		return FALSE
+	if(CHAT_FILTER_CHECK(new_name))
+		to_chat(user, "<span class='warning'>The name '<span class='bold name'>[new_name]</span>' is forbidden!</span>")
+		return FALSE
+	if(!target.Adjacent(user))
+		to_chat(user, "<span class='warning'><span class='name'>[target]</span> moved away from you while you were choosing [target.p_their()] new name!</span>")
+		return FALSE
+	target.visible_message("<span class='notice'><span class='name'>[target]</span> has a new name, <span class='bold name'>[new_name]</span>.</span>")
+	message_admins("[ADMIN_LOOKUPFLW(user)] used [src] on [ADMIN_LOOKUPFLW(target)], renaming them to [new_name].")
+	log_game("[key_name(user)] used [src] on [target] ([target.type]), renaming them into [new_name].")
+	target.fully_replace_character_name(newname = new_name)
 
-	var/new_name = stripped_input(M, "What would you like your name to be?", "Input a name", M.real_name, MAX_NAME_LEN)
+/obj/item/slimepotion/slime/renaming/proc/rename_self(mob/living/target, mob/living/user)
+	. = TRUE
+	if(!target.client || target.client.is_afk())
+		to_chat(user, "<span class='notice'><span class='name'>[target]</span> stares blankly back at you as you offer the potion. Perhaps try using the potion whenever they've woken up?</span>")
+		return FALSE
+	to_chat(user, "<span class='notice'>You offer [src] to <span class='name'>[target]</span>...</span>")
 
-	if(!new_name || QDELETED(src) || QDELETED(M) || new_name == M.real_name || !M.Adjacent(user) || CHAT_FILTER_CHECK(new_name))
-		being_used = FALSE
-		return
+	var/new_name = tgui_input_text(target, "What would you like your name to be?", "Input a name", target.real_name, MAX_NAME_LEN, timeout = 2 MINUTES)
+	if(QDELETED(src) || QDELETED(target))
+		return FALSE
+	if(target.stat == DEAD)
+		to_chat(user, "<span class='warning'><span class='name'>[target]</span> died while [target.p_they()] were choosing [target.p_their()] new name!</span>")
+		to_chat(target, "<span class='warning'>You died while choosing your new name!</span>")
+		return FALSE
+	if(!new_name || new_name == target.real_name)
+		to_chat(target, "<span class='notice'>You decide against renaming yourself for now.</span>")
+		to_chat(user, "<span class='notice'><span class='name'>[target]</span> considers for a bit, but decides against renaming [target.p_them()]self for now.</span>")
+		return FALSE
+	if(CHAT_FILTER_CHECK(new_name))
+		to_chat(target, "<span class='warning'>The name '<span class='bold name'>[new_name]</span>' is forbidden!</span>")
+		to_chat(user, "<span class='notice'><span class='name'>[target]</span> considers for a bit, but decides against renaming [target.p_them()]self for now.</span>")
+		return FALSE
+	if(!target.Adjacent(user))
+		to_chat(target, "<span class='warning'>You moved away from <span class='name'>[user]</span> while choosing your name!</span>")
+		to_chat(user, "<span class='warning'><span class='name'>[target]</span> moved away from you while choosing [target.p_their()] new name!</span>")
+		return FALSE
 
-	M.visible_message("<span class='notice'><span class='name'>[M]</span> has a new name, <span class='name'>[new_name]</span>.</span>", "<span class='notice'>Your old name of <span class='name'>[M.real_name]</span> fades away, and your new name <span class='name'>[new_name]</span> anchors itself in your mind.</span>")
-	message_admins("[ADMIN_LOOKUPFLW(user)] used [src] on [ADMIN_LOOKUPFLW(M)], letting them rename themselves into [new_name].")
-	log_game("[key_name(user)] used [src] on [key_name(M)], letting them rename themselves into [new_name].")
+	target.visible_message("<span class='notice'><span class='name'>[target]</span> has a new name, <span class='name'>[new_name]</span>.</span>", "<span class='notice'>Your old name of <span class='name'>[target.real_name]</span> fades away, and your new name <span class='name'>[new_name]</span> anchors itself in your mind.</span>")
+	message_admins("[ADMIN_LOOKUPFLW(user)] used [src] on [ADMIN_LOOKUPFLW(target)], letting them rename themselves into [new_name].")
+	log_game("[key_name(user)] used [src] on [key_name(target)], letting them rename themselves into [new_name].")
 
-	// pass null as first arg to not update records or ID/PDA
-	M.fully_replace_character_name(null, new_name)
-
-	qdel(src)
+	target.fully_replace_character_name(newname = new_name)
 
 /obj/item/slimepotion/slime/slimeradio
 	name = "bluespace radio potion"
@@ -1037,20 +1094,17 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potgrey"
 
-/obj/item/slimepotion/slime/slimeradio/attack(mob/living/M, mob/user)
-	if(!ismob(M))
+/obj/item/slimepotion/slime/slimeradio/attack(mob/living/target, mob/user)
+	if(!isanimal(target))
+		to_chat(user, "<span class='warning'><span class='name'>[target]</span> is too complex for the potion!</span>")
 		return
-	if(!isanimal(M))
-		to_chat(user, "<span class='warning'>[M] is too complex for the potion!</span>")
+	if(target.stat == DEAD)
+		to_chat(user, "<span class='warning'><span class='name'>[target]</span> is dead!</span>")
 		return
-	if(M.stat)
-		to_chat(user, "<span class='warning'>[M] is dead!</span>")
-		return
-
-	to_chat(user, "<span class='notice'>You feed the potion to [M].</span>")
-	to_chat(M, "<span class='notice'>Your mind tingles as you are fed the potion. You can hear radio waves now!</span>")
+	to_chat(user, "<span class='notice'>You feed the potion to <span class='name'>[target]</span>.</span>")
+	to_chat(target, "<span class='notice'>Your mind tingles as you are fed the potion. You can hear radio waves now!</span>")
 	var/obj/item/implant/radio/slime/imp = new(src)
-	imp.implant(M, user)
+	imp.implant(target, user)
 	qdel(src)
 
 /obj/item/stack/tile/bluespace

@@ -319,14 +319,14 @@
 /// Minebot passthrough handling (for the PKA upgrade and crushers)
 /mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(mover, /obj/item/projectile/kinetic))
-		var/obj/item/projectile/kinetic/kinetic_proj = mover
+	if(istype(mover, /obj/projectile/kinetic))
+		var/obj/projectile/kinetic/kinetic_proj = mover
 		if(kinetic_proj.kinetic_gun)
 			for(var/A as anything in kinetic_proj.kinetic_gun.get_modkits())
 				var/obj/item/borg/upgrade/modkit/modkit = A
 				if(istype(modkit, /obj/item/borg/upgrade/modkit/minebot_passthrough))
 					return TRUE
-	else if(istype(mover, /obj/item/projectile/destabilizer))
+	else if(istype(mover, /obj/projectile/destabilizer))
 		return TRUE
 
 /**********************Minebot Attack Handling**********************/

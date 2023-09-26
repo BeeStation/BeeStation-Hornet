@@ -54,7 +54,7 @@
 			return TRUE
 		else if(IsAdminGhost(user))
 			attack_ai(user)
-		else if(user.client.prefs.toggles2 & PREFTOGGLE_2_GHOST_INQUISITIVENESS)
+		else if(user.client.prefs.read_player_preference(/datum/preference/toggle/inquisitive_ghost))
 			user.examinate(src)
 	return FALSE
 

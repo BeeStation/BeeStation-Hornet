@@ -113,16 +113,16 @@ GLOBAL_LIST(admin_antag_list)
 	if(!silent)
 		if(tips)
 			show_tips(tips)
-		if(ui_name)
+		if(info_button)
 			to_chat(owner.current, "<span class='boldnotice'>For more info, read the panel. \
 				You can always come back to it using the button in the top left.</span>")
 			info_button?.Trigger()
-	greet()
+		greet()
 	apply_innate_effects()
 	give_antag_moodies()
 	if(is_banned(owner.current) && replace_banned)
 		replace_banned_player()
-	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & PREFTOGGLE_DEADMIN_ANTAGONIST))
+	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)))
 		owner.current.client.holder.auto_deadmin()
 	if(count_against_dynamic_roll_chance && owner.current.stat != DEAD && owner.current.client)
 		owner.current.add_to_current_living_antags()
@@ -235,9 +235,17 @@ GLOBAL_LIST(admin_antag_list)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, ui_name, name)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
+/datum/antagonist/ui_host(mob/user)
+	if(owner?.current)
+		return owner.current
+	return ..()
+
 /datum/antagonist/ui_state(mob/user)
+	if(owner?.current)
+		return GLOB.self_state
 	return GLOB.always_state
 
 ///generic helper to send objectives as data through tgui.
@@ -251,7 +259,6 @@ GLOBAL_LIST(admin_antag_list)
 			"name" = objective.name,
 			"explanation" = objective.explanation_text,
 			"complete" = objective.completed,
-			"optional" = objective.optional,
 		))
 		objective_count++
 	return objective_data

@@ -47,6 +47,7 @@
 		team.add_member(incursion)
 		incursion.special_role = ROLE_INCURSION
 		incursion.restricted_roles = restricted_jobs
+		GLOB.pre_setup_antags += incursion
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team
 	gamemode_ready = TRUE
@@ -57,6 +58,7 @@
 	team.forge_team_objectives()
 	for(var/datum/mind/M in team.members)
 		M.add_antag_datum(/datum/antagonist/incursion, team)
+		GLOB.pre_setup_antags -= M
 	incursion_team = pre_incursionist_team
 	return ..()
 

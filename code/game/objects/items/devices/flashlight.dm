@@ -17,6 +17,8 @@
 	light_power = 1
 	light_on = FALSE
 	var/on = FALSE
+	var/sound_on = 'sound/items/flashlight_on.ogg'
+	var/sound_off = 'sound/items/flashlight_off.ogg'
 
 
 /obj/item/flashlight/Initialize(mapload)
@@ -28,10 +30,12 @@
 /obj/item/flashlight/proc/update_brightness(mob/user)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		playsound(src, 'sound/items/flashlight_on.ogg', 25, 1)
+		if(sound_on)
+			playsound(src, sound_on, 25, 1)
 	else
 		icon_state = initial(icon_state)
-		playsound(src, 'sound/items/flashlight_off.ogg', 25, 1)
+		if(sound_off)
+			playsound(src, sound_off, 25, 1)
 	set_light_on(on)
 	if(light_system == STATIC_LIGHT)
 		update_light()
@@ -266,6 +270,8 @@
 	heat = 1000
 	light_color = LIGHT_COLOR_FLARE
 	grind_results = list(/datum/reagent/sulfur = 15)
+	sound_on = 'sound/items/matchstick_lit.ogg'
+	sound_off = null
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()
@@ -304,10 +310,12 @@
 
 	// Usual checks
 	if(fuel <= 0)
-		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
+		if(user)
+			balloon_alert(user, "out of fuel!")
 		return
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is already on.</span>")
+		if(user)
+			balloon_alert(user, "already lit!")
 		return
 
 	. = ..()

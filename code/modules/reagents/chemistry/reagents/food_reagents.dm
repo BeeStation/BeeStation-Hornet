@@ -102,6 +102,12 @@
 		M.satiety += 30
 	. = ..()
 
+/datum/reagent/consumable/nutriment/protein //this is from a tg pr that actually makes use of this reagent. At the moment that I am porting newfood, we are just using it as filler to have something other than vitamins and nutriments.
+	name = "Protein"
+	description = "A natural polyamide made up of amino acids. An essential constituent of mosts known forms of life."
+	brute_heal = 0.8 //Rewards the player for eating a balanced diet.
+	nutriment_factor = 9 * REAGENTS_METABOLISM //45% as calorie dense as corn oil.
+
 /datum/reagent/consumable/cooking_oil
 	name = "Cooking Oil"
 	description = "A variety of cooking oil derived from fat or plants. Used in food preparation and frying."
@@ -297,7 +303,7 @@
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.blur_eyes(5) // 10 seconds
-			victim.blind_eyes(3) // 6 seconds
+			victim.adjust_blindness(3) // 6 seconds
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
@@ -635,7 +641,7 @@
 		else
 			if(!M.eye_blurry)
 				to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
-			M.blind_eyes(2)
+			M.adjust_blindness(2)
 			M.blur_eyes(5)
 	..()
 
@@ -645,7 +651,7 @@
 		M.blur_eyes(4)
 		if(prob(10))
 			to_chat(M, "<span class = 'warning'>Your eyes sting!</span>")
-			M.blind_eyes(2)
+			M.adjust_blindness(2)
 
 
 /datum/reagent/consumable/nutriment/stabilized

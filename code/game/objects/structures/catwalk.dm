@@ -5,7 +5,7 @@
 	icon_state = "catwalk-0"
 	base_icon_state = "catwalk"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_OPEN_FLOOR)
+	smoothing_groups = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_LATTICE)
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
 	z_flags = Z_BLOCK_OUT_DOWN | Z_BLOCK_IN_UP
 	//Negates the effect of space and openspace.
