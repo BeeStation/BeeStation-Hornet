@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 
 /// Stop loading immediately, inform the user. Do not save the data.
 #define PREFERENCE_LOAD_ERROR 0
-/// There is no data to load, they are a guest and will never have this data.a
+/// There is no data to load, they are a guest and will never have this data.
 #define PREFERENCE_LOAD_IGNORE 1
 /// No data found - create a new character, continue loading
 #define PREFERENCE_LOAD_NO_DATA 2

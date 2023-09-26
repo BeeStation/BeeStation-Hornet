@@ -153,6 +153,7 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
 
+
 -- Dumping structure for table ss13tgdb.SS13_characters_long
 DROP TABLE IF EXISTS `SS13_characters_long`;
 CREATE TABLE `SS13_characters_long` (
@@ -160,9 +161,14 @@ CREATE TABLE `SS13_characters_long` (
 	`slot` INT(11) UNSIGNED NOT NULL,
 	`preference_tag` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`preference_value` MEDIUMTEXT NULL COLLATE 'utf8mb4_general_ci',
-	PRIMARY KEY (`ckey`, `slot`) USING BTREE,
-	UNIQUE INDEX `prefbinding` (`ckey`, `slot`, `preference_tag`) USING BTREE
+	CONSTRAINT PRIMARY KEY (`ckey`, `slot`, `preference_tag`) USING BTREE,
+	CONSTRAINT FOREIGN KEY (`slot`, `ckey`)
+		REFERENCES `SS13_characters` (`slot`, `ckey`)
+		ON DELETE CASCADE
+		ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 
 -- Dumping structure for table ss13tgdb.SS13_connection_log
 DROP TABLE IF EXISTS `SS13_connection_log`;
