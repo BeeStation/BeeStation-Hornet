@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character_data.get_all_character_names(src)
 
 /// Applies the given preferences to a human mob.
-/datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE)
+/datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, changes_mind_name=TRUE)
 	character.dna.features = list()
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
@@ -408,6 +408,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		preference.apply_to_human(character, read_character_preference(preference.type))
 
 	character.dna.real_name = character.real_name
+	if(changes_mind_name && character.mind)
+		character.mind.name = character.real_name
 
 	if(icon_updates)
 		character.icon_render_keys = list() // turns out if you don't set this to null update_body_parts does nothing, since it assumes the operation was cached
@@ -415,3 +417,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.update_hair()
 		character.update_body_parts(TRUE) // Must pass true here or limbs won't catch changes like body_model
 		character.dna.update_body_size()
+
+	return TRUE
+
+/// Returns names of your available character
+/datum/preferences/proc/get_sanitized_character_list()
+	var/list/character_list = list()
+	for(var/slot_value in 1 to max_save_slots) // sorry, It won't load the full list. Be a Byond member.
+		if(!character_profiles_cached[slot_value])
+			continue
+		var/character_name = "[slot_value]. [character_profiles_cached[slot_value]]"
+		character_list[character_name] = slot_value
+	return character_list

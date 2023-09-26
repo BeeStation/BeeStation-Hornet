@@ -141,7 +141,7 @@
 		return
 
 	var/available_choicse = list("name", "race", "gender", "hair", "eyes")
-	if(uses_preference)
+	if(uses_preference && !is_banned_from(user.ckey, "Appearance") && length(user.client.prefs.character_profiles_cached))
 		available_choicse += "check your character list"
 
 	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in available_choicse
@@ -260,15 +260,24 @@
 
 		// become a character from your prefs that you choose
 		if("check your character list")
-			var/list/character_list = user.client.prefs.get_character_list()
+			var/list/character_list = user.client.prefs.get_sanitized_character_list()
 			if(!length(character_list))
 				return
-
 			var/character_choice = input(user, "Select a character to copy its appearance to you", "Magical Grooming: Character list") as null|anything in character_list
-			if(user.client.prefs.apply_pref_to_character(H, character_list[character_choice], changes_mind_name))
-				who_are_you()
+			if(!character_choice)
+				return
+			var/slot_value = character_list[character_choice]
+			if(!slot_value)
+				return
+			var/old_slot_value = user.client.prefs.default_slot
+			if(!user.client.prefs.load_character(slot_value))
+				return
+			if(slot_value != old_slot_value) // it'll be annoying if your choice is unnoticingly changed
+				addtimer(CALLBACK(user.client.prefs, TYPE_PROC_REF(/datum/preferences, load_character), old_slot_value), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+			if(user.client.prefs.apply_prefs_to(user, changes_mind_name=changes_mind_name))
+				who_are_you(user)
 			else
-				return // something's wrong to copy
+				return // something's wrong to apply pref to the mob
 
 	if(choice)
 		curse(user)
