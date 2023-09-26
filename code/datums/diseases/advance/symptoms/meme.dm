@@ -34,13 +34,18 @@
 /datum/symptom/meme/Activate(datum/disease/advance/A)
 	if(!..())
 		return
+	var/static/datum/lag_checker/lag_checker = new("hysteria", max_count=4, sleep_duration=2, rand_range=3)
+	lag_checker.lag_check_reset()
+	lag_checker.start_lag_check()
 	var/mob/living/carbon/M = A.affected_mob
 	if(prob(20 * A.stage) && !M.stat && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		M.emote(emote)
 		if(A.stage >= 5 && prob(20) && A.transmission >= 14)
-			for(var/mob/living/carbon/C in oviewers(M, 4))
+			for(var/mob/living/carbon/C in shuffle(oviewers(M, 7)))
+				lag_checker.sleep_lag()
 				var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 				if(!eyes || HAS_TRAIT(C, TRAIT_BLIND) || HAS_TRAIT(C, TRAIT_MINDSHIELD) || istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 					continue
 				if(C.ForceContractDisease(A))
 					C.emote(emote)
+	lag_checker.finish_lag_check()
