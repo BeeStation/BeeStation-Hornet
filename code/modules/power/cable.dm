@@ -112,8 +112,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/turf/T = get_turf(loc)
 		if(T)
-			var/obj/item/stack/cable_coil/temp_item = new /obj/item/stack/cable_coil(T, d1 ? 2 : 1, cable_color)
-			transfer_fingerprints_to(temp_item)
+			var/obj/R = new /obj/item/stack/cable_coil(T, d1 ? 2 : 1, cable_color)
+			if(QDELETED(R)) // the coil merged with something on the tile
+				R = locate(/obj/item/stack/cable_coil) in T
+			if(R)
+				transfer_fingerprints_to(R)
 		var/turf/T_below = T.below()
 		if((d1 == DOWN || d2 == DOWN) && T_below)
 			for(var/obj/structure/cable/C in T_below)
@@ -514,6 +517,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return(OXYLOSS)
 
+/obj/item/stack/cable_coil/get_recipes()
+	return GLOB.cable_coil_recipes
+
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
 	. = ..()
 
@@ -522,10 +528,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	if(cable_colors[cable_color])
 		cable_color = cable_colors[cable_color]
 
-	pixel_x = rand(-2,2)
-	pixel_y = rand(-2,2)
+	pixel_x = base_pixel_x + rand(-2,2)
+	pixel_y = base_pixel_y + rand(-2,2)
 	update_icon()
-	recipes = GLOB.cable_coil_recipes
 
 ///////////////////////////////////
 // General procedures

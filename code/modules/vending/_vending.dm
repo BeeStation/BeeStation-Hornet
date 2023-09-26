@@ -63,8 +63,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/active = 1
 	///Are we ready to vend?? Is it time??
 	var/vend_ready = TRUE
-	///Next world time to send a purchase message
-	var/purchase_message_cooldown
 	///The ref of the last mob to shop with us
 	var/last_shopper
 	var/tilted = FALSE
@@ -73,7 +71,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/forcecrit = 0
 	var/num_shards = 7
 	var/list/pinned_mobs = list()
-
+	COOLDOWN_DECLARE(purchase_message_cooldown)
 
 	/**
 	  * List of products this machine sells
@@ -264,7 +262,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			if (dump_amount >= 16)
 				return
 
-GLOBAL_LIST_EMPTY(vending_products)
 /**
   * Build the inventory of the vending machine from it's product and record lists
   *
@@ -282,7 +279,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 		var/atom/temp = typepath
 		var/datum/data/vending_product/R = new /datum/data/vending_product()
-		GLOB.vending_products[typepath] = 1
 		R.name = initial(temp.name)
 		R.product_path = typepath
 		if(!start_empty)
@@ -361,14 +357,14 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/wrench_act(mob/living/user, obj/item/I)
 	..()
 	if(panel_open)
-		default_unfasten_wrench(user, I, time = 60)
+		default_unfasten_wrench(user, I, time = 6 SECONDS)
 		unbuckle_all_mobs(TRUE)
 	return TRUE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	if(anchored)
+	if(anchored || (!anchored && !panel_open))
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 		cut_overlays()
 		if(panel_open)
@@ -694,23 +690,26 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/ui_data(mob/user)
 	. = list()
 	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
+	var/obj/item/card/id/card
 	.["user"] = null
 	if(ishuman(user))
 		H = user
-		C = H.get_idcard(TRUE)
-		if(C?.registered_account)
-			.["user"] = list()
-			.["user"]["name"] = C.registered_account.account_holder
-			.["user"]["cash"] = C.registered_account.account_balance
-			.["user"]["job"] = "No Job"
-			.["user"]["department_bitflag"] = 0
-			var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
-			if(C.registered_account.account_job)
-				.["user"]["job"] = C.registered_account.account_job.title
-				.["user"]["department_bitflag"] = C.registered_account.active_departments
-			if(R)
-				.["user"]["job"] = R.fields["rank"]
+		card = H.get_idcard(TRUE)
+
+		.["user"] = list()
+		if(card?.registered_account)
+			.["user"]["name"] = card.registered_account.account_holder
+		else
+			.["user"]["name"] = H.name
+		.["user"]["cash"] = H.get_accessible_cash()
+		.["user"]["job"] = "No Job"
+		.["user"]["department_bitflag"] = 0
+		var/datum/data/record/R = find_record("name", card?.registered_account?.account_holder, GLOB.data_core.general)
+		if(card?.registered_account?.account_job)
+			.["user"]["job"] = card.registered_account.account_job.title
+			.["user"]["department_bitflag"] = card.registered_account.active_departments
+		if(R)
+			.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
@@ -755,26 +754,22 @@ GLOBAL_LIST_EMPTY(vending_products)
 				var/mob/living/carbon/human/H = usr
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-				if(!C)
-					say("No card found.")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
-				else if (!C.registered_account)
-					say("No account found.")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
-				var/datum/bank_account/account = C.registered_account
-				if(account.account_job && (account.active_departments & dept_req_for_free))
+				var/datum/bank_account/account = C?.registered_account
+				if(account?.account_job && (account?.active_departments & dept_req_for_free))
 					price_to_use = 0
 				if(coin_records.Find(R))
 					price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
-				if(price_to_use && !account.adjust_money(-price_to_use))
-					say("You do not possess the funds to purchase [R.name].")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
+				if(price_to_use)
+					if(!H.spend_cash(price_to_use))
+						var/additional_message = ""
+						if(!C)
+							additional_message += "No ID card found. "
+						if(!C?.registered_account)
+							additional_message += "No account found. "
+						say("[additional_message]Not enough funds to purchase [R.name].")
+						flick(icon_deny,src)
+						vend_ready = TRUE
+						return
 
 				// each department (seller_department) will earn the profit
 				if(price_to_use && seller_department)
@@ -785,9 +780,9 @@ GLOBAL_LIST_EMPTY(vending_products)
 							if(D)
 								D.adjust_money(price_to_use)
 
-			if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
+			if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
 				say("Thank you for shopping with [src]!")
-				purchase_message_cooldown = world.time + 5 SECONDS
+				COOLDOWN_START(src, purchase_message_cooldown, (5 SECONDS))
 				//This is not the best practice, but it's safe enough here since the chances of two people using a machine with the same ref in 5 seconds is fuck low
 				last_shopper = REF(usr)
 			use_power(5)
@@ -939,9 +934,19 @@ GLOBAL_LIST_EMPTY(vending_products)
 	/// where the money is sent
 	var/datum/bank_account/private_a
 	/// max number of items that the custom vendor can hold
-	var/max_loaded_items = 20
+	var/max_loaded_items = 100
 	/// Base64 cache of custom icons.
 	var/list/base64_cache = list()
+
+/obj/machinery/vending/custom/examine(mob/user)
+	. = ..()
+	if(private_a)
+		if(private_a.account_job)
+			. += "<span class='notice'>It's owned by [private_a.account_holder], a [private_a.account_job.title].</span>"
+		else
+			. += "<span class='notice'>It's owned by [private_a.account_holder]</span>"
+	else
+		. += "<span class='notice'>It's not owned by anyone!<span>"
 
 /obj/machinery/vending/custom/compartmentLoadAccessCheck(mob/user)
 	. = FALSE
@@ -949,7 +954,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	var/obj/item/card/id/C
 	if(ishuman(user))
 		H = user
-		C = H.get_idcard(FALSE)
+		C = H.get_idcard(TRUE)
 		if(C?.registered_account && C.registered_account == private_a)
 			return TRUE
 
@@ -971,13 +976,16 @@ GLOBAL_LIST_EMPTY(vending_products)
 	. = ..()
 	.["access"] = compartmentLoadAccessCheck(user)
 	.["vending_machine_input"] = list()
+	.["stock"] = list()
 	for (var/O in vending_machine_input)
 		if(vending_machine_input[O] > 0)
 			var/base64
-			var/price = 0
+			var/item_price = 0
+			var/item_path
 			for(var/obj/T in contents)
 				if(T.name == O)
-					price = T.custom_price
+					item_price = T.custom_price
+					item_path = T.type
 					if(!base64)
 						if(base64_cache[T.type])
 							base64 = base64_cache[T.type]
@@ -987,9 +995,11 @@ GLOBAL_LIST_EMPTY(vending_products)
 					break
 			var/list/data = list(
 				name = O,
-				price = price,
-				img = base64
+				price = item_price,
+				img = base64,
+				path = "[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"
 			)
+			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"] = vending_machine_input[O]
 			.["vending_machine_input"] += list(data)
 
 /obj/machinery/vending/custom/ui_act(action, params)
@@ -1007,17 +1017,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 				var/mob/living/carbon/human/H = usr
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-				if(!C)
-					say("No card found.")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
-				else if (!C.registered_account)
-					say("No account found.")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
-				var/datum/bank_account/account = C.registered_account
 				for(var/obj/O in contents)
 					if(O.name == N)
 						S = O
@@ -1026,29 +1025,54 @@ GLOBAL_LIST_EMPTY(vending_products)
 					if(compartmentLoadAccessCheck(usr))
 						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 						S.forceMove(drop_location())
+						if (usr.CanReach(src) && usr.put_in_hands(S))
+							to_chat(usr, "<span class='notice'>You take [S.name] out of the slot.</span>")
+						else
+							to_chat(usr, "<span class='warning'>[capitalize(S.name)] falls onto the floor!</span>")
 						loaded_items--
 						use_power(5)
 						vend_ready = TRUE
 						return TRUE
-					if(account.has_money(S.custom_price))
-						account.adjust_money(-S.custom_price)
-						var/datum/bank_account/owner = private_a
-						if(owner)
-							owner.adjust_money(S.custom_price)
-							SSblackbox.record_feedback("amount", "vending_spent", S.custom_price)
-						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
-						S.forceMove(drop_location())
-						loaded_items--
-						use_power(5)
-						if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
-							say("Thank you for buying local and purchasing [S]!")
-							purchase_message_cooldown = world.time + 5 SECONDS
-							last_shopper = REF(usr)
-						vend_ready = TRUE
+					//var/datum/bank_account/account = C?.registered_account
+					if(H.spend_cash(S.custom_price))
+						make_purchase(S, H, N)
 						return TRUE
 					else
-						say("You do not possess the funds to purchase this.")
+						var/additional_message = ""
+						if(!C)
+							additional_message += "No ID card found. "
+						if(!C?.registered_account)
+							additional_message += "No account found. "
+						say("[additional_message]Not enough funds to purchase [S.name].")
+						flick(icon_deny,src)
+						vend_ready = TRUE
+						return
 			vend_ready = TRUE
+
+/obj/machinery/vending/custom/proc/make_purchase(var/obj/bought_item, var/mob/living/carbon/human/H, var/N)
+	var/datum/bank_account/owner = private_a
+	if(owner)
+		owner.adjust_money(bought_item.custom_price)
+		var/obj/item/card/id/id_card = H.get_idcard(TRUE)
+		if(id_card)
+			owner.bank_card_talk("[id_card.registered_name] has bought \a [bought_item] for [bought_item.custom_price] credits at your [name]!")
+		else
+			owner.bank_card_talk("[H.name] has bought \a [bought_item] for [bought_item.custom_price] credits at your [name]!")
+	SSblackbox.record_feedback("amount", "vending_spent", bought_item.custom_price)
+	vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
+	bought_item.forceMove(drop_location())
+	if (usr.CanReach(src) && usr.put_in_hands(bought_item))
+		to_chat(usr, "<span class='notice'>You take [bought_item.name] out of the slot.</span>")
+	else
+		to_chat(usr, "<span class='warning'>[capitalize(bought_item.name)] falls onto the floor!</span>")
+	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
+	loaded_items--
+	use_power(5)
+	if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
+		say("Thank you for buying local and purchasing [bought_item]!")
+		COOLDOWN_START(src, purchase_message_cooldown, (5 SECONDS))
+		last_shopper = REF(usr)
+	vend_ready = TRUE
 
 /obj/machinery/vending/custom/attackby(obj/item/I, mob/user, params)
 	if(!private_a)
@@ -1090,14 +1114,14 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/item/vending_refill/custom
 	machine_name = "Custom Vendor"
 	icon_state = "refill_custom"
-	custom_premium_price = 100
+	custom_premium_price = 75
 
 /obj/item/price_tagger
 	name = "price tagger"
 	desc = "This tool is used to set a price for items used in custom vendors."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pricetagger"
-	custom_premium_price = 25
+	custom_premium_price = 20
 	///the price of the item
 	var/price = 1
 
@@ -1112,4 +1136,10 @@ GLOBAL_LIST_EMPTY(vending_products)
 	if(isitem(target))
 		var/obj/item/I = target
 		I.custom_price = price
-		to_chat(user, "<span class='notice'>You set the price of [I] to [price] cr.</span>")
+		var/has_component = I.GetComponent(/datum/component/storage)
+		if(has_component)
+			for(var/atom/A in I.contents)
+				A.custom_price = price
+			to_chat(user, "<span class='notice'>You set the price of [I] and everything inside of it to [price] cr.</span>")
+		else
+			to_chat(user, "<span class='notice'>You set the price of [I] to [price] cr.</span>")

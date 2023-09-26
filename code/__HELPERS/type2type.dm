@@ -395,7 +395,6 @@
 		else
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
 
-
 /// Converts a text color like "red" to a hex color ("#FF0000")
 /proc/color2hex(color)	//web colors
 	if(!color)
@@ -441,10 +440,8 @@
 		else
 			return "#FFFFFF"
 
-
 /**
 This is a weird one: It returns a list of all var names found in the string. These vars must be in the [var_name] format
-
 It's only a proc because it's used in more than one place
 
 Takes a string and a datum. The string is well, obviously the string being checked. The datum is used as a source for var names, to check validity. Otherwise every single word could technically be a variable!

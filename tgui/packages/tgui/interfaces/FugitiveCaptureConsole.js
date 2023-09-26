@@ -4,64 +4,46 @@ import { Window } from '../layouts';
 
 export const FugitiveCaptureConsole = (_, context) => {
   const { act, data } = useBackend(context);
-  const {
-    linked = false,
-    locked = false,
-    open = false,
-    prisoner_valid = false,
-    prisoner_ref = null,
-    targets = [],
-  } = data;
+  const { linked = false, locked = false, open = false, prisoner_valid = false, prisoner_ref = null, targets = [] } = data;
   return (
-    <Window
-      width={380}
-      height={300}
-      theme="neutral">
+    <Window width={380} height={300} theme="neutral">
       <Window.Content scrollable>
         <Section
           title="Containment Console"
-          buttons={(
+          buttons={
             <>
-              <Button
-                content={open ? 'Open' : 'Closed'}
-                disabled={locked}
-                selected={open}
-                onClick={() => act('toggle_open')} />
+              <Button content={open ? 'Open' : 'Closed'} disabled={locked} selected={open} onClick={() => act('toggle_open')} />
               <Button
                 icon={locked ? 'lock' : 'unlock'}
                 content={locked ? 'Locked' : 'Unlocked'}
                 selected={locked}
                 disabled={open}
-                onClick={() => act('toggle_lock')} />
+                onClick={() => act('toggle_lock')}
+              />
             </>
-          )}>
+          }>
           <LabeledList>
             <LabeledList.Item
               label="Fugitive Containment Chamber"
               color={linked ? 'good' : 'bad'}
-              buttons={!linked && (
-                <Button
-                  content="Reconnect"
-                  onClick={() => act('scan')}
-                />
-              )}>
+              buttons={!linked && <Button content="Reconnect" onClick={() => act('scan')} />}>
               {linked ? 'Connected' : 'Not Connected'}
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        {targets.map(fugitive => (
+        {targets.map((fugitive) => (
           <Section title={`Wanted Fugitive: ${fugitive.name}`} key={fugitive.ref}>
             <LabeledList>
-              <LabeledList.Item
-                label="Status"
-                color={fugitive.captured || !fugitive.living ? 'good' : 'bad'}>
-                {fugitive.captured ? (fugitive.captured_living ? "Captured (Alive)" : "Captured (Dead)") : (fugitive.living ? "At Large" : "Dead")}
+              <LabeledList.Item label="Status" color={fugitive.captured || !fugitive.living ? 'good' : 'bad'}>
+                {fugitive.captured
+                  ? fugitive.captured_living
+                    ? 'Captured (Alive)'
+                    : 'Captured (Dead)'
+                  : fugitive.living
+                    ? 'At Large'
+                    : 'Dead'}
               </LabeledList.Item>
-              {fugitive.location ? (
-                <LabeledList.Item label="Last known location">
-                  {fugitive.location}
-                </LabeledList.Item>
-              ) : null}
+              {fugitive.location ? <LabeledList.Item label="Last known location">{fugitive.location}</LabeledList.Item> : null}
             </LabeledList>
             {prisoner_valid && prisoner_ref === fugitive.ref && prisoner_ref !== null ? (
               <Button
@@ -71,7 +53,8 @@ export const FugitiveCaptureConsole = (_, context) => {
                 disabled={!linked || !locked || open || !prisoner_valid}
                 textAlign="center"
                 color="bad"
-                onClick={() => act('capture')} />
+                onClick={() => act('capture')}
+              />
             ) : null}
           </Section>
         ))}

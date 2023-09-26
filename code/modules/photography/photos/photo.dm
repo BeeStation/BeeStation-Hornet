@@ -93,5 +93,5 @@
 	var/n_name = stripped_input(usr, "What would you like to label the photo?", "Photo Labelling", max_length=MAX_NAME_LEN)
 	//loc.loc check is for making possible renaming photos in clipboards
 	if(n_name && (loc == usr || loc.loc && loc.loc == usr) && usr.stat == CONSCIOUS && !usr.incapacitated())
-		name = "photo[(n_name ? text("- '[n_name]'") : null)]"
+		name = "photo[(n_name ? "- '[n_name]'" : null)]"
 	add_fingerprint(usr)

@@ -42,7 +42,6 @@
 	var/on = FALSE
 	/// whether it can be painted
 	var/paintable = FALSE
-	var/interacts_with_air = FALSE
 
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
@@ -61,18 +60,14 @@
 		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0)
 	..()
 	if(process)
-		if(interacts_with_air)
-			SSair.atmos_air_machinery += src
-		else
-			SSair.atmos_machinery += src
+		SSair.start_processing_machine(src)
 	SetInitDirections()
 
 /obj/machinery/atmospherics/Destroy()
 	for(var/i in 1 to device_type)
 		nullifyNode(i)
 
-	SSair.atmos_machinery -= src
-	SSair.atmos_air_machinery -= src
+	SSair.stop_processing_machine(src)
 	SSair.pipenets_needing_rebuilt -= src
 
 	dropContents()

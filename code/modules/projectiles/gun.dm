@@ -45,6 +45,8 @@
 	var/requires_wielding = TRUE
 	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
+	var/wild_spread = FALSE				//Sets a minimum level of bullet spread per shot; meant for difficult to aim / inaccurate guns.
+	var/wild_factor = 0.25				//Multiplied by spread to calculate the 'minimum' spread per shot.
 
 	var/is_wielded = FALSE
 
@@ -127,7 +129,6 @@
 		QDEL_NULL(chambered)
 	if(azoom)
 		QDEL_NULL(azoom)
-	UnregisterSignal(list(COMSIG_TWOHANDED_WIELD, COMSIG_TWOHANDED_UNWIELD))
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)
@@ -369,15 +370,24 @@
 		return
 
 	var/sprd = 0
+	var/min_gun_sprd = 0
+	var/min_rand_sprd = 0
 	var/randomized_gun_spread = 0
 	var/rand_spr = rand()
+
+	if(wild_spread)
+		var/S
+		S = sprd * wild_factor //If a gun has WILD SPREAD get the minimum by multiplying spread by its WILD FACTOR
+		min_gun_sprd = round(S, 0.5) //Clean up that value a tiny bit
+		S = spread_unwielded * wild_factor //Do the same for the gun's unwielded spread
+		min_rand_sprd = round(S, 0.5)
 	if(spread)
-		randomized_gun_spread =	rand(0,spread)
-	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
+		randomized_gun_spread =	rand(min_gun_sprd,spread)
+	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex //Does not modify minimum spread, only maximum spread
 		bonus_spread += 25
 	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
-	var/randomized_bonus_spread = rand(0, bonus_spread)
+	var/randomized_bonus_spread = rand(min_rand_sprd, bonus_spread)
 
 	if(burst_size > 1)
 		firing_burst = TRUE
@@ -686,8 +696,8 @@
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
 	if(aimed && chambered?.BB)
-		chambered.BB.speed = initial(chambered.BB.speed) *= 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
-		chambered.BB.damage = initial(chambered.BB.damage) *= 1.25
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
+		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
 
 /////////////
 // ZOOMING //

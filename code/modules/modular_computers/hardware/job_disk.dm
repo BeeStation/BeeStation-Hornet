@@ -34,9 +34,6 @@
 	if(disk_flags & DISK_ATMOS)
 		progs_to_store += new /datum/computer_file/program/atmosscan(src)
 
-	if(disk_flags & DISK_MANIFEST)
-		progs_to_store += new /datum/computer_file/program/crew_manifest(src)
-
 	if(disk_flags & DISK_SEC)
 		progs_to_store += new /datum/computer_file/program/records/security(src)
 

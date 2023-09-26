@@ -1,18 +1,7 @@
-import { useBackend, useSharedState } from '../backend';
-import {
-  AnimatedNumber,
-  Box,
-  Button,
-  Flex,
-  Fragment,
-  Section,
-  Slider,
-  ProgressBar,
-  LabeledList,
-  Tabs,
-} from '../components';
+import { useBackend, useLocalState } from '../backend';
+import { AnimatedNumber, Box, Button, Flex, Fragment, Section, Slider, ProgressBar, LabeledList, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
-import { sanitizeText } from "../sanitize";
+import { sanitizeText } from '../sanitize';
 
 export const NtosCyborgSelfMonitor = (_, context) => {
   const { data } = useBackend(context);
@@ -28,8 +17,8 @@ export const NtosCyborgSelfMonitor = (_, context) => {
 
 export const NtosCyborgSelfMonitorContent = (_, context) => {
   const { act, data } = useBackend(context);
-  const [tab_main, setTab_main] = useSharedState(context, 'tab_main', 1);
-  const [tab_sub, setTab_sub] = useSharedState(context, 'tab_sub', 1);
+  const [tab_main, setTab_main] = useLocalState(context, 'tab_main', 1);
+  const [tab_sub, setTab_sub] = useLocalState(context, 'tab_sub', 1);
   const {
     charge,
     maxcharge,
@@ -59,18 +48,10 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
     <Flex direction={'column'}>
       <Flex.Item position="relative" mb={1}>
         <Tabs>
-          <Tabs.Tab
-            icon="list"
-            lineHeight="23px"
-            selected={tab_main === 1}
-            onClick={() => setTab_main(1)}>
+          <Tabs.Tab icon="list" lineHeight="23px" selected={tab_main === 1} onClick={() => setTab_main(1)}>
             Status
           </Tabs.Tab>
-          <Tabs.Tab
-            icon="list"
-            lineHeight="23px"
-            selected={tab_main === 2}
-            onClick={() => setTab_main(2)}>
+          <Tabs.Tab icon="list" lineHeight="23px" selected={tab_main === 2} onClick={() => setTab_main(2)}>
             Logs
           </Tabs.Tab>
         </Tabs>
@@ -81,24 +62,16 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
             <Flex.Item width="30%">
               <Section title="Configuration" fill>
                 <LabeledList>
-                  <LabeledList.Item label="Unit">
-                    {borgName.slice(0, 17)}
-                  </LabeledList.Item>
+                  <LabeledList.Item label="Unit">{borgName.slice(0, 17)}</LabeledList.Item>
                   <LabeledList.Item label="Type">{borgType}</LabeledList.Item>
-                  <LabeledList.Item label="AI">
-                    {masterAI.slice(0, 17)}
-                  </LabeledList.Item>
+                  <LabeledList.Item label="AI">{masterAI.slice(0, 17)}</LabeledList.Item>
                 </LabeledList>
               </Section>
             </Flex.Item>
-            <Flex.Item grow={1} ml={1}>
+            <Flex.Item grow={1} ml={1} basis="content">
               <Section title="Status">
                 Charge:
-                <Button
-                  content="Power Alert"
-                  disabled={charge}
-                  onClick={() => act('alertPower')}
-                />
+                <Button content="Power Alert" disabled={charge} onClick={() => act('alertPower')} />
                 <ProgressBar
                   value={charge / maxcharge}
                   ranges={{
@@ -130,7 +103,8 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
                   onChange={(e, value) =>
                     act('lampIntensity', {
                       ref: value,
-                    })}
+                    })
+                  }
                 />
                 Lamp power usage: {lampIntensity / 2} watts
               </Section>
@@ -138,25 +112,13 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
             <Flex.Item width="50%" ml={1}>
               <Section fitted>
                 <Tabs fluid={1} textAlign="center">
-                  <Tabs.Tab
-                    icon=""
-                    lineHeight="23px"
-                    selected={tab_sub === 1}
-                    onClick={() => setTab_sub(1)}>
+                  <Tabs.Tab icon="" lineHeight="23px" selected={tab_sub === 1} onClick={() => setTab_sub(1)}>
                     Actions
                   </Tabs.Tab>
-                  <Tabs.Tab
-                    icon=""
-                    lineHeight="23px"
-                    selected={tab_sub === 2}
-                    onClick={() => setTab_sub(2)}>
+                  <Tabs.Tab icon="" lineHeight="23px" selected={tab_sub === 2} onClick={() => setTab_sub(2)}>
                     Upgrades
                   </Tabs.Tab>
-                  <Tabs.Tab
-                    icon=""
-                    lineHeight="23px"
-                    selected={tab_sub === 3}
-                    onClick={() => setTab_sub(3)}>
+                  <Tabs.Tab icon="" lineHeight="23px" selected={tab_sub === 3} onClick={() => setTab_sub(3)}>
                     Diagnostics
                   </Tabs.Tab>
                 </Tabs>
@@ -165,49 +127,26 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
                 <Section>
                   <LabeledList>
                     <LabeledList.Item label="Maintenance Cover">
-                      <Button.Confirm
-                        content="Unlock"
-                        disabled={cover === 'UNLOCKED'}
-                        onClick={() => act('coverunlock')}
-                      />
+                      <Button.Confirm content="Unlock" disabled={cover === 'UNLOCKED'} onClick={() => act('coverunlock')} />
                     </LabeledList.Item>
                     <LabeledList.Item label="Sensor Overlay">
-                      <Button
-                        content={sensors}
-                        onClick={() => act('toggleSensors')}
-                      />
+                      <Button content={sensors} onClick={() => act('toggleSensors')} />
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label={'Stored Photos (' + printerPictures + ')'}>
-                      <Button
-                        content="View"
-                        disabled={!printerPictures}
-                        onClick={() => act('viewImage')}
-                      />
-                      <Button
-                        content="Print"
-                        disabled={!printerPictures}
-                        onClick={() => act('printImage')}
-                      />
+                    <LabeledList.Item label={'Stored Photos (' + printerPictures + ')'}>
+                      <Button content="View" disabled={!printerPictures} onClick={() => act('viewImage')} />
+                      <Button content="Print" disabled={!printerPictures} onClick={() => act('printImage')} />
                     </LabeledList.Item>
                     <LabeledList.Item label="Printer Toner">
                       <ProgressBar value={printerToner / printerTonerMax} />
                     </LabeledList.Item>
                     {!!thrustersInstalled && (
                       <LabeledList.Item label="Toggle Thrusters">
-                        <Button
-                          content={thrustersStatus}
-                          onClick={() => act('toggleThrusters')}
-                        />
+                        <Button content={thrustersStatus} onClick={() => act('toggleThrusters')} />
                       </LabeledList.Item>
                     )}
                     {!!selfDestructAble && (
-                      <LabeledList.Item
-                        label="Self Destruct">
-                        <Button.Confirm
-                          content="ACTIVATE"
-                          color="red"
-                          onClick={() => act('selfDestruct')} />
+                      <LabeledList.Item label="Self Destruct">
+                        <Button.Confirm content="ACTIVATE" color="red" onClick={() => act('selfDestruct')} />
                       </LabeledList.Item>
                     )}
                   </LabeledList>
@@ -227,50 +166,26 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
                   <LabeledList>
                     <LabeledList.Item
                       label="AI Connection"
-                      color={
-                        wireAI === 'FAULT'
-                          ? 'red'
-                          : wireAI === 'READY'
-                            ? 'yellow'
-                            : 'green'
-                      }>
+                      color={wireAI === 'FAULT' ? 'red' : wireAI === 'READY' ? 'yellow' : 'green'}>
                       {wireAI}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="LawSync"
-                      color={wireLaw === 'FAULT' ? 'red' : 'green'}>
+                    <LabeledList.Item label="LawSync" color={wireLaw === 'FAULT' ? 'red' : 'green'}>
                       {wireLaw}
                     </LabeledList.Item>
                     <LabeledList.Item
                       label="Camera"
-                      color={
-                        wireCamera === 'FAULT'
-                          ? 'red'
-                          : wireCamera === 'DISABLED'
-                            ? 'yellow'
-                            : 'green'
-                      }>
+                      color={wireCamera === 'FAULT' ? 'red' : wireCamera === 'DISABLED' ? 'yellow' : 'green'}>
                       {wireCamera}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Module Controller"
-                      color={wireModule === 'FAULT' ? 'red' : 'green'}>
+                    <LabeledList.Item label="Module Controller" color={wireModule === 'FAULT' ? 'red' : 'green'}>
                       {wireModule}
                     </LabeledList.Item>
                     <LabeledList.Item
                       label="Motor Controller"
-                      color={
-                        locomotion === 'FAULT'
-                          ? 'red'
-                          : locomotion === 'DISABLED'
-                            ? 'yellow'
-                            : 'green'
-                      }>
+                      color={locomotion === 'FAULT' ? 'red' : locomotion === 'DISABLED' ? 'yellow' : 'green'}>
                       {locomotion}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Maintenance Cover"
-                      color={cover === 'UNLOCKED' ? 'red' : 'green'}>
+                    <LabeledList.Item label="Maintenance Cover" color={cover === 'UNLOCKED' ? 'red' : 'green'}>
                       {cover}
                     </LabeledList.Item>
                   </LabeledList>
@@ -285,15 +200,14 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
               scrollable
               buttons={
                 <Fragment>
-                  <Button
-                    content="State Laws"
-                    onClick={() => act('lawstate')}
-                  />
+                  <Button content="State Laws" onClick={() => act('lawstate')} />
                   <Button icon="volume-off" onClick={() => act('lawchannel')} />
                 </Fragment>
               }>
               {laws.map((law) => (
-                <Box mb={1} key={law}
+                <Box
+                  mb={1}
+                  key={law}
                   dangerouslySetInnerHTML={{
                     __html: sanitizeText(law),
                   }}>

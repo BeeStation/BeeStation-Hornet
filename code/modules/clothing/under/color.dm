@@ -213,13 +213,13 @@
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, STAMINA = 30)
+	armor = list(MELEE = 10, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20)
 
 /obj/item/clothing/under/color/jumpskirt/durathread
 	name = "durathread jumpskirt"
 	desc = "A jumpskirt made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, STAMINA = 30)
+	armor = list(MELEE = 10, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20)
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"

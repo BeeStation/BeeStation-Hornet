@@ -188,7 +188,7 @@
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L.loc)
 		if(T && (T in targets))
-			L.blind_eyes(4)
+			L.adjust_blindness(4)
 	return
 
 //Toggle Night Vision

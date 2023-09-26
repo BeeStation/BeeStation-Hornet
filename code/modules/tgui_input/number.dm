@@ -25,7 +25,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		var/input_number = input(user, message, title, default) as null|num
 		return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
 	var/datum/tgui_input_number/number_input = new(user, message, title, default, max_value, min_value, timeout, round_value)
@@ -61,7 +61,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		var/input_number = input(user, message, title, default) as null|num
 		return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
 	var/datum/tgui_input_number/async/number_input = new(user, message, title, default, max_value, min_value, callback, timeout, round_value)
@@ -135,6 +135,7 @@
 	if(!ui)
 		ui = new(user, src, "NumberInputModal")
 		ui.open()
+		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_input_number/ui_close(mob/user)
 	. = ..()
@@ -143,20 +144,18 @@
 /datum/tgui_input_number/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/tgui_input_number/ui_data(mob/user)
+/datum/tgui_input_number/ui_static_data(mob/user)
 	. = list()
 	.["init_value"] = default // Default is a reserved keyword
 	.["max_value"] = max_value
 	.["message"] = message
 	.["min_value"] = min_value
-	.["preferences"] = list()
-	if(!user.client || !user.client.prefs)
-		.["preferences"]["large_buttons"] = TRUE
-		.["preferences"]["swapped_buttons"] = TRUE
-	else
-		.["preferences"]["large_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
-		.["preferences"]["swapped_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
+	.["large_buttons"] = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input_large)
+	.["swapped_buttons"] = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input_swapped)
 	.["title"] = title
+
+/datum/tgui_input_number/ui_data(mob/user)
+	. = list()
 	if(timeout)
 		.["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
 

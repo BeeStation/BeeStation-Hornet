@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "d" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -110,12 +110,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "x" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/seed_extractor,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "z" = (
@@ -134,9 +129,6 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
-"B" = (
-/turf/closed/wall/r_wall,
 /area/template_noop)
 "G" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -161,14 +153,6 @@
 /obj/item/cultivator,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"L" = (
-/obj/machinery/seed_extractor,
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
-	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "M" = (
@@ -213,17 +197,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
-"X" = (
-/obj/machinery/light_switch{
-	pixel_x = -6;
-	pixel_y = -25
-	},
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "Y" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -240,7 +213,6 @@ K
 p
 Y
 M
-Y
 a
 "}
 (2,1,1) = {"
@@ -253,7 +225,6 @@ d
 d
 d
 i
-x
 J
 "}
 (3,1,1) = {"
@@ -266,7 +237,6 @@ t
 t
 t
 l
-X
 a
 "}
 (4,1,1) = {"
@@ -274,13 +244,12 @@ U
 R
 z
 R
-L
+x
 h
 v
 R
 z
-R
-B
+a
 "}
 (5,1,1) = {"
 a
@@ -292,6 +261,5 @@ a
 a
 U
 a
-U
-B
+a
 "}

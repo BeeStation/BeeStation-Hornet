@@ -116,7 +116,7 @@
 		var/area/A = get_area(src)
 		wire_security_level = max(wire_security_level, A.airlock_hack_difficulty)
 
-	wires = new /datum/wires/airlock(src, wire_security_level)
+	wires = set_wires(wire_security_level)
 	if(frequency)
 		set_frequency(frequency)
 
@@ -351,9 +351,9 @@
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		if(welded)
-			to_chat(eminence, text("The airlock has been welded shut!"))
+			to_chat(eminence, "The airlock has been welded shut!")
 		else if(locked)
-			to_chat(eminence, text("The door bolts are down!"))
+			to_chat(eminence, "The door bolts are down!")
 		else if(!density)
 			close()
 		else
@@ -486,7 +486,7 @@
 	if (!cont)
 		restorePower()
 	else
-		addtimer(CALLBACK(src, PROC_REF(restorePower)), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(handlePowerRestoreLoop)), 1 SECONDS)
 
 /obj/machinery/door/airlock/proc/restorePower()
 	spawnPowerRestoreRunning = FALSE
@@ -1215,7 +1215,7 @@
 	update_freelook_sight()
 	sleep(open_speed - 1)
 	density = FALSE
-	obj_flags &= ~(BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	air_update_turf(1)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
@@ -1262,12 +1262,12 @@
 	layer = CLOSED_DOOR_LAYER
 	if(air_tight)
 		set_density(TRUE)
-		obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		air_update_turf(1)
 	sleep(1)
 	if(!air_tight)
 		set_density(TRUE)
-		obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		air_update_turf(1)
 	sleep(open_speed - 1)
 	if(!safe)
@@ -1422,7 +1422,7 @@
 				message = "unshocked"
 			else
 				message = "temp shocked for [secondsElectrified] seconds"
-		LAZYADD(shockedby, text("\[[time_stamp()]\] [key_name(user)] - ([uppertext(message)])"))
+		LAZYADD(shockedby, "\[[time_stamp()]\] [key_name(user)] - ([uppertext(message)])")
 		log_combat(user, src, message)
 		add_hiddenprint(user)
 
@@ -1483,11 +1483,11 @@
 	return FALSE
 
 /obj/machinery/door/airlock/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='notice'>You deconstruct the airlock.</span>")
-			qdel(src)
-			return TRUE
+	if(RCD_DECONSTRUCT == passed_mode)
+		to_chat(user, "<span class='notice'>You deconstruct the airlock.</span>")
+		log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+		qdel(src)
+		return TRUE
 	return FALSE
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
@@ -1655,10 +1655,14 @@
 	if(!user_allowed(user))
 		return
 	if(welded)
-		to_chat(user, text("The airlock has been welded shut!"))
+		to_chat(user, "The airlock has been welded shut!")
 	else if(locked)
-		to_chat(user, text("The door bolts are down!"))
+		to_chat(user, "The door bolts are down!")
 	else if(!density)
 		close()
 	else
 		open()
+
+/obj/machinery/door/airlock/proc/set_wires(wire_security_level)
+	return new /datum/wires/airlock(src, wire_security_level)
+

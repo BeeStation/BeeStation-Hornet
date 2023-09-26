@@ -2139,21 +2139,3 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			active_character.equipped_gear -= RG.id
 			purchased_gear -= RG.id
 		save_preferences()
-
-/datum/preferences/proc/get_character_list()
-	var/list/result = list()
-	var/count = 0
-	for(var/datum/character_save/each_save in character_saves)
-		if(each_save.be_random_body || !each_save.real_name) // random appearance doesn't make sense to be included
-			continue
-		result["[++count].[each_save.real_name]"] = each_save
-	return result
-
-/datum/preferences/proc/apply_pref_to_character(mob/living/carbon/human/target_character, datum/character_save/chosen_character, changes_mind_name=FALSE)
-	// this can possibly apply unwanted features to a target character when copy_to() proc is changed.
-	// currently, there's nothing bad here. (2023.04.21.)
-	chosen_character.copy_to(target_character, roundstart_checks=FALSE)
-	// clockcult(or pride) mirror lets you change your appearance, but you wouldn't really be that one
-	if(changes_mind_name)
-		target_character.mind.name = chosen_character.real_name
-	return TRUE

@@ -12,94 +12,87 @@ $button-main-hover: lighten(Button.$color-default, 15%);
 
 //Make columns have constant width, allowing buttons to cut off with ellipsis at the end
 .strip-menu-table {
-	table-layout: fixed;
+  table-layout: fixed;
 }
 
 .strip-menu-table > tbody > tr {
-	//Setup the gradient separators:
-	//Separators between entries
-	> td:first-child {
-		border-image: linear-gradient(to right, colors.$grey, adjust-color(colors.$grey, $alpha: -1) 70%) 30;
-		border-image-width: 1px 0 0 0;
-	}
-	//Separators between sections
-	&:first-child > td:first-child,
-	&.spacer > td:first-child,
-	&.spacer + tr > td:first-child {
-		border-image: linear-gradient(to right, colors.$white, adjust-color(colors.$white, $alpha: -1) 80%) 30;
-		border-image-width: 1px 0 0 0;
-	}
+  //Setup the gradient separators:
+  //Separators between entries
+  > td:first-child {
+    border-image: linear-gradient(to right, colors.$grey, adjust-color(colors.$grey, $alpha: -1) 70%) 30;
+    border-image-width: 1px 0 0 0;
+  }
+  //Separators between sections
+  &:first-child > td:first-child,
+  &.spacer > td:first-child,
+  &.spacer + tr > td:first-child {
+    border-image: linear-gradient(to right, colors.$white, adjust-color(colors.$white, $alpha: -1) 80%) 30;
+    border-image-width: 1px 0 0 0;
+  }
 
+  &:not(.spacer) > td {
+    //Center row contents vertically
+    vertical-align: middle;
 
-	&:not(.spacer) > td {
-		//Center row contents vertically
-		vertical-align: middle;
+    //Space the rows out a bit, give empty rows some additional height
+    padding-top: 0.15em;
+    padding-bottom: 0.15em;
+    min-height: 1.6em;
+  }
 
-		//Space the rows out a bit, give empty rows some additional height
-		padding-top: 0.15em;
-		padding-bottom: 0.15em;
-		min-height: 1.6em;
-	}
+  //Set the width of the first column - this fits the widest slot name with a bit of space to spare
+  > td:first-child {
+    width: 10em;
+  }
 
-	//Set the width of the first column - this fits the widest slot name with a bit of space to spare
-	> td:first-child {
-		width: 10em;
-	}
+  //Make unavailable (non-existing) slots have grayed out text
+  &.unavailable > td:first-child {
+    @extend .color-grey;
+  }
 
-	//Make unavailable (non-existing) slots have grayed out text
-	&.unavailable > td:first-child {
-		@extend .color-grey;
-	}
+  //Give indented slots a fancy arrow and a bit of indentation
+  &.indented > td:first-child::before {
+    content: '↳';
+    padding-left: 0.2em;
+  }
 
-	//Give indented slots a fancy arrow and a bit of indentation
-	&.indented > td:first-child::before {
-		content: "↳";
-		padding-left: 0.2em;
-	}
+  //Give alternate action buttons (all buttons after the first) a bit of indentation
+  > td > div > div:not(:first-child) > .Button {
+    margin-left: 0.5em;
+  }
 
-	//Give alternate action buttons (all buttons after the first) a bit of indentation
-	> td > div > div:not(:first-child) > .Button {
-		margin-left: 0.5em;
-	}
+  //Set spacer height (the rows between sections)
+  &.spacer > td {
+    height: 1px;
+  }
 
-	//Set spacer height (the rows between sections)
-	&.spacer > td {
-		height: 1px;
-	}
+  &.spacer:not(:last-child) > td {
+    height: 1em;
+  }
 
-	&.spacer:not(:last-child) > td {
-		height: 1em;
-	}
+  //Give obscured but accessible slots a fancy stripe pattern using gradients
+  &.obscured-hidden > td > div > div:first-child > .Button {
+    background: repeating-linear-gradient(-45deg, $button-gray, $button-gray 5px, $button-main 5px, $button-main 10px);
 
-	//Give obscured but accessible slots a fancy stripe pattern using gradients
-	&.obscured-hidden > td > div > div:first-child > .Button {
-		background: repeating-linear-gradient(
-			-45deg,
-			$button-gray,
-			$button-gray 5px,
-			$button-main 5px,
-			$button-main 10px
-		);
+    transition: background 50ms;
 
-		transition: background 50ms;
+    &:hover {
+      transition: background 0ms;
+    }
 
-		&:hover {
-			transition: background 0ms;
-		}
+    &:focus {
+      transition: background 100ms;
+    }
 
-		&:focus {
-			transition: background 100ms;
-		}
-
-		&:hover,
-		&:focus {
-			background: repeating-linear-gradient(
-				-45deg,
-				$button-gray-hover,
-				$button-gray-hover 5px,
-				$button-main-hover 5px,
-				$button-main-hover 10px
-			);
-		}
-	}
+    &:hover,
+    &:focus {
+      background: repeating-linear-gradient(
+        -45deg,
+        $button-gray-hover,
+        $button-gray-hover 5px,
+        $button-main-hover 5px,
+        $button-main-hover 10px
+      );
+    }
+  }
 }

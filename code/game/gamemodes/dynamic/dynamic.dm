@@ -70,8 +70,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/datum/dynamic_ruleset/latejoin/forced_latejoin_rule = null
 	/// How many percent of the rounds are more peaceful.
 	var/peaceful_percentage = 50
-	/// If a high impact ruleset was executed. Only one will run at a time in most circumstances.
-	var/high_impact_ruleset_executed = FALSE
 	/// If a only ruleset has been executed.
 	var/only_ruleset_executed = FALSE
 	/// Dynamic configuration, loaded on pre_setup
@@ -181,6 +179,9 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// The population size where dynamic stops caring about antag percents during injections. This is usually because on higher pop it isn't forced to spawn a bunch of sleeper agents.
 	var/traitor_percentage_population_threshold = 30
 
+	/// The minimum amount of station integrity needed for a dead threat injection
+	var/minimum_station_integrity = 0.85
+
 	// == EVERYTHING BELOW THIS POINT SHOULD NOT BE CONFIGURED ==
 
 	/// A list of recorded "snapshots" of the round, stored in the dynamic.json log
@@ -201,21 +202,30 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	VAR_PRIVATE/next_midround_injection
 
+	/// Contains whether 'dead' ruleset injection will be blocked due to a high impact event occurring.
+	var/high_impact_major_event_occured = FALSE
+
+	/// Cached value of is_station_intact.
+	var/cached_station_intact = TRUE
+
+	/// When the cached station intactness will expire.
+	COOLDOWN_DECLARE(intact_cache_expiry)
+
 /datum/game_mode/dynamic/admin_panel()
 	var/list/dat = list("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Game Mode Panel</title></head><body><h1><B>Game Mode Panel</B></h1>")
-	dat += "Dynamic Mode <a href='?_src_=vars;[HrefToken()];Vars=[REF(src)]'>\[VV\]</a> <a href='?src=\ref[src];[HrefToken()]'>\[Refresh\]</a><BR>"
+	dat += "Dynamic Mode <a href='?_src_=vars;[HrefToken()];Vars=[FAST_REF(src)]'>\[VV\]</a> <a href='?src=[FAST_REF(src)];[HrefToken()]'>\[Refresh\]</a><BR>"
 	dat += "Threat Level: <b>[threat_level]</b><br/>"
 	dat += "Budgets (Roundstart/Midrounds): <b>[initial_round_start_budget]/[threat_level - initial_round_start_budget]</b><br/>"
 
-	dat += "Midround budget to spend: <b>[mid_round_budget]</b> <a href='?src=\ref[src];[HrefToken()];adjustthreat=1'>\[Adjust\]</A> <a href='?src=\ref[src];[HrefToken()];threatlog=1'>\[View Log\]</a><br/>"
+	dat += "Midround budget to spend: <b>[mid_round_budget]</b> <a href='?src=[FAST_REF(src)];[HrefToken()];adjustthreat=1'>\[Adjust\]</A> <a href='?src=[FAST_REF(src)];[HrefToken()];threatlog=1'>\[View Log\]</a><br/>"
 	dat += "<br/>"
 	dat += "Parameters: centre = [threat_curve_centre] ; width = [threat_curve_width].<br/>"
 	dat += "            reduction_threshold = [threat_curve_centre_lowpop_reduction_threshold] ; reduction_coeff = [threat_curve_centre_lowpop_reduction_coeff].<br/>"
 	dat += "Split parameters: centre = [roundstart_split_curve_centre] ; width = [roundstart_split_curve_width].<br/>"
 	dat += "<i>On average, <b>[peaceful_percentage]</b>% of the rounds are more peaceful.</i><br/>"
-	dat += "Forced extended: <a href='?src=\ref[src];[HrefToken()];forced_extended=1'><b>[GLOB.dynamic_forced_extended ? "On" : "Off"]</b></a><br/>"
-	dat += "No stacking (only one round-ender): <a href='?src=\ref[src];[HrefToken()];no_stacking=1'><b>[GLOB.dynamic_no_stacking ? "On" : "Off"]</b></a><br/>"
-	dat += "Stacking limit: [GLOB.dynamic_stacking_limit] <a href='?src=\ref[src];[HrefToken()];stacking_limit=1'>\[Adjust\]</A>"
+	dat += "Forced extended: <a href='?src=[FAST_REF(src)];[HrefToken()];forced_extended=1'><b>[GLOB.dynamic_forced_extended ? "On" : "Off"]</b></a><br/>"
+	dat += "No stacking (only one round-ender): <a href='?src=[FAST_REF(src)];[HrefToken()];no_stacking=1'><b>[GLOB.dynamic_no_stacking ? "On" : "Off"]</b></a><br/>"
+	dat += "Stacking limit: [GLOB.dynamic_stacking_limit] <a href='?src=[FAST_REF(src)];[HrefToken()];stacking_limit=1'>\[Adjust\]</A>"
 	dat += "<br/>"
 	dat += "Executed rulesets: "
 	if (executed_rules.len > 0)
@@ -225,13 +235,13 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	else
 		dat += "none.<br>"
 	dat += "<br>Injection Timers: (<b>[get_heavy_midround_injection_chance(dry_run = TRUE)]%</b> heavy midround chance)<BR>"
-	dat += "Latejoin: [(latejoin_injection_cooldown-world.time)>60*10 ? "[round((latejoin_injection_cooldown-world.time)/60/10,0.1)] minutes" : "[(latejoin_injection_cooldown-world.time)] seconds"] <a href='?src=\ref[src];[HrefToken()];injectlate=1'>\[Now!\]</a><BR>"
+	dat += "Latejoin: [(latejoin_injection_cooldown-world.time)>60*10 ? "[round((latejoin_injection_cooldown-world.time)/60/10,0.1)] minutes" : "[(latejoin_injection_cooldown-world.time)] seconds"] <a href='?src=[FAST_REF(src)];[HrefToken()];injectlate=1'>\[Now!\]</a><BR>"
 
 	var/next_injection = next_midround_injection()
 	if (next_injection == INFINITY)
 		dat += "All midrounds have been exhausted."
 	else
-		dat += "Midround: [DisplayTimeText(next_injection - world.time)] <a href='?src=\ref[src];[HrefToken()];injectmid=1'>\[Now!\]</a><BR>"
+		dat += "Midround: [DisplayTimeText(next_injection - world.time)] <a href='?src=[FAST_REF(src)];[HrefToken()];injectmid=1'>\[Now!\]</a><BR>"
 
 	usr << browse(dat.Join(), "window=gamemode_panel;size=500x500")
 
@@ -300,11 +310,11 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	admin_panel() // Refreshes the window
 
-// Checks if there are HIGH_IMPACT_RULESETs and calls the rule's round_result() proc
+// Checks if there are any high-impact rulesets and calls the rule's round_result() proc
 /datum/game_mode/dynamic/set_round_result()
 	// If it got to this part, just pick one high impact ruleset if it exists
 	for(var/datum/dynamic_ruleset/rule in executed_rules)
-		if(rule.flags & HIGH_IMPACT_RULESET)
+		if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET))
 			return rule.round_result()
 	return ..()
 
@@ -496,7 +506,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if (initial(ruleset_type.weight) == 0)
 			continue
 
-		var/ruleset = new ruleset_type
+		var/ruleset = new ruleset_type(src)
 		configure_ruleset(ruleset)
 		rulesets += ruleset
 
@@ -535,7 +545,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			rule.candidates = candidates.Copy()
 			rule.trim_candidates()
 			if (rule.ready(roundstart_pop_ready) && rule.candidates.len > 0)
-				drafted_rules[rule] = rule.weight
+				drafted_rules[rule] = rule.get_weight()
 
 	var/list/rulesets_picked = list()
 
@@ -558,7 +568,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			drafted_rules[ruleset] = null
 			continue
 
-		if (check_blocking(ruleset.blocking_rules, rulesets_picked))
+		if (check_blocking(ruleset, rulesets_picked, ignore_dead_rulesets=FALSE))
 			drafted_rules[ruleset] = null
 			continue
 
@@ -566,20 +576,20 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 		rulesets_picked[ruleset] += 1
 
-		if (ruleset.flags & HIGH_IMPACT_RULESET)
+		if (CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
 			for (var/_other_ruleset in drafted_rules)
 				var/datum/dynamic_ruleset/other_ruleset = _other_ruleset
-				if (other_ruleset.flags & HIGH_IMPACT_RULESET)
+				if (CHECK_BITFIELD(other_ruleset.flags, HIGH_IMPACT_RULESET))
 					drafted_rules[other_ruleset] = null
 
-		if (ruleset.flags & NO_OTHER_ROUNDSTARTS_RULESET)
+		if (CHECK_BITFIELD(ruleset.flags, NO_OTHER_ROUNDSTARTS_RULESET))
 			drafted_rules.Cut()
 
-		if (ruleset.flags & LONE_RULESET)
+		if (CHECK_BITFIELD(ruleset.flags, LONE_RULESET))
 			drafted_rules[ruleset] = null
 
 	for (var/datum/dynamic_ruleset/ruleset in rulesets_picked)
-		if(ruleset.flags & NO_OTHER_ROUNDSTARTS_RULESET)
+		if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_ROUNDSTARTS_RULESET))
 			rulesets_picked = list()
 			rulesets_picked[ruleset] = 1
 			break
@@ -596,10 +606,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	if(ruleset.pre_execute(roundstart_pop_ready))
 		threat_log += "[worldtime2text()]: Roundstart [ruleset.name] spent [ruleset.cost + added_threat]. [ruleset.scaling_cost ? "Scaled up [ruleset.scaled_times]/[scaled_times] times." : ""]"
-		if(ruleset.flags & ONLY_RULESET)
+		if(CHECK_BITFIELD(ruleset.flags, ONLY_RULESET))
 			only_ruleset_executed = TRUE
-		if(ruleset.flags & HIGH_IMPACT_RULESET)
-			high_impact_ruleset_executed = TRUE
 		executed_rules += ruleset
 		return ruleset.cost + added_threat
 	else
@@ -609,21 +617,23 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /// Mainly here to facilitate delayed rulesets. All roundstart rulesets are executed with a timered callback to this proc.
 /datum/game_mode/dynamic/proc/execute_roundstart_rule(sent_rule)
 	var/datum/dynamic_ruleset/rule = sent_rule
-	if(rule.execute())
+	var/execute_result = rule.execute()
+	if(execute_result == DYNAMIC_EXECUTE_SUCCESS)
 		if(rule.persistent)
 			current_rules += rule
 		new_snapshot(rule)
 		return TRUE
 	rule.clean_up()	// Refund threat, delete teams and so on.
 	executed_rules -= rule
-	stack_trace("The starting rule \"[rule.name]\" failed to execute.")
+	if(!execute_result || execute_result == DYNAMIC_EXECUTE_FAILURE) // not enough players is an expected failure. Any other should be reported
+		CRASH("The starting rule \"[rule.name]\" failed to execute.")
 	return FALSE
 
 /// An experimental proc to allow admins to call rules on the fly or have rules call other rules.
 /datum/game_mode/dynamic/proc/picking_specific_rule(ruletype, forced = FALSE, ignore_cost = FALSE)
 	var/datum/dynamic_ruleset/midround/new_rule
 	if(ispath(ruletype))
-		new_rule = new ruletype() // You should only use it to call midround rules though.
+		new_rule = new ruletype(src) // You should only use it to call midround rules though.
 		configure_ruleset(new_rule)
 	else if(istype(ruletype, /datum/dynamic_ruleset))
 		new_rule = ruletype
@@ -637,13 +647,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(only_ruleset_executed)
 			return FALSE
 		// Check if a blocking ruleset has been executed.
-		else if(check_blocking(new_rule.blocking_rules, executed_rules))
+		else if(check_blocking(new_rule, executed_rules))
 			return FALSE
 		// Check if the ruleset is high impact and if a high impact ruleset has been executed
-		else if(new_rule.flags & HIGH_IMPACT_RULESET)
-			if(threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
-				if(high_impact_ruleset_executed)
-					return FALSE
+		else if(CHECK_BITFIELD(new_rule.flags, HIGH_IMPACT_RULESET))
+			if(threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking && high_impact_ruleset_active())
+				return FALSE
 
 	var/population =  current_players[CURRENT_LIVING_PLAYERS].len
 	if((new_rule.acceptable(population, threat_level) && (ignore_cost || new_rule.cost <= mid_round_budget)) || forced)
@@ -652,10 +661,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			if (!ignore_cost)
 				spend_midround_budget(new_rule.cost, threat_log, "[worldtime2text()]: Forced rule [new_rule.name]")
 			new_rule.pre_execute(population)
-			if (new_rule.execute()) // This should never fail since ready() returned 1
-				if(new_rule.flags & HIGH_IMPACT_RULESET)
-					high_impact_ruleset_executed = TRUE
-				else if(new_rule.flags & ONLY_RULESET)
+			if (new_rule.execute(forced)) // This should never fail since ready() returned 1
+				if(CHECK_BITFIELD(new_rule.flags, ONLY_RULESET))
 					only_ruleset_executed = TRUE
 				log_game("DYNAMIC: Making a call to a specific ruleset...[new_rule.name]!")
 				executed_rules += new_rule
@@ -681,14 +688,18 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	return type_list
 
 /// Checks if a type in blocking_list is in rule_list.
-/datum/game_mode/dynamic/proc/check_blocking(list/blocking_list, list/rule_list)
+/datum/game_mode/dynamic/proc/check_blocking(datum/dynamic_ruleset/rule, list/rule_list, ignore_dead_rulesets = TRUE)
+	var/list/blocking_list = rule.blocking_rules
 	if(blocking_list.len > 0)
 		for(var/blocking in blocking_list)
 			for(var/_executed in rule_list)
-				var/datum/executed = _executed
-				if(blocking == executed.type)
-					log_game("DYNAMIC: FAIL: check_blocking - [blocking] conflicts with [executed.type]")
-					return TRUE
+				var/datum/dynamic_ruleset/executed = _executed
+				if(blocking != executed.type)
+					continue
+				if((ignore_dead_rulesets && !high_impact_major_event_occured) && executed.is_dead())
+					continue
+				log_game("DYNAMIC: FAIL: check_blocking [rule] blocked by [blocking]")
+				return TRUE
 	return FALSE
 
 /datum/game_mode/dynamic/proc/check_lowpop_lowimpact_injection()
@@ -699,15 +710,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		log_game("DYNAMIC: FAIL: [src] has too many living antags for the population ([living_antags_count] antags of [living_players_count] players - [antag_percent]%)")
 		return TRUE
 	log_game("DYNAMIC: [src] passed lowpop_lowimpact requirement: ([living_antags_count] antags of [living_players_count] players - [antag_percent]%)")
-	return FALSE
-
-/// Checks if client age is age or older.
-/datum/game_mode/dynamic/proc/check_age(client/C, age)
-	enemy_minimum_age = age
-	if(get_remaining_days(C) == 0)
-		enemy_minimum_age = initial(enemy_minimum_age)
-		return TRUE // Available in 0 days = available right now = player is old enough to play.
-	enemy_minimum_age = initial(enemy_minimum_age)
 	return FALSE
 
 /datum/game_mode/dynamic/make_antag_chance(mob/living/carbon/human/newPlayer)
@@ -733,10 +735,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		for (var/datum/dynamic_ruleset/latejoin/rule in latejoin_rules)
 			if (!rule.weight)
 				continue
+			if (CHECK_BITFIELD(rule.flags, INTACT_STATION_RULESET) && !is_station_intact())
+				continue
 			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && mid_round_budget >= rule.cost)
 				// No stacking : only one round-ender, unless threat level > stacking_limit.
 				if (threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
-					if(rule.flags & HIGH_IMPACT_RULESET && high_impact_ruleset_executed)
+					if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET) && high_impact_ruleset_active())
 						continue
 
 				rule.candidates = list(newPlayer)
@@ -793,6 +797,34 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	if (!isnull(threat_log))
 		log_threat(-cost, threat_log, reason)
 
+/// Checks if a high impact ruleset was executed and isn't dead. Only one will run at a time in most circumstances.
+/datum/game_mode/dynamic/proc/high_impact_ruleset_active()
+	. = FALSE
+	for(var/datum/dynamic_ruleset/ruleset in executed_rules)
+		if(!CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
+			continue
+		if(!high_impact_major_event_occured && ruleset.is_dead())
+			continue
+		return TRUE
+
+/// Checks if the station is considered "intact", for the purpose of rolling rulesets with the INTACT_STATION_RULESET flag.
+/datum/game_mode/dynamic/proc/is_station_intact()
+	if(!COOLDOWN_FINISHED(src, intact_cache_expiry))
+		return cached_station_intact
+	COOLDOWN_START(src, intact_cache_expiry, 5 MINUTES)
+	var/old_cached_station_intact = cached_station_intact
+	cached_station_intact = TRUE
+	if(minimum_station_integrity)
+		var/datum/station_state/current_state = new /datum/station_state()
+		current_state.count()
+		var/station_integrity = GLOB.start_state.score(current_state)
+		qdel(current_state)
+		if(minimum_station_integrity > station_integrity)
+			cached_station_intact = FALSE
+			if(old_cached_station_intact)
+				log_game("DYNAMIC: Station has an integrity of [PERCENT(station_integrity)]%, which is lower than the minimum integrity of [PERCENT(minimum_station_integrity)]%")
+	return cached_station_intact
+
 /// Turns the value generated by lorentz distribution to number between 0 and 100.
 /// Used for threat level and splitting the budgets.
 /datum/game_mode/dynamic/proc/lorentz_to_amount(x)
@@ -800,21 +832,21 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if (-INFINITY to -20)
 			return rand(0, 10)
 		if (-20 to -10)
-			return RULE_OF_THREE(-40, -20, x) + 50
+			return RULE_OF_THREE(1, 1, x) + 30
 		if (-10 to -5)
-			return RULE_OF_THREE(-30, -10, x) + 50
+			return RULE_OF_THREE(2, 1, x) + 40
 		if (-5 to -2.5)
-			return RULE_OF_THREE(-20, -5, x) + 50
+			return RULE_OF_THREE(3, 1, x) + 45
 		if (-2.5 to -0)
-			return RULE_OF_THREE(-10, -2.5, x) + 50
+			return RULE_OF_THREE(5, 1, x) + 50
 		if (0 to 2.5)
-			return RULE_OF_THREE(10, 2.5, x) + 50
+			return RULE_OF_THREE(5, 1, x) + 50
 		if (2.5 to 5)
-			return RULE_OF_THREE(20, 5, x) + 50
+			return RULE_OF_THREE(3, 1, x) + 45
 		if (5 to 10)
-			return RULE_OF_THREE(30, 10, x) + 50
+			return RULE_OF_THREE(2, 1, x) + 40
 		if (10 to 20)
-			return RULE_OF_THREE(40, 20, x) + 50
+			return RULE_OF_THREE(1, 1, x) + 30
 		if (20 to INFINITY)
 			return rand(90, 100)
 
@@ -822,6 +854,17 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /datum/game_mode/dynamic/proc/dynamic_log(text)
 	message_admins("DYNAMIC: [text]")
 	log_game("DYNAMIC: [text]")
+
+/// This sets the "don't roll after high impact rules die" flag
+/// if the mode is dynamic, signalling that something major has happened
+/// and that dynamic should NOT try to roll new antags, even if all the
+/// current high-impact antags end up dying.
+/proc/set_dynamic_high_impact_event(reason)
+	var/datum/game_mode/dynamic/dynamic = SSticker.mode
+	if(!istype(dynamic))
+		return
+	dynamic.high_impact_major_event_occured = TRUE
+	log_game("DYNAMIC: a high-impact event has occured[reason ? ": [reason]" : ""]. dead ruleset tracking is no longer active.")
 
 #undef FAKE_REPORT_CHANCE
 #undef REPORT_NEG_DIVERGENCE

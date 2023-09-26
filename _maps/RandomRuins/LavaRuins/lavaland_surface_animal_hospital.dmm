@@ -82,7 +82,7 @@
 "aC" = (
 /obj/structure/table/optable,
 /obj/item/paper{
-	info = "Doc - As a heads up, that matter bin we ordered forever ago for saving.. less alive pets' finally come in. Sad thing is I can't figure out how to work the smartfridge board back into organ storage, can you do it for me? The matter bin'll let it repair organs, we'll be way better going! -Ted";
+	default_raw_text = "Doc - As a heads up, that matter bin we ordered forever ago for saving.. less alive pets' finally come in. Sad thing is I can't figure out how to work the smartfridge board back into organ storage, can you do it for me? The matter bin'll let it repair organs, we'll be way better going! -Ted";
 	pixel_y = -3
 	},
 /turf/open/floor/plasteel/white,

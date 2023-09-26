@@ -5,11 +5,18 @@
  * still know when that other object moves.
  */
 /datum/component/moved_relay
+	dupe_mode = COMPONENT_DUPE_SELECTIVE
+	/// How many move relays were added to this object?
+	var/depth = 1
 	//List of ordered parents
 	//Index 1: parent
 	//Index 2: Parent's parent
 	//etc.
 	var/list/atom/ordered_parents = list()
+
+/datum/component/moved_relay/CheckDupeComponent(datum/component/C, ...)
+	depth ++
+	return TRUE
 
 /datum/component/moved_relay/Initialize(...)
 	var/atom/A = parent

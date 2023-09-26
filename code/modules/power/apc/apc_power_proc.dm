@@ -44,30 +44,54 @@
 	else
 		return 0
 
-// val 0=off, 1=off(auto) 2=on 3=on(auto)
-// on 0=off, 1=on, 2=autooff
-
+/**
+ * Returns the new status value for an APC channel.
+ *
+ * // val 0=off, 1=off(auto) 2=on 3=on(auto)
+ * // on 0=off, 1=on, 2=autooff
+ * TODO: Make this use bitflags instead. It should take at most three lines, but it's out of scope for now.
+ *
+ * Arguments:
+ * - val: The current status of the power channel.
+ *   - [APC_CHANNEL_OFF]: The APCs channel has been manually set to off. This channel will not automatically change.
+ *   - [APC_CHANNEL_AUTO_OFF]: The APCs channel is running on automatic and is currently off. Can be automatically set to [APC_CHANNEL_AUTO_ON].
+ *   - [APC_CHANNEL_ON]: The APCs channel has been manually set to on. This will be automatically changed only if the APC runs completely out of power or is disabled.
+ *   - [APC_CHANNEL_AUTO_ON]: The APCs channel is running on automatic and is currently on. Can be automatically set to [APC_CHANNEL_AUTO_OFF].
+ * - on: An enum dictating how to change the channel's status.
+ *   - [AUTOSET_FORCE_OFF]: The APC forces the channel to turn off. This includes manually set channels.
+ *   - [AUTOSET_ON]: The APC allows automatic channels to turn back on.
+ *   - [AUTOSET_OFF]: The APC turns automatic channels off.
+ */
 /obj/machinery/power/apc/proc/autoset(val, on)
-	if(on==0)
-		if(val==2)			// if on, return off
-			return 0
-		else if(val==3)		// if auto-on, return auto-off
-			return 1
-	else if(on==1)
-		if(val==1)			// if auto-off, return auto-on
-			return 3
-	else if(on==2)
-		if(val==3)			// if auto-on, return auto-off
-			return 1
+	switch(on)
+		if(AUTOSET_FORCE_OFF)
+			if(val == APC_CHANNEL_ON) // if on, return off
+				return APC_CHANNEL_OFF
+			else if(val == APC_CHANNEL_AUTO_ON) // if auto-on, return auto-off
+				return APC_CHANNEL_AUTO_OFF
+		if(AUTOSET_ON)
+			if(val == APC_CHANNEL_AUTO_OFF) // if auto-off, return auto-on
+				return APC_CHANNEL_AUTO_ON
+		if(AUTOSET_OFF)
+			if(val == APC_CHANNEL_AUTO_ON) // if auto-on, return auto-off
+				return APC_CHANNEL_AUTO_OFF
 	return val
 
+/**
+ * Used by external forces to set the APCs channel status's.
+ *
+ * Arguments:
+ * - val: The desired value of the subsystem:
+ *   - 1: Manually sets the APCs channel to be [APC_CHANNEL_OFF].
+ *   - 2: Manually sets the APCs channel to be [APC_CHANNEL_AUTO_ON]. If the APC doesn't have any power this defaults to [APC_CHANNEL_OFF] instead.
+ *   - 3: Sets the APCs channel to be [APC_CHANNEL_AUTO_ON]. If the APC doesn't have enough power this defaults to [APC_CHANNEL_AUTO_OFF] instead.
+ */
 /obj/machinery/power/apc/proc/setsubsystem(val)
 	if(cell && cell.charge > 0)
-		return (val==1) ? 0 : val
-	else if(val == 3)
-		return 1
-	else
-		return 0
+		return (val==1) ? APC_CHANNEL_OFF : val
+	if(val == 3)
+		return APC_CHANNEL_AUTO_OFF
+	return APC_CHANNEL_OFF
 
 /obj/machinery/power/apc/proc/reset(wire)
 	switch(wire)
@@ -80,38 +104,39 @@
 			if(!wires.is_cut(WIRE_AI))
 				aidisabled = FALSE
 		if(APC_RESET_EMP)
-			equipment = 3
-			environ = 3
+			equipment = APC_CHANNEL_AUTO_ON
+			environ = APC_CHANNEL_AUTO_ON
 			update_appearance()
 			update()
 	wires.ui_update()
 
 // overload all the lights in this APC area
-
 /obj/machinery/power/apc/proc/overload_lighting()
-	if(/* !get_connection() || */ !operating || shorted)
+	if(!operating || shorted)
 		return
 	if( cell && cell.charge>=20)
 		cell.use(20)
 		INVOKE_ASYNC(src, PROC_REF(break_lights))
 
 /obj/machinery/power/apc/proc/break_lights()
-	for(var/obj/machinery/light/L in area)
-		L.on = TRUE
-		L.break_light_tube()
-		L.on = FALSE
+	for(var/obj/machinery/light/breaked_light in area)
+		breaked_light.on = TRUE
+		breaked_light.break_light_tube()
+		breaked_light.on = FALSE
 		stoplag()
 
 /obj/machinery/power/apc/proc/energy_fail(duration)
-	for(var/obj/machinery/M in area.contents)
-		if(M.critical_machine)
+	for(var/obj/machinery/failing_machine in area.contents)
+		if(failing_machine.critical_machine)
 			return
-	for(var/A in GLOB.ai_list)
-		var/mob/living/silicon/ai/I = A
-		if(get_area(I) == area)
+
+	for(var/mob/living/silicon/ai as anything in GLOB.ai_list)
+		if(get_area(ai) == area)
 			return
 
 	failure_timer = max(failure_timer, round(duration))
+	update()
+	queue_icon_update()
 
 /obj/machinery/power/apc/proc/togglelock(mob/living/user)
 	if(obj_flags & EMAGGED)
@@ -142,17 +167,17 @@
 /obj/machinery/power/apc/proc/set_nightshift(on)
 	set waitfor = FALSE
 	nightshift_lights = on
-	for(var/obj/machinery/light/L in area)
-		if(L.nightshift_allowed)
-			L.nightshift_enabled = nightshift_lights
-			L.update(FALSE)
+	for(var/obj/machinery/light/night_light in area)
+		if(night_light.nightshift_allowed)
+			night_light.nightshift_enabled = nightshift_lights
+			night_light.update(FALSE)
 		CHECK_TICK
 
 /obj/machinery/power/apc/proc/update()
 	if(operating && !shorted && !failure_timer)
-		area.power_light = (lighting > 1)
-		area.power_equip = (equipment > 1)
-		area.power_environ = (environ > 1)
+		area.power_light = (lighting > APC_CHANNEL_AUTO_OFF)
+		area.power_equip = (equipment > APC_CHANNEL_AUTO_OFF)
+		area.power_environ = (environ > APC_CHANNEL_AUTO_OFF)
 	else
 		area.power_light = FALSE
 		area.power_equip = FALSE

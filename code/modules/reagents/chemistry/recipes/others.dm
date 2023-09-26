@@ -549,8 +549,65 @@
 /datum/chemical_reaction/carpet
 	name = /datum/reagent/carpet
 	id = /datum/reagent/carpet
-	results = list(/datum/reagent/carpet = 2)
+	results = list(/datum/reagent/carpet = 10)
 	required_reagents = list(/datum/reagent/drug/space_drugs = 1, /datum/reagent/blood = 1)
+
+/datum/chemical_reaction/carpet/black
+	name = /datum/reagent/carpet/black
+	id = /datum/reagent/carpet/black
+	results = list(/datum/reagent/carpet/black = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/oil = 0.1)
+
+/datum/chemical_reaction/carpet/blue
+	name = /datum/reagent/carpet/blue
+	id = /datum/reagent/carpet/blue
+	results = list(/datum/reagent/carpet/blue = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/cryostylane = 0.1)
+
+/datum/chemical_reaction/carpet/cyan
+	name = /datum/reagent/carpet/cyan
+	id = /datum/reagent/carpet/cyan
+	results = list(/datum/reagent/carpet/cyan = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/toxin/cyanide = 0.1)
+	//cyan = cyanide get it huehueuhuehuehheuhe
+
+/datum/chemical_reaction/carpet/green
+	name = /datum/reagent/carpet/green
+	id = /datum/reagent/carpet/green
+	results = list(/datum/reagent/carpet/green = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/consumable/ethanol/beer/green = 0.1)
+	//make green beer by grinding up green crayons and mixing with beer
+
+/datum/chemical_reaction/carpet/orange
+	name = /datum/reagent/carpet/orange
+	id = /datum/reagent/carpet/orange
+	results = list(/datum/reagent/carpet/orange = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/consumable/orangejuice = 0.1)
+
+/datum/chemical_reaction/carpet/purple
+	name = /datum/reagent/carpet/purple
+	id = /datum/reagent/carpet/purple
+	results = list(/datum/reagent/carpet/purple = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/medicine/regen_jelly = 0.1)
+	//slimes only party
+
+/datum/chemical_reaction/carpet/red
+	name = /datum/reagent/carpet/red
+	id = /datum/reagent/carpet/red
+	results = list(/datum/reagent/carpet/red = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/liquidgibs = 0.1)
+
+/datum/chemical_reaction/carpet/royalblack
+	name = /datum/reagent/carpet/royal/black
+	id = /datum/reagent/carpet/royal/black
+	results = list(/datum/reagent/carpet/royal/black = 2)
+	required_reagents = list(/datum/reagent/carpet/black = 1, /datum/reagent/royal_bee_jelly = 0.1)
+
+/datum/chemical_reaction/carpet/royalblue
+	name = /datum/reagent/carpet/royal/blue
+	id = /datum/reagent/carpet/royal/blue
+	results = list(/datum/reagent/carpet/royal/blue = 2)
+	required_reagents = list(/datum/reagent/carpet/blue = 1, /datum/reagent/royal_bee_jelly = 0.1)
 
 /datum/chemical_reaction/oil
 	name = "Oil"

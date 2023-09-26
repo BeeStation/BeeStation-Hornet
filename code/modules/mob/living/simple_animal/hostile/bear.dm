@@ -9,6 +9,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("RAWR!","Rawr!","GRR!","Growl!")
 	speak_emote = list("growls", "roars")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("rawrs.","grumbles.","grawls.")
 	emote_taunt = list("stares ferociously", "stomps")
 	speak_chance = 1

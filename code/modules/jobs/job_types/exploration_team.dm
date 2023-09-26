@@ -1,6 +1,8 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
 	flag = EXPLORATION_CREW
+	description = "Go out into space to complete different missions for loads of cash. Find and deliver back research disks for rare technologies."
+	department_for_prefs = DEPT_BITFLAG_SCI
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = "Station"
@@ -28,6 +30,13 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/exploration_crew
 	)
 	biohazard = 40//who knows what you'll find out there that could have nasties on it...
+
+	lightup_areas = list(
+		/area/science/mixing,
+		/area/science/storage,
+		/area/science/xenobiology
+	)
+	minimal_lightup_areas = list(/area/quartermaster/exploration_dock, /area/quartermaster/exploration_prep)
 
 /datum/job/exploration_crew/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
 	if(outfit_override)
@@ -115,13 +124,13 @@
 	backpack_contents = list(
 		/obj/item/kitchen/knife/combat/survival=1,
 		/obj/item/stack/marker_beacon/thirty=1,
-		/obj/item/storage/firstaid/medical=1,
 		/obj/item/pinpointer/crew=1,
 		/obj/item/sensor_device=1,
-		/obj/item/roller=1,
+		/obj/item/rollerbed=1,
 		/obj/item/discovery_scanner=1
 	)
 
+	l_hand = /obj/item/storage/firstaid/medical
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med

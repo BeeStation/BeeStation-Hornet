@@ -33,9 +33,9 @@
 	W.implant(H)
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)
 	E.implant(H)
-	H.faction |= ROLE_SYNDICATE
+	H.faction |= FACTION_SYNDICATE
 	H.update_icons()
 
 /obj/item/paper/fluff/vr/fluke_ops
 	name = "Where is my uplink?"
-	info = "Use the radio in your backpack."
+	default_raw_text = "Use the radio in your backpack."

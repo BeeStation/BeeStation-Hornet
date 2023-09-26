@@ -37,7 +37,6 @@
 						<b>HONK pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>
 						<b>HONK temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>
 						<b>Lights: </b>[lights?"on":"off"]<br>
-						[dna_lock?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna_lock]</span> \[<a href='?src=[REF(src)];reset_dna=1'>Reset</a>\]<br>":null]
 					"}
 	return output
 
@@ -93,6 +92,9 @@
 						<div id='commands'>
 						[src.get_commands()]
 						</div>
+						<div id='equipment_menu'>
+						[get_equipment_menu()]
+						</div>
 						</body>
 						</html>
 					 "}
@@ -121,6 +123,18 @@
 	output += ..()
 	return output
 
+/obj/mecha/honker/get_equipment_menu() //outputs mecha html equipment menu
+	. = {"
+	<div class='wr'>
+	<div class='header'>EquipHONK</div>
+	<div class='links'>"}
+	if(equipment.len)
+		for(var/X in equipment)
+			var/obj/item/mecha_parts/mecha_equipment/W = X
+			. += "[W.name] [W.detachable?"<a href='?src=[REF(W)];detach=1'>Detach</a><br>":"\[Non-removable\]<br>"]"
+	. += {"<b>Available equipment slots:</b> [max_equip-equipment.len]
+	</div>
+	</div>"}
 
 /obj/mecha/combat/honker/get_equipment_list()
 	if(!equipment.len)

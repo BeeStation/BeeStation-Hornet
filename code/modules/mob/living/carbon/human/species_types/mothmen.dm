@@ -7,6 +7,7 @@
 
 /datum/species/moth
 	name = "\improper Mothman"
+	plural_form = "Mothpeople"
 	id = SPECIES_MOTH
 	bodyflag = FLAG_MOTH
 	default_color = "00FF00"
@@ -196,3 +197,35 @@
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_HEAL_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
+
+/datum/species/moth/get_species_description()
+	return "Mothpeople are an intelligent species, known for their affinity to all things moth - lights, cloth, wings, and friendship."
+
+/datum/species/moth/get_species_lore()
+	return null
+
+/datum/species/moth/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "feather-alt",
+			SPECIES_PERK_NAME = "Precious Wings",
+			SPECIES_PERK_DESC = "Moths can fly in pressurized, zero-g environments and safely land short falls using their wings.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "tshirt",
+			SPECIES_PERK_NAME = "Meal Plan",
+			SPECIES_PERK_DESC = "Moths can eat clothes for nourishment.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "fire",
+			SPECIES_PERK_NAME = "Ablazed Wings",
+			SPECIES_PERK_DESC = "Moth wings are fragile, and can be easily burnt off. However, moths can spin a cooccon to restore their wings if necessary.",
+		),
+	)
+
+	return to_add

@@ -1,17 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "c" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"d" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -74,9 +68,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "t" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "u" = (
@@ -100,16 +92,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"H" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/floor/plasteel,
-/area/template_noop)
 "I" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
+/obj/effect/turf_decal/tile/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -130,17 +115,12 @@
 /area/template_noop)
 "M" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 1
-	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "O" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel,
-/area/template_noop)
-"Q" = (
-/turf/closed/wall/r_wall,
 /area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/dirt,
@@ -164,13 +144,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
-"Y" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 
 (1,1,1) = {"
 U
@@ -179,7 +152,6 @@ O
 O
 O
 O
-H
 p
 e
 f
@@ -190,7 +162,6 @@ W
 m
 K
 l
-Y
 M
 l
 l
@@ -203,7 +174,6 @@ W
 j
 E
 r
-d
 t
 O
 O
@@ -214,15 +184,14 @@ a
 (4,1,1) = {"
 U
 r
+r
+m
 I
-m
-m
-n
 n
 T
 z
 o
-Q
+a
 "}
 (5,1,1) = {"
 a
@@ -232,8 +201,7 @@ U
 U
 U
 U
-U
 a
 a
-Q
+a
 "}

@@ -65,7 +65,7 @@
 	icon_state = "shield1"
 	layer = ABOVE_ALL_MOB_LAYER
 	duration = 50
-	var/resonance_damage = 20
+	var/resonance_damage = 10
 	var/damage_multiplier = 1
 	var/creator
 	var/obj/item/resonator/res

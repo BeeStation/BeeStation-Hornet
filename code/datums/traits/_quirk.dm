@@ -3,6 +3,9 @@
 /datum/quirk
 	var/name = "Test Quirk"
 	var/desc = "This is a test quirk."
+	/// The icon to show in the preferences menu.
+	/// This references a tgui icon, so it can be FontAwesome or a tgfont (with a tg- prefix).
+	var/icon
 	var/value = 0
 	var/list/restricted_mobtypes = list(/mob/living/carbon/human) //specifies valid mobtypes, have a good reason to change this
 	var/list/restricted_species //specifies valid species, use /datum/species/ 

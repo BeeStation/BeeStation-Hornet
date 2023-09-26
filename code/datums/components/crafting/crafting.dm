@@ -136,6 +136,11 @@
 						.["other"][A.type] += A.volume
 			.["other"][I.type] += 1
 
+/datum/component/personal_crafting/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/crafting),
+	)
+
 /datum/component/personal_crafting/proc/check_tools(atom/a, datum/crafting_recipe/R, list/contents)
 	if(!R.tools.len)
 		return TRUE
@@ -174,27 +179,33 @@
 		if(check_tools(a, R, contents))
 			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
 			if(ismob(a) && !do_after(a, R.time, target = a))
-				return "."
+				return "interrupted."
 			contents = get_surroundings(a,R.blacklist)
 			if(!check_contents(a, R, contents))
-				return ", missing component."
+				return "missing component."
 			if(!check_tools(a, R, contents))
-				return ", missing tool."
+				return "missing tool."
 			var/list/parts = del_reqs(R, a)
 			var/atom/movable/I = new R.result (get_turf(a.loc))
 			I.CheckParts(parts, R)
 			if(send_feedback)
 				SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 			return I //Send the item back to whatever called this proc so it can handle whatever it wants to do with the new item
-		return ", missing tool."
-	return ", missing component."
+		return "missing tool."
+	return "missing component."
 
 /datum/component/personal_crafting/proc/construct_item_ui(mob/user, datum/crafting_recipe/TR)
 	var/atom/movable/result = construct_item(user, TR)
-	log_crafting(user, result, TR.dangerous_craft)
+	log_crafting(user, TR.name, result, TR.dangerous_craft)
 	if(!istext(result)) //We made an item and didn't get a fail message
 		if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
-			user.put_in_hands(result)
+			if(!user.put_in_hands(result))
+				var/turf/front_turf = get_step(user, user.dir)
+				if(user.TurfAdjacent(front_turf))
+					if((locate(/obj/structure/table) in front_turf) || (locate(/obj/structure/rack) in front_turf))
+						result.forceMove(front_turf)
+						result.pixel_x = rand(-4, 4)
+						result.pixel_y = rand(-4, 4)
 		else
 			result.forceMove(user.drop_location())
 		to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")
@@ -324,6 +335,14 @@
 	while(Deletion.len)
 		var/DL = Deletion[Deletion.len]
 		Deletion.Cut(Deletion.len)
+		// Snowflake handling of reagent containers and storage atoms.
+		// If we consumed them in our crafting, we should dump their contents out before qdeling them.
+		if(istype(DL, /obj/item/reagent_containers))
+			var/obj/item/reagent_containers/container = DL
+			container.reagents.reaction(container.loc, TOUCH)
+		else if(istype(DL, /obj/item/storage))
+			var/obj/item/storage/container = DL
+			container.emptyStorage()
 		qdel(DL)
 
 /datum/component/personal_crafting/proc/component_ui_interact(atom/movable/screen/craft/image, location, control, params, user)
@@ -431,6 +450,9 @@
 	var/req_text = ""
 	var/tool_text = ""
 	var/catalyst_text = ""
+
+	// get icon
+	data["path"] = replacetext(copytext("[R.result]", 2), "/", "-")
 
 	for(var/a in R.reqs)
 		//We just need the name, so cheat-typecast to /atom for speed (even tho Reagents are /datum they DO have a "name" var)

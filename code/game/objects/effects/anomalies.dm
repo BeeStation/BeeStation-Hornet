@@ -4,13 +4,13 @@
 #define ANOMALY_MOVECHANCE 45
 
 /// Lists for zones and bodyparts to swap and randomize
-#define ANOMALY_DELIMBER_ZONES list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-#define ANOMALY_DELIMBER_ZONE_CHEST typesof(/obj/item/bodypart/chest)
-#define ANOMALY_DELIMBER_ZONE_HEAD typesof(/obj/item/bodypart/head)
-#define ANOMALY_DELIMBER_ZONE_L_LEG typesof(/obj/item/bodypart/l_arm)
-#define ANOMALY_DELIMBER_ZONE_R_LEG typesof(/obj/item/bodypart/r_arm)
-#define ANOMALY_DELIMBER_ZONE_L_ARM typesof(/obj/item/bodypart/l_leg)
-#define ANOMALY_DELIMBER_ZONE_R_ARM typesof(/obj/item/bodypart/r_leg)
+#define ANOMALY_BIOSCRAMBLER_ZONES list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+#define ANOMALY_BIOSCRAMBLER_ZONE_CHEST typesof(/obj/item/bodypart/chest)
+#define ANOMALY_BIOSCRAMBLER_ZONE_HEAD typesof(/obj/item/bodypart/head)
+#define ANOMALY_BIOSCRAMBLER_ZONE_L_LEG typesof(/obj/item/bodypart/l_leg)
+#define ANOMALY_BIOSCRAMBLER_ZONE_R_LEG typesof(/obj/item/bodypart/r_leg)
+#define ANOMALY_BIOSCRAMBLER_ZONE_L_ARM typesof(/obj/item/bodypart/l_arm)
+#define ANOMALY_BIOSCRAMBLER_ZONE_R_ARM typesof(/obj/item/bodypart/r_arm)
 
 /////////////////////
 
@@ -33,10 +33,14 @@
 
 	/// Do we keep on living forever?
 	var/immortal = FALSE
+	///How many harvested pierced realities do we spawn on destruction
+	var/max_spawned_faked = 2
 
-/obj/effect/anomaly/Initialize(mapload, new_lifespan)
+/obj/effect/anomaly/Initialize(mapload, new_lifespan, spawned_fake_harvested)
 	. = ..()
-	GLOB.poi_list |= src
+
+	AddElement(/datum/element/point_of_interest)
+
 	START_PROCESSING(SSobj, src)
 	impact_area = get_area(src)
 
@@ -54,6 +58,9 @@
 		lifespan = new_lifespan
 	death_time = world.time + lifespan
 
+	if(spawned_fake_harvested)
+		max_spawned_faked = spawned_fake_harvested
+
 	if(immortal)
 		return // no countdown for forever anomalies
 	countdown = new(src)
@@ -69,7 +76,6 @@
 		qdel(src)
 
 /obj/effect/anomaly/Destroy()
-	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(countdown)
 	return ..()
@@ -102,14 +108,14 @@
 /atom/movable/warp_effect
 	plane = GRAVITY_PULSE_PLANE
 	appearance_flags = PIXEL_SCALE // no tile bound so you can see it around corners and so
-	icon = 'icons/effects/light_overlays/light_352.dmi'
-	icon_state = "light"
-	pixel_x = -176
-	pixel_y = -176
+	icon = 'icons/effects/288x288.dmi'
+	icon_state = "gravitational_anti_lens"
+	pixel_x = -126
+	pixel_y = -128
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
-	icon_state = "shield2"
+	icon_state = "shield3-rewind"
 	density = FALSE
 	var/boing = 0
 	///Warp effect holder for displacement filter to "pulse" the anomaly
@@ -242,7 +248,8 @@
 			explosion(src, heavy_impact_range = 1, light_impact_range = 4, flash_range = 6)
 		if(ANOMALY_FLUX_NO_EXPLOSION)
 			new /obj/effect/particle_effect/sparks(loc)
-
+	var/turf/T = get_turf(src)
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /////////////////////
 
@@ -251,6 +258,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	max_spawned_faked = 4
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
@@ -314,6 +322,8 @@
 							sleep(20)
 							M.client.screen -= blueeffect
 							qdel(blueeffect)
+	var/turf/F = get_turf(src)
+	F.generate_fake_pierced_realities(FALSE, max_spawned_faked)
 
 /////////////////////
 
@@ -351,7 +361,7 @@
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
 	S.flavor_text = FLAVOR_TEXT_EVIL
-	S.set_playable()
+	S.set_playable(ROLE_PYRO_SLIME)
 
 /////////////////////
 
@@ -416,6 +426,10 @@
 			if(EXPLODE_LIGHT)
 				SSexplosions.lowturf += T
 
+/obj/effect/anomaly/bhole/detonate()
+	var/turf/T = get_turf(src)
+	T.generate_fake_pierced_realities(max_spawned_faked)
+
 /////////////////////
 
 /obj/effect/anomaly/hallucination
@@ -441,6 +455,8 @@
 	var/turf/open/our_turf = get_turf(src)
 	if(istype(our_turf))
 		hallucination_pulse(our_turf, 10)
+	var/turf/T = get_turf(src)
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /proc/hallucination_pulse(turf/location, range, strength = 50)
 	for(var/mob/living/carbon/human/near in view(location, range))
@@ -467,10 +483,10 @@
 
 /////////////////////
 
-/obj/effect/anomaly/delimber
-	name = "delimber anomaly"
-	icon_state = "delimber_anomaly"
-	aSignal = /obj/item/assembly/signaler/anomaly/delimber
+/obj/effect/anomaly/bioscrambler
+	name = "bioscrambler anomaly"
+	icon_state = "bioscrambler_anomaly"
+	aSignal = /obj/item/assembly/signaler/anomaly/bioscrambler
 	/// Cooldown for every anomaly pulse
 	COOLDOWN_DECLARE(pulse_cooldown)
 	/// How many seconds between each anomaly pulses
@@ -478,7 +494,7 @@
 	/// Range of the anomaly pulse
 	var/range = 5
 
-/obj/effect/anomaly/delimber/anomalyEffect(delta_time)
+/obj/effect/anomaly/bioscrambler/anomalyEffect(delta_time)
 	. = ..()
 
 	if(!COOLDOWN_FINISHED(src, pulse_cooldown))
@@ -486,9 +502,9 @@
 
 	COOLDOWN_START(src, pulse_cooldown, pulse_delay)
 
-	delimber_pulse(src, range)
+	bioscrambler_pulse(src, range)
 
-/proc/delimber_pulse(atom/owner, range = 5, ignore_owner = FALSE, message_admins = FALSE)
+/proc/bioscrambler_pulse(atom/owner, range = 5, ignore_owner = FALSE, message_admins = FALSE)
 	var/list/mob/living/carbon/affected = list()
 	for(var/mob/living/carbon/target in range(range, owner))
 		if(!ignore_owner && target == owner)
@@ -500,40 +516,40 @@
 		affected += target
 
 		// Replace a random limb
-		var/picked_zone = pick(ANOMALY_DELIMBER_ZONES)
+		var/picked_zone = pick(ANOMALY_BIOSCRAMBLER_ZONES)
 		var/obj/item/bodypart/picked_user_part = target.get_bodypart(picked_zone)
 		if(!picked_user_part)
 			return
 		var/obj/item/bodypart/picked_part
 		switch(picked_zone)
 			if(BODY_ZONE_HEAD)
-				picked_part = pick(ANOMALY_DELIMBER_ZONE_HEAD)
+				picked_part = pick(ANOMALY_BIOSCRAMBLER_ZONE_HEAD)
 			if(BODY_ZONE_CHEST)
-				picked_part = pick(ANOMALY_DELIMBER_ZONE_CHEST)
+				picked_part = pick(ANOMALY_BIOSCRAMBLER_ZONE_CHEST)
 			if(BODY_ZONE_L_ARM)
-				picked_part = pick(ANOMALY_DELIMBER_ZONE_L_ARM)
+				picked_part = pick(ANOMALY_BIOSCRAMBLER_ZONE_L_ARM)
 			if(BODY_ZONE_R_ARM)
-				picked_part = pick(ANOMALY_DELIMBER_ZONE_R_ARM)
+				picked_part = pick(ANOMALY_BIOSCRAMBLER_ZONE_R_ARM)
 			if(BODY_ZONE_L_LEG)
-				picked_part = pick(ANOMALY_DELIMBER_ZONE_L_LEG)
+				picked_part = pick(ANOMALY_BIOSCRAMBLER_ZONE_L_LEG)
 			if(BODY_ZONE_R_LEG)
-				picked_part = pick(ANOMALY_DELIMBER_ZONE_R_LEG)
+				picked_part = pick(ANOMALY_BIOSCRAMBLER_ZONE_R_LEG)
 		var/obj/item/bodypart/new_part = new picked_part()
 		new_part.replace_limb(target, TRUE, is_creating = TRUE)
 		qdel(picked_user_part)
 		target.update_body(TRUE)
 		to_chat(target, "<span class='warning'>Something feels different...</span>")
-		log_game("[key_name(owner)] has caused a delimber pulse affecting [english_list(affected)].")
-		target.log_message("[owner] has caused [target]'s [picked_part] to turn into [new_part.name] and delimbed their [picked_user_part.name].", LOG_ATTACK)
+		log_game("[key_name(owner)] has caused a bioscrambler pulse affecting [english_list(affected)].")
+		target.log_message("had their [picked_user_part.type] turned into [new_part.type] by a bioscrambling pulse from [owner].", LOG_ATTACK, color="red")
 
 	if(message_admins)
-		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a delimber pulse affecting [english_list(affected)].")
+		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a bioscrambler pulse affecting [english_list(affected)].")
 
 #undef ANOMALY_MOVECHANCE
-#undef ANOMALY_DELIMBER_ZONES
-#undef ANOMALY_DELIMBER_ZONE_CHEST
-#undef ANOMALY_DELIMBER_ZONE_HEAD
-#undef ANOMALY_DELIMBER_ZONE_L_LEG
-#undef ANOMALY_DELIMBER_ZONE_R_LEG
-#undef ANOMALY_DELIMBER_ZONE_L_ARM
-#undef ANOMALY_DELIMBER_ZONE_R_ARM
+#undef ANOMALY_BIOSCRAMBLER_ZONES
+#undef ANOMALY_BIOSCRAMBLER_ZONE_CHEST
+#undef ANOMALY_BIOSCRAMBLER_ZONE_HEAD
+#undef ANOMALY_BIOSCRAMBLER_ZONE_L_LEG
+#undef ANOMALY_BIOSCRAMBLER_ZONE_R_LEG
+#undef ANOMALY_BIOSCRAMBLER_ZONE_L_ARM
+#undef ANOMALY_BIOSCRAMBLER_ZONE_R_ARM

@@ -14,20 +14,16 @@
 	var/datum/techweb/linked_techweb
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/machinery/computer/operating/Initialize(mapload)
+/obj/machinery/computer/operating/Initialize()
 	. = ..()
 	linked_techweb = SSresearch.science_tech
-	find_table()
+	link_with_table()
 
 /obj/machinery/computer/operating/Destroy()
-	for(var/direction in GLOB.cardinals)
-		table = locate(/obj/structure/table/optable) in get_step(src, direction)
-		if(table && table.computer == src)
-			table.computer = null
-		else
-			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
-			if(sbed && sbed.op_computer == src)
-				sbed.op_computer = null
+	if(table?.computer == src)
+		table.computer = null
+	if(sbed?.op_computer == src)
+		sbed.op_computer = null
 	. = ..()
 
 /obj/machinery/computer/operating/attackby(obj/item/O, mob/user, params)
@@ -48,18 +44,29 @@
 			continue
 		advanced_surgeries |= D.surgery
 
-/obj/machinery/computer/operating/proc/find_table()
+/obj/machinery/computer/operating/proc/find_op_table()
 	for(var/direction in GLOB.alldirs)
-		table = locate(/obj/structure/table/optable) in get_step(src, direction)
-		if(table && !table.computer)
-			table.computer = src
-			break
-		else
-			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
-			if(sbed && !sbed.op_computer)
-				sbed.op_computer = src
-				break
+		var/obj/structure/table/optable/found_table = locate(/obj/structure/table/optable) in get_step(src, direction)
+		if(found_table && (!found_table.computer || found_table.computer == src))
+			return found_table
 
+/obj/machinery/computer/operating/proc/find_sbed()
+	for(var/direction in GLOB.alldirs)
+		var/obj/machinery/stasis/found_sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
+		if(found_sbed && (!found_sbed.op_computer || found_sbed.op_computer == src))
+			return found_sbed
+
+/obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/new_table, obj/machinery/stasis/new_sbed)
+	if(!new_table && !table)
+		new_table = find_op_table()
+	if(!new_sbed && !sbed)
+		new_sbed = find_sbed()
+	if(new_table)
+		new_table.computer = src
+		table = new_table
+	if(new_sbed)
+		new_sbed.op_computer = src
+		sbed = new_sbed
 
 /obj/machinery/computer/operating/ui_state(mob/user)
 	return GLOB.not_incapacitated_state
@@ -160,27 +167,22 @@
 			. = TRUE
 	. = TRUE
 
-/obj/machinery/computer/operating/multitool_act(mob/living/user, obj/item/I)
-	var/obj/item/multitool/multitool = I
-	if(!I || !istype(I))
-		return ..()
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
-	if(QDELETED(multitool.buffer))
-		to_chat(user, "<span class='warning'>\The [multitool]'s buffer is empty.</span>")
-		return
-	if(!istype(multitool.buffer, /obj/machinery/stasis))
-		to_chat(user, "<span class='warning'>You cannot link \the [multitool.buffer] to \the [src].</span>")
-		return
-	var/obj/machinery/stasis/new_stasis_bed = multitool.buffer
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/operating)
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/operating)
+	if(!istype(buffer, /obj/machinery/stasis))
+		to_chat(user, "<span class='warning'>You cannot link \the [buffer] to \the [src].</span>")
+		return NONE
+	var/obj/machinery/stasis/new_stasis_bed = buffer
 	if(get_dist(src, new_stasis_bed) > 3)
 		to_chat(user, "<span class='warning'>\The [src] is too far away from \the [new_stasis_bed] to link!</span>")
-		return
+		return NONE
 	balloon_alert(user, "linked to \the [new_stasis_bed]")
 	if(sbed)
 		sbed.op_computer = null
 	new_stasis_bed.op_computer = src
 	sbed = new_stasis_bed
 	to_chat(user, "<span class='notice'>You link \the [src] with \the [new_stasis_bed] to its [dir2text(get_dir(src, new_stasis_bed))].</span>")
+	return COMPONENT_BUFFER_RECIEVED
 
 #undef MENU_OPERATION
 #undef MENU_SURGERIES

@@ -161,12 +161,15 @@
 				chop_to = length(key) + 2
 			else
 				return message
-		else if(key == "," && !mods[LANGUAGE_EXTENSION])
+		else if(key == "," && !mods[LANGUAGE_EXTENSION]) // living/say() proc can set LANGUAGE_EXTENSION before this proc.
 			for(var/ld in GLOB.all_languages)
 				var/datum/language/LD = ld
 				if(initial(LD.key) == message[1 + length(message[1])])
 					// No, you cannot speak in xenocommon just because you know the key
 					if(!can_speak_language(LD))
+						return message
+					// you are not allowed to use metalanguage key
+					if(LD == /datum/language/metalanguage && !HAS_TRAIT(src, TRAIT_METALANGUAGE_KEY_ALLOWED))
 						return message
 					mods[LANGUAGE_EXTENSION] = LD
 					chop_to = length(key) + length(initial(LD.key)) + 1

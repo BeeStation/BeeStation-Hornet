@@ -1,18 +1,19 @@
-#define SOLID 			1
-#define LIQUID			2
-#define GAS				3
+#define SOLID 1
+#define LIQUID 2
+#define GAS 3
 
-#define INJECTABLE		(1<<0)	//! Makes it possible to add reagents through droppers and syringes.
-#define DRAWABLE		(1<<1)	//! Makes it possible to remove reagents through syringes.
+#define INJECTABLE (1<<0) // Makes it possible to add reagents through droppers and syringes.
+#define DRAWABLE (1<<1) // Makes it possible to remove reagents through syringes.
 
-#define REFILLABLE		(1<<2)	//! Makes it possible to add reagents through any reagent container.
-#define DRAINABLE		(1<<3)	//! Makes it possible to remove reagents through any reagent container.
+#define REFILLABLE (1<<2) // Makes it possible to add reagents through any reagent container.
+#define DRAINABLE (1<<3) // Makes it possible to remove reagents through any reagent container.
+#define DUNKABLE (1<<4) // Allows items to be dunked into this container for transfering reagents. Used in conjunction with the dunkable component.
 
-#define TRANSPARENT		(1<<4)	//! Used on containers which you want to be able to see the reagents off.
-#define AMOUNT_VISIBLE	(1<<5)	//! For non-transparent containers that still have the general amount of reagents in them visible.
-#define NO_REACT        (1<<6)  //! Applied to a reagent holder, the contents will not react with each other.
+#define TRANSPARENT (1<<5) // Used on containers which you want to be able to see the reagents off.
+#define AMOUNT_VISIBLE (1<<6) // For non-transparent containers that still have the general amount of reagents in them visible.
+#define NO_REACT (1<<7) // Applied to a reagent holder, the contents will not react with each other.
 
-#define ABSOLUTELY_GRINDABLE   (1<<7)  //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
+#define ABSOLUTELY_GRINDABLE   (1<<8)  //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
 
 /// Is an open container for all intents and purposes.
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)

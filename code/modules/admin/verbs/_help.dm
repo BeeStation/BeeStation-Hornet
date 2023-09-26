@@ -128,7 +128,7 @@
 	switch(action)
 		if("claim")
 			if(ticket.claimee)
-				var/confirm = alert("This ticket is already claimed, override claim?", null,"Yes", "No")
+				var/confirm = tgui_alert(usr, "This ticket is already claimed, override claim?", buttons = list("Yes", "No"))
 				if(confirm != "Yes")
 					return
 			claim_ticket = CLAIM_OVERRIDE
@@ -559,7 +559,7 @@
 		claim_ticket = CLAIM_OVERRIDE
 	return claim_ticket
 
-/datum/help_ticket/proc/MessageNoRecipient(msg)
+/datum/help_ticket/proc/MessageNoRecipient(msg, sanitized = FALSE)
 	return
 
 /datum/help_ticket/proc/key_name_ticket(mob/user)
@@ -785,7 +785,7 @@
 		else
 			final = "[msg] - All admins stealthed\[[english_list(stealthmins)]\], AFK\[[english_list(afkmins)]\], or lacks +BAN\[[english_list(powerlessmins)]\]! Total: [allmins.len] "
 		send2tgs(source,final)
-		SStopic.crosscomms_send("ahelp", final, source)
+		SStopic.crosscomms_send_async("ahelp", final, source)
 
 
 /proc/send2tgs(msg,msg2)

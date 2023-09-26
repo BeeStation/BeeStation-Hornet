@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	"[FREQ_CTF_BLUE]" = "blueteamradio"
 	))
 
-/atom/movable/proc/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/atom/movable/proc/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, atom/source=src)
 	if(!can_speak())
 		return
 	if(message == "" || !message)
@@ -27,12 +27,13 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	spans |= speech_span
 	if(!language)
 		language = get_selected_language()
-	send_speech(message, 7, src, , spans, message_language=language)
+	send_speech(message, 7, source, , spans, message_language=language)
 
 /atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
 
 /atom/movable/proc/can_speak()
+	//SHOULD_BE_PURE(TRUE) // TODO: Make calls to this actually pure. Its a lot of work, best done in its own PR.
 	return TRUE
 
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language = null, list/message_mods = list())
@@ -47,8 +48,24 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	if(length(show_overhead_message_to))
 		create_chat_message(src, message_language, show_overhead_message_to, message, spans, message_mods)
 
+/// this creates runechat, so that they can communicate better
+/atom/movable/proc/create_private_chat_message(message, datum/language/message_language=/datum/language/metalanguage, list/hearers, includes_ghosts=TRUE)
+	if(!hearers || !islist(hearers))
+		return
+	if(includes_ghosts)
+		hearers += GLOB.dead_mob_list.Copy()
+	var/list/runechat_readers = list()
+	for(var/mob/each_mob in hearers)
+		if(!each_mob.should_show_chat_message(src, message_language))
+			continue
+		runechat_readers += each_mob
+	create_chat_message(src,
+		message_language = message_language,
+		hearers = runechat_readers, // only you and your target sees the runechat (+ghosts)
+		raw_message = message)
+	// Note for troubleshooting: if a spell doesn't show runechat, it's because the spell is object, and src is spell. you should call this proc from the mob.
+
 /atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)
-	//This proc uses text() because it is faster than appending strings. Thanks BYOND.
 	//Basic span
 	var/spanpart1 = "<span class='[radio_freq ? get_radio_span(radio_freq) : "game say"]'>"
 	//Start name span.

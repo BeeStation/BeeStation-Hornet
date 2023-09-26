@@ -36,9 +36,9 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 
 	if(!attacked_frame.components)
 		return ..()
+	attacked_frame.attackby(src, user)
 	if(works_from_distance)
 		user.Beam(attacked_frame, icon_state = "rped_upgrade", time = 5)
-	attacked_frame.attackby(src, user)
 	return TRUE
 
 /obj/item/storage/part_replacer/afterattack(obj/attacked_object, mob/living/user, adjacent, params)
@@ -48,7 +48,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	if(adjacent)
 		return ..()
 
-	if(istype(attacked_object, /obj/machinery))
+	if(ismachinery(attacked_object))
 		var/obj/machinery/attacked_machinery = attacked_object
 
 		if(!attacked_machinery.component_parts)
@@ -60,13 +60,14 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 		return
 
 	var/obj/structure/frame/machine/attacked_frame = attacked_object
-
+	if(!adjacent && !works_from_distance)
+		return
 	if(!attacked_frame.components)
 		return ..()
 
+	attacked_frame.attackby(src, user)
 	if(works_from_distance)
 		user.Beam(attacked_frame, icon_state = "rped_upgrade", time = 5)
-	attacked_frame.attackby(src, user)
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exhanging or installing parts.
@@ -160,8 +161,8 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 
 /obj/item/stock_parts/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 /obj/item/stock_parts/get_part_rating()
 	return rating

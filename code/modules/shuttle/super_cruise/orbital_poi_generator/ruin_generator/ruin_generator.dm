@@ -364,7 +364,7 @@
 					b2.setDir(WEST)
 
 	//Repopulate areas
-	repopulate_sorted_areas()
+	require_area_resort()
 
 /datum/map_generator/space_ruin/proc/put_shit_everywhere()
 	//Place trash
@@ -426,7 +426,7 @@
 			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
 			if(isspaceturf(T))
 				continue
-			if(is_blocked_turf(T, FALSE))
+			if(T.is_blocked_turf(FALSE))
 				continue
 			linked_objective.generate_objective_stuff(T)
 			break

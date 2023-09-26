@@ -17,7 +17,7 @@
 /turf/open/CanAtmosPassVertical = ATMOS_PASS_PROC
 
 /turf/open/CanAtmosPass(turf/T, vertical = FALSE)
-	var/dir = vertical? get_dir_multiz(src, T) : get_dir(src, T)
+	var/dir = vertical ? get_dir_multiz(src, T) : get_dir(src, T)
 	var/opp = REVERSE_DIR(dir)
 	. = TRUE
 	if(vertical && !(zAirOut(dir, T) && T.zAirIn(dir, src)))
@@ -43,45 +43,68 @@
 	if(SSair.thread_running())
 		CALCULATE_ADJACENT_TURFS(src)
 		return
+	LAZYINITLIST(src.atmos_adjacent_turfs)
+	var/is_closed = isclosedturf(src)
+	var/list/atmos_adjacent_turfs = src.atmos_adjacent_turfs
 	var/canpass = CANATMOSPASS(src, src)
 	var/canvpass = CANVERTICALATMOSPASS(src, src)
+	// I am essentially inlineing two get_dir_multizs here, because they're way too slow on their own. I'm sorry brother
+	var/list/z_traits = SSmapping.multiz_levels[z]
 	for(var/direction in GLOB.cardinals_multiz)
-		var/turf/T = get_step_multiz(src, direction)
-		if(!istype(T))
+		// Yes this is a reimplementation of get_step_mutliz. It's faster tho. fuck you
+		var/turf/current_turf = (direction & (UP|DOWN)) ? \
+			(direction & UP) ? \
+				(z_traits[Z_LEVEL_UP]) ? \
+					(get_step(locate(x, y, z + 1), NONE)) : \
+				(null) : \
+				(z_traits[Z_LEVEL_DOWN]) ? \
+					(get_step(locate(x, y, z - 1), NONE)) : \
+				(null) : \
+			(get_step(src, direction))
+		if(!isopenturf(current_turf))
 			continue
-		if(isopenturf(T) && !(isclosedturf(src) || isclosedturf(T)) && ((direction & (UP|DOWN))? (canvpass && CANVERTICALATMOSPASS(T, src)) : (canpass && CANATMOSPASS(T, src))) )
-			LAZYINITLIST(atmos_adjacent_turfs)
-			LAZYINITLIST(T.atmos_adjacent_turfs)
-			atmos_adjacent_turfs[T] = 1
-			T.atmos_adjacent_turfs[src] = 1
+		if(!is_closed && ((direction & (UP|DOWN)) ? (canvpass && CANVERTICALATMOSPASS(current_turf, src)) : (canpass && CANATMOSPASS(current_turf, src))))
+			LAZYINITLIST(current_turf.atmos_adjacent_turfs)
+			atmos_adjacent_turfs[current_turf] = TRUE
+			current_turf.atmos_adjacent_turfs[src] = TRUE
 		else
-			if (atmos_adjacent_turfs)
-				atmos_adjacent_turfs -= T
-			if (T.atmos_adjacent_turfs)
-				T.atmos_adjacent_turfs -= src
-			UNSETEMPTY(T.atmos_adjacent_turfs)
-			T.set_sleeping(isclosedturf(T))
-		T.__update_auxtools_turf_adjacency_info(isspaceturf(T.get_z_base_turf()), -1)
+			atmos_adjacent_turfs -= current_turf
+			if (current_turf.atmos_adjacent_turfs)
+				current_turf.atmos_adjacent_turfs -= src
+			UNSETEMPTY(current_turf.atmos_adjacent_turfs)
+			current_turf.set_sleeping(isclosedturf(current_turf))
+		current_turf.__update_auxtools_turf_adjacency_info()
 	UNSETEMPTY(atmos_adjacent_turfs)
 	src.atmos_adjacent_turfs = atmos_adjacent_turfs
-	set_sleeping(isclosedturf(src))
-	__update_auxtools_turf_adjacency_info(isspaceturf(get_z_base_turf()))
+	set_sleeping(is_closed)
+	__update_auxtools_turf_adjacency_info()
 
 /turf/proc/ImmediateDisableAdjacency(disable_adjacent = TRUE)
 	if(SSair.thread_running())
 		SSadjacent_air.disable_queue[src] = disable_adjacent
 		return
 	if(disable_adjacent)
+		// I am essentially inlineing two get_dir_multizs here, because they're way too slow on their own. I'm sorry brother
+		var/list/z_traits = SSmapping.multiz_levels[z]
 		for(var/direction in GLOB.cardinals_multiz)
-			var/turf/T = get_step_multiz(src, direction)
-			if(!istype(T))
+			// Yes this is a reimplementation of get_step_mutliz. It's faster tho.
+			var/turf/current_turf = (direction & (UP|DOWN)) ? \
+				(direction & UP) ? \
+					(z_traits[Z_LEVEL_UP]) ? \
+						(get_step(locate(x, y, z + 1), NONE)) : \
+					(null) : \
+					(z_traits[Z_LEVEL_DOWN]) ? \
+						(get_step(locate(x, y, z - 1), NONE)) : \
+					(null) : \
+				(get_step(src, direction))
+			if(!istype(current_turf))
 				continue
-			if (T.atmos_adjacent_turfs)
-				T.atmos_adjacent_turfs -= src
-			UNSETEMPTY(T.atmos_adjacent_turfs)
-			T.__update_auxtools_turf_adjacency_info(isspaceturf(T.get_z_base_turf()), -1)
+			if (current_turf.atmos_adjacent_turfs)
+				current_turf.atmos_adjacent_turfs -= src
+			UNSETEMPTY(current_turf.atmos_adjacent_turfs)
+			current_turf.__update_auxtools_turf_adjacency_info()
 	LAZYCLEARLIST(atmos_adjacent_turfs)
-	__update_auxtools_turf_adjacency_info(isspaceturf(get_z_base_turf()))
+	__update_auxtools_turf_adjacency_info()
 
 /turf/proc/set_sleeping(should_sleep)
 
@@ -123,12 +146,16 @@
 	return adjacent_turfs
 
 /atom/proc/air_update_turf(command = 0)
+	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
+		return
 	if(!isturf(loc) && command)
 		return
 	var/turf/T = get_turf(loc)
 	T.air_update_turf(command)
 
 /turf/air_update_turf(command = 0)
+	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
+		return
 	if(command)
 		ImmediateCalculateAdjacentTurfs()
 

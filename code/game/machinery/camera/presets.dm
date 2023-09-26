@@ -55,17 +55,15 @@
 
 /obj/machinery/camera/autoname/LateInitialize()
 	. = ..()
-	number = 1
-	var/area/A = get_area(src)
-	if(A)
-		for(var/obj/machinery/camera/autoname/C in GLOB.machines)
-			if(C == src)
-				continue
-			var/area/CA = get_area(C)
-			if(CA.type == A.type)
-				if(C.number)
-					number = max(number, C.number+1)
-		c_tag = "[A.name] #[number]"
+
+	var/static/list/autonames_in_areas = list()
+
+	var/area/camera_area = get_area(src)
+
+	number = autonames_in_areas[camera_area] + 1
+	autonames_in_areas[camera_area] = number
+
+	c_tag = "[format_text(camera_area.name)] #[number]"
 
 
 // UPGRADE PROCS
@@ -133,8 +131,11 @@
 	if(!assembly.proxy_module)
 		assembly.proxy_module = new(assembly)
 	upgrades |= CAMERA_UPGRADE_MOTION
+	create_prox_monitor()
 
 /obj/machinery/camera/proc/removeMotion()
 	if(name == "motion-sensitive security camera")
 		name = "security camera"
 	upgrades &= ~CAMERA_UPGRADE_MOTION
+	if(!area_motion)
+		QDEL_NULL(proximity_monitor)

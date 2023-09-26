@@ -1,7 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/closed/wall,
-/area/template_noop)
 "b" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -63,10 +60,6 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
-	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "l" = (
@@ -94,15 +87,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"s" = (
-/obj/machinery/light,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"t" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel,
-/area/template_noop)
 "u" = (
 /obj/machinery/button/door{
 	id = "ScooterBack";
@@ -124,11 +108,14 @@
 	name = "Scooter Rental Front desk Door Lock";
 	normaldoorcontrol = 1;
 	pixel_x = 26;
-	pixel_y = 6;
+	pixel_y = -8;
 	specialfunctions = 4
 	},
 /obj/structure/chair/office/light{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -219,7 +206,8 @@
 "S" = (
 /obj/machinery/door/airlock/maintenance{
 	id_tag = "ScooterFront";
-	name = "Scooter Rental"
+	name = "Scooter Rental";
+	id = "ScooterFront"
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -240,7 +228,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "X" = (
-/turf/closed/wall/r_wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "Y" = (
 /obj/effect/decal/cleanable/dirt,
@@ -253,20 +241,18 @@ U
 r
 m
 m
-m
 S
 V
 I
 j
 f
-a
+X
 "}
 (2,1,1) = {"
 W
 m
 Y
 P
-s
 q
 e
 O
@@ -279,20 +265,18 @@ W
 m
 l
 g
-t
 C
 F
 B
 b
 u
-a
+X
 "}
 (4,1,1) = {"
 U
 R
 z
 G
-r
 h
 v
 w
@@ -301,15 +285,14 @@ o
 X
 "}
 (5,1,1) = {"
-a
-a
+X
+X
 U
 U
-U
-a
-a
-a
-a
-a
+X
+X
+X
+X
+X
 X
 "}

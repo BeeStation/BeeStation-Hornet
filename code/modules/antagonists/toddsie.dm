@@ -9,9 +9,9 @@
 	move_resist = INFINITY
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
 	plane = MASSIVE_OBJ_PLANE
+	zmm_flags = ZMM_WIDE_LOAD
 	light_color = COLOR_RED
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	flags_1 = SUPERMATTER_IGNORES_1
 
 /obj/eldritch/narsie/toddsie/greeting_message()
 	send_to_playing_players("<span class='narsie'>TODD'SIE HAS RISEN. BUY. SKYRIM.</span>")

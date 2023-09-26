@@ -89,12 +89,12 @@
 		return
 
 //if it's not our target, we ignore it
-/mob/living/simple_animal/hostile/asteroid/curseblob/CanAllowThrough(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/asteroid/curseblob/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(mover == set_target)
 		return FALSE
-	if(istype(mover, /obj/item/projectile))
-		var/obj/item/projectile/P = mover
+	if(istype(mover, /obj/projectile))
+		var/obj/projectile/P = mover
 		if(P.firer == set_target)
 			return FALSE
 
@@ -114,7 +114,7 @@ IGNORE_PROC_IF_NOT_TARGET(attack_animal)
 
 IGNORE_PROC_IF_NOT_TARGET(attack_slime)
 
-/mob/living/simple_animal/hostile/asteroid/curseblob/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/asteroid/curseblob/bullet_act(obj/projectile/Proj)
 	if(Proj.firer != set_target)
 		return
 	return ..()

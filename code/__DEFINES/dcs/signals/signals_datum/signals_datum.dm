@@ -36,23 +36,32 @@
 #define COMSIG_COMPONENT_CLEAN_FACE_ACT "clean_face_act"		//! called when you wash your face at a sink: (num/strength)
 
 //Food
-#define COMSIG_FOOD_EATEN "food_eaten"		//! from base of obj/item/reagent_containers/food/snacks/attack(): (mob/living/eater, mob/feeder)
+
+///from base of obj/item/reagent_containers/food/snacks/attack() & Edible component: (mob/living/eater, mob/feeder)
+#define COMSIG_FOOD_EATEN "food_eaten"
+
+///from base of Component/edible/On_Consume: (mob/living/eater, mob/living/feeder)
+#define COMSIG_FOOD_CONSUMED "food_consumed"
+
+#define COMSIG_ITEM_FRIED "item_fried"
+	#define COMSIG_FRYING_HANDLED (1<<0)
 
 //Gibs
+
 #define COMSIG_GIBS_STREAK "gibs_streak"						//! from base of /obj/effect/decal/cleanable/blood/gibs/streak(): (list/directions, list/diseases)
 
 //Diseases
-#define COMSIG_DISEASE_END "disease_end" 						//! from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
+
+#define COMSIG_DISEASE_END "disease_end" 						//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
 
 //Mood
+
 #define COMSIG_ADD_MOOD_EVENT "add_mood" //! Called when you send a mood event from anywhere in the code.
 #define COMSIG_CLEAR_MOOD_EVENT "clear_mood" //! Called when you clear a mood event from anywhere in the code.
 
 /// Called in /obj/structure/moneybot/add_money(). (to_add)
 #define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
 
-// Sent when a mob with a mind enters cryo storage
-#define COMSIG_MIND_CRYOED "mind_cryoed"
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
@@ -67,7 +76,10 @@
 	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
 
 // /datum/mind signals
-#define COMSIG_MIND_TRANSFER_TO	"mind_transfer_to"					// (mob/old, mob/new)
+#define COMSIG_MIND_TRANSFER_TO		"mind_transfer_to"		// (mob/old, mob/new)
+#define COMSIG_MIND_JOIN_ANTAG_HUD	"mind_join_antag_hud"	// (datum/atom_hud/antag/hud)
+#define COMSIG_MIND_LEAVE_ANTAG_HUD	"mind_leave_antag_hud"	// (datum/atom_hud/antag/hud)
+#define COMSIG_MIND_CRYOED 			"mind_cryoed"			// Sent when a mob with a mind enters cryo storage: ()
 
 // /datum/component/clockwork_trap signals
 #define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered
@@ -81,6 +93,18 @@
 #define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
 #define COMSIG_WEATHER_WINDDOWN(event_type) "!weather_winddown [event_type]"
 #define COMSIG_WEATHER_END(event_type) "!weather_end [event_type]"
+/// An alarm of some form was sent (datum/alarm_handler/source, alarm_type, area/source_area)
+#define COMSIG_ALARM_FIRE(alarm_type) "!alarm_fire [alarm_type]"
+/// An alarm of some form was cleared (datum/alarm_handler/source, alarm_type, area/source_area)
+#define COMSIG_ALARM_CLEAR(alarm_type) "!alarm_clear [alarm_type]"
+
+/// signals from globally accessible objects
+
+// Alarm listener datum signals
+///Sent when an alarm is fired (alarm, area/source_area)
+#define COMSIG_ALARM_TRIGGERED "comsig_alarm_triggered"
+///Send when an alarm source is cleared (alarm_type, area/source_area)
+#define COMSIG_ALARM_CLEARED "comsig_alarm_clear"
 
 // Radio jammer signals
 /// Calls something to toggle its jamming ability. (mob/user, silent = FALSE)
@@ -88,3 +112,7 @@
 
 ///Called to all children when a parent moves, as long as it has the moved relay component.
 #define COMSIG_PARENT_MOVED_RELAY "parent_moved_relay"
+
+/// Called when a buffer tries to send some stored data to something (datum/source, mob/user, datum/buffer, obj/item/buffer_parent) (buffer item may be null)
+#define COMSIG_PARENT_RECIEVE_BUFFER "recieve_buffer"
+	#define COMPONENT_BUFFER_RECIEVED (1 << 0)

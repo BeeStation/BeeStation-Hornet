@@ -17,15 +17,25 @@
 	var/busy = FALSE
 	var/busy_icon_state
 	var/message_cooldown = 0
+	var/nanite_coeff = 1
+	var/speed_coeff = 1
 
 /obj/machinery/public_nanite_chamber/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 
 /obj/machinery/public_nanite_chamber/RefreshParts()
+	nanite_coeff = 0
+	speed_coeff = 1
 	var/obj/item/circuitboard/machine/public_nanite_chamber/board = circuit
 	if(board)
 		cloud_id = board.cloud_id
+	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
+		nanite_coeff += manipulator.rating
+	var/total_laser_rating = 0
+	for(var/obj/item/stock_parts/micro_laser/micro_laser in component_parts)
+		total_laser_rating += micro_laser.rating
+	speed_coeff = 1 / (total_laser_rating * 0.5)
 
 /obj/machinery/public_nanite_chamber/proc/set_busy(status, working_icon)
 	busy = status
@@ -45,9 +55,9 @@
 
 	//TODO OMINOUS MACHINE SOUNDS
 	set_busy(TRUE, "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_active"),20)
-	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"),60)
-	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state, attacker),80)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_active"), 20)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"), max(60 * speed_coeff, 25))
+	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state, attacker), max(80 * speed_coeff, 30))
 
 /obj/machinery/public_nanite_chamber/proc/complete_injection(locked_state, mob/living/attacker)
 	//TODO MACHINE DING
@@ -58,7 +68,7 @@
 	if(attacker)
 		occupant.investigate_log("was injected with nanites by [key_name(attacker)] using [src] at [AREACOORD(src)].", INVESTIGATE_NANITES)
 		log_combat(attacker, occupant, "injected", null, "with nanites via [src]")
-	occupant.AddComponent(/datum/component/nanites, 75, cloud_id)
+	occupant.AddComponent(/datum/component/nanites, 75 * nanite_coeff, cloud_id)
 
 /obj/machinery/public_nanite_chamber/proc/change_cloud(mob/living/attacker)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -72,9 +82,9 @@
 	locked = TRUE
 
 	set_busy(TRUE, "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_active"),20)
-	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"),40)
-	addtimer(CALLBACK(src, PROC_REF(complete_cloud_change), locked_state, attacker),60)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_active"), 20)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"), max(40 * speed_coeff, 25))
+	addtimer(CALLBACK(src, PROC_REF(complete_cloud_change), locked_state, attacker), max(60 * speed_coeff, 30))
 
 /obj/machinery/public_nanite_chamber/proc/complete_cloud_change(locked_state, mob/living/attacker)
 	locked = locked_state

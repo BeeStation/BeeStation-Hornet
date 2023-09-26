@@ -5,6 +5,8 @@
 #define CHANGETURF_INHERIT_AIR 16 //! Inherit air from previous turf. Implies CHANGETURF_IGNORE_AIR
 #define CHANGETURF_RECALC_ADJACENT 32 //! Immediately recalc adjacent atmos turfs instead of queuing.
 
+#define IS_OPAQUE_TURF(turf) (turf.directional_opacity == ALL_CARDINALS)
+
 //supposedly the fastest way to do this according to https://gist.github.com/Giacom/be635398926bb463b42a
 ///Returns a list of turf in a square
 #define RANGE_TURFS(RADIUS, CENTER) \
@@ -21,6 +23,9 @@
 
 ///Returns all turfs in a zlevel
 #define Z_TURFS(ZLEVEL) block(locate(1,1,ZLEVEL), locate(world.maxx, world.maxy, ZLEVEL))
+
+///Returns all currently loaded turfs
+#define ALL_TURFS(...) block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
 

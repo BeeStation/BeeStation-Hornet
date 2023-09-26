@@ -15,7 +15,7 @@ const logger = createLogger('ByondUi');
 // Stack of currently allocated BYOND UI element ids.
 const byondUiStack = [];
 
-const createByondUiElement = elementId => {
+const createByondUiElement = (elementId) => {
   // Reserve an index in the stack
   const index = byondUiStack.length;
   byondUiStack.push(null);
@@ -24,10 +24,11 @@ const createByondUiElement = elementId => {
   logger.log(`allocated '${id}'`);
   // Return a control structure
   return {
-    render: params => {
+    render: (params) => {
       logger.log(`rendering '${id}'`);
       byondUiStack[index] = id;
       Byond.winset(id, params);
+      Byond.sendMessage('byondui_update', { mounting: true, id: id });
     },
     unmount: () => {
       logger.log(`unmounting '${id}'`);
@@ -35,6 +36,7 @@ const createByondUiElement = elementId => {
       Byond.winset(id, {
         parent: '',
       });
+      Byond.sendMessage('byondui_update', { mounting: false, id: id });
     },
   };
 };
@@ -49,24 +51,20 @@ window.addEventListener('beforeunload', () => {
       Byond.winset(id, {
         parent: '',
       });
+      Byond.sendMessage('byondui_update', { mounting: false, id: id });
     }
   }
 });
 
 /**
- * Get the bounding box of the DOM element.
+ * Get the bounding box of the DOM element in display-pixels.
  */
-const getBoundingBox = element => {
+const getBoundingBox = (element) => {
+  const pixelRatio = window.devicePixelRatio ?? 1;
   const rect = element.getBoundingClientRect();
   return {
-    pos: [
-      rect.left,
-      rect.top,
-    ],
-    size: [
-      rect.right - rect.left,
-      rect.bottom - rect.top,
-    ],
+    pos: [rect.left * pixelRatio, rect.top * pixelRatio],
+    size: [(rect.right - rect.left) * pixelRatio, (rect.bottom - rect.top) * pixelRatio],
   };
 };
 
@@ -81,16 +79,9 @@ export class ByondUi extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const {
-      params: prevParams = {},
-      ...prevRest
-    } = this.props;
-    const {
-      params: nextParams = {},
-      ...nextRest
-    } = nextProps;
-    return shallowDiffers(prevParams, nextParams)
-      || shallowDiffers(prevRest, nextRest);
+    const { params: prevParams = {}, ...prevRest } = this.props;
+    const { params: nextParams = {}, ...nextRest } = nextProps;
+    return shallowDiffers(prevParams, nextParams) || shallowDiffers(prevRest, nextRest);
   }
 
   componentDidMount() {
@@ -108,9 +99,7 @@ export class ByondUi extends Component {
     if (Byond.IS_LTE_IE10) {
       return;
     }
-    const {
-      params = {},
-    } = this.props;
+    const { params = {} } = this.props;
     const box = getBoundingBox(this.containerRef.current);
     logger.debug('bounding box', box);
     this.byondUiElement.render({
@@ -133,9 +122,7 @@ export class ByondUi extends Component {
   render() {
     const { params, ...rest } = this.props;
     return (
-      <div
-        ref={this.containerRef}
-        {...computeBoxProps(rest)}>
+      <div ref={this.containerRef} {...computeBoxProps(rest)}>
         {/* Filler */}
         <div style={{ 'min-height': '22px' }} />
       </div>

@@ -526,7 +526,7 @@
 	name = "custom vendor (Machine Board)"
 	icon_state = "generic"
 	desc = "You can turn the \"brand selection\" dial using a screwdriver."
-	custom_premium_price = 30
+	custom_premium_price = 25
 	build_path = /obj/machinery/vending/custom
 	req_components = list(/obj/item/vending_refill/custom = 1)
 
@@ -615,6 +615,14 @@
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/vending_refill/donksoft = 1)
 
+/obj/item/circuitboard/machine/fax
+	name = "Fax Machine"
+	build_path = /obj/machinery/fax
+	req_components = list(
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1)
+
 
 
 //Medical
@@ -696,6 +704,8 @@
 		/obj/item/reagent_containers/glass/beaker = 2,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
+	def_components = list(
+		/obj/item/reagent_containers/glass/beaker = /obj/item/reagent_containers/glass/beaker/large)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/chem_master/attackby(obj/item/I, mob/user, params)

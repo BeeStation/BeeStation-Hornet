@@ -19,6 +19,12 @@
 	var/should_supress_view_changes  = TRUE
 	light_color = LIGHT_COLOR_RED
 
+	/// if TRUE, this will be visible to ghosts and player user, and automatically transfer ghost orbits to camera eye when used.
+	/// if you're going to set this TRUE, check if 'eyeobj.invisibility' takes a correct value
+	var/reveal_camera_mob = FALSE
+	var/camera_mob_icon = 'icons/mob/cameramob.dmi'
+	var/camera_mob_icon_state = "marker"
+
 /obj/machinery/computer/camera_advanced/Initialize(mapload)
 	. = ..()
 	for(var/i in networks)
@@ -35,10 +41,39 @@
 /obj/machinery/computer/camera_advanced/syndie
 	icon_keyboard = "syndie_key"
 	circuit = /obj/item/circuitboard/computer/advanced_camera
+	reveal_camera_mob = TRUE
+	camera_mob_icon_state = "syndi"
+
+/obj/machinery/computer/camera_advanced/bounty_hunter
+	circuit = /obj/item/circuitboard/computer/advanced_camera/cyan
+	reveal_camera_mob = TRUE
+	camera_mob_icon_state = "cyan"
+
+/obj/machinery/computer/camera_advanced/wizard
+	circuit = /obj/item/circuitboard/computer/advanced_camera/darkblue
+	reveal_camera_mob = TRUE
+	camera_mob_icon_state = "darkblue"
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
 	eyeobj = new()
 	eyeobj.origin = src
+	eyeobj.icon = camera_mob_icon
+	eyeobj.icon_state = camera_mob_icon_state
+	RevealCameraMob()
+
+/obj/machinery/computer/camera_advanced/proc/RevealCameraMob()
+	if(reveal_camera_mob)
+		eyeobj.visible_icon = TRUE
+		eyeobj.invisibility = INVISIBILITY_OBSERVER
+		if(current_user && eyeobj) // indent is correct: do not transfer ghosts unless it's revealed
+			current_user.transfer_observers_to(eyeobj)
+
+/obj/machinery/computer/camera_advanced/proc/ConcealCameraMob()
+	if(reveal_camera_mob)
+		eyeobj.visible_icon = FALSE
+		eyeobj.invisibility = INVISIBILITY_ABSTRACT
+	if(current_user && eyeobj) // indent is correct: transfer ghosts when nobody uses
+		eyeobj.transfer_observers_to(current_user)
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -80,6 +115,7 @@
 			user.client.images -= eyeobj.user_image
 		user.client.view_size.unsupress()
 
+	ConcealCameraMob()
 	eyeobj.eye_user = null
 	user.remote_control = null
 	current_user = null
@@ -91,6 +127,7 @@
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/Destroy()
+	ConcealCameraMob()
 	if(eyeobj)
 		QDEL_NULL(eyeobj)
 	QDEL_LIST(actions)
@@ -165,6 +202,7 @@
 	current_user = user
 	eyeobj.eye_user = user
 	eyeobj.name = "Camera Eye ([user.name])"
+	RevealCameraMob()
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 	eyeobj.setLoc(eyeobj.loc)

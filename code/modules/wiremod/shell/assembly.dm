@@ -14,6 +14,11 @@
 
 	securable = FALSE //This item should only ever be used as an assembly and the shell datum uses screwdriver_act, might as well make it permanently unsecured
 
+	light_system = MOVABLE_LIGHT
+	light_range = 6
+	light_power = 1
+	light_on = FALSE
+
 	var/datum/port/output/pulse_out
 
 /obj/item/assembly/modular/Initialize(mapload)
@@ -35,12 +40,10 @@
 
 /obj/item/circuit_component/assembly
 	display_name = "Moddable Assembly"
-	display_desc = "Connects to an attached assembly"
 	var/datum/port/input/pulse_in
 	var/datum/port/output/pulse_out
 
-/obj/item/circuit_component/assembly/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/assembly/populate_ports()
 	pulse_in = add_input_port("Pulse", PORT_TYPE_SIGNAL)
 	pulse_out = add_output_port("Pulsed", PORT_TYPE_SIGNAL)
 

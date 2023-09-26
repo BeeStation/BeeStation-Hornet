@@ -194,7 +194,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "jt" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -270,7 +270,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "lY" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "mb" = (

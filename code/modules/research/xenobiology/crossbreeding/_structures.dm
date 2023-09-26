@@ -405,7 +405,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(crystals >= 3)
 		return
 	for(var/turf/T as() in RANGE_TURFS(2,src))
-		if(is_blocked_turf(T) || isspaceturf(T)  || T == get_turf(src) || prob(50))
+		if(T.is_blocked_turf() || isspaceturf(T)  || T == get_turf(src) || prob(50))
 			continue
 		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1,T)
 		if(CSC)
@@ -574,14 +574,14 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "black"
 
 /obj/structure/slime_crystal/black/on_mob_effect(mob/living/affected_mob)
-	if(!ishuman(affected_mob) || isjellyperson(affected_mob))
+	if(!ishuman(affected_mob) || isoozeling(affected_mob))
 		return
 
 	if(affected_mobs[affected_mob] < 60) //Around 2 minutes
 		return
 
 	var/mob/living/carbon/human/human_transformed = affected_mob
-	human_transformed.set_species(pick(typesof(/datum/species/jelly)))
+	human_transformed.set_species(pick(typesof(/datum/species/oozeling)))
 
 /obj/structure/slime_crystal/lightpink
 	colour = "light pink"

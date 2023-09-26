@@ -184,7 +184,7 @@
 	permeability_coefficient = 0.01
 	transfer_prints = TRUE
 	resistance_flags = NONE
-	var/carrytrait = TRAIT_QUICK_CARRY
+	var/carrytrait = TRAIT_QUICKER_CARRY
 
 /obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
 	..()
@@ -193,7 +193,12 @@
 
 /obj/item/clothing/gloves/color/latex/dropped(mob/user)
 	..()
-	REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.gloves != src)
+			return
+		else
+			REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/obj_break()
 	..()

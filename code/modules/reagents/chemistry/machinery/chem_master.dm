@@ -188,6 +188,8 @@
 	data["isBeakerLoaded"] = beaker ? 1 : 0
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
+	data["machineCurrentVolume"] = reagents.total_volume
+	data["machineMaxVolume"] = reagents.maximum_volume
 	data["mode"] = mode
 	data["condi"] = condi
 	data["screen"] = screen
@@ -466,14 +468,14 @@
 
 /obj/machinery/chem_master/adjust_item_drop_location(atom/movable/AM) // Special version for chemmasters and condimasters
 	if (AM == beaker)
-		AM.pixel_x = -8
-		AM.pixel_y = 8
+		AM.pixel_x = AM.base_pixel_x - 8
+		AM.pixel_y = AM.base_pixel_y + 8
 		return null
 	else if (AM == bottle)
 		if (length(bottle.contents))
-			AM.pixel_x = -13
+			AM.pixel_x = AM.base_pixel_x - 13
 		else
-			AM.pixel_x = -7
+			AM.pixel_x = AM.base_pixel_x - 7
 		AM.pixel_y = -8
 		return null
 	else
@@ -481,8 +483,8 @@
 		for (var/i in 1 to 32)
 			. += hex2num(md5[i])
 		. = . % 9
-		AM.pixel_x = ((.%3)*6)
-		AM.pixel_y = -8 + (round( . / 3)*8)
+		AM.pixel_x = AM.base_pixel_x + ((.%3)*6)
+		AM.pixel_y = AM.base_pixel_y - 8 + (round( . / 3)*8)
 
 /obj/machinery/chem_master/condimaster
 	name = "CondiMaster 3000"

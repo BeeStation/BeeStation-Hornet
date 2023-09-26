@@ -83,7 +83,7 @@
 			var/matrix/m180 = matrix(L.transform)
 			m180.Turn(180)
 			animate(L, transform = m180, time = 3)
-			L.pixel_y = L.get_standard_pixel_y_offset(180)
+			L.pixel_y = L.base_pixel_y + PIXEL_Y_OFFSET_LYING
 	else if (has_buckled_mobs())
 		for(var/mob/living/L in buckled_mobs)
 			user_unbuckle_mob(L, user)
@@ -128,9 +128,9 @@
 	var/matrix/m180 = matrix(M.transform)
 	m180.Turn(180)
 	animate(M, transform = m180, time = 3)
-	M.pixel_y = M.get_standard_pixel_y_offset(180)
+	M.pixel_y = M.base_pixel_y + PIXEL_Y_OFFSET_LYING
 	M.adjustBruteLoss(30)
-	src.visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
+	src.visible_message("<span class='danger'>[M] falls free of [src]!</span>")
 	unbuckle_mob(M,force=1)
 	M.emote("scream")
 	M.AdjustParalyzed(20)

@@ -67,6 +67,15 @@
 	new_dna.update_body_size() //Must come after features.Copy()
 	new_dna.mutations = mutations.Copy()
 
+/datum/dna/proc/compare_dna(datum/dna/other)
+	if (!other)
+		return FALSE
+	return unique_enzymes == other.unique_enzymes \
+		&& uni_identity == other.uni_identity \
+		&& blood_type == other.blood_type \
+		&& species?.type == other.species?.type \
+		&& real_name == other.real_name
+
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
 /datum/dna/proc/add_mutation(mutation, class = MUT_OTHER, time)
 	var/mutation_type = mutation
@@ -266,7 +275,7 @@
 	uni_identity = generate_uni_identity()
 	if(!skip_index) //I hate this
 		generate_dna_blocks()
-	features = random_features()
+	features = random_features(holder.gender)
 
 
 /datum/dna/stored //subtype used by brain mob's stored_dna
@@ -293,7 +302,7 @@
 
 	var/desired_size = GLOB.body_sizes[features["body_size"]]
 
-	if(desired_size == current_body_size)
+	if(desired_size == current_body_size || current_body_size == 0)
 		return
 
 	var/change_multiplier = desired_size / current_body_size
@@ -392,7 +401,7 @@
 /mob/living/carbon/proc/create_dna()
 	dna = new /datum/dna(src)
 	if(!dna.species)
-		var/rando_race = pick(GLOB.roundstart_races)
+		var/rando_race = pick(get_selectable_species())
 		dna.species = new rando_race()
 
 //proc used to update the mob's appearance after its dna UI has been changed
@@ -401,11 +410,11 @@
 		return
 	switch(deconstruct_block(getblock(dna.uni_identity, DNA_GENDER_BLOCK), 3))
 		if(G_MALE)
-			set_gender(MALE, TRUE)
+			set_gender(MALE, TRUE, forced = TRUE)
 		if(G_FEMALE)
-			set_gender(FEMALE, TRUE)
+			set_gender(FEMALE, TRUE, forced = TRUE)
 		else
-			set_gender(PLURAL, TRUE)
+			set_gender(PLURAL, TRUE, forced = TRUE)
 
 /mob/living/carbon/human/updateappearance(icon_update=1, mutcolor_update=0, mutations_overlay_update=0)
 	..()
@@ -418,6 +427,15 @@
 	hair_style = GLOB.hair_styles_list[deconstruct_block(getblock(structure, DNA_HAIR_STYLE_BLOCK), GLOB.hair_styles_list.len)]
 	gradient_color = sanitize_hexcolor(getblock(structure, DNA_HAIR_GRADIENT_COLOR_BLOCK))
 	gradient_style = GLOB.hair_gradients_list[deconstruct_block(getblock(structure, DNA_HAIR_GRADIENT_STYLE_BLOCK), GLOB.hair_gradients_list.len)]
+	// Ensure we update the skin tone of all non-foreign bodyparts
+	for(var/obj/item/bodypart/part in bodyparts)
+		if(part.no_update)
+			continue
+		part.update_limb(dropping_limb = FALSE, source = src, is_creating = TRUE)
+	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
+	if(organ_eyes)
+		organ_eyes.eye_color = eye_color
+		organ_eyes.old_eye_color = eye_color
 	if(icon_update)
 		update_body()
 		update_hair()
@@ -450,7 +468,7 @@
 
 //Return the active mutation of a type if there is one
 /datum/dna/proc/get_mutation(A)
-	for(var/datum/mutation/HM as() in mutations)
+	for(var/datum/mutation/HM in mutations)
 		if(HM.type == A)
 			return HM
 

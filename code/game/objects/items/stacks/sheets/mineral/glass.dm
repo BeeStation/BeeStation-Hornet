@@ -28,9 +28,8 @@
 	user.visible_message("<span class='suicide'>[user] begins to slice [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/stack/sheet/glass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.glass_recipes
-	return ..()
+/obj/item/stack/sheet/glass/get_recipes()
+	return GLOB.glass_recipes
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
@@ -94,9 +93,8 @@
 	source.add_charge(amount * metcost)
 	glasource.add_charge(amount * glacost)
 
-/obj/item/stack/sheet/rglass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.reinforced_glass_recipes
-	return ..()
+/obj/item/stack/sheet/rglass/get_recipes()
+	return GLOB.reinforced_glass_recipes
 
 /* Plasma glass */
 
@@ -113,9 +111,8 @@
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10)
 	tableVariant = /obj/structure/table/glass/plasma
 
-/obj/item/stack/sheet/plasmaglass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.pglass_recipes
-	return ..()
+/obj/item/stack/sheet/plasmaglass/get_recipes()
+	return GLOB.pglass_recipes
 
 /obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
@@ -150,9 +147,8 @@
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10, /datum/reagent/iron = 10)
 	point_value = 23
 
-/obj/item/stack/sheet/plasmarglass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.prglass_recipes
-	return ..()
+/obj/item/stack/sheet/plasmarglass/get_recipes()
+	return GLOB.prglass_recipes
 
 /* Titanium glass */
 
@@ -167,9 +163,8 @@
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/titaniumglass
 
-/obj/item/stack/sheet/titaniumglass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.titaniumglass_recipes
-	return ..()
+/obj/item/stack/sheet/titaniumglass/get_recipes()
+	return GLOB.titaniumglass_recipes
 
 /* Plastitanium glass */
 
@@ -184,9 +179,8 @@
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 
-/obj/item/stack/sheet/plastitaniumglass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.plastitaniumglass_recipes
-	return ..()
+/obj/item/stack/sheet/plastitaniumglass/get_recipes()
+	return GLOB.plastitaniumglass_recipes
 
 /*SHARDS FROM HERE ONWARD, NOT A STACK, MOVE IT AS THE PROPHECY FORETOLD*/
 /obj/item/shard
