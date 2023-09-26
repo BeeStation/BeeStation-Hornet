@@ -3,6 +3,9 @@
 #define AB_CHECK_LYING 4
 #define AB_CHECK_CONSCIOUS 8
 
+GLOBAL_LIST_EMPTY(action_list)
+GLOBAL_LIST_EMPTY(spell_list)
+
 /datum/action
 	var/name = "Generic Action"
 	var/desc = null
@@ -30,6 +33,9 @@
 	button.actiontooltipstyle = buttontooltipstyle
 	if(desc)
 		button.desc = desc
+
+/datum/action/proc/on_admin_grant(mob/target_mob)
+	return
 
 /datum/action/proc/link_to(Target)
 	target = Target

@@ -619,23 +619,21 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Give Spell"
 	set desc = "Gives a spell to a mob."
 
-	var/list/spell_list = list()
-	var/type_length = length_char("/obj/effect/proc_holder/spell") + 2
-	for(var/A in GLOB.spells)
-		spell_list[copytext_char("[A]", type_length)] = A
-	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in sort_list(spell_list)
-	if(!S)
+	var/chosen_item = tgui_input_list(src, "Choose the spell to give to that guy", "ABRAKADABRA", GLOB.spell_list)
+	if(!chosen_item)
+		return
+	var/obj/effect/proc_holder/spell/chosen_spell = GLOB.spell_list[chosen_item]
+	if(!chosen_spell)
 		return
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name_admin(T)] the spell [S].</span>")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell")
+	log_admin("[key_name(usr)] gave [key_name(T)] the spell [chosen_item].")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name_admin(T)] the spell [chosen_item].</span>")
 
-	S = spell_list[S]
 	if(T.mind)
-		T.mind.AddSpell(new S)
+		T.mind.AddSpell(new chosen_spell)
 	else
-		T.AddSpell(new S)
+		T.AddSpell(new chosen_spell)
 		message_admins("<span class='danger'>Spells given to mindless mobs will not be transferred in mindswap or cloning!</span>")
 
 /client/proc/remove_spell(mob/T in GLOB.mob_list)
@@ -644,12 +642,44 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set desc = "Remove a spell from the selected mob."
 
 	if(T?.mind)
-		var/obj/effect/proc_holder/spell/S = input("Choose the spell to remove", "NO ABRAKADABRA") as null|anything in sort_list(T.mind.spell_list)
+		var/obj/effect/proc_holder/spell/S = tgui_input_list(src, "Choose the spell to remove", "NO ABRAKADABRA", sort_list(T.mind.spell_list))
 		if(S)
 			T.mind.RemoveSpell(S)
 			log_admin("[key_name(usr)] removed the spell [S] from [key_name(T)].")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] removed the spell [S] from [key_name_admin(T)].</span>")
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Remove Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/give_action(mob/T in GLOB.mob_list)
+	set category = "Fun"
+	set name = "Give Action"
+	set desc = "Gives an Action to a mob.  (Can break a mob. Use it wisely.)"
+
+	var/chosen_item = tgui_input_list(src, "Choose the action to give to that guy - WARNING: This is very unstable. Use this wisely", "ABRAKADABRA", GLOB.action_list)
+	if(!chosen_item)
+		return
+	var/datum/action/chosen_action = GLOB.action_list[chosen_item]
+	if(!chosen_action)
+		return
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Action")
+	log_admin("[key_name(usr)] gave [key_name(T)] the action [chosen_item].")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name_admin(T)] the action [chosen_item].</span>")
+
+	chosen_action = new chosen_action()
+	chosen_action.Grant(T)
+
+/client/proc/remove_action(mob/T in GLOB.mob_list)
+	set category = "Fun"
+	set name = "Remove Action"
+	set desc = "Remove an Action from the selected mob. (Can break a mob. Use it wisely.)"
+
+	var/datum/action/chosen_action = tgui_input_list(src, "Choose the action to remove - WARNING: This will possibly break your mob permanently.", "NO ABRAKADABRA", sort_list(T.actions))
+	if(!chosen_action)
+		return
+	chosen_action.Remove(T)
+	log_admin("[key_name(usr)] removed the action [chosen_action.name] from [key_name(T)].")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] removed the action [chosen_action.name] from [key_name_admin(T)].</span>")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Remove Action")
 
 /client/proc/give_disease(mob/living/T in GLOB.mob_living_list)
 	set category = "Fun"

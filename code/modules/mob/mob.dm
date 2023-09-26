@@ -1133,6 +1133,8 @@
 	VV_DROPDOWN_OPTION(VV_HK_GIB, "Gib")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_SPELL, "Give Spell")
 	VV_DROPDOWN_OPTION(VV_HK_REMOVE_SPELL, "Remove Spell")
+	VV_DROPDOWN_OPTION(VV_HK_GIVE_ACTION, "Give Action")
+	VV_DROPDOWN_OPTION(VV_HK_REMOVE_ACTION, "Remove Action")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DISEASE, "Give Disease")
 	VV_DROPDOWN_OPTION(VV_HK_GODMODE, "Toggle Godmode")
 	VV_DROPDOWN_OPTION(VV_HK_DROP_ALL, "Drop Everything")
@@ -1159,6 +1161,12 @@
 
 	if(href_list[VV_HK_REMOVE_SPELL] && check_rights(R_FUN))
 		usr.client.remove_spell(src)
+
+	if(href_list[VV_HK_GIVE_ACTION] && check_rights(R_FUN))
+		usr.client.give_action(src)
+
+	if(href_list[VV_HK_REMOVE_ACTION] && check_rights(R_FUN))
+		usr.client.remove_action(src)
 
 	if(href_list[VV_HK_GIVE_DISEASE] && check_rights(R_FUN))
 		usr.client.give_disease(src)

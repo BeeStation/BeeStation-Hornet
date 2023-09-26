@@ -71,6 +71,16 @@
 		GLOB.keybindings_by_name[instance.name] = instance
 		LAZYADD(GLOB.keybindings_by_name_to_key[instance.name], LAZYCOPY(instance.keys))
 
+	// spells and actions
+	for(var/datum/action/each_action as anything in subtypesof(/datum/action))
+		var/path = copytext("[each_action]", length("/datum/action")+1)
+		var/key = "[initial(each_action.name)] #[path]"
+		GLOB.action_list[key] = each_action
+	for(var/obj/effect/proc_holder/spell/each_spell as anything in subtypesof(/obj/effect/proc_holder/spell))
+		var/path = copytext("[each_spell]", length("/obj/effect/proc_holder/spell")+1)
+		var/key = "[initial(each_spell.name)] #[path]"
+		GLOB.spell_list[key] = each_spell
+
 	init_crafting_recipes(GLOB.crafting_recipes)
 
 /// Inits the crafting recipe list, sorting crafting recipe requirements in the process.
