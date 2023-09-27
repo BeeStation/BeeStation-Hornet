@@ -20,15 +20,11 @@
 
     &--Rank {
       color: colors.$label;
+      text-align: right;
     }
   }
 
-  &__Icons {
-    text-align: right;
-  }
-
   &__Icon {
-    color: colors.$label;
     position: relative;
 
     &:not(:last-child) {
@@ -36,7 +32,7 @@
     }
 
     &--Chevron {
-      padding-right: 2px;
+      margin-right: 4px;
     }
 
     &--Command {
