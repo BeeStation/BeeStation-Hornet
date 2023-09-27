@@ -1,5 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - bugfix: Being on the Emergency Shuttle now counts as "escaping", instead of just
-      arriving at CentCom.
