@@ -87,8 +87,6 @@ Behavior that's still missing from this component that original food items had t
 	src.bite_consumption = bite_consumption
 	src.food_flags = food_flags
 	src.foodtypes = foodtypes
-	src.initial_reagents = initial_reagents
-	src.tastes = tastes
 	src.eat_time = eat_time
 	src.eatverbs = string_list(eatverbs)
 	src.junkiness = junkiness
@@ -231,7 +229,6 @@ Behavior that's still missing from this component that original food items had t
 		new /obj/item/reagent_containers/food/snacks/badrecipe(parent_turf)
 		qdel(src)
 		return
-
 
 	var/obj/item/result
 
