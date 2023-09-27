@@ -1802,7 +1802,7 @@
 					/obj/item/reagent_containers/glass/bottle/mutagen,
 					/obj/item/reagent_containers/glass/bottle/formaldehyde,
 					/obj/item/reagent_containers/glass/bottle/synaptizine,
-					/obj/item/storage/box/beakers,)
+					/obj/item/storage/box/beakers)
 	crate_name = "Junior Epidemiology Kit"
 	dangerous = TRUE
 
