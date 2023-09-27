@@ -38,25 +38,12 @@
 	create_reagents(100)
 	soundloop = new(src, FALSE)
 
-/obj/machinery/microwave/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	ingredients += arrived
-	return ..()
-
-/obj/machinery/microwave/Exited(atom/movable/gone, direction)
-	if(gone in ingredients)
-		ingredients -= gone
-	return ..()
-
-
-/obj/machinery/microwave/on_deconstruction()
-	eject()
-	return ..()
-
 /obj/machinery/microwave/Destroy()
-	QDEL_LIST(ingredients)
-	QDEL_NULL(wires)
+	eject()
 	QDEL_NULL(soundloop)
-	return ..()
+	if(wires)
+		QDEL_NULL(wires)
+	. = ..()
 
 /obj/machinery/microwave/RefreshParts()
 	efficiency = 0
@@ -115,25 +102,16 @@
 	else
 		icon_state = "mw"
 
-/obj/machinery/microwave/crowbar_act(mob/living/user, obj/item/tool)
+/obj/machinery/microwave/attackby(obj/item/O, mob/user, params)
 	if(operating)
 		return
-	if(!default_deconstruction_crowbar(tool))
+	if(default_deconstruction_crowbar(O))
 		return
-	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/microwave/screwdriver_act(mob/living/user, obj/item/tool)
-	if(operating)
-		return
-	if(dirty >= 100)
-		return
-	if(default_deconstruction_screwdriver(user, icon_state, icon_state, tool))
-		update_appearance()
-	return TOOL_ACT_TOOLTYPE_SUCCESS
-
-/obj/machinery/microwave/attackby(obj/item/O, mob/living/user, params)
-	if(operating)
-		return
+	if(dirty < 100)
+		if(default_deconstruction_screwdriver(user, icon_state, icon_state, O) || default_unfasten_wrench(user, O))
+			update_icon()
+			return
 
 	if(panel_open && is_wire_tool(O))
 		wires.interact(user)
@@ -196,6 +174,7 @@
 				return TRUE
 			if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
 				loaded++
+				ingredients += S
 		if(loaded)
 			to_chat(user, "<span class='notice'>You insert [loaded] items into \the [src].</span>")
 		return
@@ -208,10 +187,11 @@
 			to_chat(user, "<span class='warning'>\The [O] is stuck to your hand!</span>")
 			return FALSE
 
+		ingredients += O
 		user.visible_message("[user] has added \a [O] to \the [src].", "<span class='notice'>You add [O] to \the [src].</span>")
 		return
 
-	return ..()
+	..()
 
 /obj/machinery/microwave/AltClick(mob/user)
 	if(user.canUseTopic(src, !issilicon(usr)))
@@ -250,9 +230,10 @@
 			examine(user)
 
 /obj/machinery/microwave/proc/eject()
-	var/atom/drop_loc = drop_location()
-	for(var/atom/movable/movable_ingredient as anything in ingredients)
-		movable_ingredient.forceMove(drop_loc)
+	for(var/i in ingredients)
+		var/atom/movable/AM = i
+		AM.forceMove(drop_location())
+	ingredients.Cut()
 
 /obj/machinery/microwave/proc/cook()
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -305,7 +286,7 @@
 
 /obj/machinery/microwave/proc/muck()
 	wzhzhzh()
-	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	dirty_anim_playing = TRUE
 	update_icon()
 	loop(MICROWAVE_MUCK, 4)
@@ -317,8 +298,7 @@
 			pre_fail()
 		after_finish_loop()
 		return
-
-	if(!time || !length(ingredients))
+	if(!time)
 		switch(type)
 			if(MICROWAVE_NORMAL)
 				loop_finish()
