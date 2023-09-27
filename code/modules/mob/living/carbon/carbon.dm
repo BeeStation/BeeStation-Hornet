@@ -141,7 +141,9 @@
 	if(!target || !isturf(loc))
 		return FALSE
 	if(istype(target, /atom/movable/screen))
-		return FALSE
+		var/atom/movable/screen/S = target
+		if(!S.can_throw_target)
+			return FALSE
 
 	var/atom/movable/thrown_thing
 	var/obj/item/I = get_active_held_item()

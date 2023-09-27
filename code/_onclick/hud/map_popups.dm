@@ -21,6 +21,8 @@
 	 * But for now, this works.
 	 */
 	var/del_on_map_removal = TRUE
+	///Can we throw things at this
+	var/can_throw_target = FALSE
 
 /**
  * A screen object, which acts as a container for turfs and other things
@@ -29,7 +31,7 @@
 /atom/movable/screen/map_view
 	// Map view has to be on the lowest plane to enable proper lighting
 	layer = GAME_PLANE
-	plane = GAME_PLANE
+	plane = FLOOR_PLANE
 
 /**
  * A generic background object.
@@ -41,7 +43,7 @@
 	icon = 'icons/mob/map_backgrounds.dmi'
 	icon_state = "clear"
 	layer = GAME_PLANE
-	plane = GAME_PLANE
+	plane = FLOOR_PLANE
 
 /**
  * Sets screen_loc of this screen object, in form of point coordinates,

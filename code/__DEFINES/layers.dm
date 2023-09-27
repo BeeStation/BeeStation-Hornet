@@ -145,7 +145,7 @@
 ///Popup Chat Messages
 #define RUNECHAT_PLANE 650
 /// Plane for balloon text (text that fades up)
-#define BALLOON_CHAT_PLANE 31
+#define BALLOON_CHAT_PLANE 651
 
 ///--------------- FULLSCREEN IMAGES ------------
 #define FULLSCREEN_PLANE 500
