@@ -102,7 +102,7 @@
 /obj/effect/mine/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -126,7 +126,7 @@
 		checksmartmine(AM)
 	else
 		triggered = TRUE	//ensures multiple explosions aren't queued if/while the mine is delayed
-		INVOKE_ASYNC(src, .proc/triggermine, AM)
+		INVOKE_ASYNC(src, PROC_REF(triggermine), AM)
 
 /obj/effect/mine/proc/checksmartmine(mob/living/target)
 	if(target)
@@ -136,12 +136,12 @@
 			triggered = TRUE
 			playsound(loc, dramatic_sound, 100, 1)
 			target.Paralyze(30, TRUE, TRUE) //"Trip" the mine if you will. Ignores stun immunity.
-			addtimer(CALLBACK(src, .proc/triggermine, target), 10)
+			addtimer(CALLBACK(src, PROC_REF(triggermine), target), 10)
 			return
 		else
 			triggered = 1
 			triggermine(target)
-					
+
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")
@@ -220,7 +220,7 @@
 
 /obj/effect/mine/shrapnel
 	name = "shrapnel mine"
-	var/shrapnel_type = /obj/item/projectile/bullet/shrapnel
+	var/shrapnel_type = /obj/projectile/bullet/shrapnel
 	var/shrapnel_magnitude = 3
 
 /obj/effect/mine/shrapnel/mineEffect(mob/victim)
@@ -228,7 +228,7 @@
 
 /obj/effect/mine/shrapnel/sting
 	name = "stinger mine"
-	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
+	shrapnel_type = /obj/projectile/bullet/pellet/stingball
 
 /obj/effect/mine/kickmine
 	name = "kick mine"
@@ -330,7 +330,7 @@
 	var/datum/client_colour/colour = victim.add_client_colour(/datum/client_colour/bloodlust)
 	QDEL_IN(colour, 11)
 	doomslayer = victim
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/end_blood_frenzy)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(end_blood_frenzy))
 	QDEL_IN(WEAKREF(src), duration)
 
 /obj/effect/mine/pickup/bloodbath/proc/end_blood_frenzy()
@@ -364,7 +364,7 @@
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
 	victim.add_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
-	addtimer(CALLBACK(src, .proc/finish_effect, victim), duration)
+	addtimer(CALLBACK(src, PROC_REF(finish_effect), victim), duration)
 
 /obj/effect/mine/pickup/speed/proc/finish_effect(mob/living/carbon/victim)
 	victim.remove_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB)

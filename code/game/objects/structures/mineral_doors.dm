@@ -6,11 +6,12 @@
 	density = TRUE
 	anchored = TRUE
 	opacity = TRUE
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0)
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
@@ -55,7 +56,7 @@
 		return
 	return TryToSwitchState(user)
 
-/obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
@@ -90,13 +91,14 @@
 	flick("[initial(icon_state)]opening",src)
 	sleep(1 SECONDS)
 	set_density(FALSE)
+	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	door_opened = TRUE
 	air_update_turf(1)
 	update_appearance()
 	isSwitchingStates = FALSE
 
 	if(close_delay != -1)
-		addtimer(CALLBACK(src, .proc/Close), close_delay)
+		addtimer(CALLBACK(src, PROC_REF(Close)), close_delay)
 
 /obj/structure/mineral_door/proc/Close()
 	if(isSwitchingStates || !door_opened)
@@ -109,6 +111,7 @@
 	flick("[initial(icon_state)]closing",src)
 	sleep(1 SECONDS)
 	set_density(TRUE)
+	z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	set_opacity(TRUE)
 	door_opened = FALSE
 	air_update_turf(1)
@@ -252,21 +255,19 @@
 	return
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot())
-		var/turf/T = get_turf(src)
-		message_admins("Plasma mineral door ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma mineral door ignited by [key_name(user)] in [AREACOORD(T)]")
-		TemperatureAct()
+	if(W.is_hot() > 300)
+		plasma_ignition(6, user)
 	else
 		return ..()
 
 /obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		TemperatureAct()
+		plasma_ignition(6)
 
-/obj/structure/mineral_door/transparent/plasma/proc/TemperatureAct()
-	atmos_spawn_air("plasma=500;TEMP=1000")
-	deconstruct(FALSE)
+/obj/structure/mineral_door/transparent/plasma/bullet_act(obj/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		plasma_ignition(6, Proj?.firer)
+	. = ..()
 
 /obj/structure/mineral_door/transparent/diamond
 	name = "diamond door"
@@ -336,7 +337,7 @@
 
 	if((user.a_intent != INTENT_HARM) && istype(I, /obj/item/paper) && (obj_integrity < max_integrity))
 		user.visible_message("[user] starts to patch the holes in [src].", "<span class='notice'>You start patching some of the holes in [src]!</span>")
-		if(do_after(user, 20, TRUE, src))
+		if(do_after(user, 20, src))
 			obj_integrity = min(obj_integrity+4,max_integrity)
 			qdel(I)
 			user.visible_message("[user] patches some of the holes in [src].", "<span class='notice'>You patch some of the holes in [src]!</span>")

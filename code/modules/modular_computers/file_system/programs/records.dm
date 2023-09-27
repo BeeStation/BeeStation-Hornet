@@ -47,7 +47,7 @@
 				current_record["id"] = person.fields["id"]
 				current_record["name"] = person.fields["name"]
 				current_record["rank"] = person.fields["rank"]
-				current_record["sex"] = person.fields["sex"]
+				current_record["gender"] = person.fields["gender"]
 				current_record["age"] = person.fields["age"]
 				current_record["species"] = person.fields["species"]
 				current_record["fingerprint"] = person.fields["fingerprint"]
@@ -60,7 +60,7 @@
 				current_record["id"] = person.fields["id"]
 				current_record["name"] = person.fields["name"]
 				current_record["rank"] = person.fields["rank"]
-				current_record["sex"] = person.fields["sex"]
+				current_record["gender"] = person.fields["gender"]
 				current_record["age"] = person.fields["age"]
 				current_record["species"] = person.fields["species"]
 
@@ -81,7 +81,7 @@
 
 
 /datum/computer_file/program/records/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["records"] = GetRecordsReadable()
 	data["mode"] = mode
 	return data

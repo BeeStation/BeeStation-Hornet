@@ -27,6 +27,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	w_class = WEIGHT_CLASS_TINY
 	heat = 1000
 	grind_results = list(/datum/reagent/phosphorus = 2)
+	item_flags = ISWEAPON
 
 /obj/item/match/process(delta_time)
 	smoketime -= delta_time
@@ -43,7 +44,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		playsound(src, "sound/items/match_strike.ogg", 15, TRUE)
 		lit = TRUE
 		icon_state = "match_lit"
-		damtype = "fire"
+		damtype = BURN
 		force = 3
 		hitsound = 'sound/items/welder.ogg'
 		item_state = "cigon"
@@ -57,7 +58,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
-		damtype = "brute"
+		damtype = BRUTE
 		force = initial(force)
 		icon_state = "match_burnt"
 		item_state = "cigoff"
@@ -127,6 +128,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	body_parts_covered = null
 	grind_results = list()
 	heat = 1000
+	item_flags = ISWEAPON
 	var/dragtime = 10
 	var/nextdragtime = 0
 	var/lit = FALSE
@@ -200,18 +202,15 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = "lit [name]"
 	attack_verb = list("burnt", "singed")
 	hitsound = 'sound/items/welder.ogg'
-	damtype = "fire"
+	damtype = BURN
 	force = 4
+	var/turf/T = get_turf(src)
 	if(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)) // the plasma explodes when exposed to fire
-		var/datum/effect_system/reagents_explosion/e = new()
-		e.set_up(round(reagents.get_reagent_amount(/datum/reagent/toxin/plasma) / 2.5, 1), get_turf(src), 0, 0)
-		e.start()
-		qdel(src)
+		plasma_ignition(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)/10)
 		return
-	if(reagents.get_reagent_amount(/datum/reagent/fuel)) // the fuel explodes, too, but much less violently
-		var/datum/effect_system/reagents_explosion/e = new()
-		e.set_up(round(reagents.get_reagent_amount(/datum/reagent/fuel) / 5, 1), get_turf(src), 0, 0)
-		e.start()
+	if(reagents.get_reagent_amount(/datum/reagent/fuel)) // the fuel explodes too, but much less violently
+		T.visible_message("<b><span class='userdanger'>[src] violently explodes!</span></b>")
+		explosion(src, 0, 0, 1, 0, flame_range = 1)
 		qdel(src)
 		return
 	// allowing reagents to react after being lit
@@ -220,7 +219,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = icon_on
 	item_state = icon_on
 	if(flavor_text)
-		var/turf/T = get_turf(src)
 		T.visible_message(flavor_text)
 	START_PROCESSING(SSobj, src)
 
@@ -336,11 +334,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/clothing/mask/cigarette/fire_act(exposed_temperature, exposed_volume)
 	if(src.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
-		message_admins("[src] that contains plasma was lit by the enviroment - Last touched by [src.fingerprintslast]!")
-		log_game("[src] that contains plasma was lit by the enviroment - Last touched by [src.fingerprintslast]!")
+		message_admins("[src] that contains plasma was lit by the environment - Last touched by [src.fingerprintslast]!")
+		log_game("[src] that contains plasma was lit by the environment - Last touched by [src.fingerprintslast]!")
 	if(src.reagents.get_reagent_amount(/datum/reagent/fuel))
-		message_admins("[src] that contains fuel was lit by the enviroment - Last touched by [src.fingerprintslast]!")
-		log_game("[src] that contains fuel was lit by the enviroment - Last touched by [src.fingerprintslast]!")
+		message_admins("[src] that contains fuel was lit by the environment - Last touched by [src.fingerprintslast]!")
+		log_game("[src] that contains fuel was lit by the environment - Last touched by [src.fingerprintslast]!")
 	light()
 
 /obj/item/clothing/mask/cigarette/is_hot()
@@ -596,6 +594,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	light_range = 2
 	light_power = 0.6
 	light_on = FALSE
+	item_flags = ISWEAPON
 	var/lit = 0
 	var/fancy = TRUE
 	var/overlay_state
@@ -646,7 +645,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	lit = new_lit
 	if(lit)
 		force = 5
-		damtype = "fire"
+		damtype = BURN
 		hitsound = 'sound/items/welder.ogg'
 		attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
@@ -833,6 +832,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "red_vape"
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 	var/chem_volume = 100
 	var/vapetime = 0 //this so it won't puff out clouds every tick
 	/// How often we take a drag in seconds

@@ -23,7 +23,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 
-/turf/open/floor/carpet/examine(mob/user)
+/turf/open/floor/bamboo/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 
@@ -136,6 +136,12 @@
 	floor_tile = /obj/item/stack/tile/fairygrass/red
 	light_color = "#FF3333"
 	color = "#FF3333"
+
+/turf/open/floor/grass/fairy/orange
+	name = "orange fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/orange
+	light_color = "#FFA500"
+	color = "#FFA500"
 
 /turf/open/floor/grass/fairy/yellow
 	name = "yellow fairygrass patch"
@@ -407,6 +413,8 @@
 	broken_states = list("damaged")
 	plane = PLANE_SPACE
 	tiled_dirt = FALSE
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /turf/open/floor/fakespace/Initialize(mapload)
 	. = ..()

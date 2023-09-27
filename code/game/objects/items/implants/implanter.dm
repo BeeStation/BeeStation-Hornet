@@ -30,7 +30,7 @@
 				"<span class='userdanger'>[user] is trying to implant you with [src]!</span>")
 
 		var/turf/T = get_turf(M)
-		if(T && (M == user || do_mob(user, M, 50)))
+		if(T && (M == user || do_after(user, 5 SECONDS, M)))
 			if(src && imp)
 				if(imp.implant(M, user))
 					if (M == user)

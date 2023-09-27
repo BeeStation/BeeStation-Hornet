@@ -1,6 +1,8 @@
 /datum/job/station_engineer
 	title = JOB_NAME_STATIONENGINEER
 	flag = ENGINEER
+	description = "Ensure the station has an adequate power supply, repair and build new machinery, repair wiring chewed up by mice."
+	department_for_prefs = DEPT_BITFLAG_ENG
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = "Station"
@@ -29,6 +31,8 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/engineering
 	)
+
+	lightup_areas = list(/area/engine/atmos)
 
 /datum/outfit/job/engineer
 	name = JOB_NAME_STATIONENGINEER

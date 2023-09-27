@@ -11,7 +11,7 @@
 	var/charge_cost = 30
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/user)
-	var/armor_block = M.run_armor_check(attack_flag = "stamina")
+	var/armor_block = M.run_armor_check(attack_flag = STAMINA)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, 0, "[M]'s [name]", MELEE_ATTACK))
@@ -251,7 +251,7 @@
 	work_mode = mode
 
 	if(istype(cell))
-		while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, .proc/mode_check)))
+		while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, PROC_REF(mode_check))))
 			if(!user?.cell)
 				active = FALSE
 				return
@@ -287,7 +287,7 @@
 		active = FALSE
 	else
 		var/obj/machinery/M = target
-		while(do_after(user, 15, target = M, extra_checks = CALLBACK(src, .proc/mode_check)))
+		while(do_after(user, 15, target = M, extra_checks = CALLBACK(src, PROC_REF(mode_check))))
 			if(!user?.cell)
 				active = FALSE
 				return
@@ -315,7 +315,7 @@
 /obj/item/borg/charger/proc/charging_loop(mob/living/silicon/robot/user, atom/target, obj/item/stock_parts/cell/cell)
 	work_mode = mode
 
-	while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, .proc/mode_check)))
+	while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, PROC_REF(mode_check))))
 		if(!user?.cell)
 			active = FALSE
 			return
@@ -460,7 +460,7 @@
 	if(charging)
 		return
 	if(candy < candymax)
-		addtimer(CALLBACK(src, .proc/charge_lollipops), charge_delay)
+		addtimer(CALLBACK(src, PROC_REF(charge_lollipops)), charge_delay)
 		charging = TRUE
 
 /obj/item/borg/lollipop/proc/charge_lollipops()
@@ -582,17 +582,17 @@
 /obj/item/ammo_casing/caseless/gumball
 	name = "Gumball"
 	desc = "Why are you seeing this?!"
-	projectile_type = /obj/item/projectile/bullet/reusable/gumball
+	projectile_type = /obj/projectile/bullet/reusable/gumball
 
 
-/obj/item/projectile/bullet/reusable/gumball
+/obj/projectile/bullet/reusable/gumball
 	name = "gumball"
 	desc = "Oh noes! A fast-moving gumball!"
 	icon_state = "gumball"
 	ammo_type = /obj/item/reagent_containers/food/snacks/gumball/cyborg
 	nodamage = TRUE
 
-/obj/item/projectile/bullet/reusable/gumball/handle_drop()
+/obj/projectile/bullet/reusable/gumball/handle_drop()
 	if(!dropped)
 		var/turf/T = get_turf(src)
 		var/obj/item/reagent_containers/food/snacks/gumball/S = new ammo_type(T)
@@ -602,9 +602,9 @@
 /obj/item/ammo_casing/caseless/lollipop	//NEEDS RANDOMIZED COLOR LOGIC.
 	name = "Lollipop"
 	desc = "Why are you seeing this?!"
-	projectile_type = /obj/item/projectile/bullet/reusable/lollipop
+	projectile_type = /obj/projectile/bullet/reusable/lollipop
 
-/obj/item/projectile/bullet/reusable/lollipop
+/obj/projectile/bullet/reusable/lollipop
 	name = "lollipop"
 	desc = "Oh noes! A fast-moving lollipop!"
 	icon_state = "lollipop_1"
@@ -612,7 +612,7 @@
 	var/color2 = rgb(0, 0, 0)
 	nodamage = TRUE
 
-/obj/item/projectile/bullet/reusable/lollipop/Initialize(mapload)
+/obj/projectile/bullet/reusable/lollipop/Initialize(mapload)
 	. = ..()
 	var/obj/item/reagent_containers/food/snacks/lollipop/S = new ammo_type(src)
 	color2 = S.headcolor
@@ -620,7 +620,7 @@
 	head.color = color2
 	add_overlay(head)
 
-/obj/item/projectile/bullet/reusable/lollipop/handle_drop()
+/obj/projectile/bullet/reusable/lollipop/handle_drop()
 	if(!dropped)
 		var/turf/T = get_turf(src)
 		var/obj/item/reagent_containers/food/snacks/lollipop/S = new ammo_type(T)
@@ -648,7 +648,7 @@
 	var/projectile_damage_tick_ecost_coefficient = 10
 	var/projectile_speed_coefficient = 1.5		//Higher the coefficient slower the projectile.
 	var/projectile_tick_speed_ecost = 75
-	var/list/obj/item/projectile/tracked
+	var/list/obj/projectile/tracked
 	var/image/projectile_effect
 	var/field_radius = 3
 	var/active = FALSE
@@ -741,7 +741,7 @@
 /obj/item/borg/projectile_dampen/proc/process_usage(delta_time)
 	var/usage = 0
 	for(var/I in tracked)
-		var/obj/item/projectile/P = I
+		var/obj/projectile/P = I
 		if(!P.stun && P.nodamage)	//No damage
 			continue
 		usage += projectile_tick_speed_ecost * delta_time
@@ -762,7 +762,7 @@
 		host.cell.use(energy_recharge * delta_time * energy_recharge_cyborg_drain_coefficient)
 		energy += energy_recharge * delta_time
 
-/obj/item/borg/projectile_dampen/proc/dampen_projectile(obj/item/projectile/P, track_projectile = TRUE)
+/obj/item/borg/projectile_dampen/proc/dampen_projectile(obj/projectile/P, track_projectile = TRUE)
 	if(tracked[P])
 		return
 	if(track_projectile)
@@ -771,7 +771,7 @@
 	P.speed *= projectile_speed_coefficient
 	P.add_overlay(projectile_effect)
 
-/obj/item/borg/projectile_dampen/proc/restore_projectile(obj/item/projectile/P)
+/obj/item/borg/projectile_dampen/proc/restore_projectile(obj/projectile/P)
 	tracked -= P
 	P.damage *= (1/projectile_damage_coefficient)
 	P.speed *= (1/projectile_speed_coefficient)
@@ -848,7 +848,7 @@
 
 /obj/item/borg/apparatus/Initialize(mapload)
 	. = ..()
-	RegisterSignal(loc.loc, COMSIG_BORG_SAFE_DECONSTRUCT, .proc/safedecon)
+	RegisterSignal(loc.loc, COMSIG_BORG_SAFE_DECONSTRUCT, PROC_REF(safedecon))
 
 /obj/item/borg/apparatus/Destroy()
 	if(stored)
@@ -904,7 +904,7 @@
 			var/obj/item/O = A
 			O.forceMove(src)
 			stored = O
-			RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
+			RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, TYPE_PROC_REF(/atom, update_icon))
 			update_icon()
 			return
 	else
@@ -932,7 +932,7 @@
 /obj/item/borg/apparatus/beaker/Initialize(mapload)
 	. = ..()
 	stored = new /obj/item/reagent_containers/glass/beaker/large(src)
-	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
+	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, TYPE_PROC_REF(/atom, update_icon))
 	update_icon()
 
 /obj/item/borg/apparatus/beaker/Destroy()

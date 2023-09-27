@@ -1,11 +1,9 @@
 /datum/mutation/shock
 	name = "Shock Touch"
-	desc = "The affected can channel excess electricity through their hands without shocking themselves, allowing them to shock others."
+	desc = "A mutation that allows the user to store accumulated bioelectric and static charge, consciously discharging it upon others with no harm to themselves."
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
-	text_gain_indication = "<span class='notice'>You feel power flow through your hands.</span>"
-	text_lose_indication = "<span class='notice'>The energy in your hands subsides.</span>"
 	power = /obj/effect/proc_holder/spell/targeted/touch/shock
 	instability = 30
 	locked = TRUE
@@ -37,15 +35,19 @@
 			C.dropItemToGround(C.get_inactive_held_item())
 			C.confused += 15
 			C.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
+			use_charge(user)
 			return ..()
 		else
 			user.visible_message("<span class='warning'>[user] fails to electrocute [target]!</span>")
+			use_charge(user)
 			return ..()
 	else if(isliving(target))
 		var/mob/living/L = target
 		L.electrocute_act(15, user, 1, FALSE, FALSE, FALSE, FALSE)
 		L.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
+		use_charge(user)
 		return ..()
 	else
 		to_chat(user,"<span class='warning'>The electricity doesn't seem to affect [target]...</span>")
+		use_charge(user)
 		return ..()

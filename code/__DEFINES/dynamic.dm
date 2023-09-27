@@ -10,6 +10,13 @@
 /// This ruleset can't execute alongside ANY other roundstart ruleset.
 #define NO_OTHER_ROUNDSTARTS_RULESET (1 << 3)
 
+/// This ruleset should only be rolled if the station is mostly intact, i.e the crew is not mostly dead and the station isn't full of holes.
+/// Only used for midround/latejoin rolling.
+#define INTACT_STATION_RULESET (1 << 4)
+
+/// This ruleset will be logged in persistence, to reduce the chances of it repeatedly rolling several rounds in a row.
+#define PERSISTENT_RULESET (1 << 5)
+
 /// This is a "heavy" midround ruleset, and should be run later into the round
 #define MIDROUND_RULESET_STYLE_HEAVY "Heavy"
 
@@ -24,3 +31,7 @@
 
 /// Requirements when something needs a lot of threat to run, but still possible at low-pop
 #define REQUIREMENTS_VERY_HIGH_THREAT_NEEDED list(90,90,90,80,60,50,40,40,40,40)
+
+#define DYNAMIC_EXECUTE_SUCCESS 1
+#define DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS 2
+#define DYNAMIC_EXECUTE_FAILURE 0

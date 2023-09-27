@@ -40,7 +40,7 @@
 	button_icon_state = "warp_cancel"
 	owner.update_action_buttons_icon()
 	var/mob/previous_mob = owner
-	if(do_after(M, 50, target=target_loc, extra_checks=CALLBACK(src, .proc/special_check)))
+	if(do_after(M, 50, target=target_loc, extra_checks=CALLBACK(src, PROC_REF(special_check))))
 		try_warp_servant(M, target_loc, 50, FALSE)
 		var/obj/machinery/computer/camera_advanced/console = cam.origin
 		console.remove_eye_control(M)
@@ -61,6 +61,9 @@
 	lock_override = CAMERA_LOCK_STATION
 	broken_overlay_emissive = TRUE
 	var/datum/action/innate/clockcult/warp/warp_action
+
+	reveal_camera_mob = TRUE
+	camera_mob_icon_state = "ratvar_camera"
 
 /obj/machinery/computer/camera_advanced/ratvar/Initialize(mapload)
 	. = ..()
@@ -92,6 +95,6 @@
 /obj/machinery/computer/camera_advanced/ratvar/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/ratvar(get_turf(SSmapping.get_station_center()))
 	eyeobj.origin = src
-	eyeobj.visible_icon = TRUE
-	eyeobj.icon = 'icons/mob/cameramob.dmi'
-	eyeobj.icon_state = "ratvar_camera"
+	eyeobj.icon = camera_mob_icon
+	eyeobj.icon_state = camera_mob_icon_state
+	RevealCameraMob()

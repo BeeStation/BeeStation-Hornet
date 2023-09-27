@@ -338,7 +338,7 @@
 				var/mob/living/simple_animal/bot/honkbot/S = new(drop_location())
 				S.name = created_name
 				S.spam_flag = TRUE // only long enough to hear the first ping.
-				addtimer(CALLBACK (S, .mob/living/simple_animal/bot/honkbot/proc/react_ping), 5)
+				addtimer(CALLBACK (S, TYPE_PROC_REF(/mob/living/simple_animal/bot/honkbot, react_ping)), 5)
 				S.bikehorn = I.type
 				qdel(I)
 				qdel(src)

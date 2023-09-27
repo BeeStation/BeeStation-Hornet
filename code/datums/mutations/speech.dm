@@ -3,9 +3,8 @@
 
 /datum/mutation/nervousness
 	name = "Nervousness"
-	desc = "Causes the holder to stutter."
+	desc = "A hereditary mutation characterized by its signature speech disorder."
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='danger'>You feel nervous.</span>"
 
 /datum/mutation/nervousness/on_life()
 	if(prob(10))
@@ -14,15 +13,13 @@
 
 /datum/mutation/wacky
 	name = "Wacky"
-	desc = "Unknown."
+	desc = "Effects not tested..."
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='sans'>You feel an off sensation in your voicebox.</span>"
-	text_lose_indication = "<span class='notice'>The off sensation passes.</span>"
 
 /datum/mutation/wacky/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/mutation/wacky/on_losing(mob/living/carbon/owner)
 	if(..())
@@ -36,10 +33,8 @@
 
 /datum/mutation/mute
 	name = "Mute"
-	desc = "Completely inhibits the vocal section of the brain."
+	desc = "Inherited mutation that completely inhibits the vocal section of the brain."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='danger'>You feel unable to express yourself at all.</span>"
-	text_lose_indication = "<span class='danger'>You feel able to speak freely again.</span>"
 
 /datum/mutation/mute/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -54,15 +49,13 @@
 
 /datum/mutation/smile
 	name = "Smile"
-	desc = "Causes the user to be in constant mania."
+	desc = "Hereditary mutation reminiscent of Bipolar Disorder. Characterized by a near constant state of mania and an apathy towards negative stimuli."
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='notice'>You feel so happy. Nothing can be wrong with anything. :)</span>"
-	text_lose_indication = "<span class='notice'>Everything is terrible again. :(</span>"
 
 /datum/mutation/smile/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/mutation/smile/on_losing(mob/living/carbon/owner)
 	if(..())
@@ -121,10 +114,8 @@
 
 /datum/mutation/unintelligible
 	name = "Unintelligible"
-	desc = "Partially inhibits the vocal center of the brain, severely distorting speech."
+	desc = "Hereditary mutation that partially inhibits the vocal center of the brain, resulting in a severe speech disorder."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='danger'>You can't seem to form any coherent thoughts!</span>"
-	text_lose_indication = "<span class='danger'>Your mind feels more clear.</span>"
 
 /datum/mutation/unintelligible/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -140,13 +131,11 @@
 	name = "Swedish"
 	desc = "A horrible mutation originating from the distant past. Thought to be eradicated after the incident in 2037."
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='notice'>You feel Swedish, however that works.</span>"
-	text_lose_indication = "<span class='notice'>The feeling of Swedishness passes.</span>"
 
 /datum/mutation/swedish/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/mutation/swedish/on_losing(mob/living/carbon/owner)
 	if(..())
@@ -171,13 +160,11 @@
 	name = "Chav"
 	desc = "Unknown"
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='notice'>Ye feel like a reet prat like, innit?</span>"
-	text_lose_indication = "<span class='notice'>You no longer feel like being rude and sassy.</span>"
 
 /datum/mutation/chav/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/mutation/chav/on_losing(mob/living/carbon/owner)
 	if(..())
@@ -222,8 +209,6 @@
 	desc = "A terrifying mutation named after its 'patient-zero'."
 	quality = MINOR_NEGATIVE
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>You feel pretty good, honeydoll.</span>"
-	text_lose_indication = "<span class='notice'>You feel a little less conversation would be great.</span>"
 
 /datum/mutation/elvis/on_life()
 	switch(pick(1,2))
@@ -239,7 +224,7 @@
 /datum/mutation/elvis/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/mutation/elvis/on_losing(mob/living/carbon/owner)
 	if(..())
@@ -269,8 +254,6 @@
 	desc = "A common mutation that severely decreases intelligence."
 	quality = NEGATIVE
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>You feel...totally chill, man!</span>"
-	text_lose_indication = "<span class='notice'>You feel like you have a better sense of time.</span>"
 
 /datum/mutation/stoner/on_acquiring(mob/living/carbon/owner)
 	..()
@@ -286,13 +269,11 @@
 	name = "Medieval"
 	desc = "A horrific genetic condition suffered in ancient times."
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='notice'>Thoust feel as though thee couldst seekth the Grail.</span>"
-	text_lose_indication = "<span class='notice'>You no longer feel like seeking anything.</span>"
 
 /datum/mutation/medieval/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/mutation/medieval/on_losing(mob/living/carbon/owner)
 	if(..())

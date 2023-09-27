@@ -27,10 +27,10 @@
 	else
 		icon_state = "[icon_base]-off"
 
-/obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(!special)
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 120)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
 
 /obj/item/organ/heart/proc/stop_if_unowned()
 	if(!owner)
@@ -42,7 +42,7 @@
 		user.visible_message("<span class='notice'>[user] squeezes [src] to \
 			make it beat again!</span>","<span class='notice'>You squeeze [src] to make it beat again!</span>")
 		Restart()
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 80)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
 /obj/item/organ/heart/proc/Stop()
 	beating = 0
@@ -54,10 +54,10 @@
 	update_icon()
 	return 1
 
-/obj/item/organ/heart/prepare_eat()
-	var/obj/S = ..()
-	S.icon_state = "heart-off"
-	return S
+/obj/item/organ/heart/on_eat_from(eater, feeder)
+	. = ..()
+	beating = FALSE
+	update_icon()
 
 /obj/item/organ/heart/on_life()
 	..()
@@ -129,12 +129,12 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/heart/cursed/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/cursed/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(owner)
 		to_chat(owner, "<span class ='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
 
-/obj/item/organ/heart/cursed/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/cursed/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	M.remove_client_colour(/datum/client_colour/cursed_heart_blood)
 
@@ -211,7 +211,7 @@
 /obj/item/organ/heart/cybernetic/ipc/emp_act()
 	. = ..()
 	to_chat(owner, "<span class='warning'>Alert: Cybernetic heart failed one heartbeat</span>")
-	addtimer(CALLBACK(src, .proc/Restart), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(Restart)), 10 SECONDS)
 
 /obj/item/organ/heart/freedom
 	name = "heart of freedom"

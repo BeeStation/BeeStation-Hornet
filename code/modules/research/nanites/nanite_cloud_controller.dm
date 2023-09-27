@@ -57,6 +57,7 @@
 
 	var/datum/nanite_cloud_backup/backup = new(src)
 	var/datum/component/nanites/cloud_copy = backup.AddComponent(/datum/component/nanites)
+	cloud_copy.cloud_id = cloud_id
 	backup.cloud_id = cloud_id
 	backup.nanites = cloud_copy
 	investigate_log("[key_name(user)] created a new nanite cloud backup with id #[cloud_id]", INVESTIGATE_NANITES)

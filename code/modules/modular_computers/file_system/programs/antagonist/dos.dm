@@ -73,7 +73,7 @@
 	if(!SSnetworks.station_network)
 		return
 
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	data["error"] = error
 	if(target && executed)

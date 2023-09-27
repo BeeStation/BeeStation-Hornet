@@ -107,7 +107,7 @@ Charged extracts:
 	effect_desc = "Creates a slime cake and some drinks."
 
 /obj/item/slimecross/charged/silver/do_effect(mob/user)
-	new /obj/item/reagent_containers/food/snacks/store/cake/slimecake(get_turf(user))
+	new /obj/item/food/cake/slimecake(get_turf(user))
 	for(var/i in 1 to 10)
 		var/drink_type = get_random_drink()
 		new drink_type(get_turf(user))
@@ -168,7 +168,7 @@ Charged extracts:
 	if(!istype(H))
 		to_chat(user, "<span class='warning'>You must be a humanoid to use this!</span>")
 		return
-	var/racechoice = input(H, "Choose your slime subspecies.", "Slime Selection") as null|anything in sortList(subtypesof(/datum/species/jelly), /proc/cmp_typepaths_asc)
+	var/racechoice = input(H, "Choose your slime subspecies.", "Slime Selection") as null|anything in sort_list(subtypesof(/datum/species/oozeling), GLOBAL_PROC_REF(cmp_typepaths_asc))
 	if(!racechoice)
 		to_chat(user, "<span class='notice'>You decide not to become a slime for now.</span>")
 		return
@@ -195,7 +195,7 @@ Charged extracts:
 
 /obj/item/slimecross/charged/gold/do_effect(mob/user)
 	user.visible_message("<span class='warning'>[src] starts shuddering violently!</span>")
-	addtimer(CALLBACK(src, .proc/startTimer), 50)
+	addtimer(CALLBACK(src, PROC_REF(startTimer)), 50)
 
 /obj/item/slimecross/charged/gold/proc/startTimer()
 	START_PROCESSING(SSobj, src)
@@ -220,7 +220,7 @@ Charged extracts:
 
 /obj/item/slimecross/charged/oil/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] begins to shake with rapidly increasing force!</span>")
-	addtimer(CALLBACK(src, .proc/boom), 50)
+	addtimer(CALLBACK(src, PROC_REF(boom)), 50)
 
 /obj/item/slimecross/charged/oil/proc/boom()
 	explosion(get_turf(src), 3, 2, 1) //Much smaller effect than normal oils, but devastatingly strong where it does hit.

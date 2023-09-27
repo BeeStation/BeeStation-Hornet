@@ -96,9 +96,11 @@
 	var/mob/living/T = L.parent
 	if(ishuman(T))
 		var/mob/living/carbon/human/H = T
-		if(iscatperson(H))
-			H.dna.species.start_wagging_tail(H)
-			addtimer(CALLBACK(H.dna.species, /datum/species.proc/stop_wagging_tail, H), 30)
+		if(iscatperson(H) || (istype(H.getorganslot(ORGAN_SLOT_EARS), /obj/item/organ/ears/cat) && istype(H.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/cat)))
+			var/obj/item/organ/tail/tail = H.getorganslot(ORGAN_SLOT_TAIL)
+			if(tail)
+				tail.set_wagging(H, TRUE)
+				addtimer(CALLBACK(tail, TYPE_PROC_REF(/obj/item/organ/tail, set_wagging), H, FALSE), 3 SECONDS)
 			description =  "<span class='nicegreen'>They want to play on the table!</span>\n"
 			mood_change = 2
 
@@ -260,3 +262,11 @@
 	description = "<span class='boldwarning'>I'm not safe! I can't trust anybody!</span>\n"
 	mood_change = -6
 	timeout = 30 SECONDS
+
+/datum/mood_event/saw_holopara_death
+	description = "<span class='warning'>Oh god, they just painfully turned to dust... What an horrifying sight...</span>\n"
+	mood_change = -10
+	timeout = 15 MINUTES
+
+/datum/mood_event/saw_holopara_death/add_effects(name)
+	description = "<span class='warning'>Oh god, [name] just painfully turned to dust... What an horrifying sight...</span>\n"

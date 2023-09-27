@@ -25,7 +25,7 @@
 // I'm not sure everyone will react the emag's features so please say what your opinions are of it.
 //
 // When emagged it will rig every light it replaces, which will explode when the light is on.
-// This is VERY noticable, even the device's name changes when you emag it so if anyone
+// This is VERY noticeable, even the device's name changes when you emag it so if anyone
 // examines you when you're holding it in your hand, you will be discovered.
 // It will also be very obvious who is setting all these lights off, since only Janitor Borgs and Janitors have easy
 // access to them, and only one of them can emag their device.
@@ -212,7 +212,7 @@
 			qdel(L2)
 
 			if(target.on && target.rigged)
-				target.explode()
+				target.plasma_ignition(4)
 			return
 
 		else

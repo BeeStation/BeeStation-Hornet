@@ -303,7 +303,7 @@
 	owner.add_stun_absorption("bloody bastard sword", duration, 2, "doesn't even flinch as the sword's power courses through them!", "You shrug off the stun!", " glowing with a blazing red aura!")
 	owner.spin(duration,1)
 	animate(owner, color = oldcolor, time = duration, easing = EASE_IN)
-	addtimer(CALLBACK(owner, /atom/proc/update_atom_colour), duration)
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/atom, update_atom_colour)), duration)
 	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	return ..()
 
@@ -386,10 +386,10 @@
 /datum/status_effect/changeling/camoflague/on_apply()
 	if(!..())
 		return FALSE
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/slight_increase)
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, .proc/large_increase)
-	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, .proc/large_increase)
-	RegisterSignal(owner, COMSIG_ATOM_BUMPED, .proc/slight_increase)
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
 /datum/status_effect/changeling/camoflague/on_remove()
@@ -605,3 +605,50 @@
 /datum/status_effect/antimagic/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
 	owner.visible_message("<span class='warning'>[owner]'s dull aura fades away...</span>")
+
+/datum/status_effect/crucible_soul
+	id = "Blessing of Crucible Soul"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 15 SECONDS
+	examine_text = "<span class='notice'>They don't seem to be all here.</span>"
+	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
+	var/turf/location
+
+/datum/status_effect/crucible_soul/on_apply()
+	to_chat(owner,"<span class='notice'>You phase through reality, nothing is out of bounds!</span>")
+	owner.alpha = 180
+	owner.pass_flags |= PASSCLOSEDTURF | PASSTRANSPARENT | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB
+	location = get_turf(owner)
+	return TRUE
+
+/datum/status_effect/crucible_soul/on_remove()
+	to_chat(owner,"<span class='notice'>You regain your physicality, returning you to your original location...</span>")
+	owner.alpha = initial(owner.alpha)
+	owner.pass_flags &= ~(PASSCLOSEDTURF | PASSTRANSPARENT | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB)
+	owner.forceMove(location)
+	location = null
+
+/datum/status_effect/duskndawn
+	id = "Blessing of Dusk and Dawn"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 60 SECONDS
+	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
+
+/datum/status_effect/duskndawn/on_apply()
+	ADD_TRAIT(owner,TRAIT_XRAY_VISION,type)
+	owner.update_sight()
+	return TRUE
+
+/datum/status_effect/duskndawn/on_remove()
+	REMOVE_TRAIT(owner,TRAIT_XRAY_VISION,type)
+	owner.update_sight()
+
+/atom/movable/screen/alert/status_effect/crucible_soul
+	name = "Blessing of Crucible Soul"
+	desc = "You phased through reality. You are halfway to your final destination..."
+	icon_state = "crucible"
+
+/atom/movable/screen/alert/status_effect/duskndawn
+	name = "Blessing of Dusk and Dawn"
+	desc = "Many things hide beyond the horizon. With Owl's help I managed to slip past Sun's guard and Moon's watch."
+	icon_state = "duskndawn"

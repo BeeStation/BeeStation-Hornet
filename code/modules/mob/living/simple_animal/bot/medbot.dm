@@ -106,12 +106,13 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
-	var/datum/job/medical_doctor/J = new /datum/job/medical_doctor
-	access_card.access += J.get_access()
-	prev_access = access_card.access
-	qdel(J)
 	skin = new_skin
 	update_icon()
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
+
 	linked_techweb = SSresearch.science_tech
 	if(!GLOB.medibot_unique_id_gen)
 		GLOB.medibot_unique_id_gen = 0
@@ -134,6 +135,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
 	path = list()
 	set_patient(null)
+	oldpatient = null
 	mode = BOT_IDLE
 	last_found = world.time
 	update_icon()
@@ -541,7 +543,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			C.visible_message("<span class='danger'>[src] is trying to tend the wounds of [patient]!</span>", \
 				"<span class='userdanger'>[src] is trying to tend your wounds!</span>")
 
-			if(do_mob(src, patient, 20)) //Slightly faster than default tend wounds, but does less HPS
+			if(do_after(src, 2 SECONDS, patient)) //Slightly faster than default tend wounds, but does less HPS
 				if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
 					var/healies = heal_amount
 					var/obj/item/storage/firstaid/FA = firstaid

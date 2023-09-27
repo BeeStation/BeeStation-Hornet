@@ -45,6 +45,8 @@
 	var/requires_wielding = TRUE
 	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
+	var/wild_spread = FALSE				//Sets a minimum level of bullet spread per shot; meant for difficult to aim / inaccurate guns.
+	var/wild_factor = 0.25				//Multiplied by spread to calculate the 'minimum' spread per shot.
 
 	var/is_wielded = FALSE
 
@@ -100,8 +102,8 @@
 	if(isnull(spread_unwielded))
 		spread_unwielded = weapon_weight * 20 + 20
 	if(requires_wielding)
-		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/wield)
-		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/unwield)
+		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
+		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
 
 /obj/item/gun/ComponentInitialize()
 	. = ..()
@@ -127,7 +129,6 @@
 		QDEL_NULL(chambered)
 	if(azoom)
 		QDEL_NULL(azoom)
-	UnregisterSignal(list(COMSIG_TWOHANDED_WIELD, COMSIG_TWOHANDED_UNWIELD))
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)
@@ -297,7 +298,7 @@
 			else if(G.can_trigger_gun(user))
 				bonus_spread += dual_wield_spread
 				loop_counter++
-				addtimer(CALLBACK(G, /obj/item/gun.proc/process_fire, target, user, TRUE, params, null, bonus_spread, flag), loop_counter)
+				addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/gun, process_fire), target, user, TRUE, params, null, bonus_spread, flag), loop_counter)
 
 	process_fire(target, user, TRUE, params, null, bonus_spread, aimed)
 
@@ -369,20 +370,29 @@
 		return
 
 	var/sprd = 0
+	var/min_gun_sprd = 0
+	var/min_rand_sprd = 0
 	var/randomized_gun_spread = 0
 	var/rand_spr = rand()
+
+	if(wild_spread)
+		var/S
+		S = sprd * wild_factor //If a gun has WILD SPREAD get the minimum by multiplying spread by its WILD FACTOR
+		min_gun_sprd = round(S, 0.5) //Clean up that value a tiny bit
+		S = spread_unwielded * wild_factor //Do the same for the gun's unwielded spread
+		min_rand_sprd = round(S, 0.5)
 	if(spread)
-		randomized_gun_spread =	rand(0,spread)
-	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
+		randomized_gun_spread =	rand(min_gun_sprd,spread)
+	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex //Does not modify minimum spread, only maximum spread
 		bonus_spread += 25
 	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
-	var/randomized_bonus_spread = rand(0, bonus_spread)
+	var/randomized_bonus_spread = rand(min_rand_sprd, bonus_spread)
 
 	if(burst_size > 1)
 		firing_burst = TRUE
 		for(var/i = 1 to burst_size)
-			addtimer(CALLBACK(src, .proc/process_burst, user, target, message, params, zone_override, sprd, randomized_gun_spread, randomized_bonus_spread, rand_spr, i), fire_delay * (i - 1))
+			addtimer(CALLBACK(src, PROC_REF(process_burst), user, target, message, params, zone_override, sprd, randomized_gun_spread, randomized_bonus_spread, rand_spr, i), fire_delay * (i - 1))
 	else
 		if(chambered)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
@@ -405,7 +415,7 @@
 		process_chamber()
 		update_icon()
 		semicd = TRUE
-		addtimer(CALLBACK(src, .proc/reset_semicd), fire_delay)
+		addtimer(CALLBACK(src, PROC_REF(reset_semicd)), fire_delay)
 
 	if(user)
 		user.update_inv_hands()
@@ -497,7 +507,7 @@
 		return
 	if((can_flashlight && gun_light) && (can_bayonet && bayonet)) //give them a choice instead of removing both
 		var/list/possible_items = list(gun_light, bayonet)
-		var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in sortNames(possible_items)
+		var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in sort_names(possible_items)
 		if(!item_to_remove || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 			return
 		return remove_gun_attachment(user, I, item_to_remove)
@@ -660,7 +670,7 @@
 
 	semicd = TRUE
 
-	if(!bypass_timer && (!do_mob(user, target, 120) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH))
+	if(!bypass_timer && (!do_after(user, 12 SECONDS, target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH))
 		if(user)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided not to shoot.</span>")
@@ -686,8 +696,8 @@
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
 	if(aimed && chambered?.BB)
-		chambered.BB.speed = initial(chambered.BB.speed) *= 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
-		chambered.BB.damage = initial(chambered.BB.damage) *= 1.25
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
+		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
 
 /////////////
 // ZOOMING //
@@ -729,7 +739,7 @@
 		zoomed = forced_zoom
 
 	if(zoomed)
-		RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, .proc/rotate)
+		RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(rotate))
 		user.client.view_size.zoomOut(zoom_out_amt, zoom_amt, direc)
 	else
 		UnregisterSignal(user, COMSIG_ATOM_DIR_CHANGE)

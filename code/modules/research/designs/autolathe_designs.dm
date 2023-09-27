@@ -145,17 +145,18 @@
 /datum/design/welding_helmet
 	name = "Welding Helmet"
 	id = "welding_helmet"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
 	build_path = /obj/item/clothing/head/welding
-	category = list("initial","Tools")
+	category = list("initial","Tools","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/cable_coil
 	name = "Cable Coil"
 	id = "cable_coil"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 10, /datum/material/glass = 5)
-	build_path = /obj/item/stack/cable_coil
+	build_path = /obj/item/stack/cable_coil/red/one
 	category = list("initial","Tools","Tool Designs")
 	maxstack = MAXCOIL
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -1030,6 +1031,14 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2000)
 	build_path = /obj/item/vending_refill/custom
+	category = list("initial", "Misc")
+
+/datum/design/custom_vendor_board
+	name = "Custom Vendor Machine Board"
+	id = "custom_vendor_board"
+	build_type = AUTOLATHE
+	build_path = /obj/item/circuitboard/machine/vendor
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
 	category = list("initial", "Misc")
 
 /datum/design/toygun

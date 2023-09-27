@@ -322,7 +322,7 @@
 	var/area/source_area
 	if(istype(power_source, /area))
 		source_area = power_source
-		power_source = source_area.get_apc()
+		power_source = source_area.apc
 	if(istype(power_source, /obj/structure/cable))
 		var/obj/structure/cable/Cable = power_source
 		power_source = Cable.powernet
@@ -387,8 +387,3 @@
 		if(C.d1 == 0)
 			return C
 	return null
-
-/area/proc/get_apc()
-	for(var/obj/machinery/power/apc/APC in GLOB.apcs_list)
-		if(APC.area == src)
-			return APC

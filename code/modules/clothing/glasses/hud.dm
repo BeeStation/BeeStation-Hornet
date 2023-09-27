@@ -53,7 +53,7 @@
 		return
 	obj_flags |= OBJ_EMPED
 	desc = "[desc] The display is flickering slightly."
-	addtimer(CALLBACK(src, .proc/reset_emp), rand(1200 / severity, 600 / severity))
+	addtimer(CALLBACK(src, PROC_REF(reset_emp)), rand(1200 / severity, 600 / severity))
 	//If we aren't glitching out already, start glitching
 	if(!(obj_flags & EMAGGED))
 		start_glitch()

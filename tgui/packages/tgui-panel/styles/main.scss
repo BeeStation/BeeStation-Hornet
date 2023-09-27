@@ -25,9 +25,7 @@
 
 // Components
 @include meta.load-css('~tgui/styles/components/BlockQuote.scss');
-@include meta.load-css('~tgui/styles/components/Button.scss', $with: (
-  'color-transparent-text': rgba(255, 255, 255, 0.6),
-));
+@include meta.load-css('~tgui/styles/components/Button.scss', $with: ('color-transparent-text': rgba(255, 255, 255, 0.6)));
 @include meta.load-css('~tgui/styles/components/ColorBox.scss');
 @include meta.load-css('~tgui/styles/components/Dimmer.scss');
 @include meta.load-css('~tgui/styles/components/Divider.scss');

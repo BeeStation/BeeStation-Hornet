@@ -1,5 +1,5 @@
 /mob/living/gib(no_brain, no_organs, no_bodyparts)
-	var/prev_lying = lying
+	var/prev_lying = lying_angle
 	if(stat != DEAD)
 		death(TRUE)
 
@@ -27,7 +27,8 @@
 	return
 
 /mob/living/dust(just_ash, drop_items, force)
-	death(TRUE)
+	if(stat != DEAD)
+		death(TRUE)
 
 	if(drop_items)
 		unequip_everything()
@@ -49,6 +50,7 @@
 /mob/living/death(gibbed)
 	var/was_dead_before = stat == DEAD
 	set_stat(DEAD)
+	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed, was_dead_before)
 	unset_machine()
 	timeofdeath = world.time
 	tod = station_time_timestamp()
@@ -67,7 +69,6 @@
 		add_to_dead_mob_list()
 
 	SetSleeping(0, 0)
-	blind_eyes(1)
 
 	update_action_buttons_icon()
 	update_health_hud()
@@ -88,7 +89,7 @@
 		//This first death of the game will not incur a ghost role cooldown
 		client.next_ghost_role_tick = client.next_ghost_role_tick || suiciding ? world.time + CONFIG_GET(number/ghost_role_cooldown) : world.time
 
-		INVOKE_ASYNC(client, /client.proc/give_award, /datum/award/achievement/misc/ghosts, client.mob)
+		INVOKE_ASYNC(client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/ghosts, client.mob)
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
@@ -110,5 +111,5 @@
 	update_damage_hud()
 
 	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, .proc/med_hud_set_status), (DEFIB_TIME_LIMIT * 10) + 10)
+		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), (DEFIB_TIME_LIMIT * 10) + 10)
 

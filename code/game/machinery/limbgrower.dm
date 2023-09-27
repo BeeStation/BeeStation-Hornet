@@ -84,7 +84,10 @@
 			screen = text2num(href_list["menu"])
 
 		if(href_list["category"])
-			selected_category = href_list["category"]
+			var/requested_category = href_list["category"]
+			if (!(requested_category in categories))
+				return
+			selected_category = requested_category
 
 		if(href_list["disposeI"])  //Get rid of a reagent incase you add the wrong one by mistake
 			reagents.del_reagent(text2path(href_list["disposeI"]))
@@ -106,7 +109,7 @@
 				use_power(power)
 				flick("limbgrower_fill",src)
 				icon_state = "limbgrower_idleon"
-				addtimer(CALLBACK(src, .proc/build_item),32*prod_coeff)
+				addtimer(CALLBACK(src, PROC_REF(build_item)),32*prod_coeff)
 
 	else
 		to_chat(usr, "<span class=\"alert\">The limb grower is busy. Please wait for completion of previous operation.</span>")

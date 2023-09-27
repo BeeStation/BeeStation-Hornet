@@ -62,7 +62,7 @@
 	return ..()
 
 //Bullets
-/mob/living/simple_animal/turtle/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/turtle/bullet_act(obj/projectile/Proj)
 	if(!stat && !client)
 		if(icon_state == icon_hiding)
 			turtle_hide_dur = turtle_hide_max //Reset its hiding timer

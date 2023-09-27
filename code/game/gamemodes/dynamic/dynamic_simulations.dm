@@ -6,7 +6,6 @@
 
 /datum/dynamic_simulation/proc/initialize_gamemode(forced_threat, roundstart_players)
 	gamemode = new
-	gamemode.roundstart_pop_ready = roundstart_players
 
 	if (forced_threat)
 		gamemode.create_threat(forced_threat)
@@ -29,11 +28,6 @@
 		var/datum/client_interface/mock_client = new
 
 		var/datum/preferences/prefs = new
-		var/list/be_special = list()
-		for (var/special_role in GLOB.special_roles)
-			be_special += special_role
-
-		prefs.be_special = be_special
 		mock_client.prefs = prefs
 
 		mock_new_player.mock_client = mock_client

@@ -663,8 +663,8 @@
 	icon_state = "poster49"
 
 /obj/structure/sign/poster/official/suit_sensors
-	name = "Turn on your suit sensors"
-	desc = "A poster begging you to turn on your suit sensors. Otherwise, you may be harder to locate if you sustain damage."
+	name = "Suit Sensors"
+	desc = "A poster begging you to max your suit sensors. Otherwise, you may be harder to locate if you sustain damage."
 	icon_state = "poster50"
 
 #undef PLACE_SPEED

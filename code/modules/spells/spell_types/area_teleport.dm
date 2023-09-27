@@ -17,7 +17,7 @@
 		return
 	invocation(thearea,user)
 	if(charge_type == "recharge" && recharge)
-		INVOKE_ASYNC(src, .proc/start_recharge)
+		INVOKE_ASYNC(src, PROC_REF(start_recharge))
 	cast(targets,thearea,user)
 	after_cast(targets)
 

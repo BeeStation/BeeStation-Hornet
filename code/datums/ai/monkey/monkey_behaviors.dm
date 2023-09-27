@@ -73,7 +73,7 @@
 	. = ..()
 	if(controller.blackboard[BB_MONKEY_PICKPOCKETING]) //We are pickpocketing, don't do ANYTHING!!!!
 		return
-	INVOKE_ASYNC(src, .proc/attempt_pickpocket, controller)
+	INVOKE_ASYNC(src, PROC_REF(attempt_pickpocket), controller)
 
 /datum/ai_behavior/monkey_equip/pickpocket/proc/attempt_pickpocket(datum/ai_controller/controller)
 	var/obj/item/target = controller.blackboard[BB_MONKEY_PICKUPTARGET]
@@ -93,7 +93,7 @@
 
 	var/success = FALSE
 
-	if(do_mob(living_pawn, victim, MONKEY_ITEM_SNATCH_DELAY) && target && living_pawn.CanReach(victim))
+	if(do_after(living_pawn, MONKEY_ITEM_SNATCH_DELAY, victim) && target && living_pawn.CanReach(victim))
 
 		for(var/obj/item/I in victim.held_items)
 			if(I == target)
@@ -261,7 +261,7 @@
 	controller.current_movement_target = disposal
 
 	if(living_pawn.Adjacent(disposal))
-		INVOKE_ASYNC(src, .proc/try_disposal_mob, controller, attack_target_key, disposal_target_key) //put him in!
+		INVOKE_ASYNC(src, PROC_REF(try_disposal_mob), controller, attack_target_key, disposal_target_key) //put him in!
 	else //This means we might be getting pissed!
 		return
 

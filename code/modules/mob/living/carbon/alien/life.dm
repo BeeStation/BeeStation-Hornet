@@ -53,11 +53,11 @@
 		breath.set_volume(BREATH_VOLUME)
 	check_breath(breath)
 
-/mob/living/carbon/alien/handle_status_effects()
+/mob/living/carbon/alien/handle_status_effects(delta_time)
 	..()
 	//natural reduction of movement delay due to stun.
 	if(move_delay_add > 0)
-		move_delay_add = max(0, move_delay_add - rand(1, 2))
+		move_delay_add = max(0, move_delay_add - (rand(1, 2) * delta_time))
 
 /mob/living/carbon/alien/handle_fire()//Aliens on fire code
 	. = ..()

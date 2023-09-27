@@ -56,7 +56,7 @@
 	. = ..()
 	goosevomit = new
 	goosevomit.Grant(src)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/goosement)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(goosement))
 	if(prob(50))
 		desc = "[initial(desc)] It's waddling more than usual. It seems to be possessed."
 		deadchat_plays_goose()
@@ -121,13 +121,13 @@
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/vomit_prestart(duration)
 	flick("vomit_start",src)
-	addtimer(CALLBACK(src, .proc/vomit_start, duration), 13) //13 is the length of the vomit_start animation in gooseloose.dmi
+	addtimer(CALLBACK(src, PROC_REF(vomit_start), duration), 13) //13 is the length of the vomit_start animation in gooseloose.dmi
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/vomit_start(duration)
 	vomiting = TRUE
 	icon_state = "vomit"
 	vomit()
-	addtimer(CALLBACK(src, .proc/vomit_preend), duration)
+	addtimer(CALLBACK(src, PROC_REF(vomit_preend)), duration)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/vomit_preend()
 	for (var/obj/item/consumed in contents) //Get rid of any food left in the poor thing
@@ -148,9 +148,9 @@
 	if(stat == DEAD)
 		return
 	if(vomiting)
-		INVOKE_ASYNC(src, .proc/vomit) // its supposed to keep vomiting if you move
+		INVOKE_ASYNC(src, PROC_REF(vomit)) // its supposed to keep vomiting if you move
 		return
-	INVOKE_ASYNC(src, .proc/eat)
+	INVOKE_ASYNC(src, PROC_REF(eat))
 	if(prob(vomitCoefficient * 0.2))
 		vomit_prestart(vomitTimeBonus + 25)
 		vomitCoefficient = 1
@@ -160,11 +160,11 @@
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/deadchat_plays_goose()
 	stop_automated_movement = TRUE
 	AddComponent(/datum/component/deadchat_control, ANARCHY_MODE, list(
-	 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, src, NORTH),
-	 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, src, SOUTH),
-	 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, src, WEST),
-	 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, src, EAST),
-	 "vomit" = CALLBACK(src, .proc/vomit_prestart, 25)), 20)
+	 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, NORTH),
+	 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, SOUTH),
+	 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, WEST),
+	 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, EAST),
+	 "vomit" = CALLBACK(src, PROC_REF(vomit_prestart), 25)), 20)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/eat()
 	var/obj/item/reagent_containers/food/tasty = locate() in get_turf(src)

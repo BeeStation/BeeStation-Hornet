@@ -24,7 +24,7 @@
 	else if(hasprox_receiver == host) //Default case
 		hasprox_receiver = H
 	host = H
-	RegisterSignal(host, COMSIG_MOVABLE_MOVED, .proc/HandleMove)
+	RegisterSignal(host, COMSIG_MOVABLE_MOVED, PROC_REF(HandleMove))
 	last_host_loc = host.loc
 	SetRange(current_range,TRUE)
 
@@ -108,8 +108,8 @@
 		stack_trace("proximity_checker created without host")
 		return INITIALIZE_HINT_QDEL
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
-		COMSIG_ATOM_EXITED =.proc/on_uncrossed,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED =PROC_REF(on_uncrossed),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 

@@ -8,6 +8,7 @@
 	flags_1 = 0
 	icon_state = "frame-empty"
 	result_path = /obj/structure/sign/picture_frame
+	pixel_shift = -32
 	var/obj/item/photo/displayed
 
 /obj/item/wallframe/picture/attackby(obj/item/I, mob/user)
@@ -78,11 +79,6 @@
 /obj/structure/sign/picture_frame/Initialize(mapload, dir, building)
 	. = ..()
 	LAZYADD(SSpersistence.photo_frames, src)
-	if(dir)
-		setDir(dir)
-	if(building)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -30 : 30)
-		pixel_y = (dir & 3)? (dir ==1 ? -30 : 30) : 0
 
 /obj/structure/sign/picture_frame/Destroy()
 	LAZYREMOVE(SSpersistence.photo_frames, src)

@@ -2,10 +2,11 @@
 	name = "Space Dragon"
 	roundend_category = "space dragons"
 	antagpanel_category = "Space Dragon"
-	job_rank = ROLE_SPACE_DRAGON
+	banning_key = ROLE_SPACE_DRAGON
 	show_in_antagpanel = TRUE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
+	// TODO: ui_name = "AntagInfoDragon"
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
 	var/datum/action/innate/summon_rift/rift_ability
@@ -57,7 +58,7 @@
 		/area/security/courtroom,
 	))
 
-	var/list/possible_areas = GLOB.sortedAreas.Copy()
+	var/list/possible_areas = GLOB.areas.Copy()
 	for(var/area/possible_area as anything in possible_areas)
 		if(!is_type_in_typecache(possible_area, allowed_areas) || is_type_in_typecache(possible_area, blocked_areas) || initial(possible_area.outdoors))
 			possible_areas -= possible_area
@@ -85,9 +86,9 @@
 	wavespeak_ability = new
 	wavespeak_ability.Grant(owner.current)
 	owner.current.faction |= "carp"
-	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, .proc/rift_checks)
-	RegisterSignal(owner.current, COMSIG_MOB_DEATH, .proc/destroy_rifts)
-	RegisterSignal(owner.current, COMSIG_PARENT_QDELETING, .proc/destroy_rifts)
+	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, PROC_REF(rift_checks))
+	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(destroy_rifts))
+	RegisterSignal(owner.current, COMSIG_PARENT_QDELETING, PROC_REF(destroy_rifts))
 	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
 		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
 		S.can_summon_rifts = TRUE
@@ -139,7 +140,7 @@
 	owner.current.fully_heal()
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
 	owner.current.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
-	addtimer(CALLBACK(src, .proc/rift_depower), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(rift_depower)), 30 SECONDS)
 
 /**
  * Gives Space Dragon their the rift speed buff permanently.

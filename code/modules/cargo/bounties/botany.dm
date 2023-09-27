@@ -67,7 +67,7 @@
 	multiplier = 4 //hush money
 	bonus_desc = "Do not mention this shipment to security."
 	foodtype = "batch of \"muffins\""
-	
+
 /datum/bounty/item/botany/cannabis_white
 	name = "Lifeweed Leaves"
 	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/cannabis/white)
@@ -208,7 +208,7 @@
 	description = "Commander Zot has his eyes on Quartermaster Maya. Send a shipment of forget-me-nots - her favorite flower - and he'll happily reward you."
 	reward = 7000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/poppy/geranium/forgetmenot)
+	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/flower/forgetmenot)
 	format_exception = TRUE
 
 /datum/bounty/item/botany/geranium
@@ -216,7 +216,7 @@
 	description = "Commander Zot has the hots for Commander Zena. Send a shipment of geraniums - her favorite flower - and he'll happily reward you."
 	reward = 6000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/poppy/geranium)
+	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/flower/geranium)
 	format_exception = TRUE
 
 /datum/bounty/item/botany/rainbowflowercrown
@@ -224,5 +224,5 @@
 	description = "Central Command is concerned about their intern suicide rate. A shipment of rainbow flower crowns should do nicely to improve morale."
 	reward = 10000
 	required_count = 3
-	wanted_types = list(/obj/item/clothing/head/rainbowbunchcrown)
+	wanted_types = list(/obj/item/clothing/head/flowercrown/rainbowbunch)
 	format_exception = TRUE

@@ -54,7 +54,7 @@
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_SECLUDED_LOCATION)
 	last_use = world.time
 	icon_state = "desynchronizer-on"
-	addtimer(CALLBACK(src, .proc/resync), duration)
+	addtimer(CALLBACK(src, PROC_REF(resync)), duration)
 
 /obj/item/desynchronizer/proc/resync()
 	if(sync_holder)

@@ -31,7 +31,7 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 		text="Edit",
 		action = "statClickDebug",
 		params=list(
-			"targetRef" = REF(src),
+			"targetRef" = FAST_REF(src),
 			"class"="controller",
 		),
 		type=STAT_BUTTON,

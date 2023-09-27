@@ -3,7 +3,7 @@
 
 DNA Saboteur
 
-	Very noticable.
+	Very noticeable.
 	Lowers resistance tremendously.
 	No changes to stage speed.
 	Decreases transmittablity tremendously.

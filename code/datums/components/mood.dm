@@ -8,6 +8,7 @@
 	var/mood_level = 5 //To track what stage of moodies they're on
 	var/sanity_level = 2 //To track what stage of sanity they're on
 	var/mood_modifier = 1 //Modifier to allow certain mobs to be less affected by moodlets
+	var/sanity_modifier = 0.05 //Multiplies sanity changes, lower values make sanity change slower.
 	var/list/datum/mood_event/mood_events = list()
 	var/insanity_effect = 0 //is the owner being punished for low mood? If so, how much?
 	var/atom/movable/screen/mood/screen_obj
@@ -19,12 +20,12 @@
 
 	START_PROCESSING(SSmood, src)
 
-	RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT, .proc/add_event)
-	RegisterSignal(parent, COMSIG_CLEAR_MOOD_EVENT, .proc/clear_event)
-	RegisterSignal(parent, COMSIG_MOVABLE_ENTERED_AREA, .proc/check_area_mood)
+	RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT, PROC_REF(add_event))
+	RegisterSignal(parent, COMSIG_CLEAR_MOOD_EVENT, PROC_REF(clear_event))
+	RegisterSignal(parent, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(check_area_mood))
 
-	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, .proc/modify_hud)
-	RegisterSignal(parent, COMSIG_HUMAN_VOID_MASK_ACT, .proc/direct_sanity_drain)
+	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, PROC_REF(modify_hud))
+	RegisterSignal(parent, COMSIG_HERETIC_MASK_ACT, PROC_REF(direct_sanity_drain))
 	var/mob/living/owner = parent
 	if(owner.hud_used)
 		modify_hud()
@@ -174,25 +175,19 @@
 ///Called on SSmood process
 /datum/component/mood/process(delta_time)
 	var/mob/living/owner = parent
-	switch(mood_level)
-		if(1)
-			setSanity(sanity-0.3*delta_time)
-		if(2)
-			setSanity(sanity-0.15*delta_time)
-		if(3)
-			setSanity(sanity-0.1*delta_time)
-		if(4)
-			setSanity(sanity-0.05*delta_time, minimum=SANITY_UNSTABLE)
-		if(5)
-			setSanity(sanity+0.1, maximum=SANITY_NEUTRAL)
-		if(6)
-			setSanity(sanity+0.2*delta_time, maximum=SANITY_GREAT)
-		if(7)
-			setSanity(sanity+0.3*delta_time, maximum=SANITY_GREAT)
-		if(8)
-			setSanity(sanity+0.4*delta_time, maximum=SANITY_MAXIMUM)
-		if(9)
-			setSanity(sanity+0.6*delta_time, maximum=SANITY_MAXIMUM)
+	switch(sanity)
+		if(SANITY_GREAT-1 to INFINITY)
+			setSanity(sanity+sanity_modifier*delta_time*mood-0.4)
+		if(SANITY_NEUTRAL-1 to SANITY_GREAT-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood-0.2)
+		if(SANITY_DISTURBED-1 to SANITY_NEUTRAL-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood)
+		if(SANITY_UNSTABLE-1 to SANITY_DISTURBED-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood+0.3)
+		if(SANITY_CRAZY-1 to SANITY_UNSTABLE-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood+0.6)
+		if(SANITY_INSANE-1 to SANITY_CRAZY)
+			setSanity(sanity+sanity_modifier*delta_time*mood+0.9)
 	HandleNutrition(owner)
 
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
@@ -267,7 +262,7 @@
 			clear_event(null, category)
 		else
 			if(the_event.timeout)
-				the_event.timer = addtimer(CALLBACK(src, .proc/clear_event, null, category), the_event.timeout, TIMER_STOPPABLE|TIMER_UNIQUE|TIMER_OVERRIDE)
+				the_event.timer = addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, TIMER_STOPPABLE|TIMER_UNIQUE|TIMER_OVERRIDE)
 			return 0 //Don't have to update the event.
 	the_event = new type(src, param)
 
@@ -276,7 +271,7 @@
 	update_mood()
 
 	if(the_event.timeout)
-		addtimer(CALLBACK(src, .proc/clear_event, null, category), the_event.timeout, TIMER_UNIQUE|TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /datum/component/mood/proc/clear_event(datum/source, category)
 	SIGNAL_HANDLER
@@ -315,8 +310,8 @@
 	screen_obj_sanity = new
 	hud.infodisplay += screen_obj
 	hud.infodisplay += screen_obj_sanity
-	RegisterSignal(hud, COMSIG_PARENT_QDELETING, .proc/unmodify_hud)
-	RegisterSignal(screen_obj, COMSIG_CLICK, .proc/hud_click)
+	RegisterSignal(hud, COMSIG_PARENT_QDELETING, PROC_REF(unmodify_hud))
+	RegisterSignal(screen_obj, COMSIG_CLICK, PROC_REF(hud_click))
 
 /datum/component/mood/proc/unmodify_hud(datum/source)
 	SIGNAL_HANDLER

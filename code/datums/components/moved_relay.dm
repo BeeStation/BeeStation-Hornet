@@ -5,18 +5,25 @@
  * still know when that other object moves.
  */
 /datum/component/moved_relay
+	dupe_mode = COMPONENT_DUPE_SELECTIVE
+	/// How many move relays were added to this object?
+	var/depth = 1
 	//List of ordered parents
 	//Index 1: parent
 	//Index 2: Parent's parent
 	//etc.
 	var/list/atom/ordered_parents = list()
 
+/datum/component/moved_relay/CheckDupeComponent(datum/component/C, ...)
+	depth ++
+	return TRUE
+
 /datum/component/moved_relay/Initialize(...)
 	var/atom/A = parent
 	//Start tracking from the parent
 	//We will relay the parents move to itself for convenience
 	//if the super parent gets deleted, everything dies
-	RegisterSignal(A, COMSIG_MOVABLE_MOVED, .proc/parent_moved)
+	RegisterSignal(A, COMSIG_MOVABLE_MOVED, PROC_REF(parent_moved))
 	ordered_parents += A
 	//Recursively register parents
 	if(A.loc && !isturf(A.loc))
@@ -30,8 +37,8 @@
 	return ..()
 
 /datum/component/moved_relay/proc/register_parent(atom/A)
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/parent_deleted)
-	RegisterSignal(A, COMSIG_MOVABLE_MOVED, .proc/parent_moved)
+	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(parent_deleted))
+	RegisterSignal(A, COMSIG_MOVABLE_MOVED, PROC_REF(parent_moved))
 	ordered_parents += A
 	//Recursively register parents
 	if(A.loc && !isturf(A.loc))

@@ -1,5 +1,6 @@
 /datum/species/pod/pumpkin_man
 	name = "\improper Pumpkinperson"
+	plural_form = "Pumpkinpeople"
 	id = SPECIES_PUMPKINPERSON
 	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/pumpkinpieslice
@@ -21,7 +22,27 @@
 /datum/species/pod/pumpkin_man/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
-	return FALSE
+	return ..()
+
+/datum/species/pod/pumpkin_man/get_species_description()
+	return "A rare subspecies of the Podpeople, Pumpkinpeople are gourdy and orange, appearing every halloween."
+
+/datum/species/pod/pumpkin_man/get_species_lore()
+	return null
+
+/datum/species/pod/pumpkin_man/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "candy-cane",
+			SPECIES_PERK_NAME = "Candy Head!",
+			SPECIES_PERK_DESC = "The heads of Pumpkinpeople are known to create delicious candy. Be careful though, take too much and you might pull your brain out!",
+		),
+	)
+
+	return to_add
 
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"

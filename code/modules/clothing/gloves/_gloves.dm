@@ -18,7 +18,7 @@
 
 /obj/item/clothing/gloves/ComponentInitialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
 
 /obj/item/clothing/gloves/proc/clean_blood(datum/source, strength)
 	SIGNAL_HANDLER

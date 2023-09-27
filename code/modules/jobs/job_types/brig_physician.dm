@@ -1,6 +1,9 @@
 /datum/job/brig_physician
 	title = JOB_NAME_BRIGPHYSICIAN
 	flag = BRIG_PHYS
+	description = "Tend to the health of Security Officers and Prisoners, help out at Medbay if you have free time."
+	department_for_prefs = DEPT_BITFLAG_SEC
+	department_head_for_prefs = JOB_NAME_HEADOFSECURITY
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "chief medical officer"
 	faction = "Station"
@@ -28,6 +31,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/brig_physician
 	)
 	biohazard = 25 //still deals with the sick and injured, just less than a medical doctor
+
+	minimal_lightup_areas = list(/area/medical/morgue)
 
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN

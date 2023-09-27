@@ -34,10 +34,7 @@ export const SupermatterMonitorContent = (props, context) => {
   if (!active) {
     return <SupermatterList />;
   }
-  const gases = flow([
-    (gases) => gases.filter((gas) => gas.amount >= 0.01),
-    sortBy((gas) => -gas.amount),
-  ])(data.gases || []);
+  const gases = flow([(gases) => gases.filter((gas) => gas.amount >= 0.01), sortBy((gas) => -gas.amount)])(data.gases || []);
   const gasMaxAmount = Math.max(1, ...gases.map((gas) => gas.amount));
   return (
     <Stack>
@@ -105,10 +102,7 @@ export const SupermatterMonitorContent = (props, context) => {
                 maxValue={logScale(50000)}
                 ranges={{
                   good: [-Infinity, logScale(SM_bad_moles_amount * 0.75)],
-                  average: [
-                    logScale(SM_bad_moles_amount * 0.75),
-                    logScale(SM_bad_moles_amount),
-                  ],
+                  average: [logScale(SM_bad_moles_amount * 0.75), logScale(SM_bad_moles_amount)],
                   bad: [logScale(SM_bad_moles_amount), Infinity],
                 }}>
                 {toFixed(SM_moles) + ' moles'}
@@ -133,20 +127,11 @@ export const SupermatterMonitorContent = (props, context) => {
       <Stack.Item grow={1} basis={0}>
         <Section
           title="Gases"
-          buttons={!standalone_mode ? (
-            <Button
-              icon="arrow-left"
-              content="Back"
-              onClick={() => act('PRG_clear')} />
-          ) : null}>
+          buttons={!standalone_mode ? <Button icon="arrow-left" content="Back" onClick={() => act('PRG_clear')} /> : null}>
           <LabeledList>
             {gases.map((gas) => (
               <LabeledList.Item key={gas.name} label={getGasLabel(gas.name)}>
-                <ProgressBar
-                  color={getGasColor(gas.name)}
-                  value={gas.amount}
-                  minValue={0}
-                  maxValue={gasMaxAmount}>
+                <ProgressBar color={getGasColor(gas.name)} value={gas.amount} minValue={0} maxValue={gasMaxAmount}>
                   {toFixed(gas.amount, 2) + '%'}
                 </ProgressBar>
               </LabeledList.Item>
@@ -164,13 +149,7 @@ const SupermatterList = (props, context) => {
   return (
     <Section
       title="Detected Supermatters"
-      buttons={
-        <Button
-          icon="sync"
-          content="Refresh"
-          onClick={() => act('PRG_refresh')}
-        />
-      }>
+      buttons={<Button icon="sync" content="Refresh" onClick={() => act('PRG_refresh')} />}>
       <Table>
         {supermatters.map((sm) => (
           <Table.Row key={sm.uid}>
@@ -194,7 +173,8 @@ const SupermatterList = (props, context) => {
                 onClick={() =>
                   act('PRG_set', {
                     target: sm.uid,
-                  })}
+                  })
+                }
               />
             </Table.Cell>
           </Table.Row>

@@ -15,9 +15,9 @@
 	if(!rust_overlay)
 		rust_overlay = image(rust_icon, rust_icon_state)
 	ADD_TRAIT(target, TRAIT_RUSTY, src)
-	RegisterSignal(target, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/apply_rust_overlay)
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/handle_examine)
-	RegisterSignal(target, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)), .proc/secondary_tool_act)
+	RegisterSignal(target, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_rust_overlay))
+	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(handle_examine))
+	RegisterSignal(target, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)), PROC_REF(secondary_tool_act))
 	// Unfortunately registering with parent sometimes doesn't cause an overlay update
 	target.update_icon()
 
@@ -40,7 +40,7 @@
 /// Because do_after sleeps we register the signal here and defer via an async call
 /datum/element/rust/proc/secondary_tool_act(atom/source, mob/user, obj/item/item)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, .proc/handle_tool_use, source, user, item)
+	INVOKE_ASYNC(src, PROC_REF(handle_tool_use), source, user, item)
 	return COMPONENT_BLOCK_TOOL_ATTACK
 
 /// We call this from secondary_tool_act because we sleep with do_after
@@ -58,6 +58,10 @@
 			user.balloon_alert(user, "You start scraping off the rust...")
 			if(!do_after(user, 2 SECONDS * item.toolspeed, target = source))
 				return
-			user.balloon_alert(user, "Sucessfully scraped off the rust!")
+			if(istype(item, /obj/item/wirebrush/advanced))
+				var/obj/item/wirebrush/advanced/brush = item
+				brush.irradiate(user)
+			else
+				user.balloon_alert(user, "Sucessfully scraped off the rust!")
 			Detach(source)
 			return

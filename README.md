@@ -15,7 +15,8 @@
 There are a number of ways to download the source code. Some are described here, an alternative all-inclusive guide is also located at https://wiki.beestation13.com/view/Downloading_the_source_code
 
 Option 1:
-Follow this: https://wiki.beestation13.com/view/Setting_up_git
+Follow this: https://wiki.beestation13.com/view/Guide_to_git
+Clone the repository using `git clone`.
 
 Option 2: Download the source code as a zip by clicking the ZIP button in the
 code tab of https://github.com/beestation/beestation-hornet
@@ -110,7 +111,7 @@ BeeStation currently comes equipped with these maps.
 * [FlandStation](https://wiki.beestation13.com/view/FlandStation)
 * [KiloStation](https://wiki.beestation13.com/view/KiloStation)
 * [MetaStation (default)](https://wiki.beestation13.com/view/MetaStation)
-* [PubbyStation](https://wiki.beestation13.com/view/PubbyStation)
+* [RadStation](https://wiki.beestation13.com/view/RadStation)
 * [RuntimeStation (used for debugging)](https://wiki.beestation13.com/view/RuntimeStation)
 
 All maps have their own code file that is in the base of the _maps directory. Maps are loaded dynamically when the game starts. Follow this guideline when adding your own map, to your fork, for easy compatibility.
@@ -131,9 +132,9 @@ To enable an away mission open `config/awaymissionconfig.txt` and uncomment one 
 
 ## SQL SETUP
 
-The SQL backend requires a Mariadb server running 10.2 or later. Mysql is not supported but Mariadb is a drop in replacement for mysql. SQL is required for the library, stats tracking, admin notes, and job-only bans, among other features, mostly related to server administration. Your server details go in /config/dbconfig.txt, and the SQL schema is in /SQL/beestation_schema.sql and /SQL/beestation_schema_prefix.sql depending on if you want table prefixes.  More detailed setup instructions are located here: https://wiki.beestation13.com/view/Downloading_the_source_code#Setting_up_the_database
+The SQL backend requires a MariaDB server running 10.2 or later. MySQL is not supported. The database is required for the library, stats tracking, admin notes, bans, and persistent characters/preferences. Your server details go in `/config/dbconfig.txt`, and the SQL schema is in `/SQL/beestation_schema.sql`.
 
-If you are hosting a testing server on windows you can use a standalone version of MariaDB pre load with a blank (but initialized) tgdb database. Find them here: https://tgstation13.download/database/ Just unzip and run for a working (but insecure) database server. Includes a zipped copy of the data folder for easy resetting back to square one.
+More detailed setup instructions are located here: https://wiki.beestation13.com/view/Working_with_the_database#Database_Setup
 
 ## WEB/CDN RESOURCE DELIVERY
 

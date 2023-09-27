@@ -10,7 +10,7 @@
 /obj/structure/destructible/cult/proc/conceal() //for spells that hide cult presence
 	set_density(FALSE)
 	visible_message("<span class='danger'>[src] fades away.</span>")
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_SPIRIT
 	alpha = 100 //To help ghosts distinguish hidden runes
 	light_range = 0
 	light_power = 0

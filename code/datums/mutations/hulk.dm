@@ -5,7 +5,6 @@
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
-	text_gain_indication = "<span class='notice'>Your muscles hurt!</span>"
 	species_allowed = list(SPECIES_HUMAN) //no skeleton/lizard hulk
 	mobtypes_allowed = list(/mob/living/carbon/human)
 	health_req = 25
@@ -22,7 +21,7 @@
 	ADD_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
 	ADD_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	owner.update_body_parts()
 
 /datum/mutation/hulk/on_attack_hand(atom/target, proximity)

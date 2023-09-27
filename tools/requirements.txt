@@ -1,7 +1,7 @@
-pygit2==1.7.2
-bidict==0.21.4
-Pillow==9.3.0
+pygit2==1.11.1
+bidict==0.22.1
+Pillow==9.4.0
 
 # changelogs
 PyYaml==6.0
-beautifulsoup4==4.10.0
+beautifulsoup4==4.11.2

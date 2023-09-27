@@ -88,7 +88,7 @@ Notes:
 
 /datum/tooltip/proc/hide()
 	if (queueHide)
-		addtimer(CALLBACK(src, .proc/do_hide), 1)
+		addtimer(CALLBACK(src, PROC_REF(do_hide)), 1)
 	else
 		do_hide()
 
@@ -108,8 +108,9 @@ Notes:
 /proc/openToolTip(mob/user = null, atom/movable/tip_src = null, params = null,title = "",content = "",theme = "")
 	if(istype(user))
 		if(user.client && user.client.tooltips)
-			if(!theme && user.client.prefs && user.client.prefs.UI_style)
-				theme = lowertext(user.client.prefs.UI_style)
+			var/ui_style = user.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style)
+			if(!theme && ui_style)
+				theme = lowertext(ui_style)
 			if(!theme)
 				theme = "default"
 			user.client.tooltips.show(tip_src, params,title,content,theme)

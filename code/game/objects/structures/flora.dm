@@ -1,6 +1,6 @@
 /obj/structure/flora
 	resistance_flags = FLAMMABLE
-	max_integrity = 150
+	max_integrity = 20
 	anchored = TRUE
 
 //trees
@@ -45,6 +45,7 @@
 	desc = "A coniferous pine tree."
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_1"
+	zmm_flags = ZMM_WIDE_LOAD
 	var/list/icon_states = list("pine_1", "pine_2", "pine_3")
 
 /obj/structure/flora/tree/pine/Initialize(mapload)
@@ -97,11 +98,13 @@
 	icon = 'icons/obj/flora/deadtrees.dmi'
 	desc = "A dead tree. How it died, you know not."
 	icon_state = "tree_1"
+	zmm_flags = ZMM_WIDE_LOAD
 
 /obj/structure/flora/tree/palm
 	icon = 'icons/misc/beach2.dmi'
 	desc = "A tree straight from the tropics."
 	icon_state = "palm1"
+	zmm_flags = ZMM_WIDE_LOAD
 
 /obj/structure/flora/tree/palm/Initialize(mapload)
 	. = ..()
@@ -113,6 +116,7 @@
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "festivus_pole"
 	desc = "During last year's Feats of Strength the Research Director was able to suplex this passing immobile rod into a planter."
+	zmm_flags = ZMM_LOOKAHEAD
 
 /obj/structure/festivus/anchored
 	name = "suplexed rod"
@@ -131,6 +135,7 @@
 	icon = 'icons/obj/flora/jungletrees.dmi'
 	pixel_x = -48
 	pixel_y = -20
+	zmm_flags = ZMM_WIDE_LOAD
 
 /obj/structure/flora/tree/jungle/Initialize(mapload)
 	icon_state = "[icon_state][rand(1, 6)]"
@@ -313,6 +318,7 @@
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /obj/item/kirbyplants/ComponentInitialize()
 	. = ..()
@@ -323,6 +329,7 @@
 	max_items = 1
 	max_w_class = WEIGHT_CLASS_NORMAL
 	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
+	animated = FALSE
 
 /obj/item/kirbyplants/equipped(mob/living/user)
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)

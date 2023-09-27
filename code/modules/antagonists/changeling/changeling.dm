@@ -6,7 +6,9 @@
 	name = "Changeling"
 	roundend_category  = "changelings"
 	antagpanel_category = "Changeling"
-	job_rank = ROLE_CHANGELING
+	banning_key = ROLE_CHANGELING
+	required_living_playtime = 4
+	ui_name = "AntagInfoChangeling"
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 	var/you_are_greet = TRUE
@@ -57,17 +59,18 @@
 	. = ..()
 
 /datum/antagonist/changeling/proc/generate_name()
+	var/static/list/left_changling_names = GLOB.greek_letters.Copy()
+
 	var/honorific
 	if(owner.current.gender == FEMALE)
 		honorific = "Ms."
 	else
 		honorific = "Mr."
-	if(GLOB.possible_changeling_IDs.len)
-		changelingID = pick(GLOB.possible_changeling_IDs)
-		GLOB.possible_changeling_IDs -= changelingID
+	if(length(left_changling_names))
+		changelingID = pick_n_take(left_changling_names)
 		changelingID = "[honorific] [changelingID]"
 	else
-		changelingID = "[honorific] [rand(1,999)]"
+		changelingID = "[honorific] [pick(GLOB.greek_letters)] No.[rand(1,9)]"
 
 /datum/antagonist/changeling/proc/create_actions()
 	cellular_emporium = new(src)
@@ -136,6 +139,13 @@
 		var/datum/action/changeling/S = power
 		if(istype(S) && S.needs_button)
 			S.Grant(owner.current)
+
+/datum/antagonist/changeling/ui_data(mob/user)
+	var/list/data = list()
+
+	data["true_name"] = changelingID
+	data["objectives"] = get_objectives()
+	return data
 
 ///Handles stinging without verbs.
 /datum/antagonist/changeling/proc/stingAtom(mob/living/carbon/ling, atom/A)
@@ -346,17 +356,13 @@
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
 	if(isipc(C))
 		C.set_species(/datum/species/human)
-		var/replacementName = random_unique_name(C.gender)
-		if(C.client.prefs.active_character.custom_names["human"])
-			C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
-		else
-			C.fully_replace_character_name(C.real_name, replacementName)
+		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 		for(var/datum/data/record/E in GLOB.data_core.general)
 			if(E.fields["name"] == C.real_name)
 				E.fields["species"] = "\improper Human"
 				var/client/Clt = C.client
 				var/static/list/show_directions = list(SOUTH, WEST)
-				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions, TRUE)
+				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions)
 				var/datum/picture/pf = new
 				var/datum/picture/ps = new
 				pf.picture_name = "[C]"
@@ -381,7 +387,7 @@
 		if(B)
 			B.organ_flags &= ~ORGAN_VITAL
 			B.decoy_override = TRUE
-		RegisterSignal(C, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), .proc/stingAtom)
+		RegisterSignal(C, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), PROC_REF(stingAtom))
 	update_changeling_icons_added()
 
 /datum/antagonist/changeling/remove_innate_effects()
@@ -393,9 +399,10 @@
 	if (you_are_greet)
 		to_chat(owner.current, "<span class='boldannounce'>You are [changelingID], a changeling! You have absorbed and taken the form of a human.</span>")
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 	owner.announce_objectives()
+
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Changeling",
 		"You have absorbed the form of [owner.current] and have infiltrated the station. Use your changeling powers to complete your objectives.")
 
@@ -508,7 +515,7 @@
 /datum/antagonist/changeling/get_admin_commands()
 	. = ..()
 	if(stored_profiles.len && (owner.current.real_name != first_prof.name))
-		.["Transform to initial appearance."] = CALLBACK(src,.proc/admin_restore_appearance)
+		.["Transform to initial appearance."] = CALLBACK(src,PROC_REF(admin_restore_appearance))
 
 /datum/antagonist/changeling/proc/admin_restore_appearance(mob/admin)
 	if(!stored_profiles.len || !iscarbon(owner.current))

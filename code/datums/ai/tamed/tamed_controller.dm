@@ -35,9 +35,9 @@
 	if(!isliving(new_pawn))
 		return AI_CONTROLLER_INCOMPATIBLE
 
-	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
-	RegisterSignal(new_pawn, COMSIG_MOB_ITEM_ATTACKBY, .proc/on_item_attack)
-	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, .proc/check_altclicked)
+	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(new_pawn, COMSIG_MOB_ITEM_ATTACKBY, PROC_REF(on_item_attack))
+	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
 	return ..()
 
 /datum/ai_controller/tamed/UnpossessPawn(destroy)
@@ -65,7 +65,7 @@
 
 	if(!istype(clicker) || !blackboard[BB_DOG_FRIENDS][WEAKREF(clicker)])
 		return
-	INVOKE_ASYNC(src, .proc/command_radial, clicker)
+	INVOKE_ASYNC(src, PROC_REF(command_radial), clicker)
 
 /// Show the command radial menu
 /datum/ai_controller/tamed/proc/command_radial(mob/living/clicker)
@@ -76,7 +76,7 @@
 		TAMED_COMMAND_WANDER = wander_icon
 		)
 
-	var/choice = show_radial_menu(clicker, pawn, commands, custom_check = CALLBACK(src, .proc/check_menu, clicker), tooltips = TRUE)
+	var/choice = show_radial_menu(clicker, pawn, commands, custom_check = CALLBACK(src, PROC_REF(check_menu), clicker), tooltips = TRUE)
 	if(!choice || !check_menu(clicker))
 		return
 	set_command_mode(clicker, choice)
@@ -175,9 +175,9 @@
 	if(friends[friend_ref])
 		return
 	friends[friend_ref] = TRUE
-	RegisterSignal(new_friend, COMSIG_MOB_POINTED, .proc/check_point)
-	RegisterSignal(new_friend, COMSIG_MOB_SAY, .proc/check_verbal_command)
-	RegisterSignal(new_friend, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
+	RegisterSignal(new_friend, COMSIG_MOB_POINTED, PROC_REF(check_point))
+	RegisterSignal(new_friend, COMSIG_MOB_SAY, PROC_REF(check_verbal_command))
+	RegisterSignal(new_friend, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 
 /// Someone is being mean to us, take them off our friends (add actual enemies behavior later)
 /datum/ai_controller/tamed/proc/unfriend(mob/living/ex_friend)

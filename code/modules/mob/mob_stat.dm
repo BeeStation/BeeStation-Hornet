@@ -118,7 +118,7 @@
 		return list("Interview" = list(/mob/dead/new_player/proc/open_interview))
 
 	if(sorted_verbs)
-		all_verbs = deepCopyList(sorted_verbs)
+		all_verbs = deep_copy_list(sorted_verbs)
 	//An annoying thing to mention:
 	// list A [A: ["b", "c"]] +  (list B) [A: ["c", "d"]] will only have A from list B
 	for(var/i in client.sorted_verbs)
@@ -239,7 +239,7 @@
 	//Performance increase from only adding keys is better than adding values too.
 	for(var/i in get_all_verbs())
 		additional_tabs |= i
-	additional_tabs = sortList(additional_tabs)
+	additional_tabs = sort_list(additional_tabs)
 	//Get verbs
 	tabs |= additional_tabs
 	return tabs
@@ -322,7 +322,7 @@
 				if(world.time > client.last_adminhelp_reply + 10 SECONDS)
 					client.last_adminhelp_reply = world.time
 					if(client.current_adminhelp_ticket)
-						client.current_adminhelp_ticket.MessageNoRecipient(message)
+						client.current_adminhelp_ticket.MessageNoRecipient(message, sanitized = TRUE)
 					else
 						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
 				else

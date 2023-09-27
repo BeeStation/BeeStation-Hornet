@@ -31,7 +31,7 @@
 	return FALSE
 
 /datum/computer_file/program/borg_self_monitor/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	if(!iscyborg(user))
 		return data
 	var/mob/living/silicon/robot/borgo = tablet.borgo
@@ -47,7 +47,7 @@
 		maxcharge = borgo.cell.maxcharge
 	data["charge"] = charge //Current cell charge
 	data["maxcharge"] = maxcharge //Cell max charge
-	data["integrity"] = ((borgo.health + 100) / 2) //Borgo health, as percentage
+	data["integrity"] = (borgo.health / borgo.maxHealth) * 100 //Borgo health, as percentage
 	data["lampIntensity"] = borgo.lamp_intensity //Borgo lamp power setting
 	data["sensors"] = "[borgo.sensors_on?"ACTIVE":"DISABLED"]"
 	data["printerPictures"] = borgo.connected_ai ? length(borgo.connected_ai.aicamera?.stored) : length(borgo.aicamera?.stored) //Number of pictures taken, synced to AI if available
@@ -149,4 +149,4 @@
 	if(tablet)
 		var/datum/tgui/active_ui = SStgui.get_open_ui(tablet.borgo, src)
 		if(active_ui)
-			active_ui.send_full_update()
+			active_ui.send_full_update(bypass_cooldown = TRUE)

@@ -1,7 +1,9 @@
 /atom/movable
-	var/can_buckle = 0
-	var/buckle_lying = -1 //bed-like behaviour, forces mob.lying = buckle_lying if != -1
-	var/buckle_requires_restraints = 0 //require people to be handcuffed before being able to buckle. eg: pipes
+	var/can_buckle = FALSE
+	/// Bed-like behaviour, forces mob.lying = buckle_lying if != -1
+	var/buckle_lying = -1
+	/// Require people to be handcuffed before being able to buckle. eg: pipes
+	var/buckle_requires_restraints = FALSE
 	var/list/mob/living/buckled_mobs = null //list()
 	var/max_buckled_mobs = 1
 	var/buckle_prevents_pull = FALSE
@@ -14,12 +16,14 @@
 		return
 	if(can_buckle && has_buckled_mobs())
 		if(buckled_mobs.len > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sortNames(buckled_mobs)
+			var/mob/living/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle", sort_names(buckled_mobs))
+			if(isnull(unbuckled))
+				return
 			if(user_unbuckle_mob(unbuckled,user))
-				return 1
+				return TRUE
 		else
 			if(user_unbuckle_mob(buckled_mobs[1],user))
-				return 1
+				return TRUE
 
 /atom/movable/attackby(obj/item/W, mob/user, params)
 	if(!can_buckle || !istype(W, /obj/item/riding_offhand) || !user.Adjacent(src))
@@ -32,6 +36,22 @@
 	user.unbuckle_mob(carried_mob)
 	carried_mob.forceMove(get_turf(src))
 	return mouse_buckle_handling(carried_mob, user)
+
+//literally just the above extension of attack_hand(), but for silicons instead (with an adjacency check, since attack_robot() being called doesn't mean that you're adjacent to something)
+/atom/movable/attack_robot(mob/living/user)
+	. = ..()
+	if(.)
+		return
+	if(Adjacent(user) && can_buckle && has_buckled_mobs())
+		if(buckled_mobs.len > 1)
+			var/mob/living/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle", sort_names(buckled_mobs))
+			if(isnull(unbuckled))
+				return
+			if(user_unbuckle_mob(unbuckled,user))
+				return TRUE
+		else
+			if(user_unbuckle_mob(buckled_mobs[1],user))
+				return TRUE
 
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
@@ -72,8 +92,11 @@
 			var/mob/living/L = M.pulledby
 			L.reset_pull_offsets(M, TRUE)
 
-	if(!check_loc && M.loc != loc)
-		M.forceMove(loc)
+	if (CanPass(M, get_dir(loc, M)))
+		M.Move(loc)
+	else
+		if (!check_loc && M.loc != loc)
+			M.forceMove(loc)
 
 	M.buckling = null
 	M.buckled = src
@@ -81,6 +104,14 @@
 	buckled_mobs |= M
 	M.update_mobility()
 	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
+	/*
+	M.set_glide_size(glide_size)
+	*/
+
+	//Something has unbuckled us
+	if(!M.buckled)
+		return FALSE
+
 	post_buckle_mob(M)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
@@ -114,6 +145,7 @@
 //Handle any extras after buckling
 //Called on buckle_mob()
 /atom/movable/proc/post_buckle_mob(mob/living/M)
+	M.reset_pull_offsets(M, TRUE) // This line is TEMPORARY, will be removed when update_mobility is refactored!
 
 //same but for unbuckle
 /atom/movable/proc/post_unbuckle_mob(mob/living/M)
@@ -202,7 +234,7 @@
 		M.visible_message("<span class='warning'>[user] starts buckling [M] to [src]!</span>",\
 			"<span class='userdanger'>[user] starts buckling you to [src]!</span>",\
 			"<span class='hear'>You hear metal clanking.</span>")
-		if(!do_after(user, 2 SECONDS, TRUE, M))
+		if(!do_after(user, 2 SECONDS, M))
 			return FALSE
 
 		// Sanity check before we attempt to buckle. Is everything still in a kosher state for buckling after the 3 seconds have elapsed?

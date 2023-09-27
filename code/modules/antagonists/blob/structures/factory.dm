@@ -53,7 +53,7 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/blob/factory/lone/process()
-	addtimer(CALLBACK(src, /obj/structure/blob/factory/lone.proc/Be_Pulsed), 10 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/blob/factory/lone, Be_Pulsed)), 10 SECONDS, TIMER_UNIQUE)
 
 /obj/structure/blob/factory/lone/Be_Pulsed()
 	. = ..()
