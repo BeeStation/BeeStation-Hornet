@@ -173,13 +173,7 @@
 				to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
 				toggle_lock(user)
 	else if(open && !showpiece)
-		if(showpiece_type && !istype(W, showpiece_type))
-			to_chat(user, "<span class='notice'>This doesn't belong in this kind of display.</span>")
-			return TRUE
-		if(user.transferItemToLoc(W, src))
-			showpiece = W
-			to_chat(user, "<span class='notice'>You put [W] on display.</span>")
-			update_icon()
+		insert_showpiece(W, user)
 	else if(glass_fix && broken && istype(W, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = W
 		if(G.get_amount() < 2)
@@ -193,6 +187,15 @@
 			update_icon()
 	else
 		return ..()
+
+/obj/structure/displaycase/proc/insert_showpiece(obj/item/wack, mob/user)
+	if(showpiece_type && !istype(wack, showpiece_type))
+		to_chat(user, "<span class='notice'>This doesn't belong in this kind of display.</span>")
+		return TRUE
+	if(user.transferItemToLoc(wack, src))
+		showpiece = wack
+		to_chat(user, "<span class='notice'>You put [wack] on display.</span>")
+		update_icon()
 
 /obj/structure/displaycase/proc/toggle_lock(mob/user)
 	open = !open
@@ -615,3 +618,9 @@
 /obj/structure/displaycase/forsale/kitchen
 	desc = "A display case with an ID-card swiper. Use your ID to purchase the contents. Meant for the bartender and chef."
 	req_one_access = list(ACCESS_KITCHEN, ACCESS_BAR)
+
+/obj/structure/displaycase/forsale/insert_showpiece(obj/item/wack, mob/user)
+	if(!IS_EDIBLE(wack))
+		to_chat(user, "<span class='notice'>\The [src] smartly rejects [wack], as it only accepts food and drinks.</span>")
+		return TRUE
+	. = ..()
