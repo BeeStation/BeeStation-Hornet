@@ -219,7 +219,6 @@
 	if(!owner)
 		return
 	owner?.show_popup_menus = FALSE
-	handle_loc(params)
 	return ..()
 
 /atom/movable/screen/fullscreen/blind_context_disable/MouseExited(location, control, params)
@@ -240,11 +239,8 @@
 	yy = round((yy - 240) / 32) + mob_owner.y
 	//Get turf at that location
 	loc = locate(xx, yy, mob_owner?.z || 1)
-	//Mouse distance check stuff
-	if(abs(xx-mob_owner.x) <= context_distance && abs(yy-mob_owner.y) <= context_distance)
-		owner?.show_popup_menus = TRUE
-		loc = null
 
 /atom/movable/screen/fullscreen/blind_context_disable/Click(location, control, params)
 	handle_loc(params)
-	return ..()
+	. = ..()
+	loc = null
