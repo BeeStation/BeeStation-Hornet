@@ -191,7 +191,7 @@
 
 /atom/movable/screen/fullscreen/pov_mask
 	icon_state = "pov"
-	render_target = "pov_mask"
+	render_target = BLIND_MASK_RENDER_TARGET
 	plane = -1
 	color = "#000"
 	show_when_dead = TRUE

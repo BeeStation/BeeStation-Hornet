@@ -21,12 +21,13 @@
 #define FLOOR_PLANE -7
 #define FLOOR_PLANE_RENDER_TARGET "FLOOR_PLANE_RENDER_TARGET"
 
-#define GAME_PLANE -5
+#define GAME_PLANE -6
 #define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
 
-#define MOB_PLANE -4
-#define ABOVE_MOB_PLANE -3
-#define OCCLUSION_PLANE -2
+#define MOB_PLANE -5
+#define ABOVE_MOB_PLANE -4
+#define OCCLUSION_PLANE -3
+#define BLIND_MASK_RENDER_TARGET "blind_mask_render_target"
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define

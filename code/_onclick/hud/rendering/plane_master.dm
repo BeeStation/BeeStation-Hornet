@@ -70,7 +70,7 @@
 /atom/movable/screen/plane_master/data_hud/backdrop(mob/mymob)
 	. = ..()
 	//Mask out POV
-	add_filter("pov_mask", 1, alpha_mask_filter(render_source = "pov_mask", flags = MASK_INVERSE))
+	add_filter("pov_mask", 1, alpha_mask_filter(render_source = BLIND_MASK_RENDER_TARGET, flags = MASK_INVERSE))
 
 /atom/movable/screen/plane_master/massive_obj
 	name = "massive object plane master"
@@ -239,13 +239,12 @@
 /atom/movable/screen/plane_master/mob_plane
 	name = "mob plane master"
 	plane = MOB_PLANE
-	appearance_flags = PLANE_MASTER //should use client color
-	blend_mode = BLEND_OVERLAY
+	appearance_flags = PLANE_MASTER
 
 /atom/movable/screen/plane_master/mob_plane/backdrop(mob/mymob)
 	. = ..()
 	//Mask out POV
-	add_filter("pov_mask", 1, alpha_mask_filter(render_source = "pov_mask", flags = MASK_INVERSE))
+	add_filter("pov_mask", 1, alpha_mask_filter(render_source = BLIND_MASK_RENDER_TARGET, flags = MASK_INVERSE))
 	//Generic filters
 	remove_filter("AO")
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
@@ -255,18 +254,17 @@
 		add_filter("eye_blur", 2, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
 /atom/movable/screen/plane_master/occlusion
-	name = "occlusion plane"
+	name = "occlusion plane master"
 	plane = OCCLUSION_PLANE
-	appearance_flags = PLANE_MASTER 
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	color = "#aaa"
+	appearance_flags = PLANE_MASTER
+	color = "#999"
 
 /atom/movable/screen/plane_master/occlusion/backdrop(mob/mymob)
 	. = ..()
 	//Layering
-	add_filter("floorplane", 1, layering_filter(render_source = FLOOR_PLANE_RENDER_TARGET))
-	add_filter("gameplane", 2, layering_filter(render_source = GAME_PLANE_RENDER_TARGET))
+	//add_filter("floorplane", 1, layering_filter(render_source = FLOOR_PLANE_RENDER_TARGET))
+	//add_filter("gameplane", 2, layering_filter(render_source = GAME_PLANE_RENDER_TARGET))
 	//Mask out POV
-	add_filter("pov_mask", 3, alpha_mask_filter(render_source = "pov_mask"))
+	add_filter("pov_mask", 3, alpha_mask_filter(render_source = BLIND_MASK_RENDER_TARGET))
 	//color
-	add_filter("color", 4, color_matrix_filter(list(rgb(200,55,55), rgb(55,200,55), rgb(55,55,200), rgb(0,0,0))))
+	//add_filter("color", 4, color_matrix_filter(list(rgb(200,55,55), rgb(55,200,55), rgb(55,55,200), rgb(0,0,0))))

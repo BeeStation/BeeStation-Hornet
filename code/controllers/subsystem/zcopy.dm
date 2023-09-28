@@ -530,7 +530,7 @@ SUBSYSTEM_DEF(zcopy)
 	// Don't fixup the root object's plane.
 	if (depth > 0)
 		switch (appearance:plane)
-			if (GAME_PLANE, FLOOR_PLANE, FLOAT_PLANE)
+			if (GAME_PLANE, FLOOR_PLANE, FLOAT_PLANE, MOB_PLANE, OCCLUSION_PLANE)
 				// fine
 			if (EMISSIVE_PLANE)
 				obliterate = TRUE
@@ -625,6 +625,8 @@ SUBSYSTEM_DEF(zcopy)
 	if(!length(zmimic_fixed_planes))
 		zmimic_fixed_planes = list(
 			"[MASSIVE_OBJ_PLANE]" = "Massive object plane (Non-Z)",
+			"[OCCLUSION_PLANE]" = "Occlusion plane (Non-Z)",
+			"[MOB_PLANE]" = "mob plane (Non-Z)",
 			"[GAME_PLANE]" = "Game plane (Non-Z)",
 			"[FLOOR_PLANE]" = "floor plane (Non-Z)"
 		)
