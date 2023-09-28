@@ -204,7 +204,8 @@
 	///Who we're disabling from right clicking - handled elsewhere
 	var/client/owner
 	var/mob/mob_owner
-	var/list/test = list()
+	///How close can the mosue be before we disable it - extra check
+	var/context_distance = 3 //tiles
 
 /atom/movable/screen/fullscreen/blind_context_disable/Initialize(mapload)
 	. = ..()
@@ -231,7 +232,6 @@
 //Set the loc to the turf we're technically clicking - fix for shooting 'n throwing
 /atom/movable/screen/fullscreen/blind_context_disable/proc/handle_loc(params)
 	var/list/l_params = params2list(params)
-	test = l_params
 	//Get mouse position in the icon
 	var/xx = text2num(l_params["icon-x"])
 	var/yy = text2num(l_params["icon-y"])
@@ -240,6 +240,10 @@
 	yy = round((yy - 240) / 32) + mob_owner.y
 	//Get turf at that location
 	loc = locate(xx, yy, mob_owner?.z || 1)
+	//Mouse distance check stuff
+	if(abs(xx-mob_owner.x) <= context_distance && abs(yy-mob_owner.y) <= context_distance)
+		owner?.show_popup_menus = TRUE
+		loc = null
 
 /atom/movable/screen/fullscreen/blind_context_disable/Click(location, control, params)
 	handle_loc(params)
