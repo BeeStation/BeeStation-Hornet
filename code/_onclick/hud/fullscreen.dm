@@ -197,8 +197,6 @@
 	show_when_dead = TRUE
 	///What mob we belong to - for orientation
 	var/mob/mob_owner
-	///Current rotation
-	var/rotation = 0
 
 /atom/movable/screen/fullscreen/pov_mask/Initialize(mapload)
 	. = ..()
@@ -212,40 +210,4 @@
 /atom/movable/screen/fullscreen/pov_mask/proc/update_dir(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
 
-	var/matrix/n_transform = transform
-	var/animation_time = 0.1 SECONDS
-	animate(src, transform = transform)
-	switch(new_dir)
-		if(1)
-			if(rotation == 0)
-				n_transform.Turn(90-rotation)
-				rotation = 90
-				animate(transform = n_transform, time = animation_time *= 0.5)
-				animation_time *= 0.5
-			n_transform.Turn(180-rotation)
-			rotation = 180
-		if(2)
-			if(rotation == 180)
-				n_transform.Turn(270-rotation)
-				rotation = 270
-				animate(transform = n_transform, time = animation_time *= 0.5)
-				animation_time *= 0.5
-			n_transform.Turn(-rotation)
-			rotation = 0
-		if(4)
-			if(rotation == 90)
-				n_transform.Turn(180-rotation)
-				rotation = 180
-				animate(transform = n_transform, time = animation_time *= 0.5)
-				animation_time *= 0.5
-			n_transform.Turn(270-rotation)
-			rotation = 270
-		if(8)
-			if(rotation == 270)
-				n_transform.Turn(-rotation)
-				rotation = 0
-				animate(transform = n_transform, time = animation_time *= 0.5)
-				animation_time *= 0.5
-			n_transform.Turn(90-rotation)
-			rotation = 90
-	animate(transform = n_transform, time = animation_time)
+	dir = new_dir
