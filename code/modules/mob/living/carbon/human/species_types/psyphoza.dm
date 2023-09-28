@@ -99,6 +99,12 @@
 			SPECIES_PERK_DESC = "Psyphoza are psychic and can sense things others can't.",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "biohazard",
+			SPECIES_PERK_NAME = "Drug Codependance",
+			SPECIES_PERK_DESC = "Consuming any kind of drug will replenish a Psyphoza's blood.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "eye",
 			SPECIES_PERK_NAME = "Blind",
