@@ -188,3 +188,18 @@
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
+
+/atom/movable/screen/fullscreen/pov_mask
+	icon_state = "pov"
+	render_target = "pov_mask"
+	plane = LOWEST_EVER_PLANE
+	blend_mode = BLEND_ADD
+	show_when_dead = TRUE
+	///What mob we belong to - for orientation
+	var/mob/mob_owner
+	///What our current rotation is
+	var/rotation = 0
+
+/atom/movable/screen/fullscreen/pov_mask/proc/link_mob(mob/new_owner)
+	mob_owner = new_owner
+	dir = mob_owner.dir

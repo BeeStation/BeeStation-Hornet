@@ -1,4 +1,5 @@
 /mob/living
+	plane = MOB_PLANE
 	///Used for tracking poking data
 	var/time_of_last_poke = 0
 	///Used for tracking accidental attacks
@@ -22,6 +23,9 @@
 		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
 		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
 		// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
+
+	var/atom/movable/screen/fullscreen/pov_mask/PM = overlay_fullscreen("pov", /atom/movable/screen/fullscreen/pov_mask)
+	PM.link_mob(src)
 
 /mob/living/proc/initialize_footstep()
 	AddComponent(/datum/component/footstep)

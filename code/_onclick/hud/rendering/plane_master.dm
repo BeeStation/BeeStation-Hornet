@@ -227,3 +227,22 @@
 	name = "fullscreen alert plane"
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
+
+///Contains mobs
+/atom/movable/screen/plane_master/mob_plane
+	name = "mob plane master"
+	plane = MOB_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/mob_plane/backdrop(mob/mymob)
+	. = ..()
+	//Mask out POV
+	add_filter("pov_mask", 1, alpha_mask_filter(render_source = "pov_mask", flags = MASK_INVERSE))
+	//Generic filters
+	remove_filter("AO")
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
+		add_filter("AO", 2, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
+	remove_filter("eye_blur")
+	if(istype(mymob) && mymob.eye_blurry)
+		add_filter("eye_blur", 2, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
