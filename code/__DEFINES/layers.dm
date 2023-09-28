@@ -19,9 +19,14 @@
 #define ZMIMIC_MAX_DEPTH 10
 
 #define FLOOR_PLANE -7
-#define GAME_PLANE -4
+#define FLOOR_PLANE_RENDER_TARGET "floor_plane_render_target"
 
-#define MOB_PLANE -3
+#define GAME_PLANE -5
+#define GAME_PLANE_RENDER_TARGET "game_plane_render_target"
+
+#define MOB_PLANE -4
+#define ABOVE_MOB_PLANE -3
+#define OCCLUSION_PLANE -2
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define

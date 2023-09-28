@@ -192,7 +192,8 @@
 /atom/movable/screen/fullscreen/pov_mask
 	icon_state = "pov"
 	render_target = "pov_mask"
-	plane = LOWEST_EVER_PLANE
+	plane = 0 //no plane >:(
+	color = "#000"
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 	///What mob we belong to - for orientation
@@ -200,6 +201,16 @@
 	///What our current rotation is
 	var/rotation = 0
 
+/atom/movable/screen/fullscreen/pov_mask/Initialize(mapload)
+	. = ..()
+	add_filter("blur", 1, gauss_blur_filter(10))
+
 /atom/movable/screen/fullscreen/pov_mask/proc/link_mob(mob/new_owner)
 	mob_owner = new_owner
-	dir = mob_owner.dir
+
+	RegisterSignal(mob_owner, COMSIG_ATOM_DIR_CHANGE, PROC_REF(update_dir))
+
+/atom/movable/screen/fullscreen/pov_mask/proc/update_dir(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+
+	dir = new_dir

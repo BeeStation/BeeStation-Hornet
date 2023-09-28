@@ -47,6 +47,7 @@
 /atom/movable/screen/plane_master/game_world
 	name = "game world plane master"
 	plane = GAME_PLANE
+	render_target = GAME_PLANE_RENDER_TARGET
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
 
@@ -251,3 +252,19 @@
 	remove_filter("eye_blur")
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 2, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
+
+/atom/movable/screen/plane_master/occlusion
+	name = "occlusion plane"
+	plane = OCCLUSION_PLANE
+	appearance_flags = PLANE_MASTER 
+	render_source = GAME_PLANE_RENDER_TARGET
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	color = "#999"
+
+/atom/movable/screen/plane_master/occlusion/backdrop(mob/mymob)
+	. = ..()
+	//Mask out POV
+	add_filter("pov_mask", 3, alpha_mask_filter(render_source = "pov_mask"))
+	//Layering
+	add_filter("floorplane", 1, layering_filter(render_target = FLOOR_PLANE_RENDER_TARGET))
+	add_filter("gameplane", 2, layering_filter(render_target = GAME_PLANE_RENDER_TARGET))
