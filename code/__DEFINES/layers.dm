@@ -18,15 +18,15 @@
 /// The maxiumum number of planes deep we'll go before we just dump everything on the same plane.
 #define ZMIMIC_MAX_DEPTH 10
 
-#define FLOOR_PLANE -7
+#define FLOOR_PLANE -9
 #define FLOOR_PLANE_RENDER_TARGET "FLOOR_PLANE_RENDER_TARGET"
 
-#define GAME_PLANE -6
+#define GAME_PLANE -8
 #define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
 
-#define MOB_PLANE -5
-#define ABOVE_MOB_PLANE -4
-#define OCCLUSION_PLANE -3
+#define MOB_PLANE -7
+#define ABOVE_MOB_PLANE -6
+#define OCCLUSION_PLANE -5
 #define BLIND_MASK_RENDER_TARGET "blind_mask_render_target"
 
 #define SPACE_LAYER 1.8
