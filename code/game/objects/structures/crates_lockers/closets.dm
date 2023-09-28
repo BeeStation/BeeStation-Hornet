@@ -10,6 +10,9 @@
 	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0)
 	pass_flags_self = LETPASSCLICKS
 	var/contents_initialised = FALSE
+	var/enable_door_overlay = TRUE
+	var/has_opened_overlay = TRUE
+	var/has_closed_overlay = TRUE
 	var/icon_door = null
 	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/secure = FALSE //secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
@@ -64,7 +67,7 @@
 /obj/structure/closet/Destroy()
 	dump_contents()
 	return ..()
-
+/*
 /obj/structure/closet/update_icon()
 	if(istype(src, /obj/structure/closet/supplypod))
 		return ..()
@@ -91,6 +94,43 @@
 				add_overlay("[icon_door]_open")
 			else
 				add_overlay("[icon_state]_open")
+*/
+/obj/structure/closet/update_icon()
+	. = ..()
+	if(istype(src, /obj/structure/closet/supplypod))
+		return
+	layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
+
+/obj/structure/closet/update_overlays()
+	. = ..()
+	closet_update_overlays(.)
+
+/obj/structure/closet/proc/closet_update_overlays(list/new_overlays)
+	. = new_overlays
+	if(enable_door_overlay && !is_animating_door)
+		var/overlay_state = isnull(base_icon_state) ? initial(icon_state) : base_icon_state
+		if(opened && has_opened_overlay)
+			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[overlay_state]_open", alpha = src.alpha)
+			. += door_overlay
+			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, src, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
+		else if(has_closed_overlay)
+			. += "[icon_door || overlay_state]_door"
+	if(opened)
+		return
+	if(welded)
+		. += icon_welded
+	if(broken || !secure)
+		return
+	//Overlay is similar enough for both that we can use the same mask for both
+	. += emissive_appearance(icon, "locked", src, alpha = src.alpha)
+	. += locked ? "locked" : "unlocked"
+
+/obj/structure/closet/update_appearance(updates=ALL)
+	. = ..()
+	if(opened || broken || !secure)
+		luminosity = 0
+		return
+	luminosity = 1
 
 /obj/structure/closet/proc/animate_door(var/closing = FALSE)
 	if(!door_anim_time)
@@ -201,6 +241,7 @@
 		density = FALSE
 	dump_contents()
 	animate_door(FALSE)
+	update_appearance()
 	update_icon()
 	after_open(user, force)
 	return TRUE
@@ -521,6 +562,7 @@
 	playsound(src, "sparks", 50, 1)
 	broken = TRUE
 	locked = FALSE
+	update_appearance()
 	update_icon()
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)

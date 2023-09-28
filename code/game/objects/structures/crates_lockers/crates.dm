@@ -14,16 +14,16 @@
 	allow_dense = TRUE
 	dense_when_open = TRUE
 	delivery_icon = "deliverycrate"
-	door_anim_time = 3
-	door_anim_angle = 140
-	door_hinge = 2
+	door_anim_time = 4
+	door_anim_angle = 140 //180
+	door_hinge = 3.5 //3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	open_sound_volume = 35
 	close_sound_volume = 50
 	drag_slowdown = 1.5
 	var/crate_climb_time = 20
-	var/azimuth_angle_2 = 128 //in this context the azimuth angle for over 90 degree
+	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
 	var/static/list/animation_math //assoc list with pre calculated values
