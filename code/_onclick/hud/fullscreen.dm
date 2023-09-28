@@ -192,14 +192,11 @@
 /atom/movable/screen/fullscreen/pov_mask
 	icon_state = "pov"
 	render_target = "pov_mask"
-	plane = 0 //no plane >:(
+	plane = -1
 	color = "#000"
-	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 	///What mob we belong to - for orientation
 	var/mob/mob_owner
-	///What our current rotation is
-	var/rotation = 0
 
 /atom/movable/screen/fullscreen/pov_mask/Initialize(mapload)
 	. = ..()

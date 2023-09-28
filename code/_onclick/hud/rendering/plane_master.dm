@@ -34,6 +34,7 @@
 /atom/movable/screen/plane_master/floor
 	name = "floor plane master"
 	plane = FLOOR_PLANE
+	render_target = FLOOR_PLANE_RENDER_TARGET
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
@@ -257,14 +258,15 @@
 	name = "occlusion plane"
 	plane = OCCLUSION_PLANE
 	appearance_flags = PLANE_MASTER 
-	render_source = GAME_PLANE_RENDER_TARGET
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	color = "#999"
+	color = "#aaa"
 
 /atom/movable/screen/plane_master/occlusion/backdrop(mob/mymob)
 	. = ..()
+	//Layering
+	add_filter("floorplane", 1, layering_filter(render_source = FLOOR_PLANE_RENDER_TARGET))
+	add_filter("gameplane", 2, layering_filter(render_source = GAME_PLANE_RENDER_TARGET))
 	//Mask out POV
 	add_filter("pov_mask", 3, alpha_mask_filter(render_source = "pov_mask"))
-	//Layering
-	add_filter("floorplane", 1, layering_filter(render_target = FLOOR_PLANE_RENDER_TARGET))
-	add_filter("gameplane", 2, layering_filter(render_target = GAME_PLANE_RENDER_TARGET))
+	//color
+	add_filter("color", 4, color_matrix_filter(list(rgb(200,55,55), rgb(55,200,55), rgb(55,55,200), rgb(0,0,0))))

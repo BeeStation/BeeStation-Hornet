@@ -19,10 +19,10 @@
 #define ZMIMIC_MAX_DEPTH 10
 
 #define FLOOR_PLANE -7
-#define FLOOR_PLANE_RENDER_TARGET "floor_plane_render_target"
+#define FLOOR_PLANE_RENDER_TARGET "FLOOR_PLANE_RENDER_TARGET"
 
 #define GAME_PLANE -5
-#define GAME_PLANE_RENDER_TARGET "game_plane_render_target"
+#define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
 
 #define MOB_PLANE -4
 #define ABOVE_MOB_PLANE -3
