@@ -65,6 +65,11 @@
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
 
+/atom/movable/screen/plane_master/data_hud/backdrop(mob/mymob)
+	. = ..()
+	//Mask out POV
+	add_filter("pov_mask", 1, alpha_mask_filter(render_source = "pov_mask", flags = MASK_INVERSE))
+
 /atom/movable/screen/plane_master/massive_obj
 	name = "massive object plane master"
 	plane = MASSIVE_OBJ_PLANE
