@@ -448,6 +448,7 @@
 
 /// Called when our connected hardsuit tank is removed from the hardsuit or destroyed.
 /obj/item/tank/jetpack/suit/proc/on_tank_drop()
+	SIGNAL_HANDLER
 	turn_off(known_user)
 
 /// Returns any jetpack on this mob that can be used
