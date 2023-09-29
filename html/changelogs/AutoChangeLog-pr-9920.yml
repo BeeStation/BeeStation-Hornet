@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixed being cloned as an antag not giving the antag moodlet
+  - bugfix: Fixed being cloned as a heretic not giving the forbidden knowledge button
