@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Fixed ranged holoparas having a massively slower fire rate than they should.
