@@ -1,5 +1,0 @@
-author: RKz, spookydonut
-delete-after: true
-changes:
-  - code_imp: Changes power_change() to respect parent calls. Should generate less
-      edge-cases and be more performant
