@@ -39,8 +39,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/Initialize()
 	. = ..()
 	if(organ_flags & ORGAN_EDIBLE)
-		AddComponent(/datum/component/edible, initial_reagents = food_reagents, foodtypes = RAW | MEAT | GORE, \
-			pre_eat = CALLBACK(src, PROC_REF(pre_eat)), on_compost = CALLBACK(src, PROC_REF(pre_compost)) , after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
+		AddComponent(/datum/component/edible,\
+		initial_reagents = food_reagents,\
+		foodtypes = RAW | MEAT | GORE,\
+		volume = 10,\
+		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
+		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
+		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	if(!iscarbon(M) || owner == M)
