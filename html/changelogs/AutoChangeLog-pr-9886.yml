@@ -1,0 +1,6 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Attacks on turfs no longer randomly appear in the area containing it.
+  - bugfix: Swarmer attacks no longer use the default attack effect, as they already
+      apply their own.
