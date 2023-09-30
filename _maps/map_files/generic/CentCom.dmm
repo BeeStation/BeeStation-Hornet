@@ -9484,6 +9484,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/sepia,
 /area/wizard_station)
 "Kt" = (
@@ -21035,7 +21036,7 @@ Ov
 JS
 oc
 mh
-JS
+Ed
 JS
 sX
 nE
@@ -21290,9 +21291,9 @@ Zw
 iY
 RJ
 mX
-JS
-JS
-JS
+Ed
+Ed
+Ed
 Ks
 vZ
 bI
