@@ -55,8 +55,11 @@
 		CRASH("Failed to reserve a block for lazy template: '[key]'")
 
 	var/turf/reservation_bottom_left = coords2turf(reservation.bottom_left_coords)
-	if(!loading.load(reservation_bottom_left))
+	var/datum/map_generator/generator = loading.load(reservation_bottom_left)
+
+	if (!generator)
 		CRASH("Failed to load lazy template: '[key]'")
+	UNTIL(generator.completed)
 	reservations += reservation
 
 	return reservation
