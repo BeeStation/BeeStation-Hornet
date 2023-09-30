@@ -511,22 +511,22 @@
 /area/ruin/powered/animal_hospital)
 "me" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
 /obj/machinery/light{
