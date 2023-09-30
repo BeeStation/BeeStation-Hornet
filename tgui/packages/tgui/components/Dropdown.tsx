@@ -5,6 +5,9 @@ import { Box, BoxProps } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Stack } from './Stack';
+import { createLogger } from '../logging';
+
+const logger = createLogger('Dropdown');
 
 export interface DropdownEntry {
   displayText: string | number | InfernoNode;
@@ -79,9 +82,13 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     open: false,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      selected: props.selected,
+      open: props.open,
+    };
     this.handleClick = () => {
       if (this.state.open) {
         this.setOpen(false);
