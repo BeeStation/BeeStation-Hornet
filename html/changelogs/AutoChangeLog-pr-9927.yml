@@ -1,4 +1,0 @@
-author: 'citrus '
-delete-after: true
-changes:
-  - rscadd: ports the code needed for hedges to work
