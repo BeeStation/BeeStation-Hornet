@@ -159,7 +159,7 @@
 /obj/item/food/lollipop
 	name = "lollipop"
 	desc = "A delicious lollipop. Makes for a great Valentine's present."
-	icon = 'icons/obj/lollipop.dmi'
+	icon = 'icons/obj/food/lollipop.dmi'
 	icon_state = "lollipop_stick"
 	item_state = null
 	food_reagents = list(
@@ -185,7 +185,7 @@
 
 /obj/item/food/lollipop/Initialize(mapload)
 	. = ..()
-	head = mutable_appearance('icons/obj/lollipop.dmi', "lollipop_head")
+	head = mutable_appearance('icons/obj/food/lollipop.dmi', "lollipop_head")
 	change_head_color(rgb(rand(0, 255), rand(0, 255), rand(0, 255)))
 
 /obj/item/food/lollipop/proc/change_head_color(C)
@@ -230,7 +230,7 @@
 /obj/item/food/lollipop/long
 	name = "longpop"
 	desc = "Twice the size, half the flavour!"
-	icon = 'icons/obj/lollipop.dmi'
+	icon = 'icons/obj/food/lollipop.dmi'
 	icon_state = "lollipop_stick_long"
 
 /obj/item/food/lollipop/long/equipped(mob/user, slot)

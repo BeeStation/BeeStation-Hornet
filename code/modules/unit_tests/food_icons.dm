@@ -45,4 +45,4 @@
 			for(var/file_place in possible_icon_states[icon_state])
 				match_message += (match_message ? " & '[file_place]'" : " - Matching sprite found in: '[file_place]'")
 
-		TEST_FAIL("Missing icon_state for [item_path] in '[icon]'.\n\ticon_state = \"[icon_state]\"[match_message]")
+		Fail("Missing icon_state for [item_path] in '[icon]'.\n\ticon_state = \"[icon_state]\"[match_message]")

@@ -188,8 +188,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/roasted = FALSE
 
-/obj/item/food/sausage/MakeProcessable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/salami, 6, 30)
+/obj/item/food/sausage/make_processable()
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/salami, 6, 3 SECONDS, table_required = TRUE,/*  screentip_verb = "Slice"*/)
 
 /obj/item/food/salami
 	name = "salami"
