@@ -32,5 +32,5 @@
 				failures += "[closet_type] contains a steal objective [item.type] in PopulateContents(). Move it to populate_contents_immediate()."
 			if (item.resistance_flags & INDESTRUCTIBLE)
 				failures += "[closet_type] contains the indestructible item, [item.type], in PopulateContents(). This should be in populate_contents_immediate() instead."
-	if (length(failures))
-		Fail(jointext(failures, "\n"))
+	TEST_ASSERT(!length(adjacent_turfs),
+		jointext(failures, "\n"))

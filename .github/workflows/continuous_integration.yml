@@ -121,10 +121,13 @@ jobs:
         if: steps.cache-yarn.outputs.cache-hit != 'true'
         run: |
           tools/build/build --ci yarn
-      - name: Compile and run tests
+      - name: Compile Tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build --ci build -DCIBUILDING
+          tools/build/build --ci dm -DCIBUILDING -DANSICOLORS
+      - name: Run Tests
+        run: |
+          source $HOME/BYOND/byond/bin/byondsetup
           bash tools/ci/run_server.sh
   test_windows:
     runs-on: windows-latest
