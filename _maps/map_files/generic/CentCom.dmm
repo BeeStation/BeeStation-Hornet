@@ -11,6 +11,46 @@
 "ad" = (
 /turf/open/space,
 /area/space)
+"ae" = (
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 24;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 16;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 8;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	layer = 3.1
+	},
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -10;
+	pixel_y = 6
+	},
+/obj/effect/decal/cleanable/robot_debris,
+/turf/open/floor/plasteel/cult,
+/area/wizard_station)
+"af" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/lava/plasma,
+/area/space)
 "ag" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -23,6 +63,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"aj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken4"
+	},
+/area/space)
 "al" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
@@ -182,6 +233,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
+"aE" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/grass,
+/area/space)
 "aF" = (
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
@@ -226,6 +284,10 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
+"aN" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plasteel/cult,
+/area/space)
 "aP" = (
 /obj/machinery/vending/hydronutrients,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -259,6 +321,28 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"aW" = (
+/obj/structure/shuttle/engine/heater{
+	resistance_flags = 3
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cult,
+/area/space)
+"aX" = (
+/turf/open/lava,
+/area/wizard_station)
+"aZ" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 6
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/valve/layer4,
+/turf/open/floor/plasteel/tech,
+/area/space)
 "ba" = (
 /obj/effect/spawner/xmastree,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -278,6 +362,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"bf" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "bg" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -374,6 +467,28 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/evac)
+"by" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/space)
+"bz" = (
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/chem_pile{
+	pixel_x = -14;
+	pixel_y = -1
+	},
+/obj/effect/decal/cleanable/plasma,
+/turf/open/floor/plasteel/tech,
+/area/space)
 "bA" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -422,6 +537,19 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/centcom/evac)
+"bH" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/bamboo,
+/area/wizard_station)
+"bI" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "bJ" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -476,6 +604,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"bS" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	color = "#742925"
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
 "bU" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -488,6 +622,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"bW" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/cardboard_cutout,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/grid/steel,
+/area/space)
 "ca" = (
 /obj/machinery/button/door/indestructible{
 	id = "thunderdome";
@@ -556,6 +702,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"cn" = (
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -7;
+	pixel_y = 19
+	},
+/turf/open/lava,
+/area/space)
 "co" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -568,6 +721,10 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"cq" = (
+/obj/structure/bookcase/random/fiction,
+/turf/open/floor/carpet/green,
+/area/wizard_station)
 "cr" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/plasteel,
@@ -602,6 +759,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/control)
+"cz" = (
+/obj/structure/flora/junglebush/large{
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
+"cA" = (
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/plasteel/freezer,
+/area/space)
 "cB" = (
 /obj/structure/table/wood,
 /obj/item/phone{
@@ -698,6 +865,15 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
+"cQ" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/open/floor/plasteel/freezer,
+/area/space)
 "cS" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -754,6 +930,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
+"db" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clockwork/alloy_shards{
+	icon_state = "vanguard"
+	},
+/turf/open/lava/plasma,
+/area/space)
 "dc" = (
 /obj/machinery/modular_computer/console/preset/command{
 	dir = 8
@@ -774,6 +962,17 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"dg" = (
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/decal/cleanable/blood/gibs/core,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/open/floor/grass,
+/area/wizard_station)
 "dh" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/plasteel,
@@ -792,6 +991,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
+"dm" = (
+/obj/structure/closet/cabinet,
+/obj/item/storage/backpack/satchel,
+/turf/open/floor/carpet,
+/area/wizard_station)
 "do" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
@@ -819,11 +1023,26 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"dt" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/lava/plasma,
+/area/space)
 "du" = (
 /obj/structure/grille,
 /obj/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/centcom/evac)
+"dw" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 1
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-21"
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
 "dx" = (
 /obj/machinery/computer/secure_data{
 	dir = 1
@@ -862,6 +1081,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/evac)
+"dF" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/vending/magivend,
+/turf/open/floor/wood,
+/area/wizard_station)
 "dH" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
@@ -938,6 +1164,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"dT" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/gibs/down,
+/turf/open/floor/grass,
+/area/wizard_station)
 "dV" = (
 /obj/machinery/door/window/westleft,
 /turf/open/floor/mineral/titanium/blue,
@@ -982,6 +1213,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"ee" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "ef" = (
 /obj/item/reagent_containers/glass/bottle/epinephrine{
 	pixel_x = 6
@@ -1030,6 +1267,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"eh" = (
+/obj/structure/bookcase/random/reference,
+/obj/structure/noticeboard{
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "ei" = (
 /obj/machinery/computer/security{
 	dir = 4
@@ -1043,6 +1287,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"ek" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clockwork/alloy_shards{
+	icon_state = "gear_bit2"
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "el" = (
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
@@ -1081,12 +1334,23 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"eq" = (
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = 14
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "er" = (
 /obj/structure/table,
 /obj/item/storage/lockbox,
 /obj/item/storage/firstaid/advanced,
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
+"es" = (
+/mob/living/simple_animal/hostile/netherworld/migo,
+/turf/open/floor/grass/fakebasalt,
+/area/space)
 "et" = (
 /obj/machinery/camera{
 	c_tag = "Red Team";
@@ -1099,6 +1363,17 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"eu" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken4"
+	},
+/area/wizard_station)
 "ev" = (
 /obj/effect/landmark/thunderdome/two,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1123,6 +1398,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"eA" = (
+/obj/item/storage/briefcase{
+	pixel_y = 18;
+	pixel_x = 6
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "eB" = (
 /obj/structure/filingcabinet/medical,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1171,6 +1453,18 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"eI" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925"
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken6"
+	},
+/area/wizard_station)
 "eJ" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/plasteel/dark,
@@ -1211,12 +1505,26 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
+"eS" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/bamboo,
+/area/wizard_station)
 "eT" = (
 /obj/machinery/light,
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supply)
+"eU" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/bamboo,
+/area/space)
 "eV" = (
 /obj/structure/bookcase/random,
 /obj/machinery/light{
@@ -1242,6 +1550,19 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supply)
+"eY" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 10
+	},
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -10;
+	pixel_y = 12
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "eZ" = (
 /obj/structure/barricade/security/ctf,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
@@ -1253,6 +1574,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"fc" = (
+/obj/structure/table/wood/fancy,
+/obj/item/statuebust{
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "fd" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -1285,6 +1613,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"fi" = (
+/turf/closed/wall/r_wall,
+/area/space)
+"fj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/green,
+/area/space)
 "fk" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -1324,6 +1662,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"fp" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet/red,
+/area/space)
 "fq" = (
 /obj/machinery/camera{
 	c_tag = "Green Team";
@@ -1410,6 +1754,23 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/tdome/arena_source)
+"fG" = (
+/obj/structure/table/wood,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/food/burger/spell{
+	pixel_y = 2
+	},
+/turf/open/floor/carpet/green,
+/area/space)
+"fI" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/space)
+"fJ" = (
+/turf/open/floor/grass/fakebasalt,
+/area/wizard_station)
 "fK" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -1541,9 +1902,30 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"gg" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clockwork/alloy_shards{
+	icon_state = "shard_large2";
+	pixel_y = -16;
+	pixel_x = 6
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "gh" = (
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"gk" = (
+/obj/item/gun/magic/wand{
+	desc = "Used in emergencies to reignite magma engines.";
+	max_charges = 0;
+	name = "wand of emergency engine ignition";
+	pixel_x = -1;
+	pixel_y = -6
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "gl" = (
 /turf/closed/indestructible/fakeglass,
 /area/space)
@@ -1577,6 +1959,11 @@
 /obj/structure/barricade/security/ctf,
 /turf/open/floor/circuit/red,
 /area/ctf)
+"gr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel/tech,
+/area/space)
 "gs" = (
 /obj/machinery/vending/cola,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1649,6 +2036,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
+"gK" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/wizard_station)
 "gL" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -1676,6 +2067,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"gR" = (
+/obj/effect/turf_decal/techfloor,
+/obj/effect/decal/cleanable/greenglow{
+	pixel_y = 16
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "gT" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -1768,6 +2166,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"hk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/bamboo,
+/area/space)
 "hl" = (
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
@@ -1807,6 +2209,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"ht" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/space)
 "hu" = (
 /obj/machinery/biogenerator,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -1862,6 +2268,14 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"hK" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/wizard_station)
 "hL" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
@@ -1872,6 +2286,14 @@
 /obj/machinery/door/window/westleft,
 /turf/open/floor/mineral/titanium,
 /area/centcom/evac)
+"hP" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/space)
 "hR" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -1899,6 +2321,20 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
+"hV" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
 "hX" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/newscaster{
@@ -2058,6 +2494,13 @@
 	name = "CentCom Cell"
 	},
 /area/centcom/prison)
+"iC" = (
+/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/lava/plasma,
+/area/space)
 "iD" = (
 /obj/structure/closet/secure_closet/security,
 /obj/item/storage/belt/security/full,
@@ -2140,6 +2583,33 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"iS" = (
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 24;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 16;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 8;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	layer = 3.1
+	},
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plasteel/cult,
+/area/space)
 "iT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2178,6 +2648,9 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/centcom/supply)
+"iY" = (
+/turf/open/lava/plasma,
+/area/wizard_station)
 "ja" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/centcom{
@@ -2203,6 +2676,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"jd" = (
+/obj/structure/dresser,
+/obj/item/skub{
+	pixel_y = 19
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/wood,
+/area/space)
 "je" = (
 /turf/open/floor/plasteel/yellowsiding{
 	dir = 1
@@ -2545,6 +3026,55 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"jX" = (
+/obj/effect/turf_decal/bot,
+/obj/item/cautery/alien,
+/obj/vehicle/ridden/scooter/skateboard{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"jY" = (
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"jZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/sepia,
+/area/space)
+"kd" = (
+/obj/structure/mirror/magic{
+	pixel_y = 28
+	},
+/obj/machinery/photocopier{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/structure/filingcabinet{
+	pixel_x = -11
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"kf" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/green,
+/area/wizard_station)
+"kh" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "ki" = (
 /obj/docking_port/stationary{
 	dwidth = 25;
@@ -2555,6 +3085,12 @@
 	},
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
+"kk" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 1
+	},
+/turf/open/floor/carpet/red,
+/area/space)
 "kl" = (
 /turf/open/floor/wood,
 /area/centcom/control)
@@ -2695,6 +3231,13 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/centcom/control)
+"kJ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/bamboo,
+/area/space)
 "kK" = (
 /turf/closed/indestructible/abductor{
 	icon_state = "alien16"
@@ -2774,6 +3317,32 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"kW" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/structure/rack{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "minibar";
+	name = "skeletal minibar"
+	},
+/obj/item/reagent_containers/food/drinks/bottle/cognac{
+	pixel_y = 9;
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/food/drinks/bottle/wine{
+	pixel_y = 12;
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -6
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
 "kX" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -2888,6 +3457,41 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
+"lo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/dogbed{
+	name = "35b's Bed"
+	},
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood/gibs/up{
+	pixel_y = 6
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plating/dirt,
+/area/space)
+"lp" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
+"lq" = (
+/obj/structure/table/wood/poker,
+/obj/item/storage/pill_bottle/dice{
+	icon_state = "magicdicebag";
+	pixel_x = 7;
+	pixel_y = 12
+	},
+/obj/item/radio/headset{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/item/radio/headset{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "lr" = (
 /turf/closed/indestructible/fakedoor{
 	name = "CentCom"
@@ -3039,6 +3643,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"lQ" = (
+/turf/closed/mineral/ash_rock,
+/area/wizard_station)
 "lS" = (
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/holofloor/hyperspace,
@@ -3053,6 +3660,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"lU" = (
+/obj/effect/turf_decal/bot,
+/obj/item/chair/wood,
+/obj/item/chair/wood{
+	pixel_y = 4;
+	pixel_x = 4
+	},
+/obj/item/chair/wood{
+	pixel_y = 8;
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/wizard_station)
 "lV" = (
 /obj/structure/chair{
 	dir = 8
@@ -3110,6 +3730,30 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"mh" = (
+/obj/structure/table/wood/fancy,
+/obj/item/reagent_containers/food/drinks/bottle/tequila{
+	pixel_x = 7;
+	pixel_y = 18
+	},
+/obj/item/reagent_containers/food/drinks/trophy{
+	pixel_x = 3;
+	pixel_y = 16;
+	name = "Wizards Goblet"
+	},
+/obj/item/toy/figure/wizard{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"mi" = (
+/mob/living/simple_animal/hostile/netherworld/migo,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/grass/fakebasalt,
+/area/space)
 "mk" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/directions/engineering{
@@ -3221,6 +3865,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"mH" = (
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = 14
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"mL" = (
+/turf/open/floor/plasteel/sepia,
+/area/space)
+"mM" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/lava/plasma,
+/area/space)
 "mQ" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -3265,12 +3928,31 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"mU" = (
+/obj/effect/turf_decal/techfloor,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/ash/large{
+	pixel_x = -13;
+	pixel_y = 18
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"mX" = (
+/obj/structure/flora/junglebush/large{
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "mY" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/open/floor/plasteel/grimy,
 /area/centcom/control)
+"mZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "na" = (
 /obj/structure/chair{
 	dir = 8
@@ -3362,6 +4044,30 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"nq" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"nr" = (
+/obj/structure/destructible/cult/talisman{
+	desc = "An altar dedicated to the Wizards' Federation"
+	},
+/obj/item/kitchen/knife/ritual,
+/turf/open/floor/carpet/red,
+/area/wizard_station)
+"nv" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
+/obj/structure/mirror/magic{
+	pixel_x = -24
+	},
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/freezer,
+/area/wizard_station)
 "nx" = (
 /obj/structure/flora/bush,
 /turf/open/floor/plating/asteroid/snow/airless,
@@ -3398,6 +4104,28 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/ferry)
+"nD" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 4
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"nE" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/magusblue,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/staff,
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "nF" = (
 /obj/machinery/newscaster{
 	pixel_y = -32
@@ -3419,12 +4147,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"nH" = (
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = 14
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
 "nK" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"nL" = (
+/turf/open/floor/plasteel/cult,
+/area/wizard_station)
 "nM" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "XCCsecdepartment";
@@ -3484,10 +4222,34 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"ob" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/wizard_station)
+"oc" = (
+/obj/structure/table/wood/fancy,
+/obj/machinery/fax/law,
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "oe" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/centcom/ferry)
+"oh" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 10
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/valve/layer4,
+/turf/open/floor/plasteel/tech,
+/area/space)
+"oj" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/bookcase/random/reference,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "ol" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -3508,6 +4270,17 @@
 /obj/machinery/computer/communications,
 /turf/open/floor/plasteel/grimy,
 /area/centcom/ferry)
+"oo" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clockwork/alloy_shards{
+	icon_state = "shard_large2";
+	pixel_y = -16;
+	pixel_x = 6
+	},
+/turf/open/lava/plasma,
+/area/space)
 "os" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -3551,6 +4324,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"oA" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/wizard_station)
 "oB" = (
 /turf/open/floor/wood,
 /area/centcom/ferry)
@@ -3648,6 +4427,37 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"oR" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"oS" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clockwork/alloy_shards{
+	icon_state = "shard_small1"
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
+"oT" = (
+/obj/structure/closet/cardboard,
+/obj/effect/turf_decal/bot,
+/obj/item/banhammer,
+/obj/item/coin/antagtoken,
+/obj/item/storage/fancy/candle_box{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/storage/fancy/candle_box{
+	pixel_x = 6;
+	pixel_y = -4
+	},
+/obj/item/lighter{
+	pixel_y = -11
+	},
+/turf/open/floor/plasteel/dark,
+/area/space)
 "oU" = (
 /obj/structure/closet/emcloset,
 /obj/item/tank/internals/emergency_oxygen/engi,
@@ -3668,6 +4478,19 @@
 	},
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
+"oX" = (
+/obj/effect/turf_decal/bot,
+/obj/item/chair/wood,
+/obj/item/chair/wood{
+	pixel_y = 4;
+	pixel_x = 4
+	},
+/obj/item/chair/wood{
+	pixel_y = 8;
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/space)
 "oY" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -3770,6 +4593,40 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"pp" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/carpet/red,
+/area/wizard_station)
+"pr" = (
+/obj/structure/flora/tree/jungle/small{
+	desc = "it's magical.... probably"
+	},
+/obj/structure/flora/grass/jungle/b{
+	pixel_x = -11;
+	pixel_y = -10
+	},
+/turf/open/floor/plating/dirt,
+/area/space)
+"pt" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/bamboo,
+/area/space)
+"pu" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/lava/plasma,
+/area/space)
+"pw" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck,
+/turf/open/floor/wood,
+/area/space)
 "px" = (
 /obj/structure/chair{
 	dir = 8
@@ -3841,6 +4698,14 @@
 	},
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
+"pH" = (
+/mob/living/simple_animal/bot/medbot/mysterious{
+	desc = "If you don't accidentally blow yourself up from time to time you're not really a wizard anyway.";
+	faction = list("neutral","silicon","creature");
+	name = "Nobody's Perfect"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "pI" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
@@ -3928,6 +4793,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/ert)
+"pU" = (
+/obj/machinery/computer/shuttle_flight,
+/turf/open/floor/plasteel/cult,
+/area/space)
 "pV" = (
 /obj/machinery/light{
 	dir = 4
@@ -3968,6 +4837,15 @@
 /obj/machinery/light,
 /turf/open/floor/wood,
 /area/centcom/ferry)
+"qg" = (
+/turf/open/floor/grass/fakebasalt,
+/area/space)
+"qk" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/carpet/red,
+/area/wizard_station)
 "qn" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/airalarm{
@@ -3993,6 +4871,17 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"qp" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
+/obj/structure/mirror/magic{
+	pixel_x = -24
+	},
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/freezer,
+/area/space)
 "qv" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -4062,7 +4951,15 @@
 /turf/open/floor/grass,
 /area/centcom/evac)
 "qE" = (
-/turf/closed/indestructible/riveted/uranium,
+/obj/structure/window/reinforced,
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 5
+	},
+/turf/open/floor/plasteel/tech/grid,
 /area/wizard_station)
 "qF" = (
 /obj/effect/turf_decal/stripes/line{
@@ -4086,6 +4983,21 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
+"qJ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/bamboo,
+/area/wizard_station)
+"qK" = (
+/obj/item/clockwork/alloy_shards{
+	icon_state = "shard_large2";
+	pixel_y = -16;
+	pixel_x = 6
+	},
+/obj/structure/flora/rock,
+/turf/open/floor/grass/fakebasalt,
+/area/space)
 "qM" = (
 /obj/machinery/power/emitter/ctf{
 	dir = 8
@@ -4164,11 +5076,13 @@
 /turf/open/floor/grass,
 /area/centcom/evac)
 "qZ" = (
-/turf/open/floor/engine/cult,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel/tech,
 /area/wizard_station)
 "ra" = (
-/obj/machinery/computer/shuttle_flight,
-/turf/open/floor/engine/cult,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
 /area/wizard_station)
 "rb" = (
 /obj/effect/turf_decal/stripes/line{
@@ -4176,6 +5090,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/ert)
+"rc" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/displaycase/trophy,
+/turf/open/floor/wood,
+/area/space)
 "rd" = (
 /obj/structure/flora/grass/brown,
 /obj/effect/light_emitter{
@@ -4217,6 +5136,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"rq" = (
+/obj/structure/mirror/magic{
+	pixel_y = 28
+	},
+/obj/item/candle/infinite{
+	pixel_x = 14;
+	pixel_y = 19
+	},
+/obj/structure/bookcase/random/adult,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "rr" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/weldingtool/experimental,
@@ -4401,6 +5331,56 @@
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass,
 /area/centcom/control)
+"rM" = (
+/obj/structure/table/wood/fancy,
+/obj/item/stamp{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/paper_bin{
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/item/pen/charcoal{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/stamp/denied{
+	pixel_x = -3
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
+"rN" = (
+/obj/structure/showcase{
+	desc = "A strange machine supposedly from another world. The Wizard Federation has been meddling with it for years.";
+	icon = 'icons/obj/machines/telecomms.dmi';
+	icon_state = "processor";
+	name = "byond random number generator"
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"rO" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/storage/photo_album{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/camera/spooky,
+/turf/open/floor/carpet/red,
+/area/space)
 "rS" = (
 /obj/machinery/status_display/evac,
 /turf/closed/indestructible/riveted,
@@ -4423,18 +5403,6 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/grass,
 /area/centcom/evac)
-"rW" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"rX" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
 "rY" = (
 /obj/item/clipboard,
 /obj/item/folder/red,
@@ -4469,6 +5437,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"se" = (
+/obj/structure/chair/fancy/sofa/old/right{
+	color = "#742925"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/space)
+"sf" = (
+/obj/structure/flora/tree/jungle/small{
+	desc = "it's magical.... probably"
+	},
+/obj/structure/flora/grass/jungle/b{
+	pixel_x = -11;
+	pixel_y = -10
+	},
+/turf/open/floor/plating/dirt,
+/area/wizard_station)
 "si" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/shaker,
@@ -4617,6 +5604,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"sE" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/magusred,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/staff,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "sH" = (
 /obj/machinery/door/airlock/vault{
 	name = "Vault Door";
@@ -4631,6 +5628,10 @@
 /obj/machinery/door/poddoor/shutters/indestructible,
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"sK" = (
+/obj/effect/turf_decal/techfloor,
+/turf/open/floor/plasteel/tech,
+/area/space)
 "sL" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Security";
@@ -4701,23 +5702,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"sW" = (
-/obj/structure/showcase{
-	desc = "A strange machine supposedly from another world. The Wizard Federation has been meddling with it for years.";
-	icon = 'icons/obj/machines/telecomms.dmi';
-	icon_state = "processor";
-	name = "byond random number generator"
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
 "sX" = (
-/obj/structure/showcase{
-	desc = "A historical figure of great importance to the wizard federation. He spent his long life learning magic, stealing artifacts, and harassing idiots with swords. May he rest forever, Rodney.";
-	icon = 'icons/mob/mob.dmi';
-	icon_state = "nim";
-	name = "wizard of yendor showcase"
-	},
-/turf/open/floor/engine/cult,
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/marisa,
+/obj/item/clothing/head/wizard/marisa,
+/obj/item/clothing/shoes/sneakers/marisa,
+/turf/open/floor/plasteel/sepia,
 /area/wizard_station)
 "sY" = (
 /obj/machinery/door/airlock/centcom{
@@ -4754,6 +5744,15 @@
 /obj/structure/sign/departments/drop,
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
+"te" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/lava/plasma,
+/area/space)
 "tg" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/end{
@@ -4826,6 +5825,13 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"tt" = (
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = 14
+	},
+/turf/open/floor/wood,
+/area/space)
 "tu" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Supply";
@@ -4869,6 +5875,13 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/ferry)
+"tB" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/vending/magivend,
+/turf/open/floor/wood,
+/area/space)
 "tD" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -4993,6 +6006,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"tM" = (
+/turf/open/lava/plasma,
+/area/space)
 "tN" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -5012,6 +6028,16 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/indestructible/riveted,
 /area/centcom/control)
+"tQ" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/obj/effect/landmark/start/wizard,
+/turf/open/floor/carpet/red,
+/area/space)
 "tR" = (
 /obj/machinery/status_display/ai,
 /turf/closed/indestructible/riveted,
@@ -5052,11 +6078,8 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "tX" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Cockpit"
-	},
-/turf/open/floor/engine/cult,
+/obj/effect/turf_decal/siding/wood/end,
+/turf/open/floor/carpet/red,
 /area/wizard_station)
 "tY" = (
 /obj/machinery/computer/secure_data{
@@ -5075,6 +6098,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/evac)
+"uc" = (
+/obj/machinery/microwave{
+	pixel_y = 5
+	},
+/obj/structure/table,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/space)
 "ud" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "nukeop_ready";
@@ -5107,6 +6140,14 @@
 	},
 /turf/open/floor/plating/airless,
 /area/syndicate_mothership/control)
+"uj" = (
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = -14
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "ul" = (
 /obj/machinery/computer/emergency_shuttle{
 	dir = 1
@@ -5155,6 +6196,12 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/ferry)
+"uw" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet/red,
+/area/wizard_station)
 "uz" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -5173,21 +6220,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"uC" = (
-/obj/machinery/computer/camera_advanced/wizard,
-/turf/open/floor/wood,
-/area/wizard_station)
-"uD" = (
-/obj/structure/table/wood/fancy,
-/obj/item/radio/headset,
-/turf/open/floor/wood,
-/area/wizard_station)
+"uB" = (
+/obj/item/bikehorn/golden{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/plasteel/tech,
+/area/space)
 "uE" = (
-/turf/open/floor/carpet,
-/area/wizard_station)
-"uF" = (
-/obj/structure/chair/wood/wings,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/bamboo,
 /area/wizard_station)
 "uH" = (
 /obj/structure/bookcase/random,
@@ -5221,6 +6268,14 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/centcom/evac)
+"uL" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/bookbinder,
+/obj/machinery/light,
+/turf/open/floor/carpet/green,
+/area/wizard_station)
 "uO" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Shuttle Control Office";
@@ -5247,6 +6302,33 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"uS" = (
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/chem_pile{
+	pixel_x = -14;
+	pixel_y = -1
+	},
+/obj/effect/decal/cleanable/plasma,
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"uU" = (
+/obj/effect/turf_decal/techfloor,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/ash/large{
+	pixel_x = -13;
+	pixel_y = 18
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
+"uX" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/space)
 "uY" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -5327,7 +6409,11 @@
 /turf/open/space,
 /area/space)
 "vj" = (
-/turf/open/floor/wood,
+/obj/item/clockwork/alloy_shards{
+	icon_state = "smashed_anime_fragment";
+	pixel_x = 8
+	},
+/turf/open/lava/plasma,
 /area/wizard_station)
 "vk" = (
 /obj/structure/chair/wood/wings{
@@ -5336,27 +6422,36 @@
 /turf/open/floor/wood,
 /area/wizard_station)
 "vl" = (
-/obj/structure/chair/wood/wings{
-	dir = 4
+/obj/item/clockwork/alloy_shards{
+	icon_state = "gear_bit3"
 	},
-/turf/open/floor/carpet,
-/area/wizard_station)
-"vm" = (
-/obj/structure/table/wood/poker,
-/obj/item/toy/figure/wizard,
-/turf/open/floor/carpet,
-/area/wizard_station)
-"vn" = (
-/obj/structure/chair/wood/wings{
-	dir = 8
-	},
-/turf/open/floor/carpet,
+/turf/open/lava/plasma,
 /area/wizard_station)
 "vp" = (
 /obj/machinery/vending/cigarette/syndicate,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
+"vr" = (
+/obj/item/clothing/shoes/sandal/magic{
+	pixel_x = 4;
+	pixel_y = -12
+	},
+/obj/item/clothing/shoes/sandal/magic{
+	pixel_x = -5;
+	pixel_y = -13
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/space)
+"vs" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plating/dirt,
+/area/space)
 "vt" = (
 /obj/structure/rack,
 /obj/item/nullrod/claymore/katana{
@@ -5471,6 +6566,35 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"vI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/plasma{
+	pixel_y = -5
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"vK" = (
+/obj/structure/bed/double,
+/obj/item/bedsheet/double/wiz,
+/obj/effect/landmark/start/wizard,
+/obj/item/toy/plush/flushed{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/turf/open/floor/carpet,
+/area/wizard_station)
+"vN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/dogbed{
+	name = "35b's Bed"
+	},
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood/gibs/up{
+	pixel_y = 6
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plating/dirt,
+/area/wizard_station)
 "vO" = (
 /obj/machinery/light{
 	dir = 4
@@ -5494,6 +6618,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"vT" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/bamboo,
+/area/wizard_station)
 "vU" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "XCCcustoms1";
@@ -5516,25 +6647,45 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"wb" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Observation Room"
+"vW" = (
+/obj/effect/temp_visual/small_smoke,
+/turf/open/lava,
+/area/space)
+"vY" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
 	},
-/turf/open/floor/engine/cult,
+/obj/structure/table/wood,
+/obj/item/toy/eldrich_book{
+	pixel_x = 7;
+	pixel_y = 1
+	},
+/obj/item/storage/fancy/nugget_box{
+	pixel_x = -7
+	},
+/turf/open/floor/wood,
+/area/space)
+"vZ" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/red,
+/obj/item/clothing/head/wizard/red,
+/turf/open/floor/plasteel/sepia,
 /area/wizard_station)
+"wa" = (
+/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/xenoblood,
+/turf/open/floor/grass,
+/area/space)
 "wc" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Game Room"
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"wd" = (
-/obj/structure/chair/wood/wings{
-	dir = 1
+/obj/item/clockwork/alloy_shards{
+	icon_state = "volt"
 	},
-/turf/open/floor/carpet,
+/turf/open/lava/plasma,
 /area/wizard_station)
 "we" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -5623,6 +6774,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"ws" = (
+/obj/structure/shuttle/engine/heater{
+	resistance_flags = 3
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cult,
+/area/wizard_station)
 "wt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -5706,6 +6866,43 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"wD" = (
+/obj/item/clockwork/alloy_shards{
+	icon_state = "gear_bit3"
+	},
+/turf/open/lava/plasma,
+/area/space)
+"wE" = (
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 24;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 16;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 8;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	layer = 3.1
+	},
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -10;
+	pixel_y = 6
+	},
+/obj/effect/decal/cleanable/robot_debris,
+/turf/open/floor/plasteel/cult,
+/area/space)
 "wH" = (
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/plasteel,
@@ -5729,35 +6926,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"wM" = (
-/obj/structure/chair/wood/wings{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/wizard_station)
-"wN" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"wO" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"wP" = (
-/obj/structure/table/wood/fancy,
-/obj/item/camera/spooky,
-/turf/open/floor/carpet,
-/area/wizard_station)
-"wQ" = (
-/obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
-/turf/open/floor/carpet,
-/area/wizard_station)
 "wS" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -5807,6 +6975,10 @@
 	},
 /turf/open/floor/wood,
 /area/syndicate_mothership/control)
+"wY" = (
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/wood,
+/area/wizard_station)
 "wZ" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -5864,6 +7036,23 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"xk" = (
+/obj/item/storage/briefcase{
+	pixel_y = 18;
+	pixel_x = 6
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
+"xm" = (
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/tech,
+/area/space)
 "xo" = (
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
@@ -5886,37 +7075,35 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"xu" = (
-/obj/machinery/light,
-/turf/open/floor/wood,
-/area/wizard_station)
-"xv" = (
-/obj/item/statuebust{
-	pixel_y = 12
+"xt" = (
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/structure/table/wood/fancy,
-/turf/open/floor/wood,
-/area/wizard_station)
+/obj/item/clockwork/alloy_shards{
+	icon_state = "volt"
+	},
+/turf/open/lava/plasma,
+/area/space)
 "xw" = (
-/obj/machinery/vending/magivend,
-/turf/open/floor/engine/cult,
+/obj/structure/bookcase/random/reference,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/candle/infinite{
+	pixel_x = 14;
+	pixel_y = 19
+	},
+/turf/open/floor/wood,
 /area/wizard_station)
 "xx" = (
-/obj/machinery/vending/snack,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"xy" = (
-/obj/structure/table/wood/fancy,
-/obj/item/storage/pill_bottle/dice{
-	icon_state = "magicdicebag"
+/obj/item/clothing/shoes/sandal/magic{
+	pixel_x = 4;
+	pixel_y = -12
 	},
-/turf/open/floor/carpet,
-/area/wizard_station)
-"xz" = (
-/obj/structure/table/wood/fancy,
-/obj/item/storage/photo_album,
-/obj/machinery/light,
-/turf/open/floor/carpet,
+/obj/item/clothing/shoes/sandal/magic{
+	pixel_x = -5;
+	pixel_y = -13
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
 /area/wizard_station)
 "xB" = (
 /mob/living/simple_animal/bot/medbot{
@@ -6042,19 +7229,14 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/control)
-"ya" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Study"
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
+"xX" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/gibs/down,
+/turf/open/floor/grass,
+/area/space)
 "yb" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Break Room"
-	},
-/turf/open/floor/engine/cult,
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/plasteel/sepia,
 /area/wizard_station)
 "yd" = (
 /obj/structure/flora/ausbushes/fernybush,
@@ -6067,6 +7249,13 @@
 	},
 /turf/open/floor/grass,
 /area/centcom/holding)
+"ye" = (
+/mob/living/simple_animal/hostile/netherworld/blankbody,
+/mob/living/simple_animal/hostile/netherworld/blankbody,
+/mob/living/simple_animal/hostile/netherworld/blankbody,
+/mob/living/simple_animal/hostile/netherworld/blankbody,
+/turf/open/floor/grass/fakebasalt,
+/area/wizard_station)
 "yf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -6127,6 +7316,10 @@
 /obj/structure/sign/warning/vacuum,
 /turf/open/floor/plating,
 /area/centcom/ferry)
+"yo" = (
+/obj/machinery/computer/shuttle_flight,
+/turf/open/floor/plasteel/cult,
+/area/wizard_station)
 "yp" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
@@ -6165,66 +7358,49 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"yz" = (
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 16
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 8
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/turf/open/floor/plasteel/cult,
+/area/space)
 "yB" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"yC" = (
-/obj/structure/chair/wood/wings,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"yD" = (
-/obj/structure/table/wood,
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/ointment,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
 "yE" = (
-/obj/structure/table/wood,
-/obj/item/retractor,
-/obj/machinery/light{
-	dir = 1
+/obj/machinery/shower{
+	dir = 4
 	},
-/turf/open/floor/engine/cult,
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/open/floor/plasteel/freezer,
 /area/wizard_station)
 "yF" = (
-/obj/structure/table/wood,
-/obj/item/clothing/suit/wizrobe/magusblue,
-/obj/item/clothing/head/wizard/magus,
-/obj/item/staff,
-/obj/structure/mirror/magic{
-	pixel_y = 28
+/obj/structure/punching_bag,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
 	},
-/obj/machinery/light{
-	dir = 1
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = -14
 	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"yG" = (
-/obj/structure/table/wood,
-/obj/item/clothing/suit/wizrobe/magusred,
-/obj/item/clothing/head/wizard/magus,
-/obj/item/staff,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"yH" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
-/turf/open/floor/grass,
-/area/wizard_station)
-"yI" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/obj/effect/decal/cleanable/blood/gibs/body,
-/turf/open/floor/grass,
-/area/wizard_station)
-"yJ" = (
-/obj/effect/decal/remains/xeno/larva,
-/turf/open/floor/grass,
-/area/wizard_station)
-"yK" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/grass,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/wood,
 /area/wizard_station)
 "yL" = (
 /obj/machinery/power/port_gen/pacman,
@@ -6249,6 +7425,13 @@
 /obj/item/bedsheet/medical,
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
+"yP" = (
+/mob/living/simple_animal/hostile/netherworld/migo,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/grass/fakebasalt,
+/area/wizard_station)
 "yR" = (
 /obj/machinery/computer/card/centcom{
 	dir = 8
@@ -6306,6 +7489,22 @@
 /obj/structure/chair/stool,
 /turf/open/floor/plasteel/dark,
 /area/syndicate_mothership/control)
+"yY" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/obj/effect/landmark/start/wizard,
+/turf/open/floor/carpet/red,
+/area/wizard_station)
+"zb" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/lava/plasma,
+/area/space)
 "zc" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
@@ -6394,27 +7593,31 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"zo" = (
-/obj/structure/destructible/cult/tome,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"zp" = (
-/obj/structure/closet/crate{
-	opened = 1
+"zm" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
 	},
-/obj/item/clothing/suit/wizrobe/red,
-/obj/item/clothing/head/wizard/red,
-/obj/item/staff,
-/obj/item/clothing/shoes/sandal/magic,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"zq" = (
-/turf/open/floor/grass,
-/area/wizard_station)
-"zr" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
-/turf/open/floor/grass,
-/area/wizard_station)
+/obj/effect/turf_decal/techfloor{
+	dir = 8
+	},
+/obj/machinery/door/airlock/highsecurity,
+/turf/open/floor/plasteel/tech,
+/area/space)
+"zs" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 4
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "zt" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -6465,6 +7668,18 @@
 /obj/effect/landmark/ert_spawn,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"zE" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925"
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken6"
+	},
+/area/space)
 "zF" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -6475,6 +7690,19 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"zH" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/cyan/visible/layer4{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/chem_pile{
+	pixel_x = 12;
+	pixel_y = -7
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "zL" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -6486,31 +7714,6 @@
 	},
 /turf/open/floor/plating/asteroid,
 /area/centcom/evac)
-"zN" = (
-/obj/structure/bookcase/random/reference,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"zO" = (
-/obj/structure/destructible/cult/talisman{
-	desc = "An altar dedicated to the Wizards' Federation"
-	},
-/obj/item/kitchen/knife/ritual,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"zP" = (
-/obj/item/clothing/shoes/sneakers/marisa,
-/obj/item/clothing/suit/wizrobe/marisa,
-/obj/item/clothing/head/wizard/marisa,
-/obj/item/staff/broom,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"zQ" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/mob/living/simple_animal/hostile/netherworld{
-	name = "Experiment 35b"
-	},
-/turf/open/floor/grass,
-/area/wizard_station)
 "zR" = (
 /obj/machinery/door/window/northright{
 	dir = 4;
@@ -6519,6 +7722,14 @@
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/centcom/evac)
+"zS" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/grid/steel,
+/area/wizard_station)
 "zV" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
 /obj/item/reagent_containers/food/snacks/carpmeat,
@@ -6539,6 +7750,15 @@
 "zY" = (
 /turf/closed/indestructible/riveted,
 /area/tear_in_reality)
+"zZ" = (
+/obj/item/bikehorn/golden{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "Aa" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
@@ -6563,6 +7783,21 @@
 /obj/item/lighter,
 /turf/open/floor/plasteel/grimy,
 /area/centcom/ferry)
+"Ad" = (
+/turf/open/floor/plasteel/cult,
+/area/space)
+"Ae" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/space)
+"Ag" = (
+/obj/item/clockwork/alloy_shards,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "Ah" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -6642,26 +7877,25 @@
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
 "Ax" = (
-/turf/closed/indestructible/fakeglass{
-	color = "#008000"
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 16
 	},
-/area/wizard_station)
-"Ay" = (
-/obj/effect/landmark/start/wizard,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"Az" = (
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/grass,
-/area/wizard_station)
-"AA" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime,
-/turf/open/floor/grass,
-/area/wizard_station)
-"AB" = (
-/obj/effect/decal/remains/xeno,
-/turf/open/floor/grass,
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 8
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -3;
+	pixel_y = 16
+	},
+/turf/open/floor/plasteel/cult,
 /area/wizard_station)
 "AD" = (
 /obj/structure/table/wood,
@@ -6686,6 +7920,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"AK" = (
+/obj/effect/turf_decal/techfloor,
+/obj/effect/decal/cleanable/greenglow{
+	pixel_y = 16
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "AM" = (
 /obj/machinery/shuttle_manipulator,
 /turf/open/floor/circuit/green,
@@ -6776,27 +8017,13 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
-"Bf" = (
-/obj/structure/chair/wood/wings{
-	dir = 1
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"Bg" = (
-/mob/living/simple_animal/bot/medbot/mysterious{
-	desc = "If you don't accidentally blow yourself up from time to time you're not really a wizard anyway.";
-	faction = list("neutral","silicon","creature");
-	name = "Nobody's Perfect"
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
 "Bh" = (
-/obj/machinery/light,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"Bi" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/turf/open/floor/grass,
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/wood,
 /area/wizard_station)
 "Bk" = (
 /obj/machinery/firealarm{
@@ -6821,6 +8048,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/two)
+"Bn" = (
+/obj/structure/destructible/cult/talisman{
+	desc = "An altar dedicated to the Wizards' Federation"
+	},
+/obj/item/kitchen/knife/ritual,
+/turf/open/floor/carpet/red,
+/area/space)
+"Bo" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/grid/steel,
+/area/space)
 "Br" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -6833,6 +8075,24 @@
 /obj/machinery/computer/libraryconsole/bookmanagement,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Bt" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
+"Bu" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/cyan/visible/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "Bv" = (
 /obj/machinery/computer/card/centcom{
 	dir = 1
@@ -6843,6 +8103,31 @@
 /obj/machinery/computer/pandemic,
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
+"Bx" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/bamboo,
+/area/wizard_station)
+"Bz" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/structure/flora/junglebush/b{
+	pixel_x = -13;
+	pixel_y = -13
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/bamboo,
+/area/space)
 "BB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/lockbox/loyalty,
@@ -6868,6 +8153,9 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"BF" = (
+/turf/closed/indestructible/fakeglass,
+/area/wizard_station)
 "BH" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -6955,13 +8243,6 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
-"BS" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Observation Deck"
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
 "BU" = (
 /obj/structure/trap/ctf/red,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -6986,6 +8267,34 @@
 /obj/item/toy/figure/syndie,
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
+"BZ" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = 5;
+	pixel_y = 8
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = 5;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
+	pixel_x = -10;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/wood,
+/area/space)
 "Ca" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -7002,12 +8311,19 @@
 /obj/machinery/light,
 /turf/open/floor/grass,
 /area/centcom/evac)
-"Ci" = (
-/obj/machinery/light{
+"Ce" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
+"Cg" = (
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/bamboo,
+/area/space)
 "Cj" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -7015,10 +8331,111 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Ck" = (
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 24;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 16;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 8;
+	layer = 3.1
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	layer = 3.1
+	},
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plasteel/cult,
+/area/wizard_station)
+"Cl" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 1
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-21"
+	},
+/turf/open/floor/wood,
+/area/space)
 "Cp" = (
 /obj/structure/statue/uranium/nuke,
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
+"Cq" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/structure/rack{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "minibar";
+	name = "skeletal minibar"
+	},
+/obj/item/reagent_containers/food/drinks/bottle/cognac{
+	pixel_y = 9;
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/food/drinks/bottle/wine{
+	pixel_y = 12;
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -6
+	},
+/turf/open/floor/wood,
+/area/space)
+"Cu" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/storage/photo_album{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/camera/spooky,
+/turf/open/floor/carpet/red,
+/area/wizard_station)
+"Cz" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/item/clockwork/alloy_shards{
+	icon_state = "fallen_armor";
+	pixel_x = -11;
+	pixel_y = 11
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
+"CA" = (
+/obj/structure/showcase{
+	desc = "A strange machine supposedly from another world. The Wizard Federation has been meddling with it for years.";
+	icon = 'icons/obj/machines/telecomms.dmi';
+	icon_state = "processor";
+	name = "byond random number generator"
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "CB" = (
 /obj/structure/closet/secure_closet/ertMed,
 /obj/structure/sign/directions/medical{
@@ -7084,6 +8501,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"CH" = (
+/turf/closed/mineral/ash_rock,
+/area/space)
 "CJ" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/green{
@@ -7133,6 +8553,29 @@
 /obj/structure/chair/stool,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"CX" = (
+/obj/structure/table/wood/fancy,
+/obj/item/stamp{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/paper_bin{
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/item/pen/charcoal{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/stamp/denied{
+	pixel_x = -3
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "CY" = (
 /obj/structure/chair{
 	dir = 4
@@ -7151,6 +8594,32 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"Db" = (
+/obj/structure/flora/rock/pile{
+	pixel_y = 3
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/grass/fakebasalt,
+/area/wizard_station)
+"Dd" = (
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/space)
+"Dg" = (
+/obj/structure/mirror/magic{
+	pixel_y = 28
+	},
+/obj/structure/bookcase/random/reference,
+/obj/item/candle/infinite{
+	pixel_x = 14;
+	pixel_y = 19
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "Di" = (
 /turf/closed/indestructible/riveted,
 /area/ai_multicam_room)
@@ -7188,6 +8657,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"Dr" = (
+/obj/structure/table/wood/poker,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/ointment,
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "Dt" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -7214,27 +8689,23 @@
 /obj/machinery/light,
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
-"DC" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Storage"
+"Dz" = (
+/obj/structure/chair/fancy/sofa/old/right{
+	color = "#742925"
 	},
-/turf/open/floor/engine/cult,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
 /area/wizard_station)
 "DD" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Personal Quarters"
-	},
-/turf/open/floor/engine/cult,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/bamboo,
 /area/wizard_station)
-"DE" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Bathroom"
-	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
+"DF" = (
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "DH" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -7265,53 +8736,66 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"DJ" = (
+/obj/structure/window/reinforced,
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 5
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/space)
 "DK" = (
 /turf/open/floor/plasteel/stairs/right{
 	dir = 4
 	},
 /area/ctf)
-"DL" = (
-/obj/item/clothing/suit/wizrobe/black,
-/obj/item/clothing/head/wizard/black,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/wizard_station)
 "DM" = (
+/obj/structure/closet/cardboard,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/wizard_station)
-"DN" = (
-/obj/item/cardboard_cutout,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/wizard_station)
-"DO" = (
-/obj/structure/table/wood,
-/obj/item/dice/d20,
-/obj/item/dice,
-/turf/open/floor/carpet,
-/area/wizard_station)
-"DP" = (
-/obj/structure/punching_bag,
-/turf/open/floor/carpet,
+/obj/item/banhammer,
+/obj/item/coin/antagtoken,
+/obj/item/storage/fancy/candle_box{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/storage/fancy/candle_box{
+	pixel_x = 6;
+	pixel_y = -4
+	},
+/obj/item/lighter{
+	pixel_y = -11
+	},
+/turf/open/floor/plasteel/dark,
 /area/wizard_station)
 "DQ" = (
-/obj/structure/urinal{
-	pixel_y = 28
+/obj/structure/table/wood,
+/obj/machinery/light{
+	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/obj/item/food/burger/spell{
+	pixel_y = 2
+	},
+/turf/open/floor/carpet/green,
 /area/wizard_station)
 "DR" = (
-/turf/open/floor/plasteel/white,
+/obj/machinery/microwave{
+	pixel_y = 5
+	},
+/obj/structure/table,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
 /area/wizard_station)
-"DS" = (
-/obj/structure/mirror/magic{
-	pixel_y = 28
+"DT" = (
+/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/machinery/light{
+	dir = 8
 	},
-/obj/structure/sink{
-	pixel_y = 20
-	},
-/turf/open/floor/plasteel/white,
+/turf/open/lava/plasma,
 /area/wizard_station)
 "DV" = (
 /obj/item/kirbyplants{
@@ -7329,47 +8813,45 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/centcom/control)
-"DZ" = (
-/obj/item/cautery/alien,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/wizard_station)
+"DX" = (
+/obj/item/clockwork/alloy_shards{
+	icon_state = "smashed_anime_fragment";
+	pixel_x = 8
+	},
+/turf/open/lava/plasma,
+/area/space)
 "Ea" = (
-/obj/item/coin/antagtoken,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
+/obj/item/clothing/suit/wizrobe/black,
+/obj/item/clothing/head/wizard/black,
+/turf/open/floor/plasteel/dark,
 /area/wizard_station)
 "Eb" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
-	},
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/displaycase/trophy,
+/turf/open/floor/wood,
 /area/wizard_station)
 "Ec" = (
-/obj/structure/bed,
-/obj/item/bedsheet/wiz,
-/turf/open/floor/carpet,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/structure/displaycase/trophy,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/wood,
 /area/wizard_station)
 "Ed" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/carpet,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/sepia,
 /area/wizard_station)
 "Ee" = (
-/obj/item/soap/homemade,
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 1
 	},
-/turf/open/floor/plasteel/white,
-/area/wizard_station)
-"Ef" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/carpet/green,
 /area/wizard_station)
 "Eg" = (
 /obj/machinery/door/airlock/centcom{
@@ -7378,51 +8860,64 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/centcom/control)
-"Eh" = (
-/obj/structure/closet/cardboard,
-/obj/item/banhammer,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
-/area/wizard_station)
 "Ei" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
-/area/wizard_station)
-"Ej" = (
-/obj/vehicle/ridden/scooter/skateboard{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/light/small,
-/turf/open/floor/plasteel,
-/area/wizard_station)
-"Ek" = (
-/obj/structure/dresser,
-/obj/item/storage/backpack/satchel,
-/turf/open/floor/carpet,
-/area/wizard_station)
-"El" = (
-/obj/structure/table/wood,
-/obj/item/storage/bag/tray,
-/obj/item/food/burger/spell,
-/turf/open/floor/carpet,
-/area/wizard_station)
-"Em" = (
-/obj/structure/bookcase/random/adult,
-/turf/open/floor/plasteel/white,
-/area/wizard_station)
-"En" = (
-/obj/structure/toilet{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
-/area/wizard_station)
-"Eo" = (
-/obj/structure/table/wood/fancy,
-/obj/item/skub{
-	pixel_y = 16
+/obj/machinery/light{
+	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/obj/item/cardboard_cutout,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/grid/steel,
+/area/wizard_station)
+"Ej" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/grid/steel,
+/area/wizard_station)
+"Ek" = (
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = -14
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"Em" = (
+/turf/open/floor/carpet/green,
+/area/wizard_station)
+"En" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = 5;
+	pixel_y = 8
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = 5;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
+	pixel_x = -10;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/wood,
 /area/wizard_station)
 "Ep" = (
 /turf/closed/indestructible/riveted,
@@ -7442,10 +8937,32 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Et" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/toy/eldrich_book{
+	pixel_x = 7;
+	pixel_y = 1
+	},
+/obj/item/storage/fancy/nugget_box{
+	pixel_x = -7
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
 "Ev" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/tdome/tdomeobserve)
+"Ew" = (
+/mob/living/simple_animal/bot/medbot/mysterious{
+	desc = "If you don't accidentally blow yourself up from time to time you're not really a wizard anyway.";
+	faction = list("neutral","silicon","creature");
+	name = "Nobody's Perfect"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "Ex" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/green{
@@ -7474,12 +8991,21 @@
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
 "EC" = (
-/obj/machinery/door/airlock{
-	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
-	name = "Engine Room"
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 16
 	},
-/obj/structure/barricade/wooden,
-/turf/open/floor/engine/cult,
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 8
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/turf/open/floor/plasteel/cult,
 /area/wizard_station)
 "ED" = (
 /obj/machinery/vending/boozeomat,
@@ -7530,6 +9056,21 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"EP" = (
+/obj/structure/showcase{
+	desc = "A historical figure of great importance to the wizard federation. He spent his long life learning magic, stealing artifacts, and harassing idiots with swords. May he rest forever, Rodney.";
+	icon = 'icons/mob/mob.dmi';
+	icon_state = "nim";
+	name = "wizard of yendor showcase"
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "ER" = (
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
@@ -7557,25 +9098,25 @@
 /turf/open/floor/plating/asteroid,
 /area/tdome/tdomeobserve)
 "EW" = (
-/obj/structure/table/wood,
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"EX" = (
-/obj/structure/table/wood,
-/obj/item/gun/magic/wand{
-	desc = "Used in emergencies to reignite magma engines.";
-	max_charges = 0;
-	name = "wand of emergency engine ignition"
+/obj/effect/turf_decal/techfloor{
+	dir = 4
 	},
-/turf/open/floor/engine/cult,
-/area/wizard_station)
-"EY" = (
-/obj/structure/table/wood,
-/obj/item/bikehorn/golden{
-	pixel_x = -8;
-	pixel_y = 8
+/obj/effect/turf_decal/techfloor{
+	dir = 8
 	},
-/turf/open/floor/engine/cult,
+/obj/machinery/door/airlock/highsecurity,
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"EZ" = (
+/mob/living/simple_animal/hostile/netherworld{
+	name = "Experiment 35b"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/grass,
 /area/wizard_station)
 "Fa" = (
 /obj/structure/table/wood,
@@ -7637,6 +9178,15 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"Fo" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "Fr" = (
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
@@ -7668,6 +9218,23 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Fw" = (
+/obj/structure/table/wood/fancy,
+/obj/item/reagent_containers/food/drinks/bottle/tequila{
+	pixel_x = 7;
+	pixel_y = 18
+	},
+/obj/item/reagent_containers/food/drinks/trophy{
+	pixel_x = 3;
+	pixel_y = 16;
+	name = "Wizards Goblet"
+	},
+/obj/item/toy/figure/wizard{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "FA" = (
 /obj/structure/table/wood,
 /obj/item/dice/d20{
@@ -7734,6 +9301,13 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"FI" = (
+/obj/item/clockwork/alloy_shards,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/lava/plasma,
+/area/space)
 "FK" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Backstage"
@@ -7743,6 +9317,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"FL" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/folder/blue{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/folder/red,
+/turf/open/floor/carpet/red,
+/area/wizard_station)
 "FM" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -7755,6 +9341,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"FP" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/lava/plasma,
+/area/space)
 "FQ" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -7783,12 +9378,34 @@
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "FT" = (
-/obj/structure/destructible/cult/forge{
-	desc = "An engine used in powering the wizard's ship";
-	name = "magma engine"
+/obj/effect/turf_decal/techfloor{
+	dir = 8
 	},
-/turf/open/floor/engine/cult,
+/obj/machinery/atmospherics/pipe/manifold/cyan/visible/layer4{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/chem_pile{
+	pixel_x = 12;
+	pixel_y = -7
+	},
+/turf/open/floor/plasteel/tech,
 /area/wizard_station)
+"FU" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/item/dice/d20{
+	pixel_y = 7;
+	pixel_x = 4
+	},
+/obj/item/dice{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/open/floor/wood,
+/area/space)
 "FV" = (
 /obj/structure/sink{
 	dir = 4;
@@ -7836,6 +9453,21 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"Gf" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/item/candle/infinite{
+	pixel_x = 14;
+	pixel_y = 19
+	},
+/obj/item/candle/infinite{
+	pixel_x = -12;
+	pixel_y = 19
+	},
+/turf/open/floor/bamboo,
+/area/space)
 "Gh" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -7845,6 +9477,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Gi" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/space)
 "Gk" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/red,
@@ -7864,6 +9502,13 @@
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Gn" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/structure/curtain/directional{
+	dir = 2
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "Gp" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -7873,13 +9518,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Gq" = (
+/obj/structure/table/wood/poker,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/ointment,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "Gr" = (
-/obj/structure/window/reinforced{
-	color = "#008000";
-	dir = 1;
-	resistance_flags = 3
+/obj/effect/turf_decal/techfloor{
+	dir = 10
 	},
-/turf/open/lava,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/valve/layer4,
+/turf/open/floor/plasteel/tech,
 /area/wizard_station)
 "Gs" = (
 /obj/machinery/light{
@@ -7927,16 +9580,23 @@
 /turf/closed/indestructible/riveted,
 /area/tdome/tdomeobserve)
 "Gz" = (
-/obj/structure/shuttle/engine/heater{
-	resistance_flags = 3
+/obj/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 4
 	},
-/obj/structure/window/reinforced{
-	color = "#008000";
-	dir = 1;
-	resistance_flags = 3
-	},
-/turf/open/lava/airless,
+/turf/open/floor/plasteel/tech/grid,
 /area/wizard_station)
+"GA" = (
+/obj/structure/window/reinforced,
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 9
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/space)
 "GB" = (
 /obj/structure/noticeboard{
 	dir = 8;
@@ -7958,6 +9618,21 @@
 /obj/effect/turf_decal/stripes/end,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"GJ" = (
+/obj/structure/window/reinforced,
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 4
+	},
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -3;
+	pixel_y = 16
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/space)
 "GK" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -7978,6 +9653,12 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/tdome/tdomeobserve)
+"GM" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cult,
+/area/space)
 "GN" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
@@ -8007,8 +9688,8 @@
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
 "GX" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/open/space,
+/obj/effect/temp_visual/small_smoke,
+/turf/open/lava,
 /area/wizard_station)
 "GY" = (
 /obj/structure/chair/wood/wings{
@@ -8029,11 +9710,24 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"Hc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/bookcase/random/religion,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/space)
 "He" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup,
 /turf/open/floor/plasteel/grimy,
 /area/tdome/tdomeobserve)
+"Hf" = (
+/obj/structure/table/wood/fancy,
+/obj/machinery/fax/law,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "Hh" = (
 /obj/structure/sink{
 	dir = 4;
@@ -8082,6 +9776,28 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"Ho" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/structure/displaycase/trophy,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/space)
+"Hp" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/folder/blue{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/folder/red,
+/turf/open/floor/carpet/red,
+/area/space)
 "Hq" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -8111,6 +9827,12 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/tdome/tdomeobserve)
+"Hu" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/red,
+/obj/item/clothing/head/wizard/red,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "Hx" = (
 /obj/structure/sink{
 	dir = 4;
@@ -8147,6 +9869,35 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"HC" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/space)
+"HD" = (
+/obj/structure/window/reinforced,
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 4
+	},
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -3;
+	pixel_y = 16
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/wizard_station)
 "HE" = (
 /obj/structure/sink{
 	dir = 4;
@@ -8223,6 +9974,15 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Ia" = (
+/obj/structure/flora/rock/pile{
+	pixel_y = 3
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/grass/fakebasalt,
+/area/space)
 "Ic" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -8233,6 +9993,27 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Id" = (
+/obj/structure/bookcase/random/fiction,
+/obj/item/candle/infinite{
+	pixel_x = 14;
+	pixel_y = 19
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
+"If" = (
+/obj/structure/mirror/magic{
+	pixel_y = 28
+	},
+/obj/machinery/photocopier{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/structure/filingcabinet{
+	pixel_x = -11
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "Ig" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -8250,6 +10031,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Ik" = (
+/obj/structure/bookcase/random,
+/turf/open/floor/carpet/green,
+/area/space)
 "Il" = (
 /turf/closed/indestructible/fakeglass,
 /area/tdome/tdomeobserve)
@@ -8356,6 +10141,25 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"IH" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/wizard_station)
+"IJ" = (
+/obj/structure/destructible/cult/tome,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/wizard_station)
+"IK" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 6
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "IL" = (
 /obj/effect/landmark/thunderdome/one,
 /obj/effect/turf_decal/stripes/line{
@@ -8467,6 +10271,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"Jb" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/carpet/red,
+/area/space)
 "Jc" = (
 /obj/effect/landmark/thunderdome/one,
 /obj/effect/turf_decal/stripes/line{
@@ -8517,6 +10327,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"Jl" = (
+/obj/structure/chair/wood/wings,
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = -14
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
 "Jm" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -8702,6 +10520,27 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/tdome/tdomeadmin)
+"JR" = (
+/obj/structure/bed/double,
+/obj/item/bedsheet/double/wiz,
+/obj/effect/landmark/start/wizard,
+/obj/item/toy/plush/flushed{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/turf/open/floor/carpet,
+/area/space)
+"JS" = (
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"JT" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plating/dirt,
+/area/wizard_station)
 "JX" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
@@ -8709,9 +10548,29 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeadmin)
+"JY" = (
+/obj/structure/table/wood/fancy,
+/obj/item/statuebust{
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"JZ" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "Ka" = (
 /turf/open/floor/plasteel/grimy,
 /area/tdome/tdomeadmin)
+"Ke" = (
+/obj/item/clockwork/alloy_shards,
+/obj/item/clockwork/alloy_shards{
+	icon_state = "compromise"
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "Kg" = (
 /turf/closed/indestructible/fakedoor{
 	name = "Thunderdome Admin"
@@ -8747,6 +10606,15 @@
 	},
 /turf/open/space/basic,
 /area/space)
+"Kl" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/cyan/visible/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "Km" = (
 /obj/machinery/light{
 	dir = 1
@@ -8754,6 +10622,55 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"Kp" = (
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/wood,
+/area/space)
+"Kq" = (
+/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/grass,
+/area/wizard_station)
+"Ks" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"Kt" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 6
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/valve/layer4,
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"Kv" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/tech,
+/area/space)
+"Kx" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/tech,
+/area/space)
+"Ky" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/space)
+"Kz" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "KA" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -8780,6 +10697,14 @@
 /obj/machinery/status_display/ai,
 /turf/closed/indestructible/riveted,
 /area/tdome/tdomeadmin)
+"KF" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/vending/snack,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/wizard_station)
 "KG" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -8980,6 +10905,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"Lk" = (
+/mob/living/simple_animal/hostile/netherworld/migo,
+/turf/open/floor/grass/fakebasalt,
+/area/wizard_station)
 "Ll" = (
 /obj/machinery/light{
 	dir = 1
@@ -9234,6 +11163,27 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/space)
+"Mg" = (
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 16
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine";
+	pixel_y = 8
+	},
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -3;
+	pixel_y = 16
+	},
+/turf/open/floor/plasteel/cult,
+/area/space)
 "Mh" = (
 /obj/machinery/door/poddoor{
 	id = "thunderdome";
@@ -9259,6 +11209,13 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
+"Mk" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/structure/curtain/directional{
+	dir = 2
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "Ml" = (
 /obj/structure/chair{
 	dir = 8
@@ -9309,6 +11266,30 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Mu" = (
+/obj/structure/table/wood/poker,
+/obj/item/storage/pill_bottle/dice{
+	icon_state = "magicdicebag";
+	pixel_x = 7;
+	pixel_y = 12
+	},
+/obj/item/radio/headset{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/item/radio/headset{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
+"Mv" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/bamboo,
+/area/wizard_station)
 "Mw" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -9365,6 +11346,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supply)
+"MB" = (
+/obj/structure/chair/wood/wings,
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = -14
+	},
+/turf/open/floor/wood,
+/area/space)
 "MC" = (
 /obj/machinery/light{
 	dir = 4
@@ -9384,12 +11373,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
-"ME" = (
-/obj/machinery/computer/camera_advanced/wizard{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/wizard_station)
 "MG" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -9422,6 +11405,14 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"ML" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/grid/steel,
+/area/space)
 "MM" = (
 /obj/structure/window/reinforced,
 /turf/open/floor/carpet/black,
@@ -9433,6 +11424,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"MO" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clockwork/alloy_shards{
+	icon_state = "vanguard"
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "MQ" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -9461,6 +11464,17 @@
 /obj/machinery/processor,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
+"MU" = (
+/obj/structure/window/reinforced,
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the wizard's ship";
+	name = "magma engine"
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 9
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/wizard_station)
 "MV" = (
 /obj/machinery/computer/security{
 	dir = 1
@@ -9523,6 +11537,12 @@
 /obj/item/reagent_containers/food/drinks/shaker,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
+"Ni" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 1
+	},
+/turf/open/floor/carpet/red,
+/area/wizard_station)
 "Nk" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome";
@@ -9559,6 +11579,19 @@
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"No" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/lava/plasma,
+/area/space)
+"Np" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/magusblue,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/staff,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "Nq" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel,
@@ -9567,6 +11600,17 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
+"Ns" = (
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/decal/cleanable/blood/gibs/core,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/open/floor/grass,
+/area/space)
 "Nv" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/cafeteria,
@@ -9575,6 +11619,16 @@
 /obj/machinery/recharge_station,
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"Nx" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/magusred,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/staff,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "Ny" = (
 /obj/machinery/modular_computer/console/preset/research,
 /obj/machinery/light{
@@ -9710,6 +11764,12 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"NW" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "NY" = (
 /obj/machinery/shower{
 	dir = 4
@@ -9790,6 +11850,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"Oq" = (
+/obj/item/clockwork/alloy_shards,
+/obj/item/clockwork/alloy_shards{
+	icon_state = "compromise"
+	},
+/turf/open/lava/plasma,
+/area/space)
 "Or" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks/beer{
@@ -9816,6 +11883,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"Ov" = (
+/obj/structure/bookcase/random/reference,
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "Ow" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -9894,6 +11965,17 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"OH" = (
+/obj/structure/bookcase/random/reference,
+/obj/structure/noticeboard{
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
+"OJ" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plasteel/cult,
+/area/wizard_station)
 "OK" = (
 /obj/item/clipboard,
 /obj/item/folder/red,
@@ -9911,6 +11993,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"ON" = (
+/obj/structure/bookcase/random/religion,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "OP" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
@@ -9978,6 +12064,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"OX" = (
+/obj/structure/dresser,
+/obj/item/skub{
+	pixel_y = 19
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/wood,
+/area/wizard_station)
 "OY" = (
 /obj/structure/window{
 	dir = 1
@@ -10009,6 +12103,37 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
+"Pf" = (
+/obj/structure/showcase{
+	desc = "A historical figure of great importance to the wizard federation. He spent his long life learning magic, stealing artifacts, and harassing idiots with swords. May he rest forever, Rodney.";
+	icon = 'icons/mob/mob.dmi';
+	icon_state = "nim";
+	name = "wizard of yendor showcase"
+	},
+/obj/effect/turf_decal/techfloor/corners{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"Pg" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/item/dice/d20{
+	pixel_y = 7;
+	pixel_x = 4
+	},
+/obj/item/dice{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
 "Ph" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/wood,
@@ -10037,6 +12162,20 @@
 	},
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
+"Pp" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/bookcase/random/religion,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/wizard_station)
+"Pq" = (
+/obj/machinery/computer/camera_advanced/wizard{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "Pr" = (
 /obj/structure/table,
 /obj/item/book/manual/chef_recipes,
@@ -10051,6 +12190,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"Pu" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/space)
 "Px" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -10141,6 +12288,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supply)
+"PO" = (
+/obj/item/gun/magic/wand{
+	desc = "Used in emergencies to reignite magma engines.";
+	max_charges = 0;
+	name = "wand of emergency engine ignition";
+	pixel_x = -1;
+	pixel_y = -6
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "PQ" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
@@ -10150,6 +12307,22 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"PS" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/bamboo,
+/area/space)
+"PU" = (
+/obj/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/space)
 "PV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -10219,6 +12392,18 @@
 /obj/structure/window/reinforced/fulltile,
 /turf/open/floor/grass,
 /area/centcom/holding)
+"Ql" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/space)
+"Qm" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/wizard_station)
 "Qn" = (
 /turf/closed/indestructible/fakeglass,
 /area/ctf)
@@ -10229,6 +12414,15 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"Qq" = (
+/obj/effect/turf_decal/siding/wood/end,
+/turf/open/floor/carpet/red,
+/area/space)
+"Qt" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck,
+/turf/open/floor/wood,
+/area/wizard_station)
 "Qu" = (
 /obj/structure/bookcase/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -10390,6 +12584,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"Rd" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 6
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "Re" = (
 /obj/structure/mineral_door/paperframe,
 /turf/open/floor/wood,
@@ -10401,6 +12604,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"Rg" = (
+/obj/structure/closet/cabinet,
+/obj/item/storage/backpack/satchel,
+/turf/open/floor/carpet,
+/area/space)
 "Rh" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -10413,6 +12621,13 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Rj" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/grass,
+/area/wizard_station)
 "Rk" = (
 /turf/closed/indestructible/cordon,
 /area/space)
@@ -10537,6 +12752,17 @@
 /obj/machinery/door/window/westleft,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
+"Rx" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-17";
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/turf/open/floor/wood,
+/area/wizard_station)
 "Ry" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
@@ -10548,12 +12774,44 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"RA" = (
+/obj/structure/destructible/cult/tome,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/space)
 "RC" = (
 /obj/machinery/door/poddoor/shuttledock,
 /obj/effect/turf_decal/delivery,
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,
 /area/centcom/evac)
+"RD" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"RG" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
+"RI" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/space)
+"RJ" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/open/lava/plasma,
+/area/wizard_station)
 "RK" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/bottle/charcoal{
@@ -10642,6 +12900,20 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"Sa" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/wizard_station)
+"Sb" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/open/lava/plasma,
+/area/space)
 "Sc" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
@@ -10665,9 +12937,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
+"Sh" = (
+/obj/effect/turf_decal/bot,
+/obj/item/cautery/alien,
+/obj/vehicle/ridden/scooter/skateboard{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/wizard_station)
 "Si" = (
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/two)
+"Sk" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech,
+/area/space)
 "Sl" = (
 /obj/item/cardboard_cutout{
 	desc = "They seem to be ignoring you... Typical.";
@@ -10700,6 +12987,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"Ss" = (
+/obj/structure/bookcase/random/fiction,
+/obj/item/candle/infinite{
+	pixel_x = 14;
+	pixel_y = 19
+	},
+/turf/open/floor/wood,
+/area/space)
 "St" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel,
@@ -10716,6 +13011,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
+"Sw" = (
+/turf/open/lava,
+/area/space)
 "Sx" = (
 /obj/machinery/button/door/indestructible{
 	id = "thunderdomegen";
@@ -10793,6 +13091,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"SK" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/bookbinder,
+/obj/machinery/light,
+/turf/open/floor/carpet/green,
+/area/space)
 "SM" = (
 /obj/machinery/computer/secure_data{
 	dir = 1
@@ -10820,6 +13126,29 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"SR" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/item/candle/infinite{
+	pixel_x = 14;
+	pixel_y = 19
+	},
+/obj/item/candle/infinite{
+	pixel_x = -12;
+	pixel_y = 19
+	},
+/turf/open/floor/bamboo,
+/area/wizard_station)
+"SS" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/machinery/vending/snack,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/space)
 "SU" = (
 /obj/structure/table/wood,
 /obj/item/camera/detective{
@@ -10832,6 +13161,22 @@
 /obj/item/pen/fountain,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"SX" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/structure/flora/junglebush/b{
+	pixel_x = -13;
+	pixel_y = -13
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/bamboo,
+/area/wizard_station)
 "SY" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -10986,6 +13331,13 @@
 /obj/item/camera,
 /turf/open/floor/plasteel,
 /area/centcom/supplypod)
+"Tz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/plasma{
+	pixel_y = -5
+	},
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "TA" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line,
@@ -11038,6 +13390,19 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"TM" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4{
+	dir = 10
+	},
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -10;
+	pixel_y = 12
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "TN" = (
 /obj/machinery/light{
 	dir = 1
@@ -11089,6 +13454,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"TX" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/lava/plasma,
+/area/wizard_station)
 "TZ" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
@@ -11098,6 +13472,13 @@
 "Ua" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/centcom/evac)
+"Ub" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/marisa,
+/obj/item/clothing/head/wizard/marisa,
+/obj/item/clothing/shoes/sneakers/marisa,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "Ud" = (
 /obj/effect/landmark/holding_facility,
 /turf/open/floor/wood,
@@ -11264,6 +13645,17 @@
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
+"UI" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-17";
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/turf/open/floor/wood,
+/area/space)
 "UJ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
@@ -11306,6 +13698,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"UP" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/carpet/red,
+/area/space)
 "UR" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
@@ -11366,6 +13764,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/control)
+"Vd" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/bookcase/random/reference,
+/turf/open/floor/plasteel/sepia,
+/area/wizard_station)
 "Ve" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 4
@@ -11383,6 +13786,12 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/four)
+"Vl" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	color = "#742925"
+	},
+/turf/open/floor/wood,
+/area/space)
 "Vm" = (
 /obj/machinery/gibber,
 /obj/machinery/light{
@@ -11394,6 +13803,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/three)
+"Vo" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/bamboo,
+/area/space)
 "Vp" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -11501,6 +13916,19 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"VH" = (
+/obj/effect/temp_visual/small_smoke{
+	pixel_x = -7;
+	pixel_y = 19
+	},
+/turf/open/lava,
+/area/wizard_station)
+"VJ" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/wizard_station)
 "VK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/filingcabinet/chestdrawer,
@@ -11521,6 +13949,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"VP" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/structure/chair/office,
+/turf/open/floor/carpet/red,
+/area/wizard_station)
+"VQ" = (
+/turf/open/floor/carpet/green,
+/area/space)
 "VR" = (
 /obj/machinery/airalarm{
 	dir = 8;
@@ -11530,6 +13968,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supply)
+"VT" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clockwork/alloy_shards{
+	icon_state = "shard_small1"
+	},
+/turf/open/lava/plasma,
+/area/space)
 "VU" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -11558,6 +14005,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
+"Wa" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clockwork/alloy_shards{
+	icon_state = "gear_bit2"
+	},
+/turf/open/lava/plasma,
+/area/space)
 "Wc" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Security";
@@ -11582,6 +14038,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"Wf" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/structure/chair/office,
+/turf/open/floor/carpet/red,
+/area/space)
 "Wg" = (
 /obj/machinery/computer/arena{
 	arena_id = "thunderdome"
@@ -11632,6 +14095,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"Ws" = (
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/plasteel/freezer,
+/area/wizard_station)
 "Wu" = (
 /obj/item/storage/briefcase{
 	pixel_x = -3;
@@ -11684,6 +14151,25 @@
 /obj/machinery/recharger,
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
+"WC" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/item/clockwork/alloy_shards{
+	icon_state = "fallen_armor";
+	pixel_x = -11;
+	pixel_y = 11
+	},
+/turf/open/lava/plasma,
+/area/space)
+"WD" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/bamboo,
+/area/space)
 "WE" = (
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/plasteel,
@@ -11819,6 +14305,18 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
+"Xa" = (
+/obj/structure/punching_bag,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/item/candle/infinite{
+	pixel_y = 18;
+	pixel_x = -14
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/wood,
+/area/space)
 "Xb" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -11914,6 +14412,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
+"Xs" = (
+/obj/structure/bookcase/random/reference,
+/obj/effect/turf_decal/siding/wood,
+/obj/item/candle/infinite{
+	pixel_x = 14;
+	pixel_y = 19
+	},
+/turf/open/floor/wood,
+/area/space)
 "Xt" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Security";
@@ -11980,6 +14487,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"XF" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/carpet/red,
+/area/space)
 "XG" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -12164,6 +14677,15 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Yp" = (
+/obj/item/clockwork/alloy_shards{
+	icon_state = "shard_large2";
+	pixel_y = -16;
+	pixel_x = 6
+	},
+/obj/structure/flora/rock,
+/turf/open/floor/grass/fakebasalt,
+/area/wizard_station)
 "Yq" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
@@ -12228,6 +14750,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"YA" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/plasteel/sepia,
+/area/space)
 "YD" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -12238,6 +14764,17 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
+"YF" = (
+/mob/living/simple_animal/hostile/netherworld{
+	name = "Experiment 35b"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/grass,
+/area/space)
 "YG" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
@@ -12315,6 +14852,12 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"YW" = (
+/obj/machinery/computer/camera_advanced/wizard{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "YX" = (
 /obj/structure/table/wood/bar,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -12453,6 +14996,12 @@
 /obj/machinery/light,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Zu" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/carpet/red,
+/area/wizard_station)
 "Zv" = (
 /obj/machinery/computer/crew{
 	dir = 1
@@ -12460,6 +15009,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"Zw" = (
+/turf/closed/wall/r_wall,
+/area/wizard_station)
 "Zx" = (
 /mob/living/simple_animal/bot/medbot{
 	desc = "A little medical robot. You can make out the word \"sincerity\" on its chassis.";
@@ -12469,6 +15021,23 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Zy" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cult,
+/area/wizard_station)
+"Zz" = (
+/mob/living/simple_animal/hostile/netherworld/blankbody,
+/mob/living/simple_animal/hostile/netherworld/blankbody,
+/mob/living/simple_animal/hostile/netherworld/blankbody,
+/mob/living/simple_animal/hostile/netherworld/blankbody,
+/turf/open/floor/grass/fakebasalt,
+/area/space)
+"ZA" = (
+/obj/effect/turf_decal/techfloor,
+/turf/open/floor/plasteel/tech,
+/area/wizard_station)
 "ZC" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -12535,6 +15104,12 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/one)
+"ZO" = (
+/obj/effect/turf_decal/bot,
+/obj/item/clothing/suit/wizrobe/black,
+/obj/item/clothing/head/wizard/black,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "ZR" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 1
@@ -17129,13 +19704,13 @@ lI
 lI
 lI
 lI
-qE
-qE
-Ax
-Ax
-Ax
-qE
-qE
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 lI
 lI
 lI
@@ -17383,19 +19958,19 @@ lI
 lI
 lI
 lI
-qE
-qE
-qE
-qE
-yC
-zo
-zN
-zo
-Bf
-qE
-Ax
-Ax
-qE
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 lI
 lI
 lI
@@ -17629,6 +20204,15 @@ lI
 lI
 lI
 lI
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
 lI
 lI
 lI
@@ -17639,21 +20223,12 @@ lI
 lI
 lI
 lI
-qE
-qE
-ME
-vj
-ya
-qZ
-qZ
-qZ
-qZ
-qZ
-BS
-qZ
-qZ
-qE
-qE
+lI
+lI
+lI
+lI
+lI
+lI
 lI
 lI
 lI
@@ -17886,6 +20461,15 @@ lI
 lI
 lI
 lI
+Zw
+vN
+JT
+Rj
+Kq
+dg
+EZ
+dT
+Zw
 lI
 lI
 lI
@@ -17895,26 +20479,17 @@ lI
 lI
 lI
 lI
-qE
-qE
-uD
-wM
-vj
-qE
-qZ
-qZ
-qZ
-qZ
-qZ
-qE
-qZ
-uE
-qZ
-qE
-qE
-qE
-qE
-qE
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 lI
 lI
 lI
@@ -18142,6 +20717,17 @@ lI
 lI
 lI
 lI
+Zw
+Zw
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+Zw
+Zw
 lI
 lI
 lI
@@ -18151,30 +20737,19 @@ lI
 lI
 lI
 lI
-qE
-qE
-vj
-vj
-vj
-vj
-qE
-yC
-zo
-qZ
-zo
-Bf
-qE
-qZ
-qZ
-qZ
-qE
-DL
-DZ
-Eh
-qE
-qE
-Ax
-qE
+lI
+lI
+lI
+lI
+lI
+lI
+Zw
+Zw
+Zw
+Zw
+Zw
+lI
+lI
 lI
 lI
 lI
@@ -18399,6 +20974,19 @@ lI
 lI
 lI
 lI
+Zw
+Ag
+iY
+Ce
+Ce
+Ce
+Ce
+Ce
+Ce
+DT
+Zw
+Zw
+Zw
 lI
 lI
 lI
@@ -18408,31 +20996,18 @@ lI
 lI
 lI
 lI
-qE
-uC
-vk
-vj
-vj
-xu
-qE
-qE
-Ax
-Ax
-Ax
-qE
-qE
-Ci
-uE
-qZ
-DC
-DM
+lI
+Zw
+Zw
+Zw
+Zw
 DM
 Ei
-EC
-qZ
-qZ
-qE
-lI
+Sh
+Zw
+Zw
+Zw
+Zw
 lI
 lI
 lI
@@ -18653,46 +21228,46 @@ Rk
 lI
 lI
 lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-qE
-qE
-qE
-qE
-uD
+BF
+BF
+Zw
+Zw
+iY
+Cz
+mX
+JS
+JS
+JS
+Dr
+Mu
+MO
+bf
 vj
-vj
-vj
-xv
-qE
-yD
-qZ
-qZ
-qZ
-Bg
-qE
-qZ
-qZ
-qZ
-qE
-DN
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+qJ
+Mv
+Zw
 Ea
 Ej
-qE
-qE
+lU
+Zw
 EC
-qE
-qE
-qE
-lI
-lI
+Ck
+Zw
+Zw
+Zw
+Zw
 lI
 lI
 Rk
@@ -18784,51 +21359,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -18909,48 +21484,48 @@ aa
 Rk
 lI
 lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-qE
-qE
-rW
-sW
-qE
-qE
-qE
-wb
-qE
-qE
-qE
+BF
+BF
+nq
+rN
+Zw
+Zw
+eh
+mH
+JY
+CX
+Ed
+Ed
+Ed
+pH
+Vd
+TX
+Ce
+bf
+Ce
+Zw
 yE
-qZ
-qZ
-qZ
+nv
+Zw
+Pg
 Bh
-qE
-qZ
+dm
+Zw
 uE
-qZ
-qE
-qE
-qE
-qE
-qE
-qZ
-qZ
+sf
+SR
+Zw
+Zw
+zS
+Zw
+Zw
+TM
 FT
 Gr
 qE
-lI
-lI
-lI
+aX
+Zw
+Zw
 lI
 Rk
 zY
@@ -19041,51 +21616,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -19166,48 +21741,48 @@ aa
 Rk
 lI
 lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-Ax
-qZ
-qZ
-qZ
-Ax
-qZ
-qZ
-qZ
-wN
+BF
+nL
+nL
+RG
+YW
+Zw
+kd
+eA
+VP
+FL
+oA
+oA
+pp
+JS
+oR
+Jl
+Qt
+vk
 xw
-qE
-qZ
-qZ
-qZ
-qZ
-qZ
-Ax
-qZ
-qZ
-qZ
-qE
-DO
+Zw
+Zw
+Ws
+Zw
+OX
+gK
+vK
+Zw
+SX
+eS
+Bx
+Zw
 Eb
 Ek
-qE
+vI
 EW
+jY
 qZ
-qZ
-Gr
+mU
 Gz
 GX
-lI
-lI
+ws
+OJ
 lI
 Rk
 zY
@@ -19298,51 +21873,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -19423,48 +21998,48 @@ aa
 Rk
 lI
 lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-Ax
+BF
+yo
+Zy
+RD
+mZ
+Mk
+JS
+Ni
+yY
+nr
 ra
-qZ
-qZ
+IJ
+hK
 tX
-qZ
-qZ
-qZ
-qZ
-qZ
+oR
+ob
+Sa
+ob
+VJ
 yb
-qZ
-qZ
-zO
-Ay
-qZ
-BS
-qZ
-uE
-qZ
+JS
+JS
+Zw
+Zw
+wY
+Zw
+Zw
+vT
+bH
 DD
-uE
+Zw
 Ec
-uE
-Ax
-EX
-qZ
-qZ
-Gr
-Gz
-GX
-lI
-lI
+JS
+dw
+Zw
+nD
+zZ
+ZA
+HD
+aX
+ws
+OJ
 HG
 Rk
 zY
@@ -19555,51 +22130,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -19680,48 +22255,48 @@ aa
 Rk
 lI
 lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-Ax
-qZ
-qZ
-qZ
-Ax
-qZ
-qZ
-qZ
-wO
+BF
+nL
+nL
+RD
+YW
+Zw
+Dg
+JS
+qk
+Cu
+uw
+uw
+Zu
+JS
+oR
+nH
+IH
+ob
 xx
-qE
-qZ
-qZ
-qZ
-qZ
-qZ
-Ax
-qZ
-qZ
-qZ
-qE
-DP
+Zw
+kW
 Ed
-El
-qE
+Ed
+Ed
+Ed
+JS
+JS
+Ek
+JS
+JS
+Ed
+Ed
+JS
+JS
 EW
-qZ
-qZ
-Gr
+uS
+PO
+AK
 Gz
-GX
-lI
-lI
+aX
+ws
+OJ
 lI
 Rk
 zY
@@ -19812,51 +22387,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -19937,48 +22512,48 @@ aa
 Rk
 lI
 lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-qE
-qE
-rX
+BF
+BF
+NW
+Pf
+Zw
+Zw
+Ov
+JS
+oc
+mh
+JS
+JS
 sX
-qE
-qE
-qE
+nE
+Nx
+Fo
 wc
-qE
-qE
-qE
+Bt
+ee
+Zw
 yF
-qZ
-qZ
-qZ
-Bh
-qE
-qZ
-uE
-qZ
-qE
-qE
-qE
-qE
-qE
-EY
-qZ
-FT
-Gr
-qE
-lI
-lI
-lI
+eu
+Rx
+eI
+Et
+hV
+dF
+KF
+Pp
+Dz
+Qm
+kf
+kf
+uL
+Zw
+IK
+Kl
+Kt
+MU
+VH
+Zw
+Zw
 lI
 Rk
 zY
@@ -20069,51 +22644,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -20195,46 +22770,46 @@ Rk
 lI
 lI
 lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-lI
-qE
-qE
-qE
-qE
-uE
+BF
+BF
+Zw
+Zw
+iY
+RJ
+mX
+JS
+JS
+JS
+Ks
+vZ
+bI
+Bt
 vl
-uE
-wP
-xy
-qE
-yG
-zp
-zP
-qZ
-qZ
-qE
-qZ
-qZ
-qZ
-qE
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Id
+bS
 DQ
 Ee
 Em
-qE
-qE
+cq
+Zw
 Ax
-qE
-qE
-qE
-lI
-lI
+ae
+Zw
+Zw
+Zw
+Zw
 lI
 lI
 Rk
@@ -20326,51 +22901,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -20455,6 +23030,19 @@ lI
 lI
 lI
 lI
+Zw
+kh
+Ke
+ee
+gg
+oS
+ek
+ee
+ee
+kh
+Zw
+Zw
+Zw
 lI
 lI
 lI
@@ -20464,31 +23052,18 @@ lI
 lI
 lI
 lI
-qE
-uF
-vm
-wd
-uE
-xz
-qE
-qE
-Ax
-Ax
-Ax
-qE
-qE
-Ci
-uE
-qZ
-DE
-DR
+lI
+Zw
+Zw
+Zw
+Zw
 DR
 En
-qE
-lI
-lI
-lI
-lI
+cq
+Zw
+Zw
+Zw
+Zw
 lI
 lI
 lI
@@ -20583,51 +23158,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -20712,6 +23287,17 @@ lI
 lI
 lI
 lI
+Zw
+Zw
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+Zw
+Zw
 lI
 lI
 lI
@@ -20721,28 +23307,17 @@ lI
 lI
 lI
 lI
-qE
-qE
-vn
-uE
-vl
-uE
-Ax
-yH
-yK
-zQ
-Az
-yK
-Ax
-qZ
-qZ
-qZ
-qE
-DS
-Ef
-Eo
-qE
 lI
+lI
+lI
+lI
+lI
+lI
+Zw
+Zw
+Zw
+Zw
+Zw
 lI
 lI
 lI
@@ -20840,51 +23415,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -20970,6 +23545,15 @@ lI
 lI
 lI
 lI
+Zw
+Lk
+Db
+ye
+fJ
+Yp
+yP
+lQ
+Zw
 lI
 lI
 lI
@@ -20979,26 +23563,17 @@ lI
 lI
 lI
 lI
-qE
-qE
-uF
-wQ
-wd
-Ax
-yI
-zq
-yI
-AA
-yI
-Ax
-qZ
-uE
-qZ
-qE
-qE
-qE
-qE
-qE
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 lI
 lI
 lI
@@ -21097,51 +23672,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -21227,6 +23802,15 @@ lI
 lI
 lI
 lI
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
 lI
 lI
 lI
@@ -21237,21 +23821,12 @@ lI
 lI
 lI
 lI
-qE
-qE
-vn
-uE
-Ax
-yJ
-zr
-yK
-zq
-yK
-Ax
-qZ
-qZ
-qE
-qE
+lI
+lI
+lI
+lI
+lI
+lI
 lI
 lI
 lI
@@ -21354,51 +23929,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+lo
+vs
+aE
+wa
+Ns
+YF
+xX
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -21495,19 +24070,19 @@ lI
 lI
 lI
 lI
-qE
-qE
-qE
-qE
-yK
-zq
-yI
-AB
-Bi
-qE
-Ax
-Ax
-qE
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 lI
 lI
 lI
@@ -21611,51 +24186,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+fi
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+fi
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+fi
+fi
+fi
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -21755,13 +24330,13 @@ lI
 lI
 lI
 lI
-qE
-qE
-qE
-qE
-qE
-qE
-qE
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 lI
 lI
 lI
@@ -21868,51 +24443,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+FI
+tM
+zb
+zb
+zb
+zb
+zb
+zb
+iC
+fi
+fi
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+fi
+fi
+fi
+oT
+bW
+jX
+fi
+fi
+fi
+fi
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -22125,51 +24700,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+gl
+gl
+fi
+fi
+tM
+WC
+cz
+mL
+mL
+mL
+Gq
+lq
+db
+te
+DX
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+Vo
+WD
+fi
+ZO
+Bo
+oX
+fi
+yz
+iS
+fi
+fi
+fi
+fi
+lI
+lI
 aa
 aa
 aa
@@ -22382,51 +24957,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+gl
+gl
+Sk
+CA
+fi
+fi
+OH
+eq
+fc
+rM
+jZ
+jZ
+jZ
+Ew
+oj
+FP
+zb
+te
+zb
+fi
+cQ
+qp
+fi
+FU
+by
+Rg
+fi
+Cg
+pr
+Gf
+fi
+fi
+ML
+fi
+fi
+eY
+zH
+oh
+DJ
+Sw
+fi
+fi
+lI
 aa
 aa
 aa
@@ -22639,51 +25214,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+gl
+Ad
+Ad
+Kz
+Pq
+fi
+If
+xk
+Wf
+Hp
+Gi
+Gi
+Jb
+mL
+YA
+MB
+pw
+Dd
+Xs
+fi
+fi
+cA
+fi
+jd
+uX
+JR
+fi
+Bz
+kJ
+PS
+fi
+rc
+uj
+Tz
+zm
+xm
+gr
+uU
+PU
+vW
+aW
+aN
+lI
 aa
 aa
 aa
@@ -22896,51 +25471,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+gl
+pU
+GM
+Kx
+Kv
+Gn
+mL
+kk
+tQ
+Bn
+fI
+RA
+Pu
+Qq
+YA
+ht
+RI
+ht
+Ky
+DF
+mL
+mL
+fi
+fi
+Kp
+fi
+fi
+eU
+hk
+pt
+fi
+Ho
+mL
+Cl
+fi
+zs
+uB
+sK
+GJ
+Sw
+aW
+aN
+HG
 aa
 aa
 aa
@@ -23153,51 +25728,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+gl
+Ad
+Ad
+Kx
+Pq
+fi
+rq
+mL
+XF
+rO
+fp
+fp
+UP
+mL
+YA
+tt
+Ae
+ht
+vr
+fi
+Cq
+jZ
+jZ
+jZ
+jZ
+mL
+mL
+uj
+mL
+mL
+jZ
+jZ
+mL
+mL
+zm
+bz
+gk
+gR
+PU
+Sw
+aW
+aN
+lI
 aa
 aa
 aa
@@ -23410,51 +25985,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+gl
+gl
+JZ
+EP
+fi
+fi
+ON
+mL
+Hf
+Fw
+mL
+mL
+Ub
+Np
+sE
+mM
+xt
+pu
+dt
+fi
+Xa
+aj
+UI
+zE
+vY
+HC
+tB
+SS
+Hc
+se
+Ql
+fj
+fj
+SK
+fi
+Rd
+Bu
+aZ
+GA
+cn
+fi
+fi
+lI
 aa
 aa
 aa
@@ -23667,51 +26242,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+gl
+gl
+fi
+fi
+tM
+Sb
+cz
+mL
+mL
+mL
+lp
+Hu
+af
+pu
+wD
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+Ss
+Vl
+fG
+hP
+VQ
+Ik
+fi
+Mg
+wE
+fi
+fi
+fi
+fi
+lI
+lI
 aa
 aa
 aa
@@ -23924,51 +26499,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+No
+Oq
+dt
+oo
+VT
+Wa
+dt
+dt
+No
+fi
+fi
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+fi
+fi
+fi
+uc
+BZ
+Ik
+fi
+fi
+fi
+fi
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -24181,51 +26756,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+fi
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+fi
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+fi
+fi
+fi
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -24438,51 +27013,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+es
+Ia
+Zz
+qg
+qK
+mi
+CH
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -24695,51 +27270,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -24952,51 +27527,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -25209,51 +27784,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -25466,51 +28041,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -25723,51 +28298,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -25980,51 +28555,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -26237,51 +28812,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -26494,51 +29069,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
@@ -26751,51 +29326,51 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 aa
 aa
 aa
