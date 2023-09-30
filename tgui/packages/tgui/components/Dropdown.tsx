@@ -5,9 +5,6 @@ import { Box, BoxProps } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Stack } from './Stack';
-import { createLogger } from '../logging';
-
-const logger = createLogger('Dropdown');
 
 export interface DropdownEntry {
   displayText: string | number | InfernoNode;
