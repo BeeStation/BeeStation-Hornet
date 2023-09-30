@@ -460,7 +460,7 @@
 		/datum/reagent/consumable/sugar = 5,
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/sugarcookie
+	result = /obj/item/food/cookie/sugar
 	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/fortunecookie
