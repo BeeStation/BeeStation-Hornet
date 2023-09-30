@@ -1,6 +1,0 @@
-author: Absolucy, Bieyes
-delete-after: true
-changes:
-  - bugfix: Fixed an exploit where a holoparasite player could be sent back to the
-      lobby after being reset. Thank you Bieyes (Theodore Cooper) for alerting me
-      of this exploit after coming across it!
