@@ -180,3 +180,6 @@
 	density = TRUE
 	anchored = TRUE
 	deconstructible = FALSE
+
+/obj/structure/fluff/hedge/opaque //useful for mazes and such
+	opacity = TRUE
