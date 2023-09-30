@@ -13207,7 +13207,7 @@
 /area/hallway/primary/port)
 "bnQ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bnR" = (
@@ -19955,7 +19955,7 @@
 /area/hallway/primary/central)
 "bRP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/machinery/airalarm{
 	dir = 4;
 	pixel_x = -23

@@ -24,17 +24,17 @@
 	var/goodie_count = 1
 
 	var/static/list/generic_goodies = list(
-		/obj/item/stack/spacecash/c10										= 22, //the lamest chance to get item, what do you expect really?
-		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game			= 10,
-		/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy	= 10,
-		/obj/item/reagent_containers/food/snacks/cheesiehonkers 			= 10,
-		/obj/item/reagent_containers/food/snacks/candy						= 10,
-		/obj/item/reagent_containers/food/snacks/chips						= 10,
-		/obj/item/stack/spacecash/c50 										= 10,
-		/obj/item/stack/spacecash/c100 										= 25,
-		/obj/item/stack/spacecash/c200 										= 15,
-		/obj/item/stack/spacecash/c500 										= 5,
-		/obj/item/stack/spacecash/c1000 									= 1
+		/obj/item/stack/spacecash/c10 = 22, //the lamest chance to get item, what do you expect really?
+		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game = 10,
+		/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy = 10,
+		/obj/item/food/cheesiehonkers = 10,
+		/obj/item/food/candy = 10,
+		/obj/item/food/chips = 10,
+		/obj/item/stack/spacecash/c50 = 10,
+		/obj/item/stack/spacecash/c100 = 25,
+		/obj/item/stack/spacecash/c200 = 15,
+		/obj/item/stack/spacecash/c500 = 5,
+		/obj/item/stack/spacecash/c1000 = 1
 	)
 
 	//if the goodie is dangerous for the station, in this list it goes

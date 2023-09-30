@@ -7,7 +7,7 @@
 	name = "Meat bread"
 	reqs = list(
 		/obj/item/food/bread/plain = 1,
-		/obj/item/reagent_containers/food/snacks/meat/cutlet/plain = 3,
+		/obj/item/food/meat/cutlet/plain = 3,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 3
 	)
 	result = /obj/item/food/bread/meat
@@ -17,7 +17,7 @@
 	name = "Xenomeat bread"
 	reqs = list(
 		/obj/item/food/bread/plain = 1,
-		/obj/item/reagent_containers/food/snacks/meat/cutlet/xeno = 3,
+		/obj/item/food/meat/cutlet/xeno = 3,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 3
 	)
 	result = /obj/item/food/bread/xenomeat
@@ -27,7 +27,7 @@
 	name = "Spidermeat bread"
 	reqs = list(
 		/obj/item/food/bread/plain = 1,
-		/obj/item/reagent_containers/food/snacks/meat/cutlet/spider = 3,
+		/obj/item/food/meat/cutlet/spider = 3,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 3
 	)
 	result = /obj/item/food/bread/spidermeat
@@ -48,7 +48,7 @@
 	name = "Tofu bread"
 	reqs = list(
 		/obj/item/food/bread/plain = 1,
-		/obj/item/reagent_containers/food/snacks/tofu = 3,
+		/obj/item/food/tofu = 3,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 3
 	)
 	result = /obj/item/food/bread/tofu
@@ -69,7 +69,7 @@
 	reqs = list(
 		/datum/reagent/consumable/soymilk = 5,
 		/obj/item/food/bread/plain = 1,
-		/obj/item/reagent_containers/food/snacks/tofu = 3,
+		/obj/item/food/tofu = 3,
 		/obj/item/reagent_containers/food/snacks/grown/banana/mime = 1
 	)
 	result = /obj/item/food/bread/mimana
@@ -103,25 +103,75 @@
 	result = /obj/item/food/butterdog
 	subcategory = CAT_BREAD
 
+/datum/crafting_recipe/food/baguette
+	name = "Baguette"
+	time = 40
+	reqs = list(/datum/reagent/consumable/sodiumchloride = 1,
+		/datum/reagent/consumable/blackpepper = 1,
+		/obj/item/reagent_containers/food/snacks/pastrybase = 2
+	)
+	result = /obj/item/food/baguette
+	subcategory = CAT_MISCFOOD
+
+////////////////////////////////////////////////TOAST////////////////////////////////////////////////
+
+/datum/crafting_recipe/food/slimetoast
+	name = "Slime toast"
+	reqs = list(
+		/datum/reagent/toxin/slimejelly = 5,
+		/obj/item/food/breadslice/plain = 1
+	)
+	result = /obj/item/food/jelliedtoast/slime
+	subcategory = CAT_BREAD
+
+/datum/crafting_recipe/food/jelliedyoast
+	name = "Jellied toast"
+	reqs = list(
+		/datum/reagent/consumable/cherryjelly = 5,
+		/obj/item/food/breadslice/plain = 1
+	)
+	result = /obj/item/food/jelliedtoast/cherry
+	subcategory = CAT_BREAD
+
+/datum/crafting_recipe/food/butteredtoast
+	name = "Buttered Toast"
+	reqs = list(
+		/obj/item/food/breadslice/plain = 1,
+		/obj/item/reagent_containers/food/snacks/butter = 1
+	)
+	result = /obj/item/food/butteredtoast
+	subcategory = CAT_BREAD
+
+/datum/crafting_recipe/food/twobread
+	name = "Two bread"
+	reqs = list(
+		/datum/reagent/consumable/ethanol/wine = 5,
+		/obj/item/food/breadslice/plain = 2
+	)
+	result = /obj/item/food/twobread
+	subcategory = CAT_BREAD
+/*
+/datum/crafting_recipe/food/moldybread // why would you make this?
+	name = "Moldy Bread"
+	reqs = list(
+		/obj/item/food/breadslice/plain = 1,
+		/obj/item/food/grown/mushroom/amanita = 1
+		)
+	result = /obj/item/food/breadslice/moldy
+	category = CAT_BREAD
+*/
+
+////////////////////////////////////////////////WEIRD////////////////////////////////////////////////
+
 /datum/crafting_recipe/food/breadcat
 	name = "Bread cat/bread hybrid"
 	reqs = list(
 		/obj/item/food/bread/plain = 1,
 		/obj/item/organ/ears/cat = 1,
 		/obj/item/organ/tail/cat = 1,
-		/obj/item/reagent_containers/food/snacks/meat/slab = 3,
+		/obj/item/food/meat/slab = 3,
 		/datum/reagent/blood = 50,
 		/datum/reagent/medicine/strange_reagent = 5
 		)
 	result = /mob/living/simple_animal/pet/cat/breadcat
-	subcategory = CAT_BREAD
-
-/datum/crafting_recipe/food/hotdog
-	name = "Hot dog"
-	reqs = list(
-		/datum/reagent/consumable/ketchup = 5,
-		/obj/item/reagent_containers/food/snacks/bun = 1,
-		/obj/item/reagent_containers/food/snacks/sausage = 1
-	)
-	result = /obj/item/reagent_containers/food/snacks/hotdog
 	subcategory = CAT_BREAD

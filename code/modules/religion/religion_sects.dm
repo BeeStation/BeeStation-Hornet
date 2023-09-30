@@ -262,7 +262,7 @@
 	tgui_icon = "fish"
 	alignment = ALIGNMENT_NEUT
 	max_favor = 10000
-	desired_items = list(/obj/item/reagent_containers/food/snacks/meat/slab)
+	desired_items = list(/obj/item/food/meat/slab)
 	rites_list = list(/datum/religion_rites/summon_carp, /datum/religion_rites/flood_area, /datum/religion_rites/summon_carpsuit)
 	altar_icon_state = "convertaltar-blue"
 
@@ -276,7 +276,7 @@
 	return TRUE
 
 /datum/religion_sect/carp_sect/on_sacrifice(obj/item/N, mob/living/L) //and this
-	var/obj/item/reagent_containers/food/snacks/meat/meat = N
+	var/obj/item/food/meat/meat = N
 	if(!istype(meat)) //how...
 		return
 	adjust_favor(20, L)

@@ -679,27 +679,6 @@
 	/*food_flags = FOOD_FINGER_FOOD*/
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/food/snacks/hotdog
-	name = "hotdog"
-	desc = "Hot and steamy hotdog weenie."
-	icon_state = "hotdog"
-	bitesize = 3
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 3)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/ketchup = 3, /datum/reagent/consumable/nutriment/vitamin = 3)
-	filling_color = "#8B0000"
-	tastes = list("bun" = 3, "meat" = 2)
-	foodtype = GRAIN | MEAT | VEGETABLES
-
-/obj/item/reagent_containers/food/snacks/meatbun
-	name = "meat bun"
-	desc = "Has the potential to not be Dog."
-	icon_state = "meatbun"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
-	filling_color = "#8B0000"
-	tastes = list("bun" = 3, "meat" = 2)
-	foodtype = GRAIN | MEAT | VEGETABLES
-
 /obj/item/reagent_containers/food/snacks/khachapuri
 	name = "khachapuri"
 	desc = "Bread with egg and cheese?"

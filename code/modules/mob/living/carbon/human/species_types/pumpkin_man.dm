@@ -96,10 +96,10 @@
 	//Get a candy type
 	var/obj/item/type = pick(/obj/item/reagent_containers/food/snacks/sugarcookie/spookyskull,
 		/obj/item/reagent_containers/food/snacks/sugarcookie/spookycoffin,
-		/obj/item/reagent_containers/food/snacks/candy_corn,
-		/obj/item/reagent_containers/food/snacks/candy,
-		/obj/item/reagent_containers/food/snacks/candiedapple,
-		/obj/item/reagent_containers/food/snacks/chocolatebar)
+		/obj/item/food/candy_corn,
+		/obj/item/food/candy,
+		/obj/item/food/candiedapple,
+		/obj/item/food/chocolatebar)
 	//Make some candy & put it in the list
 	type = new type
 	available_candy += type

@@ -8,6 +8,8 @@
 	icon_state = null
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
+	obj_flags = UNIQUE_RENAME
+	grind_results = list()
 	///List of reagents this food gets on creation
 	var/list/food_reagents
 	///Extra flags for things such as if the food is in a container or not
@@ -28,6 +30,8 @@
 	var/microwaved_type
 	///Type of atom thats spawned after eating this item
 	var/trash_type
+	///How much junkiness this food has? God I should remove junkiness soon
+	var/junkiness
 
 /obj/item/food/Initialize()
 	. = ..()
@@ -43,7 +47,8 @@
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
 /obj/item/food/proc/make_edible()
-	AddComponent(/datum/component/edible,\
+	AddComponent(
+		/datum/component/edible,\
 		initial_reagents = food_reagents,\
 		food_flags = food_flags,\
 		foodtypes = foodtypes,\
@@ -53,6 +58,7 @@
 		eatverbs = eatverbs,\
 		bite_consumption = bite_consumption,\
 		microwaved_type = microwaved_type,\
+		junkiness = junkiness,\
 	)
 
 

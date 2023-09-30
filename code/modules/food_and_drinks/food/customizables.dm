@@ -64,8 +64,8 @@
 			customname = "custom"
 			break
 	if(ingredients.len == 1) //first ingredient
-		if(istype(S, /obj/item/reagent_containers/food/snacks/meat))
-			var/obj/item/reagent_containers/food/snacks/meat/M = S
+		if(istype(S, /obj/item/food/meat))
+			var/obj/item/food/meat/M = S
 			if(M.subjectname)
 				customname = "[M.subjectname]"
 			else if(M.subjectjob)
@@ -166,72 +166,6 @@
 	icon = 'icons/obj/food/piecake.dmi'
 	icon_state = "pie"
 	foodtype = GRAIN | DAIRY
-
-/obj/item/reagent_containers/food/snacks/customizable/salad
-	name = "salad"
-	desc = "Very tasty."
-	trash = /obj/item/reagent_containers/glass/bowl
-	ingMax = 6
-	icon = 'icons/obj/food/soupsalad.dmi'
-	icon_state = "bowl"
-
-/obj/item/reagent_containers/food/snacks/customizable/soup
-	name = "soup"
-	desc = "A bowl with liquid and... stuff in it."
-	trash = /obj/item/reagent_containers/glass/bowl
-	ingMax = 8
-	icon = 'icons/obj/food/soupsalad.dmi'
-	icon_state = "wishsoup"
-
-/obj/item/reagent_containers/food/snacks/customizable/soup/Initialize(mapload)
-	. = ..()
-	eatverb = pick("slurp","sip","inhale","drink")
-
-
-
-
-
-// Bowl ////////////////////////////////////////////////
-
-/obj/item/reagent_containers/glass/bowl
-	name = "bowl"
-	desc = "A simple bowl, used for soups and salads."
-	icon = 'icons/obj/food/soupsalad.dmi'
-	icon_state = "bowl"
-	reagent_flags = OPENCONTAINER
-	materials = list(/datum/material/glass = 500)
-	w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/reagent_containers/glass/bowl/attackby(obj/item/I,mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/food/snacks))
-		var/obj/item/reagent_containers/food/snacks/S = I
-		if(I.w_class > WEIGHT_CLASS_SMALL)
-			to_chat(user, "<span class='warning'>The ingredient is too big for [src]!</span>")
-		else if(contents.len >= 20)
-			to_chat(user, "<span class='warning'>You can't add more ingredients to [src]!</span>")
-		else
-			if(reagents.has_reagent(/datum/reagent/water, 10)) //are we starting a soup or a salad?
-				var/obj/item/reagent_containers/food/snacks/customizable/A = new/obj/item/reagent_containers/food/snacks/customizable/soup(get_turf(src))
-				A.initialize_custom_food(src, S, user)
-			else
-				var/obj/item/reagent_containers/food/snacks/customizable/A = new/obj/item/reagent_containers/food/snacks/customizable/salad(get_turf(src))
-				A.initialize_custom_food(src, S, user)
-	else
-		. = ..()
-	return
-
-/obj/item/reagent_containers/glass/bowl/on_reagent_change(changetype)
-	..()
-	update_icon()
-
-/obj/item/reagent_containers/glass/bowl/update_icon()
-	cut_overlays()
-	if(reagents?.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/food/soupsalad.dmi', "fullbowl")
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling)
-	else
-		icon_state = "bowl"
 
 #undef INGREDIENTS_FILL
 #undef INGREDIENTS_SCATTER
