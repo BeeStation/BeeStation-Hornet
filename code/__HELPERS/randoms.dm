@@ -25,12 +25,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/shell, //base types
 		/obj/item/food/bread,
 		/obj/item/reagent_containers/food/snacks/grown/nettle,
-		/obj/item/food/cakeslice/birthday/energy,
-		/obj/item/food/cake/birthday/energy,
-		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit,
-		/obj/item/seeds/cherry/bomb,
-		/obj/item/food/burger/roburger,
-		/obj/item/food/burger/roburgerbig
+		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 		)
 		blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
