@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Atmosbots have been given a larger area of effect but have had the amount
+      of gasses they transfer in a single tick reduced.
