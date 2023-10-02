@@ -1,0 +1,4 @@
+author: RKz, necromanceranne, Spookydonut
+delete-after: true
+changes:
+  - code_imp: adds linting for equipped()
