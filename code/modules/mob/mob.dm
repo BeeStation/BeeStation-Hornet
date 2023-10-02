@@ -218,7 +218,9 @@
 		if(!msg)
 			continue
 
-		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !M.is_blind())
+		if(is_emote && M.should_show_chat_message(src, null, TRUE))
+			if(M.is_blind() && get_dist(M, src) > BLIND_TEXT_DIST)
+				continue
 			show_to += M
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = M == src)

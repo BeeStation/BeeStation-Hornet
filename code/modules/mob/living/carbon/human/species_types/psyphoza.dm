@@ -1,11 +1,6 @@
 /*
 	TODO:
-		fix nearby text, like declothe not being visible and emotes
-		make soul colour tied to mind
-		fix display case not being able to examine
-		make blind sense an element
 		Falling asleep by N2O doesn't give you the icon that you are asleep. 
-		fix cloth eating
 */
 
 /datum/species/psyphoza
