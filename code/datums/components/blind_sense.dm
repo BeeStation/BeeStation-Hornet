@@ -68,7 +68,7 @@
 	M.plane = BLIND_FEATURE_PLANE
 	M.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/_color = "#fff"
-	if(HAS_TRAIT(owner, TRAIT_PSYCHIC_SENSE))
+	if(HAS_TRAIT(owner, TRAIT_PSYCHIC_SENSE) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		_color = GLOB.SOUL_GLIMMER_COLORS[H.mind?.soul_glimmer]
 	M.color = _color
