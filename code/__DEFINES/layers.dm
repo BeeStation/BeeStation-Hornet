@@ -20,7 +20,7 @@
 
 #define FLOOR_PLANE -7
 #define GAME_PLANE -4
-#define GAME_PLANE_RENDER_TARGET "*GAME_PLANE_RENDER_TARGET"
+#define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
@@ -178,7 +178,6 @@
 #define HUD_RENDER_TARGET "HUD_PLANE"
 
 #define ABOVE_HUD_PLANE 1100
-#define ABOVE_HUD_LAYER 26
 #define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"
 
 ///1000 is an unimportant number, it's just to normalize copied layers

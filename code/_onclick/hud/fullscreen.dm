@@ -212,6 +212,11 @@
 	var/icon/mask = icon('icons/mob/psychic.dmi', "click_mask")
 	add_filter("click_mask", 1, alpha_mask_filter(icon = mask, flags = MASK_INVERSE))
 
+/atom/movable/screen/fullscreen/blind_context_disable/Destroy()
+	owner = null
+	mob_owner = null
+	return ..()
+
 //disable & enable context menu
 /atom/movable/screen/fullscreen/blind_context_disable/MouseEntered(location, control, params)
 	//try and get owner from mob

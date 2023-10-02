@@ -9,7 +9,7 @@
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/lay_down)
 
-	icon_state = null		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
+	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
 	//initialize limbs first
 	create_bodyparts()
@@ -1099,16 +1099,6 @@
 		src.emote("scream")
 	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
-
-/mob/living/carbon/human/proc/generate_soul_mask(mob/host)
-	//Soul color
-	//TODO: PSYCHIC SOUL
-	//Icon stuff
-	var/mutable_appearance/MA = mutable_appearance()
-	MA.appearance = host.appearance
-	MA.plane = PSYCHIC_PLANE
-
-	host.add_overlay(MA)
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

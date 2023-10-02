@@ -1,8 +1,6 @@
 /datum/component/blind_sense
 	///The range we can hear-ping things from
 	var/hear_range = 8
-	///List of things we can't sense
-	var/list/sense_blacklist
 	///The amount of time you can sense things for
 	var/sense_time = 5 SECONDS
 	///Reference to the users ears
@@ -25,6 +23,11 @@
 		var/mob/living/carbon/C = owner
 		ears = locate(/obj/item/organ/ears) in C.internal_organs
 		RegisterSignal(ears, COMSIG_PARENT_QDELETING, PROC_REF(handle_ears))
+
+/datum/component/blind_sense/Destroy(force, silent)
+	owner = null
+	ears = null
+	return ..()
 
 /datum/component/blind_sense/RemoveComponent()
 	UnregisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL)

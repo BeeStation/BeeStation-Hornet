@@ -61,7 +61,6 @@
 	air_update_turf(1)
 
 	if(fulltile)
-		//Overlay for psychic walls - we can't assign two layers at once
 		setDir()
 
 	//windows only block while reinforced and fulltile, so we'll use the proc

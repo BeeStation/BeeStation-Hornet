@@ -1,8 +1,3 @@
-/*
-	TODO:
-		Falling asleep by N2O doesn't give you the icon that you are asleep. 
-*/
-
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
 	plural_form = "Psyphoza"
