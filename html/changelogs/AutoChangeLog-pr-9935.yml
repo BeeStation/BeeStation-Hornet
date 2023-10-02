@@ -1,4 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Fix broken dropdown buttons in the tgui chat settings.
