@@ -470,3 +470,12 @@
 		obj_flags ^= EMAGGED
 	else
 		obj_flags |= EMAGGED
+
+/// shows mobs in its contents to ghosts. can be used to update
+/obj/proc/update_mob_alpha()
+	if(!length(contents))
+		SSvis_overlays.remove_mob_alpha(src)
+	var/list/exception_mobs = list()
+	for(var/mob/each_mob in contents)
+		exception_mobs += SSvis_overlays.add_mob_alpha(src, each_mob)
+	SSvis_overlays.remove_mob_alpha(src, exception_mobs)
