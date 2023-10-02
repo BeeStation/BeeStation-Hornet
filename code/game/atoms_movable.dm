@@ -172,17 +172,23 @@
 		if(!supress_message)
 			M.visible_message("<span class='warning'>[src] grabs [M] passively.</span>", \
 				"<span class='danger'>[src] grabs you passively.</span>")
+	SEND_SIGNAL(pulling, COMSIG_MOVABLE_PULLED)
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
 		pulling.pulledby = null
+		if(ismob(usr))
+			log_combat(usr, pulling, "has stopped pulling", addition = "at [AREACOORD(usr)]")
+		if(ismob(pulling))
+			log_combat(pulling, usr, "stopped being pulled by", addition = "at [AREACOORD(pulling)]")
 		var/mob/living/ex_pulled = pulling
 		pulling = null
 		setGrabState(0)
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
 			L.update_mobility()// mob gets up if it was lyng down in a chokehold
+		SEND_SIGNAL(ex_pulled, COMSIG_MOVABLE_NO_LONGER_PULLED)
 
 /atom/movable/proc/Move_Pulled(atom/A)
 	if(!pulling)
@@ -850,12 +856,12 @@
 	var/obj/effect/icon/temp/attack_animation_object
 	if(visual_effect_icon)
 		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
-		attack_animation_object = new(A.loc, I, 10)
+		attack_animation_object = new(get_turf(A), I, 10) //A.loc is an area when A is a turf
 	else if(used_item)
 		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
 		I.plane = GAME_PLANE
 		I.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
-		attack_animation_object = new(A.loc, I, 10)
+		attack_animation_object = new(get_turf(A), I, 10)
 
 		// Scale the icon.
 		attack_animation_object.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)

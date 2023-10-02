@@ -166,6 +166,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	log_uplink_purchase(user, A)
 	return A
 
+/datum/uplink_item/proc/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
+	return refundable
+
 //Discounts (dynamically filled above)
 /datum/uplink_item/discounts
 	category = "Discounts"
@@ -582,16 +585,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/gloves/rapid
 	cost = 8
 
-/datum/uplink_item/dangerous/guardian
+/datum/uplink_item/dangerous/holoparasite
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an \
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
-	item = /obj/item/guardiancreator/tech
+	item = /obj/item/holoparasite_creator/tech
 	cost = 18
 	surplus = 10
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	player_minimum = 25
 	restricted = TRUE
+	refundable = TRUE
+
+/**
+ * Only allow holoparasites to be refunded if the injector is unused.
+ */
+/datum/uplink_item/dangerous/holoparasite/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
+	if(!istype(item, /obj/item/holoparasite_creator/tech))
+		return FALSE
+	var/obj/item/holoparasite_creator/tech/holopara_creator = item
+	return (holopara_creator.builder.uses == initial(holopara_creator.uses)) && !holopara_creator.builder.waiting
 
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
@@ -634,6 +647,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			with suppressors."
 	item = /obj/item/gun/ballistic/automatic/pistol
 	cost = 7
+	purchasable_from = ~UPLINK_CLOWN_OPS
+
+/datum/uplink_item/dangerous/derringer
+	name = "'Infiltrator' Coat Pistol"
+	desc = "For the deeply embedded agent; a very compact dual-barreled handgun chambered in .38-special. Compatible with \
+			standard production NT speed loaders. Loaded with .38 Match ammunition and includes a spare speedloader."
+	item = /obj/item/storage/box/syndie_kit/derringer
+	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
 /datum/uplink_item/dangerous/bolt_action
@@ -915,6 +936,58 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			For when you really need a lot of things dead."
 	item = /obj/item/ammo_box/a357
 	cost = 2
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38
+	name = ".38-special Speed Loader"
+	desc = "A standard issue .38-special speed loader, for use with the Detective's revolver or 'Infiltrator' coat pistol."
+	item = /obj/item/ammo_box/c38
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38blister
+	name = ".38-special 'Blister' Speed Loader"
+	desc = "For when you can't deside between a coat pistol and a dart pistol! These 6 cartridges can \
+			be injected with up to 10 units of your favorite poison for remote application via sidearm."
+	item = /obj/item/ammo_box/c38/dart
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38dumdum
+	name = ".38-special DumDum Speed Loader"
+	desc = "6 specialized fragmenting .38-special catridges, excellent for dispatching unarmored targets. \
+			Shrapnel can embed within the victim and provide a debilitating effect. Not advised for use \
+			against armored targets."
+	item = /obj/item/ammo_box/c38/dumdum
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38iceblox
+	name = ".38-special Iceblox Speed Loader"
+	desc = "6 .38-special Iceblox cartridges, 'guaranteed' to free your target to the core."
+	item = /obj/item/ammo_box/c38/iceblox
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38hotshot
+	name = ".38-special Hot Shot Speed Loader"
+	desc = "6 .38-special Hot Shot cartridges. Set your target ablaze with this specialized thermal payload."
+	item = /obj/item/ammo_box/c38/hotshot
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38emp
+	name = ".38-special 'BLK_OUT' Speed Loader"
+	desc = "6 specialized 'anti-silicon' .38-special cartridges that release a minor EMP on impact with a hard surface. \
+			From Silicons, to IPCs, to any machinery or energy-based weapons in use by security, leave them in the dark."
+	item = /obj/item/ammo_box/c38/emp
+	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
@@ -1689,6 +1762,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Glue"
 	desc = "A cheap bottle of one use syndicate brand super glue. \
 			Use on any item to make it undroppable. \
+			When applied, will stick the item in either thirty seconds or instantly upon dropping or picking it up. \
 			Be careful not to glue an item you're already holding!"
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	item = /obj/item/syndie_glue
@@ -2209,7 +2283,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
 			to act as a servant and guardian to their host."
-	item = /obj/item/guardiancreator/carp
+	item = /obj/item/holoparasite_creator/carp
 	cost = 18
 	surplus = 5
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)

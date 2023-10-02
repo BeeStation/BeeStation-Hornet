@@ -238,11 +238,6 @@
 		storedid = null
 		update_icon()
 
-/obj/machinery/pdapainter/power_change()
-	..()
-	update_icon()
-
-
 /proc/get_card_style_list(emagged)
 	var/static/valid_jobs = list(
 		"----Command----", "Command (Custom)",JOB_NAME_CAPTAIN,"Acting Captain",

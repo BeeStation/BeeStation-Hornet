@@ -715,3 +715,26 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	else
 		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
 			emote("me", 1, "growls!")
+
+/mob/living/simple_animal/pet/dog/corgi/cardigan
+	name = "\improper cardigan corgi"
+	real_name = "Cardigan Welsh corgi"
+	desc = "Ian's tailed cousin"
+	icon_state = "cardigan_corgi"
+	icon_living = "cardigan_corgi"
+	icon_dead = "cardigan_corgi_dead"
+	childtype = /mob/living/simple_animal/pet/dog/corgi/puppy/cardigan //Only one type of puppy
+	held_state = "cardigan_corgi"
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/cardigan
+	name = "\improper cardigan corgi puppy"
+	real_name = "Cardigan Welsh corgi"
+	desc = "It's a corgi puppy!"
+	icon_state = "cardigan_puppy"
+	icon_living = "cardigan_puppy"
+	icon_dead = "cardigan_puppy_dead"
+	density = FALSE
+	pass_flags = PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	collar_type = "puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD
