@@ -330,9 +330,6 @@
 	if(!user.can_read(src))
 		return UI_CLOSE
 	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard))
-		//Nested if to create a delay for blind people
-		if(user.is_blind())
-			to_chat(user, "<span class='danger'>It's hard to make out, but you manage to read [src].</span>")
 		return UI_INTERACTIVE
 	return ..()
 
