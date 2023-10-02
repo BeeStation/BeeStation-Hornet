@@ -483,6 +483,3 @@
 	psychic_overlay?.cycle_textures()
 	blind_overlay = blind_overlay || owner?.screens["blind"]
 	blind_overlay?.cycle_textures()
-
-
-#undef PSYPHOZA_BURNMOD
