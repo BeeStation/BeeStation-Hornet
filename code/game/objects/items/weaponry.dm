@@ -97,7 +97,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/claymore/highlander //ALL COMMENTS MADE REGARDING THIS SWORD MUST BE MADE IN ALL CAPS
 	desc = "<b><i>THERE CAN BE ONLY ONE, AND IT WILL BE YOU!!!</i></b>\nActivate it in your hand to point to the nearest victim."
 	flags_1 = CONDUCT_1
-	item_flags = DROPDEL | ISWEAPON
+	item_flags = DROPDEL | ISWEAPON //dropdel occurs because you lost an arm
 	slot_flags = null
 	light_range = 3
 	attack_verb = list("brutalized", "eviscerated", "disemboweled", "hacked", "carved", "cleaved") //ONLY THE MOST VISCERAL ATTACK VERBS
@@ -128,16 +128,14 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 
 /obj/item/claymore/highlander/pickup(mob/living/user)
-	..()
+	. = ..()
 	to_chat(user, "<span class='notice'>The power of Scotland protects you! You are shielded from all stuns and knockdowns.</span>")
 	user.add_stun_absorption("highlander", INFINITY, 1, " is protected by the power of Scotland!", "The power of Scotland absorbs the stun!", " is protected by the power of Scotland!")
 	user.ignore_slowdown(HIGHLANDER)
 
 /obj/item/claymore/highlander/dropped(mob/living/user)
-	..()
+	. = ..()
 	user.unignore_slowdown(HIGHLANDER)
-	if(!QDELETED(src))
-		qdel(src) //If this ever happens, it's because you lost an arm
 
 /obj/item/claymore/highlander/examine(mob/user)
 	. = ..()
@@ -928,6 +926,18 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 			var/def_check = H.getarmor(type = MELEE)
 			H.apply_damage(stamforce, STAMINA, blocked = def_check)
 	return ..()
+
+/obj/item/club/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(istype(A, /obj/structure/window) || istype(A, /obj/machinery/door/window)\
+		|| istype(A, /obj/structure/windoor_assembly) || istype(A, /obj/structure/table/glass)) //Bonus damage to windows, windoors, and windoor assemblies
+		var/obj/W = A
+		W.take_damage(30, BRUTE, MELEE, 0)
+	else if(istype(A, /obj/structure/grille)) //Bonus damage to grilles
+		var/obj/structure/grille/G = A
+		G.take_damage(20, BRUTE, MELEE, 0)
 
 /obj/item/club/tailclub
 	name = "tail club"

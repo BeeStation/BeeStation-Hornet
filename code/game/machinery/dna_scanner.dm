@@ -64,10 +64,6 @@
 	//running
 	icon_state = initial(icon_state)+ (state_open ? "_open" : "")
 
-/obj/machinery/dna_scannernew/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/dna_scannernew/proc/toggle_open(mob/user)
 	if(locked)
 		to_chat(user, "<span class='notice'>The bolts are locked down, securing the door [state_open ? "open" : "shut"].</span>")

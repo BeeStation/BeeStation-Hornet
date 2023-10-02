@@ -115,7 +115,7 @@
 	var/last_completed_asset_job = 0
 
 	/// rate limiting for the crew manifest
-	var/crew_manifest_delay
+	COOLDOWN_DECLARE(crew_manifest_delay)
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0

@@ -22,6 +22,8 @@
 		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
 		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
 		// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
+	//color correction
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
 
 /mob/living/proc/initialize_footstep()
 	AddComponent(/datum/component/footstep)
@@ -1485,3 +1487,11 @@
 	if(!apply_change)
 		return BODYTEMP_NORMAL
 	return BODYTEMP_NORMAL + get_body_temp_normal_change()
+
+//Used for applying color correction
+/mob/living/proc/apply_color_correction(datum/source, area/entered)
+	SIGNAL_HANDLER
+
+	remove_client_colour(current_correction)
+	add_client_colour(entered.color_correction)
+	current_correction = entered.color_correction
