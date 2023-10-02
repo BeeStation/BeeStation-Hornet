@@ -5,7 +5,7 @@
 	range = 10
 	speed = 1
 	projectile_piercing = PASSMOB | PASSANOMALY | PASSMACHINE
-	projectile_phasing = (ALL & (~PASSMOB) & (~PASSBLOB) & (~PASSANOMALY) & (~PASSMACHINE))
+	projectile_phasing = (ALL & (~PASSMOB) & (~PASSBLOB) & (~PASSANOMALY) & (~PASSMACHINE) & (~LETPASSCLICKS))
 	suppressed = SUPPRESSED_VERY //we don't want every machine that gets hit to spam chat
 	hitsound = null
 	irradiate = 60
