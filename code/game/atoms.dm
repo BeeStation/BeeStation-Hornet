@@ -644,24 +644,22 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
-	var/list/hprints = return_hiddenprints()
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
-		if(!length(hprints))
+		var/list/souls = return_souls()
+		if(!length(souls))
 			return
-		//If the given ckey doesn't have an assigned soul color
-		if(!GLOB.PSYCHIC_SENSE_SOULS[ckey(hprints[1])])
-			GLOB.PSYCHIC_SENSE_SOULS[ckey(hprints[1])] = pick(GLOB.PSYCHIC_SENSE_COLOURS)
-		//List all the key's soul colours
-		var/message = "<span class='notice'>You sense a <span style='color: [GLOB.PSYCHIC_SENSE_COLOURS[GLOB.PSYCHIC_SENSE_SOULS[ckey(hprints[1])]]]'>[GLOB.PSYCHIC_SENSE_SOULS[ckey(hprints[1])]]</span> presence."
-
-		if(length(hprints) > 2) //> 2 becuase it's weird
-			for(var/key in hprints)
-				if(!key || key == "")
-					continue
-				if(!GLOB.PSYCHIC_SENSE_SOULS[ckey(key)])
-					GLOB.PSYCHIC_SENSE_SOULS[ckey(key)] = pick(GLOB.PSYCHIC_SENSE_COLOURS)
-				message += "\n<span style='color: [GLOB.PSYCHIC_SENSE_COLOURS[GLOB.PSYCHIC_SENSE_SOULS[ckey(key)]]]'>[GLOB.PSYCHIC_SENSE_SOULS[ckey(key)]]</span>"
-		. += "[message]"
+		to_chat(user, "<span class='notice'>You sense a presence here...")
+		//Count of souls
+		var/list/present_souls = list()
+		for(var/i in souls)
+			if(!present_souls[i])
+				present_souls[i] = 0
+			present_souls[i] += 1
+		//Display the total soul count
+		for(var/i in present_souls)
+			if(!present_souls[i] || !GLOB.SOUL_GLIMMER_COLORS[i])
+				continue
+			to_chat(user, "<span class='notice'><span style='color: [GLOB.SOUL_GLIMMER_COLORS[i]]'>[i]</span>, [present_souls[i] > 1 ? "[present_souls[i]] times" : "once"].</span>")
 	
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 

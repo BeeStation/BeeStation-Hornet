@@ -85,11 +85,14 @@
 	/// Boolean value indicating if the mob attached to this mind entered cryosleep.
 	var/cryoed = FALSE
 
+	/// What color our soul is
+	var/soul_glimmer
 
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
 	martial_art = default_martial_art
+	setup_soul_glimmer()
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -871,3 +874,9 @@
 	if(!holoparasite_holder)
 		holoparasite_holder = new(src)
 	return holoparasite_holder
+
+/datum/mind/proc/setup_soul_glimmer()
+	var/list/options = GLOB.SOUL_GLIMMER_COLORS_LOW
+	if(length(SSticker.minds) >= SOUL_GLIMMER_LOWER_POP)
+		options += GLOB.SOUL_GLIMMER_COLORS_MID
+	soul_glimmer = pick(options)

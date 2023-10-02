@@ -229,10 +229,27 @@
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
 
+//Psychic & Blind stuff
+/atom/movable/screen/plane_master/psychic
+	name = "psychic plane master"
+	plane = PSYCHIC_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = PLANE_MASTER
+	render_target = PSYCHIC_PLANE_RENDER_TARGET
+	render_relay_plane = RENDER_PLANE_NON_GAME
+
+/atom/movable/screen/plane_master/psychic/backdrop(mob/mymob)
+	. = ..()
+	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
+	filters += filter(type = "alpha", render_source = "psychic_mask")
+	filters += filter(type = "radial_blur", size = 0.0125)
+	filters += filter(type = "blur", size = 1.5)
+
 /atom/movable/screen/plane_master/anti_psychic
 	name = "anti psychic plane master"
 	plane = ANTI_PSYCHIC_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = PLANE_MASTER
 	render_target = ANTI_PSYCHIC_PLANE_RENDER_TARGET
 	render_relay_plane = null
 
@@ -240,3 +257,14 @@
 	. = ..()
 	//fixes issue with bloom outlines
 	add_filter("hide_outline", 1, outline_filter(5, "#fff"))
+
+/atom/movable/screen/plane_master/blind_feature
+	name = "blind feature plane master"
+	plane = BLIND_FEATURE_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = PLANE_MASTER
+	render_relay_plane = RENDER_PLANE_NON_GAME
+
+/atom/movable/screen/plane_master/blind_feature/backdrop(mob/mymob)
+	. = ..()
+	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))

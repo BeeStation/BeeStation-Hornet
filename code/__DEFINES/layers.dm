@@ -156,14 +156,15 @@
 #define CRIT_LAYER 5
 #define CURSE_LAYER 6
 
-//Snowflake layers for psyphoza features
-
-//Plane for highlighting objects
+///--------------- PSYCHIC & BLIND IMAGES ------------
+//Plane for highlighting objects - most soul glimmers
 #define PSYCHIC_PLANE 550
 #define PSYCHIC_PLANE_RENDER_TARGET "*PSYCHIC_PLANE_RENDER_TARGET"
-//Plane for not-highlighting objects
+//Plane for not-highlighting objects - most hiding cult stuff
 #define ANTI_PSYCHIC_PLANE 551
 #define ANTI_PSYCHIC_PLANE_RENDER_TARGET "*ANTI_PSYCHIC_PLANE_RENDER_TARGET"
+//Plane for blind stuff
+#define BLIND_FEATURE_PLANE 552
 
 //-------------------- Rendering ---------------------
 #define RENDER_PLANE_GAME 990

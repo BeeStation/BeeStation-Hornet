@@ -11,8 +11,6 @@
 	var/mob/owner
 	///What texture we use
 	var/masked_texture = "blind_texture_blank"
-	///Do we bloom?
-	var/bloom = TRUE
 
 /datum/component/blind_sense/New(list/raw_args)
 	. = ..()
@@ -66,11 +64,14 @@
 
 	//Setup display image
 	var/obj/effect/blind_sense/BS = new(get_turf(target))
-	var/image/M = image(I, BS, layer = HUD_LAYER)
-	M.plane = HUD_PLANE
-	if(bloom)
-		M.filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
+	var/image/M = image(I, BS)
+	M.plane = BLIND_FEATURE_PLANE
 	M.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/_color = "#fff"
+	if(HAS_TRAIT(owner, TRAIT_PSYCHIC_SENSE))
+		var/mob/living/carbon/human/H = target
+		_color = GLOB.SOUL_GLIMMER_COLORS[H.mind?.soul_glimmer]
+	M.color = _color
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
 	addtimer(CALLBACK(src, PROC_REF(handle_image), M, BS), sense_time)
@@ -92,6 +93,7 @@
 
 	ears = null
 
+//Anchor for the thing
 /obj/effect/blind_sense
 	layer = HUD_LAYER
 	plane = HUD_PLANE

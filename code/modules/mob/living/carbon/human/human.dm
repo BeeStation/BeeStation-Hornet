@@ -1100,6 +1100,16 @@
 	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
 
+/mob/living/carbon/human/proc/generate_soul_mask(mob/host)
+	//Soul color
+	//TODO: PSYCHIC SOUL
+	//Icon stuff
+	var/mutable_appearance/MA = mutable_appearance()
+	MA.appearance = host.appearance
+	MA.plane = PSYCHIC_PLANE
+
+	host.add_overlay(MA)
+
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
 

@@ -1,5 +1,12 @@
-///Burn mod for our species, weak to fire
-#define PSYPHOZA_BURNMOD 1.25
+/*
+	TODO:
+		fix nearby text, like declothe not being visible and emotes
+		make soul colour tied to mind
+		fix display case not being able to examine
+		make blind sense an element
+		Falling asleep by N2O doesn't give you the icon that you are asleep. 
+		fix cloth eating
+*/
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
@@ -33,7 +40,7 @@
 	species_r_leg = /obj/item/bodypart/r_leg/psyphoza
 
 	//Fire bad!
-	burnmod = PSYPHOZA_BURNMOD
+	burnmod = 1.25
 
 	//Reference to psychic highlight action
 	var/datum/action/item_action/organ_action/psychic_highlight/PH
