@@ -19,7 +19,7 @@
 		addtimer(CALLBACK(src, PROC_REF(show_laws)), 0)
 		addtimer(CALLBACK(src, PROC_REF(deadchat_lawchange)), 0)
 		// Wait a tick and clear the vignette
-		addtimer(clear_fullscreen("law_change"), 10)
+		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "law_change"), 2)
 		last_lawchange_announce = world.time
 
 /mob/living/silicon/proc/set_law_sixsixsix(law, announce = TRUE)
