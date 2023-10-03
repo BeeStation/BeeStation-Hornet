@@ -115,8 +115,8 @@
 			/obj/item/reagent_containers/food/snacks/salad/jungle,
 			/obj/item/reagent_containers/food/snacks/salad/aesirsalad)
 	var/mains = list(
-			/obj/item/reagent_containers/food/snacks/bearsteak,
-			/obj/item/reagent_containers/food/snacks/enchiladas,
+			/obj/item/food/bearsteak,
+			/obj/item/food/enchiladas,
 			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
 			/obj/item/food/burger/bigbite,
 			/obj/item/food/burger/superbite,

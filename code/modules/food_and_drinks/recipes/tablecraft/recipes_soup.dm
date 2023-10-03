@@ -8,7 +8,7 @@
 	reqs = list(
 		/datum/reagent/water = 10,
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/meatball = 1,
+		/obj/item/food/meatball = 1,
 		/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
 		/obj/item/reagent_containers/food/snacks/grown/potato = 1
 	)
@@ -45,7 +45,7 @@
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
 		/datum/reagent/consumable/soysauce = 5,
-		/obj/item/reagent_containers/food/snacks/meat/cutlet/xeno = 2
+		/obj/item/food/meat/cutlet/xeno = 2
 	)
 	result = /obj/item/reagent_containers/food/snacks/soup/wingfangchu
 	subcategory = CAT_SOUP
@@ -63,7 +63,7 @@
 	name = "Hot chili"
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/meat/cutlet = 2,
+		/obj/item/food/meat/cutlet = 2,
 		/obj/item/reagent_containers/food/snacks/grown/chili = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
 	)
@@ -74,7 +74,7 @@
 	name = "Cold chili"
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/meat/cutlet = 2,
+		/obj/item/food/meat/cutlet = 2,
 		/obj/item/reagent_containers/food/snacks/grown/icepepper = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
 	)
@@ -109,7 +109,7 @@
 		/datum/reagent/water = 10,
 		/obj/item/reagent_containers/glass/bowl = 1,
 		/obj/item/reagent_containers/food/snacks/soydope = 2,
-		/obj/item/reagent_containers/food/snacks/tofu = 2
+		/obj/item/food/tofu = 2
 	)
 	result = /obj/item/reagent_containers/food/snacks/soup/milo
 	subcategory = CAT_SOUP
@@ -151,7 +151,7 @@
 		/datum/reagent/water = 10,
 		/obj/item/reagent_containers/glass/bowl = 1,
 		/obj/item/reagent_containers/food/snacks/badrecipe = 1,
-		/obj/item/reagent_containers/food/snacks/tofu = 1,
+		/obj/item/food/tofu = 1,
 		/obj/item/reagent_containers/food/snacks/boiledegg = 1,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
 	)
@@ -186,7 +186,7 @@
 		/datum/reagent/water = 10,
 		/obj/item/reagent_containers/glass/bowl = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 1,
-		/obj/item/reagent_containers/food/snacks/meat/cutlet = 3,
+		/obj/item/food/meat/cutlet = 3,
 		/obj/item/reagent_containers/food/snacks/grown/potato = 1,
 		/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
 		/obj/item/reagent_containers/food/snacks/grown/eggplant = 1,
@@ -242,7 +242,7 @@
 	reqs = list(
 		/datum/reagent/water = 10,
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/meat/crab = 1,
+		/obj/item/food/meat/crab = 1,
 		/obj/item/reagent_containers/food/snacks/salad/boiledrice = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/soup/bisque

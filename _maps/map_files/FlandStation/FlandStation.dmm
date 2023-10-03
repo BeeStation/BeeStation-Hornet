@@ -48778,7 +48778,7 @@
 	},
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/snacks/tofu/prison,
+/obj/item/food/tofu/prison,
 /turf/open/floor/plasteel/dark,
 /area/vacant_room/commissary/commissaryFood)
 "mJZ" = (
@@ -72919,7 +72919,7 @@
 	desc = "carlos.";
 	maxHealth = 2;
 	name = "carlos";
-	
+
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4

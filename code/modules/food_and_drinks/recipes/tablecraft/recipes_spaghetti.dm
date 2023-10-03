@@ -24,7 +24,7 @@
 	name = "Spaghetti meatball"
 	reqs = list(
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
-		/obj/item/reagent_containers/food/snacks/meatball = 2
+		/obj/item/food/meatball = 2
 	)
 	result = /obj/item/food/spaghetti/meatballspaghetti
 	subcategory = CAT_SPAGHETTI
@@ -33,7 +33,7 @@
 	name = "Spesslaw"
 	reqs = list(
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
-		/obj/item/reagent_containers/food/snacks/meatball = 4
+		/obj/item/food/meatball = 4
 	)
 	result = /obj/item/food/spaghetti/spesslaw
 	subcategory = CAT_SPAGHETTI
@@ -43,7 +43,7 @@
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
-		/obj/item/reagent_containers/food/snacks/meat/cutlet = 2,
+		/obj/item/food/meat/cutlet = 2,
 		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
 	)
 	result = /obj/item/food/spaghetti/beefnoodle
@@ -53,7 +53,7 @@
 	name = "Chowmein"
 	reqs = list(
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
-		/obj/item/reagent_containers/food/snacks/meat/cutlet = 1,
+		/obj/item/food/meat/cutlet = 1,
 		/obj/item/reagent_containers/food/snacks/grown/cabbage = 2,
 		/obj/item/reagent_containers/food/snacks/grown/carrot = 1
 	)
@@ -84,7 +84,7 @@
 	reqs = list(
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
 		/datum/reagent/consumable/ketchup = 10,
-		/obj/item/reagent_containers/food/snacks/sausage = 1,
+		/obj/item/food/sausage = 1,
 		/obj/item/reagent_containers/food/snacks/grown/chili = 1
 	)
 	result = /obj/item/food/spaghetti/spaghettinapolitan
@@ -94,7 +94,7 @@
 	name = "Lasagna"
 	reqs = list(
 		/obj/item/food/spaghetti = 1,
-		/obj/item/reagent_containers/food/snacks/meatball = 1,
+		/obj/item/food/meatball = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 1,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 1
 	)
@@ -106,7 +106,7 @@
 	reqs = list(
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
 		/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
-		/obj/item/reagent_containers/food/snacks/tofu = 1,
+		/obj/item/food/tofu = 1,
 		/obj/item/stack/sheet/glass = 1
 	)
 	result = /obj/item/food/spaghetti/glassnoodles

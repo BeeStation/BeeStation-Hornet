@@ -27,7 +27,7 @@
 	time = 15
 	name = "Meat donut"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/meat/rawcutlet = 1,
+		/obj/item/food/meat/rawcutlet = 1,
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/donut/meat
@@ -273,7 +273,7 @@
 	name = "Soylent green"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 2,
-		/obj/item/reagent_containers/food/snacks/meat/slab/human = 2
+		/obj/item/food/meat/slab/human = 2
 	)
 	result = /obj/item/reagent_containers/food/snacks/soylentgreen
 	subcategory = CAT_PASTRY
@@ -322,7 +322,7 @@
 	name = "Donk-pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/meatball = 1
+		/obj/item/food/meatball = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket
 	subcategory = CAT_PASTRY
@@ -453,17 +453,6 @@
 	subcategory = CAT_PASTRY
 
 ////////////////////////////////////////////OTHER////////////////////////////////////////////
-
-/datum/crafting_recipe/food/meatbun
-	name = "Meat bun"
-	reqs = list(
-		/datum/reagent/consumable/soysauce = 5,
-		/obj/item/reagent_containers/food/snacks/bun = 1,
-		/obj/item/reagent_containers/food/snacks/meatball = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
-	)
-	result = /obj/item/reagent_containers/food/snacks/meatbun
-	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/khachapuri
 	name = "Khachapuri"
