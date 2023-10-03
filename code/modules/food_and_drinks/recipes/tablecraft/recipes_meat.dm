@@ -142,7 +142,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/stewedsoymeat
+	result = /obj/item/food/stewedsoymeat
 	subcategory = CAT_MEAT
 
 /datum/crafting_recipe/food/sausage
@@ -159,7 +159,7 @@
 	reqs = list(
 		/obj/item/food/meat/cutlet = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/nugget
+	result = /obj/item/food/nugget
 	subcategory = CAT_MEAT
 
 /datum/crafting_recipe/food/rawkhinkali
