@@ -10,7 +10,7 @@
 	microwaved_type = /obj/item/food/bread/plain
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("dough" = 1)
-	foodtypes = GRAIN\
+	foodtypes = GRAIN
 
 /*
 /obj/item/food/dough/make_microwaveable()
