@@ -76,11 +76,13 @@
 	M.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	//filter masking
-	var/weakref
 	if(type == "mob")
-		weakref = WEAKREF(target)
-		target.render_target = "[weakref]"
-		M.filters += filter(type = "alpha", render_source = target.render_target)
+		//Re-use the blind sense location holder for an appearance
+		BS.appearance = target.appearance
+		BS.render_target = "[WEAKREF(BS)]"
+		BS.color = "#fff" //what the fuck, setting color and plane doesn't work in the actual path definition, fuck off
+		BS.plane = ANTI_PSYCHIC_PLANE
+		M.filters += filter(type = "alpha", render_source = BS.render_target)
 
 	//Colouring
 	var/_color = "#fff"
@@ -91,19 +93,18 @@
 
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
-	addtimer(CALLBACK(src, PROC_REF(handle_image), M, BS, weakref), sense_time, )
+	addtimer(CALLBACK(src, PROC_REF(handle_image), M, BS), sense_time)
 
 	//Add image to client
 	owner_client?.images += M
 
 //handle deleting the image from client
-/datum/component/blind_sense/proc/handle_image(image_ref, BS, weakref)
+/datum/component/blind_sense/proc/handle_image(image_ref, BS)
 	SIGNAL_HANDLER
 
 	owner_client?.images -= image_ref
 	qdel(BS)
 	qdel(image_ref)
-	qdel(weakref)
 
 //Handle eyes deleting
 /datum/component/blind_sense/proc/handle_ears()
@@ -113,6 +114,4 @@
 
 //Anchor for the thing
 /obj/effect/blind_sense
-	layer = HUD_LAYER
-	plane = HUD_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
