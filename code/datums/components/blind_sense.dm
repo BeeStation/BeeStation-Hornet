@@ -5,8 +5,9 @@
 	var/sense_time = 5 SECONDS
 	///Reference to the users ears
 	var/obj/item/organ/ears/ears
-	///Type casted to access client, owner
+	///Type casted
 	var/mob/owner
+	var/client/owner_client
 	///What texture we use
 	var/masked_texture = "blind_texture_blank"
 
@@ -18,6 +19,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, PROC_REF(handle_hear))
 	//typecast to access client
 	owner = parent
+	owner_client = owner?.client
 	//Register ears for people with them - deaf people can't use this component
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
@@ -26,6 +28,7 @@
 
 /datum/component/blind_sense/Destroy(force, silent)
 	owner = null
+	owner_client = null
 	ears = null
 	return ..()
 
@@ -53,6 +56,10 @@
 		highlight_object(speaker, type, speaker.dir || 1)
 
 /datum/component/blind_sense/proc/highlight_object(atom/target, type, dir)
+	if(!owner_client)
+		owner_client = owner?.client
+		return
+	
 	//setup icon
 	var/icon/I = icon('icons/mob/blind.dmi', masked_texture)
 
@@ -84,16 +91,16 @@
 
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
-	addtimer(CALLBACK(src, PROC_REF(handle_image), M, BS), sense_time, )
+	addtimer(CALLBACK(src, PROC_REF(handle_image), M, BS, weakref), sense_time, )
 
 	//Add image to client
-	owner.client?.images += M
+	owner_client?.images += M
 
 //handle deleting the image from client
 /datum/component/blind_sense/proc/handle_image(image_ref, BS, weakref)
 	SIGNAL_HANDLER
 
-	owner.client?.images -= image_ref
+	owner_client?.images -= image_ref
 	qdel(BS)
 	qdel(image_ref)
 	qdel(weakref)
