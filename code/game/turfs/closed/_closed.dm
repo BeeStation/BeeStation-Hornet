@@ -10,7 +10,6 @@
 /turf/closed/Initialize(mapload)
 	. = ..()
 
-
 /turf/closed/AfterChange()
 	. = ..()
 	SSair.high_pressure_delta -= src
