@@ -148,6 +148,12 @@
 	is_decorated = TRUE
 	filling_color = "#879630"
 
+/obj/item/reagent_containers/food/snacks/donut/premade
+	name = "prepackaged donut"
+	desc = "A mass produced donut, goes great with a cup of coffee."
+	icon_state = "donut"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sprinkles = 1, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/maltodextrin =4)
+
 //////////////////////JELLY DONUTS/////////////////////////
 
 /obj/item/reagent_containers/food/snacks/donut/jelly
