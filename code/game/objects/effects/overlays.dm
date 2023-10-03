@@ -58,6 +58,7 @@
 	/// this separately exists because "mob_alpha_id" is to reference this single, but "mob_owner_ref" is to reference multiple things to a mob
 	var/mob_owner_ref
 	var/mob_alpha_id
+	var/use_count = 0
 
 /obj/effect/overlay/airlock_part
 	anchored = TRUE

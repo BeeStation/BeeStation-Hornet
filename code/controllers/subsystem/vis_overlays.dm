@@ -126,6 +126,7 @@ SUBSYSTEM_DEF(vis_overlays)
 	if(overlay in thing.vis_contents) // don't do this again
 		return overlay.mob_owner_ref
 
+	overlay.use_count++
 	thing.vis_contents += overlay
 
 	// copy-pasta from the above
@@ -146,6 +147,9 @@ SUBSYSTEM_DEF(vis_overlays)
 		if(overlay.mob_owner_ref in exception_mobs)
 			continue
 		thing.vis_contents -= overlay
+		overlay.use_count--
+		if(overlay.use_count) // only remove it when it's used in nowhere
+			continue
 		mob_alpha_vis_overlays -= overlay.mob_alpha_id
 		if(isatom(thing))
 			thing.managed_vis_overlays -= overlay
