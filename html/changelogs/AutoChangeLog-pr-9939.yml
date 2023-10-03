@@ -1,0 +1,6 @@
+author: Harranhall
+delete-after: true
+changes:
+  - rscadd: Added a vignette that appears momentarily when your laws are changed as
+      AI.
+  - imageadd: added the "law_change" fullscreen vignette.
