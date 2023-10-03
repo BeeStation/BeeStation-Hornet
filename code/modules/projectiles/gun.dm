@@ -277,10 +277,18 @@
 	if(clumsy_check)
 		if(istype(user))
 			if (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with [src]!</span>")
-				var/shot_leg = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-				process_fire(user, user, FALSE, params, shot_leg)
-				user.dropItemToGround(src, TRUE)
+				if(aimed == GUN_AIMED_POINTBLANK)
+					to_chat(user, "<span class='userdanger>In a cruel twist of fate you fumble your grip and accidentally shoot yourself in the head!</span>")
+					process_fire(user, user, FALSE, params, BODY_ZONE_HEAD)
+					user.dropItemToGround(src, TRUE)
+					var/obj/item/organ/brain/target_brain = user.getorganslot(ORGAN_SLOT_BRAIN)
+					target_brain.Remove(user) //Rip you, unlucky
+					target_brain.forceMove(get_turf(user))
+				else
+					to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with [src]!</span>")
+					var/shot_leg = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+					process_fire(user, user, FALSE, params, shot_leg)
+					user.dropItemToGround(src, TRUE)
 				return
 
 	if(weapon_weight == WEAPON_HEAVY && !is_wielded)
@@ -300,7 +308,11 @@
 				loop_counter++
 				addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/gun, process_fire), target, user, TRUE, params, null, bonus_spread, flag), loop_counter)
 
-	process_fire(target, user, TRUE, params, null, bonus_spread, aimed)
+	var/zone_override = null
+	if(aimed == GUN_AIMED_POINTBLANK)
+		zone_override = BODY_ZONE_HEAD //Shooting while pressed against someone's temple
+
+	process_fire(target, user, TRUE, params, zone_override, bonus_spread, aimed)
 
 /obj/item/gun/can_trigger_gun(mob/living/user)
 	. = ..()
@@ -695,9 +707,12 @@
 
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
-	if(aimed && chambered?.BB)
+	if(aimed == GUN_AIMED && chambered?.BB)
 		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
 		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
+	if(aimed == GUN_AIMED_POINTBLANK)
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.25 // Much faster bullets because you're holding them literally at the barrel of the gun
+		chambered.BB.damage = initial(chambered.BB.damage) * 4 // Execution
 
 /////////////
 // ZOOMING //
