@@ -188,7 +188,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "I" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/wood,
 /area/template_noop)
 "J" = (

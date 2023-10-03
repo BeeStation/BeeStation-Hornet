@@ -100,9 +100,9 @@
 	desc = "A 2 dimensional gun.. what?"
 	icon_state = "flatgun"
 
-/obj/item/gun/ballistic/automatic/pistol/stickman/pickup(mob/living/user)
+/obj/item/gun/ballistic/automatic/pistol/stickman/equipped(mob/user, slot)
 	..()
-	to_chat(user, "<span class='notice'>As you try to pick up [src], it slips out of your grip..</span>")
+	to_chat(user, "<span class='notice'>As you try to manipulate [src], it slips out of your possession..</span>")
 	if(prob(50))
 		to_chat(user, "<span class='notice'>..and vanishes from your vision! Where the hell did it go?</span>")
 		qdel(src)
