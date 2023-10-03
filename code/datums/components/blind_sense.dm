@@ -56,7 +56,7 @@
 		highlight_object(speaker, type, speaker.dir || 1)
 
 /datum/component/blind_sense/proc/highlight_object(atom/target, type, dir)
-	if(!owner_client)
+	if(!owner_client || isdead(owner) || !owner?.client)
 		owner_client = owner?.client
 		return
 	
