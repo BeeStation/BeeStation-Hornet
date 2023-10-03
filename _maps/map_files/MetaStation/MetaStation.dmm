@@ -33499,9 +33499,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -36328,9 +36326,7 @@
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
@@ -41434,7 +41430,6 @@
 "iAQ" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/machinery/door/airlock/virology/glass{
-	id_tag = null;
 	name = "Virology Ward";
 	req_access_txt = "39"
 	},
@@ -42041,9 +42036,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -48196,14 +48189,14 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "loj" = (
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
+	},
 /mob/living/simple_animal/bot/medbot{
 	auto_patrol = 1;
 	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
 	name = "Inspector Johnson"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
@@ -50515,9 +50508,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -62204,9 +62195,7 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "rjv" = (
-/obj/effect/turf_decal/numbers/two_nine{
-	dir = 2
-	},
+/obj/effect/turf_decal/numbers/two_nine,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "rjF" = (
@@ -65769,7 +65758,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=14-Starboard-Central";
+	codes_txt = "patrol;next_patrol=13.3-Engineering-Enter-corner";
 	location = "13.2-Tcommstore"
 	},
 /turf/open/floor/plasteel,
@@ -67219,15 +67208,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/flora/grass/jungle/b{
-	max_integrity = 20
-	},
-/obj/structure/flora/ausbushes/brflowers{
-	max_integrity = 20
-	},
-/obj/structure/flora/ausbushes/fullgrass{
-	max_integrity = 20
-	},
+/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/fullgrass,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -67343,12 +67326,8 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "ttF" = (
-/obj/structure/flora/ausbushes/leafybush{
-	max_integrity = 20
-	},
-/obj/structure/flora/ausbushes/fullgrass{
-	max_integrity = 20
-	},
+/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/fullgrass,
 /mob/living/simple_animal/butterfly{
 	dir = 8;
 	name = "Justine"
@@ -69855,7 +69834,6 @@
 	name = "Test Range";
 	pixel_x = 25;
 	pixel_y = -6;
-	req_access = null;
 	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -69960,9 +69938,7 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "uBe" = (
-/obj/structure/flora/ausbushes/sunnybush{
-	max_integrity = 20
-	},
+/obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -73183,7 +73159,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/virology/glass{
-	id_tag = null;
 	name = "Virology Ward";
 	req_access_txt = "39"
 	},
@@ -73420,9 +73395,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "waW" = (
-/obj/structure/flora/ausbushes/ywflowers{
-	max_integrity = 20
-	},
+/obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -74526,7 +74499,6 @@
 	name = "Test Range";
 	pixel_x = -7;
 	pixel_y = 26;
-	req_access = null;
 	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
@@ -74555,6 +74527,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=14-Starboard-Central";
+	location = "13.3-Engineering-Enter-corner"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -75989,9 +75965,7 @@
 /turf/open/floor/plasteel,
 /area/storage/art)
 "xaq" = (
-/obj/structure/flora/junglebush/b{
-	max_integrity = 20
-	},
+/obj/structure/flora/junglebush/b,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -78187,22 +78161,14 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/flora/ausbushes/leafybush{
-	max_integrity = 20
-	},
-/obj/structure/flora/ausbushes/fullgrass{
-	max_integrity = 20
-	},
-/obj/structure/flora/grass/jungle/b{
-	max_integrity = 20
-	},
+/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/grass/jungle/b,
 /obj/structure/window/reinforced{
 	dir = 4;
 	layer = 2.9
 	},
-/obj/structure/flora/ausbushes/ppflowers{
-	max_integrity = 20
-	},
+/obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,
 /area/medical/patients_rooms)
 "xPR" = (

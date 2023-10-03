@@ -46,12 +46,13 @@
 			log_combat(A, D, "knocked out (boxing) ")
 		else if(!(D.mobility_flags & MOBILITY_STAND))
 			D.force_say(A)
-	return 1
+	return TRUE
 
 /obj/item/clothing/gloves/boxing
 	var/datum/martial_art/boxing/style = new
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
+	..()
 	if(!ishuman(user))
 		return
 	if(slot == ITEM_SLOT_GLOVES)
