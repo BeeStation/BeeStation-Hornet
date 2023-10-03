@@ -1,0 +1,8 @@
+author: AMonekyThatCodes, Kylerace, tralezab, Ryll/Shaps, Melbert, ported by mystery3525
+delete-after: true
+changes:
+  - rscadd: Basic Mobs. Newer, better simple_mobs now with datumized AI behavior,
+      allowing more interesting behavior.
+  - rscadd: Mothroach web eating mechanic, with a 25 second cooldown
+  - code_imp: Refactored petting certain pets into a general element, atmos_requirements
+      element, and death_drops element
