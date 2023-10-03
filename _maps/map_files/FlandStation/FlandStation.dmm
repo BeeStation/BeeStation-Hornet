@@ -63817,7 +63817,7 @@
 /obj/item/wrench,
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/food/condiment/enzyme,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
@@ -94153,7 +94153,7 @@
 /obj/structure/table,
 /obj/item/hemostat,
 /obj/item/hatchet,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/machinery/light/small{
 	dir = 4
 	},

@@ -306,7 +306,7 @@
 	name = "\improper Larry"
 	desc = "A little Larry, he looks so excited!"
 	icon_state = "larry0"
-	var/obj/item/kitchen/knife/knife //You know exactly what this is about
+	var/obj/item/knife/knife //You know exactly what this is about
 
 /mob/living/simple_animal/bot/cleanbot/larry/Initialize(mapload)
 	. = ..()
@@ -383,8 +383,8 @@
 
 /mob/living/simple_animal/bot/cleanbot/larry/attackby(obj/item/I, mob/living/user)
 	if(user.a_intent == INTENT_HELP)
-		if(istype(I, /obj/item/kitchen/knife) && !knife) //Is it a knife?
-			var/obj/item/kitchen/knife/newknife = I
+		if(istype(I, /obj/item/knife) && !knife) //Is it a knife?
+			var/obj/item/knife/newknife = I
 			knife = newknife
 			newknife.forceMove(src)
 			message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.

@@ -16377,7 +16377,7 @@
 /area/crew_quarters/dorms)
 "eYH" = (
 /obj/structure/table_frame/wood,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/cafeteria,
 /area/maintenance/port/aft)
@@ -34247,7 +34247,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/item/kitchen/knife/carrotshiv{
+/obj/item/knife/carrotshiv{
 	pixel_x = 9;
 	pixel_y = 9
 	},
