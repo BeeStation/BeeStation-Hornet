@@ -16,9 +16,6 @@
 		else
 			mob.control_object.forceMove(get_step(mob.control_object,direct))
 
-#define MOVEMENT_DELAY_BUFFER 0.75
-#define MOVEMENT_DELAY_BUFFER_DELTA 1.25
-
 /**
   * Move a client in a direction
   *
@@ -56,11 +53,16 @@
   *
   */
 /client/Move(n, direct)
-	if(world.time < move_delay) //do not move anything ahead of this check please
+	// If the movement delay is slightly less than the period from now until the next tick,
+	// let us move and take the additional delay and add it onto the next move. This means that
+	// it will slowly stack until we can lose a tick, where the ticks we lose are proportional
+	// to the slowdowns difference to the next tick step.
+	var/floored_move_delay = FLOOR(move_delay, 1 / world.fps)
+	if(world.time < floored_move_delay) //do not move anything ahead of this check please
 		return FALSE
-	else
-		next_move_dir_add = 0
-		next_move_dir_sub = 0
+	next_move_dir_add = 0
+	next_move_dir_sub = 0
+
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called mutiple times per tick
 	if(!mob || !mob.loc)
@@ -111,7 +113,14 @@
 
 	//We are now going to move
 	var/add_delay = mob.cached_multiplicative_slowdown
-	if(old_move_delay + (add_delay*MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
+	/*
+	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? SQRT_2 : 1 ) )) // set it now in case of pulled objects
+	*/
+	//If the move was recent, count using old_move_delay
+	//We want fractional behavior and all
+	if(old_move_delay + world.tick_lag > world.time)
+		//Yes this makes smooth movement stutter if add_delay is too fractional
+		//Yes this is better then the alternative
 		move_delay = old_move_delay
 	else
 		move_delay = world.time
@@ -132,6 +141,10 @@
 
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
 		add_delay *= 1.414214 // sqrt(2)
+	// Record any time that we gained due to sub-tick slowdown
+	var/move_delta = move_delay - floored_move_delay
+	add_delay += move_delta
+	// Apply the movement delay
 	move_delay += add_delay
 	if(.) // If mob is null here, we deserve the runtime
 		if(mob.throwing)

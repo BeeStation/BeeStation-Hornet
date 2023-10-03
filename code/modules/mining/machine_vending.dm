@@ -19,10 +19,6 @@
 	if(bound_bank_account && !istype(bound_bank_account))
 		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account, force=TRUE) // grabbing united budget will be bad for this. "force=TRUE" will always grab the correct budget.
 
-/obj/machinery/vendor/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/vendor/update_icon()
 	if(powered())
 		icon_state = initial(icon_state)
