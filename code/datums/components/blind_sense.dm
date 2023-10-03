@@ -56,39 +56,47 @@
 	//setup icon
 	var/icon/I = icon('icons/mob/blind.dmi', masked_texture)
 
-	//mask icon
+	//icon masking
 	var/icon/mask
-	//If the mob has an icon we can use, use it
-	if(type == "mob" && target.icon && (target.icon_state || initial(target.icon_state)))
-		mask = icon(target.icon, (target.icon_state || initial(target.icon_state)), target.dir)
-	else
+	if(type != "mob")
 		mask = icon('icons/mob/blind.dmi', type || "sound", dir)
-	I.AddAlphaMask(mask)
+		I.AddAlphaMask(mask)
 
 	//Setup display image
 	var/obj/effect/blind_sense/BS = new(get_turf(target))
 	var/image/M = image(I, BS)
 	M.plane = BLIND_FEATURE_PLANE
 	M.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+	//filter masking
+	var/weakref
+	if(type == "mob")
+		weakref = WEAKREF(target)
+		target.render_target = "[weakref]"
+		M.filters += filter(type = "alpha", render_source = target.render_target)
+
+	//Colouring
 	var/_color = "#fff"
 	if(HAS_TRAIT(owner, TRAIT_PSYCHIC_SENSE) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		_color = GLOB.SOUL_GLIMMER_COLORS[H.mind?.soul_glimmer]
 	M.color = _color
+
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
-	addtimer(CALLBACK(src, PROC_REF(handle_image), M, BS), sense_time)
+	addtimer(CALLBACK(src, PROC_REF(handle_image), M, BS), sense_time, )
 
 	//Add image to client
 	owner.client?.images += M
 
 //handle deleting the image from client
-/datum/component/blind_sense/proc/handle_image(image/image_ref, atom/BS)
+/datum/component/blind_sense/proc/handle_image(image_ref, BS, weakref)
 	SIGNAL_HANDLER
 
 	owner.client?.images -= image_ref
 	qdel(BS)
 	qdel(image_ref)
+	qdel(weakref)
 
 //Handle eyes deleting
 /datum/component/blind_sense/proc/handle_ears()
