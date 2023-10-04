@@ -298,7 +298,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	UnregisterSignal(src.target, COMSIG_MOVABLE_NO_LONGER_PULLED)
 
 
-/datum/component/aiming/proc/shoot(var/damage_multiplier = 1)
+/datum/component/aiming/proc/shoot()
 	var/obj/item/held = user.get_active_held_item()
 	if(held != parent)
 		stop_aiming()
