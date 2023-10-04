@@ -1808,3 +1808,17 @@
 		return TRUE
 	return FALSE
 
+/atom/proc/on_mouse_enter(client/client)
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/mob/user = client?.mob
+	if (isnull(user))
+		return
+
+	// Face directions on combat mode. No procs, no typechecks, just a var for speed
+	if(user.face_mouse)
+		user.face_atom(src)
+
+/atom/MouseEntered(location, control, params)
+	SSmouse_entered.hovers[usr.client] = src
+
