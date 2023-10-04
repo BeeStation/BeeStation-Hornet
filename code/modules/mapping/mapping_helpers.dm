@@ -321,3 +321,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	. = ..()
 	var/turf/T = get_turf(src)
 	T.make_shiny(new_shine)
+//Color correction helper - only use of these per area, it will convert the entire area
+/obj/effect/mapping_helpers/color_correction
+	name = "color correction helper"
+	icon_state = "color_correction"
+	var/color_correction = /datum/client_colour/area_color/cold
+
+/obj/effect/mapping_helpers/color_correction/Initialize(mapload)
+	. = ..()
+	var/area/A = get_area(get_turf(src))
+	A.color_correction = color_correction

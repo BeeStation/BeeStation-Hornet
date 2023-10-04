@@ -158,7 +158,6 @@
 	for(var/starting_knowledge in GLOB.heretic_start_knowledge)
 		gain_knowledge(starting_knowledge)
 
-	addtimer(CALLBACK(src, PROC_REF(add_menu_action)), 1)
 	GLOB.reality_smash_track.add_tracked_mind(owner)
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
 	return ..()
@@ -171,7 +170,6 @@
 
 	GLOB.reality_smash_track.remove_tracked_mind(owner)
 	QDEL_LIST_ASSOC_VAL(researched_knowledge)
-	QDEL_NULL(menu)
 	return ..()
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
@@ -368,10 +366,6 @@
 	if(owner.current.stat <= SOFT_CRIT)
 		to_chat(owner.current, "<span class='hear'>You hear a whisper...</span> <span class = 'hypnophrase'>[pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))]</span>")
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
-
-/datum/antagonist/heretic/proc/add_menu_action()
-	menu = new /datum/action/innate/hereticmenu(src)
-	menu.Grant(owner.current)
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()
@@ -698,18 +692,21 @@
 
 	return completed || (num_we_have >= target_amount)
 
-/datum/action/innate/hereticmenu
+/datum/action/antag_info/heretic
 	name = "Forbidden Knowledge"
 	desc = "Utilize your connection to the beyond to unlock new eldritch abilities"
 	icon_icon = 'icons/obj/heretic.dmi'
 	button_icon_state = "book_open"
 	background_icon_state = "bg_ecult"
-	var/datum/antagonist/heretic/ownerantag
 
-/datum/action/innate/hereticmenu/New(datum/H)
+/datum/action/antag_info/heretic/New(Target)
 	. = ..()
-	button.name = name
-	ownerantag = H
+	name = "Forbidden Knowledge"
 
-/datum/action/innate/hereticmenu/Activate()
-	ownerantag.ui_interact(owner)
+/datum/antagonist/heretic/make_info_button()
+	if(!ui_name)
+		return
+	var/datum/action/antag_info/heretic/info_button = new(src)
+	info_button.Grant(owner.current)
+	info_button_ref = WEAKREF(info_button)
+	return info_button
