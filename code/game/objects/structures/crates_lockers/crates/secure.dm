@@ -15,14 +15,17 @@
 		return 0
 	. = ..()
 
-/obj/structure/closet/crate/secure/update_icon()
+/obj/structure/closet/crate/secure/update_overlays()
 	..()
 	if(broken)
-		add_overlay("securecrateemag")
+		. += mutable_appearance(icon, "emagged", src, alpha = src.alpha)
+		. += emissive_appearance(icon, "emagged", src, alpha = src.alpha)
 	else if(locked)
-		add_overlay("securecrater")
+		. += mutable_appearance(icon, "locked", src, alpha = src.alpha)
+		. += emissive_appearance(icon, "locked", src, alpha = src.alpha)
 	else
-		add_overlay("securecrateg")
+		. += mutable_appearance(icon, "unlocked", src, alpha = src.alpha)
+		. += emissive_appearance(icon, "unlocked", src, alpha = src.alpha)
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
