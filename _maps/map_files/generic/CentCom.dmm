@@ -7724,11 +7724,11 @@
 /obj/structure/mirror/magic{
 	pixel_y = 28
 	},
-/obj/structure/bookcase/random/reference,
 /obj/item/candle/infinite{
 	pixel_x = 14;
 	pixel_y = 19
 	},
+/obj/structure/bookcase/random/religion,
 /turf/open/floor/plasteel/sepia,
 /area/wizard_station)
 "Di" = (
@@ -8893,11 +8893,11 @@
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
 "Id" = (
-/obj/structure/bookcase/random/fiction,
 /obj/item/candle/infinite{
 	pixel_x = 14;
 	pixel_y = 19
 	},
+/obj/structure/bookcase/random/reference,
 /turf/open/floor/wood,
 /area/wizard_station)
 "Ig" = (
@@ -9436,6 +9436,10 @@
 	icon_state = "compromise"
 	},
 /turf/open/lava/plasma,
+/area/wizard_station)
+"Kf" = (
+/obj/structure/bookcase/random/nonfiction,
+/turf/open/floor/carpet/green,
 /area/wizard_station)
 "Kg" = (
 /turf/closed/indestructible/fakedoor{
@@ -10661,7 +10665,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
 "Ov" = (
-/obj/structure/bookcase/random/reference,
+/obj/structure/bookcase/random/religion,
 /turf/open/floor/plasteel/sepia,
 /area/wizard_station)
 "Ow" = (
@@ -12412,7 +12416,7 @@
 /area/centcom/control)
 "Vd" = (
 /obj/effect/turf_decal/siding/wood/corner,
-/obj/structure/bookcase/random/reference,
+/obj/structure/bookcase/random/adult,
 /turf/open/floor/plasteel/sepia,
 /area/wizard_station)
 "Ve" = (
@@ -21597,7 +21601,7 @@ Zw
 Zw
 DR
 En
-cq
+Kf
 Zw
 Zw
 Zw
