@@ -202,6 +202,10 @@
 	. = ..()
 	add_filter("blur", 1, gauss_blur_filter(10))
 
+/atom/movable/screen/fullscreen/pov_mask/Destroy()
+	. = ..()
+	mob_owner = null
+
 /atom/movable/screen/fullscreen/pov_mask/proc/link_mob(mob/new_owner)
 	mob_owner = new_owner
 
