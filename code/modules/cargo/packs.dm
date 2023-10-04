@@ -1114,7 +1114,7 @@
 	name = "Shield Generator Satellite"
 	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains seven bluespace capsules which a single unit of Shield Generator Satellite is compressed within each."
 	cost = 7000
-	max_supply = 2
+	max_supply = 4
 	access_budget = ACCESS_HEADS
 	contains = list(
 					/obj/item/meteor_shield,
