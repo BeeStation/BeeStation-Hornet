@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed runtime in the portrait printer modPC app.
