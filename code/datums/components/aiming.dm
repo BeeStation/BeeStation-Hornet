@@ -279,16 +279,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 
 /datum/component/aiming/proc/setup_pointblank()
 	holding_at_gunpoint = TRUE
-	RegisterSignal(target, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_equip))
-	RegisterSignal(target, COMSIG_MOB_DROPPED_ITEM, PROC_REF(on_drop))
-	RegisterSignal(src.target, COMSIG_LIVING_STATUS_PARALYZE, PROC_REF(on_paralyze))
 	RegisterSignal(src.target, COMSIG_LIVING_RESIST, PROC_REF(on_resist))
 	RegisterSignal(src.target, COMSIG_MOVABLE_NO_LONGER_PULLED, PROC_REF(stop_holding))
-
-	// Registers movement signals
-	RegisterSignal(src.user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-	RegisterSignal(src.target, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-
 
 /datum/component/aiming/proc/remove_pointblank()
 	if(!holding_at_gunpoint)
@@ -296,7 +288,6 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	holding_at_gunpoint = FALSE
 	UnregisterSignal(src.target, COMSIG_LIVING_RESIST)
 	UnregisterSignal(src.target, COMSIG_MOVABLE_NO_LONGER_PULLED)
-
 
 /datum/component/aiming/proc/shoot()
 	var/obj/item/held = user.get_active_held_item()
