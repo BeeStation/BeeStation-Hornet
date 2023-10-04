@@ -64,9 +64,9 @@
 	PH?.Trigger()
 
 /datum/species/psyphoza/get_species_description()
-	return "Psyphoza are a species of extra-sensory lesser-sensory fungal, \
-	based humanoids, infamous for their invulnerability to occlusion based \
-	magic tricks."
+	return "Psyphoza are a species of extra-sensory lesser-sensory \
+	fungal-form humanoids, infamous for their invulnerability to \
+	occlusion-based magic tricks and sleight of hand."
 
 /datum/species/psyphoza/get_species_lore()
 	return list(

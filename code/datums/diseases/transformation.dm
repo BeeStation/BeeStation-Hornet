@@ -392,7 +392,7 @@
 	cure_text = "Something that would kill off mold."
 	spread_text = "Acute"
 	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
-	cures = list(/datum/reagent/space_cleaner, /datum/reagent/consumable/milk)
+	cures = list(/datum/reagent/space_cleaner, /datum/reagent/consumable/milk, /datum/reagent/toxin/plantbgone/weedkiller)
 	cure_chance = 25
 	stage_prob = 3
 	agent = "Acute Fungal Infection"
