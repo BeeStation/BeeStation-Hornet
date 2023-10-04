@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed AI not being disabled on certain ghost role simplemobs when a player
+      takes control, such as blob zombies.
