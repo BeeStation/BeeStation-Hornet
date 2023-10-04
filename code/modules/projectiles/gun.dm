@@ -278,12 +278,13 @@
 		if(istype(user))
 			if (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 				if(aimed == GUN_AIMED_POINTBLANK)
-					to_chat(user, "<span class='userdanger>In a cruel twist of fate you fumble your grip and accidentally shoot yourself in the head!</span>")
+					to_chat(user, "<span class='userdanger'>In a cruel twist of fate you fumble your grip and accidentally shoot yourself in the head!</span>")
 					process_fire(user, user, FALSE, params, BODY_ZONE_HEAD)
 					user.dropItemToGround(src, TRUE)
-					var/obj/item/organ/brain/target_brain = user.getorganslot(ORGAN_SLOT_BRAIN)
-					target_brain.Remove(user) //Rip you, unlucky
-					target_brain.forceMove(get_turf(user))
+					if(chambered.harmful)
+						var/obj/item/organ/brain/target_brain = user.getorganslot(ORGAN_SLOT_BRAIN)
+						target_brain.Remove(user) //Rip you, unlucky
+						target_brain.forceMove(get_turf(user))
 				else
 					to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with [src]!</span>")
 					var/shot_leg = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
