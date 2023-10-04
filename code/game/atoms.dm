@@ -242,6 +242,13 @@
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
 
+	//Add overlay to above mob plane if we need to
+	if(layer >= ABOVE_MOB_LAYER && plane == GAME_PLANE)
+		var/mutable_appearance/MA = new()
+		MA.appearance = appearance
+		MA.plane = ABOVE_MOB_PLANE
+		add_overlay(MA)
+
 	return INITIALIZE_HINT_NORMAL
 
 /**

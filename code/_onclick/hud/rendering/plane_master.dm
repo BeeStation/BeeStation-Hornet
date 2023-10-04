@@ -235,7 +235,7 @@
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
 
-///Contains mobs
+///Plane for mobs
 /atom/movable/screen/plane_master/mob_plane
 	name = "mob plane master"
 	plane = MOB_PLANE
@@ -245,6 +245,8 @@
 	. = ..()
 	//Mask out POV
 	add_filter("pov_mask", 1, alpha_mask_filter(render_source = BLIND_MASK_RENDER_TARGET, flags = MASK_INVERSE))
+	//mask out above plane stuff
+	add_filter("pov_mask", 1, alpha_mask_filter(render_source = ABOVE_MOB_PLANE_RENDER_TARGET, flags = MASK_INVERSE))
 	//Generic filters
 	remove_filter("AO")
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
@@ -253,6 +255,14 @@
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 2, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
+///Plane for above mobs - just masks them out
+/atom/movable/screen/plane_master/above_mob_plane
+	name = "above mob plane master"
+	plane = ABOVE_MOB_PLANE
+	appearance_flags = PLANE_MASTER
+	render_target = ABOVE_MOB_PLANE_RENDER_TARGET
+
+//Plane to exclude mobs and render a fancy effect
 /atom/movable/screen/plane_master/occlusion
 	name = "occlusion plane master"
 	plane = OCCLUSION_PLANE
@@ -264,7 +274,7 @@
 /atom/movable/screen/plane_master/occlusion/backdrop(mob/mymob)
 	. = ..()
 	//Layering
-	add_filter("gameplane", 1, layering_filter(render_source = GAME_DEFILTER_PLANE_RENDER_TARGET))
+	add_filter("gameplane", 1, layering_filter(render_source = DEFILTER_GAME_PLANE_RENDER_TARGET))
 	//Mask out POV
 	add_filter("pov_mask", 2, alpha_mask_filter(render_source = BLIND_MASK_RENDER_TARGET))
 	//color
@@ -273,10 +283,10 @@
 //Used to fix bug with byond, thanks Lummox (JK bby, you know I love you)
 /atom/movable/screen/plane_master/game_world_defilter
 	name = "game world defilter plane master"
-	plane = GAME_DEFILTER_PLANE
+	plane = DEFILTER_GAME_PLANE
 	appearance_flags = PLANE_MASTER
 	render_source = GAME_PLANE_RENDER_TARGET
-	render_target = GAME_DEFILTER_PLANE_RENDER_TARGET
+	render_target = DEFILTER_GAME_PLANE_RENDER_TARGET
 
 /atom/movable/screen/plane_master/game_world_defilter/backdrop(mob/mymob)
 	. = ..()
