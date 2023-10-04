@@ -23,7 +23,7 @@
 	damage = 60
 	projectile_piercing = PASSMOB | PASSMACHINE | PASSTRANSPARENT | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE
 	// Phase directly through everything else
-	projectile_phasing = ALL
+	projectile_phasing = (ALL & (~PASSMOB) & (~PASSMACHINE) & (~PASSTRANSPARENT) & (~PASSGRILLE) & (~PASSDOORS) & (~PASSFLAPS) & (~PASSSTRUCTURE))
 	dismemberment = 0 //It goes through you cleanly.
 	paralyze = 0
 	breakthings = FALSE
