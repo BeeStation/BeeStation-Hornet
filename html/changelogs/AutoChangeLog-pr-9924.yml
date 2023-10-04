@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes exploration breaching charges failing to detonate if you have some
-      that are linked but not planted.

@@ -1,4 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - bugfix: Fixes integrated hardsuit jetpacks not activating.
