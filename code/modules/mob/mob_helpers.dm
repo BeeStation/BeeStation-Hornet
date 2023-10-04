@@ -331,7 +331,7 @@
 	if(hud_used && hud_used.action_intent)
 		hud_used.action_intent.icon_state = "[a_intent]"
 
-	if(a_intent = INTENT_HARM)
+	if(a_intent == INTENT_HARM)
 		face_mouse = TRUE
 	else
 		face_mouse = FALSE
