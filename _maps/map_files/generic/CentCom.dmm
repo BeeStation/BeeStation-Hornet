@@ -3879,7 +3879,7 @@
 /area/wizard_station)
 "oc" = (
 /obj/structure/table/wood/fancy,
-/obj/machinery/fax/law,
+/obj/machinery/fax,
 /turf/open/floor/plasteel/sepia,
 /area/wizard_station)
 "oe" = (
