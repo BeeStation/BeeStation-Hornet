@@ -6321,7 +6321,9 @@
 /turf/open/floor/wood,
 /area/syndicate_mothership/control)
 "wY" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/cult/unruned/friendly{
+	name = "Bedroom"
+	},
 /turf/open/floor/wood,
 /area/wizard_station)
 "wZ" = (
@@ -6549,7 +6551,9 @@
 /turf/open/floor/wood,
 /area/centcom/control)
 "yb" = (
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/airlock/cult/unruned/friendly{
+	name = "Office"
+	},
 /turf/open/floor/plasteel/sepia,
 /area/wizard_station)
 "yd" = (
@@ -6968,7 +6972,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/airlock/maintenance_hatch,
+/obj/machinery/door/airlock/cult/unruned/glass/friendly{
+	name = "Storage"
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/wizard_station)
 "zV" = (
@@ -8172,7 +8178,9 @@
 /obj/effect/turf_decal/techfloor{
 	dir = 8
 	},
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/airlock/cult/unruned/friendly{
+	name = "Engine Room"
+	},
 /turf/open/floor/plasteel/tech,
 /area/wizard_station)
 "EZ" = (
@@ -10024,7 +10032,9 @@
 /obj/structure/curtain/directional{
 	dir = 2
 	},
-/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/airlock/cult/unruned/friendly{
+	name = "Bridge"
+	},
 /turf/open/floor/plasteel/tech,
 /area/wizard_station)
 "Ml" = (
@@ -12692,7 +12702,9 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
 "Ws" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/cult/unruned/friendly{
+	name = "Bathroom"
+	},
 /turf/open/floor/plasteel/freezer,
 /area/wizard_station)
 "Wu" = (
@@ -13549,7 +13561,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
 "Zw" = (
-/turf/closed/indestructible/riveted/uranium,
+/turf/closed/indestructible/riveted/boss,
 /area/wizard_station)
 "Zx" = (
 /mob/living/simple_animal/bot/medbot{
