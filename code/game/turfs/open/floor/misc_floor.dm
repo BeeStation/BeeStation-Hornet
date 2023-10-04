@@ -126,54 +126,45 @@
 	name = "high-traction floor"
 	icon_state = "noslip"
 	floor_tile = /obj/item/stack/tile/noslip
-	broken_states = list("noslip-damaged1","noslip-damaged2","noslip-damaged3")
-	burnt_states = list("noslip-scorched1","noslip-scorched2")
 	slowdown = -0.3
+
+/turf/open/floor/noslip/Initialize(mapload)
+	. = ..()
+	//Add no-slip overlay
+	var/mutable_appearance/MA = mutable_appearance(icon, "no_slip")
+	MA.blend_mode = BLEND_OVERLAY
+	add_overlay(MA)
 
 /turf/open/floor/noslip/standard
 	name = "high-traction floor"
-	icon_state = "noslip_standard"
+	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/noslip/standard
-	broken_states = list("noslip-damaged1_standard","noslip-damaged2_standard","noslip-damaged3_standard")
-	burnt_states = list("noslip-scorched1_standard","noslip-scorched2_standard")
+	traction = TRUE
 
 /turf/open/floor/noslip/white
 	name = "high-traction floor"
-	icon_state = "noslip_white"
+	icon_state = "white"
 	floor_tile = /obj/item/stack/tile/noslip/white
-	broken_states = list("noslip-damaged1_white","noslip-damaged2_white","noslip-damaged3_white")
-	burnt_states = list("noslip-scorched1_white","noslip-scorched2_white")
 
 /turf/open/floor/noslip/blue
 	name = "high-traction floor"
-	icon_state = "noslip_blue"
+	icon_state = "bluefull"
 	floor_tile = /obj/item/stack/tile/noslip/blue
-	broken_states = list("noslip-damaged1_blue","noslip-damaged2_blue","noslip-damaged3_blue")
-	burnt_states = list("noslip-scorched1_blue","noslip-scorched2_blue")
 
 /turf/open/floor/noslip/darkblue
 	name = "high-traction floor"
-	icon_state = "noslip_darkblue"
+	icon_state = "darkbluefull"
 	floor_tile = /obj/item/stack/tile/noslip/darkblue
-	broken_states = list("noslip-damaged1_darkblue","noslip-damaged2_darkblue","noslip-damaged3_darkblue")
-	burnt_states = list("noslip-scorched1_darkblue","noslip-scorched2_darkblue")
 
 /turf/open/floor/noslip/dark
 	name = "high-traction floor"
-	icon_state = "noslip_dark"
+	icon_state = "darkfull"
 	floor_tile = /obj/item/stack/tile/noslip/dark
-	broken_states = list("noslip-damaged1_dark","noslip-damaged2_dark","noslip-damaged3_dark")
-	burnt_states = list("noslip-scorched1_dark","noslip-scorched2_dark")
 
 /turf/open/floor/noslip/vaporwave
 	name = "high-traction floor"
-	icon_state = "noslip_pinkblack"
+	icon_state = "bluefull"
 	floor_tile = /obj/item/stack/tile/noslip/vaporwave
-	broken_states = list("noslip-damaged1_pinkblack","noslip-damaged2_pinkblack","noslip-damaged3_pinkblack")
-	burnt_states = list("noslip-scorched1_pinkblack","noslip-scorched2_pinkblack")
-
-/turf/open/floor/noslip/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
-	return
 
 /turf/open/floor/oldshuttle
 	icon = 'icons/turf/shuttleold.dmi'

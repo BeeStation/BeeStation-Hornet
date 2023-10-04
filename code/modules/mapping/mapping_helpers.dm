@@ -321,3 +321,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	. = ..()
 	var/area/A = get_area(get_turf(src))
 	A.color_correction = color_correction
+
+//Make any turf non-slip
+/obj/effect/mapping_helpers/make_non_slip
+	name = "non slip helper"
+	icon_state = "no_slip"
+	///Do we add the grippy visual
+	var/grip_visual = TRUE
+
+/obj/effect/mapping_helpers/make_non_slip/Initialize(mapload)
+	. = ..()
+	var/turf/T = get_turf(src)
+	T?.make_traction(grip_visual)

@@ -60,6 +60,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
+	///Is this tile high traction / non slip
+	var/traction = FALSE
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -126,6 +129,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	else
 		update_air_ref(-1)
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
+
+	if(traction)
+		make_traction()
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -611,3 +617,12 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(istype(loc, /area/chapel))
 		return TRUE
 	return FALSE
+
+/turf/proc/make_traction(add_visual = TRUE)
+	if(add_visual)
+		//Add overlay
+		var/mutable_appearance/MA = mutable_appearance(icon, "no_slip")
+		MA.blend_mode = BLEND_OVERLAY
+		add_overlay(MA)
+	//handle switch
+	traction = TRUE
