@@ -349,11 +349,11 @@
 	var/list/static/states
 
 /obj/item/kirbyplants/random/Initialize(mapload)
-	. = ..()
 	icon = 'icons/obj/flora/plants.dmi'
 	if(!states)
 		generate_states()
 	icon_state = pick(states)
+	return ..()
 
 /obj/item/kirbyplants/random/proc/generate_states()
 	states = list()
