@@ -64,7 +64,7 @@
 			) // see, my quartermaster taught me a few things too
 		if((P.hidden) || (P.special)) // like, how not to rip the manifest
 			continue// by using someone else's crate
-		if(!(obj_flags & EMAGGED || contraband) && P.contraband) // will you show me?
+		if(!((obj_flags & EMAGGED) || contraband) && P.contraband) // will you show me?
 			continue // i'd be right happy to
 		meme_pack_data[P.group]["packs"] += list(list(
 			"name" = P.name,
