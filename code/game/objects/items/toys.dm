@@ -1290,6 +1290,7 @@
 /obj/item/toy/figure/assistant
 	name = "Assistant action figure"
 	icon_state = "assistant"
+	item_state = "doll"
 	toysay = "Grey tide world wide!"
 
 /obj/item/toy/figure/atmos
