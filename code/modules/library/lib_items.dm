@@ -308,7 +308,7 @@
 					to_chat(user, "[I]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
 
 	else if((istype(I, /obj/item/knife) || I.tool_behaviour == TOOL_WIRECUTTER) && !(flags_1 & HOLOGRAM_1))
-    if(src in user.do_afters)
+   		if(src in user.do_afters)
 			to_chat(user, "<span class='warning'>You're already trying to carve out [title]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to carve out [title]...</span>")
