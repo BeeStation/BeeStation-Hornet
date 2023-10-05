@@ -419,7 +419,7 @@
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
-	var/rendered = "<span class='cfc_carpspeak'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
+	var/rendered = "<span class='carpspeak'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
 		rendered = "<span class='big'>[rendered]</span>"
 	for(var/mob/S in GLOB.player_list)
