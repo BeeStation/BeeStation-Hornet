@@ -95,7 +95,7 @@
 	///Represents a signel source of atmos alarms, complains to all the listeners if one of our thresholds is violated
 	var/datum/alarm_handler/alarm_manager
 
-	var/static/list/atmos_connections = list(COMSIG_TURF_EXPOSE = .proc/check_air_dangerlevel)
+	var/static/list/atmos_connections = list(COMSIG_TURF_EXPOSE = PROC_REF(check_air_dangerlevel))
 
 	var/list/TLV = list( // Breathable air.
 		"pressure" = new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa. Values are hazard_min, warning_min, warning_max, hazard_max
@@ -603,10 +603,10 @@
 	danger_level = max(pressure_dangerlevel, temperature_dangerlevel, gas_dangerlevel)
 
 	if(old_danger_level != danger_level)
-		INVOKE_ASYNC(src, .proc/apply_danger_level)
+		INVOKE_ASYNC(src, PROC_REF(apply_danger_level))
 	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
-		INVOKE_ASYNC(src, .proc/apply_mode, src)
+		INVOKE_ASYNC(src, PROC_REF(proc/apply_mode), src)
 
 
 /obj/machinery/airalarm/proc/post_alert(alert_level)

@@ -199,9 +199,9 @@ Class Procs:
 
 	var/area/our_area = get_area(src)
 	if(our_area)
-		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, .proc/power_change)
-	RegisterSignal(src, COMSIG_ENTER_AREA, .proc/on_enter_area)
-	RegisterSignal(src, COMSIG_EXIT_AREA, .proc/on_exit_area)
+		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
+	RegisterSignal(src, COMSIG_ENTER_AREA, PROC_REF(on_enter_area))
+	RegisterSignal(src, COMSIG_EXIT_AREA, PROC_REF(on_exit_area))
 
 /**
  * proc to call when the machine stops requiring power after a duration of requiring power
