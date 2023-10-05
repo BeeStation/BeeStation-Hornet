@@ -1,7 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Added the ability to hack an express supply console board with a multitool
-      to enable contraband
-  - rscdel: Removed the ability to fix an emagged express supply console board by
-      using a multitool on it
