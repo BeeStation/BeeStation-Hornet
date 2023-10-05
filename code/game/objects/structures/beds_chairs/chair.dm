@@ -125,6 +125,14 @@
 	..()
 	handle_rotation(newdir)
 
+/obj/structure/chair/relaymove(mob/user, direction)
+	if(!direction)
+		return FALSE
+	if(direction == dir)
+		return
+	setDir(direction)
+	return FALSE
+
 // Chair types
 
 /obj/structure/chair/old
