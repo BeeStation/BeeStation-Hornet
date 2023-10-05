@@ -1,8 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - rscadd: chat-light-theme.scss, chat-dark-theme.scss. These are preferable more
-      than goon folder chat scss files.
-  - code_imp: BB implant chat colour and carp wavespeak char color are now more reliably
-      darker/lighter based on your current background theme. If you use a light theme,
-      these will be darker, and vice versa for vice versa.
