@@ -289,8 +289,10 @@
 		overlays.Cut()
 	LAZYNULL(managed_overlays)
 
-	QDEL_NULL(light)
-	QDEL_NULL(ai_controller)
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+	if(light)
+		QDEL_NULL(light)
 
 	for(var/i in targeted_by)
 		var/mob/M = i
