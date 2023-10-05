@@ -444,7 +444,7 @@
 	if(resource_gain)
 		resources += resource_gain
 		add_to_total_resources_eaten(resource_gain)
-		do_attack_animation(target)
+		do_attack_animation(target, no_effect = TRUE)
 		changeNext_move(CLICK_CD_MELEE)
 		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
 		I.pixel_x = target.pixel_x
@@ -469,7 +469,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(atom/movable/target)
 	new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
-	do_attack_animation(target)
+	do_attack_animation(target, no_effect = TRUE)
 	changeNext_move(CLICK_CD_MELEE)
 	SSexplosions.low_mov_atom += target
 
@@ -512,7 +512,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(obj/machinery/target)
-	do_attack_animation(target)
+	do_attack_animation(target, no_effect = TRUE)
 	to_chat(src, "<span class='info'>We begin to dismantle this machine. We will need to be uninterrupted.</span>")
 	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x

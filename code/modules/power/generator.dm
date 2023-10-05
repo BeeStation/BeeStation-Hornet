@@ -162,11 +162,6 @@
 		return FALSE
 	return TRUE
 
-
-/obj/machinery/power/generator/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/power/generator/proc/find_circs()
 	kill_circs()
 	var/list/circs = list()
