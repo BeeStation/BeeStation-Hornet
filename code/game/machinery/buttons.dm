@@ -181,10 +181,6 @@
 
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
 
-/obj/machinery/button/power_change()
-	..()
-	update_icon()
-
 
 /obj/machinery/button/door
 	name = "door button"

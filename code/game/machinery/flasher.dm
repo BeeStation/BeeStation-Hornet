@@ -42,15 +42,18 @@
 	QDEL_NULL(bulb)
 	return ..()
 
-/obj/machinery/flasher/power_change()
-	if (powered() && anchored && bulb)
-		set_machine_stat(machine_stat & ~NOPOWER)
+/obj/machinery/flasher/powered()
+	if(!anchored || !bulb)
+		return FALSE
+	return ..()
+
+/obj/machinery/flasher/update_icon()
+	if (powered())
 		if(bulb.burnt_out)
 			icon_state = "[base_state]1-p"
 		else
 			icon_state = "[base_state]1"
 	else
-		set_machine_stat(machine_stat | NOPOWER)
 		icon_state = "[base_state]1-p"
 
 //Don't want to render prison breaks impossible

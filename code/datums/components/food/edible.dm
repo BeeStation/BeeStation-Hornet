@@ -87,8 +87,6 @@ Behavior that's still missing from this component that original food items had t
 	src.bite_consumption = bite_consumption
 	src.food_flags = food_flags
 	src.foodtypes = foodtypes
-	src.initial_reagents = initial_reagents
-	src.tastes = tastes
 	src.eat_time = eat_time
 	src.eatverbs = string_list(eatverbs)
 	src.junkiness = junkiness
@@ -229,9 +227,8 @@ Behavior that's still missing from this component that original food items had t
 
 	if(!microwaved_type)
 		new /obj/item/reagent_containers/food/snacks/badrecipe(parent_turf)
-		qdel(src)
+		qdel(parent)
 		return
-
 
 	var/obj/item/result
 
@@ -242,6 +239,8 @@ Behavior that's still missing from this component that original food items had t
 	SEND_SIGNAL(result, COMSIG_ITEM_MICROWAVE_COOKED, parent, efficiency)
 
 	SSblackbox.record_feedback("tally", "food_made", 1, result.type)
+	qdel(parent)
+	return COMPONENT_SUCCESFUL_MICROWAVE
 
 ///Corrects the reagents on the newly cooked food
 /datum/component/edible/proc/on_microwave_cooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
@@ -275,6 +274,9 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/TryToEat(mob/living/eater, mob/living/feeder)
 
 	set waitfor = FALSE // We might end up sleeping here, so we don't want to hold up anything
+
+	if(QDELETED(parent))
+		return
 
 	var/atom/owner = parent
 

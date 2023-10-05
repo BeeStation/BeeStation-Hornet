@@ -94,13 +94,9 @@
 		return
 
 /obj/machinery/light_switch/power_change()
+	SHOULD_CALL_PARENT(FALSE)
 	if(area == get_area(src))
-		if(powered(AREA_USAGE_LIGHT))
-			set_machine_stat(machine_stat & ~NOPOWER)
-		else
-			set_machine_stat(machine_stat | NOPOWER)
-
-		update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
+		return ..()
 
 /obj/machinery/light_switch/emp_act(severity)
 	. = ..()

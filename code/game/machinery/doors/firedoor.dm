@@ -88,11 +88,8 @@
 
 
 /obj/machinery/door/firedoor/power_change()
-	if(powered(power_channel))
-		set_machine_stat(machine_stat & ~NOPOWER)
-		INVOKE_ASYNC(src, PROC_REF(latetoggle))
-	else
-		set_machine_stat(machine_stat | NOPOWER)
+	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(latetoggle))
 
 /obj/machinery/door/firedoor/attack_hand(mob/user)
 	. = ..()
