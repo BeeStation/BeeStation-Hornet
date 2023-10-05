@@ -17950,6 +17950,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/item/storage/fancy/donut_box,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -35879,6 +35880,7 @@
 /area/security/checkpoint)
 "jvr" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "jvx" = (
@@ -73820,6 +73822,10 @@
 "sVS" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/lootdrop/donkpockets{
+	pixel_x = -4;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/sepia,
 /area/engine/break_room)
 "sVY" = (
@@ -87688,6 +87694,7 @@
 /area/engine/engine_room)
 "weS" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -97024,6 +97031,7 @@
 	pixel_x = 5;
 	pixel_y = 6
 	},
+/obj/effect/spawner/lootdrop/three_course_meal,
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
 	},
