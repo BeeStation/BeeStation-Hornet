@@ -3106,6 +3106,10 @@
 	pixel_x = 8;
 	pixel_y = 6
 	},
+/obj/item/storage/fancy/donut_box{
+	pixel_x = -3;
+	pixel_y = 2
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -15478,6 +15482,9 @@
 /area/hallway/primary/fore)
 "eMu" = (
 /obj/structure/table,
+/obj/item/pizzabox/mushroom{
+	pixel_y = 11
+	},
 /obj/machinery/light_switch{
 	pixel_x = 1;
 	pixel_y = -21
@@ -29772,6 +29779,10 @@
 /area/engine/atmospherics_engine)
 "jkc" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box{
+	pixel_x = -1;
+	pixel_y = 5
+	},
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -44231,11 +44242,6 @@
 	name = "Front Security Blast door"
 	},
 /obj/item/paper/fluff/jobs/security/beepsky_mom,
-/obj/item/storage/fancy/donut_box{
-	name = "Emergency donut box";
-	pixel_x = -2;
-	pixel_y = 15
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -50050,6 +50056,9 @@
 	pixel_x = 19;
 	pixel_y = 13
 	},
+/obj/effect/spawner/lootdrop/donkpockets{
+	pixel_y = 6
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
@@ -50489,6 +50498,7 @@
 /area/medical/sleeper)
 "pJV" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "pKz" = (
@@ -68007,6 +68017,11 @@
 /area/bridge)
 "vkZ" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box{
+	name = "Holy donut box";
+	pixel_x = -1;
+	pixel_y = 12
+	},
 /obj/item/flashlight/lamp{
 	pixel_x = 6;
 	pixel_y = 2
