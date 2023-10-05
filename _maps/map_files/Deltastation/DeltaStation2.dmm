@@ -16008,6 +16008,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/grimy,
 /area/bridge)
 "bIS" = (
@@ -16507,6 +16508,7 @@
 /area/crew_quarters/heads/captain)
 "bMM" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "bMN" = (
@@ -16729,6 +16731,7 @@
 /area/bridge/meeting_room/council)
 "bOC" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/royalblue,
 /area/bridge/meeting_room/council)
 "bOH" = (
@@ -36580,6 +36583,7 @@
 /area/chapel/office)
 "eeF" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /obj/machinery/status_display/ai{
 	pixel_x = 32
 	},
@@ -52426,6 +52430,7 @@
 /obj/machinery/status_display/ai{
 	pixel_x = -32
 	},
+/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
@@ -61518,6 +61523,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
+/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
@@ -89505,6 +89511,7 @@
 /area/medical/chemistry)
 "whg" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
