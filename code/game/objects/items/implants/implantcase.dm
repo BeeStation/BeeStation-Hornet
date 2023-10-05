@@ -42,7 +42,7 @@
 			reagents = imp.reagents
 			used_implanter.update_appearance()
 		else if(!used_implanter.imp && imp)
-			imp.forceMove(I)
+			imp.forceMove(used_implanter)
 			used_implanter.imp = imp
 			imp = null
 			reagents = null
