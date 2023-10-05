@@ -2,7 +2,7 @@
 //make incision
 /datum/surgery_step/incise
 	name = "make incision"
-	implements = list(TOOL_SCALPEL = 100, /obj/item/melee/transforming/energy/sword = 75, /obj/item/kitchen/knife = 65,
+	implements = list(TOOL_SCALPEL = 100, /obj/item/melee/transforming/energy/sword = 75, /obj/item/knife = 65,
 		/obj/item/shard = 45, /obj/item = 30) // 30% success with any sharp item.
 	time = 16
 	preop_sound = 'sound/surgery/scalpel1.ogg'
@@ -103,14 +103,14 @@
 /datum/surgery_step/saw
 	name = "saw bone"
 	implements = list(TOOL_SAW = 100,/obj/item/melee/arm_blade = 75,
-	/obj/item/fireaxe = 50, /obj/item/hatchet = 35, /obj/item/kitchen/knife/butcher = 25)
+	/obj/item/fireaxe = 50, /obj/item/hatchet = 35, /obj/item/knife/butcher = 25)
 	time = 54
 	preop_sound = list(
 		/obj/item/circular_saw = 'sound/surgery/saw.ogg',
 		/obj/item/melee/arm_blade = 'sound/surgery/scalpel1.ogg',
 		/obj/item/fireaxe = 'sound/surgery/scalpel1.ogg',
 		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
-		/obj/item/kitchen/knife/butcher = 'sound/surgery/scalpel1.ogg',
+		/obj/item/knife/butcher = 'sound/surgery/scalpel1.ogg',
 		/obj/item = 'sound/surgery/scalpel1.ogg',
 	)
 	success_sound = 'sound/surgery/organ2.ogg'

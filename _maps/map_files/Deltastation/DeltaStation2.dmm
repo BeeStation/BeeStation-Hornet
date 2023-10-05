@@ -11661,7 +11661,7 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = -8
 	},
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
@@ -37241,7 +37241,7 @@
 /obj/structure/table,
 /obj/item/hemostat,
 /obj/item/hatchet,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/machinery/light/small{
 	dir = 4
 	},
