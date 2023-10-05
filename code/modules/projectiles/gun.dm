@@ -635,9 +635,7 @@
 
 /obj/item/gun/proc/update_gunlight()
 	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/gun/pickup(mob/user)
 	..()
