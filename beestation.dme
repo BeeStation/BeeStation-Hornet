@@ -187,6 +187,7 @@
 #include "code\__DEFINES\xenoartifact_materials.dm"
 #include "code\__DEFINES\xenobiology.dm"
 #include "code\__DEFINES\zmimic.dm"
+#include "code\__DEFINES\atmospherics\atmos_machinery.dm"
 #include "code\__DEFINES\dcs\flags.dm"
 #include "code\__DEFINES\dcs\helpers.dm"
 #include "code\__DEFINES\dcs\signals.dm"

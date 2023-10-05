@@ -56,7 +56,7 @@
 	///State of the apc charging (not charging, charging, fully charged)
 	var/charging = APC_NOT_CHARGING
 	///Can the APC charge?
-	var/chargemode = 1
+	var/chargemode = TRUE
 	///Number of ticks where the apc is trying to recharge
 	var/chargecount = 0
 	///Is the apc interface locked?

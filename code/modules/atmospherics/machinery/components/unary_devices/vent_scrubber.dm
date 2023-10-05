@@ -21,7 +21,7 @@
 
 	var/filter_types = list(GAS_CO2, GAS_BZ)
 	var/volume_rate = 200
-	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
+	var/widenet = FALSE //is this scrubber acting on the 3x3 area around it.
 	var/list/turf/adjacent_turfs = list()
 
 	var/frequency = FREQ_ATMOS_CONTROL
@@ -46,22 +46,6 @@
 	radio_connection = null
 	adjacent_turfs.Cut()
 	return ..()
-
-/obj/machinery/atmospherics/components/unary/vent_scrubber/auto_use_power()
-	if(!on || welded || !is_operational || !powered(power_channel))
-		return FALSE
-
-	var/amount = idle_power_usage
-
-	if(scrubbing & SCRUBBING)
-		amount += idle_power_usage * length(filter_types)
-	else //scrubbing == SIPHONING
-		amount = active_power_usage
-
-	if(widenet)
-		amount += amount * (adjacent_turfs.len * (adjacent_turfs.len / 2))
-	use_power(amount, power_channel)
-	return TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/update_icon_nopipes()
 	cut_overlays()
@@ -153,7 +137,7 @@
 	if(air_contents.return_pressure() >= 50 * ONE_ATMOSPHERE || !islist(filter_types))
 		return FALSE
 
-	if(scrubbing & SCRUBBING)
+	if(scrubbing == SCRUBBING)
 		environment.scrub_into(air_contents, volume_rate/environment.return_volume(), filter_types)
 		tile.air_update_turf()
 
@@ -177,12 +161,15 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/check_turfs()
 	adjacent_turfs.Cut()
 	var/turf/T = get_turf(src)
-	if(istype(T))
-		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir = 1)
+	adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir = TRUE)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/receive_signal(datum/signal/signal)
 	if(!is_operational || !signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
-		return 0
+		return
+
+	var/old_widenet = widenet
+	var/old_scrubbing = scrubbing
+	var/old_filter_length = length(filter_types)
 
 	var/atom/signal_sender = signal.data["user"]
 
@@ -196,7 +183,6 @@
 	if("toggle_widenet" in signal.data)
 		widenet = !widenet
 
-	var/old_scrubbing = scrubbing
 	if("scrubbing" in signal.data)
 		scrubbing = text2num(signal.data["scrubbing"])
 	if("toggle_scrubbing" in signal.data)
@@ -221,8 +207,26 @@
 		return //do not update_icon
 
 	broadcast_status()
-	update_icon()
-	return
+	update_appearance()
+
+	if(length(filter_types) == old_filter_length && old_scrubbing == scrubbing && old_widenet == widenet)
+		return
+
+	idle_power_usage = initial(idle_power_usage)
+	active_power_usage = initial(idle_power_usage)
+
+	var/new_power_usage = 0
+	if(scrubbing == SCRUBBING)
+		new_power_usage = idle_power_usage + idle_power_usage * length(filter_types)
+		update_use_power(IDLE_POWER_USE)
+	else
+		new_power_usage = active_power_usage
+		update_use_power(ACTIVE_POWER_USE)
+
+	if(widenet)
+		new_power_usage += new_power_usage * (length(adjacent_turfs) * (length(adjacent_turfs) / 2))
+
+	update_mode_power_usage(scrubbing == SCRUBBING ? IDLE_POWER_USE : ACTIVE_POWER_USE, new_power_usage)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/power_change()
 	. = ..()

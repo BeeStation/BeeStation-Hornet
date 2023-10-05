@@ -1176,3 +1176,21 @@
 		for(var/channel in gone.important_recursive_contents)
 			for(var/atom/movable/location as anything in nested_locs)
 				LAZYREMOVEASSOC(location.important_recursive_contents, channel, gone.important_recursive_contents[channel])
+
+///allows this movable to know when it has "entered" another area no matter how many movable atoms its stuffed into, uses important_recursive_contents
+/atom/movable/proc/become_area_sensitive(trait_source = TRAIT_GENERIC)
+	if(!HAS_TRAIT(src, TRAIT_AREA_SENSITIVE))
+		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+			LAZYADDASSOCLIST(location.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE, src)
+	ADD_TRAIT(src, TRAIT_AREA_SENSITIVE, trait_source)
+
+///removes the area sensitive channel from the important_recursive_contents list of this and all nested locs containing us if there are no more source of the trait left
+/atom/movable/proc/lose_area_sensitivity(trait_source = TRAIT_GENERIC)
+	if(!HAS_TRAIT(src, TRAIT_AREA_SENSITIVE))
+		return
+	REMOVE_TRAIT(src, TRAIT_AREA_SENSITIVE, trait_source)
+	if(HAS_TRAIT(src, TRAIT_AREA_SENSITIVE))
+		return
+
+	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+		LAZYREMOVEASSOC(location.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE, src)

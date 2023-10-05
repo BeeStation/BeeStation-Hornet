@@ -6,6 +6,8 @@
 	pixel_z = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/hydroponics
+	idle_power_usage = 5000
+	use_power = NO_POWER_USE
 	var/waterlevel = 100	//The amount of water in the tray (max 100)
 	var/maxwater = 100		//The maximum amount of water in the tray
 	var/nutrilevel = 10		//The amount of nutrient in the tray (max 10)
@@ -101,11 +103,24 @@
 	else
 		return ..()
 
+/obj/machinery/hydroponics/power_change()
+	. = ..()
+	if(machine_stat & NOPOWER && self_sustaining)
+		self_sustaining = FALSE
+
 /obj/machinery/hydroponics/process(delta_time)
 	var/needs_update = 0 // Checks if the icon needs updating so we don't redraw empty trays every time
 
 	if(myseed && (myseed.loc != src))
 		myseed.forceMove(src)
+
+	/*
+	if(!powered() && self_sustaining)
+		visible_message("<span class='warning'>[name]'s auto-grow functionality shuts off!</span>")
+		update_use_power(NO_POWER_USE)
+		self_sustaining = FALSE
+		update_appearance()
+	*/
 
 	if(self_sustaining)
 		adjustNutri(0.5 * delta_time)

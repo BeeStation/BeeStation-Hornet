@@ -73,7 +73,7 @@
 
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
-/obj/machinery/proc/powered(var/chan = -1) // defaults to power_channel
+/obj/machinery/proc/powered(chan = power_channel)
 	if(!use_power)
 		return TRUE
 	if(!loc)
@@ -83,24 +83,17 @@
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
 		return FALSE					// if not, then not powered
-	if(chan == -1)
-		chan = power_channel
+
 	return A.powered(chan)	// return power status of the area
 
 // increment the power usage stats for an area
-/obj/machinery/proc/use_power(amount, chan = -1) // defaults to power_channel
-	var/area/A = get_area(src)		// make sure it's in an area
-	if(!A)
-		return
-	if(chan == -1)
-		chan = power_channel
-	A.use_power(amount, chan)
+/obj/machinery/proc/use_power(amount, chan = power_channel)
+	var/area/A = get_area(src) // make sure it's in an area
+	A?.use_power(amount, chan)
 
 /obj/machinery/proc/addStaticPower(value, powerchannel)
 	var/area/A = get_area(src)
-	if(!A)
-		return
-	A.addStaticPower(value, powerchannel)
+	A?.addStaticPower(value, powerchannel)
 
 /obj/machinery/proc/removeStaticPower(value, powerchannel)
 	addStaticPower(-value, powerchannel)

@@ -51,12 +51,12 @@
 /obj/machinery/power/emitter/ctf
 	name = "Energy Cannon"
 	active = TRUE
-	active_power_usage = FALSE
-	idle_power_usage = FALSE
+	active_power_usage = 0
+	idle_power_usage = 0
 	locked = TRUE
 	req_access_txt = "100"
 	state = EMITTER_WELDED
-	use_power = FALSE
+	use_power = NO_POWER_USE
 
 /obj/machinery/power/emitter/Initialize(mapload)
 	. = ..()
@@ -87,7 +87,7 @@
 	fire_delay = firedelay
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		power_usage -= 50 * M.rating
-	active_power_usage = power_usage
+	update_mode_power_usage(ACTIVE_POWER_USE, power_usage)
 	if(anchored && state == EMITTER_UNWRENCHED)
 		state = EMITTER_WRENCHED
 
