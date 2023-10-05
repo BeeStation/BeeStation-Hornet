@@ -18,43 +18,36 @@
 	icon_state = "implantcase-[imp ? imp.implant_color : 0]"
 	return ..()
 
-
-/obj/item/implantcase/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+/obj/item/implantcase/attackby(obj/item/used_item, mob/living/user, params)
+	if(istype(used_item, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on the side of [src]!</span>")
 			return
-		var/t = stripped_input(user, "What would you like the label to be?", name, null)
-		if(user.get_active_held_item() != W)
+		var/new_name = stripped_input(user, "What would you like the label to be?", name, null)
+		if(user.get_active_held_item() != used_item)
 			return
 		if(!user.canUseTopic(src, BE_CLOSE))
 			return
-		if(t)
-			name = "implant case - '[t]'"
+		if(new_name)
+			name = "implant case - '[new_name]'"
 		else
 			name = "implant case"
-	else if(istype(W, /obj/item/implanter))
-		var/obj/item/implanter/I = W
-		if(I.imp)
-			if(imp || I.imp.imp_in)
-				return
-			I.imp.forceMove(src)
-			imp = I.imp
-			I.imp = null
-			update_icon()
+	else if(istype(used_item, /obj/item/implanter))
+		var/obj/item/implanter/used_implanter = used_item
+		if(used_implanter.imp && !imp)
+			used_implanter.imp.forceMove(src)
+			imp = used_implanter.imp
+			used_implanter.imp = null
+			update_appearance()
 			reagents = imp.reagents
-			I.update_icon()
-		else
-			if(imp)
-				if(I.imp)
-					return
-				imp.forceMove(I)
-				I.imp = imp
-				imp = null
-				reagents = null
-				update_icon()
-			I.update_icon()
-
+			used_implanter.update_appearance()
+		else if(!used_implanter.imp && imp)
+			imp.forceMove(I)
+			used_implanter.imp = imp
+			imp = null
+			reagents = null
+			update_appearance()
+			used_implanter.update_appearance()
 	else
 		return ..()
 
@@ -62,7 +55,9 @@
 	. = ..()
 	if(imp_type)
 		imp = new imp_type(src)
-	reagents = imp.reagents
+	update_appearance()
+	if(imp)
+		reagents = imp.reagents
 
 
 /obj/item/implantcase/tracking
