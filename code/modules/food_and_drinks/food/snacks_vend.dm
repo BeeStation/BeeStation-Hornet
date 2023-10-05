@@ -111,3 +111,70 @@
 	foodtype = TOXIC
 	/*food_flags = FOOD_FINGER_FOOD*/
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/reagent_containers/food/snacks/premadepbandj
+	name = "prepackaged peanut butter and jelly sandwich"
+	icon_state = "pbandj"
+	desc = "A premade peanut butter and jelly sandwich. It reminds you of childhood."
+	trash = /obj/item/trash/energybar
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/maltodextrin = 2)
+	filling_color = "#684d13"
+	tastes = list("peanut butter" = 2, "jelly" = 2)
+	foodtype = JUNKFOOD | FRUIT | SUGAR | GRAIN
+	w_class = WEIGHT_CLASS_SMALL
+
+
+/obj/item/reagent_containers/food/snacks/premadehamandswiss
+	name = "prepackaged ham and swiss sandwich"
+	icon_state = "hamandswiss"
+	desc = "A premade ham and swiss sandwich. Basic but tasty."
+	trash = /obj/item/trash/energybar
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/maltodextrin = 2)
+	filling_color = "#994833"
+	tastes = list("ham" = 2, "swiss cheese" = 2)
+	foodtype = JUNKFOOD | MEAT | GRAIN | DAIRY
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/reagent_containers/food/snacks/premadeblt
+	name = "prepackaged BLT"
+	icon_state = "blt"
+	desc = "A premade bacon, lettuce, and tomato sandwich. Watch those nitrates!"
+	trash = /obj/item/trash/energybar
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/maltodextrin = 2)
+	filling_color = "#741818"
+	tastes = list("bacon" = 3, "lettuce" = 1, "tomato" = 2)
+	foodtype = JUNKFOOD | MEAT | GRAIN
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/reagent_containers/food/snacks/premadepimentocheese
+	name = "prepackaged pimento cheese sandwich"
+	icon_state = "pimentocheese"
+	desc = "A premade pimento cheese sandwich. Perfect for stakeouts."
+	trash = /obj/item/trash/energybar
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/maltodextrin = 2)
+	filling_color = "#d8ce79"
+	tastes = list("cheese" = 3, "mayonnaise" = 1, "pimentos" = 3)
+	foodtype = JUNKFOOD | MEAT | GRAIN
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/reagent_containers/food/snacks/premadereuben
+	name = "prepackaged Reuben"
+	icon_state = "reuben"
+	desc = "A premade Reuben. Warning, not kosher!"
+	trash = /obj/item/trash/energybar
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/maltodextrin = 2)
+	filling_color = "#501b0e"
+	tastes = list("corned beef" = 3, "swiss cheese" = 3, "rye bread" = 2)
+	foodtype = JUNKFOOD | MEAT | GRAIN
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/reagent_containers/food/snacks/premadeturkey
+	name = "prepackaged turkey and cheese sandwich"
+	icon_state = "turkey"
+	desc = "A premade roast turkey and cheese sandwich. For that holiday taste."
+	trash = /obj/item/trash/energybar
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/maltodextrin = 2)
+	filling_color = "#d4bd89"
+	tastes = list("turkey" = 3, "cheese" = 2)
+	foodtype = JUNKFOOD | MEAT | GRAIN
+	w_class = WEIGHT_CLASS_SMALL
