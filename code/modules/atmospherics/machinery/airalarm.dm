@@ -606,7 +606,7 @@
 		INVOKE_ASYNC(src, PROC_REF(apply_danger_level))
 	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
-		INVOKE_ASYNC(src, PROC_REF(proc/apply_mode), src)
+		INVOKE_ASYNC(src, PROC_REF(apply_mode), src)
 
 
 /obj/machinery/airalarm/proc/post_alert(alert_level)
