@@ -26,6 +26,7 @@
 			/turf/open = "OPEN",
 			/turf/closed = "CLOSED",
 			/turf = "T",
+			/mob/living/basic = "BASIC_MOB",
 			/mob/living/carbon = "CARBON",
 			/mob/living/simple_animal = "SIMPLE",
 			/mob/living = "LIVING",

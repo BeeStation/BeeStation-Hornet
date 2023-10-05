@@ -374,15 +374,10 @@
 	usr << browse(list, "window=laws")
 
 /mob/living/silicon/proc/ai_roster()
-	if(!client)
+	if(!client || !COOLDOWN_FINISHED(client, crew_manifest_delay))
 		return
-	if(world.time < client.crew_manifest_delay)
-		return
-	client.crew_manifest_delay = world.time + (1 SECONDS)
-
-	var/datum/browser/popup = new(src, "airoster", "Crew Manifest", 387, 420)
-	popup.set_content(GLOB.data_core.get_manifest_html())
-	popup.open()
+	COOLDOWN_START(client, crew_manifest_delay, 1 SECONDS)
+	GLOB.crew_manifest_tgui.ui_interact(src)
 
 /mob/living/silicon/proc/set_autosay() //For allowing the AI and borgs to set the radio behavior of auto announcements (state laws, arrivals).
 	if(!radio)

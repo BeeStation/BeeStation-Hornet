@@ -17,6 +17,7 @@
 /datum/holoparasite_ability/weapon/ranged/apply()
 	. = ..()
 	owner.ranged = TRUE
+	owner.ranged_cooldown_time = 17.5 / master_stats.speed
 	owner.melee_damage = 6 + round((master_stats.damage - 1) * 0.8) // barely stronger than a normal human punch
 	owner.obj_damage = 6 + round((master_stats.damage - 1) * 0.8)
 	owner.response_harm = "weakly punches"
@@ -25,6 +26,7 @@
 /datum/holoparasite_ability/weapon/ranged/remove()
 	. = ..()
 	owner.ranged = initial(owner.ranged)
+	owner.ranged_cooldown_time = initial(owner.ranged_cooldown_time)
 	owner.melee_damage = initial(owner.melee_damage)
 	owner.obj_damage = initial(owner.obj_damage)
 	owner.response_harm = initial(owner.response_harm)
