@@ -152,7 +152,7 @@
 	name = "prepackaged donut"
 	desc = "A mass produced donut, goes great with a cup of coffee."
 	icon_state = "donut"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sprinkles = 1, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/maltodextrin =4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sprinkles = 1, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/maltodextrin = 6)
 
 //////////////////////JELLY DONUTS/////////////////////////
 
@@ -462,7 +462,7 @@
 	name = "\improper Donk-pocket"
 	desc = "The food of choice for the seasoned traitor."
 	icon_state = "donkpocket"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/maltodextrin = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/maltodextrin = 6)
 	cooked_type = /obj/item/reagent_containers/food/snacks/donkpocket/warm
 	filling_color = "#CD853F"
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
