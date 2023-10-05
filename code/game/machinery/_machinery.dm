@@ -221,7 +221,7 @@ Class Procs:
 	SIGNAL_HANDLER
 	update_current_power_usage()
 	power_change()
-	RegisterSignal(area_to_register, COMSIG_AREA_POWER_CHANGE, .proc/power_change)
+	RegisterSignal(area_to_register, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
 
 /obj/machinery/proc/on_exit_area(datum/source, area/area_to_unregister)
 	SIGNAL_HANDLER
