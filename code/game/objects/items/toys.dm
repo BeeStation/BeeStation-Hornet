@@ -224,8 +224,9 @@
 	materials = list(/datum/material/iron=10, /datum/material/glass=10)
 	var/amount_left = 7
 
-/obj/item/toy/ammo/gun/update_icon()
-	src.icon_state = "357OLD-[src.amount_left]"
+/obj/item/toy/ammo/gun/update_icon_state()
+	icon_state = "357OLD-[amount_left]"
+	return ..()
 
 /obj/item/toy/ammo/gun/examine(mob/user)
 	. = ..()
@@ -764,7 +765,7 @@
 	user.visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
 
-/obj/item/toy/cards/deck/update_icon()
+/obj/item/toy/cards/deck/update_icon_state()
 	if(LAZYLEN(cards) > original_size/2)
 		icon_state = "deck_[deckstyle]_full"
 	else if(LAZYLEN(cards) > original_size/4)
@@ -773,6 +774,7 @@
 		icon_state = "deck_[deckstyle]_low"
 	else if(!LAZYLEN(cards))
 		icon_state = "deck_[deckstyle]_empty"
+	return ..()
 
 /obj/item/toy/cards/deck/attack_self(mob/user)
 	if(cooldown < world.time - 50)

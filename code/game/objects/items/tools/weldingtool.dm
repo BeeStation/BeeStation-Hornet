@@ -50,22 +50,25 @@
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
 	update_icon()
 
-/obj/item/weldingtool/proc/update_torch()
+/obj/item/weldingtool/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
+/obj/item/weldingtool/update_icon_state()
 	if(welding)
-		add_overlay("[initial(icon_state)]-on")
 		item_state = "[initial(item_state)]1"
 	else
 		item_state = "[initial(item_state)]"
+	return ..()
 
-
-/obj/item/weldingtool/update_icon()
-	cut_overlays()
+/obj/item/weldingtool/update_overlays()
+	. = ..()
 	if(change_icons)
 		var/ratio = get_fuel() / max_fuel
 		ratio = CEILING(ratio*4, 1) * 25
-		add_overlay("[initial(icon_state)][ratio]")
-	update_torch()
-	return
+		. += "[initial(icon_state)][ratio]"
+	if(welding)
+		. += "[initial(icon_state)]-on"
 
 
 /obj/item/weldingtool/process(delta_time)
@@ -182,11 +185,6 @@
 		set_light_on(FALSE)
 		switched_on(user)
 		update_icon()
-		//mob icon update
-		if(ismob(loc))
-			var/mob/M = loc
-			M.update_inv_hands(0)
-
 		return 0
 	return 1
 
