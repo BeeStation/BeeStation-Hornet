@@ -45,6 +45,8 @@
 	var/requires_wielding = TRUE
 	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
+	var/wild_spread = FALSE				//Sets a minimum level of bullet spread per shot; meant for difficult to aim / inaccurate guns.
+	var/wild_factor = 0.25				//Multiplied by spread to calculate the 'minimum' spread per shot.
 
 	var/is_wielded = FALSE
 
@@ -127,7 +129,6 @@
 		QDEL_NULL(chambered)
 	if(azoom)
 		QDEL_NULL(azoom)
-	UnregisterSignal(list(COMSIG_TWOHANDED_WIELD, COMSIG_TWOHANDED_UNWIELD))
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)
@@ -369,11 +370,24 @@
 		return
 
 	var/sprd = 0
+	var/min_gun_sprd = 0
+	var/min_rand_sprd = 0
 	var/randomized_gun_spread = 0
 	var/rand_spr = rand()
+
+	if(wild_spread)
+		var/S
+		S = sprd * wild_factor //If a gun has WILD SPREAD get the minimum by multiplying spread by its WILD FACTOR
+		min_gun_sprd = round(S, 0.5) //Clean up that value a tiny bit
+		S = spread_unwielded * wild_factor //Do the same for the gun's unwielded spread
+		min_rand_sprd = round(S, 0.5)
 	if(spread)
-		randomized_gun_spread =	rand(0,spread)
+		randomized_gun_spread =	rand(min_gun_sprd,spread)
 	bonus_spread = user.get_weapon_inaccuracy_modifier(target, src)
+	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex //Does not modify minimum spread, only maximum spread
+		bonus_spread += 25
+	if(!is_wielded && requires_wielding)
+		bonus_spread += spread_unwielded
 
 	if(burst_size > 1)
 		firing_burst = TRUE

@@ -23,6 +23,11 @@
 	if(!ismovable(target))
 		return ELEMENT_INCOMPATIBLE
 
+	var/atom/movable/target_as_atom = target
+
+	if(target_as_atom.density)
+		return ELEMENT_INCOMPATIBLE
+
 	RegisterSignal(target, COMSIG_OBJ_HIDE, PROC_REF(hide))
 
 	src.invisibility_trait = invisibility_trait
@@ -34,6 +39,9 @@
 ///called when a tile has been covered or uncovered
 /datum/element/undertile/proc/hide(atom/movable/source, covered)
 
+	if(source.density)
+		stack_trace("([src]): Atom [source] was given an undertile element, but has become dense! This can lead to invisible walls!")
+		return //Returning to actually prevent this from happening
 
 	source.invisibility = covered ? invisibility_level : 0
 

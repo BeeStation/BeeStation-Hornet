@@ -59,6 +59,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/current_runlevel	//for scheduling different subsystems for different stages of the round
 	var/sleep_offline_after_initializations = TRUE
 
+	/// During initialization, will be the instanced subsytem that is currently initializing.
+	/// Outside of initialization, returns null.
+	var/current_initializing_subsystem = null
+
 	var/static/restart_clear = 0
 	var/static/restart_timeout = 0
 	var/static/restart_count = 0
@@ -212,9 +216,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for (var/datum/controller/subsystem/SS in subsystems)
 		if (SS.flags & SS_NO_INIT || SS.initialized) //Don't init SSs with the correspondig flag or if they already are initialzized
 			continue
+		current_initializing_subsystem = SS
 		log_world("Initializing [SS.name] subsystem.")
 		SS.Initialize(REALTIMEOFDAY)
 		CHECK_TICK
+	current_initializing_subsystem = null
 	current_ticklimit = TICK_LIMIT_RUNNING
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
@@ -417,6 +423,20 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			skip_ticks--
 
 		src.sleep_delta = MC_AVERAGE_FAST(src.sleep_delta, sleep_delta)
+
+// Force any verbs into overtime, to test how they perfrom under load
+// For local ONLY
+#ifdef VERB_STRESS_TEST
+		/// Target enough tick usage to only allow time for our maptick estimate and verb processing, and nothing else
+		var/overtime_target = TICK_LIMIT_RUNNING
+// This will leave just enough cpu time for maptick, forcing verbs to run into overtime
+// Use this for testing the worst case scenario, when maptick is spiking and usage is otherwise completely consumed
+#ifdef FORCE_VERB_OVERTIME
+		overtime_target += TICK_BYOND_RESERVE
+#endif
+		CONSUME_UNTIL(overtime_target)
+#endif
+
 		current_ticklimit = TICK_LIMIT_RUNNING
 		if (processing * sleep_delta <= world.tick_lag)
 			current_ticklimit -= (TICK_LIMIT_RUNNING * 0.25) //reserve the tail 1/4 of the next tick for the mc if we plan on running next tick
@@ -634,7 +654,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		text="(TickRate:[Master.processing]) (Iteration:[Master.iteration]) (TickLimit: [round(Master.current_ticklimit, 0.1)])",
 		action = "statClickDebug",
 		params=list(
-			"targetRef" = REF(src),
+			"targetRef" = FAST_REF(src),
 			"class"="controller",
 		),
 		type=STAT_BUTTON,

@@ -994,7 +994,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		..()
 
 /obj/item/proc/microwave_act(obj/machinery/microwave/M)
-	SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M) & COMPONENT_SUCCESFUL_MICROWAVE)
+		return
 	if(istype(M) && M.dirty < 100)
 		M.dirty++
 
@@ -1047,8 +1048,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && (usr.client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TIPS) && !QDELETED(src))
-		var/timedelay = usr.client.prefs.tip_delay/100
+	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips) && !QDELETED(src))
+		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
 	var/mob/living/L = usr
@@ -1069,14 +1070,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/apply_outline(colour = null)
 	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
-	if(usr.client)
-		if(!(usr.client.prefs.toggles & PREFTOGGLE_OUTLINE_ENABLED))
-			return
+	if(!usr.client?.prefs?.read_player_preference(/datum/preference/toggle/item_outlines))
+		return
 	if(!colour)
-		if(usr.client)
-			colour = usr.client.prefs.outline_color
-			if(!colour)
-				colour = COLOR_BLUE_GRAY
+		if(usr?.client?.prefs)
+			colour = usr.client.prefs.read_player_preference(/datum/preference/color/outline_color)
 		else
 			colour = COLOR_BLUE_GRAY
 	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))
@@ -1214,6 +1212,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & DROPDEL)
 		QDEL_NULL(src)
 		return TRUE
+	if(istype(src, /obj/item/shrapnel))
+		src.disableEmbedding()
 
 /**
   * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.

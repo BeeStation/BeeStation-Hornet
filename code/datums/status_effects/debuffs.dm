@@ -127,43 +127,57 @@
 	icon_state = "asleep"
 
 //STASIS
-/datum/status_effect/incapacitating/stasis
-        id = "stasis"
-        duration = -1
-        tick_interval = 10
-        alert_type = /atom/movable/screen/alert/status_effect/stasis
-        var/last_dead_time
+/datum/status_effect/grouped/stasis
+	id = "stasis"
+	duration = -1
+	tick_interval = 10
+	alert_type = /atom/movable/screen/alert/status_effect/stasis
+	var/last_dead_time
 
-/datum/status_effect/incapacitating/stasis/proc/update_time_of_death()
-        if(last_dead_time)
-                var/delta = world.time - last_dead_time
-                var/new_timeofdeath = owner.timeofdeath + delta
-                owner.timeofdeath = new_timeofdeath
-                owner.tod = station_time_timestamp(wtime=new_timeofdeath)
-                last_dead_time = null
-        if(owner.stat == DEAD)
-                last_dead_time = world.time
+/datum/status_effect/grouped/stasis/proc/update_time_of_death()
+	if(last_dead_time)
+		var/delta = world.time - last_dead_time
+		var/new_timeofdeath = owner.timeofdeath + delta
+		owner.timeofdeath = new_timeofdeath
+		owner.tod = station_time_timestamp(wtime=new_timeofdeath)
+		last_dead_time = null
+	if(owner.stat == DEAD)
+		last_dead_time = world.time
 
-/datum/status_effect/incapacitating/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
-        . = ..()
-        update_time_of_death()
-        owner.reagents?.end_metabolization(owner, FALSE)
+/datum/status_effect/grouped/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+	. = ..()
+	if(.)
+		update_time_of_death()
+		owner.reagents?.end_metabolization(owner, FALSE)
+		owner.update_mobility()
+		SEND_SIGNAL(owner, COMSIG_LIVING_ENTER_STASIS)
 
-/datum/status_effect/incapacitating/stasis/tick()
-        update_time_of_death()
+/* Mobility refactor
+/datum/status_effect/grouped/stasis/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+*/
 
-/datum/status_effect/incapacitating/stasis/on_remove()
-        update_time_of_death()
-        return ..()
+/datum/status_effect/grouped/stasis/tick()
+	update_time_of_death()
 
-/datum/status_effect/incapacitating/stasis/be_replaced()
-        update_time_of_death()
-        return ..()
+/datum/status_effect/grouped/stasis/on_remove()
+	/* Mobility refactor
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	*/
+	owner.update_mobility()
+	update_time_of_death()
+	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
+	return ..()
 
 /atom/movable/screen/alert/status_effect/stasis
-        name = "Stasis"
-        desc = "Your biological functions have halted. You could live forever this way, but it's pretty boring."
-        icon_state = "stasis"
+	name = "Stasis"
+	desc = "Your biological functions have halted. You could live forever this way, but it's pretty boring."
+	icon_state = "stasis"
 
 //GOLEM GANG
 
@@ -1056,7 +1070,7 @@
 				var/spawns = rand(1, 3 + (adult * 3))
 				for(var/I in 1 to (spawns + spawnbonus))
 					var/mob/living/simple_animal/hostile/redgrub/grub = new(S.loc)
-					grub.grubdisease = diseases
+					grub.grub_diseases |= diseases
 					grub.food += 15
 				playsound(S, 'sound/effects/attackblob.ogg', 60, 1)
 				S.visible_message("<span class='warning'>[S] is eaten from the inside by [spawns] red grubs, leaving no trace!</span>")

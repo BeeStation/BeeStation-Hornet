@@ -32,26 +32,32 @@
 
 	var/list/obj/machinery/atmospherics/atmos_machines = list()
 	var/list/obj/structure/cable/cables = list()
+	var/list/obj/undertiles = list()
 	var/list/atom/atoms = list()
 
 	require_area_resort()
 
-	for(var/L in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], SSmapping.station_start),
-						locate(bounds[MAP_MAXX], bounds[MAP_MAXY], z_offset - 1)))
-		set waitfor = FALSE
-		var/turf/B = L
-		atoms += B
-		for(var/A in B)
-			atoms += A
-			if(istype(A,/obj/structure/cable))
-				cables += A
+	for(var/turf/updated_turf as anything in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], SSmapping.station_start), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], z_offset - 1)))
+		atoms += updated_turf
+		for(var/atom/contained_atom as anything in updated_turf)
+			atoms += contained_atom
+			if(isobj(contained_atom) )
+				undertiles += contained_atom
+			if(istype(contained_atom, /obj/structure/cable))
+				cables += contained_atom
 				continue
-			if(istype(A,/obj/machinery/atmospherics))
-				atmos_machines += A
+			if(istype(contained_atom, /obj/machinery/atmospherics))
+				atmos_machines += contained_atom
 
 	SSatoms.InitializeAtoms(atoms)
 	SSmachines.setup_template_powernets(cables)
 	SSair.setup_template_machinery(atmos_machines)
+	// We can't just add stuff in a list, as some atoms create other undertiles (APC terminals, for example) so let's just loop again.
+	// This is a manual verb so performance is not a priority.
+	for(var/turf/updated_turf as anything in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], SSmapping.station_start), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], z_offset - 1)))
+		for(var/atom/contained_atom as anything in updated_turf)
+			if(isobj(contained_atom) && !istype(updated_turf, /turf/open/space) && updated_turf.intact)
+				SEND_SIGNAL(contained_atom, COMSIG_OBJ_HIDE, TRUE)
 	GLOB.reloading_map = FALSE
 
 /datum/mapGenerator/repair

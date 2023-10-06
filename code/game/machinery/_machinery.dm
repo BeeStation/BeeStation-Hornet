@@ -87,7 +87,7 @@ Class Procs:
 	verb_say = "beeps"
 	verb_yell = "blares"
 	pressure_resistance = 15
-	pass_flags_self = PASSMACHINE
+	pass_flags_self = PASSMACHINE | LETPASSCLICKS
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER //keeps shit coming out of the machine from ending up underneath it.
 	flags_ricochet = RICOCHET_HARD
@@ -159,14 +159,13 @@ Class Procs:
 	if(processing_flags & START_PROCESSING_ON_INIT)
 		begin_processing()
 
-	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
-
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
 	if(!seller_department)
 		seller_department = dept_req_for_free
+
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
@@ -183,6 +182,11 @@ Class Procs:
 /obj/machinery/proc/end_processing()
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
+
+/obj/machinery/LateInitialize()
+	. = ..()
+	power_change()
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
 
 /obj/machinery/Destroy()
 	GLOB.machines.Remove(src)
@@ -413,6 +417,14 @@ Class Procs:
 /obj/machinery/attack_robot(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
 		return FALSE
+	if(Adjacent(user) && can_buckle && has_buckled_mobs()) //so that borgs (but not AIs, sadly (perhaps in a future PR?)) can unbuckle people from machines
+		if(buckled_mobs.len > 1)
+			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
+			if(user_unbuckle_mob(unbuckled,user))
+				return TRUE
+		else
+			if(user_unbuckle_mob(buckled_mobs[1],user))
+				return TRUE
 	return _try_interact(user)
 
 /obj/machinery/attack_ai(mob/user)
@@ -502,7 +514,6 @@ Class Procs:
 	if(A == occupant)
 		set_occupant(null)
 		update_icon()
-		updateUsrDialog()
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
@@ -523,10 +534,14 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I)
+/**
+ * * turns: The amount of times to turn -90 degrees. Pointless to set this to anything above 4
+ */
+/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I, turns = 1)
+	turns *= -90
 	if(panel_open && I.tool_behaviour == TOOL_WRENCH)
 		I.play_tool_sound(src, 50)
-		setDir(turn(dir,-90))
+		setDir(turn(dir,turns))
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		return 1
 	return 0

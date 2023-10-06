@@ -38,7 +38,11 @@
 	if(!QDELETED(ai_hologram))
 		ai_hologram.say(message, language = language, source=current_holopad)
 		src.log_talk(message, LOG_SAY, tag="Hologram in [AREACOORD(ai_hologram)]")
-		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
+		ai_hologram.create_private_chat_message(
+			message = message,
+			message_language = language,
+			hearers = list(src),
+			includes_ghosts = FALSE) // ghosts already see this except for you...
 
 		// duplication part from `game/say.dm` to make a language icon
 		var/language_icon = ""
@@ -46,11 +50,12 @@
 		if(istype(D) && D.display_icon(src))
 			language_icon = "[D.get_icon()] "
 
+		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
 		message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[real_name]</span></b> [message]</span>"
 		to_chat(src, message)
 
 		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
-			if(!each_ghost.client || !(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
+			if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
 				continue
 			var/follow_link = FOLLOW_LINK(each_ghost, eyeobj || ai_hologram)
 			to_chat(each_ghost, "[follow_link] [message]")
@@ -154,7 +159,7 @@
 		if(!only_listener)
 			// Play voice for all mobs in the z level
 			for(var/mob/M in GLOB.player_list)
-				if(M.client && M.can_hear() && (M.client.prefs.toggles & PREFTOGGLE_SOUND_ANNOUNCEMENTS))
+				if(M.client && M.can_hear() && M.client.prefs.read_player_preference(/datum/preference/toggle/sound_vox))
 					var/turf/T = get_turf(M)
 					if(T.get_virtual_z_level() == z_level)
 						SEND_SOUND(M, voice)

@@ -399,6 +399,8 @@
 	else
 		content = rustg_file_read(filename)
 	roundend_report.set_content(content)
+	roundend_report.scripts = list()
+	roundend_report.add_script("radarchart", 'html/radarchart.js')
 	roundend_report.stylesheets = list()
 	roundend_report.add_stylesheet("roundend", 'html/browser/roundend.css')
 	roundend_report.add_stylesheet("font-awesome", 'html/font-awesome/css/all.min.css')
@@ -652,11 +654,7 @@
 	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective as() in objectives)
-		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
-		count++
+		objective_parts += "<b>Objective #[count++]</b>: [objective.get_completion_message()]"
 	return objective_parts.Join("<br>")
 
 /datum/controller/subsystem/ticker/proc/save_admin_data()

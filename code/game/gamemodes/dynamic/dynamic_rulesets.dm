@@ -84,13 +84,13 @@
 	var/logged_repeated_mode_adjust = FALSE
 
 
-/datum/dynamic_ruleset/New()
+/datum/dynamic_ruleset/New(datum/game_mode/dynamic/dynamic_mode)
 	// Rulesets can be instantiated more than once, such as when an admin clicks
 	// "Execute Midround Ruleset". Thus, it would be wrong to perform any
 	// side effects here. Dynamic rulesets should be stateless anyway.
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	mode = SSticker.mode
+	mode = dynamic_mode
 	..()
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
@@ -162,6 +162,7 @@
 /datum/dynamic_ruleset/proc/execute(forced = FALSE)
 	for(var/datum/mind/M in assigned)
 		M.add_antag_datum(antag_datum)
+		GLOB.pre_setup_antags -= M
 	return TRUE
 
 /// Here you can perform any additional checks you want. (such as checking the map etc)

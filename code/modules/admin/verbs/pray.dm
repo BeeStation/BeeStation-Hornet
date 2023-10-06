@@ -44,7 +44,7 @@
 	msg = "<span class='adminnotice'>[icon2html(cross, GLOB.admins)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""]: </font>[ADMIN_FULLMONTY(src)] [ADMIN_SC(src)]:</b> <span class='linkify'>[msg]</span></span>"
 
 	for(var/client/C in GLOB.admins)
-		if(C.prefs.chat_toggles & CHAT_PRAYER)
+		if(C.prefs.read_player_preference(/datum/preference/toggle/chat_prayer))
 			to_chat(C, msg)
 	to_chat(usr, "<span class='info'>You pray to the gods: \"[msg_tmp]\"</span>")
 

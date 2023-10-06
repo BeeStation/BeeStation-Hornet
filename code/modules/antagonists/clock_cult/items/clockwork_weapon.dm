@@ -23,6 +23,8 @@
 
 /obj/item/clockwork/weapon/pickup(mob/user)
 	..()
+	if(!user.mind)
+		return
 	user.mind.RemoveSpell(SS)
 	if(is_servant_of_ratvar(user))
 		SS = new

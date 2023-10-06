@@ -4,6 +4,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_map"
+	base_icon_state = "conveyor"
 	name = "conveyor belt"
 	desc = "A conveyor belt."
 	layer = BELOW_OPEN_DOOR_LAYER
@@ -42,20 +43,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	begin_processing()
 
 /obj/machinery/conveyor/auto/update()
-	if(machine_stat & BROKEN)
-		icon_state = "conveyor-broken"
-		set_operating(FALSE)
-		return
-	else if(!operable)
-		set_operating(FALSE)
-	else if(machine_stat & NOPOWER)
-		set_operating(FALSE)
-	else
+	. = ..()
+	if(.)
 		set_operating(TRUE)
-	icon_state = "conveyor[operating * verted]"
-	if(operating)
-		for(var/atom/movable/movable in get_turf(src))
-			start_conveying(movable)
 
 // create a conveyor
 /obj/machinery/conveyor/Initialize(mapload, newdir, newid)
@@ -153,6 +143,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		if(SOUTHWEST)
 			forwards = WEST
 			backwards = NORTH
+
 	if(verted == -1)
 		var/temp = forwards
 		forwards = backwards
@@ -163,11 +154,15 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		movedir = backwards
 	update()
 
+/obj/machinery/conveyor/update_icon_state()
+	icon_state = "[base_icon_state][(machine_stat & BROKEN) ? "-broken" : (operating * verted)]"
+	return ..()
+
 /obj/machinery/conveyor/proc/set_operating(new_value)
 	if(operating == new_value)
 		return
 	operating = new_value
-	update_icon_state()
+	update_appearance()
 	update_move_direction()
 	//If we ever turn off, disable moveloops
 	if(!operating)
@@ -175,18 +170,15 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			stop_conveying(movable)
 
 /obj/machinery/conveyor/proc/update()
-	if(machine_stat & BROKEN)
-		icon_state = "conveyor-broken"
-		set_operating(FALSE)
-		return
-	if(!operable)
-		set_operating(FALSE)
+	. = TRUE
 	if(machine_stat & NOPOWER)
 		set_operating(FALSE)
-	icon_state = "conveyor[operating * verted]"
-	if(operating)
-		for(var/atom/movable/movable in get_turf(src))
-			start_conveying(movable)
+		return FALSE
+		
+	if(!operating) //If we're on, start conveying so moveloops on our tile can be refreshed if they stopped for some reason
+		return
+	for(var/atom/movable/movable in get_turf(src))
+		start_conveying(movable)
 
 /obj/machinery/conveyor/proc/conveyable_enter(datum/source, atom/convayable)
 	SIGNAL_HANDLER
@@ -227,10 +219,12 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			set_operating(FALSE)
 			if(!(machine_stat & BROKEN))
 				var/obj/item/stack/conveyor/C = new /obj/item/stack/conveyor(loc, 1, TRUE, null, id)
-				if(!QDELETED(C)) //God I hate stacks
+				if(QDELETED(C))
+					C = locate(/obj/item/stack/conveyor) in loc
+				if(C)
 					transfer_fingerprints_to(C)
-			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 
+			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 			qdel(src)
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
@@ -251,19 +245,19 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	else
 		return ..()
 
-/obj/machinery/conveyor/multitool_act(mob/living/user, obj/item/multitool/tool)
-	if(!multitool_check_buffer(user, tool)) //make sure it has a data buffer
-		return TRUE
-	var/obj/machinery/conveyor_switch/cswitch = tool.buffer
+REGISTER_BUFFER_HANDLER(/obj/machinery/conveyor)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
+	var/obj/machinery/conveyor_switch/cswitch = buffer
 	if(!cswitch || !istype(cswitch))
-		return TRUE
+		return NONE
 
 	// Set up the conveyor with our new ID
 	LAZYREMOVE(GLOB.conveyors_by_id[id], src)
 	id = cswitch.id
 	LAZYADD(GLOB.conveyors_by_id[id], src)
 	to_chat(user, "<span class='notice'>You link [src] to [cswitch].</span>")
-	return TRUE
+	return COMPONENT_BUFFER_RECIEVED
 
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user)
@@ -301,7 +295,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		C.set_operable(stepdir, id, op)
 
 /obj/machinery/conveyor/power_change()
-	..()
+	. = ..()
 	update()
 
 // the conveyor control switch
@@ -409,12 +403,13 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	qdel(src)
 	return TRUE
 
-/obj/machinery/conveyor_switch/multitool_act(mob/living/user, obj/item/multitool/tool)
-	if(!istype(tool))
-		return
-	tool.buffer = src
-	to_chat(user, "<span class='notice'>You store [src] in [tool]'s buffer.</span>")
-	return TRUE
+REGISTER_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You store [src] in [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/conveyor_switch/screwdriver_act(mob/living/user, obj/item/I)
 	var/newdirtext = ""

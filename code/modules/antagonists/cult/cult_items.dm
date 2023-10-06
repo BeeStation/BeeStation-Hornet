@@ -392,6 +392,11 @@ Striking a noncultist, however, will tear their flesh."}
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
+	/// if anyone can equip this. used by the prefs menu
+	var/allow_any = FALSE
+
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/anyone
+	allow_any = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/Initialize()
 	. = ..()
@@ -415,7 +420,7 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
-	if(!iscultist(user))
+	if(!iscultist(user) && !allow_any)
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.dropItemToGround(src, TRUE)

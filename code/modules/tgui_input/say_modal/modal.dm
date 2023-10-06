@@ -1,5 +1,7 @@
 /** Assigned say modal of the client */
 /client/var/datum/tgui_say/tgui_say
+/// The second say modal used by mentors and admins
+/client/var/datum/tgui_say/tgui_asay
 
 /**
  * Creates a JSON encoded message to open TGUI say modals properly.
@@ -9,11 +11,11 @@
  * Returns:
  * string - A JSON encoded message to open the modal.
  */
-/client/proc/tgui_say_create_open_command(channel)
+/client/proc/tgui_say_create_open_command(channel, window_id = "tgui_say")
 	var/message = TGUI_CREATE_MESSAGE("open", list(
 		channel = channel,
 	))
-	return "\".output tgui_say.browser:update [message]\""
+	return "\".output [window_id].browser:update [message]\""
 
 /**
  * Creates a JSON encoded message to close TGUI say modals.
@@ -21,9 +23,9 @@
  * Returns:
  * string - A JSON encoded message to close the modal.
  */
-/client/proc/tgui_say_create_close_command()
+/client/proc/tgui_say_create_close_command(window_id = "tgui_say")
 	var/message = TGUI_CREATE_MESSAGE_EMPTY("close")
-	return "\".output tgui_say.browser:update [message]\""
+	return "\".output [window_id].browser:update [message]\""
 
 /**
  * The tgui say modal. This initializes an input window which hides until
@@ -52,7 +54,7 @@
 	var/window_open
 
 /** Creates the new input window to exist in the background. */
-/datum/tgui_say/New(client/client, id)
+/datum/tgui_say/New(client/client, id = "tgui_say")
 	src.client = client
 	window = new(client, id)
 	window.subscribe(src, PROC_REF(on_message))
@@ -84,13 +86,15 @@
  * as soon as the window sends the "ready" message.
  */
 /datum/tgui_say/proc/load()
+	if(!client.mob) // client has not fully loaded yet.
+		return
 	window_open = FALSE
 	// Width and height are from skin.dmf, no way to not hardcode these unfortunately.
-	client.center_window("tgui_say", 231, 30)
-	winshow(client, "tgui_say", FALSE)
+	INVOKE_ASYNC(client, TYPE_PROC_REF(/client, center_window), window.id, 231, 30) // async due to prefs menu
+	winshow(client, window.id, FALSE)
 	window.send_message("props", list(
-		lightMode = (client?.prefs?.toggles2 & PREFTOGGLE_2_SAY_LIGHT_THEME),
-		showRadioPrefix = (client?.prefs?.toggles2 & PREFTOGGLE_2_SAY_SHOW_PREFIX),
+		lightMode = client?.prefs?.read_player_preference(/datum/preference/toggle/tgui_say_light_mode),
+		showRadioPrefix = client?.prefs?.read_player_preference(/datum/preference/toggle/tgui_say_show_prefix),
 		maxLength = max_length,
 	))
 	stop_thinking()
@@ -108,7 +112,7 @@
 	if(!payload?["channel"])
 		CRASH("No channel provided to an open TGUI-Say")
 	window_open = TRUE
-	if(payload["channel"] != OOC_CHANNEL && payload["channel"] != LOOC_CHANNEL)
+	if(!(payload["channel"] in GLOB.ooc_channels))
 		start_thinking()
 	log_speech_indicators("[key_name(client)] started typing at [loc_name(client.mob)].")
 	return TRUE

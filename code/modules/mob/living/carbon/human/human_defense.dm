@@ -1,4 +1,4 @@
-/mob/living/carbon/human/getarmor(def_zone, type)
+/mob/living/carbon/human/getarmor(def_zone, type, penetration)
 	var/armorval = 0
 	var/organnum = 0
 
@@ -6,23 +6,35 @@
 		if(isbodypart(def_zone))
 			var/obj/item/bodypart/bp = def_zone
 			if(bp)
-				return checkarmor(def_zone, type)
+				return checkarmor(def_zone, type, penetration)
 		var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
 		if(affecting)
-			return checkarmor(affecting, type)
+			return checkarmor(affecting, type, penetration)
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		armorval += checkarmor(BP, type)
+		armorval += checkarmor(BP, type, penetration)
 		organnum++
 	return (armorval/max(organnum, 1))
 
-
-/mob/living/carbon/human/proc/checkarmor(obj/item/bodypart/def_zone, d_type)
+/// Check the armour for a specified bodyzone and damagetype.
+/// Returns a value with 0 representing 0% protection and 100 representing 100% protection.
+/// 50 + 50 = (1 - (1 * 0.5 * 0.5) = 75%)
+/// 100 + 50 = (1 - (1 * 0 * 0.5) = 100%)
+/// 50 + (-50) = (1 - (1 * 0.5 * 1.5) = 25%)
+/// 100 + (-50) = (1 - (1 * 0 * 1.5) = 100%)
+/// -50 = (1 - (1 * 1.5) = -50%)
+/// Any armour that exceeds 100% protection will be clamped down to 100%
+/// Input armour values should never exceed 100%, or be at 100% as 100% represents
+/// full protection outside of armour penetration.
+/// The penetration value will affect the armour value for each individual armour peice directly,
+/// before it is clamped to 100%. This means that an armour of 130% with a penetration of 20% will become
+/// an armour value of 130 - (130 * 0.2) = 104% ~= 100%.
+/mob/living/carbon/human/proc/checkarmor(obj/item/bodypart/def_zone, d_type, penetration)
 	if(!d_type)
 		return 0
-	var/protection = 0
+	var/protection = 1
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id, wear_neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)
@@ -30,10 +42,10 @@
 		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.get_armor_rating(d_type, src)
+				protection *= 1 - min((C.get_armor_rating(d_type, src) / 100) * (1 - (penetration / 100)), 1)
 
-	protection += physiology.armor.getRating(d_type)
-	return protection
+	protection *= 1 - CLAMP01(physiology.armor.getRating(d_type) / 100)
+	return (1 - protection) * 100
 
 /mob/living/carbon/human/on_hit(obj/projectile/P)
 	if(dna?.species)

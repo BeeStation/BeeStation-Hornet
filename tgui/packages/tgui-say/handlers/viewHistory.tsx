@@ -8,7 +8,7 @@ export const handleViewHistory = function (this: Modal) {
   const { historyCounter } = this.fields;
   if (historyCounter > 0 && getHistoryLength()) {
     this.fields.value = getHistoryAt(historyCounter);
-    if (channel < 2) {
+    if (channel < 3) {
       this.timers.typingThrottle();
     }
     this.setState({ buttonContent: historyCounter, edited: true });

@@ -3,20 +3,16 @@
 #define WOOD 2
 #define SAND 3
 
-//Largely unutilized subtype, add some more types of barricades!
-/obj/item/deployable/barricade
-	name = "Generic Barricade"
-	desc = "You should never see this"
-	time_to_deploy = 3 SECONDS
-
-/obj/item/deployable/barricade/security
+/obj/item/security_barricade
 	name = "security barricade"
 	desc = "A very sturdy barricade for use by Nanotrasen security personnel."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "barrier0"
-	deployed_object = /obj/structure/barricade/security
-	time_to_deploy = 3 SECONDS
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/security_barricade/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/deployable, /obj/structure/barricade/security, time_to_deploy = 3 SECONDS)
 
 /obj/item/storage/box/sec_barricades
 	name = "box of barricades"
@@ -26,7 +22,7 @@
 
 /obj/item/storage/box/sec_barricades/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/deployable/barricade/security(src)
+		new /obj/item/security_barricade(src)
 
 //Barricades in structure form
 /obj/structure/barricade
@@ -204,7 +200,7 @@
 	locked_down = TRUE
 
 /obj/structure/barricade/security/pick_up_barricade()
-	var/obj/item/deployable/barricade/security/carryable = new(loc)
+	var/obj/item/security_barricade/carryable = new(loc)
 	usr.put_in_hands(carryable)
 
 #undef METAL

@@ -133,10 +133,6 @@
 	if((mode == DRONE_RECHARGING) && !machine_stat && recharging_text)
 		. += "<span class='warning'>[recharging_text]</span>"
 
-/obj/machinery/droneDispenser/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/droneDispenser/process()
 	if((machine_stat & (NOPOWER|BROKEN)) || !anchored)
 		return

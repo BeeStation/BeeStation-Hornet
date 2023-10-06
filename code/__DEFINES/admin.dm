@@ -54,6 +54,8 @@
 #define ADMIN_VERBOSEJMP(src) "[src ? "[AREACOORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_INDIVIDUALLOG(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];individuallog=[REF(user)]'>LOGS</a>)"
 #define ADMIN_RETRIEVE_BOH_ITEMS(boh) "(<a href='?_src_=holder;[HrefToken(TRUE)];retrieveboh=[REF(boh)]'>RETRIEVE CONSUMED ITEMS</a>)"
+/// Displays "(SHOW)" in the chat, when clicked it tries to show atom(paper). First you need to set the request_state variable to TRUE for the paper.
+#define ADMIN_SHOW_PAPER(atom) "(<A href='?_src_=holder;[HrefToken(forceGlobal = TRUE)];show_paper=[REF(atom)]'>SHOW</a>)"
 
 #define TICKET_UNCLAIMED 1
 #define TICKET_ACTIVE 2
@@ -85,3 +87,8 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 #define GHOSTROLE_SILICONS			(1<<3)
 //ie mafia, ctf
 #define GHOSTROLE_MINIGAME			(1<<4)
+
+// Job deadmin flags
+#define DEADMIN_POSITION_HEAD		(1<<0)
+#define DEADMIN_POSITION_SECURITY	(1<<1)
+#define DEADMIN_POSITION_SILICON	(1<<2)

@@ -13,7 +13,7 @@
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
 
-
+	var/tgui_theme = null // default theme as null is Nanotrasen theme.
 
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE
@@ -40,10 +40,6 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.</span>"
-
-/obj/machinery/smartfridge/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/smartfridge/update_icon()
 	if(!machine_stat)
@@ -223,6 +219,7 @@
 	.["contents"] = listofitems
 	.["name"] = name
 	.["isdryer"] = FALSE
+	.["ui_theme"] = tgui_theme
 
 
 /obj/machinery/smartfridge/handle_atom_del(atom/A) // Update the UIs in case something inside gets deleted
@@ -309,6 +306,16 @@
 			toggle_drying(FALSE)
 			return TRUE
 	return FALSE
+
+/obj/machinery/smartfridge/drying_rack/powered()
+	if(!anchored)
+		return FALSE
+	return ..()
+
+/obj/machinery/smartfridge/drying_rack/power_change()
+	. = ..()
+	if(!powered())
+		toggle_drying(TRUE)
 
 /obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
 	..()

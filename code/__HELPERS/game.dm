@@ -260,14 +260,13 @@
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
-	for(var/obj/item/radio/R in radios)
-		if(R.canhear_range != -1)
-			. |= get_hearers_in_view(R.canhear_range, R)
+	for(var/obj/item/radio/radio in radios)
+		if(radio.canhear_range != -1)
+			. |= get_hearers_in_view(radio.canhear_range, radio)
 		else
-			if(istype(R.loc, /obj/item/implant))
-				var/obj/item/implant/I = R.loc
-				if(I.imp_in)
-					. |= I.imp_in
+			var/list/specific_hearers = radio.get_specific_hearers()
+			if(specific_hearers)
+				. |= specific_hearers
 
 #define SIGNV(X) ((X<0)?-1:1)
 
@@ -512,7 +511,7 @@
 	var/mob/living/carbon/human/new_character = new//The mob being spawned.
 	SSjob.SendToLateJoin(new_character)
 
-	G_found.client.prefs.active_character.copy_to(new_character)
+	G_found.client.prefs.apply_prefs_to(new_character)
 	new_character.dna.update_dna_identity()
 	new_character.key = G_found.key
 
@@ -528,7 +527,7 @@
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || (!(C.prefs.toggles2 & PREFTOGGLE_2_WINDOW_FLASHING) && !ignorepref))
+	if(!C || (!C.prefs.read_player_preference(/datum/preference/toggle/window_flashing) && !ignorepref))
 		return
 	winset(C, "mainwindow", "flash=5")
 

@@ -50,6 +50,7 @@
 	STR.max_combined_w_class = 30
 	STR.max_items = 30
 	STR.cant_hold = typecacheof(list(/obj/item/disk/nuclear))
+	STR.can_be_opened = FALSE //Have to dump a trash bag out to look at its contents
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")

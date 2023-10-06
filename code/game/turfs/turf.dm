@@ -98,8 +98,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		Entered(content, null)
 
 	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(GLOB.fullbright_overlay)
+	if(fullbright_type && IS_DYNAMIC_LIGHTING(A))
+		if (fullbright_type == FULLBRIGHT_STARLIGHT)
+			add_overlay(GLOB.starlight_overlay)
+		else
+			add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
@@ -180,7 +183,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		. = TRUE
 	if(.)
 		return
-	user.Move_Pulled(src)
+	if(user.Move_Pulled(src))
+		user.changeNext_move(CLICK_CD_RAPID)
+	else
+		user.changeNext_move(CLICK_CD_MELEE)
 
 /turf/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(get_turf(eminence) == src)

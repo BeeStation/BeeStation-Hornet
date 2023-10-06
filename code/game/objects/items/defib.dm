@@ -507,6 +507,10 @@
 		return
 	if(!req_defib && !combat)
 		return
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.check_shields(user, 0, "[user.name]'s [name]", attack_type = MELEE_ATTACK))
+			return
 	busy = TRUE
 	M.visible_message("<span class='danger'>[user] has touched [M] with [src]!</span>", \
 			"<span class='userdanger'>[user] has touched [M] with [src]!</span>")

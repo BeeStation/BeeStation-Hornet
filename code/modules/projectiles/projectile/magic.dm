@@ -156,6 +156,9 @@
 	if(!istype(M) || M.stat == DEAD || M.notransform || (GODMODE & M.status_flags))
 		return
 
+	if(SEND_SIGNAL(M, COMSIG_LIVING_PRE_WABBAJACKED) & STOP_WABBAJACK)
+		return
+
 	M.notransform = TRUE
 	M.mobility_flags = NONE
 	M.icon = null
@@ -251,7 +254,7 @@
 			new_mob = new path(M.loc)
 
 		if("humanoid")
-			new_mob = new /mob/living/carbon/human(M.loc)
+			var/mob/living/carbon/human/new_human = new(M.loc)
 
 			if(prob(50))
 				var/list/chooseable_races = list()
@@ -261,15 +264,14 @@
 						chooseable_races += speciestype
 
 				if(chooseable_races.len)
-					new_mob.set_species(pick(chooseable_races))
+					new_human.set_species(pick(chooseable_races))
 
-			var/datum/character_save/CS = new()	//Randomize appearance for the human
-			CS.copy_to(new_mob, icon_updates=0)
-
-			var/mob/living/carbon/human/H = new_mob
-			H.update_hair()
-			H.update_body_parts(TRUE)
-			H.dna.update_dna_identity()
+			// Randomize everything but the species, which was already handled above.
+			new_human.randomize_human_appearance(~RANDOMIZE_SPECIES)
+			new_human.update_hair()
+			new_human.update_body() // is_creating = TRUE
+			new_human.dna.update_dna_identity()
+			new_mob = new_human
 
 	if(!new_mob)
 		return
@@ -280,6 +282,8 @@
 		new_mob.equip_to_appropriate_slot(W)
 
 	M.log_message("became [new_mob.real_name]", LOG_ATTACK, color="orange")
+
+	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
 
 	new_mob.a_intent = INTENT_HARM
 

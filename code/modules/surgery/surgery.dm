@@ -20,6 +20,10 @@
 	var/requires_tech = FALSE										//handles techweb-oriented surgeries, previously restricted to the /advanced subtype (You still need to add designs)
 	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
 	var/failed_step = FALSE											//used for bypassing the 'poke on help intent' on failing a surgery step and forcing the doctor to damage the patient
+	var/abductor_surgery_blacklist = FALSE
+	//Blacklisted surgeries aren't innately known by Abductor Scientists
+	//However, they can still be used by them if they meet the normal requirements to access the surgery
+
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -49,10 +53,17 @@
 			return FALSE
 		else
 			return TRUE
+	//Grants the user innate access to all surgeries
+
+	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON)))
+		if(replaced_by)
+			return FALSE
+		else if(!abductor_surgery_blacklist)
+			return TRUE
+	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
 
 	if(!requires_tech && !replaced_by)
 		return TRUE
-	// True surgeons (like abductor scientists) need no instructions
 
 	if(requires_tech)
 		. = FALSE
@@ -138,8 +149,13 @@
 	if(!..())
 		return FALSE
 	// True surgeons (like abductor scientists) need no instructions
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || HAS_TRAIT(user.mind, TRAIT_SURGEON))
+	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
 		return TRUE
+
+	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON)))
+		if(!abductor_surgery_blacklist)
+			return TRUE
+	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
 
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user

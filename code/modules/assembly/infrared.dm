@@ -4,7 +4,7 @@
 	icon_state = "infrared"
 	custom_materials = list(/datum/material/iron=1000, /datum/material/glass=500)
 	is_position_sensitive = TRUE
-
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 	var/on = FALSE
 	var/visible = FALSE

@@ -48,7 +48,7 @@
 	M.UnregisterSignal(M, COMSIG_MOB_SAY)
 	return ..()
 
-/obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	UnregisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	M.RegisterSignal(M, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
 	return ..()

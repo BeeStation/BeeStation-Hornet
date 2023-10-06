@@ -66,19 +66,19 @@
 
 /obj/projectile/bullet/c38/hotshot //similar to incendiary bullets, but do not leave a flaming trail
 	name = ".38 Hot Shot bullet"
-	damage = 20
+	damage = 12
 	ricochets_max = 0
 
 /obj/projectile/bullet/c38/hotshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(6)
+		M.adjust_fire_stacks(2)
 		M.IgniteMob()
 
 /obj/projectile/bullet/c38/iceblox //see /obj/projectile/temp for the original code
 	name = ".38 Iceblox bullet"
-	damage = 20
+	damage = 15
 	var/temperature = 100
 	ricochets_max = 0
 
@@ -87,6 +87,15 @@
 	if(isliving(target))
 		var/mob/living/M = target
 		M.adjust_bodytemperature(((100-blocked)/100)*(temperature - M.bodytemperature))
+
+/obj/projectile/bullet/c38/emp
+	name = ".38 BLK_OUT bullet"
+	damage = 8
+	ricochets_max = 0
+
+/obj/projectile/bullet/c38/emp/on_hit(atom/target)
+	. = ..()
+	empulse(target, 0, 2)
 
 /obj/projectile/bullet/c38/mime
 	name = "invisible .38 bullet"
@@ -99,7 +108,7 @@
 	if(isliving(target))
 		var/mob/living/carbon/human/M = target
 		if(M.job == JOB_NAME_MIME)
-			var/defense = M.getarmor(CHEST, BULLET)
+			var/defense = M.getarmor(CHEST, BULLET, armour_penetration)
 			M.apply_damage(5, BRUTE, CHEST, defense)
 			M.visible_message("<span class='danger'>A bullet wound appears in [M]'s chest!</span>", \
 							"<span class='userdanger'>You get hit with a .38 bullet from a finger gun! Those hurt!...</span>")
