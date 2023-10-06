@@ -1,0 +1,4 @@
+author: rkz, ninjanomnom
+delete-after: true
+changes:
+  - bugfix: hiding action_buttons will no longer clear all overlays
