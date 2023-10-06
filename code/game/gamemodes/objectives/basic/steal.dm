@@ -81,12 +81,9 @@ GLOBAL_LIST_EMPTY(possible_items)
 		if(!isliving(M.current))
 			continue
 
-		var/list/all_items = M.current.GetAllContents(/obj/item)	//this should get things in cheesewheels, books, etc.
+		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
 
-		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in M.holoparasite_holder?.holoparasites)
-			all_items |= holopara.GetAllContents(/obj/item)
-
-		for(var/obj/I as() in all_items) //Check for items
+		for(var/obj/I in all_items) //Check for items
 			if(istype(I, steal_target))
 				if(!targetinfo) //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
 					return TRUE
