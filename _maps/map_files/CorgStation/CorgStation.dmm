@@ -1097,7 +1097,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "akq" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -5346,7 +5346,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "buQ" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -6535,7 +6535,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "bOo" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
@@ -10956,7 +10956,7 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen/coldroom)
 "dpW" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -12668,7 +12668,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "dUz" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -23983,7 +23983,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "hJm" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/item/radio/intercom{
 	pixel_x = 29;
 	pixel_y = -2
@@ -24522,7 +24522,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "hSS" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/plasteel,
@@ -27305,7 +27305,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "iNB" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/machinery/light,
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
@@ -28628,7 +28628,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "jjS" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -32767,7 +32767,7 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "kDs" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -51991,7 +51991,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "qQB" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -52005,7 +52005,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "qQT" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -58675,7 +58675,7 @@
 /turf/closed/wall/r_wall,
 /area/science/robotics)
 "sZN" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
@@ -60514,7 +60514,7 @@
 /obj/machinery/firealarm{
 	pixel_y = -24
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
@@ -64677,7 +64677,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "vcO" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -65222,7 +65222,7 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "vmr" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -72278,7 +72278,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "xBu" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4

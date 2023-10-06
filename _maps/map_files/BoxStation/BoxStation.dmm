@@ -2516,7 +2516,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "aoF" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -5194,7 +5194,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "aMC" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "aMG" = (
@@ -5402,7 +5402,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "aOf" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -5420,7 +5420,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/hallway/secondary/entry)
 "aOk" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/entry)
 "aOl" = (
@@ -5631,7 +5631,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/hallway/secondary/entry)
 "aPy" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/entry)
 "aPz" = (
@@ -5770,7 +5770,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aQR" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aQS" = (
@@ -16208,7 +16208,7 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "clh" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -17347,11 +17347,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "cto" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "ctp" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -20714,7 +20714,7 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 5
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/command)
 "djC" = (
@@ -23430,7 +23430,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "eCd" = (
@@ -33842,7 +33842,7 @@
 /area/crew_quarters/dorms)
 "jSi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "jSj" = (
@@ -48417,7 +48417,7 @@
 /area/construction/mining/aux_base)
 "qZp" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "qZy" = (
@@ -53365,7 +53365,7 @@
 /obj/machinery/camera/autoname{
 	dir = 9
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /turf/open/floor/plasteel,
 /area/maintenance/aft)
 "tjy" = (
@@ -54988,7 +54988,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "tXO" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/machinery/status_display/evac{
 	layer = 4;
 	pixel_y = 32

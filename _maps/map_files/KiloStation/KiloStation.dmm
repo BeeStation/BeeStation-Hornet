@@ -2628,7 +2628,7 @@
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "aiS" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -17136,7 +17136,7 @@
 /area/maintenance/port)
 "bqA" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
@@ -24604,7 +24604,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/entry)
 "bUi" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/entry)
@@ -44320,7 +44320,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
 "eHc" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -48041,7 +48041,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/research)
@@ -51899,7 +51899,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "hRm" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/sign/poster/official/no_erp{
@@ -60092,7 +60092,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "lqS" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
@@ -78200,7 +78200,7 @@
 /area/quartermaster/warehouse)
 "sQx" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
@@ -85744,7 +85744,7 @@
 /area/security/warden)
 "waT" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/light/small{
 	dir = 1
@@ -86631,7 +86631,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "wrQ" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -87489,7 +87489,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "wHL" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
@@ -87579,7 +87579,7 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "wJD" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -88077,7 +88077,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "wSD" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/structure/sign/poster/official/the_owl{
 	pixel_x = 32
 	},
@@ -88529,7 +88529,7 @@
 /area/crew_quarters/bar/atrium)
 "xbi" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -88890,7 +88890,7 @@
 /area/security/warden)
 "xla" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
@@ -89973,7 +89973,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "xLB" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /obj/effect/turf_decal/bot,
 /obj/machinery/airalarm{
 	dir = 8;
@@ -91107,7 +91107,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/warehouse)
 "yjL" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8

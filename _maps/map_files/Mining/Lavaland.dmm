@@ -175,7 +175,7 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "bf" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "bg" = (
@@ -1726,7 +1726,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
 "lt" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomsnackvend,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "lu" = (

@@ -280,7 +280,7 @@
 "hm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},

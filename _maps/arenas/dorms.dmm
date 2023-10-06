@@ -82,7 +82,7 @@
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "ak" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomcolavend,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel,

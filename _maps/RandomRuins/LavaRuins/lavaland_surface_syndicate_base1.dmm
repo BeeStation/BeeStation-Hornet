@@ -203,7 +203,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "bt" = (
-/obj/machinery/vending/cola/random{
+/obj/effect/spawner/randomcolavend{
 	extended_inventory = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4523,7 +4523,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "xu" = (
-/obj/machinery/vending/snack/random{
+/obj/effect/spawner/randomsnackvend{
 	extended_inventory = 1
 	},
 /obj/effect/decal/cleanable/dirt,
