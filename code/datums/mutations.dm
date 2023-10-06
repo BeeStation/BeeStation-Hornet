@@ -83,7 +83,7 @@
 		addtimer(CALLBACK(src, PROC_REF(modify), 5)) //gonna want children calling ..() to run first
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	for(var/trait in traits)
-		ADD_TYPED_TRAIT(C, trait)
+		ADD_TRAIT(C, trait, "[type]")
 
 /datum/mutation/proc/get_visual_indicator()
 	return
@@ -115,7 +115,7 @@
 			owner.RemoveSpell(power)
 			qdel(src)
 		UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-		REMOVE_TYPED_TRAITS(owner)
+		REMOVE_TRAITS_IN(owner, "[type]")
 		return FALSE
 	return TRUE
 
