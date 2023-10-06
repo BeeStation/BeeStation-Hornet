@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes stat panel buttons overrunning the screen on the MC tab.
-  - bugfix: Enforces permission requirement on stat button presses.
-  - rscadd: Adds support for multi-row stat buttons which have sub-buttons.
