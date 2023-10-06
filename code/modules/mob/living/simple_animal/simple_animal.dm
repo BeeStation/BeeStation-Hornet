@@ -642,3 +642,8 @@
 	if (AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
 		toggle_ai(initial(AIStatus))
+
+/mob/living/simple_animal/give_mind(mob/user)
+	. = ..()
+	if(.)
+		sentience_act(user)

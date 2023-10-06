@@ -157,9 +157,9 @@
 		/obj/item/storage/box/ingredients/wildcard = 10,
 		//EEEEEEEK
 		/obj/item/storage/box/monkeycubes = 5,
-		/obj/item/kitchen/knife = 4,
+		/obj/item/knife/kitchen = 4,
 		/obj/item/storage/box/ingredients/exotic = 3,
-		/obj/item/kitchen/knife/butcher = 2,
+		/obj/item/knife/butcher = 2,
 	)
 
 //CURATOR

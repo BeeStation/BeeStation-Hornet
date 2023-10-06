@@ -713,6 +713,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // for items that can be placed in multiple slots
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	for(var/X in actions)
@@ -967,6 +968,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return 0
 
 /obj/item/attack_animal(mob/living/simple_animal/M)
+	if (obj_flags & CAN_BE_HIT)
+		return ..()
+	return 0
+
+/obj/item/attack_basic_mob(mob/living/basic/user)
 	if (obj_flags & CAN_BE_HIT)
 		return ..()
 	return 0
