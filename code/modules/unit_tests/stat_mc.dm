@@ -13,8 +13,11 @@
 			// The list should be associative and contain stat types
 			for (var/key in result)
 				var/list/value = result[key]
+				if (!islist(value))
+					failures += "The subsystem [ss.name] has an invalid stat_entry proc, it does not properly use the new system of stat panel component types."
+					continue main_loop
 				var/comp_type = value["type"]
-				if (!islist(value) || !comp_type)
+				if (!comp_type)
 					failures += "The subsystem [ss.name] has an invalid stat_entry proc, it does not properly use the new system of stat panel component types."
 					continue main_loop
 				switch (comp_type)
