@@ -93,8 +93,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 // Values for /datum/preference/preference_type
 /// This preference is character specific.
 #define PREFERENCE_CHARACTER "character"
-/// This preference is character specific, but stored in the "long" table.
-#define PREFERENCE_CHARACTER_LONG "character_long"
 /// This preference is account specific.
 #define PREFERENCE_PLAYER "player"
 
