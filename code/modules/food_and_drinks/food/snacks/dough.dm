@@ -46,7 +46,6 @@
 	desc = "Add ingredients to make a pizza."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "pizzabread"
-	custom_food_type = /obj/item/reagent_containers/food/snacks/customizable/pizza
 	list_reagents = list(/datum/reagent/consumable/nutriment = 7)
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("bread" = 1)
@@ -70,7 +69,6 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "bun"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
-	custom_food_type = /obj/item/reagent_containers/food/snacks/customizable/burger
 	filling_color = "#CD853F"
 	tastes = list("bun" = 1) // the bun tastes of bun.
 	foodtype = GRAIN

@@ -60,7 +60,13 @@
 	return BULLET_ACT_HIT
 
 /mob/living/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
-	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
+		return BULLET_ACT_FORCE_PIERCE
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
+		return BULLET_ACT_BLOCK
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
+		return BULLET_ACT_HIT
 	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
@@ -154,7 +160,8 @@
 	adjust_fire_stacks(3)
 	IgniteMob()
 
-/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
+/mob/living/proc/grabbedby(mob/living/user, supress_message = FALSE)
+	. = TRUE
 	if(user == src || anchored || !isturf(user.loc))
 		return FALSE
 	if(!user.pulling || user.pulling != src)
@@ -171,7 +178,7 @@
 	grippedby(user)
 
 //proc to upgrade a simple pull into a more aggressive grab.
-/mob/living/proc/grippedby(mob/living/carbon/user, instant = FALSE)
+/mob/living/proc/grippedby(mob/living/user, instant = FALSE)
 	if(user.grab_state < GRAB_KILL)
 		user.changeNext_move(CLICK_CD_GRABBING)
 		var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
@@ -249,6 +256,26 @@
 		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", \
 				"<span class='userdanger'>\The [M.name] glomps you!</span>", null, COMBAT_MESSAGE_RANGE)
 		return TRUE
+
+/mob/living/attack_basic_mob(mob/living/basic/user)
+	if(user.melee_damage == 0)
+		if(user != src)
+			visible_message("<span class='notice'>\The [user] [user.friendly_verb_continuous] [src]!</span>", \
+							"<span class='notice'>\The [user] [user.friendly_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, "<span class='notice'>You [user.friendly_verb_simple] [src]!</span>")
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+
+	if(user.attack_sound)
+		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
+	user.do_attack_animation(src)
+	visible_message("<span class='danger'>\The [user] [user.attack_verb_continuous] [src]!", \
+					"<span class='userdanger'>\The [user] [user.attack_verb_continuous] you!", null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, "<span class='danger'>You [user.attack_verb_simple] [src]!")
+	log_combat(user, src, "attacked")
+	return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)

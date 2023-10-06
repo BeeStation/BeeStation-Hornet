@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Fix html encoding (which messed up apostrophes and such) with brainwashing
+      objectives in the tgui popup

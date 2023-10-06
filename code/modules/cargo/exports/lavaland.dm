@@ -23,14 +23,14 @@
 						/obj/item/ship_in_a_bottle,
 						/obj/item/clothing/shoes/clown_shoes/banana_shoes,
 						/obj/item/gun/magic/staff/honk,
-						/obj/item/kitchen/knife/envy,
+						/obj/item/knife/envy,
 						/obj/item/gun/ballistic/revolver/russian/soul,
 						/obj/item/veilrender/vealrender)
 
 /datum/export/lavaland/major //valuable chest/ruin loot and staff of storms
 	cost = 20000
 	unit_name = "lava planet artifact"
-	export_types = list(/obj/item/guardiancreator,
+	export_types = list(/obj/item/holoparasite_creator,
 						/obj/item/rod_of_asclepius,
 						/obj/item/clothing/suit/space/hardsuit/ert/paranormal,
 						/obj/item/prisoncube,

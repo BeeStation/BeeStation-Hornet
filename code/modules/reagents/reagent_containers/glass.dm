@@ -484,3 +484,9 @@
 	name = "saline canister"
 	volume = 5000
 	list_reagents = list(/datum/reagent/medicine/salglu_solution = 5000)
+
+/obj/item/reagent_containers/glass/saline/Moved(atom/OldLoc, Dir)
+	if (loc && !istype(loc, /obj/machinery/iv_drip/saline))
+		qdel(src)
+		return
+	return ..()
