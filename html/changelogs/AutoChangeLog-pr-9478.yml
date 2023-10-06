@@ -1,0 +1,4 @@
+author: RKz, Rohesie
+delete-after: true
+changes:
+  - code_imp: SStimers wont runtime out of bounds if you change world.fps
