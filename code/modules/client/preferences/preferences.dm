@@ -13,8 +13,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/max_save_slots = 3
 	/// Cache for the current active character slot
 	var/datum/preferences_holder/preferences_character/character_data
-	/// Cache for the current active character slot's "long" data
-	var/datum/preferences_holder/preferences_character_long/character_data_long
 	/// Cache for player datumized preferences
 	var/datum/preferences_holder/preferences_player/player_data
 
@@ -100,7 +98,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	QDEL_NULL(character_preview_view)
 	QDEL_LIST(middleware)
 	QDEL_NULL(character_data)
-	QDEL_NULL(character_data_long)
 	QDEL_NULL(player_data)
 	return ..()
 
@@ -148,8 +145,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(pref_load == PREFERENCE_LOAD_IGNORE)
 		character_data = new(src, default_slot)
 		character_data.provide_defaults(src, should_use_informed = FALSE)
-		character_data_long = new(src, default_slot)
-		character_data_long.provide_defaults(src, should_use_informed = FALSE)
 
 	// New player or guest/no DB. Use the fallback species
 	if(pref_load == PREFERENCE_LOAD_IGNORE || pref_load == PREFERENCE_LOAD_NO_DATA)
@@ -164,7 +159,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// Provide informed defaults for guests/no DB - these depend on other preferences, so we do that after randomizing.
 	if(pref_load == PREFERENCE_LOAD_IGNORE)
 		character_data.provide_defaults(src, should_use_informed = TRUE)
-		character_data_long.provide_defaults(src, should_use_informed = TRUE)
 
 	// Get character profiles, since they haven't been fetched at all yet
 	fetch_character_profiles()
@@ -427,7 +421,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.features = list()
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (preference.preference_type != PREFERENCE_CHARACTER && preference.preference_type != PREFERENCE_CHARACTER_LONG)
+		if (preference.preference_type != PREFERENCE_CHARACTER)
 			continue
 
 		preference.apply_to_human(character, read_character_preference(preference.type))

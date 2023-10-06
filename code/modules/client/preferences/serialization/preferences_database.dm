@@ -21,7 +21,7 @@
 
 /// If any character preference is dirty.
 /datum/preferences/proc/ready_to_save_character()
-	return dirty_undatumized_preferences_character || length(character_data.dirty_prefs) || length(character_data_long.dirty_prefs)
+	return dirty_undatumized_preferences_character || length(character_data.dirty_prefs)
 
 /// If any player preference is dirty.
 /datum/preferences/proc/ready_to_save_player()
@@ -208,18 +208,6 @@
 			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
 		return PREFERENCE_LOAD_ERROR
 	if(read_result == PREFERENCE_LOAD_IGNORE)
-		character_data_long = new(src, slot)
-		character_data_long.provide_defaults(src, should_use_informed = TRUE)
-		return PREFERENCE_LOAD_IGNORE
-
-	character_data_long = new(src, slot)
-	var/read_result_long = character_data_long.load_from_database(src)
-
-	if(read_result_long == PREFERENCE_LOAD_ERROR || read_result_long == null)
-		if(istype(parent))
-			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized 'long' character preferences. Please inform the server operator or a maintainer of this error.</span>")
-		return PREFERENCE_LOAD_ERROR
-	if(read_result_long == PREFERENCE_LOAD_IGNORE)
 		return PREFERENCE_LOAD_IGNORE
 
 	// Do NOT statically cache this or I will kill you. You are asking an evil vareditor to break the DB in a BAD way
@@ -321,14 +309,6 @@
 			to_chat(parent, "<span class='boldannounce'>Failed to save your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
 		return FALSE
 	if(write_result == PREFERENCE_LOAD_IGNORE)
-		return FALSE
-
-	var/write_result_long = character_data_long?.write_to_database(src)
-	if(write_result_long == PREFERENCE_LOAD_ERROR || write_result_long == null)
-		if(istype(parent))
-			to_chat(parent, "<span class='boldannounce'>Failed to save your datumized 'long' character preferences. Please inform the server operator or a maintainer of this error.</span>")
-		return FALSE
-	if(write_result_long == PREFERENCE_LOAD_IGNORE)
 		return FALSE
 
 	if(!dirty_undatumized_preferences_character) // Nothing to write. Call it a success.

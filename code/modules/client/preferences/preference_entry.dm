@@ -184,8 +184,6 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	switch(preference_entry.preference_type)
 		if(PREFERENCE_CHARACTER)
 			return character_data
-		if(PREFERENCE_CHARACTER_LONG)
-			return character_data_long
 		if(PREFERENCE_PLAYER)
 			return player_data
 	return null
@@ -237,11 +235,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
 
-	if (preference_entry.preference_type != PREFERENCE_CHARACTER && preference_entry.preference_type != PREFERENCE_CHARACTER_LONG)
+	if (preference_entry.preference_type != PREFERENCE_CHARACTER)
 		CRASH("read_character_preference called on [preference_entry.preference_type] type preference [preference_typepath].")
-
-	if(preference_entry.preference_type == PREFERENCE_CHARACTER_LONG)
-		return character_data_long.read_preference(src, preference_entry)
 	return character_data.read_preference(src, preference_entry)
 
 /// Set a /datum/preference entry.
@@ -320,7 +315,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// appear.
 /datum/preference/proc/should_show_on_page(preference_tab)
 	var/is_on_character_page = preference_tab == PREFERENCE_TAB_CHARACTER_PREFERENCES
-	var/is_character_preference = preference_type == PREFERENCE_CHARACTER || preference_type == PREFERENCE_CHARACTER_LONG
+	var/is_character_preference = preference_type == PREFERENCE_CHARACTER
 	return is_on_character_page == is_character_preference
 
 /// A preference that is a choice of one option among a fixed set.
