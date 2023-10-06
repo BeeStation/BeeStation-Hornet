@@ -213,9 +213,9 @@
 
 		var/atom/movable/O = I
 		if (!QDELETED(O))
-			var/md5name = rustg_hash_string(RUSTG_HASH_MD5, O.name) // This needs to happen because of a bug in a TGUI component, https://github.com/ractivejs/ractive/issues/744
-			if (listofitems[md5name])				// which is fixed in a version we cannot use due to ie8 incompatibility
-				listofitems[md5name]["amount"]++	// The good news is, #30519 made smartfridge UIs non-auto-updating
+			var/md5name = rustg_hash_string(RUSTG_HASH_MD5, O.name)
+			if (listofitems[md5name])
+				listofitems[md5name]["amount"]++
 			else
 				listofitems[md5name] = list("name" = O.name, "type" = O.type, "amount" = 1)
 	sort_list(listofitems)
