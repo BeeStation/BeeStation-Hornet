@@ -118,6 +118,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
+	STR.can_hold = typecacheof(list(/obj/item/candle, /obj/item/lighter, /obj/item/storage/box/matches))
 
 /obj/item/storage/fancy/candle_box/attack_self(mob_user)
 	return
