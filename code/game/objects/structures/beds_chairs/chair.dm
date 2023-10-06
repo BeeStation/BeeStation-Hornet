@@ -125,14 +125,6 @@
 	..()
 	handle_rotation(newdir)
 
-/obj/structure/chair/relaymove(mob/user, direction)
-	if(!direction)
-		return FALSE
-	if(direction == dir)
-		return
-	setDir(direction)
-	return FALSE
-
 // Chair types
 
 /obj/structure/chair/old
@@ -346,6 +338,14 @@
 	buildstackamount = 5
 	item_chair = null
 	icon_state = "officechair_dark"
+
+/obj/structure/chair/office/relaymove(mob/user, direction)
+	if(!direction)
+		return FALSE
+	if(direction == dir)
+		return
+	setDir(direction)
+	return FALSE
 
 /obj/structure/chair/office/Moved()
 	. = ..()
