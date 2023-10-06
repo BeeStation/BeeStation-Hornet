@@ -204,7 +204,7 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "bt" = (
 /obj/effect/spawner/randomcolavend{
-	extended_inventory = 1
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -2798,7 +2798,7 @@
 	pixel_x = 26
 	},
 /obj/machinery/vending/cigarette{
-	extended_inventory = 1
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -4524,7 +4524,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "xu" = (
 /obj/effect/spawner/randomsnackvend{
-	extended_inventory = 1
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5338,7 +5338,7 @@
 	pixel_x = 24
 	},
 /obj/machinery/vending/coffee{
-	extended_inventory = 1
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,

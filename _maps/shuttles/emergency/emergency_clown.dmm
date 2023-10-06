@@ -289,14 +289,14 @@
 /area/shuttle/escape)
 "bd" = (
 /obj/machinery/vending/autodrobe{
-	extended_inventory = 1;
+	hacked = 1;
 	scan_id = 0
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "be" = (
 /obj/machinery/vending/clothing{
-	extended_inventory = 1
+	hacked = 1
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
