@@ -842,7 +842,7 @@
 	var/mob/living/carbon/human/cardUser = usr
 	if(!(cardUser.mobility_flags & MOBILITY_USE))
 		return
-	var/O = srccheck_menu
+	var/O = src
 	var/choice = show_radial_menu(usr,src, handradial, custom_check = CALLBACK(src, PROC_REF(check_menu)), radius = 36, require_near = TRUE)
 	if(!choice)
 		return FALSE
