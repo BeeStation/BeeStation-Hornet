@@ -6494,7 +6494,7 @@
 /obj/structure/destructible/cult/talisman{
 	desc = "An altar dedicated to the Wizards' Federation"
 	},
-/obj/item/kitchen/knife/ritual,
+/obj/item/knife/ritual,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "zP" = (
@@ -7404,7 +7404,7 @@
 "El" = (
 /obj/structure/table/wood,
 /obj/item/storage/bag/tray,
-/obj/item/reagent_containers/food/snacks/burger/spell,
+/obj/item/food/burger/spell,
 /turf/open/floor/carpet,
 /area/wizard_station)
 "Em" = (
@@ -10194,7 +10194,7 @@
 /obj/structure/closet,
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/machinery/iv_drip,
-/obj/item/deployable/rollerbed,
+/obj/item/rollerbed,
 /obj/item/storage/firstaid/regular,
 /obj/item/reagent_containers/medspray/synthflesh,
 /obj/item/reagent_containers/medspray/synthflesh,
@@ -10910,7 +10910,7 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = -8
 	},
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},

@@ -20,6 +20,9 @@
 	#define EXAMINE_POSITION_BEFORE (1<<1)
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED (1<<0)
+//from base of atom/attack_basic_mob(): (/mob/user)
+#define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"
+
 ///	from base of [/atom/proc/update_appearance]: (updates)
 #define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
 	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its name.
@@ -64,6 +67,9 @@
 #define COMSIG_ATOM_FIRE_ACT "atom_fire_act"
 ///! from base of atom/bullet_act(): (/obj/projectile, def_zone)
 #define COMSIG_ATOM_BULLET_ACT "atom_bullet_act"
+	#define COMSIG_ATOM_BULLET_ACT_HIT			(1 << 0)
+	#define COMSIG_ATOM_BULLET_ACT_BLOCK		(1 << 1)
+	#define COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE	(1 << 2)
 ///from base of atom/CheckParts(): (list/parts_list, datum/crafting_recipe/R)
 #define COMSIG_ATOM_CHECKPARTS "atom_checkparts"
 ///! from base of atom/blob_act(): (/obj/structure/blob)
@@ -86,7 +92,7 @@
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"
 ///! from base of atom/teleport_act(): ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
-///! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+///! from base of atom/Exited(): (mob/user, obj/item/extrapolator/extrapolator, dry_run, list/result)
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"
 ///!from base of atom/singularity_pull(): (/datum/component/singularity, current_size)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"
