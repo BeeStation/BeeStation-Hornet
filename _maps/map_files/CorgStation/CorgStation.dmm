@@ -3483,7 +3483,7 @@
 /area/bridge)
 "aPw" = (
 /obj/structure/table/reinforced,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/item/reagent_containers/food/snacks/chocolatebar,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4

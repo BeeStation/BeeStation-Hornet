@@ -14,7 +14,7 @@
 "c" = (
 /obj/structure/table/wood/fancy/purple,
 /obj/item/food/cake/chocolate,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "d" = (
