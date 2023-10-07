@@ -18,7 +18,7 @@
 
 /datum/gear/misc/tarotdeck
 	display_name = "Tarot Deck"
-	description = "A full 78 card game deck of tarot cards. Complete with 4 suites of 14 cards, and a full suite of trump cards."
+	description = "A full 78 card deck of Tarot Cards, no refunds on false predicitons."
 	path = /obj/item/toy/cards/deck/tarot
 	cost = 600
 
