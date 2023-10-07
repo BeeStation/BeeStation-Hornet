@@ -1,4 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: fixed a runtime in godhand.dm
