@@ -311,7 +311,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 		return
 	target = options[victim]
 	var/datum/component/gps/log_target = target
-	log_game("[key_name(user)] has aimed the artillery strike at [get_area_name(log_target.parent)].")
+	log_game("[key_name(user)] has aimed the bluespace artillery strike (BSA) at [get_area_name(log_target.parent)].")
 
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
