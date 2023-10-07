@@ -3351,6 +3351,7 @@
 #include "code\modules\point\point.dm"
 #include "code\modules\pool\pool.dm"
 #include "code\modules\pool\pool_items.dm"
+#include "code\modules\pool\pool_moodlets.dm"
 #include "code\modules\pool\components\swimming.dm"
 #include "code\modules\pool\components\swimming_dissolve.dm"
 #include "code\modules\pool\components\swimming_ethereal.dm"
