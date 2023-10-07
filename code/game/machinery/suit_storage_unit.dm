@@ -168,43 +168,51 @@
 	if(storage_type)
 		storage = new storage_type(src)
 	RefreshParts()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/suit_storage_unit/Destroy()
 	QDEL_NULL(wires)
 	dump_contents()
 	return ..()
 
-/obj/machinery/suit_storage_unit/update_icon()
-	cut_overlays()
+/obj/machinery/suit_storage_unit/update_overlays()
+	. = ..()
 
 	if(uv)
 		if(uv_super || (obj_flags & EMAGGED))
-			add_overlay("super")
-		else if(occupant)
-			add_overlay("uvhuman")
-		else
-			add_overlay("uv")
-	else if(state_open)
+			. += "super"
+			return
+		if(occupant)
+			. += "uvhuman"
+			return
+
+		. += "uv"
+		return
+
+	if(state_open)
 		if(machine_stat & BROKEN)
-			add_overlay("broken")
-		else
-			add_overlay("open")
-			if(suit)
-				add_overlay("suit")
-			if(helmet)
-				add_overlay("helm")
-			if(storage)
-				add_overlay("storage")
-	else if(occupant)
-		add_overlay("human")
+			. += "broken"
+			return
+
+		. += "open"
+		if(suit)
+			. += "suit"
+		if(helmet)
+			. += "helm"
+		if(storage)
+			. += "storage"
+		return
+
+	if(occupant)
+		. += "human"
+		return
 
 /obj/machinery/suit_storage_unit/power_change()
 	. = ..()
 	if(!is_operational && state_open)
 		open_machine()
 		dump_contents()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/suit_storage_unit/RefreshParts()
 	var/calculated_laser_rating = 0
@@ -389,7 +397,7 @@
 		uv_cycles--
 		uv = TRUE
 		locked = TRUE
-		update_icon()
+		update_appearance()
 		if(mob_occupant)
 			mob_occupant.adjustFireLoss(rand(burn_damage, burn_damage * 1.5))
 			mob_occupant.emote("scream")
@@ -504,7 +512,7 @@
 			I.play_tool_sound(src, 50)
 			visible_message("<span class='notice'>[user] pulls out the contents of [src] outside!</span>", "<span class='notice'>You pull [src]'s contents outside!</span>")
 			dump_contents()
-			update_icon()
+			update_appearance()
 			return
 	if(state_open && is_operational)
 		if(istype(I, /obj/item/clothing/suit))
@@ -537,8 +545,7 @@
 			storage = I
 
 		visible_message("<span class='notice'>[user] inserts [I] into [src]</span>", "<span class='notice'>You load [I] into [src].</span>")
-		update_icon()
-		ui_update()
+		update_appearance()
 		return
 
 	if(panel_open && is_wire_tool(I))
@@ -546,7 +553,6 @@
 		return
 	if(!state_open)
 		if(default_deconstruction_screwdriver(user, "panel", "close", I))
-			ui_update() // Wires might've changed availability of decontaminate button
 			return
 		if(is_empty())
 			if(default_deconstruction_crowbar(I))
