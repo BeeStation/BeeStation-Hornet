@@ -688,6 +688,7 @@
 	var/card_throw_speed = 3
 	var/card_throw_range = 7
 	var/list/card_attack_verb = list("attacked")
+	var/card_sharpness
 
 /obj/item/toy/cards/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] wrists with \the [src]! It looks like [user.p_they()] [user.p_have()] a crummy hand!</span>")
@@ -874,7 +875,7 @@
 			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [C.cardname] to your hand.</span>")
 			qdel(C)
 			interact(user)
-			update_sprite(src)
+			update_sprite()
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 	else
@@ -927,6 +928,12 @@
 	var/flipped = 0
 	pixel_x = -5
 
+/obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newobj,obj/item/toy/cards/sourceobj)
+	..()
+	newobj.embedding = sourceobj.embedding
+	newobj.card_sharpness = sourceobj.card_sharpness
+	newobj.sharpness = sourceobj.card_sharpness
+	newobj.updateEmbedding()
 
 /obj/item/toy/cards/singlecard/examine(mob/user)
 	. = ..()
@@ -1021,8 +1028,10 @@
 	deckstyle = "syndicate"
 	card_hitsound = 'sound/weapons/bladeslice.ogg'
 	card_force = 5
-	card_throwforce = 10
-	card_throw_speed = 3
+	card_throwforce = 12
+	card_throw_speed = 6
+	embedding = list("pain_mult" = 1, "embed_chance" = 80, "max_damage_mult" = 8, "fall_chance" = 0, "embed_chance_turf_mod" = 15, "armour_block" = 60) //less painful than throwing stars
+	card_sharpness = IS_SHARP
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
 	resistance_flags = NONE
