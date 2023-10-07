@@ -112,7 +112,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 	if(!remote_view)
 		remote_view = new(assigned_map)
 		var/atom/lighting_plane = remote_view.get_plane(/atom/movable/screen/plane_master/lighting)
-		lighting_plane?.alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
+		lighting_plane?.alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 	viewing_clients += client
 	client.register_map_obj(src)
 	remote_view.join(client)
