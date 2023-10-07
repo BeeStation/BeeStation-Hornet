@@ -10,16 +10,18 @@
 	health_req = 25
 	instability = 40
 	locked = TRUE
+	traits = list(
+		TRAIT_STUNIMMUNE,
+		TRAIT_PUSHIMMUNE,
+		TRAIT_CONFUSEIMMUNE,
+		TRAIT_IGNOREDAMAGESLOWDOWN,
+		TRAIT_NOSTAMCRIT,
+		TRAIT_NOLIMBDISABLE
+	)
 
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_CONFUSEIMMUNE, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
-	ADD_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	owner.update_body_parts()
@@ -36,12 +38,6 @@
 /datum/mutation/hulk/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
-	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_CONFUSEIMMUNE, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
-	REMOVE_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
 	owner.update_body_parts()
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
