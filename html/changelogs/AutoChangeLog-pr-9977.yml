@@ -1,6 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: You can no longer obtain a negative temporary blindness duration, which
-      would lead to permanent blindness. As a result, healing holoparas don't blind
-      people anymore.
