@@ -1,7 +1,7 @@
 /obj/item/food/spaghetti
 	name = "Spaghetti Parent"
 	desc = "You either spawned this erroneously, or a coder did. Either way, someone messed up."
-	icon = 'icons/obj/food/pizzaspaghetti.dmi'
+	icon = 'icons/obj/food/spaghetti.dmi'
 	icon_state = "ERROR"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	foodtypes = GRAIN

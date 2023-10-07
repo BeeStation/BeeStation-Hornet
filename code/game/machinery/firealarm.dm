@@ -77,10 +77,6 @@
 	LAZYREMOVE(myarea.firealarms, src)
 	return ..()
 
-/obj/machinery/firealarm/power_change()
-	..()
-	update_appearance()
-
 /obj/machinery/firealarm/update_overlays()
 	. = ..()
 	var/area/A = src.loc

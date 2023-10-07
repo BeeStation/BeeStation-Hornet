@@ -80,13 +80,13 @@
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/computer/power_change()
-	..()
+	. = ..()
+	if(!.)
+		return // reduce unneeded light changes
 	if(machine_stat & NOPOWER)
 		set_light(FALSE)
 	else
 		set_light(TRUE)
-	update_appearance()
-	return
 
 /obj/machinery/computer/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
