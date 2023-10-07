@@ -71,11 +71,18 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon_state = "arcade"
 	icon_keyboard = "no_keyboard"
 	icon_screen = "invaders"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
+	light_color = LIGHT_COLOR_GREEN
 	var/list/prize_override
 	var/prizeselect = /obj/item/coin/arcade_token
-	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/arcade/proc/Reset()
 	return
