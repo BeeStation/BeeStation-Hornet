@@ -391,10 +391,10 @@
 	if(!is_blind())
 		update_blindness()
 
-/mob/living/proc/become_blind(source, overlay)
+/mob/living/proc/become_blind(source, overlay, add_color)
 	if(!HAS_TRAIT(src, TRAIT_BLIND)) // not blind already, add trait then overlay
 		ADD_TRAIT(src, TRAIT_BLIND, source)
-		update_blindness(overlay)
+		update_blindness(overlay, add_color)
 	else
 		ADD_TRAIT(src, TRAIT_BLIND, source)
 

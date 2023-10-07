@@ -32,6 +32,8 @@
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
 	///the type of overlay we use for this eye's blind effect
 	var/atom/movable/screen/fullscreen/blind/blind_type
+	///Can these eyes every be cured of blind? - Can be overridden by admin stuff
+	var/can_see = TRUE
 
 /obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
 	. = ..()
@@ -417,6 +419,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	blind_type = /atom/movable/screen/fullscreen/blind/psychic
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	can_see = FALSE
 
 /obj/item/organ/eyes/psyphoza/on_life()
 	. = ..()
@@ -441,7 +444,7 @@
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()
-	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic)
+	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
 	M.remove_client_colour(/datum/client_colour/monochrome/blind)
 
 /obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
