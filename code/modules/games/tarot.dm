@@ -15,7 +15,7 @@
 	for(var/trump in list("The Magician", "The High Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lover", "The Chariot", "Justice", "The Hermit", "The Wheel of Fortune", "Strength", "The Hanged Man", "Death", "Temperance", "The Devil", "The Tower", "The Star", "The Moon", "The Sun", "Judgement", "The World", "The Fool"))
 		cards += "[trump]"
 
-/obj/item/toy/cards/deck/tarot/draw(mob/user)
+/obj/item/toy/cards/deck/tarot/draw_card(mob/user)
 	. = ..()
 	if(prob(50))
 		var/obj/item/toy/cards/singlecard/C = .
@@ -25,3 +25,5 @@
 		var/matrix/M = matrix()
 		M.Turn(180)
 		C.transform = M
+
+
