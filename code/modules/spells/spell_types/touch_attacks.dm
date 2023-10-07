@@ -33,21 +33,21 @@
 		to_chat(user, "<span class='notice'>[dropmessage]</span>")
 		return
 
-	for(var/mob/living/carbon/C in targets)
-		if(!attached_hand)
-			if(ChargeHand(C))
-				recharging = FALSE
-				return
+	for(var/mob/living/carbon/target in targets)
+		if(!attached_hand && charge_hand(target))
+			recharging = FALSE
+			return
 
 /obj/effect/proc_holder/spell/targeted/touch/charge_check(mob/user,silent = FALSE)
 	if(!QDELETED(attached_hand)) //Charge doesn't matter when putting the hand away.
 		return TRUE
-	else
-		return ..()
+	return ..()
 
-/obj/effect/proc_holder/spell/targeted/touch/proc/ChargeHand(mob/living/carbon/user)
-	attached_hand = new hand_path(src)
-	attached_hand.attached_spell = src
+/obj/effect/proc_holder/spell/targeted/touch/proc/create_hand()
+	return new hand_path(src)
+
+/obj/effect/proc_holder/spell/targeted/touch/proc/charge_hand(mob/living/carbon/user)
+	attached_hand = create_hand()
 	if(!user.put_in_hands(attached_hand))
 		remove_hand()
 		if (user.get_num_arms() <= 0)
@@ -84,3 +84,16 @@
 
 	action_icon_state = "statue"
 	sound = 'sound/magic/fleshtostone.ogg'
+
+/obj/effect/proc_holder/spell/targeted/touch/mutation
+	clothes_req = FALSE
+	var/datum/mutation/parent_mutation
+
+/obj/effect/proc_holder/spell/targeted/touch/mutation/Initialize(_mapload, datum/mutation/_parent)
+	. = ..()
+	if(!istype(_parent))
+		return INITIALIZE_HINT_QDEL
+	parent_mutation = _parent
+
+/obj/effect/proc_holder/spell/targeted/touch/mutation/create_hand()
+	return new hand_path(src, parent_mutation)
