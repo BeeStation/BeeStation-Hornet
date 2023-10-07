@@ -168,7 +168,8 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
 	STR.max_combined_w_class = 21
-	var/static/list/can_hold = typecacheof(list(
+	STR.max_w_class = WEIGHT_CLASS_TINY
+	var/static/list/exception_hold = typecacheof(list(
 		/obj/item/flashlight/flare,
 		/obj/item/radio,
 		/obj/item/clothing/mask/breath,
@@ -177,7 +178,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman/belt
 		))
-	STR.can_hold = can_hold
+	STR.exception_hold = exception_hold
 
 /obj/item/storage/box/survival/PopulateContents()
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
