@@ -26,7 +26,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_combined_w_class = 28
 	STR.max_w_class = WEIGHT_CLASS_LARGE
-	STR.max_items = 28
+	STR.max_items = 21
 
 /*
  * Backpack Types
