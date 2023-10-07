@@ -28,5 +28,5 @@
 
 //soulstone & construct themes
 #define THEME_CULT "cult"
-/*#define THEME_WIZARD "wizard"*/
+#define THEME_WIZARD "wizard"
 #define THEME_HOLY "holy"

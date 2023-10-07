@@ -118,10 +118,8 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/purified
 	summon_type = list(/obj/item/soulstone/anybody/purified)
 
-/*
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/mystic
 	summon_type = list(/obj/item/soulstone/mystic)
-*/
 
 /obj/effect/proc_holder/spell/targeted/forcewall/cult
 	name = "Shield"
@@ -161,11 +159,9 @@
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith/angelic
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out/angelic
 
-/*
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/mystic
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith/mystic
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out/mystic
-*/
 
 /obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"

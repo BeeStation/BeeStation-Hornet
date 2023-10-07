@@ -198,11 +198,9 @@
 	loot = list(/obj/item/ectoplasm/angelic)
 	chat_color = "#AED2FF"
 
-/*
 /mob/living/simple_animal/hostile/construct/juggernaut/mystic
 	theme = THEME_WIZARD
 	loot = list(/obj/item/ectoplasm/mystic)
-*/
 
 /mob/living/simple_animal/hostile/construct/juggernaut/noncult
 
@@ -257,12 +255,10 @@
 	loot = list(/obj/item/ectoplasm/angelic)
 	chat_color = "#AED2FF"
 
-/*
 /mob/living/simple_animal/hostile/construct/wraith/mystic
 	theme = THEME_WIZARD
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/mystic)
 	loot = list(/obj/item/ectoplasm/mystic)
-*/
 
 /mob/living/simple_animal/hostile/construct/wraith/noncult
 
@@ -352,7 +348,6 @@
 						/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 						)
 
-/*
 /mob/living/simple_animal/hostile/construct/artificer/mystic
 	theme = THEME_WIZARD
 	loot = list(/obj/item/ectoplasm/mystic)
@@ -363,7 +358,6 @@
 						/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 						/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 						)
-*/
 
 /mob/living/simple_animal/hostile/construct/artificer/noncult
 	construct_spells = list(
