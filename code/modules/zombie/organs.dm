@@ -9,8 +9,8 @@
 	var/living_transformation_time = 30
 	var/converts_living = FALSE
 
-	var/revive_time_min = 45 SECONDS
-	var/revive_time_max = 70 SECONDS
+	var/revive_time_min = 60 SECONDS
+	var/revive_time_max = 100 SECONDS
 	var/timer_id
 
 /obj/item/organ/zombie_infection/Initialize(mapload)
@@ -46,7 +46,7 @@
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
-		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5 * delta_time)
+		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * delta_time)
 	if(timer_id)
 		return
 	if(owner.suiciding)
@@ -78,7 +78,7 @@
 	//Fully heal the zombie's damage the first time they rise
 	C.setToxLoss(0, 0)
 	C.setOxyLoss(0, 0)
-	C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -200)
+	C.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
 	C.heal_overall_damage(INFINITY, INFINITY, INFINITY, null, TRUE)
 
 	C.revive()
