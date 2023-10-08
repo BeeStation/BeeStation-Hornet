@@ -1,7 +1,7 @@
 // TO DO:
 // Add in orderable crates for uranium rods and control rods
 // Loop meltdown sounds during meltdown, stop when no more meltdown/engine exploded
-
+// Fix the piping so that the reactor actually connects to atmos pipes and devices
 
 
 
@@ -273,6 +273,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		STOP_PROCESSING(SSmachines, src)
 		return
 
+
 	//Let's get our gasses sorted out.
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
@@ -319,7 +320,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			radioactivity_spice_multiplier += moderator_input.get_moles(GAS_TRITIUM) / 5 //Chernobyl 2.
 			var/turf/T = get_turf(src)
 			if(power >= 20)
-				coolant_output.adjust_moles(GAS_HYPERNOB, total_fuel_moles/20) //Shove out nucleium into the air when it's fuelled. You need to filter this off, or you're gonna have a bad time.
+				coolant_output.adjust_moles(GAS_TRITIUM, total_fuel_moles/20) //Shove out tritium into the air when it's fuelled. You need to filter this off, or you're gonna have a bad time.
 			var/obj/structure/cable/C = T.get_cable_node()
 			if(!C?.powernet)
 				return
