@@ -3946,6 +3946,7 @@
 #include "code\modules\tgui\states\reverse_contained.dm"
 #include "code\modules\tgui\states\self.dm"
 #include "code\modules\tgui\states\zlevel.dm"
+#include "code\modules\tgui\tutorial\tgui_template_machine.dm"
 #include "code\modules\tgui_input\alert.dm"
 #include "code\modules\tgui_input\color.dm"
 #include "code\modules\tgui_input\list.dm"
