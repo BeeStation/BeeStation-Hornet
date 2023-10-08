@@ -153,14 +153,14 @@
 		on = TRUE
 		if(allow_thrust(THRUST_REQUIREMENT_SPACEMOVE))
 			ion_trail.start()
+			JETPACK_SPEED_CHECK(owner, /datum/movespeed_modifier/jetpack/cybernetic, -1, TRUE)
 			RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
-			JETPACK_SPEED_CHECK(owner, MOVESPEED_ID_CYBER_THRUSTER, -1, TRUE)
 			if(!silent)
 				to_chat(owner, "<span class='notice'>You turn your thrusters set on.</span>")
 	else
 		ion_trail.stop()
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/cybernetic)
 		UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-		owner.remove_movespeed_modifier(MOVESPEED_ID_CYBER_THRUSTER)
 		if(!silent)
 			to_chat(owner, "<span class='notice'>You turn your thrusters set off.</span>")
 		on = FALSE

@@ -1,0 +1,14 @@
+/datum/movespeed_modifier/strained_muscles
+	multiplicative_slowdown = -0.5
+	blacklisted_movetypes = FLOATING
+
+/datum/movespeed_modifier/pai_spacewalk
+	multiplicative_slowdown = 2
+
+/datum/movespeed_modifier/species
+	movetypes = ~FLYING
+	variable = TRUE
+
+/datum/movespeed_modifier/dna_vault_speedup
+	blacklisted_movetypes = (FLYING|FLOATING)
+	multiplicative_slowdown = -0.5

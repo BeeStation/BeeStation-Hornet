@@ -95,7 +95,6 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 /mob/living/carbon/monkey/on_reagent_change()
 	. = ..()
-	remove_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE)
 	var/amount
 	if(reagents.has_reagent(/datum/reagent/medicine/morphine))
 		amount = -1

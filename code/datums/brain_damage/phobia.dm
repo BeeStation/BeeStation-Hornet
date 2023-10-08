@@ -107,7 +107,7 @@
 		if(3 to 8)
 			if(fear_state >= PHOBIA_STATE_UNEASY)
 				fear_state = PHOBIA_STATE_EDGY
-				owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE)
+				owner.remove_movespeed_modifier(/datum/movespeed_modifier/phobia)
 				to_chat(owner, "<span class ='notice'>you manage to calm down a little.</span>")
 			if(fear_state == PHOBIA_STATE_CALM)
 				fear_state = PHOBIA_STATE_EDGY
@@ -117,10 +117,10 @@
 			if(fear_state >= PHOBIA_STATE_FIGHTORFLIGHT)
 				fear_state = PHOBIA_STATE_UNEASY
 				to_chat(owner, "<span class ='notice'>You're safe now... better be careful anyways.</span>")
-				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = 1)
+				owner.add_movespeed_modifier(/datum/movespeed_modifier/phobia)
 			if(fear_state <= PHOBIA_STATE_EDGY)
 				fear_state = PHOBIA_STATE_UNEASY
-				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = 1)
+				owner.add_movespeed_modifier(/datum/movespeed_modifier/phobia)
 				owner.Jitter(5)
 				if(prob(stress * 5))
 					fearscore = 17
@@ -128,11 +128,11 @@
 			if(fear_state >= PHOBIA_STATE_TERROR) //we don't get an adrenaline rush when calming down
 				fear_state = PHOBIA_STATE_FIGHTORFLIGHT
 				to_chat(owner, "<span class ='notice'>It's gone for now... Better get out of here before it comes back.</span>")
-				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = -0.4)
+				owner.add_movespeed_modifier(/datum/movespeed_modifier/phobia/terrified)
 			if(fear_state <= PHOBIA_STATE_UNEASY) //ADRENALINE RUSH! You get psychotic brawling, a burst of speed, and some stun avoidance for awhile. If you fail to escape or destroy the threat during an adrenaline rush, you're fucked either way
 				fear_state = PHOBIA_STATE_FIGHTORFLIGHT
 				to_chat(owner, "<span class ='userdanger'>YOU HAVE TO GET OUT OF HERE! IT'S DANGEROUS!</span>")
-				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = -0.4)//while terrified, get a speed boost
+				owner.add_movespeed_modifier(/datum/movespeed_modifier/phobia/terrified)//while terrified, get a speed boost
 				owner.emote("scream")
 				if(prob(stress * 5))
 					fearscore = 29 //we don't get the adrenaline rush, and keel over like a baby immediately
@@ -151,7 +151,7 @@
 				fear_state = PHOBIA_STATE_TERROR
 			if(fear_state <= PHOBIA_STATE_FIGHTORFLIGHT)
 				fear_state = PHOBIA_STATE_TERROR
-				owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE)
+				owner.remove_movespeed_modifier(/datum/movespeed_modifier/phobia, TRUE)
 				owner.visible_message("<span class ='danger'>[owner] collapses into a fetal position and cowers in fear!</span>", "<span class ='userdanger'>I'm done for...</span>")
 				owner.Paralyze(80)
 				owner.Jitter(8)
@@ -161,7 +161,7 @@
 		if(36 to INFINITY)
 			if(fear_state <= PHOBIA_STATE_TERROR)
 				fear_state = PHOBIA_STATE_FAINT
-				owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE) //in the case that we get so scared by enough bullshit nearby we skip the last stage
+				owner.remove_movespeed_modifier(/datum/movespeed_modifier/phobia) //in the case that we get so scared by enough bullshit nearby we skip the last stage
 				fearscore = 9
 				owner.visible_message("<span class ='danger'>[owner] faints in fear!</span>", "<span class ='userdanger'>It's too much! You faint!</span>")
 				owner.Sleeping(300)
@@ -252,7 +252,7 @@
 
 
 /datum/brain_trauma/mild/phobia/on_lose()
-	owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/phobia)
 	..()
 
 // Defined phobia types for badminry, not included in the RNG trauma pool to avoid diluting.

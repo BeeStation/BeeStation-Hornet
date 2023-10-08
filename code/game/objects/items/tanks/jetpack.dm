@@ -89,7 +89,7 @@
 	known_user = null
 
 /obj/item/tank/jetpack/proc/on_user_loss()
-	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
+	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(known_user, COMSIG_PARENT_QDELETING)
 
@@ -101,7 +101,7 @@
 	if(ion_trail)
 		ion_trail.start()
 
-	JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
+	JETPACK_SPEED_CHECK(known_user, /datum/movespeed_modifier/jetpack/fullspeed, -1, full_speed)
 
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
 	if(!known_user)
@@ -112,14 +112,14 @@
 	if(ion_trail)
 		ion_trail.stop()
 
-	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
+	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
 /obj/item/tank/jetpack/proc/move_react(mob/user)
 	SIGNAL_HANDLER
 	if(on)
 		allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
 		// Update speed according to pressure
-		JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
+		JETPACK_SPEED_CHECK(known_user, /datum/movespeed_modifier/jetpack/fullspeed, -1, full_speed)
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)

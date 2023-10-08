@@ -363,9 +363,9 @@
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.add_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
+	victim.add_movespeed_modifier(/datum/movespeed_modifier/yellow_orb)
 	addtimer(CALLBACK(src, PROC_REF(finish_effect), victim), duration)
 
 /obj/effect/mine/pickup/speed/proc/finish_effect(mob/living/carbon/victim)
-	victim.remove_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB)
+	victim.remove_movespeed_modifier(/datum/movespeed_modifier/yellow_orb)
 	to_chat(victim, "<span class='notice'>You slow down.</span>")
