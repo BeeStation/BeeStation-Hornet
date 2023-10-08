@@ -1,9 +1,9 @@
 //Global lists so they can be editted by admins
 GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/soap,
-		/obj/item/kitchen/knife,
-		/obj/item/kitchen/knife/combat,
-		/obj/item/kitchen/knife/poison,
+		/obj/item/knife/kitchen,
+		/obj/item/knife/combat,
+		/obj/item/knife/poison,
 		/obj/item/throwing_star,
 		/obj/item/syndie_glue,
 		/obj/item/book_of_babel,
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
 		/obj/mecha/combat/marauder/mauler/loaded,
-		/obj/item/guardiancreator/tech,
+		/obj/item/holoparasite_creator/tech,
 		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
