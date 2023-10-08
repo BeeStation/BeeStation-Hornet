@@ -11,26 +11,23 @@ export const RbmkControlRods = (props, context) => {
   const k = data.k;
   const desiredK = data.desiredK;
   return (
-    <Window
-      resizable
-      theme="ntos"
-      width={300}
-      height={300}>
+    <Window resizable theme="ntos" width={300} height={300}>
       <Window.Content>
         <Section title="Control Rod Management:">
           Control Rod Insertion:
           <ProgressBar
-            value={(control_rods / 100 * 100) * 0.01}
+            value={(control_rods / 100) * 100 * 0.01}
             ranges={{
               good: [0.7, Infinity],
               average: [0.4, 0.7],
               bad: [-Infinity, 0.4],
-            }} />
+            }}
+          />
           <br />
           Neutrons per generation (K):
           <br />
           <ProgressBar
-            value={(k / 3 * 100) * 0.01}
+            value={(k / 3) * 100 * 0.01}
             ranges={{
               good: [-Infinity, 0.4],
               average: [0.4, 0.6],
@@ -48,9 +45,12 @@ export const RbmkControlRods = (props, context) => {
             maxValue={3}
             step={0.1}
             stepPixelSize={5}
-            onDrag={(e, value) => act('input', {
-              target: value,
-            })} />
+            onDrag={(e, value) =>
+              act('input', {
+                target: value,
+              })
+            }
+          />
         </Section>
       </Window.Content>
     </Window>
