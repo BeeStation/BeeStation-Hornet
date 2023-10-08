@@ -4,6 +4,7 @@
 	desc = "A heavy-duty industrial laser, often used in containment fields and power generation."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"
+	base_icon_state = "emitter"
 
 	anchored = FALSE
 	density = TRUE
@@ -61,16 +62,6 @@
 /obj/machinery/power/emitter/welded/Initialize()
 	welded = TRUE
 	. = ..()
-
-/obj/machinery/power/emitter/ctf
-	name = "Energy Cannon"
-	active = TRUE
-	active_power_usage = FALSE
-	idle_power_usage = FALSE
-	locked = TRUE
-	req_access_txt = "100"
-	welded = TRUE
-	use_power = FALSE
 
 /obj/machinery/power/emitter/Initialize(mapload)
 	. = ..()
@@ -145,18 +136,19 @@
 /obj/machinery/power/emitter/Destroy()
 	if(SSticker.IsRoundInProgress())
 		var/turf/T = get_turf(src)
-		message_admins("Emitter deleted at [ADMIN_VERBOSEJMP(T)]")
-		log_game("Emitter deleted at [AREACOORD(T)]")
+		message_admins("[src] deleted at [ADMIN_VERBOSEJMP(T)]")
+		log_game("[src] deleted at [AREACOORD(T)]")
 		investigate_log("<font color='red'>deleted</font> at [AREACOORD(T)]", INVESTIGATE_ENGINES)
 	QDEL_NULL(sparks)
 	QDEL_NULL(wires)
 	return ..()
 
-/obj/machinery/power/emitter/update_icon()
-	if(active && powernet)
-		icon_state = avail(active_power_usage) ? icon_state_on : icon_state_underpowered
-	else
-		icon_state = initial(icon_state)
+/obj/machinery/power/emitter/update_icon_state()
+	if(!active || !powernet)
+		icon_state = base_icon_state
+		return ..()
+	icon_state = avail(active_power_usage) ? icon_state_on : icon_state_underpowered
+	return ..()
 
 /obj/machinery/power/emitter/interact(mob/user)
 	add_fingerprint(user)
@@ -388,7 +380,6 @@
 	base_icon_state = "protoemitter"
 	icon_state_on = "protoemitter_+a"
 	icon_state_underpowered = "protoemitter_+u"
-	base_icon_state = "protoemitter"
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	///Sets the view size for the user
@@ -541,3 +532,13 @@
 		delay = world.time + 10
 	else if (emitter.charge < 10)
 		playsound(src,'sound/machines/buzz-sigh.ogg', 50, TRUE)
+
+/obj/machinery/power/emitter/ctf
+	name = "Energy Cannon"
+	active = TRUE
+	active_power_usage = FALSE
+	idle_power_usage = FALSE
+	locked = TRUE
+	req_access_txt = "100"
+	welded = TRUE
+	use_power = FALSE
