@@ -104,11 +104,15 @@
 /datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/H)
 	var/list/limbs_to_consume = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) - H.get_missing_limbs()
 	var/obj/item/bodypart/consumed_limb
+	var/L
+	for(L in limbs_to_consume) //Check every bodypart the oozeling has, see if they're organic or not
+		if(!IS_ORGANIC_LIMB(H.get_bodypart(L))) //Get actual limb, list only has body zone
+			limbs_to_consume -= list(L) //If it's inorganic, remove it from the consumption list
 	if(!limbs_to_consume.len)
 		H.losebreath++
 		return
-	if(H.get_num_legs(FALSE)) //Legs go before arms
-		limbs_to_consume -= list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)
+	if((BODY_ZONE_L_LEG in limbs_to_consume) || (BODY_ZONE_R_LEG in limbs_to_consume)) //Check if there are any organic legs left
+		limbs_to_consume -= list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM) //If there are, autocannibalize those first
 	consumed_limb = H.get_bodypart(pick(limbs_to_consume))
 	consumed_limb.drop_limb()
 	to_chat(H, "<span class='userdanger'>Your [consumed_limb] is drawn back into your body, unable to maintain its shape!</span>")
