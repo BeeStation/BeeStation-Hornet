@@ -82,7 +82,7 @@
 	transform = n_transform
 	add_filter("reflections masking other", 1, alpha_mask_filter(render_source = MANUAL_REFLECTIVE_MASK_PLANE_RENDER_TARGET, flags = MASK_INVERSE, y = 32))
 	add_filter("displacement", 1.1, displacement_map_filter(render_source = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET, size = 42, y = -16))
-	add_filter("manual reflections", 1.2, layering_filter(render_source = MANUAL_REFLECTIVE_PLANE_RENDER_TARGET))
+	add_filter("manual reflections", 1.2, layering_filter(render_source = MANUAL_REFLECTIVE_PLANE_RENDER_TARGET, y = 32))
 	add_filter("reflections", 1.3, alpha_mask_filter(render_source = masking_plane))
 	add_filter("motion_blur", 1.4, motion_blur_filter(y = 0.7))
 	
