@@ -19,14 +19,20 @@
 /datum/movespeed_modifier/reagent/changelinghaste
 	multiplicative_slowdown = -2
 
+/datum/movespeed_modifier/reagent/amphetamine
+	multiplicative_slowdown=-0.5
+	blacklisted_movetypes=(FLYING|FLOATING)
+
 /datum/movespeed_modifier/reagent/methamphetamine
 	multiplicative_slowdown = -0.5
 
 /datum/movespeed_modifier/reagent/nitryl
-	multiplicative_slowdown = -0.65
+	multiplicative_slowdown = -1
+	blacklisted_movetypes=(FLYING|FLOATING)
 
-/datum/movespeed_modifier/reagent/lenturi
-	multiplicative_slowdown = 1.5
+/datum/movespeed_modifier/reagent/modafil
+	multiplicative_slowdown = -0.25
+	blacklisted_movetypes=(FLYING|FLOATING)
 
 /datum/movespeed_modifier/reagent/nuka_cola
 	multiplicative_slowdown = -0.25

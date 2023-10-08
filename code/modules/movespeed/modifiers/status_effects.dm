@@ -15,3 +15,16 @@
 /datum/movespeed_modifier/status_effect/sepia
 	variable = TRUE
 	blacklisted_movetypes = (FLYING|FLOATING)
+
+/datum/movespeed_modifier/status_effect/transformative_sepia
+	multiplicative_slowdown=-1
+
+/datum/movespeed_modifier/status_effect/swimming
+	variable = TRUE
+	movetypes = GROUND
+
+/datum/movespeed_modifier/status_effect/interdiction
+	multiplicative_slowdown = 1.5
+
+/datum/movespeed_modifier/status_effect/smoke
+	multiplicative_slowdown = 1.5

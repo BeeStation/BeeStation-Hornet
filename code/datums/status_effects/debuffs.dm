@@ -771,10 +771,10 @@
 			owner.confused = 10
 		running_toggled = TRUE
 		to_chat(owner, "<span class='warning'>You know you shouldn't be running here.</span>")
-	owner.add_movespeed_modifier(MOVESPEED_ID_INTERDICTION, multiplicative_slowdown=1.5)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
 
 /datum/status_effect/interdiction/on_remove()
-	owner.remove_movespeed_modifier(MOVESPEED_ID_INTERDICTION)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
 	if(running_toggled && owner.m_intent == MOVE_INTENT_WALK)
 		owner.toggle_move_intent(owner)
 
@@ -1162,12 +1162,12 @@
 	alert_type = /atom/movable/screen/alert/status_effect/smoke
 
 /datum/status_effect/smoke/on_apply()
-	owner.add_movespeed_modifier(MOVESPEED_ID_SMOKE, multiplicative_slowdown=1.5)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/smoke)
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(check_deletion))
 	return TRUE
 
 /datum/status_effect/smoke/on_remove()
-	owner.remove_movespeed_modifier(MOVESPEED_ID_SMOKE)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/smoke)
 
 /datum/status_effect/smoke/tick()
 	check_deletion()

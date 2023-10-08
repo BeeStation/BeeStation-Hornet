@@ -361,7 +361,7 @@
  */
 /mob/living/simple_animal/hostile/space_dragon/proc/start_carp_speedboost(mob/living/target)
 	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
-	target.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
+	target.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 	addtimer(CALLBACK(src, PROC_REF(end_carp_speedboost), target), 8 SECONDS)
 
 /**
@@ -373,7 +373,7 @@
  */
 /mob/living/simple_animal/hostile/space_dragon/proc/end_carp_speedboost(mob/living/target)
 	target.remove_filter("anger_glow")
-	target.remove_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE)
+	target.remove_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 
 /**
  * Handles wing gust from the windup all the way to the endlag at the end.

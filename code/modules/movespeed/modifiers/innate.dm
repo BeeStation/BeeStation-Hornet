@@ -12,3 +12,6 @@
 /datum/movespeed_modifier/dna_vault_speedup
 	blacklisted_movetypes = (FLYING|FLOATING)
 	multiplicative_slowdown = -0.5
+
+/datum/movespeed_modifier/rift_empowerment
+	multiplicative_slowdown = -0.5

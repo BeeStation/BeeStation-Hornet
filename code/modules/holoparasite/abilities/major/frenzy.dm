@@ -39,11 +39,11 @@
 	cooldown_length = round((0.2 SECONDS * (5 - master_stats.potential)) + 2, 5) // 2 to 3 seconds
 	rush_knockback = master_stats.potential > 3
 	knockback_distance = clamp(CEILING(master_stats.damage * 1.75, 1), 2, view_distance)
-	owner.add_movespeed_modifier(MOVESPEED_ID_HOLOPARA_FRENZY, update = TRUE, priority = 100, multiplicative_slowdown = -0.75)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/holopara_frenzy/lesser)
 
 /datum/holoparasite_ability/major/frenzy/remove()
 	..()
-	owner.remove_movespeed_modifier(MOVESPEED_ID_HOLOPARA_FRENZY)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/holopara_frenzy)
 
 /datum/holoparasite_ability/major/frenzy/can_buy()
 	return ..() && master_stats.range >= 3
@@ -65,7 +65,7 @@
 /datum/holoparasite_ability/major/frenzy/proc/on_manifest()
 	SIGNAL_HANDLER
 	var/mob/living/summoner = owner.summoner.current
-	summoner.add_movespeed_modifier(MOVESPEED_ID_HOLOPARA_FRENZY, update = TRUE, priority = 100, multiplicative_slowdown = -1.5)
+	summoner.add_movespeed_modifier(/datum/movespeed_modifier/holopara_frenzy/major)
 	to_chat(summoner, "<span class='notice holoparasite'>You feel much faster, as if you could outrun <i>anything!</i></span>")
 	summoner.balloon_alert(summoner, "frenzy speed boost applied", show_in_chat = FALSE)
 
@@ -75,7 +75,7 @@
 /datum/holoparasite_ability/major/frenzy/proc/on_recall()
 	SIGNAL_HANDLER
 	var/mob/living/summoner = owner.summoner.current
-	summoner.remove_movespeed_modifier(MOVESPEED_ID_HOLOPARA_FRENZY)
+	summoner.remove_movespeed_modifier(/datum/movespeed_modifier/holopara_frenzy)
 	to_chat(summoner, "<span class='notice holoparasite'>You feel the incredible energy within you fade away, leaving you to move at a normal speed once more...</span>")
 	summoner.balloon_alert(summoner, "frenzy speed boost lost", show_in_chat = FALSE)
 

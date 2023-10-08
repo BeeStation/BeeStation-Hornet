@@ -887,12 +887,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				grub.grub_diseases += A
 			if(prob(LAZYLEN(grubs) * (6/power)))// so you know its working. power lowers this so it doesnt spam you at high grub counts
 				to_chat(M, "<span class='warning'>You feel something squirming inside of you!</span>")
-			M.add_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = max(slowdown - 0.5, 0))
+			M.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/virus/grub_virus, multiplicative_slowdown = max(slowdown - 0.5, 0))
 
 /datum/symptom/parasite/End(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/carbon/M = A.affected_mob
-	M.remove_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, TRUE)
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/virus/grub_virus)
 	for(var/mob/living/simple_animal/hostile/redgrub/grub in grubs)
 		M.visible_message("<span class='warning'>[M] vomits up a disgusting grub!</span>", \
 				"<span class='userdanger'>You vomit a large, slithering grub!</span>")

@@ -7,7 +7,7 @@
 	transmission = 0
 	level = 8
 	severity = -2
-	var/currenthealthmodifier 
+	var/currenthealthmodifier
 	prefixes = list("Photo", "Light ")
 	bodies = list("Cramp")
 	threshold_desc = "<b>Stealth 3:</b> The virus causes a wider disparity between light and dark" //this is a stealth symptom because, at its first threshold, its effects are negligable enough it could be spread with minimal downside
@@ -40,14 +40,14 @@
 		else if(prob(5))
 			to_chat(M, "<span class='warning'>[pick("Your muscles feel tight.", "You feel lethargic.", "Your muscles feel hard and tough.")]</span>")
 	if(A.stage >= 5)
-		currenthealthmodifier += healthchange 
+		currenthealthmodifier += healthchange
 		M.maxHealth += healthchange
 		M.health += healthchange
-		M.add_movespeed_modifier(MOVESPEED_ID_LIGHT_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = (currenthealthmodifier / 25)) 
+		M.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/virus/light_virus, multiplicative_slowdown = (currenthealthmodifier / 25))
 
 /datum/symptom/light/End(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/M = A.affected_mob
-	M.remove_movespeed_modifier(MOVESPEED_ID_LIGHT_VIRUS_SLOWDOWN, TRUE)
-	M.maxHealth -= currenthealthmodifier 
-	M.health -= currenthealthmodifier 
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/virus/light_virus)
+	M.maxHealth -= currenthealthmodifier
+	M.health -= currenthealthmodifier

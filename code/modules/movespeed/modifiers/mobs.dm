@@ -21,7 +21,7 @@
 	variable = TRUE
 
 /datum/movespeed_modifier/damage_slowdown_flying
-	movetypes = FLOATING
+	movetypes = FLYING
 	variable = TRUE
 
 /datum/movespeed_modifier/equipment_speedmod
@@ -86,6 +86,9 @@
 /datum/movespeed_modifier/simplemob_varspeed
 	variable = TRUE
 
+/datum/movespeed_modifier/basicmob_varspeed
+	variable = TRUE
+
 /datum/movespeed_modifier/tarantula_web
 	multiplicative_slowdown = 3
 
@@ -110,3 +113,20 @@
 
 /datum/movespeed_modifier/phobia/terrified
 	multiplicative_slowdown = -0.4
+
+/datum/movespeed_modifier/virus
+	variable = TRUE
+
+/datum/movespeed_modifier/virus/light_virus
+	variable = TRUE
+
+/datum/movespeed_modifier/virus/grub_virus
+	variable = TRUE
+
+/datum/movespeed_modifier/virus/necro_virus
+	variable = FALSE
+	multiplicative_slowdown = 1
+
+/datum/movespeed_modifier/nopowercell
+	multiplicative_slowdown = 1.5
+	blacklisted_movetypes = FLOATING

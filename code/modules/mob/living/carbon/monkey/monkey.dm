@@ -101,7 +101,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	if(reagents.has_reagent(/datum/reagent/consumable/nuka_cola))
 		amount = -1
 	if(amount)
-		add_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = amount)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_reagent_speedmod, TRUE, amount)
 
 /mob/living/carbon/monkey/updatehealth()
 	. = ..()
@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 		var/health_deficiency = (maxHealth - health)
 		if(health_deficiency >= 45)
 			slow += (health_deficiency / 25)
-	add_movespeed_modifier(MOVESPEED_ID_MONKEY_HEALTH_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = slow)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_health_speedmod, TRUE, slow)
 
 /mob/living/carbon/monkey/get_stat_tab_status()
 	var/list/tab_data = ..()

@@ -58,7 +58,7 @@
 			M.dna.species.brutemod = min(0.6, M.dna.species.brutemod)
 			M.dna.species.burnmod = min(0.6, M.dna.species.burnmod)
 			M.dna.species.heatmod = min(0.6, M.dna.species.heatmod)
-			M.add_movespeed_modifier(MOVESPEED_ID_NECRO_VIRUS_SLOWDOWN, update=TRUE, priority=100, multiplicative_slowdown=1)
+			M.add_movespeed_modifier(/datum/movespeed_modifier/virus/necro_virus)
 			ADD_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 			if(fireproof)
 				ADD_TRAIT(M, TRAIT_RESISTHEAT, DISEASE_TRAIT)
@@ -93,12 +93,12 @@
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
+	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you quicker but vulnerable.</span>")
 	M.dna.species.punchdamage = initial(M.dna.species.punchdamage)
 	M.dna.species.brutemod = initial(M.dna.species.heatmod)
 	M.dna.species.burnmod = initial(M.dna.species.heatmod)
 	M.dna.species.heatmod = initial(M.dna.species.heatmod)
-	M.remove_movespeed_modifier(MOVESPEED_ID_NECRO_VIRUS_SLOWDOWN, TRUE)
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/virus/necro_virus)
 	REMOVE_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)

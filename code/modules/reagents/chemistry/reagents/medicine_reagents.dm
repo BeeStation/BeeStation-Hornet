@@ -1051,10 +1051,10 @@
 
 /datum/reagent/medicine/amphetamine/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/amphetamine)
 
 /datum/reagent/medicine/amphetamine/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(type)
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/amphetamine)
 	..()
 
 /datum/reagent/medicine/amphetamine/on_mob_life(mob/living/carbon/M)
@@ -1549,12 +1549,12 @@
 /datum/reagent/medicine/modafinil/on_mob_metabolize(mob/living/M)
 	ADD_TRAIT(M, TRAIT_SLEEPIMMUNE, type)
 	..()
-	M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.25, blacklisted_movetypes=(FLYING|FLOATING))
+	M.add_movespeed_modifier(/datum/movespeed_modifier/reagent/modafil)
 
 /datum/reagent/medicine/modafinil/on_mob_end_metabolize(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_SLEEPIMMUNE, type)
 	..()
-	M.remove_movespeed_modifier(type)
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/modafil)
 
 /datum/reagent/medicine/modafinil/on_mob_life(mob/living/carbon/M)
 	if(!overdosed) // We do not want any effects on OD
