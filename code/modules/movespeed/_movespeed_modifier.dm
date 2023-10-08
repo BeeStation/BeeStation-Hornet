@@ -1,14 +1,23 @@
 /*! Movespeed modification datums.
+
 	How move speed for mobs works
+
 Move speed is now calculated by using modifier datums which are added to mobs. Some of them (nonvariable ones) are globally cached, the variable ones are instanced and changed based on need.
+
 This gives us the ability to have multiple sources of movespeed, reliabily keep them applied and remove them when they should be
+
 THey can have unique sources and a bunch of extra fancy flags that control behaviour
+
 Previously trying to update move speed was a shot in the dark that usually meant mobs got stuck going faster or slower
+
 Movespeed modification list is a simple key = datum system. Key will be the datum's ID if it is overridden to not be null, or type if it is not.
+
 DO NOT override datum IDs unless you are going to have multiple types that must overwrite each other. It's more efficient to use types, ID functionality is only kept for cases where dynamic creation of modifiers need to be done.
+
 When update movespeed is called, the list of items is iterated, according to flags priority and a bunch of conditions
 this spits out a final calculated value which is used as a modifer to last_move + modifier for calculating when a mob
 can next move
+
 Key procs
 * [add_movespeed_modifier](mob.html#proc/add_movespeed_modifier)
 * [remove_movespeed_modifier](mob.html#proc/remove_movespeed_modifier)
@@ -20,7 +29,7 @@ Key procs
 	/// Whether or not this is a variable modifier. Variable modifiers can NOT be ever auto-cached. ONLY CHECKED VIA INITIAL(), EFFECTIVELY READ ONLY (and for very good reason)
 	var/variable = FALSE
 
-	/// Unique ID. You can never have different modifications with the same ID. By default, this SHOULD NOT be set. Only set it for cases where you're dynamically making modifiers/need to have two types overwrite each other. If unset, uses path as ID.
+	/// Unique ID. You can never have different modifications with the same ID. By default, this SHOULD NOT be set. Only set it for cases where you're dynamically making modifiers/need to have two types overwrite each other. If unset, uses path (converted to text) as ID.
 	var/id
 
 	/// Higher ones override lower priorities. This is NOT used for ID, ID must be unique, if it isn't unique the newer one overwrites automatically if overriding.
@@ -67,7 +76,7 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 			type_or_datum = new type_or_datum
 	var/datum/movespeed_modifier/existing = LAZYACCESS(movespeed_modification, type_or_datum.id)
 	if(existing)
-		if(existing == type_or_datum)		//same thing don't need to touch
+		if(existing == type_or_datum) //same thing don't need to touch
 			return TRUE
 		remove_movespeed_modifier(existing, FALSE)
 	if(length(movespeed_modification))
@@ -82,9 +91,9 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 	var/key
 	if(ispath(type_id_datum))
 		key = initial(type_id_datum.id) || "[type_id_datum]" //id if set, path set to string if not.
-	else if(!istext(type_id_datum))		//if it isn't text it has to be a datum, as it isn't a type.
-		key = type_id_datum.id || type_id_datum.type
-	else								//assume it's an id
+	else if(!istext(type_id_datum)) //if it isn't text it has to be a datum, as it isn't a type.
+		key = type_id_datum.id
+	else //assume it's an id
 		key = type_id_datum
 	if(!LAZYACCESS(movespeed_modification, key))
 		return FALSE
@@ -133,16 +142,6 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 		update_movespeed(TRUE)
 	return final
 
-/// Handles the special case of editing the movement var
-/mob/vv_edit_var(var_name, var_value)
-	var/slowdown_edit = (var_name == NAMEOF(src, cached_multiplicative_slowdown))
-	var/diff
-	if(slowdown_edit && isnum(cached_multiplicative_slowdown) && isnum(var_value))
-		remove_movespeed_modifier(/datum/movespeed_modifier/admin_varedit)
-		diff = var_value - cached_multiplicative_slowdown
-	. = ..()
-	if(. && slowdown_edit && isnum(diff))
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/admin_varedit, multiplicative_slowdown = diff)
 
 ///Is there a movespeed modifier for this mob
 /mob/proc/has_movespeed_modifier(datum/movespeed_modifier/datum_type_id)
@@ -190,19 +189,12 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 
 /// Get the move speed modifiers list of the mob
 /mob/proc/get_movespeed_modifiers()
-	. = movespeed_modification
+	. = LAZYCOPY(movespeed_modification)
 	for(var/id in movespeed_mod_immunities)
 		. -= id
 
-/// Calculate the total slowdown of all movespeed modifiers
-/mob/proc/total_multiplicative_slowdown()
-	. = 0
-	for(var/id in get_movespeed_modifiers())
-		var/datum/movespeed_modifier/M = movespeed_modification[id]
-		. += M.multiplicative_slowdown
-
 /// Checks if a move speed modifier is valid and not missing any data
-/proc/movespeed_data_null_check(datum/movespeed_modifier/M)		//Determines if a data list is not meaningful and should be discarded.
+/proc/movespeed_data_null_check(datum/movespeed_modifier/M) //Determines if a data list is not meaningful and should be discarded.
 	. = TRUE
 	if(M.multiplicative_slowdown)
 		. = FALSE

@@ -1533,7 +1533,7 @@
 
 /datum/reagent/medicine/muscle_stimulant/on_mob_end_metabolize(mob/living/L)
 	. = ..()
-	L.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
+	L.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 
 /datum/reagent/medicine/modafinil
 	name = "Modafinil"
