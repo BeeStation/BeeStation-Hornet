@@ -80,10 +80,26 @@
 	var/matrix/n_transform = transform
 	n_transform.Translate(0, -32)
 	transform = n_transform
-	add_filter("reflections", 1.1, alpha_mask_filter(render_source = masking_plane))
-	add_filter("displacement", 1.2, displacement_map_filter(render_source = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET, size = 42, y = -16))
-	add_filter("motion_blur", 1.3, motion_blur_filter(y = 0.7))
+	add_filter("reflections masking other", 1, alpha_mask_filter(render_source = MANUAL_REFLECTIVE_MASK_PLANE_RENDER_TARGET, flags = MASK_INVERSE, y = 32))
+	add_filter("displacement", 1.1, displacement_map_filter(render_source = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET, size = 42, y = -16))
+	add_filter("manual reflections", 1.2, layering_filter(render_source = MANUAL_REFLECTIVE_PLANE_RENDER_TARGET))
+	add_filter("reflections", 1.3, alpha_mask_filter(render_source = masking_plane))
+	add_filter("motion_blur", 1.4, motion_blur_filter(y = 0.7))
 	
+/atom/movable/screen/plane_master/manual_reflection
+	name = "manual reflection plane master"
+	plane = MANUAL_REFLECTIVE_PLANE
+	render_target = MANUAL_REFLECTIVE_PLANE_RENDER_TARGET
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_plane = null
+
+/atom/movable/screen/plane_master/manual_reflection_mask
+	name = "manual reflection mask plane master"
+	plane = MANUAL_REFLECTIVE_MASK_PLANE
+	render_target = MANUAL_REFLECTIVE_MASK_PLANE_RENDER_TARGET
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_plane = null
+
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"
 	plane = DATA_HUD_PLANE
@@ -277,3 +293,7 @@
 	name = "reflective displacement plane master"
 	plane = REFLECTIVE_DISPLACEMENT_PLANE
 	render_target = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET
+
+/atom/movable/screen/plane_master/reflective/displacement/Initialize(mapload)
+	. = ..()
+	//add_filter("reflections 2", 1.12, alpha_mask_filter(render_source = MANUAL_REFLECTIVE_PLANE_RENDER_TARGET))

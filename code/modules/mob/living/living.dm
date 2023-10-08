@@ -25,6 +25,30 @@
 	//color correction
 	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
 
+	//Add custom reflection mask
+	var/mutable_appearance/MA = new()
+	//appearance stuff
+	MA.appearance = appearance
+	if(render_target)
+		MA.render_source = render_target
+	MA.plane = MANUAL_REFLECTIVE_MASK_PLANE
+
+	add_overlay(MA)
+
+	//Add custom reflection image
+	var/mutable_appearance/MAM = new()
+	//appearance stuff
+	MAM.appearance = appearance
+	if(render_target)
+		MAM.render_source = render_target
+	MAM.plane = MANUAL_REFLECTIVE_PLANE
+	//transform stuff
+	var/matrix/n_transform = MAM.transform
+	n_transform.Scale(1, -1)
+	MAM.transform = n_transform
+
+	add_overlay(MAM)
+
 /mob/living/proc/initialize_footstep()
 	AddComponent(/datum/component/footstep)
 

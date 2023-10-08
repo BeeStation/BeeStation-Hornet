@@ -86,7 +86,6 @@
 		var/turf/T = loc
 		T.update_above() // Z-Mimic
 
-
 /atom/movable/proc/update_emissive_block()
 	if(!blocks_emissive)
 		return
