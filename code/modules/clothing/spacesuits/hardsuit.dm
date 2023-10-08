@@ -183,6 +183,7 @@
 	..()
 	if(isatom(jetpack))
 		if(slot == ITEM_SLOT_OCLOTHING)
+			jetpack.update_known_user(user)
 			for(var/X in jetpack.actions)
 				var/datum/action/A = X
 				A.Grant(user)
@@ -190,6 +191,8 @@
 /obj/item/clothing/suit/space/hardsuit/dropped(mob/user)
 	..()
 	if(isatom(jetpack))
+		jetpack.turn_off()
+		jetpack.lose_known_user()
 		for(var/X in jetpack.actions)
 			var/datum/action/A = X
 			A.Remove(user)
