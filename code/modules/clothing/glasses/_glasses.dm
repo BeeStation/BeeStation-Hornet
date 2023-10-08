@@ -36,14 +36,14 @@
 /obj/item/clothing/glasses/update_overlays()
 	. = ..()
 	if (emissive_state)
-		. += emissive_appearance(icon, emissive_state, layer, 60)
+		. += emissive_appearance(icon, emissive_state, layer, 100)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/clothing/glasses/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	// If we have an emissive state, add it to the worn icon too
 	if (!isinhands && emissive_state)
-		. += emissive_appearance(icon_file, emissive_state, item_layer, 60)
+		. += emissive_appearance(icon_file, emissive_state, item_layer, 100)
 		ADD_LUM_SOURCE(origin, LUM_SOURCE_GLASSES)
 
 /obj/item/clothing/glasses/visor_toggling()
