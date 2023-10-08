@@ -31,9 +31,9 @@
 	if(special_die == "100")
 		new /obj/item/dice/d100(src)
 
-/obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
+/obj/item/storage/pill_bottle/dice/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/storage/pill_bottle/dice_cup
 	name = "dice cup"
@@ -72,9 +72,9 @@
 	. = ..()
 	. += "<span class='notice'>[result] is face up.</span>"
 
-/obj/item/dice/suicide_act(mob/user)
+/obj/item/dice/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/dice/d1
 	name = "d1"

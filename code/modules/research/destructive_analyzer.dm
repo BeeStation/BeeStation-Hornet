@@ -85,8 +85,10 @@ Note: Must be placed within 3 tiles of the R&D Console
 		for(var/obj/item/innerthing in food)
 			destroy_item(innerthing, TRUE)
 	reclaim_materials_from(thing)
-	for(var/mob/M in thing)
-		M.death()
+	for(var/mob/living/victim in thing)
+		if(victim.stat != DEAD)
+			victim.investigate_log("has been killed by a destructive analyzer.", INVESTIGATE_DEATHS)
+		victim.death()
 	if(istype(thing, /obj/item/stack/sheet))
 		var/obj/item/stack/sheet/S = thing
 		if(S.amount > 1 && !innermode)

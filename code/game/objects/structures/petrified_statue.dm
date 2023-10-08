@@ -68,8 +68,9 @@
 /obj/structure/statue/petrified/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		if(petrified_mob)
+			petrified_mob.investigate_log("has been dusted by statue deconstruction.", INVESTIGATE_DEATHS)
 			petrified_mob.dust()
-	visible_message("<span class='danger'>[src] shatters!.</span>")
+	visible_message("<span class='danger'>[src] shatters!</span>")
 	qdel(src)
 
 

@@ -66,6 +66,7 @@
 	user.Stun(100, ignore_canstun = TRUE)
 	sleep(20)
 	playsound(src, "rustle", 50, 1, -5)
+	user.suicide_log()
 	qdel(user)
 
 /obj/item/storage/backpack/holding/singularity_act(current_size)
@@ -110,9 +111,9 @@
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.max_combined_w_class = 60
 
-/obj/item/storage/backpack/santabag/suicide_act(mob/user)
+/obj/item/storage/backpack/santabag/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] places [src] over [user.p_their()] head and pulls it tight! It looks like [user.p_they()] [user.p_are()]n't in the Christmas spirit...</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/storage/backpack/santabag/proc/regenerate_presents()
 	addtimer(CALLBACK(src, PROC_REF(regenerate_presents)), 30 SECONDS)

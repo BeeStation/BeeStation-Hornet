@@ -54,7 +54,7 @@
 		user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (FIRELOSS)
+	return FIRELOSS
 
 /obj/item/flashlight/attack(mob/living/carbon/M, mob/living/carbon/human/user)
 	add_fingerprint(user)
@@ -516,7 +516,7 @@
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] is squirting [src]'s fluids into [user.p_their()] eyes! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	fuel = 0
-	return (FIRELOSS)
+	return FIRELOSS
 
 /obj/item/flashlight/glowstick/red
 	name = "red glowstick"

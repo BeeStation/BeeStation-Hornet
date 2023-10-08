@@ -391,6 +391,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		if(issilicon(L))
 			continue
 		to_chat(L, "<span class='userdanger'>The blast wave from [src] tears you atom from atom!</span>")
+		L.investigate_log("has been dusted by a doomsday device.", INVESTIGATE_DEATHS)
 		L.dust()
 	to_chat(world, "<B>The AI cleansed the station of life with the Doomsday device!</B>")
 	SSticker.force_ending = 1

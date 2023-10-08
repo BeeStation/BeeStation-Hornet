@@ -422,6 +422,7 @@
 		if (src.client)
 			client.give_award(/datum/award/achievement/misc/succumb, client.mob)
 
+		investigate_log("has succumbed to death.", INVESTIGATE_DEATHS)
 		death()
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_stasis = FALSE)

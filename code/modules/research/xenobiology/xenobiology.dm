@@ -459,6 +459,7 @@
 			if(do_after(user, 6 SECONDS, target = user))
 				to_chat(user, "<span class='userdanger'>You explode!</span>")
 				explosion(get_turf(user), 1 ,3, 6)
+				user.investigate_log("has been gibbed by an oil slime extract explosion.", INVESTIGATE_DEATHS)
 				user.gib()
 				return 60 SECONDS
 			to_chat(user, "<span class='notice'>You stop feeding [src], and the feeling passes.</span>")

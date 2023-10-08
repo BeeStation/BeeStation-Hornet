@@ -353,6 +353,7 @@ Difficulty: Medium
 	for(var/mob/living/L in orange(1, src))
 		if(L.stat)
 			visible_message("<span class='warning'>[src] slams down on [L], crushing [L.p_them()]!</span>")
+			L.investigate_log("has been gibbed by lava swoop.", INVESTIGATE_DEATHS)
 			L.gib()
 		else
 			L.adjustBruteLoss(75)

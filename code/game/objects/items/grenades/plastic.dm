@@ -165,7 +165,7 @@
 			message_say = "VIVA LA REVOLUTION!"
 	M.say(message_say, forced="C4 suicide")
 
-/obj/item/grenade/plastic/suicide_act(mob/user)
+/obj/item/grenade/plastic/suicide_act(mob/living/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src] at [ADMIN_VERBOSEJMP(user)]")
 	log_game("[key_name(user)] suicided with [src] at [AREACOORD(user)]")
 	user.visible_message("<span class='suicide'>[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
@@ -201,7 +201,7 @@
 	target = null
 	return ..()
 
-/obj/item/grenade/plastic/c4/suicide_act(mob/user)
+/obj/item/grenade/plastic/c4/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] activates the [src.name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
 	shout_syndicate_crap(user)
 	target = user

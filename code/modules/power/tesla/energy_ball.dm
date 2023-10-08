@@ -151,8 +151,9 @@
 		var/mob/living/carbon/C = user
 		to_chat(C, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
 		var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in C.internal_organs
-		C.ghostize(0)
+		C.ghostize(FALSE)
 		qdel(rip_u)
+		C.investigate_log("had [C.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
 		C.death()
 
 /obj/anomaly/energy_ball/proc/dust_mobs(atom/A)
@@ -166,6 +167,7 @@
 		if(GR.anchored)
 			return
 	var/mob/living/carbon/C = A
+	C.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	C.dust()
 
 //Less intensive energy ball for the orbiting ones.

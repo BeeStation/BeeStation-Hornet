@@ -148,6 +148,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 		if(!(FACTION_BLOB in L.faction))
 			playsound(L, 'sound/effects/splat.ogg', 50, 1)
+			if(L.stat != DEAD)
+				L.investigate_log("has died from blob takeover.", INVESTIGATE_DEATHS)
 			L.death()
 			new/mob/living/simple_animal/hostile/blob/blobspore(T)
 		else
