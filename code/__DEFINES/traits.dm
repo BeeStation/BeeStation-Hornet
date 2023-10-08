@@ -122,12 +122,9 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
-/*
-Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
-*/
+// mob traits for temporary carbon states/status_effects. // TODO: Systematically dismember update_mobility and replace all its checks and updates with these traits, or offload to stat
 
-//mob traits
-/// Forces the user to stay unconscious.
+/// Forces the user to stay unconscious. This shouldn't be used in a check outside of code related to stat and update_stat, or when its being intentionally applied from a specific source
 #define TRAIT_KNOCKEDOUT "knockedout"
 /* All to replace update_mobility with traits
 /// Prevents voluntary movement.
@@ -146,6 +143,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESTRAINED "restrained"
 */
 #define TRAIT_INCAPACITATED "incapacitated"
+
+//mob traits
 #define TRAIT_BLIND "blind"
 /// Mute. Can't talk.
 #define TRAIT_MUTE "mute"

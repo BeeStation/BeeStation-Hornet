@@ -461,7 +461,7 @@
 		..()
 
 /mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsParalyzed() || IsStun() || IsKnockdown() || stat || resting)
+	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || stat || resting)
 		drop_all_held_items()
 		mobility_flags = NONE
 	else if(buckled || IsImmobilized())
