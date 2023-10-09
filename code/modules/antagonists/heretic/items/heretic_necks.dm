@@ -31,7 +31,7 @@
 	if(slot != ITEM_SLOT_NECK)
 		return
 
-	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT] [REF(src)]")
+	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
 	user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/dropped(mob/user)
@@ -41,7 +41,7 @@
 		if(H.wear_neck != src)
 			return
 		else
-			REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT] [REF(src)]")
+			REMOVE_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
 			user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/piercing

@@ -47,13 +47,13 @@
 	var/distance = max(0,get_dist(get_turf(src),T))
 	M.show_message("<span class='warning'>BANG</span>", MSG_AUDIBLE)
 	if(!distance || loc == M || loc == M.loc)	//Stop allahu akbarring rooms with this.
-		M.Paralyze(20)
-		M.Knockdown(200)
+		M.Paralyze(2 SECONDS)
+		M.Knockdown(20 SECONDS)
 		M.soundbang_act(1, 200, 10, 15)
 	else
 		if(distance <= 1)
-			M.Paralyze(5)
-			M.Knockdown(30)
+			M.Paralyze(0.5 SECONDS)
+			M.Knockdown(3 SECONDS)
 
 		var/distance_proportion = max(1 - (distance / flashbang_range), 0)
 		if(distance_proportion)
