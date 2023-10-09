@@ -264,53 +264,55 @@ GENE SCANNER
 		message += "\t<span class='info'>Subject is hallucinating.</span>"
 
 	//Eyes and ears
-	if(advanced)
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
-			message += "\t<span class='info'><b>==EAR STATUS==</b></span>"
-			if(istype(ears))
-				var/healthy = TRUE
-				if(HAS_TRAIT_FROM(C, TRAIT_DEAF, GENETIC_MUTATION))
-					healthy = FALSE
-					message += "\t<span class='alert'>Subject is genetically deaf.</span>"
-				else if(HAS_TRAIT(C, TRAIT_DEAF))
-					healthy = FALSE
-					message += "\t<span class='alert'>Subject is deaf.</span>"
-				else
-					if(ears.damage)
-						message += "\t<span class='alert'>Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.</span>"
-						healthy = FALSE
-					if(ears.deaf)
-						message += "\t<span class='alert'>Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.</span>"
-						healthy = FALSE
-				if(healthy)
-					message += "\t<span class='info'>Healthy.</span>"
+	if(advanced && iscarbon(M))
+		var/mob/living/carbon/C = M
+
+		var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
+		message += "\t<span class='info'><b>==EAR STATUS==</b></span>"
+		if(istype(ears))
+			var/healthy = TRUE
+			if(HAS_TRAIT_FROM(C, TRAIT_DEAF, GENETIC_MUTATION))
+				healthy = FALSE
+				message += "\t<span class='alert'>Subject is genetically deaf.</span>"
+			else if(HAS_TRAIT_FROM(C, TRAIT_DEAF, EAR_DAMAGE))
+				message = "\n<span class='alert ml-2'>Subject is deaf from ear damage.</span>"
+			else if(HAS_TRAIT(C, TRAIT_DEAF))
+				healthy = FALSE
+				message += "\t<span class='alert'>Subject is deaf.</span>"
 			else
-				message += "\t<span class='alert'>Subject does not have ears.</span>"
-			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
-			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
-			if(istype(eyes))
-				var/healthy = TRUE
-				if(C.is_blind())
-					message += "\t<span class='alert'>Subject is blind.</span>"
+				if(ears.damage)
+					message += "\t<span class='alert'>Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.</span>"
 					healthy = FALSE
-				if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
-					message += "\t<span class='alert'>Subject is nearsighted.</span>"
+				if(ears.deaf)
+					message += "\t<span class='alert'>Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.</span>"
 					healthy = FALSE
-				if(eyes.damage > 30)
-					message += "\t<span class='alert'>Subject has severe eye damage.</span>"
-					healthy = FALSE
-				else if(eyes.damage > 20)
-					message += "\t<span class='alert'>Subject has significant eye damage.</span>"
-					healthy = FALSE
-				else if(eyes.damage)
-					message += "\t<span class='alert'>Subject has minor eye damage.</span>"
-					healthy = FALSE
-				if(healthy)
-					message += "\t<span class='info'>Healthy.</span>"
-			else
-				message += "\t<span class='alert'>Subject does not have eyes.</span>"
+			if(healthy)
+				message += "\t<span class='info'>Healthy.</span>"
+		else
+			message += "\t<span class='alert'>Subject does not have ears.</span>"
+		var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
+		message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
+		if(istype(eyes))
+			var/healthy = TRUE
+			if(C.is_blind())
+				message += "\t<span class='alert'>Subject is blind.</span>"
+				healthy = FALSE
+			if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
+				message += "\t<span class='alert'>Subject is nearsighted.</span>"
+				healthy = FALSE
+			if(eyes.damage > 30)
+				message += "\t<span class='alert'>Subject has severe eye damage.</span>"
+				healthy = FALSE
+			else if(eyes.damage > 20)
+				message += "\t<span class='alert'>Subject has significant eye damage.</span>"
+				healthy = FALSE
+			else if(eyes.damage)
+				message += "\t<span class='alert'>Subject has minor eye damage.</span>"
+				healthy = FALSE
+			if(healthy)
+				message += "\t<span class='info'>Healthy.</span>"
+		else
+			message += "\t<span class='alert'>Subject does not have eyes.</span>"
 
 
 	// Body part damage report

@@ -14,7 +14,9 @@
 		if(iscarbon(M) && M.get_ear_protection() <= 0)
 			var/mob/living/carbon/C = M
 			if(!C.mind || !C.mind.has_antag_datum(/datum/antagonist/changeling))
-				C.adjustEarDamage(0, 30)
+				var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
+				if(ears)
+					ears.adjustEarDamage(0, 30)
 				C.confused += 15
 				C.Jitter(20)
 			else

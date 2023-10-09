@@ -155,6 +155,7 @@
 	..()
 	if(QDELETED(src))
 		return
+	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			gib()
@@ -163,13 +164,15 @@
 		if (EXPLODE_HEAVY)
 			take_overall_damage(60, 60)
 			damage_clothes(200, BRUTE, BOMB)
-			adjustEarDamage(30, 120)
+			if (ears && !HAS_TRAIT_FROM(src, TRAIT_DEAF, CLOTHING_TRAIT))
+				ears.adjustEarDamage(30, 120)
 			Unconscious(200)
 
 		if(EXPLODE_LIGHT)
 			take_overall_damage(30, 0)
 			damage_clothes(50, BRUTE, BOMB)
-			adjustEarDamage(15,60)
+			if (ears && !HAS_TRAIT_FROM(src, TRAIT_DEAF, CLOTHING_TRAIT))
+				ears.adjustEarDamage(15,60)
 			Unconscious(160)
 
 

@@ -567,7 +567,9 @@
 	owner.set_blurriness(0)
 	owner.restore_blood()
 	owner.bodytemperature = BODYTEMP_NORMAL
-	owner.restoreEars()
+	var/obj/item/organ/ears/ears = owner.getorganslot(ORGAN_SLOT_EARS)
+	if(ears)
+		ears.adjustEarDamage(-4, -4)
 	duration = rand(150, 450) * power
 	return TRUE
 

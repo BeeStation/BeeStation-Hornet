@@ -80,14 +80,15 @@
 /datum/symptom/sensory_restoration/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/M = A.affected_mob
+	var/mob/living/carbon/M = A.affected_mob
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
 	switch(A.stage)
 		if(4, 5)
-			M.restoreEars()
-
+			var/obj/item/organ/ears/ears = M.getorganslot(ORGAN_SLOT_EARS)
+			if(ears)
+				ears.adjustEarDamage(-4, -4)
 			if(HAS_TRAIT_FROM(M, TRAIT_BLIND, EYE_DAMAGE))
 				if(prob(20))
 					to_chat(M, "<span class='notice'>Your vision slowly returns...</span>")

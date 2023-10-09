@@ -147,7 +147,9 @@
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
 		M.stuttering += 20*mul
-		M.adjustEarDamage(0, 30*mul)
+		var/obj/item/organ/ears/ears = M.getorganslot(ORGAN_SLOT_EARS)
+		if(ears)
+			ears.adjustEarDamage(0, 30*mul)
 		M.Knockdown(60*mul)
 		if(prob(40))
 			M.Knockdown(200*mul)
