@@ -13,6 +13,7 @@
 
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
+	smoothing_flags = NONE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 	reveal_camera_mob = TRUE
