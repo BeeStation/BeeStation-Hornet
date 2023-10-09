@@ -72,7 +72,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/exploration
 	backpack_contents = list(
-		/obj/item/kitchen/knife/combat/survival=1,\
+		/obj/item/knife/combat/survival=1,\
 		/obj/item/stack/marker_beacon/thirty=1)
 	l_pocket = /obj/item/gps/mining/exploration
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
@@ -90,7 +90,7 @@
 	r_pocket = /obj/item/modular_computer/tablet/pda/exploration_crew
 
 	backpack_contents = list(
-		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/knife/combat/survival=1,
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/gun/energy/e_gun/mini/exploration=1,
 		/obj/item/grenade/exploration=3,				//Breaching charges for entering ruins
@@ -108,7 +108,7 @@
 	glasses = /obj/item/clothing/glasses/science
 
 	backpack_contents = list(
-		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/knife/combat/survival=1,
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/discovery_scanner=1,
 		/obj/item/sbeacondrop/exploration=1,			//Spawns in a bluespace beacon
@@ -122,7 +122,7 @@
 	name = "Exploration Crew (Medical Doctor)"
 
 	backpack_contents = list(
-		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/knife/combat/survival=1,
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/pinpointer/crew=1,
 		/obj/item/sensor_device=1,

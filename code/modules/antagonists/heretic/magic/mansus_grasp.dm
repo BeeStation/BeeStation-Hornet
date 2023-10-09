@@ -16,7 +16,7 @@
 	catchphrase = "R'CH T'H TR'TH!"
 	on_use_sound = 'sound/items/welder.ogg'
 
-/obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
+/obj/item/melee/touch_attack/mansus_fist/Initialize(mapload, obj/effect/proc_holder/spell/targeted/touch/_spell)
 	. = ..()
 	AddComponent(/datum/component/effect_remover, \
 		success_feedback = "You remove %THEEFFECT.", \

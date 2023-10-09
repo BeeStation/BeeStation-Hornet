@@ -45,7 +45,7 @@
 		/datum/heretic_knowledge/final/void_final,
 	)
 	required_atoms = list(
-		/obj/item/kitchen/knife = 1,
+		/obj/item/knife = 1,
 		/obj/effect/decal/cleanable/blood = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)

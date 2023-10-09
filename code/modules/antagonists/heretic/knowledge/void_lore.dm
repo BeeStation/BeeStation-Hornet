@@ -40,7 +40,7 @@
 		/datum/heretic_knowledge/final/flesh_final,
 		/datum/heretic_knowledge/final/rust_final,
 	)
-	required_atoms = list(/obj/item/kitchen/knife = 1)
+	required_atoms = list(/obj/item/knife = 1)
 	result_atoms = list(/obj/item/melee/sickly_blade/void)
 	limit = 2
 	cost = 1

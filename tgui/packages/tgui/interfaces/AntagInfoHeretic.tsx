@@ -75,24 +75,14 @@ const IntroductionSection = () => {
           <Stack vertical>
             <FlavorSection />
             <Stack.Divider />
-            <Stack.Item>
-              <Stack>
-                <Stack.Item width="45%">
-                  <Stack vertical>
-                    <GuideSection />
-                    <Stack.Divider />
-                  </Stack>
-                </Stack.Item>
-                <Stack.Divider />
-                <Stack.Item width="50%">
-                  <Stack vertical>
-                    <InformationSection />
-                    <Stack.Divider />
-                    <ObjectivePrintout />
-                  </Stack>
-                </Stack.Item>
-              </Stack>
-            </Stack.Item>
+
+            <GuideSection />
+            <Stack.Divider />
+
+            <InformationSection />
+            <Stack.Divider />
+
+            <ObjectivePrintout />
           </Stack>
         </Section>
       </Stack.Item>
@@ -103,7 +93,7 @@ const IntroductionSection = () => {
 const FlavorSection = () => {
   return (
     <Stack.Item>
-      <Stack vertical textAlign="center" fontSize="14px">
+      <Stack vertical textAlign="center" fontSize="14px" width="100%">
         <Stack.Item>
           <i>
             Another day at a meaningless job. You feel a&nbsp;
@@ -127,7 +117,7 @@ const FlavorSection = () => {
 const GuideSection = () => {
   return (
     <Stack.Item>
-      <Stack vertical fontSize="12px">
+      <Stack vertical fontSize="12px" width="100%">
         <Stack.Item>
           - Find reality smashing&nbsp;
           <span style={hereticPurple}>influences</span>
@@ -155,7 +145,7 @@ const GuideSection = () => {
           <span style={hereticGreen}>transmutation rune</span> to&nbsp;
           <span style={hereticRed}>sacrifice</span> them for&nbsp;
           <span style={hereticBlue}>knowledge points</span>. The Mansus <b>ONLY</b> accepts targets pointed to by the&nbsp;
-          <span style={hereticRed}>Living Heart</span> (or any member of Command, if the Mansus asks that of you).
+          <span style={hereticRed}>Living Heart</span>.
         </Stack.Item>
         <Stack.Item>
           - Create an item to use as a&nbsp;<span style={hereticYellow}>focus</span> for your&nbsp;
@@ -173,11 +163,14 @@ const GuideSection = () => {
   );
 };
 
-const InformationSection = (_props, context) => {
+const InformationSection = (props, context) => {
   const {
-    data: { points, sacrifices, ascended },
+    data: {
+      points,
+      ascended,
+      sacrifices: { total },
+    },
   } = useBackend<Info>(context);
-
   return (
     <Stack.Item>
       <Stack vertical fill>
@@ -200,25 +193,18 @@ const InformationSection = (_props, context) => {
         </Stack.Item>
         <Stack.Item>
           You have made a total of&nbsp;
-          <b>{sacrifices.total || 0}</b>&nbsp;
-          <span style={hereticRed}>sacrifices</span>
-          {sacrifices.command > 0 && (
-            <>
-              , <b>{sacrifices.command}</b> of which were <span style={hereticPurple}>high-value</span>
-            </>
-          )}
-          .
+          <b>{total || 0}</b>&nbsp;
+          <span style={hereticRed}>sacrifices</span>.
         </Stack.Item>
       </Stack>
     </Stack.Item>
   );
 };
 
-const ObjectivePrintout = (_props, context) => {
+const ObjectivePrintout = (props, context) => {
   const {
     data: { objectives },
   } = useBackend<Info>(context);
-
   return (
     <Stack.Item>
       <Stack vertical fill>
@@ -236,7 +222,7 @@ const ObjectivePrintout = (_props, context) => {
   );
 };
 
-const ResearchedKnowledge = (_props, context) => {
+const ResearchedKnowledge = (props, context) => {
   const {
     data: {
       knowledge: { researched },
@@ -264,7 +250,7 @@ const ResearchedKnowledge = (_props, context) => {
   );
 };
 
-const KnowledgeShop = (_props, context) => {
+const KnowledgeShop = (props, context) => {
   const {
     data: {
       knowledge: { available },
@@ -303,7 +289,7 @@ const KnowledgeShop = (_props, context) => {
   );
 };
 
-const ResearchInfo = (_props, context) => {
+const ResearchInfo = (props, context) => {
   const {
     data: { points },
   } = useBackend<Info>(context);
@@ -328,14 +314,15 @@ const ResearchInfo = (_props, context) => {
   );
 };
 
-export const AntagInfoHeretic = (_props, context) => {
+export const AntagInfoHeretic = (props, context) => {
   const {
     data: { ascended },
   } = useBackend<Info>(context);
+
   const [currentTab, setTab] = useLocalState<CurrentTab>(context, 'currentTab', CurrentTab.Info);
 
   return (
-    <Window width={675} height={680}>
+    <Window width={675} height={600}>
       <Window.Content
         style={{
           // 'font-family': 'Times New Roman',
