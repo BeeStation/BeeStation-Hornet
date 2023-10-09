@@ -275,7 +275,8 @@ GENE SCANNER
 				healthy = FALSE
 				message += "\t<span class='alert'>Subject is genetically deaf.</span>"
 			else if(HAS_TRAIT_FROM(C, TRAIT_DEAF, EAR_DAMAGE))
-				message = "\n<span class='alert ml-2'>Subject is deaf from ear damage.</span>"
+				healthy = FALSE
+				message += "\t<span class='alert'>Subject is deaf from ear damage.</span>"
 			else if(HAS_TRAIT(C, TRAIT_DEAF))
 				healthy = FALSE
 				message += "\t<span class='alert'>Subject is deaf.</span>"
