@@ -1,4 +1,0 @@
-author: rkz
-delete-after: true
-changes:
-  - bugfix: fix nanite cloud controllers disappearing (my fault)
