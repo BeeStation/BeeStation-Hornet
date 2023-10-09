@@ -28,7 +28,7 @@
   */
 /mob/proc/adjust_blindness(amount, force)
 	var/old_eye_blind = eye_blind
-	eye_blind += amount
+	eye_blind = max(eye_blind + amount, 0)
 	if(!old_eye_blind || !eye_blind && !HAS_TRAIT(src, TRAIT_BLIND))
 		update_blindness()
 

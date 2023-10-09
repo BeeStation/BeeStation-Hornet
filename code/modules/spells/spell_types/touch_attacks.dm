@@ -44,7 +44,7 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/targeted/touch/proc/create_hand()
-	return new hand_path(src)
+	return new hand_path(null, src)
 
 /obj/effect/proc_holder/spell/targeted/touch/proc/charge_hand(mob/living/carbon/user)
 	attached_hand = create_hand()
@@ -96,4 +96,4 @@
 	parent_mutation = _parent
 
 /obj/effect/proc_holder/spell/targeted/touch/mutation/create_hand()
-	return new hand_path(src, parent_mutation)
+	return new hand_path(null, src, parent_mutation)
