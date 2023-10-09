@@ -213,6 +213,14 @@
 		if(COOLDOWN_FINISHED(fartee, special_emote_cooldown))
 			..()
 			COOLDOWN_START(fartee, special_emote_cooldown, 20 SECONDS)
+		else if(HAS_TRAIT(fartee, TRAIT_CLUMSY) && prob(5))
+			var/turf/T = get_turf(fartee)
+			fartee.spew_organ(0, 1)
+			fartee.add_splatter_floor(T)
+			playsound(T, 'sound/effects/splat.ogg', 50, 1)
+			fartee.visible_message("<span class='warning'>[fartee] sprays a bloody mess out of their rear!</span>", "<span class='warning'>You manage to strain out more than just a fart!</span>")
+			..()
+			COOLDOWN_START(fartee, special_emote_cooldown, 20 SECONDS)
 		else
 			to_chat(user, "<span class='warning'>You strain, but can't seem to fart again just yet.</span>")
 		return TRUE
