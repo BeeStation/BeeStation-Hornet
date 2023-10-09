@@ -52634,21 +52634,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
-"qqy" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer4{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "qqD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/directional{
@@ -123303,7 +123288,7 @@ yeA
 yeA
 yeA
 afk
-qqy
+afk
 gsA
 gsA
 dVs
