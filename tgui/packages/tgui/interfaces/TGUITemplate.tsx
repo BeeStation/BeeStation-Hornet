@@ -1,19 +1,18 @@
-import { BooleanLike } from '../../common/react';
+import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Input, Button, Stack } from '../components';
-import { Fragment } from 'inferno';
+import { Input, Button, Stack, Box } from '../components';
 import { Window } from '../layouts';
-import { map } from 'common/collections';
 
 type TGUITemplateData = {
   options: string[];
   ui_message: string;
   current_option: string;
+  something_static: string;
 };
 
 export const TGUITemplate = (props, context) => {
-  const { act, data } = useBackend<TGUITemplateData>(context); // not used in this section, but remained here
-  const { options, ui_message, current_option } = data; // same above
+  const { act, data } = useBackend<TGUITemplateData>(context);
+  const { options, ui_message, current_option, something_static } = data; // not used in this section, but remained here to remind
 
   return (
     <Window width={400} height={400} title="TGUI Template">
@@ -21,6 +20,8 @@ export const TGUITemplate = (props, context) => {
         <Stack vertical>
           <MessageShower />
           <ButtonClicker />
+          <ShowsStaticData />
+          <ShowsAssetImage />
         </Stack>
       </Window.Content>
     </Window>
@@ -38,7 +39,7 @@ const MessageShower = (props, context) => {
         align="right"
         value={ui_message}
         onChange={(e, value) => {
-          act('change_message', { 'new_message': value, 'event_check': e });
+          act('change_message', { 'new_message': value });
         }}
       />
     </Stack.Item>
@@ -52,38 +53,50 @@ const ButtonClicker = (props, context) => {
   return (
     <>
       <Stack.Item>
-        {'Buttons 1: '}
-        {Object.keys(options).forEach((each) => {
-          '/test: ' + each;
-        })}
-      </Stack.Item>
-      <Stack.Item>
-        {'Buttons 2: '}
-        {Object.keys(options).map((each) => {
-          '/test: ' + each;
-        })}
-      </Stack.Item>
-      <Stack.Item>
-        {'Buttons 3: '}
-        {options.forEach((each) => {
-          '/test: ' + each;
-        })}
-      </Stack.Item>
-      <Stack.Item>
-        {'Buttons 4: '}
+        {'Buttons: '}
         {options.map((each) => {
-          '/test: ' + each;
+          return <ButtonForChange key={each} chosen_option={each} />;
         })}
       </Stack.Item>
-      {'-----------------------------'}
-      <Stack.Item />
       <Stack.Item>
-        {'manual expression: '}
-        {options[0]}
-        {options[1]}
+        {'Buttons as index: '}
+        {Object.keys(options).map((each) => {
+          return <ButtonForChange key={each} chosen_option={options[each]} button_content={options[each] + ', idx ' + each} />;
+        })}
       </Stack.Item>
-      <Stack.Item>{'values: ' + options}</Stack.Item>
-      <Stack.Item>{'keys: ' + Object.keys(options)}</Stack.Item>
     </>
+  );
+};
+
+const ButtonForChange = (props, context) => {
+  const { act, data } = useBackend<TGUITemplateData>(context);
+  const { key, chosen_option, button_content = null } = props;
+  const { current_option } = data;
+
+  return (
+    <Button
+      key={key}
+      disabled={chosen_option === current_option}
+      onClick={(e) => act('button_clicked', { 'chosen_option': chosen_option })}>
+      {button_content ? button_content : chosen_option}
+    </Button>
+  );
+};
+
+const ShowsStaticData = (props, context) => {
+  const { act, data } = useBackend<TGUITemplateData>(context);
+  const { something_static } = data;
+
+  return <Stack.Item>{'Static string: ' + something_static}</Stack.Item>;
+};
+
+const ShowsAssetImage = (props, context) => {
+  // const { act, data } = useBackend<TGUITemplateData>(context); // no need
+
+  return (
+    <Stack.Item>
+      {'Asset image sample '}
+      <Box className={classes(['design32x32', 'analyzer'])} />
+    </Stack.Item>
   );
 };
