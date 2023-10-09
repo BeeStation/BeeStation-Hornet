@@ -107,7 +107,7 @@
 /// A globaly cached version of [EMISSIVE_COLOR] for quick access. Indexed by alpha value
 GLOBAL_LIST_INIT(emissive_color, new(256))
 /// A set of appearance flags applied to all emissive and emissive blocker overlays.
-#define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|RESET_COLOR)
+#define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|RESET_COLOR|NO_CLIENT_COLOR|PIXEL_SCALE)
 
 /// Colour matrix used to convert items into blockers. The only thing that should be taken into account is the alpha value, and
 /// alpha of 1 should be fully black and an alpha of 0 should be black but transparent

@@ -68,7 +68,7 @@
 		if(EMISSIVE_BLOCK_GENERIC)
 			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
 			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.appearance_flags |= appearance_flags
+			gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
 			gen_emissive_blocker.color = GLOB.em_blocker_matrix
 			add_overlay(list(gen_emissive_blocker))
 		if(EMISSIVE_BLOCK_UNIQUE)
@@ -95,7 +95,7 @@
 	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
 		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
 		gen_emissive_blocker.dir = dir
-		gen_emissive_blocker.appearance_flags |= appearance_flags
+		gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
 		gen_emissive_blocker.color = GLOB.em_blocker_matrix
 		return gen_emissive_blocker
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
