@@ -339,6 +339,14 @@
 	item_chair = null
 	icon_state = "officechair_dark"
 
+/obj/structure/chair/office/relaymove(mob/user, direction)
+	if(!direction)
+		return FALSE
+	if(direction == dir)
+		return
+	setDir(direction)
+	return FALSE
+
 /obj/structure/chair/office/Moved()
 	. = ..()
 	if(has_gravity())

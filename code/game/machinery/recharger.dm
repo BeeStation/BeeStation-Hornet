@@ -145,10 +145,6 @@
 	else
 		return PROCESS_KILL
 
-/obj/machinery/recharger/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/recharger/emp_act(severity)
 	. = ..()
 	if (. & EMP_PROTECT_CONTENTS)

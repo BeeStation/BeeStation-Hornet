@@ -66,6 +66,7 @@
 			to_chat(summoner.current, "<span class='holoparasite bold'>Personality reset <span class='danger'>failed</span>: unknown error!</span>")
 		return
 	to_chat(src, "<span class='holoparasite bold big'>[self ? "A ghost took control of you, at your request." : "Your summoner reset you! Better luck next time!"]</span>")
+	ghostize(can_reenter_corpse = FALSE)
 	key = new_player.key
 	to_chat(summoner.current, "<span class='holoparasite bold big'>Personality reset for [color_name] succeeded!</span>")
 	SSblackbox.record_feedback("tally", "holoparasite_reset", 1, automatic ? "automatic" : (self ? "self" : (cooldown ? "summoner" : "summoner (free)")))

@@ -39,9 +39,7 @@
 	. = ..()
 	. += "<span class='danger'>There is a warning label that indicates extended use of [src] may result in loss of hair, yellowing skin, and death.</span>"
 
-/obj/item/wirebrush/advanced/pre_attack(atom/A, mob/living/user)
-	. = ..()
-
+/obj/item/wirebrush/advanced/proc/irradiate(mob/living/user)
 	if(!istype(user))
 		return
 

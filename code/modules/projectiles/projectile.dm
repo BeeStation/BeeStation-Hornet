@@ -61,7 +61,7 @@
 	var/phasing_ignore_direct_target = FALSE
 	/// Bitflag for things the projectile should just phase through entirely - No hitting unless direct target and [phasing_ignore_direct_target] is FALSE. Uses pass_flags flags.
 	var/projectile_phasing = NONE
-	/// Bitflag for things the projectile should hit, but pierce through without deleting itself. Defers to projectile_phasing. Uses pass_flags flags.
+	/// Bitflag for things the projectile should hit, but pierce through without deleting itself. Considered before just purely phasing. Uses pass_flags flags.
 	var/projectile_piercing = NONE
 	/// number of times we've pierced something. Incremented BEFORE bullet_act and on_hit proc!
 	var/pierces = 0
@@ -570,10 +570,10 @@
  * Return PROJECTILE_DELETE_WITHOUT_HITTING to delete projectile without hitting at all!
  */
 /obj/projectile/proc/prehit_pierce(atom/A)
-	if((projectile_phasing & A.pass_flags_self) && (!phasing_ignore_direct_target || original != A))
-		return PROJECTILE_PIERCE_PHASE
 	if(projectile_piercing & A.pass_flags_self)
 		return PROJECTILE_PIERCE_HIT
+	if((projectile_phasing & A.pass_flags_self) && (!phasing_ignore_direct_target || original != A))
+		return PROJECTILE_PIERCE_PHASE
 	if(ismovable(A))
 		var/atom/movable/AM = A
 		if(AM.throwing)
