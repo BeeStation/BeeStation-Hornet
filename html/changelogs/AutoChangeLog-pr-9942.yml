@@ -1,7 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: The Particles shot out of the Particle Accelerator no longer phase through
-      machines
-  - code_imp: In Projectiles, Piercing behaviour is now prioritized over Phasing behaviour
-      (the difference between the two is whether it deals damage as it's passing through)
