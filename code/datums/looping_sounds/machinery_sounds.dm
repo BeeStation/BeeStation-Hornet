@@ -51,3 +51,11 @@
 	mid_length = 10
 	end_sound = 'sound/machines/microwave/microwave-end.ogg'
 	volume = 90
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/rbmk
+	mid_sounds = list('sound/effects/rbmk/alarm.ogg' = 1)
+	volume = 100
+	extra_range = 10
+	mid_length = 30
