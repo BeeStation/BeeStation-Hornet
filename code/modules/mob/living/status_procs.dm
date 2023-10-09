@@ -386,7 +386,9 @@
 
 /////////////////////////////////// TRAIT PROCS ////////////////////////////////////
 
-/mob/living/proc/cure_blind(source)
+/mob/living/proc/cure_blind(source, can_see = TRUE)
+	if(!can_see)
+		return
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
 	if(!is_blind())
 		update_blindness()

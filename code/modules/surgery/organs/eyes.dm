@@ -421,32 +421,11 @@
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	can_see = FALSE
 
-/obj/item/organ/eyes/psyphoza/on_life()
-	. = ..()
-	//If someone somehow heals psyphoza blindness
-	var/mob/living/carbon/C = owner
-	if(!HAS_TRAIT(C, TRAIT_BLIND))
-		sight_flags = 0
-		C.clear_fullscreen("psychic_highlight")
-		C.clear_fullscreen("psychic_highlight_click_mask")
-		C.client?.show_popup_menus = TRUE
-		var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions
-		qdel(P)
-	//And then cruely makes them blind again
-	else if(!C.screens["psychic_highlight"])
-		sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
-		C.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
-		C.overlay_fullscreen("psychic_highlight_click_mask", /atom/movable/screen/fullscreen/blind_context_disable)
-		if(!(locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions))
-			var/datum/action/item_action/organ_action/psychic_highlight/P = new()
-			P.Grant(owner)
-	owner.update_sight()
-
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()
 	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
 	M.remove_client_colour(/datum/client_colour/monochrome/blind)
 
 /obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
-	. = ..()
-	M.cure_blind("uncurable")
+	M.cure_blind("uncurable", TRUE)
+	return ..()
