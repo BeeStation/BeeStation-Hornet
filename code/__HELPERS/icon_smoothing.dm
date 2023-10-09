@@ -287,6 +287,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	var/smooth_border = (smoothing_flags & SMOOTH_BORDER)
 	var/smooth_obj = (smoothing_flags & SMOOTH_OBJ)
 	var/smooth_directional = (smoothing_flags & SMOOTH_DIRECTIONAL)
+	var/skip_corners = (smoothing_flags & SMOOTH_BITMASK_SKIP_CORNERS)
 
 	#define EXTRA_CHECKS(atom) \
 		if(smooth_directional) { \
@@ -334,7 +335,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	for(var/direction in GLOB.cardinals) //Cardinal case first.
 		SET_ADJ_IN_DIR(direction, direction)
 
-	if(!(new_junction & (NORTH|SOUTH)) || !(new_junction & (EAST|WEST)))
+	if(skip_corners || !(new_junction & (NORTH|SOUTH)) || !(new_junction & (EAST|WEST)))
 		set_smoothed_icon_state(new_junction)
 		return
 

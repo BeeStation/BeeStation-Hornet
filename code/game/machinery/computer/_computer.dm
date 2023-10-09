@@ -3,7 +3,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer-0"
 	base_icon_state = "computer"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL | SMOOTH_BITMASK_SKIP_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
@@ -41,6 +41,8 @@
 
 /obj/machinery/computer/Destroy()
 	QDEL_NULL(circuit)
+	if(smoothing_flags & SMOOTH_BITMASK)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/machinery/computer/process()
@@ -55,6 +57,7 @@
 		icon_keyboard = "ratvar_key[rand(1, 2)]"
 		icon_state = "ratvarcomputer"
 		broken_overlay_emissive = TRUE
+		smoothing_flags = NONE
 		update_appearance()
 
 /obj/machinery/computer/narsie_act()
@@ -64,6 +67,7 @@
 		icon_keyboard = initial(icon_keyboard)
 		icon_state = initial(icon_state)
 		broken_overlay_emissive = initial(broken_overlay_emissive)
+		smoothing_flags = initial(smoothing_flags)
 		update_appearance()
 
 /obj/machinery/computer/update_overlays()
@@ -120,6 +124,9 @@
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		set_light(0)
+		if(smoothing_flags & SMOOTH_BITMASK)
+			QUEUE_SMOOTH(src)
+			QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/machinery/computer/emp_act(severity)
 	. = ..()

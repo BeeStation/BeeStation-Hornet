@@ -13,6 +13,8 @@
 #define SMOOTH_OBJ		(1<<5)
 /// Smooths with atoms facing the same direction only
 #define SMOOTH_DIRECTIONAL (1<<6)
+/// Skips the corner step of bitmask smoothing (does nothing without SMOOTH_BITMASK)
+#define SMOOTH_BITMASK_SKIP_CORNERS (1<<7)
 
 DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_CORNERS" = SMOOTH_CORNERS,
@@ -22,6 +24,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_QUEUED" = SMOOTH_QUEUED,
 	"SMOOTH_OBJ" = SMOOTH_OBJ,
 	"SMOOTH_DIRECTIONAL" = SMOOTH_DIRECTIONAL,
+	"SMOOTH_BITMASK_SKIP_CORNERS" = SMOOTH_BITMASK_SKIP_CORNERS,
 ))
 
 

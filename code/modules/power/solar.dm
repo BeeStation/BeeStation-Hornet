@@ -259,7 +259,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer-0"
 	base_icon_state = "computer"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL | SMOOTH_BITMASK_SKIP_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
