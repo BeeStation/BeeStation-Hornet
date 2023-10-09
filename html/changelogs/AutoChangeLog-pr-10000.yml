@@ -1,0 +1,8 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - rscadd: The server repo has officially reached 10,000 pull requests. Thank you
+      everyone for all the contributions you make to the game!
+  - rscadd: To honor this momentous occasion, clowns struggling to fart when they
+      shouldn't be able to may now occasionally fart a random organ out instead. This
+      may be lethal.
