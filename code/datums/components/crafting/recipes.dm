@@ -788,6 +788,14 @@
 				/obj/item/bikehorn = 1)
 	category = CAT_MISC
 
+/datum/crafting_recipe/flash_ducky
+	name = "Toy Rubber Duck Mine"
+	result = /obj/item/deployablemine/traitor/toy
+	time = 20
+	reqs = list(/obj/item/bikehorn/rubberducky = 1,
+				/obj/item/assembly/flash = 1)
+	category = CAT_MISC
+
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"
 	result = /obj/item/knife/combat/bone
