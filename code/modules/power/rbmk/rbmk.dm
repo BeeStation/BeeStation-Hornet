@@ -1,9 +1,7 @@
 // TO DO:
-// Add in orderable crates for uranium rods and control rods
 // Loop meltdown sounds during meltdown, stop when no more meltdown/engine exploded
-// Fix the piping so that the reactor actually connects to atmos pipes and devices
-
-
+// [12:27:54] Runtime in datum_pipeline.dm,133: null.addMember() called by /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset on (163,163,2)
+// add in warning checks to engineering that the reactor is overheating/overpressureized
 
 
 #define COOLANT_INPUT_GATE airs[1]
@@ -310,7 +308,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	gas_absorption_effectiveness = gas_absorption_constant
 	//Next up, handle moderators!
 	if(moderator_input.total_moles() >= minimum_coolant_level)
-		var/total_fuel_moles = moderator_input.get_moles(GAS_PLASMA) + (moderator_input.get_moles(GAS_NITROUS)*2)+ (moderator_input.get_moles(GAS_TRITIUM)*10) //Constricted plasma is 50% more efficient as fuel than plasma, but is harder to produce
+		var/total_fuel_moles = moderator_input.get_moles(GAS_PLASMA) + (moderator_input.get_moles(GAS_NITROUS)*2)+ (moderator_input.get_moles(GAS_TRITIUM)*10) //n2o is 50% more efficient as fuel than plasma, but is harder to produce
 		var/power_modifier = max((moderator_input.get_moles(GAS_O2) / moderator_input.total_moles() * 10), 1) //You can never have negative IPM. For now.
 		if(total_fuel_moles >= minimum_coolant_level) //You at least need SOME fuel.
 			var/power_produced = max((total_fuel_moles / moderator_input.total_moles() * 10), 1)
@@ -412,7 +410,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/handle_alerts()
 	var/alert = FALSE //If we have an alert condition, we'd best let people know.
 	var/turf/T = get_turf(src)
-	var/rbmkzlevel = T.z
+	var/rbmkzlevel = T.get_virtual_z_level()
 	if(K <= 0 && temperature <= 0)
 		shut_down()
 	//First alert condition: Overheat
@@ -475,7 +473,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	AddComponent(/datum/component/radioactive, 15000 , src)
 	var/obj/modules/power/rbmk/nuclear_sludge_spawner/NSW = new /obj/modules/power/rbmk/nuclear_sludge_spawner/strong(get_turf(src))
 	var/turf/T = get_turf(src)
-	var/rbmkzlevel = T.z
+	var/rbmkzlevel = T.get_virtual_z_level()
 	for(var/mob/M in GLOB.player_list)
 		if(M.get_virtual_z_level() == rbmkzlevel)
 			SEND_SOUND(M, 'sound/effects/rbmk/meltdown.ogg')
@@ -484,7 +482,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 	NSW.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	for(var/obj/machinery/power/apc/A in GLOB.apcs_list)
-		if(get_virtual_z_level(src, A) && prob(70))
+		if(src.get_virtual_z_level() == A.get_virtual_z_level() && prob(70))
 			A.overload_lighting()
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
@@ -505,7 +503,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
 	meltdown() //Double kill.
 	var/turf/T = get_turf(src)
-	var/rbmkzlevel = T.loc.z
+	var/rbmkzlevel = T.get_virtual_z_level()
 	for(var/mob/M in GLOB.player_list)
 		if(M.get_virtual_z_level() == rbmkzlevel)
 			SEND_SOUND(M, 'sound/effects/rbmk/explode.ogg')
@@ -514,7 +512,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	for(var/X in GLOB.landmarks_list)
 		if(istype(X, /obj/modules/power/rbmk/nuclear_sludge_spawner))
 			var/obj/modules/power/rbmk/nuclear_sludge_spawner/WS = X
-			if(get_virtual_z_level(src) == get_virtual_z_level(WS)) //Begin the SLUDGING
+			if(src.get_virtual_z_level() == WS.get_virtual_z_level()) //Begin the SLUDGING
 				WS.fire()
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/update_icon()
@@ -864,7 +862,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//No reactor? Go find one then.
 	if(!reactor)
 		for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/R in GLOB.machines)
-			if(user.z ==  R.z)
+			if(user.get_virtual_z_level() ==  R.get_virtual_z_level())
 				reactor = R
 				break
 	active = TRUE
@@ -893,7 +891,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		if("swap_reactor")
 			var/list/choices = list()
 			for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/R in GLOB.machines)
-				if(usr.z != R.z)
+				if(usr.get_virtual_z_level() != R.get_virtual_z_level())
 					continue
 				choices += R
 			reactor = input(usr, "What reactor do you wish to monitor?", "[src]", null) as null|anything in choices
@@ -902,3 +900,79 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			tempInputData = list()
 			tempOutputdata = list()
 			return TRUE
+
+//Plutonium sludge
+
+#define PLUTONIUM_SLUDGE_RANGE 500
+#define PLUTONIUM_SLUDGE_RANGE_STRONG 1000
+#define PLUTONIUM_SLUDGE_RANGE_WEAK 300
+
+#define PLUTONIUM_SLUDGE_CHANCE 15
+
+
+/obj/modules/power/rbmk/nuclear_sludge_spawner //Clean way of spawning nuclear gunk after a reactor core meltdown.
+	name = "nuclear waste spawner"
+	var/range = PLUTONIUM_SLUDGE_RANGE //tile radius to spawn goop
+	var/center_sludge = TRUE // Whether or not the center turf should spawn sludge or not.
+	var/static/list/avoid_objs = typecacheof(list( // List of objs that the waste does not spawn on
+		/obj/structure/stairs, // Sludge is hidden below stairs
+		/obj/structure/ladder, // Going down the ladder directly on sludge bad
+		/obj/effect/decal/cleanable/nuclear_waste, // No stacked sludge
+		/obj/structure/girder,
+		/obj/structure/grille,
+		/obj/structure/window/fulltile,
+		/obj/structure/window/plasma/fulltile,
+		/obj/structure/window/plasma/reinforced/fulltile,
+		/obj/structure/window/plastitanium,
+		/obj/structure/window/reinforced/fulltile,
+		/obj/structure/window/reinforced/clockwork/fulltile,
+		/obj/structure/window/reinforced/tinted/fulltile,
+		/obj/structure/window,
+		/obj/structure/window/shuttle,
+		/obj/machinery/gateway,
+		/obj/machinery/gravity_generator,
+		))
+/// Tries to place plutonium sludge on 'floor'. Returns TRUE if the turf has been successfully processed, FALSE otherwise.
+/obj/modules/power/rbmk/nuclear_sludge_spawner/proc/place_sludge(turf/open/floor, epicenter = FALSE)
+	if(!floor)
+		return FALSE
+
+	if(epicenter)
+		for(var/obj/effect/decal/cleanable/nuclear_waste/waste in floor) //Replace nuclear waste with the stronger version
+			qdel(waste)
+		new /obj/effect/decal/cleanable/nuclear_waste/epicenter (floor)
+		return TRUE
+
+	if(!prob(PLUTONIUM_SLUDGE_CHANCE)) //Scatter the sludge, don't smear it everywhere
+		return TRUE
+
+	for(var/obj/O in floor)
+		if(avoid_objs[O.type])
+			return TRUE
+
+	new /obj/effect/decal/cleanable/nuclear_waste (floor)
+	return TRUE
+
+/obj/modules/power/rbmk/nuclear_sludge_spawner/strong
+	range = PLUTONIUM_SLUDGE_RANGE_STRONG
+
+/obj/modules/power/rbmk/nuclear_sludge_spawner/weak
+	range = PLUTONIUM_SLUDGE_RANGE_WEAK
+	center_sludge = FALSE
+
+/obj/modules/power/rbmk/nuclear_sludge_spawner/proc/fire()
+	playsound(src, 'sound/effects/gib_step.ogg', 100)
+
+	if(center_sludge)
+		place_sludge(get_turf(src), TRUE)
+
+	for(var/turf/open/floor in orange(range, get_turf(src)))
+		place_sludge(floor, FALSE)
+
+	qdel(src)
+
+#undef PLUTONIUM_SLUDGE_RANGE
+#undef PLUTONIUM_SLUDGE_RANGE_STRONG
+#undef PLUTONIUM_SLUDGE_RANGE_WEAK
+#undef PLUTONIUM_SLUDGE_CHANCE
+

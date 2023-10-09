@@ -1028,6 +1028,17 @@
 	crate_name = "power cell crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
+/datum/supply_pack/engineering/sealant
+	name = "Engine Sealant Crate"
+	desc = "Nuclear reactor looking a bit cracked? Don't be afraid to slap on some NT brand sealant to patch those holes right up!"
+	cost = 1000
+	max_supply = 1
+	contains = list(/obj/item/sealant,
+					/obj/item/sealant,
+					/obj/item/sealant)
+	crate_name = "sealant crate"
+	crate_type = /obj/structure/closet/crate/engineering/
+
 /datum/supply_pack/engineering/shuttle_engine
 	name = "Shuttle Engine Crate"
 	desc = "Through advanced bluespace-shenanigans, our engineers have managed to fit an entire shuttle engine into one tiny little crate. Requires CE access to open."
@@ -1053,6 +1064,20 @@
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical)
 	crate_name = "toolbox crate"
+
+/datum/supply_pack/engineering/fuel_rods
+	name = "Uranium Fuel Rod Crate"
+	desc = "A five nuclear reactor grade fuel rod crate. Don't forget to wear radiation protection!"
+	cost = 10000
+	max_supply = 2
+	access_budget = ACCESS_ENGINE
+	contains = list(/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod,
+					/obj/item/fuel_rod)
+	crate_name = "fuel rod crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
 
 /datum/supply_pack/engineering/vending/engineering
 	name = "Engineering Vending Crate"
