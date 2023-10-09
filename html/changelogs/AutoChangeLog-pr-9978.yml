@@ -1,0 +1,6 @@
+author: WhereAmI, RaveRadbury, Inept, softcerv
+delete-after: true
+changes:
+  - rscadd: Adds Tarot Cards, for any thematic fortune tellings you might require!
+      Find them in the General loadout tab or Fun Vendor.
+  - rscadd: Radial Menu for Cards, easier to navigate while playing!
