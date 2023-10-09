@@ -553,7 +553,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	light_power = 1
 	light_range = 3
 	icon_state = "oldcomp"
-	icon_screen = "library"
+	icon_screen = "stock_computer"
 	icon_keyboard = null
 	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor = null
 	var/id = "default_reactor_for_lazy_mappers"
@@ -574,7 +574,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/computer/reactor/control_rods
 	name = "control rod management computer"
 	desc = "A computer which can remotely raise / lower the control rods of a reactor."
-	icon_screen = "rbmk_rods"
 
 /obj/machinery/computer/reactor/control_rods/attack_hand(mob/living/user)
 	. = ..()
@@ -612,7 +611,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/computer/reactor/stats
 	name = "reactor statistics console"
 	desc = "A console for monitoring the statistics of a nuclear reactor."
-	icon_screen = "rbmk_stats"
 	var/next_stat_interval = 0
 	var/list/psiData = list()
 	var/list/powerData = list()
@@ -662,7 +660,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/computer/reactor/fuel_rods
 	name = "Reactor Fuel Management Console"
 	desc = "A console which can remotely raise fuel rods out of nuclear reactors."
-	icon_screen = "rbmk_fuel"
 
 /obj/machinery/computer/reactor/fuel_rods/attack_hand(mob/living/user)
 	. = ..()
