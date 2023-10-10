@@ -229,6 +229,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			network_root_id = STATION_NETWORK_ROOT // default to station root because this might be created with a blueprint
 		SSnetworks.assign_area_network_id(src)
 
+	///Generate floor texture stuff
+	var/mutable_appearance/MA = mutable_appearance('icons/turf/floor_texture.dmi', "used-slight", plane = FLOOR_TEXTURE_PLANE)
+	add_overlay(MA)
+
 	return INITIALIZE_HINT_LATELOAD
 
 /**

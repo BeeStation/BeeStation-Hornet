@@ -11,6 +11,10 @@
 #define GRAVITY_PULSE_PLANE -89
 #define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
+///Plane used for floor texture stuff
+#define FLOOR_TEXTURE_PLANE -85
+#define FLOOR_TEXTURE_PLANE_RENDER_TARGET "*FLOOR_TEXTURE_PLANE_RENDER_TARGET"
+
 //#define ZMIMIC_MIN_PLANE -80
 // ZMIMIC: -----------  -80 to -70
 // Highest plane used by zmimic, occupies up to -ZMIMIC_MAX_DEPTH
