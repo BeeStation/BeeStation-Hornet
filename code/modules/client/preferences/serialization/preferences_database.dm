@@ -436,14 +436,14 @@
 /datum/preferences_holder/proc/write_preference(datum/preferences/preferences, datum/preference/preference, value)
 	var/new_value = preference.deserialize(value, preferences)
 	if (!preference.is_valid(new_value))
-		log_preferences("[preferences?.parent?.ckey]: Preference value write for [preference.type]: [new_value] ignored due to being invalid.")
+		log_preferences("[preferences?.parent?.ckey]: Preference value write for [preference.type] TO \"[new_value]\" ignored due to being invalid.")
 		return FALSE
 	preference_data[preference.db_key] = new_value
 	if(!istype(preferences.parent) || IS_GUEST_KEY(preferences.parent.key)) // NO saving guests to the DB!
 		return TRUE
 	dirty_prefs |= preference.db_key
 	SSpreferences.queue_write(preferences)
-	log_preferences("[preferences?.parent?.ckey]: Preference value write for [preference.type]: [value] created.")
+	log_preferences("[preferences?.parent?.ckey]: Preference value write for [preference.type] TO \"[value]\" created.")
 	return TRUE
 
 /datum/preferences_holder/proc/write_to_database(datum/preferences/prefs)

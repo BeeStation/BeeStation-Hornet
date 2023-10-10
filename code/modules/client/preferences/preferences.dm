@@ -430,8 +430,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character_data.get_all_character_names(src)
 
 /// Applies the given preferences to a human mob.
-/datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE)
-	log_preferences("[parent?.ckey]: Applying character preferences to mob [key_name(character)].")
+/datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, log = TRUE)
+	if(log)
+		log_preferences("[parent?.ckey]: Applying character preferences to mob [key_name(character)] ([REF(character)]).")
 	character.dna.features = list()
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
