@@ -41,6 +41,7 @@
 	ADD_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 
 /datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	C.cure_blind()
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 	PH = null
@@ -158,6 +159,7 @@
 	QDEL_NULL(overlay_change)
 	owner?.clear_fullscreen("psychic_highlight")
 	owner?.clear_fullscreen("psychic_highlight_mask")
+	owner?.clear_fullscreen("psychic_highlight_click_mask")	
 	eyes = null
 	return ..()
 
