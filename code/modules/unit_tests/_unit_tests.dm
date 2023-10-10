@@ -83,6 +83,7 @@
 #include "ntnetwork_tests.dm"
 #include "preference_species.dm"
 #include "projectiles.dm"
+#include "stat_mc.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgery_linking.dm"
