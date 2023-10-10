@@ -40,6 +40,7 @@
 /atom/movable/screen/plane_master/floor/Initialize(mapload)
 	. = ..()
 	add_filter("floor_texture", 1, layering_filter(render_source = FLOOR_TEXTURE_PLANE_RENDER_TARGET, blend_mode = BLEND_ADD))
+	add_filter("floor_shadow_texture", 1.1, layering_filter(render_source = FLOOR_SHADOW_TEXTURE_PLANE_RENDER_TARGET, blend_mode = BLEND_SUBTRACT))
 
 /atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
 	. = ..()
@@ -232,9 +233,17 @@
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
 
+//floor highlights
 /atom/movable/screen/plane_master/floor_texture
 	name = "floor texture plane"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = FLOOR_TEXTURE_PLANE
 	render_target = FLOOR_TEXTURE_PLANE_RENDER_TARGET
 	render_relay_plane = null
+
+//floor shadows
+/atom/movable/screen/plane_master/floor_texture/shadow
+	name = "floor shadow texture plane"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = FLOOR_SHADOW_TEXTURE_PLANE
+	render_target = FLOOR_SHADOW_TEXTURE_PLANE_RENDER_TARGET

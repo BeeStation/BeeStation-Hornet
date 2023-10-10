@@ -230,7 +230,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		SSnetworks.assign_area_network_id(src)
 
 	///Generate floor texture stuff
-	var/mutable_appearance/MA = mutable_appearance('icons/turf/floor_texture.dmi', "used-slight", plane = FLOOR_TEXTURE_PLANE)
+	var/mutable_appearance/MA = mutable_appearance('icons/turf/floor_texture.dmi', "used-slight-highlight", plane = FLOOR_TEXTURE_PLANE)
+	add_overlay(MA)
+	MA = mutable_appearance('icons/turf/floor_texture.dmi', "used-slight-shadow", plane = FLOOR_SHADOW_TEXTURE_PLANE)
 	add_overlay(MA)
 
 	return INITIALIZE_HINT_LATELOAD
