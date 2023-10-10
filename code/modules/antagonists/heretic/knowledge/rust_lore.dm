@@ -40,7 +40,7 @@
 		/datum/heretic_knowledge/limited_amount/base_void,
 		)
 	required_atoms = list(
-		/obj/item/kitchen/knife = 1,
+		/obj/item/knife = 1,
 		/obj/item/trash = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)

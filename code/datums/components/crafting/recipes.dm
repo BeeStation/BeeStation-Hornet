@@ -464,7 +464,7 @@
 	result = /obj/item/switchblade/kitchen
 	reqs = list(/obj/item/stack/sheet/iron = 2,
 				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/kitchen/knife = 1,
+				/obj/item/knife = 1,
 				/obj/item/stack/cable_coil = 2)
 	tools = list(TOOL_WELDER)
 	time = 45
@@ -488,7 +488,7 @@
 	result = /obj/item/switchblade/plastitanium
 	reqs = list(/obj/item/weaponcrafting/stock = 1,
 				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/kitchen/knife = 1,
+				/obj/item/knife = 1,
 				/obj/item/stack/cable_coil = 2,
 				/obj/item/stack/sheet/mineral/plastitanium = 2)
 	tools = list(TOOL_WELDER)
@@ -790,7 +790,7 @@
 
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"
-	result = /obj/item/kitchen/knife/combat/bone
+	result = /obj/item/knife/combat/bone
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	category = CAT_PRIMAL
@@ -968,7 +968,7 @@
 	name = "Shank"
 	reqs = list(/obj/item/shard = 1,
 					/obj/item/stack/cable_coil = 10) // 1 glass shard + 10 cable; needs a wirecutter to snip the cable.
-	result = /obj/item/kitchen/knife/shank
+	result = /obj/item/knife/shank
 	tools = list(TOOL_WIRECUTTER)
 	time = 20
 	category = CAT_WEAPONRY

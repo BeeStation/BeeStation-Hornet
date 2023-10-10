@@ -172,7 +172,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "aK" = (
 /obj/machinery/light,
-/obj/item/kitchen/knife/butcher,
+/obj/item/knife/butcher,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aL" = (

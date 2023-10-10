@@ -1003,10 +1003,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 		aTurret.setState(enabled, lethal, shoot_cyborgs)
 	update_icon()
 
-/obj/machinery/turretid/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/turretid/update_icon()
 	..()
 	if(machine_stat & NOPOWER)
