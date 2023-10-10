@@ -5,7 +5,7 @@
 			continue
 
 		if (preference.is_randomizable())
-			log_preferences("[parent?.ckey]: Randomizing [preference.type] from flags [randomize_flags].")
+			log_preferences("[parent?.ckey]: Randomizing [preference.type] from flags [randomize_flags == ALL ? "ALL" : randomize_flags].")
 			write_preference(preference, preference.create_random_value(src))
 
 /// Randomizes the character according to preferences.
