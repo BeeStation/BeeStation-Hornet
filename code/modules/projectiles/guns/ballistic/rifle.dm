@@ -74,6 +74,7 @@
 	if (.)
 		wild_spread = TRUE
 		wild_factor = 0.5
+		weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted
 	name = "enchanted bolt action rifle"
