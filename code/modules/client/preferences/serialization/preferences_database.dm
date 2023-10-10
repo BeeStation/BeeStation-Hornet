@@ -416,9 +416,9 @@
 	SHOULD_NOT_SLEEP(TRUE)
 	var/value = read_raw(preferences, preference)
 	if (isnull(value))
+		log_preferences("[preferences?.parent?.ckey]: Creating default value for [preference.type].")
 		value = preference.create_informed_default_value(preferences)
 		if (write_preference(preferences, preference, value))
-			log_preferences("[preferences?.parent?.ckey]: Default value assigned for [preference.type] ([value])")
 			return value
 		else
 			log_preferences("[preferences?.parent?.ckey]: Failed to write default value. See runtime log.")
