@@ -1,0 +1,7 @@
+author: rkz, Mothblocks
+delete-after: true
+changes:
+  - rscadd: Suit Storage Units now use radials!
+  - rscadd: All engineer Suit Storage Units now start with magboots in them.
+  - rscadd: SSU radials
+  - code_imp: convert SSU code to update_appearance
