@@ -49,17 +49,6 @@
 	can_sawoff = TRUE
 	sawn_desc = "Come with me if you want to live."
 
-/*
-/obj/item/gun/ballistic/shotgun/riot/attackby(obj/item/A, mob/user, params)
-	..()
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
-		sawoff(user)
-	if(istype(A, /obj/item/melee/transforming/energy))
-		var/obj/item/melee/transforming/energy/W = A
-		if(W.active)
-			sawoff(user)
-*/
-
 // Automatic Shotguns//
 
 /obj/item/gun/ballistic/shotgun/automatic
@@ -230,16 +219,6 @@
 			"Rosewood" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_p_sawn")
 		)
 	. = ..()
-/*
-/obj/item/gun/ballistic/shotgun/doublebarrel/attackby(obj/item/A, mob/user, params)
-	..()
-	if(istype(A, /obj/item/melee/transforming/energy))
-		var/obj/item/melee/transforming/energy/W = A
-		if(W.active)
-			sawoff(user)
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
-		sawoff(user)
-*/
 
 // IMPROVISED SHOTGUN //
 

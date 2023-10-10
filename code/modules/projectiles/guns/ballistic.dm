@@ -263,7 +263,7 @@
 			to_chat(user, "<span class='notice'>You screw \the [S] onto \the [src].</span>")
 			install_suppressor(A)
 			return
-	if(A.tool_behaviour == TOOL_SAW && can_sawoff == TRUE)
+	if((A.tool_behaviour == TOOL_SAW || istype(A, /obj/item/gun/energy/plasmacutter)) && can_sawoff == TRUE)
 		sawoff(user)
 		return
 	return FALSE
