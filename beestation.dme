@@ -2577,6 +2577,7 @@
 #include "code\modules\food_and_drinks\recipes\tablecraft\recipes_soup.dm"
 #include "code\modules\food_and_drinks\recipes\tablecraft\recipes_spaghetti.dm"
 #include "code\modules\games\cas.dm"
+#include "code\modules\games\tarot.dm"
 #include "code\modules\games\unum.dm"
 #include "code\modules\holiday\easter.dm"
 #include "code\modules\holiday\holidays.dm"
