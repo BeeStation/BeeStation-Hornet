@@ -56,10 +56,6 @@
 	log_preferences("[prefs.parent.ckey]: Successfully loaded datumized character preferences.")
 	return PREFERENCE_LOAD_SUCCESS
 
-/datum/preferences_holder/preferences_character/write_to_database(datum/preferences/prefs)
-	. = write_data(prefs)
-	dirty_prefs.Cut() // clear all dirty preferences
-
 /datum/preferences_holder/preferences_character/write_data(datum/preferences/prefs)
 	. = ..()
 	if(. != PREFERENCE_LOAD_SUCCESS)
