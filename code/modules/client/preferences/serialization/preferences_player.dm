@@ -21,6 +21,7 @@
 	)
 	if(!Q.warn_execute())
 		qdel(Q)
+		log_preferences("[prefs.parent.ckey]: Datumized player preferences load query failed.")
 		return PREFERENCE_LOAD_ERROR
 	var/any_data = FALSE
 	while(Q.NextRow())
@@ -28,6 +29,7 @@
 		var/value = Q.item[2]
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!preference)
+			log_preferences("[prefs.parent.ckey]: Datumized player preferences failed to find preference [db_key] in game, but it was in the database.")
 			// If you ever want to error for unknown tags, this would be helpful.
 			// As of now we don't really care since it doesn't help anything to throw runtimes everywhere.
 			//CRASH("Unknown preference tag in database: [db_key] for ckey [prefs.parent.ckey]")
@@ -35,6 +37,7 @@
 		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
 		any_data = TRUE
 	qdel(Q)
+	log_preferences("[prefs.parent.ckey]: Successfully loaded datumized character preferences[!any_data ? " (no records found)" : ""].")
 	return any_data ? PREFERENCE_LOAD_SUCCESS : PREFERENCE_LOAD_NO_DATA
 
 /datum/preferences_holder/preferences_player/write_data(datum/preferences/prefs)
@@ -44,11 +47,14 @@
 	var/list/sql_inserts = list()
 	for(var/db_key in dirty_prefs)
 		if(!(db_key in preference_data))
+			log_preferences("[prefs.parent.ckey]: Datumized player preferences write found invalid db_key [db_key] in dirty preferences list.")
 			CRASH("Invalid db_key found in dirty preferences list: [db_key].")
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!istype(preference))
+			log_preferences("[prefs.parent.ckey]: Datumized player preferences write found invalid db_key [db_key] in dirty preferences list (2).")
 			CRASH("Could not find preference with db_key [db_key] when writing to database.")
 		if(preference.preference_type != pref_type)
+			log_preferences("[prefs.parent.ckey]: Datumized player preferences write found invalid preference type [preference.preference_type] for [db_key] (want [pref_type]).")
 			CRASH("Invalid preference located from db_key [db_key] for the preference type [pref_type] (had [preference.preference_type])")
 		sql_inserts += list(list(
 			"ckey" = prefs.parent.ckey,
@@ -56,7 +62,9 @@
 			"preference_value" = preference.serialize(preference_data[db_key])
 		))
 	if(!length(sql_inserts)) // nothing to update
+		log_preferences("[prefs.parent.ckey]: Datumized player preferences write - no columns to write.")
 		return PREFERENCE_LOAD_NO_DATA
 	var/success = SSdbcore.MassInsert(format_table_name("preferences"), sql_inserts, duplicate_key = TRUE, warn = TRUE)
 	prefs.fail_state = success
+	log_preferences("[prefs.parent.ckey]: Datumized player preferences write result [success ? "GOOD" : "ERROR"].")
 	return success ? PREFERENCE_LOAD_SUCCESS : PREFERENCE_LOAD_ERROR

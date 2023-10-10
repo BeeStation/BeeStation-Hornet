@@ -80,10 +80,13 @@
 	var/any_changed = FALSE
 	for (var/sent_antag in sent_antags)
 		if(!(sent_antag in valid_antags))
+			log_preferences("[preferences?.parent?.ckey]: Filtered role preference edit for [sent_antag] to [toggled] due to being invalid.")
 			continue
 		if(per_character)
+			log_preferences("[preferences?.parent?.ckey]: Set per-character role preference for [sent_antag] to [toggled].")
 			preferences.role_preferences["[sent_antag]"] = toggled
 		else
+			log_preferences("[preferences?.parent?.ckey]: Set global role preference for [sent_antag] to [toggled].")
 			preferences.role_preferences_global["[sent_antag]"] = toggled
 		any_changed = TRUE
 	if(any_changed)

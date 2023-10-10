@@ -19,6 +19,7 @@ SUBSYSTEM_DEF(preferences)
 		return
 	datums[ckey] = WEAKREF(prefs)
 	prefs.ui_update() // for queue preview
+	log_preferences("[ckey]: Queued preference write.")
 
 /datum/controller/subsystem/preferences/fire(resumed)
 	for(var/ckey in datums)

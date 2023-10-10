@@ -260,7 +260,11 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	if (!preference.is_accessible(src, ignore_page = !in_menu))
 		return FALSE
 
+	log_preferences("[parent.ckey]: Updating preference [preference.type] to value [preference_value].")
+
 	write_preference(preference, preference_value)
+
+	log_preferences("[parent.ckey]: Applying updated preference [preference.type].")
 
 	if (preference.preference_type == PREFERENCE_PLAYER)
 		preference.apply_to_client_updated(parent, read_preference(preference.type))
