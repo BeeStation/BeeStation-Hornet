@@ -260,7 +260,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	if (!preference.is_accessible(src, ignore_page = !in_menu))
 		return FALSE
 
-	log_preferences("[parent.ckey]: Updating preference [preference.type] TO \"[preference_value]\"".")
+	log_preferences("[parent.ckey]: Updating preference [preference.type] TO \"[preference_value]\".")
 
 	write_preference(preference, preference_value)
 
