@@ -822,7 +822,7 @@
 	desc = "A service cyborg upgrade allowing for basic food handling."
 	hat = /obj/item/clothing/head/chefhat
 	addmodules = list (
-		/obj/item/kitchen/knife,
+		/obj/item/knife/kitchen,
 		/obj/item/kitchen/rollingpin,
 	)
 	additional_reagents = list(
