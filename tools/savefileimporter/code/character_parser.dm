@@ -71,7 +71,6 @@ var/global/list/custom_name_types = list(
 		READ_FILE_EXVAR(S["feature_apid_antenna"], features["apid_antenna"])
 		READ_FILE_EXVAR(S["feature_apid_stripes"], features["apid_stripes"])
 		READ_FILE_EXVAR(S["feature_apid_headstripes"], features["apid_headstripes"])
-		
 		var/list/custom_names = list()
 
 		//Custom names

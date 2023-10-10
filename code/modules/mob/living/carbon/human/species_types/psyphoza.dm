@@ -42,6 +42,7 @@
 
 /datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
+	REMOVE_TRAIT(C, TRAIT_PSYCHIC_SENSE, SPECIES_TRAIT)
 	PH = null
 
 /datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
@@ -157,6 +158,7 @@
 	QDEL_NULL(overlay_change)
 	owner?.clear_fullscreen("psychic_highlight")
 	owner?.clear_fullscreen("psychic_highlight_mask")
+	eyes = null
 	return ..()
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
@@ -210,7 +212,7 @@
 	has_cooldown_timer = FALSE
 	UpdateButtonIcon()
 
-//Allows user to see images through walls
+//Allows user to see images through walls - mostly for if this action is added to something without xray
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
 	//Grab organs - we do this here becuase of fuckery :tm:
 	if(!eyes && istype(owner, /mob/living/carbon/human))

@@ -80,7 +80,7 @@
 		//Re-use the blind sense location holder for an appearance
 		BS.appearance = target.appearance
 		BS.render_target = "[WEAKREF(BS)]"
-		BS.color = "#fff" //what the fuck, setting color and plane doesn't work in the actual path definition, fuck off
+		BS.color = "#ffffffff" //what the fuck, setting color and plane doesn't work in the actual path definition, fuck off
 		BS.plane = ANTI_PSYCHIC_PLANE
 		M.filters += filter(type = "alpha", render_source = BS.render_target)
 
