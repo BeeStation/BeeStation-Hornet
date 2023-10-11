@@ -862,6 +862,41 @@
 	category = CAT_PRIMAL
 	dangerous_craft = TRUE
 
+/datum/crafting_recipe/splinterknife
+	name = "Splinter Knife"
+	result = /obj/item/kitchen/knife/splinter
+	time = 30
+	reqs = list(/obj/item/stack/sheet/splinter = 10)
+	category = CAT_PRIMAL
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/splinterspear
+	name = "Splinter Spear"
+	result = /obj/item/spear/splinter
+	time = 30
+	reqs = list(/obj/item/stack/sheet/splinter = 20,
+				/obj/item/stack/sheet/mineral/silver = 10)
+	category = CAT_PRIMAL
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/splintersword
+	name = "Splinter Sword"
+	result = /obj/item/claymore/splinter
+	time = 30
+	reqs = list(/obj/item/stack/sheet/splinter = 20,
+				/obj/item/stack/sheet/mineral/titanium = 10)
+	category = CAT_PRIMAL
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/splinteraxe
+	name = "Splinter Axe"
+	result = /obj/item/fireaxe/splinter
+	time = 30
+	reqs = list(/obj/item/stack/sheet/splinter = 30,
+				/obj/item/stack/sheet/mineral/diamond = 10)
+	category = CAT_PRIMAL
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/pressureplate
 	name = "Pressure Plate"
 	result = /obj/item/pressure_plate

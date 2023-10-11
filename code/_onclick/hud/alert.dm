@@ -247,6 +247,20 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 		var/mob/living/carbon/M = usr
 		return M.help_shake_act(M)
 
+/atom/movable/screen/alert/splintered
+	name = "Splintered Weapon"
+	desc = "The spiny weapon in your hand just dug itself into your arm painfully. What the hell?"
+	icon_state = "embeddedobject"
+
+/atom/movable/screen/alert/splintered/Click()
+	var/datum/component/splintering/S = usr.GetComponent(/datum/component/splintering)
+	to_chat(usr, "<span class='notice'>You attempt to rip the [S.weapon] from your arm...</span>")
+	if(S && do_after(usr, 5 SECONDS))
+		S.unembed()
+		to_chat(usr, "<span class='warning'>You painfully rip the [S.weapon] from your arm!</span>")
+	else
+		to_chat(usr, "<span class='warning'>You fail to rip out the [S.weapon] from your arm!</span>")
+
 /atom/movable/screen/alert/weightless
 	name = "Weightless"
 	desc = "Gravity has ceased affecting you, and you're floating around aimlessly. You'll need something large and heavy, like a \

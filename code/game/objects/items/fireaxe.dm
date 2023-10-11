@@ -65,3 +65,37 @@
 /obj/item/fireaxe/boneaxe/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=23, icon_wielded="[icon_prefix]1")
+
+/obj/item/fireaxe/splinter  // The bone axe's evil eldritch cousin
+	name = "splinter axe"
+	desc = "A crude, but dangerous-looking monstrosity crafted from abyssal splinters and diamonds. It looks like it will tear through anything - including your arms if you dare hold it."
+	icon_prefix = "splinteraxe"
+	icon_state = "splinteraxe0"
+
+	var/datum/component/splintering/splinter
+	var/growth_per_hit = 20
+	var/growth_decay = 0.07
+	var/self_damage_min = 10
+	var/self_damage_max = 20
+	var/blood_siphoned = 27
+	var/embed_damage = 35
+
+/obj/item/fireaxe/splinter/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=30, icon_wielded="[icon_prefix]1")
+
+/obj/item/fireaxe/splinter/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HANDS)
+		splinter = user.AddComponent(/datum/component/splintering, src, growth_per_hit, growth_decay, self_damage_min, self_damage_max, blood_siphoned, embed_damage)
+
+/obj/item/fireaxe/splinter/dropped(mob/living/carbon/user)
+	. = ..()
+	QDEL_NULL(splinter)
+
+/obj/item/fireaxe/splinter/update_icon_state()
+	if(splinter && splinter.is_embedded)
+		icon_state = "[icon_prefix]0_stuck"
+	else
+		icon_state = "[icon_prefix]0"
+	..()

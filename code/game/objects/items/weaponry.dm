@@ -236,6 +236,53 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_power = 30
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
 
+/obj/item/claymore/splinter
+	name = "splinter sword"
+	desc = "A curved and spiky blade, made from splinters found in the abyss. Even the handle is jagged, and it looks painful to hold."
+	icon_state = "splintersword"
+	item_state = "splintersword"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	block_level = 2
+	force = 18
+	w_class = WEIGHT_CLASS_NORMAL
+	armour_penetration = 75
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
+
+	var/datum/component/splinter
+	var/growth_per_hit = 8
+	var/growth_decay = 0.1
+	var/self_damage_min = 1
+	var/self_damage_max = 5
+	var/blood_siphoned = 20
+	var/embed_damage = 20
+
+/obj/item/claymore/splinter/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HANDS)
+		splinter = user.AddComponent(/datum/component/splintering, src, growth_per_hit, growth_decay, self_damage_min, self_damage_max, blood_siphoned, embed_damage)
+
+/obj/item/claymore/splinter/dropped(mob/living/carbon/user)
+	..()
+	QDEL_NULL(splinter)
+
+/obj/item/claymore/splinter/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	var/blockhand = 0
+	if(owner.get_active_held_item() == src)
+		if(owner.active_hand_index == 1)
+			blockhand = BODY_ZONE_L_ARM
+		else
+			blockhand = BODY_ZONE_R_ARM
+	else
+		if(owner.active_hand_index == 1)
+			blockhand = BODY_ZONE_R_ARM
+		else
+			blockhand = BODY_ZONE_L_ARM
+	owner.apply_damage(5, BRUTE, blockhand)
+	to_chat(owner, "<span class='danger'>You feel the [src] prick your hand painfully as you parry the blow!</span>")
+	return ..()
+
 /obj/item/katana
 	name = "katana"
 	desc = "Woefully underpowered in D20."

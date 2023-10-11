@@ -74,6 +74,40 @@
 	name = "kitchen knife"
 	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
 
+/obj/item/kitchen/knife/splinter
+	name = "splinter knife"
+	desc = "A primitive and spiky knife cobbled together from splinters from the abyss. It pricks you when you hold it, but something tells you being on the receiving end is way worse."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "splinterknife"
+	item_state = "splinterknife"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	force = 12
+	throwforce = 24
+	throw_speed = 5
+	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 60, "embedded_fall_chance" = 5, "armour_block" = 30)
+
+	var/datum/component/splinter
+	var/growth_per_hit = 5
+	var/growth_decay = 0.2
+	var/self_damage_min = 1
+	var/self_damage_max = 5
+	var/blood_siphoned = 15
+	var/embed_damage = 15
+
+/obj/item/kitchen/knife/splinter/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HANDS)
+		splinter = user.AddComponent(/datum/component/splintering, src, growth_per_hit, growth_decay, self_damage_min, self_damage_max, blood_siphoned, embed_damage)
+
+/obj/item/kitchen/knife/splinter/dropped(mob/living/carbon/user)
+	..()
+	QDEL_NULL(splinter)
+
+/obj/item/kitchen/knife/splinter/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is playing hacky-sack with [user.p_their()] splinter knife! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	return (BRUTELOSS)
+
 /obj/item/kitchen/rollingpin
 	name = "rolling pin"
 	desc = "Used to knock out the Bartender."

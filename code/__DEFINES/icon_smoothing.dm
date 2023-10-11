@@ -119,6 +119,8 @@ DEFINE_BITFIELD(smoothing_flags, list(
 ///obj/machinery/computer/_computer
 #define SMOOTH_GROUP_COMPUTERS S_OBJ (68)
 
+#define SMOOTH_GROUP_SPLINTER_WALLS S_OBJ(68)			///obj/structure/splinter_wall
+
 //LIQUIDS
 
 #define SMOOTH_GROUP_WATER S_OBJ(73) ///obj/effect/abstract/liquid_turf
