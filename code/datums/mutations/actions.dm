@@ -241,63 +241,6 @@
 		var/obj/effect/proc_holder/spell/self/overload/S = power
 		S.max_distance = 4 * GET_MUTATION_POWER(src)
 
-/datum/mutation/acidooze
-	name = "Acidic Hands"
-	desc = "Allows an Oozeling to metabolize some of their blood into acid, concentrated on their hands."
-	quality = POSITIVE
-	locked = TRUE
-	instability = 30
-	power = /obj/effect/proc_holder/spell/targeted/touch/acidooze
-	species_allowed = list(SPECIES_OOZELING)
-
-/obj/effect/proc_holder/spell/targeted/touch/acidooze
-	name = "Acidic Hands"
-	desc = "Concentrate to make some of your blood become acidic."
-	clothes_req = FALSE
-	human_req = FALSE
-	charge_max = 100
-	action_icon_state = "summons"
-	var/volume = 10
-	hand_path = /obj/item/melee/touch_attack/acidooze
-	drawmessage = "You secrete acid into your hand."
-	dropmessage = "You let the acid in your hand dissipate."
-
-/obj/item/melee/touch_attack/acidooze
-	name = "\improper acidic hand"
-	desc = "Keep away from children, paperwork, and children doing paperwork."
-	catchphrase = null
-	icon = 'icons/effects/blood.dmi'
-	var/icon_left = "bloodhand_left"
-	var/icon_right = "bloodhand_right"
-	icon_state = "bloodhand_left"
-	item_state = "fleshtostone"
-
-/obj/item/melee/touch_attack/acidooze/equipped(mob/user, slot)
-	. = ..()
-	//these are intentionally inverted
-	var/i = user.get_held_index_of_item(src)
-	if(!(i % 2))
-		icon_state = icon_left
-	else
-		icon_state = icon_right
-
-/obj/item/melee/touch_attack/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || !isoozeling(user))
-		return
-	var/mob/living/carbon/C = user
-	if(!target || user.incapacitated())
-		return FALSE
-	if(C.blood_volume < 40)
-		to_chat(user, "<span class='warning'>You don't have enough blood to do that!</span>")
-		return FALSE
-	if(target.acid_act(50, 15))
-		user.visible_message("<span class='warning'>[user] rubs globs of vile stuff all over [target].</span>")
-		C.blood_volume = max(C.blood_volume - 20, 0)
-		return ..()
-	else
-		to_chat(user, "<span class='notice'>You cannot dissolve this object.</span>")
-		return FALSE
-
 //Psyphoza species mutation
 /datum/mutation/spores
 	name = "Agaricale Pores" //Pores, not spores
