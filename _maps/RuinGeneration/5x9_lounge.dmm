@@ -13,8 +13,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
-/obj/structure/chair/comfy{
-	dir = 4
+/obj/structure/chair/fancy/comfy{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -50,9 +50,9 @@ Z
 (2,1,1) = {"
 Z
 c
-q
-q
-q
+h
+h
+h
 h
 h
 t
@@ -75,8 +75,8 @@ h
 h
 h
 h
-h
-h
+q
+q
 G
 Z
 "}

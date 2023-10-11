@@ -8,6 +8,13 @@
 "aW" = (
 /turf/template_noop,
 /area/template_noop)
+"bv" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "bO" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -39,6 +46,13 @@
 	name = "Unisex Restroom"
 	},
 /turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"gN" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "hq" = (
 /obj/structure/table,
@@ -519,7 +533,7 @@ KP
 Nf
 xe
 NR
-RC
+bv
 NR
 VL
 dn
@@ -558,7 +572,7 @@ UG
 vY
 NR
 NR
-RC
+gN
 NR
 NR
 lv
@@ -614,7 +628,7 @@ NR
 jz
 NR
 NR
-RC
+bv
 NR
 NR
 NR

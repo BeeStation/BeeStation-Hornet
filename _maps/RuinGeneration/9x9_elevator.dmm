@@ -1,8 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"b" = (
-/obj/machinery/computer/turbolift,
-/turf/open/floor/carpet/red,
-/area/ruin/unpowered)
 "f" = (
 /obj/effect/mob_spawn/human/corpse/assistant,
 /turf/open/floor/carpet/red,
@@ -14,7 +10,6 @@
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "o" = (
-/obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "q" = (
@@ -31,12 +26,6 @@
 /area/ruin/unpowered)
 "C" = (
 /obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"G" = (
-/obj/machinery/turbolift_button{
-	pixel_y = 32
-	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
@@ -126,7 +115,7 @@ l
 l
 l
 l
-G
+t
 t
 t
 g
@@ -152,7 +141,7 @@ t
 t
 t
 l
-b
+s
 s
 s
 o
