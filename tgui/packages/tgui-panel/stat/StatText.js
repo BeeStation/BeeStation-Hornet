@@ -21,6 +21,7 @@ export const StatText = (props, context) => {
       <Box>
         {statPanelData
           ? Object.keys(statPanelData)
+            .filter((x) => x !== null)
             .sort((a, b) => {
               return StatTagToPriority(statPanelData[b].tag) - StatTagToPriority(statPanelData[a].tag);
             })
