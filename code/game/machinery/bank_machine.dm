@@ -3,7 +3,8 @@
 	desc = "A machine used to deposit and withdraw station funds."
 	icon = 'goon/icons/obj/goon_terminals.dmi'
 	idle_power_usage = 100
-	smoothing_flags = NONE // remove these 3 when we start using our own icon.
+	base_icon_state = null // remove these 4 when we start using our own icon.
+	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 	var/siphoning = FALSE

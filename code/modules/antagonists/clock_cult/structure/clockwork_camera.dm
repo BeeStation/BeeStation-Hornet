@@ -57,7 +57,10 @@
 	icon_screen = "ratvar1"
 	icon_keyboard = "ratvar_key1"
 	icon_state = "ratvarcomputer"
+	base_icon_state = null
 	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	clockwork = TRUE
 	lock_override = CAMERA_LOCK_STATION
 	broken_overlay_emissive = TRUE
