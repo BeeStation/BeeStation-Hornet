@@ -61,10 +61,14 @@
 
 /obj/item/gun/ballistic/shotgun/automatic
 	weapon_weight = WEAPON_HEAVY
+	semi_auto = TRUE
+	casing_ejector = TRUE
 
+/*
 /obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	..()
 	rack()
+*/
 
 /obj/item/gun/ballistic/shotgun/automatic/combat
 	name = "combat shotgun"
@@ -73,6 +77,18 @@
 	item_state = "shotgun_combat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
+	if(loc == user)
+		if(!user.is_holding(src))
+			return
+		semi_auto = !semi_auto
+		to_chat(user, "<span class='notice'>You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation.</span>")
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/examine(mob/user)
+	. = ..()
+	. += "You can select the firing mode with <b>alt+click</b>"
+	. += "It is operating in [semi_auto ? "automatic" : "manual"] mode."
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/compact
 	name = "compact combat shotgun"
@@ -108,7 +124,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = FALSE
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
-	semi_auto = TRUE
+	//semi_auto = TRUE
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
 	. = ..()
