@@ -178,6 +178,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	GLOB.areas += src
 	power_usage = new /list(AREA_USAGE_LEN) // Some atoms would like to use power in Initialize()
 	alarm_manager = new(src) // just in case
+
+	///Generate floor texture stuff
+	var/mutable_appearance/MA = mutable_appearance('icons/turf/floor_texture.dmi', "hallway", plane = FLOOR_TEXTURE_PLANE)
+	add_overlay(MA)
+	
 	return ..()
 
 /**
@@ -228,12 +233,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(!network_root_id)
 			network_root_id = STATION_NETWORK_ROOT // default to station root because this might be created with a blueprint
 		SSnetworks.assign_area_network_id(src)
-
-	///Generate floor texture stuff
-	var/mutable_appearance/MA = mutable_appearance('icons/turf/floor_texture.dmi', "used-slight-highlight", plane = FLOOR_TEXTURE_PLANE)
-	add_overlay(MA)
-	MA = mutable_appearance('icons/turf/floor_texture.dmi', "used-slight-shadow", plane = FLOOR_SHADOW_TEXTURE_PLANE)
-	add_overlay(MA)
 
 	return INITIALIZE_HINT_LATELOAD
 
