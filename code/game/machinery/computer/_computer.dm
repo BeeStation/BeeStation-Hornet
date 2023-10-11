@@ -30,9 +30,8 @@
 
 /obj/machinery/computer/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
-	if(smoothing_flags)
-		QUEUE_SMOOTH(src)
-		QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	power_change()
 	if(!QDELETED(C))
 		qdel(circuit)
@@ -41,8 +40,7 @@
 
 /obj/machinery/computer/Destroy()
 	QDEL_NULL(circuit)
-	if(smoothing_flags)
-		QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/machinery/computer/process()
@@ -58,8 +56,7 @@
 		icon_state = "ratvarcomputer"
 		broken_overlay_emissive = TRUE
 		smoothing_groups = null
-		if (smoothing_flags)
-			QUEUE_SMOOTH_NEIGHBORS(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		smoothing_flags = NONE
 		canSmoothWith = null
 		update_appearance()
@@ -69,15 +66,14 @@
 		clockwork = FALSE
 		icon_screen = initial(icon_screen)
 		icon_keyboard = initial(icon_keyboard)
-		icon_state = initial(icon_state)
+		icon_state = "[base_icon_state]-[smoothing_junction]"
 		broken_overlay_emissive = initial(broken_overlay_emissive)
 		smoothing_flags = initial(smoothing_flags)
 		smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
 		canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 		update_appearance()
-		if(smoothing_flags)
-			QUEUE_SMOOTH(src)
-			QUEUE_SMOOTH_NEIGHBORS(src)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/machinery/computer/update_overlays()
 	. = ..()
@@ -133,9 +129,8 @@
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		set_light(0)
-		if(smoothing_flags)
-			QUEUE_SMOOTH(src)
-			QUEUE_SMOOTH_NEIGHBORS(src)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/machinery/computer/emp_act(severity)
 	. = ..()
