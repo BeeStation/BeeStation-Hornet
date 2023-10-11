@@ -5,29 +5,30 @@
 	var/sense_time = 5 SECONDS
 	///Reference to the users ears
 	var/obj/item/organ/ears/ears
-	///Type casted
-	var/mob/owner
+	///ref to client for image stuff
 	var/client/owner_client
 	///What texture we use
 	var/masked_texture = "blind_texture_blank"
 
 /datum/component/blind_sense/New(list/raw_args)
 	. = ..()
+	var/mob/owner
+	if(ismob(parent))
+		owner = parent
+
 	//Register signal for sensing voices
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, PROC_REF(handle_hear))
 	//Register signal for sensing sounds
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, PROC_REF(handle_hear))
 	//typecast to access client
-	owner = parent
 	owner_client = owner?.client
 	//Register ears for people with them - deaf people can't use this component
-	if(iscarbon(owner))
-		var/mob/living/carbon/C = owner
+	if(iscarbon(parent))
+		var/mob/living/carbon/C = parent
 		ears = locate(/obj/item/organ/ears) in C.internal_organs
 		RegisterSignal(ears, COMSIG_PARENT_QDELETING, PROC_REF(handle_ears))
 
 /datum/component/blind_sense/Destroy(force, silent)
-	owner = null
 	owner_client = null
 	ears = null
 	return ..()
@@ -41,7 +42,7 @@
 	SIGNAL_HANDLER
 
 	//Stop us from hearing ourselves or if we're deaf
-	if(owner == speaker || ears?.deaf)
+	if(parent == speaker || ears?.deaf)
 		return
 	//Preset types for things without icons / fucky icons
 	var/type
@@ -51,12 +52,15 @@
 			type = "footstep"
 	//Do dist checks
 	var/turf/T = get_turf(speaker)
-	var/dist = get_dist(get_turf(owner), T)
+	var/dist = get_dist(get_turf(parent), T)
 	if(dist <= hear_range && dist > 1)
 		highlight_object(speaker, type, speaker.dir || 1)
 
 /datum/component/blind_sense/proc/highlight_object(atom/target, type, dir)
-	if(!owner_client || isdead(owner) || !owner?.client)
+	var/mob/owner
+	if(ismob(parent))
+		owner = parent
+	if(!owner_client || isdead(parent) || !owner?.client)
 		owner_client = owner?.client
 		return
 	
@@ -86,7 +90,7 @@
 
 	//Colouring
 	var/_color = "#fff"
-	if(HAS_TRAIT(owner, TRAIT_PSYCHIC_SENSE) && ishuman(target))
+	if(HAS_TRAIT(parent, TRAIT_PSYCHIC_SENSE) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		_color = GLOB.SOUL_GLIMMER_COLORS[H.mind?.soul_glimmer]
 	M.color = _color
