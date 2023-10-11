@@ -78,8 +78,10 @@
 
 /obj/item/gun/ballistic/rifle/boltaction/sawoff(mob/user)
 	. = ..()
-	//Has 25 spread due to sawn-off accuracy penalties, wild spread still applies
+	//Has 25 bonus spread due to sawn-off accuracy penalties
 	if (.)
+		//Wild spread only applies to innate and unwielded spread
+		spread = 10
 		wild_spread = TRUE
 		wild_factor = 0.5
 		weapon_weight = WEAPON_MEDIUM
