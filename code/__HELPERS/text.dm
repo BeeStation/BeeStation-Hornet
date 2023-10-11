@@ -62,6 +62,17 @@
 /proc/adminscrub(t,limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
+/// Thanks Wizkidd0123 - https://www.byond.com/forum/post/168298
+/proc/strip_html_tags(t)
+	if(!istext(t)) 
+		return
+	if(!findtext(t,"<")||!findtext(t,">")) 
+		return t
+	while(findtext(t,"<")&&findtext(t,">"))
+		var/pre=copytext(t,1,findtext(t,"<"))
+		var/pos=copytext(t,findtext(t,">")+1)
+		t=pre+pos
+	return t
 
 //Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length = 512, ascii_only = TRUE, alphanumeric_only = FALSE, underscore_allowed = TRUE)

@@ -23,7 +23,7 @@
 			var/text = i.raw_text
 			if(text && text != "")
 				count += 1
-				addtimer(CALLBACK(src, PROC_REF(say_timer), "[html_decode(text)]..."), (0.5 * count) SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(say_timer), "[text]..."), (0.5 * count) SECONDS)
 
 /obj/item/paper_reader/proc/say_timer(text)
-	say(text)
+	say(strip_html_tags(text))
