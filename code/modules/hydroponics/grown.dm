@@ -191,4 +191,4 @@
 		var/investigated_plantname = seed.get_product_true_name_for_investigate()
 		var/investigate_data = seed.get_gene_datas_for_investigate()
 		log_game("[key_name(user)] dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]")
-		investigate_log("[key_name(user)] dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]", INVESTIGATE_BOTANY)
+		user.investigate_log("dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]", INVESTIGATE_BOTANY)

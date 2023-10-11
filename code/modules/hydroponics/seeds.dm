@@ -181,11 +181,11 @@
 		var/investigated_plantname = get_product_true_name_for_investigate()
 		if(!investigated_plantname)
 			log_game("[key_name(user)] harvested [name]/Location: [AREACOORD(user)]")
-			investigate_log("[key_name(user)] harvested [name]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
+			user.investigate_log("harvested [name]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
 		else
 			var/investigate_data = get_gene_datas_for_investigate()
 			log_game("[key_name(user)] harvested [getYield()] of [investigated_plantname]/[investigate_data]/Location: [AREACOORD(user)]")
-			investigate_log("[key_name(user)] harvested [getYield()] of [investigated_plantname]/[investigate_data]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
+			user.investigate_log("harvested [getYield()] of [investigated_plantname]/[investigate_data]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
 	parent.update_tray(user)
 
 	return result
