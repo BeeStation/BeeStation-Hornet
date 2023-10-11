@@ -429,6 +429,13 @@
 		if (bayonet)
 			bayonet.forceMove(drop_location())
 			clear_bayonet()
+		if (suppressed)
+			if (istype(suppressed, /obj/item/suppressor))
+				//weight class is set later, don't need to worry about removing extra weight from the suppressor
+				var/obj/S = suppressed
+				S.forceMove(drop_location())
+			//If it's integrally suppressed, you're messing that up by chopping off most of it from the tip
+			suppressed = null
 		if (sawn_name)
 			name = sawn_name
 		else
@@ -443,6 +450,7 @@
 		slot_flags |= ITEM_SLOT_BELT	//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		recoil = SAWN_OFF_RECOIL
 		can_bayonet = FALSE				//you got rid of the mounting lug with the rest of the barrel, dumbass
+		can_suppress = FALSE			//ditto for the threaded barrel
 		sawn_off = TRUE
 		spread_multiplier = 1.6
 		update_icon()
