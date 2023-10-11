@@ -147,6 +147,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/cold_ish
+	turf_texture = /datum/turf_texture/maint
 
 //Maintenance - Departmental
 
@@ -371,6 +372,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hallway
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
+	turf_texture = /datum/turf_texture/hallway
 
 /area/hallway
 	lighting_colour_tube = "#ffce99"

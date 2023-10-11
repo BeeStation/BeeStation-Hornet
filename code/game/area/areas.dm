@@ -137,6 +137,9 @@
 	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color
 
+	///The areas specific floor texture overlay
+	var/datum/turf_texture/turf_texture = /datum/turf_texture
+
 /**
   * A list of teleport locations
   *
@@ -178,10 +181,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	GLOB.areas += src
 	power_usage = new /list(AREA_USAGE_LEN) // Some atoms would like to use power in Initialize()
 	alarm_manager = new(src) // just in case
-
-	///Generate floor texture stuff
-	var/mutable_appearance/MA = mutable_appearance('icons/turf/floor_texture.dmi', "hallway", plane = FLOOR_TEXTURE_PLANE)
-	add_overlay(MA)
 	
 	return ..()
 
@@ -233,6 +232,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(!network_root_id)
 			network_root_id = STATION_NETWORK_ROOT // default to station root because this might be created with a blueprint
 		SSnetworks.assign_area_network_id(src)
+
+	///Generate floor texture stuff
+	if(!GLOB.turf_textures[turf_texture])
+		GLOB.turf_textures[turf_texture] = new turf_texture()
+	turf_texture = GLOB.turf_textures[turf_texture]
+	var/mutable_appearance/MA = mutable_appearance(turf_texture.icon, turf_texture.icon_state, plane = FLOOR_TEXTURE_PLANE, alpha = turf_texture.alpha, color = turf_texture?.color)
+	add_overlay(MA)
 
 	return INITIALIZE_HINT_LATELOAD
 
