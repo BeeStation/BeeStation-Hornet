@@ -47,6 +47,14 @@
 	. = ..()
 	. += "The bolt is [bolt_locked ? "open" : "closed"]."
 
+/obj/item/gun/ballistic/rifle/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+	if(sawn_off == TRUE)
+		if(!is_wielded)
+			recoil = 5
+		else
+			recoil = SAWN_OFF_RECOIL
+	. = ..()
+
 ///////////////////////
 // BOLT ACTION RIFLE //
 ///////////////////////
