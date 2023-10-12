@@ -3,7 +3,7 @@
 ///// Rendering stats window ///////
 ////////////////////////////////////
 
-/obj/mecha/proc/get_stats_html()
+/obj/vehicle/sealed/mecha/proc/get_stats_html(mob/user)
 	. = {"<html>
 			<head>
 				<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
@@ -36,7 +36,7 @@
 			</head>
 			<body>
 				<div id='content'>
-					[get_stats_part()]
+					[get_stats_part(user)]
 				</div></div>
 				<div id='eq_list'>
 					[get_equipment_list()]
@@ -52,7 +52,7 @@
 		</html>"}
 
 ///Returns the status of the mech.
-/obj/mecha/proc/get_stats_part()
+/obj/vehicle/sealed/mecha/proc/get_stats_part(mob/user)
 	var/integrity = obj_integrity/max_integrity*100
 	var/cell_charge = get_charge()
 	var/datum/gas_mixture/int_tank_air = 0
@@ -73,20 +73,20 @@
 		<b>Air tank temperature: </b>[internal_tank?"[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C":"N/A"]<br>
 		<b>Cabin pressure: </b>[internal_tank?"[cabin_pressure>WARNING_HIGH_PRESSURE ? "<span class='danger'>[cabin_pressure]</span>": cabin_pressure]kPa":"N/A"]<br>
 		<b>Cabin temperature: </b> [internal_tank?"[return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C":"N/A"]<br>"}
-	. += "[get_actions()]<br>"
+	. += "[get_actions(user)]<br>"
 
 ///Returns HTML for mech actions. Ideally, this proc would be empty for the base mecha. Segmented for easy refactoring.
-/obj/mecha/proc/get_actions()
+/obj/vehicle/sealed/mecha/proc/get_actions(mob/user)
 	. = ""
-	. += "[defense_action.owner ? "<b>Defense Mode: </b> [defense_mode ? "Enabled" : "Disabled"].<br>" : ""]"
-	. += "[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"].<br>" : ""]"
-	. += "[smoke_action.owner ? "<b>Smoke: </b> [smoke].<br>" : ""]"
-	. += "[zoom_action.owner ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"].<br>" : ""]"
-	. += "[switch_damtype_action.owner ? "<b>Damtype: </b> [damtype].<br>" : ""]"
-	. += "[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"].<br>" : ""]"
+	. += "[LAZYACCESSASSOC(occupant_actions, user, /datum/action/vehicle/sealed/mecha/mech_defense_mode) ? "<b>Defense Mode: </b> [defense_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[LAZYACCESSASSOC(occupant_actions, user, /datum/action/vehicle/sealed/mecha/mech_overload_mode) ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[LAZYACCESSASSOC(occupant_actions, user, /datum/action/vehicle/sealed/mecha/mech_smoke) ? "<b>Smoke Charges remaining: </b> [smoke_charges]<br>" : ""]"
+	. += "[LAZYACCESSASSOC(occupant_actions, user, /datum/action/vehicle/sealed/mecha/mech_zoom) ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[LAZYACCESSASSOC(occupant_actions, user, /datum/action/vehicle/sealed/mecha/mech_switch_damtype) ? "<b>Damtype: </b> [damtype]<br>" : ""]"
+	. += "[LAZYACCESSASSOC(occupant_actions, user, /datum/action/vehicle/sealed/mecha/mech_toggle_phasing) ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"]<br>" : ""]"
 
 ///HTML for internal damage.
-/obj/mecha/proc/report_internal_damage()
+/obj/vehicle/sealed/mecha/proc/report_internal_damage()
 	. = ""
 	var/list/dam_reports = list(
 		"[MECHA_INT_FIRE]" = "<span class='userdanger'>INTERNAL FIRE.</span>",
@@ -103,8 +103,8 @@
 	if(return_pressure() > WARNING_HIGH_PRESSURE)
 		. += "<span class='userdanger'>DANGEROUSLY HIGH CABIN PRESSURE.</span><br />"
 
-/obj/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
-	if(!equipment.len)
+/obj/vehicle/sealed/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
+	if(!LAZYLEN(equipment))
 		return
 	. = "<b>Equipment:</b><div style=\"margin-left: 15px;\">"
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
@@ -112,7 +112,7 @@
 	. += "</div>"
 
 ///HTML for commands.
-/obj/mecha/proc/get_commands()
+/obj/vehicle/sealed/mecha/proc/get_commands()
 	. = {"
 	<div class='wr'>
 		<div class='header'>Electronics</div>
@@ -135,28 +135,27 @@
 	<div class='wr'>
 		<div class='header'>Permissions & Logging</div>
 		<div class='links'>
-			<a href='?src=[REF(src)];toggle_id_upload=1'><span id='t_id_upload'>[add_req_access?"L":"Unl"]ock ID upload panel</span></a><br>
-			<a href='?src=[REF(src)];toggle_maint_access=1'><span id='t_maint_access'>[maint_access?"Forbid":"Permit"] maintenance protocols</span></a><br>
+			<a href='?src=[REF(src)];toggle_id_upload=1'><span id='t_id_upload'>[(mecha_flags & ADDING_ACCESS_POSSIBLE)?"L":"Unl"]ock ID upload panel</span></a><br>
+			<a href='?src=[REF(src)];toggle_maint_access=1'><span id='t_maint_access'>[(mecha_flags & ADDING_MAINT_ACCESS_POSSIBLE)?"Forbid":"Permit"] maintenance protocols</span></a><br>
 			[internal_tank?"<a href='?src=[REF(src)];toggle_port_connection=1'><span id='t_port_connection'>[internal_tank.connected_port?"Disconnect from":"Connect to"] gas port</span></a><br>":""]
 			<a href='?src=[REF(src)];change_name=1'>Change exosuit name</a>
 		</div>
 	</div>"}
 
 
-/obj/mecha/proc/get_equipment_menu() //outputs mecha html equipment menu
+/obj/vehicle/sealed/mecha/proc/get_equipment_menu() //outputs mecha html equipment menu
 	. = {"
 	<div class='wr'>
 	<div class='header'>Equipment</div>
 	<div class='links'>"}
-	if(equipment.len)
-		for(var/X in equipment)
-			var/obj/item/mecha_parts/mecha_equipment/W = X
-			. += "[W.name] [W.detachable?"<a href='?src=[REF(W)];detach=1'>Detach</a><br>":"\[Non-removable\]<br>"]"
-	. += {"<b>Available equipment slots:</b> [max_equip-equipment.len]
+	for(var/e in equipment)
+		var/obj/item/mecha_parts/mecha_equipment/equipment = e
+		. += "[equipment.name] [equipment.detachable ? "<a href='?src=[REF(equipment)];detach=1'>Detach</a><br>" : "\[Non-removable\]<br>"]"
+	. += {"<b>Available equipment slots:</b> [max_equip-LAZYLEN(equipment)]
 	</div>
 	</div>"}
 
-/obj/mecha/proc/output_access_dialog(obj/item/card/id/id_card, mob/user)
+/obj/vehicle/sealed/mecha/proc/output_access_dialog(obj/item/card/id/id_card, mob/user)
 	if(!id_card || !user)
 		return
 	. = {"<html>
@@ -188,7 +187,7 @@
 	onclose(user, "exosuit_add_access")
 
 
-/obj/mecha/proc/output_maintenance_dialog(obj/item/card/id/id_card,mob/user)
+/obj/vehicle/sealed/mecha/proc/output_maintenance_dialog(obj/item/card/id/id_card,mob/user)
 	if(!id_card || !user)
 		return
 	. = {"<html>
@@ -200,8 +199,8 @@
 				</style>
 			</head>
 			<body>
-				[add_req_access?"<a href='?src=[REF(src)];req_access=1;id_card=[REF(id_card)];user=[REF(user)]'>Edit operation keycodes</a>":null]
-				[maint_access?"<a href='?src=[REF(src)];maint_access=1;id_card=[REF(id_card)];user=[REF(user)]'>[(construction_state > MECHA_LOCKED) ? "Terminate" : "Initiate"] maintenance protocol</a>":null]
+				[(mecha_flags & ADDING_ACCESS_POSSIBLE)?"<a href='?src=[REF(src)];req_access=1;id_card=[REF(id_card)];user=[REF(user)]'>Edit operation keycodes</a>":null]
+				[(mecha_flags & ADDING_MAINT_ACCESS_POSSIBLE)?"<a href='?src=[REF(src)];maint_access=1;id_card=[REF(id_card)];user=[REF(user)]'>[(construction_state > MECHA_LOCKED) ? "Terminate" : "Initiate"] maintenance protocol</a>":null]
 				[(construction_state == MECHA_OPEN_HATCH) ?"--------------------</br>":null]
 				[(construction_state == MECHA_OPEN_HATCH) ?"[cell?"<a href='?src=[REF(src)];drop_cell=1;id_card=[REF(id_card)];user=[REF(user)]'>Drop power cell</a>":"No cell installed</br>"]":null]
 				[(construction_state == MECHA_OPEN_HATCH) ?"[scanmod?"<a href='?src=[REF(src)];drop_scanmod=1;id_card=[REF(id_card)];user=[REF(user)]'>Drop scanning module</a>":"No scanning module installed</br>"]":null]
@@ -220,7 +219,7 @@
 ///// Topic /////
 /////////////////
 
-/obj/mecha/Topic(href, href_list)
+/obj/vehicle/sealed/mecha/Topic(href, href_list)
 	..()
 
 	if(!usr)
@@ -241,13 +240,13 @@
 				return
 
 			if(href_list["req_access"])
-				if(!add_req_access)
+				if(!(mecha_flags & ADDING_ACCESS_POSSIBLE))
 					return
 				output_access_dialog(id_card,usr)
 				return
 
 			if(href_list["maint_access"])
-				if(!maint_access)
+				if(!(mecha_flags & ADDING_MAINT_ACCESS_POSSIBLE))
 					return
 				if(construction_state == MECHA_LOCKED)
 					construction_state = MECHA_SECURE_BOLTS
@@ -277,14 +276,14 @@
 				return
 
 			if(href_list["add_req_access"])
-				if(!add_req_access)
+				if(!(mecha_flags & ADDING_ACCESS_POSSIBLE))
 					return
 				operation_req_access |= text2num(href_list["add_req_access"])
 				output_access_dialog(id_card,usr)
 				return
 
 			if(href_list["del_req_access"])
-				if(!add_req_access)
+				if(!(mecha_flags & ADDING_ACCESS_POSSIBLE))
 					return
 				operation_req_access -= text2num(href_list["del_req_access"])
 				output_access_dialog(id_card, usr)
@@ -293,7 +292,7 @@
 
 		//Here ID access stuff goes to die.
 		if(href_list["finish_req_access"])
-			add_req_access = 0
+			mecha_flags &= ~ADDING_ACCESS_POSSIBLE
 			usr << browse(null,"window=exosuit_add_access")
 			return
 
@@ -307,7 +306,7 @@
 			return
 
 	//Start of all internal topic stuff.
-	if(usr != occupant)
+	if(!locate(usr) in occupants)
 		return
 
 	if(href_list["update_content"])
@@ -320,7 +319,7 @@
 		if(!equip || !equip.selectable)
 			return
 		selected = equip
-		occupant_message("You switch to [equip].")
+		to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>You switch to [equip].</span>")
 		visible_message("[src] raises [equip].")
 		send_byjax(usr, "exosuit.browser", "eq_list", get_equipment_list())
 		return
@@ -347,58 +346,58 @@
 	//Changes the exosuit name.
 	if(href_list["change_name"])
 		var/userinput = stripped_input(usr, "Choose a new exosuit name.", "Rename exosuit", "", MAX_NAME_LEN)
-		if(!userinput || usr != occupant || usr.incapacitated())
+		if(!userinput || !locate(usr) in occupants || usr.incapacitated())
 			return
 		name = userinput
 		return
 
 	//Toggles ID upload.
 	if (href_list["toggle_id_upload"])
-		add_req_access = !add_req_access
-		send_byjax(usr,"exosuit.browser","t_id_upload","[add_req_access?"L":"Unl"]ock ID upload panel")
+		mecha_flags ^= ADDING_ACCESS_POSSIBLE
+		send_byjax(usr,"exosuit.browser","t_id_upload","[(mecha_flags & ADDING_ACCESS_POSSIBLE)?"L":"Unl"]ock ID upload panel")
 		return
 
 	//Toggles main access.
 	if(href_list["toggle_maint_access"])
 		if(construction_state)
-			occupant_message("<span class='danger'>Maintenance protocols in effect</span>")
+			to_chat(occupants, "[icon2html(src, occupants)]<span class='danger'>Maintenance protocols in effect</span>")
 			return
-		maint_access = !maint_access
-		send_byjax(usr,"exosuit.browser","t_maint_access","[maint_access?"Forbid":"Permit"] maintenance protocols")
+		mecha_flags ^= ADDING_MAINT_ACCESS_POSSIBLE
+		send_byjax(usr,"exosuit.browser","t_maint_access","[(mecha_flags & ADDING_MAINT_ACCESS_POSSIBLE)?"Forbid":"Permit"] maintenance protocols")
 		return
 
 	//Toggles connection port.
 	if (href_list["toggle_port_connection"])
 		if(internal_tank.connected_port)
 			if(internal_tank.disconnect())
-				occupant_message("Disconnected from the air system port.")
+				to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>Disconnected from the air system port.</span>")
 				log_message("Disconnected from gas port.", LOG_MECHA)
 			else
-				occupant_message("<span class='warning'>Unable to disconnect from the air system port!</span>")
+				to_chat(occupants, "[icon2html(src, occupants)]<span class='warning'>Unable to disconnect from the air system port!</span>")
 				return
 		else
 			var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate() in loc
 			if(internal_tank.connect(possible_port))
-				occupant_message("Connected to the air system port.")
+				to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>Connected to the air system port.</span>")
 				log_message("Connected to gas port.", LOG_MECHA)
 			else
-				occupant_message("<span class='warning'>Unable to connect with air system port!</span>")
+				to_chat(occupants, "[icon2html(src, occupants)]<span class='warning'>Unable to connect with air system port!</span>")
 				return
-		send_byjax(occupant,"exosuit.browser","t_port_connection","[internal_tank.connected_port?"Disconnect from":"Connect to"] gas port")
+		send_byjax(occupants,"exosuit.browser","t_port_connection","[internal_tank.connected_port?"Disconnect from":"Connect to"] gas port")
 		return
 
 	//Repairs internal damage
 	if(href_list["repair_int_control_lost"])
-		occupant_message("Recalibrating coordination system.")
+		to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>Recalibrating coordination system...</span>")
 		log_message("Recalibration of coordination system started.", LOG_MECHA)
 		addtimer(CALLBACK(src, PROC_REF(stationary_repair), loc), 100, TIMER_UNIQUE)
 
 ///Repairs internal damage if the mech hasn't moved.
-/obj/mecha/proc/stationary_repair(location)
+/obj/vehicle/sealed/mecha/proc/stationary_repair(location)
 	if(location == loc)
 		clearInternalDamage(MECHA_INT_CONTROL_LOST)
-		occupant_message("<span class='notice'>Recalibration successful.</span>")
+		to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>Recalibration successful.</span>")
 		log_message("Recalibration of coordination system finished with 0 errors.", LOG_MECHA)
 	else
-		occupant_message("<span class='warning'>Recalibration failed!</span>")
+		to_chat(occupants, "[icon2html(src, occupants)]<span class='warning'>Recalibration failed!</span>")
 		log_message("Recalibration of coordination system failed with 1 error.", LOG_MECHA, color="red")

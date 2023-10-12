@@ -10,20 +10,20 @@
 	flags_1 = CONDUCT_1
 	block_upgrade_walk = 1
 
-/obj/item/mecha_parts/proc/try_attach_part(mob/user, obj/mecha/M) //For attaching parts to a finished mech
+/obj/item/mecha_parts/proc/try_attach_part(mob/user, obj/vehicle/sealed/mecha/M) //For attaching parts to a finished mech
 	if(!user.transferItemToLoc(src, M))
 		to_chat(user, "<span class='warning'>\The [src] is stuck to your hand, you cannot put it in \the [M]!</span>")
 		return FALSE
 	user.visible_message("[user] attaches [src] to [M].", "<span class='notice'>You attach [src] to [M].</span>")
 	return TRUE
 
-/obj/item/mecha_parts/part/try_attach_part(mob/user, obj/mecha/M)
+/obj/item/mecha_parts/part/try_attach_part(mob/user, obj/vehicle/sealed/mecha/M)
 	return
 
 /obj/item/mecha_parts/chassis
 	name = "Mecha Chassis"
 	icon_state = "backbone"
-	interaction_flags_item = NONE			//Don't pick us up!!
+	interaction_flags_item = NONE //Don't pick us up!!
 	var/construct_type
 
 /obj/item/mecha_parts/chassis/Initialize(mapload)
