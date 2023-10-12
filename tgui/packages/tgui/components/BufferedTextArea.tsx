@@ -44,10 +44,6 @@ export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedT
     const { updateValue, value, updateInterval, ...rest } = this.props;
     return (
       <TextArea
-        fluid
-        style={{ height: '100%' }}
-        backgroundColor="black"
-        textColor="white"
         onInput={(_, value) => this.setState({ bufferedText: value, textChanged: true })}
         onChange={this.pushBuffer.bind(this)}
         value={this.state.bufferedText}
