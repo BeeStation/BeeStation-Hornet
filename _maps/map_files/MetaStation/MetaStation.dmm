@@ -42832,7 +42832,7 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/loot_jobscale/armoury/riot_suit,
 /obj/effect/loot_jobscale/armoury/riot_helmet,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
