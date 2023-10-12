@@ -69,7 +69,7 @@
 	O.armor = O.armor.attachArmor(added_armor)
 
 	if(ismecha(O))
-		var/obj/mecha/R = O
+		var/obj/vehicle/sealed/mecha/R = O
 		R.update_icon()
 		to_chat(user, "<span class='info'>You strengthen [R], improving its resistance against melee, bullet and laser damage.</span>")
 	else

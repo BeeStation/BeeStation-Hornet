@@ -55,7 +55,7 @@
 
 /obj/structure/destructible/clockwork/sigil/transmission/apply_effects(atom/movable/AM)
 	if(istype(AM, /obj/mecha))
-		var/obj/mecha/M = AM
+		var/obj/vehicle/sealed/mecha/M = AM
 		var/mob/living/O = M.occupant
 		var/obj/item/stock_parts/cell/C = M.cell
 		if(!C)
