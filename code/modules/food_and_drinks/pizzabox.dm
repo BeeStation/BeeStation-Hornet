@@ -175,7 +175,7 @@
 			return
 		else
 			to_chat(user, "<span class='notice'>Close [open ? src : newbox] first!</span>")
-	else if(istype(I, /obj/item/food/pizza) || istype(I, /obj/item/reagent_containers/food/snacks/customizable/pizza))
+	else if(istype(I, /obj/item/food/pizza))
 		if(open)
 			if(pizza)
 				to_chat(user, "<span class='warning'>[src] already has \a [pizza.name]!</span>")
