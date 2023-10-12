@@ -165,13 +165,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	can_suppress = FALSE
-	burst_size = 1
 	fire_delay = 0
 	pin = /obj/item/firing_pin/implant/pindicate
 	spread_unwielded = 15
 	actions_types = list()
-	casing_ejector = TRUE
 	mag_display = TRUE
 	empty_indicator = TRUE
 	empty_alarm = TRUE
