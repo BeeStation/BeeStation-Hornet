@@ -122,7 +122,7 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 		target_client?.images -= shown_image
 		target_client?.images -= shown_image_darkened
 
-	progress = CLAMP(progress, 0, goal)
+	progress = clamp(progress, 0, goal)
 	last_progress = progress
 	if(show_bar)
 		bar.icon_state = "prog_bar_[round(((progress / goal) * 100), 5)]"

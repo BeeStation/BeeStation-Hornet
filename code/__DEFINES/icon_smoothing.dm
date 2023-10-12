@@ -11,7 +11,8 @@
 #define SMOOTH_QUEUED	(1<<4)
 /// Smooths with objects, and will thus need to scan turfs for contents.
 #define SMOOTH_OBJ		(1<<5)
-
+/// Smooths with atoms facing the same direction only
+#define SMOOTH_DIRECTIONAL (1<<6)
 
 DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_CORNERS" = SMOOTH_CORNERS,
@@ -20,6 +21,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_BORDER" = SMOOTH_BORDER,
 	"SMOOTH_QUEUED" = SMOOTH_QUEUED,
 	"SMOOTH_OBJ" = SMOOTH_OBJ,
+	"SMOOTH_DIRECTIONAL" = SMOOTH_DIRECTIONAL,
 ))
 
 
@@ -114,6 +116,8 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_HEDGE_FLUFF S_OBJ(65)				///obj/structure/fluff/hedge
 #define SMOOTH_GROUP_SHUTTLE_PARTS S_OBJ(66)			///obj/structure/window/shuttle, /obj/structure/window/plasma/reinforced/plastitanium, /turf/closed/indestructible/opsglass, /obj/structure/shuttle
 #define SMOOTH_GROUP_CLEANABLE_DIRT	S_OBJ(67)			///obj/effect/decal/cleanable/dirt
+///obj/machinery/computer/_computer
+#define SMOOTH_GROUP_COMPUTERS S_OBJ (68)
 
 //LIQUIDS
 

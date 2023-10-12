@@ -210,7 +210,7 @@
 	var/current_damage = get_damage(TRUE)		//This time around, count stamina loss too.
 	var/available_damage = max_damage - current_damage
 	var/applied_damage = min(max_stamina_damage - stamina_dam, available_damage)
-	stamina_dam += round(CLAMP(stamina, 0, applied_damage), DAMAGE_PRECISION)
+	stamina_dam += round(clamp(stamina, 0, applied_damage), DAMAGE_PRECISION)
 
 
 	if(owner && updating_health)
