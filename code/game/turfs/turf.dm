@@ -63,6 +63,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Is this tile high traction / non slip
 	var/traction = FALSE
 
+	///Ref to texture mask overlay
+	var/texture_mask_overlay
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -626,3 +629,15 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		add_overlay(MA)
 	//handle switch
 	traction = TRUE
+
+/turf/proc/block_texture(force = FALSE)
+	if(texture_mask_overlay && !force)
+		return
+	cut_overlay(texture_mask_overlay)
+	var/mutable_appearance/MA = mutable_appearance('icons/turf/overlays.dmi', "whiteOverlay", plane = FLOOR_TEXTURE_MASK_PLANE)
+	add_overlay(MA)
+	texture_mask_overlay = MA
+
+/turf/proc/unblock_texture()
+	cut_overlay(texture_mask_overlay)
+	texture_mask_overlay = null

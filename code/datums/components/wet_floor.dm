@@ -66,6 +66,7 @@
 		T.cut_overlay(current_overlay)
 		T.add_overlay(intended)
 		current_overlay = intended
+		T.block_texture()
 
 /datum/component/wet_floor/proc/AfterSlip(mob/living/L)
 	if(highest_strength == TURF_WET_LUBE)
