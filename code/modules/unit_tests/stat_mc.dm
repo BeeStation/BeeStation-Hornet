@@ -3,8 +3,9 @@
 	main_loop:
 		for (var/datum/controller/subsystem/ss in Master.subsystems)
 			var/list/result = ss.stat_entry()
-			// Accepted
+			// Rejected
 			if (isnull(result))
+				failures += "The subsystem [ss.name] has an invalid stat_entry proc, it returns null."
 				continue
 			// Rejected for not returning a list
 			if (!islist(result))

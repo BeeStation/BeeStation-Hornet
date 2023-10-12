@@ -62,9 +62,7 @@
 
 	if(src == user.get_active_held_item()) //update inhands
 		user.update_inv_hands()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 // DOOMGUY CHAINSAW
 /obj/item/chainsaw/doomslayer
@@ -124,9 +122,7 @@
 
 	if(src == user.get_active_held_item())
 		user.update_inv_hands()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 // DOOMGUY ENERGY CHAINSAW
 /obj/item/chainsaw/energy/doom
