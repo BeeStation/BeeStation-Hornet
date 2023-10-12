@@ -28,7 +28,7 @@
 	if(!result)
 		return
 	// Remove default mech power cell, as we replace it with a new one.
-	var/obj/mecha/M = new result(drop_location())
+	var/obj/vehicle/sealed/mecha/M = new result(drop_location())
 	QDEL_NULL(M.cell)
 	QDEL_NULL(M.scanmod)
 	QDEL_NULL(M.capacitor)
@@ -264,7 +264,7 @@
 	)
 
 /datum/component/construction/mecha/ripley
-	result = /obj/mecha/working/ripley
+	result = /obj/vehicle/sealed/mecha/working/ripley
 	base_icon = "ripley"
 
 	circuit_control = /obj/item/circuitboard/mecha/ripley/main
@@ -407,7 +407,7 @@
 	)
 
 /datum/component/construction/mecha/gygax
-	result = /obj/mecha/combat/gygax
+	result = /obj/vehicle/sealed/mecha/combat/gygax
 	base_icon = "gygax"
 
 	circuit_control = /obj/item/circuitboard/mecha/gygax/main
@@ -549,7 +549,7 @@
 	)
 
 /datum/component/construction/mecha/firefighter
-	result = /obj/mecha/working/ripley/firefighter
+	result = /obj/vehicle/sealed/mecha/working/ripley/firefighter
 	base_icon = "fireripley"
 
 	circuit_control = /obj/item/circuitboard/mecha/ripley/main
@@ -706,7 +706,7 @@
 	)
 
 /datum/component/construction/mecha/honker
-	result = /obj/mecha/combat/honker
+	result = /obj/vehicle/sealed/mecha/combat/honker
 	steps = list(
 		list(
 			"key" = TOOL_BIKEHORN
@@ -820,7 +820,7 @@
 	)
 
 /datum/component/construction/mecha/durand
-	result = /obj/mecha/combat/durand
+	result = /obj/vehicle/sealed/mecha/combat/durand
 	base_icon = "durand"
 
 	circuit_control = /obj/item/circuitboard/mecha/durand/main
@@ -962,7 +962,7 @@
 	)
 
 /datum/component/construction/mecha/phazon
-	result = /obj/mecha/combat/phazon
+	result = /obj/vehicle/sealed/mecha/combat/phazon
 	base_icon = "phazon"
 
 	circuit_control = /obj/item/circuitboard/mecha/phazon/main
@@ -1207,7 +1207,7 @@
 	)
 
 /datum/component/construction/mecha/odysseus
-	result = /obj/mecha/medical/odysseus
+	result = /obj/vehicle/sealed/mecha/medical/odysseus
 	base_icon = "odysseus"
 
 	circuit_control = /obj/item/circuitboard/mecha/odysseus/main
