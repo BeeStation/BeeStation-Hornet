@@ -1,4 +1,0 @@
-author: rkz, Arkatos1, ShizCalev
-delete-after: true
-changes:
-  - code_imp: adds proc to update an item's action_buttons, removes duplicate code
