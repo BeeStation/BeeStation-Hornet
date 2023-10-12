@@ -1,4 +1,4 @@
-/obj/mecha/proc/get_armour_facing(relative_dir)
+/obj/vehicle/sealed/mecha/proc/get_armour_facing(relative_dir)
 	switch(abs(relative_dir))
 		if(180) // BACKSTAB!
 			return facing_modifiers[MECHA_BACK_ARMOUR]
@@ -6,7 +6,7 @@
 			return facing_modifiers[MECHA_FRONT_ARMOUR]
 	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
-/obj/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/vehicle/sealed/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && obj_integrity > 0)
 		spark_system.start()
@@ -18,10 +18,10 @@
 			else
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
 		if(. >= 5 || prob(33))
-			occupant_message("<span class='userdanger'>Taking damage!</span>")
+			to_chat(occupants, "[icon2html(src, occupants)]<span class='userdanger'>Taking damage!</span>")
 		log_message("Took [damage_amount] points of damage. Damage type: [damage_type].", LOG_MECHA)
 
-/obj/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+/obj/vehicle/sealed/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	. = ..()
 	if(!damage_amount)
 		return 0
@@ -52,7 +52,7 @@
 		. *= booster_damage_modifier
 
 
-/obj/mecha/attack_hand(mob/living/user)
+/obj/vehicle/sealed/mecha/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
@@ -62,11 +62,11 @@
 	user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens.</span>", null, null, COMBAT_MESSAGE_RANGE)
 	log_message("Attack by hand/paw. Attacker - [user].", LOG_MECHA, color="red")
 
-/obj/mecha/attack_paw(mob/user as mob)
+/obj/vehicle/sealed/mecha/attack_paw(mob/user as mob)
 	return attack_hand(user)
 
 
-/obj/mecha/attack_alien(mob/living/user)
+/obj/vehicle/sealed/mecha/attack_alien(mob/living/user)
 	log_message("Attack by alien. Attacker - [user].", LOG_MECHA, color="red")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 	attack_generic(user, 15, BRUTE, MELEE, 0)
@@ -90,42 +90,44 @@
 		return 1
 
 
-/obj/mecha/hulk_damage()
+/obj/vehicle/sealed/mecha/hulk_damage()
 	return 15
 
-/obj/mecha/attack_hulk(mob/living/carbon/human/user)
+/obj/vehicle/sealed/mecha/attack_hulk(mob/living/carbon/human/user)
 	. = ..()
 	if(.)
 		log_message("Attack by hulk. Attacker - [user].", LOG_MECHA, color="red")
 		log_combat(user, src, "punched", "hulk powers")
 
-/obj/mecha/blob_act(obj/structure/blob/B)
+/obj/vehicle/sealed/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
 	take_damage(30, BRUTE, MELEE, 0, get_dir(src, B))
 
-/obj/mecha/attack_tk()
+/obj/vehicle/sealed/mecha/attack_tk()
 	return
 
-/obj/mecha/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //wrapper
+/obj/vehicle/sealed/mecha/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //wrapper
 	log_message("Hit by [AM].", LOG_MECHA, color="red")
 	. = ..()
 
 
-/obj/mecha/bullet_act(obj/projectile/Proj) //wrapper
-	if (!enclosed && occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
-		occupant.bullet_act(Proj) //If the sides are open, the occupant can be hit
+/obj/vehicle/sealed/mecha/bullet_act(obj/projectile/Proj) //wrapper
+	if(!enclosed && LAZYLEN(occupants) && !(mecha_flags  & SILICON_PILOT) && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
+		for(var/m in occupants)
+			var/mob/living/hitmob = m
+			hitmob.bullet_act(Proj) //If the sides are open, the occupant can be hit
 		return BULLET_ACT_HIT
 	log_message("Hit by projectile. Type: [Proj.name]([Proj.armor_flag]).", LOG_MECHA, color="red")
 	. = ..()
 
-/obj/mecha/ex_act(severity, target)
+/obj/vehicle/sealed/mecha/ex_act(severity, target)
 	log_message("Affected by explosion of severity: [severity].", LOG_MECHA, color="red")
 	if(prob(deflect_chance))
 		severity++
 		log_message("Armor saved, changing severity to [severity]", LOG_MECHA)
 	. = ..()
 
-/obj/mecha/contents_explosion(severity, target)
+/obj/vehicle/sealed/mecha/contents_explosion(severity, target)
 	severity++
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X
@@ -145,16 +147,17 @@
 				SSexplosions.med_mov_atom += MT
 			if(EXPLODE_LIGHT)
 				SSexplosions.low_mov_atom += MT
-	if(occupant)
+	for(var/Z in occupants)
+		var/mob/living/occupant = Z
 		occupant.ex_act(severity,target)
 
-/obj/mecha/handle_atom_del(atom/A)
-	if(A == occupant)
-		occupant = null
+/obj/vehicle/sealed/mecha/handle_atom_del(atom/A)
+	if(A in occupants)
+		LAZYREMOVE(occupants, A)
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)
 
-/obj/mecha/emp_act(severity)
+/obj/vehicle/sealed/mecha/emp_act(severity)
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
@@ -163,20 +166,22 @@
 		take_damage(30 / severity, BURN, ENERGY, 1)
 	log_message("EMP detected", LOG_MECHA, color="red")
 
-	if(istype(src, /obj/mecha/combat))
+	if(istype(src, /obj/vehicle/sealed/mecha/combat))
 		mouse_pointer = 'icons/mecha/mecha_mouse-disable.dmi'
-		occupant?.update_mouse_pointer()
-	if(!equipment_disabled && occupant) //prevent spamming this message with back-to-back EMPs
-		to_chat(occupant, "<span=danger>Error -- Connection to equipment control unit has been lost.</span>")
+		for(var/occus in occupants)
+			var/mob/living/occupant = occus
+			occupant.update_mouse_pointer()
+	if(!equipment_disabled && occupants) //prevent spamming this message with back-to-back EMPs
+		to_chat(occupants, "<span=danger>Error -- Connection to equipment control unit has been lost.</span>")
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, restore_equipment)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 	equipment_disabled = 1
 
-/obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/vehicle/sealed/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature>max_temperature)
 		log_message("Exposed to dangerous temperature.", LOG_MECHA, color="red")
 		take_damage(5, BURN, 0, 1)
 
-/obj/mecha/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/vehicle/sealed/mecha/attackby(obj/item/W, mob/user, params)
 
 	if(istype(W, /obj/item/mmi))
 		var/obj/item/mmi/M = W
@@ -191,7 +196,7 @@
 		return
 
 	if(W.GetID())
-		if(add_req_access || maint_access)
+		if((mecha_flags & ADDING_ACCESS_POSSIBLE) || (mecha_flags & ADDING_MAINT_ACCESS_POSSIBLE))
 			if(internals_access_allowed(user))
 				output_maintenance_dialog(W.GetID(), user)
 				return
@@ -259,7 +264,7 @@
 	log_message("Attacked by [W]. Attacker - [user]", LOG_MECHA)
 	return ..()
 
-/obj/mecha/wrench_act(mob/living/user, obj/item/I)
+/obj/vehicle/sealed/mecha/wrench_act(mob/living/user, obj/item/I)
 	..()
 	. = TRUE
 	if(construction_state == MECHA_SECURE_BOLTS)
@@ -270,7 +275,7 @@
 		construction_state = MECHA_SECURE_BOLTS
 		to_chat(user, "<span class='notice'>You tighten the securing bolts.</span>")
 
-/obj/mecha/crowbar_act(mob/living/user, obj/item/I)
+/obj/vehicle/sealed/mecha/crowbar_act(mob/living/user, obj/item/I)
 	..()
 	. = TRUE
 	if(construction_state == MECHA_LOOSE_BOLTS)
@@ -281,7 +286,7 @@
 		construction_state = MECHA_LOOSE_BOLTS
 		to_chat(user, "<span class='notice'>You close the hatch to the power unit.</span>")
 
-/obj/mecha/screwdriver_act(mob/living/user, obj/item/I)
+/obj/vehicle/sealed/mecha/screwdriver_act(mob/living/user, obj/item/I)
 	..()
 	. = TRUE
 	if(internal_damage & MECHA_INT_TEMP_CONTROL)
@@ -289,7 +294,7 @@
 		to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
 		return
 
-/obj/mecha/welder_act(mob/living/user, obj/item/W)
+/obj/vehicle/sealed/mecha/welder_act(mob/living/user, obj/item/W)
 	. = ..()
 	if(user.a_intent == INTENT_HARM)
 		return
@@ -310,7 +315,7 @@
 		return
 	to_chat(user, "<span class='warning'>The [name] is at full integrity!</span>")
 
-/obj/mecha/proc/mech_toxin_damage(mob/living/target)
+/obj/vehicle/sealed/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
 	if(target.reagents)
 		if(target.reagents.get_reagent_amount(/datum/reagent/cryptobiolin) + force < force*2)
@@ -319,15 +324,15 @@
 			target.reagents.add_reagent(/datum/reagent/toxin, force/2.5)
 
 
-/obj/mecha/mech_melee_attack(obj/mecha/M)
+/obj/vehicle/sealed/mecha/mech_melee_attack(obj/vehicle/sealed/mecha/M, mob/user)
 	if(!has_charge(melee_energy_drain))
-		return 0
+		return NONE
 	use_power(melee_energy_drain)
 	if(M.damtype == BRUTE || M.damtype == BURN)
-		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+		log_combat(user, src, "attacked", M, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
 		. = ..()
 
-/obj/mecha/proc/full_repair(charge_cell)
+/obj/vehicle/sealed/mecha/proc/full_repair(charge_cell)
 	obj_integrity = max_integrity
 	if(cell && charge_cell)
 		cell.charge = cell.maxcharge
@@ -342,10 +347,10 @@
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		clearInternalDamage(MECHA_INT_CONTROL_LOST)
 
-/obj/mecha/narsie_act()
+/obj/vehicle/sealed/mecha/narsie_act()
 	emp_act(EMP_HEAVY)
 
-/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+/obj/vehicle/sealed/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect)
 		if(selected)
 			used_item = selected
@@ -357,12 +362,16 @@
 				visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
 	..()
 
-/obj/mecha/obj_destruction()
+/obj/vehicle/sealed/mecha/obj_destruction()
 	if(wreckage)
 		var/mob/living/silicon/ai/AI
-		if(isAI(occupant))
-			AI = occupant
-			occupant = null
+		for(var/crew in occupants)
+			if(isAI(crew))
+				if(AI)
+					var/mob/living/silicon/ai/unlucky_ais = crew
+					unlucky_ais.gib()
+					continue
+				AI = crew
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
