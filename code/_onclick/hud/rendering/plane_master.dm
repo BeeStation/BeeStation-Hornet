@@ -240,3 +240,14 @@
 	render_target = FLOOR_TEXTURE_PLANE_RENDER_TARGET
 	render_relay_plane = null
 
+/atom/movable/screen/plane_master/floor_texture/Initialize(mapload)
+	. = ..()
+	add_filter("mask", 1, alpha_mask_filter(render_source = FLOOR_TEXTURE_MASK_PLANE_RENDER_TARGET, flags = MASK_INVERSE))
+
+/atom/movable/screen/plane_master/floor_texture_mask
+	name = "floor texture mask plane"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = FLOOR_TEXTURE_MASK_PLANE
+	render_target = FLOOR_TEXTURE_MASK_PLANE_RENDER_TARGET
+	render_relay_plane = null
+

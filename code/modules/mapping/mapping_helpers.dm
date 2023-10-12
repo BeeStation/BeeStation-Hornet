@@ -333,3 +333,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	. = ..()
 	var/turf/T = get_turf(src)
 	T?.make_traction(grip_visual)
+
+//Change this areas turf texture
+/obj/effect/mapping_helpers/change_turf_texture
+	name = "area turf texture helper"
+	icon_state = "turf_texture"
+	///What texture do we set it to?
+	var/datum/turf_texture/turf_texture = /datum/turf_texture
+
+/obj/effect/mapping_helpers/change_turf_texture/Initialize(mapload)
+	. = ..()
+	var/area/A = get_area(src)
+	A?.turf_texture = turf_texture
+	A?.update_turf_texture()

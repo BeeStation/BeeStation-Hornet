@@ -17,7 +17,7 @@
 //Subtle hallway wear & tear
 /datum/turf_texture/hallway
 	icon_state = "hallway"
-	alpha = 40
+	alpha = 45
 
 //Deep maint use
 /datum/turf_texture/maint
