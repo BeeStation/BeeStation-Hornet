@@ -23,21 +23,28 @@
 	var/broken = 0
 	var/burnt = 0
 	var/floor_tile = null //tile that this floor drops
+
 	var/list/broken_states
+	var/broken_icon = 'icons/turf/turf_damage.dmi'
+	//Do we just swap the state to one of the damage states
+	var/use_broken_literal = FALSE
+
 	var/list/burnt_states
+	var/burnt_icon = 'icons/turf/turf_damage.dmi'
+	//Do we just swap the state to one of the damage states
+	var/use_burnt_literal = FALSE
+	
+	//Refs to overlays, for later removal
+	var/list/damage_overlays = list()
 
 
 /turf/open/floor/Initialize(mapload)
 
-	if (!broken_states)
-		broken_states = typelist("broken_states", list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5"))
-	else
-		broken_states = typelist("broken_states", broken_states)
-	burnt_states = typelist("burnt_states", burnt_states)
-	if(!broken && broken_states && (icon_state in broken_states))
-		broken = TRUE
-	if(!burnt && burnt_states && (icon_state in burnt_states))
-		burnt = TRUE
+	if(!length(broken_states))
+		broken_states = list("damaged1")
+	if(!length(burnt_states))
+		burnt_states = list("damaged1")
+	
 	. = ..()
 	if(mapload && prob(33))
 		MakeDirty()
@@ -109,21 +116,47 @@
 	T.break_tile()
 
 /turf/open/floor/proc/break_tile()
-	if(broken)
+	if(broken || use_broken_literal)
+		if(use_broken_literal)
+			icon_state = pick(broken_states)
 		return
-	icon_state = pick(broken_states)
+
+	var/damage_state = pick(broken_states)
+	//Pick a random mask for damage state
+	var/icon/mask = icon(broken_icon, "broken_[damage_state]")
+	//Build under-turf icon
+	var/turf/base = pick(baseturfs)
+	var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
+	//Mask under turf by damage state
+	under_turf.AddAlphaMask(mask)
+	add_overlay(under_turf)
+	damage_overlays += under_turf
+
+	//Add some dirt 'n shit
+	var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
+	add_overlay(dirt)
+	damage_overlays += dirt
+
 	broken = 1
 
 /turf/open/floor/burn_tile()
-	if(broken || burnt)
+	if(burnt || use_burnt_literal)
+		if(use_burnt_literal)
+			icon_state = pick(burnt_states)
 		return
-	if(burnt_states.len)
-		icon_state = pick(burnt_states)
-	else
-		icon_state = pick(broken_states)
+
+	var/burnt_state = pick(burnt_states)
+	//Add some burnt shit
+	var/icon/burnt_overlay = icon(burnt_icon, "burnt_[burnt_state]")
+	add_overlay(burnt_overlay)
+	damage_overlays += burnt_overlay
+
 	burnt = 1
 
 /turf/open/floor/proc/make_plating()
+	//Remove previous damage overlays
+	for(var/i in damage_overlays)
+		cut_overlay(i)
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/open/floor/ChangeTurf(path, new_baseturf, flags)
