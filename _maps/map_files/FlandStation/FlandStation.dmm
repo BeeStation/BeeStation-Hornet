@@ -72918,7 +72918,6 @@
 	desc = "carlos.";
 	maxHealth = 2;
 	name = "carlos";
-
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
