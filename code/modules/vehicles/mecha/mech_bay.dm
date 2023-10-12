@@ -20,7 +20,7 @@
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "recharge_port"
 	circuit = /obj/item/circuitboard/machine/mech_recharger
-	var/obj/mecha/recharging_mech
+	var/obj/vehicle/sealed/mecha/recharging_mech
 	var/obj/machinery/computer/mech_bay_power_console/recharge_console
 	///Power unit per second to charge by, modified by /RefreshParts()
 	var/recharge_power = 25
@@ -57,7 +57,7 @@
 	if(machine_stat & NOPOWER || !recharge_console)
 		return
 	if(!recharging_mech)
-		recharging_mech = locate(/obj/mecha) in recharging_turf
+		recharging_mech = locate(/obj/vehicle/sealed/mecha) in recharging_turf
 		if(recharging_mech)
 			recharge_console.update_icon()
 			recharge_console.ui_update()
