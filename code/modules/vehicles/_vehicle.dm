@@ -8,6 +8,7 @@
 	density = TRUE
 	anchored = FALSE
 	COOLDOWN_DECLARE(cooldown_vehicle_move)
+	COOLDOWN_DECLARE(cooldown_vehicle_move_two)
 	var/list/mob/occupants //mob = bitflags of their control level.
 	var/max_occupants = 1
 	var/max_drivers = 1

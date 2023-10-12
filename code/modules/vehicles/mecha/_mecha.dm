@@ -28,6 +28,7 @@
 	anchored = TRUE
 	emulate_door_bumps = TRUE
 	COOLDOWN_DECLARE(mecha_bump_smash)
+	
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_power = 1
@@ -621,9 +622,10 @@
 	return FALSE
 
 /obj/vehicle/sealed/mecha/vehicle_move(direction, forcerotate = FALSE)
-	if(!COOLDOWN_FINISHED(src, cooldown_vehicle_move))
+	if(!COOLDOWN_FINISHED(src, cooldown_vehicle_move_two))
 		return FALSE
-	COOLDOWN_START(src, cooldown_vehicle_move, (movedelay * step_multiplier) + step_restricted)
+	COOLDOWN_START(src, cooldown_vehicle_move, (movedelay * step_multiplier))
+	COOLDOWN_START(src, cooldown_vehicle_move_two, COOLDOWN_TIMELEFT(src, cooldown_vehicle_move) + step_restricted)
 	if(completely_disabled)
 		return FALSE
 	if(!direction)
