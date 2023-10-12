@@ -58,6 +58,14 @@
 	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 	randomiseLightColor()
 
+/proc/rand_hex_color()
+	var/list/colors = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
+	var/color=""
+	for (var/i=0;i<6;i++)
+		color = color+pick(colors)
+	return color
+
+
 /obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
 	if(dud_flags)
 		active = FALSE

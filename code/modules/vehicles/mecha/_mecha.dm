@@ -239,10 +239,12 @@
 /obj/vehicle/sealed/mecha/update_icon_state()
 	if((mecha_flags & SILICON_PILOT) && silicon_icon_state)
 		icon_state = silicon_icon_state
-	else if(LAZYLEN(occupants))
-		icon_state = initial(icon_state)
-	else
-		icon_state = initial(icon_state)+ "-open"
+		return ..()
+	if(LAZYLEN(occupants))
+		icon_state = base_icon_state
+		return ..()
+	icon_state = "[base_icon_state]-open"
+	return ..()
 
 
 /obj/vehicle/sealed/mecha/get_cell()
@@ -495,13 +497,16 @@
 				cookedalive.fire_stacks += 1
 				cookedalive.IgniteMob()
 
+///Displays a special speech bubble when someone inside the mecha speaks
 /obj/vehicle/sealed/mecha/proc/display_speech_bubble(datum/source, list/speech_args)
 	SIGNAL_HANDLER
-	var/list/speech_bubble_recipients = get_hearers_in_view(7,src)
-	for(var/mob/M as anything in speech_bubble_recipients)
-		if(M.client)
+	var/list/speech_bubble_recipients = list()
+	for(var/mob/listener in get_hearers_in_view(7, src))
+		if(listener.client)
 			speech_bubble_recipients.Add(M.client)
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
+
+	var/image/mech_speech = image('icons/mob/effects/talk.dmi', src, "machine[say_test(speech_args[SPEECH_MESSAGE])]",MOB_LAYER+1)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), mech_speech, speech_bubble_recipients, 3 SECONDS)
 
 /obj/vehicle/sealed/mecha/on_emag(mob/user)
 	..()
