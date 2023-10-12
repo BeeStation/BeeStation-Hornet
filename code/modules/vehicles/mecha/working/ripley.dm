@@ -36,13 +36,12 @@
 				if(ore.Adjacent(src) && ((get_dir(src, ore) & dir) || ore.loc == loc)) //we can reach it and it's in front of us? grab it!
 					ore.forceMove(ore_box)
 
-/obj/vehicle/sealed/mecha/working/ripley/mob_exit(mob/M, silent, forced)
-	..()
-	update_icon()
-
-/obj/vehicle/sealed/mecha/working/ripley/moved_inside(mob/living/carbon/human/H)
-	..()
-	update_icon()
+/obj/vehicle/sealed/mecha/working/ripley/generate_actions() //isnt allowed to have internal air
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_cycle_equip)
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_lights)
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_view_stats)
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/strafe)
 
 /obj/vehicle/sealed/mecha/working/ripley/check_for_internal_damage(list/possible_int_damage, ignore_threshold = FALSE)
 	if (!enclosed)
@@ -61,7 +60,7 @@
 	cargo.Cut()
 	return ..()
 
-/obj/vehicle/sealed/mecha/working/ripley/mkii
+/obj/vehicle/sealed/mecha/working/ripley/mk2
 	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection"
 	name = "\improper APLU MK-II \"Ripley\""
 	icon_state = "ripleymkii"
@@ -70,10 +69,18 @@
 	slow_pressure_step_in = 3 //step_in while in normal pressure conditions
 	movedelay = 4
 	armor = list(MELEE = 40,  BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
-	wreckage = /obj/structure/mecha_wreckage/ripley/mkii
+	wreckage = /obj/structure/mecha_wreckage/ripley/mk2
 	enclosed = TRUE
 	enter_delay = 40
 	silicon_icon_state = null
+
+/obj/vehicle/sealed/mecha/working/ripley/mk2/generate_actions()
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_internals)
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_cycle_equip)
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_toggle_lights)
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_view_stats)
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/strafe)
 
 /obj/vehicle/sealed/mecha/working/ripley/firefighter
 	desc = "Autonomous Power Loader Unit MK-III. This model is refitted with a pressurized cabin and additional hazard protection."

@@ -161,11 +161,11 @@
 			welder_salvage += part
 			parts -= part
 
-/obj/structure/mecha_wreckage/ripley/mkii
+/obj/structure/mecha_wreckage/ripley/mk2
 	name = "\improper Ripley MK-II wreckage"
 	icon_state = "ripleymkii-broken"
 
-/obj/structure/mecha_wreckage/ripley/mkii/Initialize(mapload)
+/obj/structure/mecha_wreckage/ripley/mk2/Initialize(mapload)
 	. = ..()
 	var/list/parts = list(/obj/item/mecha_parts/part/ripley_torso,
 								/obj/item/mecha_parts/part/ripley_left_arm,
