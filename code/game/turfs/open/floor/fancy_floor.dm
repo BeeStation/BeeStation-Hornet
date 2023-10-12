@@ -91,7 +91,6 @@
 	desc = "You can't tell if this is real grass or just cheap plastic imitation."
 	icon_state = "grass"
 	floor_tile = /obj/item/stack/tile/grass
-	broken_states = list("sand")
 	flags_1 = NONE
 	bullet_bounce_sound = null
 	footstep = FOOTSTEP_GRASS
@@ -368,7 +367,6 @@
 	desc = "This one takes you back."
 	icon_state = "eighties"
 	floor_tile = /obj/item/stack/tile/eighties
-	broken_states = list("damaged")
 
 /turf/open/floor/carpet/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)
@@ -410,7 +408,6 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	floor_tile = /obj/item/stack/tile/fakespace
-	broken_states = list("damaged")
 	plane = PLANE_SPACE
 	tiled_dirt = FALSE
 	fullbright_type = FULLBRIGHT_STARLIGHT
