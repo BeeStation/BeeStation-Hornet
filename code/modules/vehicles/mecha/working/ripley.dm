@@ -1,10 +1,10 @@
-/obj/mecha/working/ripley
+/obj/vehicle/sealed/mecha/working/ripley
 	desc = "Autonomous Power Loader Unit MK-I. Designed primarily around heavy lifting, the Ripley can be outfitted with utility equipment to fill a number of roles."
 	name = "\improper APLU MK-I \"Ripley\""
 	icon_state = "ripley"
 	base_icon_state = "ripley"
 	silicon_icon_state = "ripley-empty"
-	step_in = 1.5 //Move speed, lower is faster.
+	movedelay = 1.5 //Move speed, lower is faster.
 	var/fast_pressure_step_in = 1.5 //step_in while in low pressure conditions
 	var/slow_pressure_step_in = 2.0 //step_in while in normal pressure conditions
 	max_temperature = 20000
@@ -36,58 +36,46 @@
 				if(ore.Adjacent(src) && ((get_dir(src, ore) & dir) || ore.loc == loc)) //we can reach it and it's in front of us? grab it!
 					ore.forceMove(ore_box)
 
-/obj/mecha/working/ripley/Destroy()
+/obj/vehicle/sealed/mecha/working/ripley/mob_exit(mob/M, silent, forced)
+	..()
+	update_icon()
+
+/obj/vehicle/sealed/mecha/working/ripley/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/vehicle/sealed/mecha/working/ripley/check_for_internal_damage(list/possible_int_damage, ignore_threshold = FALSE)
+	if (!enclosed)
+		possible_int_damage -= (MECHA_INT_TEMP_CONTROL + MECHA_INT_TANK_BREACH) //if we don't even have an air tank, these two doesn't make a ton of sense.
+	. = ..()
+
+
+/obj/vehicle/sealed/mecha/working/ripley/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/armor_plate,3,/obj/item/stack/sheet/animalhide/goliath_hide,list(MELEE = 10,  BULLET = 5, LASER = 5))
+
+/obj/vehicle/sealed/mecha/working/ripley/Destroy()
 	for(var/atom/movable/A in cargo)
 		A.forceMove(drop_location())
 		step_rand(A)
 	cargo.Cut()
 	return ..()
 
-/obj/mecha/working/ripley/go_out()
-	..()
-	update_icon()
-
-/obj/mecha/working/ripley/moved_inside(mob/living/carbon/human/H)
-	..()
-	update_icon()
-
-/obj/mecha/working/ripley/update_icon()
-	..()
-	var/datum/component/armor_plate/C = GetComponent(/datum/component/armor_plate)
-	if (C.amount)
-		cut_overlays()
-		if(C.amount < 3)
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
-		else
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
-
-/obj/mecha/working/ripley/check_for_internal_damage(list/possible_int_damage,ignore_threshold=null)
-	if (!enclosed)
-		possible_int_damage -= (MECHA_INT_TEMP_CONTROL + MECHA_INT_TANK_BREACH) //if we don't even have an air tank, these two doesn't make a ton of sense.
-	. = ..()
-
-
-/obj/mecha/working/ripley/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/armor_plate,3,/obj/item/stack/sheet/animalhide/goliath_hide,list(MELEE = 10,  BULLET = 5, LASER = 5))
-
-
-/obj/mecha/working/ripley/mkii
+/obj/vehicle/sealed/mecha/working/ripley/mkii
 	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection"
 	name = "\improper APLU MK-II \"Ripley\""
 	icon_state = "ripleymkii"
 	base_icon_state = "ripleymkii"
 	fast_pressure_step_in = 1.75 //step_in while in low pressure conditions
 	slow_pressure_step_in = 3 //step_in while in normal pressure conditions
-	step_in = 3
+	movedelay = 4
 	armor = list(MELEE = 40,  BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	wreckage = /obj/structure/mecha_wreckage/ripley/mkii
 	enclosed = TRUE
 	enter_delay = 40
 	silicon_icon_state = null
-	opacity = TRUE
 
-/obj/mecha/working/ripley/firefighter
+/obj/vehicle/sealed/mecha/working/ripley/firefighter
 	desc = "Autonomous Power Loader Unit MK-III. This model is refitted with a pressurized cabin and additional hazard protection."
 	name = "\improper APLU MK-III \"Firefighter\""
 	icon_state = "firefighter"
@@ -96,7 +84,7 @@
 	max_integrity = 250
 	fast_pressure_step_in = 2 //step_in while in low pressure conditions
 	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
-	step_in = 4
+	movedelay = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	rad_flags = RAD_PROTECT_CONTENTS
 	lights_power = 7
@@ -106,50 +94,47 @@
 	enclosed = TRUE
 	enter_delay = 40
 	silicon_icon_state = null
-	opacity = TRUE
 
 
-/obj/mecha/working/ripley/deathripley
+/obj/vehicle/sealed/mecha/working/ripley/deathripley
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
 	name = "\improper DEATH-RIPLEY"
 	icon_state = "deathripley"
 	base_icon_state = "deathripley"
 	fast_pressure_step_in = 2 //step_in while in low pressure conditions
 	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
-	step_in = 4
+	movedelay = 4
 	slow_pressure_step_in = 3
-	opacity=0
 	lights_power = 7
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 	enclosed = TRUE
 	enter_delay = 40
 	silicon_icon_state = null
-	opacity = TRUE
 
-/obj/mecha/working/ripley/deathripley/Initialize(mapload)
+/obj/vehicle/sealed/mecha/working/ripley/deathripley/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
 
-/obj/mecha/working/ripley/deathripley/real
+/obj/vehicle/sealed/mecha/working/ripley/deathripley/real
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE. FOR REAL"
 
-/obj/mecha/working/ripley/deathripley/real/Initialize(mapload)
+/obj/vehicle/sealed/mecha/working/ripley/deathripley/real/Initialize(mapload)
 	. = ..()
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 		E.detach()
 		qdel(E)
-	equipment.Cut()
+	LAZYCLEARLIST(equipment)
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill/real
 	ME.attach(src)
 
-/obj/mecha/working/ripley/mining
+/obj/vehicle/sealed/mecha/working/ripley/mining
 	desc = "An old, dusty mining Ripley."
 	name = "\improper APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/mining/Initialize(mapload)
+/obj/vehicle/sealed/mecha/working/ripley/mining/Initialize(mapload)
 	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
@@ -177,24 +162,24 @@
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
 
-/obj/mecha/working/ripley/Exit(atom/movable/O)
+/obj/vehicle/sealed/mecha/working/ripley/Exit(atom/movable/O)
 	if(O in cargo)
 		return 0
 	return ..()
 
-/obj/mecha/working/ripley/Topic(href, href_list)
+/obj/vehicle/sealed/mecha/working/ripley/Topic(href, href_list)
 	..()
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"]) in cargo
 		if(O)
-			occupant_message("<span class='notice'>You unload [O].</span>")
+			to_chat(occupants, "[icon2html(src, occupants)]<span class='notice'>You unload [O].</span>")
 			O.forceMove(drop_location())
 			cargo -= O
 			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - src.cargo.len]", LOG_MECHA)
 	return
 
 
-/obj/mecha/working/ripley/contents_explosion(severity, target)
+/obj/vehicle/sealed/mecha/working/ripley/contents_explosion(severity, target)
 	for(var/X in cargo)
 		var/obj/O = X
 		if(prob(30/severity))
@@ -202,7 +187,7 @@
 			O.forceMove(drop_location())
 	. = ..()
 
-/obj/mecha/working/ripley/get_stats_part()
+/obj/vehicle/sealed/mecha/working/ripley/get_stats_part()
 	var/output = ..()
 	output += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
 	if(cargo.len)
@@ -213,19 +198,7 @@
 	output += "</div>"
 	return output
 
-/obj/mecha/working/ripley/proc/update_pressure()
-	var/turf/T = get_turf(loc)
-
-	if(lavaland_equipment_pressure_check(T))
-		step_in = fast_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
-			drill.equip_cooldown = initial(drill.equip_cooldown)/2
-	else
-		step_in = slow_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
-			drill.equip_cooldown = initial(drill.equip_cooldown)
-
-/obj/mecha/working/ripley/relay_container_resist(mob/living/user, obj/O)
+/obj/vehicle/sealed/mecha/working/ripley/relay_container_resist_act(mob/living/user, obj/O)
 	to_chat(user, "<span class='notice'>You lean on the back of [O] and start pushing so it falls out of [src].</span>")
 	if(do_after(user, 300, target = O))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || O.loc != src )
@@ -236,3 +209,20 @@
 	else
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
 			to_chat(user, "<span class='warning'>You fail to push [O] out of [src]!</span>")
+
+/**
+  * Makes the mecha go faster and halves the mecha drill cooldown if in Lavaland pressure.
+  *
+  * Checks for Lavaland pressure, if that works out the mech's speed is equal to fast_pressure_step_in and the cooldown for the mecha drill is halved. If not it uses slow_pressure_step_in and drill cooldown is normal.
+  */
+/obj/vehicle/sealed/mecha/working/ripley/proc/update_pressure()
+	var/turf/T = get_turf(loc)
+
+	if(lavaland_equipment_pressure_check(T))
+		movedelay = fast_pressure_step_in
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)/2
+	else
+		movedelay = slow_pressure_step_in
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)
