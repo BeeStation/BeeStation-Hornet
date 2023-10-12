@@ -12,15 +12,15 @@
 	///The opacity of the texture used
 	var/alpha = 255
 	///Color adjustment - this isn't used often
-	var/color = "#f00"
+	var/color = "#ffffffff"
 
 //Subtle hallway wear & tear
 /datum/turf_texture/hallway
 	icon_state = "hallway"
-	alpha = 18
+	alpha = 40
 
 //Deep maint use
 /datum/turf_texture/maint
 	icon_state = "maint"
-	alpha = 78
+	alpha = 80
 
