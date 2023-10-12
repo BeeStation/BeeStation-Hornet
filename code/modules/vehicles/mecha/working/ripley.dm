@@ -22,13 +22,13 @@
 	enter_delay = 10 //can enter in a quarter of the time of other mechs
 	exit_delay = 10
 
-/obj/mecha/working/ripley/Move()
+/obj/vehicle/sealed/mecha/working/ripley/Move()
 	. = ..()
 	if(.)
 		collect_ore()
 	update_pressure()
 
-/obj/mecha/working/ripley/proc/collect_ore()
+/obj/vehicle/sealed/mecha/working/ripley/proc/collect_ore()
 	if(locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in equipment)
 		var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in cargo
 		if(ore_box)

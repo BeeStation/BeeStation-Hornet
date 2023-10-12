@@ -1149,7 +1149,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013??? // = 2017???
 		return TRUE
 	return FALSE
 
-/obj/mecha/proc/give_power(amount)
+/obj/vehicle/sealed/mecha/proc/give_power(amount)
 	if(!isnull(get_charge()))
 		cell.give(amount)
 		return TRUE
@@ -1157,10 +1157,10 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013??? // = 2017???
 
 /obj/vehicle/sealed/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
-	if(!lights_power)
-		return
-	lights = FALSE
-	lights_power = 0
-	set_light_on(FALSE)
-	visible_message(src, "<span class='danger'>The lights on [src] short out!</span>")
-	playsound(src, 'sound/items/welder.ogg', 50, 1)
+	if(mecha_flags & HAS_LIGHTS)
+		visible_message("<span class='danger'>[src]'s lights burn out!</span>")
+		mecha_flags &= ~HAS_LIGHTS
+		set_light_on(FALSE)
+		for(var/occupant in occupants)
+			remove_action_type_from_mob(/datum/action/vehicle/sealed/mecha/mech_toggle_lights, occupant)
+		playsound(src, 'sound/items/welder.ogg', 50, 1)
