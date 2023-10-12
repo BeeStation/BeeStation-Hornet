@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Goliaths no longer stun with tendril attacks, instead tripping the victim.
+      They move faster and can more frequently use their tendril attacks instead.
