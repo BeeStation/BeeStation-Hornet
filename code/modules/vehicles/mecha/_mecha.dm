@@ -503,10 +503,10 @@
 	var/list/speech_bubble_recipients = list()
 	for(var/mob/listener in get_hearers_in_view(7, src))
 		if(listener.client)
-			speech_bubble_recipients.Add(M.client)
+			speech_bubble_recipients += listener.client
 
-	var/image/mech_speech = image('icons/mob/effects/talk.dmi', src, "machine[say_test(speech_args[SPEECH_MESSAGE])]",MOB_LAYER+1)
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), mech_speech, speech_bubble_recipients, 3 SECONDS)
+	var/image/mech_speech = image('icons/mob/talk.dmi', src, "machine[say_test(speech_args[SPEECH_MESSAGE])]",MOB_LAYER+1)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), mech_speech, speech_bubble_recipients, 3 SECONDS)
 
 /obj/vehicle/sealed/mecha/on_emag(mob/user)
 	..()
@@ -692,14 +692,13 @@
 			flick(phase_state, src)
 		var/turf/target = get_step(src, dir)
 		if(target.flags_1 & NOJAUNT_1)
-			occupant_message("Phasing anomaly detected, emergency deactivation initiated.")
-			sleep(step_in*3*step_multiplier)
+			to_chat(src, "<span class='warning'>Phasing anomaly detected, emergency deactivation initiated.</span>")
+			sleep(movedelay*3*step_multiplier)
 			phasing = FALSE
 			return
 		if(do_teleport(src, get_step(src, dir), no_effects = TRUE))
 			use_power(phasing_energy_drain)
-		addtimer(VARSET_CALLBACK(src, movedelay, TRUE), movedelay*3*step_multiplier)\
-		return
+		addtimer(VARSET_CALLBACK(src, movedelay, TRUE), movedelay*3*step_multiplier)
 	. = ..()
 	if(.) //mech was thrown/door/whatever
 		return
@@ -1020,7 +1019,7 @@
 	log_game("[key_name(user)] has put the MMI/posibrain of [key_name(B)] into [src] at [AREACOORD(src)]")
 	return TRUE
 
-/obj/vehicle/sealed/mecha/container_resist_act(mob/living/user)
+/obj/vehicle/sealed/mecha/container_resist(mob/living/user)
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.can_shunt)
