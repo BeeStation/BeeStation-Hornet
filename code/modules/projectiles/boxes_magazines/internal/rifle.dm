@@ -13,3 +13,15 @@
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage
 
+/obj/item/ammo_box/magazine/internal/leveraction
+	name = "lever action rifle internal magazine"
+	desc = "Why the fuck can you see this, this is meant to be IN the gun!"
+	ammo_type = /obj/item/ammo_casing/a41
+	caliber = "a41"
+	max_ammo = 7
+	multiload = FALSE
+
+/obj/item/ammo_box/magazine/internal/leveraction/pipegun
+	name = "pipegun internal magazine"
+	ammo_type = /obj/item/ammo_casing/a41/paper
+	max_ammo = 1

@@ -107,3 +107,27 @@
 		user.put_in_hands(gun)
 	else
 		user.dropItemToGround(src, TRUE)
+
+///////////////////////
+//   .41 CAL RIFLE   //
+///////////////////////
+
+/obj/item/gun/ballistic/leveraction
+	name = "lever action rifle"
+	desc = "Straight from the Wild West, this belongs in a museum but has found its way into your hands."
+	icon_state = "leveraction"
+	item_state = "moistnugget"
+	slot_flags = ITEM_SLOT_BACK
+	rack_sound = "sound/weapons/leveractionrack.ogg"
+	fire_sound = "sound/weapons/leveractionshot.ogg"
+	mag_type = /obj/item/ammo_box/magazine/internal/leveraction
+	w_class = WEIGHT_CLASS_BULKY
+	bolt_wording = "lever"
+	cartridge_wording = "cartridge"
+	bolt_type = BOLT_TYPE_PUMP
+	semi_auto = FALSE
+	internal_magazine = TRUE
+	fire_sound = "sound/weapons/rifleshot.ogg"
+	fire_sound_volume = 80
+	tac_reloads = FALSE
+	weapon_weight = WEAPON_MEDIUM

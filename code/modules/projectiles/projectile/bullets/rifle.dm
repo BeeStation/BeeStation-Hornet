@@ -14,3 +14,17 @@
 	name = "enchanted 7.62 bullet"
 	damage = 20
 	stamina = 80
+
+// .41 Cal (Pipe Pistol/Rifle)
+
+/obj/projectile/bullet/a41
+	name = ".41 bullet"
+	damage = 35
+	speed = 0.7
+
+/obj/projectile/bullet/a41/paper
+	damage = 30
+
+/obj/projectile/bullet/a41/paper/hotload
+	speed = 0.5
+	armour_penetration = 20

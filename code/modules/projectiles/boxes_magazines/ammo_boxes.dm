@@ -106,6 +106,12 @@
 	ammo_type = /obj/item/ammo_casing/n762
 	max_ammo = 14
 
+/obj/item/ammo_box/a41
+	name = "ammo box (.41 Cal)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/a41
+	max_ammo = 10
+
 /obj/item/ammo_box/foambox
 	name = "ammo box (Foam Darts)"
 	icon = 'icons/obj/guns/toy.dmi'
