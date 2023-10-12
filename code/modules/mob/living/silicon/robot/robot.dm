@@ -120,7 +120,7 @@
 	spark_system.attach(src)
 
 	wires = new /datum/wires/robot(src)
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 	RegisterSignal(src, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 
 	robot_modules_background = new()

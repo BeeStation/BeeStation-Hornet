@@ -187,10 +187,8 @@
 		//Remove from their hands and back onto the defib unit
 		remove_paddles(user)
 
-	update_power()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_icon()
+	update_action_buttons()
 
 /obj/item/defibrillator/proc/make_paddles()
 	return new paddle_type(src)
