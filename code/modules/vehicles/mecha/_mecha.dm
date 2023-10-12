@@ -623,7 +623,7 @@
 /obj/vehicle/sealed/mecha/vehicle_move(direction, forcerotate = FALSE)
 	if(!COOLDOWN_FINISHED(src, cooldown_vehicle_move))
 		return FALSE
-	COOLDOWN_START(src, cooldown_vehicle_move, movedelay)
+	COOLDOWN_START(src, cooldown_vehicle_move, (movedelay * step_multiplier) + step_restricted)
 	if(completely_disabled)
 		return FALSE
 	if(!direction)
@@ -673,6 +673,7 @@
 		if(turnsound)
 			playsound(src,turnsound,40,TRUE)
 		return TRUE
+
 
 	//set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))
 	//Otherwise just walk normally
