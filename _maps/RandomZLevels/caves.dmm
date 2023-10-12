@@ -2116,9 +2116,7 @@
 	},
 /area/awaymission/caves/BMP_asteroid)
 "gC" = (
-/obj/vehicle/sealed/mecha/working/ripley/mining{
-	ruin_mecha = 1
-	},
+/obj/vehicle/sealed/mecha/working/ripley/mining,
 /turf/open/floor/plasteel/recharge_floor,
 /area/awaymission/caves/BMP_asteroid)
 "gD" = (
