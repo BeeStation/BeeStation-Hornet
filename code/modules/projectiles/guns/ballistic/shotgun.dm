@@ -64,12 +64,6 @@
 	semi_auto = TRUE
 	casing_ejector = TRUE
 
-/*
-/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
-	..()
-	rack()
-*/
-
 /obj/item/gun/ballistic/shotgun/automatic/combat
 	name = "combat shotgun"
 	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
@@ -159,7 +153,7 @@
 
 // Bulldog shotgun //
 
-/obj/item/gun/ballistic/shotgun/bulldog
+/obj/item/gun/ballistic/shotgun/automatic/bulldog
 	name = "\improper Bulldog Shotgun"
 	desc = "A semi-auto, mag-fed shotgun for combat in narrow corridors with a built in recoil dampening system, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
@@ -177,11 +171,11 @@
 	pin = /obj/item/firing_pin/implant/pindicate
 	spread_unwielded = 15
 	actions_types = list()
+	casing_ejector = TRUE
 	mag_display = TRUE
 	empty_indicator = TRUE
 	empty_alarm = TRUE
 	special_mags = TRUE
-	semi_auto = TRUE
 	internal_magazine = FALSE
 	tac_reloads = TRUE
 	fire_rate = 2
@@ -190,7 +184,7 @@
 	bolt_type = BOLT_TYPE_STANDARD	//Not using a pump
 	full_auto = TRUE
 
-/obj/item/gun/ballistic/shotgun/bulldog/unrestricted
+/obj/item/gun/ballistic/shotgun/automatic/bulldog/unrestricted
 	pin = /obj/item/firing_pin
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //

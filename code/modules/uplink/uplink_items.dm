@@ -519,7 +519,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bulldog Shotgun"
 	desc = "A fully-loaded semi-automatic drum-fed shotgun. Compatible with all 12g rounds. Designed for close \
 			quarter anti-personnel engagements."
-	item = /obj/item/gun/ballistic/shotgun/bulldog
+	item = /obj/item/gun/ballistic/shotgun/automatic/bulldog
 	cost = 8
 	surplus = 40
 	purchasable_from = UPLINK_NUKE_OPS
