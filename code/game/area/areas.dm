@@ -238,6 +238,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		GLOB.turf_textures[turf_texture] = new turf_texture()
 	turf_texture = GLOB.turf_textures[turf_texture]
 	var/mutable_appearance/MA = mutable_appearance(turf_texture.icon, turf_texture.icon_state, plane = FLOOR_TEXTURE_PLANE, alpha = turf_texture.alpha, color = turf_texture?.color)
+	MA.appearance_flags = RESET_ALPHA | RESET_COLOR	
+	MA.alpha = turf_texture.alpha //Why do I have to set this here, why can't it just work in the proc?
 	add_overlay(MA)
 
 	return INITIALIZE_HINT_LATELOAD
