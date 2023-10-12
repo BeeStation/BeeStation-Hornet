@@ -282,9 +282,8 @@
 
 /obj/machinery/power/solar_control/Initialize(mapload)
 	. = ..()
-	if(smoothing_flags & SMOOTH_BITMASK)
-		QUEUE_SMOOTH(src)
-		QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	if(powernet)
 		set_panels(currentdir)
 	connect_to_network()
@@ -294,6 +293,7 @@
 		M.unset_control()
 	if(connected_tracker)
 		connected_tracker.unset_control()
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/machinery/power/solar_control/disconnect_from_network()
