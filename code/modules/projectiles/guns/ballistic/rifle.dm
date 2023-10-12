@@ -66,7 +66,7 @@
 	item_state = "moistnugget"
 	can_sawoff = TRUE
 	sawn_name = "\improper Mosin Obrez"
-	sawn_desc = "Огонь!"
+	sawn_desc = "A hand cannon of a rifle, try not to break your wrists."
 	sawn_item_state = "halfnugget"
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
