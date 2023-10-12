@@ -37,11 +37,9 @@
 	///How much energy the mech will consume each time it moves. This variable is a backup for when leg actuators affect the energy drain.
 	var/normal_step_energy_drain = 10
 
-	/*
 	//Beestation stuff
 	var/step_multiplier = 1
 	var/step_restricted = 0 //applied on_entered() by things which slow or restrict mech movement. Resets to zero at the end of every movement
-	*/
 
 	///How much energy the mech will consume each time it moves. this is the current active energy consumed
 	var/step_energy_drain = 10
@@ -554,13 +552,13 @@
 			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
-			selected.action(user, target, params)
+			INVOKE_ASYNC(selected, /obj/item/mecha_parts/mecha_equipment.proc/action, user, target, params)
 			return
 		if((selected.range & MECHA_MELEE) && Adjacent(target))
 			if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
-			selected.action(user, target, params)
+			INVOKE_ASYNC(selected, /obj/item/mecha_parts/mecha_equipment.proc/action, user, target, params)
 			return
 	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_MECHA_MELEE_ATTACK) || !istype(target, /atom) || !Adjacent(target))
 		return

@@ -174,6 +174,7 @@
 	return ..()
 
 /datum/action/item_action/Trigger()
+	. = ..()
 	if(!..())
 		return FALSE
 	if(target)
