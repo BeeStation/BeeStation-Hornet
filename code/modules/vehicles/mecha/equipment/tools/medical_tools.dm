@@ -110,7 +110,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Topic(href,href_list)
-	.. = ..()
+	. = ..()
 	if(.)
 		return
 	if(!(usr in chassis.occupants))
@@ -280,7 +280,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/vehicle/sealed/mecha/medical/M)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/vehicle/sealed/mecha/medical/M)
 	if(..())
 		if(istype(M))
 			return 1
@@ -457,7 +457,7 @@ obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/vehicle/
 		output += "Total: [round(reagents.total_volume,0.001)]/[reagents.maximum_volume] - <a href=\"?src=[REF(src)];purge_all=1\">Purge All</a>"
 	return output || "None"
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/load_syringe(obj/item/reagent_containers/syringe/S)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/load_syringe(obj/item/reagent_containers/syringe/S, mob/user)
 	if(syringes.len<max_syringes)
 		if(!chassis.Adjacent(S))
 			to_chat(user, "[icon2html(src, user)]<span class='warning'>Unable to load syringe!</span>")
@@ -465,7 +465,7 @@ obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/vehicle/
 		S.reagents.trans_to(src, S.reagents.total_volume, transfered_by = user)
 		S.forceMove(src)
 		syringes += S
-		occupant_message("Syringe loaded.")
+		to_chat(user, "[icon2html(src, user)]<span class='notice'>Syringe loaded.</span>")
 		update_equip_info()
 		return 1
 	to_chat(user, "[icon2html(src, user)]<span class='warning'>[src]'s syringe chamber is full!</span>")

@@ -175,7 +175,6 @@
 
 /obj/vehicle/sealed/mecha/Initialize(mapload)
 	. = ..()
-	events = new
 	add_radio()
 	add_cabin()
 	if(enclosed)
@@ -512,7 +511,7 @@
 	to_chat(user, "<span class='warning'>You short out the mech suit's internal controls.</span>")
 	equipment_disabled = TRUE
 	log_message("System emagged detected", LOG_MECHA, color="red")
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, restore_equipment)), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/mecha, restore_equipment)), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 ////////////////////////////
 ///// Action processing ////
@@ -672,7 +671,7 @@
 			playsound(src,turnsound,40,TRUE)
 		return TRUE
 
-	set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))
+	//set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))
 	//Otherwise just walk normally
 	. = step(src,direction, dir)
 
@@ -836,8 +835,8 @@
 			if(AI.stat || !AI.client)
 				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
 				return
-			if(occupant) //Normal AIs cannot steal mechs!
-				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].</span>")
+			if(LAZYLEN(occupants) >= max_occupants) //Normal AIs cannot steal mechs!
+				to_chat(user, "<span class='warning'>Access denied. [name] is [LAZYLEN(occupants) >= max_occupants ? "currently fully occupied" : "secured with a DNA lock"].</span>")
 				return
 			AI.control_disabled = FALSE
 			AI.radio_enabled = TRUE
@@ -995,24 +994,22 @@
 /obj/vehicle/sealed/mecha/proc/mmi_moved_inside(obj/item/mmi/M, mob/user)
 	if(!(Adjacent(M) && Adjacent(user)))
 		return FALSE
-	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
-		to_chat(user, "<span class='notice'>Consciousness matrix not detected!</span>")
+	if(!M.brain_check(user))
 		return FALSE
-	else if(mmi_as_oc.brainmob.stat)
-		to_chat(user, "<span class='warning'>Beta-rhythm below acceptable level!</span>")
+
+	var/mob/living/brain/B = M.brainmob
+	if(!user.transferItemToLoc(M, src))
+		to_chat(user, "<span class='warning'>\the [M] is stuck to your hand, you cannot put it in \the [src]!</span>")
 		return FALSE
-	if(!user.transferItemToLoc(mmi_as_oc, src))
-		to_chat(user, "<span class='warning'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]!</span>")
-		return FALSE
-	var/mob/living/brainmob = mmi_as_oc.brainmob
+
+
 	M.mecha = src
 	add_occupant(B)//Note this forcemoves the brain into the mech to allow relaymove
 	mecha_flags |= SILICON_PILOT
 	B.reset_perspective(src)
 	B.remote_control = src
-	brainmob.update_mobility()
-	brainmob.update_mouse_pointer()
-	update_icon()
+	B.update_mobility()
+	B.update_mouse_pointer()
 	setDir(dir_in)
 	log_message("[M] moved in as pilot.", LOG_MECHA)
 	if(!internal_damage)

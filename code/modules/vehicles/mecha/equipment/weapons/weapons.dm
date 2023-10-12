@@ -193,8 +193,8 @@
 
 	log_message("Honked from [src.name]. HONK!", LOG_MECHA)
 	var/turf/T = get_turf(src)
-	message_admins("[ADMIN_LOOKUPFLW(chassis.occupant)] used a Mecha Honker in [ADMIN_VERBOSEJMP(T)]")
-	log_game("[key_name(chassis.occupant)] used a Mecha Honker in [AREACOORD(T)]")
+	message_admins("[ADMIN_LOOKUPFLW(source)] used a Mecha Honker in [ADMIN_VERBOSEJMP(T)]")
+	log_game("[key_name(source)] used a Mecha Honker in [AREACOORD(T)]")
 	return 1
 
 

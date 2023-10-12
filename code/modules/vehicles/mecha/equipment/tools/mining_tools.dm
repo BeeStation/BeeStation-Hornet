@@ -99,7 +99,7 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/drill/attach(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/drill/attach(obj/vehicle/sealed/mecha/M)
 	..()
 	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 	butchering.butchering_enabled = TRUE

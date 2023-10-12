@@ -237,12 +237,14 @@
 
 			else if(prob(retreat_chance))
 				//Speed boost if possible
-				if(mecha.overload_action && mecha.overload_action.owner && !mecha.leg_overload_mode)
-					mecha.overload_action.Activate(TRUE)
-					addtimer(CALLBACK(mecha.overload_action, TYPE_PROC_REF(/datum/action/vehicle/sealed/mecha/mech_defense_mode, Activate), FALSE), 100) //10 seconds of speeeeed, then toggle off
+				if(LAZYACCESSASSOC(mecha.occupant_actions, src, /datum/action/vehicle/sealed/mecha/mech_overload_mode) && !mecha.leg_overload_mode)
+					var/datum/action/action = mecha.occupant_actions[src][/datum/action/vehicle/sealed/mecha/mech_overload_mode]
+					mecha.leg_overload_mode = FALSE
+					action.Trigger(TRUE)
+					addtimer(CALLBACK(action, /datum/action/vehicle/sealed/mecha/mech_overload_mode.proc/Trigger, FALSE), 100) //10 seconds of speeeeed, then toggle off
 
 				retreat_distance = 50
-				addtimer(VARSET_CALLBACK(src, retreat_distance, 0), 100)
+				addtimer(VARSET_CALLBACK(src, retreat_distance, 0), 10 SECONDS)
 
 
 
@@ -290,6 +292,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/Goto(target, delay, minimum_distance)
 	if(mecha)
-		SSmove_manager.move_to(mecha, target, minimum_distance, mecha.step_in * mecha.step_multiplier)
+		SSmove_manager.move_to(mecha, target, minimum_distance, mecha.movedelay * mecha.step_multiplier)
 	else
 		..()

@@ -122,8 +122,8 @@
 		var/mob/interloper = AM
 		interloper.death()
 	if(ismecha(AM))
-		var/obj/mecha/fuckphazons = AM
-		var/mob/living/carbon/interloper = fuckphazons.occupant
+		var/obj/vehicle/sealed/mecha/fuckphazons = AM
+		var/mob/living/carbon/interloper = fuckphazons.occupants
 		interloper?.death()
 		qdel(interloper)
 

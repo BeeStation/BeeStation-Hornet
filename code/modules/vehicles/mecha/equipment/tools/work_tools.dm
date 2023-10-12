@@ -37,7 +37,7 @@
 	if(!cargo_holder)
 		return
 	if(ismecha(target))
-		var/obj/vehicle/sealed/mecha/M = target
+		var/obj/O = target
 		if(istype(O, /obj/machinery/door/firedoor))
 			var/obj/machinery/door/firedoor/D = O
 			D.try_to_crowbar(src, source)
@@ -333,7 +333,7 @@
 	return "[..()] \[<a href='?src=[REF(src)];mode=0'>D</a>|<a href='?src=[REF(src)];mode=1'>C</a>|<a href='?src=[REF(src)];mode=2'>A</a>\]"
 
 
-
+/*
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer
 	name = "cable layer"
@@ -349,7 +349,7 @@
 	. = ..()
 	cable = new(src, 0)
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/working/M)
+/obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/vehicle/sealed/mecha/working/M)
 	if(..())
 		if(istype(M))
 			return 1
@@ -469,6 +469,7 @@
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
 	return 1
+*/
 
 //Dunno where else to put this so shrug
 /obj/item/mecha_parts/mecha_equipment/ripleyupgrade
