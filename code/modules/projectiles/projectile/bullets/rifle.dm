@@ -23,8 +23,9 @@
 	speed = 0.7
 
 /obj/projectile/bullet/a41/paper
-	damage = 30
+	damage = 27
 
 /obj/projectile/bullet/a41/paper/hotload
+	damage = 30
 	speed = 0.5
 	armour_penetration = 20

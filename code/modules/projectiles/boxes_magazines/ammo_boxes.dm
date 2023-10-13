@@ -108,7 +108,7 @@
 
 /obj/item/ammo_box/a41
 	name = "ammo box (.41 Cal)"
-	icon_state = "45box"
+	icon_state = "41box"
 	ammo_type = /obj/item/ammo_casing/a41
 	max_ammo = 10
 

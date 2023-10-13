@@ -21,7 +21,9 @@
 	max_ammo = 7
 	multiload = FALSE
 
-/obj/item/ammo_box/magazine/internal/leveraction/pipegun
+/obj/item/ammo_box/magazine/internal/pipegun
 	name = "pipegun internal magazine"
+	desc = "Me when I accidentally see items that shouldn't exist."
 	ammo_type = /obj/item/ammo_casing/a41/paper
+	caliber = "a41"
 	max_ammo = 1
