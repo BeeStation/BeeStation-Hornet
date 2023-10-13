@@ -326,7 +326,7 @@
 			var/obj/item/item_to_dispense = vars[choice]
 			if (item_to_dispense)
 				vars[choice] = null
-				user.put_in_hands(item_to_dispense)
+				try_put_in_hand(item_to_dispense, user)
 
 	interact(user)
 
