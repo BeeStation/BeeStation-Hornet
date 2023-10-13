@@ -991,16 +991,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/test_area)
-"aja" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 4;
-	state = 2
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating,
-/area/engine/engine_room)
 "ajb" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
 /turf/open/floor/plasteel/dark,
@@ -2204,16 +2194,6 @@
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/hallway/primary/fore)
-"aAP" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 8;
-	state = 2
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating,
-/area/engine/engine_room)
 "aBa" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
@@ -3481,16 +3461,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
-"aPw" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/knife,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
-/area/crew_quarters/kitchen)
 "aPF" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -8660,6 +8630,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"cCn" = (
+/obj/machinery/power/emitter/welded{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/engine/engine_room)
 "cCs" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -9328,6 +9307,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"cQq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/weightmachine/weightlifter,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/security/prison)
 "cQs" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -16970,28 +16963,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/security/prison)
-"ftk" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/food/snacks/pizzaslice/pineapple{
-	pixel_x = -2;
-	pixel_y = 9
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/bar)
 "ftv" = (
 /obj/machinery/camera/autoname{
 	dir = 8
@@ -34690,6 +34661,16 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
+"llC" = (
+/obj/structure/table/reinforced,
+/obj/item/knife/kitchen,
+/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/kitchen)
 "llM" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/item/toy/figure/qm{
@@ -36880,20 +36861,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/noslip/standard,
 /area/hallway/secondary/service)
-"lUR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/weightmachine/weightlifter,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/turf/open/floor/plasteel,
-/area/security/prison)
 "lUS" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/red{
@@ -70360,6 +70327,28 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
+"wUx" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/obj/item/food/pizzaslice/pineapple{
+	pixel_x = -2;
+	pixel_y = 9
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
 "wUD" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
@@ -71777,6 +71766,15 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"xtm" = (
+/obj/machinery/power/emitter/welded{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
+/area/engine/engine_room)
 "xtL" = (
 /obj/structure/railing{
 	dir = 8
@@ -87166,8 +87164,8 @@ aLq
 aCV
 aDz
 avi
-aja
-aja
+cCn
+cCn
 aLq
 aMT
 aMT
@@ -89220,7 +89218,7 @@ iqz
 auw
 aLq
 apl
-aAP
+xtm
 aUJ
 apl
 apl
@@ -109847,7 +109845,7 @@ izd
 svy
 anR
 oUF
-ftk
+wUx
 ska
 sKx
 fQa
@@ -110606,7 +110604,7 @@ iAG
 aYT
 tnJ
 hZf
-aPw
+llC
 cHq
 wWq
 gEw
@@ -113595,7 +113593,7 @@ aMT
 qBt
 anT
 vyE
-lUR
+cQq
 lxK
 cjA
 mTp
