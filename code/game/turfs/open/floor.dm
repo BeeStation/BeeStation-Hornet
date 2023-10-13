@@ -128,7 +128,7 @@
 	var/turf/base = pick(baseturfs)
 	var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
 	//Mask under turf by damage state
-	under_turf.AddAlphaMask(mask)
+	under_turf.UseAlphaMask(mask)
 	add_overlay(under_turf)
 	damage_overlays += under_turf
 
