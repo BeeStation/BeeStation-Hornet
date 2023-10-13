@@ -1,5 +1,6 @@
 /datum/preference/choiced/uplink_location
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	infotab_category = PREFERENCE_INFOTAB_GAMES
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "uplink_loc"
 	can_randomize = FALSE

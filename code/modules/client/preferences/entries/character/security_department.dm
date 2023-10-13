@@ -1,6 +1,7 @@
 /// Which department to put security officers in, when the config is enabled
 /datum/preference/choiced/security_department
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	infotab_category = PREFERENCE_INFOTAB_GAMES
 	can_randomize = FALSE
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "preferred_security_department"

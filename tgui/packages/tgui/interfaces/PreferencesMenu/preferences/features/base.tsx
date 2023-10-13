@@ -18,6 +18,7 @@ export type Feature<TReceiving, TSending = TReceiving, TServerData = unknown> = 
   category?: string;
   subcategory?: string;
   description?: string;
+  tooltip?: string;
   predictable?: boolean;
   small_supplemental?: boolean;
 };
@@ -78,6 +79,27 @@ export type FeatureToggle = Feature<BooleanLike, boolean>;
 
 export const TextInput = (props: FeatureValueProps<string, string>) => {
   return <Input value={props.value} onInput={(_, newValue) => props.handleSetValue(newValue)} width="100%" />;
+};
+
+export const TextButtonInput = (props: FeatureValueProps<string, string>) => {
+  return (
+    <>
+      <ServerPreferencesFetcher
+        render={(data) => {
+          if (!data) {
+            return null;
+          }
+        }}
+      />
+      <Button.Input
+        content={props.value}
+        onCommit={(_, newValue) => {
+          props.handleSetValue(newValue);
+        }}
+        width="auto"
+      />
+    </>
+  );
 };
 
 export const CheckboxInput = (props: FeatureValueProps<BooleanLike, boolean>) => {

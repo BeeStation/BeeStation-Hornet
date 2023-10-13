@@ -1,6 +1,7 @@
 /// The visual style of a PDA
 /datum/preference/choiced/pda_theme
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	infotab_category = PREFERENCE_INFOTAB_GAMES
 	db_key = "pda_theme"
 	preference_type = PREFERENCE_CHARACTER
 
@@ -32,6 +33,7 @@
 /// The color of a PDA with Thinktronic Classic
 /datum/preference/color/pda_classic_color
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	infotab_category = PREFERENCE_INFOTAB_GAMES
 	db_key = "pda_classic_color"
 	preference_type = PREFERENCE_CHARACTER
 

@@ -109,9 +109,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// Any preferences that will show to the sides of the character in the setup menu.
 #define PREFERENCE_CATEGORY_CLOTHING "clothing"
 
-/// Preferences that will be put into the 3rd list, and are not contextual.
-#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
-
 /// Will be put under the game preferences window.
 #define PREFERENCE_CATEGORY_GAME_PREFERENCES "game_preferences"
 
@@ -121,6 +118,19 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// These are preferences that are supplementary for main features,
 /// such as hair color being affixed to hair.
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
+
+/// Preferences that will be put into the 3rd list, and are not contextual.
+#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
+
+// values for /datum/preference/infotab_category
+/// This belongs to additional name setting (clown name, cyborg name, etc)
+#define PREFERENCE_INFOTAB_NAMES "names"
+/// This belongs to additional game setting (PDA color or theme, securty department preference, etc)
+#define PREFERENCE_INFOTAB_GAMES "games"
+/// sorting + naming
+#define INFOTAB_LIST list( \
+	PREFERENCE_INFOTAB_NAMES = "Names", \
+	PREFERENCE_INFOTAB_GAMES = "Adv. Options")
 
 //randomized elements
 #define RANDOM_ANTAG_ONLY 1

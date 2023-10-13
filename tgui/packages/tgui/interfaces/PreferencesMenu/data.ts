@@ -159,13 +159,12 @@ export type PreferencesMenuData = {
     features: Record<string, string>;
     game_preferences: Record<string, unknown>;
     non_contextual: {
+      names: Record<string, string>[];
       body_is_always_random: RandomSetting;
       [otherKey: string]: unknown;
     };
     secondary_features: Record<string, unknown>;
     supplemental_features: Record<string, unknown>;
-
-    names: Record<string, string>;
 
     misc: {
       gender: Gender;
@@ -175,6 +174,7 @@ export type PreferencesMenuData = {
 
     randomization: Record<string, RandomSetting>;
   };
+  infotab_menus: any[];
 
   content_unlocked: BooleanLike;
 

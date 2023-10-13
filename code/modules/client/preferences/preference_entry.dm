@@ -18,11 +18,8 @@
 /// The priority at which hair color is applied, needed so IPCs get the right antenna color.
 #define PREFERENCE_PRIORITY_HAIR_COLOR 6
 
-/// The priority at which names are decided, needed for proper randomization.
-#define PREFERENCE_PRIORITY_NAMES 7
-
 /// The maximum preference priority, keep this updated, but don't use it for `priority`.
-#define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_NAMES
+#define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_HAIR_COLOR
 
 /// For choiced preferences, this key will be used to set display names in constant data.
 #define CHOICED_PREFERENCE_DISPLAY_NAMES "display_names"
@@ -77,6 +74,9 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// This isn't used for anything other than as a key for UI data.
 	/// It is up to the PreferencesMenu UI itself to interpret it.
 	var/category = "misc"
+
+	/// used when `category = PREFERENCE_CATEGORY_NON_CONTEXTUAL`. Should be null unless it's necessary.
+	var/infotab_category
 
 	/// Do not instantiate if type matches this.
 	var/abstract_type = /datum/preference
