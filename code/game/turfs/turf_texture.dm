@@ -1,6 +1,6 @@
 /*
 	These are overlays attached to areas that effect only the floor plane.
-	Textures are blended with MULTIPLY, so lower the alpha is the best setting
+	Textures are blended onto turfs with MULTIPLY
 */
 
 //Default - pristine
@@ -17,7 +17,7 @@
 //Subtle hallway wear & tear
 /datum/turf_texture/hallway
 	icon_state = "hallway"
-	alpha = 45
+	alpha = 50
 
 //Deep maint use
 /datum/turf_texture/maint

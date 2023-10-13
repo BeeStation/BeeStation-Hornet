@@ -125,7 +125,7 @@
 	//Pick a random mask for damage state
 	var/icon/mask = icon(broken_icon, "broken_[damage_state]")
 	//Build under-turf icon
-	var/turf/base = pick(baseturfs)
+	var/turf/base = pick(baseturfs - /turf/baseturf_bottom)
 	var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
 	//Mask under turf by damage state
 	under_turf.UseAlphaMask(mask)
