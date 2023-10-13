@@ -5,7 +5,7 @@
 	icon_state = "moistnugget"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	bolt_wording = "bolt"
-	bolt_type = BOLT_TYPE_STANDARD
+	bolt_type = BOLT_TYPE_TWO_STEP
 	semi_auto = FALSE
 	internal_magazine = TRUE
 	fire_sound = "sound/weapons/rifleshot.ogg"
@@ -19,6 +19,7 @@
 	..()
 	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 
+/*
 /obj/item/gun/ballistic/rifle/rack(mob/user = null)
 	if(bolt_locked == FALSE)
 		to_chat(user, "<span class='notice'>You open the bolt of \the [src].</span>")
@@ -43,6 +44,7 @@
 /obj/item/gun/ballistic/rifle/examine(mob/user)
 	. = ..()
 	. += "The bolt is [bolt_locked ? "open" : "closed"]."
+*/
 
 ///////////////////////
 // BOLT ACTION RIFLE //
@@ -112,7 +114,7 @@
 //   .41 CAL RIFLE   //
 ///////////////////////
 
-/obj/item/gun/ballistic/leveraction
+/obj/item/gun/ballistic/rifle/leveraction
 	name = "lever action rifle"
 	desc = "Straight from the Wild West, this belongs in a museum but has found its way into your hands."
 	icon_state = "leveraction"
@@ -126,18 +128,17 @@
 	cartridge_wording = "cartridge"
 	recoil = 0.5
 	bolt_type = BOLT_TYPE_PUMP
-	semi_auto = FALSE
-	internal_magazine = TRUE
-	fire_sound = "sound/weapons/rifleshot.ogg"
 	fire_sound_volume = 80
 	tac_reloads = FALSE
-	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/ballistic/rifle/pipe
 	name = "pipe rifle"
-	desc = "It's really amazing that steel pipes are versatile for delivering death, from plasma to bullets."
+	desc = "It's amazing what you can do with some scrap wood and spare pipes."
+	sawn_desc = "Just looking at this thing makes your wrists hurt."
 	icon_state = "ishotgun"
 	item_state = "moistnugget"
+	bolt_wording = "breech"
+	cartridge_wording = "cartridge"
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/pipegun
 	w_class = WEIGHT_CLASS_BULKY
@@ -147,12 +148,23 @@
 
 /obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
 	..()
+	if(istype(A, /obj/item/melee/transforming/energy))
+		var/obj/item/melee/transforming/energy/W = A
+		if(W.active)
+			sawoff(user)
+	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
+		sawoff(user)
+
+/*
+/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
+	..()
 	if(istype(A, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
-			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
+			to_chat(user, "<span class='notice'>You tie the lengths of cable to the rifle, making a sling.</span>")
 			slung = TRUE
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
+*/

@@ -155,9 +155,21 @@
 					to_chat(user, "<span class='notice'>\The [src]'s [bolt_wording] is already cocked!</span>")
 				return
 			bolt_locked = FALSE
-		if(BOLT_TYPE_PUMP)
+		if(BOLT_TYPE_PUMP, BOLT_TYPE_TWO_STEP)
 			if(!is_wielded)
 				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
+				return
+			if(bolt_type == BOLT_TYPE_TWO_STEP)
+				//If it's locked (open), drop the bolt to close and unlock it
+				if(bolt_locked == TRUE)
+					drop_bolt(user)
+					return
+				//Otherwise, we open the bolt and eject the current casing
+				to_chat(user, "<span class='notice'>You open the [bolt_wording] of \the [src].</span>")
+				playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
+				process_chamber(FALSE, FALSE, FALSE)
+				bolt_locked = TRUE
+				update_icon()
 				return
 	if(user)
 		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
@@ -218,6 +230,8 @@
 	update_icon()
 
 /obj/item/gun/ballistic/can_shoot()
+	if(bolt_type == BOLT_TYPE_TWO_STEP && bolt_locked)
+		return FALSE
 	return chambered
 
 /obj/item/gun/ballistic/attackby(obj/item/A, mob/user, params)
@@ -235,6 +249,10 @@
 				to_chat(user, "<span class='notice'>There's already a [magazine_wording] in \the [src].</span>")
 		return
 	if (istype(A, /obj/item/ammo_casing) || istype(A, /obj/item/ammo_box))
+		//If it's a TWO_STEP bolt, you can't load it while it's closed (Mosin, Pipe Rifle)
+		if (bolt_type == BOLT_TYPE_TWO_STEP || !bolt_locked)
+			to_chat(user, "<span class='notice'>The [bolt_wording] is closed!</span>")
+			return
 		if (bolt_type == BOLT_TYPE_NO_BOLT || internal_magazine)
 			if (chambered && !chambered.BB)
 				chambered.forceMove(drop_location())
