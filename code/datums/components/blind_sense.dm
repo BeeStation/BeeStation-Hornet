@@ -119,4 +119,4 @@
 
 //Anchor for the thing
 /obj/effect/blind_sense
-	//Setting stuff here doesn't work?
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
