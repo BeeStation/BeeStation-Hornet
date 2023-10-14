@@ -118,7 +118,7 @@
 		return 0
 
 	// Play the animation
- 	if (weapon)
+	if (weapon)
 		if (attacker)
 			attacker.do_attack_animation(target, used_item = weapon)
 		else
