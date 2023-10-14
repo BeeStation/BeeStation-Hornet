@@ -210,7 +210,7 @@
 		slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
 	if(slot != default_slot)
-		log_preferences("[parent.ckey]: Character slot changed from [default_slot] to [slot].")
+		log_preferences("[parent.ckey]: Slot change applying, from [default_slot] to [slot].")
 		default_slot = slot
 		mark_undatumized_dirty_player()
 

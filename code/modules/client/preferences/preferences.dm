@@ -274,7 +274,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			/// No switching slots during a save
 			if(save_locked)
 				return
-			log_preferences("[parent?.ckey]: Changing slots to [new_slot] from [default_slot].")
+			log_preferences("[parent?.ckey]: Slot change event from [default_slot] to [new_slot].")
 			save_locked = TRUE
 			// Save previous character (immediately, delaying this could mean data is lost)
 			save_character()
