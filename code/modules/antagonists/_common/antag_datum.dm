@@ -87,6 +87,7 @@ GLOBAL_LIST(admin_antag_list)
 		info_button.Remove(old_body)
 		info_button.Grant(new_body)
 	apply_innate_effects(new_body)
+	give_antag_moodies()
 	if(count_against_dynamic_roll_chance && new_body.stat != DEAD)
 		new_body.add_to_current_living_antags()
 

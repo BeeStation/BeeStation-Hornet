@@ -184,9 +184,7 @@
 		remove_paddles(user)
 
 	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/defibrillator/proc/make_paddles()
 	return new paddle_type(src)

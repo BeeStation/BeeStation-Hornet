@@ -170,6 +170,9 @@
 	},
 /turf/open/floor/carpet,
 /area/wizard_station)
+"pD" = (
+/turf/open/floor/engine/cult,
+/area/space)
 "pS" = (
 /obj/machinery/door/airlock{
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi';
@@ -337,7 +340,7 @@
 /obj/structure/destructible/cult/talisman{
 	desc = "An altar dedicated to the Wizards' Federation"
 	},
-/obj/item/kitchen/knife/ritual,
+/obj/item/knife/ritual,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "Bv" = (
@@ -1479,7 +1482,7 @@ nt
 fw
 DK
 Je
-Je
+pD
 Je
 Je
 Je

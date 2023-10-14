@@ -1,9 +1,9 @@
 //Global lists so they can be editted by admins
 GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/soap,
-		/obj/item/kitchen/knife,
-		/obj/item/kitchen/knife/combat,
-		/obj/item/kitchen/knife/poison,
+		/obj/item/knife/kitchen,
+		/obj/item/knife/combat,
+		/obj/item/knife/poison,
 		/obj/item/throwing_star,
 		/obj/item/syndie_glue,
 		/obj/item/book_of_babel,
@@ -434,10 +434,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	center_turf = center
 
 /obj/effect/death_wall/proc/decrease_size()
-	var/minx = CLAMP(center_turf.x - current_radius, 1, 255)
-	var/maxx = CLAMP(center_turf.x + current_radius, 1, 255)
-	var/miny = CLAMP(center_turf.y - current_radius, 1, 255)
-	var/maxy = CLAMP(center_turf.y + current_radius, 1, 255)
+	var/minx = clamp(center_turf.x - current_radius, 1, 255)
+	var/maxx = clamp(center_turf.x + current_radius, 1, 255)
+	var/miny = clamp(center_turf.y - current_radius, 1, 255)
+	var/maxy = clamp(center_turf.y + current_radius, 1, 255)
 	if(y == maxy || y == miny)
 		//We have nowhere to move to so are deleted
 		if(x == minx || x == minx + 1 || x == maxx || x == maxx - 1)

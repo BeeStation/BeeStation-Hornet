@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/poisonknife
 	name = "Poisoned Knife"
 	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something. Can hold up to forty units of reagents but comes empty."
-	item = /obj/item/kitchen/knife/poison
+	item = /obj/item/knife/poison
 	cost = 6 // all in all it's not super stealthy and you have to get some chemicals yourself
 
 /datum/uplink_item/dangerous/rawketlawnchair
@@ -1847,7 +1847,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/encryptionkey/syndicate
 	cost = 2
 	surplus = 75
-	purchasable_from = ~UPLINK_INCURSION
+	purchasable_from = ~(UPLINK_INCURSION | UPLINK_EXCOMMUNICATE)
 	restricted = TRUE
 
 /datum/uplink_item/device_tools/syndietome
@@ -1937,7 +1937,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Used just like a regular headset, but can be disabled to use external headsets normally and to avoid detection."
 	item = /obj/item/storage/box/syndie_kit/imp_radio
 	cost = 4
-	purchasable_from = ~UPLINK_INCURSION //To prevent traitors from immediately outing the hunters to security.
+	purchasable_from = ~(UPLINK_INCURSION | UPLINK_EXCOMMUNICATE) //To prevent traitors from immediately outing the hunters to security.
 	restricted = TRUE
 
 /datum/uplink_item/implants/reviver

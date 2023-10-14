@@ -159,14 +159,13 @@ Class Procs:
 	if(processing_flags & START_PROCESSING_ON_INIT)
 		begin_processing()
 
-	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
-
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
 	if(!seller_department)
 		seller_department = dept_req_for_free
+
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
@@ -183,6 +182,11 @@ Class Procs:
 /obj/machinery/proc/end_processing()
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
+
+/obj/machinery/LateInitialize()
+	. = ..()
+	power_change()
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
 
 /obj/machinery/Destroy()
 	GLOB.machines.Remove(src)

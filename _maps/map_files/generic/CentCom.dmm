@@ -1098,6 +1098,22 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"eN" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/knife/kitchen,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "eO" = (
 /obj/structure/bookcase/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1620,17 +1636,6 @@
 /obj/item/paper_bin,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
-"hW" = (
-/obj/structure/lattice{
-	name = "The supports of the universe";
-	desc = "A not so lightweight support lattice. These hold our universe together."
-	},
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
-	desc = "I bet you think you're pretty clever... well you are.";
-	name = "easter egg"
-	},
-/turf/open/space/basic,
-/area/space)
 "hX" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/newscaster{
@@ -4431,6 +4436,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"uU" = (
+/turf/open/floor/plating,
+/area/start)
 "uY" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -4893,6 +4901,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
+"xA" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 8;
+	height = 7;
+	id = "supply_away";
+	json_key = "cargo";
+	name = "CentCom";
+	width = 20
+	},
+/turf/open/space,
+/area/space)
 "xD" = (
 /obj/structure/filingcabinet/medical,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -5347,6 +5367,17 @@
 "AN" = (
 /turf/open/floor/circuit/green,
 /area/centcom/ferry)
+"AP" = (
+/obj/structure/lattice{
+	name = "The supports of the universe";
+	desc = "A not so lightweight support lattice. These hold our universe together."
+	},
+/obj/item/reagent_containers/food/snacks/egg/rainbow{
+	desc = "I bet you think you're pretty clever... well you are.";
+	name = "easter egg"
+	},
+/turf/open/space/basic,
+/area/space)
 "AQ" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -5518,18 +5549,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
-"BK" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 7;
-	id = "supply_away";
-	json_key = "cargo";
-	name = "CentCom";
-	width = 20
-	},
-/turf/open/space,
-/area/space)
 "BM" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Security";
@@ -8408,6 +8427,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"RB" = (
+/obj/structure/lattice{
+	name = "The supports of the universe";
+	desc = "A not so lightweight support lattice. These hold our universe together."
+	},
+/turf/open/space/basic,
+/area/space)
 "RC" = (
 /obj/machinery/door/poddoor/shuttledock,
 /obj/effect/turf_decal/delivery,
@@ -8689,22 +8715,6 @@
 "Th" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/plasteel,
-/area/tdome/tdomeobserve)
-"Ti" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/kitchen/knife,
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "Tj" = (
 /obj/structure/table/reinforced,
@@ -9807,9 +9817,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/evac)
-"YW" = (
-/turf/open/floor/plating,
-/area/start)
 "YX" = (
 /obj/structure/table/wood/bar,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -9983,13 +9990,6 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/one)
-"ZQ" = (
-/obj/structure/lattice{
-	name = "The supports of the universe";
-	desc = "A not so lightweight support lattice. These hold our universe together."
-	},
-/turf/open/space/basic,
-/area/space)
 "ZR" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 1
@@ -11832,9 +11832,9 @@ fX
 fX
 fX
 fX
-YW
-YW
-YW
+uU
+uU
+uU
 fX
 fX
 fX
@@ -12089,9 +12089,9 @@ fX
 fX
 fX
 fX
-YW
+uU
 fY
-YW
+uU
 fX
 fX
 fX
@@ -12346,9 +12346,9 @@ fX
 fX
 fX
 fX
-YW
-YW
-YW
+uU
+uU
+uU
 fX
 fX
 fX
@@ -48980,7 +48980,7 @@ aa
 aa
 aa
 aa
-BK
+xA
 aa
 aa
 aa
@@ -50571,7 +50571,7 @@ ZL
 Ep
 Rq
 VN
-Ti
+eN
 bK
 NR
 hg
@@ -75557,6 +75557,6 @@ Rk
 Rk
 Rk
 Rk
-hW
-ZQ
+AP
+RB
 "}
