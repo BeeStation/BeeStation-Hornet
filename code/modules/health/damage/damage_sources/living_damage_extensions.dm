@@ -22,7 +22,7 @@
 
 /mob/living/simple_animal/deal_generic_attack(atom/target)
 	var/datum/damage_source/source = GET_DAMAGE_SOURCE(/datum/damage_source/blunt/light)
-	return source.deal_attack(src, null, target, melee_damage_type, isobj(target) ? obj_damage : melee_damage_type, ran_zone(zone_selected))
+	return source.deal_attack(src, null, target, melee_damage_type, isobj(target) ? obj_damage : melee_damage, ran_zone(zone_selected))
 
 /mob/living/simple_animal/slime/deal_generic_attack(atom/target)
 	var/datum/damage_source/slime_damage_source = GET_DAMAGE_SOURCE(/datum/damage_source/slime)
