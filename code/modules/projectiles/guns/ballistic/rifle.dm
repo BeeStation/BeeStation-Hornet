@@ -125,7 +125,6 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/leveraction
 	w_class = WEIGHT_CLASS_BULKY
 	no_pin_required = TRUE //Nothing stops frontier justice
-	pin = null
 	bolt_wording = "lever"
 	cartridge_wording = "cartridge"
 	recoil = 0.5
@@ -137,7 +136,7 @@
 	name = "pipe rifle"
 	desc = "It's amazing what you can do with some scrap wood and spare pipes."
 	sawn_desc = "Just looking at this thing makes your wrists hurt."
-	icon_state = "ishotgun"
+	icon_state = "pipegun"
 	item_state = "moistnugget"
 	bolt_wording = "breech"
 	cartridge_wording = "cartridge"

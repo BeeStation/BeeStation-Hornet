@@ -457,11 +457,16 @@
 // Sawing guns related proc
 /obj/item/gun/ballistic/proc/blow_up(mob/user)
 	. = FALSE
+	if(chambered.BB)
+		process_fire(user, user, FALSE)
+		. = TRUE
+	/*
+	. = FALSE
 	for(var/obj/item/ammo_casing/AC in magazine.stored_ammo)
 		if(AC.BB)
 			process_fire(user, user, FALSE)
 			. = TRUE
-
+	*/
 
 /obj/item/suppressor
 	name = "suppressor"
