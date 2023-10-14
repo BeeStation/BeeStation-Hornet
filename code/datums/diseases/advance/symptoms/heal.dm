@@ -559,7 +559,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.heal_overall_damage(2 * power, required_status = BODYTYPE_ORGANIC)
 				if(prob(33) && tetsuo)
 					var/datum/damage_source/body/damage_source = FIND_DAMAGE_SOURCE
-					damage_source.apply_direct(affected_mob, CLONE, 1)
+					damage_source.apply_direct(M, CLONE, 1)
 		else
 			if(prob(5))
 				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small.", "You are the strongest.")]</span>")

@@ -58,7 +58,7 @@
 		forceMove(H.drop_location())
 		H.mind.no_cloning_at_all = TRUE
 		var/datum/damage_source/abstract/damage_source = FIND_DAMAGE_SOURCE
-		damage_source.apply_direct(summoner.current, CLONE, 500) //dying hosts take 50% bonus damage as cloneloss
+		damage_source.apply_direct(H, CLONE, 500) //dying hosts take 50% bonus damage as cloneloss
 		H.dust(TRUE)
 	else
 		INVOKE_ASYNC(src, PROC_REF(generate_stand), H)

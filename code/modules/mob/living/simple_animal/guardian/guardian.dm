@@ -252,7 +252,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100, 0.5)
 		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>")
 
-/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE, forced = FALSE) //The spirit is invincible, but passes on damage to the summoner
+/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, forced = FALSE) //The spirit is invincible, but passes on damage to the summoner
 	. = amount
 	if(summoner)
 		if(loc == summoner)
@@ -265,7 +265,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 				to_chat(summoner, "<span class='danger'><B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span></B>")
 				var/datum/damage_source/abstract/damage_source = FIND_DAMAGE_SOURCE
 				damage_source.apply_direct(summoner, CLONE, amount * 0.5) //dying hosts take 50% bonus damage as cloneloss
-		update_health_hud()
+
+
+/mob/living/simple_animal/hostile/guardian/updatehealth()
+	. = ..()
+	update_health_hud()
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
 	switch(severity)

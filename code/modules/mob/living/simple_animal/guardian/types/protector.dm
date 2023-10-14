@@ -22,7 +22,7 @@
 	if(toggle)
 		visible_message("<span class='danger'>The explosion glances off [src]'s energy shielding!</span>")
 
-/mob/living/simple_animal/hostile/guardian/protector/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/guardian/protector/adjustHealth(amount, forced = FALSE)
 	. = ..()
 	if(. > 0 && toggle)
 		var/image/I = new('icons/effects/effects.dmi', src, "shield-flash", MOB_LAYER+0.01, dir = pick(GLOB.cardinals))

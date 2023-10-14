@@ -238,15 +238,17 @@
 	inhibited = FALSE
 	update_action_buttons_icon()
 
-/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/revenant/adjustHealth(amount, forced = FALSE)
 	if(!forced && !revealed)
 		return FALSE
 	. = amount
 	essence = max(0, essence-amount)
-	if(updating_health)
-		update_health_hud()
 	if(!essence)
 		death()
+
+/mob/living/simple_animal/revenant/updatehealth()
+	. = ..()
+	update_health_hud()
 
 /mob/living/simple_animal/revenant/dust(just_ash, drop_items, force)
 	death()

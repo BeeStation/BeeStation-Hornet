@@ -5,7 +5,7 @@
 /**
  * Handles brute damage for the holoparasite, transferring it to the summoner.
  */
-/mob/living/simple_animal/hostile/holoparasite/adjustBruteLossAbstract(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/holoparasite/adjustBruteLossAbstract(amount, forced)
 	// No, you can't heal the holopara.
 	if(!forced && amount <= 0)
 		return
@@ -25,12 +25,11 @@
 		to_chat(summoner.current, "<span class='danger bold'>You painfully cough up blood as [color_name] takes damage!</span>")
 		summoner.current.visible_message("<span class='warning'>[summoner.current] painfully coughs up blood[holoparasite_visible ? " as [color_name] takes damage" : ""]!</span>", vision_distance = HOLOPARA_SUMMONER_DAMAGE_VISION_RANGE)
 		COOLDOWN_START(src, recoil_cooldown, HOLOPARA_VISIBLE_RECOIL_COOLDOWN)
-	update_health_hud()
 
 /**
  * Handles burn damage for the holoparasite, transferring it to the summoner.
  */
-/mob/living/simple_animal/hostile/holoparasite/adjustFireLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/holoparasite/adjustFireLoss(amount, forced)
 	// No, you can't heal the holopara.
 	if(!forced && amount <= 0)
 		return
@@ -44,30 +43,34 @@
 		to_chat(summoner.current, "<span class='danger bold'>Your body burns [color_name] takes damage!</span>")
 		summoner.current.visible_message("<span class='warning'>[summoner.current] cringes with pain, burns and blisters taking form on [summoner.current.p_their()] skin[holoparasite_visible ? " as [color_name] takes damage" : ""]!</span>", vision_distance = HOLOPARA_SUMMONER_DAMAGE_VISION_RANGE)
 		COOLDOWN_START(src, recoil_cooldown, HOLOPARA_VISIBLE_RECOIL_COOLDOWN)
+
+
+/mob/living/simple_animal/hostile/holoparasite/updatehealth()
+	. = ..()
 	update_health_hud()
 
 /**
  * Negates oxygen damage for the holoparasite - it's a bluespace crystallization, it does not breathe.
  */
-/mob/living/simple_animal/hostile/holoparasite/adjustOxyLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/holoparasite/adjustOxyLoss(amount, forced)
 	return FALSE
 
 /**
  * Negates toxin damage for the holoparasite - it's a bluespace crystallization, it can't be poisoned.
  */
-/mob/living/simple_animal/hostile/holoparasite/adjustToxLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/holoparasite/adjustToxLoss(amount, forced)
 	return FALSE
 
 /**
  * Negates stamina damage for the holoparasite - it's a bluespace crystallization, it has no stamina.
  */
-/mob/living/simple_animal/hostile/holoparasite/adjustStaminaLoss(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/holoparasite/adjustStaminaLoss(amount, forced)
 	return FALSE
 
 /**
  * Negates cellular damage for the holoparasite - it's a bluespace crystallization, it has no cells.
  */
-/mob/living/simple_animal/hostile/holoparasite/adjustCloneLossAbstract(amount, updating_health, forced)
+/mob/living/simple_animal/hostile/holoparasite/adjustCloneLossAbstract(amount, forced)
 	return FALSE
 
 /**

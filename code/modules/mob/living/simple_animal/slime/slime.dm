@@ -256,7 +256,7 @@
 		tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
 	return tab_data
 
-/mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/slime/adjustFireLoss(amount, forced = FALSE)
 	if(!forced)
 		amount = -abs(amount)
 	return ..() //Heals them

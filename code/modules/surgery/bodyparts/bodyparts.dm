@@ -166,7 +166,7 @@
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
 //Cannot apply negative damage
-/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null)
+/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, required_status = null)
 	var/hit_percent = (100-blocked)/100
 	if((!brute && !burn && !stamina) || hit_percent <= 0)
 		return FALSE
@@ -211,7 +211,6 @@
 
 	if (owner)
 		UPDATE_HEALTH(owner)
-	if(owner && updating_health)
 		if(stamina >= DAMAGE_PRECISION)
 			owner.update_stamina(TRUE)
 			owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
@@ -222,7 +221,7 @@
 //Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
 //Damage cannot go below zero.
 //Cannot remove negative damage (i.e. apply damage)
-/obj/item/bodypart/proc/heal_damage(brute, burn, stamina, required_status, updating_health = TRUE)
+/obj/item/bodypart/proc/heal_damage(brute, burn, stamina, required_status)
 
 	if(required_status && !(bodytype & required_status)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
 		return

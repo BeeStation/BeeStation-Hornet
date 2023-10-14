@@ -37,7 +37,7 @@
 				add_enemy(M.occupant)
 	return FALSE
 
-/mob/living/simple_animal/hostile/retaliate/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/retaliate/adjustHealth(amount, forced = FALSE)
 	. = ..()
 	if(. > 0 && stat == CONSCIOUS)
 		Retaliate()

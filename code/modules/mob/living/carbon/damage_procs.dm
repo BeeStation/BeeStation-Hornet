@@ -59,29 +59,29 @@
 	return amount
 
 
-/mob/living/carbon/adjustBruteLossAbstract(amount, updating_health = TRUE, forced = FALSE, required_status)
+/mob/living/carbon/adjustBruteLossAbstract(amount, forced = FALSE, required_status)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(amount > 0)
-		take_overall_damage(amount, 0, 0, updating_health, required_status)
+		take_overall_damage(amount, 0, 0, required_status)
 	else
 		if(!required_status)
 			required_status = forced ? null : BODYTYPE_ORGANIC
-		heal_overall_damage(abs(amount), 0, 0, required_status, updating_health)
+		heal_overall_damage(abs(amount), 0, 0, required_status)
 	return amount
 
-/mob/living/carbon/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
+/mob/living/carbon/adjustFireLoss(amount, forced = FALSE, required_status)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(amount > 0)
-		take_overall_damage(0, amount, 0, updating_health, required_status)
+		take_overall_damage(0, amount, 0, required_status)
 	else
 		if(!required_status)
 			required_status = forced ? null : BODYTYPE_ORGANIC
-		heal_overall_damage(0, abs(amount), 0, required_status, updating_health)
+		heal_overall_damage(0, abs(amount), 0, required_status)
 	return amount
 
-/mob/living/carbon/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/carbon/adjustToxLoss(amount, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_TOXINLOVER)) //damage becomes healing and healing becomes damage
 		amount = -amount
 		if(amount > 0)
@@ -97,21 +97,21 @@
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		. += round(BP.stamina_dam * BP.stam_damage_coeff, DAMAGE_PRECISION)
 
-/mob/living/carbon/adjustStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/carbon/adjustStaminaLoss(amount, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(amount > 0)
-		take_overall_damage(0, 0, amount, updating_health)
+		take_overall_damage(0, 0, amount)
 	else
-		heal_overall_damage(0, 0, abs(amount), null, updating_health)
+		heal_overall_damage(0, 0, abs(amount), null)
 	return amount
 
-/mob/living/carbon/setStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/carbon/setStaminaLoss(amount, forced = FALSE)
 	var/current = getStaminaLoss()
 	var/diff = amount - current
 	if(!diff)
 		return
-	adjustStaminaLoss(diff, updating_health, forced)
+	adjustStaminaLoss(diff, forced)
 
 /** adjustOrganLoss
   * inputs: slot (organ slot, like ORGAN_SLOT_HEART), amount (damage to be done), and maximum (currently an arbitrarily large number, can be set so as to limit damage)
@@ -173,7 +173,7 @@
 //Heals ONE bodypart randomly selected from damaged ones.
 //It automatically updates damage overlays if necessary
 //It automatically updates health status
-/mob/living/carbon/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
+/mob/living/carbon/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, required_status)
 	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute,burn,stamina,required_status)
 	if(!parts.len)
 		return
@@ -184,7 +184,7 @@
 //Damages ONE bodypart randomly selected from damagable ones.
 //It automatically updates damage overlays if necessary
 //It automatically updates health status
-/mob/living/carbon/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status, check_armor = FALSE)
+/mob/living/carbon/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, required_status, check_armor = FALSE)
 	var/list/obj/item/bodypart/parts = get_damageable_bodyparts(required_status)
 	if(!parts.len)
 		return
@@ -193,7 +193,7 @@
 		update_damage_overlays()
 
 //Heal MANY bodyparts, in random order
-/mob/living/carbon/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_status, updating_health = TRUE)
+/mob/living/carbon/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_status)
 	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, stamina, required_status)
 
 	var/update = NONE
@@ -212,13 +212,13 @@
 
 		parts -= picked
 	UPDATE_HEALTH(src)
-	if(updating_health)
+	if(stamina != 0)
 		update_stamina(stamina >= DAMAGE_PRECISION)
 	if(update)
 		update_damage_overlays()
 
 // damage MANY bodyparts, in random order
-/mob/living/carbon/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status)
+/mob/living/carbon/take_overall_damage(brute = 0, burn = 0, stamina = 0, required_status)
 	if(status_flags & GODMODE)
 		return	//godmode
 

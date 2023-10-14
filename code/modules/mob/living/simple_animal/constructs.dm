@@ -123,10 +123,9 @@
 /mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
 	return 0
 
-/mob/living/simple_animal/hostile/construct/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/construct/updatehealth()
 	. = ..()
-	if(updating_health)
-		update_health_hud()
+	update_health_hud()
 
 /////////////////Juggernaut///////////////
 /mob/living/simple_animal/hostile/construct/armored

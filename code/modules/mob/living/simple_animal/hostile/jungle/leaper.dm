@@ -175,7 +175,7 @@
 	. = ..()
 	update_icons()
 
-/mob/living/simple_animal/hostile/jungle/leaper/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/jungle/leaper/adjustHealth(amount, forced = FALSE)
 	if(prob(33) && !ckey)
 		ranged_cooldown = 0 //Keeps em on their toes instead of a constant rotation
 	..()

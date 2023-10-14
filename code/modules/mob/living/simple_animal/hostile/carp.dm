@@ -130,7 +130,7 @@
 	maxHealth += rand(30,60)
 	move_to_delay = rand(3,7)
 
-/mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, forced = FALSE)
 	. = ..()
 	if(.)
 		regen_cooldown = world.time + REGENERATION_DELAY

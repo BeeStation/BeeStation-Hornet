@@ -168,7 +168,7 @@
 			step(I,direction)
 		return
 
-/mob/living/simple_animal/shade/howling_ghost/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/shade/howling_ghost/adjustHealth(amount, forced = FALSE)
 	. = 0
 
 ///////////////////////////
@@ -225,7 +225,7 @@
 /mob/living/simple_animal/hostile/retaliate/clown/insane/AttackingTarget()
 	return
 
-/mob/living/simple_animal/hostile/retaliate/clown/insane/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/retaliate/clown/insane/adjustHealth(amount, forced = FALSE)
 	. = 0
 	if(prob(5))
 		playsound(loc, 'sound/spookoween/insane_low_laugh.ogg', 300, 1)

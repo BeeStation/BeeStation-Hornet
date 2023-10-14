@@ -8,9 +8,10 @@
 	src.damage_type = _damage_type;\
 	src.attacker = null;
 
-#define CLEAR_REFERENCES \
+#define CLEAR_REFERENCES do {\
+	src.target = null;\
 	src.weapon = null;\
-	src.target = null;
+} while(0)
 
 /datum/damage_source
 	// ===========================
@@ -44,7 +45,7 @@
 	/// Who is attacking with this?
 	var/mob/living/attacker
 
-/datum/damage_source/proc/apply_direct(atom/_target, _damage_type, _damage_amount, _target_zone = null, update_health = TRUE, forced = FALSE)
+/datum/damage_source/proc/apply_direct(atom/_target, _damage_type, _damage_amount, _target_zone = null, forced = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
@@ -80,7 +81,7 @@
 	return damage_amount
 
 /// Attacker may be null
-/datum/damage_source/proc/deal_attack(mob/living/_attacker, obj/item/_attacking_item, atom/_target, _damage_type, _damage_amount, _target_zone = null, update_health = TRUE, forced = FALSE)
+/datum/damage_source/proc/deal_attack(mob/living/_attacker, obj/item/_attacking_item, atom/_target, _damage_type, _damage_amount, _target_zone = null, forced = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 

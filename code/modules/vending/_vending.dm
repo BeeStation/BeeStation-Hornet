@@ -482,10 +482,10 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 						C.bleed(150)
 						var/obj/item/bodypart/l_leg/l = C.get_bodypart(BODY_ZONE_L_LEG)
 						if(l)
-							l.receive_damage(brute=200, updating_health=TRUE)
+							l.receive_damage(brute=200)
 						var/obj/item/bodypart/r_leg/r = C.get_bodypart(BODY_ZONE_R_LEG)
 						if(r)
-							r.receive_damage(brute=200, updating_health=TRUE)
+							r.receive_damage(brute=200)
 						if(l || r)
 							C.visible_message("<span class='danger'>[C]'s legs shatter with a sickening crunch!</span>", \
 								"<span class='userdanger'>Your legs shatter with a sickening crunch!</span>")

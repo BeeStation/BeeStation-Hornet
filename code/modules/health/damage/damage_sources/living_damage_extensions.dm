@@ -2,7 +2,7 @@
 /// If you want an object to be the attacker, do not use this as it does not use the items
 /// armour penetration value.
 /// Target zone may be a def_zone or bodypart
-/mob/living/proc/apply_damage(damage_source, damage_type, damage, target_zone = null, update_health = TRUE, forced = FALSE)
+/mob/living/proc/apply_damage(damage_source, damage_type, damage, target_zone = null, forced = FALSE)
 	// Get the damage source
 	var/datum/damage_source/source = damage_source
 	if (!istype(source))

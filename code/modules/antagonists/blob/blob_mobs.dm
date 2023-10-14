@@ -290,10 +290,9 @@
 				I.color = overmind.blobstrain.complementary_color
 			flick_overlay_view(I, src, 8)
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/blob/blobbernaut/updatehealth()
 	. = ..()
-	if(updating_health)
-		update_health_hud()
+	update_health_hud()
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_health_hud()
 	if(hud_used)

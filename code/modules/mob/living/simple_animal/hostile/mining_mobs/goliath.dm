@@ -69,7 +69,7 @@
 		icon_state = icon_aggro
 		pre_attack = 0
 
-/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, forced = FALSE)
 	ranged_cooldown -= 10
 	handle_preattack()
 	. = ..()

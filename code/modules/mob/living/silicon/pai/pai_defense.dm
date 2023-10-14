@@ -68,22 +68,22 @@
 	to_chat(src, "<span class='userdanger'>The impact degrades your holochassis!</span>")
 	return amount
 
-/mob/living/silicon/pai/adjustBruteLossAbstract(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/silicon/pai/adjustBruteLossAbstract(amount, forced = FALSE)
 	return take_holo_damage(amount)
 
-/mob/living/silicon/pai/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/silicon/pai/adjustFireLoss(amount, forced = FALSE)
 	return take_holo_damage(amount)
 
-/mob/living/silicon/pai/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/silicon/pai/adjustToxLoss(amount, forced = FALSE)
 	return FALSE
 
-/mob/living/silicon/pai/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/silicon/pai/adjustOxyLoss(amount, forced = FALSE)
 	return FALSE
 
-/mob/living/silicon/pai/adjustCloneLossAbstract(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/silicon/pai/adjustCloneLossAbstract(amount, forced = FALSE)
 	return FALSE
 
-/mob/living/silicon/pai/adjustStaminaLoss(amount, updating_health, forced = FALSE)
+/mob/living/silicon/pai/adjustStaminaLoss(amount, forced = FALSE)
 	if(forced)
 		take_holo_damage(amount)
 	else
@@ -110,7 +110,7 @@
 /mob/living/silicon/pai/setCloneLoss()
 	return FALSE
 
-/mob/living/silicon/pai/setStaminaLoss(amount, updating_health = TRUE)
+/mob/living/silicon/pai/setStaminaLoss(amount)
 	return FALSE
 
 /mob/living/silicon/pai/setToxLoss()

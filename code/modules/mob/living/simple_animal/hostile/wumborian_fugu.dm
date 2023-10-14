@@ -51,7 +51,7 @@
 		E.Activate()
 	..()
 
-/mob/living/simple_animal/hostile/asteroid/fugu/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/asteroid/fugu/adjustHealth(amount, forced = FALSE)
 	if(!forced && wumbo)
 		return FALSE
 	. = ..()

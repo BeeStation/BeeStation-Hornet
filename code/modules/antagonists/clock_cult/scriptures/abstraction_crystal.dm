@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/required_health =  (linked_crystal.obj_integrity / linked_crystal.max_integrity) * maxHealth
 	var/health_delta_needed = max(health - required_health, 0)
 	var/datum/damage_source/magic/abstract/damage_source = FIND_DAMAGE_SOURCE
-	damage_source.apply_direct(summoner.current, CLONE, health_delta_needed) //Adjust clone loss so that our health = crystals health
+	damage_source.apply_direct(owner, CLONE, health_delta_needed) //Adjust clone loss so that our health = crystals health
 	last_check_health = health
 	if(incapacitated() || get_dist(src, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
 		linked_crystal.deconstruct(FALSE)
