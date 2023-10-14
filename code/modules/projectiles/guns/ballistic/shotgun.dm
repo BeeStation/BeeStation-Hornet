@@ -77,6 +77,7 @@
 		if(!user.is_holding(src))
 			return
 		semi_auto = !semi_auto
+		playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
 		to_chat(user, "<span class='notice'>You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation.</span>")
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/examine(mob/user)
