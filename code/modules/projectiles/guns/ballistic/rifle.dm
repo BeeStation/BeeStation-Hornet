@@ -21,6 +21,9 @@
 
 /*
 /obj/item/gun/ballistic/rifle/rack(mob/user = null)
+	if(!is_wielded)
+		to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
+		return
 	if(bolt_locked == FALSE)
 		to_chat(user, "<span class='notice'>You open the bolt of \the [src].</span>")
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
@@ -36,7 +39,7 @@
 	return ..()
 
 /obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
-	if (!bolt_locked)
+	if ((istype(A, /obj/item/ammo_casing/a762) || istype(A, /obj/item/ammo_box/a762)) && !bolt_locked)
 		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
 		return
 	return ..()
@@ -45,6 +48,14 @@
 	. = ..()
 	. += "The bolt is [bolt_locked ? "open" : "closed"]."
 */
+
+/obj/item/gun/ballistic/rifle/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+	if(sawn_off == TRUE)
+		if(!is_wielded)
+			recoil = 5
+		else
+			recoil = SAWN_OFF_RECOIL
+	. = ..()
 
 ///////////////////////
 // BOLT ACTION RIFLE //
@@ -55,6 +66,10 @@
 	desc = "This piece of junk looks like something that could have been used 700 years ago. It feels slightly moist."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
+	can_sawoff = TRUE
+	sawn_name = "\improper Mosin Obrez"
+	sawn_desc = "A hand cannon of a rifle, try not to break your wrists."
+	sawn_item_state = "halfnugget"
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	can_bayonet = TRUE
@@ -63,9 +78,20 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 
+/obj/item/gun/ballistic/rifle/boltaction/sawoff(mob/user)
+	. = ..()
+	//Has 25 bonus spread due to sawn-off accuracy penalties
+	if (.)
+		//Wild spread only applies to innate and unwielded spread
+		spread = 10
+		wild_spread = TRUE
+		wild_factor = 0.5
+		weapon_weight = WEAPON_MEDIUM
+
 /obj/item/gun/ballistic/rifle/boltaction/enchanted
 	name = "enchanted bolt action rifle"
 	desc = "Careful not to lose your head."
+	can_sawoff = FALSE
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 

@@ -281,6 +281,9 @@
 			to_chat(user, "<span class='notice'>You screw \the [S] onto \the [src].</span>")
 			install_suppressor(A)
 			return
+	if((A.tool_behaviour == TOOL_SAW || istype(A, /obj/item/gun/energy/plasmacutter)) && can_sawoff == TRUE)
+		sawoff(user)
+		return
 	return FALSE
 
 /obj/item/gun/ballistic/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
@@ -425,7 +428,6 @@
 #undef BRAINS_BLOWN_THROW_RANGE
 
 
-//TODO: sawing off guns with TOOL_SAW
 /obj/item/gun/ballistic/proc/sawoff(mob/user)
 	if(sawn_off)
 		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")
@@ -442,13 +444,31 @@
 		if(sawn_off)
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
-		name = "sawn-off [src.name]"
+		if (bayonet)
+			bayonet.forceMove(drop_location())
+			clear_bayonet()
+		if (suppressed)
+			if (istype(suppressed, /obj/item/suppressor))
+				//weight class is set later, don't need to worry about removing extra weight from the suppressor
+				var/obj/S = suppressed
+				S.forceMove(drop_location())
+			//If it's integrally suppressed, you're messing that up by chopping off most of it from the tip
+			suppressed = null
+		if (sawn_name)
+			name = sawn_name
+		else
+			name = "sawn-off [src.name]"
 		desc = sawn_desc
 		w_class = WEIGHT_CLASS_NORMAL
-		item_state = "gun"
+		if (sawn_item_state)
+			item_state = sawn_item_state
+		else
+			item_state = "gun"
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
-		slot_flags |= ITEM_SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
+		slot_flags |= ITEM_SLOT_BELT	//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		recoil = SAWN_OFF_RECOIL
+		can_bayonet = FALSE				//you got rid of the mounting lug with the rest of the barrel, dumbass
+		can_suppress = FALSE			//ditto for the threaded barrel
 		sawn_off = TRUE
 		spread_multiplier = 1.6
 		update_icon()
