@@ -29,7 +29,7 @@
 		var/value = Q.item[2]
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!preference)
-			if(!(db_key in GLOB.undatumized_preference_tags_player)
+			if(!(db_key in GLOB.undatumized_preference_tags_player))
 				log_preferences("[prefs.parent.ckey]: WARN - Datumized player preferences failed to find preference [db_key] in game, but it was in the database.")
 			continue
 		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
