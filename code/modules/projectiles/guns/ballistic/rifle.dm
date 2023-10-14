@@ -51,10 +51,11 @@
 
 /obj/item/gun/ballistic/rifle/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
 	if(sawn_off == TRUE)
+		var/R = recoil
 		if(!is_wielded)
 			recoil = 5
 		else
-			recoil = SAWN_OFF_RECOIL
+			recoil = R
 	. = ..()
 
 ///////////////////////

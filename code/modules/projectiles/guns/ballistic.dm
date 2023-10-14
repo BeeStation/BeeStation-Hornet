@@ -33,15 +33,19 @@
 	var/empty_alarm = FALSE //Whether the gun alarms when empty or not.
 	var/special_mags = FALSE //Whether the gun supports multiple special mag types
 	var/alarmed = FALSE
-	//Four bolt types:
+	//Six bolt types:
 	//BOLT_TYPE_STANDARD: Gun has a bolt, it stays closed while not cycling. The gun must be racked to have a bullet chambered when a mag is inserted.
-	//Example: c20, shotguns, m90
+	//Example: c20, m90
 	//BOLT_TYPE_OPEN: Gun has a bolt, it is open when ready to fire. The gun can never have a chambered bullet with no magazine, but the bolt stays ready when a mag is removed.
 	//Example: Some SMGs, the L6
 	//BOLT_TYPE_NO_BOLT: Gun has no moving bolt mechanism, it cannot be racked. Also dumps the entire contents when emptied instead of a magazine.
 	//Example: Break action shotguns, revolvers
 	//BOLT_TYPE_LOCKING: Gun has a bolt, it locks back when empty. It can be released to chamber a round if a magazine is in.
 	//Example: Pistols with a slide lock, some SMGs
+	//BOLT_TYPE_PUMP: Functions identically to BOLT_TYPE_STANDARD, but requires two hands to rack the bolt.
+	//Examples: Pump-action shotguns
+	//BOLT_TYPE_TWO_STEP: Functions identically to BOLT_TYPE_PUMP (and thus, STANDARD), but each interaction with the bolt toggles between locked (open) & unlocked (closed).
+	//Examples: Mosin nagant, pipe guns
 	var/bolt_type = BOLT_TYPE_STANDARD
 	var/bolt_locked = FALSE //Used for locking bolt and open bolt guns. Set a bit differently for the two but prevents firing when true for both.
 	var/bolt_wording = "bolt" //bolt, slide, etc.
@@ -466,7 +470,7 @@
 			item_state = "gun"
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
 		slot_flags |= ITEM_SLOT_BELT	//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
-		recoil = SAWN_OFF_RECOIL
+		recoil += SAWN_OFF_RECOIL		//Add the additional 1 recoil, instead of setting recoil to one (looking at you improv shotgun)
 		can_bayonet = FALSE				//you got rid of the mounting lug with the rest of the barrel, dumbass
 		can_suppress = FALSE			//ditto for the threaded barrel
 		sawn_off = TRUE
@@ -480,13 +484,6 @@
 	if(chambered.BB)
 		process_fire(user, user, FALSE)
 		. = TRUE
-	/*
-	. = FALSE
-	for(var/obj/item/ammo_casing/AC in magazine.stored_ammo)
-		if(AC.BB)
-			process_fire(user, user, FALSE)
-			. = TRUE
-	*/
 
 /obj/item/suppressor
 	name = "suppressor"
