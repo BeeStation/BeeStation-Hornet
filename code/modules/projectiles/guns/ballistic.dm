@@ -250,7 +250,7 @@
 		return
 	if (istype(A, /obj/item/ammo_casing) || istype(A, /obj/item/ammo_box))
 		//If it's a TWO_STEP bolt, you can't load it while it's closed (Mosin, Pipe Rifle)
-		if (bolt_type == BOLT_TYPE_TWO_STEP || !bolt_locked)
+		if (bolt_type == BOLT_TYPE_TWO_STEP && !bolt_locked)
 			to_chat(user, "<span class='notice'>The [bolt_wording] is closed!</span>")
 			return
 		if (bolt_type == BOLT_TYPE_NO_BOLT || internal_magazine)
