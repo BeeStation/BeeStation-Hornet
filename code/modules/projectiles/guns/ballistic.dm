@@ -481,6 +481,8 @@
 // Sawing guns related proc
 /obj/item/gun/ballistic/proc/blow_up(mob/user)
 	. = FALSE
+	if(!chambered)
+		return
 	if(chambered.BB)
 		process_fire(user, user, FALSE)
 		. = TRUE

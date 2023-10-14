@@ -19,43 +19,12 @@
 	..()
 	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 
-/*
-/obj/item/gun/ballistic/rifle/rack(mob/user = null)
-	if(!is_wielded)
-		to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
-		return
-	if(bolt_locked == FALSE)
-		to_chat(user, "<span class='notice'>You open the bolt of \the [src].</span>")
-		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-		process_chamber(FALSE, FALSE, FALSE)
-		bolt_locked = TRUE
-		update_icon()
-		return
-	drop_bolt(user)
-
-/obj/item/gun/ballistic/rifle/can_shoot()
-	if (bolt_locked)
-		return FALSE
-	return ..()
-
-/obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
-	if ((istype(A, /obj/item/ammo_casing/a762) || istype(A, /obj/item/ammo_box/a762)) && !bolt_locked)
-		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
-		return
-	return ..()
-
-/obj/item/gun/ballistic/rifle/examine(mob/user)
-	. = ..()
-	. += "The bolt is [bolt_locked ? "open" : "closed"]."
-*/
-
 /obj/item/gun/ballistic/rifle/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
 	if(sawn_off == TRUE)
-		var/R = recoil
 		if(!is_wielded)
 			recoil = 5
 		else
-			recoil = R
+			recoil = initial(recoil) + SAWN_OFF_RECOIL
 	. = ..()
 
 ///////////////////////
@@ -162,7 +131,9 @@
 /obj/item/gun/ballistic/rifle/pipe
 	name = "pipe rifle"
 	desc = "It's amazing what you can do with some scrap wood and spare pipes."
-	sawn_desc = "Just looking at this thing makes your wrists hurt."
+	can_sawoff = TRUE
+	sawn_name = "pipe pistol"
+	sawn_desc = "Why have more gun, when less gun can do!"
 	icon_state = "pipegun"
 	item_state = "moistnugget"
 	bolt_wording = "breech"
@@ -173,15 +144,6 @@
 	force = 10
 	recoil = 0.8
 	var/slung = FALSE
-
-/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
-	..()
-	if(istype(A, /obj/item/melee/transforming/energy))
-		var/obj/item/melee/transforming/energy/W = A
-		if(W.active)
-			sawoff(user)
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
-		sawoff(user)
 
 /*
 /obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
