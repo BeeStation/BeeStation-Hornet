@@ -117,13 +117,15 @@
 /obj/item/gun/ballistic/rifle/leveraction
 	name = "lever action rifle"
 	desc = "Straight from the Wild West, this belongs in a museum but has found its way into your hands."
-	icon_state = "leveraction"
+	icon_state = "leverrifle"
 	item_state = "moistnugget"
 	slot_flags = ITEM_SLOT_BACK
 	rack_sound = "sound/weapons/leveractionrack.ogg"
 	fire_sound = "sound/weapons/leveractionshot.ogg"
 	mag_type = /obj/item/ammo_box/magazine/internal/leveraction
 	w_class = WEIGHT_CLASS_BULKY
+	no_pin_required = TRUE //Nothing stops frontier justice
+	pin = null
 	bolt_wording = "lever"
 	cartridge_wording = "cartridge"
 	recoil = 0.5

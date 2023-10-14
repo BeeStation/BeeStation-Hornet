@@ -25,6 +25,7 @@
 /obj/projectile/bullet/a41/paper
 	//Possible damage range between 24 and 27
 	damage = 27
+	speed = 0.8
 
 /obj/projectile/bullet/a41/paper/Initialize(mapload)
 	. = ..()
@@ -35,5 +36,5 @@
 /obj/projectile/bullet/a41/paper/hotload
 	//Possible damage between 29 and 32
 	damage = 32
-	speed = 0.5
+	speed = 0.6
 	armour_penetration = 20
