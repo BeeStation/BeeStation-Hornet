@@ -217,6 +217,9 @@
 	// Cache their ckey because they can disconnect while datumized prefs read.
 	var/parent_ckey = parent.ckey
 
+	if(character_data)
+		qdel(character_data)
+
 	character_data = new(src, slot)
 	var/read_result = character_data.load_from_database(src)
 
