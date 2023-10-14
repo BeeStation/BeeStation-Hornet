@@ -96,21 +96,14 @@
 	if(girder_type)
 		new /obj/item/stack/sheet/iron(src)
 
-/turf/closed/wall/blob_act(obj/structure/blob/B)
-	add_dent(WALL_DENT_HIT)
-	return ..()
-
-/turf/closed/wall/mech_melee_attack(obj/mecha/M)
-	add_dent(WALL_DENT_HIT)
-	return ..()
+/turf/closed/wall/after_damage(damage_amount, damage_type, damage_flag)
+	. = ..()
+	if (damage_flag == MELEE)
+		add_dent(WALL_DENT_HIT)
 
 /turf/closed/wall/attack_paw(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	return attack_hand(user)
-
-/turf/closed/wall/attack_hulk(mob/user, does_attack_animation = 0)
-	add_dent(WALL_DENT_HIT)
-	return ..()
 
 /turf/closed/wall/attack_hand(mob/user)
 	. = ..()
