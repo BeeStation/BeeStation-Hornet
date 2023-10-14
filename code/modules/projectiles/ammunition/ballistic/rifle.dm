@@ -42,6 +42,11 @@
 	projectile_type = /obj/projectile/bullet/a41/paper
 
 /obj/item/ammo_casing/a41/paper/hotload
+	name = ".41 copper-core paper cartridge"
+	desc = "A handmade .41 cartridge. The bullet has been replaced with a bored out makeshift copper slug."
+	projectile_type = /obj/projectile/bullet/a41/paper/copper
+
+/obj/item/ammo_casing/a41/paper/hotload
 	name = ".41 hotload paper cartridge"
 	desc = "A higher quality handmade .41 cartridge. It smells like charcoal."
 	projectile_type = /obj/projectile/bullet/a41/paper/hotload

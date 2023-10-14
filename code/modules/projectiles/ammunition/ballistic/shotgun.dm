@@ -5,6 +5,7 @@
 	desc = "A 12 gauge lead slug."
 	icon_state = "blshell"
 	caliber = "shotgun"
+	var/high_power = TRUE
 	projectile_type = /obj/projectile/bullet/shotgun_slug
 	materials = list(/datum/material/iron=4000)
 
@@ -12,6 +13,7 @@
 	name = "beanbag slug"
 	desc = "A weak beanbag slug for riot control."
 	icon_state = "bshell"
+	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/shotgun_beanbag
 	materials = list(/datum/material/iron=250)
 
@@ -19,12 +21,14 @@
 	name = "incendiary slug"
 	desc = "An incendiary-coated shotgun slug."
 	icon_state = "ishell"
+	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/incendiary/shotgun
 
 /obj/item/ammo_casing/shotgun/dragonsbreath
 	name = "dragonsbreath shell"
 	desc = "A shotgun shell which fires a spread of incendiary pellets."
 	icon_state = "ishell2"
+	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/incendiary/shotgun/dragonsbreath
 	pellets = 4
 	variance = 35
@@ -68,6 +72,7 @@
 	name = "rubber shot"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "bshell"
+	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_rubbershot
 	pellets = 6
 	variance = 20
@@ -77,6 +82,7 @@
 	name = "custom incapacitating shot"
 	desc = "A shotgun casing filled with... something. used to incapacitate targets."
 	icon_state = "bountyshell"
+	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_incapacitate
 	pellets = 12//double the pellets, but half the stun power of each, which makes this best for just dumping right in someone's face.
 	variance = 20
@@ -86,6 +92,7 @@
 	name = "improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."
 	icon_state = "improvshell"
+	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_improvised
 	materials = list(/datum/material/iron=250)
 	pellets = 10
@@ -118,6 +125,7 @@
 	name = "shotgun dart"
 	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
 	icon_state = "cshell"
+	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/dart
 	var/reagent_amount = 30
 
@@ -131,6 +139,7 @@
 /obj/item/ammo_casing/shotgun/dart/noreact
 	name = "cryostasis shotgun dart"
 	desc = "A dart for use in shotguns, using similar technology as cryostatis beakers to keep internal reagents from reacting. Can be injected with up to 10 units of any chemical."
+	high_power = FALSE
 	icon_state = "cnrshell"
 	reagent_amount = 10
 
@@ -140,6 +149,7 @@
 
 /obj/item/ammo_casing/shotgun/dart/bioterror
 	desc = "A shotgun dart filled with deadly toxins."
+	high_power = FALSE
 
 /obj/item/ammo_casing/shotgun/dart/bioterror/Initialize(mapload)
 	. = ..()
@@ -153,5 +163,6 @@
 	name = "breaching slug"
 	desc = "A 12 gauge anti-material slug. Great for breaching airlocks and windows with minimal shots."
 	icon_state = "breacher"
+	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/shotgun_breaching
 	materials = list(/datum/material/iron=4000)

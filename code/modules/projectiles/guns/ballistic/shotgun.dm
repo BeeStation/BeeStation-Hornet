@@ -237,6 +237,11 @@
 	var/slung = FALSE
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
+	if (istype(A, /obj/item/ammo_casing/shotgun))
+		var/obj/item/ammo_casing/shotgun/S = A
+		if (S.high_power)
+			to_chat(user, "<span class='warning'>This gun can't handle the pressure of \a [S.name] being fired!</span>")
+			return
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)
