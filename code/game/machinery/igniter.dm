@@ -3,6 +3,7 @@
 	desc = "It's useful for igniting plasma."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "igniter0"
+	base_icon_state = "igniter"
 	plane = FLOOR_PLANE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
@@ -35,11 +36,11 @@
 
 	use_power(50)
 	on = !( on )
-	icon_state = "igniter[on]"
+	update_appearance()
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()?
-	if (src.on && !(machine_stat & NOPOWER) )
-		var/turf/location = src.loc
+	if (on && !(machine_stat & NOPOWER) )
+		var/turf/location = loc
 		if (isturf(location))
 			location.hotspot_expose(1000,500,1)
 	return 1
@@ -58,11 +59,9 @@
 
 	return ..()
 
-/obj/machinery/igniter/power_change()
-	if(!( machine_stat & NOPOWER) )
-		icon_state = "igniter[src.on]"
-	else
-		icon_state = "igniter0"
+/obj/machinery/igniter/update_icon_state()
+	icon_state = "[base_icon_state][(machine_stat & NOPOWER) ? 0 : on]"
+	return ..()
 
 // Wall mounted remote-control igniter.
 
@@ -71,12 +70,12 @@
 	desc = "A wall-mounted ignition device."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "migniter"
+	base_icon_state = "migniter"
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 	var/id = null
 	var/disable = 0
 	var/last_spark = 0
-	var/base_state = "migniter"
 	var/datum/effect_system/spark_spread/spark_system
 
 /obj/machinery/sparker/toxmix
@@ -92,35 +91,32 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
-/obj/machinery/sparker/power_change()
-	if ( powered() && disable == 0 )
-		set_machine_stat(machine_stat & ~NOPOWER)
-		icon_state = "[base_state]"
-//		src.sd_SetLuminosity(2)
-	else
-		set_machine_stat(machine_stat | NOPOWER)
-		icon_state = "[base_state]-p"
-//		src.sd_SetLuminosity(0)
-
-/obj/machinery/sparker/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_SCREWDRIVER)
-		add_fingerprint(user)
-		src.disable = !src.disable
-		if (src.disable)
-			user.visible_message("[user] has disabled \the [src]!", "<span class='notice'>You disable the connection to \the [src].</span>")
-			icon_state = "[base_state]-d"
-		if (!src.disable)
-			user.visible_message("[user] has reconnected \the [src]!", "<span class='notice'>You fix the connection to \the [src].</span>")
-			if(src.powered())
-				icon_state = "[base_state]"
-			else
-				icon_state = "[base_state]-p"
-	else
+/obj/machinery/sparker/update_icon_state()
+	if(disable)
+		icon_state = "[base_icon_state]-d"
 		return ..()
+	icon_state = "[base_icon_state][powered() ? null : "-p"]"
+	return ..()
+
+/obj/machinery/sparker/powered()
+	if(disable)
+		return FALSE
+	return ..()
+
+/obj/machinery/sparker/screwdriver_act(mob/living/user, obj/item/tool)
+	add_fingerprint(user)
+	tool.play_tool_sound(src, 50)
+	disable = !disable
+	if (disable)
+		user.visible_message("[user] has disabled \the [src]!", "<span class='notice'>You disable the connection to \the [src].</span>")
+	if (!disable)
+		user.visible_message("[user] has reconnected \the [src]!", "<span class='notice'>You fix the connection to \the [src].</span>")
+	update_appearance()
+	return TRUE
 
 /obj/machinery/sparker/attack_ai()
 	if (anchored)
-		return src.ignite()
+		return ignite()
 	else
 		return
 
@@ -128,15 +124,15 @@
 	if (!(powered()))
 		return
 
-	if ((src.disable) || (src.last_spark && world.time < src.last_spark + 50))
+	if ((disable) || (last_spark && world.time < last_spark + 50))
 		return
 
 
-	flick("[base_state]-spark", src)
+	flick("[initial(icon_state)]-spark", src)
 	spark_system.start()
 	last_spark = world.time
 	use_power(1000)
-	var/turf/location = src.loc
+	var/turf/location = loc
 	if (isturf(location))
 		location.hotspot_expose(1000,2500,1)
 	return 1

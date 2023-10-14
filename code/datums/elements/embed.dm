@@ -29,7 +29,7 @@
 	var/armour_block
 	var/payload_type
 
-/datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, max_damage_mult, remove_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, armour_block, projectile_payload=/obj/item/shard)
+/datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, max_damage_mult, remove_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, armour_block)
 	. = ..()
 
 	if(!isitem(target) && !isprojectile(target))
@@ -56,7 +56,8 @@
 			src.armour_block = armour_block
 			initialized = TRUE
 	else
-		payload_type = projectile_payload
+		var/obj/projectile/P = target
+		payload_type = P.shrapnel_type
 		RegisterSignal(target, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(checkEmbedProjectile))
 
 
@@ -192,5 +193,6 @@
 	else if(isbodypart(target))
 		limb = target
 		C = limb.owner
+		hit_zone = limb.body_zone
 
 	return checkEmbed(I, C, hit_zone, forced=TRUE)

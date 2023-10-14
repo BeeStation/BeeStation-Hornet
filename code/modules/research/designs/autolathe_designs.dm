@@ -358,7 +358,7 @@
 	id = "kitchen_knife"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 12000)
-	build_path = /obj/item/kitchen/knife
+	build_path = /obj/item/knife/kitchen
 	category = list("initial","Dinnerware")
 
 /datum/design/fork
@@ -873,7 +873,7 @@
 	id = "cleaver"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 18000)
-	build_path = /obj/item/kitchen/knife/butcher
+	build_path = /obj/item/knife/butcher
 	category = list("hacked", "Dinnerware")
 
 /datum/design/spraycan

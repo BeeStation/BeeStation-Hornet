@@ -86,7 +86,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
-	anger_modifier = CLAMP(((maxHealth - health)/20),0,20)
+	anger_modifier = clamp(((maxHealth - health)/20),0,20)
 
 	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)
@@ -796,7 +796,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 				mobcheck = TRUE
 				break
 			if(!mobcheck)
-				new /mob/living/simple_animal/cockroach(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
+				new /mob/living/basic/cockroach(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
 
 /obj/structure/closet/stasis
 	name = "quantum entanglement stasis warp field"

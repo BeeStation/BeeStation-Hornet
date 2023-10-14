@@ -190,7 +190,7 @@
 	..()
 	if(!automatic_charge_overlays)
 		return
-	var/ratio = CEILING(CLAMP(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
+	var/ratio = CEILING(clamp(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
 	//Display no power if EMPed
 	if(obj_flags & OBJ_EMPED)
 		ratio = 0

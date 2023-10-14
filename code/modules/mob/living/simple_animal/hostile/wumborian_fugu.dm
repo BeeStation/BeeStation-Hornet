@@ -121,7 +121,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	var/list/datum/disease/fugu_diseases = list()
-	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/guardian)
+	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/holoparasite)
 
 /obj/item/fugu_gland/Initialize()
 	. = ..()

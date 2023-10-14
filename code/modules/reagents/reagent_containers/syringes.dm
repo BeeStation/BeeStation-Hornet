@@ -21,6 +21,8 @@
 	var/list/datum/disease/syringe_diseases = list()
 	var/units_per_tick = 1.5
 	var/initial_inject = 5
+	fill_icon_state = "syringe"
+	fill_icon_thresholds = list(1, 5, 10, 15)
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
@@ -198,7 +200,7 @@
 	cut_overlays()
 	var/rounded_vol
 	if(reagents?.total_volume)
-		rounded_vol = CLAMP(round((reagents.total_volume / volume * 15),5), 1, 15)
+		rounded_vol = clamp(round((reagents.total_volume / volume * 15),5), 1, 15)
 		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
 		filling_overlay.color = mix_color_from_reagents(reagents.reagent_list)
 		add_overlay(filling_overlay)
@@ -319,6 +321,8 @@
 	base_icon_state = "cryo"
 	volume = 20
 	var/processing = FALSE
+	fill_icon_state = null
+	fill_icon_thresholds = null
 
 /obj/item/reagent_containers/syringe/cryo/Destroy()
 	if(processing)
@@ -358,6 +362,8 @@
 	icon_state = "crude_0"
 	base_icon_state = "crude"
 	volume = 5
+	fill_icon_state = "syringe_crude"
+	fill_icon_thresholds = list(5, 10, 15)
 
 #undef SYRINGE_DRAW
 #undef SYRINGE_INJECT

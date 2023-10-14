@@ -1,0 +1,2 @@
+/obj/item/food/burger : /obj/item/reagent_containers/food/snacks/burger{@OLD}
+/obj/item/food/pizza/pizza : obj/item/reagent_containers/food/snacks/pizza{@OLD}
