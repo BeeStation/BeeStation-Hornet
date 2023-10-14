@@ -34,7 +34,7 @@
 	addtimer(CALLBACK(src, PROC_REF(gc), TRUE), 1)		//GC after initialization.
 	last_process = world.time
 	//Reflection
-	var/turf/T  = parent
+	var/turf/T = parent
 	old_shine = T.shine
 	T.make_shiny(SHINE_SHINY)
 
@@ -52,6 +52,7 @@
 	if(istype(T))		//If this is false there is so many things wrong with it.
 		T.cut_overlay(current_overlay)
 		T.make_shiny(old_shine)
+		T.shine = old_shine //guh
 	else
 		stack_trace("Warning: Wet floor component wasn't on a turf when being destroyed! This is really bad!")
 	return ..()

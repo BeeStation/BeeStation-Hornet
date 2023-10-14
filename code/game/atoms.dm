@@ -144,6 +144,7 @@
 	///Reflective overlay
 	var/mutable_appearance/reflection
 	var/mutable_appearance/reflection_displacement
+	var/mutable_appearance/total_reflection_mask
 	var/shine = SHINE_MATTE
 
 /**
@@ -1834,13 +1835,16 @@
 			r_overlay = "whiteOverlay"
 	reflection = mutable_appearance('icons/turf/overlays.dmi', r_overlay, plane = _relfection_plane)
 	reflection_displacement = mutable_appearance('icons/turf/overlays.dmi', "flip", plane = REFLECTIVE_DISPLACEMENT_PLANE)
-	reflection_displacement.appearance_flags = 0
-	//Have to do this to make map work. Why? IDK, displacements are special like that
+	reflection_displacement.appearance_flags = 0 //Have to do this to make map work. Why? IDK, displacements are special like that
+	var/masking_plane = _relfection_plane == REFLECTIVE_PLANE ? REFLECTIVE_ALL_PLANE : REFLECTIVE_ALL_ABOVE_PLANE
+	total_reflection_mask = mutable_appearance('icons/turf/overlays.dmi', "whiteFull", plane = masking_plane)
 	add_overlay(reflection)
 	add_overlay(reflection_displacement)
+	add_overlay(total_reflection_mask)
 	shine = _shine
 
 /atom/proc/make_unshiny()
 	cut_overlay(reflection)
 	cut_overlay(reflection_displacement)
+	cut_overlay(total_reflection_mask)
 	shine = SHINE_MATTE

@@ -46,6 +46,10 @@
 	var/matrix/n_transform = MAM.transform
 	n_transform.Scale(1, -1)
 	MAM.transform = n_transform
+	//filters
+	var/icon/I = icon('icons/turf/overlays.dmi', "partialOverlay")
+	I.Flip(NORTH)
+	MAM.filters += filter(type = "alpha", icon = I)
 
 	add_overlay(MAM)
 

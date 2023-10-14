@@ -68,23 +68,26 @@
 	color = "#aaaaaa"
 	///What plane we're masked by
 	var/masking_plane = REFLECTIVE_PLANE_RENDER_TARGET
+	var/masking_all_plane = REFLECTIVE_ALL_PLANE_RENDER_TARGET
 
 /atom/movable/screen/plane_master/reflection/above
 	name = "reflection plane above master"
 	plane = REFLECTION_PLANE_ABOVE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	masking_plane = REFLECTIVE_PLANE_ABOVE_RENDER_TARGET
+	masking_all_plane = REFLECTIVE_ALL_ABOVE_PLANE_RENDER_TARGET
 
 /atom/movable/screen/plane_master/reflection/Initialize(mapload)
 	. = ..()
 	var/matrix/n_transform = transform
 	n_transform.Translate(0, -32)
 	transform = n_transform
-	add_filter("reflections masking other", 1, alpha_mask_filter(render_source = MANUAL_REFLECTIVE_MASK_PLANE_RENDER_TARGET, flags = MASK_INVERSE, y = 32))
+	add_filter("reflections masking other", 1, alpha_mask_filter(render_source = DEFILTER_MANUAL_REFLECTIVE_PLANE_MASK_RENDER_TARGET, flags = MASK_INVERSE))
 	add_filter("displacement", 1.1, displacement_map_filter(render_source = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET, size = 42, y = -16))
-	add_filter("manual reflections", 1.2, layering_filter(render_source = MANUAL_REFLECTIVE_PLANE_RENDER_TARGET, y = 32))
-	add_filter("reflections", 1.3, alpha_mask_filter(render_source = masking_plane))
+	add_filter("reflections", 1.2, alpha_mask_filter(render_source = masking_plane))
+	add_filter("manual reflections", 1.3, layering_filter(render_source = DEFILTER_MANUAL_REFLECTIVE_PLANE_RENDER_TARGET))
 	add_filter("motion_blur", 1.4, motion_blur_filter(y = 0.7))
+	add_filter("reflections full", 1.5, alpha_mask_filter(render_source = masking_all_plane))
 	
 /atom/movable/screen/plane_master/manual_reflection
 	name = "manual reflection plane master"
@@ -93,12 +96,33 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_relay_plane = null
 
+/atom/movable/screen/plane_master/manual_reflection/defilter
+	name = "defilter manual reflection plane master"
+	plane = DEFILTER_MANUAL_REFLECTIVE_PLANE
+	render_source = MANUAL_REFLECTIVE_PLANE_RENDER_TARGET
+	render_target = DEFILTER_MANUAL_REFLECTIVE_PLANE_RENDER_TARGET
+
 /atom/movable/screen/plane_master/manual_reflection_mask
 	name = "manual reflection mask plane master"
 	plane = MANUAL_REFLECTIVE_MASK_PLANE
 	render_target = MANUAL_REFLECTIVE_MASK_PLANE_RENDER_TARGET
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_relay_plane = null
+
+/atom/movable/screen/plane_master/manual_reflection_mask/defilter
+	name = "defilter manual reflection mask plane master"
+	plane = DEFILTER_MANUAL_REFLECTIVE_MASK_PLANE
+	render_source = MANUAL_REFLECTIVE_MASK_PLANE_RENDER_TARGET
+	render_target = DEFILTER_MANUAL_REFLECTIVE_PLANE_MASK_RENDER_TARGET
+
+/atom/movable/screen/plane_master/manual_reflection_mask/defilter/backdrop(mob/mymob)
+	. = ..()
+	remove_filter("AO")
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
+		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
+	remove_filter("eye_blur")
+	if(istype(mymob) && mymob.eye_blurry)
+		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"
@@ -289,11 +313,17 @@
 	plane = REFLECTIVE_PLANE_ABOVE
 	render_target = REFLECTIVE_PLANE_ABOVE_RENDER_TARGET
 
+/atom/movable/screen/plane_master/reflective/all
+	name = "reflective all plane master"
+	plane = REFLECTIVE_ALL_PLANE
+	render_target = REFLECTIVE_ALL_PLANE_RENDER_TARGET
+
+/atom/movable/screen/plane_master/reflective/all/above
+	name = "reflective all above plane master"
+	plane = REFLECTIVE_ALL_ABOVE_PLANE
+	render_target = REFLECTIVE_ALL_ABOVE_PLANE_RENDER_TARGET
+
 /atom/movable/screen/plane_master/reflective/displacement
 	name = "reflective displacement plane master"
 	plane = REFLECTIVE_DISPLACEMENT_PLANE
 	render_target = REFLECTIVE_DISPLACEMENT_PLANE_RENDER_TARGET
-
-/atom/movable/screen/plane_master/reflective/displacement/Initialize(mapload)
-	. = ..()
-	//add_filter("reflections 2", 1.12, alpha_mask_filter(render_source = MANUAL_REFLECTIVE_PLANE_RENDER_TARGET))
