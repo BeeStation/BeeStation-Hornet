@@ -97,7 +97,6 @@
 		new /obj/item/stack/sheet/iron(src)
 
 /turf/closed/wall/after_damage(damage_amount, damage_type, damage_flag)
-	. = ..()
 	if (damage_flag == MELEE)
 		add_dent(WALL_DENT_HIT)
 
