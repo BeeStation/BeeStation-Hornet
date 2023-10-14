@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		log_preferences("[parent?.ckey]: Player preferences generated and applied.")
 		apply_all_client_preferences()
 	else // Ok what the fuck - abort mission
-		log_preferences("[parent?.ckey]: Player preferences FAILED to load or apply. DELETING.")
+		log_preferences("[parent?.ckey]: ERROR - Player preferences FAILED to load or apply. DELETING.")
 		save_locked = FALSE
 		qdel(src) // this will also remove us from the write queue
 		return

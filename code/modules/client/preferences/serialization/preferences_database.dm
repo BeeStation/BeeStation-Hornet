@@ -52,12 +52,12 @@
 	player_data = new(src)
 	var/load_result = player_data.load_from_database(src)
 	if(load_result == PREFERENCE_LOAD_ERROR || load_result == null)
-		log_preferences("[parent_ckey]: player_data failed to load datumized player preferences.")
+		log_preferences("[parent_ckey]: ERROR - player_data failed to load datumized player preferences.")
 		if(istype(parent))
 			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized preferences. Please inform the server operator or a maintainer of this error.</span>")
 		return PREFERENCE_LOAD_ERROR
 	if(load_result == PREFERENCE_LOAD_IGNORE)
-		log_preferences("[parent_ckey]: player_data load ignored.")
+		log_preferences("[parent_ckey]: WARN - player_data load ignored.")
 		return PREFERENCE_LOAD_IGNORE
 	log_preferences("[parent_ckey]: Undatumized player preferences loading.")
 	var/datum/DBQuery/read_player_data = SSdbcore.NewQuery(
@@ -71,7 +71,7 @@
 
 	if(!read_player_data.Execute())
 		qdel(read_player_data)
-		log_preferences("[parent_ckey]: Undatumized player preferences load query failed.")
+		log_preferences("[parent_ckey]: ERROR - Undatumized player preferences load query failed.")
 		return PREFERENCE_LOAD_ERROR
 	else
 		while(read_player_data.NextRow())
@@ -113,7 +113,7 @@
 		if(istype(entry))
 			continue
 		role_preferences_global -= preference
-		log_preferences("[parent_ckey]: Cleaned up invalid global role preference entry [preference].")
+		log_preferences("[parent_ckey]: WARN - Cleaned up invalid global role preference entry [preference].")
 		mark_undatumized_dirty_player()
 
 	if (!length(key_bindings))
@@ -149,19 +149,19 @@
 	if(!istype(parent))
 		return FALSE
 	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
-		log_preferences("[parent.ckey]: Preference save ignored due to guest key.")
+		log_preferences("[parent.ckey]: WARN - Preference save ignored due to guest key.")
 		return FALSE
 	// Cache their ckey because they can disconnect while datumized prefs write.
 	// DO NOT RENAME THIS SHIT. it will break the defines
 	var/parent_ckey = parent.ckey
 	var/write_result = player_data?.write_to_database(src)
 	if(write_result == PREFERENCE_LOAD_ERROR || write_result == null)
-		log_preferences("[parent_ckey]: palyer_data failed to save datumized player preferences.")
+		log_preferences("[parent_ckey]: ERROR - player_data failed to save datumized player preferences.")
 		if(istype(parent))
 			to_chat(parent, "<span class='boldannounce'>Failed to save your datumized preferences. Please inform the server operator or a maintainer of this error.</span>")
 		return FALSE
 	if(write_result == PREFERENCE_LOAD_IGNORE)
-		log_preferences("[parent_ckey]: player_data save ignored.")
+		log_preferences("[parent_ckey]: WARN - player_data save ignored.")
 		return FALSE
 	if(!dirty_undatumized_preferences_player) // Nothing to write. Call it a success.
 		log_preferences("[parent_ckey]: Undatumized player preferences save skipped due to no changes.")
@@ -221,12 +221,12 @@
 	var/read_result = character_data.load_from_database(src)
 
 	if(read_result == PREFERENCE_LOAD_ERROR || read_result == null)
-		log_preferences("[parent_ckey]: character_data failed to load datumized character preferences.")
+		log_preferences("[parent_ckey]: ERROR - character_data failed to load datumized character preferences.")
 		if(istype(parent))
 			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
 		return PREFERENCE_LOAD_ERROR
 	if(read_result == PREFERENCE_LOAD_IGNORE)
-		log_preferences("[parent_ckey]: character_data load ignored.")
+		log_preferences("[parent_ckey]: WARN - character_data load ignored.")
 		return PREFERENCE_LOAD_IGNORE
 	log_preferences("[parent_ckey]: Undatumized character preferences loading.")
 	// Do NOT statically cache this or I will kill you. You are asking an evil vareditor to break the DB in a BAD way
@@ -249,7 +249,7 @@
 	var/list/values
 	if(!Q.warn_execute())
 		qdel(Q)
-		log_preferences("[parent_ckey]: Undatumized character preferences load query failed.")
+		log_preferences("[parent_ckey]: ERROR - Undatumized character preferences load query failed.")
 		return PREFERENCE_LOAD_ERROR
 	if(Q.NextRow())
 		values = Q.item
@@ -263,7 +263,7 @@
 		return PREFERENCE_LOAD_NO_DATA
 	qdel(Q)
 	if(length(values) != length(column_names))
-		log_preferences("[parent_ckey]: Undatumized character preferences load found the wrong amount of columns.")
+		log_preferences("[parent_ckey]: ERROR - Undatumized character preferences load found the wrong amount of columns.")
 		CRASH("Error querying character data: the returned value length is not equal to the number of columns requested.")
 
 	// Decode
@@ -284,7 +284,7 @@
 	for(var/j in job_preferences)
 		if(job_preferences[j] != JP_LOW && job_preferences[j] != JP_MEDIUM && job_preferences[j] != JP_HIGH)
 			job_preferences -= j
-			log_preferences("[parent_ckey]: Cleaned up invalid job preference entry: [j]")
+			log_preferences("[parent_ckey]: WARN - Cleaned up invalid job preference entry: [j]")
 			mark_undatumized_dirty_character()
 
 	// Validate role prefs
@@ -294,7 +294,7 @@
 		if(istype(entry) && entry.per_character)
 			continue
 		role_preferences -= preference
-		log_preferences("[parent_ckey]: Cleaned up invalid character role preference entry [preference].")
+		log_preferences("[parent_ckey]: WARN - Cleaned up invalid character role preference entry [preference].")
 		mark_undatumized_dirty_character()
 
 	// Validate equipped gear
@@ -324,19 +324,19 @@
 	if(!istype(parent))
 		return FALSE
 	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
-		log_preferences("[parent.ckey]: Character preference save ignored due to guest key.")
+		log_preferences("[parent.ckey]: WARN - Character preference save ignored due to guest key.")
 		return FALSE
 	// Cache their ckey because they can disconnect while datumized prefs write.
 	var/parent_ckey = parent.ckey
 
 	var/write_result = character_data?.write_to_database(src)
 	if(write_result == PREFERENCE_LOAD_ERROR || write_result == null)
-		log_preferences("[parent_ckey]: character_data failed to save datumized character preferences.")
+		log_preferences("[parent_ckey]: ERROR - character_data failed to save datumized character preferences.")
 		if(istype(parent))
 			to_chat(parent, "<span class='boldannounce'>Failed to save your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
 		return FALSE
 	if(write_result == PREFERENCE_LOAD_IGNORE)
-		log_preferences("[parent_ckey]: character_data save ignored.")
+		log_preferences("[parent_ckey]: WARN - character_data save ignored.")
 		return FALSE
 
 	if(!dirty_undatumized_preferences_character) // Nothing to write. Call it a success.
