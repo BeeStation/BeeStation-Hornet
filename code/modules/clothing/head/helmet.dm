@@ -66,9 +66,7 @@
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_head()
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 
 /obj/item/clothing/head/helmet/attackby(obj/item/I, mob/user, params)

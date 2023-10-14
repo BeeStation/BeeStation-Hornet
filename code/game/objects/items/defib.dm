@@ -184,9 +184,7 @@
 		remove_paddles(user)
 
 	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/defibrillator/proc/make_paddles()
 	return new paddle_type(src)
@@ -507,6 +505,10 @@
 		return
 	if(!req_defib && !combat)
 		return
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.check_shields(user, 0, "[user.name]'s [name]", attack_type = MELEE_ATTACK))
+			return
 	busy = TRUE
 	M.visible_message("<span class='danger'>[user] has touched [M] with [src]!</span>", \
 			"<span class='userdanger'>[user] has touched [M] with [src]!</span>")

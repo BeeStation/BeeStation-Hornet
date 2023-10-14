@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	var/newTemp = input(user, "Set a new temperature for [src] (Kelvin).", "[src]", null) as num
 	if(!newTemp)
 		return
-	newTemp = CLAMP(newTemp, T0C, 320)
+	newTemp = clamp(newTemp, T0C, 320)
 	desired_temperature = newTemp
 	return FALSE
 
@@ -241,7 +241,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	use_power(idle_power_usage)
 	var/delta = ((current_temperature > desired_temperature) ? -0.25 : 0.25 ) * delta_time
 	current_temperature += delta
-	current_temperature = CLAMP(current_temperature, T0C, desired_temperature)
+	current_temperature = clamp(current_temperature, T0C, desired_temperature)
 	var/trans_amount = reagents.total_volume / pool.len //Split up the reagents equally.
 	for(var/turf/open/indestructible/sound/pool/water as() in pool)
 		if(reagents.reagent_list.len)

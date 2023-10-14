@@ -502,7 +502,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
 	if(!A.carrier && !A.dormant)
-		sizemult = CLAMP((0.5 + A.stage_rate / 10), 1.1, 1.5)
+		sizemult = clamp((0.5 + A.stage_rate / 10), 1.1, 1.5)
 		M.resize = sizemult
 		M.update_transform()
 
@@ -759,7 +759,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
 					H.blood_volume = min(H.blood_volume + min(amt, C.blood_volume), BLOOD_VOLUME_NORMAL)
 					C.blood_volume = max(C.blood_volume - amt, 0)
-					gainedpoints = CLAMP(excess, 0, maxbloodpoints - bloodpoints)
+					gainedpoints = clamp(excess, 0, maxbloodpoints - bloodpoints)
 					C.visible_message("<span class='warning'>Blood flows from [C.name]'s wounds into [H.name]!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]!</span>")
 					playsound(C.loc, 'sound/magic/exit_blood.ogg', 25, 1)
 					return gainedpoints
@@ -793,7 +793,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(gainedpoints)
 			playsound(M.loc, 'sound/magic/exit_blood.ogg', 50, 1)
 			M.visible_message("<span class='warning'>Blood flows from the floor into [M.name]!</span>", "<span class='warning'>You consume the errant blood</span>")
-		return CLAMP(gainedpoints, 0, maxbloodpoints - bloodpoints)
+		return clamp(gainedpoints, 0, maxbloodpoints - bloodpoints)
 	if(ishuman(M) && aggression)//finally, attack mobs touching the host.
 		var/mob/living/carbon/human/H = M
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
@@ -805,9 +805,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4 * power), 0)
 					H.blood_volume = min(H.blood_volume + min(amt, C.blood_volume), BLOOD_VOLUME_NORMAL)
 					C.blood_volume = max(C.blood_volume - amt, 0)
-					gainedpoints += CLAMP(excess, 0, maxbloodpoints - bloodpoints)
+					gainedpoints += clamp(excess, 0, maxbloodpoints - bloodpoints)
 					C.visible_message("<span class='warning'>Blood flows from [C.name]'s wounds into [H.name]!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]!</span>")
-		return CLAMP(gainedpoints, 0, maxbloodpoints - bloodpoints)
+		return clamp(gainedpoints, 0, maxbloodpoints - bloodpoints)
 
 
 /datum/symptom/parasite
@@ -884,7 +884,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				grub.food = 10
 				grubs += grub
 				grub.togglehibernation()
-				grub.grubdisease = list(A)
+				grub.grub_diseases += A
 			if(prob(LAZYLEN(grubs) * (6/power)))// so you know its working. power lowers this so it doesnt spam you at high grub counts
 				to_chat(M, "<span class='warning'>You feel something squirming inside of you!</span>")
 			M.add_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = max(slowdown - 0.5, 0))
@@ -912,7 +912,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(isslimetarget(M) && A.stage >= 3)
 		for(var/I in 1 to (rand(1, A.stage)))
 			var/mob/living/simple_animal/hostile/redgrub/grub = new(M.loc)
-			grub.grubdisease = list(A)
+			grub.grub_diseases += A
 		M.gib()
 		M.visible_message("<span class='warning'>[M] is eaten alive by a swarm of red grubs!</span>")
 

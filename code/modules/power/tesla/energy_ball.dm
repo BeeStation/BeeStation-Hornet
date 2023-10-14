@@ -70,7 +70,7 @@
 	for (var/ball in orbiting_balls)
 		if(TICK_CHECK)
 			return
-		var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
+		var/range = rand(1, clamp(orbiting_balls.len, 3, 7))
 		//Miniballs don't explode.
 		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
 

@@ -1,0 +1,5 @@
+author: Penwin0
+delete-after: true
+changes:
+  - balance: Excommunicates can no longer purchase syndicate communication keys or
+      implants

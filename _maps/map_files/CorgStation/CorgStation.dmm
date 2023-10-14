@@ -992,9 +992,8 @@
 /turf/open/floor/plating,
 /area/science/test_area)
 "aja" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 4;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -2205,9 +2204,8 @@
 /turf/open/floor/plating,
 /area/hallway/primary/fore)
 "aAP" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 8;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 8
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -3483,7 +3481,7 @@
 /area/bridge)
 "aPw" = (
 /obj/structure/table/reinforced,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/item/reagent_containers/food/snacks/chocolatebar,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -7389,7 +7387,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/dead_body_placer{
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue{
 	bodycount = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -16861,7 +16859,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/dead_body_placer{
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue{
 	bodycount = 1
 	},
 /turf/open/floor/plasteel,
@@ -16983,7 +16981,7 @@
 	pixel_x = -3;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/snacks/pizzaslice/pineapple{
+/obj/item/food/pizzaslice/pineapple{
 	pixel_x = -2;
 	pixel_y = 9
 	},
@@ -36752,7 +36750,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/dead_body_placer{
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue{
 	bodycount = 1
 	},
 /turf/open/floor/plasteel,
