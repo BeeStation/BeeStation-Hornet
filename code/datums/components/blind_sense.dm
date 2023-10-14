@@ -74,7 +74,7 @@
 		I.AddAlphaMask(mask)
 
 	//Setup display image
-	var/obj/effect/blind_sense/BS = new(get_turf(target))
+	var/obj/effect/blind_sense/BS = new /obj/effect/blind_sense(get_turf(target))
 	var/image/M = image(I, BS)
 	M.plane = BLIND_FEATURE_PLANE
 	M.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -83,9 +83,10 @@
 	if(type == "mob")
 		//Re-use the blind sense location holder for an appearance
 		BS.appearance = target.appearance
-		BS.render_target = "[WEAKREF(BS)]"
+		BS.render_target = "[BS]"
 		BS.color = "#ffffffff" //what the fuck, setting color and plane doesn't work in the actual path definition, fuck off
 		BS.plane = ANTI_PSYCHIC_PLANE
+		BS.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		M.filters += filter(type = "alpha", render_source = BS.render_target)
 
 	//Colouring
@@ -118,4 +119,4 @@
 
 //Anchor for the thing
 /obj/effect/blind_sense
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	//Setting stuff here doesn't work?
