@@ -66,7 +66,7 @@
 	var/internal_magazine = FALSE //Whether the gun has an internal magazine or a detatchable one. Overridden by BOLT_TYPE_NO_BOLT.
 	var/magazine_wording = "magazine"
 	var/cartridge_wording = "bullet"
-	var/rack_delay = 5
+	var/rack_delay = 3
 	var/recent_rack = 0
 	var/tac_reloads = TRUE //Snowflake mechanic no more.
 
@@ -177,18 +177,18 @@
 			if(!is_wielded)
 				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
 				return
-			if(bolt_type == BOLT_TYPE_TWO_STEP)
+			//if(bolt_type == BOLT_TYPE_TWO_STEP)
 				//If it's locked (open), drop the bolt to close and unlock it
-				if(bolt_locked == TRUE)
-					drop_bolt(user)
-					return
-				//Otherwise, we open the bolt and eject the current casing
-				to_chat(user, "<span class='notice'>You open the [bolt_wording] of \the [src].</span>")
-				playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-				process_chamber(FALSE, FALSE, FALSE)
-				bolt_locked = TRUE
-				update_icon()
+			if(bolt_locked == TRUE)
+				drop_bolt(user)
 				return
+			//Otherwise, we open the bolt and eject the current casing
+			to_chat(user, "<span class='notice'>You open the [bolt_wording] of \the [src].</span>")
+			playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
+			process_chamber(FALSE, FALSE, FALSE)
+			bolt_locked = TRUE
+			update_icon()
+			return
 	if(user)
 		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
 	process_chamber(!chambered, FALSE)
