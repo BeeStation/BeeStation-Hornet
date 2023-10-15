@@ -52,7 +52,7 @@
 		return new /datum/position(x, y, z, p_x, p_y)
 
 GLOBAL_LIST_INIT(mouse_cooldowns, list(
-	'icons/effects/cooldown_cursors/cooldown_2.dmi',
+	'icons/effects/cooldown_cursors/cooldown_1.dmi',
 	'icons/effects/cooldown_cursors/cooldown_2.dmi',
 	'icons/effects/cooldown_cursors/cooldown_3.dmi',
 	'icons/effects/cooldown_cursors/cooldown_4.dmi',
@@ -72,19 +72,15 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 		return
 	cooldown_cursor_time = world.time + time
 	var/end_time = cooldown_cursor_time
-	var/base_fps = 10 / length(GLOB.mouse_cooldowns)
 	var/previous_cursor = mouse_pointer_icon
 	var/start_time = world.time
 	var/current_cursor = 1
 	for (var/cursor_icon in GLOB.mouse_cooldowns)
-		// If our progress isn't quick enough, skip the frames
-		var/expected_progress = ((world.time - start_time) / time) * length(GLOB.mouse_cooldowns)
-		if (current_cursor < expected_progress)
-			current_cursor++
-			continue
 		// Set the cursor and wait
 		mouse_pointer_icon = cursor_icon
-		sleep(base_fps * (time / 10))
+		// Sleep until we are where we should be
+		var/next_cursor_time = start_time + current_cursor * time / length(GLOB.mouse_cooldowns)
+		sleep(next_cursor_time - world.time)
 		// Someone else is managing the cursor
 		// Someone else is managing a cooldown timer, allow them since they overrode us
 		if (mouse_pointer_icon != cursor_icon || cooldown_cursor_time != end_time)
