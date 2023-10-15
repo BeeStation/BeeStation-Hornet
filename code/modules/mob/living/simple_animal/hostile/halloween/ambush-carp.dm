@@ -101,6 +101,8 @@
 			L.unbuckle_all_mobs(force=TRUE)
 			if(L.buckle_mob(src, force=TRUE))
 				layer = L.layer+0.01
+				playsound(loc, idle_sound, 50, TRUE)
+				rotate_sound("idle")
 	..()
 
 /mob/living/simple_animal/hostile/ambush/LoseAggro()
