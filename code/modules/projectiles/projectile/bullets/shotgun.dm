@@ -67,6 +67,9 @@
 	damage = 9
 	tile_dropoff = 0.5
 
+/obj/projectile/bullet/pellet/shotgun_buckshot/sa
+	damage = 5.5
+
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
 	damage = 3

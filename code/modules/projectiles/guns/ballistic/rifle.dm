@@ -136,7 +136,9 @@
 	sawn_desc = "Why have more gun, when less gun can do!"
 	icon_state = "pipegun"
 	item_state = "moistnugget"
-	bolt_wording = "breech"
+	bolt_type = BOLT_TYPE_NO_BOLT
+	chamber_wording = "breech"
+	chamber_action_wording = "flip"
 	cartridge_wording = "cartridge"
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/pipegun

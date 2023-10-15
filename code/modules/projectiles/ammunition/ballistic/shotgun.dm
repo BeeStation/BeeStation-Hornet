@@ -61,11 +61,18 @@
 	projectile_type = /obj/projectile/bullet/shotgun_frag12
 
 /obj/item/ammo_casing/shotgun/buckshot
-	name = "buckshot shell"
-	desc = "A 12 gauge buckshot shell."
+	name = "double-aught buckshot shell"
+	desc = "A 12 gauge double-aught buckshot shell."
 	icon_state = "gshell"
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot
 	pellets = 6
+	variance = 10
+
+/obj/item/ammo_casing/shotgun/buckshot/single_aught
+	name = "single-aught buckshot shell"
+	desc = "A 12 gauge single-aught buckshot shell. Smaller pellets, more holes in whatever you shoot."
+	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot/sa
+	pellets = 8
 	variance = 10
 
 /obj/item/ammo_casing/shotgun/rubbershot
