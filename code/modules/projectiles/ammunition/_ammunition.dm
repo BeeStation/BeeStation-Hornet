@@ -21,6 +21,12 @@
 	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
 	var/click_cooldown_override = 0
 	var/exists = TRUE
+	/// The icon state of the projectile overlay to display on the gun while it is in the user's hand
+	var/projectile_overlay_state = null
+	/// The icon state of the projectile overlay when spent
+	var/projectile_overlay_spent_state = null
+	/// The width of the projectile overlay, the thinner they are the more can fit on the screen at once
+	var/projectile_overlay_width = 4
 
 /obj/item/ammo_casing/spent
 	name = "spent bullet casing"

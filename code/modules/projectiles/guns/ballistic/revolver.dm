@@ -22,6 +22,7 @@
 		chambered = magazine.get_round(TRUE)
 	else
 		chambered = magazine.stored_ammo[1]
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gun/ballistic/revolver/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	..()
@@ -266,6 +267,10 @@
 	add_fingerprint(user)
 	playsound(src, dry_fire_sound, 30, TRUE)
 	user.visible_message("<span class='danger'>[user.name] tries to fire \the [src] at the same time, but only succeeds at looking like an idiot.</span>", "<span class='danger'>\The [src]'s anti-combat mechanism prevents you from firing it at the same time!</span>")
+
+// Doesn't show you the bullets in the chamber
+/obj/item/gun/ballistic/revolver/russian/add_bullet_overlay()
+	return list()
 
 /obj/item/gun/ballistic/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)

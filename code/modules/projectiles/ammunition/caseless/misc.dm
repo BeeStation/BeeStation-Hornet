@@ -6,6 +6,8 @@
 	projectile_type = /obj/projectile/beam
 	fire_sound = 'sound/weapons/laser.ogg'
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
+	projectile_overlay_state = "boverlay_inc"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 /obj/item/ammo_casing/caseless/laser/gatling
 	projectile_type = /obj/projectile/beam/weak/penetrator

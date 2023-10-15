@@ -9,9 +9,8 @@ Everything else should be handled for you. Good luck soldier.
 
 #define COMSIG_AUTOFIRE_END "stop_autofiring"
 
-/obj/item/gun
-	var/full_auto = FALSE //Set this if your gun uses full auto. ONLY guns that go brr should use this. Not pistols!
-	var/datum/component/full_auto/autofire_component = null //Repeated calls to getComponent aren't really ideal. So we'll take the memory hit instead.
+/obj/item/gun/var/full_auto = FALSE //Set this if your gun uses full auto. ONLY guns that go brr should use this. Not pistols!
+/obj/item/gun/var/datum/component/full_auto/autofire_component = null //Repeated calls to getComponent aren't really ideal. So we'll take the memory hit instead.
 
 /obj/item/gun/vv_edit_var(var_name, var_value)
 	. = ..()

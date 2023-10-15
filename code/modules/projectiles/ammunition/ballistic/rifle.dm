@@ -6,6 +6,7 @@
 	icon_state = "762-casing"
 	caliber = "a762"
 	projectile_type = /obj/projectile/bullet/a762
+	projectile_overlay_width = 4
 
 /obj/item/ammo_casing/a762/enchanted
 	projectile_type = /obj/projectile/bullet/a762_enchanted
@@ -17,6 +18,8 @@
 	desc = "A 5.56mm bullet casing."
 	caliber = "a556"
 	projectile_type = /obj/projectile/bullet/a556
+	projectile_overlay_state = "boverlay_ap"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 // 40mm (Grenade Launcher)
 

@@ -18,6 +18,7 @@
 	force = 5
 	item_flags = NEEDS_PERMIT
 	attack_verb = list("struck", "hit", "bashed")
+	item_flags = ISWEAPON
 
 	var/fire_sound = "gunshot"
 	var/vary_fire_sound = TRUE
@@ -178,6 +179,7 @@
 	. = ..()
 	if(zoomed && user.get_active_held_item() != src)
 		zoom(user, user.dir, FALSE) //we can only stay zoomed in if it's in our hands	//yeah and we only unzoom if we're actually zoomed using the gun!!
+	update_icon()
 
 //called after the gun has successfully fired its chambered ammo.
 /obj/item/gun/proc/process_chamber()
@@ -461,6 +463,9 @@
 		knife_overlay.pixel_y = knife_y_offset
 		. += knife_overlay
 
+	if (istype(loc, /mob))
+		. += add_bullet_overlay()
+
 /obj/item/gun/proc/reset_semicd()
 	semicd = FALSE
 
@@ -664,6 +669,7 @@
 		azoom.Remove(user)
 	if(zoomed)
 		zoom(user, user.dir)
+	update_icon()
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params, bypass_timer)
 	if(!ishuman(user) || !ishuman(target))
@@ -771,6 +777,13 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
+
+// ================================
+// Projectile Overlay
+// ================================
+
+/obj/item/gun/proc/add_bullet_overlay()
+	return list()
 
 #undef FIRING_PIN_REMOVAL_DELAY
 #undef DUALWIELD_PENALTY_EXTRA_MULTIPLIER

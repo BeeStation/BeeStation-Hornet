@@ -89,12 +89,12 @@
 /obj/item/gun/ballistic/update_icon()
 	if (QDELETED(src))
 		return
+	cut_overlays()
 	..()
 	if(current_skin)
 		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
-	cut_overlays()
 	if (bolt_type == BOLT_TYPE_LOCKING)
 		add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 	if (bolt_type == BOLT_TYPE_OPEN && bolt_locked)
@@ -150,6 +150,7 @@
 		chambered = magazine.get_round(keep_bullet || bolt_type == BOLT_TYPE_NO_BOLT)
 		if (bolt_type != BOLT_TYPE_OPEN)
 			chambered.forceMove(src)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gun/ballistic/proc/rack(mob/user = null)
 	switch(bolt_type)
@@ -470,6 +471,42 @@
 			process_fire(user, user, FALSE)
 			. = TRUE
 
+// ================================
+// Projectile Overlay
+// ================================
+
+/obj/item/gun/ballistic/add_bullet_overlay()
+	. = list()
+	// Show some of the other bullets
+	if (magazine && length(magazine.stored_ammo) > 0)
+		// Show a maximum of 3 extra shells
+		var/start = max(1, length(magazine.stored_ammo) - 4)
+		var/current_index = length(magazine.stored_ammo)
+		var/current_position = 10
+		while (current_index >= start && current_position >= -4)
+			// Get the bullet and calculate our position
+			var/obj/item/ammo_casing/casing = magazine.stored_ammo[current_index]
+			if (casing == chambered || !casing)
+				current_index--
+				continue
+			current_position -= casing.projectile_overlay_width
+			// Is this the final shell?
+			var/final = (current_position < -4)
+			var/mutable_appearance/loaded_bullet_overlay = mutable_appearance(casing.icon, (casing.BB ? casing.projectile_overlay_state : casing.projectile_overlay_spent_state) || casing.icon_state)
+			loaded_bullet_overlay.dir = NORTH
+			loaded_bullet_overlay.pixel_x = current_position
+			loaded_bullet_overlay.pixel_y = -10
+			if (final)
+				loaded_bullet_overlay.alpha = 120
+			. += loaded_bullet_overlay
+			// Move onto the next shell
+			current_index--
+	// Chambered icon
+	if (chambered)
+		var/mutable_appearance/bullet_overlay = mutable_appearance(chambered.icon, (chambered.BB ? chambered.projectile_overlay_state : chambered.projectile_overlay_spent_state) || chambered.icon_state)
+		bullet_overlay.pixel_x = 10
+		bullet_overlay.pixel_y = -10
+		. += bullet_overlay
 
 /obj/item/suppressor
 	name = "suppressor"
@@ -484,3 +521,5 @@
 	desc = "A foreign knock-off suppressor, it feels flimsy, cheap, and brittle. Still fits most weapons."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "suppressor"
+
+

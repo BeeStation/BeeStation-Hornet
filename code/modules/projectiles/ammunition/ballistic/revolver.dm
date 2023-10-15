@@ -5,12 +5,17 @@
 	desc = "A .357 bullet casing."
 	caliber = "357"
 	projectile_type = /obj/projectile/bullet/a357
+	icon_state = "s-casing"
+	projectile_overlay_state = "boverlay"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 /obj/item/ammo_casing/a357/match
 	name = ".357 match bullet casing"
 	desc = "A .357 bullet casing, manufactured to exceedingly high standards."
 	caliber = "357"
 	projectile_type = /obj/projectile/bullet/a357/match
+	projectile_overlay_state = "boverlay_nonlethal"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 // 7.62x38mmR (Nagant Revolver)
 
@@ -19,6 +24,9 @@
 	desc = "A 7.62x38mmR bullet casing."
 	caliber = "n762"
 	projectile_type = /obj/projectile/bullet/n762
+	icon_state = "s-casing"
+	projectile_overlay_state = "boverlay"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 // .38 (Detective's Gun)
 
@@ -27,28 +35,39 @@
 	desc = "A .38 bullet casing."
 	caliber = "38"
 	projectile_type = /obj/projectile/bullet/c38
+	icon_state = "s-casing"
+	projectile_overlay_state = "boverlay"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 /obj/item/ammo_casing/c38/trac
 	name = ".38 TRAC bullet casing"
 	desc = "A .38 \"TRAC\" bullet casing."
 	projectile_type = /obj/projectile/bullet/c38/trac
+	projectile_overlay_state = "boverlay_track"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 /obj/item/ammo_casing/c38/hotshot
 	name = ".38 Hot Shot bullet casing"
 	desc = "A .38 Hot Shot bullet casing."
 	caliber = "38"
 	projectile_type = /obj/projectile/bullet/c38/hotshot
+	projectile_overlay_state = "boverlay_inc"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 /obj/item/ammo_casing/c38/iceblox
 	name = ".38 Iceblox bullet casing"
 	desc = "A .38 Iceblox bullet casing."
 	caliber = "38"
 	projectile_type = /obj/projectile/bullet/c38/iceblox
+	projectile_overlay_state = "boverlay_ice"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 /obj/item/ammo_casing/c38/match
 	name = ".38 Match bullet casing"
 	desc = "A .38 bullet casing, manufactured to exceedingly high standards."
 	projectile_type = /obj/projectile/bullet/c38/match
+	projectile_overlay_state = "boverlay_nonlethal"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 /obj/item/ammo_casing/c38/match/bouncy
 	name = ".38 Bouncy Rubber bullet casing"
@@ -59,11 +78,15 @@
 	name = ".38 DumDum bullet casing"
 	desc = "A .38 DumDum bullet casing."
 	projectile_type = /obj/projectile/bullet/c38/dumdum
+	projectile_overlay_state = "boverlay_nonlethal"
+	projectile_overlay_spent_state = "boverlay_spent"
 
 /obj/item/ammo_casing/c38/dart
 	name = ".38 'Blister' bullet casing"
 	desc = "A specialized .38 bullet casing that can be injected with up to 10 units of any chemical."
 	icon_state = "sP-casing"
+	projectile_overlay_state = "boverlay_reagent"
+	projectile_overlay_spent_state = "boverlay_spent"
 	projectile_type = /obj/projectile/bullet/dart/c38
 	var/reagent_amount = 10
 
@@ -75,11 +98,15 @@
 	name = ".38 'BLK_OUT' bullet casing"
 	desc = "A specialized .38 bullet casing that releases a small electromagnetic burst on impact."
 	icon_state = "sS-casing"
+	projectile_overlay_state = "boverlay_emp"
+	projectile_overlay_spent_state = "boverlay_spent"
 	projectile_type = /obj/projectile/bullet/c38/emp
 
 /obj/item/ammo_casing/caseless/mime
 	name = "invisible .38 bullet casing"
 	icon_state = null
+	projectile_overlay_state = null
+	projectile_overlay_spent_state = null
 	desc = "You shouldn't be seeing this."
 	caliber = "mime"
 	projectile_type = /obj/projectile/bullet/c38/mime
