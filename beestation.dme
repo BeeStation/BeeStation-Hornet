@@ -1104,6 +1104,7 @@
 #include "code\game\machinery\computer\communications.dm"
 #include "code\game\machinery\computer\crew.dm"
 #include "code\game\machinery\computer\dna_console.dm"
+#include "code\game\machinery\computer\fluff.dm"
 #include "code\game\machinery\computer\launchpad_control.dm"
 #include "code\game\machinery\computer\law.dm"
 #include "code\game\machinery\computer\medical.dm"
