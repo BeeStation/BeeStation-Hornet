@@ -56,10 +56,8 @@
 
 /obj/item/gun/ballistic/shotgun/automatic
 	weapon_weight = WEAPON_HEAVY
-
-/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
-	..()
-	rack()
+	semi_auto = TRUE
+	casing_ejector = TRUE
 
 /obj/item/gun/ballistic/shotgun/automatic/combat
 	name = "combat shotgun"
@@ -68,6 +66,19 @@
 	item_state = "shotgun_combat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
+	if(loc == user)
+		if(!user.is_holding(src))
+			return
+		semi_auto = !semi_auto
+		playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
+		to_chat(user, "<span class='notice'>You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation.</span>")
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/examine(mob/user)
+	. = ..()
+	. += "You can select the firing mode with <b>alt+click</b>"
+	. += "It is operating in [semi_auto ? "automatic" : "manual"] mode."
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/compact
 	name = "compact combat shotgun"
@@ -103,7 +114,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = FALSE
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
-	semi_auto = TRUE
+	//semi_auto = TRUE
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
 	. = ..()
@@ -138,7 +149,7 @@
 
 // Bulldog shotgun //
 
-/obj/item/gun/ballistic/shotgun/bulldog
+/obj/item/gun/ballistic/shotgun/automatic/bulldog
 	name = "\improper Bulldog Shotgun"
 	desc = "A semi-auto, mag-fed shotgun for combat in narrow corridors with a built in recoil dampening system, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
@@ -150,8 +161,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	can_suppress = FALSE
-	burst_size = 1
 	fire_delay = 0
 	pin = /obj/item/firing_pin/implant/pindicate
 	spread_unwielded = 15
@@ -160,7 +169,6 @@
 	empty_indicator = TRUE
 	empty_alarm = TRUE
 	special_mags = TRUE
-	semi_auto = TRUE
 	internal_magazine = FALSE
 	tac_reloads = TRUE
 	fire_rate = 2
@@ -169,7 +177,7 @@
 	bolt_type = BOLT_TYPE_STANDARD	//Not using a pump
 	full_auto = TRUE
 
-/obj/item/gun/ballistic/shotgun/bulldog/unrestricted
+/obj/item/gun/ballistic/shotgun/automatic/bulldog/unrestricted
 	pin = /obj/item/firing_pin
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
