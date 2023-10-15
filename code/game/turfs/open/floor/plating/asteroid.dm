@@ -15,17 +15,15 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/open/floor/plating/asteroid //Because caves do whacky shit to revert to normal
-	var/floor_variance = 20 //probability floor has a different icon state
 	attachment_holes = FALSE
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	var/dug
+	var/available_states = 12
 
 /turf/open/floor/plating/asteroid/Initialize(mapload)
-	var/proper_name = name
-	. = ..()
-	name = proper_name
-	if(prob(floor_variance))
-		icon_state = "[environment_type][rand(0,12)]"
+	auto_gen_variants(available_states)
+	variants[icon_state] = 20
+	return ..()
 
 /turf/open/floor/plating/asteroid/proc/getDug()
 	new digResult(src, 5)
@@ -90,7 +88,7 @@
 	icon_state = "basalt"
 	icon_plating = "basalt"
 	environment_type = "basalt"
-	floor_variance = 15
+	available_states = 12
 	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/open/floor/plating/asteroid/basalt/lava //lava underneath
@@ -167,7 +165,7 @@
 	desc = "Looks colder."
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
-	floor_variance = 0
+	available_states = 0
 	icon_state = "snow-ice"
 	icon_plating = "snow-ice"
 	environment_type = "snow_cavern"
