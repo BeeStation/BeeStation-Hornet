@@ -24,9 +24,10 @@
 	attacktext = "engulfs"
 	attack_sound = 'sound/hallucinations/over_here2.ogg'
 	vision_range = 2
-	aggro_vision_range = 3
+	aggro_vision_range = 6 //turns out a short aggro range was bad
 	a_intent = INTENT_HARM
 	var/light_search = 0
+	alpha = 0 //So it is invisible until alpha updates the first time.
 
 /mob/living/simple_animal/hostile/aetherial/Life(delta_time)
 	..()
