@@ -147,7 +147,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/cold_ish
-	turf_textures = list(/datum/turf_texture/maint)
+	turf_textures = list(/datum/turf_texture/maint, /datum/turf_texture/hallway)
 
 //Maintenance - Departmental
 
@@ -881,7 +881,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Engineering Storage"
 	icon_state = "engine_storage"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-	turf_textures = list(/datum/turf_texture/maint)
+	turf_textures = list(/datum/turf_texture/maint, /datum/turf_texture/hallway)
 
 /area/engine/storage_shared
 	name = "Shared Engineering Storage"
