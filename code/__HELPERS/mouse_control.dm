@@ -100,3 +100,4 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	if (!(mouse_pointer_icon in GLOB.mouse_cooldowns))
 		return
 	mouse_pointer_icon = initial(mouse_pointer_icon)
+	cooldown_cursor_time = 0

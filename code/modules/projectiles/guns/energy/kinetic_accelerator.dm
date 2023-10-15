@@ -130,7 +130,9 @@
 	else
 		carried = 1
 
-	deltimer(recharge_timerid)
+	// If we are overriding a crosshair, then clear it
+	if (deltimer(recharge_timerid))
+		user?.client.clear_cooldown_cursor()
 	recharge_timerid = addtimer(CALLBACK(src, PROC_REF(reload)), recharge_time * carried, TIMER_STOPPABLE)
 	user?.client?.give_cooldown_cursor(recharge_time * carried + 1)
 
