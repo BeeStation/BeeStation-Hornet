@@ -147,7 +147,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/cold_ish
-	turf_texture = /datum/turf_texture/maint
+	turf_textures = list(/datum/turf_texture/maint)
 
 //Maintenance - Departmental
 
@@ -204,7 +204,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/department/science
 	name = "Science Maintenance"
 	icon_state = "maint_sci"
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/maintenance/department/science/central
 	name = "Central Science Maintenance"
@@ -226,7 +226,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Xenobiology Maintenance"
 	icon_state = "xenomaint"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE
-	turf_texture = /datum/turf_texture
 
 
 //Maintenance - Generic
@@ -374,7 +373,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hallway
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/hallway
 	lighting_colour_tube = "#ffce99"
@@ -419,7 +418,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hallway/secondary/exit/departure_lounge
 	name = "Departure Lounge"
 	icon_state = "escape_lounge"
-	turf_texture = /datum/turf_texture
 
 /area/hallway/secondary/entry
 	name = "Arrival Shuttle Hallway"
@@ -589,7 +587,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 	mood_bonus = 3
 	mood_message = "<span class='nicegreen'>There's no place like the dorms!\n</span>"
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/commons/dorms/barracks
 	name = "Sleep Barracks"
@@ -637,7 +635,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/locker
 	name = "Locker Room"
 	icon_state = "locker"
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/crew_quarters/lounge
 	name = "Lounge"
@@ -696,7 +694,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_WOODFLOOR
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/warm_ish
-	turf_texture = /datum/turf_texture/hallway	
+	turf_textures = list(/datum/turf_texture/hallway)	
 
 /area/crew_quarters/bar/mood_check(mob/living/carbon/subject)
 	if(istype(subject) && HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
@@ -832,13 +830,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engineering/hallway
 	name = "Engineering Hallway"
 	icon_state = "engine_hallway"
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/engine/atmos
 	name = "Atmospherics"
 	icon_state = "atmos"
 	flags_1 = NONE
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/engine/atmospherics_engine
 	name = "Atmospherics Engine"
@@ -846,7 +844,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/engine/engine_room //donut station specific
 	name = "Engine Room"
@@ -870,7 +868,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = 2
 	mood_message = "<span class='nicegreen'>Ahhh, time to take a break.\n</span>"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/engine/gravity_generator
 	name = "Gravity Generator Room"
@@ -883,7 +881,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Engineering Storage"
 	icon_state = "engine_storage"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-	turf_texture = /datum/turf_texture/maint
+	turf_textures = list(/datum/turf_texture/maint)
 
 /area/engine/storage_shared
 	name = "Shared Engineering Storage"
@@ -1161,7 +1159,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER)  // JUSTICE!
 	mood_job_reverse = TRUE
 	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/security/prison/shielded
 	name = "Prison Wing Shielded area"
@@ -1289,7 +1287,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 	color_correction = /datum/client_colour/area_color/warm_yellow
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/quartermaster/sorting
 	name = "Delivery Office"
@@ -1319,12 +1317,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/quartermaster/qm
 	name = "Quartermaster's Office"
 	icon_state = "quart_office"
-	turf_texture = /datum/turf_texture
 
 /area/quartermaster/qm_bedroom
 	name = "Quartermaster's Bedroom"
 	icon_state = "quart_private"
-	turf_texture = /datum/turf_texture
 
 /area/quartermaster/miningdock
 	name = "Mining Dock"
@@ -1367,7 +1363,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/cold_ish
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/hydroponics/garden
 	name = "Garden"
@@ -1458,7 +1454,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science/robotics
 	name = "Robotics"
 	icon_state = "robotics"
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/science/robotics/mechbay
 	name = "Mech Bay"
@@ -1499,7 +1495,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/storage/primary
 	name = "Primary Tool Storage"
 	icon_state = "primarystorage"
-	turf_texture = /datum/turf_texture/hallway
+	turf_textures = list(/datum/turf_texture/hallway)
 
 /area/storage/art
 	name = "Art Supply Storage"

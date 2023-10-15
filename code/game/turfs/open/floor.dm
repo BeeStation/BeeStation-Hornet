@@ -37,9 +37,8 @@
 	//Refs to overlays, for later removal
 	var/list/damage_overlays = list()
 
-	//The variant tiles we can choose from (name = chance, name = chance, name = chance)
+	///The variant tiles we can choose from (name = chance, name = chance, name = chance)
 	var/list/variants
-
 
 /turf/open/floor/Initialize(mapload)
 
@@ -343,9 +342,7 @@
 
 	return FALSE
 
-/*
-	Autogenerates the variant list from 1 > max (name, name1, name2, name3)
-*/
+///Autogenerates the variant list from 1 > max (name, name1, name2, name3)
 /turf/open/floor/proc/auto_gen_variants(max)
 	if(!max)
 		return

@@ -334,6 +334,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/turf/T = get_turf(src)
 	T?.make_traction(grip_visual)
 
+/*
 //Change this areas turf texture
 /obj/effect/mapping_helpers/change_turf_texture
 	name = "area turf texture helper"
@@ -346,3 +347,4 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/area/A = get_area(src)
 	A?.turf_texture = turf_texture
 	A?.update_turf_texture()
+*/

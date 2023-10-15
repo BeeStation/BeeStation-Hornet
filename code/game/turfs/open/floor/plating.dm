@@ -19,6 +19,7 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1\
 	)
+	turf_texture = /datum/turf_texture/maint
 
 	var/attachment_holes = TRUE
 

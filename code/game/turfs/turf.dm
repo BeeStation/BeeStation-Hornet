@@ -66,6 +66,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Ref to texture mask overlay
 	var/texture_mask_overlay
 
+	///What turf texture we use
+	var/turf_texture
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -135,6 +138,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	if(traction)
 		make_traction()
+
+	//Handle turf texture
+	add_turf_texture(turf_texture)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -641,3 +647,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/unblock_texture()
 	cut_overlay(texture_mask_overlay)
 	texture_mask_overlay = null
+
+///Add our relevant floor texture, if we can / need
+/turf/proc/add_turf_texture(datum/turf_texture/_texture)
+	if(!_texture)
+		return
+	var/area/A = loc
+	if(_texture in A?.turf_textures)
+		vis_contents += load_turf_texture(_texture)

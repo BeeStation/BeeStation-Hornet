@@ -137,9 +137,8 @@
 	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color
 
-	///The areas specific floor texture overlay
-	var/datum/turf_texture/turf_texture = /datum/turf_texture
-	var/turf_texture_overlay
+	///The textures we allow in this area
+	var/list/turf_textures = list()
 
 /**
   * A list of teleport locations
@@ -233,9 +232,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(!network_root_id)
 			network_root_id = STATION_NETWORK_ROOT // default to station root because this might be created with a blueprint
 		SSnetworks.assign_area_network_id(src)
-
-	///Generate floor texture stuff
-	update_turf_texture()
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -665,15 +661,3 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		. = FALSE
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written
-
-/area/proc/update_turf_texture()
-	cut_overlay(turf_texture_overlay)
-
-	if(!GLOB.turf_textures[turf_texture])
-		GLOB.turf_textures[turf_texture] = new turf_texture()
-	turf_texture = GLOB.turf_textures[turf_texture]
-	var/mutable_appearance/MA = mutable_appearance(turf_texture.icon, turf_texture.icon_state, plane = FLOOR_TEXTURE_PLANE, alpha = 0, color = turf_texture?.color)
-	MA.appearance_flags = RESET_ALPHA | RESET_COLOR	
-	MA.alpha = turf_texture.alpha //Why do I have to set this here, why can't it just work in the proc?
-	add_overlay(MA)
-	turf_texture_overlay = MA
