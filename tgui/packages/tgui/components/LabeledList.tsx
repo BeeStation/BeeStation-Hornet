@@ -8,6 +8,7 @@ import { BooleanLike, classes, pureComponentHooks } from 'common/react';
 import type { InfernoNode } from 'inferno';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
+import { Tooltip } from './Tooltip';
 
 type LabeledListProps = {
   children?: any;
@@ -28,6 +29,7 @@ type LabeledListItemProps = {
   color?: string | BooleanLike;
   textAlign?: string | BooleanLike;
   buttons?: InfernoNode;
+  tooltip?: string | null;
   /** @deprecated */
   content?: any;
   children?: InfernoNode;
@@ -43,34 +45,42 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     color,
     textAlign,
     buttons,
+    tooltip,
     content,
     children,
     verticalAlign = 'baseline',
   } = props;
+  const TooltipWrap = (before_wrap) => {
+    return tooltip ? <Tooltip content={tooltip}>{before_wrap}</Tooltip> : before_wrap;
+  };
   return (
     <tr className={classes(['LabeledList__row', className])}>
-      <Box
-        as="td"
-        color={labelColor}
-        className={classes([
-          'LabeledList__cell',
-          // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
-          !labelWrap && 'LabeledList__label--nowrap',
-        ])}
-        verticalAlign={verticalAlign}>
-        {label ? (typeof label === 'string' ? label + ':' : label) : null}
-      </Box>
-      <Box
-        as="td"
-        color={color}
-        textAlign={textAlign}
-        className={classes(['LabeledList__cell', 'LabeledList__content'])}
-        colSpan={buttons ? undefined : 2}
-        verticalAlign={verticalAlign}>
-        {content}
-        {children}
-      </Box>
-      {buttons && <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>}
+      {TooltipWrap(
+        <>
+          <Box
+            as="td"
+            color={labelColor}
+            className={classes([
+              'LabeledList__cell',
+              // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
+              !labelWrap && 'LabeledList__label--nowrap',
+            ])}
+            verticalAlign={verticalAlign}>
+            {label ? (typeof label === 'string' ? label + ':' : label) : null}
+          </Box>
+          <Box
+            as="td"
+            color={color}
+            textAlign={textAlign}
+            className={classes(['LabeledList__cell', 'LabeledList__content'])}
+            colSpan={buttons ? undefined : 2}
+            verticalAlign={verticalAlign}>
+            {content}
+            {children}
+          </Box>
+          {buttons && <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>}
+        </>
+      )}
     </tr>
   );
 };

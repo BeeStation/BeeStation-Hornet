@@ -3,3 +3,6 @@
 
 /datum/config_entry/string/policy_polymorph
 	config_entry_value = "<span class='boldannounce'>Even if you take the form of an antagonistic being, you have the same mind as before your transformation. Your loyalties and interests remain the same. Unless you were turned into a shade, or were previously an antagonist, this is not a pass to go antagonize the station.</span>"
+
+/datum/config_entry/string/policy_naming_link
+/datum/config_entry/string/policy_naming_tooltip

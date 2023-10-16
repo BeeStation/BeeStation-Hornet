@@ -28,7 +28,10 @@ export enum JobPriority {
 
 export type Name = {
   can_randomize: BooleanLike;
-  explanation: string;
+  name_type: string;
+  tooltip?: string;
+  policy_link?: string;
+  policy_tooltip?: string;
   group: string;
 };
 
@@ -175,6 +178,7 @@ export type PreferencesMenuData = {
 
     randomization: Record<string, RandomSetting>;
   };
+  infotab_menus: any[];
 
   content_unlocked: BooleanLike;
 

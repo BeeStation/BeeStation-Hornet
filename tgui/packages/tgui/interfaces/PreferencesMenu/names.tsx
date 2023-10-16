@@ -1,6 +1,6 @@
 import { binaryInsertWith, sortBy } from 'common/collections';
 import { useLocalState } from '../../backend';
-import { Button, FitText, Icon, Input, LabeledList, Modal, Section, Stack, TrackOutsideClicks } from '../../components';
+import { Button, FitText, Icon, Input, LabeledList, Stack, Tooltip } from '../../components';
 import { Name } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
@@ -15,7 +15,6 @@ const sortNameWithKeyEntries = sortBy<[string, NameWithKey[]]>(([key]) => key);
 
 export const MultiNameInput = (
   props: {
-    handleClose: () => void;
     handleRandomizeName: (nameType: string) => void;
     handleUpdateName: (nameType: string, value: string) => void;
     names: Record<string, string>;
@@ -41,195 +40,94 @@ export const MultiNameInput = (
         }
 
         return (
-          <Modal
-            style={{
-              'margin': '0 auto',
-              'width': '40%',
-            }}>
-            <TrackOutsideClicks onOutsideClick={props.handleClose} removeOnOutsideClick>
-              <Section
-                buttons={
-                  <Button color="red" onClick={props.handleClose}>
-                    Close
-                  </Button>
-                }
-                title="All Names">
-                <LabeledList>
-                  {sortNameWithKeyEntries(Object.entries(namesIntoGroups)).map(([_, names], index, collection) => (
-                    <>
-                      {names.map(({ key, name }) => {
-                        let content;
+          <LabeledList>
+            {sortNameWithKeyEntries(Object.entries(namesIntoGroups)).map(([group, names], index, collection) => (
+              <>
+                {names.map(({ key, name }) => {
+                  let content;
 
-                        if (currentlyEditingName === key) {
-                          const updateName = (event, value) => {
-                            props.handleUpdateName(key, value);
+                  if (currentlyEditingName === key) {
+                    const updateName = (event, value) => {
+                      props.handleUpdateName(key, value);
 
-                            setCurrentlyEditingName(null);
-                          };
+                      setCurrentlyEditingName(null);
+                    };
 
-                          content = (
-                            <Input
-                              autoSelect
-                              onEnter={updateName}
-                              onChange={updateName}
-                              onEscape={() => {
-                                setCurrentlyEditingName(null);
-                              }}
-                              value={props.names[key]}
-                            />
-                          );
-                        } else {
-                          content = (
+                    content = (
+                      <Input
+                        autoSelect
+                        onEnter={updateName}
+                        onChange={updateName}
+                        onEscape={() => {
+                          setCurrentlyEditingName(null);
+                        }}
+                        value={props.names[key]}
+                      />
+                    );
+                  } else {
+                    content = (
+                      <Button
+                        onClick={(event) => {
+                          setCurrentlyEditingName(key);
+                          event.cancelBubble = true;
+                          event.stopPropagation();
+                        }}>
+                        <FitText maxFontSize={12} maxWidth={130}>
+                          {props.names[key]}
+                        </FitText>
+                      </Button>
+                    );
+                  }
+
+                  return (
+                    <LabeledList.Item key={key} label={name.name_type} tooltip={name.tooltip}>
+                      <Stack fill>
+                        {!!name.can_randomize && (
+                          <Stack.Item>
                             <Button
-                              width="100%"
-                              onClick={(event) => {
-                                setCurrentlyEditingName(key);
-                                event.cancelBubble = true;
-                                event.stopPropagation();
-                              }}>
-                              <FitText maxFontSize={12} maxWidth={130}>
-                                {props.names[key]}
-                              </FitText>
-                            </Button>
-                          );
-                        }
-
-                        return (
-                          <LabeledList.Item key={key} label={name.explanation}>
-                            <Stack fill>
-                              <Stack.Item grow>{content}</Stack.Item>
-
-                              {!!name.can_randomize && (
-                                <Stack.Item>
-                                  <Button
-                                    icon="dice"
-                                    tooltip="Randomize"
-                                    tooltipPosition="right"
-                                    onClick={() => {
-                                      props.handleRandomizeName(key);
-                                    }}
-                                  />
-                                </Stack.Item>
+                              icon="dice"
+                              tooltip="Randomize"
+                              tooltipPosition="right"
+                              onClick={() => {
+                                props.handleRandomizeName(key);
+                              }}
+                            />
+                          </Stack.Item>
+                        )}
+                        <Stack.Item grow>
+                          {content}
+                          {name.policy_tooltip && (
+                            <Tooltip
+                              content={
+                                <span>
+                                  {name.policy_tooltip}
+                                  {name.policy_link ? <br /> : ''}
+                                  {name.policy_link ? 'Click the alert icon to check the guideline.' : ''}
+                                </span>
+                              }>
+                              {name.policy_link ? (
+                                <a href={name.policy_link} target="_blank" rel="noreferrer">
+                                  <Icon size={1.3} pb={-1} ml={1} name="exclamation-triangle" color="yellow" />
+                                </a>
+                              ) : (
+                                <Icon size={1.3} ml={1} name="exclamation-triangle" color="yellow" />
                               )}
-                            </Stack>
-                          </LabeledList.Item>
-                        );
-                      })}
-
-                      {index !== collection.length - 1 && <LabeledList.Divider />}
-                    </>
-                  ))}
-                </LabeledList>
-              </Section>
-            </TrackOutsideClicks>
-          </Modal>
+                            </Tooltip>
+                          )}
+                        </Stack.Item>
+                      </Stack>
+                    </LabeledList.Item>
+                  );
+                })}
+                {
+                  group !== '_real_name' && index !== collection.length - 1 && <LabeledList.Divider />
+                  // showing a bar under alt human name looks ugly, but this hardcoding is easier to handle...
+                }
+              </>
+            ))}
+          </LabeledList>
         );
       }}
     />
-  );
-};
-
-export const NameInput = (
-  props: {
-    handleUpdateName: (name: string) => void;
-    name: string;
-    openMultiNameInput: () => void;
-  },
-  context
-) => {
-  const [lastNameBeforeEdit, setLastNameBeforeEdit] = useLocalState<string | null>(context, 'lastNameBeforeEdit', null);
-  const editing = lastNameBeforeEdit === props.name;
-
-  const updateName = (e, value) => {
-    setLastNameBeforeEdit(null);
-    props.handleUpdateName(value);
-  };
-
-  return (
-    <Button
-      captureKeys={!editing}
-      onClick={() => {
-        setLastNameBeforeEdit(props.name);
-      }}
-      width="100%"
-      height="28px">
-      <Stack fill style={{ 'align-items': 'center' }} align="center">
-        <Stack.Item width="20px">
-          <Icon
-            style={{
-              'color': 'rgba(255, 255, 255, 0.5)',
-              'font-size': '17px',
-              'margin-top': '5px',
-              'display': 'inline-block',
-            }}
-            name="edit"
-          />
-        </Stack.Item>
-
-        <Stack.Item
-          width="160px"
-          position="relative"
-          textAlign="center"
-          style={{
-            'border-bottom': '2px dotted rgba(255, 255, 255, 0.8)',
-          }}>
-          {(editing && (
-            <Input
-              autoSelect
-              onEnter={updateName}
-              onChange={updateName}
-              fluid
-              onEscape={() => {
-                setLastNameBeforeEdit(null);
-              }}
-              value={props.name}
-            />
-          )) || (
-            <FitText maxFontSize={16} maxWidth={130}>
-              {props.name}
-            </FitText>
-          )}
-        </Stack.Item>
-
-        {/* We only know other names when the server tells us */}
-        <ServerPreferencesFetcher
-          render={(data) =>
-            data ? (
-              <Stack.Item>
-                <Button
-                  as="span"
-                  tooltip="Alternate Names"
-                  tooltipPosition="bottom"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.7)',
-                    position: 'absolute',
-                    right: '5px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: '20px',
-                  }}
-                  onClick={(event) => {
-                    props.openMultiNameInput();
-
-                    // We're a button inside a button.
-                    // Did you know that's against the W3C standard? :)
-                    event.cancelBubble = true;
-                    event.stopPropagation();
-                  }}>
-                  <Icon
-                    name="bars"
-                    style={{
-                      'position': 'relative',
-                      'left': '2px',
-                      'min-width': '0px',
-                    }}
-                  />
-                </Button>
-              </Stack.Item>
-            ) : null
-          }
-        />
-      </Stack>
-    </Button>
   );
 };

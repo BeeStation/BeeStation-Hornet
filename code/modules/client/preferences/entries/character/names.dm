@@ -5,8 +5,11 @@
 	preference_type = PREFERENCE_CHARACTER
 	abstract_type = /datum/preference/name
 
-	/// The display name when showing on the "other names" panel
-	var/explanation
+	/// Says which kind of this display name is
+	var/name_type
+
+	/// Literally tooltip
+	var/tooltip
 
 	/// These will be grouped together on the preferences menu
 	var/group
@@ -32,12 +35,19 @@
 /datum/preference/name/is_valid(value)
 	return istext(value) && !isnull(reject_bad_name(value, allow_numbers))
 
+// both of these procs are used to tell a server policy that set by server config.
+/datum/preference/name/proc/get_policy_link()
+	return null
+/datum/preference/name/proc/get_policy_tooltip()
+	return null
+
 /// A character's real name
 /datum/preference/name/real_name
-	explanation = "Name"
-	// The `_` makes it first in ABC order.
-	group = "_real_name"
 	db_key = "real_name"
+
+	name_type = "Character name"
+	tooltip = "Your character's name."
+	group = "_real_name" // The `_` makes it first in ABC order.
 	informed = TRUE
 	// Used in serialize and is_valid
 	allow_numbers = TRUE
@@ -68,11 +78,18 @@
 			input += "[pick(GLOB.last_names)]"
 	return input
 
+/datum/preference/name/real_name/get_policy_link()
+	return CONFIG_GET(string/policy_naming_link)
+/datum/preference/name/real_name/get_policy_tooltip()
+	return CONFIG_GET(string/policy_naming_tooltip)
+
 /// The name for a backup human, when nonhumans are made into head of staff
 /datum/preference/name/backup_human
-	explanation = "Backup human name"
-	group = "backup_human"
 	db_key = "human_name"
+
+	name_type = "Alt. Human name"
+	tooltip = "In specific cases, this name is used instead of your character name."
+	group = "alt_human" // extra bar looks ugly
 	informed = TRUE
 
 /datum/preference/name/backup_human/create_informed_default_value(datum/preferences/preferences)
@@ -83,7 +100,8 @@
 /datum/preference/name/clown
 	db_key = "clown_name"
 
-	explanation = "Clown name"
+	name_type = "Clown name"
+	tooltip = "Clown's stage name. Overrides over real name when you get a clown job."
 	group = "fun"
 	relevant_job = /datum/job/clown
 
@@ -93,7 +111,8 @@
 /datum/preference/name/mime
 	db_key = "mime_name"
 
-	explanation = "Mime name"
+	name_type = "Mime name"
+	tooltip = "Mime's stage name. Overrides over real name when you get a mime job."
 	group = "fun"
 	relevant_job = /datum/job/mime
 
@@ -103,11 +122,13 @@
 /datum/preference/name/cyborg
 	db_key = "cyborg_name"
 
+	group = "silicons"
+	name_type = "Cyborg name"
+	tooltip = "Used when you are a cyborg rather than a human."
+
 	allow_numbers = TRUE
 	can_randomize = FALSE
 
-	explanation = "Cyborg name"
-	group = "silicons"
 	relevant_job = /datum/job/cyborg
 
 /datum/preference/name/cyborg/create_default_value()
@@ -116,9 +137,11 @@
 /datum/preference/name/ai
 	db_key = "ai_name"
 
-	allow_numbers = TRUE
-	explanation = "AI name"
 	group = "silicons"
+	name_type = "AI name"
+	tooltip = "Used when you are a cyborg rather than a human. Same as the cyborg name, but when you are an AI."
+
+	allow_numbers = TRUE
 	relevant_job = /datum/job/ai
 
 /datum/preference/name/ai/create_default_value()
@@ -127,10 +150,12 @@
 /datum/preference/name/religion
 	db_key = "religion_name"
 
-	allow_numbers = TRUE
+	group = "z_religion" // should be after silicon name group
+	name_type = "Religion name"
+	tooltip = "The name of your religion. This does nothing ingame, thus it's mostly flavourful."
 
-	explanation = "Religion name"
-	group = "religion"
+	allow_numbers = TRUE
+	can_randomize = FALSE
 
 /datum/preference/name/religion/create_default_value()
 	return DEFAULT_RELIGION
@@ -138,11 +163,11 @@
 /datum/preference/name/deity
 	db_key = "deity_name"
 
+	group = "z_religion"
+	name_type = "Deity name"
+	tooltip = "The deity's name of your religion. This does nothing ingame, thus it's mostly flavourful."
 	allow_numbers = TRUE
 	can_randomize = FALSE
-
-	explanation = "Deity name"
-	group = "religion"
 
 /datum/preference/name/deity/create_default_value()
 	return DEFAULT_DEITY
@@ -150,11 +175,12 @@
 /datum/preference/name/bible
 	db_key = "bible_name"
 
+	group = "z_religion"
+	name_type = "Bible name"
+	tooltip = "The deity's name of your religion. This does nothing ingame, thus it's mostly flavourful."
+
 	allow_numbers = TRUE
 	can_randomize = FALSE
-
-	explanation = "Bible name"
-	group = "religion"
 
 /datum/preference/name/bible/create_default_value()
 	return DEFAULT_BIBLE

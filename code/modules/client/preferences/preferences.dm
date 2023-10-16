@@ -220,6 +220,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		data += preference_middleware.get_ui_static_data(user)
 
+	data["infotab_menus"] = INFOTAB_LIST
+
 	return data
 
 /datum/preferences/ui_assets(mob/user)

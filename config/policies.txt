@@ -4,3 +4,8 @@
 # When a mob is polymorphed
 POLICY_POLYMORPH <span class='boldannounce'>Even if you take the form of an antagonistic being, you have the same mind as before your transformation. Your loyalties and interests remain the same. Unless you were turned into a shade, or were previously an antagonist, this is not a pass to go antagonize the station.</span>
 POLICY_POSTCLONETEXT <span class='boldannounce'>You have forgotten all the knowledge you gained while being a ghost aswell as the five minutes leading up to your death!</span>
+
+# Uses naming policy
+# Uncomment this if you want this
+POLICY_NAMING_LINK https://wiki.beestation13.com/view/Naming_Guidelines
+POLICY_NAMING_TOOLTIP Each species must follow a naming policy. Please read the "Naming Guidelines" page on the wiki and our rule "Rule 1.7".
