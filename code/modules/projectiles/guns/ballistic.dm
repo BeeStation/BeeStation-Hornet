@@ -66,7 +66,7 @@
 	var/internal_magazine = FALSE //Whether the gun has an internal magazine or a detatchable one. Overridden by BOLT_TYPE_NO_BOLT.
 	var/magazine_wording = "magazine"
 	var/cartridge_wording = "bullet"
-	var/rack_delay = 3
+	var/rack_delay = 5
 	var/recent_rack = 0
 	var/tac_reloads = TRUE //Snowflake mechanic no more.
 
@@ -196,6 +196,8 @@
 			process_chamber(FALSE, FALSE, FALSE)
 			bolt_locked = TRUE
 			update_icon()
+			if(bolt_type == BOLT_TYPE_PUMP)
+				addtimer(CALLBACK(src, PROC_REF(drop_bolt), user), rack_delay)
 			return
 	if(user)
 		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
@@ -208,6 +210,8 @@
 	update_icon()
 
 /obj/item/gun/ballistic/proc/drop_bolt(mob/user = null)
+	if((bolt_type == BOLT_TYPE_PUMP && !is_wielded) || bolt_locked == FALSE)
+		return //If the person is no longer wielding the gun (1-handed or dropped it) when the callback procs, or they somehow closed it manually, don't drop the bolt again.
 	playsound(src, bolt_drop_sound, bolt_drop_sound_volume, FALSE)
 	if (user)
 		to_chat(user, "<span class='notice'>You drop the [bolt_wording] of \the [src].</span>")
@@ -287,6 +291,7 @@
 			return
 		//If it has a removable magazine, and does not support direct loading, return.
 		if (!internal_magazine && !direct_loading)
+			to_chat(user, "<span class='notice'>Remove \the [src]'s magazine to load it!</span>")
 			return
 		//For chambering rounds directly, only possible with a single cartridge in hand and on TWO_STEP or PUMP bolt firearms
 		if(!chambered && istype(A, /obj/item/ammo_casing))
@@ -305,7 +310,7 @@
 		if(!magazine)
 			to_chat(user, "<span class='warning'>There's nowhere to load a [cartridge_wording] into!</span>")
 			return
-		//If we don't chamber load, try loading into the internal magazine next.
+		//Otherwise, try loading into the internal magazine next.
 		var/num_loaded = magazine.attackby(A, user, params, TRUE, FALSE)
 		if (num_loaded)
 			to_chat(user, "<span class='notice'>You load [num_loaded] [cartridge_wording]\s into \the [src].</span>")
@@ -366,6 +371,16 @@
 			suppressed = null
 			update_icon()
 			return
+
+/obj/item/gun/ballistic/CtrlClick(mob/user)
+	if(bolt_type == BOLT_TYPE_PUMP && is_wielded && loc == user)
+		to_chat(user, "<span class='notice'>You lock open the [bolt_wording] of \the [src].</span>")
+		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
+		process_chamber(FALSE, FALSE, FALSE)
+		bolt_locked = TRUE
+		update_icon()
+		return
+	..()
 
 /obj/item/gun/ballistic/proc/prefire_empty_checks()
 	if (!chambered && !get_ammo())
@@ -459,6 +474,8 @@
 		. += "The [bolt_wording] is locked back and needs to be released before firing."
 	if (suppressed)
 		. += "It has a suppressor attached that can be removed with <b>alt+click</b>."
+	if (bolt_type == BOLT_TYPE_PUMP)
+		. += "You can <b>ctrl+click</b> to half-pump \the [src] to directly chamber a [cartridge_wording]."
 	if (chamber_open)
 		. += "The [chamber_wording] is currently open, and must be closed before firing."
 

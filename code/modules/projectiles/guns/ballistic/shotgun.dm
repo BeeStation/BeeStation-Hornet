@@ -29,6 +29,7 @@
 	fire_rate = 1 //reee
 	recoil = 1
 	pb_knockback = 2
+	rack_delay = 2.5
 
 /obj/item/gun/ballistic/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
