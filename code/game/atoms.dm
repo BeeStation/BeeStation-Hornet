@@ -1623,6 +1623,10 @@
 	filter_data[name]["priority"] = new_priority
 	update_filters()
 
+/obj/item/update_filters()
+	. = ..()
+	update_action_buttons()
+
 /atom/proc/get_filter(name)
 	if(filter_data && filter_data[name])
 		return filters[filter_data.Find(name)]

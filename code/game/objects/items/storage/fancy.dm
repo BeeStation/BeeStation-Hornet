@@ -109,8 +109,8 @@
 	icon_state = "candlebox5"
 	icon_type = "candle"
 	item_state = "candlebox5"
+	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 2
-	slot_flags = ITEM_SLOT_BELT
 	spawn_type = /obj/item/candle
 	fancy_open = TRUE
 
@@ -118,6 +118,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
+	STR.can_hold = typecacheof(list(/obj/item/candle, /obj/item/lighter, /obj/item/storage/box/matches))
 
 /obj/item/storage/fancy/candle_box/attack_self(mob_user)
 	return

@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: Input box (the thing that's used in naming things) now accepts Enter and
-      Esc.
