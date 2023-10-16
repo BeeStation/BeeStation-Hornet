@@ -98,7 +98,7 @@ GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearanc
 	if(!typing_indicator)
 		return FALSE
 	cut_overlay(GLOB.typing_indicator)
-	add_overlay(GLOB.blind_typing_indicator)
+	cut_overlay(GLOB.blind_typing_indicator)
 	typing_indicator = FALSE
 
 /mob/living/remove_all_indicators()
