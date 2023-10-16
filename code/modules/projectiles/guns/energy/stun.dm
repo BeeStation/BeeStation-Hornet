@@ -42,6 +42,7 @@
 	can_flashlight = TRUE
 	flight_x_offset = 15
 	flight_y_offset = 10
+	equip_time = 3 SECONDS
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
