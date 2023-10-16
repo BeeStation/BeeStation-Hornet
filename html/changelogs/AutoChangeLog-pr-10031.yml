@@ -1,0 +1,5 @@
+author: Programs-The-Station
+delete-after: true
+changes:
+  - bugfix: Fixes the Sabotage and Explosives Objective for "the telecommunications
+      relay".
