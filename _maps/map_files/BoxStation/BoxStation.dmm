@@ -18049,8 +18049,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/emitter/welded{
-	dir = 4
+/obj/machinery/power/emitter/anchored{
+	dir = 4;
+	state = 2
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -19378,8 +19379,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/emitter/welded{
-	dir = 8
+/obj/machinery/power/emitter/anchored{
+	dir = 8;
+	state = 2
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -21405,7 +21407,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "dBA" = (
 /obj/machinery/suit_storage_unit/captain,
@@ -25671,7 +25673,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "fRr" = (
 /obj/structure/cable/yellow{
@@ -49207,7 +49209,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "rqE" = (
 /obj/structure/lattice,
@@ -49710,7 +49712,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "rBC" = (
 /obj/machinery/door/firedoor,
@@ -54608,7 +54610,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "tLO" = (
 /obj/structure/chair/office{
@@ -55577,9 +55579,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"umG" = (
-/turf/open/floor/plasteel/dark/telecomms,
-/area/security/checkpoint/engineering)
 "umR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57777,7 +57776,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "vEN" = (
 /obj/structure/table/glass,
@@ -58167,7 +58166,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "vOh" = (
 /obj/effect/decal/cleanable/dirt,
@@ -93797,7 +93796,7 @@ bRx
 wwP
 mIb
 bWQ
-umG
+bWQ
 bYN
 kjp
 caA
