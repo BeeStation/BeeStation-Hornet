@@ -148,6 +148,7 @@
 				to_chat(user, "<span class='warning'>You can't modify it!</span>")
 				return TRUE
 			magazine.caliber = "357"
+			src.caliber = magazine.caliber
 			fire_rate = 1 //worse than a nromal .357
 			fire_sound = 'sound/weapons/revolver357shot.ogg'
 			desc = "The barrel and chamber assembly seems to have been modified."
@@ -163,7 +164,8 @@
 				to_chat(user, "<span class='warning'>You can't modify it!</span>")
 				return
 			magazine.caliber = "38"
-			fire_rate = null
+			src.caliber = magazine.caliber
+			fire_rate = initial(fire_rate)
 			fire_sound = 'sound/weapons/revolver38shot.ogg'
 			desc = initial(desc)
 			to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")

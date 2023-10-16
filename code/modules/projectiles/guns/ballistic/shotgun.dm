@@ -30,14 +30,6 @@
 	recoil = 1
 	pb_knockback = 2
 
-/*
-/obj/item/gun/ballistic/shotgun/blow_up(mob/user)
-	. = 0
-	if(chambered?.BB)
-		process_fire(user, user, FALSE)
-		. = 1
-*/
-
 /obj/item/gun/ballistic/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
 

@@ -18,7 +18,7 @@
 	var/max_ammo = 7
 	var/multiple_sprites = 0
 	var/caliber
-	var/multiload = TRUE
+	var/multiload = FALSE //Only specific magazines have multi-load enabled. This includes all internal mags/cylinders
 	var/start_empty = FALSE
 	var/list/bullet_cost
 	var/list/base_cost// override this one as well if you override bullet_cost
@@ -57,19 +57,6 @@
 		stored_ammo += R
 		R.forceMove(src)
 		return TRUE
-
-	//for accessibles magazines (e.g internal ones) when full, start replacing spent ammo
-	/*
-	else if(replace_spent)
-		for(var/obj/item/ammo_casing/AC in stored_ammo)
-			if(!AC.BB)//found a spent ammo
-				stored_ammo -= AC
-				AC.forceMove(get_turf(src.loc))
-
-				stored_ammo += R
-				R.forceMove(src)
-				return TRUE
-	*/
 	return FALSE
 
 /obj/item/ammo_box/proc/can_load(mob/user)
@@ -82,11 +69,16 @@
 	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/AM = A
 		for(var/obj/item/ammo_casing/AC in AM.stored_ammo)
+			if(!multiload)
+				if(!do_after(user, 4, src, IGNORE_USER_LOC_CHANGE))
+					break
 			var/did_load = give_round(AC, replace_spent)
 			if(did_load)
 				AM.stored_ammo -= AC
 				num_loaded++
-			if(!did_load || !multiload)
+				if(!silent && !multiload)
+					playsound(src, 'sound/weapons/bulletinsert.ogg', 60, TRUE)
+			if(!did_load)
 				break
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
@@ -96,8 +88,9 @@
 
 	if(num_loaded)
 		if(!silent)
-			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
-			playsound(src, 'sound/weapons/bulletinsert.ogg', 60, TRUE)
+			to_chat(user, "<span class='notice'>You loaded [num_loaded] shell\s into \the [src]!</span>")
+			if(istype(A, /obj/item/ammo_casing))
+				playsound(src, 'sound/weapons/bulletinsert.ogg', 60, TRUE)
 		A.update_icon()
 		update_icon()
 	return num_loaded
