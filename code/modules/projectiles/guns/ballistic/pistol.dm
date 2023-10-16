@@ -49,6 +49,7 @@
 	spread_unwielded = 30 //Manually set unwielded spread to 30; Equivelant weight to 0.5 (Stechkin has weight 1)
 	wild_spread = TRUE
 	wild_factor = 0.70 //Minimum spread is 70% of spread value
+	equip_time = 0
 
 /obj/item/gun/ballistic/automatic/pistol/der38/twelveshooter //For debugging only, or meme shit
 	name = "palm pistol devastator"
