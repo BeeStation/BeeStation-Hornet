@@ -137,7 +137,7 @@
 	sawn_desc = "Why have more gun, when less gun can do!"
 	icon_state = "pipegun"
 	item_state = "moistnugget"
-	bolt_type = BOLT_TYPE_NO_BOLT
+	bolt_type = BOLT_TYPE_NB_BREAK
 	cartridge_wording = "cartridge"
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/pipegun

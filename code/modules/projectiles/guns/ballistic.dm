@@ -44,16 +44,24 @@
 	//BOLT_TYPE_OPEN: Gun has a bolt, it is open when ready to fire. The gun can never have a chambered bullet with no magazine, but the bolt stays ready when a mag is removed.
 	//Example: Some SMGs, the L6
 	//BOLT_TYPE_NO_BOLT: Gun has no moving bolt mechanism, it cannot be racked. Also dumps the entire contents when emptied instead of a magazine.
-	//Example: Break action shotguns, revolvers
+	//Example: Rocket launchers
 	//BOLT_TYPE_LOCKING: Gun has a bolt, it locks back when empty. It can be released to chamber a round if a magazine is in.
 	//Example: Pistols with a slide lock, some SMGs
 	//BOLT_TYPE_PUMP: Functions identically to BOLT_TYPE_STANDARD, but requires two hands to rack the bolt.
 	//Examples: Pump-action shotguns
 	//BOLT_TYPE_TWO_STEP: Functions identically to BOLT_TYPE_PUMP (and thus, STANDARD), but each interaction with the bolt toggles between locked (open) & unlocked (closed).
 	//Examples: Mosin nagant, pipe guns
+	//BOLT_TYPE_NB_BREAK: Subtype of NO_BOLT, gun must first be opened before allowing ejection/insertion of ammunition, and then closed to allow firing.
+	//Examples: Break-action shotguns, revolvers, derringer
 	var/bolt_type = BOLT_TYPE_STANDARD
 	var/bolt_locked = FALSE //Used for locking bolt and open bolt guns. Set a bit differently for the two but prevents firing when true for both.
 	var/bolt_wording = "bolt" //bolt, slide, etc.
+	//Chamber variables are explicitly used for BOLT_TYPE_NB_BREAK firearms
+	var/chamber_open = FALSE //Initialize as false, as guns are loaded and ready to fire when created
+	var/chamber_wording = "breech"
+	var/chamber_action_wording = "break"
+	//Used for attackself() to cycle between 0 -> Open chamber | 1 -> Eject contents | 2 -> Close chamber
+	var/chamber_action_step = 0
 	var/semi_auto = TRUE //Whether the gun has to be racked each shot or not.
 	var/obj/item/ammo_box/magazine/magazine
 	var/casing_ejector = TRUE //whether the gun ejects the chambered casing
@@ -74,7 +82,7 @@
 		magazine = new mag_type(src)
 	if (!caliber)
 		caliber = magazine.caliber
-	if (bolt_type == BOLT_TYPE_NO_BOLT)
+	if (bolt_type == BOLT_TYPE_NO_BOLT || BOLT_TYPE_NB_BREAK)
 		chamber_round()
 	update_icon()
 
@@ -160,13 +168,13 @@
 	if (chambered || !magazine)
 		return
 	if (magazine.ammo_count())
-		chambered = magazine.get_round(keep_bullet || bolt_type == BOLT_TYPE_NO_BOLT)
+		chambered = magazine.get_round(keep_bullet || bolt_type == BOLT_TYPE_NO_BOLT || bolt_type == BOLT_TYPE_NB_BREAK)
 		if (bolt_type != BOLT_TYPE_OPEN)
 			chambered.forceMove(src)
 
 /obj/item/gun/ballistic/proc/rack(mob/user = null)
 	switch(bolt_type)
-		if(BOLT_TYPE_NO_BOLT)
+		if(BOLT_TYPE_NO_BOLT, BOLT_TYPE_NB_BREAK)
 			return
 		if(BOLT_TYPE_OPEN)
 			if(!bolt_locked)	//If it's an open bolt, racking again would do nothing
@@ -189,7 +197,7 @@
 			bolt_locked = TRUE
 			update_icon()
 			if(bolt_type == BOLT_TYPE_PUMP)
-				addtimer(CALLBACK(src, PROC_REF(drop_bolt), user), rack_delay)
+				addtimer(CALLBACK(src, PROC_REF(drop_bolt), user), (rack_delay * 0.5))
 			return
 	if(user)
 		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
@@ -254,6 +262,8 @@
 /obj/item/gun/ballistic/can_shoot()
 	if(bolt_type == BOLT_TYPE_TWO_STEP && bolt_locked)
 		return FALSE
+	if(bolt_type == BOLT_TYPE_NB_BREAK && chamber_open)
+		return FALSE
 	return chambered
 
 /obj/item/gun/ballistic/attackby(obj/item/A, mob/user, params)
@@ -274,6 +284,9 @@
 		//If it's a TWO_STEP bolt, you can't load it while it's closed (Mosin, Pipe Rifle)
 		if (bolt_type == BOLT_TYPE_TWO_STEP && !bolt_locked)
 			to_chat(user, "<span class='notice'>The [bolt_wording] is closed!</span>")
+			return
+		if (bolt_type == BOLT_TYPE_NB_BREAK && !chamber_open)
+			to_chat(user, "<span class='notice'>The [chamber_wording] is closed!</span>")
 			return
 		//If it has a removable magazine, and does not support direct loading, return.
 		if (!internal_magazine && !direct_loading)
@@ -301,8 +314,10 @@
 		if (num_loaded)
 			to_chat(user, "<span class='notice'>You load [num_loaded] [cartridge_wording]\s into \the [src].</span>")
 			playsound(src, load_sound, load_sound_volume, load_sound_vary)
-			if (chambered == null && bolt_type == BOLT_TYPE_NO_BOLT)
+			if (chambered == null && (bolt_type == BOLT_TYPE_NO_BOLT || bolt_type == BOLT_TYPE_NB_BREAK))
 				chamber_round()
+			if (bolt_type == BOLT_TYPE_NB_BREAK)
+				chamber_action_step++
 			A.update_icon()
 			update_icon()
 		else
@@ -415,6 +430,44 @@
 			update_icon()
 			return
 
+	if(bolt_type == BOLT_TYPE_NB_BREAK)
+		switch(chamber_action_step)
+			if(0)
+				chamber_action_step++
+				to_chat(user, "<span class='notice'>You [chamber_action_wording] open the [chamber_wording] of \the [src].</span>")
+				playsound(src, "gun_remove_empty_magazine", 35, TRUE)
+				chamber_open = TRUE
+				update_icon()
+				//If there's no nothing loaded, skip the ejection step
+				if(!get_ammo())
+					chamber_action_step++
+				return
+			if(1)
+				chamber_action_step++
+				chambered = null
+				var/num_unloaded = 0
+				for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
+					CB.forceMove(drop_location())
+					CB.bounce_away(FALSE, NONE)
+					num_unloaded++
+				if (num_unloaded)
+					to_chat(user, "<span class='notice'>You unload [num_unloaded] [cartridge_wording]\s from [src].</span>")
+				else //If you're somehow still ejecting when there's nothing loaded, here's a special message for you!
+					to_chat(user, "<span class='notice'>There's nothing to eject from \the [src]!</span>")
+				playsound(user, eject_sound, eject_sound_volume, eject_sound_vary)
+				update_icon()
+				return
+			//Flows into this if chamber_step is not 0 (close to open) or 1 (open to eject), or if the gun is already empty when ejecting on step 1
+		chamber_action_step = 0
+		if(!get_ammo())
+			to_chat(user, "<span class='warning'>Despite \the [src] being empty, you close the [chamber_wording].</span>")
+		else
+			to_chat(user, "<span class='notice'>You close the [chamber_wording] of \the [src].</span>")
+		playsound(src, "gun_insert_empty_magazine", 35, TRUE)
+		chamber_open = FALSE
+		update_icon()
+		return
+
 	if(bolt_type == BOLT_TYPE_LOCKING && bolt_locked)
 		drop_bolt(user)
 		return
@@ -426,7 +479,7 @@
 
 /obj/item/gun/ballistic/examine(mob/user)
 	. = ..()
-	var/count_chambered = !(bolt_type == BOLT_TYPE_NO_BOLT || bolt_type == BOLT_TYPE_OPEN)
+	var/count_chambered = !(bolt_type == BOLT_TYPE_NO_BOLT || bolt_type == BOLT_TYPE_OPEN || bolt_type == BOLT_TYPE_NB_BREAK)
 	. += "It has [get_ammo(count_chambered)] round\s remaining."
 	if (!chambered)
 		. += "It does not seem to have a round chambered."
@@ -436,6 +489,8 @@
 		. += "It has a suppressor attached that can be removed with <b>alt+click</b>."
 	if (bolt_type == BOLT_TYPE_PUMP)
 		. += "You can <b>ctrl+click</b> to half-pump \the [src] to directly chamber a [cartridge_wording]."
+	if (chamber_open)
+		. += "The [chamber_wording] is currently open, and must be closed before firing."
 
 /obj/item/gun/ballistic/proc/get_ammo(countchambered = TRUE)
 	var/boolets = 0 //mature var names for mature people
@@ -531,7 +586,7 @@
 // Sawing guns related proc
 /obj/item/gun/ballistic/proc/blow_up(mob/user)
 	. = FALSE
-	if(!chambered)
+	if(!chambered || chamber_open)
 		return
 	if(chambered.BB)
 		process_fire(user, user, FALSE)

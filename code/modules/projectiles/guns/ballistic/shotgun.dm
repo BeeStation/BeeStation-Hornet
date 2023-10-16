@@ -29,7 +29,6 @@
 	fire_rate = 1 //reee
 	recoil = 1
 	pb_knockback = 2
-	rack_delay = 2.5
 
 /obj/item/gun/ballistic/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
@@ -199,7 +198,7 @@
 						"Rosewood" = "dshotgun_p"
 						)
 	semi_auto = TRUE
-	bolt_type = BOLT_TYPE_NO_BOLT
+	bolt_type = BOLT_TYPE_NB_BREAK
 	fire_rate = 2 //being double barrelled, you don't rely on internal mechanisms.
 	pb_knockback = 3
 

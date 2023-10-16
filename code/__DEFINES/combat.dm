@@ -214,6 +214,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BOLT_TYPE_LOCKING 4
 #define BOLT_TYPE_PUMP 5	//Requires 2 hands to pump, but standard
 #define BOLT_TYPE_TWO_STEP 6 //Pump, but each interaction toggles bolt between locked and unlocked
+#define BOLT_TYPE_NB_BREAK 7 //No bolt, but must be opened before bullets can be inserted or removed
 // Sawn off nerfs
 #define SAWN_OFF_ACC_PENALTY 25
 #define SAWN_OFF_RECOIL 1
