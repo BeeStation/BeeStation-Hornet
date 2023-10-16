@@ -30,7 +30,7 @@
 /turf/open/floor/wood
 	desc = "Stylish dark wood."
 	icon_state = "wood"
-	variants = list("wood", "wood1", "wood2")
+	variants = list("wood", "wood1", "wood2", "wood3", "wood4")
 	floor_tile = /obj/item/stack/tile/wood
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
@@ -40,7 +40,7 @@
 
 /turf/open/floor/wood/big
 	icon_state = "wood_big"
-	variants = list("wood_big", "wood_big1")
+	variants = list("wood_big", "wood_big1", "wood_big2")
 
 /turf/open/floor/wood/examine(mob/user)
 	. = ..()

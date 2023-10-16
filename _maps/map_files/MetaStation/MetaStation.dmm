@@ -13228,7 +13228,7 @@
 /obj/structure/desk_bell{
 	pixel_x = -8
 	},
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "bok" = (
 /obj/structure/cable/yellow{
@@ -13381,12 +13381,12 @@
 /obj/structure/closet/secure_closet/bar{
 	req_access_txt = "25"
 	},
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "boQ" = (
 /obj/machinery/reagentgrinder,
 /obj/structure/table/wood,
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "boR" = (
 /obj/structure/table/wood,
@@ -13399,7 +13399,7 @@
 /obj/structure/sink/kitchen{
 	pixel_y = 28
 	},
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "boT" = (
 /obj/machinery/door/window/southleft{
@@ -13817,7 +13817,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "bry" = (
 /obj/structure/disposalpipe/segment,
@@ -14292,14 +14292,14 @@
 /area/crew_quarters/heads/captain/private)
 "bto" = (
 /obj/structure/reagent_dispensers/beerkeg,
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "btp" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "btq" = (
 /obj/structure/disposalpipe/segment{
@@ -14316,7 +14316,7 @@
 /obj/item/stack/cable_coil/random,
 /obj/structure/closet,
 /obj/item/vending_refill/cigarette,
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "btr" = (
 /obj/machinery/chem_master/condimaster{
@@ -14324,7 +14324,7 @@
 	name = "HoochMaster Deluxe";
 	pixel_x = -4
 	},
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "btt" = (
 /obj/item/stock_parts/cell/high{
@@ -14620,7 +14620,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "buP" = (
 /obj/machinery/computer/slot_machine{
@@ -25177,7 +25177,7 @@
 /obj/effect/landmark/event_spawn,
 /obj/effect/landmark/event_spawn,
 /obj/effect/landmark/event_spawn,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "cGV" = (
 /obj/machinery/airalarm{
@@ -27276,7 +27276,7 @@
 /area/engine/supermatter)
 "dbd" = (
 /obj/machinery/vending/wardrobe/bar_wardrobe,
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "dbe" = (
 /obj/machinery/keycard_auth{
@@ -31904,7 +31904,7 @@
 	pixel_x = -31
 	},
 /obj/structure/displaycase/forsale/kitchen,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "ezY" = (
 /obj/structure/closet/firecloset,
@@ -33150,7 +33150,7 @@
 "faR" = (
 /obj/structure/table/reinforced,
 /obj/item/lighter,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "faV" = (
 /turf/open/floor/plating,
@@ -33708,6 +33708,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"fmA" = (
+/turf/open/floor/wood/big,
+/area/crew_quarters/bar)
 "fmH" = (
 /obj/structure/table,
 /obj/item/folder/white{
@@ -35033,7 +35036,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "fOM" = (
 /obj/machinery/navbeacon{
@@ -36799,7 +36802,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "gBE" = (
 /obj/structure/cable/yellow{
@@ -40985,7 +40988,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "iqg" = (
 /obj/structure/table/reinforced,
@@ -42798,7 +42801,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/drinks,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "jbm" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -45788,7 +45791,7 @@
 /obj/structure/sign/barsign{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "krD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -46590,7 +46593,7 @@
 /area/quartermaster/miningoffice)
 "kEh" = (
 /mob/living/carbon/monkey/punpun,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "kEM" = (
 /obj/machinery/navbeacon{
@@ -50501,7 +50504,7 @@
 "mqu" = (
 /obj/machinery/chem_dispenser/drinks/beer,
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "mqv" = (
 /obj/item/kirbyplants/random,
@@ -50948,7 +50951,7 @@
 "mzW" = (
 /obj/structure/table/reinforced,
 /obj/item/paicard,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "mAw" = (
 /obj/structure/disposalpipe/segment{
@@ -51584,7 +51587,7 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3
 	},
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "mMA" = (
 /obj/machinery/door/airlock/public/glass{
@@ -52880,7 +52883,7 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "nlh" = (
 /obj/structure/extinguisher_cabinet{
@@ -55488,7 +55491,7 @@
 /area/science/mixing/chamber)
 "ops" = (
 /obj/effect/landmark/start/bartender,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "opv" = (
 /obj/structure/cable/yellow{
@@ -56497,7 +56500,7 @@
 "oJd" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/head/that,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "oJA" = (
 /obj/structure/cable/yellow{
@@ -60084,7 +60087,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "qlt" = (
 /obj/machinery/firealarm/directional/east,
@@ -61943,7 +61946,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "rbZ" = (
 /obj/machinery/light/small,
@@ -62223,7 +62226,7 @@
 "rkh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/dish_drive,
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "rkl" = (
 /obj/machinery/door_timer{
@@ -63104,7 +63107,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "rEz" = (
 /obj/effect/turf_decal/tile/blue{
@@ -66941,7 +66944,7 @@
 /obj/item/reagent_containers/glass/rag{
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "tlP" = (
 /obj/machinery/disposal/bin,
@@ -73359,7 +73362,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/turf/open/floor/wood,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "waP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -74421,7 +74424,7 @@
 /obj/item/storage/box/matches{
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/cafeteria_red,
+/turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "wwG" = (
 /obj/item/storage/box/lights/mixed,
@@ -112874,8 +112877,8 @@ xad
 brf
 bmO
 jaz
-xTu
-xTu
+fmA
+fmA
 oJd
 qaI
 xTu
@@ -113389,7 +113392,7 @@ brg
 bto
 bmP
 ipX
-xTu
+fmA
 wwu
 qaI
 etb
@@ -113903,7 +113906,7 @@ waE
 btq
 bmP
 nkN
-xTu
+fmA
 mMt
 qaI
 xTu
