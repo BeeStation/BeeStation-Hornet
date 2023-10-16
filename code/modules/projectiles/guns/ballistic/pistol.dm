@@ -16,6 +16,7 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
+	equip_time = 1 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
@@ -73,6 +74,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = FALSE
 	mag_display = TRUE
+	equip_time = 2 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
