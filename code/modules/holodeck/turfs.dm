@@ -155,7 +155,7 @@
 
 /turf/open/floor/holofloor/wood
 	icon_state = "wood"
-	variants = list("wood", "wood1", "wood2")
+	variants = list("wood", "wood1", "wood2", "wood3", "wood4")
 	tiled_dirt = FALSE
 
 /turf/open/floor/holofloor/snow
