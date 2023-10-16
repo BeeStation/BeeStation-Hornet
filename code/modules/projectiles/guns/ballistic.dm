@@ -433,7 +433,7 @@
 		user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
 		return
 
-	if(do_after(user, 3 SECONDS, target = src, add_item = A))
+	if(do_after(user, 3 SECONDS, target = src, add_item = src))
 		if(sawn_off)
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
