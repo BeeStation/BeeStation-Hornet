@@ -172,11 +172,6 @@
 	ranged_cooldown = world.time + (10 - phase) SECONDS
 	move_to_delay = initial(move_to_delay)
 
-	if(target)
-		bone_tether(target)
-
-		return
-
 	switch(phase)
 		if(1)
 			switch(random_attack_num)
@@ -214,6 +209,7 @@
 					voice()
 					blastwave(TRUE) //two waves of projectiles
 				if(3)
+					voice()
 					charge_at_target(TRUE) //two charges
 	random_attack_num = pick(1, 2, 3)
 
