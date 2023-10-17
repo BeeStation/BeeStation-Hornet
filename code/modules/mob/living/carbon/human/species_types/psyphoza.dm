@@ -320,7 +320,7 @@
 	render_target = "psychic_mask"
 
 /atom/movable/screen/fullscreen/blind/psychic/mask/unique_filters()
-	filters += filter(type = "alpha", render_source = "blind_psychic")
+	filters += filter(type = "alpha", render_source = "blind_fullscreen_overlay")
 
 //And this type as a seperate type-path to avoid issues with animations & locate()
 /atom/movable/screen/fullscreen/blind/psychic_highlight
