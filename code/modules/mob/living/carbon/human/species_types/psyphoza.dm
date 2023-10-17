@@ -326,6 +326,7 @@
 /atom/movable/screen/fullscreen/blind/psychic_highlight
 	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
+	render_target = ""
 	plane = FULLSCREEN_PLANE
 	layer = 4.1
 	///Index for visual setting - Useful if we add more presets
