@@ -111,6 +111,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
+"ao" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/shaded)
 "ap" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -224,6 +230,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
+"aF" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "aG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -313,6 +324,14 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/shaded)
+"aQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "aR" = (
 /obj/item/clothing/suit/apron{
@@ -415,6 +434,10 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass,
 /area/iceland/shaded)
+"bd" = (
+/obj/effect/decal/cleanable/plasma,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "be" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot,
@@ -452,6 +475,11 @@
 	},
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/dirt/dark,
+/area/iceland/shaded)
+"bj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "bl" = (
 /obj/structure/flora/grass/green,
@@ -517,15 +545,6 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
-"bs" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
-/area/iceland/shaded)
 "bt" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 9
@@ -567,6 +586,10 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"bz" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "bA" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -580,6 +603,18 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
+"bB" = (
+/obj/item/trash/candle,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
+"bC" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/item/chair/stool,
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
 "bD" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -839,6 +874,12 @@
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/stone,
 /area/iceland/shaded)
+"cn" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "co" = (
 /obj/effect/decal/cleanable/glass{
 	dir = 1
@@ -867,6 +908,11 @@
 /obj/machinery/chem_master,
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
+"cs" = (
+/obj/structure/closet/cabinet,
+/obj/item/gun/ballistic/automatic/pistol/APS,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "ct" = (
 /obj/machinery/vending/autodrobe/all_access,
 /obj/effect/turf_decal/delivery,
@@ -889,6 +935,13 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/shaded)
+"cw" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
 /area/iceland/shaded)
 "cx" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -921,18 +974,6 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
-"cA" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
-/area/iceland/shaded)
 "cB" = (
 /obj/machinery/atmospherics/pipe/simple/amethyst/visible{
 	dir = 4
@@ -962,13 +1003,6 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"cE" = (
-/obj/item/toy/beach_ball/holoball,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
-/area/iceland/shaded)
 "cF" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -982,6 +1016,14 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/visible,
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
+"cH" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
+	name = "private dormitory"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "cI" = (
 /obj/effect/decal/cleanable/plasma,
 /turf/open/floor/plating/snowed,
@@ -1003,6 +1045,14 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/techmaint,
 /area/science/research)
+"cL" = (
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "cM" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
@@ -1052,6 +1102,14 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/bridge/meeting_room/council)
+"cR" = (
+/obj/structure/bed,
+/obj/item/bedsheet/grey,
+/obj/structure/sign/poster/contraband/kudzu{
+	pixel_y = 32
+	},
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "cS" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -1118,6 +1176,21 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"db" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
+"dc" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks/beer,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "dd" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/effect/decal/cleanable/dirt,
@@ -1212,6 +1285,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
+"dq" = (
+/obj/machinery/vending/boozeomat,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "dr" = (
 /obj/structure/statue/snow/snowlegion{
 	anchored = 1;
@@ -1219,10 +1297,6 @@
 	icon_state = "snowlegion_alive"
 	},
 /turf/open/floor/plating,
-/area/iceland/shaded)
-"ds" = (
-/obj/machinery/photocopier,
-/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "dt" = (
 /obj/structure/table,
@@ -1418,6 +1492,13 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"dQ" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "dR" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
@@ -1441,6 +1522,12 @@
 	},
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/grass,
+/area/iceland/shaded)
+"dU" = (
+/obj/structure/table/reinforced,
+/obj/item/restraints/handcuffs,
+/obj/effect/turf_decal/trimline/red/filled/line,
+/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "dV" = (
 /obj/structure/spider/stickyweb,
@@ -1539,6 +1626,10 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/lobby)
+"ee" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "ef" = (
 /obj/structure/chair/fancy/sofa/old{
 	color = "#596479";
@@ -1565,6 +1656,19 @@
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_smes)
+"ej" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/snowed,
+/area/iceland/shaded)
+"ek" = (
+/obj/structure/table,
+/obj/item/knife/kitchen{
+	pixel_x = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/condiment/enzyme,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "el" = (
 /turf/open/floor/plating,
 /area/quartermaster/office)
@@ -1573,6 +1677,13 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"en" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/obj/item/crowbar,
+/obj/effect/turf_decal/trimline/red/filled/line,
+/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "eo" = (
 /obj/structure/table/reinforced{
@@ -1599,6 +1710,11 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/bridge)
+"er" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "es" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 9
@@ -1695,11 +1811,20 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "eG" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
 /obj/machinery/door/poddoor/ert{
 	id = "DoNotOpen"
 	},
 /obj/structure/barricade/wooden/crude/snow,
-/turf/closed/indestructible/rock/snow,
+/turf/open/floor/plasteel/tech/grid,
 /area/iceland/shaded)
 "eH" = (
 /obj/machinery/atmospherics/pipe/manifold/yellow/visible{
@@ -1825,6 +1950,13 @@
 "eX" = (
 /turf/open/floor/plating/ashplanet/rocky,
 /area/iceland/shaded)
+"eY" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "eZ" = (
 /obj/structure/table/wood/poker,
 /obj/effect/spawner/lootdrop/gambling,
@@ -1902,6 +2034,9 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/chapel/main)
+"fj" = (
+/turf/open/floor/plasteel/goonplaque,
+/area/iceland/shaded)
 "fl" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -1953,6 +2088,12 @@
 	dir = 9
 	},
 /turf/open/floor/plating/snowed,
+/area/iceland/shaded)
+"fs" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "ft" = (
 /obj/structure/cable/orange{
@@ -2062,6 +2203,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
+"fH" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "fI" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/asteroid/snow,
@@ -2115,6 +2264,11 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/shaded)
+"fQ" = (
+/obj/structure/table,
+/obj/item/storage/belt/utility,
+/turf/open/floor/plasteel/white,
 /area/iceland/shaded)
 "fR" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/ice,
@@ -2170,6 +2324,17 @@
 	},
 /turf/open/floor/plasteel/grid,
 /area/science/research)
+"fZ" = (
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "Dorms APC";
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "ga" = (
 /obj/effect/decal/cleanable/glass{
 	dir = 1
@@ -2251,6 +2416,13 @@
 /obj/structure/rack,
 /turf/open/floor/plasteel,
 /area/iceland/shaded)
+"gl" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table,
+/turf/open/floor/plasteel/freezer,
+/area/iceland/shaded)
 "gm" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input,
 /turf/open/floor/engine/plasma,
@@ -2259,6 +2431,11 @@
 /obj/structure/table_frame,
 /obj/item/stack/rods,
 /turf/open/floor/plating/snowed,
+/area/iceland/shaded)
+"go" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/turf/open/floor/carpet/grimy,
 /area/iceland/shaded)
 "gp" = (
 /turf/open/floor/plasteel/dark/corner{
@@ -2281,6 +2458,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room/council)
+"gs" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "gt" = (
 /obj/structure/flora{
 	desc = "Looks frozen.";
@@ -2319,6 +2502,13 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/wood,
 /area/iceland/shaded)
+"gA" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "gB" = (
 /obj/item/stack/ore/gold/five{
 	pixel_x = 11;
@@ -2346,6 +2536,13 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
+"gE" = (
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "gF" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/bot_white,
@@ -2374,6 +2571,12 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
+/area/iceland/shaded)
+"gL" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "gM" = (
 /obj/structure/window/reinforced/tinted{
@@ -2478,6 +2681,14 @@
 /obj/structure/window/reinforced/fulltile/ice,
 /turf/open/floor/plating,
 /area/iceland/shaded)
+"ha" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "hb" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood{
@@ -2521,6 +2732,10 @@
 	},
 /turf/open/floor/plating,
 /area/iceland/shaded)
+"hg" = (
+/obj/machinery/modular_fabricator/exosuit_fab,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "hh" = (
 /obj/machinery/aug_manipulator,
 /obj/effect/turf_decal/stripes/line{
@@ -2528,12 +2743,35 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/research)
+"hi" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/decal/cleanable/food/plant_smudge,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "hj" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
 /turf/open/floor/plating/dirt/dark,
+/area/iceland/shaded)
+"hk" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/red,
+/obj/item/pen,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/brigdoor/southright{
+	dir = 1;
+	name = "Security Desk";
+	req_access_txt = "63"
+	},
+/obj/machinery/door/window/brigdoor/southright{
+	dir = 1;
+	name = "Security Desk";
+	req_access_txt = "63"
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel/techmaint,
 /area/iceland/shaded)
 "hl" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2549,6 +2787,14 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/engineering)
+"ho" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/command/glass{
+	name = "Control Room";
+	req_access_txt = "19; 61"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "hp" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -2608,6 +2854,12 @@
 "hw" = (
 /obj/structure/flora/rock/icy,
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"hx" = (
+/obj/structure/table_frame,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
 /area/iceland/shaded)
 "hy" = (
 /obj/structure/chair/fancy/shuttle{
@@ -2723,11 +2975,25 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/captain)
+"hL" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "hM" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/spiderling,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"hN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
 "hO" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora{
@@ -2744,6 +3010,10 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"hP" = (
+/obj/item/trash/candle,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "hQ" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
@@ -2754,6 +3024,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"hR" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "hS" = (
 /obj/structure/spider/cocoon,
 /turf/open/floor/plating/asteroid/snow,
@@ -2761,6 +3035,14 @@
 "hT" = (
 /turf/closed/wall/r_wall,
 /area/tcommsat/server)
+"hU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "hW" = (
 /obj/structure/fireaxecabinet{
 	pixel_y = -28
@@ -2783,6 +3065,16 @@
 /obj/item/storage/crayons,
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
+"hZ" = (
+/obj/effect/decal/cleanable/insectguts,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/shaded)
 "ia" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/command/glass{
@@ -2925,6 +3217,11 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"iq" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/iceland/shaded)
 "ir" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -3048,6 +3345,13 @@
 /obj/item/stack/rods,
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
+"iI" = (
+/obj/effect/turf_decal/trimline/red/filled/line,
+/obj/structure/chair/fancy/bench{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "iJ" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/flora/rock/pile/icy,
@@ -3080,6 +3384,19 @@
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/engine/plasma,
 /area/engine/engineering)
+"iP" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj{
+	desc = "A convenable firelock. No matter what this can't be opened!";
+	name = "jammed firelock";
+	icon = 'icons/obj/doors/doorfireglass.dmi';
+	icon_state = "door_locked";
+	opacity = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "iQ" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible,
 /obj/effect/spawner/structure/window/depleteduranium,
@@ -3131,6 +3448,15 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"iY" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 1
+	},
+/obj/item/trash/can/food/peaches,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
 "iZ" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -3152,6 +3478,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/server)
+"jc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "jd" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
@@ -3195,13 +3526,6 @@
 /obj/structure/flora/grass/both,
 /obj/structure/flora/tree/dead,
 /turf/open/floor/plating/asteroid/snow,
-/area/iceland)
-"jk" = (
-/obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/manifold/orange/visible{
-	dir = 8
-	},
-/turf/open/floor/plating/snowed,
 /area/iceland)
 "jl" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3324,6 +3648,16 @@
 	dir = 4
 	},
 /area/iceland/shaded)
+"jy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/white/corner,
+/obj/item/trash/candle,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
 "jz" = (
 /obj/machinery/deepfryer,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -3342,6 +3676,12 @@
 /obj/structure/sign/nanotrasen,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"jC" = (
+/obj/machinery/light/small,
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "jD" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/structure/cable/orange{
@@ -3466,20 +3806,6 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/iceland)
-"jP" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/white/corner{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
-/area/iceland/shaded)
 "jQ" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -3493,6 +3819,15 @@
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/bar)
+"jS" = (
+/obj/effect/decal/cleanable/molten_object,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
+"jT" = (
+/obj/effect/decal/cleanable/plasma,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "jU" = (
 /turf/open/floor/plating/snowed,
 /area/iceland)
@@ -3566,6 +3901,12 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/shaded)
+"ke" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/turf/open/floor/stone,
+/area/iceland/shaded)
 "kf" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -3600,6 +3941,13 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
+"kk" = (
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "kl" = (
 /obj/machinery/vending/boozeomat{
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!;According to some people, I simply do not exist."
@@ -3636,6 +3984,10 @@
 "ko" = (
 /obj/structure/table/wood,
 /turf/open/floor/carpet/royalblack,
+/area/iceland/shaded)
+"kp" = (
+/obj/machinery/computer/fluff,
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "kq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -3765,11 +4117,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
-"kD" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/item/paper/fluff/awaymissions/snowdin/research_feed,
-/turf/open/floor/plasteel/dark,
-/area/iceland/shaded)
 "kE" = (
 /obj/structure/chair/fancy/sofa/old/corner/concave{
 	color = "#596479"
@@ -3830,6 +4177,12 @@
 /obj/structure/window,
 /turf/open/floor/grass,
 /area/iceland/shaded)
+"kK" = (
+/obj/machinery/computer/security{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria_red,
+/area/iceland/shaded)
 "kL" = (
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
@@ -3871,11 +4224,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
+"kQ" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/barricade/wooden/crude,
+/obj/structure/windoor_assembly,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "kR" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
+"kS" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/table,
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
 "kT" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -3915,6 +4279,11 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plasteel/cult,
+/area/iceland/shaded)
+"kZ" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/turf/open/floor/carpet/grimy,
 /area/iceland/shaded)
 "la" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/ice,
@@ -4025,6 +4394,10 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
+"lp" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "lq" = (
 /obj/machinery/door/airlock{
 	id_tag = "Toilet2a";
@@ -4114,6 +4487,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"lx" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "ly" = (
 /obj/machinery/light{
 	dir = 8
@@ -4192,6 +4572,15 @@
 	dir = 8
 	},
 /area/iceland/shaded)
+"lH" = (
+/obj/structure/table,
+/obj/item/disk/holodisk/snowdin/weregettingpaidright,
+/obj/item/pen,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "lI" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/innards{
@@ -4199,18 +4588,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"lJ" = (
-/obj/structure/sign/warning/securearea{
-	name = "\improper ANTI-RAD SHELTER";
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
-/area/iceland/shaded)
 "lL" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -4236,6 +4613,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
+"lR" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/shaded)
 "lS" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood{
@@ -4270,6 +4653,13 @@
 /obj/item/bodypart/l_arm,
 /turf/open/floor/grass,
 /area/iceland/shaded)
+"lY" = (
+/obj/effect/turf_decal/trimline/red/filled/warning{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "lZ" = (
 /turf/open/floor/plating,
 /area/science/lobby)
@@ -4284,6 +4674,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/dorms)
+"mb" = (
+/obj/item/chair,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
 "mc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -4397,6 +4793,10 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating,
 /area/iceland/shaded)
+"ms" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "mt" = (
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing,
 /turf/open/floor/plating/asteroid/snow,
@@ -4406,6 +4806,22 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"mv" = (
+/obj/effect/decal/cleanable/insectguts,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
+"mw" = (
+/obj/item/trash/can,
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/table_frame,
+/turf/open/floor/carpet/grimy,
 /area/iceland/shaded)
 "mx" = (
 /turf/closed/wall/r_wall,
@@ -4552,6 +4968,15 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"mQ" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/turf/open/floor/plasteel/freezer,
+/area/iceland/shaded)
 "mR" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -4580,6 +5005,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
+"mT" = (
+/obj/structure/bed,
+/obj/item/bedsheet/orange,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "mU" = (
 /obj/machinery/processor,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -4592,6 +5022,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
+"mW" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj{
+	desc = "A convenable firelock. No matter what this can't be opened!";
+	name = "jammed firelock";
+	icon = 'icons/obj/doors/doorfireglass.dmi';
+	icon_state = "door_locked";
+	opacity = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "mX" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
@@ -4603,6 +5044,12 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"mZ" = (
+/obj/structure/weightmachine/weightlifter,
+/obj/effect/turf_decal/bot_white,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "na" = (
 /mob/living/simple_animal/hostile/bear/snow{
 	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
@@ -4615,6 +5062,11 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/shaded)
+"nb" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/item/chair/stool,
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/shaded)
 "nc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4674,14 +5126,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/dorms)
-"nk" = (
-/obj/structure/table,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/item/disk/holodisk/snowdin/weregettingpaidright,
-/turf/open/floor/plasteel/dark,
-/area/iceland/shaded)
 "nl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -4779,11 +5223,24 @@
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
+"nx" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "ny" = (
 /obj/effect/decal/remains/human{
 	color = "#72e4fa"
 	},
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"nz" = (
+/obj/item/trash/candle,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
 /area/iceland/shaded)
 "nA" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -4855,15 +5312,6 @@
 /obj/item/clothing/head/chaplain/graverobber_hat,
 /obj/structure/closet/cabinet,
 /turf/open/floor/wood,
-/area/iceland/shaded)
-"nJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
 /area/iceland/shaded)
 "nK" = (
 /obj/effect/turf_decal/delivery,
@@ -4962,6 +5410,12 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"nX" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "nY" = (
 /obj/structure/fence{
 	dir = 8
@@ -5085,6 +5539,12 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/shaded)
+"ol" = (
+/obj/structure/window{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "om" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/effect/decal/cleanable/blood/drip,
@@ -5116,6 +5576,16 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"or" = (
+/obj/effect/decal/cleanable/molten_object,
+/turf/open/floor/plating{
+	icon_state = "platingdmg2"
+	},
+/area/iceland/shaded)
+"os" = (
+/obj/item/trash/energybar,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "ot" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal{
@@ -5125,6 +5595,16 @@
 	dir = 6
 	},
 /turf/open/floor/plating/snowed,
+/area/iceland/shaded)
+"ou" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/turf/open/floor/engine,
+/area/iceland/shaded)
+"ov" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "ow" = (
 /obj/effect/turf_decal/weather/snow,
@@ -5232,10 +5712,6 @@
 /obj/item/pen,
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
-"oI" = (
-/obj/item/pen,
-/turf/open/floor/plasteel/dark,
-/area/iceland/shaded)
 "oJ" = (
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/dark,
@@ -5295,14 +5771,13 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/command)
-"oR" = (
-/obj/structure/urinal{
-	pixel_y = 28
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plasteel/ridged,
+"oS" = (
+/obj/structure/table,
+/obj/item/kitchen/fork,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/shaded)
 "oU" = (
 /obj/structure/window/reinforced{
@@ -5459,6 +5934,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
+"pr" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
 "ps" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange{
@@ -5562,6 +6043,13 @@
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/dirt/dark,
 /area/iceland)
+"pG" = (
+/obj/structure/table/reinforced,
+/obj/item/trash/raisins,
+/obj/structure/barricade/wooden/crude,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "pH" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating{
@@ -5679,6 +6167,10 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"pT" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/mech_bay_recharge_floor,
+/area/iceland/shaded)
 "pU" = (
 /obj/machinery/firealarm/directional/east,
 /obj/structure/cable/orange{
@@ -5708,6 +6200,13 @@
 	},
 /turf/open/floor/plating,
 /area/chapel/main)
+"pX" = (
+/obj/item/trash/waffles,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/iceland/shaded)
 "pZ" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/structure/cable{
@@ -5720,6 +6219,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"qb" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "qc" = (
 /obj/item/candle/infinite{
 	pixel_x = -5;
@@ -5809,6 +6314,12 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"qp" = (
+/obj/effect/turf_decal/bot_white,
+/obj/structure/punching_bag,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "qq" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel/dark,
@@ -5850,6 +6361,13 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/bar)
+"qw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "qx" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -5875,17 +6393,6 @@
 /mob/living/simple_animal/pet/penguin/baby,
 /turf/open/floor/plating/ice/smooth,
 /area/iceland)
-"qD" = (
-/obj/effect/turf_decal/trimline/white/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
-/area/iceland/shaded)
 "qE" = (
 /obj/structure/closet/secure_closet/medical2,
 /obj/machinery/vending/wallmed{
@@ -5940,6 +6447,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
+"qI" = (
+/obj/structure/table/wood,
+/obj/item/trash/can/food/beefbroth,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "qJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -6126,17 +6638,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"ri" = (
-/obj/effect/turf_decal/trimline/white/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
-/area/iceland/shaded)
 "rj" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -6226,13 +6727,11 @@
 /turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "rs" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
+/obj/structure/filingcabinet/chestdrawer,
+/obj/item/paper/fluff/awaymissions/snowdin/research_feed,
+/obj/item/paper/fluff/awaymissions/snowdin/research_feed,
+/obj/structure/window,
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "ru" = (
 /turf/open/floor/plasteel/dark/side,
@@ -6313,24 +6812,21 @@
 /obj/structure/flora/grass/green,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"rK" = (
-/obj/machinery/light/small/broken,
-/turf/open/floor/mineral/titanium/white,
-/area/iceland)
-"rL" = (
+"rJ" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/trimline/white/corner{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "n2=23;o2=14"
 	},
 /area/iceland/shaded)
+"rK" = (
+/obj/machinery/light/small/broken,
+/turf/open/floor/mineral/titanium/white,
+/area/iceland)
 "rM" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -6350,6 +6846,15 @@
 "rP" = (
 /obj/structure/flora/rock/icy,
 /turf/open/floor/plating/ashplanet/rocky,
+/area/iceland/shaded)
+"rQ" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
 /area/iceland/shaded)
 "rR" = (
 /obj/item/toy/snowball,
@@ -6418,6 +6923,12 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"sc" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "sd" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -6465,6 +6976,11 @@
 	},
 /turf/open/floor/plating,
 /area/science/research)
+"si" = (
+/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "sj" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -6583,7 +7099,19 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/machinery/door/airlock/highsecurity{
+	name = "AI Chamber";
+	req_access_txt = "16"
+	},
 /turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
+"sy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
 /area/iceland/shaded)
 "sz" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -6717,6 +7245,10 @@
 	},
 /turf/open/floor/plasteel/checker,
 /area/crew_quarters/kitchen)
+"sS" = (
+/obj/structure/closet/cabinet,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "sT" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/grass,
@@ -6764,6 +7296,12 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"sX" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "sY" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -6778,6 +7316,14 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/engine,
 /area/crew_quarters/heads/captain)
+"sZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "ta" = (
 /obj/machinery/power/apc/auto_name/east,
 /obj/effect/decal/cleanable/dirt,
@@ -6859,6 +7405,10 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/mineral/titanium/blue,
 /area/iceland)
+"to" = (
+/obj/structure/AIcore/deactivated,
+/turf/open/floor/engine,
+/area/iceland/shaded)
 "tp" = (
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/open/floor/plating/asteroid/snow,
@@ -6918,14 +7468,22 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/engineering)
-"tw" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/item/paper/fluff/awaymissions/snowdin/research_feed,
-/obj/item/paper/fluff/awaymissions/snowdin/research_feed,
-/turf/open/floor/plasteel/dark,
+"tx" = (
+/obj/machinery/photocopier,
+/turf/open/floor/plasteel/cafeteria_red,
 /area/iceland/shaded)
 "ty" = (
 /turf/open/floor/stone,
+/area/iceland/shaded)
+"tz" = (
+/obj/effect/decal/cleanable/food/egg_smudge,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
+"tA" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/item/chair,
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/shaded)
 "tB" = (
 /obj/machinery/firealarm{
@@ -7038,6 +7596,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/mineral/random/snowmountain,
 /area/iceland/shaded)
+"tQ" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/decal/cleanable/food/salt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "tR" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/hydroponics/constructable,
@@ -7100,6 +7663,13 @@
 /obj/item/clothing/suit/hooded/wintercoat/hydro,
 /turf/open/floor/plasteel/techmaint,
 /area/hydroponics)
+"ub" = (
+/obj/item/trash/candle,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "uc" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -7321,6 +7891,11 @@
 	},
 /turf/open/floor/plating,
 /area/iceland/shaded)
+"uG" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/decal/cleanable/food/flour,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "uH" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/structure/chair/office{
@@ -7361,6 +7936,12 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
+"uO" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/item/trash/boritos,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "uR" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -7632,6 +8213,16 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"vu" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 6
+	},
+/obj/structure/chair/fancy/bench/left{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "vv" = (
 /turf/open/floor/plasteel/stairs/medium{
 	dir = 1
@@ -7738,6 +8329,14 @@
 /mob/living/simple_animal/hostile/construct/armored/noncult,
 /turf/open/floor/plasteel/cult,
 /area/iceland/shaded)
+"vJ" = (
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/table,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "vK" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/seed_extractor,
@@ -7767,6 +8366,10 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/shaded)
+"vQ" = (
+/obj/effect/decal/cleanable/insectguts,
+/turf/open/floor/carpet/grimy,
 /area/iceland/shaded)
 "vS" = (
 /obj/machinery/chem_heater,
@@ -7854,6 +8457,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"wc" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
 "wd" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -7861,6 +8475,20 @@
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/engineering)
+"we" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/white/corner{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
 "wf" = (
 /obj/machinery/rnd/production/protolathe/department/engineering,
 /obj/effect/turf_decal/bot,
@@ -7918,6 +8546,12 @@
 /mob/living/simple_animal/hostile/construct/wraith/noncult,
 /turf/open/floor/plasteel/cult,
 /area/iceland/shaded)
+"wp" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/turf/open/floor/stone,
+/area/iceland/shaded)
 "wq" = (
 /obj/effect/decal/cleanable/glass{
 	dir = 1
@@ -7968,6 +8602,18 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/office)
+"ww" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj{
+	desc = "A convenable firelock. No matter what this can't be opened!";
+	name = "jammed airlock";
+	icon = 'icons/obj/doors/doorfireglass.dmi';
+	icon_state = "door_locked"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "wx" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/snowed,
@@ -8001,6 +8647,11 @@
 	dir = 9
 	},
 /turf/open/floor/plating/dirt/dark,
+/area/iceland/shaded)
+"wD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
 /area/iceland/shaded)
 "wE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8095,6 +8746,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"wP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "wQ" = (
 /obj/item/binoculars,
 /turf/open/floor/plating/asteroid/snow{
@@ -8289,6 +8945,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
+"xm" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "xn" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -8339,6 +9003,20 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
+"xs" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
+"xt" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "xu" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/pipe/layer_manifold,
@@ -8355,14 +9033,6 @@
 	},
 /turf/open/floor/plating,
 /area/iceland/shaded)
-"xx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
-/area/iceland/shaded)
 "xy" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
@@ -8375,6 +9045,12 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/research)
+"xz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "xA" = (
 /turf/closed/wall,
 /area/bridge)
@@ -8549,6 +9225,11 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/iceland/shaded)
+"xX" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/suit/hooded/wintercoat,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "xY" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album{
@@ -8574,12 +9255,20 @@
 	},
 /turf/open/floor/wood/cold,
 /area/iceland/shaded)
+"yc" = (
+/obj/structure/closet/wardrobe/robotics_black,
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "yd" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
 /turf/open/floor/plating/dirt/dark,
 /area/iceland)
+"ye" = (
+/obj/effect/decal/cleanable/food/flour,
+/turf/closed/wall/ice,
+/area/iceland/shaded)
 "yf" = (
 /turf/closed/mineral/snowmountain{
 	opacity = 0
@@ -8632,6 +9321,10 @@
 	},
 /turf/open/floor/stone,
 /area/iceland/shaded)
+"ym" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "yn" = (
 /obj/structure/chair{
 	dir = 8
@@ -8663,6 +9356,13 @@
 /turf/open/floor/plasteel/dark{
 	heat_capacity = 1e+006
 	},
+/area/iceland/shaded)
+"yr" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/item/chair/stool{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/shaded)
 "ys" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8728,10 +9428,26 @@
 /obj/structure/table,
 /turf/open/floor/plasteel/white,
 /area/iceland/shaded)
+"yD" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "yE" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/tech,
 /area/crew_quarters/bar)
+"yF" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Checkpoint"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "yG" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plating/asteroid/snow{
@@ -8786,13 +9502,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"yO" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "Atmos to Loop"
-	},
-/turf/open/floor/plating/snowed,
-/area/iceland/shaded)
 "yP" = (
 /obj/structure/barricade/wooden/snowed,
 /turf/open/floor/plating,
@@ -8827,6 +9536,12 @@
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/engineering)
+"yV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "yW" = (
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 1
@@ -8867,6 +9582,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
+"za" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "zb" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -8879,6 +9600,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_smes)
+"zd" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/iceland/shaded)
 "ze" = (
 /obj/item/candle/infinite{
 	pixel_x = -4;
@@ -8896,6 +9624,13 @@
 	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "Toilet1a";
+	name = "Lock Control";
+	normaldoorcontrol = 1;
+	pixel_x = 24;
+	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/freezer,
 /area/iceland/shaded)
@@ -8918,6 +9653,10 @@
 	name = "icy wind"
 	},
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland/shaded)
+"zj" = (
+/obj/effect/decal/cleanable/shreds,
+/turf/open/floor/carpet/grimy,
 /area/iceland/shaded)
 "zk" = (
 /obj/structure/table/wood,
@@ -8943,6 +9682,15 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"zo" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 10
+	},
+/obj/structure/chair/fancy/bench/right{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "zp" = (
 /obj/item/stack/ore/gold/five{
 	pixel_x = 11;
@@ -8995,6 +9743,13 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
+"zw" = (
+/obj/effect/turf_decal/trimline/white/line,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
 "zx" = (
 /obj/machinery/mineral/processing_unit_console,
 /turf/closed/wall,
@@ -9037,6 +9792,7 @@
 	icon = 'icons/obj/doors/airlocks/station2/glass.dmi';
 	icon_state = "closed"
 	},
+/obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland/shaded)
 "zC" = (
@@ -9052,14 +9808,11 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/medbay/central)
-"zF" = (
-/obj/effect/turf_decal/trimline/white/line,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
+"zE" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "zG" = (
 /obj/structure/window/reinforced/fulltile/ice{
@@ -9147,6 +9900,22 @@
 /obj/item/clothing/gloves/artifact_pinchers,
 /turf/open/floor/plasteel/grid,
 /area/science/research)
+"zR" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
+"zS" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/closed/mineral/random/snowmountain,
+/area/iceland/shaded)
+"zT" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/item/paper/fluff/awaymissions/snowdin/research_feed,
+/obj/structure/window,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "zU" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora/grass/green,
@@ -9159,6 +9928,17 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"zW" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 5
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 4;
+	pixel_x = -16;
+	pixel_y = -15
+	},
+/turf/open/floor/engine,
+/area/iceland/shaded)
 "zX" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -9249,6 +10029,20 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/hallway/secondary/command)
+"Ah" = (
+/obj/effect/decal/cleanable/robot_debris,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
+"Ai" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/brown,
+/obj/structure/window/reinforced/tinted,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Ak" = (
 /obj/structure/window/reinforced/fulltile/ice{
 	name = "frozen window"
@@ -9259,6 +10053,14 @@
 	},
 /turf/open/floor/plating,
 /area/medical/apothecary)
+"Al" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/brown,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "An" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -9390,6 +10192,12 @@
 	icon_state = "platingdmg1"
 	},
 /area/iceland/shaded)
+"AD" = (
+/obj/item/trash/sosjerky,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "AE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange{
@@ -9419,6 +10227,21 @@
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/plating/dirt/dark,
 /area/iceland/shaded)
+"AJ" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/ert{
+	id = "DoNotDead"
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/iceland/shaded)
 "AK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/bin,
@@ -9432,6 +10255,25 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"AM" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/white,
+/area/iceland/shaded)
+"AN" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/public/glass{
+	name = "Kitchen";
+	req_access_txt = "35"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "AO" = (
 /obj/effect/decal/cleanable/glass{
 	dir = 8
@@ -9562,10 +10404,28 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
+"Bj" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "Bk" = (
 /obj/structure/flora/grass/green,
 /turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
+"Bl" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/brute,
+/obj/item/pool/pool_noodle,
+/turf/open/floor/plasteel/dark/side{
+	dir = 10
+	},
+/area/iceland/shaded)
 "Bm" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/stripes/white/line,
@@ -9619,6 +10479,12 @@
 "Bt" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/asteroid/snow/ice,
+/area/iceland/shaded)
+"Bu" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/stone,
 /area/iceland/shaded)
 "Bv" = (
 /obj/machinery/meter,
@@ -9693,6 +10559,12 @@
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
+/area/iceland/shaded)
+"BG" = (
+/obj/machinery/computer/prisoner/management{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria_red,
 /area/iceland/shaded)
 "BH" = (
 /obj/effect/decal/cleanable/shreds,
@@ -9839,7 +10711,7 @@
 /area/iceland/shaded)
 "Ca" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
-/obj/structure/barricade/wooden/crude/snow,
+/obj/structure/barricade/wooden/snowed,
 /turf/open/floor/plating,
 /area/chapel/main)
 "Cb" = (
@@ -9864,6 +10736,26 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
+"Cc" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow,
+/obj/item/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
+"Cd" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/newscaster{
+	pixel_x = -28;
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/iceland/shaded)
 "Ce" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
@@ -9879,6 +10771,17 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plating/snowed,
+/area/iceland/shaded)
+"Cg" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research/glass{
+	name = "Mechanist Lab";
+	req_access_txt = "29"
+	},
+/turf/open/floor/plasteel/techmaint,
 /area/iceland/shaded)
 "Ch" = (
 /obj/structure/window/reinforced/fulltile/ice{
@@ -10047,6 +10950,15 @@
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/carpet,
 /area/chapel/main)
+"CB" = (
+/obj/machinery/vending/wardrobe/sec_wardrobe,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/iceland/shaded)
+"CC" = (
+/obj/structure/chair/office,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "CD" = (
 /obj/item/storage/firstaid/fire,
 /obj/machinery/light/broken{
@@ -10093,6 +11005,15 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"CI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
 "CJ" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/light/small{
@@ -10138,6 +11059,11 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/engine/engineering)
+"CO" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "CP" = (
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
@@ -10194,6 +11120,9 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/shaded)
+"CW" = (
+/turf/open/floor/plasteel/cafeteria_red,
 /area/iceland/shaded)
 "CX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -10295,6 +11224,10 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"Dj" = (
+/obj/structure/barricade/wooden/snowed,
+/turf/open/floor/plating/snowed,
+/area/iceland/shaded)
 "Dk" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
@@ -10330,6 +11263,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/science/research)
+"Do" = (
+/obj/item/trash/cheesie,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "Dp" = (
 /obj/machinery/air_sensor/atmos/plasma_tank,
 /obj/machinery/light/small{
@@ -10337,13 +11275,29 @@
 	},
 /turf/open/floor/engine/plasma,
 /area/engine/engineering)
+"Dq" = (
+/obj/structure/table,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Dr" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/ice/smooth,
 /area/iceland)
+"Ds" = (
+/obj/effect/decal/remains/robot,
+/turf/open/floor/plasteel/dark/side{
+	dir = 9
+	},
+/area/iceland/shaded)
 "Dt" = (
 /turf/closed/wall,
 /area/crew_quarters/heads/hop)
+"Du" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Dw" = (
 /obj/structure/closet/wardrobe/robotics_black,
 /obj/machinery/power/apc{
@@ -10415,6 +11369,12 @@
 "DH" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/ashplanet/rocky,
+/area/iceland/shaded)
+"DI" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/shaded)
 "DJ" = (
 /obj/machinery/light{
@@ -10512,6 +11472,12 @@
 /obj/effect/gibspawner/human/bodypartless,
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
+"DX" = (
+/obj/effect/decal/cleanable/shreds,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "DY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/auto_name/east,
@@ -10524,6 +11490,10 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"Ea" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "Eb" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -10578,6 +11548,14 @@
 	},
 /turf/open/floor/plating,
 /area/iceland/shaded)
+"Ej" = (
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_y = 6
+	},
+/obj/effect/decal/cleanable/food/tomato_smudge,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Ek" = (
 /turf/open/floor/plating,
 /area/hallway/secondary/command)
@@ -10585,20 +11563,6 @@
 /obj/machinery/light/small/broken,
 /turf/open/floor/plating/snowed,
 /area/iceland)
-"Em" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
-/area/iceland/shaded)
 "En" = (
 /obj/machinery/washing_machine,
 /turf/open/floor/plasteel/grid/steel,
@@ -10660,8 +11624,17 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_smes)
 "Et" = (
-/obj/structure/chair/fancy/sofa/corp/corner,
+/obj/structure/chair/fancy/sofa/old/corner,
 /turf/open/floor/plasteel,
+/area/iceland/shaded)
+"Eu" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/shaded)
 "Ev" = (
 /turf/closed/wall/r_wall,
@@ -10770,6 +11743,13 @@
 /obj/structure/window,
 /turf/open/floor/grass,
 /area/iceland/shaded)
+"EI" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/filingcabinet/chestdrawer,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "EJ" = (
 /obj/item/reagent_containers/glass/waterbottle/empty{
 	pixel_x = 6;
@@ -10823,6 +11803,12 @@
 	},
 /turf/open/floor/plating/dirt/dark,
 /area/iceland/shaded)
+"ES" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/iceland/shaded)
 "ET" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
@@ -10852,6 +11838,7 @@
 /obj/structure/window{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/open/floor/grass,
 /area/iceland/shaded)
 "EX" = (
@@ -10865,6 +11852,12 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/crew_quarters/bar)
+"EY" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "EZ" = (
 /obj/structure/flora/tree/pine,
 /obj/structure/flora/grass/green,
@@ -11090,12 +12083,21 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"FF" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "FG" = (
 /obj/structure/chair/fancy/bench/pew/right{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
+"FH" = (
+/obj/structure/table/wood,
+/obj/item/trash/candle,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "FI" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plasteel/dark,
@@ -11291,11 +12293,6 @@
 	},
 /turf/closed/mineral/snowmountain,
 /area/iceland/shaded)
-"Gl" = (
-/obj/structure/window,
-/obj/item/flashlight/lamp,
-/turf/open/floor/plasteel/dark,
-/area/iceland/shaded)
 "Gm" = (
 /obj/structure/flora/rock/icy,
 /turf/closed/wall/r_wall,
@@ -11470,6 +12467,10 @@
 	},
 /turf/open/floor/plating/dirt/dark,
 /area/iceland/shaded)
+"GN" = (
+/obj/structure/table/wood,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "GO" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -11528,6 +12529,10 @@
 "GU" = (
 /obj/machinery/door/airlock/freezer,
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland/shaded)
+"GV" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "GW" = (
 /obj/item/pickaxe/silver,
@@ -11594,6 +12599,9 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"He" = (
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Hf" = (
 /obj/item/pickaxe/silver,
 /turf/open/floor/plating/asteroid/snow{
@@ -11631,17 +12639,11 @@
 /obj/structure/flora/stump,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"Hk" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/white/corner,
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
+"Hl" = (
+/obj/structure/weightmachine/stacklifter,
+/obj/effect/turf_decal/bot_white,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
 /area/iceland/shaded)
 "Hm" = (
 /mob/living/simple_animal/hostile/heretic_summon/stalker,
@@ -11918,6 +12920,13 @@
 	dir = 4
 	},
 /area/iceland/shaded)
+"HX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "HY" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
@@ -12184,6 +13193,12 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/snowed/colder,
 /area/iceland/shaded)
+"II" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "IJ" = (
 /turf/closed/wall/mineral,
 /area/iceland/shaded)
@@ -12294,6 +13309,28 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/brig)
+"IY" = (
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8;
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
+"IZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/white/corner{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
 "Ja" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -12394,6 +13431,10 @@
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/open/floor/plating,
 /area/hallway/secondary/command)
+"Jn" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Jo" = (
 /turf/open/floor/plasteel/grid,
 /area/science/lobby)
@@ -12407,6 +13448,12 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"Jq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/food/tomato_smudge,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Js" = (
 /obj/structure/window/reinforced/fulltile/ice{
 	name = "frozen window"
@@ -12448,6 +13495,11 @@
 "Jy" = (
 /turf/closed/mineral/random/snowmountain,
 /area/iceland/shaded)
+"Jz" = (
+/obj/structure/table,
+/obj/item/disk/holodisk/snowdin/ripjacob,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "JA" = (
 /obj/effect/decal/cleanable/generic,
 /turf/closed/indestructible/rock/snow,
@@ -12475,6 +13527,21 @@
 /obj/structure/flora/grass/green,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"JF" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/effect/decal/remains/human,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
 "JG" = (
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
@@ -12486,6 +13553,11 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
+"JI" = (
+/obj/structure/bed,
+/obj/item/bedsheet/purple,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "JL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
@@ -12498,11 +13570,6 @@
 	},
 /turf/open/floor/plating,
 /area/hydroponics)
-"JN" = (
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
-/area/iceland/shaded)
 "JO" = (
 /obj/structure/cable/orange{
 	icon_state = "0-4"
@@ -12566,6 +13633,15 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"JV" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "JW" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
@@ -12613,6 +13689,10 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/hallway/secondary/command)
+"Ke" = (
+/obj/structure/table_frame,
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "Kf" = (
 /mob/living/simple_animal/hostile/faithless,
 /turf/open/floor/plating,
@@ -12631,6 +13711,12 @@
 	slowdown = 1
 	},
 /area/iceland)
+"Ki" = (
+/obj/structure/table,
+/obj/item/kitchen/rollingpin,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Kj" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/carpet/royalblack,
@@ -12663,6 +13749,11 @@
 "Ko" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/grass,
+/area/iceland/shaded)
+"Kp" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "Kq" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -12704,6 +13795,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"Kv" = (
+/obj/item/trash/can/food/beans,
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Kw" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -12754,24 +13850,6 @@
 /obj/machinery/light/broken,
 /turf/open/floor/plating/snowed,
 /area/iceland)
-"KC" = (
-/obj/machinery/camera{
-	c_tag = "Auxiliary Restroom";
-	dir = 4;
-	name = "restroom camera"
-	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -22
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
-/area/iceland/shaded)
 "KD" = (
 /obj/structure/flora/grass/both,
 /turf/closed/mineral/random/snowmountain,
@@ -12788,6 +13866,10 @@
 /obj/machinery/light/small{
 	brightness = 3;
 	dir = 8
+	},
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -22
 	},
 /turf/open/floor/plasteel/freezer,
 /area/iceland/shaded)
@@ -12842,6 +13924,10 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"KK" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "KL" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -12890,6 +13976,12 @@
 	},
 /turf/open/floor/carpet,
 /area/chapel/main)
+"KQ" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "KR" = (
 /obj/machinery/light{
 	dir = 1
@@ -13278,6 +14370,11 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
+"LR" = (
+/obj/structure/table/wood,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "LS" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -13345,18 +14442,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/engineering)
-"LZ" = (
-/obj/structure/urinal{
-	pixel_y = 28
-	},
-/obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plasteel/ridged,
-/area/iceland/shaded)
 "Ma" = (
 /obj/structure/chair/office,
 /turf/open/floor/plasteel/dark,
@@ -13426,6 +14511,17 @@
 /obj/machinery/reagentgrinder,
 /turf/open/floor/plasteel/checker,
 /area/crew_quarters/kitchen)
+"Ml" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/item/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
 "Mm" = (
 /mob/living/simple_animal/pet/penguin/emperor,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -13483,20 +14579,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
-"Mx" = (
-/obj/effect/turf_decal/trimline/white/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
-/area/iceland/shaded)
 "My" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/bot,
@@ -13516,6 +14598,11 @@
 "MB" = (
 /obj/structure/flora/tree/dead,
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"MC" = (
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
 /area/iceland/shaded)
 "MD" = (
 /obj/structure/cable/orange{
@@ -13561,6 +14648,12 @@
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
+"MH" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/iceland/shaded)
 "MI" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -13578,6 +14671,15 @@
 	},
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plasteel/cult,
+/area/iceland/shaded)
+"MN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/barricade/wooden/snowed,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
 /area/iceland/shaded)
 "MO" = (
 /obj/effect/turf_decal/weather/snow,
@@ -13599,6 +14701,9 @@
 /area/iceland/shaded)
 "MR" = (
 /obj/structure/closet/crate/bin,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/stone,
 /area/iceland/shaded)
 "MS" = (
@@ -13631,11 +14736,20 @@
 	},
 /area/iceland/shaded)
 "MV" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
 /obj/machinery/door/poddoor/ert{
 	id = "DoNotOpen"
 	},
 /obj/structure/barricade/wooden/snowed,
-/turf/closed/indestructible/rock/snow,
+/turf/open/floor/plasteel/tech/grid,
 /area/iceland/shaded)
 "MW" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -13650,6 +14764,12 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/bar)
+"MX" = (
+/obj/structure/table,
+/obj/machinery/door/firedoor,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "MY" = (
 /obj/structure/flora{
 	desc = "Looks frozen.";
@@ -13724,29 +14844,6 @@
 	},
 /turf/open/floor/plating,
 /area/iceland/shaded)
-"Nk" = (
-/obj/structure/toilet{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "Toilet1a";
-	name = "Lock Control";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	specialfunctions = 4
-	},
-/obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
-/area/iceland/shaded)
 "Nl" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -13759,6 +14856,12 @@
 "Nn" = (
 /turf/open/floor/plating/snowed/smoothed,
 /area/iceland/shaded)
+"No" = (
+/obj/item/trash/candle,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "Np" = (
 /turf/closed/wall/mineral/wood,
 /area/iceland)
@@ -13769,12 +14872,6 @@
 /obj/effect/decal/cleanable/blood/gibs/up,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"Ns" = (
-/obj/structure/table,
-/obj/item/flashlight/lamp,
-/obj/item/pen,
-/turf/open/floor/plasteel/dark,
-/area/iceland/shaded)
 "Nt" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /obj/structure/cable/orange{
@@ -13791,6 +14888,11 @@
 "Nu" = (
 /turf/closed/indestructible/rock/snow,
 /area/space)
+"Nw" = (
+/obj/effect/decal/cleanable/robot_debris/limb,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "Nx" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass{
@@ -13846,6 +14948,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"NE" = (
+/obj/item/trash/candle,
+/obj/effect/decal/cleanable/glass/plasma,
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/shaded)
 "NF" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plasteel/tech,
@@ -13876,6 +14985,12 @@
 "NK" = (
 /turf/open/floor/plating,
 /area/engine/engineering)
+"NL" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "NM" = (
 /obj/structure/chair/office/light{
 	dir = 8;
@@ -13962,19 +15077,13 @@
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plating,
 /area/engine/engine_smes)
-"NY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+"NX" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
 	},
-/obj/effect/turf_decal/trimline/white/corner{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "n2=23;o2=14"
-	},
+/obj/item/flashlight/lamp,
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "NZ" = (
 /obj/structure/flora/tree/dead,
@@ -14032,6 +15141,18 @@
 	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
+	},
+/area/iceland/shaded)
+"Oh" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
 	},
 /area/iceland/shaded)
 "Oi" = (
@@ -14108,6 +15229,20 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
+"Os" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	name = "Holding Cell";
+	req_access_txt = "63"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
+"Ot" = (
+/obj/effect/decal/cleanable/xenoblood/xgibs,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Ou" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
@@ -14173,12 +15308,21 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland/shaded)
+"OG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/iceland/shaded)
 "OH" = (
 /obj/machinery/power/apc/auto_name/west,
 /obj/structure/cable/orange,
 /obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_smes)
+"OI" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
 "OJ" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -14289,6 +15433,11 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"OY" = (
+/obj/machinery/deepfryer,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Pa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/button/door/incinerator_vent_atmos_main{
@@ -14312,6 +15461,11 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/engineering)
+"Pb" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Pc" = (
 /obj/structure/cable/orange{
 	icon_state = "1-8"
@@ -14383,6 +15537,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
+"Pl" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "Pm" = (
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
@@ -14526,6 +15686,12 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
+"PE" = (
+/obj/structure/bed,
+/obj/item/bedsheet/yellow,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "PF" = (
 /turf/open/floor/plasteel/freezer,
 /area/medical/medbay/central)
@@ -14595,6 +15761,10 @@
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"PO" = (
+/obj/machinery/smartfridge,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "PP" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "medbay_front_door";
@@ -14650,6 +15820,9 @@
 /area/iceland/shaded)
 "PX" = (
 /obj/structure/chair/fancy/sofa/corp,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/stone,
 /area/iceland/shaded)
 "PY" = (
@@ -14734,6 +15907,14 @@
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"Qj" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "Qk" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -14937,6 +16118,22 @@
 /obj/item/stack/sheet/plasteel,
 /turf/open/floor/plating,
 /area/iceland/shaded)
+"QF" = (
+/obj/structure/chair/office,
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
+"QG" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
+"QH" = (
+/obj/item/robot_suit,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "QI" = (
 /obj/structure/flora/stump,
 /obj/structure/flora/grass/both,
@@ -14997,6 +16194,11 @@
 /obj/structure/barricade/wooden/snowed,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/shaded)
+"QU" = (
+/obj/structure/chair/office/light,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "QV" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -15011,6 +16213,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/heads/captain)
+"QW" = (
+/obj/structure/chair/noose,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "QX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -15069,6 +16275,14 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
+"Rf" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/generic,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "Rg" = (
 /obj/structure/closet/secure_closet/bar,
 /obj/item/storage/box/beanbag,
@@ -15171,9 +16385,25 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/lobby)
+"Ry" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/table,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Rz" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"RA" = (
+/obj/item/trash/candle,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
+"RC" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/large,
+/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "RD" = (
 /obj/structure/rack,
@@ -15242,6 +16472,14 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"RI" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "RJ" = (
 /obj/item/clothing/suit/hooded/wintercoat/miner,
 /obj/structure/closet/secure_closet/miner,
@@ -15276,6 +16514,23 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
+"RP" = (
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8;
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
+"RQ" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
 /area/iceland/shaded)
 "RR" = (
 /obj/structure/cable/orange{
@@ -15532,6 +16787,10 @@
 /obj/structure/railing,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
+"Su" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Sv" = (
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/orange{
@@ -15549,6 +16808,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/research)
+"Sx" = (
+/obj/structure/filingcabinet/security,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/iceland/shaded)
 "Sy" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -15668,12 +16931,26 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/hallway/secondary/command)
+"SK" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/shaded)
 "SL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
+"SM" = (
+/obj/structure/closet/cabinet,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "SN" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -15703,13 +16980,9 @@
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
 "SS" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
+/obj/item/pen,
+/obj/structure/window,
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "ST" = (
 /obj/effect/decal/cleanable/dirt,
@@ -15873,10 +17146,6 @@
 	},
 /turf/open/floor/plating,
 /area/iceland/shaded)
-"Tm" = (
-/obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note,
-/turf/open/floor/plating/snowed,
-/area/iceland/shaded)
 "Tn" = (
 /obj/machinery/power/apc/auto_name/west,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -15932,6 +17201,11 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
+"Tv" = (
+/obj/item/trash/candle,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Tw" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/flora/stump,
@@ -16256,6 +17530,13 @@
 "Ur" = (
 /turf/open/openspace,
 /area/iceland)
+"Us" = (
+/obj/structure/table,
+/obj/item/bedsheet/purple,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Ut" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -16281,6 +17562,11 @@
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "n2=23;o2=14"
 	},
+/area/iceland/shaded)
+"Uw" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/chair/stool,
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/shaded)
 "Ux" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -16343,6 +17629,12 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/dorms)
+"UC" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 4
+	},
+/turf/open/floor/circuit/green,
+/area/iceland/shaded)
 "UD" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/fancy/sofa/old/left,
@@ -16355,6 +17647,20 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"UF" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 6
+	},
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	pixel_y = 16
+	},
+/turf/open/floor/engine,
+/area/iceland/shaded)
+"UG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "UH" = (
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/snowed/smoothed,
@@ -16487,6 +17793,12 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"UX" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "UY" = (
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable/orange{
@@ -16499,6 +17811,12 @@
 "UZ" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice,
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"Va" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/turf/open/floor/engine,
 /area/iceland/shaded)
 "Vb" = (
 /obj/structure/chair/fancy/plastic{
@@ -16521,6 +17839,13 @@
 	dir = 8
 	},
 /area/iceland/shaded)
+"Vd" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/obj/structure/window/reinforced/tinted,
+/obj/item/trash/sosjerky,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Ve" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -16534,6 +17859,11 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/engineering)
+"Vf" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Vg" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -16568,6 +17898,12 @@
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
+/area/iceland/shaded)
+"Vk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/food/flour,
+/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "Vl" = (
 /obj/structure/closet/crate/bin,
@@ -16758,6 +18094,14 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"VH" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "VI" = (
 /obj/structure/frame,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -16774,6 +18118,15 @@
 "VK" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/snowed,
+/area/iceland/shaded)
+"VL" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/item/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/shaded)
 "VM" = (
 /obj/effect/turf_decal/stripes/line{
@@ -16855,6 +18208,11 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/iceland/shaded)
+"Wa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/food/egg_smudge,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Wb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -16880,6 +18238,21 @@
 "We" = (
 /obj/structure/barricade/wooden/crude/snow,
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"Wf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/iceland/shaded)
+"Wg" = (
+/obj/item/toy/beach_ball/holoball,
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
 /area/iceland/shaded)
 "Wh" = (
 /obj/structure/chair/fancy/sofa/old/corner/concave{
@@ -16908,29 +18281,17 @@
 /obj/structure/flora/tree/pine,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"Wk" = (
+/obj/item/trash/pistachios,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "Wl" = (
-/obj/structure/toilet{
-	dir = 1
-	},
-/obj/machinery/light/small{
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8;
 	dir = 4
 	},
-/obj/effect/landmark/start/assistant,
-/obj/machinery/button/door{
-	id = "Toilet2a";
-	name = "Lock Control";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	specialfunctions = 4
-	},
-/obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "Wm" = (
 /obj/machinery/chem_heater{
@@ -16987,6 +18348,10 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/plasteel,
 /area/science/research)
+"Wu" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Wv" = (
 /obj/structure/closet/secure_closet/captains,
 /obj/effect/turf_decal/stripes/line{
@@ -17020,6 +18385,11 @@
 	},
 /obj/structure/window,
 /turf/open/floor/carpet/royalblack,
+/area/iceland/shaded)
+"Wy" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/shoes/winterboots,
+/turf/open/floor/carpet/grimy,
 /area/iceland/shaded)
 "Wz" = (
 /obj/structure/noticeboard{
@@ -17158,6 +18528,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
+"WR" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "WS" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -17193,6 +18569,12 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/dirt/dark,
 /area/iceland/shaded)
+"WX" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/iceland/shaded)
 "WY" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -17226,6 +18608,7 @@
 /obj/structure/chair/fancy/sofa/corp{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/open/floor/stone,
 /area/iceland/shaded)
 "Xb" = (
@@ -17256,6 +18639,13 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"Xe" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/fork,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Xf" = (
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/ice/smooth,
@@ -17277,6 +18667,14 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
+"Xi" = (
+/obj/machinery/airalarm{
+	pixel_y = 23
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/table,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Xj" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/structure/window/reinforced{
@@ -17358,6 +18756,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/tech,
 /area/engine/engineering)
+"Xx" = (
+/obj/structure/bed,
+/obj/item/bedsheet/grey,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Xy" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -17370,6 +18773,10 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/security/brig)
+"XA" = (
+/obj/machinery/light/floor,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "XB" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/extinguisher,
@@ -17397,6 +18804,12 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/engineering)
+"XF" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/suit/hooded/wintercoat,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "XG" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/grass,
@@ -17434,6 +18847,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
+"XL" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/iceland/shaded)
 "XM" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -17456,6 +18875,21 @@
 	},
 /turf/open/floor/plasteel/grid,
 /area/science/research)
+"XP" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "XQ" = (
 /obj/machinery/vending/medical,
 /obj/effect/turf_decal/bot,
@@ -17568,6 +19002,10 @@
 	pixel_y = -9
 	},
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland/shaded)
+"Yi" = (
+/obj/structure/table,
+/turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
 "Yj" = (
 /obj/structure/flora/stump,
@@ -17756,6 +19194,15 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/plasteel/techmaint,
 /area/tcommsat/server)
+"YJ" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "YK" = (
 /obj/structure/fence/end{
 	dir = 1
@@ -17875,6 +19322,11 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"YY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/food/flour,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "YZ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -17926,6 +19378,13 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"Zf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/iceland/shaded)
 "Zg" = (
 /obj/machinery/button/crematorium/indestructible{
 	id = "DoorPuzzle"
@@ -17943,6 +19402,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
+"Zi" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/molten_object,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "Zj" = (
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room/council)
@@ -17984,6 +19451,17 @@
 "Zq" = (
 /obj/structure/closet/secure_closet/evidence,
 /turf/closed/mineral/snowmountain,
+/area/iceland/shaded)
+"Zr" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/brown,
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
 /area/iceland/shaded)
 "Zs" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -18091,6 +19569,11 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/hallway/secondary/command)
+"ZE" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/item/chair,
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
 "ZG" = (
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/item/reagent_containers/food/snacks/tofu/prison,
@@ -18182,6 +19665,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"ZS" = (
+/obj/structure/table/wood,
+/obj/item/trash/candle,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "ZT" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
@@ -18202,6 +19692,10 @@
 "ZX" = (
 /obj/machinery/iv_drip,
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"ZY" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/shaded)
 "ZZ" = (
 /obj/item/stack/rods,
@@ -34889,7 +36383,7 @@ TG
 TG
 fr
 Ix
-Tm
+Ix
 Ix
 Ix
 Ix
@@ -35633,8 +37127,9 @@ TG
 TG
 Jy
 Jy
-JX
-iC
+Ru
+Ru
+Ru
 Ru
 Ru
 Ru
@@ -35649,7 +37144,6 @@ Ru
 Ru
 Ru
 Cw
-Cw
 TG
 TG
 TG
@@ -35660,11 +37154,11 @@ TG
 TG
 Cw
 Cw
-Ix
-Ix
-Ix
-Ix
-Ix
+AJ
+AJ
+AJ
+AJ
+AJ
 Cw
 Cw
 TG
@@ -35891,21 +37385,21 @@ TG
 Jy
 Jy
 Ru
+ye
+Cw
+Cw
+Cw
+Cw
+Cw
+Cw
+Cw
+Cw
+Cw
 Ru
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Ru
+Ru
+Ru
 Cw
 TG
 TG
@@ -35916,13 +37410,13 @@ TG
 TG
 TG
 Cw
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
+iV
+JG
+WJ
+WJ
+WJ
+ru
+iV
 Cw
 TG
 TG
@@ -35931,7 +37425,7 @@ TG
 TG
 TG
 Cw
-iC
+Cw
 iC
 iC
 iC
@@ -36146,23 +37640,23 @@ TG
 TG
 TG
 Jy
-Jy
+zS
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Cw
+Ej
+ZT
+Ki
+fn
+uG
+tQ
+Dm
+pr
+Db
+Db
+Db
+Db
+Ru
+Ru
 Cw
 TG
 TG
@@ -36171,24 +37665,24 @@ TG
 TG
 TG
 TG
+Zt
+zs
+iV
+JG
+WJ
+WJ
+WJ
+ru
+iV
+zs
+Zt
 TG
+TG
+TG
+TG
+TG
+VS
 Cw
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Cw
-TG
-TG
-TG
-TG
-TG
-TG
-Cw
-iC
 iC
 iC
 iC
@@ -36405,21 +37899,21 @@ Jy
 Jy
 Jy
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Cw
+kk
+YY
+tz
+AN
+Pb
+Jn
+kQ
+Cc
+Db
+Db
+Db
+Db
+Db
+Ru
 Cw
 TG
 TG
@@ -36430,27 +37924,27 @@ Zt
 TG
 TG
 Cw
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
+iV
+JG
+WJ
+WJ
+WJ
+ru
+iV
 Gp
 TG
+Zt
 TG
 TG
 TG
-TG
-TG
+Zt
+VS
 Cw
-iC
-iC
-iC
-iC
-iC
-iC
+Ru
+Ru
+Ru
+Ru
+Ru
 iC
 iC
 iC
@@ -36662,21 +38156,21 @@ Jy
 Jy
 Jy
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Cw
+OY
+Wa
+Du
 fn
+Xi
+uG
+IJ
+OI
+Ml
+Db
+Db
+Db
+Db
 fn
-fn
-fn
-fn
 Cw
 Cw
 zs
@@ -36687,27 +38181,27 @@ zs
 zs
 Cw
 Cw
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
+iV
+JG
+WJ
+WJ
+WJ
+ru
+iV
+Cw
+Cw
+zs
+Cw
+Cw
+Cw
+zs
 Cw
 Cw
 Cw
 Cw
 Cw
 Cw
-Cw
-Cw
-Cw
-Cw
-Cw
-Cw
-Cw
-iC
+Ru
 iC
 iC
 iC
@@ -36919,19 +38413,19 @@ Jy
 Jy
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Cw
+RC
+ZT
+ar
 fn
-JG
-WJ
+vJ
+uG
+CO
+bC
+DI
+wc
+Db
+Db
 Db
 fn
 Kj
@@ -36945,26 +38439,26 @@ iV
 gG
 Cw
 Cw
-Ix
-Ix
+up
+up
 Cw
-Ix
-Ix
+up
+up
 Cw
+fn
+ee
+ee
+ee
+fn
+iq
+iq
+tx
+Rz
+fs
+Bj
+zo
 Cw
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Cw
-iC
+Ru
 iC
 iC
 iC
@@ -37176,19 +38670,19 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-IJ
-JG
-WJ
+Cw
+OY
+Vk
+Kp
+MX
+Pb
+Jn
+sc
+nb
+OI
+oS
+Db
+Db
 Db
 fn
 Av
@@ -37209,19 +38703,19 @@ Av
 Av
 ty
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+kp
+rr
+iV
+Rz
+CW
+CW
+CW
+Os
+lY
+bj
+iI
 Cw
-iC
+Ru
 iC
 iC
 iC
@@ -37433,24 +38927,24 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-IJ
-JG
-WJ
+Cw
+ek
+Jq
+Vf
+PO
+dc
+Pb
+xt
+ZY
+ZY
+mb
+Eu
+Db
 Db
 zB
 iV
 iV
-iV
+GV
 iV
 iV
 iV
@@ -37466,19 +38960,19 @@ Av
 Av
 ty
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+kp
+iV
+iV
+fn
+CW
+OG
+CW
+Rz
+sX
+gL
+vu
 Cw
-iC
+Ru
 iC
 iC
 iC
@@ -37690,22 +39184,22 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-IJ
-JG
-WJ
+Cw
+sm
+fn
+fn
+fn
+zE
+Jn
+pG
+ZE
+ZY
+ZY
+pr
+Db
 Db
 zB
-iV
+GV
 iV
 iV
 iV
@@ -37723,19 +39217,19 @@ Av
 Av
 ty
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+kp
+rr
+iV
+tc
+OG
+OG
+CW
+fn
+fn
+fn
+fn
 Cw
-iC
+Ru
 iC
 iC
 iC
@@ -37947,19 +39441,19 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-IJ
-JG
-WJ
+Cw
+NL
+Ed
+jC
+sm
+dq
+hi
+Xe
+ZY
+Uw
+OI
+ZY
+xs
 Db
 fn
 Av
@@ -37980,19 +39474,19 @@ Av
 ty
 zJ
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+kp
+iV
+iV
+fn
+CB
+CW
+CW
+OG
+OG
+OG
+BG
 Cw
-iC
+Ru
 iC
 iC
 iC
@@ -38204,20 +39698,20 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-IJ
-JG
-WJ
-ru
+Cw
+fZ
+Pl
+Ed
+fn
+fH
+nx
+Ke
+yr
+kS
+tA
+OI
+VL
+Db
 fn
 KO
 tq
@@ -38237,19 +39731,19 @@ Av
 ty
 Xa
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+ee
+ee
+ee
+fn
+Sx
+CW
+OG
+CW
+CW
+OG
+kK
 Cw
-iC
+Ru
 iC
 iC
 iC
@@ -38461,20 +39955,20 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Cw
+fn
+RQ
+sm
 IJ
-JG
-WJ
-ru
+IJ
+IJ
+IJ
+IJ
+IJ
+IJ
+xm
+JV
+iP
 fn
 fn
 fn
@@ -38495,18 +39989,18 @@ ty
 je
 fn
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+fn
+fn
+fn
+fn
+CW
+OG
+fn
+fn
+up
+fn
 Cw
-iC
+Ru
 iC
 iC
 iC
@@ -38718,20 +40212,20 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
 IJ
-JG
 WJ
-Db
+WJ
+WJ
+WJ
+ZT
+ZT
+qb
+aF
+zR
+IJ
+EY
+ur
+lx
 fn
 iw
 KF
@@ -38750,20 +40244,20 @@ Av
 Av
 ty
 ty
-ty
+wp
 Eb
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+nX
+KQ
+tc
+OG
+OG
+fn
+iV
+iV
+iV
 Cw
-iC
+Ru
 iC
 iC
 iC
@@ -38975,25 +40469,25 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+WJ
+WJ
+WJ
+WJ
+RA
+Kv
+ZT
+wP
+ZT
 IJ
 JG
 WJ
-ru
+FF
 fn
 iw
 nv
 nv
-nv
+mQ
 fn
 fn
 fn
@@ -39010,17 +40504,17 @@ ty
 ty
 EW
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+ov
+en
+Rz
+CW
+OG
+fn
+iV
+iV
+iV
 Cw
-iC
+Ru
 iC
 iC
 iC
@@ -39232,27 +40726,27 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+qb
+gA
+Us
 IJ
 JG
-WJ
-ru
+ur
+FF
 IJ
-nv
+gl
 nv
 nv
 nv
 eN
-nv
+Cd
 Ri
 fn
 kJ
@@ -39267,17 +40761,17 @@ ty
 ty
 aI
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+ov
+dU
+fn
+yF
+yF
+fn
+iV
+iV
+iV
 Cw
-iC
+Ru
 iC
 iC
 iC
@@ -39489,20 +40983,20 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+IJ
+IJ
+IJ
+IJ
+up
+up
+IJ
+IJ
+IJ
 IJ
 JG
 WJ
-ru
+FF
 IJ
 dX
 xW
@@ -39524,19 +41018,19 @@ Av
 ty
 jZ
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+cn
+QF
+hk
+iV
+iV
+fn
+iV
+iV
+iV
 Cw
-Cw
-Cw
-Cw
+Ru
+Ru
+Ru
 iC
 "}
 (84,1,1) = {"
@@ -39746,20 +41240,20 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Ed
 IJ
-up
-up
-up
+Al
+Ry
+Ai
+Nw
+iV
+Zr
+hx
+Al
+IJ
+EY
+WJ
+FF
 fn
 fn
 fn
@@ -39769,7 +41263,7 @@ fn
 fn
 fn
 fn
-ty
+ke
 Av
 Av
 Av
@@ -39781,18 +41275,18 @@ Av
 Av
 ty
 fn
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
-Ed
+Rz
+Rz
 fn
-iC
-iC
+iV
+iV
+fn
+fn
+fn
+fn
+fn
+fn
+fn
 Ru
 iC
 "}
@@ -40003,24 +41497,24 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Ed
+IJ
+UG
+os
+MH
+XS
+YF
+Ot
+Tv
+UG
 IJ
 JG
 WJ
 ZM
 yS
 yS
-yS
-yS
+ao
+ao
 yS
 yS
 yS
@@ -40038,18 +41532,18 @@ Av
 Av
 Av
 tc
-Ed
-Ed
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+fn
 Ed
 Ed
 Ed
 fn
-fn
-fn
-fn
-fn
-iC
-iC
 Ru
 iC
 "}
@@ -40260,25 +41754,25 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Ed
+IJ
+UG
+He
+He
+XS
+iV
+vQ
+zd
+dQ
 IJ
 JG
+ur
+WJ
+ur
 WJ
 WJ
 WJ
-WJ
-WJ
-WJ
-WJ
+ur
 WJ
 WJ
 WJ
@@ -40295,18 +41789,18 @@ ty
 Av
 Av
 tc
-Ed
-Ed
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+yD
 Ed
 Ed
 Ed
 fn
-iC
-iC
-iC
-iC
-iC
-iC
 Ru
 iC
 "}
@@ -40517,23 +42011,23 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Ed
+IJ
+go
+Dq
+Vd
+iV
+DX
+ha
+mw
+go
 IJ
 JG
 WJ
 uX
 Ty
 Ty
-Ty
+XL
 Ty
 Ty
 Ty
@@ -40552,18 +42046,18 @@ ty
 Av
 Av
 tc
-Ed
-Ed
+Ty
+Ty
+Ty
+Ty
+Ty
+Ty
+Ty
+fn
 Ed
 Ed
 Ed
 fn
-iC
-iC
-iC
-iC
-iC
-iC
 Ru
 iC
 "}
@@ -40774,20 +42268,20 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
 IJ
-JG
-WJ
-ru
+IJ
+IJ
+IJ
+IJ
+Rf
+up
+IJ
+IJ
+IJ
+IJ
+up
+xm
+up
 IJ
 IJ
 IJ
@@ -40798,7 +42292,7 @@ IJ
 IJ
 fn
 fn
-ty
+Bu
 ty
 ty
 ty
@@ -40812,15 +42306,15 @@ fn
 fn
 fn
 fn
+ww
+ww
 fn
 fn
 fn
-iC
-iC
-iC
-iC
-iC
-iC
+fn
+VF
+fn
+fn
 Ru
 iC
 "}
@@ -41031,29 +42525,29 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+cR
+II
+vQ
+cH
+MH
+ym
+IJ
+PE
+hP
 IJ
 JG
 WJ
 ru
 IJ
-fn
-LZ
+Ye
+Yi
 SS
-nv
-KC
-lq
+JG
+ru
+db
 Wl
-iC
+ak
 fn
 fn
 XW
@@ -41288,29 +42782,29 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+LR
+He
+Wy
+IJ
+YJ
+bd
+cH
+He
+UG
 IJ
 JG
 WJ
-ru
+FF
 IJ
-fn
-oR
-bs
-nv
-Em
-fn
-fn
-iC
+gE
+rr
+iV
+JG
+ru
+iV
+QW
+Yi
 fn
 sC
 iV
@@ -41323,7 +42817,7 @@ ZT
 OF
 fn
 iC
-ar
+iC
 iC
 iC
 iC
@@ -41545,29 +43039,29 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+IJ
+IJ
+IJ
+IJ
+AD
+Do
+IJ
+sS
+GN
 IJ
 JG
 WJ
 ru
 IJ
-fn
-fn
+Bd
+RO
 rs
-nJ
-cA
-eN
-Nk
-iC
+JG
+ru
+ol
+sC
+RO
 fn
 yv
 WJ
@@ -41580,7 +43074,7 @@ WJ
 Et
 fn
 iC
-ar
+iC
 iC
 iC
 iC
@@ -41802,30 +43296,30 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+mT
+UG
+UG
+cH
+JG
+bB
+IJ
+IJ
+IJ
 IJ
 JG
 WJ
 ru
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
 fn
+sm
+sm
+JG
+ru
+IJ
+IJ
+IJ
+IJ
 Bd
 iV
 sC
@@ -41837,7 +43331,7 @@ Ue
 iZ
 fn
 iC
-ds
+iC
 iC
 iC
 iC
@@ -42059,30 +43553,30 @@ TG
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+ZS
+He
+xX
+IJ
+uj
+Ea
+IJ
+JI
+zj
 IJ
 JG
 WJ
 ru
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-fn
+lH
+RO
+WA
+JG
+ru
+ol
+RO
+Bd
+IJ
 fn
 fn
 fn
@@ -42316,20 +43810,29 @@ KJ
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
 IJ
-JG
-WJ
+IJ
+IJ
+IJ
+IJ
+Ah
 ru
+cH
+He
+He
+IJ
+EY
+WJ
+bD
+IJ
+gE
+sn
+pJ
+JG
+ru
+iV
+CC
+RP
 IJ
 iC
 iC
@@ -42341,15 +43844,6 @@ iC
 iC
 iC
 iC
-iC
-kM
-sa
-GO
-ly
-Hv
-iK
-Ef
-sm
 iC
 iC
 iC
@@ -42573,21 +44067,30 @@ Bp
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
 IJ
+gs
+jT
+QG
+cH
 JG
-WJ
 ru
 IJ
+XF
+FH
+IJ
+JG
+YF
+ru
+IJ
+Bd
+sC
+WA
+JG
+ru
+ol
+Jz
+Yi
+IJ
 iC
 iC
 iC
@@ -42598,15 +44101,6 @@ iC
 iC
 iC
 iC
-iC
-fg
-Ed
-gP
-AC
-Qz
-iK
-Ks
-sm
 iC
 iC
 iC
@@ -42830,21 +44324,30 @@ TG
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+GN
+UG
+SM
+IJ
+ub
+Wk
+IJ
+IJ
+IJ
 IJ
 JG
 WJ
 ru
 IJ
+sm
+sm
+sm
+RI
+ru
+IJ
+IJ
+IJ
+IJ
 iC
 iC
 iC
@@ -42856,24 +44359,15 @@ iC
 iC
 iC
 iC
-fg
-uD
-pH
-GG
-iK
-iK
-yC
-fn
 iC
 iC
 iC
 iC
 iC
-VF
-VF
-VF
-VF
-VF
+iC
+iC
+iC
+iC
 iC
 iC
 iC
@@ -43087,20 +44581,29 @@ TG
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+IJ
+IJ
+IJ
+IJ
+bD
+ms
+IJ
+kZ
+Su
 IJ
 JG
 WJ
+jS
+IJ
+NX
+RO
+WA
+JG
 ru
+EI
+Bd
+Yi
 IJ
 iC
 iC
@@ -43113,24 +44616,15 @@ iC
 iC
 iC
 iC
-gZ
-fM
-xf
-Dw
-IP
-ox
-yC
-Uc
 iC
 iC
 iC
 iC
 iC
-VF
-VF
-VF
-VF
-VF
+iC
+iC
+iC
+iC
 iC
 iC
 iC
@@ -43344,21 +44838,30 @@ TG
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+Xx
+He
+He
+cH
+JG
+ru
+cH
+UG
+UG
 IJ
 JG
 WJ
 ru
 IJ
+Yi
+ce
+iV
+JG
+ru
+iV
+sn
+RP
+IJ
 iC
 iC
 iC
@@ -43370,24 +44873,15 @@ iC
 iC
 iC
 iC
-Cw
-pa
-pa
-sm
-pa
-sQ
-sm
-sm
 iC
 iC
 iC
 iC
 iC
-VF
-VF
-VF
-VF
-VF
+iC
+iC
+iC
+iC
 iC
 iC
 iC
@@ -43601,21 +45095,30 @@ TG
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
 IJ
-JG
-WJ
+qI
+He
+xX
+IJ
+cL
 ru
 IJ
+cs
+GN
+IJ
+UX
+WJ
+Ed
+IJ
+ak
+IY
+zT
+JG
+ru
+ol
+ak
+RO
+IJ
 iC
 iC
 iC
@@ -43636,15 +45139,6 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-Sz
-iV
-oI
-WA
 iC
 iC
 iC
@@ -43858,21 +45352,30 @@ TG
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+IJ
+IJ
+IJ
+IJ
+VH
+VH
+IJ
+IJ
+IJ
 IJ
 JG
 WJ
 ru
 IJ
+IJ
+IJ
+IJ
+up
+up
+IJ
+IJ
+IJ
+IJ
 iC
 iC
 iC
@@ -43893,15 +45396,6 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-Ye
-rr
-iV
-iV
 iC
 iC
 iC
@@ -44115,21 +45609,39 @@ TG
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-IJ
+mW
+SK
+lR
+yS
+YF
+lR
+Ea
+yS
+yS
+NE
+cw
 JG
 WJ
 ru
-IJ
+tc
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
 iC
 iC
 iC
@@ -44141,24 +45653,6 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-Bd
-RO
-tw
-WA
 iC
 iC
 iC
@@ -44372,21 +45866,39 @@ KJ
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-IJ
-JG
-WJ
+mW
+eY
+Wf
+uO
+si
+ZT
+wP
+ZT
+ZT
+ZT
+ks
+or
+lp
 ru
-IJ
+ks
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
 iC
 iC
 iC
@@ -44398,24 +45910,6 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-Si
-jP
-xx
-xx
-lJ
-Hk
-ri
-iC
-iC
-iC
-iC
-fn
-sm
-sm
-fn
 iC
 iC
 iC
@@ -44629,21 +46123,39 @@ Bp
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-IJ
+mW
+rQ
+XL
+XL
+Ty
+nz
+Ty
+Ed
+WX
+pX
+tc
 JG
 WJ
 ru
-IJ
+tc
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
+WJ
 iC
 iC
 iC
@@ -44655,24 +46167,6 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-UQ
-qD
-JN
-cE
-JN
-zF
-SG
-iC
-iC
-iC
-iC
-Sz
-iV
-iV
-Gl
 iC
 iC
 iC
@@ -44886,16 +46380,16 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+IJ
+IJ
+IJ
+IJ
+up
+Zi
+up
+IJ
+IJ
 IJ
 JG
 WJ
@@ -44909,27 +46403,27 @@ iC
 iC
 iC
 iC
+WJ
+WJ
 iC
 iC
 iC
 iC
 iC
 iC
-Mx
-rL
-JN
-JN
-JN
-NY
-Uv
 iC
 iC
 iC
 iC
-nk
-sn
-pJ
-iV
+iC
+iC
+iC
+iC
+iC
+iC
+iC
+iC
+iC
 iC
 iC
 iC
@@ -45143,16 +46637,16 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+IJ
+Ds
+lR
+yS
+lR
+yS
+hZ
+Bl
 IJ
 JG
 WJ
@@ -45166,6 +46660,8 @@ iC
 iC
 iC
 iC
+WJ
+WJ
 iC
 iC
 iC
@@ -45183,10 +46679,8 @@ iC
 iC
 iC
 iC
-ak
-RO
-sC
-WA
+iC
+iC
 iC
 iC
 iC
@@ -45400,16 +46894,16 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+IJ
+WR
+hL
+Wu
+hL
+Wu
+Wu
+ms
 IJ
 JG
 WJ
@@ -45423,6 +46917,8 @@ iC
 iC
 iC
 iC
+WJ
+WJ
 iC
 iC
 iC
@@ -45440,10 +46936,8 @@ iC
 iC
 iC
 iC
-sm
-sm
-sm
-fn
+iC
+iC
 iC
 iC
 iC
@@ -45657,20 +47151,20 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+IJ
+No
+Hl
+Wu
+qp
+hL
+mZ
+ms
 IJ
 JG
 WJ
-ru
+jS
 IJ
 iC
 iC
@@ -45680,6 +47174,8 @@ iC
 iC
 iC
 iC
+WJ
+WJ
 iC
 iC
 iC
@@ -45697,10 +47193,8 @@ iC
 iC
 iC
 iC
-Sz
-iV
-iV
-WA
+iC
+iC
 iC
 iC
 iC
@@ -45914,16 +47408,16 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+IJ
+Qj
+Wu
+hL
+Wu
+hL
+hL
+ms
 IJ
 JG
 WJ
@@ -45937,6 +47431,8 @@ iC
 iC
 iC
 iC
+WJ
+WJ
 iC
 iC
 iC
@@ -45954,10 +47450,8 @@ iC
 iC
 iC
 iC
-Ye
-ce
-iV
-iV
+iC
+iC
 iC
 iC
 iC
@@ -46171,19 +47665,19 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+IJ
+Si
+rJ
+CI
+CI
+CI
+jy
+Oh
 IJ
 JG
-WJ
+YF
 ru
 IJ
 iC
@@ -46194,6 +47688,8 @@ iC
 iC
 iC
 iC
+WJ
+WJ
 iC
 iC
 iC
@@ -46211,10 +47707,8 @@ iC
 iC
 iC
 iC
-Ns
-RO
-kD
-WA
+iC
+iC
 iC
 iC
 iC
@@ -46428,16 +47922,16 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+IJ
+UQ
+iY
+Zf
+Wg
+mv
+zw
+SG
 IJ
 JG
 WJ
@@ -46451,8 +47945,8 @@ iC
 iC
 iC
 iC
-iC
-iC
+WJ
+WJ
 iC
 iC
 iC
@@ -46685,16 +48179,16 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+IJ
+JF
+we
+sy
+hN
+hN
+IZ
+Uv
 IJ
 JG
 WJ
@@ -46708,8 +48202,8 @@ iC
 iC
 iC
 iC
-iC
-iC
+WJ
+WJ
 iC
 iC
 iC
@@ -46942,16 +48436,16 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+IJ
+IJ
+IJ
+IJ
+IJ
+IJ
+IJ
+IJ
 IJ
 JG
 WJ
@@ -47199,15 +48693,15 @@ iC
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+qL
+qL
+qL
+qL
+qL
+qL
+qL
 IJ
 IJ
 up
@@ -47449,13 +48943,13 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-Ru
+Cw
+IJ
+IJ
+Cw
+Cw
+Cw
+uC
 IJ
 IJ
 IJ
@@ -47705,12 +49199,12 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
+Cw
+Ix
+Ix
+Ix
+JX
+JX
 iC
 Ru
 Db
@@ -47743,14 +49237,14 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+kM
+sa
+GO
+ly
+Hv
+iK
+Ef
+sm
 iC
 iC
 iC
@@ -47962,12 +49456,12 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
+Cw
+Ix
+Ix
+Ix
+Ix
+JX
 iC
 Ru
 Db
@@ -47982,7 +49476,7 @@ kI
 NP
 fF
 WJ
-WJ
+fj
 WJ
 WJ
 ks
@@ -48000,14 +49494,14 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+fg
+Ed
+gP
+AC
+Qz
+iK
+Ks
+sm
 iC
 iC
 iC
@@ -48219,13 +49713,13 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Cw
+Ix
+Ix
+Ix
+Ix
+JX
+JX
 Ru
 Db
 Db
@@ -48236,7 +49730,7 @@ Db
 Xb
 BF
 BF
-UV
+mW
 kb
 WJ
 WJ
@@ -48257,14 +49751,14 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+fg
+uD
+pH
+GG
+iK
+iK
+yC
+fn
 iC
 iC
 iC
@@ -48476,14 +49970,14 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-Ru
+IJ
+Ix
+Ix
+Ix
+Ix
+Ix
+Ix
+uC
 IJ
 IJ
 IJ
@@ -48514,14 +50008,14 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+gZ
+fM
+xf
+Dw
+IP
+ox
+yC
+Uc
 iC
 iC
 iC
@@ -48733,23 +50227,23 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+Ix
+Ix
+Ix
+Ix
+Ix
+Ix
 Ru
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+qL
 IJ
-Ed
-Ed
-Ed
+sa
+XP
+xz
+hU
+za
 IJ
 IJ
 up
@@ -48757,11 +50251,11 @@ up
 up
 IJ
 IJ
-iV
-iV
-iV
-iV
-iV
+MC
+Va
+to
+ou
+MC
 IJ
 IJ
 Db
@@ -48771,14 +50265,14 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Cw
+pa
+pa
+sm
+pa
+sQ
+sm
+sm
 iC
 iC
 iC
@@ -48991,35 +50485,35 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
+Ix
+Ix
+Ix
+Ix
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+qL
 IJ
-Ed
-Ed
-Ed
-Ed
+uj
+WJ
+yV
+UC
+pT
+Ef
 IJ
 JG
 WJ
 ru
 IJ
-iV
-iV
-iV
-iV
-iV
-iV
-iV
+XA
+MC
+zW
+ES
+UF
+MC
+XA
 IJ
 Db
 Db
@@ -49247,35 +50741,35 @@ iC
 iC
 iC
 iC
-iC
-iC
-CP
-CP
-CP
+IJ
+Ix
+JX
+Dj
+Dj
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+qL
 IJ
-Ed
-Ed
-Ed
-Ed
-IJ
+WJ
+WJ
+yV
+bz
+KK
+iK
+Rz
 JG
 WJ
 ru
 IJ
 iV
-iV
-iV
-iV
-iV
-iV
+MC
+MC
+MC
+MC
+MC
 iV
 IJ
 Db
@@ -49505,35 +50999,35 @@ iC
 iC
 iC
 iC
-CP
-CP
+Ix
+JX
 bq
 CP
 iC
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+qL
 IJ
 Ed
+WJ
 Ed
-Ed
-Ed
-IJ
+QH
+jc
+iK
+Rz
 JG
 WJ
 Ed
 IJ
+XA
 iV
 iV
 iV
 iV
 iV
-iV
-iV
+XA
 IJ
 Db
 Db
@@ -49762,27 +51256,27 @@ iC
 iC
 iC
 iC
-CP
-CP
+JX
+JX
 CP
 CP
 CP
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+qL
 IJ
-Ed
-Ed
-Ed
-Ed
-IJ
+yc
+WJ
+sZ
+er
+QU
+AM
+Rz
 JG
 WJ
-Ed
+YF
 IJ
 IJ
 iV
@@ -50018,25 +51512,25 @@ iC
 iC
 iC
 iC
+JX
+JX
 CP
-CP
-CP
-SQ
+ej
 CP
 CP
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+qL
 IJ
-Ed
-Ed
-Ed
-Ed
-IJ
+uD
+uj
+HX
+hR
+KK
+fQ
+Rz
 JG
 WJ
 ru
@@ -50274,25 +51768,25 @@ iC
 iC
 iC
 iC
-CP
-CP
-CP
-SQ
+JX
+JX
+JX
+ej
 xa
 CP
-CP
+JX
 iC
 Ru
-iC
-iC
-iC
-iC
-iC
+qL
+qL
+qL
 IJ
+hg
 Ed
-Ed
-Ed
-Ed
+aQ
+qw
+wD
+yC
 IJ
 JG
 WJ
@@ -50512,7 +52006,7 @@ TG
 qf
 Uu
 Gc
-jk
+jU
 VS
 wq
 TR
@@ -50526,20 +52020,20 @@ Ix
 fn
 fn
 fn
-iC
-iC
-iC
-iC
-iC
-CP
-CP
+fn
+fn
+fn
+fn
+fn
+JX
+JX
 bq
-SQ
+ej
 CP
 CP
-iC
-iC
-Ru
+JX
+JX
+uC
 IJ
 IJ
 IJ
@@ -50547,7 +52041,7 @@ IJ
 IJ
 IJ
 IJ
-IJ
+Cg
 IJ
 IJ
 IJ
@@ -50782,22 +52276,22 @@ QS
 Dz
 vF
 cj
+Dj
 Ix
-iC
-iC
-iC
-iC
-iC
-iC
-SQ
+Ix
+Ix
+Ix
+Ix
+Ix
+ej
 CP
 CP
-SQ
+ej
 CP
-iC
+JX
 iC
 Ru
-IJ
+Db
 Db
 Db
 Db
@@ -51039,22 +52533,22 @@ Ix
 xw
 Dz
 Dz
+Dj
 Ix
-iC
-iC
-iC
-iC
-iC
-CP
-SQ
-CP
+Ix
+Ix
+Ix
+Ix
+Ix
+ej
 CP
 CP
 CP
-iC
-iC
+CP
+JX
+JX
 Ru
-IJ
+Db
 Db
 Db
 Db
@@ -51063,12 +52557,12 @@ fF
 WJ
 WJ
 WJ
-Ed
+uj
 WJ
 WJ
 WJ
 ru
-jW
+ho
 XS
 iV
 eo
@@ -51076,7 +52570,7 @@ fG
 TC
 iV
 iV
-jW
+ho
 WJ
 WJ
 WJ
@@ -51297,21 +52791,21 @@ BH
 bb
 bb
 fn
-iC
-iC
-iC
-iC
+Ix
+Ix
+Ix
+Ix
 CP
 CP
-SQ
+ej
 CP
 iC
-CP
-CP
-iC
-iC
+Rs
+Rs
+JX
+JX
 Ru
-IJ
+Db
 Db
 Db
 Db
@@ -51554,20 +53048,20 @@ Ix
 Ed
 Dz
 fn
-iC
-iC
-iC
-iC
-CP
-CP
-CP
-CP
-iC
+fn
+fn
+fn
+fn
+JX
 CP
 CP
 CP
 iC
-Ru
+CP
+CP
+CP
+Cw
+uC
 IJ
 IJ
 IJ
@@ -51799,7 +53293,7 @@ IL
 VS
 Ix
 IL
-yO
+Ix
 Ix
 Ix
 eK
@@ -51815,9 +53309,9 @@ iC
 iC
 iC
 iC
-CP
-SQ
-CP
+Rs
+MN
+Rs
 iC
 iC
 CP
@@ -52083,9 +53577,9 @@ SQ
 CP
 Ru
 iC
-iC
-iC
-iC
+xz
+hU
+za
 iC
 iC
 IJ
@@ -52340,9 +53834,9 @@ SQ
 CP
 Ru
 iC
-iC
-iC
-iC
+yV
+UC
+pT
 iC
 iC
 IJ
@@ -52597,9 +54091,9 @@ CP
 CP
 Ru
 iC
-iC
-iC
-iC
+yV
+bz
+KK
 iC
 iC
 IJ
@@ -52854,9 +54348,9 @@ CP
 CP
 Ru
 iC
-iC
-iC
-iC
+Ed
+QH
+jc
 iC
 iC
 IJ
@@ -53111,9 +54605,9 @@ CP
 CP
 Ru
 iC
-iC
-iC
-iC
+sZ
+er
+QU
 iC
 iC
 IJ
@@ -53368,9 +54862,9 @@ CP
 iC
 Ru
 iC
-iC
-iC
-iC
+HX
+hR
+KK
 iC
 IJ
 IJ
@@ -53625,9 +55119,9 @@ CP
 iC
 Ru
 iC
-iC
-iC
-iC
+aQ
+qw
+wD
 iC
 IJ
 yq
@@ -53882,9 +55376,9 @@ iC
 iC
 Ru
 iC
-iC
-iC
-iC
+VF
+VF
+VF
 iC
 IJ
 sO
