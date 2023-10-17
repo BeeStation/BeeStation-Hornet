@@ -19379,7 +19379,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/emitter/welded{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
