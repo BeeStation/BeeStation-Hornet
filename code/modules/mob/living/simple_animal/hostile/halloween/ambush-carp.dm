@@ -66,13 +66,19 @@
 							'sound/creatures/halloween/ACarp/ACarpIdle3.ogg',
 							'sound/creatures/halloween/ACarp/ACarpIdle4.ogg')
 
+/mob/living/simple_animal/hostile/ambush/attack_basic_mob()
+	playsound(loc, attack_sound, 50)
+	attack_sound = null //we want to override modulation
+	..()
+	rotate_sound("attack")
+
 /mob/living/simple_animal/hostile/ambush/Life(delta_time)
 	..()
 	if(!target && !key)
 		if(alpha > 50)
 			alpha -= 20
 		if(prob(3) || key && prob(15))
-			playsound(loc, idle_sound, 50, TRUE)
+			playsound(loc, idle_sound, 50)
 			rotate_sound("idle")
 
 /mob/living/simple_animal/hostile/ambush/death(gibbed)
@@ -84,7 +90,7 @@
 	desc = "Distorts space around it and lies in ambush for unsuspecting prey. Very intelligent and powerful, an extreme hazard to personnel"
 	if(buckled)
 		buckled.unbuckle_mob(src,force=TRUE)
-	playsound(loc, aggro_sound, 100, TRUE)
+	playsound(loc, aggro_sound, 100)
 	rotate_sound("aggro")
 	if(alpha <= 50 && isliving(target))
 		var/mob/living/L = target
@@ -101,7 +107,7 @@
 			L.unbuckle_all_mobs(force=TRUE)
 			if(L.buckle_mob(src, force=TRUE))
 				layer = L.layer+0.01
-				playsound(loc, idle_sound, 50, TRUE)
+				playsound(loc, idle_sound, 50)
 				rotate_sound("idle")
 	..()
 
@@ -110,8 +116,3 @@
 	if(!key)
 		name = initial(name)
 		desc = initial(desc)
-
-
-/mob/living/simple_animal/hostile/ambush/AttackingTarget()
-	..()
-	rotate_sound("attack")
