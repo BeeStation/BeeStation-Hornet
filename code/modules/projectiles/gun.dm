@@ -92,7 +92,7 @@
 
 	// Equipping
 	/// The slowdown applied to mobs upon a gun being equipped
-	var/equip_slowdown = 1
+	var/equip_slowdown = 0.5
 	/// The time it takes for a gun to count as equipped, null to get a precalculated value
 	var/equip_time = null
 	/// The timer ID of our equipping action
@@ -111,10 +111,10 @@
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
 	if (isnull(equip_time))
-		// Light guns: 2 second equip time
-		// Medium guns: 3 second equip time
-		// Heavy guns: 4 second equip time
-		equip_time = weapon_weight * 10 + 10
+		// Light guns: 1.5 second equip time
+		// Medium guns: 2 second equip time
+		// Heavy guns: 2.5 second equip time
+		equip_time = weapon_weight * 5 + 10
 	if(isnull(spread_unwielded))
 		spread_unwielded = weapon_weight * 20 + 20
 	if(requires_wielding)
@@ -426,10 +426,8 @@
 	add_fingerprint(user)
 	if(fire_rate)
 		ranged_cooldown = world.time + 10 / fire_rate
-		user.client?.give_cooldown_cursor(10 / fire_rate)
 	else
 		ranged_cooldown = world.time + CLICK_CD_RANGE
-		user.client?.give_cooldown_cursor(CLICK_CD_RANGE)
 	if(semicd)
 		return
 
