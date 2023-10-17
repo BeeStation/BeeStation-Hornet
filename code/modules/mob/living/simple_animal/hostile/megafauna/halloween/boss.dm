@@ -401,7 +401,7 @@
 	tethered_mobs += L
 	L.Paralyze(6 SECONDS)
 	to_chat(L, "<span class='userdanger'>\The [src] has impaled you and is reeling you in!</span>")
-	tethers_active[L] = tether_center.Beam(L, "tentacle", time=INFINITY, maxdistance=15, beam_type=/obj/effect/ebeam)
+	tethers_active[L] = tether_center.Beam(L, "latcher", time=INFINITY, maxdistance=15, beam_type=/obj/effect/ebeam)
 
 // CARP SUMMONING UTILIZED IN PHASE TWO
 
