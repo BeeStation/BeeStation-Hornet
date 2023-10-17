@@ -48,7 +48,7 @@
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
 
-datum/status_effect/incapacitating/immobilized/on_apply()
+/datum/status_effect/incapacitating/immobilized/on_apply()
 	. = ..()
 	if(!.)
 		return
@@ -181,7 +181,7 @@ datum/status_effect/incapacitating/immobilized/on_apply()
 		return
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
 	//ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
-	owner.update_mobility // TEMPORARY
+	owner.update_mobility() // TEMPORARY
 
 /datum/status_effect/grouped/stasis/tick()
 	update_time_of_death()

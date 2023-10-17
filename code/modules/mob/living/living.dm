@@ -1325,7 +1325,8 @@
 	buckled = new_buckled
 	if(buckled)
 		if(!.)
-			ADD_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
+			if(!HAS_TRAIT(buckled, TRAIT_NO_IMMOBILIZE)) //check if the object being buckled to that would normally immobilize has the NO_Immobilize trait, i.e. Wheelchairs. People buckled to wheelchairs obviously have more free movement that those buckled to stasis beds
+				ADD_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
 	else if(.)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
 
