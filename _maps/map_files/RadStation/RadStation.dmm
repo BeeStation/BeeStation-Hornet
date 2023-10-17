@@ -14074,9 +14074,8 @@
 	name = "Brig Cell 3"
 	})
 "ert" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 2;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 2
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -47758,9 +47757,8 @@
 	},
 /area/quartermaster/exploration_prep)
 "oOw" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 2;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 2
 	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -70555,9 +70553,8 @@
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical)
 "wcw" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 2;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 2
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"

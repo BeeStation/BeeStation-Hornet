@@ -86,7 +86,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
-	anger_modifier = CLAMP(((maxHealth - health)/20),0,20)
+	anger_modifier = clamp(((maxHealth - health)/20),0,20)
 
 	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)

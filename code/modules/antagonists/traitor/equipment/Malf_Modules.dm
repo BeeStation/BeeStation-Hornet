@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		turret.max_integrity = 200
 		turret.obj_integrity = 200
 		turret.emp_proofing = TRUE
-		turret.AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)
+		turret.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES | EMP_PROTECT_CONTENTS)
 		turret.stun_projectile = /obj/projectile/beam/disabler/pass_glass //// AI defenses are often built with glass, so this is big.
 		turret.stun_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 		turret.lethal_projectile = /obj/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.

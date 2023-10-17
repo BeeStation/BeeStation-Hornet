@@ -992,9 +992,8 @@
 /turf/open/floor/plating,
 /area/science/test_area)
 "aja" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 4;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -2205,9 +2204,8 @@
 /turf/open/floor/plating,
 /area/hallway/primary/fore)
 "aAP" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 8;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 8
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
