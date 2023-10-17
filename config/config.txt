@@ -499,7 +499,7 @@ MINUTE_CLICK_LIMIT 500
 #ERROR_MSG_DELAY 50
 
 ## Send a message to IRC when starting a new game
-#IRC_ANNOUNCE_NEW_GAME
+#CHAT_ANNOUNCE_NEW_GAME
 
 ## Allow admin hrefs that don't use the new token system, will eventually be removed
 DEBUG_ADMIN_HREFS
