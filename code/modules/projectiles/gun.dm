@@ -380,8 +380,10 @@
 	add_fingerprint(user)
 	if(fire_rate)
 		ranged_cooldown = world.time + 10 / fire_rate
+		user.client?.give_cooldown_cursor(10 / fire_rate)
 	else
 		ranged_cooldown = world.time + CLICK_CD_RANGE
+		user.client?.give_cooldown_cursor(CLICK_CD_RANGE)
 	if(semicd)
 		return
 
@@ -664,6 +666,8 @@
 		azoom.Remove(user)
 	if(zoomed)
 		zoom(user, user.dir)
+	update_icon()
+	user.client?.clear_cooldown_cursor()
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params, bypass_timer)
 	if(!ishuman(user) || !ishuman(target))
