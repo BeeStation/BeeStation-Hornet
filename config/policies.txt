@@ -7,5 +7,5 @@ POLICY_POSTCLONETEXT <span class='boldannounce'>You have forgotten all the knowl
 
 # Uses naming policy
 # Uncomment this if you want this
-POLICY_NAMING_LINK https://wiki.beestation13.com/view/Naming_Guidelines
-POLICY_NAMING_TOOLTIP Each species must follow a naming policy. Please read the "Naming Guidelines" page on the wiki and our rule "Rule 1.7".
+#POLICY_NAMING_LINK https://wiki.beestation13.com/view/Naming_Guidelines
+#POLICY_NAMING_TOOLTIP Each species must follow a naming policy. Please read the "Naming Guidelines" page on the wiki and our rule "Rule 1.7".
