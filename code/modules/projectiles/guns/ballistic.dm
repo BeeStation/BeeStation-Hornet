@@ -82,7 +82,7 @@
 		magazine = new mag_type(src)
 	if (!caliber)
 		caliber = magazine.caliber
-	if (bolt_type == BOLT_TYPE_NO_BOLT || BOLT_TYPE_NB_BREAK)
+	if (bolt_type == BOLT_TYPE_NO_BOLT || bolt_type == BOLT_TYPE_NB_BREAK)
 		chamber_round()
 	update_icon()
 
