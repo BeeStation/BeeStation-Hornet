@@ -271,4 +271,4 @@
 	remove_filter("glow")
 	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
 	remove_filter("mask")
-	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_psychic"))
+	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))

@@ -107,6 +107,7 @@
 
 /atom/movable/screen/fullscreen/blind
 	icon_state = "blackimageoverlay"
+	render_target = "blind_fullscreen_overlay"
 	layer = BLIND_LAYER
 	plane = FULLSCREEN_PLANE
 

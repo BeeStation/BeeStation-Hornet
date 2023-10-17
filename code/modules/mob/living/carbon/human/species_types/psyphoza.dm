@@ -278,7 +278,6 @@
 /atom/movable/screen/fullscreen/blind/psychic
 	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
-	render_target = "blind_psychic"
 	///The color we return to after going black & back.
 	var/origin_color = "#111"
 	///Index for texture setting - Useful if we add more presets
