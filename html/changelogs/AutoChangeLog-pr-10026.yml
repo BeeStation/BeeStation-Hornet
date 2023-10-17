@@ -1,4 +1,0 @@
-author: BeeLover66
-delete-after: true
-changes:
-  - bugfix: Some recipes that wouldn't get reagents from their ingredients now do
