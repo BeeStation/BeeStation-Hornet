@@ -29,6 +29,7 @@
 	aggro_vision_range = 18
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	deathsound = 'sound/magic/demon_dies.ogg'
+	wander = FALSE
 	var/phase = 1 //Current phase of boss determines current behavior
 	var/passive_counter //used for passive actions which happen alongside delta_time
 	var/target_counter
