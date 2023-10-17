@@ -88,6 +88,19 @@
 	orbiter.abstract_move(get_turf(parent))
 	to_chat(orbiter, "<span class='notice'>Now orbiting [parent].</span>")
 
+	if(isobserver(orbiter))
+		var/mob/dead/observer/G = orbiter
+		if(!G.invisibility)
+			if(istype(parent, /mob/living/simple_animal/hostile/megafauna/harbinger))
+				var/mob/living/simple_animal/hostile/megafauna/harbinger/bossman = parent
+				if(G.ckey in bossman.ghost_touched_list)
+					return
+				bossman.ghost_touched_list += G.ckey
+			else if(iscarbon(parent))
+				var/mob/living/carbon/C = parent
+				C.reagents.add_reagent(/datum/reagent/medicine/adminordrazine, 1)
+
+
 /datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing=FALSE)
 	if(!orbiters[orbiter])
 		return

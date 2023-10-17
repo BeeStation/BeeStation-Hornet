@@ -10,7 +10,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 4 SECONDS //Slow and easy to get away from... for the person rescuing you.
-	speed = 3
+	speed = 0
 	maxHealth = 120
 	health = 120
 	obj_damage = 0
@@ -68,10 +68,10 @@
 
 /mob/living/simple_animal/hostile/ambush/Life(delta_time)
 	..()
-	if(!target)
+	if(!target && !key)
 		if(alpha > 50)
 			alpha -= 20
-		if(prob(3))
+		if(prob(3) || key && prob(15))
 			playsound(loc, idle_sound, 50, TRUE)
 			rotate_sound("idle")
 
@@ -107,8 +107,9 @@
 
 /mob/living/simple_animal/hostile/ambush/LoseAggro()
 	..()
-	name = initial(name)
-	desc = initial(desc)
+	if(!key)
+		name = initial(name)
+		desc = initial(desc)
 
 
 /mob/living/simple_animal/hostile/ambush/AttackingTarget()
