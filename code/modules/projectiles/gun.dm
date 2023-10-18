@@ -426,8 +426,10 @@
 	add_fingerprint(user)
 	if(fire_rate)
 		ranged_cooldown = world.time + 10 / fire_rate
+		user.client?.give_cooldown_cursor(10 / fire_rate)
 	else
 		ranged_cooldown = world.time + CLICK_CD_RANGE
+		user.client?.give_cooldown_cursor(CLICK_CD_RANGE)
 	if(semicd)
 		return
 

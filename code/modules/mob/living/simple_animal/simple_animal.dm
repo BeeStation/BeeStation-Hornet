@@ -141,7 +141,7 @@
 		..()
 
 /mob/living/simple_animal/updatehealth()
-	..()
+	. = ..()
 	health = clamp(health, 0, maxHealth)
 	update_health_hud()
 
