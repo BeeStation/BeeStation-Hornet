@@ -37349,6 +37349,7 @@
 "gRa" = (
 /obj/structure/cable/white,
 /obj/machinery/power/emitter/welded{
+	
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
@@ -64797,8 +64798,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
-/obj/item/implant/radio,
 /obj/machinery/firealarm/directional/north,
+/obj/item/radio/off,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "sql" = (
