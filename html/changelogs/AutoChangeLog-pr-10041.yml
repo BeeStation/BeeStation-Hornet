@@ -1,0 +1,4 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Simple animals are no longer immortal
