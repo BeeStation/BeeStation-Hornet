@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Light mode stat panel atom tab will now be readable (Text when you alt
+      click a tile)
