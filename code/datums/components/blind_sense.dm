@@ -78,6 +78,7 @@
 	var/image/M = image(I, BS)
 	M.plane = BLIND_FEATURE_PLANE
 	M.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	M.appearance_flags = KEEP_TOGETHER
 
 	//filter masking
 	if(type == "mob")
@@ -88,6 +89,7 @@
 		BS.plane = ANTI_PSYCHIC_PLANE
 		BS.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		M.filters += filter(type = "alpha", render_source = BS.render_target)
+		BS.cut_overlay(GLOB.blind_typing_indicator)
 
 	//Colouring
 	var/_color = "#fff"
