@@ -431,7 +431,7 @@
 				if(otherlock.operating)
 					otherlock.delayed_close_requested = TRUE
 				else
-					addtimer(CALLBACK(otherlock, .proc/close), 2)
+					addtimer(CALLBACK(otherlock, PROC_REF(close)), 2)
 	if(cyclelinkedairlock)
 		if(!shuttledocked && !emergency && !cyclelinkedairlock.shuttledocked && !cyclelinkedairlock.emergency && allowed(user))
 			if(cyclelinkedairlock.operating)
