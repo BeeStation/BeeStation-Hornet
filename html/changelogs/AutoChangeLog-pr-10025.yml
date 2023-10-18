@@ -1,0 +1,5 @@
+author: Programs-The-Station
+delete-after: true
+changes:
+  - bugfix: Fixes the Index Table Component not outputting the values of the table
+      row.
