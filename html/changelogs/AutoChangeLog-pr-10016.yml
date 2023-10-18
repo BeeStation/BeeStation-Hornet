@@ -1,9 +1,0 @@
-author: Impish_Delights
-delete-after: true
-changes:
-  - rscadd: New outfit preset; Bulletproof SecOff. Can be chosen via the select equipment
-      menu, and through chameleon clothing
-  - balance: Mosin Nagant deals less damage (40 down from 60) but has armor penetration
-      (30% AP)
-  - balance: Nagant Revolver deals less damage (55 down from 60) but has armor penetration
-      (10% AP)
