@@ -81,7 +81,7 @@
 		return
 	var/turf/T = get_turf(remote_eye)
 	for(var/obj/machinery/door/airlock/A in T)
-		if(get_area(A) != shuttle_creator.loggedOldArea)
+		if(!(T in shuttle_creator.loggedTurfs))
 			to_chat(C, "<span class='warning'>Caution, airlock must be on the shuttle to function as a dock.</span>")
 			return
 		if(shuttle_creator.linkedShuttleId)

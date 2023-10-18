@@ -8,7 +8,7 @@
 	status_flags = GODMODE  // You can't damage it.
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	see_in_dark = 7
-	invisibility = INVISIBILITY_ABSTRACT // No one can see us
+	invisibility = INVISIBILITY_ABSTRACT // No one can see us. Use 'INVISIBILITY_OBSERVER' for subtypes
 	sight = SEE_SELF
 	move_on_shuttle = FALSE
 	/// Only used at init, assigning to this will do nothing after the camera is initialized
@@ -28,3 +28,7 @@
 
 /mob/camera/emote(act, m_type=1, message = null, intentional = FALSE)
 	return
+
+// Cameras can't fall
+/mob/camera/has_gravity(turf/T)
+	return FALSE

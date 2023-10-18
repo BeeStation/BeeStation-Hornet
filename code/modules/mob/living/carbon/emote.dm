@@ -24,15 +24,33 @@
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 
+/datum/emote/living/carbon/clap/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	// sorry pal, but you need arms to clap
+	var/mob/living/carbon/C = user
+	return C.get_bodypart(BODY_ZONE_L_ARM) && C.get_bodypart(BODY_ZONE_R_ARM)
+
 /datum/emote/living/carbon/clap/get_sound(mob/living/user)
-	if(ishuman(user))
-		if(!user.get_bodypart(BODY_ZONE_L_ARM) || !user.get_bodypart(BODY_ZONE_R_ARM))
-			return
-		else
-			return pick('sound/misc/clap1.ogg',
-							'sound/misc/clap2.ogg',
-							'sound/misc/clap3.ogg',
-							'sound/misc/clap4.ogg')
+	return pick(
+		'sound/misc/clap1.ogg',
+		'sound/misc/clap2.ogg',
+		'sound/misc/clap3.ogg',
+		'sound/misc/clap4.ogg',
+	)
+
+/datum/emote/living/carbon/eyeroll
+	key = "eyeroll"
+	key_third_person = "eyerolls"
+	message = "rolls their eyes"
+	vary = TRUE
+	mob_type_blacklist_typecache = list(/mob/living/carbon/alien)
+
+/datum/emote/living/carbon/eyeroll/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	var/obj/item/organ/eyes/E = user.getorganslot(ORGAN_SLOT_EYES)
+	return istype(E)
 
 /datum/emote/living/carbon/gnarl
 	key = "gnarl"
@@ -77,10 +95,44 @@
 				'sound/creatures/monkey/monkey_screech_6.ogg',
 				'sound/creatures/monkey/monkey_screech_7.ogg')
 
+/datum/emote/living/carbon/snap
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = TRUE
+	restraint_check = TRUE
+	vary = TRUE
+
+/datum/emote/living/carbon/snap/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	// sorry pal, but you need an arm to snap
+	var/mob/living/carbon/C = user
+	return C.get_bodypart(BODY_ZONE_L_ARM) || C.get_bodypart(BODY_ZONE_R_ARM)
+
+/datum/emote/living/carbon/snap/one
+	key = "snap"
+	key_third_person = "snaps"
+	message = "snaps their fingers"
+	message_param = "snaps their fingers at %t"
+	sound = 'sound/emotes/snap.ogg'
+
+/datum/emote/living/carbon/snap/two
+	key = "snap2"
+	key_third_person = "snaps2"
+	message = "snaps their fingers twice"
+	message_param = "snaps their fingers at %t twice"
+	sound = 'sound/emotes/snap2.ogg'
+
+/datum/emote/living/carbon/snap/three
+	key = "snap3"
+	key_third_person = "snaps3"
+	message = "snaps their fingers thrice"
+	message_param = "snaps their fingers at %t thrice"
+	sound = 'sound/emotes/snap3.ogg'
+
 /datum/emote/living/carbon/screech/roar
 	key = "roar"
 	key_third_person = "roars"
-	message = "roars."
+	message = "roars"
 
 /datum/emote/living/carbon/sign
 	key = "sign"
@@ -110,3 +162,39 @@
 	key = "wink"
 	key_third_person = "winks"
 	message = "winks"
+
+/datum/emote/living/carbon/sweatdrop
+	key = "sweatdrop"
+	key_third_person = "sweatdrops"
+	message = "sweats"
+	emote_type = EMOTE_ANIMATED
+	sound_volume = 25
+	vary = TRUE
+	overlay_icon_state = "sweatdrop"
+	overlay_x_offset = 10
+	overlay_y_offset = 10
+	emote_length = 3 SECONDS
+	sound = 'sound/emotes/sweatdrop.ogg'
+
+/datum/emote/living/carbon/annoyed
+	key = "annoyed"
+	emote_type = EMOTE_ANIMATED
+	sound_volume = 25
+	vary = TRUE
+	overlay_icon_state = "annoyed"
+	overlay_x_offset = 10
+	overlay_y_offset = 10
+	emote_length = 5 SECONDS
+	sound = 'sound/emotes/annoyed.ogg'
+
+/datum/emote/living/carbon/glasses
+	key = "glasses"
+	message = "pushes up their glasses"
+	emote_type = EMOTE_ANIMATED
+	overlay_icon_state = "glasses"
+	emote_length = 1 SECONDS
+
+/datum/emote/living/carbon/glasses/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	return istype(user.get_item_by_slot(ITEM_SLOT_EYES), /obj/item/clothing/glasses)

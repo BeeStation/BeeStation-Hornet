@@ -54,7 +54,7 @@
 	if(is_operational)
 		if(prob(50 / severity))
 			on = !on
-		update_icon()
+		update_appearance()
 
 
 /obj/machinery/portable_atmospherics/scrubber/ui_state(mob/user)
@@ -111,7 +111,7 @@
 			scrubbing ^= params["val"]
 			. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/portable_atmospherics/scrubber/huge
 	name = "huge air scrubber"

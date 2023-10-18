@@ -155,9 +155,10 @@
 #define ui_pai_host_monitor "SOUTH:6,WEST+6"
 #define ui_pai_crew_manifest "SOUTH:6,WEST+7"
 #define ui_pai_state_laws "SOUTH:6,WEST+8"
-#define ui_pai_mod_int "SOUTH:6,WEST+9"
-#define ui_pai_take_picture "SOUTH:6,WEST+12"
-#define ui_pai_view_images "SOUTH:6,WEST+13"
+#define ui_pai_internal_gps "SOUTH:6,WEST+9"
+#define ui_pai_take_picture "SOUTH:6,WEST+10"
+#define ui_pai_view_images "SOUTH:6,WEST+11"
+#define ui_pai_mod_int "SOUTH:6,WEST+12"
 
 //Pop-up inventory
 #define ui_shoes "WEST+1:8,SOUTH:5"
@@ -183,3 +184,13 @@
 //Team finder
 
 #define ui_team_finder "CENTER,CENTER"
+
+// Holoparasites
+#define ui_holopara_l_hand			"CENTER:8,SOUTH+1:4"
+#define ui_holopara_r_hand			"CENTER+1:8,SOUTH+1:4"
+#define ui_holopara_pull			"CENTER:24,SOUTH:20"
+#define ui_holopara_pull_dex		"CENTER-1:9,SOUTH+1:2"
+#define ui_holopara_swap_l			"CENTER:8,SOUTH+2:4"
+#define ui_holopara_swap_r			"CENTER+1:8,SOUTH+2:4"
+#define ui_holopara_button(pos)		"CENTER[pos >= 0 ? "+" : ""][pos]:8,SOUTH:5"
+#define ui_holopara_hand(pos)		"CENTER[pos >= 0 ? "+" : ""][pos]:8,SOUTH+1:4"

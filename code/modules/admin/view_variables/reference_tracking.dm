@@ -55,14 +55,14 @@
 	if(found_ref)
 		log_reftracker("Skipped searching atoms (other ref(s) found)")
 	else
-		for(var/datum/thing in world) //atoms (don't beleive its lies)
+		for(var/datum/thing in world) //atoms (don't believe its lies)
 			found_ref = DoSearchVar(thing, "World -> [thing.type]", search_time = starting_time)
 			if(found_ref)
 				log_reftracker("Aborting atoms search (ref found)")
 				break
 		log_reftracker("Finished searching atoms")
 #else
-	for(var/datum/thing in world) //atoms (don't beleive its lies)
+	for(var/datum/thing in world) //atoms (don't believe its lies)
 		found_ref = DoSearchVar(thing, "World -> [thing.type]", search_time = starting_time) || found_ref
 	log_reftracker("Finished searching atoms")
 #endif
@@ -117,11 +117,11 @@
 					continue //End early, don't want these logging
 				#endif
 				. = TRUE
-				log_reftracker("Found [type] \ref[src] in [datum_container.type]'s \ref[datum_container] [varname] var. [container_name]")
+				log_reftracker("Found [type] [FAST_REF(src)] in [datum_container.type]'s [FAST_REF(datum_container)] [varname] var. [container_name]")
 				continue
 
 			if(islist(variable))
-				if(DoSearchVar(variable, "[container_name] \ref[datum_container] -> [varname] (list)", recursive_limit - 1, search_time))
+				if(DoSearchVar(variable, "[container_name] [FAST_REF(datum_container)] -> [varname] (list)", recursive_limit - 1, search_time))
 					. = TRUE
 
 	else if(islist(potential_container))
@@ -139,7 +139,7 @@
 					continue //End early, don't want these logging
 				#endif
 				. = TRUE
-				log_reftracker("Found [type] \ref[src] in list [container_name].")
+				log_reftracker("Found [type] [FAST_REF(src)] in list [container_name].")
 				continue
 
 			var/assoc_val = null
@@ -152,7 +152,7 @@
 					found_refs[potential_cache] = TRUE
 					continue //End early, don't want these logging
 				#endif
-				log_reftracker("Found [type] \ref[src] in list [container_name]\[[element_in_list]\]")
+				log_reftracker("Found [type] [FAST_REF(src)] in list [container_name]\[[element_in_list]\]")
 				. = TRUE
 				continue
 			//We need to run both of these checks, since our object could be hiding in either of them
@@ -170,7 +170,7 @@
 	thing_to_del.qdel_and_find_ref_if_fail(force)
 
 /datum/proc/qdel_and_find_ref_if_fail(force = FALSE)
-	SSgarbage.reference_find_on_fail["\ref[src]"] = TRUE
+	SSgarbage.reference_find_on_fail[FAST_REF(src)] = TRUE
 	qdel(src, force)
 
 #endif

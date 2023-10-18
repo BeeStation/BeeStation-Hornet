@@ -24,8 +24,8 @@
 		weather_trait = trait
 		playlist = weather_playlist
 
-	RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, .proc/handle_z_level_change, TRUE)
-	RegisterSignal(target, COMSIG_MOB_LOGOUT, .proc/handle_logout, TRUE)
+	RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(handle_z_level_change), TRUE)
+	RegisterSignal(target, COMSIG_MOB_LOGOUT, PROC_REF(handle_logout), TRUE)
 
 /datum/element/weather_listener/Detach(datum/source)
 	. = ..()

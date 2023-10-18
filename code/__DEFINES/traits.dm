@@ -122,14 +122,34 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
-/*
-Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
+// mob traits for temporary carbon states/status_effects. // TODO: Systematically dismember update_mobility and replace all its checks and updates with these traits, or offload to stat
+
+/// Forces the user to stay unconscious. This shouldn't be used in a check outside of code related to stat and update_stat, or when its being intentionally applied from a specific source
+#define TRAIT_KNOCKEDOUT "knockedout"
+/* All to replace update_mobility with traits
+/// Prevents voluntary movement.
+#define TRAIT_IMMOBILIZED "immobilized"
+/// Prevents voluntary standing or staying up on its own.
+#define TRAIT_FLOORED "floored"
+/// Forces user to stay standing (ensures the unconscious/immobilized dont enter a lying position in cryopods)
+#define TRAIT_FORCED_STANDING "forcedstanding"
+/// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
+#define TRAIT_HANDS_BLOCKED "handsblocked"
+/// Inability to access UI hud elements. Turned into a trait from [MOBILITY_UI] to be able to track sources.
+#define TRAIT_UI_BLOCKED "uiblocked"
+/// Inability to pull things. Turned into a trait from [MOBILITY_PULL] to be able to track sources.
+#define TRAIT_PULL_BLOCKED "pullblocked"
+/// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
+#define TRAIT_RESTRAINED "restrained"
 */
+#define TRAIT_INCAPACITATED "incapacitated"
 
 //mob traits
-#define TRAIT_BLIND 			"blind"
-#define TRAIT_MUTE				"mute"
-#define TRAIT_EMOTEMUTE			"emotemute"
+#define TRAIT_BLIND "blind"
+/// Mute. Can't talk.
+#define TRAIT_MUTE "mute"
+/// Emotemute. Can't... emote.
+#define TRAIT_EMOTEMUTE "emotemute"
 #define TRAIT_DEAF				"deaf"
 #define TRAIT_NEARSIGHT			"nearsighted"
 #define TRAIT_FAT				"fat"
@@ -137,7 +157,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BADDNA			"baddna"
 #define TRAIT_CLUMSY			"clumsy"
 #define TRAIT_DUMB				"dumb"
-#define TRAIT_MONKEYLIKE		"monkeylike" //sets IsAdvancedToolUser to FALSE
+#define TRAIT_DISCOORDINATED	"discoordinated" //sets IsAdvancedToolUser to FALSE on humans and monkies
 #define TRAIT_PACIFISM			"pacifism"
 #define TRAIT_IGNORESLOWDOWN	"ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
@@ -201,12 +221,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PRESENT_VISION    "present-vision"
 #define TRAIT_DISK_VERIFIER     "disk-verifier"
 #define TRAIT_MULTILINGUAL		"multilingual" //I know another language
+#define TRAIT_LINGUIST			"linguist"
 #define TRAIT_NOMOBSWAP         "no-mob-swap"
 #define TRAIT_XRAY_VISION       "xray_vision"
 #define TRAIT_THERMAL_VISION    "thermal_vision"
 #define TRAIT_ABDUCTOR_TRAINING "abductor-training"
 #define TRAIT_ABDUCTOR_SCIENTIST_TRAINING "abductor-scientist-training"
-#define TRAIT_SURGEON           "surgeon"
+#define TRAIT_SURGEON           "surgeon" //Grants access to all surgeries
+#define TRAIT_ABDUCTOR_SURGEON  "abductor-surgery-training" //Grants access to all surgeries except for certain blacklisted ones
 #define	TRAIT_STRONG_GRABBER	"strong_grabber"
 #define	TRAIT_CALCIUM_HEALER	"calcium_healer"
 #define	TRAIT_MAGIC_CHOKE		"magic_choke"
@@ -226,7 +248,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SECURITY_HUD		"sec_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
 #define TRAIT_PASSTABLE			"passtable"
-#define TRAIT_ONEWAYROAD	"one-way road"
 #define TRAIT_NOBLOCK			"noblock"
 #define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
 #define TRAIT_WARDED       		"curse_immune"
@@ -240,6 +261,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SOMMELIER			"sommelier"  // shows different booze power flavor texts
 #define TRAIT_BARMASTER			"bar_master" // always can identify reagents
 #define TRAIT_HIVE_BURNT		 "hive-burnt"
+#define TRAIT_MOTH_BURNT		"moth_burnt"
+#define TRAIT_SPECIAL_TRAUMA_BOOST "special_trauma_boost" ///Increases chance of getting special traumas, makes them harder to cure
+#define TRAIT_METALANGUAGE_KEY_ALLOWED "metalanguage_key_allowed" // you can use language key for metalanguage (,`) and but also you see lang icon
+#define TRAIT_HYPERSPACED "hyperspaced" // Sanity trait to keep track of when we're in hyperspace and add the appropriate element if we werent
+#define TRAIT_FREE_HYPERSPACE_MOVEMENT "free_hyperspace_movement" // Gives the movable free hyperspace movement without being pulled during shuttle transit
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -265,6 +291,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 
+/// Allows heretics to cast their spells.
+#define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
+/// Designates a heart as a living heart for a heretic.
+#define TRAIT_LIVING_HEART "living_heart"
+/// Prevents stripping this equipment
+#define TRAIT_NO_STRIP "no_strip"
+
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_AGEUSIA			"ageusia"
@@ -288,13 +321,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FRIENDLY			"friendly"
 #define TRAIT_GRABWEAKNESS		"grab_weakness"
 #define TRAIT_BRAIN_TUMOR		"brain_tumor"
+#define TRAIT_PROSKATER			"pro_skater"
 
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"
 
+/// this object has been frozen
+#define TRAIT_FROZEN "frozen"
+
 // common trait sources
 #define TRAIT_GENERIC "generic"
 #define GENERIC_ITEM_TRAIT "generic_item"
+#define UNCONSCIOUS_BLIND "unconscious_blind"
 #define EYE_DAMAGE "eye_damage"
 #define GENETIC_MUTATION "genetic"
 #define OBESITY "obesity"
@@ -316,6 +354,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CLOTHING_FEET_TRAIT "feet"
 #define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
 #define INNATE_TRAIT "innate"
+#define CRIT_HEALTH_TRAIT "crit_health"
+#define OXYLOSS_TRAIT "oxyloss"
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
@@ -366,14 +406,19 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define HOLYWATER_TRAIT "holywater"
 #define VANGUARD_TRAIT "vanguard"
 #define STARGAZER_TRAIT "stargazer"
-#define GUARDIAN_TRAIT	"guardian_trait"
+#define HOLOPARASITE_CLOAK_TRAIT	"holopara_cloak_trait"
+#define HOLOPARASITE_SCOUT_TRAIT	"holopara_scout_trait"
+#define HOLOPARASITE_STAT_TRAIT		"holopara_stat_trait"
 #define PARRY_TRAIT	"parry_trait"
+#define ELEMENT_TRAIT(source) "element_trait_[source]"
 #define LIGHTPINK_TRAIT "lightpinktrait"
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TRAIT_JAWS_OF_LIFE "jaws-of-life"
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a bad soundcloud rapper's name
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
+#define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
+#define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
 
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"

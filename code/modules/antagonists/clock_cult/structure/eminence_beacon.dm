@@ -21,21 +21,21 @@
 		to_chat(user, "<span class='brass'>The Eminence has already been released.</span>")
 		return
 	var/option = alert(user,"Who shall control the Eminence?",,"Yourself","A ghost", "Cancel")
-	if(option == "Cancel")
+	if(option != "A ghost")
 		return
 	else if(option == "Yourself")
 		hierophant_message("[user] has elected themselves to become the Eminence. Interact with [src] to object.", span="<span=large_brass>")
-		vote_timer = addtimer(CALLBACK(src, .proc/vote_succeed, user), 600, TIMER_STOPPABLE)
+		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed), user), 600, TIMER_STOPPABLE)
 	else if(option == "A ghost")
 		hierophant_message("[user] has elected for a ghost to become the Eminence. Interact with [src] to object.")
-		vote_timer = addtimer(CALLBACK(src, .proc/vote_succeed), 600, TIMER_STOPPABLE)
+		vote_timer = addtimer(CALLBACK(src, PROC_REF(vote_succeed)), 600, TIMER_STOPPABLE)
 	vote_active = TRUE
 
 /obj/structure/destructible/clockwork/eminence_beacon/proc/vote_succeed(mob/eminence)
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, null, null, 100, POLL_IGNORE_PYROSLIME)
+		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 10 SECONDS)
 		if(LAZYLEN(candidates))
 			eminence = pick(candidates)
 	else

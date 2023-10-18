@@ -14,7 +14,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "cU" = (
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "fw" = (

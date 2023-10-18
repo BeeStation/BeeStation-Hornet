@@ -92,28 +92,26 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/makepAI(turf/T in GLOB.mob_list)
 	set category = "Fun"
 	set name = "Make pAI"
-	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
+	set desc = "Specify a location to spawn a pAI device, then specify a ckey to play that pAI"
 
 	var/list/available = list()
 	for(var/mob/C in GLOB.mob_list)
-		if(C.key)
+		if(C.ckey)
 			available.Add(C)
-	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in sortNames(available)
+	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in sort_names(available)
 	if(!choice)
 		return 0
 	if(!isobserver(choice))
-		var/confirm = input("[choice.key] isn't ghosting right now. Are you sure you want to yank him out of them out of their body and place them in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
+		var/confirm = input("[choice.ckey] isn't ghosting right now. Are you sure you want to yank him out of them out of their body and place them in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
 		if(confirm != "Yes")
 			return 0
 	var/obj/item/paicard/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
 	pai.name = capped_input(choice, "Enter your pAI name:", "pAI Name", "Personal AI")
 	pai.real_name = pai.name
-	pai.key = choice.key
+	pai.ckey = choice.ckey
 	card.setPersonality(pai)
-	for(var/datum/paiCandidate/candidate in SSpai.candidates)
-		if(candidate.key == choice.key)
-			SSpai.candidates.Remove(candidate)
+	SSpai.candidates.Remove(SSpai.candidates[choice.ckey])
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_alienize(mob/M in GLOB.mob_list)
@@ -158,7 +156,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	if(matches.len==0)
 		return
-	var/hsbitem = input(usr, "Choose an object to delete.", "Delete:") as null|anything in sortList(matches)
+	var/hsbitem = input(usr, "Choose an object to delete.", "Delete:") as null|anything in sort_list(matches)
 	if(hsbitem)
 		hsbitem = matches[hsbitem]
 		var/counter = 0
@@ -195,10 +193,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			id = worn.GetID()
 		if(id)
 			id.icon_state = "gold"
-			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
+			id.access |= get_every_access()
 		else
 			id = new /obj/item/card/id/gold(H.loc)
-			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
+			id.access |= get_every_access()
 			id.registered_name = H.real_name
 			id.assignment = JOB_NAME_CAPTAIN
 			id.update_label()
@@ -257,7 +255,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(M.ckey)
 		if(alert("This mob is being controlled by [M.key]. Are you sure you wish to give someone else control of it? [M.key] will be made a ghost.",,"Yes","No") != "Yes")
 			return
-	var/client/newkey = input(src, "Pick the player to put in control.", "New player") as null|anything in sortList(GLOB.clients)
+	var/client/newkey = input(src, "Pick the player to put in control.", "New player") as null|anything in sort_list(GLOB.clients)
 	var/mob/oldmob = newkey.mob
 	var/delmob = FALSE
 	if((isobserver(oldmob) || alert("Do you want to delete [newkey]'s old mob?","Delete?","Yes","No") != "No"))
@@ -340,7 +338,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] used the Test Areas debug command checking [log_message].</span>")
 	log_admin("[key_name(usr)] used the Test Areas debug command checking [log_message].")
 
-	for(var/area/A in world)
+	for(var/area/A as anything in GLOB.areas)
 		if(on_station)
 			var/turf/picked = safepick(get_area_turfs(A.type))
 			if(picked && is_station_level(picked.z))
@@ -508,7 +506,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		H = M
 		if(H.l_store || H.r_store || H.s_store) //saves a lot of time for admins and coders alike
-			if(alert("Drop Items in Pockets? No will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
+			if(alert("Drop Items in Pockets? No will delete them.", "Robust quick dress shop", "Yes", "No") != "Yes")
 				delete_pocket = TRUE
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -547,7 +545,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
 
-		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
+		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in sort_list(job_outfits)
 		dresscode = job_outfits[dresscode]
 		if(isnull(dresscode))
 			return
@@ -560,7 +558,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
 
-		dresscode = input("Select plasmaman equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
+		dresscode = input("Select plasmaman equipment", "Robust quick dress shop") as null|anything in sort_list(job_outfits)
 		dresscode = job_outfits[dresscode]
 		if(isnull(dresscode))
 			return
@@ -574,7 +572,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/list/custom_names = list()
 		for(var/datum/outfit/D in GLOB.custom_outfits)
 			custom_names[D.name] = D
-		var/selected_name = input("Select outfit", "Robust quick dress shop") as null|anything in sortList(custom_names)
+		var/selected_name = input("Select outfit", "Robust quick dress shop") as null|anything in sort_list(custom_names)
 		dresscode = custom_names[selected_name]
 		if(isnull(dresscode))
 			return
@@ -665,7 +663,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set desc = "Display del's log of everything that's passed through it."
 
 	var/list/dellog = list("<B>List of things that have gone through qdel this round</B><BR><BR><ol>")
-	sortTim(SSgarbage.items, cmp=/proc/cmp_qdel_item_time, associative = TRUE)
+	sortTim(SSgarbage.items, cmp=GLOBAL_PROC_REF(cmp_qdel_item_time), associative = TRUE)
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		dellog += "<li><u>[path]</u><ul>"
@@ -737,7 +735,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		names[name] = ruin_landmark
 
-	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in sortList(names)
+	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in sort_list(names)
 
 
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
@@ -768,7 +766,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for(var/name in SSmapping.lava_ruins_templates)
 		names[name] = list(SSmapping.lava_ruins_templates[name], ZTRAIT_LAVA_RUINS, /area/lavaland/surface/outdoors/unexplored)
 
-	var/ruinname = input("Select ruin", "Spawn Ruin") as null|anything in sortList(names)
+	var/ruinname = input("Select ruin", "Spawn Ruin") as null|anything in sort_list(names)
 	var/data = names[ruinname]
 	if (!data)
 		return
@@ -778,11 +776,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if (response == "Jump")
 			usr.forceMove(get_turf(exists[template]))
 			return
-		else if (response == "Cancel")
+		else if (response != "Place Another")
 			return
 
 	var/len = GLOB.ruin_landmarks.len
-	seedRuins(SSmapping.levels_by_trait(data[2]), max(1, template.cost), data[3], list(ruinname = template))
+	seedRuins(SSmapping.levels_by_trait(data[2]), max(1, template.cost), data[3], list(ruinname = template), clear_below = TRUE)
 	if (GLOB.ruin_landmarks.len > len)
 		var/obj/effect/landmark/ruin/landmark = GLOB.ruin_landmarks[GLOB.ruin_landmarks.len]
 		log_admin("[key_name(src)] randomly spawned ruin [ruinname] at [COORD(landmark)].")
@@ -802,7 +800,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(ruin_size < 10 || ruin_size >= 200)
 		return
 	var/response = alert(src, "This will place the ruin at your current location.", "Spawn Ruin", "Spawn Ruin", "Cancel")
-	if (response == "Cancel")
+	if (response != "Spawn Ruin")
 		return
 	var/border_size = (world.maxx - ruin_size) / 2
 	generate_space_ruin(mob.x, mob.y, mob.z, border_size, border_size)
@@ -838,7 +836,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		SEND_SOUND(m, 'sound/misc/fuckywucky.ogg')
 		to_chat(m, "<img src='[SSassets.transport.get_asset_url("fuckywucky.png")]'>")
 
-	addtimer(CALLBACK(src, .proc/restore_fucky_wucky), 600)
+	addtimer(CALLBACK(src, PROC_REF(restore_fucky_wucky)), 600)
 
 /client/proc/restore_fucky_wucky()
 	add_verb(/client/proc/fucky_wucky)
@@ -996,7 +994,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/sorted = list()
 	for (var/source in per_source)
 		sorted += list(list("source" = source, "count" = per_source[source]))
-	sorted = sortTim(sorted, .proc/cmp_timer_data)
+	sorted = sortTim(sorted, PROC_REF(cmp_timer_data))
 
 	// Now that everything is sorted, compile them into an HTML output
 	var/output = "<table border='1'>"

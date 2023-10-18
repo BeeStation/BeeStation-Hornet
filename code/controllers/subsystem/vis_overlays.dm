@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(vis_overlays)
 	else
 		overlay = _create_new_vis_overlay(icon, iconstate, layer, plane, dir, alpha, add_appearance_flags)
 		overlay.cache_expiration = -1
-		var/cache_id = "\ref[overlay]@{[world.time]}"
+		var/cache_id = "[FAST_REF(overlay)]@{[world.time]}"
 		unique_vis_overlays += overlay
 		vis_overlay_cache[cache_id] = overlay
 		. = overlay
@@ -56,7 +56,7 @@ SUBSYSTEM_DEF(vis_overlays)
 
 	if(!thing.managed_vis_overlays)
 		thing.managed_vis_overlays = list(overlay)
-		RegisterSignal(thing, COMSIG_ATOM_DIR_CHANGE, .proc/rotate_vis_overlay)
+		RegisterSignal(thing, COMSIG_ATOM_DIR_CHANGE, PROC_REF(rotate_vis_overlay))
 	else
 		thing.managed_vis_overlays += overlay
 

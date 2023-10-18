@@ -5,7 +5,11 @@
 	icon_state = "nanite_cloud_controller"
 	circuit = /obj/item/circuitboard/computer/nanite_cloud_controller
 
-
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
 
 	var/obj/item/disk/nanite_program/disk
 	var/list/datum/nanite_cloud_backup/cloud_backups = list()
@@ -57,6 +61,7 @@
 
 	var/datum/nanite_cloud_backup/backup = new(src)
 	var/datum/component/nanites/cloud_copy = backup.AddComponent(/datum/component/nanites)
+	cloud_copy.cloud_id = cloud_id
 	backup.cloud_id = cloud_id
 	backup.nanites = cloud_copy
 	investigate_log("[key_name(user)] created a new nanite cloud backup with id #[cloud_id]", INVESTIGATE_NANITES)

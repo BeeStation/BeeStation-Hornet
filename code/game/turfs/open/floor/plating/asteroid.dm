@@ -121,8 +121,10 @@
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 
-
-
+/turf/open/floor/plating/asteroid/basalt/iceland_surface
+	initial_gas_mix = FROZEN_ATMOS
+	planetary_atmos = TRUE
+	baseturfs = /turf/open/lava/smooth/cold
 
 /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -142,14 +144,13 @@
 	icon_state = "snow"
 	icon_plating = "snow"
 	initial_gas_mix = FROZEN_ATMOS
-	slowdown = 2
 	environment_type = "snow"
 	flags_1 = NONE
 	planetary_atmos = TRUE
 	burnt_states = list("snow_dug")
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
-	digResult = /obj/item/stack/sheet/mineral/snow
+	digResult = /obj/item/stack/sheet/snow
 
 /turf/open/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)

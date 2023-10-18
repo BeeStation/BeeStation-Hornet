@@ -89,7 +89,7 @@
 	if(..())
 		return
 	var/mob/living/silicon/ai/AI = usr
-	AI.ai_alerts()
+	AI.alert_control.ui_interact(AI)
 
 /atom/movable/screen/ai/announcement
 	name = "Make Vox Announcement"
@@ -190,6 +190,7 @@
 	if(isturf(target))
 		AI.eyeobj.forceMove(target)
 		AI.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
+		AI.camera_visibility(AI.eyeobj)
 		AI.clear_fullscreen("flash", 5)
 	else
 		to_chat(AI, "<span class='warning'>There is nothing in that direction!</span>")

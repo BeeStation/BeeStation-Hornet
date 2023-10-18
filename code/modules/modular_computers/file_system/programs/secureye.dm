@@ -42,9 +42,11 @@
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
 	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/instance = new plane()
+	for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+		var/atom/movable/screen/plane_master/instance = new plane()
 		instance.assigned_map = map_name
+		if(instance.blend_mode_override)
+			instance.blend_mode = instance.blend_mode_override
 		instance.del_on_map_removal = FALSE
 		instance.screen_loc = "[map_name]:CENTER"
 		cam_plane_masters += instance
@@ -58,28 +60,23 @@
 	QDEL_NULL(cam_background)
 	return ..()
 
-/datum/computer_file/program/secureye/ui_interact(mob/user, datum/tgui/ui)
-	// Update UI
-	ui = SStgui.try_update_ui(user, src, ui)
-
+/datum/computer_file/program/secureye/on_ui_create(mob/user, datum/tgui/ui)
 	// Update the camera, showing static if necessary and updating data if the location has moved.
 	update_active_camera_screen()
 
-	if(!ui)
-		var/user_ref = REF(user)
-		// Ghosts shouldn't count towards concurrent users, which produces
-		// an audible terminal_on click.
-		if(isliving(user))
-			concurrent_users += user_ref
-		// Register map objects
-		user.client.register_map_obj(cam_screen)
-		for(var/plane in cam_plane_masters)
-			user.client.register_map_obj(plane)
-		user.client.register_map_obj(cam_background)
-		return ..()
+	var/user_ref = REF(user)
+	// Ghosts shouldn't count towards concurrent users, which produces
+	// an audible terminal_on click.
+	if(isliving(user))
+		concurrent_users += user_ref
+	// Register map objects
+	user.client.register_map_obj(cam_screen)
+	for(var/plane in cam_plane_masters)
+		user.client.register_map_obj(plane)
+	user.client.register_map_obj(cam_background)
 
 /datum/computer_file/program/secureye/ui_data()
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["network"] = network
 	data["activeCamera"] = null
 	if(active_camera)
@@ -122,8 +119,18 @@
 
 		return TRUE
 
-/datum/computer_file/program/secureye/ui_close(mob/user)
+/datum/computer_file/program/secureye/on_ui_close(mob/user, datum/tgui/tgui)
+	on_exit(user)
+
+/datum/computer_file/program/secureye/kill_program(forced)
 	. = ..()
+	on_exit()
+
+/datum/computer_file/program/secureye/proc/on_exit(mob/user)
+	if(!ismob(user))
+		user = usr
+	if(!ismob(user))
+		return
 	var/user_ref = REF(user)
 	var/is_living = isliving(user)
 	// Living creature or not, we remove you anyway.

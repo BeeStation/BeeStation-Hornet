@@ -22,6 +22,7 @@
 		var/obj/structure/flora = pick(flora_types)
 		new flora(gen_turf)
 
+//jungle
 /datum/biome/mudlands
 	turf_type = /turf/open/floor/plating/dirt/jungle/dark
 	flora_types = list(/obj/structure/flora/grass/jungle,/obj/structure/flora/grass/jungle/b, /obj/structure/flora/rock/jungle, /obj/structure/flora/rock/pile/largejungle)
@@ -48,3 +49,34 @@
 
 /datum/biome/mountain
 	turf_type = /turf/closed/mineral/random/jungle
+
+//tundra
+/datum/biome/frostwastes
+	turf_type = /turf/open/floor/plating/asteroid/snow
+	flora_types = list(/obj/structure/flora/rock/pile/icy, /obj/structure/flora/rock/icy,  /obj/structure/flora/grass/brown)
+	flora_density = 5
+
+/datum/biome/frostplains
+	turf_type = /turf/open/floor/plating/asteroid/snow
+	flora_types = list(/obj/structure/flora/grass/green, /obj/structure/flora/grass/brown,  /obj/structure/flora/grass/both)
+	flora_density = 15
+
+/datum/biome/frostlake
+	turf_type = /turf/open/floor/plating/ice/smooth
+
+
+/datum/biome/frostforest
+	turf_type = /turf/open/floor/plating/asteroid/snow
+	flora_types = list(/obj/structure/flora/grass/green, /obj/structure/flora/grass/brown,  /obj/structure/flora/bush, /obj/structure/flora/grass/both,  /obj/structure/flora/tree/dead,  /obj/structure/flora/tree/pine)
+	flora_density = 30
+
+/datum/biome/frostforest/deep
+	flora_density = 60
+
+/datum/biome/frostswamp //screw logic
+	turf_type = /turf/open/floor/plating/ice/smooth
+	flora_types = list(/obj/structure/flora/tree/dead,  /obj/structure/flora/tree/pine)
+	flora_density = 20
+
+/datum/biome/frostmountain
+	turf_type = /turf/closed/mineral/snowmountain/cavern

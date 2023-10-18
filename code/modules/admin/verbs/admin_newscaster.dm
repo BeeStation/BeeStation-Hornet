@@ -148,7 +148,7 @@
 	data["editor"]["channelDesc"] = channel_desc
 	data["editor"]["channelLocked"] = channel_locked
 
-	//We send all the information about all channels and all messages in existance.
+	//We send all the information about all channels and all messages in existence.
 	data["channels"] = channel_list
 	data["messages"] = message_list
 	data["wanted"] = wanted_info

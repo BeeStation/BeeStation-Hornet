@@ -32,7 +32,16 @@ GLOBAL_LIST_INIT(huds, list(
 	ANTAG_HUD_BRAINWASHED = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_SURVIVALIST = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_INCURSION = new/datum/atom_hud/antag(),
-	ANTAG_HUD_HERETIC = new/datum/atom_hud/antag/hidden()
+	ANTAG_HUD_HERETIC = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_HYPNOTIZED = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_XENOMORPH = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_NIGHTMARE = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_MORPH = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_SWARMER = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_PIRATE = new/datum/atom_hud/antag(),
+	ANTAG_HUD_SPIDER = new/datum/atom_hud/antag/spider(),
+	ANTAG_HUD_VALENTINE = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_HEARTBREAKER = new/datum/atom_hud/antag/hidden(),
 	))
 
 /datum/atom_hud
@@ -93,7 +102,7 @@ GLOBAL_LIST_INIT(huds, list(
 	return TRUE
 
 /datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
-	if(!M || !M.client || !A?.hud_list.len)
+	if(!M || !M.client || !length(A?.hud_list))
 		return
 	for(var/i in hud_icons)
 		M.client.images -= A.hud_list[i]
@@ -103,10 +112,10 @@ GLOBAL_LIST_INIT(huds, list(
 		return
 	if(!hudusers[M])
 		hudusers[M] = 1
-		RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/unregister_mob)
+		RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(unregister_mob))
 		if(next_time_allowed[M] > world.time)
 			if(!queued_to_see[M])
-				addtimer(CALLBACK(src, .proc/show_hud_images_after_cooldown, M), next_time_allowed[M] - world.time)
+				addtimer(CALLBACK(src, PROC_REF(show_hud_images_after_cooldown), M), next_time_allowed[M] - world.time)
 				queued_to_see[M] = TRUE
 		else
 			next_time_allowed[M] = world.time + ADD_HUD_TO_COOLDOWN

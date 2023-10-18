@@ -3,7 +3,7 @@
 
 Weight Loss
 
-	Very Very Noticable.
+	Very very noticeable.
 	Decreases resistance.
 	Decreases stage speed.
 	Reduced transmission.
@@ -38,7 +38,7 @@ Bonus
 	. = ..()
 	if(A.stealth >= 2) //warn less often
 		severity -= 3
-	
+
 
 /datum/symptom/weight_loss/Start(datum/disease/advance/A)
 	if(!..())

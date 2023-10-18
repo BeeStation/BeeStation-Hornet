@@ -60,6 +60,7 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_body()
 	remove_overlay(BODY_LAYER)
 	dna.species.handle_body(src)
+	dna.update_body_size()
 
 /mob/living/carbon/human/update_fire()
 	..((fire_stacks > HUMAN_FIRE_STACK_ICON_NUM) ? "Standing" : "Generic_mob_burning")
@@ -121,7 +122,7 @@ There are several things that need to be remembered:
 		var/mutable_appearance/uniform_overlay
 
 		if(dna?.species.sexes)
-			if(gender == FEMALE && U.fitted != NO_FEMALE_UNIFORM)
+			if(dna.features["body_model"] == FEMALE && U.fitted != NO_FEMALE_UNIFORM)
 				uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/uniform.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
 
 		//Change check_adjustable_clothing.dm if you change this
@@ -134,7 +135,7 @@ There are several things that need to be remembered:
 			//	icon_file = 'icons/mob/species/misc/digitigrade.dmi'
 			uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE, override_state = target_overlay)
 
-			
+
 
 		if(OFFSET_UNIFORM in dna.species.offset_features)
 			uniform_overlay.pixel_x += dna.species.offset_features[OFFSET_UNIFORM][1]
@@ -367,7 +368,7 @@ There are several things that need to be remembered:
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
 		return
-
+	update_hair()
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1]
 		inv.update_icon()

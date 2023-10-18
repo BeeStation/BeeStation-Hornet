@@ -9,6 +9,8 @@
 	var/mob/living/simple_animal/mob_target
 	///Range we can lasso things at
 	var/range = 8
+	///Uses per lasso
+	var/uses = 4
 	///Whitelist of allowed animals
 	var/list/whitelist_mobs
 	///blacklist of disallowed animals
@@ -51,8 +53,9 @@
 		return
 	if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
 		to_chat(user, "<span class='notice'>You begin to untie [C]</span>")
-		if(proximity_flag && do_after(user, 2 SECONDS, FALSE, target))
+		if(proximity_flag && do_after(user, 2 SECONDS, target, timed_action_flags = IGNORE_HELD_ITEM))
 			user.faction |= "carpboy_[user]"
+			C.faction = list("neutral")
 			C.faction |= "carpboy_[user]"
 			C.faction |= user.faction
 			C.transform = transform.Turn(0)
@@ -65,21 +68,25 @@
 			if(timer)
 				deltimer(timer)
 				timer = null
+			uses--
+			if(!uses)
+				to_chat(user, "<span class='warning'>[src] falls apart!</span>")
+				qdel(src)
 			return
 	else if(timer) //if trying to add new target while old target is still flipped
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	//Do lasso/beam for style points
 	var/datum/beam/B = new(loc, C, time=1 SECONDS, beam_icon='icons/effects/beam.dmi', beam_icon_state="carp_lasso", btype=/obj/effect/ebeam)
-	INVOKE_ASYNC(B, /datum/beam/.proc/Start)
+	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam, Start))
 	C.unbuckle_all_mobs()
 	mob_target = C
 	C.throw_at(get_turf(src), 9, 2, user, FALSE, force = 0)
 	C.transform = transform.Turn(180)
 	C.toggle_ai(AI_OFF)
-	RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/handle_hard_del)
+	RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(handle_hard_del))
 	to_chat(user, "<span class='notice'>You lasso [C]!</span>")
-	timer = addtimer(CALLBACK(src, .proc/fail_ally), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
+	timer = addtimer(CALLBACK(src, PROC_REF(fail_ally)), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
 
 /obj/item/mob_lasso/proc/check_allowed(atom/target)
 	return ((!whitelist_mobs || is_type_in_typecache(target, whitelist_mobs)) && (!blacklist_mobs || !is_type_in_typecache(target, blacklist_mobs)))
@@ -101,6 +108,7 @@
 	name = "primal lasso"
 	desc = "A lasso fashioned out of goliath plating that is often found in the possession of Ash Walkers.\n\
 		<span class='notice'>Can be used to tame some lavaland animals</span>."
+	uses = 2
 
 /obj/item/mob_lasso/primal/init_whitelists(mapload)
 	whitelist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/goldgrub,\
@@ -111,6 +119,7 @@
 	desc = "A lasso fashioned out of the scaly hide of an ash drake.\n\
 		<span class='notice'>Can be used to tame one, if you can get close enough.</span>"
 	range = 3
+	uses = 1
 
 /obj/item/mob_lasso/drake/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!user.mind?.has_antag_datum(/datum/antagonist/ashwalker))
@@ -124,6 +133,7 @@
 /obj/item/mob_lasso/traitor
 	name = "bluespace lasso"
 	desc = "Comes standard with every evil space-cowboy!\n<span class='notice'>Can be used to tame almost anything.</span>"
+	uses = INFINITY
 
 /obj/item/mob_lasso/traitor/init_whitelists(mapload)
 	blacklist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/megafauna, /mob/living/simple_animal/hostile/alien, /mob/living/simple_animal/hostile/syndicate))
@@ -131,6 +141,7 @@
 /obj/item/mob_lasso/debug
 	name = "debug lasso"
 	desc = "Comes standard with every administrator space-cowboy!\n<span class='notice'>Can be used to tame anything.</span>"
+	uses = INFINITY
 
 /obj/item/mob_lasso/debug/init_whitelists(mapload)
 	blacklist_mob_cache[type] = list() // An empty list so we know this got initialized

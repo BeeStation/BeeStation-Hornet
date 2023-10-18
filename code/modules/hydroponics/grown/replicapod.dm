@@ -43,7 +43,6 @@
 				blood_type = B.data["blood_type"]
 				features = B.data["features"]
 				factions = B.data["factions"]
-				quirks = B.data["quirks"]
 				sampleDNA = B.data["blood_DNA"]
 				contains_sample = TRUE
 				visible_message("<span class='notice'>The [src] is injected with a fresh blood sample.</span>")
@@ -109,7 +108,7 @@
 	if(!make_podman)
 		// Prevent accidental harvesting. Make sure the user REALLY wants to do this if there's a chance of this coming from a living creature.
 		if(mind || ckey)
-			if(alert("The pod is currently devoid of soul. There is a possibility that a soul could claim this creature, or you could harvest it for seeds.", "Harvest Seeds?", "Harvest Seeds", "Cancel") == "Cancel")
+			if(alert("The pod is currently devoid of soul. There is a possibility that a soul could claim this creature, or you could harvest it for seeds.", "Harvest Seeds?", "Harvest Seeds", "Cancel") != "Harvest Seeds")
 				return result
 
 		// If this plant has already been harvested, return early.
@@ -156,6 +155,9 @@
 	podman.set_cloned_appearance()
 	// On harvest
 	to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
+	var/postclonemessage = CONFIG_GET(string/policy_postclonetext)
+	if(postclonemessage)
+		to_chat(podman, postclonemessage)
 	podman.flash_act()
 	log_cloning("[key_name(mind)] cloned as a podman via [src] in [parent] at [AREACOORD(parent)].")
 

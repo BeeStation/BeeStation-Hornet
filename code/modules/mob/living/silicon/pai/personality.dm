@@ -1,61 +1,40 @@
-/*
-		name
-		key
-		description
-		role
-		comments
-		ready = 0
-*/
+/// Created when a user clicks the "pAI candidate" window
+/datum/pai_candidate
+	/// User inputted OOC comments
+	var/comments
+	/// User inputted behavior description
+	var/description
+	/// User's ckey - not input
+	var/ckey
+	/// User's pAI name. If blank, ninja name.
+	var/name
+	/// If the user has hit "submit"
+	var/ready = FALSE
 
-/datum/paiCandidate/proc/savefile_path(mob/user)
-	return "data/player_saves/[user.ckey[1]]/[user.ckey]/pai.sav"
-
-/datum/paiCandidate/proc/savefile_save(mob/user)
+/datum/pai_candidate/proc/save(mob/user)
 	if(IS_GUEST_KEY(user.key))
-		return 0
-
-	var/savefile/F = new /savefile(src.savefile_path(user))
-
-
-	WRITE_FILE(F["name"], name)
-	WRITE_FILE(F["description"], description)
-	WRITE_FILE(F["role"], role)
-	WRITE_FILE(F["comments"], comments)
-
-	WRITE_FILE(F["version"], 1)
-
-	return 1
+		to_chat(usr, "<span class='boldnotice'>You cannot save pAI information as a guest.</span>")
+		return FALSE
+	if(!user.client)
+		return FALSE
+	user.client.prefs.pai_name = name
+	user.client.prefs.pai_description = description
+	user.client.prefs.pai_comment = comments
+	user.client.prefs.mark_undatumized_dirty_player()
+	to_chat(usr, "<span class='boldnotice'>You have saved pAI information.</span>")
+	return TRUE
 
 // loads the savefile corresponding to the mob's ckey
-// if silent=true, report incompatible savefiles
-// returns 1 if loaded (or file was incompatible)
-// returns 0 if savefile did not exist
+// returns TRUE if loaded (or file was incompatible)
+// returns FALSE if savefile did not exist
 
-/datum/paiCandidate/proc/savefile_load(mob/user, silent = TRUE)
+/datum/pai_candidate/proc/load(mob/user)
 	if (IS_GUEST_KEY(user.key))
-		return 0
+		return FALSE
 
-	var/path = savefile_path(user)
-
-	if (!fexists(path))
-		return 0
-
-	var/savefile/F = new /savefile(path)
-
-	if(!F)
-		return //Not everyone has a pai savefile.
-
-	var/version = null
-	F["version"] >> version
-
-	if (isnull(version) || version != 1)
-		fdel(path)
-		if (!silent)
-			alert(user, "Your savefile was incompatible with this version and was deleted.")
-		return 0
-
-	F["name"] >> src.name
-	F["description"] >> src.description
-	F["role"] >> src.role
-	F["comments"] >> src.comments
-	return 1
+	if(!user.client)
+		return FALSE
+	name = user.client.prefs.pai_name
+	description = user.client.prefs.pai_description
+	comments = user.client.prefs.pai_comment
+	return TRUE

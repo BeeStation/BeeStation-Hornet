@@ -19,7 +19,7 @@
 	if(istype(movable_target.loc, /obj/structure/aquarium))
 		create_aquarium_component(movable_target)
 	else //otherwise the component will be created when trying to insert the thing.
-		RegisterSignal(target, COMSIG_AQUARIUM_BEFORE_INSERT_CHECK, .proc/create_aquarium_component)
+		RegisterSignal(target, COMSIG_AQUARIUM_BEFORE_INSERT_CHECK, PROC_REF(create_aquarium_component))
 
 /datum/element/deferred_aquarium_content/Detach(datum/target)
 	. = ..()

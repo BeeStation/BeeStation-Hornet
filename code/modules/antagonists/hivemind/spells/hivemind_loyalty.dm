@@ -3,7 +3,7 @@
 	desc = "We prepare for a focused attack on a mind, penetrating mindshield technology, the mindshield will still be present after the attack (toggle)."
 	panel = "Hivemind Abilities"
 	charge_max = 1
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	human_req = 1
 	action_icon = 'icons/mob/actions/actions_hive.dmi'

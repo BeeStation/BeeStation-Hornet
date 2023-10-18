@@ -2,16 +2,16 @@
 	var/amount = 0
 	var/maxamount = 3
 	var/upgrade_item = /obj/item/stack/sheet/animalhide/goliath_hide
-	var/datum/armor/added_armor = list("melee" = 10)
+	var/datum/armor/added_armor = list(MELEE = 10)
 	var/upgrade_name
 
 /datum/component/armor_plate/Initialize(_maxamount,obj/item/_upgrade_item,datum/armor/_added_armor)
 	if(!isobj(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/examine)
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/applyplate)
-	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, .proc/dropplates)
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(applyplate))
+	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(dropplates))
 
 	if(_maxamount)
 		maxamount = _maxamount

@@ -1077,7 +1077,7 @@
 	name = "Delta emergency shuttle";
 	port_direction = 4;
 	preferred_direction = 2;
-	width = 30
+	width = 29
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,

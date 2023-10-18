@@ -47,7 +47,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Reset Thunderdome to default state", "tdomereset"),
 			list("Rename Station Name", "set_name"),
 			list("Reset Station Name", "reset_name"),
-			list("Set Night Shift Mode", "night_shift_set")
+			list("Set Night Shift Mode", "night_shift_set"),
+			list("Toggle All Lights", "all_light_toggle")
 			)
 
 		data["Categories"]["Shuttles"] += list(
@@ -134,7 +135,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_ADMIN))
 				return
 			var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
-			if(delete_mobs == "Cancel")
+			if(delete_mobs == "Cancel" || !delete_mobs)
 				return
 
 			log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
@@ -193,7 +194,27 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if("Off")
 					SSnightshift.can_fire = FALSE
 					SSnightshift.update_nightshift(FALSE, TRUE)
-
+		if("all_light_toggle")
+			if(!check_rights(R_ADMIN))
+				return
+			var/val = alert(usr, "Do you want to turn all lights on or off?", "Light Manipulation", "On", "Off", "Cancel")
+			var/set_to = null
+			switch(val)
+				if("Cancel")
+					return
+				if("On")
+					set_to = TRUE
+				if("Off")
+					set_to = FALSE
+				else
+					return
+			if(!isnull(set_to))
+				for(var/area/found_area in GLOB.areas)
+					found_area.lightswitch = set_to
+					found_area.update_appearance()
+					for(var/obj/machinery/light_switch/lswitch in found_area)
+						lswitch.update_appearance()
+					found_area.power_change()
 		if("reset_name")
 			if(!check_rights(R_ADMIN))
 				return
@@ -208,7 +229,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			var/dat = "<B>Bombing List</B><HR>"
 			for(var/l in GLOB.bombers)
-				dat += text("[l]<BR>")
+				dat += "[l]<BR>"
 			usr << browse(dat, "window=bombers")
 
 		if("list_signalers")
@@ -454,7 +475,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(animetype =="Yes")
 				droptype = alert("Make the uniforms undroppable?",,"Yes","No","Cancel")
 
-			if(animetype == "Cancel" || droptype == "Cancel")
+			if(animetype == "Cancel" || droptype == "Cancel" || !animetype || (!droptype && animetype == "Yes"))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Chinese Cartoons"))
 			message_admins("[key_name_admin(usr)] made everything kawaii.")
@@ -467,7 +488,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 						var/obj/item/organ/tail/cat/tail = new
 						ears.Insert(H, drop_if_replaced=FALSE)
 						tail.Insert(H, drop_if_replaced=FALSE)
-					var/list/honorifics = list("[MALE]" = list("kun"), "[FEMALE]" = list("chan","tan"), "[NEUTER]" = list("san")) //John Robust -> Robust-kun
+					var/list/honorifics = list("[MALE]" = list("kun"), "[FEMALE]" = list("chan","tan"), "[NEUTER]" = list("san"), "[PLURAL]" = list("san")) //John Robust -> Robust-kun
 					var/list/names = splittext(H.real_name," ")
 					var/forename = names.len > 1 ? names[2] : names[1]
 					var/newname = "[forename]-[pick(honorifics["[H.gender]"])]"
@@ -506,7 +527,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if("Random")
 					E = new /datum/round_event/disease_outbreak()
 				if("Choose")
-					var/virus = input("Choose the virus to spread", "BIOHAZARD") as null|anything in sortList(typesof(/datum/disease, /proc/cmp_typepaths_asc))
+					var/virus = input("Choose the virus to spread", "BIOHAZARD") as null|anything in sort_list(typesof(/datum/disease, GLOBAL_PROC_REF(cmp_typepaths_asc)))
 					E = new /datum/round_event/disease_outbreak{}()
 					var/datum/round_event/disease_outbreak/DO = E
 					DO.virus_type = virus
@@ -690,12 +711,12 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 					continue
 				if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
 					continue
-				L.set_playable()
+				L.set_playable(ROLE_SENTIENT_ANIMAL)
 
 		if("flipmovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Flip all movement controls?","Confirm","Yes","Cancel") == "Cancel")
+			if(alert("Flip all movement controls?","Confirm","Yes","Cancel") != "Yes")
 				return
 			var/list/movement_keys = SSinput.movement_keys
 			for(var/i in 1 to movement_keys.len)
@@ -707,7 +728,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("randommovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Randomize all movement controls?","Confirm","Yes","Cancel") == "Cancel")
+			if(alert("Randomize all movement controls?","Confirm","Yes","Cancel") != "Yes")
 				return
 			var/list/movement_keys = SSinput.movement_keys
 			for(var/i in 1 to movement_keys.len)
@@ -719,7 +740,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("custommovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Are you sure you want to change every movement key?","Confirm","Yes","Cancel") == "Cancel")
+			if(alert("Are you sure you want to change every movement key?","Confirm","Yes","Cancel") != "Yes")
 				return
 			var/list/movement_keys = SSinput.movement_keys
 			var/list/new_movement = list()
@@ -740,7 +761,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("resetmovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Are you sure you want to reset movement keys to default?","Confirm","Yes","Cancel") == "Cancel")
+			if(alert("Are you sure you want to reset movement keys to default?","Confirm","Yes","Cancel") != "Yes")
 				return
 			SSinput.setup_default_movement_keys()
 			message_admins("[key_name_admin(usr)] has reset all movement keys.")
@@ -789,7 +810,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/list/candidates = list()
 
 				if (prefs["offerghosts"]["value"] == "Yes")
-					candidates = pollGhostCandidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), ROLE_TRAITOR)
+					candidates = pollGhostCandidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), BAN_ROLE_ALL_ANTAGONISTS, ignore_category = FALSE)
 
 				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
 					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")
@@ -813,20 +834,20 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 						var/ghostcandidates = list()
 						for (var/j in 1 to min(prefs["amount"]["value"], length(candidates)))
 							ghostcandidates += pick_n_take(candidates)
-							addtimer(CALLBACK(GLOBAL_PROC, .proc/doPortalSpawn, get_random_station_turf(), pathToSpawn, length(ghostcandidates), storm, ghostcandidates, outfit), i*prefs["delay"]["value"])
+							addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), get_random_station_turf(), pathToSpawn, length(ghostcandidates), storm, ghostcandidates, outfit), i*prefs["delay"]["value"])
 					else if (prefs["playersonly"]["value"] != "Yes")
-						addtimer(CALLBACK(GLOBAL_PROC, .proc/doPortalSpawn, get_random_station_turf(), pathToSpawn, prefs["amount"]["value"], storm, null, outfit), i*prefs["delay"]["value"])
+						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), get_random_station_turf(), pathToSpawn, prefs["amount"]["value"], storm, null, outfit), i*prefs["delay"]["value"])
 
 	if(E)
 		E.processing = FALSE
 		if(E.announceWhen>0)
-			if(alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No") == "No")
+			if(alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No") != "Yes")
 				E.announceChance = 0
 		E.processing = TRUE
 	if (usr)
 		log_admin("[key_name(usr)] used secret [action]")
 		if (ok)
-			to_chat(world, text("<B>A secret has been activated by []!</B>", usr.key))
+			to_chat(world, "<B>A secret has been activated by [usr.key]!</B>")
 
 /proc/portalAnnounce(announcement, playlightning)
 	set waitfor = 0
@@ -844,7 +865,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if (length(players))
 			var/mob/chosen = players[1]
 			if (chosen.client)
-				chosen.client.prefs.active_character.copy_to(spawnedMob)
+				if(ishuman(spawnedMob))
+					chosen.client.prefs.apply_prefs_to(spawnedMob)
 				spawnedMob.key = chosen.key
 			players -= chosen
 		if (ishuman(spawnedMob) && ispath(humanoutfit, /datum/outfit))

@@ -66,21 +66,23 @@
 				++xcrd
 			--ycrd
 
-/datum/map_template/shuttle/load(turf/T, centered, init_atmos = TRUE, finalize = TRUE, register=TRUE)
+/datum/map_template/shuttle/load(turf/T, centered, init_atmos, finalize = TRUE, register = TRUE)
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 		centered = FALSE
 	//This assumes a non-multi-z shuttle. If you are making a multi-z shuttle, you'll need to change the z bounds for this block. Good luck.
 	var/list/turfs = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
-							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
+							locate(min(T.x+width-1, world.maxx), min(T.y+height-1, world.maxy), T.z))
 	for(var/turf/turf in turfs)
 		turfs[turf] = turf.loc
-	keep_cached_map = TRUE //We need to access some stuff here below for shuttle skipovers
-	. = ..(T, centered, init_atmos = TRUE, finalize = FALSE)
-	keep_cached_map = initial(keep_cached_map)
+	. = ..(T, centered, init_atmos, finalize, register, turfs)
+
+/datum/map_template/shuttle/on_placement_completed(datum/map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
+	. = ..(map_gen, T, TRUE, parsed, FALSE)
 	if(!.)
-		cached_map = keep_cached_map ? cached_map : null
+		log_runtime("Failed to load shuttle [map_gen.get_name()].")
 		return
+
 	var/obj/docking_port/mobile/my_port
 	for(var/turf/place in turfs)
 		if(place.loc == turfs[place] || !istype(place.loc, /area/shuttle)) //If not part of the shuttle, ignore it
@@ -136,7 +138,7 @@
 			line = gset.gridLines[length(gset.gridLines) - y_offset] //Y goes from top to bottom
 			if((gset.xcrd - 1 < x_offset) || (gset.xcrd + (length(line)/cached_map.key_len) - 2 > x_offset)) ///Our x coord isn't in the bounds
 				continue
-			cache = cached_map.modelCache[copytext(line, 1+((x_offset-gset.xcrd+1)*cached_map.key_len), 1+((x_offset-gset.xcrd+2)*cached_map.key_len))]
+			cache = map_gen.placing_template.modelCache[copytext(line, 1+((x_offset-gset.xcrd+1)*cached_map.key_len), 1+((x_offset-gset.xcrd+2)*cached_map.key_len))]
 			break
 		if(!cache) //Our turf isn't in the cached map, something went very wrong
 			continue
@@ -156,16 +158,20 @@
 
 		if(!islist(shuttle_turf.baseturfs))
 			shuttle_turf.baseturfs = list(shuttle_turf.baseturfs)
-		shuttle_turf.baseturfs.Insert(shuttle_turf.baseturfs.len + 1 - baseturf_length, /turf/baseturf_skipover/shuttle)
+
+		var/list/sanity = shuttle_turf.baseturfs.Copy()
+		sanity.Insert(shuttle_turf.baseturfs.len + 1 - baseturf_length, /turf/baseturf_skipover/shuttle)
+		shuttle_turf.baseturfs = baseturfs_string_list(sanity, shuttle_turf)
 
 	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
 	if(finalize)
+		maps_loading --
+
 		//initialize things that are normally initialized after map load
-		initTemplateBounds(cached_map.bounds, init_atmos)
+		initTemplateBounds(., init_atmos)
 
 		log_game("[name] loaded at [T.x],[T.y],[T.z]")
 
-	cached_map = keep_cached_map ? cached_map : null
 
 //Whatever special stuff you want
 /datum/map_template/shuttle/proc/post_load(obj/docking_port/mobile/M)
@@ -255,7 +261,7 @@
 /datum/map_template/shuttle/emergency/airless/post_load()
 	. = ..()
 	//enable buying engines from cargo
-	var/datum/supply_pack/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shuttle_engine]
+	var/datum/supply_pack/P = SSsupply.supply_packs[/datum/supply_pack/engineering/shuttle_engine]
 	P.special_enabled = TRUE
 
 
@@ -640,6 +646,14 @@
 	suffix = "large"
 	name = "mining shuttle (Large)"
 
+/datum/map_template/shuttle/mining/rad
+	suffix = "rad"
+	name = "mining shuttle (Rad)"
+
+/datum/map_template/shuttle/cargo/rad
+	suffix = "rad"
+	name = "cargo ferry (Rad)"
+
 /datum/map_template/shuttle/science
 	port_id = "science"
 	suffix = "outpost"
@@ -663,6 +677,10 @@
 /datum/map_template/shuttle/exploration/kilo
 	suffix = "kilo"
 	name = "kilo exploration shuttle"
+
+/datum/map_template/shuttle/exploration/rad
+	suffix = "rad"
+	name = "rad exploration shuttle"
 
 /datum/map_template/shuttle/labour/delta
 	suffix = "delta"
@@ -751,14 +769,6 @@
 /datum/map_template/shuttle/snowdin/excavation
 	suffix = "excavation"
 	name = "Snowdin Excavation Elevator"
-
- // Turbolifts
-/datum/map_template/shuttle/turbolift/debug/primary
-	prefix = "_maps/shuttles/turbolifts/"
-	port_id = "debug"
-	suffix = "primary"
-	name = "primary turbolift (multi-z debug)"
-	can_be_bought = FALSE
 
 /datum/map_template/shuttle/tram
 	port_id = "tram"

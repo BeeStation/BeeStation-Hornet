@@ -158,38 +158,27 @@
 		target_temperature = modeled_location.GetTemperature()
 		target_heat_capacity = modeled_location.GetHeatCapacity()
 
-		if(modeled_location.blocks_air)
 
-			if((modeled_location.heat_capacity>0) && (partial_heat_capacity>0))
-				var/delta_temperature = air.return_temperature() - target_temperature
+		var/delta_temperature = 0
+		var/sharer_heat_capacity = 0
 
-				var/heat = thermal_conductivity*delta_temperature* \
-					(partial_heat_capacity*target_heat_capacity/(partial_heat_capacity+target_heat_capacity))
+		delta_temperature = (air.return_temperature() - target_temperature)
+		sharer_heat_capacity = target_heat_capacity
 
-				air.set_temperature(air.return_temperature() - heat/total_heat_capacity)
-				modeled_location.TakeTemperature(heat/target_heat_capacity)
+		var/self_temperature_delta = 0
+		var/sharer_temperature_delta = 0
 
+		if((sharer_heat_capacity>0) && (partial_heat_capacity>0))
+			var/heat = thermal_conductivity*delta_temperature* \
+				(partial_heat_capacity*sharer_heat_capacity/(partial_heat_capacity+sharer_heat_capacity))
+
+			self_temperature_delta = -heat/total_heat_capacity
+			sharer_temperature_delta = heat/sharer_heat_capacity
 		else
-			var/delta_temperature = 0
-			var/sharer_heat_capacity = 0
+			return 1
 
-			delta_temperature = (air.return_temperature() - target_temperature)
-			sharer_heat_capacity = target_heat_capacity
-
-			var/self_temperature_delta = 0
-			var/sharer_temperature_delta = 0
-
-			if((sharer_heat_capacity>0) && (partial_heat_capacity>0))
-				var/heat = thermal_conductivity*delta_temperature* \
-					(partial_heat_capacity*sharer_heat_capacity/(partial_heat_capacity+sharer_heat_capacity))
-
-				self_temperature_delta = -heat/total_heat_capacity
-				sharer_temperature_delta = heat/sharer_heat_capacity
-			else
-				return 1
-
-			air.set_temperature(air.return_temperature() + self_temperature_delta)
-			modeled_location.TakeTemperature(sharer_temperature_delta)
+		air.set_temperature(air.return_temperature() + self_temperature_delta)
+		modeled_location.TakeTemperature(sharer_temperature_delta)
 
 
 	else
@@ -206,7 +195,7 @@
 	. = other_airs + air
 	if(null in .)
 		stack_trace("[src]([REF(src)]) has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
-		listclearnulls(.)
+		list_clear_nulls(.)
 
 /datum/pipeline/proc/empty()
 	for(var/datum/gas_mixture/GM in get_all_connected_airs())

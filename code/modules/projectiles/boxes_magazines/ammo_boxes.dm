@@ -37,18 +37,28 @@
 
 /obj/item/ammo_box/c38/dumdum
 	name = "speed loader (.38 DumDum)"
-	desc = "Designed to quickly reload revolvers. DumDum bullets shatter on impact and shred the target's innards, likely getting caught inside."
+	desc = "Designed to quickly reload revolvers. DumDum rounds shatter on impact and shred the target's innards, likely getting caught inside."
 	ammo_type = /obj/item/ammo_casing/c38/dumdum
 
 /obj/item/ammo_box/c38/hotshot
 	name = "speed loader (.38 Hot Shot)"
-	desc = "Designed to quickly reload revolvers. Hot Shot bullets contain an incendiary payload."
+	desc = "Designed to quickly reload revolvers. Hot Shot rounds contain an incendiary payload."
 	ammo_type = /obj/item/ammo_casing/c38/hotshot
 
 /obj/item/ammo_box/c38/iceblox
 	name = "speed loader (.38 Iceblox)"
-	desc = "Designed to quickly reload revolvers. Iceblox bullets contain a cryogenic payload."
+	desc = "Designed to quickly reload revolvers. Iceblox rounds contain a cryogenic payload."
 	ammo_type = /obj/item/ammo_casing/c38/iceblox
+
+/obj/item/ammo_box/c38/dart
+	name = "speed loader (.38 Blister)"
+	desc = "Designed to quickly reload revolvers. Blister rounds can be injected with up to 10 units of chemicals."
+	ammo_type = /obj/item/ammo_casing/c38/dart
+
+/obj/item/ammo_box/c38/emp
+	name = "speed loader (.38 BLK_OUT)"
+	desc = "Designed to quickly reload revolvers. 'BLK_OUT' rounds unleash a small EMP on impact."
+	ammo_type = /obj/item/ammo_casing/c38/emp
 
 /obj/item/ammo_box/c38/mime
 	name = "speed loader (.38 finger)"

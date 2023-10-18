@@ -109,8 +109,8 @@
 	icon_state = "candlebox5"
 	icon_type = "candle"
 	item_state = "candlebox5"
+	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 2
-	slot_flags = ITEM_SLOT_BELT
 	spawn_type = /obj/item/candle
 	fancy_open = TRUE
 
@@ -118,6 +118,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
+	STR.can_hold = typecacheof(list(/obj/item/candle, /obj/item/lighter, /obj/item/storage/box/matches))
 
 /obj/item/storage/fancy/candle_box/attack_self(mob_user)
 	return
@@ -146,6 +147,9 @@
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click to extract contents.</span>"
+	var/obj/item/lighter/L = locate(/obj/item/lighter) in contents
+	if(L)
+		. += "<span class='notice'>There seems to be a lighter inside. Ctrl-click to pull it out.</span>"
 
 /obj/item/storage/fancy/cigarettes/AltClick(mob/living/carbon/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -158,6 +162,18 @@
 		to_chat(user, "<span class='notice'>You take \a [I] out of the pack.</span>")
 	else
 		to_chat(user, "<span class='notice'>There is nothing left in the pack.</span>")
+
+/obj/item/storage/fancy/cigarettes/CtrlClick(mob/living/carbon/user)
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		return
+	var/obj/item/I = locate(/obj/item/lighter) in contents
+	if(I)
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, user)
+		user.put_in_hands(I)
+		contents -= I
+		to_chat(user, "<span class='notice'>You take \a [I] out of the pack.</span>")
+	else
+		to_chat(user, "<span class='warning'>There is no lighter in the pack.</span>")
 
 /obj/item/storage/fancy/cigarettes/update_icon()
 	if(fancy_open || !contents.len)

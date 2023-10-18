@@ -158,7 +158,7 @@
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
 	if(type)
-		if(type & MSG_VISUAL && eye_blind )//Vision related
+		if(type & MSG_VISUAL && is_blind() )//Vision related
 			if(!alt_msg)
 				return
 			else
@@ -171,7 +171,7 @@
 			else
 				msg = alt_msg
 				type = alt_type
-				if(type & MSG_VISUAL && eye_blind)
+				if(type & MSG_VISUAL && is_blind())
 					return
 	// voice muffling
 	if(stat == UNCONSCIOUS)
@@ -181,7 +181,7 @@
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
 
 
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE)
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -198,7 +198,7 @@
 	var/raw_msg = message
 	var/is_emote = FALSE
 	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
-		message = "<span class='emote'><b>[src]</b> [message]</span>"
+		message = "<span class='emote'><b>[src]</b>[separation][message]</span>"
 		is_emote = TRUE
 
 	var/list/show_to = list()
@@ -218,16 +218,16 @@
 		if(!msg)
 			continue
 
-		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
+		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !M.is_blind())
 			show_to += M
 
-		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = M == src)
 
 	//Create the chat message
 	if(length(show_to))
 		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
 
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, separation = " ")
 	. = ..()
 	if(self_message)
 		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
@@ -243,7 +243,7 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
+/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
 	var/list/hearers = get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_MAXIMUM)
 	if(self_message)
 		hearers -= src
@@ -252,7 +252,7 @@
 	var/is_emote = FALSE
 	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
 		is_emote = TRUE
-		message = "<span class='emote'><b>[src]</b> [message]</span>"
+		message = "<span class='emote'><b>[src]</b>[separation][message]</span>"
 
 	var/list/show_to = list()
 	for(var/mob/M in hearers)
@@ -274,23 +274,25 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
+/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
 	. = ..()
 	if(self_message)
 		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 ///Returns the client runechat visible messages preference according to the message type.
 /atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL) || !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_NONMOBS))
+	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES))
+	if (!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs))
+		return FALSE
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL))
+	if(!target.client?.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES))
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes))
 		return FALSE
 	return TRUE
 
@@ -437,7 +439,7 @@
 /mob/proc/reset_perspective(atom/A)
 	if(client)
 		if(A)
-			if(ismovableatom(A))
+			if(ismovable(A))
 				//Set the the thing unless it's us
 				if(A != src)
 					client.perspective = EYE_PERSPECTIVE
@@ -535,39 +537,6 @@
 	examined_thing.attack_hand(src)
 	a_intent = previous_intent
 
-	return TRUE
-
-/**
-  * Point at an atom
-  *
-  * mob verbs are faster than object verbs. See
-  * [this byond forum post](https://secure.byond.com/forum/?post=1326139&page=2#comment8198716)
-  * for why this isn't atom/verb/pointed()
-  *
-  * note: ghosts can point, this is intended
-  *
-  * visible_message will handle invisibility properly
-  *
-  * overridden here and in /mob/dead/observer for different point span classes and sanity checks
-  */
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
-	set name = "Point To"
-	set category = "Object"
-
-	if(!src || !isturf(src.loc) || !(A in view(src.loc)))
-		return FALSE
-	if(istype(A, /obj/effect/temp_visual/point))
-		return FALSE
-
-	var/turf/tile = get_turf(A)
-	if (!tile)
-		return FALSE
-
-	var/turf/our_tile = get_turf(src)
-	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
-	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
-
-	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
 	return TRUE
 
 /**
@@ -678,9 +647,16 @@
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
+	var/alert_yes
 
 	if (CONFIG_GET(flag/norespawn))
-		return
+		if(!check_rights_for(client, R_ADMIN))
+			to_chat(usr, "<span class='boldnotice'>Respawning is disabled.</span>")
+			return
+		alert_yes = alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No")
+		if(alert_yes != "Yes")
+			return
+
 	if ((stat != DEAD || !( SSticker )))
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
@@ -703,6 +679,9 @@
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		qdel(M)
 		return
+	if(alert_yes)
+		log_admin("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
+		message_admins("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
 
 	M.key = key
 //	M.Login()	//wat
@@ -739,11 +718,11 @@
   */
 /mob/Topic(href, href_list)
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
+		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/slot = text2num(href_list["item"])
 		var/hand_index = text2num(href_list["hand_index"])
 		var/obj/item/what
@@ -813,7 +792,7 @@
   *
   * Conditions:
   * * client.last_turn > world.time
-  * * not dead or unconcious
+  * * not dead or unconscious
   * * not anchored
   * * no transform not set
   * * we are not restrained
@@ -883,6 +862,14 @@
 
 ///Add a spell to the mobs spell list
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
+	// HACK: Preferences menu creates one of every selectable species.
+	// Some species, like vampires, create spells when they're made.
+	// The "action" is created when those spells Initialize.
+	// Preferences menu can create these assets at *any* time, primarily before
+	// the atoms SS initializes.
+	// That means "action" won't exist.
+	if (isnull(S.action))
+		return
 	mob_spell_list += S
 	S.action.Grant(src)
 
@@ -930,10 +917,10 @@
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(M.loc != T)
-		var/old_density = density
+		var/old_density = density //old and doesnt use set_density()
 		density = FALSE
 		var/can_step = step_towards(M, T)
-		density = old_density
+		density = old_density // Avoid changing density directly in normal circumstances, without the setter.
 		if(!can_step)
 			return FALSE
 	return ..()
@@ -974,7 +961,7 @@
 	return Adjacent(A)
 
 ///Can the mob use Topic to interact with machines
-/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	return
 
 ///Can this mob use storage
@@ -1118,7 +1105,7 @@
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
-	if(is_blind(src))
+	if(is_blind())
 		to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
 		return
 	if(!is_literate())
@@ -1266,7 +1253,7 @@
 		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
 	active_storage = new_active_storage
 	if(active_storage)
-		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, .proc/active_storage_deleted)
+		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, PROC_REF(active_storage_deleted))
 
 /mob/proc/active_storage_deleted(datum/source)
 	SIGNAL_HANDLER

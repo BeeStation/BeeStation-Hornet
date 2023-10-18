@@ -97,7 +97,7 @@
 	icon_door = "black"
 
 /obj/structure/closet/wardrobe/chaplain_black/PopulateContents()
-	new /obj/item/choice_beacon/holy(src)
+	new /obj/item/choice_beacon/radial/holy(src)
 	new /obj/item/clothing/accessory/pocketprotector/cosmetology(src)
 	new /obj/item/clothing/under/rank/civilian/chaplain(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
@@ -154,12 +154,21 @@
 		/obj/item/storage/backpack/duffelbag/engineering = 1,
 		/obj/item/storage/backpack/satchel/eng = 1,
 		/obj/item/storage/backpack/industrial = 1,
-		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
-		/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
-		/obj/item/clothing/shoes/sneakers/black = 3,
-		/obj/item/clothing/head/beret/atmos = 3)
+		/obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow = 3
+	)
 	generate_items_inside(items_inside,src)
 	return
+
+/obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow
+	name = "compression box of atmospherics uniforms"
+	max_repetition = 1
+	repeated_items = list(
+		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
+		/obj/item/clothing/under/rank/engineering/atmospheric_technician,
+		/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt,
+		/obj/item/clothing/shoes/sneakers/black,
+		/obj/item/clothing/head/beret/atmos
+	)
 
 /obj/structure/closet/wardrobe/engineering_yellow
 	name = "engineering wardrobe"
@@ -171,14 +180,23 @@
 		/obj/item/storage/backpack/duffelbag/engineering = 1,
 		/obj/item/storage/backpack/industrial = 1,
 		/obj/item/storage/backpack/satchel/eng = 1,
-		/obj/item/clothing/suit/hooded/wintercoat/engineering = 1,
-		/obj/item/clothing/under/rank/engineering/engineer = 3,
-		/obj/item/clothing/suit/hazardvest = 3,
-		/obj/item/clothing/shoes/workboots = 3,
-		/obj/item/clothing/head/hardhat = 3,
-		/obj/item/clothing/head/beret/eng = 3)
+		/obj/item/storage/box/suitbox/wardrobe/engineering = 3
+	)
 	generate_items_inside(items_inside,src)
 	return
+
+/obj/item/storage/box/suitbox/wardrobe/engineering
+	name = "compression box of engineering uniforms"
+	max_repetition = 1
+	repeated_items = list(
+		/obj/item/clothing/suit/hooded/wintercoat/engineering,
+		/obj/item/clothing/under/rank/engineering/engineer,
+		/obj/item/clothing/under/rank/engineering/engineer/skirt,
+		/obj/item/clothing/suit/hazardvest,
+		/obj/item/clothing/shoes/workboots,
+		/obj/item/clothing/head/hardhat,
+		/obj/item/clothing/head/beret/eng
+	)
 
 /obj/structure/closet/wardrobe/white/medical
 	name = "medical doctor's wardrobe"
@@ -196,8 +214,8 @@
 		/obj/item/clothing/under/rank/medical/doctor/green = 1,
 		/obj/item/clothing/under/rank/medical/doctor/purple = 1,
 		/obj/item/clothing/under/rank/medical = 3,
-		/obj/item/clothing/suit/toggle/labcoat = 3,
-		/obj/item/clothing/suit/toggle/labcoat/paramedic = 3,
+		/obj/item/clothing/suit/toggle/labcoat/med = 3,
+		/obj/item/clothing/suit/toggle/labcoat/med/paramedic = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
 		/obj/item/clothing/head/soft/paramedic = 3,
 		/obj/item/clothing/head/beret/med = 3)

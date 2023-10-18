@@ -14,7 +14,7 @@
 	friendly = "nudges"
 	density = FALSE
 	movement_type = FLYING
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)

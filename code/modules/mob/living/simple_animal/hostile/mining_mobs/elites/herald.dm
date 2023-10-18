@@ -24,8 +24,8 @@
 	icon_aggro = "herald"
 	icon_dead = "herald_dying"
 	icon_gib = "syndicate_gib"
-	maxHealth = 800
-	health = 800
+	maxHealth = 400
+	health = 400
 	melee_damage = 20
 	attacktext = "preaches to"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
@@ -50,7 +50,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/death()
 	. = ..()
 	if(!is_mirror)
-		addtimer(CALLBACK(src, .proc/become_ghost), 8)
+		addtimer(CALLBACK(src, PROC_REF(become_ghost)), 8)
 	if(my_mirror != null)
 		qdel(my_mirror)
 
@@ -122,11 +122,11 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/shoot_projectile(turf/marker, set_angle, var/is_teleshot)
 	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/herald/H = null
+	var/obj/projectile/herald/H = null
 	if(!is_teleshot)
-		H = new /obj/item/projectile/herald(startloc)
+		H = new /obj/projectile/herald(startloc)
 	else
-		H = new /obj/item/projectile/herald/teleshot(startloc)
+		H = new /obj/projectile/herald/teleshot(startloc)
 	H.preparePixelProjectile(marker, startloc)
 	H.firer = src
 	if(target)
@@ -139,13 +139,13 @@
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
 	shoot_projectile(target_turf, angle_to_target, FALSE)
-	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE), 2)
-	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE), 4)
+	addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 2)
+	addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 4)
 	if(health < maxHealth * 0.5)
 		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
-		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE), 10)
-		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE), 12)
-		addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE), 14)
+		addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 10)
+		addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 12)
+		addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 14)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_circleshot()
 	var/static/list/directional_shot_angles = list(0, 45, 90, 135, 180, 225, 270, 315)
@@ -162,11 +162,11 @@
 	if(!is_mirror)
 		icon_state = "herald_enraged"
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
-	addtimer(CALLBACK(src, .proc/herald_circleshot), 5)
+	addtimer(CALLBACK(src, PROC_REF(herald_circleshot)), 5)
 	if(health < maxHealth * 0.5)
 		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
-		addtimer(CALLBACK(src, .proc/herald_circleshot), 15)
-	addtimer(CALLBACK(src, .proc/unenrage), 20)
+		addtimer(CALLBACK(src, PROC_REF(herald_circleshot)), 15)
+	addtimer(CALLBACK(src, PROC_REF(unenrage)), 20)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_teleshot(target)
 	ranged_cooldown = world.time + 30
@@ -189,8 +189,8 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror
 	name = "herald's mirror"
 	desc = "This fiendish work of magic copies the herald's attacks.  Seems logical to smash it."
-	health = 60
-	maxHealth = 60
+	health = 30
+	maxHealth = 30
 	icon_state = "herald_mirror"
 	deathmessage = "shatters violently!"
 	deathsound = 'sound/effects/glassbr1.ogg'
@@ -208,7 +208,7 @@
 		my_master.my_mirror = null
 	. = ..()
 
-/obj/item/projectile/herald
+/obj/projectile/herald
 	name ="death bolt"
 	icon_state= "chronobolt"
 	damage = 15
@@ -218,12 +218,12 @@
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
 
-/obj/item/projectile/herald/teleshot
+/obj/projectile/herald/teleshot
 	name ="golden bolt"
 	damage = 0
 	color = rgb(255,255,102)
 
-/obj/item/projectile/herald/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/herald/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(ismineralturf(target))
 		var/turf/closed/mineral/M = target
@@ -235,7 +235,7 @@
 		if(F != null && istype(F, /mob/living/simple_animal/hostile/asteroid/elite) && F.faction_check_mob(L))
 			L.heal_overall_damage(damage)
 
-/obj/item/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	firer.forceMove(get_turf(src))
 
@@ -256,8 +256,8 @@
 
 /obj/item/clothing/neck/cloak/herald_cloak/proc/shoot_projectile(turf/marker, set_angle, mob/living/carbon/owner)
 	var/turf/startloc = get_turf(owner)
-	var/obj/item/projectile/herald/H = null
-	H = new /obj/item/projectile/herald(startloc)
+	var/obj/projectile/herald/H = null
+	H = new /obj/projectile/herald(startloc)
 	H.preparePixelProjectile(marker, startloc)
 	H.firer = owner
 	H.fire(set_angle)
@@ -269,4 +269,4 @@
 	owner.visible_message("<span class='danger'>[owner]'s [src] emits a loud noise as [owner] is struck!</span>")
 	var/static/list/directional_shot_angles = list(0, 45, 90, 135, 180, 225, 270, 315)
 	playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
-	addtimer(CALLBACK(src, .proc/reactionshot, owner), 10)
+	addtimer(CALLBACK(src, PROC_REF(reactionshot), owner), 10)

@@ -116,7 +116,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 
 /obj/effect/rune/proc/conceal() //for talisman of revealing/hiding
 	visible_message("<span class='danger'>[src] fades away.</span>")
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_SPIRIT
 	alpha = 100 //To help ghosts distinguish hidden runes
 
 /obj/effect/rune/proc/reveal() //for talisman of revealing/hiding
@@ -143,7 +143,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, "<span class='warning'>You do not possess a strong enough physical binding to activate this rune!</span>")
 	if(req_cultists > 1 || istype(src, /obj/effect/rune/convert))
 		var/obj/item/toy/plush/narplush/plushsie = locate() in range(1, src)
-		if(plushsie?.is_invoker)
+		if(plushsie?.invoker_charges > 0)
 			invokers += plushsie
 		for(var/mob/living/L in viewers(1, src))
 			if(iscultist(L))
@@ -174,6 +174,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		else if(istype(M, /obj/item/toy/plush/narplush))
 			var/obj/item/toy/plush/narplush/P = M
 			P.visible_message("<span class='cult italic'>[P] squeaks loudly!</span>")
+			P.invoker_charges -= 1
 	do_invoke_glow()
 
 /obj/effect/rune/proc/do_invoke_glow()
@@ -188,7 +189,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/oldcolor = color
 	color = rgb(255, 0, 0)
 	animate(src, color = oldcolor, time = 5)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 5)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 5)
 
 //Malformed Rune: This forms if a rune is not drawn correctly. Invoking it does nothing but hurt the user.
 /obj/effect/rune/malformed
@@ -253,7 +254,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		..()
 		do_sacrifice(L, invokers)
 	animate(src, color = oldcolor, time = 5)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 5)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 5)
 	Cult_team.check_size() // Triggers the eye glow or aura effects if the cult has grown large enough relative to the crew
 	rune_in_use = FALSE
 
@@ -377,7 +378,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	LAZYADD(GLOB.teleport_runes, src)
 
 /obj/effect/rune/teleport/Destroy()
-	GLOB.teleport_runes -= src
+	LAZYREMOVE(GLOB.teleport_runes, src)
 	if(inner_portal)
 		QDEL_NULL(inner_portal)
 	if(outer_portal)
@@ -412,7 +413,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	var/turf/target = get_turf(actual_selected_rune)
-	if(is_blocked_turf(target, TRUE))
+	if(target.is_blocked_turf(TRUE))
 		to_chat(user, "<span class='warning'>The target rune is blocked. Attempting to teleport to it would be massively unwise.</span>")
 		fail_invoke()
 		return
@@ -472,7 +473,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	outer_portal = new(T, 600, color)
 	light_range = 4
 	update_light()
-	addtimer(CALLBACK(src, .proc/close_portal), 600, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(close_portal)), 600, TIMER_UNIQUE)
 
 /obj/effect/rune/teleport/proc/close_portal()
 	QDEL_NULL(inner_portal)
@@ -500,11 +501,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/narsie/Initialize(mapload, set_keyword)
 	. = ..()
-	GLOB.poi_list |= src
-
-/obj/effect/rune/narsie/Destroy()
-	GLOB.poi_list -= src
-	. = ..()
+	AddElement(/datum/element/point_of_interest)
 
 /obj/effect/rune/narsie/conceal() //can't hide this, and you wouldn't want to
 	return
@@ -611,7 +608,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		mob_to_revive.grab_ghost()
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
-		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [mob_to_revive.name], an inactive blood cultist?", ROLE_CULTIST, null, ROLE_CULTIST, 50, mob_to_revive)
+		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [mob_to_revive.name], an inactive blood cultist?", ROLE_CULTIST, /datum/role_preference/antagonist/blood_cultist, 7.5 SECONDS, mob_to_revive)
 		if(LAZYLEN(candidates))
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive.mind, "Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.")
@@ -699,7 +696,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			W.density = TRUE
 			W.update_state()
 			W.spread_density()
-	density_timer = addtimer(CALLBACK(src, .proc/lose_density), 3000, TIMER_STOPPABLE)
+	density_timer = addtimer(CALLBACK(src, PROC_REF(lose_density)), 3000, TIMER_STOPPABLE)
 
 /obj/effect/rune/wall/proc/lose_density()
 	if(density)
@@ -709,7 +706,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		var/oldcolor = color
 		add_atom_colour("#696969", FIXED_COLOUR_PRIORITY)
 		animate(src, color = oldcolor, time = 50, easing = EASE_IN)
-		addtimer(CALLBACK(src, .proc/recharge), 50)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), 50)
 
 /obj/effect/rune/wall/proc/recharge()
 	recharging = FALSE
@@ -908,7 +905,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		new_human.alpha = 150 //Makes them translucent
 		new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 		new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts
-		new_human.see_invisible = SEE_INVISIBLE_OBSERVER
+		new_human.see_invisible = SEE_INVISIBLE_SPIRIT
 		ghosts++
 		playsound(src, 'sound/magic/exit_blood.ogg', 50, 1)
 		visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo":""]man.</span>")
@@ -947,7 +944,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		while(!QDELETED(affecting))
 			if(!(affecting in T))
 				user.visible_message("<span class='warning'>A spectral tendril wraps around [affecting] and pulls [affecting.p_them()] back to the rune!</span>")
-				Beam(affecting, icon_state="drainbeam", time=2)
+				Beam(affecting, icon_state="drainbeam", time = 2)
 				affecting.forceMove(get_turf(src)) //NO ESCAPE :^)
 			if(affecting.key)
 				affecting.visible_message("<span class='warning'>[affecting] slowly relaxes, the glow around [affecting.p_them()] dimming.</span>", \
@@ -1026,11 +1023,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(ishuman(M))
 			if(!iscultist(M))
 				AH.remove_hud_from(M)
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/hudFix, M), duration)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(hudFix), M), duration)
 			var/image/A = image('icons/mob/mob.dmi',M,"cultist", ABOVE_MOB_LAYER)
 			A.override = 1
 			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/noncult, "human_apoc", A, NONE)
-			addtimer(CALLBACK(M,/atom/.proc/remove_alt_appearance,"human_apoc",TRUE), duration)
+			addtimer(CALLBACK(M,TYPE_PROC_REF(/atom, remove_alt_appearance),"human_apoc",TRUE), duration)
 			images += A
 			SEND_SOUND(M, pick(sound('sound/ambience/antag/bloodcult.ogg'),sound('sound/spookoween/ghost_whisper.ogg'),sound('sound/spookoween/ghosty_wind.ogg')))
 		else
@@ -1038,13 +1035,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/image/B = image('icons/mob/mob.dmi',M,construct, ABOVE_MOB_LAYER)
 			B.override = 1
 			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/noncult, "mob_apoc", B, NONE)
-			addtimer(CALLBACK(M,/atom/.proc/remove_alt_appearance,"mob_apoc",TRUE), duration)
+			addtimer(CALLBACK(M,TYPE_PROC_REF(/atom, remove_alt_appearance),"mob_apoc",TRUE), duration)
 			images += B
 		if(!iscultist(M))
 			if(M.client)
 				var/image/C = image('icons/effects/cult_effects.dmi',M,"bloodsparkles", ABOVE_MOB_LAYER)
 				add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", C, NONE)
-				addtimer(CALLBACK(M,/atom/.proc/remove_alt_appearance,"cult_apoc",TRUE), duration)
+				addtimer(CALLBACK(M,TYPE_PROC_REF(/atom, remove_alt_appearance),"cult_apoc",TRUE), duration)
 				images += C
 		else
 			to_chat(M, "<span class='cultlarge'>An Apocalypse Rune was invoked in the [place.name], it is no longer available as a summoning site!</span>")

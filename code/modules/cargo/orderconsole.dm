@@ -41,10 +41,15 @@
 		obj_flags |= EMAGGED
 	else
 		obj_flags &= ~EMAGGED
+	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, PROC_REF(update_static_ui))
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)
 	return ..()
+
+/obj/machinery/computer/cargo/proc/update_static_ui()
+	for (var/datum/tgui/open_window as() in SStgui.get_all_open_uis(src))
+		update_static_data(null, open_window)
 
 /obj/machinery/computer/cargo/proc/get_export_categories()
 	. = EXPORT_CARGO
@@ -97,20 +102,22 @@
 		message = blockade_warning
 	data["message"] = message
 	data["cart"] = list()
-	for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
+	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 		data["cart"] += list(list(
 			"object" = SO.pack.name,
 			"cost" = SO.pack.get_cost(),
+			"supply" = SO.pack.current_supply,
 			"id" = SO.id,
 			"orderer" = SO.orderer,
 			"paid" = !isnull(SO.paying_account) //paid by requester
 		))
 
 	data["requests"] = list()
-	for(var/datum/supply_order/SO in SSshuttle.requestlist)
+	for(var/datum/supply_order/SO in SSsupply.requestlist)
 		data["requests"] += list(list(
 			"object" = SO.pack.name,
 			"cost" = SO.pack.get_cost(),
+			"supply" = SO.pack.current_supply,
 			"orderer" = SO.orderer,
 			"reason" = SO.reason,
 			"id" = SO.id
@@ -122,8 +129,8 @@
 	var/list/data = list()
 	data["requestonly"] = requestonly
 	data["supplies"] = list()
-	for(var/pack in SSshuttle.supply_packs)
-		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]
+	for(var/pack in SSsupply.supply_packs)
+		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
 		if(!data["supplies"][P.group])
 			data["supplies"][P.group] = list(
 				"name" = P.group,
@@ -135,6 +142,7 @@
 			"name" = P.name,
 			"cost" = P.get_cost(),
 			"id" = pack,
+			"supply" = P.current_supply,
 			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
 			"small_item" = P.small_item,
 			"access" = P.access
@@ -181,7 +189,7 @@
 			if(!COOLDOWN_FINISHED(src, order_cooldown))
 				return
 			var/id = text2path(params["id"])
-			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
+			var/datum/supply_pack/pack = SSsupply.supply_packs[id]
 			if(!istype(pack))
 				return
 			if((pack.hidden && !(obj_flags & EMAGGED)) || (pack.contraband && !contraband) || pack.DropPodOnly)
@@ -223,9 +231,9 @@
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
 			SO.generateRequisition(T)
 			if(requestonly && !self_paid)
-				SSshuttle.requestlist += SO
+				SSsupply.requestlist += SO
 			else
-				SSshuttle.shoppinglist += SO
+				SSsupply.shoppinglist += SO
 				if(self_paid)
 					say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
 			if(requestonly && message_cooldown < world.time)
@@ -234,31 +242,31 @@
 			. = TRUE
 		if("remove")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
+			for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 				if(SO.id == id)
-					SSshuttle.shoppinglist -= SO
+					SSsupply.shoppinglist -= SO
 					. = TRUE
 					break
 		if("clear")
-			SSshuttle.shoppinglist.Cut()
+			SSsupply.shoppinglist.Cut()
 			. = TRUE
 		if("approve")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.requestlist)
+			for(var/datum/supply_order/SO in SSsupply.requestlist)
 				if(SO.id == id)
-					SSshuttle.requestlist -= SO
-					SSshuttle.shoppinglist += SO
+					SSsupply.requestlist -= SO
+					SSsupply.shoppinglist += SO
 					. = TRUE
 					break
 		if("deny")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.requestlist)
+			for(var/datum/supply_order/SO in SSsupply.requestlist)
 				if(SO.id == id)
-					SSshuttle.requestlist -= SO
+					SSsupply.requestlist -= SO
 					. = TRUE
 					break
 		if("denyall")
-			SSshuttle.requestlist.Cut()
+			SSsupply.requestlist.Cut()
 			. = TRUE
 		if("toggleprivate")
 			self_paid = !self_paid

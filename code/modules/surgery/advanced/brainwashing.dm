@@ -16,6 +16,7 @@
 
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_HEAD)
+	abductor_surgery_blacklist = TRUE
 
 /datum/surgery/advanced/brainwashing/can_start(mob/user, mob/living/carbon/target)
 	if(!..())
@@ -29,6 +30,9 @@
 	name = "brainwash"
 	implements = list(TOOL_HEMOSTAT = 85, TOOL_WIRECUTTER = 50, /obj/item/stack/package_wrap = 35, /obj/item/stack/cable_coil = 15)
 	time = 200
+	preop_sound = 'sound/surgery/hemostat1.ogg'
+	success_sound = 'sound/surgery/hemostat1.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 	var/objective
 
 /datum/surgery_step/brainwash/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -50,7 +54,7 @@
 		"[user] successfully fixes [target]'s brain!",
 		"[user] completes the surgery on [target]'s brain.")
 	to_chat(target, "<span class='userdanger'>A new compulsion fills your mind... you feel forced to obey it!</span>")
-	brainwash(target, objective)
+	brainwash(target, objective, "brainwashing surgery from [user.mind ? user.mind.name : user.real_name]")
 	message_admins("[ADMIN_LOOKUPFLW(user)] surgically brainwashed [ADMIN_LOOKUPFLW(target)] with the objective '[objective]'.")
 	log_game("[key_name(user)] surgically brainwashed [key_name(target)] with the objective '[objective]'.")
 	return TRUE

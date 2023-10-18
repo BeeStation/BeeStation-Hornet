@@ -72,7 +72,7 @@ Bonus
 	M.adjust_fire_stacks(1 * power)
 	M.take_overall_damage(burn = 3 * power, required_status = BODYTYPE_ORGANIC)
 	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
-		addtimer(CALLBACK(A, /datum/disease/.proc/spread, 2), 20)
+		addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 2), 20)
 		M.visible_message("<span class='danger'>[M] bursts into flames, spreading burning sparks about the area!</span>")
 	return 1
 
@@ -83,7 +83,7 @@ Bonus
 		M.adjust_fire_stacks(3 * power)
 	M.take_overall_damage(burn = 5 * power, required_status = BODYTYPE_ORGANIC)
 	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
-		addtimer(CALLBACK(A, /datum/disease/.proc/spread, 4), 20)
+		addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 4), 20)
 		M.visible_message("<span class='danger'>[M] bursts into flames, spreading burning sparks about the area!</span>")
 	return 1
 

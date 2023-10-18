@@ -4,7 +4,7 @@
 	desc = "A label on the side of this potato reads \"Product of DonkCo Service Wing. Activate far away from populated areas. Device will only attach to sapient creatures.\" <span class='boldnotice'>You can attack anyone with it to force it on them instead of yourself!</span>"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "potato"
-	item_flags = NOBLUDGEON
+	item_flags = NOBLUDGEON | ISWEAPON
 	force = 0
 	var/icon_off = "potato"
 	var/icon_on = "potato_active"
@@ -77,7 +77,7 @@
 			L.SetImmobilized(0)
 			L.SetParalyzed(0)
 			L.SetUnconscious(0)
-			L.reagents.add_reagent(/datum/reagent/medicine/muscle_stimulant, CLAMP(5 - L.reagents.get_reagent_amount(/datum/reagent/medicine/muscle_stimulant), 0, 5))	//If you don't have legs or get bola'd, tough luck!
+			L.reagents.add_reagent(/datum/reagent/medicine/muscle_stimulant, clamp(5 - L.reagents.get_reagent_amount(/datum/reagent/medicine/muscle_stimulant), 0, 5))	//If you don't have legs or get bola'd, tough luck!
 			colorize(L)
 
 /obj/item/hot_potato/examine(mob/user)
@@ -139,7 +139,7 @@
 		ADD_TRAIT(src, TRAIT_NODROP, HOT_POTATO_TRAIT)
 	name = "primed [name]"
 	activation_time = timer + world.time
-	detonation_timerid = addtimer(CALLBACK(src, .proc/detonate), delay, TIMER_STOPPABLE)
+	detonation_timerid = addtimer(CALLBACK(src, PROC_REF(detonate)), delay, TIMER_STOPPABLE)
 	START_PROCESSING(SSfastprocess, src)
 	if(user)
 		log_bomber(user, "has primed a", src, "for detonation (Timer:[delay],Explosive:[detonate_explosion],Range:[detonate_dev_range]/[detonate_heavy_range]/[detonate_light_range]/[detonate_fire_range])")

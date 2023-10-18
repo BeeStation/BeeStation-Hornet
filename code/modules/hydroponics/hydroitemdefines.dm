@@ -9,6 +9,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
+	belt_icon_state = "plant_analyzer"
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
 // *************************************
@@ -76,6 +77,7 @@
 	flags_1 = CONDUCT_1
 	force = 12
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 	throwforce = 15
 	throw_speed = 3
 	throw_range = 4
@@ -104,6 +106,7 @@
 	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
+	item_flags = ISWEAPON
 	flags_1 = CONDUCT_1
 	armour_penetration = 20
 	slot_flags = ITEM_SLOT_BACK
@@ -153,8 +156,8 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez

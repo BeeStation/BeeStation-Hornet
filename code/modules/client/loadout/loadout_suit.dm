@@ -16,13 +16,13 @@
 
 /datum/gear/suit/labcoat/brig_doc
 	display_name = "brig physician's labcoat"
-	path = /obj/item/clothing/suit/toggle/labcoat/brig_physician
+	path = /obj/item/clothing/suit/toggle/labcoat/med/brig_physician
 	allowed_roles = list(JOB_NAME_BRIGPHYSICIAN)
 
 /datum/gear/suit/labcoat/paramedic
 	display_name = "EMT labcoat"
-	path = /obj/item/clothing/suit/toggle/labcoat/paramedic
-	allowed_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST)
+	path = /obj/item/clothing/suit/toggle/labcoat/med/paramedic
+	allowed_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_PARAMEDIC)
 
 //WINTER COATS
 /datum/gear/suit/wintercoat
@@ -214,3 +214,52 @@
 	display_name = "black bishop's robes"
 	path = /obj/item/clothing/suit/chaplainsuit/bishoprobe/black
 	allowed_roles = list(JOB_NAME_CHAPLAIN)
+
+//HOODIES
+/datum/gear/suit/hoodie
+	subtype_path = /datum/gear/suit/hoodie
+	cost = 2000
+
+/datum/gear/suit/hoodie/white
+	display_name = "white hoodie"
+	path = /obj/item/clothing/head/hooded/hoodie
+
+/datum/gear/suit/hoodie/blue
+	display_name = "blue hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/blue
+
+/datum/gear/suit/hoodie/green
+	display_name = "green hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/green
+
+/datum/gear/suit/hoodie/orange
+	display_name = "orange hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/orange
+
+/datum/gear/suit/hoodie/pink
+	display_name = "pink hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/pink
+
+/datum/gear/suit/hoodie/red
+	display_name = "red hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/red
+
+/datum/gear/suit/hoodie/black
+	display_name = "black hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/black
+
+/datum/gear/suit/hoodie/yellow
+	display_name = "yellow hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/yellow
+
+/datum/gear/suit/hoodie/darkblue
+	display_name = "darkblue hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/darkblue
+
+/datum/gear/suit/hoodie/teal
+	display_name = "teal hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/teal
+
+/datum/gear/suit/hoodie/purple
+	display_name = "purple hoodie"
+	path = /obj/item/clothing/suit/hooded/hoodie/purple

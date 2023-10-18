@@ -50,7 +50,7 @@
 "gy" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
-/obj/item/kitchen/knife{
+/obj/item/knife/kitchen{
 	pixel_x = 18;
 	pixel_y = 8
 	},
@@ -256,7 +256,7 @@
 	},
 /area/template_noop)
 "vA" = (
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "xZ" = (
@@ -506,7 +506,7 @@
 "Qs" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "QA" = (

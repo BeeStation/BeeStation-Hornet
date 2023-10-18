@@ -75,12 +75,12 @@
 		add_overlay("cell-o1")
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
-	return 100*charge/maxcharge
+	return maxcharge ? 100 * charge / maxcharge : 0 //Division by 0 protection
 
 // use power from a cell
 /obj/item/stock_parts/cell/use(amount)
 	if(rigged && amount > 0)
-		explode()
+		plasma_ignition(4)
 		return 0
 	if(charge < amount)
 		return 0
@@ -92,7 +92,7 @@
 // recharge the cell
 /obj/item/stock_parts/cell/proc/give(amount)
 	if(rigged && amount > 0)
-		explode()
+		plasma_ignition(4)
 		return 0
 	if(maxcharge < amount)
 		amount = maxcharge
@@ -205,7 +205,7 @@
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)
-		return CLAMP(20 + round(charge/25000), 20, 195) + rand(-5,5)
+		return clamp(20 + round(charge/25000), 20, 195) + rand(-5,5)
 	else
 		return 0
 
@@ -269,6 +269,7 @@
 	maxcharge = 10000
 	materials = list(/datum/material/glass=60)
 	chargerate = 1500
+	rating = 1
 
 /obj/item/stock_parts/cell/high/plus
 	name = "high-capacity power cell+"
@@ -288,6 +289,7 @@
 	maxcharge = 20000
 	materials = list(/datum/material/glass=300)
 	chargerate = 2000
+	rating = 2
 
 /obj/item/stock_parts/cell/super/empty/Initialize(mapload)
 	. = ..()
@@ -300,6 +302,7 @@
 	maxcharge = 30000
 	materials = list(/datum/material/glass=400)
 	chargerate = 3000
+	rating = 3
 
 /obj/item/stock_parts/cell/hyper/empty/Initialize(mapload)
 	. = ..()
@@ -313,6 +316,7 @@
 	maxcharge = 40000
 	materials = list(/datum/material/glass=600)
 	chargerate = 4000
+	rating = 4
 
 /obj/item/stock_parts/cell/bluespace/empty/Initialize(mapload)
 	. = ..()
@@ -376,7 +380,7 @@
 
 /obj/item/stock_parts/cell/emproof/empty/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/item/stock_parts/cell/emproof/corrupt()
 	return
@@ -394,7 +398,7 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	charge = CLAMP((charge-(10000/severity)),0,maxcharge)
+	charge = clamp((charge-(10000/severity)),0,maxcharge)
 
 /obj/item/stock_parts/cell/emergency_light
 	name = "miniature power cell"

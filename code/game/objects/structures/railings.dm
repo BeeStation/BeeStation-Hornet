@@ -3,9 +3,13 @@
 	desc = "Basic railing meant to protect idiots like you from falling."
 	icon = 'icons/obj/fluff.dmi'
 	icon_state = "railing"
+	flags_1 = ON_BORDER_1
 	density = TRUE
 	anchored = TRUE
-	climbable = TRUE
+	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
+	max_integrity = 75
+
+	var/climbable = TRUE
 	///Initial direction of the railing.
 	var/ini_dir
 
@@ -17,11 +21,19 @@
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
 	ini_dir = dir
+	if(climbable)
+		AddElement(/datum/element/climbable)
 
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, .proc/can_be_rotated),CALLBACK(src,.proc/after_rotation))
-	init_connect_loc_element()
+	if(density && (flags_1 & ON_BORDER_1)) // blocks normal movement from and to the direction it's facing.
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
+
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)),CALLBACK(src, PROC_REF(after_rotation)))
 
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
+	..()
 	add_fingerprint(user)
 
 	if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
@@ -39,51 +51,47 @@
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
+	if(flags_1 & NODECONSTRUCT_1)
+		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
-		I.play_tool_sound(src, 100)
-		deconstruct()
-		return TRUE
+		to_chat(user, "<span class='warning'>You begin to cut apart [src]...</span>")
+		// Insta-disassemble is bad
+		if(I.use_tool(src, user, 2.5 SECONDS))
+			deconstruct()
+			return TRUE
 
 /obj/structure/railing/deconstruct(disassembled)
-	. = ..()
-	if(!loc) //quick check if it's qdeleted already.
-		return
 	if(!(flags_1 & NODECONSTRUCT_1))
-		var/obj/item/stack/rods/rod = new /obj/item/stack/rods(drop_location(), 3)
-		transfer_fingerprints_to(rod)
-		qdel(src)
+		var/drop_loc = drop_location()
+		var/obj/R = new /obj/item/stack/rods(drop_loc, 3)
+		if(QDELETED(R)) // the rods merged with something on the tile
+			R = locate(/obj/item/stack/rods) in drop_loc
+		if(R)
+			transfer_fingerprints_to(R)
+	return ..()
+
 ///Implements behaviour that makes it possible to unanchor the railing.
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(flags_1&NODECONSTRUCT_1)
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
-	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
+	if(I.use_tool(src, user, 1 SECONDS, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 		setAnchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
-/obj/structure/railing/CanPass(atom/movable/mover, turf/target)
+/obj/structure/railing/CanPass(atom/movable/mover, border_dir)
 	. = ..()
-	if(get_dir(loc, target) & dir)
-		var/checking = FLYING | FLOATING
-		return . || mover.movement_type & checking
+	if(border_dir & dir)
+		return . || mover.throwing || mover.movement_type & (FLYING | FLOATING)
 	return TRUE
-
-/obj/structure/railing/corner/CanPass()
-	..()
-	return TRUE
-
-/obj/structure/railing/proc/init_connect_loc_element()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = .proc/on_exit,
-	)
-
-	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
+
+	if(leaving == src)
+		return // Let's not block ourselves.
 
 	if(!(direction & dir))
 		return
@@ -94,7 +102,7 @@
 	if (leaving.throwing)
 		return
 
-	if (leaving.movement_type & (FLYING | FLOATING))
+	if (leaving.movement_type & (PHASING | FLYING | FLOATING))
 		return
 
 	if (leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
@@ -103,18 +111,16 @@
 	leaving.Bump(src)
 	return COMPONENT_ATOM_BLOCK_EXIT
 
-// Corner railings don't block anything, so they don't create the element.
-/obj/structure/railing/corner/init_connect_loc_element()
-	return
-
 /obj/structure/railing/proc/can_be_rotated(mob/user,rotation_type)
+	if(!in_range(user, src))
+		return
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE
 
 	var/target_dir = turn(dir, rotation_type == ROTATION_CLOCKWISE ? -90 : 90)
 
-	if(!valid_window_location(loc, target_dir)) //Expanded to include rails, as well!
+	if(!valid_window_location(loc, target_dir, is_fulltile = FALSE)) //Expanded to include rails, as well!
 		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 	return TRUE

@@ -783,7 +783,7 @@
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "ck" = (
-/obj/effect/mob_spawn/human/bartender/alive,
+/obj/effect/mob_spawn/human/bartender/alive/beach,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "cl" = (

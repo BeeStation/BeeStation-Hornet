@@ -11,6 +11,7 @@
 						/obj/item/clothing/under/rank/civilian/bartender = 1,
 						/obj/item/clothing/under/rank/civilian/chef = 1,
 						/obj/item/clothing/under/rank/engineering/chief_engineer = 1,
+						/obj/item/clothing/under/rank/engineering/chief_engineer/skirt = 1,
 						/obj/item/clothing/under/rank/rnd/scientist = 1,
 						/obj/item/clothing/under/rank/medical/chemist = 1,
 						/obj/item/clothing/under/rank/medical/chief_medical_officer = 1,

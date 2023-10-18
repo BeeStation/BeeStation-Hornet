@@ -13,14 +13,14 @@
 
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/computer/camera_advanced/abductor/CreateEye()
-	..()
-	eyeobj.visible_icon = TRUE
-	eyeobj.icon = 'icons/mob/cameramob.dmi'
-	eyeobj.icon_state = "abductor_camera"
-	eyeobj.invisibility = INVISIBILITY_OBSERVER
+	reveal_camera_mob = TRUE
+	camera_mob_icon_state = "abductor_camera"
 
 /obj/machinery/computer/camera_advanced/abductor/GrantActions(mob/living/carbon/user)
 	..()
@@ -75,17 +75,26 @@
 		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
 		return
 
+	var/specimin_nearby = FALSE
+	var/agent_nearby = FALSE
 	for(var/mob/living/carbon/human/specimin in view(5, target_loc))
+		//They are an abductor agent, we can always go near them
+		if (isabductor(specimin))
+			agent_nearby = TRUE
+			break
 		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
 		//Not a specimin
 		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART) || isabductor(specimin))
+		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
 			continue
+		specimin_nearby = TRUE
+
+	if (specimin_nearby && !agent_nearby)
 		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
 		return
 
@@ -121,17 +130,26 @@
 		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
 		return
 
+	var/specimin_nearby = FALSE
+	var/agent_nearby = FALSE
 	for(var/mob/living/carbon/human/specimin in view(5, target_loc))
+		//They are an abductor agent, we can always go near them
+		if (isabductor(specimin))
+			agent_nearby = TRUE
+			break
 		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
 		//Not a specimin
 		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART) || isabductor(specimin))
+		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
 			continue
+		specimin_nearby = TRUE
+
+	if (specimin_nearby && !agent_nearby)
 		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
 		return
 

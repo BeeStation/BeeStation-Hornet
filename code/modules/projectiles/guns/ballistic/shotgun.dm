@@ -46,25 +46,15 @@
 	icon_state = "riotshotgun"
 	item_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
+	can_sawoff = TRUE
 	sawn_desc = "Come with me if you want to live."
-
-/obj/item/gun/ballistic/shotgun/riot/attackby(obj/item/A, mob/user, params)
-	..()
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
-		sawoff(user)
-	if(istype(A, /obj/item/melee/transforming/energy))
-		var/obj/item/melee/transforming/energy/W = A
-		if(W.active)
-			sawoff(user)
 
 // Automatic Shotguns//
 
 /obj/item/gun/ballistic/shotgun/automatic
 	weapon_weight = WEAPON_HEAVY
-
-/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
-	..()
-	rack()
+	semi_auto = TRUE
+	casing_ejector = TRUE
 
 /obj/item/gun/ballistic/shotgun/automatic/combat
 	name = "combat shotgun"
@@ -73,6 +63,19 @@
 	item_state = "shotgun_combat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
+	if(loc == user)
+		if(!user.is_holding(src))
+			return
+		semi_auto = !semi_auto
+		playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
+		to_chat(user, "<span class='notice'>You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation.</span>")
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/examine(mob/user)
+	. = ..()
+	. += "You can select the firing mode with <b>alt+click</b>"
+	. += "It is operating in [semi_auto ? "automatic" : "manual"] mode."
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/compact
 	name = "compact combat shotgun"
@@ -108,7 +111,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = FALSE
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
-	semi_auto = TRUE
+	//semi_auto = TRUE
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
 	. = ..()
@@ -143,7 +146,7 @@
 
 // Bulldog shotgun //
 
-/obj/item/gun/ballistic/shotgun/bulldog
+/obj/item/gun/ballistic/shotgun/automatic/bulldog
 	name = "\improper Bulldog Shotgun"
 	desc = "A semi-auto, mag-fed shotgun for combat in narrow corridors with a built in recoil dampening system, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
@@ -155,8 +158,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	can_suppress = FALSE
-	burst_size = 1
 	fire_delay = 0
 	pin = /obj/item/firing_pin/implant/pindicate
 	spread_unwielded = 15
@@ -165,7 +166,6 @@
 	empty_indicator = TRUE
 	empty_alarm = TRUE
 	special_mags = TRUE
-	semi_auto = TRUE
 	internal_magazine = FALSE
 	tac_reloads = TRUE
 	fire_rate = 2
@@ -174,7 +174,7 @@
 	bolt_type = BOLT_TYPE_STANDARD	//Not using a pump
 	full_auto = TRUE
 
-/obj/item/gun/ballistic/shotgun/bulldog/unrestricted
+/obj/item/gun/ballistic/shotgun/automatic/bulldog/unrestricted
 	pin = /obj/item/firing_pin
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
@@ -191,10 +191,11 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
+	can_sawoff = TRUE
 	sawn_desc = "Omar's coming!"
 	obj_flags = UNIQUE_RENAME
 	rack_sound_volume = 0
-	unique_reskin = list("Default" = "dshotgun",
+	unique_reskin_icon = list("Default" = "dshotgun",
 						"Dark Red Finish" = "dshotgun_d",
 						"Ash" = "dshotgun_f",
 						"Faded Grey" = "dshotgun_g",
@@ -206,19 +207,26 @@
 	fire_rate = 2 //being double barrelled, you don't rely on internal mechanisms.
 	pb_knockback = 3
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/AltClick(mob/user)
+/obj/item/gun/ballistic/shotgun/doublebarrel/reskin_obj(mob/M)
+	if(sawn_off == FALSE)
+		unique_reskin = list(
+			"Default" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun"),
+			"Dark Red Finish" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_d"),
+			"Ash" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_f"),
+			"Faded Grey" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_g"),
+			"Maple" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_l"),
+			"Rosewood" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_p")
+		)
+	else
+		unique_reskin = list(
+			"Default" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_sawn"),
+			"Dark Red Finish" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_d_sawn"),
+			"Ash" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_f_sawn"),
+			"Faded Grey" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_g_sawn"),
+			"Maple" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_l_sawn"),
+			"Rosewood" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_p_sawn")
+		)
 	. = ..()
-	if(unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
-		reskin_obj(user)
-
-/obj/item/gun/ballistic/shotgun/doublebarrel/attackby(obj/item/A, mob/user, params)
-	..()
-	if(istype(A, /obj/item/melee/transforming/energy))
-		var/obj/item/melee/transforming/energy/W = A
-		if(W.active)
-			sawoff(user)
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
-		sawoff(user)
 
 // IMPROVISED SHOTGUN //
 
@@ -232,13 +240,16 @@
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm just here for the gasoline."
-	unique_reskin = null
+	unique_reskin_icon = null
 	recoil = 2
 	var/slung = FALSE
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
+		if(slung)
+			to_chat(user, "<span class='warning'>There is already a sling on [src]!</span>")
+			return
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
@@ -257,8 +268,13 @@
 	. = ..()
 	if(. && slung) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
-		slung = 0
+		slung = FALSE
 		update_icon()
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/examine(mob/user)
+	. = ..()
+	if (slung)
+		. += "It has a shoulder sling fashioned from spare wiring attached."
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn
 	name = "sawn-off improvised shotgun"
@@ -279,6 +295,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
+	can_sawoff = FALSE
 	force = 10 //it has a hook on it
 	attack_verb = list("slashed", "hooked", "stabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'

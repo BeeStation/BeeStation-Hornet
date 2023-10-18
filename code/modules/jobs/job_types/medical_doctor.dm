@@ -1,6 +1,8 @@
 /datum/job/medical_doctor
 	title = JOB_NAME_MEDICALDOCTOR
 	flag = DOCTOR
+	description = "Treat people of both minor wounds, serious injuries and resurrect them from the dead. Make use of surgeries and surgical tools, Chemistry's pills and patches, Virology's viruses and in dire cases, Genetics' cloning."
+	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
@@ -28,6 +30,18 @@
 	)
 	biohazard = 40
 
+	lightup_areas = list(
+		/area/medical/genetics,
+		/area/medical/virology,
+		/area/medical/chemistry,
+		/area/medical/apothecary
+	)
+	minimal_lightup_areas = list(
+		/area/medical/morgue,
+		/area/medical/surgery,
+		/area/medical/genetics/cloning
+	)
+
 /datum/outfit/job/medical_doctor
 	name = JOB_NAME_MEDICALDOCTOR
 	jobtype = /datum/job/medical_doctor
@@ -37,10 +51,10 @@
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/doctor
 	shoes = /obj/item/clothing/shoes/sneakers/white
-	suit =  /obj/item/clothing/suit/toggle/labcoat
+	suit =  /obj/item/clothing/suit/toggle/labcoat/med
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	l_hand = /obj/item/storage/firstaid/medical
-	suit_store = /obj/item/flashlight/pen
+	suit_store = /obj/item/storage/firstaid/medical
+	l_pocket = /obj/item/flashlight/pen
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

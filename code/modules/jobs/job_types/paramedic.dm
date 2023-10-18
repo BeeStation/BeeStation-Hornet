@@ -1,6 +1,8 @@
 /datum/job/paramedic
 	title = JOB_NAME_PARAMEDIC
 	flag = PARAMEDIC
+	description = "Retrieve the gravely injured and dead people from around the station, deliver medicine for minor wounds, and keep a close eye on the Crew Monitor in your free time."
+	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
@@ -29,6 +31,13 @@
 	)
 	biohazard = 50//deal with sick like MDS, but also muck around in maint and get into the thick of it
 
+	lightup_areas = list(/area/medical/surgery)
+	minimal_lightup_areas = list(
+		/area/storage/eva,
+		/area/medical/morgue,
+		/area/medical/genetics/cloning
+	)
+
 /datum/outfit/job/paramedic
 	name = JOB_NAME_PARAMEDIC
 	jobtype = /datum/job/paramedic
@@ -40,10 +49,10 @@
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	head = /obj/item/clothing/head/soft/paramedic
-	suit =  /obj/item/clothing/suit/toggle/labcoat/paramedic
-	l_hand = /obj/item/storage/firstaid/medical
+	suit =  /obj/item/clothing/suit/toggle/labcoat/med/paramedic
 	l_pocket = /obj/item/pinpointer/crew
-	suit_store = /obj/item/sensor_device
+	r_pocket = /obj/item/sensor_device
+	suit_store = /obj/item/storage/firstaid/medical
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

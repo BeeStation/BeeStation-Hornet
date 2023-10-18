@@ -169,7 +169,7 @@
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."
 	icon = 'icons/turf/floors/ice_turf.dmi'
-	icon_state = "unsmooth"
+	icon_state = "ice-0"
 	initial_gas_mix = FROZEN_ATMOS
 	initial_temperature = 180
 	planetary_atmos = TRUE
@@ -190,9 +190,11 @@
 	return
 
 /turf/open/floor/plating/ice/smooth
-	icon_state = "ice_turf-255"
-	base_icon_state = "ice_turf"
+	icon_state = "ice-255"
+	base_icon_state = "ice"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ICE)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/open/floor/plating/ice/colder
 	initial_temperature = 140

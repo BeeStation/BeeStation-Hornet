@@ -70,8 +70,8 @@
 	if(!get_location_accessible(target, target_zone))
 		urhealedamt_brute *= 0.55
 		urhealedamt_burn *= 0.55
-		umsg += " as best as you can while they have clothing on"
-		tmsg += " as best as they can while [target] has clothing on"
+		umsg += " as best as you can while [target.p_they()] [target.p_have()] clothing on"
+		tmsg += " as best as [user.p_they()] can while [target] has clothing on"
 	target.heal_bodypart_damage(urhealedamt_brute,urhealedamt_burn)
 	umsg += get_progress(user, target, urhealedamt_brute, urhealedamt_burn)
 
@@ -152,14 +152,23 @@
 	name = "tend bruises"
 	brutehealing = 5
 	missinghpbonus = 15
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/heal/brute/upgraded
 	brutehealing = 5
 	missinghpbonus = 10
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/heal/brute/upgraded/femto
 	brutehealing = 5
 	missinghpbonus = 5
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 
 /***************************BURN***************************/
 /datum/surgery/healing/burn
@@ -217,14 +226,23 @@
 	name = "tend burn wounds"
 	burnhealing = 5
 	missinghpbonus = 15
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/heal/burn/upgraded
 	burnhealing = 5
 	missinghpbonus = 10
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/heal/burn/upgraded/femto
 	burnhealing = 5
 	missinghpbonus = 5
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 
 /***************************COMBO***************************/
 /datum/surgery/healing/combo
@@ -287,16 +305,25 @@
 	burnhealing = 3
 	missinghpbonus = 15
 	time = 10
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/heal/combo/upgraded
 	brutehealing = 3
 	burnhealing = 3
 	missinghpbonus = 10
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/heal/combo/upgraded/femto
 	brutehealing = 1
 	burnhealing = 1
 	missinghpbonus = 2.5
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
+	failure_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/heal/combo/upgraded/femto/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='warning'>You screwed up!</span>",

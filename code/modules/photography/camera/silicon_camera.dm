@@ -77,8 +77,16 @@
 		to_chat(user, "<span class='warning'>Invalid Image.</span>")
 		return
 	var/obj/item/photo/p = new /obj/item/photo(C.loc, selection)
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
+	p.pixel_x = p.base_pixel_x + rand(-10, 10)
+	p.pixel_y = p.base_pixel_y + rand(-10, 10)
 	C.toner -= printcost	 //All fun allowed.
-	visible_message("[C.name] spits out a photograph from a narrow slot on its chassis.")
-	to_chat(usr, "<span class='notice'>You print a photograph.</span>")
+	visible_message("[C.name] spits out a photograph from a narrow slot on its chassis.", "<span class='notice'>You print a photograph.</span>")
+
+/obj/item/camera/siliconcam/proc/paiprint(mob/user)
+	var/mob/living/silicon/pai/paimob = loc
+	var/datum/picture/selection = selectpicture(user)
+	if(!istype(selection))
+		to_chat(user, "<span class='warning'>Invalid Image.</span>")
+		return
+	printpicture(user,selection)
+	user.visible_message("<span class='notice'>A picture appears on top of the chassis of [paimob.name]!</span>", "<span class='notice'>You print a photograph.</span>")

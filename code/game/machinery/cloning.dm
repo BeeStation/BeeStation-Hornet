@@ -183,7 +183,7 @@
 	return examine(user)
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, body_only, experimental)
+/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
@@ -216,7 +216,7 @@
 			if(G.suiciding) // The ghost came from a body that is suiciding.
 				return ERROR_SUICIDED_BODY
 		if(clonemind.damnation_type) //Can't clone the damned.
-			INVOKE_ASYNC(src, .proc/horrifyingsound)
+			INVOKE_ASYNC(src, PROC_REF(horrifyingsound))
 			mess = TRUE
 			icon_state = "pod_g"
 			update_icon()
@@ -280,10 +280,6 @@
 		H.faction |= factions
 		remove_hivemember(H)
 
-		for(var/V in quirks)
-			var/datum/quirk/Q = new V(H)
-			Q.on_clone(quirks[V])
-
 		for(var/t in traumas)
 			var/datum/brain_trauma/BT = t
 			var/datum/brain_trauma/cloned_trauma = BT.on_clone()
@@ -300,7 +296,7 @@
 
 /obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, null, 300, H, POLL_IGNORE_EXPERIMENTAL_CLONE)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, 30 SECONDS, H)
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		H.key = C.key
@@ -403,10 +399,29 @@
 			log_cloning("[key_name(mob_occupant)] completed cloning cycle in [src] at [AREACOORD(src)].")
 
 	else if (!mob_occupant || mob_occupant.loc != src)
-		occupant = null
+		set_occupant(null)
 		if (!mess && !panel_open)
 			icon_state = "pod_0"
 		use_power(200)
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/clonepod)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
+	if(istype(buffer, /obj/machinery/computer/cloning))
+		if(get_area(buffer) != get_area(src))
+			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
+			FLUSH_BUFFER(buffer_parent)
+			return NONE
+		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
+		var/obj/machinery/computer/cloning/comp = buffer
+		if(connected)
+			connected.DetachCloner(src)
+		comp.AttachCloner(src)
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
+	else
+		return NONE
+	return COMPONENT_BUFFER_RECIEVED
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)
@@ -415,26 +430,6 @@
 			return
 
 	if(default_deconstruction_crowbar(W))
-		return
-
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/P = W
-
-		if(istype(P.buffer, /obj/machinery/computer/cloning))
-			if(get_area(P.buffer) != get_area(src))
-				to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
-				P.buffer = null
-				return
-			to_chat(user, "<font color = #666633>-% Successfully linked [P.buffer] with [src] %-</font color>")
-			var/obj/machinery/computer/cloning/comp = P.buffer
-			if(connected)
-				connected.DetachCloner(src)
-			comp.AttachCloner(src)
-		else
-			P.buffer = src
-			to_chat(user, "<font color = #666633>-% Successfully stored [REF(P.buffer)] [P.buffer.name] in buffer %-</font color>")
 		return
 
 	var/mob/living/mob_occupant = occupant
@@ -515,6 +510,9 @@
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		mob_occupant.grab_ghost()
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
+		var/postclonemessage = CONFIG_GET(string/policy_postclonetext)
+		if(postclonemessage)
+			to_chat(occupant, postclonemessage)
 		mob_occupant.flash_act()
 
 	if(move)
@@ -525,7 +523,7 @@
 		qdel(fl)
 	unattached_flesh.Cut()
 
-	occupant = null
+	set_occupant(null)
 	clonemind = null
 
 // Guess they moved out on their own, remove any clone status effects
@@ -580,7 +578,7 @@
 
 /obj/machinery/clonepod/handle_atom_del(atom/A)
 	if(A == occupant)
-		occupant = null
+		set_occupant(null)
 		countdown.stop()
 
 /obj/machinery/clonepod/proc/horrifyingsound()
@@ -655,7 +653,7 @@
 
 /obj/item/paper/guides/jobs/medical/cloning
 	name = "paper - 'H-87 Cloning Apparatus Manual"
-	info = {"<h4>Getting Started</h4>
+	default_raw_text = {"<h4>Getting Started</h4>
 	Congratulations, your station has purchased the H-87 industrial cloning device!<br>
 	Using the H-87 is almost as simple as brain surgery! Simply insert the target humanoid into the scanning chamber and select the scan option to create a new profile!<br>
 	<b>That's all there is to it!</b><br>

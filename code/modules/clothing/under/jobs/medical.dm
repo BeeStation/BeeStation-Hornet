@@ -4,7 +4,7 @@
 	icon_state = "cmo"
 	item_state = "w_suit"
 	permeability_coefficient = 0.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt
 	name = "chief medical officer's jumpskirt"
@@ -22,7 +22,7 @@
 	icon_state = "genetics"
 	item_state = "w_suit"
 	permeability_coefficient = 0.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 /obj/item/clothing/under/rank/medical/geneticist/skirt
 	name = "geneticist's jumpskirt"
@@ -40,7 +40,7 @@
 	icon_state = "virology"
 	item_state = "w_suit"
 	permeability_coefficient = 0.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 /obj/item/clothing/under/rank/medical/virologist/skirt
 	name = "virologist's jumpskirt"
@@ -57,7 +57,7 @@
 	desc = "A standard jumpsuit used by paramedics onboard space stations. It's made of a special fiber that gives special protection against biohazards."
 	icon_state = "emt"
 	permeability_coefficient = 0.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/medical/paramedic/skirt
@@ -76,7 +76,7 @@
 	icon_state = "nursesuit"
 	item_state = "w_suit"
 	permeability_coefficient = 0.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = NO_FEMALE_UNIFORM
 	can_adjust = FALSE
@@ -87,7 +87,7 @@
 	icon_state = "medical"
 	item_state = "w_suit"
 	permeability_coefficient = 0.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 /obj/item/clothing/under/rank/medical/doctor/skirt
 	name = "medical doctor's jumpskirt"
@@ -123,7 +123,7 @@
 	icon_state = "chemistry"
 	item_state = "w_suit"
 	permeability_coefficient = 0.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 65, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 65, STAMINA = 0)
 
 /obj/item/clothing/under/rank/medical/chemist/skirt
 	name = "chemist's jumpskirt"

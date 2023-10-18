@@ -35,8 +35,8 @@
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 	if(dried_type == -1)
 		dried_type = src.type
@@ -184,3 +184,11 @@
 		qdel(src)
 		user.put_in_hands(T, FALSE)
 		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
+
+/obj/item/reagent_containers/food/snacks/grown/dropped(mob/user, silent)
+	. = ..()
+	if(GetComponent(/datum/component/slippery))
+		var/investigated_plantname = seed.get_product_true_name_for_investigate()
+		var/investigate_data = seed.get_gene_datas_for_investigate()
+		log_game("[key_name(user)] dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]")
+		investigate_log("[key_name(user)] dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]", INVESTIGATE_BOTANY)

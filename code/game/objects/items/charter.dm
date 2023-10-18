@@ -40,7 +40,7 @@
 	var/new_name = stripped_input(user, message="What do you want to name \
 		[station_name()]? Keep in mind particularly terrible names may be \
 		rejected by your employers, while names using the standard format, \
-		will automatically be accepted.", max_length=MAX_CHARTER_LEN)
+		will automatically be accepted.", max_length=MAX_CHARTER_LEN, strip_method=STRIP_HTML_SIMPLE)
 
 	if(response_timer_id)
 		to_chat(user, "You're still waiting for approval from your employers about your proposed name change, it'd be best to wait for now.")
@@ -63,7 +63,7 @@
 
 	to_chat(user, "Your name has been sent to your employers for approval.")
 	// Autoapproves after a certain time
-	response_timer_id = addtimer(CALLBACK(src, .proc/rename_station, new_name, user.name, user.real_name, key_name(user)), approval_time, TIMER_STOPPABLE)
+	response_timer_id = addtimer(CALLBACK(src, PROC_REF(rename_station), new_name, user.name, user.real_name, key_name(user)), approval_time, TIMER_STOPPABLE)
 	to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>CUSTOM STATION RENAME:</font></b>[ADMIN_LOOKUPFLW(user)] proposes to rename the [name_type] to [new_name] (will autoapprove in [DisplayTimeText(approval_time)]). [ADMIN_SMITE(user)] (<A HREF='?_src_=holder;[HrefToken(TRUE)];reject_custom_name=[REF(src)]'>REJECT</A>) [ADMIN_CENTCOM_REPLY(user)]</span>")
 
 /obj/item/station_charter/proc/reject_proposed(user)

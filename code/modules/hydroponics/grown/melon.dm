@@ -11,7 +11,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_dead = "watermelon-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/watermelon/holy)
+	mutatelist = list(/obj/item/seeds/watermelon/holy, /obj/item/seeds/watermelon/ballolon)
 	reagents_add = list(/datum/reagent/water = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.2)
 
 /obj/item/seeds/watermelon/suicide_act(mob/user)
@@ -65,7 +65,7 @@
 	var/uses = 1
 	if(seed)
 		uses = round(seed.potency / 20)
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, uses, TRUE, CALLBACK(src, .proc/block_magic), CALLBACK(src, .proc/expire)) //deliver us from evil o melon god
+	AddComponent(/datum/component/anti_magic, TRUE, TRUE, uses, TRUE, CALLBACK(src, PROC_REF(block_magic)), CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
 
 /obj/item/reagent_containers/food/snacks/grown/holymelon/proc/block_magic(mob/user, major)
 	if(major)
@@ -75,3 +75,29 @@
 	to_chat(user, "<span class='warning'>[src] rapidly turns into ash!</span>")
 	qdel(src)
 	new /obj/effect/decal/cleanable/ash(drop_location())
+
+// ballolon
+/obj/item/seeds/watermelon/ballolon
+	name = "pack of ballolon seeds"
+	desc = "These seeds grow into ballolon plants."
+	icon_state = "seed-ballolon"
+	species = "ballolon"
+	plantname = "Ballolon Vines"
+	product = /obj/item/reagent_containers/food/snacks/grown/ballolon
+	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/smoke)
+	mutatelist = list()
+	reagents_add = list(/datum/reagent/oxygen = 0.2, /datum/reagent/hydrogen = 0.2)
+	rarity = 15
+
+/obj/item/reagent_containers/food/snacks/grown/ballolon
+	seed = /obj/item/seeds/watermelon/ballolon
+	name = "ballolon"
+	desc = "A organic balloon, lighter then air."
+	icon_state = "ballolon"
+	item_state = "ballolon"
+	lefthand_file = 'icons/mob/inhands/antag/balloons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/balloons_righthand.dmi'
+	filling_color = "#e35b6f"
+	throw_range = 1
+	throw_speed = 1
+	discovery_points = 300

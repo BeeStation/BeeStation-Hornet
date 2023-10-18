@@ -29,13 +29,13 @@
 	for(var/mob/living/L in GLOB.player_list)
 		if(locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in L.mind.spell_list) //People who can stop time are immune to its effects
 			immune[L] = TRUE
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.parasites)
+	for(var/mob/living/simple_animal/hostile/holoparasite/G in GLOB.holoparasites)
 		if(G?.summoner?.current)
 			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.summoner.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.summoner.current.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
 				immune[G] = TRUE
 			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.mind.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
 				immune[G.summoner.current] = TRUE
-				for(var/mob/living/simple_animal/hostile/guardian/GG in GLOB.parasites)
+				for(var/mob/living/simple_animal/hostile/holoparasite/GG in GLOB.holoparasites)
 					if(G.summoner == GG.summoner)
 						immune[GG] = TRUE
 	if(start)
@@ -82,7 +82,7 @@
 	var/frozen = TRUE
 	if(isliving(A))
 		freeze_mob(A)
-	else if(istype(A, /obj/item/projectile))
+	else if(istype(A, /obj/projectile))
 		freeze_projectile(A)
 	else if(istype(A, /obj/mecha))
 		freeze_mecha(A)
@@ -98,8 +98,8 @@
 	A.move_resist = INFINITY
 	global_frozen_atoms[A] = src
 	into_the_negative_zone(A)
-	RegisterSignal(A, COMSIG_MOVABLE_PRE_MOVE, .proc/unfreeze_atom)
-	RegisterSignal(A, COMSIG_ITEM_PICKUP, .proc/unfreeze_atom)
+	RegisterSignal(A, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(unfreeze_atom))
+	RegisterSignal(A, COMSIG_ITEM_PICKUP, PROC_REF(unfreeze_atom))
 
 	return TRUE
 
@@ -114,7 +114,7 @@
 		unfreeze_throwing(A)
 	if(isliving(A))
 		unfreeze_mob(A)
-	else if(istype(A, /obj/item/projectile))
+	else if(istype(A, /obj/projectile))
 		unfreeze_projectile(A)
 	else if(istype(A, /obj/mecha))
 		unfreeze_mecha(A)
@@ -154,10 +154,10 @@
 	return ..()
 
 
-/datum/proximity_monitor/advanced/timestop/proc/freeze_projectile(obj/item/projectile/P)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_projectile(obj/projectile/P)
 	P.paused = TRUE
 
-/datum/proximity_monitor/advanced/timestop/proc/unfreeze_projectile(obj/item/projectile/P)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_projectile(obj/projectile/P)
 	P.paused = FALSE
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/L)

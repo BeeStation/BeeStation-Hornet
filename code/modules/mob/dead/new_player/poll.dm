@@ -5,7 +5,7 @@
 /mob/dead/new_player/proc/handle_player_polling()
 	var/list/output = list("<div align='center'><B>Player polls</B><hr><table>")
 	var/rs = REF(src)
-	for(var/p in GLOB.polls)
+	for(var/p in GLOB.active_polls)
 		var/datum/poll_question/poll = p
 		if((poll.admin_only && !client.holder) || poll.future_poll)
 			continue

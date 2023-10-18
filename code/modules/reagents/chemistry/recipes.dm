@@ -42,15 +42,15 @@
 			C.flash_act()
 
 		for(var/i in 1 to amount_to_spawn)
-			var/mob/living/simple_animal/S
+			var/mob/living/spawned_mob
 			if(random)
-				S = create_random_mob(get_turf(holder.my_atom), mob_class)
+				spawned_mob = create_random_mob(get_turf(holder.my_atom), mob_class)
 			else
-				S = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
-			S.faction |= mob_faction
+				spawned_mob = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
+			spawned_mob.faction |= mob_faction
 			if(prob(50))
-				for(var/j = 1, j <= rand(1, 3), j++)
-					step(S, pick(NORTH,SOUTH,EAST,WEST))
+				for(var/j in 1 to rand(1, 3))
+					step(spawned_mob, pick(NORTH,SOUTH,EAST,WEST))
 
 ///Simulates a vortex that moves nearby movable atoms towards or away from the turf T. Range also determines the strength of the effect. High values cause nearby objects to be thrown.
 /proc/goonchem_vortex(turf/T, setting_type, range)
@@ -70,7 +70,7 @@
 		else
 			if(setting_type)
 				if(step_away(X, T) && moving_power > 1) //Can happen twice at most. So this is fine.
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/_step_away, X, T), 2)
+					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step_away), X, T), 2)
 			else
 				if(step_towards(X, T) && moving_power > 1)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/_step_towards, X, T), 2)
+					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step_towards), X, T), 2)

@@ -70,10 +70,12 @@
 	time = 64
 	name = "manipulate organs"
 	repeatable = 1
-	implements = list(/obj/item/organ = 100, /obj/item/reagent_containers/food/snacks/organ = 0, /obj/item/organ_storage = 100)
+	implements = list(/obj/item/organ = 100, /obj/item/organ_storage = 100)
 	var/implements_extract = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 55)
 	var/current_type
 	var/obj/item/organ/I = null
+	preop_sound = 'sound/surgery/organ2.ogg'
+	success_sound = 'sound/surgery/organ1.ogg'
 
 /datum/surgery_step/manipulate_organs/New()
 	..()
@@ -106,9 +108,14 @@
 			if(!isipc(target))
 				to_chat(user, "<span class='notice'>[target] does not have the proper connectors to interface with [I].</span>")
 				return -1
-			display_results(user, target, "<span class='notice'>You begin to insert [I] into [target]'s [parse_zone(target_zone)]...</span>",
-				"[user] begins to insert [I] into [target]'s [parse_zone(target_zone)].",
-				"[user] begins to insert something into [target]'s [parse_zone(target_zone)].")
+		var/obj/item/organ/meatslab = tool
+		if(!meatslab.useable)
+			to_chat(user, "<span class='warning'>[I] seems to have been chewed on, you can't use this!</span>")
+			return -1
+		display_results(user, target, "<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(target_zone)]...</span>",
+			"<span class='notice'>[user] begins to insert [tool] into [target]'s [parse_zone(target_zone)].</span>",
+			"<span class='notice'>[user] begins to insert something into [target]'s [parse_zone(target_zone)].</span>")
+		log_combat(user, target, "tried to insert [I.name] into")
 
 	else if(implement_type in implements_extract)
 		current_type = "extract"
@@ -122,7 +129,7 @@
 				organs -= O
 				organs[O.name] = O
 
-			I = input("Remove which organ?", "Surgery", null, null) as null|anything in sortList(organs)
+			I = input("Remove which organ?", "Surgery", null, null) as null|anything in sort_list(organs)
 			if(I && user && target && user.Adjacent(target) && user.get_active_held_item() == tool)
 				I = organs[I]
 				if(!I)
@@ -130,12 +137,9 @@
 				display_results(user, target, "<span class='notice'>You begin to extract [I] from [target]'s [parse_zone(target_zone)]...</span>",
 					"[user] begins to extract [I] from [target]'s [parse_zone(target_zone)].",
 					"[user] begins to extract something from [target]'s [parse_zone(target_zone)].")
+				log_combat(user, target, "tried to extract [I.name] from")
 			else
 				return -1
-
-	else if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
-		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
-		return -1
 
 /datum/surgery_step/manipulate_organs/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(current_type == "insert")
@@ -152,13 +156,14 @@
 		display_results(user, target, "<span class='notice'>You insert [tool] into [target]'s [parse_zone(target_zone)].</span>",
 			"[user] inserts [tool] into [target]'s [parse_zone(target_zone)]!",
 			"[user] inserts something into [target]'s [parse_zone(target_zone)]!")
+		log_combat(user, target, "surgically installed [I.name] into")
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
 			display_results(user, target, "<span class='notice'>You successfully extract [I] from [target]'s [parse_zone(target_zone)].</span>",
 				"[user] successfully extracts [I] from [target]'s [parse_zone(target_zone)]!",
 				"[user] successfully extracts something from [target]'s [parse_zone(target_zone)]!")
-			log_combat(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+			log_combat(user, target, "surgically removed [I.name] from")
 			I.Remove(target)
 			I.forceMove(get_turf(target))
 		else

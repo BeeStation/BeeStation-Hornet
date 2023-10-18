@@ -72,7 +72,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "s" = (
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /obj/structure/table_frame/wood,
 /obj/item/stack/cable_coil/cyan,
 /obj/machinery/light/small/built{

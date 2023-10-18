@@ -92,7 +92,7 @@
 
 	switch(action)
 		if("signal")
-			INVOKE_ASYNC(src, .proc/signal)
+			INVOKE_ASYNC(src, PROC_REF(signal))
 			. = TRUE
 		if("freq")
 			var/new_frequency = sanitize_frequency(unformat_frequency(params["freq"]), TRUE)
@@ -243,11 +243,11 @@
 	icon_state = "vortex core"
 	anomaly_type = /obj/effect/anomaly/bhole
 
-/obj/item/assembly/signaler/anomaly/delimber
-	name = "\improper delimber anomaly core"
-	desc = "The neutralized core of a delimber anomaly. It's squirming, as if moving. It'd probably be valuable for research."
-	icon_state = "delimber core"
-	anomaly_type = /obj/effect/anomaly/delimber
+/obj/item/assembly/signaler/anomaly/bioscrambler
+	name = "\improper bioscrambler anomaly core"
+	desc = "The neutralized core of a bioscrambler anomaly. It's squirming, as if moving. It'd probably be valuable for research."
+	icon_state = "bioscrambler core"
+	anomaly_type = /obj/effect/anomaly/bioscrambler
 
 /obj/item/assembly/signaler/anomaly/hallucination
 	name = "\improper hallucination anomaly core"
@@ -264,3 +264,20 @@
 	return
 /obj/item/assembly/signaler/cyborg/screwdriver_act(mob/living/user, obj/item/I)
 	return
+
+/obj/item/assembly/signaler/internal
+	name = "internal remote signaling device"
+
+/obj/item/assembly/signaler/internal/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/assembly/signaler/internal/attackby(obj/item/W, mob/user, params)
+	return
+
+/obj/item/assembly/signaler/internal/screwdriver_act(mob/living/user, obj/item/I)
+	return
+
+/obj/item/assembly/signaler/internal/can_interact(mob/user)
+	if(istype(user, /mob/living/silicon/pai))
+		return TRUE
+	. = ..()

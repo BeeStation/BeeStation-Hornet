@@ -8,7 +8,7 @@
 	range = -1
 	include_user = TRUE
 	invocation = "RAC'WA NO!"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	action_icon_state = "shapeshift"
 
 	var/revert_on_death = TRUE
@@ -21,7 +21,7 @@
 		/mob/living/simple_animal/pet/dog/corgi,\
 		/mob/living/simple_animal/hostile/carp/ranged/chaos,\
 		/mob/living/simple_animal/bot/ed209,\
-		/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,\
+		/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper/wizard,\
 		/mob/living/simple_animal/hostile/construct/armored)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/cast(list/targets,mob/user = usr)
@@ -36,7 +36,7 @@
 			for(var/path in possible_shapes)
 				var/mob/living/simple_animal/A = path
 				animal_list[initial(A.name)] = path
-			var/new_shapeshift_type = input(M, "Choose Your Animal Form!", "It's Morphing Time!", null) as null|anything in sortList(animal_list)
+			var/new_shapeshift_type = input(M, "Choose Your Animal Form!", "It's Morphing Time!", null) as null|anything in sort_list(animal_list)
 			if(shapeshift_type)
 				return
 			shapeshift_type = new_shapeshift_type

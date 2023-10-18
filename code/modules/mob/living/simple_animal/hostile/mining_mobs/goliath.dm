@@ -10,9 +10,9 @@
 	icon_gib = "syndicate_gib"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	mouse_opacity = MOUSE_OPACITY_ICON
-	move_to_delay = 40
+	move_to_delay = 2 SECONDS
 	ranged = 1
-	ranged_cooldown_time = 120
+	ranged_cooldown_time = 80
 	friendly = "wails at"
 	speak_emote = list("bellows")
 	vision_range = 4
@@ -165,7 +165,7 @@
 		var/turf/closed/mineral/M = loc
 		M.gets_drilled()
 	deltimer(timerid)
-	timerid = addtimer(CALLBACK(src, .proc/tripanim), 7, TIMER_STOPPABLE)
+	timerid = addtimer(CALLBACK(src, PROC_REF(tripanim)), 7, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/original/Initialize(mapload, new_spawner)
 	. = ..()
@@ -179,7 +179,7 @@
 /obj/effect/temp_visual/goliath_tentacle/proc/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"
 	deltimer(timerid)
-	timerid = addtimer(CALLBACK(src, .proc/trip), 3, TIMER_STOPPABLE)
+	timerid = addtimer(CALLBACK(src, PROC_REF(trip)), 3, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/proc/trip()
 	var/latched = FALSE
@@ -187,14 +187,15 @@
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
-		L.Stun(100)
+		L.Stun(1 SECONDS)
+		L.Knockdown(6 SECONDS)
 		L.adjustBruteLoss(rand(10,15))
 		latched = TRUE
 	if(!latched)
 		retract()
 	else
 		deltimer(timerid)
-		timerid = addtimer(CALLBACK(src, .proc/retract), 10, TIMER_STOPPABLE)
+		timerid = addtimer(CALLBACK(src, PROC_REF(retract)), 10, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/proc/retract()
 	icon_state = "Goliath_tentacle_retract"

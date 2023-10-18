@@ -75,7 +75,7 @@
 		com.target_ref = null
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
-	if (ismovableatom(M))
+	if (ismovable(M))
 		if(do_teleport(M, target, channel = TELEPORT_CHANNEL_BLUESPACE))
 			use_power(7500)
 			if(!calibrated && prob(40 - ((accuracy) * 10))) //oh dear a problem
@@ -97,10 +97,6 @@
 		icon_state = "tele1"
 	else
 		icon_state = "tele0"
-
-/obj/machinery/teleport/hub/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/teleport/hub/proc/is_ready()
 	. = !panel_open && !(machine_stat & (BROKEN|NOPOWER)) && power_station && power_station.engaged && !(power_station.machine_stat & (BROKEN|NOPOWER))
@@ -171,23 +167,7 @@
 	return ..()
 
 /obj/machinery/teleport/station/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/M = W
-		if(panel_open)
-			M.buffer = src
-			to_chat(user, "<span class='caution'>You download the data to the [W.name]'s buffer.</span>")
-		else
-			if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
-				if(linked_stations.len < efficiency)
-					linked_stations.Add(M.buffer)
-					M.buffer = null
-					to_chat(user, "<span class='caution'>You upload the data from the [W.name]'s buffer.</span>")
-				else
-					to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
-		return
-	else if(default_deconstruction_screwdriver(user, "controller-o", "controller", W))
+	if(default_deconstruction_screwdriver(user, "controller-o", "controller", W))
 		update_icon()
 		return
 
@@ -197,10 +177,28 @@
 	else if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(panel_open)
 			link_console_and_hub()
-			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
+			to_chat(user, "<span class='notice'>You reconnect the station to nearby machinery.</span>")
 			return
 	else
 		return ..()
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/teleport/station)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
+	if(panel_open)
+		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+			to_chat(user, "<span class='notice'>You download the data to the [buffer_parent.name]'s buffer.</span>")
+			return COMPONENT_BUFFER_RECIEVED
+	else
+		if(istype(buffer, /obj/machinery/teleport/station) && buffer != src)
+			if(linked_stations.len < efficiency)
+				linked_stations.Add(buffer)
+				buffer = null
+				to_chat(user, "<span class='notice'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
+			else
+				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
+			return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/teleport/station/interact(mob/user)
 	toggle(user)
@@ -223,8 +221,7 @@
 	add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
-	..()
-	update_icon()
+	. = ..()
 	if(teleporter_hub)
 		teleporter_hub.update_icon()
 

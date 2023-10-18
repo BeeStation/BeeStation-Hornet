@@ -37,7 +37,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
-		addtimer(CALLBACK(src, .proc/begin_conversion), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(begin_conversion)), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/species_converter/open_machine(mob/user)
@@ -99,7 +99,7 @@
 		if(brainwash)
 			to_chat(C, "<span class='userdanger'>A new compulsion fills your mind... you feel forced to obey it!</span>")
 			var/objective = "Convert as many people as possible into a [initial(desired_race.name)]. Racewar!"
-			brainwash(C, objective)
+			brainwash(C, objective, "species converter")
 			log_game("[key_name(C)] has been brainwashed with the objective '[objective]' via the species converter.")
 
 	iterations++
@@ -129,7 +129,7 @@
 	if(brainwash && changed)
 		to_chat(user, "<span class='warning'>The species controller is locked!</span>")
 		return
-	var/list/allowed = GLOB.roundstart_races
+	var/list/allowed = get_selectable_species()
 	if(!dangerous)
 		allowed -= "plasmaman"
 	var/choice = input("Select desired race") as null|anything in allowed

@@ -1,12 +1,15 @@
 arrowParens: always
-bracketSpacing: true
+breakLongMethodChains: true
 endOfLine: lf
+importFormatting: oneline
 jsxBracketSameLine: true
 jsxSingleQuote: false
-printWidth: 80
+offsetTernaryExpressions: true
+printWidth: 128
 proseWrap: preserve
 quoteProps: preserve
 semi: true
 singleQuote: true
 tabWidth: 2
 trailingComma: es5
+useTabs: false

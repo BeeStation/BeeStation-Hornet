@@ -42,9 +42,10 @@
 
 	//Sad trombone
 	if(pickednum == 1)
-		var/obj/item/paper/P = new /obj/item/paper(src)
-		P.name = "\improper IOU"
-		P.info = "Sorry man, we needed the money so we sold your stash. It's ok, we'll double our money for sure this time!"
+		var/obj/item/paper/paper = new /obj/item/paper(src)
+		paper.name = "\improper IOU"
+		paper.add_raw_text("Sorry man, we needed the money so we sold your stash. It's ok, we'll double our money for sure this time!")
+		paper.update_appearance()
 
 	//Iron (common ore)
 	if(pickednum >= 2)
@@ -94,27 +95,5 @@
 	desc = "It's an emergency storage closet for repairs."
 
 /obj/structure/closet/syndicate/resources/everything/PopulateContents()
-	var/list/resources = list(
-	/obj/item/stack/sheet/iron,
-	/obj/item/stack/sheet/glass,
-	/obj/item/stack/sheet/mineral/gold,
-	/obj/item/stack/sheet/mineral/silver,
-	/obj/item/stack/sheet/mineral/plasma,
-	/obj/item/stack/sheet/mineral/uranium,
-	/obj/item/stack/sheet/mineral/diamond,
-	/obj/item/stack/sheet/mineral/bananium,
-	/obj/item/stack/sheet/plasteel,
-	/obj/item/stack/sheet/mineral/titanium,
-	/obj/item/stack/sheet/mineral/plastitanium,
-	/obj/item/stack/rods,
-	/obj/item/stack/ore/bluespace_crystal/refined,
-	/obj/item/stack/sheet/mineral/abductor,
-	/obj/item/stack/sheet/plastic,
-	/obj/item/stack/sheet/mineral/wood,
-	/obj/item/stack/sheet/mineral/copper
-	)
-
-	for(var/i = 0, i<2, i++)
-		for(var/res in resources)
-			var/obj/item/stack/R = res
-			new res(src, initial(R.max_amount))
+	new /obj/item/storage/box/material(src)
+	new /obj/item/storage/box/material(src)

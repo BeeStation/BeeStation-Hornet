@@ -42,8 +42,10 @@
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
 	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/instance = new plane()
+	for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+		var/atom/movable/screen/plane_master/instance = new plane()
+		if(instance.blend_mode_override)
+			instance.blend_mode = instance.blend_mode_override
 		instance.assigned_map = map_name
 		instance.del_on_map_removal = FALSE
 		instance.screen_loc = "[map_name]:CENTER"
@@ -225,6 +227,13 @@
 	icon_state = "television"
 	icon_keyboard = "no_keyboard"
 	icon_screen = "detective_tv"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
@@ -268,6 +277,13 @@
 	desc = "Used for watching an empty arena."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "telescreen"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
+
 	layer = SIGN_LAYER
 	network = list("thunder")
 	density = FALSE

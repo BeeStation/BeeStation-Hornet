@@ -1,10 +1,10 @@
 /datum/keybinding/mob
 		category = CATEGORY_HUMAN
 		weight = WEIGHT_MOB
-		
-		
+
+
 /datum/keybinding/mob/move_north
-	key = "W"
+	keys = list("W")
 	name = "move_north"
 	full_name = "Move North"
 	description = ""
@@ -18,7 +18,7 @@
 	if(!user.mob) return
 	user.keyDown("North")
 	return TRUE
-	
+
 /datum/keybinding/mob/move_north/up(client/user)
 	. = ..()
 	if(.)
@@ -26,10 +26,10 @@
 	if(!user.mob) return
 	user.keyUp("North")
 	return TRUE
-	
-	
+
+
 /datum/keybinding/mob/move_east
-	key = "D"
+	keys = list("D")
 	name = "move_east"
 	full_name = "Move East"
 	description = ""
@@ -43,7 +43,7 @@
 	if(!user.mob) return
 	user.keyDown("East")
 	return TRUE
-	
+
 /datum/keybinding/mob/move_east/up(client/user)
 	. = ..()
 	if(.)
@@ -51,10 +51,10 @@
 	if(!user.mob) return
 	user.keyUp("East")
 	return TRUE
-	
-	
+
+
 /datum/keybinding/mob/move_south
-	key = "S"
+	keys = list("S")
 	name = "move_south"
 	full_name = "Move South"
 	description = ""
@@ -68,7 +68,7 @@
 	if(!user.mob) return
 	user.keyDown("South")
 	return TRUE
-	
+
 /datum/keybinding/mob/move_south/up(client/user)
 	. = ..()
 	if(.)
@@ -76,10 +76,10 @@
 	if(!user.mob) return
 	user.keyUp("South")
 	return TRUE
-	
+
 
 /datum/keybinding/mob/move_west
-	key = "A"
+	keys = list("A")
 	name = "move_west"
 	full_name = "Move West"
 	description = ""
@@ -101,9 +101,59 @@
 	if(!user.mob) return
 	user.keyUp("West")
 	return TRUE
-	
+
+/datum/keybinding/mob/move_up
+	keys = list("F")
+	name = "move up"
+	full_name = "Move Up"
+	description = "Try moving upwards."
+	keybind_signal = COMSIG_KB_MOB_MOVEUP_DOWN
+
+/datum/keybinding/mob/move_up/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(isliving(user.mob))
+		var/mob/living/L = user.mob
+		L.zMove(UP, TRUE)
+	else if(isobserver(user.mob))
+		var/turf/original = get_turf(user.mob)
+		if(!istype(original))
+			return
+		var/turf/new_turf = get_step_multiz(original, UP)
+		if(!istype(new_turf))
+			to_chat(user.mob, "<span class='warning'>There is nothing above you!</span>")
+			return
+		user.mob.Move(new_turf, UP)
+	return TRUE
+
+/datum/keybinding/mob/move_down
+	keys = list("C")
+	name = "move down"
+	full_name = "Move Down"
+	description = "Try moving downwards."
+	keybind_signal = COMSIG_KB_MOB_MOVEDOWN_DOWN
+
+/datum/keybinding/mob/move_down/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(isliving(user.mob))
+		var/mob/living/L = user.mob
+		L.zMove(DOWN, TRUE)
+	else if(isobserver(user.mob))
+		var/turf/original = get_turf(user.mob)
+		if(!istype(original))
+			return
+		var/turf/new_turf = get_step_multiz(original, DOWN)
+		if(!istype(new_turf))
+			to_chat(user.mob, "<span class='warning'>There is nothing below you!</span>")
+			return
+		user.mob.Move(new_turf, DOWN)
+	return TRUE
+
 /datum/keybinding/mob/stop_pulling
-	key = "H"
+	keys = list("H")
 	name = "stop_pulling"
 	full_name = "Stop pulling"
 	description = ""
@@ -122,7 +172,7 @@
 	return TRUE
 
 /datum/keybinding/mob/cycle_intent_right
-	key = "Home"
+	keys = list("Northwest") // this is BYOND for "HOME"
 	name = "cycle_intent_right"
 	full_name = "Cycle Intent Right"
 	description = ""
@@ -138,7 +188,7 @@
 	return TRUE
 
 /datum/keybinding/mob/cycle_intent_left
-	key = "Insert"
+	keys = list("Insert")
 	name = "cycle_intent_left"
 	full_name = "Cycle Intent Left"
 	description = ""
@@ -154,7 +204,7 @@
 	return TRUE
 
 /datum/keybinding/mob/swap_hands
-	key = "X"
+	keys = list("X")
 	name = "swap_hands"
 	full_name = "Swap hands"
 	description = ""
@@ -169,7 +219,7 @@
 	return TRUE
 
 /datum/keybinding/mob/activate_inhand
-	key = "Z"
+	keys = list("Z")
 	name = "activate_inhand"
 	full_name = "Activate in-hand"
 	description = "Uses whatever item you have inhand"
@@ -185,7 +235,7 @@
 	return TRUE
 
 /datum/keybinding/mob/drop_item
-	key = "Q"
+	keys = list("Q")
 	name = "drop_item"
 	full_name = "Drop Item"
 	description = ""
@@ -205,7 +255,7 @@
 	return TRUE
 
 /datum/keybinding/mob/toggle_move_intent
-	key = "Alt"
+	keys = list("Alt")
 	name = "toggle_move_intent"
 	full_name = "Hold to toggle move intent"
 	description = "Held down to cycle to the other move intent, release to cycle back"
@@ -227,7 +277,7 @@
 	return TRUE
 
 /datum/keybinding/mob/toggle_move_intent_alternative
-	key = "Unbound"
+	keys = list("Unbound")
 	name = "toggle_move_intent_alt"
 	full_name = "press to cycle move intent"
 	description = "Pressing this cycle to the opposite move intent, does not cycle back"
@@ -242,7 +292,7 @@
 	return TRUE
 
 /datum/keybinding/mob/target_head_cycle
-	key = "Numpad8"
+	keys = list("Numpad8")
 	name = "target_head_cycle"
 	full_name = "Target: Cycle head"
 	description = ""
@@ -257,7 +307,7 @@
 	return TRUE
 
 /datum/keybinding/mob/target_r_arm
-	key = "Numpad4"
+	keys = list("Numpad4")
 	name = "target_r_arm"
 	full_name = "Target: right arm"
 	description = ""
@@ -272,7 +322,7 @@
 	return TRUE
 
 /datum/keybinding/mob/target_body_chest
-	key = "Numpad5"
+	keys = list("Numpad5")
 	name = "target_body_chest"
 	full_name = "Target: Body"
 	description = ""
@@ -287,7 +337,7 @@
 	return TRUE
 
 /datum/keybinding/mob/target_left_arm
-	key = "Numpad6"
+	keys = list("Numpad6")
 	name = "target_left_arm"
 	full_name = "Target: left arm"
 	description = ""
@@ -302,7 +352,7 @@
 	return TRUE
 
 /datum/keybinding/mob/target_right_leg
-	key = "Numpad1"
+	keys = list("Numpad1")
 	name = "target_right_leg"
 	full_name = "Target: Right leg"
 	description = ""
@@ -317,7 +367,7 @@
 	return TRUE
 
 /datum/keybinding/mob/target_body_groin
-	key = "Numpad2"
+	keys = list("Numpad2")
 	name = "target_body_groin"
 	full_name = "Target: Groin"
 	description = ""
@@ -332,7 +382,7 @@
 	return TRUE
 
 /datum/keybinding/mob/target_left_leg
-	key = "Numpad3"
+	keys = list("Numpad3")
 	name = "target_left_leg"
 	full_name = "Target: left leg"
 	description = ""
@@ -347,7 +397,7 @@
 	return TRUE
 
 /datum/keybinding/mob/prevent_movement
-	key = "Ctrl"
+	keys = list("Ctrl")
 	name = "block_movement"
 	full_name = "Hold to change facing"
 	description = "While pressed, prevents movement when pressing directional keys; instead just changes your facing direction"
@@ -364,3 +414,4 @@
 	if(.)
 		return
 	user.movement_locked = FALSE
+

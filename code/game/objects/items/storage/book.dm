@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	var/title = "book"
+	item_flags = ISWEAPON
 
 /obj/item/storage/book/ComponentInitialize()
 	. = ..()
@@ -16,12 +17,6 @@
 
 /obj/item/storage/book/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
-
-GLOBAL_LIST_INIT(biblenames, list("Bible", "Quran", "Scrapbook", "Burning Bible", "Clown Bible", "Banana Bible", "Creeper Bible", "White Bible", "Holy Light",  "The God Delusion", "Tome",        "The King in Yellow", "Ithaqua", "Scientology", "Melted Bible", "Necronomicon","Insulationism"))
-//If you get these two lists not matching in size, there will be runtimes and I will hurt you in ways you couldn't even begin to imagine
-// if your bible has no custom itemstate, use one of the existing ones
-GLOBAL_LIST_INIT(biblestates, list("bible", "koran", "scrapbook", "burning", "honk1", "honk2", "creeper", "white", "holylight", "atheist", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon","insuls"))
-GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning", "honk1", "honk2", "creeper", "white", "holylight", "atheist", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "kingyellow"))
 
 /mob/proc/bible_check() //The bible, if held, might protect against certain things
 	var/obj/item/storage/book/bible/B = locate() in src
@@ -52,38 +47,79 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 /obj/item/storage/book/bible/attack_self(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
-	if(!H.can_read(src))
-		return FALSE
-	// If H is the Chaplain, we can set the icon_state of the bible (but only once!)
-	if(!GLOB.bible_icon_state && H.mind.holy_role == HOLY_ROLE_HIGHPRIEST)
-		var/dat = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Pick Bible Style</title></head><body><center><h2>Pick a bible style</h2></center><table>"
-		for(var/i in 1 to GLOB.biblestates.len)
-			var/icon/bibleicon = icon('icons/obj/storage.dmi', GLOB.biblestates[i])
-			var/nicename = GLOB.biblenames[i]
-			H << browse_rsc(bibleicon, nicename)
-			dat += {"<tr><td><img src="[nicename]"></td><td><a href="?src=[REF(src)];seticon=[i]">[nicename]</a></td></tr>"}
-		dat += "</table></body></html>"
-		H << browse(dat, "window=editicon;can_close=0;can_minimize=0;size=250x650")
+	// If H is the Chaplain, we can set the icon_state of the bible (but only once per bible)
+	if(!current_skin && H.mind.holy_role == HOLY_ROLE_HIGHPRIEST)
+		if(GLOB.bible_icon_state)//If the original has been reskinned but this one hasn't been, we make it look like the original
+			icon_state = GLOB.bible_icon_state
+			item_state = GLOB.bible_item_state
+			if(icon_state == "honk1" || icon_state == "honk2")
+				var/mob/living/carbon/C = H
+				if(C.has_dna())
+					C.dna.add_mutation(CLOWNMUT)
+				C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
+			src.update_icon()
+			return
+		if(isnull(unique_reskin_icon))
+			unique_reskin_icon = list(
+			"Bible" = "bible",
+			"Quran" = "koran",
+			"Scrapbook" = "scrapbook",
+			"Burning Bible" = "burning",
+			"Clown Bible" = "honk1",
+			"Banana Bible" = "honk2",
+			"Creeper Bible" = "creeper",
+			"White Bible" = "white",
+			"Holy Light" = "holylight",
+			"The God Delusion" = "atheist",
+			"Tome" = "tome",
+			"The King in Yellow" = "kingyellow",
+			"Ithaqua" = "ithaqua",
+			"Scientology" = "scientology",
+			"Melted Bible" = "melted",
+			"Necronomicon" = "necronomicon",
+			"Insulationism" = "insuls"
+		)
+		if(isnull(unique_reskin))
+			unique_reskin = list( //Unique_reskin is declared here so that the bible can't be reskinned through alt-clicking
+				"Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "bible"),
+				"Quran" = image(icon = 'icons/obj/storage.dmi', icon_state = "koran"),
+				"Scrapbook" = image(icon = 'icons/obj/storage.dmi', icon_state = "scrapbook"),
+				"Burning Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "burning"),
+				"Clown Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk1"),
+				"Banana Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk2"),
+				"Creeper Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "creeper"),
+				"White Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "white"),
+				"Holy Light" = image(icon = 'icons/obj/storage.dmi', icon_state = "holylight"),
+				"The God Delusion" = image(icon = 'icons/obj/storage.dmi', icon_state = "atheist"),
+				"Tome" = image(icon = 'icons/obj/storage.dmi', icon_state = "tome"),
+				"The King in Yellow" = image(icon = 'icons/obj/storage.dmi', icon_state = "kingyellow"),
+				"Ithaqua" = image(icon = 'icons/obj/storage.dmi', icon_state = "ithaqua"),
+				"Scientology" = image(icon = 'icons/obj/storage.dmi', icon_state = "scientology"),
+				"Melted Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "melted"),
+				"Necronomicon" = image(icon = 'icons/obj/storage.dmi', icon_state = "necronomicon"),
+				"Insulationism" = image(icon = 'icons/obj/storage.dmi', icon_state = "insuls")
+			)
+		reskin_bible(H)
 
-/obj/item/storage/book/bible/Topic(href, href_list)
-	if(!usr.canUseTopic(src, BE_CLOSE))
-		return
-	if(href_list["seticon"] && !GLOB.bible_icon_state)
-		var/iconi = text2num(href_list["seticon"])
-		var/biblename = GLOB.biblenames[iconi]
-		icon_state = GLOB.biblestates[iconi]
-		item_state = GLOB.bibleitemstates[iconi]
-
-		if(icon_state == "honk1" || icon_state == "honk2")
-			var/mob/living/carbon/C = usr
+/obj/item/storage/book/bible/proc/reskin_bible(mob/M)//Total override of the proc because I need some new things added to it
+	var/choice = show_radial_menu(M, src, unique_reskin, radius = 42, require_near = TRUE, tooltips = TRUE)
+	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
+		if(!unique_reskin[choice])
+			return
+		current_skin = choice
+		icon_state = unique_reskin_icon[choice]
+		GLOB.bible_icon_state = icon_state
+		item_state = unique_reskin_icon[choice]
+		GLOB.bible_item_state = item_state
+		if(choice == "Clown Bible" || choice == "Banana Bible")
+			var/mob/living/carbon/C = M
 			if(C.has_dna())
 				C.dna.add_mutation(CLOWNMUT)
 			C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
-		GLOB.bible_icon_state = icon_state
-		GLOB.bible_item_state = item_state
-
-		SSblackbox.record_feedback("text", "religion_book", 1, "[biblename]")
-		usr << browse(null, "window=editicon")
+		to_chat(M, "[src] is now skinned as '[choice].'")
+		src.update_icon()
+		SSblackbox.record_feedback("text", "religion_book", 1, "[choice]")//I don't know why it's here but I'm keeping it in case it breaks something
+	return
 
 /obj/item/storage/book/bible/proc/bless(mob/living/L, mob/living/user)
 	if(GLOB.religious_sect)

@@ -1,8 +1,8 @@
 /turf/closed
 	layer = CLOSED_TURF_LAYER
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
-	blocks_air = TRUE
+	init_air = FALSE
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF
@@ -94,7 +94,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /turf/closed/indestructible/riveted/uranium
@@ -111,13 +111,13 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 
 /turf/closed/indestructible/fakeglass
 	name = "window"
-	icon_state = "fake_window"
+	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
 	opacity = FALSE
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
-	opacity = 0
+	opacity = FALSE
 	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
 
 /turf/closed/indestructible/fakeglass/Initialize(mapload)
@@ -132,9 +132,9 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	base_icon_state = "plastitanium_window"
 	opacity = FALSE
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SHUTTLE_PARTS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
-	opacity = 0
+	opacity = FALSE
 	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
 
 /turf/closed/indestructible/opsglass/Initialize(mapload)

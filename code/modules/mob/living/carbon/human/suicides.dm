@@ -11,7 +11,7 @@
 	var/timer = 15
 	for(var/obj/item/bodypart/thing as() in bodyparts)
 		if(thing.body_part == ARM_LEFT || thing.body_part == ARM_RIGHT)
-			addtimer(CALLBACK(thing, /obj/item/bodypart/.proc/dismember), timer)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/effects/cartoon_pop.ogg', 70), timer)
+			addtimer(CALLBACK(thing, TYPE_PROC_REF(/obj/item/bodypart, dismember)), timer)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/effects/cartoon_pop.ogg', 70), timer)
 			timer += 15
-	addtimer(CALLBACK(src, /mob/living/carbon/human/.proc/delayed_suicide, FALSE), timer-10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon/human, delayed_suicide), FALSE), timer-10)

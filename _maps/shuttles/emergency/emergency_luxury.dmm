@@ -129,7 +129,7 @@
 /area/shuttle/escape/luxury)
 "ax" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/meatballspaghetti,
+/obj/item/food/spaghetti/meatballspaghetti,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "ay" = (
@@ -139,7 +139,7 @@
 /area/shuttle/escape/luxury)
 "az" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato,
+/obj/item/food/spaghetti/pastatomato,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aA" = (
@@ -164,7 +164,7 @@
 /area/shuttle/escape/luxury)
 "aE" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/burger/baconburger,
+/obj/item/food/burger/baconburger,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aF" = (
@@ -174,12 +174,12 @@
 /area/shuttle/escape/luxury)
 "aG" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/cakeslice/chocolate,
+/obj/item/food/cakeslice/chocolate,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aH" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/chowmein,
+/obj/item/food/spaghetti/chowmein,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aI" = (
@@ -240,7 +240,7 @@
 /area/shuttle/escape/luxury)
 "aT" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/copypasta,
+/obj/item/food/spaghetti/copypasta,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aU" = (
@@ -250,7 +250,7 @@
 /area/shuttle/escape/luxury)
 "aV" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/boiledspaghetti,
+/obj/item/food/spaghetti/boiledspaghetti,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aW" = (
@@ -260,7 +260,7 @@
 /area/shuttle/escape/luxury)
 "aX" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/customizable/pizza,
+/obj/item/food/pizza/dank,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aY" = (
@@ -275,12 +275,12 @@
 /area/shuttle/escape/luxury)
 "ba" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/burger/superbite,
+/obj/item/food/burger/superbite,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "bb" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/cakeslice/slimecake,
+/obj/item/food/cakeslice/slimecake,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "bc" = (

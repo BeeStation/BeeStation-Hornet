@@ -4,7 +4,7 @@
 	name = "Abductor"
 	roundend_category = "abductors"
 	antagpanel_category = "Abductor"
-	job_rank = ROLE_ABDUCTOR
+	banning_key = ROLE_ABDUCTOR
 	show_in_antagpanel = FALSE //should only show subtypes
 	show_to_ghosts = TRUE
 	var/datum/team/abductor_team/team
@@ -13,7 +13,6 @@
 	var/landmark_type
 	var/greet_text
 
-
 /datum/antagonist/abductor/agent
 	name = "Abductor Agent"
 	sub_role = "Agent"
@@ -21,6 +20,7 @@
 	landmark_type = /obj/effect/landmark/abductor/agent
 	greet_text = "Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve."
 	show_in_antagpanel = TRUE
+	ui_name = "AntagInfoAbductorAgent"
 
 /datum/antagonist/abductor/scientist
 	name = "Abductor Scientist"
@@ -29,6 +29,7 @@
 	landmark_type = /obj/effect/landmark/abductor/scientist
 	greet_text = "Use your experimental console and surgical equipment to monitor your agent and experiment upon abducted humans."
 	show_in_antagpanel = TRUE
+	ui_name = "AntagInfoAbductorScientist"
 
 /datum/antagonist/abductor/scientist/onemanteam
 	name = "Abductor Solo"
@@ -75,6 +76,10 @@
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductor",
 		"Capture and experiment on members of the crew, without being spotted.")
 
+/datum/antagonist/abductor/ui_static_data(mob/user)
+	. = ..()
+	.["mothership"] = team.name
+
 /datum/antagonist/abductor/proc/finalize_abductor()
 	//Equip
 	var/mob/living/carbon/human/H = owner.current
@@ -95,12 +100,12 @@
 
 /datum/antagonist/abductor/scientist/on_gain()
 	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	ADD_TRAIT(owner, TRAIT_SURGEON, ABDUCTOR_ANTAGONIST)
+	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SURGEON, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/scientist/on_removal()
 	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	REMOVE_TRAIT(owner, TRAIT_SURGEON, ABDUCTOR_ANTAGONIST)
+	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_SURGEON, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/admin_add(datum/mind/new_owner,mob/admin)
@@ -120,7 +125,7 @@
 
 /datum/antagonist/abductor/get_admin_commands()
 	. = ..()
-	.["Equip"] = CALLBACK(src,.proc/admin_equip)
+	.["Equip"] = CALLBACK(src,PROC_REF(admin_equip))
 
 /datum/antagonist/abductor/proc/admin_equip(mob/admin)
 	if(!ishuman(owner.current))
@@ -142,8 +147,12 @@
 
 /datum/team/abductor_team/New()
 	..()
+	var/static/list/left_team_names = GLOB.greek_letters.Copy() //TODO Ensure unique and actual alieny names (this is a TO-DO from 2018)
 	team_number = team_count++
-	name = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
+	if(length(left_team_names))
+		name = "Mothership [pick_n_take(left_team_names)]"
+	else
+		name = "No.[team_number] Mothership [pick(GLOB.greek_letters)]"
 	add_objective(new/datum/objective/experiment)
 
 /datum/team/abductor_team/is_solo()
@@ -179,12 +188,14 @@
 	name = "Abductee"
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
+	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/antagonist/abductee/on_gain()
 	give_objective()
 	. = ..()
 
 /datum/antagonist/abductee/greet()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/abductee.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='warning'><b>Your mind snaps!</b></span>")
 	to_chat(owner, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
 	owner.announce_objectives()

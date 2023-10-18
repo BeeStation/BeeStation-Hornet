@@ -92,7 +92,7 @@ Stands have a lot of procs which mimic mob procs. Rather than inserting hooks fo
     * If signal is a list it will be as if RegisterSignal was called for each of the entries with the same following arguments
     * Makes the datum listen for the specified `signal` on it's `parent` datum.
     * When that signal is received `proc_ref` will be called on the component, along with associated arguments
-    * Example proc ref: `.proc/OnEvent`
+    * Example proc ref: `PROC_REF(OnEvent)`
     * If a previous registration is overwritten by the call, a runtime occurs. Setting `override` to TRUE prevents this
     * These callbacks run asyncronously
     * Returning `TRUE` from these callbacks will trigger a `TRUE` return from the `SendSignal()` that initiated it

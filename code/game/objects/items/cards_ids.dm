@@ -16,6 +16,7 @@
 	desc = "Does card things."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 
 	var/list/files = list()
 
@@ -66,14 +67,20 @@
 	item_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
-	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
+	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON | ISWEAPON
 	var/prox_check = TRUE //If the emag requires you to be in range
+	var/charges = 4
+	var/max_charges = 4
+	var/list/charge_timers = list()
+	var/charge_time = 30 SECONDS
+	var/updating = FALSE
+	var/sound/recharge_sound
+	var/soundvary = TRUE
 
-/obj/item/card/emag/bluespace
-	name = "bluespace cryptographic sequencer"
-	desc = "It's a blue card with a magnetic strip attached to some circuitry. It appears to have some sort of transmitter attached to it."
-	icon_state = "emag_bs"
-	prox_check = FALSE
+/obj/item/card/emag/Initialize(mapload)
+	. = ..()
+	update_appearance(updates = UPDATE_OVERLAYS)
+	recharge_sound = sound('sound/machines/twobeep.ogg', FALSE, FALSE, 0, 10)
 
 /obj/item/card/emag/attack()
 	return
@@ -83,8 +90,58 @@
 	var/atom/A = target
 	if(!proximity && prox_check)
 		return
-	log_combat(user, A, "attempted to emag")
-	A.use_emag(user)
+	log_combat(user, A, "attempted to emag with [charges] charges")
+	A.use_emag(user, src)
+
+/obj/item/card/emag/proc/use_charge()
+	charges--
+	charge_timers.Add(addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time, TIMER_STOPPABLE))
+	INVOKE_ASYNC(src, PROC_REF(do_animation))
+
+/obj/item/card/emag/proc/recharge()
+	charges = min(charges+1, max_charges)
+	if(soundvary)
+		recharge_sound.frequency = get_rand_frequency()
+	if(get_dist(src, usr) == 0)
+		SEND_SOUND(usr, recharge_sound)
+	charge_timers.Remove(charge_timers[1])
+	INVOKE_ASYNC(src, PROC_REF(do_animation))
+
+/obj/item/card/emag/proc/do_animation()
+	updating = TRUE
+	update_appearance(updates = UPDATE_OVERLAYS)
+	sleep(3)
+	updating = FALSE
+	update_appearance(updates = UPDATE_OVERLAYS)
+
+/obj/item/card/emag/examine(mob/user)
+	. = ..()
+	switch(charges)
+		if(2 to INFINITY)
+			. += "<span class='notice'>It has [charges] charges remaining.</span>"
+		if(1)
+			. += "<span class='notice'>It has [charges] charge remaining.</span>"
+		if(-INFINITY to 0)
+			. += "<span class='warning'>It's out of charges!</span>"
+
+/obj/item/card/emag/update_overlays()
+	. = ..()
+	if(updating)
+		. += "emag_progress"
+	else
+		switch(charges)
+			if(-INFINITY to 0)
+				. += "emag_0"
+			if(10 to INFINITY)
+				. += "emag_9"
+			if(1 to 9)
+				. += "emag_[charges]"
+
+/obj/item/card/emag/bluespace
+	name = "bluespace cryptographic sequencer"
+	desc = "It's a blue card with a magnetic strip attached to some circuitry. It appears to have some sort of transmitter attached to it."
+	icon_state = "emag_bs"
+	prox_check = FALSE
 
 /obj/item/card/emagfake
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry. Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."
@@ -107,9 +164,8 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/mining_points = 0 //For redeeming at mining equipment vendors
 	var/list/access = list()
 	var/registered_name// The name registered_name on the card
 	var/assignment
@@ -155,6 +211,7 @@
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
 	VV_DROPDOWN_OPTION(VV_ID_PAYDAY, "Trigger Payday")
+	VV_DROPDOWN_OPTION(VV_ID_GIVE_MINING_POINT, "Give Mining Points")
 
 /obj/item/card/id/vv_do_topic(list/href_list)
 	. = ..()
@@ -163,6 +220,16 @@
 			to_chat(usr, "There's no account registered!")
 			return
 		registered_account.payday(1)
+
+	if(href_list[VV_ID_GIVE_MINING_POINT])
+		if(!registered_account)
+			to_chat(usr, "There's no account registered!")
+			return
+		var/target_value = input(usr, "How many mining points would you like to add? (use nagative to take)", "Give mining points") as num
+		if(!registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, target_value))
+			to_chat(usr, "Failed: Your input was [target_value], but [registered_account.account_holder]'s account has only [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
+		else
+			to_chat(usr, "Success: [target_value] points have been added. [registered_account.account_holder]'s account now holds [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
 	if(iscash(W))
@@ -289,9 +356,9 @@
 	. = ..()
 	if(!electric)  // forces off bank info for paper slip
 		return .
-	if(mining_points)
-		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 	if(registered_account)
+		if(registered_account.report_currency(ACCOUNT_CURRENCY_MINING))
+			. += "There's [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)] mining equipment redemption point\s loaded onto the account of this card."
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
 		if(!istype(src, /obj/item/card/id/departmental_budget))
 			var/list/payment_result = list()
@@ -374,7 +441,7 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_HUNTERS)
 	hud_state = JOB_HUD_NOTCENTCOM
 
-/obj/item/card/id/silver/spacepol/bounty
+/obj/item/card/id/silver/bounty
 	name = "bounty hunter access card"
 	access = list(ACCESS_HUNTERS)
 	hud_state = JOB_HUD_UNKNOWN
@@ -431,7 +498,7 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/away/old/apc,
 		/obj/item/card/id/away/deep_storage,
 		/obj/item/card/id/changeling,
-		/obj/item/card/id/mining,
+		/obj/item/card/id/golem,
 		/obj/item/card/id/pass), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
@@ -447,6 +514,8 @@ update_label("John Doe", "Clowny")
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
+	if(chameleon_action.hidden)
+		return ..()
 	if(isliving(user) && user.mind)
 		var/first_use = registered_name ? FALSE : TRUE
 		if(!(user.mind.special_role || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
@@ -519,6 +588,22 @@ update_label("John Doe", "Clowny")
 		return
 	chameleon_action.emp_randomise()
 
+/obj/item/card/id/syndicate/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_MULTITOOL)
+		if(chameleon_action.hidden)
+			chameleon_action.hidden = FALSE
+			actions += chameleon_action
+			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the agent ID ([name]) with [W]")
+			return
+		else
+			chameleon_action.hidden = TRUE
+			actions -= chameleon_action
+			chameleon_action.Remove(user)
+			log_game("[key_name(user)] has locked the disguise of the agent ID ([name]) with [W]")
+			return
+	. = ..()
+
 // broken chameleon agent card
 /obj/item/card/id/syndicate/broken
 	access = list() // their access is even broken
@@ -563,7 +648,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/syndicate/debug/Initialize(mapload)
 	access = get_every_access()
-	registered_account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+	registered_account = SSeconomy.get_budget_account(ACCOUNT_VIP_ID)
 	. = ..()
 
 /obj/item/card/id/captains_spare
@@ -661,6 +746,15 @@ update_label("John Doe", "Clowny")
 	access = get_all_accesses()
 	. = ..()
 
+/obj/item/card/id/ert/lawyer
+	registered_name = "CentCom Attorney"
+	assignment = "CentCom Attorney"
+	icon_state = "centcom"
+
+/obj/item/card/id/ert/lawyer/Initialize(mapload)
+	. = ..()
+	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
+
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
@@ -710,16 +804,34 @@ update_label("John Doe", "Clowny")
 	name = "Prisoner #13-007"
 	registered_name = "Prisoner #13-007"
 
-/obj/item/card/id/mining
-	name = "mining ID"
+/obj/item/card/id/golem
+	name = "Golem Mining ID"
+	assignment = "Free Golem"
 	hud_state = JOB_HUD_RAWCARGO
 	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+	var/need_setup = TRUE
+
+/obj/item/card/id/golem/Initialize(mapload)
+	registered_account = SSeconomy.get_budget_account(ACCOUNT_GOLEM_ID)
+	. = ..()
+
+/obj/item/card/id/golem/pickup(mob/user)
+	. = ..()
+	if(need_setup)
+		if(isgolem(user))
+			registered_name = user.name // automatically change registered name if it's picked up by a golem at first time
+			update_label()
+		need_setup = FALSE
+		// if non-golem picks it up, the renaming feature will be disabled
+
+/obj/item/card/id/golem/spawner
+	need_setup = FALSE
 
 /obj/item/card/id/paper
 	name = "paper nametag"
 	desc = "Some spare papers taped into a vague card shape, with a name scribbled on it. Seems trustworthy."
 	icon_state = "paper"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 0)
 	resistance_flags = null  // removes all resistance because its a piece of paper
 	access = list()
 	assignment = "Unknown"

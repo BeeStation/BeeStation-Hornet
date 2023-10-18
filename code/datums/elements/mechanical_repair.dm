@@ -8,7 +8,7 @@
 	. = ..()
 	if(!ishuman(target))
 		return ELEMENT_INCOMPATIBLE
-	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, .proc/try_repair)
+	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(try_repair))
 
 /datum/element/mechanical_repair/Detach(datum/source, ...)
 	. = ..()
@@ -31,10 +31,10 @@
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 				"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
-				if(!do_mob(user, target, 15))
+				if(!do_after(user, 1.5 SECONDS, target))
 					return COMPONENT_NO_AFTERATTACK
 			item_heal_robotic(target, user, 15, 0, affecting)
-			return COMPONENT_NO_AFTERATTACK // We managed to heal the limb
+		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
 		return COMPONENT_NO_AFTERATTACK
 
 	// Handles cable repairs
@@ -43,8 +43,9 @@
 		if(user == target)
 			user.visible_message("<span class='notice'>[user] starts to fix some of the burn wires in [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 			"<span class='notice'>You start fixing some of the burnt wires in [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
-			if(!do_mob(user, target, 15))
+			if(!do_after(user, 1.5 SECONDS, target))
 				return COMPONENT_NO_AFTERATTACK
-		if(coil.use(1))
-			item_heal_robotic(target, user, 0, 15, affecting)
+		if(coil.amount && item_heal_robotic(target, user, 0, 15, affecting))
+			coil.use(1)
+		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
 		return COMPONENT_NO_AFTERATTACK

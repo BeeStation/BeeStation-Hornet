@@ -229,7 +229,7 @@
 	. = 1
 
 /datum/reagent/drug/methamphetamine/overdose_process(mob/living/M)
-	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
 		for(var/i in 1 to 4)
 			step(M, pick(GLOB.cardinals))
 	if(prob(20))
@@ -256,7 +256,7 @@
 	..()
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage3(mob/living/M)
-	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
 		for(var/i = 0, i < 4, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(15)
@@ -266,7 +266,7 @@
 	..()
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage4(mob/living/carbon/human/M)
-	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(20)
@@ -318,7 +318,7 @@
 	M.adjustStaminaLoss(-5, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4)
 	M.hallucination += 5
-	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
 		step(M, pick(GLOB.cardinals))
 		step(M, pick(GLOB.cardinals))
 	..()
@@ -326,7 +326,7 @@
 
 /datum/reagent/drug/bath_salts/overdose_process(mob/living/M)
 	M.hallucination += 5
-	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
 		for(var/i in 1 to 8)
 			step(M, pick(GLOB.cardinals))
 	if(prob(20))
@@ -337,7 +337,7 @@
 
 /datum/reagent/drug/bath_salts/addiction_act_stage1(mob/living/M)
 	M.hallucination += 10
-	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(5)
@@ -348,7 +348,7 @@
 
 /datum/reagent/drug/bath_salts/addiction_act_stage2(mob/living/M)
 	M.hallucination += 20
-	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(10)
@@ -360,7 +360,7 @@
 
 /datum/reagent/drug/bath_salts/addiction_act_stage3(mob/living/M)
 	M.hallucination += 30
-	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
 		for(var/i = 0, i < 12, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(15)
@@ -372,7 +372,7 @@
 
 /datum/reagent/drug/bath_salts/addiction_act_stage4(mob/living/carbon/human/M)
 	M.hallucination += 30
-	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
 		for(var/i = 0, i < 16, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(50)

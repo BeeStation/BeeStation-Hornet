@@ -12,7 +12,7 @@ RLD
 /obj/item/construction
 	name = "not for ingame use"
 	desc = "A device used to rapidly build and deconstruct. Reload with iron, plasteel, glass or compressed matter cartridges."
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
 	flags_1 = CONDUCT_1
@@ -24,7 +24,7 @@ RLD
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=100000)
 	req_access_txt = "11"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/matter = 0
@@ -178,7 +178,9 @@ RLD
 	return .
 
 /obj/item/construction/proc/range_check(atom/A, mob/user)
-	if(!(user in viewers(7, get_turf(A))))
+	if(A.z != user.z)
+		return
+	if(!(user in viewers(7, get_turf(A))) && !(max_matter == INFINITY)) // debug tool has no max range
 		to_chat(user, "<span class='warning'>The \'Out of Range\' light on [src] blinks red.</span>")
 		return FALSE
 	else
@@ -305,7 +307,7 @@ RLD
 		"SOUTH" = image(icon = 'icons/mob/radial.dmi', icon_state = "csouth"),
 		"WEST" = image(icon = 'icons/mob/radial.dmi', icon_state = "cwest")
 		)
-	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(computerdirs)
@@ -366,13 +368,13 @@ RLD
 		"External Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance/external/glass)
 	)
 
-	var/airlockcat = show_radial_menu(user, src, solid_or_glass_choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/airlockcat = show_radial_menu(user, src, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(airlockcat)
 		if("Solid")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src, solid_choices, radius = 42, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, src, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -417,7 +419,7 @@ RLD
 
 		if("Glass")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src , glass_choices, radius = 42, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, src , glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -517,11 +519,17 @@ RLD
 	airlock_electronics.name = "Access Control"
 	airlock_electronics.holder = src
 	GLOB.rcd_list += src
+	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/construction/rcd/Destroy()
 	QDEL_NULL(airlock_electronics)
 	GLOB.rcd_list -= src
 	. = ..()
+
+/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		mode = RCD_FLOORWALL
+		rcd_create(target, user)
 
 /obj/item/construction/rcd/attack_self(mob/user)
 	..()
@@ -559,7 +567,7 @@ RLD
 		choices += list(
 		"Change Furnishing Type" = image(icon = 'icons/mob/radial.dmi', icon_state = "chair")
 		)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(choice)
@@ -621,7 +629,7 @@ RLD
 		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
 		vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
-	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
+	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 
 /obj/item/construction/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
@@ -687,6 +695,7 @@ RLD
 	max_matter = 500
 	matter = 500
 	canRturf = TRUE
+	item_flags = ISWEAPON
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
@@ -705,16 +714,7 @@ RLD
 	ammoamt = 160
 
 
-/obj/item/construction/rcd/combat/admin
-	name = "admin RCD"
-	max_matter = INFINITY
-	matter = INFINITY
-	delay_mod = 0.1
-	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
-
 // Ranged RCD
-
-
 /obj/item/construction/rcd/arcd
 	name = "advanced rapid-construction-device (ARCD)"
 	desc = "A prototype RCD with ranged capability and extended capacity. Reload with iron, plasteel, glass or compressed matter cartridges."
@@ -731,15 +731,15 @@ RLD
 	if(!range_check(A,user))
 		return
 	if(target_check(A,user))
-		user.Beam(A,icon_state="rped_upgrade",time=30)
+		user.Beam(A,icon_state="rped_upgrade", time = delay_mod * 5 SECONDS) //5 SECONDS * 0.6 = 3 seconds
 	rcd_create(A,user)
 
-
+/obj/item/construction/rcd/arcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(ranged && range_check(target, user))
+		mode = RCD_FLOORWALL
+		rcd_create(target, user)
 
 // RAPID LIGHTING DEVICE
-
-
-
 /obj/item/construction/rld
 	name = "Rapid Lighting Device (RLD)"
 	desc = "A device used to rapidly provide lighting sources to an area. Reload with iron, plasteel, glass or compressed matter cartridges."
@@ -767,12 +767,13 @@ RLD
 
 /obj/item/construction/rld/ui_action_click(mob/user, var/datum/action/A)
 	if(istype(A, /datum/action/item_action/pick_color))
-		color_choice = input(user,"","Choose Color",color_choice) as color
+		color_choice = tgui_color_picker(user,"","Choose Color",color_choice)
 	else
 		..()
 
 /obj/item/construction/rld/update_icon()
-	icon_state = "rld-[round(matter/35)]"
+	// "infinite matter/35" from a debug tool will give a big number, but "rld-5" is the maximum
+	icon_state = "rld-[min(round(matter/35), 5)]"
 	..()
 
 
@@ -808,7 +809,7 @@ RLD
 			if(istype(A, /obj/machinery/light/))
 				if(checkResource(deconcost, user))
 					to_chat(user, "<span class='notice'>You start deconstructing [A]...</span>")
-					user.Beam(A,icon_state="nzcrentrs_power",time=15)
+					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 					if(do_after(user, decondelay, target = A))
 						if(!useResource(deconcost, user))
@@ -822,7 +823,7 @@ RLD
 				var/turf/closed/wall/W = A
 				if(checkResource(floorcost, user))
 					to_chat(user, "<span class='notice'>You start building a wall light...</span>")
-					user.Beam(A,icon_state="nzcrentrs_power",time=15)
+					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 0)
 					if(do_after(user, floordelay, target = A))
@@ -868,7 +869,7 @@ RLD
 				var/turf/open/floor/F = A
 				if(checkResource(floorcost, user))
 					to_chat(user, "<span class='notice'>You start building a floor light...</span>")
-					user.Beam(A,icon_state="nzcrentrs_power",time=15)
+					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 1)
 					if(do_after(user, floordelay, target = A))
@@ -952,7 +953,7 @@ RLD
 				machinery_data["cost"][A] = initial(M.rcd_cost)
 				machinery_data["delay"][A] = initial(M.rcd_delay)
 
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 

@@ -10,7 +10,7 @@
 	var/regex/R
 
 /datum/component/beetlejuice/Initialize()
-	if(!ismovableatom(parent))
+	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	first_heard = list()
@@ -23,7 +23,7 @@
 		keyword = M.real_name
 	update_regex()
 
-	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/say_react)
+	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, PROC_REF(say_react))
 
 /datum/component/beetlejuice/proc/update_regex()
 	R = regex("[REGEX_QUOTE(keyword)]","g[case_sensitive ? "" : "i"]")

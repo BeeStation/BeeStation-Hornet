@@ -6,6 +6,7 @@
 	key_type = /obj/item/key/janitor
 	var/obj/item/storage/bag/trash/mybag = null
 	var/floorbuffer = FALSE
+	var/datum/action/cleaning_toggle/autoclean_toggle
 
 /obj/vehicle/ridden/janicart/Initialize(mapload)
 	. = ..()
@@ -72,6 +73,25 @@
 		user.put_in_hands(mybag)
 		mybag = null
 		update_icon()
+
+/obj/vehicle/ridden/janicart/buckle_mob(mob/living/M, force, check_loc)
+	. = ..()
+	if(floorbuffer)
+		autoclean_toggle = new()
+		autoclean_toggle.toggle_target = src
+		autoclean_toggle.Grant(M)
+
+/obj/vehicle/ridden/janicart/unbuckle_mob(mob/living/buckled_mob, force)
+	. = ..()
+	if(floorbuffer)
+		autoclean_toggle.Remove(buckled_mob)
+		QDEL_NULL(autoclean_toggle)
+
+/obj/vehicle/ridden/janicart/Destroy()
+	. = ..()
+	if(floorbuffer)
+		autoclean_toggle.toggle_target = null
+		QDEL_NULL(autoclean_toggle)
 
 /obj/vehicle/ridden/janicart/upgraded
 	floorbuffer = TRUE

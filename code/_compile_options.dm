@@ -31,6 +31,16 @@
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif //ifdef TESTING
 
+/// Enables BYOND TRACY, which allows profiling using Tracy.
+/// The prof.dll/libprof.so must be built and placed in the repo folder.
+/// https://github.com/mafemergency/byond-tracy
+//#define USE_BYOND_TRACY
+
+/////////////////////// ZMIMIC
+
+///Enables Multi-Z lighting
+#define ZMIMIC_LIGHT_BLEED
+
 /// If this is uncommented, will profile mapload atom initializations
 // #define PROFILE_MAPLOAD_INIT_ATOM
 
@@ -51,18 +61,29 @@
 #define REFERENCE_TRACKING_DEBUG
 #endif
 
-#ifndef PRELOAD_RSC				//set to:
-#define PRELOAD_RSC	0			//	0 to allow using external resources or on-demand behaviour;
-#endif							//	1 to use the default behaviour;
-								//	2 for preloading absolutely everything;
+/// If this is uncommented, force our verb processing into just the 2% of a tick
+/// We normally reserve for it
+/// NEVER run this on live, it's for simulating highpop only
+// #define VERB_STRESS_TEST
+
+#ifdef VERB_STRESS_TEST
+/// Uncomment this to force all verbs to run into overtime all of the time
+/// Essentially negating the reserve 2%
+
+// #define FORCE_VERB_OVERTIME
+#warn Hey brother, you're running in LAG MODE.
+#warn IF YOU PUT THIS ON LIVE I WILL FIND YOU AND MAKE YOU WISH YOU WERE NEVE-
+#endif
+
+#ifndef PRELOAD_RSC	//set to:
+#define PRELOAD_RSC	0 // 0 to allow using external resources or on-demand behaviour;
+#endif				// 1 to use the default behaviour;
+					// 2 for preloading absolutely everything;
 
 #ifdef LOWMEMORYMODE
 #define FORCE_MAP "runtimestation"
 #endif
 
-//Update this whenever you need to take advantage of more recent byond features
-#define MIN_COMPILER_VERSION 514
-#define MIN_COMPILER_BUILD 1583
 //TODO Remove the SDMM check when it supports 1568
 #if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(FASTDMM)
 //Don't forget to update this part
@@ -108,9 +129,11 @@
 #define CBT
 #endif
 
-#if !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM)
-#error Building with Dream Maker is no longer supported and will result in errors.
-#error Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
+#if defined(OPENDREAM)
+#error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
+#elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM)
+#warn Building with Dream Maker is no longer supported and will result in missing interface files.
+#warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
 #endif
 
 #define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : __detect_auxmos())

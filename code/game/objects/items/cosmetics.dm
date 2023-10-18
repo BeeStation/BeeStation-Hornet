@@ -137,7 +137,7 @@
 		if(location == BODY_ZONE_PRECISE_MOUTH)
 			if(user.a_intent == INTENT_HELP)
 				if(H.gender == MALE)
-					INVOKE_ASYNC(src, .proc/new_facial_hairstyle, H, user, mirror)
+					INVOKE_ASYNC(src, PROC_REF(new_facial_hairstyle), H, user, mirror)
 					return
 				else
 					return
@@ -169,7 +169,7 @@
 
 		else if(location == BODY_ZONE_HEAD)
 			if(user.a_intent == INTENT_HELP)
-				INVOKE_ASYNC(src, .proc/new_hairstyle, H, user)
+				INVOKE_ASYNC(src, PROC_REF(new_hairstyle), H, user)
 				return
 			else
 				if(!(HAIR in H.dna.species.species_traits))
@@ -262,7 +262,7 @@
 	. = ..()
 	if(ishuman(M) && extended == 1 && (user.a_intent == INTENT_HARM))
 		var/mob/living/carbon/human/H = M
-		var/def_check = H.getarmor("melee")
+		var/def_check = H.getarmor(MELEE)
 		H.bleed_rate += ((force * 10) - def_check)/30 //sharp blade causes a shitload of blood loss if on harm intent
 		if(H.bleed_rate >= 10)
 			to_chat(M, "<span class='userdanger'>You're losing blood fast!</span>")
