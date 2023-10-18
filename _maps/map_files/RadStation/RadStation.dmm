@@ -184,6 +184,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hos)
 "abL" = (
@@ -505,6 +506,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "agM" = (
@@ -1425,6 +1427,7 @@
 	pixel_y = 1
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "awd" = (
@@ -3112,6 +3115,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/book/manual/wiki/sopcommand,
+/obj/item/book/manual/wiki/sopservice,
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "aWV" = (
@@ -4875,6 +4881,7 @@
 	pixel_y = 4
 	},
 /obj/item/powertool/jaws_of_life,
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
 "bDe" = (
@@ -6892,6 +6899,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hos)
 "cjc" = (
@@ -9535,6 +9543,7 @@
 	pixel_x = 8;
 	pixel_y = 4
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
 "cZw" = (
@@ -17038,6 +17047,7 @@
 	pixel_y = 29
 	},
 /obj/item/hand_labeler,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "fiM" = (
@@ -26454,6 +26464,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "ibG" = (
@@ -32194,6 +32205,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 23
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "jVS" = (
@@ -32817,6 +32829,7 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/rack,
 /obj/item/stack/sticky_tape,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "khE" = (
@@ -49469,6 +49482,7 @@
 	pixel_x = -32;
 	pixel_y = -2
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "psf" = (
@@ -54018,6 +54032,7 @@
 	pixel_x = 14;
 	pixel_y = 4
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/office)
 "qLC" = (
@@ -56865,6 +56880,7 @@
 	pixel_y = 1
 	},
 /obj/item/folder/white,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "rKZ" = (
@@ -59165,6 +59181,7 @@
 	pixel_y = 3
 	},
 /obj/item/pipe_dispenser,
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "sBR" = (
@@ -63530,6 +63547,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Locker Room"

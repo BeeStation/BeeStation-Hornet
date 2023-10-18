@@ -17007,6 +17007,7 @@
 /obj/item/hand_labeler,
 /obj/machinery/light/small,
 /obj/machinery/fax/service,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -37468,6 +37469,7 @@
 /obj/machinery/keycard_auth{
 	pixel_y = 24
 	},
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "cIK" = (
@@ -38091,11 +38093,13 @@
 	pixel_y = 1
 	},
 /obj/item/toy/figure/hos,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "cKH" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/med_data/laptop,
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "cKI" = (
@@ -44627,6 +44631,7 @@
 	pixel_x = -20;
 	pixel_y = 22
 	},
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "eMz" = (
@@ -45619,6 +45624,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
 "fgG" = (
@@ -45714,6 +45720,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -28
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "fia" = (
@@ -46742,6 +46749,7 @@
 /obj/item/folder/blue,
 /obj/item/clothing/glasses/hud/health,
 /obj/effect/turf_decal/tile/blue,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "fCk" = (
@@ -55768,6 +55776,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "jty" = (
@@ -56761,6 +56770,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
 "jLq" = (
@@ -67041,6 +67051,7 @@
 /obj/item/hand_labeler,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "osk" = (
@@ -68641,6 +68652,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
 "pdx" = (
@@ -74159,6 +74171,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "rmO" = (
@@ -75575,6 +75588,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
 "rQa" = (
@@ -75731,6 +75745,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "rST" = (
@@ -87535,6 +87550,7 @@
 /obj/item/lighter,
 /obj/item/clothing/mask/cigarette/cigar/cohiba,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "wIP" = (
@@ -90941,6 +90957,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "ygX" = (

@@ -6331,6 +6331,7 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "aHs" = (
@@ -12252,6 +12253,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "bnY" = (
@@ -17522,6 +17524,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "bSM" = (
@@ -20683,12 +20686,14 @@
 	},
 /obj/item/folder/blue,
 /obj/item/pen,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "cjB" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/structure/disposalpipe/segment,
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
 "cjD" = (
@@ -30197,6 +30202,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "deh" = (
@@ -31711,6 +31717,7 @@
 	network = list("ss13","rd")
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hor)
 "dsc" = (
@@ -36353,6 +36360,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "ecZ" = (
@@ -45793,6 +45801,7 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/ce,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "hhy" = (
@@ -55542,6 +55551,7 @@
 /obj/item/folder/red,
 /obj/item/clothing/mask/gas/sechailer,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/plasteel,
 /area/security/main)
 "kCi" = (
@@ -59986,6 +59996,7 @@
 /obj/item/folder/white,
 /obj/item/stamp/research_director,
 /obj/effect/turf_decal/tile/purple/half/contrasted,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "lZP" = (
@@ -61778,6 +61789,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "mGa" = (
@@ -64710,6 +64722,7 @@
 /obj/item/folder/yellow,
 /obj/item/lighter,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "nBr" = (
@@ -73193,6 +73206,7 @@
 	},
 /obj/item/flashlight/lamp,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
 "qxS" = (
@@ -73885,6 +73899,7 @@
 /obj/machinery/keycard_auth{
 	pixel_y = -24
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "qMh" = (
@@ -75913,6 +75928,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "rwl" = (
@@ -84108,6 +84124,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "usG" = (
@@ -95090,6 +95107,7 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "xSY" = (
