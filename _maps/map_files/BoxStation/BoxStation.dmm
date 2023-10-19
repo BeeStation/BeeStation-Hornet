@@ -10512,11 +10512,6 @@
 /obj/structure/bodycontainer/morgue,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
-"bDM" = (
-/obj/machinery/camera/autoname,
-/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
-/turf/open/floor/plasteel/dark,
-/area/medical/morgue)
 "bDO" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 2
@@ -18054,9 +18049,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/emitter/anchored{
-	dir = 4;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -19384,9 +19378,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/emitter/anchored{
-	dir = 8;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -33619,10 +33612,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
-"jLP" = (
-/mob/living/simple_animal/cockroach,
-/turf/open/floor/wood,
-/area/vacant_room/office)
 "jLS" = (
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -43654,6 +43643,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"ozX" = (
+/mob/living/basic/cockroach,
+/turf/open/floor/wood,
+/area/vacant_room/office)
 "oAj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -47162,11 +47155,6 @@
 /obj/structure/grille/broken,
 /turf/open/space/basic,
 /area/space/nearstation)
-"qva" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
-/turf/open/floor/carpet,
-/area/vacant_room/office)
 "qve" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = 32
@@ -53218,6 +53206,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
+"tfE" = (
+/obj/machinery/camera/autoname,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "tfI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -60281,6 +60274,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
+"wVH" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/basic/cockroach,
+/turf/open/floor/carpet,
+/area/vacant_room/office)
 "wVL" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_y = 32
@@ -76796,7 +76794,7 @@ ayl
 czK
 vsd
 fLl
-jLP
+ozX
 sdS
 lNE
 czK
@@ -77825,7 +77823,7 @@ czK
 sSD
 dUJ
 pSb
-qva
+wVH
 enh
 czK
 dMm
@@ -93782,7 +93780,7 @@ xTN
 hKs
 aJq
 cBD
-bDM
+tfE
 bFi
 vNj
 dRs

@@ -172,7 +172,7 @@
 				continue
 			else
 				var/healthdiff = 10-round(H.health/10)
-				Targets[H] = CLAMP(healthdiff,1,12)
+				Targets[H] = clamp(healthdiff,1,12)
 	if(!Targets.len)//sanity check
 		return
 	return pick_weight(Targets)//Pick the remaining targets (if any) at random

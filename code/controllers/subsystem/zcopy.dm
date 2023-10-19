@@ -122,7 +122,7 @@ SUBSYSTEM_DEF(zcopy)
 		"\tT: { T: [openspace_turfs] O: [openspace_overlays] } Sk: { T: [multiqueue_skips_turf] O: [multiqueue_skips_object] }",
 		"\tF: { H: [fixup_hit] M: [fixup_miss] N: [fixup_noop] FC: [fixup_cache.len] FKG: [fixup_known_good.len] }",	// Fixup stats.
 	)
-	return ..() + entries.Join("\n")
+	return ..(entries.Join("\n"))
 
 // 1, 2, 3..=7, 8
 /datum/controller/subsystem/zcopy/proc/build_zstack_display()
