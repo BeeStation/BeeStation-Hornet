@@ -133,7 +133,7 @@ export const backendMiddleware = (store) => {
     }
 
     if (type === 'ping') {
-      Byond.sendMessage('pingReply');
+      Byond.sendMessage('ping/reply');
       return;
     }
 
