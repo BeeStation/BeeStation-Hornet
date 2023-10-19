@@ -1527,6 +1527,7 @@
 #include "code\game\objects\structures\grille.dm"
 #include "code\game\objects\structures\guillotine.dm"
 #include "code\game\objects\structures\guncase.dm"
+#include "code\game\objects\structures\halloween\grave.dm"
 #include "code\game\objects\structures\headpike.dm"
 #include "code\game\objects\structures\hivebot.dm"
 #include "code\game\objects\structures\holosign.dm"
