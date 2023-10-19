@@ -27,6 +27,31 @@
 	CanAtmosPass = ATMOS_PASS_NO
 	timeleft = 200
 
+//Event forcefields
+
+/obj/effect/forcefield/event
+	name = "glowing barrier"
+	desc = "An unholy barrier obstructs your path."
+	icon = 'icons/effects/cult_effects.dmi'
+	icon_state = "cultshield"
+	CanAtmosPass = ATMOS_PASS_NO
+	resistance_flags = INDESTRUCTIBLE | ACID_PROOF // Seriously doubt forcefields can be effected like this, but just in case, right?
+	timeleft = 0
+	layer = 3.5
+	opacity = TRUE
+
+/obj/effect/forcefield/event/door
+	icon_state = "door-shield"
+
+/obj/effect/forcefield/event/vines
+	name = "overgrowth"
+	desc = "A dense wall of impenetrable vines."
+	icon = 'icons/effects/spacevines.dmi'
+
+/obj/effect/forcefield/event/vines/Initialize()
+	. = ..()
+	src.icon_state = pick("Hvy1","Hvy2","Hvy3")
+
 ///////////Mimewalls///////////
 
 /obj/effect/forcefield/mime

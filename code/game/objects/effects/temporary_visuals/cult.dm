@@ -9,6 +9,20 @@
 	name = "blood sparks"
 	icon_state = "bloodsparkles"
 
+//Event effects
+
+/obj/effect/temp_visual/cult/tear_full
+	duration = 20
+	name = "tear"
+	icon_state = "tear_full"
+
+/obj/effect/temp_visual/cult/tear_close
+	duration = 12
+	name = "tear"
+	icon_state = "tear_close"
+
+//
+
 /obj/effect/temp_visual/cult/blood  // The traditional teleport
 	name = "blood jaunt"
 	duration = 12
