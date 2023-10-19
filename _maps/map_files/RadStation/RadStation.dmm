@@ -2428,7 +2428,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/power/apc/auto_name/north{
@@ -14203,7 +14203,7 @@
 /area/crew_quarters/dorms)
 "etz" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "etB" = (
@@ -21597,7 +21597,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/firealarm/directional/north,
@@ -23218,7 +23218,7 @@
 	dir = 10;
 	layer = 3.1
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
 	},
@@ -30102,7 +30102,7 @@
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/plasteel,
 /area/medical/break_room)
@@ -40244,7 +40244,7 @@
 	})
 "mAV" = (
 /obj/machinery/airalarm/directional/west,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
@@ -48918,7 +48918,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "pkb" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/guideline/guideline_edge/yellow{
 	dir = 4
@@ -51460,7 +51460,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 1
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "pWx" = (
@@ -63139,7 +63139,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/radio/intercom{
@@ -68475,7 +68475,7 @@
 /turf/open/floor/wood,
 /area/library)
 "vtj" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
@@ -71686,7 +71686,7 @@
 	alpha = 180;
 	dir = 8
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/item/radio/intercom{
 	dir = 8;
 	freerange = 1;
