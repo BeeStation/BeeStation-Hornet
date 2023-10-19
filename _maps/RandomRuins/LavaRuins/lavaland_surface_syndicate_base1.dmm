@@ -4523,7 +4523,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "xu" = (
-/obj/effect/spawner/randovend/snack{
+/obj/effect/spawner/randomvend/snack{
 	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
