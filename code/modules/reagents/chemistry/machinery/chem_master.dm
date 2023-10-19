@@ -5,23 +5,32 @@
 	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
+	base_icon_state = "mixer"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_master
 
-
-
+	/// Input reagents container
 	var/obj/item/reagent_containers/beaker = null
+	/// Pill bottle for newly created pills
 	var/obj/item/storage/pill_bottle/bottle = null
+	/// Whether separated reagents should be moved back to container or destroyed. 1 - move, 0 - destroy
 	var/mode = 1
+	/// Decides what UI to show. If TRUE shows UI of CondiMaster, if FALSE - ChemMaster
 	var/condi = FALSE
+	/// Currently selected pill style
 	var/chosen_pill_style = "pill_shape_capsule_purple_pink"
 	var/chosen_patch_style = "bandaid_small_cross"
+	/// Current UI screen. On the moment of writing this comment there were two: 'home' - main screen, and 'analyze' - info about specific reagent
 	var/screen = "home"
+	/// Info to display on 'analyze' screen
 	var/analyzeVars[0]
-	var/useramount = 30 // Last used amount
+	// Last used amount
+	var/useramount = 30
+	// List of available pill styles for UI
 	var/static/list/pill_styles = list()
+	/// List of available condibottle styles for UI
 	var/static/list/patch_styles = list()
 
 	// Persistent UI states
@@ -61,7 +70,7 @@
 		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity, target)
-	if(severity < 3)
+	if(severity < EXPLODE_LIGHT)
 		..()
 
 /obj/machinery/chem_master/contents_explosion(severity, target)
@@ -88,20 +97,20 @@
 	if(A == beaker)
 		beaker = null
 		reagents.clear_reagents()
-		update_icon()
+		update_appearance()
 		ui_update()
 	else if(A == bottle)
 		bottle = null
 		ui_update()
 
-/obj/machinery/chem_master/update_icon()
-	cut_overlays()
-	if (machine_stat & BROKEN)
-		add_overlay("waitlight")
-	if(beaker)
-		icon_state = "mixer1"
-	else
-		icon_state = "mixer0"
+/obj/machinery/chem_master/update_icon_state()
+	icon_state = "[base_icon_state][beaker ? 1 : 0]"
+	return ..()
+
+/obj/machinery/chem_master/update_overlays()
+	. = ..()
+	if(machine_stat & BROKEN)
+		. += "waitlight"
 
 /obj/machinery/chem_master/blob_act(obj/structure/blob/B)
 	if (prob(50))
@@ -128,7 +137,7 @@
 		replace_beaker(user, B)
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
 		ui_update()
-		update_icon()
+		update_appearance()
 	else if(!condi && istype(I, /obj/item/storage/pill_bottle))
 		if(bottle)
 			to_chat(user, "<span class='warning'>A pill bottle is already loaded into [src]!</span>")
@@ -156,7 +165,7 @@
 		beaker = null
 	if(new_beaker)
 		beaker = new_beaker
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/chem_master/on_deconstruction()
@@ -166,7 +175,6 @@
 		adjust_item_drop_location(bottle)
 		bottle = null
 	return ..()
-
 
 /obj/machinery/chem_master/ui_state(mob/user)
 	return GLOB.default_state

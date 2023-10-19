@@ -3,6 +3,7 @@
 	density = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0b"
+	base_icon_state = "mixer"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -23,13 +24,11 @@
 	. = ..()
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_appearance()
 
-/obj/machinery/chem_heater/update_icon()
-	if(beaker)
-		icon_state = "mixer1b"
-	else
-		icon_state = "mixer0b"
+/obj/machinery/chem_heater/update_icon_state()
+	icon_state = "[base_icon_state][beaker ? 1 : 0]b"
+	return ..()
 
 /obj/machinery/chem_heater/AltClick(mob/living/user)
 	. = ..()
@@ -46,7 +45,7 @@
 		beaker = null
 	if(new_beaker)
 		beaker = new_beaker
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/chem_heater/RefreshParts()
@@ -84,7 +83,7 @@
 		replace_beaker(user, B)
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
 		ui_update()
-		update_icon()
+		update_appearance()
 		return
 	return ..()
 
