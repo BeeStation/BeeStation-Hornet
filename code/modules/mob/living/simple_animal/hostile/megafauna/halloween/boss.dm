@@ -1,8 +1,8 @@
 /mob/living/simple_animal/hostile/megafauna/harbinger
 	name = "Harbinger"
 	desc = "A monstrous creature protected by blessings of Nar'Sie"
-	health = 600
-	maxHealth = 600
+	health = 3000
+	maxHealth = 3000
 	attacktext = "judges"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	icon_state = "eva"
@@ -12,7 +12,7 @@
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
 	armour_penetration = 100
-	melee_damage = 1
+	melee_damage = 18
 	speed = 10
 	faction = list("hostile")
 	move_to_delay = 1 SECONDS
