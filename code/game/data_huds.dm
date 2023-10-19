@@ -200,12 +200,12 @@
 			if(tod)
 				var/tdelta = round(world.time - timeofdeath)
 				if(tdelta < (DEFIB_TIME_LIMIT * 10))
-					if(!client && key)
+					if((!client && key) || client?.is_afk())
 						holder.icon_state = "huddefib-ssd"
 						return
 					holder.icon_state = "huddefib"
 					return
-			if(!client && key)
+			if((!client && key) || client?.is_afk())
 				holder.icon_state = "huddead-ssd"
 				return
 			holder.icon_state = "huddead"

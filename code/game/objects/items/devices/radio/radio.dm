@@ -110,7 +110,7 @@
 
 /obj/item/radio/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/radio/AltClick(mob/user)
 	if(headset)

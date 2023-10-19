@@ -259,7 +259,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer-0"
 	base_icon_state = "computer"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL | SMOOTH_BITMASK_SKIP_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
@@ -282,9 +282,8 @@
 
 /obj/machinery/power/solar_control/Initialize(mapload)
 	. = ..()
-	if(smoothing_flags & SMOOTH_BITMASK)
-		QUEUE_SMOOTH(src)
-		QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	if(powernet)
 		set_panels(currentdir)
 	connect_to_network()
@@ -294,6 +293,7 @@
 		M.unset_control()
 	if(connected_tracker)
 		connected_tracker.unset_control()
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/machinery/power/solar_control/disconnect_from_network()
@@ -385,7 +385,7 @@
 			if(adjust)
 				value = currentdir + adjust
 			if(value != null)
-				currentdir = CLAMP((360 + value) % 360, 0, 359)
+				currentdir = clamp((360 + value) % 360, 0, 359)
 				targetdir = currentdir
 				set_panels(currentdir)
 				. = TRUE
@@ -395,7 +395,7 @@
 			if(adjust)
 				value = trackrate + adjust
 			if(value != null)
-				trackrate = CLAMP(value, -7200, 7200)
+				trackrate = clamp(value, -7200, 7200)
 				if(trackrate)
 					nexttime = world.time + 36000 / abs(trackrate)
 				. = TRUE

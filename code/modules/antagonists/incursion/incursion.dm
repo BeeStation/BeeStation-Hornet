@@ -171,7 +171,7 @@
 	objectives = list()
 	var/is_hijacker = GLOB.player_details.len >= 35 ? prob(15) : 0
 	for(var/i = 1 to max(1, CONFIG_GET(number/incursion_objective_amount)))
-		forge_single_objective(CLAMP((5 + !is_hijacker)-i, 1, 3), restricted_jobs)	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
+		forge_single_objective(clamp((5 + !is_hijacker)-i, 1, 3), restricted_jobs)	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
 	if(is_hijacker)
 		if(!(locate(/datum/objective/hijack) in objectives))
 			add_objective(new/datum/objective/hijack)
@@ -179,7 +179,7 @@
 		add_objective(new/datum/objective/escape/single, FALSE)
 
 /datum/team/incursion/proc/forge_single_objective(difficulty=1, list/restricted_jobs)
-	difficulty = CLAMP(difficulty, 1, 3)
+	difficulty = clamp(difficulty, 1, 3)
 	switch(difficulty)
 		if(3)
 			if(LAZYLEN(active_ais()) && prob(25))	//25 %
