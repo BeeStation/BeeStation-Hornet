@@ -5,9 +5,6 @@
 #define INSTAGIB_RESPAWN 50 //5 seconds
 #define DEFAULT_RESPAWN 150 //15 seconds
 #define AMMO_DROP_LIFETIME 300
-#define CTF_REQUIRED_PLAYERS 4
-
-
 
 /obj/item/ctf
 	name = "banner"
@@ -729,4 +726,3 @@
 #undef INSTAGIB_RESPAWN
 #undef DEFAULT_RESPAWN
 #undef AMMO_DROP_LIFETIME
-#undef CTF_REQUIRED_PLAYERS
