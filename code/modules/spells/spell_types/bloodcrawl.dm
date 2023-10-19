@@ -18,9 +18,8 @@
 	for(var/obj/effect/decal/cleanable/target in view(range, get_turf(user)))
 		if(target.can_bloodcrawl_in())
 			perform(target)
-			revert_cast()
 			return
-		revert_cast()
+	revert_cast()
 	to_chat(user, "<span class='warning'>There must be a nearby source of blood!</span>")
 
 /obj/effect/proc_holder/spell/bloodcrawl/perform(obj/effect/decal/cleanable/target, recharge = 1, mob/living/user = usr)
