@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - code_imp: Cleaned up preference serialization and error handling. Cleaned up guest/databaseless
-      default value generation.
-  - rscadd: Added logging to preference loading, saving, and edits for better debugging.
