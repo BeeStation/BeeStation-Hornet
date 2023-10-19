@@ -2053,6 +2053,7 @@
 #include "code\modules\antagonists\roundstart_special\undercover\undercover.dm"
 #include "code\modules\antagonists\santa\santa.dm"
 #include "code\modules\antagonists\separatist\separatist.dm"
+#include "code\modules\antagonists\husk\husk.dm"
 #include "code\modules\antagonists\slaughter\slaughter.dm"
 #include "code\modules\antagonists\slaughter\slaughter_antag.dm"
 #include "code\modules\antagonists\slaughter\slaughterevent.dm"

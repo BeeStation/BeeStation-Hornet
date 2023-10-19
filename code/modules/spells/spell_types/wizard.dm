@@ -239,6 +239,30 @@
 	summon_type = /mob/living/simple_animal/hostile/poison/bees/toxin
 	cast_sound = 'sound/voice/moth/scream_moth.ogg'
 
+obj/effect/proc_holder/spell/aoe_turf/conjure/blood
+	name = "Conjure blood"
+	desc = "Shape the reality around you to make the walls and floor bleed like your broken body."
+	summon_type = list(/obj/effect/gibspawner/blood_puddle)
+	charge_max = 600
+	range = 0
+	clothes_req = FALSE
+	phase_allowed = TRUE
+	invocation_type = INVOCATION_EMOTE
+	summon_amt = 2
+	action_icon_state = "bee"
+	cooldown_min = 20 SECONDS
+
+
+obj/effect/proc_holder/spell/aoe_turf/conjure/blood/gibs
+	name = "Spread gibs"
+	desc = "Tear chunks off your body and throw them around, spreading your blood on the surfaces around you."
+	summon_type = list(/obj/effect/gibspawner/generic)
+	charge_max = 600
+	range = 0
+	invocation = "You pull madly at your sides and throw chunks of flesh around."
+	summon_amt = 1
+	action_icon_state = "bee"
+
 /obj/effect/proc_holder/spell/aoe_turf/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
