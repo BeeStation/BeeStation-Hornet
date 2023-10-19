@@ -1,6 +1,0 @@
-author: Absolucy, stylemistake
-delete-after: true
-changes:
-  - rscadd: AFK players will now have flavor text indicating that they're AFK when
-      examined.
-  - bugfix: AFK detection now works properly again.
