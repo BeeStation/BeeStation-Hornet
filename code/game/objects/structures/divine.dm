@@ -105,7 +105,7 @@
 	if(last_trigger <= world.time)
 		last_trigger = world.time + trigger_delay
 		var/has_spawned = FALSE // Prevents unintended duplicate spawns
-		playsound(get_turf(src), 'sound/magic/magic_missile.ogg',35,1)
+		playsound(get_turf(src), 'sound/magic/magic_missile.ogg',10,1)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(src), "#960000")
 		for(var/mob/living/L in oview(damage_radius, src))
 			if(ishuman(L))
