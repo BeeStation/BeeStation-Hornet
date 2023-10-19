@@ -80,13 +80,13 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 //ie fugitives, space dragon, etc. also includes dynamic midrounds as it's the same deal
 #define GHOSTROLE_MIDROUND_EVENT	(1<<0)
 //ie ashwalkers, free golems, beach bums
-#define GHOSTROLE_SPAWNER			(1<<1)
+#define GHOSTROLE_SPAWNER (1<<1)
 //ie mind monkeys, sentience potion
 #define GHOSTROLE_STATION_SENTIENCE	(1<<2)
 //ie pais, posibrains
-#define GHOSTROLE_SILICONS			(1<<3)
+#define GHOSTROLE_SILICONS (1<<3)
 //ie mafia, ctf
-#define GHOSTROLE_MINIGAME			(1<<4)
+#define GHOSTROLE_MINIGAME (1<<4)
 
 // Job deadmin flags
 #define DEADMIN_POSITION_HEAD		(1<<0)

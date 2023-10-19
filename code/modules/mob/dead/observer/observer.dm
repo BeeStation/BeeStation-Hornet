@@ -942,7 +942,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!client)
 		return
 	if(!isobserver(src))
-		to_chat(usr, span_warning("You must be a ghost to play minigames!"))
+		to_chat(usr, "<span class='warning'>You must be a ghost to play minigames!</span>")
 		return
 	if(!minigames_menu)
 		minigames_menu = new(src)
