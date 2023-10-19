@@ -10,7 +10,7 @@
 	e_cost = 71
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/lasergun/musket
+/obj/item/ammo_casing/energy/lasergun/repeater
 	e_cost = 50
 
 /obj/item/ammo_casing/energy/lasergun/captain
