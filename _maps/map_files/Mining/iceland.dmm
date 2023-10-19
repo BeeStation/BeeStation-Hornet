@@ -199,6 +199,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"aA" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "aB" = (
 /turf/closed/wall,
 /area/hydroponics)
@@ -480,6 +488,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
+"bk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet,
 /area/iceland/shaded)
 "bl" = (
 /obj/structure/flora/grass/green,
@@ -974,6 +987,13 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"cA" = (
+/obj/structure/table/wood,
+/obj/item/folder/yellow,
+/obj/item/hand_labeler,
+/obj/item/stack/package_wrap,
+/turf/open/floor/carpet,
+/area/iceland/shaded)
 "cB" = (
 /obj/machinery/atmospherics/pipe/simple/amethyst/visible{
 	dir = 4
@@ -1003,6 +1023,12 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"cE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants/random,
+/obj/item/toy/plush/moth/gothic,
+/turf/open/floor/carpet,
+/area/iceland/shaded)
 "cF" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1285,6 +1311,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
+"dp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/warning/nosmoking{
+	pixel_x = -28
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "dq" = (
 /obj/machinery/vending/boozeomat,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -1297,6 +1330,11 @@
 	icon_state = "snowlegion_alive"
 	},
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"ds" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
+/turf/open/floor/carpet,
 /area/iceland/shaded)
 "dt" = (
 /obj/structure/table,
@@ -1357,6 +1395,14 @@
 /obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
+"dy" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "lawyerprivacy";
+	name = "Lawyer's Privacy Shutter"
+	},
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "dz" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -1649,6 +1695,13 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"eh" = (
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 22
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "ei" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -1783,6 +1836,13 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"eC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet,
+/area/iceland/shaded)
 "eD" = (
 /obj/machinery/stasis/survival_pod,
 /obj/machinery/vending/wallmed/survival_pod{
@@ -1921,6 +1981,11 @@
 	},
 /turf/open/floor/plating,
 /area/security/brig)
+"eS" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/indestructible,
+/turf/open/floor/plating,
+/area/iceland/shaded)
 "eT" = (
 /obj/structure/flora{
 	desc = "Looks frozen.";
@@ -2036,6 +2101,14 @@
 /area/chapel/main)
 "fj" = (
 /turf/open/floor/plasteel/goonplaque,
+/area/iceland/shaded)
+"fk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/office/light{
+	dir = 1;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet,
 /area/iceland/shaded)
 "fl" = (
 /obj/effect/turf_decal/weather/snow,
@@ -3527,6 +3600,16 @@
 /obj/structure/flora/tree/dead,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"jj" = (
+/obj/structure/table/wood,
+/obj/item/clipboard,
+/obj/item/storage/briefcase,
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/turf/open/floor/carpet,
+/area/iceland/shaded)
 "jl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -4269,6 +4352,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
+"kX" = (
+/obj/structure/table/wood,
+/obj/item/folder/yellow,
+/obj/item/paper_bin,
+/obj/item/clothing/glasses/sunglasses/advanced/big{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "kY" = (
 /obj/item/candle/infinite{
 	pixel_x = 8;
@@ -4288,6 +4389,15 @@
 "la" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/ice,
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"lb" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
 /area/iceland/shaded)
 "lc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4341,6 +4451,20 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"lh" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock{
+	name = "Law Office";
+	req_access_txt = "38"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "li" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -4588,6 +4712,15 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"lK" = (
+/obj/structure/noticeboard{
+	dir = 4;
+	pixel_x = -26
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/shaded)
 "lL" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -4769,6 +4902,13 @@
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/plasteel/techmaint,
 /area/tcommsat/server)
+"mo" = (
+/obj/machinery/vending/wardrobe/law_wardrobe,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "mp" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 8
@@ -4950,6 +5090,11 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"mM" = (
+/obj/structure/table/wood,
+/obj/item/modular_computer/laptop/preset/civillian,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "mN" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery,
@@ -5771,6 +5916,20 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/command)
+"oR" = (
+/obj/structure/sign/poster/official/report_crimes{
+	pixel_y = -32
+	},
+/obj/machinery/disposal/bin,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "oS" = (
 /obj/structure/table,
 /obj/item/kitchen/fork,
@@ -5778,6 +5937,14 @@
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
+"oT" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/machinery/fax/law,
+/turf/open/floor/wood,
 /area/iceland/shaded)
 "oU" = (
 /obj/structure/window/reinforced{
@@ -5804,6 +5971,14 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/shaded)
+"oX" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/iceland/shaded)
 "oY" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -6028,6 +6203,15 @@
 	},
 /turf/open/floor/plasteel/grid,
 /area/science/research)
+"pD" = (
+/obj/machinery/holopad,
+/obj/effect/landmark/event_spawn,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/carpet/green,
+/area/iceland/shaded)
 "pE" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -6207,6 +6391,11 @@
 	dir = 4
 	},
 /area/iceland/shaded)
+"pY" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "pZ" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/structure/cable{
@@ -6380,6 +6569,15 @@
 /obj/structure/cable/orange,
 /turf/open/floor/plating,
 /area/security/brig)
+"qz" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/landmark/start/lawyer,
+/obj/structure/disposalpipe/segment,
+/obj/structure/chair/office,
+/turf/open/floor/carpet/green,
+/area/iceland/shaded)
 "qA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -6733,6 +6931,11 @@
 /obj/structure/window,
 /turf/open/floor/plasteel/dark,
 /area/iceland/shaded)
+"rt" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "ru" = (
 /turf/open/floor/plasteel/dark/side,
 /area/iceland/shaded)
@@ -6876,6 +7079,13 @@
 "rU" = (
 /turf/open/floor/engine/vacuum/light,
 /area/engine/engineering)
+"rV" = (
+/obj/structure/noticeboard{
+	dir = 4;
+	pixel_x = -26
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "rW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -7203,6 +7413,15 @@
 "sM" = (
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"sN" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
 /area/iceland/shaded)
 "sO" = (
 /obj/structure/closet/emcloset,
@@ -7630,6 +7849,13 @@
 "tV" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/space)
+"tW" = (
+/obj/structure/filingcabinet/employment,
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "tX" = (
 /obj/structure/flora{
 	desc = "Looks frozen.";
@@ -7819,6 +8045,16 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"uw" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/noticeboard{
+	dir = 8;
+	pixel_x = 32
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "ux" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/iceland)
@@ -7922,6 +8158,12 @@
 	slowdown = 1
 	},
 /area/iceland/shaded)
+"uL" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "uM" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/item/kirbyplants/random,
@@ -7941,6 +8183,21 @@
 /obj/item/trash/boritos,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
+/area/iceland/shaded)
+"uP" = (
+/obj/machinery/requests_console{
+	department = "Law Office";
+	name = "'Law Office RC";
+	pixel_y = -62
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/effect/landmark/start/lawyer,
+/obj/structure/chair/fancy/corp{
+	dir = 1
+	},
+/turf/open/floor/wood,
 /area/iceland/shaded)
 "uR" = (
 /obj/structure/cable{
@@ -8085,6 +8342,12 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engine_smes)
+"vh" = (
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "vi" = (
 /obj/structure/ore_box,
 /obj/item/stack/ore/gold/five{
@@ -8358,6 +8621,15 @@
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/iceland)
+"vN" = (
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock{
+	name = "Auxiliary Office";
+	req_access_txt = "32"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "vO" = (
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /obj/item/chair/wood,
@@ -8545,6 +8817,18 @@
 "wn" = (
 /mob/living/simple_animal/hostile/construct/wraith/noncult,
 /turf/open/floor/plasteel/cult,
+/area/iceland/shaded)
+"wo" = (
+/obj/structure/table/wood,
+/obj/item/folder/blue{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/toy/cards/deck,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/carpet,
 /area/iceland/shaded)
 "wp" = (
 /obj/structure/extinguisher_cabinet{
@@ -9033,6 +9317,13 @@
 	},
 /turf/open/floor/plating,
 /area/iceland/shaded)
+"xx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "xy" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
@@ -9176,6 +9467,16 @@
 /obj/item/clothing/suit/hooded/wintercoat/medical,
 /turf/open/floor/plasteel/freezer,
 /area/medical/medbay/central)
+"xQ" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
+/obj/item/toy/figure/lawyer{
+	pixel_x = 9
+	},
+/obj/item/laser_pointer,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "xR" = (
 /obj/machinery/door/airlock{
 	id_tag = "outpostdorm1";
@@ -9733,6 +10034,9 @@
 	},
 /turf/open/floor/plating,
 /area/iceland/shaded)
+"zt" = (
+/turf/open/floor/carpet/green,
+/area/iceland/shaded)
 "zu" = (
 /obj/machinery/modular_computer/console/preset/engineering,
 /turf/open/floor/plating,
@@ -9813,6 +10117,25 @@
 /obj/machinery/chem_dispenser/drinks,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
+/area/iceland/shaded)
+"zF" = (
+/obj/structure/table/wood,
+/obj/item/clipboard,
+/obj/item/camera,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/do_not_question{
+	pixel_y = -32
+	},
+/obj/machinery/camera{
+	c_tag = "Vacant Office";
+	dir = 1
+	},
+/obj/item/camera_film{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/camera_film,
+/turf/open/floor/carpet,
 /area/iceland/shaded)
 "zG" = (
 /obj/structure/window/reinforced/fulltile/ice{
@@ -10404,6 +10727,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
+"Bi" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/secure_data/laptop{
+	pixel_y = 2
+	},
+/obj/item/paper/fluff{
+	default_raw_text = "Been here before - Love is when I freeze - Somebody's bloodShot down on his knees - Take whatcha learn and whatcha need.";
+	name = "Lawyer's poem";
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "Bj" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
@@ -10620,6 +10956,28 @@
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/dirt/dark,
 /area/iceland/shaded)
+"BQ" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/taperecorder{
+	pixel_x = 3
+	},
+/obj/machinery/button/door{
+	id = "lawyerprivacy";
+	name = "Lawyer's Privacy Control";
+	pixel_y = 24
+	},
+/obj/machinery/newscaster{
+	pixel_x = -28;
+	pixel_y = 1
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/clothing/glasses/sunglasses/advanced,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "BR" = (
 /obj/structure/cable/orange{
 	icon_state = "2-4"
@@ -10789,6 +11147,17 @@
 	},
 /turf/open/floor/plating,
 /area/bridge)
+"Ci" = (
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/airlock{
+	name = "Auxiliary Office";
+	req_access_txt = "32"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/shaded)
 "Cj" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -11298,6 +11667,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland/shaded)
+"Dv" = (
+/obj/structure/noticeboard{
+	dir = 8;
+	pixel_x = 32
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "Dw" = (
 /obj/structure/closet/wardrobe/robotics_black,
 /obj/machinery/power/apc{
@@ -11318,6 +11694,14 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
+"Dy" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Dz" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/snowed,
@@ -11882,6 +12266,29 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"Fd" = (
+/obj/structure/table/wood,
+/obj/item/folder/blue{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/folder/red,
+/obj/item/stamp/law,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/obj/item/computer_hardware/hard_drive/role/lawyer{
+	pixel_x = -5
+	},
+/obj/machinery/camera{
+	c_tag = "Lawyer's Office";
+	dir = 10
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "Fe" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/asteroid/snow,
@@ -12137,6 +12544,11 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/office)
+"FN" = (
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "FO" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/snowed,
@@ -12224,6 +12636,16 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/brig)
+"Gb" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "Gc" = (
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/plating/snowed,
@@ -12343,6 +12765,10 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/shaded)
+"Gt" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet,
+/area/iceland/shaded)
 "Gu" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2{
 	dir = 1
@@ -12461,6 +12887,10 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
+"GL" = (
+/obj/machinery/photocopier,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "GM" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -12639,6 +13069,13 @@
 /obj/structure/flora/stump,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"Hk" = (
+/obj/structure/noticeboard{
+	dir = 4;
+	pixel_x = -26
+	},
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/shaded)
 "Hl" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/bot_white,
@@ -12818,6 +13255,12 @@
 /area/iceland/shaded)
 "HH" = (
 /turf/open/floor/wood,
+/area/iceland/shaded)
+"HI" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/carpet,
 /area/iceland/shaded)
 "HJ" = (
 /obj/structure/table/reinforced{
@@ -13030,6 +13473,13 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"Ij" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "Ik" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/computer/atmos_control/tank/plasma_tank{
@@ -13052,6 +13502,11 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/engineering)
+"In" = (
+/obj/machinery/photocopier,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "Io" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -13570,6 +14025,10 @@
 	},
 /turf/open/floor/plating,
 /area/hydroponics)
+"JN" = (
+/obj/structure/table/wood,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "JO" = (
 /obj/structure/cable/orange{
 	icon_state = "0-4"
@@ -14129,6 +14588,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
+"Lk" = (
+/obj/item/chair,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "Ll" = (
 /obj/effect/gibspawner/human/bodypartless,
 /turf/open/floor/plating/asteroid/snow{
@@ -14565,6 +15028,12 @@
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
+"Mt" = (
+/obj/item/chair{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "Mu" = (
 /turf/open/floor/plating,
 /area/iceland)
@@ -14665,6 +15134,16 @@
 "MK" = (
 /turf/closed/wall/mineral/titanium,
 /area/iceland)
+"ML" = (
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/item/kirbyplants/random,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "MM" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -14844,6 +15323,15 @@
 	},
 /turf/open/floor/plating,
 /area/iceland/shaded)
+"Nk" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/carpet/green,
+/area/iceland/shaded)
 "Nl" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -15005,6 +15493,13 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/freezer,
 /area/medical/medbay/central)
+"NO" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/iceland/shaded)
 "NP" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj{
@@ -15204,6 +15699,12 @@
 /obj/structure/flora/tree/dead,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"Oo" = (
+/obj/structure/frame/computer{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/iceland/shaded)
 "Op" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/snow{
@@ -15279,6 +15780,17 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"OA" = (
+/obj/machinery/requests_console{
+	department = "Lawyer's Office";
+	departmentType = 4;
+	pixel_x = 30
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "OB" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/plating/asteroid/snow{
@@ -15573,6 +16085,14 @@
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/plasteel/techmaint,
 /area/science/research)
+"Pq" = (
+/obj/structure/table/wood,
+/obj/item/modular_computer/laptop/preset/civillian,
+/obj/machinery/newscaster{
+	pixel_y = 31
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "Pr" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners{
 	dir = 1
@@ -15615,6 +16135,17 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/shaded)
+"Pu" = (
+/obj/structure/table/wood,
+/obj/item/folder,
+/obj/item/pen,
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/open/floor/wood,
 /area/iceland/shaded)
 "Pv" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -15884,6 +16415,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
+"Qf" = (
+/obj/effect/landmark/start/lawyer,
+/obj/structure/chair/office,
+/turf/open/floor/carpet/green,
+/area/iceland/shaded)
 "Qg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/crayon,
@@ -16399,6 +16935,13 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
+/area/iceland/shaded)
+"RB" = (
+/obj/structure/chair/office/light{
+	dir = 1;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet,
 /area/iceland/shaded)
 "RC" = (
 /obj/structure/table,
@@ -17175,6 +17718,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
+"Tq" = (
+/obj/machinery/status_display/evac{
+	pixel_x = 32
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "Tr" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
@@ -17233,6 +17782,14 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"TB" = (
+/obj/structure/table/reinforced{
+	frame = s
+	},
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/plasteel/dark,
+/area/iceland/shaded)
 "TC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced{
@@ -17417,6 +17974,12 @@
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/plasteel,
 /area/hydroponics)
+"Ub" = (
+/obj/structure/sign/poster/official/report_crimes{
+	pixel_y = -32
+	},
+/turf/open/floor/carpet/grimy,
+/area/iceland/shaded)
 "Uc" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_x = 32
@@ -18499,6 +19062,24 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/dirt/dark,
 /area/iceland/shaded)
+"WN" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/item/clipboard,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
+"WO" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "WP" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
@@ -18895,6 +19476,13 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/techmaint,
 /area/science/research)
+"XR" = (
+/obj/structure/table/wood,
+/obj/item/storage/secure/briefcase,
+/obj/item/clothing/accessory/lawyers_badge,
+/obj/machinery/firealarm/directional/west,
+/turf/open/floor/wood,
+/area/iceland/shaded)
 "XS" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
@@ -19573,6 +20161,12 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/item/chair,
 /turf/open/floor/plasteel/cafeteria,
+/area/iceland/shaded)
+"ZF" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/wood,
 /area/iceland/shaded)
 "ZG" = (
 /obj/item/reagent_containers/food/condiment/sugar,
@@ -41240,7 +41834,7 @@ iC
 iC
 iC
 Ru
-Ed
+Ru
 IJ
 Al
 Ry
@@ -41497,7 +42091,7 @@ iC
 iC
 iC
 Ru
-Ed
+Ru
 IJ
 UG
 os
@@ -41754,7 +42348,7 @@ iC
 iC
 iC
 Ru
-Ed
+Ru
 IJ
 UG
 He
@@ -42011,7 +42605,7 @@ iC
 iC
 iC
 Ru
-Ed
+Ru
 IJ
 go
 Dq
@@ -42543,8 +43137,8 @@ IJ
 Ye
 Yi
 SS
-JG
-ru
+lK
+Hk
 db
 Wl
 ak
@@ -43834,13 +44428,13 @@ iV
 CC
 RP
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+uL
+iV
+JG
+ru
+iV
+Lk
+IJ
 iC
 iC
 iC
@@ -44091,13 +44685,13 @@ ol
 Jz
 Yi
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IY
+Bd
+JG
+ru
+Bd
+IY
+IJ
 iC
 iC
 iC
@@ -44348,13 +44942,13 @@ IJ
 IJ
 IJ
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+uL
+iV
+JG
+ru
+iV
+uL
+IJ
 iC
 iC
 iC
@@ -44605,13 +45199,13 @@ EI
 Bd
 Yi
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IY
+RO
+JG
+ru
+ak
+IY
+IJ
 iC
 iC
 iC
@@ -44862,13 +45456,13 @@ iV
 sn
 RP
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+Mt
+iV
+JG
+ru
+iV
+Lk
+IJ
 iC
 iC
 iC
@@ -45119,13 +45713,13 @@ ol
 ak
 RO
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IY
+sC
+JG
+ru
+RO
+IY
+IJ
 iC
 iC
 iC
@@ -45376,13 +45970,13 @@ IJ
 IJ
 IJ
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+IJ
+Rz
+JG
+ru
+Rz
+IJ
+IJ
 iC
 iC
 iC
@@ -45644,13 +46238,13 @@ WJ
 WJ
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+fn
+BQ
+XR
+ML
+ZF
+WN
+oR
 iC
 iC
 iC
@@ -45880,7 +46474,7 @@ ks
 or
 lp
 ru
-ks
+tc
 WJ
 WJ
 WJ
@@ -45901,13 +46495,13 @@ WJ
 WJ
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+dy
+HH
+zt
+Nk
+lb
+sN
+WO
 iC
 iC
 iC
@@ -46158,13 +46752,13 @@ WJ
 WJ
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+lh
+Gb
+pD
+qz
+xQ
+kX
+Fd
 iC
 iC
 iC
@@ -46379,7 +46973,7 @@ TG
 iC
 iC
 iC
-Ru
+uC
 IJ
 IJ
 IJ
@@ -46395,19 +46989,17 @@ JG
 WJ
 ru
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-WJ
-WJ
-iC
-iC
-iC
+IJ
+IJ
+IJ
+Ci
+IJ
+IJ
+IJ
+IJ
+ww
+ww
+IJ
 iC
 iC
 iC
@@ -46417,11 +47009,13 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
+dy
+oT
+zt
+Qf
+Bi
+uP
+GL
 iC
 iC
 iC
@@ -46636,7 +47230,7 @@ TG
 iC
 iC
 iC
-Ru
+uC
 qL
 qL
 IJ
@@ -46651,6 +47245,17 @@ IJ
 JG
 WJ
 ru
+FN
+fn
+In
+JN
+HH
+ds
+eC
+Oo
+IJ
+NO
+rt
 IJ
 iC
 iC
@@ -46660,25 +47265,14 @@ iC
 iC
 iC
 iC
-WJ
-WJ
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+fn
+mo
+eh
+Tq
+uw
+OA
+tW
 iC
 iC
 iC
@@ -46893,7 +47487,7 @@ iC
 iC
 iC
 iC
-Ru
+uC
 qL
 qL
 IJ
@@ -46908,6 +47502,17 @@ IJ
 JG
 WJ
 ru
+pY
+fn
+vh
+mM
+HH
+cA
+RB
+bk
+IJ
+NO
+rt
 IJ
 iC
 iC
@@ -46917,25 +47522,14 @@ iC
 iC
 iC
 iC
-WJ
-WJ
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+fn
+fn
+fn
+fn
+fn
+fn
+fn
 iC
 iC
 iC
@@ -47150,7 +47744,7 @@ iC
 iC
 iC
 iC
-Ru
+uC
 qL
 qL
 IJ
@@ -47165,6 +47759,17 @@ IJ
 JG
 WJ
 jS
+fn
+fn
+HH
+HH
+DP
+He
+He
+Ub
+IJ
+NO
+rt
 IJ
 iC
 iC
@@ -47174,25 +47779,14 @@ iC
 iC
 iC
 iC
-WJ
-WJ
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+VF
+VF
+VF
+VF
+VF
+VF
+VF
 iC
 iC
 iC
@@ -47407,7 +48001,7 @@ iC
 iC
 iC
 iC
-Ru
+uC
 qL
 qL
 IJ
@@ -47422,6 +48016,17 @@ IJ
 JG
 WJ
 ru
+fn
+aA
+HH
+Dv
+HH
+HI
+Gt
+jj
+IJ
+NO
+rt
 IJ
 iC
 iC
@@ -47431,25 +48036,14 @@ iC
 iC
 iC
 iC
-WJ
-WJ
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+VF
+VF
+VF
+VF
+VF
+VF
+VF
 iC
 iC
 iC
@@ -47664,7 +48258,7 @@ iC
 iC
 iC
 iC
-Ru
+uC
 qL
 qL
 IJ
@@ -47679,6 +48273,17 @@ IJ
 JG
 YF
 ru
+fn
+fn
+fn
+fn
+fn
+fn
+fn
+fn
+IJ
+Ij
+rt
 IJ
 iC
 iC
@@ -47688,25 +48293,14 @@ iC
 iC
 iC
 iC
-WJ
-WJ
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+VF
+VF
+VF
+VF
+VF
+VF
+VF
 iC
 iC
 iC
@@ -47921,7 +48515,7 @@ iC
 iC
 iC
 iC
-Ru
+uC
 qL
 qL
 IJ
@@ -47936,6 +48530,17 @@ IJ
 JG
 WJ
 ru
+vN
+dp
+HH
+HH
+rV
+HI
+Gt
+jj
+IJ
+Db
+oX
 IJ
 iC
 iC
@@ -47945,25 +48550,14 @@ iC
 iC
 iC
 iC
-WJ
-WJ
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+VF
+VF
+VF
+VF
+VF
+VF
+VF
 iC
 iC
 iC
@@ -48178,7 +48772,7 @@ iC
 iC
 iC
 iC
-Ru
+uC
 qL
 qL
 IJ
@@ -48194,19 +48788,17 @@ JG
 WJ
 ru
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-WJ
-WJ
-iC
-iC
-iC
+Pq
+Pu
+DP
+HH
+He
+He
+He
+IJ
+Db
+Dy
+IJ
 iC
 iC
 iC
@@ -48216,11 +48808,13 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
+VF
+VF
+VF
+VF
+VF
+VF
+VF
 iC
 iC
 iC
@@ -48435,7 +49029,7 @@ iC
 iC
 iC
 iC
-Ru
+uC
 qL
 qL
 IJ
@@ -48451,16 +49045,17 @@ JG
 WJ
 ru
 IJ
-iC
-iC
-iC
-iC
-iC
-iC
+xx
+HH
+HH
+HH
+HI
+Gt
+zF
+IJ
 Db
 Db
-Db
-Db
+IJ
 iC
 iC
 iC
@@ -48470,14 +49065,13 @@ iC
 iC
 iC
 iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
-iC
+VF
+VF
+VF
+VF
+VF
+VF
+VF
 iC
 iC
 iC
@@ -48692,7 +49286,7 @@ iC
 iC
 iC
 iC
-Ru
+uC
 qL
 qL
 qL
@@ -48709,16 +49303,16 @@ up
 up
 IJ
 IJ
-iC
-iC
-iC
-iC
-iC
+HH
+HH
+HH
+wo
+fk
+cE
+IJ
 Db
 Db
-Db
-Db
-iC
+IJ
 iC
 iC
 iC
@@ -48972,10 +49566,10 @@ IJ
 IJ
 IJ
 IJ
+IJ
 Db
 Db
-iC
-iC
+IJ
 iC
 iC
 iC
@@ -49232,7 +49826,7 @@ Db
 Db
 Db
 Db
-iC
+IJ
 iC
 iC
 iC
@@ -49489,7 +50083,7 @@ Db
 Db
 Db
 Db
-iC
+IJ
 iC
 iC
 iC
@@ -49746,7 +50340,7 @@ Db
 Db
 Db
 Db
-iC
+IJ
 iC
 iC
 iC
@@ -50003,7 +50597,7 @@ IJ
 Db
 Db
 Db
-Db
+IJ
 iC
 iC
 iC
@@ -50764,13 +51358,13 @@ JG
 WJ
 ru
 IJ
-iV
+ee
 MC
 MC
 MC
 MC
 MC
-iV
+ee
 IJ
 Db
 Db
@@ -51279,11 +51873,11 @@ WJ
 YF
 IJ
 IJ
+ee
 iV
 iV
 iV
-iV
-iV
+ee
 IJ
 IJ
 Db
@@ -52051,9 +52645,9 @@ ru
 IJ
 IJ
 iV
-iV
-iV
-iV
+eo
+fG
+TC
 iV
 IJ
 IJ
@@ -52306,13 +52900,13 @@ jh
 WJ
 ru
 IJ
-Sz
+TB
 iV
-iV
-iV
-iV
+sf
+aE
+bo
 XS
-Or
+dJ
 IJ
 WJ
 WJ
@@ -52565,9 +53159,9 @@ ru
 ho
 XS
 iV
-eo
-fG
-TC
+iV
+iV
+iV
 iV
 iV
 ho
@@ -52822,12 +53416,12 @@ Ed
 IJ
 Sz
 iV
-sf
-aE
-bo
 iV
+iV
+iV
+CC
 Or
-dJ
+IJ
 WJ
 WJ
 WJ
@@ -53078,7 +53672,7 @@ IJ
 IJ
 IJ
 Sz
-iV
+ce
 Od
 iV
 iV
@@ -53335,11 +53929,11 @@ qL
 qL
 qg
 qg
-Rz
-Rz
-Rz
-Rz
-Rz
+eS
+eS
+eS
+eS
+eS
 qg
 qg
 qL
