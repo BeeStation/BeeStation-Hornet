@@ -38,17 +38,6 @@
 /turf/closed/indestructible/rust_heretic_act()
 	return
 
-/turf/closed/indestructible/vinewall
-	name = "thick vines"
-	desc = "A dense wall of impassable vines."
-	icon = 'icons/effects/spacevines.dmi'
-	icon_state = "Hvy1"
-	baseturfs = /turf/open/floor/grass
-
-/turf/closed/indestructible/vinewall/Initialize(mapload)
-	. = ..()
-	src.icon_state = pick("Hvy1","Hvy2","Hvy3")
-
 /turf/closed/indestructible/oldshuttle
 	name = "strange shuttle wall"
 	icon = 'icons/turf/shuttleold.dmi'
