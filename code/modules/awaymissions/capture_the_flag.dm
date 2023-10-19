@@ -193,12 +193,14 @@
 	var/list/ctf_gear = list("white" = /datum/outfit/ctf)
 	var/instagib_gear = /datum/outfit/ctf/instagib
 	var/ammo_type = /obj/effect/ctf/ammo
+	//var/player_traits = list(TRAIT_NEVER_WOUNDED)
 
 	var/list/dead_barricades = list()
 
 	var/static/arena_reset = FALSE
 	var/static/list/people_who_want_to_play = list()
 	var/game_area = /area/ctf
+
 	var/static/list/allowed_species = list(
 		/datum/species/lizard,
 		/datum/species/moth,
@@ -247,7 +249,7 @@
 /obj/machinery/capture_the_flag/attack_ghost(mob/user)
 	if(ctf_enabled == FALSE)
 		if(user.client?.holder)
-			var/response = alert("Enable this CTF game?", "CTF", "Yes", "No")
+			var/response = tgui_alert(usr,"Enable this CTF game?", "CTF", list("Yes", "No"))
 			if(response == "Yes")
 				toggle_id_ctf(user, game_id)
 			return
@@ -316,18 +318,20 @@
 
 /obj/machinery/capture_the_flag/proc/spawn_team_member(client/new_team_member)
 	var/datum/outfit/chosen_class
+
 	if(ctf_gear.len == 1) //no choices to make
 		for(var/key in ctf_gear)
 			chosen_class = ctf_gear[key]
+
 	else if(ctf_gear.len > 3) //a lot of choices, so much that we can't use a basic alert
-		var/result = input(new_team_member, "Select a class.", "CTF") as null|anything in sortList(ctf_gear)
+		var/result = input(new_team_member, "Select a class.", "CTF") as null|anything in sort_list(ctf_gear)
 		if(!result || !(GLOB.ghost_role_flags & GHOSTROLE_MINIGAME) || (new_team_member.ckey in recently_dead_ckeys) || !isobserver(new_team_member.mob))
 			return //picked nothing, admin disabled it, cheating to respawn faster, cheating to respawn... while in game?
 		chosen_class = ctf_gear[result]
 	else //2-3 choices
-		var/list/names_only = assoc_list_strip_value(ctf_gear)
+		var/list/names_only = assoc_to_keys(ctf_gear)
 		names_only.len += 1 //create a new null entry so if it's a 2-sized list, names_only[3] is null instead of out of bounds
-		var/result = alert(new_team_member, "Select a class.", "CTF", names_only[1], names_only[2], names_only[3])
+		var/result = tgui_alert(new_team_member, "Select a class.", "CTF", list(names_only[1], names_only[2], names_only[3]))
 		if(!result || !(GLOB.ghost_role_flags & GHOSTROLE_MINIGAME) || (new_team_member.ckey in recently_dead_ckeys) || !isobserver(new_team_member.mob))
 			return //picked nothing, admin disabled it, cheating to respawn faster, cheating to respawn... while in game?
 		chosen_class = ctf_gear[result]
@@ -363,14 +367,15 @@
 				victory()
 
 /obj/machinery/capture_the_flag/proc/victory()
-	for(var/mob/M in GLOB.mob_list)
-		var/area/mob_area = get_area(M)
+	for(var/mob/_competitor in GLOB.mob_living_list)
+		var/mob/living/competitor = _competitor
+		var/area/mob_area = get_area(competitor)
 		if(istype(mob_area, game_area))
-			to_chat(M, "<span class='narsie [team_span]'>[team] team wins!</span>")
+			to_chat(competitor, "<span class='narsie [team_span]'>[team] team wins!</span>")
 			to_chat(competitor, victory_rejoin_text)
-			for(var/obj/item/ctf/W in M)
-				M.dropItemToGround(W)
-			M.dust()
+			for(var/obj/item/ctf/W in competitor)
+				competitor.dropItemToGround(W)
+			competitor.dust()
 	for(var/obj/machinery/control_point/control in GLOB.machines)
 		control.icon_state = "dominator"
 		control.controlling = null
