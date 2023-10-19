@@ -113,14 +113,14 @@
 				L.updatehealth()
 				to_chat(L, "<span class='danger'>Something saps your strength! </span>")
 				new /obj/effect/temp_visual/cult/sparks(get_turf(L), "#960000")
-			if(DT_PROB(mob_spawn_chance, delta_time) && mobs_spawned < mobs_to_spawn && !has_spawned)
-				has_spawned = TRUE
-				var/spawned_mob = pick(valid_mobs)
-				if(do_tear_effect)
-					new /obj/effect/temp_visual/cult/tear_full(get_turf(src))
-				new spawned_mob(get_turf(src))
-				playsound(get_turf(src), 'sound/magic/exit_blood.ogg',50,1)
-				mobs_spawned++
+		if(DT_PROB(mob_spawn_chance, delta_time) && mobs_spawned < mobs_to_spawn && !has_spawned)
+			has_spawned = TRUE
+			var/spawned_mob = pick(valid_mobs)
+			if(do_tear_effect)
+				new /obj/effect/temp_visual/cult/tear_full(get_turf(src))
+			new spawned_mob(get_turf(src))
+			playsound(get_turf(src), 'sound/magic/exit_blood.ogg',50,1)
+			mobs_spawned++
 
 /obj/structure/destructible/event_pylon/tear
 	name = "tear"
