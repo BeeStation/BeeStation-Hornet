@@ -127,10 +127,6 @@
 	if(working_state)
 		flick(working_state,src)
 
-/obj/machinery/chem_dispenser/power_change()
-	..()
-	icon_state = "[(nopower_state && !powered()) ? nopower_state : initial(icon_state)]"
-
 /obj/machinery/chem_dispenser/update_icon()
 	cut_overlays()
 	if(has_panel_overlay && panel_open)

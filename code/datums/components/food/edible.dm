@@ -87,8 +87,6 @@ Behavior that's still missing from this component that original food items had t
 	src.bite_consumption = bite_consumption
 	src.food_flags = food_flags
 	src.foodtypes = foodtypes
-	src.initial_reagents = initial_reagents
-	src.tastes = tastes
 	src.eat_time = eat_time
 	src.eatverbs = string_list(eatverbs)
 	src.junkiness = junkiness
@@ -202,14 +200,14 @@ Behavior that's still missing from this component that original food items had t
 	for(var/obj/item/crafted_part in this_food.contents)
 		crafted_part.reagents?.trans_to(this_food.reagents, crafted_part.reagents.maximum_volume, CRAFTED_FOOD_INGREDIENT_REAGENT_MODIFIER)
 
-	var/list/objects_to_delete = list()
+	var/list/objects_to_delete = this_food.contents.Copy()
 
 	// Remove all non recipe objects from the contents
 	for(var/content_object in this_food.contents)
-		for(var/recipe_object in recipe.real_parts)
+		for(var/recipe_object in recipe.parts)
 			if(istype(content_object, recipe_object))
-				continue
-		objects_to_delete += content_object
+				objects_to_delete -= content_object
+				break
 
 	QDEL_LIST(objects_to_delete)
 
@@ -229,9 +227,8 @@ Behavior that's still missing from this component that original food items had t
 
 	if(!microwaved_type)
 		new /obj/item/reagent_containers/food/snacks/badrecipe(parent_turf)
-		qdel(src)
+		qdel(parent)
 		return
-
 
 	var/obj/item/result
 
@@ -242,6 +239,8 @@ Behavior that's still missing from this component that original food items had t
 	SEND_SIGNAL(result, COMSIG_ITEM_MICROWAVE_COOKED, parent, efficiency)
 
 	SSblackbox.record_feedback("tally", "food_made", 1, result.type)
+	qdel(parent)
+	return COMPONENT_SUCCESFUL_MICROWAVE
 
 ///Corrects the reagents on the newly cooked food
 /datum/component/edible/proc/on_microwave_cooked(datum/source, obj/item/source_item, cooking_efficiency = 1)

@@ -69,7 +69,6 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "bun"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
-	custom_food_type = /obj/item/reagent_containers/food/snacks/customizable/burger
 	filling_color = "#CD853F"
 	tastes = list("bun" = 1) // the bun tastes of bun.
 	foodtype = GRAIN

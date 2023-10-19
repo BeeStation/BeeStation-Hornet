@@ -127,7 +127,7 @@
 
 //can't be bothered to do sloth right now, will make later
 
-/obj/item/kitchen/knife/envy //Envy's knife: Found in the Envy ruin. Attackers take on the appearance of whoever they strike.
+/obj/item/knife/envy //Envy's knife: Found in the Envy ruin. Attackers take on the appearance of whoever they strike.
 	name = "envy's knife"
 	desc = "Their success will be yours."
 	icon = 'icons/obj/wizard.dmi'
@@ -140,7 +140,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/kitchen/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity)
+/obj/item/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity)
 	. = ..()
 	if(!proximity)
 		return

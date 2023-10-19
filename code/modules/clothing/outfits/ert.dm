@@ -500,7 +500,7 @@
 	suit_store = /obj/item/gun/energy/pulse/destroyer
 	belt = /obj/item/storage/belt/grenade/full/webbing
 	back = /obj/item/storage/backpack/hammerspace
-	l_pocket = /obj/item/kitchen/knife/combat
+	l_pocket = /obj/item/knife/combat
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	backpack_contents = list(/obj/item/storage/box/engineer=1,\
 		/obj/item/reagent_containers/hypospray/combat,\
