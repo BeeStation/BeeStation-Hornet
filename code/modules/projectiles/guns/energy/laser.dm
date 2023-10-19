@@ -29,6 +29,30 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
 	ammo_x_offset = 3
 
+/obj/item/gun/energy/laser/musket
+	name = "laser musket"
+	icon_state = "musket"
+	item_state = "musket"
+	desc = "An experimental laser rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
+	gun_charge = 200
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/musket)
+	can_charge = FALSE //don't put this in a recharger
+
+/obj/item/gun/energy/laser/musket/proc/crank_charge(mob/living/user)
+	if(cell.charge >= gun_charge)
+		to_chat(user,"<span class='danger'>The musket is at maximum charge already!</span>")
+		return
+	else
+		while(cell.charge < gun_charge)
+			balloon_alert(user, "You start cranking the musket.")
+			do_after(user, 1 SECONDS)
+			cell.charge += 50
+			flick("musket", src)
+			update_icon()
+
+/obj/item/gun/energy/laser/musket/attack_self(mob/living/user)
+	crank_charge(user)
+
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
 	icon_state = "caplaser"
