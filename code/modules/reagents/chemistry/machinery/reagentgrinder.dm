@@ -86,6 +86,14 @@
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				. += "<span class='notice'>- [R.volume] units of [R.name].</span>"
 
+/obj/machinery/reagentgrinder/AltClick(mob/user)
+	. = ..()
+	if(!can_interact(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		return
+	if(operating)//Prevent alt click early removals
+		return
+	replace_beaker(user)
+
 /obj/machinery/reagentgrinder/handle_atom_del(atom/A)
 	. = ..()
 	if(A == beaker)
@@ -107,15 +115,14 @@
 		icon_state = "juicer0"
 
 /obj/machinery/reagentgrinder/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
+	if(!user)
+		return FALSE
 	if(beaker)
-		beaker.forceMove(drop_location())
-		if(user && Adjacent(user) && !issiliconoradminghost(user))
-			user.put_in_hands(beaker)
+		try_put_in_hand(beaker, user)
+		beaker = null
 	if(new_beaker)
 		beaker = new_beaker
-	else
-		beaker = null
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
