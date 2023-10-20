@@ -213,17 +213,6 @@
 	tastes = list("the jungle" = 1, "bananas" = 1, "jimmies" = 1)
 	spawned_mob = /mob/living/simple_animal/hostile/gorilla
 
-/obj/item/reagent_containers/food/snacks/enchiladas
-	name = "enchiladas"
-	desc = "Viva La Mexico!"
-	icon_state = "enchiladas"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
-	bitesize = 4
-	filling_color = "#FFA07A"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/capsaicin = 6)
-	tastes = list("hot peppers" = 1, "meat" = 3, "cheese" = 1, "sour cream" = 1)
-	foodtype = MEAT
-
 /obj/item/reagent_containers/food/snacks/stewedsoymeat
 	name = "stewed soy meat"
 	desc = "Even non-vegetarians will LOVE this!"

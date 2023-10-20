@@ -27869,9 +27869,8 @@
 /obj/structure/cable/white{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/emitter/anchored{
-	dir = 1;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -37349,9 +37348,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "gRa" = (
 /obj/structure/cable/white,
-/obj/machinery/power/emitter/anchored{
-	state = 2
-	},
+/obj/machinery/power/emitter/welded,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -42834,7 +42831,7 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/loot_jobscale/armoury/riot_suit,
 /obj/effect/loot_jobscale/armoury/riot_helmet,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -64799,8 +64796,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
-/obj/item/implant/radio,
 /obj/machinery/firealarm/directional/north,
+/obj/item/radio/off,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "sql" = (
@@ -69448,9 +69445,8 @@
 /obj/structure/cable/white{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/emitter/anchored{
-	dir = 1;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,

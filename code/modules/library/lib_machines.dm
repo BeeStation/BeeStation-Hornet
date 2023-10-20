@@ -19,15 +19,22 @@
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
+
 	circuit = /obj/item/circuitboard/computer/libraryconsole
 	desc = "Checked out books MUST be returned on time."
+	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	var/screenstate = 0
 	var/title
 	var/category = "Any"
 	var/author
 	var/search_page = 0
-	clockwork = TRUE //it'd look weird
-	broken_overlay_emissive = TRUE
 
 /obj/machinery/computer/libraryconsole/ui_interact(mob/user)
 	. = ..()
@@ -297,7 +304,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				dat += "<A href='?src=[REF(src)];orderbyid=1'>(Order book by SS<sup>13</sup>BN)</A><BR><BR>"
 				dat += "<table>"
 				dat += "<tr><td>AUTHOR</td><td>TITLE</td><td>CATEGORY</td><td></td></tr>"
-				dat += libcomp_menu[CLAMP(page,1,libcomp_menu.len)]
+				dat += libcomp_menu[clamp(page,1,libcomp_menu.len)]
 				dat += "<tr><td><A href='?src=[REF(src)];page=[(max(1,page-1))]'>&lt;&lt;&lt;&lt;</A></td> <td></td> <td></td> <td><span style='text-align:right'><A href='?src=[REF(src)];page=[(min(libcomp_menu.len,page+1))]'>&gt;&gt;&gt;&gt;</A></span></td></tr>"
 				dat += "</table>"
 			dat += "<BR><A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"

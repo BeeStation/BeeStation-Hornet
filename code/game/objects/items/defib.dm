@@ -184,9 +184,7 @@
 		remove_paddles(user)
 
 	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/defibrillator/proc/make_paddles()
 	return new paddle_type(src)
@@ -391,12 +389,12 @@
 		var/mob/living/carbon/C = loc
 		C.update_inv_hands()
 
-/obj/item/shockpaddles/suicide_act(mob/user)
+/obj/item/shockpaddles/suicide_act(mob/living/user)
 	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(req_defib)
 		defib.deductcharge(revivecost)
 	playsound(src, 'sound/machines/defib_zap.ogg', 50, 1, -1)
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/shockpaddles/dropped(mob/user)
 	..()

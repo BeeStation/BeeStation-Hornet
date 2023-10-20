@@ -69241,9 +69241,8 @@
 	},
 /area/engine/atmos)
 "rOz" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 4;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 4
 	},
 /obj/structure/cable/orange{
 	icon_state = "0-4"
@@ -72918,8 +72917,7 @@
 /mob/living/basic/cockroach{
 	desc = "carlos.";
 	maxHealth = 2;
-	name = "carlos";
-	
+	name = "carlos"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -74892,9 +74890,8 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/starboard/fore)
 "tjh" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 8;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 8
 	},
 /obj/structure/cable/orange{
 	icon_state = "0-8"
@@ -93218,7 +93215,7 @@
 /obj/effect/turf_decal/bot,
 /obj/item/reagent_containers/glass/bowl,
 /obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/dough,
+/obj/item/food/dough,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)

@@ -48,7 +48,7 @@
 			apply_damage(damage, BRUTE, affecting)
 			log_combat(M, src, "attacked")
 		if("disarm")
-			if(!IsUnconscious())
+			if(stat < UNCONSCIOUS)
 				M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 				Knockdown(40)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
