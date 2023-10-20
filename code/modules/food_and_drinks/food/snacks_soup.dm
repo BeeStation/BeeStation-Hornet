@@ -54,7 +54,7 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 6)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/blood = 10, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("iron" = 1)
-	foodtype = GROSS
+	foodtype = GORE //its literally blood
 
 /obj/item/reagent_containers/food/snacks/soup/wingfangchu
 	name = "wing fang chu"
@@ -148,7 +148,7 @@
 	icon_state = "eyeballsoup"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/liquidgibs = 3)
 	tastes = list("tomato" = 1, "squirming" = 1)
-	foodtype = MEAT | GROSS
+	foodtype = MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/soup/milo
 	name = "milosoup"

@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list("melee" = 40, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 20, "bio" = 0, "rad" = 50, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 40,  BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 0)
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 40
@@ -67,7 +67,7 @@
 	SEND_SIGNAL(shield, COMSIG_MECHA_ACTION_ACTIVATE, source, signal_args)
 
 //Redirects projectiles to the shield if defense_check decides they should be blocked and returns true.
-/obj/mecha/combat/durand/proc/prehit(obj/item/projectile/source, list/signal_args)
+/obj/mecha/combat/durand/proc/prehit(obj/projectile/source, list/signal_args)
 	SIGNAL_HANDLER
 
 	if(defense_check(source.loc) && shield)

@@ -23,6 +23,10 @@
 	///Used primarially as a hint to be reasoned about by our [controller], and as the id of our bucket
 	///Should not be modified directly outside of [start_loop]
 	var/timer = 0
+	///Track if we're currently paused
+	var/paused = FALSE
+	///Used for the COMSIG_MOVELOOP_REACHED_TARGET signal
+	var/atom/destination
 
 /datum/move_loop/New(datum/movement_packet/owner, datum/controller/subsystem/movement/controller, atom/moving, priority, flags, datum/extra_info)
 	src.owner = owner
@@ -30,6 +34,8 @@
 	src.extra_info = extra_info
 	if(extra_info)
 		RegisterSignal(extra_info, COMSIG_PARENT_QDELETING, PROC_REF(info_deleted))
+		if(isatom(extra_info))
+			destination = extra_info
 	src.moving = moving
 	src.priority = priority
 	src.flags = flags
@@ -95,6 +101,8 @@
 	var/success = move()
 
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_POSTPROCESS, success, delay * visual_delay)
+	if(destination?.x == owner?.parent.x && destination?.y == owner?.parent.y && destination?.z == owner?.parent.z)
+		SEND_SIGNAL(src, COMSIG_MOVELOOP_REACHED_TARGET)
 
 	if(QDELETED(src) || !success) //Can happen
 		return
@@ -103,6 +111,24 @@
 ///Returns FALSE if nothing happen, TRUE otherwise
 /datum/move_loop/proc/move()
 	return FALSE
+
+///Pause our loop untill restarted with resume_loop()
+/datum/move_loop/proc/pause_loop()
+	if(!controller || paused) //we dead
+		return
+
+	//Dequeue us from our current bucket
+	controller.dequeue_loop(src)
+	paused = TRUE
+
+///Resume our loop after being paused by pause_loop()
+/datum/move_loop/proc/resume_loop()
+	if(!controller || !paused)
+		return
+
+	controller.queue_loop(src)
+	timer = world.time
+	paused = FALSE
 
 ///Removes the atom from some movement subsystem. Defaults to SSmovement
 /datum/controller/subsystem/move_manager/proc/stop_looping(atom/movable/moving, datum/controller/subsystem/movement/subsystem = SSmovement)
@@ -145,7 +171,7 @@
 
 /datum/move_loop/move/move()
 	var/atom/old_loc = moving.loc
-	moving.Move(get_step(moving, direction), direction)
+	moving.Move(get_step(moving, direction), direction, FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	// We cannot rely on the return value of Move(), we care about teleports and it doesn't
 	return old_loc != moving?.loc
 

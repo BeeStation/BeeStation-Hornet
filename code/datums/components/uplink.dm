@@ -21,6 +21,7 @@
 	var/datum/uplink_purchase_log/purchase_log
 	var/list/uplink_items
 	var/hidden_crystals = 0
+	var/unlock_text
 	var/unlock_note
 	var/unlock_code
 	var/failsafe_code
@@ -118,7 +119,7 @@
 			//Check that the uplink has purchased this item (Sales can be refunded as the path relates to the old one)
 			var/hash = purchase_log.hash_purchase(UI, UI.cost)
 			var/datum/uplink_purchase_entry/UPE = purchase_log.purchase_log[hash]
-			if(I.type == path && UI.refundable && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)
+			if(I.type == path && UI.can_be_refunded(I, src) && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)
 				UPE.amount_purchased --
 				if(!UPE.amount_purchased)
 					purchase_log.purchase_log.Remove(hash)

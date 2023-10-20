@@ -328,7 +328,7 @@
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/board/shuttle/flight_control
+/datum/design/board/shuttle_flight_control
 	name = "Computer Design (Shuttle Flight Controls)"
 	desc = "Allows for the construction of circuit boards used to build a console that enables shuttle flight"
 	id = "shuttle_control"

@@ -79,7 +79,7 @@
 			var/brutedamage = BP.brute_dam
 
 			//We want an accurate reading of .len
-			listclearnulls(BP.embedded_objects)
+			list_clear_nulls(BP.embedded_objects)
 			for(var/obj/item/embeddies in BP.embedded_objects)
 				if(!embeddies.isEmbedHarmless())
 					temp_bleed += 0.5
@@ -195,10 +195,6 @@
 		blood_data["real_name"] = real_name
 		blood_data["features"] = dna.features
 		blood_data["factions"] = faction
-		blood_data["quirks"] = list()
-		for(var/V in roundstart_quirks)
-			var/datum/quirk/T = V
-			blood_data["quirks"] += T.type
 		return blood_data
 
 //get the id of the substance this mob use as blood.

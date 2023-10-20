@@ -54,9 +54,6 @@
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
-	var/mob/living/L = owner
-	if(L.IsInStasis())
-		return
 	if(!next_stage_time)
 		COOLDOWN_START(src, next_stage_time, 30 SECONDS)
 		return
@@ -78,15 +75,13 @@
 				return
 		AttemptGrow()
 
-
-
 /obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success = TRUE)
 	if(!owner || bursting)
 		return
 
 	bursting = TRUE
 
-	var/list/candidates = pollGhostCandidates("Do you want to play as an alien larva that will burst out of [owner]?", ROLE_ALIEN, null, ROLE_ALIEN, 100, POLL_IGNORE_ALIEN_LARVA)
+	var/list/candidates = pollGhostCandidates("Do you want to play as an alien larva that will burst out of [owner]?", ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph, 10 SECONDS, POLL_IGNORE_ALIEN_LARVA) // separate poll from xeno event spawns
 
 	if(QDELETED(src) || QDELETED(owner))
 		return

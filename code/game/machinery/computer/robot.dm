@@ -27,7 +27,7 @@
 /obj/machinery/computer/robotics/proc/extraction(mob/user)
 	var/obj/item/paper/P = new /obj/item/paper(loc)
 	P.name = "Silicon Upload key"
-	P.info = "Current Upload key is: [GLOB.upload_code]"
+	P.add_raw_text("Current Upload key is: [GLOB.upload_code]")
 	extracting = FALSE
 	ui_update()
 

@@ -26,7 +26,7 @@
 			message_admins("Event attempted to spawn a revenant, but there were only [deadMobs]/[REVENANT_SPAWN_THRESHOLD] dead mobs.")
 			return WAITING_FOR_SOMETHING
 
-	var/list/candidates = get_candidates(ROLE_REVENANT, null, ROLE_REVENANT)
+	var/list/candidates = get_candidates(ROLE_REVENANT, /datum/role_preference/midround_ghost/revenant)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 

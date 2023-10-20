@@ -10,11 +10,11 @@
 	range = 7
 	cooldown_min = 60 //35 deciseconds reduction per rank
 	max_targets = 0
-	proj_type = /obj/item/projectile/magic/spell/magic_missile
+	proj_type = /obj/projectile/magic/spell/magic_missile
 	action_icon_state = "magicm"
 	sound = 'sound/magic/magic_missile.ogg'
 
-/obj/item/projectile/magic/spell/magic_missile
+/obj/projectile/magic/spell/magic_missile
 	name = "a magic missile"
 	icon_state = "magicm"
 	range = 20
@@ -28,7 +28,7 @@
 	trail_lifespan = 5
 	trail_icon_state = "magicmd"
 
-/obj/item/projectile/magic/spell/magic_missile/New(loc, spell_level)
+/obj/projectile/magic/spell/magic_missile/New(loc, spell_level)
 	. = ..()
 	paralyze += spell_level * 10
 
@@ -293,7 +293,7 @@
 				var/mob/living/M = AM
 				M.Paralyze(stun_amt)
 				to_chat(M, "<span class='userdanger'>You're thrown back by [user]!</span>")
-			AM.safe_throw_at(throwtarget, ((CLAMP((maxthrow - (CLAMP(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1,user, force = repulse_force)//So stuff gets tossed around at the same time.
+			AM.safe_throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1,user, force = repulse_force)//So stuff gets tossed around at the same time.
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse/xeno //i fixed conflicts only to find out that this is in the WIZARD file instead of the xeno file?!
 	name = "Tail Sweep"

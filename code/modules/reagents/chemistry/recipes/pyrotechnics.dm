@@ -91,10 +91,10 @@
 	name = "Plasma Flash"
 	id = /datum/reagent/toxin/plasma
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
-	required_temp = 301 //extremely volatile
+	required_temp = 320 //extremely volatile
 
 /datum/chemical_reaction/plasma/on_reaction(datum/reagents/holder, created_volume)
-	holder.my_atom.plasma_ignition(created_volume/30)
+	holder.my_atom.plasma_ignition(created_volume/30, reagent_reaction = TRUE)
 	holder.clear_reagents()
 
 /datum/chemical_reaction/blackpowder
@@ -214,7 +214,7 @@
 		return
 	holder.remove_reagent(/datum/reagent/sorium, created_volume*4)
 	var/turf/T = get_turf(holder.my_atom)
-	var/range = CLAMP(sqrt(created_volume*4), 1, 6)
+	var/range = clamp(sqrt(created_volume*4), 1, 6)
 	goonchem_vortex(T, 1, range)
 
 /datum/chemical_reaction/sorium_vortex
@@ -225,7 +225,7 @@
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	var/range = CLAMP(sqrt(created_volume), 1, 6)
+	var/range = clamp(sqrt(created_volume), 1, 6)
 	goonchem_vortex(T, 1, range)
 
 /datum/chemical_reaction/liquid_dark_matter
@@ -239,7 +239,7 @@
 		return
 	holder.remove_reagent(/datum/reagent/liquid_dark_matter, created_volume*3)
 	var/turf/T = get_turf(holder.my_atom)
-	var/range = CLAMP(sqrt(created_volume*3), 1, 6)
+	var/range = clamp(sqrt(created_volume*3), 1, 6)
 	goonchem_vortex(T, 0, range)
 
 /datum/chemical_reaction/ldm_vortex
@@ -250,7 +250,7 @@
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	var/range = CLAMP(sqrt(created_volume/2), 1, 6)
+	var/range = clamp(sqrt(created_volume/2), 1, 6)
 	goonchem_vortex(T, 0, range)
 
 /datum/chemical_reaction/flash_powder
@@ -439,13 +439,6 @@
 	results = list(/datum/reagent/teslium/energized_jelly = 2)
 	required_reagents = list(/datum/reagent/toxin/slimejelly = 1, /datum/reagent/teslium = 1)
 	mix_message = "<span class='danger'>The slime jelly starts glowing intermittently.</span>"
-
-/datum/chemical_reaction/energized_jelly/energized_ooze
-	name = "Energized Ooze"
-	id = /datum/reagent/teslium/energized_jelly/energized_ooze
-	results = list(/datum/reagent/teslium/energized_jelly/energized_ooze = 2)
-	required_reagents = list(/datum/reagent/toxin/slimeooze = 1, /datum/reagent/teslium = 1)
-	mix_message = "<span class='danger'>The slime ooze starts glowing intermittently.</span>"
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning
 	name = "Teslium Destabilization"

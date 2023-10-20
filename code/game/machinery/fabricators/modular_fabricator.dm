@@ -69,7 +69,7 @@
 	if(remote_materials)
 		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link)
 	else
-		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium), 0, TRUE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
+		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium, /datum/material/plastic, /datum/material/adamantine), 0, TRUE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	. = ..()
 	stored_research = new stored_research_type
 
@@ -340,7 +340,7 @@
 				for(var/i in SSmaterials.materials_by_category[used_material])
 					if(materials.materials[i] > 0)
 						list_to_show += i
-				used_material = input("Choose [used_material]", "Custom Material") as null|anything in sortList(list_to_show, GLOBAL_PROC_REF(cmp_typepaths_asc))
+				used_material = input("Choose [used_material]", "Custom Material") as null|anything in sort_list(list_to_show, GLOBAL_PROC_REF(cmp_typepaths_asc))
 				if(!used_material)
 					return //Didn't pick any material, so you can't build shit either.
 
@@ -354,7 +354,7 @@
 	var/turf/T
 	if(output_direction)
 		T = get_step(src, output_direction)
-		if(is_blocked_turf(T, TRUE))
+		if(T.is_blocked_turf(TRUE))
 			T = get_turf(src)
 	else
 		T = get_turf(src)
@@ -399,7 +399,7 @@
 	//Only items that can stack should be build en mass, since we now have queues.
 	if(is_stack)
 		multiplier = item_queue[requested_design_id]["amount"]
-	multiplier = CLAMP(multiplier,1,50)
+	multiplier = clamp(multiplier,1,50)
 
 	/////////////////
 

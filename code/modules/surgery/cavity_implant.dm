@@ -18,7 +18,7 @@
 	success_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/handle_cavity/tool_check(mob/user, obj/item/tool)
-	if(istype(tool, /obj/item/cautery) || istype(tool, /obj/item/gun/energy/laser))
+	if(tool.tool_behaviour == TOOL_CAUTERY || istype(tool, /obj/item/gun/energy/laser))
 		return FALSE
 	return !tool.is_hot()
 
@@ -29,10 +29,13 @@
 		display_results(user, target, "<span class='notice'>You begin to insert [tool] into [target]'s [target_zone]...</span>",
 			"[user] begins to insert [tool] into [target]'s [target_zone].",
 			"[user] begins to insert [tool.w_class > WEIGHT_CLASS_SMALL ? tool : "something"] into [target]'s [target_zone].")
+		//Incase they are interupted mid-insert, log it; shows intent to implant
+		log_combat(user, target, "tried to cavity implant [tool.name] into")
 	else
 		display_results(user, target, "<span class='notice'>You check for items in [target]'s [target_zone]...</span>",
 			"[user] checks for items in [target]'s [target_zone].",
 			"[user] looks for something in [target]'s [target_zone].")
+		log_combat(user, target, "searched for cavity item [IC ? "([IC.name])" : null] in")
 
 /datum/surgery_step/handle_cavity/success(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/bodypart/chest/CH = target.get_bodypart(BODY_ZONE_CHEST)
@@ -46,6 +49,8 @@
 				"[user] stuffs [tool.w_class > WEIGHT_CLASS_SMALL ? tool : "something"] into [target]'s [target_zone].")
 			user.transferItemToLoc(tool, target, TRUE)
 			CH.cavity_item = tool
+			//Logs stowing items in a cavity, similar to organ manipulation
+			log_combat(user, target, "cavity implanted [tool.name] into")
 			return 1
 	else
 		if(IC)
@@ -54,6 +59,8 @@
 				"[user] pulls [IC.w_class > WEIGHT_CLASS_SMALL ? IC : "something"] out of [target]'s [target_zone].")
 			user.put_in_hands(IC)
 			CH.cavity_item = null
+			//Log when cavity items are surgically removed, we don't care about it popping out from gibbing
+			log_combat(user, target, "extracted [IC.name] from cavity in")
 			return 1
 		else
 			to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")

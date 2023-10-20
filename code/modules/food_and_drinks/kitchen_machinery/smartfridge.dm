@@ -13,7 +13,7 @@
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
 
-
+	var/tgui_theme = null // default theme as null is Nanotrasen theme.
 
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE
@@ -40,10 +40,6 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.</span>"
-
-/obj/machinery/smartfridge/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/smartfridge/update_icon()
 	if(!machine_stat)
@@ -218,11 +214,12 @@
 				listofitems[md5name]["amount"]++	// The good news is, #30519 made smartfridge UIs non-auto-updating
 			else
 				listofitems[md5name] = list("name" = O.name, "type" = O.type, "amount" = 1)
-	sortList(listofitems)
+	sort_list(listofitems)
 
 	.["contents"] = listofitems
 	.["name"] = name
 	.["isdryer"] = FALSE
+	.["ui_theme"] = tgui_theme
 
 
 /obj/machinery/smartfridge/handle_atom_del(atom/A) // Update the UIs in case something inside gets deleted
@@ -309,6 +306,16 @@
 			toggle_drying(FALSE)
 			return TRUE
 	return FALSE
+
+/obj/machinery/smartfridge/drying_rack/powered()
+	if(!anchored)
+		return FALSE
+	return ..()
+
+/obj/machinery/smartfridge/drying_rack/power_change()
+	. = ..()
+	if(!powered())
+		toggle_drying(TRUE)
 
 /obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
 	..()
@@ -474,7 +481,8 @@
 		return TRUE
 	if(!O.reagents || !O.reagents.reagent_list.len) // other empty containers not accepted
 		return FALSE
-	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker) || istype(O, /obj/item/reagent_containers/spray) || istype(O, /obj/item/reagent_containers/medspray))
+	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker) \
+	|| istype(O, /obj/item/reagent_containers/spray) || istype(O, /obj/item/reagent_containers/medspray) || istype(O, /obj/item/reagent_containers/chem_bag))
 		return TRUE
 	return FALSE
 
@@ -549,3 +557,24 @@
 		return TRUE
 	else
 		return FALSE
+
+// ----------------------------
+//  Sci smartfridge
+// ----------------------------
+/obj/machinery/smartfridge/sci
+	desc = "A smart storage vender for tech."
+
+/obj/machinery/smartfridge/sci/accept_check(obj/item/O)
+	if(istype(O, /obj/item/stock_parts))
+		return TRUE
+	if(istype(O, /obj/item/disk/tech_disk))
+		return TRUE
+	if(istype(O, /obj/item/circuit_component))
+		return TRUE
+	if(istype(O, /obj/item/assembly))
+		return TRUE
+	if(istype(O, /obj/item/circuitboard))
+		return TRUE
+	if(istype(O, /obj/item/mecha_parts))
+		return TRUE
+	return FALSE

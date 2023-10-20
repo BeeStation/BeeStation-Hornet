@@ -13,7 +13,7 @@
 	max_integrity = 300
 	integrity_failure = 100
 	move_resist = INFINITY
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 10, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, ACID = 70, STAMINA = 0)
 	var/datum/team/gang/gang
 	var/operating = FALSE	//false=standby or broken, true=takeover
 	var/warned = FALSE	//if this device has set off the warning at <3 minutes yet
@@ -24,7 +24,7 @@
 /obj/machinery/dominator/Initialize(mapload)
 	. = ..()
 	set_light(2)
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	spark_system = new
 	spark_system.set_up(5, TRUE, src)
 	countdown = new(src)
@@ -33,14 +33,13 @@
 /obj/machinery/dominator/Destroy()
 	if(!(stat & BROKEN))
 		set_broken()
-	GLOB.poi_list.Remove(src)
 	gang = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(countdown)
 	return ..()
 
 /obj/machinery/dominator/emp_act(severity)
-	take_damage(100, BURN, "energy", 0)
+	take_damage(100, BURN, ENERGY, 0)
 	..()
 
 /obj/machinery/dominator/hulk_damage()

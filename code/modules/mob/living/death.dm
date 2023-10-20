@@ -1,5 +1,5 @@
 /mob/living/gib(no_brain, no_organs, no_bodyparts)
-	var/prev_lying = lying
+	var/prev_lying = lying_angle
 	if(stat != DEAD)
 		death(TRUE)
 
@@ -27,7 +27,8 @@
 	return
 
 /mob/living/dust(just_ash, drop_items, force)
-	death(TRUE)
+	if(stat != DEAD)
+		death(TRUE)
 
 	if(drop_items)
 		unequip_everything()
@@ -49,6 +50,7 @@
 /mob/living/death(gibbed)
 	var/was_dead_before = stat == DEAD
 	set_stat(DEAD)
+	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed, was_dead_before)
 	unset_machine()
 	timeofdeath = world.time
 	tod = station_time_timestamp()
@@ -67,7 +69,6 @@
 		add_to_dead_mob_list()
 
 	SetSleeping(0, 0)
-	blind_eyes(1)
 
 	update_action_buttons_icon()
 	update_health_hud()
@@ -80,6 +81,8 @@
 	stop_pulling()
 
 	. = ..()
+
+	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
 
 	if (client)
 		reset_perspective(null)

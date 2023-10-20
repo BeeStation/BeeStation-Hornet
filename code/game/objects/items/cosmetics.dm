@@ -262,7 +262,7 @@
 	. = ..()
 	if(ishuman(M) && extended == 1 && (user.a_intent == INTENT_HARM))
 		var/mob/living/carbon/human/H = M
-		var/def_check = H.getarmor("melee")
+		var/def_check = H.getarmor(MELEE)
 		H.bleed_rate += ((force * 10) - def_check)/30 //sharp blade causes a shitload of blood loss if on harm intent
 		if(H.bleed_rate >= 10)
 			to_chat(M, "<span class='userdanger'>You're losing blood fast!</span>")

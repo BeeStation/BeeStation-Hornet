@@ -132,17 +132,17 @@
 
 	var/damage = weapon.w_class * pain_mult
 	var/max_damage = weapon.w_class * max_damage_mult + weapon.throwforce
-	var/chance = DT_PROB_RATE(pain_chance / 100, delta_time) * 100
+	var/pain_chance_current = DT_PROB_RATE(pain_chance / 100, delta_time) * 100
 	if(pain_stam_pct && victim.stam_paralyzed) //if it's a less-lethal embed, give them a break if they're already stamcritted
-		chance *= 0.2
+		pain_chance_current *= 0.2
 		damage *= 0.5
-	else if(victim.lying)
-		chance *= 0.2
+	else if(victim.mobility_flags & ~MOBILITY_STAND)
+		pain_chance_current *= 0.2
 
-	if(harmful && prob(chance))
+	if(harmful && prob(pain_chance_current))
 		var/damage_left = max_damage - limb.get_damage()
 		var/damage_wanted = (1-pain_stam_pct) * damage
-		var/damage_to_deal = CLAMP(damage_wanted, 0, damage_left)
+		var/damage_to_deal = clamp(damage_wanted, 0, damage_left)
 		var/damage_as_stam = damage_wanted - damage_to_deal
 		if(!damage_to_deal)
 			to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] stings a little!</span>")
@@ -164,7 +164,7 @@
 
 	var/mob/living/carbon/victim = parent
 	var/chance = jostle_chance
-	if(victim.m_intent == MOVE_INTENT_WALK || victim.lying)
+	if(victim.m_intent == MOVE_INTENT_WALK || !(victim.mobility_flags & MOBILITY_STAND))
 		chance *= 0.5
 
 	if(harmful && prob(chance))
@@ -229,6 +229,8 @@
 			INVOKE_ASYNC(to_hands, TYPE_PROC_REF(/mob, put_in_hands), weapon)
 		else
 			INVOKE_ASYNC(weapon, TYPE_PROC_REF(/atom/movable, forceMove), get_turf(victim))
+		if(istype(weapon, /obj/item/shrapnel))
+			weapon.disableEmbedding()
 
 	qdel(src)
 

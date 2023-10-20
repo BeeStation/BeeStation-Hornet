@@ -4,7 +4,7 @@
 	desc = "A brave security cyborg gave its life to help you look like a complete tool."
 	icon_state = "secway"
 	max_integrity = 100
-	armor = list("melee" = 20, "bullet" = 15, "laser" = 10, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 15, LASER = 10, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0)
 	key_type = /obj/item/key/security
 	integrity_failure = 50
 
@@ -46,7 +46,7 @@
 	STOP_PROCESSING(SSobj,src)
 	return ..()
 
-/obj/vehicle/ridden/secway/bullet_act(obj/item/projectile/P)
+/obj/vehicle/ridden/secway/bullet_act(obj/projectile/P)
 	if(prob(60) && buckled_mobs)
 		for(var/mob/M in buckled_mobs)
 			M.bullet_act(P)

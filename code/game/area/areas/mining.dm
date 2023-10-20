@@ -15,7 +15,6 @@
 	icon_state = "explored"
 	always_unpowered = TRUE
 	requires_power = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
@@ -32,7 +31,6 @@
 	icon_state = "unexplored"
 	always_unpowered = TRUE
 	requires_power = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
@@ -127,14 +125,13 @@
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 20
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
+	color_correction = /datum/client_colour/area_color/warm
 
 /area/lavaland/surface
 	name = "Lavaland"
 	icon_state = "explored"
 	always_unpowered = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
-	power_equip = FALSE
 	power_light = FALSE
 	requires_power = TRUE
 	ambience_index = AMBIENCE_MINING
@@ -146,7 +143,6 @@
 	icon_state = "unexplored"
 	always_unpowered = TRUE
 	requires_power = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE

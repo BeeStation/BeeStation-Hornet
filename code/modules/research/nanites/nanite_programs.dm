@@ -263,14 +263,10 @@
 
 //Checks conditions then fires the nanite trigger effect
 /datum/nanite_program/proc/trigger(delayed = FALSE, comm_message)
-	if(!can_trigger)
-		return
-	if(!activated)
+	if(!can_trigger || !activated || world.time < next_trigger)
 		return
 	if(timer_trigger_delay && !delayed)
 		timer_trigger_delay_next = world.time + timer_trigger_delay
-		return
-	if(world.time < next_trigger)
 		return
 	if(!check_conditions())
 		return

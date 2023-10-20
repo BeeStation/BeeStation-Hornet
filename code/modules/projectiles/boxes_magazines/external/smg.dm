@@ -29,9 +29,12 @@
 
 /obj/item/ammo_box/magazine/wt550m9/rubber
 	name = "wt550 rubber magazine (4.6x30mm rubber)"
-	icon_state = "46x30mmt-20"
+	icon_state = "46x30mmtp-20"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/rubber
 
+/obj/item/ammo_box/magazine/wt550m9/rubber/update_icon()
+	..()
+	icon_state = "46x30mmtp-[round(ammo_count(),4)]"
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
 	icon_state = "uzi9mm-32"

@@ -4,21 +4,11 @@ import { Window } from '../layouts';
 
 export const TachyonArray = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    records = [],
-  } = data;
+  const { records = [] } = data;
   return (
-    <Window
-      width={500}
-      height={225}>
+    <Window width={500} height={225}>
       <Window.Content scrollable>
-        {!records.length ? (
-          <NoticeBox>
-            No Records
-          </NoticeBox>
-        ) : (
-          <TachyonArrayContent />
-        )}
+        {!records.length ? <NoticeBox>No Records</NoticeBox> : <TachyonArrayContent />}
       </Window.Content>
     </Window>
   );
@@ -26,14 +16,9 @@ export const TachyonArray = (props, context) => {
 
 export const TachyonArrayContent = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    records = [],
-  } = data;
-  const [
-    activeRecordName,
-    setActiveRecordName,
-  ] = useSharedState(context, 'record', records[0]?.name);
-  const activeRecord = records.find(record => {
+  const { records = [] } = data;
+  const [activeRecordName, setActiveRecordName] = useSharedState(context, 'record', records[0]?.name);
+  const activeRecord = records.find((record) => {
     return record.name === activeRecordName;
   });
   return (
@@ -41,7 +26,7 @@ export const TachyonArrayContent = (props, context) => {
       <Flex>
         <Flex.Item>
           <Tabs vertical>
-            {records.map(record => (
+            {records.map((record) => (
               <Tabs.Tab
                 icon="file"
                 key={record.name}
@@ -57,59 +42,51 @@ export const TachyonArrayContent = (props, context) => {
             <Section
               level="2"
               title={activeRecord.name}
-              buttons={(
+              buttons={
                 <>
                   <Button.Confirm
                     icon="trash"
                     content="Delete"
                     color="bad"
-                    onClick={() => act('delete_record', {
-                      'ref': activeRecord.ref,
-                    })} />
+                    onClick={() =>
+                      act('delete_record', {
+                        'ref': activeRecord.ref,
+                      })
+                    }
+                  />
                   <Button
                     icon="print"
                     content="Print"
-                    onClick={() => act('print_record', {
-                      'ref': activeRecord.ref,
-                    })} />
+                    onClick={() =>
+                      act('print_record', {
+                        'ref': activeRecord.ref,
+                      })
+                    }
+                  />
                 </>
-              )}>
+              }>
               <LabeledList>
-                <LabeledList.Item label="Timestamp">
-                  {activeRecord.timestamp}
-                </LabeledList.Item>
-                <LabeledList.Item label="Coordinates">
-                  {activeRecord.coordinates}
-                </LabeledList.Item>
-                <LabeledList.Item label="Displacement">
-                  {activeRecord.displacement} seconds
-                </LabeledList.Item>
+                <LabeledList.Item label="Timestamp">{activeRecord.timestamp}</LabeledList.Item>
+                <LabeledList.Item label="Coordinates">{activeRecord.coordinates}</LabeledList.Item>
+                <LabeledList.Item label="Displacement">{activeRecord.displacement} seconds</LabeledList.Item>
                 <LabeledList.Item label="Epicenter Radius">
                   {activeRecord.factual_epicenter_radius}
-                  {activeRecord.theory_epicenter_radius
-                  && " (Theoretical: "
-                  + activeRecord.theory_epicenter_radius + ")"}
+                  {activeRecord.theory_epicenter_radius && ' (Theoretical: ' + activeRecord.theory_epicenter_radius + ')'}
                 </LabeledList.Item>
                 <LabeledList.Item label="Outer Radius">
                   {activeRecord.factual_outer_radius}
-                  {activeRecord.theory_outer_radius
-                  && " (Theoretical: "
-                  + activeRecord.theory_outer_radius + ")"}
+                  {activeRecord.theory_outer_radius && ' (Theoretical: ' + activeRecord.theory_outer_radius + ')'}
                 </LabeledList.Item>
                 <LabeledList.Item label="Shockwave Radius">
                   {activeRecord.factual_shockwave_radius}
-                  {activeRecord.theory_shockwave_radius
-                  && " (Theoretical: "
-                  + activeRecord.theory_shockwave_radius + ")"}
+                  {activeRecord.theory_shockwave_radius && ' (Theoretical: ' + activeRecord.theory_shockwave_radius + ')'}
                 </LabeledList.Item>
               </LabeledList>
             </Section>
           </Flex.Item>
         ) : (
           <Flex.Item grow={1} basis={0}>
-            <NoticeBox>
-              No Record Selected
-            </NoticeBox>
+            <NoticeBox>No Record Selected</NoticeBox>
           </Flex.Item>
         )}
       </Flex>

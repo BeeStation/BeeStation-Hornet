@@ -101,7 +101,7 @@
 	if(record)
 		name = "paper - [record.name]"
 
-		info += {"<h2>[record.name]</h2>
+		default_raw_text += {"<h2>[record.name]</h2>
 		<ul><li>Timestamp: [record.timestamp]</li>
 		<li>Coordinates: [record.coordinates]</li>
 		<li>Displacement: [record.displacement] seconds</li>
@@ -110,7 +110,7 @@
 		<li>Shockwave Radius: [record.factual_radius["shockwave_radius"]]</li></ul>"}
 
 		if(length(record.theory_radius))
-			info += {"<ul><li>Theoretical Epicenter Radius: [record.theory_radius["epicenter_radius"]]</li>
+			default_raw_text += {"<ul><li>Theoretical Epicenter Radius: [record.theory_radius["epicenter_radius"]]</li>
 			<li>Theoretical Outer Radius: [record.theory_radius["outer_radius"]]</li>
 			<li>Theoretical Shockwave Radius: [record.theory_radius["shockwave_radius"]]</li></ul>"}
 
@@ -190,16 +190,18 @@
 
 	return TRUE
 
-/obj/machinery/doppler_array/power_change()
+/obj/machinery/doppler_array/powered()
+	if(!anchored)
+		return FALSE
+	return ..()
+
+/obj/machinery/doppler_array/update_icon()
 	if(machine_stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
+	else if(powered())
+		icon_state = initial(icon_state)
 	else
-		if(powered() && anchored)
-			icon_state = initial(icon_state)
-			set_machine_stat(machine_stat & ~NOPOWER)
-		else
-			icon_state = "[initial(icon_state)]-off"
-			set_machine_stat(machine_stat | NOPOWER)
+		icon_state = "[initial(icon_state)]-off"
 
 //Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
 /obj/machinery/doppler_array/integrated

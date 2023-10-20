@@ -53,6 +53,7 @@
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "j" = (
@@ -113,6 +114,7 @@
 	port_direction = 4;
 	width = 9
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "r" = (

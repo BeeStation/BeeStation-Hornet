@@ -3,14 +3,15 @@
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/Doorint.dmi'
 	icon_state = "door1"
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	move_resist = MOVE_FORCE_VERY_STRONG
 	layer = OPEN_DOOR_LAYER
 	power_channel = AREA_USAGE_ENVIRON
 	pass_flags_self = PASSDOORS
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 350
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0)
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	flags_1 = PREVENT_CLICK_UNDER_1
 	ricochet_chance_mod = 0.8
@@ -82,10 +83,6 @@
 	else
 		layer = initial(layer)
 
-/obj/machinery/door/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/door/Destroy()
 	update_freelook_sight()
 	GLOB.airlocks -= src
@@ -140,7 +137,7 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/machinery/door/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/machinery/door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return
@@ -308,6 +305,7 @@
 	set_opacity(0)
 	sleep(open_speed)
 	set_density(FALSE)
+	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	sleep(open_speed)
 	layer = initial(layer)
 	update_appearance()
@@ -338,8 +336,10 @@
 	layer = closingLayer
 	if(air_tight)
 		set_density(TRUE)
+		z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
 	set_density(TRUE)
+	z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
 	update_icon()
 	if(visible && !glass)
@@ -365,8 +365,8 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
-			var/armour = L.run_armor_check(BODY_ZONE_CHEST, "melee")
-			var/multiplier = CLAMP(1 - (armour * 0.01), 0, 1)
+			var/armour = L.run_armor_check(BODY_ZONE_CHEST, MELEE)
+			var/multiplier = clamp(1 - (armour * 0.01), 0, 1)
 			L.adjustBruteLoss(multiplier * DOOR_CRUSH_DAMAGE)
 			L.emote("scream")
 			if(!L.IsParalyzed())

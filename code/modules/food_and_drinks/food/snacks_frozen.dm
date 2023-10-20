@@ -8,20 +8,24 @@
 	desc = "Portable Ice-cream in its own packaging."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "icecreamsandwich"
+	w_class = WEIGHT_CLASS_TINY
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/ice = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/ice = 2)
 	tastes = list("ice cream" = 1)
 	foodtype = GRAIN | DAIRY
+	/*food_flags = FOOD_FINGER_FOOD*/
 
 /obj/item/reagent_containers/food/snacks/strawberryicecreamsandwich
 	name = "strawberry ice cream sandwich"
 	desc = "Portable ice-cream in its own packaging of the strawberry variety."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "strawberryicecreamsandwich"
+	w_class = WEIGHT_CLASS_TINY
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/ice = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/ice = 2)
 	tastes = list("ice cream" = 2, "berry" = 2)
 	foodtype = FRUIT | DAIRY | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
 
 
 /obj/item/reagent_containers/food/snacks/spacefreezy
@@ -29,17 +33,19 @@
 	desc = "The best icecream in space."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "spacefreezy"
+	w_class = WEIGHT_CLASS_TINY
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/bluecherryjelly = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	filling_color = "#87CEFA"
 	tastes = list("blue cherries" = 2, "ice cream" = 2)
-	foodtype = FRUIT | DAIRY
+	foodtype = FRUIT | DAIRY | SUGAR
 
 /obj/item/reagent_containers/food/snacks/sundae
 	name = "sundae"
 	desc = "A classic dessert."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "sundae"
+	w_class =  WEIGHT_CLASS_SMALL
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/banana = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 	filling_color = "#FFFACD"
@@ -66,12 +72,14 @@
 	desc = "It's just shaved ice. Still fun to chew on."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "flavorless_sc"
+	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/reagent_containers/food/drinks/sillycup //We dont eat paper cups
 	bonus_reagents = list(/datum/reagent/water = 10) //Base line will allways give water
 	list_reagents = list(/datum/reagent/water = 1) // We dont get food for water/juices
 	filling_color = "#FFFFFF" //Ice is white
 	tastes = list("ice" = 1, "water" = 1)
 	foodtype = SUGAR //We use SUGAR as a base line to act in as junkfood, other wise we use fruit
+	/*food_flags = FOOD_FINGER_FOOD*/
 
 /obj/item/reagent_containers/food/snacks/snowcones/lime
 	name = "lime snowcone"

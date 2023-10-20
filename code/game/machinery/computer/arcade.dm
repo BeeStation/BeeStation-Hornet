@@ -71,11 +71,18 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon_state = "arcade"
 	icon_keyboard = "no_keyboard"
 	icon_screen = "invaders"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
+	light_color = LIGHT_COLOR_GREEN
 	var/list/prize_override
 	var/prizeselect = /obj/item/coin/arcade_token
-	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/arcade/proc/Reset()
 	return
@@ -88,7 +95,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		var/list/gameodds = list(/obj/item/circuitboard/computer/arcade/battle = 49,
 							/obj/item/circuitboard/computer/arcade/orion_trail = 49,
 							/obj/item/circuitboard/computer/arcade/amputation = 2)
-		var/thegame = pickweight(gameodds)
+		var/thegame = pick_weight(gameodds)
 		var/obj/item/circuitboard/CB = new thegame()
 		new CB.build_path(loc, CB)
 		return INITIALIZE_HINT_QDEL
@@ -106,7 +113,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
 
 /obj/machinery/computer/arcade/proc/redeem(mob/user)
-	var/redeemselect = pickweight(length(prize_override) ? prize_override : GLOB.arcade_prize_pool)
+	var/redeemselect = pick_weight(length(prize_override) ? prize_override : GLOB.arcade_prize_pool)
 
 	var/atom/movable/the_prize = new redeemselect(drop_location())
 	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
@@ -136,9 +143,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			num_of_prizes = rand(0,2)
 	for(var/i = num_of_prizes; i > 0; i--)
 		if(override)
-			empprize = pickweight(prize_override)
+			empprize = pick_weight(prize_override)
 		else
-			empprize = pickweight(GLOB.arcade_prize_pool)
+			empprize = pick_weight(GLOB.arcade_prize_pool)
 		new empprize(loc)
 	explosion(loc, -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes)
 
@@ -580,7 +587,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					event = ORION_TRAIL_COLLISION
 					event()
 				else if(prob(75))
-					event = pickweight(events)
+					event = pick_weight(events)
 					if(lings_aboard)
 						if(event == ORION_TRAIL_LING || prob(55))
 							event = ORION_TRAIL_LING_ATTACK
@@ -709,7 +716,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 						var/mob/living/L = usr
 						L.Stun(200, ignore_canstun = TRUE) //you can't run :^)
 					var/S = new /obj/anomaly/singularity/academy(usr.loc)
-					addtimer(CALLBACK(src, /atom/movable/proc/say, "[S] winks out, just as suddenly as it appeared."), 50)
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, say), "[S] winks out, just as suddenly as it appeared."), 50)
 					QDEL_IN(S, 50)
 			else
 				event = null

@@ -36,13 +36,13 @@
 /datum/orbital_objective/vip_recovery/generate_objective_stuff(turf/chosen_turf)
 	var/mob/living/carbon/human/created_human = new(chosen_turf)
 	//Maybe polling ghosts would be better than the shintience code
-	created_human.set_playable()
+	created_human.set_playable(ROLE_EXPLORATION_VIP)
 	created_human.mind_initialize()
 	//Remove nearby dangers
 	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))
 		qdel(SA)
 	var/antag_elligable = FALSE
-	switch(pickweight(list("centcom_official" = 4, "greytide" = 3)))
+	switch(pick_weight(list("centcom_official" = 4, "greytide" = 3)))
 		if("centcom_official")
 			created_human.flavor_text = "You are a CentCom official onboard a badly damaged station. Making your way back to Space Station 13 to uncover the secrets you hold is \
 				your top priority as far as Nanotrasen is concerned, but surviving just one more day is all you can ask for."
@@ -54,7 +54,6 @@
 				but it would take another one of the miracles that kept you alive to get you home."
 			created_human.equipOutfit(/datum/outfit/vip_target/greytide)
 			antag_elligable = TRUE
-	created_human.mind.store_memory(created_human.flavor_text)
 	if(antag_elligable)
 		if(prob(7))
 			created_human.mind.make_Traitor()
@@ -64,6 +63,7 @@
 			created_human.mind.make_Changeling()
 			created_human.flavor_text += " - Or so's the cover story we've curated to sway the hearts of the hapless souls who, one day, may stumble upon \
 			our miserable, eeked out existence here... And inadvertently begin the hunt anew." //Ditto
+	created_human.mind.store_memory(created_human.flavor_text)
 	mob_to_recover = created_human
 	//Give them space-worthy suit and other equipment
 	var/turf/open/T = locate() in shuffle(view(1, created_human))

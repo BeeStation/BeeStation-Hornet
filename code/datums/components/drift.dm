@@ -57,7 +57,7 @@
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = FALSE
-	UnregisterSignal(movable_parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_NEWTONIAN_MOVE))
+	UnregisterSignal(movable_parent, COMSIG_MOVABLE_MOVED)
 
 /datum/component/drift/proc/before_move(datum/source)
 	SIGNAL_HANDLER

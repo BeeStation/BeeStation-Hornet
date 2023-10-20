@@ -12,6 +12,7 @@
 	item_state = "rack_parts"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	item_flags = ISWEAPON
 
 	var/ticking = FALSE
 	var/time_left = 60 //seconds remaining until pop

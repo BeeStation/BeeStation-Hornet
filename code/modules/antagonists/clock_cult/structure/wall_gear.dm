@@ -3,7 +3,6 @@
 	name = "massive gear"
 	icon_state = "wall_gear"
 	unanchored_icon = "wall_gear"
-	climbable = TRUE
 	max_integrity = 100
 	layer = BELOW_OBJ_LAYER
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
@@ -18,6 +17,7 @@
 /obj/structure/destructible/clockwork/wall_gear/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
+	AddElement(/datum/element/climbable)
 
 /obj/structure/destructible/clockwork/wall_gear/emp_act(severity)
 	return

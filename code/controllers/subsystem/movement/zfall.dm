@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(zfall)
 	if(!isopenspace(T))
 		remove_openspace_inhabitant(A)
 		return
-	if(!A.zfalling)
+	if(!A.zfalling && A.loc == T)
 		T.try_start_zFall(A)
 
 /datum/controller/subsystem/zfall/fire()

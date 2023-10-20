@@ -182,7 +182,7 @@ const fooArray = map((value, key) => {
 Or if you just want to discard all keys, this will also work nicely:
 
 ```jsx
-const fooArray = toArray(fooObject);
+const fooArray = Object.values(fooObject);
 ```
 
 Also occasionally you'd see an else:

@@ -50,6 +50,7 @@
 	STR.max_combined_w_class = 30
 	STR.max_items = 30
 	STR.cant_hold = typecacheof(list(/obj/item/disk/nuclear))
+	STR.can_be_opened = FALSE //Have to dump a trash bag out to look at its contents
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
@@ -309,7 +310,7 @@
 	STR.max_combined_w_class = 21
 	STR.max_items = 7
 	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook, /obj/item/forbidden_book))
+	STR.can_hold = typecacheof(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook, /obj/item/codex_cicatrix))
 
 /*
  * Trays - Agouri
@@ -460,5 +461,5 @@
 										/obj/item/small_delivery,
 										/obj/item/paper,
 										/obj/item/reagent_containers/food/condiment/milk,
-										/obj/item/reagent_containers/food/snacks/store/bread/plain
+										/obj/item/food/bread/plain
 									))

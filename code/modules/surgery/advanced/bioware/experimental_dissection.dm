@@ -22,7 +22,7 @@
 
 /datum/surgery_step/dissection
 	name = "dissection"
-	implements = list(TOOL_SCALPEL = 60, /obj/item/kitchen/knife = 30, /obj/item/shard = 15)
+	implements = list(TOOL_SCALPEL = 60, /obj/item/knife = 30, /obj/item/shard = 15)
 	time = 125
 
 /datum/surgery_step/dissection/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -42,7 +42,7 @@
 				return 8000
 			if(isgolem(H) || iszombie(H))
 				return 4000
-			if(isjellyperson(H) || ispodperson(H))
+			if(isslimeperson(H) || isluminescent(H) || isstargazer(H) || ispodperson(H))
 				return 3000
 			return 2000
 

@@ -463,7 +463,7 @@
 	result = /obj/item/switchblade/kitchen
 	reqs = list(/obj/item/stack/sheet/iron = 2,
 				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/kitchen/knife = 1,
+				/obj/item/knife = 1,
 				/obj/item/stack/cable_coil = 2)
 	tools = list(TOOL_WELDER)
 	time = 45
@@ -487,7 +487,7 @@
 	result = /obj/item/switchblade/plastitanium
 	reqs = list(/obj/item/weaponcrafting/stock = 1,
 				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/kitchen/knife = 1,
+				/obj/item/knife = 1,
 				/obj/item/stack/cable_coil = 2,
 				/obj/item/stack/sheet/mineral/plastitanium = 2)
 	tools = list(TOOL_WELDER)
@@ -789,7 +789,7 @@
 
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"
-	result = /obj/item/kitchen/knife/combat/bone
+	result = /obj/item/knife/combat/bone
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	category = CAT_PRIMAL
@@ -951,7 +951,7 @@
 	result = /obj/item/stack/medical/bruise_pack/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
-				/datum/reagent/medicine/styptic_powder = 40)
+				/datum/reagent/medicine/styptic_powder = 20)
 	category = CAT_MISC
 
 /datum/crafting_recipe/burn_pack
@@ -959,7 +959,7 @@
 	result = /obj/item/stack/medical/ointment/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
-				/datum/reagent/medicine/silver_sulfadiazine = 40)
+				/datum/reagent/medicine/silver_sulfadiazine = 20)
 	category = CAT_MISC
 
 // Shank - Makeshift weapon that can embed on throw
@@ -967,7 +967,7 @@
 	name = "Shank"
 	reqs = list(/obj/item/shard = 1,
 					/obj/item/stack/cable_coil = 10) // 1 glass shard + 10 cable; needs a wirecutter to snip the cable.
-	result = /obj/item/kitchen/knife/shank
+	result = /obj/item/knife/shank
 	tools = list(TOOL_WIRECUTTER)
 	time = 20
 	category = CAT_WEAPONRY
@@ -991,12 +991,12 @@
 	result = /obj/item/clothing/accessory/poppy_pin
 	time = 5
 	reqs = list(/obj/item/stack/rods = 1,
-				/obj/item/reagent_containers/food/snacks/grown/poppy = 1)
+				/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/poppy_pin_removal
 	name = "Poppy Pin Removal"
-	result = /obj/item/reagent_containers/food/snacks/grown/poppy
+	result = /obj/item/reagent_containers/food/snacks/grown/flower/poppy
 	time = 5
 	reqs = list(/obj/item/clothing/accessory/poppy_pin = 1)
 

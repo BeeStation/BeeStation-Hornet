@@ -12,6 +12,7 @@
 	ai_eye.screen = src
 
 /atom/movable/screen/movable/pic_in_pic/ai/Destroy()
+	ai_eye.transfer_observers_to(ai.eyeobj) // secondary ai eye to main one
 	set_ai(null)
 	QDEL_NULL(ai_eye)
 	return ..()
@@ -210,6 +211,10 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	C.set_ai(src)
 	if(!silent)
 		to_chat(src, "<span class='notice'>Added new multicamera window.</span>")
+	if(multicam_on)
+		reveal_eyemob(C.ai_eye)
+	else
+		hide_eyemob(C.ai_eye)
 	return C
 
 /mob/living/silicon/ai/proc/toggle_multicam()
@@ -229,6 +234,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 		return
 	multicam_on = TRUE
 	refresh_multicam()
+	refresh_camera_obj_visibility()
 	to_chat(src, "<span class='notice'>Multiple-camera viewing mode activated.</span>")
 
 /mob/living/silicon/ai/proc/refresh_multicam()
@@ -242,6 +248,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	if(!multicam_on)
 		return
 	multicam_on = FALSE
+	refresh_camera_obj_visibility()
 	select_main_multicam_window(null)
 	if(client)
 		for(var/V in multicam_screens)
@@ -250,6 +257,28 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	reset_perspective()
 	to_chat(src, "<span class='notice'>Multiple-camera viewing mode deactivated.</span>")
 
+/mob/living/silicon/ai/proc/refresh_camera_obj_visibility()
+	for(var/V in multicam_screens)
+		var/atom/movable/screen/movable/pic_in_pic/ai/each_screen = V
+		if(!istype(each_screen) || !each_screen.ai_eye)
+			continue
+		if(multicam_on)
+			reveal_eyemob(each_screen.ai_eye)
+		else
+			hide_eyemob(each_screen.ai_eye)
+
+/mob/living/silicon/ai/proc/reveal_eyemob(mob/camera/ai_eye/target_eye)
+	target_eye.invisibility = INVISIBILITY_OBSERVER
+	target_eye.ai_detector_visible = TRUE
+	target_eye.update_ai_detect_hud()
+
+// we don't want to see inactive eye mobs
+/mob/living/silicon/ai/proc/hide_eyemob(mob/camera/ai_eye/target_eye)
+	target_eye.invisibility = INVISIBILITY_ABSTRACT
+	target_eye.ai_detector_visible = FALSE
+	target_eye.update_ai_detect_hud()
+	if(eyeobj) // if ghosts are orbiting secondary ai eye, transfer them to the main eye
+		target_eye.transfer_observers_to(eyeobj)
 
 /mob/living/silicon/ai/proc/select_main_multicam_window(atom/movable/screen/movable/pic_in_pic/ai/P)
 	if(master_multicam == P)

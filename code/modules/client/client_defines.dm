@@ -12,6 +12,9 @@
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
 
+	/// Acts the same way holder does towards admin: it holds the mentor datum. if set, the client is a mentor.
+	var/datum/mentors/mentor_datum = null
+
 	/// Whether the client has ai interacting as a ghost enabled or not
 	var/AI_Interact		= 0
 
@@ -96,8 +99,6 @@
 	/// These persist between logins/logouts during the same round.
 	var/datum/player_details/player_details
 
-	var/list/char_render_holders			//Should only be a key-value list of north/south/east/west = atom/movable/screen.
-
 	var/client_keysend_amount = 0
 	var/next_keysend_reset = 0
 	var/next_keysend_trip_reset = 0
@@ -114,10 +115,16 @@
 	var/last_completed_asset_job = 0
 
 	/// rate limiting for the crew manifest
-	var/crew_manifest_delay
+	COOLDOWN_DECLARE(crew_manifest_delay)
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0
 
 	/// If the client is currently under the restrictions of the interview system
 	var/interviewee = FALSE
+
+	/// Whether or not this client has standard hotkeys enabled
+	var/hotkeys = TRUE
+
+	/// Whether the AFK inactivity period has been passed or not.
+	var/inactive = FALSE

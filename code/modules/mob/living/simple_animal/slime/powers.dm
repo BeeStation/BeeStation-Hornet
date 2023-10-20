@@ -28,7 +28,7 @@
 		if(Adjacent(C))
 			choices += C
 
-	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|sortNames(choices)
+	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|sort_names(choices)
 	if(!M)
 		return 0
 	if(CanFeedon(M))
@@ -261,7 +261,7 @@
 	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
 	if(original_nanites)
 		M.AddComponent(/datum/component/nanites, original_nanites.nanite_volume*0.25)
-		SEND_SIGNAL(M, COMSIG_NANITE_SYNC, original_nanites, TRUE, TRUE) //The trues are to copy activation as well
+		SEND_SIGNAL(M, COMSIG_NANITE_SYNC, original_nanites, TRUE, TRUE, TRUE) //The trues are to copy activation as well
 	return M
 
 /mob/living/simple_animal/slime/proc/teleport()

@@ -15,6 +15,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	item_flags = ISWEAPON
 	var/charges = 1
 	var/spawn_type = /obj/tear_in_reality
 	var/spawn_amt = 1
@@ -289,7 +290,7 @@
 			H.dust(TRUE)
 			spooky_scaries.Remove(X)
 			continue
-	listclearnulls(spooky_scaries)
+	list_clear_nulls(spooky_scaries)
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
 /obj/item/necromantic_stone/proc/equip_roman_skeleton(mob/living/carbon/human/H)
@@ -320,6 +321,7 @@
 	var/cooldown = 0
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
+	item_flags = ISWEAPON
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && cooldown < world.time)
@@ -353,7 +355,7 @@
 
 /obj/item/voodoo/attack_self(mob/user)
 	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in sortNames(possible)
+		target = input(user, "Select your victim!", "Voodoo") as null|anything in sort_names(possible)
 		return
 
 	if(user.zone_selected == BODY_ZONE_CHEST)

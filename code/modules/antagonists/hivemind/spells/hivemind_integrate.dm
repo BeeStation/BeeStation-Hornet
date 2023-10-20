@@ -48,7 +48,7 @@
 				user.visible_message("<span class='danger'>[target] seems to be falling unconscious</span>", "<span class='notice'>We begin to fragment [target]'s mind.</span>")
 				to_chat(target, "<span class='userdanger'>Your consciousness begin to waver!</span>")
 
-		if(!do_mob(user, target, 150))
+		if(!do_after(user, 15 SECONDS, target))
 			to_chat(user, "<span class='warning'>Our integration of [target] has been interrupted!</span>")
 			hivehost.isintegrating = FALSE
 			return

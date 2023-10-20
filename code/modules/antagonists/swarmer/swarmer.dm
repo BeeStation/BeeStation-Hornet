@@ -20,6 +20,7 @@
 	roundstart = FALSE
 	assignedrole = ROLE_SWARMER
 	banType = ROLE_SWARMER
+	is_antagonist = TRUE
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
@@ -83,7 +84,7 @@
 	mob_size = MOB_SIZE_TINY
 	ventcrawler = VENTCRAWLER_ALWAYS
 	ranged = 1
-	projectiletype = /obj/item/projectile/beam/disabler
+	projectiletype = /obj/projectile/beam/disabler
 	ranged_cooldown_time = 20
 	projectilesound = 'sound/weapons/taser2.ogg'
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
@@ -138,11 +139,11 @@
 	else
 		death()
 
-/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/O)
+/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
+	if(istype(mover, /obj/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
 		return TRUE
-	if(isswarmer(O))
+	else if(isswarmer(mover))
 		return TRUE
 
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
@@ -443,7 +444,7 @@
 	if(resource_gain)
 		resources += resource_gain
 		add_to_total_resources_eaten(resource_gain)
-		do_attack_animation(target)
+		do_attack_animation(target, no_effect = TRUE)
 		changeNext_move(CLICK_CD_MELEE)
 		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
 		I.pixel_x = target.pixel_x
@@ -468,7 +469,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(atom/movable/target)
 	new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
-	do_attack_animation(target)
+	do_attack_animation(target, no_effect = TRUE)
 	changeNext_move(CLICK_CD_MELEE)
 	SSexplosions.low_mov_atom += target
 
@@ -482,7 +483,7 @@
 
 	to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
 
-	if(!do_mob(src, target, 30))
+	if(!do_after(src, 3 SECONDS, target))
 		return
 
 	var/turf/open/floor/F
@@ -511,13 +512,13 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(obj/machinery/target)
-	do_attack_animation(target)
+	do_attack_animation(target, no_effect = TRUE)
 	to_chat(src, "<span class='info'>We begin to dismantle this machine. We will need to be uninterrupted.</span>")
 	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
 	D.pixel_z = target.pixel_z
-	if(do_mob(src, target, 100))
+	if(do_after(src, 10 SECONDS, target))
 		to_chat(src, "<span class='info'>Dismantling complete.</span>")
 		var/atom/Tsec = target.drop_location()
 		new /obj/item/stack/sheet/iron(Tsec, 5)
@@ -631,7 +632,7 @@
 	if(resources < 5)
 		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
 		return
-	if(do_mob(src, src, 10))
+	if(do_after(src, 1 SECONDS))
 		Fabricate(/obj/structure/swarmer/blockade, 5)
 
 
@@ -643,12 +644,10 @@
 	max_integrity = 50
 	density = TRUE
 
-/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/O)
+/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(isswarmer(O))
-		return 1
-	if(istype(O, /obj/item/projectile/beam/disabler))
-		return 1
+	if(isswarmer(mover) || istype(mover, /obj/projectile/beam/disabler))
+		return TRUE
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Replicate"
@@ -661,7 +660,7 @@
 	if(!isturf(loc))
 		to_chat(src, "<span class='warning'>This is not a suitable location for replicating ourselves. We need more room.</span>")
 		return
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS))
 		var/createtype = SwarmerTypeToCreate()
 		if(createtype && Fabricate(createtype, 50))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, 1, -1)
@@ -678,7 +677,7 @@
 	if(!isturf(loc))
 		return
 	to_chat(src, "<span class='info'>Attempting to repair damage to our body, stand by...</span>")
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS))
 		adjustHealth(-100)
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
@@ -703,7 +702,7 @@
 
 /datum/antagonist/swarmer
 	name = "Swarmer"
-	job_rank = ROLE_SWARMER
+	banning_key = ROLE_SWARMER
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE
@@ -721,7 +720,7 @@
 		Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.")
 
 /datum/team/swarmer
-	name = "The Swarm"
+	name = "Swarmers"
 	var/total_resources_eaten = 0
 
 /datum/antagonist/swarmer/get_team()

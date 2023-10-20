@@ -2,7 +2,7 @@
 	name = "Gangster"
 	roundend_category = "gangsters"
 	can_coexist_with_others = FALSE
-	job_rank = ROLE_GANG
+	banning_key = ROLE_GANG
 	antagpanel_category = "Gang"
 	var/hud_type = "gangster"
 	var/message_name = "Gangster"

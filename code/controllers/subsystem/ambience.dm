@@ -28,6 +28,8 @@ SUBSYSTEM_DEF(ambience)
 
 /datum/controller/subsystem/ambience/proc/process_ambience_client(client/to_process)
 	var/mob/current_mob = to_process.mob
+	if(!current_mob) // clients can be in this list before they have a mob. let's wait until they have a mob.
+		return
 	var/area/current_area = get_area(current_mob)
 	if(!current_area) //Something's gone horribly wrong
 		stack_trace("[key_name(to_process)] has somehow ended up in nullspace. WTF did you do -xoxo ambience subsystem")
@@ -66,7 +68,7 @@ SUBSYSTEM_DEF(ambience)
 
 ///Buzzing sound, the low ship drone that plays constantly, IC (requires the user to be able to hear)
 /datum/controller/subsystem/ambience/proc/play_buzz(mob/M, area/A)
-	if(M.can_hear_ambience() && (M.client.prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE))
+	if(M.can_hear_ambience() && M.client.prefs.read_player_preference(/datum/preference/toggle/sound_ship_ambience))
 		if (!M.client.buzz_playing || (A.ambient_buzz != M.client.buzz_playing))
 			SEND_SOUND(M, sound(A.ambient_buzz, repeat = 1, wait = 0, volume = A.ambient_buzz_vol, channel = CHANNEL_BUZZ))
 			M.client.buzz_playing = A.ambient_buzz // It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one

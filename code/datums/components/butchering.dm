@@ -42,7 +42,7 @@
 /datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)
 	to_chat(user, "<span class='notice'>You begin to butcher [M]...</span>")
 	playsound(M.loc, butcher_sound, 50, TRUE, -1)
-	if(do_mob(user, M, speed) && M.Adjacent(source))
+	if(do_after(user, speed, M) && M.Adjacent(source))
 		Butcher(user, M)
 
 /datum/component/butchering/proc/startNeckSlice(obj/item/source, mob/living/carbon/human/H, mob/living/user)
@@ -53,7 +53,10 @@
 					"<span class = 'userdanger'>Something is cutting into your neck!</span>", NONE)
 
 	playsound(H.loc, butcher_sound, 50, TRUE, -1)
-	if(do_mob(user, H, CLAMP(500 / source.force, 30, 100)) && H.Adjacent(source))
+	var/item_force = source.force
+	if(!item_force) //Division by 0 protection
+		item_force = 1
+	if(do_after(user, clamp(500 / item_force, 30, 100), H) && H.Adjacent(source))
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
 			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
@@ -61,8 +64,8 @@
 
 		H.visible_message("<span class='danger'>[user] slits [H]'s throat!</span>", \
 					"<span class='userdanger'>[user] slits your throat...</span>")
-		H.apply_damage(source.force, BRUTE, BODY_ZONE_HEAD)
-		H.bleed_rate = CLAMP(H.bleed_rate + 20, 0, 30)
+		H.apply_damage(item_force, BRUTE, BODY_ZONE_HEAD)
+		H.bleed_rate = clamp(H.bleed_rate + 20, 0, 30)
 		H.apply_status_effect(/datum/status_effect/neck_slice)
 
 /datum/component/butchering/proc/Butcher(mob/living/butcher, mob/living/meat)

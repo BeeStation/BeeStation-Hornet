@@ -1,5 +1,5 @@
 /*
-	output_atoms	(list of atoms)			The destination(s) for the sounds
+	parent	(atom)							The sound source
 
 	mid_sounds		(list or soundfile)		Since this can be either a list or a single soundfile you can have random sounds. May contain further lists but must contain a soundfile at the end.
 	mid_length		(num)					The length to wait between playing mid_sounds
@@ -25,6 +25,7 @@
 	var/volume = 100
 	var/max_loops
 	var/direct
+	var/vary
 	var/extra_range
 
 	var/timerid
@@ -83,12 +84,12 @@
 		S.volume = volume
 		SEND_SOUND(parent, S)
 	else
-		playsound(parent, S, volume, extra_range)
+		playsound(parent, S, volume, vary, extra_range)
 
 /datum/looping_sound/proc/get_sound(starttime, _mid_sounds)
 	. = _mid_sounds || mid_sounds
 	while(!isfile(.) && !isnull(.))
-		. = pickweight(.)
+		. = pick_weight(.)
 
 /datum/looping_sound/proc/on_start()
 	var/start_wait = 0

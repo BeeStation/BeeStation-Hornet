@@ -55,9 +55,9 @@
 
 	if(prob(squeak_chance))
 		if(!override_squeak_sounds)
-			playsound(parent, pickweight(default_squeak_sounds), volume, 1, -1)
+			playsound(parent, pick_weight(default_squeak_sounds), volume, 1, -1)
 		else
-			playsound(parent, pickweight(override_squeak_sounds), volume, 1, -1)
+			playsound(parent, pick_weight(override_squeak_sounds), volume, 1, -1)
 
 /datum/component/squeak/proc/step_squeak()
 	SIGNAL_HANDLER
@@ -75,8 +75,8 @@
 		var/obj/item/I = arrived
 		if(I.item_flags & ABSTRACT)
 			return
-		else if(istype(arrived, /obj/item/projectile))
-			var/obj/item/projectile/P = arrived
+		else if(istype(arrived, /obj/projectile))
+			var/obj/projectile/P = arrived
 			if(P.original != parent)
 				return
 	if(istype(arrived, /obj/effect/dummy/phased_mob)) //don't squeek if they're in a phased/jaunting container.

@@ -10,6 +10,7 @@
 	det_time = 10
 	display_timer = 0
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 	var/atom/target = null
 	var/mutable_appearance/plastic_overlay
 	var/obj/item/assembly_holder/nadeassembly = null
@@ -30,7 +31,7 @@
 
 /obj/item/grenade/plastic/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/grenade/plastic/Destroy()
 	qdel(nadeassembly)
@@ -105,7 +106,7 @@
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
 	if(user.get_active_held_item() == src)
-		newtime = CLAMP(newtime, 10, 60000)
+		newtime = clamp(newtime, 10, 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 

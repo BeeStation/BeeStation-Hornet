@@ -1,4 +1,5 @@
 //All defines used in reactions are located in ..\__DEFINES\reactions.dm
+#define SET_REACTION_RESULTS(amount) air.reaction_results[type] = amount
 
 /proc/init_gas_reactions()
 	. = list()
@@ -60,16 +61,29 @@
 	id = "vapor"
 
 /datum/gas_reaction/water_vapor/init_reqs()
-	min_requirements = list(GAS_H2O = MOLES_GAS_VISIBLE)
+	min_requirements = list(
+		GAS_H2O = MOLES_GAS_VISIBLE,
+		"MAX_TEMP" = WATER_VAPOR_CONDENSATION_POINT,
+	)
 
 /datum/gas_reaction/water_vapor/react(datum/gas_mixture/air, datum/holder)
-	var/turf/open/location = isturf(holder) ? holder : null
 	. = NO_REACTION
-	if (air.return_temperature() <= WATER_VAPOR_FREEZE)
-		if(location && location.freon_gas_act())
-			. = REACTING
-	else if(location && location.water_vapor_gas_act())
-		air.adjust_moles(GAS_H2O, -MOLES_GAS_VISIBLE)
+	if(!isturf(holder))
+		return
+
+	var/turf/open/location = holder
+	var/consumed = 0
+	switch(air.return_temperature())
+		if(-INFINITY to WATER_VAPOR_DEPOSITION_POINT)
+			if(location?.freeze_turf())
+				consumed = MOLES_GAS_VISIBLE
+		if(WATER_VAPOR_DEPOSITION_POINT to WATER_VAPOR_CONDENSATION_POINT)
+			location.water_vapor_gas_act()
+			consumed = MOLES_GAS_VISIBLE
+
+	if(consumed)
+		air.adjust_moles(GAS_H2O, -consumed)
+		SET_REACTION_RESULTS(consumed)
 		. = REACTING
 
 //tritium combustion: combustion of oxygen and tritium (treated as hydrocarbons). creates hotspots. exothermic
@@ -586,5 +600,5 @@
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature(CLAMP((air.return_temperature()*old_heat_capacity + energy_released)/new_heat_capacity,TCMB,INFINITY))
+			air.set_temperature(clamp((air.return_temperature()*old_heat_capacity + energy_released)/new_heat_capacity,TCMB,INFINITY))
 		return REACTING

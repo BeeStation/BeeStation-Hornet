@@ -38,6 +38,7 @@ To add a crossbreed:
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 6
+	var/discovery_points = 750
 
 /obj/item/slimecross/examine(mob/user)
     . = ..()
@@ -90,6 +91,11 @@ To add a crossbreed:
 		if("adamantine")
 			itemcolor = "#008B8B"
 	add_atom_colour(itemcolor, FIXED_COLOUR_PRIORITY)
+
+/obj/item/slimecross/ComponentInitialize()
+	. = ..()
+	if(discovery_points)
+		AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/slimecrossbeaker //To be used as a result for extract reactions that make chemicals.
 	name = "result extract"

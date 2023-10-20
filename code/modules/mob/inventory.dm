@@ -187,8 +187,8 @@
 		if(I.pulledby)
 			I.pulledby.stop_pulling()
 		update_inv_hands()
-		I.pixel_x = initial(I.pixel_x)
-		I.pixel_y = initial(I.pixel_y)
+		I.pixel_x = I.base_pixel_x
+		I.pixel_y = I.base_pixel_y
 		return hand_index || TRUE
 	return FALSE
 
@@ -511,7 +511,7 @@
 //GetAllContenst that is reasonable and not stupid
 /mob/living/carbon/proc/get_all_gear()
 	var/list/processing_list = get_equipped_items(include_pockets = TRUE) + held_items
-	listclearnulls(processing_list) // handles empty hands
+	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list) )
 		var/atom/A = processing_list[++i]

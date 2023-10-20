@@ -401,13 +401,13 @@ Thresholds
 				done = TRUE
 			if(H.pulling && iscarbon(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 				var/mob/living/carbon/C = H.pulling
-				var/def_check = C.getarmor(type = "melee")
+				var/def_check = C.getarmor(type = MELEE)
 				C.apply_damage(1*power, BRUTE, blocked = def_check)
 				C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
 				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 			for(var/mob/living/carbon/C in ohearers(1, H))
 				if(C.pulling && C.pulling == H)
-					var/def_check = C.getarmor(type = "melee")
+					var/def_check = C.getarmor(type = MELEE)
 					C.apply_damage(3*power, BRUTE, blocked = def_check)
 					C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
 					playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
@@ -504,29 +504,29 @@ Thresholds
 
 /obj/item/ammo_casing/caseless/pimple
 	variance = 120
-	projectile_type = /obj/item/projectile/pimple
+	projectile_type = /obj/projectile/pimple
 	var/list/diseases
 
 /obj/item/ammo_casing/caseless/pimple/ready_proj(atom/target, mob/living/user, quiet, zone_override, atom/fired_from)
 	. = ..()
 	if(!BB)
 		return
-	if(istype(BB, /obj/item/projectile/pimple))
-		var/obj/item/projectile/pimple/P = BB
+	if(istype(BB, /obj/projectile/pimple))
+		var/obj/projectile/pimple/P = BB
 		P.diseases = diseases
 
 
-/obj/item/projectile/pimple
+/obj/projectile/pimple
 	name = "high-velocity pustule"
 	damage = 4 //and very easily blocked with some bio armor
 	range = 5
 	speed = 5
 	damage_type = TOX
 	icon_state = "energy2"
-	flag = "bio"
+	armor_flag = BIO
 	var/list/diseases
 
-/obj/item/projectile/pimple/on_hit(atom/target, blocked)
+/obj/projectile/pimple/on_hit(atom/target, blocked)
 	. = ..()
 	var/turf/T = get_turf(target)
 	playsound(T, 'sound/effects/splat.ogg', 50, 1)

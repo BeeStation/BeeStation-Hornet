@@ -14,66 +14,73 @@
 	thermal_conductivity = 0
 	heat_capacity = 700000
 
+	// Since we have a lighting layer that extends further than the turf, make this turf
+	// create luminosity to nearby turfs.
+	luminosity = 2
+
 	var/destination_z
 	var/destination_x
 	var/destination_y
 
 	var/static/datum/gas_mixture/immutable/space/space_gas
+	// We do NOT want atmos adjacent turfs
+	init_air = FALSE
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	fullbright_type = FULLBRIGHT_STARLIGHT
 	bullet_bounce_sound = null
 
+	z_eventually_space = TRUE
 	vis_flags = VIS_INHERIT_ID	//when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
 /turf/open/space/basic/New()	//Do not convert to Initialize
 	//This is used to optimize the map loader
 	return
 
+/**
+ * Space Initialize
+ *
+ * Doesn't call parent, see [/atom/proc/Initialize]
+ * Doesn't call parent, see [/atom/proc/Initialize].
+ * When adding new stuff to /atom/Initialize, /turf/Initialize, etc
+ * don't just add it here unless space actually needs it.
+ *
+ * There is a lot of work that is intentionally not done because it is not currently used.
+ * This includes stuff like smoothing, blocking camera visibility, etc.
+ * If you are facing some odd bug with specifically space, check if it's something that was
+ * intentionally ommitted from this implementation.
+ */
 /turf/open/space/Initialize(mapload)
 	icon_state = SPACE_ICON_STATE
 	if(!space_gas)
 		space_gas = new
 	air = space_gas
 	update_air_ref(0)
-	vis_contents.Cut() //removes inherited overlays
-	visibilityChanged()
 
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
-	if(length(smoothing_groups))
-		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
-		SET_BITFLAG_LIST(smoothing_groups)
-	if(length(canSmoothWith))
-		sortTim(canSmoothWith)
-		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
-			smoothing_flags |= SMOOTH_OBJ
-		SET_BITFLAG_LIST(canSmoothWith)
 
 	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
-
-	if (light_system == STATIC_LIGHT && light_power && light_range)
-		update_light()
-
-	if (opacity)
-		has_opaque_atom = TRUE
-
-	ComponentInitialize()
+	if(IS_DYNAMIC_LIGHTING(A))
+		overlays += GLOB.starlight_overlay
 
 	return INITIALIZE_HINT_NORMAL
+
+/turf/open/space/Destroy()
+	// Cleanup cached z_eventually_space values above us.
+	if (above)
+		var/turf/T = src
+		while ((T = get_step_multiz(T, UP)))
+			T.z_eventually_space = FALSE
+	return ..()
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /turf/open/space/attack_ghost(mob/dead/observer/user)
 	if(destination_z)
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)
-
-/turf/open/space/Initalize_Atmos(times_fired)
-	return
 
 /turf/open/space/TakeTemperature(temp)
 
@@ -93,16 +100,6 @@
 
 /turf/open/space/remove_air_ratio(amount)
 	return null
-
-/turf/open/space/proc/update_starlight()
-	if(CONFIG_GET(flag/starlight))
-		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			if(isspaceturf(t))
-				//let's NOT update this that much pls
-				continue
-			set_light(2)
-			return
-		set_light(0)
 
 /turf/open/space/attack_paw(mob/user)
 	return attack_hand(user)
@@ -222,21 +219,20 @@
 	if(!CanBuildHere())
 		return FALSE
 
-	switch(the_rcd.mode)
-		if(RCD_FLOORWALL)
-			var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-			if(L)
-				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 1)
-			else
-				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
+	if(the_rcd.mode == RCD_FLOORWALL)
+		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+		if(L)
+			return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 1)
+		else
+			return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
 	return FALSE
 
 /turf/open/space/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_FLOORWALL)
-			to_chat(user, "<span class='notice'>You build a floor.</span>")
-			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			return TRUE
+	if(passed_mode == RCD_FLOORWALL)
+		to_chat(user, "<span class='notice'>You build a floor.</span>")
+		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		return TRUE
 	return FALSE
 
 /turf/open/space/rust_heretic_act()

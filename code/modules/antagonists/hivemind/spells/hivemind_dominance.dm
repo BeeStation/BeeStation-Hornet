@@ -30,7 +30,7 @@
 		var/datum/antagonist/hivevessel/woke_vessel = IS_WOKEVESSEL(C)
 		if (woke_vessel)
 			woke_vessel.glow = hive.glow
-		addtimer(CALLBACK(C, /atom/proc/add_overlay, hive.glow), 150)
+		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, add_overlay), hive.glow), 150)
 
 	for(var/datum/antagonist/hivemind/enemy in GLOB.hivehosts)
 		if(enemy.owner)
@@ -43,7 +43,7 @@
 				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='assimilator'>It can't be!</span>"), 110)
 				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='bigassimilator'>Get away, run!</span>"), 130)
 	sound_to_playing_players('sound/effects/one_mind.ogg')
-	addtimer(CALLBACK(user, /atom/proc/add_overlay, hive.glow), 150)
-	addtimer(CALLBACK(hive, /datum/antagonist/hivemind/proc/dominance), 150)
+	addtimer(CALLBACK(user, TYPE_PROC_REF(/atom, add_overlay), hive.glow), 150)
+	addtimer(CALLBACK(hive, TYPE_PROC_REF(/datum/antagonist/hivemind, dominance)), 150)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(send_to_playing_players), "<span class='bigassimilator'>THE ONE MIND RISES</span>"), 150)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(sound_to_playing_players), 'sound/effects/magic.ogg'), 150)

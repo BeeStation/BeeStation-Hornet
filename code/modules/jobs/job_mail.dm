@@ -7,7 +7,7 @@
 		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
 		/obj/item/clothing/mask/gas/old = 10,
 		/obj/item/clothing/gloves/color/fyellow = 7,
-		/obj/item/choice_beacon/music = 5,
+		/obj/item/choice_beacon/radial/music = 5,
 		/obj/item/toy/crayon/spraycan = 3,
 		/obj/item/crowbar/large = 2,
 	)
@@ -157,9 +157,9 @@
 		/obj/item/storage/box/ingredients/wildcard = 10,
 		//EEEEEEEK
 		/obj/item/storage/box/monkeycubes = 5,
-		/obj/item/kitchen/knife = 4,
+		/obj/item/knife/kitchen = 4,
 		/obj/item/storage/box/ingredients/exotic = 3,
-		/obj/item/kitchen/knife/butcher = 2,
+		/obj/item/knife/butcher = 2,
 	)
 
 //CURATOR
@@ -312,7 +312,7 @@
 //MIME
 /datum/job/mime
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/baguette/mime = 15,
+		/obj/item/food/baguette/mime = 15,
 		/obj/item/reagent_containers/food/snacks/store/cheesewheel = 10,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,

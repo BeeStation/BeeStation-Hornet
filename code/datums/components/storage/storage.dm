@@ -32,6 +32,7 @@
 	var/allow_quick_empty = FALSE					//allow empty verb which allows dumping on the floor of everything inside quickly.
 	var/allow_quick_gather = FALSE					//allow toggle mob verb which toggles collecting all items from a tile.
 	var/insert_while_closed = TRUE					//the user can insert items while the storage is closed, if not the user will have to click/alt click to open it before they can insert items
+	var/can_be_opened = TRUE						//if FALSE, the container cannot be opened to look inside
 
 	var/collection_mode = COLLECT_EVERYTHING
 
@@ -334,8 +335,8 @@
 		numbered_contents = _process_numerical_display()
 		adjusted_contents = numbered_contents.len
 
-	var/columns = CLAMP(max_items, 1, screen_max_columns)
-	var/rows = CLAMP(CEILING(adjusted_contents / columns, 1), 1, screen_max_rows)
+	var/columns = clamp(max_items, 1, screen_max_columns)
+	var/rows = clamp(CEILING(adjusted_contents / columns, 1), 1, screen_max_rows)
 	standard_orient_objs(rows, columns, numbered_contents)
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
@@ -374,6 +375,9 @@
 	closer.screen_loc = "[screen_start_x + cols]:[screen_pixel_x],[screen_start_y]:[screen_pixel_y]"
 
 /datum/component/storage/proc/show_to(mob/M)
+	if(!can_be_opened)
+		to_chat(M, "<span class='warning'>You shouldn't rummage through garbage!</span>")
+		return FALSE
 	if(!M.client)
 		return FALSE
 	var/atom/real_location = real_location()
@@ -383,7 +387,8 @@
 				return FALSE
 	if(M.active_storage)
 		M.active_storage.hide_from(M)
-	animate_parent()
+	if(!istype(M, /mob/dead/observer))
+		animate_parent()
 	orient2hud()
 	M.client.screen |= boxes
 	M.client.screen |= closer
@@ -409,7 +414,8 @@
 	M.client.screen -= boxes
 	M.client.screen -= closer
 	M.client.screen -= real_location.contents
-	animate_parent()
+	if(!istype(M, /mob/dead/observer))
+		animate_parent()
 	return TRUE
 
 /datum/component/storage/proc/close(mob/M)
@@ -517,9 +523,6 @@
 	if(iscyborg(M))
 		return
 	if(!can_be_inserted(I, FALSE, M))
-		var/atom/real_location = real_location()
-		if(real_location.contents.len >= max_items) //don't use items on the backpack if they don't fit
-			return TRUE
 		return FALSE
 	handle_item_insertion(I, FALSE, M)
 
@@ -681,7 +684,8 @@
 		return
 	if(rustle_sound)
 		playsound(parent, "rustle", 50, 1, -5)
-	animate_parent()
+	if(!istype(user, /mob/dead/observer))
+		animate_parent()
 	for(var/mob/viewing as() in viewers(user))
 		if(M == viewing)
 			to_chat(usr, "<span class='notice'>You put [I] [insert_preposition]to [parent].</span>")

@@ -18,6 +18,7 @@
 /obj/machinery/plumbing/reaction_chamber/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/reaction_chamber, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/reaction_chamber/on_reagent_change()
 	if(reagents.total_volume == 0 && emptying) //we were emptying, but now we aren't

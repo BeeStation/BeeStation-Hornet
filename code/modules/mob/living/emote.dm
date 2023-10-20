@@ -417,7 +417,7 @@
 			if(P.can_run_emote(user, status_check = FALSE , intentional = TRUE))
 				keys += P.key
 
-	keys = sortList(keys)
+	keys = sort_list(keys)
 
 	for(var/emote in keys)
 		if(LAZYLEN(message) > 1)
@@ -506,7 +506,7 @@
 	message_insect = "clicks their mandibles"
 
 /datum/emote/living/click/get_sound(mob/living/user)
-	if(ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/simple_animal/mothroach))
+	if(ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/basic/mothroach))
 		return 'sound/creatures/rattle.ogg'
 	else if(isipc(user))
 		return 'sound/machines/click.ogg'

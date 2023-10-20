@@ -30,7 +30,7 @@ GLOBAL_LIST(labor_sheet_values)
 			if(!initial(sheet.point_value) || (initial(sheet.merge_type) && initial(sheet.merge_type) != sheet_type)) //ignore no-value sheets and x/fifty subtypes
 				continue
 			sheet_list += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
-		GLOB.labor_sheet_values = sortList(sheet_list, GLOBAL_PROC_REF(cmp_sheet_list))
+		GLOB.labor_sheet_values = sort_list(sheet_list, GLOBAL_PROC_REF(cmp_sheet_list))
 
 /obj/machinery/mineral/labor_claim_console/Destroy()
 	QDEL_NULL(integrated_radio)
@@ -144,7 +144,9 @@ GLOBAL_LIST(labor_sheet_values)
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I) && user.a_intent == INTENT_HELP)
 		var/obj/item/stack/sheet/inp = I
-		points += inp.point_value * inp.amount
+		process_sheet(inp)
+		visible_message("[user.name] puts \the [I] into \the [src]")
+		return
 	return ..()
 
 /**********************Point Lookup Console**************************/

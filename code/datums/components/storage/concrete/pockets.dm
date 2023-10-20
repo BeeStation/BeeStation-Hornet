@@ -17,6 +17,7 @@
 
 /datum/component/storage/concrete/pockets/small
 	max_items = 1
+	max_w_class = WEIGHT_CLASS_SMALL
 	attack_hand_interact = FALSE
 
 /datum/component/storage/concrete/pockets/tiny
@@ -108,3 +109,12 @@
 					  /obj/item/reagent_containers/food/drinks/bottle/molotov,
 					  /obj/item/reagent_containers/food/drinks/drinkingglass,
 					  /obj/item/ammo_box/a762))
+
+/datum/component/storage/concrete/pockets/void_cloak
+	quickdraw = TRUE
+	max_items = 3
+
+/datum/component/storage/concrete/pockets/void_cloak/Initialize()
+	. = ..()
+	var/static/list/exception_cache = typecacheof(list(/obj/item/clothing/neck/heretic_focus,/obj/item/codex_cicatrix))
+	exception_hold = exception_cache

@@ -18,14 +18,7 @@
 /area/ruin/unpowered)
 "d" = (
 /obj/structure/rack,
-/obj/item/grenade/barrier{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = -1
-	},
+/obj/item/storage/box/sec_barricades,
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/plasteel,

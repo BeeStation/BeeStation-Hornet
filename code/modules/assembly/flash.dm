@@ -89,6 +89,7 @@
 	light_range = FLASH_LIGHT_RANGE
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
+	item_flags = ISWEAPON
 	var/flashing_overlay = "flash-f"
 	var/last_used = 0 //last world.time it was used.
 	var/cooldown = 20
@@ -293,9 +294,13 @@
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
-		R.Paralyze(70)
 		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
-		user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
+		if(R.last_flashed + 30 SECONDS < world.time)
+			R.last_flashed = world.time
+			R.Paralyze(5 SECONDS)
+			user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
+		else
+			user.visible_message("<span class='disarm'>[user] attempts to overload [R]'s sensors with the flash, but defense protocols mitigate the effect!</span>", "<span class='danger'>You attempt to overload [R]'s sensors with the flash, but their defense protocols mitigate the effect!</span>")
 		return TRUE
 
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>", "<span class='warning'>You fail to blind [M] with the flash!</span>")
@@ -429,7 +434,7 @@
 				user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>", "<span class='danger'>You hypno-flash [M]!</span>")
 
 			if(M.hypnosis_vulnerable())
-				M.apply_status_effect(/datum/status_effect/trance, 200, TRUE)
+				M.apply_status_effect(/datum/status_effect/trance/hardened, 200, TRUE)
 			else
 				to_chat(M, "<span class='notice'>The light makes you feel oddly relaxed...</span>")
 				M.confused += min(M.confused + 10, 20)

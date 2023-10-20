@@ -55,9 +55,11 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
 	return pick(GLOB.socks_list)
 
-/proc/random_features()
+/proc/random_features(gender)
 	if(!GLOB.tails_list_human.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
+	if(!GLOB.tails_roundstart_list_human.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_roundstart_list_human)
 	if(!GLOB.tails_list_lizard.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
 	if(!GLOB.snouts_list.len)
@@ -123,7 +125,7 @@
 		"apid_antenna" = pick(GLOB.apid_antenna_list),
 		"apid_stripes" = pick(GLOB.apid_stripes_list),
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
-		"body_model" = MALE
+		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE)
 		)
 	)
 
@@ -151,7 +153,7 @@
 			. = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 		else if(gender==MALE)
 			. = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
-		else if(gender==PLURAL)
+		else
 			. = capitalize(pick(GLOB.first_names)) + " " + capitalize(pick(GLOB.last_names))
 
 		if(!findname(.))
@@ -170,7 +172,7 @@
 /proc/random_skin_tone()
 	return pick(GLOB.skin_tones)
 
-GLOBAL_LIST_INIT(skin_tones, sortList(list(
+GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"albino",
 	"caucasian1",
 	"caucasian2",
@@ -185,6 +187,22 @@ GLOBAL_LIST_INIT(skin_tones, sortList(list(
 	"african2"
 	)))
 
+GLOBAL_LIST_INIT(skin_tone_names, list(
+	"african1" = "Medium brown",
+	"african2" = "Dark brown",
+	"albino" = "Albino",
+	"arab" = "Light brown",
+	"asian1" = "Ivory",
+	"asian2" = "Beige",
+	"caucasian1" = "Porcelain",
+	"caucasian2" = "Light peach",
+	"caucasian3" = "Peach",
+	"indian" = "Brown",
+	"latino" = "Light beige",
+	"mediterranean" = "Olive",
+))
+
+/// An assoc list of species IDs to type paths
 GLOBAL_LIST_EMPTY(species_list)
 
 /proc/age2agedescription(age)
@@ -210,68 +228,6 @@ GLOBAL_LIST_EMPTY(species_list)
 		else
 			return "unknown"
 
-/proc/do_mob(mob/user, mob/target, time = 3 SECONDS, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks)
-	if(!user || !target)
-		return FALSE
-	var/user_loc = user.loc
-
-	var/drifting = FALSE
-	if(SSmove_manager.processing_on(user, SSspacedrift))
-		drifting = TRUE
-
-	LAZYADD(user.do_afters, target)
-	LAZYADD(target.targeted_by, user)
-
-	var/target_loc = target.loc
-
-	var/holding = user.get_active_held_item()
-	var/datum/progressbar/progbar
-	if(progress)
-		progbar = new(user, time, target)
-
-	var/endtime = world.time+time
-	var/starttime = world.time
-	. = TRUE
-	while(world.time < endtime)
-		stoplag(1)
-
-		if(QDELETED(user) || QDELETED(target))
-			. = FALSE
-			break
-
-		if(progress)
-			progbar.update(world.time - starttime)
-
-		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
-			drifting = FALSE
-			user_loc = user.loc
-
-		// Check flags
-		if(!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc)
-			. = FALSE
-
-		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)
-			. = FALSE
-
-		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
-			. = FALSE
-
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated())
-			. = FALSE
-
-		if(extra_checks && !extra_checks.Invoke())
-			. = FALSE
-
-		if(!.)
-			break
-
-	if(progress)
-		qdel(progbar)
-
-	if(!QDELETED(target))
-		LAZYREMOVE(user.do_afters, target)
-		LAZYREMOVE(target.targeted_by, user)
-
 //some additional checks as a callback for for do_afters that want to break on losing health or on the mob taking action
 /mob/proc/break_do_after_checks(list/checked_health, check_clicks)
 	if(check_clicks && next_move > world.time)
@@ -286,18 +242,30 @@ GLOBAL_LIST_EMPTY(species_list)
 		checked_health["health"] = health
 	return ..()
 
-/proc/do_after(mob/user, delay, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks)
+/**
+ * Timed action involving one mob user. A target can also be specified, but it is optional.
+ *
+ * Checks that `user` does not move, change hands, get stunned, etc. for the
+ * given `delay`. Returns `TRUE` on success or `FALSE` on failure.
+ *
+ * Arguments:
+ * * user - the primary "user" of the do_after.
+ * * delay - how long the do_after takes. Defaults to 3 SECONDS.
+ * * target - the (optional) target mob of the do_after. If they move/cease to exist, the do_after is cancelled.
+ * * timed_action_flags - optional flags to override certain do_after checks (see DEFINES/timed_action.dm).
+ * * progress - if TRUE, a progress bar is displayed.
+ * * extra_checks - a callback that can be used to add extra checks to the do_after. Returning false in this callback will cancel the do_after.
+ */
+/proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks)
 	if(!user)
 		return FALSE
-	var/atom/target_loc = null
-	if(target && !isturf(target))
-		target_loc = target.loc
 
 	if(target)
 		LAZYADD(user.do_afters, target)
 		LAZYADD(target.targeted_by, user)
 
 	var/atom/user_loc = user.loc
+	var/atom/target_loc = target?.loc
 
 	var/drifting = FALSE
 	if(SSmove_manager.processing_on(user, SSspacedrift))
@@ -338,15 +306,16 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
 			. = FALSE
 
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated())
+		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = (timed_action_flags & IGNORE_RESTRAINED)))
 			. = FALSE
+
 
 		if(extra_checks && !extra_checks.Invoke())
 			. = FALSE
 
-		// If we have a target, we check for them moving here. We don't care about it if we're drifting, though
+		// If we have a target, we check for them moving here. We don't care about it if we're drifting or we ignore target loc change
 		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && !drifting)
-			if(!QDELETED(target_loc) && (QDELETED(target) || target_loc != target.loc))
+			if(target_loc && user != target && (QDELETED(target) || target_loc != target.loc))
 				. = FALSE
 
 		if(target && !(timed_action_flags & IGNORE_TARGET_IN_DOAFTERS) && !(target in user.do_afters))
@@ -420,18 +389,21 @@ GLOBAL_LIST_EMPTY(species_list)
 /proc/deadchat_broadcast(message, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
 	message = "<span class='linkify'>[message]</span>"
 	for(var/mob/M in GLOB.player_list)
-		var/chat_toggles = TOGGLES_DEFAULT_CHAT
-		var/toggles = TOGGLES_DEFAULT
+		var/death_rattle = TRUE
+		var/arrivals_rattle = TRUE
+		var/dchat = FALSE
+		var/ghostlaws = TRUE
 		var/list/ignoring
 		if(M?.client.prefs)
 			var/datum/preferences/prefs = M.client.prefs
-			chat_toggles = prefs.chat_toggles
-			toggles = prefs.toggles
 			ignoring = prefs.ignoring
-
+			death_rattle = prefs.read_player_preference(/datum/preference/toggle/death_rattle)
+			arrivals_rattle = prefs.read_player_preference(/datum/preference/toggle/arrivals_rattle)
+			dchat = prefs.read_player_preference(/datum/preference/toggle/chat_dead)
+			ghostlaws = prefs.read_player_preference(/datum/preference/toggle/chat_ghostlaws)
 
 		var/override = FALSE
-		if(M?.client.holder && (chat_toggles & CHAT_DEAD))
+		if(M?.client.holder && dchat)
 			override = TRUE
 		if(HAS_TRAIT(M, TRAIT_SIXTHSENSE))
 			override = TRUE
@@ -446,13 +418,13 @@ GLOBAL_LIST_EMPTY(species_list)
 
 		switch(message_type)
 			if(DEADCHAT_DEATHRATTLE)
-				if(toggles & PREFTOGGLE_DISABLE_DEATHRATTLE)
+				if(!death_rattle)
 					continue
 			if(DEADCHAT_ARRIVALRATTLE)
-				if(toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE)
+				if(!arrivals_rattle)
 					continue
 			if(DEADCHAT_LAWCHANGE)
-				if(!(chat_toggles & CHAT_GHOSTLAWS))
+				if(!ghostlaws)
 					continue
 
 		if(isobserver(M))
@@ -486,14 +458,20 @@ GLOBAL_LIST_EMPTY(species_list)
 					mob_spawn_meancritters += T
 				if(FRIENDLY_SPAWN)
 					mob_spawn_nicecritters += T
+		for(var/mob/living/basic/basic_mob as anything in typesof(/mob/living/basic))
+			switch(initial(basic_mob.gold_core_spawnable))
+				if(HOSTILE_SPAWN)
+					mob_spawn_meancritters += basic_mob
+				if(FRIENDLY_SPAWN)
+					mob_spawn_nicecritters += basic_mob
 
 	var/chosen
 	if(mob_class == FRIENDLY_SPAWN)
 		chosen = pick(mob_spawn_nicecritters)
 	else
 		chosen = pick(mob_spawn_meancritters)
-	var/mob/living/simple_animal/C = new chosen(spawn_location)
-	return C
+	var/mob/living/spawned_mob = new chosen(spawn_location)
+	return spawned_mob
 
 /proc/passtable_on(target, source)
 	var/mob/living/L = target
@@ -715,7 +693,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/borgs = active_free_borgs()
 	if(borgs.len)
 		if(user)
-			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sortList(borgs)
+			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sort_list(borgs)
 		else
 			. = pick(borgs)
 	return .
@@ -725,13 +703,13 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/ais = active_ais()
 	if(ais.len)
 		if(user)
-			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sortList(ais)
+			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sort_list(ais)
 		else
 			. = pick(ais)
 	return .
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
-/mob/proc/apply_pref_name(role, client/C)
+/mob/proc/apply_pref_name(preference_type, client/C)
 	if(!C)
 		C = client
 	var/oldname = real_name
@@ -742,20 +720,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/banned = C ? is_banned_from(C.ckey, "Appearance") : null
 
 	while(loop && safety < 5)
-		if(C?.prefs.active_character.custom_names[role] && !safety && !banned)
-			newname = C.prefs.active_character.custom_names[role]
+		if(!safety && !banned)
+			newname = C?.prefs?.read_character_preference(preference_type)
 		else
-			switch(role)
-				if("human")
-					newname = random_unique_name(gender)
-				if("clown")
-					newname = pick(GLOB.clown_names)
-				if("mime")
-					newname = pick(GLOB.mime_names)
-				if("ai")
-					newname = pick(GLOB.ai_names)
-				else
-					return FALSE
+			var/datum/preference/preference = GLOB.preference_entries[preference_type]
+			newname = preference.create_informed_default_value(C.prefs)
 
 		for(var/mob/living/M in GLOB.player_list)
 			if(M == src)

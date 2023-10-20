@@ -3,7 +3,6 @@
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
-	opacity = 1 ///opaque. Menacing.
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -18,6 +17,8 @@
 	var/can_move = 0 //time of next allowed movement
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
+	var/step_multiplier = 1
+	var/step_restricted = 0 //applied on_entered() by things which slow or restrict mech movement. Resets to zero at the end of every movement
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
 	var/normal_step_energy_drain = 10 //How much energy the mech will consume each time it moves. This variable is a backup for when leg actuators affect the energy drain.
 	var/step_energy_drain = 10
@@ -25,7 +26,7 @@
 	var/overload_step_energy_drain_min = 100
 	max_integrity = 300 //max_integrity is base health
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/equipment_disabled = 0 //disabled due to EMP
 	var/obj/item/stock_parts/cell/cell ///Keeps track of the mech's cell
@@ -35,7 +36,6 @@
 	var/last_message = 0
 	var/add_req_access = 1
 	var/maint_access = 0
-	var/dna_lock //dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = FALSE
@@ -139,7 +139,7 @@
 	add_scanmod()
 	add_capacitor()
 	START_PROCESSING(SSobj, src)
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	log_message("[src.name] created.", LOG_MECHA)
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
@@ -149,6 +149,7 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
+	update_step_speed()
 
 /obj/mecha/update_icon()
 	if (silicon_pilot && silicon_icon_state)
@@ -160,6 +161,7 @@
 
 /obj/mecha/rust_heretic_act()
 	take_damage(500,  BRUTE)
+	return TRUE
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -186,7 +188,6 @@
 	if(AI)
 		AI.gib() //No wreck, no AI to recover
 	STOP_PROCESSING(SSobj, src)
-	GLOB.poi_list.Remove(src)
 	equipment.Cut()
 	cell = null
 	scanmod = null
@@ -381,7 +382,7 @@
 
 	if(occupant)
 		if(cell)
-			var/cellcharge = cell.charge/cell.maxcharge
+			var/cellcharge = cell.maxcharge ? cell.charge / cell.maxcharge : 0 //Division by 0 protection
 			switch(cellcharge)
 				if(0.75 to INFINITY)
 					occupant.clear_alert("charge")
@@ -454,10 +455,9 @@
 	..()
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the mech suit's internal controls.</span>")
-	dna_lock = null
 	equipment_disabled = TRUE
 	log_message("System emagged detected", LOG_MECHA, color="red")
-	addtimer(CALLBACK(src, /obj/mecha/proc/restore_equipment), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, restore_equipment)), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 ////////////////////////////
 ///// Action processing ////
@@ -525,6 +525,12 @@
 ////////  Movement procs  ////////
 //////////////////////////////////
 
+/obj/mecha/proc/update_step_speed()
+	// Calculate the speed delta
+	// Calculate the move multiplier speed, to be proportional to mob speed
+	// 1.5 was the previous value, so calculate hte multiplier in proportion to that
+	step_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
+
 /obj/mecha/Move(atom/newloc, direct)
 	. = ..()
 	if(.)
@@ -579,26 +585,28 @@
 
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
-		return 0
+		return FALSE
+	if(direction == UP || direction == DOWN)
+		return FALSE
 	if(!Process_Spacemove(direction))
-		return 0
+		return FALSE
 	if(!has_charge(step_energy_drain))
-		return 0
+		return FALSE
 	if(zoom_mode)
 		if(world.time - last_message > 20)
 			occupant_message("Unable to move while in zoom mode.")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(!cell)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Missing power cell.</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(!scanmod || !capacitor)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Missing [scanmod? "capacitor" : "scanning module"].</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 
 	var/move_result = 0
 	var/oldloc = loc
@@ -610,9 +618,10 @@
 		move_result = mechstep(direction)
 	if(move_result || loc != oldloc)// halfway done diagonal move still returns false
 		use_power(step_energy_drain)
-		can_move = world.time + step_in
-		return 1
-	return 0
+		can_move = world.time + (step_in * step_multiplier) + step_restricted
+		step_restricted = 0
+		return TRUE
+	return FALSE
 
 /obj/mecha/proc/mechturn(direction)
 	setDir(direction)
@@ -622,6 +631,8 @@
 
 /obj/mecha/proc/mechstep(direction)
 	var/current_dir = dir
+	if(!isturf(get_step_multiz(src, direction))) // verify the turf we intend to step into is actually valid
+		direction = direction & ~(UP|DOWN)
 	var/result = step(src,direction)
 	if(strafe)
 		setDir(current_dir)
@@ -647,13 +658,13 @@
 				var/turf/target = get_step(src, dir)
 				if(target.flags_1 & NOJAUNT_1)
 					occupant_message("Phasing anomaly detected, emergency deactivation initiated.")
-					sleep(step_in*3)
+					sleep(step_in*3*step_multiplier)
 					can_move = 1
 					phasing = FALSE
 					return
 				if(do_teleport(src, get_step(src, dir), no_effects = TRUE))
 					use_power(phasing_energy_drain)
-				sleep(step_in*3)
+				sleep(step_in*3*step_multiplier)
 				can_move = 1
 	else
 		if(..()) //mech was thrown
@@ -662,16 +673,16 @@
 			if(nextsmash < world.time)
 				obstacle.mech_melee_attack(src)
 				nextsmash = world.time + smashcooldown
-				if(!obstacle || obstacle.CanPass(src,get_step(src,dir)))
+				if(!obstacle || obstacle.CanPass(src, get_dir(obstacle, src) || dir)) // The else is in case the obstacle is in the same turf.
 					step(src,dir)
 		if(isobj(obstacle))
 			var/obj/O = obstacle
 			if(!O.anchored && O.move_resist <= move_force)
-				step(obstacle, dir)
+				step(obstacle, dir & ~(UP|DOWN))
 		else if(ismob(obstacle))
 			var/mob/M = obstacle
 			if(M.move_resist <= move_force)
-				step(obstacle, dir)
+				step(obstacle, dir & ~(UP|DOWN))
 
 
 
@@ -797,7 +808,7 @@
 			if(AI.stat || !AI.client)
 				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
 				return
-			if(occupant || dna_lock) //Normal AIs cannot steal mechs!
+			if(occupant) //Normal AIs cannot steal mechs!
 				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].</span>")
 				return
 			AI.control_disabled = FALSE
@@ -900,16 +911,6 @@
 		to_chat(usr, "<span class='warning'>The [name] is already occupied!</span>")
 		log_message("Permission denied (Occupied).", LOG_MECHA)
 		return
-	if(dna_lock)
-		var/passed = FALSE
-		if(user.has_dna())
-			var/mob/living/carbon/C = user
-			if(C.dna.unique_enzymes==dna_lock)
-				passed = TRUE
-		if (!passed)
-			to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
-			log_message("Permission denied (DNA LOCK).", LOG_MECHA)
-			return
 	if(!operation_allowed(user))
 		to_chat(user, "<span class='warning'>Access denied. Insufficient operation keycodes.</span>")
 		log_message("Permission denied (No keycode).", LOG_MECHA)
@@ -968,10 +969,6 @@
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
 		return FALSE
-	else if(dna_lock && (!mmi_as_oc.brainmob.stored_dna || (dna_lock != mmi_as_oc.brainmob.stored_dna.unique_enzymes)))
-		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
-		return FALSE
-
 	visible_message("<span class='notice'>[user] starts to insert an MMI into [name].</span>")
 
 	if(do_after(user, 40, target = src))
@@ -1159,8 +1156,6 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
 
-/obj/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
 
 /obj/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
