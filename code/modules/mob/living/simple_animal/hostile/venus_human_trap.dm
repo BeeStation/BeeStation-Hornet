@@ -18,10 +18,15 @@
 	canSmoothWith = list()
 	/// The amount of time it takes to create a venus human trap
 	var/growth_time = 120 SECONDS
+	/// Used by countdown to check time, this is when the timer will complete and the venus trap will spawn.
+	var/finish_time
+	/// The countdown ghosts see to when the plant will hatch
+	var/obj/effect/countdown/flower_bud/countdown
 	smoothing_flags = NONE
 
 /obj/structure/alien/resin/flower_bud_enemy/Initialize(mapload)
 	. = ..()
+	countdown = new(src)
 	var/list/anchors = list()
 	anchors += locate(x-2,y+2,z)
 	anchors += locate(x+2,y+2,z)
@@ -30,7 +35,9 @@
 
 	for(var/turf/T in anchors)
 		Beam(T, "vine", maxdistance=5, beam_type=/obj/effect/ebeam/vine)
+	finish_time = world.time + growth_time
 	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time)
+	countdown.start()
 
 /**
   * Spawns a venus human trap, then qdels itself.
