@@ -113,18 +113,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_lpost)
-"aan" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/iceland_base/command/hos)
 "aao" = (
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plasteel/dark/side{
@@ -262,11 +250,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/science)
-"aaH" = (
-/obj/structure/flora/tree/dead,
-/obj/effect/decal/remains/human,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aaI" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -475,9 +458,6 @@
 "abg" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
@@ -897,10 +877,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/plasteel,
 /area/iceland_base/crew_quarters)
-"acj" = (
-/obj/structure/spider/stickyweb,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "ack" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -1058,10 +1034,6 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"acD" = (
-/obj/machinery/holopad,
-/turf/open/floor/plasteel/white,
-/area/iceland/underground/safe)
 "acE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/random,
@@ -1144,14 +1116,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/iceland_base/command/hos)
-"acO" = (
-/obj/item/clothing/head/snowman{
-	desc = "The head of a dead snowman. There's enough room inside for your own head.";
-	pixel_x = -1;
-	pixel_y = 10
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "acP" = (
 /obj/effect/turf_decal/caution{
 	dir = 8
@@ -1272,8 +1236,8 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 1
 	},
 /turf/open/floor/plasteel/checker,
 /area/iceland_base/crew_quarters/kitchen)
@@ -1318,6 +1282,9 @@
 	},
 /obj/effect/decal/cleanable/food/egg_smudge,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
 /turf/open/floor/plasteel/checker,
 /area/iceland_base/crew_quarters/kitchen)
 "adk" = (
@@ -1370,14 +1337,6 @@
 /obj/machinery/vending/boozeomat,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
-/area/iceland/underground/safe)
-"adr" = (
-/obj/structure/statue/snow/snowlegion{
-	anchored = 1;
-	desc = "It's still alive.";
-	icon_state = "snowlegion_alive"
-	},
-/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "ads" = (
 /obj/structure/table/wood,
@@ -1674,10 +1633,6 @@
 /area/iceland_base/chapel)
 "aeb" = (
 /obj/machinery/computer/secure_data{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Security - Head of Security's Office";
 	dir = 8
 	},
 /turf/open/floor/carpet/red,
@@ -1996,15 +1951,6 @@
 /obj/structure/flora/grass/green,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"aeQ" = (
-/mob/living/simple_animal/hostile/bear/snow{
-	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
-	melee_damage = 15;
-	name = "fat space polar bear";
-	speed = 3
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aeR" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/orange{
@@ -2088,10 +2034,6 @@
 	},
 /turf/open/floor/engine/air,
 /area/iceland_base/engine)
-"aff" = (
-/obj/item/spear/splinter,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "afh" = (
 /obj/structure/table/reinforced{
 	frame = s
@@ -2227,9 +2169,6 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
-"afy" = (
-/turf/open/floor/plating/ice,
-/area/iceland/underground/safe)
 "afz" = (
 /obj/structure/table,
 /obj/item/stack/package_wrap,
@@ -2242,17 +2181,6 @@
 	},
 /turf/open/floor/plasteel/dark/side,
 /area/iceland_base/cargo)
-"afA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/item/stack/sheet/glass{
-	amount = 20;
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "afB" = (
 /obj/structure/table/reinforced{
 	frame = s
@@ -2492,7 +2420,7 @@
 /obj/effect/light_emitter{
 	name = "outdoor light";
 	set_cap = 3;
-	set_luminosity = 6
+	set_luminosity = 2ù
 	},
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
@@ -2562,15 +2490,6 @@
 /obj/item/bedsheet/black,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/grimy,
-/area/iceland/underground/safe)
-"agt" = (
-/obj/structure/flora{
-	desc = "Looks frozen.";
-	icon = 'icons/obj/flora/snowflora.dmi';
-	icon_state = "snowgrass3";
-	name = "frozen flora"
-	},
-/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "agu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2662,15 +2581,6 @@
 /obj/machinery/vending/snack/orange,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
-/area/iceland/underground/safe)
-"agH" = (
-/obj/machinery/holopad,
-/obj/effect/landmark/event_spawn,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/carpet/green,
 /area/iceland/underground/safe)
 "agI" = (
 /obj/effect/turf_decal/weather/snow,
@@ -2958,10 +2868,6 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/engine/air,
 /area/iceland_base/engine)
-"ahw" = (
-/obj/structure/flora/rock/icy,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "ahx" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt,
@@ -3014,6 +2920,11 @@
 /obj/item/storage/box/matches,
 /obj/item/reagent_containers/food/snacks/grown/flower/poppy,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
+/obj/effect/mapping_helpers/apc/discharged,
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/chapel)
 "ahD" = (
@@ -3029,17 +2940,6 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"ahF" = (
-/mob/living/simple_animal/hostile/skeleton/ice{
-	desc = "A reanimated skeleton covered in thick sheet of natural ice. It is obvious to tell that they look really slow.";
-	maxHealth = 20;
-	melee_damage = 5;
-	name = "frozen skeleton";
-	speed = 7;
-	wander = 0
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "ahG" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -3150,9 +3050,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
-"ahV" = (
-/turf/open/floor/carpet/green,
-/area/iceland/underground/safe)
 "ahW" = (
 /obj/structure/fireaxecabinet{
 	pixel_y = -28
@@ -3165,10 +3062,6 @@
 	name = "Shuttle Transist Console"
 	},
 /turf/open/floor/plasteel/dark,
-/area/iceland/underground/safe)
-"ahX" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo,
-/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "ahY" = (
 /obj/structure/table,
@@ -3455,13 +3348,6 @@
 /obj/item/stack/rods,
 /turf/open/floor/plating/snowed,
 /area/iceland/underground/safe)
-"aiH" = (
-/obj/structure/filingcabinet/employment,
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aiI" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/structure/chair/fancy/bench{
@@ -3677,10 +3563,6 @@
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/iceland_base/tcomm)
-"ajo" = (
-/obj/machinery/photocopier,
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "ajp" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
@@ -3788,6 +3670,9 @@
 /obj/machinery/deepfryer,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/airalarm/directional/east,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
 /turf/open/floor/plasteel/checker,
 /area/iceland_base/crew_quarters/kitchen)
 "ajA" = (
@@ -4124,10 +4009,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/crew_quarters)
-"akr" = (
-/mob/living/simple_animal/hostile/tree,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aks" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/turf_decal/weather/snow,
@@ -4409,10 +4290,6 @@
 /obj/item/bedsheet/black,
 /turf/open/floor/carpet/grimy,
 /area/iceland/underground/safe)
-"ala" = (
-/mob/living/simple_animal/hostile/poison/giant_spider/ice,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "alc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -4645,6 +4522,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
+/obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/plasteel/freezer,
 /area/iceland_base/medical)
 "alC" = (
@@ -4706,14 +4584,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"alJ" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/item/clipboard,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "alK" = (
 /obj/structure/noticeboard{
 	dir = 4;
@@ -4934,10 +4804,6 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
-/area/iceland/underground/safe)
-"amr" = (
-/obj/structure/flora/grass/both,
-/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "ams" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5247,20 +5113,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/boreal)
-"anh" = (
-/obj/structure/sign/poster/official/report_crimes{
-	pixel_y = -32
-	},
-/obj/machinery/disposal/bin,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/iceland/underground/safe)
 "ani" = (
 /obj/structure/rack,
 /obj/item/stack/package_wrap,
@@ -5392,12 +5244,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
-"any" = (
-/obj/effect/decal/remains/human{
-	color = "#72e4fa"
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "anz" = (
 /obj/item/trash/candle,
 /turf/open/floor/plasteel/dark/side{
@@ -5475,16 +5321,6 @@
 /obj/structure/closet/cabinet,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
-"anJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "anK" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/modular_fabricator/exosuit_fab,
@@ -6031,10 +5867,6 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
-"apf" = (
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "apg" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet/royalblack,
@@ -6133,15 +5965,6 @@
 /obj/machinery/atmospherics/components/binary/pump,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/engine)
-"apv" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/carpet/green,
-/area/iceland/underground/safe)
 "apw" = (
 /obj/machinery/chem_dispenser/drinks{
 	dir = 8
@@ -6305,10 +6128,6 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
-"apN" = (
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "apO" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
@@ -6420,13 +6239,6 @@
 /obj/item/gps/mining,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/cargo/mining)
-"aqe" = (
-/obj/machinery/vending/wardrobe/law_wardrobe,
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aqf" = (
 /obj/effect/decal/cleanable/glass{
 	dir = 1
@@ -6460,10 +6272,6 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
-/area/iceland/underground/safe)
-"aqj" = (
-/obj/structure/flora/tree/pine,
-/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "aqk" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -6521,6 +6329,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/carpet,
 /area/iceland_base/chapel)
 "aqs" = (
@@ -6551,12 +6362,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/crew_quarters)
-"aqv" = (
-/obj/structure/sign/warning/electricshock{
-	pixel_x = 32
-	},
-/turf/closed/wall,
-/area/iceland/underground/safe)
 "aqw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -6589,15 +6394,6 @@
 /mob/living/simple_animal/pet/penguin/baby,
 /turf/open/floor/plating/ice/smooth,
 /area/iceland)
-"aqD" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aqE" = (
 /obj/structure/closet/secure_closet/medical2,
 /obj/machinery/vending/wallmed{
@@ -7003,15 +6799,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/hallway_command)
-"arF" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 6
-	},
-/obj/item/storage/belt/utility,
-/turf/open/floor/plasteel/white,
-/area/iceland/underground/safe)
 "arG" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -7082,10 +6869,6 @@
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
-/area/iceland/underground/safe)
-"arR" = (
-/obj/item/toy/snowball,
-/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "arS" = (
 /obj/effect/decal/cleanable/blood,
@@ -7240,11 +7023,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
-"aso" = (
-/obj/structure/flora/rock/icy,
-/obj/structure/fence/door,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "asp" = (
 /obj/machinery/computer/atmos_alert{
 	dir = 1
@@ -7315,6 +7093,9 @@
 	name = "Crew Quarters"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/crew_quarters)
 "asx" = (
@@ -7581,12 +7362,6 @@
 /obj/effect/turf_decal/tile/dark/carat,
 /turf/open/floor/plating/snowed,
 /area/iceland_base)
-"ath" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "ati" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/ice,
 /turf/open/floor/plating/asteroid/snow,
@@ -7777,10 +7552,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/crew_quarters/bar)
-"atJ" = (
-/obj/effect/decal/remains/human,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "atK" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass{
@@ -7903,7 +7674,7 @@
 /obj/effect/light_emitter{
 	name = "outdoor light";
 	set_cap = 3;
-	set_luminosity = 6
+	set_luminosity = 2ù
 	},
 /turf/open/floor/grass,
 /area/iceland/underground/safe)
@@ -8105,13 +7876,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"auF" = (
-/obj/effect/decal/cleanable/glitter/blue{
-	desc = "It looks like fancy glitter to me.";
-	name = "icy wind"
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "auG" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/decal/cleanable/food/flour,
@@ -8169,16 +7933,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/iceland/underground/safe)
-"auQ" = (
-/obj/machinery/door/airlock/research{
-	name = "Robotics Lab";
-	req_access_txt = "29"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/white,
-/area/iceland/underground/safe)
 "auR" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -8217,6 +7971,12 @@
 	name = "Cargo Office";
 	req_one_access_txt = "31;48"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/cargo)
 "auV" = (
@@ -8253,9 +8013,6 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
-"ava" = (
-/turf/closed/indestructible/rock/snow,
-/area/commons)
 "avb" = (
 /obj/structure/frame,
 /obj/structure/sign/departments/chemistry{
@@ -8376,10 +8133,6 @@
 	},
 /turf/open/floor/plating,
 /area/iceland_base/crew_quarters)
-"avn" = (
-/mob/living/simple_animal/hostile/illusion/doppelganger,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "avo" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -8622,21 +8375,6 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
-"avP" = (
-/obj/machinery/requests_console{
-	department = "Law Office";
-	name = "'Law Office RC";
-	pixel_y = -62
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/effect/landmark/start/lawyer,
-/obj/structure/chair/fancy/corp{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "avQ" = (
 /obj/effect/decal/cleanable/insectguts,
 /turf/open/floor/carpet/grimy,
@@ -8767,10 +8505,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
-"awg" = (
-/mob/living/simple_animal/hostile/skeleton/plasmaminer,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "awh" = (
 /obj/item/gun/energy/e_gun/mini,
 /obj/structure/rack,
@@ -8903,10 +8637,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_n)
-"awy" = (
-/obj/structure/flora/bush,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "awz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/easel,
@@ -9197,16 +8927,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
-"axe" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/noticeboard{
-	dir = 8;
-	pixel_x = 32
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "axg" = (
 /obj/structure/cable/orange{
 	icon_state = "2-8"
@@ -9284,10 +9004,6 @@
 /obj/structure/cable,
 /turf/open/floor/engine/vacuum,
 /area/iceland_base/engine)
-"axp" = (
-/obj/item/claymore/splinter,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "axq" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -9405,10 +9121,6 @@
 /obj/item/seeds/wheat,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/crew_quarters/hydroponics)
-"axF" = (
-/obj/structure/flora/tree/splinter,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "axG" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -9423,12 +9135,6 @@
 	},
 /turf/open/floor/plating/ice/smooth,
 /area/iceland)
-"axI" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/iceland/underground/safe)
 "axJ" = (
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2;
@@ -9522,10 +9228,6 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"axV" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "axW" = (
 /obj/structure/sink{
 	dir = 4;
@@ -9570,12 +9272,6 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/iceland)
-"ayb" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8
-	},
-/turf/open/floor/wood/cold,
-/area/iceland/underground/safe)
 "ayc" = (
 /obj/structure/closet/wardrobe/robotics_black,
 /turf/open/floor/plating,
@@ -9694,13 +9390,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/science)
-"ayt" = (
-/obj/machinery/modular_fabricator/exosuit_fab,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "ayu" = (
 /obj/effect/landmark/start/head_of_security,
 /obj/structure/chair/fancy/comfy{
@@ -9831,10 +9520,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
-"ayP" = (
-/obj/structure/barricade/wooden/snowed,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "ayQ" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
@@ -9865,12 +9550,6 @@
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/engine)
-"ayU" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel/white,
-/area/iceland/underground/safe)
 "ayV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -10428,12 +10107,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/grimy,
 /area/iceland/underground/safe)
-"aAm" = (
-/obj/machinery/status_display/evac{
-	pixel_x = 32
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aAn" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -10473,9 +10146,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/science/lobby)
 "aAs" = (
-/obj/machinery/power/apc/auto_name/south{
-	pixel_y = -24
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/science)
@@ -10705,10 +10375,6 @@
 /obj/item/stack/sheet/plasteel,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_lpost)
-"aAX" = (
-/obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aAZ" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -10767,6 +10433,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
+/obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/hos)
 "aBh" = (
@@ -10979,16 +10646,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/iceland_base/crew_quarters/hydroponics)
-"aBM" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
-/obj/item/toy/figure/lawyer{
-	pixel_x = 9
-	},
-/obj/item/laser_pointer,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aBN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -11283,6 +10940,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
 /turf/open/floor/plasteel/checker,
 /area/iceland_base/crew_quarters/kitchen)
 "aCs" = (
@@ -11306,17 +10966,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"aCt" = (
-/obj/machinery/requests_console{
-	department = "Lawyer's Office";
-	departmentType = 4;
-	pixel_x = 30
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aCu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
@@ -11347,15 +10996,6 @@
 "aCy" = (
 /turf/closed/wall,
 /area/iceland_base/engine/engine_smes)
-"aCz" = (
-/obj/machinery/computer{
-	desc = "A console meant for calling and sending a transit ferry. It seems iced-over and non-functional.";
-	dir = 4;
-	icon_screen = null;
-	name = "Shuttle Transist Console"
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "aCA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -11492,29 +11132,6 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/iceland_base/engine)
-"aCR" = (
-/obj/structure/table/wood,
-/obj/item/folder/blue{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/folder/red,
-/obj/item/stamp/law,
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/obj/item/computer_hardware/hard_drive/role/lawyer{
-	pixel_x = -5
-	},
-/obj/machinery/camera{
-	c_tag = "Lawyer's Office";
-	dir = 10
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aCS" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -12082,13 +11699,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland/underground/safe)
-"aEz" = (
-/obj/item/clothing/suit/snowman{
-	desc = "The dead body of a snowman. There's holes to stick your own body in it.";
-	name = "snowman corpse"
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aEA" = (
 /obj/structure/flora/tree/pine,
 /obj/structure/flora/grass/brown,
@@ -12287,13 +11897,6 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"aFa" = (
-/obj/structure/flora/tree/pine,
-/obj/effect/decal/remains/human{
-	color = "#72e4fa"
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aFb" = (
 /turf/open/floor/plating/ice/smooth,
 /area/iceland/underground/safe)
@@ -12358,11 +11961,6 @@
 	name = "Chapel Office";
 	req_access_txt = "27"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/chapel)
 "aFl" = (
@@ -12595,9 +12193,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
-"aFR" = (
-/turf/open/floor/plating/ashplanet/wateryrock,
-/area/iceland/underground/safe)
 "aFS" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -12679,20 +12274,12 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/medical)
-"aGe" = (
-/obj/structure/fluff/fokoff_sign,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aGf" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
-"aGg" = (
-/mob/living/simple_animal/pet/penguin/baby,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aGh" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -12776,10 +12363,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/command/hos)
-"aGr" = (
-/obj/structure/flora/stump,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aGs" = (
 /obj/structure/railing{
 	dir = 10
@@ -12814,20 +12397,6 @@
 "aGx" = (
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/powered/iceland/crashlanded_shuttle)
-"aGy" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock{
-	name = "Law Office";
-	req_access_txt = "38"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel/techmaint,
-/area/iceland/underground/safe)
 "aGz" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -12844,12 +12413,6 @@
 /obj/effect/gibspawner/human/bodypartless,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_lpost)
-"aGC" = (
-/obj/structure/fence{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aGD" = (
 /obj/structure/falsewall/wood,
 /turf/open/floor/wood,
@@ -12912,10 +12475,10 @@
 	},
 /obj/structure/bed/double,
 /obj/item/bedsheet/double/captain,
-/obj/item/disk/nuclear/decommission{
-	pixel_y = 8;
-	pixel_x = 8;
-	desc = "An old, worn nuclear authentication disk. Not userful here, but atleast it's cozy..."
+/obj/item/disk/nuclear/fake{
+	desc = "An old, worn nuclear authentication disk. Not userful here, but atleast it's cozy...";
+	name = "outdated nuclear authentication disk";
+	pixel_x = 8
 	},
 /turf/open/floor/carpet/royalblue,
 /area/iceland_base/command/captain)
@@ -12972,18 +12535,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/cargo/mining)
-"aGT" = (
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/grille,
-/obj/structure/window/reinforced/fulltile/ice,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aGU" = (
 /obj/machinery/door/airlock/freezer,
 /turf/open/floor/plating/asteroid/snow,
@@ -13007,6 +12558,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/carpet,
 /area/iceland_base/chapel)
@@ -13110,10 +12664,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
-"aHm" = (
-/mob/living/simple_animal/hostile/heretic_summon/stalker,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aHn" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -13142,12 +12692,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark/side,
 /area/iceland_base/science/lobby)
-"aHr" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "aHs" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -13372,7 +12916,6 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "aHU" = (
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/chief)
 "aHV" = (
@@ -13769,10 +13312,6 @@
 "aIU" = (
 /turf/open/floor/carpet/black,
 /area/iceland_base/chapel)
-"aIV" = (
-/mob/living/simple_animal/hostile/skeleton/templar,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aIW" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/structure/extinguisher_cabinet{
@@ -13933,25 +13472,6 @@
 /obj/effect/decal/cleanable/food/tomato_smudge,
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
-"aJr" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/secure_data/laptop{
-	pixel_y = 2
-	},
-/obj/item/paper/fluff{
-	default_raw_text = "Been here before - Love is when I freeze - Somebody's bloodShot down on his knees - Take whatcha learn and whatcha need.";
-	name = "Lawyer's poem";
-	pixel_x = 9;
-	pixel_y = 6
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
-"aJs" = (
-/obj/structure/window/reinforced/fulltile/ice{
-	name = "frozen window"
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aJt" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/carpet/red,
@@ -14050,24 +13570,6 @@
 /obj/item/bedsheet/purple,
 /turf/open/floor/carpet/grimy,
 /area/iceland/underground/safe)
-"aJJ" = (
-/obj/structure/table/wood,
-/obj/item/folder/yellow,
-/obj/item/paper_bin,
-/obj/item/clothing/glasses/sunglasses/advanced/big{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/sunglasses/advanced{
-	pixel_x = 1;
-	pixel_y = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aJK" = (
 /turf/closed/wall/ice,
 /area/ruin/unpowered/iceland/abandoned_lpost)
@@ -14115,10 +13617,6 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/iceland_base/tcomm)
-"aJR" = (
-/obj/item/kitchen/knife/splinter,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aJS" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/under/misc/assistantformal,
@@ -14208,10 +13706,6 @@
 /area/iceland_base/hallway_command)
 "aKe" = (
 /obj/structure/table_frame,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
-"aKf" = (
-/mob/living/simple_animal/hostile/faithless,
 /turf/open/floor/plating,
 /area/iceland/underground/safe)
 "aKg" = (
@@ -14336,7 +13830,6 @@
 /area/iceland/underground/safe)
 "aKz" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/structure/disposalpipe/segment,
 /mob/living/simple_animal/parrot/Poly,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -14358,28 +13851,6 @@
 /obj/machinery/light/broken,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
-"aKC" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/taperecorder{
-	pixel_x = 3
-	},
-/obj/machinery/button/door{
-	id = "lawyerprivacy";
-	name = "Lawyer's Privacy Control";
-	pixel_y = 24
-	},
-/obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/item/clothing/glasses/sunglasses/advanced,
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aKD" = (
 /obj/structure/flora/grass/both,
 /turf/closed/mineral/random/snowmountain,
@@ -14414,7 +13885,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/orange,
-/obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/hallway_command)
 "aKI" = (
@@ -14503,6 +13973,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/carpet,
 /area/iceland_base/chapel)
@@ -14785,11 +14258,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland_base/crew_quarters)
-"aLC" = (
-/obj/structure/flora/stump,
-/obj/effect/turf_decal/weather/snow,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aLD" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -14927,8 +14395,6 @@
 /obj/structure/table/reinforced{
 	frame = s
 	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/item/paper_bin/construction{
 	pixel_x = -4;
 	pixel_y = 4
@@ -15132,9 +14598,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
-"aMx" = (
-/turf/closed/indestructible/rock/snow,
-/area/ctf)
 "aMy" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/bot,
@@ -15151,10 +14614,6 @@
 /obj/machinery/space_heater,
 /turf/open/floor/plating,
 /area/iceland_base/science/lobby)
-"aMB" = (
-/obj/structure/flora/tree/dead,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aMC" = (
 /turf/open/floor/circuit/green{
 	luminosity = 2
@@ -15322,6 +14781,12 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/crew_quarters/bar)
 "aMX" = (
@@ -15368,16 +14833,6 @@
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"aNd" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aNe" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora/grass/both,
@@ -15408,12 +14863,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark/side,
 /area/iceland_base/science/lobby)
-"aNj" = (
-/obj/structure/statue/snow/snowman{
-	anchored = 1
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aNl" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -15461,9 +14910,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/council)
-"aNu" = (
-/turf/closed/indestructible/rock/snow,
-/area/space)
 "aNv" = (
 /turf/closed/mineral/snowmountain/cavern,
 /area/ruin/powered/iceland/gate/lpost_n)
@@ -15506,10 +14952,6 @@
 	dir = 10
 	},
 /turf/open/floor/plating/dirt/dark,
-/area/iceland/underground/safe)
-"aNA" = (
-/obj/structure/fluff/iced_abductor,
-/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "aNB" = (
 /obj/item/tank/internals/oxygen/yellow,
@@ -15561,14 +15003,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/science)
-"aNJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/iceland/underground/safe)
 "aNK" = (
 /turf/open/floor/plating,
 /area/iceland_base/engine)
@@ -15661,13 +15095,6 @@
 	},
 /obj/item/flashlight/lamp,
 /turf/open/floor/plasteel/dark,
-/area/iceland/underground/safe)
-"aNY" = (
-/obj/structure/table/wood,
-/obj/item/storage/secure/briefcase,
-/obj/item/clothing/accessory/lawyers_badge,
-/obj/machinery/firealarm/directional/west,
-/turf/open/floor/wood,
 /area/iceland/underground/safe)
 "aNZ" = (
 /obj/structure/flora/tree/dead,
@@ -15808,6 +15235,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
+/obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/science)
 "aOr" = (
@@ -15909,7 +15337,6 @@
 "aOH" = (
 /obj/machinery/power/apc/auto_name/west,
 /obj/structure/cable/orange,
-/obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/engine/engine_smes)
 "aOI" = (
@@ -16038,13 +15465,6 @@
 /obj/machinery/deepfryer,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
-/area/iceland/underground/safe)
-"aOZ" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 22
-	},
-/turf/open/floor/wood,
 /area/iceland/underground/safe)
 "aPa" = (
 /obj/effect/decal/cleanable/dirt,
@@ -16204,8 +15624,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
@@ -16396,10 +15814,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/science/lobby)
-"aPQ" = (
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/ice,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aPR" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/green,
@@ -16758,16 +16172,6 @@
 "aQJ" = (
 /turf/closed/wall,
 /area/iceland_base/crew_quarters)
-"aQK" = (
-/obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aQL" = (
 /obj/structure/window/reinforced/fulltile/ice{
 	name = "frozen window"
@@ -16785,14 +16189,6 @@
 /obj/effect/spawner/lootdrop/ruinloot/medical,
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
-"aQN" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "lawyerprivacy";
-	name = "Lawyer's Privacy Shutter"
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aQO" = (
 /turf/closed/wall/r_wall,
 /area/iceland_base/command/hop)
@@ -16952,12 +16348,11 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/iceland_base/crew_quarters/kitchen)
-"aRn" = (
-/mob/living/simple_animal/pet/penguin/emperor,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aRo" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/plating/asteroid/snow{
@@ -17013,12 +16408,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/science/lobby)
-"aRx" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plasteel/white,
-/area/iceland/underground/safe)
 "aRy" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/table,
@@ -17259,10 +16648,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/iceland_base/crew_quarters)
-"aRZ" = (
-/obj/item/fireaxe/splinter,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aSa" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/vomit/old,
@@ -17285,14 +16670,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/water,
 /area/iceland)
-"aSe" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -23
-	},
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "aSf" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -17300,21 +16677,19 @@
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "aSg" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "SMES stowage";
-	req_one_access_txt = "32"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "SMES stowage";
+	req_one_access_txt = "32"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/engine/engine_smes)
 "aSh" = (
@@ -17413,10 +16788,6 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
-"aSr" = (
-/mob/living/simple_animal/hostile/asteroid/basilisk,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aSs" = (
 /obj/item/paper/crumpled/bloody/docsdeathnote{
 	default_raw_text = "Yesterday I finally mustered the courage to ask her out and she said yes! I still feel the butterflies right into my stomach, I fell in love with Karen from the first day we met onboard. I showed her some pictures of the asteroid’s surface and I noticed the awe in her eyes for a particular flower. I’ll go gather it for her tomorrow morning and I’ll give it to her during our dinner!Just changes proposed based on style, purely subjective.Correction proposal:Yesterday I finally mustered the courage to ask her out and she said yes! I can feel my hands still shaking… Finally, after all this time, I’m getting a date with Karen! I showed her pictures that our expedition took the other day, and I noticed her eyes lit up when she saw that one glowy flower. I’m pretty sure I remember the path, so I’ll go gather it for her tomorrow morning, and I’ll give it to her during our dinner!";
@@ -17490,13 +16861,9 @@
 	},
 /obj/item/folder/yellow,
 /obj/item/stamp/chief_engineer,
-/obj/structure/disposalpipe/segment,
 /obj/effect/landmark/event_spawn,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/flashlight/lamp,
@@ -17792,18 +17159,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
-"aTm" = (
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/grille,
-/obj/structure/window/reinforced/fulltile/ice,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aTn" = (
 /obj/machinery/power/apc/auto_name/west,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -17876,9 +17231,6 @@
 /obj/structure/flora/stump,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"aTx" = (
-/turf/open/lava/plasma,
-/area/iceland/underground/safe)
 "aTy" = (
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
@@ -18033,9 +17385,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/underground/safe)
-"aTT" = (
-/turf/closed/indestructible/cordon,
-/area/iceland/underground/safe)
 "aTU" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
@@ -18104,10 +17453,6 @@
 	pixel_y = -32
 	},
 /turf/open/floor/carpet/grimy,
-/area/iceland/underground/safe)
-"aUd" = (
-/obj/structure/fence/door,
-/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "aUe" = (
 /obj/structure/closet/wardrobe/green,
@@ -18209,9 +17554,6 @@
 "aUq" = (
 /turf/open/floor/plasteel,
 /area/iceland_base/crew_quarters/bar)
-"aUr" = (
-/turf/open/openspace,
-/area/iceland)
 "aUs" = (
 /obj/structure/table,
 /obj/item/bedsheet/purple,
@@ -18347,18 +17689,6 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
-"aUI" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 3;
-	pixel_y = 7
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "aUJ" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -18492,10 +17822,6 @@
 /obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/plasteel,
 /area/iceland_base/crew_quarters/bar)
-"aUZ" = (
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aVa" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 1
@@ -18600,14 +17926,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/iceland_base/science)
-"aVn" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/structure/table/wood,
-/obj/machinery/fax/law,
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
 "aVo" = (
 /obj/structure/sink{
 	dir = 8;
@@ -18884,11 +18202,6 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/crew_quarters/bar)
-"aVU" = (
-/obj/effect/landmark/start/lawyer,
-/obj/structure/chair/office,
-/turf/open/floor/carpet/green,
-/area/iceland/underground/safe)
 "aVV" = (
 /obj/structure/flora/tree/pine,
 /turf/open/space/basic,
@@ -18945,10 +18258,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
-"aWe" = (
-/obj/structure/barricade/wooden/crude/snow,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aWf" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
@@ -19109,6 +18418,9 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/food/flour,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
 /turf/open/floor/plasteel/checker,
 /area/iceland_base/crew_quarters/kitchen)
 "aWA" = (
@@ -19230,6 +18542,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/bot_white,
+/obj/effect/mapping_helpers/apc/discharged,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/cargo/mining)
 "aWQ" = (
@@ -19511,6 +18824,9 @@
 /turf/open/floor/plasteel,
 /area/iceland_base/medical)
 "aXD" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/chapel)
 "aXE" = (
@@ -19650,19 +18966,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
-"aXX" = (
-/obj/item/stack/sheet/splinter,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
-"aXY" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/landmark/start/lawyer,
-/obj/structure/disposalpipe/segment,
-/obj/structure/chair/office,
-/turf/open/floor/carpet/green,
-/area/iceland/underground/safe)
 "aXZ" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/ice,
 /turf/open/floor/plating/asteroid/snow,
@@ -19782,13 +19085,6 @@
 	},
 /turf/open/floor/plating,
 /area/iceland_base/science/lobby)
-"aYo" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aYp" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/effect/decal/cleanable/blood/old,
@@ -19993,6 +19289,9 @@
 /obj/structure/altar_of_gods,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/chapel)
@@ -20211,14 +19510,13 @@
 	name = "Engineering Foyer";
 	req_one_access_txt = "32"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/engine)
 "aZt" = (
 /obj/effect/light_emitter{
 	name = "outdoor light";
 	set_cap = 3;
-	set_luminosity = 6
+	set_luminosity = 2ù
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
@@ -20263,10 +19561,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/hos)
-"aZy" = (
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "aZz" = (
 /obj/structure/table/reinforced{
 	frame = s
@@ -20344,30 +19638,6 @@
 /area/iceland/underground/safe)
 "aZI" = (
 /turf/closed/wall/r_wall,
-/area/iceland/underground/safe)
-"aZJ" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/wood,
-/area/iceland/underground/safe)
-"aZK" = (
-/obj/structure/closet/wardrobe/robotics_black,
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Robotics APC";
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plasteel/white,
 /area/iceland/underground/safe)
 "aZL" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -20455,15 +19725,6 @@
 "aZU" = (
 /turf/open/floor/plating/dirt/dark,
 /area/iceland)
-"aZV" = (
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/grille,
-/obj/structure/window/reinforced/fulltile/ice,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aZW" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -20494,6 +19755,10 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"csZ" = (
+/obj/machinery/recharge_station,
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "cHa" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -20507,11 +19772,20 @@
 "dwE" = (
 /turf/closed/wall/ice,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"dxv" = (
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "dYP" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"eqU" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "ezF" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/snowed,
@@ -20519,9 +19793,16 @@
 "eFV" = (
 /turf/open/openspace,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"ftB" = (
+/turf/closed/wall,
+/area/mine/eva)
 "fNS" = (
 /turf/closed/mineral/snowmountain,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"fSJ" = (
+/obj/structure/sign/warning/securearea,
+/turf/closed/wall,
+/area/mine/eva)
 "fTk" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -20532,6 +19813,12 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"gwR" = (
+/obj/machinery/light_switch{
+	pixel_x = 27
+	},
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "gyj" = (
 /turf/closed/mineral/random/snowmountain/cavern,
 /area/iceland_base)
@@ -20550,6 +19837,19 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_n)
+"hrz" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_x = 25
+	},
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 1;
+	req_access = null
+	},
+/turf/open/floor/plasteel,
+/area/mine/eva)
 "hrE" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice,
 /turf/open/floor/plating,
@@ -20565,12 +19865,42 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"hSm" = (
+/turf/open/floor/plasteel,
+/area/mine/eva)
 "ill" = (
 /obj/structure/window/reinforced/fulltile/ice{
 	name = "frozen window"
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/iceland/crashlanded_shuttle)
+"iKv" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/mine/eva)
+"iKS" = (
+/obj/structure/table,
+/obj/item/gps/mining{
+	pixel_x = -8
+	},
+/obj/item/gps/mining{
+	pixel_x = -4
+	},
+/obj/item/gps/mining{
+	pixel_x = 4
+	},
+/obj/item/gps/mining{
+	pixel_x = 8
+	},
+/obj/item/pickaxe,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "iLI" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -20584,6 +19914,15 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"jby" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/mine/eva)
+"jUw" = (
+/obj/machinery/suit_storage_unit/mining,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "kca" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -20598,6 +19937,28 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_n)
+"kzf" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
+"lfc" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 3;
+	height = 10;
+	id = "mining_away";
+	name = "lavaland mine";
+	width = 10
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "lnW" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/snowed,
@@ -20607,9 +19968,6 @@
 /obj/item/stack/sheet/plasteel,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
-"lsy" = (
-/turf/open/floor/plating/asteroid/snow,
-/area/mine/production)
 "ltb" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -20634,11 +19992,40 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"lYM" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/mine/eva)
+"mBA" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel/techmaint,
+/area/mine/eva)
+"mQp" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/obj/structure/railing,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
+	},
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "mRq" = (
 /obj/structure/fence/door,
 /obj/structure/barricade/wooden/crude/snow,
 /turf/open/floor/plating/asteroid/snow,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"nOo" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/turf/open/floor/plasteel,
+/area/mine/eva)
 "nXt" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
@@ -20657,6 +20044,12 @@
 /obj/structure/frame,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
+"pCv" = (
+/obj/machinery/suit_storage_unit/mining,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "pUk" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -20676,10 +20069,27 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/boreal)
+"qTo" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "EVA";
+	dir = 4;
+	network = list("mine")
+	},
+/turf/open/floor/mech_bay_recharge_floor,
+/area/mine/eva)
 "rKD" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating/snowed,
 /area/iceland/underground/safe)
+"sqK" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/open/floor/carpet,
+/area/iceland_base/chapel)
 "sCX" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -20689,6 +20099,10 @@
 "sTs" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"tqK" = (
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "txn" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -20698,12 +20112,21 @@
 "tyB" = (
 /turf/closed/indestructible/riveted,
 /area/ruin/powered/iceland/gate/boreal)
+"tCa" = (
+/obj/machinery/vendor/mining,
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "tPV" = (
 /obj/structure/window/reinforced/fulltile/ice{
 	name = "frozen window"
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"ucH" = (
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe{
+	outdoors = s
+	})
 "ueo" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/ruin/unpowered/iceland/abandoned_chembase)
@@ -20711,6 +20134,18 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/iceland_base/crew_quarters/bar)
+"vcO" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/mine/eva)
+"wVC" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "xqM" = (
 /turf/closed/wall/r_wall,
 /area/iceland_base/command/chief)
@@ -20718,9 +20153,17 @@
 /obj/structure/girder,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
+"xKN" = (
+/obj/machinery/power/apc/auto_name/east,
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "xOR" = (
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"xRe" = (
+/obj/structure/ore_box,
+/turf/open/floor/plasteel,
+/area/mine/eva)
 
 (1,1,1) = {"
 aqL
@@ -20981,10 +20424,10 @@ aiC
 "}
 (2,1,1) = {"
 aqL
-agt
-aRu
-aVS
-aRn
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aEK
@@ -21188,21 +20631,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -21238,10 +20681,10 @@ aiC
 "}
 (3,1,1) = {"
 aqL
-amr
-aJX
-aCP
-aGg
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aEK
@@ -21445,21 +20888,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -21495,10 +20938,10 @@ aiC
 "}
 (4,1,1) = {"
 aqL
-aAX
-aJy
-afy
-ahF
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aEK
@@ -21702,21 +21145,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aPv
 ahs
@@ -21752,10 +21195,10 @@ aiC
 "}
 (5,1,1) = {"
 aqL
-awy
-aDb
-aFb
-aIV
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -21959,21 +21402,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aPv
 axa
 aSQ
@@ -22009,10 +21452,10 @@ aiC
 "}
 (6,1,1) = {"
 aqL
-aGr
-aEK
-aIx
-awg
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aEK
@@ -22216,21 +21659,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aJU
 aCP
 aDO
@@ -22266,10 +21709,10 @@ aiC
 "}
 (7,1,1) = {"
 aqL
-aqj
-aJs
-aNn
-ahX
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aEK
@@ -22473,21 +21916,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aJU
 aoM
 acv
@@ -22523,10 +21966,10 @@ aiC
 "}
 (8,1,1) = {"
 aqL
-aMB
-aCw
-aTx
-aPQ
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aEK
@@ -22730,21 +22173,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aYd
 asA
 aGA
@@ -22780,10 +22223,10 @@ aiC
 "}
 (9,1,1) = {"
 aqL
-aXt
-alV
-awF
-ala
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -22987,21 +22430,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aYd
 aeI
 aGA
@@ -23037,10 +22480,10 @@ aiC
 "}
 (10,1,1) = {"
 aqL
-any
-ayP
-aGA
-aUZ
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -23244,21 +22687,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-ava
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aJU
 aeI
 aGA
@@ -23294,10 +22737,10 @@ aiC
 "}
 (11,1,1) = {"
 aqL
-atJ
-aWe
-aFR
-acj
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -23501,21 +22944,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aJU
 aKL
 aGA
@@ -23551,10 +22994,10 @@ aiC
 "}
 (12,1,1) = {"
 aqL
-adr
-ahw
-aeX
-aSr
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aiC
@@ -23758,21 +23201,21 @@ aiC
 aiC
 aiC
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 adN
 aGA
 aGA
@@ -23808,10 +23251,10 @@ aiC
 "}
 (13,1,1) = {"
 aqL
-aNj
-aNA
-aUK
-aeQ
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aiC
@@ -24015,21 +23458,21 @@ aCP
 aCP
 aCP
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aUy
 aGA
 aGA
@@ -24065,10 +23508,10 @@ aiC
 "}
 (14,1,1) = {"
 aqL
-acO
-aGC
-aEd
-apf
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aiC
@@ -24272,21 +23715,21 @@ aCP
 aCP
 aCP
 aiC
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aGA
 aGA
@@ -24322,10 +23765,10 @@ aiC
 "}
 (15,1,1) = {"
 aqL
-aEz
-aUd
-aEd
-apN
+aqL
+aqL
+aqL
+aqL
 aqL
 aiC
 aiC
@@ -24529,21 +23972,21 @@ aSQ
 aCP
 aCP
 aCP
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aGA
 aGA
@@ -24579,10 +24022,10 @@ aiC
 "}
 (16,1,1) = {"
 aqL
-arR
-aEd
-aEd
-axV
+aqL
+aqL
+aqL
+aqL
 aqL
 aiC
 aJy
@@ -24786,21 +24229,21 @@ aSQ
 aCP
 aCP
 aCP
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aGA
@@ -24836,10 +24279,10 @@ aiC
 "}
 (17,1,1) = {"
 aqL
-ayb
-aEd
-aEd
-aKf
+aqL
+aqL
+aqL
+aqL
 aqL
 aiC
 aJy
@@ -25043,21 +24486,21 @@ aSQ
 aSQ
 aSQ
 aCP
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aGA
@@ -25093,10 +24536,10 @@ aiC
 "}
 (18,1,1) = {"
 aqL
-auF
-aEd
-aEd
-aHm
+aqL
+aqL
+aqL
+aqL
 aqL
 aiC
 aJy
@@ -25300,21 +24743,21 @@ aCP
 aCP
 aCP
 aCP
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
-aMx
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aGA
@@ -25350,10 +24793,10 @@ aiC
 "}
 (19,1,1) = {"
 aqL
-aGe
-aEd
-aEd
-avn
+aqL
+aqL
+aqL
+aqL
 aqL
 aiC
 aJy
@@ -25607,10 +25050,10 @@ aiC
 "}
 (20,1,1) = {"
 aqL
-aEd
-aEd
-aEd
-akr
+aqL
+aqL
+aqL
+aqL
 aqL
 aiC
 aJy
@@ -26678,15 +26121,15 @@ aKJ
 aTG
 aTG
 aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
 aTG
 aTG
 aTG
@@ -26928,22 +26371,22 @@ aKJ
 aTG
 aTG
 aTG
-aTG
-aTG
-aTG
-aKJ
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+ftB
+ftB
+ftB
+ftB
+ftB
+ftB
+tCa
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
 aTG
 aTG
 aTG
@@ -27185,22 +26628,22 @@ aKJ
 aLa
 aTG
 aTG
-aWj
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+fSJ
+eqU
+qTo
+mQp
+csZ
+ftB
+ftB
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
 aTG
 aTG
 aTG
@@ -27442,22 +26885,22 @@ aTG
 aTG
 aTG
 aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+jby
+hSm
+hSm
+hSm
+hSm
+nOo
+jby
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
 aTG
 aTG
 aUh
@@ -27699,22 +27142,22 @@ aTG
 aTG
 aTG
 aTG
-aKJ
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aLV
-aTG
+mBA
+hSm
+lYM
+lYM
+lYM
+hSm
+mBA
+lfc
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
 aTG
 aTG
 aTG
@@ -27956,22 +27399,22 @@ aTG
 aTG
 aKJ
 aTG
-aLV
-aTG
-aTG
-aLV
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+jby
+xRe
+hSm
+hSm
+vcO
+hrz
+jby
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
 aTG
 aTG
 aTG
@@ -28213,22 +27656,22 @@ aWj
 aTG
 aTG
 aTG
-aaV
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aLV
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+fSJ
+jby
+iKv
+iKv
+jby
+ftB
+ftB
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
 aTG
 aTG
 aTG
@@ -28470,22 +27913,22 @@ aTG
 aKJ
 aTG
 aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+ftB
+kzf
+dxv
+dxv
+wVC
+jUw
+ftB
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
 aTG
 aTG
 aTG
@@ -28727,22 +28170,22 @@ aTG
 aWj
 aKJ
 aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+ftB
+iKS
+dxv
+dxv
+wVC
+pCv
+ftB
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
+ajU
 aTG
 aTG
 aTG
@@ -28984,13 +28427,13 @@ aTG
 aTG
 aTG
 aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+ftB
+tqK
+xKN
+gwR
+wVC
+jUw
+ftB
 aTG
 aTG
 aTG
@@ -29241,13 +28684,13 @@ aTG
 aTG
 aTG
 aTG
-aTG
-aLV
-aTG
-aTG
-aTG
-aTG
-aTG
+ftB
+ftB
+ftB
+ftB
+ftB
+ftB
+ftB
 aTG
 aTG
 aTG
@@ -35138,7 +34581,7 @@ aTG
 aTG
 aTG
 aTG
-lsy
+aTG
 aTG
 aTG
 aTG
@@ -42897,7 +42340,7 @@ aTG
 aKJ
 aUh
 aKJ
-aTG
+aHj
 aTG
 aKJ
 aTG
@@ -43418,7 +42861,7 @@ aKJ
 aDT
 aKJ
 aHj
-aTG
+aHj
 aLV
 aTG
 aDF
@@ -44185,7 +43628,7 @@ aTG
 aLV
 aHj
 aLV
-aHj
+aTG
 aTG
 aLV
 aLV
@@ -44442,9 +43885,9 @@ aHj
 aLV
 aTG
 aTG
-aHj
 aTG
-aHj
+aTG
+aTG
 aTG
 aHj
 aTG
@@ -44697,12 +44140,12 @@ aTG
 aTG
 aiA
 aHP
-aFE
-aHP
+apR
 aFE
 aHP
 aHP
 alv
+aLV
 aTG
 aLV
 aTG
@@ -44957,9 +44400,9 @@ anM
 ajU
 ajU
 ajU
-ajU
 anM
 acc
+aTG
 aTG
 aip
 aTG
@@ -45214,9 +44657,9 @@ anM
 ajU
 ajU
 ajU
-ajU
 anM
 abS
+aTG
 aTG
 aLV
 aTG
@@ -45471,9 +44914,9 @@ anM
 ajU
 ajU
 ajU
-ajU
 anM
 acc
+aLV
 aTG
 aCL
 aTG
@@ -45728,9 +45171,9 @@ anM
 ajU
 ajU
 ajU
-ajU
 anM
 abS
+aTG
 aHj
 aTG
 aTG
@@ -45985,9 +45428,9 @@ anM
 ajU
 ajU
 ajU
-ajU
 anM
 acc
+aTG
 aTG
 aTG
 aLV
@@ -46239,12 +45682,12 @@ aTG
 aHj
 aUi
 apR
-aJp
-aaY
+apR
 ada
 aaY
 aaY
 alD
+aLV
 aTG
 aHj
 aLV
@@ -46757,7 +46200,7 @@ aTG
 aHj
 aTG
 aTG
-aTG
+aLV
 aTG
 aHj
 aTG
@@ -47528,7 +46971,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+aHj
 aTG
 aTG
 aTG
@@ -47688,21 +47131,21 @@ aZN
 aZI
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aTq
 auw
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -47945,21 +47388,21 @@ aZN
 aZI
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aTq
 auw
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -48202,21 +47645,21 @@ aZN
 aZI
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aTq
 auw
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -48300,7 +47743,7 @@ aTG
 aTG
 aHj
 aTG
-aTG
+aLV
 aTG
 aTG
 aTG
@@ -48459,21 +47902,21 @@ aZN
 aZI
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aTq
 auw
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -48553,7 +47996,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+aLV
 aTG
 aTG
 aTG
@@ -48716,21 +48159,21 @@ aZI
 ajk
 aEd
 aEd
-ari
-ari
-ajk
-ajk
-ajk
-ajk
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 alQ
 auw
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -48965,29 +48408,29 @@ aHI
 aGt
 ajj
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aDb
 aVF
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -49222,29 +48665,29 @@ aHe
 aHe
 aHe
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aDb
 aVv
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -49328,7 +48771,7 @@ aTG
 aTG
 aHj
 aTG
-aTG
+aLV
 aTG
 aTG
 aTG
@@ -49479,29 +48922,29 @@ aHI
 aGt
 azF
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aDb
 aDb
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -49585,7 +49028,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+amf
 aTG
 aTG
 aTG
@@ -49736,29 +49179,29 @@ awo
 afk
 acE
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aDb
 aDb
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -50001,21 +49444,21 @@ ajk
 ajk
 aEd
 aEd
-ari
-ari
-ari
-ajk
-ajk
-ajk
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aDb
 aDb
 ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -50258,21 +49701,21 @@ aEd
 aEd
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -50516,20 +49959,20 @@ aEd
 aEd
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -50610,12 +50053,12 @@ aTG
 aTG
 aUh
 aTG
-aTG
+aLV
 aTG
 aTG
 aTG
 aHj
-aTG
+aLV
 aTG
 aTG
 aHj
@@ -50773,20 +50216,20 @@ aEd
 aEd
 aEd
 aEd
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ajk
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -50858,7 +50301,7 @@ aql
 alN
 avC
 aTG
-aTG
+amf
 aTG
 aTG
 aTG
@@ -50869,7 +50312,7 @@ aTG
 aTG
 aTG
 aHj
-aTG
+aLV
 aTG
 aTG
 aTG
@@ -51024,26 +50467,26 @@ aDb
 aDb
 aDb
 ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -51281,26 +50724,26 @@ ajk
 aDb
 aDb
 ajk
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -51538,26 +50981,26 @@ ajk
 aDb
 aDb
 ajk
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -51795,26 +51238,26 @@ ajk
 aDb
 aDb
 ajk
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -51894,7 +51337,7 @@ aTG
 aTG
 aTG
 aWj
-aCz
+aTG
 aTG
 aTG
 aTG
@@ -52052,26 +51495,26 @@ ajk
 aDb
 aDb
 ajk
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -52149,7 +51592,7 @@ aJX
 aJX
 aTG
 aTG
-aTG
+amf
 aTG
 aTG
 aTG
@@ -52309,26 +51752,26 @@ ajk
 aDb
 avR
 ajk
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -52566,26 +52009,26 @@ aDb
 aDb
 avR
 ajk
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -52666,7 +52109,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+amf
 aTG
 aTG
 aTG
@@ -52823,26 +52266,26 @@ aDb
 avR
 avR
 ajk
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -52912,7 +52355,7 @@ aau
 aFD
 ayu
 apy
-aan
+aiy
 aUj
 aau
 aJX
@@ -53080,26 +52523,26 @@ ajk
 avR
 avR
 ajk
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
 ajk
 aRu
 aiC
@@ -54113,14 +53556,14 @@ avR
 avR
 ajk
 aiC
-aZV
-aFi
-aUI
-aHr
-aSe
-aFy
-alM
-aRK
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -54184,7 +53627,7 @@ aWU
 aNq
 aNm
 ahq
-aNm
+sqK
 alc
 arC
 aCa
@@ -54370,14 +53813,14 @@ avR
 avR
 ajk
 aiC
-aGT
-aEd
-aZy
-aNJ
-afA
-aFy
-arF
-aRK
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -54627,14 +54070,14 @@ avR
 avR
 ajk
 aiC
-aGT
-aAT
-axI
-acD
-aFy
-aFy
-aLZ
-afn
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -54884,14 +54327,14 @@ avR
 avR
 ajk
 aiC
-aTm
-ayt
-aYo
-aZK
-ayU
-aRx
-aLZ
-aqv
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -55141,14 +54584,14 @@ avR
 avR
 ajk
 aiC
-aCw
-aWH
-aWH
-aRK
-aWH
-auQ
-aRK
-aRK
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -55226,7 +54669,7 @@ aVS
 aNn
 aVS
 aVS
-aVS
+ucH
 aVS
 aVS
 aVS
@@ -55398,7 +54841,7 @@ ajk
 aWJ
 ajk
 ajk
-ari
+aiC
 aiC
 aiC
 aiC
@@ -55655,15 +55098,15 @@ aZl
 aBc
 aIJ
 ajk
-ari
 aiC
-afn
-aKC
-aNY
-aQK
-ath
-alJ
-anh
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -55912,15 +55355,15 @@ aIv
 aBc
 aIv
 ajk
-ari
 aiC
-aQN
-aAP
-ahV
-apv
-aqD
-aZJ
-aNd
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -56169,15 +55612,15 @@ aIv
 aBc
 aIv
 ajk
-ari
 aiC
-aGy
-anJ
-agH
-aXY
-aBM
-aJJ
-aCR
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -56426,15 +55869,15 @@ aIv
 aBc
 aIv
 ajk
-ari
 aiC
-aQN
-aVn
-ahV
-aVU
-aJr
-avP
-ajo
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -56683,15 +56126,15 @@ aIv
 aBc
 aIv
 ajk
-ari
 aiC
-afn
-aqe
-aOZ
-aAm
-axe
-aCt
-aiH
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -56940,15 +56383,15 @@ aIv
 aBc
 aIv
 ajk
-ari
 aiC
-afn
-afn
-afn
-afn
-afn
-afn
-afn
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -57197,15 +56640,15 @@ aZl
 aBc
 aph
 ajk
-ari
 aiC
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -57454,15 +56897,15 @@ ajk
 aWJ
 ajk
 ajk
-ari
 aiC
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -57713,13 +57156,13 @@ ajk
 aiC
 aiC
 aiC
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -57970,13 +57413,13 @@ ajk
 aiC
 aiC
 aiC
-ari
-ari
-ari
-ari
-ari
-ari
-ari
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -58749,12 +58192,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aTT
-aTT
-aTT
-aTT
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -59006,12 +58449,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aEd
-aRu
-aVS
-aRn
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -59263,12 +58706,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aEd
-aJX
-aCP
-aGg
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -59520,12 +58963,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aEd
-aJy
-afy
-ahF
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -59777,12 +59220,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-agt
-aDb
-aFb
-aIV
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -60034,12 +59477,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-amr
-aEK
-aIx
-awg
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -60291,12 +59734,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aAX
-aJs
-aNn
-ahX
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -60548,12 +59991,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-awy
-aCw
-aTx
-aPQ
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -60805,12 +60248,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aLC
-alV
-awF
-ala
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -61062,12 +60505,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aFa
-ayP
-aGA
-aUZ
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -61319,12 +60762,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aaH
-aWe
-aFR
-acj
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -61576,12 +61019,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-adr
-aEd
-aeX
-aSr
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -61705,7 +61148,7 @@ aet
 aTG
 aTf
 aTf
-aNu
+aiC
 aiC
 aiC
 aiC
@@ -61833,12 +61276,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aNj
-aNA
-aUK
-aeQ
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -61962,7 +61405,7 @@ aWj
 aKJ
 aTG
 aTf
-aNu
+aiC
 aiC
 aiC
 aiC
@@ -62090,12 +61533,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-acO
-aGC
-aEd
-apf
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -62219,7 +61662,7 @@ aBp
 aWj
 aTG
 aTf
-aNu
+aiC
 aiC
 aiC
 aiC
@@ -62347,12 +61790,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aEz
-aso
-aEd
-apN
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -62604,12 +62047,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-arR
-aGe
-aEd
-axV
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -62861,12 +62304,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-ayb
-aEd
-aEd
-akr
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -63118,12 +62561,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-auF
-aEd
-aEd
-aHm
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -63375,12 +62818,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-axF
-aEd
-aEd
-avn
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -63632,12 +63075,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aXX
-aEd
-aEd
-aKf
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -63889,12 +63332,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-axp
-aff
-aEd
-aEd
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -64146,12 +63589,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aRZ
-aJR
-aEd
-aEd
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -64403,12 +63846,12 @@ aiC
 aiC
 aiC
 aiC
-aTT
-aTT
-aTT
-aTT
-aTT
-aTT
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aRu
 aiC
 "}
@@ -81379,11 +80822,11 @@ apP
 amj
 aiC
 aiC
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
 aiC
 aiC
 aiC
@@ -81635,14 +81078,14 @@ apP
 apP
 aiC
 aiC
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aiC
 aiC
 aiC
@@ -81891,15 +81334,15 @@ apP
 (239,1,1) = {"
 aiC
 aiC
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 dwE
 dwE
 dwE
@@ -82147,16 +81590,16 @@ apP
 "}
 (240,1,1) = {"
 aiC
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 dwE
 ezF
 xOR
@@ -82403,17 +81846,17 @@ amj
 apP
 "}
 (241,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 dwE
 xOR
 ezF
@@ -82660,17 +82103,17 @@ amj
 apP
 "}
 (242,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 lpV
 aIw
 xOR
@@ -82917,17 +82360,17 @@ amj
 apP
 "}
 (243,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 dYP
 sCX
 xOR
@@ -83174,17 +82617,17 @@ amj
 apP
 "}
 (244,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 bZl
 sCX
 lLx
@@ -83431,32 +82874,32 @@ amj
 apP
 "}
 (245,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 dwE
 aIw
 aHM
 avA
 aDB
 dwE
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -83688,32 +83131,32 @@ apP
 apP
 "}
 (246,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 dwE
 ezF
 sTs
 ate
 auk
 dwE
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -83945,32 +83388,32 @@ apP
 apP
 "}
 (247,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 dwE
 lLx
 lLx
 sTs
 aTl
 dwE
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -84202,32 +83645,32 @@ apP
 apP
 "}
 (248,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 dwE
 dwE
 tPV
 tPV
 dwE
 dwE
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -84459,32 +83902,32 @@ apP
 apP
 "}
 (249,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -84716,32 +84159,32 @@ apP
 apP
 "}
 (250,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -84973,32 +84416,32 @@ amj
 apP
 "}
 (251,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -85230,32 +84673,32 @@ amj
 apP
 "}
 (252,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -85487,32 +84930,32 @@ apP
 apP
 "}
 (253,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -85744,32 +85187,32 @@ apP
 apP
 "}
 (254,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -86001,32 +85444,32 @@ aJX
 apP
 "}
 (255,1,1) = {"
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
-aUr
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL

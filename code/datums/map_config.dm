@@ -26,7 +26,7 @@
 	var/space_empty_levels = 1
 
 	///Type of the mining level to use
-	var/minetype = "lavaland"
+	var/minetype = "iceland"
 
 	///Does the map allow custom shuttles to be purchased
 	var/allow_custom_shuttles = TRUE

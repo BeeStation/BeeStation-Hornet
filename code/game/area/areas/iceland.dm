@@ -37,7 +37,9 @@
 /area/iceland/underground/safe
 	name = "icecaverns (but safe)"
 	icon_state = "iceland_underground"
-	area_flags = UNIQUE_AREA
+	outdoors = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	area_flags = UNIQUE_AREA | VALID_TERRITORY | HIDDEN_AREA
 
 /area/iceland/cavern
 	name = "icecaverns"

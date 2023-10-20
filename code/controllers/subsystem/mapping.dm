@@ -333,6 +333,8 @@ SUBSYSTEM_DEF(mapping)
 	// load mining
 	if(config.minetype == "lavaland")
 		LoadGroup(FailedZs, "Lavaland", "map_files/Mining", "Lavaland.dmm", default_traits = ZTRAITS_LAVALAND, orbital_body_type = /datum/orbital_object/z_linked/lavaland)
+	if(config.minetype == "iceland")
+		LoadGroup(FailedZs, "iceland", "map_files/Mining", "Iceland.dmm", default_traits = ZTRAITS_ICELAND, orbital_body_type = /datum/orbital_object/z_linked/iceland)
 	else if (!isnull(config.minetype))
 		INIT_ANNOUNCE("WARNING: An unknown minetype '[config.minetype]' was set! This is being ignored! Update the maploader code!")
 #endif
