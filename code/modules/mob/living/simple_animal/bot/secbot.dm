@@ -68,7 +68,8 @@
 
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance(UPDATE_ICON)
+
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
@@ -81,11 +82,11 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/mob/living/simple_animal/bot/secbot/update_icon()
+/mob/living/simple_animal/bot/secbot/update_icon_state()
 	if(mode == BOT_HUNT)
 		icon_state = "[initial(icon_state)]-c"
 		return
-	..()
+	return ..()
 
 /mob/living/simple_animal/bot/secbot/turn_off()
 	..()
@@ -196,7 +197,7 @@
 			oldtarget_name = user.name
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
 		declare_arrests = FALSE
-		update_icon()
+		update_appearance()
 
 /mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
 	if(istype(Proj , /obj/projectile/beam)||istype(Proj, /obj/projectile/bullet))
@@ -239,7 +240,7 @@
 	if(!C.handcuffed)
 		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
 		C.update_handcuffed()
-		playsound(src, "law", 50, 0)
+		playsound(src, "law", 50, FALSE)
 		back_to_idle()
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
@@ -267,7 +268,7 @@
 	log_combat(src, C, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	icon_state = "[initial(icon_state)]-c"
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 2)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance)), 0.2 SECONDS)
 
 /mob/living/simple_animal/bot/secbot/handle_automated_action()
 	if(!..())
