@@ -152,7 +152,7 @@
 
 	group = "z_religion" // should be after silicon name group
 	name_type = "Religion name"
-	tooltip = "The name of your religion. This does nothing ingame, thus it's mostly flavourful."
+	tooltip = "The name of your religion, this is used when you are the Chaplain."
 
 	allow_numbers = TRUE
 	can_randomize = FALSE
