@@ -12,6 +12,7 @@
 	var/list/turfs = get_area_turfs(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1], TRUE)
 
 	var/obj/structure/spacevine/SV = new()
+
 	for(var/turf/T in turfs)
 		if(!T.Enter(SV) || isspaceturf(T))
 			turfs -= T
@@ -111,9 +112,6 @@
 	else
 		. = 1
 		QDEL_IN(holder, 5)
-
-/datum/spacevine_mutation/aggressive_spread/proc/aggrospread_act(obj/structure/spacevine/S, mob/living/M)
-	return
 
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/I)
 	explosion(holder.loc, 0, 0, severity, 0, 0)
