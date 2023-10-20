@@ -15,7 +15,7 @@
 	dynamic_hair_suffix = ""
 	dog_fashion = /datum/dog_fashion/head/chef
 
-/obj/item/clothing/head/chefhat/suicide_act(mob/user)
+/obj/item/clothing/head/chefhat/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to become a chef.</span>")
 	user.say("Bork Bork Bork!", forced = "chef hat suicide")
 	sleep(20)

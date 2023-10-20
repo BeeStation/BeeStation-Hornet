@@ -40,9 +40,9 @@
 	. = ..()
 	AddComponent(/datum/component/anti_magic, FALSE, TRUE, _allowed_slots = ITEM_SLOT_HANDS)
 
-/obj/item/storage/book/bible/suicide_act(mob/user)
+/obj/item/storage/book/bible/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is offering [user.p_them()]self to [deity_name]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/storage/book/bible/attack_self(mob/living/carbon/human/H)
 	if(!istype(H))
