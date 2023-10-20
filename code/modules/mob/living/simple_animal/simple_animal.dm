@@ -89,7 +89,9 @@
 
 	var/my_z // I don't want to confuse this with client registered_z
 
-	var/do_footstep = FALSE
+	///What kind of footstep this mob should have. Null if it shouldn't have any.
+	var/footstep_type
+
 	///Generic flags
 	var/simple_mob_flags = NONE
 
@@ -136,10 +138,6 @@
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 
-/mob/living/simple_animal/initialize_footstep()
-	if(do_footstep)
-		..()
-
 /mob/living/simple_animal/updatehealth()
 	. = ..()
 	health = clamp(health, 0, maxHealth)
@@ -163,6 +161,8 @@
 		else
 			set_stat(CONSCIOUS)
 	med_hud_set_status()
+	if(footstep_type)
+		AddComponent(/datum/component/footstep, footstep_type)
 
 
 /mob/living/simple_animal/handle_status_effects(delta_time)

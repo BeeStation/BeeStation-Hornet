@@ -32,7 +32,7 @@
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
 
 	mobchatspan = "assistant"

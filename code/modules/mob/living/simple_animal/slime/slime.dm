@@ -70,8 +70,6 @@
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 	var/force_stasis = FALSE
 
-	do_footstep = TRUE
-
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
 	///////////TIME FOR SUBSPECIES
 
@@ -114,6 +112,7 @@
 	set_nutrition(SLIME_DEFAULT_NUTRITION)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		set_playable(ROLE_SENTIENCE)
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_SLIME, 7.5)
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)

@@ -204,7 +204,7 @@
 	faction = list("evil_clone")
 	status_flags = CANPUSH
 	del_on_death = TRUE
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	mobchatspan = "syndmob"
 
 //============

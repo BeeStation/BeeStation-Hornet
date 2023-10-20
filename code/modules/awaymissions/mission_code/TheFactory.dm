@@ -235,7 +235,7 @@
 	turns_per_move = 5
 	speak_chance = 5
 	del_on_death = TRUE
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	search_objects = 1
 	a_intent = INTENT_HARM
@@ -640,7 +640,7 @@
 	var/active = 0
 	var/cooldown = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/suicidezombie, /obj/item/grenade/syndieminibomb/concussion/frag/activated)
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/zombie_suicide/Aggro()

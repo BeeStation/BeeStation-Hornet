@@ -32,5 +32,5 @@
 	faction = list("faithless")
 	gold_core_spawnable = HOSTILE_SPAWN
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
