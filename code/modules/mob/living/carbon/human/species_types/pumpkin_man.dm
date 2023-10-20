@@ -66,7 +66,7 @@
 		//Do after for *flourish*
 		if(do_after(_user, 3 SECONDS))
 			//Reset overlays
-			head.carved_state = "face[rand(0, 8)]"
+			head.carved_overlay.icon_state = "face[rand(0, 8)]"
 			M.update_body_parts_head_only()
 			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
 			//Adjust the tongue

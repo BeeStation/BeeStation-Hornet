@@ -375,5 +375,5 @@
 	if((message[1] != "*" || message[1] != "#") && !carved)
 		message = "..."
 		to_chat(owner, "<span class='warning'>Something is covering your mouth!</span>")
-		to_chat(owner, "<span class='notice'>Try carving your mouth open.</span>")
+		to_chat(owner, "<span class='notice'>Try carving your head.</span>")
 	speech_args[SPEECH_MESSAGE] = message

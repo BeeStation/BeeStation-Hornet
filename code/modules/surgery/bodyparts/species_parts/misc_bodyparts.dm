@@ -515,13 +515,16 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	item_flags = ISCARVABLE
-	///What state is our carved face
-	var/carved_state
+	///Carved overlay
+	var/image/carved_overlay
+
+/obj/item/bodypart/head/pumpkin_man/Initialize(mapload)
+	. = ..()
+	carved_overlay = image('icons/mob/pumpkin_faces.dmi', "blank", -BODY_LAYER)
 
 /obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
 	. = ..()
-	if(carved_state)
-		. += image('icons/mob/pumpkin_faces.dmi', carved_state, -BODY_LAYER)
+	. += carved_overlay
 
 /obj/item/bodypart/chest/pumpkin_man
 	limb_id = "pumpkin_man"
