@@ -1,0 +1,11 @@
+author: RKz, Timberpoes, MrMelbert
+delete-after: true
+changes:
+  - refactor: machine components are now stored inside the machines themselves, instead
+      of sent to a magical nullspace and creating errors
+  - rscadd: As a result of making circuitboards components, you can now do things
+      like place a bomb on circuitboard, build it in a machine, and it will blow up
+      like you expect it to!
+  - bugfix: machines no longer vend their own components accidentally
+  - bugfix: machines that are supposed to eject contents should actually do so more,
+      and those that shouldn't, should do so less
