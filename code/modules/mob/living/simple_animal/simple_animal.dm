@@ -111,6 +111,9 @@
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
 
+	if(footstep_type)
+		AddElement(/datum/element/footstep, footstep_type)
+
 /mob/living/simple_animal/ComponentInitialize()
 	. = ..()
 	if(dextrous)
@@ -161,8 +164,6 @@
 		else
 			set_stat(CONSCIOUS)
 	med_hud_set_status()
-	if(footstep_type)
-		AddComponent(/datum/component/footstep, footstep_type)
 
 
 /mob/living/simple_animal/handle_status_effects(delta_time)

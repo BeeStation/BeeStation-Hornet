@@ -37,10 +37,7 @@
 	mobchatspan = "alienmobsay"
 
 	discovery_points = 2000
-
-/mob/living/simple_animal/hostile/alien/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW)
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
