@@ -173,7 +173,7 @@
 
 /obj/machinery/suit_storage_unit/Destroy()
 	QDEL_NULL(wires)
-	dump_contents()
+	dump_inventory_contents()
 	return ..()
 
 /obj/machinery/suit_storage_unit/update_overlays()
@@ -212,7 +212,7 @@
 	. = ..()
 	if(!is_operational && state_open)
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 	update_appearance()
 
 /obj/machinery/suit_storage_unit/RefreshParts()
@@ -222,8 +222,8 @@
 	laser_strength_hacked = 15 + (5 * (calculated_laser_rating)) //20 on T1, 35 on T4
 	laser_strength = 12 - (2 * (calculated_laser_rating)) //10 on T1, 4 on T4
 
-/obj/machinery/suit_storage_unit/proc/dump_contents()
-	dropContents()
+/obj/machinery/suit_storage_unit/dump_inventory_contents()
+	. = ..()
 	helmet = null
 	suit = null
 	mask = null
@@ -246,7 +246,7 @@
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 		spawn_frame(disassembled)
 		for(var/obj/item/I in component_parts)
 			I.forceMove(loc)
@@ -456,7 +456,7 @@
 				qdel(contamination)
 		open_machine(FALSE)
 		if(mob_occupant)
-			dump_contents()
+			dump_inventory_contents()
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))
@@ -473,12 +473,12 @@
 			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
 		return
 	open_machine()
-	dump_contents()
+	dump_inventory_contents()
 
 /obj/machinery/suit_storage_unit/container_resist(mob/living/user)
 	if(!locked)
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
@@ -492,7 +492,7 @@
 			"<span class='notice'>You successfully break out of [src]!</span>")
 		locked = FALSE
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 
 	add_fingerprint(user)
 
@@ -512,8 +512,8 @@
 		else
 			I.play_tool_sound(src, 50)
 			visible_message("<span class='notice'>[user] pulls out the contents of [src] outside!</span>", "<span class='notice'>You pull [src]'s contents outside!</span>")
-			dump_contents()
-			update_appearance()
+			dump_inventory_contents()
+			update_icon()
 			return
 	if(state_open && is_operational)
 		if(istype(I, /obj/item/clothing/suit))
@@ -559,7 +559,7 @@
 			if(default_deconstruction_crowbar(I))
 				return
 	if(default_pry_open(I))
-		dump_contents()
+		dump_inventory_contents()
 		return
 
 	return ..()
