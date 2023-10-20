@@ -224,6 +224,32 @@
 	limb_id = "skeleton"
 	should_draw_greyscale = FALSE
 
+//TWISTED
+/obj/item/bodypart/head/twisted
+	limb_id = "twisted"
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/chest/twisted
+	limb_id = "twisted"
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/l_arm/twisted
+	limb_id = "twisted"
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/r_arm/twisted
+	limb_id = "twisted"
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/l_leg/twisted
+	limb_id = "twisted"
+	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/r_leg/twisted
+	limb_id = "twisted"
+	should_draw_greyscale = FALSE
 ///MUSHROOM
 /obj/item/bodypart/head/mushroom
 	limb_id = "mush"

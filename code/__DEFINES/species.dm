@@ -22,6 +22,7 @@
 #define SPECIES_PUMPKINPERSON "pumpkin_man"
 #define SPECIES_SHADOWPERSON "shadow"
 #define SPECIES_SKELETON "skeleton"
+#define SPECIES_TWISTED "twisted"
 #define SPECIES_SNAILPERSON "snail"
 #define SPECIES_SUPERSOLDIER "supersoldier"
 #define SPECIES_VAMPIRE "vampire"
