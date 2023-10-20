@@ -69,6 +69,8 @@
 /datum/spacevine_mutation/proc/on_explosion(severity, target, obj/structure/spacevine/holder)
 	return
 
+/datum/spacevine_mutation/aggressive_spread/proc/aggrospread_act(obj/structure/spacevine/S, mob/living/M)
+	return
 
 /datum/spacevine_mutation/light
 	name = "light"
@@ -135,6 +137,7 @@
 	hue = "#ff7700"
 	quality = MINOR_NEGATIVE
 
+/// Destroys any vine on spread-target's tile. The checks for if this should be done are in the spread() proc.
 /datum/spacevine_mutation/vine_eating/on_spread(obj/structure/spacevine/holder, turf/target)
 	for(var/obj/structure/spacevine/prey in target)
 		qdel(prey)
@@ -151,6 +154,7 @@
 		if(!isvineimmune(M) && M.stat != DEAD) // Don't kill immune creatures. Dead check to prevent log spam when a corpse is trapped between vine eaters.
 			aggrospread_act(holder, M)
 
+/// What happens if an aggr spreading vine buckles a mob.
 /datum/spacevine_mutation/aggressive_spread/on_buckle(obj/structure/spacevine/holder, mob/living/buckled)
 		aggrospread_act(holder, buckled)
 
@@ -540,6 +544,7 @@
 		to_chat(V, "<span class='danger'>The vines [pick("wind", "tangle", "tighten")] around you!</span>")
 		buckle_mob(V, 1)
 
+/// Finds a target tile to spread to. If checks pass it will spread to it and also proc on_spread on target.
 /obj/structure/spacevine/proc/spread()
 	var/direction = pick(GLOB.cardinals)
 	var/turf/stepturf = get_step(src,direction)
