@@ -61,26 +61,25 @@
 
 //Handler for face carving!
 /datum/species/pod/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
-	SIGNAL_HANDLER
-
 	//Check if the item is sharp - give owner a random face if applicable
-	var/mob/living/carbon/M = source
-	if(_item.is_sharp() && locate(/obj/item/bodypart/head/pumpkin_man) in M.internal_organs && _user.a_intent == INTENT_HELP)
+	var/mob/living/carbon/human/M = _source
+	var/obj/item/head = M.get_bodypart(BODY_ZONE_HEAD)
+	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.zone_selected == BODY_ZONE_HEAD)
 		to_chat(_user, "<span class='notice'>You begin to carve a face into [_source]...</span>")
 		//Do after for *flourish*
-		if(do_after)
+		if(do_after(_user, 3 SECONDS))
 			//Reset overlays
 			M.cut_overlay(carved_overlay)
-			carved_overlay = mutable_appearance('icons/mob/pumpkin_faces.dmi', "face[rand(0, 1)]", layer = BELOW_MOB_LAYER+0.1)
+			carved_overlay = mutable_appearance('icons/mob/pumpkin_faces.dmi', "face[rand(0, 8)]", layer = BODY_LAYER) //Every so slightly above the mob, but below features
 			M.add_overlay(carved_overlay)
 			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
 			//Adjust the tongue
-			var/obj/item/organ/tongue/podperson/pumpkin/P = M.internal_organs_slot(ORGAN_SLOT_TONGUE)
+			var/obj/item/organ/tongue/podperson/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
 			if(istype(P))
 				P?.carved = TRUE
 		else
 			to_chat(_user, "<span class='warning'>You fail to carve a face into [_source]!</span>")
-
+		
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"
 	actions_types = list(/datum/action/item_action/organ_action/pumpkin_head_candy)

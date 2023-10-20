@@ -514,6 +514,7 @@
 	limb_id = "pumpkin_man"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	item_flags = ISCARVABLE
 
 /obj/item/bodypart/chest/pumpkin_man
 	limb_id = "pumpkin_man"

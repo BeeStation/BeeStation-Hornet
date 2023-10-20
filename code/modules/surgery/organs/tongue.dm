@@ -366,11 +366,12 @@
 	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
 
 /obj/item/organ/tongue/podperson/pumpkin
+	modifies_speech = TRUE
 	///Is this tongue carved?
 	var/carved = FALSE
 
 /obj/item/organ/tongue/podperson/pumpkin/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if((message[1] != "*" || message[1] != "#") && !carved)
-		message = "#[message]"
+		message = "[message]"
 	speech_args[SPEECH_MESSAGE] = message
