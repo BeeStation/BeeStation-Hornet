@@ -23,7 +23,6 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	bloodcrawl = BLOODCRAWL
-
 	faction = list("hostile")
 	maxHealth = 45
 	health = 45
@@ -44,8 +43,8 @@
 	loot = list(/obj/effect/decal/cleanable/blood, \
 				/obj/effect/decal/cleanable/blood/innards, \
 				/obj/item/organ/heart)
-	del_on_death = TRUE
 	deathmessage = "wails in anger as it collapses into a puddle of viscera!"
+
 
 
 /mob/living/simple_animal/husk/Initialize(mapload)
@@ -57,4 +56,26 @@
 
 
 
+//if the mob dies
+//after 30 seconds
+//poll for ghosts
+/mob/living/simple_animal/husk/proc/reincarnate(src)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as a living husk?", ROLE_REVENANT, /datum/role_preference/midround_ghost/revenant, 10 SECONDS, ignore_category = null, flashwindow = TRUE, req_hours = 0)
+	//get the list of candidates
+	if(LAZYLEN(candidates))
+		var/mob/living/simple_animal/new_husk = new /mob/living/simple_animal/husk(get_turf(src))
+		var/mob/dead/observer/C = pick(candidates)
+		new_husk.key = C.key
+	else
+		message_admins("No ghosts have volunteered to take the living husk!")
+	return
 
+
+/mob/living/simple_animal/husk/death()
+	var/obj/effect/gibspawner/blood_puddle/B = new(get_turf(src))
+	B.name = "MARKER"
+	B.desc = "this is where the code marks the death"
+	deathsound = 'sound/magic/demon_dies.ogg'
+	qdel(src)
+
+	reincarnate(src)
