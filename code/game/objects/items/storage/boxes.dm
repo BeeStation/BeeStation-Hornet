@@ -834,9 +834,9 @@
 	illustration = "heart"
 	foldable = null
 
-/obj/item/storage/box/hug/suicide_act(mob/user)
+/obj/item/storage/box/hug/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
@@ -1052,7 +1052,7 @@
 	theme_name = "fiesta"
 
 /obj/item/storage/box/ingredients/fiesta/PopulateContents()
-	new /obj/item/reagent_containers/food/snacks/tortilla(src)
+	new /obj/item/food/tortilla(src)
 	for(var/i in 1 to 2)
 		new /obj/item/reagent_containers/food/snacks/grown/corn(src)
 		new /obj/item/reagent_containers/food/snacks/grown/soybeans(src)

@@ -52,10 +52,10 @@
 	STR.cant_hold = typecacheof(list(/obj/item/disk/nuclear))
 	STR.can_be_opened = FALSE //Have to dump a trash bag out to look at its contents
 
-/obj/item/storage/bag/trash/suicide_act(mob/user)
+/obj/item/storage/bag/trash/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon()
 	if(contents.len == 0)

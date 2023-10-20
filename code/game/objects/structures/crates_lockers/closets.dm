@@ -173,7 +173,7 @@
 			return FALSE
 	return TRUE
 
-/obj/structure/closet/proc/dump_contents()
+/obj/structure/closet/dump_contents()
 	// Generate the contents if we haven't already
 	if (!contents_initialised)
 		PopulateContents()

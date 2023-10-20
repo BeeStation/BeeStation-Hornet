@@ -143,7 +143,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/smoke_all = FALSE /// Should we smoke all of the chems in the cig before it runs out. Splits each puff to take a portion of the overall chems so by the end you'll always have consumed all of the chems inside.
 	var/list/list_reagents = list(/datum/reagent/drug/nicotine = 15)
 
-/obj/item/clothing/mask/cigarette/suicide_act(mob/user)
+/obj/item/clothing/mask/cigarette/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is huffing [src] as quickly as [user.p_they()] can! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer.</span>")
 	return (TOXLOSS|OXYLOSS)
 
@@ -840,7 +840,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/screw = FALSE // kinky
 	var/super = FALSE //for the fattest vapes dude.
 
-/obj/item/clothing/mask/vape/suicide_act(mob/user)
+/obj/item/clothing/mask/vape/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is puffin hard on dat vape, [user.p_they()] trying to join the vape life on a whole notha plane!</span>")//it doesn't give you cancer, it is cancer
 	return (TOXLOSS|OXYLOSS)
 

@@ -257,11 +257,11 @@
 			return(FIRELOSS)
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
-			return(OXYLOSS)
+			return OXYLOSS
 	else
 		user.visible_message("<span class='suicide'>[user] is pretending to melt [user.p_their()] face off with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(src, dry_fire_sound, 30, TRUE)
-		return (OXYLOSS)
+		return OXYLOSS
 
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
