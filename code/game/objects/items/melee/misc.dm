@@ -25,9 +25,9 @@
 	hitsound = 'sound/weapons/chainhit.ogg'
 	materials = list(/datum/material/iron = 1000)
 
-/obj/item/melee/chainofcommand/suicide_act(mob/user)
+/obj/item/melee/chainofcommand/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/melee/synthetic_arm_blade
 	name = "synthetic arm blade"
@@ -355,7 +355,7 @@
 		return ..()
 	return 0
 
-/obj/item/melee/classic_baton/telescopic/suicide_act(mob/user)
+/obj/item/melee/classic_baton/telescopic/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/brain/B = H.getorgan(/obj/item/organ/brain)
 
@@ -371,7 +371,7 @@
 			H.internal_organs -= B
 			qdel(B)
 		new /obj/effect/gibspawner/generic(H.drop_location(), H)
-		return (BRUTELOSS)
+		return BRUTELOSS
 
 /obj/item/melee/classic_baton/police/telescopic/attack_self(mob/user)
 	on = !on
@@ -662,7 +662,7 @@
 	consume_everything(P)
 	return BULLET_ACT_HIT
 
-/obj/item/melee/supermatter_sword/suicide_act(mob/user)
+/obj/item/melee/supermatter_sword/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] touches [src]'s blade. It looks like [user.p_theyre()] tired of waiting for the radiation to kill [user.p_them()]!</span>")
 	user.dropItemToGround(src, TRUE)
 	shard.Bumped(user)

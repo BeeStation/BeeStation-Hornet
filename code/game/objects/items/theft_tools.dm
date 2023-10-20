@@ -36,9 +36,9 @@
 		flick(pulseicon, src)
 		radiation_pulse(src, 400, 2)
 
-/obj/item/nuke_core/suicide_act(mob/user)
+/obj/item/nuke_core/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (TOXLOSS)
+	return TOXLOSS
 
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
@@ -156,13 +156,14 @@
 	..()
 	if(!iscarbon(user))
 		return FALSE
-	var/mob/ded = user
-	user.visible_message("<span class='danger'>[ded] reaches out and tries to pick up [src]. [ded.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",\
+	var/mob/victim = user
+	user.visible_message("<span class='danger'>[victim] reaches out and tries to pick up [src]. [victim.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",\
 			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
 	radiation_pulse(user, 500, 2)
 	playsound(get_turf(user), 'sound/effects/supermatter.ogg', 50, 1)
-	ded.dust()
+	victim.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
+	victim.dust()
 
 /obj/item/nuke_core_container/supermatter
 	name = "supermatter bin"
@@ -251,6 +252,7 @@
 /obj/item/hemostat/supermatter/proc/Consume(atom/movable/AM, mob/user)
 	if(ismob(AM))
 		var/mob/victim = AM
+		victim.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 		victim.dust()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(victim)].", "supermatter")
@@ -261,6 +263,7 @@
 		user.visible_message("<span class='danger'>As [user] touches [AM] with \the [src], both flash into dust and silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
+		user.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 		user.dust()
 	radiation_pulse(src, 500, 2)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, 1)

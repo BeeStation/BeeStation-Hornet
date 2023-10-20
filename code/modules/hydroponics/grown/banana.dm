@@ -27,18 +27,18 @@
 	juice_results = list(/datum/reagent/consumable/banana = 0)
 	distill_reagent = /datum/reagent/consumable/ethanol/bananahonk
 
-/obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
 	if(!user)
-		return (OXYLOSS)
+		return OXYLOSS
 	user.say("BANG!", forced = /datum/reagent/consumable/banana)
 	sleep(25)
 	if(!user)
-		return (OXYLOSS)
+		return OXYLOSS
 	user.visible_message("<B>[user]</B> laughs so hard they begin to suffocate!")
-	return (OXYLOSS)
+	return OXYLOSS
 
 //Banana Peel
 /obj/item/grown/bananapeel
@@ -54,10 +54,10 @@
 	throw_speed = 3
 	throw_range = 7
 
-/obj/item/grown/bananapeel/suicide_act(mob/user)
+/obj/item/grown/bananapeel/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 
 // Mimana - invisible sprites are totally a feature!
