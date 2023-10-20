@@ -1,0 +1,5 @@
+author: rkz, Tattle
+delete-after: true
+changes:
+  - admin: added investigate deaths to shed some more light on unusual demises, dustings,
+      and gibbings
