@@ -292,8 +292,8 @@
 	severity = 10
 
 /datum/spacevine_mutation/flowering/on_grow(obj/structure/spacevine/holder)
-	if(holder.energy == 2 && prob(severity) && !locate(/obj/structure/alien/resin/flower_bud_enemy) in range(5,holder))
-		new/obj/structure/alien/resin/flower_bud_enemy(get_turf(holder))
+	if(holder.energy == 2 && prob(severity) && !locate(/obj/structure/alien/resin/flower_bud) in range(5,holder))
+		new/obj/structure/alien/resin/flower_bud(get_turf(holder))
 
 /datum/spacevine_mutation/flowering/on_cross(obj/structure/spacevine/holder, mob/living/crosser)
 	if(prob(25))
@@ -545,7 +545,7 @@
 	var/turf/stepturf = get_step(src,direction)
 	if(locate(/obj/structure, stepturf) || locate(/obj/machinery, stepturf))//if we can't grow into a turf, we'll start digging into it
 		for(var/obj/structure/S in stepturf)
-			if(S.density && !istype(S, /obj/structure/alien/resin/flower_bud_enemy) && !istype(S, /obj/structure/reagent_dispensers/fueltank)) //don't breach the station!
+			if(S.density && !istype(S, /obj/structure/alien/resin/flower_bud) && !istype(S, /obj/structure/reagent_dispensers/fueltank)) //don't breach the station!
 				S.take_damage(25)
 		for(var/obj/machinery/M in stepturf)
 			if(M.density && !istype(M, /obj/machinery/power/smes) && !istype(M, /obj/machinery/door/airlock/external) && !istype(M, /obj/machinery/door/firedoor)) //please don't sabotage power or cause a hullbreach!
@@ -561,8 +561,6 @@
 				master.spawn_spacevine_piece(stepturf, src)
 
 /obj/structure/spacevine/ex_act(severity, target)
-	if(istype(target, type)) //if its agressive spread vine dont do anything
-		return
 	var/i
 	for(var/datum/spacevine_mutation/SM in mutations)
 		i += SM.on_explosion(severity, target, src)
