@@ -17,7 +17,8 @@
 	icon_state = "bud0"
 	layer = SPACEVINE_MOB_LAYER
 	opacity = FALSE
-	canSmoothWith = list()
+	canSmoothWith = null
+	smoothing_flags = NONE
 	/// The amount of time it takes to create a venus human trap
 	var/growth_time = 120 SECONDS
 	var/growth_icon = 0
@@ -38,11 +39,15 @@
 	anchors += locate(x+2,y-2,z)
 
 	for(var/turf/T in anchors)
-		Beam(T, "vine", maxdistance=5, beam_type=/obj/effect/ebeam/vine)
+		vines += Beam(T, "vine", maxdistance=5, beam_type=/obj/effect/ebeam/vine)
 	finish_time = world.time + growth_time
 	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time)
 	addtimer(CALLBACK(src, PROC_REF(progress_growth)), growth_time/4)
 	countdown.start()
+
+/obj/structure/alien/resin/flower_bud/Destroy()
+	QDEL_LIST(vines)
+	return ..()
 
 /**
   * Spawns a venus human trap, then qdels itself.
@@ -75,7 +80,6 @@
 
 /obj/effect/ebeam/vine/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!isvineimmune(L))
@@ -100,6 +104,7 @@
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "venus_human_trap"
 	//health_doll_icon = "venus_human_trap"
+	mob_biotypes = MOB_ORGANIC
 	layer = SPACEVINE_MOB_LAYER
 	health = 50
 	maxHealth = 50
@@ -112,11 +117,15 @@
 	attacked_sound = 'sound/creatures/venus_trap_hurt.ogg'
 	deathsound = 'sound/creatures/venus_trap_death.ogg'
 	attack_sound = 'sound/creatures/venus_trap_hit.ogg'
+	unsuitable_heat_damage = 5 //note that venus human traps do not take cold damage, only heat damage- this is because space vines can cause hull breaches
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
+	/// copied over from the code from eyeballs (the mob) to make it easier for venus human traps to see in kudzu that doesn't have the transparency mutation
+	sight = SEE_SELF|SEE_MOBS|SEE_OBJS|SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	faction = list("hostile","vines","plants")
 	initial_language_holder = /datum/language_holder/venus
+	unique_name = TRUE
 	/// A list of all the plant's vines
 	var/list/vines = list()
 	/// The maximum amount of vines a plant can have at one time
@@ -134,7 +143,7 @@
 
 /mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
 	. = ..()
-	pixel_x = dir & (NORTH|WEST) ? 2 : -2
+	pixel_x = base_pixel_x + (dir & (NORTH|WEST) ? 2 : -2)
 
 /mob/living/simple_animal/hostile/venus_human_trap/AttackingTarget()
 	. = ..()
@@ -172,7 +181,7 @@
 
 /mob/living/simple_animal/hostile/venus_human_trap/attack_ghost(mob/user)
 	. = ..()
-	if(.)
+	if(. || !(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
 		return
 	humanize_plant(user)
 
