@@ -88,7 +88,7 @@
 	db_key = "human_name"
 
 	name_type = "Alt. Human name"
-	tooltip = "In specific cases, this name is used instead of your character name."
+	tooltip = "This name is used when the role you are picked for only allows for humans."
 	group = "alt_human" // extra bar looks ugly
 	informed = TRUE
 
