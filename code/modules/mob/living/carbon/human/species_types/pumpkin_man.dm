@@ -9,7 +9,9 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	miss_sound = 'sound/weapons/punchmiss.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
+
 	mutant_brain = /obj/item/organ/brain/pumpkin_brain
+	mutanttongue = /obj/item/organ/tongue/podperson/pumpkin
 
 	species_chest = /obj/item/bodypart/chest/pumpkin_man
 	species_head = /obj/item/bodypart/head/pumpkin_man
@@ -18,11 +20,24 @@
 	species_l_leg = /obj/item/bodypart/l_leg/pumpkin_man
 	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
 
+	///Ref to overlay for carved face
+	var/mutable_appearance/carved_overlay
+
 //Only allow race roundstart on Halloween
 /datum/species/pod/pumpkin_man/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
+
+/datum/species/pod/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	//They can't speak!
+	//Register signal for carving
+	RegisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY, PROC_REF(handle_carving))
+
+/datum/species/pod/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
 
 /datum/species/pod/pumpkin_man/get_species_description()
 	return "A rare subspecies of the Podpeople, Pumpkinpeople are gourdy and orange, appearing every halloween."
@@ -43,6 +58,28 @@
 	)
 
 	return to_add
+
+//Handler for face carving!
+/datum/species/pod/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
+	SIGNAL_HANDLER
+
+	//Check if the item is sharp - give owner a random face if applicable
+	var/mob/living/carbon/M = source
+	if(_item.is_sharp() && locate(/obj/item/bodypart/head/pumpkin_man) in M.internal_organs && _user.a_intent == INTENT_HELP)
+		to_chat(_user, "<span class='notice'>You begin to carve a face into [_source]...</span>")
+		//Do after for *flourish*
+		if(do_after)
+			//Reset overlays
+			M.cut_overlay(carved_overlay)
+			carved_overlay = mutable_appearance('icons/mob/pumpkin_faces.dmi', "face[rand(0, 1)]", layer = BELOW_MOB_LAYER+0.1)
+			M.add_overlay(carved_overlay)
+			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
+			//Adjust the tongue
+			var/obj/item/organ/tongue/podperson/pumpkin/P = M.internal_organs_slot(ORGAN_SLOT_TONGUE)
+			if(istype(P))
+				P?.carved = TRUE
+		else
+			to_chat(_user, "<span class='warning'>You fail to carve a face into [_source]!</span>")
 
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"
