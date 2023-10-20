@@ -46,6 +46,7 @@
 /obj/effect/forcefield/event/vines
 	name = "overgrowth"
 	desc = "A dense wall of impenetrable vines."
+	icon_state = "vine"
 	icon = 'icons/effects/spacevines.dmi'
 
 /obj/effect/forcefield/event/vines/Initialize()
