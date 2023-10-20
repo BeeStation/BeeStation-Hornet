@@ -165,7 +165,7 @@
 
 	group = "z_religion"
 	name_type = "Deity name"
-	tooltip = "The deity's name of your religion. This does nothing ingame, thus it's mostly flavourful."
+	tooltip = "The deity's name in your religion, this is used when you are the Chaplain."
 	allow_numbers = TRUE
 	can_randomize = FALSE
 
