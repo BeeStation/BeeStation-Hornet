@@ -27,6 +27,8 @@
   * Will apply the blind alerts if needed
   */
 /mob/proc/adjust_blindness(amount, force)
+	if(!force && HAS_TRAIT_FROM(src, TRAIT_BLIND, "uncurable"))
+		return
 	var/old_eye_blind = eye_blind
 	eye_blind = max(eye_blind + amount, 0)
 	if(!old_eye_blind || !eye_blind && !HAS_TRAIT(src, TRAIT_BLIND))
