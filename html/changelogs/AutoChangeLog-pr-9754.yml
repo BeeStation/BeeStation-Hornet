@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Objective stashes may no longer spawn in the bathrooms of head's offices.
