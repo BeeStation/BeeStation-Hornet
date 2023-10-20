@@ -373,5 +373,7 @@
 /obj/item/organ/tongue/podperson/pumpkin/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if((message[1] != "*" || message[1] != "#") && !carved)
-		message = "[message]"
+		message = "..."
+		to_chat(owner, "<span class='warning'>Something is covering your mouth!</span>")
+		to_chat(owner, "<span class='notice'>Try carving your mouth open.</span>")
 	speech_args[SPEECH_MESSAGE] = message

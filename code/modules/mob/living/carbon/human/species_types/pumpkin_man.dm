@@ -20,9 +20,6 @@
 	species_l_leg = /obj/item/bodypart/l_leg/pumpkin_man
 	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
 
-	///Ref to overlay for carved face
-	var/mutable_appearance/carved_overlay
-
 //Only allow race roundstart on Halloween
 /datum/species/pod/pumpkin_man/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -63,15 +60,14 @@
 /datum/species/pod/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
 	//Check if the item is sharp - give owner a random face if applicable
 	var/mob/living/carbon/human/M = _source
-	var/obj/item/head = M.get_bodypart(BODY_ZONE_HEAD)
+	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
 	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.zone_selected == BODY_ZONE_HEAD)
 		to_chat(_user, "<span class='notice'>You begin to carve a face into [_source]...</span>")
 		//Do after for *flourish*
 		if(do_after(_user, 3 SECONDS))
 			//Reset overlays
-			M.cut_overlay(carved_overlay)
-			carved_overlay = mutable_appearance('icons/mob/pumpkin_faces.dmi', "face[rand(0, 8)]", layer = BODY_LAYER) //Every so slightly above the mob, but below features
-			M.add_overlay(carved_overlay)
+			head.carved_state = "face[rand(0, 8)]"
+			M.update_body_parts_head_only()
 			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
 			//Adjust the tongue
 			var/obj/item/organ/tongue/podperson/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
