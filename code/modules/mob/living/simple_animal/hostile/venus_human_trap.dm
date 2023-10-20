@@ -158,7 +158,7 @@
 			if(O.density)
 				return
 
-	var/datum/beam/newVine = Beam(the_target, "vine", time=INFINITY, maxdistance = vine_grab_distance, beam_type=/obj/effect/ebeam/vine)
+	var/datum/beam/newVine = Beam(the_target, "vine", maxdistance = vine_grab_distance, beam_type=/obj/effect/ebeam/vine)
 	RegisterSignal(newVine, COMSIG_PARENT_QDELETING, PROC_REF(remove_vine), newVine)
 	vines += newVine
 	if(isliving(the_target))
