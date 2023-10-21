@@ -96,7 +96,7 @@ Difficulty: Medium
 	if(swooping)
 		return
 
-	anger_modifier = CLAMP(((maxHealth - health)/25),0,20)
+	anger_modifier = clamp(((maxHealth - health)/25),0,20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)

@@ -50,11 +50,10 @@
 	user.visible_message("<span class='suicide'>[user] beating [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/storage/box/update_icon()
+/obj/item/storage/box/update_overlays()
 	. = ..()
 	if(illustration)
-		cut_overlays()
-		add_overlay(illustration)
+		. += illustration
 
 /obj/item/storage/box/attack_self(mob/user)
 	..()
@@ -449,7 +448,7 @@
 /obj/item/storage/box/bodybags/PopulateContents()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/deployable/bodybag(src)
+		new /obj/item/bodybag(src)
 
 /obj/item/storage/box/rxglasses
 	name = "box of prescription glasses"
@@ -834,9 +833,9 @@
 	illustration = "heart"
 	foldable = null
 
-/obj/item/storage/box/hug/suicide_act(mob/user)
+/obj/item/storage/box/hug/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
@@ -960,10 +959,12 @@
 	foldable = null
 	var/design = NODESIGN
 
-/obj/item/storage/box/papersack/update_icon()
+/obj/item/storage/box/papersack/update_icon_state()
 	if(contents.len == 0)
 		icon_state = "[item_state]"
-	else icon_state = "[item_state]_closed"
+	else
+		icon_state = "[item_state]_closed"
+	return ..()
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
@@ -1052,7 +1053,7 @@
 	theme_name = "fiesta"
 
 /obj/item/storage/box/ingredients/fiesta/PopulateContents()
-	new /obj/item/reagent_containers/food/snacks/tortilla(src)
+	new /obj/item/food/tortilla(src)
 	for(var/i in 1 to 2)
 		new /obj/item/reagent_containers/food/snacks/grown/corn(src)
 		new /obj/item/reagent_containers/food/snacks/grown/soybeans(src)

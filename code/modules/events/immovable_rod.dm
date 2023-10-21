@@ -65,6 +65,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination = end
 	special_target = aimed_at
 	AddElement(/datum/element/point_of_interest)
+	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 
 	var/special_target_valid = FALSE
 	if(special_target)

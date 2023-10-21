@@ -171,16 +171,15 @@
 	update_icon()
 	ui_update()
 
-/obj/machinery/atmospherics/components/binary/pump/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/atmospherics/components/binary/pump/can_unwrench(mob/user)
 	. = ..()
 	if(. && on && is_operational)
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 
+/obj/machinery/atmospherics/components/binary/pump/can_crawl_through()
+	. = ..()
+	return . && on // If a pump is off, it'll block even when not powered
 
 /obj/machinery/atmospherics/components/binary/pump/layer2
 	piping_layer = 2

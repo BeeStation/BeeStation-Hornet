@@ -62,6 +62,4 @@
 	else
 		icon_state = "clown_prototype_off"
 	usr.update_inv_shoes()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()

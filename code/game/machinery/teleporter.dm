@@ -98,18 +98,14 @@
 	else
 		icon_state = "tele0"
 
-/obj/machinery/teleport/hub/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/teleport/hub/proc/is_ready()
 	. = !panel_open && !(machine_stat & (BROKEN|NOPOWER)) && power_station && power_station.engaged && !(power_station.machine_stat & (BROKEN|NOPOWER))
 
 /obj/machinery/teleport/hub/syndicate/Initialize(mapload)
 	. = ..()
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	var/obj/item/stock_parts/matter_bin/super/super_bin = new(src)
+	LAZYADD(component_parts, super_bin)
 	RefreshParts()
-
 
 /obj/machinery/teleport/station
 	name = "teleporter station"
@@ -225,8 +221,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
 	add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
-	..()
-	update_icon()
+	. = ..()
 	if(teleporter_hub)
 		teleporter_hub.update_icon()
 
