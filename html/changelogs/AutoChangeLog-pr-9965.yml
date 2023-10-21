@@ -1,7 +1,0 @@
-author: rkz, MrPerson
-delete-after: true
-changes:
-  - bugfix: Rechargers now have a panel_open state when you screwdriver them! I fixed
-      it on accident, woops.
-  - code_imp: converts a few dozen update_icons into their respective update_overlays
-      or update_icon_states. Adds parent calls. Modernizes them all to update_appearance.

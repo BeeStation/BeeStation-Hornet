@@ -1,6 +1,0 @@
-author: rkz
-delete-after: true
-changes:
-  - bugfix: nightmares can actually utilize their pocket, belt, and ID slots. It was
-      checking for a jumpsuit on a race that cant wear jumpsuits
-  - balance: removed restriction prohibiting nightmares from wearing masks

@@ -1,9 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - tweak: Vent crawling now has a 1% chance every 3 seconds of constant movement
-      of giving notice to everyone nearby that can hear it, meaning once per 5 minutes
-      of vent crawling does it play a sound to hearing mobs.
-  - balance: Closed/broken/offline atmospherics machinery now prevents creatures from
-      vent-crawling through them, though vents/scrubbers remain unchanged and require
-      being welded still.
