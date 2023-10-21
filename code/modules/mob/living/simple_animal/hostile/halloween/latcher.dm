@@ -26,6 +26,7 @@
 	minbodytemp = 0
 	maxbodytemp = 50000
 	weather_immunities = list("snow")
+	faction = list("hostile", "twisted")
 	stat_attack = DEAD
 	projectiletype = /obj/projectile/latcher_harpoon
 	ranged_cooldown_time = 7 SECONDS
@@ -191,6 +192,10 @@
 	pass_flags = PASSTABLE
 	var/reel
 
+/obj/projectile/latcher_harpoon/harbinger
+	name = "harbinger tendril"
+	damage = 10
+
 /obj/projectile/latcher_harpoon/Initialize()
 	..()
 	hitsound = pick('sound/creatures/halloween/Latcher/LProjectileHit1.ogg',
@@ -205,18 +210,24 @@
 /obj/projectile/latcher_harpoon/on_hit(atom/target, blocked = FALSE)
 	//[firer] is the person who shot the projectile
 	//[target] is the one being hit by it
-	if(iscarbon(target) && istype(firer, /mob/living/simple_animal/hostile/latcher))
+	if(iscarbon(target))
 		var/mob/living/carbon/hooked = target
-		var/mob/living/simple_animal/hostile/latcher/fisherman = firer
+		if(istype(firer, /mob/living/simple_animal/hostile/latcher))
+			var/mob/living/simple_animal/hostile/latcher/fisherman = firer
 
-		playsound(fisherman, 'sound/creatures/halloween/Latcher/LatcherMINE.ogg', 400)
+			playsound(fisherman, 'sound/creatures/halloween/Latcher/LatcherMINE.ogg', 400)
 
-		fisherman.hooked_victim = hooked
-		hooked.Paralyze(1 SECONDS)
-		hooked.Knockdown(6 SECONDS)
-		hooked.Immobilize(6 SECONDS)
-		to_chat(hooked, "<span class='userdanger'>\The [fisherman] has impaled you and is reeling you in!</span>")
-		fisherman.tether_active = fisherman.Beam(hooked, "latcher", time=INFINITY, maxdistance=9, beam_type=/obj/effect/ebeam)
+			fisherman.hooked_victim = hooked
+			hooked.Paralyze(1 SECONDS)
+			hooked.Knockdown(6 SECONDS)
+			hooked.Immobilize(6 SECONDS)
+			to_chat(hooked, "<span class='userdanger'>\The [fisherman] has impaled you and is reeling you in!</span>")
+			fisherman.tether_active = fisherman.Beam(hooked, "latcher", time=INFINITY, maxdistance=9, beam_type=/obj/effect/ebeam)
+
+		if(istype(firer, /mob/living/simple_animal/hostile/megafauna/harbinger))
+			var/mob/living/simple_animal/hostile/megafauna/harbinger/fisherman = firer
+			to_chat(hooked, "<span class='userdanger'>\The [fisherman] has impaled you and is reeling you in!</span>")
+			fisherman.bone_tether(hooked)
 
 	var/datum/beam/B = reel
 	if(B)
