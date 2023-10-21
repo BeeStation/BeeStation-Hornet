@@ -19,11 +19,11 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "t" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "G" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
