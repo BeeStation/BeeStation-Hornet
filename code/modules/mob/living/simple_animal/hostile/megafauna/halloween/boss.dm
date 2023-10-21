@@ -15,6 +15,7 @@
 	melee_damage = 18
 	speed = 10
 	faction = list("hostile")
+	weather_immunities = list("snow")
 	move_to_delay = 1 SECONDS
 	ranged = TRUE
 	pixel_x = -32

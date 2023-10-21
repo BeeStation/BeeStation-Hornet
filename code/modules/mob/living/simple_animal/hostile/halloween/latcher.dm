@@ -22,6 +22,11 @@
 	aggro_vision_range = 9
 	a_intent = INTENT_HARM
 	ranged = TRUE
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = 50000
+	weather_immunities = list("snow")
+	stat_attack = DEAD
 	projectiletype = /obj/projectile/latcher_harpoon
 	ranged_cooldown_time = 7 SECONDS
 	var/mob/living/carbon/hooked_victim //the current victim, if they exist
