@@ -37,21 +37,28 @@
 	gun_charge = 200
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
 	can_charge = FALSE //don't put this in a recharger
+	var/cranking
 
 /obj/item/gun/energy/laser/repeater/proc/crank_charge(mob/living/user)
 	if(cell.charge >= gun_charge)
 		to_chat(user,"<span class='danger'>The gun is at maximum charge already!</span>")
 		return
-	else
+	else if(!cranking)
 		balloon_alert(user, "You start cranking")
 		while(cell.charge < gun_charge)
-			if(do_after(user, 1 SECONDS))
+			cranking = TRUE
+			if(do_after(user, 1 SECONDS) && cranking)
 				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
 				cell.charge += 50
 				flick("repeater", src)
 				update_icon()
 			else
+				cranking = FALSE //setting this isn't really necessary, but I couldn't bring myself not to set it here.
 				break
+
+/obj/item/gun/energy/laser/repeater/process_fire()
+	cranking = FALSE //no more cranking when you shoot.
+	..()
 
 /obj/item/gun/energy/laser/repeater/attack_self(mob/living/user)
 	crank_charge(user)
