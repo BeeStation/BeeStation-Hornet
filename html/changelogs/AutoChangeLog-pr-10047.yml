@@ -1,0 +1,4 @@
+author: rkz
+delete-after: true
+changes:
+  - refactor: converted random vendors into a spawner, less garbage.dm del horrors.
