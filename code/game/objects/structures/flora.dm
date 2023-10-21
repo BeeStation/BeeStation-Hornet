@@ -344,6 +344,18 @@
 		new /obj/item/reagent_containers/glass/hexapod(get_turf(src))
 	return ..()
 
+/obj/structure/flora/grass/sharp
+	name = "sharp grass"
+	icon = 'icons/obj/flora/icelandflora.dmi'
+	icon_state = "sharpgrass_1"
+	desc = "Razor-sharp bits of metal sticking out of the ground oddly resembling grass"
+	anchored = TRUE
+
+/obj/structure/flora/grass/sharp/Initialize(mapload)
+	icon_state = "sharpgrass_[rand(1, 5)]"
+	. = ..()
+
+
 /obj/item/kirbyplants
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
