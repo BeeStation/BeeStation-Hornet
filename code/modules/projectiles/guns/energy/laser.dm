@@ -32,7 +32,7 @@
 /obj/item/gun/energy/laser/repeater
 	name = "NT LRR Model 2284"
 	icon_state = "repeater"
-	item_state = "repeater"
+	item_state = null
 	desc = "An experimental laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
 	gun_charge = 200
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
