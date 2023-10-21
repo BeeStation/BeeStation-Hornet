@@ -15,8 +15,10 @@
 	melee_damage = 18
 	speed = 10
 	faction = list("hostile")
+	weather_immunities = list("snow")
 	move_to_delay = 1 SECONDS
 	ranged = TRUE
+	projectiletype = /obj/projectile/latcher_harpoon/harbinger
 	pixel_x = -32
 	base_pixel_x = -32
 	del_on_death = TRUE
@@ -77,13 +79,9 @@
 
 				//break tethers for phase 3, it's too intense for anyone still living to be stunned
 				for(var/mob/living/tethered in tethered_mobs)
-					var/datum/beam/B = tethers_active[tethered]
-					if(B)
-						qdel(B)
+					release_target(tethered)
 					var/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(tethered, src)))
 					tethered.throw_at(throwtarget, 6, 6)
-					tethers_active -= tethered
-				tethered_mobs = list()
 
 			passive_counter += delta_time
 			if(passive_counter >= 30 && target)
@@ -102,19 +100,14 @@
 		if(target_counter > 20)
 			var/old_target = target
 			FindTarget()
-			if(phase == 2 && old_target != target) //Only tether if target actually changes, or else the fight is just over due to stunlock
-				bone_tether(old_target)
+			if(phase == 2 && old_target != target && length(tethered_mobs) < 3) //Only tether if target actually changes, or else the fight is just over due to stunlock
+				Shoot(old_target)
 
 	if(length(tethered_mobs))
 		for(var/mob/living/L in tethered_mobs)
 			if(L.pulledby)
-				tethered_mobs -= L
-				var/datum/beam/B = tethers_active[L]
-				if(B)
-					qdel(B)
-				tethers_active -= L
-				L.SetParalyzed(1 SECONDS)
-			else if(L.Adjacent(src) && L != target)
+				release_target(L)
+			else if(L.loc == loc && L != target)
 				maul_target(L)
 			else
 				step(L,get_dir(L,src)) //Reeeeel them in
@@ -125,8 +118,8 @@
 	maul_target(target)
 
 /mob/living/simple_animal/hostile/megafauna/harbinger/proc/maul_target(maul_target)
-	if(iscarbon(target))
-		var/mob/living/carbon/C = target
+	if(iscarbon(maul_target))
+		var/mob/living/carbon/C = maul_target
 		var/obj/item/bodypart/affecting
 
 		if(phase == 3)
@@ -146,7 +139,19 @@
 				affecting = pick(parts)
 				affecting.dismember()
 			else
-				devour(target)
+				release_target(maul_target)
+				devour(maul_target)
+
+/mob/living/simple_animal/hostile/megafauna/harbinger/proc/release_target(release_target)
+	for(var/mob/living/L in tethered_mobs)
+		if(L == release_target)
+			tethered_mobs -= L
+			var/datum/beam/B = tethers_active[L]
+			if(B)
+				qdel(B)
+			tethers_active -= L
+			L.SetParalyzed(1 SECONDS)
+
 
 /mob/living/simple_animal/hostile/megafauna/harbinger/devour(mob/living/L)
 	if(!L)
@@ -154,13 +159,6 @@
 	visible_message(
 		"<span class='danger'>[src] consumes [L]!</span>",
 		"<span class='userdanger'>You consume [L]!</span>")
-	for(var/mob/living/tethered in tethered_mobs)
-		if(L == tethered)
-			tethered_mobs -= L
-			var/datum/beam/B = tethers_active[L]
-			if(B)
-				qdel(B)
-			tethers_active -= L
 	for(var/obj/item/W in L)
 		if(!L.dropItemToGround(W))
 			qdel(W)
@@ -182,7 +180,7 @@
 				if(3)
 					charge_at_target()
 		if(2)
-			move_to_delay = 20
+			move_to_delay = 2 SECONDS
 			switch(random_attack_num)
 				if(1)
 					voice()
@@ -389,7 +387,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/harbinger/proc/bone_tether(atom/target)
 
-	if(length(tethered_mobs) > 3)
+	if(length(tethered_mobs) > 2)
 		return //I doubt this can get to three, but just in case here's a failsafe
 	if(!isliving(target))
 		return //Also shouldn't happen but a good failsafe regardless.

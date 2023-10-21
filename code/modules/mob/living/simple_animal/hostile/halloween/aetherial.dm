@@ -28,6 +28,11 @@
 	a_intent = INTENT_HARM
 	var/light_search = 0
 	alpha = 0 //So it is invisible until alpha updates the first time.
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = 50000
+	weather_immunities = list("snow")
+	faction = list("hostile", "twisted")
 
 /mob/living/simple_animal/hostile/aetherial/Life(delta_time)
 	..()
