@@ -4,7 +4,8 @@
 	icon_screen = "vault"
 	icon_keyboard = "ratvar_key1"
 	idle_power_usage = 100
-	base_icon_state = null // remove these 4 when we start using our own icon.
+	icon_state = "computer" // remove these 5 when we start using our own icon.
+	base_icon_state = null
 	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
