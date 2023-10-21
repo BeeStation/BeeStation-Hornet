@@ -190,6 +190,16 @@
 	return TRUE
 
 
+/obj/effect/decal/cleanable/blood/gibs/blood_move //THE PARENT BLOOD DECAL DOES NOT MOVE WHEN USED IN GIBSPAWER.DM AAAAH
+	name = "blood"
+	desc = "It's red and gooey. Perhaps it's the chef's cooking?"
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "floor1"
+	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
+	layer = LOW_OBJ_LAYER
+	mergeable_decal = FALSE
+	turf_loc_check = FALSE
+
 //BLOODY FOOTPRINTS
 /obj/effect/decal/cleanable/blood/footprints
 	name = "footprints"
