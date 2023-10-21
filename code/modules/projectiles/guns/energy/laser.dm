@@ -45,11 +45,13 @@
 	else
 		balloon_alert(user, "You start cranking")
 		while(cell.charge < gun_charge)
-			do_after(user, 1 SECONDS)
-			playsound(src, 'sound/weapons/autoguninsert.ogg', 50)
-			cell.charge += 50
-			flick("repeater", src)
-			update_icon()
+			if(do_after(user, 1 SECONDS))
+				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
+				cell.charge += 50
+				flick("repeater", src)
+				update_icon()
+			else
+				break
 
 /obj/item/gun/energy/laser/repeater/attack_self(mob/living/user)
 	crank_charge(user)
