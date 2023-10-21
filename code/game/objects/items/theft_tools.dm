@@ -228,11 +228,10 @@
 	QDEL_NULL(sliver)
 	return ..()
 
-/obj/item/hemostat/supermatter/update_icon()
-	if(sliver)
-		icon_state = "supermatter_tongs_loaded"
-	else
-		icon_state = "supermatter_tongs"
+/obj/item/hemostat/supermatter/update_icon_state()
+	icon_state = "supermatter_tongs[sliver ? "_loaded" : null]"
+	//item_state = "supermatter_tongs[sliver ? "_loaded" : null]"
+	return ..()
 
 /obj/item/hemostat/supermatter/afterattack(atom/O, mob/user, proximity)
 	. = ..()
