@@ -19775,17 +19775,66 @@
 "dxv" = (
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
+"dMC" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor3-old"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "dYP" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"ego" = (
+/obj/effect/decal/cleanable/blood/rune{
+	icon_state = "rune_3"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"egX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "eqU" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
+"euQ" = (
+/obj/effect/decal/cleanable/blood/rune{
+	icon_state = "rune_7"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"ewF" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor2-old"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "ezF" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/snowed,
@@ -19796,6 +19845,32 @@
 "ftB" = (
 /turf/closed/wall,
 /area/mine/eva)
+"fJt" = (
+/obj/structure/bonfire/prelit{
+	burn_icon = "bonfire_warm";
+	burning = 1
+	},
+/obj/effect/light_emitter{
+	light_color = "#FAA019";
+	light_range = 4;
+	name = "fire light"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"fKF" = (
+/obj/effect/decal/cleanable/blood/splatter{
+	icon_state = "gibbl4"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "fNS" = (
 /turf/closed/mineral/snowmountain,
 /area/ruin/unpowered/iceland/abandoned_chembase)
@@ -19865,6 +19940,29 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"hLQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/innards{
+	pixel_y = -9
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"hQV" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/item/flashlight/seclite{
+	light_on = 1
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "hSm" = (
 /turf/open/floor/plasteel,
 /area/mine/eva)
@@ -19918,6 +20016,27 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/mine/eva)
+"jfN" = (
+/obj/effect/decal/cleanable/blood/splatter{
+	icon_state = "gibbl3"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"jMV" = (
+/obj/item/candle/infinite{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "jUw" = (
 /obj/machinery/suit_storage_unit/mining,
 /obj/effect/turf_decal/delivery,
@@ -19988,6 +20107,26 @@
 "lTG" = (
 /turf/closed/wall/mineral/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
+"lTI" = (
+/obj/effect/decal/cleanable/blood/rune{
+	icon_state = "rune_5"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"lVd" = (
+/obj/effect/decal/cleanable/blood/rune{
+	icon_state = "rune_9"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "lVQ" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed,
@@ -19996,6 +20135,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/mine/eva)
+"mkB" = (
+/obj/structure/flora{
+	desc = "Looks frozen.";
+	icon = 'icons/obj/flora/snowflora.dmi';
+	icon_state = "snowgrass3";
+	name = "frozen flora"
+	},
+/obj/structure/flora/tree/pine,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "mBA" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Station"
@@ -20004,6 +20153,11 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
+"mIi" = (
+/obj/structure/flora/stump,
+/obj/structure/flora/rock/pile/icy,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "mQp" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 1
@@ -20020,6 +20174,15 @@
 /obj/structure/barricade/wooden/crude/snow,
 /turf/open/floor/plating/asteroid/snow,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"nEa" = (
+/obj/item/knife/ritual,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "nOo" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -20036,6 +20199,16 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"ojd" = (
+/obj/effect/decal/cleanable/blood/rune{
+	icon_state = "rune_6"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "oxp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
@@ -20130,16 +20303,44 @@
 "ueo" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"uqg" = (
+/obj/effect/decal/cleanable/blood/rune{
+	icon_state = "rune_2"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "usY" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/iceland_base/crew_quarters/bar)
+"uOq" = (
+/obj/effect/decal/cleanable/blood/rune{
+	icon_state = "rune_4"
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/iceland)
 "vcO" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
+"vrz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/bubblegum,
+/obj/effect/decal/cleanable/blood/gibs/limb{
+	icon_state = "gibarm"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "wVC" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -34152,7 +34353,7 @@ aiC
 aiC
 aCP
 aCP
-aCP
+ewF
 aiC
 aiC
 aiC
@@ -34409,9 +34610,9 @@ aiC
 aCP
 aCP
 aJy
+afP
 aCP
-aCP
-aCP
+ahD
 aiC
 aiC
 aiC
@@ -34667,13 +34868,13 @@ aCP
 aJy
 aJy
 aJy
+asb
 aCP
 aCP
 aCP
-aCP
-aCP
-aSQ
-aCP
+aOB
+hLQ
+hQV
 aCP
 aCP
 aCP
@@ -34927,7 +35128,7 @@ aJy
 aJy
 aJy
 aJy
-aCP
+dMC
 aSQ
 aCP
 aCP
@@ -35470,12 +35671,12 @@ aCP
 aCP
 aCP
 aSQ
-aCP
+lTI
 aCP
 aCP
 aRo
 aCP
-aCP
+ojd
 aCP
 asb
 aCP
@@ -35729,7 +35930,7 @@ aCP
 aWD
 abq
 abq
-aDi
+fJt
 aCP
 asb
 aSQ
@@ -36759,7 +36960,7 @@ asb
 afP
 aSQ
 aSQ
-aCP
+euQ
 aom
 aCP
 aCP
@@ -42158,7 +42359,7 @@ aCP
 aCP
 aCP
 aCP
-aCP
+jMV
 aCP
 aJX
 aJX
@@ -42415,8 +42616,8 @@ aiC
 aCP
 abq
 auZ
-aCP
-aCP
+uqg
+jMV
 aJX
 aJX
 aJX
@@ -42671,7 +42872,7 @@ aJy
 aiC
 aiC
 aCP
-aCP
+fKF
 aCP
 aCP
 aCP
@@ -46526,10 +46727,10 @@ aCP
 aJX
 aJX
 aCP
+jMV
+ego
 aCP
-aCP
-aCP
-aCP
+jMV
 aJX
 aJX
 aCP
@@ -46784,8 +46985,8 @@ aJX
 aJX
 aJX
 aCP
-aSQ
-aCP
+vrz
+nEa
 aJX
 aJX
 aJX
@@ -48056,7 +48257,7 @@ aiC
 aiC
 aiC
 aiC
-aCP
+jfN
 aCP
 aCP
 aJX
@@ -48567,12 +48768,12 @@ aCP
 aCP
 aCP
 aCP
+aRo
+aRo
 aCP
-aCP
-aCP
-aCP
+lVd
 aSQ
-aSQ
+egX
 aCP
 aJX
 aJX
@@ -48822,11 +49023,11 @@ aJX
 aJX
 aJX
 aJX
+aWD
 aCP
 aCP
 aCP
-aCP
-aCP
+arS
 aCP
 aCP
 aCP
@@ -49083,7 +49284,7 @@ aJX
 aJX
 aJX
 aJX
-aCP
+aPY
 aCP
 aCP
 aJX
@@ -53422,7 +53623,7 @@ aiC
 aiC
 aTG
 aTG
-aVS
+aQp
 aVS
 aVS
 aJX
@@ -53936,8 +54137,8 @@ aiC
 aTG
 aTG
 aLV
+aQp
 aVS
-aVS
 aJX
 aJX
 aJX
@@ -53948,9 +54149,9 @@ aJX
 aJX
 aJX
 aVS
+ayK
 aVS
-aVS
-aTG
+aLV
 aiC
 aiC
 aiC
@@ -54191,7 +54392,7 @@ aiC
 aiC
 aTG
 aTG
-aTG
+aLV
 aTG
 aVS
 aVS
@@ -54464,7 +54665,7 @@ aJX
 aTG
 aTG
 aLV
-aTG
+aLV
 aTG
 aTG
 aTG
@@ -54705,8 +54906,8 @@ aiC
 aiC
 aTG
 aTG
-aTG
-aTG
+aLV
+aLV
 aTG
 aTG
 aJX
@@ -54721,8 +54922,8 @@ aTG
 aWj
 aBp
 aTG
-aTG
-aTG
+arI
+aLV
 aTG
 aLV
 aTG
@@ -55219,7 +55420,7 @@ aiC
 aTG
 atM
 aTG
-aTG
+aLV
 aTG
 arI
 aKN
@@ -55475,13 +55676,13 @@ aiC
 aiC
 aTG
 arI
-aWj
+aTG
 aTG
 aTG
 aet
 aTG
 aLV
-aTG
+aWj
 aTG
 aMY
 aTG
@@ -55492,7 +55693,7 @@ aTG
 aTG
 aTG
 aTG
-aWj
+aTG
 aTG
 aLV
 aTG
@@ -55732,8 +55933,8 @@ aiC
 aTG
 aTG
 ajA
-aTG
-aTG
+aLV
+aLV
 arI
 ajA
 aTG
@@ -55750,10 +55951,10 @@ aWj
 aBp
 aTG
 aTG
+aLV
 aTG
 aTG
-aTG
-aTG
+aLV
 amf
 aTG
 aTG
@@ -55989,24 +56190,24 @@ aTG
 aTG
 aTG
 aTG
-aTG
+aLV
 aTG
 aTG
 aBp
 aTG
+mkB
+aTG
+aTG
+aTG
+aTG
+aTG
+aTG
+aTG
+aTG
+aTG
+aTG
+aTG
 aLV
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
 aTG
 aTG
 aLV
@@ -56244,11 +56445,11 @@ aiC
 aiC
 aTG
 aTG
-aTG
+aWj
 aTG
 aTG
 aLV
-aTG
+arI
 aTG
 aTG
 aTG
@@ -56259,7 +56460,7 @@ aTG
 aLn
 aTG
 aTG
-aTG
+aLV
 aLV
 aTG
 aLV
@@ -56502,14 +56703,14 @@ aTG
 aTG
 aLV
 aTG
+aLV
 aTG
 aTG
 aTG
 aTG
+aWj
 aTG
-aTG
-aTG
-aTG
+aWj
 aBp
 aBp
 arI
@@ -56758,13 +56959,13 @@ aTG
 aLV
 aTG
 aTG
-aTG
+arI
 aHj
 aTG
 aTG
 aTG
 aTG
-aLV
+aTG
 aTG
 aTG
 arI
@@ -56773,7 +56974,7 @@ aTG
 aTG
 aLV
 aTG
-aTG
+aLV
 aTG
 aTG
 aTG
@@ -57016,19 +57217,19 @@ aTG
 anD
 aTG
 aTG
-aTG
-aTG
+aWj
+adv
 aTG
 aTG
 aWj
-aTG
-aTG
 aTG
 aTG
 aTG
 arI
-aWj
 aTG
+arI
+aTG
+aLV
 aTG
 aTG
 aTG
@@ -57274,12 +57475,12 @@ aTG
 aTG
 aTG
 aTG
+aLV
 aTG
 aTG
+arI
 aTG
-aTG
-aTG
-aTG
+aLV
 aTG
 aTG
 aTG
@@ -57531,18 +57732,18 @@ aBp
 aTG
 aWj
 aTG
+aLV
 aTG
 aTG
-aTG
-aTG
+arI
 adv
 aTG
+aLV
+aLV
 aTG
 aTG
 aTG
-aTG
-aTG
-aTG
+aLV
 aTG
 aKJ
 aKJ
@@ -57791,13 +57992,13 @@ aTG
 aTG
 aLV
 aTG
+aLV
 aTG
-aTG
-aTG
+arI
 aTG
 aHj
 aLV
-aTG
+aLV
 aTG
 aTG
 aLV
@@ -58043,17 +58244,17 @@ aTG
 aLV
 aKJ
 aTG
+aLV
+mkB
 aTG
 aTG
 aTG
+aLV
+aTG
+aLV
 aTG
 aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+aLV
 aTG
 aTG
 aTG
@@ -58297,21 +58498,21 @@ aTG
 aTG
 aTG
 aTG
-aTG
+anD
 aKJ
 aBp
 aTG
 amf
 aLV
 aTG
-aTG
-aTG
-aTG
-aWj
-aTG
 aLV
 aTG
 aTG
+aTG
+aTG
+aLV
+aTG
+arI
 aTG
 aTG
 aWj
@@ -58558,10 +58759,10 @@ aTG
 aTG
 aPN
 aBp
+aWj
 aTG
 aTG
-aTG
-aTG
+aLV
 aBp
 arI
 aBp
@@ -58809,19 +59010,19 @@ aiC
 aTG
 aTG
 aWj
-aTG
-aTG
-aTG
 aWj
 aTG
 aTG
 aWj
 aTG
+aWj
+aLV
+aLV
 aLV
 aTG
+apc
+aKJ
 aTG
-aWj
-aWj
 aTG
 aTG
 aLV
@@ -59068,12 +59269,12 @@ aTG
 aPN
 aTG
 aBp
-aTG
+aLV
 arI
 aTG
 aTG
 aTG
-aTG
+aLV
 arI
 aTG
 aTG
@@ -59081,7 +59282,7 @@ aTG
 aTG
 aWj
 aTG
-aTG
+aLV
 aTG
 aTG
 aTG
@@ -59321,20 +59522,20 @@ aiC
 aTG
 aTG
 aTG
+aHj
 aTG
-aTG
-aLV
+mIi
 amL
 aTG
 aTG
 aTG
+aLV
+aLV
 aTG
 aTG
 aWj
 aTG
-aTG
-aLV
-aTG
+aWj
 aTG
 arI
 aTG
@@ -59584,18 +59785,18 @@ aHj
 aTG
 aLV
 aTG
+aLV
 aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aBp
 aTG
 aTG
 aLV
+aKJ
 aTG
+aTG
+aWj
+aLV
+aLV
+aLV
 aTG
 aTG
 aWj
@@ -59838,18 +60039,18 @@ aTG
 aTG
 aTG
 aTG
-aTG
-aTG
-aTG
-aTG
-aWj
-aTG
+aLV
 aTG
 aTG
 aTG
 aWj
 aTG
+aLV
 aTG
+aTG
+aWj
+aLa
+aKJ
 aTG
 aTG
 aLV
@@ -60091,8 +60292,8 @@ aTG
 aKN
 aKJ
 aBp
-aWj
-aTG
+aLV
+aLV
 aTG
 arI
 aWj
@@ -60347,9 +60548,9 @@ aTG
 aBp
 aTG
 aTG
+aLV
 aTG
 aTG
-aWj
 aTG
 aTG
 aBp
@@ -60364,7 +60565,7 @@ arI
 aBp
 aTG
 aWj
-aTG
+aPN
 aHj
 aTG
 aTG
@@ -60603,7 +60804,7 @@ aTG
 aBp
 aWj
 aGX
-aTG
+aLV
 aTG
 aBp
 aTG
@@ -60859,7 +61060,7 @@ amf
 aTG
 aTG
 aTG
-arI
+aNf
 aTG
 aKJ
 aWj
@@ -61115,7 +61316,7 @@ aKN
 aTG
 aTG
 aip
-aTG
+aLV
 aTG
 aBp
 aWj
@@ -61365,11 +61566,11 @@ aTG
 aTG
 aTG
 aKh
-aTG
-aTG
-aTG
+aKh
+aKh
+aKh
 arI
-apt
+aPN
 aLV
 aTG
 aTG
@@ -61624,10 +61825,10 @@ aKh
 aTG
 aWj
 aTG
-aKN
-aTG
+aBp
+aKh
 aUo
-aTG
+aKh
 aKJ
 aTG
 aTG
@@ -69485,7 +69686,7 @@ aTG
 amf
 aTG
 aHj
-aLV
+anM
 aLV
 aLV
 aLV
@@ -69738,13 +69939,13 @@ aLV
 aPN
 aLV
 anM
-aTG
+anM
 aLV
+anM
 aTG
 aTG
-aTG
-aTG
-aLV
+anM
+anM
 anM
 aLV
 anM
@@ -69991,7 +70192,7 @@ aTG
 aHj
 anM
 aHj
-aTG
+anM
 aHj
 aTG
 aHj
@@ -70751,7 +70952,7 @@ aCP
 aCP
 aTG
 aHj
-aTG
+uOq
 aHj
 aTG
 aHj
@@ -71011,7 +71212,7 @@ aTG
 aHj
 ahE
 aHj
-aTG
+anM
 aHj
 aHj
 aTG
