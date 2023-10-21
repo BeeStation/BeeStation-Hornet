@@ -208,6 +208,11 @@
 /turf/open/floor/plating/ice/burn_tile()
 	return
 
+/turf/open/floor/plating/ice/red
+	name = "red ice sheet"
+	desc = "A sheet of solid ice. It has an ominous red colour..."
+	icon = 'icons/turf/floors/red_ice_turf.dmi'
+	icon_state = "icon-0"
 
 /turf/open/floor/plating/snowed
 	name = "snowed-over plating"
