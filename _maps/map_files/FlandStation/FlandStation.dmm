@@ -10420,6 +10420,7 @@
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
 "cLH" = (
@@ -10664,6 +10665,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "cPp" = (
@@ -18930,6 +18932,7 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "eWg" = (
@@ -24480,6 +24483,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "grU" = (
@@ -29042,6 +29046,7 @@
 	},
 /obj/item/pinpointer/nuke,
 /obj/item/paper/fluff/gateway,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "hFt" = (
@@ -29258,6 +29263,7 @@
 	pixel_x = -1;
 	pixel_y = -1
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "hIw" = (
@@ -31875,6 +31881,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/table/wood/fancy/blue,
 /obj/machinery/recharger,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "ipR" = (
@@ -41465,6 +41472,7 @@
 /obj/item/storage/firstaid/fire{
 	pixel_y = 6
 	},
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "kUm" = (
@@ -43984,6 +43992,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "lwl" = (
@@ -51277,6 +51286,7 @@
 /obj/item/stamp/hos,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "nqD" = (
@@ -71659,6 +71669,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "stN" = (
@@ -75986,6 +75997,7 @@
 /obj/machinery/status_display/ai{
 	pixel_x = 32
 	},
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "twx" = (
@@ -78385,6 +78397,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "ubb" = (
@@ -82355,6 +82368,7 @@
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/structure/table,
 /obj/machinery/fax/service,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "uXD" = (
@@ -88317,6 +88331,7 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/firealarm/directional/north,
 /obj/item/toy/figure/cmo,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "wmR" = (
@@ -91143,6 +91158,7 @@
 	pixel_x = -6;
 	pixel_y = 2
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "wUA" = (
@@ -91328,6 +91344,7 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "wVN" = (
@@ -93554,6 +93571,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "xqT" = (

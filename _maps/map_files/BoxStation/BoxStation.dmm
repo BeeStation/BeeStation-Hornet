@@ -227,6 +227,7 @@
 /obj/structure/table/wood,
 /obj/item/radio/off,
 /obj/item/taperecorder,
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "abl" = (
@@ -645,6 +646,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "acS" = (
@@ -1291,6 +1293,7 @@
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
 /obj/item/assembly/timer,
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/plasteel,
 /area/security/main)
 "afW" = (
@@ -9351,6 +9354,7 @@
 	pixel_x = -24
 	},
 /obj/item/folder/yellow,
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bty" = (
@@ -9823,6 +9827,7 @@
 	pixel_y = 5;
 	req_access_txt = "47"
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "byp" = (
@@ -10299,6 +10304,7 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/hor)
 "bCh" = (
@@ -16041,6 +16047,7 @@
 /obj/item/hand_labeler{
 	pixel_y = 8
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "cjV" = (
@@ -20345,6 +20352,7 @@
 	pixel_x = 5;
 	pixel_y = 3
 	},
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "dbF" = (
@@ -21432,6 +21440,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "dCJ" = (
@@ -23571,6 +23580,7 @@
 /obj/machinery/cell_charger,
 /obj/item/clothing/glasses/meson,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "eFB" = (
@@ -31919,6 +31929,7 @@
 	dir = 9
 	},
 /obj/item/crowbar,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "iVN" = (
@@ -34569,6 +34580,7 @@
 "khb" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "khd" = (
@@ -44249,6 +44261,7 @@
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "oVr" = (
@@ -44568,6 +44581,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "piD" = (
@@ -47604,6 +47618,7 @@
 /obj/machinery/keycard_auth{
 	pixel_y = -28
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "qDZ" = (
@@ -48323,6 +48338,7 @@
 /obj/item/paper/monitorkey,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "qWM" = (
@@ -53452,6 +53468,7 @@
 	pixel_x = -7
 	},
 /obj/item/melee/chainofcommand,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "tnN" = (
@@ -57790,6 +57807,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "vFr" = (
