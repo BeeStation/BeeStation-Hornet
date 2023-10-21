@@ -1,6 +1,5 @@
 //Living husk mob made for Spooktober 2023
 /mob/living/simple_animal/husk
-
 	name = "living husk"
 	real_name = "living husk"
 	desc = "A shell of a human being, blood pouring out of many holes in its body. Its face an shapeless gaping hole."
@@ -16,7 +15,6 @@
 	speed = 1
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	status_flags = CANPUSH
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	deathsound = 'sound/magic/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -44,38 +42,53 @@
 				/obj/effect/decal/cleanable/blood/innards, \
 				/obj/item/organ/heart)
 	deathmessage = "wails in anger as it collapses into a puddle of viscera!"
-
+	var/reincarnate_husk = TRUE //Admins can turn this false if they want to stop reincarnations
+	del_on_death = TRUE
 
 
 /mob/living/simple_animal/husk/Initialize(mapload)
 	..()
-	var/obj/effect/proc_holder/spell/aoe_turf/conjure/blood/spread_blood = new
+	var/obj/effect/dummy/phased_mob/slaughter/holder = new /obj/effect/dummy/phased_mob/slaughter(src.loc)
+	forceMove(holder)
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodwalk = new
+	var/obj/effect/proc_holder/spell/aoe_turf/conjure/blood/gibs/spread_blood = new
 	AddSpell(spread_blood)
 	AddSpell(bloodwalk)
-
-
-
-//if the mob dies
-//after 30 seconds
-//poll for ghosts
-/mob/living/simple_animal/husk/proc/reincarnate(src)
+	bloodwalk.phased = TRUE
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as a living husk?", ROLE_REVENANT, /datum/role_preference/midround_ghost/revenant, 10 SECONDS, ignore_category = null, flashwindow = TRUE, req_hours = 0)
 	//get the list of candidates
 	if(LAZYLEN(candidates))
-		var/mob/living/simple_animal/new_husk = new /mob/living/simple_animal/husk(get_turf(src))
 		var/mob/dead/observer/C = pick(candidates)
-		new_husk.key = C.key
+		key = C.key
 	else
 		message_admins("No ghosts have volunteered to take the living husk!")
-	return
 
+/mob/living/simple_animal/husk/mind_initialize()
+	. = ..()
+	to_chat(src, playstyle_string)
 
 /mob/living/simple_animal/husk/death()
-	var/obj/effect/gibspawner/blood_puddle/B = new(get_turf(src))
-	B.name = "MARKER"
-	B.desc = "this is where the code marks the death"
+	new /obj/effect/gibspawner/blood_puddle(src)
 	deathsound = 'sound/magic/demon_dies.ogg'
+	if(reincarnate_husk)
+		new /obj/effect/husk_handler()
+	..()
+
+/obj/effect/husk_handler
+	name = "husk respawn handler"
+	anchored = TRUE
+	vis_flags = VIS_INHERIT_PLANE
+	invisibility = INVISIBILITY_ABSTRACT
+
+/obj/effect/husk_handler/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(reincarnate)), 30 SECONDS)
+
+//if the mob dies
+//after 30 seconds
+//respawn the mob (phased)
+//then remove the respawn handler
+/obj/effect/husk_handler/proc/reincarnate()
+	new /mob/living/simple_animal/husk/(pick(GLOB.xeno_spawn))
 	qdel(src)
 
-	reincarnate(src)
