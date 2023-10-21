@@ -126,9 +126,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Forces the user to stay unconscious. This shouldn't be used in a check outside of code related to stat and update_stat, or when its being intentionally applied from a specific source
 #define TRAIT_KNOCKEDOUT "knockedout"
-/* All to replace update_mobility with traits
 /// Prevents voluntary movement.
 #define TRAIT_IMMOBILIZED "immobilized"
+/* All to replace update_mobility with traits
 /// Prevents voluntary standing or staying up on its own.
 #define TRAIT_FLOORED "floored"
 /// Forces user to stay standing (ensures the unconscious/immobilized dont enter a lying position in cryopods)
@@ -297,6 +297,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LIVING_HEART "living_heart"
 /// Prevents stripping this equipment
 #define TRAIT_NO_STRIP "no_strip"
+/// Buckling yourself to objects with this trait won't immobilize you
+#define TRAIT_NO_IMMOBILIZE "no_immobilize"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -356,6 +358,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define INNATE_TRAIT "innate"
 #define CRIT_HEALTH_TRAIT "crit_health"
 #define OXYLOSS_TRAIT "oxyloss"
+//trait associated to being buckled
+#define BUCKLED_TRAIT "buckled"
+//trait associated to being held in a chokehold
+#define CHOKEHOLD_TRAIT "chokehold"
+//trait associated to resting
+#define RESTING_TRAIT "resting"
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
@@ -415,7 +423,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TRAIT_JAWS_OF_LIFE "jaws-of-life"
-#define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a bad soundcloud rapper's name
+#define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a good soundcloud rapper's name
+//#define SKILLCHIP_TRAIT "skillchip"
+#define PULLED_WHILE_SOFTCRIT_TRAIT "pulled-while-softcrit"
+#define LOCKED_BORG_TRAIT "locked-borg"
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
