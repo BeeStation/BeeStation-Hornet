@@ -15,6 +15,7 @@
 	melee_damage = 18
 	speed = 1
 	faction = list("hostile")
+	weather_immunities = list("snow")
 	move_to_delay = 8
 	stat_attack = SOFT_CRIT
 	ranged = TRUE
@@ -106,8 +107,11 @@
 /mob/living/simple_animal/hostile/megafauna/unshaped/proc/tele_to_target()
 	SSmove_manager.stop_looping(src)
 
-	var/obj/effect/rune/teleport/rune = new(target.loc)
+	var/obj/effect/rune/teleport/rune = new(loc)
+	rune.icon = 'icons/mob/halloween/rune.dmi'
+	rune.icon_state = "rune"
 	rune.color = COLOR_DARK_RED
+
 	playsound(get_turf(target), 'sound/effects/splat.ogg', 100)
 	sleep(5)
 	say("Totumdedol harf'mir")
@@ -123,7 +127,10 @@
 	SSmove_manager.stop_looping(src)
 
 	var/obj/effect/rune/empower/rune = new(loc)
+	rune.icon = 'icons/mob/halloween/rune.dmi'
+	rune.icon_state = "rune"
 	rune.color = COLOR_DARK_RED
+
 	playsound(get_turf(src), 'sound/effects/splat.ogg', 100)
 	sleep(5)
 	say("Nar'Sie gal'fwe")
