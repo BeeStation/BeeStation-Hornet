@@ -970,7 +970,6 @@
 		stored_copy.plane = FLOAT_PLANE
 		. += stored_copy
 	else
-		var/image/arm = image("icon"="borg_beaker_apparatus_arm", "layer"=FLOAT_LAYER)
 		arm.pixel_y = arm.pixel_y - 5
 	. += arm
 
