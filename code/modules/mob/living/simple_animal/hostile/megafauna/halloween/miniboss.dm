@@ -14,7 +14,7 @@
 	armour_penetration = 100
 	melee_damage = 18
 	speed = 1
-	faction = list("hostile")
+	faction = list("hostile", "twisted")
 	weather_immunities = list("snow")
 	move_to_delay = 8
 	stat_attack = SOFT_CRIT

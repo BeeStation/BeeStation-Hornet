@@ -32,6 +32,7 @@
 	minbodytemp = 0
 	maxbodytemp = 50000
 	weather_immunities = list("snow")
+	faction = list("hostile", "twisted")
 
 /mob/living/simple_animal/hostile/aetherial/Life(delta_time)
 	..()

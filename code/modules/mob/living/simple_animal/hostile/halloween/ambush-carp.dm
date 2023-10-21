@@ -23,6 +23,7 @@
 	minbodytemp = 0
 	maxbodytemp = 1200
 	weather_immunities = list("snow")
+	faction = list("hostile", "twisted")
 	vision_range = 2
 	aggro_vision_range = 9
 	a_intent = INTENT_HARM
