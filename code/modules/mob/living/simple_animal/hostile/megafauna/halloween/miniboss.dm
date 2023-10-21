@@ -156,19 +156,25 @@
 	playsound(src, 'sound/creatures/halloween/Unshaped/HeartBeat.ogg', 50, FALSE, 40)
 	set_light(4, -1)
 	sleep(10)
+
 	set_light(6, -2)
 	playsound(src, 'sound/creatures/halloween/Unshaped/NBPhase.ogg', 300)
 	sleep(9)
+
 	playsound(src, 'sound/creatures/halloween/Unshaped/HeartBeat.ogg', 60, FALSE, 45)
 	set_light(8, -2)
 	sleep(8)
+
 	set_light(10, -3)
 	sleep(7)
+
 	playsound(src, 'sound/creatures/halloween/Unshaped/HeartBeat.ogg', 60, FALSE, 50)
 	set_light(12, -3)
 	sleep(7)
+
 	set_light(14, -5)
 	sleep(7)
+
 	playsound(src, 'sound/creatures/halloween/Unshaped/HeartBeat.ogg', 60, FALSE, 50)
 	set_light(16, -6)
 	for(var/i = 1, i < 10, i++)
