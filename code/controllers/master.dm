@@ -740,4 +740,4 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			tickers += "([ss.name]: [100 * fired_subsystems[ss]/total]%)"
 		else
 			output += "([ss.name]: [100 * fired_subsystems[ss]/total]%)"
-	return "Systems: [jointext(output, " | ")]\nTickers: [jointext(tickers, " | ")]"
+	return "Systems: [jointext(output, " | ")] ######## Tickers: [jointext(tickers, " | ")]"
