@@ -29,7 +29,8 @@
 	microwaved_type = /obj/item/food/donkpocket/warm
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2 //uhhh lorewise microwaving donkpockets makes the proteins into omnizine or somethin idk
+		/datum/reagent/consumable/nutriment/protein = 2, //uhhh lorewise microwaving donkpockets makes the proteins into omnizine or somethin idk
+		/datum/reagent/consumable/maltodextrin = 3
 	)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtypes = GRAIN
@@ -54,7 +55,8 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/medicine/omnizine = 6
+		/datum/reagent/medicine/omnizine = 6,
+		/datum/reagent/consumable/maltodextrin = 3
 	)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtypes = GRAIN
@@ -72,7 +74,8 @@
 	food_reagents = list(
 		/datum/reagent/toxin/lipolicide = 3,
 		/datum/reagent/drug/space_drugs = 3,
-		/datum/reagent/consumable/nutriment = 4
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/maltodextrin = 2
 	)
 	tastes = list("meat" = 2, "dough" = 2)
 	foodtypes = GRAIN | VEGETABLES
@@ -84,7 +87,8 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/consumable/capsaicin = 2
+		/datum/reagent/consumable/capsaicin = 2,
+		/datum/reagent/consumable/maltodextrin = 2
 	)
 	tastes = list("meat" = 2, "dough" = 2, "spice" = 1)
 	foodtypes = GRAIN
@@ -100,7 +104,8 @@
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/medicine/omnizine = 2,
-		/datum/reagent/consumable/capsaicin = 5
+		/datum/reagent/consumable/capsaicin = 5,
+		/datum/reagent/consumable/maltodextrin = 2
 	)
 	tastes = list("meat" = 2, "dough" = 2, "weird spices" = 2)
 	foodtypes = GRAIN
@@ -112,7 +117,8 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/consumable/soysauce = 2
+		/datum/reagent/consumable/soysauce = 2,
+		/datum/reagent/consumable/maltodextrin = 2
 	)
 	tastes = list("meat" = 2, "dough" = 2, "soy sauce" = 2)
 	foodtypes = GRAIN
@@ -128,7 +134,8 @@
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/medicine/omnizine = 2,
-		/datum/reagent/consumable/soysauce = 2
+		/datum/reagent/consumable/soysauce = 2,
+		/datum/reagent/consumable/maltodextrin = 2
 	)
 	tastes = list("meat" = 2, "dough" = 2, "soy sauce" = 2)
 	foodtypes = GRAIN
@@ -140,7 +147,8 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/consumable/tomatojuice = 2
+		/datum/reagent/consumable/tomatojuice = 2,
+		/datum/reagent/consumable/maltodextrin = 2
 	)
 	tastes = list("meat" = 2, "dough" = 2, "cheese"= 2)
 	foodtypes = GRAIN
@@ -156,7 +164,8 @@
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/medicine/omnizine = 2,
-		/datum/reagent/consumable/tomatojuice = 2
+		/datum/reagent/consumable/tomatojuice = 2,
+		/datum/reagent/consumable/maltodextrin = 2
 	)
 	tastes = list("meat" = 2, "dough" = 2, "melty cheese"= 2)
 	foodtypes = GRAIN
@@ -167,7 +176,8 @@
 	icon_state = "donkpocketbanana"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/consumable/banana = 4
+		/datum/reagent/consumable/banana = 4,
+		/datum/reagent/consumable/maltodextrin = 3
 	)
 	tastes = list("banana" = 2, "dough" = 2, "children's antibiotics" = 1)
 	foodtypes = GRAIN
@@ -183,7 +193,8 @@
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/medicine/omnizine = 2,
 		/datum/reagent/consumable/banana = 4,
-		/datum/reagent/consumable/laughter = 6
+		/datum/reagent/consumable/laughter = 6,
+		/datum/reagent/consumable/maltodextrin = 3
 	)
 	tastes = list("banana" = 2, "dough" = 2, "children's antibiotics" = 1)
 	foodtypes = GRAIN
@@ -194,7 +205,8 @@
 	icon_state = "donkpocketberry"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/consumable/berryjuice = 3
+		/datum/reagent/consumable/berryjuice = 3,
+		/datum/reagent/consumable/maltodextrin = 3
 	)
 	tastes = list("dough" = 2, "jam" = 2)
 	foodtypes = GRAIN
@@ -209,7 +221,8 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/medicine/omnizine = 2,
-		/datum/reagent/consumable/berryjuice = 3
+		/datum/reagent/consumable/berryjuice = 3,
+		/datum/reagent/consumable/maltodextrin = 3
 	)
 	tastes = list("dough" = 2, "warm jam" = 2)
 	foodtypes = GRAIN
@@ -221,7 +234,8 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/tranquility = 5
+		/datum/reagent/tranquility = 5,
+		/datum/reagent/consumable/maltodextrin = 2
 	)
 	tastes = list("meat" = 2, "dough" = 2, "inner peace" = 1)
 	foodtypes = GRAIN
@@ -237,7 +251,8 @@
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/medicine/omnizine = 2,
-		/datum/reagent/tranquility = 10
+		/datum/reagent/tranquility = 10,
+		/datum/reagent/consumable/maltodextrin = 2
 	)
 	tastes = list("meat" = 2, "dough" = 2, "inner peace" = 1)
 	foodtypes = GRAIN

@@ -58,6 +58,17 @@
 //Use this donut ingame
 /obj/item/food/donut/plain
 
+/obj/item/food/donut/premade //donuts but we made them suck for some reason
+	name = "prepackaged donut"
+	desc = "A mass produced donut, goes great with a cup of coffee."
+	icon_state = "donut"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/sprinkles = 1,
+		/datum/reagent/consumable/sugar = 2,
+		/datum/reagent/consumable/maltodextrin = 6
+	)
+
 /obj/item/food/donut/chaos
 	name = "chaos donut"
 	desc = "Like life, it never quite tastes the same."
