@@ -59,8 +59,8 @@
 		playsound(loc, attack_sound, 100, TRUE)
 
 /mob/living/simple_animal/hostile/aetherial/death(gibbed)
-	qdel(src)
 	..()
+	qdel(src)
 
 /mob/living/simple_animal/hostile/aetherial/Aggro()
 	set_light(4, -1)
@@ -110,3 +110,27 @@
 		addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, break_light_tube)), 2 SECONDS)
 		light_search = 0
 
+
+/obj/effect/aetherial_spawner
+	name = "Aetherial respawner"
+	anchored = TRUE
+	vis_flags = VIS_INHERIT_PLANE
+	invisibility = INVISIBILITY_OBSERVER
+	icon = 'icons/mob/halloween/aetherial.dmi'
+	icon_state = "aetherial"
+	alpha = 150
+	var/mob/living/simple_animal/hostile/aetherial/our
+
+/obj/effect/aetherial_spawner/Initialize(mapload)
+	. = ..()
+	spawn_aetherial()
+
+/obj/effect/aetherial_spawner/proc/on_death()
+	SIGNAL_HANDLER
+	UnregisterSignal(our, COMSIG_LIVING_DEATH)
+	our = null
+	addtimer(CALLBACK(src, PROC_REF(spawn_aetherial)), 3 MINUTES)
+
+/obj/effect/aetherial_spawner/proc/spawn_aetherial()
+	our = new(src.loc)
+	RegisterSignal(our, COMSIG_LIVING_DEATH, PROC_REF(on_death))
