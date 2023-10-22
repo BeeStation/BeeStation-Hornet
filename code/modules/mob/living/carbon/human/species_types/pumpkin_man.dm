@@ -71,6 +71,7 @@
 				face_options += list("face[i]" = image('icons/mob/pumpkin_faces.dmi', "face[i]"))
 			var/face_choosen = show_radial_menu(_user, _source, face_options, require_near = TRUE)
 			//Reset overlays
+			M.cut_overlay(head.carved_overlay) //This is needed in addition to the head icon getter's - for some reason?
 			head.carved_overlay.icon_state = face_choosen
 			M.update_body_parts_head_only()
 			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
