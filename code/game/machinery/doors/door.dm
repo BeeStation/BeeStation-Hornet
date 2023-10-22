@@ -366,7 +366,7 @@
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
 			var/armour = L.run_armor_check(BODY_ZONE_CHEST, MELEE)
-			var/multiplier = CLAMP(1 - (armour * 0.01), 0, 1)
+			var/multiplier = clamp(1 - (armour * 0.01), 0, 1)
 			L.adjustBruteLoss(multiplier * DOOR_CRUSH_DAMAGE)
 			L.emote("scream")
 			if(!L.IsParalyzed())

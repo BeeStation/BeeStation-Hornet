@@ -79,8 +79,9 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/tk_grab/Destroy()
-	focus = null
 	STOP_PROCESSING(SSfastprocess, src)
+	focus = null
+	tk_user = null
 	return ..()
 
 /obj/item/tk_grab/process()
@@ -95,10 +96,10 @@
 
 //stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot)
+	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
 		return
 	qdel(src)
-	return
 
 /obj/item/tk_grab/examine(user)
 	if (focus)
@@ -195,9 +196,8 @@
 		focus.layer = old_layer
 		focus.plane = old_plane
 
-/obj/item/tk_grab/suicide_act(mob/user)
+/obj/item/tk_grab/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is using [user.p_their()] telekinesis to choke [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (OXYLOSS)
-
+	return OXYLOSS
 
 #undef TK_MAXRANGE

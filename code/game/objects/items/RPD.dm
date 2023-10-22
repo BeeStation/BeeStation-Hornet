@@ -324,11 +324,11 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(rpd_up)
 
-/obj/item/pipe_dispenser/suicide_act(mob/user)
+/obj/item/pipe_dispenser/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] points the end of the RPD down [user.p_their()] throat and presses a button! It looks like [user.p_theyre()] trying to commit suicide...</span>")
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, 1)
 	playsound(get_turf(user), 'sound/items/deconstruct.ogg', 50, 1)
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/pipe_dispenser/ui_assets(mob/user)
 	return list(

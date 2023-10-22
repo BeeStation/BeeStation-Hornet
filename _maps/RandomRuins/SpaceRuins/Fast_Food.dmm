@@ -172,7 +172,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "aK" = (
 /obj/machinery/light,
-/obj/item/kitchen/knife/butcher,
+/obj/item/knife/butcher,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aL" = (
@@ -715,7 +715,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cK" = (
-/obj/item/reagent_containers/food/snacks/burrito,
+/obj/item/food/burrito,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -731,7 +731,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cO" = (
-/obj/item/reagent_containers/food/snacks/carneburrito,
+/obj/item/food/carneburrito,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)

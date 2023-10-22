@@ -6494,7 +6494,7 @@
 /obj/structure/destructible/cult/talisman{
 	desc = "An altar dedicated to the Wizards' Federation"
 	},
-/obj/item/kitchen/knife/ritual,
+/obj/item/knife/ritual,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "zP" = (
@@ -10910,7 +10910,7 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = -8
 	},
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
