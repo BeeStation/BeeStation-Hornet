@@ -119,9 +119,9 @@
 		else
 			to_chat(owner, "<span class='warning'>We can't reintegrate this!</span>")//NEEDS LOCALIZATION
 	var/list/dispense_list = list(
-		"Zipties" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "cuff"),//NEEDS ICON (?)
+		"Zipties" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "cuff_blood"),//NEEDS ICON (?)
 		"Bola" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "bola"),//NEEDS ICON (?)
-		"Shield" = image(icon = 'icons/obj/shields.dmi', icon_state = "eshield1"),)//NEEDS ICON (?)
+		"Shield" = image(icon = 'icons/obj/shields.dmi', icon_state = "twisted"),)//NEEDS ICON (?)
 	if(!COOLDOWN_FINISHED(src,dispense_cooldown))
 		return
 	if(!metal_reserves > 0)
