@@ -303,13 +303,19 @@
 /obj/item/weldingtool/infinite
 	name = "arc welding arm"
 	desc = "Your arm is an arc-welder that cannot be turned off. Use it to repair your allies or harm your enemies"
-	icon_state = "welder"
-	item_state = "welder"
+	icon = 'icons/obj/halloween.dmi'
+	icon_state = "twisted_welder"
+	item_state = "twisted_welder"
 	welding = TRUE
 	change_icons = FALSE
+	force = 15
+	damtype = BURN
+	hitsound = 'sound/items/welder.ogg'
+	light_color = LIGHT_COLOR_BLOOD_MAGIC //Pale cyan, not in the pre-defines.
 
 /obj/item/weldingtool/infinite/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 	set_light_on(welding)
 	update_icon()
 
