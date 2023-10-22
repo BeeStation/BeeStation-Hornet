@@ -28,13 +28,12 @@
 	// Handles welder repairs on human limbs
 	if(I.tool_behaviour == TOOL_WELDER)
 		if(I.use_tool(source, user, 0, volume=50, amount=1))
-			if(user == target)
-				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
+			user.changeNext_move(CLICK_CD_MELEE) //antispam
+			user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 				"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
-				if(!do_after(user, 1.5 SECONDS, target))
-					return COMPONENT_NO_AFTERATTACK
+			if(!do_after(user, 1.5 SECONDS, target))
+				return COMPONENT_NO_AFTERATTACK
 			item_heal_robotic(target, user, 15, 0, affecting)
-		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
 		return COMPONENT_NO_AFTERATTACK
 
 	// Handles cable repairs
