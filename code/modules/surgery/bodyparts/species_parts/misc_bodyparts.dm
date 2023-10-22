@@ -230,26 +230,86 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	light_brute_msg = "scratched"
+	medium_brute_msg = "dented"
+	heavy_brute_msg = "battered"
+
+	light_burn_msg = "burned"
+	medium_burn_msg = "scorched"
+	heavy_burn_msg = "seared"
+
 /obj/item/bodypart/chest/twisted
 	limb_id = "twisted"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+
+	light_brute_msg = "scratched"
+	medium_brute_msg = "dented"
+	heavy_brute_msg = "battered"
+
+	light_burn_msg = "burned"
+	medium_burn_msg = "scorched"
+	heavy_burn_msg = "seared"
+
 /obj/item/bodypart/l_arm/twisted
 	limb_id = "twisted"
 	should_draw_greyscale = FALSE
+
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+
+	light_brute_msg = "scratched"
+	medium_brute_msg = "dented"
+	heavy_brute_msg = "battered"
+
+	light_burn_msg = "burned"
+	medium_burn_msg = "scorched"
+	heavy_burn_msg = "seared"
 
 /obj/item/bodypart/r_arm/twisted
 	limb_id = "twisted"
 	should_draw_greyscale = FALSE
 
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+
+	light_brute_msg = "scratched"
+	medium_brute_msg = "dented"
+	heavy_brute_msg = "battered"
+
+	light_burn_msg = "burned"
+	medium_burn_msg = "scorched"
+	heavy_burn_msg = "seared"
+
 /obj/item/bodypart/l_leg/twisted
 	limb_id = "twisted"
 	should_draw_greyscale = FALSE
 
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+
+	light_brute_msg = "scratched"
+	medium_brute_msg = "dented"
+	heavy_brute_msg = "battered"
+
+	light_burn_msg = "burned"
+	medium_burn_msg = "scorched"
+	heavy_burn_msg = "seared"
+
 /obj/item/bodypart/r_leg/twisted
 	limb_id = "twisted"
 	should_draw_greyscale = FALSE
+
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+
+	light_brute_msg = "scratched"
+	medium_brute_msg = "dented"
+	heavy_brute_msg = "battered"
+
+	light_burn_msg = "burned"
+	medium_burn_msg = "scorched"
+	heavy_burn_msg = "seared"
+
 ///MUSHROOM
 /obj/item/bodypart/head/mushroom
 	limb_id = "mush"

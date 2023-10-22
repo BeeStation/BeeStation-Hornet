@@ -300,6 +300,56 @@
 	else
 		return ""
 
+/obj/item/weldingtool/infinite
+	name = "arc welding arm"
+	desc = "Your arm is an arc-welder that cannot be turned off. Use it to repair your allies or harm your enemies"
+	icon_state = "welder"
+	item_state = "welder"
+	welding = TRUE
+	change_icons = FALSE
+
+/obj/item/weldingtool/infinite/Initialize(mapload)
+	. = ..()
+	set_light_on(welding)
+	update_icon()
+
+/obj/item/weldingtool/infinite/process(delta_time)
+	STOP_PROCESSING(SSobj, src)
+	return
+
+/obj/item/weldingtool/infinite/examine(mob/user)
+	. = ..()
+	. -= "It contains [get_fuel()] unit\s of fuel out of [max_fuel]."
+	. += "Its power supply stems from faith in the dark messiah."
+
+/obj/item/weldingtool/infinite/tool_use_check(mob/living/user, amount)
+	return TRUE
+
+/obj/item/weldingtool/infinite/flamethrower_screwdriver(obj/item/I, mob/user)
+	return //No fun allowed
+
+/obj/item/weldingtool/infinite/flamethrower_rods(obj/item/I, mob/user)
+	return //Still nope
+
+/obj/item/weldingtool/infinite/switched_off(mob/user)
+	return //Never gonna give you up
+
+/obj/item/weldingtool/infinite/switched_on(mob/user)
+	return //Never gonna let you down
+
+/obj/item/weldingtool/infinite/check_fuel(mob/user)
+	return TRUE //Never gonna run around and desert you
+
+/obj/item/weldingtool/infinite/use(used = 0)
+	return TRUE //That's right you got rickrolled
+
+/obj/item/weldingtool/infinite/attack_self(mob/user)
+	update_icon()
+	return
+
+/obj/item/weldingtool/infinite/explode()
+	return //still no fun
+
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
 	desc = "A slightly larger welder with a larger tank."
