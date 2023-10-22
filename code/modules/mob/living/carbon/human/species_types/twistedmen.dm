@@ -60,8 +60,8 @@
 	return list("Shapeless shadows roaming the wastes of Iceland, these ominous creatures bear strange ressemblances to humans and are highly aggressive. They seem to be in a state of constant agony, their defiled bodies made of a twisted metal and flesh, a trickle of blood pouring out of what seems to be wounds. They band together in settlements and organize hunting parties to find victims to brutally sacrifice in honor of their terrible god.")
 
 /datum/action/innate/dispenser
-	name = "Dispenser" //NEEDS LOCALIZATION
-	desc = "Edit me please" //NEEDS LOCALIZATION
+	name = "Flesh craft"
+	desc = "Craft tools using chunks of your body"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "transmute"
 	icon_icon = 'icons/mob/actions/actions_cult.dmi'//NEEDS ICON
