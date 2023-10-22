@@ -70,6 +70,8 @@
 		if(!istype(preference))
 			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences write found invalid db_key [db_key] in dirty preferences list (2).")
 			CRASH("Could not find preference with db_key [db_key] when writing to database.")
+		if(preference.disable_serialization)
+			continue
 		if(preference.preference_type != pref_type)
 			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences write found invalid preference type [preference.preference_type] for [db_key] (want [pref_type]).")
 			CRASH("Invalid preference located from db_key [db_key] for the preference type [pref_type] (had [preference.preference_type])")
