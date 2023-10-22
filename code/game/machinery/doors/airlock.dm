@@ -499,7 +499,7 @@
 		secondsBackupPowerLost = 36000
 	else
 		secondsMainPowerLost = 60
-		secondsBackupPowerLost = CLAMP(10, secondsBackupPowerLost, 60)
+		secondsBackupPowerLost = clamp(10, secondsBackupPowerLost, 60)
 	if(!spawnPowerRestoreRunning)
 		spawnPowerRestoreRunning = TRUE
 		handlePowerRestoreLoop()
