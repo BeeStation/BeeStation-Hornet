@@ -68,7 +68,7 @@
 			//generate option list
 			var/list/face_options = list()
 			for(var/i in 0 to 8)
-				face_options += "face[i]"
+				face_options += list("face[i]" = image('icons/mob/pumpkin_faces.dmi', "face[i]"))
 			var/face_choosen = show_radial_menu(_user, _source, face_options, require_near = TRUE)
 			//Reset overlays
 			head.carved_overlay.icon_state = face_choosen
