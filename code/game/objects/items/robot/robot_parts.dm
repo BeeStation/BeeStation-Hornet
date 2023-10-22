@@ -327,7 +327,8 @@
 			O.robot_suit = src
 
 			if(!locomotion)
-				O.set_lockcharge(TRUE)
+				O.lockcharge = TRUE
+				O.update_mobility()
 				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
 
 		else
@@ -368,7 +369,8 @@
 			forceMove(O)
 			O.robot_suit = src
 			if(!locomotion)
-				O.set_lockcharge(TRUE)
+				O.lockcharge = TRUE
+				O.update_mobility()
 
 	else if(istype(W, /obj/item/pen))
 		to_chat(user, "<span class='warning'>You need to use a multitool to name [src]!</span>")

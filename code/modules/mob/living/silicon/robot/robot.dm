@@ -666,7 +666,8 @@
 		connected_ai.connected_robots -= src
 		src.connected_ai = null
 	lawupdate = FALSE
-	set_lockcharge(FALSE)
+	lockcharge = FALSE
+	mobility_flags |= MOBILITY_FLAGS_DEFAULT
 	scrambledcodes = TRUE_DEVIL
 	//Disconnect it's camera so it's not so easily tracked.
 	if(!QDELETED(builtInCamera))
@@ -697,22 +698,9 @@
 		throw_alert("locked", /atom/movable/screen/alert/locked)
 	else
 		clear_alert("locked")
-	set_lockcharge(state)
-
-///Reports the event of the change in value of the lockcharge variable.
-/mob/living/silicon/robot/proc/set_lockcharge(new_lockcharge)
-	if(new_lockcharge == lockcharge)
-		return
-	. = lockcharge
-	lockcharge = new_lockcharge
-	if(lockcharge)
-		if(!.)
-			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
-	else if(.)
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
+	lockcharge = state
 	update_mobility()
 	logevent("System lockdown [lockcharge?"triggered":"released"].")
-
 
 /mob/living/silicon/robot/proc/SetEmagged(new_state)
 	emagged = new_state

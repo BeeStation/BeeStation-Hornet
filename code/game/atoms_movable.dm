@@ -164,7 +164,7 @@
 		log_combat(AM, AM.pulledby, "pulled from", src)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
-	AM.set_pulledby(src)
+	AM.pulledby = src
 	setGrabState(state)
 	if(ismob(AM))
 		var/mob/M = AM
@@ -177,25 +177,18 @@
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
-		pulling.set_pulledby(null)
+		pulling.pulledby = null
 		if(ismob(usr))
 			log_combat(usr, pulling, "has stopped pulling", addition = "at [AREACOORD(usr)]")
 		if(ismob(pulling))
 			log_combat(pulling, usr, "stopped being pulled by", addition = "at [AREACOORD(pulling)]")
 		var/mob/living/ex_pulled = pulling
-		setGrabState(GRAB_PASSIVE)
 		pulling = null
+		setGrabState(0)
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
 			L.update_mobility()// mob gets up if it was lyng down in a chokehold
 		SEND_SIGNAL(ex_pulled, COMSIG_MOVABLE_NO_LONGER_PULLED)
-
-///Reports the event of the change in value of the pulledby variable.
-/atom/movable/proc/set_pulledby(new_pulledby)
-	if(new_pulledby == pulledby)
-		return FALSE //null signals there was a change, be sure to return FALSE if none happened here.
-	. = pulledby
-	pulledby = new_pulledby
 
 /atom/movable/proc/Move_Pulled(atom/A)
 	if(!pulling)
@@ -1069,19 +1062,7 @@
 /// Updates the grab state of the movable
 /// This exists to act as a hook for behaviour
 /atom/movable/proc/setGrabState(newstate)
-	if(newstate == grab_state)
-		return
-	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_GRAB_STATE, newstate)
-	. = grab_state
 	grab_state = newstate
-	switch(.) //Previous state.
-		if(GRAB_PASSIVE, GRAB_AGGRESSIVE)
-			if(grab_state >= GRAB_NECK)
-				ADD_TRAIT(pulling, TRAIT_IMMOBILIZED, CHOKEHOLD_TRAIT)
-	switch(grab_state) //Current state.
-		if(GRAB_PASSIVE, GRAB_AGGRESSIVE)
-			if(. >= GRAB_NECK)
-				REMOVE_TRAIT(pulling, TRAIT_IMMOBILIZED, CHOKEHOLD_TRAIT)
 
 /obj/item/proc/do_pickup_animation(atom/target)
 	set waitfor = FALSE
