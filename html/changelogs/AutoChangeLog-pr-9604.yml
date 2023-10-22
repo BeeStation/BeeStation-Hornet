@@ -1,4 +1,0 @@
-author: RKz, MrStonedOne
-delete-after: true
-changes:
-  - server: adds stack overflow detection for the Master Controller

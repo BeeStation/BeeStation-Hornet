@@ -1,6 +1,0 @@
-author: DarnTheMarn
-delete-after: true
-changes:
-  - rscadd: Adds a new reagent, maltodextrin.
-  - rscadd: Adds maltodextrin to donk pockets and vendor food.
-  - rscdel: Removed donuts and their references from the SecTech
