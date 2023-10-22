@@ -129,11 +129,11 @@
 	var/choice = show_radial_menu(owner, owner, dispense_list, radius = 42)
 	switch(choice)
 		if("Zipties")
-			choice = new /obj/item/restraints/handcuffs/cable/zipties
+			choice = new /obj/item/restraints/handcuffs/cable/zipties/blood
 		if("Bola")
 			choice = new /obj/item/restraints/legcuffs/bola
 		if("Shield")
-			choice = new /obj/item/shield/energy
+			choice = new /obj/item/shield/riot/twisted
 	if(!choice)
 		return
 	if(!owner.put_in_active_hand(choice))

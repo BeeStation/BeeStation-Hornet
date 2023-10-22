@@ -189,6 +189,11 @@
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 	color = null
 
+/obj/item/restraints/handcuffs/cable/zipties/blood
+	name = "Fleshy binds"
+	desc = "Zipties made of flesh that can be used to restrain temporarily but are destroyed after use."
+	icon_state = "cuff_blood"
+
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_used"

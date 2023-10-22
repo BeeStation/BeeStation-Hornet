@@ -102,6 +102,13 @@
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
 
+/obj/item/shield/riot/twisted
+	name = "twisted shield"
+	desc = "an amalgamation of metal and flesh mashed with one another to serve as a shield. Sturdy, blood drips from it."
+	icon_state = "twisted"
+	item_state = "twisted"
+	transparent = FALSE
+	
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/melee/baton))
 		if(cooldown < world.time - 25)
