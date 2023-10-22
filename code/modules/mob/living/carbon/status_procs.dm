@@ -9,8 +9,6 @@
 /mob/living/carbon/proc/enter_stamcrit()
 	if(!(status_flags & CANKNOCKDOWN) || HAS_TRAIT(src, TRAIT_STUNIMMUNE))
 		return
-	if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA)) //Already in stamcrit
-		return
 	if(absorb_stun(0)) //continuous effect, so we don't want it to increment the stuns absorbed.
 		return
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
