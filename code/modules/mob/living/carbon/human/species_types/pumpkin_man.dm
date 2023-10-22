@@ -65,8 +65,13 @@
 		to_chat(_user, "<span class='notice'>You begin to carve a face into [_source]...</span>")
 		//Do after for *flourish*
 		if(do_after(_user, 3 SECONDS))
+			//generate option list
+			var/list/face_options = list()
+			for(var/i in 0 to 8)
+				face_options += "face[i]"
+			var/face_choosen = show_radial_menu(_user, _source, face_options, require_near = TRUE)
 			//Reset overlays
-			head.carved_overlay.icon_state = "face[rand(0, 8)]"
+			head.carved_overlay.icon_state = face_choosen
 			M.update_body_parts_head_only()
 			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
 			//Adjust the tongue
