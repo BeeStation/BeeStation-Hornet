@@ -71,7 +71,7 @@
 			playsound(src, "sparks", 75, TRUE, -1)
 
 
-/obj/item/melee/baton/update_icon()
+/obj/item/melee/baton/update_icon_state()
 	if(obj_flags & OBJ_EMPED)
 		icon_state = "[initial(icon_state)]"
 	else if(turned_on)
@@ -80,6 +80,7 @@
 		icon_state = "[initial(icon_state)]_nocell"
 	else
 		icon_state = "[initial(icon_state)]"
+	return ..()
 
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()

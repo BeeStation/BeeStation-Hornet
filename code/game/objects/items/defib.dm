@@ -32,14 +32,14 @@
 /obj/item/defibrillator/Initialize(mapload) //starts without a cell for rnd
 	. = ..()
 	paddles = make_paddles()
-	update_icon()
+	update_power()
 	return
 
 /obj/item/defibrillator/loaded/Initialize(mapload) //starts with hicap
 	. = ..()
 	paddles = make_paddles()
 	cell = new(src)
-	update_icon()
+	update_power()
 	return
 
 /obj/item/defibrillator/fire_act(exposed_temperature, exposed_volume)
@@ -52,9 +52,7 @@
 	if(paddles?.loc == src)
 		paddles.extinguish()
 
-/obj/item/defibrillator/update_overlays()
-	. = ..()
-
+/obj/item/defibrillator/proc/update_power()
 	if(!QDELETED(cell))
 		if(QDELETED(paddles) || cell.charge < paddles.revivecost)
 			powered = FALSE
@@ -62,6 +60,12 @@
 			powered = TRUE
 	else
 		powered = FALSE
+	update_appearance()
+	if(istype(loc, /obj/machinery/defibrillator_mount))
+		loc.update_appearance()
+
+/obj/item/defibrillator/update_overlays()
+	. = ..()
 
 	if(!on)
 		. += "[initial(icon_state)]-paddles"
@@ -78,7 +82,7 @@
 /obj/item/defibrillator/CheckParts(list/parts_list)
 	..()
 	cell = locate(/obj/item/stock_parts/cell) in contents
-	update_icon()
+	update_power()
 
 /obj/item/defibrillator/ui_action_click()
 	toggle_paddles()
@@ -125,15 +129,14 @@
 				return
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-			update_icon()
-
+			update_power()
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(cell)
-			cell.update_icon()
+			cell.update_appearance()
 			cell.forceMove(get_turf(src))
 			cell = null
 			to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
-			update_icon()
+			update_power()
 	else
 		return ..()
 
@@ -148,7 +151,7 @@
 	else
 		safety = TRUE
 		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the cryptographic sequencer.</span>")
-	update_icon()
+	update_power()
 
 /obj/item/defibrillator/emp_act(severity)
 	. = ..()
@@ -156,15 +159,16 @@
 		deductcharge(1000 / severity)
 	if (. & EMP_PROTECT_SELF)
 		return
+
 	if(safety)
 		safety = FALSE
 		visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
-		playsound(src, 'sound/machines/defib_saftyOff.ogg', 50, 0)
+		playsound(src, 'sound/machines/defib_saftyOff.ogg', 50, FALSE)
 	else
 		safety = TRUE
 		visible_message("<span class='notice'>[src] beeps: Safety protocols enabled!</span>")
-		playsound(src, 'sound/machines/defib_saftyOn.ogg', 50, 0)
-	update_icon()
+		playsound(src, 'sound/machines/defib_saftyOn.ogg', 50, FALSE)
+	update_power()
 
 /obj/item/defibrillator/proc/toggle_paddles()
 	set name = "Toggle Paddles"
@@ -177,7 +181,7 @@
 		if(!usr.put_in_hands(paddles))
 			on = FALSE
 			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
-			update_icon()
+			update_power()
 			return
 	else
 		//Remove from their hands and back onto the defib unit
@@ -193,7 +197,7 @@
 	..()
 	if((slot_flags == ITEM_SLOT_BACK && slot != ITEM_SLOT_BACK) || (slot_flags == ITEM_SLOT_BELT && slot != ITEM_SLOT_BELT))
 		remove_paddles(user)
-		update_icon()
+		update_power()
 
 /obj/item/defibrillator/item_action_slot_check(slot, mob/user)
 	if(slot == user.getBackSlot())
@@ -210,19 +214,18 @@
 		var/M = get(paddles, /mob)
 		remove_paddles(M)
 	QDEL_NULL(paddles)
+	QDEL_NULL(cell)
 	. = ..()
-	update_icon()
 
 /obj/item/defibrillator/proc/deductcharge(chrgdeductamt)
 	if(cell)
 		if(cell.charge < (paddles.revivecost+chrgdeductamt))
 			powered = FALSE
-			update_icon()
+			update_power()
 		if(cell.use(chrgdeductamt))
-			update_icon()
+			update_power()
 			return TRUE
 		else
-			update_icon()
 			return FALSE
 
 
@@ -238,8 +241,8 @@
 			visible_message("<span class='notice'>[src] beeps: Charge depleted.</span>")
 			playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
 	paddles.cooldown = FALSE
-	paddles.update_icon()
-	update_icon()
+	paddles.update_appearance()
+	update_power()
 
 /obj/item/defibrillator/compact
 	name = "compact defibrillator"
@@ -258,7 +261,7 @@
 	. = ..()
 	paddles = make_paddles()
 	cell = new(src)
-	update_icon()
+	update_power()
 
 /obj/item/defibrillator/compact/combat
 	name = "combat defibrillator"
@@ -272,12 +275,11 @@
 	. = ..()
 	paddles = make_paddles()
 	cell = new /obj/item/stock_parts/cell/infinite(src)
-	update_icon()
+	update_power()
 
 /obj/item/defibrillator/compact/combat/loaded/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
 		toggle_paddles()
-		update_icon()
 		return
 
 //paddles
@@ -317,6 +319,7 @@
 
 /obj/item/shockpaddles/ComponentInitialize()
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
 	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
 
 /obj/item/shockpaddles/Destroy()
@@ -360,13 +363,13 @@
 	if(req_defib || !time)
 		return
 	cooldown = TRUE
-	update_icon()
+	update_appearance()
 	sleep(time)
 	var/turf/T = get_turf(src)
 	T.audible_message("<span class='notice'>[src] beeps: Unit is recharged.</span>")
-	playsound(src, 'sound/machines/defib_ready.ogg', 50, 0)
+	playsound(src, 'sound/machines/defib_ready.ogg', 50, FALSE)
 	cooldown = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/item/shockpaddles/Initialize(mapload)
 	. = ..()
@@ -377,17 +380,15 @@
 		return INITIALIZE_HINT_QDEL
 	defib = loc
 	busy = FALSE
-	update_icon()
+	update_appearance()
 
-/obj/item/shockpaddles/update_icon()
+/obj/item/shockpaddles/update_icon_state()
 	var/wielded = ISWIELDED(src)
-	icon_state = "defibpaddles[wielded]"
-	item_state = "defibpaddles[wielded]"
+	icon_state = "[base_icon_state][wielded]"
+	item_state = icon_state
 	if(cooldown)
-		icon_state = "defibpaddles[wielded]_cooldown"
-	if(iscarbon(loc))
-		var/mob/living/carbon/C = loc
-		C.update_inv_hands()
+		icon_state = "[base_icon_state][wielded]_cooldown"
+	return ..()
 
 /obj/item/shockpaddles/suicide_act(mob/living/user)
 	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -429,7 +430,7 @@
 
 	defib.on = FALSE
 	listeningTo = null
-	defib.update_icon()
+	defib.update_power()
 
 /obj/item/shockpaddles/attack(mob/M, mob/user)
 	if(busy)

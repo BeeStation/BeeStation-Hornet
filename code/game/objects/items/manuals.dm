@@ -443,3 +443,52 @@
 	author = "Phillippe French"
 	title = "Xenoarchaeology Fieldguide"
 	page_link = "Guide_to_Artifacts"
+
+/obj/item/book/manual/wiki/sopcommand
+	name = "Command Standard Operating Procedures"
+	icon_state ="sop1"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Command Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Command"
+
+/obj/item/book/manual/wiki/sopsecurity
+	name = "Security Standard Operating Procedures"
+	icon_state ="sop2"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Security Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Security"
+
+/obj/item/book/manual/wiki/sopengineering
+	name = "Engineering Standard Operating Procedures"
+	icon_state ="sop3"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Engineering Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Engineering"
+
+/obj/item/book/manual/wiki/sopsupply
+	name = "Supply Standard Operating Procedures"
+	icon_state ="sop4"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Supply Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Supply"
+
+/obj/item/book/manual/wiki/sopscience
+	name = "Science Standard Operating Procedures"
+	icon_state ="sop5"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Science Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Science"
+
+/obj/item/book/manual/wiki/sopmedical
+	name = "Medical Standard Operating Procedures"
+	icon_state ="sop6"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Medical Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Medical"
+
+/obj/item/book/manual/wiki/sopservice
+	name = "Service Standard Operating Procedures"
+	icon_state ="sop7"
+	author = "Nanotrasen Department of Employee Resources"
+	title = "Service Standard Operating Procedures"
+	page_link = "Department_Standard_Operating_Procedure:_Service"

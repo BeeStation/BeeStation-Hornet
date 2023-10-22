@@ -529,12 +529,11 @@ RLD
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
 
-/obj/item/construction/rcd/update_icon()
-	..()
+/obj/item/construction/rcd/update_overlays()
+	. = ..()
 	if(has_ammobar)
 		var/ratio = CEILING((matter / max_matter) * ammo_sections, 1)
-		cut_overlays()	//To prevent infinite stacking of overlays
-		add_overlay("[icon_state]_charge[ratio]")
+		. += "[icon_state]_charge[ratio]"
 
 /obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
@@ -664,11 +663,10 @@ RLD
 	else
 		..()
 
-/obj/item/construction/rld/update_icon()
+/obj/item/construction/rld/update_icon_state()
 	// "infinite matter/35" from a debug tool will give a big number, but "rld-5" is the maximum
 	icon_state = "rld-[min(round(matter/35), 5)]"
-	..()
-
+	return ..()
 
 /obj/item/construction/rld/attack_self(mob/user)
 	..()
