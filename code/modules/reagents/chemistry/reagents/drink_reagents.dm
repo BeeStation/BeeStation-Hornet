@@ -1026,7 +1026,7 @@
 	color = "#dfc7ab"
 	chem_flags = CHEMICAL_BASIC_DRINK
 	quality = DRINK_VERYGOOD
-	taste_description = "sweet, creamy and silky with chewy texture"
+	taste_description = "sweet, creamy and silky tea with chewy tapioca pearls"
 	glass_icon_state = "bubble_tea"
 	glass_name = "Bubble Tea"
 	glass_desc = "A cup of refreshing bubble tea."
