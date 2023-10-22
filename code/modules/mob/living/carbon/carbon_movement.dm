@@ -1,4 +1,5 @@
 /mob/living/carbon/slip(knockdown_amount, obj/O, lube, paralyze, force_drop)
+
 	if(movement_type & FLYING)
 		return FALSE
 	if((lube & NO_SLIP_ON_CATWALK) && (locate(/obj/structure/lattice/catwalk) in get_turf(src)))
@@ -19,6 +20,7 @@
 
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
+
 	if(. && !(movement_type & FLOATING)) //floating is easy
 		if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 			set_nutrition(NUTRITION_LEVEL_FED - 1)	//just less than feeling vigorous

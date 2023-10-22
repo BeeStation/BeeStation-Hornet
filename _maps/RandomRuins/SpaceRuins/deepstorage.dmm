@@ -340,8 +340,8 @@
 /area/ruin/space/has_grav/deepstorage/storage)
 "aU" = (
 /obj/structure/closet/cardboard,
-/obj/item/kitchen/knife,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
+/obj/item/knife/kitchen,
 /obj/item/cultivator,
 /obj/item/hatchet,
 /obj/item/kitchen/rollingpin,
@@ -413,7 +413,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},

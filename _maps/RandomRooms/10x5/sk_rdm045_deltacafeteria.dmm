@@ -62,7 +62,7 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box/donkpockets,
-/obj/item/kitchen/knife/butcher,
+/obj/item/knife/butcher,
 /obj/item/stack/package_wrap,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
@@ -129,7 +129,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "J" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -190,7 +190,7 @@
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "S" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,

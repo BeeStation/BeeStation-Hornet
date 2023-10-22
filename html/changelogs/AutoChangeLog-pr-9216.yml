@@ -1,0 +1,28 @@
+author: Absolucy, XDTM
+delete-after: true
+changes:
+  - rscadd: Added Nanite Protocols, special programs that allow for you to 'upgrade'
+      some part of your nanites, usually with some tradeoff or downside.
+  - rscadd: Added Blood Sensor and Nutrition Sensor nanite programs.
+  - rscadd: Added the Nanite Blade program to nanites, which allows you to manifest
+      an armblade similar to the xenobio one, locked behind illegal tech.
+  - rscadd: Added the Vampiric Synthesis program to nanites, which allows you to generate
+      nanite volume using your own blood volume. This WILL suck you dry if you let
+      it, please use this with a blood sensor or something! No, you can't cheese it
+      with Blood Regeneration.
+  - rscadd: Added the Remote Signaler program to nanites, which functions similarly
+      to, well, a remote signaler!
+  - rscadd: Added the Remote Signal Receiver program to nanites, which allows you
+      to receive remote signaler signals and translate them into nanite signals!
+  - rscadd: Added the Dermal Toggle program to nanites, which is similar to a dermal
+      button, but it's an on/off toggle instead.
+  - rscadd: You can now combine nanite rules, for more advanced logic!
+  - rscadd: Nanite Cloud Controllers now have neat lil' popup bubbles whenever you
+      do an action on 'em.
+  - balance: Researching harmonic nanite tech now provides a 0.1/sec passive regen
+      rate boost to all nanites!
+  - tweak: Metabolic Synthesis no longer has a built in-limiter, and can consume ALL
+      your nutrition if you allow it to.
+  - balance: Infective exo-locomotion shouldn't be completely useless anymore.
+  - rscadd: Nanite communication remotes, which can send text communications to certain
+      nanite programs, are now actually buildable

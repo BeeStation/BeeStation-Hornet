@@ -142,7 +142,7 @@
 	if(harmful && prob(pain_chance_current))
 		var/damage_left = max_damage - limb.get_damage()
 		var/damage_wanted = (1-pain_stam_pct) * damage
-		var/damage_to_deal = CLAMP(damage_wanted, 0, damage_left)
+		var/damage_to_deal = clamp(damage_wanted, 0, damage_left)
 		var/damage_as_stam = damage_wanted - damage_to_deal
 		if(!damage_to_deal)
 			to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] stings a little!</span>")
@@ -229,6 +229,8 @@
 			INVOKE_ASYNC(to_hands, TYPE_PROC_REF(/mob, put_in_hands), weapon)
 		else
 			INVOKE_ASYNC(weapon, TYPE_PROC_REF(/atom/movable, forceMove), get_turf(victim))
+		if(istype(weapon, /obj/item/shrapnel))
+			weapon.disableEmbedding()
 
 	qdel(src)
 

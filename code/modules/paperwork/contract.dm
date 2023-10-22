@@ -99,7 +99,7 @@
 	target = nTarget
 	update_text()
 
-/obj/item/paper/contract/infernal/suicide_act(mob/user)
+/obj/item/paper/contract/infernal/suicide_act(mob/living/user)
 	if(signed && (user == target.current) && istype(user, /mob/living/carbon/human/))
 		var/mob/living/carbon/human/H = user
 		H.say("OH GREAT INFERNO!  I DEMAND YOU COLLECT YOUR BOUNTY IMMEDIATELY!", forced = "infernal contract suicide")

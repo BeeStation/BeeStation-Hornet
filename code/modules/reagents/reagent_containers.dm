@@ -26,6 +26,8 @@
 	var/list/fill_icon_thresholds
 	///Optional custom name for reagent fill icon_state prefix
 	var/fill_icon_state
+	///Icon for the "label", if the holder was renamed
+	var/label_icon
 	///Does this container prevent grinding?
 	var/prevent_grinding = FALSE
 
@@ -158,6 +160,9 @@
 	cut_overlays()
 
 	if(!reagents.total_volume)
+		if(label_icon && (name != initial(name) || desc != initial(desc)))
+			var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
+			add_overlay(label)
 		return ..()
 	var/fill_name = fill_icon_state ? fill_icon_state : icon_state
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[fill_name][fill_icon_thresholds[1]]")
@@ -171,6 +176,9 @@
 
 	filling.color = mix_color_from_reagents(reagents.reagent_list)
 	add_overlay(filling)
+	if(label_icon && (name != initial(name) || desc != initial(desc)))
+		var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
+		add_overlay(label)
 	return ..()
 
 /obj/item/reagent_containers/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
