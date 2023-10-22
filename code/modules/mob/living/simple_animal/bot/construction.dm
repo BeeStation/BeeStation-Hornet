@@ -168,10 +168,23 @@
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
 				if(W.use_tool(src, user, 40, volume=100))
-					var/mob/living/simple_animal/bot/secbot/ed209/B = new(drop_location())
-					B.name = created_name
-					to_chat(user, "<span class='notice'>You complete the ED-209.</span>")
-					qdel(src)
+					name = "armed [name]"
+					to_chat(user, "<span class='notice'>The gun is now securely fastened to the frame.</span>")
+					build_step++
+
+		if(9)
+			if(istype(W, /obj/item/stock_parts/cell/high))
+				if(!can_finish_build(W, user))
+					return
+				var/mob/living/simple_animal/bot/secbot/ed209/B = new(drop_location())
+				B.name = created_name
+				to_chat(user, "<span class='notice'>You complete the ED-209.</span>")
+				B.cell_type = W.type
+				qdel(W)
+				B.vest_type = vest_type
+				qdel(src)
+			else if(istype(W, /obj/item/stock_parts/cell)) // dont waste bluespace cells on this, goofus
+				to_chat(user, "<span class='notice'>Under Nanotrasen safety regulations, this Model bot only accepts standard issue high-capacity power cells.</span>")
 
 //Floorbot assemblies
 /obj/item/bot_assembly/floorbot
