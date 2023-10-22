@@ -202,7 +202,7 @@
 		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/can_crawl_through()
-	return (machine_stat & ~BROKEN) && !welded
+	return !(machine_stat & BROKEN) && !welded
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))

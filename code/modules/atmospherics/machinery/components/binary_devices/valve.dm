@@ -41,7 +41,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	icon_state = "[valve_type]valve_[on ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
 
 /obj/machinery/atmospherics/components/binary/valve/can_crawl_through()
-	return (machine_stat & ~BROKEN) && on // valves should block whatever is trying to go through them, regardless of power
+	return !(machine_stat & BROKEN) && on // valves should block whatever is trying to go through them, regardless of power
 
 /**
  * Called by finish_interact(), switch between open and closed, reconcile the air between two pipelines

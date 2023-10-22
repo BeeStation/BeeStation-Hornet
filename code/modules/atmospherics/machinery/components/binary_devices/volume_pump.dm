@@ -195,8 +195,7 @@
 	return TRUE
 
 /obj/machinery/atmospherics/components/binary/volume_pump/can_crawl_through()
-	. = ..()
-	return . && on // If a pump is off, it'll block even when not powered
+	return on
 
 // mapping
 
