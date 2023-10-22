@@ -1950,7 +1950,6 @@
 /area/hallway/secondary/entry)
 "ams" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/grimy,
 /area/hallway/secondary/entry)
 "amu" = (
@@ -9977,7 +9976,6 @@
 	id = "kitchencounter";
 	name = "Kitchen Counter Shutters"
 	},
-/obj/item/storage/fancy/donut_box,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -28341,7 +28339,6 @@
 /area/crew_quarters/dorms)
 "cTd" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -46684,7 +46681,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
@@ -53151,7 +53147,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "jOr" = (
@@ -76540,10 +76535,6 @@
 	c_tag = "Security - Office Fore"
 	},
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/donkpockets{
-	pixel_x = 2;
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -90427,7 +90418,6 @@
 /area/science/research)
 "wvO" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /obj/item/radio/intercom{
 	pixel_y = -26
 	},
@@ -92328,7 +92318,6 @@
 /area/science/shuttledock)
 "wZo" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
@@ -94181,7 +94170,6 @@
 "xEE" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/reagent_containers/food/snacks/donut/jelly/choco,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},

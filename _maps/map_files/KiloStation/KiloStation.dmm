@@ -81779,7 +81779,6 @@
 /area/quartermaster/warehouse)
 "uxt" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},

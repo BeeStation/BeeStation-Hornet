@@ -69,7 +69,7 @@
 	icon_type = "donut"
 	name = "donut box"
 	desc = "Mmm. Donuts."
-	spawn_type = /obj/item/reagent_containers/food/snacks/donut
+	spawn_type = /obj/item/reagent_containers/food/snacks/donut/premade
 	fancy_open = TRUE
 
 /obj/item/storage/fancy/donut_box/ComponentInitialize()
