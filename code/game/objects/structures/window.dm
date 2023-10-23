@@ -524,7 +524,7 @@
 	flags_1 = PREVENT_CLICK_UNDER_1
 	glass_amount = 2
 
-//Minor event assets
+//Minor event asset
 
 /obj/structure/window/fulltile/event/Initialize(mapload)
 	. = ..()
