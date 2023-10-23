@@ -762,10 +762,34 @@
 
 			if(status == "")
 				status = "OK"
+
 		var/no_damage
 		if(status == "OK" || status == "no damage")
 			no_damage = TRUE
-		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name] [HAS_TRAIT(src, TRAIT_SELF_AWARE) ? "has" : "is"] [status].</span>")
+		var/isdisabled = ""
+		if(LB.bodypart_disabled)
+			isdisabled = " is disabled"
+			if(no_damage)
+				isdisabled += " but otherwise"
+			else
+				isdisabled += " and"
+		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name][isdisabled][HAS_TRAIT(src, TRAIT_SELF_AWARE) ? " has " : " is "][status].</span>")
+
+		/*
+		for(var/thing in LB.wounds)
+			var/datum/wound/W = thing
+			var/msg
+			switch(W.severity)
+				if(WOUND_SEVERITY_TRIVIAL)
+					msg = "\t <span class='danger'>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)].</span>"
+				if(WOUND_SEVERITY_MODERATE)
+					msg = "\t <span class='warning'>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)]!</span>"
+				if(WOUND_SEVERITY_SEVERE)
+					msg = "\t <span class='warning'><b>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)]!</b></span>"
+				if(WOUND_SEVERITY_CRITICAL)
+					msg = "\t <span class='warning'><b>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)]!!</b></span>"
+			combined_msg += msg
+		*/
 
 		for(var/obj/item/I in LB.embedded_objects)
 			if(I.isEmbedHarmless())

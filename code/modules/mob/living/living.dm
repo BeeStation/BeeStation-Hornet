@@ -1231,7 +1231,7 @@
 
 	// Movespeed mods based on arms/legs quantity
 	if(movement_type & (FLYING | FLOATING))
-		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+		remove_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS)
 	else
 		var/limbless_slowdown = 0
 		// These checks for <2 should be swapped out for something else if we ever end up with a species with more than 2

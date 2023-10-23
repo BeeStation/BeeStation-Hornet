@@ -23,7 +23,7 @@
 		return -1
 	L = surgery.operated_bodypart
 	if(L)
-		if(L.is_disabled() == BODYPART_DISABLED_PARALYSIS)
+		if(L.bodypart_disabled)
 			to_chat(user, "<span class='warning'>You can't augment a limb with paralysis!</span>")
 			return -1
 		else

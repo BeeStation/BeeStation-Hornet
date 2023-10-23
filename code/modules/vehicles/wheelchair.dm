@@ -112,5 +112,5 @@
 /obj/vehicle/ridden/wheelchair/the_whip/driver_move(mob/living/user, direction)
 	if(istype(user))
 		var/datum/component/riding/D = GetComponent(/datum/component/riding)
-		D.vehicle_move_delay = round(1.5 * 6.7) / user.get_num_arms()
+		D.vehicle_move_delay = round(1.5 * 6.7) / user.usable_hands
 	return ..()
