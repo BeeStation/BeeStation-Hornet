@@ -42,7 +42,7 @@
 	SIGNAL_HANDLER
 
 	growth = min(growth + growth_per_hit, 100)
-	target.blood_volume = CLAMP(target.blood_volume - blood_siphoned, 0, BLOOD_VOLUME_MAXIMUM)
+	target.blood_volume = clamp(target.blood_volume - blood_siphoned, 0, BLOOD_VOLUME_MAXIMUM)
 	if(prob(growth) && !is_embedded)
 		embed()
 
