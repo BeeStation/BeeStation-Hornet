@@ -170,7 +170,7 @@
 	desc = "A sheet of solid ice. Looks slippery."
 	icon = 'icons/turf/floors/ice_turf.dmi'
 	icon_state = "ice-0"
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	initial_temperature = 180
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/floor/plating/ice
@@ -219,7 +219,7 @@
 	desc = "A section of heated plating, helps keep the snow from stacking up too high."
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snowplating"
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	initial_temperature = 180
 	attachment_holes = FALSE
 	planetary_atmos = TRUE

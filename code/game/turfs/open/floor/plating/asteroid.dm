@@ -122,7 +122,7 @@
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 
 /turf/open/floor/plating/asteroid/basalt/iceland_surface
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/cold
 
@@ -143,7 +143,7 @@
 	baseturfs = /turf/open/floor/plating/asteroid/snow
 	icon_state = "snow"
 	icon_plating = "snow"
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	environment_type = "snow"
 	flags_1 = NONE
 	planetary_atmos = TRUE
@@ -165,7 +165,7 @@
 	name = "icy snow"
 	desc = "Looks colder."
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	floor_variance = 0
 	icon_state = "snow-ice"
 	icon_plating = "snow-ice"
@@ -185,5 +185,5 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=255.37"
 
 /turf/open/floor/plating/asteroid/snow/atmosphere
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = FALSE
