@@ -1226,7 +1226,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set desc = "If you name isn't Haliris and you touch this button youll blow up irl"
 	set category = "Fun"
 
-	if(!check_rights(R_PERMISSIONS))
+	if(!check_rights(R_FUN))
 		return
 
 	var/turf/T = get_turf(usr)
