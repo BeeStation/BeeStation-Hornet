@@ -9,6 +9,7 @@
 	ambient_buzz_vol = 10
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	teleport_restriction = TELEPORT_ALLOW_NONE
+	outdoors = FALSE
 
 ///NOTE: this will containt all the Base zones, for the outpost and misc areas, look at ruins/iceland.dm!///
 

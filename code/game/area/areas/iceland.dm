@@ -33,6 +33,7 @@
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 	area_flags = UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED | MOB_SPAWN_ALLOWED
 	lighting_overlay_opacity = 0
+	outdoors = FALSE
 
 /area/iceland/underground/safe
 	name = "icecaverns (but safe)"
