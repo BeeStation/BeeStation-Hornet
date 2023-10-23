@@ -44073,33 +44073,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
 "eml" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/turf/open/floor/plasteel/white,
+/turf/open/space/basic,
 /area/medical/medbay/central)
 "emm" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -44590,39 +44564,6 @@
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
-"evS" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "ewg" = (
 /obj/structure/sign/warning/securearea{
 	name = "WARNING: Station Limits"
@@ -47594,28 +47535,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
-"fGS" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "fGZ" = (
 /obj/machinery/computer/med_data{
 	dir = 4
@@ -53781,12 +53700,6 @@
 	id = "chemistry_shutters_2";
 	name = "Chemistry Hall Shutters"
 	},
-/obj/machinery/door/window/northleft{
-	dir = 8;
-	icon_state = "right";
-	name = "Chemistry Desk";
-	req_access_txt = "5; 33"
-	},
 /turf/open/floor/plasteel/dark,
 /area/medical/chemistry)
 "ioU" = (
@@ -57062,6 +56975,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "jDl" = (
@@ -66700,6 +66614,7 @@
 	pixel_y = sssss
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/machinery/vending/wardrobe/medi_wardrobe,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "nQJ" = (
@@ -70197,33 +70112,7 @@
 /area/science/robotics/lab)
 "pnw" = (
 /obj/effect/landmark/start/paramedic,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/space/basic,
 /area/medical/medbay/central)
 "pnT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -71927,7 +71816,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "pWn" = (
-/obj/effect/landmark/start/medical_doctor,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -71940,7 +71828,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/machinery/vending/wardrobe/medi_wardrobe,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "pWp" = (
@@ -72913,35 +72800,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
-"qsB" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/medical/medbay/central)
 "qsD" = (
 /obj/structure/sink{
 	dir = 4;
@@ -73069,32 +72927,6 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/shower{
 	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
 	},
 /turf/open/floor/noslip/white,
 /area/medical/storage)
@@ -87981,33 +87813,7 @@
 "wuz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/landmark/event_spawn,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/space/basic,
 /area/medical/medbay/central)
 "wuG" = (
 /obj/machinery/portable_atmospherics/pump,
@@ -88110,33 +87916,7 @@
 /area/hallway/primary/starboard)
 "wwB" = (
 /obj/effect/landmark/start/medical_doctor,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1;
-	color = "#618ba2"
-	},
-/turf/open/floor/plasteel/white,
+/turf/open/space/basic,
 /area/medical/medbay/central)
 "wwE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -88158,9 +87938,6 @@
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "wwO" = (
-/obj/structure/closet/secure_closet/medical3,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/neck/stethoscope,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -88178,6 +87955,9 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/medical3,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/belt/medical,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "wxg" = (
@@ -89071,8 +88851,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "wOq" = (
-/obj/structure/closet/secure_closet/medical3,
-/obj/item/storage/belt/medical,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/radio/intercom{
 	pixel_x = -28
@@ -89080,6 +88858,8 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/medical3,
+/obj/item/storage/belt/medical,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "wOE" = (
@@ -111725,7 +111505,7 @@ aFl
 wBE
 eml
 eml
-qsB
+eml
 isk
 tQA
 aQJ
@@ -112236,9 +112016,9 @@ uxI
 aSe
 aFl
 wjv
-fGS
-evS
-evS
+eml
+eml
+eml
 wuz
 pUo
 xqT
