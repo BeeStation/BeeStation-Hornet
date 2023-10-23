@@ -281,27 +281,28 @@
 				to_chat(user, "<span class='notice'>There's already a [magazine_wording] in \the [src].</span>")
 		return
 	if (istype(A, /obj/item/ammo_casing) || istype(A, /obj/item/ammo_box))
-		//If it's a TWO_STEP bolt, you can't load it while it's closed (Mosin, Pipe Rifle)
-		//If it's NB_BREAK (No Bolt Break Action), you can't load it while it's closed (closed = bolt unlocked).
-		if (!bolt_locked)
+		//If it has a removable magazine, and does not support direct loading, return.
+		if(!internal_magazine && !direct_loading)
+			if(magazine)
+				to_chat(user, "<span class='notice'>Remove \the [src]'s magazine to load it!</span>")
+			return
+		//Most guns with internal magazines (or the ability to load a removable one) are loaded through the bolt that gets locked open. PUMP are the exception here.
+		if(!bolt_locked && bolt_type != BOLT_TYPE_PUMP)
 			if (bolt_type == BOLT_TYPE_NB_BREAK)
 				to_chat(user, "<span class='notice'>The [chamber_wording] is closed!</span>")
 			else
 				to_chat(user, "<span class='notice'>The [bolt_wording] is closed!</span>")
 			return
-
-		//If it has a removable magazine, and does not support direct loading, return.
-		if (!internal_magazine && !direct_loading)
-			to_chat(user, "<span class='notice'>Remove \the [src]'s magazine to load it!</span>")
-			return
-		//For chambering rounds directly, only possible with a single cartridge in hand and on TWO_STEP or PUMP bolt firearms
-		if(!chambered && istype(A, /obj/item/ammo_casing))
+		//For chambering cartridges directly, only possible with a single cartridge in hand on guns with either internal magazines or direct_loading set to true
+		//The additional check for bolt_locked only applies to PUMP bolt types, as they're the only ones that can load on a closed bolt.
+		if(!chambered && istype(A, /obj/item/ammo_casing) && bolt_locked)
 			var/obj/item/ammo_casing/AC = A
 			//If the gun isn't chambered in the same caliber as the cartridge, don't load it.
 			if(src.caliber != AC.caliber)
 				to_chat(user, "<span class='warning'>\The [src] isn't chambered in this caliber!</span>")
 				return
-			if(bolt_type == BOLT_TYPE_TWO_STEP || (bolt_type == BOLT_TYPE_PUMP && bolt_locked))
+			//Open Bolt and No Bolt (NO_BOLT or NB_BREAK) guns can't 'chamber' cartridges, skip trying to directly chamber one
+			if(bolt_type != BOLT_TYPE_OPEN && bolt_type != BOLT_TYPE_NO_BOLT && bolt_type != BOLT_TYPE_NB_BREAK)
 				chambered = AC
 				chambered.forceMove(src)
 				to_chat(user, "<span class='notice'>You chamber a [cartridge_wording] directly into \the [src].</span>")
