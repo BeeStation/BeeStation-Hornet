@@ -33,7 +33,10 @@
 				"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
 			if(!do_after(user, 1.5 SECONDS, target))
 				return COMPONENT_NO_AFTERATTACK
-			item_heal_robotic(target, user, 15, 0, affecting)
+			if(istype(target, /mob/living/carbon/human/species/twistedmen))
+				item_heal_robotic(target, user, 16, 15, affecting)
+			else
+				item_heal_robotic(target, user, 15, 0, affecting)
 		return COMPONENT_NO_AFTERATTACK
 
 	// Handles cable repairs

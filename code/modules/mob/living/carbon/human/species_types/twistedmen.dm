@@ -6,8 +6,8 @@
 	plural_form = "Twisted men"
 	id = SPECIES_TWISTED
 	sexes = 0
-	species_traits = list(NOBLOOD,NOHUSK,NOREAGENTS,NO_UNDERWEAR,NOEYESPRITES,REVIVESBYHEALING,NOHUSK)
-	inherent_traits = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_NOMETABOLISM,TRAIT_NOGUNS,NOFLASH,NO_UNDERWEAR)
+	species_traits = list(NOBLOOD,NOHUSK,NOREAGENTS,NO_UNDERWEAR,NOEYESPRITES,REVIVESBYHEALING)
+	inherent_traits = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_LIMBATTACHMENT,TRAIT_NOMETABOLISM,TRAIT_NOGUNS)
 	inherent_biotypes = list(MOB_UNDEAD,MOB_HUMANOID)
 	no_equip = list(ITEM_SLOT_HEAD, //All of them
 					ITEM_SLOT_MASK,
@@ -84,12 +84,24 @@
 	H.update_body()
 
 /datum/species/twistedmen/proc/declare_revival(mob/living/carbon/human/H)
-	H.Paralyze(4 SECONDS)
+	H.set_resting(TRUE, TRUE)
 	H.say("...")
 	sleep(4 SECONDS)
 	if(H.stat == DEAD)
 		return
 	H.emote("laugh")
+	H.set_resting(FALSE, TRUE)
+
+/obj/item/bodypart/l_arm/twisted/attach_limb(mob/living/carbon/C, special, is_creating)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(activate_welder), C), 2) //Just enough time for the open hand to be valid. Yes this is hacky af
+
+/obj/item/bodypart/l_arm/twisted/proc/activate_welder(mob/living/carbon/C)
+	var/hand =  C.get_empty_held_index_for_side("l")
+	if(hand)
+		welder = new/obj/item/weldingtool/infinite
+		if(!C.put_in_hand(welder, hand, TRUE))
+			qdel(welder)
 
 /obj/item/organ/eyes/twisted
 	name = "twisted eyes"
@@ -104,34 +116,20 @@
 	icon_icon = 'icons/mob/actions/actions_cult.dmi'//NEEDS ICON
 	background_icon_state = "bg_cult"
 	COOLDOWN_DECLARE(dispense_cooldown)
-	var/metal_reserves = 4
-	var/static/list/absorbeable = typecacheof(list(/obj/item/restraints/handcuffs/cable/zipties,/obj/item/restraints/legcuffs/bola,/obj/item/shield/energy))
-
 
 /datum/action/innate/dispenser/Activate()
-	var/held_item = owner.get_active_held_item()
-	if(held_item)
-		if(is_type_in_typecache(held_item, absorbeable))
-			to_chat(owner, "<span class='warning'>We reintegrate [held_item] back into our body!</span>")//NEEDS LOCALIZATION
-			qdel(held_item)
-			metal_reserves++
-			return
-		else
-			to_chat(owner, "<span class='warning'>We can't reintegrate this!</span>")//NEEDS LOCALIZATION
+	if(!COOLDOWN_FINISHED(src,dispense_cooldown))
+		return
 	var/list/dispense_list = list(
 		"Zipties" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "cuff_blood"),//NEEDS ICON (?)
 		"Bola" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "bola"),//NEEDS ICON (?)
 		"Shield" = image(icon = 'icons/obj/shields.dmi', icon_state = "twisted"),)//NEEDS ICON (?)
-	if(!COOLDOWN_FINISHED(src,dispense_cooldown))
-		return
-	if(!metal_reserves > 0)
-		to_chat(owner, "<span class='warning'>You are out of Metal! Reabsorb something you've made!</span>")//NEEDS LOCALIZATION
 	var/choice = show_radial_menu(owner, owner, dispense_list, radius = 42)
 	switch(choice)
 		if("Zipties")
-			choice = new /obj/item/restraints/handcuffs/cable/zipties/blood
+			choice = new /obj/item/restraints/handcuffs/cable/zipties/blood/twisted
 		if("Bola")
-			choice = new /obj/item/restraints/legcuffs/bola
+			choice = new /obj/item/restraints/legcuffs/bola/watcher/twisted
 		if("Shield")
 			choice = new /obj/item/shield/riot/twisted
 	if(!choice)
@@ -140,7 +138,74 @@
 		to_chat(owner, "<span class='warning'>Your hand is full!</span>")//NEEDS LOCALIZATION
 		qdel(choice)
 		return
-	metal_reserves--
-	to_chat(owner, "<span class='warning'>Your fabricate [choice]!</span>")//NEEDS LOCALIZATION
+	to_chat(owner, "<span class='warning'>You fabricate [choice]!</span>")//NEEDS LOCALIZATION
 	COOLDOWN_START(src,dispense_cooldown,10 SECONDS)
 
+/obj/item/restraints/handcuffs/cable/zipties/blood/twisted
+	trashtype = /obj/item/restraints/handcuffs/cable/zipties/blood/twisted_used
+
+/obj/item/restraints/handcuffs/cable/zipties/blood/twisted/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(crumble), src)
+
+/obj/item/restraints/handcuffs/cable/zipties/blood/twisted/proc/crumble()
+	visible_message("<span class='warning'>the [src] crumbles away!</span>")
+	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+	qdel(src)
+
+/obj/item/restraints/handcuffs/cable/zipties/blood/twisted_used/Initialize()
+	visible_message("<span class='warning'>the restraints crumbles away!</span>")
+	qdel(src) //hacky, but we don't actually want these to stick around after use.
+
+/obj/item/restraints/legcuffs/bola/watcher/twisted
+	name = "twisted bola"
+	desc = "A Bola made from inside of one of the twisted"
+	icon_state = "bola_watcher"
+	item_state = "bola_watcher"
+	knockdown = 2 SECONDS
+	breakouttime = 4 SECONDS //The bola crumbles in this same time period anyway
+
+/obj/item/restraints/legcuffs/bola/watcher/twisted/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(crumble_timed), src)
+
+/obj/item/restraints/legcuffs/bola/watcher/twisted/proc/crumble_timed()
+	addtimer(CALLBACK(src, PROC_REF(crumble)), breakouttime + 1 SECONDS) //Flight will not last more than a second anyway
+
+/obj/item/restraints/legcuffs/bola/watcher/twisted/ensnare(mob/living/carbon/C)
+	..()
+	addtimer(CALLBACK(src, PROC_REF(crumble)), breakouttime)
+
+/obj/item/restraints/legcuffs/bola/watcher/twisted/proc/crumble()
+	visible_message("<span class='warning'>the [src] crumbles away!</span>")
+	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+	qdel(src)
+
+/obj/item/shield/riot/twisted
+	name = "twisted shield"
+	desc = "an amalgamation of metal and flesh mashed with one another to serve as a shield. Reflects light at the right angle, blood drips from it."
+	icon_state = "twisted"
+	item_state = "twisted"
+	lefthand_file = 'icons/mob/inhands/halloween/twistedl.dmi'
+	righthand_file = 'icons/mob/inhands/halloween/twistedr.dmi'
+	transparent = FALSE
+	max_integrity =  65 //Can block up to 7 laser attacks and a moderate amount of melee.
+	block_power = 0
+
+/obj/item/shield/riot/twisted/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(crumble), src)
+
+/obj/item/shield/riot/twisted/shatter(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	var/obj/item/bodypart/BP
+	if(owner.get_active_hand() == BODY_ZONE_PRECISE_L_HAND)
+		BP = owner.get_bodypart(BODY_ZONE_L_ARM)
+	else
+		BP = owner.get_bodypart(BODY_ZONE_R_ARM)
+	BP.dismember()
+	crumble()
+
+/obj/item/shield/riot/twisted/proc/crumble()
+	visible_message("<span class='warning'>the [src] crumbles away!</span>")
+	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+	qdel(src)
