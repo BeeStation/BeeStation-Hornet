@@ -43,6 +43,11 @@
 /obj/effect/forcefield/event/door
 	icon_state = "door-shield"
 
+/obj/effect/forcefield/event/space //For use outside the station to prevent players from bypassing major chunks of the station
+	name = "spacial distortion"
+	desc = "A rapidly expanding spacial distortion capable of interfering with all but the most advanced forms of intragalactic spaceflight and communications technology."
+	icon_state = "space" //Placeholder sprite, ideally this will be replaced
+
 /obj/effect/forcefield/event/vines
 	name = "overgrowth"
 	desc = "A dense wall of impenetrable vines."

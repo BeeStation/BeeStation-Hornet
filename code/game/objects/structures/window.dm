@@ -524,6 +524,14 @@
 	flags_1 = PREVENT_CLICK_UNDER_1
 	glass_amount = 2
 
+//Minor event asset
+
+/obj/structure/window/fulltile/event/Initialize(mapload)
+	. = ..()
+	add_atom_colour(NARSIE_WINDOW_COLOUR, FIXED_COLOUR_PRIORITY)
+
+//
+
 /obj/structure/window/fulltile/unanchored
 	anchored = FALSE
 
@@ -587,6 +595,14 @@
 
 /obj/structure/window/reinforced/fulltile/unanchored
 	anchored = FALSE
+
+//Minor event asset
+
+/obj/structure/window/reinforced/fulltile/event/Initialize(mapload)
+	. = ..()
+	add_atom_colour(NARSIE_WINDOW_COLOUR, FIXED_COLOUR_PRIORITY)
+
+//
 
 /obj/structure/window/reinforced/tinted/fulltile
 	icon = 'icons/obj/smooth_structures/windows/tinted_window.dmi'
