@@ -1,6 +1,6 @@
 /client/proc/generateArchimundi()
 	set name = "Generate Archimundi"
-	set desc = "Spawns a mindless human"
+	set desc = "Deletes the Station and Generates Archimundi DO NOT PRESS LIGHTLY"
 	set category = "Fun"
 
 	if(!check_rights(R_PERMISSIONS))
