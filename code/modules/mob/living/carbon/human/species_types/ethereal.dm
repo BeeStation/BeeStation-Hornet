@@ -64,9 +64,6 @@
 	ethereal_light = ethereal.mob_light()
 	spec_updatehealth(ethereal)
 
-	var/obj/item/organ/heart/ethereal_heart = new_ethereal.getorganslot(ORGAN_SLOT_HEART)
-	ethereal_heart.ethereal_color = default_color
-
 	//The following code is literally only to make admin-spawned ethereals not be black.
 	new_ethereal.dna.features["mcolor"] = new_ethereal.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
 	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
@@ -93,11 +90,6 @@
 	. = ..()
 	if(!ethereal_light)
 		return
-	if(default_color != ethereal.dna.features["ethcolor"])
-		var/new_color = ethereal.dna.features["ethcolor"]
-		r1 = GETREDPART(new_color)
-		g1 = GETGREENPART(new_color)
-		b1 = GETBLUEPART(new_color)
 	if(ethereal.stat != DEAD && !EMPeffect)
 		var/healthpercent = max(ethereal.health, 0) / 100
 		if(!emageffect)
@@ -108,7 +100,8 @@
 	else
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = rgb(128,128,128)
-	ethereal.update_body(is_creating = TRUE)
+	ethereal.update_body()
+	ethereal.update_hair()
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
 	SIGNAL_HANDLER
