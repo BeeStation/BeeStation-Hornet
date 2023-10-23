@@ -384,22 +384,20 @@
 		playsound(cyborg.loc, 'sound/effects/turbolift/turbolift-close.ogg', 90)
 		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
 		STOP_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance()
 
-/obj/item/borg/upgrade/selfrepair/update_icon()
+/obj/item/borg/upgrade/selfrepair/update_icon_state()
 	if(cyborg)
 		icon_state = "selfrepair_[on ? "on" : "off"]"
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtonIcon()
 	else
 		icon_state = "cyborg_upgrade5"
+	return ..()
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
 	playsound(cyborg.loc, 'sound/effects/turbolift/turbolift-close.ogg', 90)
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/item/borg/upgrade/selfrepair/process()
 	if(world.time < next_repair)
@@ -824,7 +822,7 @@
 	desc = "A service cyborg upgrade allowing for basic food handling."
 	hat = /obj/item/clothing/head/chefhat
 	addmodules = list (
-		/obj/item/kitchen/knife,
+		/obj/item/knife/kitchen,
 		/obj/item/kitchen/rollingpin,
 	)
 	additional_reagents = list(

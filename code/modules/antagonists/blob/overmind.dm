@@ -148,6 +148,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 		if(!(FACTION_BLOB in L.faction))
 			playsound(L, 'sound/effects/splat.ogg', 50, 1)
+			if(L.stat != DEAD)
+				L.investigate_log("has died from blob takeover.", INVESTIGATE_DEATHS)
 			L.death()
 			new/mob/living/simple_animal/hostile/blob/blobspore(T)
 		else
@@ -215,7 +217,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 				B.hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_core.obj_integrity)]</font></div>")
 
 /mob/camera/blob/proc/add_points(points)
-	blob_points = CLAMP(blob_points + points, 0, max_blob_points)
+	blob_points = clamp(blob_points + points, 0, max_blob_points)
 	hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_points)]</font></div>")
 
 /mob/camera/blob/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)

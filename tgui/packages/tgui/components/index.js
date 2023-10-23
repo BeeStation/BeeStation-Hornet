@@ -13,6 +13,7 @@ export { Button } from './Button';
 export { ByondUi } from './ByondUi';
 export { Chart } from './Chart';
 export { Collapsible } from './Collapsible';
+export { CollapsibleSection } from './CollapsibleSection';
 export { ColorBox } from './ColorBox';
 export { Dimmer } from './Dimmer';
 export { Divider } from './Divider';
