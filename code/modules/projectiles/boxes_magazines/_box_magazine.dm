@@ -69,6 +69,9 @@
 	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/AM = A
 		for(var/obj/item/ammo_casing/AC in AM.stored_ammo)
+			//If the box you're loading into is full, or the one you're loading from is empty, break.
+			if(!AM.stored_ammo || stored_ammo.len >= max_ammo)
+				break
 			if(!multiload)
 				if(!do_after(user, 4, src, IGNORE_USER_LOC_CHANGE))
 					break

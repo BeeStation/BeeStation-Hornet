@@ -229,7 +229,7 @@
 			to_chat(user, "<span class='notice'>You load a new [magazine_wording] into \the [src].</span>")
 		playsound(src, load_empty_sound, load_sound_volume, load_sound_vary)
 		if (bolt_type == BOLT_TYPE_OPEN && !bolt_locked)
-			chamber_round(TRUE)
+			chamber_round()
 		update_icon()
 		return TRUE
 	else
@@ -238,6 +238,9 @@
 
 /obj/item/gun/ballistic/proc/eject_magazine(mob/user, display_message = TRUE, obj/item/ammo_box/magazine/tac_load = null)
 	if(bolt_type == BOLT_TYPE_OPEN)
+		//Put the chambered bullet back into the magazine, because it was never really taken out in the first place.
+		if(chambered)
+			magazine.attackby(chambered, user, null, TRUE, FALSE)
 		chambered = null
 	if (magazine.ammo_count())
 		playsound(src, load_sound, load_sound_volume, load_sound_vary)
@@ -260,9 +263,8 @@
 	update_icon()
 
 /obj/item/gun/ballistic/can_shoot()
-	if(bolt_type == BOLT_TYPE_TWO_STEP && bolt_locked)
-		return FALSE
-	if(bolt_type == BOLT_TYPE_NB_BREAK && bolt_locked)
+	//If it's locked open (TWO_STEP and PUMP) or physically opened up (NB_BREAK), it can't fire.
+	if((bolt_type == BOLT_TYPE_TWO_STEP || bolt_type == BOLT_TYPE_PUMP || bolt_type == BOLT_TYPE_NB_BREAK) && bolt_locked)
 		return FALSE
 	return chambered
 
@@ -482,7 +484,7 @@
 
 /obj/item/gun/ballistic/examine(mob/user)
 	. = ..()
-	var/count_chambered = !(bolt_type == BOLT_TYPE_NO_BOLT || bolt_type == BOLT_TYPE_OPEN || bolt_type == BOLT_TYPE_NB_BREAK)
+	var/count_chambered = !(bolt_type == BOLT_TYPE_NO_BOLT || bolt_type == BOLT_TYPE_NB_BREAK)
 	. += "It has [get_ammo(count_chambered)] round\s remaining."
 	if (!chambered)
 		. += "It does not seem to have a round chambered."

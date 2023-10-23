@@ -235,6 +235,7 @@
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm just here for the gasoline."
+	no_pin_required = TRUE
 	unique_reskin_icon = null
 	recoil = 1.5
 	var/slung = FALSE

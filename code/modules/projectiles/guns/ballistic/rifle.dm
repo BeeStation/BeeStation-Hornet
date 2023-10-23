@@ -141,6 +141,7 @@
 	cartridge_wording = "cartridge"
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/pipegun
+	no_pin_required = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	recoil = 0.8
