@@ -17,11 +17,10 @@
 /obj/item/light/suicide_act(mob/living/carbon/user)
 	if (status == LIGHT_BROKEN)
 		user.visible_message("<span class='suicide'>[user] begins to stab [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-		return BRUTELOSS
 	else
 		user.visible_message("<span class='suicide'>[user] begins to eat \the [src]! It looks like [user.p_theyre()] not very bright!</span>")
 		shatter()
-		return BRUTELOSS
+	return BRUTELOSS
 
 /obj/item/light/tube
 	name = "light tube"

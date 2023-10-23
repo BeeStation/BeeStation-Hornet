@@ -113,22 +113,20 @@
 	to_chat(user, "<span class='warning'>You are too primitive to use this computer!</span>")
 	return
 
-/obj/machinery/computer/launchpad/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/M = W
-		if(M.buffer && istype(M.buffer, /obj/machinery/launchpad))
-			if(LAZYLEN(launchpads) < maximum_pads)
-				launchpads |= M.buffer
-				RegisterSignal(M.buffer, COMSIG_PARENT_QDELETING, PROC_REF(launchpad_deleted))
-				M.buffer = null
-				ui_update()
-				to_chat(user, "<span class='notice'>You upload the data from the [W.name]'s buffer.</span>")
-			else
-				to_chat(user, "<span class='warning'>[src] cannot handle any more connections!</span>")
-	else
-		return ..()
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
+	if(istype(buffer, /obj/machinery/launchpad))
+		if(LAZYLEN(launchpads) < maximum_pads)
+			launchpads |= buffer
+			RegisterSignal(buffer, COMSIG_PARENT_QDELETING, PROC_REF(launchpad_deleted))
+			FLUSH_BUFFER(buffer_parent)
+			ui_update()
+			to_chat(user, "<span class='notice'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
+		else
+			to_chat(user, "<span class='warning'>[src] cannot handle any more connections!</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/computer/launchpad/proc/launchpad_deleted(datum/source)
 	SIGNAL_HANDLER

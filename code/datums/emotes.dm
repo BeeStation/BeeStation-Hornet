@@ -98,8 +98,8 @@
 		if(!M.client || isnewplayer(M))
 			continue
 		var/T = get_turf(user)
-		if(M.stat == DEAD && M.client && M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(M in viewers(T, null)))
-			if(user.mind || M.client.prefs.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
+		if(M.stat == DEAD && M?.client.prefs?.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(M in viewers(T, null)))
+			if(user.mind || M.client.prefs?.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
 				M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 			else
 				M.show_message("[dchatmsg]")
@@ -140,9 +140,9 @@
 		. = message_monkey
 	else if(isipc(user) && message_ipc)
 		. = message_ipc
-	else if((ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/simple_animal/mothroach)) && message_insect)
+	else if((ismoth(user) || isapid(user) || isflyperson(user)) && message_insect)
 		. = message_insect
-	else if(isanimal(user) && message_simple)
+	else if((isanimal(user) || isbasicmob(user)) && message_simple)
 		. = message_simple
 
 /datum/emote/proc/select_param(mob/user, params)

@@ -404,7 +404,7 @@
 		return 0
 	return ..()
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = FALSE)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = VOMIT_TOXIC, purge = FALSE)
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return 1
 
@@ -452,10 +452,10 @@
 				adjustBruteLoss(3)
 		else if(src.reagents.has_reagent(/datum/reagent/consumable/ethanol/blazaam, needs_metabolizing = TRUE))
 			if(T)
-				T.add_vomit_floor(src, VOMIT_PURPLE)
+				T.add_vomit_floor(src, toxic || VOMIT_PURPLE, purge)
 		else
 			if(T)
-				T.add_vomit_floor(src, VOMIT_TOXIC)//toxic barf looks different
+				T.add_vomit_floor(src, toxic, purge)//toxic barf looks different
 		T = get_step(T, dir)
 		if (T.is_blocked_turf())
 			break
@@ -496,7 +496,7 @@
 		total_brute	+= (BP.brute_dam * BP.body_damage_coeff)
 		total_burn	+= (BP.burn_dam * BP.body_damage_coeff)
 		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
-	health = round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION)
+	set_health(round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION))
 	staminaloss = round(total_stamina, DAMAGE_PRECISION)
 	update_stat()
 	update_mobility()
@@ -507,6 +507,7 @@
 		add_movespeed_modifier(MOVESPEED_ID_CARBON_SOFTCRIT, TRUE, multiplicative_slowdown = SOFTCRIT_ADD_SLOWDOWN)
 	else
 		remove_movespeed_modifier(MOVESPEED_ID_CARBON_SOFTCRIT, TRUE)
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
 
 
 /mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
@@ -723,28 +724,34 @@
 	if(hud_used && hud_used.internals)
 		hud_used.internals.icon_state = "internal[internal_state]"
 
+/mob/living/carbon/set_health(new_value)
+	. = ..()
+	if(. > hardcrit_threshold)
+		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
+	else if(health > hardcrit_threshold)
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
+	if(CONFIG_GET(flag/near_death_experience))
+		if(. > HEALTH_THRESHOLD_NEARDEATH)
+			if(health <= HEALTH_THRESHOLD_NEARDEATH && !HAS_TRAIT(src, TRAIT_NODEATH))
+				ADD_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
+		else if(health > HEALTH_THRESHOLD_NEARDEATH)
+			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
+
 /mob/living/carbon/update_stat()
 	if(status_flags & GODMODE)
 		return
 	if(stat != DEAD)
 		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
 			death()
-			cure_blind(UNCONSCIOUS_BLIND)
 			return
-		if(IsUnconscious() || IsSleeping() || getOxyLoss() > 50 || (HAS_TRAIT(src, TRAIT_DEATHCOMA)) || (health <= HEALTH_THRESHOLD_FULLCRIT && !HAS_TRAIT(src, TRAIT_NOHARDCRIT)))
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
 			set_stat(UNCONSCIOUS)
-			become_blind(UNCONSCIOUS_BLIND)
-			if(CONFIG_GET(flag/near_death_experience) && health <= HEALTH_THRESHOLD_NEARDEATH && !HAS_TRAIT(src, TRAIT_NODEATH))
-				ADD_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
-			else
-				REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		else
 			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
 				set_stat(SOFT_CRIT)
 			else
 				set_stat(CONSCIOUS)
-			cure_blind(UNCONSCIOUS_BLIND)
-			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		update_mobility()
 	update_damage_hud()
 	update_health_hud()

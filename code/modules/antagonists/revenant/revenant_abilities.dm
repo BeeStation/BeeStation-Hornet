@@ -134,7 +134,9 @@
 					target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
 										   "<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
 					drained_mobs.Add(target)
-					target.death(0)
+					if(target.stat != DEAD)
+						target.investigate_log("has died from revenant harvest.", INVESTIGATE_DEATHS)
+					target.death(FALSE)
 				else
 					to_chat(src, "<span class='revenwarning'>[target ? "[target] has":"[target.p_theyve(TRUE)]"] been drawn out of your grasp. The link has been broken.</span>")
 					if(target) //Wait, target is WHERE NOW?

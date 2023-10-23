@@ -27,7 +27,7 @@
 	var/obj/structure/cable/attached		// the attached cable
 	item_flags = NO_PIXEL_RANDOM_DROP
 
-/obj/item/powersink/update_icon()
+/obj/item/powersink/update_icon_state()
 	icon_state = "powersink[mode == OPERATING]"
 	return ..()
 

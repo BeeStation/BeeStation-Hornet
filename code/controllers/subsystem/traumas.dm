@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(traumas)
 					   /mob/living/simple_animal/pet/penguin)),
 					   "birds" = typecacheof(list(/mob/living/simple_animal/parrot, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 					   /mob/living/simple_animal/pet/penguin)),
-					   "anime" = typecacheof(list(/mob/living/simple_animal/hostile/guardian))
+					   "anime" = typecacheof(list(/mob/living/simple_animal/hostile/holoparasite))
 					   )
 
 	phobia_objs = list("snakes" = typecacheof(list(/obj/item/rod_of_asclepius)),

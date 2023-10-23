@@ -31,6 +31,7 @@
 /obj/item/rcl/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed)
+	AddElement(/datum/element/update_icon_updates_onmob)
 
 /// triggered on wield of two handed item
 /obj/item/rcl/proc/on_wield(obj/item/source, mob/user)
@@ -112,11 +113,11 @@
 	QDEL_NULL(wiring_gui_menu)
 	return ..()
 
-/obj/item/rcl/update_icon()
+/obj/item/rcl/update_icon_state()
 	if(!loaded)
 		icon_state = "rcl-0"
 		item_state = "rcl-0"
-		return
+		return ..()
 	switch(loaded.amount)
 		if(61 to INFINITY)
 			icon_state = "rcl-30"
@@ -130,6 +131,7 @@
 		else
 			icon_state = "rcl-0"
 			item_state = "rcl-0"
+	return ..()
 
 /obj/item/rcl/proc/is_empty(mob/user, loud = 1)
 	update_icon()

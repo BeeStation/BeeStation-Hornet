@@ -64,6 +64,7 @@
 #include "create_and_destroy.dm"
 #endif
 
+#include "dcs_get_id_from_elements.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
 #include "gamemode_sanity.dm"
@@ -82,6 +83,7 @@
 #include "ntnetwork_tests.dm"
 #include "preference_species.dm"
 #include "projectiles.dm"
+#include "stat_mc.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgery_linking.dm"

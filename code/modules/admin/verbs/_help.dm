@@ -233,10 +233,19 @@
 		for(var/datum/help_ticket/AH in l)
 			if(AH.initiator)
 				tab_data["#[AH.id]. [AH.initiator_key_name]"] = list(
-					text = AH.name,
+					text = AH.stat_text,
 					type = STAT_BUTTON,
 					action = "open_ticket",
 					params = list("id" = AH.id),
+					multirow = TRUE,
+					buttons = list(
+						list(
+							"title" = AH.claimee_key_name ? "Claimed by [AH.claimee_key_name]" : "Claim",
+							"color" = AH.claimee_key_name ? "red" : "green",
+							"action_id" = "claim_ticket",
+							"params" = list("id" = AH.id)
+						)
+					)
 				)
 			else
 				++num_disconnected
@@ -311,6 +320,7 @@
 /datum/help_ticket
 	var/id
 	var/name
+	var/stat_text
 	var/state = TICKET_UNCLAIMED
 	/// The first (sanitized) message for this ticket
 	var/initial_msg
@@ -359,6 +369,7 @@
 	opened_at = world.time
 
 	name = copytext_char(msg, 1, 100)
+	stat_text = copytext_char(msg, 1, 500)
 
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))

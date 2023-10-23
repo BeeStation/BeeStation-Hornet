@@ -110,7 +110,7 @@
 
 /obj/item/radio/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/radio/AltClick(mob/user)
 	if(headset)
@@ -400,6 +400,11 @@
 	emped = FALSE
 	on = TRUE
 	return TRUE
+
+/obj/item/radio/proc/get_specific_hearers()
+	if(istype(loc, /obj/item/implant))
+		var/obj/item/implant/radio_implant = loc
+		return radio_implant.imp_in
 
 ///////////////////////////////
 //////////Borg Radios//////////

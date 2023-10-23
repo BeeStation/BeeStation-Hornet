@@ -100,8 +100,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		Entered(content, null)
 
 	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(GLOB.fullbright_overlay)
+	if(fullbright_type && IS_DYNAMIC_LIGHTING(A))
+		if (fullbright_type == FULLBRIGHT_STARLIGHT)
+			add_overlay(GLOB.starlight_overlay)
+		else
+			add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
@@ -526,7 +529,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE)
+/turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE, purge = TRUE)
 
 	var/obj/effect/decal/cleanable/vomit/V = new /obj/effect/decal/cleanable/vomit(src, M.get_static_viruses())
 
@@ -540,7 +543,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		V.icon_state = "vomitpurp_[pick(1,4)]"
 	else if (toxvomit == VOMIT_TOXIC)
 		V.icon_state = "vomittox_[pick(1,4)]"
-	if (iscarbon(M))
+	else if (toxvomit == VOMIT_NANITE)
+		V.name = "metallic slurry"
+		V.desc = "A puddle of metallic slurry that looks vaguely like very fine sand. It almost seems like it's moving..."
+		V.icon_state = "vomitnanite_[pick(1,4)]"
+	if (purge && iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.reagents)
 			clear_reagents_to_vomit_pool(C,V)

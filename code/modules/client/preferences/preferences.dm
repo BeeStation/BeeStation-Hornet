@@ -102,7 +102,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return ..()
 
 /datum/preferences/New(client/parent)
+	if(!istype(parent))
+		qdel(src)
+		return
 	src.parent = parent
+	log_preferences("[parent.ckey]: Preferences datum created.")
 
 	for (var/middleware_type in subtypesof(/datum/preference_middleware))
 		middleware += new middleware_type(src)
@@ -112,6 +116,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			unlock_content = !!parent.IsByondMember()
 			if(unlock_content)
 				max_save_slots = 8
+			log_preferences("[parent.ckey]: Checked BYOND membership: [unlock_content ? "MEMBER" : "NONMEMBER"].")
 	else
 		CRASH("attempted to create a preferences datum without a client!")
 
@@ -121,43 +126,66 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	save_locked = TRUE
 
-	var/loaded_preferences_successfully = load_preferences()
-	if(loaded_preferences_successfully)
+	var/pref_load = load_preferences()
+	var/char_load
+	if(pref_load == PREFERENCE_LOAD_SUCCESS || pref_load == PREFERENCE_LOAD_NO_DATA)
+		log_preferences("[parent?.ckey]: Player preferences loaded and applied.")
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
 			max_save_slots += 1
-		if(load_character()) // This returns true if there is a database and character in the active slot.
-			// Get the profile data
-			fetch_character_profiles()
-			create_character_preview_view()
-			save_locked = FALSE
-			return
-	// Begin no database / new player logic. This ONLY fires if there is an SQL error or no database / the player and character is new.
+		// Apply the loaded preferences!!
+		if(istype(parent))
+			apply_all_client_preferences()
+		char_load = load_character()
+	else if(istype(parent) && istype(player_data)) // defaults should already exist because player_data generates them
+		log_preferences("[parent?.ckey]: Player preferences generated and applied.")
+		apply_all_client_preferences()
+	else // Ok what the fuck - abort mission
+		log_preferences("[parent?.ckey]: ERROR - Player preferences FAILED to load or apply. DELETING.")
+		save_locked = FALSE
+		qdel(src) // this will also remove us from the write queue
+		return
 
-	if(!loaded_preferences_successfully) // create a new character object
+	// character_data is null, so we need to just set it up manually with defaults.
+	// This means either there is no DB or we are a guest key.
+	if(pref_load == PREFERENCE_LOAD_IGNORE)
+		log_preferences("[parent?.ckey]: Applying guest character preferences.")
 		character_data = new(src, default_slot)
-		// Get the profile data
-		fetch_character_profiles()
+		character_data.provide_defaults(src, should_use_informed = FALSE)
+
+	// New player or guest/no DB. Use the fallback species
+	if(pref_load == PREFERENCE_LOAD_IGNORE || pref_load == PREFERENCE_LOAD_NO_DATA)
+		log_preferences("[parent?.ckey]: Applying fallback species.")
 		var/new_species_path = GLOB.species_list[get_fallback_species_id() || "human"]
 		character_data.write_preference(src, GLOB.preference_entries[/datum/preference/choiced/species], new_species_path)
-	// We couldn't load character data so just randomize the character appearance
-	randomize_appearance_prefs()
-	if(parent)
-		apply_all_client_preferences() // apply now since normally this is done in load_preferences(). Defaults were set in preferences_player
 
-	// The character name is fresh, update the character list.
-	update_current_character_profile()
+	// If the character is fresh in any way, we need to randomize it.
+	var/fresh_character = pref_load == PREFERENCE_LOAD_IGNORE || char_load == PREFERENCE_LOAD_IGNORE || char_load == PREFERENCE_LOAD_NO_DATA
+	if(fresh_character)
+		log_preferences("[parent?.ckey]: New character created - randomizing appearance.")
+		randomize_appearance_prefs()
+
+	// Provide informed defaults for guests/no DB - these depend on other preferences, so we do that after randomizing.
+	if(pref_load == PREFERENCE_LOAD_IGNORE)
+		character_data.provide_defaults(src, should_use_informed = TRUE)
+
+	// Get character profiles, since they haven't been fetched at all yet
+	fetch_character_profiles()
+	// The database won't have the correct name yet, so manually load it, if it changed.
+	if(fresh_character)
+		update_current_character_profile()
 	create_character_preview_view()
 
 	save_locked = FALSE
 
 	// If this was a NEW CKEY ENTRY, and not a guest key (handled in save_preferences()), save it.
 	// Guest keys are ignored by mark_undatumized_dirty
-	if(!loaded_preferences_successfully)
+	if(pref_load == PREFERENCE_LOAD_NO_DATA)
 		// This will essentially force a write, while also using the queueing system.
 		// For new ckeys, it is almost guaranteed we already hit the queue, since write_preference (used for when a datumized entry is null)
 		// Will also queue the CKEY. But this will also ensure that undatumized prefs get written.
 		mark_undatumized_dirty_player()
-	mark_undatumized_dirty_character()
+	if(char_load == PREFERENCE_LOAD_NO_DATA)
+		mark_undatumized_dirty_character()
 
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// IMPORTANT: If someone opens the prefs menu before jobs load, then the jobs menu will be empty for everyone.
@@ -246,18 +274,23 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			/// No switching slots during a save
 			if(save_locked)
 				return
+			log_preferences("[parent?.ckey]: Slot change event from [default_slot] to [new_slot].")
 			save_locked = TRUE
 			// Save previous character (immediately, delaying this could mean data is lost)
 			save_character()
 
 			// SAFETY: `load_character` performs sanitization the slot number
-			if (!load_character(new_slot))
+			var/character_load_result = load_character(new_slot)
+
+			if (character_load_result == PREFERENCE_LOAD_NO_DATA || character_load_result == PREFERENCE_LOAD_IGNORE)
+				log_preferences("[parent?.ckey]: Generating new character in new slot [new_slot].")
 				// there is no character in the slot. Make a new one. Save it.
 				update_current_character_profile()
 				randomize_appearance_prefs()
+			if(character_load_result == PREFERENCE_LOAD_NO_DATA)
 				// Queue an undatumized save, just in case (it's likely already queued, but we should write undatumized data as well)
 				mark_undatumized_dirty_character()
-
+			log_preferences("[parent?.ckey]: Slot change complete.")
 			for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 				preference_middleware.on_new_character(usr)
 
@@ -379,6 +412,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /// Applies all PREFERENCE_PLAYER preferences immediately
 /datum/preferences/proc/apply_all_client_preferences()
+	log_preferences("[parent?.ckey]: Applying client preferences.")
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
 		if (preference.preference_type != PREFERENCE_PLAYER)
 			continue
@@ -388,6 +422,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/update_current_character_profile()
 	if(!islist(character_profiles_cached))
 		return
+	log_preferences("[parent?.ckey]: Updating cached character profile.")
 	character_profiles_cached[default_slot] = read_character_preference(/datum/preference/name/real_name)
 
 /// Immediately refetch the character list
@@ -395,7 +430,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character_data.get_all_character_names(src)
 
 /// Applies the given preferences to a human mob.
-/datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE)
+/datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, log = TRUE)
+	if(log)
+		log_preferences("[parent?.ckey]: Applying character preferences to mob [key_name(character)] ([REF(character)]).")
 	character.dna.features = list()
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())

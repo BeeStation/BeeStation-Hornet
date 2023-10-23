@@ -276,10 +276,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 			continue
 		if(get_dist(M, src) > 7 || M.get_virtual_z_level() != get_virtual_z_level()) //they're out of range of normal hearing
-			if(eavesdrop_range && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostwhisper)) //they're whispering and we have hearing whispers at any range off
+			if(M.client?.prefs && eavesdrop_range && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostwhisper)) //they're whispering and we have hearing whispers at any range off
 				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 				continue
-			if(!M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostears)) //they're talking normally and we have hearing at any range off
+			if(M.client?.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostears)) //they're talking normally and we have hearing at any range off
 				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 				continue
 		listening |= M
@@ -345,7 +345,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 /mob/living/proc/is_muted(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(client.prefs && (client.prefs.muted & MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (muted).</span>")
 			return TRUE
 		if(!ignore_spam && !forced && client.handle_spam_prevention(message, MUTE_IC))
