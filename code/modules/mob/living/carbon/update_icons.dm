@@ -38,15 +38,6 @@
 		cut_overlay(I)
 		overlays_standing[cache_index] = null
 
-//used when putting/removing clothes that hide certain mutant body parts to just update those and not update the whole body.
-/mob/living/carbon/human/proc/update_mutant_bodyparts()
-	dna.species.handle_mutant_bodyparts(src)
-	update_body_parts()
-
-/mob/living/carbon/update_body(is_creating = FALSE)
-	dna.species.handle_body(src) //This calls `handle_mutant_bodyparts` which calls `update_mutant_bodyparts()`. Don't double call!
-	update_body_parts(is_creating)
-
 /mob/living/carbon/regenerate_icons()
 	if(notransform)
 		return 1
@@ -214,6 +205,8 @@
 /obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file)
 	. = list()
 
+/mob/living/carbon/update_body()
+	update_body_parts()
 
 /mob/living/carbon/proc/update_body_parts(var/update_limb_data)
 	//Check the cache to see if it needs a new sprite

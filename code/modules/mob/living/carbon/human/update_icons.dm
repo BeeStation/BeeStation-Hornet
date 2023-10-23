@@ -52,6 +52,9 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_hair()
 	dna.species.handle_hair(src)
 
+/mob/living/carbon/human/proc/update_mutant_bodyparts()
+	dna.species.handle_mutant_bodyparts(src)
+
 /mob/living/carbon/human/update_body()
 	remove_overlay(BODY_LAYER)
 	dna.species.handle_body(src)
