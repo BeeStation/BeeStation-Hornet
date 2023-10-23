@@ -181,6 +181,7 @@
 		return FALSE
 	if(owner && (owner.status_flags & GODMODE))
 		return FALSE	//godmode
+
 	if(required_status && !(bodytype & required_status))
 		return FALSE
 
@@ -199,6 +200,12 @@
 		if(ALIEN_BODYPART,LARVA_BODYPART) //aliens take double burn //nothing can burn with so much snowflake code around
 			burn *= 2
 
+	/*
+	// Is the damage greater than the threshold, and if so, probability of damage + item force
+	if((brute_dam > bone_break_threshold) && prob(brute_dam + break_modifier))
+		break_bone()
+	*/
+
 	var/can_inflict = (max_damage * 2) - get_damage()
 	if(can_inflict <= 0)
 		return FALSE
@@ -209,17 +216,13 @@
 		brute = round(brute * (can_inflict / total_damage),DAMAGE_PRECISION)
 		burn = round(burn * (can_inflict / total_damage),DAMAGE_PRECISION)
 
-	if(brute)
-		set_brute_dam(brute_dam + brute)
-	if(burn)
-		set_burn_dam(burn_dam + burn)
+	brute_dam += brute
+	burn_dam += burn
 
 	//We've dealt the physical damages, if there's room lets apply the stamina damage.
-	var/current_damage = get_damage(TRUE)	//This time around, count stamina loss too.
-	var/available_damage = max_damage - current_damage
-	var/applied_damage = min(max_stamina_damage - stamina_dam, available_damage)
 	if(stamina)
-		stamina_dam += round(clamp(stamina, 0, applied_damage), DAMAGE_PRECISION)
+		set_stamina_dam(stamina_dam + round(clamp(stamina, 0, max_stamina_damage - stamina_dam), DAMAGE_PRECISION))
+
 
 	if(owner)
 		if(can_be_disabled)
@@ -229,7 +232,8 @@
 			if(stamina >= DAMAGE_PRECISION)
 				owner.update_stamina(TRUE)
 				owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
-	return update_bodypart_damage_state()
+				. = TRUE
+	return update_bodypart_damage_state() || .
 
 //Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
 //Damage cannot go below zero.
