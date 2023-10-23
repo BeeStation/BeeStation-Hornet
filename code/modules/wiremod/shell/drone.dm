@@ -7,8 +7,8 @@
 	name = "drone"
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "setup_medium_med"
-
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_on = FALSE
 
 /mob/living/circuit_drone/Initialize(mapload)
 	. = ..()
