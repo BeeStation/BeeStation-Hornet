@@ -7,7 +7,7 @@
 	id = SPECIES_TWISTED
 	sexes = 0
 	species_traits = list(NOBLOOD,NOHUSK,NOREAGENTS,NO_UNDERWEAR,NOEYESPRITES,REVIVESBYHEALING)
-	inherent_traits = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_NOMETABOLISM,TRAIT_NOGUNS)
+	inherent_traits = list(TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_LIMBATTACHMENT,TRAIT_NOMETABOLISM,TRAIT_NOGUNS)
 	inherent_biotypes = list(MOB_UNDEAD,MOB_HUMANOID)
 	no_equip = list(ITEM_SLOT_HEAD, //All of them
 					ITEM_SLOT_MASK,
@@ -180,25 +180,26 @@
 
 /obj/item/shield/riot/twisted
 	name = "twisted shield"
-	desc = "an amalgamation of metal and flesh mashed with one another to serve as a shield. Sturdy, blood drips from it."
+	desc = "an amalgamation of metal and flesh mashed with one another to serve as a shield. Reflects light at the right angle, blood drips from it."
 	icon_state = "twisted"
 	item_state = "twisted"
 	lefthand_file = 'icons/mob/inhands/halloween/twistedl.dmi'
 	righthand_file = 'icons/mob/inhands/halloween/twistedr.dmi'
 	transparent = FALSE
-	max_integrity =  25 //can block three lasers or two-ish melee attacks.
+	max_integrity =  65 //Can block up to 7 laser attacks and a moderate amount of melee.
 	block_power = 0
 
 /obj/item/shield/riot/twisted/Initialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(crumble), src)
 
-/obj/item/shield/riot/twisted/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
-	if(..())
-		return
+/obj/item/shield/riot/twisted/shatter(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	var/obj/item/bodypart/BP
+	if(owner.get_active_hand() == BODY_ZONE_PRECISE_L_HAND)
+		BP = owner.get_bodypart(BODY_ZONE_L_ARM)
 	else
-
-/obj/item/shield/riot/twisted/shatter(mob/living/carbon/human/owner)
+		BP = owner.get_bodypart(BODY_ZONE_R_ARM)
+	BP.dismember()
 	crumble()
 
 /obj/item/shield/riot/twisted/proc/crumble()
