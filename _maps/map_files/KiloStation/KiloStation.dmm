@@ -44073,7 +44073,9 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
 "eml" = (
-/turf/open/space/basic,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "emm" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -70111,8 +70113,10 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "pnw" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/landmark/start/paramedic,
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "pnT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -87811,9 +87815,11 @@
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/supply)
 "wuz" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/landmark/event_spawn,
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "wuG" = (
 /obj/machinery/portable_atmospherics/pump,
@@ -87915,8 +87921,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "wwB" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/landmark/start/medical_doctor,
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "wwE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -88666,6 +88674,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
+"wKp" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/medical/medbay/central)
 "wKu" = (
 /obj/effect/turf_decal/bot{
 	pixel_y = sssss
@@ -111504,7 +111520,7 @@ uPx
 aFl
 wBE
 eml
-eml
+wKp
 eml
 isk
 tQA
