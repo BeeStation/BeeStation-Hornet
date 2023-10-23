@@ -92,18 +92,21 @@
 	H.emote("laugh")
 	H.set_resting(FALSE, TRUE)
 
+/obj/item/bodypart/l_arm/twisted/attach_limb(mob/living/carbon/C, special, is_creating)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(activate_welder), C), 2) //Just enough time for the open hand to be valid. Yes this is hacky af
+
+/obj/item/bodypart/l_arm/twisted/proc/activate_welder(mob/living/carbon/C)
+	var/hand =  C.get_empty_held_index_for_side("l")
+	if(hand)
+		welder = new/obj/item/weldingtool/infinite
+		if(!C.put_in_hand(welder, hand, TRUE))
+			qdel(welder)
+
 /obj/item/organ/eyes/twisted
 	name = "twisted eyes"
 	desc = "Shields the twisted from the bright lights their arc-welders emit."
 	flash_protect = 2
-	var/obj/item/weldingtool/infinite/welder
-
-/obj/item/organ/eyes/twisted/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	if(M.dna.species.id != SPECIES_TWISTED)
-		return
-	welder = new/obj/item/weldingtool/infinite
-	M.put_in_hands(welder)
 
 /datum/action/innate/dispenser
 	name = "Flesh craft"

@@ -316,8 +316,13 @@
 /obj/item/weldingtool/infinite/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(crumble), src)
 	set_light_on(welding)
 	update_icon()
+
+/obj/item/weldingtool/infinite/proc/crumble()
+	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+	qdel(src)
 
 /obj/item/weldingtool/infinite/process(delta_time)
 	STOP_PROCESSING(SSobj, src)

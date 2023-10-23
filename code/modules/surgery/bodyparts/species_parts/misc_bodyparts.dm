@@ -267,6 +267,7 @@
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
+	var/obj/item/weldingtool/infinite/welder
 
 /obj/item/bodypart/r_arm/twisted
 	limb_id = "twisted"
