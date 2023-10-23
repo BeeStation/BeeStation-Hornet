@@ -1,0 +1,5 @@
+author: rkz
+delete-after: true
+changes:
+  - bugfix: Whoever made all the batongs into pool noodles has been shot! (fixed immobilization
+      not applying through stamcrit)
