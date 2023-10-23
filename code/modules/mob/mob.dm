@@ -1213,7 +1213,10 @@
 ///Set the movement type of the mob and update it's movespeed
 /mob/setMovetype(newval)
 	. = ..()
+	if(isnull(.))
+		return
 	update_movespeed(FALSE)
+
 
 /// Updates the grab state of the mob and updates movespeed
 /mob/setGrabState(newstate)

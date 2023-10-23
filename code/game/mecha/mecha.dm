@@ -563,7 +563,7 @@
 
 	return FALSE
 
-/obj/mecha/relaymove(mob/user,direction)
+/obj/mecha/relaymove(mob/living/user, direction)
 	if(completely_disabled)
 		return
 	if(!direction)
