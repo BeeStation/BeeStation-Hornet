@@ -1621,6 +1621,7 @@
 "agh" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "agi" = (
@@ -1639,6 +1640,7 @@
 	pixel_y = -1
 	},
 /obj/structure/table/wood,
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "agk" = (
@@ -3432,6 +3434,7 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/assembly/flash/handheld,
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/plasteel,
 /area/security/main)
 "apX" = (
@@ -12786,6 +12789,7 @@
 	req_access_txt = "28"
 	},
 /obj/structure/table/wood,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bmp" = (
@@ -12800,6 +12804,7 @@
 /obj/machinery/computer/security/telescreen/vault{
 	pixel_y = 30
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bmq" = (
@@ -12808,6 +12813,7 @@
 	pixel_x = 34
 	},
 /obj/structure/table/wood,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bmr" = (
@@ -13562,7 +13568,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bqi" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/machinery/newscaster{
 	pixel_x = -28;
 	pixel_y = 1
@@ -14035,7 +14041,7 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "bsl" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -14092,7 +14098,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bst" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
 "bsv" = (
@@ -14205,7 +14211,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "bsW" = (
@@ -14252,7 +14258,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "btc" = (
@@ -15727,7 +15733,7 @@
 /turf/closed/wall,
 /area/hallway/secondary/command)
 "bzK" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/command)
 "bzL" = (
@@ -17964,7 +17970,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bKl" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/newscaster{
 	pixel_y = -29
 	},
@@ -17991,7 +17997,7 @@
 /turf/open/floor/carpet,
 /area/crew_quarters/bar)
 "bKp" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar)
 "bKq" = (
@@ -20420,7 +20426,7 @@
 /turf/open/floor/wood,
 /area/library)
 "bTD" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
@@ -22598,7 +22604,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel/white/side{
 	dir = 4
 	},
@@ -23370,6 +23376,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "cqd" = (
@@ -24373,6 +24380,7 @@
 	dir = 5;
 	network = list("ss13","medbay")
 	},
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "cyz" = (
@@ -27869,9 +27877,8 @@
 /obj/structure/cable/white{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/emitter/anchored{
-	dir = 1;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -31848,6 +31855,7 @@
 /obj/structure/table/glass,
 /obj/item/folder,
 /obj/item/toy/figure/engineer,
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "eyr" = (
@@ -35354,6 +35362,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "fSO" = (
@@ -37349,9 +37358,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "gRa" = (
 /obj/structure/cable/white,
-/obj/machinery/power/emitter/anchored{
-	state = 2
-	},
+/obj/machinery/power/emitter/welded,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -37433,7 +37440,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/shuttledock)
 "gSL" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
@@ -41216,6 +41223,7 @@
 	pixel_x = -9;
 	pixel_y = 11
 	},
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
 "ium" = (
@@ -42221,7 +42229,7 @@
 /area/hallway/primary/starboard)
 "iOP" = (
 /obj/machinery/light,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
@@ -42834,7 +42842,7 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/loot_jobscale/armoury/riot_suit,
 /obj/effect/loot_jobscale/armoury/riot_helmet,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -44019,6 +44027,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "jFI" = (
@@ -50577,6 +50586,7 @@
 	dir = 1
 	},
 /obj/item/kitchen/rollingpin,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "msp" = (
@@ -51275,6 +51285,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wideplating/dark,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
 "mFf" = (
@@ -59748,6 +59759,7 @@
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/micro_laser,
 /obj/item/stock_parts/micro_laser,
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "qeZ" = (
@@ -60476,7 +60488,7 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "qvc" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/structure/sign/map/right{
 	desc = "A framed picture of the station. Clockwise from security in red at the top, you see engineering in yellow, science in purple, escape in checkered red-and-white, medbay in green, arrivals in checkered red-and-blue, and then cargo in brown.";
 	icon_state = "map-right-MS";
@@ -63753,7 +63765,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "rSL" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/trimline/black/filled/line{
 	dir = 8
 	},
@@ -64608,7 +64620,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "slA" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/command)
@@ -64799,8 +64811,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
-/obj/item/implant/radio,
 /obj/machinery/firealarm/directional/north,
+/obj/item/radio/off,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "sql" = (
@@ -65618,6 +65630,7 @@
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "sIB" = (
@@ -67300,6 +67313,7 @@
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "ttF" = (
@@ -68229,7 +68243,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "tPc" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -69448,9 +69462,8 @@
 /obj/structure/cable/white{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/emitter/anchored{
-	dir = 1;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
@@ -71834,7 +71847,7 @@
 	pixel_x = -1;
 	pixel_y = -30
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -76130,6 +76143,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "xeJ" = (

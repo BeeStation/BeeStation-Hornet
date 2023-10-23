@@ -86,7 +86,7 @@
 
 	return TRUE
 
-/obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/user)
+/obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	if(!IS_HERETIC(user))

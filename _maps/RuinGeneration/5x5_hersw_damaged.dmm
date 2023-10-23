@@ -1,8 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "g" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "j" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
@@ -29,8 +29,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Z" = (
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 B

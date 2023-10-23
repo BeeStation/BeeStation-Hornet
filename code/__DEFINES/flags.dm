@@ -73,6 +73,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define BLOCK_SUICIDE				(1<<8)
 /// Can the Xenobio management console transverse this area by default?
 #define XENOBIOLOGY_COMPATIBLE		(1<<9)
+/// Are hidden stashes allowed to spawn here?
+#define HIDDEN_STASH_LOCATION		(1<<10)
 
 /*
 	These defines are used specifically with the atom/pass_flags bitmask

@@ -11,9 +11,9 @@
 	flags_inv = HIDESUITSTORAGE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/cloak
 
-/obj/item/clothing/neck/cloak/suicide_act(mob/user)
+/obj/item/clothing/neck/cloak/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return(OXYLOSS)
+	return OXYLOSS
 
 /obj/item/clothing/neck/cloak/hos
 	name = "head of security's cloak"
