@@ -6,7 +6,7 @@
 	item_state = "eng_helm"
 	max_integrity = 300
 	armor = list(MELEE = 10,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 75, FIRE = 50, ACID = 75, STAMINA = 20)
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_power = 1
 	light_on = FALSE

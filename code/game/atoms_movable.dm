@@ -80,8 +80,11 @@
 
 	if(pulling)
 		stop_pulling()
-	if(light_system == MOVABLE_LIGHT)
-		AddComponent(/datum/component/overlay_lighting)
+	switch(light_system)
+		if(MOVABLE_LIGHT)
+			AddComponent(/datum/component/overlay_lighting)
+		if(MOVABLE_LIGHT_DIRECTIONAL)
+			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 	if(isturf(loc))
 		var/turf/T = loc
 		T.update_above() // Z-Mimic

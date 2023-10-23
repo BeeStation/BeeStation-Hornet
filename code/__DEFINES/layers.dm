@@ -113,6 +113,7 @@
 
 ///Lighting objects that are "free floating"
 #define O_LIGHTING_VISUAL_PLANE 110
+#define O_LIGHTING_VISUAL_LAYER 110
 #define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
 
 ///Things that should render ignoring lighting
