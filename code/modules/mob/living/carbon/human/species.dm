@@ -1435,7 +1435,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.domutcheck()
 
 	if(radiation > RAD_MOB_HAIRLOSS)
-		if(prob(15) && !(H.hair_style == "Bald") && (HAIR in species_traits))
+		if(prob(15) && !(H.hair_style == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(H, TRAIT_NOHAIRLOSS))
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
 			addtimer(CALLBACK(src, PROC_REF(go_bald), H), 50)
 

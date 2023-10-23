@@ -366,6 +366,19 @@
 	disliked_food = MEAT | DAIRY
 	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
 
+/obj/item/organ/tongue/podperson/pumpkin
+	modifies_speech = TRUE
+	///Is this tongue carved?
+	var/carved = FALSE
+
+/obj/item/organ/tongue/podperson/pumpkin/handle_speech(datum/source, list/speech_args)
+	var/message = speech_args[SPEECH_MESSAGE]
+	if((message[1] != "*" || message[1] != "#") && !carved)
+		message = "..."
+		to_chat(owner, "<span class='warning'>Something is covering your mouth!</span>")
+		to_chat(owner, "<span class='notice'>Try carving your head.</span>")
+	speech_args[SPEECH_MESSAGE] = message
+
 /obj/item/organ/tongue/psyphoza
 	name = "fungal tongue"
 	desc = "Black and moldy."

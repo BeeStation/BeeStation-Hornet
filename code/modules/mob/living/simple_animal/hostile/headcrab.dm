@@ -81,6 +81,7 @@
 		C.purchasedpowers += hf
 		C.regain_powers()
 		M.key = origin.key
+	owner.investigate_log("has been gibbed by a changeling egg burst.", INVESTIGATE_DEATHS)
 	owner.gib()
 
 #undef EGG_INCUBATION_TIME
