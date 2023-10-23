@@ -1223,7 +1223,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/spawnhuman()
 	set name = "Spawn human"
-	set desc = "If you name isn't Haliris and you touch this button youll blow up irl"
+	set desc = "Spawns a mindless human"
 	set category = "Fun"
 
 	if(!check_rights(R_FUN))
