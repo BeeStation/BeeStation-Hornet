@@ -72,7 +72,7 @@
 	if(orbiting)
 		to_chat(src, "<span class='revenwarning'>You can't siphon essence during orbiting!</span>")
 		return
-	if(!target.stat && !target.stam_paralyzed)
+	if(!target.stat && !HAS_TRAIT_FROM(target, TRAIT_INCAPACITATED, STAMINA))
 		to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is too strong to harvest.</span>")
 		if(prob(10))
 			to_chat(target, "You feel as if you are being watched.")
@@ -100,7 +100,7 @@
 				if(90 to INFINITY)
 					to_chat(src, "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>")
 			if(do_after(src, rand(15, 25), target, timed_action_flags = IGNORE_HELD_ITEM)) //how about now
-				if(!target.stat && !target.stam_paralyzed)
+				if(!target.stat && !HAS_TRAIT_FROM(target, TRAIT_INCAPACITATED, STAMINA))
 					to_chat(src, "<span class='revenwarning'>[target.p_theyre(TRUE)] now powerful enough to fight off your draining.</span>")
 					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
 					draining = 0
