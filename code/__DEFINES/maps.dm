@@ -101,6 +101,7 @@ require only minor tweaks.
 	ZTRAIT_SNOWSTORM = TRUE, \
     ZTRAIT_BASETURF = /turf/open/floor/plating/ice/smooth)
 //replace with icestorm
+#define ZTRAITS_ARCHIMUNDI list(ZTRAIT_LINKAGE = SELFLOOPING)
 
 #define ZTRAITS_REEBE list(ZTRAIT_REEBE = TRUE, ZTRAIT_BOMBCAP_MULTIPLIER = 0.5)
 #define DL_NAME "name"
