@@ -1,0 +1,5 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - rscadd: Added the ability to carve Pumpkin People's heads
+  - tweak: Pumpkin People are now pseudo-mute until carved
