@@ -16,6 +16,7 @@
 
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_HEAD)
+	abductor_surgery_blacklist = TRUE
 
 /datum/surgery/advanced/brainwashing/can_start(mob/user, mob/living/carbon/target)
 	if(!..())

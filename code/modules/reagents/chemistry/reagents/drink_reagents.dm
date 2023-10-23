@@ -897,6 +897,9 @@
 	chem_flags = CHEMICAL_RNG_BOTANY
 	quality = DRINK_NICE
 	taste_description = "chocolate milk"
+	glass_icon_state = null  // Overrides white glass inherited from normal milk
+	glass_name = "glass of chocolate milk"
+	glass_desc = "Brown and delicious goodness!"
 
 /datum/reagent/consumable/menthol
 	name = "Menthol"

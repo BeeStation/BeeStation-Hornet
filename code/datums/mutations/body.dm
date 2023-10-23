@@ -14,7 +14,7 @@
 		owner.Unconscious(200 * GET_MUTATION_POWER(src))
 		owner.Jitter(1000 * GET_MUTATION_POWER(src))
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "epilepsy", /datum/mood_event/epilepsy)
-		addtimer(CALLBACK(src, PROC_REF(jitter_less)), 90)
+		addtimer(CALLBACK(src, PROC_REF(jitter_less)), 9 SECONDS)
 
 /datum/mutation/epilepsy/proc/jitter_less()
 	if(owner)
@@ -105,17 +105,7 @@
 	name = "Clumsiness"
 	desc = "A genome that inhibits certain brain functions, causing the holder to appear clumsy. Honk"
 	quality = MINOR_NEGATIVE
-
-/datum/mutation/clumsy/on_acquiring(mob/living/carbon/owner)
-	if(..())
-		return
-	ADD_TRAIT(owner, TRAIT_CLUMSY, GENETIC_MUTATION)
-
-/datum/mutation/clumsy/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	REMOVE_TRAIT(owner, TRAIT_CLUMSY, GENETIC_MUTATION)
-
+	traits = TRAIT_CLUMSY
 
 //Tourettes causes you to randomly stand in place and shout.
 /datum/mutation/tourettes
@@ -134,8 +124,8 @@
 				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]", forced="tourette's syndrome")
 		var/x_offset_old = owner.pixel_x
 		var/y_offset_old = owner.pixel_y
-		var/x_offset = owner.pixel_x + rand(-2,2)
-		var/y_offset = owner.pixel_y + rand(-1,1)
+		var/x_offset = owner.pixel_x + rand(-2, 2)
+		var/y_offset = owner.pixel_y + rand(-1, 1)
 		animate(owner, pixel_x = x_offset, pixel_y = y_offset, time = 1)
 		animate(owner, pixel_x = x_offset_old, pixel_y = y_offset_old, time = 1)
 
@@ -145,18 +135,12 @@
 	name = "Deafness"
 	desc = "The holder of this genome is completely deaf."
 	quality = NEGATIVE
+	traits = TRAIT_DEAF
 
 /datum/mutation/deaf/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	ADD_TRAIT(owner, TRAIT_DEAF, GENETIC_MUTATION)
 	SEND_SOUND(owner, sound(null))
-
-/datum/mutation/deaf/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	REMOVE_TRAIT(owner, TRAIT_DEAF, GENETIC_MUTATION)
-
 
 //Monified turns you into a monkey.
 /datum/mutation/race
@@ -174,7 +158,7 @@
 	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, TRUE)
 
 /datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)
-	if(owner && ismonkey(owner) && owner.stat != DEAD && !..())
+	if(istype(owner) && owner.stat != DEAD && !..())
 		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, TRUE, original_species)
 
 /datum/mutation/glow
@@ -182,28 +166,26 @@
 	desc = "You permanently emit a light with a random color and intensity."
 	quality = POSITIVE
 	instability = 5
+	power_coeff = 1
+	conflicts = list(ANTIGLOWY)
 	var/obj/effect/dummy/luminescent_glow/glowth //shamelessly copied from luminescents
 	var/glow = 2.5
 	var/range = 2.5
-	power_coeff = 1
-	conflicts = list(/datum/mutation/glow/anti)
 
 /datum/mutation/glow/on_acquiring(mob/living/carbon/owner)
-	. = ..()
-	if(.)
+	if(..())
 		return
 	glowth = new(owner)
 	modify()
 
 /datum/mutation/glow/modify()
-	if(!glowth)
+	if(QDELETED(glowth))
 		return
 	var/power = GET_MUTATION_POWER(src)
 	glowth.set_light_range_power_color(range * power, glow * power, "#[dna.features["mcolor"]]")
 
 /datum/mutation/glow/on_losing(mob/living/carbon/owner)
-	. = ..()
-	if(.)
+	if(..())
 		return
 	QDEL_NULL(glowth)
 
@@ -211,7 +193,7 @@
 	name = "Anti-Glow"
 	desc = "Your skin seems to attract and absorb nearby light creating 'darkness' around you."
 	glow = -3.5 //Slightly stronger, since negating light tends to be harder than making it.
-	conflicts = list(/datum/mutation/glow)
+	conflicts = list(GLOWY)
 	locked = TRUE
 
 /datum/mutation/strong
@@ -226,16 +208,7 @@
 	quality = POSITIVE
 	difficulty = 16
 	instability = 25
-
-/datum/mutation/insulated/on_acquiring(mob/living/carbon/owner)
-	if(..())
-		return
-	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, "genetics")
-
-/datum/mutation/insulated/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, "genetics")
+	traits = TRAIT_SHOCKIMMUNE
 
 /datum/mutation/fire
 	name = "Fiery Sweat"
@@ -278,13 +251,13 @@
 /datum/mutation/badblink/on_life()
 	if(prob(warpchance))
 		var/warpmessage = pick(
-		"<span class='warning'>With a sickening 720 degree twist of their back, [owner] vanishes into thin air.</span>",
-		"<span class='warning'>[owner] does some sort of strange backflip into another dimension. It looks pretty painful.</span>",
-		"<span class='warning'>[owner] does a jump to the left, a step to the right, and warps out of reality.</span>",
-		"<span class='warning'>[owner]'s torso starts folding inside out until it vanishes from reality, taking [owner] with it.</span>",
-		"<span class='warning'>One moment, you see [owner]. The next, [owner] is gone.</span>")
+			"<span class='warning'>With a sickening 720 degree twist of their back, [owner] vanishes into thin air.</span>",
+			"<span class='warning'>[owner] does some sort of strange backflip into another dimension. It looks pretty painful.</span>",
+			"<span class='warning'>[owner] does a jump to the left, a step to the right, and warps out of reality.</span>",
+			"<span class='warning'>[owner]'s torso starts folding inside out until it vanishes from reality, taking [owner] with it.</span>",
+			"<span class='warning'>One moment, you see [owner]. The next, [owner] is gone.</span>")
 		owner.visible_message(warpmessage, "<span class='userdanger'>You feel a wave of nausea as you fall through reality!</span>")
-		var/warpdistance = rand(10,15) * GET_MUTATION_POWER(src)
+		var/warpdistance = rand(10, 15) * GET_MUTATION_POWER(src)
 		do_teleport(owner, get_turf(owner), warpdistance, channel = TELEPORT_CHANNEL_BLINK)
 		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * (warpchance * warpdistance))
 		warpchance = 0
@@ -297,17 +270,17 @@
 	desc = "Subject has acidic chemicals building up underneath their skin. This is often lethal."
 	quality = NEGATIVE
 	difficulty = 18//high so it's hard to unlock and use on others
-	var/msgcooldown = 0
+	COOLDOWN_DECLARE(message_cooldown)
 
 /datum/mutation/acidflesh/on_life()
 	if(prob(25))
-		if(world.time > msgcooldown)
+		if(COOLDOWN_FINISHED(src, message_cooldown))
 			to_chat(owner, "<span class='danger'>Your acid flesh bubbles...</span>")
-			msgcooldown = world.time + 200
+			COOLDOWN_START(src, message_cooldown, 20 SECONDS)
 		if(prob(15))
-			owner.acid_act(rand(30,50), 10)
+			owner.acid_act(rand(30, 50), 10)
 			owner.visible_message("<span class='warning'>[owner]'s skin bubbles and pops.</span>", "<span class='userdanger'>Your bubbling flesh pops! It burns!</span>")
-			playsound(owner,'sound/weapons/sear.ogg', 50, 1)
+			playsound(owner, 'sound/weapons/sear.ogg', vol = 50, vary = TRUE)
 
 /datum/mutation/gigantism
 	name = "Gigantism"//negative version of dwarfism
@@ -351,15 +324,18 @@
 	desc = "A mutation that disrupts coordination in the legs. It makes standing up after getting knocked down very difficult."
 	quality = NEGATIVE
 	difficulty = 16
-	var/stun_cooldown = 0
+	COOLDOWN_DECLARE(stun_cooldown)
 
 /datum/mutation/extrastun/on_life()
-	if(world.time > stun_cooldown)
-		if(owner.AmountKnockdown() || owner.AmountStun())
-			owner.SetKnockdown(owner.AmountKnockdown()*2)
-			owner.SetStun(owner.AmountStun()*2)
-			owner.visible_message("<span class='danger'>[owner] tries to stand up, but trips!</span>", "<span class='userdanger'>You trip over your own feet!</span>")
-			stun_cooldown = world.time + 300
+	if(!COOLDOWN_FINISHED(src, stun_cooldown))
+		return
+	var/knockdown = owner.AmountKnockdown()
+	var/stun = owner.AmountStun()
+	if(knockdown || stun)
+		owner.SetKnockdown(knockdown * 2)
+		owner.SetStun(stun * 2)
+		owner.visible_message("<span class='danger'>[owner] tries to stand up, but trips!</span>", "<span class='userdanger'>You trip over your own feet!</span>")
+		COOLDOWN_START(src, stun_cooldown, 30 SECONDS)
 
 /datum/mutation/strongwings
 	name = "Strengthened Wings"
@@ -368,12 +344,13 @@
 	locked = TRUE
 	difficulty = 12
 	instability = 15
+	power_coeff = 1
 	species_allowed = list(SPECIES_APID, SPECIES_MOTH)
 
 /datum/mutation/strongwings/on_acquiring()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = locate(/obj/item/organ/wings) in owner.internal_organs
+	var/obj/item/organ/wings/wings = owner.getorganslot(ORGAN_SLOT_WINGS)
 	if(!wings)
 		to_chat(owner, "<span class='warning'>You don't have wings to strengthen!</span>")
 		return
@@ -383,7 +360,7 @@
 		moth_wings.Refresh(owner)
 	else if(istype(wings, /obj/item/organ/wings/bee))
 		var/obj/item/organ/wings/bee/bee_wings = wings
-		bee_wings.jumpdist += (6 * GET_MUTATION_POWER(src)) - 3
+		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
 	else
 		to_chat(owner, "<span class='warning'>Those wings are incompatible with the mutation!</span>")
 		return
@@ -392,7 +369,7 @@
 /datum/mutation/strongwings/on_losing()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = locate(/obj/item/organ/wings) in owner.internal_organs
+	var/obj/item/organ/wings/wings = owner.getorganslot(ORGAN_SLOT_WINGS)
 	if(!wings)
 		return
 	if(istype(wings, /obj/item/organ/wings/moth))
@@ -402,9 +379,14 @@
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
 	else if(istype(wings, /obj/item/organ/wings/bee))
 		var/obj/item/organ/wings/bee/bee_wings = wings
-		bee_wings.jumpdist -= (6 * GET_MUTATION_POWER(src)) - 3
+		bee_wings.jumpdist = initial(bee_wings.jumpdist)
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
 
+/datum/mutation/strongwings/modify()
+	..()
+	var/obj/item/organ/wings/bee/bee_wings = owner.getorganslot(ORGAN_SLOT_WINGS)
+	if(istype(bee_wings))
+		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
 /datum/mutation/catclaws
 	name = "Cat Claws"
 	desc = "Subject's hands grow sharpened claws."
@@ -412,22 +394,32 @@
 	locked = TRUE
 	difficulty = 12
 	instability = 25
+	power_coeff = 1
 	species_allowed = list(SPECIES_FELINID)
 	var/added_damage = 6
 
 /datum/mutation/catclaws/on_acquiring()
 	if(..())
 		return
-	added_damage = min(17, 6 * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage)
-	added_damage -= owner.dna.species.punchdamage
+	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
 	owner.dna.species.punchdamage += added_damage
-	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.</span>")
 	owner.dna.species.attack_verb = "slash"
+	owner.dna.species.attack_sound = 'sound/weapons/slash.ogg'
+	owner.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.</span>")
 
 /datum/mutation/catclaws/on_losing()
 	if(..())
 		return
-	owner.dna.species.punchdamage -= added_damage
 	to_chat(owner, "<span class='warning'> Your claws retract into your hand.</span>")
+	owner.dna.species.punchdamage -= added_damage
 	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
+	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
+	owner.dna.species.miss_sound = initial(owner.dna.species.miss_sound)
 
+/datum/mutation/catclaws/modify()
+	..()
+	if(added_damage)
+		owner.dna.species.punchdamage -= added_damage
+	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
+	owner.dna.species.punchdamage += added_damage
