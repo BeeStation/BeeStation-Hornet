@@ -207,7 +207,7 @@
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/iceland_surface
 	environment_type = "snow_cavern"
 	turf_type = /turf/open/floor/plating/asteroid/basalt/iceland_surface
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	defer_change = TRUE
 	mineralChance = 6
 	mineralSpawnChanceList = list(
@@ -262,7 +262,7 @@
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	defer_change = TRUE
 
 /turf/closed/mineral/uranium
@@ -295,7 +295,7 @@
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	defer_change = TRUE
 
 /turf/closed/mineral/gold
@@ -362,7 +362,7 @@
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	defer_change = TRUE
 
 /turf/closed/mineral/bananium
@@ -418,7 +418,7 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS)
 	baseturfs = /turf/open/floor/plating/asteroid/snow
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	environment_type = "snow"
 	turf_type = /turf/open/floor/plating/asteroid/snow
 	defer_change = TRUE
