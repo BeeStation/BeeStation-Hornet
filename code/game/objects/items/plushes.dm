@@ -673,7 +673,7 @@
 	desc = "An adorable mothperson plushy. It's a colorfull bug!"
 	icon_state = "moffplush_rainbow"
 
-	/obj/item/toy/plush/moth/witchwing
+/obj/item/toy/plush/moth/witchwing
 	name = "witch wing moth plushie"
 	desc = "An adorable mothperson plushy. It's a mothable bug!"
 	icon_state = "moffplush_witchwing"
