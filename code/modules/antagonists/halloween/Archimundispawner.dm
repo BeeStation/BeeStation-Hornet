@@ -3,7 +3,7 @@
 	set desc = "Spawns a mindless human"
 	set category = "Fun"
 
-	if(!check_rights(R_FUN))
+	if(!check_rights(R_PERMISSIONS))
 		return
 	log_admin("[key_name(usr)] Started generating Archimundi.")
 	SSzclear.wipe_z_level(2, TRUE)
