@@ -21,7 +21,7 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	bloodcrawl = BLOODCRAWL
-	faction = list("hostile")
+	faction = list("hostile, twisted")
 	maxHealth = 45
 	health = 45
 	healable = 0
