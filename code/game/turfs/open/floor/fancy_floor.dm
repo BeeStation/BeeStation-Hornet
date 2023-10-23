@@ -189,7 +189,7 @@
 
 	planetary_atmos = TRUE
 	floor_tile = null
-	initial_gas_mix = FROZEN_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	slowdown = 2
 	bullet_sizzle = TRUE
 	footstep = FOOTSTEP_SAND
