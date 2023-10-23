@@ -15,9 +15,9 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/banhammer/suicide_act(mob/user)
-		user.visible_message("<span class='suicide'>[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
-		return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)
+/obj/item/banhammer/suicide_act(mob/living/user)
+	user.visible_message("<span class='suicide'>[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
+	return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)
 /*
 oranges says: This is a meme relating to the english translation of the ss13 russian wiki page on lurkmore.
 mrdoombringer sez: and remember kids, if you try and PR a fix for this item's grammar, you are admitting that you are, indeed, a newfriend.
@@ -48,7 +48,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 
-/obj/item/sord/suicide_act(mob/user)
+/obj/item/sord/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is trying to impale [user.p_them()]self with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
 	"<span class='suicide'>You try to impale yourself with [src], but it's USELESS...</span>")
 	return SHAME
@@ -90,9 +90,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	. = ..()
 	AddComponent(/datum/component/butchering, 40, 105)
 
-/obj/item/claymore/suicide_act(mob/user)
+/obj/item/claymore/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/claymore/highlander //ALL COMMENTS MADE REGARDING THIS SWORD MUST BE MADE IN ALL CAPS
 	desc = "<b><i>THERE CAN BE ONLY ONE, AND IT WILL BE YOU!!!</i></b>\nActivate it in your hand to point to the nearest victim."
@@ -149,6 +149,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		user.fully_heal() //STEAL THE LIFE OF OUR FALLEN FOES
 		add_notch(user)
 		target.visible_message("<span class='warning'>[target] crumbles to dust beneath [user]'s blows!</span>", "<span class='userdanger'>As you fall, your body crumbles to dust!</span>")
+		target.investigate_log("has been dusted by a highlander claymore.", INVESTIGATE_DEATHS)
 		target.dust()
 
 /obj/item/claymore/highlander/attack_self(mob/living/user)
@@ -311,9 +312,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/katana/cursed
 	slot_flags = null
 
-/obj/item/katana/suicide_act(mob/user)
+/obj/item/katana/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/wirerod
 	name = "wired rod"
@@ -446,9 +447,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		hitsound = 'sound/weapons/genhit.ogg'
 		sharpness = IS_BLUNT
 
-/obj/item/switchblade/suicide_act(mob/user)
+/obj/item/switchblade/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/switchblade/kitchen
 	name = "iron switchblade"
@@ -484,12 +485,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("called", "rang")
 	hitsound = 'sound/weapons/ring.ogg'
 
-/obj/item/phone/suicide_act(mob/user)
+/obj/item/phone/suicide_act(mob/living/user)
 	if(locate(/obj/structure/chair/stool) in user.loc)
 		user.visible_message("<span class='suicide'>[user] begins to tie a noose with [src]'s cord! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	else
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]'s cord! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return(OXYLOSS)
+	return OXYLOSS
 
 /obj/item/cane
 	name = "cane"
@@ -552,9 +553,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "ectoplasm"
 
-/obj/item/ectoplasm/suicide_act(mob/user)
+/obj/item/ectoplasm/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is inhaling [src]! It looks like [user.p_theyre()] trying to visit the astral plane!</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/ectoplasm/angelic
 	icon = 'icons/obj/wizard.dmi'
@@ -805,24 +806,27 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/melee/flyswatter/Initialize(mapload)
 	. = ..()
 	strong_against = typecacheof(list(
-					/mob/living/simple_animal/hostile/poison/bees/,
-					/mob/living/simple_animal/butterfly,
-					/mob/living/basic/cockroach,
-					/obj/item/queen_bee
+		/mob/living/simple_animal/hostile/poison/bees/,
+		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/cockroach,
+		/obj/item/queen_bee
 	))
 
 
 /obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
-	if(proximity_flag)
-		if(is_type_in_typecache(target, strong_against))
-			new /obj/effect/decal/cleanable/insectguts(target.drop_location())
-			to_chat(user, "<span class='warning'>You easily splat the [target].</span>")
-			if(istype(target, /mob/living/))
-				var/mob/living/bug = target
-				bug.death(1)
-			else
-				qdel(target)
+	if(!proximity_flag || HAS_TRAIT(user, TRAIT_PACIFISM))
+		return
+
+	if(is_type_in_typecache(target, strong_against))
+		new /obj/effect/decal/cleanable/insectguts(target.drop_location())
+		to_chat(user, "<span class='warning'>You easily splat the [target].</span>")
+		if(istype(target, /mob/living/))
+			var/mob/living/bug = target
+			bug.investigate_log("has been splatted by a flyswatter.", INVESTIGATE_DEATHS)
+			bug.death(1)
+		else
+			qdel(target)
 
 /obj/item/circlegame
 	name = "circled hand"

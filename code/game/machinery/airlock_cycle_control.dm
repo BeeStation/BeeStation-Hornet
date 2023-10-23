@@ -742,16 +742,16 @@
 			scan()
 			. = TRUE
 		if("interior_pressure")
-			interior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			interior_pressure = clamp(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("exterior_pressure")
-			exterior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			exterior_pressure = clamp(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("depressurization_margin")
-			depressurization_margin = CLAMP(text2num(params["pressure"]), 0.15, 40)
+			depressurization_margin = clamp(text2num(params["pressure"]), 0.15, 40)
 			. = TRUE
 		if("skip_delay")
-			skip_delay = CLAMP(text2num(params["skip_delay"]), 0, 1200)
+			skip_delay = clamp(text2num(params["skip_delay"]), 0, 1200)
 			. = TRUE
 
 	if(.)

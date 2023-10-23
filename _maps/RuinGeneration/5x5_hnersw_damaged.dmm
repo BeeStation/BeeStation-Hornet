@@ -4,8 +4,8 @@
 /area/ruin/unpowered)
 "o" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "p" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,

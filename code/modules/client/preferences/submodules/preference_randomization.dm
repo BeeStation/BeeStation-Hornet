@@ -5,6 +5,7 @@
 			continue
 
 		if (preference.is_randomizable())
+			log_preferences("[parent?.ckey]: Randomizing [preference.type] from flags [randomize_flags == ALL ? "ALL" : randomize_flags].")
 			write_preference(preference, preference.create_random_value(src))
 
 /// Randomizes the character according to preferences.
@@ -18,6 +19,7 @@
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
 		if (should_randomize(preference, antag_override))
+			log_preferences("[parent?.ckey]: Randomizing [preference.type] according to randomization options.")
 			write_preference(preference, preference.create_random_value(src))
 
 /// Returns the default `randomize` variable ouptut

@@ -56,6 +56,12 @@ GLOBAL_PROTECT(exp_to_update)
 	for(var/job in typelist["titles"])
 		if(job in explist)
 			amount += explist[job]
+	// Removed job support
+	typelist = GLOB.exp_removed_jobsmap[exptype]
+	if(typelist)
+		for(var/job in typelist["titles"])
+			if(job in explist)
+				amount += explist[job]
 	return amount
 
 /client/proc/get_exp_living(pure_numeric = FALSE)
@@ -105,6 +111,9 @@ GLOBAL_PROTECT(exp_to_update)
 	qdel(exp_read)
 
 	for(var/rtype in SSjob.name_occupations)
+		if(!play_records[rtype])
+			play_records[rtype] = 0
+	for(var/rtype in GLOB.exp_removed_jobs)
 		if(!play_records[rtype])
 			play_records[rtype] = 0
 	for(var/rtype in GLOB.exp_specialmap)

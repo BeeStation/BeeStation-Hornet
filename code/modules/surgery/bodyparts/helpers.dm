@@ -2,6 +2,7 @@
 	return
 
 /mob/living/carbon/get_bodypart(zone)
+	RETURN_TYPE(/obj/item/bodypart)
 	if(!zone)
 		zone = BODY_ZONE_CHEST
 	for(var/obj/item/bodypart/L as() in bodyparts)

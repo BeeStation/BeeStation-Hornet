@@ -219,7 +219,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/surplus()
 	if(powernet)
-		return CLAMP(powernet.avail-powernet.load, 0, powernet.avail)
+		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
 	else
 		return 0
 
@@ -235,7 +235,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/delayed_surplus()
 	if(powernet)
-		return CLAMP(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
+		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
 	else
 		return 0
 
@@ -510,12 +510,12 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	cable_color = picked
 	update_icon()
 
-/obj/item/stack/cable_coil/suicide_act(mob/user)
+/obj/item/stack/cable_coil/suicide_act(mob/living/user)
 	if(locate(/obj/structure/chair/stool) in get_turf(user))
 		user.visible_message("<span class='suicide'>[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	else
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return(OXYLOSS)
+	return OXYLOSS
 
 /obj/item/stack/cable_coil/get_recipes()
 	return GLOB.cable_coil_recipes
