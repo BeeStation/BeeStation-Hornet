@@ -55,10 +55,11 @@
 	if(HAS_TRAIT(H.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM) && !HAS_TRAIT(H, TRAIT_AGEUSIA))
 		return FOOD_LIKED
 
-//Use this donut ingame
+//Regular, tasty donut.
 /obj/item/food/donut/plain
 
-/obj/item/food/donut/premade //donuts but we made them suck for some reason
+//Its like eating an Midwest donut, versus a scrumptious East Coast donut. Not very filling and you just want to eat more
+/obj/item/food/donut/premade
 	name = "prepackaged donut"
 	desc = "A mass produced donut, goes great with a cup of coffee."
 	icon_state = "donut"
