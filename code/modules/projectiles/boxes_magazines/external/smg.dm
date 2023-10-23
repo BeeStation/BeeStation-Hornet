@@ -83,19 +83,23 @@
 	caliber = ".45"
 	max_ammo = 50
 
-/obj/item/ammo_box/magazine/improv_m9mm
+/obj/item/ammo_box/magazine/pipem9mm
 	name = "pipe repeater magazine (9mm)"
-	icon_state = "uzi9mm-32"
+	icon_state = "pipemag1"
 	start_empty = TRUE
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 9
 	var/obj/item/stock_parts/matter_bin/installed_bin
 
-/obj/item/ammo_box/magazine/improv_m9mm/proc/update_capacity()
+/obj/item/ammo_box/magazine/pipem9mm/proc/update_capacity()
 	max_ammo = initial(max_ammo) + (installed_bin.rating * 3)
+	var/I = installed_bin.rating
+	if(I > 4)
+		I = 5
+	icon_state = "pipemag[I]"
 
-/obj/item/ammo_box/magazine/improv_m9mm/Initialize(mapload)
+/obj/item/ammo_box/magazine/pipem9mm/Initialize(mapload)
 	. = ..()
 	//Initialize with a basic/T1 matter bin installed
 	installed_bin = new /obj/item/stock_parts/matter_bin(src)
@@ -105,13 +109,13 @@
 		stored_ammo += new ammo_type(src)
 	update_icon()
 
-/obj/item/ammo_box/magazine/improv_m9mm/examine(mob/user)
+/obj/item/ammo_box/magazine/pipem9mm/examine(mob/user)
 	. = ..()
 	. += "This one has a tier [installed_bin.rating] matter bin, and can hold [max_ammo] shells."
 	if(installed_bin.rating < 4)
 		. += "You could increase the capacity with a better matter bin..."
 
-/obj/item/ammo_box/magazine/improv_m9mm/attackby(obj/item/A, mob/user, params, silent = FALSE)
+/obj/item/ammo_box/magazine/pipem9mm/attackby(obj/item/A, mob/user, params, silent = FALSE)
 	if(istype(A, /obj/item/stock_parts/matter_bin))
 		var/obj/item/stock_parts/B = A
 		if(B.rating <= installed_bin.rating)
@@ -124,6 +128,7 @@
 			installed_bin = B
 			update_capacity()
 			to_chat(user, "<span class='notice'>\The [src] can now hold [max_ammo] bullets!</span>")
+			update_icon()
 		if(B.rating > 4)
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, "<span class='notice'><i>Where'd you find that matter bin anyway..?</i></span>"), 50)
 		return

@@ -135,7 +135,7 @@
 	can_sawoff = TRUE
 	sawn_name = "pipe pistol"
 	sawn_desc = "Why have more gun, when less gun can do!"
-	icon_state = "pipegun"
+	icon_state = "piperifle"
 	item_state = "moistnugget"
 	bolt_type = BOLT_TYPE_NB_BREAK
 	cartridge_wording = "cartridge"
