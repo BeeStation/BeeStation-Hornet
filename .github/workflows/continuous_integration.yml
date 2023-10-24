@@ -130,22 +130,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Cache Yarn
-        id: cache-yarn
-        uses: actions/cache@v3
+      - uses: actions/setup-node@v3
         with:
-          path: tgui/.yarn
-          key: ${{ runner.os }}-yarn-cache-${{ hashFiles('tgui/yarn.lock') }}
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: tgui/yarn.lock
       - name: Cache BYOND
         id: cache-byond
         uses: actions/cache@v3
         with:
           path: C:/byond
           key: ${{ runner.os }}-byond-cache-${{ hashFiles('dependencies.sh') }}
-      - name: TGUI fetch
-        if: steps.cache-yarn.outputs.cache-hit != 'true'
-        run: |
-          tools/build/build --ci yarn
       - name: Compile
         run: pwsh tools/ci/build.ps1
         env:
