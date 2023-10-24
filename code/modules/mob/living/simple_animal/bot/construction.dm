@@ -179,10 +179,6 @@
 				var/mob/living/simple_animal/bot/secbot/ed209/B = new(drop_location())
 				B.name = created_name
 				to_chat(user, "<span class='notice'>You complete the ED-209.</span>")
-				B.cell_type = W.type
-				qdel(W)
-				B.vest_type = vest_type
-				qdel(src)
 			else if(istype(W, /obj/item/stock_parts/cell)) // dont waste bluespace cells on this, goofus
 				to_chat(user, "<span class='notice'>Under Nanotrasen safety regulations, this Model bot only accepts standard issue high-capacity power cells.</span>")
 
