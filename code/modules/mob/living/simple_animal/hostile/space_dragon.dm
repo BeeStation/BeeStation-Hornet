@@ -182,7 +182,7 @@
 	contents_explosion(severity, target)
 	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
 	// Run bomb armour
-	var/bomb_armor = getarmor(null, BOMB)
+	var/bomb_armor = (100 - getarmor(null, BOMB)) / 100
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			adjustBruteLoss(180 * bomb_armor)
