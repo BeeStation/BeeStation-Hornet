@@ -83,12 +83,13 @@
 
 /obj/item/bodypart/Initialize(mapload)
 	..()
-	name = "[limb_id] [parse_zone(body_zone)]"
-	if(is_dimorphic)
-		limb_gender = pick("m", "f")
 	if(can_be_disabled)
 		RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_gain))
 		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_loss))
+
+	name = "[limb_id] [parse_zone(body_zone)]"
+	if(is_dimorphic)
+		limb_gender = pick("m", "f")
 	update_icon_dropped()
 
 /obj/item/bodypart/Destroy()
@@ -102,6 +103,7 @@
 		stack_trace("[type] qdeleted with [length(wounds)] uncleared wounds")
 		wounds.Cut()
 	*/
+	
 	return ..()
 
 /obj/item/bodypart/forceMove(atom/destination) //Please. Never forcemove a limb if its's actually in use. This is only for borgs.
@@ -298,9 +300,12 @@
 
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(!can_be_disabled)
 		set_disabled(FALSE)
 		CRASH("update_disabled called with can_be_disabled false")
+
 	if(HAS_TRAIT(src, TRAIT_PARALYSIS))
 		set_disabled(TRUE)
 		return
@@ -310,18 +315,29 @@
 	if(total_damage >= max_damage * disable_threshold) //Easy limb disable disables the limb at 40% health instead of 0%
 		if(!last_maxed)
 			if(owner.stat < UNCONSCIOUS)
-				INVOKE_ASYNC(owner, /mob.proc/emote, "scream")
+				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 			last_maxed = TRUE
 		set_disabled(TRUE)
 		return
 
 	if(bodypart_disabled && total_damage <= max_damage * 0.8) // reenabled at 80% now instead of 50% as of wounds update
+		if(!last_maxed)
+			if(owner.stat < UNCONSCIOUS)
+				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
+			last_maxed = TRUE
+		set_disabled(TRUE)
+		return
+
+	if(bodypart_disabled && total_damage <= max_damage * 0.5) // reenable the limb at 50% health
 		last_maxed = FALSE
 		set_disabled(FALSE)
 
 
 ///Proc to change the value of the `disabled` variable and react to the event of its change.
 /obj/item/bodypart/proc/set_disabled(new_disabled)
+	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
+
 	if(bodypart_disabled == new_disabled)
 		return
 	. = bodypart_disabled
@@ -339,6 +355,7 @@
 
 ///Proc to change the value of the `owner` variable and react to the event of its change.
 /obj/item/bodypart/proc/set_owner(new_owner)
+	SHOULD_CALL_PARENT(TRUE)
 	if(owner == new_owner)
 		return FALSE //`null` is a valid option, so we need to use a num var to make it clear no change was made.
 	. = owner
@@ -383,6 +400,9 @@
 
 ///Proc to change the value of the `can_be_disabled` variable and react to the event of its change.
 /obj/item/bodypart/proc/set_can_be_disabled(new_can_be_disabled)
+	PROTECTED_PROC(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(can_be_disabled == new_can_be_disabled)
 		return
 	. = can_be_disabled
@@ -411,6 +431,7 @@
 
 ///Called when TRAIT_PARALYSIS is added to the limb.
 /obj/item/bodypart/proc/on_paralysis_trait_gain(obj/item/bodypart/source)
+	PROTECTED_PROC(TRUE)
 	SIGNAL_HANDLER
 	if(can_be_disabled)
 		set_disabled(TRUE)
@@ -418,6 +439,7 @@
 
 ///Called when TRAIT_PARALYSIS is removed from the limb.
 /obj/item/bodypart/proc/on_paralysis_trait_loss(obj/item/bodypart/source)
+	PROTECTED_PROC(TRUE)
 	SIGNAL_HANDLER
 	if(can_be_disabled)
 		update_disabled()
@@ -425,13 +447,17 @@
 
 ///Called when TRAIT_NOLIMBDISABLE is added to the owner.
 /obj/item/bodypart/proc/on_owner_nolimbdisable_trait_gain(mob/living/carbon/source)
+	PROTECTED_PROC(TRUE)
 	SIGNAL_HANDLER
+
 	set_can_be_disabled(FALSE)
 
 
 ///Called when TRAIT_NOLIMBDISABLE is removed from the owner.
 /obj/item/bodypart/proc/on_owner_nolimbdisable_trait_loss(mob/living/carbon/source)
+	PROTECTED_PROC(TRUE)
 	SIGNAL_HANDLER
+
 	set_can_be_disabled(initial(can_be_disabled))
 
 
