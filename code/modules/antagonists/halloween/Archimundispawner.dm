@@ -40,7 +40,7 @@
 
 	if(!check_rights(R_FUN))
 		return
-	for(var/obj/effect/landmark/icelate/L in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/afterstation/L in GLOB.landmarks_list)
 		SSjob.latejoin_trackers += L.loc
 	SSticker.late_join_disabled = FALSE
 
