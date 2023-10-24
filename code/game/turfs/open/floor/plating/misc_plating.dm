@@ -217,6 +217,7 @@
 /turf/open/floor/plating/ice/iceberg
 	name = "cracked ice floor"
 	desc = "A sheet of solid ice. It looks cracked, yet still slippery."
+	icon = 'icons/turf/snow.dmi'
 	icon_state = "ice1"
 
 /turf/open/floor/plating/ice/iceberg/Initialize(mapload, inherited_virtual_z)

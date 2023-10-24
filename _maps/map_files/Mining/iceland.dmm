@@ -447,6 +447,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/machinery/light/small,
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/crew_quarters/kitchen)
 "abf" = (
@@ -605,7 +606,9 @@
 /obj/machinery/elevator_indicator/secure{
 	pixel_x = 42
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
 /area/iceland/underground/safe)
 "aby" = (
 /obj/structure/disposalpipe/segment{
@@ -735,6 +738,9 @@
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "abO" = (
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/engine)
 "abP" = (
@@ -750,7 +756,20 @@
 /turf/open/floor/plasteel,
 /area/iceland_base/hallway_command)
 "abQ" = (
-/turf/closed,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/ert{
+	id = "DoNotOpen"
+	},
+/obj/structure/barricade/wooden/snowed,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "abR" = (
 /obj/machinery/suit_storage_unit/hos,
@@ -899,10 +918,8 @@
 /turf/open/floor/stone,
 /area/iceland/underground/safe)
 "acn" = (
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 5
-	},
-/turf/open/floor/plasteel,
+/obj/structure/filingcabinet/chestdrawer,
+/turf/open/floor/carpet/black,
 /area/iceland/underground/safe)
 "aco" = (
 /obj/effect/decal/cleanable/glass{
@@ -914,6 +931,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/storage/toolbox/emergency,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/engine)
 "acq" = (
@@ -1156,9 +1176,7 @@
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "acU" = (
 /obj/item/pickaxe/drill/diamonddrill,
-/turf/open/floor/plasteel/dark{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "acV" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1556,12 +1574,6 @@
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/grass,
 /area/iceland/underground/safe)
-"adU" = (
-/obj/structure/table/reinforced,
-/obj/item/restraints/handcuffs,
-/obj/effect/turf_decal/trimline/red/filled/line,
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "adV" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/asteroid/snow,
@@ -1712,11 +1724,10 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "aen" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/obj/item/crowbar,
-/obj/effect/turf_decal/trimline/red/filled/line,
-/turf/open/floor/plasteel,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
 /area/iceland/underground/safe)
 "aeo" = (
 /obj/structure/table/reinforced{
@@ -1851,20 +1862,10 @@
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "aeG" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/red/line{
+/obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/obj/machinery/door/poddoor/ert{
-	id = "DoNotOpen"
-	},
-/obj/structure/barricade/wooden/crude/snow,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "aeH" = (
 /obj/machinery/atmospherics/pipe/manifold/yellow/visible{
@@ -2478,6 +2479,9 @@
 /area/iceland_base/hallway_command)
 "agv" = (
 /obj/effect/turf_decal/tile/green/half/contrasted,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/crew_quarters/hydroponics)
 "agw" = (
@@ -2826,21 +2830,13 @@
 /turf/open/floor/grass,
 /area/iceland/underground/safe)
 "ahu" = (
-/obj/structure/sign/nanotrasen{
-	pixel_y = 31
-	},
-/obj/machinery/computer,
-/obj/structure/firepit{
-	name = "fire";
-	pixel_x = -3;
-	pixel_y = -2
+/obj/machinery/light/small{
+	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 9
+	dir = 1
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg2"
-	},
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "ahv" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -3022,6 +3018,9 @@
 	dir = 1;
 	icon_screen = null;
 	name = "Shuttle Transist Console"
+	},
+/obj/structure/railing/corner{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
@@ -4098,14 +4097,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland_base/cargo)
-"akG" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 10
-	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg2"
-	},
-/area/iceland/underground/safe)
 "akH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -4500,15 +4491,6 @@
 /obj/structure/closet/crate,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
-"alF" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8
-	},
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/hunter,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/iceland/underground/safe)
 "alG" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -4571,13 +4553,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland_base/medical)
-"alQ" = (
-/obj/effect/turf_decal/weather/snow,
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5
-	},
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "alR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark/side{
@@ -4698,6 +4673,9 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/airalarm/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "amj" = (
@@ -4718,6 +4696,9 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark{
 	heat_capacity = 1e+006
 	},
@@ -4746,13 +4727,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/council)
-"amq" = (
-/obj/effect/turf_decal/weather/snow/corner{
+"amr" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
+/obj/machinery/door/airlock/grunge{
+	name = "Chapel Morgue";
+	req_access_txt = "27"
 	},
+/turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
 "ams" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4833,6 +4817,9 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/iceland_base/cargo)
 "amE" = (
@@ -5229,9 +5216,7 @@
 /area/iceland_base/crew_quarters/bar)
 "anG" = (
 /obj/effect/decal/cleanable/robot_debris/old,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "anH" = (
 /obj/structure/table/reinforced{
@@ -5355,10 +5340,12 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "anX" = (
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 9
+/obj/structure/table/reinforced,
+/obj/item/paicard{
+	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
+	name = "Nanotrasen-brand personal AI device exhibit"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/carpet/black,
 /area/iceland/underground/safe)
 "anY" = (
 /obj/structure/fence{
@@ -5534,10 +5521,9 @@
 /turf/open/floor/engine,
 /area/iceland/underground/safe)
 "aov" = (
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/floor/carpet/black,
 /area/iceland/underground/safe)
 "aow" = (
 /obj/effect/turf_decal/weather/snow,
@@ -5644,6 +5630,10 @@
 /area/ruin/powered/iceland/gate/lpost_n)
 "aoJ" = (
 /obj/structure/table/wood,
+/obj/machinery/newscaster{
+	pixel_x = -28;
+	pixel_y = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/hop)
 "aoK" = (
@@ -5842,6 +5832,7 @@
 "app" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
+/obj/machinery/light,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/engine)
 "apq" = (
@@ -6095,9 +6086,6 @@
 /obj/machinery/conveyor/inverted{
 	dir = 6;
 	id = "mining_internal"
-	},
-/obj/machinery/light/small{
-	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/cargo/mining)
@@ -6390,6 +6378,9 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/council)
 "aqQ" = (
@@ -6543,9 +6534,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"ari" = (
-/turf/open/space/basic,
-/area/iceland/underground/safe)
 "arj" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -7433,10 +7421,6 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"atG" = (
-/obj/machinery/vending/snack/random,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "atH" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/vending/games,
@@ -7704,8 +7688,12 @@
 /area/iceland)
 "auw" = (
 /obj/effect/turf_decal/weather/snow,
-/obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
 /area/iceland/underground/safe)
 "aux" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -7825,15 +7813,11 @@
 /turf/open/floor/plating,
 /area/iceland/underground/safe)
 "auR" = (
-/obj/structure/cable{
-	icon_state = "0-8"
+/obj/structure/disposalpipe/broken{
+	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8
-	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/obj/effect/decal/remains/human,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "auS" = (
 /obj/machinery/computer/bounty{
@@ -8394,6 +8378,9 @@
 "awf" = (
 /obj/machinery/rnd/production/protolathe/department/engineering,
 /obj/effect/turf_decal/bot,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
 "awh" = (
@@ -9047,6 +9034,9 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/crew_quarters/kitchen)
 "axN" = (
@@ -9056,13 +9046,13 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "axO" = (
-/obj/structure/disposalpipe/broken{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/remains/human,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "axP" = (
 /obj/structure/bed/roller,
@@ -9278,10 +9268,10 @@
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/hop)
 "ayz" = (
-/obj/structure/fence,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
+/obj/structure/fence/end,
 /turf/open/floor/plating/snowed,
 /area/iceland/underground/safe)
 "ayA" = (
@@ -9337,6 +9327,9 @@
 /obj/item/radio,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "ayJ" = (
@@ -9427,6 +9420,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/chapel)
 "ayY" = (
@@ -9440,6 +9436,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/council)
 "ayZ" = (
@@ -9521,7 +9518,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/concrete,
 /area/iceland)
 "azi" = (
 /obj/effect/decal/cleanable/glitter/blue{
@@ -9543,9 +9540,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "azm" = (
 /turf/open/floor/plating/snowed,
@@ -9720,9 +9715,8 @@
 	pixel_x = 3;
 	pixel_y = 2
 	},
-/obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/hop)
@@ -10826,6 +10820,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/south,
+/obj/machinery/light,
 /turf/open/floor/carpet,
 /area/iceland_base/chapel)
 "aCB" = (
@@ -11047,13 +11042,13 @@
 /turf/open/floor/plating/dirt,
 /area/iceland)
 "aDd" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "aDe" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -11202,6 +11197,7 @@
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_y = -32
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/hos)
 "aDB" = (
@@ -11407,7 +11403,7 @@
 /obj/structure/cable{
 	icon_state = "5-8"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "aEj" = (
 /obj/structure/table,
@@ -11511,6 +11507,9 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
 	},
@@ -11953,6 +11952,9 @@
 "aFH" = (
 /obj/structure/table/wood,
 /obj/item/trash/candle,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/carpet/grimy,
 /area/iceland/underground/safe)
 "aFI" = (
@@ -12863,6 +12865,9 @@
 	desc = "Used to monitor the station's atmospherics sensors. On the Side it's engraved 'Do not'.";
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/engine)
 "aIl" = (
@@ -13137,6 +13142,9 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
 "aIX" = (
@@ -13231,7 +13239,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "aJh" = (
 /obj/effect/turf_decal/bot,
@@ -13652,6 +13660,9 @@
 /obj/structure/filingcabinet/chestdrawer,
 /mob/living/simple_animal/parrot/Poly,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/chief)
 "aKA" = (
@@ -13795,12 +13806,6 @@
 	},
 /turf/open/floor/carpet,
 /area/iceland_base/chapel)
-"aKQ" = (
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 10
-	},
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "aKR" = (
 /obj/machinery/light{
 	dir = 1
@@ -13945,6 +13950,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/cargo/request{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/hop)
@@ -14290,6 +14298,7 @@
 /area/iceland_base/cargo/mining)
 "aMe" = (
 /obj/machinery/airalarm/directional/south,
+/obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "aMf" = (
@@ -14298,7 +14307,6 @@
 /turf/open/floor/plasteel,
 /area/iceland_base/hallway_command)
 "aMg" = (
-/obj/structure/fence,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
@@ -14457,9 +14465,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "aMF" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -14571,20 +14577,10 @@
 	},
 /area/ruin/unpowered/iceland/abandoned_hut)
 "aMV" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
 	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/ert{
-	id = "DoNotOpen"
-	},
-/obj/structure/barricade/wooden/snowed,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "aMW" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -14935,6 +14931,9 @@
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "aOd" = (
 /obj/effect/decal/cleanable/glass,
+/obj/structure/railing{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "aOe" = (
@@ -15007,6 +15006,7 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/chapel)
 "aOn" = (
@@ -15144,14 +15144,6 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plasteel/cafeteria,
 /area/iceland/underground/safe)
-"aOJ" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1
-	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/iceland/underground/safe)
 "aOK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -15226,6 +15218,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
 "aOT" = (
@@ -15287,6 +15282,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/engine)
 "aPb" = (
@@ -15362,6 +15358,9 @@
 /obj/effect/turf_decal/bot_white,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/cargo/mining)
@@ -15943,11 +15942,8 @@
 /turf/open/floor/plating,
 /area/iceland/underground/safe)
 "aQF" = (
-/obj/structure/chair/office,
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/carpet/black,
 /area/iceland/underground/safe)
 "aQG" = (
 /obj/effect/decal/cleanable/oil,
@@ -16258,15 +16254,10 @@
 /turf/closed/wall,
 /area/iceland_base/engine)
 "aRF" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "aRG" = (
 /obj/effect/turf_decal/weather/snow,
@@ -16459,6 +16450,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/water,
 /area/iceland)
+"aSe" = (
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/hunter,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "aSf" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -16817,6 +16812,10 @@
 	pixel_y = 3
 	},
 /obj/item/storage/secure/briefcase,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/council)
 "aSY" = (
@@ -16911,6 +16910,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/iceland_base/crew_quarters/bar)
 "aTj" = (
@@ -17258,7 +17258,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/snowed,
-/area/iceland)
+/area/iceland/underground/safe)
 "aUh" = (
 /obj/structure/flora/tree/dead,
 /turf/open/floor/plating/asteroid/snow,
@@ -17779,14 +17779,6 @@
 	},
 /turf/open/floor/plasteel/checker,
 /area/iceland_base/crew_quarters/kitchen)
-"aVv" = (
-/obj/effect/turf_decal/weather/snow,
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5
-	},
-/obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "aVw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil,
@@ -17892,14 +17884,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/science)
-"aVF" = (
-/obj/effect/turf_decal/weather/snow,
-/obj/effect/turf_decal/weather/snow/corner,
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/iceland/underground/safe)
 "aVG" = (
 /obj/structure/flora/grass/green,
 /obj/structure/flora/grass/brown,
@@ -18230,7 +18214,7 @@
 /obj/structure/cable{
 	icon_state = "5-8"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "aWD" = (
 /obj/effect/decal/cleanable/blood/gibs/body,
@@ -18273,11 +18257,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland/underground/safe)
-"aWH" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aWI" = (
 /obj/structure/table_frame,
 /obj/item/clothing/shoes/magboots{
@@ -18295,11 +18274,6 @@
 	name = "Command Hallway"
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/iceland/underground/safe)
-"aWK" = (
-/obj/structure/chair/fancy/plastic,
-/obj/item/toy/plush/flushed,
-/turf/open/floor/plating/snowed,
 /area/iceland/underground/safe)
 "aWL" = (
 /obj/structure/cable/orange{
@@ -19238,6 +19212,9 @@
 /area/iceland_base/engine)
 "aZl" = (
 /obj/item/kirbyplants/random,
+/obj/structure/railing/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark{
 	heat_capacity = 1e+006
 	},
@@ -19348,6 +19325,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/hos)
 "aZz" = (
@@ -19536,18 +19516,148 @@
 /obj/item/stack/rods,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"bbi" = (
+/obj/structure/closet/secure_closet{
+	name = "contraband locker";
+	req_access_txt = "3"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/ruinloot/armory,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"bgy" = (
+/obj/effect/turf_decal/trimline/white/line,
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/brown/warning,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"blP" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/turf/open/floor/carpet/grimy,
+/area/iceland/underground/safe)
+"brX" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/obj/item/gun/ballistic/revolver/russian,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/airless,
+/area/iceland/underground/safe)
+"bzl" = (
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"bEg" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"bHO" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research{
+	name = "Research Division Access";
+	req_access_txt = "47"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/underground/safe)
 "bPh" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/boreal)
+"bWd" = (
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/rockvault,
+/area/iceland/underground/safe)
 "bZl" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"cmQ" = (
+/obj/effect/mob_spawn/human/corpse/zombie,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "csZ" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
+"cyc" = (
+/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/door/window{
+	base_state = "leftsecure";
+	dir = 4;
+	icon_state = "leftsecure";
+	name = "Secure Creature Pen shield holder";
+	obj_integrity = 300;
+	req_access_txt = "47"
+	},
+/obj/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/sign/warning/electricshock{
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
+"cBo" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"cFV" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
+"cGG" = (
+/obj/machinery/shieldwallgen/xenobiologyaccess,
+/obj/machinery/door/window{
+	base_state = "right";
+	dir = 8;
+	icon_state = "right";
+	name = "Secure Creature Pen shield holder";
+	obj_integrity = 300
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/window/reinforced,
+/obj/structure/sign/warning/electricshock{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
 "cHa" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -19558,6 +19668,32 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"cOJ" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
+"cOW" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"cUL" = (
+/obj/structure/railing,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
+"cZm" = (
+/obj/structure/chair/office,
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/open/floor/carpet/black,
+/area/iceland/underground/safe)
+"cZr" = (
+/obj/effect/turf_decal/trimline/white/line,
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 1
+	},
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "dcd" = (
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow{
@@ -19566,6 +19702,18 @@
 	slowdown = 1
 	},
 /area/iceland)
+"dqI" = (
+/obj/item/kirbyplants/random,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"drK" = (
+/turf/open/floor/plasteel/freezer,
+/area/iceland/underground/safe)
 "dsA" = (
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/splinter_bush,
@@ -19578,11 +19726,6 @@
 "dxv" = (
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
-"dHP" = (
-/turf/open/floor/plating/ice/red{
-	icon_state = "icon-110"
-	},
-/area/iceland)
 "dMC" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor3-old"
@@ -19591,6 +19734,17 @@
 	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"dPm" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
 	},
 /area/iceland/underground/safe)
 "dQG" = (
@@ -19622,6 +19776,12 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"egA" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "egX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/splatter,
@@ -19639,6 +19799,13 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"ekB" = (
+/obj/machinery/door/window/westleft{
+	name = "Monkey Pen";
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/freezer,
+/area/iceland/underground/safe)
 "eou" = (
 /obj/structure/flora{
 	desc = "Looks frozen.";
@@ -19655,12 +19822,22 @@
 /mob/living/carbon/monkey,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"eqp" = (
+/obj/machinery/door/poddoor/shutters/indestructible,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "eqU" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
+"etq" = (
+/obj/structure/table/optable,
+/obj/effect/turf_decal/bot_white,
+/obj/effect/mob_spawn/human/corpse/charredskeleton,
+/turf/open/floor/plasteel/tech/grid,
+/area/iceland/underground/safe)
 "euQ" = (
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_7"
@@ -19698,16 +19875,75 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"eJM" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"eKg" = (
+/obj/structure/bed/maint{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"eOk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/turf/open/floor/carpet/grimy,
+/area/iceland/underground/safe)
+"ePF" = (
+/obj/structure/rack,
+/obj/item/storage/box/sec_barricades,
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"eWj" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/obj/structure/fence/end{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland/underground/safe)
+"eWN" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet,
+/obj/effect/spawner/lootdrop/ruinloot/armory,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "eXa" = (
 /obj/structure/flora/splinter_bush,
 /turf/closed/mineral/random/snowmountain,
 /area/iceland)
+"eYS" = (
+/turf/open/floor/plasteel/rockvault,
+/area/iceland/underground/safe)
+"fnm" = (
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "fnE" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/splinter_bush,
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"fsG" = (
+/obj/machinery/door/window/brigdoor{
+	dir = 1;
+	name = "Creature Pen";
+	req_access_txt = "47"
+	},
+/turf/open/floor/plasteel/ridged/steel,
+/area/iceland/underground/safe)
 "ftB" = (
 /turf/closed/wall,
 /area/mine/eva)
@@ -19754,6 +19990,12 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"goK" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "gul" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -19773,6 +20015,27 @@
 "gyj" = (
 /turf/closed/mineral/random/snowmountain/cavern,
 /area/iceland_base)
+"gBw" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/grunge{
+	name = "Chapel Morgue";
+	req_access_txt = "27"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/underground/safe)
+"gEO" = (
+/turf/open/floor/carpet/black,
+/area/iceland/underground/safe)
+"gId" = (
+/obj/machinery/button/crematorium{
+	id = "cremawheat";
+	pixel_x = -24;
+	req_access_txt = "27"
+	},
+/obj/item/kirbyplants/random,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "gJh" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plating/asteroid/snow{
@@ -19812,6 +20075,10 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_n)
+"hqQ" = (
+/obj/structure/flora/tree/splinter,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
 "hrz" = (
 /obj/machinery/light{
 	dir = 4
@@ -19829,6 +20096,12 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"hun" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
 "hyS" = (
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
@@ -19840,6 +20113,19 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"hHH" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
+"hKO" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/closed/wall/mineral,
+/area/iceland/underground/safe)
 "hLQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/tracks,
@@ -19866,6 +20152,21 @@
 "hSm" = (
 /turf/open/floor/plasteel,
 /area/mine/eva)
+"ifG" = (
+/obj/effect/turf_decal/trimline/purple/filled/warning{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"ihp" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/underground/safe)
 "ill" = (
 /obj/structure/window/reinforced/fulltile/ice{
 	name = "frozen window"
@@ -19876,6 +20177,14 @@
 /mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"izD" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "iBW" = (
 /obj/effect/mob_spawn/human/doctor/alive,
 /turf/open/floor/plating/asteroid/snow{
@@ -19883,6 +20192,10 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/underground/safe)
+"iHX" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
 /area/iceland/underground/safe)
 "iKv" = (
 /obj/machinery/door/firedoor,
@@ -19917,6 +20230,10 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
+"iOa" = (
+/obj/structure/railing/corner,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
 "iPw" = (
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
@@ -19924,6 +20241,51 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"iPH" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/iceland/underground/safe)
+"iXp" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
+"jao" = (
+/obj/machinery/recycler/deathtrap,
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/iceland/underground/safe)
+"jaN" = (
+/obj/machinery/clonepod/experimental,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
+"jaP" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/obj/machinery/shower{
+	dir = 8
+	},
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 22
+	},
+/obj/structure/sink{
+	pixel_y = 30
+	},
+/turf/open/floor/noslip/dark,
+/area/iceland/underground/safe)
 "jby" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -19938,6 +20300,15 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"jjK" = (
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"jmg" = (
+/obj/structure/bed/maint{
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "jun" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/sharp,
@@ -19945,12 +20316,31 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"juo" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"jwA" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research{
+	name = "Research Division Access";
+	req_access_txt = "47"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/underground/safe)
 "jEA" = (
 /obj/structure/flora/splinter_bush{
 	pixel_x = 1
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"jIh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
 "jMV" = (
 /obj/item/candle/infinite{
 	pixel_x = -4;
@@ -19962,6 +20352,9 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"jPb" = (
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "jUw" = (
 /obj/machinery/suit_storage_unit/mining,
 /obj/effect/turf_decal/delivery,
@@ -19969,9 +20362,7 @@
 /area/mine/eva)
 "jZT" = (
 /mob/living/simple_animal/hostile/ambush,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "kaY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -19992,6 +20383,36 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"kgy" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "corpse_trash"
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/open/floor/plasteel/tech/grid,
+/area/iceland/underground/safe)
+"khu" = (
+/obj/structure/bodycontainer/crematorium{
+	dir = 4;
+	id = "cremawheat"
+	},
+/obj/machinery/light_switch{
+	pixel_y = -24
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/end{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "khx" = (
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/tree/splinter,
@@ -20001,6 +20422,32 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_n)
+"kmi" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/lootdrop/ruinloot/armory,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"kmp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/bed,
+/obj/item/bedsheet/grey,
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"kqJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/iceland_base/command)
+"kvB" = (
+/obj/structure/table/wood,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/carpet/grimy,
+/area/iceland/underground/safe)
 "kzf" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -20012,6 +20459,40 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
+"kCj" = (
+/obj/structure/bed,
+/obj/item/bedsheet/grey,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"kFB" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"kNL" = (
+/obj/structure/flora/grass/sharp,
+/obj/structure/flora/tree/splinter,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
+"kSs" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plating/snowed,
+/area/iceland/underground/safe)
+"kSP" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/vault{
+	name = "Armory";
+	req_access_txt = "3"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/underground/safe)
 "lfc" = (
 /obj/docking_port/stationary{
 	dir = 2;
@@ -20023,6 +20504,27 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"lfo" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8
+	},
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"lfp" = (
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
+"lhF" = (
+/obj/structure/table/wood,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/iceland_base/crew_quarters/bar)
 "lnW" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/snowed,
@@ -20048,10 +20550,55 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"lAc" = (
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/amethyst/visible/layer2{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel/tech,
+/area/iceland_base/engine)
+"lEU" = (
+/turf/open/floor/plasteel/ridged/steel,
+/area/iceland/underground/safe)
+"lLf" = (
+/obj/structure/bodycontainer/morgue,
+/obj/structure/sign/warning/nosmoking{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/end{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "lLx" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"lPD" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/tiles,
+/area/iceland/underground/safe)
+"lSJ" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "lTw" = (
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/boreal)
@@ -20067,6 +20614,17 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/underground/safe)
+"lUb" = (
+/obj/structure/bodycontainer/morgue,
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/end{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "lVd" = (
 /obj/effect/decal/cleanable/blood/rune{
@@ -20086,6 +20644,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/mine/eva)
+"lZj" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "mkp" = (
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
 /turf/open/floor/plating/asteroid/snow{
@@ -20104,9 +20669,49 @@
 /obj/structure/flora/tree/dead,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"mnT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"msi" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
 "msH" = (
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
+"myZ" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 8
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"mzO" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
+/turf/open/floor/carpet/black,
 /area/iceland/underground/safe)
 "mBA" = (
 /obj/machinery/door/airlock/mining/glass{
@@ -20121,6 +20726,12 @@
 /obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"mOZ" = (
+/obj/structure/bed,
+/obj/item/bedsheet/grey,
+/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "mQp" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 1
@@ -20132,6 +20743,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
+"mRa" = (
+/obj/structure/table/reinforced,
+/obj/item/lighter,
+/turf/open/floor/carpet/black,
+/area/iceland/underground/safe)
 "mRq" = (
 /obj/structure/fence/door,
 /obj/structure/barricade/wooden/crude/snow,
@@ -20141,6 +20757,12 @@
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/splinter_bush,
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
+"nlf" = (
+/obj/effect/turf_decal/trimline/purple/filled/warning{
+	dir = 8
+	},
+/turf/open/floor/plasteel/grid/steel,
 /area/iceland/underground/safe)
 "nCD" = (
 /obj/structure/flora/tree/splinter,
@@ -20154,6 +20776,15 @@
 	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"nIJ" = (
+/obj/item/kirbyplants/random,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
 	},
 /area/iceland/underground/safe)
 "nOo" = (
@@ -20176,6 +20807,18 @@
 /obj/effect/mob_spawn/human/alive,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"obf" = (
+/turf/closed/wall/r_wall/rust,
+/area/iceland/underground/safe)
+"ohk" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"ohw" = (
+/obj/machinery/computer,
+/obj/structure/railing/corner,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "ojd" = (
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_6"
@@ -20186,12 +20829,33 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"ojH" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/underground/safe)
 "okt" = (
 /obj/structure/flora/splinter_bush,
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"oot" = (
+/obj/item/storage/box/gloves{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/bodybags,
+/obj/structure/table,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "opf" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/latcher,
@@ -20201,14 +20865,32 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"osr" = (
+/obj/effect/turf_decal/stripes/full,
+/obj/effect/turf_decal/stripes/red/full,
+/obj/machinery/door/poddoor/shutters/window,
+/turf/open/floor/engine,
+/area/iceland/underground/safe)
 "oxp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
+"oLM" = (
+/obj/effect/mob_spawn/human/corpse/zombie,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"oMA" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plasteel/dark/corner,
+/area/iceland/underground/safe)
 "oOG" = (
 /obj/structure/frame,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
+"oZi" = (
+/obj/structure/bed,
+/turf/open/floor/plasteel/freezer,
+/area/iceland/underground/safe)
 "ppS" = (
 /obj/structure/flora/splinter_bush,
 /turf/open/floor/plating/asteroid/snow,
@@ -20217,12 +20899,47 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"pwg" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/kitchenspike,
+/turf/open/floor/plasteel/rockvault,
+/area/iceland/underground/safe)
+"pCf" = (
+/obj/effect/turf_decal/trimline/white/line,
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/brown/warning{
+	dir = 1
+	},
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "pCv" = (
 /obj/machinery/suit_storage_unit/mining,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
+"pMY" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/carpet/red,
+/area/iceland_base/command/hos)
+"pOK" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
+"pQh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/clothing/gloves/color/fyellow/old,
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
 "pRs" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/structure/flora/splinter_bush,
@@ -20233,6 +20950,12 @@
 /obj/structure/flora/splinter_bush,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"pSe" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
 "pUk" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -20243,9 +20966,20 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"qbF" = (
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "qcx" = (
 /mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/grass,
+/area/iceland/underground/safe)
+"qnw" = (
+/turf/open/floor/plasteel/dark/side{
+	dir = 9
+	},
 /area/iceland/underground/safe)
 "qpg" = (
 /obj/machinery/door/poddoor{
@@ -20259,6 +20993,15 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"qGv" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/obj/item/crowbar,
+/obj/item/folder/red{
+	pixel_x = 3
+	},
+/turf/open/floor/carpet/black,
+/area/iceland/underground/safe)
 "qPJ" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -20286,14 +21029,60 @@
 	},
 /turf/open/floor/mech_bay_recharge_floor,
 /area/mine/eva)
+"qVj" = (
+/obj/structure/sign/poster/official/ian{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "qYT" = (
 /obj/structure/flora/grass/both,
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"rsS" = (
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"rHM" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/iceland/underground/safe)
 "rKD" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating/snowed,
+/area/iceland/underground/safe)
+"rOW" = (
+/obj/effect/turf_decal/trimline/white/end{
+	dir = 8
+	},
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"rPm" = (
+/turf/open/floor/concrete/tiles,
+/area/iceland/underground/safe)
+"rQh" = (
+/obj/effect/turf_decal/trimline/white/end{
+	dir = 4
+	},
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"rRh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/chair/office/light{
+	dir = 1;
+	pixel_y = 3
+	},
+/obj/structure/sign/poster/contraband/missing_gloves{
+	pixel_x = -32
+	},
+/turf/open/floor/engine/light,
 /area/iceland/underground/safe)
 "ser" = (
 /obj/structure/flora/grass/sharp,
@@ -20301,6 +21090,21 @@
 /obj/structure/flora/tree/splinter,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"ske" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
+"snj" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue{
+	bodycount = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "sqK" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -20313,11 +21117,12 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
-"sLg" = (
-/turf/open/floor/plating/ice/red{
-	icon_state = "icon-239"
+"sPt" = (
+/obj/structure/chair{
+	dir = 8
 	},
-/area/iceland)
+/turf/open/floor/concrete/tiles,
+/area/iceland/underground/safe)
 "sRF" = (
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/splinter_bush,
@@ -20327,15 +21132,24 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "sVH" = (
-/turf/open/floor/plating/ice/red{
-	icon_state = "icon-255"
-	},
+/turf/open/floor/plating/ice/red,
 /area/iceland)
-"tix" = (
-/turf/open/floor/plating/ice/red{
-	icon_state = "icon-74"
+"tpA" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
-/area/iceland)
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/ert{
+	id = "DoNotOpen"
+	},
+/obj/structure/barricade/wooden/crude/snow,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "tqK" = (
 /obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/plasteel/dark,
@@ -20346,6 +21160,12 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/boreal)
+"txK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
 "tyB" = (
 /turf/closed/indestructible/riveted,
 /area/ruin/powered/iceland/gate/boreal)
@@ -20353,6 +21173,14 @@
 /obj/machinery/vendor/mining,
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
+"tCT" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
 "tFA" = (
 /obj/structure/flora/splinter_bush,
 /obj/structure/flora/grass/sharp,
@@ -20360,12 +21188,65 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"tHi" = (
+/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+/obj/structure/closet,
+/obj/item/storage/pill_bottle/mutadone{
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
+"tHv" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/emcloset,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"tId" = (
+/obj/machinery/dna_scannernew,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
+"tKS" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/iceland_base/chapel)
 "tPV" = (
 /obj/structure/window/reinforced/fulltile/ice{
 	name = "frozen window"
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"tXi" = (
+/obj/structure/table,
+/obj/item/crowbar,
+/obj/item/wrench,
+/obj/item/storage/book/bible{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"tXT" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 4
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "ucH" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/underground/safe{
@@ -20374,6 +21255,32 @@
 "ueo" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"ufv" = (
+/obj/effect/turf_decal/trimline/purple/filled/warning{
+	dir = 4
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"uhn" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
+"umN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/open/floor/carpet/grimy,
+/area/iceland/underground/safe)
+"unz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "uqg" = (
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_2"
@@ -20412,6 +21319,41 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"uQl" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = 31
+	},
+/obj/machinery/computer,
+/obj/structure/firepit{
+	name = "fire";
+	pixel_x = -3;
+	pixel_y = -2
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"uQJ" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/open/floor/carpet/grimy,
+/area/iceland/underground/safe)
+"vcd" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research{
+	name = "Research Division Access";
+	req_access_txt = "47"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/underground/safe)
 "vcO" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -20430,6 +21372,47 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"vsO" = (
+/obj/structure/table,
+/obj/item/folder/white,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"vGN" = (
+/obj/structure/closet/firecloset,
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
+"vJN" = (
+/obj/structure/bed/maint,
+/obj/structure/bed/maint{
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"vPv" = (
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland_base/command)
+"vYv" = (
+/obj/machinery/computer/cloning/prototype,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/paper/fluff/ruins/exp_cloning/manual,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
 "wdk" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/splinter_bush,
@@ -20439,17 +21422,76 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
+"wns" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"wuj" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"wyS" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"wGn" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/computer/operating{
+	dir = 8;
+	name = "Forensics Operating Computer"
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"wGU" = (
+/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/rockvault,
+/area/iceland/underground/safe)
+"wRn" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/bed,
+/turf/open/floor/plasteel/freezer,
+/area/iceland/underground/safe)
 "wVC" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
-"wYQ" = (
-/turf/open/floor/plating/ice/red{
-	icon_state = "icon-203"
+"wXk" = (
+/obj/structure/railing{
+	dir = 1
 	},
-/area/iceland)
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "corpse_trash"
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/iceland/underground/safe)
+"xnn" = (
+/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/conveyor_switch/oneway{
+	id = "corpse_trash";
+	name = "'disposal' conveyor"
+	},
+/turf/open/floor/plasteel/rockvault,
+/area/iceland/underground/safe)
 "xqM" = (
 /turf/closed/wall/r_wall,
 /area/iceland_base/command/chief)
@@ -20461,10 +21503,22 @@
 /mob/living/simple_animal/hostile/latcher,
 /turf/open/floor/plating/dirt/dark,
 /area/iceland/underground/safe)
+"xEY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/engine/light,
+/area/iceland/underground/safe)
 "xGj" = (
 /obj/structure/flora/grass/sharp,
 /turf/closed/mineral/random/snowmountain,
 /area/iceland)
+"xGD" = (
+/obj/effect/turf_decal/trimline/purple/filled/warning{
+	dir = 9
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "xIh" = (
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/tree/splinter,
@@ -20769,9 +21823,9 @@ aqL
 aqL
 aqL
 aqL
-aEK
-aEK
-aEK
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -21026,9 +22080,9 @@ aqL
 aqL
 aqL
 aqL
-aEK
-aSC
-aEK
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -21283,9 +22337,9 @@ aqL
 aqL
 aqL
 aqL
-aEK
-aEK
-aEK
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -21797,9 +22851,9 @@ aqL
 aqL
 aqL
 aqL
-aEK
-aEK
-aEK
+aqL
+aqL
+aqL
 aqL
 aqL
 aqL
@@ -22054,9 +23108,9 @@ aqL
 aqL
 aqL
 aqL
-aEK
-aWK
-aEK
+aqL
+aqL
+aqL
 aqL
 aiC
 aiC
@@ -22311,9 +23365,9 @@ aqL
 aqL
 aqL
 aqL
-aEK
-aEK
-aEK
+aqL
+aqL
+aqL
 aiC
 aiC
 aJy
@@ -40795,13 +41849,13 @@ afn
 afn
 afn
 afn
+afn
 aCW
 aOG
-afn
-afn
-aup
-afn
-aCw
+obf
+kSP
+aZI
+aZI
 aRu
 aiC
 aiC
@@ -41014,11 +42068,11 @@ aiC
 aiC
 aiC
 aRu
+aRu
 ajk
 avR
 avR
-avR
-avR
+eKg
 aZT
 aZT
 aqb
@@ -41050,15 +42104,15 @@ awp
 aEb
 afn
 anX
-aKQ
+gEO
+gEO
 atc
 aOG
 aOG
-afn
+aZI
 aiV
-aiV
-aiV
-aCw
+ePF
+aZI
 aRu
 aiC
 aiC
@@ -41271,8 +42325,8 @@ aiC
 aiC
 aiC
 aRu
+aRu
 ajk
-avR
 avR
 avR
 avR
@@ -41308,14 +42362,14 @@ aEW
 afn
 aov
 aen
+qGv
 aRz
 aCW
 aOG
-afn
+aZI
 aiV
-aiV
-aiV
-aCw
+bbi
+aZI
 aRu
 aiC
 aiC
@@ -41528,11 +42582,11 @@ aiC
 aiC
 aiC
 aRu
+aRu
 ajk
-avR
-avR
-avR
-avR
+vJN
+jmg
+brX
 avR
 avR
 aqb
@@ -41563,16 +42617,16 @@ aty
 aty
 aaI
 afn
-aov
-adU
+mRa
+aen
+mzO
 afn
 ayF
 ayF
-afn
+aZI
 aiV
-aiV
-aiV
-aCw
+eWN
+aZI
 aRu
 aiC
 aiC
@@ -41785,7 +42839,7 @@ aiC
 aiC
 aiC
 aRu
-ajk
+aRu
 ajk
 ajk
 ajk
@@ -41822,18 +42876,18 @@ ajZ
 afn
 acn
 aQF
+cZm
 ahk
 aiV
 aiV
-afn
-aiV
-aiV
-aiV
-aCw
+aZI
+qVj
+kmi
+aZI
 aRu
 aRu
 aRu
-aiC
+aRu
 "}
 (84,1,1) = {"
 aiC
@@ -42080,17 +43134,17 @@ afn
 aRz
 aRz
 afn
+afn
 aiV
 aiV
-afn
-afn
-afn
-afn
-afn
+obf
+obf
+aZI
+aZI
 afn
 afn
 aRu
-aiC
+aRu
 "}
 (85,1,1) = {"
 aiC
@@ -42340,14 +43394,14 @@ ayS
 ayS
 ayS
 ayS
-ayS
+aPS
 afn
 aEd
 aEd
 aEd
 afn
 aRu
-aiC
+aRu
 "}
 (86,1,1) = {"
 aiC
@@ -42551,9 +43605,9 @@ aMr
 aMr
 aMr
 aMr
-aiC
-aiC
-aiC
+aEK
+aEK
+aEK
 aiC
 aRu
 aRu
@@ -42597,14 +43651,14 @@ avR
 avR
 avR
 avR
-avR
+aru
 ayD
 aEd
 aEd
 aEd
 afn
 aRu
-aiC
+aRu
 "}
 (87,1,1) = {"
 aiC
@@ -42808,9 +43862,9 @@ axh
 aWV
 aAj
 aAj
-aiC
-aiC
-aiC
+aEK
+aSC
+aEK
 aiC
 aRu
 aRu
@@ -42851,17 +43905,17 @@ atc
 aTy
 aTy
 aTy
+agp
+auX
 aTy
-aTy
-aTy
-aTy
+aBr
 afn
 aEd
 aEd
 aEd
 afn
 aRu
-aiC
+aRu
 "}
 (88,1,1) = {"
 aiC
@@ -43065,9 +44119,9 @@ aGZ
 aAj
 aAj
 aAj
-aiC
-aiC
-aiC
+aEK
+aEK
+aEK
 aiC
 aRu
 ajk
@@ -43105,8 +44159,8 @@ aty
 aMR
 afn
 afn
-afn
-afn
+aRz
+aRz
 afn
 aww
 aww
@@ -43114,11 +44168,11 @@ afn
 afn
 afn
 afn
-ari
+afn
 afn
 afn
 aRu
-aiC
+aRu
 "}
 (89,1,1) = {"
 aiC
@@ -43353,7 +44407,7 @@ aak
 afn
 afn
 aXW
-aWH
+aRz
 afn
 afn
 afn
@@ -43361,21 +44415,21 @@ afn
 air
 afn
 afn
-aiC
-aiC
-aiC
+asC
+aiV
+aiV
 ajk
-avR
-avR
+aJG
+aru
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (90,1,1) = {"
 aiC
@@ -43586,14 +44640,14 @@ aiC
 aRu
 ajk
 aLR
-aHe
+blP
 aWy
 ajk
 aYJ
 abd
 acH
 aHe
-aUG
+umN
 ajk
 aJG
 avR
@@ -43618,21 +44672,21 @@ amF
 aZT
 aOF
 afn
-aiC
-aiC
-aiC
+agE
+asn
+aiV
+aiV
+aJG
+aru
 ajk
-avR
-avR
-ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (91,1,1) = {"
 aiC
@@ -43850,7 +44904,7 @@ aAD
 aDo
 ajk
 asS
-aGN
+kvB
 ajk
 aJG
 avR
@@ -43875,21 +44929,21 @@ aZT
 avR
 aEt
 afn
-aiC
-aiC
-aiC
+aRO
+aiV
+arr
 ajk
-avR
-avR
+aJG
+aru
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (92,1,1) = {"
 aiC
@@ -44132,21 +45186,21 @@ avR
 aUe
 aiZ
 afn
-aiC
-aiC
-aiC
+aBd
+aak
+aIY
 ajk
-avR
-avR
+aJG
+aru
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (93,1,1) = {"
 aiC
@@ -44357,7 +45411,7 @@ aiC
 aRu
 ajk
 aZS
-aHe
+blP
 axX
 ajk
 auj
@@ -44381,6 +45435,7 @@ aBd
 ajk
 afn
 afn
+eqp
 afn
 afn
 afn
@@ -44388,22 +45443,21 @@ afn
 afn
 afn
 afn
-afn
-aiC
-aiC
-aiC
 ajk
-avR
-avR
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+ajk
+aJG
+aru
+ajk
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (94,1,1) = {"
 aiC
@@ -44621,7 +45675,7 @@ aAh
 aru
 acH
 aHe
-aHe
+uQJ
 ajk
 aEY
 avR
@@ -44638,29 +45692,29 @@ aRP
 ajk
 auL
 aiV
-aJG
-aru
+qnw
+ayS
+ayS
+ayS
+ayS
+ayS
+ayS
+ayS
+aPS
 aiV
 aLk
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aJG
+aru
 ajk
-avR
-avR
-ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (95,1,1) = {"
 aiC
@@ -44896,28 +45950,28 @@ ajk
 aIY
 aBd
 aJG
+auX
+aTy
+aTy
+aTy
+aTy
+aTy
+agp
 aru
 aBd
 aIY
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aJG
+aru
 ajk
-avR
-avR
-ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (96,1,1) = {"
 aiC
@@ -45128,7 +46182,7 @@ aiC
 aRu
 ajk
 aGN
-aUG
+eOk
 aSM
 ajk
 aub
@@ -45156,25 +46210,25 @@ aJG
 aru
 aiV
 auL
+aRz
+auL
+aiV
+aJG
+aru
+aiV
+auL
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aJG
+aru
 ajk
-avR
-avR
-ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (97,1,1) = {"
 aiC
@@ -45414,24 +46468,24 @@ aru
 aak
 aIY
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aIY
+aRO
+aJG
+aru
+aak
+aIY
 ajk
-avR
-avR
+aJG
+aru
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (98,1,1) = {"
 aiC
@@ -45649,7 +46703,7 @@ aJG
 aru
 acH
 aUG
-aUG
+umN
 ajk
 aJG
 avR
@@ -45670,25 +46724,25 @@ aJG
 aru
 aiV
 aLk
+aRz
+aMt
+aiV
+aJG
+aru
+aiV
+aLk
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aJG
+aru
 ajk
-avR
-avR
-ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (99,1,1) = {"
 aiC
@@ -45899,14 +46953,14 @@ aiC
 aRu
 ajk
 aqI
-aHe
+blP
 axX
 ajk
 acL
 aru
 ajk
 acs
-aGN
+kvB
 ajk
 aUX
 avR
@@ -45928,24 +46982,24 @@ aru
 aRO
 aIY
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aIY
+asC
+aJG
+aru
+aRO
+aIY
 ajk
-avR
-avR
+aJG
+aru
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+afn
 aRu
-aiC
+aRu
+aRu
 "}
 (100,1,1) = {"
 aiC
@@ -46186,23 +47240,23 @@ aRz
 ajk
 ajk
 ajk
+aRz
+aJG
+aru
+aRz
+ajk
+ajk
+aup
+aup
 ajk
 ajk
 ajk
 ajk
 ajk
-ajk
-aww
-aww
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
+afn
 ajk
 aRu
-aiC
+aRu
 "}
 (101,1,1) = {"
 aiC
@@ -46424,42 +47478,42 @@ aNE
 acw
 aJG
 avR
-aru
+aZM
 atc
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
+ayS
+ayS
+ayS
+ajh
+aZM
+ayS
+ayS
+ayS
+ayS
+ayS
+ayS
+ajh
+aZM
+ayS
+ayS
+ayS
+ayS
+ayS
+ajh
+aZM
+ayS
+ayS
+ayS
+ajh
+aZM
+ayS
+ayS
+ayS
 aad
-aiC
-aiC
-aiC
+ojH
 aRu
-aiC
+aRu
+aRu
+aRu
 "}
 (102,1,1) = {"
 aiC
@@ -46681,7 +47735,7 @@ aZT
 aks
 aor
 alp
-aru
+avR
 atc
 avR
 avR
@@ -46712,11 +47766,11 @@ avR
 avR
 avR
 atw
-aiC
-aiC
-aiC
+aTq
+lZj
 aRu
-aiC
+aRu
+aRu
 "}
 (103,1,1) = {"
 aiC
@@ -46938,42 +47992,42 @@ apX
 atc
 aJG
 avR
-aru
+auX
 atc
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
 abx
+agp
 avR
+auX
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
+aTy
+agp
 avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
+auX
+aTy
 agz
-aiC
-aiC
-aiC
+iPH
+aeV
 aRu
-aiC
+aRu
+aRu
 "}
 (104,1,1) = {"
 aiC
@@ -47220,17 +48274,17 @@ ajk
 ajk
 ajk
 ajk
+ajk
 aww
 aww
-ajk
-ajk
+aww
 ajk
 ajk
 ajk
 ajk
 ajk
 aRu
-aiC
+aRu
 "}
 (105,1,1) = {"
 aiC
@@ -47476,18 +48530,18 @@ aEd
 aEd
 aEd
 aEd
+aEd
 ajk
-aTq
 auw
+aur
+iXp
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
+cOJ
+kSs
+aIx
 ajk
 aRu
-aiC
+aRu
 "}
 (106,1,1) = {"
 aiC
@@ -47729,22 +48783,22 @@ aEd
 aEd
 aEd
 aEd
-aEd
-aEd
-aEd
-aEd
+vGN
 ajk
-aTq
+aEd
+aEd
+aEd
+ank
 auw
-ajk
-aEd
-aEd
-aEd
-aEd
-aEd
+oMA
+uhn
+ank
+kSs
+kSs
+aXt
 ajk
 aRu
-aiC
+aRu
 "}
 (107,1,1) = {"
 aiC
@@ -47982,26 +49036,26 @@ aZN
 aZN
 aZN
 aZI
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
 ajk
-aTq
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
 auw
+iXp
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
+ajk
+ajk
+aIx
+hKO
 ajk
 aRu
-aiC
+aRu
 "}
 (108,1,1) = {"
 aiC
@@ -48239,26 +49293,26 @@ aZN
 aZN
 aZN
 aZI
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+ohk
+ohk
+ohk
+wyS
+rsS
 ajk
-aTq
-auw
+tId
+jaN
+aFy
+ajk
+ihp
+iXp
+ajk
+aqL
 ajk
 aEd
-aEd
-aEd
-aEd
-aEd
+aIx
 ajk
 aRu
-aiC
+aRu
 "}
 (109,1,1) = {"
 aiC
@@ -48288,7 +49342,7 @@ akV
 aVS
 aVS
 aah
-arf
+lhF
 arf
 aJu
 aQl
@@ -48495,27 +49549,27 @@ aZI
 aZI
 aZI
 aZI
+aZI
+avR
+avR
+avR
+fsG
+mOZ
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+vYv
+hHH
+aFy
 ajk
-alQ
-auw
+aDb
+ske
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
+aqL
+ajk
+aIx
+kSs
 ajk
 aRu
-aiC
+aRu
 "}
 (110,1,1) = {"
 aiC
@@ -48746,33 +49800,33 @@ arV
 aHI
 aGt
 ajj
+aZI
+lfo
+rRh
+xEY
+txK
+aZI
+cyc
+avR
+avR
+avR
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
+aRz
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+iHX
+iHX
+aFy
 ajk
 aDb
-aVF
+aDb
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
+aqL
 ajk
+kSs
+msH
+aVS
 aRu
-aiC
+aRu
 "}
 (111,1,1) = {"
 aiC
@@ -48791,7 +49845,7 @@ aXc
 aJT
 aRW
 awK
-aOC
+kqJ
 akV
 aqP
 acQ
@@ -49003,33 +50057,33 @@ aAP
 aHe
 aHe
 aHe
+aZI
+mnT
+jjK
+bzl
+juo
+osr
+ayV
+avR
+avR
+ohk
+wyS
+rsS
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+iHX
+iHX
+aFy
 ajk
 aDb
-aVv
+aDb
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
+aqL
 ajk
+aVS
+aVS
+msH
 aRu
-aiC
+aRu
 "}
 (112,1,1) = {"
 aiC
@@ -49044,7 +50098,7 @@ aqA
 aGR
 aav
 ahT
-aIK
+vPv
 aoC
 aId
 aKu
@@ -49260,33 +50314,33 @@ aAP
 aHI
 aGt
 azF
+aZI
+pQh
+jjK
+jjK
+juo
+osr
+ayV
+avR
+avR
+avR
+fsG
+kCj
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+pOK
+hHH
+aFy
 ajk
 aDb
 aDb
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
+aqL
 ajk
+hqQ
+aVS
+aVS
+aVS
 aRu
-aiC
 "}
 (113,1,1) = {"
 aiC
@@ -49517,33 +50571,33 @@ aAP
 awo
 afk
 acE
+aZI
+kmp
+jIh
+jIh
+hun
+aZI
+cGG
+avR
+avR
+avR
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
+aRz
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+tHi
+pSe
+aFy
 ajk
-aDb
-aDb
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
 ajk
+ajk
+ajk
+ajk
+aVS
+aVS
+aVS
+hqQ
 aRu
-aiC
 "}
 (114,1,1) = {"
 aiC
@@ -49774,33 +50828,33 @@ ajk
 ajk
 ajk
 ajk
+aZI
+aZI
+aZI
+aZI
+aZI
+aZI
+aZI
+avR
+avR
+ohk
+wyS
+oLM
 ajk
 ajk
+aup
+aRz
+afn
+lUb
+lLf
+gId
+khu
 ajk
-ajk
-ajk
-ajk
-ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-ajk
-aDb
-aDb
-ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-ajk
+aYj
+msH
+aVS
+msH
 aRu
-aiC
 "}
 (115,1,1) = {"
 aiC
@@ -50037,27 +51091,27 @@ aDb
 ajk
 aEd
 aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
 ajk
+izD
+avR
+avR
+fsG
+kCj
+ajk
+avR
+avR
+avR
+afn
+aiV
+snj
+wuj
+aiV
+ajk
+aVS
+aVS
+msH
+msH
 aRu
-aiC
 "}
 (116,1,1) = {"
 aiC
@@ -50294,27 +51348,27 @@ aDb
 ank
 aEd
 aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+ank
+avR
+avR
+avR
 ajk
+aRz
+ajk
+avR
+avR
+avR
+gBw
+aiV
+goK
+goK
+tXi
+ajk
+aVS
+aVS
+mXP
+msH
 aRu
-aiC
 "}
 (117,1,1) = {"
 aiC
@@ -50551,27 +51605,27 @@ aDb
 ajk
 aEd
 aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
 ajk
+avR
+avR
+avR
+avR
+avR
+aRz
+avR
+avR
+avR
+lfp
+aiV
+aiV
+aiV
+oot
+ajk
+msH
+ppS
+mXP
+aYj
 aRu
-aiC
 "}
 (118,1,1) = {"
 aiC
@@ -50806,29 +51860,29 @@ aDb
 aDb
 aDb
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
 ajk
+ajk
+ajk
+avR
+avR
+avR
+avR
+avR
+atc
+avR
+avR
+avR
+afn
+afn
+afn
+amr
+afn
+ajk
+aVS
+aVS
+aVS
+aVS
 aRu
-aiC
 "}
 (119,1,1) = {"
 aiC
@@ -50843,7 +51897,7 @@ aaZ
 aOl
 aHo
 amx
-aIK
+vPv
 arw
 aDt
 aDt
@@ -51063,29 +52117,29 @@ ajk
 aDb
 aDb
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+avR
+avR
+avR
+avR
+avR
+avR
+avR
+avR
+atc
+avR
+avR
+avR
+afn
+pwg
+eYS
+wGU
+rHM
 ajk
+aVS
+aVS
+aVS
 aRu
-aiC
+aRu
 "}
 (120,1,1) = {"
 aiC
@@ -51319,30 +52373,30 @@ aXA
 ajk
 aDb
 aDb
+aRz
+avR
+avR
+avR
+avR
+avR
+avR
+avR
+avR
+atc
+avR
+avR
+avR
+jwA
+eYS
+eYS
+wGU
+kgy
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-ajk
+kSs
+aVS
+msH
+aVS
 aRu
-aiC
 "}
 (121,1,1) = {"
 aiC
@@ -51576,30 +52630,30 @@ aee
 ajk
 aDb
 aDb
+aRz
+avR
+avR
+avR
+avR
+avR
+avR
+avR
+avR
+aRz
+avR
+avR
+avR
+afn
+bWd
+eYS
+xnn
+jao
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-ajk
+kSs
+aYj
+aVS
+aVS
 aRu
-aiC
 "}
 (122,1,1) = {"
 aiC
@@ -51834,29 +52888,29 @@ ajk
 aDb
 aDb
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+avR
+avR
+avR
+avR
+avR
+avR
+avR
+avR
 ajk
+wRn
+ekB
+wRn
+afn
+eYS
+eYS
+wGU
+wXk
+ajk
+aIx
+aVS
+kNL
 aRu
-aiC
+aRu
 "}
 (123,1,1) = {"
 aiC
@@ -52091,29 +53145,29 @@ ajk
 aDb
 avR
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
 ajk
+bHO
+ajk
+ajk
+avR
+cmQ
+avR
+avR
+ajk
+oZi
+drK
+oZi
+afn
+etq
+wGn
+wGU
+rHM
+ajk
+aIx
+aVS
+aVS
 aRu
-aiC
+aRu
 "}
 (124,1,1) = {"
 aiC
@@ -52346,31 +53400,31 @@ ajk
 ajk
 aDb
 aDb
+aEd
+ajk
+xGD
+nlf
+qbF
+ajk
+avR
+avR
+avR
 avR
 ajk
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+oZi
+drK
+oZi
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+aIx
+aIx
 ajk
 aRu
-aiC
+aRu
 "}
 (125,1,1) = {"
 aiC
@@ -52555,7 +53609,7 @@ aGp
 adE
 acI
 aTG
-atG
+aTG
 arT
 aiC
 aiC
@@ -52604,30 +53658,30 @@ ajk
 aDb
 avR
 avR
+aRz
+ifG
+lEU
+cOW
 ajk
+avR
+avR
+avR
+avR
+ajk
+ajk
+ajk
+ajk
+ajk
+vGN
 aEd
 aEd
 aEd
+aXt
 aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+aIx
 ajk
 aRu
-aiC
+aRu
 "}
 (126,1,1) = {"
 aiC
@@ -52859,32 +53913,32 @@ aTC
 aiV
 ajk
 ajk
-avR
+aEd
 avR
 ajk
+jaP
+ufv
+tHv
+ajk
+avR
+avR
+avR
+avR
+ank
 aEd
 aEd
 aEd
 aEd
 aEd
 aEd
+aXt
+ajk
 aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
-aEd
+aIx
+aXt
 ajk
 aRu
-aiC
+aRu
 "}
 (127,1,1) = {"
 aiC
@@ -52950,7 +54004,7 @@ aau
 aau
 alg
 aeb
-apy
+pMY
 arm
 aOT
 aau
@@ -53120,7 +54174,7 @@ avR
 avR
 ajk
 ajk
-ajk
+vcd
 ajk
 ajk
 ajk
@@ -53141,7 +54195,7 @@ ajk
 ajk
 ajk
 aRu
-aiC
+aRu
 "}
 (128,1,1) = {"
 aiC
@@ -53380,25 +54434,25 @@ avR
 avR
 avR
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+ajk
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (129,1,1) = {"
 aiC
@@ -53634,28 +54688,28 @@ avR
 avR
 avR
 avR
-avR
+aEd
 avR
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+ajk
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (130,1,1) = {"
 aiC
@@ -53871,7 +54925,7 @@ ajk
 ajk
 ajk
 ajk
-aJG
+aEd
 avR
 aru
 ajk
@@ -53879,12 +54933,12 @@ ajk
 ajk
 ajk
 ajk
-aSz
-ace
+ohw
+lSJ
 aOd
-aiV
-aiV
-aiV
+egA
+egA
+egA
 ahW
 afn
 ajk
@@ -53894,25 +54948,25 @@ ajk
 avR
 avR
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+ajk
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (131,1,1) = {"
 aiC
@@ -54151,25 +55205,25 @@ ajk
 avR
 avR
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+ajk
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (132,1,1) = {"
 aiC
@@ -54221,7 +55275,7 @@ aNq
 aNq
 aNq
 aNq
-aNm
+tKS
 aJf
 aYQ
 aPj
@@ -54379,9 +55433,9 @@ aSQ
 aCP
 aRu
 aiC
-axz
-ahU
-aza
+aiC
+aiC
+aiC
 aiC
 aiC
 ajk
@@ -54405,28 +55459,28 @@ aZI
 aZI
 aqL
 ajk
-avR
+aEd
 avR
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+ajk
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (133,1,1) = {"
 aiC
@@ -54636,9 +55690,9 @@ aSQ
 aCP
 aRu
 aiC
-ayV
-aUC
-apT
+aiC
+aiC
+aiC
 aiC
 aiC
 ajk
@@ -54663,27 +55717,27 @@ aZI
 aZI
 ajk
 avR
-avR
+aEd
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+ajk
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (134,1,1) = {"
 aiC
@@ -54700,7 +55754,7 @@ adY
 aVX
 aHp
 apd
-aPC
+lAc
 arg
 aAQ
 aPB
@@ -54893,15 +55947,15 @@ aCP
 aCP
 aRu
 aiC
-ayV
-abz
-aKK
+aiC
+aiC
+aiC
 aiC
 aiC
 ajk
 aJG
 avR
-aru
+aEd
 aZI
 aZI
 aBy
@@ -54922,25 +55976,25 @@ ajk
 avR
 avR
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+ajk
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (135,1,1) = {"
 aiC
@@ -55150,9 +56204,9 @@ aCP
 aCP
 aRu
 aiC
-aEd
-aQH
-ajc
+aiC
+aiC
+aiC
 aiC
 aiC
 ajk
@@ -55180,24 +56234,24 @@ ajk
 aWJ
 ajk
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aEd
+aEd
+aEd
+aEd
+aEd
+ajk
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (136,1,1) = {"
 aiC
@@ -55407,15 +56461,15 @@ aCP
 aCP
 aRu
 aiC
-asZ
-aer
-aQU
+aiC
+aiC
+aiC
 aiC
 aiC
 ajk
 aJG
 avR
-aru
+iOa
 aZI
 aBy
 aBy
@@ -55437,24 +56491,24 @@ aZl
 aBc
 aIJ
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (137,1,1) = {"
 aiC
@@ -55664,15 +56718,15 @@ aCP
 aiC
 aRu
 aiC
-aHX
-ahR
-aKK
+aiC
+aiC
+aiC
 aiC
 ajk
 ajk
 aJG
-avR
-aru
+aEd
+cUL
 aRz
 aBy
 aBy
@@ -55690,28 +56744,28 @@ aBy
 aBy
 aBy
 aRz
-aIv
+bEg
 aBc
 aIv
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (138,1,1) = {"
 aiC
@@ -55921,15 +56975,15 @@ aCP
 aiC
 aRu
 aiC
-aaQ
-aqw
-awD
+aiC
+aiC
+aiC
 aiC
 ajk
 ayq
 aJG
 avR
-aru
+cUL
 aRz
 aBy
 aBy
@@ -55947,28 +57001,28 @@ aBy
 aBy
 aBy
 aRz
-aIv
+bEg
 aBc
 aIv
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (139,1,1) = {"
 aiC
@@ -56178,15 +57232,15 @@ aiC
 aiC
 aRu
 aiC
-ari
-ari
-ari
+aiC
+aiC
+aiC
 aiC
 ajk
 asO
 aJG
 avR
-aru
+cUL
 aRz
 aBy
 aBy
@@ -56204,28 +57258,28 @@ aBy
 aBy
 aBy
 aRz
-aIv
+bEg
 aBc
 aIv
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (140,1,1) = {"
 aiC
@@ -56443,7 +57497,7 @@ ajk
 atj
 aJG
 avR
-aru
+cUL
 aRz
 aBy
 aBy
@@ -56461,28 +57515,28 @@ aBy
 aBy
 aBy
 aRz
-aIv
+bEg
 aBc
 aIv
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (141,1,1) = {"
 aiC
@@ -56700,7 +57754,7 @@ ajk
 ajk
 aJG
 avR
-aru
+cUL
 aRz
 aBy
 aBy
@@ -56718,28 +57772,28 @@ aBy
 aBy
 aBy
 aRz
-aIv
+bEg
 aBc
 aIv
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (142,1,1) = {"
 aiC
@@ -56957,7 +58011,7 @@ aiC
 ajk
 aJG
 avR
-aru
+cFV
 aZI
 aBy
 aBy
@@ -56975,28 +58029,28 @@ aBy
 aBy
 aBy
 aZI
-aZl
+nIJ
 aBc
 aph
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
 aRu
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (143,1,1) = {"
 aiC
@@ -57236,24 +58290,24 @@ ajk
 aWJ
 ajk
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
 aRu
-aiC
 "}
 (144,1,1) = {"
 aiC
@@ -57469,7 +58523,7 @@ aiC
 aiC
 aiC
 ajk
-aJG
+aEd
 avR
 aru
 aBc
@@ -57492,25 +58546,25 @@ aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+ajk
 aRu
-aiC
 "}
 (145,1,1) = {"
 aiC
@@ -57749,25 +58803,25 @@ aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+ajk
 aRu
-aiC
 "}
 (146,1,1) = {"
 aiC
@@ -58006,25 +59060,25 @@ aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+ajk
 aRu
-aiC
 "}
 (147,1,1) = {"
 aiC
@@ -58263,25 +59317,25 @@ aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (148,1,1) = {"
 aiC
@@ -58505,13 +59559,13 @@ aBc
 aBc
 aBc
 ajk
-aZl
+dqI
 amm
-aqV
-aqV
-aqV
-aqV
-aZl
+dPm
+dPm
+dPm
+dPm
+nIJ
 ajk
 aBc
 aBc
@@ -58520,25 +59574,25 @@ aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (149,1,1) = {"
 aiC
@@ -58770,32 +59824,32 @@ aBc
 aBc
 aBc
 ajW
-aBc
-aBc
-aBc
+msi
+msi
+cBo
 aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (150,1,1) = {"
 aiC
@@ -59029,30 +60083,30 @@ aph
 ajk
 abr
 adk
-aBc
+tCT
 aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (151,1,1) = {"
 aiC
@@ -59286,30 +60340,30 @@ ajk
 ajk
 abr
 abr
-aBc
+tCT
 aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (152,1,1) = {"
 aiC
@@ -59533,40 +60587,40 @@ aBc
 aBc
 aBc
 ajk
-abr
-abr
-aBc
-aBc
-aBc
-ari
-ari
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
 ajk
 abr
 abr
-aBc
+tCT
 aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (153,1,1) = {"
 aiC
@@ -59790,13 +60844,13 @@ aBc
 aBc
 aBc
 ajk
-abr
-abr
-aBc
-aBc
-aBc
-ari
-ari
+fnm
+fnm
+fnm
+jPb
+jPb
+fnm
+fnm
 ajk
 aBc
 aBc
@@ -59805,25 +60859,25 @@ aBc
 aBc
 aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (154,1,1) = {"
 apP
@@ -60047,40 +61101,40 @@ ajk
 aBc
 aBc
 ajk
-abr
-abr
+fnm
+fnm
+fnm
+jPb
+jPb
+fnm
+fnm
+ajk
 aBc
 aBc
 aBc
-ari
-ari
+aBc
+aBc
+aBc
 ajk
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
 ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
 aRu
-aiC
 "}
 (155,1,1) = {"
 apP
@@ -60304,40 +61358,40 @@ ajk
 aBc
 aBc
 ajk
-aBc
-aBc
-aBc
-aBc
-aBc
-ari
-ari
+fnm
+fnm
+fnm
+jPb
+jPb
+fnm
+fnm
 ajk
-aBc
-aBc
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+aup
+aup
+ajk
+ajk
+ajk
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (156,1,1) = {"
 apP
@@ -60555,46 +61609,46 @@ aiC
 aiC
 aiC
 aiC
-aiC
+aRu
 aRu
 ajk
 aBc
 aBc
 ajk
-aBc
-aBc
-aBc
-aBc
-aBc
-ari
-ari
-ari
+fnm
+fnm
+fnm
+jPb
+jPb
+fnm
+fnm
 ajk
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
 ajk
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
 ajk
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
 aRu
-aiC
 "}
 (157,1,1) = {"
 apP
@@ -60812,46 +61866,46 @@ aiC
 aiC
 aiC
 aiC
-aiC
+aRu
 aRu
 ajk
 aBc
 aBc
 ajk
-aBc
-aBc
-aBc
-aBc
-aBc
-ari
-ari
-ari
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+fnm
+fnm
+fnm
+jPb
+jPb
+fnm
+fnm
+ajk
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+atc
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (158,1,1) = {"
 apP
@@ -61069,46 +62123,46 @@ aiC
 aiC
 aiC
 aiC
-aiC
 aRu
 ajk
 ajk
+aup
+aup
 ajk
 ajk
 ajk
+fnm
+myZ
+myZ
+fnm
 ajk
 ajk
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+atc
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
 ajk
-ajk
-ari
-ari
-ari
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
 aRu
-aiC
 "}
 (159,1,1) = {"
 apP
@@ -61326,46 +62380,46 @@ aiC
 aiC
 aiC
 aiC
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+tXT
+tXT
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+atc
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (160,1,1) = {"
 apP
@@ -61583,46 +62637,46 @@ aiC
 aiC
 aiC
 aiC
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+cZr
+jPb
+jPb
+bgy
+jPb
+jPb
+pCf
+jPb
+jPb
+cZr
+jPb
+jPb
+fnm
+fnm
+ajk
+ajk
+ajk
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (161,1,1) = {"
 apP
@@ -61840,46 +62894,46 @@ aiC
 aiC
 aiC
 aiC
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+cZr
+jPb
+jPb
+bgy
+jPb
+jPb
+pCf
+jPb
+jPb
+cZr
+jPb
+jPb
+fnm
+fnm
+fnm
+ajk
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (162,1,1) = {"
 apP
@@ -62097,46 +63151,46 @@ aiC
 aiC
 aiC
 aiC
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+cZr
+jPb
+jPb
+bgy
+jPb
+jPb
+pCf
+jPb
+jPb
+cZr
+jPb
+jPb
+fnm
+fnm
+fnm
+ajk
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (163,1,1) = {"
 apP
@@ -62354,46 +63408,46 @@ aJX
 aJX
 aJX
 aiC
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+rQh
+jPb
+jPb
+rQh
+jPb
+jPb
+rQh
+jPb
+jPb
+rQh
+jPb
+jPb
+fnm
+fnm
+fnm
+ajk
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (164,1,1) = {"
 apP
@@ -62611,46 +63665,46 @@ aCP
 aJX
 aJX
 aiC
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
+fnm
+ajk
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (165,1,1) = {"
 apP
@@ -62868,46 +63922,46 @@ aCP
 aJX
 aJX
 aiC
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
+ajk
+ajk
+ajk
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (166,1,1) = {"
 apP
@@ -63125,46 +64179,46 @@ aCP
 aCP
 aJX
 aJX
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
+fnm
+atc
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (167,1,1) = {"
 apP
@@ -63382,46 +64436,46 @@ aCP
 aCP
 aJX
 aJX
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
+fnm
+atc
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (168,1,1) = {"
 apP
@@ -63639,46 +64693,46 @@ aCP
 aCP
 aJX
 aJX
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+rOW
+jPb
+jPb
+rOW
+jPb
+jPb
+rOW
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
+fnm
+atc
+fnm
+fnm
+fnm
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+aEd
+fnm
+ajk
 aRu
-aiC
 "}
 (169,1,1) = {"
 apP
@@ -63896,46 +64950,46 @@ aCP
 aCP
 aJX
 aJX
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+cZr
+jPb
+jPb
+cZr
+jPb
+jPb
+cZr
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
+fnm
+ajk
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+ajk
 aRu
-aiC
 "}
 (170,1,1) = {"
 apP
@@ -64153,46 +65207,46 @@ aCP
 aCP
 aJX
 aJX
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+cZr
+jPb
+jPb
+cZr
+jPb
+jPb
+cZr
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
+fnm
+ajk
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+ajk
 aRu
-aiC
 "}
 (171,1,1) = {"
 apP
@@ -64410,46 +65464,46 @@ aCP
 aCP
 aJX
 aJX
-aiC
 aRu
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+ajk
+fnm
+jPb
+jPb
+cZr
+jPb
+jPb
+cZr
+jPb
+jPb
+cZr
+jPb
+unz
+unz
+unz
+unz
+fnm
+fnm
+fnm
+ajk
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+ajk
 aRu
-aiC
 "}
 (172,1,1) = {"
 apP
@@ -64667,46 +65721,46 @@ aCP
 aCP
 aJX
 aJX
-aiC
 aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
 abQ
 abQ
+tpA
 abQ
-abQ
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+ajk
 aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aRu
-aiC
 "}
 (173,1,1) = {"
 apP
@@ -64924,46 +65978,46 @@ aCP
 aCP
 aCP
 aJX
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 aCw
-aMV
-aMV
+uQl
+kFB
 aeG
 aMV
 aCw
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
-aiC
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
+aRu
 "}
 (174,1,1) = {"
 apP
@@ -65196,8 +66250,8 @@ aJy
 aCw
 ahu
 auR
-alF
-akG
+jPb
+agO
 aCw
 aJy
 aJy
@@ -65453,8 +66507,8 @@ aCw
 aCw
 aRF
 axO
-aYF
-agO
+aSe
+aVK
 aCw
 aJy
 aJy
@@ -65708,7 +66762,7 @@ anE
 aeD
 awV
 aCw
-aOJ
+aRF
 aDd
 anG
 aVK
@@ -65965,7 +67019,7 @@ and
 aXr
 aPH
 aIG
-aiF
+aRF
 aEi
 aIx
 aiG
@@ -66481,9 +67535,9 @@ aDm
 aCw
 aJg
 agS
+aIx
 aXu
 aCw
-aTG
 aTG
 aTG
 anY
@@ -66738,9 +67792,9 @@ afc
 amX
 aWC
 agS
+aIx
 ajU
 aVO
-aTG
 aTG
 aHj
 arh
@@ -66993,11 +68047,11 @@ aWm
 alW
 aYF
 aQx
-abD
+jPb
 azh
+aIx
 ajU
 aVO
-aTG
 aHK
 aTG
 anY
@@ -67253,8 +68307,8 @@ ahH
 jZT
 dUv
 ajU
+ajU
 aVK
-aOz
 aHK
 aTG
 aCH
@@ -67507,11 +68561,11 @@ aBZ
 aVj
 auj
 aCw
-amq
+aRF
 ahf
+ajU
 aDS
 aCw
-aTG
 aHK
 aTG
 arh
@@ -67764,8 +68818,8 @@ atK
 agK
 abD
 aQE
-amq
-ahf
+aRF
+azl
 ajU
 ajU
 aUg
@@ -68021,11 +69075,11 @@ aZX
 aEd
 aja
 aQE
-aiF
+aRF
 agS
 aIx
 aVO
-aTG
+aVS
 aNl
 azX
 aTO
@@ -68209,7 +69263,7 @@ aTG
 aTG
 aTG
 aae
-dHP
+sVH
 sVH
 sVH
 sVH
@@ -68281,9 +69335,9 @@ aIx
 aIx
 agS
 aIx
+aIx
 azC
 aHj
-aTG
 aTG
 anY
 anM
@@ -68466,7 +69520,7 @@ aTG
 aTG
 aTG
 aTG
-dHP
+sVH
 sVH
 sVH
 sVH
@@ -68537,9 +69591,9 @@ aIr
 aCw
 ayz
 aMg
-aIr
+aIx
+eWj
 aCw
-aoN
 aoN
 aoN
 aeB
@@ -68723,8 +69777,8 @@ aTG
 aTG
 aTG
 aae
-tix
-sLg
+sVH
+sVH
 sVH
 sVH
 sVH
@@ -68981,7 +70035,7 @@ aTG
 aTG
 aTG
 aTG
-dHP
+sVH
 sVH
 sVH
 sVH
@@ -69238,8 +70292,8 @@ aTG
 aTG
 aTG
 aae
-tix
-sLg
+sVH
+sVH
 sVH
 sVH
 sVH
@@ -69496,8 +70550,8 @@ aTG
 pZw
 aTG
 aTG
-tix
-sLg
+sVH
+sVH
 sVH
 sVH
 sVH
@@ -69754,8 +70808,8 @@ aTG
 aTG
 aTG
 aTG
-tix
-sLg
+sVH
+sVH
 sVH
 sVH
 sVH
@@ -70012,9 +71066,9 @@ aTG
 aTG
 aae
 aTG
-tix
-wYQ
-sLg
+sVH
+sVH
+sVH
 sVH
 sVH
 sVH
@@ -70271,10 +71325,10 @@ aTG
 pZw
 aTG
 aTG
-tix
-wYQ
-wYQ
-sLg
+sVH
+sVH
+sVH
+sVH
 sVH
 sVH
 aJX
@@ -70531,9 +71585,9 @@ aTG
 aTG
 aTG
 aTG
-tix
-wYQ
-wYQ
+sVH
+sVH
+sVH
 aJX
 aJX
 aJX
@@ -80272,13 +81326,13 @@ aax
 aZI
 aZI
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
 aZI
 aZI
 aZI
@@ -80527,17 +81581,17 @@ aax
 aax
 aZI
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
 aZI
 aZI
 aax
@@ -80783,19 +81837,19 @@ aqL
 aax
 aZI
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
+fnm
 aZI
 aax
 aax
@@ -81040,19 +82094,19 @@ aqL
 aax
 aZI
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
 aZI
 aZI
 aax
@@ -81296,21 +82350,21 @@ aqL
 aqL
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
 aZI
 aax
 aqL
@@ -81553,21 +82607,21 @@ aqL
 aqL
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+jPb
+jPb
+jPb
+jPb
 acU
 acU
 acU
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
 aZI
 aax
 aqL
@@ -81810,21 +82864,21 @@ aqL
 aqL
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+jPb
+jPb
+jPb
 acU
 acU
 acU
 acU
 acU
-aBc
-aBc
-aBc
-aBc
-aBc
+jPb
+jPb
+jPb
+fnm
+fnm
 aZI
 aax
 aqL
@@ -82067,21 +83121,21 @@ aqL
 aqL
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+jPb
+jPb
+jPb
 acU
 acU
 acU
 acU
 acU
-aBc
-aBc
-aBc
-aBc
-aBc
+jPb
+jPb
+jPb
+fnm
+fnm
 aZI
 aax
 aqL
@@ -82324,21 +83378,21 @@ aqL
 aqL
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+jPb
+jPb
+jPb
 acU
 acU
 acU
 acU
 acU
-aBc
-aBc
-aBc
-aBc
-aBc
+jPb
+jPb
+jPb
+fnm
+fnm
 aZI
 aax
 aqL
@@ -82581,21 +83635,21 @@ aqL
 aqL
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+jPb
+jPb
+jPb
+jPb
 acU
 acU
 acU
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
 aZI
 aax
 aqL
@@ -82838,21 +83892,21 @@ aqL
 aqL
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
 aZI
 aax
 aqL
@@ -83096,19 +84150,19 @@ aqL
 aax
 aZI
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
 aZI
 aZI
 aax
@@ -83353,19 +84407,19 @@ aqL
 aax
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+fnm
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+jPb
+fnm
+fnm
+fnm
 aZI
 aax
 aax
@@ -83610,19 +84664,19 @@ aqL
 aqL
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
 aZI
 aax
 aqL
@@ -83867,19 +84921,19 @@ aqL
 aqL
 aax
 aZI
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
 aZI
-aBc
-aBc
+fnm
+fnm
 aZI
 aax
 aqL
@@ -84384,13 +85438,13 @@ aZI
 ayO
 akD
 afn
-aBc
-amm
-aqV
-aqV
-aqV
-aqV
-aBc
+fnm
+eJM
+wns
+wns
+wns
+wns
+fnm
 ajk
 aBc
 aBc
@@ -84641,13 +85695,13 @@ aZI
 axZ
 avR
 arL
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+rPm
+rPm
+rPm
+rPm
+rPm
+fnm
 ajW
 aBc
 aBc
@@ -84898,13 +85952,13 @@ aZI
 aQd
 aMP
 afn
-aBc
-aqV
-aqV
-amm
-aqV
-aqV
-aph
+fnm
+sPt
+sPt
+lPD
+sPt
+sPt
+vsO
 ajk
 abr
 adk
@@ -85155,13 +86209,13 @@ aZI
 axd
 aLx
 afn
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
+fnm
 ajk
 abr
 abr

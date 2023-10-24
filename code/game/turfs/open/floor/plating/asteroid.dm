@@ -151,6 +151,7 @@
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
 	digResult = /obj/item/stack/sheet/snow
+	floor_variance = 80
 
 /turf/open/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
@@ -160,6 +161,11 @@
 		icon_state = "snow_dug"
 		return TRUE
 	return FALSE
+
+/turf/open/floor/plating/asteroid/snow/Initialize(mapload)
+	. = ..()
+	if(prob(floor_variance))
+		icon_state = "snow[rand(0,12)]"
 
 /turf/open/floor/plating/asteroid/snow/ice
 	name = "icy snow"
