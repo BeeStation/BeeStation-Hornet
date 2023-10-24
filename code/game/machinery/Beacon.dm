@@ -28,3 +28,23 @@
 		Beacon.invisibility = INVISIBILITY_MAXIMUM
 	else if (Beacon.loc != loc)
 		Beacon.forceMove(loc)
+
+/obj/structure/iceland_beacon
+	name = "Frozen bluespace beacon"
+	desc = "A receiving beacon for tracking and locating."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "Prison_beacon"
+	resistance_flags = INDESTRUCTIBLE
+	anchored = TRUE
+	light_range = 2
+	light_power = 1
+	light_color = "#850000"
+	var/gps = null
+
+GLOBAL_LIST_INIT(icebeacons, list())
+/obj/structure/iceland_beacon/Initialize(mapload)
+	. = ..()
+	for(var/turf/closed/mineral/M in RANGE_TURFS(1, src))
+		M.ScrapeAway(null, CHANGETURF_IGNORE_AIR)
+	AddComponent(/datum/component/gps, "Odd signal")
+	GLOB.icebeacons += src

@@ -20685,6 +20685,13 @@
 	heat_capacity = 1e+006
 	},
 /area/iceland/underground/safe)
+"nMF" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/iceland_beacon{
+	gps = s
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered/iceland/abandoned_hut)
 "nOo" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -20796,6 +20803,12 @@
 "prE" = (
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/snowed,
+/area/iceland)
+"psV" = (
+/obj/structure/iceland_beacon{
+	gps = s
+	},
+/turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "pwg" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -28470,7 +28483,7 @@ aKJ
 aTG
 aQL
 aLF
-aNg
+nMF
 aHH
 abJ
 aHH
@@ -31183,7 +31196,7 @@ aTG
 aTG
 aTG
 pZw
-aTG
+psV
 aTG
 aTG
 aTG
