@@ -46,14 +46,14 @@
 	var/altar_anchored = TRUE
 
 
-/datum/religion_sect/New()
+/datum/religion_sect/New(atom/religious_tool, mob/living/creator)
 	. = ..()
 	if(desired_items)
 		desired_items_typecache = typecacheof(desired_items)
-	on_select()
+	on_select(religious_tool, creator)
 
 /// Activates once selected
-/datum/religion_sect/proc/on_select()
+/datum/religion_sect/proc/on_select(atom/religious_tool, mob/living/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SSblackbox.record_feedback("text", "sect_chosen", 1, name)
 
@@ -308,3 +308,38 @@
 	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 25 favor in the process.</span>")
 	qdel(N)
 	return TRUE
+
+/**** Shadow Sect ****/
+
+/datum/religion_sect/shadow_sect
+	name = "Shadow"
+	desc = "A sect dedicated to the darkness. The altar and manifested obelisks will generate favor from being in darkness."
+	quote = "Turn out the lights, and let the darkness cover the world!"
+	tgui_icon = "moon"
+	alignment = ALIGNMENT_EVIL
+	favor = 100 //Starts off with enough favor to make an obelisk
+	max_favor = 10000
+	desired_items = list(/obj/item/flashlight)
+	rites_list = list(/datum/religion_rites/expand_shadows,/datum/religion_rites/shadow_obelisk, /datum/religion_rites/shadow_conversion)
+	altar_icon_state = "convertaltar-dark"
+	var/light_reach = 1
+	var/light_power = 0
+	var/list/obelisks = list()
+
+//Shadow bibles don't heal or do anything special apart from the standard holy water blessings
+/datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
+	return TRUE
+
+/datum/religion_sect/shadow_sect/on_sacrifice(obj/item/N, mob/living/L)
+	if(!istype(N, /obj/item/flashlight))
+		return
+	adjust_favor(5, L)
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 5 favor in the process.</span>")
+	qdel(N)
+	return TRUE
+
+/datum/religion_sect/shadow_sect/on_select(atom/religious_tool, mob/living/user)
+	. = ..()
+	if(!religious_tool || !user)
+		return
+	religious_tool.AddComponent(/datum/component/dark_favor, user)
