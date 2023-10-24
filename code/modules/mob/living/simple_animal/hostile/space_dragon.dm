@@ -174,6 +174,23 @@
 	empty_contents()
 	. = ..()
 
+/mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
+	set waitfor = FALSE
+	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+		return
+	// Deal with parent operations
+	contents_explosion(severity, target)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
+	// Run bomb armour
+	var/bomb_armor = getarmor(null, BOMB)
+	switch (severity)
+		if (EXPLODE_DEVASTATE)
+			adjustBruteLoss(180 * bomb_armor)
+		if (EXPLODE_HEAVY)
+			adjustBruteLoss(80 * bomb_armor)
+		if(EXPLODE_LIGHT)
+			adjustBruteLoss(30 * bomb_armor)
+
 /**
   * Allows space dragon to choose its own name.
   *
