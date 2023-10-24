@@ -72,11 +72,11 @@
 	icon_state = "soapsyndie"
 	cleanspeed = 5 //faster than mop so it is useful for traitors who want to clean crime scenes
 
-/obj/item/soap/suicide_act(mob/user)
+/obj/item/soap/suicide_act(mob/living/user)
 	user.say(";FFFFFFFFFFFFFFFFUUUUUUUDGE!!", forced="soap suicide")
 	user.visible_message("<span class='suicide'>[user] lifts [src] to [user.p_their()] mouth and gnaws on it furiously, producing a thick froth! [user.p_they(TRUE)]'ll never get that BB gun now!</span>")
 	new /obj/effect/particle_effect/foam(loc)
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/soap/proc/decreaseUses(mob/user)
 	uses--
@@ -152,6 +152,8 @@
 	throw_speed = 3
 	throw_range = 7
 	attack_verb = list("HONKED")
+	tool_behaviour = TOOL_BIKEHORN
+	toolspeed = 1
 	///sound file given to the squeaky component we make in Initialize() so sub-types can specify their own sound
 	var/sound_file = 'sound/items/bikehorn.ogg'
 
@@ -166,10 +168,10 @@
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "honk", /datum/mood_event/honk)
 	return ..()
 
-/obj/item/bikehorn/suicide_act(mob/user)
+/obj/item/bikehorn/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] solemnly points [src] at [user.p_their()] temple! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 //air horn
 /obj/item/bikehorn/airhorn

@@ -64,9 +64,12 @@
 	update_icon()
 	TimerID = addtimer(CALLBACK(src, PROC_REF(DiscoFever)), 5, TIMER_STOPPABLE)  //Call ourselves every 0.5 seconds to change colors
 
-/obj/structure/etherealball/update_icon()
-	cut_overlays()
+/obj/structure/etherealball/update_icon_state()
 	icon_state = "ethdisco_head_[TurnedOn]"
+	return ..()
+
+/obj/structure/etherealball/update_overlays()
+	. = ..()
 	var/mutable_appearance/base_overlay = mutable_appearance(icon, "ethdisco_base")
 	base_overlay.appearance_flags = RESET_COLOR
-	add_overlay(base_overlay)
+	. += base_overlay

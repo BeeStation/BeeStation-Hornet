@@ -606,6 +606,13 @@
 	possible_destinations = "pod_asteroid"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
+
 	light_color = LIGHT_COLOR_BLUE
 	density = FALSE
 	clockwork = TRUE //it'd look weird

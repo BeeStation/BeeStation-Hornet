@@ -34,11 +34,14 @@
 
 	for (var/quirk_name in quirks)
 		var/datum/quirk/quirk = quirks[quirk_name]
+		if(!ispath(quirk))
+			CRASH("Error: invalid quirk value in quirks for quirk_name [quirk_name]: [quirk]")
 		quirk_info[sanitize_css_class_name(quirk_name)] = list(
 			"description" = initial(quirk.desc),
 			"icon" = initial(quirk.icon),
 			"name" = quirk_name,
 			"value" = initial(quirk.value),
+			"path" = quirk
 		)
 
 	return list(
