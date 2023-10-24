@@ -45,6 +45,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// Z-manager stuff
 	var/station_start  // should only be used for maploading-related tasks
+	var/archmundi_start
 	var/space_levels_so_far = 0
 	var/list/z_list
 	///list of all z level indices that form multiz connections and whether theyre linked up or down.
@@ -323,6 +324,9 @@ SUBSYSTEM_DEF(mapping)
 		"}, list("map_name" = config.map_name, "round_id" = GLOB.round_id))
 		query_round_map_name.Execute()
 		qdel(query_round_map_name)
+
+	archmundi_start = world.maxz + 1
+	LoadArchimundi()
 
 #ifndef LOWMEMORYMODE
 	// TODO: remove this when the DB is prepared for the z-levels getting reordered
