@@ -23,6 +23,11 @@ jobs:
         with:
           python-version: "3.11"
           cache: 'pip'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: tgui/yarn.lock
       - name: Cache SpacemanDMM
         id: cache-spacemandmm
         uses: actions/cache@v3
@@ -37,16 +42,6 @@ jobs:
           pip install setuptools
           bash tools/ci/install_node.sh
           pip install -r tools/requirements.txt
-      - name: Cache Yarn
-        id: cache-yarn
-        uses: actions/cache@v3
-        with:
-          path: tgui/.yarn
-          key: ${{ runner.os }}-yarn-cache-${{ hashFiles('tgui/yarn.lock') }}
-      - name: TGUI fetch
-        if: steps.cache-yarn.outputs.cache-hit != 'true'
-        run: |
-          tools/build/build --ci yarn
       - name: Run Linters
         run: |
           bash tools/ci/check_filedirs.sh beestation.dme
@@ -88,6 +83,11 @@ jobs:
         options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: tgui/yarn.lock
       - name: Cache BYOND
         id: cache-byond
         uses: actions/cache@v3
@@ -111,16 +111,6 @@ jobs:
       - name: Install auxmos
         run: |
           bash tools/ci/install_auxmos.sh
-      - name: Cache Yarn
-        id: cache-yarn
-        uses: actions/cache@v3
-        with:
-          path: tgui/.yarn
-          key: ${{ runner.os }}-yarn-cache-${{ hashFiles('tgui/yarn.lock') }}
-      - name: TGUI fetch
-        if: steps.cache-yarn.outputs.cache-hit != 'true'
-        run: |
-          tools/build/build --ci yarn
       - name: Compile and run tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
