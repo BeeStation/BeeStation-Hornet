@@ -235,3 +235,5 @@
 	SIGNAL_HANDLER
 
 	vines -= vine
+
+#undefine FINAL_BUD_GROWTH_ICON
