@@ -40,7 +40,6 @@ jobs:
       - name: Install Tools
         run: |
           pip install setuptools
-          bash tools/ci/install_node.sh
           pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
