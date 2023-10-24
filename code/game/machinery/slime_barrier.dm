@@ -51,7 +51,7 @@
 		walls += new /obj/structure/window/slime_barrier(T, SOUTH, pass_blacklist)
 
 /obj/machinery/slime_barrier_generator/proc/use_stored_power(amount)
-	power = CLAMP(power - amount, 0, maximum_stored_power)
+	power = clamp(power - amount, 0, maximum_stored_power)
 	update_activity()
 
 /obj/machinery/slime_barrier_generator/proc/update_activity()
