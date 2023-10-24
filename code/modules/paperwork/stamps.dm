@@ -12,7 +12,7 @@
 	pressure_resistance = 2
 	attack_verb = list("stamped")
 
-/obj/item/stamp/suicide_act(mob/user)
+/obj/item/stamp/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")
 	playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 	return OXYLOSS

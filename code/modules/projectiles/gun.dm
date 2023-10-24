@@ -23,7 +23,7 @@
 	var/vary_fire_sound = TRUE
 	var/fire_sound_volume = 50
 	var/dry_fire_sound = 'sound/weapons/gun_dry_fire.ogg'
-	var/suppressed = null					//whether or not a message is displayed when fired
+	var/suppressed = null	//whether or not a message is displayed when fired
 	var/can_suppress = FALSE
 	var/suppressed_sound = 'sound/weapons/gunshot_silenced.ogg'
 	var/suppressed_volume = 10
@@ -32,7 +32,10 @@
 	var/clumsy_check = TRUE
 	var/obj/item/ammo_casing/chambered = null
 	trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
+	var/can_sawoff = FALSE
+	var/sawn_name = null				//used if gun has a special sawn-off rename
 	var/sawn_desc = null				//description change if weapon is sawn-off
+	var/sawn_item_state = null			//used if gun has a special sawn-off in-hand sprite
 	var/sawn_off = FALSE
 	var/burst_size = 1					//how large a burst is
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
@@ -45,6 +48,8 @@
 	var/requires_wielding = TRUE
 	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
+	var/wild_spread = FALSE				//Sets a minimum level of bullet spread per shot; meant for difficult to aim / inaccurate guns.
+	var/wild_factor = 0.25				//Multiplied by spread to calculate the 'minimum' spread per shot.
 
 	var/is_wielded = FALSE
 
@@ -61,7 +66,7 @@
 	var/datum/action/item_action/toggle_gunlight/alight
 
 	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
-	var/obj/item/kitchen/knife/bayonet
+	var/obj/item/knife/bayonet
 	var/mutable_appearance/knife_overlay
 	var/knife_x_offset = 0
 	var/knife_y_offset = 0
@@ -275,10 +280,19 @@
 	if(clumsy_check)
 		if(istype(user))
 			if (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with [src]!</span>")
-				var/shot_leg = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-				process_fire(user, user, FALSE, params, shot_leg)
-				user.dropItemToGround(src, TRUE)
+				if(aimed == GUN_AIMED_POINTBLANK)
+					to_chat(user, "<span class='userdanger'>In a cruel twist of fate you fumble your grip and accidentally shoot yourself in the head!</span>")
+					process_fire(user, user, FALSE, params, BODY_ZONE_HEAD)
+					user.dropItemToGround(src, TRUE)
+					if(chambered.harmful)
+						var/obj/item/organ/brain/target_brain = user.getorganslot(ORGAN_SLOT_BRAIN)
+						target_brain.Remove(user) //Rip you, unlucky
+						target_brain.forceMove(get_turf(user))
+				else
+					to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with [src]!</span>")
+					var/shot_leg = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+					process_fire(user, user, FALSE, params, shot_leg)
+					user.dropItemToGround(src, TRUE)
 				return
 
 	if(weapon_weight == WEAPON_HEAVY && !is_wielded)
@@ -298,7 +312,11 @@
 				loop_counter++
 				addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/gun, process_fire), target, user, TRUE, params, null, bonus_spread, flag), loop_counter)
 
-	process_fire(target, user, TRUE, params, null, bonus_spread, aimed)
+	var/zone_override = null
+	if(aimed == GUN_AIMED_POINTBLANK)
+		zone_override = BODY_ZONE_HEAD //Shooting while pressed against someone's temple
+
+	process_fire(target, user, TRUE, params, zone_override, bonus_spread, aimed)
 
 /obj/item/gun/can_trigger_gun(mob/living/user)
 	. = ..()
@@ -362,21 +380,32 @@
 	add_fingerprint(user)
 	if(fire_rate)
 		ranged_cooldown = world.time + 10 / fire_rate
+		user.client?.give_cooldown_cursor(10 / fire_rate)
 	else
 		ranged_cooldown = world.time + CLICK_CD_RANGE
+		user.client?.give_cooldown_cursor(CLICK_CD_RANGE)
 	if(semicd)
 		return
 
 	var/sprd = 0
+	var/min_gun_sprd = 0
+	var/min_rand_sprd = 0
 	var/randomized_gun_spread = 0
 	var/rand_spr = rand()
+
+	if(wild_spread)
+		var/S
+		S = sprd * wild_factor //If a gun has WILD SPREAD get the minimum by multiplying spread by its WILD FACTOR
+		min_gun_sprd = round(S, 0.5) //Clean up that value a tiny bit
+		S = spread_unwielded * wild_factor //Do the same for the gun's unwielded spread
+		min_rand_sprd = round(S, 0.5)
 	if(spread)
-		randomized_gun_spread =	rand(0,spread)
-	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
+		randomized_gun_spread =	rand(min_gun_sprd,spread)
+	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex //Does not modify minimum spread, only maximum spread
 		bonus_spread += 25
 	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
-	var/randomized_bonus_spread = rand(0, bonus_spread)
+	var/randomized_bonus_spread = rand(min_rand_sprd, bonus_spread)
 
 	if(burst_size > 1)
 		firing_burst = TRUE
@@ -469,8 +498,8 @@
 			alight = new(src)
 			if(loc == user)
 				alight.Grant(user)
-	else if(istype(I, /obj/item/kitchen/knife))
-		var/obj/item/kitchen/knife/K = I
+	else if(istype(I, /obj/item/knife))
+		var/obj/item/knife/K = I
 		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
 			return ..()
 		if(!user.transferItemToLoc(I, src))
@@ -624,9 +653,7 @@
 
 /obj/item/gun/proc/update_gunlight()
 	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/gun/pickup(mob/user)
 	..()
@@ -639,6 +666,8 @@
 		azoom.Remove(user)
 	if(zoomed)
 		zoom(user, user.dir)
+	update_icon()
+	user.client?.clear_cooldown_cursor()
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params, bypass_timer)
 	if(!ishuman(user) || !ishuman(target))
@@ -684,9 +713,12 @@
 
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
-	if(aimed && chambered?.BB)
+	if(aimed == GUN_AIMED && chambered?.BB)
 		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
 		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
+	if(aimed == GUN_AIMED_POINTBLANK)
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.25 // Much faster bullets because you're holding them literally at the barrel of the gun
+		chambered.BB.damage = initial(chambered.BB.damage) * 4 // Execution
 
 /////////////
 // ZOOMING //

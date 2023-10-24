@@ -13,7 +13,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/throwing_star,
+/obj/item/throwing_star/toy,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -65,7 +65,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/throwing_star,
+/obj/item/throwing_star/toy,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (

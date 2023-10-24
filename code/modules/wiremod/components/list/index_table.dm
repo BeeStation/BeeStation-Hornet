@@ -35,4 +35,9 @@
 		output_list.set_output(null)
 		return
 
-	output_list.set_output(target_list[index])
+	var/list/new_list = new /list()
+	for(var/target_list_column as anything in target_list[index])
+		//Add the actual value of the column to the list, rather than the table index itself
+		new_list += target_list[index][target_list_column]
+
+	output_list.set_output(new_list)

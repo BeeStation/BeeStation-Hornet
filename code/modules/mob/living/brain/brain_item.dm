@@ -178,6 +178,7 @@
 /obj/item/organ/brain/on_life()
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
 		to_chat(owner, "<span class='userdanger'>The last spark of life in your brain fizzles out.</span>")
+		owner.investigate_log("has been killed by brain damage.", INVESTIGATE_DEATHS)
 		owner.death()
 		brain_death = TRUE
 
