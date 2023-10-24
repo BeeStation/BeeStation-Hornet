@@ -90,7 +90,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	. = ..()
 	if(user != dropping)
 		dropping.visible_message("<span class='notice'>[user] starts to lower [dropping] down into [src].</span>", \
-		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
+		"<span class='notice'>You start to lower [dropping] down into [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
 	if(do_after(user, 4 SECONDS, target = dropping))
@@ -294,3 +294,20 @@ GLOBAL_LIST_EMPTY(pool_filters)
 /obj/structure/pool_ladder/attack_robot(mob/user)
 	. = ..()
 	attack_hand(user)
+
+/obj/effect/overlay/poolwater/icy
+	name = "Pool water"
+	icon = 'icons/obj/pool.dmi'
+	icon_state = "icywater"
+	anchored = TRUE
+	layer = ABOVE_ALL_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/turf/open/indestructible/sound/pool/snowland
+	name = "Icy water"
+	desc = "Swallow, yet rather chilly water. <b>Drag and drop yourself onto it to climb in...</b>"
+	icon_state = "icypool"
+
+/turf/open/indestructible/sound/pool/snowland/Initialize(mapload)
+	. = ..()
+	water_overlay = new /obj/effect/overlay/poolwater/icy(get_turf(src))

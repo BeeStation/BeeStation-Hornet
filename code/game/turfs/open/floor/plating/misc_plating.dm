@@ -168,7 +168,7 @@
 /turf/open/floor/plating/ice
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."
-	icon = 'icons/turf/floors/ice_turf.dmi'
+	icon = 'icons/turf/floors/ice.dmi'
 	icon_state = "ice-0"
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	initial_temperature = 180
@@ -208,11 +208,12 @@
 /turf/open/floor/plating/ice/burn_tile()
 	return
 
-/turf/open/floor/plating/ice/red
+/turf/open/floor/plating/ice/smooth/red
 	name = "red ice sheet"
 	desc = "A sheet of solid ice. It has an ominous red colour..."
-	icon = 'icons/turf/floors/red_ice_turf.dmi'
-	icon_state = "icon-0"
+	icon = 'icons/turf/floors/red_ice.dmi'
+	icon_state = "red_ice-255"
+	base_icon_state = "red_ice"
 
 /turf/open/floor/plating/ice/iceberg
 	name = "cracked ice floor"

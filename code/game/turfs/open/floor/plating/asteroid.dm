@@ -151,7 +151,7 @@
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
 	digResult = /obj/item/stack/sheet/snow
-	floor_variance = 80
+	floor_variance = 25
 
 /turf/open/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
