@@ -66,7 +66,6 @@
 	var/aiDisabledIdScanner = FALSE
 	var/aiHacking = FALSE
 	var/closeOtherId //Cyclelinking for airlocks that aren't on the same x or y coord as the target.
-	var/obj/machinery/door/airlock/closeOther
 	var/list/obj/machinery/door/airlock/close_others = list()
 	var/justzap = FALSE
 	var/obj/item/electronics/airlock/electronics
@@ -1207,8 +1206,6 @@
 		if(!protected_door)
 			use_power(50)
 		playsound(src, doorOpen, 30, 1)
-		if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
-			closeOther.close()
 	else
 		playsound(src, 'sound/machines/airlockforced.ogg', 30, TRUE)
 
