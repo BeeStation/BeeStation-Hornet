@@ -46,5 +46,5 @@ GLOBAL_LIST_INIT(icebeacons, list())
 	. = ..()
 	for(var/turf/closed/mineral/M in RANGE_TURFS(1, src))
 		M.ScrapeAway(null, CHANGETURF_IGNORE_AIR)
-	AddComponent(/datum/component/gps, "Odd signal")
+	AddComponent(/datum/component/gps, gps)
 	GLOB.icebeacons += src
