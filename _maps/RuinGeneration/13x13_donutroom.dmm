@@ -4,7 +4,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/chair/comfy,
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
@@ -16,7 +16,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -31,7 +31,7 @@
 /turf/template_noop,
 /area/template_noop)
 "G" = (
-/obj/effect/spawner/randomsnackvend,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
@@ -43,7 +43,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Q" = (
-/obj/effect/spawner/randomcolavend,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (

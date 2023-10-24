@@ -203,7 +203,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "bt" = (
-/obj/effect/spawner/randomcolavend,
+/obj/effect/spawner/randomvend/cola{
+	hacked = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -4521,7 +4523,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "xu" = (
-/obj/effect/spawner/randomsnackvend,
+/obj/effect/spawner/randomvend/snack{
+	hacked = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{

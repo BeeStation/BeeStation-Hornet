@@ -244,6 +244,20 @@ Class Procs:
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
 
+/obj/machinery/LateInitialize()
+	. = ..()
+	power_change()
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
+
+/obj/machinery/Destroy()
+	GLOB.machines.Remove(src)
+	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
+		end_processing()
+	dump_inventory_contents()
+	QDEL_LIST(component_parts)
+	QDEL_NULL(circuit)
+	return ..()
+
 /obj/machinery/proc/locate_machinery()
 	return
 
@@ -901,6 +915,9 @@ Class Procs:
 	. = ..()
 	if (gone == occupant)
 		set_occupant(null)
+	if(gone == circuit)
+		LAZYREMOVE(component_parts, gone)
+		circuit = null
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.

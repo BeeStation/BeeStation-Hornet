@@ -1,7 +1,11 @@
 /obj/machinery/computer
 	name = "computer"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "computer-0"
+	base_icon_state = "computer"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL | SMOOTH_BITMASK_SKIP_CORNERS | SMOOTH_OBJ //SMOOTH_OBJ is needed because of narsie_act using initial() to restore
+	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
+	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
@@ -26,8 +30,13 @@
 
 /obj/machinery/computer/Initialize(mapload)
 	. = ..()
-
+	QUEUE_SMOOTH(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	power_change()
+
+/obj/machinery/computer/Destroy()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	return ..()
 
 /obj/machinery/computer/process()
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -41,6 +50,9 @@
 		icon_keyboard = "ratvar_key[rand(1, 2)]"
 		icon_state = "ratvarcomputer"
 		broken_overlay_emissive = TRUE
+		smoothing_groups = null
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		smoothing_flags = NONE
 		update_appearance()
 
 /obj/machinery/computer/narsie_act()
@@ -48,8 +60,15 @@
 		clockwork = FALSE
 		icon_screen = initial(icon_screen)
 		icon_keyboard = initial(icon_keyboard)
-		icon_state = initial(icon_state)
 		broken_overlay_emissive = initial(broken_overlay_emissive)
+		smoothing_flags = initial(smoothing_flags)
+		smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
+		canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
+		SET_BITFLAG_LIST(smoothing_groups)
+		SET_BITFLAG_LIST(canSmoothWith)
+		QUEUE_SMOOTH(src)
+		if(smoothing_flags)
+			QUEUE_SMOOTH_NEIGHBORS(src)
 		update_appearance()
 
 /obj/machinery/computer/update_overlays()
@@ -125,6 +144,7 @@
 			var/obj/structure/frame/computer/A = new /obj/structure/frame/computer(src.loc)
 			A.setDir(dir)
 			A.circuit = circuit
+			// Circuit removal code is handled in /obj/machinery/Exited()
 			circuit.forceMove(A)
 			A.setAnchored(TRUE)
 			if(machine_stat & BROKEN)
@@ -141,7 +161,6 @@
 					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				A.state = 4
 				A.icon_state = "4"
-			circuit = null
 		for(var/obj/C in src)
 			C.forceMove(loc)
 	qdel(src)

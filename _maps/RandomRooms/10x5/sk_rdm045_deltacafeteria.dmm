@@ -129,7 +129,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "J" = (
-/obj/effect/spawner/randomsnackvend,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -190,7 +190,7 @@
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "S" = (
-/obj/effect/spawner/randomcolavend,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,

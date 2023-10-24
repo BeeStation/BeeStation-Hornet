@@ -12412,7 +12412,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/mining_dock)
 "PO" = (
-/obj/effect/spawner/randomsnackvend,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/research)
@@ -12735,7 +12735,7 @@
 /turf/open/floor/plasteel/dark,
 /area/awaymission/snowdin/cave)
 "RD" = (
-/obj/effect/spawner/randomcolavend,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/research)

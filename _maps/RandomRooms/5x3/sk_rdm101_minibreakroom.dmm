@@ -1,12 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomcolavend,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomsnackvend,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/light/small{
 	dir = 1
 	},

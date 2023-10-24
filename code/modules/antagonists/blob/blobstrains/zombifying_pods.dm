@@ -36,6 +36,7 @@
 	reac_volume = ..()
 	M.apply_damage(0.6*reac_volume, TOX)
 	if(O && ishuman(M) && M.stat == UNCONSCIOUS)
+		M.investigate_log("has been killed by distributed neurons (blob).", INVESTIGATE_DEATHS)
 		M.death() //sleeping in a fight? bad plan.
 		var/points = rand(5, 10)
 		var/mob/living/simple_animal/hostile/blob/blobspore/BS = new/mob/living/simple_animal/hostile/blob/blobspore/weak(get_turf(M))

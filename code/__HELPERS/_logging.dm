@@ -253,6 +253,10 @@
 	entry += ":\n[text]"
 	WRITE_LOG(GLOB.tgui_log, entry)
 
+/proc/log_preferences(text)
+	if(CONFIG_GET(flag/log_preferences))
+		WRITE_LOG(GLOB.prefs_log, text)
+
 /* For logging round startup. */
 /proc/start_log(log)
 	WRITE_LOG(log, "Starting up round ID [GLOB.round_id].\n-------------------------")

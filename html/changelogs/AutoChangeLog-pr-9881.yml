@@ -1,0 +1,5 @@
+author: RKz, Mothblocks
+delete-after: true
+changes:
+  - tweak: teleporter machinery now autolinks.
+  - code_imp: adds unit test to ensure this does not regress

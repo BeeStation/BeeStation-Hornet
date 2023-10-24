@@ -23,11 +23,11 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
-/obj/effect/spawner/randomcolavend,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
-/obj/effect/spawner/randomsnackvend,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "v" = (
