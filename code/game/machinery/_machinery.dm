@@ -272,9 +272,7 @@ Class Procs:
  * * user (mob/living) The user to recive the object
  */
 /obj/machinery/proc/try_put_in_hand(obj/object, mob/living/user)
-	if(!issilicon(user) && in_range(src, user))
-		user.put_in_hands(object)
-	else
+	if(!user.CanReach(src) || !user.put_in_hands(object))
 		object.forceMove(drop_location())
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
