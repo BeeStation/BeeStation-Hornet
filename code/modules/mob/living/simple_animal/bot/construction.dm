@@ -173,15 +173,13 @@
 					build_step++
 
 		if(9)
-			if(istype(W, /obj/item/stock_parts/cell/high))
+			if(istype(W, /obj/item/stock_parts/cell))
 				if(!can_finish_build(W, user))
 					return
 				var/mob/living/simple_animal/bot/secbot/ed209/B = new(drop_location())
 				B.name = created_name
 				to_chat(user, "<span class='notice'>You complete the ED-209.</span>")
 				qdel(src) //make sure to delete the unfinished recipe when spawning in the actual mob
-			else if(istype(W, /obj/item/stock_parts/cell/bluespace)) // dont waste bluespace cells on this, goofus
-				to_chat(user, "<span class='warning'>Under Nanotrasen safety regulations, this Model bot only accepts standard issue high-capacity power cells.</span>")
 
 //Floorbot assemblies
 /obj/item/bot_assembly/floorbot
