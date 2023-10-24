@@ -278,8 +278,8 @@
 
 /obj/structure/statue/copper/dimas
 	name = "statue of the quartermaster"
-	desc = "This is a statue of the legendary Quartermaster, Lord of Cargonia the land of stolen things. You feel the need to bow before it."
-	max_integrity = 400
+	desc = "This is a statue of the legendary Quartermaster, Lord of Cargonia the land of stolen things."
+	max_integrity = 300
 	icon_state = "dimas"
 	oreAmount = 10 //dimas b dense
-	impressiveness = -50 //ugly ass
+	impressiveness = -5 // A testament to one's pride isnt particularly impressive

@@ -52,18 +52,3 @@
 		mult = art_piece.obj_integrity/art_piece.max_integrity
 
 	apply_moodlet(source, user, impressiveness * mult)
-
-/* when we add it https://github.com/tgstation/tgstation/pull/46163
-/datum/element/art/rev
-
-/datum/element/art/rev/apply_moodlet(atom/source, mob/user, impress)
-	var/msg
-	if(user.mind?.has_antag_datum(/datum/antagonist/rev))
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artgreat", /datum/mood_event/artgreat)
-		msg = "What \a [pick("masterpiece", "chef-d'oeuvre")] [source.p_theyre()]. So [pick("subversive", "revolutionary", "unitizing", "egalitarian")]!"
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artbad", /datum/mood_event/artbad)
-		msg = "Wow, [source.p_they()] sucks."
-
-	user.visible_message("<span class='notice'>[user] stops to inspect [source].</span>", \
-						 "<span class='notice'>You appraise [source], inspecting the fine craftsmanship of the proletariat... [msg]</span>")
-*/
