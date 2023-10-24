@@ -6,6 +6,7 @@
 #define FOOTSTEP_GRASS "grass"
 #define FOOTSTEP_WATER "water"
 #define FOOTSTEP_LAVA "lava"
+#define FOOTSTEP_CONCRETE "concrete"
 //barefoot sounds
 #define FOOTSTEP_WOOD_BAREFOOT "woodbarefoot"
 #define FOOTSTEP_WOOD_CLAW "woodclaw"
@@ -71,6 +72,12 @@ GLOBAL_LIST_INIT(footstep, list(
 		'sound/effects/footstep/lava1.ogg',
 		'sound/effects/footstep/lava2.ogg',
 		'sound/effects/footstep/lava3.ogg'), 100, 0),
+	FOOTSTEP_CONCRETE = list(list(
+		'sound/effects/footstep/concrete1.ogg',
+		'sound/effects/footstep/concrete2.ogg',
+		'sound/effects/footstep/concrete3.ogg',
+		'sound/effects/footstep/concrete4.ogg',
+		'sound/effects/footstep/concrete5.ogg'), 100, 1),
 ))
 //bare footsteps lists
 GLOBAL_LIST_INIT(barefootstep, list(

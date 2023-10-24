@@ -214,6 +214,15 @@
 	icon = 'icons/turf/floors/red_ice_turf.dmi'
 	icon_state = "icon-0"
 
+/turf/open/floor/plating/ice/iceberg
+	name = "cracked ice floor"
+	desc = "A sheet of solid ice. It looks cracked, yet still slippery."
+	icon_state = "ice1"
+
+/turf/open/floor/plating/ice/iceberg/Initialize(mapload, inherited_virtual_z)
+	. = ..()
+	icon_state = "ice[rand(1,8)]"
+
 /turf/open/floor/plating/snowed
 	name = "snowed-over plating"
 	desc = "A section of heated plating, helps keep the snow from stacking up too high."
