@@ -37,7 +37,9 @@
 	desc = "A convenable firelock. No matter what this can't be opened!";
 	name = "jammed firelock";
 	icon = 'icons/obj/doors/doorfireglass.dmi';
-	icon_state = "door_locked"
+	icon_state = "door_locked";
+	opacity = 1;
+	density = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
@@ -803,6 +805,7 @@
 /obj/structure/toilet{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/freezer,
 /area/iceland/underground/safe)
 "aca" = (
@@ -1676,6 +1679,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "aep" = (
@@ -1895,11 +1899,6 @@
 	},
 /turf/open/floor/plating,
 /area/iceland_base/security)
-"aeS" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/indestructible,
-/turf/open/floor/plating,
-/area/iceland/underground/safe)
 "aeT" = (
 /obj/structure/flora{
 	desc = "Looks frozen.";
@@ -2001,6 +2000,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/chapel)
 "afj" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/goonplaque,
 /area/iceland/underground/safe)
 "afk" = (
@@ -2159,6 +2159,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "afG" = (
@@ -2172,6 +2173,8 @@
 /obj/structure/chair/fancy/corp{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/commander,
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "afH" = (
@@ -2340,7 +2343,14 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/window{
-	dir = 6
+	dir = 4
+	},
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/window,
+/obj/structure/window{
+	dir = 8
 	},
 /turf/open/floor/grass,
 /area/iceland/underground/safe)
@@ -2444,17 +2454,6 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
-"agz" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj{
-	desc = "A convenable firelock. No matter what this can't be opened!";
-	name = "jammed firelock";
-	icon = 'icons/obj/doors/doorfireglass.dmi';
-	icon_state = "door_locked";
-	opacity = 1
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/iceland/underground/safe)
 "agA" = (
 /obj/machinery/washing_machine,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -2968,6 +2967,9 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
 	},
@@ -3276,19 +3278,6 @@
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/engine/plasma,
 /area/iceland_base/engine)
-"aiP" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj{
-	desc = "A convenable firelock. No matter what this can't be opened!";
-	name = "jammed firelock";
-	icon = 'icons/obj/doors/doorfireglass.dmi';
-	icon_state = "door_locked";
-	opacity = 1
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/iceland/underground/safe)
 "aiQ" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible,
 /obj/effect/spawner/structure/window/depleteduranium,
@@ -4257,6 +4246,7 @@
 /area/iceland_base/engine)
 "alp" = (
 /obj/effect/decal/cleanable/greenglow,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "alq" = (
@@ -4417,9 +4407,7 @@
 	dir = 4;
 	pixel_x = -26
 	},
-/turf/open/floor/plasteel/dark/side{
-	dir = 1
-	},
+/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "alL" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -4663,6 +4651,7 @@
 	dir = 1
 	},
 /obj/structure/window,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/royalblack,
 /area/iceland/underground/safe)
 "amz" = (
@@ -6489,6 +6478,7 @@
 /obj/item/paper/fluff/awaymissions/snowdin/research_feed,
 /obj/item/paper/fluff/awaymissions/snowdin/research_feed,
 /obj/structure/window,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "aru" = (
@@ -6843,6 +6833,7 @@
 	name = "AI Chamber";
 	req_access_txt = "16"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
 "asy" = (
@@ -7209,16 +7200,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/engine)
-"atw" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj{
-	desc = "A convenable firelock. No matter what this can't be opened!";
-	name = "jammed airlock";
-	icon = 'icons/obj/doors/doorfireglass.dmi';
-	icon_state = "door_locked"
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/iceland/underground/safe)
 "atx" = (
 /obj/machinery/photocopier,
 /turf/open/floor/plasteel/cafeteria_red,
@@ -8324,9 +8305,11 @@
 	},
 /obj{
 	desc = "A convenable firelock. No matter what this can't be opened!";
-	name = "jammed airlock";
+	name = "jammed firelock";
 	icon = 'icons/obj/doors/doorfireglass.dmi';
-	icon_state = "door_locked"
+	icon_state = "door_locked";
+	opacity = 1;
+	density = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
@@ -8762,6 +8745,9 @@
 /area/iceland_base/crew_quarters)
 "axD" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/indestructible{
+	id = "sight"
+	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
 	},
@@ -9488,6 +9474,7 @@
 /obj/structure/chair/fancy/sofa/corp/left{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/stone,
 /area/iceland/underground/safe)
 "azK" = (
@@ -9562,7 +9549,7 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/item/paper/fluff/awaymissions/snowdin/research_feed,
 /obj/structure/window,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "azU" = (
 /obj/structure/flora/grass/both,
@@ -9833,6 +9820,9 @@
 /area/iceland_base/engine)
 "aAD" = (
 /obj/item/trash/sosjerky,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
 	},
@@ -10398,6 +10388,7 @@
 	pixel_x = -28;
 	pixel_y = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/freezer,
 /area/iceland/underground/safe)
 "aCf" = (
@@ -12989,6 +12980,11 @@
 "aJz" = (
 /obj/structure/table,
 /obj/item/disk/holodisk/snowdin/ripjacob,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "aJA" = (
@@ -13267,6 +13263,8 @@
 "aKv" = (
 /obj/item/trash/can/food/beans,
 /obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "aKw" = (
@@ -14058,9 +14056,7 @@
 /turf/open/floor/plating,
 /area/iceland_base/science/lobby)
 "aMC" = (
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
+/turf/open/floor/circuit/red,
 /area/iceland/underground/safe)
 "aMD" = (
 /obj/structure/cable/orange{
@@ -14272,6 +14268,7 @@
 "aNh" = (
 /obj/structure/table/wood,
 /obj/item/paper/crumpled/bloody/docsdeathnote,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/royalblack,
 /area/iceland/underground/safe)
 "aNi" = (
@@ -14514,7 +14511,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/flashlight/lamp,
+/obj/item/flashlight/lamp{
+	on = 0
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "aNZ" = (
@@ -14548,6 +14547,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "aOe" = (
@@ -15533,6 +15533,9 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor3-old"
+	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 1
 	},
@@ -15807,6 +15810,8 @@
 /obj/item/trash/candle,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "aRB" = (
@@ -15880,6 +15885,9 @@
 "aRI" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
@@ -16918,6 +16926,7 @@
 /obj/item/bedsheet/purple,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/soap,
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "aUt" = (
@@ -17157,6 +17166,9 @@
 /area/iceland/underground/safe)
 "aUX" = (
 /obj/effect/decal/cleanable/oil,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
 	},
@@ -17240,6 +17252,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/food/flour,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "aVl" = (
@@ -17610,6 +17623,7 @@
 /area/iceland)
 "aWk" = (
 /obj/item/trash/pistachios,
+/obj/machinery/light,
 /turf/open/floor/plasteel/dark/side,
 /area/iceland/underground/safe)
 "aWl" = (
@@ -17618,7 +17632,7 @@
 	pixel_y = 8;
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/iceland/underground/safe)
 "aWm" = (
 /obj/machinery/chem_heater{
@@ -18109,7 +18123,10 @@
 /area/iceland/underground/safe)
 "aXA" = (
 /obj/machinery/light/floor,
-/turf/open/floor/plasteel/dark,
+/obj/item/kirbyplants/photosynthetic{
+	pixel_y = 10
+	},
+/turf/open/floor/plasteel/tech/grid,
 /area/iceland/underground/safe)
 "aXB" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -18425,6 +18442,10 @@
 /obj/structure/bed/double/maint,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
+"aYx" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "aYy" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/cobweb,
@@ -18903,6 +18924,8 @@
 "aZE" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/item/chair,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/cafeteria,
 /area/iceland/underground/safe)
 "aZG" = (
@@ -19035,6 +19058,14 @@
 /obj/item/stack/rods,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"baS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/underground/safe)
 "bbi" = (
 /obj/structure/closet/secure_closet{
 	name = "contraband locker";
@@ -19053,6 +19084,14 @@
 /obj/item/circuitboard/machine/circuit_imprinter/department,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_lpost)
+"bbI" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
 "bit" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/splinter_bush,
@@ -19073,9 +19112,29 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/iceland/underground/safe)
+"bnU" = (
+/obj/machinery/computer/fluff{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"bpb" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "bpG" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/plasteel/cafeteria_dark,
+/area/iceland/underground/safe)
+"bpX" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "brb" = (
 /obj/structure/splinter_wall,
@@ -19085,6 +19144,13 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"brx" = (
+/obj/structure/closet,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "brX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mob_spawn/human/corpse/cargo_tech,
@@ -19092,7 +19158,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark/airless,
+/area/iceland/underground/safe)
+"bsq" = (
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"btW" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid/steel,
 /area/iceland/underground/safe)
 "byg" = (
 /obj/effect/turf_decal/stripes/line{
@@ -19101,11 +19178,20 @@
 /obj/machinery/computer/fluff{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "bzl" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"bBL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/engineer,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
 /area/iceland/underground/safe)
 "bCc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -19151,12 +19237,23 @@
 /obj/structure/ore_box,
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"bKx" = (
+/obj/machinery/holopad,
+/turf/open/floor/circuit/red,
+/area/iceland/underground/safe)
 "bLS" = (
 /obj/structure/chair/fancy/bench/right{
 	dir = 1
 	},
-/turf/open/floor/concrete/tiles,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
+"bMg" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland)
 "bMq" = (
 /obj/structure/splinter_wall,
 /turf/open/floor/plating/dirt/dark,
@@ -19164,10 +19261,32 @@
 "bPh" = (
 /turf/open/floor/plating/snowed/smoothed,
 /area/ruin/powered/iceland/gate/boreal)
+"bSz" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"bSF" = (
+/obj/structure/table/reinforced,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/iceland/underground/safe)
 "bWd" = (
 /obj/structure/kitchenspike,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor2-old"
+	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/rockvault,
+/area/iceland/underground/safe)
+"bXf" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plasteel/white,
 /area/iceland/underground/safe)
 "bZl" = (
 /obj/structure/grille,
@@ -19182,6 +19301,53 @@
 /mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_lpost)
+"ceZ" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"cmD" = (
+/obj/structure/sign/warning/securearea,
+/turf/closed/wall/r_wall,
+/area/iceland/underground/safe)
+"cpT" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/underground/safe)
+"cvR" = (
+/obj/structure/table/reinforced,
+/obj/item/aicard{
+	pixel_x = -10
+	},
+/obj/item/aiModule/core/full/tyrant,
+/turf/open/floor/plasteel/tech/grid,
+/area/iceland/underground/safe)
+"cwl" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"cwC" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"cwQ" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "cyc" = (
 /obj/machinery/shieldwallgen/xenobiologyaccess,
 /obj/machinery/door/window{
@@ -19220,8 +19386,9 @@
 /obj/effect/turf_decal/techfloor{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/concrete/slab,
-/area/iceland/underground/safe)
+/area/iceland)
 "cFV" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -19275,6 +19442,23 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"cOm" = (
+/obj/structure/closet/crate/radiation,
+/obj/item/clothing/head/radiation,
+/obj/item/clothing/suit/radiation,
+/obj/item/geiger_counter,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"cOy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/iceland/underground/safe)
 "cOW" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -19283,6 +19467,16 @@
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/mineral/snowmountain,
+/area/iceland/underground/safe)
+"cQQ" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/computer/fluff,
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
+"cSM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/concrete/tiles,
 /area/iceland/underground/safe)
 "cUL" = (
 /obj/structure/railing,
@@ -19293,6 +19487,20 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/cult,
+/area/iceland/underground/safe)
+"cVi" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/underground/safe)
+"cVj" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/concrete/tiles,
 /area/iceland/underground/safe)
 "cZc" = (
 /obj/effect/decal/cleanable/generic,
@@ -19312,6 +19520,12 @@
 	},
 /turf/open/floor/concrete,
 /area/iceland/underground/safe)
+"cZt" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor3-old"
+	},
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
 "dcd" = (
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow{
@@ -19320,6 +19534,18 @@
 	slowdown = 1
 	},
 /area/iceland)
+"dho" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
+"diM" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/freezer,
+/area/iceland/underground/safe)
 "dkO" = (
 /obj/item/ammo_casing/shotgun/buckshot,
 /turf/open/floor/plating/asteroid/snow{
@@ -19327,6 +19553,32 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/underground/safe)
+"dlE" = (
+/obj/structure/closet/cardboard,
+/obj/item/stack/sheet/cardboard,
+/obj/item/stack/cable_coil,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/package_wrap,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/airalarm/away{
+	pixel_y = 23
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"dmP" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/item/flashlight/lamp{
+	on = 0;
+	pixel_y = 11
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"dpo" = (
+/obj/effect/decal/cleanable/robot_debris/limb,
+/turf/open/floor/concrete/slab,
 /area/iceland/underground/safe)
 "dqp" = (
 /turf/open/space/basic,
@@ -19369,6 +19621,13 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"dwA" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/reagent_containers/syringe/lethal,
+/obj/item/reagent_containers/syringe/lethal/choral,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "dwE" = (
 /turf/closed/wall/ice,
 /area/ruin/unpowered/iceland/abandoned_chembase)
@@ -19377,16 +19636,35 @@
 	dir = 1
 	},
 /turf/open/floor/concrete/slab,
-/area/iceland/underground/safe)
+/area/iceland)
 "dCH" = (
 /obj/machinery/light/small,
 /turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"dEi" = (
+/obj/effect/mob_spawn/human/doctor,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"dGl" = (
+/obj/effect/decal/remains/robot,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "dHV" = (
 /turf/open/floor/plasteel/stairs/left{
 	dir = 1
 	},
 /area/iceland)
+"dIb" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
 "dMC" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor3-old"
@@ -19448,6 +19726,34 @@
 /obj/item/stack/rods,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"dYS" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor3-old"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"dZW" = (
+/obj/machinery/space_heater,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"ebp" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/turf/open/floor/concrete,
+/area/iceland)
+"eef" = (
+/obj/structure/rack,
+/obj/item/storage/belt/utility/full,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
 "ego" = (
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_3"
@@ -19482,6 +19788,17 @@
 	slowdown = 1
 	},
 /area/iceland)
+"ehH" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/structure/table/reinforced,
+/obj/structure/bedsheetbin,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"ejq" = (
+/obj/structure/table/reinforced,
+/obj/structure/bedsheetbin,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "ejE" = (
 /mob/living/simple_animal/hostile/latcher,
 /turf/open/floor/plating/asteroid/snow{
@@ -19584,6 +19901,11 @@
 "eFV" = (
 /turf/open/openspace,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"eGO" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/fluff/ruins/exp_cloning/log,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "eHq" = (
 /obj/structure/flora/grass/both,
 /turf/closed/mineral/random/snowmountain,
@@ -19594,6 +19916,13 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"eJy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/open/floor/circuit/red,
+/area/iceland/underground/safe)
 "eJM" = (
 /obj/structure/chair{
 	dir = 8
@@ -19615,6 +19944,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
+"eKn" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/concrete/slab,
+/area/iceland)
 "eLg" = (
 /obj/item/paper/crumpled/bloody/docsdeathnote{
 	name = "PRIORITY 1 DIRECTIVE";
@@ -19637,12 +19973,22 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/iceland/underground/safe)
+"eOo" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical,
+/obj/item/stack/sheet/iron/five,
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
 "ePF" = (
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"ePH" = (
+/obj/machinery/light/floor,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "eQi" = (
 /obj/structure/flora/grass/sharp,
@@ -19695,6 +20041,11 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"fmy" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/shreds,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "fnm" = (
 /turf/open/floor/concrete/slab,
 /area/iceland/underground/safe)
@@ -19734,6 +20085,22 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"fCF" = (
+/obj/machinery/light,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"fDq" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 8
+	},
+/turf/open/floor/concrete,
+/area/iceland)
+"fEq" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "fJt" = (
 /obj/structure/bonfire/prelit{
 	burn_icon = "bonfire_warm";
@@ -19757,6 +20124,15 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"fMF" = (
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8;
+	dir = 8
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "fNS" = (
 /turf/closed/mineral/snowmountain,
 /area/ruin/unpowered/iceland/abandoned_chembase)
@@ -19765,6 +20141,13 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"fRG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "fTk" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -19784,6 +20167,31 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/underground/safe)
+"fXc" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/shreds,
+/obj/item/ammo_casing/c9mm{
+	dir = 4;
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland)
+"gaC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"gcl" = (
+/obj/structure/closet,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "goK" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -19800,6 +20208,13 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"gtY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "gul" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -19808,6 +20223,15 @@
 	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"gvd" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor2-old"
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
 	},
 /area/iceland/underground/safe)
 "gyj" = (
@@ -19840,6 +20264,20 @@
 	slowdown = 1
 	},
 /area/iceland)
+"gGY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/iceland/underground/safe)
+"gHD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
 "gId" = (
 /obj/machinery/button/crematorium{
 	id = "cremawheat";
@@ -19867,6 +20305,17 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"gKu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "gPW" = (
 /obj/effect/turf_decal/weather/snow{
 	pixel_y = -1
@@ -19893,6 +20342,42 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"gWt" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/effect/mob_spawn/human/doctor,
+/turf/open/floor/plasteel/cafeteria_dark,
+/area/iceland/underground/safe)
+"haL" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/reagent_containers/food/snacks/canned/beans{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/canned/beans{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/canned/beans{
+	pixel_x = -2
+	},
+/obj/item/reagent_containers/food/snacks/canned/beans{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/food/snacks/canned/beans{
+	pixel_x = 1;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/food/snacks/canned/beans{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/obj/structure/closet/crate{
+	name = "food crate"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "haY" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/button/indestructible{
@@ -19928,9 +20413,33 @@
 /obj/structure/flora/grass/green,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"hmu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"hna" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "hnP" = (
 /obj/machinery/light,
 /turf/open/floor/carpet/grimy,
+/area/iceland/underground/safe)
+"hoI" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp{
+	on = 0
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "hqQ" = (
 /obj/structure/flora/tree/splinter,
@@ -19940,15 +20449,37 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"hsy" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Checkpoint"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
+/area/iceland/underground/safe)
 "hun" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/structure/bed,
+/obj/item/bedsheet/grey,
 /turf/open/floor/engine/light,
 /area/iceland/underground/safe)
 "hyj" = (
 /obj/effect/turf_decal/techfloor,
 /turf/open/floor/concrete/slab,
+/area/iceland)
+"hyE" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel/white,
 /area/iceland/underground/safe)
 "hyS" = (
 /turf/open/floor/plating/snowed,
@@ -19969,9 +20500,6 @@
 "hHH" = (
 /obj/structure/chair{
 	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/iceland/underground/safe)
@@ -20005,9 +20533,26 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"hLS" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "hMw" = (
 /obj/effect/decal/cleanable/generic,
 /turf/closed/mineral/snowmountain,
+/area/iceland/underground/safe)
+"hOP" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel/cafeteria_dark,
+/area/iceland/underground/safe)
+"hPS" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/chasm,
 /area/iceland/underground/safe)
 "hQV" = (
 /obj/effect/decal/cleanable/blood/tracks,
@@ -20032,6 +20577,11 @@
 	},
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
+"iaE" = (
+/obj/structure/table/optable,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "ide" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/stump,
@@ -20041,6 +20591,16 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"igG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"igQ" = (
+/obj/effect/mob_spawn/human/scientist,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland/underground/safe)
 "ill" = (
@@ -20050,7 +20610,10 @@
 /turf/open/floor/plating,
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "ilr" = (
-/obj/structure/table/optable/abductor,
+/obj/structure/table/reinforced,
+/obj/item/knife/butcher,
+/obj/item/restraints/handcuffs,
+/obj/item/reagent_containers/peppercloud_deployer,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland/underground/safe)
 "imS" = (
@@ -20105,6 +20668,13 @@
 /obj/structure/flora/grass/green,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"iDh" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "iEb" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating/asteroid/snow{
@@ -20143,6 +20713,22 @@
 /obj/structure/splinter_wall,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"iIW" = (
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"iKm" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/freezer,
+/area/iceland/underground/safe)
 "iLI" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -20184,6 +20770,22 @@
 	dir = 4
 	},
 /area/iceland/underground/safe)
+"iQo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor3-old"
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"iRM" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "jao" = (
 /obj/machinery/recycler/deathtrap,
 /obj/effect/turf_decal/techfloor{
@@ -20222,6 +20824,13 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"jjB" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "jjK" = (
 /turf/open/floor/engine/light,
 /area/iceland/underground/safe)
@@ -20234,6 +20843,9 @@
 /obj/structure/bed/maint{
 	pixel_y = 3
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "jqs" = (
@@ -20244,6 +20856,7 @@
 /obj/machinery/computer/fluff{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "jtP" = (
@@ -20333,11 +20946,36 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"jGc" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"jGF" = (
+/obj/item/weldingtool,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "jIh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"jIC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/corner{
+	dir = 8
+	},
+/area/iceland/underground/safe)
+"jII" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/tiles,
 /area/iceland/underground/safe)
 "jKa" = (
 /obj/structure/closet/crate/freezer,
@@ -20355,6 +20993,10 @@
 /turf/open/floor/plasteel/dark/side{
 	dir = 5
 	},
+/area/iceland/underground/safe)
+"jLq" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel/grid/steel,
 /area/iceland/underground/safe)
 "jMV" = (
 /obj/item/candle/infinite{
@@ -20377,6 +21019,10 @@
 "jPb" = (
 /turf/open/floor/concrete,
 /area/iceland/underground/safe)
+"jPd" = (
+/obj/structure/sign/warning/securearea,
+/turf/closed/wall/mineral,
+/area/iceland/underground/safe)
 "jPe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/candle/infinite{
@@ -20384,6 +21030,13 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plating/dirt/dark,
+/area/iceland/underground/safe)
+"jTf" = (
+/obj/machinery/computer/fluff{
+	dir = 1
+	},
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "jZT" = (
 /mob/living/simple_animal/hostile/ambush,
@@ -20425,6 +21078,19 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/underground/safe)
+"kdz" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"kfe" = (
+/obj/effect/mob_spawn/human/doctor,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"kfP" = (
+/obj/effect/decal/cleanable/oil/streak,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "kgy" = (
 /obj/machinery/conveyor{
@@ -20470,6 +21136,13 @@
 /obj/structure/flora/tree/splinter,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"khY" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/robot_debris/old,
+/turf/open/floor/concrete/slab,
+/area/iceland)
 "kiH" = (
 /turf/closed/wall/mineral/abductor,
 /area/iceland/underground/safe)
@@ -20487,8 +21160,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/bed,
-/obj/item/bedsheet/grey,
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
 /turf/open/floor/engine/light,
 /area/iceland/underground/safe)
 "knb" = (
@@ -20497,6 +21173,20 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"kpA" = (
+/obj/structure/closet/crate/internals,
+/obj/item/storage/toolbox/emergency,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/clothing/mask/breath,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
 "kqJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
@@ -20508,6 +21198,10 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"kuD" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel/grimy,
+/area/iceland/underground/safe)
 "kvB" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small{
@@ -20529,10 +21223,35 @@
 	},
 /turf/open/floor/concrete,
 /area/iceland/underground/safe)
+"kHu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/grimy,
+/area/iceland/underground/safe)
+"kIR" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"kKO" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/structure/chair/office,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"kNJ" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "kNL" = (
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/tree/splinter,
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
+"kOj" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/concrete/slab,
 /area/iceland/underground/safe)
 "kRL" = (
 /obj/structure/flora{
@@ -20570,6 +21289,30 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"kWU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"kXa" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/underground/safe)
+"kYp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/robot_debris,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"lbB" = (
+/obj/structure/tank_dispenser/oxygen,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "lfo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -20583,6 +21326,16 @@
 "lfp" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
+/area/iceland/underground/safe)
+"lgr" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "lhF" = (
 /obj/structure/table/wood,
@@ -20605,10 +21358,27 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"lmz" = (
+/obj/structure/closet,
+/turf/open/floor/plasteel/grimy,
+/area/iceland/underground/safe)
 "lne" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/mineral/snowmountain,
+/area/iceland/underground/safe)
+"lnn" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/white/filled/warning{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
 /area/iceland/underground/safe)
 "lnI" = (
 /obj/structure/railing/corner{
@@ -20656,12 +21426,29 @@
 	dir = 1
 	},
 /area/iceland/underground/safe)
+"ltW" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp{
+	on = 0
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "lwx" = (
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/white/warning,
 /turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"lzv" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/highsecurity{
+	name = "General Storage";
+	req_access_txt = "200"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
 "lAc" = (
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
@@ -20673,6 +21460,10 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
+"lCk" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "lCX" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/command/glass{
@@ -20682,10 +21473,31 @@
 /turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
 "lEU" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/ridged/steel,
 /area/iceland/underground/safe)
 "lFT" = (
 /turf/open/floor/dock,
+/area/iceland)
+"lHm" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"lJC" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/underground/safe)
+"lKb" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plasteel/grimy,
 /area/iceland/underground/safe)
 "lLf" = (
 /obj/structure/bodycontainer/morgue,
@@ -20715,6 +21527,11 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"lNQ" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
 "lPD" = (
 /obj/structure/chair{
 	dir = 8
@@ -20722,6 +21539,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/concrete/tiles,
 /area/iceland/underground/safe)
+"lQM" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland)
 "lSJ" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -20729,6 +21553,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "lTG" = (
@@ -20760,7 +21585,7 @@
 	dir = 8
 	},
 /turf/open/floor/concrete/slab,
-/area/iceland/underground/safe)
+/area/iceland)
 "lVd" = (
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_9"
@@ -20775,12 +21600,27 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"lWj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "lWq" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora/grass/both,
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"lXY" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "lZj" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
@@ -20788,9 +21628,27 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
+"mae" = (
+/obj/structure/mopbucket,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"mcx" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria,
+/area/iceland/underground/safe)
 "mcB" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"mcU" = (
+/obj/effect/turf_decal/trimline/white/end{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "mdw" = (
 /turf/open/floor/plasteel/stairs/right{
@@ -20802,10 +21660,26 @@
 /obj/structure/flora/bush,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"miJ" = (
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 2ù
+	},
+/turf/open/openspace,
+/area/iceland/underground/safe)
 "mjw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/splinter_wall,
 /turf/open/floor/plating/dirt/dark,
+/area/iceland/underground/safe)
+"mjN" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "mkp" = (
 /obj/structure/flora{
@@ -20838,6 +21712,21 @@
 /obj/structure/flora/tree/dead,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"mlw" = (
+/obj/structure/closet/cardboard,
+/obj/effect/turf_decal/delivery,
+/obj/item/ammo_box/magazine/pistolm9mm{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/pistolm9mm,
+/obj/item/ammo_box/magazine/pistolm9mm{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "mnN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -20853,11 +21742,46 @@
 	pixel_x = -5;
 	pixel_y = 3
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"mod" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/prisoner,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"mpQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/wall/mineral,
 /area/iceland/underground/safe)
 "msH" = (
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
+"mth" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/freezer,
+/area/iceland/underground/safe)
+"mtL" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"mvQ" = (
+/obj/machinery/computer/fluff{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
 /area/iceland/underground/safe)
 "mxf" = (
 /obj/item/flashlight/flare/torch{
@@ -20865,6 +21789,21 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"myf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria_red,
+/area/iceland/underground/safe)
+"myg" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "myZ" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
@@ -20886,11 +21825,23 @@
 /obj/item/pen,
 /turf/open/floor/carpet/black,
 /area/iceland/underground/safe)
+"mAv" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/indestructible{
+	id = "sight"
+	},
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
 "mCX" = (
 /mob/living/simple_animal/hostile/ambush,
 /obj/structure/flora/grass/green,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"mDK" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/bot/floorbot,
+/turf/open/floor/plasteel/tech/grid,
+/area/iceland/underground/safe)
 "mFb" = (
 /obj/structure/splinter_wall,
 /turf/closed/mineral/snowmountain/cavern,
@@ -20914,6 +21865,20 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/iceland/underground/safe)
+"mKg" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/underground/safe)
+"mNB" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/concrete/slab,
+/area/iceland)
 "mOZ" = (
 /obj/structure/bed,
 /obj/item/bedsheet/grey,
@@ -20969,6 +21934,14 @@
 	},
 /turf/open/floor/concrete/tiles,
 /area/iceland/underground/safe)
+"mXx" = (
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 2ù
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
 "mXP" = (
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/splinter_bush,
@@ -20982,6 +21955,13 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"nch" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/oil/streak,
+/turf/open/floor/concrete/slab,
+/area/iceland)
 "nfa" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/open/floor/plasteel/cult,
@@ -21001,6 +21981,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland/underground/safe)
 "npP" = (
@@ -21011,11 +21992,29 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"nqg" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor3-old"
+	},
+/turf/open/floor/plasteel/rockvault,
+/area/iceland/underground/safe)
+"nqF" = (
+/obj/effect/decal/cleanable/robot_debris,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "nsg" = (
 /obj/effect/turf_decal/techfloor/corners{
 	dir = 8
 	},
 /turf/open/floor/concrete/slab,
+/area/iceland)
+"ntu" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
 /area/iceland/underground/safe)
 "nuM" = (
 /obj/structure/splinter_wall,
@@ -21032,6 +22031,29 @@
 /obj/effect/aetherial_spawner,
 /turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
+"nxy" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/item/ammo_casing/c9mm,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"nxO" = (
+/obj/effect/turf_decal/trimline/white/line,
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"nyr" = (
+/obj/structure/chair/office/light,
+/turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
+"nyD" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/iceland/underground/safe)
 "nCD" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/brown,
@@ -21044,6 +22066,20 @@
 	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"nEJ" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"nHz" = (
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
 	},
 /area/iceland/underground/safe)
 "nIJ" = (
@@ -21065,6 +22101,25 @@
 "nNg" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/closed/mineral/snowmountain,
+/area/iceland/underground/safe)
+"nQa" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
+"nSr" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 10
+	},
+/area/iceland/underground/safe)
+"nSG" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/weather/snow,
+/obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
 "nVp" = (
 /obj/structure/flora/rock/pile/icy,
@@ -21103,6 +22158,17 @@
 "obf" = (
 /turf/closed/wall/r_wall/rust,
 /area/iceland/underground/safe)
+"oct" = (
+/obj/structure/closet/cardboard,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/toolbox/drone,
+/obj/item/storage/toolbox/drone,
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "ocB" = (
 /obj/item/stack/cable_coil,
 /obj/structure/cable{
@@ -21111,6 +22177,12 @@
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
+/area/iceland/underground/safe)
+"ofJ" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-22"
+	},
+/turf/open/floor/concrete/slab,
 /area/iceland/underground/safe)
 "ohw" = (
 /obj/structure/fireaxecabinet{
@@ -21148,6 +22220,22 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"okv" = (
+/obj/structure/railing,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor2-old"
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"oli" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/underground/safe)
 "oot" = (
 /obj/item/storage/box/gloves{
 	pixel_x = 3;
@@ -21169,6 +22257,9 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"owS" = (
+/turf/open/floor/plasteel/grimy,
+/area/iceland/underground/safe)
 "oxp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
@@ -21182,12 +22273,29 @@
 /obj/item/shovel,
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"ozL" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/grimy,
+/area/iceland/underground/safe)
 "oBI" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
 /obj/effect/decal/cleanable/blood/rune,
 /turf/open/floor/plasteel/cult,
+/area/iceland/underground/safe)
+"oCq" = (
+/obj/effect/decal/cleanable/blood/old{
+	name = "dried blood trail";
+	icon_state = "trails_1";
+	dir = 10
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
 /area/iceland/underground/safe)
 "oFn" = (
 /obj/effect/turf_decal/weather/snow,
@@ -21196,15 +22304,49 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"oHw" = (
+/obj/machinery/light,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"oIa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "oIj" = (
 /obj/item/chair/fancy,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/iceland/underground/safe)
+"oJT" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"oLL" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/underground/safe)
 "oLM" = (
 /obj/effect/mob_spawn/human/corpse/zombie,
+/obj/machinery/light,
 /turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"oNI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "oOG" = (
 /obj/structure/frame,
@@ -21230,6 +22372,11 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"pht" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "ppS" = (
 /obj/structure/flora/splinter_bush,
 /turf/open/floor/plating/asteroid/snow,
@@ -21267,6 +22414,21 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"pur" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
+"puN" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "pvQ" = (
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/grass/both,
@@ -21277,6 +22439,14 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/kitchenspike,
 /turf/open/floor/plasteel/rockvault,
+/area/iceland/underground/safe)
+"pya" = (
+/obj/structure/closet/cardboard,
+/obj/item/defibrillator,
+/obj/item/storage/box/medipens,
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
 /area/iceland/underground/safe)
 "pzB" = (
 /turf/closed/wall/mineral/gold,
@@ -21290,6 +22460,12 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"pAZ" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 1
+	},
+/turf/open/floor/concrete,
+/area/iceland)
 "pBG" = (
 /turf/open/chasm,
 /area/iceland/underground/safe)
@@ -21302,6 +22478,45 @@
 	dir = 1
 	},
 /turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"pCl" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"pCO" = (
+/obj/structure/closet/crate/radiation,
+/obj/item/clothing/head/radiation,
+/obj/item/clothing/suit/radiation,
+/obj/item/geiger_counter,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"pDj" = (
+/obj/structure/flora/grass/sharp,
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 2ù
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
+"pFo" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"pIy" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"pJc" = (
+/obj/structure/reagent_dispensers/cooking_oil,
+/turf/open/floor/concrete/slab,
 /area/iceland/underground/safe)
 "pJk" = (
 /obj/effect/decal/cleanable/blood/rune,
@@ -21320,6 +22535,20 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"pLO" = (
+/obj/structure/closet/cardboard,
+/obj/item/storage/box/mousetraps,
+/obj/item/storage/box/mousetraps,
+/obj/item/storage/box/drinkingglasses,
+/obj/item/storage/box/zipties,
+/obj/item/switchblade,
+/obj/effect/turf_decal/delivery,
+/obj/item/gps{
+	gpstag = "DEEP"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "pMY" = (
 /obj/machinery/light{
 	dir = 4
@@ -21337,13 +22566,18 @@
 /obj/effect/turf_decal/techfloor/corners{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/concrete/slab,
-/area/iceland/underground/safe)
+/area/iceland)
 "pQh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/item/clothing/gloves/color/fyellow/old,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/engine/light,
 /area/iceland/underground/safe)
 "pQp" = (
@@ -21362,11 +22596,11 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"pSe" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
+"pRN" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria,
 /area/iceland/underground/safe)
 "pSE" = (
 /obj/structure/flora/grass/brown,
@@ -21378,16 +22612,69 @@
 /obj/effect/gibspawner/human/bodypartless,
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
+"pTZ" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor2-old"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "pUk" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_n)
+"pWh" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"pYU" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate{
+	name = "food crate"
+	},
+/obj/item/reagent_containers/glass/waterbottle/large{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/waterbottle/large{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/waterbottle/large{
+	pixel_x = -2
+	},
+/obj/item/reagent_containers/glass/waterbottle/large{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/glass/waterbottle/large{
+	pixel_x = 1;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/glass/waterbottle/large{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "pZw" = (
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"pZR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/carpet/grimy,
+/area/iceland/underground/safe)
 "qbF" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery,
@@ -21406,6 +22693,10 @@
 /mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/grass,
 /area/iceland/underground/safe)
+"qeN" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "qgt" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/green,
@@ -21414,6 +22705,10 @@
 /obj/structure/flora/grass/green,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"qgX" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
 "qiy" = (
 /obj/structure/chair/fancy/bench,
 /turf/open/floor/concrete/tiles,
@@ -21423,6 +22718,22 @@
 	dir = 9
 	},
 /area/iceland/underground/safe)
+"qnD" = (
+/obj/structure/closet/cardboard,
+/obj/item/knife/kitchen,
+/obj/item/knife/kitchen,
+/obj/item/cultivator,
+/obj/item/hatchet,
+/obj/item/kitchen/rollingpin,
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"qoS" = (
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "qpg" = (
 /obj/machinery/door/poddoor{
 	id = "DoorPuzzle"
@@ -21430,6 +22741,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/ruin/powered/iceland/gate/lpost_n)
+"qrl" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
 "qrA" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/stripes/white/corner{
@@ -21445,6 +22762,10 @@
 	picked_color = "Burgundy"
 	},
 /turf/open/floor/plasteel/dark/snowdin,
+/area/iceland)
+"qvr" = (
+/obj/effect/turf_decal/techfloor,
+/turf/open/floor/concrete,
 /area/iceland)
 "qwi" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -21462,11 +22783,24 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_w)
+"qAS" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/underground/safe)
 "qBu" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"qDs" = (
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
 "qGv" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -21503,17 +22837,52 @@
 /mob/living/simple_animal/hostile/latcher,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
+"qTO" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "qVj" = (
 /obj/structure/sign/poster/official/ian{
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
+"qWd" = (
+/obj/structure/table,
+/obj/item/pen,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"qWg" = (
+/obj/effect/decal/cleanable/oil,
+/obj/effect/mob_spawn/human/scientist,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"qXg" = (
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8
+	},
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
 "qYT" = (
 /obj/structure/flora/grass/both,
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"rbq" = (
+/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/concrete/slab,
+/area/iceland)
+"rdA" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "rek" = (
 /obj/structure/flora/splinter_bush,
 /obj/structure/flora/grass/both,
@@ -21524,6 +22893,24 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
+"rmk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"rna" = (
+/obj/machinery/computer/fluff,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"rnC" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "roL" = (
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
@@ -21532,8 +22919,35 @@
 	},
 /area/space,
 /area/iceland/underground/safe)
+"rqO" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/glass/bottle/mutagen,
+/obj/item/reagent_containers/glass/bottle/mutagen,
+/obj/item/razor,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"rrA" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland)
 "rsS" = (
 /turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"rwc" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/structure/table/reinforced,
+/obj/item/melee/baton/cattleprod,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"ryb" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "rHM" = (
 /obj/effect/turf_decal/techfloor{
@@ -21544,9 +22958,16 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/iceland/underground/safe)
+"rHZ" = (
+/obj/structure/closet,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "rKD" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating/snowed,
+/area/iceland/underground/safe)
+"rNY" = (
+/turf/open/floor/plasteel/tech/grid,
 /area/iceland/underground/safe)
 "rOW" = (
 /obj/effect/turf_decal/trimline/white/end{
@@ -21574,7 +22995,31 @@
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = -32
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"rWR" = (
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"rWY" = (
+/obj/structure/closet/crate/internals,
+/obj/item/storage/toolbox/emergency,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/clothing/mask/breath,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"saL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/mob_spawn/human/engineer,
+/turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "ser" = (
 /obj/structure/flora/grass/both,
@@ -21582,12 +23027,32 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"seF" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"smq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/iceland/underground/safe)
 "snj" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/mapping_helpers/dead_body_placer/ruin_morgue{
 	bodycount = 1
 	},
 /turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"snt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
 /area/iceland/underground/safe)
 "snT" = (
 /obj/item/chair,
@@ -21628,9 +23093,26 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"syb" = (
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8;
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "syD" = (
 /obj/structure/chair/fancy/bench/left,
 /turf/open/floor/concrete/tiles,
+/area/iceland/underground/safe)
+"szv" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "sCX" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -21638,6 +23120,12 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"sDz" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/corner{
+	dir = 1
+	},
+/area/iceland/underground/safe)
 "sDP" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/stripes/white/line{
@@ -21648,6 +23136,11 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"sGb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "sKN" = (
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 1
@@ -21655,6 +23148,10 @@
 /obj/effect/turf_decal/trimline/white/warning,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"sNA" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/stone,
 /area/iceland/underground/safe)
 "sPt" = (
 /obj/structure/chair{
@@ -21678,6 +23175,13 @@
 "sTs" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"sTQ" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "sVs" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/stripes/white/line,
@@ -21690,6 +23194,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"taq" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/iceland/underground/safe)
 "tbS" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/both,
@@ -21700,6 +23213,31 @@
 "tdg" = (
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/open/floor/plasteel/cult,
+/area/iceland/underground/safe)
+"tdu" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"thc" = (
+/obj/structure/railing,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"tiq" = (
+/obj/effect/turf_decal/trimline/white/line,
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"tlo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
+/turf/open/floor/carpet/grimy,
 /area/iceland/underground/safe)
 "tmb" = (
 /obj/effect/turf_decal/weather/snow,
@@ -21754,6 +23292,13 @@
 "tyB" = (
 /turf/closed/indestructible/riveted,
 /area/ruin/powered/iceland/gate/boreal)
+"tCQ" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/concrete/slab,
+/area/iceland)
 "tEX" = (
 /mob/living/simple_animal/hostile/latcher,
 /obj/structure/flora/grass/both,
@@ -21781,6 +23326,8 @@
 	pixel_x = -1;
 	pixel_y = 4
 	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plasteel/white,
 /area/iceland/underground/safe)
 "tHv" = (
@@ -21844,12 +23391,29 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"tSc" = (
+/obj/machinery/computer/fluff{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "tSw" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/grass/both,
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"tSF" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"tVf" = (
+/obj/effect/mob_spawn/human/doctor,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "tWU" = (
 /obj/effect/loot_jobscale/armoury/riot_shotgun,
 /turf/open/floor/plating/asteroid/snow{
@@ -21867,6 +23431,12 @@
 	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"tXw" = (
+/obj/machinery/light,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
 /area/iceland/underground/safe)
 "tXT" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -21886,6 +23456,12 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"ual" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/effect/decal/cleanable/food/flour,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "ucH" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/underground/safe{
@@ -21910,6 +23486,20 @@
 /obj/structure/barricade/wooden/snowed,
 /turf/closed/mineral/snowmountain/cavern,
 /area/iceland/underground/safe)
+"ukD" = (
+/obj/structure/railing/corner,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"ulZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/engineer,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "umN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool{
@@ -21923,6 +23513,11 @@
 	},
 /turf/open/floor/concrete,
 /area/iceland/underground/safe)
+"unD" = (
+/obj/effect/decal/cleanable/oil/streak,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "uqg" = (
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_2"
@@ -21932,6 +23527,10 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/underground/safe)
+"usv" = (
+/obj/machinery/computer/fluff,
+/turf/open/floor/plasteel/tech/grid,
 /area/iceland/underground/safe)
 "usY" = (
 /obj/effect/spawner/structure/window,
@@ -21946,9 +23545,21 @@
 "uxm" = (
 /turf/open/floor/plating,
 /area/iceland)
+"uxu" = (
+/obj/machinery/modular_fabricator/exosuit_fab/maint,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "uxC" = (
 /obj/effect/decal/cleanable/blood/rune,
 /turf/open/floor/plasteel/cult,
+/area/iceland/underground/safe)
+"uBe" = (
+/obj/structure/bed,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/plasteel/freezer,
 /area/iceland/underground/safe)
 "uBW" = (
 /obj/structure/railing/corner{
@@ -21965,6 +23576,23 @@
 /obj/structure/flora/grass/brown,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"uGG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/corner,
+/area/iceland/underground/safe)
+"uHO" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor2-old"
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"uIK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/underground/safe)
 "uKw" = (
 /obj/structure/spider/cocoon,
 /obj/structure/spider/stickyweb,
@@ -22011,9 +23639,22 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/iceland/underground/safe)
+"uWh" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
+/area/iceland/underground/safe)
 "uZw" = (
 /obj/structure/chair/fancy/bench/right,
-/turf/open/floor/concrete/tiles,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
+"vbn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
+/turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "vbx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -22038,6 +23679,13 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
+"vev" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/iceland/underground/safe)
 "vfs" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/stripes/white/line{
@@ -22045,6 +23693,16 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
+"vhM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/hammerandsickle,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"vkS" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/syringes,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
 "vrz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/bubblegum,
@@ -22060,6 +23718,9 @@
 "vsO" = (
 /obj/structure/table,
 /obj/item/folder/white,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/concrete/slab,
 /area/iceland/underground/safe)
 "vzC" = (
@@ -22073,6 +23734,12 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_n)
+"vIh" = (
+/obj/structure/chair/office,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "vJN" = (
 /obj/structure/bed/maint,
 /obj/structure/bed/maint{
@@ -22104,13 +23771,38 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command)
+"vTE" = (
+/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"vUR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/underground/safe)
+"vVF" = (
+/obj/structure/table,
+/obj/item/clothing/glasses/welding,
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"vWU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/iceland/underground/safe)
 "vYv" = (
 /obj/machinery/computer/cloning/prototype,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/item/paper/fluff/ruins/exp_cloning/manual,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/iceland/underground/safe)
@@ -22138,6 +23830,30 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_n)
+"whs" = (
+/obj{
+	desc = "A convenable airlock. No matter what this can't be opened!";
+	name = "jammed office airlock";
+	icon = 'icons/obj/doors/airlocks/station/public.dmi';
+	icon_state = "closed";
+	density = 1
+	},
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
+"whT" = (
+/obj/effect/turf_decal/techfloor,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/concrete,
+/area/iceland)
+"wie" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/item/ammo_casing/c9mm{
+	dir = 4;
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "wnk" = (
 /obj/structure/rack,
 /turf/open/floor/plating/snowed,
@@ -22148,15 +23864,43 @@
 	},
 /turf/open/floor/concrete/slab,
 /area/iceland/underground/safe)
+"wsh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
 "wuj" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor2-old"
+	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
+"wyn" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/concrete/slab,
+/area/iceland)
 "wyS" = (
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
 	},
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"wzp" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/freezer,
+/area/iceland/underground/safe)
+"wzJ" = (
+/obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland/underground/safe)
 "wAP" = (
@@ -22182,6 +23926,24 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
+"wDa" = (
+/obj/structure/rack,
+/obj/item/storage/box/lights,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
+"wDo" = (
+/obj/effect/turf_decal/trimline/white/line,
+/obj/effect/turf_decal/trimline/white/warning{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "wDR" = (
 /obj/structure/splinter_wall,
 /obj/structure/splinter_wall,
@@ -22190,6 +23952,17 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/underground/safe)
+"wEM" = (
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8;
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
 "wFb" = (
 /obj/effect/turf_decal/weather/snow,
@@ -22211,12 +23984,13 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/computer/operating{
 	dir = 8;
 	name = "Forensics Operating Computer"
+	},
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland/underground/safe)
@@ -22227,6 +24001,13 @@
 /area/iceland/underground/safe)
 "wKD" = (
 /turf/open/floor/plating/ice/smooth/red,
+/area/iceland/underground/safe)
+"wSi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "wXk" = (
 /obj/structure/railing{
@@ -22241,6 +24022,45 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/iceland/underground/safe)
+"wXQ" = (
+/obj/item/reagent_containers/glass/bottle/morphine{
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/glass/bottle/chloralhydrate,
+/obj/item/reagent_containers/glass/bottle/toxin{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/bottle/morphine{
+	pixel_x = 5;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/glass/bottle/facid{
+	name = "fluorosulfuric acid bottle";
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"wYt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/iceland/underground/safe)
+"wZm" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"xaN" = (
+/obj/item/kirbyplants/random,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/iceland/underground/safe)
 "xev" = (
 /obj/structure/railing/corner,
 /obj/machinery/computer/fluff,
@@ -22252,6 +24072,16 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"xeU" = (
+/obj/structure/rack,
+/obj/item/stock_parts/cell/high,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
+/area/iceland/underground/safe)
 "xfl" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/grass/green,
@@ -22259,6 +24089,27 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"xhu" = (
+/obj/structure/table/reinforced,
+/obj/item/surgicaldrill,
+/obj/item/hemostat,
+/obj/item/scalpel,
+/obj/item/surgical_drapes,
+/obj/item/retractor,
+/obj/item/cautery,
+/obj/item/circular_saw,
+/obj/machinery/light,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"xij" = (
+/obj/structure/table,
+/obj/machinery/computer/fluff/old{
+	pixel_y = 8;
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "xjS" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/item/candle/infinite{
@@ -22270,6 +24121,12 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/underground/safe)
+"xlh" = (
+/obj/structure/frame/computer{
+	anchored = 1
+	},
+/turf/open/floor/plasteel/grimy,
 /area/iceland/underground/safe)
 "xnn" = (
 /obj/effect/turf_decal/techfloor,
@@ -22308,6 +24165,14 @@
 /obj/structure/splinter_wall,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"xpS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/iceland/underground/safe)
 "xqM" = (
 /turf/closed/wall/r_wall,
 /area/iceland_base/command/chief)
@@ -22318,6 +24183,18 @@
 "xxh" = (
 /mob/living/simple_animal/hostile/latcher,
 /turf/open/floor/plating/dirt/dark,
+/area/iceland/underground/safe)
+"xxF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side,
+/area/iceland/underground/safe)
+"xAz" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor3-old"
+	},
+/turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 "xCI" = (
 /obj/item/candle/infinite{
@@ -22347,7 +24224,18 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"xFj" = (
+/obj/machinery/light/floor,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants/photosynthetic{
+	pixel_y = 10
+	},
+/turf/open/floor/plasteel/tech/grid,
 /area/iceland/underground/safe)
 "xGj" = (
 /obj/structure/flora/rock/pile/icy,
@@ -22358,6 +24246,16 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel/grid/steel,
+/area/iceland/underground/safe)
+"xIa" = (
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
 /area/iceland/underground/safe)
 "xIh" = (
 /obj/structure/flora/tree/splinter,
@@ -22379,12 +24277,18 @@
 "xMn" = (
 /obj/effect/turf_decal/techfloor/corners,
 /turf/open/floor/concrete/slab,
-/area/iceland/underground/safe)
+/area/iceland)
 "xMp" = (
 /obj/effect/turf_decal/techfloor{
 	dir = 1
 	},
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/concrete/slab,
+/area/iceland)
+"xMu" = (
+/obj/structure/filingcabinet,
+/turf/open/floor/plasteel/grid/steel,
 /area/iceland/underground/safe)
 "xMx" = (
 /obj/structure/spider/stickyweb,
@@ -22393,6 +24297,16 @@
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
+/area/iceland/underground/safe)
+"xMU" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/public/glass{
+	name = "Command Hallway"
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
 /area/iceland/underground/safe)
 "xOR" = (
 /turf/open/floor/plating/snowed,
@@ -22404,17 +24318,47 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"xRA" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
 "xTS" = (
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"xVC" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/turf/open/floor/concrete/slab,
+/area/iceland/underground/safe)
+"xVV" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/wall/r_wall,
+/area/iceland/underground/safe)
 "xXT" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"ydS" = (
+/obj/structure/bed,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor3-old"
+	},
+/turf/open/floor/plasteel/freezer,
+/area/iceland/underground/safe)
+"yeS" = (
+/obj/item/clothing/gloves/color/fyellow,
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "yfi" = (
 /obj/structure/flora/stump,
 /obj/structure/flora{
@@ -22445,6 +24389,17 @@
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
+"ylX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/iceland/underground/safe)
 
 (1,1,1) = {"
@@ -40155,8 +42110,8 @@ aTG
 aKJ
 aBp
 aCw
-aiV
-aJG
+aXS
+aWR
 avR
 avR
 avR
@@ -40412,13 +42367,13 @@ aTG
 aBp
 aZt
 azs
-aiV
-aJG
+aXS
+oli
+aZT
+aZT
 avR
-avR
-avR
-aru
-aiV
+ams
+abj
 azs
 aZt
 aKJ
@@ -40671,11 +42626,11 @@ aTG
 aCw
 aiV
 aJG
+aZT
+aZT
 avR
-avR
-avR
-aru
-aiV
+xxF
+aXS
 aGp
 arI
 aZt
@@ -40931,7 +42886,7 @@ aJG
 avR
 avR
 avR
-aru
+ams
 aiV
 aCw
 aCw
@@ -41160,11 +43115,11 @@ aiC
 aRu
 aCw
 aRC
-aZT
+awP
 aar
 afn
 avJ
-auG
+ual
 aCO
 abC
 aDI
@@ -41421,7 +43376,7 @@ aVk
 aKp
 aMX
 aPb
-aJn
+kdz
 asc
 anb
 aOI
@@ -41437,7 +43392,7 @@ ako
 ako
 aNh
 amy
-aiV
+aXS
 aFx
 afn
 acm
@@ -41678,9 +43633,9 @@ aJq
 aVf
 aPO
 adc
-aPb
+ryb
 axt
-aZY
+pRN
 aZY
 amb
 aEu
@@ -41692,8 +43647,8 @@ aiV
 aGV
 aiV
 aiV
-aiV
-aiV
+abj
+abj
 aiV
 aiV
 atc
@@ -41935,24 +43890,24 @@ afn
 afn
 afn
 azE
-aJn
+kdz
 apG
 aZE
 aZY
-aZY
+mcx
 apr
 aDb
 aDb
 azB
 aGV
+aXS
+aXS
+aXS
+aXS
+aXS
+aXS
 aiV
-aiV
-aiV
-aiV
-aiV
-aiV
-aiV
-aiV
+aXS
 atc
 aty
 aAv
@@ -42196,7 +44151,7 @@ ahi
 aXe
 aZY
 aUw
-aOI
+lJC
 aZY
 axs
 aDb
@@ -42227,7 +44182,7 @@ aCB
 aCW
 aCW
 aOG
-aOG
+myf
 aOG
 aBG
 aCw
@@ -42459,13 +44414,13 @@ aVL
 aDb
 afn
 aKO
-atq
+xaN
 aAv
 aRa
 atC
 atC
 aWx
-aiV
+bpX
 aMy
 afn
 aPX
@@ -42477,7 +44432,7 @@ aty
 aXa
 afn
 aee
-aee
+lHm
 aee
 afn
 aSx
@@ -42713,7 +44668,7 @@ ajk
 ajk
 axm
 aJV
-aiP
+aww
 afn
 afn
 afn
@@ -42739,8 +44694,8 @@ afn
 afn
 afn
 afn
-aCW
-aOG
+vev
+gGY
 obf
 kSP
 aZI
@@ -42960,7 +44915,7 @@ aRu
 aRu
 ajk
 avR
-avR
+aZT
 eKg
 aZT
 aZT
@@ -42968,8 +44923,8 @@ aqb
 aaF
 azR
 ajk
-aEY
-aur
+mKg
+ceZ
 alx
 afn
 aiw
@@ -42987,7 +44942,7 @@ aty
 aAv
 aAv
 aAv
-aty
+sNA
 aty
 awp
 aEb
@@ -42997,7 +44952,7 @@ gEO
 gEO
 atc
 aOG
-aOG
+gGY
 aZI
 aiV
 ePF
@@ -43216,22 +45171,22 @@ aiC
 aRu
 aRu
 ajk
-avR
-avR
-avR
+lgr
+aZT
+aZT
 aRA
 aKv
-aZT
 awP
-aZT
+awP
+vbn
 ajk
-aJG
-avR
+oLL
+rmk
 aFF
 afn
 aiw
 anv
-anv
+wzp
 amQ
 afn
 afn
@@ -43239,7 +45194,7 @@ afn
 afn
 aKR
 aty
-aty
+sNA
 aty
 aAv
 aAv
@@ -43248,13 +45203,13 @@ aty
 aty
 aty
 aEW
-afn
+owS
 aov
 aen
 qGv
 aRz
-aCW
 aOG
+gGY
 aZI
 aiV
 bbi
@@ -43476,20 +45431,20 @@ ajk
 vJN
 jmg
 brX
-avR
-avR
-aqb
+aZT
+aZT
 agA
+lXY
 aUs
 ajk
-aJG
-aur
+aWR
+fEq
 aFF
 ajk
 agl
-anv
-anv
-anv
+wzp
+iKm
+wzp
 aeN
 aCd
 aRi
@@ -43503,17 +45458,17 @@ aAv
 aAv
 ayl
 aty
-aty
+sNA
 aaI
 afn
 mRa
 aen
 mzO
 afn
-ayF
+hsy
 ayF
 aZI
-aiV
+mtL
 eWN
 aZI
 aRu
@@ -43740,13 +45695,13 @@ ajk
 ajk
 ajk
 aJG
-avR
+aWu
 aFF
 ajk
 adX
 axW
 anv
-anv
+wzp
 afn
 azf
 abZ
@@ -43996,8 +45951,8 @@ aZr
 ahx
 aAl
 ajk
-aEY
-avR
+mKg
+aWu
 aFF
 afn
 afn
@@ -44244,25 +46199,25 @@ aiC
 aRu
 aRu
 ajk
-aUG
+pZR
 aos
 aMH
-aXS
+abj
 aYF
 aOt
 aTv
-aUG
+tlo
 ajk
-aJG
-avR
+aWR
+aWu
 aZM
 ayS
-ayS
+cVi
 aao
 aao
 ayS
 ayS
-ayS
+alR
 ayS
 atc
 aAv
@@ -44280,14 +46235,14 @@ atc
 ayS
 ayS
 ayS
-ayS
-ayS
-ayS
-aPS
+cVi
+alR
+alR
+nSr
 afn
-aEd
-aEd
-aEd
+lKb
+owS
+xlh
 afn
 aRu
 aRu
@@ -44504,23 +46459,23 @@ ajk
 aUG
 aHe
 aHe
-aXS
+abj
 aiV
 avQ
 azd
 adQ
 ajk
-aJG
-aur
-avR
-aur
-avR
-avR
-avR
-aur
-avR
-avR
-avR
+oLL
+fEq
+aWu
+fEq
+rmk
+rmk
+rmk
+fEq
+aWu
+rmk
+aWu
 atc
 aAv
 aAv
@@ -44534,17 +46489,17 @@ aty
 aAv
 aAv
 atc
-avR
-avR
-avR
-avR
-avR
-avR
+aWu
+ahL
+ahL
+ahL
+ahL
+ahL
 aru
 ayD
-aEd
-aEd
-aEd
+owS
+kHu
+ozL
 afn
 aRu
 aRu
@@ -44761,22 +46716,22 @@ ajk
 ago
 aDq
 aVd
-aiV
+aXS
 aDX
 aha
 amw
 ago
 ajk
 aJG
-avR
+aWu
 auX
 aTy
 aTy
 aXL
 aTy
 aTy
-aTy
-aTy
+nyD
+uWh
 aTy
 atc
 aAv
@@ -44792,16 +46747,16 @@ aAv
 aAv
 atc
 aTy
-aTy
+nyD
 aTy
 agp
 auX
 aTy
 aBr
 afn
-aEd
-aEd
-aEd
+kuD
+kHu
+lmz
 afn
 aRu
 aRu
@@ -45040,10 +46995,10 @@ afn
 aBu
 aty
 aty
+sNA
 aty
 aty
-aty
-aty
+sNA
 aty
 aMR
 afn
@@ -45282,11 +47237,11 @@ aPE
 ahP
 ajk
 aJG
-avR
+aWu
 aru
 ajk
 aYe
-aYi
+pFo
 aSS
 alK
 aHk
@@ -45305,17 +47260,17 @@ air
 afn
 afn
 asC
-aiV
+aXS
 aiV
 ajk
 aJG
 aEd
 ajk
-aEd
-aEd
-aEd
-aEd
-afn
+aRu
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -45538,18 +47493,18 @@ acH
 aHe
 umN
 ajk
-aJG
-avR
+oLL
+rmk
 aFF
 ajk
-agE
+qXg
 arr
-aiV
-aJG
+aXS
+aWR
 aru
-aiV
+aXS
 aQW
-aYi
+ltW
 afn
 asC
 aiV
@@ -45562,17 +47517,17 @@ aZT
 aOF
 afn
 agE
-asn
-aiV
-aiV
-aJG
+puN
+aXS
+atc
+aWR
 aru
-ajk
-aEd
-aEd
-aEd
-aEd
-afn
+whs
+aRu
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -45796,17 +47751,17 @@ asS
 kvB
 ajk
 aJG
-avR
+rmk
 aru
 ajk
 aBd
-aRO
+hna
 ars
-aJG
+aWR
 aru
-aol
-asC
-aRO
+sTQ
+mjN
+iRM
 afn
 ayv
 avR
@@ -45819,17 +47774,17 @@ avR
 aEt
 afn
 aRO
-aiV
-arr
+abj
+cwC
 ajk
-aJG
-aru
+aWR
+ams
 ajk
-aEd
-aEd
-aEd
-aEd
-afn
+ajk
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -46053,19 +48008,19 @@ ajk
 ajk
 ajk
 aJG
-avR
+rmk
 aru
 ajk
 afn
 aRK
 aRK
 aJG
-aru
+qgX
+cGx
 ajk
 ajk
 ajk
-ajk
-aBd
+ltW
 aiV
 asC
 aRO
@@ -46076,17 +48031,17 @@ aUe
 aiZ
 afn
 aBd
-aak
+qWd
 aIY
 ajk
-aJG
-aZM
+aWR
+jIC
 aPS
 ajk
-aEd
-aEd
-aEd
-afn
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -46310,17 +48265,17 @@ aJI
 azj
 ajk
 aJG
-avR
+aWu
 aru
 ajk
 alH
 aRO
 aWA
-aJG
-aru
+aEa
+ams
 aol
 aRO
-aBd
+ltW
 ajk
 afn
 afn
@@ -46332,18 +48287,18 @@ afn
 afn
 afn
 afn
-ajk
-ajk
+cGx
+mpQ
 ajk
 ajk
 aEd
-avR
-aru
+aZT
+ams
 ajk
-aEd
-aEd
-aEd
-afn
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -46566,41 +48521,41 @@ acH
 aHe
 uQJ
 ajk
-aEY
-avR
-abD
+mKg
+aWu
+tXw
 ajk
-agE
-asn
+iIW
+jjB
 apJ
 aJG
-aru
+xxF
 aiV
 aCC
 aRP
 ajk
 auL
-aEd
+nQa
 qnw
+alR
+alR
 ayS
+vWU
+vWU
 ayS
-ayS
-ayS
-ayS
-ayS
-ayS
-aPS
-aiV
+aEd
+nSr
+pIy
 aLk
 ajk
 aJG
-avR
+aZT
 aru
-ajk
-aEd
-aEd
-aEd
-afn
+whs
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -46823,12 +48778,12 @@ ajk
 aXF
 aFH
 ajk
-aJG
+aWR
 aYF
 aru
 ajk
-aBd
-asC
+ltW
+mjN
 aWA
 aJG
 aru
@@ -46837,27 +48792,27 @@ aJz
 aYi
 ajk
 aIY
-aBd
-aJG
+ltW
+aWR
 auX
 aTy
 aTy
-aEd
-aTy
-aTy
+aEa
+nyD
+nyD
 agp
-aru
-aBd
+ams
+hoI
 aIY
 ajk
 aJG
-avR
+aZT
 aEd
 ajk
-aEd
-aEd
-aEd
-afn
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -47080,8 +49035,8 @@ ajk
 ajk
 ajk
 ajk
-aJG
-avR
+aWR
+rmk
 aru
 ajk
 aRK
@@ -47095,26 +49050,26 @@ ajk
 ajk
 auL
 aiV
-aJG
+aEa
 aru
 aiV
 auL
 aRz
 auL
 aiV
-aJG
-aru
-aiV
-auL
+oli
+ams
+aXS
+iDh
 ajk
-aEd
+aEa
 auX
 aBr
 ajk
-aEd
-aEd
-aEd
-afn
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -47337,14 +49292,14 @@ ajk
 akZ
 aSu
 ajk
-aJG
-avR
+aWR
+rmk
 ajS
 ajk
 aNX
 aRO
 aWA
-aJG
+aWR
 aru
 aEI
 aBd
@@ -47352,26 +49307,26 @@ aYi
 ajk
 aIY
 aRO
-aJG
+aWR
 aru
 aak
-aIY
+fMF
 ajk
-aIY
+wEM
 aRO
-aJG
-aru
+oli
+ams
 aak
-aIY
+xij
 ajk
-aJG
-aru
+oli
+ams
 ajk
-aEd
-aEd
-aEd
-aEd
-afn
+ajk
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -47595,40 +49550,40 @@ aUG
 umN
 ajk
 aJG
-avR
+aWu
 aru
 ajk
 aYi
 ace
 aiV
-aJG
+oli
 aru
-aiV
+aEd
 asn
 aRP
 ajk
 aMt
 aiV
-aJG
+aEa
 aru
 aiV
 aLk
 aRz
 aMt
 aiV
-aJG
-aru
-aiV
+baS
+xxF
+aEd
 snT
 ajk
-aJG
-aEd
-ajk
-aEd
-aEd
-aEd
-aEd
-afn
+oli
+aEa
+whs
+aRu
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -47852,40 +49807,40 @@ acs
 kvB
 ajk
 aUX
-avR
+aWu
 aEd
 ajk
 aak
-aIY
+syb
 azT
-aJG
-aru
-aol
-aak
+aWR
+ams
+sTQ
+qWd
 aRO
 ajk
 aIY
 asC
-aJG
+aWR
 aru
 aRO
 aIY
 ajk
 aIY
-asC
-aJG
-aru
+dmP
+oli
+ams
 aRO
 aIY
 ajk
 aJG
 aru
 ajk
-aEd
-aEd
-aEd
-aEd
-afn
+aRu
+aRu
+aRu
+aRu
+aRu
 aRu
 aRu
 aRu
@@ -48109,29 +50064,29 @@ ajk
 ajk
 ajk
 aJG
-avR
-aru
+aWu
+ams
 ajk
 ajk
 ajk
 ajk
 aup
+cpT
+ajk
+ajk
+ajk
+ajk
+ajk
+aRz
 aup
-ajk
-ajk
-ajk
-ajk
-ajk
-aRz
-aJG
-aru
+aup
 aRz
 ajk
 ajk
 ajk
 aRz
-aJG
-aru
+aup
+aup
 aRz
 ajk
 ajk
@@ -48354,7 +50309,7 @@ aTG
 aiC
 aiC
 aRu
-agz
+aad
 aSK
 alR
 ayS
@@ -48366,14 +50321,14 @@ ayS
 aNE
 acw
 aJG
-avR
-aZM
+aWu
+jIC
 atc
 ayS
 ayS
 ayS
-ajh
-aZM
+sDz
+jIC
 ayS
 ayS
 ayS
@@ -48384,18 +50339,18 @@ ajh
 aZM
 ayS
 aEd
+cVi
 ayS
-ayS
-ayS
-ajh
-aZM
-ayS
+alR
+sDz
+jIC
+alR
 ayS
 aEd
 ajh
 aZM
-ayS
-ayS
+alR
+alR
 ayS
 aad
 ojH
@@ -48611,7 +50566,7 @@ aKJ
 aiC
 aiC
 aRu
-agz
+aad
 aeY
 aWf
 auO
@@ -48624,37 +50579,37 @@ aZT
 aks
 aor
 alp
-avR
+aWu
 atc
-avR
-avR
-avR
-avR
-aEd
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-aEd
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-atw
+cwl
+ahL
+aWu
+ahL
+awD
+aWu
+ahL
+ahL
+aWu
+ahL
+ahL
+aWu
+ahL
+ahL
+aWu
+aWu
+aWu
+ahL
+ahL
+ahL
+aEa
+ahL
+ahL
+ahL
+aWu
+aWu
+aWu
+ahL
+aad
 aTq
 lZj
 aRu
@@ -48868,7 +50823,7 @@ aBp
 aiC
 aiC
 aRu
-agz
+aad
 arQ
 aXL
 aXL
@@ -48879,17 +50834,17 @@ aEd
 aWX
 apX
 atc
-aJG
-avR
-auX
+aWR
+rmk
+uGG
 atc
-aTy
-aTy
-aTy
+nyD
+uWh
+nyD
 aTy
 aTy
 aEd
-aTy
+nHz
 aTy
 abx
 agp
@@ -48897,21 +50852,21 @@ aEd
 auX
 aTy
 aTy
+nyD
+nyD
+aTy
+aEa
+xIa
 aTy
 aTy
-aTy
+nyD
+nyD
+nyD
+nyD
 aEd
+nHz
 aTy
-aTy
-aTy
-aTy
-aTy
-aTy
-aTy
-aEd
-aTy
-aTy
-agz
+aad
 iPH
 aeV
 aRu
@@ -49136,9 +51091,9 @@ aup
 ajk
 ajk
 ajk
-aJG
-avR
-aru
+aWR
+rmk
+ams
 ajk
 ajk
 ajk
@@ -49386,16 +51341,16 @@ aqL
 aqL
 ajk
 aDs
-alR
+vUR
 ayS
 alR
 ayS
 ahZ
 aBl
 ajk
-aJG
-avR
-aru
+oLL
+aWu
+ams
 aFN
 afn
 aIn
@@ -49405,21 +51360,21 @@ ads
 aeC
 aOo
 aZI
-aZN
+hPS
 aZN
 aZN
 aZN
 aZN
 aZI
-mcB
-mcB
-mcB
+ejq
+vkS
+eGO
 wyS
-rsS
+qeN
 ajk
 tId
+iHX
 jaN
-aFy
 ajk
 lUb
 lLf
@@ -49650,8 +51605,8 @@ aWu
 aWu
 ams
 ajk
-aJG
-avR
+aWR
+aWu
 aru
 apY
 afn
@@ -49668,15 +51623,15 @@ pBG
 pBG
 pBG
 aZI
+dEi
 rsS
-avR
-rsS
+jLq
 fsG
 mOZ
 ajk
 vYv
 hHH
-aFy
+iHX
 ajk
 aiV
 snj
@@ -49908,7 +51863,7 @@ amZ
 ams
 ajk
 aJG
-avR
+aWu
 ajS
 afn
 afn
@@ -49925,17 +51880,17 @@ pBG
 pBG
 pBG
 aZI
-rsS
-avR
-rsS
+btW
+aWu
+tSc
 ajk
 aRz
 ajk
-iHX
-iHX
+cQQ
 aFy
+lNQ
 lfp
-aiV
+kfe
 kgZ
 kgZ
 aiV
@@ -50165,7 +52120,7 @@ ahL
 ams
 ajk
 aJG
-avR
+aWu
 aru
 afn
 aaA
@@ -50183,17 +52138,17 @@ pBG
 pBG
 aZI
 rsS
-avR
+aWu
 mcB
 wyS
-rsS
+qeN
 ajk
-iHX
-iHX
+cQQ
 aFy
+iHX
 gBw
 aiV
-goK
+cwQ
 goK
 tXi
 azs
@@ -50439,18 +52394,18 @@ aZI
 aZI
 aZI
 aZI
-rsS
-avR
+pTZ
+aWu
 rsS
 fsG
 kCj
 ajk
 pOK
 hHH
-aFy
+iHX
 lfp
-aiV
-aiV
+gcl
+gcl
 aiV
 oot
 aZI
@@ -50679,7 +52634,7 @@ azw
 aSG
 ajk
 aJG
-avR
+aWu
 aru
 avN
 adp
@@ -50697,14 +52652,14 @@ txK
 aZI
 cyc
 rsS
-avR
-rsS
+aWu
+tSc
 ajk
 aRz
 ajk
 tHi
-pSe
-aFy
+iHX
+iHX
 ajk
 afn
 afn
@@ -50935,9 +52890,9 @@ ahN
 aIZ
 aUv
 ajk
-aJG
-avR
-aru
+oLL
+rmk
+ams
 ajk
 aPq
 aPu
@@ -50954,7 +52909,7 @@ juo
 osr
 mPZ
 rsS
-avR
+aWu
 mcB
 wyS
 oLM
@@ -51193,7 +53148,7 @@ ajk
 ajk
 ajk
 aJG
-avR
+aWu
 aru
 ajk
 axx
@@ -51210,18 +53165,18 @@ jjK
 juo
 osr
 mPZ
-xpl
-avR
+rsS
+aWu
 rsS
 fsG
 kCj
 ajk
-tsL
+myg
 tsL
 tsL
 lfp
 eYS
-eYS
+nqg
 wGU
 kgy
 azs
@@ -51467,14 +53422,14 @@ jIh
 hun
 aZI
 cGG
-rsS
-avR
-rsS
+vTE
+aWu
+bnU
 ajk
 aRz
 ajk
 tsL
-bpG
+hOP
 tsL
 jwA
 eYS
@@ -51707,7 +53662,7 @@ ajk
 ajk
 aEd
 ajh
-aur
+hLS
 aZM
 aPS
 ajk
@@ -51724,8 +53679,8 @@ aZI
 aZI
 aZI
 aZI
-rsS
-avR
+xpl
+aWu
 rsS
 rsS
 rsS
@@ -51964,13 +53919,13 @@ aDb
 aad
 aQD
 avR
-avR
+aWu
 avR
 aXt
 atc
 ayS
-ayS
-ayS
+oCq
+vUR
 aPS
 ajk
 aAT
@@ -51979,17 +53934,17 @@ aXP
 ayc
 aZI
 rsS
+qWg
 rsS
 rsS
-rsS
-avR
-avR
-avR
-rsS
+aWu
+aWu
+aWu
+dYS
 atc
 tsL
 bpG
-tsL
+kIR
 afn
 etq
 wGn
@@ -52218,16 +54173,16 @@ ahB
 aur
 aur
 akI
-atw
+aad
 afF
-avR
+rmk
 afj
-avR
-avR
-aks
-avR
-avR
-avR
+aWu
+rmk
+nSG
+aWu
+aWu
+rmk
 aru
 aRz
 ahg
@@ -52236,12 +54191,12 @@ avR
 avR
 ank
 rsS
-avR
-avR
-avR
-avR
-avR
-avR
+aWu
+aWu
+aWu
+aWu
+aWu
+aWu
 rsS
 atc
 tsL
@@ -52475,38 +54430,38 @@ aDb
 aXb
 aBF
 aBF
-agz
+aad
 ajx
-aTy
-aTy
+nyD
+uWh
 aXL
 aTy
 atc
 aTy
 agp
-avR
-aru
+rmk
+ams
 ajk
-axz
+gaC
 ahU
-aza
+wSi
 ajk
 aZI
 rsS
-avR
-avR
-avR
-avR
-avR
-avR
+aWu
+xAz
+nEJ
 rsS
-atc
+igQ
+rsS
+xhu
+aRz
 tsL
-bpG
+gWt
 tsL
 aRz
-mJr
-mJr
+diM
+mth
 mJr
 mJr
 aZI
@@ -52731,18 +54686,18 @@ ajk
 ajk
 ajk
 ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
+qoS
+aZI
+aZI
+aZI
+aZI
+aZI
+aZI
+aZI
+aZI
 aJG
-avR
-aru
+hmu
+ams
 ajk
 ayV
 aUC
@@ -52750,15 +54705,15 @@ apT
 alM
 aZI
 rsS
-avR
-avR
-avR
-avR
-avR
-avR
+aWu
+aWu
+aWu
 rsS
-aRz
-tsL
+rsS
+rsS
+iaE
+ajk
+kKO
 bpG
 tsL
 atc
@@ -52982,23 +54937,23 @@ aJX
 aRu
 aRu
 ajk
-aFi
-aXP
+avR
+rnC
 axz
-ahU
+ylX
 aza
 ajk
-ajk
-ajk
+aZI
+aZI
 aMC
 aVa
 ato
 aou
 aMC
-ajk
-ajk
+aZI
+aZI
 aJG
-avR
+aWu
 aru
 aRz
 ayV
@@ -53008,21 +54963,21 @@ aFy
 aZI
 rsS
 rsS
-mcB
-rsS
+xMu
+wzJ
 ilr
-rsS
-mcB
-rsS
+dwA
+wXQ
+rqO
 ajk
-tsL
-tsL
-tsL
+rwc
+mod
+ehH
 aRz
 oZi
+uBe
 oZi
-oZi
-oZi
+ydS
 aZI
 aVS
 aVS
@@ -53245,7 +55200,7 @@ ayV
 aUC
 apT
 alM
-ajk
+aZI
 aXA
 aMC
 azW
@@ -53253,9 +55208,9 @@ aES
 aUF
 aMC
 aXA
-ajk
-aJG
-avR
+aZI
+oLL
+aWu
 aru
 ajk
 aEd
@@ -53501,24 +55456,24 @@ avR
 ayV
 abz
 aKK
-aFy
-ajk
-aee
+dho
+aZI
+usv
 aMC
 aMC
 aMC
 aMC
 aMC
-aee
-ajk
+mvQ
+aZI
 aJG
-avR
+rmk
 aru
 ajk
-asZ
+gKu
 aer
 aQU
-aAM
+hyE
 ajk
 xGD
 nlf
@@ -53758,18 +55713,18 @@ avR
 aEd
 aQH
 ajc
-aFy
-ajk
+wYt
+aZI
+xFj
+rNY
+mDK
+bKx
+rNY
+rNY
 aXA
-aiV
-aiV
-aiV
-aiV
-aiV
-aXA
-ajk
+aZI
 aJG
-avR
+rmk
 aru
 aRz
 aHX
@@ -54015,18 +55970,18 @@ avR
 asZ
 aer
 aQU
-aAM
-ajk
-ajk
-aee
-aiV
-aiV
-aiV
-aee
-ajk
-ajk
+bXf
+aZI
+aZI
+bSF
+rNY
+eJy
+rNY
+cvR
+aZI
+aZI
 aJG
-avR
+rmk
 aru
 ajk
 aaQ
@@ -54269,22 +56224,22 @@ aRu
 ajk
 aAT
 auj
-aHX
+xpS
 ahR
 aKK
+aFy
 afQ
-aiV
-ajk
-ajk
+aZI
+jPd
 ajk
 asx
 ajk
-ajk
-ajk
+jPd
+aZI
 eJS
 ajh
-avR
-aru
+aWu
+qgX
 ajk
 aRz
 aCg
@@ -54297,11 +56252,11 @@ ajk
 ajk
 ajk
 ajk
-ajk
-ajk
-ajk
-ajk
-ajk
+aZI
+aZI
+aZI
+aZI
+aZI
 aVS
 aVS
 aVS
@@ -54524,41 +56479,41 @@ aiC
 aRu
 aRu
 ajk
-ahg
-aEd
+uxu
+pur
 aaQ
-aqw
+ulZ
 awD
-aLZ
-aiV
-ajk
-aiV
-aiV
+nyr
+aAM
+aZI
 aiV
 aiV
 aiV
-ajk
+aiV
+aXS
+aZI
 jKg
 agp
-avR
+aWu
 aZM
 ayS
+alR
+alR
 ayS
 ayS
+uIK
 ayS
 ayS
+alR
 ayS
-ayS
-ayS
-ayS
-ayS
-ayS
+alR
 aPS
 aZI
-avR
-avR
-avR
-ajk
+haL
+pYU
+lbB
+aZI
 aVS
 msH
 aVS
@@ -54785,38 +56740,38 @@ ajk
 ajk
 ajk
 aCg
+aRz
 ajk
-aCg
-ajk
-ajk
-aiV
+aZI
+aZI
+iQo
 aeo
 afG
 aTC
-aiV
-ajk
-ajk
-aJG
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-avR
-aru
+wZm
 aZI
-avR
-avR
-avR
+aZI
+aJG
+aWu
+aWu
+aWu
+oNI
+fRG
+rmk
+aWu
+aWu
+szv
+aWu
+aWu
+aWu
+rmk
+qDs
+lzv
+pCl
+aYx
+pCl
 aRz
-aVS
+mXx
 aVS
 mXP
 aVS
@@ -55037,42 +56992,42 @@ aJX
 aiC
 aad
 alG
+qAS
+ayS
+aao
 ayS
 ayS
 ayS
-ayS
-ayS
-ayS
-ayS
-ajk
+vUR
+aZI
 aTB
-aiV
+aXS
 byg
 jqs
 wBS
 aXS
 adJ
-ajk
+aZI
 aJG
-avR
+rmk
 auX
+smq
+cOy
+nyD
+nyD
+nyD
+nyD
 aTy
-aTy
-aTy
-aTy
-aTy
-aTy
-aTy
-aTy
+cOy
 aTy
 agp
 auX
 aBr
 aZI
-avR
-avR
-avR
-ajk
+cOm
+fnm
+pht
+aZI
 aVS
 aVS
 aVS
@@ -55293,25 +57248,25 @@ aJX
 aJX
 aJX
 aad
-afF
-avR
-avR
-avR
-avR
-avR
-avR
-avR
+jGc
+aWu
+aWu
+aWu
+aWu
+rmk
+rmk
+aWu
 aho
+aXS
+aXS
 aXS
 aiV
 aiV
-aiV
-aiV
-aiV
+uHO
 aiV
 aho
 aJG
-avR
+aWu
 aru
 ajk
 ajk
@@ -55326,11 +57281,11 @@ aup
 aup
 aRz
 aZI
-avR
-avR
-avR
+aYx
+pCl
+bSz
 aRz
-msH
+pDj
 ppS
 aVS
 aVS
@@ -55552,23 +57507,23 @@ aJX
 aad
 ajx
 agp
-avR
+hLS
 auX
+nyD
 aTy
 aTy
 aTy
-aTy
-ajk
-akp
-aiV
-aiV
-aiV
-aiV
-aCC
-atY
-ajk
+aZI
+rna
+aXS
+abj
+vhM
+abj
+vIh
+jTf
+aZI
 aJG
-avR
+aWu
 aru
 ajk
 aiV
@@ -55580,13 +57535,13 @@ aiV
 aZI
 syD
 rPm
-rPm
+jII
 bLS
 aZI
-avR
-avR
-avR
-ajk
+oct
+pCl
+qnD
+aZI
 aVS
 aVS
 ppS
@@ -55808,24 +57763,24 @@ aJX
 aJX
 auC
 ajk
-aEd
-avR
-aru
+qrl
+aWu
+ams
 ajk
 ajk
 ajk
 ajk
-ajk
+aZI
 xev
 lSJ
 aOd
 egA
-egA
-egA
+xRA
+xRA
 ohw
-afn
+aZI
 aJG
-avR
+rmk
 aru
 ajk
 aiV
@@ -55836,15 +57791,15 @@ aiV
 aiV
 aRz
 qiy
-rPm
-rPm
+jII
+cSM
 mWF
 aZI
-avR
-avR
-avR
+dlE
+pCl
+pya
 aRz
-aVS
+mXx
 aVS
 aVS
 aVS
@@ -56065,24 +58020,24 @@ aJX
 aJX
 aRu
 ajk
-aJG
-avR
-aru
+aEY
+aWu
+ams
 ajk
 aqL
 aqL
 aqL
 aZI
+cmD
+mAv
+mAv
+mAv
+mAv
+mAv
+cmD
 aZI
-aeS
-aeS
-aeS
-aeS
-aeS
-aZI
-aZI
-aJG
-avR
+oLL
+rmk
 aru
 lCX
 aiV
@@ -56094,13 +58049,13 @@ aiV
 aZI
 uZw
 rPm
-rPm
+aYx
 bGA
 aZI
-avR
-avR
-avR
-ajk
+pLO
+gtY
+mlw
+aZI
 aRu
 aRu
 aRu
@@ -56323,7 +58278,7 @@ aJX
 aRu
 ajk
 aJG
-avR
+aWu
 aru
 ajk
 aqL
@@ -56332,15 +58287,15 @@ aZI
 aZI
 aBy
 aBy
+miJ
 aBy
-aBy
-aBy
+miJ
 aBy
 aBy
 aZI
 uBW
-avR
-aru
+rmk
+cZt
 ajk
 aiV
 aiV
@@ -56355,7 +58310,7 @@ aup
 aRz
 aZI
 aZI
-aZI
+xVV
 aZI
 aZI
 aZI
@@ -56578,9 +58533,9 @@ abv
 abv
 aJX
 aRu
-ajk
-aJG
-avR
+whs
+aWR
+saL
 aru
 ajk
 aZI
@@ -56593,32 +58548,32 @@ aBy
 aBy
 aBy
 aBy
-aBy
-aRz
+miJ
+mAv
 ltV
-avR
+rmk
 aru
 ajk
-aiV
+qTO
 iPG
 aiV
 aZI
+unD
+oJT
+yeS
+kNJ
+rWR
+dGl
 fnm
 fnm
+lWj
+fnm
+kNJ
+jPb
 fnm
 fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
+oJT
+jPb
 fnm
 aZI
 aRu
@@ -56835,9 +58790,9 @@ aJX
 aJX
 aJX
 aRu
-ajk
-aJG
-avR
+cGx
+aWR
+aWu
 aEd
 aZI
 aZI
@@ -56852,30 +58807,30 @@ aBy
 aBy
 aBy
 aZI
-lnI
-auX
+kXa
+uGG
 aBr
 ajk
 jBV
 jBV
 jBV
 aZI
+pJc
+fnm
+pCl
+jGF
+fnm
+pCl
+nxy
 fnm
 fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
+rdA
+kYp
+pCl
+wie
+pCl
+fmy
+aYx
 fnm
 aZI
 aRu
@@ -57094,7 +59049,7 @@ aJX
 aRu
 ajk
 aJG
-avR
+aWu
 aru
 aZI
 aZI
@@ -57109,28 +59064,28 @@ aBy
 aBy
 aBy
 aZI
-aJG
-aru
+aWR
+ams
 aZI
 aZI
 aRz
 aRz
 aRz
 aZI
+kWU
+oIa
 fnm
 fnm
+nqF
+bsq
 fnm
 fnm
+jPb
 fnm
 fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
+pCl
+pCl
+kNJ
 fnm
 fnm
 fnm
@@ -57350,10 +59305,10 @@ aJX
 aJX
 aRu
 ajk
-aJG
-avR
+oLL
+aWu
 iOa
-aZI
+cmD
 aBy
 aBy
 aBy
@@ -57365,35 +59320,35 @@ aBy
 aBy
 aBy
 aBy
-aZI
+cmD
 uBW
 aru
 aZI
+oJT
+jPb
+fnm
+bsq
+fnm
+tVf
+dpo
+fnm
+bsq
+kfP
+fnm
+pCl
+fnm
+pCl
+rdA
+igG
+oIa
+pCl
+lCk
+fnm
+bsq
 fnm
 fnm
 fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
+bpb
 fnm
 fnm
 aZI
@@ -57610,7 +59565,7 @@ ajk
 aJG
 aEd
 cUL
-aRz
+mAv
 aBy
 aBy
 aBy
@@ -57621,36 +59576,36 @@ auf
 auf
 auf
 aBy
-aBy
-aRz
+miJ
+mAv
 ltV
-aru
+qgX
 aZI
 xMn
+nch
+rrA
+rrA
+rrA
+ebp
+rrA
+rrA
+rrA
+rrA
+wyn
+rrA
+tCQ
+rrA
+fXc
+rrA
+ebp
+rrA
+rrA
+rrA
+rrA
+rrA
+khY
 cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
-cEJ
+rrA
 cEJ
 pPb
 aZI
@@ -57864,11 +59819,11 @@ aJX
 aJX
 aRu
 cGx
-aJG
-avR
+aWR
+aWu
 cUL
-aRz
-aBy
+mAv
+miJ
 aBy
 aBy
 aBy
@@ -58121,10 +60076,10 @@ aJX
 aJX
 aRu
 ajk
-aJG
-avR
+aWR
+aWu
 cUL
-aRz
+mAv
 aBy
 aBy
 aBy
@@ -58166,7 +60121,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -58377,12 +60332,12 @@ aJX
 aJX
 aJX
 aRu
-ajk
+whs
 aJG
-avR
+rmk
 cUL
-aRz
-aBy
+mAv
+miJ
 aBy
 aBy
 aBy
@@ -58397,7 +60352,7 @@ aZI
 uBW
 aru
 aZI
-hyj
+rbq
 lFT
 lFT
 lFT
@@ -58423,7 +60378,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+pAZ
 aZI
 aRu
 "}
@@ -58636,9 +60591,9 @@ aJX
 aRu
 ajk
 aJG
-avR
+rmk
 cUL
-aRz
+mAv
 aBy
 aBy
 aBy
@@ -58649,9 +60604,9 @@ auf
 auf
 auf
 aBy
-aBy
-aRz
-ltV
+miJ
+mAv
+taq
 aru
 aZI
 hyj
@@ -58680,7 +60635,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -58893,9 +60848,9 @@ aiC
 aRu
 ajk
 aJG
-avR
+aWu
 cFV
-aZI
+cmD
 aBy
 aBy
 aBy
@@ -58907,7 +60862,7 @@ aBy
 aBy
 aBy
 aBy
-aZI
+cmD
 lnI
 aru
 aZI
@@ -58937,7 +60892,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+mNB
 aZI
 aRu
 "}
@@ -59149,9 +61104,9 @@ aiC
 aiC
 aRu
 ajk
-aJG
-avR
-aru
+oLL
+aWu
+ams
 aZI
 aZI
 aBy
@@ -59166,7 +61121,7 @@ aBy
 aBy
 aZI
 aJG
-aru
+ams
 aZI
 hyj
 lFT
@@ -59194,7 +61149,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -59407,7 +61362,7 @@ aiC
 aRu
 ajk
 aEd
-avR
+aWu
 aru
 asO
 aZI
@@ -59423,7 +61378,7 @@ aBy
 aBy
 aZI
 uBW
-aru
+ams
 aZI
 hyj
 lFT
@@ -59451,7 +61406,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -59664,7 +61619,7 @@ aiC
 aRu
 ajk
 aJG
-avR
+aWu
 aru
 atj
 aZI
@@ -59677,10 +61632,10 @@ aBy
 aBy
 aBy
 aBy
-aBy
-aRz
+miJ
+mAv
 ltV
-aru
+qgX
 aZI
 hyj
 lFT
@@ -59708,7 +61663,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+lQM
 aZI
 aRu
 "}
@@ -59930,16 +61885,16 @@ aZI
 aZI
 aBy
 aBy
+miJ
 aBy
-aBy
-aBy
+miJ
 aBy
 aBy
 aZI
-aJG
+lnI
 aru
 aZI
-hyj
+rbq
 lFT
 lFT
 lFT
@@ -59965,7 +61920,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -60177,26 +62132,26 @@ aiC
 aiC
 aRu
 ajk
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
+dZW
+tdu
+bBL
+kpA
+rWY
+pCO
+pCO
 aZI
-aZI
+cmD
 axD
 axD
 axD
 axD
 axD
-aZI
+cmD
 aZI
 aJG
 aru
 aZI
-hyj
+whT
 lFT
 lFT
 lFT
@@ -60222,7 +62177,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+lQM
 aZI
 aRu
 "}
@@ -60434,9 +62389,9 @@ aiC
 aiC
 aRu
 ajk
-aBc
-aBc
-aBc
+eef
+tdu
+snt
 aBc
 aBc
 aBc
@@ -60450,7 +62405,7 @@ dPm
 dPm
 nIJ
 ajk
-aJG
+aWR
 aru
 aZI
 hyj
@@ -60479,7 +62434,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -60691,24 +62646,24 @@ aiC
 aiC
 aRu
 ajk
+wDa
 aBc
+seF
 aBc
+ukD
+bbI
+bbI
+xMU
 aBc
-aBc
-aBc
-aBc
+pWh
+gvd
+pWh
+pWh
+pWh
 aBc
 ajW
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-aBc
-ajW
-aJG
-aru
+aWR
+ams
 aZI
 hyj
 lFT
@@ -60736,7 +62691,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -60948,24 +62903,24 @@ aJX
 aiC
 aRu
 ajk
+xeU
+tdu
 aBc
 aBc
-aBc
-aBc
-aBc
+thc
 abr
 adk
 ajk
 aBc
-aqV
+dIb
 ald
 ayn
 aqV
-aqV
+dIb
 aph
 ajk
-aJG
-aru
+oli
+ams
 aZI
 hyj
 lFT
@@ -60993,7 +62948,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -61205,11 +63160,11 @@ aJX
 aiC
 aRu
 ajk
+mae
 aBc
 aBc
 aBc
-aBc
-aBc
+thc
 abr
 abr
 ajk
@@ -61221,7 +63176,7 @@ ajk
 ajk
 ajk
 ajk
-aup
+cpT
 aup
 aZI
 hyj
@@ -61250,7 +63205,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+mNB
 aZI
 aRu
 "}
@@ -61462,24 +63417,24 @@ aJX
 aJX
 aRu
 ajk
+ajk
+ajk
+ajk
 aBc
-aBc
-aBc
-aBc
-aBc
+okv
 abr
 abr
 ajk
 fnm
-jPb
-jPb
-jPb
+rPm
+rPm
+rPm
 fnm
 ajk
+rHZ
+brx
 fnm
-fnm
-fnm
-fnm
+jPb
 aZI
 hyj
 lFT
@@ -61507,7 +63462,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -61718,27 +63673,27 @@ abv
 aJX
 aJX
 aRu
+aRu
+aRu
+aRu
 ajk
 aBc
 aBc
 aBc
 aBc
-aBc
-aBc
-aBc
 ajk
+wsh
+rPm
+rPm
+rPm
 fnm
-jPb
-jPb
-jPb
+aYx
+pCl
 fnm
 fnm
-fnm
-fnm
-fnm
-fnm
+oHw
 aZI
-hyj
+qvr
 lFT
 lFT
 lFT
@@ -61764,7 +63719,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -61975,27 +63930,27 @@ abv
 aJX
 aiC
 aRu
+aRu
+aRu
+aRu
 ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
-ajk
+gHD
+aBc
+aBc
+aBc
 ajk
 fnm
-jPb
-jPb
-jPb
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
+rPm
+rPm
+rPm
+pCl
+sGb
+pCl
+aYx
+pCl
+pCl
 aZI
-hyj
+rbq
 lFT
 lFT
 lFT
@@ -62021,7 +63976,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -62235,22 +64190,22 @@ aRu
 aRu
 aRu
 aRu
-aRu
-aRu
-aRu
-aRu
-aRu
 ajk
+ajk
+ajk
+ajk
+ajk
+ajk
+kOj
+rPm
+rPm
+rPm
+pCl
+pCl
 fnm
-jPb
-jPb
-jPb
 fnm
 fnm
-fnm
-fnm
-fnm
-fnm
+fCF
 aZI
 hyj
 lFT
@@ -62278,7 +64233,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -62499,15 +64454,15 @@ aDj
 aRu
 ajk
 fnm
-jPb
-jPb
-jPb
+rPm
+rPm
+rPm
 fnm
 ajk
-fnm
-fnm
-fnm
-fnm
+rHZ
+eOo
+vVF
+xVC
 aZI
 hyj
 lFT
@@ -62535,7 +64490,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+mNB
 aZI
 aRu
 "}
@@ -62757,8 +64712,8 @@ aRu
 ajk
 fnm
 myZ
-myZ
-fnm
+lnn
+pCl
 fnm
 ajk
 ajk
@@ -62792,7 +64747,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -63015,7 +64970,7 @@ ajk
 fnm
 tXT
 tXT
-fnm
+pCl
 fnm
 fnm
 fnm
@@ -63023,7 +64978,7 @@ fnm
 fnm
 fnm
 aZI
-hyj
+rbq
 lFT
 lFT
 lFT
@@ -63049,7 +65004,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -63306,7 +65261,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -63526,7 +65481,7 @@ aiC
 aiC
 aRu
 ajk
-fnm
+kOj
 jPb
 jPb
 pCf
@@ -63535,7 +65490,7 @@ jPb
 cZr
 jPb
 jPb
-cZr
+tiq
 aZI
 hyj
 lFT
@@ -63563,7 +65518,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+mNB
 aZI
 aRu
 "}
@@ -63794,7 +65749,7 @@ jPb
 jPb
 cZr
 aZI
-hyj
+rbq
 lFT
 lFT
 lFT
@@ -63820,7 +65775,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -64043,8 +65998,8 @@ ajk
 fnm
 jPb
 jPb
-rQh
-jPb
+mcU
+aYx
 jPb
 rQh
 jPb
@@ -64077,7 +66032,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -64295,20 +66250,20 @@ aCP
 aCP
 aJX
 aJX
-aRu
+ajk
 ajk
 fnm
 jPb
 jPb
 jPb
-jPb
+aYx
 jPb
 jPb
 jPb
 jPb
 jPb
 aZI
-hyj
+qvr
 lFT
 lFT
 lFT
@@ -64334,7 +66289,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+mNB
 aZI
 aRu
 "}
@@ -64552,15 +66507,15 @@ aCP
 aCP
 aCP
 aJX
-aRu
 ajk
+eJS
 fnm
 jPb
 jPb
 jPb
 jPb
-jPb
-jPb
+aYx
+aYx
 jPb
 jPb
 jPb
@@ -64591,7 +66546,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -64809,20 +66764,20 @@ aCP
 aCP
 aCP
 aJX
-aRu
 ajk
+oLL
 fnm
 jPb
 jPb
 jPb
 jPb
+aYx
+aYx
 jPb
 jPb
-jPb
-jPb
-jPb
+fCF
 aZI
-hyj
+rbq
 lFT
 lFT
 lFT
@@ -64848,7 +66803,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -65066,15 +67021,15 @@ aCP
 aCP
 aCP
 aJX
-aRu
 ajk
-fnm
+jKg
+pCl
 jPb
 jPb
+aYx
+aYx
 jPb
-jPb
-jPb
-jPb
+aYx
 jPb
 jPb
 jPb
@@ -65105,7 +67060,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -65323,20 +67278,20 @@ aCP
 aCP
 aCP
 aJX
-aRu
 ajk
-fnm
+ajk
+pCl
 jPb
 jPb
-jPb
-jPb
+aYx
+aYx
 jPb
 jPb
 jPb
 jPb
 jPb
 aZI
-hyj
+rbq
 lFT
 lFT
 lFT
@@ -65362,7 +67317,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+mNB
 aZI
 aRu
 "}
@@ -65582,7 +67537,7 @@ aCP
 aJX
 aRu
 ajk
-fnm
+pCl
 jPb
 jPb
 rOW
@@ -65619,7 +67574,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -65847,7 +67802,7 @@ jPb
 jPb
 lwx
 jPb
-jPb
+aYx
 kcC
 aZI
 hyj
@@ -65876,7 +67831,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -66096,16 +68051,16 @@ aCP
 aJX
 aRu
 ajk
-fnm
+wsh
 jPb
-jPb
-cZr
-jPb
+aYx
+nxO
+aYx
 jPb
 lwx
 jPb
-jPb
-kcC
+aYx
+wDo
 aZI
 hyj
 lFT
@@ -66133,7 +68088,7 @@ lFT
 lFT
 lFT
 lFT
-xMp
+bMg
 aZI
 aRu
 "}
@@ -66368,6 +68323,12 @@ nsg
 lUd
 lUd
 lUd
+eKn
+lUd
+lUd
+lUd
+lUd
+eKn
 lUd
 lUd
 lUd
@@ -66375,18 +68336,12 @@ lUd
 lUd
 lUd
 lUd
+eKn
 lUd
 lUd
 lUd
 lUd
-lUd
-lUd
-lUd
-lUd
-lUd
-lUd
-lUd
-lUd
+fDq
 lUd
 lUd
 lUd
@@ -66872,13 +68827,13 @@ aRu
 aRu
 aRu
 aRu
-aRu
 aCw
 uQl
 kFB
 aeG
 aMV
 aCw
+aRu
 aRu
 aRu
 aRu
@@ -67129,13 +69084,13 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aCw
 ahu
 auR
 jPb
 agO
 aCw
+aJy
 aJy
 aJy
 aJy
@@ -67382,7 +69337,6 @@ aJX
 aJX
 aJX
 aJy
-aJy
 aCw
 aCw
 aCw
@@ -67393,6 +69347,7 @@ axO
 jPb
 aVK
 aCw
+aJy
 aJy
 aJy
 aJy
@@ -67639,7 +69594,6 @@ aJX
 aJX
 aiC
 aJy
-aJy
 aCw
 anE
 aeD
@@ -67650,6 +69604,7 @@ aDd
 anG
 aVK
 aTG
+aJy
 aJy
 aJy
 aJy
@@ -67896,7 +69851,6 @@ aJX
 aiC
 aiC
 aJy
-aJy
 aCw
 and
 aXr
@@ -67910,6 +69864,7 @@ aTG
 aTG
 aTG
 aJy
+aTG
 aJy
 aTG
 aTG
@@ -68153,7 +70108,6 @@ aJX
 aJX
 aiC
 aJy
-aJy
 aCw
 aVB
 aEd
@@ -68167,6 +70121,7 @@ aTG
 aHj
 aTG
 axN
+aTG
 aTG
 aTG
 aKJ
@@ -68410,7 +70365,6 @@ aJX
 aJX
 aiC
 aJy
-aJy
 aCw
 aCw
 aYC
@@ -68424,6 +70378,7 @@ aCw
 aTG
 aTG
 anY
+aTG
 aTG
 aTG
 aKJ
@@ -68667,7 +70622,6 @@ aJX
 aJy
 aJy
 aJy
-aJy
 aCw
 aWE
 auj
@@ -68681,6 +70635,7 @@ aVO
 aTG
 aHj
 arh
+aKJ
 aTG
 aKJ
 pZw
@@ -68924,7 +70879,6 @@ aJX
 aJy
 aJy
 aJy
-aJy
 aCw
 aWm
 oIj
@@ -68938,6 +70892,7 @@ aVO
 aHK
 aTG
 anY
+aTG
 aTG
 aTG
 pZw
@@ -69181,7 +71136,6 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aCw
 avb
 aHg
@@ -69195,6 +71149,7 @@ aVK
 aHK
 aTG
 aCH
+aTG
 aTG
 aTG
 aae
@@ -69438,7 +71393,6 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aCw
 aBZ
 ocB
@@ -69452,6 +71406,7 @@ aCw
 aHK
 aTG
 arh
+aae
 aTG
 aae
 aae
@@ -69695,7 +71650,6 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aCw
 atK
 agK
@@ -69710,6 +71664,7 @@ ark
 aTG
 anY
 aAo
+aTG
 ivK
 aTG
 aTG
@@ -69952,7 +71907,6 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aCw
 aZX
 aEd
@@ -69967,6 +71921,7 @@ aNl
 azX
 aTO
 aTG
+ivK
 aTG
 anM
 anM
@@ -70209,7 +72164,6 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aCw
 aiF
 aEd
@@ -70223,6 +72177,7 @@ azC
 aHj
 aTG
 anY
+aTG
 aBp
 aTG
 anM
@@ -70466,7 +72421,6 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aCw
 ahI
 avq
@@ -70480,6 +72434,7 @@ aCw
 aoN
 aoN
 aeB
+aBp
 aBp
 aBp
 aTG
@@ -70729,7 +72684,6 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aby
 aae
 aTG
@@ -70737,6 +72691,7 @@ aTG
 aae
 aTG
 vzC
+aBp
 vzC
 aBp
 pZw
@@ -70986,7 +72941,6 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aby
 aTG
 aBp
@@ -70994,6 +72948,7 @@ asD
 aBp
 aKJ
 aKJ
+atM
 aKJ
 atM
 arI
@@ -71242,7 +73197,6 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aae
 aby
 aae
@@ -71251,6 +73205,7 @@ aTG
 aTG
 aBp
 aTG
+aBp
 aBp
 aBp
 aBp
@@ -71498,13 +73453,13 @@ aJy
 aJy
 aJy
 aJy
-aJy
 aTG
 aTG
 abV
 aqS
 aqS
 aqS
+sYp
 sYp
 sYp
 sYp
@@ -82486,6 +84441,7 @@ aax
 aZI
 aZI
 fnm
+oJT
 fnm
 fnm
 fnm
@@ -82493,8 +84449,7 @@ fnm
 fnm
 fnm
 fnm
-fnm
-fnm
+oJT
 fnm
 aZI
 aZI
@@ -82998,8 +84953,8 @@ aqL
 aax
 aZI
 aZI
+kOj
 fnm
-fnm
 jPb
 jPb
 jPb
@@ -83010,7 +84965,7 @@ jPb
 jPb
 jPb
 fnm
-fnm
+oHw
 aZI
 aZI
 aiC
@@ -83516,11 +85471,11 @@ fnm
 jPb
 jPb
 jPb
-jPb
+ePH
 acU
 acU
 acU
-jPb
+ePH
 jPb
 jPb
 jPb
@@ -84544,11 +86499,11 @@ fnm
 jPb
 jPb
 jPb
-jPb
+ePH
 acU
 acU
 acU
-jPb
+ePH
 jPb
 jPb
 jPb
@@ -85054,8 +87009,8 @@ aqL
 aax
 aZI
 aZI
+kOj
 fnm
-fnm
 jPb
 jPb
 jPb
@@ -85066,7 +87021,7 @@ jPb
 jPb
 jPb
 fnm
-fnm
+oHw
 aZI
 aZI
 aax
@@ -85828,13 +87783,13 @@ aZI
 rPm
 rPm
 rPm
+cVj
 rPm
 rPm
 rPm
 rPm
 rPm
-rPm
-rPm
+cVj
 rPm
 rPm
 rPm
@@ -86342,13 +88297,13 @@ aZI
 aBc
 aBc
 afn
-fnm
+ofJ
 eJM
 wns
 wns
 wns
 wns
-fnm
+ofJ
 ajk
 ayO
 akD
@@ -86596,7 +88551,7 @@ aqL
 aqL
 aax
 aZI
-aBc
+ntu
 aBc
 ajW
 fnm
@@ -86856,7 +88811,7 @@ aZI
 abr
 adk
 afn
-fnm
+tSF
 sPt
 sPt
 lPD
@@ -87112,15 +89067,15 @@ aax
 aZI
 abr
 abr
-afn
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-fnm
-ajk
+aZI
+aZI
+aZI
+aZI
+aZI
+aZI
+aZI
+aZI
+aZI
 axd
 aLx
 aZI
@@ -87370,13 +89325,13 @@ aZI
 aZI
 aZI
 aZI
-aZI
-aZI
-aZI
-aZI
-aZI
-aZI
-aZI
+aax
+aax
+aax
+aax
+aax
+aax
+aax
 aZI
 aZI
 aZI
