@@ -726,8 +726,6 @@
 	. = ..()
 	if(closeOtherId)
 		. += "<span_class='warning'>This airlock cycles on ID: [sanitize(closeOtherId)].</span>"
-	else if(!closeOtherId)
-		. += "<span class='warning'>This airlock does not cycle.</span>"
 	if(obj_flags & EMAGGED)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 	if(charge && !panel_open && in_range(user, src))
