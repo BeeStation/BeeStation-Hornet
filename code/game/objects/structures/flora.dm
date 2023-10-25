@@ -103,6 +103,12 @@
 	icon_state = "tree_1"
 	zmm_flags = ZMM_WIDE_LOAD
 
+/obj/structure/flora/tree/dead/gore
+	icon = 'icons/obj/flora/goretrees.dmi'
+	desc = "A dead tree, splattered with blood and gibs."
+	icon_state = "tree_1"
+	zmm_flags = ZMM_WIDE_LOAD
+
 /obj/structure/flora/tree/palm
 	icon = 'icons/misc/beach2.dmi'
 	desc = "A tree straight from the tropics."

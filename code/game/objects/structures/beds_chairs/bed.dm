@@ -104,6 +104,10 @@
 	//Set them back down to the normal lying position
 	M.pixel_y = M.base_pixel_y + M.body_position_pixel_y_offset
 
+/obj/structure/bed/roller/bloody
+	name = "blood soaked roller bed"
+	icon = 'icons/obj/beds_chairs/rollerblood.dmi'
+
 //Dog bed
 
 /obj/structure/bed/dogbed
