@@ -397,7 +397,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	var/turf/temp = get_turf(src)
 	while(temp && (isspaceturf(temp) || temp == get_turf(src)))
 		valid_turfs["[temp.z]"] = temp
-		temp = temp.above()
+		temp = GET_TURF_ABOVE(temp)
 
 	var/list/targets = list()
 	for(var/turf_z as() in valid_turfs)

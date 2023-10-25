@@ -108,6 +108,8 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/healall,
 	/client/proc/spawn_floor_cluwne,
 	/client/proc/spawnhuman,
+	/client/proc/removestationlatejoining,
+	/client/proc/enableicelandlatejoining,
 	/client/proc/generateArchimundi
 	))
 GLOBAL_PROTECT(admin_verbs_fun)

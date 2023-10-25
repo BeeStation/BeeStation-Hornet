@@ -19156,6 +19156,14 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/iceland/underground/safe)
+"brb" = (
+/obj/structure/splinter_wall,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "brX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mob_spawn/human/corpse/cargo_tech,
@@ -19248,6 +19256,10 @@
 /turf/open/floor/plasteel/dark{
 	heat_capacity = 1e+006
 	},
+/area/iceland/underground/safe)
+"cDT" = (
+/obj/structure/grave,
+/turf/open/floor/plating/asteroid/snow,
 /area/iceland/underground/safe)
 "cFV" = (
 /obj/structure/railing/corner{
@@ -19512,6 +19524,15 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"euT" = (
+/obj/effect/decal/cleanable/generic,
+/obj/structure/splinter_wall,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "evi" = (
 /mob/living/simple_animal/hostile/latcher,
 /turf/open/floor/plating/asteroid/snow,
@@ -19520,6 +19541,15 @@
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor2-old"
 	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"eyv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/aetherial_spawner,
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
 	icon_state = "snow_dug";
@@ -19793,6 +19823,15 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"gVN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/splinter_wall,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "haY" = (
 /obj/machinery/button/crematorium/indestructible{
 	id = "DoorPuzzle"
@@ -19846,6 +19885,14 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
+/area/iceland/underground/safe)
+"hId" = (
+/mob/living/simple_animal/hostile/poison/giant_spider/ice,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
 /area/iceland/underground/safe)
 "hKO" = (
 /obj/effect/turf_decal/weather/snow,
@@ -20031,6 +20078,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
+"jtP" = (
+/obj/structure/splinter_wall,
+/obj/structure/splinter_wall,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "jun" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/sharp,
@@ -20318,6 +20370,15 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"lzO" = (
+/obj/effect/decal/cleanable/glass{
+	dir = 1
+	},
+/obj/structure/closet/crate/engineering,
+/obj/item/circuitboard/machine/techfab/department/engineering,
+/obj/item/circuitboard/machine/circuit_imprinter/department,
+/turf/open/floor/plating,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "lAc" = (
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
 	dir = 8
@@ -20577,6 +20638,14 @@
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/splinter_bush,
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland/underground/safe)
+"mYj" = (
+/mob/living/simple_animal/hostile/bear/snow,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
 /area/iceland/underground/safe)
 "nlf" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning{
@@ -20853,12 +20922,27 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/iceland/underground/safe)
+"pPZ" = (
+/obj/structure/flora/rock/pile/icy,
+/obj/structure/splinter_wall,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "pQh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/item/clothing/gloves/color/fyellow/old,
 /turf/open/floor/engine/light,
+/area/iceland/underground/safe)
+"pQp" = (
+/obj/structure/iceland_beacon{
+	gps = Distressbeacon
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
 /area/iceland/underground/safe)
 "pRs" = (
 /obj/structure/flora/rock/pile/icy,
@@ -20882,6 +20966,14 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/gate/lpost_n)
+"pYm" = (
+/obj/item/ammo_casing/shotgun/buckshot,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "pZw" = (
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
@@ -21107,6 +21199,14 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"sHV" = (
+/obj/structure/spider/cocoon,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "sPt" = (
 /obj/structure/chair{
 	dir = 8
@@ -21305,6 +21405,15 @@
 /area/iceland/underground/safe{
 	outdoors = s
 	})
+"udC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/up,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "ueo" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/ruin/unpowered/iceland/abandoned_chembase)
@@ -21518,6 +21627,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland/underground/safe)
+"vKs" = (
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "vPv" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -21589,6 +21707,14 @@
 "wuj" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
+/area/iceland/underground/safe)
+"wyC" = (
+/obj/effect/decal/cleanable/blood/rune,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
 /area/iceland/underground/safe)
 "wyS" = (
 /obj/structure/window/reinforced{
@@ -21678,6 +21804,22 @@
 /mob/living/simple_animal/hostile/latcher,
 /turf/open/floor/plating/dirt/dark,
 /area/iceland/underground/safe)
+"xCr" = (
+/obj/item/flashlight/flare/torch{
+	light_on = 1
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
+"xEG" = (
+/obj/structure/iceland_beacon{
+	gps = MedicalPostTheta
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "xEY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
