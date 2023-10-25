@@ -42,7 +42,7 @@
 
 /mob/living/carbon/human/species/twistedmen
 	race = /datum/species/twistedmen
-	faction = list("hostile", "twisted")
+	faction = list("twisted")
 
 /mob/living/carbon/human/species/twistedmen/Initialize()
 	..()
