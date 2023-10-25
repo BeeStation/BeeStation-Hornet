@@ -21,6 +21,9 @@
 	var/obj/item/organ/ears/ears
 	var/obj/item/organ/tongue/tongue
 
+	/// Do we show the information about missing organs upon being examined? Defaults to TRUE, useful for Dullahan heads.
+	var/show_organs_on_examine = TRUE
+
 	//Limb appearance info:
 	var/real_name = "" //Replacement name
 	//Hair colour and style
@@ -65,7 +68,7 @@
 
 /obj/item/bodypart/head/examine(mob/user)
 	. = ..()
-	if(IS_ORGANIC_LIMB(src))
+	if(IS_ORGANIC_LIMB(src) && show_organs_on_examine)
 		if(!brain)
 			. += "<span class='info'>The brain has been removed from [src].</span>"
 		else if(brain.suicided || brainmob?.suiciding)
@@ -187,7 +190,7 @@
 	..()
 
 /obj/item/bodypart/head/update_icon_dropped()
-	var/list/standing = get_limb_icon(1)
+	var/list/standing = get_limb_icon(TRUE)
 	if(!standing.len)
 		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
 		return

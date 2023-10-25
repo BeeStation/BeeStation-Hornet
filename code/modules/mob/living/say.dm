@@ -176,11 +176,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			log_talk(message, LOG_SAY, forced_by = forced, custom_say_emote = message_mods[MODE_CUSTOM_SAY_EMOTE])
 
 	message = treat_message(message) // unfortunately we still need this
-	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
-	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
-		message = uppertext(message)
-	if(!message)
-		return
 
 	spans |= speech_span
 
@@ -201,6 +196,17 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		// radios don't pick up whispers very well
 		radio_message = stars(radio_message)
 		spans |= SPAN_ITALICS
+
+	var/list/speech_arguments = args + message_range
+	// Leaving this here so that anything that handles speech this way will be able to have spans affecting it and all that.
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, speech_arguments)
+	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
+		message = uppertext(message)
+	if(!message)
+		if(succumbed)
+			succumb()
+		return
+
 	var/radio_return = radio(radio_message, message_mods, spans, language)
 	if(radio_return & ITALICS)
 		spans |= SPAN_ITALICS

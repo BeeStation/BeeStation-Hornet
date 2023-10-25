@@ -1,5 +1,9 @@
 /mob/living/Login()
 	..()
+
+	//if(ishuman())
+	//qdel_list_wrapperdna?.species?.on_owner_login(src)
+
 	//Mind updates
 	sync_mind()
 	mind.show_memory(src, 0)
