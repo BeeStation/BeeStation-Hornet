@@ -534,8 +534,8 @@
 /obj/machinery/power/emitter/ctf
 	name = "Energy Cannon"
 	active = TRUE
-	active_power_usage = FALSE
-	idle_power_usage = FALSE
+	active_power_usage = 0
+	idle_power_usage = 0
 	locked = TRUE
 	req_access_txt = "100"
 	welded = TRUE
