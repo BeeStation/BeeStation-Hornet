@@ -94,7 +94,6 @@
 		data["name"] = easy_access_sect.name
 		data["desc"] = easy_access_sect.desc
 		data["quote"] = easy_access_sect.quote
-		data["req"] = easy_access_sect.sect_requirements
 		data["alignment"] = easy_access_sect.alignment
 		data["icon"] = easy_access_sect.tgui_icon
 		data["favordesc"] = easy_access_sect.tool_examine(user)
@@ -129,16 +128,6 @@
 		return
 	if(!user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
 		to_chat(user, "<span class='warning'>You cannot select a sect at this time.</span>")
-		return
-	var/mob/living/carbon/human/testsubject
-	var/datum/religion_sect/pathed = path
-	if(user == testsubject)
-		if(testsubject.dna.species.id == pathed.req_species)
-			pathed.starter = TRUE
-			pathed.sect_requirements = "Unlocked"//////////////////////////////// work on this path shit ugh
-			to_chat(user,"<span class='big notice'>Congratulations, you've unlocked [pathed.name]!</span>")
-	if(!pathed.starter)
-		to_chat(user, "<span class='warning'>You cannot select this sect until you complete its requirements.</span>")
 		return
 	if(GLOB.religious_sect)
 		return
@@ -197,7 +186,6 @@
 		var/datum/religion_sect/not_a_real_instance_rs = path
 		sect["name"] = initial(not_a_real_instance_rs.name)
 		sect["desc"] = initial(not_a_real_instance_rs.desc)
-		sect["req"] = initial(not_a_real_instance_rs.sect_requirements)
 		sect["alignment"] = initial(not_a_real_instance_rs.alignment)
 		sect["quote"] = initial(not_a_real_instance_rs.quote)
 		sect["icon"] = initial(not_a_real_instance_rs.tgui_icon)

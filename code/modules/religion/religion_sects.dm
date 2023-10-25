@@ -22,10 +22,6 @@
 	var/starter = TRUE
 	/// species traits that block you from picking
 	var/invalidating_qualities = NONE
-	/// Sect Unlock Requirements
-	var/sect_requirements = "No unlock requirements"
-	/// Sect Species Requirements (Use species.id)
-	var/req_species = "Unlocked"
 	/// The Sect's 'Mana'
 	var/favor = 0 //MANA!
 	/// The max amount of favor the sect can have
@@ -49,15 +45,17 @@
 	/// Whether the altar of the gods is anchored
 	var/altar_anchored = TRUE
 
+/datum/religion_sect/proc/is_available(mob/user)
+    return TRUE // basically all available
 
-/datum/religion_sect/New(atom/religious_tool, mob/living/creator)
+/datum/religion_sect/New()
 	. = ..()
 	if(desired_items)
 		desired_items_typecache = typecacheof(desired_items)
-	on_select(religious_tool, creator)
+	on_select()
 
 /// Activates once selected
-/datum/religion_sect/proc/on_select(atom/religious_tool, mob/living/user)
+/datum/religion_sect/proc/on_select()
 	SHOULD_CALL_PARENT(TRUE)
 	SSblackbox.record_feedback("text", "sect_chosen", 1, name)
 
@@ -320,8 +318,6 @@
 	name = "Shadow"
 	desc = "A sect dedicated to the darkness. The altar and manifested obelisks will generate favor from being in darkness."
 	quote = "Turn out the lights, and let the darkness cover the world!"
-	sect_requirements = "Unlock this by becoming a Shadow Person"
-	req_species = "shadow"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
 	favor = 100 //Starts off with enough favor to make an obelisk
@@ -332,6 +328,11 @@
 	var/light_reach = 1
 	var/light_power = 0
 	var/list/obelisks = list()
+
+/datum/religion_sect/shadow/is_available(mob/user)
+    if(!isshadow(user))
+        return FALSE
+    return TRUE
 
 //Shadow bibles don't heal or do anything special apart from the standard holy water blessings
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
