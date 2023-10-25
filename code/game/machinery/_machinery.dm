@@ -195,11 +195,11 @@ Class Procs:
  * does not affect power usage itself
  */
 /obj/machinery/proc/setup_area_power_relationship()
-	become_area_sensitive(INNATE_TRAIT)
-
 	var/area/our_area = get_area(src)
 	if(our_area)
 		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
+
+	become_area_sensitive(INNATE_TRAIT)
 	RegisterSignal(src, COMSIG_ENTER_AREA, PROC_REF(on_enter_area))
 	RegisterSignal(src, COMSIG_EXIT_AREA, PROC_REF(on_exit_area))
 
@@ -243,20 +243,6 @@ Class Procs:
 /obj/machinery/proc/end_processing()
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(subsystem, src)
-
-/obj/machinery/LateInitialize()
-	. = ..()
-	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
-
-/obj/machinery/Destroy()
-	GLOB.machines.Remove(src)
-	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
-		end_processing()
-	dump_inventory_contents()
-	QDEL_LIST(component_parts)
-	QDEL_NULL(circuit)
-	return ..()
 
 /obj/machinery/proc/locate_machinery()
 	return
