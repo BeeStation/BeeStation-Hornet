@@ -372,12 +372,13 @@
 	C.dna.species.bodytype = all_limb_flags
 
 //Regenerates all limbs. Returns amount of limbs regenerated
-/mob/living/proc/regenerate_limbs(noheal, excluded_limbs)
-	return 0
+/mob/living/proc/regenerate_limbs(noheal = FALSE, list/excluded_limbs = list())
+	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, noheal, excluded_limbs)
 
-/mob/living/carbon/regenerate_limbs(noheal, list/excluded_limbs)
+/mob/living/carbon/regenerate_limbs(noheal = FALSE, list/excluded_limbs = list())
+	. = ..()
 	var/list/limb_list = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
-	if(excluded_limbs)
+	if(length(excluded_limbs))
 		limb_list -= excluded_limbs
 	for(var/Z in limb_list)
 		. += regenerate_limb(Z, noheal)

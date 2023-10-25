@@ -13,6 +13,8 @@
 #define COMSIG_LIVING_ELECTROCUTE_ACT "living_electrocute_act"
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
+//from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
+#define COMSIG_LIVING_REGENERATE_LIMBS "living_regen_limbs"
 ///from base of mob/living/set_buckled(): (new_buckled)
 #define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"			//! sent by stuff like stunbatons and tasers: ()

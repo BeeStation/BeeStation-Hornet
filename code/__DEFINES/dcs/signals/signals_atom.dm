@@ -124,6 +124,7 @@
 ///! called when teleporting into a protected turf: (channel, turf/origin)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"
 	#define COMPONENT_BLOCK_TELEPORT 1
+#define COMSIG_ATOM_HEARER_IN_VIEW "atom_hearer_in_view" //called when an atom is added to the hearers on get_hearers_in_view(): (list/processing_list, list/hearers)
 ///called when an atom starts orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 /// called when an atom stops orbiting another atom: (atom)
@@ -164,7 +165,8 @@
 
 /////////////////
 #define COMSIG_CLICK "atom_click"								//! from base of atom/Click(): (location, control, params, mob/user)
-#define COMSIG_CLICK_SHIFT "shift_click"						//! from base of atom/ShiftClick(): (/mob)
+#define COMSIG_CLICK_SHIFT "shift_click"						//from base of atom/ShiftClick(): (/mob)
+	#define COMPONENT_ALLOW_EXAMINATE 1 //Allows the user to examinate regardless of client.eye.
 #define COMSIG_CLICK_CTRL "ctrl_click"							//! from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_ALT "alt_click"							//! from base of atom/AltClick(): (/mob)
 	#define COMPONENT_INTERCEPT_ALT 1
