@@ -97,11 +97,11 @@
 			accesses -= get_region_accesses(region)
 			. = TRUE
 		if("passedName")
-			var/new_name = trim("[params["passedName"]]", 30)
+			var/new_name = trim(sanitize("[params["passedName"]]"), 30)
 			passed_name = new_name
 			. = TRUE
 		if("passedCycleId")
-			var/new_cycle_id = trim(params["passedCycleId"], 30)
+			var/new_cycle_id = trim(sanitize(params["passedCycleId"]), 30)
 			passed_cycle_id = new_cycle_id
 			. = TRUE
 
