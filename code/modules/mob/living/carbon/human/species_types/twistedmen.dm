@@ -43,6 +43,7 @@
 /mob/living/carbon/human/species/twistedmen
 	race = /datum/species/twistedmen
 	faction = list("twisted")
+	pass_flags = PASSBLOB //so they can pass through splinter walls
 
 /mob/living/carbon/human/species/twistedmen/Initialize()
 	..()
