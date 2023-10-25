@@ -122,7 +122,7 @@
 
 /mob/living/simple_animal/bot/firebot/on_emag(atom/target, mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
@@ -158,7 +158,7 @@
 /mob/living/simple_animal/bot/firebot/proc/is_burning(atom/target)
 	if(ismob(target))
 		var/mob/living/M = target
-		if(M.on_fire || (emagged == 2 && !M.on_fire))
+		if(M.on_fire || (emagged && !M.on_fire))
 			return TRUE
 
 	else if(isturf(target))
@@ -206,7 +206,7 @@
 		old_target_fire = target_fire
 
 	// Target reached ENGAGE WATER CANNON
-	if(target_fire && (get_dist(src, target_fire) <= (emagged == 2 ? 1 : 2))) // Make the bot spray water from afar when not emagged
+	if(target_fire && (get_dist(src, target_fire) <= (emagged ? 1 : 2))) // Make the bot spray water from afar when not emagged
 		if((speech_cooldown + SPEECH_INTERVAL) < world.time)
 			if(ishuman(target_fire))
 				speak("Stop, drop and roll!")

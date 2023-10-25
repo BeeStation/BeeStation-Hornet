@@ -238,7 +238,7 @@
 	R.anchored = FALSE
 	R.notransform = FALSE
 	R.update_icons()
-	R.notify_ai(NEW_MODULE)
+	R.notify_ai(AI_NOTIFICATION_NEW_MODEL)
 	if(R.hud_used)
 		R.hud_used.update_robot_modules_display()
 	SSblackbox.record_feedback("tally", "cyborg_modules", 1, R.module)

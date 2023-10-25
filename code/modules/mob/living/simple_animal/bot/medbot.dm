@@ -219,15 +219,16 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/on_emag(atom/target, mob/user)
 	..()
-	if(emagged == 2)
-		declare_crit = 0
-		if(user)
-			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
-		flick("medibot_spark", src)
-		playsound(src, "sparks", 75, TRUE)
-		if(user)
-			oldpatient = user
+	if(!emagged)
+		return
+	declare_crit = FALSE
+	if(user)
+		to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
+	audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+	flick("medibot_spark", src)
+	playsound(src, "sparks", 75, SHORT_RANGE_SOUND_EXTRARANGE)
+	if(user)
+		oldpatient = user
 
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -427,8 +428,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(istype(C.dna.species, /datum/species/ipc))
 		return FALSE
 
-	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
-		return TRUE
+	if(emagged) //Everyone needs our medicine. (Our medicine is toxins)
 
 	if(HAS_TRAIT(C,TRAIT_MEDIBOTCOMINGTHROUGH) && !HAS_TRAIT_FROM(C,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)) //someone is healing them already sweetie
 		return FALSE
@@ -530,7 +530,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		else if(C.getToxLoss() >= heal_threshold)
 			treatment_method = TOX
 
-		if(!treatment_method && emagged != 2) //If they don't need any of that they're probably cured!
+		if(!treatment_method && !emagged) //If they don't need any of that they're probably cured!
 			if(C.maxHealth - C.health < heal_threshold)
 				to_chat(src, "<span class='notice'>[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 5] for oxygen damage.)</span>")
 			var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
@@ -551,7 +551,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 						healies *= 1.5
 					if(treatment_method == TOX && HAS_TRAIT(patient, TRAIT_TOXINLOVER))
 						healies *= -1.5
-					if(emagged == 2)
+					if(emagged)
 						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
 						patient.apply_damage_type((healies*1),treatment_method)
 						log_combat(src, patient, "pretended to tend wounds on", "internal tools", "([uppertext(treatment_method)]) (EMAGGED)")

@@ -175,7 +175,7 @@
 				Robot.undeploy() // disconnect any AI shells first
 			if(Robot.mmi)
 				qdel(Robot.mmi)
-			Robot.notify_ai(NEW_BORG)
+			Robot.notify_ai(AI_NOTIFICATION_NEW_BORG)
 	else
 		for(var/obj/item/W in contents)
 			if(!M.dropItemToGround(W))

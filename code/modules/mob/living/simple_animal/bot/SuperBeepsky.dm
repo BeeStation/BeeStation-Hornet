@@ -5,9 +5,8 @@
 	icon_state = "grievous"
 	health = 150
 	maxHealth = 150
-	baton_type = /obj/item/melee/transforming/energy/sword/saber
+	weapon = /obj/item/melee/transforming/energy/sword/saber
 	base_speed = 4 //he's a fast fucker
-	var/obj/item/weapon
 	var/block_chance = 50
 	noloot = FALSE
 
@@ -17,7 +16,7 @@
 	desc = "An adorable looking secbot with four toy swords taped to its arms"
 	health = 50
 	maxHealth = 50
-	baton_type = /obj/item/toy/sword
+	weapon = /obj/item/toy/sword
 
 /mob/living/simple_animal/bot/secbot/grievous/nullcrate
 	name = "General Griefsky"
@@ -44,8 +43,8 @@
 
 /mob/living/simple_animal/bot/secbot/grievous/Initialize(mapload)
 	. = ..()
-	weapon = new baton_type(src)
-	weapon.attack_self(src)
+	weapon = new weapon(src)
+	INVOKE_ASYNC(weapon, /obj/item.proc/attack_self, src)
 
 /mob/living/simple_animal/bot/secbot/grievous/Destroy()
 	QDEL_NULL(weapon)
@@ -111,7 +110,7 @@
 
 /mob/living/simple_animal/bot/secbot/grievous/look_for_perp()
 	anchored = FALSE
-	var/judgment_criteria = judgment_criteria()
+	var/judgement_criteria = judgement_criteria()
 	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
@@ -119,7 +118,7 @@
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		threatlevel = C.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
+		threatlevel = C.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 
 		if(!threatlevel)
 			continue
@@ -157,6 +156,6 @@
 	do_sparks(3, TRUE, src)
 	if(!noloot)
 		for(var/IS = 0 to 4)
-			drop_part(baton_type, Tsec)
+			drop_part(weapon, Tsec)
 	new /obj/effect/decal/cleanable/oil(Tsec)
 	qdel(src)

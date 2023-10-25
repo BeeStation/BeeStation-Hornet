@@ -6,7 +6,7 @@
 	var/preferred_form = null
 
 	if(IsAdminGhost(src))
-		has_unlimited_silicon_privilege = 1
+		has_unlimited_silicon_privilege = TRUE
 
 	if(client.prefs.unlock_content)
 		preferred_form = client.prefs.read_player_preference(/datum/preference/choiced/ghost_form)

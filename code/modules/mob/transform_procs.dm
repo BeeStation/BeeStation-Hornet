@@ -547,7 +547,7 @@
 			R.mmi.brainmob.name = real_name
 
 	R.job = JOB_NAME_CYBORG
-	R.notify_ai(NEW_BORG)
+	R.notify_ai(AI_NOTIFICATION_NEW_BORG)
 
 	. = R
 	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))

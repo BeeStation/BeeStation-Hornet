@@ -304,7 +304,7 @@
 				to_chat(user, "<span class='notice'>You add the [I] to [src]! Honk!</span>")
 				var/mob/living/simple_animal/bot/honkbot/S = new(drop_location())
 				S.name = created_name
-				S.spam_flag = TRUE // only long enough to hear the first ping.
+				S.limiting_spam = TRUE // only long enough to hear the first ping.
 				addtimer(CALLBACK (S, TYPE_PROC_REF(/mob/living/simple_animal/bot/honkbot, react_ping)), 5)
 				S.bikehorn = I.type
 				qdel(I)
@@ -378,7 +378,7 @@
 				to_chat(user, "<span class='notice'>You complete the Securitron! Beep boop.</span>")
 				var/mob/living/simple_animal/bot/secbot/S = new(Tsec)
 				S.name = created_name
-				S.baton_type = I.type
+				S.weapon = I.type
 				S.robot_arm = robot_arm
 				qdel(I)
 				qdel(src)

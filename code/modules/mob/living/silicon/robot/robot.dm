@@ -920,15 +920,15 @@
 	if(!connected_ai)
 		return
 	switch(notifytype)
-		if(NEW_BORG) //New Cyborg
+		if(AI_NOTIFICATION_NEW_BORG) //New Cyborg
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='?src=[REF(connected_ai)];track=[html_encode(name)]'>[name]</a></span><br>")
-		if(NEW_MODULE) //New Module
+		if(AI_NOTIFICATION_NEW_MODEL) //New Model
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>")
-		if(RENAME) //New Name
+		if(AI_NOTIFICATION_CYBORG_RENAMED) //New Name
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>")
-		if(AI_SHELL) //New Shell
+		if(AI_NOTIFICATION_AI_SHELL) //New Shell
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg shell detected: <a href='?src=[REF(connected_ai)];track=[html_encode(name)]'>[name]</a></span><br>")
-		if(DISCONNECT) //Tampering with the wires
+		if(AI_NOTIFICATION_CYBORG_DISCONNECTED) //Tampering with the wires
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Remote telemetry lost with [name].</span><br>")
 
 /mob/living/silicon/robot/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
@@ -1030,14 +1030,14 @@
 			builtInCamera.toggle_cam(src,0)
 		if(admin_revive)
 			locked = TRUE
-		notify_ai(NEW_BORG)
+		notify_ai(AI_NOTIFICATION_NEW_BORG)
 		wires.ui_update()
 		. = 1
 
 /mob/living/silicon/robot/fully_replace_character_name(oldname, newname)
 	..()
 	if(oldname != real_name)
-		notify_ai(RENAME, oldname, newname)
+		notify_ai(AI_NOTIFICATION_CYBORG_RENAMED, oldname, newname)
 	if(!QDELETED(builtInCamera))
 		builtInCamera.c_tag = real_name
 		modularInterface.saved_identification = real_name
