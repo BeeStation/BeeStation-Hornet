@@ -1,0 +1,5 @@
+author: Rkz, AlinaStarkova
+delete-after: true
+changes:
+  - rscadd: Adds new mapping helper for multi-directional airlock cycelinks. Changed
+      three airlocks on Meta as a proof-of-concept.
