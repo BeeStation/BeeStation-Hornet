@@ -142,3 +142,5 @@
 			var/turf/below = locate(below_bottom_left.x + x, below_bottom_left.y + y, below_bottom_left.z)
 			var/turf/above = locate(above_bottom_left.x + x, above_bottom_left.y + y, above_bottom_left.z)
 			above.link_below(below)
+
+

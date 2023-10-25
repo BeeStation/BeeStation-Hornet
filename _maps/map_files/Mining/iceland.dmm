@@ -530,7 +530,15 @@
 /obj/structure/stairs{
 	dir = 4
 	},
-/turf/closed/indestructible/rock/snow,
+/obj/effect/mapping_helpers/virtual_z_helper{
+	width = 1;
+	height = 2;
+	id = 1;
+	above = 0
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
 /area/iceland/underground/safe)
 "abs" = (
 /obj/machinery/door/poddoor/shutters/indestructible,
@@ -1266,7 +1274,9 @@
 /obj/structure/stairs{
 	dir = 4
 	},
-/turf/closed/indestructible/rock/snow,
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
 /area/iceland/underground/safe)
 "adl" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/oxygen_output,
@@ -19712,6 +19722,17 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/underground/safe)
+"ghC" = (
+/obj/effect/mapping_helpers/virtual_z_helper{
+	width = 1;
+	height = 2;
+	id = 1
+	},
+/obj/structure/stairs{
+	dir = 4
+	},
+/turf/open/openspace,
+/area/iceland/underground/safe)
 "goK" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -19760,6 +19781,12 @@
 	slowdown = 1
 	},
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"gJF" = (
+/obj/structure/stairs{
+	dir = 4
+	},
+/turf/open/openspace,
+/area/iceland/underground/safe)
 "gPW" = (
 /obj/effect/turf_decal/weather/snow{
 	pixel_y = -1
@@ -20011,6 +20038,14 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
+/area/iceland/underground/safe)
+"jna" = (
+/obj/structure/stairs{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	heat_capacity = 1e+006
+	},
 /area/iceland/underground/safe)
 "jqs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -60013,8 +60048,8 @@ aBc
 aBc
 aBc
 aBc
-abr
-adk
+aBc
+aBc
 ajk
 aBc
 aqV
@@ -60270,8 +60305,8 @@ aBc
 aBc
 aBc
 aBc
-abr
-abr
+gJF
+ghC
 ajk
 ajk
 ajk
@@ -60527,8 +60562,8 @@ aBc
 aBc
 aBc
 aBc
-abr
-abr
+jna
+jna
 ajk
 fnm
 jPb
@@ -85898,7 +85933,7 @@ aqL
 aqL
 aax
 aZI
-abr
+jna
 adk
 afn
 fnm
@@ -86155,7 +86190,7 @@ aqL
 aqL
 aax
 aZI
-abr
+jna
 abr
 afn
 fnm

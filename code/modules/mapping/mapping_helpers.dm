@@ -321,3 +321,23 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	. = ..()
 	var/area/A = get_area(get_turf(src))
 	A.color_correction = color_correction
+
+/obj/effect/mapping_helpers/virtual_z_helper
+	name = "Virtual Z helper"
+	icon_state = "color_correction"
+	late = TRUE
+	var/width
+	var/height
+	var/id
+	var/above = TRUE
+
+/obj/effect/mapping_helpers/virtual_z_helper/LateInitialize()
+	GLOB.virtual_z_helpers += src
+	for(var/obj/effect/mapping_helpers/virtual_z_helper/V as() in GLOB.virtual_z_helpers)
+		if((id == V.id) && (src != V))
+			if(above)
+				link_region(get_turf(V),get_turf(src),width,height)
+			else
+				link_region(get_turf(src),get_turf(V),width,height)
+			qdel(V)
+			qdel(src)
