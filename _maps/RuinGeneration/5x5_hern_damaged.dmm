@@ -16,12 +16,12 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "y" = (
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "A" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "D" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plasteel,
@@ -30,7 +30,7 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "V" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "W" = (

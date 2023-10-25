@@ -305,7 +305,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //TOXLOSS = 4
 //OXYLOSS = 8
 //Output a creative message and then return the damagetype done
-/obj/item/proc/suicide_act(mob/user)
+/obj/item/proc/suicide_act(mob/living/user)
 	return
 
 /obj/item/set_greyscale(list/colors, new_config, new_worn_config, new_inhand_left, new_inhand_right)

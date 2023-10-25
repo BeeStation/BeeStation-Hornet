@@ -66,7 +66,6 @@
 	var/aiDisabledIdScanner = FALSE
 	var/aiHacking = FALSE
 	var/closeOtherId //Cyclelinking for airlocks that aren't on the same x or y coord as the target.
-	var/obj/machinery/door/airlock/closeOther
 	var/list/obj/machinery/door/airlock/close_others = list()
 	var/justzap = FALSE
 	var/obj/item/electronics/airlock/electronics
@@ -120,9 +119,6 @@
 	wires = set_wires(wire_security_level)
 	if(frequency)
 		set_frequency(frequency)
-
-	if(closeOtherId != null)
-		addtimer(CALLBACK(PROC_REF(update_other_id)), 5)
 	if(glass)
 		airlock_material = "glass"
 	if(security_level > AIRLOCK_SECURITY_IRON)
@@ -149,6 +145,8 @@
 	. = ..()
 	if (cyclelinkeddir)
 		cyclelinkairlock()
+	if(closeOtherId)
+		update_other_id()
 	if(abandoned)
 		var/outcome = rand(1,100)
 		switch(outcome)
@@ -391,7 +389,7 @@
 		update_icon()
 
 /obj/machinery/door/airlock/Bumped(atom/movable/AM)
-	if(operating || (obj_flags & EMAGGED))
+	if(operating)
 		return
 	if(ismecha(AM))
 		var/obj/mecha/mecha = AM
@@ -435,7 +433,7 @@
 				if(otherlock.operating)
 					otherlock.delayed_close_requested = TRUE
 				else
-					addtimer(CALLBACK(otherlock, .proc/close), 2)
+					addtimer(CALLBACK(otherlock, PROC_REF(close)), 2)
 	if(cyclelinkedairlock)
 		if(!shuttledocked && !emergency && !cyclelinkedairlock.shuttledocked && !cyclelinkedairlock.emergency && allowed(user))
 			if(cyclelinkedairlock.operating)
@@ -508,19 +506,20 @@
 	ui_update()
 	update_icon()
 
-/obj/machinery/door/airlock/proc/loseMainPower()
-	if(secondsMainPowerLost <= 0)
+/obj/machinery/door/airlock/proc/loseMainPower(emagged_powerloss)
+	if(emagged_powerloss)
+		secondsMainPowerLost = 36000 //Ten hours, effectively indefinite - may be reset by power cycling the airlock with a multitool or wirecutters
+		secondsBackupPowerLost = 36000
+	else
 		secondsMainPowerLost = 60
-		if(secondsBackupPowerLost < 10)
-			secondsBackupPowerLost = 10
+		secondsBackupPowerLost = clamp(10, secondsBackupPowerLost, 60)
 	if(!spawnPowerRestoreRunning)
 		spawnPowerRestoreRunning = TRUE
 		handlePowerRestoreLoop()
 	update_icon()
 
 /obj/machinery/door/airlock/proc/loseBackupPower()
-	if(secondsBackupPowerLost < 60)
-		secondsBackupPowerLost = 60
+	secondsBackupPowerLost = 60
 	if(!spawnPowerRestoreRunning)
 		spawnPowerRestoreRunning = TRUE
 		handlePowerRestoreLoop()
@@ -777,9 +776,6 @@
 			return
 		else
 			to_chat(user, "<span class='warning'>Airlock AI control has been blocked with a firewall. Unable to hack.</span>")
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>Unable to interface: Airlock is unresponsive.</span>")
-		return
 	if(detonated)
 		to_chat(user, "<span class='warning'>Unable to interface. Airlock control panel damaged.</span>")
 		return
@@ -1066,8 +1062,6 @@
 		if(!panel_open || security_level)
 			to_chat(user, "<span class='warning'>The maintenance panel must be open to apply [C]!</span>")
 			return
-		if(obj_flags & EMAGGED)
-			return
 		if(charge && !detonated)
 			to_chat(user, "<span class='warning'>There's already a charge hooked up to this door!</span>")
 			return
@@ -1170,7 +1164,7 @@
 		charge.forceMove(get_turf(user))
 		charge = null
 		return
-	if(!security_level && (beingcrowbarred && panel_open && ((obj_flags & EMAGGED) || (density && welded && !operating && !hasPower() && !locked))))
+	if(!security_level && (beingcrowbarred && panel_open && (density && welded && !operating && !hasPower() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
 		if(I.use_tool(src, user, 40, volume=100))
@@ -1189,7 +1183,7 @@
 		INVOKE_ASYNC(src, (density ? PROC_REF(open) : PROC_REF(close)), 2)
 
 
-/obj/machinery/door/airlock/open(forced=0, ignore_emagged = FALSE)
+/obj/machinery/door/airlock/open(forced=0)
 	if( operating || welded || locked )
 		return FALSE
 	if(!forced)
@@ -1210,13 +1204,9 @@
 			H.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
 		return
 	if(forced < 2)
-		if(!ignore_emagged && (obj_flags & EMAGGED))
-			return FALSE
 		if(!protected_door)
 			use_power(50)
 		playsound(src, doorOpen, 30, 1)
-		if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
-			closeOther.close()
 	else
 		playsound(src, 'sound/machines/airlockforced.ogg', 30, TRUE)
 
@@ -1262,8 +1252,6 @@
 				return
 
 	if(forced < 2)
-		if(obj_flags & EMAGGED)
-			return
 		if(!protected_door)
 			use_power(50)
 		playsound(src, doorClose, 30, TRUE)
@@ -1305,8 +1293,6 @@
 	return TRUE
 
 /obj/machinery/door/airlock/proc/prison_open()
-	if(obj_flags & EMAGGED)
-		return
 	locked = FALSE
 	open()
 	locked = TRUE
@@ -1348,9 +1334,8 @@
 //Airlock is passable if it is open (!density), bot has access, and is not bolted shut or powered off)
 	return !density || (check_access(ID) && !locked && hasPower())
 
+///This does not call parent because airlocks should be possible to emag multiple times. We only care that the door is closed, not protected and has power.
 /obj/machinery/door/airlock/should_emag(mob/user)
-	if(!..())
-		return FALSE
 	if(protected_door)
 		to_chat(user, "<span class='warning'>[src] has no maintenance panel!</span>")
 		return FALSE
@@ -1370,12 +1355,10 @@
 	if(QDELETED(src))
 		return
 	operating = FALSE
-	if(!open(ignore_emagged = TRUE))
+	if(!open())
 		update_icon(AIRLOCK_CLOSED, 1)
-	lights = FALSE
-	locked = TRUE
-	loseMainPower()
-	loseBackupPower()
+	bolt()
+	loseMainPower(TRUE)
 
 /obj/machinery/door/airlock/attack_alien(mob/living/carbon/alien/humanoid/user)
 	add_fingerprint(user)
@@ -1470,9 +1453,6 @@
 		if(!disassembled)
 			if(A)
 				A.obj_integrity = A.max_integrity * 0.5
-		else if(obj_flags & EMAGGED)
-			if(user)
-				to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
 		else
 			if(user)
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")

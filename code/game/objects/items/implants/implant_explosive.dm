@@ -47,7 +47,8 @@
 	if(delay <= 7)
 		explosion(src,heavy,medium,weak,weak, flame_range = weak)
 		if(imp_in)
-			imp_in.gib(1)
+			imp_in.investigate_log("has been gibbed by an explosive implant.", INVESTIGATE_DEATHS)
+			imp_in.gib(TRUE)
 		qdel(src)
 		return TRUE
 	timed_explosion()
@@ -80,7 +81,8 @@
 	sleep(delay*0.25)
 	explosion(src,heavy,medium,weak,weak, flame_range = weak)
 	if(imp_in)
-		imp_in.gib(1)
+		imp_in.investigate_log("has been gibbed by an explosive implant.", INVESTIGATE_DEATHS)
+		imp_in.gib(TRUE)
 	qdel(src)
 
 /obj/item/implant/explosive/macro
