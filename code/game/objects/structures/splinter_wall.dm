@@ -16,6 +16,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_SPLINTER_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SPLINTER_WALLS)
 	flags_1 = PREVENT_CLICK_UNDER_1
+	pass_flags_self = PASSBLOB
 
 /obj/structure/table/update_icon(updates=ALL)
 	. = ..()
