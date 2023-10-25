@@ -17668,14 +17668,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/mob/living/simple_animal/bot/secbot{
-	arrest_type = 1;
-	health = 45;
-	icon_state = "secbot1";
-	idcheck = 1;
-	name = "Sergeant-at-Armsky";
-	weaponscheck = 1
-	},
+/mob/living/simple_animal/bot/secbot/beepsky/armsky,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
