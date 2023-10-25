@@ -51,7 +51,7 @@
 	icon = 'icons/effects/spacevines.dmi'
 	max_integrity = 100000
 
-/obj/effect/forcefield/event/vines/Initialize()
+/obj/structure/emergency_shield/event/vines/Initialize()
 	. = ..()
 	src.icon_state = pick("Hvy1","Hvy2","Hvy3")
 
