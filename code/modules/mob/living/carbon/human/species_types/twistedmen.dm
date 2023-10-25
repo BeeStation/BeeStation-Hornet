@@ -41,13 +41,14 @@
 	mutanteyes = /obj/item/organ/eyes/twisted
 
 /mob/living/carbon/human/species/twistedmen
-    race = /datum/species/twistedmen
+	race = /datum/species/twistedmen
+	faction = list("hostile", "twisted")
 
 /mob/living/carbon/human/species/twistedmen/Initialize()
-  ..()
-  deathsound = pick('sound/voice/twisted/twisteddeath_1.ogg',
-                    'sound/voice/twisted/twisteddeath_2.ogg',
-                    'sound/voice/twisted/twisteddeath_3.ogg')
+	..()
+	deathsound = pick('sound/voice/twisted/twisteddeath_1.ogg',
+					'sound/voice/twisted/twisteddeath_2.ogg',
+					'sound/voice/twisted/twisteddeath_3.ogg')
 
 /datum/species/twistedmen/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
@@ -209,3 +210,4 @@
 	visible_message("<span class='warning'>the [src] crumbles away!</span>")
 	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
 	qdel(src)
+
