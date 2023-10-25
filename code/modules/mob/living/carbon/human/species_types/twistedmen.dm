@@ -28,7 +28,7 @@
 					ITEM_SLOT_SUITSTORE)
 	damage_overlay_type = "" //normal sprite already shows wounds, likely to remain empty
 	changesource_flags = MIRROR_BADMIN //The species is not balanced for normal rounds, considering leaving this empty
-	species_language_holder = /datum/language_holder/construct
+	species_language_holder = /datum/language_holder/twistedmen
 
 	species_chest = /obj/item/bodypart/head/twisted
 	species_head = /obj/item/bodypart/chest/twisted
@@ -94,6 +94,14 @@
 	H.emote("laugh")
 	H.set_resting(FALSE, TRUE)
 
+/datum/species/twistedmen/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	. = ..()
+	target.pass_flags |= PASSBLOB
+
+/mob/living/carbon/human/species/twistedmen/stop_pulling()
+	pulling.pass_flags &= ~PASSBLOB
+	. = ..()
+
 /obj/item/bodypart/l_arm/twisted/attach_limb(mob/living/carbon/C, special, is_creating)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(activate_welder), C), 2) //Just enough time for the open hand to be valid. Yes this is hacky af
@@ -109,6 +117,8 @@
 	name = "twisted eyes"
 	desc = "Shields the twisted from the bright lights their arc-welders emit."
 	flash_protect = 2
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /datum/action/innate/dispenser
 	name = "Flesh craft"
