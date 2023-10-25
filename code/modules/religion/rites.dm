@@ -776,7 +776,6 @@
 	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
 	return TRUE
 
-
 /**** Shadow rites ****/ //Original code by DingoDongler
 
 #define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
@@ -789,7 +788,7 @@
 						"... And cover you, envelope you ...",
 						"... And make you one with it ...")
 	invoke_msg = "... And let you be born again!"
-	favor_cost = 500
+	favor_cost = 1200
 
 /datum/religion_rites/shadow_conversion/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
@@ -826,9 +825,6 @@
 	rite_target.set_species(/datum/species/shadow)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
 	return TRUE
-
-
-
 
 /datum/religion_rites/shadow_obelisk
 	name = "Obelisk Manifestation"
@@ -877,3 +873,97 @@
 	religious_tool.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
 		D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+
+/datum/religion_rites/shadow_blessing
+	name = "Shadow Blessing"
+	desc = "Bless someone with the power of shadows, and make them immune to all magic."
+	ritual_length = 60 SECONDS
+	ritual_invocations = list("Let the darkness reside within us...",
+						"... Let the power flow ...",
+						"... Encompass our souls in shade ...",
+						"... And let the demons know ...",
+						"... That their powers will not work apon us any more...",)
+	invoke_msg = "Bless thy brethen, and grant them immunity!"
+	favor_cost = 8000
+
+/datum/religion_rites/shadow_blessing/perform_rite(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(LAZYLEN(movable_reltool.buckled_mobs))
+		to_chat(user,"<span class='warning'>You're going to bless the one buckled on [movable_reltool].</span>")
+	else
+		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
+			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+			return FALSE
+		if(isshadow(user))
+			to_chat(user,"<span class='warning'>You've already blessed yourself. To convert others, they must be buckled to [movable_reltool].</span>")
+			return FALSE
+		to_chat(user,"<span class='warning'>You're going to bless yourself with this ritual.</span>")
+	return ..()
+
+/datum/religion_rites/shadow_blessing/invoke_effect(mob/living/user, atom/religious_tool)
+	..()
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!movable_reltool?.buckled_mobs?.len)
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		return FALSE
+	ADD_TRAIT(rite_target, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	//glowing wings overlay
+	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
+	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")
+	return TRUE
+
+
+/datum/religion_rites/shadow_eyes
+	name = "Grant Shadow Eyes"
+	desc = "Grants either the caster, or the buckled person, shadow eyes that give night vision."
+	ritual_length = 30 SECONDS
+	ritual_invocations = list("Grant us the sight ...",
+						"... We call upon the shadows ...",
+						"... Show us the way ...")
+	invoke_msg = "... Let the darkness be our guide!!"
+	favor_cost = 1000
+
+/datum/religion_rites/shadow_eyes/perform_rite(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(length(movable_reltool.buckled_mobs))
+		to_chat(user,"<span class='warning'>You're going to grant the eyes to the one buckled on [movable_reltool].</span>")
+	else if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	to_chat(user,"<span class='warning'>You're going to grant the eyes to yourself with this ritual.</span>")
+	return ..()
+
+/datum/religion_rites/shadow_eyes/invoke_effect(mob/living/user, atom/religious_tool)
+	..()
+	var/obj/item/organ/eyes/night_vision/organ = new()
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!length(movable_reltool.buckled_mobs))
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		return FALSE
+	organ.Insert(rite_target)
+	rite_target.visible_message("<span class='notice'>[organ] have been merged into [rite_target] by the rite of [name]!</span>")
+	return TRUE

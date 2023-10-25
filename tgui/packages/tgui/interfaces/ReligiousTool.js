@@ -88,6 +88,8 @@ const SectSelectTab = (props, context) => {
               <Stack.Item key={sect}>
                 {sect.desc}
                 <br />
+                <Stack.Item bold>{'"' + sect.req + '"'}</Stack.Item>
+                <br />
                 <Button
                   mt={0.25}
                   textAlign="center"

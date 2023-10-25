@@ -22,6 +22,10 @@
 	var/starter = TRUE
 	/// species traits that block you from picking
 	var/invalidating_qualities = NONE
+	/// Sect Unlock Requirements
+	var/sect_requirements = "No unlock requirements"
+	/// Sect Species Requirements (Use species.id)
+	var/req_species = "Unlocked"
 	/// The Sect's 'Mana'
 	var/favor = 0 //MANA!
 	/// The max amount of favor the sect can have
@@ -312,15 +316,18 @@
 /**** Shadow Sect ****/
 
 /datum/religion_sect/shadow_sect
+	starter = FALSE
 	name = "Shadow"
 	desc = "A sect dedicated to the darkness. The altar and manifested obelisks will generate favor from being in darkness."
 	quote = "Turn out the lights, and let the darkness cover the world!"
+	sect_requirements = "Unlock this by becoming a Shadow Person"
+	req_species = "shadow"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
 	favor = 100 //Starts off with enough favor to make an obelisk
-	max_favor = 10000
+	max_favor = 25000
 	desired_items = list(/obj/item/flashlight)
-	rites_list = list(/datum/religion_rites/expand_shadows,/datum/religion_rites/shadow_obelisk, /datum/religion_rites/shadow_conversion)
+	rites_list = list(/datum/religion_rites/expand_shadows,/datum/religion_rites/shadow_obelisk, /datum/religion_rites/shadow_conversion,/datum/religion_rites/shadow_blessing,/datum/religion_rites/shadow_eyes)
 	altar_icon_state = "convertaltar-dark"
 	var/light_reach = 1
 	var/light_power = 0
@@ -343,3 +350,10 @@
 	if(!religious_tool || !user)
 		return
 	religious_tool.AddComponent(/datum/component/dark_favor, user)
+
+/datum/religion_sect/shadow_sect/on_conversion(mob/living/chap) //When sect is selected, and when a new chaplain joins after sect has been selected
+	. = ..()
+	if(is_special_character(chap))
+		to_chat(chap,  "<span class='big notice'>As you are an antagonist role, you are free to spread darkness across the station.</span>")
+	else
+		to_chat(chap,  "<span class='userdanger'>You are not an antagonist, please do not spread darkness outside of the chapel without Command Staff approval.</span>")
