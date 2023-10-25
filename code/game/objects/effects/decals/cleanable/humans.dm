@@ -54,11 +54,25 @@
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
 	return TRUE
 
+//Event assets
+
 /obj/effect/decal/cleanable/blood/rune
 	name = "rune"
 	desc = "An ominous symbol drawn in blood, looking at it makes you feel uneasy."
 	icon_state = "rune_1"
 	random_icon_states = list("rune_1", "rune_2", "rune_3", "rune_4", "rune_5", "rune_6", "rune_7", "rune_8", "rune_9")
+
+/obj/effect/decal/cleanable/blood/rune/large
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "rune_large"
+	random_icon_states = null
+
+/obj/effect/decal/cleanable/blood/rune/large/apoc
+	icon_state = "apoc"
+	color = "#B00000"
+	random_icon_states = null
+
+//
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
