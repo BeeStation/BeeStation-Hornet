@@ -143,21 +143,4 @@
 			var/turf/above = locate(above_bottom_left.x + x, above_bottom_left.y + y, above_bottom_left.z)
 			above.link_below(below)
 
-GLOBAL_LIST_EMPTY(virtual_z_helpers)
-
-/obj/effect/mapping_helpers/virtual_z_helper
-	name = "Virtual Z helper"
-	late = TRUE
-	var/width
-	var/height
-	var/id
-	var/above = TRUE
-
-/obj/effect/mapping_helpers/virtual_z_helper/LateInitialize()
-	for(var//obj/effect/mapping_helpers/virtual_z_helper/V as() in GLOB.virtual_z_helpers)
-		if(id = V.id)
-			if(above)
-				link_region(V.get_turf(),src.get_turf(),width,height)
-			else
-				link_region(src.get_turf(),V.get_turf(),width,height)
 
