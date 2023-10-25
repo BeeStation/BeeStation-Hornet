@@ -133,6 +133,7 @@ GLOBAL_LIST_EMPTY(all_abstract_markers)
 
 GLOBAL_LIST_EMPTY(virtual_z_helpers) //list of virtual z helpers
 
+GLOBAL_LIST_EMPTY(fake_opens) //to turn into openspaces with a verb
 /// Global list of megafauna spawns on cave gen
 GLOBAL_LIST_INIT(megafauna_spawn_list, list(
 	/mob/living/simple_animal/hostile/megafauna/bubblegum = 6,

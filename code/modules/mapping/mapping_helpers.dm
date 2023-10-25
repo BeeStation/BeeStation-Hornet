@@ -341,3 +341,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 				link_region(get_turf(src),get_turf(V),width,height)
 			qdel(V)
 			qdel(src)
+
+/turf/open/floor/plating/asteroid/snow/lateopenspace
+	name = "Late Open Space"
+	desc = "Debug reasons"
+
+/turf/open/floor/plating/asteroid/snow/lateopenspace/Initialize()
+	GLOB.fake_opens += src
+
