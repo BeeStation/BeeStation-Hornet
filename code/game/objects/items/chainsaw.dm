@@ -140,3 +140,10 @@
 /obj/item/chainsaw/energy/doom/attack(mob/living/target)
 	..()
 	target.Knockdown(4)
+
+//Big Fucking Chainsaw made for Spooktober
+/obj/item/chainsaw/bfc
+	name = "BFC 2000"
+	desc = "The all new NT-branded hedge trimmer! Can also be used to saw trees or butcher big animals."
+	force = 15
+	tool_behaviour = TOOL_BFC

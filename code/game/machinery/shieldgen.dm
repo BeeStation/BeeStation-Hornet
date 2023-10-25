@@ -44,6 +44,17 @@
 	if(.) //damage was dealt
 		new /obj/effect/temp_visual/impact_effect/ion(loc)
 
+/obj/structure/emergency_shield/event/vines	//created for Spooktober 2023
+	name = "overgrowth"
+	desc = "A dense wall of impenetrable vines. They seem imbued with some form of aura that prevents them from being destroyed..."
+	icon_state = "vine"
+	icon = 'icons/effects/spacevines.dmi'
+	max_integrity = 100000
+
+/obj/effect/forcefield/event/vines/Initialize()
+	. = ..()
+	src.icon_state = pick("Hvy1","Hvy2","Hvy3")
+
 /obj/structure/emergency_shield/sanguine
 	name = "sanguine barrier"
 	desc = "A potent shield summoned by cultists to defend their rites."

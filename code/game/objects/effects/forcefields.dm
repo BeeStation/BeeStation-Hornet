@@ -48,16 +48,6 @@
 	desc = "A rapidly expanding spacial distortion capable of interfering with all but the most advanced forms of intragalactic spaceflight and communications technology."
 	icon_state = "space" //Placeholder sprite, ideally this will be replaced
 
-/obj/effect/forcefield/event/vines
-	name = "overgrowth"
-	desc = "A dense wall of impenetrable vines."
-	icon_state = "vine"
-	icon = 'icons/effects/spacevines.dmi'
-
-/obj/effect/forcefield/event/vines/Initialize()
-	. = ..()
-	src.icon_state = pick("Hvy1","Hvy2","Hvy3")
-
 ///////////Mimewalls///////////
 
 /obj/effect/forcefield/mime
