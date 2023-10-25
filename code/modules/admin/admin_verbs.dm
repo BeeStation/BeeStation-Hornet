@@ -110,6 +110,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/spawnhuman,
 	/client/proc/removestationlatejoining,
 	/client/proc/enableicelandlatejoining,
+	/client/proc/makespaces,
 	/client/proc/generateArchimundi
 	))
 GLOBAL_PROTECT(admin_verbs_fun)

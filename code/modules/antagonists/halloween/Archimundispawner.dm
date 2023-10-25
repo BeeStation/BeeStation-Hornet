@@ -44,3 +44,17 @@
 		SSjob.latejoin_trackers += L.loc
 	SSticker.late_join_disabled = FALSE
 
+/client/proc/makespaces()
+	set name = "Make Open Spaces"
+	set desc = "Adds new landmarks to latejoining and renables latejoining"
+	set category = "Fun"
+
+	if(!check_rights(R_FUN))
+		return
+	for(var/turf/T in GLOB.fake_opens)
+		GLOB.fake_opens -= T
+		var/below = T.below
+		var/turf/open/openspace/O = new(get_turf(T))
+		O.set_below(below,TRUE)
+		O.setup_zmimic()
+

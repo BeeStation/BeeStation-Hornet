@@ -326,7 +326,7 @@ SUBSYSTEM_DEF(mapping)
 		qdel(query_round_map_name)
 
 	archmundi_start = world.maxz + 1
-	LoadArchimundi()
+//	LoadArchimundi()
 
 #ifndef LOWMEMORYMODE
 	// TODO: remove this when the DB is prepared for the z-levels getting reordered
