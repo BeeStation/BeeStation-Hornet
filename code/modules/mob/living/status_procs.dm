@@ -60,6 +60,7 @@
 ///////////////////////////////// KNOCKDOWN /////////////////////////////////////
 
 /mob/living/proc/IsKnockdown() //If we're knocked down
+	SHOULD_NOT_OVERRIDE(TRUE)
 	return has_status_effect(STATUS_EFFECT_KNOCKDOWN)
 
 /mob/living/proc/AmountKnockdown() //How many deciseconds remain in our knockdown
