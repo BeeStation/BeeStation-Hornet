@@ -52,7 +52,6 @@
 	. = ..()
 	if(desired_items)
 		desired_items_typecache = typecacheof(desired_items)
-	on_select()
 
 /// Activates once selected
 /datum/religion_sect/proc/on_select()

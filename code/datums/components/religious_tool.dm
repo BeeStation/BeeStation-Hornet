@@ -132,6 +132,7 @@
 	if(GLOB.religious_sect)
 		return
 	GLOB.religious_sect = new path()
+	GLOB.religious_sect.on_select()
 	for(var/i in GLOB.player_list)
 		if(!isliving(i))
 			continue
