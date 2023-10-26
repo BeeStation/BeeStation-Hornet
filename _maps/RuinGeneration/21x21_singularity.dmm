@@ -73,10 +73,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
-"N" = (
-/obj/effect/decal/fakelattice,
-/turf/template_noop/open,
-/area/template_noop)
 "R" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
@@ -240,13 +236,13 @@ c
 c
 C
 t
-N
+a
 t
-N
+a
 t
-N
+a
 t
-N
+a
 t
 C
 x
@@ -262,7 +258,7 @@ c
 c
 c
 R
-N
+a
 o
 t
 S
@@ -270,7 +266,7 @@ S
 S
 t
 o
-N
+a
 R
 E
 c
@@ -308,7 +304,7 @@ c
 c
 c
 R
-N
+a
 S
 a
 S
@@ -316,7 +312,7 @@ S
 S
 a
 S
-N
+a
 R
 E
 c
@@ -354,7 +350,7 @@ c
 c
 c
 R
-N
+a
 S
 a
 S
@@ -362,7 +358,7 @@ S
 S
 a
 S
-N
+a
 R
 E
 c
@@ -400,7 +396,7 @@ c
 c
 c
 R
-N
+a
 o
 t
 S
@@ -408,7 +404,7 @@ S
 S
 t
 o
-N
+a
 R
 E
 c
@@ -424,13 +420,13 @@ c
 c
 C
 t
-N
+a
 t
-N
+a
 t
-N
+a
 t
-N
+a
 t
 C
 x

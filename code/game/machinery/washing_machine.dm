@@ -228,6 +228,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/WM)
 	WM.bloody_mess = TRUE
+	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
 	gib()
 
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)

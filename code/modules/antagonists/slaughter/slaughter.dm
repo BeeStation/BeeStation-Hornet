@@ -154,11 +154,12 @@
 
 /mob/living/simple_animal/slaughter/laughter/ex_act(severity)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
+			investigate_log("has died from a devastating explosion.", INVESTIGATE_DEATHS)
 			death()
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(60)
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(30)
 
 /mob/living/simple_animal/slaughter/laughter/proc/release_friends()

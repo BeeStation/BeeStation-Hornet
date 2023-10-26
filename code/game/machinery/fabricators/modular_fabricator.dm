@@ -399,7 +399,7 @@
 	//Only items that can stack should be build en mass, since we now have queues.
 	if(is_stack)
 		multiplier = item_queue[requested_design_id]["amount"]
-	multiplier = CLAMP(multiplier,1,50)
+	multiplier = clamp(multiplier,1,50)
 
 	/////////////////
 

@@ -4,18 +4,18 @@
 
 
 /mob/living/carbon/IsParalyzed(include_stamcrit = TRUE)
-	return ..() || (include_stamcrit && stam_paralyzed)
+	return ..() || (include_stamcrit && HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
 
 /mob/living/carbon/proc/enter_stamcrit()
 	if(!(status_flags & CANKNOCKDOWN) || HAS_TRAIT(src, TRAIT_STUNIMMUNE))
 		return
 	if(absorb_stun(0)) //continuous effect, so we don't want it to increment the stuns absorbed.
 		return
-	if(!IsParalyzed())
-		to_chat(src, "<span class='notice'>You're too exhausted to keep going.</span>")
+	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
-	stam_paralyzed = TRUE
 	ADD_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
+	//ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
 	update_mobility()
 
 /mob/living/carbon/adjust_drugginess(amount)
@@ -41,10 +41,10 @@
 		clear_alert("high")
 
 /mob/living/carbon/adjust_disgust(amount)
-	disgust = CLAMP(disgust+amount, 0, DISGUST_LEVEL_MAXEDOUT)
+	disgust = clamp(disgust+amount, 0, DISGUST_LEVEL_MAXEDOUT)
 
 /mob/living/carbon/set_disgust(amount)
-	disgust = CLAMP(amount, 0, DISGUST_LEVEL_MAXEDOUT)
+	disgust = clamp(amount, 0, DISGUST_LEVEL_MAXEDOUT)
 
 
 ////////////////////////////////////////TRAUMAS/////////////////////////////////////////

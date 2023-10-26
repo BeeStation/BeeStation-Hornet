@@ -558,7 +558,7 @@
 	if (prob(meteorminutes/2))
 		wavetype = GLOB.meteors_catastrophic
 
-	var/ramp_up_final = CLAMP(round(meteorminutes/rampupdelta), 1, 10)
+	var/ramp_up_final = clamp(round(meteorminutes/rampupdelta), 1, 10)
 
 	spawn_meteors(ramp_up_final, wavetype)
 
@@ -649,7 +649,7 @@
 	var/datum/team/incursion/incursion_team
 
 /datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
-	required_candidates = CLAMP(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
+	required_candidates = clamp(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 	return ..()
 
 /datum/dynamic_ruleset/roundstart/incursion/pre_execute(population)

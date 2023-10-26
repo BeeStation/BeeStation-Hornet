@@ -140,7 +140,7 @@
 	. = ..()
 
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		add_delay *= 1.414214 // sqrt(2)
+		add_delay *= sqrt(2)
 	// Record any time that we gained due to sub-tick slowdown
 	var/move_delta = move_delay - floored_move_delay
 	add_delay += move_delta

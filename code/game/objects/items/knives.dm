@@ -42,11 +42,11 @@
 /obj/item/knife/proc/set_butchering()
 	AddComponent(/datum/component/butchering, 8 SECONDS - force, 100, force - 10) //bonus chance increases depending on force
 
-/obj/item/knife/suicide_act(mob/user)
+/obj/item/knife/suicide_act(mob/living/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
 						"<span class='suicide'>[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
 						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [src.name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/knife/ritual
 	name = "ritual knife"
@@ -174,6 +174,6 @@
 	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5, "armour_block" = 30) // Incentive to disengage/stop chasing when stuck
 	attack_verb = list("stuck", "shanked")
 
-/obj/item/knife/shank/suicide_act(mob/user)
+/obj/item/knife/shank/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS

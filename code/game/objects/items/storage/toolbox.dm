@@ -30,16 +30,15 @@
 				latches = "triple_latch"
 	update_icon()
 
-/obj/item/storage/toolbox/update_icon()
-	..()
-	cut_overlays()
+/obj/item/storage/toolbox/update_overlays()
+	. = ..()
 	if(has_latches)
-		add_overlay(latches)
+		. += latches
 
 
-/obj/item/storage/toolbox/suicide_act(mob/user)
+/obj/item/storage/toolbox/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] robusts [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
