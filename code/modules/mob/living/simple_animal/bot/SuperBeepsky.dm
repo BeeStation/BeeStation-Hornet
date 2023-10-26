@@ -8,6 +8,8 @@
 
 	baton_type = /obj/item/melee/transforming/energy/sword/saber
 	base_speed = 4 //he's a fast fucker
+	weapon_force = 30
+
 	var/block_chance = 50
 
 /mob/living/simple_animal/bot/secbot/grievous/toy //A toy version of general beepsky!
@@ -16,6 +18,7 @@
 	health = 50
 	maxHealth = 50
 	baton_type = /obj/item/toy/sword
+	weapon_force = 0
 
 /mob/living/simple_animal/bot/secbot/grievous/bullet_act(obj/projectile/P)
 	visible_message("[src] deflects [P] with its energy swords!")
