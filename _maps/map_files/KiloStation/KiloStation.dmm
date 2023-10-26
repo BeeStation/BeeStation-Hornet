@@ -37482,9 +37482,6 @@
 /area/crew_quarters/bar)
 "cHX" = (
 /obj/effect/spawner/structure/window,
-/obj/item/storage/box/bodybags{
-	pixel_y = 5
-	},
 /turf/open/floor/plating,
 /area/hallway/primary/port)
 "cHY" = (
@@ -41715,13 +41712,12 @@
 	network = list("ss13","medical");
 	pixel_x = 17
 	},
-/obj/effect/landmark/start/virologist,
 /obj/effect/turf_decal/tile/dark_green/opposingcorners,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "dpz" = (
@@ -42525,6 +42521,7 @@
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 7
 	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "dJr" = (
@@ -43674,6 +43671,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "efK" = (
@@ -56997,6 +56995,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/medical_doctor,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "jDl" = (
@@ -67872,6 +67871,9 @@
 /obj/structure/table,
 /obj/effect/turf_decal/tile/dark/opposingcorners,
 /obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/item/storage/box/bodybags{
+	pixel_y = 5
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "oqr" = (
