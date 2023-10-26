@@ -98,6 +98,8 @@
 								"<span class='notice'>You butcher [meat].</span>")
 	ButcherEffects(meat)
 	meat.harvest(butcher)
+	meat.log_message("has been butchered by [key_name(butcher)]", LOG_ATTACK)
+	meat.investigate_log("was gibbed via butchering", INVESTIGATE_DEATHS)
 	meat.gib(FALSE, FALSE, TRUE)
 
 /datum/component/butchering/proc/ButcherEffects(mob/living/meat) //extra effects called on butchering, override this via subtypes

@@ -70,7 +70,6 @@
 	SSair.stop_processing_machine(src)
 	SSair.pipenets_needing_rebuilt -= src
 
-	dropContents()
 	if(pipe_vision_img)
 		qdel(pipe_vision_img)
 
@@ -317,6 +316,8 @@
 				if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 					user.last_played_vent = world.time
 					playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
+					if(prob(1))
+						audible_message("<span class='warning'>You hear something crawling through the ducts...</span>")
 	else if(is_type_in_typecache(src, GLOB.ventcrawl_machinery) && can_crawl_through()) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 		user.forceMove(loc)
 		user.visible_message("<span class='notice'>You hear something squeezing through the ducts...</span>", "<span class='notice'>You climb out the ventilation system.")
@@ -329,7 +330,7 @@
 		L.handle_ventcrawl(src)
 		return
 
-
+/// Whether ventcrawling creatures can move in or out of this machine.
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return TRUE
 
