@@ -177,7 +177,8 @@
 	var/list/sects_to_pick = list()
 	var/human_highpriest = ishuman(user)
 	var/mob/living/carbon/human/highpriest = user
-	for(var/path in GLOB.religion_sect_datums)
+	for(var/datum/religion_sect/each_sect in GLOB.religion_sect_datums)
+		var/path = each_sect.type
 		if(easy_access_sect.is_available())
 			if(human_highpriest && initial(easy_access_sect.invalidating_qualities))
 				var/datum/species/highpriest_species = highpriest.dna.species
