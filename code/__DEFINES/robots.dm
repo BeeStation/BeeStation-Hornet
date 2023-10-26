@@ -46,10 +46,13 @@
 /** Simple Animal BOT defines */
 
 //Bot defines, placed here so they can be read by other things!
-#define BOT_STEP_DELAY 4 //Delay between movemements
-#define BOT_STEP_MAX_RETRIES 5 //Maximum times a bot will retry to step from its position
+/// Delay between movemements
+#define BOT_STEP_DELAY 4
+/// Maximum times a bot will retry to step from its position
+#define BOT_STEP_MAX_RETRIES 5
 
-#define DEFAULT_SCAN_RANGE 7 //default view range for finding targets.
+/// Default view range for finding targets.
+#define DEFAULT_SCAN_RANGE 7
 
 //Bot types
 /// Secutritrons (Beepsky)
@@ -69,30 +72,52 @@
 /// Firebots
 #define FIRE_BOT (1<<7)
 /// Hygienebots
-#define HYGIENE_BOT (1<<8)
+//#define HYGIENE_BOT (1<<8)
 /// Vibe bots
 #define VIBE_BOT (1<<9)
 
 //Mode defines
 /// Idle
 #define BOT_IDLE 0
-#define BOT_HUNT 			1	//!  found target, hunting
-#define BOT_PREP_ARREST 	2	//!  at target, preparing to arrest
-#define BOT_ARREST			3	//!  arresting target
-#define BOT_START_PATROL	4	//!  start patrol
-#define BOT_PATROL			5	//!  patrolling
-#define BOT_SUMMON			6	//!  summoned by PDA
-#define BOT_CLEANING 		7	//!  cleaning (cleanbots)
-#define BOT_REPAIRING		8	//!  repairing hull breaches (floorbots)
-#define BOT_MOVING			9	//!  for clean/floor/med bots, when moving.
-#define BOT_HEALING			10	//!  healing people (medbots)
-#define BOT_RESPONDING		11	//!  responding to a call from the AI
-#define BOT_DELIVER			12	//!  moving to deliver
-#define BOT_GO_HOME			13	//!  returning to home
-#define BOT_BLOCKED			14	//!  blocked
-#define BOT_NAV				15	//!  computing navigation
-#define BOT_WAIT_FOR_NAV	16	//!  waiting for nav computation
-#define BOT_NO_ROUTE		17	//! no destination beacon found (or no route)
+/// Found target, hunting
+#define BOT_HUNT 1
+/// Currently tipped over.
+#define BOT_TIPPED 2
+/// Start patrol
+#define BOT_START_PATROL 3
+/// Patrolling
+#define BOT_PATROL 4
+/// Summoned to a location
+#define BOT_SUMMON 5
+/// Currently moving
+#define BOT_MOVING 6
+/// Secbot - At target, preparing to arrest
+#define BOT_PREP_ARREST 7
+/// Secbot - Arresting target
+#define BOT_ARREST 8
+
+/// Cleanbot - Cleaning
+#define BOT_CLEANING 9
+/// Hygienebot - Cleaning unhygienic humans
+//#define BOT_SHOWERSTANCE 10
+/// Floorbots - Repairing hull breaches
+#define BOT_REPAIRING 11
+/// Medibots - Healing people
+#define BOT_HEALING 12
+/// Responding to a call from the AI
+#define BOT_RESPONDING 13
+/// MULEbot - Moving to deliver
+#define BOT_DELIVER 14
+/// MULEbot - Returning to home
+#define BOT_GO_HOME 15
+/// MULEbot - Blocked
+#define BOT_BLOCKED 16
+/// MULEbot - Computing navigation
+#define BOT_NAV 17
+/// MULEbot - Waiting for nav computation
+#define BOT_WAIT_FOR_NAV 18
+/// MULEbot - No destination beacon found (or no route)
+#define BOT_NO_ROUTE 19
 
 //SecBOT defines on arresting
 ///Whether arrests should be broadcasted over the Security radio
@@ -115,11 +140,16 @@
 #define AI_MECH_HACK 3
 
 //AI notification defines
-#define		NEW_BORG     1
-#define		NEW_MODULE   2
-#define		RENAME       3
-#define		AI_SHELL     4
-#define		DISCONNECT   5
+///Alert when a new Cyborg is created.
+#define NEW_BORG 1
+///Alert when a Cyborg selects a model.
+#define NEW_MODULE 2
+///Alert when a Cyborg changes their name.
+#define RENAME 3
+///Alert when an AI disconnects themselves from their shell.
+#define AI_SHELL 4
+///Alert when a Cyborg gets disconnected from their AI.
+#define DISCONNECT 5
 
 /** Misc Robot defines */
 
