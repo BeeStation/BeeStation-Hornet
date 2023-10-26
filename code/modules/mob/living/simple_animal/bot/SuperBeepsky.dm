@@ -141,7 +141,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/grievous/explode()
-
+	..()
 	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
 	var/atom/Tsec = drop_location()
 
@@ -150,9 +150,6 @@
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
-
-	if(prob(50))
-		drop_part(robot_arm, Tsec)
 
 	do_sparks(3, TRUE, src)
 	if(!noloot)

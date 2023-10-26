@@ -324,11 +324,10 @@
 				continue
 
 /mob/living/simple_animal/bot/honkbot/explode()
+
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/atom/Tsec = drop_location()
 	//doesn't drop cardboard nor its assembly, since its a very frail material.
-	if(prob(50))
-		drop_part(robot_arm, Tsec)
 	new bikehorn(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
 

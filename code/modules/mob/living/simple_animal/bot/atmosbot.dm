@@ -383,8 +383,5 @@
 	if(deployed_holobarrier)
 		qdel(deployed_holobarrier.resolve())
 
-	if(prob(50))
-		drop_part(robot_arm, Tsec)
-
 	do_sparks(3, TRUE, src)
 	..()

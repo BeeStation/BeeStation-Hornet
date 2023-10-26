@@ -275,9 +275,6 @@
 
 	new /obj/item/assembly/prox_sensor(Tsec)
 
-	if(prob(50))
-		drop_part(robot_arm, Tsec)
-
 	do_sparks(3, TRUE, src)
 	..()
 
@@ -408,8 +405,6 @@
 	new /obj/item/larryframe(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
 
-	if(prob(50))
-		drop_part(robot_arm, Tsec)
 	if(knife && prob(50))
 		new knife(Tsec)
 

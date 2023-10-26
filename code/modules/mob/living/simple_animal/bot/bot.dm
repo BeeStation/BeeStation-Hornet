@@ -223,6 +223,9 @@
 
 /mob/living/simple_animal/bot/proc/explode()
 	qdel(src)
+	var/atom/location_destroyed = drop_location()
+	if(prob(50))
+		drop_part(robot_arm, location_destroyed)
 
 /mob/living/simple_animal/bot/proc/should_emag(atom/target, mob/user)
 	SIGNAL_HANDLER
@@ -427,26 +430,24 @@
 		return REDUCE_RANGE
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
-	var/obj/item/dropped_item
 	if(ispath(drop_item))
-		dropped_item = new drop_item(dropzone)
+		new drop_item(dropzone)
 	else
-		dropped_item = drop_item
-		dropped_item.forceMove(dropzone)
+		drop_item.forceMove(dropzone)
 
-	if(istype(dropped_item, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/dropped_cell = dropped_item
+	if(istype(drop_item, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/dropped_cell = drop_item
 		dropped_cell.charge = 0
-		dropped_cell.update_icon()
+		dropped_cell.update_appearance()
 
-	else if(istype(dropped_item, /obj/item/storage))
-		var/obj/item/storage/S = dropped_item
+	else if(istype(drop_item, /obj/item/storage))
+		var/obj/item/storage/S = drop_item
 		S.contents = list()
 
-	else if(istype(dropped_item, /obj/item/gun/energy))
-		var/obj/item/gun/energy/dropped_gun = dropped_item
+	else if(istype(drop_item, /obj/item/gun/energy))
+		var/obj/item/gun/energy/dropped_gun = drop_item
 		dropped_gun.cell.charge = 0
-		dropped_gun.update_icon()
+		dropped_gun.update_appearance()
 
 //Generalized behavior code, override where needed!
 

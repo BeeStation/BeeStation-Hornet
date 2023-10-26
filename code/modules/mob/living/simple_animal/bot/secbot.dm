@@ -417,6 +417,7 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/secbot/explode()
+
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/atom/Tsec = drop_location()
 	if(bot_type == ADVANCED_SEC_BOT)
@@ -444,9 +445,6 @@
 		secbot_assembly.created_name = name
 		new /obj/item/assembly/prox_sensor(Tsec)
 		drop_part(baton_type, Tsec)
-
-		if(prob(50))
-			drop_part(robot_arm, Tsec)
 
 	do_sparks(3, TRUE, src)
 

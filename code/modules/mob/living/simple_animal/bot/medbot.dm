@@ -429,8 +429,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return FALSE
 
 	if(emagged) //Everyone needs our medicine. (Our medicine is toxins)
+		return TRUE
 
-	if(HAS_TRAIT(C,TRAIT_MEDIBOTCOMINGTHROUGH) && !HAS_TRAIT_FROM(C,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)) //someone is healing them already sweetie
+	if(HAS_TRAIT(C, TRAIT_MEDIBOTCOMINGTHROUGH) && !HAS_TRAIT_FROM(C, TRAIT_MEDIBOTCOMINGTHROUGH, medibot_counter)) //someone is healing them already sweetie
 		return FALSE
 
 	if(ishuman(C))
@@ -580,9 +581,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	drop_part(firstaid, Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
 	drop_part(healthanalyzer, Tsec)
-
-	if(prob(50))
-		drop_part(robot_arm, Tsec)
 
 	if(emagged && prob(25))
 		playsound(src, 'sound/voice/medbot/insult.ogg', 50)
