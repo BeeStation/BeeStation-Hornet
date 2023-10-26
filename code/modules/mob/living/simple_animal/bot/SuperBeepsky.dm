@@ -5,7 +5,8 @@
 	icon_state = "grievous"
 	health = 150
 	maxHealth = 150
-	weapon = /obj/item/melee/transforming/energy/sword/saber
+
+	baton_type = /obj/item/melee/transforming/energy/sword/saber
 	base_speed = 4 //he's a fast fucker
 	var/block_chance = 50
 	noloot = FALSE
@@ -16,7 +17,7 @@
 	desc = "An adorable looking secbot with four toy swords taped to its arms"
 	health = 50
 	maxHealth = 50
-	weapon = /obj/item/toy/sword
+	baton_type = /obj/item/toy/sword
 
 /mob/living/simple_animal/bot/secbot/grievous/nullcrate
 	name = "General Griefsky"
@@ -44,7 +45,7 @@
 /mob/living/simple_animal/bot/secbot/grievous/Initialize(mapload)
 	. = ..()
 	weapon = new weapon(src)
-	INVOKE_ASYNC(weapon, /obj/item.proc/attack_self, src)
+	INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/item, attack_self), src)
 
 /mob/living/simple_animal/bot/secbot/grievous/Destroy()
 	QDEL_NULL(weapon)
@@ -70,14 +71,14 @@
 	if(!on)
 		return
 	switch(mode)
-		if(BOT_IDLE)		// idle
-			update_icon()
+		if(BOT_IDLE) // idle
+			update_appearance()
 			SSmove_manager.stop_looping(src)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
 		if(BOT_HUNT)		// hunting for perp
-			update_icon()
+			update_appearance()
 			playsound(src,'sound/effects/beepskyspinsabre.ogg',100,TRUE,-1)
 			// general beepsky doesn't give up so easily, jedi scum
 			if(frustration >= 20)

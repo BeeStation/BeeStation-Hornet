@@ -13,6 +13,7 @@
 	bot_type = ADVANCED_SEC_BOT
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
+
 	var/lastfired = 0
 	var/shot_delay = 15
 	var/shoot_sound = 'sound/weapons/laser.ogg'
@@ -74,7 +75,6 @@
 		return
 	if(!isturf(T))
 		return
-
 	if(!projectile)
 		return
 

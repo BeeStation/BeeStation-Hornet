@@ -23,8 +23,9 @@
 	boot_delay = 8 SECONDS
 
 	var/noloot = FALSE
-	///The tool this Secbot will use to make arrests
-	var/obj/item/weapon = /obj/item/melee/baton
+	var/baton_type = /obj/item/melee/baton
+	///The weapon (from baton_type) that will be used to make arrests.
+	var/obj/item/weapon
 	///Their current target
 	var/mob/living/carbon/target
 	///Name of their last target to prevent spamming
@@ -79,6 +80,7 @@
 
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
 	. = ..()
+	weapon = new baton_type()
 	update_appearance(UPDATE_ICON)
 
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
@@ -92,6 +94,10 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/mob/living/simple_animal/bot/secbot/Destroy()
+	QDEL_NULL(weapon)
+	return ..()
 
 /mob/living/simple_animal/bot/secbot/update_icon_state()
 	if(mode == BOT_HUNT)
@@ -437,7 +443,7 @@
 		secbot_assembly.add_overlay("hs_hole")
 		secbot_assembly.created_name = name
 		new /obj/item/assembly/prox_sensor(Tsec)
-		drop_part(weapon, Tsec)
+		drop_part(baton_type, Tsec)
 
 		if(prob(50))
 			drop_part(robot_arm, Tsec)
