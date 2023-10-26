@@ -120,6 +120,10 @@
 
 /// Select the sect, called from [/datum/component/religious_tool/proc/AttemptActions]
 /datum/component/religious_tool/proc/select_sect(mob/living/user, path)
+	for(var/datum/religion_sect/each_sect in GLOB.religion_sect_datums)
+		if(each_sect.type == text2path(path))
+			if(!each_sect.is_available(user))
+				return
 	if(!ispath(text2path(path), /datum/religion_sect))
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has tried to spawn an item when selecting a sect.")
 		return
@@ -178,7 +182,7 @@
 	var/list/sects_to_pick = list()
 	for(var/datum/religion_sect/each_sect in GLOB.religion_sect_datums)
 		var/path = each_sect.type
-		if(!each_sect.is_available())
+		if(!each_sect.is_available(user))
 			continue
 		var/list/sect = list()
 		var/datum/religion_sect/not_a_real_instance_rs = path

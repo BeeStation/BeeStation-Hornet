@@ -329,9 +329,9 @@
 	var/list/obelisks = list()
 
 /datum/religion_sect/shadow/is_available(mob/user)
-    if(!isshadow(user))
-        return FALSE
-    return TRUE
+    if(isshadow(user))
+        return TRUE
+    return FALSE
 
 //Shadow bibles don't heal or do anything special apart from the standard holy water blessings
 /datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
