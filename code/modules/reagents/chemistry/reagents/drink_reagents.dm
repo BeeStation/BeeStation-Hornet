@@ -1024,7 +1024,7 @@
 	name = "Bubble Tea"
 	description = "Refreshing! You aren't sure what those things in the bottom are."
 	color = "#dfc7ab"
-	chem_flags = CHEMICAL_BASIC_DRINK
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_VERYGOOD
 	taste_description = "sweet, creamy and silky tea with chewy tapioca pearls"
 	glass_icon_state = "bubble_tea"
