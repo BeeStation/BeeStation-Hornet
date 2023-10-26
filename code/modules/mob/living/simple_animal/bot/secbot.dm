@@ -22,7 +22,6 @@
 	path_image_color = "#FF0000"
 	boot_delay = 8 SECONDS
 
-	var/noloot = FALSE
 	var/baton_type = /obj/item/melee/baton
 	///The weapon (from baton_type) that will be used to make arrests.
 	var/obj/item/weapon

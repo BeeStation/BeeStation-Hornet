@@ -9,8 +9,6 @@
 	baton_type = /obj/item/melee/transforming/energy/sword/saber
 	base_speed = 4 //he's a fast fucker
 	var/block_chance = 50
-	noloot = FALSE
-
 
 /mob/living/simple_animal/bot/secbot/grievous/toy //A toy version of general beepsky!
 	name = "Genewul Bweepskee"
@@ -18,17 +16,6 @@
 	health = 50
 	maxHealth = 50
 	baton_type = /obj/item/toy/sword
-
-/mob/living/simple_animal/bot/secbot/grievous/nullcrate
-	name = "General Griefsky"
-	desc = "The Syndicate sends their regards."
-	emagged = 2
-	noloot = TRUE
-	faction = list(FACTION_SYNDICATE)
-
-/mob/living/simple_animal/bot/secbot/grievous/nullcrate/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)
 
 /mob/living/simple_animal/bot/secbot/grievous/bullet_act(obj/projectile/P)
 	visible_message("[src] deflects [P] with its energy swords!")
@@ -129,7 +116,7 @@
 			speak("Level [threatlevel] infraction alert!")
 			playsound(src, pick('sound/voice/beepsky/criminal.ogg', 'sound/voice/beepsky/justice.ogg', 'sound/voice/beepsky/freeze.ogg'), 50, FALSE)
 			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
-			visible_message("[src] ignites his energy swords!")
+			visible_message("<span class='warning'>[src] ignites his energy swords!</span>")
 			icon_state = "grievous-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
@@ -143,16 +130,6 @@
 	..()
 	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
 	var/atom/Tsec = drop_location()
-
-	var/obj/item/bot_assembly/secbot/Sa = new (Tsec)
-	Sa.build_step = 1
-	Sa.add_overlay("hs_hole")
-	Sa.created_name = name
-	new /obj/item/assembly/prox_sensor(Tsec)
-
-	do_sparks(3, TRUE, src)
-	if(!noloot)
-		for(var/IS = 0 to 4)
-			drop_part(weapon, Tsec)
-	new /obj/effect/decal/cleanable/oil(Tsec)
-	qdel(src)
+	//Parent is dropping the weapon, so let's drop 3 more to make up for it.
+	for(var/IS = 0 to 3)
+		drop_part(weapon, Tsec)
