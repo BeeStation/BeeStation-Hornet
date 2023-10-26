@@ -102,8 +102,18 @@
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_improvised
 	materials = list(/datum/material/iron=250)
-	pellets = 10
-	variance = 25
+	pellets = 8
+	variance = 15
+
+/obj/item/ammo_casing/shotgun/glasspack
+	name = "improvised glass-packed shell"
+	desc = "An extremely weak shotgun shell that's been filled with shards of glass instead of metal pellets."
+	icon_state = "improvshell"
+	high_power = FALSE
+	projectile_type = /obj/projectile/bullet/pellet/shotgun_glass
+	materials = list(/datum/material/iron=100, /datum/material/glass=100)
+	pellets = 5
+	variance = 15
 
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"

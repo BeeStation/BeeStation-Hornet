@@ -87,7 +87,7 @@
 	name = "pipe repeater magazine (9mm)"
 	icon_state = "pipemag1"
 	start_empty = TRUE
-	ammo_type = /obj/item/ammo_casing/c9mm
+	ammo_type = /obj/item/ammo_casing/c9mm/improv
 	caliber = "9mm"
 	max_ammo = 9
 	var/obj/item/stock_parts/matter_bin/installed_bin

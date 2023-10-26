@@ -68,7 +68,7 @@
 	tile_dropoff = 0.5
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/sa
-	damage = 5.5
+	damage = 6
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
@@ -90,16 +90,30 @@
 		qdel(src)
 
 /obj/projectile/bullet/pellet/shotgun_improvised
-	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
-	damage = 6
+	tile_dropoff = 0.55 //Come on it does 6 damage don't be like that.
+	damage = 5.5
+	armour_penetration = 15
 
 /obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
 	. = ..()
-	range = rand(1, 8)
+	range = rand(3, 8)
 
 /obj/projectile/bullet/pellet/shotgun_improvised/on_range()
 	do_sparks(1, TRUE, src)
 	..()
+
+/obj/projectile/bullet/pellet/shotgun_glass
+	tile_dropoff = 0.75
+	damage = 6
+	range = 8
+	ricochets_max = 0
+	shrapnel_type = /obj/item/shrapnel/bullet/shotgun/glass
+
+/obj/projectile/bullet/pellet/shotgun_glass/Initialize(mapload)
+	. = ..()
+
+	if(prob(20)) //Each 'pellet' has a 20 percent chance to not shrapnel/attempt embedding
+		shrapnel_type = null
 
 // Mech Scattershot
 

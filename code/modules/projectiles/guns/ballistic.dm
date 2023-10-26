@@ -116,7 +116,7 @@
 		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
 	cut_overlays()
 	switch(bolt_type)
-		if(BOLT_TYPE_LOCKING, BOLT_TYPE_PUMP, BOLT_TYPE_TWO_STEP)
+		if(BOLT_TYPE_LOCKING, BOLT_TYPE_PUMP, BOLT_TYPE_TWO_STEP, BOLT_TYPE_NB_BREAK)
 			add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 	if (bolt_type == BOLT_TYPE_OPEN && bolt_locked)
 		add_overlay("[icon_state]_bolt")
