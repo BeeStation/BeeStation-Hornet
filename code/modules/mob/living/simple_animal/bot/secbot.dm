@@ -56,6 +56,12 @@
 	auto_patrol = FALSE
 	security_mode_flags = SECBOT_DECLARE_ARRESTS | SECBOT_CHECK_IDS | SECBOT_CHECK_RECORDS
 
+/mob/living/simple_animal/bot/secbot/beepsky/armsky/warden
+	name = "Warden Armsky"
+	health = 45
+	auto_patrol = FALSE
+	security_mode_flags = SECBOT_DECLARE_ARRESTS | SECBOT_CHECK_IDS | SECBOT_CHECK_RECORDS
+
 /mob/living/simple_animal/bot/secbot/beepsky/jr
 	name = "Officer Pipsqueak"
 	desc = "It's Officer Beep O'sky's smaller, just-as aggressive cousin, Pipsqueak."
