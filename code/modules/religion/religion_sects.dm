@@ -328,7 +328,7 @@
 	var/light_power = 0
 	var/list/obelisks = list()
 
-/datum/religion_sect/shadow/is_available(mob/user)
+/datum/religion_sect/shadow_sect/is_available(mob/user)
     if(isshadow(user))
         return TRUE
     return FALSE
