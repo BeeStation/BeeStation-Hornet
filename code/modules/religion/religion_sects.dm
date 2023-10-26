@@ -315,7 +315,7 @@
 /datum/religion_sect/shadow_sect
 	starter = FALSE
 	name = "Shadow"
-	desc = "A sect dedicated to the darkness. The altar and manifested obelisks will generate favor from being in darkness."
+	desc = "A sect dedicated to the darkness. The manifested obelisks will generate favor from being in darkness."
 	quote = "Turn out the lights, and let the darkness cover the world!"
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL

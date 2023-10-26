@@ -21,7 +21,6 @@
 
 /datum/component/religious_tool/Initialize(_flags = ALL, _force_catalyst_afterattack = FALSE, _after_sect_select_cb, override_catalyst_type)
 	. = ..()
-	SetGlobalToLocal() //attempt to connect on start in case one already exists!
 	operation_flags = _flags
 	force_catalyst_afterattack = _force_catalyst_afterattack
 	after_sect_select_cb = _after_sect_select_cb
@@ -34,19 +33,6 @@
 
 /datum/component/religious_tool/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE))
-
-/**
- * Sets the easy access variable to the global if it exists.
- */
-/datum/component/religious_tool/proc/SetGlobalToLocal()
-	if(easy_access_sect)
-		return TRUE
-	if(!GLOB.religious_sect)
-		return FALSE
-	easy_access_sect = GLOB.religious_sect
-	if(after_sect_select_cb)
-		after_sect_select_cb.Invoke()
-	return TRUE
 
 /**
  * Since all of these involve attackby, we require mega proc. Handles Invocation, Sacrificing, And Selection of Sects.
@@ -86,7 +72,7 @@
 /datum/component/religious_tool/ui_data(mob/user)
 	var/list/data = list()
 	//cannot find global vars, so lets offer options
-	if(!SetGlobalToLocal())
+	if(!easy_access_sect)
 		data["sects"] = generate_available_sects(user)
 		data["alignment"] = ALIGNMENT_NEUT //neutral theme if you have no sect
 	else
