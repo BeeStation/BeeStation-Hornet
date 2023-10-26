@@ -22526,7 +22526,6 @@
 /area/iceland_base/outpost/research)
 "nED" = (
 /obj/docking_port/stationary{
-	dir = 8;
 	dwidth = 13;
 	height = 33;
 	id = "LZ2-outpost";
@@ -23124,8 +23123,8 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "pIh" = (
+/obj/effect/turf_decal/techfloor,
 /obj/docking_port/stationary{
-	dir = 4;
 	dwidth = 13;
 	height = 33;
 	id = "LZ1-base";
@@ -46115,7 +46114,7 @@ aKh
 aKh
 aKh
 aKh
-pIh
+aKh
 aKh
 aKh
 aKh
@@ -50233,7 +50232,7 @@ aKh
 aKh
 aKh
 aKh
-ghK
+pIh
 ajU
 aKh
 aKh
@@ -64787,7 +64786,7 @@ lFT
 lFT
 lFT
 lFT
-lFT
+nED
 bMg
 aZI
 aRu
@@ -69144,7 +69143,7 @@ lFT
 lFT
 lFT
 lFT
-nED
+lFT
 lFT
 lFT
 lFT
