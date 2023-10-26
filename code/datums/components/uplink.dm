@@ -320,12 +320,16 @@
 	if(channel != RADIO_CHANNEL_UPLINK)
 		return
 
-	// Remove lizard accent for cases where the uplink code is Oscar ("Ossscar"), Whiskey ("Whissskey") or X-ray ("ECKS-ray")
+	// Remove species accent for cases where the uplink code is Oscar ("Ossscar") or X-ray ("ECKS-ray"), for example
 	var/static/regex/reverse_hiss = new("sss", "ig")
+	var/static/regex/reverse_kss = new("kss", "ig")
 	var/static/regex/reverse_ecks = new("ecks", "ig")
+	var/static/regex/reverse_buzz = new("zzz", "ig")  // From flypeople
 	var/msg_noaccent = message
 	msg_noaccent = reverse_hiss.Replace(msg_noaccent, "s")
+	msg_noaccent = reverse_kss.Replace(msg_noaccent, "x")
 	msg_noaccent = reverse_ecks.Replace(msg_noaccent, "x")
+	msg_noaccent = reverse_buzz.Replace(msg_noaccent, "z")
 
 	if(!findtext(lowertext(msg_noaccent), lowertext(unlock_code)))
 		if(failsafe_code && findtext(lowertext(msg_noaccent), lowertext(failsafe_code)))
