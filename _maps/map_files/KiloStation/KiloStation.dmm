@@ -89541,7 +89541,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
-	color = s
+	color = "#439C1E"
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/structure/disposalpipe/segment,
