@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Equipping guns will now provide a brief period where you are slowed and
-      cannot fire the gun, represented by teh crosshair timer. (This is 2-4 seconds
-      depending on the gun).
