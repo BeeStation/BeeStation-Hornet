@@ -534,6 +534,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = -32
 	},
+/obj/effect/landmark/afterstation,
 /turf/open/floor/plasteel/grid,
 /area/shuttle/escape)
 "jG" = (
