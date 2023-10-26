@@ -88,7 +88,7 @@
 	icon_state = "improvshell"
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_improvised
 	materials = list(/datum/material/iron=250)
-	pellets = 10
+	pellets = 9
 	variance = 15
 
 /obj/item/ammo_casing/shotgun/ion
