@@ -175,7 +175,7 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "bf" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "bg" = (
@@ -919,7 +919,7 @@
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/item/food/tofu/prison,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/item/kitchen/rollingpin,
 /obj/item/wrench,
@@ -1726,7 +1726,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
 "lt" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "lu" = (

@@ -271,7 +271,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(shuttleObject.autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
 				return
-			shuttleObject.thrust = CLAMP(params["thrust"], 0, 100)
+			shuttleObject.thrust = clamp(params["thrust"], 0, 100)
 		if("setAngle")
 			if(QDELETED(shuttleObject))
 				say("Shuttle not in flight.")

@@ -68,6 +68,7 @@
 			heal_amt *= 2
 		C.heal_overall_damage(heal_amt,heal_amt)
 		C.adjustToxLoss(-heal_amt)
+		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amt)
 	if(!C.InCritical() && prob(4))
 		playsound(C, pick(spooks), 50, TRUE, 10)
 

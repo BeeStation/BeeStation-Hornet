@@ -132,7 +132,7 @@
 	return
 
 /obj/machinery/gibber/proc/go_out()
-	dropContents()
+	dump_inventory_contents()
 	update_icon()
 
 /obj/machinery/gibber/proc/startgibbing(mob/user)
@@ -197,7 +197,8 @@
 		skin = new typeofskin
 
 	log_combat(user, occupant, "gibbed")
-	mob_occupant.death(1)
+	mob_occupant.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
+	mob_occupant.death(TRUE)
 	mob_occupant.ghostize()
 	set_occupant(null)
 	qdel(mob_occupant)

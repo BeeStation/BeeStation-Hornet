@@ -254,9 +254,9 @@
 	var/extended_throwforce = 7
 	var/extended_icon_state = "straightrazor_open"
 
-/obj/item/razor/straightrazor/suicide_act(mob/user)
+/obj/item/razor/straightrazor/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/razor/attack(mob/M, mob/user)
 	. = ..()

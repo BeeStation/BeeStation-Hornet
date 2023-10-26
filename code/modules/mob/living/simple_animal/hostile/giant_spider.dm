@@ -185,6 +185,7 @@
 				if(isliving(cocoon_target))
 					var/mob/living/L = cocoon_target
 					if(L.stat != DEAD)
+						L.investigate_log("has been killed by being wrapped in a cocoon.", INVESTIGATE_DEATHS)
 						L.death() //If it's not already dead, we want it dead regardless of nourishment
 					if(L.blood_volume >= BLOOD_VOLUME_BAD && !isipc(L)) //IPCs and drained mobs are not nourishing.
 						L.blood_volume = 0 //Remove all fluids from this mob so they are no longer nourishing.

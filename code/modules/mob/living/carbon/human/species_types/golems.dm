@@ -129,6 +129,7 @@
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
 		explosion(get_turf(H),1,2,4,flame_range = 5)
 		if(H)
+			H.investigate_log("has been gibbed as [H.p_their()] body explodes.", INVESTIGATE_DEATHS)
 			H.gib()
 	if(H.fire_stacks < 2) //flammable
 		H.adjust_fire_stacks(1)
@@ -437,7 +438,7 @@
 				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
 				// redirect the projectile
 				P.firer = H
-				P.preparePixelProjectile(locate(CLAMP(new_x, 1, world.maxx), CLAMP(new_y, 1, world.maxy), H.z), H)
+				P.preparePixelProjectile(locate(clamp(new_x, 1, world.maxx), clamp(new_y, 1, world.maxy), H.z), H)
 			return BULLET_ACT_FORCE_PIERCE
 	return ..()
 

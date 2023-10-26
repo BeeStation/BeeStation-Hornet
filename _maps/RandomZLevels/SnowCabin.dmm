@@ -3951,7 +3951,7 @@
 /area/awaymission/cabin/caves)
 "lr" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/kitchen/knife/carrotshiv,
+/obj/item/knife/carrotshiv,
 /obj/effect/decal/cleanable/glitter/blue{
 	desc = "It looks like fancy glitter to me.";
 	name = "icy wind"

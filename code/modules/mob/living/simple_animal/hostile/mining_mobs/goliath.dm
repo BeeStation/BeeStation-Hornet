@@ -10,9 +10,9 @@
 	icon_gib = "syndicate_gib"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	mouse_opacity = MOUSE_OPACITY_ICON
-	move_to_delay = 40
+	move_to_delay = 2 SECONDS
 	ranged = 1
-	ranged_cooldown_time = 120
+	ranged_cooldown_time = 80
 	friendly = "wails at"
 	speak_emote = list("bellows")
 	vision_range = 4
@@ -187,7 +187,8 @@
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
-		L.Stun(100)
+		L.Stun(1 SECONDS)
+		L.Knockdown(6 SECONDS)
 		L.adjustBruteLoss(rand(10,15))
 		latched = TRUE
 	if(!latched)
