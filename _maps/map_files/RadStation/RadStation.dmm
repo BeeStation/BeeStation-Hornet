@@ -5709,10 +5709,10 @@
 /area/hallway/primary/central)
 "bOn" = (
 /obj/structure/table,
-/obj/item/food/dough{
+/obj/item/reagent_containers/food/snacks/dough{
 	pixel_x = -4
 	},
-/obj/item/food/dough{
+/obj/item/reagent_containers/food/snacks/dough{
 	pixel_y = 1
 	},
 /obj/item/kitchen/rollingpin{
@@ -29883,7 +29883,7 @@
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/stripes/corner,
-/obj/item/food/piedough,
+/obj/item/reagent_containers/food/snacks/piedough,
 /obj/machinery/light_switch{
 	pixel_x = 21
 	},
