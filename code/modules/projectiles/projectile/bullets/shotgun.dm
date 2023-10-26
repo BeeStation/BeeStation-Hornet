@@ -64,7 +64,7 @@
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
-	damage = 9
+	damage = 8
 	tile_dropoff = 0.5
 	armour_penetration = 20
 
