@@ -353,7 +353,19 @@
 
 /obj/structure/table/glass/plasma/check_break(mob/living/M)
 	return
-
+/*
+ * altar asset made for Spooktober 2023, no special uses or property
+ */
+/obj/structure/table/halloween_altar
+	name = "defiled altar"
+	desc = "An altar used in previous rituals. Looking at it makes you feel uneasy."
+	icon = 'icons/obj/smooth_structures/tables/halloweenaltar.dmi'
+	icon_state = "halloween"
+	base_icon_state = "halloween"
+	resistance_flags = INDESTRUCTIBLE
+	smoothing_flags = NONE
+	smoothing_groups = list(NONE)
+	canSmoothWith = list(NONE)
 /*
  * Wooden tables
  */

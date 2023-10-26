@@ -1297,6 +1297,12 @@
 	icon_state = "bartender"
 	toysay = "Where is Pun Pun?"
 
+/obj/item/toy/figure/ward
+	name = "Priest action figure"
+	desc = "A blue priest action figure, holding it gives you FAITH."
+	icon_state = "priest"
+	toysay = "Mortis"
+
 /obj/item/toy/figure/borg
 	name = "Cyborg action figure"
 	icon_state = "borg"
