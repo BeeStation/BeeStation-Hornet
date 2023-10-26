@@ -236,4 +236,4 @@
 
 	vines -= vine
 
-#undefine FINAL_BUD_GROWTH_ICON
+#undef FINAL_BUD_GROWTH_ICON
