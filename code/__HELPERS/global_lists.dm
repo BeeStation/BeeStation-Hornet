@@ -73,7 +73,7 @@
 
 	init_crafting_recipes(GLOB.crafting_recipes)
 
-	init_religion_sects(GLOB.religion_sect_datums)
+	init_religion_sects()
 
 /// Inits the crafting recipe list, sorting crafting recipe requirements in the process.
 /proc/init_crafting_recipes(list/crafting_recipes)
