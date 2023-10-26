@@ -179,7 +179,8 @@
 	var/mob/living/carbon/human/highpriest = user
 	for(var/datum/religion_sect/each_sect in GLOB.religion_sect_datums)
 		var/path = each_sect.type
-		if(easy_access_sect.is_available())
+		if(!each_sect.is_available())
+			continue
 			if(human_highpriest && initial(easy_access_sect.invalidating_qualities))
 				var/datum/species/highpriest_species = highpriest.dna.species
 				if(initial(easy_access_sect.invalidating_qualities) in highpriest_species.inherent_traits)
