@@ -59440,7 +59440,7 @@
 /obj/structure/closet,
 /obj/item/aquarium_kit,
 /obj/item/paper{
-	default_raw_text = Igotlazywiththeaquariumintheentrance....ifanyonewantstofinishit,sobeit.;
+	default_raw_text = "I got lazy with the aquarium in the entrance.... if anyone wants to finish it,so be it".;
 	name = "Fish note"
 	},
 /turf/open/floor/plating,
