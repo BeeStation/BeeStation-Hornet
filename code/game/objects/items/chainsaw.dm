@@ -196,7 +196,7 @@
 	offsound = 'sound/weapons/echainsawoff.ogg'
 
 /obj/item/chainsaw/bfc/attackby(obj/item/I, mob/living/user, params)
-	if(I.name == "laser tuner") //unreliable check, get a better one PLEASE SOMEONE READING THIS REMIND ME TO FIX IT
+	if(istype(I, /obj/item/magic_laser)) //unreliable check, get a better one PLEASE SOMEONE READING THIS REMIND ME TO FIX IT
 		upgrade_bfc()
 		qdel(I)
 	else
