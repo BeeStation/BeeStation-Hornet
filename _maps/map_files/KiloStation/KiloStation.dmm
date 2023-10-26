@@ -59440,7 +59440,7 @@
 /obj/structure/closet,
 /obj/item/aquarium_kit,
 /obj/item/paper{
-	default_raw_text = "I got lazy with the aquarium in the entrance.... if anyone wants to finish it,so be it".;
+	default_raw_text = "I got lazy with the aquarium in the entrance.... if anyone wants to finish it,so be it.";
 	name = "Fish note"
 	},
 /turf/open/floor/plating,
@@ -88820,7 +88820,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/item/paper{
-	default_raw_text = "If you see this,you have been HONKED!-TheRealCaptain";
+	default_raw_text = "If you see this,you have been HONKED!-The Real Captain";
 	name = "READ ME!! VERY IMPORTANT"
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
