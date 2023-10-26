@@ -147,7 +147,7 @@
 					return
 				to_chat(user, "<span class='notice'>You start to wire [src]...</span>")
 				if(do_after(user, 40, target = src))
-					if(coil.get_amount() >= 1 && build_step == 6)
+					if(coil.get_amount() >= 1 && build_step == ASSEMBLY_SEVENTH_STEP)
 						coil.use(1)
 						to_chat(user, "<span class='notice'>You wire [src].</span>")
 						name = "wired ED-209 assembly"

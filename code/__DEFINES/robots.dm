@@ -1,6 +1,13 @@
 /** AI defines */
 
 #define DEFAULT_AI_LAWID "default"
+#define LAW_VALENTINES "valentines"
+#define LAW_DEVIL "devil"
+#define LAW_ZEROTH "zeroth"
+#define LAW_INHERENT "inherent"
+#define LAW_SUPPLIED "supplied"
+#define LAW_ION "ion"
+#define LAW_HACKED "hacked"
 
 //AI notification defines
 ///Alert when a new Cyborg is created.
@@ -45,12 +52,22 @@
 
 /** Simple Animal BOT defines */
 
+//Assembly defines
+#define ASSEMBLY_FIRST_STEP 0
+#define ASSEMBLY_SECOND_STEP 1
+#define ASSEMBLY_THIRD_STEP 2
+#define ASSEMBLY_FOURTH_STEP 3
+#define ASSEMBLY_FIFTH_STEP 4
+#define ASSEMBLY_SIXTH_STEP 5
+#define ASSEMBLY_SEVENTH_STEP 6
+#define ASSEMBLY_EIGHTH_STEP 7
+#define ASSEMBLY_NINTH_STEP 8
+
 //Bot defines, placed here so they can be read by other things!
 /// Delay between movemements
 #define BOT_STEP_DELAY 4
 /// Maximum times a bot will retry to step from its position
 #define BOT_STEP_MAX_RETRIES 5
-
 /// Default view range for finding targets.
 #define DEFAULT_SCAN_RANGE 7
 
@@ -150,16 +167,3 @@
 #define AI_SHELL 4
 ///Alert when a Cyborg gets disconnected from their AI.
 #define DISCONNECT 5
-
-/** Misc Robot defines */
-
-//Assembly defines
-#define ASSEMBLY_FIRST_STEP 0
-#define ASSEMBLY_SECOND_STEP 1
-#define ASSEMBLY_THIRD_STEP 2
-#define ASSEMBLY_FOURTH_STEP 3
-#define ASSEMBLY_FIFTH_STEP 4
-#define ASSEMBLY_SIXTH_STEP 5
-#define ASSEMBLY_SEVENTH_STEP 6
-#define ASSEMBLY_EIGHTH_STEP 7
-#define ASSEMBLY_NINTH_STEP 8

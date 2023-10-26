@@ -1,11 +1,3 @@
-#define LAW_VALENTINES "valentines"
-#define LAW_DEVIL "devil"
-#define LAW_ZEROTH "zeroth"
-#define LAW_INHERENT "inherent"
-#define LAW_SUPPLIED "supplied"
-#define LAW_ION "ion"
-#define LAW_HACKED "hacked"
-
 
 /datum/ai_laws
 	var/name = "Unknown Laws"
