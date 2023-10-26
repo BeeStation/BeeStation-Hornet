@@ -16,6 +16,7 @@
 
 /turf/open/floor/plating/dirt/dark
 	icon_state = "greenerdirt"
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
 /turf/open/floor/plating/dirt/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
