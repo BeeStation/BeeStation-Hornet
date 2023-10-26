@@ -1,5 +1,5 @@
 //flags
-#define IGNORE_NOSLOW	(1 << 0)
+#define IGNORE_NOSLOW (1 << 0)
 
 //conflict types
 

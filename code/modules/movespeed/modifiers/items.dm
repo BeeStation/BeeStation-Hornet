@@ -16,3 +16,7 @@
 
 /datum/movespeed_modifier/admantine_armor
 	multiplicative_slowdown = 4
+
+/datum/movespeed_modifier/drawing_firearm
+	variable = TRUE
+	movetypes = GROUND

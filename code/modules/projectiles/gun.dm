@@ -195,7 +195,7 @@
 		ranged_cooldown = max(world.time + equip_time, ranged_cooldown)
 		user.client?.give_cooldown_cursor(ranged_cooldown - world.time)
 		equip_timer_id = addtimer(CALLBACK(src, PROC_REF(clear_gun_equip_slowdown), user), equip_time, TIMER_STOPPABLE)
-		user.add_movespeed_modifier(MOVESPEED_ID_GUN_EQUIP, multiplicative_slowdown = equip_slowdown, movetypes = GROUND)
+		user.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/drawing_firearm, multiplicative_slowdown = equip_slowdown)
 	else
 		clear_gun_equip_slowdown(user)
 		if (equip_timer_id)
@@ -222,7 +222,7 @@
 
 /obj/item/gun/proc/clear_gun_equip_slowdown(mob/living/user)
 	slowdown = initial(slowdown)
-	user.remove_movespeed_modifier(MOVESPEED_ID_GUN_EQUIP)
+	user.remove_movespeed_modifier(/datum/movespeed_modifier/drawing_firearm)
 	equip_timer_id = null
 
 //called after the gun has successfully fired its chambered ammo.
