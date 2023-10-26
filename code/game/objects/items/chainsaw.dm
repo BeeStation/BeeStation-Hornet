@@ -147,3 +147,58 @@
 	desc = "The all new NT-branded hedge trimmer! Can also be used to saw trees or butcher big animals."
 	force = 15
 	tool_behaviour = TOOL_BFC
+	var/onsound
+	var/offsound
+	var/upgraded
+	upgraded = 0
+
+/obj/item/chainsaw/bfc/attack_self(mob/user)
+	if(upgraded == 1)
+		on = !on
+		to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr intimidatingly." : "the plasma microblades stop moving."]")
+		force = on ? force_on : initial(force)
+		playsound(user, on ? onsound : offsound , 50, 1)
+		if(on)
+			set_light(TRUE)
+		else
+			set_light(FALSE)
+		throwforce = on ? force_on : initial(force)
+		icon_state = "echainsaw_[on ? "on" : "off"]"
+
+		if(hitsound == "swing_hit")
+			hitsound = pick('sound/weapons/echainsawhit1.ogg','sound/weapons/echainsawhit2.ogg')
+		else
+			hitsound = "swing_hit"
+
+		if(src == user.get_active_held_item())
+			user.update_inv_hands()
+		update_action_buttons()
+
+	else
+		. = ..()
+		return
+
+
+
+/obj/item/chainsaw/bfc/proc/upgrade_bfc()
+	upgraded = 1
+	tool_behaviour = TOOL_SUPERBFC
+	name = "SUPER BFC 2000"
+	desc = "The original BFC upgraded with RAW DEMONIC POWER."
+	force = 30
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "echainsaw_off"
+	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
+	light_range = 6
+	light_color = "#ff0000"
+	onsound = 'sound/weapons/echainsawon.ogg'
+	offsound = 'sound/weapons/echainsawoff.ogg'
+
+/obj/item/chainsaw/bfc/attackby(obj/item/I, mob/living/user, params)
+	if(I.name == "laser tuner") //unreliable check, get a better one PLEASE SOMEONE READING THIS REMIND ME TO FIX IT
+		upgrade_bfc()
+		qdel(I)
+	else
+		return
+	. = ..()
