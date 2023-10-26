@@ -11671,9 +11671,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	color = "#618ba2"
-	},
 /obj/effect/landmark/start/geneticist,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52165,12 +52162,12 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Medbay Security Post";
 	req_access_txt = "63"
 	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel/showroomfloor,
 /area/security/checkpoint/medical)
 "hGn" = (
 /obj/structure/cable/yellow{
@@ -53699,7 +53696,6 @@
 /area/quartermaster/storage)
 "ioK" = (
 /obj/machinery/door/firedoor/heavy,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -64521,9 +64517,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
-"mPM" = (
-/turf/open/floor/plating,
-/area/medical/surgery)
 "mPR" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -78028,6 +78021,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/structure/chair/fancy/comfy{
+	color = "#354562"
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/surgery)
 "srG" = (
@@ -83339,7 +83335,7 @@
 /area/medical/genetics/cloning)
 "uJF" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/medical/chemistry)
 "uJI" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -85852,11 +85848,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/structure/chair/office/light{
 	dir = 1;
 	pixel_y = 3
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/checkpoint/medical)
 "vKk" = (
@@ -111596,7 +111592,7 @@ rLz
 aQL
 rPM
 sro
-mPM
+bhA
 tme
 ncU
 jHt
