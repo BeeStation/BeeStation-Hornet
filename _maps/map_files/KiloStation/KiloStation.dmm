@@ -41017,11 +41017,6 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/fore)
-"cXV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/medical/storage)
 "cXY" = (
 /obj/item/radio/intercom{
 	pixel_x = -28
@@ -53777,6 +53772,10 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
+"iqj" = (
+/obj/structure/closet/firecloset,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "iql" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8;
@@ -54039,7 +54038,6 @@
 /area/security/prison)
 "ixJ" = (
 /obj/structure/grille/broken,
-/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "iyn" = (
@@ -59499,7 +59497,7 @@
 	name = "Fish note"
 	},
 /turf/open/floor/plating,
-/area/medical/storage)
+/area/maintenance/port)
 "kHX" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot{
@@ -61597,6 +61595,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
+"lCU" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "lCY" = (
 /obj/structure/sign/directions/science{
 	dir = 4;
@@ -69443,10 +69446,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
-"paF" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/medical/storage)
 "paG" = (
 /obj/item/stack/cable_coil/cut/yellow{
 	pixel_x = 13;
@@ -74008,12 +74007,6 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "emmd";
-	name = "Medical Lockdown Toggle";
-	pixel_x = 24;
-	pixel_y = -24
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -79528,7 +79521,6 @@
 /area/hydroponics)
 "sXp" = (
 /obj/structure/table/glass,
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -82344,13 +82336,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
-"uhN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
-/obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plating,
-/area/medical/storage)
 "uhY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -84068,7 +84053,7 @@
 /obj/item/storage/box/aquarium_props,
 /obj/structure/closet,
 /turf/open/floor/plating,
-/area/medical/storage)
+/area/maintenance/port)
 "uZM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
@@ -86531,7 +86516,7 @@
 "vXe" = (
 /obj/structure/girder,
 /turf/open/floor/plating,
-/area/medical/storage)
+/area/maintenance/port)
 "vXg" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -109552,7 +109537,7 @@ aPa
 svm
 aOZ
 vXe
-paF
+crP
 crP
 crg
 amR
@@ -109809,7 +109794,7 @@ xBB
 aNL
 aOZ
 kHH
-cXV
+snO
 cHN
 cuW
 cLH
@@ -110066,7 +110051,7 @@ efA
 tWZ
 aOZ
 uZK
-uhN
+snO
 ixJ
 bdl
 csi
@@ -110322,8 +110307,8 @@ jzQ
 uvk
 nQE
 aOZ
-aOZ
-aOZ
+iqj
+lCU
 aQN
 bdo
 aQP
