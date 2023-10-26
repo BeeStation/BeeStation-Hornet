@@ -57491,23 +57491,19 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/prison)
 "jLj" = (
-/obj/structure/table/glass,
 /obj/item/storage/belt/medical,
 /obj/item/crowbar,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/table/glass,
 /obj/item/wrench/medical,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/obj/structure/table/glass,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "jLq" = (
@@ -62532,6 +62528,10 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
+"lVp" = (
+/obj/structure/extinguisher_cabinet,
+/turf/closed/wall,
+/area/medical/medbay/central)
 "lVY" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -63457,9 +63457,6 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/light_switch{
 	pixel_y = 24
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
 	},
 /obj/item/glove_box,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -70464,13 +70461,6 @@
 	icon_state = "platingdmg1"
 	},
 /area/quartermaster/warehouse)
-"psp" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/medical/medbay/central)
 "pst" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
@@ -88902,7 +88892,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/item/paper{
-	default_raw_text = Ifyouseethis,youhavebeenHONKED!-TheRealCaptain;
+	default_raw_text = "If you see this,you have been HONKED!-TheRealCaptain";
 	name = "READ ME!! VERY IMPORTANT"
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -112899,7 +112889,7 @@ nnp
 jSm
 mon
 nqz
-aNn
+lVp
 aQW
 uJF
 ioK
@@ -114182,7 +114172,7 @@ aWl
 xZb
 dAb
 dAb
-psp
+dAb
 oNX
 vNc
 lzd
