@@ -434,6 +434,36 @@
 	environment_type = "snow_cavern"
 	turf_type = /turf/open/floor/plating/asteroid/basalt/iceland_surface
 
+/turf/closed/mineral/snowmountain/indestructible
+	name = "dense snowy mountainside"
+	explosion_block = 50
+	to_be_destroyed = FALSE
+
+/turf/closed/mineral/snowmountain/indestructible/attackby(obj/item/I, mob/user, params)
+	if (!user.IsAdvancedToolUser())
+		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		return
+
+	if(I.tool_behaviour == TOOL_MINING)
+		var/turf/T = user.loc
+		if (!isturf(T))
+			return
+
+		if(last_act + (INFINITY * I.toolspeed) > world.time)//prevents message spam
+			return
+		last_act = world.time
+		to_chat(user, "<span class='notice'>You start picking... But it's barely leaving a dent on it!</span>")
+
+		if(I.use_tool(src, user, 40, volume=50))
+			if(ismineralturf(src))
+				to_chat(user, "<span class='notice'>You finish cutting into the rock, How?</span>")
+				gets_drilled(user)
+				SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.type)
+	else
+		return attack_hand(user)
+
+/turf/closed/mineral/snowmountain/indestructible/gets_drilled()
+	return //minimal ammount of trolling
 
 //GIBTONITE
 

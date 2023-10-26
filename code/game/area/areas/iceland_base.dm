@@ -135,3 +135,39 @@
 	clockwork_warp_fail = "The consecration here prevents you from warping in."
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+
+/area/iceland_base/outpost
+	name = "outpost (iceland)"
+	icon_state = "iceland_out"
+
+/area/iceland_base/outpost/entrance
+	name = "outpost (iceland)"
+	icon_state = "iceland_out_entrance"
+
+/area/iceland_base/outpost/crew
+	name = "outpost crew quarter (iceland)"
+	icon_state = "iceland_out_crew"
+
+/area/iceland_base/outpost/office
+	name = "outpost (iceland)"
+	icon_state = "iceland_out_office"
+
+/area/iceland_base/outpost/research
+	name = "outpost research (iceland)"
+	icon_state = "iceland_out_research"
+
+/area/iceland_base/outpost/command
+	name = "outpost central command (iceland)"
+	icon_state = "iceland_out_command"
+
+/area/iceland_base/outpost/garage
+	name = "outpost garage (iceland)"
+	icon_state = "iceland_out_garage"
+
+/area/iceland_base/outpost/hangar
+	name = "outpost hangar (iceland)"
+	icon_state = "iceland_out_hangar"
+
+/area/iceland_base/outpost/special
+	name = "outpost special zone(iceland)"
+	icon_state = "iceland_out_special"

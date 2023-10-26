@@ -199,6 +199,14 @@
 	icon_state = "snowgrassall[rand(1, 3)]"
 	. = ..()
 
+/obj/structure/flora/grass/icy
+	name = "frozen grass"
+	desc = "Looks frozen."
+	icon_state = "snowgrass_1"
+
+/obj/structure/flora/grass/icy/Initialize(mapload)
+	icon_state = "snowgrass_[rand(1, 15)]"
+	. = ..()
 
 //bushes
 /obj/structure/flora/bush
