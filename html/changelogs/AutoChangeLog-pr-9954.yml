@@ -1,0 +1,6 @@
+author: tontyGH
+delete-after: true
+changes:
+  - tweak: spawning characters will now have their quirks assigned regardless of what
+      mob type they are
+  - bugfix: roundstart cyborgs should now keep the DNA and quirks of their character
