@@ -264,6 +264,7 @@ Class Procs:
 /obj/machinery/proc/process_atmos()//If you dont use process why are you here
 	return PROCESS_KILL
 
+
 ///Called when we want to change the value of the machine_stat variable. Holds bitflags.
 /obj/machinery/proc/set_machine_stat(new_value)
 	if(new_value == machine_stat)
@@ -275,10 +276,12 @@ Class Procs:
 
 ///Called when the value of `machine_stat` changes, so we can react to it.
 /obj/machinery/proc/on_set_machine_stat(old_value)
-	if(old_value & (NOPOWER|BROKEN|MAINT))
-		if(!(machine_stat & (NOPOWER|BROKEN|MAINT))) //From off to on.
-			set_is_operational(TRUE)
-	else if(machine_stat & (NOPOWER|BROKEN|MAINT)) //From on to off.
+	//From off to on.
+	if((old_value & (NOPOWER|BROKEN|MAINT)) && !(machine_stat & (NOPOWER|BROKEN|MAINT)))
+		set_is_operational(TRUE)
+		return
+	//From on to off.
+	if(machine_stat & (NOPOWER|BROKEN|MAINT))
 		set_is_operational(FALSE)
 
 /obj/machinery/emp_act(severity)
@@ -357,7 +360,7 @@ Class Procs:
 			living_mob.update_mobility()
 
 		if(occupant == movable_atom)
-			occupant = null
+			set_occupant(null)
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
