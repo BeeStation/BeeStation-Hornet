@@ -44,7 +44,6 @@
 
 /mob/living/simple_animal/bot/secbot/grievous/Initialize(mapload)
 	. = ..()
-	weapon = new weapon(src)
 	INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/item, attack_self), src)
 
 /mob/living/simple_animal/bot/secbot/grievous/Destroy()
@@ -75,9 +74,9 @@
 			update_appearance()
 			SSmove_manager.stop_looping(src)
 			look_for_perp()	// see if any criminals are in range
-			if(!mode && auto_patrol)	// still idle, and set to patrol
-				mode = BOT_START_PATROL	// switch to patrol mode
-		if(BOT_HUNT)		// hunting for perp
+			if(!mode && auto_patrol) // still idle, and set to patrol
+				mode = BOT_START_PATROL // switch to patrol mode
+		if(BOT_HUNT) // hunting for perp
 			update_appearance()
 			playsound(src,'sound/effects/beepskyspinsabre.ogg',100,TRUE,-1)
 			// general beepsky doesn't give up so easily, jedi scum
@@ -85,13 +84,13 @@
 				SSmove_manager.stop_looping(src)
 				back_to_idle()
 				return
-			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc))	// if right next to perp
+			if(target) // make sure target exists
+				if(Adjacent(target) && isturf(target.loc)) // if right next to perp
 					target_lastloc = target.loc //stun_attack() can clear the target if they're dead, so this needs to be set first
 					stun_attack(target)
 					anchored = TRUE
 					return
-				else								// not next to perp
+				else // not next to perp
 					var/turf/olddist = get_dist(src, target)
 					SSmove_manager.move_to(src, target, 1, 4)
 					if((get_dist(src, target)) >= (olddist))
