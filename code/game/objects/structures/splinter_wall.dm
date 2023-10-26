@@ -28,6 +28,8 @@
 	playsound(src, 'sound/weapons/chainsawhit.ogg', 100, 1)
 	to_chat(user, "You tear through the [src]!")
 	var/obj/effect/decal/cleanable/blood/remains = new /obj/effect/decal/cleanable/blood(get_turf(src))
+	remains.name = "remains"
+	remains.desc = "Foul smelling fleshy remains"
 	qdel(src)
 
 /obj/structure/splinter_wall/attackby(obj/item/I, mob/living/user)

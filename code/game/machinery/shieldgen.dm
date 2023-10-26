@@ -55,6 +55,18 @@
 	. = ..()
 	src.icon_state = pick("Hvy1","Hvy2","Hvy3")
 
+/obj/structure/emergency_shield/event/vines/proc/dismantle_vine(mob/living/user)
+	playsound(src, 'sound/weapons/chainsawhit.ogg', 100, 1)
+	to_chat(user, "You tear through the [src]!")
+	qdel(src)
+
+/obj/structure/emergency_shield/event/vines/attackby(obj/item/I, mob/living/user)
+	if(I.tool_behaviour == TOOL_SUPERBFC)
+		dismantle_vine()
+	else
+		to_chat(user, "That does nothing to the [src]!")
+		return
+
 /obj/structure/emergency_shield/sanguine
 	name = "sanguine barrier"
 	desc = "A potent shield summoned by cultists to defend their rites."
