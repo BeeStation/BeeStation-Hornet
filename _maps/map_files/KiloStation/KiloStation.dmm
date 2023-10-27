@@ -8463,10 +8463,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/folder/yellow,
 /obj/item/pen,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters_2";
-	name = "Chemistry Hall Shutters"
-	},
 /obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/window/northleft{
 	dir = 8;
@@ -8476,6 +8472,10 @@
 /obj/structure/table/reinforced,
 /obj/structure/desk_bell{
 	pixel_x = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry Hall Shutters"
 	},
 /turf/open/floor/plating,
 /area/medical/chemistry)
@@ -11953,11 +11953,11 @@
 /turf/closed/wall,
 /area/maintenance/port/fore)
 "aSg" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters_2";
+	id = "chemistry_shutters";
 	name = "Chemistry Hall Shutters"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "aSn" = (
@@ -52996,13 +52996,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry Lobby Shutters"
-	},
 /obj/machinery/door/airlock/medical/glass{
 	name = "Chemistry Lab";
 	req_access_txt = "5; 33"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry Lab Shutters"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
@@ -74481,10 +74481,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "ruy" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry Lobby Shutters"
-	},
 /obj/structure/table/reinforced,
 /obj/structure/desk_bell{
 	pixel_x = -8
@@ -74494,6 +74490,10 @@
 	icon_state = "right";
 	name = "Chemistry Desk";
 	req_access_txt = "5; 33"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry Lab Shutters"
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/chemistry)
@@ -90654,6 +90654,10 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry Lab Shutters"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
@@ -113726,7 +113730,7 @@ tKV
 aQW
 jKK
 aQW
-jKK
+aSg
 aAc
 aSg
 afe
