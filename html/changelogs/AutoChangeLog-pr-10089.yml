@@ -1,0 +1,6 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: The chaplain Fireproof ritual now fireproofs hoods in hooded clothing
+      again.
+  - rscadd: Integrated hardsuit helmets now can be fireproofed in the fireproof ritual.
