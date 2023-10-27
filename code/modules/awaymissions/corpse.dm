@@ -111,7 +111,7 @@
 		if(toxin_hurt)
 			toxin_damage = rand(16,256)
 		if(clone_hurt)
-			clone_damage = rand(16,256)
+			clone_damage = rand(0,64)
 
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
@@ -339,8 +339,15 @@
 
 /obj/effect/mob_spawn/human/corpse/assistant/outpost
 	name = "Outpost Assistant"
-	id_job = "Test Subject project 'Alfa Sierra Sierra'"
+	id_job = "Test Subject project 'Alpha Sierra Sierra'"
 	startdamaged = TRUE
+	brute_hurt = TRUE
+	burn_hurt = TRUE
+/obj/effect/mob_spawn/human/corpse/assistant/outpost/clonemess
+	brute_hurt = FALSE
+	burn_hurt = FALSE
+	toxin_hurt = TRUE
+	clone_hurt = TRUE
 
 /obj/effect/mob_spawn/human/corpse/cargo_tech
 	name = "Cargo Tech"
@@ -359,6 +366,8 @@
 	name = "Outpost Doctor"
 	id_job = "Outpost Doctor"
 	startdamaged = TRUE
+	brute_hurt = TRUE
+	burn_hurt = TRUE
 
 /obj/effect/mob_spawn/human/doctor/alive
 	death = FALSE
@@ -388,6 +397,8 @@
 	id_job = "Outpost Engineer"
 	outfit = /datum/outfit/job/engineer/beltless
 	startdamaged = TRUE
+	brute_hurt = TRUE
+	burn_hurt = TRUE
 
 /obj/effect/mob_spawn/human/engineer/rig
 	outfit = /datum/outfit/job/engineer/gloved/rig
@@ -404,6 +415,8 @@
 	name = "Outpost scientist"
 	id_job = "Outpost researcher"
 	startdamaged = TRUE
+	brute_hurt = TRUE
+	burn_hurt = TRUE
 
 /obj/effect/mob_spawn/human/miner
 	name = JOB_NAME_SHAFTMINER
@@ -415,6 +428,11 @@
 /obj/effect/mob_spawn/human/miner/explorer
 	outfit = /datum/outfit/job/miner/equipped
 
+/obj/effect/mob_spawn/human/miner/explorer/lostone
+	name = Lost Miner
+	startdamaged = TRUE
+	brute_hurt = TRUE
+	burn_hurt = TRUE
 
 /obj/effect/mob_spawn/human/plasmaman
 	mob_species = /datum/species/plasmaman
@@ -536,6 +554,8 @@
 	id_access_list = list(ACCESS_CENT_CAPTAIN, ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_STORAGE)
 	outfit = /datum/outfit/nanotrasencommandercorpse
 	startdamaged = TRUE
+	brute_hurt = TRUE
+	burn_hurt = TRUE
 
 /datum/outfit/nanotrasencommandercorpse
 	name = "\improper Nanotrasen Private Security Commander"
