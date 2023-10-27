@@ -6657,7 +6657,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/port/fore)
+/area/medical/genetics)
 "aui" = (
 /turf/closed/wall/r_wall,
 /area/teleporter)
@@ -56395,7 +56395,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/genetics/cloning)
+/area/medical/medbay/central)
 "jFZ" = (
 /obj/structure/table,
 /obj/item/crowbar/red,
