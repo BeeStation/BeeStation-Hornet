@@ -90670,10 +90670,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry Lab Shutters"
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "yhm" = (
