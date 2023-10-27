@@ -13708,6 +13708,14 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	picked_color = "Burgundy"
+	},
 /turf/open/floor/plating/snowed,
 /area/iceland/underground/safe)
 "aLN" = (
@@ -18673,14 +18681,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/engine)
-"aZt" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 2ù
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "aZu" = (
 /obj/machinery/door/window/brigdoor/northright{
 	id = "Hold_Cell";
@@ -21174,6 +21174,18 @@
 "iAM" = (
 /obj/structure/grave,
 /turf/closed/mineral/snowmountain,
+/area/iceland/underground/safe)
+"iBh" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	picked_color = "Burgundy"
+	},
+/turf/open/floor/plating/snowed,
 /area/iceland/underground/safe)
 "iCv" = (
 /obj/structure/flora/grass/both,
@@ -25373,6 +25385,20 @@
 	dir = 4
 	},
 /area/iceland_base/outpost/command)
+"uTT" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	picked_color = "Burgundy"
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland/underground/safe)
 "uWh" = (
 /obj/machinery/light/built{
 	dir = 4
@@ -42912,13 +42938,13 @@ aae
 aTG
 aTG
 aTG
-aVi
+uTT
 aIx
 aIx
 aIx
 aIx
 aIx
-aVK
+iBh
 aTG
 aTG
 pZw
@@ -50715,7 +50741,7 @@ aaz
 adL
 aYu
 aFM
-aZt
+ahS
 xKM
 aTG
 aHj
@@ -51743,7 +51769,7 @@ aRX
 aQs
 afz
 aFM
-aZt
+ahS
 aaW
 anM
 aTG
@@ -52766,7 +52792,7 @@ aTG
 auE
 aTG
 aTG
-aZt
+ahS
 aTG
 aTG
 aTG
@@ -54003,13 +54029,13 @@ aJX
 aTG
 aTG
 aTG
-aZt
+ahS
 aTG
 aTG
 aTG
 aTG
 aMo
-aZt
+ahS
 aTG
 anM
 aVS
@@ -54303,7 +54329,7 @@ aRd
 aVS
 aVS
 aVS
-aVS
+awT
 aTG
 auE
 aTG
@@ -55078,7 +55104,7 @@ aql
 aDU
 afO
 aMD
-aZt
+ahS
 aTG
 aaX
 aUh
@@ -55592,7 +55618,7 @@ ayI
 apU
 aLc
 aQy
-aZt
+aTG
 aTG
 aTG
 aTG
@@ -56366,7 +56392,7 @@ avw
 anQ
 aJk
 aYs
-aZt
+ahS
 aTG
 aTG
 aTG
