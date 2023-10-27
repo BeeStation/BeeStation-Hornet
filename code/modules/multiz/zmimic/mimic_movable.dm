@@ -85,7 +85,7 @@
 	name = "openspace multiplier"
 	desc = "You shouldn't see this."
 	icon = LIGHTING_ICON
-	icon_state = "dark"
+	icon_state = "transparent"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = ZMIMIC_MAX_PLANE
 	layer = MIMICKED_LIGHTING_LAYER

@@ -22175,7 +22175,7 @@
 /obj/structure/flora/grass/brown,
 /obj/effect/mapping_helpers/virtual_z_helper{
 	width = 19;
-	height = 26;
+	height = 25;
 	id = 10
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -23753,7 +23753,7 @@
 "rQW" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
 	width = 19;
-	height = 26;
+	height = 25;
 	id = 10;
 	above = 0
 	},
