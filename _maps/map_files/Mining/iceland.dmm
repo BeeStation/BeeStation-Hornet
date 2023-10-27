@@ -618,6 +618,9 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/iceland_base/outpost/crew)
 "abD" = (
+/obj/structure/iceland_beacon{
+	gps = MedicalPostFoxtrot
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -1442,7 +1445,7 @@
 /area/iceland_base/command/council)
 "adP" = (
 /obj/item/paper/crumpled/bloody/docsdeathnote{
-	default_raw_text = "The fluid thermodynamics of this particular (lava) geyser may suggest that it didn’t form naturally, but I sure as hell refuse to believe that the liquid it spews is organic. Go out in the field with an anomaly analyzer and gather all the data you can about it. And this time no sloppy readings!";
+	default_raw_text = "**Field Analysis 4501**<br><br>The fluid thermodynamics of this particular (lava) geyser may suggest that it didn’t form naturally, but I sure as hell refuse to believe that the liquid it spews is organic. Go out in the field with an anomaly analyzer and gather all the data you can about it. And this time no sloppy readings!";
 	name = "Field Analysis 4501"
 	},
 /turf/open/floor/plating/asteroid/snow{
@@ -4289,6 +4292,11 @@
 /area/iceland/underground/safe)
 "alE" = (
 /obj/structure/closet/crate,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "alG" = (
@@ -4825,6 +4833,10 @@
 	icon_keyboard = "tech_key_off";
 	icon_screen = "ratvarcomputer_broken";
 	name = "broken computer"
+	},
+/obj/item/paper/crumpled/bloody/docsdeathnote{
+	name = "LOCKDOWN ORDER";
+	default_raw_text = "The Boreal Gate is under permanent lockdown, effective immediately. This lockdown may only be lifted through the manual override. A button can be accessed from the exterior side of the gate."
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/ruin/powered/iceland/gate/boreal)
@@ -6179,6 +6191,10 @@
 	pixel_x = -2;
 	pixel_y = -7
 	},
+/obj/item/reagent_containers/glass/waterbottle/empty{
+	pixel_x = 6;
+	pixel_y = 12
+	},
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "aqR" = (
@@ -6345,14 +6361,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
-"arl" = (
-/obj/effect/mob_spawn/human/corpse/damaged,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/iceland/underground/safe)
 "arm" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -6881,9 +6889,6 @@
 /area/iceland)
 "asM" = (
 /obj/effect/decal/cleanable/generic,
-/obj/item/circuitboard/machine/techfab/department/science,
-/obj/item/circuitboard/machine/circuit_imprinter/department/science,
-/obj/structure/closet/crate/science,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_lpost)
 "asO" = (
@@ -9235,11 +9240,6 @@
 	pixel_y = -8
 	},
 /obj/effect/decal/cleanable/oil,
-/obj/item/flashlight/lantern{
-	on = 1;
-	pixel_x = -6;
-	pixel_y = 2
-	},
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
 	icon_state = "snow_dug";
@@ -10059,6 +10059,12 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/structure/closet/crate/secure/gear,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "aBx" = (
@@ -11239,12 +11245,10 @@
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/office)
 "aEJ" = (
-/obj/item/reagent_containers/glass/waterbottle/empty{
-	pixel_x = 6;
-	pixel_y = 12
-	},
-/obj/structure/closet/cardboard,
 /obj/structure/railing,
+/obj/structure/closet/crate/science,
+/obj/item/circuitboard/machine/circuit_imprinter/department/science,
+/obj/item/circuitboard/machine/techfab/department/science,
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "aEK" = (
@@ -11639,6 +11643,9 @@
 /obj/item/reagent_containers/glass/mortar{
 	pixel_x = -4;
 	pixel_y = 4
+	},
+/obj/structure/iceland_beacon{
+	gps = Science Outpost
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
@@ -14612,7 +14619,7 @@
 	dir = 9
 	},
 /obj/structure/table/wood,
-/obj/item/storage/belt/quiver,
+/obj/item/knife/combat/survival,
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
 	icon_state = "snow_dug";
@@ -15637,6 +15644,12 @@
 "aRq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/closet/crate/secure/gear,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "aRr" = (
@@ -16052,7 +16065,7 @@
 /area/iceland/underground/safe)
 "aSs" = (
 /obj/item/paper/crumpled/bloody/docsdeathnote{
-	default_raw_text = "Yesterday I finally mustered the courage to ask her out and she said yes! I still feel the butterflies right into my stomach, I fell in love with Karen from the first day we met onboard. I showed her some pictures of the asteroid’s surface and I noticed the awe in her eyes for a particular flower. I’ll go gather it for her tomorrow morning and I’ll give it to her during our dinner!Just changes proposed based on style, purely subjective.Correction proposal:Yesterday I finally mustered the courage to ask her out and she said yes! I can feel my hands still shaking… Finally, after all this time, I’m getting a date with Karen! I showed her pictures that our expedition took the other day, and I noticed her eyes lit up when she saw that one glowy flower. I’m pretty sure I remember the path, so I’ll go gather it for her tomorrow morning, and I’ll give it to her during our dinner!";
+	default_raw_text = "It happened yesterday… I finally mustered the courage to ask her out and she said yes! I can feel my hands still shaking… Finally, after all this time, I’m getting a date with Karen! I showed her pictures that our expedition took the other day, and I noticed her eyes lit up when she saw that one glowy flower. I’m pretty sure I remember the path, so I’ll go gather it for her tomorrow morning, and I’ll give it to her during our dinner!";
 	name = "Torn diary entry"
 	},
 /turf/open/floor/grass,
@@ -16139,7 +16152,7 @@
 "aSD" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/item/paper/crumpled/bloody/docsdeathnote{
-	default_raw_text = "Cerberus team, the savages did it again. The natives have stolen our entire supply provision in outpost 11, you are being sent to retrieve it using any means at your disposal. But use violence only as a last resort. Find a remote, high area and use the binoculars to see if you’re able to spot a soft point through their defenses. Your food supply should last for 3 days. Those are just savages still living like our stoneage, how hard can it be to catch them flat-footed? Burn what’s of ours you can’t carry back and then some. We don’t want to send the wrong message here. Any act of theft at our expenses MUST end with their loss.Dispatch order is a bit confusing, sort of is a mix of between a scouting mission, a supply raid, and a punitive raid?Changed wordings to make it more focused around it being a scouting party, with the dispatcher not taking the threat very seriously, but also reminding their soldiers that they have absolutely no room to fuckup further.Correction proposal:Cerberus team, the savages did it again. The natives have stolen our entire supply provision in outpost 1, and command has had enough, we are making preparations to deal with them, permanently. You are being sent ahead of the main force to scout their positions, avoid confrontation if possible, we can’t afford to waste resources at this stage of the operation. Find an area from which you can scout their settlement, and report your findings. You’re looking for any information we can use in an all-out assault. Those are just savages still living in the stone-age, remain focused and this mission will go smoothly. Recover any missing supplies you come across, and destroy the rest. Can’t risk letting these cavemen play with c4 and guns.Don’t fuck this up, we’ll get an Admiral breathing down our necks if words come out that we failed to deal with some random tribe of savages, and none of us want that.";
+	default_raw_text = "Cerberus team, the savages did it again. The natives have stolen our entire supply provision in outpost 1, and command has had enough, we are making preparations to deal with them, permanently. You are being sent ahead of the main force to scout their positions, avoid confrontation if possible, we can’t afford to waste resources at this stage of the operation. <br>Find an area from which you can scout their settlement, and report your findings. You’re looking for any information we can use in an all-out assault. Those are just savages still living in the stone-age, remain focused and this mission will go smoothly. Recover any missing supplies you come across, and destroy the rest. Can’t risk letting these cavemen play with c4 and guns.<br>Don’t fuck this up, we’ll get an Admiral breathing down our necks if words come out that we failed to deal with some random tribe of savages, and none of us want that.";
 	name = "Dispatch order 99"
 	},
 /turf/open/floor/plasteel/cult,
@@ -18647,7 +18660,7 @@
 /area/iceland_base/crew_quarters/kitchen)
 "aZp" = (
 /obj/item/paper/crumpled/bloody/docsdeathnote{
-	default_raw_text = "Our drilling equipment in sector 36 A broke again. This time we finally are authorized to substitute its board and are tasked to build a small forward engineering (station) base to make further repairs, in this and other sectors, easier. Bring with you whatever you need and don’t forget the boards!";
+	default_raw_text = "**Fixing order 36**<br><br>Our drilling equipment in sector 36 A broke again. This time we finally are authorized to substitute its board and are tasked to build a small forward engineering base to make further repairs, in this and other sectors, easier. Bring with you whatever you need and don’t forget the boards!";
 	name = "Fixing order 36"
 	},
 /turf/open/floor/plating,
@@ -19292,6 +19305,10 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/entrance)
+"cfG" = (
+/mob/living/carbon/monkey,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "chq" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating/dirt/dark,
@@ -19806,6 +19823,14 @@
 	heat_capacity = 1e+006
 	},
 /area/iceland_base/outpost/command)
+"dIr" = (
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier/outpost,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "dMC" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor3-old"
@@ -19874,6 +19899,19 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/outpost/research)
+"dZc" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/item/flashlight/lantern{
+	on = 1;
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "dZF" = (
 /obj/effect/mob_spawn/human/engineer/outpost,
 /turf/open/floor/plasteel/dark/side{
@@ -19971,12 +20009,6 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
-"eou" = (
-/obj/structure/flora/grass/icy,
-/obj/structure/flora/grass/icy,
-/mob/living/carbon/monkey,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "epo" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark/side{
@@ -20149,13 +20181,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
-"eLg" = (
-/obj/item/paper/crumpled/bloody/docsdeathnote{
-	name = "PRIORITY 1 DIRECTIVE";
-	default_raw_text = "The northern gate is under permanent lockdown, effective immediately. This lockdown may only be lifted through the manual override procedure at the southern gate."
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "eLI" = (
 /obj/effect/decal/cleanable/generic,
 /obj/structure/splinter_wall,
@@ -20548,6 +20573,12 @@
 /obj/structure/closet,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/research)
+"geg" = (
+/obj/structure/iceland_beacon{
+	gps = CharonTeamBeacon
+	},
+/turf/open/floor/plating/dirt/dark,
+/area/iceland/underground/safe)
 "geZ" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -21039,17 +21070,6 @@
 	dir = 10
 	},
 /area/iceland_base/outpost/office)
-"hQV" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/item/flashlight/seclite{
-	light_on = 1
-	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/iceland/underground/safe)
 "hTA" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/brown,
@@ -21210,7 +21230,7 @@
 /area/iceland)
 "iEc" = (
 /obj/structure/iceland_beacon{
-	gps = MedicalPostTheta
+	gps = Forward Base Charlie
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_lpost)
@@ -21301,6 +21321,7 @@
 /turf/open/floor/wood,
 /area/iceland_base/outpost/office)
 "iPw" = (
+/obj/structure/closet/cardboard,
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
 	icon_state = "snow_dug";
@@ -21886,6 +21907,16 @@
 	heat_capacity = 1e+006
 	},
 /area/iceland_base/outpost/command)
+"kqA" = (
+/obj/structure/iceland_beacon{
+	gps = MountainPass
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "kqJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
@@ -22789,6 +22820,18 @@
 	},
 /turf/open/floor/carpet/black,
 /area/iceland_base/outpost/entrance)
+"mSd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/paper/crumpled/bloody/docsdeathnote{
+	default_raw_text = "**Fixing order 36**<br><br>Our drilling equipment in sector 36 A broke again. This time we finally are authorized to substitute its board and are tasked to build a small forward engineering base to make further repairs, in this and other sectors, easier. Bring with you whatever you need and don’t forget the boards!";
+	name = "Survey team transcript 3"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "mSn" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora/grass/both,
@@ -23496,6 +23539,15 @@
 /obj/structure/frame,
 /turf/open/floor/plating/snowed,
 /area/ruin/powered/iceland/crashlanded_shuttle)
+"oOX" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/latcher,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "oRJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
@@ -23635,6 +23687,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/entrance)
+"ptQ" = (
+/obj/structure/flora/grass/both,
+/obj/structure/flora/tree/pine,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "pur" = (
 /obj/machinery/light/broken{
 	dir = 4
@@ -23654,6 +23711,12 @@
 /obj/effect/mob_spawn/human/corpse/assistant/outpost,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/office)
+"pvL" = (
+/obj/item/flashlight/seclite{
+	light_on = 1
+	},
+/turf/open/floor/plasteel/cult,
+/area/iceland/underground/safe)
 "pvQ" = (
 /obj/structure/flora/grass/sharp,
 /obj/structure/flora/grass/both,
@@ -23839,7 +23902,7 @@
 /area/iceland_base/outpost/research)
 "pQp" = (
 /obj/structure/iceland_beacon{
-	gps = Distressbeacon
+	gps = CerberusTeamBeacon
 	},
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
@@ -24227,6 +24290,19 @@
 /obj/structure/flora/grass/sharp,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"qLR" = (
+/obj/item/flashlight/lantern{
+	on = 1;
+	pixel_x = -6;
+	pixel_y = 2;
+	light_on = 1
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "qQu" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/rune,
@@ -24510,6 +24586,18 @@
 	},
 /turf/open/floor/concrete,
 /area/iceland_base/outpost/garage)
+"rQk" = (
+/obj/effect/decal/cleanable/glass{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/glass{
+	dir = 8
+	},
+/obj/structure/iceland_beacon{
+	gps = EmergencyShuttle
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/iceland/crashlanded_shuttle)
 "rRh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -24598,6 +24686,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/crew)
+"sjb" = (
+/obj/effect/mob_spawn/human/doctor/outpost,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "sji" = (
 /turf/closed/wall,
 /area/iceland_base/outpost/entrance)
@@ -24843,6 +24939,10 @@
 "sVH" = (
 /turf/open/floor/plating/ice/smooth/red,
 /area/iceland)
+"sWH" = (
+/obj/structure/spider/stickyweb,
+/turf/closed/mineral/snowmountain/indestructible,
+/area/iceland/underground/safe)
 "sYp" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/asteroid/snow,
@@ -25333,6 +25433,16 @@
 	dir = 8
 	},
 /area/iceland_base/outpost/hangar)
+"uJL" = (
+/obj/item/flashlight/lantern{
+	on = 1;
+	pixel_x = -6;
+	pixel_y = 2;
+	light_on = 1
+	},
+/obj/effect/mob_spawn/human/corpse/assistant/outpost,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "uKw" = (
 /obj/structure/spider/cocoon,
 /obj/structure/spider/stickyweb,
@@ -25584,6 +25694,10 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
+"vNF" = (
+/obj/structure/flora/tree/dead/gore,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "vOm" = (
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/garage)
@@ -26324,6 +26438,12 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"xMf" = (
+/obj/structure/iceland_beacon{
+	gps = Boreal Gate
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/ruin/powered/iceland/gate/boreal)
 "xMl" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/grass/brown,
@@ -29171,11 +29291,11 @@ aSQ
 aCP
 aeJ
 ruA
-aLa
+ptQ
 aBp
 aTG
 aTG
-aWj
+aTG
 aPN
 oxW
 aTG
@@ -29426,12 +29546,12 @@ aiC
 aiC
 aSQ
 aSQ
-aCP
+kqA
 ruA
 aKJ
 aKJ
 aBp
-aTG
+vNF
 aHj
 aKJ
 aKJ
@@ -29685,9 +29805,9 @@ aCP
 aCP
 aSQ
 aoi
-aTG
-aTG
-aWj
+xKM
+xKM
+xKM
 aBp
 aTG
 aTG
@@ -29944,8 +30064,8 @@ aCP
 ruA
 aKJ
 arI
-aBp
-aTG
+xKM
+anM
 aLV
 aTG
 aTG
@@ -30200,8 +30320,8 @@ aiC
 aeJ
 ruA
 arI
-aTG
-aWj
+vNF
+anM
 aLV
 gFR
 aTG
@@ -30458,7 +30578,7 @@ ruA
 ruA
 aLa
 aBp
-aTG
+anM
 aLV
 aTG
 aTG
@@ -30487,7 +30607,7 @@ aYc
 aYc
 aYc
 aTG
-aTG
+evi
 aTG
 aTG
 aTG
@@ -30779,7 +30899,7 @@ aCP
 aKL
 awF
 awF
-aDb
+awF
 acb
 awF
 aFh
@@ -31035,8 +31155,8 @@ aSQ
 aKL
 awF
 awF
-aDb
-aDb
+awF
+awF
 acb
 awF
 aMM
@@ -31516,13 +31636,13 @@ abL
 aTG
 anM
 anM
-evi
 aTG
+cfG
 aTG
 aTG
 aTG
 arI
-aTG
+vNF
 aTG
 aTG
 aTG
@@ -32548,6 +32668,10 @@ avC
 avC
 aTG
 aTG
+evi
+aTG
+aTG
+arI
 aTG
 aTG
 aTG
@@ -32555,10 +32679,6 @@ arI
 aTG
 aTG
 aTG
-arI
-aTG
-aTG
-aTG
 aTG
 aTG
 aTG
@@ -32567,8 +32687,8 @@ ruA
 ruA
 ruA
 ruA
-aTG
-aTG
+adV
+adV
 aTG
 ruA
 ruA
@@ -32825,9 +32945,9 @@ aiC
 aiC
 aiC
 ruA
+adV
 aTG
-aTG
-aTG
+adV
 ruA
 ruA
 aiC
@@ -33085,12 +33205,12 @@ aiC
 ruA
 aTG
 aTG
-aTG
-aTG
+adV
+adV
 ruA
 ruA
-aTG
-aTG
+adV
+adV
 ruA
 aiC
 aiC
@@ -33345,7 +33465,7 @@ aTG
 aTG
 arI
 aTG
-aTG
+adV
 aTG
 aTG
 aTG
@@ -33858,8 +33978,8 @@ aiC
 aiC
 aiC
 ruA
-aTG
-aTG
+adV
+adV
 aTG
 aTG
 arI
@@ -34376,7 +34496,7 @@ aiC
 aiC
 ruA
 ruA
-aTG
+adV
 aTG
 arI
 aTG
@@ -34633,7 +34753,7 @@ aiC
 aiC
 aiC
 ruA
-aTG
+adV
 aTG
 anM
 anM
@@ -35153,7 +35273,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+adV
 ruA
 ruA
 aTG
@@ -35664,7 +35784,7 @@ aiC
 ruA
 aTG
 aTG
-aTG
+adV
 aTG
 aTG
 aTG
@@ -35920,8 +36040,8 @@ aJX
 aJX
 aiC
 ruA
-aTG
-aTG
+adV
+adV
 aTG
 aTG
 aTG
@@ -36179,7 +36299,7 @@ aJX
 aiC
 ruA
 ruA
-aTG
+adV
 aTG
 aTG
 aTG
@@ -37725,9 +37845,9 @@ aSQ
 pzZ
 aCP
 aCP
-aCP
-aCP
-aiC
+xMx
+xMx
+sWH
 aiC
 aiC
 aiC
@@ -37982,9 +38102,9 @@ aCP
 xMx
 aCP
 aCP
-aCP
-aCP
-aCP
+xMx
+xMx
+xMx
 aiC
 aiC
 aiC
@@ -38239,10 +38359,10 @@ aCP
 axa
 aCP
 aCP
-aCP
-aCP
-aCP
-aCP
+xMx
+xMx
+xMx
+xMx
 aCP
 aCP
 aCP
@@ -38499,8 +38619,8 @@ aSQ
 aCP
 abq
 aCP
-aCP
-aCP
+xMx
+xMx
 aCP
 aCP
 aiC
@@ -38757,7 +38877,7 @@ aCP
 aCP
 aSQ
 aCP
-aCP
+xMx
 aCP
 axa
 aiC
@@ -39007,8 +39127,8 @@ aJX
 aJX
 aJX
 aJX
-aCP
-aCP
+xMx
+xMx
 aCP
 aCP
 aCP
@@ -40500,7 +40620,7 @@ aiC
 aiC
 aiC
 aiC
-aCP
+aiC
 aCP
 ewF
 aiC
@@ -40758,7 +40878,7 @@ aiC
 aiC
 aCP
 aCP
-aJy
+aCP
 afP
 aCP
 ahD
@@ -41014,18 +41134,18 @@ aiC
 aiC
 aCP
 aCP
-aJy
-aJy
-aJy
+aCP
+aCP
+aCP
 asb
 aCP
 aCP
 aCP
-aOB
+dZc
 hLQ
-hQV
-aCP
-aCP
+aOB
+aOB
+aOB
 aCP
 aCP
 aCP
@@ -41630,7 +41750,7 @@ sdw
 alV
 aCP
 aCP
-arl
+aCP
 eyv
 aCP
 aCP
@@ -41822,7 +41942,7 @@ anN
 apR
 lTI
 anN
-anN
+pvL
 niR
 anN
 ojd
@@ -41889,7 +42009,7 @@ aCj
 lLk
 aCP
 dkO
-aCP
+dIr
 aCP
 alV
 aJy
@@ -42659,7 +42779,7 @@ aVS
 aVS
 aPv
 aCP
-arl
+aCP
 aCP
 aCP
 alV
@@ -42914,8 +43034,8 @@ aYz
 sdw
 alV
 aOE
-aCP
-aCP
+tWU
+dkO
 aCP
 aCP
 alV
@@ -43159,7 +43279,7 @@ ruA
 ruA
 ruA
 aTG
-aTG
+vNF
 aTG
 aTG
 aTG
@@ -43171,7 +43291,7 @@ aYc
 aYc
 alV
 aMS
-aCP
+sjb
 aSQ
 aCP
 alV
@@ -48996,9 +49116,9 @@ aCP
 aCP
 aCP
 aSQ
-aCP
+qLR
 aSQ
-aSQ
+mSd
 aCP
 agB
 ejE
@@ -51852,7 +51972,7 @@ aJX
 aCP
 aCP
 aCP
-aSQ
+oOX
 aSQ
 aCP
 aCP
@@ -53648,7 +53768,7 @@ aJX
 aJX
 aJX
 aJX
-ejE
+aCP
 aJX
 aJX
 aiC
@@ -56510,7 +56630,7 @@ aTG
 aTG
 aTG
 aBp
-aTG
+vNF
 aTG
 anM
 aTG
@@ -61851,7 +61971,7 @@ aTG
 aTG
 pZw
 aTG
-eLg
+aTG
 qpg
 aHs
 aoI
@@ -63880,17 +64000,17 @@ aLa
 aae
 aTG
 aUh
-evi
+aTG
 aLV
 aTG
 aBp
 aae
-eou
+adv
 aTG
 aLV
 aLV
 aTG
-evi
+aTG
 aTG
 pZw
 aTG
@@ -64656,7 +64776,7 @@ aLV
 aTG
 aLV
 aTG
-aTG
+evi
 aTG
 aTG
 aLV
@@ -65669,14 +65789,14 @@ aiC
 aiC
 ruA
 aTG
-aTG
+vNF
 aTG
 aHj
 aTG
 mIi
 amL
 aTG
-aTG
+uJL
 aTG
 aLV
 aLV
@@ -66168,7 +66288,7 @@ tyB
 bPh
 bPh
 bPh
-bPh
+xMf
 bPh
 bPh
 bPh
@@ -68004,7 +68124,7 @@ aTG
 aLV
 aTG
 aTG
-ayw
+aTG
 aTG
 aet
 aTG
@@ -70655,7 +70775,7 @@ anN
 anN
 ayA
 ayA
-ayA
+geg
 aBy
 aBy
 aBy
@@ -73374,7 +73494,7 @@ aPJ
 aJB
 ahG
 aVt
-aZv
+rQk
 ahG
 aMI
 awm
@@ -73652,7 +73772,7 @@ aWj
 aTG
 aWj
 aOX
-aTG
+vNF
 aTG
 aTG
 ruA
@@ -75189,7 +75309,7 @@ amj
 amj
 aIu
 ajA
-aTG
+ivK
 aTG
 aLV
 arI
@@ -79566,7 +79686,7 @@ aLa
 aTG
 aLV
 aTG
-ayw
+aTG
 aTG
 aTG
 aLV
@@ -80589,7 +80709,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+vNF
 aip
 aTG
 aTG
@@ -81631,7 +81751,7 @@ aWj
 aTG
 asr
 aTG
-aTG
+vNF
 aLV
 aTG
 aLV
@@ -85399,7 +85519,7 @@ aTG
 aKJ
 aKJ
 aTG
-aTG
+ayw
 aLV
 aTG
 aTG
@@ -87523,7 +87643,7 @@ aTG
 aBp
 aTG
 aTG
-aTG
+vNF
 aKJ
 aTG
 aTG
