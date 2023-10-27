@@ -167,6 +167,16 @@
 	else
 		return ..()
 
+/obj/item/flashlight/degraded
+	name = "Old flashlight"
+	desc = "A hand-held emergency light. It's been abbandoned for so long it's light is dim!"
+	custom_price = 5
+	icon_state = "flashlight"
+	item_state = "flashlight"
+	light_range = 3
+	light_power = 0.75
+	light_on = FALSE
+
 /obj/item/flashlight/pen
 	name = "penlight"
 	desc = "A pen-sized light, used by medical staff. It can also be used to create a hologram to alert people of incoming medical assistance."

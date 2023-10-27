@@ -429,7 +429,7 @@
 	outfit = /datum/outfit/job/miner/equipped
 
 /obj/effect/mob_spawn/human/miner/explorer/lostone
-	name = Lost Miner
+	name = "Lost Miner"
 	startdamaged = TRUE
 	brute_hurt = TRUE
 	burn_hurt = TRUE
