@@ -12702,14 +12702,6 @@
 	},
 /turf/open/floor/grass,
 /area/hallway/secondary/exit/departure_lounge)
-"aWx" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry Lobby Shutters"
-	},
-/turf/open/floor/plating,
-/area/medical/chemistry)
 "aWD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -43771,13 +43763,6 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"etu" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -26
-	},
-/turf/closed/wall/r_wall,
-/area/medical/virology)
 "etx" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -56687,6 +56672,14 @@
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"jKK" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters_2";
+	name = "Chemistry Hall Shutters"
+	},
+/turf/open/floor/plating,
+/area/medical/chemistry)
 "jKP" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/sink{
@@ -69457,6 +69450,10 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1;
 	color = "#439C1E"
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
@@ -111424,7 +111421,7 @@ eHZ
 gIH
 afe
 afe
-etu
+afe
 afe
 fBT
 afe
@@ -113727,9 +113724,9 @@ iQR
 ooV
 tKV
 aQW
-aWx
+jKK
 aQW
-aSg
+jKK
 aAc
 aSg
 afe
