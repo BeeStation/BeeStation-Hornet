@@ -41017,10 +41017,11 @@
 	dir = 8;
 	color = "#439C1E"
 	},
-/obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/south{
-	name = "Virology Lab"
-	},
+/obj/structure/table/glass,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "diC" = (
@@ -42022,22 +42023,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel/dark,
 /area/library)
-"dIT" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 8;
-	color = "#439C1E"
-	},
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/glasses/hud/health{
-	pixel_x = 5
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 7
-	},
-/obj/item/reagent_containers/spray/cleaner,
-/turf/open/floor/plasteel/freezer,
-/area/medical/virology)
 "dJr" = (
 /obj/machinery/light{
 	dir = 8
@@ -43523,7 +43508,7 @@
 	color = "#439C1E"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-8"
+	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -45749,6 +45734,9 @@
 	},
 /area/maintenance/fore)
 "fix" = (
+/obj/structure/sign/warning/vacuum/external{
+	pixel_x = -31
+	},
 /obj/machinery/smartfridge/chemistry/virology,
 /turf/closed/wall,
 /area/medical/virology)
@@ -47761,6 +47749,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "gbw" = (
@@ -49229,6 +49220,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Virology - Testing pens";
+	name = "virology camera";
+	network = list("ss13","medbay")
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "gOF" = (
@@ -49352,6 +49348,12 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark/corner,
 /area/hallway/primary/starboard)
+"gRx" = (
+/obj/machinery/firealarm{
+	dir = 1
+	},
+/turf/closed/wall/r_wall/rust,
+/area/medical/virology)
 "gRZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -49657,9 +49659,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
-	},
-/obj/item/radio/intercom{
-	pixel_y = 22
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -51802,9 +51801,6 @@
 /obj/effect/turf_decal/bot,
 /obj/item/storage/box/pillbottles,
 /obj/structure/closet/secure_closet/chemical,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
 /turf/open/floor/plasteel/dark,
 /area/medical/chemistry)
 "hNQ" = (
@@ -53269,15 +53265,11 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/prison)
 "iwE" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8;
 	color = "#439C1E"
 	},
-/obj/machinery/disposal/bin,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "iwJ" = (
@@ -55283,12 +55275,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
-"jlR" = (
-/obj/machinery/firealarm{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/medical/virology)
 "jlV" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
@@ -59440,6 +59426,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
+"lav" = (
+/obj/machinery/power/apc/auto_name/south{
+	name = "Virology Lab";
+	pixel_y = -4
+	},
+/turf/closed/wall/r_wall,
+/area/medical/virology)
 "laK" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 9
@@ -61617,6 +61610,9 @@
 /obj/effect/turf_decal/tile/dark_green/anticorner/contrasted{
 	dir = 4
 	},
+/obj/item/radio/intercom{
+	pixel_y = 22
+	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "lTg" = (
@@ -61905,9 +61901,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4;
 	color = "#439C1E"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -63794,9 +63787,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "mTI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -63805,6 +63795,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -71822,11 +71815,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
-"qrd" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/dna_scannernew,
-/turf/open/floor/plating,
-/area/medical/genetics)
 "qrk" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -77743,6 +77731,9 @@
 /obj/item/storage/box/pillbottles,
 /obj/item/storage/box/pillbottles,
 /obj/structure/closet/secure_closet/chemical,
+/obj/machinery/newscaster{
+	pixel_y = -30
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/chemistry)
 "sIP" = (
@@ -78724,6 +78715,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
+"tet" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8;
+	color = "#439C1E"
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/box,
+/turf/open/floor/plasteel/freezer,
+/area/medical/virology)
 "teD" = (
 /obj/machinery/photocopier,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -80354,11 +80357,15 @@
 	dir = 8;
 	color = "#439C1E"
 	},
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper,
 /obj/structure/table/glass,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 7
+	},
+/obj/item/clothing/glasses/hud/health{
+	pixel_x = 5
+	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "tPB" = (
@@ -85186,6 +85193,7 @@
 /area/bridge)
 "vWA" = (
 /obj/effect/turf_decal/delivery,
+/obj/machinery/dna_scannernew,
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "vWE" = (
@@ -110672,7 +110680,7 @@ cwy
 cLl
 hZd
 xMc
-qrd
+aNx
 aNx
 dLl
 aNx
@@ -111722,7 +111730,7 @@ aXD
 mGf
 aNQ
 hNH
-afe
+lav
 gbd
 emR
 dij
@@ -111979,7 +111987,7 @@ epx
 iHP
 xAo
 sIG
-jlR
+afe
 hPN
 skF
 tPx
@@ -112236,10 +112244,10 @@ vti
 lxp
 gUB
 ybs
-aoH
+gRx
 gVC
 doW
-dIT
+uyl
 qAA
 wZx
 nTI
@@ -112496,8 +112504,8 @@ rTx
 afe
 lTb
 mTI
-uyl
-qAA
+tet
+bAN
 gNZ
 tSz
 hlN
