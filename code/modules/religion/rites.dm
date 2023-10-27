@@ -239,8 +239,12 @@
 	if(!QDELETED(chosen_clothing) && get_turf(religious_tool) == chosen_clothing.loc) //check if the same clothing is still there
 		if(istype(chosen_clothing,/obj/item/clothing/suit/hooded))
 			var/obj/item/clothing/suit/hooded/as_hooded = chosen_clothing
-			if(as_hooded.hood) //check if the clothing has a hood/helmet integrated and fireproof it if there is one.
+			if(as_hooded.hood)
 				apply_fireproof(as_hooded.hood)
+		else if(istype(chosen_clothing,/obj/item/clothing/suit/space/hardsuit))
+			var/obj/item/clothing/suit/space/hardsuit/suit = chosen_clothing
+			if(suit.helmet)
+				apply_fireproof(suit.helmet)
 		apply_fireproof(chosen_clothing)
 		playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
 		chosen_clothing = null //our lord and savior no longer cares about this apparel
