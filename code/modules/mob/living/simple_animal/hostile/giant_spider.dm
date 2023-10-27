@@ -138,18 +138,15 @@
 	if(AIStatus == AI_IDLE)
 		if(!busy)
 			var/obj/structure/spider/stickyweb/W = locate() in get_turf(src)
-			if(!W)
-				lay_web.Activate()
-			else
-				var/list/can_see = view(10, src)
-				for(var/obj/O in can_see)
-					if(O.anchored)
-						continue //Can't wrap anchored objects
-					if(isitem(O) || isstructure(O) || ismachinery(O))
-						cocoon_target = O
-						busy = MOVING_TO_TARGET
-						Goto(O, move_to_delay)
-						addtimer(CALLBACK(src, PROC_REF(GiveUp), O), 20 SECONDS)
+			var/list/can_see = view(10, src)
+			for(var/obj/O in can_see)
+				if(O.anchored)
+					continue //Can't wrap anchored objects
+				if(isitem(O) || isstructure(O) || ismachinery(O))
+					cocoon_target = O
+					busy = MOVING_TO_TARGET
+					Goto(O, move_to_delay)
+					addtimer(CALLBACK(src, PROC_REF(GiveUp), O), 20 SECONDS)
 		if(cocoon_target && get_dist(src, cocoon_target) <= 1)
 			cocoon()
 			GiveUp() //if something interrupts the attempt to cocoon, there is probably an enemy entity nearby and we need to reset
