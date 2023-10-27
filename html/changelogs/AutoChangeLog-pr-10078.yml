@@ -1,4 +1,0 @@
-author: rkz, Rohesie
-delete-after: true
-changes:
-  - code_imp: Traitifies instances where a mob would be forced to the floor
