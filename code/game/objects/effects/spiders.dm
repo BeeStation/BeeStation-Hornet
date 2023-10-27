@@ -227,7 +227,6 @@
 	START_PROCESSING(SSobj, src)
 	AddElement(/datum/element/point_of_interest)
 	AddComponent(/datum/component/swarming)
-	return ..()
 
 /obj/structure/spider/spiderling/hunter
 	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter

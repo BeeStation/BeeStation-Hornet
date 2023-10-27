@@ -163,7 +163,7 @@
 		Unbuckle(user)
 		return
 
-	if(world.time < last_vehicle_move + ((last_move_diagonal? SQRT_TWO : 1) * vehicle_move_delay * vehicle_move_multiplier))
+	if(world.time < last_vehicle_move + ((last_move_diagonal? sqrt(2) : 1) * vehicle_move_delay * vehicle_move_multiplier))
 		return
 	last_vehicle_move = world.time
 

@@ -144,6 +144,7 @@
 	if(is_species(H, /datum/species/moth) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
+		//surely there is a better way to do this
 		switch(quirk_holder.assigned_role)
 			//Service jobs
 			if(JOB_NAME_CLOWN)

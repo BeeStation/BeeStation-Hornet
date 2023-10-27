@@ -8,8 +8,6 @@
 #define INFINITY				1e31	//closer then enough
 #define SYSTEM_TYPE_INFINITY					1.#INF //only for isinf check
 
-#define SQRT_TWO 1.414214
-
 #define SHORT_REAL_LIMIT 16777216
 
 /// A 32 bit single-precision floating point number's mantissa gives us 7 significant digits

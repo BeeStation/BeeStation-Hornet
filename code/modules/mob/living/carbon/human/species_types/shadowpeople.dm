@@ -253,6 +253,15 @@
 	if(pulling)
 		pulling.lighteater_act(light_eater)
 
+/obj/effect/decal/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	..()
+	if(!light_range || !light_power || !light_on)
+		return
+	if(light_eater)
+		visible_message("<span class='danger'>[src] is disintegrated by [light_eater]!</span>")
+	qdel(src)
+	playsound(src, 'sound/items/welder.ogg', 50, 1)
+
 /mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(isethereal(src))
