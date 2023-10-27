@@ -368,7 +368,7 @@
 /obj/item/stack/proc/can_merge(obj/item/stack/check)
 	if(!istype(check, merge_type))
 		return FALSE
-	if(mats_per_unit != check.mats_per_unit)
+	if(materials != check.materials)
 		return FALSE
 	if(is_cyborg) // No merging cyborg stacks into other stacks
 		return FALSE
