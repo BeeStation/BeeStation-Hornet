@@ -1,8 +1,0 @@
-author: rkz, mothblocks, nightred, kriskog
-delete-after: true
-changes:
-  - rscadd: Added new proc that checks for adjacency when giving items to mobs.
-  - bugfix: Suit Storage Units will no longer bend space and time to deposit items
-      in the AI's "hands".
-  - bugfix: SSU radial menus close when you walk away
-  - code_imp: cleaned up beaker swapping code
