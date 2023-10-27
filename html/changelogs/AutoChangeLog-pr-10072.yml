@@ -1,5 +1,0 @@
-author: Varo
-delete-after: true
-changes:
-  - rscadd: 'Added a new drink to the coffee vendor: Bubble tea.'
-  - bugfix: Capitalized the R in "Robust coffee"
