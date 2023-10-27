@@ -41703,6 +41703,7 @@
 /area/medical/cryo)
 "dAb" = (
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "dAi" = (
@@ -44544,6 +44545,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "eKR" = (
@@ -48201,6 +48203,7 @@
 	desc = "A little medical robot, officially part of the Nanotrasen medical inspectorate. He looks somewhat underwhelmed.";
 	name = "Inspector Johnson"
 	},
+/obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "glf" = (
@@ -48590,6 +48593,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/medical/medbay/central)
+"gvg" = (
+/obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "gvx" = (
@@ -60647,6 +60654,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "lBf" = (
@@ -72455,6 +72463,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
+"qDY" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/plasteel/showroomfloor,
+/area/medical/medbay/central)
 "qEy" = (
 /obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet{
@@ -72656,6 +72669,7 @@
 /obj/machinery/holopad{
 	pixel_y = -16
 	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "qIs" = (
@@ -90203,6 +90217,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "xZv" = (
@@ -112694,7 +112709,7 @@ kgp
 aME
 aWl
 xZb
-dAb
+qDY
 dAb
 dAb
 oNX
@@ -112953,7 +112968,7 @@ uEt
 lAX
 eKQ
 gkC
-hon
+gvg
 pfu
 wKu
 rgv
@@ -113209,7 +113224,7 @@ eBg
 kes
 sQJ
 qIl
-hon
+gvg
 rCD
 mpE
 esA
