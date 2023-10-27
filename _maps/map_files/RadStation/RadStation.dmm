@@ -115,6 +115,7 @@
 /area/archmundi/security/prison)
 "abk" = (
 /obj/item/shard,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/space/basic,
 /area/archmundi/medical/virology)
 "abl" = (
@@ -1858,6 +1859,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plasteel/white,
 /area/archmundi/medical/surgery)
 "aNE" = (
@@ -1917,6 +1919,7 @@
 	},
 /obj/item/clothing/head/beret/captain,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plasteel,
 /area/archmundi/bridge)
 "aOE" = (
@@ -2656,6 +2659,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
+/obj/effect/aetherial_spawner,
 /turf/open/floor/plasteel,
 /area/archmundi/teleporter)
 "bdI" = (
@@ -4981,6 +4985,10 @@
 	layer = 1
 	},
 /obj/structure/table/wood,
+/obj/item/paper/crumpled/bloody/docsdeathnote{
+	name = "This is it...";
+	default_raw_text = "This is it. Research Director Nolson stopped answering his radio... Warren just fell unconscious...We failed. <br> If anybody is reading this somehow, then please...finish it...go the bridge, find Nolson's remains and trigger the self-destruct device... Nuke these demons in back to hell... This is assistant Morgan writing, make our sacrifices count..."
+	},
 /turf/open/floor/carpet/green,
 /area/archmundi/hallway/secondary/exit/departure_lounge)
 "ccI" = (
@@ -6982,6 +6990,11 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/archmundi/library)
+"cSD" = (
+/obj/structure/spacevine,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/grass,
+/area/archmundi/hallway/primary/aft)
 "cSN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -7978,6 +7991,10 @@
 	pixel_y = -9
 	},
 /obj/effect/decal/cleanable/blood/rune,
+/obj/effect/mob_spawn/human/corpse/assistant{
+	name = "Charles Pars";
+	outfit = /datum/outfit/job/cmo
+	},
 /turf/open/floor/plasteel/cult,
 /area/archmundi/crew_quarters/heads/cmo)
 "dqm" = (
@@ -11101,11 +11118,6 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel,
 /area/archmundi/medical/break_room)
-"eBu" = (
-/obj/structure/spacevine,
-/obj/structure/flora/tree/jungle,
-/turf/open/floor/grass,
-/area/archmundi/hallway/primary/central)
 "eBB" = (
 /obj/machinery/door/airlock/external{
 	name = "Security External Airlock";
@@ -11156,6 +11168,7 @@
 /area/archmundi/quartermaster/miningdock)
 "eBV" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/aetherial_spawner,
 /turf/open/floor/plasteel/sepia,
 /area/archmundi/quartermaster/office)
 "eCS" = (
@@ -12661,6 +12674,7 @@
 	pixel_x = 6;
 	pixel_y = 7
 	},
+/obj/effect/aetherial_spawner,
 /turf/open/floor/plasteel/white,
 /area/archmundi/security/brig{
 	name = "Brig medbay"
@@ -13270,6 +13284,11 @@
 /area/archmundi/security/main{
 	name = "Security Waiting Room"
 	})
+"fqL" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plasteel/cult,
+/area/archmundi/science/lobby)
 "fqN" = (
 /obj/item/toy/figure/mime,
 /obj/structure/emergency_shield/event/vines,
@@ -15437,6 +15456,7 @@
 /area/archmundi/science/shuttledock)
 "ggs" = (
 /obj/machinery/airalarm/directional/north,
+/obj/structure/flora/tree/jungle/small,
 /turf/open/floor/grass,
 /area/archmundi/hallway/primary/starboard)
 "ggJ" = (
@@ -15546,6 +15566,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/aetherial,
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},
@@ -15903,6 +15924,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/glass,
 /obj/item/chair,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plasteel/dark,
 /area/archmundi/security/main{
 	name = "Security Waiting Room"
@@ -17136,6 +17158,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/broken,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/space,
 /area/archmundi/medical/genetics)
 "gRZ" = (
@@ -17833,6 +17856,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/mob/living/simple_animal/hostile/aetherial,
 /turf/open/floor/plasteel/white,
 /area/archmundi/medical/cryo)
 "hhn" = (
@@ -17987,6 +18011,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/sepia,
 /area/archmundi/maintenance/port/central)
+"hkS" = (
+/turf/closed/wall/mineral/cult,
+/area/space)
 "hkV" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -18033,6 +18060,7 @@
 	start_lit = 1;
 	wax = 4000
 	},
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/gateway)
 "hms" = (
@@ -18134,6 +18162,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/stasis{
 	dir = 4
+	},
+/obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note{
+	default_raw_text = "*Service IRC logs, 2553/05/04*<br>**Jebediah, Service Manager**<br><br>So, I hope a 2 week ban got the message across. Now that the paperwork is sorted out and we have talked at length in person, how is everything going?<br><br>**Kepler, Cook**<br><br>Awful. No one mentioned that I would to handle deliveries too! When it’s rush hour, I literally can’t sit for hours on end!<br><br>**Tanya, Janitor**<br><br>You think this is bad? Try spending hours scrubbing floors instead! Not a single day passes without me being forced to clean the mess you leave after you’ve cooked up whatever abominations you guys like to serve.<br><br>**Kepler, Cook**<br><br>Abominations? Each single plate made from my hands is a DELICACY! You know what is an abomination though? YOUR MOTHER YOU PIECE O-<br><br><center>`Messaging function was temporarily suspended by order of administrator account, Jebediah, service manager.`</center>";
+	name = "Service Public IRC #2"
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/archmundi/medical/sleeper)
@@ -18564,6 +18596,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/mob/living/simple_animal/hostile/aetherial,
 /turf/open/floor/plating{
 	icon_state = "platingdmg2"
 	},
@@ -19373,6 +19406,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/archmundi/security/courtroom)
+"hOO" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel,
+/area/archmundi/hallway/primary/starboard)
 "hOY" = (
 /obj/structure/closet/secure_closet/brig_physician,
 /obj/item/clothing/suit/straight_jacket,
@@ -19622,14 +19668,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/archmundi/storage/primary)
-"hTQ" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/structure/spacevine,
-/obj/structure/flora/ausbushes/grassybush,
-/turf/open/floor/grass,
-/area/archmundi/hallway/primary/central)
 "hUh" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -20326,6 +20364,12 @@
 /obj/effect/gibspawner/generic/bloodtomato,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/science/lab)
+"iqj" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/spacevine,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/grass,
+/area/archmundi/hallway/primary/central)
 "iqm" = (
 /obj/structure/sign/warning/pods,
 /turf/closed/wall,
@@ -22751,6 +22795,10 @@
 	pixel_x = -7;
 	pixel_y = 12
 	},
+/obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note{
+	default_raw_text = "*Service IRC chat logs, 2554/02/03*<br>**Jebediah, Service Manager**<br><br>Tomorrow is the big day. The commodore was adamant about it. Today both the kitchen staff and the janitorial department will need to work for a 16 hours shift, not the 12 hours we were originally told.<br><br>**Kepler, Cook**<br><br>Listen Jebediah, I love you and all, but… one should be able to stand up and say it’s too much when it’s too much. We aren’t the science department and there’s no reason for why we should keep the same schedule as them. These last months have already been… more than something. I still thank the gods that made the stars each night for not working in a position that would have forced me to go planetside. I wouldn’t be here otherwise! That `[censored by administrator]` RD even tried to get me to go down to harvest some ingredients myself! <br><br>**Tanya, Janitor**<br><br>I hate to say it, but this might be the first and only time Kepler is right.<br><br>**Kepler, Cook**<br><br>Hey wait a moment, censored what? By who?! See Tanya? It’s the AI! It’s listening to us!<br><br>**Tanya, Janitor**<br><br>Well maybe you could avoid calling names superior officers? And I’m sure it’s just a remote profanity filter.<br><br>**Kepler, Cook**<br><br>Oh sure, a remote profanity filter from the same `[censored by administrator]|` AI, HEY IT DID IT AGAIN!<br><br>**Jebediah, Service Manager**<br><br>Let’s end this here before the messaging gets suspended again. We’ll discuss it tonight at dinner, in my quarters. Kepler? Tanya?<br><br>**Kepler, Cook**<br><br>If you say so, old Jeb.<br><br>**Tanya, Janitor**<br><br>I… sure, sure. Why not…<br><br>**Jebediah, Service Manager**<br><br>I told you not to call me that, Kepler!.... Ah, know what? Forget it. We are all a little tense. I’ll open a bottle from my reserve, so quit getting drunk on that maintenance moonshine, you two!<br><br>";
+	name = "Service Public IRC #5"
+	},
 /turf/open/floor/plasteel/white,
 /area/archmundi/security/brig{
 	name = "Brig medbay"
@@ -24031,6 +24079,12 @@
 /obj/structure/sign/poster/official/cleanliness,
 /turf/closed/wall/r_wall,
 /area/archmundi/crew_quarters/heads/cmo)
+"jWa" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating{
+	icon_state = "platingdmg2"
+	},
+/area/archmundi/hallway/secondary/exit/departure_lounge)
 "jWc" = (
 /obj/effect/turf_decal/guideline/guideline_half_edge/purple{
 	dir = 10
@@ -24081,6 +24135,7 @@
 	},
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plasteel/white,
 /area/archmundi/medical/genetics/cloning)
 "jYj" = (
@@ -25732,6 +25787,12 @@
 "kGm" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/closet/crate/secure/science,
+/obj/item/magic_laser,
+/obj/item/magic_laser,
+/obj/item/magic_laser,
+/obj/item/magic_laser,
+/obj/item/magic_laser,
 /turf/open/floor/plasteel/white,
 /area/archmundi/crew_quarters/heads/cmo)
 "kGp" = (
@@ -26621,6 +26682,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/clothing/suit/space/hardsuit/research_director,
 /turf/open/floor/plasteel/dark/side{
 	dir = 5
 	},
@@ -27925,6 +27987,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/aetherial,
 /turf/open/floor/plasteel/white,
 /area/archmundi/medical/medbay/central)
 "lCa" = (
@@ -28358,6 +28421,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/effect/aetherial_spawner,
 /turf/open/floor/carpet/red,
 /area/archmundi/crew_quarters/heads/hos)
 "lLX" = (
@@ -29323,6 +29387,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plating,
 /area/archmundi/security/brig)
 "mhX" = (
@@ -29367,6 +29432,23 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/archmundi/quartermaster/office)
+"mji" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plasteel,
+/area/archmundi/security/brig)
 "mjq" = (
 /obj/item/clothing/suit/cultrobes/alt,
 /obj/item/toy/toy_dagger,
@@ -30981,6 +31063,10 @@
 /turf/open/floor/plating,
 /area/archmundi/medical/chemistry)
 "mMV" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/modular_computer/tablet/pda/heads/research_director{
+	name = "RD Nolson's PDA"
+	},
 /turf/open/floor/plasteel/dark,
 /area/archmundi/bridge)
 "mNa" = (
@@ -31499,6 +31585,7 @@
 /area/archmundi/crew_quarters/dorms)
 "mXU" = (
 /obj/effect/decal/cleanable/blood/rune/large,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plating,
 /area/archmundi/security/brig)
 "mYj" = (
@@ -31767,6 +31854,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/aetherial,
 /turf/open/floor/plasteel,
 /area/archmundi/hallway/primary/fore)
 "ndT" = (
@@ -31839,6 +31927,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/grass,
 /area/archmundi/hallway/secondary/exit/departure_lounge)
 "neH" = (
@@ -34021,6 +34110,15 @@
 "nXc" = (
 /turf/closed/wall,
 /area/archmundi/crew_quarters/bar)
+"nXj" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line,
+/obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note{
+	default_raw_text = "*Service IRC chat logs, 2553/09/12*<br>**Tanya, Janitor**<br><br>Has anyone heard back from that young botanist, Icarus? Me and some other janitors were already shipping him with that lass, Karen Gold. <br><br>**Kepler, Cook**<br><br>Don’t tell me! The dude came inside my kitchen almost begging me to prepare him and his mysterious + 1 the finest dinner I could have, and then bam! He never came back to take it. <br><br>**Tanya, Janitor**<br><br>Well his room got… cleaned off by the security department and they refused to tell me anything about it. I wasn’t even able to enter the room to actually clean it, they simply said that it was all above my clearance and then asked the AI to bolt it.<br><br>**Kepler, Cook**<br><br>Are you joking? What could have a botanist as young and as shy as Icarus done to warrant such measures?!<br><br>**Jebediah, Service Manager**<br><br>Hey, in case you two missed the memo, we shouldn’t talk nor concern ourselves with anything that happens within other departments or… what happens to members of those departments.<br><br>**Tanya, Janitor**<br><br>What? From when?! That’s the first time I’m hearing about it! Also isn’t Botany part of service, and as such wasn’t Icarus working under YOU??!<br><br>**Kepler, Cook**<br><br>Yes, that’s bollocks, Old Jeb! What is happening? We should not be left in the dark! THIS IS —<br><br><center>`Messaging function was temporarily suspended by administrator account, AI</center>`";
+	name = "Service Public IRC #4"
+	},
+/turf/open/floor/plasteel/dark,
+/area/archmundi/teleporter)
 "nXn" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -34212,6 +34310,7 @@
 "ocX" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plasteel,
 /area/archmundi/medical/medbay/central)
 "odc" = (
@@ -35593,6 +35692,10 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note{
+	default_raw_text = "*Service public IRC logs, 2553/04/12*<br>**Jebediah, Service Manager**<br><br>So people, this job ain’t different from any other you worked before. The only significant thing is that our NDA is far more stringent than anything else we have ever signed. So no talking to your parents, to your significant other, or others. You can tell them the pay is good, the benefits stellar, but even the very name of this installation and everything else, must be and remain a secret.<br><br>**Tanya, Janitor**<br><br>Well can I tell my mom that I’m still working for NT and not for any of its subsidiaries? I already told her so!<br><br>**Kepler, Cook**<br><br>It's normal you can tell that, dingus! Neither old Jeb nor the agreement mentioned anything about hiding the employer’s identity! Plus who would ever be so stupid to believe any of the subsidiaries would have the means to enforce such a restrictive NDA?<br><br>**Tanya, Janitor**<br><br>Hey there’s no harm in asking to be sure, you old prick! I just wanted to know if I could have made an oopsie…<br><br>**Jebediah, Service Manager**<br><br>Quit it, you two! And I’m Jebediah, not “old jeb” or anything of the sort when we speak in the common service channel! Remember that both the HOP and the Commodore are able to read this.<br><br>**Kepler, Cook**<br><br>And the AI! Don’t ever forget to mention the AI!<br><br>**Tanya, Janitor**<br><br>Stop being such a luddite about it! I love that it was able to tell me where the custodial closet was located. I even gave it consent to track my personal belongings in case I ever lose anything!<br><br>**Kepler, Cook**<br><br>That’s because you are an idiot bootlicking fu-<br><br><center>`Kepler Garland, Cook, was muted by an administrator.`</center>";
+	name = "Service public IRC #1"
+	},
 /turf/open/floor/carpet/blue,
 /area/archmundi/crew_quarters/cafeteria)
 "oJp" = (
@@ -36083,18 +36186,6 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/maintenance/port/aft)
-"oRo" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/firelock_frame{
-	anchored = 1
-	},
-/turf/open/floor/plating,
-/area/archmundi/maintenance/central)
 "oRF" = (
 /obj/item/stack/sheet/iron{
 	amount = 2;
@@ -36440,10 +36531,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/archmundi/quartermaster/storage)
-"oZl" = (
-/obj/structure/flora/tree/jungle/small,
-/turf/open/floor/grass,
-/area/archmundi/hallway/primary/starboard)
 "oZm" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/light/small{
@@ -36972,6 +37059,18 @@
 /obj/structure/spacevine,
 /turf/open/floor/plating,
 /area/archmundi/vacant_room/commissary/commissary1)
+"pmK" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/open/floor/grass,
+/area/archmundi/hallway/primary/central{
+	dynamic_lighting = 2;
+	lighting_brightness_tube = 11;
+	lighting_colour_bulb = "#DDE6FF";
+	lighting_colour_night = "#DDE6FF";
+	lighting_colour_tube = "#DDE6FF";
+	lighting_overlay_colour = "#DDE6FF";
+	power_light = 0
+	})
 "pmQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -37002,6 +37101,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/gateway)
 "pow" = (
@@ -37321,6 +37421,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/archmundi/construction/mining/aux_base)
+"ptb" = (
+/obj/item/paper/crumpled/bloody/docsdeathnote{
+	name = "Damn vines!!";
+	default_raw_text = "Damn vines!!<br> Nothing can get through those!! They keep twisting and changing shapes whenever they sense someone or something trying to pass, not even those damn "BFCs" can harm them, they just reform... <br> It's almost like they are being influenced...maybe...I have to try this.<br> I'm leaving this note for anybody still alive that makes it this far, come meet me in medbay in my office. I have supplies and an idea on how to make it through.<br> CMO Pars"
+	},
+/turf/open/floor/grass,
+/area/archmundi/hallway/primary/starboard)
 "ptB" = (
 /obj/effect/turf_decal/siding/wideplating/dark/corner{
 	dir = 1
@@ -40540,6 +40647,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plasteel/dark,
 /area/archmundi/bridge)
 "qHB" = (
@@ -40574,6 +40682,10 @@
 /turf/open/floor/plasteel/cult,
 /area/archmundi/ritual_hall)
 "qIL" = (
+/obj/item/paper/crumpled/bloody/docsdeathnote{
+	name = "That's it!";
+	default_raw_text = "Found a way! I managed to modify this batch of extra lasers to tune into the insane frequencies that are resonating all across the station.<br> I could pop one into a BFC and have it be able to cancel out that influence preventing the vines from being removed!<br> Now I just need to find one of those damned chainsaws..."
+	},
 /turf/open/floor/plasteel/cult,
 /area/archmundi/crew_quarters/heads/cmo)
 "qIN" = (
@@ -41235,6 +41347,7 @@
 	pixel_x = -16
 	},
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plasteel/grid/steel,
 /area/archmundi/medical/virology)
 "qXS" = (
@@ -41385,6 +41498,13 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/archmundi/bridge/meeting_room)
+"raz" = (
+/obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note{
+	default_raw_text = "*Service IRC chat logs, %:!!666/66/66%%/*<br>**Jebediah, Service Manager**<br><br>To all service personnel, the alarm went off 15 minutes ago. Multiple violent incidents have been reported amongst the crew after that… big fracture in space appeared. Stay in your quarters until further notice and don’t interact with any other you’re not already with. I repeat, all hands, stay in your quarters!<br><br>**Kepler, Cook**<br><br>Cut the crap Old Jeb… We are done for, pal. I… I brought the tablet from which I’m writing in the cold room after having closed it from the inside. It’s one of the few doors that works only manually, not even the AI has control over it. I saw what those poor bastards started to do to each other. Never saw anyone literally biting another's nose off. I do think I’ll be safe here for a bit, but it’s cold… it’s so very cold…<br><br>**Tanya, Janitor**<br><br>Wait Jeb! You need to tell us more! What’s happening? Is rescue on the way? What else can we do?! <br><br>**Jebediah, Service Manager**<br><br>The channels with the rest of command are down… I… I… I don’t have much to say Tanya. I suppose I can only advise you to stay where you are, don’t do like Kepler, don’t write where it is. Who knows who’s monitoring these comms? <br><br>Kepler, Tanya, I… I just wish for you to know that the dinner we all enjoyed yesterday was for me the very first time I felt happy and amongst friends in a long time.<br>I’m hearing strange chants outside my door and even if I have cut the AI wiring after having bolted myself in, I fear these thin metal shutters won’t hold me safe for long.<br>Thanks for the good times, you two.<br><br>**Tanya, Janitor**<br><br>I BEG YOU, WHOEVER READS IT! TELL MY MOTHER I LOVE HER! TELL IT EVEN TO MY EX-HUSBAND, I MISS YOU CHARLIE! I MISS YOU VERY —<br><br><center>`CHANNEL LOCKED BY ADMINISTRATOR`</center>";
+	name = "Service Public IRC #6"
+	},
+/turf/open/floor/plasteel/cult,
+/area/archmundi/ritual_hall)
 "rbi" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
@@ -41532,6 +41652,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/archmundi/crew_quarters/dorms)
+"rdG" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/turf/open/floor/grass,
+/area/archmundi/hallway/secondary/exit/departure_lounge)
 "reb" = (
 /obj/effect/decal/cleanable/glass{
 	dir = 1
@@ -42004,11 +42134,6 @@
 	},
 /turf/open/floor/plating,
 /area/archmundi/science/server)
-"roY" = (
-/obj/structure/flora/tree/jungle/small,
-/obj/structure/spacevine,
-/turf/open/floor/grass,
-/area/archmundi/hallway/primary/central)
 "rpg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/rune,
@@ -43468,6 +43593,10 @@
 	},
 /turf/open/floor/plating,
 /area/archmundi/crew_quarters/dorms)
+"rYR" = (
+/obj/structure/flora/ausbushes/grassybush,
+/turf/open/floor/grass,
+/area/archmundi/hallway/primary/central)
 "rYV" = (
 /obj/machinery/atmospherics/components/binary/valve,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -43907,6 +44036,11 @@
 /area/archmundi/security/main{
 	name = "Security Viewing Hall"
 	})
+"skK" = (
+/obj/structure/spacevine,
+/obj/structure/emergency_shield/event/vines,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/archmundi/crew_quarters/cafeteria)
 "skZ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
@@ -46056,6 +46190,11 @@
 /obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/archmundi/medical/morgue)
+"tes" = (
+/obj/structure/flora/tree/jungle,
+/obj/structure/flora/ausbushes/grassybush,
+/turf/open/floor/grass,
+/area/archmundi/hallway/primary/central)
 "teB" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -46207,14 +46346,12 @@
 	alpha = 180
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/job/research_director,
+/obj/item/tape{
+	name = "RD Nolson's PDA transcript"
+	},
 /turf/open/floor/plating,
 /area/archmundi/bridge)
-"tib" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/tree/jungle/small,
-/obj/structure/emergency_shield/event/vines,
-/turf/open/floor/grass,
-/area/archmundi/hallway/primary/central)
 "tio" = (
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -46292,7 +46429,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/emergency_shield/event/vines,
-/obj/machinery/door/airlock/cult,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/ritual_hall)
 "tjA" = (
@@ -46341,6 +46477,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/mob/living/simple_animal/hostile/aetherial,
 /turf/open/floor/plasteel,
 /area/archmundi/crew_quarters/dorms)
 "tkQ" = (
@@ -46957,6 +47094,7 @@
 	pixel_x = -26
 	},
 /obj/effect/decal/cleanable/blood/tracks,
+/mob/living/simple_animal/hostile/aetherial,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/hallway/primary/fore)
 "two" = (
@@ -47736,6 +47874,10 @@
 /obj/effect/decal/cleanable/xenoblood,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/maintenance/department/engine)
+"tLu" = (
+/obj/item/toy/figure/ward,
+/turf/open/floor/plasteel/cult,
+/area/archmundi/ritual_hall)
 "tLE" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/spacevine,
@@ -48218,7 +48360,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/emergency_shield/event/vines,
 /turf/open/floor/grass,
 /area/archmundi/hallway/primary/central{
 	dynamic_lighting = 2;
@@ -49273,6 +49414,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/archmundi/crew_quarters/cafeteria)
+"utP" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/spacevine,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/grass,
+/area/archmundi/hallway/primary/central)
 "utS" = (
 /obj/machinery/door/airlock/external{
 	name = "Mining Dock Airlock";
@@ -49507,7 +49655,10 @@
 	alpha = 180
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/blood,
+/obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note{
+	name = "Onboard AI report #541";
+	default_raw_text = "/%ERROR/% Major integrity breach. System shutdown imminent. Initiating "LAST WILL" protocols<br> Crew status: 20 evacuated to Iceland, 80 presumed deceased. <br> Captain location: deceased<br> Self-Destruct request pending: Error code 12, manual override in Vault. Nuclear disk authentification required at the self destruct device.<br> Nuclear Disk last known location: Engineering."
+	},
 /turf/open/floor/plasteel,
 /area/archmundi/bridge)
 "uyB" = (
@@ -49735,6 +49886,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/aetherial,
 /turf/open/floor/plasteel,
 /area/archmundi/crew_quarters/cafeteria)
 "uDQ" = (
@@ -51110,6 +51262,9 @@
 /area/archmundi/maintenance/department/medical/morgue)
 "vhZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/card/id/job/cook{
+	name = "Tony Kepler's ID card"
+	},
 /turf/open/floor/plasteel/white,
 /area/archmundi/crew_quarters/kitchen)
 "vin" = (
@@ -52451,6 +52606,13 @@
 	},
 /turf/open/space/basic,
 /area/space)
+"vLv" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/item/card/id/job/janitor{
+	name = "Tanya Briggs' ID card"
+	},
+/turf/open/floor/plasteel/cult,
+/area/archmundi/ritual_hall)
 "vLA" = (
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 4
@@ -52988,6 +53150,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/archmundi/security/checkpoint/auxiliary)
+"vXp" = (
+/obj/item/disk/nuclear,
+/turf/open/floor/plasteel/cult,
+/area/space)
 "vXq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -53571,6 +53737,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/dark,
 /area/archmundi/science/misc_lab)
+"wjU" = (
+/obj/effect/aetherial_spawner,
+/turf/open/floor/plasteel/sepia,
+/area/archmundi/quartermaster/storage)
 "wke" = (
 /obj/machinery/computer/aifixer{
 	dir = 4
@@ -54583,6 +54753,11 @@
 /obj/structure/closet/l3closet/virology,
 /turf/open/floor/plating,
 /area/archmundi/maintenance/starboard/aft)
+"wFZ" = (
+/obj/structure/lattice,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/space/basic,
+/area/archmundi/medical/virology)
 "wGA" = (
 /obj/effect/turf_decal/tile/dark_red/anticorner/contrasted,
 /obj/effect/decal/cleanable/dirt,
@@ -54631,6 +54806,13 @@
 	},
 /turf/open/floor/plating,
 /area/archmundi/bridge)
+"wHm" = (
+/obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note{
+	default_raw_text = "*Service IRC logs, 2553/06/04*<br>**Jebediah, Service Manager**<br><br>So, how are things with the other departments? Everyone is playing nice?<br><br>**Tanya, Janitor**<br><br>You know full well how people treat us, Jebediah. We are the service personnel. We are the lowest of lows, even borgs get more recognition than us.<br><br>**Kepler, Cook**<br><br>Hey speak for you, once you start accepting custom orders, you can be rewarded far more than just with a hi and a smile!<br><br>**Tanya, Janitor**<br><br>Hey, not everyone here was so lucky to be able to make extra cash on the side!<br><br>**Kepler, Cook**<br><br>Well you’re so eager to make money Tanya, why not volunteer for mining duty? <br><br>**Tanya, Janitor**<br><br>At this point, I’m considering it… Their bonuses are the highest amongst the non combat personnel, at least that’s what I heard.<br><br>**Kepler, Cook**<br><br>You can’t be serious about volunteering. Have you heard about that couple of miners? Or those 5 engineers? <br><br>**Tanya, Janitor**<br><br>No, I haven’t heard anything. But now that you mention it… it was surprising to find areas both in the mining and the engineering wing that didn’t need any cleaning. I thought people were actually just being better with their personal hygiene? But it’s like they were abandoned, what happened?<br><br>**Kepler, Cook**<br><br>Your guesses are as good as mine. All I know is that I’m cooking less and having more time to enjoy myself. And that’s all that matters for me.<br><br>**Jebediah, Service Manager**<br><br>The commodore just sent me a personal message. We should stop spreading misconceptions and lies, it appears that… part of our crew volunteered to be stationed planetside.<br><br>**Kepler, Cook**<br><br>Extra volunteers? On that blazing inferno??? Yeah right, whatever you say Jeb ahah.<br><br>**Tanya, Janitor**<br><br>We aren’t even terraforming it yet, just mining it. Why would they need anyone —<br><br><center>`Connection to the server lost, contact Engineering Manager or your direct superior upon reading this message. Error code 256.`</center>”";
+	name = "Service Public IRC #3"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/archmundi/quartermaster/office)
 "wHJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -55015,6 +55197,10 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating,
 /area/archmundi/medical/surgery)
+"wOv" = (
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/grass,
+/area/archmundi/hallway/primary/port)
 "wOB" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/bot,
@@ -55381,6 +55567,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/archmundi/security/prison)
+"wZw" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/mob_spawn/human/corpse,
+/turf/open/floor/plasteel/white,
+/area/archmundi/crew_quarters/kitchen)
 "wZy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -56027,6 +56219,16 @@
 /obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/archmundi/medical/sleeper)
+"xog" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/item/gun/energy/laser/repeater,
+/turf/open/floor/grass,
+/area/archmundi/hallway/secondary/exit/departure_lounge)
 "xok" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -56590,13 +56792,6 @@
 	},
 /turf/open/floor/plasteel/cult,
 /area/archmundi/science/xenobiology)
-"xyJ" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
-/obj/structure/emergency_shield/event/vines,
-/turf/open/floor/plasteel/cafeteria_red,
-/area/archmundi/crew_quarters/cafeteria)
 "xyQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spacevine,
@@ -57580,6 +57775,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/blood/drip,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plasteel/white,
 /area/archmundi/medical/medbay/central)
 "xVk" = (
@@ -58359,12 +58555,6 @@
 /obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/archmundi/vacant_room/commissary/commissary2)
-"ylB" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/tree/jungle,
-/obj/structure/emergency_shield/event/vines,
-/turf/open/floor/grass,
-/area/archmundi/hallway/primary/central)
 "ylC" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating,
@@ -80384,7 +80574,7 @@ twL
 haM
 cfA
 fav
-cfA
+wjU
 fdu
 mSG
 kZM
@@ -81144,7 +81334,7 @@ tXw
 tyK
 nAB
 eDI
-eDI
+wHm
 bDj
 wLg
 jHR
@@ -82201,7 +82391,7 @@ jHZ
 olZ
 ech
 olZ
-ygb
+fqL
 wFO
 jxf
 mzv
@@ -86551,7 +86741,7 @@ gQP
 lKq
 ycP
 vhm
-ceW
+wOv
 oiI
 lSZ
 xYW
@@ -88064,7 +88254,7 @@ kpk
 hqM
 csZ
 msi
-mky
+mji
 mTR
 eMX
 pFp
@@ -89373,7 +89563,7 @@ fWh
 vAx
 hVF
 sTd
-ylB
+sIh
 lmp
 wnc
 eIx
@@ -89638,7 +89828,7 @@ smT
 pLX
 aKk
 nIw
-aKk
+iqj
 nIw
 aKk
 nIw
@@ -89897,7 +90087,7 @@ bmF
 gYX
 sIh
 nIw
-roY
+sGG
 nIw
 sGG
 nIw
@@ -90664,10 +90854,10 @@ qcJ
 oMR
 qlu
 bLa
-hTQ
-nIw
-sGG
-nIw
+smT
+smT
+rYR
+tes
 oQN
 nIw
 sGG
@@ -90745,8 +90935,8 @@ jPL
 hyL
 xUD
 xUD
-xoS
-xoS
+hkS
+hkS
 xoS
 xoS
 xoS
@@ -90907,7 +91097,7 @@ uDu
 vsb
 epS
 mlq
-pxc
+utP
 tnC
 xST
 aIF
@@ -90921,10 +91111,10 @@ wod
 vRm
 jnI
 noO
-nIw
-aVu
-nIw
-nIw
+smT
+rYR
+sGG
+sGG
 sGG
 nIw
 nIw
@@ -90951,7 +91141,7 @@ rtZ
 rtZ
 rtZ
 kLF
-rtZ
+cSD
 kLF
 kLF
 kLF
@@ -91002,8 +91192,8 @@ hyL
 jPL
 xtK
 xUD
-xoS
-xoS
+vXp
+hkS
 xoS
 xoS
 xoS
@@ -91259,8 +91449,8 @@ jPL
 hyL
 xUD
 xUD
-xoS
-xoS
+hkS
+hkS
 xoS
 xoS
 xoS
@@ -91434,7 +91624,7 @@ nIw
 iQW
 tYH
 kfw
-kfw
+pmK
 nIw
 sGG
 nIw
@@ -91689,9 +91879,9 @@ smT
 tWU
 mQS
 tWU
-nDB
-nIw
-nIw
+jFh
+smT
+smT
 xve
 nIw
 nIw
@@ -91990,7 +92180,7 @@ tDP
 aMP
 cUg
 cUg
-cUg
+vLv
 tvX
 fmy
 fmy
@@ -92456,7 +92646,7 @@ bsP
 prg
 qsq
 nIw
-tib
+sIh
 sIh
 sIh
 nBM
@@ -92691,7 +92881,7 @@ sYx
 cQA
 vCW
 ebF
-dCs
+nXj
 bdB
 kSP
 klv
@@ -92725,7 +92915,7 @@ aKk
 cGr
 xGM
 nIw
-eBu
+sGG
 nIw
 dFC
 dFC
@@ -92760,7 +92950,7 @@ reU
 tDP
 axo
 cUg
-cUg
+raz
 duz
 tvX
 tDP
@@ -93725,7 +93915,7 @@ abl
 fxL
 qAr
 jED
-oRo
+fkX
 goU
 vEa
 dsS
@@ -94763,7 +94953,7 @@ nXc
 dcf
 ueX
 nXc
-eLi
+skK
 fdq
 cnr
 vkF
@@ -95020,7 +95210,7 @@ oio
 izn
 uxW
 xHw
-xyJ
+okR
 ult
 hjM
 dff
@@ -95288,7 +95478,7 @@ rfl
 rfl
 ggs
 hxM
-oZl
+yhU
 fqb
 dFC
 dFC
@@ -96300,7 +96490,7 @@ fwL
 wbE
 lbY
 vlR
-rhw
+wZw
 jDB
 wfr
 swv
@@ -96572,7 +96762,7 @@ vDF
 hsB
 ovp
 yhU
-elT
+hOO
 tpI
 yhU
 gdI
@@ -96830,7 +97020,7 @@ eKS
 gne
 avY
 ksM
-yhU
+ptb
 yhU
 mHO
 kva
@@ -97910,7 +98100,7 @@ cUg
 cUg
 tDP
 tDP
-cUg
+tLu
 uDQ
 tDP
 tDP
@@ -100175,7 +100365,7 @@ mSo
 mXJ
 eQN
 jrs
-iyC
+jWa
 amC
 etz
 cVJ
@@ -100690,7 +100880,7 @@ dDq
 aMx
 wmz
 vhf
-xZA
+rdG
 jda
 two
 eMG
@@ -100947,7 +101137,7 @@ cSC
 aMx
 wLX
 ccG
-xZA
+xog
 sWF
 mHi
 arD
@@ -101743,7 +101933,7 @@ oHV
 tfq
 sWR
 lsT
-nWX
+wFZ
 eoI
 eoI
 uhG

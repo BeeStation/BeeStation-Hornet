@@ -29382,7 +29382,6 @@
 "qFP" = (
 /obj/structure/table/wood,
 /obj/item/pinpointer/nuke,
-/obj/item/disk/nuclear,
 /obj/machinery/recharger,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
