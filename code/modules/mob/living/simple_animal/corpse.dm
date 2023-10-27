@@ -172,6 +172,11 @@
 	hair_style = "Bald"
 	facial_hair_style = "Shaved"
 
+
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier/outpost
+	name = "\improper Nanotrasen(?) Private Security Officer"
+	startdamaged = TRUE
+
 /datum/outfit/nanotrasensoldiercorpse2
 	name = "NT Private Security Officer Corpse"
 	uniform = /obj/item/clothing/under/rank/security/officer

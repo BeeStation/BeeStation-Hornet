@@ -53,6 +53,24 @@
 	box = /obj/item/storage/box/engineer
 	pda_slot = ITEM_SLOT_LPOCKET
 
+/datum/outfit/job/engineer/beltless
+	name = JOB_NAME_STATIONENGINEER
+	jobtype = /datum/job/station_engineer
+
+	id =  /obj/item/card/id/job/station_engineer
+	l_pocket = /obj/item/modular_computer/tablet/pda/station_engineer
+	ears = /obj/item/radio/headset/headset_eng
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
+	shoes = /obj/item/clothing/shoes/workboots
+	head = /obj/item/clothing/head/hardhat
+
+	backpack = /obj/item/storage/backpack/industrial
+	satchel = /obj/item/storage/backpack/satchel/eng
+	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
+	box = /obj/item/storage/box/engineer
+	pda_slot = ITEM_SLOT_LPOCKET
+
+
 /datum/outfit/job/engineer/gloved
 	name = "Station Engineer (Gloves)"
 	gloves = /obj/item/clothing/gloves/color/yellow

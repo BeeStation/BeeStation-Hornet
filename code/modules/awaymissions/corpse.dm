@@ -21,9 +21,21 @@
 	var/antagonist_type
 	var/objectives = null
 	var/uses = 1			//how many times can we spawn from it. set to -1 for infinite.
-	var/brute_damage = 0
+
 	var/oxy_damage = 0
+	var/brute_damage = 0
 	var/burn_damage = 0
+	var/toxin_damage = 0
+	var/clone_damage = 0
+
+	var/oxy_hurt = FALSE
+	var/brute_hurt = FALSE
+	var/burn_hurt = FALSE
+	var/toxin_hurt = FALSE
+	var/clone_hurt = FALSE
+
+	var/startdamaged = FALSE //TODO remove later
+
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
 	var/assignedrole
@@ -89,10 +101,23 @@
 		M.ForceContractDisease(new disease)
 	if(death)
 		M.death(1) //Kills the new mob
+	if(startdamaged)
+		if(oxy_hurt)
+			oxy_damage = rand(16,256)
+		if(brute_hurt)
+			brute_damage = rand(16,256)
+		if(burn_hurt)
+			burn_damage = rand(16,256)
+		if(toxin_hurt)
+			toxin_damage = rand(16,256)
+		if(clone_hurt)
+			clone_damage = rand(16,256)
 
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)
+	M.adjustToxLoss(toxin_damage)
+	M.adjustCloneLoss(clone_damage)
 	M.color = mob_color
 	equip(M)
 
@@ -312,6 +337,11 @@
 /obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection
 	disease = /datum/disease/fluspanish
 
+/obj/effect/mob_spawn/human/corpse/assistant/outpost
+	name = "Outpost Assistant"
+	id_job = "Test Subject project 'Alfa Sierra Sierra'"
+	startdamaged = TRUE
+
 /obj/effect/mob_spawn/human/corpse/cargo_tech
 	name = "Cargo Tech"
 	outfit = /datum/outfit/job/cargo_technician
@@ -325,6 +355,10 @@
 	name = "Doctor"
 	outfit = /datum/outfit/job/medical_doctor
 
+/obj/effect/mob_spawn/human/doctor/outpost
+	name = "Outpost Doctor"
+	id_job = "Outpost Doctor"
+	startdamaged = TRUE
 
 /obj/effect/mob_spawn/human/doctor/alive
 	death = FALSE
@@ -349,6 +383,12 @@
 	name = "Engineer"
 	outfit = /datum/outfit/job/engineer/gloved
 
+/obj/effect/mob_spawn/human/engineer/outpost
+	name = "Outpost Engineer"
+	id_job = "Outpost Engineer"
+	outfit = /datum/outfit/job/engineer/beltless
+	startdamaged = TRUE
+
 /obj/effect/mob_spawn/human/engineer/rig
 	outfit = /datum/outfit/job/engineer/gloved/rig
 
@@ -359,6 +399,11 @@
 /obj/effect/mob_spawn/human/scientist
 	name = JOB_NAME_SCIENTIST
 	outfit = /datum/outfit/job/scientist
+
+/obj/effect/mob_spawn/human/scientist/outpost
+	name = "Outpost scientist"
+	id_job = "Outpost researcher"
+	startdamaged = TRUE
 
 /obj/effect/mob_spawn/human/miner
 	name = JOB_NAME_SHAFTMINER
@@ -484,6 +529,13 @@
 	id_job = "Commander"
 	id_access_list = list(ACCESS_CENT_CAPTAIN, ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_STORAGE)
 	outfit = /datum/outfit/nanotrasencommandercorpse
+
+/obj/effect/mob_spawn/human/commander/outpost
+	name = "Outpost Commander"
+	id_job = "Outpost Commander"
+	id_access_list = list(ACCESS_CENT_CAPTAIN, ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_STORAGE)
+	outfit = /datum/outfit/nanotrasencommandercorpse
+	startdamaged = TRUE
 
 /datum/outfit/nanotrasencommandercorpse
 	name = "\improper Nanotrasen Private Security Commander"
