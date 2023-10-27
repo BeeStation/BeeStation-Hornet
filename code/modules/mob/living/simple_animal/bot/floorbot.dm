@@ -32,19 +32,18 @@
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = ""
 
-	#define HULL_BREACH		1
-	#define LINE_SPACE_MODE		2
-	#define FIX_TILE		3
-	#define AUTO_TILE		4
-	#define PLACE_TILE		5
-	#define REPLACE_TILE		6
-	#define TILE_EMAG		7
+	#define HULL_BREACH	1
+	#define LINE_SPACE_MODE 2
+	#define FIX_TILE 3
+	#define AUTO_TILE 4
+	#define PLACE_TILE 5
+	#define REPLACE_TILE 6
+	#define TILE_EMAG 7
 
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	toolbox_color = new_toolbox_color
-	update_icon()
-
+	update_appearance()
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
@@ -66,11 +65,11 @@
 
 /mob/living/simple_animal/bot/floorbot/turn_on()
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/floorbot/turn_off()
 	..()
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/floorbot/bot_reset()
 	..()
@@ -389,7 +388,8 @@
 	if(!QDELETED(src))
 		go_idle()
 
-/mob/living/simple_animal/bot/floorbot/update_icon()
+/mob/living/simple_animal/bot/floorbot/update_icon_state()
+	. = ..()
 	icon_state = "[toolbox_color]floorbot[on]"
 
 /mob/living/simple_animal/bot/floorbot/explode()
@@ -416,7 +416,7 @@
 /obj/machinery/bot_core/floorbot
 	req_one_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 
-/mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(isturf(A))
 		repair(A)
 	else
