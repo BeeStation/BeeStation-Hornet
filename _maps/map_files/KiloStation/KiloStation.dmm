@@ -71195,6 +71195,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"qdI" = (
+/obj/machinery/button/door{
+	id = "medbay_front_door";
+	name = "Medbay Doors Toggle";
+	normaldoorcontrol = 1;
+	req_access_txt = "5";
+	dir = 4;
+	pixel_y = 10
+	},
+/turf/closed/wall,
+/area/medical/medbay/central)
 "qdP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -81999,17 +82010,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"uHY" = (
-/obj/machinery/button/door{
-	id = "medbay_front_door";
-	name = "Medbay Doors Toggle";
-	normaldoorcontrol = 1;
-	req_access_txt = "5";
-	dir = 4;
-	pixel_x = -5
-	},
-/turf/closed/wall,
-/area/medical/medbay/central)
 "uIa" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -112433,7 +112433,7 @@ jFO
 uOX
 ktC
 sXp
-aNn
+qdI
 tPf
 uJW
 mHk
@@ -113460,7 +113460,7 @@ dJG
 aNu
 aNm
 aNP
-uHY
+aNn
 aVU
 lKJ
 kix
