@@ -428,7 +428,7 @@
 		var/obj/item/fake_item = item
 		if(initial(fake_item.vendor_icon_preview))
 			icon_state = initial(fake_item.vendor_icon_preview)
-			icon_file = 'icons/obj/vendor_item_icons.dmi'
+			icon_file = initial(fake_item.icon)
 	#ifdef UNIT_TESTS
 	var/icon_states_list = icon_states(icon_file)
 	if (!(icon_state in icon_states_list))
