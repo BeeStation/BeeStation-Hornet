@@ -57,11 +57,10 @@
 			var/iterations = round(tilestack.amount/tilestack.max_amount) //round() without second arg floors the value
 			for(var/a in 1 to iterations)
 				if(a == iterations)
-					tilestack.split_stack(null, tilestack.amount - tilestack.max_amount)
+					tilestack.change_stack(null, tilestack.amount - tilestack.max_amount)
 				else
-					tilestack.split_stack(null, tilestack.max_amount)
+					tilestack.change_stack(null, tilestack.max_amount)
 		tilestack = null
-
 
 /mob/living/simple_animal/bot/floorbot/turn_on()
 	. = ..()
@@ -92,7 +91,7 @@
 	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
 	dat += "Special tiles: "
 	if(tilestack)
-		dat += "<A href='?src=[REF(src)];operation=eject'>Loaded \[[tilestack_amount]/[maxtiles]\]</a><BR>"
+		dat += "<A href='?src=[REF(src)];operation=eject'>Loaded \[[tilestack.amount]/[maxtiles]\]</a><BR>"
 	else
 		dat += "None Loaded<BR>"
 
@@ -130,7 +129,7 @@
 			tiles.merge(tilestack, maxtiles)
 		else
 			if(tiles.amount > maxtiles)
-				tilestack = tilestack.split_stack(null, maxtiles)
+				tilestack = tilestack.change_stack(null, maxtiles)
 			else
 				tilestack = W
 			tilestack.forceMove(src)
@@ -245,7 +244,7 @@
 		if(loc == target || loc == get_turf(target))
 			if(check_bot(target))	//Target is not defined at the parent
 				shuffle = TRUE
-				if(prob(50))	//50% chance to still try to repair so we dont end up with 2 floorbots failing to fix the last breach
+				if(prob(50)) //50% chance to still try to repair so we dont end up with 2 floorbots failing to fix the last breach
 					target = null
 					path = list()
 					return
@@ -253,6 +252,7 @@
 				repair(target)
 			else if(emagged == 2 && isfloorturf(target))
 				var/turf/open/floor/F = target
+				toggle_magnet()
 				mode = BOT_REPAIRING
 				if(isplatingturf(F))
 					F.ReplaceWithLattice()
@@ -315,7 +315,7 @@
 				result = F
 		if(REPLACE_TILE)
 			F = scan_target
-			if(isfloorturf(F) && !isplatingturf(F) && F.type != initial(tiletype.turf_type)) //The floor must already have a tile.
+			if(isfloorturf(F) && !isplatingturf(F)) //The floor must already have a tile.
 				result = F
 		if(FIX_TILE)	//Selects only damaged floors.
 			F = scan_target
