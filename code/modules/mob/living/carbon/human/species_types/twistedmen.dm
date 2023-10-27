@@ -56,6 +56,9 @@
 	if(ishuman(C))
 		dispenser = new
 		dispenser.Grant(C)
+	C.fully_replace_character_name(null, pick("Yoka", "Drak", "Loso", "Arta", "Weyh", "Ines", "Toth", "Fara", "Amar", "Eske", "Reth", "Dedo", "Btoh", "Nikt", "Neth",
+		"Kanas", "Garis", "Uloft", "Tarat", "Khari", "Thnor", "Rekka", "Ragga", "Rfikk", "Harfr", "Andid", "Ethra", "Dedol", "Totum",
+		"Ntrath", "Keriam"))
 
 /datum/species/twistedmen/get_scream_sound(mob/living/carbon/user)
 	return pick(
