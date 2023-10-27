@@ -249,9 +249,8 @@
 	phase_allowed = TRUE
 	invocation_type = INVOCATION_EMOTE
 	summon_amt = 2
-	action_icon_state = "bee"
+	action_icon_state = "gib"
 	cooldown_min = 20 SECONDS
-
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/blood/gibs
 	name = "Spread gibs"
@@ -261,7 +260,7 @@
 	range = 0
 	invocation = "You pull madly at your sides and throw chunks of flesh around."
 	summon_amt = 1
-	action_icon_state = "bee"
+	action_icon_state = "gib"
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse
 	name = "Repulse"
