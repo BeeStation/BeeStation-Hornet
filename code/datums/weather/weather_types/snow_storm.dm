@@ -23,6 +23,8 @@
 
 	barometer_predictable = TRUE
 
+	protected_areas = list(/area/iceland/underground/safe)//Areas that are protected and excluded from the affected areas.
+
 /datum/weather/snow_storm/weather_act(mob/living/L)
 	L.adjust_bodytemperature(-rand(5,15))
 

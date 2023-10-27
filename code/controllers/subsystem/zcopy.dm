@@ -248,7 +248,7 @@ SUBSYSTEM_DEF(zcopy)
 			if(!IS_DYNAMIC_LIGHTING(A))
 				T.shadower.icon_state = "transparent"
 			else
-				T.shadower.icon_state = "dark"
+				T.shadower.icon_state = "transparent"
 		else
 			// Some openturfs have icons, so we can't overwrite their appearance.
 			if (!T.below.mimic_proxy)

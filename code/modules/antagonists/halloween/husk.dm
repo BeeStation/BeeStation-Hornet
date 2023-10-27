@@ -2,7 +2,7 @@
 /mob/living/simple_animal/husk
 	name = "living husk"
 	real_name = "living husk"
-	desc = "A shell of a human being, blood pouring out of many holes in its body. Its face an shapeless gaping hole."
+	desc = "A shell of a human being, blood pouring out of many holes in its body. Its face a shapeless gaping hole."
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"
@@ -51,7 +51,7 @@
 	var/obj/effect/dummy/phased_mob/slaughter/holder = new /obj/effect/dummy/phased_mob/slaughter(src.loc)
 	forceMove(holder)
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodwalk = new
-	var/obj/effect/proc_holder/spell/aoe_turf/conjure/blood/gibs/spread_blood = new
+	var/obj/effect/proc_holder/spell/aoe_turf/conjure/blood/spread_blood = new
 	AddSpell(spread_blood)
 	AddSpell(bloodwalk)
 	bloodwalk.phased = TRUE

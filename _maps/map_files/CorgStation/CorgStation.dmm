@@ -412,13 +412,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
-"aja" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 4;
-	state = 2
-	},
-/turf/open/floor/plating,
-/area/engine/engine_room)
 "ajc" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
@@ -481,7 +474,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "akq" = (
-/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -1059,13 +1051,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/primary/fore)
-"aAP" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 8;
-	state = 2
-	},
-/turf/open/floor/plating,
-/area/engine/engine_room)
 "aBc" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel/dark,
@@ -2827,13 +2812,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"buQ" = (
-/obj/machinery/vending/cola/random,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/hallway/primary/fore)
 "bvo" = (
 /obj/machinery/light_switch{
 	pixel_x = 1;
@@ -3030,13 +3008,10 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "bCh" = (
-/obj/machinery/vending/tool{
-	contraband = null;
-	premium = list(/obj/item/storage/belt/utility = 2, /obj/item/weldingtool/hugetank = 2, /obj/item/clothing/head/welding = 2)
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera/autoname,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/vending/tool,
 /turf/open/floor/plasteel,
 /area/storage/tools)
 "bCp" = (
@@ -3522,7 +3497,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "bOo" = (
-/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
@@ -6070,7 +6044,6 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen/coldroom)
 "dpW" = (
-/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -6998,12 +6971,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
-"dUz" = (
-/obj/machinery/vending/snack/random,
-/turf/open/floor/plasteel/cafeteria{
-	dir = 5
-	},
-/area/science/breakroom)
 "dUQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -13650,7 +13617,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "hJm" = (
-/obj/machinery/vending/snack/random,
 /obj/item/radio/intercom{
 	pixel_x = 29;
 	pixel_y = -2
@@ -13984,7 +13950,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "hSS" = (
-/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/plasteel,
@@ -15448,8 +15413,8 @@
 /area/crew_quarters/heads/cmo)
 "iIy" = (
 /obj/structure/holohoop{
-	pixel_y = 10;
-	dir = 4
+	dir = 4;
+	pixel_y = 10
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -15563,7 +15528,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "iNB" = (
-/obj/machinery/vending/snack/random,
 /obj/machinery/light,
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
@@ -16420,7 +16384,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "jjS" = (
-/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -18839,11 +18802,6 @@
 /obj/item/clothing/glasses/hud/security/sunglasses,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
-"kDs" = (
-/obj/machinery/vending/snack/random,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
-/turf/open/floor/plasteel,
-/area/security/prison)
 "kDz" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -19985,10 +19943,7 @@
 /area/quartermaster/qm)
 "lmh" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/vending/hydroseeds{
-	contraband = null;
-	products = list(/obj/item/seeds/apple = 3, /obj/item/seeds/cotton = 3, /obj/item/seeds/berry = 3, /obj/item/seeds/carrot = 3, /obj/item/seeds/cherry = 3, /obj/item/seeds/chanter = 3, /obj/item/seeds/chili = 3, /obj/item/seeds/coffee = 3, /obj/item/seeds/eggplant = 3, /obj/item/seeds/garlic = 3, /obj/item/seeds/grape = 3, /obj/item/seeds/lime = 3, /obj/item/seeds/onion = 3, /obj/item/seeds/orange = 3, /obj/item/seeds/pineapple = 3, /obj/item/seeds/potato = 3, /obj/item/seeds/flower/poppy = 3, /obj/item/seeds/pumpkin = 3, /obj/item/seeds/wheat/rice = 3, /obj/item/seeds/soya = 3, /obj/item/seeds/sunflower = 3, /obj/item/seeds/tea = 3, /obj/item/seeds/tobacco = 3, /obj/item/seeds/tower = 3, obj/item/seeds/wheat = 3, /obj/item/seeds/whitebeet = 3)
-	},
+/obj/machinery/vending/hydroseeds,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "lmq" = (
@@ -21194,7 +21149,6 @@
 /area/maintenance/port)
 "lVf" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/dough,
 /obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
@@ -25198,8 +25152,8 @@
 /area/crew_quarters/fitness/recreation)
 "ofx" = (
 /obj/structure/holohoop{
-	pixel_y = 10;
-	dir = 8
+	dir = 8;
+	pixel_y = 10
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -29428,7 +29382,6 @@
 "qFP" = (
 /obj/structure/table/wood,
 /obj/item/pinpointer/nuke,
-/obj/item/disk/nuclear,
 /obj/machinery/recharger,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -29835,7 +29788,6 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "qQB" = (
-/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -29845,12 +29797,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"qQT" = (
-/obj/machinery/vending/snack/random,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel,
-/area/medical/medbay/lobby)
 "qRa" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder{
@@ -33562,7 +33508,6 @@
 /turf/closed/wall/r_wall,
 /area/science/robotics)
 "sZN" = (
-/obj/machinery/vending/cola/random,
 /obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
@@ -34606,7 +34551,6 @@
 /obj/machinery/firealarm{
 	pixel_y = -24
 	},
-/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
@@ -36923,7 +36867,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "vcO" = (
-/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -37277,16 +37220,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/storage)
-"vmr" = (
-/obj/machinery/vending/snack/random,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/exit)
 "vmz" = (
 /obj/machinery/light{
 	dir = 4
@@ -41438,7 +41371,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "xBu" = (
-/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -55485,8 +55417,8 @@ aLq
 aDT
 aDz
 avi
-aja
-aja
+aDT
+aDT
 aLq
 aMT
 aMT
@@ -57539,7 +57471,7 @@ aOR
 rNZ
 aLq
 aDT
-aAP
+aDT
 aUJ
 aDT
 aDT
@@ -70476,7 +70408,7 @@ xlM
 brt
 bOf
 gpv
-vmr
+wSC
 jLS
 whe
 akq
@@ -74005,7 +73937,7 @@ vux
 gji
 gPL
 ekl
-dUz
+mNo
 opq
 tkA
 hzU
@@ -78882,7 +78814,7 @@ dde
 vXs
 nIH
 gOQ
-buQ
+xyB
 xyB
 rQV
 hcA
@@ -82492,7 +82424,7 @@ eTO
 sqh
 uGL
 iDL
-qQT
+jjS
 btd
 ors
 hFG
@@ -83205,7 +83137,7 @@ lxK
 lxK
 lxK
 esi
-kDs
+aUS
 uKT
 cFU
 tNa
