@@ -7,7 +7,7 @@
 
 /mob/living/simple_animal/hostile/aetherial
 	name = "???"
-	desc = "There's some kind of distortion here"
+	desc = "There's some kind of distortion here."
 	icon = 'icons/mob/halloween/aetherial.dmi'
 	icon_state = "aetherial"
 	icon_living = "aetherial"

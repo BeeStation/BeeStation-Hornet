@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/ambush
 	name = "???"
-	desc = "Something seems off over there"
+	desc = "Something seems off over there."
 	icon = 'icons/mob/halloween/ambush.dmi'
 	icon_state = "abyssal_carp"
 	icon_living = "abyssal_carp"
@@ -70,7 +70,7 @@
 							'sound/creatures/halloween/ACarp/ACarpIdle3.ogg',
 							'sound/creatures/halloween/ACarp/ACarpIdle4.ogg')
 
-/mob/living/simple_animal/hostile/ambush/attack_basic_mob()
+/mob/living/simple_animal/hostile/ambush/attack_basic_mob(mob/living/basic/user, list/modifiers)
 	playsound(loc, attack_sound, 50)
 	attack_sound = null //we want to override modulation
 	..()

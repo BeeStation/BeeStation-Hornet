@@ -49,12 +49,12 @@
 			cranking = TRUE
 			if(do_after(user, 1 SECONDS) && cranking)
 				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
-				cell.charge += 50
+				cell.give(50)
 				flick("repeater", src)
 				update_icon()
 			else
-				cranking = FALSE //setting this isn't really necessary, but I couldn't bring myself not to set it here.
 				break
+	cranking = FALSE
 
 /obj/item/gun/energy/laser/repeater/process_fire()
 	cranking = FALSE //no more cranking when you shoot.
