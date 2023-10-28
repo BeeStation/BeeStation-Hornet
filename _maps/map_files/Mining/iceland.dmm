@@ -5399,6 +5399,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/turf_decal/bot,
 /obj/item/gps/engineering,
+/obj/item/inducer/eng,
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
 "aoG" = (
