@@ -27,7 +27,6 @@
 	new /obj/item/computer_hardware/hard_drive/role/ce(src)
 	new /obj/item/storage/bag/construction(src)
 
-	new /obj/item/circuitboard/machine/techfab/department/engineering(src)
 
 	// prioritized items
 	new /obj/item/storage/toolbox/mechanical(src)
