@@ -45244,6 +45244,7 @@
 /area/hallway/primary/starboard)
 "eYU" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/closet,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "eZc" = (
@@ -57892,7 +57893,6 @@
 	pixel_y = -24
 	},
 /turf/open/floor/plating,
-/area/space,
 /area/maintenance/port)
 "kmv" = (
 /obj/machinery/newscaster{
@@ -59493,6 +59493,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
+"laI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "laK" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 9
@@ -79748,6 +79753,13 @@
 	},
 /turf/open/floor/carpet,
 /area/maintenance/port)
+"txx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/maintenance/port)
 "txy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -81497,6 +81509,7 @@
 /area/security/brig)
 "upF" = (
 /obj/structure/sign/poster/official/no_erp,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/closed/wall/rust,
 /area/maintenance/port)
 "upQ" = (
@@ -82293,6 +82306,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/central)
+"uKJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/maintenance/port)
 "uKS" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner{
@@ -108226,8 +108246,8 @@ aPc
 kmu
 aPc
 aOZ
-crP
-crP
+cnL
+cnL
 crP
 crg
 amR
@@ -108483,9 +108503,9 @@ wOq
 xBB
 aPc
 vYW
-snO
-snO
-cHN
+txx
+uKJ
+csl
 cuW
 cLH
 cLI
@@ -108740,7 +108760,7 @@ jCW
 efA
 aPc
 xhx
-snO
+txx
 nJX
 ixJ
 bdl
@@ -109778,7 +109798,7 @@ sFX
 sgn
 fMS
 sDd
-crP
+laI
 amA
 xyH
 awD
@@ -110806,7 +110826,7 @@ fZk
 jap
 fbw
 ihd
-crP
+cIc
 xuo
 xZv
 bLn
@@ -111063,7 +111083,7 @@ iql
 jZf
 xmF
 kLY
-crP
+cIc
 rAF
 xyH
 ewC
@@ -111320,7 +111340,7 @@ iRN
 tKV
 xSO
 wTF
-crP
+cIc
 txu
 xZv
 tIa
