@@ -215,3 +215,31 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	smoothing_flags = SMOOTH_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
 	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
+
+/turf/closed/indestructible/wall
+	name = "tough wall"
+	desc = "A huge chunk of metal used to separate rooms. This feels denser than usual."
+	icon = 'icons/turf/walls/wall.dmi'
+	icon_state = "wall-0"
+	base_icon_state = "wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+		//note consider "canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK)" if the artstyle permits it!
+
+/turf/closed/indestructible/wall/ice
+	icon = 'icons/turf/walls/icedmetal_wall.dmi'
+	icon_state = "icedmetal_wall-0"
+	base_icon_state = "icedmetal_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
+	desc = "A wall covered in a thick sheet of ice. This feels denser than usual."
+
+/turf/closed/indestructible/wall/reinforced
+	name = "reinforced wall"
+	desc = "A huge chunk of reinforced metal used to separate rooms. This feels even more denser than usual."
+	icon = 'icons/turf/walls/reinforced_wall.dmi'
+	icon_state = "reinforced_wall-0"
+	base_icon_state = "reinforced_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS)
