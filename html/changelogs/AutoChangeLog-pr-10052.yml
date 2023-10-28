@@ -1,0 +1,7 @@
+author: rkz, Timberpoes
+delete-after: true
+changes:
+  - rscadd: adds diagnostic hud support for checking bot battery level, and adds it
+      to mulebots
+  - refactor: cleans up bot run_over code to suck less
+  - refactor: bot movement code sucks maybe 20% less
