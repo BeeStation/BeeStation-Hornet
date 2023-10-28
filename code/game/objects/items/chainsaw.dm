@@ -145,7 +145,7 @@
 /obj/item/chainsaw/bfc
 	name = "BFC 2000"
 	desc = "The all new NT-branded hedge trimmer! Can also be used to saw trees or butcher big animals."
-	force = 15
+	force = 10
 	tool_behaviour = TOOL_BFC
 	var/onsound
 	var/offsound
@@ -185,7 +185,7 @@
 	tool_behaviour = TOOL_SUPERBFC
 	name = "SUPER BFC 2000"
 	desc = "The original BFC upgraded with RAW DEMONIC POWER."
-	force = 30
+	force = 20
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "echainsaw_off"
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'

@@ -236,7 +236,8 @@
 
 // Used by the Twisted Ones to sacrifice victims
 /mob/living/simple_animal/hostile/latcher/hydra
-	name = "hydra"
+	name = "Father"
+	desc = "A grotesque three headed latcher, worshipped by the twisted men who believe it to be a gift from the Unshaped."
 	icon = 'icons/mob/halloween/hydra.dmi'
 	icon_state = "hydra"
 	icon_living = "hydra"
@@ -272,22 +273,24 @@
 	//Ideally these should be new sprites
 	name = "sacrificial dagger"
 	desc = "a dagger used to mark a sacrifice to the hydra."
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "render"
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "splinterknife"
 	item_state = "cultdagger"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	//Most properties taken from the cultist dagger
 	sharpness = IS_SHARP
-	force = 15
-	throwforce = 12
+	force = 5
+	throwforce = 5
 	armour_penetration = 35
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/melee/hydra_dagger/attack(mob/living/M, mob/living/user)
-	. = ..()
-	if(iscarbon(M))
+	if(iscarbon(M) && do_after(user, 3 SECONDS))
+		playsound(src, 'sound/weapons/slice.ogg')
 		M.apply_status_effect(/datum/status_effect/marked_for_death)
+		to_chat(user, "<span class='warning'>You carve symbols in their flesh, they are ready to be remade by Father!</span>")
+	. = ..()
 
 
 /datum/status_effect/marked_for_death
@@ -299,7 +302,7 @@
 
 /datum/status_effect/marked_for_death/on_apply()
 	. = ..()
-	to_chat(owner, "<span class='warning'>Your wounds reek of latchers.</span>")
+	to_chat(owner, "<span class='warning'>The twisted man carves symbols in your flesh! You feel odd...</span>")
 
 /datum/status_effect/marked_for_death/on_remove()
 	. = ..()
