@@ -203,11 +203,13 @@
 		goIdle(TRUE)
 		return
 	A.unbolt()
-	spawn()
-		if(A && A.open())
-			if(machine_stat | (NOPOWER) && !lostPower && A && !QDELETED(A))
-				A.bolt()
-		goIdle(TRUE)
+	INVOKE_ASYNC(src, .proc/do_openDoor, A)
+
+/obj/machinery/doorButtons/airlock_controller/proc/do_openDoor(obj/machinery/door/airlock/A)
+	if(A && A.open())
+		if(machine_stat | (NOPOWER) && !lostPower && A && !QDELETED(A))
+			A.bolt()
+	goIdle(TRUE)
 
 /obj/machinery/doorButtons/airlock_controller/proc/goIdle(update)
 	lostPower = FALSE

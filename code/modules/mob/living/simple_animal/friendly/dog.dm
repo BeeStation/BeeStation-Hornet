@@ -503,10 +503,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 
 		if(prob(1))
 			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("dances around.","chases its tail!"))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					setDir(i)
-					sleep(1)
+			INVOKE_ASYNC(GLOBAL_PROC, .proc/dance_rotate, src)
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/narsie_act()
 	playsound(src, 'sound/magic/demon_dies.ogg', 75, TRUE)

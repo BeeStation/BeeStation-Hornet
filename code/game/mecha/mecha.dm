@@ -651,22 +651,20 @@
 
 /obj/mecha/Bump(var/atom/obstacle)
 	if(phasing && get_charge() >= phasing_energy_drain && !throwing)
-		spawn()
-			if(can_move)
-				can_move = 0
-				if(phase_state)
-					flick(phase_state, src)
-				var/turf/target = get_step(src, dir)
-				if(target.flags_1 & NOJAUNT_1)
-					occupant_message("Phasing anomaly detected, emergency deactivation initiated.")
-					sleep(step_in*3*step_multiplier)
-					can_move = 1
-					phasing = FALSE
-					return
-				if(do_teleport(src, get_step(src, dir), no_effects = TRUE))
-					use_power(phasing_energy_drain)
-				sleep(step_in*3*step_multiplier)
-				can_move = 1
+		if(!can_move)
+			return
+		can_move = 0
+		if(phase_state)
+			flick(phase_state, src)
+		var/turf/target = get_step(src, dir)
+		if(target.flags_1 & NOJAUNT_1)
+			occupant_message("Phasing anomaly detected, emergency deactivation initiated.")
+			addtimer(VARSET_CALLBACK(src, can_move, TRUE), step_in*3*step_multiplier)
+			phasing = FALSE
+			return
+		if(do_teleport(src, get_step(src, dir), no_effects = TRUE))
+			use_power(phasing_energy_drain)
+		addtimer(VARSET_CALLBACK(src, can_move, TRUE), step_in*3*step_multiplier)
 	else
 		if(..()) //mech was thrown
 			return

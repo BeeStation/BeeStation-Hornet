@@ -182,23 +182,30 @@ field_generator power level display
 
 /obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
-	spawn(1)
-		cleanup()
-		while (warming_up>0 && !active)
-			sleep(50)
-			warming_up--
-			update_icon()
+	INVOKE_ASYNC(src, .proc/cleanup)
+	addtimer(CALLBACK(src, .proc/cool_down), 50)
+
+/obj/machinery/field/generator/proc/cool_down()
+	if(active || warming_up <= 0)
+		return
+	warming_up--
+	update_icon()
+	if(warming_up > 0)
+		addtimer(CALLBACK(src, .proc/cool_down), 50)
 
 /obj/machinery/field/generator/proc/turn_on()
 	active = FG_CHARGING
-	spawn(1)
-		while (warming_up<3 && active)
-			sleep(50)
-			warming_up++
-			update_icon()
-			if(warming_up >= 3)
-				start_fields()
+	addtimer(CALLBACK(src, .proc/warm_up), 50)
 
+/obj/machinery/field/generator/proc/warm_up()
+	if(!active)
+		return
+	warming_up++
+	update_icon()
+	if(warming_up >= 3)
+		start_fields()
+	else
+		addtimer(CALLBACK(src, .proc/warm_up), 50)
 
 /obj/machinery/field/generator/proc/calc_power(set_power_draw)
 	var/power_draw = 2 + fields.len

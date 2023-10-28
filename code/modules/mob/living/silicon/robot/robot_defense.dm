@@ -64,14 +64,16 @@
 			cell = null
 			update_icons()
 			diag_hud_set_borgcell()
+	else if(!opened)
+		..()
 
-	if(!opened)
-		if(..()) // hulk attack
-			spark_system.start()
-			spawn(0)
-				step_away(src,user,15)
-				sleep(3)
-				step_away(src,user,15)
+/mob/living/silicon/robot/attack_hulk(mob/living/carbon/human/user)
+	. = ..()
+	if(!.)
+		return
+	spark_system.start()
+	step_away(src, user, 15)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/_step_away, src, get_turf(user), 15), 3)
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them

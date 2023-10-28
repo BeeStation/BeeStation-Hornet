@@ -414,7 +414,7 @@
 		return
 
 	var/obj/item/bot_assembly/medbot/A = new
-	A.skin = src.skin_type
+	A.set_skin(src.skin_type)
 
 
 	user.put_in_hands(A)
