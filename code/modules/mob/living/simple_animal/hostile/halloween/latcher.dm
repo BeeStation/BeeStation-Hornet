@@ -143,7 +143,6 @@
 	else
 		..()
 
-
 /mob/living/simple_animal/hostile/latcher/proc/maul_target(maul_target)
 	playsound(loc, attack_sound, 200)
 	rotate_sound("attack")
