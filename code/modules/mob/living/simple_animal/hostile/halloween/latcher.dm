@@ -204,7 +204,7 @@
 /obj/projectile/latcher_harpoon/fire()
 	..()
 	if(firer)
-		reel = firer.Beam(src, "latcher", maxdistance=9)
+		reel = firer.Beam(src, "latcher", maxdistance=9, time=20)
 
 /obj/projectile/latcher_harpoon/on_hit(atom/target, blocked = FALSE)
 	//[firer] is the person who shot the projectile
