@@ -77985,7 +77985,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/auto_name/west{
-	name = ""MedicalSecurityCheckpointAPC""
+	name = "Medical Security Checkpoint APC"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/checkpoint/medical)
