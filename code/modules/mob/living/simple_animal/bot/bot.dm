@@ -832,6 +832,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/proc/calc_path(turf/avoid)
 	check_bot_access()
+	if(!isturf(src.loc))
+		return
 	if(!is_reserved_level(z))
 		if(patrol_target != null)
 			if(z > patrol_target.z)
