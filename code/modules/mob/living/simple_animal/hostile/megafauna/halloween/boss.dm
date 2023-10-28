@@ -1,13 +1,13 @@
 /mob/living/simple_animal/hostile/megafauna/harbinger
 	name = "Harbinger"
 	desc = "A monstrous creature protected by blessings of Nar'Sie"
-	health = 3000
-	maxHealth = 3000
+	health = 1000
+	maxHealth = 1000
 	attacktext = "eviscerates"
 	attack_sound = null //set later
 	icon_state = "p1"
 	icon_living = "p1"
-	icon_dead = "dead"
+	icon_dead = "p1"
 	friendly = "stares down"
 	icon = 'icons/mob/halloween/harbinger.dmi'
 	speak_emote = list("roars")
@@ -17,7 +17,7 @@
 	faction = list("hostile")
 	weather_immunities = list("snow")
 	move_to_delay = 1 SECONDS
-	ranged = TRUE
+	ranged = FALSE
 	projectiletype = /obj/projectile/latcher_harpoon/harbinger
 	pixel_x = -32
 	base_pixel_x = -32
@@ -29,8 +29,8 @@
 	loot = null
 	vision_range = 9
 	aggro_vision_range = 18
-	deathmessage = null
-	deathsound = 'sound/creatures/halloween/Harbinger/HDeath1.ogg'
+	deathmessage = " "
+	deathsound = null
 	wander = FALSE
 	var/phase = 1 //Current phase of boss determines current behavior
 	var/passive_counter //used for passive actions which happen alongside delta_time
@@ -45,6 +45,8 @@
 	var/summon_sound
 	var/target_sound
 	var/laugh_sound
+
+	var/introduction = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/harbinger/Initialize()
 	..()
@@ -140,15 +142,28 @@
 								'sound/creatures/halloween/Harbinger/Laugh/HP3Laugh2.ogg',
 								'sound/creatures/halloween/Harbinger/Laugh/HP3Laugh3.ogg',
 								'sound/creatures/halloween/Harbinger/Laugh/HP3Laugh4.ogg')
+
 /mob/living/simple_animal/hostile/megafauna/harbinger/death(gibbed)
+	switch(phase)
+		if(1)
+			INVOKE_ASYNC(src, PROC_REF(phase_shift))
+		if(2)
+			INVOKE_ASYNC(src, PROC_REF(phase_shift))
+		if(3)
+			deathsound = 'sound/creatures/halloween/Harbinger/HDeath1.ogg'
+			for(var/mob/living/tethered in tethered_mobs)
+				var/datum/beam/B = tethers_active[tethered]
+				if(B)
+					qdel(B)
+				tethers_active -= tethered
+			tethered_mobs = list()
+			qdel(tether_center)
 	..()
-	for(var/mob/living/tethered in tethered_mobs)
-		var/datum/beam/B = tethers_active[tethered]
-		if(B)
-			qdel(B)
-		tethers_active -= tethered
-	tethered_mobs = list()
-	qdel(tether_center)
+
+/mob/living/simple_animal/hostile/megafauna/harbinger/Goto(target, delay, minimum_distance)
+	. = ..()
+	if(!introduction)
+		take_overall_damage(1000) //cheap hack, but it works
 
 /mob/living/simple_animal/hostile/megafauna/harbinger/Life(delta_time)
 	..()
@@ -164,30 +179,7 @@
 						passive_counter = 0
 						rotate_sound("summon")
 						playsound(src, summon_sound, 135)
-			if(health <= maxHealth * 0.7)
-				icon_state = "p2"
-				icon_living = "p2"
-				rotate_sound("all")
-				update_icon()
-				phase++
-				passive_counter = 0
 		if(2) //Second phase moves slower and tethers players, requiring coordination to overcome. Will now attack even those who are not the current target.
-			if(health <= maxHealth * 0.35)
-				phase++
-				icon_state = "p3"
-				icon_living = "p3"
-				rotate_sound("all")
-				update_icon()
-				passive_counter = 0
-				set_observer_default_invisibility(0)
-				notify_ghosts("Orbit the harbinger to weaken him, or orbit your allies to heal them!", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Orbit the Harbinger")
-
-				//break tethers for phase 3, it's too intense for anyone still living to be stunned
-				for(var/mob/living/tethered in tethered_mobs)
-					release_target(tethered)
-					var/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(tethered, src)))
-					tethered.throw_at(throwtarget, 6, 6)
-
 			passive_counter += delta_time
 			if(passive_counter >= 30 && target)
 				summon_carp(prob(50)) //50% chance of summoning two carp
@@ -220,6 +212,60 @@
 			else
 				step(L,get_dir(L,src)) //Reeeeel them in
 				L.Paralyze(6 SECONDS) //Reset their paralysis
+
+/mob/living/simple_animal/hostile/megafauna/harbinger/proc/phase_shift()
+	stop_automated_movement = TRUE
+	SSmove_manager.stop_looping(src)
+
+	if(!introduction)
+		introduction = TRUE
+		playsound(src, 'sound/creatures/halloween/Harbinger/HP1Transition1.ogg', 200)
+		sleep(15 SECONDS)
+		revive(TRUE) //No damage dealt during introduction will count for anything.
+		icon_dead = "p2"
+		ranged = TRUE
+	else
+		phase++
+		switch(phase)
+			if(2)
+			//	revive(TRUE) //Fully heal now, and again a bit later.
+				playsound(src, 'sound/creatures/halloween/Harbinger/HP2Transition2.ogg', 200)
+				var/obj/effect/rune/narsie/rune = new(loc)
+				rune.color = COLOR_DARK_RED
+				icon_state = "p2"
+				icon_living = "p2"
+				rotate_sound("all")
+				update_icon()
+				passive_counter = 0
+				sleep(10 SECONDS)
+				revive(TRUE)
+				icon_dead = "p3"
+				qdel(rune)
+
+			if(3)
+			//	revive(TRUE) //Fully heal now, and again a bit later
+				playsound(src, 'sound/creatures/halloween/Harbinger/HP3Transition2.ogg', 200)
+				var/obj/effect/rune/narsie/rune = new(loc)
+				rune.color = COLOR_DARK_RED
+				icon_state = "p3"
+				icon_living = "p3"
+				rotate_sound("all")
+				update_icon()
+				passive_counter = 0
+				//break tethers for phase 3, it's too intense for anyone still living to be stunned
+				for(var/mob/living/tethered in tethered_mobs)
+					release_target(tethered)
+					var/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(tethered, src)))
+					tethered.throw_at(throwtarget, 6, 6)
+				sleep(10 SECONDS)
+				revive(TRUE)
+				icon_dead = "dead"
+				qdel(rune)
+				health = maxHealth
+				set_observer_default_invisibility(0)
+				notify_ghosts("Orbit the harbinger to weaken him, or orbit your allies to heal them!", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Orbit the Harbinger")
+
+	Goto(target,move_to_delay,minimum_distance)
 
 /mob/living/simple_animal/hostile/megafauna/harbinger/AttackingTarget()
 	..()
