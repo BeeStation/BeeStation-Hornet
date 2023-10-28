@@ -40,9 +40,9 @@
 		"yellow" = "#ffa500"
 	)
 
-/obj/item/screwdriver/suicide_act(mob/user)
+/obj/item/screwdriver/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/screwdriver/Initialize(mapload)
 	if(random_color)

@@ -74,7 +74,7 @@
 /obj/item/toy/crayon/proc/isValidSurface(surface)
 	return istype(surface, /turf/open/floor)
 
-/obj/item/toy/crayon/suicide_act(mob/user)
+/obj/item/toy/crayon/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is jamming [src] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS|OXYLOSS)
 
@@ -540,10 +540,10 @@
 	new /obj/item/toy/crayon/black(src)
 	update_icon()
 
-/obj/item/storage/crayons/update_icon()
-	cut_overlays()
+/obj/item/storage/crayons/update_overlays()
+	. = ..()
 	for(var/obj/item/toy/crayon/crayon in contents)
-		add_overlay(mutable_appearance('icons/obj/crayons.dmi', crayon.crayon_color))
+		. += mutable_appearance('icons/obj/crayons.dmi', crayon.crayon_color)
 
 /obj/item/storage/crayons/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
@@ -613,7 +613,7 @@
 	return (istype(surface, /turf/open/floor) || istype(surface, /turf/closed/wall))
 
 
-/obj/item/toy/crayon/spraycan/suicide_act(mob/user)
+/obj/item/toy/crayon/spraycan/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
 	if(is_capped || !actually_paints)
 		user.visible_message("<span class='suicide'>[user] shakes up [src] with a rattle and lifts it to [user.p_their()] mouth, but nothing happens!</span>")
@@ -635,8 +635,7 @@
 		var/fraction = min(1, used / reagents.maximum_volume)
 		reagents.reaction(user, VAPOR, fraction * volume_multiplier)
 		reagents.trans_to(user, used, volume_multiplier, transfered_by = user)
-
-		return (OXYLOSS)
+		return OXYLOSS
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
@@ -736,13 +735,16 @@
 
 	. = ..()
 
-/obj/item/toy/crayon/spraycan/update_icon()
+/obj/item/toy/crayon/spraycan/update_icon_state()
 	icon_state = is_capped ? icon_capped : icon_uncapped
+	return ..()
+
+/obj/item/toy/crayon/spraycan/update_overlays()
+	. = ..()
 	if(use_overlays)
-		cut_overlays()
 		var/mutable_appearance/spray_overlay = mutable_appearance('icons/obj/crayons.dmi', "[is_capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 		spray_overlay.color = paint_color
-		add_overlay(spray_overlay)
+		. += spray_overlay
 
 /obj/item/toy/crayon/spraycan/borg
 	name = "cyborg spraycan"

@@ -238,8 +238,13 @@
 	..()
 	if(!QDELETED(chosen_clothing) && get_turf(religious_tool) == chosen_clothing.loc) //check if the same clothing is still there
 		if(istype(chosen_clothing,/obj/item/clothing/suit/hooded))
-			for(var/obj/item/clothing/head/integrated_helmet in chosen_clothing.contents) //check if the clothing has a hood/helmet integrated and fireproof it if there is one.
-				apply_fireproof(integrated_helmet)
+			var/obj/item/clothing/suit/hooded/as_hooded = chosen_clothing
+			if(as_hooded.hood)
+				apply_fireproof(as_hooded.hood)
+		else if(istype(chosen_clothing,/obj/item/clothing/suit/space/hardsuit))
+			var/obj/item/clothing/suit/space/hardsuit/suit = chosen_clothing
+			if(suit.helmet)
+				apply_fireproof(suit.helmet)
 		apply_fireproof(chosen_clothing)
 		playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
 		chosen_clothing = null //our lord and savior no longer cares about this apparel
@@ -686,8 +691,8 @@
 	..()
 	var/turf/altar_turf = get_turf(religious_tool)
 	for(var/i in 1 to 8)
-		var/mob/living/simple_animal/S = create_random_mob(altar_turf, FRIENDLY_SPAWN)
-		S.faction |= "neutral"
+		var/mob/living/spawned_mob = create_random_mob(altar_turf, FRIENDLY_SPAWN)
+		spawned_mob.faction |= "neutral"
 	playsound(altar_turf, 'sound/ambience/servicebell.ogg', 25, TRUE)
 	if(prob(0.1))
 		playsound(altar_turf, 'sound/effects/bamf.ogg', 100, TRUE)

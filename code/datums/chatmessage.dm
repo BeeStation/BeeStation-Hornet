@@ -469,7 +469,7 @@
 			if(show_in_chat)
 				to_chat(viewer, "<span class='notice'>[text].</span>")
 
-/atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
+/atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, show_in_chat = TRUE)
 	var/list/hearers = get_hearers_in_view(vision_distance, src)
 	hearers -= ignored_mobs
 
@@ -477,7 +477,7 @@
 		if (hearer.is_blind())
 			continue
 
-		balloon_alert(hearer, (hearer == src && self_message) || message)
+		balloon_alert(hearer, (hearer == src && self_message) || message, show_in_chat = show_in_chat)
 
 /datum/chatmessage/balloon_alert
 	tgt_color = "#ffffff" //default color

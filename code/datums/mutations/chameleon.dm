@@ -5,12 +5,19 @@
 	quality = POSITIVE
 	difficulty = 16
 	instability = 25
+	power_coeff = 1
+	/// How much the user's alpha is reduced every life tick they are not moving.
 	var/effect_speed = 25
 
 /datum/mutation/chameleon/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.alpha = CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY
+
+/datum/mutation/chameleon/on_losing(mob/living/carbon/owner)
+	if(..())
+		return
+	owner.alpha = 255
 
 /datum/mutation/chameleon/on_life()
 	owner.alpha = max(0, owner.alpha - effect_speed)
@@ -21,9 +28,7 @@
 /datum/mutation/chameleon/on_attack_hand(atom/target, proximity)
 	if(proximity) //stops tk from breaking chameleon
 		owner.alpha = CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY
-		return
 
-/datum/mutation/chameleon/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	owner.alpha = 255
+/datum/mutation/chameleon/modify()
+	..()
+	effect_speed = round(initial(effect_speed) * GET_MUTATION_POWER(src))

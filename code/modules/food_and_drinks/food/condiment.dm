@@ -152,7 +152,7 @@
 	volume = 20
 	list_reagents = list(/datum/reagent/consumable/sodiumchloride = 20)
 
-/obj/item/reagent_containers/food/condiment/saltshaker/suicide_act(mob/user)
+/obj/item/reagent_containers/food/condiment/saltshaker/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/newname = "[name]"
 	name = "[user.name]"
@@ -198,7 +198,7 @@
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
 	item_state = "flour"
-	list_reagents = list(/datum/reagent/consumable/flour = 30)
+	list_reagents = list(/datum/reagent/consumable/flour = 50)
 
 /obj/item/reagent_containers/food/condiment/soymilk
 	name = "soy milk"
@@ -214,7 +214,7 @@
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
 	item_state = "flour"
-	list_reagents = list(/datum/reagent/consumable/rice = 30)
+	list_reagents = list(/datum/reagent/consumable/rice = 50)
 
 /obj/item/reagent_containers/food/condiment/soysauce
 	name = "soy sauce"

@@ -126,6 +126,7 @@
 	for(var/obj/item/W in L)
 		if(!L.dropItemToGround(W))
 			qdel(W)
+	L.investigate_log("has been devoured by [src].", INVESTIGATE_DEATHS)
 	L.gib()
 	return TRUE
 
