@@ -41,7 +41,7 @@
 	melee_damage = 15
 	poison_per_bite = 3
 	poison_type = /datum/reagent/toxin/spidervenom
-	faction = list("spiders")
+	faction = list("spiders", "hostile", "twisted")
 	pass_flags = PASSTABLE
 	move_to_delay = 4
 	ventcrawler = VENTCRAWLER_ALWAYS
