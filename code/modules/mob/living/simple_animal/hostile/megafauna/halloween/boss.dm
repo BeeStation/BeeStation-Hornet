@@ -1,8 +1,8 @@
 /mob/living/simple_animal/hostile/megafauna/harbinger
 	name = "Harbinger"
 	desc = "A monstrous creature protected by blessings of Nar'Sie"
-	health = 1000
-	maxHealth = 1000
+	health = 800
+	maxHealth = 800
 	attacktext = "eviscerates"
 	attack_sound = null //set later
 	icon_state = "p1"
@@ -329,7 +329,7 @@
 // SPECIAL ATTACK LOGIC
 
 /mob/living/simple_animal/hostile/megafauna/harbinger/OpenFire()
-	ranged_cooldown = world.time + (10 - phase) SECONDS
+	ranged_cooldown = world.time + (9 - phase) SECONDS
 	move_to_delay = initial(move_to_delay)
 
 	switch(phase)
@@ -681,7 +681,6 @@
 	new_abyssal.key = user.key
 	new_abyssal.melee_damage = 18
 	to_chat(new_abyssal, "<span class='boldwarning'>You are thralled to the Harbinger and must help assist in the elimination of its enemies!</span>")
-	current_mob_timer = 0
-	notified_ghosts = FALSE
+	qdel(src)
 
 
