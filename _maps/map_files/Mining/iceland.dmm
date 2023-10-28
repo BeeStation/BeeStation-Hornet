@@ -11645,7 +11645,7 @@
 	pixel_y = 4
 	},
 /obj/structure/iceland_beacon{
-	gps = Science Outpost
+	gps = ScienceOutpost
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_chembase)
@@ -21230,7 +21230,7 @@
 /area/iceland)
 "iEc" = (
 /obj/structure/iceland_beacon{
-	gps = Forward Base Charlie
+	gps = ForwardBaseCharlie
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_lpost)
@@ -23077,10 +23077,11 @@
 "nED" = (
 /obj/docking_port/stationary{
 	dwidth = 13;
-	height = 33;
+	height = 40;
 	id = "LZ2-outpost";
 	name = "Iceland LZ2 outpost";
-	width = 25
+	width = 40;
+	dir = 4
 	},
 /turf/open/floor/dock,
 /area/iceland)
@@ -23805,13 +23806,13 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "pIh" = (
-/obj/effect/turf_decal/techfloor,
 /obj/docking_port/stationary{
 	dwidth = 13;
 	height = 33;
 	id = "LZ1-base";
 	name = "Iceland LZ1 base";
-	width = 25
+	width = 25;
+	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
@@ -26440,7 +26441,7 @@
 /area/iceland)
 "xMf" = (
 /obj/structure/iceland_beacon{
-	gps = Boreal Gate
+	gps = BorealGate
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/ruin/powered/iceland/gate/boreal)
@@ -47279,7 +47280,7 @@ aKh
 aKh
 aKh
 aKh
-aKh
+pIh
 aKh
 aKh
 aKh
@@ -51397,7 +51398,7 @@ aKh
 aKh
 aKh
 aKh
-pIh
+ghK
 ajU
 aKh
 aKh
@@ -62084,7 +62085,7 @@ lFT
 lFT
 lFT
 lFT
-lFT
+nED
 lFT
 lFT
 lFT
@@ -65951,7 +65952,7 @@ lFT
 lFT
 lFT
 lFT
-nED
+lFT
 bMg
 aZI
 aRu
