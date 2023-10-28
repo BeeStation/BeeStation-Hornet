@@ -27,7 +27,6 @@
 	new /obj/item/computer_hardware/hard_drive/role/ce(src)
 	new /obj/item/storage/bag/construction(src)
 
-	new /obj/item/circuitboard/machine/techfab/department/engineering(src)
 
 	// prioritized items
 	new /obj/item/storage/toolbox/mechanical(src)
@@ -74,7 +73,6 @@
 	..()
 	var/static/items_inside = list(
 		/obj/item/clothing/gloves/color/yellow = 2,
-		/obj/item/inducer = 2,
 		/obj/item/storage/toolbox/electrical = 3,
 		/obj/item/electronics/apc = 3,
 		/obj/item/multitool = 3)
