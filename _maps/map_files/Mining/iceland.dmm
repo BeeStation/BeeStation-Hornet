@@ -23605,10 +23605,11 @@
 "nED" = (
 /obj/docking_port/stationary{
 	dwidth = 13;
-	height = 33;
+	height = 40;
 	id = "LZ2-outpost";
 	name = "Iceland LZ2 outpost";
-	width = 25
+	width = 40;
+	dir = 4
 	},
 /turf/open/floor/dock,
 /area/iceland)
@@ -63141,7 +63142,7 @@ lFT
 lFT
 lFT
 lFT
-lFT
+nED
 lFT
 lFT
 lFT
@@ -67008,7 +67009,7 @@ lFT
 lFT
 lFT
 lFT
-nED
+lFT
 bMg
 aZI
 aiC
