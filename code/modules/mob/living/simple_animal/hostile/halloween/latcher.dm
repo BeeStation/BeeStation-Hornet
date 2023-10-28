@@ -233,3 +233,74 @@
 	if(B)
 		qdel(B)
 	return ..()
+
+// Used by the Twisted Ones to sacrifice victims
+/mob/living/simple_animal/hostile/latcher/hydra
+	name = "hydra"
+	icon = 'icons/mob/halloween/hydra.dmi'
+	icon_state = "hydra"
+	icon_living = "hydra"
+	deathsound = 'sound/magic/demon_dies.ogg'
+	del_on_death = TRUE
+
+	var/sacrifice_counter = 0 //How many sacrifices were made
+
+/mob/living/simple_animal/hostile/latcher/hydra/maul_target(maul_target)
+
+	var/sacrifice_successful = FALSE
+	var/mob/living/carbon/C = maul_target
+	if(istype(C))
+		sacrifice_successful = C.stat != DEAD
+	. = ..()
+	if(istype(C))
+		sacrifice_successful &= C.stat == DEAD
+	sacrifice_counter += sacrifice_successful
+
+/mob/living/simple_animal/hostile/latcher/hydra/death(gibbed)
+	. = ..()
+
+/mob/living/simple_animal/hostile/latcher/hydra/CanAttack(atom/the_target)
+	. = ..()
+	var/mob/living/carbon/target_carbon = the_target
+	if(!istype(target_carbon))
+		return FALSE
+	. &= !!(target_carbon.has_status_effect(/datum/status_effect/marked_for_death))
+
+
+//Used to mark enemies for the hydra to attack
+/obj/item/melee/hydra_dagger
+	//Ideally these should be new sprites
+	name = "sacrificial dagger"
+	desc = "a dagger used to mark a sacrifice to the hydra."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "render"
+	item_state = "cultdagger"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	//Most properties taken from the cultist dagger
+	sharpness = IS_SHARP
+	force = 15
+	throwforce = 12
+	armour_penetration = 35
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/melee/hydra_dagger/attack(mob/living/M, mob/living/user)
+	. = ..()
+	if(iscarbon(M))
+		M.apply_status_effect(/datum/status_effect/marked_for_death)
+
+
+/datum/status_effect/marked_for_death
+	id = "hydra_mark"
+	examine_text = "<span class='warning'>SUBJECTPRONOUN is covered in deep, twisted wounds.</span>"
+	duration = 600 //A minute
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+
+/datum/status_effect/marked_for_death/on_apply()
+	. = ..()
+	to_chat(owner, "<span class='warning'>Your wounds reek of latchers.</span>")
+
+/datum/status_effect/marked_for_death/on_remove()
+	. = ..()
+	to_chat(owner, "<span class='notice'>Your twisted wounds heal.</span>")
