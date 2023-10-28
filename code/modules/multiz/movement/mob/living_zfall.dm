@@ -28,6 +28,9 @@
 
 /// Generic proc for most living things taking fall damage. Will attempt splitting between legs, if the mob has any.
 /mob/living/proc/apply_general_zimpact_damage(turf/T, levels)
+	if(istype(T,/turf/open/indestructible/sound/pool))
+		visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a splash!</span>")
+		return
 	visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a sickening noise!</span>")
 	var/amount_total = get_distributed_zimpact_damage(levels)
 	var/total_damage_percent_left = 1
