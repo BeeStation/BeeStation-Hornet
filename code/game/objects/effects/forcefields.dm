@@ -44,9 +44,10 @@
 	icon_state = "door-shield"
 
 /obj/effect/forcefield/event/space //For use outside the station to prevent players from bypassing major chunks of the station
-	name = "spacial distortion"
-	desc = "A rapidly expanding spacial distortion capable of interfering with all but the most advanced forms of intragalactic spaceflight and communications technology."
-	icon_state = "space" //Placeholder sprite, ideally this will be replaced
+	name = "spacial barrier"
+	desc = "A rapidly expanding barrier capable of interfering with all but the most advanced forms of intragalactic spaceflight and communications technology."
+	icon = 'icons/effects/gorewall.dmi'
+	icon_state = "gorewall-15"
 
 ///////////Mimewalls///////////
 
