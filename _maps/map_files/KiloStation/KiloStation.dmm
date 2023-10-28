@@ -11317,7 +11317,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/medical/medbay/lobby)
+/area/medical/medbay/central)
 "aOa" = (
 /obj/item/radio/intercom{
 	pixel_x = -28;
@@ -11477,7 +11477,7 @@
 "aOZ" = (
 /obj/structure/girder,
 /turf/open/floor/plating,
-/area/medical/storage)
+/area/maintenance/port)
 "aPa" = (
 /turf/closed/wall/r_wall/rust,
 /area/medical/storage)
@@ -66008,10 +66008,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
-"nUJ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/medical/medbay/lobby)
 "nUX" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/bot,
@@ -70162,9 +70158,6 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"pDu" = (
-/turf/closed/wall,
-/area/medical/medbay/lobby)
 "pDB" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
@@ -72877,7 +72870,7 @@
 	req_access_txt = "5"
 	},
 /turf/open/floor/plasteel/dark,
-/area/medical/medbay/lobby)
+/area/medical/medbay/central)
 "qJP" = (
 /obj/structure/chair{
 	dir = 4
@@ -77168,10 +77161,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"svm" = (
-/turf/closed/wall/r_wall,
-/area/space,
-/area/medical/storage)
 "svq" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/lattice/catwalk,
@@ -77991,7 +77980,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/auto_name/west{
-	name = ""Medical Security Checkpoint APC""
+	name = ""MedicalSecurityCheckpointAPC""
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/checkpoint/medical)
@@ -85501,7 +85490,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
-/area/medical/storage)
+/area/maintenance/port)
 "vZd" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -88719,7 +88708,7 @@
 /obj/item/storage/box/aquarium_props,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
-/area/medical/storage)
+/area/maintenance/port)
 "xiQ" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4
@@ -108235,7 +108224,7 @@ aSo
 aPc
 aPc
 kmu
-svm
+aPc
 aOZ
 crP
 crP
@@ -109007,7 +108996,7 @@ hgl
 jzQ
 uvk
 aPc
-aPc
+xyH
 xyH
 xyH
 fMS
@@ -112340,12 +112329,12 @@ wot
 xfq
 eIE
 aNP
-pDu
-nUJ
+aNn
+vTB
 aNZ
 qJM
-nUJ
-pDu
+vTB
+aNn
 aNn
 cSb
 vti
