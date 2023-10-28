@@ -553,6 +553,10 @@
 	suffix = "delta"
 	name = "NT Frigate"
 
+/datum/map_template/shuttle/whiteship/cordial
+	suffix = "cordial"
+	name = "NT Cruiser Cordial"
+
 /datum/map_template/shuttle/whiteship/pod
 	suffix = "whiteship_pod"
 	name = "Salvage Pod"
