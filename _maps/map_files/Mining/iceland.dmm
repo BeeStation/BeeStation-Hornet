@@ -1622,17 +1622,6 @@
 	},
 /turf/open/floor/carpet/black,
 /area/iceland_base/outpost/entrance)
-"aeo" = (
-/obj/structure/table/reinforced{
-	frame = s
-	},
-/obj/machinery/recharger,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/iceland_base/outpost/command)
 "aep" = (
 /obj/structure/iceland_beacon{
 	gps = Distressbeacon
@@ -2109,21 +2098,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/office)
-"afG" = (
-/obj/machinery/button/door{
-	id = "bridgewindows";
-	name = "Bridge View Blast doors";
-	pixel_x = 8;
-	pixel_y = -26;
-	req_access_txt = "19"
-	},
-/obj/structure/chair/fancy/corp{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/commander/outpost,
-/turf/open/floor/plasteel/dark,
-/area/iceland_base/outpost/command)
 "afH" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -12396,6 +12370,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "aIi" = (
@@ -13400,6 +13375,7 @@
 /obj/structure/tubes,
 /obj/structure/bed/pod,
 /obj/item/bedsheet/black,
+/mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plating,
 /area/iceland/underground/safe)
 "aLc" = (
@@ -16435,15 +16411,6 @@
 /obj/item/pen,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/command)
-"aTC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/reinforced{
-	frame = s
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/item/storage/wallet/random,
-/turf/open/floor/plasteel/dark,
-/area/iceland_base/outpost/command)
 "aTD" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
 /turf/open/floor/plasteel/tech,
@@ -19015,16 +18982,6 @@
 	heat_capacity = 1e+006
 	},
 /area/iceland_base/outpost/special)
-"byg" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/computer/fluff{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/iceland_base/outpost/command)
 "bzl" = (
 /turf/open/floor/engine/light,
 /area/iceland_base/outpost/research)
@@ -20667,9 +20624,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/entrance)
-"fHF" = (
-/turf/open/space/basic,
-/area/iceland/underground/safe)
 "fJt" = (
 /obj/structure/bonfire/prelit{
 	burn_icon = "bonfire_warm";
@@ -21740,6 +21694,17 @@
 	dir = 8
 	},
 /area/iceland_base/outpost/hangar)
+"jcG" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced{
+	frame = s
+	},
+/obj/machinery/recharger,
+/turf/open/floor/plasteel/dark,
+/area/iceland_base/outpost/command)
 "jex" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/crowbar,
@@ -21792,13 +21757,7 @@
 /area/iceland_base/outpost/crew)
 "jqs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/computer/fluff{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/commander/outpost,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/command)
 "jqH" = (
@@ -21938,6 +21897,11 @@
 /obj/item/weldingtool,
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/hangar)
+"jGO" = (
+/obj/structure/flora/grass/sharp,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "jHH" = (
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_2"
@@ -22238,6 +22202,10 @@
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/splinter_bush,
 /obj/structure/flora/grass/both,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"kos" = (
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "koI" = (
@@ -23841,6 +23809,18 @@
 	dir = 8
 	},
 /area/iceland_base/outpost/office)
+"okq" = (
+/obj/docking_port/stationary{
+	dwidth = 13;
+	height = 33;
+	id = "LZ1-base";
+	name = "Iceland LZ1 base";
+	width = 25;
+	dir = 4;
+	bypassdock = 1
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "okt" = (
 /obj/structure/flora/splinter_bush,
 /obj/structure/flora/grass/brown,
@@ -23973,6 +23953,11 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/plasteel/rockvault,
 /area/iceland_base/outpost/research)
+"oBP" = (
+/obj/structure/flora/splinter_bush,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "oCq" = (
 /obj/effect/decal/cleanable/blood/old{
 	name = "dried blood trail";
@@ -23995,6 +23980,12 @@
 	},
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/special)
+"oFm" = (
+/obj/structure/flora/grass/both,
+/obj/structure/flora/grass/brown,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "oFn" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/stripes/white/line{
@@ -24174,6 +24165,14 @@
 	dir = 4
 	},
 /area/iceland_base/outpost/office)
+"pgC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/fluff,
+/turf/open/floor/plasteel/dark,
+/area/iceland_base/outpost/command)
 "pht" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
@@ -24203,6 +24202,10 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/special)
+"pnO" = (
+/obj/effect/aetherial_spawner,
+/turf/open/floor/plating/ice/smooth,
+/area/iceland)
 "pnV" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -24704,6 +24707,29 @@
 /mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/grass,
 /area/iceland/underground/safe)
+"qcG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced{
+	frame = s
+	},
+/obj/machinery/button/door{
+	id = "bridgewindows";
+	name = "Bridge View Blast doors";
+	pixel_y = -11;
+	req_access_txt = "19"
+	},
+/obj/item/toy/redbutton{
+	name = "Initialize refueling procedure";
+	desc = "A big, plastic red button.";
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland_base/outpost/command)
 "qdl" = (
 /obj/structure/flora/tree/dead/gore,
 /obj/structure/flora/grass/brown,
@@ -25496,22 +25522,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/crew)
-"siD" = (
-/obj/docking_port/stationary{
-	dwidth = 13;
-	height = 33;
-	id = "LZ1-base";
-	name = "Iceland LZ1 base";
-	width = 25;
-	dir = 4;
-	bypassdock = 1
-	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/iceland)
 "sjb" = (
 /obj/effect/mob_spawn/human/doctor/outpost,
 /turf/open/floor/plating/asteroid/snow{
@@ -25529,6 +25539,12 @@
 	},
 /turf/open/floor/plating/asteroid/snow/lateopenspace,
 /area/iceland_base/outpost/special)
+"smB" = (
+/obj/structure/flora/stump,
+/obj/structure/flora/grass/both,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "smT" = (
 /obj/machinery/computer/fluff{
 	dir = 1
@@ -26891,6 +26907,19 @@
 /area/iceland_base/outpost/garage)
 "wnk" = (
 /obj/structure/rack,
+/obj/item/radio{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/gps{
+	pixel_y = 2;
+	pixel_x = 6
+	},
+/obj/item/flashlight/flare,
+/obj/item/stack/marker_beacon/thirty{
+	pixel_y = -6;
+	pixel_x = 7
+	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
 "wns" = (
@@ -26923,6 +26952,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/outpost/crew)
+"wpZ" = (
+/obj/structure/chair/fancy/corp{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/iceland_base/outpost/command)
 "wrs" = (
 /obj/machinery/photocopier,
 /turf/open/floor/plasteel/dark,
@@ -27030,16 +27066,6 @@
 /mob/living/simple_animal/hostile/ambush,
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_lpost)
-"wBS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/computer/fluff{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/iceland_base/outpost/command)
 "wCh" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/ruinloot/basic,
@@ -27209,6 +27235,17 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/iceland_base/outpost/research)
+"wXB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/table/reinforced{
+	frame = s
+	},
+/obj/item/storage/wallet/random,
+/turf/open/floor/plasteel/dark,
+/area/iceland_base/outpost/command)
 "wXQ" = (
 /obj/item/reagent_containers/glass/bottle/morphine{
 	pixel_x = -4;
@@ -27402,6 +27439,14 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"xtt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/computer/fluff{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/iceland_base/outpost/command)
 "xuc" = (
 /obj/structure/girder,
 /turf/open/floor/plating/snowed,
@@ -32857,7 +32902,7 @@ aCP
 axa
 aCP
 aCP
-aCP
+gUK
 aCP
 aCP
 aCP
@@ -48431,7 +48476,7 @@ aKh
 aKh
 aTG
 aTG
-aTG
+okq
 aKh
 aKh
 aKh
@@ -49205,7 +49250,7 @@ aKh
 aKh
 aKh
 aKh
-siD
+aKh
 aKh
 aKh
 aKh
@@ -57462,7 +57507,7 @@ aiC
 aiC
 aiC
 aCP
-aSQ
+oOX
 aSQ
 aJy
 aJy
@@ -58832,9 +58877,9 @@ aiC
 aiC
 aiC
 aiC
-fHF
-fHF
-fHF
+aiC
+aiC
+aiC
 aiC
 bPo
 fwM
@@ -60131,9 +60176,9 @@ bPo
 lJB
 lJB
 iQo
-aeo
-afG
-aTC
+ixn
+ixn
+oLS
 wZm
 lJB
 lJB
@@ -60388,9 +60433,9 @@ vUR
 lJB
 qwO
 ixn
-byg
+mde
 jqs
-wBS
+mde
 ixn
 aTB
 lJB
@@ -60645,9 +60690,9 @@ kGC
 aho
 ixn
 ixn
-ixn
-oLS
-oLS
+pgC
+wpZ
+xtt
 uHO
 oLS
 aho
@@ -60902,9 +60947,9 @@ iTV
 lJB
 rna
 ixn
-mde
-ixn
-mde
+jcG
+qcG
+wXB
 vIh
 jTf
 lJB
@@ -65289,7 +65334,7 @@ lFT
 lFT
 lFT
 lFT
-lFT
+wUT
 lFT
 lFT
 lFT
@@ -65538,7 +65583,7 @@ jwj
 mJS
 lJB
 whT
-wUT
+lFT
 lFT
 lFT
 lFT
@@ -66568,7 +66613,7 @@ lJB
 hyj
 lFT
 lFT
-wUT
+lFT
 lFT
 lFT
 lFT
@@ -67092,7 +67137,7 @@ lFT
 lFT
 lFT
 lFT
-wUT
+lFT
 lFT
 lFT
 lFT
@@ -68924,7 +68969,7 @@ aTG
 aWj
 aTG
 aTG
-aTG
+ivK
 ruA
 aiC
 aiC
@@ -68952,7 +68997,7 @@ arI
 aTG
 aTG
 aTG
-aTG
+ivK
 aBp
 aBp
 aLa
@@ -69402,14 +69447,14 @@ lFT
 lFT
 lFT
 lFT
+wUT
 lFT
 lFT
 lFT
 lFT
 lFT
 lFT
-lFT
-lFT
+wUT
 lFT
 lFT
 lFT
@@ -69538,7 +69583,7 @@ aTG
 aTG
 aLV
 arI
-aTG
+qGP
 aBp
 aKJ
 aYc
@@ -71777,7 +71822,7 @@ aUh
 aTG
 amj
 amj
-amj
+aYU
 amj
 amj
 amj
@@ -72840,7 +72885,7 @@ amj
 aYc
 amj
 amj
-amj
+aYU
 amj
 amj
 aiR
@@ -73126,7 +73171,7 @@ aWj
 aWj
 aBp
 aTG
-aTG
+ivK
 aTG
 aKJ
 aTG
@@ -75612,7 +75657,7 @@ aTG
 aTG
 aKJ
 aUh
-aTG
+kos
 aKJ
 aKJ
 aTG
@@ -76456,7 +76501,7 @@ apP
 amj
 amj
 amj
-amj
+aYU
 amj
 amj
 amj
@@ -77374,7 +77419,7 @@ anM
 aae
 pZw
 pRB
-ahE
+smB
 aKJ
 aTG
 aae
@@ -78110,7 +78155,7 @@ aCP
 aTX
 ana
 amB
-aCP
+crM
 aJy
 aJy
 aJy
@@ -78388,7 +78433,7 @@ aTG
 aKJ
 eJr
 tYR
-acC
+oFm
 pZw
 ahE
 aBp
@@ -78723,7 +78768,7 @@ amj
 aYc
 aYc
 amj
-amj
+pnO
 apI
 aYc
 aYc
@@ -79158,7 +79203,7 @@ acC
 aBp
 irm
 jAh
-pZw
+jGO
 aKJ
 nCD
 amd
@@ -79947,7 +79992,7 @@ aTG
 qSa
 fuc
 pZw
-aTG
+ivK
 aKJ
 aTG
 arI
@@ -80032,7 +80077,7 @@ aYc
 aYc
 apI
 amj
-amj
+pnO
 amj
 aYc
 amj
@@ -81083,7 +81128,7 @@ amj
 amj
 amj
 amj
-amj
+aYU
 amj
 amj
 amj
@@ -83113,7 +83158,7 @@ aYc
 aYc
 aYc
 amj
-amj
+aYU
 amj
 aYc
 aYc
@@ -83789,7 +83834,7 @@ aTG
 aHj
 aTG
 qBu
-aKJ
+fRB
 aKJ
 svm
 pZw
@@ -84317,7 +84362,7 @@ aTG
 aTG
 aTG
 aTG
-aae
+oBP
 aTG
 aTG
 pZw
@@ -85053,7 +85098,7 @@ aTG
 pZw
 aTG
 aTG
-aTG
+ivK
 aTG
 aBp
 aTG
@@ -85280,7 +85325,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+qGP
 aTG
 aTG
 aTG
@@ -85890,7 +85935,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+kos
 aLV
 aLV
 aTG
@@ -86959,7 +87004,7 @@ amj
 amj
 amj
 amj
-amj
+aYU
 amj
 amj
 amj
@@ -88365,7 +88410,7 @@ aLV
 aTG
 aTG
 aTG
-aTG
+ivK
 aTG
 aTG
 aLV
@@ -89948,7 +89993,7 @@ aFC
 aTG
 aKJ
 aTG
-aTG
+ivK
 arI
 arI
 fuc
