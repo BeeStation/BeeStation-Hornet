@@ -10,6 +10,13 @@
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	outdoors = FALSE
+	ambientsounds = list('sound/ambience/ice_event/AWind1.ogg', 'sound/ambience/ice_event/AWind2.ogg', 'sound/ambience/ice_event/AWind3.ogg', \
+	'sound/ambience/ice_event/AWind4.ogg', 'sound/ambience/ice_event/AWind5.ogg', 'sound/ambience/ice_event/AWind6.ogg')
+	rare_ambient_sounds = list('sound/ambience/ice_event/AWhisper1.ogg', 'sound/ambience/ice_event/AWhisper2.ogg', 'sound/ambience/ice_event/AWhisper3.ogg', \
+	'sound/ambience/ice_event/AWhisper4.ogg', 'sound/ambience/ice_event/AWhisper5.ogg', 'sound/ambience/ice_event/AWhisper6.ogg')
+	rare_ambient_sound_chance = 20
+	min_ambience_cooldown = 30 SECONDS
+	max_ambience_cooldown = 120 SECONDS
 
 ///NOTE: this will containt all the Base zones, for the outpost and misc areas, look at ruins/iceland.dm!///
 

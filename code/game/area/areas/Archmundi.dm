@@ -7,7 +7,13 @@
 /area/archmundi
 	has_gravity = STANDARD_GRAVITY //We're not changing space, nor do we intend to utilize the gravity generator, so permanent gravity is OK
 	teleport_restriction = TELEPORT_ALLOW_NONE //Teleportation would be extremely problematic for this event
-
+	ambientsounds = list('sound/ambience/ice_event/AHum1.ogg','sound/ambience/ice_event/AHum2.ogg','sound/ambience/ice_event/AHum3.ogg', \
+	'sound/ambience/ice_event/AHum4.ogg',)
+	rare_ambient_sounds = list('sound/ambience/ice_event/AWhisper1.ogg', 'sound/ambience/ice_event/AWhisper2.ogg', 'sound/ambience/ice_event/AWhisper3.ogg', \
+	'sound/ambience/ice_event/AWhisper4.ogg', 'sound/ambience/ice_event/AWhisper5.ogg', 'sound/ambience/ice_event/AWhisper6.ogg')
+	rare_ambient_sound_chance = 30
+	min_ambience_cooldown = 60 SECONDS
+	max_ambience_cooldown = 240 SECONDS
 
 
 /area/archmundi/ai_monitored	//stub defined ai_monitored.dm

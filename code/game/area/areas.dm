@@ -67,10 +67,12 @@
 	var/parallax_movedir = 0
 
 	var/ambience_index = AMBIENCE_GENERIC
-	///Regular
+	///Regular ambient sounds
 	var/list/ambientsounds
-	///super lower chance (0.5%) ambient sounds
+	///Rare ambient sounds
 	var/list/rare_ambient_sounds
+	///The chance for the rare ambient sounds to play instead of the regular ones
+	var/rare_ambient_sound_chance = 0.5
 	///Used to decide what the minimum time between ambience is
 	var/min_ambience_cooldown = 30 SECONDS
 	///Used to decide what the maximum time between ambience is
