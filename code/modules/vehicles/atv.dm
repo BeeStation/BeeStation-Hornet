@@ -8,11 +8,13 @@
 	key_type = /obj/item/key
 	integrity_failure = 70
 	var/static/mutable_appearance/atvcover
+	var/default_move_delay = 1.5
+	var/set_offsets = TRUE
 
 /obj/vehicle/ridden/atv/Initialize(mapload)
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.vehicle_move_delay = 1.5
+	D.vehicle_move_delay = default_move_delay
 	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
 	D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 	D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
@@ -20,11 +22,12 @@
 	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
 
 /obj/vehicle/ridden/atv/post_buckle_mob(mob/living/M)
-	add_overlay(atvcover)
+	if(atvcover)
+		add_overlay(atvcover)
 	return ..()
 
 /obj/vehicle/ridden/atv/post_unbuckle_mob(mob/living/M)
-	if(!has_buckled_mobs())
+	if(!has_buckled_mobs() && atvcover)
 		cut_overlay(atvcover)
 	return ..()
 
@@ -102,3 +105,50 @@
 /obj/vehicle/ridden/atv/Destroy()
 	STOP_PROCESSING(SSobj,src)
 	return ..()
+
+/obj/vehicle/ridden/atv/snowmobile
+	name = "snowmobile"
+	desc = "A snowmobile built for traversing snow-covered terrain with ease, but it is much slower on normal surfaces. It requires gasoline to run."
+	icon_state = "snowmobile"
+	key_type = /obj/item/key/snowmobile
+	component_type = /datum/component/riding/snowmobile
+	default_move_delay = 2
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
+
+/obj/vehicle/ridden/atv/snowmobile/Initialize(mapload)
+	. = ..()
+	create_reagents(100, OPENCONTAINER)
+
+/obj/vehicle/ridden/atv/update_overlays()
+	. = ..()
+	if(inserted_key && reagents.has_reagent(/datum/reagent/fuel/gasoline))
+		. += "snowmobile_on"
+		set_light_on(TRUE)
+		update_light()
+	else
+		set_light_on(FALSE)
+		update_light()
+
+/obj/vehicle/ridden/atv/snowmobile/post_key_insertion()
+	update_appearance()
+
+/obj/vehicle/ridden/atv/snowmobile/post_key_removal()
+	update_appearance()
+
+/obj/vehicle/ridden/atv/snowmobile/pre_key_insertion_check(mob/user)
+	if(!reagents.has_reagent(/datum/reagent/fuel/gasoline))
+		to_chat(user, "<span class='warning'>The snowmobile needs gasoline to function!</span>")
+		return FALSE
+	return TRUE
+
+/obj/item/reagent_containers/glass/gascan
+	name = "gasoline canister"
+	desc = "A canister of gasoline. Probably best not to drink it"
+	icon_state = "gascan"
+	volume = 100
+	reagent_flags = OPENCONTAINER
+	list_reagents = list(/datum/reagent/fuel/gasoline = 100)
+

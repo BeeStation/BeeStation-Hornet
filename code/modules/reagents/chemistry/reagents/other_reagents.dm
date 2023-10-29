@@ -1097,6 +1097,11 @@
 	..()
 	return TRUE
 
+/datum/reagent/fuel/gasoline
+	name = "Gasoline"
+	description = "The go-to fuel for powering machinery"
+	color = "#d3d009"
+
 /datum/reagent/space_cleaner
 	name = "Space Cleaner"
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite! Not safe for consumption. If ingested, contact poison control immediately"
