@@ -189,7 +189,7 @@
 		if(3) //Final phase sees the speed increase, and more increase over time.
 			passive_counter += delta_time
 			playsound(src, 'sound/creatures/halloween/Unshaped/HeartBeat.ogg', clamp(40 - (health/maxHealth * 100), 10, 30))
-			if(passive_counter >= 40)
+			if(passive_counter >= 40 && target)
 				new /obj/structure/abyssal_rift(loc)
 				passive_counter = 0
 				rotate_sound("summon")
