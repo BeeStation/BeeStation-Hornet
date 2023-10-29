@@ -106,3 +106,10 @@
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "dirt"
 	return TRUE
+
+/turf/open/chasm/elev_shaft
+	icon = 'icons/turf/floors/elev_shaft.dmi'
+	icon_state = "elev_shaft-255"
+	base_icon_state = "elev_shaft"
+	initial_gas_mix = FROZEN_ATMOS
+	baseturfs = /turf/open/floor/plating/asteroid/snow
