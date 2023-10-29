@@ -57166,6 +57166,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
+"vkT" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchen";
+	name = "kitchen shutters"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "vlj" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -101215,7 +101225,7 @@ aTM
 aVB
 aVz
 aVz
-kVI
+vkT
 bbz
 aYV
 aYV

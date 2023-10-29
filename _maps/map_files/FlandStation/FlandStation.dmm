@@ -48155,6 +48155,7 @@
 	pixel_x = -32
 	},
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "mCk" = (
@@ -80281,6 +80282,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
+/obj/item/reagent_containers/food/snacks/donut/jelly/choco,
 /obj/item/lighter{
 	pixel_x = 4;
 	pixel_y = 4
@@ -83037,6 +83039,10 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/donkpockets{
+	pixel_x = 2;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "vfj" = (
@@ -83578,6 +83584,7 @@
 /area/security/prison)
 "vlF" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor/shutters{
 	id = "barcounter";

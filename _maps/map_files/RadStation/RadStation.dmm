@@ -28883,6 +28883,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "iUD" = (
+/obj/item/reagent_containers/food/snacks/butter/on_a_stick,
 /obj/effect/decal/cleanable/crayon,
 /obj/machinery/light/small{
 	brightness = 3;
@@ -41931,6 +41932,11 @@
 /area/engine/engineering)
 "mYY" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box{
+	name = "Emergency donut box";
+	pixel_x = -2;
+	pixel_y = 15
+	},
 /obj/item/gun/energy/e_gun/dragnet{
 	pixel_x = -2;
 	pixel_y = 1
@@ -46639,6 +46645,7 @@
 /turf/open/floor/plasteel,
 /area/gateway)
 "ovR" = (
+/obj/item/reagent_containers/food/snacks/butteredtoast,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -70196,6 +70203,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "vWl" = (
+/obj/item/food/butterdog,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -76378,6 +76386,7 @@
 /turf/open/floor/noslip/white,
 /area/crew_quarters/heads/captain/private)
 "xSK" = (
+/obj/item/food/spaghetti/butternoodles,
 /obj/effect/decal/cleanable/crayon,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,

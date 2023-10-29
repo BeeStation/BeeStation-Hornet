@@ -47709,6 +47709,7 @@
 	pixel_y = 28;
 	req_access_txt = "28"
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "pzb" = (
