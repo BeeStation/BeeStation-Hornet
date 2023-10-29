@@ -308,11 +308,7 @@
 "aaO" = (
 /obj/item/scythe,
 /obj/structure/table/wood,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aaQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -513,11 +509,7 @@
 /area/iceland_base/engine)
 "abq" = (
 /obj/effect/decal/cleanable/generic,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "abr" = (
 /obj/structure/stairs{
@@ -557,11 +549,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "abx" = (
 /obj/machinery/elevator_interface/secure{
@@ -664,11 +652,7 @@
 	pixel_x = 3;
 	pixel_y = -5
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "abJ" = (
 /obj/structure/mineral_door/wood,
@@ -784,11 +768,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "abZ" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -815,11 +795,7 @@
 /obj/structure/stairs{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "acd" = (
 /obj/structure/reagent_dispensers/cooking_oil,
@@ -842,11 +818,7 @@
 /area/iceland_base/engine)
 "ach" = (
 /obj/effect/decal/cleanable/blood/gibs,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aci" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -867,11 +839,7 @@
 	pixel_y = 9
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "acm" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -935,11 +903,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "acw" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -1187,11 +1151,7 @@
 "adg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "adi" = (
 /obj/machinery/light/small,
@@ -1411,11 +1371,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "adO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1426,11 +1382,7 @@
 	default_raw_text = "**Field Analysis 4501**<br><br>The fluid thermodynamics of this particular (lava) geyser may suggest that it didn’t form naturally, but I sure as hell refuse to believe that the liquid it spews is organic. Go out in the field with an anomaly analyzer and gather all the data you can about it. And this time no sloppy readings!";
 	name = "Field Analysis 4501"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "adQ" = (
 /obj/structure/chair{
@@ -1577,11 +1529,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aei" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -1721,11 +1669,7 @@
 /area/iceland/underground/safe)
 "aeE" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aeF" = (
 /obj/structure/cable/orange{
@@ -1756,11 +1700,7 @@
 "aeI" = (
 /mob/living/simple_animal/pet/penguin/emperor,
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aeJ" = (
 /turf/closed/wall/mineral/wood,
@@ -2141,11 +2081,7 @@
 /area/iceland_base/security)
 "afP" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "afQ" = (
 /obj/structure/table,
@@ -2271,11 +2207,7 @@
 	set_cap = 3;
 	set_luminosity = 2ù
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "agk" = (
 /obj/structure/rack,
@@ -2371,11 +2303,7 @@
 	pixel_y = -9
 	},
 /obj/effect/decal/cleanable/generic,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "agC" = (
 /obj/effect/turf_decal/stripes,
@@ -2473,11 +2401,7 @@
 /area/iceland)
 "agT" = (
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "agU" = (
 /obj/structure/flora/rock/icy,
@@ -2647,11 +2571,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aht" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -2712,11 +2632,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "ahB" = (
 /obj/effect/turf_decal/weather/snow,
@@ -2742,11 +2658,7 @@
 /area/iceland_base/chapel)
 "ahD" = (
 /obj/effect/decal/cleanable/blood/gibs/up,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "ahE" = (
 /obj/structure/flora/stump,
@@ -2994,11 +2906,7 @@
 /area/iceland_base/chapel)
 "aio" = (
 /obj/effect/mob_spawn/human/corpse/cargo_tech,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aip" = (
 /obj/structure/flora/stump,
@@ -3493,11 +3401,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "ajL" = (
 /obj/machinery/door/airlock/command{
@@ -4076,11 +3980,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "alj" = (
 /obj/machinery/light/small{
@@ -4181,11 +4081,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "alv" = (
 /obj/effect/decal/cleanable/generic,
@@ -4544,11 +4440,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "amA" = (
 /obj/effect/decal/cleanable/oil,
@@ -4565,11 +4457,7 @@
 /area/iceland_base/cargo)
 "amB" = (
 /obj/structure/flora/rock/icy,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "amC" = (
 /obj/structure/chair/fancy/bench/right{
@@ -4671,11 +4559,7 @@
 /area/iceland/underground/safe)
 "amP" = (
 /obj/item/melee/baton,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "amQ" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -4755,11 +4639,7 @@
 	name = "fat space polar bear";
 	speed = 3
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "anb" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -5055,11 +4935,7 @@
 /area/iceland_base/crew_quarters/hydroponics)
 "anT" = (
 /obj/item/pickaxe/mini,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "anU" = (
 /obj/structure/cable/orange{
@@ -5179,11 +5055,7 @@
 "aoi" = (
 /obj/machinery/door/airlock/cult/friendly,
 /obj/structure/barricade/wooden/crude/snow,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "aoj" = (
 /obj/effect/turf_decal/bot,
@@ -5423,11 +5295,7 @@
 /area/iceland_base/science/lobby)
 "aoM" = (
 /mob/living/simple_animal/pet/penguin/emperor,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aoN" = (
 /obj/structure/fence,
@@ -5481,11 +5349,7 @@
 	pixel_y = 6
 	},
 /obj/item/pickaxe/drill,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aoY" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -5507,11 +5371,7 @@
 "aoZ" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/effect/decal/cleanable/generic,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "apb" = (
 /obj/structure/fence/end{
@@ -5538,11 +5398,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aph" = (
 /obj/structure/table,
@@ -5578,11 +5434,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "apn" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -5664,11 +5516,7 @@
 /area/iceland_base/command/hos)
 "apz" = (
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "apA" = (
 /obj/effect/turf_decal{
@@ -5738,11 +5586,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "apL" = (
 /obj/machinery/light{
@@ -5790,11 +5634,7 @@
 	pixel_x = -6;
 	pixel_y = -4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "apO" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -5933,11 +5773,7 @@
 /obj/structure/bonfire/prelit{
 	burn_icon = "bonfire_warm"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aqj" = (
 /obj/item/flashlight/lantern{
@@ -5981,11 +5817,7 @@
 /area/iceland/underground/safe)
 "aqo" = (
 /obj/structure/barricade/wooden/crude/snow,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aqp" = (
 /obj/effect/turf_decal/bot_white,
@@ -6382,11 +6214,7 @@
 "arq" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/effect/decal/cleanable/blood/drip,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "arr" = (
 /obj/structure/chair/office{
@@ -6453,11 +6281,7 @@
 /area/iceland_base/chapel)
 "arD" = (
 /obj/structure/ore_box,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "arE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6536,11 +6360,7 @@
 /area/iceland_base/outpost/crew)
 "arS" = (
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "arT" = (
 /obj/structure/girder,
@@ -6589,11 +6409,7 @@
 /area/iceland)
 "asb" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "asc" = (
 /obj/structure/table/reinforced,
@@ -6699,11 +6515,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "ast" = (
 /obj/structure/cable/orange{
@@ -6775,11 +6587,7 @@
 "asA" = (
 /mob/living/simple_animal/pet/penguin/baby,
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "asB" = (
 /obj/effect/turf_decal/weather/snow/corner,
@@ -7210,11 +7018,7 @@
 "atN" = (
 /obj/effect/decal/cleanable/generic,
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "atO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7613,11 +7417,7 @@
 "auZ" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "avb" = (
 /obj/structure/frame,
@@ -7704,11 +7504,7 @@
 	pixel_x = 8;
 	pixel_y = 12
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "avk" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -7843,11 +7639,7 @@
 "avy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "avz" = (
 /obj/effect/decal/cleanable/oil,
@@ -7909,11 +7701,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "avJ" = (
 /obj/machinery/firealarm{
@@ -7951,11 +7739,7 @@
 "avO" = (
 /obj/item/chair/wood,
 /obj/effect/mob_spawn/human/clown/corpse,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "avQ" = (
 /obj/effect/decal/cleanable/insectguts,
@@ -8150,11 +7934,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "awt" = (
 /turf/open/floor/carpet/red,
@@ -8272,11 +8052,7 @@
 /area/iceland_base/command)
 "awJ" = (
 /obj/item/shard,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "awK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8417,11 +8193,7 @@
 /area/iceland_base/chapel)
 "axa" = (
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "axb" = (
 /obj/item/candle/infinite{
@@ -8973,11 +8745,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "ayM" = (
 /obj/structure/flora/tree/pine,
@@ -9172,11 +8940,7 @@
 	pixel_y = -8
 	},
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "azq" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
@@ -9344,11 +9108,7 @@
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "azN" = (
 /obj/structure/chair/wood,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "azO" = (
 /obj/machinery/light_switch{
@@ -9825,11 +9585,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aBb" = (
 /turf/closed/wall,
@@ -10036,12 +9792,6 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"aBE" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5
-	},
-/turf/open/floor/plating/dirt/dark,
-/area/iceland)
 "aBF" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -10101,11 +9851,7 @@
 "aBO" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aBP" = (
 /obj/structure/flora/rock/pile/icy,
@@ -10152,11 +9898,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "aBV" = (
 /obj/machinery/mineral/unloading_machine{
@@ -10286,11 +10028,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aCk" = (
 /obj/item/flashlight/lantern{
@@ -10515,11 +10253,7 @@
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/crew)
 "aCP" = (
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aCQ" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
@@ -10551,11 +10285,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "aCV" = (
 /turf/open/floor/plating,
@@ -10651,11 +10381,7 @@
 	light_range = 4;
 	name = "fire light"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aDk" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners{
@@ -10841,11 +10567,7 @@
 /area/iceland_base/engine)
 "aDO" = (
 /mob/living/simple_animal/pet/penguin/baby,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aDP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -11420,11 +11142,7 @@
 "aFt" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/clothing/neck/cloak/hop,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aFu" = (
 /obj/structure/cable/orange{
@@ -11934,22 +11652,14 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "aHb" = (
 /obj/structure/table/wood,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aHc" = (
 /obj/structure/flora/tree/dead,
@@ -12286,11 +11996,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aIb" = (
 /obj/effect/turf_decal/tile/brown{
@@ -12512,11 +12218,7 @@
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aIE" = (
 /turf/open/floor/plasteel/tech,
@@ -12742,11 +12444,7 @@
 /area/iceland_base/engine)
 "aJj" = (
 /obj/item/storage/belt/security,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aJk" = (
 /obj/structure/cable/orange{
@@ -12842,11 +12540,7 @@
 "aJD" = (
 /obj/structure/ore_box,
 /obj/item/storage/bag/ore,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aJE" = (
 /obj/structure/flora/tree/pine,
@@ -12950,11 +12644,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aJV" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -13024,11 +12714,7 @@
 /turf/open/floor/plating,
 /area/iceland_base/crew_quarters)
 "aKh" = (
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "aKi" = (
 /obj/structure/table,
@@ -13118,11 +12804,7 @@
 	pixel_x = -3;
 	pixel_y = 9
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aKz" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -13227,11 +12909,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aKM" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -13411,11 +13089,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aLj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13433,11 +13107,7 @@
 /area/iceland_base/outpost/office)
 "aLl" = (
 /obj/effect/gibspawner/human/bodypartless,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aLm" = (
 /obj/structure/flora/stump,
@@ -13555,11 +13225,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aLF" = (
 /obj/effect/decal/cleanable/glass,
@@ -13777,11 +13443,7 @@
 	pixel_y = -8
 	},
 /obj/effect/decal/cleanable/generic,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aMj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13810,11 +13472,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aMn" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -13969,11 +13627,7 @@
 "aMS" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/bow/ashen,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aMT" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -14126,7 +13780,7 @@
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/command/council)
 "aNv" = (
-/turf/closed/mineral/snowmountain/cavern,
+/turf/closed/mineral/random/snowmountain/cavern,
 /area/ruin/powered/iceland/gate/lpost_n)
 "aNw" = (
 /obj/effect/decal/cleanable/robot_debris/limb,
@@ -14417,11 +14071,7 @@
 /area/iceland_base/outpost/office)
 "aOp" = (
 /obj/structure/flora/rock,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aOq" = (
 /obj/effect/turf_decal/siding/thinplating_new/corner,
@@ -14486,11 +14136,7 @@
 /area/iceland)
 "aOB" = (
 /obj/effect/decal/cleanable/blood/tracks,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aOC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -14506,11 +14152,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/knife/combat/survival,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aOF" = (
 /obj/machinery/photocopier,
@@ -14825,11 +14467,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "aPu" = (
 /obj/structure/table/wood,
@@ -14846,11 +14484,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aPw" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -15040,11 +14674,7 @@
 /obj/item/flashlight/lantern{
 	on = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aPZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -15057,11 +14687,7 @@
 "aQa" = (
 /obj/structure/barricade/wooden/crude/snow,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aQb" = (
 /obj/structure/chair/fancy/shuttle{
@@ -15136,11 +14762,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aQl" = (
 /obj/structure/cable/orange{
@@ -15285,11 +14907,7 @@
 /obj/structure/flora/rock/pile/icy,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aQB" = (
 /obj/structure/closet/secure_closet/security,
@@ -15521,11 +15139,7 @@
 /area/iceland_base/crew_quarters/kitchen)
 "aRo" = (
 /obj/effect/decal/cleanable/blood/footprints,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aRp" = (
 /obj/effect/mob_spawn/human/corpse/damaged,
@@ -15549,11 +15163,7 @@
 /area/iceland_base/hallway_command)
 "aRs" = (
 /obj/structure/barricade/wooden/snowed,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aRt" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
@@ -15658,20 +15268,12 @@
 /obj/structure/stairs{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aRH" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/mob_spawn/human/corpse/damaged,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "aRI" = (
 /obj/structure/extinguisher_cabinet{
@@ -15944,11 +15546,7 @@
 	pixel_x = -5;
 	pixel_y = 15
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aSs" = (
 /obj/item/paper/crumpled/bloody/docsdeathnote{
@@ -16049,11 +15647,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "aSF" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -16133,11 +15727,7 @@
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "aSQ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aSR" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
@@ -16388,11 +15978,7 @@
 /area/iceland_base/outpost/office)
 "aTz" = (
 /obj/effect/decal/cleanable/oil/slippery,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aTA" = (
 /obj/structure/chair/fancy/shuttle{
@@ -16551,11 +16137,7 @@
 /area/iceland_base/engine)
 "aTX" = (
 /obj/effect/mob_spawn/human/corpse/assistant,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aTY" = (
 /obj/structure/closet/toolcloset,
@@ -16732,11 +16314,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aUz" = (
 /obj/structure/cable/orange{
@@ -16913,11 +16491,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aUX" = (
 /obj/effect/decal/cleanable/oil,
@@ -17132,11 +16706,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aVA" = (
 /obj/structure/destructible/cult/tome,
@@ -17211,11 +16781,7 @@
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "aVJ" = (
 /obj/machinery/smartfridge/drying_rack,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aVK" = (
 /obj/effect/turf_decal/weather/snow/corner,
@@ -17526,11 +17092,7 @@
 /area/iceland/underground/safe)
 "aWD" = (
 /obj/effect/decal/cleanable/blood/gibs/body,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aWE" = (
 /obj/machinery/light/small{
@@ -18044,11 +17606,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aYf" = (
 /obj/item/candle/infinite{
@@ -18145,11 +17703,7 @@
 	pixel_x = -7;
 	pixel_y = 9
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aYu" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -18444,11 +17998,7 @@
 	pixel_x = 8;
 	pixel_y = -8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aZf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -18596,11 +18146,7 @@
 /obj/item/flashlight/flare/torch{
 	light_on = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aZz" = (
 /obj/structure/table/reinforced{
@@ -18774,11 +18320,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aZX" = (
 /obj/machinery/iv_drip,
@@ -18845,11 +18387,7 @@
 	light_range = 2;
 	picked_color = "Burgundy"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "bcR" = (
 /obj/effect/turf_decal/weather/snow,
@@ -18932,11 +18470,7 @@
 /area/iceland_base/outpost/entrance)
 "brb" = (
 /obj/structure/splinter_wall,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "brx" = (
 /obj/structure/closet,
@@ -18949,11 +18483,7 @@
 /area/iceland_base/outpost/garage)
 "brU" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "brX" = (
 /obj/effect/decal/cleanable/blood,
@@ -19005,11 +18535,7 @@
 "bCc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/splinter_wall,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "bCe" = (
 /turf/closed/indestructible/wall,
@@ -19034,11 +18560,7 @@
 "bHe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/down,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "bHG" = (
 /obj/structure/flora/splinter_bush,
@@ -19101,11 +18623,7 @@
 /obj/structure/stairs{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "bNs" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -19125,6 +18643,10 @@
 "bPo" = (
 /turf/closed/indestructible/wall,
 /area/iceland_base/outpost/command)
+"bSa" = (
+/obj/structure/flora/grass/both,
+/turf/closed/mineral/snowmountain/indestructible,
+/area/iceland)
 "bSz" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/effect/decal/cleanable/dirt,
@@ -19383,11 +18905,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "cHd" = (
 /obj/effect/turf_decal/caution{
@@ -19402,11 +18920,7 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "cId" = (
 /obj/effect/decal/cleanable/dirt,
@@ -19438,11 +18952,7 @@
 /obj/effect/turf_decal/techfloor{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "cPZ" = (
 /obj/effect/decal/cleanable/generic,
@@ -19661,11 +19171,7 @@
 /area/iceland_base/outpost/research)
 "dkO" = (
 /obj/item/ammo_casing/shotgun/buckshot,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "dlE" = (
 /obj/structure/closet/cardboard,
@@ -19748,11 +19254,7 @@
 "dtr" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/structure/splinter_wall,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "duM" = (
 /obj/structure/flora/splinter_bush,
@@ -19857,21 +19359,13 @@
 /area/iceland_base/outpost/command)
 "dIr" = (
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier/outpost,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "dMC" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor3-old"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "dNB" = (
 /obj/structure/cable{
@@ -19946,11 +19440,7 @@
 /obj/effect/decal/cleanable/generic,
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/structure/splinter_wall,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "dYP" = (
 /obj/structure/grille/broken,
@@ -19970,11 +19460,7 @@
 	pixel_x = -6;
 	pixel_y = 2
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "dZF" = (
 /obj/effect/mob_spawn/human/engineer/outpost,
@@ -20021,11 +19507,7 @@
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_3"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "egu" = (
 /obj/structure/railing{
@@ -20042,20 +19524,12 @@
 "egX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "ehk" = (
 /obj/structure/flora/rock/pile/icy,
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "ehH" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners,
@@ -20076,11 +19550,7 @@
 /area/iceland_base/outpost/research)
 "ejE" = (
 /mob/living/simple_animal/hostile/latcher,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "ekG" = (
 /obj/item/flashlight/degraded,
@@ -20092,11 +19562,7 @@
 "eok" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "epo" = (
 /obj/effect/decal/cleanable/dirt,
@@ -20148,11 +19614,7 @@
 "euT" = (
 /obj/effect/decal/cleanable/generic,
 /obj/structure/splinter_wall,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "evi" = (
 /mob/living/simple_animal/hostile/latcher,
@@ -20178,20 +19640,12 @@
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor2-old"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "eyv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/aetherial_spawner,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "ezF" = (
 /obj/structure/spider/stickyweb,
@@ -20207,11 +19661,7 @@
 	light_range = 2;
 	picked_color = "Burgundy"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "eCx" = (
 /obj/item/flashlight/degraded,
@@ -20370,11 +19820,7 @@
 "eQz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/up,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "eRi" = (
 /obj/structure/splinter_wall,
@@ -20392,11 +19838,7 @@
 /area/iceland_base/outpost/special)
 "eVb" = (
 /obj/effect/decal/cleanable/blood/gibs/up,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "eVj" = (
 /obj/effect/mob_spawn/human/clown/corpse,
@@ -20563,11 +20005,7 @@
 /area/iceland_base/outpost/command)
 "fxH" = (
 /obj/effect/decal/cleanable/blood/rune,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "fxM" = (
 /obj/effect/decal/cleanable/blood/splatter,
@@ -20612,7 +20050,7 @@
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
 /obj/structure/closet/crate,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "fCF" = (
 /obj/machinery/light/very_dim{
@@ -20660,11 +20098,7 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	icon_state = "gibbl4"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "fMb" = (
 /obj/effect/turf_decal/weather/snow,
@@ -20702,11 +20136,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "fTB" = (
 /obj/structure/firelock_frame{
@@ -20775,11 +20205,7 @@
 /area/iceland_base/outpost/crew)
 "ghK" = (
 /obj/effect/turf_decal/techfloor,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "gmp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -20824,11 +20250,7 @@
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "gvd" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -20859,11 +20281,7 @@
 "gyC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/pickaxe/silver,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "gyH" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
@@ -20915,11 +20333,7 @@
 /area/iceland_base/outpost/command)
 "gFR" = (
 /obj/structure/grave/effigy,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "gGY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -20947,11 +20361,7 @@
 /area/iceland/underground/safe)
 "gJh" = (
 /obj/effect/decal/cleanable/blood/drip,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "gKi" = (
 /turf/open/floor/plasteel/white/side{
@@ -21012,19 +20422,11 @@
 /obj/effect/turf_decal/techfloor{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "gUK" = (
 /mob/living/simple_animal/hostile/ambush,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "gUN" = (
 /obj/structure/flora/tree/dead,
@@ -21099,7 +20501,7 @@
 /area/iceland_base/outpost/special)
 "heB" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "hkN" = (
 /obj/effect/loot_jobscale/medical/medkits,
@@ -21230,19 +20632,11 @@
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "hAP" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "hFJ" = (
 /obj/effect/decal/cleanable/blood/gibs/body,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "hFX" = (
 /obj/effect/decal/cleanable/blood/rune{
@@ -21263,11 +20657,7 @@
 /area/iceland_base/outpost/research)
 "hId" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/ice,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "hKO" = (
 /obj/effect/turf_decal/weather/snow,
@@ -21285,11 +20675,7 @@
 /obj/effect/decal/cleanable/blood/innards{
 	pixel_y = -9
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "hLS" = (
 /obj/effect/turf_decal/weather/snow,
@@ -21604,11 +20990,7 @@
 /area/iceland_base/outpost/office)
 "iPw" = (
 /obj/structure/closet/cardboard,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "iPG" = (
 /obj/structure/chair/fancy/corp{
@@ -21656,11 +21038,7 @@
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "jao" = (
 /obj/machinery/recycler/deathtrap,
@@ -21728,11 +21106,7 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	icon_state = "gibbl3"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "jjg" = (
 /turf/closed/indestructible/wall,
@@ -21795,11 +21169,7 @@
 /area/iceland)
 "jun" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "juo" = (
 /obj/effect/turf_decal/stripes/line,
@@ -21830,17 +21200,13 @@
 "jzX" = (
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "jAd" = (
 /obj/effect/decal/cleanable/generic,
 /obj/structure/splinter_wall,
 /obj/structure/splinter_wall,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "jAh" = (
 /obj/structure/flora/splinter_bush,
@@ -21859,11 +21225,7 @@
 /obj/effect/turf_decal/techfloor{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "jBV" = (
 /obj/machinery/computer/fluff{
@@ -21945,11 +21307,7 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/food/pizza/sassysage,
 /obj/item/food/pizza/mushroom,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "jKg" = (
 /obj/structure/closet/firecloset,
@@ -21982,11 +21340,7 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "jOS" = (
 /obj/structure/closet/emcloset,
@@ -22051,11 +21405,7 @@
 "kaY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/corpse/assistant,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "kbM" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -22065,11 +21415,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "kcl" = (
 /obj/machinery/light/very_dim{
@@ -22091,11 +21437,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "kcQ" = (
 /obj/structure/table/abductor{
@@ -22245,15 +21587,17 @@
 	heat_capacity = 1e+006
 	},
 /area/iceland_base/outpost/command)
+"kqs" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/turf/open/floor/plating/dirt/dark,
+/area/iceland/underground/safe)
 "kqA" = (
 /obj/structure/iceland_beacon{
 	gps = MountainPass
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "kqJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -22386,11 +21730,7 @@
 /obj/structure/stairs{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "kKd" = (
 /obj/machinery/computer/fluff,
@@ -22447,11 +21787,7 @@
 /area/iceland/underground/safe)
 "kQj" = (
 /obj/effect/decal/cleanable/blood/gibs,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "kQK" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -22516,11 +21852,7 @@
 	light_range = 2;
 	picked_color = "Burgundy"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "kYp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -22700,11 +22032,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "ltm" = (
 /obj/structure/splinter_wall,
@@ -22857,11 +22185,7 @@
 /area/iceland_base/outpost/research)
 "lLk" = (
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "lLx" = (
 /obj/structure/spider/stickyweb,
@@ -22940,22 +22264,14 @@
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_9"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "lVu" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
 /obj/structure/splinter_wall,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "lVQ" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -23004,11 +22320,7 @@
 "mbH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "mcx" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -23110,7 +22422,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "mnT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -23361,11 +22673,7 @@
 	default_raw_text = "**Fixing order 36**<br><br>Our drilling equipment in sector 36 A broke again. This time we finally are authorized to substitute its board and are tasked to build a small forward engineering base to make further repairs, in this and other sectors, easier. Bring with you whatever you need and don’t forget the boards!";
 	name = "Survey team transcript 3"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "mSn" = (
 /obj/structure/flora/grass/both,
@@ -23421,11 +22729,7 @@
 /area/iceland/underground/safe)
 "mYj" = (
 /mob/living/simple_animal/hostile/bear/snow,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "naZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -23577,11 +22881,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "nxx" = (
 /obj/effect/decal/cleanable/blood/splatter,
@@ -23623,11 +22923,7 @@
 "nEa" = (
 /obj/item/knife/ritual,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "nEv" = (
 /turf/closed/indestructible/wall/reinforced,
@@ -23679,7 +22975,7 @@
 "nIk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flashlight/degraded,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "nIJ" = (
 /obj/item/kirbyplants/random,
@@ -23742,22 +23038,14 @@
 "nVV" = (
 /obj/effect/decal/cleanable/generic,
 /obj/structure/spider/stickyweb,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "nXt" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
 /obj/effect/loot_jobscale/medical/first_aid_kit,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "nYu" = (
 /turf/open/floor/plasteel/white,
@@ -23820,11 +23108,7 @@
 /obj/effect/turf_decal/techfloor{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "ofJ" = (
 /obj/item/kirbyplants{
@@ -23932,11 +23216,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "otq" = (
 /obj/effect/turf_decal/techfloor,
@@ -23951,11 +23231,7 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "ouD" = (
 /turf/open/floor/plating,
@@ -24138,11 +23414,7 @@
 "oOX" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/latcher,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "oRJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -24396,11 +23668,7 @@
 "pzZ" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "pAZ" = (
 /obj/effect/turf_decal/techfloor{
@@ -24623,11 +23891,7 @@
 /area/iceland)
 "pSV" = (
 /obj/effect/loot_jobscale/medical/medkits,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "pTo" = (
 /obj/item/clothing/accessory/maidapron,
@@ -24755,11 +24019,7 @@
 /area/iceland_base/outpost/research)
 "qbN" = (
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "qbZ" = (
 /turf/open/floor/plasteel/dark,
@@ -24808,11 +24068,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile/icy,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "qeN" = (
 /obj/machinery/light/very_dim{
@@ -24889,11 +24145,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "qqO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrous_output,
@@ -25076,11 +24328,16 @@
 	pixel_y = 2;
 	light_on = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
+/turf/open/floor/plating/asteroid/snow/loose,
+/area/iceland/underground/safe)
+"qMG" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
 	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/plating/dirt/dark,
 /area/iceland/underground/safe)
 "qNN" = (
 /obj/item/crowbar,
@@ -25190,7 +24447,7 @@
 /turf/open/floor/plating,
 /area/iceland_base/outpost/office)
 "qYy" = (
-/turf/closed/mineral/snowmountain/cavern,
+/turf/closed/mineral/random/snowmountain/cavern,
 /area/iceland_base/outpost/office)
 "qYT" = (
 /obj/structure/flora/grass/both,
@@ -25278,11 +24535,7 @@
 /turf/open/floor/concrete/tiles,
 /area/iceland_base/outpost/special)
 "roL" = (
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/space,
 /area/iceland/underground/safe)
 "rpP" = (
@@ -25363,11 +24616,7 @@
 "rEC" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "rHM" = (
 /obj/effect/turf_decal/techfloor{
@@ -25407,11 +24656,7 @@
 /area/iceland/underground/safe)
 "rLs" = (
 /obj/effect/loot_jobscale/medical/first_aid_kit,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "rLN" = (
 /turf/open/floor/plasteel/dark/corner,
@@ -25580,11 +24825,7 @@
 /area/iceland_base/outpost/crew)
 "sjb" = (
 /obj/effect/mob_spawn/human/doctor/outpost,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "sji" = (
 /turf/closed/indestructible/wall/ice,
@@ -26072,11 +25313,7 @@
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "tBM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -26124,11 +25361,7 @@
 	dir = 1
 	},
 /obj/effect/aetherial_spawner,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "tId" = (
 /obj/machinery/dna_scannernew,
@@ -26207,11 +25440,7 @@
 /area/iceland_base/outpost/hangar)
 "tWU" = (
 /obj/effect/loot_jobscale/armoury/riot_shotgun,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "tXi" = (
 /obj/structure/table,
@@ -26347,19 +25576,11 @@
 /obj/effect/decal/cleanable/blood/rune{
 	icon_state = "rune_2"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "uqX" = (
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "usv" = (
 /obj/machinery/computer/fluff,
@@ -26453,11 +25674,7 @@
 "uKw" = (
 /obj/structure/spider/cocoon,
 /obj/structure/spider/stickyweb,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "uNU" = (
 /obj/structure/flora/splinter_bush,
@@ -26477,7 +25694,7 @@
 /obj/item/gps,
 /obj/item/gps,
 /obj/item/gps,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "uOq" = (
 /obj/structure/flora/grass/green,
@@ -26515,7 +25732,7 @@
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "uTt" = (
 /turf/open/floor/plasteel/dark/corner{
@@ -26644,11 +25861,7 @@
 /obj/effect/decal/cleanable/blood/gibs/limb{
 	icon_state = "gibarm"
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "vsm" = (
 /obj/effect/decal/cleanable/blood/gibs/down{
@@ -26688,11 +25901,7 @@
 "vzA" = (
 /obj/structure/splinter_wall,
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "vzC" = (
 /obj/structure/flora/grass/sharp,
@@ -26976,7 +26185,7 @@
 	pixel_y = -6;
 	pixel_x = 7
 	},
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "wns" = (
 /obj/structure/chair{
@@ -27094,11 +26303,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/techfloor,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "wzp" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -27163,11 +26368,7 @@
 "wDR" = (
 /obj/structure/splinter_wall,
 /obj/structure/splinter_wall,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "wEC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -27222,11 +26423,7 @@
 /area/iceland)
 "wGQ" = (
 /obj/effect/loot_jobscale/medical/first_aid_kit,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "wGU" = (
 /obj/effect/turf_decal/techfloor,
@@ -27544,7 +26741,7 @@
 /area/iceland_base/outpost/office)
 "xzJ" = (
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "xAz" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -27561,11 +26758,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "xDe" = (
 /mob/living/simple_animal/hostile/ambush,
@@ -27682,21 +26875,13 @@
 /area/iceland_base/outpost/research)
 "xMx" = (
 /obj/structure/spider/stickyweb,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "xMJ" = (
 /obj/item/flashlight/seclite{
 	light_on = 1
 	},
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
+/turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "xMU" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -31647,8 +30832,8 @@ aCP
 ajK
 awF
 awF
-aDb
-aDb
+aEK
+aEK
 aJy
 aJy
 aNU
@@ -31905,8 +31090,8 @@ aCP
 aHZ
 aLE
 awF
-aDb
-aDb
+aEK
+aEK
 awF
 awF
 aow
@@ -32675,8 +31860,8 @@ awF
 awF
 aJy
 aJy
-aDb
-aDb
+aEK
+aEK
 aGz
 awF
 aFT
@@ -46411,8 +45596,8 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -46668,16 +45853,16 @@ aDb
 aDb
 aDb
 aDb
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
 aJy
 aJy
 aJy
@@ -46695,7 +45880,7 @@ aJy
 aJy
 aJy
 aJy
-aYc
+ruA
 aTG
 aTG
 aMo
@@ -46926,19 +46111,6 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aJy
-aJy
-aJy
-aJy
 aJy
 aJy
 aJy
@@ -46953,9 +46125,22 @@ aJy
 aJy
 aJy
 aJy
-aYc
-aYc
-eHq
+aJy
+aJy
+aJy
+aDb
+aDb
+aDb
+aDb
+aDb
+aJy
+aJy
+aiC
+aiC
+aiC
+ruA
+ruA
+bSa
 aTG
 aVS
 aVS
@@ -47183,10 +46368,10 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -47206,14 +46391,14 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aVS
 aVS
 aVS
@@ -47442,8 +46627,8 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
+aJy
+aJy
 aDb
 aDb
 aJy
@@ -47453,24 +46638,24 @@ aJy
 aJy
 aJy
 aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
 aJy
 aJy
-aJy
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aVS
 aVS
 aVS
@@ -47700,33 +46885,33 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
 aJy
 aJy
 aJy
 aJy
 aJy
 aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
 aJy
 aJy
 aJy
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aVS
 aVS
 aVS
@@ -47957,30 +47142,30 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
 aJy
 aJy
 aJy
 aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
 aJy
 aJy
 aJy
+aJy
+aJy
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aiC
+aiC
+aiC
+aiC
 aCw
 aVS
 aVS
@@ -48215,12 +47400,12 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -48234,9 +47419,9 @@ aDb
 aDb
 aDb
 aJy
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
 aVS
 ajw
 aVS
@@ -48472,11 +47657,11 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -48728,11 +47913,11 @@ aJy
 aJy
 aJy
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -48985,11 +48170,11 @@ aJy
 aJy
 aJy
 aJy
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -49244,8 +48429,8 @@ aJy
 aJy
 aJy
 aJy
-aDb
-aDb
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -49280,7 +48465,7 @@ aDb
 aDb
 aDb
 aDb
-aDb
+aJy
 aJy
 aJy
 aJy
@@ -49501,8 +48686,8 @@ aJy
 aJy
 aJy
 aJy
-aDb
-aDb
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -49524,6 +48709,8 @@ aVS
 aVS
 aVS
 aCw
+aiC
+aiC
 aDb
 aDb
 aDb
@@ -49534,12 +48721,10 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -49758,8 +48943,8 @@ aDb
 aJy
 aJy
 aJy
-aDb
-aDb
+aJy
+aJy
 aDb
 aDb
 aJy
@@ -49779,24 +48964,24 @@ aVS
 aVS
 aVS
 aVS
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aDb
+aDb
+aDb
+aDb
+aDb
 aDb
 aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -50036,24 +49221,24 @@ aVS
 aVS
 aVS
 aVS
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
 aJy
 aJy
 aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
 aDb
 aDb
 aJy
@@ -50293,23 +49478,23 @@ aVS
 aBx
 aVS
 awF
-aJy
+aiC
 aVS
+aiC
+aiC
+aJy
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
+aDb
 aJy
 aJy
+aDb
+aDb
 aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
 aJy
 aJy
 aDb
@@ -50566,8 +49751,8 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
+aJy
+aJy
 aMd
 aMd
 aMd
@@ -50823,8 +50008,8 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
+aJy
+aJy
 aMd
 axl
 aqN
@@ -53799,11 +52984,11 @@ aiC
 aiC
 aiC
 jqH
-aDb
-aDb
+aEK
+aEK
 xNs
 sra
-aDb
+aEK
 xJp
 aSK
 jDp
@@ -54056,8 +53241,8 @@ aiC
 aiC
 aiC
 jqH
-aDb
-aDb
+aEK
+aEK
 ftV
 eaY
 wbw
@@ -54313,10 +53498,10 @@ aiC
 aiC
 aiC
 jqH
-aDb
-aDb
+aEK
+aEK
 sNf
-aDb
+aEK
 hPa
 xJp
 arQ
@@ -55717,9 +54902,9 @@ auE
 aTG
 aTG
 aTG
-ajU
+anM
 uQT
-ajU
+anM
 uOi
 aTG
 aTG
@@ -55974,7 +55159,7 @@ aaC
 aQy
 aTG
 aTG
-ajU
+anM
 jzX
 mnN
 fCl
@@ -56231,7 +55416,7 @@ aTb
 ame
 aTG
 aTG
-ajU
+anM
 wnk
 heB
 xzJ
@@ -56488,16 +55673,16 @@ afO
 aMD
 ahS
 aTG
-ajU
+anM
 heB
 heB
 nIk
 aTG
 aTG
 aTG
-aKh
-aKh
 aTG
+aKh
+aKh
 aTG
 ehk
 aTG
@@ -56752,10 +55937,10 @@ bHT
 aTG
 aTG
 aTG
+aTG
 aKh
-aKh
-aKh
-aKh
+aTG
+aTG
 aTG
 aTG
 aKh
@@ -62391,8 +61576,8 @@ aNq
 aNq
 aNq
 aNq
-aJy
-aJy
+aiC
+aiC
 aVS
 aVS
 aVS
@@ -62645,11 +61830,11 @@ aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aJy
-aJy
+aiC
+aiC
+aiC
+aiC
+aiC
 aVS
 aVS
 aVS
@@ -62875,9 +62060,9 @@ aIq
 aei
 atB
 aCy
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
 aVS
 aVS
 aVS
@@ -62902,11 +62087,11 @@ aJy
 aJy
 aJy
 aDb
-aDb
-aDb
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
+aiC
+aiC
 aVS
 aVS
 aVS
@@ -63132,9 +62317,9 @@ azb
 arY
 atk
 aCy
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
 aCw
 akU
 aVS
@@ -63159,13 +62344,13 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aVS
 awF
 awF
@@ -63389,10 +62574,10 @@ aVM
 aXJ
 asp
 aCy
-aDb
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
+aiC
 aVS
 aVS
 aVS
@@ -63419,9 +62604,9 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
@@ -63646,9 +62831,9 @@ aCy
 aCy
 aCy
 aCy
-aJy
-aDb
-aDb
+aiC
+aiC
+aiC
 aJy
 aJy
 aVS
@@ -63896,16 +63081,16 @@ arg
 arg
 aNz
 aic
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aDb
-aDb
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aJy
 aDb
 aVS
@@ -64155,13 +63340,13 @@ aQX
 aFf
 aie
 axj
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aDb
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aDb
 aJy
 aDb
@@ -64183,7 +63368,7 @@ aJy
 aJy
 aJy
 aJy
-aJy
+aDb
 aJy
 aJy
 aJy
@@ -64416,9 +63601,9 @@ ebu
 aie
 aie
 axj
-aJy
-aJy
-aDb
+aiC
+aiC
+aiC
 aDb
 aJy
 aDb
@@ -64438,9 +63623,9 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
-aJy
+aDb
+aDb
+aDb
 aJy
 aJy
 aJy
@@ -64674,9 +63859,9 @@ aFf
 aFf
 aFf
 axj
-aJy
-aJy
-aDb
+aiC
+aiC
+aiC
 aJy
 aDb
 aDb
@@ -64695,16 +63880,16 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
-aJy
-aJy
+aDb
+aDb
+aDb
+aDb
 aJy
 aJy
 aJy
 aDb
 aDb
-aDb
+aJy
 aDb
 aDb
 aDb
@@ -64931,10 +64116,10 @@ aFf
 aFf
 aZU
 asB
-aJy
-aJy
-aDb
-aDb
+aiC
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
@@ -64951,18 +64136,18 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
 aDb
 aDb
 aDb
 aDb
+aDb
+aJy
+aJy
+aJy
+aDb
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -65189,9 +64374,9 @@ aFf
 aFf
 aFf
 axj
-aJy
-aDb
-aDb
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
@@ -65207,22 +64392,22 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
 aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -65446,9 +64631,9 @@ aFf
 aFf
 aFf
 asB
-aJy
-aDb
-aDb
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
@@ -65464,23 +64649,23 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -65703,9 +64888,9 @@ asL
 aFf
 aFf
 asB
-aJy
-aDb
-aDb
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
@@ -65721,6 +64906,8 @@ aJy
 aJy
 aJy
 aJy
+aDb
+aDb
 aJy
 aJy
 aJy
@@ -65731,16 +64918,14 @@ aJy
 aJy
 aJy
 aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -65949,36 +65134,24 @@ afN
 aNK
 aTY
 arg
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
 aBK
-aya
+aFf
 aFf
 aFf
 aFf
 aFf
 aZU
 apF
-aJy
-aJy
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
 aDb
-aDb
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
 aJy
 aJy
 aJy
@@ -65992,13 +65165,25 @@ aDb
 aDb
 aDb
 aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aJy
@@ -66063,7 +65248,7 @@ otf
 aCP
 kcJ
 aCP
-aDb
+aEK
 rKD
 aCP
 aIx
@@ -66206,37 +65391,24 @@ afN
 afN
 app
 arg
-aDb
-aJy
-aJy
-aJy
-ayA
-aBE
+aiC
+aiC
+aiC
+aiC
+kqs
+aZU
 ayd
 ayd
 ayd
 aya
 ajI
-aJy
-aJy
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
-aJy
 aJy
 aJy
 aJy
@@ -66247,6 +65419,18 @@ aJy
 aJy
 aJy
 aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -66254,6 +65438,7 @@ aDb
 aDb
 aDb
 aDb
+aJy
 aDb
 aDb
 aDb
@@ -66463,26 +65648,26 @@ awd
 afN
 aLO
 arg
+aiC
+aiC
+aiC
+aiC
+aiC
+qMG
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aDb
 aDb
 aDb
 aJy
 aJy
 aJy
-ayA
-ayA
 aJy
-aJy
-aJy
-aJy
-aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
 aJy
 aJy
 aJy
@@ -66720,24 +65905,18 @@ arg
 arg
 arg
 arg
-aDb
-aDb
-aDb
-aDb
-aJy
-aJy
-aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
@@ -66763,6 +65942,12 @@ aJy
 aJy
 aJy
 aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aDb
 aDb
 aDb
 aDb
@@ -66976,26 +66161,18 @@ aiC
 aiC
 aiC
 aiC
-aDb
-aDb
-aDb
-aDb
-aDb
-aJy
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
@@ -67011,6 +66188,14 @@ aJy
 aJy
 aJy
 aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -67019,8 +66204,8 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
+aDb
+aDb
 aDb
 aDb
 aDb
@@ -67237,22 +66422,22 @@ aiC
 aiC
 aiC
 aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -67276,8 +66461,8 @@ aDb
 aDb
 aJy
 aJy
-aJy
-aJy
+aDb
+aDb
 aDb
 aDb
 aDb
@@ -67494,23 +66679,22 @@ aiC
 aiC
 aiC
 aiC
+aiC
+aiC
+aiC
+aiC
 aDb
 aDb
 aDb
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -67533,8 +66717,9 @@ aDb
 aDb
 aJy
 aJy
-aJy
-aJy
+aDb
+aDb
+aDb
 aDb
 aDb
 aDb
@@ -67756,16 +66941,16 @@ aiC
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -67780,9 +66965,6 @@ aiC
 aiC
 aiC
 aiC
-aDb
-aDb
-aDb
 aDb
 aDb
 aDb
@@ -67792,6 +66974,9 @@ aJy
 aJy
 aJy
 aJy
+aDb
+aDb
+aDb
 aDb
 aDb
 aDb
@@ -68013,12 +67198,12 @@ aiC
 aiC
 aiC
 aDb
+aJy
 aDb
-aDb
-aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -68273,9 +67458,9 @@ aiC
 aDb
 aDb
 aDb
-aDb
-aDb
-aDb
+aJy
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -68531,8 +67716,8 @@ aiC
 aDb
 aDb
 aDb
-aDb
-aDb
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -68788,8 +67973,8 @@ aiC
 aDb
 aDb
 aDb
-aDb
-aDb
+aJy
+aJy
 aDb
 aDb
 aDb
@@ -69046,7 +68231,7 @@ aiC
 aDb
 aDb
 aDb
-aDb
+aJy
 aDb
 iEs
 aiC
@@ -69303,7 +68488,7 @@ aiC
 aiC
 aDb
 aDb
-aDb
+aJy
 aDb
 aDb
 aiC
@@ -69560,7 +68745,7 @@ dwE
 aiC
 aiC
 aDb
-aDb
+aJy
 aDb
 aDb
 aDb
@@ -69816,10 +69001,10 @@ aiU
 dwE
 aiC
 aiC
-aDb
-aDb
-aDb
-aDb
+aEK
+aEK
+aEK
+aEK
 aiC
 aiC
 aiC
@@ -70072,10 +69257,10 @@ aEJ
 aem
 dwE
 aiC
-aDb
-aDb
-aDb
-aDb
+aEK
+aEK
+aEK
+aEK
 aiC
 aiC
 aiC
@@ -70329,9 +69514,9 @@ aki
 lVQ
 dwE
 aiC
-aDb
-aDb
-aDb
+aEK
+aEK
+aEK
 aiC
 aiC
 aiC

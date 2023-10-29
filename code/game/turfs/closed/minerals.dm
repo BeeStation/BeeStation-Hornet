@@ -197,24 +197,28 @@
 		/turf/closed/mineral/gibtonite = 2, /obj/item/stack/ore/bluespace_crystal = 1)
 
 
+/turf/closed/mineral/random/snowmountain
+	name = "chilly cavern stone"
+	color = "#d1e7eb"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	baseturfs = /turf/open/floor/plating/asteroid/snow/loose
+	environment_type = "snow_cavern"
+	turf_type = /turf/open/floor/plating/asteroid/snow/loose
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	defer_change = TRUE
+	mineralChance = 8
+	mineralSpawnChanceList = list(
+		/obj/item/stack/ore/uranium = 2, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 4, /obj/item/stack/ore/titanium = 4,
+		/obj/item/stack/ore/silver = 6, /obj/item/stack/ore/copper = 6, /obj/item/stack/ore/plasma = 15, /obj/item/stack/ore/iron = 40,
+		/turf/closed/mineral/gibtonite = 2, /obj/item/stack/ore/bluespace_crystal = 1)
+
 /turf/closed/mineral/random/snowmountain/cavern
 	name = "ice cavern rock"
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	icon_state = "icerock_wall"
 	base_icon_state = "icerock_wall"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	baseturfs = /turf/open/floor/plating/asteroid/basalt/iceland_surface
-	environment_type = "snow_cavern"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/iceland_surface
-	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	defer_change = TRUE
-	mineralChance = 6
-	mineralSpawnChanceList = list(
-		/obj/item/stack/ore/uranium = 2, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 4, /obj/item/stack/ore/titanium = 4,
-		/obj/item/stack/ore/silver = 6, /obj/item/stack/ore/copper = 6, /obj/item/stack/ore/plasma = 15, /obj/item/stack/ore/iron = 40,
-		/turf/closed/mineral/gibtonite = 2, /obj/item/stack/ore/bluespace_crystal = 1)
-
+	mineralChance = 4
 
 /turf/closed/mineral/random/volcanic
 	environment_type = "basalt"
@@ -430,9 +434,9 @@
 	icon_state = "icerock_wall"
 	base_icon_state = "icerock_wall"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	baseturfs = /turf/open/floor/plating/asteroid/basalt/iceland_surface
+	baseturfs =  /turf/open/floor/plating/asteroid/snow/loose
 	environment_type = "snow_cavern"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/iceland_surface
+	turf_type =  /turf/open/floor/plating/asteroid/snow/loose
 
 /turf/closed/mineral/snowmountain/indestructible
 	name = "dense snowy mountainside"

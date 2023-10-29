@@ -180,6 +180,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	dug = TRUE
 
 /turf/open/floor/plating/asteroid/snow/ice/burn_tile()
 	return FALSE
@@ -193,3 +194,13 @@
 /turf/open/floor/plating/asteroid/snow/atmosphere
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = FALSE
+
+/turf/open/floor/plating/asteroid/snow/loose
+	gender = PLURAL
+	name = "loose snow"
+	desc = "Looks rather cold."
+	floor_variance = 0
+	slowdown = 1
+	baseturfs = /turf/open/floor/plating/asteroid/snow/loose
+	icon_state = "snow_loose"
+	dug = TRUE
