@@ -33,7 +33,8 @@
 		/datum/language/slime,
 		/datum/language/sylvan,
 		/datum/language/terrum,
-		/datum/language/uncommon))
+		/datum/language/uncommon,
+		/datum/language/nekomimetic))
 
 /obj/item/organ/tongue/Initialize(mapload)
 	. = ..()
