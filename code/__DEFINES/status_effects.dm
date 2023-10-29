@@ -117,6 +117,8 @@
 
 #define STATUS_EFFECT_LING_TRANSFORMATION /datum/status_effect/ling_transformation // transform stung by a changeling
 
+#define STATUS_EFFECT_SNOWBLIND /datum/status_effect/snowblind
+
 
 //---------//
 // NEUTRAL //

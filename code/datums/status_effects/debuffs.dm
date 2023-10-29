@@ -1297,3 +1297,28 @@
 	var/datum/status_effect/ling_transformation/new_effect = new_body.apply_status_effect(/datum/status_effect/ling_transformation, target_dna, original_dna, TRUE)
 	if(new_effect)
 		new_effect.charge_left = charge_left
+
+/atom/movable/screen/alert/status_effect/snowblind
+	name = "Snowblind"
+	desc = "The heavy snowfall is getting into your eyes, making it hard to see. And the harsh winds are slowing you down."
+	icon_state = "snowblind"
+
+/datum/status_effect/snowblind
+	id = "snowblind"
+	status_type = STATUS_EFFECT_REPLACE
+	duration = 3 SECONDS
+	on_remove_on_mob_delete = TRUE
+	alert_type = /atom/movable/screen/alert/status_effect/snowblind
+
+/datum/status_effect/snowblind/on_apply()
+	owner.add_movespeed_modifier(MOVESPEED_ID_SNOWBLIND, multiplicative_slowdown=1)
+	return ..()
+
+/datum/status_effect/snowblind/on_remove()
+	owner.remove_movespeed_modifier(MOVESPEED_ID_SNOWBLIND)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.update_tint()
+	. = ..()
+	if(QDELETED(owner))
+		return
