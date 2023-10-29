@@ -19882,6 +19882,7 @@
 "dOg" = (
 /obj/effect/rune/apocalypse,
 /obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/latcher/hydra,
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
 "dON" = (
@@ -19917,6 +19918,9 @@
 	name = "RD Nolson's memo";
 	default_raw_text = "**Internal memo 5**<br><br>The client requested a simple hedge-trimmer.... not a BS chainsaw. <br> Are you guys serious? "Coolness" and "metal" don't make for selling arguments on their own! I'm calling a meeting next friday, I want to know who was piloting this blunder. <br> I'm sending the BFCs away to the Medical outpost, I don't want to have to explain to the Commodore why we produced this. No you can't have them back."
 	},
+/obj/item/chainsaw/bfc,
+/obj/item/chainsaw/bfc,
+/obj/item/chainsaw/bfc,
 /turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "dQG" = (
