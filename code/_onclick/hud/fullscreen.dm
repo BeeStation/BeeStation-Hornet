@@ -133,6 +133,10 @@
 /atom/movable/screen/fullscreen/impaired
 	icon_state = "impairedoverlay"
 
+/atom/movable/screen/fullscreen/snowblinded
+	icon_state = "passage"
+	color = "#333D40"
+
 /atom/movable/screen/fullscreen/flash
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"

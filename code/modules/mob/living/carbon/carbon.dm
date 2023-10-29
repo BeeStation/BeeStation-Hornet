@@ -582,7 +582,10 @@
 		become_blind(EYES_COVERED)
 	else if(tinttotal >= TINT_DARKENED)
 		cure_blind(EYES_COVERED)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
+		if(tinttotal == TINT_DARKENED && has_status_effect(STATUS_EFFECT_SNOWBLIND))
+			overlay_fullscreen("tint", /atom/movable/screen/fullscreen/snowblinded, 7)
+		else
+			overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
 	else
 		cure_blind(EYES_COVERED)
 		clear_fullscreen("tint", 0)
@@ -593,7 +596,8 @@
 		. += head.tint
 	if(isclothing(wear_mask))
 		. += wear_mask.tint
-
+	if(has_status_effect(STATUS_EFFECT_SNOWBLIND))
+		. += TINT_DARKENED
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(E)
 		. += E.tint
