@@ -1,0 +1,10 @@
+author: ro5490
+delete-after: true
+changes:
+  - rscadd: Shadow Sect - Expand the darkness across the station, and convert people
+      to the dark.
+  - rscadd: Shadow Obelisk for the sect that eminates dark light
+  - rscadd: Shadow-Person race change rite on the altar, for the shadow sect
+  - rscadd: New Altar sprite
+  - rscadd: Shadow person mutator autoinjector - Antag item bought from uplink for
+      5tc, Chaplain Only
