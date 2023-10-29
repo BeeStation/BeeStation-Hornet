@@ -230,6 +230,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	var/datum/map_template/shuttle/roundstart_template
 	var/json_key
+	var/bypassdock
 
 /obj/docking_port/stationary/Initialize(mapload)
 	..()
@@ -626,6 +627,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/tow_rheight = bounds[4] - tow_dheight
 	if(!istype(S))
 		return SHUTTLE_NOT_A_DOCKING_PORT
+
+	if(S.bypassdock)
+		return SHUTTLE_CAN_DOCK
 
 	if(istype(S, /obj/docking_port/stationary/transit))
 		return SHUTTLE_CAN_DOCK
