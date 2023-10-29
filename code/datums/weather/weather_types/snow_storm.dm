@@ -36,10 +36,9 @@
 	//L.adjust_bodytemperature(-rand(cooling_lower, cooling_upper))
 	if(!ishuman(L) || HAS_TRAIT(L, TRAIT_SNOWSTORMIMMUNE))
 		return
-	if(!L.has_status_effect(STATUS_EFFECT_SNOWBLIND))
-		L.apply_status_effect(STATUS_EFFECT_SNOWBLIND)
-		var/mob/living/carbon/human/H = L
-		H.update_tint()
+	L.apply_status_effect(STATUS_EFFECT_SNOWBLIND)
+	var/mob/living/carbon/human/H = L
+	H.update_tint()
 
 /datum/weather/snow_storm/telegraph()
 	var/list/eligible_areas = list()
