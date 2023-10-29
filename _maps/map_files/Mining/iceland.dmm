@@ -21914,9 +21914,6 @@
 /obj/vehicle/ridden/atv/snowmobile{
 	dir = 8
 	},
-/obj/item/key/snowmobile{
-	pixel_y = 7
-	},
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_lpost)
 "lbB" = (
@@ -23753,6 +23750,14 @@
 /obj/effect/decal/cleanable/blood/rune,
 /turf/open/floor/plasteel/cult,
 /area/iceland)
+"pDk" = (
+/obj/structure/closet/crate,
+/obj/item/key/snowmobile{
+	pixel_x = -1;
+	pixel_y = -2
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "pFo" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -25200,6 +25205,14 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"sYG" = (
+/obj/structure/closet/crate,
+/obj/item/key/snowmobile{
+	pixel_x = -1;
+	pixel_y = -3
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "taq" = (
 /obj/structure/railing{
 	dir = 1
@@ -25209,6 +25222,10 @@
 	dir = 1
 	},
 /area/iceland_base/outpost/command)
+"tbq" = (
+/obj/item/key/snowmobile,
+/turf/open/floor/concrete,
+/area/iceland_base/outpost/garage)
 "tbS" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/both,
@@ -25308,9 +25325,9 @@
 /turf/closed/indestructible/wall,
 /area/iceland_base/outpost/hangar)
 "tsa" = (
-/obj/item/key/snowmobile,
+/obj/item/reagent_containers/glass/gascan,
 /turf/open/floor/plating,
-/area/ruin/unpowered/iceland/abandoned_lpost)
+/area/iceland_base/hallway_command)
 "tsL" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/plasteel,
@@ -25491,6 +25508,10 @@
 	},
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/special)
+"tUO" = (
+/obj/item/reagent_containers/glass/gascan,
+/turf/open/floor/plating,
+/area/iceland_base/cargo)
 "tVf" = (
 /obj/effect/mob_spawn/human/doctor/outpost,
 /turf/open/floor/concrete/slab,
@@ -27041,14 +27062,6 @@
 	pixel_x = -4;
 	pixel_y = 10
 	},
-/obj/item/key/snowmobile{
-	pixel_x = -12;
-	pixel_y = -3
-	},
-/obj/item/key/snowmobile{
-	pixel_x = -6;
-	pixel_y = -3
-	},
 /obj/item/reagent_containers/glass/gascan{
 	pixel_x = 7;
 	pixel_y = 2
@@ -27056,6 +27069,14 @@
 /obj/item/reagent_containers/glass/gascan{
 	pixel_x = 5;
 	pixel_y = -2
+	},
+/obj/item/key/snowmobile{
+	pixel_x = -11;
+	pixel_y = -3
+	},
+/obj/item/key/snowmobile{
+	pixel_x = -5;
+	pixel_y = -3
 	},
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/garage)
@@ -50631,7 +50652,7 @@ aZh
 aXT
 aMd
 ajG
-ael
+tUO
 ael
 aQt
 aJy
@@ -59077,7 +59098,7 @@ aSJ
 adK
 adK
 aEk
-aEk
+tsa
 adK
 aJy
 aVS
@@ -59750,7 +59771,7 @@ aTR
 aIL
 aJK
 aut
-azm
+pDk
 nPu
 aQS
 aDz
@@ -60781,7 +60802,7 @@ ane
 hCF
 fTB
 aCV
-azm
+sYG
 abb
 aDz
 azm
@@ -61035,7 +61056,7 @@ aJK
 aYD
 aYD
 njZ
-tsa
+aCV
 aWs
 aDz
 azm
@@ -69550,7 +69571,7 @@ vOm
 tmm
 tmm
 tmm
-tmm
+tbq
 yiD
 yiD
 tmm
