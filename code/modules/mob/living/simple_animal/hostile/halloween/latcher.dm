@@ -204,13 +204,14 @@
 /obj/projectile/latcher_harpoon/fire()
 	..()
 	if(firer)
-		reel = firer.Beam(src, "latcher", maxdistance=9, time=20)
+		reel = firer.Beam(src, "latcher", maxdistance=15, time=20)
 
 /obj/projectile/latcher_harpoon/on_hit(atom/target, blocked = FALSE)
 	//[firer] is the person who shot the projectile
 	//[target] is the one being hit by it
 	if(iscarbon(target))
 		var/mob/living/carbon/hooked = target
+		hooked.unbuckle_all_mobs(force=1)
 		if(istype(firer, /mob/living/simple_animal/hostile/latcher))
 			var/mob/living/simple_animal/hostile/latcher/fisherman = firer
 
@@ -221,7 +222,7 @@
 			hooked.Knockdown(6 SECONDS)
 			hooked.Immobilize(6 SECONDS)
 			to_chat(hooked, "<span class='userdanger'>\The [fisherman] has impaled you and is reeling you in!</span>")
-			fisherman.tether_active = fisherman.Beam(hooked, "latcher", time=INFINITY, maxdistance=9, beam_type=/obj/effect/ebeam)
+			fisherman.tether_active = fisherman.Beam(hooked, "latcher", time=INFINITY, maxdistance=15, beam_type=/obj/effect/ebeam)
 
 		if(istype(firer, /mob/living/simple_animal/hostile/megafauna/harbinger))
 			var/mob/living/simple_animal/hostile/megafauna/harbinger/fisherman = firer
