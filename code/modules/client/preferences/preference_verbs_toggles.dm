@@ -1,3 +1,4 @@
+/*
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence Lobby Music"
 	set category = "Preferences"
@@ -9,6 +10,7 @@
 	else
 		to_chat(usr, "You will no longer hear music in the game lobby.")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Lobby Music", "[hear ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	*/
 
 /client/verb/Toggle_Soundscape()
 	set name = "Hear/Silence Ambience"
