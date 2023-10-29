@@ -53,9 +53,8 @@
 
 /mob/living/carbon/human/species/twistedmen/Login()
 	..()
-	if(mind.datum)
-		mind.add_antag_datum(/datum/antagonist/twistedmen)
-	else
+	mind.add_antag_datum(/datum/antagonist/twistedmen)
+
 
 
 /datum/species/twistedmen/on_species_gain(mob/living/carbon/C, datum/species/old_species)
