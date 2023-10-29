@@ -77,7 +77,7 @@
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 	break_sound = 'sound/effects/glassbr2.ogg'
 	break_message = "<span class='warning'>The blood-red crystal falls to the floor and shatters!</span>"
-	var/list/valid_mobs = list(/mob/living/simple_animal/hostile/netherworld/blankbody) //Placeholder mob
+	var/list/valid_mobs = list(/mob/living/simple_animal/hostile/netherworld,/mob/living/simple_animal/hostile/ambush,/mob/living/simple_animal/hostile/aetherial)
 	var/trigger_delay = 100
 	var/last_trigger = 0
 	var/mobs_spawned = 0
