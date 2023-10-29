@@ -26792,7 +26792,7 @@
 /area/iceland_base/outpost/command)
 "xGd" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/table/halloween_altar,
+/obj/structure/chair/halloween_altar,
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
 "xGj" = (

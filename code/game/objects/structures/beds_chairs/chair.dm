@@ -127,6 +127,15 @@
 
 // Chair types
 
+/obj/structure/chair/halloween_altar
+	name = "defiled altar"
+	desc = "An altar used in previous rituals. Looking at it makes you feel uneasy."
+	icon = 'icons/obj/smooth_structures/tables/halloweenaltar.dmi'
+	icon_state = "halloween"
+	base_icon_state = "halloween"
+	resistance_flags = INDESTRUCTIBLE
+	buckle_lying = -1
+
 /obj/structure/chair/old
 	name = "strange chair"
 	desc = "You sit in this. Either by will or force. Looks VERY uncomfortable."
