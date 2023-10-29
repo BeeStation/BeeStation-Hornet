@@ -43,11 +43,15 @@
 /obj/effect/forcefield/event/door
 	icon_state = "door-shield"
 
-/obj/effect/forcefield/event/space //For use outside the station to prevent players from bypassing major chunks of the station
+//Different subtype so as to not slow down SDQL queries targeting /obj/effect/forcefield/event
+/obj/effect/forcefield/space_barrier //For use outside the station to prevent players from bypassing major chunks of the station
 	name = "spacial barrier"
 	desc = "A rapidly expanding barrier capable of interfering with all but the most advanced forms of intragalactic spaceflight and communications technology."
 	icon = 'icons/effects/gorewall.dmi'
 	icon_state = "gorewall-15"
+	CanAtmosPass = ATMOS_PASS_NO
+	timeleft = 0
+	opacity = TRUE
 
 ///////////Mimewalls///////////
 

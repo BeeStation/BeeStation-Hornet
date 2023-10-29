@@ -25034,11 +25034,10 @@
 /area/iceland_base/outpost/special)
 "qRy" = (
 /obj/docking_port/stationary{
-	dwidth = 13;
-	height = 33;
-	id = "LZ2-outpost";
+	dir = 4;
+	bypassdock = 1;
 	name = "Iceland LZ2 outpost";
-	width = 25
+	id = "Iceland LZ2 outpost"
 	},
 /turf/open/floor/dock,
 /area/iceland)
@@ -25504,9 +25503,14 @@
 	id = "LZ1-base";
 	name = "Iceland LZ1 base";
 	width = 25;
-	dir = 2
+	dir = 4;
+	bypassdock = 1
 	},
-/turf/open/floor/plating/asteroid/snow,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
 /area/iceland)
 "sjb" = (
 /obj/effect/mob_spawn/human/doctor/outpost,
@@ -49201,7 +49205,7 @@ aKh
 aKh
 aKh
 aKh
-aKh
+siD
 aKh
 aKh
 aKh
@@ -52528,7 +52532,7 @@ aTG
 cBK
 aTG
 aHj
-siD
+aTG
 aKh
 aTG
 aKh
@@ -63235,7 +63239,7 @@ lFT
 lFT
 lFT
 lFT
-lFT
+qRy
 lFT
 lFT
 lFT
@@ -67100,7 +67104,7 @@ lFT
 lFT
 lFT
 lFT
-qRy
+lFT
 bMg
 aZI
 aiC
