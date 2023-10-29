@@ -707,9 +707,6 @@
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 6
 	},
-/obj/machinery/computer/shuttle_flight/white_ship{
-	dir = 1
-	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned)
 "pp" = (
@@ -1103,6 +1100,9 @@
 	},
 /turf/open/floor/plasteel/grid,
 /area/shuttle/abandoned)
+"zk" = (
+/turf/template_noop,
+/area/template_noop)
 "zn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/storage/toolbox/mechanical{
@@ -2536,12 +2536,12 @@
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
-gj
-gj
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
+zk
+zk
 Ux
 fY
 Ux
@@ -2555,20 +2555,20 @@ ce
 Ux
 kn
 Ux
-gj
-gj
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
+zk
+zk
 "}
 (2,1,1) = {"
-gj
-gj
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
+zk
+zk
 Ux
 Lo
 Yo
@@ -2582,20 +2582,20 @@ uu
 xo
 uu
 Ux
-gj
-gj
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
+zk
+zk
 "}
 (3,1,1) = {"
-gj
-gj
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
+zk
+zk
 Ux
 gv
 Yo
@@ -2609,18 +2609,18 @@ gC
 Yo
 uu
 Ux
-gj
-gj
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
+zk
+zk
 "}
 (4,1,1) = {"
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
 Ux
 Ux
 Ux
@@ -2638,13 +2638,13 @@ Ec
 Ux
 Ux
 Ux
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
 "}
 (5,1,1) = {"
-gj
+zk
 Ux
 av
 av
@@ -2668,7 +2668,7 @@ Ux
 av
 av
 Ux
-gj
+zk
 "}
 (6,1,1) = {"
 Ux
@@ -2914,7 +2914,7 @@ Ux
 ZL
 "}
 (15,1,1) = {"
-gj
+zk
 ZL
 Ux
 Ux
@@ -2938,11 +2938,11 @@ sE
 Ux
 Ux
 ZL
-gj
+zk
 "}
 (16,1,1) = {"
-gj
-gj
+zk
+zk
 Ux
 pN
 Pu
@@ -2964,12 +2964,12 @@ pQ
 WO
 kz
 Ux
-gj
-gj
+zk
+zk
 "}
 (17,1,1) = {"
-gj
-gj
+zk
+zk
 Ux
 MV
 Do
@@ -2991,12 +2991,12 @@ JJ
 JJ
 Eu
 Ux
-gj
-gj
+zk
+zk
 "}
 (18,1,1) = {"
-gj
-gj
+zk
+zk
 Ux
 QV
 cS
@@ -3018,11 +3018,11 @@ xf
 Wf
 ic
 Ux
-gj
-gj
+zk
+zk
 "}
 (19,1,1) = {"
-gj
+zk
 Ux
 Ux
 Ux
@@ -3046,10 +3046,10 @@ Ux
 Ux
 Ux
 Ux
-gj
+zk
 "}
 (20,1,1) = {"
-gj
+zk
 Ux
 zd
 Bk
@@ -3073,10 +3073,10 @@ Lu
 dP
 jM
 Ux
-gj
+zk
 "}
 (21,1,1) = {"
-gj
+zk
 Ux
 Hl
 oG
@@ -3100,10 +3100,10 @@ Zc
 jH
 Go
 Ux
-gj
+zk
 "}
 (22,1,1) = {"
-gj
+zk
 Ux
 hb
 IJ
@@ -3127,7 +3127,7 @@ Lu
 Zw
 Zw
 Ux
-gj
+zk
 "}
 (23,1,1) = {"
 Ux
@@ -3319,7 +3319,7 @@ Ux
 ZL
 "}
 (30,1,1) = {"
-gj
+zk
 Ux
 QT
 QT
@@ -3343,10 +3343,10 @@ la
 QT
 QT
 Ux
-gj
+zk
 "}
 (31,1,1) = {"
-gj
+zk
 ZL
 Ux
 jH
@@ -3370,11 +3370,11 @@ TF
 jH
 Ux
 ZL
-gj
+zk
 "}
 (32,1,1) = {"
-gj
-gj
+zk
+zk
 ZL
 Ux
 Ux
@@ -3396,33 +3396,33 @@ Wy
 Ux
 Ux
 ZL
-gj
-gj
+zk
+zk
 "}
 (33,1,1) = {"
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
 ZL
 Ux
 Ux
 Ux
-gj
-gj
-gj
-gj
-gj
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
 Ux
 Ux
 Ux
 ZL
-gj
-gj
-gj
-gj
+zk
+zk
+zk
+zk
 "}
