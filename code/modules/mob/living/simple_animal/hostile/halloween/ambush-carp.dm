@@ -29,6 +29,7 @@
 	a_intent = INTENT_HARM
 	var/light_search = 0
 	alpha = 50
+	speak_language = /datum/language/narsie
 
 /mob/living/simple_animal/hostile/ambush/Initialize()
 	..()

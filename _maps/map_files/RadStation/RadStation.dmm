@@ -5023,6 +5023,8 @@
 	},
 /obj/effect/decal/cleanable/oil,
 /obj/structure/closet/crate,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel/sepia,
 /area/archmundi/quartermaster/office)
 "cej" = (
@@ -5430,6 +5432,7 @@
 	network = list("ss13","rd")
 	},
 /obj/effect/decal/cleanable/glass,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel,
 /area/archmundi/crew_quarters/heads/hor)
 "ckL" = (
@@ -9963,6 +9966,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel/white,
 /area/archmundi/medical/chemistry)
 "edP" = (
@@ -12213,6 +12217,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/archmundi/security/warden)
+"eUU" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plasteel/white,
+/area/archmundi/security/brig{
+	name = "Brig medbay"
+	})
 "eVj" = (
 /obj/item/clothing/glasses/blindfold{
 	pixel_x = -4;
@@ -12561,6 +12573,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel,
 /area/archmundi/security/main{
 	name = "Security Waiting Room"
@@ -17516,6 +17529,7 @@
 	pixel_y = 12
 	},
 /obj/effect/decal/cleanable/blood/gibs/down,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel,
 /area/archmundi/security/brig{
 	name = "Brig medbay"
@@ -29569,6 +29583,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel/white,
 /area/archmundi/medical/chemistry)
 "mlI" = (
@@ -33790,6 +33805,7 @@
 "nOw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box/lights/mixed,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel,
 /area/archmundi/medical/medbay/central)
 "nOz" = (
@@ -40700,6 +40716,10 @@
 /turf/open/floor/plasteel/cult,
 /area/archmundi/ritual_hall)
 "qIL" = (
+/obj/item/paper/crumpled/bloody/docsdeathnote{
+	default_raw_text = "My theory is correct! Now I just need the materials..<br> To anyone reading this, go to the RD's office, I'll leave some spares there in case I leave before you join up, if we can just get these vines out of the way, we can escape!";
+	name = "To anyone reading"
+	},
 /turf/open/floor/plasteel/cult,
 /area/archmundi/crew_quarters/heads/cmo)
 "qIN" = (
@@ -43084,6 +43104,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/structure/table_frame,
 /obj/item/shard,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/crew_quarters/heads/cmo)
 "rKZ" = (
@@ -44152,6 +44173,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/blood/splatter,
 /mob/living/simple_animal/hostile/ambush,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/carpet/purple,
 /area/archmundi/crew_quarters/heads/hor)
 "snV" = (
@@ -45870,6 +45892,11 @@
 /obj/machinery/space_heater,
 /turf/open/floor/plasteel,
 /area/archmundi/maintenance/port/aft)
+"sXv" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plasteel/white,
+/area/archmundi/medical/chemistry)
 "sXA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -49756,7 +49783,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note{
-	default_raw_text = "/%ERROR/% Major integrity breach. System shutdown imminent. Initiating "LAST WILL" protocols<br> Crew status: 20 evacuated to Iceland, 80 presumed deceased. <br> Captain location: deceased<br> Self-Destruct request pending: Error code 12, manual override in Vault. Nuclear disk authentification required at the self destruct device.<br> Nuclear Disk last known location: Engineering.";
+	default_raw_text = "/%ERROR/% Major integrity breach. System shutdown imminent. Initiating "LASTWILL" protocols<br> Crew status: 20 evacuated to Iceland, 80 presumed deceased. <br> Captain location: deceased<br> Self-Destruct request pending: Error code 12, manual override in Vault. Nuclear disk authentification required at the self destruct device.<br> Nuclear Disk last known location: Engineering.";
 	name = "Onboard AI report #541"
 	},
 /turf/open/floor/plasteel,
@@ -55056,6 +55083,7 @@
 	network = list("ss13","security")
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel,
 /area/archmundi/security/main{
 	name = "Security Waiting Room"
@@ -83479,7 +83507,7 @@ qIf
 pvn
 hJe
 bCh
-hNq
+eUU
 ckq
 cpd
 pWt
@@ -98695,7 +98723,7 @@ dhx
 kcF
 yaw
 tbZ
-yaw
+sXv
 gqb
 mlC
 sZq

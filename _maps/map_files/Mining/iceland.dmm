@@ -2556,6 +2556,7 @@
 /area/iceland_base/outpost/crew)
 "ahb" = (
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/wood{
 	icon_state = "wood-broken2"
 	},
@@ -2829,11 +2830,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/office)
-"ahM" = (
-/obj/structure/spider/stickyweb,
-/obj/structure/spider/spiderling,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "ahN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -4370,12 +4366,6 @@
 	icon_state = "wood-broken7"
 	},
 /area/ruin/unpowered/iceland/abandoned_hut)
-"alT" = (
-/obj/structure/flora/grass/green,
-/obj/structure/spider/stickyweb,
-/obj/structure/spider/spiderling,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "alU" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
@@ -8528,10 +8518,6 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/iceland)
-"axk" = (
-/obj/structure/spider/spiderling,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "axl" = (
 /obj/machinery/vendor/mining,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
@@ -9645,6 +9631,8 @@
 /area/iceland_base/science/lobby)
 "aAs" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/firstaid,
+/obj/structure/table,
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/science)
 "aAt" = (
@@ -9896,11 +9884,6 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
-"aBa" = (
-/obj/structure/flora/grass/green,
-/obj/structure/spider/spiderling,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "aBb" = (
 /turf/closed/wall,
 /area/iceland_base/science)
@@ -10492,10 +10475,10 @@
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/office)
 "aCD" = (
-/obj/item/storage/firstaid/fire,
 /obj/machinery/light/broken{
 	dir = 8
 	},
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/powered/iceland/crashlanded_shuttle)
 "aCE" = (
@@ -10754,6 +10737,7 @@
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/bot,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/science)
 "aDm" = (
@@ -12006,7 +11990,6 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/obj/structure/spider/spiderling,
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
 	icon_state = "snow_dug";
@@ -12218,10 +12201,6 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/air_input,
 /turf/open/floor/engine/air,
 /area/iceland_base/engine)
-"aHF" = (
-/obj/structure/spider/spiderling,
-/turf/open/floor/plating,
-/area/ruin/unpowered/iceland/abandoned_chembase)
 "aHG" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/structure/cable/orange{
@@ -19775,6 +19754,10 @@
 "drK" = (
 /turf/open/floor/plasteel/freezer,
 /area/iceland_base/outpost/research)
+"dsy" = (
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plasteel/cult,
+/area/iceland/underground/safe)
 "dsA" = (
 /obj/structure/flora/splinter_bush,
 /obj/structure/flora/grass/green,
@@ -20792,6 +20775,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/outpost/hangar)
+"ggJ" = (
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plating/snowed/smoothed,
+/area/ruin/powered/iceland/gate/boreal)
 "ghm" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -21747,6 +21734,11 @@
 	dir = 8
 	},
 /area/iceland_base/outpost/hangar)
+"jex" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/crowbar,
+/turf/open/floor/wood,
+/area/ruin/unpowered/iceland/abandoned_hut)
 "jfN" = (
 /obj/effect/decal/cleanable/blood/splatter{
 	icon_state = "gibbl3"
@@ -22153,6 +22145,11 @@
 /obj/structure/splinter_wall,
 /turf/open/floor/plating/dirt/dark,
 /area/iceland/underground/safe)
+"kgj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plasteel/cult,
+/area/iceland/underground/safe)
 "kgy" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -22488,6 +22485,11 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/outpost/entrance)
+"kTM" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/wood,
+/area/ruin/unpowered/iceland/abandoned_hut)
 "kUF" = (
 /obj/item/clothing/glasses/hud/security/deputy,
 /turf/open/floor/plating/dirt/dark,
@@ -22731,6 +22733,10 @@
 	},
 /turf/open/lava,
 /area/iceland_base/outpost/special)
+"lys" = (
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plating/dirt/dark,
+/area/iceland/underground/safe)
 "lzv" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/highsecurity{
@@ -23710,6 +23716,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plating/asteroid/snow{
 	floor_variance = 0;
 	icon_state = "snow_dug";
@@ -23954,6 +23961,10 @@
 	},
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/special)
+"oAO" = (
+/obj/structure/table,
+/turf/open/floor/plasteel/grid/steel,
+/area/iceland_base/science)
 "oAX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark/side{
@@ -24464,6 +24475,11 @@
 	},
 /turf/open/floor/carpet/red,
 /area/iceland_base/command/hos)
+"pNA" = (
+/obj/effect/turf_decal/stripes,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/iceland/gate/lpost_n)
 "pOf" = (
 /turf/open/lava,
 /area/iceland_base/outpost/special)
@@ -24971,6 +24987,10 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"qNN" = (
+/obj/item/crowbar,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "qQu" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/rune,
@@ -25024,6 +25044,10 @@
 /mob/living/simple_animal/hostile/latcher,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
+"qTx" = (
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/iceland/crashlanded_shuttle)
 "qTO" = (
 /obj/effect/decal/remains/human,
 /obj/machinery/light/very_dim{
@@ -25257,6 +25281,15 @@
 	dir = 1
 	},
 /area/iceland_base/outpost/office)
+"rEC" = (
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "rHM" = (
 /obj/effect/turf_decal/techfloor{
 	dir = 1
@@ -25292,6 +25325,14 @@
 "rKD" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating/snowed,
+/area/iceland/underground/safe)
+"rLs" = (
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
 /area/iceland/underground/safe)
 "rLN" = (
 /turf/open/floor/plasteel/dark/corner,
@@ -26026,6 +26067,10 @@
 "tJD" = (
 /turf/closed/wall/mineral,
 /area/iceland_base/outpost/special)
+"tKy" = (
+/obj/structure/flora/grass/icy,
+/turf/closed/mineral/snowmountain/indestructible,
+/area/iceland/underground/safe)
 "tKS" = (
 /obj/machinery/light{
 	dir = 1
@@ -27087,6 +27132,14 @@
 /obj/structure/flora/grass/brown,
 /obj/structure/railing,
 /turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"wGQ" = (
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
 /area/iceland)
 "wGU" = (
 /obj/effect/turf_decal/techfloor,
@@ -29885,7 +29938,7 @@ aCP
 aCP
 aCP
 aCP
-aCP
+rLs
 aJy
 aJy
 aJy
@@ -30142,8 +30195,8 @@ aiC
 aCP
 aCP
 aCP
-abq
-aCP
+rEC
+rLs
 aJy
 aJy
 aJy
@@ -31053,7 +31106,7 @@ aTG
 aPN
 aTG
 aXp
-aKh
+wGQ
 aGA
 aGA
 aiC
@@ -31085,7 +31138,7 @@ aJy
 aJy
 aJy
 aJy
-aCP
+rLs
 amz
 aio
 aQp
@@ -31171,9 +31224,9 @@ ruA
 aiC
 aCP
 adg
-aCP
+aRo
 aSQ
-aCP
+aRo
 aSQ
 aJy
 aJy
@@ -31565,7 +31618,7 @@ apP
 aKh
 kQj
 aKh
-aKh
+wGQ
 apP
 apP
 aGA
@@ -33247,7 +33300,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+qNN
 aNr
 aTG
 aTG
@@ -34502,8 +34555,8 @@ agy
 lTG
 anI
 ahb
-aNg
-aNg
+jex
+kTM
 aaL
 auq
 lTG
@@ -34835,7 +34888,7 @@ aTG
 aTG
 aTG
 aTG
-axk
+aTG
 aTG
 ruA
 aiC
@@ -35332,7 +35385,7 @@ ruA
 ruA
 aTG
 aTG
-axk
+aTG
 aTG
 aTG
 aTG
@@ -35619,15 +35672,15 @@ ruA
 aTG
 aTG
 aTG
-axk
-adV
-adV
 aTG
 adV
 adV
 aTG
+adV
+adV
 aTG
-alT
+aTG
+aiX
 adV
 aYG
 aTG
@@ -36886,7 +36939,7 @@ aTG
 aTG
 anM
 aBk
-axk
+aTG
 aTG
 anM
 anM
@@ -37160,7 +37213,7 @@ aVS
 aTG
 aTG
 aTG
-axk
+aTG
 aTG
 adV
 ruA
@@ -37174,7 +37227,7 @@ aTG
 adV
 aYG
 aYG
-axk
+aTG
 aTG
 aTG
 aTG
@@ -37419,7 +37472,7 @@ adV
 aTG
 aFC
 aTG
-axk
+aTG
 aTG
 ruA
 ruA
@@ -37943,7 +37996,7 @@ aTG
 adV
 aTG
 adV
-ahM
+aTG
 adV
 adV
 aTG
@@ -38447,12 +38500,12 @@ aiC
 ruA
 aTG
 aTG
-aBa
+arI
 aYG
 aGn
 adV
 aYG
-ahM
+adV
 adV
 aTG
 aTG
@@ -41807,7 +41860,7 @@ aTG
 aTG
 aTG
 aTG
-axk
+aTG
 aTG
 aTG
 aTG
@@ -42587,7 +42640,7 @@ alV
 aaO
 aHb
 aCP
-aCP
+rLs
 alV
 alV
 alV
@@ -43808,7 +43861,7 @@ awQ
 tdg
 anN
 ayG
-anN
+dsy
 kbM
 apl
 aID
@@ -43871,10 +43924,10 @@ sdw
 aVS
 aVS
 aPv
-aCP
+rLs
 ejE
 aCP
-aCP
+rLs
 alV
 aJy
 aJy
@@ -44320,7 +44373,7 @@ kbM
 aiA
 kbM
 ybX
-apR
+kgj
 apR
 euQ
 aom
@@ -44887,7 +44940,7 @@ aTG
 aTG
 aTG
 aTG
-axk
+aTG
 aTG
 aTG
 aTG
@@ -51775,7 +51828,7 @@ aCP
 aCP
 axa
 crM
-aCP
+rLs
 aJy
 aiC
 aCP
@@ -54091,7 +54144,7 @@ aJy
 brb
 brb
 ego
-aCP
+rLs
 jMV
 aJy
 aJy
@@ -60152,7 +60205,7 @@ asd
 aGv
 aey
 aCb
-aXl
+oAO
 aez
 alB
 aCX
@@ -63070,7 +63123,7 @@ aHs
 aoI
 aoI
 aoI
-agC
+pNA
 aOM
 ajU
 anM
@@ -67122,7 +67175,7 @@ aiC
 aiC
 tyB
 bPh
-bPh
+ggJ
 bPh
 bPh
 bPh
@@ -72380,7 +72433,7 @@ uxC
 anN
 anN
 aPW
-ayA
+lys
 kbM
 rze
 lnf
@@ -75357,7 +75410,7 @@ aMK
 aHC
 aJB
 aJB
-hyS
+qTx
 apL
 hyS
 awm
@@ -80553,12 +80606,12 @@ aBO
 abq
 aiC
 aiC
-pkd
-pkd
-pkd
-pkd
-pkd
-pkd
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 aiC
 ruA
 ruA
@@ -80809,15 +80862,15 @@ aCP
 aCP
 aiC
 aiC
+aiC
 pkd
 pkd
 pkd
 pkd
 pkd
 pkd
-pkd
-pkd
-pkd
+aiC
+aiC
 aiC
 ruA
 aTG
@@ -81065,6 +81118,8 @@ aCP
 aCP
 aiC
 aiC
+aiC
+aiC
 pkd
 pkd
 pkd
@@ -81073,9 +81128,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -81321,6 +81374,7 @@ aCP
 aSQ
 aCP
 aiC
+aiC
 pkd
 pkd
 pkd
@@ -81332,8 +81386,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -81591,7 +81644,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 ruA
 aTG
 aTG
@@ -81834,6 +81887,7 @@ aCP
 aCP
 aCP
 aiC
+aiC
 pkd
 pkd
 pkd
@@ -81847,8 +81901,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -82091,6 +82144,7 @@ aCP
 aCP
 aCP
 aiC
+aiC
 pkd
 pkd
 pkd
@@ -82105,8 +82159,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -82346,7 +82399,8 @@ aCP
 aCP
 aCP
 aBO
-aSQ
+aYO
+aiC
 aiC
 pkd
 pkd
@@ -82363,8 +82417,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -82622,7 +82675,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 ruA
 aTG
 aTG
@@ -82861,6 +82914,7 @@ aVS
 aVS
 aCP
 aiC
+aiC
 pkd
 pkd
 pkd
@@ -82878,8 +82932,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -83118,6 +83171,7 @@ aQp
 aQp
 aCP
 aiC
+aiC
 pkd
 pkd
 pkd
@@ -83136,8 +83190,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -83395,7 +83448,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 ruA
 aTG
 aTG
@@ -83631,7 +83684,7 @@ aLV
 aTG
 aVS
 aVS
-aVS
+aiC
 aiC
 pkd
 pkd
@@ -83652,7 +83705,7 @@ pOf
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -83887,8 +83940,8 @@ aTG
 aTG
 aTG
 aVS
-aQp
-aVS
+tKy
+aiC
 aiC
 pkd
 pkd
@@ -83909,8 +83962,8 @@ pOf
 pkd
 pkd
 pkd
-pkd
-pkd
+aiC
+aiC
 aiC
 ruA
 aTG
@@ -84144,8 +84197,8 @@ aTG
 aTG
 aTG
 aHj
-aVS
-aVS
+aiC
+aiC
 aiC
 pkd
 pkd
@@ -84168,7 +84221,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 ruA
 aTG
 aTG
@@ -84402,7 +84455,7 @@ aTG
 aTG
 aFC
 aBp
-aTG
+ruA
 ruA
 pkd
 pkd
@@ -84425,7 +84478,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -84683,7 +84736,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 ruA
 aTG
@@ -84917,7 +84970,7 @@ aTG
 aLV
 ruA
 aiC
-pkd
+aiC
 pkd
 pkd
 pkd
@@ -84940,7 +84993,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aiC
 ruA
@@ -85173,7 +85226,7 @@ aHj
 aTG
 aTG
 ruA
-pkd
+aiC
 pkd
 pkd
 pkd
@@ -85197,7 +85250,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aqL
 aiC
@@ -85430,7 +85483,7 @@ aTG
 aTG
 ruA
 aiC
-pkd
+aiC
 pkd
 pkd
 pkd
@@ -85454,7 +85507,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aqL
 aqL
@@ -85687,7 +85740,7 @@ ruA
 ruA
 aiC
 aiC
-pkd
+aiC
 pkd
 pkd
 pkd
@@ -85711,7 +85764,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aqL
 aqL
@@ -85968,7 +86021,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aqL
 aqL
@@ -86225,7 +86278,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aqL
 aqL
@@ -86482,7 +86535,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aqL
 aqL
@@ -86739,7 +86792,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aqL
 aqL
@@ -86992,9 +87045,9 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
-pkd
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -87249,7 +87302,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aiC
 aiC
@@ -87504,8 +87557,8 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
+aiC
+aiC
 aiC
 aiC
 eeQ
@@ -87761,7 +87814,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
+aiC
 aiC
 aiC
 eeQ
@@ -88000,6 +88053,13 @@ aqL
 aqL
 aqL
 aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
+aiC
 pkd
 pkd
 pkd
@@ -88011,14 +88071,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
-pkd
-pkd
-pkd
-pkd
-pkd
-pkd
+aiC
 aiC
 aax
 eeQ
@@ -88257,12 +88310,14 @@ aqL
 aqL
 aqL
 aiC
-pkd
 aiC
 aiC
 aiC
 aiC
 aiC
+aiC
+aiC
+aiC
 pkd
 pkd
 pkd
@@ -88273,9 +88328,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
-pkd
+aiC
 aiC
 eeQ
 eeQ
@@ -88522,6 +88575,7 @@ aCP
 aiC
 aiC
 aiC
+aiC
 pkd
 pkd
 pkd
@@ -88531,8 +88585,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
+aiC
 aiC
 eeQ
 uCK
@@ -88779,6 +88832,8 @@ jPe
 anN
 aCP
 aiC
+aiC
+aiC
 pkd
 pkd
 pkd
@@ -88787,9 +88842,7 @@ pkd
 pkd
 pkd
 pkd
-pkd
-pkd
-pkd
+aiC
 aiC
 eeQ
 uCK
@@ -89424,7 +89477,7 @@ dwE
 xOR
 ezF
 xOR
-aHF
+sTs
 lLx
 avA
 eFV
