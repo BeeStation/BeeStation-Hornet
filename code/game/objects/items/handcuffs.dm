@@ -193,9 +193,7 @@
 	name = "Fleshy binds"
 	desc = "Zipties made of flesh that can be used to restrain temporarily but are destroyed after use."
 	icon_state = "cuff_blood"
-/obj/item/restraints/handcuffs/cable/zipties/blood/attack(mob/living/carbon/C, mob/living/user)
-	. = ..()
-	C.revive(full_heal = 1)
+
 
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."

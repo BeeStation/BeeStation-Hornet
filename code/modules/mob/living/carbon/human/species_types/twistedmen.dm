@@ -45,11 +45,18 @@
 	faction = list("twisted")
 	pass_flags = PASSBLOB //so they can pass through splinter walls
 
-/mob/living/carbon/human/species/twistedmen/Initialize()
+/mob/living/carbon/human/species/twistedmen/Initialize(mob/living/carbon/C)
 	..()
 	deathsound = pick('sound/voice/twisted/twisteddeath_1.ogg',
 					'sound/voice/twisted/twisteddeath_2.ogg',
 					'sound/voice/twisted/twisteddeath_3.ogg')
+
+/mob/living/carbon/human/species/twistedmen/Login()
+	..()
+	if(mind.datum)
+		mind.add_antag_datum(/datum/antagonist/twistedmen)
+	else
+
 
 /datum/species/twistedmen/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()

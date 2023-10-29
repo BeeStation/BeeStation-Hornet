@@ -11,15 +11,9 @@
 	delay_roundend = FALSE
 	count_against_dynamic_roll_chance = FALSE
 	antag_moodlet = /datum/mood_event/twisted_good
-	var/datum/team/twistedmen/twisted_team
+	ui_name = "AntagInfoTwisted"
 
-/datum/antagonist/twistedmen/create_team(datum/team/team)
-	if(team)
-		twisted_team = team
-		objectives |= twisted_team.objectives
-	else
-		twisted_team = new
-
-/datum/antagonist/twistedmen/get_team()
-	return twisted_team
+/datum/antagonist/twistedmen/greet()
+	to_chat(owner, "<span class='boldannounce'>Your primary goal is to raid the crew and abduct victims to sacrifice to Father. Do not go out randomly on your own to die alone. \
+	Head West first and then through the other paths once the crew has progressed far enough. Go and scare the crew! Make the Unshaped proud!.</span>")
 
