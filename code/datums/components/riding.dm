@@ -427,7 +427,7 @@
 			monstertruck.inserted_key = null
 			monstertruck.post_key_removal()
 	if(istype(get_turf(parent),/turf/open/floor/plating/asteroid/snow))
-		vehicle_move_delay = 0.85
+		vehicle_move_delay = 1
 		tileskip = 0
 	else if(tileskip > 2)
 		vehicle_move_delay = 2.5
