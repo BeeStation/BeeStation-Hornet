@@ -166,7 +166,9 @@
 		take_overall_damage(1000) //cheap hack, but it works
 
 /mob/living/simple_animal/hostile/megafauna/harbinger/Life(delta_time)
-	..()
+	. = ..()
+	if(!.)
+		return
 	tether_center.forceMove(loc) //It just works.
 	switch(phase)
 		if(1) //Initial phase, summons aetherials and acts like a basic megafauna
