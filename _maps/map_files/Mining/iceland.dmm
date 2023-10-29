@@ -11395,19 +11395,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
-"aGk" = (
-/obj/item/disk/nuclear{
-	pixel_x = 8;
-	pixel_y = 8;
-	desc = "Even if it doesn't serve much purpose here, it's atleast cozy..."
-	},
-/obj/item/disk/nuclear{
-	pixel_x = 8;
-	pixel_y = 8;
-	desc = "Even if it doesn't serve much purpose here, it's atleast cozy..."
-	},
-/turf/closed/mineral/random/snowmountain,
-/area/iceland/underground/safe)
 "aGl" = (
 /obj/structure/sign/warning{
 	name = "\improper WARNING: ELEVATOR SHAFT"
@@ -59219,7 +59206,7 @@ aJy
 aJy
 aJy
 aJy
-aGk
+aJy
 aJy
 aJy
 aJy
