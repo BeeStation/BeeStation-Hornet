@@ -8155,7 +8155,6 @@
 /area/iceland_base/crew_quarters/bar)
 "awV" = (
 /obj/structure/table/survival_pod,
-/obj/item/key,
 /turf/open/floor/plating,
 /area/iceland/underground/safe)
 "awW" = (
@@ -18505,6 +18504,13 @@
 	heat_capacity = 1e+006
 	},
 /area/iceland_base/outpost/special)
+"bvY" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Control Room";
+	req_access_txt = "19; 61"
+	},
+/turf/open/floor/plating/asteroid/snow/lateopenspace,
+/area/iceland_base/outpost/command)
 "bzl" = (
 /turf/open/floor/engine/light,
 /area/iceland_base/outpost/research)
@@ -18649,12 +18655,6 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/iceland_base/outpost/command)
-"bVf" = (
-/obj/vehicle/ridden/atv{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "bVW" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plasteel/cult,
@@ -18728,12 +18728,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/iceland_base/outpost/command)
-"clJ" = (
-/obj/vehicle/ridden/atv{
-	dir = 4
-	},
-/turf/open/floor/concrete/tiles,
-/area/iceland_base/outpost/garage)
 "cmD" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/indestructible/wall/reinforced,
@@ -20912,10 +20906,6 @@
 	},
 /turf/closed/mineral/snowmountain/indestructible,
 /area/iceland/underground/safe)
-"iFa" = (
-/obj/item/key,
-/turf/open/floor/plating,
-/area/ruin/unpowered/iceland/abandoned_chembase)
 "iFX" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery,
@@ -21112,7 +21102,6 @@
 "jex" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/crowbar,
-/obj/item/key,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
 "jfN" = (
@@ -21467,13 +21456,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/crew)
-"kdM" = (
-/obj/effect/turf_decal/weather/snow,
-/obj/vehicle/ridden/atv{
-	dir = 4
-	},
-/turf/open/floor/concrete,
-/area/iceland/underground/safe)
 "kfe" = (
 /obj/effect/mob_spawn/human/doctor/outpost,
 /turf/open/floor/plasteel/dark,
@@ -23023,10 +23005,6 @@
 /obj/effect/landmark,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
-"nPu" = (
-/obj/item/key,
-/turf/open/floor/plating,
-/area/ruin/unpowered/iceland/abandoned_lpost)
 "nPx" = (
 /obj/machinery/atmospherics/components/unary/heat_exchanger,
 /turf/open/floor/concrete/tiles,
@@ -23538,6 +23516,13 @@
 	dir = 4
 	},
 /area/iceland_base/outpost/office)
+"pdG" = (
+/obj/item/reagent_containers/glass/gascan{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/turf/open/floor/plating/ice/smooth,
+/area/iceland/underground/safe)
 "pgC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -24679,12 +24664,6 @@
 /obj/structure/closet,
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/garage)
-"rIP" = (
-/obj/vehicle/ridden/atv{
-	dir = 1
-	},
-/turf/open/floor/plating/snowed,
-/area/ruin/unpowered/iceland/abandoned_lpost)
 "rIR" = (
 /obj/structure/stairs{
 	dir = 8
@@ -26123,7 +26102,6 @@
 "vVF" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/welding,
-/obj/item/key,
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/garage)
 "vWh" = (
@@ -26214,13 +26192,6 @@
 	},
 /turf/open/floor/plating,
 /area/iceland_base/outpost/office)
-"whM" = (
-/obj/structure/flora/grass/icy,
-/obj/vehicle/ridden/atv{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "whT" = (
 /obj/effect/turf_decal/techfloor,
 /obj/effect/turf_decal/weather/snow,
@@ -36291,7 +36262,7 @@ rnx
 iaU
 rnx
 xrd
-whM
+aLV
 aTG
 aTG
 aTG
@@ -59772,7 +59743,7 @@ aIL
 aJK
 aut
 pDk
-nPu
+aCV
 aQS
 aDz
 avF
@@ -60537,7 +60508,7 @@ adV
 azm
 aDQ
 azm
-rIP
+azm
 aeW
 azm
 dbQ
@@ -63662,7 +63633,7 @@ cUw
 cUw
 cUw
 cUw
-cUw
+bvY
 cmD
 lnI
 mJS
@@ -66485,7 +66456,7 @@ aBc
 bPo
 wsh
 pSD
-clJ
+pSD
 pSD
 vOm
 yiD
@@ -69623,7 +69594,7 @@ aTG
 aDZ
 aTG
 aLa
-bVf
+aTG
 aTG
 aib
 ueo
@@ -71888,7 +71859,7 @@ aiC
 ajk
 ahu
 auR
-kdM
+oey
 agO
 ajk
 aiC
@@ -90154,7 +90125,7 @@ amk
 awF
 aDH
 aeX
-aFb
+pdG
 aEK
 aeX
 arX
@@ -90440,7 +90411,7 @@ aBy
 dwE
 lLx
 lLx
-iFa
+sTs
 aTl
 dwE
 aBy
