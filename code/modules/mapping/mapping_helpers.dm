@@ -354,6 +354,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 
 /obj/effect/mapping_helpers/virtual_z_helper/Destroy(force)
 	GLOB.virtual_z_helpers -= src
+	return ..()
 
 /turf/open/floor/plating/asteroid/snow/lateopenspace
 	name = "Late Open Space"
