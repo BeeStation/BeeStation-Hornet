@@ -352,6 +352,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 			qdel(V)
 			qdel(src)
 
+/obj/effect/mapping_helpers/virtual_z_helper/Destroy(force)
+	GLOB.virtual_z_helpers -= src
+
 /turf/open/floor/plating/asteroid/snow/lateopenspace
 	name = "Late Open Space"
 	desc = "Debug reasons"
