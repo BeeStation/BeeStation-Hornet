@@ -20417,10 +20417,7 @@
 /area/iceland/underground/safe)
 "gUp" = (
 /obj/effect/turf_decal/techfloor{
-	dir = 8
-	},
-/obj/effect/turf_decal/techfloor{
-	dir = 1
+	dir = 9
 	},
 /turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
@@ -25438,6 +25435,12 @@
 /obj/effect/mob_spawn/human/doctor/outpost,
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/hangar)
+"tVz" = (
+/obj/effect/turf_decal/techfloor{
+	dir = 5
+	},
+/turf/open/floor/plating/asteroid/snow/loose,
+/area/iceland)
 "tWU" = (
 /obj/effect/loot_jobscale/armoury/riot_shotgun,
 /turf/open/floor/plating/asteroid/snow/loose,
@@ -26300,9 +26303,8 @@
 /area/iceland_base/outpost/research)
 "wzg" = (
 /obj/effect/turf_decal/techfloor{
-	dir = 8
+	dir = 10
 	},
-/obj/effect/turf_decal/techfloor,
 /turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland)
 "wzp" = (
@@ -36484,7 +36486,7 @@ aJy
 aJy
 aJy
 aJy
-aJy
+aiC
 aiC
 ruA
 adV
@@ -36740,9 +36742,9 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
 aiC
 ruA
 ruA
@@ -36996,10 +36998,10 @@ aJy
 aJy
 aJy
 aJy
-aJy
-aJy
-aJy
-aJy
+aiC
+aiC
+aiC
+aiC
 aiC
 aiC
 aiC
@@ -37253,7 +37255,7 @@ aiC
 aJy
 aJy
 aJy
-aJy
+aiC
 aiC
 aiC
 aiC
@@ -54657,7 +54659,7 @@ aKh
 aKh
 xKM
 ajU
-jBr
+tVz
 jBr
 jBr
 jBr
@@ -69001,10 +69003,10 @@ aiU
 dwE
 aiC
 aiC
-aEK
-aEK
-aEK
-aEK
+aDb
+aDb
+aDb
+aDb
 aiC
 aiC
 aiC
@@ -69257,10 +69259,10 @@ aEJ
 aem
 dwE
 aiC
-aEK
-aEK
-aEK
-aEK
+aiC
+aDb
+aDb
+aDb
 aiC
 aiC
 aiC
@@ -69514,9 +69516,9 @@ aki
 lVQ
 dwE
 aiC
-aEK
-aEK
-aEK
+aiC
+aiC
+aDb
 aiC
 aiC
 aiC
