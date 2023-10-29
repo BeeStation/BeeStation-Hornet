@@ -1,3 +1,4 @@
+//Ashstorming sounds
 /datum/looping_sound/active_outside_ashstorm
 	mid_sounds = list(
 		'sound/weather/ashstorm/outside/active_mid1.ogg'=1,
@@ -45,6 +46,7 @@
 	start_length = 130
 	end_sound = 'sound/weather/ashstorm/inside/weak_end.ogg'
 	volume = 30
+//Voidstorming sounds
 
 /datum/looping_sound/void_loop
 	mid_sounds = list('sound/ambience/VoidsEmbrace.ogg'=1)
