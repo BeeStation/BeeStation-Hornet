@@ -4305,7 +4305,6 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "cnl" = (
-/obj/effect/landmark/xeno_spawn,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -11106,7 +11105,6 @@
 /obj/effect/spawner/lootdrop/minor/pirate_or_bandana,
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "glm" = (
@@ -27931,7 +27929,6 @@
 /area/hallway/primary/starboard)
 "pOx" = (
 /obj/machinery/power/terminal,
-/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "pOI" = (
@@ -28014,10 +28011,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
-"pQJ" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "pRb" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -29535,14 +29528,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"qLu" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 8
-	},
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "qLx" = (
 /obj/machinery/gulag_teleporter,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -30302,13 +30287,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"rgc" = (
-/obj/effect/landmark/xeno_spawn,
-/obj/effect/turf_decal/tile/purple/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/department/science)
 "rgA" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/yellow{
@@ -30368,11 +30346,6 @@
 /obj/machinery/iv_drip,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
-"rig" = (
-/obj/structure/bed/dogbed,
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
-/area/crew_quarters/fitness/recreation)
 "riv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -34000,11 +33973,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"ttf" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
-/area/maintenance/starboard/central)
 "ttB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -68820,7 +68788,7 @@ bKV
 fNm
 vun
 mhf
-rgc
+cmY
 cKw
 lao
 iOB
@@ -69101,7 +69069,7 @@ coK
 xCg
 llY
 iOL
-rig
+aar
 pTe
 rXb
 htA
@@ -84778,7 +84746,7 @@ nUv
 pLJ
 bIF
 bIF
-qLu
+bIF
 bIF
 hnh
 pLJ
@@ -86322,7 +86290,7 @@ nAK
 pLJ
 pLJ
 pLJ
-pQJ
+pLJ
 pLJ
 kfy
 kfy
@@ -89137,7 +89105,7 @@ bfm
 tHO
 cOV
 xBm
-ttf
+unf
 cSs
 aMT
 aMT
