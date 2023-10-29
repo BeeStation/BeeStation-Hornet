@@ -152,7 +152,7 @@
 	name = "prepackaged donut"
 	desc = "A mass produced donut, goes great with a cup of coffee."
 	icon_state = "donut"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sprinkles = 1, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/maltodextrin = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sprinkles = 1, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/maltodextrin = 3.65)
 
 //////////////////////JELLY DONUTS/////////////////////////
 
@@ -462,7 +462,7 @@
 	name = "\improper Donk-pocket"
 	desc = "The food of choice for the seasoned traitor."
 	icon_state = "donkpocket"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/maltodextrin = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/maltodextrin = 4)
 	cooked_type = /obj/item/reagent_containers/food/snacks/donkpocket/warm
 	filling_color = "#CD853F"
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
@@ -483,7 +483,7 @@
 	name = "\improper Dank-pocket"
 	desc = "The food of choice for the seasoned botanist."
 	icon_state = "dankpocket"
-	list_reagents = list(/datum/reagent/toxin/lipolicide = 3, /datum/reagent/drug/space_drugs = 3, /datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/maltodextrin = 2)
+	list_reagents = list(/datum/reagent/toxin/lipolicide = 3, /datum/reagent/drug/space_drugs = 3, /datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/maltodextrin = 4)
 	cooked_type = /obj/item/reagent_containers/food/snacks/donkpocket/dank/warm
 	filling_color = "#00FF00"
 	tastes = list("meat" = 2, "dough" = 2, "cannabis" = 2)
@@ -494,7 +494,7 @@
 	desc = "The food of choice for the baked botanist."
 	icon_state = "dankpocket"
 	bonus_reagents = list(/datum/reagent/medicine/omnizine = 1, /datum/reagent/drug/space_drugs = 2)
-	list_reagents = list(/datum/reagent/toxin/lipolicide = 3, /datum/reagent/drug/space_drugs = 3, /datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/maltodextrin = 2)
+	list_reagents = list(/datum/reagent/toxin/lipolicide = 3, /datum/reagent/drug/space_drugs = 3, /datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/maltodextrin = 4)
 	cooked_type = null
 	tastes = list("meat" = 2, "dough" = 2, "cannabis" = 2)
 	foodtype = GRAIN | VEGETABLES
