@@ -7865,6 +7865,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/landmark,
+/obj/effect/landmark,
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
 "awh" = (
@@ -8153,6 +8155,7 @@
 /area/iceland_base/crew_quarters/bar)
 "awV" = (
 /obj/structure/table/survival_pod,
+/obj/item/key,
 /turf/open/floor/plating,
 /area/iceland/underground/safe)
 "awW" = (
@@ -18646,6 +18649,12 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/iceland_base/outpost/command)
+"bVf" = (
+/obj/vehicle/ridden/atv{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "bVW" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plasteel/cult,
@@ -18719,6 +18728,12 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/iceland_base/outpost/command)
+"clJ" = (
+/obj/vehicle/ridden/atv{
+	dir = 4
+	},
+/turf/open/floor/concrete/tiles,
+/area/iceland_base/outpost/garage)
 "cmD" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/indestructible/wall/reinforced,
@@ -18892,6 +18907,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
+/obj/effect/landmark,
 /turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "cHd" = (
@@ -20618,6 +20634,10 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
+"hCF" = (
+/obj/effect/landmark,
+/turf/open/floor/plating/snowed,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "hFJ" = (
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/open/floor/plating/asteroid/snow/loose,
@@ -20888,6 +20908,10 @@
 	},
 /turf/closed/mineral/snowmountain/indestructible,
 /area/iceland/underground/safe)
+"iFa" = (
+/obj/item/key,
+/turf/open/floor/plating,
+/area/ruin/unpowered/iceland/abandoned_chembase)
 "iFX" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery,
@@ -21084,6 +21108,7 @@
 "jex" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/crowbar,
+/obj/item/key,
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
 "jfN" = (
@@ -21438,6 +21463,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/crew)
+"kdM" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/vehicle/ridden/atv{
+	dir = 4
+	},
+/turf/open/floor/concrete,
+/area/iceland/underground/safe)
 "kfe" = (
 /obj/effect/mob_spawn/human/doctor/outpost,
 /turf/open/floor/plasteel/dark,
@@ -21874,6 +21906,10 @@
 	dir = 10
 	},
 /area/iceland_base/outpost/hangar)
+"laN" = (
+/obj/effect/landmark,
+/turf/open/floor/plating,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "lbB" = (
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/decal/cleanable/dirt,
@@ -22977,6 +23013,14 @@
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered/iceland/abandoned_hut)
+"nOa" = (
+/obj/effect/landmark,
+/turf/open/floor/wood,
+/area/ruin/unpowered/iceland/abandoned_hut)
+"nPu" = (
+/obj/item/key,
+/turf/open/floor/plating,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "nPx" = (
 /obj/machinery/atmospherics/components/unary/heat_exchanger,
 /turf/open/floor/concrete/tiles,
@@ -23448,6 +23492,10 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/outpost/command)
+"oYV" = (
+/obj/effect/landmark,
+/turf/open/floor/concrete/tiles,
+/area/iceland_base/outpost/garage)
 "oZg" = (
 /obj/machinery/newscaster{
 	pixel_y = 31
@@ -24615,6 +24663,12 @@
 /obj/structure/closet,
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/garage)
+"rIP" = (
+/obj/vehicle/ridden/atv{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "rIR" = (
 /obj/structure/stairs{
 	dir = 8
@@ -24807,6 +24861,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/crew)
+"shs" = (
+/obj/effect/landmark,
+/turf/open/floor/plating,
+/area/ruin/unpowered/iceland/abandoned_chembase)
 "sjb" = (
 /obj/effect/mob_spawn/human/doctor/outpost,
 /turf/open/floor/plating/asteroid/snow/loose,
@@ -26025,6 +26083,7 @@
 "vVF" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/welding,
+/obj/item/key,
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/garage)
 "vWh" = (
@@ -26115,6 +26174,13 @@
 	},
 /turf/open/floor/plating,
 /area/iceland_base/outpost/office)
+"whM" = (
+/obj/structure/flora/grass/icy,
+/obj/vehicle/ridden/atv{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "whT" = (
 /obj/effect/turf_decal/techfloor,
 /obj/effect/turf_decal/weather/snow,
@@ -26676,6 +26742,10 @@
 /obj/structure/splinter_wall,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"xqw" = (
+/obj/effect/landmark,
+/turf/open/floor/concrete/slab,
+/area/iceland_base/outpost/garage)
 "xqM" = (
 /turf/closed/wall/r_wall,
 /area/iceland_base/command/chief)
@@ -26685,6 +26755,10 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"xrj" = (
+/obj/effect/landmark,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/iceland/crashlanded_shuttle)
 "xtt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
@@ -34612,7 +34686,7 @@ aLV
 lTG
 oxp
 oxp
-aHH
+nOa
 lTG
 aMU
 aeU
@@ -36159,7 +36233,7 @@ rnx
 iaU
 rnx
 xrd
-aLV
+whM
 aTG
 aTG
 aTG
@@ -59640,7 +59714,7 @@ aIL
 aJK
 aut
 azm
-aCV
+nPu
 aQS
 aDz
 avF
@@ -60405,7 +60479,7 @@ adV
 azm
 aDQ
 azm
-azm
+rIP
 aeW
 azm
 dbQ
@@ -60414,7 +60488,7 @@ aDz
 azm
 aCV
 azm
-aCV
+laN
 aDz
 aEm
 aiC
@@ -60667,7 +60741,7 @@ azm
 azm
 aeK
 ane
-azm
+hCF
 fTB
 aCV
 azm
@@ -66097,8 +66171,8 @@ bPo
 vOm
 pSD
 pSD
-pSD
-vOm
+oYV
+xqw
 jjg
 rHZ
 brx
@@ -66353,7 +66427,7 @@ aBc
 bPo
 wsh
 pSD
-pSD
+clJ
 pSD
 vOm
 yiD
@@ -69491,7 +69565,7 @@ aTG
 aDZ
 aTG
 aLa
-aTG
+bVf
 aTG
 aib
 ueo
@@ -71616,7 +71690,7 @@ amj
 aMK
 aij
 aXn
-hyS
+xrj
 aSo
 aJB
 aTh
@@ -71756,7 +71830,7 @@ aiC
 ajk
 ahu
 auR
-oey
+kdM
 agO
 ajk
 aiC
@@ -74960,7 +75034,7 @@ aLh
 ill
 aqt
 aMK
-hyS
+xrj
 hyS
 xuc
 xuc
@@ -90050,7 +90124,7 @@ aBy
 aBy
 dwE
 ezF
-sTs
+shs
 ate
 auk
 dwE
@@ -90308,7 +90382,7 @@ aBy
 dwE
 lLx
 lLx
-sTs
+iFa
 aTl
 dwE
 aBy
