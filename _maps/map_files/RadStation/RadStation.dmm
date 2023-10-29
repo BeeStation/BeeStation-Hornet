@@ -907,6 +907,13 @@
 /obj/structure/spacevine,
 /turf/open/floor/plasteel,
 /area/archmundi/hydroponics)
+"asX" = (
+/obj/item/paper/crumpled/bloody/docsdeathnote{
+	name = "Red Mother watches over us";
+	default_raw_text = "Submit yourself to your Harbinger, and the Red Mother will smile upon you. Be remade as they all were, as your friends were and as you will soon. <br> After all, this is why you walked all this way isn't it? To server her as we served her? <br> Now, shed your fears, and walk forward with your sacrifices. <br> **<center>  I AWAIT </center>** <br><br> *NARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNANARSIE VIVIT AETERNA*"
+	},
+/turf/open/floor/plasteel/cult,
+/area/archmundi/ritual_site)
 "ate" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -6369,13 +6376,6 @@
 /area/archmundi/hallway/secondary/exit/departure_lounge)
 "cFt" = (
 /obj/effect/decal/event_decal/grey,
-/obj/structure/destructible/event_pylon{
-	damage_radius = 2;
-	mob_spawn_chance = 0;
-	mobs_to_spawn = 0;
-	name = "damaging pylon";
-	pixel_y = 6
-	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/ritual_site)
@@ -8758,13 +8758,6 @@
 /area/archmundi/ritual_site)
 "dFa" = (
 /obj/effect/decal/event_decal/silver,
-/obj/structure/destructible/event_pylon{
-	damage_radius = 2;
-	mob_spawn_chance = 0;
-	mobs_to_spawn = 0;
-	name = "damaging pylon";
-	pixel_y = 6
-	},
 /obj/structure/fans/tiny/invisible,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plasteel/cult,
@@ -9037,13 +9030,6 @@
 /area/archmundi/security/prison)
 "dJS" = (
 /obj/effect/decal/event_decal/dark_purple,
-/obj/structure/destructible/event_pylon{
-	damage_radius = 2;
-	mob_spawn_chance = 0;
-	mobs_to_spawn = 0;
-	name = "damaging pylon";
-	pixel_y = 6
-	},
 /obj/structure/fans/tiny/invisible,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plasteel/cult,
@@ -9825,13 +9811,6 @@
 /area/archmundi/medical/chemistry)
 "ebv" = (
 /obj/effect/decal/event_decal/pink,
-/obj/structure/destructible/event_pylon{
-	damage_radius = 2;
-	mob_spawn_chance = 0;
-	mobs_to_spawn = 0;
-	name = "damaging pylon";
-	pixel_y = 6
-	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plasteel/cult,
 /area/archmundi/ritual_site)
@@ -36552,6 +36531,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/archmundi/crew_quarters/cafeteria)
+"oYn" = (
+/obj/effect/loot_jobscale/medical/first_aid_kit,
+/turf/open/floor/plasteel/cult,
+/area/archmundi/ritual_hall)
 "oYr" = (
 /obj/item/pipe/directional{
 	dir = 8;
@@ -91051,7 +91034,7 @@ gog
 cUg
 hyL
 xtK
-hyL
+asX
 fcF
 fcF
 jPL
@@ -91304,7 +91287,7 @@ gog
 gog
 wVX
 wAP
-cUg
+oYn
 cUg
 cnt
 hyL
@@ -91558,7 +91541,7 @@ xYL
 fmy
 gog
 gog
-cUg
+oYn
 cUg
 cUg
 cUg
@@ -91814,10 +91797,10 @@ fmy
 gog
 gog
 gog
+oYn
 cUg
 cUg
-cUg
-cUg
+oYn
 gog
 gog
 xUD
