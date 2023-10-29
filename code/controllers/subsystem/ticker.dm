@@ -119,11 +119,7 @@ SUBSYSTEM_DEF(ticker)
 				continue
 		music -= S
 
-	if(!length(music))
-		music = world.file2list(ROUND_START_MUSIC_LIST, "\n")
-		login_music = pick(music)
-	else
-		login_music = "[global.config.directory]/title_music/sounds/[pick(music)]"
+	login_music = "sound/ambience/AmbientMain1LOUDER.ogg"
 
 
 	if(!GLOB.syndicate_code_phrase)
