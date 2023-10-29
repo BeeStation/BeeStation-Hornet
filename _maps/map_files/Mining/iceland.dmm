@@ -378,10 +378,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
-"aaX" = (
-/obj/item/supplypod_beacon,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "aaY" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
 	height = 4;
@@ -1748,6 +1744,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow,
+/mob/living/simple_animal/hostile/latcher,
 /turf/open/floor/concrete,
 /area/iceland/underground/safe)
 "aeH" = (
@@ -4865,12 +4862,6 @@
 	},
 /turf/open/floor/concrete/slab,
 /area/iceland_base/hallway_command)
-"anq" = (
-/obj/structure/flora/tree/dead,
-/obj/structure/flora/grass/both,
-/obj/structure/flora/bush,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "anr" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/brown{
@@ -13750,6 +13741,12 @@
 "aMe" = (
 /obj/machinery/airalarm/directional/south,
 /obj/machinery/light,
+/obj/structure/closet/crate/secure/gear,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "aMf" = (
@@ -18402,6 +18399,12 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot_white,
+/obj/structure/closet/crate/secure/gear,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "aZa" = (
@@ -19028,6 +19031,15 @@
 	},
 /turf/open/floor/concrete/tiles,
 /area/iceland_base/outpost/hangar)
+"bHe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/down,
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland/underground/safe)
 "bHG" = (
 /obj/structure/flora/splinter_bush,
 /obj/structure/flora/grass/both,
@@ -19215,14 +19227,6 @@
 /obj/effect/spawner/lootdrop/ruinloot/basic,
 /turf/open/floor/carpet/royalblack,
 /area/iceland_base/outpost/entrance)
-"crM" = (
-/obj/effect/aetherial_spawner,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/iceland/underground/safe)
 "crS" = (
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
@@ -20506,6 +20510,11 @@
 	},
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
+"fqg" = (
+/obj/structure/flora/grass/green,
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "fqL" = (
 /obj/item/stack/sheet/mineral/diamond,
 /obj/item/stack/sheet/mineral/diamond,
@@ -20653,6 +20662,11 @@
 	slowdown = 1
 	},
 /area/iceland/underground/safe)
+"fMb" = (
+/obj/effect/turf_decal/weather/snow,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "fMF" = (
 /obj/structure/table,
 /obj/machinery/computer/fluff/old{
@@ -21093,6 +21107,10 @@
 /obj/structure/flora/grass/green,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"hlp" = (
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plating/snowed/smoothed,
+/area/iceland)
 "hmu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -21481,14 +21499,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/office)
-"iEb" = (
-/obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/iceland)
 "iEc" = (
 /obj/structure/iceland_beacon{
 	gps = ForwardBaseCharlie
@@ -22139,6 +22149,11 @@
 /obj/effect/decal/cleanable/blood/rune,
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
+"kgL" = (
+/obj/structure/flora/grass/both,
+/obj/effect/turf_decal/weather/snow,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "kgZ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -22399,11 +22414,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/research)
-"kLd" = (
-/obj/structure/flora/grass/both,
-/obj/effect/aetherial_spawner,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "kNJ" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/concrete/slab,
@@ -22493,6 +22503,21 @@
 	dir = 1
 	},
 /area/iceland_base/outpost/command)
+"kXt" = (
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	picked_color = "Burgundy"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/iceland)
 "kYp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/robot_debris,
@@ -22571,6 +22596,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/crew)
+"lhn" = (
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plating/asteroid/snow,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "lhF" = (
 /obj/structure/table/wood,
 /obj/machinery/light{
@@ -23130,6 +23159,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/entrance)
+"muX" = (
+/obj/structure/flora/grass/both,
+/obj/structure/flora/tree/dead,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "mvQ" = (
 /obj/machinery/computer/fluff{
 	dir = 1
@@ -23415,6 +23449,19 @@
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
+"nfS" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/structure/closet/crate/secure/gear,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/structure/closet/crate/secure/gear,
+/turf/open/floor/plasteel/dark,
+/area/iceland_base/security)
 "nhr" = (
 /obj/structure/flora/stump,
 /obj/structure/flora/grass/both,
@@ -23662,6 +23709,10 @@
 	},
 /turf/open/floor/plating,
 /area/iceland_base/outpost/office)
+"nSc" = (
+/mob/living/simple_animal/hostile/latcher,
+/turf/open/floor/plating/snowed/smoothed,
+/area/ruin/powered/iceland/gate/boreal)
 "nSr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark/side{
@@ -23742,6 +23793,12 @@
 /obj/machinery/newscaster{
 	pixel_y = -28
 	},
+/obj/structure/closet/crate/secure/gear,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
+/obj/item/gun/energy/laser/repeater,
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/security)
 "oey" = (
@@ -24873,11 +24930,6 @@
 	picked_color = "Burgundy"
 	},
 /turf/open/floor/plasteel/dark/snowdin,
-/area/iceland)
-"qsh" = (
-/obj/effect/aetherial_spawner,
-/obj/structure/flora/grass/both,
-/turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "qsS" = (
 /obj/machinery/light/very_dim{
@@ -27206,6 +27258,10 @@
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/concrete,
 /area/iceland)
+"wQw" = (
+/mob/living/simple_animal/hostile/ambush,
+/turf/open/floor/plating/snowed,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "wSi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -27482,6 +27538,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/iceland_base/outpost/office)
+"xzJ" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "xAz" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/decal/cleanable/blood/old{
@@ -28691,7 +28751,7 @@ aiC
 aeJ
 aiC
 aiC
-aCP
+aTX
 axa
 abq
 aiC
@@ -28947,8 +29007,8 @@ aiC
 aiC
 aCP
 aCP
-aSQ
-aCP
+bHe
+gUK
 avy
 aCP
 aqo
@@ -29542,7 +29602,7 @@ aCP
 aCP
 aCP
 aCP
-aCP
+gUK
 aiC
 aiC
 aiC
@@ -32623,7 +32683,7 @@ anN
 aqn
 aTt
 anN
-anN
+alD
 anN
 aJy
 aJy
@@ -40950,7 +41010,7 @@ aTG
 aKJ
 aWj
 aTG
-aTG
+evi
 aTG
 aTG
 aTG
@@ -47437,7 +47497,7 @@ aTG
 aKJ
 ajf
 aTG
-aTG
+aUh
 aTG
 aDT
 aKJ
@@ -47450,12 +47510,12 @@ aLV
 aLV
 aTG
 aTG
-aTG
-aTG
+aLV
+aUh
 aTG
 aLV
 aLV
-aTG
+aUh
 aTG
 aTG
 aTG
@@ -47690,15 +47750,15 @@ aTG
 aTG
 aTG
 anM
-aTG
+aUh
 aKJ
 aKJ
 aTG
 aTG
+aLV
 aTG
 aTG
-aTG
-aTG
+aUh
 aKJ
 aTG
 aKJ
@@ -47710,11 +47770,11 @@ aKJ
 aTG
 arI
 aLV
-aTG
+aKJ
 arI
-aTG
-aTG
-aTG
+aKJ
+aYV
+aKJ
 aTG
 aTG
 aTG
@@ -47947,28 +48007,28 @@ aTG
 aTG
 aUh
 anM
-aTG
+kgL
 ajf
 aKJ
 aLV
+aKJ
 aTG
-aTG
-aTG
+ahS
 aKJ
 aKJ
 aKJ
 aKJ
 ajf
-aTG
-aTG
+ahS
+aKJ
 aLV
 aTG
 aKJ
 aKJ
+anM
+hqN
 aTG
 aTG
-aTG
-aUh
 aTG
 aTG
 aTG
@@ -48204,33 +48264,33 @@ aKJ
 aKJ
 aLa
 anM
+xKM
+xKM
+ajU
+xKM
+anM
+xKM
+ajU
+xKM
+ajU
+ajU
+xKM
+xKM
+xKM
+anM
+anM
+xKM
+ajU
+xKM
+ajU
+ajU
+xKM
+xKM
+xKM
+xKM
+ajU
 aTG
-anq
 aTG
-aTG
-aLV
-aTG
-aUh
-aLV
-aTG
-aUh
-ajf
-aTG
-aTG
-aTG
-aTG
-aTG
-aTG
-aUh
-aaV
-aKJ
-aTG
-aKJ
-aKJ
-aKJ
-aKJ
-aLV
-aLV
 aTG
 aTG
 aLV
@@ -48304,7 +48364,7 @@ aCP
 aCP
 aQA
 aSQ
-aCP
+ejE
 aJy
 aJy
 aJy
@@ -48460,27 +48520,27 @@ aTG
 aTG
 aTG
 aKJ
+hqN
+xKM
+ajU
+xKM
+ajU
+ajU
+ajU
 anM
-aKJ
-aKJ
-aKJ
-aTG
-aTG
-aTG
-aTG
-aTG
+ajU
 aKh
 aKh
 aKh
+ajU
+ajU
+xKM
+ajU
+xKM
 aKh
 aKh
-aTG
-aTG
+aKh
 okq
-aKh
-aKh
-aKh
-aTG
 aKh
 aTG
 aKh
@@ -48717,15 +48777,15 @@ aKJ
 aKJ
 aUh
 aKJ
-aTG
 aKJ
-aTG
-aTG
+ajU
+amf
+aKJ
 aUh
 aTG
 aKh
 aTG
-aPN
+anM
 qbN
 aKh
 qbN
@@ -48974,15 +49034,15 @@ aTG
 aTG
 aTG
 aTG
+muX
+ajU
 aKJ
-aDT
+ajf
 aKJ
 aKJ
-aKJ
-aTG
 aKh
 aTG
-aTG
+ajU
 aKh
 aKh
 aKh
@@ -49232,14 +49292,14 @@ aUh
 aTG
 aKJ
 xKM
-ajf
+ajU
 ajf
 aKJ
 aKJ
 aKh
 aTG
 aKh
-aKh
+ajU
 aKh
 aKh
 aKh
@@ -49490,13 +49550,13 @@ aKJ
 aqR
 xKM
 xKM
-aTG
+aKJ
 aTG
 aDT
 aTG
 aTG
 aKh
-aKh
+ajU
 aKh
 aKh
 aKh
@@ -50089,7 +50149,7 @@ aJy
 aJy
 aJy
 abq
-crM
+aCP
 aCP
 aiC
 aiC
@@ -50516,7 +50576,7 @@ aJy
 aJy
 aYc
 aYc
-aTG
+ahS
 xKM
 prE
 aDT
@@ -51879,7 +51939,7 @@ aJy
 aCP
 aCP
 axa
-crM
+aCP
 rLs
 aJy
 aiC
@@ -52596,7 +52656,7 @@ aKh
 aKh
 aKh
 ghK
-ajU
+xKM
 aKh
 aKh
 aKh
@@ -52651,7 +52711,7 @@ aiC
 aiC
 aJy
 aCP
-aCP
+ejE
 aiC
 aiC
 aCP
@@ -54631,7 +54691,7 @@ anM
 anM
 hqN
 aaW
-aTG
+fMb
 anM
 aKh
 aKh
@@ -54888,11 +54948,11 @@ aHQ
 aHQ
 aGE
 avp
-anM
-aKh
-aKh
-aKh
-aKh
+xKM
+xKM
+xKM
+ajU
+ajU
 anM
 ofI
 aKh
@@ -55145,11 +55205,11 @@ anM
 anM
 anM
 anM
-anM
+hqN
 aKh
 aKh
 aKh
-aKh
+xKM
 anM
 ofI
 aKh
@@ -55398,15 +55458,15 @@ aTG
 aTG
 aTG
 aTG
-aTG
-aTG
 anM
 anM
+anM
+aTG
 aKh
 aKh
 aKh
 aKh
-aKh
+xKM
 ajU
 jBr
 jBr
@@ -55653,17 +55713,17 @@ auE
 aTG
 aTG
 aTG
-aTG
-aHj
-aTG
-aTG
-aTG
+ajU
 uQT
 ajU
 uOi
+aTG
+aTG
+aTG
 aKh
 aKh
 aKh
+xKM
 anM
 anM
 ajU
@@ -55910,34 +55970,34 @@ aaC
 aQy
 aTG
 aTG
-aTG
-aTG
-aTG
-aTG
-aTG
+ajU
 jzX
 mnN
 fCl
+aTG
+aTG
+aTG
+aKh
 jun
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
-aKh
+kXt
+ajU
+xKM
+ajU
+xKM
+xKM
+ajU
+ajU
+xKM
+xKM
+xKM
+xKM
+xKM
+ajU
+xKM
+xKM
+xKM
+ajU
+xKM
 aKh
 aKh
 aTG
@@ -56167,34 +56227,34 @@ aTb
 ame
 aTG
 aTG
-aTG
-aTG
-aKJ
-aTG
-aHj
+ajU
 wnk
 heB
-ajU
-aKh
-iEb
-aKh
+xzJ
 aTG
-aKh
-aKh
+aTG
 aTG
 aKh
 aKh
 aKh
 aKh
+aTG
+kXt
+aKh
+aTG
+aKh
+aKh
+kXt
 aKh
 aKh
 aKh
 aKh
+kXt
 aKh
 aKh
 aKh
 aKh
-aKh
+kXt
 aKh
 aKh
 aKh
@@ -56424,14 +56484,14 @@ afO
 aMD
 ahS
 aTG
-aaX
-aUh
-aTG
-aTG
-aKJ
+ajU
 heB
 heB
 nIk
+aTG
+aTG
+aTG
+aKh
 aKh
 aTG
 aTG
@@ -56681,14 +56741,14 @@ anH
 aBe
 aTG
 aTG
-aKJ
-aTG
-aTG
-aBp
 aTG
 aBp
 oye
 bHT
+aTG
+aTG
+aTG
+aKh
 aKh
 aKh
 aKh
@@ -57056,7 +57116,7 @@ ruA
 aTG
 aDF
 aTG
-qsh
+aKJ
 aKJ
 aPR
 aBp
@@ -57203,7 +57263,7 @@ aTG
 aTG
 aTG
 aUh
-aTG
+aPN
 aTG
 aTG
 aTG
@@ -57311,7 +57371,7 @@ aiC
 ruA
 arI
 atM
-arI
+fqg
 aTG
 arI
 arI
@@ -57708,7 +57768,7 @@ aFu
 avo
 avw
 anQ
-aJk
+nfS
 aYs
 ahS
 aTG
@@ -58071,7 +58131,7 @@ aiC
 ruA
 aTG
 aet
-aTG
+evi
 aKJ
 aKJ
 aKJ
@@ -58342,11 +58402,11 @@ aTG
 anM
 anM
 aTG
-anM
+hlp
 aTG
 aTG
 aKJ
-kLd
+aKJ
 aBp
 aKJ
 aYc
@@ -59096,7 +59156,7 @@ aKJ
 aTG
 aTG
 aFC
-qGP
+aTG
 aTG
 aTG
 aTG
@@ -60915,7 +60975,7 @@ azm
 aDz
 aga
 aTa
-azm
+wQw
 aam
 aGB
 aBH
@@ -61418,10 +61478,10 @@ aTG
 aet
 aBp
 aet
-qGP
+aTG
 ajU
 aIL
-aAz
+lhn
 azm
 aIL
 azm
@@ -61902,7 +61962,7 @@ aKJ
 arI
 aOX
 aTG
-qGP
+aTG
 ruA
 ruA
 ruA
@@ -64225,7 +64285,7 @@ aTG
 aPN
 aTG
 aTG
-aTG
+evi
 aTG
 ruA
 aiC
@@ -66972,7 +67032,7 @@ tyB
 aVs
 bPh
 bPh
-bPh
+nSc
 bPh
 bPh
 aVs
@@ -69761,7 +69821,7 @@ aiC
 aiC
 aiC
 ruA
-aTG
+evi
 aTG
 aBp
 aDZ
@@ -74365,7 +74425,7 @@ aBp
 aPN
 aTG
 aHj
-aTG
+evi
 aTG
 aLV
 aTG
@@ -77854,7 +77914,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+evi
 aTG
 aTG
 aTG
@@ -78087,7 +78147,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+ivK
 aTG
 nCD
 aBp
@@ -78155,7 +78215,7 @@ aCP
 aTX
 ana
 amB
-crM
+aCP
 aJy
 aJy
 aJy
@@ -78415,7 +78475,7 @@ aio
 aJy
 aJy
 aJy
-gUK
+aCP
 aCP
 aTG
 aHj
@@ -78567,7 +78627,7 @@ aWj
 arI
 aBp
 aWj
-aLV
+eJR
 aTG
 aTG
 abl
@@ -79124,7 +79184,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+ivK
 aTG
 aae
 aTG
@@ -79592,11 +79652,11 @@ amj
 amj
 aTG
 aOX
-aKJ
+fRB
 aTG
 aTG
 aLV
-aTG
+evi
 aLV
 aKJ
 aTG
@@ -84572,7 +84632,7 @@ aHj
 aTG
 aTG
 pZw
-pZw
+jGO
 aLV
 aTG
 aTG
@@ -84823,7 +84883,7 @@ aTG
 aTG
 aTG
 aTG
-evi
+aTG
 aLV
 aTG
 aTG
@@ -85071,7 +85131,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+evi
 aLV
 aTG
 aTG
@@ -85325,7 +85385,6 @@ aTG
 aTG
 aTG
 aTG
-qGP
 aTG
 aTG
 aTG
@@ -85333,6 +85392,7 @@ aTG
 aTG
 aTG
 aTG
+ivK
 aLV
 aTG
 aTG
@@ -85782,7 +85842,7 @@ aLV
 aTG
 aTG
 aTG
-aTG
+evi
 aTG
 aTG
 pZw
@@ -87928,7 +87988,7 @@ aTG
 aTG
 aTG
 aTG
-aTG
+ivK
 pZw
 pZw
 aTG
@@ -90633,7 +90693,7 @@ aTG
 aKJ
 aKJ
 aDZ
-aTG
+ivK
 aHj
 aTG
 aLV
@@ -91654,7 +91714,7 @@ aDZ
 aDZ
 aTG
 aLa
-aTG
+evi
 aHj
 aTG
 aTG
