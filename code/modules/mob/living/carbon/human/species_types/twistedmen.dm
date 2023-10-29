@@ -175,6 +175,12 @@
 	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
 	qdel(src)
 
+/obj/item/restraints/handcuffs/cable/zipties/blood/twisted/apply_cuffs(mob/living/carbon/target, mob/user, var/dispense = 0)
+	. = ..()
+	target.adjustFireLoss(-25)
+	target.adjustBruteLoss(-25)
+	target.adjustOxyLoss(25)
+
 /obj/item/restraints/handcuffs/cable/zipties/blood/twisted_used/Initialize()
 	visible_message("<span class='warning'>the restraints crumbles away!</span>")
 	qdel(src) //hacky, but we don't actually want these to stick around after use.
