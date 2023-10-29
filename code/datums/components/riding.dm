@@ -410,3 +410,26 @@
 		var/mob/living/simple_animal/S = parent
 		S.toggle_ai(AI_ON)
 	..()
+
+//Snowmobile
+/datum/component/riding/snowmobile
+	var/tileskip = 2
+
+/datum/component/riding/snowmobile/vehicle_moved(datum/source)
+	. = ..()
+	var/obj/vehicle/ridden/atv/snowmobile/monstertruck = parent
+	if(!monstertruck.reagents.has_reagent(/datum/reagent/fuel/gasoline))
+		if(monstertruck.has_buckled_mobs())
+			monstertruck.reagents.remove_reagent(/datum/reagent/fuel/gasoline, 0.01)
+		if(monstertruck.inserted_key)
+			monstertruck.visible_message("<span class='warning'>\The [parent] ejects the key after running out of fuel!</span>")
+			monstertruck.inserted_key.forceMove(monstertruck.drop_location())
+			monstertruck.inserted_key = null
+			monstertruck.post_key_removal()
+	if(istype(get_turf(parent),/turf/open/floor/plating/asteroid/snow))
+		vehicle_move_delay = 1
+		tileskip = 0
+	else if(tileskip > 2)
+		vehicle_move_delay = 2.5
+	else
+		tileskip ++

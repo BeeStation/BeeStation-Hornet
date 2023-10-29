@@ -13,3 +13,10 @@
 	desc = "A keyring with a small steel key, and a pink fob reading \"Pussy Wagon\"."
 	icon_state = "keyjanitor"
 
+/obj/item/key/snowmobile
+	name = "snowmobile key"
+	desc = "A small grey snowmobile key."
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "key"
+	w_class = WEIGHT_CLASS_TINY
+

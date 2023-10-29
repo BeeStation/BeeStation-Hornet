@@ -9,10 +9,11 @@
 	var/arms_required = 1	//why not?
 	var/fall_off_if_missing_arms = FALSE //heh...
 	var/message_cooldown
+	var/component_type = /datum/component/riding
 
 /obj/vehicle/ridden/Initialize(mapload)
 	. = ..()
-	LoadComponent(/datum/component/riding)
+	LoadComponent(component_type)
 
 /obj/vehicle/ridden/examine(mob/user)
 	. = ..()
@@ -38,15 +39,27 @@
 
 /obj/vehicle/ridden/attackby(obj/item/I, mob/user, params)
 	if(key_type && !is_key(inserted_key) && is_key(I))
+		if(!pre_key_insertion_check(user))
+			return
 		if(user.transferItemToLoc(I, src))
 			to_chat(user, "<span class='notice'>You insert \the [I] into \the [src].</span>")
 			if(inserted_key)	//just in case there's an invalid key
 				inserted_key.forceMove(drop_location())
 			inserted_key = I
+			post_key_insertion()
 		else
 			to_chat(user, "<span class='notice'>[I] seems to be stuck to your hand!</span>")
 		return
 	return ..()
+
+/obj/vehicle/ridden/proc/pre_key_insertion_check(mob/user)
+	return TRUE
+
+/obj/vehicle/ridden/proc/post_key_insertion()
+	return
+
+/obj/vehicle/ridden/proc/post_key_removal()
+	return
 
 /obj/vehicle/ridden/AltClick(mob/user)
 	if(inserted_key && user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -57,6 +70,7 @@
 		inserted_key.forceMove(drop_location())
 		user.put_in_hands(inserted_key)
 		inserted_key = null
+		post_key_removal()
 	return
 
 /obj/vehicle/ridden/driver_move(mob/user, direction)

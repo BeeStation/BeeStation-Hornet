@@ -34,13 +34,13 @@
 "aad" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj{
+	anchored = 1;
+	density = 1;
 	desc = "A convenable firelock. No matter what this can't be opened!";
-	name = "jammed firelock";
 	icon = 'icons/obj/doors/doorfireglass.dmi';
 	icon_state = "door_locked";
-	opacity = 1;
-	density = 1;
-	anchored = 1
+	name = "jammed firelock";
+	opacity = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/outpost/office)
@@ -238,8 +238,8 @@
 /obj/machinery/washing_machine,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel,
@@ -377,8 +377,8 @@
 "aaY" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
 	height = 4;
-	width = 1;
-	id = 3
+	id = 3;
+	width = 1
 	},
 /turf/open/floor/plating/asteroid/snow/lateopenspace,
 /area/iceland/underground/safe)
@@ -1177,9 +1177,9 @@
 /area/iceland_base/crew_quarters/kitchen)
 "adk" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 4;
 	height = 2;
-	id = 1
+	id = 1;
+	width = 4
 	},
 /turf/open/floor/plating/asteroid/snow/lateopenspace,
 /area/iceland_base/outpost/command)
@@ -2601,8 +2601,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/carpet/grimy,
@@ -3585,8 +3585,8 @@
 	pixel_y = 6
 	},
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel,
@@ -4306,8 +4306,8 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/unlocked{
-	pixel_y = -24;
-	dir = 1
+	dir = 1;
+	pixel_y = -24
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/iceland_base/engine)
@@ -4419,8 +4419,8 @@
 	},
 /obj/structure/table_frame,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/carpet/grimy,
@@ -4674,14 +4674,14 @@
 	pixel_y = 31
 	},
 /obj/machinery/computer{
-	icon_state = "computer-0_broken";
 	icon_keyboard = "tech_key_off";
 	icon_screen = "ratvarcomputer_broken";
+	icon_state = "computer-0_broken";
 	name = "broken computer"
 	},
 /obj/item/paper/crumpled/bloody/docsdeathnote{
-	name = "LOCKDOWN ORDER";
-	default_raw_text = "The Boreal Gate is under permanent lockdown, effective immediately. This lockdown may only be lifted through the manual override. A button can be accessed from the exterior side of the gate."
+	default_raw_text = "The Boreal Gate is under permanent lockdown, effective immediately. This lockdown may only be lifted through the manual override. A button can be accessed from the exterior side of the gate.";
+	name = "LOCKDOWN ORDER"
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/ruin/powered/iceland/gate/boreal)
@@ -4728,9 +4728,9 @@
 "ann" = (
 /obj/structure/table/abductor{
 	desc = "You may think this is alien technology, but nope, just really fancy design.";
-	name = "High design table";
 	frame = /obj/structure/table_frame;
-	framestack = /obj/item/stack/sheet/plasteel
+	framestack = /obj/item/stack/sheet/plasteel;
+	name = "High design table"
 	},
 /obj/item/paper/crumpled/awaymissions/moonoutpost19/hastey_note,
 /turf/open/floor/stone,
@@ -4755,9 +4755,9 @@
 "ans" = (
 /obj/structure/table/abductor{
 	desc = "You may think this is alien technology, but nope, just really fancy design.";
-	name = "High design table";
 	frame = /obj/structure/table_frame;
-	framestack = /obj/item/stack/sheet/plasteel
+	framestack = /obj/item/stack/sheet/plasteel;
+	name = "High design table"
 	},
 /turf/open/floor/stone,
 /area/iceland_base/outpost/entrance)
@@ -5062,17 +5062,17 @@
 /obj/structure/table,
 /obj/item/seeds/cotton,
 /obj/item/seeds/garlic{
-	pixel_y = -8;
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = -8
 	},
 /obj/item/seeds/eggplant{
-	pixel_y = 6;
-	pixel_x = 11
+	pixel_x = 11;
+	pixel_y = 6
 	},
 /obj/item/seeds/lavaland/porcini,
 /obj/item/seeds/potato{
-	pixel_y = -7;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = -7
 	},
 /obj/item/seeds/redbeet,
 /obj/item/seeds/sugarcane{
@@ -5122,8 +5122,8 @@
 "aor" = (
 /obj/effect/decal/cleanable/molten_object,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plating{
@@ -5777,10 +5777,10 @@
 /area/iceland/underground/safe)
 "aqj" = (
 /obj/item/flashlight/lantern{
+	light_on = 1;
 	on = 1;
 	pixel_x = -6;
-	pixel_y = 2;
-	light_on = 1
+	pixel_y = 2
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
@@ -7961,13 +7961,13 @@
 	dir = 1
 	},
 /obj{
+	anchored = 1;
+	density = 1;
 	desc = "A convenable firelock. No matter what this can't be opened!";
-	name = "jammed firelock";
 	icon = 'icons/obj/doors/doorfireglass.dmi';
 	icon_state = "door_locked";
-	opacity = 1;
-	density = 1;
-	anchored = 1
+	name = "jammed firelock";
+	opacity = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/outpost/entrance)
@@ -8406,8 +8406,8 @@
 	},
 /obj/item/seeds/soya,
 /obj/item/seeds/tobacco{
-	pixel_y = 10;
-	pixel_x = 10
+	pixel_x = 10;
+	pixel_y = 10
 	},
 /obj/item/seeds/tower,
 /obj/item/seeds/wheat,
@@ -8632,8 +8632,8 @@
 	dir = 1
 	},
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -8962,11 +8962,11 @@
 /area/iceland_base/crew_quarters)
 "azs" = (
 /obj/structure/window/reinforced/fulltile/indestructable{
-	desc = "A window that is reinforced with iron rods. This one is so frosty you can't see past it!";
-	name = "frosty window";
-	icon = 'icons/obj/smooth_structures/windows/rice_window.dmi';
 	base_icon_state = "rice_window";
-	icon_state = "rice_window-0"
+	desc = "A window that is reinforced with iron rods. This one is so frosty you can't see past it!";
+	icon = 'icons/obj/smooth_structures/windows/rice_window.dmi';
+	icon_state = "rice_window-0";
+	name = "frosty window"
 	},
 /turf/open/floor/plating,
 /area/iceland_base/outpost/research)
@@ -9022,9 +9022,9 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj{
 	desc = "A convenable firelock. No matter what this can't be opened!";
-	name = "jammed firelock";
 	icon = 'icons/obj/doors/airlocks/station2/glass.dmi';
-	icon_state = "closed"
+	icon_state = "closed";
+	name = "jammed firelock"
 	},
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plasteel/techmaint,
@@ -9047,8 +9047,8 @@
 /obj/machinery/chem_dispenser/drinks,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel,
@@ -9436,8 +9436,8 @@
 "aAD" = (
 /obj/item/trash/sosjerky,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -10612,8 +10612,8 @@
 /area/iceland_base/security)
 "aDV" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Waste to Filter";
-	dir = 1
+	dir = 1;
+	name = "Waste to Filter"
 	},
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
@@ -10748,8 +10748,8 @@
 /obj/item/pen,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
 	desc = "Aah, vodka. Prime choice of drink AND fuel by Russians worldwide. This one used to hold many secrets...";
-	pixel_y = 12;
-	pixel_x = 11
+	pixel_x = 11;
+	pixel_y = 12
 	},
 /turf/open/floor/carpet/black,
 /area/iceland_base/chapel)
@@ -11079,8 +11079,8 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/unlocked{
-	pixel_y = -24;
-	dir = 1
+	dir = 1;
+	pixel_y = -24
 	},
 /turf/open/floor/plasteel/tech,
 /area/iceland_base/engine)
@@ -12256,8 +12256,8 @@
 	frame = s
 	},
 /obj/machinery/door/window/southleft{
-	req_access_txt = "31";
-	dir = 4
+	dir = 4;
+	req_access_txt = "31"
 	},
 /obj/item/folder/yellow{
 	pixel_x = 4
@@ -12334,8 +12334,8 @@
 "aIY" = (
 /obj/structure/table,
 /obj/machinery/computer/fluff/old{
-	pixel_y = 8;
-	dir = 8
+	dir = 8;
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/office)
@@ -12347,8 +12347,8 @@
 	dir = 8
 	},
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark{
@@ -12971,13 +12971,13 @@
 "aKV" = (
 /obj/structure/table/abductor{
 	desc = "You may think this is alien technology, but nope, just really fancy design.";
-	name = "High design table";
 	frame = /obj/structure/table_frame;
-	framestack = /obj/item/stack/sheet/plasteel
+	framestack = /obj/item/stack/sheet/plasteel;
+	name = "High design table"
 	},
 /obj/machinery/computer/fluff/old{
-	pixel_y = 8;
-	dir = 4
+	dir = 4;
+	pixel_y = 8
 	},
 /turf/open/floor/stone,
 /area/iceland_base/outpost/entrance)
@@ -14417,8 +14417,8 @@
 "aPq" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/fluff/old{
-	pixel_y = 8;
-	dir = 4
+	dir = 4;
+	pixel_y = 8
 	},
 /turf/open/floor/wood,
 /area/iceland_base/outpost/office)
@@ -15184,8 +15184,8 @@
 /obj/effect/decal/cleanable/glass,
 /obj/structure/table,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/carpet/grimy,
@@ -15318,8 +15318,8 @@
 "aRP" = (
 /obj/structure/table,
 /obj/machinery/computer/fluff/old{
-	pixel_y = 8;
-	dir = 1
+	dir = 1;
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/iceland_base/outpost/office)
@@ -16187,9 +16187,9 @@
 /area/iceland)
 "aUi" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 4;
 	height = 1;
-	id = 2
+	id = 2;
+	width = 4
 	},
 /turf/open/floor/plating/asteroid/snow/lateopenspace,
 /area/iceland/underground/safe)
@@ -16486,8 +16486,8 @@
 "aUX" = (
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -16941,8 +16941,8 @@
 "aWl" = (
 /obj/structure/table,
 /obj/machinery/computer/fluff/old{
-	pixel_y = 8;
-	dir = 4
+	dir = 4;
+	pixel_y = 8
 	},
 /turf/open/floor/plating,
 /area/iceland_base/outpost/office)
@@ -18090,10 +18090,10 @@
 /area/iceland/underground/safe)
 "aZu" = (
 /obj/machinery/door/window/brigdoor/northright{
+	dir = 2;
 	id = "Hold_Cell";
 	name = "Holding Cell";
-	req_access_txt = "1";
-	dir = 2
+	req_access_txt = "1"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -18404,8 +18404,8 @@
 /area/iceland)
 "bjJ" = (
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -18452,8 +18452,8 @@
 /area/iceland_base/outpost/research)
 "bpX" = (
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -18465,8 +18465,8 @@
 "brx" = (
 /obj/structure/closet,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/concrete/slab,
@@ -18496,10 +18496,10 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 4;
+	above = 0;
 	height = 2;
 	id = 1;
-	above = 0
+	width = 4
 	},
 /turf/open/floor/plasteel/dark{
 	heat_capacity = 1e+006
@@ -18605,10 +18605,10 @@
 /area/iceland/underground/safe)
 "bNg" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 4;
+	above = 0;
 	height = 1;
 	id = 2;
-	above = 0
+	width = 4
 	},
 /obj/structure/stairs{
 	dir = 1
@@ -18665,8 +18665,8 @@
 	icon_state = "floor2-old"
 	},
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/rockvault,
@@ -18738,6 +18738,10 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/indestructible/wall/reinforced,
 /area/iceland_base/outpost/command)
+"cmM" = (
+/obj/item/reagent_containers/glass/gascan,
+/turf/open/floor/plating,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "cpT" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -18982,8 +18986,8 @@
 "cSc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/concrete/slab,
@@ -19018,8 +19022,8 @@
 /area/iceland/underground/safe)
 "cVi" = (
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -19246,11 +19250,11 @@
 /area/iceland)
 "dtd" = (
 /obj{
+	density = 1;
 	desc = "A convenable airlock. No matter what this can't be opened!";
-	name = "jammed office airlock";
 	icon = 'icons/obj/doors/airlocks/station/public.dmi';
 	icon_state = "closed";
-	density = 1
+	name = "jammed office airlock"
 	},
 /turf/open/floor/plating,
 /area/iceland_base/outpost/command)
@@ -19275,8 +19279,8 @@
 /obj/item/reagent_containers/syringe/lethal,
 /obj/item/reagent_containers/syringe/lethal/choral,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/grid/steel,
@@ -19352,8 +19356,8 @@
 	dir = 8
 	},
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark{
@@ -19412,8 +19416,8 @@
 /obj/item/chainsaw/bfc,
 /obj/item/chainsaw/bfc,
 /obj/item/paper/fluff/awaymissions/moonoutpost19/goodbye_note{
-	name = "RD Nolson's memo";
-	default_raw_text = "**Internal memo 5**<br><br>The client requested a simple hedge-trimmer.... not a BS chainsaw. <br> Are you guys serious? "Coolness" and "metal" don't make for selling arguments on their own! I'm calling a meeting next friday, I want to know who was piloting this blunder. <br> I'm sending the BFCs away to the Medical outpost, I don't want to have to explain to the Commodore why we produced this. No you can't have them back."
+	default_raw_text = "**Internal memo 5**<br><br>The client requested a simple hedge-trimmer.... not a BS chainsaw. <br> Are you guys serious? "Coolness" and "metal" don't make for selling arguments on their own! I'm calling a meeting next friday, I want to know who was piloting this blunder. <br> I'm sending the BFCs away to the Medical outpost, I don't want to have to explain to the Commodore why we produced this. No you can't have them back.";
+	name = "RD Nolson's memo"
 	},
 /obj/item/chainsaw/bfc,
 /obj/item/chainsaw/bfc,
@@ -19924,11 +19928,11 @@
 /area/iceland)
 "fjC" = (
 /obj/structure/window/reinforced/fulltile/indestructable{
-	desc = "A window that is reinforced with iron rods. This one is so frosty you can't see past it!";
-	name = "frosty window";
-	icon = 'icons/obj/smooth_structures/windows/rice_window.dmi';
 	base_icon_state = "rice_window";
-	icon_state = "rice_window-0"
+	desc = "A window that is reinforced with iron rods. This one is so frosty you can't see past it!";
+	icon = 'icons/obj/smooth_structures/windows/rice_window.dmi';
+	icon_state = "rice_window-0";
+	name = "frosty window"
 	},
 /turf/open/floor/plating,
 /area/iceland_base/outpost/entrance)
@@ -20111,8 +20115,8 @@
 "fMF" = (
 /obj/structure/table,
 /obj/machinery/computer/fluff/old{
-	pixel_y = 8;
-	dir = 8
+	dir = 8;
+	pixel_y = 8
 	},
 /obj/machinery/light/very_dim{
 	desc = "An old lighting fixture.";
@@ -20214,8 +20218,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/grimy,
@@ -20300,10 +20304,10 @@
 "gzv" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/item/flashlight/lantern{
+	light_on = 1;
 	on = 1;
 	pixel_x = -6;
-	pixel_y = 2;
-	light_on = 1
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
@@ -20379,8 +20383,8 @@
 	dir = 1
 	},
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel,
@@ -20399,8 +20403,8 @@
 /area/iceland/underground/safe)
 "gOS" = (
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/cafeteria_red,
@@ -20635,7 +20639,7 @@
 /turf/open/floor/plating/asteroid/snow/loose,
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "hCF" = (
-/obj/effect/landmark,
+/obj/vehicle/ridden/atv/snowmobile,
 /turf/open/floor/plating/snowed,
 /area/ruin/unpowered/iceland/abandoned_lpost)
 "hFJ" = (
@@ -20901,10 +20905,10 @@
 /area/ruin/unpowered/iceland/abandoned_lpost)
 "iEs" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 19;
+	above = 0;
 	height = 25;
 	id = 10;
-	above = 0
+	width = 19
 	},
 /turf/closed/mineral/snowmountain/indestructible,
 /area/iceland/underground/safe)
@@ -20938,8 +20942,8 @@
 /area/iceland_base/outpost/research)
 "iIb" = (
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -20990,8 +20994,8 @@
 /area/iceland_base/outpost/command)
 "iOY" = (
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/wood,
@@ -21024,8 +21028,8 @@
 	icon_state = "floor3-old"
 	},
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -21086,8 +21090,8 @@
 /area/iceland_base/outpost/special)
 "jcs" = (
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -21141,8 +21145,8 @@
 	pixel_y = 3
 	},
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel,
@@ -21397,9 +21401,9 @@
 /area/iceland_base/outpost/command)
 "jVp" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
+	height = 15;
 	id = 5;
-	width = 15;
-	height = 15
+	width = 15
 	},
 /turf/closed/mineral/snowmountain/indestructible,
 /area/iceland/underground/safe)
@@ -21428,8 +21432,8 @@
 /area/ruin/unpowered/iceland/abandoned_chembase)
 "kcl" = (
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/wood,
@@ -21451,9 +21455,9 @@
 "kcQ" = (
 /obj/structure/table/abductor{
 	desc = "You may think this is alien technology, but nope, just really fancy design.";
-	name = "High design table";
 	frame = /obj/structure/table_frame;
-	framestack = /obj/item/stack/sheet/plasteel
+	framestack = /obj/item/stack/sheet/plasteel;
+	name = "High design table"
 	},
 /obj/effect/spawner/lootdrop/ruinloot/basic,
 /turf/open/floor/stone,
@@ -21738,10 +21742,10 @@
 /area/iceland_base/outpost/research)
 "kJD" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
+	above = 0;
 	height = 4;
-	width = 1;
 	id = 3;
-	above = 0
+	width = 1
 	},
 /obj/structure/stairs{
 	dir = 4
@@ -21751,8 +21755,8 @@
 "kKd" = (
 /obj/machinery/computer/fluff,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -21768,8 +21772,8 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/structure/chair/office,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel,
@@ -21780,8 +21784,8 @@
 /area/iceland_base/outpost/hangar)
 "kOj" = (
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/concrete/slab,
@@ -21907,7 +21911,9 @@
 	},
 /area/iceland_base/outpost/hangar)
 "laN" = (
-/obj/effect/landmark,
+/obj/vehicle/ridden/atv/snowmobile{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered/iceland/abandoned_lpost)
 "lbB" = (
@@ -22373,18 +22379,18 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/computer/fluff,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/white,
 /area/iceland_base/outpost/research)
 "meu" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 11;
+	above = 0;
 	height = 11;
 	id = lavapit;
-	above = 0
+	width = 11
 	},
 /turf/open/lava,
 /area/iceland_base/outpost/special)
@@ -22401,8 +22407,8 @@
 "mjN" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -22483,8 +22489,8 @@
 	dir = 1
 	},
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/freezer,
@@ -22515,8 +22521,8 @@
 "mxZ" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -22526,8 +22532,8 @@
 "myf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/cafeteria_red,
@@ -22674,8 +22680,8 @@
 /obj/structure/table/reinforced,
 /obj/item/lighter,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/carpet/black,
@@ -22831,8 +22837,8 @@
 "noT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/carpet,
@@ -22969,8 +22975,8 @@
 /area/iceland_base/outpost/office)
 "nHz" = (
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -23031,8 +23037,8 @@
 /area/iceland)
 "nQa" = (
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plating,
@@ -23184,13 +23190,13 @@
 /area/iceland_base/outpost/office)
 "okq" = (
 /obj/docking_port/stationary{
+	bypassdock = 1;
+	dir = 4;
 	dwidth = 13;
 	height = 33;
 	id = "LZ1-base";
 	name = "Iceland LZ1 base";
-	width = 25;
-	dir = 4;
-	bypassdock = 1
+	width = 25
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
@@ -23325,13 +23331,13 @@
 /area/iceland)
 "oCq" = (
 /obj/effect/decal/cleanable/blood/old{
-	name = "dried blood trail";
+	dir = 10;
 	icon_state = "trails_1";
-	dir = 10
+	name = "dried blood trail"
 	},
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -23410,8 +23416,8 @@
 /area/iceland_base/outpost/hangar)
 "oLL" = (
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -23447,8 +23453,8 @@
 "oRJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -23493,7 +23499,9 @@
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/outpost/command)
 "oYV" = (
-/obj/effect/landmark,
+/obj/vehicle/ridden/atv/snowmobile{
+	dir = 4
+	},
 /turf/open/floor/concrete/tiles,
 /area/iceland_base/outpost/garage)
 "oZg" = (
@@ -23522,8 +23530,8 @@
 "pcr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -23742,6 +23750,14 @@
 /obj/effect/decal/cleanable/blood/rune,
 /turf/open/floor/plasteel/cult,
 /area/iceland)
+"pDk" = (
+/obj/structure/closet/crate,
+/obj/item/key/snowmobile{
+	pixel_x = -1;
+	pixel_y = -2
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "pFo" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -23800,8 +23816,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -24019,8 +24035,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/concrete/slab,
@@ -24031,8 +24047,8 @@
 /area/iceland)
 "pZB" = (
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark{
@@ -24076,8 +24092,8 @@
 	req_access_txt = "19"
 	},
 /obj/item/toy/redbutton{
-	name = "Initialize refueling procedure";
 	desc = "A big, plastic red button.";
+	name = "Initialize refueling procedure";
 	pixel_x = -1;
 	pixel_y = 4
 	},
@@ -24197,8 +24213,8 @@
 /area/iceland_base/outpost/office)
 "qrl" = (
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plating,
@@ -24221,8 +24237,8 @@
 /area/iceland)
 "qsS" = (
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/grid/steel,
@@ -24230,8 +24246,8 @@
 "qti" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -24273,8 +24289,8 @@
 "qzk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plating,
@@ -24332,10 +24348,10 @@
 /area/iceland_base/outpost/command)
 "qJQ" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
-	id = 5;
-	width = 15;
+	above = 0;
 	height = 15;
-	above = 0
+	id = 5;
+	width = 15
 	},
 /turf/closed/mineral/snowmountain/indestructible,
 /area/iceland/underground/safe)
@@ -24355,10 +24371,10 @@
 /area/iceland)
 "qLR" = (
 /obj/item/flashlight/lantern{
+	light_on = 1;
 	on = 1;
 	pixel_x = -6;
-	pixel_y = 2;
-	light_on = 1
+	pixel_y = 2
 	},
 /turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
@@ -24405,10 +24421,10 @@
 /area/iceland_base/outpost/special)
 "qRy" = (
 /obj/docking_port/stationary{
-	dir = 4;
 	bypassdock = 1;
-	name = "Iceland LZ2 outpost";
-	id = "Iceland LZ2 outpost"
+	dir = 4;
+	id = "Iceland LZ2 outpost";
+	name = "Iceland LZ2 outpost"
 	},
 /turf/open/floor/dock,
 /area/iceland)
@@ -24434,8 +24450,8 @@
 "qTO" = (
 /obj/effect/decal/remains/human,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -24445,8 +24461,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -24455,8 +24471,8 @@
 /obj/structure/table,
 /obj/item/pen,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -24559,10 +24575,10 @@
 /area/iceland_base/outpost/command)
 "roG" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 15;
+	above = 0;
 	height = 11;
 	id = powergen;
-	above = 0
+	width = 15
 	},
 /turf/open/floor/concrete/tiles,
 /area/iceland_base/outpost/special)
@@ -24701,8 +24717,8 @@
 /area/iceland_base/outpost/office)
 "rNt" = (
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -24798,8 +24814,8 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/clothing/mask/breath,
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark{
@@ -24855,8 +24871,8 @@
 /obj/machinery/deepfryer,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel,
@@ -25019,12 +25035,12 @@
 "syb" = (
 /obj/structure/table,
 /obj/machinery/computer/fluff/old{
-	pixel_y = 8;
-	dir = 8
+	dir = 8;
+	pixel_y = 8
 	},
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -25125,13 +25141,13 @@
 "sNm" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj{
+	anchored = 1;
+	density = 1;
 	desc = "A convenable firelock. No matter what this can't be opened!";
-	name = "jammed firelock";
 	icon = 'icons/obj/doors/doorfireglass.dmi';
 	icon_state = "door_locked";
-	opacity = 1;
-	density = 1;
-	anchored = 1
+	name = "jammed firelock";
+	opacity = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/outpost/command)
@@ -25189,6 +25205,14 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
+"sYG" = (
+/obj/structure/closet/crate,
+/obj/item/key/snowmobile{
+	pixel_x = -1;
+	pixel_y = -3
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "taq" = (
 /obj/structure/railing{
 	dir = 1
@@ -25198,6 +25222,10 @@
 	dir = 1
 	},
 /area/iceland_base/outpost/command)
+"tbq" = (
+/obj/item/key/snowmobile,
+/turf/open/floor/concrete,
+/area/iceland_base/outpost/garage)
 "tbS" = (
 /obj/structure/flora/tree/splinter,
 /obj/structure/flora/grass/both,
@@ -25226,8 +25254,8 @@
 /area/iceland_base/outpost/command)
 "thC" = (
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -25296,6 +25324,10 @@
 "tqa" = (
 /turf/closed/indestructible/wall,
 /area/iceland_base/outpost/hangar)
+"tsa" = (
+/obj/item/reagent_containers/glass/gascan,
+/turf/open/floor/plating,
+/area/iceland_base/hallway_command)
 "tsL" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/plasteel,
@@ -25338,9 +25370,9 @@
 /area/ruin/powered/iceland/gate/boreal)
 "tzN" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 15;
 	height = 11;
-	id = powergen
+	id = powergen;
+	width = 15
 	},
 /turf/open/floor/plating/asteroid/snow/lateopenspace,
 /area/iceland_base/outpost/command)
@@ -25476,6 +25508,10 @@
 	},
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/special)
+"tUO" = (
+/obj/item/reagent_containers/glass/gascan,
+/turf/open/floor/plating,
+/area/iceland_base/cargo)
 "tVf" = (
 /obj/effect/mob_spawn/human/doctor/outpost,
 /turf/open/floor/concrete/slab,
@@ -25660,8 +25696,8 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white/corner{
-	heat_capacity = 1e+006;
-	dir = 8
+	dir = 8;
+	heat_capacity = 1e+006
 	},
 /area/iceland_base/outpost/command)
 "uxC" = (
@@ -25671,8 +25707,8 @@
 "uBe" = (
 /obj/structure/bed,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/freezer,
@@ -25711,10 +25747,10 @@
 /area/iceland_base/outpost/hangar)
 "uJL" = (
 /obj/item/flashlight/lantern{
+	light_on = 1;
 	on = 1;
 	pixel_x = -6;
-	pixel_y = 2;
-	light_on = 1
+	pixel_y = 2
 	},
 /obj/effect/mob_spawn/human/corpse/assistant/outpost,
 /turf/open/floor/plating/asteroid/snow,
@@ -25809,6 +25845,10 @@
 	dir = 4
 	},
 /area/iceland_base/outpost/entrance)
+"uYg" = (
+/obj/item/reagent_containers/glass/gascan,
+/turf/open/floor/plating/snowed,
+/area/ruin/unpowered/iceland/abandoned_lpost)
 "uYl" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
@@ -25861,8 +25901,8 @@
 "vev" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/cafeteria_red,
@@ -26099,9 +26139,9 @@
 "vXY" = (
 /obj/structure/flora/grass/brown,
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 19;
 	height = 25;
-	id = 10
+	id = 10;
+	width = 19
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
@@ -26166,11 +26206,11 @@
 /area/ruin/powered/iceland/gate/lpost_n)
 "whs" = (
 /obj{
+	density = 1;
 	desc = "A convenable airlock. No matter what this can't be opened!";
-	name = "jammed office airlock";
 	icon = 'icons/obj/doors/airlocks/station/public.dmi';
 	icon_state = "closed";
-	density = 1
+	name = "jammed office airlock"
 	},
 /turf/open/floor/plating,
 /area/iceland_base/outpost/office)
@@ -26210,8 +26250,8 @@
 "wjG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -26233,13 +26273,13 @@
 	pixel_y = 5
 	},
 /obj/item/gps{
-	pixel_y = 2;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 2
 	},
 /obj/item/flashlight/flare,
 /obj/item/stack/marker_beacon/thirty{
-	pixel_y = -6;
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = -6
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
@@ -26252,9 +26292,9 @@
 "wnB" = (
 /mob/living/simple_animal/hostile/tree{
 	melee_damage = 30;
-	unsuitable_atmos_damage = 2;
 	movement_type = 10;
-	speed = 0
+	speed = 0;
+	unsuitable_atmos_damage = 2
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
@@ -26323,19 +26363,19 @@
 "wvM" = (
 /obj/effect/turf_decal/tile/white/carat,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /obj/machinery/light/very_dim{
-	dir = 8;
 	desc = "An old lighting fixture.";
+	dir = 8;
 	name = "old light fixture"
 	},
 /obj/item/latexballon{
-	icon_state = "madeyoulook";
 	alpha = 128;
 	desc = "There's no escape, sorry!";
+	icon_state = "madeyoulook";
 	name = "Escape"
 	},
 /turf/open/floor/plasteel/dark/telecomms,
@@ -26401,8 +26441,8 @@
 	dir = 8
 	},
 /obj/machinery/light/very_dim{
-	dir = 1;
 	desc = "An old lighting fixture.";
+	dir = 1;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark{
@@ -26432,8 +26472,8 @@
 "wEM" = (
 /obj/structure/table,
 /obj/machinery/computer/fluff/old{
-	pixel_y = 8;
-	dir = 8
+	dir = 8;
+	pixel_y = 8
 	},
 /obj/machinery/light/broken{
 	dir = 1
@@ -26465,8 +26505,8 @@
 	name = "Forensics Operating Computer"
 	},
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark,
@@ -26600,8 +26640,8 @@
 "xaN" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/carpet/royalblack,
@@ -26670,17 +26710,17 @@
 /area/iceland_base/outpost/research)
 "xhw" = (
 /obj/effect/mapping_helpers/virtual_z_helper{
-	width = 11;
 	height = 11;
-	id = lavapit
+	id = lavapit;
+	width = 11
 	},
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/special)
 "xij" = (
 /obj/structure/table,
 /obj/machinery/computer/fluff/old{
-	pixel_y = 8;
-	dir = 8
+	dir = 8;
+	pixel_y = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
@@ -26743,7 +26783,9 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "xqw" = (
-/obj/effect/landmark,
+/obj/vehicle/ridden/atv/snowmobile{
+	dir = 4
+	},
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/garage)
 "xqM" = (
@@ -26888,13 +26930,13 @@
 "xJp" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj{
+	anchored = 1;
+	density = 1;
 	desc = "A convenable firelock. No matter what this can't be opened!";
-	name = "jammed firelock";
 	icon = 'icons/obj/doors/doorfireglass.dmi';
 	icon_state = "door_locked";
-	opacity = 1;
-	density = 1;
-	anchored = 1
+	name = "jammed firelock";
+	opacity = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/iceland_base/outpost/crew)
@@ -27006,8 +27048,8 @@
 "xVn" = (
 /obj/effect/turf_decal/weather/snow,
 /obj/machinery/light/very_dim{
-	dir = 4;
 	desc = "An old lighting fixture.";
+	dir = 4;
 	name = "old light fixture"
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -27017,8 +27059,24 @@
 "xVC" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
-	pixel_x = 3;
-	pixel_y = 7
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/glass/gascan{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/gascan{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/obj/item/key/snowmobile{
+	pixel_x = -11;
+	pixel_y = -3
+	},
+/obj/item/key/snowmobile{
+	pixel_x = -5;
+	pixel_y = -3
 	},
 /turf/open/floor/concrete/slab,
 /area/iceland_base/outpost/garage)
@@ -50594,7 +50652,7 @@ aZh
 aXT
 aMd
 ajG
-ael
+tUO
 ael
 aQt
 aJy
@@ -59040,7 +59098,7 @@ aSJ
 adK
 adK
 aEk
-aEk
+tsa
 adK
 aJy
 aVS
@@ -59713,7 +59771,7 @@ aTR
 aIL
 aJK
 aut
-azm
+pDk
 nPu
 aQS
 aDz
@@ -59972,7 +60030,7 @@ atb
 aFO
 aOa
 aFX
-azm
+uYg
 axw
 aDz
 aDz
@@ -60744,7 +60802,7 @@ ane
 hCF
 fTB
 aCV
-azm
+sYG
 abb
 aDz
 azm
@@ -61512,7 +61570,7 @@ aJK
 awL
 ahn
 iEc
-aCV
+cmM
 bbp
 azm
 aiC
@@ -69513,7 +69571,7 @@ vOm
 tmm
 tmm
 tmm
-tmm
+tbq
 yiD
 yiD
 tmm
