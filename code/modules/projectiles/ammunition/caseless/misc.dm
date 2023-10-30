@@ -26,7 +26,7 @@
 	name = "handfull of shot"
 	desc = "A handful of metal ball bearings, with a paper wrapping"
 	icon_state = "a41metal"
-	projectile_type = /obj/projectile/bullet/musket/shot
+	projectile_type = /obj/projectile/bullet/pellet/musket
 	pellets = 8
 	randomspread = FALSE
 	variance = 18

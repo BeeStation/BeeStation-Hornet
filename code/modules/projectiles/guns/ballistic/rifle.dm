@@ -198,7 +198,7 @@
 			to_chat(user, "<span class='notice'>You manage to empty \the [src]'s load onto the floor.</span>")
 
 			powder_holder.reagent_flags = OPENCONTAINER
-			var/T = src.get_turf
+			var/T = get_turf(src)
 			powder_holder.SplashReagents(T, FALSE)
 			process_chamber(TRUE, FALSE, FALSE)
 
@@ -243,13 +243,14 @@
 
 
 /obj/item/gun/ballistic/rifle/musket/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/reagent_containers))
+	if(istype(A, /obj/item/reagent_containers/glass))
 		if(!powder_holder.reagent_flags)
 			to_chat(user, "<span class='warning'>You can't load more powder into \the [src] now!</span>")
 			return
-		var/V = powder_holder.total_volume
-		A.attack(mob/M, user, powder_holder)
-		if(V != powder_holder.total_volume)
+		var/V = powder_holder.reagents.total_volume
+		var/obj/item/reagent_containers/glass/C = A
+		C.attack(null, user, powder_holder)
+		if(V != powder_holder.reagents.total_volume)
 			load_stage = 0 //If you add more powder, you gotta re-tamp it down.
 		return
 
@@ -271,7 +272,7 @@
 							 "<span class='notice'>You begin to tamp down the loaded [load_stage ? "projectile" : "powder charge"].</span>")
 		if(do_after(user, 10, target = src))
 			to_chat(user, "<span class='notice'>You finish tamping down the loaded [load_stage ? "projectile" : "powder charge"].</span>")
-			if(load_stage == 0 && (!powder_holder.reagents ||!powder_holder.total_volume))
+			if(load_stage == 0 && (!powder_holder.reagents ||!powder_holder.reagents.total_volume))
 				to_chat(user, "<span class='warning'>There's nothing loaded to ram down the barrel!</span>")
 				return
 			if(load_stage == 1) //Tamping down the loaded projectile
