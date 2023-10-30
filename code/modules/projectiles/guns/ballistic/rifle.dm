@@ -13,7 +13,6 @@
 	rack_sound = "sound/weapons/mosinboltout.ogg"
 	bolt_drop_sound = "sound/weapons/mosinboltin.ogg"
 	tac_reloads = FALSE
-	rack_delay = 5
 	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/ballistic/rifle/update_icon()
@@ -140,23 +139,157 @@
 	bolt_type = BOLT_TYPE_NB_BREAK
 	cartridge_wording = "cartridge"
 	slot_flags = null
-	mag_type = /obj/item/ammo_box/magazine/internal/pipegun
+	mag_type = /obj/item/ammo_box/magazine/internal/piperifle
 	no_pin_required = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	force = 10
+	force = 8
 	recoil = 0.8
 	var/slung = FALSE
 
-/*
-/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
+///////////////////////
+//    The  Musket    //
+///////////////////////
+
+/obj/item/gun/ballistic/rifle/musket
+	name = "maintenance musket"
+	desc = "Just as the Space Founding Fathers intended, this will blow a golf ball sized hole in just about anyone."
+	icon_state = "piperifle"
+	item_state = "moistnugget"
+	bolt_type = BOLT_TYPE_NO_BOLT
+	bolt_wording = "striker"
+	cartridge_wording = "shot"
+	slot_flags = null
+	mag_type = /obj/item/ammo_box/magazine/internal/musket
+	no_pin_required = TRUE
+	w_class = WEIGHT_CLASS_HUGE
+	weapon_weight = WEAPON_HEAVY
+	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
+	slowdown = 0
+	force = 10
+	recoil = 1
+	//Load stage 0 = Loading powder | Load stage 1 = Powder has been tamped, loading projectile | Load stage 2 = Projectile has been tamped, ready to fire
+	var/load_stage = 0
+	var/firing_stance = FALSE
+	var/obj/item/reagent_containers/musket/powder_holder
+
+/obj/item/gun/ballistic/rifle/musket/Initialize()
+	. = ..()
+	powder_holder = new /obj/item/reagent_containers/musket(src)
+
+/obj/item/gun/ballistic/rifle/musket/examine(mob/user)
+	. = ..()
+	if(firing_stance)
+		. += "<b>Ctrl+click</b> to return to rest, and enter a marching stance."
+	else
+		. += "<b>Ctrl+click</b> to present arms, and drop into a firing stance."
+	. += "You can empty the loaded powder and projectile with <b>alt+click</b>"
+	if(load_stage == 1 && get_ammo())
+		. += "There is a projectile seated on \the [src]'s muzzle."
+	if(load_stage >= 2)
+		. += "\The [src] looks like it's ready to fire."
+
+/obj/item/gun/ballistic/rifle/musket/AltClick(mob/user)
+	if(loc == user)
+		if(!user.is_holding(src))
+			return
+		user.visible_message("<span class='notice'>[user] aims at the ground and begins to vigoriously shake \the [src] in [user.p_their()] hands.</span>",
+							 "<span class='notice'>You aim \the [src] at the ground and begin to vigoriously shake and smack it.</span>")
+		if(do_after(user, 30, target = src))
+			to_chat(user, "<span class='notice'>You manage to empty \the [src]'s load onto the floor.</span>")
+
+			powder_holder.reagent_flags = OPENCONTAINER
+			var/T = src.get_turf
+			powder_holder.SplashReagents(T, FALSE)
+			process_chamber(TRUE, FALSE, FALSE)
+
+/obj/item/gun/ballistic/rifle/musket/CtrlClick(mob/user)
+	if(loc == user && user.is_holding(src))
+		if(firing_stance)
+			user.visible_message("<span class='notice'>[user] returns to a marching stance, holding \the [src] against [user.p_their()] shoulder.</span>",
+								 "<span class='notice'>You relax your aim, and return to marching order</span>")
+			firing_stance = FALSE
+			slowdown = 0
+			return
+		user.visible_message("<span class='warning'>[user] lowers \the [src] and begins to take aim!</span>",
+							 "<span class='notice'>You lower \the [src] into both hands and begin to take aim.</span>")
+		if(do_after(user, 20, target = src))
+			firing_stance = TRUE
+			slowdown = 0.1
+			return
+	. = ..()
+
+/obj/item/gun/ballistic/rifle/musket/rack(mob/user = null)
+	if(!is_wielded)
+		to_chat(user, "<span class='warning'>You require your other hand to be free to manipulate \the [src]'s [bolt_wording]!</span>")
+		return
+	bolt_locked = !bolt_locked
+	playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
+	to_chat(user, "<span class='notice'>You [bolt_locked ? "carefully lower" : "bring back"] the [bolt_wording] of \the [src].</span>")
+
+/obj/item/gun/ballistic/rifle/musket/proc/loading()
+	switch(load_stage)
+		if(0) //Tamping down the loaded powder charge
+			load_stage++
+			return
+
+		if(1) //Tamping down the loaded projectile
+			chamber_round()
+			load_stage++
+			return
+
+	//Anything else, just return to a stable state (ready to fire)
+	load_stage = 2
+	return
+
+
+/obj/item/gun/ballistic/rifle/musket/attackby(obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/reagent_containers))
+		if(!powder_holder.reagent_flags)
+			to_chat(user, "<span class='warning'>You can't load more powder into \the [src] now!</span>")
+			return
+		var/V = powder_holder.total_volume
+		A.attack(mob/M, user, powder_holder)
+		if(V != powder_holder.total_volume)
+			load_stage = 0 //If you add more powder, you gotta re-tamp it down.
+		return
+
+	if(istype(A, /obj/item/ammo_casing))
+		var/loaded = magazine.attackby(A, user, params, TRUE, FALSE)
+		if (loaded)
+			to_chat(user, "<span class='notice'>You seat \the [A.name] on the muzzle of \the [src].</span>")
+			powder_holder.reagent_flags = null
+			if(load_stage == 0) //You fucked up, and loaded your projectile before loading your powder charge. Start from the beginning.
+				load_stage++
+		return
+
+	if(istype(A, /obj/item/musket_rod))
+		if(load_stage >= 2)
+			to_chat(user, "<span class='warning'>\The [src] is loaded and ready to fire!</span>")
+			return
+
+		user.visible_message("<span class='notice'>[user] repeatedly rams \the [A.name] down \the [src]'s barrel.</span>",
+							 "<span class='notice'>You begin to tamp down the loaded [load_stage ? "projectile" : "powder charge"].</span>")
+		if(do_after(user, 10, target = src))
+			to_chat(user, "<span class='notice'>You finish tamping down the loaded [load_stage ? "projectile" : "powder charge"].</span>")
+			if(load_stage == 0 && (!powder_holder.reagents ||!powder_holder.total_volume))
+				to_chat(user, "<span class='warning'>There's nothing loaded to ram down the barrel!</span>")
+				return
+			if(load_stage == 1) //Tamping down the loaded projectile
+				chamber_round()
+			load_stage++
+		return
+
 	..()
-	if(istype(A, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = A
-		if(C.use(10))
-			slot_flags = ITEM_SLOT_BACK
-			to_chat(user, "<span class='notice'>You tie the lengths of cable to the rifle, making a sling.</span>")
-			slung = TRUE
-			update_icon()
-		else
-			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
-*/
+
+/obj/item/musket_rod
+	name = "musket rod"
+	desc = "A long metal rod with a flattened end, used for tamping down the powder charge and projectile in a musket."
+	w_class = WEIGHT_CLASS_NORMAL
+	icon = 'icons/obj/stacks/minerals.dmi'
+	icon_state = "rods"
+	item_state = "rods"
+
+/obj/item/reagent_containers/musket
+	name = "musket powder pan"
+	volume = 10
+	reagent_flags = INJECTABLE | REFILLABLE

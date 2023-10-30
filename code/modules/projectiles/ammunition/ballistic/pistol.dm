@@ -32,7 +32,8 @@
 /obj/item/ammo_casing/c9mm/improv
 	name = "improvised 9mm bullet casing"
 	desc = "A handmade 9mm bullet casing."
-	variance = 15 //Shit ammo is inaccurate.
+	randomspread = TRUE
+	variance = 10 //Shit ammo is inaccurate.
 
 /obj/item/ammo_casing/c9mm/ap
 	name = "9mm armor-piercing bullet casing"

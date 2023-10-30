@@ -41,7 +41,7 @@
 	icon_state = "a41paper"
 	projectile_type = /obj/projectile/bullet/a41/paper
 
-/obj/item/ammo_casing/a41/paper/hotload
+/obj/item/ammo_casing/a41/paper/softslug
 	name = ".41 copper-core paper cartridge"
 	desc = "A handmade .41 cartridge. The bullet has been replaced with a bored out makeshift copper slug."
 	projectile_type = /obj/projectile/bullet/a41/paper/copper
