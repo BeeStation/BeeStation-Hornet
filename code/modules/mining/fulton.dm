@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			return
 		var/list/flooring_near_beacon = list()
 		for(var/turf/open/floor in (RANGE_TURFS(1, beacon)-get_turf(beacon)))
-				flooring_near_beacon += floor
+			flooring_near_beacon += floor
 		if(!flooring_near_beacon.len)
 			to_chat(user, "Beacon has been damaged, could not start extraction!")
 			return
