@@ -60,6 +60,12 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			return
 		if(A.anchored || (A.move_resist > max_force_fulton))
 			return
+		var/list/flooring_near_beacon = list()
+		for(var/turf/open/floor in (RANGE_TURFS(1, beacon)-get_turf(beacon)))
+				flooring_near_beacon += floor
+		if(!flooring_near_beacon.len)
+			to_chat(user, "Beacon has been damaged, could not start extraction!")
+			return
 		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
 		if(do_after(user,50,target=A))
 			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
@@ -112,9 +118,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				L.drowsyness = 0
 				L.SetSleeping(0)
 			sleep(30)
-			var/list/flooring_near_beacon = list()
-			for(var/turf/open/floor in (RANGE_TURFS(1, beacon)-get_turf(beacon)))
-				flooring_near_beacon += floor
 			do_teleport(holder_obj, pick(flooring_near_beacon), no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE)
 			animate(holder_obj, pixel_z = 10, time = 50)
 			sleep(50)
