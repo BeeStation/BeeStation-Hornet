@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		for(var/turf/open/floor in (RANGE_TURFS(1, beacon)-get_turf(beacon)))
 			flooring_near_beacon += floor
 		if(!flooring_near_beacon.len)
-			to_chat(user, "Area surrounding beacon is unsuitable, could not start extraction!")
+			to_chat(user, "<span class='warning'>Area surrounding beacon is unsuitable, could not start extraction!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
 		if(do_after(user,50,target=A))
