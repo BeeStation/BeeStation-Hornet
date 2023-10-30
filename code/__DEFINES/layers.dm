@@ -19,7 +19,6 @@
 #define ZMIMIC_MAX_DEPTH 10
 
 #define FLOOR_PLANE -7
-#define GAME_PLANE_UPPER -6
 #define GAME_PLANE -4
 
 #define SPACE_LAYER 1.8
