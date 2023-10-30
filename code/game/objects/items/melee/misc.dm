@@ -332,7 +332,7 @@
 	desc = "Favored by hot headed Security Officers who don't want to get in trouble with CentCom but still want to get that nostalgic feeling of beating some criminal scum upside the head with a chunk of wood."
 	force = 8
 	throwforce = 7
-	cooldown = 5
+	cooldown = 0
 	stamina_damage = 15
 	stun_animation = TRUE
 
