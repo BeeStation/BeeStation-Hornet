@@ -31,7 +31,6 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		/datum/material/plastic,
 		)
 	AddComponent(/datum/component/material_container, materials_list, INFINITY, allowed_types=/obj/item/stack, _disable_attackby=TRUE)
-
 	if (!GLOB.ore_silo_default && mapload && is_station_level(z))
 		GLOB.ore_silo_default = src
 

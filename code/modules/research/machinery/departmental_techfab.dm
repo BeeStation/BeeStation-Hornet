@@ -8,6 +8,7 @@
 	name = "department techfab (Engineering)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_ENGINEERING
 	department_tag = "Engineering"
+	department_id = DEPT_ID_ENGINEERING
 	circuit = /obj/item/circuitboard/machine/techfab/department/engineering
 	stripe_color = "#EFB341"
 
@@ -15,6 +16,7 @@
 	name = "department techfab (Service)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_SERVICE
 	department_tag = "Service"
+	department_id = DEPT_ID_SERVICE
 	circuit = /obj/item/circuitboard/machine/techfab/department/service
 	stripe_color = "#83CA41"
 
@@ -22,6 +24,7 @@
 	name = "department techfab (Medical)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_MEDICAL
 	department_tag = "Medical"
+	department_id = DEPT_ID_MEDICAL
 	circuit = /obj/item/circuitboard/machine/techfab/department/medical
 	stripe_color = "#52B4E9"
 
@@ -29,6 +32,7 @@
 	name = "department techfab (Cargo)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_CARGO
 	department_tag = "Cargo"
+	department_id = DEPT_ID_SUPPLY
 	circuit = /obj/item/circuitboard/machine/techfab/department/cargo
 	stripe_color = "#956929"
 
@@ -36,6 +40,7 @@
 	name = "department techfab (Science)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_SCIENCE
 	department_tag = "Science"
+	department_id = DEPT_ID_SCIENCE
 	circuit = /obj/item/circuitboard/machine/techfab/department/science
 	stripe_color = "#D381C9"
 
@@ -43,5 +48,6 @@
 	name = "department techfab (Security)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_SECURITY
 	department_tag = "Security"
+	department_id = DEPT_ID_SECURITY
 	circuit = /obj/item/circuitboard/machine/techfab/department/security
 	stripe_color = "#DE3A3A"

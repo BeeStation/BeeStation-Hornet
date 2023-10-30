@@ -33,6 +33,8 @@
 	var/list/pending_research = list()
 	var/base_storage = 75000
 
+	var/department_id = DEPT_ID_ALL
+
 /obj/machinery/rnd/production/Initialize(mapload)
 	. = ..()
 	create_reagents(0, OPENCONTAINER)
@@ -41,7 +43,7 @@
 	stored_research = new
 	host_research = SSresearch.science_tech
 	update_research()
-	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload)
+	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload, false, department_id)
 	RefreshParts()
 	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, PROC_REF(on_materials_changed))
 	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, PROC_REF(on_materials_changed))

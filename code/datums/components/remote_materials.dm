@@ -17,7 +17,7 @@ handles linking back and forth.
 	var/local_size = INFINITY
 	var/department_id
 
-/datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE)
+/datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE, dept_id)
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -123,7 +123,7 @@ handles linking back and forth.
 	if (!QDELETED(buffer) && istype(buffer, /obj/machinery/ore_silo))
 		var/atom/P = parent
 		if (!is_valid_link(P, buffer))
-			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Link unavailable.</span>")
+			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of range.</span>")
 			return COMPONENT_NO_AFTERATTACK
 		if (silo == buffer)
 			to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")
@@ -134,6 +134,9 @@ handles linking back and forth.
 		else if (mat_container)
 			mat_container.retrieve_all()
 			qdel(mat_container)
+		if((department_id != buffer/department_id)||department_id == DEPT_ID_ALL || buffer/department_id == DEPT_ID_ALL)
+			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Not compatible.</span>")
+			return COMPONENT_NO_AFTERATTACK
 		set_silo(buffer)
 		silo.connected += src
 		silo.updateUsrDialog()
