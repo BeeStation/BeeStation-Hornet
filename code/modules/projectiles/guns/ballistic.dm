@@ -67,9 +67,15 @@
 	update_icon()
 
 /obj/item/gun/ballistic/fire_sounds()
-	var/frequency_to_use = sin((90/magazine?.max_ammo) * get_ammo())
+	var/frequency_to_use
+	var/play_click
+	if(magazine)
+		frequency_to_use = sin((90/magazine?.max_ammo) * get_ammo())
+		play_click = round(sqrt(magazine?.max_ammo * 2)) > get_ammo()
+	else
+		frequency_to_use = sin((90) * get_ammo())
+		play_click = round(sqrt(2)) > get_ammo()
 	var/click_frequency_to_use = 1 - frequency_to_use * 0.75
-	var/play_click = round(sqrt(magazine?.max_ammo * 2)) > get_ammo()
 
 	if(suppressed)
 		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
@@ -384,7 +390,8 @@
 
 #define BRAINS_BLOWN_THROW_RANGE 3
 #define BRAINS_BLOWN_THROW_SPEED 1
-/obj/item/gun/ballistic/suicide_act(mob/user)
+
+/obj/item/gun/ballistic/suicide_act(mob/living/user)
 	var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
 	if (B && chambered && chambered.BB && can_trigger_gun(user) && !chambered.BB.nodamage)
 		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -398,14 +405,14 @@
 			B.forceMove(T)
 			var/datum/callback/gibspawner = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_atom_to_turf), /obj/effect/gibspawner/generic, B, 1, FALSE, user)
 			B.throw_at(target, BRAINS_BLOWN_THROW_RANGE, BRAINS_BLOWN_THROW_SPEED, callback=gibspawner)
-			return(BRUTELOSS)
+			return BRUTELOSS
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
-			return(OXYLOSS)
+			return OXYLOSS
 	else
 		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brain[user.p_s()] out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(src, dry_fire_sound, 30, TRUE)
-		return (OXYLOSS)
+		return OXYLOSS
 #undef BRAINS_BLOWN_THROW_SPEED
 #undef BRAINS_BLOWN_THROW_RANGE
 

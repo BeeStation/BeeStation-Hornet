@@ -9,7 +9,9 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	miss_sound = 'sound/weapons/punchmiss.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
+
 	mutant_brain = /obj/item/organ/brain/pumpkin_brain
+	mutanttongue = /obj/item/organ/tongue/podperson/pumpkin
 
 	species_chest = /obj/item/bodypart/chest/pumpkin_man
 	species_head = /obj/item/bodypart/head/pumpkin_man
@@ -23,6 +25,16 @@
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
+
+/datum/species/pod/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	//They can't speak!
+	//Register signal for carving
+	RegisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY, PROC_REF(handle_carving))
+
+/datum/species/pod/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
 
 /datum/species/pod/pumpkin_man/get_species_description()
 	return "A rare subspecies of the Podpeople, Pumpkinpeople are gourdy and orange, appearing every halloween."
@@ -44,6 +56,32 @@
 
 	return to_add
 
+//Handler for face carving!
+/datum/species/pod/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
+	//Check if the item is sharp - give owner a random face if applicable
+	var/mob/living/carbon/human/M = _source
+	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
+	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.zone_selected == BODY_ZONE_HEAD)
+		to_chat(_user, "<span class='notice'>You begin to carve a face into [_source]...</span>")
+		//Do after for *flourish*
+		if(do_after(_user, 3 SECONDS))
+			//generate option list
+			var/list/face_options = list()
+			for(var/i in 0 to 8)
+				face_options += list("face[i]" = image('icons/mob/pumpkin_faces.dmi', "face[i]"))
+			var/face_choosen = show_radial_menu(_user, _source, face_options, require_near = TRUE)
+			//Reset overlays
+			M.cut_overlay(head.carved_overlay) //This is needed in addition to the head icon getter's - for some reason?
+			head.carved_overlay.icon_state = face_choosen
+			M.update_body_parts_head_only()
+			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
+			//Adjust the tongue
+			var/obj/item/organ/tongue/podperson/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
+			if(istype(P))
+				P?.carved = TRUE
+		else
+			to_chat(_user, "<span class='warning'>You fail to carve a face into [_source]!</span>")
+		
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"
 	actions_types = list(/datum/action/item_action/organ_action/pumpkin_head_candy)
@@ -94,8 +132,8 @@
 
 /datum/action/item_action/organ_action/pumpkin_head_candy/proc/generate_candy()
 	//Get a candy type
-	var/obj/item/type = pick(/obj/item/reagent_containers/food/snacks/sugarcookie/spookyskull,
-		/obj/item/reagent_containers/food/snacks/sugarcookie/spookycoffin,
+	var/obj/item/type = pick(/obj/item/food/cookie/sugar/spookyskull,
+		/obj/item/food/cookie/sugar/spookycoffin,
 		/obj/item/reagent_containers/food/snacks/candy_corn,
 		/obj/item/reagent_containers/food/snacks/candy,
 		/obj/item/reagent_containers/food/snacks/candiedapple,

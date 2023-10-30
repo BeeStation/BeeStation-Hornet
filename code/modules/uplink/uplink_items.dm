@@ -519,7 +519,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bulldog Shotgun"
 	desc = "A fully-loaded semi-automatic drum-fed shotgun. Compatible with all 12g rounds. Designed for close \
 			quarter anti-personnel engagements."
-	item = /obj/item/gun/ballistic/shotgun/bulldog
+	item = /obj/item/gun/ballistic/shotgun/automatic/bulldog
 	cost = 8
 	surplus = 40
 	purchasable_from = UPLINK_NUKE_OPS
@@ -2236,6 +2236,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Recovered from an abandoned Nar'sie cult lair two construct shells and a stash of empty soulstones was found. These were purified to prevent occult contamination and have been put in a belt so they may be used as an accessible source of disposable minions. The construct shells have been packaged into two beacons for rapid and portable deployment."
 	item = /obj/item/storage/box/syndie_kit/cultconstructkit
 	cost = 20
+	restricted_roles = list(JOB_NAME_CHAPLAIN)
+
+/datum/uplink_item/role_restricted/shadowmutationtoxin
+	name = "Shadow Person Mutation Toxin"
+	desc = "Become one with the night, Rumors have it that there is a secret sect dedicated to the shadows and must be of their species to unlock it, be aware however, you will take damage in the light."
+	item = /obj/item/reagent_containers/hypospray/medipen/shadow_species_mutator
+	cost = 5
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
 
 /datum/uplink_item/role_restricted/spanish_flu

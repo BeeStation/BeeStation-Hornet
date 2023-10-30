@@ -15,7 +15,7 @@
 	dynamic_hair_suffix = ""
 	dog_fashion = /datum/dog_fashion/head/chef
 
-/obj/item/clothing/head/chefhat/suicide_act(mob/user)
+/obj/item/clothing/head/chefhat/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to become a chef.</span>")
 	user.say("Bork Bork Bork!", forced = "chef hat suicide")
 	sleep(20)
@@ -145,7 +145,7 @@
 	name = "durathread beret"
 	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beretdurathread"
-	armor = list(MELEE = 15,  BULLET = 5, LASER = 15, ENERGY = 20, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 5, STAMINA = 20)
+	armor = list(MELEE = 15,  BULLET = 25, LASER = 15, ENERGY = 20, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 5, STAMINA = 20)
 
 //Security
 
