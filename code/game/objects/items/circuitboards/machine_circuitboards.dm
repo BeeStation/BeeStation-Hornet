@@ -1238,7 +1238,30 @@
 	name = "ore silo (Machine Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/ore_silo
+	var/department_id = DEPT_ID_SCIENCE
 	req_components = list()
+
+/obj/item/circuitboard/machine/ore_silo/multitool_act(mob/living/user, obj/item/multitool/I)
+	. = ..()
+	if(istype(I))
+		department_id = (department_id >= DEPT_ID_SERVICE) ? DEPT_ID_SCIENCE : (department_id + 1)
+		var/department_text
+		//honestly feels a bit stinky but im not gonna stay on this much given it happens once every bajillion rounds
+		switch(department_id)
+			if(DEPT_ID_SCIENCE)
+				department_text = DEPT_SCIENCE
+			if(DEPT_ID_ENGINEERING)
+				department_text = DEPT_ENGINEERING
+			if(DEPT_ID_MEDICAL)
+				department_text = DEPT_MEDICAL
+			if(DEPT_ID_SECURITY)
+				department_text = DEPT_SECURITY
+			if(DEPT_ID_SUPPLY)
+				department_text = DEPT_SUPPLY
+			if(DEPT_ID_SERVICE)
+				department_text = DEPT_SERVICE
+		to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_text]. </span>")
+
 
 /obj/item/circuitboard/machine/protolathe/department/cargo
 	name = "departmental protolathe - cargo (Machine Board)"

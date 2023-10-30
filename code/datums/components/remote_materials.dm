@@ -15,6 +15,7 @@ handles linking back and forth.
 	var/category
 	var/allow_standalone
 	var/local_size = INFINITY
+	var/department_id
 
 /datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE)
 	if (!isatom(parent))
@@ -122,7 +123,7 @@ handles linking back and forth.
 	if (!QDELETED(buffer) && istype(buffer, /obj/machinery/ore_silo))
 		var/atom/P = parent
 		if (!is_valid_link(P, buffer))
-			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of Range.</span>")
+			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Link unavailable.</span>")
 			return COMPONENT_NO_AFTERATTACK
 		if (silo == buffer)
 			to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")

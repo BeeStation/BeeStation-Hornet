@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/ore_silo
 
+	var/department_id = DEPT_ID_ALL // the department ID of the department the silo is assigned to, default all, but board starts as s
 	var/list/holds = list()
 	var/list/datum/component/remote_materials/connected = list()
 	var/log_page = 1
@@ -33,6 +34,12 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 
 	if (!GLOB.ore_silo_default && mapload && is_station_level(z))
 		GLOB.ore_silo_default = src
+
+/obj/machinery/ore_silo/on_construction()
+	var/obj/item/circuitboard/machine/ore_silo/board = circuit
+	if(board)
+		department_id = board.department_id
+	return ..(department_id)
 
 /obj/machinery/ore_silo/Destroy()
 	if (GLOB.ore_silo_default == src)
