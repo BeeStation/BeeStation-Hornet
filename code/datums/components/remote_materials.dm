@@ -17,13 +17,12 @@ handles linking back and forth.
 	var/local_size = INFINITY
 	var/department_id
 
-/datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE, dept_id)
+/datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE, department_id)
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
-
+	src.department_id = department_id
 	src.category = category
 	src.allow_standalone = allow_standalone
-
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_z_disconnect))
 	RegisterSignal(parent, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(recieve_buffer))
@@ -130,7 +129,7 @@ handles linking back and forth.
 			to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")
 			return COMPONENT_NO_AFTERATTACK
 		if(!((department_id == buffer_silo.department_id)||department_id == DEPT_ID_ALL || buffer_silo.department_id == DEPT_ID_ALL))
-			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Not compatible.</span>")
+			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Not Compatible.</span>")
 			return COMPONENT_NO_AFTERATTACK
 		if (silo)
 			silo.connected -= src
