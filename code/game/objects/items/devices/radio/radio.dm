@@ -261,8 +261,8 @@
 
 	// From the channel, determine the frequency and get a reference to it.
 	var/freq
-	if(channel && channels && channels.len > 0)
-		if(channel == MODE_DEPARTMENT)
+	if(channel && channels)
+		if(channel == MODE_DEPARTMENT && channels.len > 0)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
 		if (!channels[channel]) // if the channel is turned off, don't broadcast
