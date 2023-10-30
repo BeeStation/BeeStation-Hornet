@@ -65,11 +65,11 @@
 /obj/item/circuit_component/object_overlay/register_shell(atom/movable/shell)
 	if(istype(shell, /obj/item/organ/cyberimp/bci))
 		bci = shell
-		RegisterSignal(shell, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_removed))
+		RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/object_overlay/unregister_shell(atom/movable/shell)
 	bci = null
-	UnregisterSignal(shell, COMSIG_CARBON_LOSE_ORGAN)
+	UnregisterSignal(shell, COMSIG_ORGAN_REMOVED)
 
 /obj/item/circuit_component/object_overlay/input_received(datum/port/input/port)
 	if(!bci)
@@ -85,7 +85,7 @@
 		show_to_owner(target_atom, owner)
 
 	if(COMPONENT_TRIGGERED_BY(signal_off, port) && (target_atom in active_overlays))
-		target_atom.remove_alt_appearance("object_overlay_[REF(src)]")
+		QDEL_NULL(active_overlays[target_atom])
 		active_overlays.Remove(target_atom)
 
 /obj/item/circuit_component/object_overlay/proc/show_to_owner(atom/target_atom, mob/living/owner)
@@ -93,7 +93,7 @@
 		return
 
 	if(active_overlays[target_atom])
-		target_atom.remove_alt_appearance("object_overlay_[REF(src)]")
+		QDEL_NULL(active_overlays[target_atom])
 
 	var/image/cool_overlay = image(icon = 'icons/mob/screen_bci.dmi', loc = target_atom, icon_state = options_map[object_overlay_options.value], layer = RIPPLE_LAYER)
 
@@ -121,7 +121,7 @@
 	SIGNAL_HANDLER
 
 	for(var/atom/target_atom in active_overlays)
-		target_atom.remove_alt_appearance("object_overlay_[REF(src)]")
+		QDEL_NULL(active_overlays[target_atom])
 		active_overlays.Remove(target_atom)
 
 #undef OBJECT_OVERLAY_LIMIT
