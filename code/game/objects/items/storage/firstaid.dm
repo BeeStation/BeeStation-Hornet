@@ -453,9 +453,9 @@
 	STR.click_gather = TRUE
 	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/pill, /obj/item/dice))
 
-/obj/item/storage/pill_bottle/suicide_act(mob/user)
+/obj/item/storage/pill_bottle/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/storage/pill_bottle/charcoal
 	name = "bottle of charcoal pills"

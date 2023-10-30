@@ -6,7 +6,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "r" = (
@@ -51,9 +51,9 @@ s
 "}
 (4,1,1) = {"
 s
-G
-G
 o
+G
+G
 s
 "}
 (5,1,1) = {"

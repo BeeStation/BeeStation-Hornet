@@ -62,7 +62,7 @@
 	attack_verb = list("drilled", "screwed", "jabbed")
 	throw_range = 3
 
-/obj/item/powertool/hand_drill/suicide_act(mob/user)
+/obj/item/powertool/hand_drill/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
 		user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	else
@@ -133,7 +133,7 @@
 
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, TRAIT_JAWS_OF_LIFE)
 
-/obj/item/powertool/jaws_of_life/suicide_act(mob/user)
+/obj/item/powertool/jaws_of_life/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_CROWBAR)
 		user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src], it looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)

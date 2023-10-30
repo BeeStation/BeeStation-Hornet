@@ -734,7 +734,7 @@
 	"Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.\n"+\
 	"Transforming it immediately after an attack causes the next attack to come out faster.</span>"
 
-/obj/item/melee/transforming/cleaving_saw/suicide_act(mob/user)
+/obj/item/melee/transforming/cleaving_saw/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	transform_cooldown = 0
 	transform_weapon(user, TRUE)
