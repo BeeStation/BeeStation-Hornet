@@ -1,0 +1,6 @@
+author: rkz, ArcaneMusic
+delete-after: true
+changes:
+  - rscadd: converts pastries to newfood
+  - tweak: moves several foods around under their appropriate recipes. Egg wraps are
+      under the egg recipes, rather than the miscellaneous recipes.
