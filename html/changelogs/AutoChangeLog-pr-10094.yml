@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: Saying a codeword to radio uplink accepts a message before it gets treated.
-      Lizardpeople can use it now!
