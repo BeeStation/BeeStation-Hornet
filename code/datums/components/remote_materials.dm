@@ -122,13 +122,14 @@ handles linking back and forth.
 /datum/component/remote_materials/proc/recieve_buffer(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
 	if (!QDELETED(buffer) && istype(buffer, /obj/machinery/ore_silo))
 		var/atom/P = parent
+		var/obj/machinery/ore_silo/buffer_silo = buffer
 		if (!is_valid_link(P, buffer))
-			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of range.</span>")
+			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of Range.</span>")
 			return COMPONENT_NO_AFTERATTACK
 		if (silo == buffer)
 			to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")
 			return COMPONENT_NO_AFTERATTACK
-		if((department_id != buffer.department_id)||department_id == DEPT_ID_ALL || buffer.department_id == DEPT_ID_ALL)
+		if((department_id != buffer_silo.department_id)||department_id == DEPT_ID_ALL || buffer_silo.department_id == DEPT_ID_ALL)
 			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Not compatible.</span>")
 			return COMPONENT_NO_AFTERATTACK
 		if (silo)
