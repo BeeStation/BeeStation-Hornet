@@ -326,6 +326,16 @@
 	cooldown = 10
 	stamina_damage = 20
 
+//Wooden Baton
+/obj/item/melee/classic_baton/police/beater
+	name = "wooden baton"
+	desc = "Favored by hot headed Security Officers who don't want to get in trouble with CentCom but still want to get that nostalgic feeling of beating some criminal scum upside the head with a chunk of wood."
+	force = 8
+	throwforce = 7
+	cooldown = 5
+	stamina_damage = 15
+	stun_animation = TRUE
+
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
 	name = "telescopic baton"
