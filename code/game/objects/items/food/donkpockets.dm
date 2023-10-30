@@ -29,7 +29,6 @@
 	microwaved_type = /obj/item/food/donkpocket/warm
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2, //uhhh lorewise microwaving donkpockets makes the proteins into omnizine or somethin idk
 		/datum/reagent/consumable/maltodextrin = 3
 	)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
@@ -54,8 +53,7 @@
 	desc = "The heated food of choice for the seasoned traitor."
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/medicine/omnizine = 6,
+		/datum/reagent/medicine/omnizine = 3,
 		/datum/reagent/consumable/maltodextrin = 3
 	)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
@@ -86,7 +84,6 @@
 	icon_state = "donkpocketspicy"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/capsaicin = 2,
 		/datum/reagent/consumable/maltodextrin = 3
 	)
@@ -102,8 +99,7 @@
 	icon_state = "donkpocketspicy"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/medicine/omnizine = 2,
+		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/consumable/capsaicin = 5,
 		/datum/reagent/consumable/maltodextrin = 3
 	)
@@ -116,7 +112,6 @@
 	icon_state = "donkpocketteriyaki"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/soysauce = 2,
 		/datum/reagent/consumable/maltodextrin = 3
 	)
@@ -132,8 +127,7 @@
 	icon_state = "donkpocketteriyaki"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 3,
-		/datum/reagent/medicine/omnizine = 2,
+		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/consumable/soysauce = 2,
 		/datum/reagent/consumable/maltodextrin = 3
 	)
@@ -146,7 +140,6 @@
 	icon_state = "donkpocketpizza"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/tomatojuice = 2,
 		/datum/reagent/consumable/maltodextrin = 3
 	)
@@ -162,8 +155,7 @@
 	icon_state = "donkpocketpizza"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/medicine/omnizine = 2,
+		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/consumable/tomatojuice = 2,
 		/datum/reagent/consumable/maltodextrin = 3
 	)
@@ -191,7 +183,7 @@
 	icon_state = "donkpocketbanana"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/medicine/omnizine = 2,
+		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/consumable/banana = 4,
 		/datum/reagent/consumable/laughter = 6,
 		/datum/reagent/consumable/maltodextrin = 4
@@ -220,7 +212,7 @@
 	icon_state = "donkpocketberry"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/medicine/omnizine = 2,
+		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/consumable/berryjuice = 3,
 		/datum/reagent/consumable/maltodextrin = 4
 	)
@@ -233,7 +225,6 @@
 	icon_state = "donkpocketgondola"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/tranquility = 5,
 		/datum/reagent/consumable/maltodextrin = 3
 	)
@@ -249,8 +240,7 @@
 	icon_state = "donkpocketgondola"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/medicine/omnizine = 2,
+		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/tranquility = 10,
 		/datum/reagent/consumable/maltodextrin = 3
 	)
