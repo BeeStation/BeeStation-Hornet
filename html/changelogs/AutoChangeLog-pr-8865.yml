@@ -1,7 +1,0 @@
-author: RKz, esaine, LemonInTheDark, magatsuchi
-delete-after: true
-changes:
-  - refactor: Reworked /turf/var/intact into variables which don't conflate underfloor
-      visibility, underfloor interactability, and overfloor presence
-  - bugfix: things that are supposed to affect things under tiles do, things that
-      arent wont
