@@ -28,6 +28,7 @@
 	. = ..()
 	stored_research = new /datum/techweb/specialized/autounlocking/smelter
 	materials = AddComponent(/datum/component/remote_materials, "orm", mapload)
+	materials.department_id = DEPT_SUPPLY
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(stored_research)

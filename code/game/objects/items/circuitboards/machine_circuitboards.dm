@@ -1234,6 +1234,13 @@
 		/obj/item/assembly/igniter = 1)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/material_deposit
+	name = "material deposit (Machine Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/mineral/material_deposit
+	req_components = list()
+	needs_anchored = FALSE
+
 /obj/item/circuitboard/machine/ore_silo
 	name = "ore silo (Machine Board)"
 	icon_state = "supply"
@@ -1248,8 +1255,10 @@
 			to_chat(user, "<span class='warning'>This board is for a multidepartment silo, you cannot change its department assignment!</span>")
 			return
 		var/department_list = list(DEPT_SCIENCE, DEPT_ENGINEERING, DEPT_MEDICAL, DEPT_SECURITY, DEPT_SUPPLY, DEPT_SERVICE)
-		department_id = tgui_input_list(user, "Select the department the silo will be assigned to:", "Select department", department_list)
-		to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_id]. </span>")
+		var/new_department_id = tgui_input_list(user, "Select the department the silo will be assigned to:", "Select department", department_list)
+		if(new_department_id!=null)
+			department_id = new_department_id
+			to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_id]. </span>")
 
 /obj/item/circuitboard/machine/ore_silo/examine(mob/user)
 	. = ..()

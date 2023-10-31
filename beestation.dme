@@ -2835,6 +2835,7 @@
 #include "code\modules\mining\gibtonite.dm"
 #include "code\modules\mining\machine_processing.dm"
 #include "code\modules\mining\machine_redemption.dm"
+#include "code\modules\mining\machine_materialdeposit.dm"
 #include "code\modules\mining\machine_silo.dm"
 #include "code\modules\mining\machine_stacking.dm"
 #include "code\modules\mining\machine_unloading.dm"
