@@ -27,11 +27,3 @@
 	ammo_type = /obj/item/ammo_casing/a41/paper
 	caliber = "a41"
 	max_ammo = 1
-
-/obj/item/ammo_box/magazine/internal/musket
-	name = "musket internal magazine"
-	desc = "A pipe full of powder, a fist full of shot"
-	ammo_type = /obj/item/ammo_casing/caseless/musket
-	start_empty = TRUE
-	caliber = "musket"
-	max_ammo = 1

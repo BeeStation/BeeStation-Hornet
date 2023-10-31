@@ -42,15 +42,3 @@
 	damage = 35
 	speed = 0.6
 	armour_penetration = 20
-
-// Musket
-/obj/projectile/bullet/musket
-	name = "musket ball"
-	damage = 45
-	armour_penetration = 45
-
-/obj/projectile/bullet/pellet/musket
-	name = "musket shot"
-	tile_dropoff = 0.65 //see code\modules\projectiles\projectile\bullets\shotgun.dm for relevant code
-	damage = 6.5
-	armour_penetration = 15
