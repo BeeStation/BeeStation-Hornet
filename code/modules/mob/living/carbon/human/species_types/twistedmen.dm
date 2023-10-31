@@ -108,7 +108,8 @@
 	target.pass_flags |= PASSBLOB
 
 /mob/living/carbon/human/species/twistedmen/stop_pulling()
-	pulling.pass_flags &= ~PASSBLOB
+	if(!istype(pulling, /mob/living/carbon/human/species/twistedmen))
+		pulling.pass_flags &= ~PASSBLOB
 	. = ..()
 
 /obj/item/bodypart/l_arm/twisted/attach_limb(mob/living/carbon/C, special, is_creating)
