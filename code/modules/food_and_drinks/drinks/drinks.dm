@@ -271,7 +271,6 @@
 	resistance_flags = FREEZE_PROOF
 	custom_price = 42
 
-
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
 	desc = "Just add 5ml of water, self heats! A taste that reminds you of your school years. Now new with salty flavour!"
