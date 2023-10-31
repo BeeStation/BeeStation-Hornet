@@ -1,0 +1,10 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Maltodextrin's overall power has been substantially reduced. When fully
+      processed, maltodextrin will leave you with about the same hunger you had before
+      eating junk food instead of substantially hungrier than you were before eating.
+  - tweak: Maltodextrin's effect is now gradual instead of instantaneous and players
+      should no longer experience sudden, crippling starvation as a result.
+  - tweak: The amount of maltodextrin in junk foods has been adjusted in accordance
+      with the above changes.
