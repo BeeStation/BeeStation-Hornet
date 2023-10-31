@@ -1,0 +1,4 @@
+author: JixS4v
+delete-after: true
+changes:
+  - bugfix: Trying to fulton into a walled area no longer softlocks you invisibly
