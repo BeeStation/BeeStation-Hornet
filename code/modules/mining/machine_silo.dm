@@ -35,6 +35,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		GLOB.ore_silo_default = src
 	if (department_id!=DEPT_ALL)
 		name = "ore silo ([department_id])"
+		desc = "An all-in-one bluespace storage and transmission system for the station's mineral distribution needs. This one is linked to the [department_id] department"
 
 /obj/machinery/ore_silo/on_construction()
 	var/obj/item/circuitboard/machine/ore_silo/board = circuit
@@ -42,6 +43,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		department_id = board.department_id
 	if (department_id!=DEPT_ALL)
 		name = "ore silo ([department_id])"
+		desc = "An all-in-one bluespace storage and transmission system for the station's mineral distribution needs. This one is linked to the [department_id] department"
 	return ..(department_id)
 
 /obj/machinery/ore_silo/Destroy()

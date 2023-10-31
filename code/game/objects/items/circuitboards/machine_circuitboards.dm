@@ -1251,6 +1251,9 @@
 		department_id = tgui_input_list(user, "Select the department the silo will be assigned to:", "Select department", department_list)
 		to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_id]. </span>")
 
+/obj/item/circuitboard/machine/ore_silo/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can change its linked department with a multitool</span>"
 
 /obj/item/circuitboard/machine/protolathe/department/cargo
 	name = "departmental protolathe - cargo (Machine Board)"
