@@ -1247,7 +1247,7 @@
 		if(department_id == DEPT_ALL)
 			to_chat(user, "<span class='warning'>This board is for a multidepartment silo, you cannot change its department assignment!</span>")
 			return
-		department_list = list(DEPT_SCIENCE, DEPT_ENGINEERING, DEPT_MEDICAL, DEPT_SECURITY, DEPT_SUPPLY, DEPT_SERVICE)
+		var/department_list = list(DEPT_SCIENCE, DEPT_ENGINEERING, DEPT_MEDICAL, DEPT_SECURITY, DEPT_SUPPLY, DEPT_SERVICE)
 		department_id = tgui_input_list(user, "Select the department the silo will be assigned to:", "Select department", department_list)
 		to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_id]. </span>")
 
