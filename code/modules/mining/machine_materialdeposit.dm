@@ -7,7 +7,6 @@
 	icon_state = "ore_redemption"
 	density = TRUE
 	input_dir = NORTH
-	output_dir = SOUTH
 	req_access = list(ACCESS_MINERAL_STOREROOM)
 	circuit = /obj/item/circuitboard/machine/material_deposit
 	needs_item_input = TRUE
@@ -17,11 +16,27 @@
 	/// Variable that holds a timer which is used for callbacks to `send_console_message()`. Used for preventing multiple calls to this proc while the MDM is eating a stack of sheets
 	var/console_notify_timer
 	var/datum/component/remote_materials/materials
+	var/static/list/allowed_mats = list(
+		/datum/material/iron,
+		/datum/material/glass,
+		/datum/material/copper,
+		/datum/material/silver,
+		/datum/material/gold,
+		/datum/material/diamond,
+		/datum/material/plasma,
+		/datum/material/uranium,
+		/datum/material/bananium,
+		/datum/material/titanium,
+		/datum/material/bluespace,
+		/datum/material/plastic,
+		)
+	var/list/allowed_typecache
 
 /obj/machinery/mineral/material_deposit/Initialize(mapload)
 	. = ..()
 	materials = AddComponent(/datum/component/remote_materials, "mdm", mapload)
 	materials.department_id = DEPT_ALL
+	allowed_typecache = typecacheof(allowed_types)
 
 /obj/machinery/mineral/material_deposit/Destroy()
 	materials = null
@@ -39,14 +54,15 @@
 	if(!materials.mat_container || panel_open || !powered())
 		return
 	var/datum/component/material_container/mat_container = materials.mat_container
-
-	if(istype(target, /obj/item/stack/sheet))
-		var/obj/item/stack/sheet/O = target
-		var/mats = O.materials & mat_container.materials
-		var/amount = O.amount
-		mat_container.insert_item(O) //insert it
-		materials.silo_log(src, "accepted", amount, "someone", mats)
-		qdel(O)
+	if(istype(target, /obj/item/stack))
+		var/obj/item/target_item= target
+		if(is_type_in_typecache(target_item, allowed_typecache))
+			var/obj/item/stack/sheet/O = target
+			var/mats = O.materials & mat_container.materials
+			var/amount = O.amount
+			mat_container.insert_item(O) //insert it
+			materials.silo_log(src, "accepted", amount, "someone", mats)
+			qdel(O)
 
 /obj/machinery/mineral/material_deposit/default_unfasten_wrench(mob/user, obj/item/I)
 	. = ..()
