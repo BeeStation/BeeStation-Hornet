@@ -275,11 +275,6 @@
 	build_path = /obj/item/circuit_component/health
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_INPUT_COMPONENTS)
 
-/datum/design/component/bci/relative_coords
-	name = "Get relative coords Component"
-	id = "comp_relative_coords"
-	build_path = /obj/item/circuit_component/relative_coords
-
 /datum/design/component/split
 	name = "Split Component"
 	id = "comp_split"
