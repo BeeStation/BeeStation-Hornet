@@ -46,7 +46,7 @@
 
 	var/remote_materials = FALSE
 	var/auto_link = FALSE
-	var/department_id = DEPT_ID_ALL
+	var/department_id = DEPT_ALL
 
 	//A list of all the printable items
 

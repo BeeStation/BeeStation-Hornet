@@ -128,7 +128,7 @@ handles linking back and forth.
 		if (silo == buffer)
 			to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")
 			return COMPONENT_NO_AFTERATTACK
-		if(!((department_id == buffer_silo.department_id)||department_id == DEPT_ID_ALL || buffer_silo.department_id == DEPT_ID_ALL))
+		if(!((department_id == buffer_silo.department_id)||department_id == DEPT_ALL || buffer_silo.department_id == DEPT_ALL))
 			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Not Compatible.</span>")
 			return COMPONENT_NO_AFTERATTACK
 		if (silo)

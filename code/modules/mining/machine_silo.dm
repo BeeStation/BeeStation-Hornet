@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/ore_silo
 
-	var/department_id = DEPT_ID_ALL // the department ID of the department the silo is assigned to, default all, but board starts as s
+	var/department_id = DEPT_ALL // the department ID of the department the silo is assigned to, default all, but board starts as s
 	var/list/holds = list()
 	var/list/datum/component/remote_materials/connected = list()
 	var/log_page = 1

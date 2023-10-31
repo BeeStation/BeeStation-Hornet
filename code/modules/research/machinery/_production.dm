@@ -33,7 +33,7 @@
 	var/list/pending_research = list()
 	var/base_storage = 75000
 
-	var/department_id = DEPT_ID_ALL
+	var/department_id = DEPT_ALL
 
 /obj/machinery/rnd/production/Initialize(mapload)
 	. = ..()

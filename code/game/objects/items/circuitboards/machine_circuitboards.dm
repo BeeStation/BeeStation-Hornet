@@ -1238,29 +1238,18 @@
 	name = "ore silo (Machine Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/ore_silo
-	var/department_id = DEPT_ID_SCIENCE
+	var/department_id = DEPT_SCIENCE
 	req_components = list()
 
 /obj/item/circuitboard/machine/ore_silo/multitool_act(mob/living/user, obj/item/multitool/I)
 	. = ..()
 	if(istype(I))
-		department_id = (department_id >= DEPT_ID_SERVICE) ? DEPT_ID_SCIENCE : (department_id + 1)
-		var/department_text
-		//honestly feels a bit stinky but im not gonna stay on this much given it happens once every bajillion rounds
-		switch(department_id)
-			if(DEPT_ID_SCIENCE)
-				department_text = DEPT_SCIENCE
-			if(DEPT_ID_ENGINEERING)
-				department_text = DEPT_ENGINEERING
-			if(DEPT_ID_MEDICAL)
-				department_text = DEPT_MEDICAL
-			if(DEPT_ID_SECURITY)
-				department_text = DEPT_SECURITY
-			if(DEPT_ID_SUPPLY)
-				department_text = DEPT_SUPPLY
-			if(DEPT_ID_SERVICE)
-				department_text = DEPT_SERVICE
-		to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_text]. </span>")
+		if(department_id == DEPT_ALL)
+			to_chat(user, "<span class='warning'>This board is for a multidepartment silo, you cannot change its department assignment!</span>")
+			return
+		department_list = list(DEPT_SCIENCE, DEPT_ENGINEERING, DEPT_MEDICAL, DEPT_SECURITY, DEPT_SUPPLY, DEPT_SERVICE)
+		department_id = tgui_input_list(user, "Select the department the silo will be assigned to:", "Select department", department_list)
+		to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_id]. </span>")
 
 
 /obj/item/circuitboard/machine/protolathe/department/cargo

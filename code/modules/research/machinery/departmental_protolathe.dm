@@ -8,7 +8,7 @@
 	name = "department protolathe (Engineering)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_ENGINEERING
 	department_tag = "Engineering"
-	department_id = DEPT_ID_ENGINEERING
+	department_id = DEPT_ENGINEERING
 	circuit = /obj/item/circuitboard/machine/protolathe/department/engineering
 	stripe_color = "#EFB341CA"
 
@@ -16,7 +16,7 @@
 	name = "department protolathe (Service)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_SERVICE
 	department_tag = "Service"
-	department_id = DEPT_ID_SERVICE
+	department_id = DEPT_SERVICE
 	circuit = /obj/item/circuitboard/machine/protolathe/department/service
 	stripe_color = "#83CA41CA"
 
@@ -24,7 +24,7 @@
 	name = "department protolathe (Medical)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_MEDICAL
 	department_tag = "Medical"
-	department_id = DEPT_ID_MEDICAL
+	department_id = DEPT_MEDICAL
 	circuit = /obj/item/circuitboard/machine/protolathe/department/medical
 	stripe_color = "#52B4E9CA"
 
@@ -32,7 +32,7 @@
 	name = "department protolathe (Cargo)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_CARGO
 	department_tag = "Cargo"
-	department_id = DEPT_ID_SUPPLY
+	department_id = DEPT_SUPPLY
 	circuit = /obj/item/circuitboard/machine/protolathe/department/cargo
 	stripe_color = "#956929CA"
 
@@ -40,7 +40,7 @@
 	name = "department protolathe (Science)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_SCIENCE
 	department_tag = "Science"
-	department_id = DEPT_ID_SCIENCE
+	department_id = DEPT_SCIENCE
 	circuit = /obj/item/circuitboard/machine/protolathe/department/science
 	stripe_color = "#D381C9CA"
 
@@ -48,6 +48,6 @@
 	name = "department protolathe (Security)"
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_SECURITY
 	department_tag = "Security"
-	department_id = DEPT_ID_SECURITY
+	department_id = DEPT_SECURITY
 	circuit = /obj/item/circuitboard/machine/protolathe/department/security
 	stripe_color = "#DE3A3ACA"
