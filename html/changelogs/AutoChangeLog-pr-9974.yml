@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Properly buffer holoparasite builder to avoid rate limits
