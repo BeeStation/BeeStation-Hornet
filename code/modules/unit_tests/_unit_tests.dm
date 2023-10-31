@@ -54,7 +54,6 @@
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
 #include "component_tests.dm"
-#include "computer_smoothing.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
 
