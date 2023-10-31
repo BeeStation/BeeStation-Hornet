@@ -36,7 +36,7 @@
 	. = ..()
 	materials = AddComponent(/datum/component/remote_materials, "mdm", mapload)
 	materials.department_id = DEPT_ALL
-	allowed_typecache = typecacheof(allowed_types)
+	allowed_typecache = typecacheof(allowed_mats)
 
 /obj/machinery/mineral/material_deposit/Destroy()
 	materials = null
