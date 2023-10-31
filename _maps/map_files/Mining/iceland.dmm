@@ -5053,9 +5053,8 @@
 /turf/open/floor/plasteel/grid,
 /area/iceland_base/science/lobby)
 "aoi" = (
-/obj/machinery/door/airlock/cult/friendly,
-/obj/structure/barricade/wooden/crude/snow,
-/turf/open/floor/plating/asteroid/snow/loose,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/snowed,
 /area/iceland)
 "aoj" = (
 /obj/effect/turf_decal/bot,
@@ -10238,14 +10237,14 @@
 /turf/open/floor/plasteel/cult,
 /area/iceland/underground/safe)
 "aCN" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
+	dir = 1
 	},
 /turf/open/floor/engine/vacuum,
 /area/iceland_base/engine)
@@ -10258,11 +10257,11 @@
 /turf/open/floor/plating/asteroid/snow/loose,
 /area/iceland/underground/safe)
 "aCQ" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
-	dir = 1
-	},
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = -32
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/open/floor/engine/vacuum,
 /area/iceland_base/engine)
@@ -14676,7 +14675,7 @@
 "aQa" = (
 /obj/structure/barricade/wooden/crude/snow,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/asteroid/snow/loose,
+/turf/open/floor/plating/snowed,
 /area/iceland/underground/safe)
 "aQb" = (
 /obj/structure/chair/fancy/shuttle{
@@ -26536,10 +26535,6 @@
 /obj/machinery/light/broken,
 /turf/open/floor/plasteel,
 /area/iceland_base/outpost/research)
-"wUT" = (
-/mob/living/simple_animal/hostile/ambush,
-/turf/open/floor/dock,
-/area/iceland)
 "wWd" = (
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
@@ -28290,8 +28285,8 @@ aCP
 aCP
 bHe
 gUK
-avy
-aCP
+hHm
+aIx
 aqo
 aCP
 aSQ
@@ -28543,11 +28538,11 @@ aiC
 aiC
 aCP
 aCP
-aSQ
-aCP
-aCP
-aCP
-aCP
+aej
+aIx
+aej
+aej
+aIx
 aCP
 aQa
 aCP
@@ -28798,9 +28793,9 @@ aiC
 aiC
 aiC
 aCP
-avy
-aCP
-aSQ
+hHm
+aIx
+aej
 aSQ
 aiC
 aiC
@@ -29055,7 +29050,7 @@ aiC
 aiC
 aiC
 aCP
-aCP
+aIx
 aCP
 aiC
 aiC
@@ -29312,7 +29307,7 @@ aiC
 aiC
 aiC
 aCP
-aSQ
+aej
 aiC
 aiC
 aiC
@@ -29569,8 +29564,8 @@ aiC
 aiC
 aeJ
 aSQ
-aSQ
-aCP
+aej
+qLR
 aiC
 aiC
 ruA
@@ -29826,8 +29821,8 @@ ruA
 aiC
 aiC
 aCP
-aSQ
-aCP
+aej
+aIx
 aeJ
 ruA
 ptQ
@@ -30084,9 +30079,9 @@ aiC
 aiC
 aiC
 aSQ
-aSQ
+aej
 kqA
-ruA
+aKh
 aKJ
 aKJ
 aBp
@@ -30341,8 +30336,8 @@ aiC
 aiC
 aiC
 aCP
-aCP
-aSQ
+aIx
+aej
 aoi
 xKM
 xKM
@@ -30599,8 +30594,8 @@ aiC
 aiC
 aiC
 aSQ
-aCP
-ruA
+aIx
+aoi
 aKJ
 arI
 xKM
@@ -60078,7 +60073,7 @@ aDb
 aJy
 aEv
 xHO
-qqO
+kfA
 aii
 atL
 aGu
@@ -60335,7 +60330,7 @@ aDb
 aJy
 aEv
 vAB
-kfA
+qqO
 aii
 aDK
 aDN
@@ -60849,7 +60844,7 @@ aDb
 aJy
 aEv
 ulU
-cGf
+lFn
 aii
 aqB
 aHR
@@ -61106,7 +61101,7 @@ aDb
 aJy
 aEv
 iJX
-lFn
+cGf
 aii
 aeH
 aOu
@@ -61620,7 +61615,7 @@ aDb
 aJy
 aEv
 asE
-aKn
+arO
 aii
 aqB
 aLw
@@ -61877,7 +61872,7 @@ aDb
 aJy
 aEv
 aDp
-arO
+aKn
 aii
 aTD
 anB
@@ -62391,7 +62386,7 @@ aDb
 aJy
 aEv
 ahv
-aBJ
+aHE
 aii
 aum
 aGH
@@ -62648,7 +62643,7 @@ aDb
 aJy
 aEv
 afe
-aHE
+aBJ
 aii
 afV
 aXw
@@ -64675,7 +64670,7 @@ lFT
 lFT
 lFT
 lFT
-wUT
+lFT
 lFT
 lFT
 lFT
@@ -65969,7 +65964,7 @@ lFT
 lFT
 lFT
 lFT
-wUT
+lFT
 lFT
 lFT
 lFT
@@ -66734,7 +66729,7 @@ lFT
 lFT
 lFT
 lFT
-wUT
+lFT
 lFT
 lFT
 lFT
@@ -68788,14 +68783,14 @@ lFT
 lFT
 lFT
 lFT
-wUT
 lFT
 lFT
 lFT
 lFT
 lFT
 lFT
-wUT
+lFT
+lFT
 lFT
 lFT
 lFT
