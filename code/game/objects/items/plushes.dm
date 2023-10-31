@@ -673,6 +673,16 @@
 	desc = "An adorable mothperson plushy. It's a colorfull bug!"
 	icon_state = "moffplush_rainbow"
 
+/obj/item/toy/plush/moth/witchwing
+	name = "witch wing moth plushie"
+	desc = "An adorable mothperson plushy. It's a mothable bug!"
+	icon_state = "moffplush_witchwing"
+
+/obj/item/toy/plush/moth/medicalmoff
+	name = "medical moth plushie"
+	desc = "An adorable mothperson plushy. It's an anxious bug!"
+	icon_state = "moffplush_medicalmoff"
+
 /obj/item/toy/plush/crossed
 	name = "ghost plushie"
 	desc = "It reminds you of someone important, you just can't make out who."
