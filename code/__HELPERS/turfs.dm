@@ -247,8 +247,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 	tX = text2num(tX[2])
 	tZ = origin.z
 	var/list/actual_view = getviewsize(C ? C.view : world.view)
-	tX = CLAMP(origin.x + round(actual_view[1] / 2) - tX, 1, world.maxx)
-	tY = CLAMP(origin.y + round(actual_view[2] / 2) - tY, 1, world.maxy)
+	tX = clamp(origin.x + round(actual_view[1] / 2) - tX, 1, world.maxx)
+	tY = clamp(origin.y + round(actual_view[2] / 2) - tY, 1, world.maxy)
 	return locate(tX, tY, tZ)
 
 ///similar function to RANGE_TURFS(), but will search spiralling outwards from the center (like the above, but only turfs)

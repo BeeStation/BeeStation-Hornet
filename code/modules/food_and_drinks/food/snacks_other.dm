@@ -214,6 +214,16 @@
 	tastes = list("egg" = 1)
 	foodtype = MEAT | GRAIN
 
+/obj/item/reagent_containers/food/snacks/chawanmushi
+	name = "chawanmushi"
+	desc = "A legendary egg custard that makes friends out of enemies. Probably too hot for a cat to eat."
+	icon_state = "chawanmushi"
+	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	filling_color = "#FFE4E1"
+	tastes = list("custard" = 1)
+	foodtype = GRAIN | MEAT | VEGETABLES
+
 /obj/item/reagent_containers/food/snacks/spidereggs
 	name = "spider eggs"
 	desc = "A cluster of juicy spider eggs. A great side dish for when you care not for your health."
@@ -291,56 +301,6 @@
 	tastes = list("eggplant" = 3, "cheese" = 1)
 	foodtype = VEGETABLES | DAIRY
 
-/obj/item/reagent_containers/food/snacks/tortilla
-	name = "tortilla"
-	desc = "The base for all your burritos."
-	icon = 'icons/obj/food/food_ingredients.dmi'
-	icon_state = "tortilla"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
-	filling_color = "#FFEFD5"
-	tastes = list("tortilla" = 1)
-	foodtype = GRAIN
-
-/obj/item/reagent_containers/food/snacks/burrito
-	name = "burrito"
-	desc = "Tortilla wrapped goodness."
-	icon_state = "burrito"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 1)
-	filling_color = "#FFEFD5"
-	tastes = list("tortilla" = 2)
-	foodtype = GRAIN
-
-/obj/item/reagent_containers/food/snacks/cheesyburrito
-	name = "cheesy burrito"
-	desc = "It's a burrito filled with cheese."
-	icon_state = "cheesyburrito"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 2)
-	filling_color = "#FFD800"
-	tastes = list("tortilla" = 2, "cheese" = 1)
-	foodtype = GRAIN | DAIRY
-
-/obj/item/reagent_containers/food/snacks/carneburrito
-	name = "carne asada burrito"
-	desc = "The best burrito for meat lovers."
-	icon_state = "carneburrito"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
-	filling_color = "#A0522D"
-	tastes = list("tortilla" = 2, "meat" = 4)
-	foodtype = GRAIN | MEAT
-
-/obj/item/reagent_containers/food/snacks/fuegoburrito
-	name = "fuego plasma burrito"
-	desc = "A super spicy burrito."
-	icon_state = "fuegoburrito"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 3)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/capsaicin = 5, /datum/reagent/consumable/nutriment/vitamin = 3)
-	filling_color = "#FF2000"
-	tastes = list("tortilla" = 2, "hot peppers" = 1)
-	foodtype = GRAIN
-
 /obj/item/reagent_containers/food/snacks/yakiimo
 	name = "yaki imo"
 	desc = "Made with roasted sweet potatoes!"
@@ -372,36 +332,6 @@
 	tastes = list("melon" = 1)
 	foodtype = FRUIT
 
-/obj/item/reagent_containers/food/snacks/nachos
-	name = "nachos"
-	desc = "Chips from Space Mexico."
-	icon_state = "nachos"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
-	filling_color = "#F4A460"
-	tastes = list("nachos" = 1)
-	foodtype = VEGETABLES | FRIED
-
-/obj/item/reagent_containers/food/snacks/cheesynachos
-	name = "cheesy nachos"
-	desc = "The delicious combination of nachos and melting cheese."
-	icon_state = "cheesynachos"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 3)
-	filling_color = "#FFD700"
-	tastes = list("nachos" = 2, "cheese" = 1)
-	foodtype = VEGETABLES | FRIED | DAIRY
-
-/obj/item/reagent_containers/food/snacks/cubannachos
-	name = "Cuban nachos"
-	desc = "That's some dangerously spicy nachos."
-	icon_state = "cubannachos"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 3)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/capsaicin = 8, /datum/reagent/consumable/nutriment/vitamin = 4)
-	filling_color = "#DC143C"
-	tastes = list("nachos" = 2, "hot pepper" = 1)
-	foodtype = VEGETABLES | FRIED | DAIRY
-
 /obj/item/reagent_containers/food/snacks/melonkeg
 	name = "melon keg"
 	desc = "Who knew vodka was a fruit?"
@@ -425,15 +355,6 @@
 	foodtype = GRAIN | SUGAR
 	/*food_flags = FOOD_FINGER_FOOD*/
 	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/reagent_containers/food/snacks/stuffedlegion
-	name = "stuffed legion"
-	desc = "The former skull of a damned human, filled with goliath meat. It has a decorative lava pool made of ketchup and hotsauce."
-	icon_state = "stuffed_legion"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 3, /datum/reagent/consumable/capsaicin = 1, /datum/reagent/medicine/tricordrazine = 5)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/capsaicin = 2, /datum/reagent/medicine/tricordrazine = 10)
-	tastes = list("death" = 2, "rock" = 1, "meat" = 1, "hot peppers" = 1)
-	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/powercrepe
 	name = "Powercrepe"
@@ -579,24 +500,6 @@
 /obj/item/reagent_containers/food/snacks/gumball/cyborg/proc/spamcheck()
 	if(spamchecking)
 		qdel(src)
-
-/obj/item/reagent_containers/food/snacks/taco
-	name = "taco"
-	desc = "A traditional taco with meat, cheese, and lettuce."
-	icon_state = "taco"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 2)
-	filling_color = "F0D830"
-	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2, "lettuce" = 1)
-	foodtype = MEAT | DAIRY | GRAIN | VEGETABLES
-
-/obj/item/reagent_containers/food/snacks/taco/plain
-	desc = "A traditional taco with meat and cheese, minus the rabbit food."
-	icon_state = "taco_plain"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
-	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2)
-	foodtype = MEAT | DAIRY | GRAIN
 
 /obj/item/reagent_containers/food/snacks/branrequests
 	name = "Bran Requests Cereal"

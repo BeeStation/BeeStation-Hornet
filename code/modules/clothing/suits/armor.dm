@@ -285,14 +285,14 @@
 
 /obj/item/clothing/suit/armor/vest/durathread
 	name = "durathread vest"
-	desc = "A vest made of durathread with strips of leather acting as trauma plates."
+	desc = "A bulletproof vest made from durathread, an inexpesive but relatively effective form of protection."
 	icon_state = "durathread"
 	item_state = "durathread"
 	strip_delay = 60
 	equip_delay_other = 40
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 30, ENERGY = 40, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 20,  BULLET = 40, LASER = 30, ENERGY = 40, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50, STAMINA = 30)
 
 /obj/item/clothing/suit/armor/vest/russian
 	name = "russian vest"

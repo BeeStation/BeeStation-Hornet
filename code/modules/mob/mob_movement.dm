@@ -52,7 +52,7 @@
   * (if you ask me, this should be at the top of the move so you don't dance around)
   *
   */
-/client/Move(n, direct)
+/client/Move(new_loc, direct)
 	// If the movement delay is slightly less than the period from now until the next tick,
 	// let us move and take the additional delay and add it onto the next move. This means that
 	// it will slowly stack until we can lose a tick, where the ticks we lose are proportional
@@ -67,14 +67,14 @@
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called mutiple times per tick
 	if(!mob || !mob.loc)
 		return FALSE
-	if(!n || !direct)
+	if(!new_loc || !direct)
 		return FALSE
 	if(mob.notransform)
 		return FALSE	//This is sota the goto stop mobs from moving var
 	if(mob.control_object)
 		return Move_object(direct)
 	if(!isliving(mob))
-		return mob.Move(n, direct)
+		return mob.Move(new_loc, direct)
 	if(mob.stat == DEAD)
 		mob.ghostize()
 		return FALSE
@@ -90,7 +90,7 @@
 		return mob.remote_control.relaymove(mob, direct)
 
 	if(isAI(mob))
-		return AIMove(n,direct,mob)
+		return AIMove(new_loc,direct,mob)
 
 	if(Process_Grab()) //are we restrained by someone's grip?
 		return
@@ -108,7 +108,7 @@
 	if(!mob.Process_Spacemove(direct))
 		return FALSE
 
-	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, n) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, new_loc) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
 		return FALSE
 
 	//We are now going to move
@@ -135,12 +135,12 @@
 			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
 		if(newdir)
 			direct = newdir
-			n = get_step(L, direct)
+			new_loc = get_step(L, direct)
 
 	. = ..()
 
-	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		add_delay *= 1.414214 // sqrt(2)
+	if((direct & (direct - 1)) && mob.loc == new_loc) //moved diagonally successfully
+		add_delay *= sqrt(2)
 	// Record any time that we gained due to sub-tick slowdown
 	var/move_delta = move_delay - floored_move_delay
 	add_delay += move_delta
@@ -149,6 +149,10 @@
 	if(.) // If mob is null here, we deserve the runtime
 		if(mob.throwing)
 			mob.throwing.finalize(FALSE)
+
+		// At this point we've moved the client's attached mob. This is one of the only ways to guess that a move was done
+		// as a result of player input and not because they were pulled or any other magic.
+		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED)
 
 	var/atom/movable/P = mob.pulling
 	if(P && !ismob(P) && P.density)

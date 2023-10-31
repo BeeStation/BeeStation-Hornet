@@ -473,7 +473,7 @@
 
 /datum/supply_pack/security/vending/security
 	name = "SecTech Supply Crate"
-	desc = "Officer Paul bought all the donuts? Then refill the security vendor with ths crate."
+	desc = "Officer Paul bought all the handcuffs? Then refill the security vendor with ths crate."
 	cost = 1200
 	max_supply = 3
 	contains = list(/obj/item/vending_refill/security)
@@ -593,16 +593,16 @@
 	cost = 700 // 300 credits per 1 knife
 	small_item = TRUE
 	max_supply = 2
-	contains = list(/obj/item/kitchen/knife/combat)
+	contains = list(/obj/item/knife/combat)
 
 /datum/supply_pack/security/armory/combatknives
 	name = "Combat Knives Crate"
 	desc = "Contains three sharpened combat knives. Each knife guaranteed to fit snugly inside any Nanotrasen-standard boot. Requires Armory access to open."
 	cost = 1120 //20% discount
 	max_supply = 1
-	contains = list(/obj/item/kitchen/knife/combat,
-					/obj/item/kitchen/knife/combat,
-					/obj/item/kitchen/knife/combat)
+	contains = list(/obj/item/knife/combat,
+					/obj/item/knife/combat,
+					/obj/item/knife/combat)
 	crate_name = "combat knife crate"
 
 /datum/supply_pack/security/armory/ballistic_single

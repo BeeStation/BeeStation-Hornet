@@ -41,6 +41,6 @@
 			warningstrings = list("ahyguabngaghabyugbauwf", "You feel sick", "It feels like you drank too much", "You feel like doing something unwise")
 		else
 			warningstrings = list("You feel buzzed", "You feel a bit tipsy")
-	M.drunkenness = CLAMP(M.drunkenness + target * ((A.stage - 1) * 0.1), M.drunkenness, target)
+	M.drunkenness = clamp(M.drunkenness + target * ((A.stage - 1) * 0.1), M.drunkenness, target)
 	if(prob(5 * A.stage))
 		to_chat(M, "<span class='warning'>[pick(warningstrings)]</span>")
