@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Clockcult is no longer royally broken by disconnections during Reebe load.
