@@ -727,29 +727,29 @@
 		new /obj/item/stack/sheet/plastic(location)
 
 /datum/chemical_reaction/glitter
-	name = "glitter"
-	id = /datum/reagent/glitter
+	name = "standard glitter"
+	id = /datum/reagent/glitter/standard
 	results = list(/datum/reagent/glitter = 10)
 	required_reagents = list(/datum/reagent/oil = 5, /datum/reagent/toxin/acid = 2, /datum/reagent/ash = 3, /datum/reagent/aluminium = 2)
 	required_temp = 340 //arbitrarily lower than plastic to prevent conflict
 
 /datum/chemical_reaction/glitter/pink
-	name = "glitter"
-	id = /datum/reagent/glitter
+	name = "pink glitter"
+	id = /datum/reagent/glitter/pink
 	results = list(/datum/reagent/glitter/pink = 5)
 	required_reagents = list(/datum/reagent/glitter = 5, /datum/reagent/stable_plasma = 1)
 
 /datum/chemical_reaction/glitter/white
-	name = "glitter"
-	id = /datum/reagent/glitter
+	name = "white glitter"
+	id = /datum/reagent/glitter/white
 	results = list(/datum/reagent/glitter/white = 5)
 	required_reagents = list(/datum/reagent/glitter = 5, /datum/reagent/consumable/sugar = 1)
 
 /datum/chemical_reaction/glitter/blue
-	name = "glitter"
-	id = /datum/reagent/glitter
+	name = "blue glitter"
+	id = /datum/reagent/glitter/blue
 	results = list(/datum/reagent/glitter/blue = 5)
-	required_reagents = list(/datum/reagent/glitter = 5, /datum/reagent/nitrogen =1)
+	required_reagents = list(/datum/reagent/glitter = 5, /datum/reagent/nitrogen = 1)
 
 /datum/chemical_reaction/pax
 	name = /datum/reagent/pax
