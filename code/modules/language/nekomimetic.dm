@@ -4,9 +4,9 @@
 	key = "f"
 	space_chance = 70
 	syllables = list(
-		"neko", "nyan", "mimi", "moe", "mofu", "fuwa", "kyaa", "kawaii", "poka", "munya",
-		"puni", "munyu", "ufufu", "uhuhu", "icha", "doki", "kyun", "kusu", "nya", "nyaa",
-		"desu", "kis", "ama", "chuu", "baka", "hewo", "boop", "gato", "kit", "sune", "yori",
+		"neko", "itai", "nah?", "moe", "mofu", "fuwa", "omae", "akaiku", "poka", "munya",
+		"puni", "munyu", "ufufu", "uhuhu", "icha", "doki", "kyun", "kusu", "ippai", "sakura",
+		"desu", "kis", "ama", "chuu", "baka", "hai!", "boop", "sensei", "kit", "sune", "yori",
 		"sou", "baka", "chan", "san", "kun", "mahou", "yatta", "suki", "usagi", "domo", "ori",
 		"uwa", "zaazaa", "shiku", "puru", "ira", "heto", "etto"
 	)
