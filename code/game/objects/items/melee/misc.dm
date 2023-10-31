@@ -208,6 +208,8 @@
 	.["localdisarm"] = "<span class ='danger'>[user] whacks your arm with [src], causing a coursing pain!</span>"
 	.["visiblestun"] =  "<span class ='danger'>[user] beat [target] with [src]!</span>"
 	.["localstun"] = "<span class ='danger'>[user] has beat you with [src]!</span>"
+	.["visibleleg"] =  "<span class ='danger'>[user] beat [target]'s leg with [src]!</span>"
+	.["localleg"] = "<span class ='danger'>[user] has beat you in the leg with [src]!</span>"
 
 	return .
 
@@ -335,6 +337,125 @@
 	cooldown = 0
 	stamina_damage = 15
 	stun_animation = TRUE
+
+/obj/item/melee/classic_baton/police/beater/attack(mob/living/target, mob/living/user)
+	if(!on)
+		return ..()
+	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
+
+	add_fingerprint(user)
+	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
+		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
+		user.adjustStaminaLoss(stamina_damage)
+
+		additional_effects_carbon(user) // user is the target here
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+		else
+			user.take_bodypart_damage(2*force)
+		return
+	if(iscyborg(target))
+		// We don't stun if we're on harm.
+		if (user.a_intent != INTENT_HARM)
+			if (affect_silicon)
+				var/list/desc = get_silicon_stun_description(target, user)
+
+				target.flash_act(affect_silicon = TRUE)
+				target.Paralyze(stun_time_silicon)
+				additional_effects_silicon(target, user)
+
+				user.visible_message(desc["visible"], desc["local"])
+				playsound(get_turf(src), on_stun_sound, 100, TRUE, -1)
+
+				if (stun_animation)
+					user.do_attack_animation(target)
+			else
+				..()
+		else
+			..()
+		return
+	if(!isliving(target))
+		return
+	if (user.a_intent == INTENT_HARM)
+		if(!..())
+			return
+		if(!iscyborg(target))
+			return
+	else
+		if(cooldown_check <= world.time)
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target
+				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+					return
+				if(check_martial_counter(H, user))
+					return
+
+			var/list/desc = get_stun_description(target, user)
+
+			if (stun_animation)
+				user.do_attack_animation(target)
+			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
+			additional_effects_carbon(target, user)
+			if((user.zone_selected == BODY_ZONE_CHEST))
+				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
+				log_combat(user, target, "stunned", src)
+				target.visible_message(desc["visiblestun"], desc["localstun"])
+				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
+					target.setStaminaLoss(0)
+			if((user.zone_selected == BODY_ZONE_HEAD))
+				target.apply_damage(12, STAMINA, BODY_ZONE_HEAD, def_check)
+				log_combat(user, target, "stunned", src)
+				target.visible_message(desc["visiblestun"], desc["localstun"])
+				if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING))
+					target.Sleeping(80)
+					target.setStaminaLoss(0)
+				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
+					target.setStaminaLoss(0)
+			if(user.zone_selected == BODY_ZONE_L_LEG)
+				target.apply_damage(15, STAMINA, BODY_ZONE_L_LEG, def_check)
+				target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
+				log_combat(user, target, "tripped", src)
+				target.visible_message(desc["visibleleg"], desc["localleg"])
+				if(prob(20))
+					target.Knockdown(7)
+				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
+					target.setStaminaLoss(0)
+			if(user.zone_selected == BODY_ZONE_R_LEG)
+				target.apply_damage(15, STAMINA, BODY_ZONE_R_LEG, def_check)
+				target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
+				log_combat(user, target, "tripped", src)
+				target.visible_message(desc["visibleleg"], desc["localleg"])
+				if(prob(20))
+					target.Knockdown(7)
+				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
+					target.setStaminaLoss(0)
+			if(user.zone_selected == BODY_ZONE_L_ARM)
+				target.apply_damage(15, STAMINA, BODY_ZONE_L_ARM, def_check)
+				target.apply_damage(7, STAMINA, BODY_ZONE_CHEST, def_check)
+				log_combat(user, target, "disarmed", src)
+				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
+				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
+					target.setStaminaLoss(0)
+			if(user.zone_selected == BODY_ZONE_R_ARM)
+				target.apply_damage(15, STAMINA, BODY_ZONE_R_ARM, def_check)
+				target.apply_damage(7, STAMINA, BODY_ZONE_CHEST, def_check)
+				log_combat(user, target, "disarmed", src)
+				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
+				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
+					target.setStaminaLoss(0)
+
+			add_fingerprint(user)
+
+			if(!iscarbon(user))
+				target.LAssailant = null
+			else
+				target.LAssailant = WEAKREF(user)
+			cooldown_check = world.time + cooldown
+		else
+			var/wait_desc = get_wait_description()
+			if (wait_desc)
+				to_chat(user, wait_desc)
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
