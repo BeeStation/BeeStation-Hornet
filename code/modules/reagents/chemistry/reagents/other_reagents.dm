@@ -2010,7 +2010,7 @@
 	chem_flags = NONE
 	taste_description = "plastic"
 
-/datum/reagent/glitter/standard
+/datum/reagent/glitter
 	name = "standard glitter"
 	description = "Standard sparkles that get everywhere."
 	color = "#FFFFFF" //pure white
