@@ -1,6 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: Bots will no longer runtime due to trying to pathfind their way out of
-      an object.
-  - tweak: The atmosbot on the Corg Station Emergency Shuttle now starts off.
