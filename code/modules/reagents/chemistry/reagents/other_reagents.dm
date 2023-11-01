@@ -1841,7 +1841,7 @@
 	if(method == TOUCH || method == VAPOR)
 		if(M && ishuman(M))
 			var/mob/living/carbon/human/H = M
-			H.hair_style = "Bald)"
+			H.hair_style = "Bald 2)"
 			H.update_hair()
 /datum/reagent/saltpetre
 	name = "Saltpetre"
