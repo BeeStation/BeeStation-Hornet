@@ -1843,6 +1843,7 @@
 			var/mob/living/carbon/human/H = M
 			H.hair_style = "Bald 2)"
 			H.update_hair()
+
 /datum/reagent/saltpetre
 	name = "Saltpetre"
 	description = "A fairly innocuous chemical which can be used to improve the potency of various plant species."
