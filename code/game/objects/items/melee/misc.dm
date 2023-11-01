@@ -337,6 +337,7 @@
 	cooldown = 0
 	stamina_damage = 15
 	stun_animation = TRUE
+	COOLDOWN_DECLARE(sleep_cooldown)
 
 /obj/item/melee/classic_baton/police/beater/attack(mob/living/target, mob/living/user)
 	if(!on)
@@ -401,49 +402,50 @@
 				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visiblestun"], desc["localstun"])
-				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
-					target.setStaminaLoss(0)
+
 			if((user.zone_selected == BODY_ZONE_HEAD))
-				target.apply_damage(12, STAMINA, BODY_ZONE_HEAD, def_check)
+				target.apply_damage(12, STAMINA, BODY_ZONE_HEAD, def_check) // HEAD CODE PLEASE LOOK HERE
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visiblestun"], desc["localstun"])
-				if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING))
-					target.Sleeping(80)
-					target.setStaminaLoss(0)
-				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
-					target.setStaminaLoss(0)
+
+				if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && COOLDOWN_FINISHED(src, sleep_cooldown))
+					var/mob/living/carbon/human/T = target
+					T.force_say(user)
+					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls unconscious.","falls limp like a bag of bricks.","falls to the ground, unresponsive.","lays down on the ground for a little nap."))]</span>")
+					target.balloon_alert_to_viewers("Knock-out!") // this is just here if I ever want to revert to this
+					if(!target.has_status_effect(STATUS_EFFECT_SLEEPING))
+						target.Sleeping(80)
+						target.setStaminaLoss(0)
+						playsound(usr.loc, "sound/machines/bellsound.ogg", 10, 1)
+					COOLDOWN_START(src, sleep_cooldown, 20 SECONDS)
+
 			if(user.zone_selected == BODY_ZONE_L_LEG)
 				target.apply_damage(15, STAMINA, BODY_ZONE_L_LEG, def_check)
 				target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
 				log_combat(user, target, "tripped", src)
 				target.visible_message(desc["visibleleg"], desc["localleg"])
-				if(prob(20))
+				if(prob(20) && !target.has_status_effect(STATUS_EFFECT_SLEEPING))
 					target.Knockdown(7)
-				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
-					target.setStaminaLoss(0)
+
 			if(user.zone_selected == BODY_ZONE_R_LEG)
 				target.apply_damage(15, STAMINA, BODY_ZONE_R_LEG, def_check)
 				target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
 				log_combat(user, target, "tripped", src)
 				target.visible_message(desc["visibleleg"], desc["localleg"])
-				if(prob(20))
+				if(prob(20) && !target.has_status_effect(STATUS_EFFECT_SLEEPING))
 					target.Knockdown(7)
-				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
-					target.setStaminaLoss(0)
+
 			if(user.zone_selected == BODY_ZONE_L_ARM)
 				target.apply_damage(15, STAMINA, BODY_ZONE_L_ARM, def_check)
 				target.apply_damage(7, STAMINA, BODY_ZONE_CHEST, def_check)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
-				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
-					target.setStaminaLoss(0)
+
 			if(user.zone_selected == BODY_ZONE_R_ARM)
 				target.apply_damage(15, STAMINA, BODY_ZONE_R_ARM, def_check)
 				target.apply_damage(7, STAMINA, BODY_ZONE_CHEST, def_check)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
-				if(target.has_status_effect(STATUS_EFFECT_SLEEPING))
-					target.setStaminaLoss(0)
 
 			add_fingerprint(user)
 
