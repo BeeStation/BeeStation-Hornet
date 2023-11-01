@@ -15,7 +15,7 @@
 	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
 	ADD_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
-	//ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
+	ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
 	update_mobility()
 
 /mob/living/carbon/adjust_drugginess(amount)

@@ -4,8 +4,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 
-	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
-	var/intact = 1
+	/// If there's a tile over a basic floor that can be ripped out
+	var/overfloor_placed = FALSE
+	/// How accessible underfloor pieces such as wires, pipes, etc are on this turf. Can be HIDDEN, VISIBLE, or INTERACTABLE.
+	var/underfloor_accessibility = UNDERFLOOR_HIDDEN
 
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
@@ -344,12 +346,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.flags_1 & INITIALIZED_1)
-			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, intact)
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility < UNDERFLOOR_VISIBLE)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()
-	for(var/obj/O in src)
-		return
+	return
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
@@ -396,9 +397,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 ////////////////////////////////////////////////////
 
 /turf/singularity_act()
-	if(intact)
+	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(O.invisibility == INVISIBILITY_MAXIMUM)
+			if(HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
 				O.singularity_act()
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	return(2)
@@ -407,7 +408,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	return TRUE
 
 /turf/proc/can_lay_cable()
-	return can_have_cabling() & !intact
+	return can_have_cabling() && underfloor_accessibility >= UNDERFLOOR_INTERACTABLE
 
 /turf/proc/visibilityChanged()
 	GLOB.cameranet.updateVisibility(src)
@@ -489,6 +490,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			A.acid_level = min(acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
 			has_acid_effect = 1
 			continue
+		if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
+			continue
+
 		O.acid_act(acidpwr, acid_volume)
 	if(!has_acid_effect)
 		new acid_type(src, acidpwr, acid_volume)
