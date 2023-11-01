@@ -19,7 +19,6 @@
 			AttemptGrow(0)
 
 /obj/item/organ/body_egg/alien_embryo/on_life()
-	. = ..()
 	switch(stage)
 		if(2, 3)
 			if(prob(2))
@@ -46,6 +45,8 @@
 		if(5)
 			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach.</span>")
 			owner.adjustToxLoss(10)
+	// egg_process() happens here, if we put this beforehand there's a chance we lose our owner there and runtime.
+	. = ..()
 
 /obj/item/organ/body_egg/alien_embryo/on_death()
 	. = ..()
@@ -118,6 +119,7 @@
 	if(kill_on_success)
 		new_xeno.visible_message("<span class='danger'>[new_xeno] bursts out of [owner] in a shower of gore!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
+		owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 		if(BP)
 			BP.receive_damage(brute = 200) // Kill them dead
 			BP.dismember()
@@ -127,7 +129,6 @@
 		new_xeno.visible_message("<span class='danger'>[new_xeno] wriggles out of [owner]!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>")
 		owner.adjustBruteLoss(40)
 	host.cut_overlay(overlay)
-	owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 	qdel(src)
 
 
