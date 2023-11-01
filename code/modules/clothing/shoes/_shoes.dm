@@ -22,7 +22,7 @@
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
 
 /obj/item/clothing/shoes/suicide_act(mob/living/carbon/user)
-	if(rand(2)>1)
+	if(prob(50))
 		user.visible_message("<span class='suicide'>[user] begins tying \the [src] up waaay too tightly! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/obj/item/bodypart/l_leg = user.get_bodypart(BODY_ZONE_L_LEG)
 		var/obj/item/bodypart/r_leg = user.get_bodypart(BODY_ZONE_R_LEG)
@@ -37,8 +37,8 @@
 		user.visible_message("<span class='suicide'>[user] is bashing [user.p_their()] own head in with [src]! Ain't that a kick in the head?</span>")
 		for(var/i in 1 to 3)
 			sleep(3)
-			playsound(user, 'sound/weapons/genhit2.ogg', 50, 1)
-		return(BRUTELOSS)
+			playsound(user, 'sound/weapons/genhit2.ogg', 50, TRUE)
+		return BRUTELOSS
 
 /obj/item/clothing/shoes/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()

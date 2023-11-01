@@ -54,7 +54,7 @@
 			M.Paralyze(150)
 		else
 			to_chat(invoker, "<span class='brass'>[M] seems somewhat resistant to your powers!</span>")
-			M.confused = CLAMP(M.confused, 50, INFINITY)
+			M.confused = clamp(M.confused, 50, INFINITY)
 	if(issilicon(M))
 		var/mob/living/silicon/S = M
 		S.emp_act(EMP_HEAVY)

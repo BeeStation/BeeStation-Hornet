@@ -86,7 +86,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
-	anger_modifier = CLAMP(((maxHealth - health)/20),0,20)
+	anger_modifier = clamp(((maxHealth - health)/20),0,20)
 
 	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)
@@ -811,6 +811,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(holder_animal)
 		if(holder_animal.stat == DEAD)
 			dump_contents()
+			holder_animal.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 			holder_animal.gib()
 			return
 
@@ -832,7 +833,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		holder_animal.mind.AddSpell(P)
 		holder_animal.remove_verb(/mob/living/verb/pulled)
 
-/obj/structure/closet/stasis/dump_contents(var/kill = 1)
+/obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
 		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
@@ -842,7 +843,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
 		if(kill || !isanimal(loc))
-			L.death(0)
+			L.investigate_log("has died from [src].", INVESTIGATE_DEATHS)
+			L.death(FALSE)
 	..()
 
 /obj/structure/closet/stasis/emp_act()

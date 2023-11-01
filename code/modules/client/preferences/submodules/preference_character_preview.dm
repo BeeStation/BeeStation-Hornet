@@ -15,7 +15,7 @@
 		return image('icons/mob/robots.dmi', icon_state = "robot", dir = SOUTH)
 
 	// Set up the dummy for its photoshoot
-	apply_prefs_to(mannequin, TRUE)
+	apply_prefs_to(mannequin, TRUE, log = FALSE)
 	// Normalize size, since it doesn't scale properly in the preview.
 	mannequin.dna.features["body_size"] = "Normal"
 	mannequin.dna.update_body_size()

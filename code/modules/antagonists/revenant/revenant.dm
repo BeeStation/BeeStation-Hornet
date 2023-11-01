@@ -530,10 +530,10 @@
 	revenant = null
 	qdel(src)
 
-/obj/item/ectoplasm/revenant/suicide_act(mob/user)
+/obj/item/ectoplasm/revenant/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is inhaling [src]! It looks like [user.p_theyre()] trying to visit the shadow realm!</span>")
 	scatter()
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/ectoplasm/revenant/Destroy()
 	if(!QDELETED(revenant))

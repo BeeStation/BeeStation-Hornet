@@ -206,8 +206,8 @@
 		return target
 	var/x_o = (target.x - starting.x)
 	var/y_o = (target.y - starting.y)
-	var/new_x = CLAMP((starting.x + (x_o * range_multiplier)), 0, world.maxx)
-	var/new_y = CLAMP((starting.y + (y_o * range_multiplier)), 0, world.maxy)
+	var/new_x = clamp((starting.x + (x_o * range_multiplier)), 0, world.maxx)
+	var/new_y = clamp((starting.y + (y_o * range_multiplier)), 0, world.maxy)
 	var/turf/newtarget = locate(new_x, new_y, starting.z)
 	return newtarget
 
@@ -247,11 +247,11 @@
 		tank = thetank
 	update_icon()
 
-/obj/item/pneumatic_cannon/update_icon()
-	cut_overlays()
+/obj/item/pneumatic_cannon/update_overlays()
+	. = ..()
 	if(!tank)
 		return
-	add_overlay(tank.icon_state)
+	. += tank.icon_state
 
 /obj/item/pneumatic_cannon/proc/fill_with_type(type, amount)
 	if(!ispath(type, /obj) && !ispath(type, /mob))

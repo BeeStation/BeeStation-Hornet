@@ -298,7 +298,7 @@
 	on_clear_callback = CALLBACK(src, PROC_REF(on_cult_rune_removed)), \
 	effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune))
 
-/obj/item/nullrod/suicide_act(mob/user)
+/obj/item/nullrod/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
 	return (BRUTELOSS|FIRELOSS)
 

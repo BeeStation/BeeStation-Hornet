@@ -210,6 +210,13 @@
 	icon_state = "television"
 	icon_keyboard = "no_keyboard"
 	icon_screen = "detective_tv"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
@@ -253,6 +260,13 @@
 	desc = "Used for watching an empty arena."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "telescreen"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
+
 	layer = SIGN_LAYER
 	network = list("thunder")
 	density = FALSE

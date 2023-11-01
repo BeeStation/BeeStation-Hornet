@@ -83,6 +83,9 @@
 	cold_protection = HEAD
 	heat_protection = HEAD
 	dog_fashion = null
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT|HIDEMASK
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
 
 /obj/item/clothing/head/hardhat/white
 	name = "white hard hat"
