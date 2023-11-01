@@ -695,7 +695,7 @@
 	name = /datum/reagent/barbers_shaving_aid
 	id = /datum/reagent/barbers_shaving_aid
 	results = list(/datum/reagent/barbers_shaving_aid = 2)
-	required_reagents = list(/datum/reagent/barbers_aid = 1, /datum/reagent/oil)
+	required_reagents = list(/datum/reagent/barbers_aid = 1, /datum/reagent/napalm = 1)
 
 /datum/chemical_reaction/saltpetre
 	name = /datum/reagent/saltpetre
