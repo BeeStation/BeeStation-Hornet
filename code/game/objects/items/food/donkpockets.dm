@@ -73,7 +73,7 @@
 
 /obj/item/food/donkpocket/warm/dankpocket
 	name = "warm Dank-pocket"
-	desc = "The food of choice for the seasoned botanist."
+	desc = "The food of choice for the baked botanist."
 	icon_state = "dankpocket"
 	food_reagents = list(
 		/datum/reagent/medicine/omnizine = 1,
