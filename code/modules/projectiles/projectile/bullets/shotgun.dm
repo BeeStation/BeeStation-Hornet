@@ -69,8 +69,13 @@
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
-	damage = 3
-	stamina = 9
+	damage = 2
+	stamina = 8
+	tile_dropoff = 0.5
+	tile_dropoff_s = 0.4
+	ricochets_max = 2
+	ricochet_chance = 80
+	ricochet_decay_chance = 0.75
 
 /obj/projectile/bullet/pellet/shotgun_incapacitate
 	name = "incapacitating pellet"
