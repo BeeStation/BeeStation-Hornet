@@ -412,7 +412,7 @@
 					var/mob/living/carbon/human/T = target
 					T.force_say(user)
 					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls unconscious.","falls limp like a bag of bricks.","falls to the ground, unresponsive.","lays down on the ground for a little nap."))]</span>")
-					target.balloon_alert_to_viewers("Knock-out!") // this is just here if I ever want to revert to this
+					target.balloon_alert_to_viewers("Knock-Out!") // this is just here if I ever want to revert to this
 					if(!target.has_status_effect(STATUS_EFFECT_SLEEPING))
 						target.Sleeping(80)
 						target.setStaminaLoss(0)
