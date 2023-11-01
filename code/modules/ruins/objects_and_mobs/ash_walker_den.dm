@@ -58,6 +58,7 @@
 				meat_counter += 20
 			else
 				meat_counter++
+			H.investigate_log("has been gibbed by the necropolis tendril.", INVESTIGATE_DEATHS)
 			H.gib()
 			obj_integrity = min(obj_integrity + max_integrity*0.05,max_integrity)//restores 5% hp of tendril
 			for(var/mob/living/L in viewers(5, src))

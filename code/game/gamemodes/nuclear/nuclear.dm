@@ -174,7 +174,7 @@
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/storage/belt/military
-	r_hand = /obj/item/gun/ballistic/shotgun/bulldog
+	r_hand = /obj/item/gun/ballistic/shotgun/automatic/bulldog
 	backpack_contents = list(/obj/item/storage/box/syndie=1,\
 		/obj/item/tank/jetpack/oxygen/harness=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\
