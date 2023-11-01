@@ -728,7 +728,7 @@
 
 /datum/chemical_reaction/glitter
 	name = "standard glitter"
-	id = /datum/reagent/glitter/standard
+	id = /datum/reagent/glitter
 	results = list(/datum/reagent/glitter = 10)
 	required_reagents = list(/datum/reagent/oil = 5, /datum/reagent/toxin/acid = 2, /datum/reagent/ash = 3, /datum/reagent/aluminium = 2)
 	required_temp = 340 //arbitrarily lower than plastic to prevent conflict
