@@ -24,6 +24,7 @@
 			continue
 		//This is essentially a death mark, use this to finish your opponent quicker.
 		if(target.InCritical() && !HAS_TRAIT(target, TRAIT_NODEATH))
+			target.investigate_log("has been killed by fiery rebirth.", INVESTIGATE_DEATHS)
 			target.death()
 
 		target.adjustFireLoss(20)

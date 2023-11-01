@@ -16,6 +16,7 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
+	equip_time = 1 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
@@ -48,6 +49,7 @@
 	spread_unwielded = 30 //Manually set unwielded spread to 30; Equivelant weight to 0.5 (Stechkin has weight 1)
 	wild_spread = TRUE
 	wild_factor = 0.70 //Minimum spread is 70% of spread value
+	equip_time = 0
 
 /obj/item/gun/ballistic/automatic/pistol/der38/twelveshooter //For debugging only, or meme shit
 	name = "palm pistol devastator"
@@ -73,6 +75,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = FALSE
 	mag_display = TRUE
+	equip_time = 2 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -100,9 +103,9 @@
 	desc = "A 2 dimensional gun.. what?"
 	icon_state = "flatgun"
 
-/obj/item/gun/ballistic/automatic/pistol/stickman/pickup(mob/living/user)
+/obj/item/gun/ballistic/automatic/pistol/stickman/equipped(mob/user, slot)
 	..()
-	to_chat(user, "<span class='notice'>As you try to pick up [src], it slips out of your grip..</span>")
+	to_chat(user, "<span class='notice'>As you try to manipulate [src], it slips out of your possession..</span>")
 	if(prob(50))
 		to_chat(user, "<span class='notice'>..and vanishes from your vision! Where the hell did it go?</span>")
 		qdel(src)

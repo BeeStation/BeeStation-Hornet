@@ -24,7 +24,8 @@
 		/obj/item/reagent_containers/food/snacks/clothing,
 		/obj/item/reagent_containers/food/snacks/grown/shell, //base types
 		/obj/item/food/bread,
-		/obj/item/reagent_containers/food/snacks/grown/nettle
+		/obj/item/reagent_containers/food/snacks/grown/nettle,
+		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 		)
 		blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 

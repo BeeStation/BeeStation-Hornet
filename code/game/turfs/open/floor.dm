@@ -14,10 +14,11 @@
 
 	thermal_conductivity = 0.04
 	heat_capacity = 10000
-	intact = 1
 	tiled_dirt = TRUE
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+
+	overfloor_placed = TRUE
 
 	var/icon_plating = "plating"
 	var/broken = 0
@@ -137,20 +138,21 @@
 		dir = old_dir
 		return W
 	W.setDir(old_dir)
-	W.update_icon()
+	W.update_appearance()
 	return W
 
-/turf/open/floor/attackby(obj/item/C, mob/user, params)
-	if(!C || !user)
-		return 1
+/turf/open/floor/attackby(obj/item/object, mob/living/user, params)
+	if(!object || !user)
+		return TRUE
 	if(..())
 		return 1
-	if(intact && istype(C, /obj/item/stack/tile))
-		try_replace_tile(C, user, params)
-	return 0
+	if(overfloor_placed && istype(object, /obj/item/stack/tile))
+		try_replace_tile(object, user, params)
+	return FALSE
 
 /turf/open/floor/crowbar_act(mob/living/user, obj/item/I)
-	return intact ? pry_tile(I, user) : FALSE
+	if(overfloor_placed && pry_tile(I, user))
+		return TRUE
 
 /turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)

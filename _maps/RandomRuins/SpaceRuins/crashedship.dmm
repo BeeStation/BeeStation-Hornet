@@ -752,7 +752,7 @@
 	dir = 4;
 	id = "meatConvey2"
 	},
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Midship)
 "tB" = (
@@ -922,7 +922,7 @@
 /area/awaymission/BMPship)
 "yx" = (
 /obj/structure/table,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
@@ -1376,7 +1376,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "HJ" = (
@@ -1418,7 +1418,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
@@ -2009,7 +2009,7 @@
 /area/awaymission/BMPship/Midship)
 "Vr" = (
 /obj/structure/table,
-/obj/item/kitchen/knife/butcher,
+/obj/item/knife/butcher,
 /obj/item/reagent_containers/food/drinks/beer,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
