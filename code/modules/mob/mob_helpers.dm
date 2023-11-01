@@ -226,7 +226,6 @@
 	message = replacetext(message, " am ", " ")
 	message = replacetext(message, " is ", " ")
 	message = replacetext(message, " are ", " ")
-	message = replacetext(message, "you", "u")
 	message = replacetext(message, "help", "halp")
 	message = replacetext(message, "grief", "grife")
 	message = replacetext(message, "space", "spess")
@@ -430,8 +429,9 @@
 			if(source)
 				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("[REF(source)]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
-					if(O.client.prefs && O.client.prefs.UI_style)
-						A.icon = ui_style2icon(O.client.prefs.UI_style)
+					var/ui_style = O.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style)
+					if(ui_style)
+						A.icon = ui_style2icon(ui_style)
 					if (header)
 						A.name = header
 					A.desc = message
@@ -504,7 +504,7 @@
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(C)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
-		M.ghostize(0)
+		M.ghostize(FALSE)
 		M.key = C.key
 		return TRUE
 	else

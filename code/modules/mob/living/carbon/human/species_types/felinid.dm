@@ -40,12 +40,12 @@
 				H.dna.features["ears"] = "Cat"
 		if(H.dna.features["ears"] == "Cat")
 			var/obj/item/organ/ears/cat/ears = new
-			ears.Insert(H, drop_if_replaced = FALSE)
+			ears.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
 		else
 			mutantears = /obj/item/organ/ears
 		if(H.dna.features["tail_human"] == "Cat")
 			var/obj/item/organ/tail/cat/tail = new
-			tail.Insert(H, drop_if_replaced = FALSE)
+			tail.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
 		else
 			mutanttail = null
 	return ..()
@@ -64,7 +64,7 @@
 		if(!new_ears)
 			// Go with default ears
 			new_ears = new /obj/item/organ/ears
-		new_ears.Insert(H, drop_if_replaced = FALSE)
+		new_ears.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
 
 	if(tail)
 		var/obj/item/organ/tail/new_tail
@@ -74,9 +74,9 @@
 			if(new_species.mutanttail)
 				new_tail = new new_species.mutanttail
 		if(new_tail)
-			new_tail.Insert(H, drop_if_replaced = FALSE)
+			new_tail.Insert(H, drop_if_replaced = FALSE, pref_load = pref_load)
 		else
-			tail.Remove(H)
+			tail.Remove(H, pref_load = pref_load)
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
 	if(istype(chem, /datum/reagent/consumable/cocoa))
@@ -171,3 +171,60 @@
 
 	if(!silent)
 		to_chat(H, "You are no longer a cat.")
+
+/datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human)
+	human.hair_style = "Hime Cut"
+	human.hair_color = "fcc" // pink
+	human.update_hair()
+
+	var/obj/item/organ/ears/cat/cat_ears = human.getorgan(/obj/item/organ/ears/cat)
+	if (cat_ears)
+		cat_ears.color = human.hair_color
+		human.update_body()
+
+/datum/species/human/felinid/get_species_description()
+	return "Felinids are one of the many types of bespoke genetic \
+		modifications to come of humanity's mastery of genetic science, and are \
+		also one of the most common. Meow?"
+
+/datum/species/human/felinid/get_species_lore()
+	return list(
+		"Bio-engineering at its felinest, Felinids are the peak example of humanity's mastery of genetic code. \
+			One of many \"Animalid\" variants, Felinids are the most popular and common, as well as one of the \
+			biggest points of contention in genetic-modification.",
+
+		"Body modders were eager to splice human and feline DNA in search of the holy trifecta: ears, eyes, and tail. \
+			These traits were in high demand, with the corresponding side effects of vocal and neurochemical changes being seen as a minor inconvenience.",
+
+		"Sadly for the Felinids, they were not minor inconveniences. Shunned as subhuman and monstrous by many, Felinids (and other Animalids) \
+			sought their greener pastures out in the colonies, cloistering in communities of their own kind. \
+			As a result, outer Human space has a high Animalid population.",
+	)
+
+// Felinids are subtypes of humans.
+// This shouldn't call parent or we'll get a buncha human related perks (though it doesn't have a reason to).
+/datum/species/human/felinid/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "angle-double-down",
+			SPECIES_PERK_NAME = "Always Land On Your Feet",
+			SPECIES_PERK_DESC = "Felinids always land on their feet, and take reduced damage from falling.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "shoe-prints",
+			SPECIES_PERK_NAME = "Laser Affinity",
+			SPECIES_PERK_DESC = "Felinids can't resist the temptation of a good laser pointer, and might involuntarily chase a strong one.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "swimming-pool",
+			SPECIES_PERK_NAME = "Hydrophobia",
+			SPECIES_PERK_DESC = "Felinids don't like water, and hate going in the pool.",
+		),
+	)
+
+	return to_add

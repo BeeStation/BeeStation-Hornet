@@ -693,12 +693,13 @@
 	var/area/A = get_area(src)
 	if(alert_level==2)
 		alert_signal.data["alert"] = "severe"
-		A.set_vacuum_alarm_effect()
+		A.set_pressure_alarm_effect()
 	else if (alert_level==1)
 		alert_signal.data["alert"] = "minor"
+		A.set_pressure_alarm_effect()
 	else if (alert_level==0)
 		alert_signal.data["alert"] = "clear"
-		A.unset_vacuum_alarm_effect()
+		A.unset_pressure_alarm_effect()
 
 	frequency.post_signal(src, alert_signal, range = -1)
 
@@ -836,10 +837,6 @@
 		else
 			to_chat(user, "<span class='danger'>Access denied.</span>")
 	return
-
-/obj/machinery/airalarm/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/airalarm/on_emag(mob/user)
 	..()

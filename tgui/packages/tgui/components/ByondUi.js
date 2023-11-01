@@ -28,6 +28,7 @@ const createByondUiElement = (elementId) => {
       logger.log(`rendering '${id}'`);
       byondUiStack[index] = id;
       Byond.winset(id, params);
+      Byond.sendMessage('byondui_update', { mounting: true, id: id });
     },
     unmount: () => {
       logger.log(`unmounting '${id}'`);
@@ -35,6 +36,7 @@ const createByondUiElement = (elementId) => {
       Byond.winset(id, {
         parent: '',
       });
+      Byond.sendMessage('byondui_update', { mounting: false, id: id });
     },
   };
 };
@@ -49,6 +51,7 @@ window.addEventListener('beforeunload', () => {
       Byond.winset(id, {
         parent: '',
       });
+      Byond.sendMessage('byondui_update', { mounting: false, id: id });
     }
   }
 });

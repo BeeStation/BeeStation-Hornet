@@ -10,6 +10,13 @@
 	COOLDOWN_DECLARE(message_cooldown) //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
 	var/datum/mind/magnification = null ///A reference to the mind we govern
 
+/obj/item/clothing/head/monkey_sentience_helmet/update_icon()
+	. = ..()
+	compile_monkey_icon()
+	if(ismob(loc))
+		var/mob/mob = loc
+		mob.update_inv_head()
+
 /obj/item/clothing/head/monkey_sentience_helmet/update_icon_state()
 	. = ..()
 	icon_state = "[base_icon_state][magnification ? "_active" : ""]"
@@ -57,43 +64,47 @@
 	user.key = picked.key
 	magnification = user.mind
 	RegisterSignal(magnification, COMSIG_MIND_TRANSFER_TO, PROC_REF(disconnect))
+	RegisterSignal(magnification.current, COMSIG_MOB_LOGOUT, PROC_REF(disconnect))
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
 
 	update_icon()
-	compile_monkey_icon() //Have to do this in order to make it appear active
-	user.update_inv_head()
 	to_chat(user, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life; if you lose it, your sentience goes with it! Your helmet also strongly compels you to assist Nanotrasen and you should always act with the best interests of the station in mind.</span>")
 
 
 /obj/item/clothing/head/monkey_sentience_helmet/Destroy()
-	. = ..()
 	disconnect()
+	. = ..()
 
-/obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect(datum/mind/signaller, mob/old, mob/current)
+/obj/item/clothing/head/monkey_sentience_helmet/on_mob_death(mob/living/L, gibbed)
+	if(magnification.current == L)
+		disconnect()
+
+/obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect(datum/mind/signaller, mob/old_mob, mob/new_mob)
 	SIGNAL_HANDLER
 	if(!magnification)
 		return
 	UnregisterSignal(magnification, COMSIG_MIND_TRANSFER_TO)
-	current = current || magnification.current //In case we weren't called by COMSIG_MIND_TRANSFER_TO
-	if (!current) //Something has gone *really* wrong if this happens
-		CRASH("A mind registered to a monkey sentience helmet doesn't have a current mob while disconnecting!")
-	magnification = null
-	to_chat(current, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
-	current.ghostize(FALSE)
+	UnregisterSignal(magnification.current, COMSIG_MOB_LOGOUT)
+	var/mob/living/monkey = new_mob || magnification.current
+	if (!monkey)
+		CRASH("A mind registered to a disconnecting monkey sentience helmet doesn't have a current mob!")
+	to_chat(monkey, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
+	monkey.ghostize(FALSE)
+	QDEL_NULL(magnification) //This should be safe to do
 
-	if(QDELING(src)) //The rest of this is stuff that would be pointless if we're being destroyed
+	if(QDELING(src))
 		return
-	if(old) //If the helmet was put through an attempted mind transfer, this is retribution
+	if(old_mob) //If the helmet was put through an attempted mind transfer, this is retribution
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		playsound(src, "sparks", 100, TRUE)
-		current.visible_message("<span class='warning'>[src] fizzles and breaks apart!</span>")
-		new /obj/effect/decal/cleanable/ash/crematorium(drop_location()) //just in case they're in a locker or other containers it needs to use crematorium ash, see the path itself for an explanation
+		old_mob.visible_message("<span class='warning'>[src] fizzles and breaks apart!</span>")
+		new /obj/effect/decal/cleanable/ash/crematorium(drop_location())
 		qdel(src)
 		return
-	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-	update_icon()
-	compile_monkey_icon() //Have to do this in order to make it appear inactive
-	current.visible_message("<span class='warning'>[src] powers down!</span>")
+	else
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+		update_icon()
+		monkey.visible_message("<span class='warning'>[src] powers down!</span>")
 
 /obj/item/clothing/head/monkey_sentience_helmet/attack_paw(mob/user)
 	//Typecasting to monkey just to see if we're on the user's head

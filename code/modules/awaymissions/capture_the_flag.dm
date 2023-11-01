@@ -284,7 +284,7 @@
 
 /obj/machinery/capture_the_flag/proc/spawn_team_member(client/new_team_member)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(get_turf(src))
-	new_team_member.prefs.active_character.copy_to(M)
+	new_team_member.prefs.apply_prefs_to(M)
 	if(!(M.dna.species.type in allowed_species))
 		M.set_species(/datum/species/human) //default to human if not whitelisted
 	M.key = new_team_member.key
@@ -591,6 +591,7 @@
 		return
 	if(!(src.team in L.faction))
 		to_chat(L, "<span class='danger'><B>Stay out of the enemy spawn!</B></span>")
+		L.investigate_log("has died from entering the enemy spawn in CTF.", INVESTIGATE_DEATHS)
 		L.death()
 
 /obj/structure/trap/ctf/red

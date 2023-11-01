@@ -61,7 +61,7 @@
 			else
 				visible_message("<span class='neovgre'>\The [src] fails to revive [M]!</span>")
 			return
-		var/healing_performed = CLAMP(M.maxHealth - M.health, 0, 5)	//5 Vitality to heal 5 of all damage types at once
+		var/healing_performed = clamp(M.maxHealth - M.health, 0, 5)	//5 Vitality to heal 5 of all damage types at once
 		if(GLOB.clockcult_vitality >= healing_performed * 0.3)
 			GLOB.clockcult_vitality -= healing_performed * 0.3
 			//Do healing

@@ -48,7 +48,7 @@
 	M.UnregisterSignal(M, COMSIG_MOB_SAY)
 	return ..()
 
-/obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	UnregisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	M.RegisterSignal(M, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
 	return ..()
@@ -364,3 +364,16 @@
 	desc = "It's an odd tongue, seemingly made of plant matter."
 	disliked_food = MEAT | DAIRY
 	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
+
+/obj/item/organ/tongue/podperson/pumpkin
+	modifies_speech = TRUE
+	///Is this tongue carved?
+	var/carved = FALSE
+
+/obj/item/organ/tongue/podperson/pumpkin/handle_speech(datum/source, list/speech_args)
+	var/message = speech_args[SPEECH_MESSAGE]
+	if((message[1] != "*" || message[1] != "#") && !carved)
+		message = "..."
+		to_chat(owner, "<span class='warning'>Something is covering your mouth!</span>")
+		to_chat(owner, "<span class='notice'>Try carving your head.</span>")
+	speech_args[SPEECH_MESSAGE] = message

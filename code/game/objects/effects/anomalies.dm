@@ -108,10 +108,10 @@
 /atom/movable/warp_effect
 	plane = GRAVITY_PULSE_PLANE
 	appearance_flags = PIXEL_SCALE // no tile bound so you can see it around corners and so
-	icon = 'icons/effects/light_overlays/light_352.dmi'
-	icon_state = "light"
-	pixel_x = -176
-	pixel_y = -176
+	icon = 'icons/effects/288x288.dmi'
+	icon_state = "gravitational_anti_lens"
+	pixel_x = -126
+	pixel_y = -128
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
@@ -150,6 +150,10 @@
 			step_towards(M,src)
 	for(var/obj/O in get_turf(src))
 		if(!O.anchored)
+			if(isturf(O.loc))
+				var/turf/T = O.loc
+				if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
+					continue
 			var/mob/living/target = locate() in hearers(4,src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)

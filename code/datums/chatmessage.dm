@@ -284,9 +284,9 @@
 /mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote = FALSE, is_heard = FALSE)
 	if(!client)
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL) || (!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_NONMOBS) && !ismob(speaker)))
+	if(!client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat) || (!client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs) && !ismob(speaker)))
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES) && is_emote)
+	if(!client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes) && is_emote)
 		return CHATMESSAGE_CANNOT_HEAR
 	if(is_heard && !can_hear())
 		return CHATMESSAGE_CANNOT_HEAR
@@ -455,19 +455,21 @@
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
-/atom/proc/balloon_alert(mob/viewer, text, color = null)
+/atom/proc/balloon_alert(mob/viewer, text, color = null, show_in_chat = TRUE)
 	if(!viewer?.client)
 		return
-	switch(viewer.client.prefs.see_balloon_alerts)
+	switch(viewer.client.prefs.read_player_preference(/datum/preference/choiced/show_balloon_alerts))
 		if(BALLOON_ALERT_ALWAYS)
 			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 		if(BALLOON_ALERT_WITH_CHAT)
 			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
-			to_chat(viewer, "<span class='notice'>[text].</span>")
+			if(show_in_chat)
+				to_chat(viewer, "<span class='notice'>[text].</span>")
 		if(BALLOON_ALERT_NEVER)
-			to_chat(viewer, "<span class='notice'>[text].</span>")
+			if(show_in_chat)
+				to_chat(viewer, "<span class='notice'>[text].</span>")
 
-/atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
+/atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, show_in_chat = TRUE)
 	var/list/hearers = get_hearers_in_view(vision_distance, src)
 	hearers -= ignored_mobs
 
@@ -475,7 +477,7 @@
 		if (hearer.is_blind())
 			continue
 
-		balloon_alert(hearer, (hearer == src && self_message) || message)
+		balloon_alert(hearer, (hearer == src && self_message) || message, show_in_chat = show_in_chat)
 
 /datum/chatmessage/balloon_alert
 	tgt_color = "#ffffff" //default color

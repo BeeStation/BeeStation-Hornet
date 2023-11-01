@@ -7,7 +7,7 @@
 
 
 /datum/keybinding/human/quick_equip
-	key = "E"
+	keys = list("E")
 	name = "quick_equip"
 	full_name = "Quick equip"
 	description = ""
@@ -23,7 +23,7 @@
 
 
 /datum/keybinding/human/quick_equip_belt
-	key = "Shift-E"
+	keys = list("ShiftE")
 	name = "quick_equip_belt"
 	full_name = "Put Item In Belt"
 	description = ""
@@ -64,7 +64,7 @@
 
 
 /datum/keybinding/human/quick_equip_backpack
-	key = "Shift-B"
+	keys = list("ShiftB")
 	name = "quick_equip_backpack"
 	full_name = "Put Item In Backpack"
 	description = ""
@@ -105,7 +105,7 @@
 
 
 /datum/keybinding/human/quick_equip_suit_storage
-	key = "Shift-Q"
+	keys = list("ShiftQ")
 	name = "quick_equip_suit_storage"
 	full_name = "Put Item In Suit Storage"
 	description = ""

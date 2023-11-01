@@ -33,3 +33,7 @@
 #define COMSIG_GLOB_NEW_RESEARCH "!remote_research_changed"
 /// Called after the round has fully setup and all jobs have been spawned
 #define COMSIG_GLOB_POST_START "!post_start"
+/// Called when the parallax background changes colour. (new_colour, transition_time)
+#define COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE "!starlight_colour_change"
+/// Called whenever the crew manifest is updated
+#define COMSIG_GLOB_CREW_MANIFEST_UPDATE "!crew_manifest_update"

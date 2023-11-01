@@ -481,8 +481,6 @@
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
-	for(var/t in bodyparts)
-		qdel(t)
 
 /mob/living/carbon/AIize(transfer_after = TRUE, client/preference_source)
 	return pre_transform() ? null : ..()
@@ -515,7 +513,7 @@
 	. = new /mob/living/silicon/ai(pick(landmark_loc), null, src)
 
 	if(preference_source)
-		apply_pref_name("ai",preference_source)
+		apply_pref_name(/datum/preference/name/ai, preference_source)
 
 	qdel(src)
 
@@ -525,6 +523,7 @@
 
 	var/mob/living/silicon/robot/R = new /mob/living/silicon/robot(loc)
 
+	R.job = JOB_NAME_CYBORG
 	R.gender = gender
 	R.invisibility = 0
 
@@ -539,16 +538,10 @@
 		R.key = key
 
 	if(R.mmi)
-		R.mmi.name = "[initial(R.mmi.name)]: [real_name]"
-		if(R.mmi.brain)
-			R.mmi.brain.name = "[real_name]'s brain"
-		if(R.mmi.brainmob)
-			R.mmi.brainmob.real_name = real_name //the name of the brain inside the cyborg is the robotized human's name.
-			R.mmi.brainmob.name = real_name
+		R.mmi.transfer_identity(src)
 
-	R.job = JOB_NAME_CYBORG
 	R.notify_ai(NEW_BORG)
-
+	
 	. = R
 	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))
 		INVOKE_ASYNC(R, TYPE_PROC_REF(/mob/living/silicon/robot, replace_banned_cyborg))

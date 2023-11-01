@@ -124,15 +124,11 @@
 	return tab_data
 
 // called when something steps onto a human
-// this could be made more general, but for now just handle mulebot
 /mob/living/carbon/human/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-	var/mob/living/simple_animal/bot/mulebot/MB = AM
 	var/obj/vehicle/sealed/car/C = AM
-	if(istype(MB))
-		INVOKE_ASYNC(MB, TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, RunOver), src)
-	else if(istype(C))
+	if(istype(C))
 		INVOKE_ASYNC(C, TYPE_PROC_REF(/obj/vehicle/sealed/car, RunOver), src)
 	spreadFire(AM)
 
@@ -291,7 +287,7 @@
 						return
 					if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
-					investigate_log("[key_name(src)] has been set from [target_record.fields["criminal"]] to [setcriminal] by [key_name(human_user)].", INVESTIGATE_RECORDS)
+					investigate_log("[key_name(src)] has been set from <strong>[target_record.fields["criminal"]]</strong> to <strong>[setcriminal]</strong> by [key_name(human_user)]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
 					target_record.fields["criminal"] = setcriminal
 					sec_hud_set_security_status()
 				return
@@ -342,7 +338,7 @@
 						signal.send_to_receivers()
 						human_user.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
 				GLOB.data_core.addCitation(target_record.fields["id"], crime)
-				investigate_log("New Citation: <strong>[t1]</strong> Fine: [fine] | Added to [target_record.fields["name"]] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+				investigate_log("[key_name(human_user)] has added a citation '<strong>[t1]</strong>' ([fine] credits) to [target_record.fields["name"]]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
 				return
 
 			if(href_list["add_crime"])
@@ -355,7 +351,7 @@
 					return
 				var/crime = GLOB.data_core.createCrimeEntry(t1, null, allowed_access, station_time_timestamp())
 				GLOB.data_core.addCrime(target_record.fields["id"], crime)
-				investigate_log("New Crime: <strong>[t1]</strong> | Added to [target_record.fields["name"]] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+				investigate_log("[key_name(human_user)] has added a crime '<strong>[t1]</strong>' to [target_record.fields["name"]]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
 				to_chat(human_user, "<span class='notice'>Successfully added a crime.</span>")
 				return
 
@@ -369,7 +365,7 @@
 					return
 				if(href_list["cdataid"])
 					GLOB.data_core.addCrimeDetails(target_record.fields["id"], href_list["cdataid"], t1)
-					investigate_log("New Crime details: [t1] | Added to [target_record.fields["name"]] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+					investigate_log("[key_name(human_user)] has set crime details '[t1]' to [target_record.fields["name"]]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
 					to_chat(human_user, "<span class='notice'>Successfully added details.</span>")
 				return
 
@@ -1101,33 +1097,15 @@
 	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
 
-/mob/living/carbon/human/proc/copy_features(var/datum/character_save/CS)
-	dna.features = CS.features
-	gender = CS.gender
-	age = CS.age
-	underwear = CS.underwear
-	underwear_color = CS.underwear_color
-	undershirt = CS.undershirt
-	socks = CS.socks
-	hair_style = CS.hair_style
-	hair_color = CS.hair_color
-	gradient_color = CS.gradient_color
-	gradient_style = CS.gradient_style
-	facial_hair_style = CS.facial_hair_style
-	facial_hair_color = CS.facial_hair_color
-	skin_tone = CS.skin_tone
-	eye_color = CS.eye_color
-	updateappearance(TRUE, TRUE, TRUE)
-
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
 
 /mob/living/carbon/human/species
 	var/race = null
 
-/mob/living/carbon/human/species/Initialize(mapload)
+/mob/living/carbon/human/species/Initialize(mapload, specific_race)
 	. = ..()
-	set_species(race)
+	set_species(race || specific_race)
 
 /mob/living/carbon/human/species/abductor
 	race = /datum/species/abductor

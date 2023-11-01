@@ -110,6 +110,11 @@
 	layer = BLIND_LAYER
 	plane = FULLSCREEN_PLANE
 
+/atom/movable/screen/fullscreen/law_change
+    icon_state = "law_change"
+    layer = BLIND_LAYER
+    plane = FULLSCREEN_PLANE
+
 /atom/movable/screen/fullscreen/curse
 	icon_state = "curse"
 	layer = CURSE_LAYER
@@ -132,6 +137,11 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
+
+/atom/movable/screen/fullscreen/flash/black
+	icon = 'icons/mob/screen_gen.dmi'
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	icon_state = "black"
 
 /atom/movable/screen/fullscreen/flash/static
 	icon = 'icons/mob/screen_gen.dmi'

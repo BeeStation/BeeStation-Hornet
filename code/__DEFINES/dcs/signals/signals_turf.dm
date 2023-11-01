@@ -3,6 +3,7 @@
 // All signals send the source datum of the signal as the first argument
 
 ///turf signals
+#define COMSIG_TURF_RESERVATION_RELEASED "turf_reservation_released"//! from base of /datum/turf_reservation/proc/Release: (datum/turf_reservation/reservation)
 
 
 #define COMSIG_TURF_CHANGE "turf_change"

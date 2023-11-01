@@ -16,7 +16,7 @@
         SSmapping.random_room_spawners += src
 
 /obj/effect/spawner/room/Initialize(mapload)
-    ..()
+    . = ..()
     if(!length(SSmapping.random_room_templates))
         message_admins("Room spawner created with no templates available. This shouldn't happen.")
         return INITIALIZE_HINT_QDEL
@@ -36,7 +36,6 @@
         if(template.stock <= 0)
             template.spawned = TRUE
         template.load(get_turf(src), centered = template.centerspawner)
-    return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/room/special/tenxfive_terrestrial
 	name = "10x5 terrestrial room"

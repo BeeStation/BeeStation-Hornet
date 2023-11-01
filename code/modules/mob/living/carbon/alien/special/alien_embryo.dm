@@ -54,9 +54,6 @@
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
-	var/mob/living/L = owner
-	if(L.IsInStasis())
-		return
 	if(!next_stage_time)
 		COOLDOWN_START(src, next_stage_time, 30 SECONDS)
 		return
@@ -77,8 +74,6 @@
 				AttemptGrow(FALSE)
 				return
 		AttemptGrow()
-
-
 
 /obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success = TRUE)
 	if(!owner || bursting)
@@ -132,6 +127,7 @@
 		new_xeno.visible_message("<span class='danger'>[new_xeno] wriggles out of [owner]!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>")
 		owner.adjustBruteLoss(40)
 	host.cut_overlay(overlay)
+	owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 	qdel(src)
 
 
