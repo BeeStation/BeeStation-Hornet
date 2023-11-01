@@ -1842,6 +1842,7 @@
 		if(M && ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.hair_style = "Bald 2)"
+			H.facial_hair_style = "Shaved"
 			H.update_hair()
 
 /datum/reagent/saltpetre
