@@ -379,7 +379,7 @@
 			return
 
 /obj/item/gun/ballistic/CtrlClick(mob/user)
-	if(bolt_type == BOLT_TYPE_PUMP && is_wielded && loc == user)
+	if(bolt_type == BOLT_TYPE_PUMP && is_wielded && loc == user && !bolt_locked)
 		to_chat(user, "<span class='notice'>You lock open the [bolt_wording] of \the [src].</span>")
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 		process_chamber(FALSE, FALSE, FALSE)

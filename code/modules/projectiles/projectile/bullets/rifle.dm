@@ -35,10 +35,10 @@
 /obj/projectile/bullet/a41/paper/copper
 	//Possible damage between 39 and 42
 	damage = 42
-	armour_penetration = -25
+	armour_penetration = -30
 
 /obj/projectile/bullet/a41/paper/hotload
 	//Possible damage between 32 and 35
 	damage = 35
 	speed = 0.6
-	armour_penetration = 20
+	armour_penetration = 25

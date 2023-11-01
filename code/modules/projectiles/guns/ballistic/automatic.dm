@@ -322,11 +322,11 @@
 	no_pin_required = TRUE
 	spawnwithmagazine = FALSE
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = null
-	actions_types = list()
+	slot_flags = ITEM_SLOT_BELT
+	actions_types = null
 	fire_rate = 2
 	full_auto = TRUE
-	spread = 8
+	spread = 10
 
 // Laser rifle (rechargeable magazine) //
 
