@@ -41,6 +41,10 @@
 	/// The upper end for how long it takes to bake
 	var/baking_time_long = 30 SECONDS
 
+/*
+/obj/item/food/donkpocket/make_microwaveable()
+	AddElement(/datum/element/microwavable, warm_type)
+*/
 
 /obj/item/food/donkpocket/warm
 	name = "warm Donk-pocket"
