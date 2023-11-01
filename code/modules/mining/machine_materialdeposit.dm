@@ -4,7 +4,7 @@
 	name = "material deposit machine"
 	desc = "A machine that accepts sheets of material and deposits them into the ore silo. This one is linked to"
 	icon = 'icons/obj/machines/mining_machines.dmi'
-	icon_state = "material-deposit"
+	icon_state = "material_deposit"
 	density = TRUE
 	input_dir = NORTH
 	req_access = list(ACCESS_MINERAL_STOREROOM)
