@@ -685,6 +685,11 @@
 	results = list(/datum/reagent/concentrated_barbers_aid = 2)
 	required_reagents = list(/datum/reagent/barbers_aid = 1, /datum/reagent/toxin/mutagen = 1)
 
+/datum/chemical_reaction/barbers_afro_mania
+	name = /datum/reagent/barbers_afro_mania
+	id = /datum/reagent/barbers_afro_mania
+	results = list(/datum/reagent/barbers_afro_mania = 2)
+	required_reagents = list(/datum/reagent/barbers_aid = 1, /datum/reagent/colorful_reagent = 1)
 /datum/chemical_reaction/saltpetre
 	name = /datum/reagent/saltpetre
 	id = /datum/reagent/saltpetre
