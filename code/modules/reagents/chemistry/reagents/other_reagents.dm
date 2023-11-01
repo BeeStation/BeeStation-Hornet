@@ -2011,8 +2011,8 @@
 	taste_description = "plastic"
 
 /datum/reagent/glitter
-	name = "standard glitter"
-	description = "Standard sparkles that get everywhere."
+	name = "light pink glitter"
+	description = "light pink sparkles that get everywhere."
 	color = "#FFFFFF" //pure white
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
 	taste_description = "plastic"
