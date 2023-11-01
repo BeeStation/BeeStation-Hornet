@@ -4,7 +4,7 @@
 	name = "material deposit machine"
 	desc = "A machine that accepts sheets of material and deposits them into the ore silo. This one is linked to"
 	icon = 'icons/obj/machines/mining_machines.dmi'
-	icon_state = "ore_redemption"
+	icon_state = "material-deposit"
 	density = TRUE
 	input_dir = NORTH
 	req_access = list(ACCESS_MINERAL_STOREROOM)
@@ -16,7 +16,7 @@
 	/// Variable that holds a timer which is used for callbacks to `send_console_message()`. Used for preventing multiple calls to this proc while the MDM is eating a stack of sheets
 	var/console_notify_timer
 	var/datum/component/remote_materials/materials
-	var/static/list/allowed_mats = list(
+	var/static/list/allowed_mats = typecacheof(list(
 		/datum/material/iron,
 		/datum/material/glass,
 		/datum/material/copper,
@@ -29,14 +29,13 @@
 		/datum/material/titanium,
 		/datum/material/bluespace,
 		/datum/material/plastic,
-		)
-	var/list/allowed_typecache
+		))
 
 /obj/machinery/mineral/material_deposit/Initialize(mapload)
 	. = ..()
 	materials = AddComponent(/datum/component/remote_materials, "mdm", mapload)
 	materials.department_id = DEPT_ALL
-	allowed_typecache = typecacheof(allowed_mats)
+
 
 /obj/machinery/mineral/material_deposit/Destroy()
 	materials = null
@@ -55,9 +54,13 @@
 		return
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if(istype(target, /obj/item/stack))
-		var/obj/item/target_item= target
-		if(is_type_in_typecache(target_item, allowed_typecache))
-			var/obj/item/stack/sheet/O = target
+		var/obj/item/stack/O = target
+		if(!O.materials.len)
+			return
+		var/is_allowed_material = TRUE
+		for(var/datum/mat in O.materials)
+			is_allowed_material = is_allowed_material && is_type_in_typecache(mat, allowed_mats)
+		if(is_allowed_material)
 			var/mats = O.materials & mat_container.materials
 			var/amount = O.amount
 			mat_container.insert_item(O) //insert it
