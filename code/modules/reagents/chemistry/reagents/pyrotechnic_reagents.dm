@@ -102,12 +102,25 @@
 	metabolization_rate = 0.05
 	taste_description = "salt"
 
+/datum/reagent/blackpowder/on_new(data)
+	. = ..()
+	if(holder?.my_atom)
+		RegisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT, PROC_REF(on_ex_act))
+
+/datum/reagent/blackpowder/Destroy()
+	if(holder?.my_atom)
+		UnregisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT)
+	return ..()
+
 /datum/reagent/blackpowder/on_mob_life(mob/living/carbon/M)
 	..()
 	if(isplasmaman(M))
 		M.hallucination += 5
 
-/datum/reagent/blackpowder/on_ex_act()
+/datum/reagent/blackpowder/proc/on_ex_act(atom/source, severity, target)
+	SIGNAL_HANDLER
+	if(source.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)
+		return
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(1 + round(volume/6, 1), location, 0, 0, message = 0)

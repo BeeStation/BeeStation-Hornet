@@ -685,9 +685,7 @@
 	cached_reagents += R
 	R.holder = src
 	R.volume = amount
-	if(data)
-		R.data = data
-		R.on_new(data)
+	R.on_new(data)
 
 	if(isliving(my_atom))
 		R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete

@@ -63,7 +63,6 @@
 
 /turf/open/floor/engine/ex_act(severity,target)
 	var/shielded = is_shielded()
-	contents_explosion(severity, target)
 	if(severity != 1 && shielded && target != src)
 		return
 	if(target == src)
