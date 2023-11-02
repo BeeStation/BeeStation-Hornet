@@ -7,21 +7,10 @@ import { Window } from '../layouts';
 
 export const MafiaPanel = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    lobbydata,
-    players,
-    actions,
-    phase,
-    roleinfo,
-    role_theme,
-    admin_controls,
-    judgement_phase,
-    timeleft,
-    all_roles,
-  } = data;
+  const { lobbydata, players, actions, phase, roleinfo, role_theme, admin_controls, judgement_phase, timeleft, all_roles } =
+    data;
   const playerAddedHeight = roleinfo ? players.length * 30 : 7;
-  const readyGhosts = lobbydata ? lobbydata.filter(
-    player => player.status === "Ready") : null;
+  const readyGhosts = lobbydata ? lobbydata.filter((player) => player.status === 'Ready') : null;
   return (
     <Window
       title="Mafia"
@@ -30,56 +19,33 @@ export const MafiaPanel = (props, context) => {
       height={293 + playerAddedHeight}>
       <Window.Content scrollable={admin_controls}>
         {!roleinfo && (
-          <Flex scrollable
-            overflowY="scroll"
-            direction="column"
-            height="100%"
-            grow={1}>
+          <Flex scrollable overflowY="scroll" direction="column" height="100%" grow={1}>
             <Section
               title="Lobby"
               mb={1}
-              buttons={
-                <LobbyDisplay
-                  phase={phase}
-                  timeleft={timeleft}
-                  admin_controls={admin_controls} />
-              }>
+              buttons={<LobbyDisplay phase={phase} timeleft={timeleft} admin_controls={admin_controls} />}>
               <Box textAlign="center">
                 <NoticeBox info>
                   The lobby currently has {readyGhosts.length}
                   /12 valid players signed up.
                 </NoticeBox>
-                <Flex
-                  direction="column">
-                  {!!lobbydata && lobbydata.map(lobbyist => (
-                    <Flex.Item
-                      key={lobbyist}
-                      basis={2}
-                      className="Section__title candystripe">
-                      <Flex
-                        height={2}
-                        align="center"
-                        justify="space-between">
-                        <Flex.Item basis={0}>
-                          {lobbyist.name}
-                        </Flex.Item>
-                        <Flex.Item>
-                          STATUS:
-                        </Flex.Item>
-                        <Flex.Item width="30%">
-                          <Section>
-                            <Box
-                              color={
-                                lobbyist.status === "Ready" ? "green" : "red"
-                              }
-                              textAlign="center">
-                              {lobbyist.status} {lobbyist.spectating}
-                            </Box>
-                          </Section>
-                        </Flex.Item>
-                      </Flex>
-                    </Flex.Item>
-                  ))}
+                <Flex direction="column">
+                  {!!lobbydata &&
+                    lobbydata.map((lobbyist) => (
+                      <Flex.Item key={lobbyist} basis={2} className="Section__title candystripe">
+                        <Flex height={2} align="center" justify="space-between">
+                          <Flex.Item basis={0}>{lobbyist.name}</Flex.Item>
+                          <Flex.Item>STATUS:</Flex.Item>
+                          <Flex.Item width="30%">
+                            <Section>
+                              <Box color={lobbyist.status === 'Ready' ? 'green' : 'red'} textAlign="center">
+                                {lobbyist.status} {lobbyist.spectating}
+                              </Box>
+                            </Section>
+                          </Flex.Item>
+                        </Flex>
+                      </Flex.Item>
+                    ))}
                 </Flex>
               </Box>
             </Section>
@@ -102,50 +68,42 @@ export const MafiaPanel = (props, context) => {
                     please notice the extra scrollbar you have that players
                     do not!`}
                   />
-                )} <TimeDisplay auto="down" value={timeleft} />
+                )}{' '}
+                <TimeDisplay auto="down" value={timeleft} />
               </Box>
             }>
-            <Flex
-              justify="space-between">
-              <Flex.Item
-                align="center"
-                textAlign="center"
-                maxWidth="500px">
-                <b>You are the {roleinfo.role}</b><br />
+            <Flex justify="space-between">
+              <Flex.Item align="center" textAlign="center" maxWidth="500px">
+                <b>You are the {roleinfo.role}</b>
+                <br />
                 <b>{roleinfo.desc}</b>
               </Flex.Item>
               <Flex.Item>
                 <Box
-                  className={classes([
-                    'mafia32x32',
-                    roleinfo.revealed_icon,
-                  ])}
+                  className={classes(['mafia32x32', roleinfo.revealed_icon])}
                   style={{
                     'transform': 'scale(2) translate(0px, 10%)',
                     'vertical-align': 'middle',
-                  }} />
+                  }}
+                />
                 <Box
-                  className={classes([
-                    'mafia32x32',
-                    roleinfo.hud_icon,
-                  ])}
+                  className={classes(['mafia32x32', roleinfo.hud_icon])}
                   style={{
                     'transform': 'scale(2) translate(-5px, -5px)',
                     'vertical-align': 'middle',
-                  }} />
+                  }}
+                />
               </Flex.Item>
             </Flex>
           </Section>
         )}
         <Flex>
-          {!!actions && actions.map(action => (
-            <Flex.Item key={action}>
-              <Button
-                onClick={() => act("mf_action", { atype: action })}>
-                {action}
-              </Button>
-            </Flex.Item>
-          ))}
+          {!!actions &&
+            actions.map((action) => (
+              <Flex.Item key={action}>
+                <Button onClick={() => act('mf_action', { atype: action })}>{action}</Button>
+              </Flex.Item>
+            ))}
         </Flex>
         {!!roleinfo && (
           <Section
@@ -168,23 +126,17 @@ export const MafiaPanel = (props, context) => {
                 content="INNOCENT!"
                 color="good"
                 disabled={!judgement_phase}
-                onClick={() => act("vote_innocent")} />
-              {!judgement_phase && (
-                <Box>
-                  There is nobody on trial at the moment.
-                </Box>
-              )}
-              {!!judgement_phase && (
-                <Box>
-                  It is now time to vote, vote the accused innocent or guilty!
-                </Box>
-              )}
+                onClick={() => act('vote_innocent')}
+              />
+              {!judgement_phase && <Box>There is nobody on trial at the moment.</Box>}
+              {!!judgement_phase && <Box>It is now time to vote, vote the accused innocent or guilty!</Box>}
               <Button
                 icon="angry"
                 content="GUILTY!"
                 color="bad"
                 disabled={!judgement_phase}
-                onClick={() => act("vote_guilty")} />
+                onClick={() => act('vote_guilty')}
+              />
             </Flex>
             <Flex justify="center">
               <Button
@@ -192,14 +144,16 @@ export const MafiaPanel = (props, context) => {
                 content="Abstain"
                 color="white"
                 disabled={!judgement_phase}
-                onClick={() => act("vote_abstain")} />
+                onClick={() => act('vote_abstain')}
+              />
             </Flex>
           </Section>
         )}
-        {phase !== "No Game" &&(
+        {phase !== 'No Game' && (
           <Flex spacing={1}>
             <Flex.Item grow={2}>
-              <Section title="Players"
+              <Section
+                title="Players"
                 buttons={
                   <Button
                     color="transparent"
@@ -211,54 +165,45 @@ export const MafiaPanel = (props, context) => {
                     at certain phases to use your ability.`}
                   />
                 }>
-                <Flex
-                  direction="column">
-                  {!!players && players.map(player => (
-                    <Flex.Item
-                      height="30px"
-                      className="Section__title candystripe"
-                      key={player.ref}>
-                      <Flex
-                        height="18px"
-                        justify="space-between"
-                        align="center">
-                        <Flex.Item basis={16} >
-                          {!!player.alive && (<Box>{player.name}</Box>)}
-                          {!player.alive && (
-                            <Box color="red">{player.name}</Box>)}
-                        </Flex.Item>
-                        <Flex.Item>
-                          {!player.alive && (<Box color="red">DEAD</Box>)}
-                        </Flex.Item>
-                        <Flex.Item>
-                          {player.votes !== undefined && !!player.alive
-                          && (<Fragment>Votes : {player.votes} </Fragment>)}
-                        </Flex.Item>
-                        <Flex.Item grow={1} />
-                        <Flex.Item>
-                          {
-                            !!player.actions && player.actions.map(action => {
-                              return (
-                                <Button
-                                  key={action}
-                                  onClick={() => act('mf_targ_action', {
-                                    atype: action,
-                                    target: player.ref,
-                                  })}>
-                                  {action}
-                                </Button>); })
-                          }
-                        </Flex.Item>
-                      </Flex>
-                    </Flex.Item>)
-                  )}
+                <Flex direction="column">
+                  {!!players &&
+                    players.map((player) => (
+                      <Flex.Item height="30px" className="Section__title candystripe" key={player.ref}>
+                        <Flex height="18px" justify="space-between" align="center">
+                          <Flex.Item basis={16}>
+                            {!!player.alive && <Box>{player.name}</Box>}
+                            {!player.alive && <Box color="red">{player.name}</Box>}
+                          </Flex.Item>
+                          <Flex.Item>{!player.alive && <Box color="red">DEAD</Box>}</Flex.Item>
+                          <Flex.Item>
+                            {player.votes !== undefined && !!player.alive && <Fragment>Votes : {player.votes} </Fragment>}
+                          </Flex.Item>
+                          <Flex.Item grow={1} />
+                          <Flex.Item>
+                            {!!player.actions &&
+                              player.actions.map((action) => {
+                                return (
+                                  <Button
+                                    key={action}
+                                    onClick={() =>
+                                      act('mf_targ_action', {
+                                        atype: action,
+                                        target: player.ref,
+                                      })
+                                    }>
+                                    {action}
+                                  </Button>
+                                );
+                              })}
+                          </Flex.Item>
+                        </Flex>
+                      </Flex.Item>
+                    ))}
                 </Flex>
               </Section>
             </Flex.Item>
             <Flex.Item grow={2}>
-              <Flex
-                direction="column"
-                height="100%">
+              <Flex direction="column" height="100%">
                 <Section
                   title="Roles and Notes"
                   buttons={
@@ -284,46 +229,34 @@ export const MafiaPanel = (props, context) => {
                       />
                     </Fragment>
                   }>
-                  <Flex
-                    direction="column">
-                    {!!all_roles && all_roles.map(r => (
-                      <Flex.Item
-                        key={r}
-                        height="30px"
-                        className="Section__title candystripe">
-                        <Flex
-                          height="18px"
-                          align="center"
-                          justify="space-between">
-                          <Flex.Item>
-                            {r}
-                          </Flex.Item>
-                          <Flex.Item
-                            textAlign="right">
-                            <Button
-                              color="transparent"
-                              icon="question"
-                              onClick={() => act("mf_lookup", {
-                                atype: r.slice(0, -3),
-                              })}
-                            />
-                          </Flex.Item>
-                        </Flex>
-                      </Flex.Item>
-                    ))}
+                  <Flex direction="column">
+                    {!!all_roles &&
+                      all_roles.map((r) => (
+                        <Flex.Item key={r} height="30px" className="Section__title candystripe">
+                          <Flex height="18px" align="center" justify="space-between">
+                            <Flex.Item>{r}</Flex.Item>
+                            <Flex.Item textAlign="right">
+                              <Button
+                                color="transparent"
+                                icon="question"
+                                onClick={() =>
+                                  act('mf_lookup', {
+                                    atype: r.slice(0, -3),
+                                  })
+                                }
+                              />
+                            </Flex.Item>
+                          </Flex>
+                        </Flex.Item>
+                      ))}
                   </Flex>
                 </Section>
                 {!!roleinfo && (
                   <Flex.Item height={0} grow={1}>
-                    <Section scrollable
-                      fill
-                      overflowY="scroll">
-                      {roleinfo !== undefined && !!roleinfo.action_log
-                    && roleinfo.action_log.map(log_line => (
-                      <Box key={log_line}>
-                        {log_line}
-                      </Box>
-                    ))}
+                    <Section scrollable fill overflowY="scroll">
+                      {roleinfo !== undefined &&
+                        !!roleinfo.action_log &&
+                        roleinfo.action_log.map((log_line) => <Box key={log_line}>{log_line}</Box>)}
                     </Section>
                   </Flex.Item>
                 )}
@@ -335,9 +268,7 @@ export const MafiaPanel = (props, context) => {
           <Flex.Item>
             {!!admin_controls && (
               <Section textAlign="center">
-                <Collapsible
-                  title="ADMIN CONTROLS"
-                  color="red">
+                <Collapsible title="ADMIN CONTROLS" color="red">
                   <Button
                     icon="exclamation-triangle"
                     color="black"
@@ -350,7 +281,9 @@ export const MafiaPanel = (props, context) => {
                     Also because an admin did it: do not gib/delete/dust
                     anyone! It will runtime the game to death!`}
                     content="A Kind, Coder Warning"
-                    onClick={() => act("next_phase")} /><br />
+                    onClick={() => act('next_phase')}
+                  />
+                  <br />
                   <Button
                     icon="arrow-right"
                     tooltipPosition="top"
@@ -360,7 +293,8 @@ export const MafiaPanel = (props, context) => {
                     pretty fun to just spam this and freak people out,
                     try that roundend!`}
                     content="Next Phase"
-                    onClick={() => act("next_phase")} />
+                    onClick={() => act('next_phase')}
+                  />
                   <Button
                     icon="home"
                     tooltipPosition="top"
@@ -373,7 +307,8 @@ export const MafiaPanel = (props, context) => {
                     godmoded assistants will run free. Use
                     this to recollect them then make a bug report.`}
                     content="Send All Players Home"
-                    onClick={() => act("players_home")} />
+                    onClick={() => act('players_home')}
+                  />
                   <Button
                     icon="sync-alt"
                     tooltipPosition="top"
@@ -382,7 +317,8 @@ export const MafiaPanel = (props, context) => {
                     another. Nothing will happen if another
                     game fails to start!`}
                     content="New Game"
-                    onClick={() => act("new_game")} />
+                    onClick={() => act('new_game')}
+                  />
                   <Button
                     icon="skull"
                     tooltipPosition="top"
@@ -391,7 +327,8 @@ export const MafiaPanel = (props, context) => {
                     as it was roundstart: nonexistant. Use this if you
                     really mess things up. You did mess things up, didn't you.`}
                     content="Nuke"
-                    onClick={() => act("nuke")} />
+                    onClick={() => act('nuke')}
+                  />
                   <br />
                   <Button
                     icon="paint-brush"
@@ -403,7 +340,8 @@ export const MafiaPanel = (props, context) => {
                     on the bottom because of pathing stuff. Resets after
                     the round finishes back to 12 player random setups.`}
                     content="Create Custom Setup"
-                    onClick={() => act("debug_setup")} />
+                    onClick={() => act('debug_setup')}
+                  />
                   <Button
                     icon="paint-roller"
                     tooltipPosition="top"
@@ -412,7 +350,8 @@ export const MafiaPanel = (props, context) => {
                     you wanted, simply just press this to reset it. The game
                     will auto reset after each game as well.`}
                     content="Reset Custom Setup"
-                    onClick={() => act("cancel_setup")} />
+                    onClick={() => act('cancel_setup')}
+                  />
                 </Collapsible>
               </Section>
             )}
@@ -425,11 +364,7 @@ export const MafiaPanel = (props, context) => {
 
 const LobbyDisplay = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    phase,
-    timeleft,
-    admin_controls,
-  } = data;
+  const { phase, timeleft, admin_controls } = data;
   return (
     <Box>
       [Phase = {phase} | <TimeDisplay auto="down" value={timeleft} />]{' '}
@@ -441,7 +376,8 @@ const LobbyDisplay = (props, context) => {
         is an ongoing one, you will be signed up
         for the next.`}
         content="Sign Up"
-        onClick={() => act("mf_signup")} />
+        onClick={() => act('mf_signup')}
+      />
       <Button
         icon="eye"
         tooltipPosition="bottom-left"
@@ -452,7 +388,8 @@ const LobbyDisplay = (props, context) => {
         conclusion. You won't get messages if you
         rejoin SS13.`}
         content="Spectate"
-        onClick={() => act("mf_spectate")} />
+        onClick={() => act('mf_spectate')}
+      />
       {!!admin_controls && (
         <Button
           color="red"
