@@ -1248,6 +1248,10 @@
 	var/department_id = DEPT_ALL
 	req_components = list()
 
+/obj/item/circuitboard/machine/ore_silo/department
+	name = "ore silo - department (Machine Board)"
+	build_path = /obj/machinery/ore_silo/department
+
 /obj/item/circuitboard/machine/ore_silo/department/science
 	name = "ore silo - science (Machine Board)"
 	icon_state = "science"
