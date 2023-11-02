@@ -118,7 +118,6 @@
 	nutriment_factor = 7 * REAGENTS_METABOLISM //Not very healthy on its own
 	metabolization_rate = 10 * REAGENTS_METABOLISM
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
-	var/boiling //Used in mob life to determine if the oil kills, and only on touch application
 
 /datum/reagent/consumable/cooking_oil/reaction_obj(obj/exposed_obj, reac_volume)
 	if(!holder || (holder.chem_temp <= fry_temperature))
