@@ -1,7 +1,7 @@
 /obj/effect/abstract/open_area_marker
 	name = "open area marker"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "pinonfar"
+	icon_state = "pincomp_arrow_far"
 
 /obj/effect/abstract/open_area_marker/Initialize(mapload)
 	return INITIALIZE_HINT_QDEL
@@ -9,7 +9,7 @@
 /obj/effect/abstract/doorway_marker
 	name = "doorway marker"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "pinonmedium"
+	icon_state = "pincomp_arrow_medium"
 
 /obj/effect/abstract/doorway_marker/Initialize(mapload)
 	return INITIALIZE_HINT_QDEL

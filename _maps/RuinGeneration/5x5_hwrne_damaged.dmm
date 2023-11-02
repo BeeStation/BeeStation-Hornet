@@ -1,12 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/obj/structure/lattice,
-/turf/open/space/basic,
+/obj/item/kirbyplants/random,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "e" = (
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "h" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
@@ -15,8 +14,8 @@
 /area/ruin/unpowered)
 "v" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "x" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -62,9 +61,9 @@ v
 "}
 (4,1,1) = {"
 N
-X
-x
 b
+x
+v
 x
 "}
 (5,1,1) = {"

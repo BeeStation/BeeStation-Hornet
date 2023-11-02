@@ -56,4 +56,5 @@
 	if (!istype(name_preference))
 		return FALSE
 
+	log_preferences("[preferences?.parent?.ckey]: Randomized name preference [name_preference.type]")
 	return preferences.update_preference(name_preference, name_preference.create_random_value(preferences), in_menu = TRUE)
