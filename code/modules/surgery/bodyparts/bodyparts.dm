@@ -376,6 +376,14 @@
 	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
 	if(.)
 		var/mob/living/carbon/old_owner = .
+		if(can_be_disabled)
+			if(HAS_TRAIT(old_owner, TRAIT_EASYLIMBDISABLE))
+				disable_threshold = initial(disable_threshold)
+				needs_update_disabled = TRUE
+			UnregisterSignal(old_owner, list(
+				SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBDISABLE),
+				SIGNAL_ADDTRAIT(TRAIT_EASYLIMBDISABLE),
+				))
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(old_owner, TRAIT_NOLIMBDISABLE))
 				if(!owner || !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -386,6 +394,12 @@
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
 	if(owner)
+		if(can_be_disabled)
+			if(HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE))
+				disable_threshold = 0.6
+				needs_update_disabled = TRUE
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBDISABLE), PROC_REF(on_owner_easylimbdisable_trait_loss))
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_EASYLIMBDISABLE), PROC_REF(on_owner_easylimbdisable_trait_gain))
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
 				set_can_be_disabled(FALSE)
@@ -411,12 +425,18 @@
 				CRASH("set_can_be_disabled to TRUE with for limb whose owner has TRAIT_NOLIMBDISABLE")
 			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_gain))
 			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_loss))
+			if(HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE))
+				disable_threshold = 0.6
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBDISABLE), PROC_REF(on_owner_easylimbdisable_trait_loss))
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_EASYLIMBDISABLE), PROC_REF(on_owner_easylimbdisable_trait_gain))
 		update_disabled()
 	else if(.)
 		if(owner)
 			UnregisterSignal(owner, list(
 				SIGNAL_ADDTRAIT(TRAIT_PARALYSIS),
 				SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS),
+				SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBDISABLE),
+				SIGNAL_ADDTRAIT(TRAIT_EASYLIMBDISABLE),
 				))
 		set_disabled(FALSE)
 
@@ -453,6 +473,21 @@
 	SIGNAL_HANDLER
 
 	set_can_be_disabled(initial(can_be_disabled))
+
+///Called when TRAIT_EASYLIMBDISABLE is added to the owner.
+/obj/item/bodypart/proc/on_owner_easylimbdisabletrait_gain(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	disable_threshold = 0.6
+	if(can_be_disabled)
+		update_disabled()
+
+
+///Called when TRAIT_EASYLIMBDISABLE is removed from the owner.
+/obj/item/bodypart/proc/on_owner_easylimbdisable_trait_loss(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	disable_threshold = initial(disable_threshold)
+	if(can_be_disabled)
+		update_disabled()
 
 //Updates an organ's brute/burn states for use by update_damage_overlays()
 //Returns 1 if we need to update overlays. 0 otherwise.
