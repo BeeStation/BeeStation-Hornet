@@ -34,7 +34,7 @@
 	var/is_pseudopart = FALSE //For limbs that don't really exist, eg chainsaws
 
 	/// So we know if we need to scream if this limb hits max damage
-	var/last_maxed
+	//var/last_maxed // WOUNDS
 
 	///If disabled, limb is as good as missing.
 	var/bodypart_disabled = FALSE
@@ -375,6 +375,7 @@
 	owner = new_owner
 	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
 	if(.)
+		var/mob/living/carbon/old_owner = .
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(old_owner, TRAIT_NOLIMBDISABLE))
 				if(!owner || !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -393,8 +394,6 @@
 			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), PROC_REF(on_owner_nolimbdisable_trait_gain))
 		if(needs_update_disabled)
 			update_disabled()
-
-	return old_owner
 
 
 ///Proc to change the value of the `can_be_disabled` variable and react to the event of its change.
