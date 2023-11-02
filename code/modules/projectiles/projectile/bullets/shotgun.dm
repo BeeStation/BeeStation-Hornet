@@ -69,7 +69,7 @@
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
-	damage = 1.5
+	damage = 2
 	stamina = 8
 	tile_dropoff = 0.5
 	tile_dropoff_s = 0.25
