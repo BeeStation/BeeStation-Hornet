@@ -1819,7 +1819,7 @@
 	description = "Unleash the funk within you."
 	reagent_state = LIQUID
 	color = "#FF8800"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "funky sugar"
 
 /datum/reagent/barbers_afro_mania/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -1834,7 +1834,7 @@
 	description = "It seems I messed up. Time to go bald."
 	reagent_state = LIQUID
 	color = "#C0FFAB"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "hairloss"
 
 /datum/reagent/barbers_shaving_aid/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
