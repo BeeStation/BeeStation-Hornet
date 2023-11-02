@@ -5,10 +5,19 @@ import { Window } from '../layouts';
 
 export const MaterialDepositMachine = (props, context) => {
   const { act, data } = useBackend(context);
-  const { materials } = data;
+  const { materials, materialPickup } = data;
   return (
     <Window width={440} height={550}>
       <Window.Content scrollable>
+        <Section>
+          <Box>
+            <Box inline color="label" mr={1}>
+              Material Pickup:
+            </Box>
+            {materialPickup}
+            <Button ml={2} content="Toggle" onClick={() => act('Toggle Material Pickup')} />
+          </Box>
+        </Section>
         <Section title="Materials">
           <Table>
             {materials.map((material) => (

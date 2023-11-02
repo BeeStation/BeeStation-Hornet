@@ -30,6 +30,7 @@
 		/datum/material/bluespace,
 		/datum/material/plastic,
 		))
+	var/material_pickup = FALSE
 
 /obj/machinery/mineral/material_deposit/Initialize(mapload)
 	. = ..()
@@ -48,6 +49,8 @@
 
 
 /obj/machinery/mineral/material_deposit/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
+	if(!material_pickup)
+		return
 	if(QDELETED(target))
 		return
 	if(!materials.mat_container || panel_open || !powered())
@@ -129,7 +132,10 @@
 			var/sheet_amount = amount / MINERAL_MATERIAL_AMOUNT
 			var/ref = REF(M)
 			data["materials"] += list(list("name" = M.name, "id" = ref, "amount" = sheet_amount))
-
+	if(material_pickup)
+		data["materialPickup"] = "On"
+	else
+		data["materialPickup"] = "Off"
 	if (!mat_container)
 		data["disconnected"] = "local mineral storage is unavailable"
 	else if (!materials.silo)
@@ -174,12 +180,14 @@
 
 				var/sheets_to_remove = round(min(desired,50,stored_amount))
 
-				var/count = mat_container.retrieve_sheets(sheets_to_remove, mat)
+				var/count = mat_container.retrieve_sheets(sheets_to_remove, mat,get_step(src, input_dir))
 				var/list/mats = list()
 				mats[mat] = MINERAL_MATERIAL_AMOUNT
 				materials.silo_log(src, "released", -count, "sheets", mats)
 				//Logging deleted for quick coding
 				. = TRUE
+		if("Toggle Material Pickup")
+			material_pickup = !material_pickup
 
 /obj/machinery/mineral/material_deposit/update_icon()
 	if(powered())
