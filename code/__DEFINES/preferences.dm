@@ -119,11 +119,19 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// such as hair color being affixed to hair.
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
 
+// --- infotab related defines ---
 /// Preferences that will be put into the 3rd list, and are not contextual.
+/// This will be sorted with "INFOTAB_LIST"
 #define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
 
+/// Preferences of names, obviously
+/// This will be sorted with "INFOTAB_LIST"
 #define PREFERENCE_CATEGORY_NAMES "names"
-/// sorting + naming
+
+/// It serves to display and sort some special categories. Check "infotab_content" in MainPage.tsx
+/// * order: sorting order
+/// * key: dedicated category
+/// * value: displace name of a category. (because we don't want to show "non_contextual" ugly bar)
 #define INFOTAB_LIST list( \
 	PREFERENCE_CATEGORY_NAMES = "Names", \
 	PREFERENCE_CATEGORY_NON_CONTEXTUAL = "Non contextual")

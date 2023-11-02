@@ -40,13 +40,19 @@
 /datum/preference/name/proc/get_policy_tooltip()
 	return null
 
+#define NAME_SORT_BASIC 1
+#define NAME_SORT_ALTBASIC 2
+#define NAME_SORT_FUN 3
+#define NAME_SORT_ROBOT 4
+#define NAME_SORT_RELIGION 5
+
 /// A character's real name
 /datum/preference/name/real_name
 	db_key = "real_name"
 
 	name_type = "Character name"
 	tooltip = "Your character's name."
-	group = "_real_name" // The `_` makes it first in ABC order.
+	group = NAME_SORT_BASIC
 	informed = TRUE
 	// Used in serialize and is_valid
 	allow_numbers = TRUE
@@ -88,7 +94,7 @@
 
 	name_type = "Alt. Human name"
 	tooltip = "This name is used when the role you are picked for only allows for humans."
-	group = "alt_human" // extra bar looks ugly
+	group = NAME_SORT_ALTBASIC
 	informed = TRUE
 
 /datum/preference/name/backup_human/create_informed_default_value(datum/preferences/preferences)
@@ -101,7 +107,7 @@
 
 	name_type = "Clown name"
 	tooltip = "Clown's stage name. Overrides over real name when you get a clown job."
-	group = "fun"
+	group = NAME_SORT_FUN
 	relevant_job = /datum/job/clown
 
 /datum/preference/name/clown/create_default_value()
@@ -112,7 +118,7 @@
 
 	name_type = "Mime name"
 	tooltip = "Mime's stage name. Overrides over real name when you get a mime job."
-	group = "fun"
+	group = NAME_SORT_FUN
 	relevant_job = /datum/job/mime
 
 /datum/preference/name/mime/create_default_value()
@@ -121,7 +127,7 @@
 /datum/preference/name/cyborg
 	db_key = "cyborg_name"
 
-	group = "silicons"
+	group = NAME_SORT_ROBOT
 	name_type = "Cyborg name"
 	tooltip = "Used when you are a cyborg rather than a human."
 
@@ -136,7 +142,7 @@
 /datum/preference/name/ai
 	db_key = "ai_name"
 
-	group = "silicons"
+	group = NAME_SORT_ROBOT
 	name_type = "AI name"
 	tooltip = "Used when you are a cyborg rather than a human. Same as the cyborg name, but when you are an AI."
 
@@ -149,7 +155,7 @@
 /datum/preference/name/religion
 	db_key = "religion_name"
 
-	group = "z_religion" // should be after silicon name group
+	group = NAME_SORT_RELIGION
 	name_type = "Religion name"
 	tooltip = "The name of your religion, this is used when you are the Chaplain."
 
@@ -162,7 +168,7 @@
 /datum/preference/name/deity
 	db_key = "deity_name"
 
-	group = "z_religion"
+	group = NAME_SORT_RELIGION
 	name_type = "Deity name"
 	tooltip = "The deity's name in your religion, this is used when you are the Chaplain."
 	allow_numbers = TRUE
@@ -174,7 +180,7 @@
 /datum/preference/name/bible
 	db_key = "bible_name"
 
-	group = "z_religion"
+	group = NAME_SORT_RELIGION
 	name_type = "Bible name"
 	tooltip = "The name of the holy book in your religion, this is used when you are the Chaplain."
 
@@ -183,3 +189,10 @@
 
 /datum/preference/name/bible/create_default_value()
 	return DEFAULT_BIBLE
+
+
+#undef NAME_SORT_BASIC
+#undef NAME_SORT_ALTBASIC
+#undef NAME_SORT_FUN
+#undef NAME_SORT_ROBOT
+#undef NAME_SORT_RELIGION

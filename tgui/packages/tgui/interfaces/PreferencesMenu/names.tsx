@@ -120,8 +120,9 @@ export const MultiNameInput = (
                   );
                 })}
                 {
-                  group !== '_real_name' && index !== collection.length - 1 && <LabeledList.Divider />
+                  group !== '1' && index !== collection.length - 1 && <LabeledList.Divider />
                   // showing a bar under alt human name looks ugly, but this hardcoding is easier to handle...
+                  // Note: It's number type in DM side, but it becomes string because of assoc sorting
                 }
               </>
             ))}

@@ -32,7 +32,7 @@ export type Name = {
   tooltip?: string;
   policy_link?: string;
   policy_tooltip?: string;
-  group: string;
+  group: any; // it should take number, but will work as string because of assoc in names.tsx, so it's better to be this.
 };
 
 export type Species = {
@@ -227,7 +227,7 @@ export type ServerData = {
     jobs: Record<string, Job>;
   };
   names: {
-    types: Record<string, Name>;
+    types: Record<number, Name>;
   };
   quirks: QuirkInfo;
   loadout: LoadoutInfo;

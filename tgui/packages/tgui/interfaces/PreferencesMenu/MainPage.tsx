@@ -513,9 +513,11 @@ export const MainPage = (
           delete nonContextualPreferences['name_is_always_random'];
         }
 
+        // a little bit hardcoded section to display preference categories in tabs and bottom section
+        // prefInfoTab switch should take keys from INFOTAB_LIST(in DM define)
         let infotab_content;
         switch (prefInfoTab) {
-          case 'non_contextual':
+          case 'non_contextual': // sadly, it's not possible to bring constant define from DM. We should handle manually.
             infotab_content = (
               <PreferenceList
                 act={act}
@@ -525,7 +527,22 @@ export const MainPage = (
             );
             break;
           case 'names':
-            infotab_content = "why doesn't it work";
+            infotab_content = (
+              <MultiNameInput
+                handleRandomizeName={(preference) =>
+                  act('randomize_name', {
+                    preference,
+                  })
+                }
+                handleUpdateName={(nameType, value) =>
+                  act('set_preference', {
+                    preference: nameType,
+                    value,
+                  })
+                }
+                names={data.character_preferences.names}
+              />
+            );
             break;
           default:
             infotab_content = <b>error occured</b>;
@@ -590,7 +607,7 @@ export const MainPage = (
             <Stack.Item grow basis={0} className="PreferencesMenu__Main">
               <Stack vertical fill>
                 <Stack.Item
-                  basis="50%"
+                  basis="40%"
                   grow
                   className="section-background"
                   px={1}
@@ -603,14 +620,7 @@ export const MainPage = (
                     preferences={contextualPreferences}
                   />
                 </Stack.Item>
-                <Stack.Item
-                  basis="50%"
-                  grow
-                  className="section-background"
-                  px={1}
-                  py="5px"
-                  overflowX="hidden"
-                  overflowY="scroll">
+                <Stack.Item basis="auto">
                   <Tabs>
                     {Object.entries(data.infotab_menus).map(([key, value]) => (
                       <Tabs.Tab
@@ -623,6 +633,16 @@ export const MainPage = (
                       </Tabs.Tab>
                     ))}
                   </Tabs>
+                </Stack.Item>
+                <Stack.Item
+                  mt={0}
+                  basis="60%"
+                  grow
+                  className="section-background"
+                  px={1}
+                  py="5px"
+                  overflowX="hidden"
+                  overflowY="scroll">
                   {infotab_content}
                 </Stack.Item>
               </Stack>
