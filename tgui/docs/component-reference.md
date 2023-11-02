@@ -657,6 +657,7 @@ to perform some sort of action), there is a way to do that:
   - `top`
   - `middle`
   - `bottom`
+- `tooltip: string | null` - Hovering this labeled item will show a tooltip. (Only beestation code has this)
 - `buttons: any` - Buttons to render aside the content.
 - `children: any` - Content of this labeled item.
 

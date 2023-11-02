@@ -29,7 +29,7 @@ type LabeledListItemProps = {
   color?: string | BooleanLike;
   textAlign?: string | BooleanLike;
   buttons?: InfernoNode;
-  tooltip?: string | null;
+  tooltip?: string | null; // beestation implementation
   /** @deprecated */
   content?: any;
   children?: InfernoNode;
