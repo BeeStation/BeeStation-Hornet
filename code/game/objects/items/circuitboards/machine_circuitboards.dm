@@ -1251,7 +1251,7 @@
 /obj/item/circuitboard/machine/ore_silo/department/science
 	name = "ore silo - science (Machine Board)"
 	icon_state = "science"
-	build_path = /obj/machinery/ore_silo/science
+	build_path = /obj/machinery/ore_silo/department/science
 	department_id = DEPT_SCIENCE
 
 /obj/item/circuitboard/machine/ore_silo/department/engineering
