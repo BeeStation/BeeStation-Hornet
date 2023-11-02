@@ -139,7 +139,7 @@
 		if(EXPLODABLE_DELETE_PARENT)
 			qdel(bomb)
 		else
-			addtimer(CALLBACK(src, .proc/reset_exploding), 0.1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset_exploding), 0.1 SECONDS))
 
 /**
  * Resets the expoding flag
