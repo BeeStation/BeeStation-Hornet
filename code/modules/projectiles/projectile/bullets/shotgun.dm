@@ -72,16 +72,16 @@
 	damage = 2
 	stamina = 8
 	tile_dropoff = 0.5
-	tile_dropoff_s = 0.5
+	tile_dropoff_s = 0.25
 	ricochets_max = 2
 	ricochet_chance = 80
 	ricochet_decay_chance = 0.75
 
 /obj/projectile/bullet/pellet/Range()
-	if(damage <= 0 && tile_dropoff_s == 0.5)
+	if(damage <= 0 && tile_dropoff_s == 0.25)
 		damage = 0
 		tile_dropoff = 0
-		tile_dropoff_s = 0.6
+		tile_dropoff_s = 0.5
 	..()
 
 /obj/projectile/bullet/pellet/shotgun_incapacitate

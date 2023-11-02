@@ -23,8 +23,8 @@
 //Slightly worse disabler, but fully automatic
 /obj/projectile/bullet/c46x30mm_rubber
 	name = "4.6x30mm rubber bullet"
-	damage = 2
-	stamina = 20
+	damage = 4
+	stamina = 18
 	ricochets_max = 2
 	ricochet_chance = 110
 	ricochet_incidence_leeway = 55
