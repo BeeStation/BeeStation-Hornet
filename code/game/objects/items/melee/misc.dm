@@ -445,7 +445,7 @@
 			if(user.zone_selected == BODY_ZONE_R_LEG)
 				if (Ll.get_staminaloss() < 49 && Ra.get_staminaloss() < 49 && La.get_staminaloss() < 49)
 					target.apply_damage(15, STAMINA, BODY_ZONE_R_LEG, def_check)
-					target.apply_damage(7, STAMINA, BODY_ZONE_CHEST, def_check)
+					target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
 					log_combat(user, target, "tripped", src)
 					target.visible_message(desc["visibleleg"], desc["localleg"])
 				if (Ll.get_staminaloss() > 49 || Ra.get_staminaloss() > 49 || La.get_staminaloss() > 49)
@@ -467,7 +467,7 @@
 					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 				if (Ra.get_staminaloss() > 49 || Ll.get_staminaloss() > 49 || Rl.get_staminaloss() > 49)
 					target.apply_damage(5, STAMINA, BODY_ZONE_L_ARM, def_check)
-					target.apply_damage(3, STAMINA, BODY_ZONE_CHEST, def_check)
+					target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
 					log_combat(user, target, "disarmed", src)
 					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 
@@ -479,7 +479,7 @@
 					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 				if (La.get_staminaloss() > 49 || Ll.get_staminaloss() > 49 || Rl.get_staminaloss() > 49)
 					target.apply_damage(5, STAMINA, BODY_ZONE_R_ARM, def_check)
-					target.apply_damage(3, STAMINA, BODY_ZONE_CHEST, def_check)
+					target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
 					log_combat(user, target, "disarmed", src)
 					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 
