@@ -56,13 +56,14 @@
 	name = "ocean sand"
 	baseturfs = /turf/open/floor/plating/ocean
 	icon = 'icons/turf/floors/seafloor.dmi'
-	icon_state = "seafloor"
-	base_icon_state = "seafloor"
+	icon_state = "deep"
+	base_icon_state = "deep"
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	planetary_atmos = TRUE
+	initial_gas_mix = OPENTURF_OCEAN_ATMOS
 	///Visual overlay
 	var/obj/effect/abstract/ocean_overlay/static_overlay
 	///How many chem units we impart each time something travels through us
