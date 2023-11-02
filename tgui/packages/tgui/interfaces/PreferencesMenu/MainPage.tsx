@@ -1,10 +1,11 @@
 import { classes } from 'common/react';
 import { sendAct, useBackend, useLocalState } from '../../backend';
-import { Box, Button, Flex, LabeledList, Popper, Section, Stack, Tabs, TrackOutsideClicks, Input, Icon, FitText, Tooltip } from '../../components';
+import { Box, Button, Flex, LabeledList, Popper, Stack, TrackOutsideClicks, Input, Icon, FitText, Tabs } from '../../components';
 import { createSetPreference, PreferencesMenuData, RandomSetting } from './data';
 import { CharacterPreview } from './CharacterPreview';
 import { RandomizationButton } from './RandomizationButton';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
+import { MultiNameInput } from './names';
 import { Gender, GENDERS } from './preferences/gender';
 import features from './preferences/features';
 import { FeatureChoicedServerData, FeatureValueInput } from './preferences/features/base';
@@ -414,47 +415,94 @@ const PreferenceList = (props: {
     ? sortPreferences(Object.entries(props.preferences))
     : Object.entries(props.preferences);
   return (
-    <Stack.Item basis="50%" grow className="section-background" px={1} py="5px" overflowX="hidden" overflowY="scroll">
-      {props.infotab_content}
-      <LabeledList>
-        {prepared_preferences.map(([featureId, value]) => {
-          const feature = features[featureId];
-          const randomSetting = props.randomizations[featureId];
+    <LabeledList>
+      {sortPreferences(Object.entries(props.preferences)).map(([featureId, value]) => {
+        const feature = features[featureId];
+        const randomSetting = props.randomizations[featureId];
 
-          if (feature === undefined) {
-            return (
-              <Stack.Item key={featureId}>
-                <b>Feature {featureId} is not recognized.</b>
-              </Stack.Item>
-            );
-          }
-
+        if (feature === undefined) {
           return (
-            <LabeledList.Item
-              className="candystripe"
-              key={featureId}
-              label={feature.name}
-              tooltip={feature.tooltip}
-              verticalAlign="middle">
-              <Stack fill>
-                {randomSetting && (
-                  <Stack.Item>
-                    <RandomizationButton setValue={createSetRandomization(props.act, featureId)} value={randomSetting} />
-                  </Stack.Item>
-                )}
-
-                <Stack.Item grow>
-                  <FeatureValueInput act={props.act} feature={feature} featureId={featureId} value={value} />
-                </Stack.Item>
-              </Stack>
-            </LabeledList.Item>
+            <Stack.Item key={featureId}>
+              <b>Feature {featureId} is not recognized.</b>
+            </Stack.Item>
           );
-        })}
-      </LabeledList>
-    </Stack.Item>
+        }
+
+        return (
+          <LabeledList.Item className="candystripe" key={featureId} label={feature.name} verticalAlign="middle">
+            <Stack fill>
+              {randomSetting && (
+                <Stack.Item>
+                  <RandomizationButton setValue={createSetRandomization(props.act, featureId)} value={randomSetting} />
+                </Stack.Item>
+              )}
+
+              <Stack.Item grow>
+                <FeatureValueInput act={props.act} feature={feature} featureId={featureId} value={value} />
+              </Stack.Item>
+            </Stack>
+          </LabeledList.Item>
+        );
+      })}
+    </LabeledList>
   );
 };
 
+const PreferenceInfotab = (
+  props: {
+    randomizations: Record<string, RandomSetting>;
+    nonContextualPreferences;
+  },
+  context
+) => {
+  const { data, act } = useBackend<PreferencesMenuData>(context);
+  const [prefInfoTab, setPrefInfoTab] = useLocalState(context, 'prefInfoTab', Object.entries(data.infotab_menus)[0][0]);
+
+  let content;
+  switch (prefInfoTab) {
+    case 'names':
+      content = (
+        <MultiNameInput
+          handleRandomizeName={(preference) =>
+            act('randomize_name', {
+              preference,
+            })
+          }
+          handleUpdateName={(nameType, value) =>
+            act('set_preference', {
+              preference: nameType,
+              value,
+            })
+          }
+          names={data.character_preferences.names}
+        />
+      );
+      break;
+    case 'games':
+      content = <PreferenceList act={act} randomizations={props.randomizations} preferences={props.nonContextualPreferences} />;
+      break;
+    default:
+      content = <b>error occured</b>;
+      break;
+  }
+  return (
+    <>
+      <Tabs>
+        {Object.entries(data.infotab_menus).map(([key, value]) => (
+          <Tabs.Tab
+            key={key}
+            selected={key === prefInfoTab}
+            onClick={() => {
+              setPrefInfoTab(key);
+            }}>
+            {value}
+          </Tabs.Tab>
+        ))}
+      </Tabs>
+      {content}
+    </>
+  );
+};
 export const MainPage = (
   props: {
     openSpecies: () => void;
@@ -463,11 +511,6 @@ export const MainPage = (
 ) => {
   const { act, data } = useBackend<PreferencesMenuData>(context);
   const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<string | null>(context, 'currentClothingMenu', null);
-  const [characterControlTab, setCharacterControlTab] = useLocalState(
-    context,
-    'characterControlTab',
-    Object.entries(data.infotab_menus)[0][0]
-  );
   const [randomToggleEnabled] = useRandomToggleState(context);
 
   return (
@@ -586,32 +629,33 @@ export const MainPage = (
 
             <Stack.Item grow basis={0} className="PreferencesMenu__Main">
               <Stack vertical fill>
-                <PreferenceList
-                  need_sort
-                  act={act}
-                  randomizations={getRandomization(contextualPreferences)}
-                  preferences={contextualPreferences}
-                />
-                <PreferenceList
-                  need_sort={characterControlTab !== 'names'} // simple hardcoding meh, but I don't want doing complex for now
-                  act={act}
-                  randomizations={getRandomization(infotab_category_data(characterControlTab))}
-                  preferences={infotab_category_data(characterControlTab)}
-                  infotab_content={
-                    <Tabs>
-                      {Object.entries(data.infotab_menus).map(([key, value]) => (
-                        <Tabs.Tab
-                          key={key}
-                          selected={key === characterControlTab}
-                          onClick={() => {
-                            setCharacterControlTab(key);
-                          }}>
-                          {value}
-                        </Tabs.Tab>
-                      ))}
-                    </Tabs>
-                  }
-                />
+                <Stack.Item
+                  basis="50%"
+                  grow
+                  className="section-background"
+                  px={1}
+                  py="5px"
+                  overflowX="hidden"
+                  overflowY="scroll">
+                  <PreferenceList
+                    act={act}
+                    randomizations={getRandomization(contextualPreferences)}
+                    preferences={contextualPreferences}
+                  />
+                </Stack.Item>
+                <Stack.Item
+                  basis="50%"
+                  grow
+                  className="section-background"
+                  px={1}
+                  py="5px"
+                  overflowX="hidden"
+                  overflowY="scroll">
+                  <PreferenceInfotab
+                    randomizations={getRandomization(nonContextualPreferences)}
+                    nonContextualPreferences={nonContextualPreferences}
+                  />
+                </Stack.Item>
               </Stack>
             </Stack.Item>
           </Stack>

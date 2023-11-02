@@ -141,6 +141,15 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define RANDOMIZE_SPECIES (1<<0)
 #define RANDOMIZE_NAME (1<<1)
 
+// values for /datum/preference/infotab_category
+/// This belongs to additional name setting (clown name, cyborg name, etc)
+#define PREFERENCE_INFOTAB_NAMES "names"
+/// This belongs to additional game setting (PDA color or theme, securty department preference, etc)
+#define PREFERENCE_INFOTAB_GAMES "games"
+/// sorting + naming
+#define INFOTAB_LIST list( \
+	PREFERENCE_INFOTAB_NAMES = "Names", \
+	PREFERENCE_INFOTAB_GAMES = "Adv. Options")
 
 // Undatumized preference tags
 
