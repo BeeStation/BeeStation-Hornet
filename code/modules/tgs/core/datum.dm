@@ -11,6 +11,10 @@ TGS_DEFINE_AND_SET_GLOBAL(tgs, null)
 	src.event_handler = event_handler
 	src.version = version
 
+/datum/tgs_api/proc/TerminateWorld()
+	del(world)
+	sleep(1) // https://www.byond.com/forum/post/2894866
+
 /datum/tgs_api/latest
 	parent_type = /datum/tgs_api/v5
 

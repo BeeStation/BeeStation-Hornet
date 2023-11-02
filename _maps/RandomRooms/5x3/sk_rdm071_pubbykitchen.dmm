@@ -30,7 +30,7 @@
 /area/template_noop)
 "f" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	desc = "It has a distinctly eldritch taste to it.";
 	name = "grandma's cookie"
 	},

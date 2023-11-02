@@ -439,7 +439,7 @@
 			if(!T.broken && !T.burnt)
 				new T.floor_tile(T)
 			T.make_plating()
-	return !new_turf.intact
+	return !new_turf.underfloor_accessibility
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(var/turf/new_turf)
 	if(equip_ready || !istype(new_turf) || !dismantleFloor(new_turf))

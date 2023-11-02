@@ -100,11 +100,11 @@
 
 /obj/effect/spawner/mail/donut/Initialize()
 	var/static/list/mail_donut= pick(
-		/obj/item/reagent_containers/food/snacks/donut/berry,
-		/obj/item/reagent_containers/food/snacks/donut/apple,
-		/obj/item/reagent_containers/food/snacks/donut/caramel,
-		/obj/item/reagent_containers/food/snacks/donut/choco,
-		/obj/item/reagent_containers/food/snacks/donut/matcha,)
+		/obj/item/food/donut/berry,
+		/obj/item/food/donut/apple,
+		/obj/item/food/donut/caramel,
+		/obj/item/food/donut/choco,
+		/obj/item/food/donut/matcha,)
 	new mail_donut(loc)
 	return ..()
 
@@ -113,11 +113,11 @@
 
 /obj/effect/spawner/mail/rdonut/Initialize()
 	var/static/list/mail_rdonut= pick(
-		/obj/item/reagent_containers/food/snacks/donut/meat,
-		/obj/item/reagent_containers/food/snacks/donut/trumpet,
-		/obj/item/reagent_containers/food/snacks/donut/blumpkin,
-		/obj/item/reagent_containers/food/snacks/donut/bungo,
-		/obj/item/reagent_containers/food/snacks/donut/chaos,)
+		/obj/item/food/donut/meat,
+		/obj/item/food/donut/trumpet,
+		/obj/item/food/donut/blumpkin,
+		/obj/item/food/donut/bungo,
+		/obj/item/food/donut/chaos,)
 	new mail_rdonut(loc)
 	return ..()
 

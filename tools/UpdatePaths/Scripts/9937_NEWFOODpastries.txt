@@ -1,0 +1,26 @@
+/obj/item/food/donkpocket : /obj/item/reagent_containers/food/snacks/donkpocket{@OLD}
+
+/obj/item/food/donut : /obj/item/reagent_containers/food/snacks/donut{@OLD}
+
+/obj/item/food/cookie/sugar : /obj/item/reagent_containers/food/snacks/sugarcookie{@OLD}
+/obj/item/food/cookie/oatmeal : /obj/item/reagent_containers/food/snacks/oatmealcookie{@OLD}
+/obj/item/food/cookie/raisin : /obj/item/reagent_containers/food/snacks/raisincookie{@OLD}
+/obj/item/food/fortunecookie /obj/item/reagent_containers/food/snacks/fortunecookie{@OLD}
+/obj/item/food/cookie : /obj/item/reagent_containers/food/snacks/cookie{@OLD}
+
+/obj/item/food/pancakes : /obj/item/reagent_containers/food/snacks/pancakes{@OLD}
+
+/obj/item/food/muffin /obj/item/reagent_containers/food/snacks/muffin{@OLD}
+/obj/item/food/waffles : /obj/item/reagent_containers/food/snacks/waffles{@OLD}
+/obj/item/food/soylentgreen : /obj/item/reagent_containers/food/snacks/soylentgreen{@OLD}
+/obj/item/food/soylenviridians : /obj/item/reagent_containers/food/snacks/soylenviridians{@OLD}
+/obj/item/food/rofflewaffles : /obj/item/reagent_containers/food/snacks/rofflewaffles{@OLD}
+/obj/item/food/chococornet : /obj/item/reagent_containers/food/snacks/chococornet{@OLD}
+/obj/item/food/poppypretzel : /obj/item/reagent_containers/food/snacks/poppypretzel{@OLD}
+/obj/item/food/plumphelmetbiscuit : /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit{@OLD}
+/obj/item/food/cracker : /obj/item/reagent_containers/food/snacks/cracker{@OLD}
+/obj/item/food/khachapuri : /obj/item/reagent_containers/food/snacks/khachapuri{@OLD}
+/obj/item/food/cherrycupcake : /obj/item/reagent_containers/food/snacks/cherrycupcake{@OLD}
+/obj/item/food/cherrycupcake/blue : /obj/item/reagent_containers/food/snacks/cherrycupcake/blue{@OLD}
+/obj/item/food/honeybun : /obj/item/reagent_containers/food/snacks/honeybun{@OLD}
+/obj/item/food/ravtart : /obj/item/reagent_containers/food/snacks/ravtart{@OLD}

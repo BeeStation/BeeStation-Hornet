@@ -73,6 +73,8 @@
 
 	init_crafting_recipes(GLOB.crafting_recipes)
 
+	init_religion_sects()
+
 /// Inits the crafting recipe list, sorting crafting recipe requirements in the process.
 /proc/init_crafting_recipes(list/crafting_recipes)
 	for(var/path in subtypesof(/datum/crafting_recipe))
@@ -159,3 +161,8 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 	/obj/structure/light_construct,
 	/obj/machinery/light
 	)))
+
+/proc/init_religion_sects()
+	for(var/path in subtypesof(/datum/religion_sect))
+		var/datum/religion_sect/each_sect = new path()
+		GLOB.religion_sect_datums += each_sect

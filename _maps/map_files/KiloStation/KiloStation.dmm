@@ -73477,7 +73477,7 @@
 "qXL" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/item/radio/headset/headset_sec,
 /turf/open/floor/plasteel,

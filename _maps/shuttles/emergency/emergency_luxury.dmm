@@ -215,7 +215,7 @@
 /area/shuttle/escape/luxury)
 "aO" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/khachapuri,
+/obj/item/food/khachapuri,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aP" = (
@@ -230,7 +230,7 @@
 /area/shuttle/escape/luxury)
 "aR" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/honeybun,
+/obj/item/food/honeybun,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aS" = (
@@ -255,7 +255,7 @@
 /area/shuttle/escape/luxury)
 "aW" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/cherrycupcake,
+/obj/item/food/cherrycupcake,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aX" = (
