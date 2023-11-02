@@ -1,7 +1,3 @@
-/obj/machinery/ore_silo/department
-	name = "ore silo (Department)"
-	circuit = /obj/item/circuitboard/machine/ore_silo/department
-
 /obj/machinery/ore_silo/department/science
 	name = "ore silo (Science)"
 	desc = "An all-in-one bluespace storage and transmission system for the station's mineral distribution needs. This one is linked to the Science department"
