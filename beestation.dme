@@ -2834,6 +2834,7 @@
 #include "code\modules\mining\fulton.dm"
 #include "code\modules\mining\gibtonite.dm"
 #include "code\modules\mining\machine_materialdeposit.dm"
+#include "code\modules\mining\machine_materialdeposit_department.dm"
 #include "code\modules\mining\machine_processing.dm"
 #include "code\modules\mining\machine_redemption.dm"
 #include "code\modules\mining\machine_silo.dm"

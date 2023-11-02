@@ -31,11 +31,12 @@
 		/datum/material/plastic,
 		))
 	var/material_pickup = FALSE
+	var/department_id = DEPT_ALL
 
 /obj/machinery/mineral/material_deposit/Initialize(mapload)
 	. = ..()
 	materials = AddComponent(/datum/component/remote_materials, "mdm", mapload)
-	materials.department_id = DEPT_ALL
+	materials.department_id = department_id
 
 
 /obj/machinery/mineral/material_deposit/Destroy()
