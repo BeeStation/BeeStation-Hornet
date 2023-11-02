@@ -29,7 +29,7 @@
 /datum/outfit/mafia/ninja
 	name = "Mafia Ninja"
 	glasses = /obj/item/clothing/glasses/sunglasses
-	suit = /obj/item/clothing/suit/costume/ianshirt
+	suit = /obj/item/clothing/suit/ianshirt
 	uniform = /obj/item/clothing/under/pants/jeans
 	shoes = /obj/item/clothing/shoes/sandal
 
@@ -45,7 +45,7 @@
 	glasses = /obj/item/clothing/glasses/monocle
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/laceup
-	suit = /obj/item/clothing/suit/costume/gothcoat
+	suit = /obj/item/clothing/suit/gothcoat
 	uniform = /obj/item/clothing/under/suit/black
 
 //town
@@ -116,7 +116,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	suit = /obj/item/clothing/suit/armor/hos/trenchcoat
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/hos/beret
+	head = /obj/item/clothing/head/HoS/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
 /datum/outfit/mafia/warden

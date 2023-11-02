@@ -622,10 +622,3 @@
 		if (icon != 'icons/misc/language.dmi')
 			var/icon_state = initial(L.icon_state)
 			Insert("language-[icon_state]", icon, icon_state=icon_state)
-
-/datum/asset/spritesheet/mafia
-	name = "mafia"
-
-/datum/asset/spritesheet/mafia/register()
-	InsertAll("", 'icons/obj/mafia.dmi')
-	..()

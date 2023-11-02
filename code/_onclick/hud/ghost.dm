@@ -44,11 +44,11 @@
 	var/mob/dead/observer/G = usr
 	G.register_pai()
 
-/obj/screen/ghost/mafia
+/atom/movable/ghost/mafia
 	name = "Mafia Signup"
 	icon_state = "mafia"
 
-/obj/screen/ghost/mafia/Click()
+/atom/movable/ghost/mafia/Click()
 	var/mob/dead/observer/G = usr
 	G.mafia_signup()
 
@@ -81,7 +81,7 @@
 	using.hud = src
 	static_inventory += using
 
-	using = new /obj/screen/ghost/mafia()
+	using = new /atom/movable/ghost/mafia()
 	using.screen_loc = ui_ghost_mafia
 	using.hud = src
 	static_inventory += using

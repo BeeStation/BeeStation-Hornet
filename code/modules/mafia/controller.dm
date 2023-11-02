@@ -37,7 +37,7 @@
 	///template picked when the game starts. used for the name and desc reading
 	var/datum/map_template/mafia/current_map
 	///map generation tool that deletes the current map after the game finishes
-	var/datum/map_generator/massdelete/map_deleter
+	var/datum/mapGenerator/massdelete/map_deleter
 
 	///Readable list of roles in current game, sent to the tgui panel for roles list > list("Psychologist x1", "Clown x2")
 	var/list/current_setup_text
@@ -353,8 +353,6 @@
  * * role: mafia_role datum to reward.
  */
 /datum/mafia_controller/proc/award_role(award, datum/mafia_role/rewarded)
-	if(custom_setup.len)
-		return
 	var/client/role_client = GLOB.directory[rewarded.player_key]
 	role_client?.give_award(award, rewarded.body)
 
@@ -583,9 +581,7 @@
 		mafia_panel.Grant(H)
 		var/client/player_client = GLOB.directory[role.player_key]
 		if(player_client)
-			player_client.prefs.copy_to(H)
-			if(H.dna.species.outfit_important_for_life) //plasmamen
-				H.set_species(/datum/species/human)
+			player_client.prefs.safe_transfer_prefs_to(H, is_antag = TRUE)
 		role.body = H
 		player_role_lookup[H] = role
 		H.key = role.player_key
