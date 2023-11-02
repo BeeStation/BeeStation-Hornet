@@ -1,7 +1,6 @@
 /// A preference for a name. Used not just for normal names, but also for clown names, etc.
 /datum/preference/name
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	infotab_category = PREFERENCE_INFOTAB_NAMES
+	category = PREFERENCE_CATEGORY_NAMES
 	preference_type = PREFERENCE_CHARACTER
 	abstract_type = /datum/preference/name
 

@@ -363,16 +363,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			continue
 
 		LAZYINITLIST(preferences[preference.category])
-		if(initial(preference.infotab_category))
-			LAZYINITLIST(preferences[preference.category][preference.infotab_category])
 
 		var/value = read_preference(preference.type)
 		var/data = preference.compile_ui_data(user, value)
 
-
-		if(initial(preference.infotab_category))
-			preferences[preference.category][preference.infotab_category][preference.db_key] = data
-			continue
 		preferences[preference.category][preference.db_key] = data
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)

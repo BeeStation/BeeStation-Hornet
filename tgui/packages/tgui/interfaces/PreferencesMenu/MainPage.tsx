@@ -407,7 +407,6 @@ const sortPreferences = sortBy<[string, unknown]>(([featureId, _]) => {
 const PreferenceList = (props: {
   act: typeof sendAct;
   need_sort?: boolean;
-  infotab_content?: any;
   preferences: Record<string, unknown>;
   randomizations: Record<string, RandomSetting>;
 }) => {
@@ -448,61 +447,6 @@ const PreferenceList = (props: {
   );
 };
 
-const PreferenceInfotab = (
-  props: {
-    randomizations: Record<string, RandomSetting>;
-    nonContextualPreferences;
-  },
-  context
-) => {
-  const { data, act } = useBackend<PreferencesMenuData>(context);
-  const [prefInfoTab, setPrefInfoTab] = useLocalState(context, 'prefInfoTab', Object.entries(data.infotab_menus)[0][0]);
-
-  let content;
-  switch (prefInfoTab) {
-    case 'names':
-      content = (
-        <MultiNameInput
-          handleRandomizeName={(preference) =>
-            act('randomize_name', {
-              preference,
-            })
-          }
-          handleUpdateName={(nameType, value) =>
-            act('set_preference', {
-              preference: nameType,
-              value,
-            })
-          }
-          names={data.character_preferences.names}
-        />
-      );
-      break;
-    case 'games':
-      content = <PreferenceList act={act} randomizations={props.randomizations} preferences={props.nonContextualPreferences} />;
-      break;
-    default:
-      content = <b>error occured</b>;
-      break;
-  }
-  return (
-    <>
-      <Tabs>
-        {Object.entries(data.infotab_menus).map(([key, value]) => (
-          <Tabs.Tab
-            key={key}
-            selected={key === prefInfoTab}
-            onClick={() => {
-              setPrefInfoTab(key);
-            }}>
-            {value}
-          </Tabs.Tab>
-        ))}
-      </Tabs>
-      {content}
-    </>
-  );
-};
 export const MainPage = (
   props: {
     openSpecies: () => void;
@@ -512,6 +456,7 @@ export const MainPage = (
   const { act, data } = useBackend<PreferencesMenuData>(context);
   const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<string | null>(context, 'currentClothingMenu', null);
   const [randomToggleEnabled] = useRandomToggleState(context);
+  const [prefInfoTab, setPrefInfoTab] = useLocalState(context, 'prefInfoTab', Object.entries(data.infotab_menus)[0][0]);
 
   return (
     <ServerPreferencesFetcher
@@ -560,16 +505,31 @@ export const MainPage = (
           ...data.character_preferences.non_contextual,
         };
 
-        const infotab_category_data: any = (infotab_category: string) => {
-          return data.character_preferences.non_contextual[infotab_category];
-        };
-
         if (randomBodyEnabled) {
           nonContextualPreferences['random_species'] = data.character_preferences.randomization['species'];
         } else {
           // We can't use random_name/is_accessible because the
           // server doesn't know whether the random toggle is on.
           delete nonContextualPreferences['name_is_always_random'];
+        }
+
+        let infotab_content;
+        switch (prefInfoTab) {
+          case 'non_contextual':
+            infotab_content = (
+              <PreferenceList
+                act={act}
+                randomizations={getRandomization(nonContextualPreferences)}
+                preferences={nonContextualPreferences}
+              />
+            );
+            break;
+          case 'names':
+            infotab_content = "why doesn't it work";
+            break;
+          default:
+            infotab_content = <b>error occured</b>;
+            break;
         }
 
         return (
@@ -651,10 +611,19 @@ export const MainPage = (
                   py="5px"
                   overflowX="hidden"
                   overflowY="scroll">
-                  <PreferenceInfotab
-                    randomizations={getRandomization(nonContextualPreferences)}
-                    nonContextualPreferences={nonContextualPreferences}
-                  />
+                  <Tabs>
+                    {Object.entries(data.infotab_menus).map(([key, value]) => (
+                      <Tabs.Tab
+                        key={key}
+                        selected={key === prefInfoTab}
+                        onClick={() => {
+                          setPrefInfoTab(key);
+                        }}>
+                        {value}
+                      </Tabs.Tab>
+                    ))}
+                  </Tabs>
+                  {infotab_content}
                 </Stack.Item>
               </Stack>
             </Stack.Item>

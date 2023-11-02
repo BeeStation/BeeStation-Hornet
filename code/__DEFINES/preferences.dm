@@ -122,15 +122,11 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// Preferences that will be put into the 3rd list, and are not contextual.
 #define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
 
-// values for /datum/preference/infotab_category
-/// This belongs to additional name setting (clown name, cyborg name, etc)
-#define PREFERENCE_INFOTAB_NAMES "names"
-/// This belongs to additional game setting (PDA color or theme, securty department preference, etc)
-#define PREFERENCE_INFOTAB_GAMES "games"
+#define PREFERENCE_CATEGORY_NAMES "names"
 /// sorting + naming
 #define INFOTAB_LIST list( \
-	PREFERENCE_INFOTAB_NAMES = "Names", \
-	PREFERENCE_INFOTAB_GAMES = "Adv. Options")
+	PREFERENCE_CATEGORY_NAMES = "Names", \
+	PREFERENCE_CATEGORY_NON_CONTEXTUAL = "Non contextual")
 
 //randomized elements
 #define RANDOM_ANTAG_ONLY 1
@@ -140,16 +136,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 // randomize_appearance_prefs() and randomize_human_appearance() proc flags
 #define RANDOMIZE_SPECIES (1<<0)
 #define RANDOMIZE_NAME (1<<1)
-
-// values for /datum/preference/infotab_category
-/// This belongs to additional name setting (clown name, cyborg name, etc)
-#define PREFERENCE_INFOTAB_NAMES "names"
-/// This belongs to additional game setting (PDA color or theme, securty department preference, etc)
-#define PREFERENCE_INFOTAB_GAMES "games"
-/// sorting + naming
-#define INFOTAB_LIST list( \
-	PREFERENCE_INFOTAB_NAMES = "Names", \
-	PREFERENCE_INFOTAB_GAMES = "Adv. Options")
 
 // Undatumized preference tags
 

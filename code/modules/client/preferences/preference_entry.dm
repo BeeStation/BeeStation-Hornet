@@ -75,9 +75,6 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// It is up to the PreferencesMenu UI itself to interpret it.
 	var/category = "misc"
 
-	/// used when `category = PREFERENCE_CATEGORY_NON_CONTEXTUAL`. Should be null unless it's necessary.
-	var/infotab_category
-
 	/// Do not instantiate if type matches this.
 	var/abstract_type = /datum/preference
 

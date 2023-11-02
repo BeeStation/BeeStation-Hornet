@@ -1,6 +1,5 @@
 /datum/preference/numeric/age
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	infotab_category = PREFERENCE_INFOTAB_GAMES
 	db_key = "age"
 	preference_type = PREFERENCE_CHARACTER
 

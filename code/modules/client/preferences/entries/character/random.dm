@@ -1,6 +1,5 @@
 /datum/preference/choiced/random_body
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	infotab_category = PREFERENCE_INFOTAB_GAMES
 	db_key = "body_is_always_random"
 	preference_type = PREFERENCE_CHARACTER
 	can_randomize = FALSE
@@ -20,7 +19,6 @@
 
 /datum/preference/choiced/random_name
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	infotab_category = PREFERENCE_INFOTAB_GAMES
 	db_key = "name_is_always_random"
 	preference_type = PREFERENCE_CHARACTER
 	can_randomize = FALSE
