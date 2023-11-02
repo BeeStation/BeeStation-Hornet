@@ -126,6 +126,9 @@
 	role_type = TOWN_INVEST
 	winner_award = /datum/award/achievement/mafia/detective
 
+	hud_icon = "huddetective"
+	revealed_icon = "detective"
+
 	targeted_actions = list("Investigate")
 
 	var/datum/mafia_role/current_investigation
@@ -177,6 +180,9 @@
 	role_type = TOWN_INVEST
 	winner_award = /datum/award/achievement/mafia/psychologist
 
+	hud_icon = "hudpsychologist"
+	revealed_icon = "psychologist"
+
 	targeted_actions = list("Reveal")
 	var/datum/mafia_role/current_target
 	var/can_use = TRUE
@@ -212,6 +218,9 @@
 	role_type = TOWN_INVEST
 	winner_award = /datum/award/achievement/mafia/chaplain
 
+	hud_icon = "hudchaplain"
+	revealed_icon = "chaplain"
+
 	targeted_actions = list("Pray")
 	var/current_target
 
@@ -242,6 +251,9 @@
 	revealed_outfit = /datum/outfit/mafia/md // /mafia <- outfit must be readded (just make a new mafia outfits file for all of these)
 	role_type = TOWN_PROTECT
 	winner_award = /datum/award/achievement/mafia/md
+
+	hud_icon = "hudmedicaldoctor"
+	revealed_icon = "medicaldoctor"
 
 	targeted_actions = list("Protect")
 	var/datum/mafia_role/current_protected
@@ -287,6 +299,9 @@
 	revealed_outfit = /datum/outfit/mafia/lawyer
 	role_type = TOWN_PROTECT
 	winner_award = /datum/award/achievement/mafia/lawyer
+
+	hud_icon = "hudlawyer"
+	revealed_icon = "lawyer"
 
 	targeted_actions = list("Advise")
 	var/datum/mafia_role/current_target
@@ -343,6 +358,9 @@
 	role_type = TOWN_MISC
 	winner_award = /datum/award/achievement/mafia/hop
 
+	hud_icon = "hudheadofpersonnel"
+	revealed_icon = "headofpersonnel"
+
 	targeted_actions = list("Reveal")
 
 /datum/mafia_role/hop/validate_action_target(datum/mafia_controller/game, action, datum/mafia_role/target)
@@ -364,6 +382,9 @@
 	role_type = MAFIA_REGULAR
 	winner_award = /datum/award/achievement/mafia/changeling
 
+	hud_icon = "hudchangeling"
+	revealed_icon = "changeling"
+
 	revealed_outfit = /datum/outfit/mafia/changeling
 	special_theme = "syndicate"
 	win_condition = "become majority over the town and no solo killing role can stop them."
@@ -381,6 +402,9 @@
 	desc = "You're a changeling variant that feeds on the memories of others. Use ':j' talk prefix to talk to your fellow lings, and visit people at night to learn their role."
 	role_type = MAFIA_SPECIAL
 	winner_award = /datum/award/achievement/mafia/thoughtfeeder
+
+	hud_icon = "hudthoughtfeeder"
+	revealed_icon = "thoughtfeeder"
 
 	targeted_actions = list("Learn Role")
 	var/datum/mafia_role/current_investigation
@@ -427,7 +451,10 @@
 
 	targeted_actions = list("Night Kill")
 	revealed_outfit = /datum/outfit/mafia/traitor
-	special_theme = "syndicate"
+
+	hud_icon = "hudtraitor"
+	revealed_icon = "traitor"
+	special_theme = "neutral"
 
 	var/datum/mafia_role/current_victim
 
@@ -476,6 +503,9 @@
 	detect_immune = TRUE
 	team = MAFIA_TEAM_SOLO
 	role_type = NEUTRAL_KILL
+	special_theme = "neutral"
+	hud_icon = "hudnightmare"
+	revealed_icon = "nightmare"
 	winner_award = /datum/award/achievement/mafia/nightmare
 
 	targeted_actions = list("Flicker", "Hunt")
@@ -545,15 +575,19 @@
 	name = "Fugitive"
 	desc = "You're on the run. You can become immune to night kills exactly twice, and you win by surviving to the end of the game with anyone."
 	win_condition = "survive to the end of the game, with anyone"
+	solo_counts_as_town = TRUE //should not count towards mafia victory, they should have the option to work with town
+	revealed_outfit = /datum/outfit/mafia/fugitive
 	team = MAFIA_TEAM_SOLO
 	role_type = NEUTRAL_DISRUPT
+	special_theme = "neutral"
+	hud_icon = "hudfugitive"
+	revealed_icon = "fugitive"
 	winner_award = /datum/award/achievement/mafia/fugitive
 
 	actions = list("Self Preservation")
 	var/charges = 2
 	var/protection_status = FUGITIVE_NOT_PRESERVING
-	solo_counts_as_town = TRUE //should not count towards mafia victory, they should have the option to work with town
-	revealed_outfit = /datum/outfit/mafia/fugitive
+
 
 /datum/mafia_role/fugitive/New(datum/mafia_controller/game)
 	. = ..()
@@ -604,8 +638,14 @@
 	name = "Obsessed"
 	desc = "You're completely lost in your own mind. You win by lynching your obsession before you get killed in this mess. Obsession assigned on the first night!"
 	win_condition = "lynch their obsession."
+	revealed_outfit = /datum/outfit/mafia/obsessed // /mafia <- outfit must be readded (just make a new mafia outfits file for all of these)
+	solo_counts_as_town = TRUE //after winning or whatever, can side with whoever. they've already done their objective!
 	team = MAFIA_TEAM_SOLO
 	role_type = NEUTRAL_DISRUPT
+	special_theme = "neutral"
+	hud_icon = "hudobsessed"
+	revealed_icon = "obsessed"
+
 	winner_award = /datum/award/achievement/mafia/obsessed
 
 	revealed_outfit = /datum/outfit/mafia/obsessed // /mafia <- outfit must be readded (just make a new mafia outfits file for all of these)
@@ -646,11 +686,15 @@
 
 /datum/mafia_role/clown
 	name = "Clown"
-	desc = "If you are lynched you take down one of your voters with you and win. HONK!"
+	desc = "If you are lynched you take down one of your voters (guilty or abstain) with you and win. HONK!"
 	win_condition = "get themselves lynched!"
 	revealed_outfit = /datum/outfit/mafia/clown
+	solo_counts_as_town = TRUE
 	team = MAFIA_TEAM_SOLO
 	role_type = NEUTRAL_DISRUPT
+	special_theme = "neutral"
+	hud_icon = "hudclown"
+	revealed_icon = "clown"
 	winner_award = /datum/award/achievement/mafia/clown
 
 /datum/mafia_role/clown/New(datum/mafia_controller/game)
@@ -659,7 +703,7 @@
 
 /datum/mafia_role/clown/proc/prank(datum/source,datum/mafia_controller/game,lynch)
 	if(lynch)
-		var/datum/mafia_role/victim = pick(game.judgement_guilty_votes)
+		var/datum/mafia_role/victim = pick(game.judgement_guilty_votes + game.judgement_abstain_votes)
 		game.send_message("<span class='big clown'>[body.real_name] WAS A CLOWN! HONK! They take down [victim.body.real_name] with their last prank.</span>")
 		game.send_message("<span class='big clown'>!! CLOWN VICTORY !!</span>")
 		var/client/winner_client = GLOB.directory[player_key]
