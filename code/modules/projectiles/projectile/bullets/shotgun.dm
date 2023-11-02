@@ -77,6 +77,12 @@
 	ricochet_chance = 80
 	ricochet_decay_chance = 0.75
 
+/obj/projectile/bullet/pellet/Range()
+	if(damage <= 0)
+		damage = 0
+		tile_dropoff_s = 0.6
+	..()
+
 /obj/projectile/bullet/pellet/shotgun_incapacitate
 	name = "incapacitating pellet"
 	damage = 1
