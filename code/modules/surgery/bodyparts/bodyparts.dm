@@ -247,6 +247,10 @@
 		total = max(total, stamina_dam)
 	return total
 
+//Returns only stamina damage.
+/obj/item/bodypart/proc/get_staminaloss()
+	return stamina_dam
+
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()
 	set_disabled(is_disabled())
