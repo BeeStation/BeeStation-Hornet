@@ -36,10 +36,16 @@ handles linking back and forth.
 /datum/component/remote_materials/proc/LateInitialize()
 
 	var/obj/machinery/ore_silo/silo_to_set = null
+	var/obj/machinery/ore_silo/global_silo = null
 	for(var/obj/machinery/ore_silo/silo_in_list in GLOB.ore_silo_list)
 		if(department_id == silo_in_list.department_id)
 			silo_to_set = silo_in_list
-	set_silo(silo_to_set)
+		if(silo_in_list.department_id==DEPT_ALL)
+			global_silo = silo_in_list
+	if(silo_to_set == null && global_silo != null)
+		set_silo(global_silo)
+	else
+		set_silo(silo_to_set)
 	if (silo)
 		silo.connected += src
 		mat_container = silo.GetComponent(/datum/component/material_container)

@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		if(department_id == silo_in_list.department_id)
 			same_dept_in_silo_list = TRUE
 
-	if (!same_dept_silo_list && mapload && is_station_level(z))
+	if (!same_dept_in_silo_list && mapload && is_station_level(z))
 		GLOB.ore_silo_list += src
 
 	if (department_id!=DEPT_ALL)
@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	return ..(department_id)
 
 /obj/machinery/ore_silo/Destroy()
-	if (loctate(src) in GLOB.ore_silo_list)
+	if (locate(src) in GLOB.ore_silo_list)
 		GLOB.ore_silo_default -= src
 
 	for(var/C in connected)
