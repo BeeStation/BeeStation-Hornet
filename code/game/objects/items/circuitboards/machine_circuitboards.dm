@@ -1254,33 +1254,33 @@
 	build_path = /obj/machinery/ore_silo/science
 	department_id = DEPT_SCIENCE
 
-/obj/item/circuitboard/machine/ore_silo/department/science
+/obj/item/circuitboard/machine/ore_silo/department/engineering
 	name = "ore silo - engineering (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/ore_silo/engineering
+	build_path = /obj/machinery/ore_silo/department/engineering
 	department_id = DEPT_ENGINEERING
 
 /obj/item/circuitboard/machine/ore_silo/department/medical
 	name = "ore silo - medical (Machine Board)"
 	icon_state = "medical"
-	build_path = /obj/machinery/ore_silo/medical
+	build_path = /obj/machinery/ore_silo/department/medical
 	department_id = DEPT_MEDICAL
 
 /obj/item/circuitboard/machine/ore_silo/department/security
 	name = "ore silo - security (Machine Board)"
 	icon_state = "security"
-	build_path = /obj/machinery/ore_silo/security
+	build_path = /obj/machinery/ore_silo/department/security
 	department_id = DEPT_SECURITY
 /obj/item/circuitboard/machine/ore_silo/department/supply
 	name = "ore silo - supply (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/ore_silo/supply
+	build_path = /obj/machinery/ore_silo/department/supply
 	department_id = DEPT_SUPPLY
 
 /obj/item/circuitboard/machine/ore_silo/department/service
 	name = "ore silo - service (Machine Board)"
 	icon_state = "service"
-	build_path = /obj/machinery/ore_silo/service
+	build_path = /obj/machinery/ore_silo/department/service
 	department_id = DEPT_SERVICE
 
 /obj/item/circuitboard/machine/ore_silo/multitool_act(mob/living/user, obj/item/multitool/I)
