@@ -35,12 +35,14 @@
 
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
+
 	///If disabled, limb is as good as missing.
 	var/bodypart_disabled = FALSE
 	///Multiplied by max_damage it returns the threshold which defines a limb being disabled or not. From 0 to 1.
 	var/disable_threshold = 1
 	///Controls whether bodypart_disabled makes sense or not for this limb.
 	var/can_be_disabled = FALSE
+
 	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
 	var/stam_damage_coeff = 0.7 //Why is this the default???
 	var/brutestate = 0
@@ -103,7 +105,7 @@
 		stack_trace("[type] qdeleted with [length(wounds)] uncleared wounds")
 		wounds.Cut()
 	*/
-	
+
 	return ..()
 
 /obj/item/bodypart/forceMove(atom/destination) //Please. Never forcemove a limb if its's actually in use. This is only for borgs.
@@ -218,8 +220,10 @@
 		brute = round(brute * (can_inflict / total_damage),DAMAGE_PRECISION)
 		burn = round(burn * (can_inflict / total_damage),DAMAGE_PRECISION)
 
-	brute_dam += brute
-	burn_dam += burn
+	if(brute)
+		set_brute_dam(brute_dam + brute)
+	if(burn)
+		set_burn_dam(burn_dam + burn)
 
 	//We've dealt the physical damages, if there's room lets apply the stamina damage.
 	if(stamina)
@@ -302,6 +306,9 @@
 /obj/item/bodypart/proc/update_disabled()
 	SHOULD_CALL_PARENT(TRUE)
 
+	if(!owner)
+		return
+
 	if(!can_be_disabled)
 		set_disabled(FALSE)
 		CRASH("update_disabled called with can_be_disabled false")
@@ -320,18 +327,21 @@
 		set_disabled(TRUE)
 		return
 
-	if(bodypart_disabled && total_damage <= max_damage * 0.8) // reenabled at 80% now instead of 50% as of wounds update
+	if(bodypart_disabled && total_damage <= max_damage * 0.5) // reenable the limb at 50% health
+		/*
 		if(!last_maxed)
 			if(owner.stat < UNCONSCIOUS)
 				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 			last_maxed = TRUE
+		*/
 		set_disabled(TRUE)
 		return
 
+/* WOUNDS
 	if(bodypart_disabled && total_damage <= max_damage * 0.5) // reenable the limb at 50% health
 		last_maxed = FALSE
 		set_disabled(FALSE)
-
+*/
 
 ///Proc to change the value of the `disabled` variable and react to the event of its change.
 /obj/item/bodypart/proc/set_disabled(new_disabled)
@@ -356,21 +366,13 @@
 ///Proc to change the value of the `owner` variable and react to the event of its change.
 /obj/item/bodypart/proc/set_owner(new_owner)
 	SHOULD_CALL_PARENT(TRUE)
+
 	if(owner == new_owner)
 		return FALSE //`null` is a valid option, so we need to use a num var to make it clear no change was made.
-	. = owner
+	var/mob/living/carbon/old_owner = owner
 	owner = new_owner
 	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
-	if(.)
-		var/mob/living/carbon/old_owner = .
-		if(can_be_disabled)
-			if(HAS_TRAIT(old_owner, TRAIT_EASYLIMBDISABLE))
-				disable_threshold = initial(disable_threshold)
-				needs_update_disabled = TRUE
-			UnregisterSignal(old_owner, list(
-				SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBDISABLE),
-				SIGNAL_ADDTRAIT(TRAIT_EASYLIMBDISABLE),
-				))
+	if(old_owner)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(old_owner, TRAIT_NOLIMBDISABLE))
 				if(!owner || !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -381,21 +383,17 @@
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
 	if(owner)
-		if(can_be_disabled)
-			if(HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE))
-				disable_threshold = 0.6
-				needs_update_disabled = TRUE
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBDISABLE), .proc/on_owner_easylimbwound_trait_loss)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_EASYLIMBDISABLE), .proc/on_owner_easylimbwound_trait_gain)
-
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
 				set_can_be_disabled(FALSE)
 				needs_update_disabled = FALSE
 			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_loss)
 			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_gain)
+
 		if(needs_update_disabled)
 			update_disabled()
+
+	return old_owner
 
 
 ///Proc to change the value of the `can_be_disabled` variable and react to the event of its change.
@@ -413,18 +411,12 @@
 				CRASH("set_can_be_disabled to TRUE with for limb whose owner has TRAIT_NOLIMBDISABLE")
 			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_gain)
 			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_loss)
-			if(HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE))
-				disable_threshold = 0.6
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBDISABLE), .proc/on_owner_easylimbwound_trait_loss)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_EASYLIMBDISABLE), .proc/on_owner_easylimbwound_trait_gain)
 		update_disabled()
 	else if(.)
 		if(owner)
 			UnregisterSignal(owner, list(
 				SIGNAL_ADDTRAIT(TRAIT_PARALYSIS),
 				SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS),
-				SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBDISABLE),
-				SIGNAL_ADDTRAIT(TRAIT_EASYLIMBDISABLE),
 				))
 		set_disabled(FALSE)
 
@@ -433,6 +425,7 @@
 /obj/item/bodypart/proc/on_paralysis_trait_gain(obj/item/bodypart/source)
 	PROTECTED_PROC(TRUE)
 	SIGNAL_HANDLER
+	
 	if(can_be_disabled)
 		set_disabled(TRUE)
 
@@ -441,6 +434,7 @@
 /obj/item/bodypart/proc/on_paralysis_trait_loss(obj/item/bodypart/source)
 	PROTECTED_PROC(TRUE)
 	SIGNAL_HANDLER
+
 	if(can_be_disabled)
 		update_disabled()
 
@@ -460,25 +454,11 @@
 
 	set_can_be_disabled(initial(can_be_disabled))
 
-
-///Called when TRAIT_EASYLIMBWOUND is added to the owner.
-/obj/item/bodypart/proc/on_owner_easylimbwound_trait_gain(mob/living/carbon/source)
-	SIGNAL_HANDLER
-	disable_threshold = 0.6
-	if(can_be_disabled)
-		update_disabled()
-
-
-///Called when TRAIT_EASYLIMBWOUND is removed from the owner.
-/obj/item/bodypart/proc/on_owner_easylimbwound_trait_loss(mob/living/carbon/source)
-	SIGNAL_HANDLER
-	disable_threshold = initial(disable_threshold)
-	if(can_be_disabled)
-		update_disabled()
-
 //Updates an organ's brute/burn states for use by update_damage_overlays()
 //Returns 1 if we need to update overlays. 0 otherwise.
 /obj/item/bodypart/proc/update_bodypart_damage_state()
+	SHOULD_CALL_PARENT(TRUE)
+
 	var/tbrute = round((min(brute_dam, max_damage) / max_damage) * 3, 1)
 	var/tburn = round((min(burn_dam, max_damage) / max_damage) * 3, 1)
 	if((tbrute != brutestate) || (tburn != burnstate))
@@ -852,7 +832,6 @@
 	. = ..()
 	if(. == FALSE)
 		return
-	var/mob/living/carbon/owner = null
 	if(owner)
 		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
 			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
@@ -868,7 +847,6 @@
 				REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
 		else
 			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
-
 
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_R_ARM trait.
 /obj/item/bodypart/r_arm/proc/on_owner_paralysis_gain(mob/living/carbon/source)
