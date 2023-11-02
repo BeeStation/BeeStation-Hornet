@@ -43,8 +43,11 @@
 ///from base of Component/edible/On_Consume: (mob/living/eater, mob/living/feeder)
 #define COMSIG_FOOD_CONSUMED "food_consumed"
 
+// Deep frying foods
+/// An item becomes fried - From /datum/element/fried_item/Attach: (fry_time)
 #define COMSIG_ITEM_FRIED "item_fried"
-	#define COMSIG_FRYING_HANDLED (1<<0)
+/// An item entering the deep frying (not fried yet) - From obj/machinery/deepfryer/start_fry: ()
+#define COMSIG_ITEM_ENTERED_FRYER "item_entered_fryer"
 
 //Gibs
 

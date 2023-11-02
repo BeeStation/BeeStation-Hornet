@@ -53,18 +53,6 @@ All foods are distributed among various categories. Use common sense.
 	var/customfoodfilling = 1 // whether it can be used as filling in custom food
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
-	//Placeholder for effect that trigger on eating that aren't tied to reagents.
-
-/obj/item/reagent_containers/food/snacks/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_FRIED, PROC_REF(on_fried))
-
-
-/obj/item/reagent_containers/food/snacks/proc/on_fried(fry_object)
-	reagents.trans_to(fry_object, reagents.total_volume)
-	qdel()
-	return COMSIG_FRYING_HANDLED
-
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
 	if(tastes?.len)
 		if(list_reagents)

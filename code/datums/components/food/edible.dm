@@ -82,7 +82,6 @@ Behavior that's still missing from this component that original food items had t
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
-		RegisterSignal(parent, COMSIG_ITEM_FRIED, PROC_REF(on_fried))
 		RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_ACT, PROC_REF(on_microwaved))
 
 		var/obj/item/item = parent
@@ -171,13 +170,6 @@ Behavior that's still missing from this component that original food items had t
 	SIGNAL_HANDLER
 
 	return TryToEat(M, user)
-
-/datum/component/edible/proc/on_fried(fry_object)
-	SIGNAL_HANDLER
-	var/atom/our_atom = parent
-	our_atom.reagents.trans_to(fry_object, our_atom.reagents.total_volume)
-	qdel(our_atom)
-	return COMSIG_FRYING_HANDLED
 
 ///Called when food is created through processing (Usually this means it was sliced). We use this to pass the OG items reagents.
 /datum/component/edible/proc/on_processed(datum/source, atom/original_atom, list/chosen_processing_option)
