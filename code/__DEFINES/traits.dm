@@ -370,6 +370,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
+/// Trait associated with mafia
+#define MAFIA_TRAIT "mafia"
 #define TRAIT_RUSTY "rust_trait"
 
 // unique trait sources, still defines
