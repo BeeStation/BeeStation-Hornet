@@ -27,9 +27,11 @@
 	name = "Mafia Minigame"
 	icon_state = "mafia"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
+	area_flags = BLOCK_SUICIDE | UNIQUE_AREA
 
 /datum/map_template/mafia
 	var/description = ""
