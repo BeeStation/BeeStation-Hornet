@@ -320,10 +320,12 @@
 	var/total_damage = max(brute_dam + burn_dam, stamina_dam)
 
 	if(total_damage >= max_damage * disable_threshold) //Easy limb disable disables the limb at 40% health instead of 0%
+		/* Wounds code
 		if(!last_maxed)
 			if(owner.stat < UNCONSCIOUS)
 				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 			last_maxed = TRUE
+		*/
 		set_disabled(TRUE)
 		return
 
@@ -372,7 +374,7 @@
 	. = owner
 	owner = new_owner
 	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
-	if(old_owner)
+	if(.)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(old_owner, TRAIT_NOLIMBDISABLE))
 				if(!owner || !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
