@@ -257,7 +257,7 @@
 
 /mob/living/proc/canSuicide()
 	var/area/A = get_area(src)
-	if(A.block_suicide)
+	if(A.area_flags & BLOCK_SUICIDE)
 		to_chat(src, "<span class='warning'>You can't commit suicide here! You can ghost if you'd like.</span>")
 	switch(stat)
 		if(CONSCIOUS)
