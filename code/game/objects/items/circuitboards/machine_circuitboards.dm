@@ -1243,10 +1243,45 @@
 
 /obj/item/circuitboard/machine/ore_silo
 	name = "ore silo (Machine Board)"
-	icon_state = "supply"
+	icon_state = "command"
 	build_path = /obj/machinery/ore_silo
-	var/department_id = DEPT_SCIENCE
+	var/department_id = DEPT_ALL
 	req_components = list()
+
+/obj/item/circuitboard/machine/ore_silo/department/science
+	name = "ore silo - science (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/ore_silo/science
+	department_id = DEPT_SCIENCE
+
+/obj/item/circuitboard/machine/ore_silo/department/science
+	name = "ore silo - engineering (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/ore_silo/engineering
+	department_id = DEPT_ENGINEERING
+
+/obj/item/circuitboard/machine/ore_silo/department/medical
+	name = "ore silo - medical (Machine Board)"
+	icon_state = "medical"
+	build_path = /obj/machinery/ore_silo/medical
+	department_id = DEPT_MEDICAL
+
+/obj/item/circuitboard/machine/ore_silo/department/security
+	name = "ore silo - security (Machine Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/ore_silo/security
+	department_id = DEPT_SECURITY
+/obj/item/circuitboard/machine/ore_silo/department/supply
+	name = "ore silo - supply (Machine Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/ore_silo/supply
+	department_id = DEPT_SUPPLY
+
+/obj/item/circuitboard/machine/ore_silo/department/service
+	name = "ore silo - service (Machine Board)"
+	icon_state = "service"
+	build_path = /obj/machinery/ore_silo/service
+	department_id = DEPT_SERVICE
 
 /obj/item/circuitboard/machine/ore_silo/multitool_act(mob/living/user, obj/item/multitool/I)
 	. = ..()
@@ -1258,6 +1293,9 @@
 		var/new_department_id = tgui_input_list(user, "Select the department the silo will be assigned to:", "Select department", department_list)
 		if(new_department_id!=null)
 			department_id = new_department_id
+			var/lower_dept_id = lowertext(department_id)
+			name = "ore silo - [lower_dept_id] (Machine Board)"
+			icon_state = lower_dept_id
 			to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_id]. </span>")
 
 /obj/item/circuitboard/machine/ore_silo/examine(mob/user)
