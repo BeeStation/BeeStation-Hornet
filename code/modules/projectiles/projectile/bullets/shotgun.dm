@@ -72,7 +72,7 @@
 	damage = 2
 	stamina = 8
 	tile_dropoff = 0.5
-	tile_dropoff_s = 0.4
+	tile_dropoff_s = 0.5
 	ricochets_max = 2
 	ricochet_chance = 80
 	ricochet_decay_chance = 0.75
