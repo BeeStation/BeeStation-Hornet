@@ -8,7 +8,12 @@ POLICY_POSTCLONETEXT <span class='boldannounce'>You have forgotten all the knowl
 # Message displayd on death
 DEATH_MESSAGE <span class='death_message'><span class='big bold'>You have died!</span><br/>Barring complete bodyloss, you can in most cases be revived by other players. If you do not wish to be brought back, use the "Do Not Resuscitate" verb in the ghost tab.<br/><span class = 'bold purple'>You do not remember the circumstances leading up to your death!</span></span>
 
-# Uses naming policy
-# Uncomment this if you want this
-#POLICY_NAMING_LINK https://wiki.beestation13.com/view/Naming_Guidelines
+# -- Naming Policy --
+# If your server uses a naming policy and people are required to follow, uncomment these with dedicated link and tooltip.
+
+## Uncommenting this will show a warning button next to "character name" part in the character window
+## Only main character name is coded to display this.
 #POLICY_NAMING_TOOLTIP Each species must follow a naming policy. Please read the "Naming Guidelines" page on the wiki and Rule 1.7.
+
+## Clicking a warning button that's made from POLICY_NAMING_TOOLTIP will redirect to a page that you set here.
+#POLICY_NAMING_LINK https://wiki.beestation13.com/view/Naming_Guidelines
