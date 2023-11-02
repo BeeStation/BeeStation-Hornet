@@ -142,7 +142,7 @@
 
 	var/available_choices = list("name", "race", "gender", "hair", "eyes")
 	if(uses_preference && !is_banned_from(user.ckey, "Appearance") && length(user.client.prefs.character_profiles_cached))
-		available_choices += "check your character list"
+		available_choices += "your characters"
 
 	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in available_choices
 
@@ -259,9 +259,10 @@
 
 
 		// become a character from your prefs that you choose
-		if("check your character list")
+		if("your characters")
 			var/list/character_list = user.client.prefs.get_sanitized_character_list()
 			if(!length(character_list))
+				to_chat(user, "<span class='warning'>There's no available character in your preferene save!</span>")
 				return
 			var/character_choice = input(user, "Select a character to copy its appearance to you", "Magical Grooming: Character list") as null|anything in character_list
 			if(!character_choice)
