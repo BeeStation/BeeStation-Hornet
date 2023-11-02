@@ -78,8 +78,9 @@
 	ricochet_decay_chance = 0.75
 
 /obj/projectile/bullet/pellet/Range()
-	if(damage <= 0)
+	if(damage <= 0 && tile_dropoff_s == 0.5)
 		damage = 0
+		tile_dropoff = 0
 		tile_dropoff_s = 0.6
 	..()
 
