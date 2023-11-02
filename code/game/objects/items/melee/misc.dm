@@ -203,11 +203,17 @@
 	. = list()
 
 	.["visibletrip"] =  "<span class ='danger'>[user] has knocked [target]'s legs out from under them with [src]!</span>"
-	.["localtrip"] = "<span class ='danger'>[user] has knocked your legs out from under you [src]!</span>"
+	.["localtrip"] = "<span class ='danger'>[user] has knocked your legs out from under you with [src]!</span>"
+	.["visibleknockout"] =  "<span class ='danger'>[user] has violently knocked out [target] with [src]!</span>"
+	.["localknockout"] = "<span class ='danger'>[user] has beat you with such force on the head with [src] you fall unconscious...</span>"
 	.["visibledisarm"] =  "<span class ='danger'>[user] has disarmed [target] with [src]!</span>"
 	.["localdisarm"] = "<span class ='danger'>[user] whacks your arm with [src], causing a coursing pain!</span>"
 	.["visiblestun"] =  "<span class ='danger'>[user] beat [target] with [src]!</span>"
 	.["localstun"] = "<span class ='danger'>[user] has beat you with [src]!</span>"
+	.["visibleshead"] =  "<span class ='danger'>[user] beat [target] on the head with [src]!</span>"
+	.["localhead"] = "<span class ='danger'>[user] has beat your head with [src]!</span>"
+	.["visiblearm"] =  "<span class ='danger'>[user] beat [target]'s arm with [src]!</span>"
+	.["localarm"] = "<span class ='danger'>[user] has beat your arm with [src]!</span>"
 	.["visibleleg"] =  "<span class ='danger'>[user] beat [target]'s leg with [src]!</span>"
 	.["localleg"] = "<span class ='danger'>[user] has beat you in the leg with [src]!</span>"
 
@@ -337,8 +343,12 @@
 	cooldown = 0
 	stamina_damage = 15
 	stun_animation = TRUE
-	COOLDOWN_DECLARE(sleep_cooldown)
-	COOLDOWN_DECLARE(trip_cooldown)
+	/// Per-mob sleep cooldowns.
+	/// [mob] = [world.time where the cooldown ends]
+	var/list/sleep_cooldowns = list()
+	/// Per-mob trip cooldowns.
+	/// [mob] = [world.time where the cooldown ends]
+	var/list/trip_cooldowns = list()
 
 /obj/item/melee/classic_baton/police/beater/attack(mob/living/target, mob/living/user)
 	if(!on)
@@ -410,78 +420,98 @@
 				target.visible_message(desc["visiblestun"], desc["localstun"])
 
 			if((user.zone_selected == BODY_ZONE_HEAD))
-				target.apply_damage(12, STAMINA, BODY_ZONE_HEAD, def_check) // HEAD CODE PLEASE LOOK HERE
-				log_combat(user, target, "stunned", src)
-				target.visible_message(desc["visiblestun"], desc["localstun"])
+				target.apply_damage(12, STAMINA, BODY_ZONE_HEAD, def_check)
 
-				if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && COOLDOWN_FINISHED(src, sleep_cooldown))
+				if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && (!sleep_cooldowns[target] || sleep_cooldowns[target] <= world.time))
 					T.force_say(user)
-					target.balloon_alert_to_viewers("Knock-Out!") // this is just here if I ever want to revert to this
+					target.balloon_alert_to_viewers("Knock-Out!")
 					if(!target.has_status_effect(STATUS_EFFECT_SLEEPING))
 						target.Sleeping(80)
 						target.setStaminaLoss(0)
 						playsound(usr.loc, "sound/machines/bellsound.ogg", 15, 1)
-					if(!target.has_status_effect(STATUS_EFFECT_KNOCKDOWN) && target.staminaloss < 100)
-						target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls unconscious.","falls limp like a bag of bricks.","falls to the ground, unresponsive.","lays down on the ground for a little nap."))]</span>")
-					COOLDOWN_START(src, sleep_cooldown, 20 SECONDS)
+						log_combat(user, target, "Knocked-Out", src)
+					if(CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND)) //this is here so the "falls" message doesn't appear if the target is already on the floor
+						target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls unconscious.","falls limp like a bag of bricks.","falls to the ground, unresponsive.","lays down on the ground for a little nap.","got [T.p_their()] dome rung in."))]</span>")
+					else
+						target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls unconscious.","falls into a deep sleep.","was sent to dreamland.","closes [T.p_their()] and prepares for a little nap."))]</span>")
+					sleep_cooldowns[target] = world.time + 16 SECONDS
+				else
+					log_combat(user, target, "stunned", src)
+					target.visible_message(desc["visiblestun"], desc["localstun"])
 
 			if(user.zone_selected == BODY_ZONE_L_LEG)
-				if (Rl.get_staminaloss() < 49 && Ra.get_staminaloss() < 49 && La.get_staminaloss() < 49)
+				log_combat(user, target, "stunned", src)
+				target.visible_message(desc["visibleleg"], desc["localleg"])
+				if (Rl.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
 					target.apply_damage(15, STAMINA, BODY_ZONE_L_LEG, def_check)
-					target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
-					log_combat(user, target, "tripped", src)
-					target.visible_message(desc["visibleleg"], desc["localleg"])
-				if (Rl.get_staminaloss() > 49 || Ra.get_staminaloss() > 49 || La.get_staminaloss() > 49)
+				else
 					target.apply_damage(10, STAMINA, BODY_ZONE_L_LEG, def_check)
-					target.apply_damage(1, STAMINA, BODY_ZONE_CHEST, def_check)
-					log_combat(user, target, "tripped", src)
-					target.visible_message(desc["visibleleg"], desc["localleg"])
-				if(Ll.get_staminaloss() > 49 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && !target.has_status_effect(STATUS_EFFECT_KNOCKDOWN) && COOLDOWN_FINISHED(src, trip_cooldown))
+				if (Ll.get_staminaloss() == 50)
+					target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
+				else
+					target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
+
+				if(Ll.get_staminaloss() == 50 && CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND) && (!trip_cooldowns[target] || trip_cooldowns[target] <= world.time))
 					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls down.","falls face first into the floor.","gets viciously tripped.","got clumsy."))]</span>")
 					target.balloon_alert_to_viewers("Tripped!")
 					target.Knockdown(7)
-					COOLDOWN_START(src, trip_cooldown, 3 SECONDS)
+					log_combat(user, target, "tripped", src)
+					target.visible_message(desc["visibletrip"], desc["localtrip"])
+					playsound(usr.loc, "sound/misc/slip.ogg", 30, 1)
+					trip_cooldowns[target] = world.time + 3 SECONDS
 
 			if(user.zone_selected == BODY_ZONE_R_LEG)
-				if (Ll.get_staminaloss() < 49 && Ra.get_staminaloss() < 49 && La.get_staminaloss() < 49)
+				log_combat(user, target, "stunned", src)
+				target.visible_message(desc["visibleleg"], desc["localleg"])
+				if (Ll.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
 					target.apply_damage(15, STAMINA, BODY_ZONE_R_LEG, def_check)
-					target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
-					log_combat(user, target, "tripped", src)
-					target.visible_message(desc["visibleleg"], desc["localleg"])
-				if (Ll.get_staminaloss() > 49 || Ra.get_staminaloss() > 49 || La.get_staminaloss() > 49)
+				else
 					target.apply_damage(10, STAMINA, BODY_ZONE_R_LEG, def_check)
-					target.apply_damage(1, STAMINA, BODY_ZONE_CHEST, def_check)
-					log_combat(user, target, "tripped", src)
-					target.visible_message(desc["visibleleg"], desc["localleg"])
-				if (Rl.get_staminaloss() > 49 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && !target.has_status_effect(STATUS_EFFECT_KNOCKDOWN) && COOLDOWN_FINISHED(src, trip_cooldown))
+				if (Rl.get_staminaloss() == 50)
+					target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
+				else
+					target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
+
+				if(Rl.get_staminaloss() == 50 && CHECK_BITFIELD(target.mobility_flags, MOBILITY_STAND) && (!trip_cooldowns[target] || trip_cooldowns[target] <= world.time))
 					target.visible_message("<span class='emote'><b>[T]</b> [pick(list("falls down.","falls face first into the floor.","gets viciously tripped.","got clumsy."))]</span>")
 					target.balloon_alert_to_viewers("Tripped!")
 					target.Knockdown(7)
-					COOLDOWN_START(src, trip_cooldown, 3 SECONDS)
+					log_combat(user, target, "tripped", src)
+					playsound(usr.loc, "sound/misc/slip.ogg", 30, 1)
+					target.visible_message(desc["visibletrip"], desc["localtrip"])
+					trip_cooldowns[target] = world.time + 3 SECONDS
 
 			if(user.zone_selected == BODY_ZONE_L_ARM)
-				if (Ra.get_staminaloss() < 49 && Ll.get_staminaloss() < 49 && Rl.get_staminaloss() < 49)
+				if(!La.get_staminaloss() == 50)
+					log_combat(user, target, "stunned", src)
+					target.visible_message(desc["visiblearm"], desc["localarm"])
+				else
+					log_combat(user, target, "disarmed", src)
+					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
+				if (Ra.get_staminaloss() < 26 && Ll.get_staminaloss() < 26 && Rl.get_staminaloss() < 26)
 					target.apply_damage(15, STAMINA, BODY_ZONE_L_ARM, def_check)
-					target.apply_damage(7, STAMINA, BODY_ZONE_CHEST, def_check)
-					log_combat(user, target, "disarmed", src)
-					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
-				if (Ra.get_staminaloss() > 49 || Ll.get_staminaloss() > 49 || Rl.get_staminaloss() > 49)
+				else
 					target.apply_damage(5, STAMINA, BODY_ZONE_L_ARM, def_check)
+				if (La.get_staminaloss() == 50)
+					target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
+				else
 					target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
-					log_combat(user, target, "disarmed", src)
-					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 
 			if(user.zone_selected == BODY_ZONE_R_ARM)
-				if (La.get_staminaloss() < 49 && Ll.get_staminaloss() < 49 && Rl.get_staminaloss() < 49)
+				if(!Ra.get_staminaloss() == 50)
+					log_combat(user, target, "stunned", src)
+					target.visible_message(desc["visiblearm"], desc["localarm"])
+				else
+					log_combat(user, target, "disarmed", src)
+					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
+				if (La.get_staminaloss() < 26 && Ll.get_staminaloss() < 26 && Rl.get_staminaloss() < 26)
 					target.apply_damage(15, STAMINA, BODY_ZONE_R_ARM, def_check)
-					target.apply_damage(7, STAMINA, BODY_ZONE_CHEST, def_check)
-					log_combat(user, target, "disarmed", src)
-					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
-				if (La.get_staminaloss() > 49 || Ll.get_staminaloss() > 49 || Rl.get_staminaloss() > 49)
+				else
 					target.apply_damage(5, STAMINA, BODY_ZONE_R_ARM, def_check)
+				if (Ra.get_staminaloss() == 50)
+					target.apply_damage(8, STAMINA, BODY_ZONE_CHEST, def_check)
+				else
 					target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
-					log_combat(user, target, "disarmed", src)
-					target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 
 			add_fingerprint(user)
 
