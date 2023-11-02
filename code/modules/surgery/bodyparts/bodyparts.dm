@@ -475,7 +475,7 @@
 	set_can_be_disabled(initial(can_be_disabled))
 
 ///Called when TRAIT_EASYLIMBDISABLE is added to the owner.
-/obj/item/bodypart/proc/on_owner_easylimbdisabletrait_gain(mob/living/carbon/source)
+/obj/item/bodypart/proc/on_owner_easylimbdisable_trait_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	disable_threshold = 0.6
 	if(can_be_disabled)
