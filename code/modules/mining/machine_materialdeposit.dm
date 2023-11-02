@@ -46,7 +46,7 @@
 /obj/machinery/mineral/material_deposit/examine(mob/user)
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>Alt-click to rotate the input and output direction.</span>"
+		. += "<span class='notice'>Alt-click to rotate the input direction.</span>"
 
 
 /obj/machinery/mineral/material_deposit/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
