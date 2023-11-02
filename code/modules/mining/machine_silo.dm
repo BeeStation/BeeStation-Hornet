@@ -1,4 +1,5 @@
 GLOBAL_DATUM(ore_silo_default, /obj/machinery/ore_silo)
+GLOBAL_LIST_EMPTY(ore_silo_list)
 GLOBAL_LIST_EMPTY(silo_access_logs)
 
 /obj/machinery/ore_silo
@@ -31,8 +32,13 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		/datum/material/plastic,
 		)
 	AddComponent(/datum/component/material_container, materials_list, INFINITY, allowed_types=/obj/item/stack, _disable_attackby=TRUE)
-	if (!GLOB.ore_silo_default && mapload && is_station_level(z))
-		GLOB.ore_silo_default = src
+	var/same_dept_in_silo_list = FALSE
+	for(var/obj/machinery/ore_silo/silo_in_list in GLOB.ore_silo_list)
+		if(department_id == silo_in_list.department_id)
+			same_dept_in_silo_list = TRUE
+
+	if (!same_dept_silo_list && mapload && is_station_level(z))
+		GLOB.ore_silo_list += src
 
 	if (department_id!=DEPT_ALL)
 		name = "ore silo ([department_id])"
@@ -54,8 +60,8 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	return ..(department_id)
 
 /obj/machinery/ore_silo/Destroy()
-	if (GLOB.ore_silo_default == src)
-		GLOB.ore_silo_default = null
+	if (loctate(src) in GLOB.ore_silo_list)
+		GLOB.ore_silo_default -= src
 
 	for(var/C in connected)
 		var/datum/component/remote_materials/mats = C

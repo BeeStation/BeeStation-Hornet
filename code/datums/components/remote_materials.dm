@@ -34,7 +34,12 @@ handles linking back and forth.
 		_MakeLocal()
 
 /datum/component/remote_materials/proc/LateInitialize()
-	set_silo(GLOB.ore_silo_default)
+
+	var/obj/machinery/ore_silo/silo_to_set = null
+	for(var/obj/machinery/ore_silo/silo_in_list in GLOB.ore_silo_list)
+		if(department_id == silo_in_list.department_id)
+			silo_to_set = silo_in_list
+	set_silo(silo_to_set)
 	if (silo)
 		silo.connected += src
 		mat_container = silo.GetComponent(/datum/component/material_container)

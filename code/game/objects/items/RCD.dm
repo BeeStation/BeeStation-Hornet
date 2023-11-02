@@ -39,6 +39,7 @@ RLD
 	var/upgrade = FALSE
 	var/datum/component/remote_materials/silo_mats //remote connection to the silo
 	var/silo_link = FALSE //switch to use internal or remote storage
+	var/department_id = DEPT_ENGINEERING
 
 /obj/item/construction/Initialize(mapload)
 	. = ..()
@@ -47,6 +48,7 @@ RLD
 	spark_system.attach(src)
 	if(upgrade & RCD_UPGRADE_SILO_LINK)
 		silo_mats = AddComponent(/datum/component/remote_materials, "RCD", FALSE)
+		silo_mats.department_id = department_id
 
 /obj/item/construction/examine(mob/user)
 	. = ..()
