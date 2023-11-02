@@ -30,6 +30,30 @@
 #define MEDAL_DRUNK					  "Little Chickadee"
 #define MEDAL_CAYENNE_DISK			  "Very Important Piscis"
 
+//Mafia medal hub IDs (wins)
+#define MAFIA_MEDAL_ASSISTANT "Assistant"
+#define MAFIA_MEDAL_DETECTIVE "Detective"
+#define MAFIA_MEDAL_PSYCHOLOGIST "Psychologist"
+#define MAFIA_MEDAL_CHAPLAIN "Chaplain"
+#define MAFIA_MEDAL_MD "Medical Doctor"
+#define MAFIA_MEDAL_OFFICER "Security Officer"
+#define MAFIA_MEDAL_LAWYER "Lawyer"
+#define MAFIA_MEDAL_HOP "Head of Personnel"
+#define MAFIA_MEDAL_HOS "Head of Security"
+#define MAFIA_MEDAL_WARDEN "Warden"
+#define MAFIA_MEDAL_CHANGELING "CHANGELING"
+#define MAFIA_MEDAL_THOUGHTFEEDER "Thoughtfeeder"
+#define MAFIA_MEDAL_TRAITOR "Traitor"
+#define MAFIA_MEDAL_NIGHTMARE "Nightmare"
+#define MAFIA_MEDAL_FUGITIVE "Fugitive"
+#define MAFIA_MEDAL_OBSESSED "Obsessed"
+#define MAFIA_MEDAL_CLOWN "Clown"
+
+//Mafia medal hub IDs (misc stuff)
+#define MAFIA_MEDAL_HATED "Universally Hated"
+#define MAFIA_MEDAL_CHARISMATIC	"Charismatic"
+#define MAFIA_MEDAL_VIP "VIP"
+
 //Boss medals
 
 // Medal hub IDs for boss medals (Pre-fixes)
@@ -52,15 +76,15 @@
 #define BOSS_MEDAL_SWARMERS_CRUSHER		"Swarmer Beacon Crusher"
 
 // Medal hub IDs for boss-kill scores
-#define BOSS_SCORE 	         "Bosses Killed"
-#define MINER_SCORE 		 "BDMs Killed"
-#define BUBBLEGUM_SCORE 	 "Bubblegum Killed"
-#define COLOSSUS_SCORE 	     "Colossus Killed"
-#define DRAKE_SCORE 	     "Drakes Killed"
-#define HIEROPHANT_SCORE 	 "Hierophants Killed"
-#define LEGION_SCORE 	     "Legion Killed"
+#define BOSS_SCORE "Bosses Killed"
+#define MINER_SCORE "BDMs Killed"
+#define BUBBLEGUM_SCORE "Bubblegum Killed"
+#define COLOSSUS_SCORE "Colossus Killed"
+#define DRAKE_SCORE "Drakes Killed"
+#define HIEROPHANT_SCORE "Hierophants Killed"
+#define LEGION_SCORE "Legion Killed"
 #define SWARMER_BEACON_SCORE "Swarmer Beacs Killed"
-#define TENDRIL_CLEAR_SCORE	 "Tendrils Killed"
+#define TENDRIL_CLEAR_SCORE "Tendrils Killed"
 
 // Medal hub IDs for misc scores
 #define BIG_BOMB_SCORE		"Biggest Bomb"
