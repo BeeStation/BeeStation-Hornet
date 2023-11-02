@@ -24,7 +24,13 @@
 	//so mafia have to also kill them to have a majority
 	var/solo_counts_as_town = FALSE //(don't set this for town)
 	var/game_status = MAFIA_ALIVE
-	var/special_theme //set this to something cool for antagonists and their window will look different
+
+	///icon state in the mafia dmi of the hud of the role, used in the mafia ui
+	var/hud_icon = "hudassistant"
+	///icon state in the mafia dmi of the hud of the role, used in the mafia ui
+	var/revealed_icon = "assistant"
+	///set this to something cool for antagonists and their window will look different
+	var/special_theme
 
 	var/list/role_notes = list()
 
@@ -39,6 +45,8 @@
 	body.death()
 	if(lynch)
 		reveal_role(game, verbose = TRUE)
+	if(!(player_key in game.spectators)) //people who played will want to see the end of the game more often than not
+		game.spectators += player_key
 	return TRUE
 
 /datum/mafia_role/Destroy(force, ...)
