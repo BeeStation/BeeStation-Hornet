@@ -29,12 +29,12 @@
 	var/static/list/animation_math //assoc list with pre calculated values
 
 /obj/structure/closet/crate/Initialize(mapload)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0) //add element in closed state before parent init opens it(if it does)
 	. = ..()
 	if(animation_math == null) //checks if there is already a list for animation_math if not creates one to avoid runtimes
 		animation_math = new/list()
 	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
 		animation_list()
-	AddElement(/datum/element/climbable)
 
 /obj/structure/closet/crate/Destroy()
 	QDEL_NULL(manifest)
@@ -106,17 +106,16 @@
 	if(manifest)
 		tear_manifest(user)
 
-/* just make it the same for now
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
 	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
 	AddElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
 
-/obj/structure/closet/crate/after_close(mob/living/user, force)
+/obj/structure/closet/crate/after_close(mob/living/user)
 	. = ..()
 	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
 	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
-*/
+
 
 /obj/structure/closet/crate/open(mob/living/user)
 	. = ..()

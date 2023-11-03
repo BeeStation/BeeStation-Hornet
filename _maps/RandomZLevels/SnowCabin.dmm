@@ -751,7 +751,6 @@
 "ch" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
-	max_integrity = 20;
 	name = "old stump"
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -1210,8 +1209,7 @@
 /area/awaymission/cabin/snowforest)
 "dz" = (
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
 "dA" = (
@@ -1954,8 +1952,7 @@
 	wander = 0
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
 "gb" = (
@@ -2232,12 +2229,10 @@
 "gX" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
-	max_integrity = 20;
 	name = "old stump"
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
 "gY" = (
@@ -2790,7 +2785,6 @@
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
 "iD" = (
-/obj/structure/closet/acloset,
 /obj/item/clothing/suit/hooded/bloated_human,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
@@ -2818,7 +2812,6 @@
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
 "iI" = (
-/obj/structure/closet/acloset,
 /obj/item/toy/foamblade,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
@@ -3522,7 +3515,6 @@
 "ky" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
-	max_integrity = 20;
 	name = "old stump"
 	},
 /obj/effect/light_emitter{
@@ -3549,8 +3541,7 @@
 "kA" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
 "kB" = (
@@ -4191,14 +4182,12 @@
 	set_luminosity = 6
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/caves)
 "lY" = (
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/caves)
 "lZ" = (
@@ -4209,14 +4198,12 @@
 	set_luminosity = 6
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/caves)
 "ma" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
-	max_integrity = 20;
 	name = "old stump"
 	},
 /turf/open/floor/plating/asteroid/snow,
