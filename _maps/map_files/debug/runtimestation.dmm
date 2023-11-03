@@ -2393,6 +2393,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"kX" = (
+/obj/structure/closet/wardrobe/green,
+/turf/open/floor/plating,
+/area/construction)
 "lg" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2429,8 +2433,8 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"mq" = (
-/obj/structure/closet/secure_closet,
+"mr" = (
+/obj/structure/closet/wardrobe/robotics_black,
 /turf/open/floor/plating,
 /area/construction)
 "mG" = (
@@ -2441,10 +2445,6 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/bridge)
-"mH" = (
-/obj/structure/closet/wardrobe/cargotech,
-/turf/open/floor/plating,
-/area/construction)
 "mP" = (
 /obj/structure/closet/secure_closet/CMO{
 	locked = 0
@@ -2517,10 +2517,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
 /area/science)
-"pB" = (
-/obj/structure/closet/l3closet/scientist,
-/turf/open/floor/plating,
-/area/construction)
 "pI" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -2552,6 +2548,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"qt" = (
+/obj/structure/closet/secure_closet/medicaldanger,
+/turf/open/floor/plating,
+/area/construction)
 "rl" = (
 /obj/structure/closet/wardrobe/red,
 /turf/open/floor/plating,
@@ -2560,12 +2560,16 @@
 /obj/structure/closet/crate/large,
 /turf/open/floor/plating,
 /area/construction)
+"rU" = (
+/obj/structure/closet/wardrobe/science_white,
+/turf/open/floor/plating,
+/area/construction)
 "sm" = (
 /obj/structure/closet/crate/miningcar,
 /turf/open/floor/plating,
 /area/construction)
 "sv" = (
-/obj/structure/closet/secure_closet/chemical,
+/obj/structure/closet/crate/rcd,
 /turf/open/floor/plating,
 /area/construction)
 "sE" = (
@@ -2591,10 +2595,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"tF" = (
-/obj/structure/closet/wardrobe/atmospherics_yellow,
-/turf/open/floor/plating,
-/area/construction)
 "tV" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
@@ -2608,10 +2608,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
-"uN" = (
-/obj/structure/closet/wardrobe/chemistry_white,
-/turf/open/floor/plating,
-/area/construction)
 "uS" = (
 /obj/structure/closet/secure_closet/freezer,
 /turf/open/floor/plating,
@@ -2718,8 +2714,8 @@
 	},
 /turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
-"Bv" = (
-/obj/structure/closet/secure_closet/brig,
+"Bt" = (
+/obj/structure/closet/cardboard,
 /turf/open/floor/plating,
 /area/construction)
 "BB" = (
@@ -2799,6 +2795,14 @@
 /obj/machinery/modular_fabricator/component_printer,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
+"Dr" = (
+/obj/structure/closet/secure_closet/exile,
+/turf/open/floor/plating,
+/area/construction)
+"Ej" = (
+/obj/structure/closet/cardboard/metal,
+/turf/open/floor/plating,
+/area/construction)
 "EG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2839,10 +2843,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"GK" = (
-/obj/structure/closet/wardrobe/botanist,
-/turf/open/floor/plating,
-/area/construction)
 "Ha" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -2857,6 +2857,10 @@
 /area/science)
 "IJ" = (
 /obj/structure/closet/l3closet/janitor,
+/turf/open/floor/plating,
+/area/construction)
+"Jc" = (
+/obj/structure/closet/l3closet/virology,
 /turf/open/floor/plating,
 /area/construction)
 "Jp" = (
@@ -2882,10 +2886,6 @@
 /area/engine/atmos)
 "KC" = (
 /obj/structure/closet/wardrobe/mixed,
-/turf/open/floor/plating,
-/area/construction)
-"KZ" = (
-/obj/structure/closet/crate/mail,
 /turf/open/floor/plating,
 /area/construction)
 "Ly" = (
@@ -2947,10 +2947,6 @@
 /obj/item/disk/tech_disk/debug,
 /turf/open/floor/plasteel,
 /area/science)
-"Pg" = (
-/obj/structure/closet/secure_closet/hop,
-/turf/open/floor/plating,
-/area/construction)
 "Pj" = (
 /obj/structure/closet/secure_closet/hos,
 /turf/open/floor/plating,
@@ -2985,10 +2981,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
-"QT" = (
-/obj/structure/closet/secure_closet/medical3,
-/turf/open/floor/plating,
-/area/construction)
 "QV" = (
 /obj/machinery/camera/autoname,
 /obj/structure/table,
@@ -3037,10 +3029,6 @@
 /obj/item/healthanalyzer/advanced,
 /turf/open/floor/plasteel,
 /area/medical/medbay)
-"Ux" = (
-/obj/structure/closet/wardrobe/engineering_yellow,
-/turf/open/floor/plating,
-/area/construction)
 "Vg" = (
 /obj/machinery/light,
 /turf/open/floor/plasteel,
@@ -3154,12 +3142,12 @@
 	dir = 1
 	},
 /area/medical/medbay)
-"YO" = (
-/obj/structure/closet/abductor,
-/turf/open/floor/plating,
-/area/construction)
 "Zb" = (
 /obj/structure/closet/secure_closet/engineering_chief,
+/turf/open/floor/plating,
+/area/construction)
+"Zx" = (
+/obj/structure/closet/crate/secure/science,
 /turf/open/floor/plating,
 /area/construction)
 "ZD" = (
@@ -6620,15 +6608,15 @@ fv
 bN
 cP
 cX
-ZS
-he
-Uh
-mq
-Zb
-tF
-jj
-Un
-ni
+lK
+sO
+tV
+NP
+JN
+OC
+KC
+rl
+dn
 dn
 dL
 cN
@@ -6712,15 +6700,15 @@ bE
 bE
 ef
 cY
-YO
+he
 IJ
-ON
-qm
-uS
-OC
+Jc
+sR
+HO
+kX
+in
+mr
 dn
-iB
-fk
 dn
 dL
 cN
@@ -6804,15 +6792,15 @@ bE
 bE
 ef
 cY
-lK
-pB
+Uh
+ON
 Qh
-TN
-Pg
-GK
-mk
-pP
-nR
+kx
+jB
+ic
+eD
+rU
+dn
 dn
 dL
 cN
@@ -6896,16 +6884,16 @@ bE
 bE
 cN
 dW
-sO
-sR
-kx
+qm
+TN
 AU
-Pj
-mH
-ZH
-CD
+Ni
+iM
+WD
+OM
 dn
 dn
+Bt
 dL
 cN
 Tt
@@ -6988,16 +6976,16 @@ bE
 bE
 cN
 cY
-tV
-JN
-jB
-Ni
+Zb
+Pj
+Dr
+uS
 jI
-uN
-vO
-Ws
+Cc
+jr
 dn
 dn
+Ej
 dL
 cN
 Tt
@@ -7080,14 +7068,14 @@ lX
 bE
 cN
 cY
-NP
-dn
+qt
+Xw
+XN
+LC
 ph
-Bv
-Cc
-Ux
-PQ
-PP
+ZS
+dn
+dn
 dn
 dn
 dZ
@@ -7172,16 +7160,16 @@ bE
 bE
 cN
 cY
-dn
-dn
-rl
-WD
-jr
-ic
-kq
+jj
+vO
+iX
 yp
+CD
+ni
+Cz
 dn
-iM
+dn
+dn
 dL
 cN
 Tt
@@ -7264,16 +7252,16 @@ bE
 bE
 cN
 cY
-dn
-dn
-HO
-OM
-QT
-KC
-Xu
-sm
-dn
 Jp
+PQ
+rL
+PP
+pP
+Zx
+mk
+dn
+dn
+dn
 dL
 cN
 Tt
@@ -7356,16 +7344,16 @@ bE
 bE
 ef
 cY
-dn
-dn
-dn
-sv
-Xw
-in
-iX
-lR
-dn
 Au
+kq
+sm
+sv
+iB
+fk
+dn
+dn
+dn
+dn
 dL
 cN
 Tt
@@ -7448,16 +7436,16 @@ bE
 bE
 ef
 cY
+ZH
+Xu
+lR
+Ws
+Un
+nR
 dn
 dn
 dn
-XN
-LC
-eD
-rL
-KZ
 dn
-Cz
 dL
 cN
 Tt

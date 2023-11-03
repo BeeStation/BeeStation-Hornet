@@ -48,8 +48,13 @@
 	var/door_anim_angle = 136
 	var/door_hinge = -6.5
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
+
 	var/icon_emagged = "emagged"
 	var/icon_welded = "welded"
+	var/icon_manifest = "manifest"
+	var/icon_locked = "locked"
+	var/icon_unlocked = "unlocked"
+
 	var/imacrate = FALSE
 
 	//should be just for crates, right?
@@ -93,7 +98,7 @@
 		if(opened && has_opened_overlay)
 			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[overlay_state]_open", alpha = src.alpha)
 			. += door_overlay
-				door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, src, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
+			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, src, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
 		else if(has_closed_overlay)
 			. += "[icon_door || overlay_state]_door"
 	if(welded)
@@ -101,13 +106,13 @@
 	if(broken)
 		. += icon_emagged
 	if(manifest)
-		. += "manifest"
-	if(!secure || opened)
+		. += icon_manifest
+	if(!secure || broken ||(opened && !imacrate))
 		return
 
 	//Overlay is similar enough for both that we can use the same mask for both
-	. += emissive_appearance(icon, "locked", src, alpha = src.alpha)
-	. += locked ? "locked" : "unlocked"
+	. += emissive_appearance(icon, icon_locked, src, alpha = src.alpha)
+	. += locked ? icon_locked : icon_unlocked
 
 /obj/structure/closet/update_appearance(updates=ALL)
 	. = ..()

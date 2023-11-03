@@ -262,6 +262,7 @@
 	door_anim_time = 0 // no animation
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	can_weld_shut = FALSE
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()

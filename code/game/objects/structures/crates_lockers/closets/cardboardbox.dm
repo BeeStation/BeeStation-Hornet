@@ -7,7 +7,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
-	can_weld_shut = 0
+	can_weld_shut = FALSE
 	cutting_tool = TOOL_WIRECUTTER
 	open_sound = "rustle"
 	material_drop = /obj/item/stack/sheet/cardboard
