@@ -19540,6 +19540,16 @@
 "bQn" = (
 /turf/open/floor/wood,
 /area/bridge/showroom/corporate)
+"bQo" = (
+/obj/machinery/mineral/material_deposit/department/service{
+	input_dir = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/westright{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plating,
+/area/hydroponics)
 "bQp" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/hazardvest,
@@ -24303,6 +24313,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "cxP" = (
@@ -30294,6 +30305,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "dJb" = (
@@ -40076,6 +40088,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel,
 /area/security/brig)
+"hYZ" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "hZg" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -40813,6 +40830,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
+"imH" = (
+/obj/machinery/mineral/material_deposit/department/medical,
+/obj/machinery/door/window/northright{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel,
+/area/medical/chemistry)
 "imL" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -49473,15 +49497,21 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "lQG" = (
-/obj/machinery/mineral/material_deposit/department/service{
-	input_dir = 8
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/westright{
-	req_access_txt = "31"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/turf/open/floor/plating,
-/area/hydroponics)
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "lQV" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -50841,6 +50871,18 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"mwl" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "research_shutters";
+	name = "research shutters"
+	},
+/obj/machinery/mineral/material_deposit/department/science,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/northleft{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plating,
+/area/science/lab)
 "mwn" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 8
@@ -70599,17 +70641,10 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port)
 "uQK" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "research_shutters";
-	name = "research shutters"
-	},
-/obj/machinery/mineral/material_deposit/department/science,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/northleft{
-	req_access_txt = "31"
-	},
-/turf/open/floor/plating,
-/area/science/lab)
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "uQL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -72537,13 +72572,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/gateway)
-"vIK" = (
-/obj/machinery/mineral/material_deposit/department/medical,
-/obj/machinery/door/window/northright{
-	req_access_txt = "31"
-	},
-/turf/open/floor/plasteel,
-/area/medical/chemistry)
 "vJa" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -72741,6 +72769,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "vMk" = (
@@ -99331,7 +99360,7 @@ bbT
 bdo
 bfb
 kUe
-bfb
+hYZ
 ppV
 bmi
 rWc
@@ -104501,8 +104530,8 @@ mdh
 jxe
 pvO
 ilV
-eFh
-vIK
+lQG
+imH
 wsV
 tyH
 tyH
@@ -108357,7 +108386,7 @@ ccd
 iNp
 ccd
 vMh
-uQK
+mwl
 chk
 ciE
 cka
@@ -112203,7 +112232,7 @@ bOP
 bOP
 bKe
 bSS
-oxO
+uQK
 oxO
 oxO
 mkI
@@ -112460,7 +112489,7 @@ bOQ
 bQA
 bRP
 bST
-lQG
+bQo
 kwR
 uKB
 bST

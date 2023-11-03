@@ -5147,6 +5147,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"aMc" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "aMd" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L11"
@@ -31590,6 +31597,7 @@
 /area/ai_monitored/turret_protected/aisat/hallway)
 "iMv" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "iMy" = (
@@ -35651,6 +35659,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "kHF" = (
@@ -47124,6 +47133,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"qth" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/hallway/primary/fore)
 "qtv" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -59505,6 +59521,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
+"wxz" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/hallway/primary/starboard)
 "wxA" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
@@ -83777,7 +83799,7 @@ bdU
 ckQ
 gjl
 bjq
-bjr
+brN
 mJS
 bmh
 bjr
@@ -92474,7 +92496,7 @@ fHk
 iOw
 kMi
 kXy
-anw
+qth
 sZE
 jWY
 ahn
@@ -99455,7 +99477,7 @@ epq
 pYY
 hjw
 kSZ
-sNZ
+aMc
 boi
 btZ
 btZ
@@ -102530,7 +102552,7 @@ aVH
 aXn
 aYN
 lvR
-bbz
+wxz
 aYV
 aYV
 aYV

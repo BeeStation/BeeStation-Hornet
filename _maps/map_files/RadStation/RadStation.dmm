@@ -10911,6 +10911,10 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plasteel,
 /area/science/lab)
+"dvE" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
 "dvH" = (
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
@@ -19003,6 +19007,7 @@
 /turf/open/floor/plating,
 /area/security/courtroom)
 "fLQ" = (
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/lobby)
 "fLR" = (
@@ -22203,6 +22208,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
+"gKu" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_in/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "gKy" = (
 /turf/closed/wall,
 /area/quartermaster/warehouse)
@@ -33143,6 +33158,7 @@
 	color = "#267878";
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
 "klv" = (
@@ -47109,6 +47125,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "oEh" = (
@@ -50590,6 +50607,21 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"pKI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Viewing Hall"
+	})
 "pKL" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -100262,7 +100294,7 @@ hSm
 dmM
 imh
 cfA
-cfA
+dvE
 cfA
 cfA
 uql
@@ -106407,7 +106439,7 @@ bCb
 bCb
 bCb
 jkT
-bLq
+pKI
 icX
 vMg
 ntc
@@ -112618,7 +112650,7 @@ bMY
 xKJ
 mjM
 uaR
-kDQ
+gKu
 xvs
 bPy
 mIQ

@@ -12087,6 +12087,7 @@
 /obj/machinery/door/window/southright{
 	req_access_txt = "31"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "bnq" = (
@@ -14428,17 +14429,6 @@
 	},
 /turf/open/floor/circuit/green,
 /area/security/nuke_storage)
-"byA" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "brigwindows";
-	name = "Brig Front Blast door"
-	},
-/obj/machinery/mineral/material_deposit/department/security,
-/obj/machinery/door/window/northright{
-	req_access_txt = "31"
-	},
-/turf/open/floor/plating,
-/area/security/brig)
 "byL" = (
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -16142,6 +16132,7 @@
 /obj/machinery/door/window/eastright{
 	req_access_txt = "31"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/engine/break_room)
 "bKp" = (
@@ -18999,6 +18990,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "cbw" = (
@@ -21881,15 +21873,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/teleporter)
-"cot" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/mineral/material_deposit/department/supply{
-	input_dir = 2
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "coB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -26486,13 +26469,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"cHk" = (
-/obj/machinery/mineral/material_deposit/department/medical,
-/obj/machinery/door/window/northright{
-	req_access_txt = "31"
-	},
-/turf/open/floor/plasteel,
-/area/medical/medbay/lobby)
 "cHl" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/northleft{
@@ -29123,6 +29099,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/research)
 "cXA" = (
@@ -43895,6 +43872,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"gxT" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/mineral/material_deposit/department/supply{
+	input_dir = 2
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "gxZ" = (
 /obj/structure/bodycontainer/morgue,
 /obj/machinery/light/small{
@@ -44135,6 +44121,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "gBU" = (
@@ -46721,6 +46708,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
+"hwC" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "hxc" = (
 /obj/structure/chair{
 	dir = 4
@@ -47792,17 +47788,13 @@
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "hOV" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "rndlab1";
-	name = "Research and Development Shutter"
-	},
-/obj/machinery/mineral/material_deposit/department/science,
-/obj/machinery/door/window/northleft{
+/obj/machinery/mineral/material_deposit/department/medical,
+/obj/machinery/door/window/northright{
 	req_access_txt = "31"
 	},
-/obj/structure/window/reinforced/spawner/east,
-/turf/open/floor/plating,
-/area/science/lab)
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/medical/medbay/lobby)
 "hPb" = (
 /obj/machinery/light{
 	dir = 1
@@ -70717,6 +70709,7 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "pGA" = (
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "pGC" = (
@@ -72400,6 +72393,19 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel,
 /area/science/research)
+"qkR" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "rndlab1";
+	name = "Research and Development Shutter"
+	},
+/obj/machinery/mineral/material_deposit/department/science,
+/obj/machinery/door/window/northleft{
+	req_access_txt = "31"
+	},
+/obj/structure/window/reinforced/spawner/east,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
+/area/science/lab)
 "qkT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -91445,6 +91451,18 @@
 	heat_capacity = 1e+006
 	},
 /area/engine/storage_shared)
+"wKt" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "brigwindows";
+	name = "Brig Front Blast door"
+	},
+/obj/machinery/mineral/material_deposit/department/security,
+/obj/machinery/door/window/northright{
+	req_access_txt = "31"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
+/area/security/brig)
 "wKy" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -93106,6 +93124,23 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"xnY" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "xoi" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -124290,7 +124325,7 @@ jTe
 pbq
 gqn
 vAN
-sbX
+hwC
 sbX
 cTt
 oBo
@@ -133582,7 +133617,7 @@ dCn
 cOY
 pRy
 cXz
-hOV
+qkR
 qbp
 rXt
 dth
@@ -137628,8 +137663,8 @@ aNq
 nCX
 vFd
 aSi
-cot
-kHy
+gxT
+xnY
 fIR
 xYj
 lml
@@ -138979,7 +139014,7 @@ tUL
 ffv
 vlB
 pGA
-cHk
+hOV
 cjk
 pFX
 rBy
@@ -145887,7 +145922,7 @@ moL
 nXg
 bZJ
 cbv
-byA
+wKt
 wLG
 cgR
 lqH
