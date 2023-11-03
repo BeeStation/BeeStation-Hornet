@@ -1,14 +1,16 @@
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
-	icon = 'icons/obj/closet.dmi'
+	icon = 'icons/obj/storage/closet.dmi'
 	icon_state = "generic"
 	density = TRUE
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0)
-	pass_flags_self = LETPASSCLICKS
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	pass_flags_self = LETPASSCLICKS | PASSSTRUCTURE
+
 	var/contents_initialised = FALSE
 	var/enable_door_overlay = TRUE
 	var/has_opened_overlay = TRUE
@@ -40,13 +42,18 @@
 	var/material_drop_amount = 2
 	var/delivery_icon = "deliverycloset" //which icon to use when packagewrapped. null to be unwrappable.
 	var/anchorable = TRUE
-	var/icon_welded = "welded"
 	var/obj/effect/overlay/closet_door/door_obj
 	var/is_animating_door = FALSE
 	var/door_anim_squish = 0.30
 	var/door_anim_angle = 136
 	var/door_hinge = -6.5
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
+	var/icon_emagged = "emagged"
+	var/icon_welded = "welded"
+	var/imacrate = FALSE
+
+	//should be just for crates, right?
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
@@ -67,39 +74,13 @@
 /obj/structure/closet/Destroy()
 	dump_contents()
 	return ..()
-/*
-/obj/structure/closet/update_icon()
-	if(istype(src, /obj/structure/closet/supplypod))
-		return ..()
-	cut_overlays()
-	if(!opened)
-		layer = OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door)
-				add_overlay("[icon_door]_door")
-			else
-				add_overlay("[icon_state]_door")
-			if(welded)
-				add_overlay(icon_welded)
-			if(secure && !broken)
-				if(locked)
-					add_overlay("locked")
-				else
-					add_overlay("unlocked")
 
-	else
-		layer = BELOW_OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door_override)
-				add_overlay("[icon_door]_open")
-			else
-				add_overlay("[icon_state]_open")
-*/
 /obj/structure/closet/update_icon()
 	. = ..()
 	if(istype(src, /obj/structure/closet/supplypod))
 		return
-	layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
+	if (!imacrate)
+		layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
 
 /obj/structure/closet/update_overlays()
 	. = ..()
@@ -112,22 +93,25 @@
 		if(opened && has_opened_overlay)
 			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[overlay_state]_open", alpha = src.alpha)
 			. += door_overlay
-			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, src, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
+				door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, src, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
 		else if(has_closed_overlay)
 			. += "[icon_door || overlay_state]_door"
-	if(opened)
-		return
 	if(welded)
 		. += icon_welded
-	if(broken || !secure)
+	if(broken)
+		. += icon_emagged
+	if(manifest)
+		. += "manifest"
+	if(!secure || opened)
 		return
+
 	//Overlay is similar enough for both that we can use the same mask for both
 	. += emissive_appearance(icon, "locked", src, alpha = src.alpha)
 	. += locked ? "locked" : "unlocked"
 
 /obj/structure/closet/update_appearance(updates=ALL)
 	. = ..()
-	if(opened || broken || !secure)
+	if((opened || broken || !secure) || !imacrate)
 		luminosity = 0
 		return
 	luminosity = 1

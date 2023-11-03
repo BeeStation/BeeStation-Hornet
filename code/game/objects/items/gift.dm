@@ -12,8 +12,8 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 /obj/item/a_gift
 	name = "gift"
-	desc = "PRESENTS!!!! eek!"
-	icon = 'icons/obj/storage.dmi'
+	desc = "PRESENTS!!!! yippie!"
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "giftdeliverypackage3"
 	item_state = "gift"
 	resistance_flags = FLAMMABLE

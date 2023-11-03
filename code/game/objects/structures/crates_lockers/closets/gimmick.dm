@@ -10,12 +10,6 @@
 	max_integrity = 70
 	door_anim_time = 0 // no animation
 
-/obj/structure/closet/acloset
-	name = "strange closet"
-	desc = "It looks alien!"
-	icon_state = "alien"
-
-
 /obj/structure/closet/gimmick
 	name = "administrative supply closet"
 	desc = "It's a storage unit for things that have no right being here."

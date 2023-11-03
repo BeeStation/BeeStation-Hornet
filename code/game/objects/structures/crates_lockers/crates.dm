@@ -5,7 +5,7 @@
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
-	icon = 'icons/obj/crates.dmi'
+	icon = 'icons/obj/storage/crates.dmi'
 	icon_state = "crate"
 	req_access = null
 	can_weld_shut = FALSE
@@ -22,9 +22,9 @@
 	open_sound_volume = 35
 	close_sound_volume = 50
 	drag_slowdown = 1.5
+	imacrate = TRUE
 	var/crate_climb_time = 20
 	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree
-	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
 	var/static/list/animation_math //assoc list with pre calculated values
 
@@ -49,23 +49,6 @@
 				return TRUE
 			if(!locatedcrate.opened) //otherwise, if the located crate is closed, allow entering
 				return TRUE
-
-/obj/structure/closet/crate/update_icon()
-	cut_overlays()
-	if(!opened)
-		layer = OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door)
-				add_overlay("[icon_door]_door")
-			else
-				add_overlay("[icon_state]_door")
-	else
-		layer = BELOW_OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door_override)
-				add_overlay("[icon_door]_open")
-			else
-				add_overlay("[icon_state]_open")
 
 /obj/structure/closet/crate/animate_door(var/closing = FALSE)
 	if(!door_anim_time)
@@ -316,7 +299,7 @@
 /obj/structure/closet/crate/capsule
 	name = "bluespace capsule"
 	desc = "A capsule that can shrink in size for easy transportation of most goods."
-	icon = 'icons/obj/crates.dmi'
+	icon = 'icons/obj/storage/crates.dmi'
 	icon_state = "capsule"
 	open_sound = 'sound/machines/capsule_open.ogg'
 	close_sound = 'sound/machines/capsule_close.ogg'
