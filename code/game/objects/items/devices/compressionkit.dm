@@ -63,23 +63,10 @@
 			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 50, 1)
 			sparks()
 			flash_lighting_fx(3, 3, LIGHT_COLOR_CYAN)
-			switch(O.w_class)
-				if(WEIGHT_CLASS_SMALL)
-					O.w_class = WEIGHT_CLASS_TINY
-				if(WEIGHT_CLASS_NORMAL)
-					O.w_class = WEIGHT_CLASS_SMALL
-				if(WEIGHT_CLASS_LARGE)
-					O.w_class = WEIGHT_CLASS_NORMAL
-				if(WEIGHT_CLASS_BULKY)
-					O.w_class = WEIGHT_CLASS_LARGE
-				if(WEIGHT_CLASS_HUGE)
-					O.w_class = WEIGHT_CLASS_BULKY
-				if(WEIGHT_CLASS_GIGANTIC)
-					O.w_class = WEIGHT_CLASS_HUGE
-				else
-					//There has been a catastrophic error and this item does not have a normal weight class for some reason.
-					to_chat(user, "<span class='danger'>Bluespace compression has encountered a critical error and stopped working, please report this your superiors.</span>")
-					return
+			if(!O.weight_class_down())
+				//This item does not have a normal weight class for some reason, because small items should have already been caught above
+				to_chat(user, "<span class='danger'>Bluespace compression has encountered a critical error and stopped working, please report this your superiors.</span>")
+				return
 			charges -= 1
 			to_chat(user, "<span class='notice'>You successfully compress [target]! The compressor now has [charges] charges.</span>")
 

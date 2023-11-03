@@ -282,7 +282,7 @@
 /obj/item/gun/ballistic/proc/install_suppressor(obj/item/suppressor/S)
 	// this proc assumes that the suppressor is already inside src
 	suppressed = S
-	w_class += S.w_class //so pistols do not fit in pockets when suppressed
+	weight_class_up() //so pistols do not fit in pockets when suppressed
 	update_icon()
 
 /obj/item/gun/ballistic/AltClick(mob/user)
@@ -296,7 +296,7 @@
 				return
 			to_chat(user, "<span class='notice'>You unscrew \the [suppressed] from \the [src].</span>")
 			user.put_in_hands(suppressed)
-			w_class -= S.w_class
+			weight_class_down()
 			suppressed = null
 			update_icon()
 			return
