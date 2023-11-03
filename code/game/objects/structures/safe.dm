@@ -32,10 +32,6 @@ FLOOR SAFES
 	tumbler_2_pos = rand(0, 71)
 	tumbler_2_open = rand(0, 71)
 
-
-/obj/structure/safe/Initialize(mapload)
-	. = ..()
-
 	if(!mapload)
 		return
 
