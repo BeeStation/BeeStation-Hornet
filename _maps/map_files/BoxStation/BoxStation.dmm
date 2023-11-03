@@ -13287,7 +13287,7 @@
 	input_dir = 8
 	},
 /obj/machinery/door/window/westright{
-	req_access_txt = "64;32"
+	req_access_txt = "31"
 	},
 /turf/open/floor/plating,
 /area/engine/break_room)
@@ -32079,6 +32079,9 @@
 /obj/structure/desk_bell{
 	pixel_x = 8
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/science/lab)
 "iYm" = (
@@ -45805,7 +45808,9 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter{
+	department_id = "Engineering"
+	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},

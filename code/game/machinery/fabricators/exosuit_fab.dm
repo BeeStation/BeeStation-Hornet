@@ -35,6 +35,7 @@
 	)
 
 	stored_research_type = /datum/techweb/specialized/autounlocking/exofab
+	department_id = DEPT_SCIENCE
 
 /obj/machinery/modular_fabricator/exosuit_fab/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
@@ -66,3 +67,4 @@
 
 /obj/machinery/modular_fabricator/exosuit_fab/maint
 	auto_link = FALSE
+	department_id = DEPT_ALL

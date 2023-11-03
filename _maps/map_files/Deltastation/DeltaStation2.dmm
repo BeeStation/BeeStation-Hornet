@@ -12080,8 +12080,13 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "bnp" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/mineral/material_deposit/department/service{
+	input_dir = 2
+	},
+/obj/machinery/door/window/southright{
+	req_access_txt = "31"
+	},
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "bnq" = (
@@ -14423,6 +14428,17 @@
 	},
 /turf/open/floor/circuit/green,
 /area/security/nuke_storage)
+"byA" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "brigwindows";
+	name = "Brig Front Blast door"
+	},
+/obj/machinery/mineral/material_deposit/department/security,
+/obj/machinery/door/window/northright{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plating,
+/area/security/brig)
 "byL" = (
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -16120,8 +16136,12 @@
 /turf/open/floor/plasteel,
 /area/engine/storage)
 "bKl" = (
-/obj/structure/cable/white,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/mineral/material_deposit/department/engineering{
+	input_dir = 4
+	},
+/obj/machinery/door/window/eastright{
+	req_access_txt = "31"
+	},
 /turf/open/floor/plating,
 /area/engine/break_room)
 "bKp" = (
@@ -21347,7 +21367,7 @@
 /obj/machinery/status_display/ai{
 	pixel_x = 32
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/ore_silo/department/service,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "cmD" = (
@@ -21861,6 +21881,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/teleporter)
+"cot" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/mineral/material_deposit/department/supply{
+	input_dir = 2
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "coB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -26457,6 +26486,13 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"cHk" = (
+/obj/machinery/mineral/material_deposit/department/medical,
+/obj/machinery/door/window/northright{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel,
+/area/medical/medbay/lobby)
 "cHl" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/northleft{
@@ -29075,18 +29111,18 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "cXy" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
 /obj/effect/turf_decal/tile/purple,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "cXz" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /obj/effect/turf_decal/bot,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/plasteel,
 /area/science/research)
 "cXA" = (
@@ -32758,6 +32794,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/ore_silo/department/science,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hor)
 "dAF" = (
@@ -47755,10 +47792,17 @@
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "hOV" = (
-/obj/machinery/ore_silo,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/security/nuke_storage)
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "rndlab1";
+	name = "Research and Development Shutter"
+	},
+/obj/machinery/mineral/material_deposit/department/science,
+/obj/machinery/door/window/northleft{
+	req_access_txt = "31"
+	},
+/obj/structure/window/reinforced/spawner/east,
+/turf/open/floor/plating,
+/area/science/lab)
 "hPb" = (
 /obj/machinery/light{
 	dir = 1
@@ -53235,7 +53279,6 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "jQK" = (
-/obj/item/kirbyplants/random,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -53246,6 +53289,7 @@
 	req_access_txt = "24"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/ore_silo/department/engineering,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "jQL" = (
@@ -68249,7 +68293,6 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
 "oOA" = (
-/obj/item/kirbyplants/random,
 /obj/machinery/light,
 /obj/machinery/newscaster{
 	pixel_y = -32
@@ -68257,6 +68300,7 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/ore_silo/department/supply,
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "oOL" = (
@@ -70673,9 +70717,6 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "pGA" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "pGC" = (
@@ -76345,8 +76386,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/ore_silo/department/medical,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
 "rDf" = (
@@ -77412,12 +77453,12 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "rUi" = (
-/obj/item/kirbyplants/random,
 /obj/structure/cable/white,
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/ore_silo/department/security,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "rUk" = (
@@ -133541,7 +133582,7 @@ dCn
 cOY
 pRy
 cXz
-cZo
+hOV
 qbp
 rXt
 dth
@@ -137587,7 +137628,7 @@ aNq
 nCX
 vFd
 aSi
-jAa
+cot
 kHy
 fIR
 xYj
@@ -138938,7 +138979,7 @@ tUL
 ffv
 vlB
 pGA
-ats
+cHk
 cjk
 pFX
 rBy
@@ -141977,7 +142018,7 @@ gkv
 hVe
 xet
 hVe
-hOV
+hVe
 but
 aad
 bHq
@@ -145846,7 +145887,7 @@ moL
 nXg
 bZJ
 cbv
-bHw
+byA
 wLG
 cgR
 lqH

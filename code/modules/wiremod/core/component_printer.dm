@@ -8,6 +8,7 @@
 	remote_materials = TRUE
 	auto_link = TRUE
 	can_sync = TRUE
+	department_id = DEPT_SCIENCE
 
 	//Quick.
 	minimum_construction_time = 5
@@ -47,7 +48,7 @@
 
 	/// The internal material bus
 	var/datum/component/remote_materials/materials
-
+	var/department_id = DEPT_SCIENCE
 	density = TRUE
 
 	var/list/scanned_designs = list()
@@ -62,7 +63,10 @@
 	materials = AddComponent( \
 		/datum/component/remote_materials, \
 		"lathe", \
-		mapload \
+		mapload, \
+		TRUE, \
+		TRUE, \
+		department_id \
 	)
 	. = ..()
 

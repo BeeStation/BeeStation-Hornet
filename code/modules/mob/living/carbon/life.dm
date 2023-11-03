@@ -388,7 +388,8 @@ GLOBAL_LIST_INIT(ballmer_good_msg, list("Hey guys, what if we rolled out a blues
 										"Hear me out here. What if, and this is just a theory, we made R&D controllable from our PDAs?",
 										"I'm thinking we should roll out a git repository for our research under the AGPLv3 license so that we can share it among the other stations freely.",
 										"I dunno about you guys, but IDs and PDAs being separate is clunky as fuck. Maybe we should merge them into a chip in our arms? That way they can't be stolen easily.",
-										"Why the fuck aren't we just making every pair of shoes into galoshes? We have the technology."))
+										"Why the fuck aren't we just making every pair of shoes into galoshes? We have the technology.",
+										"Wait, why don’t we just have one ore silo and beam the mats to all the techfabs at once?"))
 GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put a webserver that's automatically turned on with default admin passwords into every PDA?",
 												"So like, you know how we separate our codebase from the master copy that runs on our consumer boxes? What if we merged the two and undid the separation between codebase and server?",
 												"Dude, radical idea: H.O.N.K mechs but with no bananium required.",
