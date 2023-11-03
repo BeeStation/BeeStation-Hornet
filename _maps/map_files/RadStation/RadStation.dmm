@@ -10911,10 +10911,6 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plasteel,
 /area/science/lab)
-"dvE" = (
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/sepia,
-/area/quartermaster/storage)
 "dvH" = (
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
@@ -15529,6 +15525,10 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/atmos)
+"eLZ" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
 "eMn" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 4
@@ -22208,16 +22208,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
-"gKu" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_in/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/lobby)
 "gKy" = (
 /turf/closed/wall,
 /area/quartermaster/warehouse)
@@ -24133,7 +24123,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter{
+	department_id = "Engineering"
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "hob" = (
@@ -50607,21 +50599,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"pKI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/security/main{
-	name = "Security Viewing Hall"
-	})
 "pKL" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -55251,6 +55228,16 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/storage)
+"rfZ" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_in/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "rgh" = (
 /obj/structure/sign/departments/minsky/security/command,
 /turf/closed/wall,
@@ -62479,6 +62466,21 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
+"tyR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Viewing Hall"
+	})
 "tyX" = (
 /obj/machinery/door/airlock/external{
 	name = "Security External Airlock";
@@ -100294,7 +100296,7 @@ hSm
 dmM
 imh
 cfA
-dvE
+eLZ
 cfA
 cfA
 uql
@@ -106439,7 +106441,7 @@ bCb
 bCb
 bCb
 jkT
-pKI
+tyR
 icX
 vMg
 ntc
@@ -112650,7 +112652,7 @@ bMY
 xKJ
 mjM
 uaR
-gKu
+rfZ
 xvs
 bPy
 mIQ

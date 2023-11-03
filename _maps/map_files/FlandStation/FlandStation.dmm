@@ -1977,6 +1977,16 @@
 	icon_state = "platingdmg3"
 	},
 /area/asteroid/nearstation)
+"aAK" = (
+/obj/effect/turf_decal/guideline/guideline_out/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_mid/darkblue{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/hallway/primary/fore)
 "aAL" = (
 /obj/machinery/computer/shuttle_flight/labor{
 	dir = 8
@@ -7332,14 +7342,6 @@
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /turf/open/floor/dock/drydock,
 /area/drydock)
-"bQo" = (
-/obj/effect/turf_decal/trimline/yellow/filled/line,
-/obj/effect/turf_decal/trimline/yellow/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/hallway/primary/central)
 "bQy" = (
 /obj/structure/sign/map/right{
 	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
@@ -12475,16 +12477,6 @@
 	},
 /turf/open/floor/plasteel/sepia,
 /area/science/shuttle)
-"dnh" = (
-/obj/effect/turf_decal/guideline/guideline_out/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_mid/darkblue{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/hallway/primary/fore)
 "dnl" = (
 /obj/machinery/shieldwallgen,
 /obj/structure/window/reinforced{
@@ -15608,6 +15600,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"eeN" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "rndlabext";
+	name = "External research shutters"
+	},
+/obj/machinery/mineral/material_deposit/department/science{
+	input_dir = 8
+	},
+/obj/machinery/door/window/westleft{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plating,
+/area/science/lab)
 "eeW" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/closet,
@@ -29839,6 +29844,10 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
+"hNq" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "hNy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -31438,13 +31447,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/techmaint,
 /area/medical/morgue)
-"ijv" = (
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/white,
-/area/science/lobby)
 "ijw" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall/r_wall,
@@ -40860,14 +40862,13 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "kKb" = (
-/obj/machinery/mineral/material_deposit/department/medical{
-	input_dir = 2
+/obj/effect/turf_decal/trimline/yellow/filled/line,
+/obj/effect/turf_decal/trimline/yellow/line{
+	dir = 1
 	},
-/obj/machinery/door/window/southright{
-	req_access_txt = "31"
-	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
-/area/medical/medbay/lobby)
+/area/hallway/primary/central)
 "kKn" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -49250,19 +49251,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
-"mPh" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "rndlabext";
-	name = "External research shutters"
-	},
-/obj/machinery/mineral/material_deposit/department/science{
-	input_dir = 8
-	},
-/obj/machinery/door/window/westleft{
-	req_access_txt = "31"
-	},
-/turf/open/floor/plating,
-/area/science/lab)
 "mPj" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 4
@@ -51102,13 +51090,6 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
 /area/crew_quarters/bar)
-"nnZ" = (
-/obj/machinery/mineral/material_deposit/department/engineering,
-/obj/machinery/door/window/northleft{
-	req_access_txt = "31"
-	},
-/turf/open/floor/plating,
-/area/engine/break_room)
 "noc" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	color = "#596479"
@@ -55940,6 +55921,13 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/heads/hor)
+"oBD" = (
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/white,
+/area/science/lobby)
 "oBG" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -56576,6 +56564,15 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"oKD" = (
+/obj/machinery/mineral/material_deposit/department/medical{
+	input_dir = 2
+	},
+/obj/machinery/door/window/southright{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel,
+/area/medical/medbay/lobby)
 "oKG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
@@ -73428,7 +73425,9 @@
 /area/maintenance/aft)
 "sQn" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter{
+	department_id = "Engineering"
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "sQo" = (
@@ -94273,9 +94272,12 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "xyb" = (
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/lobby)
+/obj/machinery/mineral/material_deposit/department/engineering,
+/obj/machinery/door/window/northleft{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plating,
+/area/engine/break_room)
 "xyd" = (
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
@@ -126619,8 +126621,8 @@ nKj
 xop
 tNk
 etJ
-kKb
-xyb
+oKD
+hNq
 lkI
 ppz
 lkI
@@ -129970,7 +129972,7 @@ iQm
 bdu
 oRs
 sDy
-dnh
+aAK
 oyJ
 nNz
 sDM
@@ -135416,7 +135418,7 @@ xXj
 wQu
 pxQ
 tbT
-ijv
+oBD
 rDN
 wvR
 xlH
@@ -135673,7 +135675,7 @@ xXj
 gEs
 gEs
 rwF
-mPh
+eeN
 xgl
 gEs
 gEs
@@ -140295,8 +140297,8 @@ ino
 nUy
 vAg
 wdn
-bQo
-nnZ
+kKb
+xyb
 rwI
 lHR
 ejr

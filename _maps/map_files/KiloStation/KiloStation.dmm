@@ -2700,6 +2700,21 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
+"ajc" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Engineering";
+	name = "Engineering Blast Doors"
+	},
+/obj/machinery/mineral/material_deposit/department/engineering{
+	input_dir = 8
+	},
+/obj/machinery/door/window/westleft{
+	req_access_txt = "31"
+	},
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
+/turf/open/floor/plating,
+/area/engine/break_room)
 "ajd" = (
 /turf/closed/wall,
 /area/maintenance/port/aft)
@@ -46377,21 +46392,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
-"fvF" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "Engineering";
-	name = "Engineering Blast Doors"
-	},
-/obj/machinery/mineral/material_deposit/department/engineering{
-	input_dir = 8
-	},
-/obj/machinery/door/window/westleft{
-	req_access_txt = "31"
-	},
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner,
-/turf/open/floor/plating,
-/area/engine/break_room)
 "fvP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -56404,7 +56404,9 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
 "jEt" = (
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter{
+	department_id = "Engineering"
+	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -57459,6 +57461,20 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
+"kbv" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "research_shutters";
+	name = "Research Privacy Shutter"
+	},
+/obj/machinery/mineral/material_deposit/department/science{
+	input_dir = 4
+	},
+/obj/machinery/door/window/westright{
+	req_access_txt = "31"
+	},
+/obj/structure/window/reinforced/spawner,
+/turf/open/floor/plating,
+/area/science/lab)
 "kbz" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -89954,20 +89970,6 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/space)
-"xKS" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "research_shutters";
-	name = "Research Privacy Shutter"
-	},
-/obj/machinery/mineral/material_deposit/department/science{
-	input_dir = 4
-	},
-/obj/machinery/door/window/westright{
-	req_access_txt = "31"
-	},
-/obj/structure/window/reinforced/spawner,
-/turf/open/floor/plating,
-/area/science/lab)
 "xLg" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -125411,7 +125413,7 @@ awN
 awN
 aGv
 naW
-fvF
+ajc
 buT
 cop
 aGv
@@ -128450,7 +128452,7 @@ bdJ
 bdJ
 aZr
 aYd
-xKS
+kbv
 vpZ
 bch
 aYd
