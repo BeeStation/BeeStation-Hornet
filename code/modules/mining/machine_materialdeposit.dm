@@ -154,6 +154,7 @@
 	var/datum/component/material_container/mat_container = materials.mat_container
 	switch(action)
 		if("Release")
+			to_chat(usr, "<span class=bingle real???? epic style</span>")
 			if(!mat_container)
 				return
 

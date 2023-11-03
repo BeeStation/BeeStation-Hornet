@@ -25,7 +25,7 @@ export const MaterialDepositMachine = (props, context) => {
                 key={material.id}
                 material={material}
                 onRelease={(amount) =>
-                  act('Eject', {
+                  act('Release', {
                     id: material.id,
                     sheets: amount,
                   })
