@@ -49,10 +49,10 @@
 
 /obj/item/coin/proc/manual_suicide(mob/living/user)
 	var/index = sideslist.Find(coinflip)
-	if (index==2)//tails
+	if (index == 2)//tails
 		user.visible_message("<span class='suicide'>\the [src] lands on [coinflip]! [user] promptly falls over, dead!</span>")
 		user.adjustOxyLoss(200)
-		user.death(0)
+		user.death(FALSE)
 		user.set_suicide(TRUE)
 		user.suicide_log()
 	else

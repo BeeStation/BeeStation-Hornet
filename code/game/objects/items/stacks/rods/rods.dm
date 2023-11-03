@@ -38,9 +38,10 @@
 	if(proximity_flag)
 		target.attackby(src, user, click_parameters)
 
-/obj/item/stack/rods/update_icon()
+/obj/item/stack/rods/update_icon_state()
+	. = ..()
 	var/amount = get_amount()
-	if((amount <= 5) && (amount > 0))
+	if(amount <= 5)
 		icon_state = "rods-[amount]"
 	else
 		icon_state = "rods"

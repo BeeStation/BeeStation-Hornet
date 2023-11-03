@@ -396,5 +396,6 @@
 	var/wielded = FALSE
 
 /obj/item/offhand/equipped(mob/user, slot)
+	. = ..()
 	if(wielded && !user.is_holding(src))
 		qdel(src)

@@ -125,6 +125,16 @@
 	else
 		airlock.cyclelinkeddir = dir
 
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi
+	name = "airlock multi-cyclelink helper"
+	icon_state = "airlock_multicyclelink_helper"
+	var/cycle_id
+
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.closeOtherId)
+		log_mapping("[src] at [AREACOORD(src)] tried to set [airlock] closeOtherId, but it's already set!")
+	else
+		airlock.closeOtherId = cycle_id
 
 /obj/effect/mapping_helpers/airlock/locked
 	name = "airlock lock helper"
@@ -310,3 +320,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		else
 			organ.organ_flags |= ORGAN_FROZEN
 	container.update_icon()
+
+//Color correction helper - only use of these per area, it will convert the entire area
+/obj/effect/mapping_helpers/color_correction
+	name = "color correction helper"
+	icon_state = "color_correction"
+	var/color_correction = /datum/client_colour/area_color/cold
+
+/obj/effect/mapping_helpers/color_correction/Initialize(mapload)
+	. = ..()
+	var/area/A = get_area(get_turf(src))
+	A.color_correction = color_correction

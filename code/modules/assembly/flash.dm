@@ -245,7 +245,7 @@
 		to_chat(M, "<span class='disarm'>[src] emits a blinding light!</span>")
 	if(targeted)
 		//No flash protection, blind and stun
-		if(M.flash_act(1, TRUE))
+		if(M.flash_act(1))
 			if(user)
 				terrible_conversion_proc(M, user)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")

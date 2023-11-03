@@ -33,6 +33,9 @@ BONUS
 		return
 
 	var/mob/living/M = A.affected_mob
+
+	if(HAS_TRAIT(M, TRAIT_NOHAIRLOSS))
+		return
 	if(prob(base_message_chance))
 		to_chat(M, "<span class='warning'>[pick("Your scalp itches.", "Your skin feels flaky.")]</span>")
 	if(ishuman(M))

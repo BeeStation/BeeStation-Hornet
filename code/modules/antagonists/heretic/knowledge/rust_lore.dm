@@ -40,7 +40,7 @@
 		/datum/heretic_knowledge/limited_amount/base_void,
 		)
 	required_atoms = list(
-		/obj/item/kitchen/knife = 1,
+		/obj/item/knife = 1,
 		/obj/item/trash = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
@@ -163,8 +163,8 @@
 
 /datum/heretic_knowledge/rust_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
-
-	target.apply_status_effect(/datum/status_effect/heretic_mark/rust)
+	if(isliving(target))
+		target.apply_status_effect(/datum/status_effect/heretic_mark/rust)
 
 /datum/heretic_knowledge/rust_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER

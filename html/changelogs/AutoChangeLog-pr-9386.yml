@@ -1,6 +1,0 @@
-author: RKz, Fikou
-delete-after: true
-changes:
-  - rscadd: plastic, admantine can be put in coin mint and autolathe
-  - rscadd: titanium can go in the coin mint
-  - code_imp: makes coin code datum mats

@@ -216,9 +216,9 @@
 	embedding = list("embed_chance" = 65)
 
 
-/obj/item/shard/suicide_act(mob/user)
+/obj/item/shard/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shard of glass! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 
 /obj/item/shard/Initialize(mapload)

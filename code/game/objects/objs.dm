@@ -420,6 +420,10 @@
 /obj/proc/on_object_saved(var/depth = 0)
 	return ""
 
+// Should move all contained objects to it's location.
+/obj/proc/dump_contents()
+	CRASH("Unimplemented.")
+
 /obj/handle_ricochet(obj/projectile/P)
 	. = ..()
 	if(. && ricochet_damage_mod)

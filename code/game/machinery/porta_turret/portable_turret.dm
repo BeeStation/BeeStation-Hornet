@@ -708,7 +708,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /obj/machinery/porta_turret/syndicate/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
 /obj/machinery/porta_turret/syndicate/setup()
 	return
@@ -825,7 +825,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /obj/machinery/porta_turret/centcom_shuttle/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
 /obj/machinery/porta_turret/centcom_shuttle/assess_perp(mob/living/carbon/human/perp)
 	return 0
@@ -1021,10 +1021,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 /obj/machinery/turretid/proc/updateTurrets()
 	for (var/obj/machinery/porta_turret/aTurret in turrets)
 		aTurret.setState(enabled, lethal, shoot_cyborgs)
-	update_icon()
-
-/obj/machinery/turretid/power_change()
-	..()
 	update_icon()
 
 /obj/machinery/turretid/update_icon()

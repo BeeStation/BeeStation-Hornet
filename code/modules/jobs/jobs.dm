@@ -228,7 +228,18 @@ GLOBAL_LIST_INIT(security_positions_hud, list(
 	JOB_HUD_DEPUTY,
 	JOB_HUD_RAWSECURITY))
 
+/// Put any removed jobs here so they can still show in playtime listings.
+GLOBAL_LIST_INIT(exp_removed_jobs, list(
+//	"Virologist",
+))
+GLOBAL_PROTECT(exp_removed_jobs)
 
+/// Put any removed jobs here so they can still show in playtime listings.
+GLOBAL_LIST_INIT(exp_removed_jobsmap, list(
+//	EXP_TYPE_CREW = list("titles" = list("Virologist")),
+//	EXP_TYPE_MEDICAL = list("titles" = list("Virologist")),
+))
+GLOBAL_PROTECT(exp_removed_jobsmap)
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list(JOB_NAME_AI,JOB_NAME_CYBORG)), // crew positions

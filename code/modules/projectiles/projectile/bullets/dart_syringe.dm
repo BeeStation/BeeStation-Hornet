@@ -5,7 +5,16 @@
 	var/piercing = FALSE
 	var/obj/item/reagent_containers/syringe/syringe = null
 
+/obj/projectile/bullet/dart/c38
+	name = "bullet"
+	icon_state = "bullet"
+	damage = 4
+
 /obj/projectile/bullet/dart/Initialize(mapload)
+	. = ..()
+	create_reagents(50, NO_REACT)
+
+/obj/projectile/bullet/dart/c38/Initialize(mapload)
 	. = ..()
 	create_reagents(50, NO_REACT)
 
