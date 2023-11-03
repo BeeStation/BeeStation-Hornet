@@ -32,11 +32,13 @@
 		))
 	var/material_pickup = FALSE
 	var/department_id = DEPT_ALL
+	COOLDOWN_DECLARE(material_cooldown)
 
 /obj/machinery/mineral/material_deposit/Initialize(mapload)
 	. = ..()
 	materials = AddComponent(/datum/component/remote_materials, "mdm", mapload)
 	materials.department_id = department_id
+
 
 
 /obj/machinery/mineral/material_deposit/Destroy()
@@ -51,6 +53,8 @@
 
 /obj/machinery/mineral/material_deposit/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
 	if(!material_pickup)
+		return
+	if(!COOLDOWN_FINISHED(src, material_cooldown))
 		return
 	if(QDELETED(target))
 		return
@@ -154,7 +158,6 @@
 	var/datum/component/material_container/mat_container = materials.mat_container
 	switch(action)
 		if("Release")
-			to_chat(usr, "<span class=bingle real???? epic style</span>")
 			if(!mat_container)
 				return
 
@@ -181,7 +184,8 @@
 					desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
 
 				var/sheets_to_remove = round(min(desired,50,stored_amount))
-
+				//sets a cooldown so it doesnt' instantly qdel mats that are dispensed and that it leaves them untouched
+				COOLDOWN_START(src, material_cooldown, 5)
 				var/count = mat_container.retrieve_sheets(sheets_to_remove, mat,get_step(src, input_dir))
 				var/list/mats = list()
 				mats[mat] = MINERAL_MATERIAL_AMOUNT
