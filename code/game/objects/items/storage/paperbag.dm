@@ -8,6 +8,7 @@
 /obj/item/storage/box/papersack
 	name = "paper sack"
 	desc = "A sack neatly crafted out of paper."
+	icon = 'icons/obj/storage/paperbag.dmi'
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
 	resistance_flags = FLAMMABLE
