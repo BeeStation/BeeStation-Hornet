@@ -44,14 +44,15 @@
 	H.regenerate_limb(BODY_ZONE_HEAD,FALSE)
 	..()
 
-/datum/species/dullahan/spec_life(mob/living/carbon/human/H)
+/datum/species/dullahan/spec_life(mob/living/carbon/human/human)
 	if(QDELETED(myhead))
 		myhead = null
-		H.gib()
-	var/obj/item/bodypart/head/head2 = H.get_bodypart(BODY_ZONE_HEAD)
+		human.investigate_log("has been gibbed by the loss of [human.p_their()] head.", INVESTIGATE_DEATHS)
+		human.gib()
+	var/obj/item/bodypart/head/head2 = human.get_bodypart(BODY_ZONE_HEAD)
 	if(head2)
 		myhead = null
-		H.gib()
+		human.gib()
 
 /datum/species/dullahan/proc/update_vision_perspective(mob/living/carbon/human/H)
 	var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
@@ -179,6 +180,7 @@
 		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species
 			D.myhead = null
+			owner.investigate_log("has been gibbed by the destruction of their head/body relay.", INVESTIGATE_DEATHS)
 			owner.gib()
 	owner = null
 	return ..()

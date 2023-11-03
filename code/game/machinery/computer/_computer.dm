@@ -28,18 +28,13 @@
 	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
 	var/broken_overlay_emissive = FALSE
 
-/obj/machinery/computer/Initialize(mapload, obj/item/circuitboard/C)
+/obj/machinery/computer/Initialize(mapload)
 	. = ..()
 	QUEUE_SMOOTH(src)
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	power_change()
-	if(!QDELETED(C))
-		qdel(circuit)
-		circuit = C
-		C.moveToNullspace()
 
 /obj/machinery/computer/Destroy()
-	QDEL_NULL(circuit)
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
@@ -149,6 +144,8 @@
 			var/obj/structure/frame/computer/A = new /obj/structure/frame/computer(src.loc)
 			A.setDir(dir)
 			A.circuit = circuit
+			// Circuit removal code is handled in /obj/machinery/Exited()
+			circuit.forceMove(A)
 			A.setAnchored(TRUE)
 			if(machine_stat & BROKEN)
 				if(user)
@@ -164,7 +161,6 @@
 					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				A.state = 4
 				A.icon_state = "4"
-			circuit = null
 		for(var/obj/C in src)
 			C.forceMove(loc)
 	qdel(src)

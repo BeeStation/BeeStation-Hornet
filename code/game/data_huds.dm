@@ -200,12 +200,12 @@
 			if(tod)
 				var/tdelta = round(world.time - timeofdeath)
 				if(tdelta < (DEFIB_TIME_LIMIT * 10))
-					if((!client && key) || client?.is_afk())
+					if(!client && key)
 						holder.icon_state = "huddefib-ssd"
 						return
 					holder.icon_state = "huddefib"
 					return
-			if((!client && key) || client?.is_afk())
+			if(!client && key)
 				holder.icon_state = "huddead-ssd"
 				return
 			holder.icon_state = "huddead"
@@ -476,6 +476,16 @@
 			holder.icon_state = "hudmove"
 		else
 			holder.icon_state = ""
+
+/mob/living/simple_animal/bot/mulebot/proc/diag_hud_set_mulebotcell()
+	var/image/holder = hud_list[DIAG_BATT_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	if(cell)
+		var/chargelvl = (cell.charge/cell.maxcharge)
+		holder.icon_state = "hudbatt[RoundDiagBar(chargelvl)]"
+	else
+		holder.icon_state = "hudnobatt"
 
 /*~~~~~~~~~~~~
 	Airlocks!

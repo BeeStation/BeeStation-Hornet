@@ -1,6 +1,6 @@
 import { Window } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Section, Slider, Stack, Input, ProgressBar, ColorBox, Dimmer, Icon, Box, Tabs, Tooltip, Flex, TextArea, Collapsible, Autofocus } from '../components';
+import { Button, LabeledList, Section, Slider, Stack, Input, ProgressBar, ColorBox, Dimmer, Icon, Box, Tabs, Tooltip, Flex, BufferedTextArea, Collapsible, Autofocus } from '../components';
 import { ColorSelector } from './ColorPickerModal';
 import { BooleanLike } from 'common/react';
 import { AbilityThreshold, Ability, AvailableAbilities, StatThreshold, is_actually_a_threshold, threshold_title, sort_thresholds, sort_abilities } from './common/Holoparasite';
@@ -514,15 +514,15 @@ const NotesSection = (_props, context) => {
           </Stack>
         </Stack.Item>
         <Stack.Item grow>
-          <TextArea
+          <BufferedTextArea
             scrollbar
-            value={notes}
             maxLength={max_lengths.notes}
             placeholder={`Enter any notes for your ${themed_name} here!`}
             textColor="white"
             fluid
             height="100%"
-            onInput={(_, value: string) => {
+            value={notes}
+            updateValue={(value: string) => {
               act('set:notes', { 'notes': value });
             }}
           />

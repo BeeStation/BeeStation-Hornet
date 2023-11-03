@@ -6,8 +6,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "x" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
@@ -29,8 +29,8 @@
 /area/ruin/unpowered)
 "L" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "Q" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
