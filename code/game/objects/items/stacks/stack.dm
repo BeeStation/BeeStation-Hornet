@@ -38,7 +38,8 @@
 	var/full_w_class = WEIGHT_CLASS_NORMAL
 	//Determines whether the item should update it's sprites based on amount.
 	var/novariants = TRUE
-	var/mats_per_stack = 0
+	//list that tells you how much is in a single unit.
+	var/list/mats_per_unit
 	///Datum material type that this stack is made of
 	var/material_type
 	///Stores table variant to be built from this stack
@@ -65,8 +66,11 @@
 	if(!merge_type)
 		merge_type = type
 	if(custom_materials && custom_materials.len)
+		mats_per_unit = list()
+		var/in_process_mat_list = custom_materials.Copy()
 		for(var/i in custom_materials)
-			custom_materials[SSmaterials.GetMaterialRef(i)] = mats_per_stack * amount
+			mats_per_unit[SSmaterials.GetMaterialRef(i)] = in_process_mat_list[i]
+			custom_materials[i] *= amount
 	. = ..()
 	if(merge)
 		for(var/obj/item/stack/S in loc)
@@ -340,6 +344,8 @@
 	amount -= used
 	if(check)
 		zero_amount()
+	for(var/i in mats_per_unit)
+		custom_materials[i] = amount * mats_per_unit[i]
 	update_icon()
 	ui_update()
 	update_weight()
@@ -370,9 +376,9 @@
 		source.add_charge(amount * cost)
 	else
 		src.amount += amount
-	if(custom_materials && custom_materials.len)
-		for(var/i in custom_materials)
-			custom_materials[SSmaterials.GetMaterialRef(i)] = MINERAL_MATERIAL_AMOUNT * src.amount
+	if(mats_per_unit && mats_per_unit.len)
+		for(var/i in mats_per_unit)
+			custom_materials[i] = mats_per_unit[i] * src.amount
 		set_custom_materials() //Refresh
 		check_max_amount()
 	update_icon()
