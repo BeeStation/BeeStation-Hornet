@@ -221,7 +221,7 @@
 
 /obj/item/stack/ui_static_data(mob/user)
 	var/list/data = list()
-	data["recipes"] = recursively_build_recipes(get_main_recipes())
+	data["recipes"] = recursively_build_recipes(recipes)
 	return data
 
 /obj/item/stack/ui_act(action, params)

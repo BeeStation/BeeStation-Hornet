@@ -4,7 +4,7 @@
 	icon = 'icons/obj/beds_chairs/chairs.dmi'
 	icon_state = "chair"
 	anchored = TRUE
-	can_buckle = 1
+	can_buckle = TRUE
 	buckle_lying = 0 //you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
@@ -261,6 +261,7 @@
 	anchored = FALSE
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
+	custom_materials = list(/datum/material/plastic = 2000)
 	buildstacktype = /obj/item/stack/sheet/plastic
 	buildstackamount = 1
 	item_chair = /obj/item/chair/plastic
