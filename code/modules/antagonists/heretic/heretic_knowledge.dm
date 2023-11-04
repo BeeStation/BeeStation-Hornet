@@ -182,6 +182,8 @@
 	var/limit = 1
 	/// A list of weakrefs to all items we've created.
 	var/list/datum/weakref/created_items
+	// Destroys the item furthest from user if over the amount limit
+	var/destroy_if_over_limit = FALSE
 
 /datum/heretic_knowledge/limited_amount/Destroy(force, ...)
 	LAZYCLEARLIST(created_items)
@@ -193,9 +195,22 @@
 		if(QDELETED(real_thing))
 			LAZYREMOVE(created_items, ref)
 
-	if(LAZYLEN(created_items) >= limit)
+	if(LAZYLEN(created_items) >= limit && !destroy_if_over_limit)
 		loc.balloon_alert(user, "ritual failed, at limit!")
 		return FALSE
+	else if(LAZYLEN(created_items) >= limit && destroy_if_over_limit)
+		var/atom/closest
+		var/closest_distance
+		for(var/datum/weakref/ref in created_items)
+			if(!closest)
+				closest = ref.resolve()
+				closest_distance = get_dist(user, closest)
+			else
+				var/atom/prospective = ref.resolve()
+				if(get_dist(user, prospective)>closest_distance)
+					closest = prospective
+		if(!QDELETED(closest))
+			qdel(closest)
 
 	return TRUE
 
