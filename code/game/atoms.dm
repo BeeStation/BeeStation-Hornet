@@ -1669,7 +1669,7 @@
 
 		if(!(material_flags & MATERIAL_NO_EFFECTS))
 			custom_material.on_applied(src, materials[custom_material] * multiplier * material_modifier, material_flags)
-		custom_materials[custom_material] += materials[custom_material] * multiplier
+		custom_materials[custom_material] += materials[x] * multiplier
 
 /// Returns the indice in filters of the given filter name.
 /// If it is not found, returns null.

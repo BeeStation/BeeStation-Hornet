@@ -54,9 +54,9 @@
 			to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
 			if(!do_after(user, 2 SECONDS, target = src) || !material.use(1) || (locate(/obj/structure/table) in loc))
 				return
-			var/list/material_list
+			var/list/material_list = list()
 			if(material.material_type)
-				material_list = list(material.material_type = MINERAL_MATERIAL_AMOUNT)
+					material_list[material.material_type] = MINERAL_MATERIAL_AMOUNT
 			make_new_table(/obj/structure/table/greyscale, material_list)
 		return
 	return ..()

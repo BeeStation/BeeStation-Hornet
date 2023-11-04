@@ -62,6 +62,7 @@ Metals Sheets
 	grind_results = list(/datum/reagent/iron = 20, /datum/reagent/toxin/plasma = 20)
 	point_value = 23
 	tableVariant = /obj/structure/table/reinforced
+	material_flags = MATERIAL_NO_EFFECTS
 
 /obj/item/stack/sheet/plasteel/get_main_recipes()
 	. = ..()

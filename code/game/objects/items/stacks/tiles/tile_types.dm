@@ -11,6 +11,7 @@
 	throw_speed = 3
 	throw_range = 7
 	max_amount = 60
+	mats_per_stack = 500
 	novariants = TRUE
 	/// What type of turf does this tile produce.
 	var/turf_type = null

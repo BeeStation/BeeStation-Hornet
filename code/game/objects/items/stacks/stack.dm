@@ -38,6 +38,7 @@
 	var/full_w_class = WEIGHT_CLASS_NORMAL
 	//Determines whether the item should update it's sprites based on amount.
 	var/novariants = TRUE
+	var/mats_per_stack = 0
 	///Datum material type that this stack is made of
 	var/material_type
 	///Stores table variant to be built from this stack
@@ -65,7 +66,7 @@
 		merge_type = type
 	if(custom_materials && custom_materials.len)
 		for(var/i in custom_materials)
-			custom_materials[SSmaterials.GetMaterialRef(i)] = MINERAL_MATERIAL_AMOUNT * amount
+			custom_materials[SSmaterials.GetMaterialRef(i)] = mats_per_stack * amount
 	. = ..()
 	if(merge)
 		for(var/obj/item/stack/S in loc)
