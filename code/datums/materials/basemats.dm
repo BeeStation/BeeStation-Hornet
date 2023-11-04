@@ -108,7 +108,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	name = "bluespace crystal"
 	id = "bluespace_crystal"
 	desc = "Crystals with bluespace properties"
-	ccolor = list(119/255, 217/255, 396/255,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
+	color = list(119/255, 217/255, 396/255,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
 	greyscale_colors = "#4e7dffC8"
 	alpha = 200
 	categories = list(MAT_CATEGORY_ORE = TRUE)
