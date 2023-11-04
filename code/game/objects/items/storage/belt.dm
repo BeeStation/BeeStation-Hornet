@@ -241,7 +241,7 @@
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/sensor_device,
 		/obj/item/radio,
-		/obj/item/clothing/gloves/,
+		/obj/item/clothing/gloves,
 		/obj/item/lazarus_injector,
 		/obj/item/bikehorn/rubberducky,
 		/obj/item/clothing/mask/surgical,
