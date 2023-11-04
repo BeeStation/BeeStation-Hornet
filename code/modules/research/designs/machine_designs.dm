@@ -629,9 +629,9 @@
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
 /datum/design/board/material_deposit
-	name = "Machine Design (Ore Silo)"
+	name = "Machine Design (Material Deposit Machine)"
 	desc = "The circuit board for an ore silo."
-	id = "ore_silo"
+	id = "material_deposit"
 	build_path = /obj/item/circuitboard/machine/material_deposit
 	category = list ("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
