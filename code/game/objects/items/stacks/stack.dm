@@ -65,7 +65,7 @@
 		merge_type = type
 	if(custom_materials && custom_materials.len)
 		for(var/i in custom_materials)
-			custom_materials[getmaterialref(i)] = MINERAL_MATERIAL_AMOUNT * amount
+			custom_materials[SSmaterials.GetMaterialRef(i)] = MINERAL_MATERIAL_AMOUNT * amount
 	. = ..()
 	if(merge)
 		for(var/obj/item/stack/S in loc)
@@ -76,7 +76,7 @@
 	var/list/temp_recipes = get_main_recipes()
 	recipes = temp_recipes.Copy()
 	if(material_type)
-		var/datum/material/M = getmaterialref(material_type) //First/main material
+		var/datum/material/M = SSmaterials.GetMaterialRef(material_type) //First/main material
 		for(var/i in M.categories)
 			switch(i)
 				if(MAT_CATEGORY_RIGID)
@@ -261,7 +261,7 @@
 			if(R.applies_mats && custom_materials && custom_materials.len)
 				var/list/used_materials = list()
 				for(var/i in custom_materials)
-					used_materials[getmaterialref(i)] = R.req_amount * (MINERAL_MATERIAL_AMOUNT / custom_materials.len)
+					used_materials[SSmaterials.GetMaterialRef(i)] = R.req_amount / R.res_amount * (MINERAL_MATERIAL_AMOUNT / custom_materials.len)
 				O.set_custom_materials(used_materials)
 
 			if(QDELETED(O))
@@ -371,7 +371,7 @@
 		src.amount += amount
 	if(custom_materials && custom_materials.len)
 		for(var/i in custom_materials)
-			custom_materials[getmaterialref(i)] = MINERAL_MATERIAL_AMOUNT * src.amount
+			custom_materials[SSmaterials.GetMaterialRef(i)] = MINERAL_MATERIAL_AMOUNT * src.amount
 		set_custom_materials() //Refresh
 		check_max_amount()
 	update_icon()

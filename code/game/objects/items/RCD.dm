@@ -133,7 +133,7 @@ RLD
 		update_icon()
 		return TRUE
 	else
-		var/list/matlist = list(getmaterialref(/datum/material/iron) = 500)
+		var/list/matlist = list(SSmaterials.GetMaterialRef(/datum/material/iron) = 500)
 		if(silo_mats.on_hold())
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
@@ -155,7 +155,7 @@ RLD
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
 			return FALSE
-		. = silo_mats.mat_container?.has_materials(list(getmaterialref(/datum/material/iron) = 500), amount)
+		. = silo_mats.mat_container?.has_materials(list(SSmaterials.GetMaterialRef(/datum/material/iron) = 500), amount)
 	if(!. && user)
 		to_chat(user, no_ammo_message)
 		if(has_ammobar)

@@ -92,8 +92,8 @@
 
 		if(is_type_in_list(S, list(/obj/item/stack/sheet/iron, /obj/item/stack/rods, /obj/item/stack/tile/plasteel, /obj/item/stack/tile/light)))
 			if(S.custom_materials && custom_materials.len)
-				if(S.custom_materials[getmaterialref(/datum/material/iron)])
-					S.cost = S.custom_materials[getmaterialref(/datum/material/iron)] * 0.25
+				if(S.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)])
+					S.cost = S.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)] * 0.25
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
 
 		else if(istype(S, /obj/item/stack/sheet/glass))

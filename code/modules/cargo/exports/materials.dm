@@ -14,10 +14,10 @@
 	if(!isitem(O))
 		return 0
 	var/obj/item/I = O
-	if(!(getmaterialref(material_id) in I.custom_materials))
+	if(!(SSmaterials.GetMaterialRef(material_id) in I.custom_materials))
 		return 0
 
-	var/amount = I.custom_materials[getmaterialref(material_id)]
+	var/amount = I.custom_materials[SSmaterials.GetMaterialRef(material_id)]
 
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
