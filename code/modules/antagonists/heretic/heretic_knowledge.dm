@@ -209,7 +209,7 @@
 				var/atom/prospective = ref.resolve()
 				if(get_dist(user, prospective)>closest_distance)
 					closest = prospective
-		playsound(closest, "shatter", 75, TRUE)
+		playsound(closest, "shatter", 100, TRUE)
 		if(!QDELETED(closest))
 			qdel(closest)
 
