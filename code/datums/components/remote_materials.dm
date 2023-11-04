@@ -176,10 +176,10 @@ handles linking back and forth.
 		return 0
 
 	if (!mat_container)
-		movable_parent.say("No access to material storage, please contact your local head.")
+		movable_parent.say("No access to material storage, please contact the relevant head of staff.")
 		return 0
 	if (on_hold())
-		movable_parent.say("Mineral access is on hold, please contact your local head.")
+		movable_parent.say("Mineral access is on hold, please contact the relevant head of staff.")
 		return 0
 	var/count = mat_container.retrieve_sheets(eject_amount, material_ref, movable_parent.drop_location())
 	var/list/matlist = list()

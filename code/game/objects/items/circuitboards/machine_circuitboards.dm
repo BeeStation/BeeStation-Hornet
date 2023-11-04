@@ -1270,6 +1270,7 @@
 	icon_state = "security"
 	build_path = /obj/machinery/ore_silo/department/security
 	department_id = DEPT_SECURITY
+
 /obj/item/circuitboard/machine/ore_silo/department/supply
 	name = "ore silo - supply (Machine Board)"
 	icon_state = "supply"
@@ -1290,12 +1291,13 @@
 			return
 		var/department_list = list(DEPT_SCIENCE, DEPT_ENGINEERING, DEPT_MEDICAL, DEPT_SECURITY, DEPT_SUPPLY, DEPT_SERVICE)
 		var/new_department_id = tgui_input_list(user, "Select the department the silo will be assigned to:", "Select department", department_list)
-		if(new_department_id!=null)
-			department_id = new_department_id
-			var/lower_dept_id = lowertext(department_id)
-			name = "ore silo - [lower_dept_id] (Machine Board)"
-			icon_state = lower_dept_id
-			to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_id]. </span>")
+		if(new_department_id==null)
+			return
+		department_id = new_department_id
+		var/lower_dept_id = lowertext(department_id)
+		name = "ore silo - [lower_dept_id] (Machine Board)"
+		icon_state = lower_dept_id
+		to_chat(user, "<span class='notice'>You change the circuitboard's deparment to [department_id]. </span>")
 
 /obj/item/circuitboard/machine/ore_silo/examine(mob/user)
 	. = ..()

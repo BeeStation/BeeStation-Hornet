@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		GLOB.ore_silo_list += src
 
 	if (department_id!=DEPT_ALL)
-		name = "ore silo ([department_id])"
+		name = "departmental ore silo ([department_id])"
 		desc = "An all-in-one bluespace storage and transmission system for the station's mineral distribution needs. This one is linked to the [department_id] department"
 	else
 		name = "ore silo"
@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	if(board)
 		department_id = board.department_id
 	if (department_id!=DEPT_ALL)
-		name = "ore silo ([department_id])"
+		name = "departmental ore silo ([department_id])"
 		desc = "An all-in-one bluespace storage and transmission system for the station's mineral distribution needs. This one is linked to the [department_id] department"
 	else
 		name = "ore silo"
