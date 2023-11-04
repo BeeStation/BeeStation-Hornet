@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 
 /obj/machinery/ore_silo/Destroy()
 	if (locate(src) in GLOB.ore_silo_list)
-		GLOB.ore_silo_default -= src
+		GLOB.ore_silo_list -= src
 
 	for(var/C in connected)
 		var/datum/component/remote_materials/mats = C
