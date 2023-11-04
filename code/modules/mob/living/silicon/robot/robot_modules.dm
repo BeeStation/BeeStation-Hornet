@@ -122,7 +122,7 @@
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/beacon)
 
 		if(S?.source)
-			S.custom_materials = null
+			S.set_custom_materials(null)
 			S.is_cyborg = 1
 
 	if(I.loc != src)

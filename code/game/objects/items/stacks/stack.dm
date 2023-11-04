@@ -84,7 +84,7 @@
 		var/datum/material/M = SSmaterials.GetMaterialRef(material_type) //First/main material
 		for(var/i in M.categories)
 			switch(i)
-				if(MAT_CATEGORY_RIGID)
+				if(MAT_CATEGORY_BASE_RECIPES)
 					var/list/temp = SSmaterials.rigid_stack_recipes.Copy()
 					recipes += temp
 	update_weight()
@@ -235,7 +235,7 @@
 				qdel(src)
 				return
 			var/datum/stack_recipe/R = locate(params["ref"])
-			if(!is_valid_recipe(R, get_main_recipes())) //href exploit protection
+			if(!is_valid_recipe(R, recipes)) //href exploit protection
 				return
 			var/multiplier = text2num(params["multiplier"])
 			if(!isnum_safe(multiplier) || (multiplier <= 0)) //href exploit protection
@@ -342,10 +342,13 @@
 	if(amount < used)
 		return FALSE
 	amount -= used
-	if(check)
-		zero_amount()
-	for(var/i in mats_per_unit)
-		custom_materials[i] = amount * mats_per_unit[i]
+	if(check && zero_amount())
+		return FALSE
+	if(length(mats_per_unit))
+		var/temp_materials = custom_materials.Copy()
+		for(var/i in mats_per_unit)
+			temp_materials[i] = mats_per_unit[i] * src.amount
+		set_custom_materials(temp_materials)
 	update_icon()
 	ui_update()
 	update_weight()
@@ -376,10 +379,11 @@
 		source.add_charge(amount * cost)
 	else
 		src.amount += amount
-	if(mats_per_unit && mats_per_unit.len)
+	if(length(mats_per_unit))
+		var/temp_materials = custom_materials.Copy()
 		for(var/i in mats_per_unit)
-			custom_materials[i] = mats_per_unit[i] * src.amount
-		set_custom_materials() //Refresh
+			temp_materials[i] = mats_per_unit[i] * src.amount
+		set_custom_materials(temp_materials)
 		check_max_amount()
 	update_icon()
 	update_weight()
