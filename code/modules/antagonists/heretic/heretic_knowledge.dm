@@ -199,19 +199,19 @@
 		loc.balloon_alert(user, "ritual failed, at limit!")
 		return FALSE
 	else if(LAZYLEN(created_items) >= limit && destroy_if_over_limit)
-		var/atom/closest
-		var/closest_distance
+		var/atom/furthest
+		var/furthest_distance
 		for(var/datum/weakref/ref in created_items)
-			if(!closest)
-				closest = ref.resolve()
-				closest_distance = get_dist(user, closest)
+			if(!furthest)
+				furthest = ref.resolve()
+				furthest_distance = get_dist(user, furthest)
 			else
 				var/atom/prospective = ref.resolve()
-				if(get_dist(user, prospective)>closest_distance)
-					closest = prospective
-		playsound(closest, "shatter", 100, TRUE)
-		if(!QDELETED(closest))
-			qdel(closest)
+				if(get_dist(user, prospective)>furthest_distance)
+					furthest = prospective
+		playsound(furthest, "shatter", 100, TRUE)
+		if(!QDELETED(furthest))
+			qdel(furthest)
 
 	return TRUE
 
