@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(materials)
 	var/list/materials_by_category
 	///List of stackcrafting recipes for materials using rigid materials
 	var/list/rigid_stack_recipes = list(
-		new/datum/stack_recipe("Chair", /obj/structure/chair/greyscale, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE)
+		new /datum/stack_recipe("chair", /obj/structure/chair/greyscale, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
 	)
 
 ///Ran on initialize, populated the materials and materials_by_category dictionaries with their appropiate vars (See these variables for more info)

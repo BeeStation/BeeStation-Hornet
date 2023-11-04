@@ -407,7 +407,7 @@
 	if(P.type == fuel.type && P.amount > 0)
 		var/to_load = max(max_fuel - fuel.amount*MINERAL_MATERIAL_AMOUNT,0)
 		if(to_load)
-			var/units = min(max(round(to_load / P.mats_per_stack),1),P.amount)
+			var/units = min(max(round(to_load / MINERAL_MATERIAL_AMOUNT),1),P.amount)
 			fuel.amount += units
 			P.use(units)
 			occupant_message("[units] unit\s of [fuel] successfully loaded.")
