@@ -72,6 +72,9 @@
 /datum/morph_stomach/ui_act(action, params)
 	if(..())
 		return
+	if(morph.movement_type & VENTCRAWLING)
+		to_chat(morph, "<span class='danger'>You cannot do that while ventcrawling.</span></span>")
+		return
 	var/ref = params["id"]
 	var/atom/movable/target = locate(ref) in morph.contents
 	if(!target || (!isliving(target) && !isitem(target)))
