@@ -2129,6 +2129,13 @@
 	name = "Plasmafire"
 	icon_state = "plasmafire"
 
+/datum/sprite_accessory/moth_wings/thunder
+	name = "Thunder"
+	icon_state = "thunder"
+
+/datum/sprite_accessory/moth_wingsopen/thunder
+	name = "Thunder"
+	icon_state = "thunder"
 
 /datum/sprite_accessory/moth_wings/snow
 	name = "Snow"
@@ -2228,6 +2235,10 @@
 /datum/sprite_accessory/moth_antennae/plasmafire
 	name = "Plasmafire"
 	icon_state = "plasmafire"
+
+/datum/sprite_accessory/moth_antennae/plasmafire
+	name = "Thunder"
+	icon_state = "thunder"
 
 /datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
 	icon = 'icons/mob/moth_markings.dmi'
