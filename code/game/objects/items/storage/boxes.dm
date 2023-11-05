@@ -26,6 +26,7 @@
 	name = "box"
 	desc = "It's just an ordinary box."
 	icon = 'icons/obj/storage/box.dmi'
+	w_class = WEIGHT_CLASS_LARGE
 	icon_state = "box"
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -38,6 +39,9 @@
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 8
+	STR.max_combined_w_class = 8
 	update_icon()
 
 /obj/item/storage/box/suicide_act(mob/living/carbon/user)
@@ -152,8 +156,38 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/nanite_program(src)
 
-// Ordinary survival box
+//Parent box to accomodate station trait and apply unique restrictions
+/obj/item/storage/box/survival
+	name = "survival box"
+	illustration = "survival"
+	desc = "A compact box that is designed to hold specific emergency supplies"
+	w_class = WEIGHT_CLASS_SMALL //So the roundstart box takes up less space.
+
+/obj/item/storage/box/survival/Initialize(mapload)
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 5
+	STR.max_combined_w_class = 21
+	STR.max_w_class = WEIGHT_CLASS_TINY
+	var/static/list/exception_hold = typecacheof(list(
+		/obj/item/flashlight/flare,
+		/obj/item/radio,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/gas,
+		/obj/item/reagent_containers/hypospray/medipen,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman/belt
+		))
+	STR.exception_hold = exception_hold
+
 /obj/item/storage/box/survival/PopulateContents()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/flashlight/flare(src)
+		new /obj/item/radio/off(src)
+
+// Ordinary survival box
+/obj/item/storage/box/survival/normal/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -162,18 +196,10 @@
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
-		new /obj/item/radio/off(src)
-
-/obj/item/storage/box/survival/radio/PopulateContents()
-	..() // we want the survival stuff too.
-	new /obj/item/radio/off(src)
-
 // Mining survival box
-/obj/item/storage/box/survival_mining/PopulateContents()
+/obj/item/storage/box/survival/mining/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
 	if(!isplasmaman(loc))
@@ -182,7 +208,8 @@
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
 // Engineer survival box
-/obj/item/storage/box/engineer/PopulateContents()
+/obj/item/storage/box/survival/engineer/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -190,10 +217,6 @@
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
-
-/obj/item/storage/box/engineer/radio/PopulateContents()
-	..() // we want the regular items too.
-	new /obj/item/radio/off(src)
 
 // Syndie survival box
 /obj/item/storage/box/syndie/PopulateContents()
@@ -205,7 +228,8 @@
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
 // Security survival box
-/obj/item/storage/box/security/PopulateContents()
+/obj/item/storage/box/survival/security/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -214,9 +238,21 @@
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
-/obj/item/storage/box/security/radio/PopulateContents()
-	..() // we want the regular stuff too
-	new /obj/item/radio/off(src)
+// Clown survival box
+
+/obj/item/storage/box/survival/hug
+	icon_state = "hugbox"
+	illustration = "heart"
+
+/obj/item/storage/box/survival/hug/PopulateContents()
+	..()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/reagent_containers/hypospray/medipen(src)
+
+	if(!isplasmaman(loc))
+		new /obj/item/tank/internals/emergency_oxygen/clown(src)
+	else
+		new /obj/item/tank/internals/plasmaman/belt(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
@@ -869,20 +905,6 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
-
-// Clown survival box
-/obj/item/storage/box/hug/survival/PopulateContents()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/reagent_containers/hypospray/medipen(src)
-
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen/clown(src)
-	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
-
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
-		new /obj/item/radio/off(src)
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"
