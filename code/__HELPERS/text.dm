@@ -1049,6 +1049,8 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 			. = "small"
 		if(WEIGHT_CLASS_NORMAL)
 			. = "normal-sized"
+		if(WEIGHT_CLASS_LARGE)
+			. = "large"
 		if(WEIGHT_CLASS_BULKY)
 			. = "bulky"
 		if(WEIGHT_CLASS_HUGE)

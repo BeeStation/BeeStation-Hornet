@@ -2178,7 +2178,7 @@
 	network = list("mine")
 	},
 /obj/structure/table,
-/obj/item/storage/firstaid/medical/doctorbag,
+/obj/item/storage/firstaid/medical,
 /turf/open/floor/plasteel/white,
 /area/mine/living_quarters)
 "pj" = (

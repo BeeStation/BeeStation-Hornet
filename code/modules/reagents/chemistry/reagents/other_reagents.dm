@@ -2019,9 +2019,9 @@
 	taste_description = "plastic"
 
 /datum/reagent/glitter
-	name = "Generic Glitter"
-	description = "If you can see this description, contact a coder."
-	color = "#FFFFFF" //pure white
+	name = "light pink glitter"
+	description = "light pink sparkles that get everywhere."
+	color = "#FFFFFF" //base colour of decal is light pink
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
 	taste_description = "plastic"
 	reagent_state = SOLID

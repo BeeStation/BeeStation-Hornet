@@ -33,14 +33,14 @@
 /obj/item/circuit_component/counter_overlay/register_shell(atom/movable/shell)
 	if(istype(shell, /obj/item/organ/cyberimp/bci))
 		bci = shell
-		RegisterSignal(shell, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_removed))
+		RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/counter_overlay/unregister_shell(atom/movable/shell)
 	bci = null
 	QDEL_NULL(counter_appearance)
 	for(var/number in numbers)
 		QDEL_NULL(number)
-	UnregisterSignal(shell, COMSIG_CARBON_LOSE_ORGAN)
+	UnregisterSignal(shell, COMSIG_ORGAN_REMOVED)
 
 /obj/item/circuit_component/counter_overlay/input_received(datum/port/input/port)
 	if(!bci)
