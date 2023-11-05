@@ -2,7 +2,7 @@
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
 	name = "projectile gun"
 	icon_state = "pistol"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 
 	//sound info vars
 	var/load_sound = "gun_insert_full_magazine"
@@ -282,7 +282,7 @@
 /obj/item/gun/ballistic/proc/install_suppressor(obj/item/suppressor/S)
 	// this proc assumes that the suppressor is already inside src
 	suppressed = S
-	w_class += S.w_class //so pistols do not fit in pockets when suppressed
+	weight_class_up() //so pistols do not fit in pockets when suppressed
 	update_icon()
 
 /obj/item/gun/ballistic/AltClick(mob/user)
@@ -296,7 +296,7 @@
 				return
 			to_chat(user, "<span class='notice'>You unscrew \the [suppressed] from \the [src].</span>")
 			user.put_in_hands(suppressed)
-			w_class -= S.w_class
+			weight_class_down()
 			suppressed = null
 			update_icon()
 			return
@@ -448,7 +448,7 @@
 		else
 			name = "sawn-off [src.name]"
 		desc = sawn_desc
-		w_class = WEIGHT_CLASS_NORMAL
+		w_class = WEIGHT_CLASS_LARGE
 		if (sawn_item_state)
 			item_state = sawn_item_state
 		else

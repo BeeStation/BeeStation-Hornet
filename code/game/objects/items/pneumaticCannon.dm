@@ -224,7 +224,7 @@
 	name = "improvised pneumatic cannon"
 	desc = "A gas-powered, object-firing cannon made out of common parts."
 	force = 5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	maxWeightClass = 7
 	gasPerThrow = 5
 	fire_mode = PCANNON_FIFO
@@ -275,7 +275,7 @@
 	range_multiplier = 3
 	fire_mode = PCANNON_FIFO
 	throw_amount = 1
-	maxWeightClass = 150	//50 pies. :^)
+	maxWeightClass = 200	//50 pies. :^)
 	clumsyCheck = FALSE
 	var/static/list/pie_typecache = typecacheof(/obj/item/reagent_containers/food/snacks/pie)
 
@@ -287,7 +287,7 @@
 	automatic = TRUE
 	selfcharge = TRUE
 	charge_type = /obj/item/reagent_containers/food/snacks/pie/cream
-	maxWeightClass = 60	//20 pies.
+	maxWeightClass = 80	//20 pies.
 
 /obj/item/pneumatic_cannon/pie/selfcharge/compact
 	name = "honkinator-4 compact pie cannon"
@@ -298,7 +298,7 @@
 	name = "low velocity pie cannon"
 	automatic = FALSE
 	charge_type = /obj/item/reagent_containers/food/snacks/pie/cream/nostun
-	maxWeightClass = 6		//2 pies
+	maxWeightClass = 8		//2 pies
 	charge_ticks = 2		//4 second/pie
 
 /obj/item/pneumatic_cannon/speargun
