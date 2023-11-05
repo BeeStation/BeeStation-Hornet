@@ -13,7 +13,7 @@
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 /obj/structure/big_delivery/interact(mob/user)
-	if(do_after(user, 30, src, progress = TRUE))
+	if(do_after(user, 3, src, progress = TRUE))
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 		qdel(src)
 
