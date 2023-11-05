@@ -21,7 +21,7 @@ FLOOR SAFES
 	var/tumbler_2_open
 	var/dial = 0		//where is the dial pointing?
 	var/space = 0		//the combined w_class of everything in the safe
-	var/maxspace = 24	//the maximum combined w_class of stuff in the safe
+	var/maxspace = 48	//the maximum combined w_class of stuff in the safe
 	var/explosion_count = 0	//Tough, but breakable
 
 /obj/structure/safe/Initialize(mapload)

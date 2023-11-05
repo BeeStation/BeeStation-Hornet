@@ -261,10 +261,12 @@
 
 	// From the channel, determine the frequency and get a reference to it.
 	var/freq
-	if(channel && channels && channels.len > 0)
-		if(channel == MODE_DEPARTMENT)
+	if(channel && channels)
+		if(channel == MODE_DEPARTMENT && channels.len > 0)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
+		if(istype(M, /mob) && !freq && channel != RADIO_CHANNEL_UPLINK)
+			to_chat(M, "<span class='warning'>You can't access this channel without an encryption key!</span>")
 		if (!channels[channel]) // if the channel is turned off, don't broadcast
 			return
 	else
