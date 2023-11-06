@@ -76,6 +76,7 @@
 	tile_dropoff_s = 0
 	ricochets_max = 2
 	ricochet_chance = 80
+	ricochet_incidence_leeway = 60
 	ricochet_decay_chance = 0.75
 	armour_penetration = -20
 
