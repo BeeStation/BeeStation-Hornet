@@ -291,7 +291,6 @@
 		return
 	if(loc == user)
 		if(suppressed && can_unsuppress)
-			var/obj/item/suppressor/S = suppressed
 			if(!user.is_holding(src))
 				return
 			to_chat(user, "<span class='notice'>You unscrew \the [suppressed] from \the [src].</span>")
