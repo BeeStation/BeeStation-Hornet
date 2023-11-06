@@ -167,7 +167,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		if(power >= 20)
 			to_chat(user, "<span class='notice'>You cannot repair [src] while it is running at above 20% power.</span>")
 			return FALSE
-		if(vessel_integrity >= 350)
+		if(vessel_integrity >= 0.875*initial(vessel_integrity))
 			to_chat(user, "<span class='notice'>[src]'s seals are already in-tact, repairing them further would require a new set of seals.</span>")
 			return FALSE
 		if(vessel_integrity <= 0.5 * initial(vessel_integrity)) //Heavily damaged.
