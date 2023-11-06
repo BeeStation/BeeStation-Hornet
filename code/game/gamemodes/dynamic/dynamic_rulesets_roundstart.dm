@@ -611,7 +611,7 @@
 		if(!ismob(servant_mind?.current)) // user disconnected and was not assigned a mob.
 			log_game("DYNAMIC: Clockcult mind \"[servant_mind?.key]\" was lost during execute() - adding a cogscarab.")
 			assigned -= servant_mind
-			var/obj/effect/mob_spawn/drone/cogscarab = new(pick_n_take(spawns))
+			new /obj/effect/mob_spawn/drone/cogscarab(pick_n_take(spawns))
 			continue
 		servant_mind.current.forceMove(pick_n_take(spawns))
 		servant_mind.current.set_species(/datum/species/human)
