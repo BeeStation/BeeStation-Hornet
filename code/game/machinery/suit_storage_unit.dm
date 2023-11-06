@@ -58,6 +58,10 @@
 	/// How fast it charges cells in a suit
 	var/charge_rate = 250
 
+/obj/machinery/suit_storage_unit/Initialize(mapload)
+	. = ..()
+	interaction_flags_machine |= INTERACT_MACHINE_OFFLINE
+
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type = /obj/item/clothing/suit/space/eva
 	helmet_type = /obj/item/clothing/head/helmet/space/eva
@@ -71,6 +75,7 @@
 /obj/machinery/suit_storage_unit/engine
 	suit_type = /obj/item/clothing/suit/space/hardsuit/engine
 	mask_type = /obj/item/clothing/mask/breath
+	storage_type= /obj/item/clothing/shoes/magboots
 
 /obj/machinery/suit_storage_unit/ce
 	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/elite
@@ -164,43 +169,51 @@
 	if(storage_type)
 		storage = new storage_type(src)
 	RefreshParts()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/suit_storage_unit/Destroy()
 	QDEL_NULL(wires)
-	dump_contents()
+	dump_inventory_contents()
 	return ..()
 
-/obj/machinery/suit_storage_unit/update_icon()
-	cut_overlays()
+/obj/machinery/suit_storage_unit/update_overlays()
+	. = ..()
 
 	if(uv)
 		if(uv_super || (obj_flags & EMAGGED))
-			add_overlay("super")
-		else if(occupant)
-			add_overlay("uvhuman")
-		else
-			add_overlay("uv")
-	else if(state_open)
+			. += "super"
+			return
+		if(occupant)
+			. += "uvhuman"
+			return
+
+		. += "uv"
+		return
+
+	if(state_open)
 		if(machine_stat & BROKEN)
-			add_overlay("broken")
-		else
-			add_overlay("open")
-			if(suit)
-				add_overlay("suit")
-			if(helmet)
-				add_overlay("helm")
-			if(storage)
-				add_overlay("storage")
-	else if(occupant)
-		add_overlay("human")
+			. += "broken"
+			return
+
+		. += "open"
+		if(suit)
+			. += "suit"
+		if(helmet)
+			. += "helm"
+		if(storage)
+			. += "storage"
+		return
+
+	if(occupant)
+		. += "human"
+		return
 
 /obj/machinery/suit_storage_unit/power_change()
 	. = ..()
 	if(!is_operational && state_open)
 		open_machine()
-		dump_contents()
-	update_icon()
+		dump_inventory_contents()
+	update_appearance()
 
 /obj/machinery/suit_storage_unit/RefreshParts()
 	var/calculated_laser_rating = 0
@@ -209,8 +222,8 @@
 	laser_strength_hacked = 15 + (5 * (calculated_laser_rating)) //20 on T1, 35 on T4
 	laser_strength = 12 - (2 * (calculated_laser_rating)) //10 on T1, 4 on T4
 
-/obj/machinery/suit_storage_unit/proc/dump_contents()
-	dropContents()
+/obj/machinery/suit_storage_unit/dump_inventory_contents()
+	. = ..()
 	helmet = null
 	suit = null
 	mask = null
@@ -233,12 +246,112 @@
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 		spawn_frame(disassembled)
 		for(var/obj/item/I in component_parts)
 			I.forceMove(loc)
 			component_parts.Cut()
 	qdel(src)
+
+/obj/machinery/suit_storage_unit/interact(mob/living/user)
+	var/static/list/items
+
+	if (!items)
+		items = list(
+			"suit" = create_silhouette_of(/obj/item/clothing/suit/space/eva),
+			"helmet" = create_silhouette_of(/obj/item/clothing/head/helmet/space/eva),
+			"mask" = create_silhouette_of(/obj/item/clothing/mask/breath),
+			"storage" = create_silhouette_of(/obj/item/tank/internals/oxygen),
+		)
+
+	. = ..()
+	if (.)
+		return
+
+	if (!check_interactable(user))
+		return
+
+	var/list/choices = list()
+
+	if (locked)
+		choices["unlock"] = icon('icons/mob/radial.dmi', "radial_unlock")
+	else if (state_open)
+		choices["close"] = icon('icons/mob/radial.dmi', "radial_close")
+
+		for (var/item_key in items)
+			var/item = vars[item_key]
+			if (item)
+				choices[item_key] = item
+			else
+				// If the item doesn't exist, put a silhouette in its place
+				choices[item_key] = items[item_key]
+	else
+		choices["open"] = icon('icons/mob/radial.dmi', "radial_open")
+		choices["disinfect"] = icon('icons/mob/radial.dmi', "radial_disinfect")
+		choices["lock"] = icon('icons/mob/radial.dmi', "radial_lock")
+
+	var/choice = show_radial_menu(
+		user,
+		src,
+		choices,
+		custom_check = CALLBACK(src, PROC_REF(check_interactable), user),
+		require_near = !issiliconoradminghost(user),
+	)
+
+	if (!choice)
+		return
+
+	switch (choice)
+		if ("open")
+			if (!state_open)
+				open_machine(drop = FALSE)
+				if (occupant)
+					dump_contents()
+		if ("close")
+			if (state_open)
+				close_machine()
+		if ("disinfect")
+			if (occupant && safeties)
+				return
+			else if (!helmet && !mask && !suit && !storage && !occupant)
+				return
+			else
+				if (occupant)
+					var/mob/living/mob_occupant = occupant
+					to_chat(mob_occupant, "<span class='userdanger'>[src]'s confines grow warm, then hot, then scorching. You're being burned [!mob_occupant.stat ? "alive" : "away"]!</span>")
+				cook()
+		if ("lock", "unlock")
+			if (!state_open)
+				locked = !locked
+		else
+			var/obj/item/item_to_dispense = vars[choice]
+			if (item_to_dispense)
+				vars[choice] = null
+				try_put_in_hand(item_to_dispense, user)
+			else
+				var/obj/item/in_hands = user.get_active_held_item()
+				if (in_hands)
+					attackby(in_hands, user)
+
+	interact(user)
+
+/obj/machinery/suit_storage_unit/proc/check_interactable(mob/user)
+	if (!state_open && !can_interact(user))
+		return FALSE
+
+	if (panel_open)
+		return FALSE
+
+	if (uv)
+		return FALSE
+
+	return TRUE
+
+/obj/machinery/suit_storage_unit/proc/create_silhouette_of(atom/item)
+	var/image/image = image(initial(item.icon), initial(item.icon_state))
+	image.alpha = 128
+	image.color = COLOR_RED
+	return image
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/living/user)
 	if(!istype(user) || user.stat || !Adjacent(user) || !Adjacent(A) || !isliving(A))
@@ -287,7 +400,7 @@
 		uv_cycles--
 		uv = TRUE
 		locked = TRUE
-		update_icon()
+		update_appearance()
 		if(mob_occupant)
 			mob_occupant.adjustFireLoss(rand(burn_damage, burn_damage * 1.5))
 			mob_occupant.emote("scream")
@@ -345,7 +458,7 @@
 				qdel(contamination)
 		open_machine(FALSE)
 		if(mob_occupant)
-			dump_contents()
+			dump_inventory_contents()
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))
@@ -362,12 +475,12 @@
 			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
 		return
 	open_machine()
-	dump_contents()
+	dump_inventory_contents()
 
 /obj/machinery/suit_storage_unit/container_resist(mob/living/user)
 	if(!locked)
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 		return
 	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
@@ -381,7 +494,7 @@
 			"<span class='notice'>You successfully break out of [src]!</span>")
 		locked = FALSE
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 
 	add_fingerprint(user)
 
@@ -401,7 +514,7 @@
 		else
 			I.play_tool_sound(src, 50)
 			visible_message("<span class='notice'>[user] pulls out the contents of [src] outside!</span>", "<span class='notice'>You pull [src]'s contents outside!</span>")
-			dump_contents()
+			dump_inventory_contents()
 			update_icon()
 			return
 	if(state_open && is_operational)
@@ -435,8 +548,7 @@
 			storage = I
 
 		visible_message("<span class='notice'>[user] inserts [I] into [src]</span>", "<span class='notice'>You load [I] into [src].</span>")
-		update_icon()
-		ui_update()
+		update_appearance()
 		return
 
 	if(panel_open && is_wire_tool(I))
@@ -444,13 +556,12 @@
 		return
 	if(!state_open)
 		if(default_deconstruction_screwdriver(user, "panel", "close", I))
-			ui_update() // Wires might've changed availability of decontaminate button
 			return
 		if(is_empty())
 			if(default_deconstruction_crowbar(I))
 				return
 	if(default_pry_open(I))
-		dump_contents()
+		dump_inventory_contents()
 		return
 
 	return ..()
@@ -472,86 +583,3 @@
 		I.play_tool_sound(src, 50)
 		visible_message("<span class='notice'>[usr] pries open \the [src].</span>", "<span class='notice'>You pry open \the [src].</span>")
 		open_machine()
-
-
-/obj/machinery/suit_storage_unit/ui_state(mob/user)
-	return GLOB.notcontained_state
-
-/obj/machinery/suit_storage_unit/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "SuitStorageUnit")
-		ui.open()
-
-/obj/machinery/suit_storage_unit/ui_data()
-	var/list/data = list()
-	data["locked"] = locked
-	data["open"] = state_open
-	data["safeties"] = safeties
-	data["uv_active"] = uv
-	data["uv_super"] = uv_super
-	if(helmet)
-		data["helmet"] = helmet.name
-	else
-		data["helmet"] = null
-	if(suit)
-		data["suit"] = suit.name
-	else
-		data["suit"] = null
-	if(mask)
-		data["mask"] = mask.name
-	else
-		data["mask"] = null
-	if(storage)
-		data["storage"] = storage.name
-	else
-		data["storage"] = null
-	if(occupant)
-		data["occupied"] = TRUE
-	else
-		data["occupied"] = FALSE
-	return data
-
-/obj/machinery/suit_storage_unit/ui_act(action, params)
-	if(..() || uv)
-		return
-	switch(action)
-		if("door")
-			if(state_open)
-				close_machine()
-			else
-				open_machine(0)
-				if(occupant)
-					dump_contents() // Dump out contents if someone is in there.
-			. = TRUE
-		if("lock")
-			if(state_open)
-				return
-			locked = !locked
-			. = TRUE
-		if("uv")
-			if(occupant && safeties)
-				return
-			else if(!helmet && !mask && !suit && !storage && !occupant)
-				return
-			else
-				if(occupant)
-					var/mob/living/mob_occupant = occupant
-					to_chat(mob_occupant, "<span class='userdanger'>[src]'s confines grow warm, then hot, then scorching. You're being burned [!mob_occupant.stat ? "alive" : "away"]!</span>")
-				cook()
-				. = TRUE
-		if("dispense")
-			if(!state_open)
-				return
-
-			var/static/list/valid_items = list("helmet", "suit", "mask", "storage")
-			var/item_name = params["item"]
-			if(item_name in valid_items)
-				var/obj/item/I = vars[item_name]
-				vars[item_name] = null
-				if(I)
-					I.forceMove(loc)
-			. = TRUE
-
-	if(.)
-		update_icon()

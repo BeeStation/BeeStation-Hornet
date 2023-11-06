@@ -166,7 +166,7 @@
 
 	if("set_transfer_rate" in signal.data)
 		var/datum/gas_mixture/air1 = airs[1]
-		transfer_rate = CLAMP(text2num(signal.data["set_transfer_rate"]),0,air1.return_volume())
+		transfer_rate = clamp(text2num(signal.data["set_transfer_rate"]),0,air1.return_volume())
 
 	if(on != old_on)
 		investigate_log("was turned [on ? "on" : "off"] by a remote signal", INVESTIGATE_ATMOS)
@@ -178,10 +178,6 @@
 	broadcast_status()
 	update_icon()
 	ui_update()
-
-/obj/machinery/atmospherics/components/binary/volume_pump/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/atmospherics/components/binary/volume_pump/can_unwrench(mob/user)
 	. = ..()
@@ -198,6 +194,9 @@
 		to_chat(user, "The pump quiets down as you turn its limiters back on.")
 	return TRUE
 
+/obj/machinery/atmospherics/components/binary/volume_pump/can_crawl_through()
+	return on
+
 // mapping
 
 /obj/machinery/atmospherics/components/binary/volume_pump/layer2
@@ -210,12 +209,12 @@
 
 /obj/machinery/atmospherics/components/binary/volume_pump/on
 	on = TRUE
-	icon_state = "volpump_on_map"
+	icon_state = "volpump_on_map-3"
 
 /obj/machinery/atmospherics/components/binary/volume_pump/on/layer2
 	piping_layer = 2
-	icon_state = "volpump_map-2"
+	icon_state = "volpump_on_map-2"
 
 /obj/machinery/atmospherics/components/binary/volume_pump/on/layer4
 	piping_layer = 4
-	icon_state = "volpump_map-4"
+	icon_state = "volpump_on_map-4"

@@ -558,7 +558,7 @@
 	if (prob(meteorminutes/2))
 		wavetype = GLOB.meteors_catastrophic
 
-	var/ramp_up_final = CLAMP(round(meteorminutes/rampupdelta), 1, 10)
+	var/ramp_up_final = clamp(round(meteorminutes/rampupdelta), 1, 10)
 
 	spawn_meteors(ramp_up_final, wavetype)
 
@@ -608,6 +608,11 @@
 	main_cult.setup_objectives()
 	//Create team
 	for(var/datum/mind/servant_mind in assigned)
+		if(!ismob(servant_mind?.current)) // user disconnected and was not assigned a mob.
+			log_game("DYNAMIC: Clockcult mind \"[servant_mind?.key]\" was lost during execute() - adding a cogscarab.")
+			assigned -= servant_mind
+			new /obj/effect/mob_spawn/drone/cogscarab(pick_n_take(spawns))
+			continue
 		servant_mind.current.forceMove(pick_n_take(spawns))
 		servant_mind.current.set_species(/datum/species/human)
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
@@ -649,7 +654,7 @@
 	var/datum/team/incursion/incursion_team
 
 /datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
-	required_candidates = CLAMP(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
+	required_candidates = clamp(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 	return ..()
 
 /datum/dynamic_ruleset/roundstart/incursion/pre_execute(population)

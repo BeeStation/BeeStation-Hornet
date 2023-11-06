@@ -101,7 +101,7 @@
 			var/mob/living/mob_occupant = occupant
 			if(mob_occupant.stat == DEAD)
 				return
-			flash = experiment(mob_occupant, params["experiment_type"], usr, params["objective"])
+			flash = experiment(mob_occupant, params["experiment_type"], usr)
 			return TRUE
 
 /**
@@ -112,7 +112,7 @@
  * * type The type of experiment to be performed
  * * user The mob starting the experiment
  */
-/obj/machinery/abductor/experiment/proc/experiment(mob/occupant, type, mob/user, custom_objective)
+/obj/machinery/abductor/experiment/proc/experiment(mob/occupant, type, mob/user)
 	LAZYINITLIST(history)
 	var/mob/living/carbon/human/H = occupant
 
@@ -147,16 +147,7 @@
 				to_chat(H, "<span class='warning'>You feel intensely watched.</span>")
 		sleep(5)
 		user_abductor.team.abductees += H.mind
-		if(custom_objective)
-			if(OOC_FILTER_CHECK(custom_objective))
-				message_admins("[ADMIN_LOOKUPFLW(user)] attempted to imprint [ADMIN_LOOKUPFLW(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
-				log_admin("[key_name(user)] attempted to imprint [key_name(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
-				custom_objective = null
-			else
-				deadchat_broadcast("<span class='deadsay'><b>[H]</b> has been imprinted with the custom abductee objective: <b>[custom_objective]</b></span>", follow_target = occupant, turf_target = get_turf(occupant), message_type = DEADCHAT_REGULAR)
-				log_game("[key_name(user)] imprinted [key_name(occupant)] with the custom abductee objective '[custom_objective]'.")
-				message_admins("[ADMIN_LOOKUPFLW(user)] imprinted [ADMIN_LOOKUPFLW(occupant)] with the custom abductee objective '[custom_objective]'.")
-		H.mind.add_antag_datum(new /datum/antagonist/abductee(custom_objective))
+		H.mind.add_antag_datum(/datum/antagonist/abductee)
 
 		for(var/obj/item/organ/heart/gland/G in H.internal_organs)
 			G.Start()

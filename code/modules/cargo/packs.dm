@@ -372,13 +372,13 @@
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
-	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
+	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, detective's camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
 	cost = 1700
 	max_supply = 1
 	access_budget = ACCESS_MORGUE
 	contains = list(/obj/item/detective_scanner,
 					/obj/item/storage/box/evidence,
-					/obj/item/camera,
+					/obj/item/camera/detective,
 					/obj/item/taperecorder,
 					/obj/item/toy/crayon/white,
 					/obj/item/clothing/head/fedora/det_hat)
@@ -412,14 +412,14 @@
 	cost = 1500
 	max_supply = 2
 	access_budget = ACCESS_BRIG
-	contains = list(/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security,
-					/obj/item/deployable/barricade/security)
+	contains = list(/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade,
+					/obj/item/security_barricade)
 	crate_name = "security barriers crate"
 
 /datum/supply_pack/security/securityclothes
@@ -473,7 +473,7 @@
 
 /datum/supply_pack/security/vending/security
 	name = "SecTech Supply Crate"
-	desc = "Officer Paul bought all the donuts? Then refill the security vendor with ths crate."
+	desc = "Officer Paul bought all the handcuffs? Then refill the security vendor with ths crate."
 	cost = 1200
 	max_supply = 3
 	contains = list(/obj/item/vending_refill/security)
@@ -593,16 +593,16 @@
 	cost = 700 // 300 credits per 1 knife
 	small_item = TRUE
 	max_supply = 2
-	contains = list(/obj/item/kitchen/knife/combat)
+	contains = list(/obj/item/knife/combat)
 
 /datum/supply_pack/security/armory/combatknives
 	name = "Combat Knives Crate"
 	desc = "Contains three sharpened combat knives. Each knife guaranteed to fit snugly inside any Nanotrasen-standard boot. Requires Armory access to open."
 	cost = 1120 //20% discount
 	max_supply = 1
-	contains = list(/obj/item/kitchen/knife/combat,
-					/obj/item/kitchen/knife/combat,
-					/obj/item/kitchen/knife/combat)
+	contains = list(/obj/item/knife/combat,
+					/obj/item/knife/combat,
+					/obj/item/knife/combat)
 	crate_name = "combat knife crate"
 
 /datum/supply_pack/security/armory/ballistic_single
@@ -1117,13 +1117,13 @@
 	max_supply = 2
 	access_budget = ACCESS_HEADS
 	contains = list(
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
-					/obj/item/deployable/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
+					/obj/item/meteor_shield,
 					)
 	crate_name= "shield sat crate"
 
@@ -1764,7 +1764,7 @@
 	max_supply = 4
 	contains = list(/obj/item/storage/backpack/duffelbag/med/surgery,
 					/obj/item/reagent_containers/medspray/sterilizine,
-					/obj/item/deployable/rollerbed)
+					/obj/item/rollerbed)
 	crate_name = "surgical supplies crate"
 
 /datum/supply_pack/medical/salglucanister
@@ -2713,7 +2713,7 @@
 	name = "Mothroach Crate"
 	desc = "Put the mothroach on your head and find out what true cuteness looks like."
 	cost = 5000
-	contains = list(/mob/living/simple_animal/mothroach)
+	contains = list(/mob/living/basic/mothroach)
 	crate_name = "mothroach crate"
 
 /datum/supply_pack/critter/monkey

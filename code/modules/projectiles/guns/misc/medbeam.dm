@@ -6,6 +6,7 @@
 	item_state = "chronogun"
 	w_class = WEIGHT_CLASS_NORMAL
 	requires_wielding = FALSE
+	equip_time = 0
 
 	var/mob/living/current_target
 	var/last_check = 0

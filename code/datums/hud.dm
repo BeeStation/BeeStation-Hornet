@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(huds, list(
 	return TRUE
 
 /datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
-	if(!M || !M.client || !A?.hud_list.len)
+	if(!M || !M.client || !length(A?.hud_list))
 		return
 	for(var/i in hud_icons)
 		M.client.images -= A.hud_list[i]

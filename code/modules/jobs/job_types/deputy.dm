@@ -24,7 +24,7 @@
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
-	display_order = JOB_DISPLAY_ORDER_DEPUTY  //see code/__DEFINES/jobs.dm
+	show_in_prefs = FALSE
 
 /datum/outfit/job/deputy
 	name = JOB_NAME_DEPUTY
@@ -43,7 +43,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
-	box = /obj/item/storage/box/survival
+	box = /obj/item/storage/box/survival/normal
 
 /obj/item/card/id/pass/deputy
 	name = "deputy promotion card"
