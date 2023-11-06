@@ -7,7 +7,7 @@
 /obj/structure/server
 	name = "server"
 	icon = 'icons/obj/wiremod.dmi'
-	desc = "A server shell able to host advanced circuits. Requires to be secured to work."
+	desc = "A server shell able to host advanced circuits. Needs to be secured to work."
 	icon_state = "setup_stationary"
 
 	density = TRUE
