@@ -37456,24 +37456,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
-"cIJ" = (
-/obj/structure/table/wood,
-/obj/item/stack/package_wrap,
-/obj/item/storage/lockbox/loyalty,
-/obj/item/hand_labeler,
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
-/obj/item/book/manual/wiki/sopservice,
-/obj/item/book/manual/wiki/sopsupply,
-/obj/item/toy/figure/hop{
-	pixel_x = -8
-	},
-/obj/item/toy/figure/ian{
-	pixel_x = 8
-	},
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "cIK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -45705,21 +45687,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
-"fhS" = (
-/obj/structure/table/wood,
-/obj/machinery/recharger,
-/obj/item/toy/figure/hop{
-	pixel_x = -8
-	},
-/obj/item/toy/figure/ian{
-	pixel_x = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = -28
-	},
-/obj/item/book/manual/wiki/sopsupply,
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/hop)
 "fia" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 5
@@ -49125,16 +49092,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "gKD" = (
-/obj/structure/table,
-/obj/item/storage/box/PDAs{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/storage/box/silver_ids{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/storage/box/ids,
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/firealarm{
 	dir = 8;
@@ -49147,7 +49104,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/obj/item/book/manual/wiki/sopcommand,
+/obj/machinery/ore_silo/department/service,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
 "gKN" = (
@@ -68719,25 +68676,6 @@
 	},
 /turf/open/floor/plasteel/dark/corner,
 /area/hallway/primary/fore)
-"pdu" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/machinery/recharger,
-/obj/machinery/power/apc{
-	areastring = "/area/crew_quarters/heads/hor";
-	dir = 1;
-	name = "RD Office APC";
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/item/book/manual/wiki/sopscience,
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/heads/hor)
 "pdx" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
@@ -69331,6 +69269,16 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
+	},
+/obj/item/book/manual/wiki/sopcommand,
+/obj/item/storage/box/ids,
+/obj/item/storage/box/silver_ids{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/storage/box/PDAs{
+	pixel_x = 4;
+	pixel_y = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
@@ -85024,9 +84972,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "vLL" = (
-/obj/structure/table,
 /obj/effect/turf_decal/bot,
-/obj/machinery/recharger,
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/heads/hor";
 	dir = 1;
@@ -85039,7 +84985,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/item/book/manual/wiki/sopscience,
+/obj/machinery/ore_silo/department/science,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
 "vLT" = (
