@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/proc/get_discount()
 	return pick(4;0.75,2;0.5,1;0.25)
 
-/datum/uplink_item/	proc/purchase(mob/user, datum/component/uplink/U)
+/datum/uplink_item/proc/purchase(mob/user, datum/component/uplink/U)
 	//Spawn base items
 	var/tmp = is_bonus
 	for(var/i in 1 to spawn_amount)
