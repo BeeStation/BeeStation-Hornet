@@ -99,6 +99,7 @@
 	if(.)
 		return
 	user.mob?.a_intent_change(intent)
+	to_chat(user, "<span class='notice'>Intent set to <b>[intent]</b>.</span>")
 	return TRUE
 
 
