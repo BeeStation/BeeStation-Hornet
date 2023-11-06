@@ -128,9 +128,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_KNOCKEDOUT "knockedout"
 /// Prevents voluntary movement.
 #define TRAIT_IMMOBILIZED "immobilized"
-/* All to replace update_mobility with traits
 /// Prevents voluntary standing or staying up on its own.
 #define TRAIT_FLOORED "floored"
+/* All to replace update_mobility with traits
 /// Forces user to stay standing (ensures the unconscious/immobilized dont enter a lying position in cryopods)
 #define TRAIT_FORCED_STANDING "forcedstanding"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
@@ -342,7 +342,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // common trait sources
 #define TRAIT_GENERIC "generic"
 #define GENERIC_ITEM_TRAIT "generic_item"
-#define UNCONSCIOUS_BLIND "unconscious_blind"
+#define UNCONSCIOUS_TRAIT "unconscious"
 #define EYE_DAMAGE "eye_damage"
 #define GENETIC_MUTATION "genetic"
 #define OBESITY "obesity"

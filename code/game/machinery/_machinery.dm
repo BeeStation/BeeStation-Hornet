@@ -348,6 +348,20 @@ Class Procs:
 		if(occupant == movable_atom)
 			set_occupant(null)
 
+/**
+ * Puts passed object in to user's hand
+ *
+ * Puts the passed object in to the users hand if they are adjacent.
+ * If the user is not adjacent then place the object on top of the machine.
+ *
+ * Vars:
+ * * object (obj) The object to be moved in to the users hand.
+ * * user (mob/living) The user to recive the object
+ */
+/obj/machinery/proc/try_put_in_hand(obj/object, mob/living/user)
+	if(!user.CanReach(src) || !user.put_in_hands(object))
+		object.forceMove(drop_location())
+
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
