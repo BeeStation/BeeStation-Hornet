@@ -1,6 +1,6 @@
 /obj/structure/scanner_gate_shell
 	name = "circuit scanner gate"
-	desc = "A gate able to perform mid-depth scans on any organisms who pass under it. Requires to be secured to work."
+	desc = "A gate able to perform mid-depth scans on any organisms who pass under it. Needs to be secured to work."
 	icon = 'icons/obj/machines/scangate.dmi'
 	icon_state = "scangate"
 	var/scanline_timer
