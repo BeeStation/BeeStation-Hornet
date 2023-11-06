@@ -104,6 +104,29 @@ const ItemList = (props, context) => {
       disabled,
     };
   });
+  const GetTooltipMessage = (entry_name, is_illegal, are_contents_illegal) => {
+    if (!is_illegal && !are_contents_illegal) {
+      return entry_name;
+    } else {
+      if (is_illegal) {
+        return (
+          <Tooltip content="The product(s) is implemented with our best technology. Please do not let Nanotrasen R&D steal our confidentials.">
+            <Box inline position="relative" mr={1}>
+              {entry_name}
+            </Box>
+          </Tooltip>
+        );
+      } else {
+        return (
+          <Tooltip content="The catalogue information is labeled as the proudct(s) is implemented with our technology, but this may not be correct. If you're looking for a product with our technology, be careful of purchasing this.">
+            <Box inline position="relative" mr={1}>
+              {entry_name}
+            </Box>
+          </Tooltip>
+        );
+      }
+    }
+  };
   if (compactMode) {
     return (
       <Table>
@@ -134,17 +157,7 @@ const ItemList = (props, context) => {
   return items.map((item) => (
     <Section
       key={item.name}
-      title={
-        item.is_illegal ? (
-          <Tooltip content="The product(s) is implemented with our best technology. Please do not let Nanotrasen R&D steal our confidentials.">
-            <Box inline position="relative" mr={1}>
-              {item.name}
-            </Box>
-          </Tooltip>
-        ) : (
-          item.name
-        )
-      }
+      title={GetTooltipMessage(item.name, item.is_illegal, item.are_contents_illegal)}
       level={2}
       buttons={
         <Button

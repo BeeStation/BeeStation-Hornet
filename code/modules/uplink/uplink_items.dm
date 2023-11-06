@@ -138,10 +138,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	var/additional_uplink_entry	= null	//Bonus items you gain if you purchase it
 	var/is_bonus = FALSE // entry in 'additional_uplink_entry' will have this as TRUE. Used for logging detail
 
+/datum/uplink_item/New()
+	. = ..()
+	// this is important because wrong items can be said to tell it can be used for illegal
+	if(!ispath(item, /obj/item) || is_type_in_typecache(item, GLOB.illegal_tech_blacklist))
+		illegal_tech = FALSE
+
 /datum/uplink_item/proc/get_discount()
 	return pick(4;0.75,2;0.5,1;0.25)
 
-/datum/uplink_item/proc/purchase(mob/user, datum/component/uplink/U)
+/datum/uplink_item/	proc/purchase(mob/user, datum/component/uplink/U)
 	//Spawn base items
 	var/tmp = is_bonus
 	for(var/i in 1 to spawn_amount)
@@ -181,7 +187,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	if(contents_are_illegal_tech)
 		for(var/obj/item/each_item in target_item.contents)
 			put_illegal_bitflag(each_item, contents_are_illegal_tech, TRUE)
-	if(!illegal_tech || !istype(target_item, /obj/item) || is_type_in_typecache(target_item, GLOB.illegal_tech_blacklist))
+	if(!illegal_tech)
 		return
 	target_item.item_flags |= ILLEGAL
 
