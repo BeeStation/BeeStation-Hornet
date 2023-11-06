@@ -110,7 +110,7 @@ const ItemList = (props, context) => {
     } else {
       if (is_illegal) {
         return (
-          <Tooltip content="The product(s) is implemented with our best technology. Please do not let Nanotrasen R&D steal our confidentials.">
+          <Tooltip content="This product is powered by our latest technology. Please do not let Nanotrasen R&D steal our confidential designs.">
             <Box inline position="relative" mr={1}>
               {entry_name}
             </Box>
@@ -118,7 +118,7 @@ const ItemList = (props, context) => {
         );
       } else {
         return (
-          <Tooltip content="The catalogue information is labeled as the proudct(s) is implemented with our technology, but this may not be correct. If you're looking for a product with our technology, be careful of purchasing this.">
+          <Tooltip content="The catalogue information is labeled as the proudct is implemented with our technology, but this may not be correct. If you're looking for a product with our technology, be careful of purchasing this.">
             <Box inline position="relative" mr={1}>
               {entry_name}
             </Box>
