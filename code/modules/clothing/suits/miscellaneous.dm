@@ -655,7 +655,7 @@
 		/obj/item/sensor_device,
 		/obj/item/stack/medical,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/storage/firstaid,
+		/obj/item/storage/firstaid/medical,
 		/obj/item/storage/pill_bottle,
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman,
@@ -970,11 +970,11 @@
 	name = "durathread hoodie"
 	desc = "A hoodie made from durathread, its resilient fibres provide some protection to the wearer."
 	color = "#8291a1"
-	armor = list(MELEE = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, STAMINA = 30)
+	armor = list(MELEE = 15, BULLET = 25, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, STAMINA = 30)
 	hoodtype = /obj/item/clothing/head/hooded/hoodie/durathread
 
 /obj/item/clothing/head/hooded/hoodie/durathread
 	name = "durathread hoodie hood"
 	desc = "A duratread hood attached to your hoodie, robust as."
-	armor = list(MELEE = 5, LASER = 5, FIRE = 20, ACID = 5, BOMB = 5, STAMINA = 15)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, FIRE = 20, ACID = 5, BOMB = 5, STAMINA = 15)
 	color = "#8291a1"

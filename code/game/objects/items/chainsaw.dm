@@ -44,7 +44,7 @@
 	else
 		user.visible_message("<span class='suicide'>[user] smashes [src] into [user.p_their()] neck, destroying [user.p_their()] esophagus! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(src, 'sound/weapons/genhit1.ogg', 100, TRUE)
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/chainsaw/attack_self(mob/user)
 	on = !on
@@ -129,7 +129,7 @@
 	name = "super energy chainsaw"
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
 	force_on = 60
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	block_power = 75
 	block_level = 1
 	attack_weight = 3 //fear him

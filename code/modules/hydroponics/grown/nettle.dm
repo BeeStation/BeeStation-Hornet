@@ -45,7 +45,7 @@
 	throw_range = 3
 	attack_verb = list("stung")
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/suicide_act(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/nettle/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS|TOXLOSS)
 

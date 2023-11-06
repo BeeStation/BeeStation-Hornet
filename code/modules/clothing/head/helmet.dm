@@ -389,11 +389,11 @@
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
-	desc = "A helmet made from durathread and leather."
+	desc = "A helmet made from durathread, a strong material commonly used for ballistic protection."
 	icon_state = "durathread"
 	item_state = "durathread"
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 20,  BULLET = 40, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50, STAMINA = 30)
 	strip_delay = 60
 
 /obj/item/clothing/head/helmet/rus_helmet

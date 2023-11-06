@@ -1019,3 +1019,14 @@
 	M.adjust_disgust(30)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
+
+/datum/reagent/consumable/bubble_tea
+	name = "Bubble Tea"
+	description = "Refreshing! You aren't sure what those things in the bottom are."
+	color = "#DFC7AB"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	quality = DRINK_VERYGOOD
+	taste_description = "sweet, creamy and silky tea with chewy tapioca pearls"
+	glass_icon_state = "bubble_tea"
+	glass_name = "Bubble Tea"
+	glass_desc = "A cup of refreshing bubble tea."

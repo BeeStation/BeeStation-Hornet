@@ -18,8 +18,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "G" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -28,8 +28,8 @@
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "Z" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
