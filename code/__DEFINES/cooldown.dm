@@ -1,7 +1,7 @@
 
 // Action cooldown groups. Starts at 1
 #define CD_GROUP_USER_ACTION 1	// Actions which apply to the user
-#define CD_GROUP_TELEKENISIS 2	// Telekenetic actions
+#define CD_GROUP_TELEKINESIS 2	// Telekinetic actions
 #define CD_GROUP_EXTERNAL 3		// External actions which cannot be sped up
 #define CD_GROUP_GUARDIAN 4		// Guardian actionsuser
 
