@@ -30,4 +30,4 @@
 	ricochet_incidence_leeway = 55
 	ricochet_decay_chance = 0.8
 	ricochet_decay_damage = 0.85
-	armour_penetration = -20
+	armour_penetration = -15
