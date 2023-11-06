@@ -87,6 +87,14 @@
 	if (!imacrate)
 		layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
 
+	else
+		layer = BELOW_OBJ_LAYER
+		if(!is_animating_door)
+			if(icon_door_override)
+				add_overlay("[icon_door]_open")
+			else
+				add_overlay("[icon_state]_open")
+	update_mob_alpha()
 /obj/structure/closet/update_overlays()
 	. = ..()
 	closet_update_overlays(.)

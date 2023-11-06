@@ -17,7 +17,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-
+	max_integrity = 600
 	var/attachment_holes = TRUE
 
 	FASTDMM_PROP(\
