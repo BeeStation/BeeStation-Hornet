@@ -154,9 +154,6 @@
 	var/datum/action/change_psychic_auto/auto_action
 
 /datum/action/item_action/organ_action/psychic_highlight/Destroy()
-	QDEL_NULL(auto_action)
-	QDEL_NULL(texture_change)
-	QDEL_NULL(overlay_change)
 	owner?.clear_fullscreen("psychic_highlight")
 	owner?.clear_fullscreen("psychic_highlight_mask")
 	owner?.clear_fullscreen("psychic_highlight_click_mask")	
