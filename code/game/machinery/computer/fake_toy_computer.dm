@@ -24,16 +24,9 @@
 	else
 		desc = initial(circuit_board.fake_preset.desc)
 
+	desc += " Oh, wait. It's just a screensaver."
+
 	update_icon()
-
-/obj/machinery/computer/fake/examine(mob/user)
-	. = ..()
-	if(get_dist(src, user) <= 2)
-		. += " Oh, wait. It's just a screensaver."
-
-/obj/machinery/computer/fake/interact(obj/item/C, mob/user)
-	. = ..()
-	to_chat(user, "<span class='notice'>After you tab the screen a few times, you notice it's not functional.</span>")
 
 /obj/machinery/computer/fake/attackby(obj/item/I, mob/user, params)
 	var/obj/item/circuitboard/computer/fake/circuit_board = circuit
@@ -42,6 +35,27 @@
 			update_fake()
 			return
 	..()
+
+/obj/machinery/computer/fake/attack_hand(mob/user)
+	. = ..()
+	if(.)
+		return
+	to_chat(user, "<span class='notice'>After you tab the screen a few times, you notice it's not functional.</span>")
+
+/obj/machinery/computer/fake/attack_ai(mob/user)
+	. = ..()
+	if(.)
+		return
+	notify_silicon(user)
+
+/obj/machinery/computer/fake/attack_robot(mob/user)
+	. = ..()
+	if(.)
+		return
+	notify_silicon(user)
+
+/obj/machinery/computer/fake/proc/notify_silicon(mob/user)
+	to_chat(user, "<span class='notice'>After you tab the screen a few times, you notice it's not functional.</span>")
 
 /obj/item/circuitboard/computer/fake
 	name = "DonkCo. Screenhonker"
