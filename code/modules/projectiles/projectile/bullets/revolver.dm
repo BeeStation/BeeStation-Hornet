@@ -32,12 +32,13 @@
 
 /obj/projectile/bullet/c38/match/bouncy
 	name = ".38 Bouncy Rubber bullet"
-	damage = 6
-	stamina = 24
+	damage = 7
+	stamina = 27
 	ricochets_max = 5
 	ricochet_incidence_leeway = 70
 	ricochet_chance = 130
 	ricochet_decay_damage = 0.9
+	armour_penetration = -20
 
 /obj/projectile/bullet/c38/dumdum
 	name = ".38 DumDum bullet"
