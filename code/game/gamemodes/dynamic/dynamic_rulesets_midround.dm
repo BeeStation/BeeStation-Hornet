@@ -138,6 +138,9 @@
 		if(!length(candidates))
 			break
 		var/mob/applicant = pick(candidates)
+		// 50% chance to reroll the candidate, anti observermain action
+		if(isobserver(applicant)&&prob(50))
+			applicant = pick(candidates)
 		candidates -= applicant
 		if(!isobserver(applicant))
 			if(applicant.stat == DEAD) // Not an observer? If they're dead, make them one.
