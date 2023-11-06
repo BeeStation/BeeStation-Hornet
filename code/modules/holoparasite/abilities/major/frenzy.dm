@@ -89,9 +89,8 @@
 		return
 	playsound(owner, 'sound/magic/blind.ogg', vol = 60, vary = FALSE)
 	owner.forceMove(get_step(get_turf(target), get_dir(owner, target)))
-	owner.next_move = 1
 	target.attack_animal(owner)
-	owner.changeNext_move(CLICK_CD_RAPID)
+	owner.override_action_cooldown(CD_GROUP_GUARDIAN, CLICK_CD_RAPID)
 	if(rush_knockback)
 		target.throw_at(get_edge_target_turf(target, get_dir(owner, target)), knockback_distance, 4, owner, TRUE)
 		owner.visible_message("<span class='danger'>[owner.color_name] violently rushes and attacks <span class='name'>[target]</span>, flinging them backwards!</span>", "<span class='warning'>We violently rush and attack <span class='name'>[target]</span>, flinging them backwards!</span>", ignored_mobs = list(target))

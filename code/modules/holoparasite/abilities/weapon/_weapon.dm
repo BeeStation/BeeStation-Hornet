@@ -21,4 +21,4 @@
  */
 /datum/holoparasite_ability/weapon/proc/attack_effect(atom/movable/target, successful)
 	SHOULD_CALL_PARENT(TRUE)
-	owner.changeNext_move(click_cooldown)
+	owner.add_action_cooldown(CD_GROUP_GUARDIAN, click_cooldown)

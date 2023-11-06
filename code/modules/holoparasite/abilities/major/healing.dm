@@ -84,7 +84,7 @@
 			owner.balloon_alert(owner, "cannot heal self", show_in_chat = FALSE)
 			return
 		if(heal(target))
-			owner.changeNext_move(CLICK_CD_MELEE)
+			owner.add_action_cooldown(CD_GROUP_GUARDIAN, CLICK_CD_MELEE)
 			owner.do_attack_animation(target)
 			spawn_heal_effect(target)
 			playsound(owner, 'sound/magic/staff_healing.ogg', vol = 25, vary = TRUE, frequency = 2.5)

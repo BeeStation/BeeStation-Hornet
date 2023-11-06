@@ -390,7 +390,7 @@
 		var/obj/item/extinguisher/mini/nozzle/sprayer = I
 		if(!sprayer.toggled)
 			return ..()
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_GUARDIAN, CLICK_CD_MELEE)
 		user.do_attack_animation(src, "smash", I)
 		playsound(user.loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
 		start_the_chain()
