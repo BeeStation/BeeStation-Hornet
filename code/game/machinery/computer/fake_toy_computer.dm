@@ -55,7 +55,7 @@
 	notify_silicon(user)
 
 /obj/machinery/computer/fake/proc/notify_silicon(mob/user)
-	to_chat(user, "<span class='notice'>After you tab the screen a few times, you notice it's not functional.</span>")
+	to_chat(user, "<span class='notice'>The computer doesn't return any signal. How abnormal.</span>")
 
 /obj/item/circuitboard/computer/fake
 	name = "DonkCo. Screenhonker"
