@@ -105,9 +105,6 @@ const ItemList = (props, context) => {
     };
   });
   const GetTooltipMessage = (entry_name, is_illegal, are_contents_illegal) => {
-    if (!is_illegal && !are_contents_illegal) {
-      return entry_name;
-    } else {
       if (is_illegal) {
         return (
           <Tooltip content="This product is powered by our latest technology. Please do not let Nanotrasen R&D steal our confidential designs.">
@@ -116,9 +113,17 @@ const ItemList = (props, context) => {
             </Box>
           </Tooltip>
         );
-      } else {
+      } else if (are_contents_illegal){
         return (
           <Tooltip content="The catalogue information is labeled as the proudct is implemented with our technology, but this may not be correct. If you're looking for a product with our technology, be careful of purchasing this.">
+            <Box inline position="relative" mr={1}>
+              {entry_name}
+            </Box>
+          </Tooltip>
+        );
+      } else {
+        return (
+          <Tooltip content="This product is not implemented with our technology.">
             <Box inline position="relative" mr={1}>
               {entry_name}
             </Box>
