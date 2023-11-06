@@ -391,16 +391,19 @@
 	var/text = "<br><span class='header'>The syndicate operatives were:</span>"
 	var/purchases = ""
 	var/TC_uses = 0
+	var/effective_tc = 0
 	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
 	for(var/I in members)
 		var/datum/mind/syndicate = I
 		var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[syndicate.key]
 		if(H)
 			TC_uses += H.total_spent
+			effective_tc += H.effective_amount
 			purchases += H.generate_render(show_key = FALSE)
 	text += printplayerlist(members)
 	text += "<br>"
-	text += "(Syndicates used [TC_uses] TC) [purchases]"
+	var/effective_message = TC_uses < effective_tc ? " / effectively worth with [effective_tc] TC" : ""
+	text += "(Syndicates used [TC_uses] TC[effective_message]) [purchases]"
 	if(TC_uses == 0 && SSticker.mode.station_was_nuked && !operatives_dead())
 		text += "<BIG>[icon2html('icons/badass.dmi', world, "badass")]</BIG>"
 

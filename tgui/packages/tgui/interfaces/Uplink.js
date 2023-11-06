@@ -1,6 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox } from '../components';
+import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Tooltip } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -134,7 +134,17 @@ const ItemList = (props, context) => {
   return items.map((item) => (
     <Section
       key={item.name}
-      title={item.name}
+      title={
+        item.is_illegal ? (
+          <Tooltip content="The product(s) is implemented with our best technology. Please do not let Nanotrasen R&D steal our confidentials.">
+            <Box inline position="relative" mr={1}>
+              {item.name}
+            </Box>
+          </Tooltip>
+        ) : (
+          item.name
+        )
+      }
       level={2}
       buttons={
         <Button

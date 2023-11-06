@@ -53,52 +53,59 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		uplink_items[category_name] = list()
 
 	for (var/i in 1 to num)
-		var/datum/uplink_item/I = pick_n_take(sale_items)
-		var/datum/uplink_item/A = new I.type
+		var/datum/uplink_item/origin_entry = pick_n_take(sale_items)
+		var/datum/uplink_item/sale_entry = new origin_entry.type
 		var/list/disclaimer = list("Void where prohibited.", "Not recommended for children.", "Contains small parts.", "Check local laws for legality in region.", "Do not taunt.", "Not responsible for direct, indirect, incidental or consequential damages resulting from any defect, error or failure to perform.", "Keep away from fire or flames.", "Product is provided \"as is\" without any implied or expressed warranties.", "As seen on TV.", "For recreational use only.", "Use only as directed.", "16% sales tax will be charged for orders originating within Space Nebraska.")
-		A.limited_stock = limited_stock
-		A.category = category_name
-		I.refundable = FALSE //THIS MAN USES ONE WEIRD TRICK TO GAIN FREE TC, CODERS HATES HIM!
-		A.refundable = FALSE
-		switch(A.cost == 1 ? 1 : rand(1, 5))
+		origin_entry.refundable = FALSE //THIS MAN USES ONE WEIRD TRICK TO GAIN FREE TC, CODERS HATES HIM!
+		sale_entry.limited_stock = limited_stock
+		sale_entry.category = category_name
+		sale_entry.refundable = FALSE
+		switch(sale_entry.cost == 1 ? 1 : rand(1, 5))
 			if(1 to 3)
-				if(A.cost <= 3)
+				if(sale_entry.cost <= 3)
 					//Bulk discount
 					var/count = rand(3,7)
-					var/discount = A.get_discount()
-					A.name += " (Bulk discount - [count] for [((1-discount)*100)]% off!)"
-					A.cost = max(round(A.cost*count*discount), 1)
-					A.desc += " Normally costs [initial(A.cost)*count] TC. All sales final. [pick(disclaimer)]"
-					A.spawn_amount = count
+					var/discount = sale_entry.get_discount()
+					sale_entry.name += " (Bulk discount - [count] for [((1-discount)*100)]% off!)"
+					sale_entry.cost = max(round(sale_entry.cost*count*discount), 1)
+					sale_entry.desc += " Normally costs [initial(sale_entry.cost)*count] TC. All sales final. [pick(disclaimer)]"
+					sale_entry.spawn_amount = count
 				else
 					//X% off!
-					var/discount = A.get_discount()
-					if(A.cost >= 20) //Tough love for nuke ops
+					var/discount = sale_entry.get_discount()
+					if(sale_entry.cost >= 20) //Tough love for nuke ops
 						discount *= 0.5
-					A.cost = max(round(A.cost * discount), 1)
-					A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
-					A.desc += " Normally costs [initial(A.cost)] TC. All sales final. [pick(disclaimer)]"
+					sale_entry.cost = max(round(sale_entry.cost * discount), 1)
+					sale_entry.name += " ([round(((initial(sale_entry.cost)-sale_entry.cost)/initial(sale_entry.cost))*100)]% off!)"
+					sale_entry.desc += " Normally costs [initial(sale_entry.cost)] TC. All sales final. [pick(disclaimer)]"
 			if(4)
 				//Buy 1 get 1 free!
-				A.name += " (Buy 1 get 1 free!)"
-				A.desc += " Obtain 2 for the price of 1. All sales final. [pick(disclaimer)]"
-				A.spawn_amount = 2
+				sale_entry.name += " (Buy 1 get 1 free!)"
+				sale_entry.desc += " Obtain 2 for the price of 1. All sales final. [pick(disclaimer)]"
+				sale_entry.spawn_amount = 2
 			if(5)
 				//Get 2 items with their combined price reduced.
-				var/datum/uplink_item/second_I = pick_n_take(sale_items)
-				var/total_cost = second_I.cost + I.cost
-				var/discount = A.get_discount()
+				var/datum/uplink_item/bonus_entry = pick_n_take(sale_items)
+				bonus_entry = new bonus_entry.type
+				var/total_cost = bonus_entry.cost + sale_entry.cost
+				var/discount = sale_entry.get_discount()
 				var/final_cost = max(round(total_cost * discount), 1)
+				bonus_entry.cost = 0
+				bonus_entry.is_bonus = TRUE
 				//Setup the item
-				A.cost = final_cost
-				A.name += " + [second_I.name] (Discounted Bundle - [100-(round((final_cost / total_cost)*100))]% off!)"
-				A.desc += " Also contains [second_I.name]. Normally costs [total_cost] TC when bought together. All sales final. [pick(disclaimer)]"
-				A.bonus_items = list(second_I.item)
-		A.discounted = TRUE
-		A.item = I.item
-		uplink_items[category_name][A.name] = A
+				sale_entry.cost = final_cost
+				sale_entry.name += " + [bonus_entry.name] (Discounted Bundle - [100-(round((final_cost / total_cost)*100))]% off!)"
+				sale_entry.desc += " Also contains [bonus_entry.name]. Normally costs [total_cost] TC when bought together. All sales final. [pick(disclaimer)]"
+				sale_entry.additional_uplink_entry = list(bonus_entry)
+		sale_entry.discounted = TRUE
+		sale_entry.item = origin_entry.item
+		uplink_items[category_name][sale_entry.name] = sale_entry
 
 
+// some items are not good to tell to have illegal tech, especially boxes, bottles
+GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
+	/obj/item/storage/box,
+	/obj/item/reagent_containers)))
 
 /**
  * Uplink Items
@@ -124,26 +131,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/purchase_log_vis = TRUE // Visible in the purchase log?
 	var/restricted = FALSE // Adds restrictions for VR/Events
 	var/list/restricted_species //Limits items to a specific species. Hopefully.
-	var/illegal_tech = TRUE // Can this item be deconstructed to unlock certain techweb research nodes?
+	var/illegal_tech = TRUE // Can this item be deconstructed to unlock certain techweb research nodes? (Some items will be forcefully set to FALSE, especially boxes, bottles)
+	var/contents_are_illegal_tech = TRUE // the same one above, but all items within a box will become illegal tech.
 	var/discounted = FALSE
 	var/spawn_amount = 1	//How many times we should run the spawn
-	var/bonus_items	= null	//Bonus items you gain if you purchase it
+	var/additional_uplink_entry	= null	//Bonus items you gain if you purchase it
+	var/is_bonus = FALSE // entry in 'additional_uplink_entry' will have this as TRUE. Used for logging detail
 
 /datum/uplink_item/proc/get_discount()
 	return pick(4;0.75,2;0.5,1;0.25)
 
 /datum/uplink_item/proc/purchase(mob/user, datum/component/uplink/U)
 	//Spawn base items
+	var/tmp = is_bonus
 	for(var/i in 1 to spawn_amount)
 		var/atom/A = spawn_item(item, user, U)
 		if(purchase_log_vis && U.purchase_log)
-			U.purchase_log.LogPurchase(A, src, cost)
-	//Spawn bonust items
-	if(islist(bonus_items))
-		for(var/bonus in bonus_items)
-			var/atom/A = spawn_item(bonus, user, U)
-			if(purchase_log_vis && U.purchase_log)
-				U.purchase_log.LogPurchase(A, src, cost)
+			U.purchase_log.LogPurchase(A, src, cost, is_bonus = is_bonus)
+		is_bonus = TRUE // additional spawn after first loop? that must be bonus item.
+	//Spawn bonus items
+	for(var/datum/uplink_item/bonus_entry in additional_uplink_entry)
+		for(var/i in 1 to bonus_entry.spawn_amount)
+			bonus_entry.spawn_item(bonus_entry.item, user, U)
+	is_bonus = tmp
 
 /datum/uplink_item/proc/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
 	if(!spawn_path)
@@ -153,18 +163,28 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A = new spawn_path(get_turf(user))
 	else
 		A = spawn_path
+	put_illegal_bitflag(A, illegal_tech, contents_are_illegal_tech)
 	if(istype(A, /obj/item))
-		var/obj/item/I = A
-		I.item_flags |= ILLEGAL
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.put_in_hands(A))
 				to_chat(H, "[A] materializes into your hands!")
-				log_uplink_purchase(user, A)
+				log_uplink_purchase(user, A, is_bonus = is_bonus)
 				return A
 	to_chat(user, "[A] materializes onto the floor.")
-	log_uplink_purchase(user, A)
+	log_uplink_purchase(user, A, is_bonus = is_bonus)
 	return A
+
+/// Uplink purchased items get ILLEGAL tech bitflag based on given parameter.
+/// Note: This should be a global proc because of surplus crate
+/proc/put_illegal_bitflag(obj/item/target_item, illegal_tech, contents_are_illegal_tech)
+	if(contents_are_illegal_tech)
+		for(var/obj/item/each_item in target_item.contents)
+			put_illegal_bitflag(each_item, contents_are_illegal_tech, TRUE)
+	if(!illegal_tech || !istype(target_item, /obj/item) || is_type_in_typecache(target_item, GLOB.illegal_tech_blacklist))
+		return
+	target_item.item_flags |= ILLEGAL
+
 
 /datum/uplink_item/proc/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
 	return refundable
@@ -283,27 +303,28 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	starting_crate_value = 125
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
-/datum/uplink_item/bundles_TC/surplus/purchase(mob/user, datum/component/uplink/U)
+/datum/uplink_item/bundles_TC/surplus/purchase(mob/user, datum/component/uplink/user_uplink)
 	var/list/uplink_items = get_uplink_items(uplink_contents, FALSE)
 
-	var/crate_value = starting_crate_value
-	var/obj/structure/closet/crate/C = spawn_item(/obj/structure/closet/crate, user, U)
-	if(U.purchase_log)
-		U.purchase_log.LogPurchase(C, src, cost)
-	while(crate_value)
+	var/remaining_crate_value = starting_crate_value
+	var/obj/structure/closet/crate/target_crate = spawn_item(/obj/structure/closet/crate, user, user_uplink)
+	if(user_uplink.purchase_log)
+		user_uplink.purchase_log.LogPurchase(target_crate, src, cost)
+	while(remaining_crate_value)
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
-		var/datum/uplink_item/I = uplink_items[category][item]
+		var/datum/uplink_item/uplink_entry = uplink_items[category][item]
 
-		if(!I.surplus || prob(100 - I.surplus))
+		if(!uplink_entry.surplus || prob(100 - uplink_entry.surplus))
 			continue
-		if(crate_value < I.cost)
+		if(remaining_crate_value < uplink_entry.cost)
 			continue
-		crate_value -= I.cost
-		var/obj/goods = new I.item(C)
-		if(U.purchase_log)
-			U.purchase_log.LogPurchase(goods, I, 0)
-	return C
+		remaining_crate_value -= uplink_entry.cost
+		var/obj/goods = new uplink_entry.item(target_crate)
+		put_illegal_bitflag(goods, uplink_entry.illegal_tech, uplink_entry.contents_are_illegal_tech)
+		if(user_uplink.purchase_log)
+			user_uplink.purchase_log.LogPurchase(goods, uplink_entry, uplink_entry.cost, is_bonus = TRUE)
+	return target_crate
 
 //Will either give you complete crap or overpowered as fuck gear
 /datum/uplink_item/bundles_TC/surplus/random
@@ -513,7 +534,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			throwing weapons. The bolas can knock a target down and the shurikens will embed into limbs."
 	item = /obj/item/storage/box/syndie_kit/throwing_weapons
 	cost = 3
-	illegal_tech = FALSE
 
 /datum/uplink_item/dangerous/shotgun
 	name = "Bulldog Shotgun"
@@ -578,6 +598,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 40
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/dangerous/rapid
 	name = "Gloves of the North Star"
@@ -664,6 +685,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate Revolver"
@@ -860,6 +882,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/pistolap
 	name = "10mm Armour Piercing Magazine"
@@ -869,6 +892,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/pistolhp
 	name = "10mm Hollow Point Magazine"
@@ -878,6 +902,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/pistolfire
 	name = "10mm Incendiary Magazine"
@@ -887,11 +912,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/shotgun
 	cost = 2
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/shotgun/bag
 	name = "12g Ammo Duffel Bag"
@@ -940,6 +967,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/c38
 	name = ".38-special Speed Loader"
@@ -948,6 +976,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/c38blister
 	name = ".38-special 'Blister' Speed Loader"
@@ -957,6 +986,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/c38dumdum
 	name = ".38-special DumDum Speed Loader"
@@ -966,7 +996,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_box/c38/dumdum
 	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
 
 /datum/uplink_item/ammo/c38iceblox
 	name = ".38-special Iceblox Speed Loader"
@@ -974,7 +1003,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_box/c38/iceblox
 	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
-	illegal_tech = FALSE
 
 /datum/uplink_item/ammo/c38hotshot
 	name = ".38-special Hot Shot Speed Loader"
@@ -983,6 +1011,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/c38emp
 	name = ".38-special 'BLK_OUT' Speed Loader"
@@ -992,6 +1021,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/a40mm
 	name = "40mm Grenade Box"
@@ -1015,10 +1045,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/sniper
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/sniper/magazine
 	name = ".50 Magazine"
@@ -1078,12 +1110,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/machinegun
 	cost = 6
 	surplus = 0
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/machinegun/basic
 	name = "7.12x82mm Box Magazine"
@@ -1140,6 +1174,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"
@@ -1148,6 +1183,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	surplus = 0
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/ammo/bioterror
 	name = "Box of Bioterror Syringes"
@@ -1164,6 +1200,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 //Grenades and Explosives
 /datum/uplink_item/explosives
@@ -2122,6 +2159,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/pill_bottle/floorpill/full
 	restricted_roles = list(JOB_NAME_ASSISTANT)
 	cost = 2
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/role_restricted/clown_bomb
 	name = "Clown Bomb"
@@ -2461,6 +2500,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	restricted = TRUE
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -2470,7 +2510,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
 	surplus = 40
-	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
@@ -2478,6 +2517,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/badass/toy_box
 	name = "Box of DonkCo. Toys"
@@ -2487,6 +2527,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/toy_box
 	cost = 2
 	surplus = 0
+	illegal_tech = FALSE
+	contents_are_illegal_tech = FALSE
 
 /datum/uplink_item/implants/deathrattle
 	name = "Box of Deathrattle Implants"

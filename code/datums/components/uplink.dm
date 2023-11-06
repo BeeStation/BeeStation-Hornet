@@ -201,6 +201,7 @@
 				"name" = I.name,
 				"cost" = I.cost,
 				"desc" = I.desc,
+				"is_illegal" = I.illegal_tech || I.contents_are_illegal_tech
 			))
 		data["categories"] += list(cat)
 	return data

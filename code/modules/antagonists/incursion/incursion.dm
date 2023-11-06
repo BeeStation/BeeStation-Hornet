@@ -142,14 +142,17 @@
 
 	var/purchases = ""
 	var/TC_uses = 0
+	var/effective_tc = 0
 	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
 	for(var/I in members)
 		var/datum/mind/syndicate = I
 		var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[syndicate.key]
 		if(H)
 			TC_uses += H.total_spent
+			effective_tc += H.effective_amount
 			purchases += H.generate_render(show_key = FALSE)
-	parts += "(Syndicates used [TC_uses] TC) [purchases]"
+	var/effective_message = TC_uses < effective_tc ? " / effectively worth with [effective_tc] TC" : ""
+	parts += "(Syndicates used [TC_uses] TC[effective_message]) [purchases]"
 
 	if(win)
 		parts += "<span class='greentext'>The Syndicate were successful with their operation!</span>"
