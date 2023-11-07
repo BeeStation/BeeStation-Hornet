@@ -199,6 +199,9 @@
 	if(isliving(victim))
 		var/mob/living/honked = victim
 		honked.flash_act()
+		var/obj/item/assembly/flash/handheld/burnt_out = new(loc)
+		new /obj/item/bikehorn/rubberducky(loc)
+		burnt_out.burn_out()
 
 /obj/effect/mine/stun
 	name = "stun mine"
