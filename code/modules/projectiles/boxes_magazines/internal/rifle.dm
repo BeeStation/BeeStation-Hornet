@@ -24,7 +24,6 @@
 /obj/item/ammo_box/magazine/internal/piperifle
 	name = "pipegun internal magazine"
 	desc = "Me when I accidentally see items that shouldn't exist."
-	ammo_type = /obj/item/ammo_casing/a41/paper
-	caliber = "a41"
+	ammo_type = /obj/item/ammo_casing/a41/improv
 	max_ammo = 1
 	start_empty = TRUE

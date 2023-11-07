@@ -111,7 +111,6 @@
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_glass
 	materials = list(/datum/material/iron=100, /datum/material/glass=100)
 	pellets = 5
-	variance = 15
 
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
