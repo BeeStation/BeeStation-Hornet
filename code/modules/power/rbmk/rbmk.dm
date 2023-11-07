@@ -180,7 +180,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
 			user.visible_message("<span class='warning'>[user] applies sealant to some of [src]'s worn out seals.</span>", "<span class='notice'>You apply sealant to some of [src]'s worn out seals.</span>")
 			vessel_integrity += 10
-			vessel_integrity = CLAMP(vessel_integrity, 0, initial(vessel_integrity))
+			vessel_integrity = clamp(vessel_integrity, 0, initial(vessel_integrity))
 		return TRUE
 	return ..()
 
@@ -230,7 +230,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 	if(isliving(AM) && temperature > 0)
 		var/mob/living/L = AM
-		L.adjust_bodytemperature(CLAMP(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
+		L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/process()
 	update_parents() //Update the pipenet to register new gas mixes
@@ -326,7 +326,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Firstly, find the difference between the two numbers.
 	var/difference = abs(K - desired_k)
 	//Then, hit as much of that goal with our cooling per tick as we possibly can.
-	difference = CLAMP(difference, 0, control_rod_effectiveness) //And we can't instantly zap the K to what we want, so let's zap as much of it as we can manage....
+	difference = clamp(difference, 0, control_rod_effectiveness) //And we can't instantly zap the K to what we want, so let's zap as much of it as we can manage....
 	if(difference > fuel_power && desired_k > K)
 		difference = fuel_power //Again, to stop you being able to run off of 1 fuel rod.
 	if(K != desired_k)
@@ -335,7 +335,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		else if(desired_k < K)
 			K -= difference
 
-	K = CLAMP(K, 0, RBMK_MAX_CRITICALITY)
+	K = clamp(K, 0, RBMK_MAX_CRITICALITY)
 	if(has_fuel())
 		temperature += K
 	else
@@ -352,7 +352,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		if(isliving(I))
 			var/mob/living/L = I
 			if(temperature > 0)
-				L.adjust_bodytemperature(CLAMP(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
+				L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 		if(istype(I, /obj/item/reagent_containers/food) && !istype(I, /obj/item/reagent_containers/food/drinks))
 			playsound(src, pick('sound/machines/fryer/deep_fryer_1.ogg', 'sound/machines/fryer/deep_fryer_2.ogg'), 100, TRUE)
 			var/obj/item/reagent_containers/food/grilled_item = I
@@ -595,7 +595,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		return
 	if(action == "input")
 		var/input = text2num(params["target"])
-		reactor.desired_k = CLAMP(input, 0, 3)
+		reactor.desired_k = clamp(input, 0, 3)
 
 /obj/machinery/computer/reactor/control_rods/ui_data(mob/user)
 	var/list/data = list()
