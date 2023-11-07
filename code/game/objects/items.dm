@@ -221,6 +221,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///Icon for monkey
 	var/icon/monkey_icon
 
+	var/canMouseDown = FALSE
+
+	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
+	var/vendor_icon_preview = null
+
 
 /obj/item/Initialize(mapload)
 
