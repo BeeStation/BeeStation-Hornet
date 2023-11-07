@@ -89,7 +89,7 @@
 	start_empty = TRUE
 	ammo_type = /obj/item/ammo_casing/c9mm/improv
 	caliber = "9mm"
-	max_ammo = 9
+	max_ammo = 6
 	var/obj/item/stock_parts/matter_bin/installed_bin
 
 /obj/item/ammo_box/magazine/pipem9mm/proc/update_capacity()
@@ -98,16 +98,13 @@
 	if(I > 4)
 		I = 5
 	icon_state = "pipemag[I]"
+	update_icon()
 
 /obj/item/ammo_box/magazine/pipem9mm/Initialize(mapload)
 	. = ..()
 	//Initialize with a basic/T1 matter bin installed
 	installed_bin = new /obj/item/stock_parts/matter_bin(src)
 	update_capacity()
-	//Is crafted with only 3 bullets, instead of all 12.
-	for(var/i in 1 to 3)
-		stored_ammo += new ammo_type(src)
-	update_icon()
 
 /obj/item/ammo_box/magazine/pipem9mm/examine(mob/user)
 	. = ..()
@@ -128,7 +125,6 @@
 			installed_bin = B
 			update_capacity()
 			to_chat(user, "<span class='notice'>\The [src] can now hold [max_ammo] bullets!</span>")
-			update_icon()
 			if(B.rating > 4)
 				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, "<span class='notice'><i>Where'd you find that matter bin anyway..?</i></span>"), 50)
 		return

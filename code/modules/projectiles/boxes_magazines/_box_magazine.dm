@@ -48,7 +48,7 @@
 			stored_ammo.Insert(1,b)
 		return b
 
-/obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
+/obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
 		return FALSE
@@ -62,20 +62,20 @@
 /obj/item/ammo_box/proc/can_load(mob/user)
 	return TRUE
 
-/obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = FALSE, replace_spent = 0)
+/obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = FALSE)
 	var/num_loaded = 0
 	if(!can_load(user))
 		return
 	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/AM = A
 		for(var/obj/item/ammo_casing/AC in AM.stored_ammo)
-			//If the box you're loading into is full, or the one you're loading from is empty, break.
-			if(!AM.stored_ammo || stored_ammo.len >= max_ammo)
+			//If the box you're loading from is empty, break.
+			if(!AM.stored_ammo)
 				break
 			if(!multiload)
 				if(!do_after(user, 4, src, IGNORE_USER_LOC_CHANGE))
 					break
-			var/did_load = give_round(AC, replace_spent)
+			var/did_load = give_round(AC)
 			if(did_load)
 				AM.stored_ammo -= AC
 				num_loaded++
@@ -85,7 +85,7 @@
 				break
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
-		if(give_round(AC, replace_spent))
+		if(give_round(AC))
 			user.transferItemToLoc(AC, src, TRUE)
 			num_loaded++
 

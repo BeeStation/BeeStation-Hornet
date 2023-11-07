@@ -324,8 +324,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT
 	actions_types = null
-	fire_rate = 2
-	full_auto = TRUE
+	fire_rate = 1.8
 	spread = 10
 
 // Laser rifle (rechargeable magazine) //

@@ -126,7 +126,6 @@
 	recoil = 0.5
 	bolt_type = BOLT_TYPE_PUMP
 	fire_sound_volume = 80
-	tac_reloads = FALSE
 
 /obj/item/gun/ballistic/rifle/pipe
 	name = "pipe rifle"
@@ -136,7 +135,7 @@
 	sawn_desc = "Why have more gun, when less gun can do!"
 	icon_state = "piperifle"
 	item_state = "moistnugget"
-	bolt_type = BOLT_TYPE_NB_BREAK
+	bolt_type = BOLT_TYPE_NO_BOLT
 	cartridge_wording = "cartridge"
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/piperifle
@@ -145,3 +144,18 @@
 	force = 8
 	recoil = 0.8
 	var/slung = FALSE
+
+/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
+		if(slung)
+			to_chat(user, "<span class='warning'>There is already a sling on [src]!</span>")
+			return
+		var/obj/item/stack/cable_coil/C = A
+		if(C.use(10))
+			slot_flags = ITEM_SLOT_BACK
+			to_chat(user, "<span class='notice'>You tie the lengths of cable to the [src], making a sling.</span>")
+			slung = TRUE
+			update_icon()
+		else
+			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")

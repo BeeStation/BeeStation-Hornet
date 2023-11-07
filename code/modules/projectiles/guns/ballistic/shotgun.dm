@@ -198,7 +198,7 @@
 						"Rosewood" = "dshotgun_p"
 						)
 	semi_auto = TRUE
-	bolt_type = BOLT_TYPE_NB_BREAK
+	bolt_type = BOLT_TYPE_NO_BOLT
 	fire_rate = 2 //being double barrelled, you don't rely on internal mechanisms.
 	pb_knockback = 3
 

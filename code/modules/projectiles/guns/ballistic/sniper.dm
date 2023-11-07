@@ -10,14 +10,14 @@
 	load_sound = "sound/weapons/sniper_mag_insert.ogg"
 	rack_sound = "sound/weapons/sniper_rack_open.ogg"
 	bolt_drop_sound = 'sound/weapons/sniper_rack_close.ogg'
-	recoil = 2
+	recoil = 1.5
 	weapon_weight = WEAPON_HEAVY
 	bolt_type = BOLT_TYPE_TWO_STEP
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	direct_loading = TRUE
 	semi_auto = FALSE
 	fire_rate = 1.5
-	burst_size = 1
+	rack_delay = 7
 	w_class = WEIGHT_CLASS_LARGE
 	zoomable = TRUE
 	zoom_amt = 10 //Long range, enough to see in front of you, but no tiles behind you.

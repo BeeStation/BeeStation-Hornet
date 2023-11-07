@@ -435,7 +435,6 @@
 
 	var/sprd = 0
 	var/min_gun_sprd = 0
-	var/min_rand_sprd = 0
 	var/randomized_gun_spread = 0
 	var/rand_spr = rand()
 
@@ -443,8 +442,6 @@
 		var/S
 		S = sprd * wild_factor //If a gun has WILD SPREAD get the minimum by multiplying spread by its WILD FACTOR
 		min_gun_sprd = round(S, 0.5) //Clean up that value a tiny bit
-		S = spread_unwielded * wild_factor //Do the same for the gun's unwielded spread
-		min_rand_sprd = round(S, 0.5)
 	if(spread)
 		randomized_gun_spread =	rand(min_gun_sprd,spread)
 	bonus_spread = user.get_weapon_inaccuracy_modifier(target, src)

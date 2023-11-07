@@ -43,11 +43,11 @@
 	can_suppress = FALSE
 	casing_ejector = FALSE
 	internal_magazine = TRUE
-	bolt_type = BOLT_TYPE_NB_BREAK //Functionally a double-barrel shotgun
+	bolt_type = BOLT_TYPE_NO_BOLT //Functionally a double-barrel shotgun
 	tac_reloads = FALSE
 	fire_sound_volume = 60
 	spread = 18 //Innate spread of 18 degrees, unwielded spread of 48; Stechkin is unwielded 40
-	spread_unwielded = 30 //Manually set unwielded spread to 30; Equivelant weight to 0.5 (Stechkin has weight 1)
+	spread_unwielded = 15 //Manually set unwielded spread to 30; Equivelant weight to 0.5 (Stechkin has weight 1)
 	wild_spread = TRUE
 	wild_factor = 0.70 //Minimum spread is 70% of spread value
 	equip_time = 0

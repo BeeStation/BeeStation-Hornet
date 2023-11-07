@@ -27,3 +27,4 @@
 	ammo_type = /obj/item/ammo_casing/a41/paper
 	caliber = "a41"
 	max_ammo = 1
+	start_empty = TRUE

@@ -11,7 +11,7 @@
 	dry_fire_sound = 'sound/weapons/revolverdry.ogg'
 	casing_ejector = FALSE
 	internal_magazine = TRUE
-	bolt_type = BOLT_TYPE_NB_BREAK
+	bolt_type = BOLT_TYPE_NO_BOLT
 	tac_reloads = FALSE
 	fire_rate = 1.5 //slower than normal guns due to the damage factor
 	var/spin_delay = 10
