@@ -118,7 +118,7 @@
 		hotkey_help.Grant(user)
 		actions += hotkey_help
 
-	RegisterSignal(user, COMSIG_XENO_SLIME_CTRL_CLICKED, PROC_REF(XenoSlimeClickCtrl))
+	RegisterSignal(user, COMSIG_MOB_CTRL_CLICKED, PROC_REF(XenoSlimeClickCtrl))
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT, PROC_REF(XenoSlimeClickAlt))
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT, PROC_REF(XenoSlimeClickShift))
 	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT, PROC_REF(XenoTurfClickShift))

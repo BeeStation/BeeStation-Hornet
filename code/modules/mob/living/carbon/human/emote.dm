@@ -241,13 +241,13 @@
 	key = "roll"
 	key_third_person = "rolls"
 	message = "rolls."
-	hands_use_check = TRUE
+	restraint_check = TRUE
 
 /datum/emote/living/carbon/human/monkey/scratch
 	key = "scratch"
 	key_third_person = "scratches"
 	message = "scratches."
-	hands_use_check = TRUE
+	restraint_check = TRUE
 
 /datum/emote/living/carbon/human/monkey/screech/roar
 	key = "roar"
@@ -262,7 +262,7 @@
 	key = "sign"
 	key_third_person = "signs"
 	message_param = "signs the number %t."
-	hands_use_check = TRUE
+	restraint_check = TRUE
 
 // Robotic Tongue emotes. Beep!
 

@@ -81,7 +81,7 @@
 		Write_Memory(TRUE, gibbed)
 	..()
 
-/mob/living/carbon/human/species/monkey/punpun/death(gibbed)
+/mob/living/carbon/human/species/monkey/punpun/proc/Read_Memory()
 	if(fexists("data/npc_saves/Punpun.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Punpun.sav")
 		S["ancestor_name"]	>> ancestor_name

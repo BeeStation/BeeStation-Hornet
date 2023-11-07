@@ -16,10 +16,10 @@
 
 /datum/objective/capture/proc/register_capture(mob/living/L)
 	var/worth = 0
-	if (istype(L, /mob/living/carbon/human))
-		worth = 1
-	else if (istype(L, /mob/living/carbon/monkey))
+	if(ismonkey(L))
 		worth = 0.1
+	else if(ishuman(L))
+		worth = 1
 	else if (istype(L, /mob/living/carbon/alien/larva))
 		worth = 1
 	else if (istype(L, /mob/living/carbon/alien/humanoid/royal/queen))

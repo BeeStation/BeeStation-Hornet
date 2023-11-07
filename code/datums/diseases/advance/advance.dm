@@ -23,7 +23,7 @@
 	agent = "advance microbes"
 	max_stages = 5
 	spread_text = "Unknown"
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/monkey/tumor)
+	viable_mobtypes = list(/mob/living/carbon/human)
 
 	/// last player to modify the disease.
 	var/last_modified_by = "no CKEY"
