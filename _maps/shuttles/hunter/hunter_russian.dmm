@@ -329,7 +329,7 @@
 	},
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
 	name = "\improper TOZ-1";
-	reinforced = TRUE;
+	reinforced = 1;
 	pixel_y = -7
 	},
 /obj/effect/decal/cleanable/robot_debris{
@@ -625,7 +625,7 @@
 	},
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
 	name = "\improper TOZ-1";
-	reinforced = TRUE;
+	reinforced = 1;
 	pixel_y = -4
 	},
 /obj/item/hacksaw{
