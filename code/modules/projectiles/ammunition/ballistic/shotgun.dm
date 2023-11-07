@@ -61,18 +61,11 @@
 	projectile_type = /obj/projectile/bullet/shotgun_frag12
 
 /obj/item/ammo_casing/shotgun/buckshot
-	name = "double-aught buckshot shell"
-	desc = "A 12 gauge double-aught buckshot shell."
+	name = "buckshot shell"
+	desc = "A 12 gauge buckshot shell."
 	icon_state = "gshell"
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot
 	pellets = 6
-	variance = 10
-
-/obj/item/ammo_casing/shotgun/buckshot/single_aught
-	name = "single-aught buckshot shell"
-	desc = "A 12 gauge single-aught buckshot shell. Smaller pellets, more holes in whatever you shoot."
-	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot/sa
-	pellets = 8
 	variance = 10
 
 /obj/item/ammo_casing/shotgun/rubbershot
@@ -102,8 +95,8 @@
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_improvised
 	materials = list(/datum/material/iron=250)
-	pellets = 8
-	variance = 15
+	pellets = 10
+	variance = 25
 
 /obj/item/ammo_casing/shotgun/improvised/glasspack
 	name = "improvised glass-packed shell"
@@ -111,6 +104,7 @@
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_glass
 	materials = list(/datum/material/iron=100, /datum/material/glass=100)
 	pellets = 5
+	variance = 15
 
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
