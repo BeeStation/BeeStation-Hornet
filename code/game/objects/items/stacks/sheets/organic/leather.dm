@@ -19,7 +19,7 @@
 	icon_state = "sheet-hairlesshide"
 	item_state = "sheet-hairlesshide"
 	icon = 'icons/obj/stacks/organic.dmi'
-	merge_type = /obj/item/stack/sheet/hairlesshide
+	merge_type = /obj/item/stack/sheet/leather/hairlesshide
 
 /obj/item/stack/sheet/leather/wetleather
 	name = "wet leather"
@@ -28,7 +28,7 @@
 	icon_state = "sheet-wetleather"
 	item_state = "sheet-wetleather"
 	icon = 'icons/obj/stacks/organic.dmi'
-	merge_type = /obj/item/stack/sheet/wethide
+	merge_type = /obj/item/stack/sheet/leather/wetleather
 	/// Reduced when exposed to high temperatures
 	var/wetness = 30
 	/// Kelvin to start drying

@@ -161,7 +161,7 @@
 	desc = "Sleek blue titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
 	turf_type = /turf/open/floor/mineral/titanium/alt/blue
 	icon_state = "tile_titanium_blue_alt"
-	merge_type = /obj/item/stack/tile/mineral/alt/tiled/blue
+	merge_type = /obj/item/stack/tile/mineral/titanium/alt/blue
 
 /obj/item/stack/tile/mineral/titanium/alt/white
 	name = "sleek white titanium tile"
