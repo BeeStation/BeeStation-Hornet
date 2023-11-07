@@ -10,7 +10,7 @@
 //Use this flag on TRUE if you want metallic basemat structures(metal-like)
 #define MAT_CATEGORY_METALLIC_RECIPES "metallic recipes"
 //Use this flag on True if you want silicate basemat structures(glass-like)
-#define MAT_CATEGORY_SILICATE_RECIPES "metallic recipes"
+#define MAT_CATEGORY_SILICATE_RECIPES "silicate recipes"
 
 /// Flag for atoms, this flag ensures it isn't re-colored by materials. Useful for snowflake icons such as default toolboxes.
 #define MATERIAL_COLOR (1<<0)
