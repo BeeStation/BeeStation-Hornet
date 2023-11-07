@@ -291,7 +291,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	if(A.stealth >= 2) //if you combine this with pituitary disruption, you have the two most downside-heavy symptoms available
 		severity -= 1
-	if(A.transmission >= 8)
+	if(A.transmission >= 8  || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		severity += 1
 
 /datum/symptom/EMP/Start(datum/disease/advance/A)
@@ -299,7 +299,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		return
 	if(A.stealth >= 2)
 		cellheal = TRUE
-	if(A.transmission >= 8)
+	if(A.transmission >= 8 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		bigemp = TRUE
 
 /datum/symptom/EMP/Activate(datum/disease/advance/A)
@@ -341,13 +341,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 6)
+	if(A.transmission >= 6 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		severity -= 1
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 6)
+	if(A.transmission >= 6 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		toxheal = TRUE
 	if(A.transmission >= 4)
 		bigsweat = TRUE
@@ -414,7 +414,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/teleport/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 6)
+	if(A.resistance >= 6 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		severity -= 1
 		if(A.transmission >= 8)
 			severity -= 1
@@ -422,7 +422,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/teleport/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 6)
+	if(A.resistance >= 6 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		burnheal = TRUE
 	if(A.transmission >= 8)
 		telethreshold = -10
@@ -484,7 +484,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/growth/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 6)
+	if(A.stage_rate >= 6 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		severity -= 1
 		if(A.stage_rate >= 12)
 			severity += 3
@@ -492,7 +492,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/growth/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= 6)
+	if(A.stage_rate >= 6 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		bruteheal = TRUE
 		if(A.stage_rate >= 12)
 			tetsuo = TRUE
@@ -597,7 +597,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/vampirism/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 4)
+	if(A.transmission >= 4 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		severity -= 1
 	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes))
 		severity -= 1
@@ -606,12 +606,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/vampirism/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 4)
+	if(A.transmission >= 4 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		bruteheal = TRUE
 	if(A.transmission >= 6)
 		aggression = TRUE
 		maxbloodpoints += 50
-	if(A.stage_rate >= 7)
+	if(A.stage_rate >= 7 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.stage_rate >= 5))
 		power += 1
 	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes)) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
 		vampire = TRUE
@@ -828,7 +828,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/parasite/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 2)
+	if(A.stealth >= 2 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		severity -= 2
 		prefixes = list("Symbiotic ")
 	if(A.stage_rate >= 6)
@@ -837,7 +837,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/parasite/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 2)
+	if(A.stealth >= 2 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		toxheal = TRUE
 	if(A.stage_rate >= 6)
 		power += 1

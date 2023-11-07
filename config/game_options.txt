@@ -660,3 +660,41 @@ DISABLE_LOCAL_BANS
 
 ## Comment this to disable roundstart lights being turned off in non-staffed departments
 #DARK_UNSTAFFED_DEPARTMENTS
+
+## Virology tweaks
+
+##Uncomment to allow most virus recipes to work
+#CHEMVIRO_ALLOWED
+
+##Uncomment to allow the virus extrapolator to isolate virus symptoms
+#ISOLATION_ALLOWED
+
+##Uncomment to allow Formaldehyde to be used to neuter viruses
+#NEUTER_ALLOWED
+
+##Uncomment to allow viruses to be mixed to combine symptoms
+MIXVIRUS_ALLOWED
+
+##Uncomment to disable seeded symptom removal. 
+##This should be commented if you want fully custom viruses. At the start of each round, the ID of each symptom is randomized. This random ID is used to pre-determine rng-based methods of symptom removal.
+SEEDED_SYMPTOMS
+
+##Uncomment to allow dormant diseases, rats, and other biohazardous items to infect players
+BIOHAZARDS_ALLOWED
+
+##Uncomment to allow necrotic metabolism to process on dead mobs. Some symptoms require this to function
+PROCESS_DEAD_ALLOWED
+
+##Comment to make symptoms that result in virus spreading require a transmission threshold.
+##It is recommended that you comment this if you want fully customizeable viro, for a balanced experience.
+UNCONDITIONAL_VIRUS_SPREADING
+
+##uncomment to make certain symptom thresholds no longer required for their effects, and others have lowered effect thresholds
+##It is recommended that you comment this if you want fully customizeable viro, for a balanced experience.
+UNCONDITIONAL_SYMPTOM_THRESHOLDS
+
+##At this amount of symptoms, Synaptizine will no longer remove symptoms from a virus. Set this to 6 or higher to prevent removing symptoms at all. Set this to 1 to allow synaptizine to work to its full effect
+VIRUS_THINNING_CAP 4
+
+
+

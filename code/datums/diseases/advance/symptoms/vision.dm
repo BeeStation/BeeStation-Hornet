@@ -37,7 +37,7 @@ Bonus
 
 /datum/symptom/visionloss/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 12) //goodbye eyes
+	if(A.resistance >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.resistance >= 8)) //goodbye eyes
 		severity += 1
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
@@ -45,7 +45,7 @@ Bonus
 		return
 	if(A.stealth >= 4)
 		suppress_warning = TRUE
-	if(A.resistance >= 12) //goodbye eyes
+	if(A.resistance >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.resistance >= 8)) //goodbye eyes
 		remove_eyes = TRUE
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)

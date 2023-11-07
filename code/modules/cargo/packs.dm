@@ -1800,21 +1800,29 @@
 	access = ACCESS_MEDICAL
 	contains = list(/obj/machinery/iv_drip/saline)
 
-/datum/supply_pack/medical/randomvirus
+/datum/supply_pack/medical/randomvirus //contains 5 utility viro symptoms. If virus customizing is on, contains 5 random cultures instead
 	name = "Virus Sample Crate"
-	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 6000
+	desc = "Contains five experimental disease cultures for epidemiological research"
+	cost = 3000
 	max_supply = 3
 	access = ACCESS_VIROLOGY
 	access_budget = ACCESS_VIROLOGY
-	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus)
+	contains = list(/obj/item/reagent_containers/glass/bottle/inorganic_virion,
+					/obj/item/reagent_containers/glass/bottle/necrotic_virion,
+					/obj/item/reagent_containers/glass/bottle/evolution_virion,
+					/obj/item/reagent_containers/glass/bottle/adaptation_virion,
+					/obj/item/reagent_containers/glass/bottle/aggression_virion)
 	crate_name = "virus sample crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
+
+/datum/supply_pack/medical/randomvirus/fill(obj/structure/closet/crate/C)
+	for(var/item in contains)
+		if(CONFIG_GET(flag/chemviro_allowed))
+			new /obj/item/reagent_containers/glass/bottle/random_virus(C)
+		else
+			new item(C)
+
 
 /datum/supply_pack/medical/virology
 	name = "Junior Epidemiology Kit"
@@ -1856,17 +1864,6 @@
 					/obj/item/reagent_containers/glass/bottle/anxiety,
 					/obj/item/reagent_containers/glass/bottle/beesease)
 	crate_name = "virus crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
-	dangerous = TRUE
-
-/datum/supply_pack/medical/extrapolator
-	name = "Virus Extrapolator Supply Crate"
-	desc = "Contains 3 Virus Extrapolators should any existing ones be lost or otherwise destroyed."
-	cost = 4500
-	max_supply = 4
-	access = ACCESS_VIROLOGY
-	contains = list(/obj/item/extrapolator, /obj/item/extrapolator, /obj/item/extrapolator)
-	crate_name = "Extrapolator Crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 

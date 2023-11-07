@@ -172,6 +172,16 @@
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/extrapolator
+	name = "Viral Extrapolator"
+	desc = "A multipurpose hand-held device able to detect and extract viral cultures and their properties."
+	id = "extrapolator"
+	build_path = /obj/item/extrapolator
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500, /datum/material/titanium = 2000, /datum/material/uranium = 1500)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/medspray
 	name = "Medical Spray"
 	desc = "A medical spray bottle, designed for precision application, with an unscrewable cap."

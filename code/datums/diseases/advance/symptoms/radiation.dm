@@ -54,7 +54,7 @@
 	severity = 0 //this is, at base level, somewhat negative. low levels of radiation will become brute damage and a danger to a host, where otherwise they'd have no effect
 	symptom_delay_min = 1
 	symptom_delay_max = 1
-	var/toxheal = FALSE 
+	var/toxheal = FALSE
 	var/cellheal = FALSE
 	suffixes = list(" Aptosis")
 	threshold_desc = "<b>Stage Speed 6:</b> The disease also kills off contaminated cells, converting Toxin damage to Brute damage, at an efficient rate.<br>\
@@ -64,7 +64,7 @@
 	. = ..()
 	if(A.stage_rate >= 6)
 		severity -= 1
-	if(A.resistance >= 12)
+	if(A.resistance >= 12 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		severity -= 1
 
 /datum/symptom/radconversion/Start(datum/disease/advance/A)
@@ -72,7 +72,7 @@
 		return
 	if(A.stage_rate >= 6)
 		toxheal = TRUE
-	if(A.resistance >= 12)
+	if(A.resistance >= 12 || CONFIG_GET(flag/unconditional_symptom_thresholds))
 		cellheal = TRUE
 
 

@@ -320,6 +320,36 @@
 	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."
 	spawned_disease = /datum/disease/advance/flu
 
+/obj/item/reagent_containers/glass/bottle/inorganic_virion
+	name = "Inorganic Biology virion culture bottle"
+	label_name = "Inorganic Biology virion culture"
+	desc = "A small bottle. Contains a benign virion culture capable of infecting inorganic organisms in synthblood medium."
+	spawned_disease = /datum/disease/advance/inorganic
+
+/obj/item/reagent_containers/glass/bottle/necrotic_virion
+	name = "Necrotic Adaptation culture bottle"
+	label_name = "Necrotic Adaptation virion culture"
+	desc = "A small bottle. Contains a benign virion culture capable of metabolizing in deceased organisms in synthblood medium."
+	spawned_disease = /datum/disease/advance/necrotic
+
+/obj/item/reagent_containers/glass/bottle/evolution_virion
+	name = "Viral Evolutionary Acceleration virion culture bottle"
+	label_name = "Viral Evolutionary Acceleration virion culture"
+	desc = "A small bottle. Contains a benign, mutative virion culture in synthblood medium."
+	spawned_disease = /datum/disease/advance/evolution
+
+/obj/item/reagent_containers/glass/bottle/adaptation_virion
+	name = "Viral Evolutionary Adaptation virion culture bottle"
+	label_name = "Viral Evolutionary Adaptation virion culture"
+	desc = "A small bottle. Contains a benign, resilient virion culture in synthblood medium."
+	spawned_disease = /datum/disease/advance/adaptation
+
+/obj/item/reagent_containers/glass/bottle/aggression_virion
+	name = "Viral Aggressive Metabolism virion culture bottle"
+	label_name = "Viral Aggressive Metabolism  virion culture"
+	desc = "A small bottle. Contains a benign, aggressive virion culture in synthblood medium."
+	spawned_disease = /datum/disease/advance/aggression
+
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
 	label_name = "Retrovirus culture"

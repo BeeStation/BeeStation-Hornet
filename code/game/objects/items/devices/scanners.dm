@@ -1207,7 +1207,7 @@ GENE SCANNER
 	if(!target_disease)
 		return
 	using = TRUE
-	if(isolate)
+	if(isolate && CONFIG_GET(flag/isolation_allowed))
 		. = isolate_symptom(user, target, target_disease)
 	else
 		. = isolate_disease(user, target, target_disease)
@@ -1218,6 +1218,8 @@ GENE SCANNER
  */
 /obj/item/extrapolator/proc/isolate_symptom(mob/living/user, atom/target, datum/disease/advance/target_disease)
 	. = FALSE
+	if(!CONFIG_GET(flag/isolation_allowed))
+		return FALSE
 	var/list/symptoms = list()
 	for(var/datum/symptom/symptom in target_disease.symptoms)
 		if(symptom.level <= maximum_level)

@@ -153,7 +153,8 @@
 	QDEL_LIST(A.symptoms)
 	for(var/datum/symptom/S as() in symptoms)
 		A.symptoms += S.Copy()
-	A.dormant = dormant
+	if(!CONFIG_GET(flag/biohazards_allowed))
+		A.dormant = dormant
 	A.mutable = mutable
 	A.initial = initial
 	A.faltered = faltered
@@ -238,6 +239,15 @@
 		var/actual_name = SSdisease.get_disease_name(GetDiseaseID())
 		if(actual_name != "Unknown")
 			name = actual_name
+
+//this simply shuffles our list of symptoms to be ordered by their ID.
+//This is done so players don't have to guess at what symptoms can be removed if seeded removal is on
+/datum/disease/advance/proc/ordersymptoms()
+	var/list/orderlysymptoms = list()
+	for(var/datum/symptom/S in symptoms)
+		orderlysymptoms += S
+		orderlysymptoms[S] = text2num(S.id) //sort symptoms by their ID. Symptom ID is chosen based on order in the symptom list, which is randomized on diease subsystem init
+	symptoms = sort_list(orderlysymptoms)
 
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
@@ -381,10 +391,8 @@
 	if(!mutable && !ignore_mutable)
 		return
 	if(symptoms.len > 1)
-		var/s = safepick(symptoms)
-		if(s)
-			RemoveSymptom(s)
-			Refresh(TRUE)
+		RemoveRandomSymptom()
+		Refresh(TRUE)
 
 // Randomly neuter a symptom.
 /datum/disease/advance/proc/Neuter(ignore_mutable = FALSE)
@@ -426,14 +434,24 @@
 
 // Add a symptom, if it is over the limit we take a random symptom away and add the new one.
 /datum/disease/advance/proc/AddSymptom(datum/symptom/S)
-
 	if(HasSymptom(S))
 		return
-
 	if(symptoms.len >= VIRUS_SYMPTOM_LIMIT)
-		RemoveSymptom(pick(symptoms))
+		RemoveRandomSymptom()
 	symptoms += S
 	S.OnAdd(src)
+
+//removes a random symptom. If SEEDED_SYMPTOMS is on in config, removes a symptom predetermined at roundstart instead
+/datum/disease/advance/proc/RemoveRandomSymptom()
+	if(CONFIG_GET(flag/seeded_symptoms))
+		var/list/orderlysymptoms = list()
+		for(var/datum/symptom/S in symptoms)
+			orderlysymptoms += S
+			orderlysymptoms[S] = text2num(S.id) //sort symptoms by their ID. Symptom ID is chosen based on order in the symptom list, which is randomized on diease subsystem init
+		var/list/queuedsymptoms = sort_list(orderlysymptoms)
+		RemoveSymptom(queuedsymptoms[1])
+	else
+		RemoveSymptom(pick(symptoms))
 
 // Simply removes the symptom.
 /datum/disease/advance/proc/RemoveSymptom(datum/symptom/S)
@@ -458,6 +476,8 @@
 	var/list/diseases = list()
 
 	for(var/datum/disease/advance/A in D_list)
+		if(!A.mutable)
+			continue
 		diseases += A.Copy()
 
 	if(!diseases.len)

@@ -20,8 +20,8 @@
 	. = ..()
 	if(A.transmission >= 10)
 		severity += 2
-		if(A.resistance >= 12)
-			severity -= 4
+	if(A.resistance >= 12)
+		severity -= 4
 
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())

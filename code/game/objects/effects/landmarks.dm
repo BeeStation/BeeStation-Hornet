@@ -245,6 +245,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Experiment"
 	job = "Experiment"
 
+/obj/effect/landmark/start/randommaint/virologist
+	name = "Virologist"
+	icon_state = "Virologist"
+	job= "Virologist"
+
 //Department Security spawns
 
 /obj/effect/landmark/start/depsec

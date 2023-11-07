@@ -5,7 +5,7 @@
 	resistance = -2
 	stage_speed = -3
 	transmission = 1
-	level = -1
+	level = 0
 	severity = -1
 	symptom_delay_min = 40
 	symptom_delay_max = 60
@@ -19,14 +19,14 @@
 
 /datum/symptom/toxoplasmosis/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 4)
+	if(A.stealth >= 4 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.stealth >= 0))
 		severity += 3
 	if(A.transmission >= 4)
 		severity += 2
 
 /datum/symptom/toxoplasmosis/Start(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 4)
+	if(A.stealth >= 4 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.stealth >= 0))
 		mania = TRUE
 	if(A.transmission >= 4)
 		uwu = TRUE

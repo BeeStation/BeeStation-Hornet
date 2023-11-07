@@ -18,15 +18,15 @@
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 10)
+	if(A.transmission >= 10 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.transmission >= 8))
 		severity += 1
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 10)
+	if(A.transmission >= 10 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.transmission >= 8))
 		morelube = TRUE
-	if(A.resistance >= 14)
+	if(A.resistance >= 14 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.resistance >= 8))
 		clownshoes = TRUE
 
 /datum/symptom/lubefeet/Activate(datum/disease/advance/A)

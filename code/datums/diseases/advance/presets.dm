@@ -16,6 +16,46 @@
 	symptoms = list(new/datum/symptom/cough)
 	..()
 
+/datum/disease/advance/inorganic
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/inorganic/New()
+	name = "Benign Inorganic Virus"
+	symptoms = list(new/datum/symptom/inorganic_adaptation)
+	..()
+
+/datum/disease/advance/necrotic
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/necrotic/New()
+	name = "Benign Necrotic Virus"
+	symptoms = list(new/datum/symptom/undead_adaptation)
+	..()
+
+/datum/disease/advance/evolution
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/evolution/New()
+	name = "Benign Unstable Virus"
+	symptoms = list(new/datum/symptom/viralevolution)
+	..()
+
+/datum/disease/advance/adaptation
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/adaptation/New()
+	name = "Benign Stable Virus"
+	symptoms = list(new/datum/symptom/viraladaptation)
+	..()
+
+/datum/disease/advance/aggression
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/aggression/New()
+	name = "Benign Aggressive Virus"
+	symptoms = list(new/datum/symptom/viralreverse)
+	..()
+
 /datum/disease/advance/feline_hysteria
 	name = "Feline Hysteria"
 	desc = "A very dangerous disease supposedly engineered by the Animal Rights Coalition. Causes mass feline hysteria."
