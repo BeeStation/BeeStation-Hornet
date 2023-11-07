@@ -32,6 +32,7 @@
 	var/list/strain_data = list() //dna_spread special bullshit
 	var/list/infectable_biotypes = list(MOB_ORGANIC) //if the disease can spread on organics, synthetics, or undead
 	var/process_dead = FALSE //if this ticks while the host is dead
+	var/spread_dead = FALSE
 	var/copy_type = null //if this is null, copies will use the type of the instance being copied
 	var/initial = TRUE //used in advance diseases to check if a virus has already infected a mob- the first infection never mutates
 
@@ -106,6 +107,9 @@
 		return
 
 	if(!(spread_flags & DISEASE_SPREAD_AIRBORNE) && !force_spread)
+		return
+
+	if (affected_mob.stat == DEAD && !spread_dead && !force_spread)
 		return
 
 	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/spaceacillin) || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
