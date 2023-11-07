@@ -214,6 +214,7 @@
 	add_filter("click_mask", 1, alpha_mask_filter(icon = mask, flags = MASK_INVERSE))
 
 /atom/movable/screen/fullscreen/blind_context_disable/Destroy()
+	owner?.show_popup_menus = TRUE
 	owner = null
 	mob_owner = null
 	return ..()

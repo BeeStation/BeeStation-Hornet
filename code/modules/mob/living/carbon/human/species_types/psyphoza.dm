@@ -152,12 +152,11 @@
 	var/auto_sense = FALSE
 	///Ref to sense auto toggle action
 	var/datum/action/change_psychic_auto/auto_action
+	///has this ability been removed via surgery - ability code is weird
+	var/removed = FALSE
 
 /datum/action/item_action/organ_action/psychic_highlight/Destroy()
-	owner?.clear_fullscreen("psychic_highlight")
-	owner?.clear_fullscreen("psychic_highlight_mask")
-	owner?.clear_fullscreen("psychic_highlight_click_mask")	
-	eyes = null
+	remove()
 	return ..()
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
@@ -201,6 +200,19 @@
 	. = ..()
 	if(!IsAvailable())
 		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0) //Overwrite this line from the original to support my fucked up use
+
+/datum/action/item_action/organ_action/psychic_highlight/proc/remove()
+	owner?.clear_fullscreen("psychic_highlight")
+	owner?.clear_fullscreen("psychic_highlight_mask")
+	owner?.clear_fullscreen("psychic_highlight_click_mask")	
+	eyes = null
+	//This can get *tricky*
+	if(!QDELETED(overlay_change))
+		qdel(overlay_change)
+	if(!QDELETED(texture_change))
+		qdel(texture_change)
+	if(!QDELETED(auto_action))
+		qdel(auto_action)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
@@ -395,7 +407,7 @@
 	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_visual/Destroy()
-	QDEL_NULL(psychic_overlay)
+	psychic_overlay = null
 	return ..()
 
 /datum/action/change_psychic_visual/proc/parent_destroy()
@@ -424,7 +436,7 @@
 	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_auto/Destroy()
-	QDEL_NULL(psychic_action)
+	psychic_action = null
 	return ..()
 
 /datum/action/change_psychic_auto/proc/parent_destroy()
@@ -459,8 +471,8 @@
 
 
 /datum/action/change_psychic_texture/Destroy()
-	QDEL_NULL(psychic_overlay)
-	QDEL_NULL(blind_overlay)
+	psychic_overlay = null
+	blind_overlay = null
 	return ..()
 
 /datum/action/change_psychic_texture/proc/parent_destroy()

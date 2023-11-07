@@ -425,7 +425,14 @@
 	. = ..()
 	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
 	M.remove_client_colour(/datum/client_colour/monochrome/blind)
+	//Handle weird ability code
+	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
+	if(P?.removed)
+		P.Grant(M)
+		P?.removed = FALSE
 
 /obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
 	M.cure_blind("uncurable", TRUE)
+	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
+	P?.remove()
 	return ..()
