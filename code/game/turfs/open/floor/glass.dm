@@ -5,7 +5,7 @@
 	icon_state = "glass-0"
 	base_icon_state = "glass"
 	baseturfs = /turf/open/openspace
-	intact = TRUE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS)
@@ -14,6 +14,7 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	floor_tile = /obj/item/stack/tile/glass
+	overfloor_placed = FALSE
 	broken_states = list("glass-damaged1", "glass-damaged2", "glass-damaged3")
 
 	z_flags = Z_MIMIC_DEFAULTS
