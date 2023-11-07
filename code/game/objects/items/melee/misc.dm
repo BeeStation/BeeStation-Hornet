@@ -424,7 +424,7 @@
 				target.visible_message(desc["visiblestun"], desc["localstun"])
 
 			if((user.zone_selected == BODY_ZONE_HEAD))
-				target.apply_damage(15, STAMINA, BODY_ZONE_HEAD, def_check)
+				target.apply_damage(14, STAMINA, BODY_ZONE_HEAD, def_check)
 
 				if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && (!sleep_cooldowns[target] || COOLDOWN_FINISHED(src, sleep_cooldowns[target])))
 					T.force_say(user)
