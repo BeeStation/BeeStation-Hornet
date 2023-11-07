@@ -81,6 +81,7 @@
 	item_state = "tile-grass"
 	turf_type = /turf/open/floor/grass
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/grass
 
 /obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, params)
 	if((W.tool_behaviour == TOOL_SHOVEL) && params)
@@ -103,6 +104,7 @@
 	item_state = "tile-fairygrass"
 	turf_type = /turf/open/floor/grass/fairy
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/fairygrass
 	color = "#33CCFF"
 
 /obj/item/stack/tile/fairygrass/white
@@ -176,6 +178,7 @@
 	item_state = "tile-wood"
 	turf_type = /turf/open/floor/wood
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/wood
 
 //Bamboo
 /obj/item/stack/tile/bamboo
@@ -186,6 +189,7 @@
 	item_state = "tile-bamboo"
 	turf_type = /turf/open/floor/bamboo
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/bamboo
 
 //Basalt
 /obj/item/stack/tile/basalt
@@ -195,6 +199,7 @@
 	icon_state = "tile_basalt"
 	item_state = "tile-basalt"
 	turf_type = /turf/open/floor/grass/fakebasalt
+	merge_type = /obj/item/stack/tile/basalt
 
 //Carpets
 /obj/item/stack/tile/carpet
@@ -206,6 +211,7 @@
 	turf_type = /turf/open/floor/carpet
 	resistance_flags = FLAMMABLE
 	tableVariant = /obj/structure/table/wood/fancy
+	merge_type = /obj/item/stack/tile/carpet
 
 /obj/item/stack/tile/carpet/black
 	name = "black carpet"
@@ -214,6 +220,7 @@
 	merge_type = /obj/item/stack/tile/carpet/black
 	turf_type = /turf/open/floor/carpet/black
 	tableVariant = /obj/structure/table/wood/fancy/black
+	merge_type = /obj/item/stack/tile/carpet/black
 
 /obj/item/stack/tile/carpet/blue
 	name = "blue carpet"
@@ -222,6 +229,7 @@
 	merge_type = /obj/item/stack/tile/carpet/blue
 	turf_type = /turf/open/floor/carpet/blue
 	tableVariant = /obj/structure/table/wood/fancy/blue
+	merge_type = /obj/item/stack/tile/carpet/blue
 
 /obj/item/stack/tile/carpet/blue/thirtytwo
 	amount = 32
@@ -233,6 +241,7 @@
 	merge_type = /obj/item/stack/tile/carpet/cyan
 	turf_type = /turf/open/floor/carpet/cyan
 	tableVariant = /obj/structure/table/wood/fancy/cyan
+	merge_type = /obj/item/stack/tile/carpet/cyan
 
 /obj/item/stack/tile/carpet/cyan/thirtytwo
 	amount = 32
@@ -244,6 +253,7 @@
 	merge_type = /obj/item/stack/tile/carpet/green
 	turf_type = /turf/open/floor/carpet/green
 	tableVariant = /obj/structure/table/wood/fancy/green
+	merge_type = /obj/item/stack/tile/carpet/green
 
 /obj/item/stack/tile/carpet/orange
 	name = "orange carpet"
@@ -252,6 +262,7 @@
 	merge_type = /obj/item/stack/tile/carpet/orange
 	turf_type = /turf/open/floor/carpet/orange
 	tableVariant = /obj/structure/table/wood/fancy/orange
+	merge_type = /obj/item/stack/tile/carpet/orange
 
 /obj/item/stack/tile/carpet/purple
 	name = "purple carpet"
@@ -260,6 +271,7 @@
 	merge_type = /obj/item/stack/tile/carpet/purple
 	turf_type = /turf/open/floor/carpet/purple
 	tableVariant = /obj/structure/table/wood/fancy/purple
+	merge_type = /obj/item/stack/tile/carpet/purple
 
 /obj/item/stack/tile/carpet/red
 	name = "red carpet"
@@ -268,6 +280,7 @@
 	merge_type = /obj/item/stack/tile/carpet/red
 	turf_type = /turf/open/floor/carpet/red
 	tableVariant = /obj/structure/table/wood/fancy/red
+	merge_type = /obj/item/stack/tile/carpet/red
 
 /obj/item/stack/tile/carpet/royalblack
 	name = "royal black carpet"
@@ -276,6 +289,7 @@
 	merge_type = /obj/item/stack/tile/carpet/royalblack
 	turf_type = /turf/open/floor/carpet/royalblack
 	tableVariant = /obj/structure/table/wood/fancy/royalblack
+	merge_type = /obj/item/stack/tile/carpet/royalblack
 
 /obj/item/stack/tile/carpet/royalblue
 	name = "royal blue carpet"
@@ -284,6 +298,7 @@
 	merge_type = /obj/item/stack/tile/carpet/royalblue
 	turf_type = /turf/open/floor/carpet/royalblue
 	tableVariant = /obj/structure/table/wood/fancy/royalblue
+	merge_type = /obj/item/stack/tile/carpet/royalblue
 
 /obj/item/stack/tile/carpet/grimy
 	name = "grimy carpet"
@@ -293,6 +308,7 @@
 	item_state = "tile-carpet-grimy"
 	merge_type = /obj/item/stack/tile/carpet/grimy
 	turf_type = /turf/open/floor/carpet/grimy
+	merge_type = /obj/item/stack/tile/carpet/grimy
 
 /obj/item/stack/tile/eighties
 	name = "retro tile"
@@ -301,6 +317,7 @@
 	icon_state = "tile_eighties"
 	merge_type = /obj/item/stack/tile/eighties
 	turf_type = /turf/open/floor/eighties
+	merge_type = /obj/item/stack/tile/eighties
 
 /obj/item/stack/tile/carpet/fifty
 	amount = 50
@@ -436,6 +453,7 @@
 	icon_state = "tile_bcircuit"
 	item_state = "tile-bcircuit"
 	turf_type = /turf/open/floor/circuit
+	merge_type = /obj/item/stack/tile/circuit
 
 /obj/item/stack/tile/circuit/green
 	name = "green circuit tile"
@@ -444,9 +462,11 @@
 	icon_state = "tile_gcircuit"
 	item_state = "tile-gcircuit"
 	turf_type = /turf/open/floor/circuit/green
+	merge_type = /obj/item/stack/tile/circuit/green
 
 /obj/item/stack/tile/circuit/green/anim
 	turf_type = /turf/open/floor/circuit/green/anim
+	merge_type = /obj/item/stack/tile/circuit/green/anim
 
 /obj/item/stack/tile/circuit/red
 	name = "red circuit tile"
@@ -455,9 +475,11 @@
 	icon_state = "tile_rcircuit"
 	item_state = "tile-rcircuit"
 	turf_type = /turf/open/floor/circuit/red
+	merge_type = /obj/item/stack/tile/circuit/red
 
 /obj/item/stack/tile/circuit/red/anim
 	turf_type = /turf/open/floor/circuit/red/anim
+	merge_type = /obj/item/stack/tile/circuit/red/anim
 
 //Pod floor
 /obj/item/stack/tile/pod
@@ -467,6 +489,7 @@
 	icon_state = "tile_pod"
 	item_state = "tile-pod"
 	turf_type = /turf/open/floor/pod
+	merge_type = /obj/item/stack/tile/pod
 
 /obj/item/stack/tile/pod/light
 	name = "light pod floor tile"
@@ -474,6 +497,7 @@
 	desc = "A lightly colored grooved floor tile."
 	icon_state = "tile_podlight"
 	turf_type = /turf/open/floor/pod/light
+	merge_type = /obj/item/stack/tile/pod/light
 
 /obj/item/stack/tile/pod/dark
 	name = "dark pod floor tile"
@@ -481,6 +505,7 @@
 	desc = "A darkly colored grooved floor tile."
 	icon_state = "tile_poddark"
 	turf_type = /turf/open/floor/pod/dark
+	merge_type = /obj/item/stack/tile/pod/dark
 
 //Plasteel (normal)
 /obj/item/stack/tile/plasteel
@@ -497,6 +522,7 @@
 	mineralType = "iron"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/plasteel
 
 /obj/item/stack/tile/plasteel/cyborg
 	desc = "The ground you walk on." //Not the usual floor tile desc as that refers to throwing, Cyborgs can't do that - RR

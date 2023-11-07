@@ -79,6 +79,7 @@
 #include "greyscale_config.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
+#include "merge_type.dm"
 #include "metabolizing.dm"
 #include "ntnetwork_tests.dm"
 #include "preference_species.dm"

@@ -7,6 +7,7 @@
 	turf_type = /turf/open/floor/mineral/plasma
 	mineralType = "plasma"
 	materials = list(/datum/material/plasma=500)
+	merge_type = /obj/item/stack/tile/mineral/plasma
 
 /obj/item/stack/tile/mineral/uranium
 	name = "uranium tile"
@@ -17,6 +18,7 @@
 	turf_type = /turf/open/floor/mineral/uranium
 	mineralType = "uranium"
 	materials = list(/datum/material/uranium=500)
+	merge_type = /obj/item/stack/tile/mineral/uranium
 
 /obj/item/stack/tile/mineral/gold
 	name = "gold tile"
@@ -27,6 +29,7 @@
 	turf_type = /turf/open/floor/mineral/gold
 	mineralType = "gold"
 	materials = list(/datum/material/gold=500)
+	merge_type = /obj/item/stack/tile/mineral/gold
 
 /obj/item/stack/tile/mineral/silver
 	name = "silver tile"
@@ -37,6 +40,7 @@
 	turf_type = /turf/open/floor/mineral/silver
 	mineralType = "silver"
 	materials = list(/datum/material/silver=500)
+	merge_type = /obj/item/stack/tile/mineral/silver
 
 /obj/item/stack/tile/mineral/copper
 	name = "copper tile"
@@ -46,6 +50,7 @@
 	turf_type = /turf/open/floor/mineral/copper
 	mineralType = "copper"
 	materials = list(/datum/material/copper=500)
+	merge_type = /obj/item/stack/tile/mineral/copper
 
 /obj/item/stack/tile/mineral/diamond
 	name = "diamond tile"
@@ -56,6 +61,7 @@
 	turf_type = /turf/open/floor/mineral/diamond
 	mineralType = "diamond"
 	materials = list(/datum/material/diamond=500)
+	merge_type = /obj/item/stack/tile/mineral/diamond
 
 /obj/item/stack/tile/mineral/bananium
 	name = "bananium tile"
@@ -66,6 +72,7 @@
 	turf_type = /turf/open/floor/mineral/bananium
 	mineralType = "bananium"
 	materials = list(/datum/material/bananium=500)
+	merge_type = /obj/item/stack/tile/mineral/bananium
 
 /obj/item/stack/tile/mineral/abductor
 	name = "alien floor tile"
@@ -76,6 +83,7 @@
 	item_state = "tile-abductor"
 	turf_type = /turf/open/floor/mineral/abductor
 	mineralType = "abductor"
+	merge_type = /obj/item/stack/tile/mineral/abductor
 
 /obj/item/stack/tile/mineral/titanium
 	name = "titanium tile"
@@ -86,6 +94,7 @@
 	turf_type = /turf/open/floor/mineral/titanium
 	mineralType = "titanium"
 	materials = list(/datum/material/titanium=500)
+	merge_type = /obj/item/stack/tile/mineral/titanium
 	tile_reskin_types = list(
 		/obj/item/stack/tile/mineral/titanium,
 		/obj/item/stack/tile/mineral/titanium/yellow,
@@ -105,6 +114,7 @@
 	desc = "Yellow titanium tiles. Use while in your hand to change what type of titanium tiles you want."
 	turf_type = /turf/open/floor/mineral/titanium/yellow
 	icon_state = "tile_titanium_yellow"
+	merge_type = /obj/item/stack/tile/mineral/titanium/yellow
 
 /obj/item/stack/tile/mineral/titanium/blue
 	name = "blue titanium tile"
@@ -112,6 +122,7 @@
 	desc = "Blue titanium tiles. Use while in your hand to change what type of titanium tiles you want."
 	turf_type = /turf/open/floor/mineral/titanium/blue
 	icon_state = "tile_titanium_blue"
+	merge_type = /obj/item/stack/tile/mineral/titanium/blue
 
 /obj/item/stack/tile/mineral/titanium/white
 	name = "white titanium tile"
@@ -119,6 +130,7 @@
 	desc = "White titanium tiles. Use while in your hand to change what type of titanium tiles you want."
 	turf_type = /turf/open/floor/mineral/titanium/white
 	icon_state = "tile_titanium_white"
+	merge_type = /obj/item/stack/tile/mineral/titanium/white
 
 /obj/item/stack/tile/mineral/titanium/purple
 	name = "purple titanium tile"
@@ -126,6 +138,7 @@
 	desc = "Purple titanium tiles. Use while in your hand to change what type of titanium tiles you want."
 	turf_type = /turf/open/floor/mineral/titanium/purple
 	icon_state = "tile_titanium_purple"
+	merge_type = /obj/item/stack/tile/mineral/titanium/purple
 
 /obj/item/stack/tile/mineral/titanium/alt
 	name = "sleek titanium tile"
@@ -140,6 +153,7 @@
 	desc = "Sleek yellow titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
 	turf_type = /turf/open/floor/mineral/titanium/alt/yellow
 	icon_state = "tile_titanium_yellow_alt"
+	merge_type = /obj/item/stack/tile/mineral/titanium/alt/yellow
 
 /obj/item/stack/tile/mineral/titanium/alt/blue
 	name = "sleek blue titanium tile"
@@ -147,6 +161,7 @@
 	desc = "Sleek blue titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
 	turf_type = /turf/open/floor/mineral/titanium/alt/blue
 	icon_state = "tile_titanium_blue_alt"
+	merge_type = /obj/item/stack/tile/mineral/alt/tiled/blue
 
 /obj/item/stack/tile/mineral/titanium/alt/white
 	name = "sleek white titanium tile"
@@ -154,6 +169,7 @@
 	desc = "Sleek white titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
 	turf_type = /turf/open/floor/mineral/titanium/alt/white
 	icon_state = "tile_titanium_white_alt"
+	merge_type = /obj/item/stack/tile/mineral/titanium/alt/white
 
 /obj/item/stack/tile/mineral/titanium/alt/purple
 	name = "sleek purple titanium tile"
@@ -161,6 +177,7 @@
 	desc = "Sleek purple titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
 	turf_type = /turf/open/floor/mineral/titanium/alt/purple
 	icon_state = "tile_titanium_purple_alt"
+	merge_type = /obj/item/stack/tile/mineral/titanium/alt/purple
 
 /obj/item/stack/tile/mineral/plastitanium
 	name = "plastitanium tile"
@@ -171,6 +188,7 @@
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
 	materials = list(/datum/material/titanium=250, /datum/material/plasma=250)
+	merge_type = /obj/item/stack/tile/mineral/plastitanium
 
 /obj/item/stack/tile/mineral/snow
 	name = "snow tile"
@@ -180,6 +198,7 @@
 	item_state = "tile-silver"
 	turf_type = /turf/open/floor/grass/snow/safe
 	mineralType = "snow"
+	merge_type = /obj/item/stack/tile/mineral/snow
 
 /obj/item/stack/tile/mineral/wax
 	name = "wax tile"
@@ -189,6 +208,7 @@
 	item_state = "tile-wax"
 	turf_type = /turf/open/floor/wax
 	mineralType = "wax"
+	merge_type = /obj/item/stack/tile/mineral/wax
 
 /obj/item/stack/tile/mineral/brass
 	name = "brass tiles"
@@ -197,11 +217,13 @@
 	item_state = "tile_brass"
 	turf_type = /turf/open/floor/clockwork
 	mineralType = "brass"
+	merge_type = /obj/item/stack/tile/mineral/brass
 
 /obj/item/stack/tile/mineral/bronze
 	name = "bronze tiles"
-	desc = "An ornante tile made out of... wait this is bronze!"
+	desc = "An ornate tile made out of... wait this is bronze!"
 	icon_state = "tile_brass"
 	item_state = "tile_brass"
 	turf_type = /turf/open/floor/bronze
 	mineralType = "bronze"
+	merge_type = /obj/item/stack/tile/mineral/bronze

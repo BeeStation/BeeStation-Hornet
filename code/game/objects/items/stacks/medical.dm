@@ -12,6 +12,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	novariants = FALSE
+	merge_type = /obj/item/stack/medical
 	///What reagent does it apply?
 	var/list/reagent
 	///Is this for bruises?
@@ -153,6 +154,7 @@
 	stop_bleeding = 1800
 	heal_brute = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
+	merge_type = /obj/item/stack/medical/gauze
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())

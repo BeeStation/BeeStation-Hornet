@@ -7,6 +7,7 @@
 	item_state = "sheet-hide"
 	icon = 'icons/obj/stacks/organic.dmi'
 	novariants = TRUE
+	merge_type = /obj/item/stack/sheet/animalhide
 
 /* Generic hide */
 
@@ -15,6 +16,7 @@
 	desc = "A piece of skin."
 	singular_name = "skin piece"
 	novariants = FALSE
+	merge_type = /obj/item/stack/sheet/animalhide/generic
 
 /* Human hide */
 
@@ -23,6 +25,7 @@
 	desc = "The by-product of human farming."
 	singular_name = "human skin piece"
 	novariants = FALSE
+	merge_type = /obj/item/stack/sheet/animalhide/human
 
 /obj/item/stack/sheet/animalhide/human/get_recipes()
 	return GLOB.human_recipes
@@ -35,6 +38,7 @@
 	singular_name = "corgi hide piece"
 	icon_state = "sheet-corgi"
 	item_state = "sheet-corgi"
+	merge_type = /obj/item/stack/sheet/animalhide/corgi
 
 /obj/item/stack/sheet/animalhide/corgi/get_recipes()
 	return GLOB.corgi_recipes
@@ -47,6 +51,7 @@
 	singular_name = "mothroach hide piece"
 	icon_state = "sheet-mothroach"
 	item_state = "sheet-mothroach"
+	merge_type = /obj/item/stack/sheet/animalhide/mothroach
 
 /* Gondola hide */
 
@@ -56,6 +61,7 @@
 	singular_name = "gondola hide piece"
 	icon_state = "sheet-gondola"
 	item_state = "sheet-gondola"
+	merge_type = /obj/item/stack/sheet/animalhide/gondola
 
 /obj/item/stack/sheet/animalhide/gondola/get_recipes()
 	return GLOB.gondola_recipes
@@ -68,6 +74,7 @@
 	singular_name = "cat hide piece"
 	icon_state = "sheet-cat"
 	item_state = "sheet-cat"
+	merge_type = /obj/item/stack/sheet/animalhide/cat
 
 /* Monkey hide */
 
@@ -77,6 +84,7 @@
 	singular_name = "monkey hide piece"
 	icon_state = "sheet-monkey"
 	icon_state = "sheet-monkey"
+	merge_type = /obj/item/stack/sheet/animalhide/monkey
 
 /obj/item/stack/sheet/animalhide/monkey/get_recipes()
 	return GLOB.monkey_recipes
@@ -89,6 +97,7 @@
 	singular_name = "lizard hide"
 	icon_state = "sheet-lizard"
 	item_state = "sheet-lizard"
+	merge_type = /obj/item/stack/sheet/animalhide/lizard
 
 /* Xeno hide */
 
@@ -98,6 +107,7 @@
 	singular_name = "alien hide piece"
 	icon_state = "sheet-xeno"
 	item_state = "sheet-xeno"
+	merge_type = /obj/item/stack/sheet/animalhide/xeno
 
 /obj/item/stack/sheet/animalhide/xeno/get_recipes()
 	return GLOB.xeno_recipes
@@ -114,6 +124,7 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	merge_type = /obj/item/stack/sheet/animalhide/ashdrake
 
 /* Goliath Plates */
 /obj/item/stack/sheet/animalhide/goliath_hide
@@ -126,6 +137,7 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	merge_type = /obj/item/stack/sheet/animalhide/goliath_hide
 
 /* Generic functions for hides, fun for all the family! */
 
