@@ -1,8 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - bugfix: Fixed BCI overlays not removing when pulsing signal
-  - bugfix: Fixed BCI overlays not removing when getting rid of the BCI
-  - bugfix: Bar overlay now has all required ports to work
-  - tweak: BCI shell doesn't have 3 action components by default now
-  - code_imp: add_alt_appearance proc now returns created alt appearance
