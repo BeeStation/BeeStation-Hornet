@@ -371,6 +371,19 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
+/datum/crafting_recipe/improvisedglassslug
+	name = "Glasspack Shotgun Shell"
+	result = /obj/item/ammo_casing/shotgun/improvised/glasspack
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/glass = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/laserslug
 	name = "Scatter Laser Shell"
 	result = /obj/item/ammo_casing/shotgun/laserslug
@@ -382,6 +395,71 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
+
+/datum/crafting_recipe/a41improv
+	name = "Improvised .41 Cartridge"
+	result = /obj/item/ammo_casing/a41/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/a41hotload
+	name = "Hot-Loaded .41 Cartridge"
+	result = /obj/item/ammo_casing/a41/improv/hotload
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/blackpowder = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/a41coppercore
+	name = "Copper Soft-Slug .41 Cartridge"
+	result = /obj/item/ammo_casing/a41/improv/softslug
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/mineral/copper = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 10)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv9mm_pack
+	name = "Improvised 9mm Ammo Pack"
+	result = /obj/item/ammo_box/c9mm/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 2,
+				/obj/item/stack/rods = 2,
+				/obj/item/stack/cable_coil = 3,
+				/datum/reagent/fuel = 15,
+				/obj/item/paper = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/pipesmg_mag
+	name = "Pipe Repeater Magazine"
+	result = /obj/item/ammo_box/magazine/pipem9mm
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stock_parts/matter_bin = 1,
+				/obj/item/stack/cable_coil = 3,
+				/obj/item/stack/package_wrap = 3)
+	tools = list(TOOL_WELDER, TOOL_WIRECUTTER)
+	time = 50
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/arrow
 	name = "Arrow"
@@ -428,8 +506,38 @@
 	reqs = list(/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/pipe = 1,
 				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/assembly/igniter = 1,
 				/obj/item/stack/package_wrap = 5)
-	tools = list(TOOL_SCREWDRIVER)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 100
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/piperifle
+	name = "Singleshot Pipe Rifle"
+	result = /obj/item/gun/ballistic/rifle/pipe
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/pipe = 1,
+				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/assembly/igniter = 1,
+				/obj/item/stack/package_wrap = 5)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 100
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/pipesmg
+	name = "Mag-Fed Pipe Repeater"
+	result = /obj/item/gun/ballistic/automatic/pipe_smg
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/pipe = 2,
+				/obj/item/stack/rods = 2,
+				/obj/item/stack/sheet/wood = 2,
+				/obj/item/assembly/igniter = 1,
+				/obj/item/stack/package_wrap = 5)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	time = 100
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

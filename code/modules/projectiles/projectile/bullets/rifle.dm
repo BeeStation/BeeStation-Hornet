@@ -34,8 +34,8 @@
 	damage -= (round(rand(0, 3), 1))
 
 /obj/projectile/bullet/a41/improv/copper
-	//Possible damage between 39 and 42
-	damage = 42
+	//Possible damage between 38 and 41
+	damage = 41
 	armour_penetration = -30
 
 /obj/projectile/bullet/a41/improv/hotload

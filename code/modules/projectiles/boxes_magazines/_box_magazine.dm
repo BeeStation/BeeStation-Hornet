@@ -10,7 +10,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	materials = list(/datum/material/iron = 30000)
 	throwforce = 2
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
 	var/list/stored_ammo = list()
