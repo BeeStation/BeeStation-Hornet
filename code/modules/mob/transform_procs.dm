@@ -43,15 +43,18 @@
 	icon = initial(icon)
 	invisibility = 0
 	set_species(/datum/species/monkey)
+	SEND_SIGNAL(src, COMSIG_HUMAN_MONKEYIZE)
+	uncuff()
 	return src
 
 /mob/living/carbon/proc/finish_teratomize()
 	transformation_timer = null
-	to_chat(src, "<B>You are now a monkey.</B>")
+	to_chat(src, "<B>You are now a teratoma.</B>")
 	notransform = FALSE
 	icon = initial(icon)
 	invisibility = 0
 	set_species(/datum/species/teratoma)
+	uncuff()
 	return src
 
 //////////////////////////           Humanize               //////////////////////////////
@@ -81,6 +84,7 @@
 	icon = initial(icon)
 	invisibility = 0
 	set_species(/datum/species/human)
+	SEND_SIGNAL(src, COMSIG_MONKEY_HUMANIZE)
 	return src
 
 //A common proc to start an -ize transformation

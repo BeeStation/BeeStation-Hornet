@@ -1,4 +1,5 @@
 /mob/living/carbon/human/species/monkey
+	icon_state = "monkey" //for mapping
 	race = /datum/species/monkey
 	ai_controller = /datum/ai_controller/monkey
 	faction = list("neutral", "monkey")
@@ -116,16 +117,6 @@
 		file_data["relic_mask"] = wear_mask ? wear_mask.type : null
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
-
-/datum/species/monkey/get_scream_sound(mob/living/carbon/user)
-	return pick(
-		'sound/creatures/monkey/monkey_screech_1.ogg',
-		'sound/creatures/monkey/monkey_screech_2.ogg',
-		'sound/creatures/monkey/monkey_screech_3.ogg',
-		'sound/creatures/monkey/monkey_screech_4.ogg',
-		'sound/creatures/monkey/monkey_screech_5.ogg',
-		'sound/creatures/monkey/monkey_screech_6.ogg',
-		'sound/creatures/monkey/monkey_screech_7.ogg',)
 
 //Special monkeycube subtype to track the number of them and prevent spam
 /mob/living/carbon/monkey/cube/Initialize(mapload)
