@@ -15,8 +15,13 @@ SUBSYSTEM_DEF(materials)
 	///A cache of all material combinations that have been used
 	var/list/list/material_combos
 	///List of stackcrafting recipes for materials using rigid materials
-	var/list/rigid_stack_recipes = list(
-		new /datum/stack_recipe("chair", /obj/structure/chair/greyscale, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
+	var/list/rigid_stack_recipes = list() // EMPTY FOR NOW
+	///List of stackcrafting recipes for materials using rigid materials
+	var/list/metallic_stack_recipes = list(
+		new /datum/stack_recipe("metallic chair", /obj/structure/chair/greyscale, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
+	)
+	var/list/silicate_stack_recipes = list(
+		new /datum/stack_recipe("silicate chair", /obj/structure/chair/glasscale, one_per_turf = TRUE, on_floor = TRUE, applies_mats = TRUE),
 	)
 
 ///Ran on initialize, populated the materials and materials_by_category dictionaries with their appropiate vars (See these variables for more info)

@@ -160,6 +160,12 @@
 	item_chair = /obj/item/chair/greyscale
 	buildstacktype = null //Custom mats handle this
 
+/obj/structure/chair/glasscale //literally the same as greyscale chairs, but using the "chair_glass" as a base to color rather than the standard metal
+	icon_state = "chair_glass"
+	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	item_chair = /obj/item/chair/glasscale
+	buildstacktype = null //Custom mats handle this
+
 /obj/structure/chair/wood
 	icon_state = "wooden_chair"
 	name = "wooden chair"
