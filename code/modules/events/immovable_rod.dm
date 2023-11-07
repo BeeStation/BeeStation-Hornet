@@ -130,7 +130,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	if(isturf(clong) || isobj(clong))
 		if(clong.density)
-			clong.ex_act(EXPLODE_HEAVY)
+			EX_ACT(clong, EXPLODE_HEAVY)
 
 	else if(isliving(clong))
 		penetrate(clong)
