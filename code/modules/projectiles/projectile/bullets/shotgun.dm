@@ -92,7 +92,7 @@
 
 /obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
 	. = ..()
-	range = rand(3, 8)
+	range = rand(5, 10)
 
 /obj/projectile/bullet/pellet/shotgun_improvised/on_range()
 	do_sparks(1, TRUE, src)
