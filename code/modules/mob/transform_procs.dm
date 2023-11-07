@@ -83,6 +83,24 @@
 	set_species(/datum/species/human)
 	return src
 
+//A common proc to start an -ize transformation
+/mob/living/carbon/proc/pre_transform(delete_items = FALSE)
+	if(notransform)
+		return TRUE
+	notransform = TRUE
+	Paralyze(1, ignore_canstun = TRUE)
+
+	if(delete_items)
+		for(var/obj/item/W in get_equipped_items(TRUE) | held_items)
+			qdel(W)
+	else
+		unequip_everything()
+	regenerate_icons()
+	icon = null
+	invisibility = INVISIBILITY_MAXIMUM
+	for(var/t in bodyparts)
+		qdel(t)
+
 /mob/living/carbon/AIize(transfer_after = TRUE, client/preference_source)
 	return pre_transform() ? null : ..()
 
