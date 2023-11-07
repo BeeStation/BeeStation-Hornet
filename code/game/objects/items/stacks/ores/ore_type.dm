@@ -87,7 +87,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/glass)
 	singular_name = "volcanic ash pile"
 	merge_type = /obj/item/stack/ore/glass/basalt
 
-STACKSIZE_MACRO(/obj/item/stack/ore/basalt)
+STACKSIZE_MACRO(/obj/item/stack/ore/glass/basalt)
 
 /* Plasma ore */
 

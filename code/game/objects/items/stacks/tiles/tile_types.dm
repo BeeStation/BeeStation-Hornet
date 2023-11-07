@@ -539,6 +539,7 @@
 	icon_state = "tile"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile
+	merge_type = /obj/item/stack/tile/mono
 
 /obj/item/stack/tile/mono/dark
 	name = "dark mono tile"
@@ -547,6 +548,7 @@
 	icon_state = "tile"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/dark
+	merge_type = /obj/item/stack/tile/mono/dark
 
 /obj/item/stack/tile/mono/light
 	name = "light mono tile"
@@ -555,6 +557,7 @@
 	icon_state = "tile"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/light
+	merge_type = /obj/item/stack/tile/mono/light
 
 //Bay grids
 /obj/item/stack/tile/grid
@@ -564,6 +567,7 @@
 	icon_state = "tile_grid"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/grid
+	merge_type = /obj/item/stack/tile/grid
 
 /obj/item/stack/tile/ridge
 	name = "grey ridge tile"
@@ -572,6 +576,7 @@
 	icon_state = "tile_ridged"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/ridged
+	merge_type = /obj/item/stack/tile/ridge
 
 //Techtiles
 /obj/item/stack/tile/techgrey
@@ -581,6 +586,7 @@
 	icon_state = "tile_tech_grey"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/tech
+	merge_type = /obj/item/stack/tile/techgrey
 
 /obj/item/stack/tile/techgrid
 	name = "grid techfloor tile"
@@ -589,6 +595,7 @@
 	icon_state = "tile_tech_grid"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/tech/grid
+	merge_type = /obj/item/stack/tile/techgrid
 
 /obj/item/stack/tile/techmaint
 	name = "dark techfloor tile"
@@ -597,6 +604,7 @@
 	icon_state = "tile_tech_maint"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/techmaint
+	merge_type = /obj/item/stack/tile/techmaint
 
 /obj/item/stack/tile/dock
 	name = "dock tile"
@@ -605,6 +613,7 @@
 	icon_state = "tile_dock"
 	materials = list(/datum/material/iron=500, /datum/material/plasma=500)
 	turf_type = /turf/open/floor/dock
+	merge_type = /obj/item/stack/tile/dock
 
 /obj/item/stack/tile/drydock
 	name = "dry dock tile"
@@ -613,3 +622,4 @@
 	icon_state = "tile_drydock"
 	materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
 	turf_type = /turf/open/floor/dock/drydock
+	merge_type = /obj/item/stack/tile/drydock
