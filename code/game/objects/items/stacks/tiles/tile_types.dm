@@ -18,6 +18,8 @@
 	var/mineralType = null
 	/// Cached associative lazy list to hold the radial options for tile reskinning. See tile_reskinning.dm for more information. Pattern: list[type] -> image
 	var/list/tile_reskin_types
+	/// Allows us to replace the plating we are attacking if our baseturfs are the same.
+	var/replace_plating = FALSE
 
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
@@ -26,6 +28,10 @@
 	if(tile_reskin_types)
 		tile_reskin_types = tile_reskin_list(tile_reskin_types)
 
+/obj/item/stack/tile/examine(mob/user)
+	. = ..()
+	if(tile_reskin_types)
+		. += "<span class='notice'>Use while in your hand to change what type of [src] you want.</span>"
 
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WELDER)
