@@ -17,7 +17,7 @@
 	if(!istype(user))
 		revert_cast()
 		return
-	var/did_something = user.on_fire
+	var/did_something = user.on_fire // This might be a false negative if the user has items on fire but they themselves are not.
 	user.ExtinguishMob()
 
 	for(var/mob/living/carbon/target in view(7, user))
