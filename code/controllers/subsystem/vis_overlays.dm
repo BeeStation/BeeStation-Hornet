@@ -18,9 +18,6 @@ SUBSYSTEM_DEF(vis_overlays)
 	return ..()
 
 /datum/controller/subsystem/vis_overlays/fire(resumed = FALSE)
-	if(!resumed)
-		return
-
 	handle_vis_overlay_cache()
 	handle_mob_alpha_cache()
 
