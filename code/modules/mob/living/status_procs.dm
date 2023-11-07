@@ -60,6 +60,7 @@
 ///////////////////////////////// KNOCKDOWN /////////////////////////////////////
 
 /mob/living/proc/IsKnockdown() //If we're knocked down
+	SHOULD_NOT_OVERRIDE(TRUE)
 	return has_status_effect(STATUS_EFFECT_KNOCKDOWN)
 
 /mob/living/proc/AmountKnockdown() //How many deciseconds remain in our knockdown
@@ -428,7 +429,6 @@
 	REMOVE_TRAIT(src, TRAIT_DEATHCOMA, source)
 	if(stat != DEAD)
 		tod = null
-	update_stat()
 
 /mob/living/proc/fakedeath(source, silent = FALSE)
 	if(stat == DEAD)
@@ -442,7 +442,6 @@
 	ADD_TRAIT(src, TRAIT_FAKEDEATH, source)
 	ADD_TRAIT(src, TRAIT_DEATHCOMA, source)
 	tod = station_time_timestamp()
-	update_stat()
 
 /mob/living/proc/unignore_slowdown(source)
 	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)

@@ -119,6 +119,7 @@
 			var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 			butchering.Butcher(chassis, target)
 		else
+			investigate_log("has been gibbed by [src] (attached to [chassis]).", INVESTIGATE_DEATHS)
 			target.gib()
 	else
 		//drill makes a hole

@@ -86,6 +86,29 @@
 		//Death
 		dust(TRUE)
 		return
+	if(key) // Prevents log spamming of keyless mob deaths (like xenobio monkeys)
+		investigate_log("has died at [loc_name(src)].<br>\
+			BRUTE: [src.getBruteLoss()] BURN: [src.getFireLoss()] TOX: [src.getToxLoss()] OXY: [src.getOxyLoss()] CLONE: [src.getCloneLoss()] STAM: [src.getStaminaLoss()]<br>\
+			<b>Brain damage</b>: [src.getOrganLoss(ORGAN_SLOT_BRAIN) || "0"]<br>\
+			<b>Blood volume</b>: [src.blood_volume]cl ([round((src.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 0.1)]%)<br>\
+			<b>Reagents</b>:<br>[reagents_readout()]", INVESTIGATE_DEATHS)
+	var/death_message = CONFIG_GET(string/death_message)
+	if (death_message)
+		to_chat(src, death_message)
+
+/mob/living/carbon/human/proc/reagents_readout()
+	var/readout = "Blood:"
+	for(var/datum/reagent/reagent in reagents?.reagent_list)
+		readout += "<br>[round(reagent.volume, 0.001)] units of [reagent.name]"
+	/*
+	readout += "<br>Stomach:"
+	var/obj/item/organ/internal/stomach/belly = getorganslot(ORGAN_SLOT_STOMACH)
+	for(var/datum/reagent/bile in belly?.reagents?.reagent_list)
+		if(!belly.food_reagents[bile.type])
+			readout += "<br>[round(bile.volume, 0.001)] units of [bile.name]"
+	*/
+
+	return readout
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)

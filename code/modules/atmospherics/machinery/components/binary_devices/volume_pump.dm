@@ -166,7 +166,7 @@
 
 	if("set_transfer_rate" in signal.data)
 		var/datum/gas_mixture/air1 = airs[1]
-		transfer_rate = CLAMP(text2num(signal.data["set_transfer_rate"]),0,air1.return_volume())
+		transfer_rate = clamp(text2num(signal.data["set_transfer_rate"]),0,air1.return_volume())
 
 	if(on != old_on)
 		investigate_log("was turned [on ? "on" : "off"] by a remote signal", INVESTIGATE_ATMOS)
@@ -193,6 +193,9 @@
 		overclocked = FALSE
 		to_chat(user, "The pump quiets down as you turn its limiters back on.")
 	return TRUE
+
+/obj/machinery/atmospherics/components/binary/volume_pump/can_crawl_through()
+	return on
 
 // mapping
 
