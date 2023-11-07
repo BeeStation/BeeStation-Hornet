@@ -334,10 +334,14 @@
 	cooldown = 10
 	stamina_damage = 20
 
-//Wooden Baton
+//Former Wooden Baton
 /obj/item/melee/classic_baton/police/beater
-	name = "wooden baton"
+	name = "OMNI Beater"
 	desc = "Favored by hot headed Security Officers who don't want to get in trouble with CentCom but still want to get that nostalgic feeling of beating some criminal scum upside the head with a chunk of wood."
+	icon_state = "beater"
+	item_state = "beater"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	force = 8
 	throwforce = 7
 	cooldown = 0
