@@ -12,6 +12,7 @@
 	var/revive_time_min = 60 SECONDS
 	var/revive_time_max = 100 SECONDS
 	var/timer_id
+	var/zombietype = /datum/species/zombie/infectious
 
 /obj/item/organ/zombie_infection/Initialize(mapload)
 	. = ..()
@@ -71,7 +72,7 @@
 
 	if(!iszombie(owner))
 		old_species = owner.dna.species.type
-		C.set_species(/datum/species/zombie/infectious)
+		C.set_species(zombietype)
 
 	var/stand_up = (C.stat == DEAD) || (C.stat == UNCONSCIOUS)
 
@@ -92,3 +93,6 @@
 
 /obj/item/organ/zombie_infection/nodamage
 	causes_damage = FALSE
+
+/obj/item/organ/zombie_infection/virus
+	var/zombietype = /datum/species/zombie/infectious/viral

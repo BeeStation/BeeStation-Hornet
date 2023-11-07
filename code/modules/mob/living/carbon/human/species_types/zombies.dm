@@ -99,12 +99,13 @@
 		infection = new()
 		infection.Insert(C)
 
-/datum/species/zombie/infectious/fast
-	name = "\improper Fast Infectious Zombie"
+/datum/species/zombie/infectious/viral
+	name = "\improper Infected Zombie"
 	id = "memezombiesfast"
 	armor = 0
 	speedmod = 0
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
+	mutanthands = /obj/item/zombie_hand
 
 // Your skin falls off
 /datum/species/human/krokodil_addict

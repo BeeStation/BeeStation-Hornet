@@ -19,7 +19,7 @@
 	if(CONFIG_GET(flag/process_dead_allowed))
 		A.process_dead = FALSE
 	A.infectable_biotypes -= MOB_UNDEAD
-	A.spread_dead = FALSE
+	A.spread_dead = TRUE
 
 /datum/symptom/inorganic_adaptation
 	name = "Inorganic Biology"

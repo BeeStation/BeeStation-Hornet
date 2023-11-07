@@ -44,6 +44,7 @@
 	var/dormant = FALSE //this prevents a disease from having any effects or spreading
 	var/keepid = FALSE
 	var/archivecure
+	var/event = FALSE // check if this virus spawned as a part of an event.
 	var/static/list/advance_cures = list(
 		list(/datum/reagent/water, /datum/reagent/consumable/nutriment, /datum/reagent/ash, /datum/reagent/iron),
 		list(/datum/reagent/consumable/ethanol, /datum/reagent/uranium/radium, /datum/reagent/oil, /datum/reagent/potassium, /datum/reagent/lithium),
@@ -166,6 +167,7 @@
 	A.speed = speed
 	A.keepid = keepid
 	A.id = id
+	A.event = event
 	//this is a new disease starting over at stage 1, so processing is not copied
 	return A
 

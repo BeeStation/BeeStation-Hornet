@@ -242,6 +242,11 @@
 	var/level_min = 1
 	var/level_max = 2
 
+/datum/chemical_reaction/mix_virus/check_other()
+	if(CONFIG_GET(flag/chemviro_allowed))
+		return TRUE
+	return FALSE
+
 /datum/chemical_reaction/mix_virus/can_react(datum/reagents/holder)
 	return ..() && !isnull(find_virus(holder))
 
@@ -369,7 +374,7 @@
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)
 <<<<<<< refs/remotes/BeeStation/master
 	var/datum/disease/advance/target = find_virus(holder)
-	if(target)
+	if(target && target.symptoms.len > (CONFIG_GET(number/virus_thinning_cap)))
 		target.Devolve()
 		target.logchanges(holder, "DEVOLVE")
 =======
@@ -438,6 +443,28 @@
 		target.spread_text = "Intentional Injection"
 		target.logchanges(holder, "FALTER")
 
+/datum/chemical_reaction/mix_virus/reset_virus
+	name = "Reset Virus"
+	id = "resetvirus"
+	required_reagents = list(/datum/reagent/medicine/mutadone = 1)
+	required_catalysts = list(/datum/reagent/blood = 1)
+
+/datum/chemical_reaction/mix_virus/reset_virus/check_other()
+	if(CONFIG_GET(flag/neuter_allowed))
+		return TRUE
+	return FALSE
+
+/datum/chemical_reaction/mix_virus/reset_virus/on_reaction(datum/reagents/holder, created_volume)
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		while(target.symptoms.len > VIRUS_SYMPTOM_LIMIT)
+			target.Devolve()
+		target.carrier = FALSE
+		target.dormant = FALSE
+		target.event = FALSE
+		target.faltered = FALSE
+		target.mutable = TRUE
+		target.Refresh()
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
 

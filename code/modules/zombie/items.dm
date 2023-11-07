@@ -10,6 +10,7 @@
 	icon_state = "bloodhand_left"
 	var/icon_left = "bloodhand_left"
 	var/icon_right = "bloodhand_right"
+	var/viral = FALSE
 	hitsound = 'sound/hallucinations/growl1.ogg'
 	force = 21 // Just enough to break airlocks with melee attacks
 	/// Base infection chance of 80%, gets lowered with armour
@@ -78,3 +79,17 @@
 		user.updatehealth()
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, -hp_gained) // Zom Bee gibbers "BRAAAAISNSs!1!"
 		user.set_nutrition(min(user.nutrition + hp_gained, NUTRITION_LEVEL_FULL))
+
+
+/obj/item/zombie_hand/infectious
+	name = "infected zombie claw"
+	viral = TRUE
+
+/obj/item/zombie_hand/proc/try_infect(mob/living/target, mob/living/user)
+	CHECK_DNA_AND_SPECIES(target)
+
+	if(NOZOMBIE in target.dna.species.species_traits)
+		// cannot infect any NOZOMBIE subspecies (such as high functioning
+		// zombies)
+		return
+
