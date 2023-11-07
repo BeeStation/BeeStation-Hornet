@@ -1,6 +1,6 @@
 #define TRANSFORMATION_DURATION 22
 
-/mob/living/carbon/proc/monkeyize()
+/mob/living/carbon/proc/monkeyize(skip_animation = FALSE)
 	if (notransform || transformation_timer)
 		return
 
@@ -17,7 +17,7 @@
 	if(!skip_animation)
 		new /obj/effect/temp_visual/monkeyify(loc)
 
-	transformation_timer = addtimer(CALLBACK(src, .proc/finish_monkeyize), TRANSFORMATION_DURATION, TIMER_UNIQUE)
+		transformation_timer = addtimer(CALLBACK(src, .proc/finish_monkeyize), TRANSFORMATION_DURATION, TIMER_UNIQUE)
 
 //Mostly same as monkey but turns target into teratoma
 
