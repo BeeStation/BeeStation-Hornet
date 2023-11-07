@@ -47,7 +47,6 @@
 
 	// Upgrades bitflag
 	var/upgrades = 0
-	var/datum/component/empprotection/emp_component
 
 	var/internal_light = TRUE //Whether it can light up when an AI views it
 
@@ -130,7 +129,6 @@
 		LAZYREMOVE(myarea.cameras, src)
 	QDEL_NULL(alarm_manager)
 	QDEL_NULL(assembly_ref)
-	QDEL_NULL(emp_component)
 	if(bug)
 		bug.bugged_cameras -= c_tag
 		if(bug.current == src)

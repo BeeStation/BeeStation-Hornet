@@ -60,7 +60,6 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
 
 .StatAtomElement {
   cursor: pointer;
-  color: lighten($color: $background-color, $amount: 65%);
 }
 
 .StatAtomTag {

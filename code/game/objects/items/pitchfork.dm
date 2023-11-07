@@ -55,9 +55,9 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=100, force_wielded=500000) // Kills you DEAD
 
-/obj/item/pitchfork/suicide_act(mob/user)
+/obj/item/pitchfork/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] impales [user.p_them()]self in [user.p_their()] abdomen with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/pitchfork/demonic/pickup(mob/living/user)
 	. = ..()

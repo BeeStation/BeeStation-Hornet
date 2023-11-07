@@ -57,6 +57,7 @@
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	allowed = list(/obj/item/tank/internals, /obj/item/melee/classic_baton) //Trench coats are a little more apt at carrying larger objects.
 
 /obj/item/clothing/suit/det_suit/Initialize(mapload)
 	. = ..()

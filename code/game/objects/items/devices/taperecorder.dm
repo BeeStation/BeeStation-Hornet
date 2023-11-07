@@ -88,15 +88,18 @@
 	eject(usr)
 
 
-/obj/item/taperecorder/update_icon()
+/obj/item/taperecorder/update_icon_state()
 	if(!mytape)
 		icon_state = "taperecorder_empty"
-	else if(recording)
+		return ..()
+	if(recording)
 		icon_state = "taperecorder_recording"
-	else if(playing)
+		return ..()
+	if(playing)
 		icon_state = "taperecorder_playing"
-	else
-		icon_state = "taperecorder_idle"
+		return ..()
+	icon_state = "taperecorder_idle"
+	return ..()
 
 
 /obj/item/taperecorder/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
