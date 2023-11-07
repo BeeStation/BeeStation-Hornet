@@ -26,3 +26,9 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		M.silent = max(M.silent, 10)
+
+/obj/projectile/bullet/pepperball
+	name = "pepperball"
+	damage = 0
+	stamina = 25
+	range = 15
