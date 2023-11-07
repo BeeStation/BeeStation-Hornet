@@ -136,7 +136,7 @@
 	amount_per_transfer_from_this = 2
 	stream_amount = 5
 
-/obj/item/reagent_containers/spray/cleaner/suicide_act(mob/user)
+/obj/item/reagent_containers/spray/cleaner/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is putting the nozzle of \the [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(do_after(user, 3 SECONDS))
 		if(reagents.total_volume >= amount_per_transfer_from_this)//if not empty
@@ -229,7 +229,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	throwforce = 0
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	stream_mode = 1
 	current_range = 7
 	spray_range = 4

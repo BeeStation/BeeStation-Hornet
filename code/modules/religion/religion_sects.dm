@@ -45,12 +45,13 @@
 	/// Whether the altar of the gods is anchored
 	var/altar_anchored = TRUE
 
+/datum/religion_sect/proc/is_available(mob/user)
+    return TRUE // basically all available
 
 /datum/religion_sect/New()
 	. = ..()
 	if(desired_items)
 		desired_items_typecache = typecacheof(desired_items)
-	on_select()
 
 /// Activates once selected
 /datum/religion_sect/proc/on_select()
@@ -308,3 +309,51 @@
 	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 25 favor in the process.</span>")
 	qdel(N)
 	return TRUE
+
+/**** Shadow Sect ****/
+
+/datum/religion_sect/shadow_sect
+	starter = FALSE
+	name = "Shadow"
+	desc = "A sect dedicated to the darkness. The manifested obelisks will generate favor from being in darkness."
+	quote = "Turn out the lights, and let the darkness cover the world!"
+	tgui_icon = "moon"
+	alignment = ALIGNMENT_EVIL
+	favor = 100 //Starts off with enough favor to make an obelisk
+	max_favor = 25000
+	desired_items = list(/obj/item/flashlight)
+	rites_list = list(/datum/religion_rites/expand_shadows,/datum/religion_rites/shadow_obelisk, /datum/religion_rites/shadow_conversion,/datum/religion_rites/shadow_blessing,/datum/religion_rites/shadow_eyes)
+	altar_icon_state = "convertaltar-dark"
+	var/light_reach = 1
+	var/light_power = 0
+	var/list/obelisks = list()
+
+/datum/religion_sect/shadow_sect/is_available(mob/user)
+    if(isshadow(user))
+        return TRUE
+    return FALSE
+
+//Shadow bibles don't heal or do anything special apart from the standard holy water blessings
+/datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
+	return TRUE
+
+/datum/religion_sect/shadow_sect/on_sacrifice(obj/item/N, mob/living/L)
+	if(!istype(N, /obj/item/flashlight))
+		return
+	adjust_favor(5, L)
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 5 favor in the process.</span>")
+	qdel(N)
+	return TRUE
+
+/datum/religion_sect/shadow_sect/on_select(atom/religious_tool, mob/living/user)
+	. = ..()
+	if(!religious_tool || !user)
+		return
+	religious_tool.AddComponent(/datum/component/dark_favor, user)
+
+/datum/religion_sect/shadow_sect/on_conversion(mob/living/chap) //When sect is selected, and when a new chaplain joins after sect has been selected
+	. = ..()
+	if(is_special_character(chap))
+		to_chat(chap,  "<span class='big notice'>As you are an antagonist role, you are free to spread darkness across the station.</span>")
+	else
+		to_chat(chap,  "<span class='userdanger'>You are not an antagonist, please do not spread darkness outside of the chapel without Command Staff approval.</span>")

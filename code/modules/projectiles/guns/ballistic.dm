@@ -2,7 +2,7 @@
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
 	name = "projectile gun"
 	icon_state = "pistol"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 
 	//sound info vars
 	var/load_sound = "gun_insert_full_magazine"
@@ -359,7 +359,7 @@
 /obj/item/gun/ballistic/proc/install_suppressor(obj/item/suppressor/S)
 	// this proc assumes that the suppressor is already inside src
 	suppressed = S
-	w_class += S.w_class //so pistols do not fit in pockets when suppressed
+	weight_class_up() //so pistols do not fit in pockets when suppressed
 	update_icon()
 
 /obj/item/gun/ballistic/AltClick(mob/user)
@@ -368,12 +368,11 @@
 		return
 	if(loc == user)
 		if(suppressed && can_unsuppress)
-			var/obj/item/suppressor/S = suppressed
 			if(!user.is_holding(src))
 				return
 			to_chat(user, "<span class='notice'>You unscrew \the [suppressed] from \the [src].</span>")
 			user.put_in_hands(suppressed)
-			w_class -= S.w_class
+			weight_class_down()
 			suppressed = null
 			update_icon()
 			return
@@ -519,7 +518,8 @@
 
 #define BRAINS_BLOWN_THROW_RANGE 3
 #define BRAINS_BLOWN_THROW_SPEED 1
-/obj/item/gun/ballistic/suicide_act(mob/user)
+
+/obj/item/gun/ballistic/suicide_act(mob/living/user)
 	var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
 	if (B && chambered && chambered.BB && can_trigger_gun(user) && !chambered.BB.nodamage)
 		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -533,14 +533,14 @@
 			B.forceMove(T)
 			var/datum/callback/gibspawner = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_atom_to_turf), /obj/effect/gibspawner/generic, B, 1, FALSE, user)
 			B.throw_at(target, BRAINS_BLOWN_THROW_RANGE, BRAINS_BLOWN_THROW_SPEED, callback=gibspawner)
-			return(BRUTELOSS)
+			return BRUTELOSS
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
-			return(OXYLOSS)
+			return OXYLOSS
 	else
 		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brain[user.p_s()] out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(src, dry_fire_sound, 30, TRUE)
-		return (OXYLOSS)
+		return OXYLOSS
 #undef BRAINS_BLOWN_THROW_SPEED
 #undef BRAINS_BLOWN_THROW_RANGE
 
@@ -576,7 +576,7 @@
 		else
 			name = "sawn-off [src.name]"
 		desc = sawn_desc
-		w_class = WEIGHT_CLASS_NORMAL
+		w_class = WEIGHT_CLASS_LARGE
 		if (sawn_item_state)
 			item_state = sawn_item_state
 		else

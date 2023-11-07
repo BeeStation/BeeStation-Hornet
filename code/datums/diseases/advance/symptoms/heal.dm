@@ -121,13 +121,13 @@
 		ADD_TRAIT(M, TRAIT_NOCRITDAMAGE, DISEASE_TRAIT)
 	if(HAS_TRAIT(M, TRAIT_DEATHCOMA))
 		return power
-	else if(M.IsUnconscious() || M.stat == UNCONSCIOUS)
+	if(M.IsSleeping())
+		return power * 0.25 //Voluntary unconsciousness yields lower healing.
+	if(M.stat == UNCONSCIOUS)
 		return power * 0.9
-	else if(M.stat == SOFT_CRIT)
+	if(M.stat == SOFT_CRIT)
 		return power * 0.5
-	else if(M.IsSleeping())
-		return power * 0.25
-	else if(M.getBruteLoss() + M.getFireLoss() >= 70 && !active_coma)
+	if(M.getBruteLoss() + M.getFireLoss() >= 70 && !active_coma)
 		to_chat(M, "<span class='warning'>You feel yourself slip into a deep, regenerative slumber.</span>")
 		active_coma = TRUE
 		addtimer(CALLBACK(src, PROC_REF(coma), M), 60)
@@ -137,7 +137,6 @@
 		M.fakedeath(TRAIT_REGEN_COMA)
 	else
 		M.Unconscious(300, TRUE, TRUE)
-	M.update_stat()
 	M.update_mobility()
 	addtimer(CALLBACK(src, PROC_REF(uncoma), M), 300)
 
@@ -149,7 +148,6 @@
 		M.cure_fakedeath(TRAIT_REGEN_COMA)
 	else
 		M.SetUnconscious(0)
-	M.update_stat()
 	M.update_mobility()
 
 /datum/symptom/heal/coma/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
@@ -601,7 +599,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	if(A.transmission >= 4)
 		severity -= 1
-	if((A.stealth >= 2) && (A.transmission >= 6) && A.process_dead)
+	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes))
 		severity -= 1
 		bodies = list("Vampir", "Blood")
 
@@ -615,7 +613,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		maxbloodpoints += 50
 	if(A.stage_rate >= 7)
 		power += 1
-	if((A.stealth >= 2) && (A.transmission >= 6) && A.process_dead) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
+	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes)) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
 		vampire = TRUE
 		maxbloodpoints += 50
 		power += 1

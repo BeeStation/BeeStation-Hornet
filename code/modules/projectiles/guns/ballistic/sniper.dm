@@ -17,8 +17,8 @@
 	direct_loading = TRUE
 	semi_auto = FALSE
 	fire_rate = 1.5
-	rack_delay = 8
-	w_class = WEIGHT_CLASS_NORMAL
+	burst_size = 1
+	w_class = WEIGHT_CLASS_LARGE
 	zoomable = TRUE
 	zoom_amt = 10 //Long range, enough to see in front of you, but no tiles behind you.
 	zoom_out_amt = 5
