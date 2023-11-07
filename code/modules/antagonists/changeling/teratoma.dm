@@ -26,7 +26,7 @@
 	objectives -= O
 
 /datum/antagonist/teratoma/admin_remove(mob/admin)
-	var/mob/living/carbon/human/human/monkey/tumor/M = owner.current
+	var/mob/living/carbon/human/species/monkey/tumor/M = owner.current
 	if(alert(admin, "Humanize?", "Humanize", "Yes", "No") == "Yes")
 		M.humanize()
 	. = ..()

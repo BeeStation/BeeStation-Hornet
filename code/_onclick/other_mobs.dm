@@ -133,7 +133,7 @@
 	moving it here instead of various hand_p's has simplified
 	things considerably
 */
-/mob/living/carbon/monkey/RestrainedClickOn(atom/A)
+/mob/living/carbon/human/species/monkey/RestrainedClickOn(atom/A)
 	if(..())
 		return
 	if(a_intent != INTENT_HARM || !ismob(A))

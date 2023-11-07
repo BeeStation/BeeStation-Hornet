@@ -5,7 +5,7 @@
 
 /mob/living/carbon/human/species/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	if (cubespawned)
-		var/cap = CONFIG_GET(number/monkeycap)
+		var/cap = CONFIG_GET(number/max_cube_monkeys)
 		if (LAZYLEN(SSmobs.cubemonkeys) > cap)
 			if (spawner)
 				to_chat(spawner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!</span>")
@@ -125,5 +125,74 @@
 		'sound/creatures/monkey/monkey_screech_4.ogg',
 		'sound/creatures/monkey/monkey_screech_5.ogg',
 		'sound/creatures/monkey/monkey_screech_6.ogg',
-		'sound/creatures/monkey/monkey_screech_7.ogg'
-	)
+		'sound/creatures/monkey/monkey_screech_7.ogg',)
+
+//Special monkeycube subtype to track the number of them and prevent spam
+/mob/living/carbon/monkey/cube/Initialize(mapload)
+	. = ..()
+	GLOB.total_cube_monkeys++
+
+/mob/living/carbon/monkey/cube/death(gibbed)
+	GLOB.total_cube_monkeys--
+	..()
+
+//In case admins delete them before they die
+/mob/living/carbon/monkey/cube/Destroy()
+	if(stat != DEAD)
+		GLOB.total_cube_monkeys--
+	return ..()
+
+/mob/living/carbon/human/species/monkey/tumor
+	name = "living teratoma"
+	verb_say = "blabbers"
+	initial_language_holder = /datum/language_holder/monkey
+	icon = 'icons/mob/monkey.dmi'
+	icon_state = null
+	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
+	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
+	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
+					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	ai_controller = null
+
+/datum/dna/tumor
+	species = new /datum/species/teratoma
+
+/datum/species/teratoma
+	name = "Teratoma"
+	id = "teratoma"
+	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
+	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
+	default_features = list("mcolor" = "FFF", "wings" = "None")
+	use_skintones = FALSE
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
+	changesource_flags = MIRROR_BADMIN
+	mutant_brain = /obj/item/organ/brain/tumor
+	mutanttongue = /obj/item/organ/tongue/teratoma
+
+	species_chest = /obj/item/bodypart/chest/monkey/teratoma
+	species_head = /obj/item/bodypart/head/monkey/teratoma
+	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
+	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
+	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
+	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
+
+/obj/item/organ/brain/tumor
+	name = "teratoma brain"
+
+/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load = FALSE)
+	. = ..()
+	//Removing it deletes it
+	if(!QDELETED(src))
+		qdel(src)
+
+/mob/living/carbon/human/species/monkey/tumor/handle_mutations_and_radiation()
+	return
+
+/mob/living/carbon/human/species/monkey/tumor/has_dna()
+	return FALSE
+
+/mob/living/carbon/human/species/monkey/tumor/create_dna()
+	dna = new /datum/dna/tumor(src)
+	//Give us the juicy mutant organs
+	dna.species.on_species_gain(src, null, FALSE)
+	dna.species.regenerate_organs(src, replace_current = TRUE)

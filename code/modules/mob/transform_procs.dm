@@ -51,7 +51,7 @@
 	notransform = FALSE
 	icon = initial(icon)
 	invisibility = 0
-	set_species(/datum/species/monkey/teratoma)
+	set_species(/datum/species/teratoma)
 	return src
 
 //////////////////////////           Humanize               //////////////////////////////

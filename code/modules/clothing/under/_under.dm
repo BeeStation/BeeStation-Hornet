@@ -165,7 +165,7 @@
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
 		if(ismonkey(loc))
-			var/mob/living/carbon/monkey/H = loc
+			var/mob/living/carbon/human/species/monkey/H = loc
 			H.update_inv_w_uniform()
 
 //Adds or removes mob from suit sensor global list

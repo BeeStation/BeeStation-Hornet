@@ -193,7 +193,7 @@ GLOBAL_LIST_INIT(clawfootmob, typecacheof(list(
 	)))
 
 GLOBAL_LIST_INIT(barefootmob, typecacheof(list(
-	/mob/living/carbon/monkey,
+	/mob/living/carbon/human/species/monkey,
 	/mob/living/simple_animal/pet/penguin,
 	/mob/living/simple_animal/hostile/gorilla,
 	/mob/living/simple_animal/hostile/jungle/mook

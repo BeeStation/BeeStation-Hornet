@@ -418,12 +418,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/obj/item/thing = C.get_item_by_slot(slot_id)
 		if(thing && (!thing.species_exception || !is_type_in_list(src,thing.species_exception)))
 			C.dropItemToGround(thing)
+
 	if(C.hud_used)
 		C.hud_used.update_locked_slots()
 
 	replace_body(C)
-
-	fix_non_native_limbs(C)
 
 	C.mob_biotypes = inherent_biotypes
 
@@ -2774,14 +2773,3 @@ GLOBAL_LIST_EMPTY(features_by_species)
 ///Species override for unarmed attacks because the attack_hand proc was made by a mouth-breathing troglodyte on a tricycle. Also to whoever thought it would be a good idea to make it so the original spec_unarmedattack was not actually linked to unarmed attack needs to be checked by a doctor because they clearly have a vast empty space in their head.
 /datum/species/proc/spec_unarmedattack(mob/living/carbon/human/user, atom/target)
 	return FALSE
-
-///Removes any non-native limbs from the mob
-/datum/species/proc/fix_non_native_limbs(mob/living/carbon/human/H)
-	for(var/X in H.bodyparts)
-		var/obj/item/bodypart/current_part = X
-		var/obj/item/bodypart/species_part = bodypart_overides[current_part.body_zone]
-
-		if(current_part.type == species_part)
-			continue
-
-		current_part.change_bodypart(species_part)
