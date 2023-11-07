@@ -88,12 +88,12 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscatperson(A) (is_species(A, /datum/species/human/felinid) )
 #define isethereal(A) (is_species(A, /datum/species/ethereal))
 #define isvampire(A) (is_species(A,/datum/species/vampire))
+#define ismonkey(A) (is_species(A, /datum/species/monkey))
 #define isipc(A) (is_species(A, /datum/species/ipc))
 #define isapid(A) (is_species(A, /datum/species/apid))
 #define isandroid(A) (is_species(A, /datum/species/android))
 
 //more carbon mobs
-#define ismonkey(A) (istype(A, /mob/living/carbon/monkey))
 
 #define isxeno(A) (istype(A, /mob/living/carbon/xenomorph))
 

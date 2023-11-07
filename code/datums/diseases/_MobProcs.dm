@@ -61,7 +61,15 @@
 	else
 		target_zone = check_zone(target_zone)
 
-	if(ishuman(src))
+	if(ismonkey(src))
+		var/mob/living/carbon/human/M = src
+		switch(target_zone)
+			if(BODY_ZONE_HEAD)
+				if(M.wear_mask && isobj(M.wear_mask))
+					Cl = M.wear_mask
+					passed = prob((Cl.permeability_coefficient*100) - 1)
+
+	else if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 
 		switch(target_zone)
@@ -97,14 +105,6 @@
 
 				if(passed && isobj(H.shoes))
 					Cl = H.shoes
-					passed = prob((Cl.permeability_coefficient*100) - 1)
-
-	else if(ismonkey(src))
-		var/mob/living/carbon/monkey/M = src
-		switch(target_zone)
-			if(BODY_ZONE_HEAD)
-				if(M.wear_mask && isobj(M.wear_mask))
-					Cl = M.wear_mask
 					passed = prob((Cl.permeability_coefficient*100) - 1)
 
 	if(passed)

@@ -110,7 +110,7 @@
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
 
 /datum/antagonist/changeling/proc/remove_changeling_powers()
-	if(ishuman(owner.current) || ismonkey(owner.current))
+	if(ishuman(owner.current))
 		reset_properties()
 		for(var/datum/action/changeling/p in purchasedpowers)
 			purchasedpowers -= p

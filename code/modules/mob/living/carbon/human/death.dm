@@ -4,9 +4,9 @@
 		return
 	switch(dna.species.species_gibs)
 		if(GIB_TYPE_HUMAN)
-			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
+			new /obj/effect/temp_visual/gib_animation(loc, dna.species.gib_anim)
 		if(GIB_TYPE_ROBOTIC)
-			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-r")
+			new /obj/effect/temp_visual/dust_animation(loc, dna.species.dust_anim)
 
 /mob/living/carbon/human/dust_animation()
 	if(!dna)

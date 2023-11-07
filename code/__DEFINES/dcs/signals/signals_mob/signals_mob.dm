@@ -44,7 +44,10 @@
 #define COMSIG_MOB_DROPPED_ITEM "mob_dropped_item"				//! from base of /item/dropped(): (/mob/user, /obj/item, loc)
 #define COMSIG_MOB_APPLY_DAMGE	"mob_apply_damage"				//! from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"		//! from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
-#define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"			//! from base of mob/RangedAttack(): (atom/A, params)
+///from base of mob/RangedAttack(): (atom/A, params)
+#define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
+///From base of atom/ctrl_click(): (atom/A)
+#define COMSIG_MOB_CTRL_CLICKED "mob_ctrl_clicked"
 #define COMSIG_MOB_THROW "mob_throw"							//! from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"				//! from base of /mob/update_sight(): ()
 #define COMSIG_MOB_EXAMINATE "mob_examinate"					//from base of /mob/verb/examinate(): (atom/target)

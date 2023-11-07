@@ -139,7 +139,7 @@
 	return 0
 
 
-/mob/living/carbon/attack_paw(mob/living/carbon/monkey/M)
+/mob/living/carbon/attack_paw(mob/living/carbon/human/M)
 
 	if(can_inject(M, TRUE))
 		for(var/thing in diseases)

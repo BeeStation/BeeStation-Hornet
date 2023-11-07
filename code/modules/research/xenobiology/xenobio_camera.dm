@@ -118,12 +118,10 @@
 		hotkey_help.Grant(user)
 		actions += hotkey_help
 
-	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL, PROC_REF(XenoSlimeClickCtrl))
+	RegisterSignal(user, COMSIG_XENO_SLIME_CTRL_CLICKED, PROC_REF(XenoSlimeClickCtrl))
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT, PROC_REF(XenoSlimeClickAlt))
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT, PROC_REF(XenoSlimeClickShift))
 	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT, PROC_REF(XenoTurfClickShift))
-	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL, PROC_REF(XenoTurfClickCtrl))
-	RegisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL, PROC_REF(XenoMonkeyClickCtrl))
 
 	//Checks for recycler on every interact, prevents issues with load order on certain maps.
 	if(!connected_recycler)
@@ -133,12 +131,10 @@
 				connected_recycler.connected += src
 
 /obj/machinery/computer/camera_advanced/xenobio/remove_eye_control(mob/living/user)
-	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL)
+	UnregisterSignal(user, COMSIG_MOB_CTRL_CLICKED)
 	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT)
 	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT)
 	UnregisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT)
-	UnregisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL)
-	UnregisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL)
 	..()
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/on_contents_del(datum/source, atom/deleted)
@@ -248,7 +244,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/monkey/food = new /mob/living/carbon/monkey(remote_eye.loc, TRUE, owner)
+			var/mob/living/carbon/human/species/monkey/food = new /mob/living/carbon/human/species/monkey(remote_eye.loc, TRUE, owner)
 			if (!QDELETED(food))
 				food.LAssailant = WEAKREF(C)
 				X.monkeys--
@@ -277,7 +273,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 		to_chat(owner, "<span class='notice'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
 		return
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
-		for(var/mob/living/carbon/monkey/M in remote_eye.loc)
+		for(var/mob/living/carbon/human/M in remote_eye.loc)
 			if(M.stat)
 				M.visible_message("[M] vanishes as [M.p_theyre()] reclaimed for recycling!")
 				recycler.use_power(500)
@@ -346,11 +342,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 //
 // Alternate clicks for slime, monkey and open turf if using a xenobio console
 
-// Scans slime
-/mob/living/simple_animal/slime/CtrlClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_CTRL, src)
-	..()
-
 //Feeds a potion to slime
 /mob/living/simple_animal/slime/AltClick(mob/user)
 	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_ALT, src)
@@ -366,15 +357,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	SEND_SIGNAL(user, COMSIG_XENO_TURF_CLICK_SHIFT, src)
 	..()
 
-//Place monkey
-/turf/open/CtrlClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_XENO_TURF_CLICK_CTRL, src)
-	..()
-
-//Pick up monkey
-/mob/living/carbon/monkey/CtrlClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_XENO_MONKEY_CLICK_CTRL, src)
-	..()
+/obj/machinery/computer/camera_advanced/xenobio/proc/on_ctrl_click(datum/source, atom/clicked_atom)
+	SIGNAL_HANDLER
+	if(ismonkey(clicked_atom))
+		XenoMonkeyClickCtrl(source, clicked_atom)
+	if(isopenturf(clicked_atom))
+		XenoTurfClickCtrl(source, clicked_atom)
+	if(isslime(clicked_atom))
+		XenoSlimeClickCtrl(source, clicked_atom)
 
 // Scans slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickCtrl(mob/living/user, mob/living/simple_animal/slime/S)
@@ -460,7 +450,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	var/area/turfarea = get_area(T)
 	if(turfarea.name == E.allowed_area || (turfarea.area_flags & XENOBIOLOGY_COMPATIBLE))
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/monkey/food = new /mob/living/carbon/monkey(T, TRUE, C)
+			var/mob/living/carbon/human/food = new /mob/living/carbon/human/species/monkey(T, TRUE, C)
 			if (!QDELETED(food))
 				food.LAssailant = WEAKREF(C)
 				X.monkeys--
@@ -470,7 +460,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 			to_chat(C, "[X] needs to have at least 1 monkey stored. Currently has [X.monkeys] monkeys stored.")
 
 //Pick up monkey
-/obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/monkey/M)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/human/M)
 	SIGNAL_HANDLER
 
 	if(!GLOB.cameranet.checkTurfVis(M.loc))

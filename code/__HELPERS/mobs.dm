@@ -118,6 +118,7 @@
 		"moth_wings" = pick(GLOB.moth_wings_roundstart_list),
 		"moth_antennae" = pick(GLOB.moth_antennae_roundstart_list),
 		"moth_markings" = pick(GLOB.moth_markings_roundstart_list),
+		"tail_monkey" = "None",
 		"ipc_screen" = pick(GLOB.ipc_screens_list),
 		"ipc_antenna" = pick(GLOB.ipc_antennas_list),
 		"ipc_chassis" = pick(GLOB.ipc_chassis_list),

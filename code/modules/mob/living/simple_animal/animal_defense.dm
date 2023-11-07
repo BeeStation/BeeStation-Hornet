@@ -53,7 +53,7 @@
 		adjustBruteLoss(15)
 		return TRUE
 
-/mob/living/simple_animal/attack_paw(mob/living/carbon/monkey/M)
+/mob/living/simple_animal/attack_paw(mob/living/carbon/human/M)
 	if(..()) //successful monkey bite.
 		if(stat != DEAD)
 			var/damage = rand(1, 3)

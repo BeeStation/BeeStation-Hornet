@@ -1,202 +1,26 @@
-/mob/living/carbon/monkey
-	name = "monkey"
-	verb_say = "chimpers"
-	initial_language_holder = /datum/language_holder/monkey
-	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_HARM)
-	icon = 'icons/mob/monkey.dmi'
-	icon_state = null
-	gender = NEUTER
-	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_NUDE
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
-	type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab/monkey
-	gib_type = /obj/effect/decal/cleanable/blood/gibs
-	unique_name = TRUE
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	bodyparts = list(/obj/item/bodypart/chest/monkey, /obj/item/bodypart/head/monkey, /obj/item/bodypart/l_arm/monkey,
-					/obj/item/bodypart/r_arm/monkey, /obj/item/bodypart/r_leg/monkey, /obj/item/bodypart/l_leg/monkey)
-	hud_type = /datum/hud/monkey
-	mobchatspan = "monkeyhive"
+/mob/living/carbon/human/species/monkey
+	race = /datum/species/monkey
 	ai_controller = /datum/ai_controller/monkey
 	faction = list("neutral", "monkey")
-	/// Whether it can be made into a human with mutadone
-	var/natural = TRUE
-	///Item reference for jumpsuit
-	var/obj/item/clothing/w_uniform = null
 
-GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
-	/datum/strippable_item/hand/left,
-	/datum/strippable_item/hand/right,
-	/datum/strippable_item/mob_item_slot/handcuffs,
-	/datum/strippable_item/mob_item_slot/legcuffs,
-	/datum/strippable_item/mob_item_slot/head,
-	/datum/strippable_item/mob_item_slot/back,
-	/datum/strippable_item/mob_item_slot/jumpsuit,
-	/datum/strippable_item/mob_item_slot/mask,
-	/datum/strippable_item/mob_item_slot/neck
-)))
-
-/mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
-	add_verb(/mob/living/proc/mob_sleep)
-	add_verb(/mob/living/proc/lay_down)
-
-	if(unique_name) //used to exclude pun pun
-		gender = pick(MALE, FEMALE)
-	real_name = name
-
-	//initialize limbs
-	create_bodyparts()
-	create_internal_organs()
-
-	. = ..()
-
+/mob/living/carbon/human/species/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	if (cubespawned)
-		var/cap = CONFIG_GET(number/max_cube_monkeys)
+		var/cap = CONFIG_GET(number/monkeycap)
 		if (LAZYLEN(SSmobs.cubemonkeys) > cap)
 			if (spawner)
 				to_chat(spawner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!</span>")
 			return INITIALIZE_HINT_QDEL
 		SSmobs.cubemonkeys += src
+	return ..()
 
-	create_dna()
-	dna.initialize_dna(random_blood_type())
-	//Set offsets here, DONT mess with monkey species, we use human anyway.
-	dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-4), OFFSET_HEAD = list(0,-4), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
-	check_if_natural()
-	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
-
-	// Give random dormant diseases to roundstart monkeys.
-	if(mapload)
-		give_random_dormant_disease(30, min_symptoms = 1, max_symptoms = 3)
-
-/mob/living/carbon/monkey/proc/check_if_natural()
-	for(var/datum/mutation/race/monke in dna.mutations)
-		if(natural)
-			monke.mutadone_proof = TRUE
-		else
-			monke.mutadone_proof = FALSE
-
-/mob/living/carbon/monkey/Destroy()
+/mob/living/carbon/human/species/monkey/Destroy()
 	SSmobs.cubemonkeys -= src
 	return ..()
 
-/mob/living/carbon/monkey/create_internal_organs()
-	internal_organs += new /obj/item/organ/appendix
-	internal_organs += new /obj/item/organ/lungs
-	internal_organs += new /obj/item/organ/heart
-	internal_organs += new /obj/item/organ/brain
-	internal_organs += new /obj/item/organ/tongue
-	internal_organs += new /obj/item/organ/eyes
-	internal_organs += new /obj/item/organ/ears
-	internal_organs += new /obj/item/organ/liver
-	internal_organs += new /obj/item/organ/stomach
-	..()
-
-/mob/living/carbon/monkey/on_reagent_change()
-	. = ..()
-	remove_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE)
-	var/amount
-	if(reagents.has_reagent(/datum/reagent/medicine/morphine))
-		amount = -1
-	if(reagents.has_reagent(/datum/reagent/consumable/nuka_cola))
-		amount = -1
-	if(amount)
-		add_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = amount)
-
-/mob/living/carbon/monkey/updatehealth()
-	. = ..()
-	var/slow = 0
-	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
-		var/health_deficiency = (maxHealth - health)
-		if(health_deficiency >= 45)
-			slow += (health_deficiency / 25)
-	add_movespeed_modifier(MOVESPEED_ID_MONKEY_HEALTH_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = slow)
-
-/mob/living/carbon/monkey/get_stat_tab_status()
-	var/list/tab_data = ..()
-	if(client && mind)
-		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
-	return tab_data
-
-
-/mob/living/carbon/monkey/verb/removeinternal()
-	set name = "Remove Internals"
-	set category = "IC"
-	internal = null
-	return
-
-/mob/living/carbon/monkey/reagent_check(datum/reagent/R) //can metabolize all reagents
-	return FALSE
-
-/mob/living/carbon/monkey/canBeHandcuffed()
-	return TRUE
-
-/mob/living/carbon/monkey/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
-	if(judgment_criteria & JUDGE_EMAGGED)
-		return 10 //Everyone is a criminal!
-
-	var/threatcount = 0
-
-	//Securitrons can't identify monkeys
-	if( !(judgment_criteria & JUDGE_IGNOREMONKEYS) && (judgment_criteria & JUDGE_IDCHECK) )
-		threatcount += 4
-
-	//Lasertag bullshit
-	if(lasercolor)
-		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
-			if(is_holding_item_of_type(/obj/item/gun/energy/laser/redtag))
-				threatcount += 4
-
-		if(lasercolor == "r")
-			if(is_holding_item_of_type(/obj/item/gun/energy/laser/bluetag))
-				threatcount += 4
-
-		return threatcount
-
-	//Check for weapons
-	if( (judgment_criteria & JUDGE_WEAPONCHECK) && weaponcheck )
-		for(var/obj/item/I in held_items) //if they're holding a gun
-			if(weaponcheck.Invoke(I))
-				threatcount += 4
-		if(weaponcheck.Invoke(back)) //if a weapon is present in the back slot
-			threatcount += 4 //trigger look_for_perp() since they're nonhuman and very likely hostile
-
-	//mindshield implants imply trustworthyness
-	if(has_mindshield_hud_icon())
-		threatcount -= 1
-
-	return threatcount
-
-/mob/living/carbon/monkey/get_permeability_protection()
-	var/protection = 0
-	if(head)
-		protection = 1 - head.permeability_coefficient
-	if(wear_mask)
-		protection = max(1 - wear_mask.permeability_coefficient, protection)
-	protection = protection/7 //the rest of the body isn't covered.
-	return protection
-
-/mob/living/carbon/monkey/IsVocal()
-	if(!getorganslot(ORGAN_SLOT_LUNGS))
-		return 0
-	return 1
-
-/mob/living/carbon/monkey/can_use_guns(obj/item/G)
-	return TRUE
-
-/mob/living/carbon/monkey/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED)) //Obtainable with Brain trauma
-		return FALSE
-	return TRUE //Something about an infinite amount of monkeys on typewriters writing Shakespeare...
-
-/mob/living/carbon/monkey/angry
+/mob/living/carbon/human/species/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
 
-/mob/living/carbon/monkey/angry/Initialize(mapload)
+/mob/living/carbon/human/species/monkey/angry/Initialize()
 	. = ..()
 	if(prob(10))
 		var/obj/item/clothing/head/helmet/justice/escape/helmet = new(src)
@@ -204,72 +28,102 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 		helmet.attack_self(src) // todo encapsulate toggle
 
 
-//Special monkeycube subtype to track the number of them and prevent spam
-/mob/living/carbon/monkey/cube/Initialize(mapload)
-	. = ..()
-	GLOB.total_cube_monkeys++
+/mob/living/carbon/human/species/monkey/punpun //except for a few special persistence features, pun pun is just a normal monkey
+	name = "Pun Pun" //C A N O N
+	unique_name = FALSE
+	use_random_name = FALSE
+	var/ancestor_name
+	var/ancestor_chain = 1
+	var/relic_hat	//Note: relic_hat and relic_mask are paths
+	var/relic_hat_blacklist
+	var/relic_mask
+	var/relic_mask_blacklist
+	var/memory_saved = FALSE
 
-/mob/living/carbon/monkey/cube/death(gibbed)
-	GLOB.total_cube_monkeys--
+/mob/living/carbon/human/species/monkey/punpun/Initialize(mapload)
+	// Init our blacklists.
+	relic_hat_blacklist = typecacheof(list(/obj/item/clothing/head/chameleon,/obj/item/clothing/head/monkey_sentience_helmet), only_root_path = TRUE)
+	relic_mask_blacklist = typecacheof(list(/obj/item/clothing/mask/facehugger, /obj/item/clothing/mask/chameleon), only_root_path = TRUE)
+
+	// Read memory
+	Read_Memory()
+
+	var/name_to_use = name
+
+	if(ancestor_name)
+		name_to_use = ancestor_name
+		if(ancestor_chain > 1)
+			name_to_use += " \Roman[ancestor_chain]"
+	else if(prob(10))
+		name_to_use = pick(list("Professor Bobo", "Deempisi's Revenge", "Furious George", "King Louie", "Dr. Zaius", "Jimmy Rustles", "Dinner", "Lanky"))
+		if(name_to_use == "Furious George")
+			ai_controller = /datum/ai_controller/monkey/angry //hes always mad
+	. = ..()
+
+	fully_replace_character_name(real_name, name_to_use)
+
+	//These have to be after the parent new to ensure that the monkey
+	//bodyparts are actually created before we try to equip things to
+	//those slots
+	if(relic_hat && !is_type_in_typecache(relic_hat, relic_hat_blacklist))
+		equip_to_slot_or_del(new relic_hat, ITEM_SLOT_HEAD)
+	if(relic_mask && !is_type_in_typecache(relic_mask, relic_mask_blacklist))
+		equip_to_slot_or_del(new relic_mask, ITEM_SLOT_MASK)
+
+/mob/living/carbon/human/species/monkey/punpun/Life()
+	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
+		Write_Memory(FALSE, FALSE)
+		memory_saved = TRUE
 	..()
 
-//In case admins delete them before they die
-/mob/living/carbon/monkey/cube/Destroy()
-	if(stat != DEAD)
-		GLOB.total_cube_monkeys--
-	return ..()
+/mob/living/carbon/human/species/monkey/punpun/death(gibbed)
+	if(!memory_saved)
+		Write_Memory(TRUE, gibbed)
+	..()
 
-/mob/living/carbon/monkey/tumor
-	name = "living teratoma"
-	verb_say = "blabbers"
-	initial_language_holder = /datum/language_holder/monkey
-	icon = 'icons/mob/monkey.dmi'
-	icon_state = null
-	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
-	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
-					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
-	ai_controller = null
+/mob/living/carbon/human/species/monkey/punpun/death(gibbed)
+	if(fexists("data/npc_saves/Punpun.sav")) //legacy compatability to convert old format to new
+		var/savefile/S = new /savefile("data/npc_saves/Punpun.sav")
+		S["ancestor_name"]	>> ancestor_name
+		S["ancestor_chain"] >> ancestor_chain
+		S["relic_hat"]		>> relic_hat
+		S["relic_mask"]		>> relic_mask
+		fdel("data/npc_saves/Punpun.sav")
+		relic_hat = text2path(relic_hat) // Convert from a string to a path
+		relic_mask = text2path(relic_mask)
+	else
+		var/json_file = file("data/npc_saves/Punpun.json")
+		if(!fexists(json_file))
+			return
+		var/list/json = json_decode(rustg_file_read(json_file))
+		ancestor_name = json["ancestor_name"]
+		ancestor_chain = json["ancestor_chain"]
+		relic_hat = text2path(json["relic_hat"]) // We convert these to paths for type checking
+		relic_mask = text2path(json["relic_mask"])
 
-/datum/dna/tumor
-	species = new /datum/species/teratoma
+/mob/living/carbon/human/species/monkey/punpun/proc/Write_Memory(dead, gibbed)
+	var/json_file = file("data/npc_saves/Punpun.json")
+	var/list/file_data = list()
+	if(gibbed)
+		file_data["ancestor_name"] = null
+		file_data["ancestor_chain"] = null
+		file_data["relic_hat"] = null
+		file_data["relic_mask"] = null
+	else
+		file_data["ancestor_name"] = ancestor_name ? ancestor_name : name
+		file_data["ancestor_chain"] = dead ? ancestor_chain + 1 : ancestor_chain
+		file_data["relic_hat"] = head ? head.type : null
+		file_data["relic_mask"] = wear_mask ? wear_mask.type : null
+	fdel(json_file)
+	WRITE_FILE(json_file, json_encode(file_data))
 
-/datum/species/teratoma
-	name = "Teratoma"
-	id = "teratoma"
-	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
-	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
-	default_features = list("mcolor" = "FFF", "wings" = "None")
-	use_skintones = FALSE
-	skinned_type = /obj/item/stack/sheet/animalhide/monkey
-	changesource_flags = MIRROR_BADMIN
-	mutant_brain = /obj/item/organ/brain/tumor
-	mutanttongue = /obj/item/organ/tongue/teratoma
-
-	species_chest = /obj/item/bodypart/chest/monkey/teratoma
-	species_head = /obj/item/bodypart/head/monkey/teratoma
-	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
-	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
-	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
-	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
-
-/obj/item/organ/brain/tumor
-	name = "teratoma brain"
-
-/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load = FALSE)
-	. = ..()
-	//Removing it deletes it
-	if(!QDELETED(src))
-		qdel(src)
-
-/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
-	return
-
-/mob/living/carbon/monkey/tumor/has_dna()
-	return FALSE
-
-/mob/living/carbon/monkey/tumor/create_dna()
-	dna = new /datum/dna/tumor(src)
-	//Give us the juicy mutant organs
-	dna.species.on_species_gain(src, null, FALSE)
-	dna.species.regenerate_organs(src, replace_current = TRUE)
+/datum/species/monkey/get_scream_sound(mob/living/carbon/user)
+	return pick(
+		'sound/creatures/monkey/monkey_screech_1.ogg',
+		'sound/creatures/monkey/monkey_screech_2.ogg',
+		'sound/creatures/monkey/monkey_screech_3.ogg',
+		'sound/creatures/monkey/monkey_screech_4.ogg',
+		'sound/creatures/monkey/monkey_screech_5.ogg',
+		'sound/creatures/monkey/monkey_screech_6.ogg',
+		'sound/creatures/monkey/monkey_screech_7.ogg'
+	)

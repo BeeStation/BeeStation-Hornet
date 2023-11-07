@@ -20,7 +20,7 @@
 		//if they are holding or wearing a card that has access, that works
 		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id))
 			return TRUE
-	else if(ismonkey(accessor) || isalienadult(accessor))
+	else if(isalienadult(accessor))
 		var/mob/living/carbon/george = accessor
 		//they can only hold things :(
 		if(check_access(george.get_active_held_item()))

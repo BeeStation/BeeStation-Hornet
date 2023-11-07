@@ -50,8 +50,6 @@
 		moblist.Add(M)
 	for(var/mob/dead/new_player/M in sortmob)
 		moblist.Add(M)
-	for(var/mob/living/carbon/monkey/M in sortmob)
-		moblist.Add(M)
 	for(var/mob/living/simple_animal/slime/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)

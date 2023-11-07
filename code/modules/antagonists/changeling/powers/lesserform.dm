@@ -13,5 +13,6 @@
 		return FALSE
 	to_chat(user, "<span class='warning'>Our genes cry out!</span>")
 	..()
-	user.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
+	user.monkeyize()
+	
 	return TRUE

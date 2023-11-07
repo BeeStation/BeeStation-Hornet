@@ -185,7 +185,7 @@
 	/*food_flags = FOOD_FINGER_FOOD*/
 	w_class = WEIGHT_CLASS_TINY
 	var/faction
-	var/spawned_mob = /mob/living/carbon/monkey
+	var/spawned_mob = /mob/living/carbon/human/species/monkey
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(GLOB.total_cube_monkeys >= CONFIG_GET(number/max_cube_monkeys))

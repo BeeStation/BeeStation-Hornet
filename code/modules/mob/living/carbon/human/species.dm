@@ -37,6 +37,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/forced_features = list()	// A list of features forced on characters
 	var/list/mutant_bodyparts = list() 	// Visible CURRENT bodyparts that are unique to a species. DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK SHIT UP! Changes to this list for non-species specific bodyparts (ie cat ears and tails) should be assigned at organ level if possible. Layer hiding is handled by handle_mutant_bodyparts() below.
 	var/list/mutant_organs = list()		//Internal organs that are unique to this race.
+	///The bodyparts this species uses. assoc of bodypart string - bodypart type. Make sure all the fucking entries are in or I'll skin you alive.
+	var/list/bodypart_overides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm,\
+		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm,\
+		BODY_ZONE_HEAD = /obj/item/bodypart/head,\
+		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg,\
+		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg,\
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest)
 	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 	var/brutemod = 1	// multiplier for brute damage
@@ -79,6 +87,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/lungs/mutantlungs = null
 	var/breathid = "o2"
 
+	///What anim to use for dusting
+	var/dust_anim = "dust-h"
+	///What anim to use for gibbing
+	var/gib_anim = "gibbed-h"
+
 	var/obj/item/organ/brain/mutant_brain = /obj/item/organ/brain
 	var/obj/item/organ/heart/mutant_heart = /obj/item/organ/heart
 	var/obj/item/organ/eyes/mutanteyes = /obj/item/organ/eyes
@@ -110,6 +123,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	/// if false, having no tongue makes you unable to speak
 	var/speak_no_tongue = TRUE
+
+	///List of results you get from knife-butchering. null means you cant butcher it. Associated by resulting type - value of amount
+	var/list/knife_butcher_results
 
 ///////////
 // PROCS //
@@ -406,6 +422,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.hud_used.update_locked_slots()
 
 	replace_body(C)
+
+	fix_non_native_limbs(C)
 
 	C.mob_biotypes = inherent_biotypes
 
@@ -807,6 +825,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_human"
 
+	if("tail_monkey" in mutant_bodyparts)
+		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
+			bodyparts_to_add -= "tail_monkey"
 
 	if("waggingtail_human" in mutant_bodyparts)
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
@@ -951,6 +972,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
 				if("caps")
 					S = GLOB.caps_list[H.dna.features["caps"]]
+				if("tail_monkey")
+					S = GLOB.tails_list_monkey[H.dna.features["tail_monkey"]]
 				if("ipc_screen")
 					S = GLOB.ipc_screens_list[H.dna.features["ipc_screen"]]
 				if("ipc_antenna")
@@ -971,7 +994,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = -layer)
 
 			//A little rename so we don't have to use tail_lizard or tail_human when naming the sprites.
-			if(bodypart == "tail_lizard" || bodypart == "tail_human")
+			if(bodypart == "tail_lizard" || bodypart == "tail_human" || bodypart == "tail_monkey")
 				bodypart = "tail"
 			else if(bodypart == "waggingtail_lizard" || bodypart == "waggingtail_human")
 				bodypart = "waggingtail"
@@ -1539,6 +1562,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				user.do_attack_animation(target, ATTACK_EFFECT_CLAW)
 			if(ATTACK_EFFECT_SMASH)
 				user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+			if(ATTACK_EFFECT_BITE)
+				if(user.is_mouth_covered(FALSE, TRUE))
+					to_chat(user, "<span class='warning'>You can't bite with your mouth covered!</span>")
+					return FALSE
+				user.do_attack_animation(target, ATTACK_EFFECT_BITE)
 			else
 				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
@@ -2742,3 +2770,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	qdel(temp_holder)
 
 	return to_add
+
+///Species override for unarmed attacks because the attack_hand proc was made by a mouth-breathing troglodyte on a tricycle. Also to whoever thought it would be a good idea to make it so the original spec_unarmedattack was not actually linked to unarmed attack needs to be checked by a doctor because they clearly have a vast empty space in their head.
+/datum/species/proc/spec_unarmedattack(mob/living/carbon/human/user, atom/target)
+	return FALSE
+
+///Removes any non-native limbs from the mob
+/datum/species/proc/fix_non_native_limbs(mob/living/carbon/human/H)
+	for(var/X in H.bodyparts)
+		var/obj/item/bodypart/current_part = X
+		var/obj/item/bodypart/species_part = bodypart_overides[current_part.body_zone]
+
+		if(current_part.type == species_part)
+			continue
+
+		current_part.change_bodypart(species_part)

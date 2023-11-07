@@ -45,8 +45,10 @@
 		var/list/data_entry = list()
 		if(isliving(player))
 			if(iscarbon(player))
+				var/mob/living/carbon/human/tracked_human = player
+				if(ismonkey(player))
+					data_entry["job"] = "Monkey"
 				if(ishuman(player))
-					var/mob/living/carbon/human/tracked_human = player
 					data_entry["job"] = player.job
 					var/obj/item/card/id/I = tracked_human.wear_id?.GetID()
 					if (I)

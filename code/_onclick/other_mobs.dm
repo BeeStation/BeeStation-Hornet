@@ -26,6 +26,8 @@
 		return
 
 	SEND_SIGNAL(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, A)
+	if(dna?.species?.spec_unarmedattack(src, A)) //Because species like monkeys dont use attack hand
+		return
 	A.attack_hand(src)
 
 //Return TRUE to cancel other attack hand effects that respect it.
@@ -118,21 +120,7 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_BASIC_MOB, user)
 	return
 
-/mob/living/RestrainedClickOn(atom/A)
-	return
-
-/*
-	Monkeys
-*/
-/mob/living/carbon/monkey/UnarmedAttack(atom/A, proximity)
-	var/override = 0
-	for(var/datum/mutation/HM as() in dna.mutations)
-		override += HM.on_attack_hand(A, proximity)
-	if(override)
-		return
-
-	A.attack_paw(src)
-
+///Attacked by monkey
 /atom/proc/attack_paw(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_PAW, user) & COMPONENT_NO_ATTACK_HAND)
 		return TRUE

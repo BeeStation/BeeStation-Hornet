@@ -349,7 +349,7 @@
 	else
 		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
 
-	if(ishuman(M) || ismonkey(M))
+	if(ishuman(M))
 		if(prob(10))
 			M.Paralyze(40)
 	update_icon()
