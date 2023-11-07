@@ -16,8 +16,7 @@
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	direct_loading = TRUE
 	semi_auto = FALSE
-	fire_rate = 1.5
-	rack_delay = 7
+	rack_delay = 4
 	w_class = WEIGHT_CLASS_LARGE
 	zoomable = TRUE
 	zoom_amt = 10 //Long range, enough to see in front of you, but no tiles behind you.

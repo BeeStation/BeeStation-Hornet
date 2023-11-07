@@ -120,7 +120,8 @@
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	slot_flags = ITEM_SLOT_BACK
-	rack_sound = "sound/weapons/leveractionrack.ogg"
+	rack_sound = "sound/weapons/leveractionrack_open.ogg"
+	bolt_drop_sound = "sound/weapons/leveractionrack_close.ogg"
 	fire_sound = "sound/weapons/leveractionshot.ogg"
 	mag_type = /obj/item/ammo_box/magazine/internal/leveraction
 	w_class = WEIGHT_CLASS_BULKY
