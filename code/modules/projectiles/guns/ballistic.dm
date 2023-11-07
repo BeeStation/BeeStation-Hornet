@@ -557,3 +557,20 @@
 	desc = "A foreign knock-off suppressor, it feels flimsy, cheap, and brittle. Still fits most weapons."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "suppressor"
+
+/obj/item/hacksaw
+	name = "hacksaw"
+	desc = "A hacksaw with a metal-cutting blade attached. You could use it as a regular saw in a pinch."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "hacksaw"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	item_state = "wrench"
+	flags_1 = CONDUCT_1
+	force = 7
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(/datum/material/iron=100)
+	attack_verb = list("attacked", "slashed", "sawed", "cut")
+	sharpness = IS_SHARP
+	tool_behaviour = TOOL_SAW
+	toolspeed = 2.5

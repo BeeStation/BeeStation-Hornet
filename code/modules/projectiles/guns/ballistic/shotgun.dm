@@ -229,7 +229,8 @@
 	name = "improvised shotgun"
 	desc = "Essentially a tube that aims shotgun shells."
 	icon_state = "ishotgun"
-	item_state = "shotgun"
+	item_state = "shotgun_improv"
+	sawn_item_state = "shotgun_improv_shorty"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	slot_flags = null
@@ -239,11 +240,12 @@
 	unique_reskin_icon = null
 	recoil = 1.5
 	var/slung = FALSE
+	var/reinforced = FALSE
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
 	if (istype(A, /obj/item/ammo_casing/shotgun))
 		var/obj/item/ammo_casing/shotgun/S = A
-		if (S.high_power)
+		if (S.high_power && reinforced == FALSE)
 			to_chat(user, "<span class='warning'>This gun can't handle the pressure of \a [S.name] being fired!</span>")
 			return
 	..()
@@ -281,7 +283,7 @@
 	name = "sawn-off improvised shotgun"
 	desc = "A single-shot shotgun. Better not miss."
 	icon_state = "ishotgun"
-	item_state = "gun"
+	item_state = "shotgun_improv_shorty"
 	w_class = WEIGHT_CLASS_LARGE
 	sawn_off = TRUE
 	slot_flags = ITEM_SLOT_BELT

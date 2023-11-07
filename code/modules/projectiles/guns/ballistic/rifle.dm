@@ -114,7 +114,11 @@
 	name = "lever action rifle"
 	desc = "Straight from the Wild West, this belongs in a museum but has found its way into your hands."
 	icon_state = "leverrifle"
-	item_state = "moistnugget"
+	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
+	item_state = "leveraction"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	slot_flags = ITEM_SLOT_BACK
 	rack_sound = "sound/weapons/leveractionrack.ogg"
 	fire_sound = "sound/weapons/leveractionshot.ogg"
@@ -134,7 +138,12 @@
 	sawn_name = "pipe pistol"
 	sawn_desc = "Why have more gun, when less gun can do!"
 	icon_state = "piperifle"
-	item_state = "moistnugget"
+	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
+	item_state = "shotgun_improv"
+	sawn_item_state = "shotgun_improv_shorty"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	bolt_type = BOLT_TYPE_NO_BOLT
 	cartridge_wording = "cartridge"
 	slot_flags = null
@@ -159,3 +168,10 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
+
+/obj/item/gun/ballistic/rifle/pipe/sawoff(mob/user)
+	. = ..()
+	if(. && slung) //sawing off the gun removes the sling
+		new /obj/item/stack/cable_coil(get_turf(src), 10)
+		slung = FALSE
+		update_icon()
