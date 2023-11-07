@@ -220,7 +220,7 @@
 	GLOB.reality_smash_track.smashes += src
 	heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
 	generate_name()
-	SSvis_overlays.add_obj_alpha(src, 'icons/effects/heretic.dmi', "pierced_illusion")
+	SSvis_overlays.add_obj_alpha(src, 'icons/effects/heretic.dmi', real_icon_state)
 
 /obj/effect/heretic_influence/Destroy()
 	GLOB.reality_smash_track.smashes -= src

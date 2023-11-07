@@ -118,6 +118,11 @@
 	item_state = null
 	alpha = 0
 
+/obj/item/storage/box/mime/Initialize(mapload)
+	. = ..()
+	var/obj/item/storage/box/base_box = /obj/item/storage/box
+	SSvis_overlays.add_obj_alpha(src, initial(base_box.icon), initial(base_box.icon_state))
+
 /obj/item/storage/box/mime/attack_hand(mob/user)
 	..()
 	if(user.mind.miming)

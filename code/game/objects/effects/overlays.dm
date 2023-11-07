@@ -47,18 +47,17 @@
 	anchored = TRUE
 
 /obj/effect/overlay/vis
+	var/vis_cache_id
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE
 	vis_flags = NONE
-	var/unused = 0 //When detected to be unused it gets set to world.time, after a while it gets removed
-	var/cache_expiration = 2 MINUTES // overlays which go unused for 2 minutes get cleaned up
+	var/last_used_world_time = 0 //When detected to be unused it gets set to world.time, after a while it gets removed
+	var/expiration_time = 2 MINUTES // overlays which go unused for 2 minutes get cleaned up
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE
 
 /obj/effect/overlay/vis/mob_alpha
-	/// this separately exists because "mob_alpha_id" is to reference this single, but "mob_owner_ref" is to reference multiple things to a mob
+	/// this separately exists because "vis_cache_id" is to reference this single, but "mob_owner_ref" is to reference multiple things to a mob
 	var/mob_owner_ref
-	var/mob_alpha_id
-	var/use_count = 0
 
 /obj/effect/overlay/airlock_part
 	anchored = TRUE

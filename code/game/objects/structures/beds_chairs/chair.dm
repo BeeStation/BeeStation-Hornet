@@ -142,6 +142,11 @@
 	item_chair = null
 	flags_1 = NODECONSTRUCT_1
 
+/obj/structure/chair/mime/Initialize(mapload)
+	. = ..()
+	var/obj/structure/chair/base_chair = /obj/structure/chair
+	SSvis_overlays.add_obj_alpha(src, initial(base_chair.icon), initial(base_chair.icon_state))
+
 /obj/structure/chair/mime/post_buckle_mob(mob/living/M)
 	M.pixel_y += 5
 
