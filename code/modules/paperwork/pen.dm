@@ -30,9 +30,9 @@
 	var/degrees = 0
 	var/font = PEN_FONT
 
-/obj/item/pen/suicide_act(mob/user)
+/obj/item/pen/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is scribbling numbers all over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/pen/blue
 	desc = "It's a normal blue ink pen."

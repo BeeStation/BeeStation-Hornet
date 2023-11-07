@@ -127,7 +127,9 @@
 	src.revive(full_heal = 1)
 
 	// No defib possible after laughter
-	victim.adjustBruteLoss(1000)
+	victim.apply_damage(1000, BRUTE)
+	if(victim.stat != DEAD)
+		victim.investigate_log("has been killed by being consumed by a slaugter demon.", INVESTIGATE_DEATHS)
 	victim.death()
 	bloodcrawl_swallow(victim)
 	return TRUE

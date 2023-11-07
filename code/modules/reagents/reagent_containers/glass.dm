@@ -407,6 +407,7 @@
 	volume = 100
 	amount_per_transfer_from_this = 20
 	cap_icon_state = "bottle_cap"
+	vendor_icon_preview = "waterbottle_large"
 
 /obj/item/reagent_containers/glass/waterbottle/large/empty
 	list_reagents = list()

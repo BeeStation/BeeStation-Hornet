@@ -111,6 +111,7 @@
 	if(isliving(hunted)) // Are we hunting a living mob?
 		var/mob/living/living_target = hunted
 		hunter.manual_emote("[hunt_emote] [living_target]!")
+		living_target.investigate_log("has been killed by [key_name(hunter)].", INVESTIGATE_DEATHS)
 		living_target.death()
 
 	else if(IS_EDIBLE(hunted))

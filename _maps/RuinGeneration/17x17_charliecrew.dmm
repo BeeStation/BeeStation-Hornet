@@ -368,9 +368,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "GF" = (
-/obj/machinery/modular_fabricator/exosuit_fab{
-	auto_link = 0
-	},
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 4
 	},
