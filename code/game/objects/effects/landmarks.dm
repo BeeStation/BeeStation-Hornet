@@ -514,7 +514,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "navigate"
 	layer = OBJ_LAYER
 
+	/// navigation_id automatically sets to its area name (Bridge, Hydroponics, etc)
+	/// If you want to use a dedicated name for a specific area, set this value in DMM.
+	/// example) navigation_id = "Bartender's storage"
 	var/navigation_id
+
+	// Note: if multiple area needs a standard name, use "navigation_area_name"
 
 /obj/effect/landmark/navigate_destination/Initialize(mapload)
 	. = ..()
@@ -539,11 +544,17 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 		actual_key = "[navigation_id] ([++fail_assoc_count])"
 	GLOB.navigate_destinations[navigation_id] = src
 
+/// Checks if this destination is available to a user.
 /obj/effect/landmark/navigate_destination/proc/is_available_to_user(mob/user)
 	if(!isatom(src) || !compare_z_with(user) || get_dist(get_turf(src), user) > MAX_NAVIGATE_RANGE)
 		return FALSE
 	return TRUE
 
+/// Checks if each z of this destination and a user.
+/// * FALSE: target destination doesn't exist, or z-groups are different (i.e. Station to Lavaland)
+/// * 1: very exactly same z
+/// * 16 (UP): target destination is above the user
+/// * 32 (DOWN): target destination is below the user
 /obj/effect/landmark/navigate_destination/proc/compare_z_with(mob/user)
 	var/turf/target_turf = get_turf(src)
 	if(!target_turf)
