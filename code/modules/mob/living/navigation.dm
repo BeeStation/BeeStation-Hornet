@@ -1,5 +1,3 @@
-#define MAX_NAVIGATE_RANGE 125
-
 /mob/living
 	/// Cooldown of the navigate() verb.
 	COOLDOWN_DECLARE(navigate_cooldown)
@@ -24,50 +22,65 @@
 	addtimer(CALLBACK(src, PROC_REF(create_navigation)), world.tick_lag)
 
 /mob/living/proc/create_navigation()
-	var/list/destination_list = list()
-	for(var/atom/destination in GLOB.navigate_destinations)
-		if(!isatom(destination) || destination.z != z || get_dist(destination, src) > MAX_NAVIGATE_RANGE)
+	if(incapacitated())
+		to_chat(src, "<span class='notice'>You are not conscious enough to do that.</span>")
+		return
+	var/list/filtered_navigation_list = list()
+	for(var/each_nav_id in GLOB.navigate_destinations)
+		var/obj/effect/landmark/navigate_destination/each_nav = GLOB.navigate_destinations[each_nav_id]
+		if(!each_nav || !each_nav.is_available_to_user(src))
 			continue
-		var/destination_name = GLOB.navigate_destinations[destination]
-		destination_list[destination_name] = destination
+		filtered_navigation_list[each_nav_id] = each_nav
 
 	if(!is_reserved_level(z)) //don't let us path to nearest staircase or ladder on shuttles in transit
 		if(z > 1)
-			destination_list["Nearest Way Down"] = DOWN
+			filtered_navigation_list["Nearest Way Down"] = DOWN
 		if(z < world.maxz)
-			destination_list["Nearest Way Up"] = UP
+			filtered_navigation_list["Nearest Way Up"] = UP
 
-	if(!length(destination_list))
+	if(!length(filtered_navigation_list))
 		balloon_alert(src, "no navigation signals!")
 		return
 
-	var/destination_id = tgui_input_list(src, "Select a location", "Navigate", sort_list(destination_list))
-	var/navigate_target = destination_list[destination_id]
+	var/target_nav_id = tgui_input_list(src, "Select a location", "Navigate", sort_list(filtered_navigation_list))
+	var/obj/effect/landmark/navigate_destination/target_destination = filtered_navigation_list[target_nav_id]
 
-	if(isnull(navigate_target))
+	if(isnull(target_destination))
+		return
+	if(isatom(target_destination) && !target_destination.is_available_to_user(src))
 		return
 	if(incapacitated())
 		return
+
+	// automatically change your destination to another floor
+	if(istype(target_destination, /obj/effect/landmark/navigate_destination))
+		var/z_result = target_destination.compare_z_with(src)
+		if(!z_result)
+			return
+		if(z_result > 1) // UP: 16, DOWN: 32
+			target_destination = z_result
+			to_chat(src, "<span class='notice'>Your destination is at another floor. You should go [target_destination == UP ? "up" : "down"] first.</span>")
+
 	COOLDOWN_START(src, navigate_cooldown, 15 SECONDS)
 
-	if(navigate_target == UP || navigate_target == DOWN)
-		var/new_target = find_nearest_stair_or_ladder(navigate_target)
+	if(target_destination == UP || target_destination == DOWN)
+		var/new_target = find_nearest_stair_or_ladder(target_destination)
 
 		if(!new_target)
-			balloon_alert(src, "can't find ladder or staircase going [navigate_target == UP ? "up" : "down"]!")
+			balloon_alert(src, "can't find ladder or staircase going [target_destination == UP ? "up" : "down"]!")
 			return
 
-		navigate_target = new_target
+		target_destination = new_target
 
-	if(!isatom(navigate_target))
-		stack_trace("Navigate target ([navigate_target]) is not an atom, somehow.")
+	if(!isatom(target_destination))
+		stack_trace("Navigate target ([target_destination]) is not an atom, somehow.")
 		return
 
-	var/list/path = get_path_to(src, navigate_target, MAX_NAVIGATE_RANGE, mintargetdist = 1, id = get_idcard(), skip_first = FALSE)
+	var/list/path = get_path_to(src, target_destination, MAX_NAVIGATE_RANGE, mintargetdist = 1, id = get_idcard(), skip_first = FALSE)
 	if(!length(path))
 		balloon_alert(src, "no valid path with current access!")
 		return
-	path |= get_turf(navigate_target)
+	path |= get_turf(target_destination)
 	for(var/i in 1 to length(path))
 		var/image/path_image = image(icon = 'icons/effects/navigation.dmi', layer = HIGH_SIGIL_LAYER, loc = path[i])
 		path_image.plane = GAME_PLANE
@@ -148,5 +161,3 @@
 		target = stairs_bro.z == z ? stairs_bro : get_step_multiz(stairs_bro, UP)
 
 	return target
-
-#undef MAX_NAVIGATE_RANGE
