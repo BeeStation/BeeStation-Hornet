@@ -107,4 +107,4 @@
 #define CHATMESSAGE_EMOTE "emotemessage"
 
 ///How far away blind people can see visible messages from
-#define BLIND_TEXT_DIST 3
+#define BLIND_TEXT_DIST 2

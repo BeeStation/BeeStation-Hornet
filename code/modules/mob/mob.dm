@@ -150,7 +150,7 @@
 /**
   * Show a message to this mob (visual or audible)
   */
-/mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+/mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE, dist)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
 	if(!client)
 		return
@@ -158,7 +158,7 @@
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
 	if(type)
-		if(type & MSG_VISUAL && is_blind() )//Vision related
+		if(type & MSG_VISUAL && (is_blind() && dist > BLIND_TEXT_DIST))//Vision related
 			if(!alt_msg)
 				return
 			else
