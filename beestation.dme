@@ -2908,6 +2908,7 @@
 #include "code\modules\mob\living\living_sentience.dm"
 #include "code\modules\mob\living\login.dm"
 #include "code\modules\mob\living\logout.dm"
+#include "code\modules\mob\living\navigation.dm"
 #include "code\modules\mob\living\say.dm"
 #include "code\modules\mob\living\status_procs.dm"
 #include "code\modules\mob\living\taste.dm"

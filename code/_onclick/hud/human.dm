@@ -91,6 +91,11 @@
 	using.icon = ui_style
 	static_inventory += using
 
+	using = new/atom/movable/screen/navigate
+	using.icon = ui_style
+	using.hud = src
+	static_inventory += using
+
 	using = new /atom/movable/screen/area_creator
 	using.icon = ui_style
 	static_inventory += using
