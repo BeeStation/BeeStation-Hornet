@@ -506,12 +506,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 			B.pixel_y += rand(-6, 6)
 	return INITIALIZE_HINT_QDEL
 
+
+#define MAX_NAVIGATE_RANGE 125
 //Landmark that creates destinations for the navigate verb to path to
 /obj/effect/landmark/navigate_destination
 	name = "navigate verb destination"
 	icon_state = "navigate"
 	layer = OBJ_LAYER
-	var/location
+
+	var/navigation_id
 
 /obj/effect/landmark/navigate_destination/Initialize(mapload)
 	. = ..()
@@ -519,139 +522,43 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/navigate_destination/LateInitialize()
 	. = ..()
-	if(!location)
-		var/obj/machinery/door/airlock/A = locate(/obj/machinery/door/airlock) in loc
-		location = A ? format_text(A.name) : get_area_name(src, format_text = TRUE)
 
-	GLOB.navigate_destinations[loc] = location
+	if(!navigation_id)
+		var/area/linked_area = get_area(loc)
+		if(!isarea(linked_area))
+			stack_trace("The navigation landmark failed to get an area.")
+			qdel(src)
+			return
+		navigation_id = linked_area.get_navigation_area_name()
+	if(!navigation_id)
+		navigation_id = "Unnamed area"
 
-	qdel(src)
+	var/fail_assoc_count
+	var/actual_key = navigation_id
+	while(GLOB.navigate_destinations[actual_key])
+		actual_key = "[navigation_id] ([++fail_assoc_count])"
+	GLOB.navigate_destinations[navigation_id] = src
 
-//Command
-/obj/effect/landmark/navigate_destination/bridge
-	location = "Bridge"
+/obj/effect/landmark/navigate_destination/proc/is_available_to_user(mob/user)
+	if(!isatom(src) || !compare_z_with(user) || get_dist(get_turf(src), user) > MAX_NAVIGATE_RANGE)
+		return FALSE
+	return TRUE
 
-/obj/effect/landmark/navigate_destination/hop
-	location = "Head of Personnel's Office"
+/obj/effect/landmark/navigate_destination/proc/compare_z_with(mob/user)
+	var/turf/target_turf = get_turf(src)
+	if(!target_turf)
+		return FALSE
 
-/obj/effect/landmark/navigate_destination/vault
-	location = "Vault"
+	var/target_z = src.get_virtual_z_level()
+	var/user_z = user.get_virtual_z_level()
+	if(!compare_z(target_z, user_z)) // gets null or FALSE: z-level groups are different
+		return FALSE
 
-/obj/effect/landmark/navigate_destination/teleporter
-	location = "Teleporter"
+	if(target_z == user_z)
+		return 1 // same z
+	return target_z > user_z ? UP : DOWN // returns direction from user to target
 
-/obj/effect/landmark/navigate_destination/gateway
-	location = "Gateway"
 
-/obj/effect/landmark/navigate_destination/eva
-	location = "EVA Storage"
-
-/obj/effect/landmark/navigate_destination/aiupload
-	location = "AI Upload"
-
-/obj/effect/landmark/navigate_destination/minisat_access_ai
-	location = "AI MiniSat Access"
-
-/obj/effect/landmark/navigate_destination/minisat_access_tcomms
-	location = "Telecomms MiniSat Access"
-
-/obj/effect/landmark/navigate_destination/minisat_access_tcomms_ai
-	location = "AI and Telecomms MiniSat Access"
-
-/obj/effect/landmark/navigate_destination/tcomms
-	location = "Telecommunications"
-
-//Departments
-/obj/effect/landmark/navigate_destination/sec
-	location = "Security"
-
-/obj/effect/landmark/navigate_destination/det
-	location = "Detective's Office"
-
-/obj/effect/landmark/navigate_destination/research
-	location = "Research"
-
-/obj/effect/landmark/navigate_destination/engineering
-	location = "Engineering"
-
-/obj/effect/landmark/navigate_destination/techstorage
-	location = "Technical Storage"
-
-/obj/effect/landmark/navigate_destination/atmos
-	location = "Atmospherics"
-
-/obj/effect/landmark/navigate_destination/med
-	location = "Medical"
-
-/obj/effect/landmark/navigate_destination/chemfactory
-	location = "Chemistry Factory"
-
-/obj/effect/landmark/navigate_destination/cargo
-	location = "Cargo"
-
-//Common areas
-/obj/effect/landmark/navigate_destination/bar
-	location = "Bar"
-
-/obj/effect/landmark/navigate_destination/dorms
-	location = "Dormitories"
-
-/obj/effect/landmark/navigate_destination/court
-	location = "Courtroom"
-
-/obj/effect/landmark/navigate_destination/tools
-	location = "Tool Storage"
-
-/obj/effect/landmark/navigate_destination/library
-	location = "Library"
-
-/obj/effect/landmark/navigate_destination/chapel
-	location = "Chapel"
-
-/obj/effect/landmark/navigate_destination/minisat_access_chapel_library
-	location = "Chapel and Library MiniSat Access"
-
-//Service
-/obj/effect/landmark/navigate_destination/kitchen
-	location = "Kitchen"
-
-/obj/effect/landmark/navigate_destination/hydro
-	location = "Hydroponics"
-
-/obj/effect/landmark/navigate_destination/janitor
-	location = "Janitor's Closet"
-
-/obj/effect/landmark/navigate_destination/lawyer
-	location = "Lawyer's Office"
-
-//Shuttle docks
-/obj/effect/landmark/navigate_destination/dockarrival
-	location = "Arrival Shuttle Dock"
-
-/obj/effect/landmark/navigate_destination/dockesc
-	location = "Escape Shuttle Dock"
-
-/obj/effect/landmark/navigate_destination/dockescpod
-	location = "Escape Pod Dock"
-
-/obj/effect/landmark/navigate_destination/dockescpod1
-	location = "Escape Pod 1 Dock"
-
-/obj/effect/landmark/navigate_destination/dockescpod2
-	location = "Escape Pod 2 Dock"
-
-/obj/effect/landmark/navigate_destination/dockescpod3
-	location = "Escape Pod 3 Dock"
-
-/obj/effect/landmark/navigate_destination/dockescpod4
-	location = "Escape Pod 4 Dock"
-
-/obj/effect/landmark/navigate_destination/dockaux
-	location = "Auxiliary Dock"
-
-//Maint
-/obj/effect/landmark/navigate_destination/incinerator
-	location = "Incinerator"
-
-/obj/effect/landmark/navigate_destination/disposals
-	location = "Disposals"
+/obj/effect/landmark/navigate_destination/Destroy()
+	. = ..()
+	GLOB.navigate_destinations -= navigation_id

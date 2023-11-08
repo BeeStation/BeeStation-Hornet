@@ -5,6 +5,7 @@
   */
 /area
 	name = "Space"
+	var/navigation_area_name /// when multiple areas should have the same name, set this. get_area_navigation_name() proc will use name variable if this is null
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
@@ -657,3 +658,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		. = FALSE
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written
+
+/// returns a name of the area. some subtype area needs to return different value.
+/area/proc/get_navigation_area_name()
+	return navigation_area_name || name
