@@ -63,7 +63,7 @@
 
 /atom/movable/screen/navigate
 	name = "navigate"
-	icon = 'icons/hud/screen_midnight.dmi'
+	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "navigate"
 	screen_loc = ui_navigate_menu
 
