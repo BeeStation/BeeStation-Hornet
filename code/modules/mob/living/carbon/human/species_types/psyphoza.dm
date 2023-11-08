@@ -191,7 +191,13 @@
 	. = ..()
 	if(has_cooldown_timer || !owner || !check_head())
 		return
+	//Reveal larger area of sense
 	dim_overlay()
+	//Blind sense stuffs
+	var/datum/component/blind_sense/BS = owner.GetComponent(/datum/component/blind_sense)	
+	if(BS)
+		for(var/mob/living/L in urange(9, owner, 1))
+			BS.highlight_object(L, "mob", L.dir)
 	has_cooldown_timer = TRUE
 	UpdateButtonIcon()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)

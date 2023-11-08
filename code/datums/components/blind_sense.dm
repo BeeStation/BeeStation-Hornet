@@ -99,7 +99,7 @@
 	M.color = _color
 
 	//Animate fade & delete
-	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
+	animate(M, alpha = 0, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
 	addtimer(CALLBACK(src, PROC_REF(handle_image), M, BS), sense_time)
 
 	//Add image to client
