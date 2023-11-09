@@ -67,29 +67,29 @@
 	item_flags = DROPDEL
 	ammo_type = /obj/item/ammo_casing/caseless/mime/lethal
 
+/obj/item/ammo_box/pouch/c38
+	name = "ammo pouch (.38)"
+	ammo_type = /obj/item/ammo_casing/c38
+	max_ammo = 4
+
+/obj/item/ammo_box/pouch/c38/improv
+	name = "ammo pouch (improv .38)"
+	ammo_type = /obj/item/ammo_casing/c38/improv
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
 
-/obj/item/ammo_box/c9mm/improv
-	name = "ammo pouch (improv 9mm)"
-	icon_state = "improv9mmbox"
-	ammo_type = /obj/item/ammo_casing/c9mm/improv
+/obj/item/ammo_box/pouch/c9mm
+	name = "ammo pouch (9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 6
 
-/obj/item/ammo_box/c9mm/improv/attack_self(mob/user)
-	//If it's out of ammo, use it in hand to return the sheet of paper and 'destroy' the ammo box
-	if(!stored_ammo.len)
-		to_chat(user, "<span class='notice'>You flatten the empty [src]!</span>")
-		var/obj/item/paper/unfolded = new /obj/item/paper
-		unfolded.forceMove(loc)
-		qdel(src)
-		user.put_in_hands(unfolded)
-		return
-
-	..()
+/obj/item/ammo_box/pouch/c9mm/improv
+	name = "ammo pouch (improv 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm/improv
 
 /obj/item/ammo_box/c10mm
 	name = "ammo box (10mm)"

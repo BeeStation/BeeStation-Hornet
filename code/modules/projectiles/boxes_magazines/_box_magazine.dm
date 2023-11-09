@@ -144,3 +144,21 @@
 /obj/item/ammo_box/magazine/handle_atom_del(atom/A)
 	stored_ammo -= A
 	update_icon()
+
+//Behavior for ammo pouches (disposable paper ammo box)
+/obj/item/ammo_box/pouch
+	icon_state = "bagobullets"
+	bullet_cost = null
+	base_cost = null
+
+/obj/item/ammo_box/pouch/attack_self(mob/user)
+	//If it's out of ammo, use it in hand to return the sheet of paper and 'destroy' the ammo box
+	if(!stored_ammo.len)
+		to_chat(user, "<span class='notice'>You flatten the empty [src]!</span>")
+		var/obj/item/paper/unfolded = new /obj/item/paper
+		unfolded.forceMove(loc)
+		qdel(src)
+		user.put_in_hands(unfolded)
+		return
+
+	..()
