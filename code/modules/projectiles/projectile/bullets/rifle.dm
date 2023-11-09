@@ -19,6 +19,7 @@
 /obj/projectile/bullet/a762/improv
 	//Possible damage range between 27 and 30
 	damage = 30
+	armour_penetration = 0
 
 /obj/projectile/bullet/a762/improv/Initialize(mapload)
 	. = ..()

@@ -467,7 +467,7 @@
 	name = "Improvised .357 Cartridge"
 	result = /obj/item/ammo_casing/a357/improv
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
-				/obj/item/stack/iron = 1,
+				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 2,
 				/datum/reagent/blackpowder = 10)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
