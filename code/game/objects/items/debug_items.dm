@@ -328,6 +328,7 @@
 		TRAIT_SURGEON,
 		TRAIT_METALANGUAGE_KEY_ALLOWED
 	)
+	var/spacewalk_initial
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
@@ -350,12 +351,18 @@
 	picker.see_override = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
+	spacewalk_initial = user.spacewalk
+	user.spacewalk = TRUE
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
 	. = ..()
 	var/obj/item/debug/orb_of_power/orb = locate() in user.get_contents()
 	if(orb)
 		return
+
+	spacewalk_initial = user.spacewalk
+	user.spacewalk = TRUE
+
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
 	user.remove_all_languages("debug")
@@ -371,3 +378,56 @@
 	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
 		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 		hud.remove_hud_from(user)
+
+// kinda works like hilbert, but not really
+/obj/item/map_template_diver
+	name = "Pseudo-world diver"
+	desc = "A globe that you can dive into a pseudo-world, but there's no way back."
+	icon_state = "hilbertshotel"
+	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+	var/datum/map_template/map_template = /datum/map_template/debug_target
+	var/working
+	var/turf_to_dive
+
+	var/live_server_warning
+
+/datum/map_template/debug_target
+	name = "Debug map to test"
+	mappath = '_maps/map_files/debug/multidir_sprite_debug.dmm'
+
+// friendly warning setter
+/obj/item/map_template_diver/Initialize()
+	. = ..()
+#ifdef LOWMEMORYMODE
+	live_server_warning = TRUE
+#endif
+
+/obj/item/map_template_diver/attack_self(mob/user)
+	. = ..()
+
+	if(live_server_warning)
+		client_alert(user.client, "It looks the server is actually live. Using this may cost the performance of the server. Use this again if you're sure.", "Warning")
+		live_server_warning = FALSE
+		return
+
+	if(ispath(map_template))
+		to_chat(user, "<span class='notice'>Creates a map template...</span>")
+		working = TRUE
+		map_template = new map_template()
+		var/datum/space_level/space_level = map_template.load_new_z(null, ZTRAITS_DEBUG)
+		turf_to_dive = locate(round((world.maxx - map_template.width)/2), round((world.maxy - map_template.height)/2), space_level.z_value)
+		to_chat(user, "<span class='notice'>Creation is completed.</span>")
+		working = FALSE
+		dive_into(user)
+		return
+
+	if(working)
+		return
+
+	dive_into(user)
+
+/obj/item/map_template_diver/proc/dive_into(mob/user)
+	to_chat(user, "<span class='notice'>Teleports to the test area.</span>")
+	user.forceMove(turf_to_dive)
