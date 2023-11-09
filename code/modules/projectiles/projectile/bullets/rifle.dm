@@ -4,7 +4,7 @@
 	name = "5.56mm bullet"
 	damage = 35
 
-// 7.62 (Nagant Rifle)
+// 7.62 (Nagant Rifle / Pipe Rifle)
 
 /obj/projectile/bullet/a762
 	name = "7.62 bullet"
@@ -16,30 +16,22 @@
 	damage = 20
 	stamina = 80
 
-// .41 Cal (Pipe Pistol/Rifle)
+/obj/projectile/bullet/a762/improv
+	//Possible damage range between 27 and 30
+	damage = 30
 
-/obj/projectile/bullet/a41
-	name = ".41 bullet"
-	damage = 35
-	speed = 0.7
-
-/obj/projectile/bullet/a41/improv
-	//Possible damage range between 25 and 28
-	damage = 28
-	speed = 0.8
-
-/obj/projectile/bullet/a41/improv/Initialize(mapload)
+/obj/projectile/bullet/a762/improv/Initialize(mapload)
 	. = ..()
 	//Actual damage of projectile is reduced by 0 to 3 damage
 	damage -= (round(rand(0, 3), 1))
 
-/obj/projectile/bullet/a41/improv/copper
-	//Possible damage between 38 and 41
-	damage = 41
-	armour_penetration = -30
+/obj/projectile/bullet/a762/improv/copper
+	//Possible damage between 37 and 40
+	damage = 40
+	armour_penetration = -20
 
-/obj/projectile/bullet/a41/improv/hotload
-	//Possible damage between 32 and 35
-	damage = 35
-	speed = 0.6
-	armour_penetration = 25
+/obj/projectile/bullet/a762/improv/hotload
+	//Possible damage between 31 and 34
+	damage = 34
+	speed = 0.7
+	armour_penetration = 20

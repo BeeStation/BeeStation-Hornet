@@ -396,9 +396,9 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
-/datum/crafting_recipe/a41improv
-	name = "Improvised .41 Cartridge"
-	result = /obj/item/ammo_casing/a41/improv
+/datum/crafting_recipe/a762improv
+	name = "Improvised 7.62 Cartridge"
+	result = /obj/item/ammo_casing/a762/improv
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 1,
@@ -409,9 +409,9 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
-/datum/crafting_recipe/a41hotload
-	name = "Hot-Loaded .41 Cartridge"
-	result = /obj/item/ammo_casing/a41/improv/hotload
+/datum/crafting_recipe/a762hotload
+	name = "Hot-Loaded 7.62 Cartridge"
+	result = /obj/item/ammo_casing/a762/improv/hotload
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 1,
@@ -422,9 +422,9 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
-/datum/crafting_recipe/a41coppercore
-	name = "Copper Soft-Slug .41 Cartridge"
-	result = /obj/item/ammo_casing/a41/improv/softslug
+/datum/crafting_recipe/a762coppercore
+	name = "Copper Soft-Slug 7.62 Cartridge"
+	result = /obj/item/ammo_casing/a762/improv/softslug
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/sheet/mineral/copper = 1,
 				/obj/item/stack/cable_coil = 1,
@@ -439,9 +439,9 @@
 	name = "Improvised 9mm Ammo Pack"
 	result = /obj/item/ammo_box/c9mm/improv
 	reqs = list(/obj/item/grenade/chem_grenade = 2,
-				/obj/item/stack/rods = 2,
+				/obj/item/stack/rods = 3,
 				/obj/item/stack/cable_coil = 3,
-				/datum/reagent/fuel = 15,
+				/datum/reagent/fuel = 20,
 				/obj/item/paper = 1)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 15

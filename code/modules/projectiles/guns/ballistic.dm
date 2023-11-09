@@ -178,7 +178,7 @@
 				return
 			bolt_locked = FALSE
 		if(BOLT_TYPE_PUMP, BOLT_TYPE_TWO_STEP)
-			if(!is_wielded)
+			if(!is_wielded && !HAS_TRAIT(user, TRAIT_NICE_SHOT))
 				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
 				return
 				//If it's locked (open), drop the bolt to close and unlock it
@@ -186,13 +186,15 @@
 				drop_bolt(user)
 				return
 			//Otherwise, we open the bolt and eject the current casing
+			if(!is_wielded && prob(20))
+				user.visible_message("<span class='notice'>[user] racks \the [src]'s [bolt_wording] with a single hand!</span>")
 			to_chat(user, "<span class='notice'>You open the [bolt_wording] of \the [src].</span>")
 			playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 			process_chamber(FALSE, FALSE, FALSE)
 			bolt_locked = TRUE
 			update_icon()
 			if(bolt_type == BOLT_TYPE_PUMP)
-				addtimer(CALLBACK(src, PROC_REF(drop_bolt), user), (rack_delay * 0.5))
+				addtimer(CALLBACK(src, PROC_REF(drop_bolt), user, TRUE), (rack_delay * 0.5))
 			return
 	if(user)
 		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
@@ -204,9 +206,12 @@
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 	update_icon()
 
-/obj/item/gun/ballistic/proc/drop_bolt(mob/user = null)
-	if((bolt_type == BOLT_TYPE_PUMP && !is_wielded) || bolt_locked == FALSE)
-		return //If the person is no longer wielding the gun (1-handed or dropped it) when the callback procs, or they somehow closed it manually, don't drop the bolt again.
+/obj/item/gun/ballistic/proc/drop_bolt(mob/user = null, from_callback = FALSE)
+	if(from_callback)
+		if(loc != user)
+			return //If we're automatically dropping the bolt on a pump, and it's not in the user's hands, return
+		if(!is_wielded && !HAS_TRAIT(user, TRAIT_NICE_SHOT))
+			return //If they aren't weilding it (and don't have the funny trait), return
 	playsound(src, bolt_drop_sound, bolt_drop_sound_volume, FALSE)
 	if (user)
 		to_chat(user, "<span class='notice'>You drop the [bolt_wording] of \the [src].</span>")

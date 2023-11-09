@@ -107,7 +107,7 @@
 		user.dropItemToGround(src, TRUE)
 
 ///////////////////////
-//   .41 CAL RIFLE   //
+//   .38 CAL RIFLE   //
 ///////////////////////
 
 /obj/item/gun/ballistic/rifle/leveraction
@@ -131,6 +131,10 @@
 	recoil = 0.5
 	bolt_type = BOLT_TYPE_PUMP
 	fire_sound_volume = 80
+
+///////////////////////
+//  7.62 PIPE RIFLE  //
+///////////////////////
 
 /obj/item/gun/ballistic/rifle/pipe
 	name = "pipe rifle"

@@ -16,14 +16,15 @@
 /obj/item/ammo_box/magazine/internal/leveraction
 	name = "lever action rifle internal magazine"
 	desc = "Why the fuck can you see this, this is meant to be IN the gun!"
-	ammo_type = /obj/item/ammo_casing/a41
-	caliber = "a41"
-	max_ammo = 7
+	ammo_type = /obj/item/ammo_casing/c38
+	caliber = "38"
+	max_ammo = 8
 	multiload = FALSE
 
 /obj/item/ammo_box/magazine/internal/piperifle
 	name = "pipegun internal magazine"
 	desc = "Me when I accidentally see items that shouldn't exist."
-	ammo_type = /obj/item/ammo_casing/a41/improv
+	ammo_type = /obj/item/ammo_casing/a762/improv
+	caliber = "a762"
 	max_ammo = 1
 	start_empty = TRUE
