@@ -400,7 +400,7 @@
 // friendly warning setter
 /obj/item/map_template_diver/Initialize()
 	. = ..()
-#ifdef LOWMEMORYMODE
+#ifndef LOWMEMORYMODE
 	live_server_warning = TRUE
 #endif
 
