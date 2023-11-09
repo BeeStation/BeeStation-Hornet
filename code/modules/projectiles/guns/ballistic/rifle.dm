@@ -130,7 +130,7 @@
 	cartridge_wording = "cartridge"
 	recoil = 0.5
 	bolt_type = BOLT_TYPE_PUMP
-	fire_sound_volume = 80
+	fire_sound_volume = 70
 
 ///////////////////////
 //  7.62 PIPE RIFLE  //
