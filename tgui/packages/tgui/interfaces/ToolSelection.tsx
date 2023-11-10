@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, Section, Stack } from '../components';
+import { Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
 
 type ToolSelectionData = {
@@ -11,7 +11,7 @@ export const ToolSelection = (props, context) => {
   const { act, data } = useBackend<ToolSelectionData>(context);
 
   return (
-    <Window width={380} height={550}>
+    <Window width={350} height={530}>
       <Window.Content scrollable>
         <DisplayToolSelections />
       </Window.Content>
@@ -27,25 +27,30 @@ const DisplayToolSelections = (props, context) => {
   return Object.entries(selections).map(([category, options]) => {
     return (
       <Section key={category} title={category}>
-        <Stack wrap>
+        <Flex wrap>
           {options.map((each: string) => {
             return (
-              <Stack.Item key={each}>
+              <Flex.Item m={0.1} p={0.1} key={each}>
                 <Button
-                  mb={1}
                   key={each}
                   disabled={current_selection === each}
                   onClick={(e) => {
                     setSelection(each);
                     act('change_selection', { 'chosen_selection': each, 'chosen_category': category });
                   }}>
-                  <Box className={classes(['tools32x32', each])} />
-                  {each}
+                  <Flex>
+                    <Flex.Item m={-0.5}>
+                      <Box className={classes(['tools32x32', each])} />
+                    </Flex.Item>
+                    <Flex.Item pl={1} align="center">
+                      {each}
+                    </Flex.Item>
+                  </Flex>
                 </Button>
-              </Stack.Item>
+              </Flex.Item>
             );
           })}
-        </Stack>
+        </Flex>
       </Section>
     );
   });
