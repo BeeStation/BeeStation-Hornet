@@ -1,6 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: Made vendors show pills and bottles better
-  - code_imp: added a vendor_icon_preview var to obj/item, which is an icon state
-      shown when the item is sold at vendors, pulled from the item's icon file
