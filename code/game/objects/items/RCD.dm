@@ -60,14 +60,6 @@ RLD
 	silo_mats = null
 	return ..()
 
-/obj/item/construction/pre_attack(atom/target, mob/user, params)
-	if(istype(target, /obj/item/rcd_upgrade))
-		install_upgrade(target, user)
-		return TRUE
-	if(insert_matter(target, user))
-		return TRUE
-	return ..()
-
 /obj/item/construction/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcd_upgrade))
 		install_upgrade(W, user)
@@ -105,13 +97,13 @@ RLD
 		if(R.ammoamt <= 0)
 			qdel(R)
 		matter += load
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+		playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 		loaded = TRUE
 	else if(istype(O, /obj/item/stack))
 		loaded = loadwithsheets(O, user)
 	if(loaded)
 		to_chat(user, "<span class='notice'>[src] now holds [matter]/[max_matter] matter-units.</span>")
-		update_icon()	//ensures that ammo counters (if present) get updated
+		update_appearance() //ensures that ammo counters (if present) get updated
 	return loaded
 
 /obj/item/construction/proc/loadwithsheets(obj/item/stack/loaded_stack, mob/user)
@@ -124,7 +116,7 @@ RLD
 		var/amount_to_use = min(loaded_stack.amount, maxsheets)
 		loaded_stack.use(amount_to_use)
 		matter += value*amount_to_use
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+		playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 		to_chat(user, "<span class='notice'>You insert [amount_to_use] [loaded_stack.name] sheets into [src]. </span>")
 		return TRUE
 	to_chat(user, "<span class='warning'>You can't insert any more [loaded_stack.name] sheets into [src]!</span>")
