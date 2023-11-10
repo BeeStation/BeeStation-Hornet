@@ -50,6 +50,7 @@
 #define MODE_SING "sing"
 #define MODE_CUSTOM_SAY_EMOTE "custom_say"
 #define MODE_CUSTOM_SAY_ERASE_INPUT "erase_input"
+#define MODE_UNTREATED_MESSAGE "untreated_message" /// This is used to store untreated message for specific cases because lizardperssson sssaysss thingsss incorrectly
 
 //Spans. Robot speech, italics, etc. Applied in compose_message().
 #define SPAN_ROBOT "robot"

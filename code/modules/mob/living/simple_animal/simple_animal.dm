@@ -141,14 +141,14 @@
 		..()
 
 /mob/living/simple_animal/updatehealth()
-	..()
-	health = CLAMP(health, 0, maxHealth)
+	. = ..()
+	health = clamp(health, 0, maxHealth)
 	update_health_hud()
 
 /mob/living/simple_animal/update_health_hud()
 	if(!hud_used)
 		return
-	var/severity = 5 - CLAMP(FLOOR((health / maxHealth) * 5, 1), 0, 5)
+	var/severity = 5 - clamp(FLOOR((health / maxHealth) * 5, 1), 0, 5)
 	if(severity > 0)
 		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else
@@ -462,8 +462,15 @@
 	else
 		..()
 
+/mob/living/simple_animal/update_resting()
+	if(resting)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	return ..()
+
 /mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || stat || resting)
+	if(HAS_TRAIT_NOT_FROM(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT))
 		drop_all_held_items()
 		mobility_flags = NONE
 	else if(buckled || IsImmobilized())

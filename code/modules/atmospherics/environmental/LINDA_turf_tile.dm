@@ -225,7 +225,7 @@
 
 /turf/proc/handle_decompression_floor_rip()
 /turf/open/floor/handle_decompression_floor_rip(sum)
-	if(sum > 20 && prob(CLAMP(sum / 20, 0, 15)))
+	if(sum > 20 && prob(clamp(sum / 20, 0, 15)))
 		if(floor_tile)
 			new floor_tile(src)
 		make_plating()
@@ -277,13 +277,13 @@
 		move_prob = (pressure_difference/pressure_resistance*PROBABILITY_BASE_PRECENT)-PROBABILITY_OFFSET
 	move_prob += pressure_resistance_prob_delta
 	if(move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
-		var/move_force = max_force * CLAMP(move_prob, 0, 100) / 100
+		var/move_force = max_force * clamp(move_prob, 0, 100) / 100
 		if(move_force > 6000)
 			// WALLSLAM HELL TIME OH BOY
 			var/turf/throw_turf = get_ranged_target_turf(get_turf(src), direction, round(move_force / 2000))
 			if(throw_target && (get_dir(src, throw_target) & direction))
 				throw_turf = get_turf(throw_target)
-			var/throw_speed = CLAMP(round(move_force / 3000), 1, 10)
+			var/throw_speed = clamp(round(move_force / 3000), 1, 10)
 			throw_at(throw_turf, move_force / 3000, throw_speed)
 		else
 			step(src, direction)

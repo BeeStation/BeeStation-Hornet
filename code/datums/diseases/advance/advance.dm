@@ -282,7 +282,7 @@
 
 	SetSpread()
 	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
-	cure_chance = 15 - CLAMP(resistance, -5, 5) // can be between 10 and 20
+	cure_chance = 15 - clamp(resistance, -5, 5) // can be between 10 and 20
 	stage_prob = max(stage_rate, 2)
 	SetDanger(severity)
 	GenerateCure()
@@ -357,7 +357,7 @@
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure()
-	var/res = CLAMP(resistance - (symptoms.len / 2), 1, advance_cures.len)
+	var/res = clamp(resistance - (symptoms.len / 2), 1, advance_cures.len)
 	if(archivecure != res)
 		cures = list(pick(advance_cures[res]))
 		// Get the cure name from the cure_id
@@ -548,12 +548,12 @@
 	var/datum/disease/advance/A = make_copy ? Copy() : src
 	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 		var/minimum = 1
-		if(prob(CLAMP(35-(A.resistance + A.stealth - A.speed), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
+		if(prob(clamp(35-(A.resistance + A.stealth - A.speed), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
 			if(infectee.job == "clown" || infectee.job == "mime" || prob(1))//infecting a clown or mime can evolve l0 symptoms/. they can also appear very rarely
 				minimum = 0
 			else
-				minimum = CLAMP(A.severity - 1, 1, 7)
-			A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9))
+				minimum = clamp(A.severity - 1, 1, 7)
+			A.Evolve(minimum, clamp(A.severity + 4, minimum, 9))
 			A.id = GetDiseaseID()
 			A.keepid = TRUE//this is really janky, but basically mutated diseases count as the original disease
 				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects.

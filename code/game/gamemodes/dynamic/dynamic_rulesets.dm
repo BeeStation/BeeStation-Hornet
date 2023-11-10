@@ -83,6 +83,9 @@
 	/// Whether repeated_mode_adjust weight changes have been logged already.
 	var/logged_repeated_mode_adjust = FALSE
 
+	/// Was this ruleset spawned from the lategame mode?
+	var/lategame_spawned = FALSE
+
 
 /datum/dynamic_ruleset/New(datum/game_mode/dynamic/dynamic_mode)
 	// Rulesets can be instantiated more than once, such as when an admin clicks
@@ -91,6 +94,7 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	mode = dynamic_mode
+	lategame_spawned = mode.is_lategame()
 	..()
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
@@ -111,6 +115,9 @@
 	if(maximum_players > 0 && population > maximum_players)
 		log_game("DYNAMIC: FAIL: [src] failed acceptable: maximum_players ([maximum_players]) < population ([population])")
 		return FALSE
+
+	if (mode.is_lategame())
+		return (flags & LATEGAME_RULESET)
 
 	pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
 	indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)
@@ -228,6 +235,9 @@
 
 /// Checks if the ruleset is "dead", where all the antags are either dead or deconverted.
 /datum/dynamic_ruleset/proc/is_dead()
+	// Don't let dead threats affect simulation results
+	if (mode.simulated)
+		return FALSE
 	for(var/datum/mind/mind in assigned)
 		var/mob/living/body = mind.current
 		// If they have no body, they're dead for realsies.
@@ -248,7 +258,7 @@
 			if(body.soul_departed() || mind.hellbound)
 				continue
 			// Are they in medbay or an operating table/stasis bed, and have been dead for less than 20 minutes? If so, they're probably being revived.
-			if(world.time <= (mind.last_death + 15 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))
+			if((mode.simulated_time || world.time) <= (mind.last_death + 15 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))
 				log_undead()
 				return FALSE
 		else
