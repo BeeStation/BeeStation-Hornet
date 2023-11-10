@@ -27,40 +27,81 @@
 	desc = "The original hypertool, born before them all. Use it in hand to unleash its true power."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hypertool"
+	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.1
 	tool_behaviour = TOOL_SCREWDRIVER
+	var/obj/item/stack/cable_coil/cable_coil
+	var/obj/item/cultivator/cultivator
+	var/obj/item/shovel/spade/spade
 
 	var/list/available_selections = list(
-		TOOL_SCREWDRIVER,
-		TOOL_WRENCH,
-		TOOL_CROWBAR,
-		TOOL_WIRECUTTER,
-		TOOL_MULTITOOL,
-		TOOL_WELDER,
-		TOOL_ANALYZER,
-		"drapes",
-		TOOL_SCALPEL,
-		TOOL_HEMOSTAT,
-		TOOL_RETRACTOR,
-		TOOL_SAW,
-		TOOL_CAUTERY,
-		TOOL_DRILL,
-		TOOL_BLOODFILTER,
-		TOOL_MINING,
-		TOOL_SHOVEL,
-		TOOL_RUSTSCRAPER,
-		TOOL_ROLLINGPIN,
-		TOOL_BIKEHORN
+		"Engineering tools" = list(
+			TOOL_SCREWDRIVER,
+			TOOL_WRENCH,
+			TOOL_CROWBAR,
+			TOOL_WIRECUTTER,
+			TOOL_MULTITOOL,
+			TOOL_WELDER,
+			TOOL_ANALYZER,
+			"wires"
+		),
+		"Medical tools" = list(
+			"drapes",
+			TOOL_SCALPEL,
+			TOOL_HEMOSTAT,
+			TOOL_RETRACTOR,
+			TOOL_SAW,
+			TOOL_CAUTERY,
+			TOOL_DRILL,
+			TOOL_BLOODFILTER
+		),
+		"Miscellaneous tools" = list(
+			TOOL_MINING,
+			TOOL_SHOVEL,
+			"spade",
+			"cultivator",
+			TOOL_RUSTSCRAPER,
+			TOOL_ROLLINGPIN,
+			TOOL_BIKEHORN
+		)
 	)
+
+/obj/item/debug/omnitool/Initialize(mapload)
+	. = ..()
+	cable_coil = new(src.contents)
+	cable_coil.max_amount = INFINITY
+	cable_coil.amount = INFINITY
+	cultivator = new(src.contents)
+	spade = new(src.contents)
+
+/obj/item/debug/omnitool/Destroy()
+	. = ..()
+	QDEL_NULL(cable_coil)
+	QDEL_NULL(cultivator)
+	QDEL_NULL(spade)
 
 /obj/item/debug/omnitool/examine()
 	. = ..()
 	. += " The mode is: [tool_behaviour]"
 
+/obj/item/debug/omnitool/pre_attack(atom/A, mob/living/user, params)
+	switch(tool_behaviour)
+		if("wires")
+			cable_coil.melee_attack_chain(user, A, params)
+			return
+		if("cultivator")
+			cultivator.melee_attack_chain(user, A, params)
+			return
+		if("spade")
+			spade.melee_attack_chain(user, A, params)
+			return
+	. = ..()
+
 /obj/item/debug/omnitool/attack(mob/living/M, mob/living/user)
-	if(tool_behaviour == "drapes")
-		attempt_initiate_surgery(src, M, user)
-	..()
+	switch(tool_behaviour)
+		if("drapes")
+			attempt_initiate_surgery(src, M, user)
+	. = ..()
 
 /obj/item/debug/omnitool/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -87,12 +128,11 @@
 	switch(action)
 		if("change_selection")
 			var/tool = params["chosen_selection"]
-			if(!(tool in available_selections))
+			if(!(tool in available_selections[params["chosen_category"]]))
 				return
 			tool_behaviour = tool
 			to_chat(usr, "<span class='notice'>Tool behaviour of [src] is now [tool_behaviour]</span>")
 			return
-
 
 /obj/item/construction/rcd/arcd/debug
 	name = "\improper CentCom Admin RCD"
