@@ -2152,6 +2152,7 @@
 /datum/sprite_accessory/moth_wingsopen/brown
 	name = "Brown"
 	icon_state = "brown"
+
 /datum/sprite_accessory/moth_wings/angel
 	name = "Angel"
 	icon_state = "angel"
