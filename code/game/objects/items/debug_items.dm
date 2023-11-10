@@ -71,6 +71,7 @@
 	cable_coil = new(src.contents)
 	cable_coil.max_amount = INFINITY
 	cable_coil.amount = INFINITY
+	cable_coil.materials = null // accidentally putting infinite wires into lathe? that'll break game.
 	cultivator = new(src.contents)
 	spade = new(src.contents)
 
