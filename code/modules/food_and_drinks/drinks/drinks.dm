@@ -213,7 +213,7 @@
 //	Formatting is the same as food.
 
 /obj/item/reagent_containers/food/drinks/coffee
-	name = "robust coffee"
+	name = "Robust coffee"
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
 	icon_state = "coffee"
 	list_reagents = list(/datum/reagent/consumable/coffee = 30)
@@ -221,6 +221,15 @@
 	resistance_flags = FREEZE_PROOF
 	isGlass = FALSE
 	foodtype = BREAKFAST
+
+/obj/item/reagent_containers/food/drinks/bubble_tea
+	name = "Bubble tea"
+	desc = "Refreshing! You aren't sure what those things in the bottom are."
+	icon_state = "bubble_tea"
+	list_reagents = list(/datum/reagent/consumable/bubble_tea = 50)
+	foodtype = SUGAR
+	spillable = TRUE
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
@@ -262,12 +271,15 @@
 	resistance_flags = FREEZE_PROOF
 	custom_price = 42
 
-
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
 	desc = "Just add 5ml of water, self heats! A taste that reminds you of your school years. Now new with salty flavour!"
 	icon_state = "ramen"
-	list_reagents = list(/datum/reagent/consumable/dry_ramen = 15, /datum/reagent/consumable/sodiumchloride = 3, /datum/reagent/consumable/maltodextrin = 10)
+	list_reagents = list(
+		/datum/reagent/consumable/dry_ramen = 15,
+		/datum/reagent/consumable/sodiumchloride = 3,
+		/datum/reagent/consumable/maltodextrin = 10
+	)
 	foodtype = GRAIN
 	isGlass = FALSE
 	custom_price = 38

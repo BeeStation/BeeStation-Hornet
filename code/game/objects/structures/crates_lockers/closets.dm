@@ -91,6 +91,7 @@
 				add_overlay("[icon_door]_open")
 			else
 				add_overlay("[icon_state]_open")
+	update_mob_alpha()
 
 /obj/structure/closet/proc/animate_door(var/closing = FALSE)
 	if(!door_anim_time)
