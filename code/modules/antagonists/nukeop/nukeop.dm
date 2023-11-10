@@ -402,7 +402,7 @@
 			purchases += H.generate_render(show_key = FALSE)
 	text += printplayerlist(members)
 	text += "<br>"
-	var/effective_message = TC_uses < effective_tc ? " / effectively worth with [effective_tc] TC" : ""
+	var/effective_message = TC_uses < effective_tc ? " / effectively worth [effective_tc] TC" : ""
 	text += "(Syndicates used [TC_uses] TC[effective_message]) [purchases]"
 	if(TC_uses == 0 && SSticker.mode.station_was_nuked && !operatives_dead())
 		text += "<BIG>[icon2html('icons/badass.dmi', world, "badass")]</BIG>"

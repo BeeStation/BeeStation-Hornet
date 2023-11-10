@@ -374,7 +374,7 @@
 			count++
 
 	if(uplink_true)
-		var/effective_message = TC_uses < effective_tc ? " / effectively worth with [effective_tc] TC" : ""
+		var/effective_message = TC_uses < effective_tc ? " / effectively worth [effective_tc] TC" : ""
 		var/uplink_text = "(used [TC_uses] TC[effective_message]) [purchases]"
 		if(TC_uses==0 && traitorwin)
 			var/static/icon/badass = icon('icons/badass.dmi', "badass")

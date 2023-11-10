@@ -151,7 +151,7 @@
 			TC_uses += H.total_spent
 			effective_tc += H.effective_amount
 			purchases += H.generate_render(show_key = FALSE)
-	var/effective_message = TC_uses < effective_tc ? " / effectively worth with [effective_tc] TC" : ""
+	var/effective_message = TC_uses < effective_tc ? " / effectively worth [effective_tc] TC" : ""
 	parts += "(Syndicates used [TC_uses] TC[effective_message]) [purchases]"
 
 	if(win)
