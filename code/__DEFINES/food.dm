@@ -58,3 +58,8 @@
 #define CRAFTED_FOOD_INGREDIENT_REAGENT_MODIFIER  0.5
 
 #define IS_EDIBLE(O) (O.GetComponent(/datum/component/edible))
+
+///Food preference enums
+#define FOOD_LIKED 1
+#define FOOD_DISLIKED 2
+#define FOOD_TOXIC 3

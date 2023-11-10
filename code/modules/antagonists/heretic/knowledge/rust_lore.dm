@@ -28,7 +28,7 @@
 	name = "Blacksmith's Tale"
 	desc = "Opens up the Path of Rust to you. \
 		Allows you to transmute a knife with any trash item into a Rusty Blade. \
-		You can only create two at a time."
+		You can only create two at a time. Destroys the blade furthest from you if you invoke this ritual at the limit."
 	gain_text = "\"Let me tell you a story\", said the Blacksmith, as he gazed deep into his rusty blade."
 	next_knowledge = list(/datum/heretic_knowledge/rust_fist)
 	banned_knowledge = list(
@@ -45,6 +45,7 @@
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	limit = 2
+	destroy_if_over_limit = TRUE
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_RUST

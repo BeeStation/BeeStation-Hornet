@@ -323,7 +323,7 @@
 /datum/crafting_recipe/food/soylentburger
 	name = "Soylent Burger"
 	reqs = list(
-			/obj/item/reagent_containers/food/snacks/soylentgreen = 1, //two full meats worth.
+			/obj/item/food/soylentgreen = 1, //two full meats worth.
 			/obj/item/reagent_containers/food/snacks/cheesewedge = 2,
 			/obj/item/food/bun = 1
 	)

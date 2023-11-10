@@ -6,6 +6,7 @@
 	icon = 'icons/turf/floors.dmi'
 	base_icon_state = "floor"
 	baseturfs = /turf/open/floor/plating
+	max_integrity = 250
 
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -14,10 +15,11 @@
 
 	thermal_conductivity = 0.04
 	heat_capacity = 10000
-	intact = 1
 	tiled_dirt = TRUE
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+
+	overfloor_placed = TRUE
 
 	var/icon_plating = "plating"
 	var/broken = 0
@@ -49,51 +51,9 @@
 		GLOB.station_turfs -= src
 	return ..()
 
-/turf/open/floor/ex_act(severity, target)
-	var/shielded = is_shielded()
-	..()
-	if(severity != 1 && shielded && target != src)
-		return
-	if(target == src)
-		ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-		return
-	if(target != null)
-		severity = 3
-
-	switch(severity)
-		if(1)
-			ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
-		if(2)
-			switch(pick(1,2;75,3))
-				if(1)
-					if(!length(baseturfs) || !ispath(baseturfs[baseturfs.len-1], /turf/open/floor))
-						ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-						ReplaceWithLattice()
-					else
-						ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
-					if(prob(33))
-						new /obj/item/stack/sheet/iron(src)
-				if(2)
-					ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
-				if(3)
-					if(prob(80))
-						ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-					else
-						break_tile()
-					hotspot_expose(1000,CELL_VOLUME)
-					if(prob(33))
-						new /obj/item/stack/sheet/iron(src)
-		if(3)
-			if (prob(50))
-				src.break_tile()
-				src.hotspot_expose(1000,CELL_VOLUME)
-
 /turf/open/floor/is_shielded()
 	for(var/obj/structure/A in contents)
 		return 1
-
-/turf/open/floor/blob_act(obj/structure/blob/B)
-	return
 
 /turf/open/floor/update_icon()
 	. = ..()
@@ -101,6 +61,16 @@
 
 /turf/open/floor/attack_paw(mob/user)
 	return attack_hand(user)
+
+/turf/open/floor/after_damage(damage_amount, damage_type, damage_flag)
+	if (broken || burnt)
+		return
+	if (damage_flag == BURN)
+		if (integrity < max_integrity * 0.5)
+			burn_tile()
+	else
+		if (integrity < max_integrity * 0.5)
+			break_tile()
 
 /turf/open/floor/proc/break_tile_to_plating()
 	var/turf/open/floor/plating/T = make_plating()
@@ -137,20 +107,21 @@
 		dir = old_dir
 		return W
 	W.setDir(old_dir)
-	W.update_icon()
+	W.update_appearance()
 	return W
 
-/turf/open/floor/attackby(obj/item/C, mob/user, params)
-	if(!C || !user)
-		return 1
+/turf/open/floor/attackby(obj/item/object, mob/living/user, params)
+	if(!object || !user)
+		return TRUE
 	if(..())
 		return 1
-	if(intact && istype(C, /obj/item/stack/tile))
-		try_replace_tile(C, user, params)
-	return 0
+	if(overfloor_placed && istype(object, /obj/item/stack/tile))
+		try_replace_tile(object, user, params)
+	return FALSE
 
 /turf/open/floor/crowbar_act(mob/living/user, obj/item/I)
-	return intact ? pry_tile(I, user) : FALSE
+	if(overfloor_placed && pry_tile(I, user))
+		return TRUE
 
 /turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
