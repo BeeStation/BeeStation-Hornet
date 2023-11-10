@@ -1,7 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - tweak: Added information about needing to be secured to server and scanner gate
-      shell
-  - bugfix: Fixed scanner gate shell outputting turf instead of scanned object
-  - bugfix: made securing a shell after inserting circuit work
