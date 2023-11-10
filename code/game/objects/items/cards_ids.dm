@@ -496,13 +496,13 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/pass/mining_access_card,
 		/obj/item/card/mining_point_card,
 		/obj/item/card/id,
-		/obj/item/card/id/prisoner/one,
-		/obj/item/card/id/prisoner/two,
-		/obj/item/card/id/prisoner/three,
-		/obj/item/card/id/prisoner/four,
-		/obj/item/card/id/prisoner/five,
-		/obj/item/card/id/prisoner/six,
-		/obj/item/card/id/prisoner/seven,
+		/obj/item/card/id/gulag/one,
+		/obj/item/card/id/gulag/two,
+		/obj/item/card/id/gulag/three,
+		/obj/item/card/id/gulag/four,
+		/obj/item/card/id/gulag/five,
+		/obj/item/card/id/gulag/six,
+		/obj/item/card/id/gulag/seven,
 		/obj/item/card/id/departmental_budget,
 		/obj/item/card/id/syndicate/anyone,
 		/obj/item/card/id/syndicate/nuke_leader,
@@ -768,7 +768,7 @@ update_label("John Doe", "Clowny")
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
 
-/obj/item/card/id/prisoner
+/obj/item/card/id/gulag
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
 	icon_state = "orange"
@@ -780,7 +780,7 @@ update_label("John Doe", "Clowny")
 	var/permanent = FALSE
 	hud_state = JOB_HUD_PRISONER
 
-/obj/item/card/id/prisoner/examine(mob/user)
+/obj/item/card/id/gulag/examine(mob/user)
 	. = ..()
 
 	if(!permanent)
@@ -789,31 +789,31 @@ update_label("John Doe", "Clowny")
 	else
 		. += "<span class='notice'>The mark on the ID indicates the sentence is permanent.</span>"
 
-/obj/item/card/id/prisoner/one
+/obj/item/card/id/gulag/one
 	name = "Prisoner #13-001"
 	registered_name = "Prisoner #13-001"
 
-/obj/item/card/id/prisoner/two
+/obj/item/card/id/gulag/two
 	name = "Prisoner #13-002"
 	registered_name = "Prisoner #13-002"
 
-/obj/item/card/id/prisoner/three
+/obj/item/card/id/gulag/three
 	name = "Prisoner #13-003"
 	registered_name = "Prisoner #13-003"
 
-/obj/item/card/id/prisoner/four
+/obj/item/card/id/gulag/four
 	name = "Prisoner #13-004"
 	registered_name = "Prisoner #13-004"
 
-/obj/item/card/id/prisoner/five
+/obj/item/card/id/gulag/five
 	name = "Prisoner #13-005"
 	registered_name = "Prisoner #13-005"
 
-/obj/item/card/id/prisoner/six
+/obj/item/card/id/gulag/six
 	name = "Prisoner #13-006"
 	registered_name = "Prisoner #13-006"
 
-/obj/item/card/id/prisoner/seven
+/obj/item/card/id/gulag/seven
 	name = "Prisoner #13-007"
 	registered_name = "Prisoner #13-007"
 

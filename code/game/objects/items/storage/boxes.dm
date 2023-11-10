@@ -658,13 +658,13 @@
 
 /obj/item/storage/box/prisoner/PopulateContents()
 	..()
-	new /obj/item/card/id/prisoner/one(src)
-	new /obj/item/card/id/prisoner/two(src)
-	new /obj/item/card/id/prisoner/three(src)
-	new /obj/item/card/id/prisoner/four(src)
-	new /obj/item/card/id/prisoner/five(src)
-	new /obj/item/card/id/prisoner/six(src)
-	new /obj/item/card/id/prisoner/seven(src)
+	new /obj/item/card/id/gulag/one(src)
+	new /obj/item/card/id/gulag/two(src)
+	new /obj/item/card/id/gulag/three(src)
+	new /obj/item/card/id/gulag/four(src)
+	new /obj/item/card/id/gulag/five(src)
+	new /obj/item/card/id/gulag/six(src)
+	new /obj/item/card/id/gulag/seven(src)
 
 /obj/item/storage/box/seccarts
 	name = "box of PDA security job disks"
