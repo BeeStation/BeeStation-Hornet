@@ -24,13 +24,13 @@
 		if (ruleset.weight == 0)
 			continue
 
-		if (ruleset.cost > max_threat_level)
+		if (ruleset.cost > max_threat_level && !is_lategame())
 			continue
 
 		if (!ruleset.acceptable(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len, threat_level))
 			continue
 
-		if (ruleset.minimum_round_time > world.time - SSticker.round_start_time)
+		if (ruleset.minimum_round_time > get_time() - SSticker.round_start_time)
 			continue
 
 		if(istype(ruleset, /datum/dynamic_ruleset/midround/from_ghosts) && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))

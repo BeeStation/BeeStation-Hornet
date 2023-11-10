@@ -221,6 +221,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///Icon for monkey
 	var/icon/monkey_icon
 
+	var/canMouseDown = FALSE
+
+	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
+	var/vendor_icon_preview = null
+
 
 /obj/item/Initialize(mapload)
 
@@ -1409,3 +1414,41 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  */
 /obj/item/proc/get_writing_implement_details()
 	return null
+
+/// Increases weight class by one class and returns true, or else returns false
+/obj/item/proc/weight_class_up()
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			w_class = WEIGHT_CLASS_SMALL
+		if(WEIGHT_CLASS_SMALL)
+			w_class = WEIGHT_CLASS_NORMAL
+		if(WEIGHT_CLASS_NORMAL)
+			w_class = WEIGHT_CLASS_LARGE
+		if(WEIGHT_CLASS_LARGE)
+			w_class = WEIGHT_CLASS_BULKY
+		if(WEIGHT_CLASS_BULKY)
+			w_class = WEIGHT_CLASS_HUGE
+		if(WEIGHT_CLASS_HUGE)
+			w_class = WEIGHT_CLASS_GIGANTIC
+		else
+			return FALSE
+	return TRUE
+
+/// Decreases weight class by one class and returns true, or else returns false
+/obj/item/proc/weight_class_down()
+	switch(w_class)
+		if(WEIGHT_CLASS_SMALL)
+			w_class = WEIGHT_CLASS_TINY
+		if(WEIGHT_CLASS_NORMAL)
+			w_class = WEIGHT_CLASS_SMALL
+		if(WEIGHT_CLASS_LARGE)
+			w_class = WEIGHT_CLASS_NORMAL
+		if(WEIGHT_CLASS_BULKY)
+			w_class = WEIGHT_CLASS_LARGE
+		if(WEIGHT_CLASS_HUGE)
+			w_class = WEIGHT_CLASS_BULKY
+		if(WEIGHT_CLASS_GIGANTIC)
+			w_class = WEIGHT_CLASS_HUGE
+		else
+			return FALSE
+
