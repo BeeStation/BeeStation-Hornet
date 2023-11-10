@@ -148,12 +148,17 @@
 	foodtype = MEAT | RAW | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
-	icon_state = "psyphoza meat"
+	icon_state = "psyphoza_meat"
 	desc = "Psychically awaiting consumption, spooky."
 	filling_color = "#ff00ee"
 	list_reagents = list(/datum/reagent/drug/mushroomhallucinogen)
 	tastes = list("pop candy" = 1, "meat" = 1)
 	foodtype = VEGETABLES | RAW | GROSS
+	cooked_type = /obj/item/reagent_containers/food/snacks/meat/steak/plain/cooked
+
+/obj/item/reagent_containers/food/snacks/meat/steak/plain/cooked
+	icon_state = "psyphoza_meat_cooked"
+	list_reagents = list()
 
 ////////////////////////////////////// OTHER MEATS ////////////////////////////////////////////////////////
 
