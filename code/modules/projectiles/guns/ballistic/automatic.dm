@@ -310,7 +310,7 @@
 // Improv Pipe Sub-Machinegun //
 
 /obj/item/gun/ballistic/automatic/pipe_smg
-	name = "pipe repeater"
+	name = "pipe carbine"
 	desc = "A much more sophisticated improvised firearm, loaded from a removable magazine and automatically cycling cartridges. It's a shame it only takes 9mm ammo."
 	icon_state = "pipesmg"
 	item_state = "arg"

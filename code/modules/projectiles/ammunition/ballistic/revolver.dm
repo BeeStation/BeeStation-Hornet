@@ -87,7 +87,7 @@
 	name = "improv .38 bullet casing"
 	desc = "An improvised .38 bullet casing."
 	caliber = "38"
-	projectile_type = /obj/projectile/bullet/c38
+	projectile_type = /obj/projectile/bullet/c38/improv
 	variance = 10
 
 /obj/item/ammo_casing/caseless/mime

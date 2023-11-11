@@ -45,6 +45,7 @@
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
+	recoil = 0.5
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 
@@ -120,7 +121,8 @@
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	slot_flags = ITEM_SLOT_BACK
-	rack_sound = "sound/weapons/leveractionrack_open.ogg"
+	rack_sound = "sound/weapons/leveractionrack.ogg"
+	half_rack_sound = "sound/weapons/leveractionrack_open.ogg"
 	bolt_drop_sound = "sound/weapons/leveractionrack_close.ogg"
 	fire_sound = "sound/weapons/leveractionshot.ogg"
 	mag_type = /obj/item/ammo_box/magazine/internal/leveraction
@@ -158,6 +160,13 @@
 	force = 8
 	recoil = 0.8
 	var/slung = FALSE
+
+/obj/item/gun/ballistic/rifle/pipe/examine(mob/user)
+	. = ..()
+	if (slung)
+		. += "It has a shoulder sling fashioned from spare cable attached."
+	else
+		. += "You could improvise a shoulder sling from some cabling..."
 
 /obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
 	..()

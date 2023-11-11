@@ -10,7 +10,8 @@
 	fire_sound = "sound/weapons/shotgunshot.ogg"
 	vary_fire_sound = FALSE
 	fire_sound_volume = 90
-	rack_sound = "sound/weapons/shotgunpump_open.ogg"
+	rack_sound = "sound/weapons/shotgunpump.ogg"
+	half_rack_sound = "sound/weapons/shotgunpump_open.ogg"
 	bolt_drop_sound = "sound/weapons/shotgunpump_close.ogg"
 	load_sound = "sound/weapons/shotguninsert.ogg"
 	w_class = WEIGHT_CLASS_BULKY
@@ -277,7 +278,9 @@
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/examine(mob/user)
 	. = ..()
 	if (slung)
-		. += "It has a shoulder sling fashioned from spare wiring attached."
+		. += "It has a shoulder sling fashioned from spare cable attached."
+	else
+		. += "You could improvise a shoulder sling from some cabling..."
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn
 	name = "sawn-off improvised shotgun"
@@ -294,7 +297,6 @@
 	desc = "Range isn't an issue when you can bring your victim to you."
 	icon_state = "hookshotgun"
 	item_state = "shotgun"
-	load_sound = "sound/weapons/shotguninsert.ogg"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM

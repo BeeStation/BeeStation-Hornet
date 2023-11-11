@@ -13,11 +13,6 @@
 	icon_state = "762improv"
 	projectile_type = /obj/projectile/bullet/a762/improv
 
-/obj/item/ammo_casing/a762/improv/softslug
-	name = "a762 copper-core cartridge"
-	desc = "A handmade 7.62 cartridge. The bullet has been replaced with a makeshift hollow-point copper slug."
-	projectile_type = /obj/projectile/bullet/a762/improv/copper
-
 /obj/item/ammo_casing/a762/improv/hotload
 	name = "7.62 hotload cartridge"
 	desc = "A higher quality handmade 7.62 cartridge. It smells like charcoal."

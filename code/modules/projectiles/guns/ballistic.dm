@@ -10,6 +10,7 @@
 	var/load_sound_volume = 40
 	var/load_sound_vary = TRUE
 	var/rack_sound = "gun_slide_lock"
+	var/half_rack_sound = "gun_slide_lock" //Only needs to be used on BOLT_TYPE_PUMP guns, for Ctrl-Click functionality
 	var/rack_sound_volume = 60
 	var/rack_sound_vary = TRUE
 	var/lock_back_sound = "sound/weapons/pistollock.ogg"
@@ -27,7 +28,7 @@
 
 	//Info below has to deal with guns with internal magazines or actual removable magazines.
 	var/spawnwithmagazine = TRUE
-	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
+	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info //Shame I had to add caliber back anyway :^)
 	var/mag_display = FALSE //Whether the sprite has a visible magazine or not
 	var/mag_display_ammo = FALSE //Whether the sprite has a visible ammo display or not
 	var/empty_indicator = FALSE //Whether the sprite has an indicator for being empty or not.
@@ -37,7 +38,7 @@
 	//Additional info related to the actual chambering, and to allow loading bullets directly into battery / into var/chambered
 	//Copies the caliber of the magazine in the gun during Initialize() | Must be explicitly set on the gun if it spawns without a magazine ;)
 	var/caliber = null
-	var/direct_loading = FALSE
+	var/direct_loading = FALSE //A gun with this allows the internal magazine to be loaded without removing, ontop of directly chambering rounds
 	//Six bolt types:
 	//BOLT_TYPE_STANDARD: Gun has a bolt, it stays closed while not cycling. The gun must be racked to have a bullet chambered when a mag is inserted.
 	//Example: c20, m90
@@ -177,7 +178,7 @@
 					to_chat(user, "<span class='notice'>\The [src]'s [bolt_wording] is already cocked!</span>")
 				return
 			bolt_locked = FALSE
-		if(BOLT_TYPE_PUMP, BOLT_TYPE_TWO_STEP)
+		if(BOLT_TYPE_TWO_STEP)
 			if(!is_wielded && !HAS_TRAIT(user, TRAIT_NICE_SHOT))
 				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
 				return
@@ -190,12 +191,20 @@
 				user.visible_message("<span class='notice'>[user] racks \the [src]'s [bolt_wording] with a single hand!</span>")
 			to_chat(user, "<span class='notice'>You open the [bolt_wording] of \the [src].</span>")
 			playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-			process_chamber(FALSE, FALSE, FALSE)
+			process_chamber(!chambered, FALSE, FALSE)
 			bolt_locked = TRUE
 			update_icon()
-			if(bolt_type == BOLT_TYPE_PUMP)
-				addtimer(CALLBACK(src, PROC_REF(drop_bolt), user, TRUE), (rack_delay * 0.5))
 			return
+		if(BOLT_TYPE_PUMP)
+			if(!is_wielded && !HAS_TRAIT(user, TRAIT_NICE_SHOT))
+				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
+				return
+			if(!is_wielded && prob(20))
+				user.visible_message("<span class='notice'>[user] racks \the [src]'s [bolt_wording] with a single hand!</span>")
+			if(bolt_locked == TRUE) //If it's locked (open), drop the bolt to close and unlock it
+				drop_bolt(user)
+				return
+			//Otherwise, we open the bolt and eject the current casing
 	if(user)
 		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
 	process_chamber(!chambered, FALSE)
@@ -206,12 +215,7 @@
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 	update_icon()
 
-/obj/item/gun/ballistic/proc/drop_bolt(mob/user = null, from_callback = FALSE)
-	if(from_callback)
-		if(loc != user)
-			return //If we're automatically dropping the bolt on a pump, and it's not in the user's hands, return
-		if(!is_wielded && !HAS_TRAIT(user, TRAIT_NICE_SHOT))
-			return //If they aren't weilding it (and don't have the funny trait), return
+/obj/item/gun/ballistic/proc/drop_bolt(mob/user = null)
 	playsound(src, bolt_drop_sound, bolt_drop_sound_volume, FALSE)
 	if (user)
 		to_chat(user, "<span class='notice'>You drop the [bolt_wording] of \the [src].</span>")
@@ -370,8 +374,8 @@
 /obj/item/gun/ballistic/CtrlClick(mob/user)
 	if(bolt_type == BOLT_TYPE_PUMP && is_wielded && loc == user && !bolt_locked)
 		to_chat(user, "<span class='notice'>You lock open the [bolt_wording] of \the [src].</span>")
-		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-		process_chamber(FALSE, FALSE, FALSE)
+		playsound(src, half_rack_sound, rack_sound_volume, rack_sound_vary)
+		process_chamber(!chambered, FALSE, FALSE)
 		bolt_locked = TRUE
 		update_icon()
 		return

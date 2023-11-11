@@ -422,19 +422,6 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
-/datum/crafting_recipe/a762coppercore
-	name = "Copper Soft-Slug 7.62 Cartridge"
-	result = /obj/item/ammo_casing/a762/improv/softslug
-	reqs = list(/obj/item/grenade/chem_grenade = 1,
-				/obj/item/stack/sheet/mineral/copper = 1,
-				/obj/item/stack/cable_coil = 1,
-				/datum/reagent/fuel = 10)
-	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-	dangerous_craft = TRUE
-
 /datum/crafting_recipe/improv9mm_pack
 	name = "Improvised 9mm Ammo Pack"
 	result = /obj/item/ammo_box/pouch/c9mm/improv
