@@ -14,7 +14,7 @@
 	icon_state = "turnstile_map" //ADD ICON
 	power_channel = AREA_USAGE_ENVIRON
 	density = TRUE
-	pass_flags_self = PASSTRANSPARENT | LETPASSTHROW | PASSGRILLE | PASSSTRUCTURE
+	pass_flags_self = PASSTRANSPARENT | PASSGRILLE | PASSSTRUCTURE
 	obj_integrity = 250
 	max_integrity = 250
 	integrity_failure = 74
@@ -25,16 +25,22 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = OPEN_DOOR_LAYER
 	//Seccies and brig phys may always pass, either way.
-	req_one_access = list(ACCESS_BRIG, ACCESS_BRIGPHYS)
+	req_one_access = list(ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_PRISONER)
 	//Cooldown so we don't shock a million times a second
 	COOLDOWN_DECLARE(shock_cooldown)
+	circuit = /obj/item/circuitboard/machine/turnstile
 
+/obj/item/circuitboard/machine/turnstile
+	name = "Turnstile circuitboard"
+	desc = "The circuit board for a turnstile machine."
+	build_path = /obj/machinery/turnstile
 
 //Executive officer's line variant. For rule of cool.
 /*/obj/machinery/turnstile/xo
 	name = "\improper XO line turnstile"
 	req_one_access = list(ACCESS_BRIG, ACCESS_HEADS)
 */
+
 /obj/structure/closet/secure_closet/genpop
 	name = "genpop locker"
 	desc = "A locker to store a prisoner's valuables, that they can collect at a later date."
@@ -137,9 +143,24 @@
 
 ///Shock attacker if we're broken
 /obj/machinery/turnstile/attackby(obj/item/item, mob/user, params)
+	if(default_deconstruction_screwdriver(user, "turnstile", "turnstile", item))
+		update_appearance()//add proper panel icons
+		return
+	if(default_deconstruction_crowbar(item))
+		return
 	. = ..()
 	if(machine_stat & BROKEN)
 		try_shock(user)
+
+//Shock attack if something is thrown at it if we're broken
+/obj/machinery/turnstile/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(isobj(AM))
+		if(prob(50) && BROKEN)
+			var/obj/O = AM
+			if(O.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
+				playsound(src, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
+				tesla_zap(src, 3, 8000, TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN | TESLA_ALLOW_DUPLICATES) // Around 20 damage for humans
+	return ..()
 
 /obj/machinery/turnstile/welder_act(mob/living/user, obj/item/I)
 	//Shamelessly copied airlock code
@@ -190,7 +211,7 @@
 		return FALSE
 
 //Officer interface.
-/obj/machinery/genpop_interface //redo crimes
+/obj/machinery/genpop_interface
 	name = "Prisoner Management Interface"
 	icon = 'icons/obj/machines/genpop_display.dmi'
 	icon_state = "frame"
@@ -201,6 +222,7 @@
 	maptext_width = 32
 	maptext_y = -1
 	circuit = /obj/item/circuitboard/machine/genpop_interface
+	var/time_to_screwdrive = 20
 	var/next_print = 0
 	var/desired_sentence = 60 //What sentence do you want to give them?
 	var/desired_crime = null //What is their crime?
@@ -270,6 +292,15 @@
 /obj/item/circuitboard/machine/genpop_interface
 	name = "Prisoner Management Interface (circuit)"
 	build_path = /obj/machinery/genpop_interface
+
+/obj/machinery/genpop_interface/screwdriver_act(mob/living/user, obj/item/I)
+	if(..())
+		return TRUE
+	if(circuit && !(flags_1&NODECONSTRUCT_1))
+		to_chat(user, "<span class='notice'>You start to disconnect the monitor...</span>")
+		if(I.use_tool(src, user, time_to_screwdrive, volume=50))
+			deconstruct(TRUE, user) //drops one station bounced radio out of thin air, not ideal but no easily implemented solution thus far.
+	return TRUE
 
 /obj/machinery/genpop_interface/Initialize(mapload)
 	. = ..()
@@ -367,7 +398,6 @@
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return
-	crimes = (minor + misdemeanours + major + capital)
 	switch(action)
 		if("time")
 			var/value = text2num(params["adjust"])
@@ -437,6 +467,8 @@
 GLOBAL_LIST_EMPTY(prisoner_ids)
 
 /obj/item/card/id/prisoner //renamed existing prisonner id to id/gulag
+	icon_state = "orange"
+	item_state = "orange-id"
 	var/served_time = 0 //Seconds.
 	var/sentence = 0 //'ard time innit.
 	var/crime = null //What you in for mate?

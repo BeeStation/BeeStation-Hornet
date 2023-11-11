@@ -34,7 +34,7 @@ export const GenPop = (props, context) => {
               <Button
                 icon="print"
                 content="Finalize ID"
-                color="average"
+                color="good"
                 disabled={!data.canPrint}
                 onClick={() => act('print')} />
 
@@ -96,7 +96,7 @@ export const GenPop = (props, context) => {
                 color={value.colour}
                 icon={value.icon}
                 tooltip={value.tooltip}
-                onClick={() => act('presetCrime', { preset: value.sentence, crime: value.tooltip })}
+                onClick={() => act('presetCrime', { preset: value.sentence, crime: value.name })}
               />
             );
           })}

@@ -1562,6 +1562,8 @@
 		"pepperspray",
 		"seclite",
 		"zipties",
+		"turnstile",
+		"genpop_interface",
 	)
 	prereq_ids = list("base")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
