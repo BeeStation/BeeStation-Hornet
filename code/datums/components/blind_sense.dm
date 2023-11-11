@@ -86,7 +86,7 @@
 		BS.appearance = target.appearance
 		BS.render_target = "[BS]"
 		BS.color = "#ffffffff" //what the fuck, setting color and plane doesn't work in the actual path definition, fuck off
-		BS.plane = ANTI_PSYCHIC_PLANE
+		BS.plane = LOWEST_EVER_PLANE
 		BS.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		M.filters += filter(type = "alpha", render_source = BS.render_target)
 		BS.cut_overlay(GLOB.blind_typing_indicator)
