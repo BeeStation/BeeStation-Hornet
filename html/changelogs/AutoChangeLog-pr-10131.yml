@@ -1,6 +1,0 @@
-author: rkz, TemporalOroboros
-delete-after: true
-changes:
-  - bugfix: teslium & black powder explosions now correctly pass their strengthdiv
-      & modifier values to reagent_explosion/proc/explode
-  - tweak: slightly more concise blackpowder explosion text span
