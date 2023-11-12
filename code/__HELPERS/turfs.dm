@@ -319,17 +319,46 @@ Turf and target are separate in case you want to teleport some distance from a t
 			CRASH("the proc can't get a center turf to calculate turfs.")
 	var/list/turf_lists = list()
 	turf_lists.Add(list(list(center))) // adds center manually rather than the loop
+
+	var/eadg_reached_top
+	var/eadg_reached_left
+	var/eadg_reached_bot
+	var/eadg_reached_right
 	for(var/current_impact in 1 to impact_size)
-		var/turf/top_left =  locate(center.x - current_impact, center.y + current_impact, center.z)
-		var/turf/top_right = locate(center.x + current_impact, center.y + current_impact, center.z)
-		var/turf/bot_left =  locate(center.x - current_impact, center.y - current_impact, center.z)
-		var/turf/bot_right = locate(center.x + current_impact, center.y - current_impact, center.z)
+		var/min_x = max(center.x - current_impact, 1)
+		var/max_x = min(center.x + current_impact, world.maxx)
+		var/min_y = max(center.y - current_impact, 1)
+		var/max_y = min(center.y + current_impact, world.maxy)
+		var/turf/top_left =  locate(min_x, max_y, center.z)
+		var/turf/top_right = locate(max_x, max_y, center.z)
+		var/turf/bot_left =  locate(min_x, min_y, center.z)
+		var/turf/bot_right = locate(max_x, min_y, center.z)
+
 		var/list/pulse_group = list()
-		pulse_group += block(top_left,  top_right)
-		pulse_group += block(top_left,  bot_left)
-		pulse_group |= block(bot_left,  bot_right)
-		pulse_group |= block(bot_right, top_right)
+		if(!eadg_reached_top) // top_edge
+			pulse_group += block(top_left, top_right)
+			if(center.y + current_impact > world.maxy)
+				eadg_reached_top = TRUE
+
+		if(!eadg_reached_left) // left_edge
+			pulse_group |= block(top_left, bot_left)
+			if(center.x - current_impact < 1)
+				eadg_reached_left = TRUE
+
+		if(!eadg_reached_bot) // bot_edge
+			pulse_group |= block(bot_left, bot_right)
+			if(center.y - current_impact < 1)
+				eadg_reached_bot = TRUE
+
+		if(!eadg_reached_right) // right_edge
+			pulse_group |= block(bot_right, top_right)
+			if(center.x + current_impact > world.maxx)
+				eadg_reached_right = TRUE
+
+		if(!length(pulse_group)) // we got no more turfs. no need to calculate more.
+			break
 		turf_lists.Add(list(pulse_group))
+
 		if(check_ticks)
 			CHECK_TICK
 	return turf_lists
