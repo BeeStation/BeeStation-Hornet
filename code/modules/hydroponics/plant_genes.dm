@@ -254,11 +254,11 @@
 	COOLDOWN_STATIC_LIST_DECLARE(recent_victims)
 
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
-	if(!COOLDOWN_LIST_FINISHED(src, recent_victims, C)) // if you were a victim recently, you won't get it again
+	if(!COOLDOWN_LIST_FINISHED(src, recent_victims, "\ref[C]")) // if you were a victim recently, you won't get it again
 		return
 	var/power = round(G.seed.potency*rate)
 	if(prob(power))
-		COOLDOWN_LIST_START(src, recent_victims, C, 2 SECONDS)
+		COOLDOWN_LIST_START(src, recent_victims, "\ref[C]", 2 SECONDS)
 		C.electrocute_act(power, G, 1, 1)
 		var/turf/T = get_turf(C)
 		if(C.ckey != G.fingerprintslast)
@@ -272,7 +272,7 @@
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
-			COOLDOWN_LIST_START(src, recent_victims, C, 2 SECONDS)
+			COOLDOWN_LIST_START(src, recent_victims, "\ref[C]", 2 SECONDS)
 			C.electrocute_act(round(power), G, 1, 1)
 			if(C.ckey != G.fingerprintslast)
 				log_combat(G.thrownby, C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]")
@@ -488,7 +488,7 @@
 	G.reagents.reaction(L, INJECT, fraction)
 	G.reagents.trans_to(L, injecting_amount)
 	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
-	COOLDOWN_LIST_START(src, recent_victims, L, 10 SECONDS) // this refreshes 10s cooldown time. repeated attack will not be effective
+	COOLDOWN_LIST_START(src, recent_victims, "\ref[L]", 10 SECONDS) // this refreshes 10s cooldown time. repeated attack will not be effective
 	return TRUE
 
 /datum/plant_gene/trait/smoke
