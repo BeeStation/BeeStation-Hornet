@@ -314,6 +314,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 /// NOTE: this doesn't support calculating z turfs yet.
 /proc/get_pulsing_turfs(turf/center, impact_size, check_ticks = TRUE)
 	var/list/turf_lists = list()
+	turf_lists.Add(list(list(center))) // adds center manually rather than the loop
 	for(var/current_impact in 1 to impact_size)
 		var/turf/top_left =  locate(center.x - current_impact, center.y + current_impact, center.z)
 		var/turf/top_right = locate(center.x + current_impact, center.y + current_impact, center.z)
