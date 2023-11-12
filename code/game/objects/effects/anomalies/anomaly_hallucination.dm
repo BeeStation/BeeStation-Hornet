@@ -4,7 +4,7 @@
 	aSignal = /obj/item/assembly/signaler/anomaly/hallucination
 
 	COOLDOWN_DECLARE(pulse_cooldown)
-	var/pulse_interval = 15 SECONDS
+	var/pulse_interval = 5 SECONDS
 
 /obj/effect/anomaly/hallucination/anomalyEffect(delta_time)
 	. = ..()
