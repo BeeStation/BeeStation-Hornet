@@ -343,20 +343,21 @@ Turf and target are separate in case you want to teleport some distance from a t
 				edge_reached_top = TRUE
 				 // after a pulse reaches the top edge of the world, it stops includes top-edge turfs to the list
 
-		if(!edge_reached_left) // left_edge
-			pulse_group |= block(top_left, bot_left)
-			if(center.x - current_impact < 1)
-				edge_reached_left = TRUE
+		if(!edge_reached_right) // right_edge
+			pulse_group |= block(top_right, bot_right)
+			if(center.x + current_impact > world.maxx)
+				edge_reached_right = TRUE
 
 		if(!edge_reached_bot) // bot_edge
-			pulse_group |= block(bot_left, bot_right)
+			pulse_group |= block(bot_right, bot_left)
 			if(center.y - current_impact < 1)
 				edge_reached_bot = TRUE
 
-		if(!edge_reached_right) // right_edge
-			pulse_group |= block(bot_right, top_right)
-			if(center.x + current_impact > world.maxx)
-				edge_reached_right = TRUE
+		if(!edge_reached_left) // left_edge
+			pulse_group |= block(bot_left, top_left)
+			if(center.x - current_impact < 1)
+				edge_reached_left = TRUE
+		// "top_left -> top_right -> bot_right -> bot_left"
 
 		if(!length(pulse_group)) // we got no more turfs. no need to calculate more.
 			break
