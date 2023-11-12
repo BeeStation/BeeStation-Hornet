@@ -8110,8 +8110,8 @@
 /area/maintenance/port)
 "azi" = (
 /obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -8957,13 +8957,16 @@
 /turf/open/floor/plating,
 /area/engine/break_room)
 "aCi" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/structure/noticeboard{
 	dir = 8;
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -9175,6 +9178,9 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -9184,9 +9190,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/effect/landmark/blobstart,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -9203,12 +9206,12 @@
 /turf/closed/wall,
 /area/hallway/primary/fore)
 "aDi" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -9222,9 +9225,6 @@
 /turf/closed/wall/rust,
 /area/engine/atmos)
 "aDn" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -13073,11 +13073,7 @@
 /turf/closed/wall/rust,
 /area/science/lab)
 "aZk" = (
-/obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
 /turf/closed/wall/rust,
 /area/maintenance/port/fore)
 "aZl" = (
@@ -52401,6 +52397,9 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "hZy" = (
@@ -57766,6 +57765,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/room/threexthree,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "kkc" = (
