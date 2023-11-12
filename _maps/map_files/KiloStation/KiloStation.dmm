@@ -15315,7 +15315,7 @@
 /area/space/nearstation)
 "bib" = (
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "25;26;35;28;22;37;46;38"
+	req_one_access_txt = "12;25;26;35;28;22;37;46;38"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -25013,7 +25013,7 @@
 /area/hallway/primary/starboard)
 "bVl" = (
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "25;26;35;28;22;37;46"
+	req_one_access_txt = "12;25;26;35;28;22;37;46"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -124061,7 +124061,7 @@ boT
 beM
 bhd
 bie
-nbl
+aox
 aHX
 bsk
 tOa
