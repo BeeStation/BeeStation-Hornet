@@ -7978,16 +7978,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
-"ayH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/electricshock{
-	pixel_x = -32
-	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/port/fore)
 "ayI" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -57771,6 +57761,12 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"kjY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/room/threexthree,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "kkc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -59435,6 +59431,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"kYz" = (
+/obj/structure/sign/warning/electricshock{
+	pixel_x = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "kYY" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -87163,6 +87166,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
+"wDd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "wDh" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -106616,12 +106624,12 @@ aoO
 ctB
 ctB
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+iWq
+iWq
+iWq
+iWq
+cwp
+cwp
 cwp
 aDa
 aEH
@@ -106874,11 +106882,11 @@ oEp
 ctA
 aeu
 cwp
-cwq
-cwp
-cwp
-cwq
-cwp
+bDi
+oTh
+kYz
+wDd
+kjY
 cwp
 aDc
 ePo
@@ -107133,7 +107141,7 @@ aeu
 cwp
 bCm
 aNk
-ayH
+aar
 oTh
 azi
 cwf
