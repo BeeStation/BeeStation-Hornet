@@ -4,7 +4,7 @@
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "headset"
 	/// BB implant colour is different per team, and is set by brother antag datum
-	var/span_implant_colour = "cfc_redpurple"
+	var/span_implant_colour = CFC_REDPURPLE
 	var/list/linked_implants // All other implants that this communicates to
 
 /obj/item/implant/bloodbrother/Initialize(mapload)

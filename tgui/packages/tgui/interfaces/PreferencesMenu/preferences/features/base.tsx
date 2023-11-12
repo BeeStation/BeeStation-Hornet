@@ -105,8 +105,12 @@ export const CheckboxInputInverse = (props: FeatureValueProps<BooleanLike, boole
 export const createDropdownInput = <T extends string | number = string>(
   // Map of value to display texts
   choices: Record<T, InfernoNode>,
-  dropdownProps?: DropdownOptionalProps
+  dropdownProps?: DropdownOptionalProps,
+  noSort?: boolean // snowflake flag to stop sorting choices alphabetically
 ): FeatureValue<T> => {
+  const getSortedChoices = (sortableChoices) => {
+    return noSort ? Object.entries(sortableChoices) : sortChoices(Object.entries(sortableChoices));
+  };
   return (props: FeatureValueProps<T>) => {
     return (
       <Dropdown
@@ -114,7 +118,7 @@ export const createDropdownInput = <T extends string | number = string>(
         displayText={choices[props.value]}
         onSelected={props.handleSetValue}
         width="100%"
-        options={sortChoices(Object.entries(choices)).map(([dataValue, label]) => {
+        options={getSortedChoices(choices).map(([dataValue, label]) => {
           return {
             displayText: label,
             value: dataValue,

@@ -88,17 +88,57 @@
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
 
+
 // check "chat-light-theme.scss" and "chat-dark-theme.scss"
+#define CFC_RED "cfc_red"
+#define CFC_REDORANGE "cfc_redorange"
+#define CFC_ORANGE "cfc_orange"
+#define CFC_YELLOW "cfc_yellow"
+#define CFC_LIME "cfc_lime"
+#define CFC_GREEN "cfc_green"
+#define CFC_CYAN "cfc_cyan"
+#define CFC_BLUESKY "cfc_bluesky"
+#define CFC_DARKBLUESKY "cfc_darkbluesky"
+#define CFC_NAVY "cfc_navy"
+#define CFC_BLUE "cfc_blue"
+#define CFC_INDIGO "cfc_indigo"
+#define CFC_PURPLE "cfc_purple"
+#define CFC_VIOLET "cfc_violet"
+#define CFC_MAGENTA "cfc_magenta"
+#define CFC_REDPURPLE "cfc_redpurple"
+
 GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(
-	"cfc_red",\
-	"cfc_purple",\
-	"cfc_navy",\
-	"cfc_darkbluesky",\
-	"cfc_bluesky",\
-	"cfc_cyan",\
-	"cfc_lime",\
-	"cfc_orange",\
-	"cfc_redorange")))
+	CFC_RED,\
+	CFC_PURPLE,\
+	CFC_NAVY,\
+	CFC_DARKBLUESKY,\
+	CFC_BLUESKY,\
+	CFC_CYAN,\
+	CFC_LIME,\
+	CFC_ORANGE,\
+	CFC_REDORANGE)))
+
+GLOBAL_LIST_INIT(color_list_full_cfc, list(
+	CFC_RED,\
+	CFC_REDORANGE,\
+	CFC_ORANGE,\
+	CFC_YELLOW,\
+	CFC_LIME,\
+	CFC_GREEN,\
+	CFC_CYAN,\
+	CFC_BLUESKY,\
+	CFC_DARKBLUESKY,\
+	CFC_NAVY,\
+	CFC_BLUE,\
+	CFC_INDIGO,\
+	CFC_PURPLE,\
+	CFC_VIOLET,\
+	CFC_MAGENTA,\
+	CFC_REDPURPLE
+))
+
+/// The default color for admin say, used as a fallback when the preference is not enabled
+#define DEFAULT_ASAY_COLOR CFC_RED
 
 // Color Filters
 /// Icon filter that creates ambient occlusion
@@ -106,8 +146,6 @@ GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(
 /// Icon filter that creates gaussian blur
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
 
-/// The default color for admin say, used as a fallback when the preference is not enabled
-#define DEFAULT_ASAY_COLOR "#FF4500"
 /// The default color for Byond Member / ADMIN OOC, used as a fallback when the preference is not enabled
 #define DEFAULT_BONUS_OOC_COLOR "#c43b23"
 
