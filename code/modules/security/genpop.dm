@@ -384,7 +384,7 @@
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1)
 
 	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence, desired_crime, desired_name)
-	Radio.talk_into(src, "Prisoner [id.registered_name] has been incarcerated for [desired_sentence / 60 ] minutes.", FREQ_SECURITY)
+	Radio.talk_into(src, "Prisoner [id.registered_name] has been incarcerated for [desired_sentence / 60 ] minutes.")
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
 	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/60]</p> <h2 id='description'>Description </h2> <p>[desired_description]</p> <p>WhiteRapids Military Council, disciplinary authority</p>")
 	paperwork.update_appearance()
@@ -487,7 +487,7 @@
 				return
 			if(alert("Are you sure you want to release [id.registered_name]", "Prisoner Release", "Yes", "No") != "Yes")
 				return
-			Radio.talk_into(src, "Prisoner [id.registered_name] has been discharged.", FREQ_SECURITY)
+			Radio.talk_into(src, "Prisoner [id.registered_name] has been discharged.")
 			investigate_log("[key_name(usr)] has early-released [id] ([id.loc])", INVESTIGATE_RECORDS)
 			usr.log_message("[key_name(usr)] has early-released [id] ([id.loc])", LOG_ATTACK)
 			id.served_time = id.sentence
@@ -497,7 +497,7 @@
 				return
 			if(alert("Do you want to reset the sentence of [id.registered_name]?", "Confirmation", "Yes", "No") != "Yes")
 				return
-			Radio.talk_into(src, "Prisoner [id.registered_name] has had their serving time reset.", FREQ_SECURITY)
+			Radio.talk_into(src, "Prisoner [id.registered_name] has had their serving time reset.")
 			investigate_log("[key_name(usr)] has reset the timer of [id] ([id.loc])", INVESTIGATE_RECORDS)
 			usr.log_message("[key_name(usr)] has reset the timer of [id] ([id.loc])", LOG_ATTACK)
 			id.served_time = 0
