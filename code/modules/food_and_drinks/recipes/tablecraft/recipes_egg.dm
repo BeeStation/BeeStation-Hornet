@@ -51,3 +51,23 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/salad/eggbowl
 	subcategory = CAT_EGG
+
+/datum/crafting_recipe/food/wrap
+	name = "Wrap"
+	reqs = list(/datum/reagent/consumable/soysauce = 10,
+		/obj/item/reagent_containers/food/snacks/friedegg = 1,
+		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1,
+	)
+	result = /obj/item/reagent_containers/food/snacks/eggwrap
+	category = CAT_EGG
+
+/datum/crafting_recipe/food/chawanmushi
+	name = "Chawanmushi"
+	reqs = list(
+		/datum/reagent/water = 5,
+		/datum/reagent/consumable/soysauce = 5,
+		/obj/item/reagent_containers/food/snacks/boiledegg = 2,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/chawanmushi
+	category = CAT_EGG

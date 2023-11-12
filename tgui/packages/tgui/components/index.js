@@ -9,6 +9,7 @@ export { Autofocus } from './Autofocus';
 export { Blink } from './Blink';
 export { BlockQuote } from './BlockQuote';
 export { Box } from './Box';
+export { BufferedTextArea } from './BufferedTextArea';
 export { Button } from './Button';
 export { ByondUi } from './ByondUi';
 export { Chart } from './Chart';
