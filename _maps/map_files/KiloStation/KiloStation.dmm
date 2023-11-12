@@ -8957,12 +8957,13 @@
 /turf/open/floor/plating,
 /area/engine/break_room)
 "aCi" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/noticeboard{
 	dir = 8;
 	pixel_x = 32
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -9193,13 +9194,6 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/maintenance/port/fore)
-"aDe" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "aDf" = (
 /obj/structure/sign/warning/securearea,
@@ -19826,6 +19820,7 @@
 /obj/structure/sign/warning/fire{
 	pixel_y = 32
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "bCC" = (
@@ -52402,6 +52397,12 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
+"hYZ" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "hZy" = (
 /obj/machinery/computer/arcade,
 /obj/effect/turf_decal/bot,
@@ -57928,6 +57929,14 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
+"kmY" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/wall,
+/area/maintenance/port/fore)
 "kny" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -67283,14 +67292,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"ovd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "ove" = (
 /obj/structure/disposalpipe/junction/flip,
 /obj/structure/cable/yellow{
@@ -106887,7 +106888,7 @@ oTh
 kYz
 wDd
 kjY
-cwp
+cwf
 aDc
 ePo
 ckR
@@ -107144,10 +107145,10 @@ aNk
 aar
 oTh
 azi
-cwf
+hYZ
 aDd
 amA
-cHN
+amA
 cHN
 cHO
 cHN
@@ -107401,7 +107402,7 @@ oTh
 tJu
 azU
 aCi
-aDe
+cwp
 aDi
 cnr
 amA
@@ -107653,10 +107654,10 @@ cun
 ctC
 apU
 cxt
-bDi
 iWq
 iWq
-ovd
+kmY
+iWq
 aZk
 aSf
 aDn
