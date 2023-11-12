@@ -45521,18 +45521,6 @@
 /obj/effect/landmark/start/captain,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/captain)
-"pCW" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/apc/auto_name/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/closed/wall/r_wall,
-/area/science/mixing)
 "pDd" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -57294,20 +57282,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/east,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "uSz" = (
@@ -113413,7 +113387,7 @@ fZi
 kch
 bEC
 bEC
-pCW
+bEC
 jda
 qKJ
 vrR
