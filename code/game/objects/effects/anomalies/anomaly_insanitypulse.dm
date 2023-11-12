@@ -7,7 +7,7 @@
 	var/pulse_interval = 10 SECONDS
 
 	var/weak_pulse_power = 8
-	var/strong_pulse_power = 100
+	var/strong_pulse_power = 150
 
 /obj/effect/anomaly/insanity_pulse/anomalyEffect(delta_time)
 	. = ..()
@@ -39,8 +39,8 @@
 /proc/_sends_insanity_pulse(list/center, impact_size)
 	for(var/each_group in get_pulsing_turfs(center, impact_size))
 		for(var/turf/each_turf as() in each_group)
-			if(!isspaceturf(each_turf)) // you don't see what's comming...
-				new /obj/effect/temp_visual/mining_scanner(each_turf)
+			if(!isspaceturf(each_turf) && isopenturf(each_turf)) // you don't see what's comming...
+				new /obj/effect/temp_visual/mining_scanner(each_turf) // actually, making effects for every turf is laggy. This is good to reduce lags.
 			for(var/mob/living/each_mob in each_turf.get_all_mobs()) // hiding in a closet? No, no, you cheater
 				to_chat(each_mob, "<span class='warning'>A wave of dread washes over you...</span>")
 				each_mob.adjust_blindness(30)
