@@ -305,6 +305,34 @@ Turf and target are separate in case you want to teleport some distance from a t
 
 	return turf_list
 
+/// returns a list of turf lists.
+/// each list has turfs from every impact value
+/// * turf_lists[1] = list(1 turfs)
+/// * turf_lists[2] = list(8 turfs) (edge of 2nd impact)
+/// * turf_lists[3] = list(16 turfs) (edge of 3rd impact)
+/// * turf_lists[4] = list(24 turfs) (edge of 4th impact)
+/// NOTE: this doesn't support calculating z turfs yet.
+/proc/get_pulsing_turfs(turf/center, impact_size, check_ticks = TRUE)
+	var/list/turf_lists = list()
+	for(var/current_impact in 1 to impact_size)
+		var/turf/top_left =  locate(center.x - current_impact, center.y + current_impact, center.z)
+		var/turf/top_right = locate(center.x + current_impact, center.y + current_impact, center.z)
+		var/turf/bot_left =  locate(center.x - current_impact, center.y - current_impact, center.z)
+		var/turf/bot_right = locate(center.x + current_impact, center.y - current_impact, center.z)
+		var/list/pulse_group = list()
+		pulse_group += block(top_left,  top_right)
+		pulse_group += block(top_left,  bot_left)
+		pulse_group |= block(bot_left,  bot_right)
+		pulse_group |= block(bot_right, top_right)
+		turf_lists.Add(list(pulse_group))
+		if(check_ticks)
+			CHECK_TICK
+	return turf_lists
+	/*	< Why does it return list with lists? >
+			because you don't know which pulse your code is currencly at with the list of turfs
+			that's why the list has lists with turfs.  */
+
+
 ///Returns a random turf on the station
 /proc/get_random_station_turf()
 	var/list/turfs = get_area_turfs(pick(GLOB.the_station_areas))
