@@ -74,7 +74,7 @@ export const GenPop = (props, context) => {
           <Button
             icon="exclamation-triangle"
             content="CAPITAL"
-            color="grey"
+            color="black"
             onClick={() => act('preset', { preset: 'perma' })} />
           <br />
         </Section>
@@ -96,7 +96,7 @@ export const GenPop = (props, context) => {
                 color={value.colour}
                 icon={value.icon}
                 tooltip={value.tooltip}
-                onClick={() => act('presetCrime', { preset: value.sentence, crime: value.name })}
+                onClick={() => act('presetCrime', { preset: value.sentence, crime: value.name, tooltip: value.tooltip })}
               />
             );
           })}

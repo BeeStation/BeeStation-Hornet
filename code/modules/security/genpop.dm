@@ -225,8 +225,9 @@
 	var/time_to_screwdrive = 20
 	var/next_print = 0
 	var/desired_sentence = 60 //What sentence do you want to give them?
-	var/desired_crime = null //What is their crime?
-	var/desired_name = null
+	var/desired_crime //What is their crime?
+	var/desired_name //What is their name?
+	var/desired_description //Description of their crime
 	var/obj/item/radio/Radio //needed to send messages to sec radio
 	//Preset crimes that you can set, without having to remember times
 	var/static/list/crimes = list() //The list of crimes the user will either be filtering or searching in.
@@ -319,6 +320,13 @@
 		return
 	set_picture("genpop")
 
+/obj/machinery/genpop_interface/attackby(obj/item/C, mob/user)
+	if(!istype(C, /obj/item/card/id))
+		. = ..()
+	else
+		var/obj/item/card/id/I = C
+		playsound(src, 'sound/machines/ping.ogg', 20)
+		desired_name = I.registered_name
 
 /obj/machinery/genpop_interface/proc/set_picture(state)
 	if(maptext)
@@ -378,7 +386,7 @@
 	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence, desired_crime, desired_name)
 	Radio.talk_into(src, "Prisoner [id.registered_name] has been incarcerated for [desired_sentence / 60 ] minutes.", FREQ_SECURITY)
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
-	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/60]</p> <p>WhiteRapids Military Council, disciplinary authority</p>")
+	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/60]</p> <h2 id='description'>Description </h2> <p>[desired_description]</p> <p>WhiteRapids Military Council, disciplinary authority</p>")
 	paperwork.update_appearance()
 	desired_sentence = 60
 	desired_crime = null
@@ -405,6 +413,7 @@
 				desired_sentence = clamp(desired_sentence,0,MAX_TIMER)
 		if("crime")
 			crimes = stripped_input(usr, "Input prisoner's crimes...", "Crimes", desired_crime)
+			desired_description = stripped_input(usr, "Describe infraction...", "Description")
 			if(crimes == null | !Adjacent(usr))
 				return FALSE
 			desired_crime = crimes
@@ -441,9 +450,11 @@
 		if("presetCrime")
 			var/preset_crime = params["crime"]
 			var/preset_time = text2num(params["preset"])
+			var/preset_description = params["tooltip"]
 			desired_crime = preset_crime
 			desired_sentence = preset_time MINUTES
 			desired_sentence /= 10
+			desired_description = preset_description
 		if("modifier")
 			var/modifier = params["modifier"]
 			switch(modifier)
