@@ -234,59 +234,58 @@
 	var/search_text
 
 	var/static/list/minor = list(
-		list(name="Assault", tooltip="To use physical force against someone without the apparent intent to kill them.", colour="yellow",icon="first-aid",sentence="5"),
-		list(name="Pickpocketting", tooltip="To steal items from another's person..", colour="yellow",icon="first-aid",sentence="5"),
-		list(name="Minor Vandalism", tooltip="To damage, destroy, or permanently deface non-critical furniture, vendors, or personal property.", colour="yellow",icon="gavel",sentence="5"),
-		list(name="Vigilantism", tooltip="To perform the responsibilities and duties of the security department without approval or due cause to act.", colour="yellow",icon="hammer",sentence="5"),
-		list(name="Illegal Distribution", tooltip="The possession of dangerous or illegal drugs/equipment in a quantity greater than that which is reasonable for personal consumption.", colour="yellow",icon="hammer",sentence="5"),
-		list(name="Disturbing the Peace", tooltip="	To knowingly organize a movement which disrupts the normal operations of a department.", colour="yellow",icon="hammer",sentence="5"),
-		list(name="Negligence", tooltip="To be negligent in one's duty to an extent that it may cause harm, illness, or other negative effect, to another.", colour="yellow",icon="hammer",sentence="5"),
-		list(name="Trespass", tooltip="To be in an area which a person has either not purposefully been admitted to, does not have access, or has been asked to leave by someone who has access to that area.", colour="yellow",icon="hammer",sentence="5"),
-		list(name="Breaking and Entering", tooltip="To trespass into an area using a method of forcible entry.", colour="yellow",icon="hammer",sentence="5"),
-		list(name="Discriminatory Language", tooltip="To use language which demeans, generalizes, or otherwise de-personafies the individual at which it is targeted.", colour="yellow",icon="hammer",sentence="5"),
-		list(name="Fine Evasion", tooltip="To purposefully avoid or refuse to pay a legal fine.", colour="yellow",icon="hammer",sentence="5"),
-		list(name="Religious Activity outside of the chapel", tooltip="To convert, proselytize, hold rituals or otherwise attempt to act in the name of a religion or deity outside of the chapel.", colour="yellow",icon="hammer",sentence="5"),
+		list(name="Assault", tooltip="To use physical force against someone without the apparent intent to kill them.", colour="yellow",icon="hand-rock",sentence="5"),
+		list(name="Pickpocketting", tooltip="To steal items from another's person..", colour="yellow",icon="mask",sentence="5"),
+		list(name="Minor Vandalism", tooltip="To damage, destroy, or permanently deface non-critical furniture, vendors, or personal property.", colour="yellow",icon="house-damage",sentence="5"),
+		list(name="Vigilantism", tooltip="To perform the responsibilities and duties of the security department without approval or due cause to act.", colour="yellow",icon="user-secret",sentence="5"),
+		list(name="Illegal Distribution", tooltip="The possession of dangerous or illegal drugs/equipment in a quantity greater than that which is reasonable for personal consumption.", colour="yellow",icon="joint",sentence="5"),
+		list(name="Disturbing the Peace", tooltip="	To knowingly organize a movement which disrupts the normal operations of a department.", colour="yellow",icon="fist-raised",sentence="5"),
+		list(name="Negligence", tooltip="To be negligent in one's duty to an extent that it may cause harm, illness, or other negative effect, to another.", colour="yellow",icon="low-vision",sentence="5"),
+		list(name="Trespass", tooltip="To be in an area which a person has either not purposefully been admitted to, does not have access, or has been asked to leave by someone who has access to that area.", colour="yellow",icon="walking",sentence="5"),
+		list(name="Breaking and Entering", tooltip="To trespass into an area using a method of forcible entry.", colour="yellow",icon="door-open",sentence="5"),
+		list(name="Discriminatory Language", tooltip="To use language which demeans, generalizes, or otherwise de-personafies the individual at which it is targeted.", colour="yellow",icon="comment-slash",sentence="5"),
+		list(name="Fine Evasion", tooltip="To purposefully avoid or refuse to pay a legal fine.", colour="yellow",icon="dollar-sign",sentence="5"),
+		list(name="Religious Activity outside of the chapel", tooltip="To convert, proselytize, hold rituals or otherwise attempt to act in the name of a religion or deity outside of the chapel.", colour="yellow",icon="cross",sentence="5"),
 	)
 	var/static/list/misdemeanours = list(
-		list(name="Aggravated Assault", tooltip="To take physical action against a person with intent to grievously harm, but not to kill.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Theft", tooltip="To steal equipment or items from a workplace, or items of extraordinary value from one's person.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Major Vandalism", tooltip="To destroy or damage non-critical furniture, vendors, or personal property in a manor that can not be repaired.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Conspiracy", tooltip="To knowingly work with another person in the interest of committing an illegal action.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Hostile Agent", tooltip="To knowingly act as a recruiter, representative, messenger, ally, benefactor, or other associate of a hostile organization as defined within Code 405(EOTC).", colour="orange",icon="gavel",sentence="10"),
-		list(name="Contrabang Equipment Possession", tooltip="To possess equipment not approved for use or production aboard Nanotrasen stations. This includes equipment produced by The Syndicate, Wizard Federation, or any other hostile organization as defined within Code 405(EOTC).", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Rioting", tooltip="To act as a member in a group which collectively commits acts of major vandalism, sabotage, grand sabotage, or other felony crimes.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="High Negligence", tooltip="	To be negligent in one's duty to an extent that it may cause harm to multiple individuals, a department, or in a manor which directly leads to a serious injury of another person which requires emergency medical treatment.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Trespass, Inherently Dangerous Areas", tooltip="Trespassing in an area which may lead to the injury of self, or others.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Breaking and Entering, Inherently Dangerous Areas", tooltip="To trespass into an area which may lead to the injury of self or others using forcible entry.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Insubordination", tooltip="To knowingly disobey a lawful order from a superior.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Fraud", tooltip="To misrepresent ones intention in the interest of gaining property or money from another individual.", colour="orange",icon="first-aid",sentence="10"),
-		list(name="Genetic Mutilation", tooltip="To purposefully modify an individual's genetic code without consent, or with intent to harm.", colour="orange",icon="first-aid",sentence="10"),
+		list(name="Aggravated Assault", tooltip="To take physical action against a person with intent to grievously harm, but not to kill.", colour="orange",icon="user-injured",sentence="10"),
+		list(name="Theft", tooltip="To steal equipment or items from a workplace, or items of extraordinary value from one's person.", colour="orange",icon="mask",sentence="10"),
+		list(name="Major Vandalism", tooltip="To destroy or damage non-critical furniture, vendors, or personal property in a manor that can not be repaired.", colour="orange",icon="house-damage",sentence="10"),
+		list(name="Conspiracy", tooltip="To knowingly work with another person in the interest of committing an illegal action.", colour="orange",icon="user-friends",sentence="10"),
+		list(name="Hostile Agent", tooltip="To knowingly act as a recruiter, representative, messenger, ally, benefactor, or other associate of a hostile organization as defined within Code 405(EOTC).", colour="orange",icon="user-ninja",sentence="10"),
+		list(name="Contrabang Equipment Possession", tooltip="To possess equipment not approved for use or production aboard Nanotrasen stations. This includes equipment produced by The Syndicate, Wizard Federation, or any other hostile organization as defined within Code 405(EOTC).", colour="orange",icon="briefcase",sentence="10"),
+		list(name="Rioting", tooltip="To act as a member in a group which collectively commits acts of major vandalism, sabotage, grand sabotage, or other felony crimes.", colour="orange",icon="fist-raised",sentence="10"),
+		list(name="High Negligence", tooltip="To be negligent in one's duty to an extent that it may cause harm to multiple individuals, a department, or in a manor which directly leads to a serious injury of another person which requires emergency medical treatment.", colour="orange",icon="blind",sentence="10"),
+		list(name="Trespass, Inherently Dangerous Areas", tooltip="Trespassing in an area which may lead to the injury of self, or others.", colour="orange",icon="door-closed",sentence="10"),
+		list(name="Breaking and Entering, Inherently Dangerous Areas", tooltip="To trespass into an area which may lead to the injury of self or others using forcible entry.", colour="orange",icon="door-open",sentence="10"),
+		list(name="Insubordination", tooltip="To knowingly disobey a lawful order from a superior.", colour="orange",icon="hand-middle-finger",sentence="10"),
+		list(name="Fraud", tooltip="To misrepresent ones intention in the interest of gaining property or money from another individual.", colour="orange",icon="comment-dollar",sentence="10"),
+		list(name="Genetic Mutilation", tooltip="To purposefully modify an individual's genetic code without consent, or with intent to harm.", colour="orange",icon="dna",sentence="10"),
 	)
 	var/static/list/major = list(
-		list(name="Murder", tooltip="To purposefully kill someone.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Larceny", tooltip="To steal rare, expensive (Items of greater than 1000 credit value), or restricted equipment from secure areas or one's person.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Sabotage", tooltip="To destroy station assets or resources critical to normal or emergency station procedures, or cause sections of the station to become uninhabitable.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="High Conspiracy", tooltip="To knowingly work with another person in the interest of committing a major or greater crime.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Hostile Activity", tooltip="	To knowingly commit an act which is in direct opposition to the interests of Nanotrasen, Or to directly assist a known enemy of the corporation.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Possession, Illegal Inherently Dangerous Equipment", tooltip="To possess restricted or illegal equipment which has a primary purpose of causing harm to others, or large amounts of destruction..", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Inciting a Riot", tooltip="To misrepresent ones intention in the interest of gaining property or money from another individual.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Inciting a Riot", tooltip="To perform actions in the interest of causing large amounts of unrest up to and including rioting.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Manslaughter", tooltip="To unintentionally kill someone through negligent, but not malicious, actions.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Trespass, High Security Areas", tooltip="Trespassing in any of the following without appropriate permission or access: Command areas, Personal offices, Weapons storage, weapon production, explosive storage, explosive production, or other high security areas.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Breaking and Entering, High Security Areas", tooltip="To commit trespassing into a secure area as defined in Code 309(Trespass, High Security Areas) using forcible entry.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Dereliction", tooltip="To willfully abandon an obligation that is critical to the station's continued operation.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Corporate Fraud", tooltip="To misrepresent one's intention in the interest of gaining property or money from Nanotrasen, or to gain or give property or money from Nanotrasen without proper authorization.", colour="bad",icon="first-aid",sentence="15"),
-		list(name="Identity Theft", tooltip="To assume the identity of another individual.", colour="bad",icon="first-aid",sentence="15"),
+		list(name="Murder", tooltip="To purposefully kill someone.", colour="bad",icon="skull",sentence="15"),
+		list(name="Larceny", tooltip="To steal rare, expensive (Items of greater than 1000 credit value), or restricted equipment from secure areas or one's person.", colour="bad",icon="mask",sentence="15"),
+		list(name="Sabotage", tooltip="To destroy station assets or resources critical to normal or emergency station procedures, or cause sections of the station to become uninhabitable.", colour="bad",icon="bomb",sentence="15"),
+		list(name="High Conspiracy", tooltip="To knowingly work with another person in the interest of committing a major or greater crime.", colour="bad",icon="users",sentence="15"),
+		list(name="Hostile Activity", tooltip="	To knowingly commit an act which is in direct opposition to the interests of Nanotrasen, Or to directly assist a known enemy of the corporation.", colour="bad",icon="thumbs-down",sentence="15"),
+		list(name="Possession, Illegal Inherently Dangerous Equipment", tooltip="To possess restricted or illegal equipment which has a primary purpose of causing harm to others, or large amounts of destruction..", colour="bad",icon="exclamation-triangle",sentence="15"),
+		list(name="Inciting a Riot", tooltip="To perform actions in the interest of causing large amounts of unrest up to and including rioting.", colour="bad",icon="fist-raised",sentence="15"),
+		list(name="Manslaughter", tooltip="To unintentionally kill someone through negligent, but not malicious, actions.", colour="bad",icon="book-dead",sentence="15"),
+		list(name="Trespass, High Security Areas", tooltip="Trespassing in any of the following without appropriate permission or access: Command areas, Personal offices, Weapons storage, weapon production, explosive storage, explosive production, or other high security areas.", colour="bad",icon="running",sentence="15"),
+		list(name="Breaking and Entering, High Security Areas", tooltip="To commit trespassing into a secure area as defined in Code 309(Trespass, High Security Areas) using forcible entry.", colour="bad",icon="door-open",sentence="15"),
+		list(name="Dereliction", tooltip="To willfully abandon an obligation that is critical to the station's continued operation.", colour="bad",icon="walking",sentence="15"),
+		list(name="Corporate Fraud", tooltip="To misrepresent one's intention in the interest of gaining property or money from Nanotrasen, or to gain or give property or money from Nanotrasen without proper authorization.", colour="bad",icon="hand-holding-usd",sentence="15"),
+		list(name="Identity Theft", tooltip="To assume the identity of another individual.", colour="bad",icon="theater-masks",sentence="15"),
 	)
 	var/static/list/capital = list(
-		list(name="Prime Murder", tooltip="To commit the act of murder, with clear intent to kill, and clear intent or to have materially take steps to prevent the revival of the victim", colour="grey",icon="first-aid",sentence="[MAX_TIMER / 600]"),
-		list(name="Grand Larceny", tooltip="To steal inherently dangerous items from their storage, one's person, or other such methods acquire through illicit means.", colour="grey",icon="first-aid",sentence="[MAX_TIMER / 600]"),
-		list(name="Grand Sabotage", tooltip="To destroy or modify station assets or equipment without which the station may collapse or otherwise become uninhabitable.", colour="grey",icon="first-aid",sentence="[MAX_TIMER / 600]"),
-		list(name="Espionage", tooltip="To knowingly betray critical information to enemies of the station.", colour="grey",icon="first-aid",sentence="[MAX_TIMER / 600]"),
-		list(name="Enemy of the Corporation", tooltip="To be a member of any of the following organizations: Hostile boarding parties, Wizards, Changeling Hiveminds, cults.", colour="grey",icon="first-aid",sentence="[MAX_TIMER / 600]"),
-		list(name="Possession, Corporate Secrets", tooltip="To possess secret documentation or high density tamper-resistant data storage devices (Blackboxes) from any organization without authorization by Nanotrasen.", colour="grey",icon="first-aid",sentence="[MAX_TIMER / 600]"),
-		list(name="Subversion of the Chain of Command", tooltip="Disrupting the chain of command via either murder of a commanding officer or illegaly declaring oneself to be a commanding officer.", colour="grey",icon="first-aid",sentence="[MAX_TIMER / 600]"),
-		list(name="Biological Terror", tooltip="To knowingly release, cause, or otherwise cause the station to become affected by a disease, plant, or other biological form which may spread uncontained and or cause serious physical harm.", colour="grey",icon="first-aid",sentence="[MAX_TIMER / 600]"),
+		list(name="Prime Murder", tooltip="To commit the act of murder, with clear intent to kill, and clear intent or to have materially take steps to prevent the revival of the victim", colour="grey",icon="skull-crossbones",sentence="[MAX_TIMER / 600]"),
+		list(name="Grand Larceny", tooltip="To steal inherently dangerous items from their storage, one's person, or other such methods acquire through illicit means.", colour="grey",icon="mask",sentence="[MAX_TIMER / 600]"),
+		list(name="Grand Sabotage", tooltip="To destroy or modify station assets or equipment without which the station may collapse or otherwise become uninhabitable.", colour="grey",icon="bomb",sentence="[MAX_TIMER / 600]"),
+		list(name="Espionage", tooltip="To knowingly betray critical information to enemies of the station.", colour="grey",icon="user-secret",sentence="[MAX_TIMER / 600]"),
+		list(name="Enemy of the Corporation", tooltip="To be a member of any of the following organizations: Hostile boarding parties, Wizards, Changeling Hiveminds, cults.", colour="grey",icon="user-alt-slash",sentence="[MAX_TIMER / 600]"),
+		list(name="Possession, Corporate Secrets", tooltip="To possess secret documentation or high density tamper-resistant data storage devices (Blackboxes) from any organization without authorization by Nanotrasen.", colour="grey",icon="file-invoice",sentence="[MAX_TIMER / 600]"),
+		list(name="Subversion of the Chain of Command", tooltip="Disrupting the chain of command via either murder of a commanding officer or illegaly declaring oneself to be a commanding officer.", colour="grey",icon="link",sentence="[MAX_TIMER / 600]"),
+		list(name="Biological Terror", tooltip="To knowingly release, cause, or otherwise cause the station to become affected by a disease, plant, or other biological form which may spread uncontained and or cause serious physical harm.", colour="grey",icon="biohazard",sentence="[MAX_TIMER / 600]"),
 	)
 
 /obj/item/circuitboard/machine/genpop_interface
@@ -417,7 +416,7 @@
 		if("print")
 			print_id(usr)
 
-		if("search_text")
+		if("search_text") //unused, not working
 			search_text = params["text"]
 
 		if("preset")
@@ -440,11 +439,29 @@
 			desired_sentence = preset_time
 			desired_sentence /= 10
 		if("presetCrime")
-			var/preset_time = text2num(params["preset"])
 			var/preset_crime = params["crime"]
+			var/preset_time = text2num(params["preset"])
+			desired_crime = preset_crime
 			desired_sentence = preset_time MINUTES
 			desired_sentence /= 10
-			desired_crime = preset_crime
+		if("modifier")
+			var/modifier = params["modifier"]
+			switch(modifier)
+				if("resisted")
+					desired_sentence *= 1.20
+				if("attempted")
+					if(desired_sentence <= 300)
+						alert("Attempted minor crimes must be met with fines!", "Ok")
+						return
+					else
+						desired_sentence -= 300
+						desired_crime = "Attempted [desired_crime]"
+				if("elevated")
+					if(desired_sentence >= 900)
+						desired_sentence = 36000
+					else
+						desired_sentence += 300
+					desired_crime = "[desired_crime] (Repeat offender)"
 		if("adjust_time")
 			var/obj/item/card/id/prisoner/id = locate(params["id"])
 			var/value = text2num(params["adjust"])
@@ -463,6 +480,16 @@
 			investigate_log("[key_name(usr)] has early-released [id] ([id.loc])", INVESTIGATE_RECORDS)
 			usr.log_message("[key_name(usr)] has early-released [id] ([id.loc])", LOG_ATTACK)
 			id.served_time = id.sentence
+		if("escaped")
+			var/obj/item/card/id/prisoner/id = locate(params["id"])
+			if(!istype(id))
+				return
+			if(alert("Do you want to reset the sentence of [id.registered_name]?", "Confirmation", "Yes", "No") != "Yes")
+				return
+			Radio.talk_into(src, "Prisoner [id.registered_name] has had their serving time reset.", FREQ_SECURITY)
+			investigate_log("[key_name(usr)] has reset the timer of [id] ([id.loc])", INVESTIGATE_RECORDS)
+			usr.log_message("[key_name(usr)] has reset the timer of [id] ([id.loc])", LOG_ATTACK)
+			id.served_time = 0
 
 GLOBAL_LIST_EMPTY(prisoner_ids)
 

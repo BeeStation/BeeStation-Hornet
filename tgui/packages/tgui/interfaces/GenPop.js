@@ -101,6 +101,29 @@ export const GenPop = (props, context) => {
             );
           })}
         </Section>
+        <Section
+          title="Modifiers">
+          <Button
+            icon="hand-paper"
+            content="Attempted crime"
+            color="orange"
+            onClick={() => act('modifier', { modifier: 'attempted' })} />
+          <Button
+            icon="thumbs-down"
+            content="Resisted Arrest"
+            color="orange"
+            onClick={() => act('modifier', { modifier: 'resisted' })} />
+          <Button
+            icon="redo"
+            content="Elevated Sentencing"
+            color="bad"
+            onClick={() => act('modifier', { modifier: 'elevated' })} />
+        </Section>
+        <Section title="Preview">
+          Identity: {String(data.desired_name)} <br />
+          Crime: {String(data.desired_crime)} <br />
+          Sentence: {String(data.sentence / 60)} min <br />
+        </Section>
         <Section title="Prison Management:">
           {Object.keys(data.allPrisoners).map(key => {
             let value = data.allPrisoners[key];
@@ -114,9 +137,15 @@ export const GenPop = (props, context) => {
                     icon="forward"
                     onClick={() => act('adjust_time', { adjust: 60, id: value.id })} />
                   <Button
-                    icon="hourglass-start"
+                    icon="check"
                     content="Release"
+                    color="good"
                     onClick={() => act('release', { id: value.id })} />
+                  <Button
+                    icon="running"
+                    content="Escaped"
+                    color="bad"
+                    onClick={() => act('escaped', { id: value.id })} />
                 </Fragment>
               }>
                 Incarcerated for: {value.crime} <br />
