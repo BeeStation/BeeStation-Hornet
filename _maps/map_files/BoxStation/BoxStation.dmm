@@ -1350,29 +1350,6 @@
 /obj/machinery/computer/prisoner/management,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
-"agq" = (
-/obj/machinery/door/window/southleft{
-	base_state = "right";
-	icon_state = "right";
-	name = "Armory";
-	req_access_txt = "3"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "agr" = (
 /obj/machinery/computer/secure_data,
 /turf/open/floor/plasteel/showroomfloor,
@@ -3397,6 +3374,16 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
+"axd" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "axe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7146,59 +7133,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/closed/wall,
 /area/vacant_room/commissary)
-"bdc" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/chem_heater,
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/chem_heater,
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/chem_heater,
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "bdi" = (
 /obj/machinery/computer/arcade,
 /turf/open/floor/wood,
@@ -7686,458 +7620,6 @@
 "bhh" = (
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"bhj" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/requests_console{
-	pixel_y = 32;
-	name = "Chemistry RC"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/button/door{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters";
-	pixel_x = -24;
-	pixel_y = -6;
-	req_one_access_txt = "5; 33"
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/book/manual/wiki/grenades,
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/button/door{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters";
-	pixel_x = -24;
-	pixel_y = -6;
-	req_one_access_txt = "5; 33"
-	},
-/obj/machinery/chem_dispenser,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/button/door{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters";
-	pixel_x = -24;
-	pixel_y = -6;
-	req_one_access_txt = "5; 33"
-	},
-/obj/machinery/chem_dispenser,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/button/door{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters";
-	pixel_x = -24;
-	pixel_y = -6;
-	req_one_access_txt = "5; 33"
-	},
-/obj/machinery/chem_dispenser,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
-"bhl" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/screwdriver{
-	pixel_x = 2;
-	pixel_y = 11
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/chem_master,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/chem_master,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/chem_master,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
-"bhm" = (
-/obj/structure/table/glass,
-/obj/item/book/manual/wiki/grenades,
-/obj/item/screwdriver{
-	pixel_x = 2;
-	pixel_y = 18
-	},
-/obj/item/stack/cable_coil/random,
-/obj/item/grenade/chem_grenade,
-/obj/item/stack/cable_coil/random,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/chem_master,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/book/manual/wiki/grenades,
-/obj/item/screwdriver{
-	pixel_x = 2;
-	pixel_y = 18
-	},
-/obj/item/stack/cable_coil/random,
-/obj/item/grenade/chem_grenade,
-/obj/item/stack/cable_coil/random,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/book/manual/wiki/grenades,
-/obj/item/screwdriver{
-	pixel_x = 2;
-	pixel_y = 18
-	},
-/obj/item/stack/cable_coil/random,
-/obj/item/grenade/chem_grenade,
-/obj/item/stack/cable_coil/random,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/book/manual/wiki/grenades,
-/obj/item/screwdriver{
-	pixel_x = 2;
-	pixel_y = 18
-	},
-/obj/item/stack/cable_coil/random,
-/obj/item/grenade/chem_grenade,
-/obj/item/stack/cable_coil/random,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
-"bhn" = (
-/obj/structure/table/glass,
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/chem_dispenser,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "bhp" = (
 /obj/structure/table/glass,
 /obj/item/stack/ducts/fifty,
@@ -8363,47 +7845,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
-"biy" = (
-/obj/effect/landmark/start/chemist,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "biC" = (
 /obj/machinery/light{
 	dir = 1
@@ -8619,47 +8060,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"bjX" = (
-/obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
-/area/medical/apothecary)
-"bjY" = (
-/obj/machinery/chem_heater,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_y = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "bjZ" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes/line{
@@ -8775,13 +8175,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/security/brig)
-"bkO" = (
-/obj/machinery/chem_master,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "bkP" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -8852,52 +8245,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
-"bll" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/hand_labeler,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "blm" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
@@ -8906,87 +8253,6 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/security/prison)
-"blp" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/landmark/start/chemist,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Chemistry Desk";
-	req_access_txt = "33"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/obj/structure/desk_bell{
-	pixel_x = -3
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Chemistry Desk";
-	req_access_txt = "33"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters"
-	},
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Chemistry Desk";
-	req_access_txt = "33"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters"
-	},
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Chemistry Desk";
-	req_access_txt = "33"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plating,
-/area/medical/apothecary)
 "bls" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -9177,20 +8443,6 @@
 /obj/structure/bed,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
-"bmN" = (
-/obj/machinery/button/door{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters";
-	pixel_x = -24;
-	pixel_y = 6;
-	req_one_access_txt = "5; 33"
-	},
-/obj/machinery/chem_dispenser,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "bmP" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -10140,14 +9392,6 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/captain)
-"bxc" = (
-/obj/machinery/chem_heater,
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "bxe" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/shrink_ccw{
 	dir = 4
@@ -13188,6 +12432,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"bSj" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "bSq" = (
 /obj/structure/rack,
 /obj/item/tank/internals/emergency_oxygen,
@@ -17926,6 +17177,190 @@
 /obj/machinery/holopad,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/service)
+"cuG" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/requests_console{
+	pixel_y = 32;
+	name = "Chemistry RC"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/button/door{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters";
+	pixel_x = -24;
+	pixel_y = -6;
+	req_one_access_txt = "5; 33"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/book/manual/wiki/grenades,
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/button/door{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters";
+	pixel_x = -24;
+	pixel_y = -6;
+	req_one_access_txt = "5; 33"
+	},
+/obj/machinery/chem_dispenser,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/button/door{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters";
+	pixel_x = -24;
+	pixel_y = -6;
+	req_one_access_txt = "5; 33"
+	},
+/obj/machinery/chem_dispenser,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/button/door{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters";
+	pixel_x = -24;
+	pixel_y = -6;
+	req_one_access_txt = "5; 33"
+	},
+/obj/machinery/chem_dispenser,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/requests_console{
+	pixel_y = 32;
+	name = "Chemistry RC"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/button/door{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters";
+	pixel_x = -24;
+	pixel_y = -6;
+	req_one_access_txt = "5; 33"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/book/manual/wiki/grenades,
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/button/door{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters";
+	pixel_x = -24;
+	pixel_y = -6;
+	req_one_access_txt = "5; 33"
+	},
+/obj/machinery/chem_dispenser,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "cuI" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -22048,6 +21483,70 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
+"dIy" = (
+/obj/effect/landmark/start/chemist,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/landmark/start/chemist,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "dJi" = (
 /obj/machinery/requests_console{
 	department = "Atmospherics";
@@ -22612,12 +22111,6 @@
 "dYq" = (
 /turf/closed/wall,
 /area/science/nanite)
-"dYr" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "dYA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -24511,102 +24004,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"eUm" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes,
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/clothing/glasses/science,
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/chem_heater,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes,
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/clothing/glasses/science,
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes,
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/clothing/glasses/science,
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes,
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/clothing/glasses/science,
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "eUt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -25633,13 +25030,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"fzJ" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/obj/effect/landmark/start/chemist,
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "fAl" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "teledoor";
@@ -26067,20 +25457,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
-"fIT" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/lobby)
 "fIX" = (
 /obj/machinery/bluespace_beacon,
 /obj/effect/turf_decal/stripes/line{
@@ -26216,13 +25592,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/misc_lab)
-"fOP" = (
-/obj/structure/chair,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/lobby)
 "fPa" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 10
@@ -26992,6 +26361,110 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
+"ggB" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry Lab";
+	req_access_txt = "5; 33"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/cell_charger,
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/cell_charger,
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/cell_charger,
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry Lab";
+	req_access_txt = "5; 33"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/cell_charger,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
+/area/medical/apothecary)
 "ggQ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics";
@@ -28133,6 +27606,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"gLS" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "gLU" = (
 /obj/machinery/door/poddoor/incinerator_atmos_aux,
 /turf/open/floor/engine/vacuum,
@@ -28295,6 +27774,138 @@
 "gQd" = (
 /turf/closed/wall,
 /area/quartermaster/exploration_dock)
+"gQv" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/landmark/start/chemist,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/obj/structure/desk_bell{
+	pixel_x = -3
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/landmark/start/chemist,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/obj/structure/desk_bell{
+	pixel_x = -3
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
+/area/medical/apothecary)
 "gQA" = (
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
@@ -28631,6 +28242,15 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/command)
+"gZd" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "gZz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -28746,72 +28366,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"hcs" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters"
-	},
-/obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab";
-	req_access_txt = "5; 33"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastright{
-	name = "Chemistry Desk";
-	req_access_txt = "33"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters"
-	},
-/obj/machinery/cell_charger,
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastright{
-	name = "Chemistry Desk";
-	req_access_txt = "33"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters"
-	},
-/obj/machinery/cell_charger,
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastright{
-	name = "Chemistry Desk";
-	req_access_txt = "33"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry shutters"
-	},
-/obj/machinery/cell_charger,
-/obj/machinery/door/firedoor,
-/turf/open/floor/plating,
-/area/medical/apothecary)
 "hcu" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -31878,14 +31432,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
-"iCP" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/lobby)
 "iCT" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/west{
@@ -32329,6 +31875,166 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"iOG" = (
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/grenades,
+/obj/item/screwdriver{
+	pixel_x = 2;
+	pixel_y = 18
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/chem_master,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/grenades,
+/obj/item/screwdriver{
+	pixel_x = 2;
+	pixel_y = 18
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/grenades,
+/obj/item/screwdriver{
+	pixel_x = 2;
+	pixel_y = 18
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/grenades,
+/obj/item/screwdriver{
+	pixel_x = 2;
+	pixel_y = 18
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/grenades,
+/obj/item/screwdriver{
+	pixel_x = 2;
+	pixel_y = 18
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/chem_master,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/grenades,
+/obj/item/screwdriver{
+	pixel_x = 2;
+	pixel_y = 18
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "iOO" = (
 /obj/machinery/door/window/eastleft{
 	dir = 8;
@@ -35944,6 +35650,15 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
+"kwc" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "kwA" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
@@ -37897,24 +37612,6 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/maintenance/central)
-"lrz" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/window/southleft{
-	name = "Armory";
-	req_access_txt = "3"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "lrH" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
@@ -38093,94 +37790,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"lxa" = (
-/obj/machinery/chem_master,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper,
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper,
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper,
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper,
-/obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "lxd" = (
 /obj/machinery/light_switch{
 	pixel_x = -20
@@ -38574,6 +38183,29 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/command)
+"lEk" = (
+/obj/machinery/door/window/southleft{
+	base_state = "right";
+	icon_state = "right";
+	name = "Armory";
+	req_access_txt = "3"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "lEr" = (
 /obj/machinery/advanced_airlock_controller{
 	pixel_y = 24
@@ -39200,12 +38832,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/command)
-"lUQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/lobby)
 "lWn" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -39591,6 +39217,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"mfA" = (
+/obj/machinery/chem_heater,
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "mfX" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
@@ -40227,6 +39861,10 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/maintenance/central)
+"mxA" = (
+/obj/effect/landmark/start/chemist,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "myL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -42420,6 +42058,20 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"nyL" = (
+/obj/machinery/button/door{
+	id = "chemistry_shutters";
+	name = "Chemistry shutters";
+	pixel_x = -24;
+	pixel_y = 6;
+	req_one_access_txt = "5; 33"
+	},
+/obj/machinery/chem_dispenser,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "nyR" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -42473,6 +42125,20 @@
 	},
 /turf/open/floor/plasteel/dark/side,
 /area/engine/atmos)
+"nAE" = (
+/obj/item/kirbyplants/random,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "nAK" = (
 /obj/machinery/newscaster{
 	pixel_y = -28
@@ -42506,10 +42172,6 @@
 /obj/structure/cable,
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
-"nBD" = (
-/obj/effect/landmark/start/chemist,
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "nBE" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -42807,6 +42469,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"nIM" = (
+/obj/machinery/chem_master,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "nJl" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
@@ -43849,16 +43518,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"oke" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "okA" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
@@ -46254,15 +45913,6 @@
 	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
-"pEF" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "pET" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -47078,6 +46728,162 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"pWZ" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/clothing/glasses/science{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/chem_heater,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/clothing/glasses/science{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/clothing/glasses/science{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/clothing/glasses/science{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/clothing/glasses/science{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/chem_heater,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/clothing/glasses/science{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "pXa" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 9
@@ -47679,6 +47485,94 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"qpB" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/screwdriver{
+	pixel_x = 2;
+	pixel_y = 11
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_master,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_master,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_master,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/screwdriver{
+	pixel_x = 2;
+	pixel_y = 11
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_master,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "qpS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -48962,6 +48856,24 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"qUP" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/window/southleft{
+	name = "Armory";
+	req_access_txt = "3"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "qUU" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 1;
@@ -49904,6 +49816,14 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/techmaint,
 /area/teleporter)
+"rqp" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "rqr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -51007,6 +50927,92 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"rQs" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_heater,
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_heater,
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_heater,
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_heater,
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "rQu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -53594,6 +53600,142 @@
 /obj/item/storage/firstaid/regular,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"sYF" = (
+/obj/machinery/chem_master,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_master,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "sYU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -54086,6 +54228,12 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
+"tkL" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "tkN" = (
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -56657,6 +56805,86 @@
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/security/courtroom)
+"uxt" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/hand_labeler,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/hand_labeler,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "uxy" = (
 /obj/structure/transit_tube/curved{
 	dir = 4
@@ -57807,81 +58035,6 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
-"vjh" = (
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 27
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 27
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 27
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 27
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 27
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "vjP" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/wood,
@@ -57921,6 +58074,66 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/science/xenobiology)
+"vkD" = (
+/obj/machinery/chem_heater,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/chem_heater,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "vkJ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/dark_blue/filled/corner{
@@ -58445,6 +58658,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
+"vAR" = (
+/obj/item/radio/intercom{
+	pixel_y = 20
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/vending/medical{
+	pixel_x = -2
+	},
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "vBe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -58616,6 +58842,304 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"vGe" = (
+/obj/structure/table/glass,
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/chem_dispenser,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/chem_dispenser,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "vGi" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel,
@@ -59617,6 +60141,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"whx" = (
+/obj/machinery/smartfridge/chemistry/preloaded,
+/turf/closed/wall,
+/area/medical/apothecary)
 "whX" = (
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -59873,19 +60401,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
-"wnP" = (
-/obj/item/radio/intercom{
-	pixel_y = 20
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/vending/medical{
-	pixel_x = -2
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/lobby)
 "wnQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
@@ -60623,6 +61138,128 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"wJS" = (
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "wKb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -61956,15 +62593,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"xpk" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "xpu" = (
 /obj/machinery/door/airlock/research{
 	name = "Mech Bay";
@@ -63226,6 +63854,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"xRC" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/effect/landmark/start/chemist,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "xRT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -93269,7 +93904,7 @@ ack
 lPI
 lWn
 pBm
-lrz
+qUP
 uMt
 uMt
 mZQ
@@ -93526,7 +94161,7 @@ ack
 asv
 uPw
 blT
-agq
+lEk
 cml
 agV
 tSx
@@ -100002,7 +100637,7 @@ bcr
 mNB
 rpN
 iQT
-fOP
+bSj
 kSZ
 oxh
 xen
@@ -100258,7 +100893,7 @@ aJC
 aYV
 iGe
 mkY
-lUQ
+gLS
 epq
 pYY
 hjw
@@ -100773,7 +101408,7 @@ aYV
 cuf
 cOt
 uwZ
-iCP
+rqp
 kSZ
 kSZ
 kSZ
@@ -101030,11 +101665,11 @@ aYV
 cuf
 nEu
 uwZ
-wnP
+vAR
 qjW
 qjW
 qjW
-fIT
+nAE
 bzW
 kMV
 dbF
@@ -101288,9 +101923,9 @@ xPB
 aYV
 bok
 bok
-hcs
-bjX
-blp
+ggB
+whx
+gQv
 bok
 btZ
 pVe
@@ -101544,11 +102179,11 @@ aYV
 aYV
 aYV
 bok
-bhj
-biy
-lxa
-pEF
-bmN
+cuG
+dIy
+sYF
+gZd
+nyL
 bok
 xJf
 xJf
@@ -101801,11 +102436,11 @@ aYV
 aYV
 aYV
 bAm
-bhl
-nBD
-bjY
-fzJ
-bkO
+qpB
+mxA
+vkD
+xRC
+nIM
 bok
 btV
 btk
@@ -102058,11 +102693,11 @@ aYV
 aYV
 aYV
 nSh
-bdc
+rQs
 jhL
-bll
+uxt
 mSX
-bxc
+mfA
 bok
 jLS
 jLS
@@ -102315,9 +102950,9 @@ aYV
 aYV
 aYV
 bAm
-bhn
+vGe
 ePJ
-oke
+axd
 lhV
 ioz
 hAF
@@ -102572,9 +103207,9 @@ aYV
 aYV
 cBm
 bok
-bhm
+iOG
 tVy
-dYr
+tkL
 jhL
 bkP
 bmV
@@ -102829,9 +103464,9 @@ aYV
 aYV
 aYV
 bok
-eUm
-vjh
-xpk
+pWZ
+wJS
+kwc
 fgo
 bkR
 bBc
