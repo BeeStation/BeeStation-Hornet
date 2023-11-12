@@ -491,29 +491,15 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		priority_announce("Spacetime anomaly detected at [T.loc]. Data analysis completed, [research_reward] research points rewarded.", "Nanotrasen Research Division", ANNOUNCER_SPANOMALIES)
 		SSresearch.science_tech.add_points_all(research_reward)
 	first_time = FALSE
-	var/xrange = 50
-	var/yrange = 50
-	var/cx = T.x
-	var/cy = T.y
+
 	pulser.adjust_blindness(300)
 	pulser.Stun(100)
 	pulser.emote("scream")
 	pulser.hallucination = 500
-	for(var/r in 1 to max(xrange, yrange))
-		var/xr = min(xrange, r)
-		var/yr = min(yrange, r)
-		var/turf/TL = locate(cx - xr, cy + yr, T.z)
-		var/turf/BL = locate(cx - xr, cy - yr, T.z)
-		var/turf/TR = locate(cx + xr, cy + yr, T.z)
-		var/turf/BR = locate(cx + xr, cy - yr, T.z)
-		var/list/turfs = list()
-		turfs += block(TL, TR)
-		turfs += block(TL, BL)
-		turfs |= block(BL, BR)
-		turfs |= block(BR, TR)
-		for(var/turf/T1 as() in turfs)
-			new /obj/effect/temp_visual/mining_scanner(T1)
-			var/mob/living/M = locate() in T1
+	for(var/each_group in get_pulsing_turfs(pulser, 50))
+		for(var/turf/each_turf as() in each_group)
+			new /obj/effect/temp_visual/mining_scanner(each_turf)
+			var/mob/living/M = locate() in each_turf
 			if(M)
 				to_chat(M, "<span class='warning'>A wave of dread washes over you...</span>")
 				M.adjust_blindness(30)
