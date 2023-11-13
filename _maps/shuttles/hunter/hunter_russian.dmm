@@ -1,4 +1,13 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bv" = (
+/obj/effect/turf_decal/box/corners,
+/obj/machinery/iv_drip,
+/obj/item/rollerbed{
+	pixel_x = -10;
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
 "ca" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -97,6 +106,23 @@
 	},
 /obj/item/healthanalyzer,
 /turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"jF" = (
+/obj/structure/table,
+/obj/item/toy/cards/deck/syndicate{
+	pixel_y = 8;
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_x = -8;
+	pixel_y = 11
+	},
+/obj/item/gun/ballistic/revolver/russian,
+/obj/item/knife/hunting{
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
 /area/shuttle/hunter)
 "jP" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -792,15 +818,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
-"Ln" = (
-/obj/effect/turf_decal/box/corners,
-/obj/machinery/iv_drip,
-/obj/item/rollerbed{
-	pixel_x = -10;
-	pixel_y = 14
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/hunter)
 "MC" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 10
@@ -1029,23 +1046,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/hunter)
-"UN" = (
-/obj/structure/table,
-/obj/item/toy/cards/deck/syndicate{
-	pixel_y = 8;
-	pixel_x = 2
-	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_x = -8;
-	pixel_y = 11
-	},
-/obj/item/gun/ballistic/revolver/russian,
-/obj/item/kitchen/knife/hunting{
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/wood,
-/area/shuttle/hunter)
 "UO" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/hunter)
@@ -1265,14 +1265,14 @@ oM
 yi
 Al
 SC
-Ln
+bv
 Al
 Al
 "}
 (14,1,1) = {"
 Al
 Jx
-UN
+jF
 Rg
 Um
 tC

@@ -86,14 +86,14 @@
 	if(!holds_charge)
 		empty()
 
-/obj/item/gun/energy/kinetic_accelerator/shoot_live_shot()
+/obj/item/gun/energy/kinetic_accelerator/shoot_live_shot(mob/user)
 	. = ..()
-	attempt_reload()
+	attempt_reload(user)
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user)
 	. = ..()
 	if(!can_shoot())
-		attempt_reload()
+		attempt_reload(user)
 
 /obj/item/gun/energy/kinetic_accelerator/dropped()
 	..()
@@ -111,7 +111,7 @@
 		cell.use(cell.charge)
 	update_icon()
 
-/obj/item/gun/energy/kinetic_accelerator/proc/attempt_reload(recharge_time)
+/obj/item/gun/energy/kinetic_accelerator/proc/attempt_reload(mob/user, recharge_time)
 	if(!cell)
 		return
 	if(overheat)
@@ -130,8 +130,11 @@
 	else
 		carried = 1
 
-	deltimer(recharge_timerid)
+	// If we are overriding a crosshair, then clear it
+	if (deltimer(recharge_timerid))
+		user?.client.clear_cooldown_cursor()
 	recharge_timerid = addtimer(CALLBACK(src, PROC_REF(reload)), recharge_time * carried, TIMER_STOPPABLE)
+	user?.client?.give_cooldown_cursor(recharge_time * carried + 1)
 
 /obj/item/gun/energy/kinetic_accelerator/proc/reload()
 	cell.give(cell.maxcharge)
@@ -432,7 +435,7 @@
 		valid_repeat = TRUE
 	if(valid_repeat)
 		KA.overheat = FALSE
-		KA.attempt_reload(KA.overheat_time * 0.25) //If you hit, the cooldown drops to 0.75 seconds.
+		KA.attempt_reload(K.firer, KA.overheat_time * 0.25) //If you hit, the cooldown drops to 0.75 seconds.
 
 /obj/item/borg/upgrade/modkit/lifesteal
 	name = "lifesteal crystal"

@@ -13,6 +13,10 @@
 /// Color inherent to the atom (e.g. blob color)
 #define FIXED_COLOUR_PRIORITY 4
 
+
+// NOTE: AVOID USING THIS SUCH AS "<font color=COLOR_MACRO>".
+// It's not a correct way to use. All colors look different based on your chat background theme.
+// You should check "chat-light-theme.scss" and "chat-dark-theme.scss" if you want a colored chat
 #define COLOR_INPUT_DISABLED "#F0F0F0"
 #define COLOR_INPUT_ENABLED "#D3B5B5"
 
@@ -84,16 +88,17 @@
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
 
+// check "chat-light-theme.scss" and "chat-dark-theme.scss"
 GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(
-	"#FF5050",\
-	"#D977FD",\
-	"#422ED8",\
-	"#2D87A1",\
-	"#3ED8FD",\
-	"#0EF5CE",\
-	"#0DF447",\
-	"#D6B20C",\
-	"#FF902A")))
+	"cfc_red",\
+	"cfc_purple",\
+	"cfc_navy",\
+	"cfc_darkbluesky",\
+	"cfc_bluesky",\
+	"cfc_cyan",\
+	"cfc_lime",\
+	"cfc_orange",\
+	"cfc_redorange")))
 
 // Color Filters
 /// Icon filter that creates ambient occlusion

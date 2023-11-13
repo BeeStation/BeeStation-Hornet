@@ -30,21 +30,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"ag" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 "ah" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
 /obj/effect/turf_decal/tile/blue{
@@ -57,15 +42,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"aj" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "ak" = (
@@ -98,57 +74,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"ap" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 "aq" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"ar" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"as" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"at" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/structure/closet/crate/freezer/blood,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"au" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/table/glass,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "av" = (
 /obj/effect/turf_decal/stripes/line{
@@ -166,60 +96,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"ax" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/machinery/sleeper{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 "ay" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"az" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/cryo_cell,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"aA" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/charcoal,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"aB" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/obj/structure/table/glass,
-/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "aC" = (
 /obj/structure/closet/crate/freezer/blood,
@@ -230,14 +111,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"aE" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -263,12 +136,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"aI" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 "aJ" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
@@ -289,35 +156,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"aK" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 "aL" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"aM" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/cryo_cell,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "aN" = (
@@ -367,18 +209,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"aU" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 "aV" = (
 /obj/effect/spawner/lootdrop/ruinloot/medical,
 /obj/structure/table/glass,
@@ -391,58 +221,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"aX" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 9;
-	pixel_y = 11
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/item/wrench/medical{
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"aY" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"aZ" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "hM" = (

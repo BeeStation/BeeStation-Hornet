@@ -1815,15 +1815,6 @@
 "fj" = (
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
-"fk" = (
-/obj/item/reagent_containers/food/snacks/burger/ghost{
-	desc = "I killed a burger for you. Hope you're grateful, bastards.";
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/awaymission/cabin/caves/mountain)
 "fl" = (
 /turf/open/floor/carpet,
 /area/awaymission/cabin/caves/mountain)
@@ -2751,13 +2742,6 @@
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
 "it" = (
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/cabin/caves)
-"iu" = (
-/obj/item/security_barricade{
-	pixel_x = -14;
-	pixel_y = 14
-	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
 "iv" = (
@@ -3949,15 +3933,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
-"lr" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/kitchen/knife/carrotshiv,
-/obj/effect/decal/cleanable/glitter/blue{
-	desc = "It looks like fancy glitter to me.";
-	name = "icy wind"
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/cabin/caves)
 "ls" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/melee/baseball_bat,
@@ -4959,6 +4934,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"pP" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/knife/carrotshiv,
+/obj/effect/decal/cleanable/glitter/blue{
+	desc = "It looks like fancy glitter to me.";
+	name = "icy wind"
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/cabin/caves)
 "qH" = (
 /obj/structure/ladder/unbreakable/rune{
 	alpha = 0;
@@ -4992,6 +4976,15 @@
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"sq" = (
+/obj/item/food/burger/ghost{
+	desc = "I killed a burger for you. Hope you're grateful, bastards.";
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/structure/table/wood,
+/turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "sU" = (
 /obj/effect/light_emitter{
@@ -5160,6 +5153,13 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"NV" = (
+/obj/item/security_barricade{
+	pixel_x = -14;
+	pixel_y = 14
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/cabin/caves)
 "Pw" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -51987,7 +51987,7 @@ gx
 lf
 li
 le
-lr
+pP
 le
 ld
 gx
@@ -56368,7 +56368,7 @@ gx
 gx
 kT
 it
-iu
+NV
 gx
 it
 lG
@@ -69295,7 +69295,7 @@ ab
 ab
 aj
 aj
-fk
+sq
 fj
 fj
 aj

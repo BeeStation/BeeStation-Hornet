@@ -116,7 +116,7 @@ SUBSYSTEM_DEF(zcopy)
 		"\tT: { T: [openspace_turfs] O: [openspace_overlays] } Sk: { T: [multiqueue_skips_turf] O: [multiqueue_skips_object] }",
 		"\tF: { H: [fixup_hit] M: [fixup_miss] N: [fixup_noop] FC: [fixup_cache.len] FKG: [fixup_known_good.len] }",	// Fixup stats.
 	)
-	return ..() + entries.Join("\n")
+	return ..(entries.Join("\n"))
 
 
 /datum/controller/subsystem/zcopy/Initialize(timeofday)

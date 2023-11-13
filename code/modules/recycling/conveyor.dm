@@ -4,6 +4,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_map"
+	base_icon_state = "conveyor"
 	name = "conveyor belt"
 	desc = "A conveyor belt."
 	layer = BELOW_OPEN_DOOR_LAYER
@@ -42,20 +43,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	begin_processing()
 
 /obj/machinery/conveyor/auto/update()
-	if(machine_stat & BROKEN)
-		icon_state = "conveyor-broken"
-		set_operating(FALSE)
-		return
-	else if(!operable)
-		set_operating(FALSE)
-	else if(machine_stat & NOPOWER)
-		set_operating(FALSE)
-	else
+	. = ..()
+	if(.)
 		set_operating(TRUE)
-	icon_state = "conveyor[operating * verted]"
-	if(operating)
-		for(var/atom/movable/movable in get_turf(src))
-			start_conveying(movable)
 
 // create a conveyor
 /obj/machinery/conveyor/Initialize(mapload, newdir, newid)
@@ -153,6 +143,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		if(SOUTHWEST)
 			forwards = WEST
 			backwards = NORTH
+
 	if(verted == -1)
 		var/temp = forwards
 		forwards = backwards
@@ -163,11 +154,15 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		movedir = backwards
 	update()
 
+/obj/machinery/conveyor/update_icon_state()
+	icon_state = "[base_icon_state][(machine_stat & BROKEN) ? "-broken" : (operating * verted)]"
+	return ..()
+
 /obj/machinery/conveyor/proc/set_operating(new_value)
 	if(operating == new_value)
 		return
 	operating = new_value
-	update_icon_state()
+	update_appearance()
 	update_move_direction()
 	//If we ever turn off, disable moveloops
 	if(!operating)
@@ -175,18 +170,15 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			stop_conveying(movable)
 
 /obj/machinery/conveyor/proc/update()
-	if(machine_stat & BROKEN)
-		icon_state = "conveyor-broken"
-		set_operating(FALSE)
-		return
-	if(!operable)
-		set_operating(FALSE)
+	. = TRUE
 	if(machine_stat & NOPOWER)
 		set_operating(FALSE)
-	icon_state = "conveyor[operating * verted]"
-	if(operating)
-		for(var/atom/movable/movable in get_turf(src))
-			start_conveying(movable)
+		return FALSE
+		
+	if(!operating) //If we're on, start conveying so moveloops on our tile can be refreshed if they stopped for some reason
+		return
+	for(var/atom/movable/movable in get_turf(src))
+		start_conveying(movable)
 
 /obj/machinery/conveyor/proc/conveyable_enter(datum/source, atom/convayable)
 	SIGNAL_HANDLER
@@ -231,8 +223,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 					C = locate(/obj/item/stack/conveyor) in loc
 				if(C)
 					transfer_fingerprints_to(C)
-			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 
+			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
 			qdel(src)
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
@@ -303,7 +295,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor)
 		C.set_operable(stepdir, id, op)
 
 /obj/machinery/conveyor/power_change()
-	..()
+	. = ..()
 	update()
 
 // the conveyor control switch

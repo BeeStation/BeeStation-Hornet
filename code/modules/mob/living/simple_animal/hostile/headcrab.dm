@@ -56,10 +56,7 @@
 	var/time
 
 /obj/item/organ/body_egg/changeling_egg/egg_process()
-	// Changeling eggs grow in dead people, but not people in stasis
-	var/mob/living/L = owner
-	if(IS_IN_STASIS(L))
-		return
+	// Changeling eggs grow in dead people
 	time++
 	if(time >= EGG_INCUBATION_TIME)
 		Pop()
@@ -84,6 +81,7 @@
 		C.purchasedpowers += hf
 		C.regain_powers()
 		M.key = origin.key
+	owner.investigate_log("has been gibbed by a changeling egg burst.", INVESTIGATE_DEATHS)
 	owner.gib()
 
 #undef EGG_INCUBATION_TIME

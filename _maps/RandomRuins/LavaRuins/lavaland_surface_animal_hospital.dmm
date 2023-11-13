@@ -58,17 +58,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
-"ax" = (
-/obj/structure/closet/crate/trashcart,
-/obj/item/storage/bag/trash,
-/obj/item/trash/cheesie,
-/obj/item/reagent_containers/syringe/antiviral,
-/obj/item/bodybag,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/turf/open/floor/grass{
-	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
-	},
-/area/lavaland/surface/outdoors)
 "aA" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/open/floor/plasteel/white,
@@ -402,6 +391,34 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
+"eD" = (
+/obj/structure/table,
+/obj/item/food/cookie{
+	name = "doggie biscuit"
+	},
+/obj/item/food/cookie{
+	name = "doggie biscuit"
+	},
+/obj/item/food/cookie{
+	name = "doggie biscuit"
+	},
+/obj/item/food/cookie{
+	name = "doggie biscuit"
+	},
+/obj/item/food/cookie{
+	name = "doggie biscuit"
+	},
+/obj/item/food/cookie{
+	name = "doggie biscuit"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/powered/animal_hospital)
 "fx" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#354562" ;
@@ -444,6 +461,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
+"hh" = (
+/mob/living/basic/cockroach,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/powered/animal_hospital)
 "hU" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -478,6 +503,17 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
+"jy" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/storage/bag/trash,
+/obj/item/trash/cheesie,
+/obj/item/reagent_containers/syringe/antiviral,
+/obj/item/bodybag,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/open/floor/grass{
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/lavaland/surface/outdoors)
 "kQ" = (
 /obj/machinery/light{
 	dir = 1
@@ -506,34 +542,6 @@
 "lX" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/ruin/powered/animal_hospital)
-"me" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
-	},
-/obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
-	},
-/obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
-	},
-/obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
-	},
-/obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
-	},
-/obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -1007,14 +1015,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
-"Mf" = (
-/mob/living/simple_animal/cockroach,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/powered/animal_hospital)
 "Ms" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/open/floor/plasteel/white,
@@ -1413,7 +1413,7 @@ aa
 aa
 ab
 cp
-ax
+jy
 ac
 aJ
 ac
@@ -1480,7 +1480,7 @@ Nl
 zK
 dC
 oj
-Mf
+hh
 zK
 Nl
 Ik
@@ -1632,7 +1632,7 @@ ae
 ae
 Ms
 ae
-me
+eD
 bt
 aK
 aK

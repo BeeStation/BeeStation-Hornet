@@ -43,7 +43,7 @@
 /datum/antagonist/obsessed/greet()
 	if(!trauma?.obsession)
 		return
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='userdanger'>You are the Obsessed!</span>")
 	to_chat(owner, "<span class='bold'>Realization floods over you and everything that's happened this shift makes sense.</span>")
 	to_chat(owner, "<span class='bold'>[trauma.obsession.name] has no idea how much danger they're in and you're the only person that can be there for them.</span>")
@@ -71,9 +71,9 @@
 	var/datum/objective/protect/obsessed/yandere = new
 	yandere.owner = owner
 	yandere.set_target(obsession_mind)
-	var/datum/quirk/family_heirloom/family_heirloom
+	var/datum/quirk/family_heirloom/family_heirloom = locate() in obsession_mind.quirks
 
-	if(obsession_mind.has_quirk(/datum/quirk/family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
+	if(!QDELETED(family_heirloom?.heirloom))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
 	if(obsession_mind.assigned_role && obsession_mind.assigned_role != JOB_NAME_CAPTAIN)

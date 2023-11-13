@@ -10,7 +10,7 @@
 	. = ..()
 	AddComponent(/datum/component/deployable, bag_type)
 
-/obj/item/bodybag/suicide_act(mob/user)
+/obj/item/bodybag/suicide_act(mob/living/user)
 	if(isopenturf(user.loc))
 		user.visible_message("<span class='suicide'>[user] is crawling into [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		SEND_SIGNAL(src, COMSIG_DEPLOYABLE_FORCE_DEPLOY, user.loc)

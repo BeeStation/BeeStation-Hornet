@@ -123,10 +123,8 @@ Possible to do for anyone motivated enough:
 	return ..()
 
 /obj/machinery/holopad/power_change()
-	if (powered())
-		set_machine_stat(machine_stat & ~NOPOWER)
-	else
-		set_machine_stat(machine_stat | NOPOWER)
+	. = ..()
+	if (!powered())
 		if(replay_mode)
 			replay_stop()
 		if(record_mode)
@@ -155,9 +153,6 @@ Possible to do for anyone motivated enough:
 		return
 
 	if(default_pry_open(P))
-		return
-
-	if(default_unfasten_wrench(user, P))
 		return
 
 	if(default_deconstruction_crowbar(P))
@@ -633,6 +628,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/replay_entry(entry_number)
 	if(!replay_mode)
+		return
+	if(!anchored || (machine_stat & NOPOWER))
+		record_stop()
+		replay_stop()
 		return
 	if (!disk.record.entries.len) // check for zero entries such as photographs and no text recordings
 		return // and pretty much just display them statically until manually stopped

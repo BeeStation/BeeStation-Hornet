@@ -945,7 +945,7 @@
 	var/new_cloud = input("Set the public nanite chamber's Cloud ID (1-100).", "Cloud ID", cloud_id) as num|null
 	if(new_cloud == null)
 		return
-	cloud_id = CLAMP(round(new_cloud, 1), 1, 100)
+	cloud_id = clamp(round(new_cloud, 1), 1, 100)
 
 /obj/item/circuitboard/machine/public_nanite_chamber/examine(mob/user)
 	. = ..()

@@ -2,7 +2,10 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	name = "\proper space"
-	intact = 0
+	overfloor_placed = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
+
+	resistance_flags = INDESTRUCTIBLE
 
 	resistance_flags = INDESTRUCTIBLE
 

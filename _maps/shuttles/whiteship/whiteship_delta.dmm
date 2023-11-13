@@ -133,32 +133,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
-"aw" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/turf_decal/bot_white,
-/obj/structure/closet/crate,
-/obj/item/reagent_containers/food/snacks/candy{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/food/snacks/candy,
-/obj/item/reagent_containers/food/snacks/candy{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/food/snacks/cookie{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/food/snacks/cookie{
-	pixel_x = -5;
-	pixel_y = -5
-	},
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/abandoned/bar)
 "ax" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned/bar)
@@ -1621,25 +1595,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bridge)
-"kh" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/box/white/corners,
-/obj/structure/closet/crate/medical,
-/obj/item/storage/firstaid/o2{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/rollerbed{
-	pixel_y = 4
-	},
-/obj/item/healthanalyzer,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/abandoned/cargo)
 "kj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1877,6 +1832,25 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/bar)
+"zy" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/box/white/corners,
+/obj/structure/closet/crate/medical,
+/obj/item/storage/firstaid/o2{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/rollerbed{
+	pixel_y = 4
+	},
+/obj/item/healthanalyzer,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/abandoned/cargo)
 "zO" = (
 /obj/structure/table,
 /obj/item/radio/off{
@@ -2085,6 +2059,32 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
+/area/shuttle/abandoned/bar)
+"LL" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/bot_white,
+/obj/structure/closet/crate,
+/obj/item/reagent_containers/food/snacks/candy{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/food/snacks/candy,
+/obj/item/reagent_containers/food/snacks/candy{
+	pixel_x = 3;
+	pixel_y = -1
+	},
+/obj/item/food/cookie{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/food/cookie{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/chocolatebar,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
 "Mf" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2714,7 +2714,7 @@ wJ
 YG
 dC
 UM
-kh
+zy
 cy
 "}
 (23,1,1) = {"
@@ -2757,7 +2757,7 @@ cz
 "}
 (25,1,1) = {"
 ae
-aw
+LL
 ae
 bh
 ae

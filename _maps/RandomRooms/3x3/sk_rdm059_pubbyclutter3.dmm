@@ -15,7 +15,7 @@
 "c" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)

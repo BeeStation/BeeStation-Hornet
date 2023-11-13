@@ -137,6 +137,9 @@
 	/// The virtual Z value of this area
 	var/virtual_z = null
 
+	///The areas specific color correction
+	var/color_correction = /datum/client_colour/area_color
+
 /**
   * A list of teleport locations
   *
