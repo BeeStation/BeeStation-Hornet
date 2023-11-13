@@ -19,6 +19,9 @@
 			AttemptGrow(0)
 
 /obj/item/organ/body_egg/alien_embryo/on_life()
+	. = ..()
+	if(!owner)
+		return
 	switch(stage)
 		if(2, 3)
 			if(prob(2))
@@ -45,8 +48,6 @@
 		if(5)
 			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach.</span>")
 			owner.adjustToxLoss(10)
-	// egg_process() happens here, if we put this beforehand there's a chance we lose our owner there and runtime.
-	. = ..()
 
 /obj/item/organ/body_egg/alien_embryo/on_death()
 	. = ..()
