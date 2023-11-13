@@ -1,0 +1,4 @@
+author: benbot16
+delete-after: true
+changes:
+  - bugfix: Alien embryos properly delete themselves when chestbursting.
