@@ -1,0 +1,5 @@
+author: JixS4v
+delete-after: true
+changes:
+  - bugfix: Magnetic spearguns can accept spears again.
+  - bugfix: Quivers can have spears placed into them after being taken out.
