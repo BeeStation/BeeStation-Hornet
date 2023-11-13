@@ -335,29 +335,51 @@ Turf and target are separate in case you want to teleport some distance from a t
 		var/turf/top_right = locate(max_x, max_y, center.z)
 		var/turf/bot_left =  locate(min_x, min_y, center.z)
 		var/turf/bot_right = locate(max_x, min_y, center.z)
+		var/top_left_included = 0
+		var/top_right_included = 0
+		var/bot_right_included = 0
+		var/bot_left_included = 0
+
 
 		var/list/pulse_group = list()
 		if(!edge_reached_top) // top_edge
 			pulse_group += block(top_left, top_right)
+			top_left_included++
+			top_right_included++
 			if(center.y + current_impact > world.maxy)
 				edge_reached_top = TRUE
 				 // after a pulse reaches the top edge of the world, it stops includes top-edge turfs to the list
 
 		if(!edge_reached_right) // right_edge
-			pulse_group |= block(top_right, bot_right)
+			pulse_group += block(top_right, bot_right)
+			top_right_included++
+			bot_right_included++
 			if(center.x + current_impact > world.maxx)
 				edge_reached_right = TRUE
 
 		if(!edge_reached_bot) // bot_edge
-			pulse_group |= block(bot_right, bot_left)
+			pulse_group += block(bot_right, bot_left)
+			bot_right_included++
+			bot_left_included++
 			if(center.y - current_impact < 1)
 				edge_reached_bot = TRUE
 
 		if(!edge_reached_left) // left_edge
-			pulse_group |= block(bot_left, top_left)
+			pulse_group += block(bot_left, top_left)
+			bot_left_included++
+			top_left_included++
 			if(center.x - current_impact < 1)
 				edge_reached_left = TRUE
 		// "top_left -> top_right -> bot_right -> bot_left"
+		if(top_left_included > 1)
+			pulse_group -= top_left
+		if(top_right_included > 1)
+			pulse_group -= top_right
+		if(bot_right_included > 1)
+			pulse_group -= bot_right
+		if(bot_left_included > 1)
+			pulse_group -= bot_left
+
 
 		if(!length(pulse_group)) // we got no more turfs. no need to calculate more.
 			break
