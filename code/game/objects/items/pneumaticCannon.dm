@@ -333,7 +333,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 30
- STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.max_w_class = WEIGHT_CLASS_BULKY
 	STR.max_combined_w_class = max_w_class*max_items
 	STR.display_numerical_stacking = TRUE
 	STR.can_hold = typecacheof(list(
