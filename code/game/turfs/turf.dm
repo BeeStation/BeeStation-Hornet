@@ -526,8 +526,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return TRUE
 	return FALSE
 
-/// returns a list of all mobs inside of a turf
-/// likely detects a hidden mob in closets
+/// returns a list of all mobs inside of a turf.
+/// likely detects mobs hiding in a closet.
 /turf/proc/get_all_mobs()
 	. = list()
 	for(var/each in contents)
