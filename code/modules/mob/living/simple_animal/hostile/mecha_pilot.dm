@@ -65,7 +65,7 @@
 	if(spawn_mecha_type)
 		var/obj/vehicle/sealed/mecha/M = new spawn_mecha_type (get_turf(src))
 		if(istype(M))
-			INVOKE_ASYNC(src, .proc/enter_mecha, M)
+			INVOKE_ASYNC(src, PROC_REF(enter_mecha), M)
 
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/enter_mecha(obj/vehicle/sealed/mecha/M)
@@ -233,7 +233,7 @@
 				if(LAZYACCESSASSOC(mecha.occupant_actions, src, /datum/action/vehicle/sealed/mecha/mech_defense_mode) && !mecha.defense_mode)
 					var/datum/action/action = mecha.occupant_actions[src][/datum/action/vehicle/sealed/mecha/mech_defense_mode]
 					action.Trigger(TRUE)
-					addtimer(CALLBACK(action, /datum/action/vehicle/sealed/mecha/mech_defense_mode.proc/Trigger, FALSE), 100) //10 seconds of defense, then toggle off
+					addtimer(CALLBACK(action, TYPE_PROC_REF(/datum/action/vehicle/sealed/mecha/mech_defense_mode, Trigger), FALSE), 100) //10 seconds of defense, then toggle off
 
 			else if(prob(retreat_chance))
 				//Speed boost if possible
@@ -241,7 +241,7 @@
 					var/datum/action/action = mecha.occupant_actions[src][/datum/action/vehicle/sealed/mecha/mech_overload_mode]
 					mecha.leg_overload_mode = FALSE
 					action.Trigger(TRUE)
-					addtimer(CALLBACK(action, /datum/action/vehicle/sealed/mecha/mech_overload_mode.proc/Trigger, FALSE), 100) //10 seconds of speeeeed, then toggle off
+					addtimer(CALLBACK(action, TYPE_PROC_REF(/datum/action/vehicle/sealed/mecha/mech_overload_mode, Trigger), FALSE), 100) //10 seconds of speeeeed, then toggle off
 
 				retreat_distance = 50
 				addtimer(VARSET_CALLBACK(src, retreat_distance, 0), 10 SECONDS)

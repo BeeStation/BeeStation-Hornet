@@ -178,8 +178,8 @@
 	add_cabin()
 	if(enclosed)
 		add_airtank()
-		RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE , .proc/disconnect_air)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/play_stepsound)
+		RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE , PROC_REF(disconnect_air))
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(play_stepsound))
 	spark_system.set_up(2, 0, src)
 	spark_system.attach(src)
 	smoke_system.set_up(3, src)
@@ -558,13 +558,13 @@
 			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
-			INVOKE_ASYNC(selected, /obj/item/mecha_parts/mecha_equipment.proc/action, user, target, params)
+			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
 			return
 		if((selected.range & MECHA_MELEE) && Adjacent(target))
 			if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
-			INVOKE_ASYNC(selected, /obj/item/mecha_parts/mecha_equipment.proc/action, user, target, params)
+			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
 			return
 	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_MECHA_MELEE_ATTACK) || !istype(target, /atom) || !Adjacent(target))
 		return
@@ -1090,9 +1090,9 @@
 
 
 /obj/vehicle/sealed/mecha/add_occupant(mob/M, control_flags)
-	RegisterSignal(M, COMSIG_MOB_DEATH, .proc/mob_exit)
-	RegisterSignal(M, COMSIG_MOB_CLICKON, .proc/on_mouseclick)
-	RegisterSignal(M, COMSIG_MOB_SAY, .proc/display_speech_bubble)
+	RegisterSignal(M, COMSIG_MOB_DEATH, PROC_REF(mob_exit))
+	RegisterSignal(M, COMSIG_MOB_CLICKON, PROC_REF(on_mouseclick))
+	RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(display_speech_bubble))
 	. = ..()
 	update_icon()
 

@@ -55,7 +55,7 @@
 	if(defense_mode)
 		var/datum/action/action = LAZYACCESSASSOC(occupant_actions, M, /datum/action/vehicle/sealed/mecha/mech_defense_mode)
 		if(action)
-			INVOKE_ASYNC(action, /datum/action.proc/Trigger, FALSE)
+			INVOKE_ASYNC(action, TYPE_PROC_REF(/datum/action, Trigger), FALSE)
 	return ..()
 
 ///Relays the signal from the action button to the shield, and creates a new shield if the old one is MIA.
@@ -207,7 +207,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 		playsound(src, 'sound/mecha/mech_shield_raise.ogg', 50, FALSE)
 		set_light(l_range = MINIMUM_USEFUL_LIGHT_RANGE	, l_power = 5, l_color = "#00FFFF")
 		icon_state = "shield"
-		RegisterSignal(chassis, COMSIG_ATOM_DIR_CHANGE, .proc/resetdir)
+		RegisterSignal(chassis, COMSIG_ATOM_DIR_CHANGE, PROC_REF(resetdir))
 	else
 		flick("shield_drop", src)
 		playsound(src, 'sound/mecha/mech_shield_drop.ogg', 50, FALSE)
@@ -218,6 +218,8 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	switching = FALSE
 
 /obj/durand_shield/proc/resetdir(datum/source, olddir, newdir)
+	SIGNAL_HANDLER
+
 	setDir(newdir)
 
 /obj/durand_shield/take_damage()
