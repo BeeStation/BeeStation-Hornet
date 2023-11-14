@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(garbage_timer)
 	/// For every interval, we'll run a proc to check "list/items_quite_later" if it has an item has imminent timer
 	var/slow_fire_interval = 20
 
-	/// If something is changed, we stop qdel timering
+	/// Kinda works like a signal. If a queue is changed while subsystem is running, stops the subsystem.
 	var/interrupt = FALSE
 
 /datum/controller/subsystem/garbage_timer/stat_entry(msg)
@@ -34,31 +34,41 @@ SUBSYSTEM_DEF(garbage_timer)
 		return
 
 	fire_checks_qdels()
-	interrupt = FALSE
+
+#define INTERRUPT_FLAG_PRIMARY 1
+#define INTERRUPT_FLAG_SECONDARY 2
 
 /// checks if an item should be delete. Stops when there are too many qdel items
 /datum/controller/subsystem/garbage_timer/proc/fire_checks_qdels()
+	interrupt = NONE
 	for(var/datum/each in items_in_waiting)
 		if(QDELETED(each)) // qdeleted already?
 			items_in_waiting -= each
+		if(interrupt & INTERRUPT_FLAG_PRIMARY)
+			break
 		if(MC_TICK_CHECK)
 			break
 		if(items_in_waiting[each] > world.time)
 			continue
 		items_in_waiting -= each
 		qdel(each)
+	interrupt = NONE
 
 /// checks how many times an item should wait. If time is less, sends it to queue.
 /datum/controller/subsystem/garbage_timer/proc/fire_check_late_qdels()
+	interrupt = NONE
 	var/timer_condition = wait * slow_fire_interval
 	for(var/datum/each in items_quite_later)
 		if(QDELETED(each)) // qdeleted already?
 			items_quite_later -= each
+		if(interrupt & INTERRUPT_FLAG_SECONDARY)
+			break
 		var/my_time = items_quite_later[each]
 		if(items_quite_later[each] - world.time > timer_condition)
 			continue
 		items_quite_later -= each
 		items_in_waiting[each] = my_time
+	interrupt = NONE
 
 /datum/controller/subsystem/garbage_timer/proc/qdel_in(item, timer)
 	if(!timer)
@@ -74,17 +84,17 @@ SUBSYSTEM_DEF(garbage_timer)
 
 /datum/controller/subsystem/garbage_timer/proc/qdel_timer_cancel(datum/item)
 	if(QDELETED(item))
-		CRASH("[item] is qdeleted already, but qdel_timer_cancel() is called")
+		return
 
 	var/index
 	if(items_quite_later[item])
+		interrupt |= INTERRUPT_FLAG_SECONDARY
 		index = items_quite_later.Find(item)
 		items_quite_later.Cut(index, index+1)
-		interrupt = TRUE
 		return
 
 	if(items_in_waiting[item])
+		interrupt |= INTERRUPT_FLAG_PRIMARY
 		index = items_in_waiting.Find(item)
 		items_in_waiting.Cut(index, index+1)
-		interrupt = TRUE
 		return
