@@ -45,15 +45,17 @@
 		var/list/edge_turfs = get_edge_turfs(center, pulse_radius)
 		if(!length(edge_turfs)) // it looks everything reached the end of world map. No need to run more.
 			break
-		for(var/turf/each_turf as() in edge_turfs)
-			if((!isspaceturf(each_turf) && isopenturf(each_turf)) || isopenspace(each_turf)) // you don't see what's comming...
-				new /obj/effect/temp_visual/mining_scanner(each_turf) // actually, making effects for every turf is laggy. This is good to reduce lags.
-			for(var/mob/living/each_mob in each_turf.get_all_mobs()) // hiding in a closet? No, no, you cheater
-				to_chat(each_mob, "<span class='warning'>A wave of dread washes over you...</span>")
-				each_mob.adjust_blindness(30)
-				each_mob.Knockdown(10)
-				each_mob.emote("scream")
-				each_mob.Jitter(50)
-				each_mob.hallucination = each_mob.hallucination + 20
-			CHECK_TICK
+		var/datum/enumerator/turf_enumerator = get_dereferencing_enumerator(edge_turfs)
+		SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(GLOBAL_PROC, PROC_REF(_insanity_pulse_on_turf))))
 		sleep(1)
+
+/proc/_insanity_pulse_on_turf(turf/target_turf)
+	//if((!isspaceturf(target_turf) && isopenturf(target_turf)) || isopenspace(target_turf)) // you don't see what's comming...
+	new /obj/effect/temp_visual/mining_scanner(target_turf) // actually, making effects for every turf is laggy. This is good to reduce lags.
+	for(var/mob/living/each_mob in target_turf.get_all_mobs()) // hiding in a closet? No, no, you cheater
+		to_chat(each_mob, "<span class='warning'>A wave of dread washes over you...</span>")
+		each_mob.adjust_blindness(30)
+		each_mob.Knockdown(10)
+		each_mob.emote("scream")
+		each_mob.Jitter(50)
+		each_mob.hallucination = each_mob.hallucination + 20
