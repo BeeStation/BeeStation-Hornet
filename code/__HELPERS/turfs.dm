@@ -305,93 +305,26 @@ Turf and target are separate in case you want to teleport some distance from a t
 
 	return turf_list
 
-/// returns a list of turf lists.
-/// each list has turfs from every impact value
-/// * turf_lists[1] = list(1 turfs)
-/// * turf_lists[2] = list(8 turfs) (edge of 2nd impact)
-/// * turf_lists[3] = list(16 turfs) (edge of 3rd impact)
-/// * turf_lists[4] = list(24 turfs) (edge of 4th impact)
-/// NOTE: this doesn't support calculating z turfs yet.
-/proc/get_pulsing_turfs(turf/center, impact_size, check_ticks = TRUE)
-	if(!isturf(center))
-		center = get_turf(center) // failsafe
-		if(!isturf(center))
-			CRASH("the proc can't get a center turf to calculate turfs.")
-	var/list/turf_lists = list()
-	turf_lists.Add(list(list(center))) // adds center manually rather than the loop
-
-	// these variables are necessary to prevent turfs being included again
-	var/edge_reached_top
-	var/edge_reached_left
-	var/edge_reached_bot
-	var/edge_reached_right
-
-	for(var/current_impact in 1 to impact_size)
-		var/min_x = max(center.x - current_impact, 1)
-		var/max_x = min(center.x + current_impact, world.maxx)
-		var/min_y = max(center.y - current_impact, 1)
-		var/max_y = min(center.y + current_impact, world.maxy)
-		var/turf/top_left =  locate(min_x, max_y, center.z)
-		var/turf/top_right = locate(max_x, max_y, center.z)
-		var/turf/bot_left =  locate(min_x, min_y, center.z)
-		var/turf/bot_right = locate(max_x, min_y, center.z)
-		var/top_left_included = 0
-		var/top_right_included = 0
-		var/bot_right_included = 0
-		var/bot_left_included = 0
-
-
-		var/list/pulse_group = list()
-		if(!edge_reached_top) // top_edge
-			pulse_group += block(top_left, top_right)
-			top_left_included++
-			top_right_included++
-			if(center.y + current_impact > world.maxy)
-				edge_reached_top = TRUE
-				 // after a pulse reaches the top edge of the world, it stops includes top-edge turfs to the list
-
-		if(!edge_reached_right) // right_edge
-			pulse_group += block(top_right, bot_right)
-			top_right_included++
-			bot_right_included++
-			if(center.x + current_impact > world.maxx)
-				edge_reached_right = TRUE
-
-		if(!edge_reached_bot) // bot_edge
-			pulse_group += block(bot_right, bot_left)
-			bot_right_included++
-			bot_left_included++
-			if(center.y - current_impact < 1)
-				edge_reached_bot = TRUE
-
-		if(!edge_reached_left) // left_edge
-			pulse_group += block(bot_left, top_left)
-			bot_left_included++
-			top_left_included++
-			if(center.x - current_impact < 1)
-				edge_reached_left = TRUE
-		// "top_left -> top_right -> bot_right -> bot_left"
-		if(top_left_included > 1)
-			pulse_group -= top_left
-		if(top_right_included > 1)
-			pulse_group -= top_right
-		if(bot_right_included > 1)
-			pulse_group -= bot_right
-		if(bot_left_included > 1)
-			pulse_group -= bot_left
-
-
-		if(!length(pulse_group)) // we got no more turfs. no need to calculate more.
-			break
-		turf_lists.Add(list(pulse_group))
-
-		if(check_ticks)
-			CHECK_TICK
-	return turf_lists
-	/*	< Why does it return list with lists? >
-			because you don't know which pulse your code is currencly at with the list of turfs
-			that's why the list has lists with turfs.  */
-
+/// returns square lines(edges). if value is out of turf index, it won't be included
+/// * radius 0 will return the center turf itself
+/proc/get_edge_turfs(atom/center, radius)
+	if(!center.x || !center.y || !center.z)
+		CRASH("center [center] has no xyz [center.x],[center.y],[center.z]")
+	if(radius <= 0)
+		return list(get_turf(center))
+	var/left = center.x - radius
+	var/right = center.x + radius
+	var/bottom = center.y - radius
+	var/top = center.y + radius
+	. = list()
+	if (left >= 1)
+		. += block(locate(left, min(top, world.maxy), center.z), locate(left, max(bottom, 1), center.z))
+	if (right <= world.maxx)
+		. += block(locate(right, min(top, world.maxy), center.z), locate(right, max(bottom, 1), center.z))
+	if (bottom >= 1)
+		. += block(locate(max(left + 1, 1), bottom, center.z), locate(min(right - 1, world.maxx), bottom, center.z))
+	if (top <= world.maxy)
+		. += block(locate(max(left + 1, 1), top, center.z), locate(min(right - 1, world.maxx), top, center.z))
 
 ///Returns a random turf on the station
 /proc/get_random_station_turf()

@@ -466,6 +466,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/next_use_time = 0
 	var/cooldown
 	var/first_time = TRUE
+	var/pulse_power = 50
 	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
 	effect_act_descs = list("used")
 
@@ -492,20 +493,12 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		SSresearch.science_tech.add_points_all(research_reward)
 	first_time = FALSE
 
-	pulser.adjust_blindness(300)
-	pulser.Stun(100)
-	pulser.emote("scream")
-	pulser.hallucination = 500
-	for(var/each_group in get_pulsing_turfs(pulser, 50))
-		for(var/turf/each_turf as() in each_group)
-			new /obj/effect/temp_visual/mining_scanner(each_turf)
-			var/mob/living/M = locate() in each_turf
-			if(M)
-				to_chat(M, "<span class='warning'>A wave of dread washes over you...</span>")
-				M.adjust_blindness(30)
-				M.Knockdown(10)
-				M.emote("scream")
-				M.Jitter(50)
-				M.hallucination = M.hallucination + 20
-			CHECK_TICK
-		sleep(2)
+	// center does strong effect. If purser is with someone, they'll all be the victims.
+	for(var/mob/living/center_turf_mob in T.get_all_mobs())
+		center_turf_mob.adjust_blindness(300)
+		center_turf_mob.Stun(100)
+		center_turf_mob.emote("scream")
+		center_turf_mob.hallucination = 500
+
+	// non-center will not be that strong
+	sends_insanity_pulse(T, pulse_power, 1)

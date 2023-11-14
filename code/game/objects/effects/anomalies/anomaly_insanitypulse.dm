@@ -9,6 +9,8 @@
 	var/weak_pulse_power = 8
 	var/strong_pulse_power = 150
 
+	lifespan = 200
+
 /obj/effect/anomaly/insanity_pulse/anomalyEffect(delta_time)
 	. = ..()
 
@@ -28,19 +30,30 @@
 	sends_insanity_pulse(our_turf, strong_pulse_power)
 	our_turf.generate_fake_pierced_realities(max_spawned_faked)
 
+/// * atom/center: where the pulse starts from.
+/// * impact_size: radius of the pulse.
+/// * starting_value: usually 0. Old artifact code uses 1 because mobs on center takes strong effects than this
 /// Original code comes from '/datum/artifact_effect/insanity_pulse'
-/proc/sends_insanity_pulse(turf/center, impact_size = 10)
+/proc/sends_insanity_pulse(atom/center, impact_size = 10, starting_value = 0)
 	if(impact_size >= 50)
 		SEND_SOUND(world, 'sound/magic/repulse.ogg')
 		log_game("massive insanity pulse was generated - stuns and blinds crews.")
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(_sends_insanity_pulse), center, impact_size)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(_sends_insanity_pulse), center, impact_size, starting_value)
 
 /// This proc takes a lot of time (usually 10s at 100 impact size) to complete. Only call this through `sends_insanity_pulse`
-/proc/_sends_insanity_pulse(list/center, impact_size)
-	for(var/each_group in get_pulsing_turfs(center, impact_size))
-		for(var/turf/each_turf as() in each_group)
-			if(!isspaceturf(each_turf) && isopenturf(each_turf)) // you don't see what's comming...
-				new /obj/effect/temp_visual/mining_scanner(each_turf) // actually, making effects for every turf is laggy. This is good to reduce lags.
+/proc/_sends_insanity_pulse(turf/center, impact_size, starting_value)
+	for(var/pulse_radius in starting_value to impact_size)
+		var/list/edge_turfs = get_edge_turfs(center, pulse_radius)
+		if(!length(edge_turfs)) // it looks everything reached the end of world map. No need to run more.
+			break
+		for(var/turf/each_turf as() in edge_turfs)
+			//if(!isspaceturf(each_turf) && isopenturf(each_turf)) // you don't see what's comming...
+			new /obj/effect/temp_visual/mining_scanner(each_turf)
+				/* NOTE:
+					Creating effects at massive level causes a lot of lag.
+					Not doing this on space turf and closed turf(walls) solves that at decent level.
+
+				*/
 			for(var/mob/living/each_mob in each_turf.get_all_mobs()) // hiding in a closet? No, no, you cheater
 				to_chat(each_mob, "<span class='warning'>A wave of dread washes over you...</span>")
 				each_mob.adjust_blindness(30)
@@ -50,4 +63,3 @@
 				each_mob.hallucination = each_mob.hallucination + 20
 			CHECK_TICK
 		sleep(1)
-
