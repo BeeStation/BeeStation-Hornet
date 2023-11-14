@@ -42,10 +42,11 @@ SUBSYSTEM_DEF(garbage_timer)
 /datum/controller/subsystem/garbage_timer/proc/fire_checks_qdels()
 	interrupt = NONE
 	for(var/datum/each in items_in_waiting)
-		if(QDELETED(each)) // qdeleted already?
-			items_in_waiting -= each
 		if(interrupt & INTERRUPT_FLAG_PRIMARY)
 			break
+		if(QDELETED(each)) // qdeleted already?
+			items_in_waiting -= each
+			continue
 		if(MC_TICK_CHECK)
 			break
 		if(items_in_waiting[each] > world.time)
@@ -59,10 +60,11 @@ SUBSYSTEM_DEF(garbage_timer)
 	interrupt = NONE
 	var/timer_condition = wait * slow_fire_interval
 	for(var/datum/each in items_quite_later)
-		if(QDELETED(each)) // qdeleted already?
-			items_quite_later -= each
 		if(interrupt & INTERRUPT_FLAG_SECONDARY)
 			break
+		if(QDELETED(each)) // qdeleted already?
+			items_quite_later -= each
+			continue
 		var/my_time = items_quite_later[each]
 		if(items_quite_later[each] - world.time > timer_condition)
 			continue
