@@ -1,9 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Fixed some heretic spells restarting the cooldown even though they failed
-      (cleave, blood siphon, mansus link, nightwatcher's rebirth)
-  - bugfix: Fixed Nightwatcher's Rebirth causing toxin damage to oozeling users, when
-      it should be healing them of toxin damage.
-  - bugfix: Fixed a runtime error when accidentally using Blood Siphon on a non-living
-      target.

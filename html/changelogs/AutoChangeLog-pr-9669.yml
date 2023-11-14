@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Necrotic Metabolism will no longer allow symtpoms to process in dead
-      hosts, instead it will allow dead bodies to spread the disease via airbourne
-      transmission which no longer happens by default.
