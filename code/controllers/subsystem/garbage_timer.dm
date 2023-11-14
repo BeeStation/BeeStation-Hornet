@@ -6,17 +6,25 @@ SUBSYSTEM_DEF(garbage_timer)
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE_TIMER
 
+	/// If an item has a long timer, we don't want to bloat our checklist.
 	var/list/items_quite_later = list()
+	/// Items that needs to check timer for qdel.
 	var/list/items_in_waiting = list()
-	var/list/items_imminent = list()
 
+	/// For every interval, we'll run a proc to check "list/items_quite_later" if it has an item has imminent timer
 	var/slow_fire_interval = 20
-	var/currently_handling = FALSE
+
+	/// If something is changed, we stop qdel timering
+	var/interrupt = FALSE
 
 /datum/controller/subsystem/garbage_timer/stat_entry(msg)
-	msg += "Qlen:[items_in_waiting.len]|"
-	msg += "H:[currently_handling ? "T" : "F"]"
+	msg += "QlenW:[items_in_waiting.len]|"
+	msg += "QlenL: [items_quite_later.len]|"
 	. = ..(msg)
+
+/datum/controller/subsystem/garbage_timer/Recover()
+	items_quite_later = SSgarbage_timer.items_quite_later
+	items_in_waiting = SSgarbage_timer.items_in_waiting
 
 /datum/controller/subsystem/garbage_timer/fire()
 	if(!(times_fired % slow_fire_interval)) // we do this every 20 fires
@@ -25,52 +33,29 @@ SUBSYSTEM_DEF(garbage_timer)
 	if(!items_in_waiting.len) // nothing to do
 		return
 
-	if(currently_handling)
-		return
-
-	INVOKE_ASYNC(src, PROC_REF(aync_fire))
-	//aync_fire()
-
-/datum/controller/subsystem/garbage_timer/proc/aync_fire()
-	currently_handling = TRUE
 	fire_checks_qdels()
-	fire_sends_qdels()
-	currently_handling = FALSE
-
-#define SLOW_QDEL_MIN 500
-#define SLOW_QDEL_MAX 1500
+	interrupt = FALSE
 
 /// checks if an item should be delete. Stops when there are too many qdel items
 /datum/controller/subsystem/garbage_timer/proc/fire_checks_qdels()
-	if(items_in_waiting.len >= SLOW_QDEL_MAX)
-		log_game("WARNING: Garbage Timer system is handling more than [SLOW_QDEL_MAX] items ([items_in_waiting.len]).")
-		message_admins("Garbage Timer system is handling more than [SLOW_QDEL_MAX] items ([items_in_waiting.len]).")
-	var/maximum_qdel_insertable = clamp(items_in_waiting.len, SLOW_QDEL_MIN, min(items_in_waiting.len / 2, SLOW_QDEL_MAX))
-	for(var/each in items_in_waiting)
-		if(!each) // qdeleted already?
+	for(var/datum/each in items_in_waiting)
+		if(QDELETED(each)) // qdeleted already?
 			items_in_waiting -= each
-		if(items_imminent.len > maximum_qdel_insertable)
+		if(MC_TICK_CHECK)
 			break
 		if(items_in_waiting[each] > world.time)
 			continue
 		items_in_waiting -= each
-		items_imminent += each
-
-#undef SLOW_QDEL_MIN
-#undef SLOW_QDEL_MAX
-
-/datum/controller/subsystem/garbage_timer/proc/fire_sends_qdels(error=FALSE)
-	for(var/each in items_imminent)
 		qdel(each)
-	items_imminent.Cut()
 
 /// checks how many times an item should wait. If time is less, sends it to queue.
 /datum/controller/subsystem/garbage_timer/proc/fire_check_late_qdels()
-	for(var/each in items_quite_later)
-		if(!each) // qdeleted already?
+	var/timer_condition = wait * slow_fire_interval
+	for(var/datum/each in items_quite_later)
+		if(QDELETED(each)) // qdeleted already?
 			items_quite_later -= each
 		var/my_time = items_quite_later[each]
-		if(items_quite_later[each] - world.time > 70 SECONDS)
+		if(items_quite_later[each] - world.time > timer_condition)
 			continue
 		items_quite_later -= each
 		items_in_waiting[each] = my_time
@@ -82,6 +67,24 @@ SUBSYSTEM_DEF(garbage_timer)
 
 	if(timer > wait * (slow_fire_interval - 2)) // we don't want to handle these every tick
 		items_quite_later[item] = timer + world.time
-		return
+		return TRUE
 
 	items_in_waiting[item] = timer + world.time
+	return TRUE
+
+/datum/controller/subsystem/garbage_timer/proc/qdel_timer_cancel(datum/item)
+	if(QDELETED(item))
+		CRASH("[item] is qdeleted already, but qdel_timer_cancel() is called")
+
+	var/index
+	if(items_quite_later[item])
+		index = items_quite_later.Find(item)
+		items_quite_later.Cut(index, index+1)
+		interrupt = TRUE
+		return
+
+	if(items_in_waiting[item])
+		index = items_in_waiting.Find(item)
+		items_in_waiting.Cut(index, index+1)
+		interrupt = TRUE
+		return

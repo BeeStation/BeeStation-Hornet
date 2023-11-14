@@ -18,8 +18,9 @@
 	if (MOVABLE_IS_BELOW_ZTURF(src))
 		SSzcopy.queued_overlays += bound_overlay
 		bound_overlay.queued += 1
-	else if (bound_overlay && !bound_overlay.destruction_timer)
-		bound_overlay.destruction_timer = QDEL_IN(bound_overlay, 10 SECONDS)
+	else if (bound_overlay && !bound_overlay.has_qdel_timer)
+		QDEL_IN(bound_overlay, 10 SECONDS)
+		bound_overlay.has_qdel_timer = TRUE
 
 // Grabs a list of every openspace mimic that's directly or indirectly copying this object. Returns an empty list if none found.
 /atom/movable/proc/get_associated_mimics()
@@ -156,7 +157,7 @@
 	var/atom/movable/associated_atom
 	var/depth
 	var/queued = 0
-	var/destruction_timer
+	var/has_qdel_timer
 	var/mimiced_type
 	var/original_z
 	var/override_depth
@@ -172,8 +173,6 @@
 	if (associated_atom)
 		associated_atom.bound_overlay = null
 		associated_atom = null
-	if (destruction_timer)
-		deltimer(destruction_timer)
 	return ..()
 
 /atom/movable/openspace/mimic/attackby(obj/item/W, mob/user)
@@ -191,16 +190,16 @@
 /atom/movable/openspace/mimic/forceMove(turf/dest)
 	. = ..()
 	if (MOVABLE_IS_BELOW_ZTURF(associated_atom))
-		if (destruction_timer)
-			deltimer(destruction_timer)
-			destruction_timer = null
-	else if (!destruction_timer)
-		destruction_timer = QDEL_IN(src, 10 SECONDS)
+		if(has_qdel_timer)
+			QDEL_TIMER_CANCEL(src)
+			has_qdel_timer = FALSE
+	else if (!has_qdel_timer)
+		has_qdel_timer = QDEL_IN(src, 10 SECONDS)
 
 // Called when the turf we're on is deleted/changed.
 /atom/movable/openspace/mimic/proc/owning_turf_changed()
-	if (!destruction_timer)
-		destruction_timer = QDEL_IN(src, 10 SECONDS)
+	if (!has_qdel_timer)
+		has_qdel_timer = QDEL_IN(src, 10 SECONDS)
 
 // -- TURF PROXY --
 // This thing holds the mimic appearance for non-OVERWRITE turfs.

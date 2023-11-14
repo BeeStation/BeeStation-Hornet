@@ -80,6 +80,6 @@
 
 /turf/Entered(atom/movable/thing, turf/oldLoc)
 	. = ..()
-	if ((thing.bound_overlay && !thing.bound_overlay.destruction_timer) || (thing.zmm_flags & ZMM_IGNORE) || thing.invisibility == INVISIBILITY_ABSTRACT || !TURF_IS_MIMICKING(above))
+	if ((thing.bound_overlay && !thing.bound_overlay.has_qdel_timer) || (thing.zmm_flags & ZMM_IGNORE) || thing.invisibility == INVISIBILITY_ABSTRACT || !TURF_IS_MIMICKING(above))
 		return
 	above.update_mimic()

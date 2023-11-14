@@ -1,4 +1,5 @@
 #define QDEL_IN(item, time) SSgarbage_timer.qdel_in(item, time)
+#define QDEL_TIMER_CANCEL(item) SSgarbage_timer.qdel_timer_cancel(item)
 #define QDEL_IN_CLIENT_TIME(item, time) addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), item), time, TIMER_STOPPABLE | TIMER_CLIENT_TIME)
 #define QDEL_NULL(item) qdel(item); item = null
 #define QDEL_LIST(L) if(L) { for(var/I in L) qdel(I); L.Cut(); }

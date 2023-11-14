@@ -6,14 +6,14 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/duration = 10 //in deciseconds
 	var/randomdir = TRUE
-	var/timerid
 
 /obj/effect/temp_visual/Initialize(mapload)
 	. = ..()
 	if(randomdir)
 		setDir(pick(GLOB.cardinals))
 
-	QDEL_IN(src, duration)
+	if(duration)
+		QDEL_IN(src, duration)
 
 /obj/effect/temp_visual/singularity_act()
 	return
