@@ -50,8 +50,8 @@
 		sleep(1)
 
 /proc/_insanity_pulse_on_turf(turf/target_turf)
-	//if((!isspaceturf(target_turf) && isopenturf(target_turf)) || isopenspace(target_turf)) // you don't see what's comming...
-	new /obj/effect/temp_visual/mining_scanner(target_turf) // actually, making effects for every turf is laggy. This is good to reduce lags.
+	if((!isspaceturf(target_turf) && isopenturf(target_turf)) || isopenspace(target_turf)) // you don't see what's comming...
+		new /obj/effect/temp_visual/mining_scanner(target_turf) // actually, making effects for every turf is laggy. This is good to reduce lags.
 	for(var/mob/living/each_mob in target_turf.get_all_mobs()) // hiding in a closet? No, no, you cheater
 		to_chat(each_mob, "<span class='warning'>A wave of dread washes over you...</span>")
 		each_mob.adjust_blindness(30)
