@@ -191,7 +191,7 @@
 	. = ..()
 	if (MOVABLE_IS_BELOW_ZTURF(associated_atom))
 		if(has_qdel_timer)
-			QDEL_TIMER_CANCEL(src)
+			QDEL_TIMER_CANCEL(src, has_qdel_timer)
 			has_qdel_timer = FALSE
 	else if (!has_qdel_timer)
 		has_qdel_timer = QDEL_IN(src, 10 SECONDS)

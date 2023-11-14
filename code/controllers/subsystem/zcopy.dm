@@ -368,7 +368,7 @@ SUBSYSTEM_DEF(zcopy)
 
 			// If the OO was queued for destruction but was claimed by another OT, stop the destruction timer.
 			if (OO.has_qdel_timer)
-				QDEL_TIMER_CANCEL(OO)
+				QDEL_TIMER_CANCEL(OO, OO.has_qdel_timer)
 				OO.has_qdel_timer = null
 
 			OO.depth = override_depth || min(zlev_maximums[T.z] - original_z, ZMIMIC_MAX_DEPTH)

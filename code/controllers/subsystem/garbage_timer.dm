@@ -6,10 +6,7 @@ SUBSYSTEM_DEF(garbage_timer)
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE_TIMER
 
-	/// If an item has a long timer, we don't want to bloat our checklist.
-	var/list/items_quite_later = list()
-	/// Items that needs to check timer for qdel.
-	var/list/items_in_waiting = list()
+	var/list/time_assoc_qdel_targets = list()
 
 	/// For every interval, we'll run a proc to check "list/items_quite_later" if it has an item has imminent timer
 	var/slow_fire_interval = 20
@@ -18,81 +15,63 @@ SUBSYSTEM_DEF(garbage_timer)
 	var/interrupt = FALSE
 
 /datum/controller/subsystem/garbage_timer/stat_entry(msg)
-	msg += "QlenW:[items_in_waiting.len]|"
-	msg += "QlenL: [items_quite_later.len]|"
+	msg += "L:[time_assoc_qdel_targets.len]|"
+	if(time_assoc_qdel_targets.len)
+		msg += "T:"
+		for(var/each_time_key in time_assoc_qdel_targets)
+			var/list/each_entry = time_assoc_qdel_targets[each_time_key]
+			msg += "\[[each_time_key]:[each_entry.len]\]"
 	. = ..(msg)
 
 /datum/controller/subsystem/garbage_timer/Recover()
-	items_quite_later = SSgarbage_timer.items_quite_later
-	items_in_waiting = SSgarbage_timer.items_in_waiting
+	time_assoc_qdel_targets = SSgarbage_timer.time_assoc_qdel_targets
 
 /datum/controller/subsystem/garbage_timer/fire()
-	if(!(times_fired % slow_fire_interval)) // we do this every 20 fires
-		fire_check_late_qdels()
-
-	if(!items_in_waiting.len) // nothing to do
+	if(!time_assoc_qdel_targets.len) // nothing to do
 		return
 
 	fire_checks_qdels()
 
-#define INTERRUPT_FLAG_PRIMARY 1
-#define INTERRUPT_FLAG_SECONDARY 2
-
-/// checks if an item should be delete. Stops when there are too many qdel items
+/// checks if an item should be delete.
 /datum/controller/subsystem/garbage_timer/proc/fire_checks_qdels()
-	interrupt = NONE
-	for(var/datum/each in items_in_waiting)
-		if(interrupt & INTERRUPT_FLAG_PRIMARY)
-			break
-		if(QDELETED(each)) // qdeleted already?
-			items_in_waiting -= each
+	for(var/each_time_key in time_assoc_qdel_targets)
+		if(text2num(each_time_key) > world.time)
 			continue
-		if(MC_TICK_CHECK)
-			break
-		if(items_in_waiting[each] > world.time)
-			continue
-		items_in_waiting -= each
-		qdel(each)
-	interrupt = NONE
-
-/// checks how many times an item should wait. If time is less, sends it to queue.
-/datum/controller/subsystem/garbage_timer/proc/fire_check_late_qdels()
-	interrupt = NONE
-	var/timer_condition = wait * slow_fire_interval
-	for(var/datum/each in items_quite_later)
-		if(interrupt & INTERRUPT_FLAG_SECONDARY)
-			break
-		if(QDELETED(each)) // qdeleted already?
-			items_quite_later -= each
-			continue
-		var/my_time = items_quite_later[each]
-		if(items_quite_later[each] - world.time > timer_condition)
-			continue
-		items_quite_later -= each
-		items_in_waiting[each] = my_time
-	interrupt = NONE
+		var/list/each_entry = time_assoc_qdel_targets[each_time_key]
+		for(var/datum/each_item in each_entry)
+			if(QDELETED(each_item)) // qdeleted already?
+				each_entry -= each_item
+				continue
+			if(MC_TICK_CHECK)
+				break
+			each_entry -= each_item
+			qdel(each_item)
+		if(!length(each_entry))
+			time_assoc_qdel_targets -= each_time_key
 
 /datum/controller/subsystem/garbage_timer/proc/qdel_in(item, timer)
-	if(timer > wait * (slow_fire_interval - 2)) // we don't want to handle these every tick
-		items_quite_later[item] = timer + world.time
-		return TRUE
+	var/timer_key = "[timer + world.time]"
+	if(!time_assoc_qdel_targets[timer_key])
+		time_assoc_qdel_targets[timer_key] = list()
 
-	items_in_waiting[item] = timer + world.time
-	return TRUE
+	time_assoc_qdel_targets[timer_key] += item
+	return timer_key
 
-/datum/controller/subsystem/garbage_timer/proc/qdel_timer_cancel(datum/item)
+/datum/controller/subsystem/garbage_timer/proc/qdel_timer_cancel(datum/item, time_key)
 	if(QDELETED(item))
 		return
 
-	var/index
-	if(items_quite_later[item])
-		interrupt |= INTERRUPT_FLAG_SECONDARY
-		index = items_quite_later.Find(item)
-		items_quite_later.Cut(index, index+1)
-		return
+	if(!time_key)
+		for(var/each in time_assoc_qdel_targets)
+			var/list/each_entry = time_assoc_qdel_targets[each]
+			var/index = each_entry.Find(item)
+			if(index)
+				each_entry.Cut(index, index+1)
+				return
+	else
+		var/list/specified_entry = time_assoc_qdel_targets[time_key]
+		var/index = specified_entry.Find(item)
+		if(index)
+			specified_entry.Cut(index, index+1)
+			return
 
-	if(items_in_waiting[item])
-		interrupt |= INTERRUPT_FLAG_PRIMARY
-		index = items_in_waiting.Find(item)
-		items_in_waiting.Cut(index, index+1)
-		return

@@ -315,8 +315,6 @@ SUBSYSTEM_DEF(garbage)
 		del(D)
 		return
 
-	QDEL_TIMER_CANCEL(D) // We should check if anything is in timer because we don't want awful reference deletion
-
 	var/datum/qdel_item/I = SSgarbage.items[D.type]
 	if (!I)
 		I = SSgarbage.items[D.type] = new /datum/qdel_item(D.type)
