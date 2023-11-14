@@ -361,7 +361,7 @@ Difficulty: Medium
 			var/throwtarget = get_edge_target_turf(src, throw_dir)
 			L.throw_at(throwtarget, 3)
 			visible_message("<span class='warning'>[L] is thrown clear of [src]!</span>")
-	for(var/obj/mecha/M in orange(1, src))
+	for(var/obj/vehicle/sealed/mecha/M in orange(1, src))
 		M.take_damage(75, BRUTE, MELEE, 1)
 
 	for(var/mob/M in range(7, src))

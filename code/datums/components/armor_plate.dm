@@ -12,7 +12,7 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(applyplate))
 	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(dropplates))
-	if(istype(parent, /obj/mecha/working/ripley))
+	if(istype(parent, /obj/vehicle/sealed/mecha/working/ripley))
 		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_mech_overlays))
 
 	if(_maxamount)
@@ -85,7 +85,7 @@
 		for(var/i in 1 to amount)
 			new upgrade_item(get_turf(parent))
 
-/datum/component/armor_plate/proc/apply_mech_overlays(obj/mecha/mech, list/overlays)
+/datum/component/armor_plate/proc/apply_mech_overlays(obj/vehicle/sealed/mecha/mech, list/overlays)
 	SIGNAL_HANDLER
 
 	if(amount)
