@@ -73,10 +73,6 @@ SUBSYSTEM_DEF(garbage_timer)
 	interrupt = NONE
 
 /datum/controller/subsystem/garbage_timer/proc/qdel_in(item, timer)
-	if(!timer)
-		stack_trace("qdel_in() is called without timer.")
-		timer = 10
-
 	if(timer > wait * (slow_fire_interval - 2)) // we don't want to handle these every tick
 		items_quite_later[item] = timer + world.time
 		return TRUE
