@@ -43,7 +43,9 @@ GLOBAL_LIST_EMPTY(qdel_timers)
 /proc/_mass_qdel(timer_key)
 	var/list/target_entry = GLOB.qdel_timers[timer_key]
 	while(length(target_entry)) // fun fact: length(LIST) is faster than LIST.len
-		qdel(target_entry[length(target_entry)])
+		var/datum/qdel_target = target_entry[length(target_entry)]
+		if(!QDELETED(qdel_target))
+			qdel()
 		target_entry.len-- // fun fact: this removes the last item from the list. convenient.
 	if(!length(GLOB.qdel_timers[timer_key]))
 		GLOB.qdel_timers -= timer_key
