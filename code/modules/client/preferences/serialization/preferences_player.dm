@@ -35,7 +35,7 @@
 		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
 		any_data = TRUE
 	qdel(Q)
-	log_preferences("[prefs.parent.ckey]: Successfully loaded datumized character preferences[!any_data ? " (no records found)" : ""].")
+	log_preferences("[prefs.parent.ckey]: Successfully loaded datumized player preferences[!any_data ? " (no records found)" : ""].")
 	return any_data ? PREFERENCE_LOAD_SUCCESS : PREFERENCE_LOAD_NO_DATA
 
 /datum/preferences_holder/preferences_player/write_data(datum/preferences/prefs)

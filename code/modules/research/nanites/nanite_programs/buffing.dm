@@ -137,3 +137,42 @@
 	to_chat(host_mob, "<span class='notice'>Your body feels lighter and your legs feel relaxed!</span>")
 	host_mob.set_resting(FALSE)
 	host_mob.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 3)
+
+/datum/nanite_program/armblade
+	name = "Nanite Blade"
+	desc = "The nanites form a sharp blade around the user's arm when activated."
+	use_rate = 1
+	activate_cooldown = 10 SECONDS
+	rogue_types = list(/datum/nanite_program/necrotic, /datum/nanite_program/skin_decay)
+	var/obj/item/melee/arm_blade/nanite/blade
+
+/datum/nanite_program/armblade/enable_passive_effect()
+	. = ..()
+	if(blade)
+		QDEL_NULL(blade)
+	if(!host_mob)
+		return
+	blade = new(host_mob)
+	host_mob.dropItemToGround(host_mob.get_active_held_item())
+	if(!host_mob.put_in_hands(blade))
+		to_chat(host_mob, "<span class='danger'>You feel an intense pain as your nanites fail to form a blade!</span>")
+		host_mob.adjustBruteLoss(10)
+		QDEL_NULL(blade)
+		return
+	host_mob.visible_message("<span class='danger'>A metallic blade rapidly forms around [host_mob]'s arm!</span>", "<span class='warning'>A nanite blade quickly forms around our arm!</span>")
+
+/datum/nanite_program/armblade/disable_passive_effect()
+	. = ..()
+	if(blade)
+		host_mob.visible_message("<span class='danger'>The metallic blade around [host_mob]'s arm retracts and dissolves!</span>", "<span class='warning'>Our nanite blade dissipates.</span>")
+		QDEL_NULL(blade)
+
+/obj/item/melee/arm_blade/nanite
+	name = "metallic armblade"
+	desc = "Nanites have formed this extremely sharp blade around your arm. Owie."
+	force = 15
+	icon = 'icons/obj/nanite.dmi'
+	icon_state = "nanite_blade"
+	item_state = "nanite_blade"
+	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
