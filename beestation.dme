@@ -2854,6 +2854,7 @@
 #include "code\modules\mining\rope_ladder.dm"
 #include "code\modules\mining\satchel_ore_box.dm"
 #include "code\modules\mining\shelters.dm"
+#include "code\modules\mining\equipment\energy_charge.dm"
 #include "code\modules\mining\equipment\energy_pickaxe.dm"
 #include "code\modules\mining\equipment\explorer_gear.dm"
 #include "code\modules\mining\equipment\kinetic_crusher.dm"
