@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(qdel_timers)
 	while(length(target_entry)) // fun fact: length(LIST) is faster than LIST.len
 		var/datum/qdel_target = target_entry[length(target_entry)]
 		if(!QDELETED(qdel_target))
-			qdel()
+			qdel(qdel_target)
 		target_entry.len-- // fun fact: this removes the last item from the list. convenient.
 	if(!length(GLOB.qdel_timers[timer_key]))
 		GLOB.qdel_timers -= timer_key
