@@ -176,6 +176,7 @@
 /obj/structure/alien/weeds/node
 	name = "glowing resin"
 	desc = "Blue bioluminescence shines from beneath the surface."
+	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
 	icon_state = "weednode-0"
 	base_icon_state = "weednode"
 	light_color = LIGHT_COLOR_BLUE
@@ -184,7 +185,6 @@
 	var/node_range = NODERANGE
 
 /obj/structure/alien/weeds/node/Initialize(mapload)
-	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
 	. = ..()
 	set_light(lon_range)
 	var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in loc
