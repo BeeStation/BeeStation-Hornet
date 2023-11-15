@@ -475,6 +475,10 @@
 /proc/sort_names(list/list_to_sort, order=1)
 	return sortTim(list_to_sort, order >= 0 ? GLOBAL_PROC_REF(cmp_name_asc) : GLOBAL_PROC_REF(cmp_name_dsc))
 
+/// sorting qdel times. the value is sorted by items rather than keys
+/proc/sort_times(list/list_to_sort, cmp=GLOBAL_PROC_REF(cmp_numeric_asc))
+	return sortTim(list_to_sort.Copy(), cmp, TRUE)
+
 //Mergesort: any value in a list, preserves key=value structure
 /proc/sortAssoc(var/list/L)
 	if(L.len < 2)
