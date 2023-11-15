@@ -4,61 +4,78 @@
 // ***********************************************************
 
 // Base type. Subtypes are found in /grown dir. Lavaland-based subtypes can be found in mining/ash_flora.dm
-/obj/item/reagent_containers/food/snacks/grown
+/obj/item/food/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
-	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
-	var/plantname = ""
-	var/bitesize_mod = 0
-	var/splat_type = /obj/effect/decal/cleanable/food/plant_smudge
-	// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
-	dried_type = -1
-	// Saves us from having to define each stupid grown's dried_type as itself.
-	// If you don't want a plant to be driable (watermelons) set this to null in the time definition.
+	name = "fresh produce" //fix naming bug
+	max_volume = 100
+	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
-	var/dry_grind = FALSE //If TRUE, this object needs to be dry to be ground up
-	var/can_distill = TRUE //If FALSE, this object cannot be distilled into an alcohol.
-	var/distill_reagent //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
-	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
-	var/wine_power = 10 //Determines the boozepwr of the wine if distill_reagent is NULL.
+	/// type path, gets converted to item on New(). It's safe to assume it's always a seed item.
+	var/obj/item/seeds/seed = null
+	///Name of the plant
+	var/plantname = ""
+	/// If set, bitesize = 1 + round(reagents.total_volume / bite_consumption_mod)
+	var/bite_consumption_mod = 0
+	///the splat it makes when it splats lol
+	var/splat_type = /obj/effect/decal/cleanable/food/plant_smudge
+	/// If TRUE, this object needs to be dry to be ground up
+	var/dry_grind = FALSE
+	/// If FALSE, this object cannot be distilled into an alcohol.
+	var/can_distill = TRUE
+	/// The reagent this plant distills to. If NULL, it uses a generic fruit_wine reagent and adjusts its variables.
+	var/distill_reagent
+	/// Flavor of the plant's wine if NULL distill_reagent. If NULL, this is automatically set to the fruit's flavor.
+	var/wine_flavor
+	/// Boozepwr of the wine if NULL distill_reagent
+	var/wine_power = 10
+	///Color of the grown object
+	var/filling_color
+	//Amount of discovery points given for scanning
+	var/discovery_points = 0
 
-	var/discovery_points = 0 //Amount of discovery points given for scanning
-
-/obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed)
-	. = ..()
+/obj/item/food/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	if(!tastes)
-		tastes = list("[name]" = 1)
+		tastes = list("[name]" = 1) //This happens first else the component already inits
 
 	if(new_seed)
 		seed = new_seed.Copy()
+
 	else if(ispath(seed))
 		// This is for adminspawn or map-placed growns. They get the default stats of their seed type.
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
+	else if(!seed)
+		stack_trace("Grown object created without a seed. WTF")
+		return INITIALIZE_HINT_QDEL
 
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 
-	if(dried_type == -1)
-		dried_type = src.type
+	make_dryable()
 
-	if(seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_new(src, loc)
-		seed.prepare_result(src)
-		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
-		add_juice()
+	for(var/datum/plant_gene/trait/T in seed.genes)
+		T.on_new(src, loc)
+
+	. = ..() //Only call it here because we want all the genes and shit to be applied before we add edibility. God this code is a mess.
+
+	seed.prepare_result(src)
+	transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 
+/obj/item/food/grown/Destroy()
+	if(isatom(seed))
+		QDEL_NULL(seed)
+	return ..()
 
+/obj/item/food/grown/proc/make_dryable()
+	AddElement(/datum/element/dryable, type)
 
-/obj/item/reagent_containers/food/snacks/grown/proc/add_juice()
-	if(reagents)
-		if(bitesize_mod)
-			bitesize = 1 + round(reagents.total_volume / bitesize_mod)
-		return 1
-	return 0
+/obj/item/food/grown/make_leave_trash()
+	if(trash_type)
+		AddElement(/datum/element/food_trash, trash_type, FOOD_TRASH_OPENABLE, TYPE_PROC_REF(/obj/item/food/grown/, generate_trash))
+	return
 
 /obj/item/reagent_containers/food/snacks/grown/examine(user)
 	. = ..()
