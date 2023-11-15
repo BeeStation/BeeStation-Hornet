@@ -44151,12 +44151,12 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "eWk" = (
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/maintenance/port/fore)
 "eWl" = (
 /obj/machinery/power/apc{
@@ -44882,11 +44882,11 @@
 	},
 /area/quartermaster/warehouse)
 "fkx" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -71009,15 +71009,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"qiM" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/port/fore)
 "qiY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -105341,7 +105332,7 @@ aeu
 aeu
 cwp
 cwp
-qiM
+eUb
 cwq
 amA
 amA
