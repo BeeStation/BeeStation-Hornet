@@ -5195,7 +5195,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit,
+/obj/item/food/grown/shell/gatfruit,
 /obj/item/gun/ballistic/automatic/pistol/deagle,
 /obj/item/gun/ballistic/revolver/russian,
 /turf/open/floor/plasteel/dark,
@@ -5978,7 +5978,7 @@
 	pixel_x = 2;
 	pixel_y = -31
 	},
-/obj/item/reagent_containers/food/snacks/grown/tomato/blood{
+/obj/item/food/grown/tomato/blood{
 	pixel_x = 7;
 	pixel_y = 8
 	},
@@ -9547,7 +9547,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
 "cZw" = (
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -31037,7 +31037,7 @@
 /area/space)
 "jDS" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = 1;
 	pixel_y = 4
 	},
@@ -31742,7 +31742,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -39248,7 +39248,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{
@@ -50238,7 +50238,7 @@
 /obj/item/reagent_containers/syringe{
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/snacks/grown/random{
+/obj/item/food/grown/random{
 	pixel_x = -3;
 	pixel_y = 21
 	},
@@ -64195,7 +64195,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/machinery/airalarm/directional/east,
@@ -64381,7 +64381,7 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
 /obj/structure/table/wood/fancy,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
@@ -68691,19 +68691,19 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -6;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 6
 	},
@@ -73206,7 +73206,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/apple{
+/obj/item/food/grown/apple{
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -76637,7 +76637,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{

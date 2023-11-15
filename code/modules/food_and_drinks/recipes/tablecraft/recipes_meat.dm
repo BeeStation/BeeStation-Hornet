@@ -42,10 +42,10 @@
 	name = "Fiesta Skewer"
 	reqs = list(
 		/obj/item/stack/rods = 1,
-		/obj/item/reagent_containers/food/snacks/grown/chili = 1,
+		/obj/item/food/grown/chili = 1,
 		/obj/item/reagent_containers/food/snacks/meat/cutlet = 1,
-		/obj/item/reagent_containers/food/snacks/grown/corn = 1,
-		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
+		/obj/item/food/grown/corn = 1,
+		/obj/item/food/grown/tomato = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/kebab/fiesta
 	subcategory = CAT_MEAT
@@ -56,7 +56,7 @@
 	name = "Cuban carp"
 	reqs = list(
 		/datum/reagent/consumable/flour = 5,
-		/obj/item/reagent_containers/food/snacks/grown/chili = 1,
+		/obj/item/food/grown/chili = 1,
 		/obj/item/reagent_containers/food/snacks/carpmeat = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/cubancarp
@@ -110,7 +110,7 @@
 	reqs = list(
 		/datum/reagent/consumable/sodiumchloride = 5,
 		/obj/item/reagent_containers/food/snacks/meat/steak = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cabbage = 2
+		/obj/item/food/grown/cabbage = 2
 	)
 	result = /obj/item/reagent_containers/food/snacks/cornedbeef
 	subcategory = CAT_MEAT
@@ -129,8 +129,8 @@
 	name = "Stewed soymeat"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/soydope = 2,
-		/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
-		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
+		/obj/item/food/grown/carrot = 1,
+		/obj/item/food/grown/tomato = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/stewedsoymeat
 	subcategory = CAT_MEAT
@@ -156,7 +156,7 @@
 	name = "Raw Khinkali"
 	reqs = list(
 		/obj/item/food/doughslice = 1,
-		/obj/item/reagent_containers/food/snacks/grown/garlic = 1,
+		/obj/item/food/grown/garlic = 1,
 		/obj/item/reagent_containers/food/snacks/meatball = 1
 	)
 	result =  /obj/item/reagent_containers/food/snacks/rawkhinkali
@@ -178,7 +178,7 @@
 		/datum/reagent/consumable/soysauce = 5,
 		/obj/item/food/bun = 1,
 		/obj/item/reagent_containers/food/snacks/meatball = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
+		/obj/item/food/grown/cabbage = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatbun
 	subcategory = CAT_MEAT
@@ -215,8 +215,8 @@
 	name = "Ashflaked Steak"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/meat/steak/goliath = 1,
-		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 1,
-		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 1
+		/obj/item/food/grown/ash_flora/cactus_fruit = 1,
+		/obj/item/food/grown/ash_flora/mushroom_leaf = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/meat/steak/ashflake
 	subcategory = CAT_MEAT
@@ -236,7 +236,7 @@
 	name = "Meat Clown"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/meat/steak/plain = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1
+		/obj/item/food/grown/banana = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatclown
 	subcategory = CAT_MEAT
