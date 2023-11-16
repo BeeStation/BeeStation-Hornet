@@ -30,9 +30,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.1
 	tool_behaviour = TOOL_SCREWDRIVER
-	var/obj/item/stack/cable_coil/cable_coil
-	var/obj/item/cultivator/cultivator
-	var/obj/item/shovel/spade/spade
+	var/static/obj/item/stack/cable_coil/cable_coil
+	var/static/obj/item/cultivator/cultivator
+	var/static/obj/item/shovel/spade/spade
+	var/static/list/abstract_tools
 
 	var/list/available_selections = list(
 		"Engineering tools" = list(
@@ -69,18 +70,26 @@
 
 /obj/item/debug/omnitool/Initialize(mapload)
 	. = ..()
-	cable_coil = new(src.contents)
-	cable_coil.max_amount = INFINITY
-	cable_coil.amount = INFINITY
-	cable_coil.materials = null // accidentally putting infinite wires into lathe? that'll break game.
-	cultivator = new(src.contents)
-	spade = new(src.contents)
 
-/obj/item/debug/omnitool/Destroy()
-	. = ..()
-	QDEL_NULL(cable_coil)
-	QDEL_NULL(cultivator)
-	QDEL_NULL(spade)
+	if(!abstract_tools)
+		abstract_tools = list()
+
+		cable_coil = new
+		abstract_tools += cable_coil
+		cable_coil.max_amount = INFINITY
+		cable_coil.amount = INFINITY
+
+		cultivator = new
+		abstract_tools += cultivator
+
+		spade = new
+		abstract_tools += spade
+
+		for(var/obj/each in src.abstract_tools)
+			each.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+			if(isitem(each))
+				var/obj/I = each
+				I.materials = null // we don't want to feed lathe with these items
 
 /obj/item/debug/omnitool/examine()
 	. = ..()
