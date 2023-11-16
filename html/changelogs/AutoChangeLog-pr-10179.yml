@@ -1,0 +1,4 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Megafauna no longer continue attacking dead players ad infinium.
