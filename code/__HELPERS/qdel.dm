@@ -60,11 +60,11 @@ GLOBAL_LIST_EMPTY(qdel_timers)
 			var/list/each_entry = GLOB.qdel_timers[each]
 			var/index = each_entry.Find(item)
 			if(index)
-				each_entry.Cut(index, index+1)
+				each_entry.Remove(index)
 				return
 	else
 		var/list/specified_entry = GLOB.qdel_timers[timer_key]
 		var/index = specified_entry.Find(item)
 		if(index)
-			specified_entry.Cut(index, index+1)
+			specified_entry.Remove(index)
 			return
