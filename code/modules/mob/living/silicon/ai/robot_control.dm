@@ -65,16 +65,16 @@
 				to_chat(usr, "<span class='danger'>Error: Your last call bot command is still processing, please wait for the bot to finish calculating a route.</span>")
 				return
 			bot = locate(params["ref"]) in GLOB.bots_list
-			owner.bot_ref = WEAKREF(bot)
 			if(!bot || bot.remote_disabled || owner.control_disabled)
 				return
+			owner.bot_ref = WEAKREF(bot)
 			owner.waypoint_mode = TRUE
 			to_chat(usr, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
 			. = TRUE
 		if("interface") //Remotely connect to a bot!
 			bot = locate(params["ref"]) in GLOB.bots_list
-			owner.bot_ref = WEAKREF(bot)
 			if(!bot || bot.remote_disabled || owner.control_disabled)
 				return
+			owner.bot_ref = WEAKREF(bot)
 			bot.attack_ai(usr)
 			. = TRUE
