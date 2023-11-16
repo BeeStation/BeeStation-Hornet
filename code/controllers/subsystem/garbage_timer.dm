@@ -77,12 +77,11 @@ SUBSYSTEM_DEF(garbage_timer)
 			var/list/each_entry = time_assoc_qdel_targets[each]
 			var/index = each_entry.Find(item)
 			if(index)
-				each_entry.Cut(index, index+1)
+				each_entry.Remove(index)
 				return
 	else
 		var/list/specified_entry = time_assoc_qdel_targets[time_key]
 		var/index = specified_entry.Find(item)
 		if(index)
-			specified_entry.Cut(index, index+1)
+			specified_entry.Remove(index)
 			return
-
