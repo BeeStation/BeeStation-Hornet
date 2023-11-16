@@ -523,7 +523,8 @@
 		"spade" = icon('icons/obj/mining.dmi', "spade", SOUTH, 1),
 		TOOL_RUSTSCRAPER = icon('icons/obj/tools.dmi', "wirebrush", SOUTH, 1),
 		TOOL_ROLLINGPIN = icon('icons/obj/kitchen.dmi', "rolling_pin", SOUTH, 1),
-		TOOL_BIKEHORN = icon('icons/obj/items_and_weapons.dmi', "bike_horn", SOUTH, 1)
+		TOOL_BIKEHORN = icon('icons/obj/items_and_weapons.dmi', "bike_horn", SOUTH, 1),
+		"debug_placeholder" = icon('icons/obj/device.dmi', "hypertool", SOUTH, 1)
 	)
 	for(var/each in cache_targets)
 

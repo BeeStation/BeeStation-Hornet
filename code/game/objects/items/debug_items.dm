@@ -62,7 +62,8 @@
 			"cultivator",
 			TOOL_RUSTSCRAPER,
 			TOOL_ROLLINGPIN,
-			TOOL_BIKEHORN
+			TOOL_BIKEHORN,
+			"debug_placeholder"
 		)
 	)
 
@@ -96,12 +97,16 @@
 		if("spade")
 			spade.melee_attack_chain(user, A, params)
 			return
+		if("debug_placeholder") // QoL. put anything you need.
+			return
 	. = ..()
 
 /obj/item/debug/omnitool/attack(mob/living/M, mob/living/user)
 	switch(tool_behaviour)
 		if("drapes")
 			attempt_initiate_surgery(src, M, user)
+		if("debug_placeholder") // QoL. put anything you need. - pre_attack() is preffered.
+			pass()
 	. = ..()
 
 /obj/item/debug/omnitool/ui_interact(mob/user, datum/tgui/ui)
