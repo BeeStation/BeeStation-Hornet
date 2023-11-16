@@ -241,6 +241,7 @@
 #include "code\__HELPERS\colors.dm"
 #include "code\__HELPERS\dates.dm"
 #include "code\__HELPERS\datums.dm"
+#include "code\__HELPERS\debug_procs.dm"
 #include "code\__HELPERS\dna.dm"
 #include "code\__HELPERS\files.dm"
 #include "code\__HELPERS\filters.dm"
