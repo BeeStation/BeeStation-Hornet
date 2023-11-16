@@ -14,4 +14,4 @@ GLOBAL_LIST_INIT(SOUL_GLIMMER_COLORS_LOW, list("Azure" = "#0091ff", "Vermilion" 
 //mid pop colours
 #define SOUL_GLIMMER_MID_POP 20
 GLOBAL_LIST_INIT(SOUL_GLIMMER_COLORS_MID, list("Teal" = "#00ffe5", "Terracotta" = "#ffa600", "Champagne" = "#ff009d"))
-z
+
