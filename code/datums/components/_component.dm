@@ -214,12 +214,10 @@
 	return null
 
 /datum/proc/GetComponents(c_type)
-	var/list/dc = datum_components
-	if(!dc)
-		return null
-	. = dc[c_type]
-	if(!length(.))
-		return list(.)
+	var/list/components = datum_components?[c_type]
+	if(!components)
+		return list()
+	return islist(components) ? components : list(components)
 
 /datum/proc/_AddComponent(list/raw_args)
 	var/new_type = raw_args[1]
