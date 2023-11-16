@@ -1,0 +1,5 @@
+author: rkz, Ghommie
+delete-after: true
+changes:
+  - server: Fixes GetComponents() returning a list with a null entry when there's
+      no component of a given type
