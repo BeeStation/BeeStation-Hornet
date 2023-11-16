@@ -1,6 +1,6 @@
-/// Returns the form of text to tell what's inside of an assoc list
+/// Returns as a text format of a list to tell what's inside of the list
 /// * list/L: Put a list to investigate. You only need this.
-/// * level: Don't give any value. (This is used when this proc calls itself recursively.)
+/// * level: Don't give any value. (This is used when this proc calls itself recursively to build whitespaces.)
 /proc/investigate_list(list/L, level=0)
 	if(!L || !islist(L))
 		return "(This is null, or not a list)"
@@ -20,8 +20,8 @@
 			. += "[whitespaces]idx\[[idx]\] 	[investigate_list(key, level+1)]"
 		else
 			. += "[whitespaces]idx\[[idx]\]"
-			if(!item)
-				. += " 	[type_check(key)]"
+			if(isnull(item))
+				. += " 	[type_check(key)]" // Note: It's not possible to tell if a key is associated with null
 			else if(islist(item))
 				. += " 	{ [type_check(key)] = [investigate_list(item, level+1)] }"
 			else
