@@ -624,7 +624,8 @@
 /obj/vehicle/sealed/mecha/vehicle_move(direction, forcerotate = FALSE)
 	if(!COOLDOWN_FINISHED(src, cooldown_vehicle_move))
 		return FALSE
-	COOLDOWN_START(src, cooldown_vehicle_move, COOLDOWN_TIMELEFT(src, cooldown_vehicle_move) + step_restricted)
+	COOLDOWN_START(src, cooldown_vehicle_move, movedelay + step_restricted)
+	step_restricted = 0
 	if(completely_disabled)
 		return FALSE
 	if(!direction)
