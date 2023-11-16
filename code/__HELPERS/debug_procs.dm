@@ -1,7 +1,9 @@
 /// Returns the form of text to tell what's inside of an assoc list
+/// * list/L: Put a list to investigate. You only need this.
+/// * level: Don't give any value. (This is used when this proc calls itself recursively.)
 /proc/investigate_list(list/L, level=0)
 	if(!L || !islist(L))
-		return FALSE
+		return "(This is null, or not a list)"
 
 	var/whitespaces = ""
 	for(var/i in 0 to level)
