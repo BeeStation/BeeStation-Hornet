@@ -9,8 +9,20 @@
 	vis_flags = VIS_INHERIT_PLANE
 	var/forensic_protected = FALSE
 
-	// these shouldn't exist to effects
-	BRAINDEAD_OBJECT_OPTIMIZATION
+	// effects don't need this.
+	// There might be more to include, but for now, these are safe to be null
+	flags_1 = OPTIMIZE_NECESSARY_1
+	damtype = null
+	req_access_txt = null
+	req_one_access_txt = null
+	verb_ask = null
+	verb_exclaim = null
+	verb_say = null
+	verb_sing = null
+	verb_whisper = null
+	verb_yell = null
+	speech_span = null
+	initial_language_holder = null
 
 /obj/effect/attackby(obj/item/weapon, mob/user, params)
 	if(SEND_SIGNAL(weapon, COMSIG_ITEM_ATTACK_EFFECT, src, user, params) & COMPONENT_NO_AFTERATTACK)
