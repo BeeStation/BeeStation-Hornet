@@ -84,7 +84,13 @@
 		"An unfortunate superstition that Psyphoza 'meat' and 'blood' contain powerful psychedelics has caused \
 			many individuals of the species to be targeted, and hunted, by rich & eccentric individuals who wish \
 			to taste their flesh, and learn the truth for themselves. Unfortunately for Psyphoza, \
-			this superstition is completely true..."
+			this superstition is completely true...",
+
+		"Although most Psyphoza have left behind a majority of the especially superstitious ideas of their \
+			progenitors, some lower caste members still cling to these old ideas as strongly as ever. These beliefs \
+			impact their culture deeply, resulting in very different behaviors between the typical and lower castes; \
+			such as naming, among other things. Names in this lower caste will typically represent a mystic concept \
+			from their culture, which is believed to lead the life of that individual."
 	)
 
 /datum/species/psyphoza/create_pref_unique_perks()
