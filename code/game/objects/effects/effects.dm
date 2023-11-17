@@ -9,6 +9,9 @@
 	vis_flags = VIS_INHERIT_PLANE
 	var/forensic_protected = FALSE
 
+	// these shouldn't exist to effects
+	BRAINDEAD_OBJECT_OPTIMIZATION
+
 /obj/effect/attackby(obj/item/weapon, mob/user, params)
 	if(SEND_SIGNAL(weapon, COMSIG_ITEM_ATTACK_EFFECT, src, user, params) & COMPONENT_NO_AFTERATTACK)
 		return TRUE

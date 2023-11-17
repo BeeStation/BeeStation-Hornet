@@ -39,6 +39,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define PREVENT_CONTENTS_EXPLOSION_1 (1<<16)
 #define UNPAINTABLE_1 				(1<<17)
 #define HTML_USE_INITAL_ICON_1		(1<<18) 			//! Should we use the initial icon for display? Mostly used by overlay only objects
+#define OPTIMIZE_NECESSARY_1		(1<<19)		//! This is used to prevent new() of list or datum from an atom. i.e.) obj/effect don't need armor datum   (note: not necessary to "DEFINE_BITFIELD flags_1")
 
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY			(1<<0)

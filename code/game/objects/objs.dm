@@ -67,12 +67,13 @@
 
 /obj/Initialize(mapload)
 	. = ..()
-	if (islist(armor))
-		armor = getArmor(arglist(armor))
-	else if (!armor)
-		armor = getArmor()
-	else if (!istype(armor, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+	if(!(flags_1 & OPTIMIZE_NECESSARY_1)) // an obj shouldn't get this...
+		if (islist(armor))
+			armor = getArmor(arglist(armor))
+		else if (!armor)
+			armor = getArmor()
+		else if (!istype(armor, /datum/armor))
+			stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
