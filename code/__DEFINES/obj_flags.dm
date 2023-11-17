@@ -68,15 +68,15 @@
 
 /// this isn't really a bitflag define, but it's used to help when an object doesn't have to have those variables...
 #define BRAINDEAD_OBJECT_OPTIMIZATION\
-	flags_1 = OPTIMIZE_NECESSARY_1\
-	damtype = null\
-	req_access_txt = null\
-	req_one_access_txt = null\
-	verb_ask = null\
-	verb_exclaim = null\
-	verb_say = null\
-	verb_sing = null\
-	verb_whisper = null\
-	verb_yell = null\
-	speech_span = null\
-	initial_language_holder = null\
+	flags_1 = OPTIMIZE_NECESSARY_1;\
+	damtype = null;\
+	req_access_txt = null;\
+	req_one_access_txt = null;\
+	verb_ask = null;\
+	verb_exclaim = null;\
+	verb_say = null;\
+	verb_sing = null;\
+	verb_whisper = null;\
+	verb_yell = null;\
+	speech_span = null;\
+	initial_language_holder = null;
