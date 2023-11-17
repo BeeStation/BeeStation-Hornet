@@ -42,7 +42,7 @@
 */
 
 /obj/structure/closet/secure_closet/genpop
-	name = "genpop locker"
+	name = "Prisoner locker"
 	desc = "A locker to store a prisoner's valuables, that they can collect at a later date."
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE
@@ -464,9 +464,11 @@
 					if(desired_sentence <= 300)
 						alert("Attempted minor crimes must be met with fines!", "Ok")
 						return
+					if(desired_sentence >=3600)
+						desired_sentence -= 2700 //back to major crime (900)
 					else
 						desired_sentence -= 300
-						desired_crime = "Attempted [desired_crime]"
+					desired_crime = "Attempted [desired_crime]"
 				if("elevated")
 					if(desired_sentence >= 900)
 						desired_sentence = 36000

@@ -168,3 +168,24 @@
 	template_id = "holodeck_clownworld"
 	mappath = "_maps/templates/holodeck_clownworld.dmm"
 	restricted = TRUE
+
+//   --------------------
+// -- PRISON TEMPLATES --
+//   --------------------
+/datum/map_template/holodeck/prison
+
+/datum/map_template/holodeck/prison/test
+	name = "Holodeck - Kitchen"
+	template_id = "test"
+	mappath = "_maps/holodeck/workshop/kitchen.dmm"
+
+/datum/map_template/holodeck/prison/testemag
+	name = "Holodeck - Kitchen (emag)"
+	template_id = "emagged_test"
+	mappath = "_maps/holodeck/workshop/kitchen.dmm"
+	restricted = TRUE
+
+/datum/map_template/holodeck/prison/robot
+	name = "Holodeck - Bot assembly"
+	template_id = "bot"
+	mappath = "_maps/holodeck/workshop/bot.dmm"
