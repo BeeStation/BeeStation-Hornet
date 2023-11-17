@@ -336,7 +336,7 @@
 
 //Former Wooden Baton
 /obj/item/melee/classic_baton/police/beater
-	name = "OMNI Beater"
+	name = "Police Tonfa"
 	desc = "Favored by hot headed Security Officers who don't want to get in trouble with CentCom but still want to get that nostalgic feeling of beating some criminal scum upside the head with a chunk of wood."
 	icon_state = "beater"
 	item_state = "beater"
