@@ -1,4 +1,0 @@
-author: rkz, Arkatos1
-delete-after: true
-changes:
-  - rscadd: converted AI robot controls to TGUI
