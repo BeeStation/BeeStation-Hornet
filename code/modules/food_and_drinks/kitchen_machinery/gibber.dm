@@ -195,16 +195,13 @@
 
 	if(typeofskin)
 		skin = new typeofskin
-
 	log_combat(user, occupant, "gibbed")
 	mob_occupant.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 	mob_occupant.death(TRUE)
 	mob_occupant.ghostize()
-	set_occupant(null)
-	qdel(mob_occupant)
-	addtimer(CALLBACK(src, PROC_REF(make_meat), skin, allmeat, meat_produced, gibtype, diseases), gibtime)
+	addtimer(CALLBACK(src, PROC_REF(make_meat), skin, allmeat, meat_produced, gibtype, diseases, mob_occupant), gibtime)
 
-/obj/machinery/gibber/proc/make_meat(obj/item/stack/sheet/animalhide/skin, list/obj/item/reagent_containers/food/snacks/meat/slab/allmeat, meat_produced, gibtype, list/datum/disease/diseases)
+/obj/machinery/gibber/proc/make_meat(obj/item/stack/sheet/animalhide/skin, list/obj/item/reagent_containers/food/snacks/meat/slab/allmeat, meat_produced, gibtype, list/datum/disease/diseases, mob_occupant)
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	operating = FALSE
 	var/turf/T = get_turf(src)
@@ -220,7 +217,15 @@
 			var/turf/gibturf = pick(nearby_turfs)
 			if (!gibturf.density && (src in view(gibturf)))
 				new gibtype(gibturf,i,diseases)
-
+	if(iscarbon(mob_occupant))
+		var/mob/living/carbon/organdump = mob_occupant
+		for(var/X in organdump.internal_organs)
+			var/obj/item/organ/O = X
+			O.Remove(organdump)
+			O.forceMove(loc)
+			O.throw_at(pick(nearby_turfs),2,3)
+	set_occupant(null)
+	qdel(mob_occupant)
 	pixel_x = base_pixel_x //return to its spot after shaking
 	operating = FALSE
 	update_icon()
