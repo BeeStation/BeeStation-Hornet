@@ -279,7 +279,7 @@
 	tastes = list("nothing" = 3)
 	foodtypes = GRAIN
 
-obj/item/food/pie/berrytart
+/obj/item/food/pie/berrytart
 	name = "berry tart"
 	desc = "A tasty dessert of many different small barries on a thin pie crust."
 	icon_state = "berrytart"
