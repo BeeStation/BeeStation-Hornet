@@ -41,7 +41,7 @@
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
-	name = "Prisoner Education Chamber";
+	name = "Interrogation Room";
 	req_access_txt = "3"
 	},
 /obj/machinery/door/firedoor,
@@ -8478,7 +8478,7 @@
 	},
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plasteel,
-/area/space)
+/area/security/brig)
 "bsO" = (
 /obj/structure/bodycontainer/morgue,
 /turf/open/floor/plasteel/dark,
@@ -23745,7 +23745,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
-/area/space)
+/area/security/brig)
 "fkM" = (
 /obj/structure/sink{
 	dir = 4;
@@ -25855,9 +25855,6 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
 "gpT" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -26903,7 +26900,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/security/execution/transfer)
 "gUd" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -27291,10 +27288,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/engine,
 /area/engine/engineering)
-"hcG" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
 "hcK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -32463,7 +32456,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
-/area/space)
+/area/security/brig)
 "jIF" = (
 /turf/open/floor/plasteel/grimy,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -37401,7 +37394,7 @@
 	dir = 5
 	},
 /turf/open/floor/plasteel/dark,
-/area/space)
+/area/security/execution/transfer)
 "lXQ" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
@@ -38940,9 +38933,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"mNu" = (
-/turf/closed/wall/r_wall,
-/area/space)
 "mNw" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -40068,11 +40058,11 @@
 	},
 /obj/effect/turf_decal/box,
 /obj/machinery/holopad,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
@@ -41251,7 +41241,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
-/area/space)
+/area/security/execution/transfer)
 "nSD" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_y = -32
@@ -41868,7 +41858,7 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel/dark,
-/area/space)
+/area/security/execution/transfer)
 "ofT" = (
 /obj/machinery/computer/bounty,
 /turf/open/floor/plasteel,
@@ -42405,7 +42395,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
-/area/space)
+/area/security/brig)
 "ouj" = (
 /obj/structure/sign/warning/securearea{
 	pixel_x = -32
@@ -44164,6 +44154,9 @@
 	dir = 6
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "pvy" = (
@@ -46968,7 +46961,7 @@
 	width = 9
 	},
 /turf/open/space/basic,
-/area/space)
+/area/security/brig)
 "qMz" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
@@ -50759,7 +50752,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/security/brig)
 "sAj" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
@@ -51282,12 +51275,6 @@
 	},
 /obj/item/pen/fountain{
 	pixel_y = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
@@ -57011,10 +56998,10 @@
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
-	name = "Prisoner Education Chamber";
+	name = "Solitary Confinement";
 	req_access_txt = "3"
 	},
-/turf/closed/wall/r_wall,
+/turf/open/floor/plasteel/dark,
 /area/security/brig)
 "vJV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -87071,8 +87058,8 @@ aaa
 aaa
 aaa
 aaa
-mNu
-mNu
+afA
+afA
 afA
 afA
 afA
@@ -88098,8 +88085,8 @@ aaa
 aaa
 aaa
 aaa
-pfI
-mNu
+agj
+aiX
 aiX
 aiX
 aiX
@@ -88109,7 +88096,7 @@ aiX
 afA
 aaO
 afA
-aiX
+afA
 afA
 afA
 aai
@@ -88612,8 +88599,8 @@ aaa
 aaa
 aaa
 aaa
-pfI
-hcG
+agj
+mZQ
 agj
 vUJ
 umD
@@ -89126,8 +89113,8 @@ aaa
 aaa
 aaa
 aaa
-pfI
-hcG
+agj
+mZQ
 agj
 pQx
 pXo
@@ -89640,8 +89627,8 @@ aaa
 aaa
 aaa
 aaa
-pfI
-pfI
+agj
+agj
 aiX
 afM
 bPo
@@ -89899,7 +89886,7 @@ aaa
 aaa
 aaa
 aaa
-mNu
+aiX
 sAh
 rpx
 tRk
@@ -90156,8 +90143,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+aiX
+aiX
 aaR
 aaR
 aaR
