@@ -104,6 +104,7 @@
 	var/ignorelistcleanuptimer = 1 // This ticks up every automated action, at 300 we clean the ignore list
 	var/robot_arm = /obj/item/bodypart/r_arm/robot
 	var/carryable = TRUE
+	var/scanned = FALSE // Check for the prison_scanner
 
 /mob/living/simple_animal/bot/proc/get_mode()
 	if(client) //Player bots do not have modes, thus the override. Also an easy way for PDA users/AI to know when a bot is a player.

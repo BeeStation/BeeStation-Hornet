@@ -6735,6 +6735,25 @@
 "bgc" = (
 /turf/closed/wall/r_wall,
 /area/science/lab)
+"bgg" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "bgh" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/stripes/line{
@@ -19681,6 +19700,17 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"dhE" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/turf/open/floor/prison,
+/area/security/prison)
 "dhN" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -20863,7 +20893,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -20872,6 +20901,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -23372,14 +23404,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"fcc" = (
-/obj/structure/cable/yellow,
-/obj/effect/spawner/structure/window/reinforced/prison,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate"
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "fcN" = (
 /obj/machinery/airalarm{
 	pixel_y = 28
@@ -25730,6 +25754,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/nanite)
+"gof" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/mob/living/simple_animal/bot/secbot/beepsky{
+	name = "Officer Beepsky"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/fore)
 "gop" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Engine Room";
@@ -28797,7 +28836,7 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate"
 	},
-/turf/open/floor/prison,
+/turf/open/floor/plating,
 /area/security/prison)
 "hRP" = (
 /obj/structure/chair/office,
@@ -31343,6 +31382,9 @@
 /obj/machinery/light_switch{
 	pixel_x = -25;
 	pixel_y = -24
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -36148,9 +36190,6 @@
 /area/medical/chemistry)
 "luv" = (
 /obj/structure/chair/fancy/bench,
-/mob/living/simple_animal/bot/secbot/beepsky{
-	name = "Officer Beepsky"
-	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "lvc" = (
@@ -39502,7 +39541,10 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate"
 	},
-/turf/open/floor/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/turf/open/floor/plating,
 /area/security/prison)
 "nbF" = (
 /obj/structure/disposalpipe/segment,
@@ -40928,7 +40970,7 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate"
 	},
-/turf/open/floor/prison,
+/turf/open/floor/plating,
 /area/security/prison)
 "nIJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -41488,11 +41530,21 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/structure/rack,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "nYd" = (
@@ -42696,7 +42748,7 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate"
 	},
-/turf/open/floor/prison,
+/turf/open/floor/plating,
 /area/security/prison)
 "oCv" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -44820,6 +44872,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
+"pMb" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "pMj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -45589,7 +45654,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/turf/open/floor/prison,
+/turf/open/floor/plating,
 /area/security/prison)
 "qia" = (
 /obj/machinery/door/airlock/science{
@@ -51817,6 +51882,13 @@
 "tav" = (
 /turf/closed/wall,
 /area/vacant_room/commissary)
+"taK" = (
+/obj/machinery/camera/motion{
+	c_tag = "Armory - External";
+	dir = 1
+	},
+/turf/open/space/basic,
+/area/space)
 "taY" = (
 /mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/effect/turf_decal/siding/wood,
@@ -52619,6 +52691,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"tvl" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "tvP" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
@@ -53054,6 +53139,19 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat/hallway)
+"tCO" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "tCS" = (
 /obj/structure/table/glass,
 /obj/item/book/manual/wiki/infections,
@@ -58128,16 +58226,6 @@
 	},
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
-"wpt" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/structure/window/reinforced/prison,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate"
-	},
-/turf/open/floor/plasteel,
-/area/security/prison)
 "wqH" = (
 /obj/machinery/nanite_chamber,
 /obj/effect/turf_decal/bot,
@@ -59149,6 +59237,13 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"wTl" = (
+/obj/machinery/light{
+	dir = 1;
+	pixel_y = -31
+	},
+/turf/closed/wall/r_wall,
+/area/security/execution/transfer)
 "wTO" = (
 /obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel,
@@ -85959,13 +86054,13 @@ aaa
 aaa
 aaa
 aaa
-aai
-aai
-aai
-aai
-aai
-aai
-nIz
+tCO
+pMb
+pMb
+pMb
+pMb
+pMb
+bgg
 nbz
 aai
 aaa
@@ -86216,7 +86311,7 @@ aaa
 aaa
 aaa
 aaa
-aai
+tvl
 aed
 aed
 aed
@@ -86473,7 +86568,7 @@ aaa
 aaa
 aaa
 aaa
-aai
+tvl
 aed
 aed
 aed
@@ -86730,7 +86825,7 @@ aaa
 aaa
 aaa
 aaa
-aai
+tvl
 aed
 aed
 aed
@@ -86987,7 +87082,7 @@ afA
 afA
 afA
 afA
-afA
+wTl
 aed
 aed
 aed
@@ -87507,7 +87602,7 @@ aed
 aed
 aed
 aed
-dds
+dhE
 nlV
 cPf
 scx
@@ -88793,7 +88888,7 @@ aai
 aai
 aai
 aai
-wpt
+oCd
 aai
 kbN
 ahP
@@ -88801,7 +88896,7 @@ aht
 aai
 nIz
 jax
-fcc
+aht
 aai
 aai
 mrX
@@ -90856,7 +90951,7 @@ jxC
 vCI
 aiJ
 nZa
-xrb
+gof
 vSf
 vSf
 vpU
@@ -92889,7 +92984,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+taK
 aaZ
 giN
 ack

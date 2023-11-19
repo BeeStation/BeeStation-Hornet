@@ -380,7 +380,7 @@
 			var/crime = GLOB.data_core.createCrimeEntry(desired_crime, null, user.real_name, station_time_timestamp())
 			GLOB.data_core.addCrime(R.fields["id"], crime)
 			investigate_log("New Crime: <strong>[desired_crime]</strong> | Added to [R.fields["name"]] by [key_name(user)]", INVESTIGATE_RECORDS)
-			say("Criminal record for [R.fields["name"]] successfully updated with inputted crime.")
+			say("Criminal record for [R.fields["name"]] successfully updated.")
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1)
 
 	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence, desired_crime, desired_name)
