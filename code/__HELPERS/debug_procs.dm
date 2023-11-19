@@ -8,7 +8,7 @@
 	var/whitespaces = ""
 	for(var/i in 0 to level)
 		whitespaces += "	"
-	. = "list{\n"
+	. = "list(\n"
 	. += "[whitespaces](depth: [level],	length: [length(L)])\n"
 	for(var/idx in 1 to length(L))
 		var/datum/key = L[idx]
@@ -33,10 +33,11 @@
 	whitespaces = ""
 	for(var/i in 1 to level)
 		whitespaces += "	"
-	. += "\n[whitespaces]}"
+	. += "\n[whitespaces])"
 
 /// returns which type a variable has as a form of text. Used to debug.
 /proc/type_check(datum/V)
+	. = "[V]::ERROR"
 	if(isnull(V))
 		return "null::null"
 	else if(isnum(V))
