@@ -7,12 +7,14 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/knife/kitchen,
 /obj/item/radio/intercom{
 	dir = 1;
 	pixel_x = 1;
 	pixel_y = 23
 	},
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "c" = (
@@ -20,6 +22,14 @@
 	dir = 5
 	},
 /turf/open/floor/holofloor/monotile/light,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/tile/dark_blue/fourcorners,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/smartfridge/food,
+/turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "e" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -47,14 +57,19 @@
 /turf/open/floor/holofloor/monotile/light,
 /area/template_noop)
 "l" = (
-/obj/structure/closet/secure_closet/freezer/fridge{
-	req_access = null
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/soymilk,
+/obj/item/reagent_containers/food/condiment/soymilk,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "o" = (
@@ -87,14 +102,20 @@
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "u" = (
-/obj/structure/closet/secure_closet/freezer/kitchen{
-	req_access = null
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/food/condiment/rice,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "v" = (
@@ -160,11 +181,13 @@
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/item/reagent_containers/food/condiment/enzyme,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "K" = (
-/obj/machinery/smartfridge/food,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/structure/rack,
+/obj/item/knife/kitchen,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "M" = (
@@ -189,24 +212,6 @@
 	},
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
-"O" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
-/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
-/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
-/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
-/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
-/turf/open/floor/holofloor/monotile/steel,
-/area/template_noop)
-"P" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/dark_blue/fourcorners,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/holofloor/monotile/steel,
-/area/template_noop)
 "Q" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
@@ -221,14 +226,17 @@
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "V" = (
-/obj/structure/closet/secure_closet/freezer/meat{
-	req_access = null
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
+/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
+/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
+/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
+/obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "Y" = (
@@ -240,8 +248,8 @@
 (1,1,1) = {"
 v
 M
-P
 f
+d
 K
 "}
 (2,1,1) = {"
@@ -263,7 +271,7 @@ y
 h
 I
 o
-O
+a
 "}
 (5,1,1) = {"
 Y

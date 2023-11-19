@@ -10,11 +10,6 @@
 /obj/machinery/modular_fabricator/exosuit_fab{
 	dir = 8
 	},
-/obj/machinery/ecto_sniffer{
-	layer = 4;
-	pixel_x = 2;
-	pixel_y = 7
-	},
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 "d" = (
@@ -45,14 +40,6 @@
 /obj/item/stack/sheet/glass/fifty{
 	pixel_x = -1;
 	pixel_y = 1
-	},
-/obj/item/clothing/glasses/welding{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/welding{
-	pixel_x = -2;
-	pixel_y = 3
 	},
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
@@ -134,15 +121,29 @@
 /area/template_noop)
 "t" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/toolbox/electrical,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 "w" = (
 /obj/effect/decal/cleanable/oil/streak,
+/turf/open/floor/holofloor/monotile/steel,
+/area/template_noop)
+"G" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/head/welding{
+	pixel_x = -2;
+	pixel_y = 3
+	},
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "J" = (
@@ -218,7 +219,7 @@ h
 n
 n
 n
-n
+G
 "}
 (2,1,1) = {"
 n
