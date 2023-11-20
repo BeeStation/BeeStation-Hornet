@@ -92,7 +92,7 @@
 	. = ..()
 	if(!.)
 		return
-	return !iscyborg(user.mob) && (intent in user.mob?.possible_a_intents) // The cyborg check is because cyborgs have their own swap intent hotkey, and we don't want to mess that up.
+	return !iscyborg(user.mob) && (intent in user.mob?.possible_a_intents) && (locate(/atom/movable/screen/act_intent) in user.mob?.hud_used?.static_inventory) // The cyborg check is because cyborgs have their own swap intent hotkey, and we don't want to mess that up.
 
 /datum/keybinding/living/select_intent/down(client/user)
 	. = ..()
