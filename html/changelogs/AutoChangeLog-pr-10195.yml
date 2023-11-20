@@ -1,0 +1,5 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - bugfix: The wiremod write component has been given the proper ports to function
+      again.
