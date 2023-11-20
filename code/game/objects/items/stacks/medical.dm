@@ -122,6 +122,7 @@
 	heal_brute = TRUE
 	reagent = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
+	merge_type = /obj/item/stack/medical/bruise_pack
 
 /obj/item/stack/medical/bruise_pack/one
 	amount = 1
@@ -139,6 +140,7 @@
 	heal_burn = TRUE
 	reagent = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
 	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
+	merge_type = /obj/item/stack/medical/ointment
 
 /obj/item/stack/medical/ointment/one
 	amount = 1
@@ -179,6 +181,7 @@
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
 	stop_bleeding = 900
 	heal_brute = 0
+	merge_type = /obj/item/stack/medical/gauze/improvised
 
 /obj/item/stack/medical/gauze/adv
 	name = "sterilized medical gauze"
