@@ -187,12 +187,16 @@
 		return TRUE //Allow certain things declared with pass_flags_self through wihout side effects
 	if(machine_stat & BROKEN)
 		return FALSE
-	if(get_dir(loc, target) == dir) //Always let people through in one direction
+	if(get_dir(loc, target) == dir) //Always let people through in one direction. Not used at the moment.
 		return TRUE
 	var/allowed = allowed(mover)
-	//Everyone with access (including released prisoners) can drag you out.
+	//Everyone with access can drag you out. Prisoners can't drag each other out.
 	if(!allowed && mover.pulledby)
-		allowed = allowed(mover.pulledby)
+		var/mob/living/carbon/human/H = mover.pulledby
+		if(istype(H.wear_id, /obj/item/card/id/prisoner) || istype(H.get_active_held_item(), /obj/item/card/id/prisoner))
+			return FALSE
+		else
+			allowed = allowed(mover.pulledby)
 	if(allowed)
 		return TRUE
 	return FALSE
@@ -229,10 +233,8 @@
 	var/desired_name //What is their name?
 	var/desired_description //Description of their crime
 	var/obj/item/radio/Radio //needed to send messages to sec radio
-	//Preset crimes that you can set, without having to remember times
-	var/static/list/crimes = list() //The list of crimes the user will either be filtering or searching in.
-	//Text for the search bar
-	var/search_text
+	var/static/list/crimes = list() //The list of crimes the officer user will either be filtering or searching in.
+	var/search_text //Text for the search bar
 
 	var/static/list/minor = list(
 		list(name="Assault", tooltip="To use physical force against someone without the apparent intent to kill them.", colour="yellow",icon="hand-rock",sentence="5"),
