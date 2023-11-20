@@ -280,7 +280,7 @@
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
 	discovery_points = 300
 
-/obj/item/grown/novaflower/add_juice()
+/obj/item/grown/novaflower/Initialize(mapload, obj/item/seeds/new_seed)
 	..()
 	force = round((5 + seed.potency / 5), 1)
 
