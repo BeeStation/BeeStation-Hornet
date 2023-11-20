@@ -68,7 +68,7 @@
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
 	gun_charge = 1200
 	icon_state = "hoslaser"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	force = 10
 	automatic = 1
 	fire_rate = 3
@@ -89,7 +89,7 @@
 	can_flashlight = FALSE
 	ammo_x_offset = 1
 	fire_rate = 1.5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 
 /obj/item/gun/energy/e_gun/dragnet/snare
 	name = "Energy Snare Launcher"
