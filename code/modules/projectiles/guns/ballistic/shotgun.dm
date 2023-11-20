@@ -160,7 +160,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_delay = 0
 	pin = /obj/item/firing_pin/implant/pindicate
-	spread_unwielded = 15
+	spread_unwielded = 8
 	actions_types = list()
 	mag_display = TRUE
 	empty_indicator = TRUE

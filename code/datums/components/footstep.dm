@@ -23,7 +23,7 @@
 
 	if(!T.footstep || LM.buckled || !CHECK_MULTIPLE_BITFIELDS(LM.mobility_flags, MOBILITY_STAND | MOBILITY_MOVE) || LM.throwing || LM.movement_type & (VENTCRAWLING | FLYING))
 		if (!(LM.mobility_flags & MOBILITY_STAND) && !LM.buckled && !(!T.footstep || LM.movement_type & (VENTCRAWLING | FLYING))) //play crawling sound if we're lying
-			playsound(LM, 'sound/effects/footstep/crawl1.ogg', 15 * v)
+			playsound(LM, 'sound/effects/footstep/crawl1.ogg', 15 * v, falloff_distance = 1/*, vary = sound_vary*/)
 		return
 
 	if(iscarbon(LM))

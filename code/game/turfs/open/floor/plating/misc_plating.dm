@@ -110,12 +110,11 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	max_integrity = 100
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/open/floor/plating/beach/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
-
-/turf/open/floor/plating/beach/ex_act(severity, target)
-	contents_explosion(severity, target)
 
 /turf/open/floor/plating/beach/sand
 	gender = PLURAL

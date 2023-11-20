@@ -1,7 +1,0 @@
-author: BeeLover66
-delete-after: true
-changes:
-  - bugfix: Radio channels no longer always default to common when no encryption key
-      is installed
-  - rscadd: There is now a warning message when you try to transmit to a channel without
-      the proper encryption key
