@@ -414,7 +414,8 @@
 /obj/item/clothing/suit/space/changeling/process(delta_time)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.reagents.add_reagent(salbutamol, initial(salbutamol.metabolization_rate) * (delta_time / SSMOBS_DT))
+		var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+		mob_reagent_holder.add_reagent(salbutamol, initial(salbutamol.metabolization_rate) * (delta_time / SSMOBS_DT))
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"

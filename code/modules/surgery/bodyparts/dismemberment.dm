@@ -64,7 +64,7 @@
 	var/turf/T = get_turf(C)
 	C.add_splatter_floor(T)
 	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
-	for(var/X in C.internal_organs)
+	for(var/X in C.getOrgansList())
 		var/obj/item/organ/O = X
 		var/org_zone = check_zone(O.zone)
 		if(org_zone != BODY_ZONE_CHEST)
@@ -121,7 +121,7 @@
 				if(MT.limb_req && MT.limb_req == body_zone)
 					C.dna.force_lose(MT)
 
-		for(var/X in C.internal_organs) //internal organs inside the dismembered limb are dropped.
+		for(var/X in C.getOrgansList()) //internal organs inside the dismembered limb are dropped.
 			var/obj/item/organ/O = X
 			var/org_zone = check_zone(O.zone)
 			if(org_zone != body_zone)

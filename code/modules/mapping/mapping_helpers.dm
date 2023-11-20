@@ -314,7 +314,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		corpse.set_species(GLOB.species_list[pick(possible_alt_species)])
 	corpse.give_random_dormant_disease(25, min_symptoms = 1, max_symptoms = 5) // slightly more likely that an average stationgoer to have a dormant disease, bc who KNOWS how they died?
 	corpse.death()
-	for (var/obj/item/organ/organ in corpse.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
+	for (var/obj/item/organ/organ in corpse.getOrgansList(ORGAN_ABSTRACT)) //randomly remove organs from each body, set those we keep to be in stasis
 		if (prob(40))
 			qdel(organ)
 		else

@@ -26,18 +26,19 @@
 			C.vomit(0, toxic = TRUE)
 		O.forceMove(get_turf(user))
 
+	var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
 	if(isoozeling(user))
 		for(var/datum/reagent/R in user.reagents.reagent_list)
-			var/thisamount = user.reagents.get_reagent_amount(R.type)
-			user.reagents.remove_reagent(R.type, thisamount)
+			var/thisamount = mob_reagent_holder.get_reagent_amount(R.type)
+			mob_reagent_holder.remove_reagent(R.type, thisamount)
 	else
 		var/obj/effect/sweatsplash/S = new(user.loc)
-		for(var/datum/reagent/R in user.reagents.reagent_list) //Not just toxins!
+		for(var/datum/reagent/R in mob_reagent_holder.reagent_list) //Not just toxins!
 			var/amount = R.volume
-			user.reagents.remove_reagent(R.type, amount)
+			mob_reagent_holder.remove_reagent(R.type, amount)
 			S.reagents.add_reagent(R.type, amount)
 		S.splash()
-	user.reagents.add_reagent(/datum/reagent/medicine/mutadone, 1)
+	mob_reagent_holder.add_reagent(/datum/reagent/medicine/mutadone, 1)
 
 	if(iscarbon(user))
 		var/mob/living/carbon/L = user

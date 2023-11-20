@@ -175,8 +175,9 @@
 				"}
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_reagents()
-	if(patient.reagents)
-		for(var/datum/reagent/R in patient.reagents.reagent_list)
+	var/datum/reagents/mob_reagent_holder = patient.get_reagent_holder()
+	if(mob_reagent_holder)
+		for(var/datum/reagent/R in mob_reagent_holder.reagent_list)
 			if(R.volume > 0)
 				. += "[R]: [round(R.volume,0.01)]<br />"
 	return . || "None"
@@ -194,12 +195,13 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/inject_reagent(datum/reagent/R,obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG)
 	if(!R || !patient || !SG || !(SG in chassis.equipment))
 		return 0
+	var/datum/reagents/mob_reagent_holder = patient.get_reagent_holder()
 	var/to_inject = min(R.volume, inject_amount)
-	if(to_inject && patient.reagents.get_reagent_amount(R.type) + to_inject <= inject_amount*2)
+	if(to_inject && mob_reagent_holder.get_reagent_amount(R.type) + to_inject <= inject_amount*2)
 		occupant_message("Injecting [patient] with [to_inject] units of [R.name].")
 		log_message("Injecting [patient] with [to_inject] units of [R.name].", LOG_MECHA)
 		log_combat(chassis.occupant, patient, "injected", "[name] ([R] - [to_inject] units)")
-		SG.reagents.trans_id_to(patient,R.type,to_inject)
+		SG.reagents.trans_id_to(mob_reagent_holder, R.type,to_inject)
 		update_equip_info()
 	return
 
@@ -234,8 +236,9 @@
 	M.AdjustParalyzed(-80)
 	M.AdjustImmobilized(-80)
 	M.AdjustUnconscious(-80)
-	if(M.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine) < 5)
-		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	if(mob_reagent_holder.get_reagent_amount(/datum/reagent/medicine/epinephrine) < 5)
+		mob_reagent_holder.add_reagent(/datum/reagent/medicine/epinephrine, 5)
 	chassis.use_power(energy_drain)
 	update_equip_info()
 
@@ -326,6 +329,7 @@
 					mobs += M
 				var/mob/living/carbon/M = safepick(mobs)
 				if(M)
+					var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
 					var/R
 					mechsyringe.visible_message("<span class=\"attack\"> [M] was hit by the syringe!</span>")
 					if(M.can_inject(null, 1))
@@ -335,7 +339,7 @@
 						mechsyringe.icon_state = initial(mechsyringe.icon_state)
 						mechsyringe.icon = initial(mechsyringe.icon)
 						mechsyringe.reagents.reaction(M, INJECT)
-						mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume, transfered_by = originaloccupant)
+						mechsyringe.reagents.trans_to(mob_reagent_holder, mechsyringe.reagents.total_volume, transfered_by = originaloccupant)
 						M.take_bodypart_damage(2)
 						log_combat(originaloccupant, M, "shot", "syringegun")
 					break

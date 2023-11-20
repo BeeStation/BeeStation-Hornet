@@ -44,12 +44,13 @@
 
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 		reagents.reaction(M, INJECT, fraction)
-		if(M.reagents)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		if(mob_reagent_holder)
 			var/trans = 0
 			if(!infinite)
-				trans = reagents.trans_to(M, amount_per_transfer_from_this, transfered_by = user)
+				trans = reagents.trans_to(mob_reagent_holder, amount_per_transfer_from_this, transfered_by = user)
 			else
-				trans = reagents.copy_to(M, amount_per_transfer_from_this)
+				trans = reagents.copy_to(mob_reagent_holder, amount_per_transfer_from_this)
 
 			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
 			log_combat(user, M, "injected", src, "([contained])")

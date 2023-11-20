@@ -588,7 +588,8 @@
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M)
 	if(power == 0)
-		M.reagents.add_reagent(/datum/reagent/consumable/sugar,3)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/consumable/sugar, 3)
 	if(prob(55))
 		M.adjustBruteLoss(-1*REM+power, 0)
 		M.adjustFireLoss(-1*REM+power, 0)

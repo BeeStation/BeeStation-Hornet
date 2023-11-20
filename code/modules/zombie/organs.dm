@@ -43,7 +43,7 @@
 /obj/item/organ/zombie_infection/process(delta_time)
 	if(!owner)
 		return
-	if(!(src in owner.internal_organs))
+	if(!(src in owner.getOrgansList()))
 		Remove(owner, TRUE)
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * delta_time)

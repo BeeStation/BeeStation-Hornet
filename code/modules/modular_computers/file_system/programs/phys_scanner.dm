@@ -47,11 +47,12 @@
 				last_record = chemscan(user, carbon, to_chat = FALSE)
 				return FALSE
 			else if(!istype(target, /obj/item/reagent_containers/pill/floorpill) && !istype(target, /obj/item/reagent_containers/glass/chem_heirloom))
-				if(!isnull(target.reagents))
-					if(target.reagents.reagent_list.len > 0)
-						var/reagents_length = target.reagents.reagent_list.len
+				var/datum/reagents/reagent_holder = target.get_reagent_holder()
+				if(!isnull(reagent_holder))
+					if(reagent_holder.reagent_list.len > 0)
+						var/reagents_length = reagent_holder.reagent_list.len
 						last_record = "[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.\n"
-						for (var/re in target.reagents.reagent_list)
+						for (var/re in reagent_holder.reagent_list)
 							last_record += "\t [re]\n"
 					else
 						last_record = "No active chemical agents found in [target]."

@@ -197,7 +197,8 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='notice'>You activate [src], and it releases regenerative chemicals!</span>")
-			user.reagents.add_reagent(/datum/reagent/medicine/regen_jelly,10)
+			var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
+			mob_reagent_holder.add_reagent(/datum/reagent/medicine/regen_jelly,10)
 			return 60 SECONDS
 
 /obj/item/slime_extract/darkpurple
@@ -231,16 +232,17 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/orange/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You activate [src]. You start feeling hot!</span>")
-			user.reagents.add_reagent(/datum/reagent/consumable/capsaicin,10)
+			mob_reagent_holder.add_reagent(/datum/reagent/consumable/capsaicin,10)
 			return 15 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
-			user.reagents.add_reagent(/datum/reagent/phosphorus,5)//
-			user.reagents.add_reagent(/datum/reagent/potassium,5) // = smoke, along with any reagents inside mr. slime
-			user.reagents.add_reagent(/datum/reagent/consumable/sugar,5)     //
+			mob_reagent_holder.add_reagent(/datum/reagent/phosphorus,5)//
+			mob_reagent_holder.add_reagent(/datum/reagent/potassium,5) // = smoke, along with any reagents inside mr. slime
+			mob_reagent_holder.add_reagent(/datum/reagent/consumable/sugar,5)     //
 			to_chat(user, "<span class='warning'>You activate [src], and a cloud of smoke bursts out of your skin!</span>")
 			return 45 SECONDS
 
@@ -287,7 +289,8 @@
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You activate [src]. You start feeling fast!</span>")
-			user.reagents.add_reagent(/datum/reagent/medicine/ephedrine,5)
+			var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
+			mob_reagent_holder.add_reagent(/datum/reagent/medicine/ephedrine,5)
 			return 45 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
@@ -305,20 +308,21 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/blue/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You activate [src]. Your genome feels more stable!</span>")
 			user.adjustCloneLoss(-15)
-			user.reagents.add_reagent(/datum/reagent/medicine/mutadone, 10)
-			user.reagents.add_reagent(/datum/reagent/medicine/potass_iodide, 10)
+			mob_reagent_holder.add_reagent(/datum/reagent/medicine/mutadone, 10)
+			mob_reagent_holder.add_reagent(/datum/reagent/medicine/potass_iodide, 10)
 			return 25 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			var/location = get_turf(user)
 			var/datum/effect_system/foam_spread/s = new()
-			s.set_up(20, location, user.reagents)
+			s.set_up(20, location, mob_reagent_holder)
 			s.start()
-			user.reagents.clear_reagents()
+			mob_reagent_holder.clear_reagents()
 			user.visible_message("<span class='danger'>Foam spews out from [user]'s skin!</span>", "<span class='warning'>You activate [src], and foam bursts out of your skin!</span>")
 			return 60 SECONDS
 
@@ -335,8 +339,9 @@
 			to_chat(user, "<span class='notice'>You activate [src]. You start feeling colder!</span>")
 			user.ExtinguishMob()
 			user.adjust_fire_stacks(-20)
-			user.reagents.add_reagent(/datum/reagent/consumable/frostoil,4)
-			user.reagents.add_reagent(/datum/reagent/medicine/cryoxadone,5)
+			var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
+			mob_reagent_holder.add_reagent(/datum/reagent/consumable/frostoil,4)
+			mob_reagent_holder.add_reagent(/datum/reagent/medicine/cryoxadone,5)
 			return 10 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
@@ -366,7 +371,8 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts flashing hypnotically...</span>", "<span class='notice'>Your skin starts forming odd patterns, pacifying creatures around you.</span>")
 			for(var/mob/living/carbon/C in oviewers(user))
-				C.reagents.add_reagent(/datum/reagent/pax,2)
+				var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+				mob_reagent_holder.add_reagent(/datum/reagent/pax,2)
 			return 600
 
 /obj/item/slime_extract/green
@@ -594,7 +600,8 @@
 /obj/item/slime_extract/cerulean/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			user.reagents.add_reagent(/datum/reagent/medicine/salbutamol,15)
+			var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
+			mob_reagent_holder.add_reagent(/datum/reagent/medicine/salbutamol,15)
 			to_chat(user, "<span class='notice'>You feel like you don't need to breathe!</span>")
 			return 15 SECONDS
 

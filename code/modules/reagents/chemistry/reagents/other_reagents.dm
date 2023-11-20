@@ -28,7 +28,8 @@
 		var/mob/living/carbon/C = L
 		if(C.get_blood_id() == /datum/reagent/blood && (method == INJECT || (method == INGEST && HAS_TRAIT(C, TRAIT_DRINKSBLOOD))))
 			if(!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type)))
-				C.reagents.add_reagent(/datum/reagent/toxin, reac_volume * 0.5)
+				var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+				mob_reagent_holder.add_reagent(/datum/reagent/toxin, reac_volume * 0.5)
 			else
 				C.blood_volume = min(C.blood_volume + round(reac_volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 
@@ -145,7 +146,8 @@
 	if(QDELETED(L))
 		return
 	//Remove all the corgium from the person
-	L.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
+	var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+	mob_reagent_holder?.remove_reagent(/datum/reagent/corgium, INFINITY)
 	if(QDELETED(new_corgi))
 		return
 	var/obj/shapeshift_holder/H = locate() in new_corgi
@@ -312,7 +314,8 @@
 
 /datum/reagent/fuel/unholywater/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		M.reagents.add_reagent(type,reac_volume/4)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent(type,reac_volume/4)
 		return
 	return ..()
 
@@ -526,7 +529,8 @@
 	if(current_cycle >= cycles_to_turn)
 		var/datum/species/species_type = pick(race) //this worked with the old code, somehow, and it works here...
 		H.set_species(species_type)
-		H.reagents.del_reagent(type)
+		var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+		mob_reagent_holder.del_reagent(type)
 		to_chat(H, "<span class='warning'>You've become \a [lowertext(initial(species_type.name))]!</span>")
 		return
 	..()
@@ -611,16 +615,17 @@
 	taste_description = "grandma's gelatin"
 
 /datum/reagent/mutationtoxin/jelly/on_mob_life(mob/living/carbon/human/H)
+	var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
 	if(isoozeling(H))
 		to_chat(H, "<span class='warning'>Your body shifts and morphs, turning you into another subspecies!</span>")
 		var/species_type = pick(subtypesof(/datum/species/oozeling))
 		H.set_species(species_type)
-		H.reagents.del_reagent(type)
+		mob_reagent_holder.del_reagent(type)
 		return TRUE
 	if(current_cycle >= cycles_to_turn) //overwrite since we want subtypes of jelly
 		var/datum/species/species_type = pick(subtypesof(race))
 		H.set_species(species_type)
-		H.reagents.del_reagent(type)
+		mob_reagent_holder.del_reagent(type)
 		to_chat(H, "<span class='warning'>You've become \a [initial(species_type.name)]!</span>")
 		return TRUE
 	return ..()
@@ -973,7 +978,8 @@
 /datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(M.has_bane(BANE_IRON)) //If the target is weak to cold iron, then poison them.
 		if(holder && holder.chem_temp < 100) // COLD iron.
-			M.reagents.add_reagent(/datum/reagent/toxin, reac_volume)
+			var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+			mob_reagent_holder.add_reagent(/datum/reagent/toxin, reac_volume)
 	..()
 
 /datum/reagent/gold
@@ -994,7 +1000,8 @@
 
 /datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(M.has_bane(BANE_SILVER))
-		M.reagents.add_reagent(/datum/reagent/toxin, reac_volume)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/toxin, reac_volume)
 	..()
 
 /datum/reagent/uranium

@@ -844,10 +844,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/structure/table/optable/abductor/process(delta_time)
 	. = PROCESS_KILL
 	for(var/mob/living/carbon/C in get_turf(src))
+		var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
 		. = TRUE
 		for(var/chemical in injected_reagents)
-			if(C.reagents.get_reagent_amount(chemical) < inject_am * delta_time)
-				C.reagents.add_reagent(chemical, inject_am * delta_time)
+			if(mob_reagent_holder.get_reagent_amount(chemical) < inject_am * delta_time)
+				mob_reagent_holder.add_reagent(chemical, inject_am * delta_time)
 
 /obj/structure/table/optable/abductor/Destroy()
 	STOP_PROCESSING(SSobj, src)

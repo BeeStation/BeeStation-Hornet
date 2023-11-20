@@ -138,6 +138,7 @@
 
 	var/list/blood_data = get_blood_data(blood_id)
 
+	var/datum/reagents/mob_reagent_holder = AM.get_reagent_holder()
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
@@ -149,13 +150,13 @@
 							continue
 						C.ForceContractDisease(D)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))
-					C.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
+					mob_reagent_holder.add_reagent(/datum/reagent/toxin, amount * 0.5)
 					return 1
 
 			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_MAXIMUM)
 			return 1
 
-	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
+	mob_reagent_holder.add_reagent(blood_id, amount, blood_data, bodytemperature)
 	return 1
 
 

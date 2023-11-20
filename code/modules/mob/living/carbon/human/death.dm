@@ -103,7 +103,8 @@
 
 /mob/living/carbon/human/proc/reagents_readout()
 	var/readout = "Blood:"
-	for(var/datum/reagent/reagent in reagents?.reagent_list)
+	var/datum/reagents/mob_reagent_holder = get_reagent_holder()
+	for(var/datum/reagent/reagent in mob_reagent_holder?.reagent_list)
 		readout += "<br>[round(reagent.volume, 0.001)] units of [reagent.name]"
 	/*
 	readout += "<br>Stomach:"

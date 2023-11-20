@@ -113,7 +113,8 @@
 		return
 	var/mob/thrown_by = thrownby?.resolve()
 
-	if(ismob(target) && target.reagents)
+	var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
+	if(ismob(target) && mob_reagent_holder)
 		if(thrown)
 			reagents.total_volume *= rand(5,10) * 0.1 //Not all of it makes contact with the target
 		var/mob/M = target

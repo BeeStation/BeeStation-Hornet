@@ -109,7 +109,7 @@
 		..()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attack(obj/target, mob/user)
-	if(user.a_intent == INTENT_HARM && ismob(target) && target.reagents && reagents.total_volume)
+	if(user.a_intent == INTENT_HARM && ismob(target) && target.get_reagent_holder() && reagents.total_volume)
 		target.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
 						"<span class='userdanger'>[user] splashes the contents of [src] onto you!</span>")
 		log_combat(user, target, "splashed", src)

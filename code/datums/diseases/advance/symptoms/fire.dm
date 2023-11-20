@@ -177,7 +177,8 @@ Bonus
 	M.adjust_fire_stacks(get_stacks)
 	M.take_overall_damage(burn = get_stacks / 2, required_status = BODYTYPE_ORGANIC)
 	if(chems)
-		M.reagents.add_reagent(/datum/reagent/clf3, 2 * power)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/clf3, 2 * power)
 	return 1
 
 /datum/symptom/alkali/proc/Alkali_fire_stage_5(mob/living/M, datum/disease/advance/A)
@@ -185,5 +186,6 @@ Bonus
 	M.adjust_fire_stacks(get_stacks)
 	M.take_overall_damage(burn = get_stacks, required_status = BODYTYPE_ORGANIC)
 	if(chems)
-		M.reagents.add_reagent_list(list(/datum/reagent/napalm = 4 * power, /datum/reagent/clf3 = 4 * power))
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent_list(list(/datum/reagent/napalm = 4 * power, /datum/reagent/clf3 = 4 * power))
 	return 1

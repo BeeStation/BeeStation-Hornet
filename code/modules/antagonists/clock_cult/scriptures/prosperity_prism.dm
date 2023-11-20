@@ -77,9 +77,10 @@
 			L.adjustBruteLoss(-10*delta_time)
 			L.adjustFireLoss(-10*delta_time)
 			new /obj/effect/temp_visual/heal(get_turf(L), "#45dd8a")
-			for(var/datum/reagent/R in L.reagents.reagent_list)
+			var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+			for(var/datum/reagent/R in mob_reagent_holder.reagent_list)
 				if(istype(R, /datum/reagent/toxin))
-					L.reagents.remove_reagent(R.type, 50*delta_time)
+					mob_reagent_holder.remove_reagent(R.type, 50*delta_time)
 					holder.add_reagent(R.type, 50*delta_time)
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/attack_hand(mob/user)

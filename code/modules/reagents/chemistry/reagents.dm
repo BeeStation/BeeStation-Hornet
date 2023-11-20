@@ -54,11 +54,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	if(!istype(M))
 		return FALSE
 	if(method == VAPOR) //smoke, foam, spray
-		if(M.reagents)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		if(mob_reagent_holder)
 			var/modifier = clamp((1 - touch_protection), 0, 1)
 			var/amount = round(reac_volume*modifier, 0.1)
 			if(amount >= 0.5)
-				M.reagents.add_reagent(type, amount)
+				mob_reagent_holder.add_reagent(type, amount)
 	return TRUE
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)

@@ -30,7 +30,8 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 	var/mob/living/carbon/human/H = user
 	var/obj/W = new /obj/item/reagent_containers/food/drinks/bottle/whiskey(H.loc)
 	playsound(H.loc, 'sound/items/drink.ogg', rand(10,50), TRUE)
-	W.reagents.trans_to(H, W.reagents.total_volume, transfered_by = user)
+	var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+	W.reagents.trans_to(mob_reagent_holder, W.reagents.total_volume, transfered_by = user)
 	user.visible_message("<span class='suicide'>[user] downs the contents of [W.name] in one gulp! Shoulda stuck to sudoku!</span>")
 	return TOXLOSS
 

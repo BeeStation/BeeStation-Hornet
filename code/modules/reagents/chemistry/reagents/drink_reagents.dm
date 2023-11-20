@@ -239,14 +239,16 @@
 * For best results use in tandem with method outlined in this comment
 */
 /datum/reagent/consumable/milk/overdose_start(mob/living/M)
-	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5) //The integer here should match var/starting_amount in ../milk/overdose_process(mob/living/M)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5) //The integer here should match var/starting_amount in ../milk/overdose_process(mob/living/M)
 	return ..()
 
 /datum/reagent/consumable/milk/overdose_process(mob/living/M)
 	var/datum/reagent/converted_reagent = /datum/reagent/toxin/bonehurtingjuice //Needed to get the metabolism for desired reagent, exists solely for brevity compared to /datum/reagent/category/reagent.metabolization_rate
 	var/minimum_cycles = overdose_threshold/metabolization_rate //minimum_cycles is the number of ticks for an amount of units equal to the overdose threshold to process.
 	var/amount_to_add = 45 / minimum_cycles + initial(converted_reagent.metabolization_rate) //amount_to_add is the calculated amount to add per tick to meet ensure that target_units after minimum_cycle ticks.
-	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
 	return ..()
 	/*In depth explanation by DatBoiTim
 	* This number will not put more than 50u of BHJ into their system if only 500u(ie bare minimum OD).

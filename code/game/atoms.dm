@@ -1186,7 +1186,10 @@
 		if(curturf)
 			. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]'>Jump To</option>"
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_TRANSFORM, "Modify Transform")
-	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
+	if(iscarbon(src))
+		VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent (to Veins)")
+	else
+		VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
@@ -1197,12 +1200,13 @@
 /atom/vv_do_topic(list/href_list)
 	. = ..()
 	if(href_list[VV_HK_ADD_REAGENT] && check_rights(R_VAREDIT))
-		if(!reagents)
+		var/datum/reagents/reagent_holder = get_reagent_holder()
+		if(!reagent_holder)
 			var/amount = input(usr, "Specify the reagent size of [src]", "Set Reagent Size", 50) as num
 			if(amount)
 				create_reagents(amount)
 
-		if(reagents)
+		if(reagent_holder)
 			var/chosen_id
 			switch(alert(usr, "Choose a method.", "Add Reagents", "Search", "Choose from a list", "I'm feeling lucky"))
 				if("Search")
@@ -1227,10 +1231,10 @@
 					chosen_id = pick(subtypesof(/datum/reagent))
 
 			if(chosen_id)
-				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", reagents.maximum_volume) as num
+				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", reagent_holder.maximum_volume) as num
 
 				if(amount)
-					reagents.add_reagent(chosen_id, amount)
+					reagent_holder.add_reagent(chosen_id, amount)
 					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to [src]")
 					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to [src]</span>")
 

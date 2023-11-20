@@ -174,10 +174,15 @@
 
 	var/atom/target_atom
 	var/datum/reagents/R
-	if(istype(target, /datum/reagents))
+	if(iscarbon(target)) // checking if the target is carbon first
+		R = target.get_reagent_holder() // this does a trick
+		target_atom = target
+		stack_trace("the proc didn't get the reagent system from its target manually.")
+		// failsafe code. This should send an organ, not carbon mob.
+	else if(istype(target, /datum/reagents)) // if it's reagents datum
 		R = target
 		target_atom = R.my_atom
-	else
+	else // now back to our target, checking if it's an atom having reagents datum...
 		if(!target.reagents)
 			return
 		R = target.reagents
@@ -243,6 +248,10 @@
 		return
 
 	var/datum/reagents/R
+	if(iscarbon(target)) // checking if the target is carbon first
+		R = target.get_reagent_holder()
+		stack_trace("the proc didn't get the reagent system from its target manually.")
+		// failsafe code. This should send an organ, not carbon mob.
 	if(istype(target, /datum/reagents))
 		R = target
 	else
@@ -272,6 +281,11 @@
 	var/list/cached_reagents = reagent_list
 	if (!target)
 		return
+	if(iscarbon(target))
+		var/mob/M = target
+		target = M.getorganslot(ORGAN_SLOT_VEINS)
+		stack_trace("the proc didn't get the reagent system from its target manually.")
+		// failsafe code. This should send an organ, not carbon mob.
 	if (!target.reagents || src.total_volume<=0 || !src.get_reagent_amount(reagent))
 		return
 	if(amount < 0)
@@ -596,7 +610,7 @@
 	else if(isobj(A))
 		react_type = "OBJ"
 	else
-		return
+		CRASH("You mistook this - You should send an atom type.")
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent

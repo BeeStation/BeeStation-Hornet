@@ -23,7 +23,7 @@
 	var/list/organ_types = list(/obj/item/organ/heart)
 
 /datum/surgery_step/extract_organ/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	for(var/atom/A in target.internal_organs)
+	for(var/atom/A in target.getOrgansList(ORGAN_ABSTRACT | ORGAN_UNREMOVABLE))
 		if(A.type in organ_types)
 			IC = A
 			break

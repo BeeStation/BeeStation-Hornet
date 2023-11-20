@@ -41,12 +41,13 @@
 		return ..()
 
 	if(forkload)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
 		if(M == user)
 			M.visible_message("<span class='notice'>[user] eats a delicious forkful of omelette!</span>")
-			M.reagents.add_reagent(forkload.type, 1)
+			mob_reagent_holder.add_reagent(forkload.type, 1)
 		else
 			M.visible_message("<span class='notice'>[user] feeds [M] a delicious forkful of omelette!</span>")
-			M.reagents.add_reagent(forkload.type, 1)
+			mob_reagent_holder.add_reagent(forkload.type, 1)
 		icon_state = "fork"
 		forkload = null
 
@@ -61,14 +62,15 @@
 	if (!istype(M))
 		return
 	. = ..()
-	if (!reagents.total_volume || !M.reagents)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	if (!reagents.total_volume || !mob_reagent_holder)
 		return
 	var/amount_inject = amount_per_transfer_from_this
 	if(!M.can_inject(user, 1))
 		amount_inject = 1
 	var/amount = min(amount_inject/reagents.total_volume,1)
-	reagents.reaction(M,INJECT,amount)
-	reagents.trans_to(M,amount_inject)
+	reagents.reaction(M, INJECT,amount)
+	reagents.trans_to(mob_reagent_holder, amount_inject)
 
 /obj/item/knife/kitchen
 	name = "kitchen knife"

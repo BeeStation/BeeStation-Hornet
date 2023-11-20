@@ -242,7 +242,7 @@
 					continue
 				choice_list[augment_item] = image(augment_item)
 			var/obj/item/choice = show_radial_menu(owner, owner, choice_list)
-			if(owner && owner == usr && owner.stat != DEAD && (src in owner.internal_organs) && !active_item && (choice in contents))
+			if(owner && owner == usr && owner.stat != DEAD && (src in owner.getOrgansList()) && !active_item && (choice in contents))
 				// This monster sanity check is a nice example of how bad input is.
 				Extend(choice)
 	else

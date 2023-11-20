@@ -276,8 +276,9 @@
 	data["occupant"]["cloneLoss"] = mob_occupant.getCloneLoss()
 	data["occupant"]["brainLoss"] = mob_occupant.getOrganLoss(ORGAN_SLOT_BRAIN)
 	data["occupant"]["reagents"] = list()
-	if(length(mob_occupant.reagents?.reagent_list))
-		for(var/datum/reagent/R in mob_occupant.reagents.reagent_list)
+	var/datum/reagents/mob_reagent_holder = mob_occupant.get_reagent_holder()
+	if(length(mob_reagent_holder?.reagent_list))
+		for(var/datum/reagent/R in mob_reagent_holder.reagent_list)
 			data["occupant"]["reagents"] += list(list("name" = R.name, "volume" = R.volume))
 	return data
 
@@ -323,12 +324,13 @@
 	to_chat(user, "<span class='warning'>You scramble the sleeper's internal dispensing systems!</span>")
 
 /obj/machinery/sleeper/proc/inject_chem(chem, mob/user)
+	var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
 	if(chem_allowed(chem))
 		var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
 		if (!synthesizing)
-			stored_vial.reagents.trans_to(occupant, 10 / efficiency, efficiency, transfered_by = user)
+			stored_vial.reagents.trans_to(mob_reagent_holder, 10 / efficiency, efficiency, transfered_by = user)
 		else
-			stored_vial.reagents.copy_to(occupant, 10)
+			stored_vial.reagents.copy_to(mob_reagent_holder, 10)
 		if(user)
 			playsound(src, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE, 2)
 			log_combat(user, occupant, "injected [stored_vial.reagents.get_reagents()] into", addition = "via [src]")
@@ -337,11 +339,12 @@
 
 /obj/machinery/sleeper/proc/chem_allowed(chem)
 	var/mob/living/mob_occupant = occupant
-	if(!mob_occupant || !mob_occupant.reagents || chem < 1 || chem > length(inserted_vials))
+	var/datum/reagents/mob_reagent_holder = occupant.get_reagent_holder()
+	if(!mob_occupant || !mob_reagent_holder || chem < 1 || chem > length(inserted_vials))
 		return
 	var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
 	for (var/datum/reagent/reagent in stored_vial.reagents.reagent_list)
-		var/amount = mob_occupant.reagents.get_reagent_amount(reagent.type) + 10 <= 16 * efficiency
+		var/amount = mob_reagent_holder.get_reagent_amount(reagent.type) + 10 <= 16 * efficiency
 		if(!amount)
 			return FALSE
 	return TRUE

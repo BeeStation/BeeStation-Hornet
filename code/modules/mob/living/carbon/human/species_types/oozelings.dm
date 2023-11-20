@@ -162,11 +162,12 @@
 
 /datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/water)
+		var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
 		if(chem.volume > 10)
-			H.reagents.remove_reagent(chem.type, chem.volume - 10)
+			mob_reagent_holder.remove_reagent(chem.type, chem.volume - 10)
 			to_chat(H, "<span class='warning'>The water you consumed is melting away your insides!</span>")
 		H.blood_volume -= 25
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		mob_reagent_holder.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
 

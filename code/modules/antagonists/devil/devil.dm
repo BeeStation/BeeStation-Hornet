@@ -382,15 +382,15 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	switch(banish)
 		if(BANISH_WATER)
 			if(iscarbon(body))
-				var/mob/living/carbon/H = body
-				return H.reagents.has_reagent(/datum/reagent/water/holywater)
+				var/datum/reagents/mob_reagent_holder = body.get_reagent_holder()
+				return mob_reagent_holder.has_reagent(/datum/reagent/water/holywater)
 			return 0
 		if(BANISH_COFFIN)
 			return (body && istype(body.loc, /obj/structure/closet/crate/coffin))
 		if(BANISH_FORMALDYHIDE)
 			if(iscarbon(body))
-				var/mob/living/carbon/H = body
-				return H.reagents.has_reagent(/datum/reagent/toxin/formaldehyde)
+				var/datum/reagents/mob_reagent_holder = body.get_reagent_holder()
+				return mob_reagent_holder.has_reagent(/datum/reagent/toxin/formaldehyde)
 			return 0
 		if(BANISH_RUNES)
 			if(body)

@@ -59,7 +59,8 @@ Chilling extracts:
 		return
 	user.visible_message("<span class='notice'>[src] shatters, and a healing aura fills the room briefly.</span>")
 	for(var/mob/living/carbon/C in A)
-		C.reagents.add_reagent(/datum/reagent/medicine/regen_jelly,10)
+		var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/medicine/regen_jelly,10)
 	..()
 
 /obj/item/slimecross/chilling/blue

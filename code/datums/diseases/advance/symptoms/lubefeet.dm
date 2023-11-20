@@ -51,7 +51,8 @@
 					makelube(M, 80)
 				else
 					makelube(M, 40)
-				M.reagents.add_reagent(/datum/reagent/lube = 1)
+				var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+				mob_reagent_holder.add_reagent(/datum/reagent/lube = 1)
 				if(clownshoes)
 					give_clown_shoes(A)
 

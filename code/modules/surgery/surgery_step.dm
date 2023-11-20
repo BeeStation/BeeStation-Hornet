@@ -184,15 +184,16 @@
 	if(!LAZYLEN(chems_needed))
 		return TRUE
 
+	var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
 	if(require_all_chems)
 		. = TRUE
 		for(var/R in chems_needed)
-			if(!target.reagents.has_reagent(R))
+			if(!mob_reagent_holder.has_reagent(R))
 				return FALSE
 	else
 		. = FALSE
 		for(var/R in chems_needed)
-			if(target.reagents.has_reagent(R))
+			if(mob_reagent_holder.has_reagent(R))
 				return TRUE
 
 /datum/surgery_step/proc/get_chem_list()

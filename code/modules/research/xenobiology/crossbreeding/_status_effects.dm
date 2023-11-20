@@ -914,9 +914,10 @@
 
 /datum/status_effect/stabilized/lightpink/tick()
 	for(var/mob/living/carbon/human/H in ohearers(1, owner))
-		if(H.stat != DEAD && H.health <= 0 && !H.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
+		var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+		if(H.stat != DEAD && H.health <= 0 && !mob_reagent_holder.has_reagent(/datum/reagent/medicine/epinephrine))
 			to_chat(owner, "[linked_extract] pulses in sync with [H]'s heartbeat, trying to keep [H.p_them()] alive.")
-			H.reagents.add_reagent(/datum/reagent/medicine/epinephrine,5)
+			mob_reagent_holder.add_reagent(/datum/reagent/medicine/epinephrine,5)
 	return ..()
 
 /datum/status_effect/stabilized/lightpink/on_remove()

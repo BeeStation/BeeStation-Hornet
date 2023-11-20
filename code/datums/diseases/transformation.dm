@@ -250,17 +250,20 @@
 			if (prob(5))
 				affected_mob.emote("smile")
 			if (prob(20))
-				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
+				var/datum/reagents/mob_reagent_holder = affected_mob.get_reagent_holder()
+				mob_reagent_holder.add_reagent_list(list(/datum/reagent/pax = 5))
 		if(3)
 			if (prob(5))
 				affected_mob.emote("smile")
 			if (prob(20))
-				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
+				var/datum/reagents/mob_reagent_holder = affected_mob.get_reagent_holder()
+				mob_reagent_holder.add_reagent_list(list(/datum/reagent/pax = 5))
 		if(4)
 			if (prob(5))
 				affected_mob.emote("smile")
 			if (prob(20))
-				affected_mob.reagents.add_reagent_list(list(/datum/reagent/pax = 5))
+				var/datum/reagents/mob_reagent_holder = affected_mob.get_reagent_holder()
+				mob_reagent_holder.add_reagent_list(list(/datum/reagent/pax = 5))
 			if (prob(2))
 				to_chat(affected_mob, "<span class='danger'>You let go of what you were holding.</span>")
 				var/obj/item/I = affected_mob.get_active_held_item()
@@ -367,7 +370,8 @@
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
 				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
 			return
-	affected_mob.reagents.add_reagent_list(list(/datum/reagent/mutationtoxin/felinid = 1, /datum/reagent/medicine/mutadone = 1))
+	var/datum/reagents/mob_reagent_holder = affected_mob.get_reagent_holder()
+	mob_reagent_holder.add_reagent_list(list(/datum/reagent/mutationtoxin/felinid = 1, /datum/reagent/medicine/mutadone = 1))
 
 /datum/disease/transformation/legion
 	name = "Necropolis Infestation"

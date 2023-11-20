@@ -467,7 +467,8 @@
 	var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 	var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 	G.reagents.reaction(L, INJECT, fraction)
-	G.reagents.trans_to(L, injecting_amount)
+	var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+	G.reagents.trans_to(mob_reagent_holder, injecting_amount)
 	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
 	return TRUE
 

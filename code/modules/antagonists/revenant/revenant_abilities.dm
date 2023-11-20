@@ -508,8 +508,9 @@
 					H.ForceContractDisease(new /datum/disease/revblight(), FALSE, TRUE)
 					to_chat(H, "<span class='revenminor'>You feel [pick("suddenly sick", "a surge of nausea", "like your skin is <i>wrong</i>")].</span>")
 			else
-				if(mob.reagents)
-					mob.reagents.add_reagent(/datum/reagent/toxin/plasma, 5)
+				var/datum/reagents/mob_reagent_holder = mob.get_reagent_holder()
+				if(mob_reagent_holder)
+					mob_reagent_holder.add_reagent(/datum/reagent/toxin/plasma, 5)
 		else
 			mob.adjustToxLoss(5)
 	for(var/obj/structure/spacevine/vine in T) //Fucking with botanists, the ability.

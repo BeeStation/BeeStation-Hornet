@@ -131,7 +131,8 @@
 		return
 
 	if(!breath || (breath.total_moles() == 0))
-		if(H.reagents.has_reagent(crit_stabilizing_reagent))
+		var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+		if(mob_reagent_holder.has_reagent(crit_stabilizing_reagent))
 			return
 		if(H.health >= H.crit_threshold)
 			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
@@ -209,6 +210,7 @@
 			if(H.health >= H.crit_threshold)
 				H.adjustOxyLoss(-breathModifier)
 			clear_alert_for(H, alert_category)
+	var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
 	var/list/danger_reagents = GLOB.gas_data.breath_reagents_dangerous
 	for(var/entry in gas_max)
 		var/found_pp = 0
@@ -231,7 +233,7 @@
 			found_pp = PP(breath, entry)
 		if(found_pp > gas_max[entry])
 			if(istype(danger_reagent))
-				H.reagents.add_reagent(danger_reagent,1)
+				mob_reagent_holder.add_reagent(danger_reagent,1)
 			var/list/damage_info = (entry in gas_damage) ? gas_damage[entry] : gas_damage["default"]
 			var/dam = found_pp / gas_max[entry] * 10
 			H.apply_damage_type(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
@@ -243,7 +245,9 @@
 		if(gas in breath_reagents)
 			var/datum/reagent/R = breath_reagents[gas]
 			//H.reagents.add_reagent(R, breath.get_moles(gas) * R.molarity) // See next line
-			H.reagents.add_reagent(R, breath.get_moles(gas) * 2) // 2 represents molarity of O2, we don't have citadel molarity
+			//  If you're going to revive this line, change "H.reagents" into "mob_reagent_holder"
+			//  this comment exists to prevent disrupting PR tracking. (if I do that here, gitlens can't track the original PR)
+			mob_reagent_holder.add_reagent(R, breath.get_moles(gas) * 2) // 2 represents molarity of O2, we don't have citadel molarity
 			mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - breath.get_moles(gas) : -breath.get_moles(gas)
 
 	for(var/gas in mole_adjustments)
@@ -270,13 +274,13 @@
 		var/bz_pp = PP(breath, GAS_BZ)
 		if(bz_pp > BZ_brain_damage_min)
 			H.hallucination += 10
-			H.reagents.add_reagent(/datum/reagent/metabolite/bz,5)
+			mob_reagent_holder.add_reagent(/datum/reagent/metabolite/bz,5)
 			if(prob(33))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 
 		else if(bz_pp > BZ_trip_balls_min)
 			H.hallucination += 5
-			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
+			mob_reagent_holder.add_reagent(/datum/reagent/metabolite/bz,1)
 
 	// Nitryl
 		var/nitryl_pp = PP(breath,GAS_NITRYL)
@@ -292,15 +296,15 @@
 			H.adjustFireLoss(nitryl_pp/4)
 		gas_breathed = PP(breath,GAS_NITRYL)
 		if (gas_breathed > gas_stimulation_min)
-			H.reagents.add_reagent(/datum/reagent/nitryl,1)
+			mob_reagent_holder.add_reagent(/datum/reagent/nitryl,1)
 
 		breath.adjust_moles(GAS_NITRYL, -gas_breathed)
 
 	// Stimulum
 		gas_breathed = PP(breath,GAS_STIMULUM)
 		if (gas_breathed > gas_stimulation_min)
-			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
-			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
+			var/existing = mob_reagent_holder.get_reagent_amount(/datum/reagent/stimulum)
+			mob_reagent_holder.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
 		breath.adjust_moles(GAS_STIMULUM, -gas_breathed)
 
 		handle_breath_temperature(breath, H)

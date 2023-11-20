@@ -182,8 +182,9 @@ BONUS
 		if(5)
 			var/static/list/banned_reagents = list(/datum/reagent/colorful_reagent/powder/invisible, /datum/reagent/colorful_reagent/powder/white)
 			var/color = pick(subtypesof(/datum/reagent/colorful_reagent/powder) - banned_reagents)
-			if(M.reagents.total_volume <= (M.reagents.maximum_volume/10)) // no flooding humans with 1000 units of colorful reagent
-				M.reagents.add_reagent(color, 5)
+			var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+			if(mob_reagent_holder.total_volume <= (mob_reagent_holder.maximum_volume/10)) // no flooding humans with 1000 units of colorful reagent
+				mob_reagent_holder.add_reagent(color, 5)
 		else
 			if (prob(50)) // spam
 				M.visible_message("<span class='notice'>[M] looks rather vibrant.</span>", "<span class='notice'>The colors, man, the colors.</span>")

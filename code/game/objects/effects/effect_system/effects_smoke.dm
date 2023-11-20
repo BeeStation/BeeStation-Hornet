@@ -254,8 +254,9 @@
 	var/mob/living/carbon/C = M
 	if(C.internal != null || C.has_smoke_protection())
 		return 0
+	var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
 	var/fraction = 1/initial(lifetime)
-	reagents.copy_to(C, fraction*reagents.total_volume)
+	reagents.copy_to(mob_reagent_holder, fraction*reagents.total_volume)
 	reagents.reaction(M, INGEST, fraction)
 	if(isapid(C))
 		C.SetSleeping(50) // Bees sleep when smoked

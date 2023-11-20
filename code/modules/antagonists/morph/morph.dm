@@ -255,7 +255,8 @@
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
 	if(morphed)
 		M.Knockdown(40)
-		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom, 7)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/toxin/morphvenom, 7)
 		to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
 		visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
 				"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)

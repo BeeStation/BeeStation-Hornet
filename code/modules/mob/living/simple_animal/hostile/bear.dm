@@ -135,9 +135,10 @@
 
 /mob/living/simple_animal/hostile/bear/butter/attack_hand(mob/living/L) //Borrowed code from Cak, feeds people if they hit you. More nutriment but less vitamin to represent BUTTER.
 	..()
-	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
-		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 1)
-		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.1)
+	var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+	if(L.a_intent == INTENT_HARM && mob_reagent_holder && !stat)
+		mob_reagent_holder.add_reagent(/datum/reagent/consumable/nutriment, 1)
+		mob_reagent_holder.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.1)
 
 /mob/living/simple_animal/hostile/bear/butter/CheckParts(list/parts) //Borrowed code from Cak, allows the brain used to actually control the bear.
 	..()

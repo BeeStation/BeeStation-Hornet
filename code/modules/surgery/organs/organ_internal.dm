@@ -237,3 +237,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		if(!getorganslot(ORGAN_SLOT_EARS))
 			var/obj/item/organ/ears/ears = new()
 			ears.Insert(src)
+
+		if(!getorganslot(ORGAN_SLOT_VEINS))
+			var/obj/item/organ/veins/veins = new()
+			veins.Insert(src)

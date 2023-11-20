@@ -464,12 +464,13 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			clear_reagents_to_vomit_pool(C,V)
 
 /proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V)
-	M.reagents.trans_to(V, M.reagents.total_volume / 10, transfered_by = M)
-	for(var/datum/reagent/R in M.reagents.reagent_list)                //clears the stomach of anything that might be digested as food
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder() // TODO: this isn't right that you can vomit reagents from your veins??? This will be fixed in the future chem refactor
+	mob_reagent_holder.trans_to(V, mob_reagent_holder.total_volume / 10, transfered_by = M)
+	for(var/datum/reagent/R in mob_reagent_holder.reagent_list)                //clears the stomach of anything that might be digested as food
 		if(istype(R, /datum/reagent/consumable))
 			var/datum/reagent/consumable/nutri_check = R
 			if(nutri_check.nutriment_factor >0)
-				M.reagents.remove_reagent(R.type, min(R.volume, 10))
+				mob_reagent_holder.remove_reagent(R.type, min(R.volume, 10))
 
 /turf/proc/check_gravity()
 	return TRUE

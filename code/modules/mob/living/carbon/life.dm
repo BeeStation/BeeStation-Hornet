@@ -12,12 +12,13 @@
 
 		//Reagent processing needs to come before breathing, to prevent edge cases.
 		if(stat != DEAD)
-			for(var/V in internal_organs)
+			for(var/V in getOrgansList())
 				var/obj/item/organ/O = V
 				O.on_life()
 		else
-			if(reagents && !reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
-				for(var/V in internal_organs)
+			var/datum/reagents/mob_reagent_holder = get_reagent_holder()
+			if(mob_reagent_holder && !mob_reagent_holder.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
+				for(var/V in getOrgansList())
 					var/obj/item/organ/O = V
 					O.on_death() //Needed so organs decay while inside the body.
 
@@ -92,8 +93,9 @@
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe()
+	var/datum/reagents/mob_reagent_holder = get_reagent_holder()
 	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS)
-	if(reagents.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
+	if(mob_reagent_holder.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
 		return
 	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
 		return
@@ -167,7 +169,8 @@
 
 	//CRIT
 	if(!breath || (breath.total_moles() == 0) || !lungs)
-		if(reagents.has_reagent(/datum/reagent/medicine/epinephrine, needs_metabolizing = TRUE) && lungs)
+		var/datum/reagents/mob_reagent_holder = get_reagent_holder()
+		if(mob_reagent_holder.has_reagent(/datum/reagent/medicine/epinephrine, needs_metabolizing = TRUE) && lungs)
 			return
 		adjustOxyLoss(1)
 
@@ -581,8 +584,9 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return TRUE
 
 /mob/living/carbon/proc/liver_failure()
-	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
-	reagents.metabolize(src, can_overdose=FALSE, liverless = TRUE)
+	var/datum/reagents/mob_reagent_holder = get_reagent_holder()
+	mob_reagent_holder.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
+	mob_reagent_holder.metabolize(src, can_overdose=FALSE, liverless = TRUE)
 	if(HAS_TRAIT(src, TRAIT_STABLELIVER) || HAS_TRAIT(src, TRAIT_NOMETABOLISM))
 		return
 	adjustToxLoss(4, TRUE,  TRUE)

@@ -58,7 +58,7 @@
 
 /datum/symptom/robotic_adaptation/proc/Replace(mob/living/carbon/human/H)
 	if(replaceorgans)
-		for(var/obj/item/organ/O in H.internal_organs)
+		for(var/obj/item/organ/O in H.getOrgansList())
 			if(O.status == ORGAN_ROBOTIC) //they are either part robotic or we already converted them!
 				continue
 			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work

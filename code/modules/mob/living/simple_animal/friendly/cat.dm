@@ -299,9 +299,10 @@
 
 /mob/living/simple_animal/pet/cat/cak/attack_hand(mob/living/L)
 	..()
-	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
-		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 0.4)
-		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
+	var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+	if(L.a_intent == INTENT_HARM && mob_reagent_holder && !stat)
+		mob_reagent_holder.add_reagent(/datum/reagent/consumable/nutriment, 0.4)
+		mob_reagent_holder.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
 
 /mob/living/simple_animal/pet/cat/breadcat
 	name = "bread cat"

@@ -27,9 +27,10 @@
 /datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target)
 	if(HAS_TRAIT(target, TRAIT_HUSK)) //Can't filter husk
 		return FALSE
+	var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
 	var/datum/surgery_step/filter_blood/filtering_step = filtering_step_type
 	var/heals_tox = filtering_step ? initial(filtering_step.tox_heal_factor) > 0 : FALSE
-	if((!heals_tox || target.getToxLoss() <= 0) && target.reagents?.total_volume == 0)
+	if((!heals_tox || target.getToxLoss() <= 0) && mob_reagent_holder?.total_volume == 0)
 		return FALSE
 	return ..()
 
@@ -52,16 +53,18 @@
 
 /datum/surgery_step/filter_blood/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(..())
-		while(target.reagents.total_volume || (tox_heal_factor > 0 && target.getToxLoss() > 0))
+		var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
+		while(mob_reagent_holder.total_volume || (tox_heal_factor > 0 && target.getToxLoss() > 0))
 			if(!..())
 				break
 
 /datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/tox_loss = target.getToxLoss()
-	if(target.reagents.total_volume || (tox_heal_factor > 0 && tox_loss > 0))
-		for(var/blood_chem in target.reagents.reagent_list)
+	var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
+	if(mob_reagent_holder.total_volume || (tox_heal_factor > 0 && tox_loss > 0))
+		for(var/blood_chem in mob_reagent_holder.reagent_list)
 			var/datum/reagent/chem = blood_chem
-			target.reagents.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
+			mob_reagent_holder.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
 		if(tox_heal_factor > 0)
 			if(tox_loss <= 2)
 				target.setToxLoss(0)
@@ -71,8 +74,8 @@
 		if(locate(/obj/item/healthanalyzer) in user.held_items)
 			if(tox_heal_factor > 0 && tox_loss > 0)
 				remaining += "<font color='[COLOR_GREEN]'>[round(tox_loss, 0.1)]</font> toxin"
-			if(target.reagents.total_volume)
-				remaining += "<font color='[COLOR_MAGENTA]'>[round(target.reagents.total_volume, 0.1)]u</font> of reagents"
+			if(mob_reagent_holder.total_volume)
+				remaining += "<font color='[COLOR_MAGENTA]'>[round(mob_reagent_holder.total_volume, 0.1)]u</font> of reagents"
 		var/umsg = length(remaining) ? " [english_list(remaining)] remaining." : ""
 		display_results(user, target, "<span class='notice'>[tool] pings as it filters [target]'s blood.[umsg]</span>",
 				"<span class='notice'>[user] pumps [target]'s blood with [tool].</span>",

@@ -88,7 +88,7 @@
 			var/sick_message = pick("You feel nauseous.", "You're nya't feeling so good.","You feel like your insides are melting.","You feel illsies.")
 			to_chat(M, "<span class='notice'>[sick_message]</span>")
 		if(prob(15))
-			var/obj/item/organ/guts = pick(M.internal_organs)
+			var/obj/item/organ/guts = pick(M.getOrgansList())
 			guts.applyOrganDamage(15)
 		return FALSE
 	return ..() //second part of this effect is handled elsewhere

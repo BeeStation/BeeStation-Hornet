@@ -6,8 +6,9 @@
 	. = ..()
 	if(. && isliving(target))
 		var/mob/living/L = target
-		if(L.reagents && !poison_per_bite == 0)
-			L.reagents.add_reagent(poison_type, poison_per_bite)
+		var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+		if(mob_reagent_holder && !poison_per_bite == 0)
+			mob_reagent_holder.add_reagent(poison_type, poison_per_bite)
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake
 	name = "snake"

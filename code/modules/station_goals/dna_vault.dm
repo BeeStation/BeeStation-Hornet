@@ -261,7 +261,7 @@
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
-			if(locate(/obj/item/organ/lungs) in H.internal_organs)
+			if(locate(/obj/item/organ/lungs) in H.getOrgansList())
 				var/obj/item/organ/lungs/L = H.internal_organs_slot[ORGAN_SLOT_LUNGS]
 				L.gas_max -= GAS_PLASMA
 			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, "dna_vault")

@@ -214,7 +214,7 @@
 	. = ..()
 	if(. & EMP_PROTECT_CONTENTS)
 		return
-	for(var/X in internal_organs)
+	for(var/X in getOrgansList())
 		var/obj/item/organ/O = X
 		O.emp_act(severity)
 

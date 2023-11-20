@@ -155,5 +155,6 @@ Bonus
 		return //this symptom wont work on the undead.
 	M.take_overall_damage(brute = get_damage, required_status = BODYTYPE_ORGANIC)
 	if(chems)
-		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
 	return 1

@@ -208,16 +208,17 @@
 			for(var/obj/effect/rune/R in orange(2,user))
 				R.invisibility = 0
 	if(user?.mind?.holy_role)
-		if(A.reagents && A.reagents.has_reagent(/datum/reagent/water)) // blesses all the water in the holder
+		var/datum/reagents/reagent_holder = A.get_reagent_holder() // TODO: this should change all reagents in all organs in future chem refactor
+		if(reagent_holder && reagent_holder.has_reagent(/datum/reagent/water)) // blesses all the water in the holder
 			to_chat(user, "<span class='notice'>You bless [A].</span>")
-			var/water2holy = A.reagents.get_reagent_amount(/datum/reagent/water)
-			A.reagents.del_reagent(/datum/reagent/water)
-			A.reagents.add_reagent(/datum/reagent/water/holywater,water2holy)
-		if(A.reagents && A.reagents.has_reagent(/datum/reagent/fuel/unholywater)) // yeah yeah, copy pasted code - sue me
+			var/water2holy = reagent_holder.get_reagent_amount(/datum/reagent/water)
+			reagent_holder.del_reagent(/datum/reagent/water)
+			reagent_holder.add_reagent(/datum/reagent/water/holywater,water2holy)
+		if(reagent_holder && reagent_holder.has_reagent(/datum/reagent/fuel/unholywater)) // yeah yeah, copy pasted code - sue me
 			to_chat(user, "<span class='notice'>You purify [A].</span>")
-			var/unholy2clean = A.reagents.get_reagent_amount(/datum/reagent/fuel/unholywater)
-			A.reagents.del_reagent(/datum/reagent/fuel/unholywater)
-			A.reagents.add_reagent(/datum/reagent/water/holywater,unholy2clean)
+			var/unholy2clean = reagent_holder.get_reagent_amount(/datum/reagent/fuel/unholywater)
+			reagent_holder.del_reagent(/datum/reagent/fuel/unholywater)
+			reagent_holder.add_reagent(/datum/reagent/water/holywater,unholy2clean)
 		if(istype(A, /obj/item/storage/book/bible) && !istype(A, /obj/item/storage/book/bible/syndicate))
 			to_chat(user, "<span class='notice'>You purify [A], conforming it to your belief.</span>")
 			var/obj/item/storage/book/bible/B = A

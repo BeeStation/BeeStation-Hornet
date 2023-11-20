@@ -59,7 +59,8 @@
 						"<span class='userdanger'>You feel a terrible pain in your chest, as if your heart has stopped!</span>")
 				H.adjustStaminaLoss(60)
 				H.set_heartattack(TRUE)
-				H.reagents.add_reagent(/datum/reagent/medicine/corazone, 3) // To give the victim a final chance to shock their heart before losing consciousness
+				var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+				mob_reagent_holder.add_reagent(/datum/reagent/medicine/corazone, 3) // To give the victim a final chance to shock their heart before losing consciousness
 				cure()
 	else
 		cure()

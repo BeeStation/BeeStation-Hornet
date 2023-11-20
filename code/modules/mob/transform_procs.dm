@@ -5,7 +5,7 @@
 		return
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
-	var/list/int_organs = list()
+	var/list/original_organs = list()
 	var/obj/item/cavity_object
 
 	var/obj/item/bodypart/chest/CH = get_bodypart(BODY_ZONE_CHEST)
@@ -30,90 +30,90 @@
 		sleep(TRANSFORMATION_DURATION)
 		transformation_timer = FALSE
 
-	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
+	var/mob/living/carbon/monkey/new_monkey = new /mob/living/carbon/monkey( loc )
 
 	// Make it be able to be turned back into a human with mutadone
-	O.natural = FALSE
-	O.check_if_natural()
+	new_monkey.natural = FALSE
+	new_monkey.check_if_natural()
 	// hash the original name?
 	if(tr_flags & TR_HASHNAME)
-		O.name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
-		O.real_name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
+		new_monkey.name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
+		new_monkey.real_name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
 
 	//handle DNA and other attributes
-	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
-	O.set_species(/datum/species/monkey)
-	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(RACEMUT))
-	O.updateappearance(icon_update=0)
+	dna.transfer_identity(new_monkey, tr_flags & TR_KEEPSE)
+	new_monkey.set_species(/datum/species/monkey)
+	new_monkey.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(RACEMUT))
+	new_monkey.updateappearance(icon_update=0)
 
 	//store original species
 	if(keep_original_species)
-		for(var/datum/mutation/race/M in O.dna.mutations)
+		for(var/datum/mutation/race/M in new_monkey.dna.mutations)
 			if(!isnull(dna.species))
 				M.original_species = dna.species.type
 			break //Can't be more than one monkified in a DNA set so, no need to continue the loop
 
 	if(suiciding)
-		O.set_suicide(suiciding)
-	O.a_intent = INTENT_HARM
+		new_monkey.set_suicide(suiciding)
+	new_monkey.a_intent = INTENT_HARM
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
-		O.diseases = diseases
+		new_monkey.diseases = diseases
 		diseases = list()
-		for(var/thing in O.diseases)
+		for(var/thing in new_monkey.diseases)
 			var/datum/disease/D = thing
-			D.affected_mob = O
+			D.affected_mob = new_monkey
 
 	//keep damage?
 	if (tr_flags & TR_KEEPDAMAGE)
-		O.setToxLoss(getToxLoss(), 0)
-		O.adjustBruteLoss(getBruteLoss(), 0)
-		O.setOxyLoss(getOxyLoss(), 0)
-		O.setCloneLoss(getCloneLoss(), 0)
-		O.adjustFireLoss(getFireLoss(), 0)
-		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
-		O.updatehealth()
-		O.radiation = radiation
+		new_monkey.setToxLoss(getToxLoss(), 0)
+		new_monkey.adjustBruteLoss(getBruteLoss(), 0)
+		new_monkey.setOxyLoss(getOxyLoss(), 0)
+		new_monkey.setCloneLoss(getCloneLoss(), 0)
+		new_monkey.adjustFireLoss(getFireLoss(), 0)
+		new_monkey.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
+		new_monkey.updatehealth()
+		new_monkey.radiation = radiation
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
 		for(var/obj/item/implant/IMP as anything in implants)
-			IMP.transfer_implant(src, O)
+			IMP.transfer_implant(src, new_monkey)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
+		for(var/X in new_monkey.getOrgansList())
 			var/obj/item/organ/I = X
-			I.Remove(O, 1)
+			I.Remove(new_monkey, 1)
 
 		if(mind)
-			mind.transfer_to(O)
-			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
+			mind.transfer_to(new_monkey)
+			var/datum/antagonist/changeling/changeling = new_monkey.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
 				var/datum/action/changeling/humanform/hf = new
 				changeling.purchasedpowers += hf
 				changeling.regain_powers()
 
-		for(var/X in internal_organs)
+		for(var/X in getOrgansList())
 			var/obj/item/organ/I = X
-			int_organs += I
+			original_organs += I
 			I.Remove(src, 1)
 
-		for(var/X in int_organs)
+		for(var/X in original_organs)
 			var/obj/item/organ/I = X
-			I.Insert(O, 1)
+			I.Insert(new_monkey, 1)
 
-	var/obj/item/bodypart/chest/torso = O.get_bodypart(BODY_ZONE_CHEST)
+	var/obj/item/bodypart/chest/torso = new_monkey.get_bodypart(BODY_ZONE_CHEST)
 	if(cavity_object)
 		torso.cavity_item = cavity_object //cavity item is given to the new chest
-		cavity_object.forceMove(O)
+		cavity_object.forceMove(new_monkey)
 
 	for(var/missing_zone in missing_bodyparts_zones)
-		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
+		var/obj/item/bodypart/BP = new_monkey.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
+			for(var/X in new_monkey.getOrgansList())
 				var/obj/item/organ/G = X
 				if(BP.body_zone == check_zone(G.zone))
 					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
@@ -123,8 +123,8 @@
 
 	//transfer mind if we didn't yet
 	if(mind)
-		mind.transfer_to(O)
-		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
+		mind.transfer_to(new_monkey)
+		var/datum/antagonist/changeling/changeling = new_monkey.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			var/datum/action/changeling/humanform/hf = new
 			changeling.purchasedpowers += hf
@@ -134,22 +134,22 @@
 	//if we have an AI, transfer it; if we don't, make sure the new thing doesn't either
 	if(tr_flags & TR_KEEPAI)
 		if(ai_controller)
-			ai_controller.PossessPawn(O)
-		else if(O.ai_controller)
-			QDEL_NULL(O.ai_controller)
+			ai_controller.PossessPawn(new_monkey)
+		else if(new_monkey.ai_controller)
+			QDEL_NULL(new_monkey.ai_controller)
 
 	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now a monkey.</B>")
-	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
+		to_chat(new_monkey, "<B>You are now a monkey.</B>")
+	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, new_monkey)
 
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
-			loc.vars[A] = O
+			loc.vars[A] = new_monkey
 
-	O.update_sight()
-	transfer_observers_to(O)
+	new_monkey.update_sight()
+	transfer_observers_to(new_monkey)
 
-	. = O
+	. = new_monkey
 
 	qdel(src)
 
@@ -161,7 +161,7 @@
 	//Handle items on mob
 
 	//first organs
-	var/list/int_organs = list()
+	var/list/original_organs = list()
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 
 	var/obj/item/cavity_object
@@ -187,83 +187,83 @@
 	sleep(TRANSFORMATION_DURATION)
 	transformation_timer = FALSE
 
-	var/mob/living/carbon/monkey/tumor/O = new /mob/living/carbon/monkey/tumor( loc )
+	var/mob/living/carbon/monkey/tumor/new_toma = new /mob/living/carbon/monkey/tumor( loc )
 
 	// hash the original name?
 	if(tr_flags & TR_HASHNAME)
-		O.name = "living teratoma ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
-		O.real_name = "living teratoma ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
+		new_toma.name = "living teratoma ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
+		new_toma.real_name = "living teratoma ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
 
 	//handle DNA and other attributes
-	dna.transfer_identity(O)
-	O.dna.species.species_traits += NOTRANSSTING
-	O.updateappearance(icon_update=0)
+	dna.transfer_identity(new_toma)
+	new_toma.dna.species.species_traits += NOTRANSSTING
+	new_toma.updateappearance(icon_update=0)
 
 	if(tr_flags & TR_KEEPSE)
-		O.dna.mutation_index = dna.mutation_index
-		O.dna.set_se(1, GET_INITIALIZED_MUTATION(RACEMUT))
+		new_toma.dna.mutation_index = dna.mutation_index
+		new_toma.dna.set_se(1, GET_INITIALIZED_MUTATION(RACEMUT))
 
 	if(suiciding)
-		O.set_suicide(suiciding)
-	O.a_intent = INTENT_HARM
+		new_toma.set_suicide(suiciding)
+	new_toma.a_intent = INTENT_HARM
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
-		O.diseases = diseases
+		new_toma.diseases = diseases
 		diseases = list()
-		for(var/thing in O.diseases)
+		for(var/thing in new_toma.diseases)
 			var/datum/disease/D = thing
-			D.affected_mob = O
+			D.affected_mob = new_toma
 
 	//keep damage?
 	if (tr_flags & TR_KEEPDAMAGE)
-		O.setToxLoss(getToxLoss(), 0)
-		O.adjustBruteLoss(getBruteLoss(), 0)
-		O.setOxyLoss(getOxyLoss(), 0)
-		O.setCloneLoss(getCloneLoss(), 0)
-		O.adjustFireLoss(getFireLoss(), 0)
-		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
-		O.updatehealth()
-		O.radiation = radiation
+		new_toma.setToxLoss(getToxLoss(), 0)
+		new_toma.adjustBruteLoss(getBruteLoss(), 0)
+		new_toma.setOxyLoss(getOxyLoss(), 0)
+		new_toma.setCloneLoss(getCloneLoss(), 0)
+		new_toma.adjustFireLoss(getFireLoss(), 0)
+		new_toma.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
+		new_toma.updatehealth()
+		new_toma.radiation = radiation
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
 		for(var/obj/item/implant/IMP as anything in implants)
-			IMP.transfer_implant(src, O)
+			IMP.transfer_implant(src, new_toma)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
+		for(var/X in new_toma.getOrgansList())
 			var/obj/item/organ/I = X
-			I.Remove(O, 1)
+			I.Remove(new_toma, 1)
 
 		if(mind)
-			mind.transfer_to(O)
-			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
+			mind.transfer_to(new_toma)
+			var/datum/antagonist/changeling/changeling = new_toma.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
 				var/datum/action/changeling/humanform/hf = new
 				changeling.purchasedpowers += hf
 				changeling.regain_powers()
 
-		for(var/X in internal_organs)
+		for(var/X in getOrgansList())
 			var/obj/item/organ/I = X
-			int_organs += I
+			original_organs += I
 			I.Remove(src, 1)
 
-		for(var/X in int_organs)
+		for(var/X in original_organs)
 			var/obj/item/organ/I = X
-			I.Insert(O, 1)
+			I.Insert(new_toma, 1)
 
-	var/obj/item/bodypart/chest/torso = O.get_bodypart(BODY_ZONE_CHEST)
+	var/obj/item/bodypart/chest/torso = new_toma.get_bodypart(BODY_ZONE_CHEST)
 	if(cavity_object)
 		torso.cavity_item = cavity_object //cavity item is given to the new chest
-		cavity_object.forceMove(O)
+		cavity_object.forceMove(new_toma)
 
 	for(var/missing_zone in missing_bodyparts_zones)
-		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
+		var/obj/item/bodypart/BP = new_toma.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
+			for(var/X in new_toma.getOrgansList())
 				var/obj/item/organ/G = X
 				if(BP.body_zone == check_zone(G.zone))
 					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
@@ -273,8 +273,8 @@
 
 	//transfer mind if we didn't yet
 	if(mind)
-		mind.transfer_to(O)
-		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
+		mind.transfer_to(new_toma)
+		var/datum/antagonist/changeling/changeling = new_toma.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			var/datum/action/changeling/humanform/hf = new
 			changeling.purchasedpowers += hf
@@ -282,17 +282,17 @@
 
 
 	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now a living teratoma.</B>")
+		to_chat(new_toma, "<B>You are now a living teratoma.</B>")
 
-	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
+	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, new_toma)
 
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
-			loc.vars[A] = O
+			loc.vars[A] = new_toma
 
-	transfer_observers_to(O)
+	transfer_observers_to(new_toma)
 
-	. = O
+	. = new_toma
 
 	qdel(src)
 
@@ -303,7 +303,7 @@
 	if (notransform || transformation_timer)
 		return
 
-	var/list/int_organs = list()
+	var/list/original_organs = list()
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 
@@ -331,86 +331,86 @@
 	sleep(TRANSFORMATION_DURATION)
 	transformation_timer = FALSE
 
-	var/mob/living/carbon/human/O = new( loc )
-	for(var/obj/item/C in O.loc)
+	var/mob/living/carbon/human/new_human = new( loc )
+	for(var/obj/item/C in new_human.loc)
 		if(C.anchored)
 			continue
-		O.equip_to_appropriate_slot(C)
+		new_human.equip_to_appropriate_slot(C)
 
-	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
-	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
+	dna.transfer_identity(new_human, tr_flags & TR_KEEPSE)
+	new_human.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
 	//Reset offsets to match human settings, in-case they have been changed
-	O.dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
-	O.updateappearance(mutcolor_update=1)
+	new_human.dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
+	new_human.updateappearance(mutcolor_update=1)
 
-	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
-		O.real_name = random_unique_name(O.gender)
-		O.dna.generate_unique_enzymes(O)
+	if(findtext(new_human.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
+		new_human.real_name = random_unique_name(new_human.gender)
+		new_human.dna.generate_unique_enzymes(new_human)
 	else
-		O.real_name = O.dna.real_name
-	O.name = O.real_name
+		new_human.real_name = new_human.dna.real_name
+	new_human.name = new_human.real_name
 
 	if(suiciding)
-		O.set_suicide(suiciding)
+		new_human.set_suicide(suiciding)
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
-		O.diseases = diseases
+		new_human.diseases = diseases
 		diseases = list()
-		for(var/thing in O.diseases)
+		for(var/thing in new_human.diseases)
 			var/datum/disease/D = thing
-			D.affected_mob = O
-		O.med_hud_set_status()
+			D.affected_mob = new_human
+		new_human.med_hud_set_status()
 
 	//keep damage?
 	if (tr_flags & TR_KEEPDAMAGE)
-		O.setToxLoss(getToxLoss(), 0)
-		O.adjustBruteLoss(getBruteLoss(), 0)
-		O.setOxyLoss(getOxyLoss(), 0)
-		O.setCloneLoss(getCloneLoss(), 0)
-		O.adjustFireLoss(getFireLoss(), 0)
-		O.adjustOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
-		O.updatehealth()
-		O.radiation = radiation
+		new_human.setToxLoss(getToxLoss(), 0)
+		new_human.adjustBruteLoss(getBruteLoss(), 0)
+		new_human.setOxyLoss(getOxyLoss(), 0)
+		new_human.setCloneLoss(getCloneLoss(), 0)
+		new_human.adjustFireLoss(getFireLoss(), 0)
+		new_human.adjustOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
+		new_human.updatehealth()
+		new_human.radiation = radiation
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
 		for(var/obj/item/implant/IMP as anything in implants)
-			IMP.transfer_implant(src, O)
+			IMP.transfer_implant(src, new_human)
 
 	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
+		for(var/X in new_human.getOrgansList())
 			var/obj/item/organ/I = X
-			I.Remove(O, 1)
+			I.Remove(new_human, 1)
 
 		if(mind)
-			mind.transfer_to(O)
-			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
+			mind.transfer_to(new_human)
+			var/datum/antagonist/changeling/changeling = new_human.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
 				for(var/datum/action/changeling/humanform/HF in changeling.purchasedpowers)
 					changeling.purchasedpowers -= HF
 					changeling.regain_powers()
 
-		for(var/X in internal_organs)
+		for(var/X in getOrgansList())
 			var/obj/item/organ/I = X
-			int_organs += I
+			original_organs += I
 			I.Remove(src, 1)
 
-		for(var/X in int_organs)
+		for(var/X in original_organs)
 			var/obj/item/organ/I = X
-			I.Insert(O, 1)
+			I.Insert(new_human, 1)
 
 
 	var/obj/item/bodypart/chest/torso = get_bodypart(BODY_ZONE_CHEST)
 	if(cavity_object)
 		torso.cavity_item = cavity_object //cavity item is given to the new chest
-		cavity_object.forceMove(O)
+		cavity_object.forceMove(new_human)
 
 	for(var/missing_zone in missing_bodyparts_zones)
-		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
+		var/obj/item/bodypart/BP = new_human.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
+			for(var/X in new_human.getOrgansList())
 				var/obj/item/organ/G = X
 				if(BP.body_zone == check_zone(G.zone))
 					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
@@ -419,8 +419,8 @@
 		qdel(BP)
 
 	if(mind)
-		mind.transfer_to(O)
-		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
+		mind.transfer_to(new_human)
+		var/datum/antagonist/changeling/changeling = new_human.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			for(var/datum/action/changeling/humanform/HF in changeling.purchasedpowers)
 				changeling.purchasedpowers -= HF
@@ -429,40 +429,40 @@
 	//if we have an AI, transfer it; if we don't, make sure the new thing doesn't either
 	if(tr_flags & TR_KEEPAI)
 		if(ai_controller)
-			ai_controller.PossessPawn(O)
-		else if(O.ai_controller)
-			QDEL_NULL(O.ai_controller)
+			ai_controller.PossessPawn(new_human)
+		else if(new_human.ai_controller)
+			QDEL_NULL(new_human.ai_controller)
 
 	if(keep_original_species && isnull(original_species))
 		original_species = /datum/species/human
 
-	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
-		if(isnull(O.dna.species))
-			O.set_species(/datum/species/human)
+	if(new_human.dna.species && !istype(new_human.dna.species, /datum/species/monkey))
+		if(isnull(new_human.dna.species))
+			new_human.set_species(/datum/species/human)
 		else
-			O.set_species(O.dna.species)
+			new_human.set_species(new_human.dna.species)
 	else
 		if(keep_original_species)
 			if(isnull(original_species) || !ispath(original_species, /datum/species))
-				O.set_species(/datum/species/human)
+				new_human.set_species(/datum/species/human)
 			else
-				O.set_species(original_species)
+				new_human.set_species(original_species)
 		else
-			O.set_species(/datum/species/human)
+			new_human.set_species(/datum/species/human)
 
-	O.a_intent = INTENT_HELP
+	new_human.a_intent = INTENT_HELP
 	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
+		to_chat(new_human, "<B>You are now \a [new_human.dna.species]].</B>")
 
-	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
+	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, new_human)
 
-	transfer_observers_to(O)
+	transfer_observers_to(new_human)
 
-	. = O
+	. = new_human
 
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
-			loc.vars[A] = O
+			loc.vars[A] = new_human
 
 	qdel(src)
 
@@ -541,7 +541,7 @@
 		R.mmi.transfer_identity(src)
 
 	R.notify_ai(NEW_BORG)
-	
+
 	. = R
 	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))
 		INVOKE_ASYNC(R, TYPE_PROC_REF(/mob/living/silicon/robot, replace_banned_cyborg))

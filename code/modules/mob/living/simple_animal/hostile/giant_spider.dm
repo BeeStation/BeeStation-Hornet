@@ -13,8 +13,9 @@
 	. = ..()
 	if(. && isliving(target))
 		var/mob/living/L = target
-		if(poison_per_bite && L.reagents)
-			L.reagents.add_reagent(poison_type, poison_per_bite)
+		var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+		if(poison_per_bite && mob_reagent_holder)
+			mob_reagent_holder.add_reagent(poison_type, poison_per_bite)
 
 //The base "Spider" mob
 /mob/living/simple_animal/hostile/poison/giant_spider

@@ -333,7 +333,8 @@
 
 /obj/item/organ/heart/gland/chem/activate()
 	var/chem_to_add = pick(possible_reagents)
-	owner.reagents.add_reagent(chem_to_add, 2)
+	var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
+	mob_reagent_holder.add_reagent(chem_to_add, 2)
 	owner.adjustToxLoss(-2, TRUE, TRUE)
 	..()
 

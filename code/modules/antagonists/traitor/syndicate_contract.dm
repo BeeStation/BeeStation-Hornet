@@ -165,7 +165,8 @@
 
 	if (M.stat != DEAD)
 		// Heal them up - gets them out of crit/soft crit.
-		M.reagents.add_reagent(/datum/reagent/medicine/stabilizing_nanites, 10)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/medicine/stabilizing_nanites, 10)
 		M.flash_act()
 		M.confused += 10
 		M.blur_eyes(5)

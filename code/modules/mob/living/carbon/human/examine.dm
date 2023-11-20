@@ -240,15 +240,16 @@
 	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[t_He] appear[p_s()] faint.\n"
 
+	var/datum/reagents/mob_reagent_holder = get_reagent_holder()
 	if(bleedsuppress)
 		msg += "[t_He] [t_is] bandaged with something.\n"
 	else if(bleed_rate)
-		if(reagents.has_reagent(/datum/reagent/toxin/heparin, needs_metabolizing = TRUE))
+		if(mob_reagent_holder.has_reagent(/datum/reagent/toxin/heparin, needs_metabolizing = TRUE))
 			msg += "<b>[t_He] [t_is] [bleed_msg] uncontrollably!</b>\n"
 		else
 			msg += "<B>[t_He] [t_is] [bleed_msg]!</B>\n"
 
-	if(reagents.has_reagent(/datum/reagent/teslium, needs_metabolizing = TRUE))
+	if(mob_reagent_holder.has_reagent(/datum/reagent/teslium, needs_metabolizing = TRUE))
 		msg += "[t_He] [t_is] emitting a gentle blue glow!\n"
 
 	if(islist(stun_absorption))
@@ -340,7 +341,7 @@
 			. += "<span class='deptradio'>Rank:</span> [target_record.fields["rank"]]\n<a href='?src=[REF(src)];hud=1;photo_front=1;examine_time=[world.time]'>\[Front photo\]</a><a href='?src=[REF(src)];hud=1;photo_side=1;examine_time=[world.time]'>\[Side photo\]</a>"
 		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
 			var/list/cyberimp_detect = list()
-			for(var/obj/item/organ/cyberimp/CI in internal_organs)
+			for(var/obj/item/organ/cyberimp/CI in getOrgansList())
 				if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
 					cyberimp_detect += CI.name
 			if(length(cyberimp_detect))

@@ -43,7 +43,8 @@
 	..()
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.reagents.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
+		var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
 		return
 	if(isanimal(target))
 		var/mob/living/simple_animal/L = target
@@ -103,7 +104,8 @@
 			L.Paralyze(50)
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
-				C.reagents.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
+				var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+				mob_reagent_holder.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
 			if(isanimal(L))
 				var/mob/living/simple_animal/A = L
 				A.adjustHealth(25)

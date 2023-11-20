@@ -136,7 +136,8 @@
 /datum/nanite_program/haste/on_trigger()
 	to_chat(host_mob, "<span class='notice'>Your body feels lighter and your legs feel relaxed!</span>")
 	host_mob.set_resting(FALSE)
-	host_mob.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 3)
+	var/datum/reagents/mob_reagent_holder = host_mob.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/medicine/amphetamine, 3)
 
 /datum/nanite_program/armblade
 	name = "Nanite Blade"

@@ -135,7 +135,7 @@
 			var/mob/living/carbon/C = old_body
 			for(var/obj/item/W in C)
 				C.dropItemToGround(W)
-			for(var/X in C.internal_organs)
+			for(var/X in C.getOrgansList())
 				var/obj/item/organ/I = X
 				I.Remove(C)
 				I.forceMove(body_turf)

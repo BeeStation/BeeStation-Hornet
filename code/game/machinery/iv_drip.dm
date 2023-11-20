@@ -144,8 +144,9 @@
 					// speed up transfer on blood packs
 					transfer_amount *= 2
 				var/fraction = min(transfer_amount*delta_time/beaker.reagents.total_volume, 1) //the fraction that is transfered of the total volume
+				var/datum/reagents/mob_reagent_holder = attached.get_reagent_holder()
 				beaker.reagents.reaction(attached, INJECT, fraction, FALSE) //make reagents reacts, but don't spam messages
-				beaker.reagents.trans_to(attached, transfer_amount)
+				beaker.reagents.trans_to(mob_reagent_holder, transfer_amount)
 				update_icon()
 
 		// Take blood

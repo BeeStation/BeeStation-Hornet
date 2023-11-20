@@ -140,7 +140,8 @@
 
 	if(purge_toxins)
 		var/list/reagents_purged = list()
-		for(var/datum/reagent/reagent in target.reagents.reagent_list)
+		var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
+		for(var/datum/reagent/reagent in mob_reagent_holder.reagent_list)
 			var/remove = FALSE
 			if(istype(reagent, /datum/reagent/toxin))
 				var/datum/reagent/toxin/toxin_reagent = reagent
@@ -152,7 +153,7 @@
 				remove = TRUE
 			if(remove)
 				reagents_purged |= "[reagent.type]"
-				target.reagents.remove_reagent(reagent.type, actual_purge_amt)
+				mob_reagent_holder.remove_reagent(reagent.type, actual_purge_amt)
 		if(length(reagents_purged))
 			SSblackbox.record_feedback("nested tally", "holoparasite_reagents_purged", 1, reagents_purged)
 	if(heal_debuffs)

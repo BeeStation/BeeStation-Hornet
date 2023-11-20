@@ -780,7 +780,8 @@ Striking a noncultist, however, will tear their flesh."}
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			if(H.stat != DEAD)
-				H.reagents.add_reagent(/datum/reagent/fuel/unholywater, 4)
+				var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+				mob_reagent_holder.add_reagent(/datum/reagent/fuel/unholywater, 4)
 		if(isshade(target) || isconstruct(target))
 			var/mob/living/simple_animal/M = target
 			if(M.health+5 < M.maxHealth)
@@ -883,7 +884,8 @@ Striking a noncultist, however, will tear their flesh."}
 					if(ishuman(target))
 						var/mob/living/carbon/human/H = target
 						if(H.stat != DEAD)
-							H.reagents.add_reagent(/datum/reagent/fuel/unholywater, 7)
+							var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+							mob_reagent_holder.add_reagent(/datum/reagent/fuel/unholywater, 7)
 					if(isshade(target) || isconstruct(target))
 						var/mob/living/simple_animal/M = target
 						if(M.health+15 < M.maxHealth)

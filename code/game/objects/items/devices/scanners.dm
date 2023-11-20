@@ -349,7 +349,7 @@ GENE SCANNER
 		var/report_organs = FALSE
 
 		//Piece together the lists to be reported
-		for(var/O in H.internal_organs)
+		for(var/O in H.getOrgansList())
 			var/obj/item/organ/organ = O
 			if(organ.organ_flags & ORGAN_FAILING)
 				report_organs = TRUE	//if we report one organ, we report all organs, even if the lists are empty, just for consistency
@@ -466,7 +466,7 @@ GENE SCANNER
 				message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_type]</span>"
 
 		var/list/cyberimp_detect = list()
-		for(var/obj/item/organ/cyberimp/CI in C.internal_organs)
+		for(var/obj/item/organ/cyberimp/CI in C.getOrgansList())
 			if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
 				cyberimp_detect += CI.name
 		if(length(cyberimp_detect))
@@ -484,16 +484,17 @@ GENE SCANNER
 	if(!istype(M))
 		return
 	var/message = list()
-	if(M.reagents)
-		if(M.reagents.reagent_list.len)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	if(mob_reagent_holder)
+		if(mob_reagent_holder.reagent_list.len)
 			message += "<span class='notice'>Subject contains the following reagents:</span>"
-			for(var/datum/reagent/R in M.reagents.reagent_list)
+			for(var/datum/reagent/R in mob_reagent_holder.reagent_list)
 				message += "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]"
 		else
 			message += "<span class='notice'>Subject contains no reagents.</span>"
-		if(M.reagents.addiction_list.len)
+		if(mob_reagent_holder.addiction_list.len)
 			message += "<span class='boldannounce'>Subject is addicted to the following reagents:</span>"
-			for(var/datum/reagent/R in M.reagents.addiction_list)
+			for(var/datum/reagent/R in mob_reagent_holder.addiction_list)
 				message += "<span class='alert'>[R.name]</span>"
 		else
 			message += "<span class='notice'>Subject is not addicted to any reagents.</span>"

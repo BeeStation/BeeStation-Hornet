@@ -18,10 +18,11 @@
 
 /datum/reagent/blob/cryogenic_poison/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()
-	if(M.reagents)
-		M.reagents.add_reagent(/datum/reagent/consumable/frostoil, 0.3*reac_volume)
-		M.reagents.add_reagent(/datum/reagent/consumable/ice, 0.3*reac_volume)
-		M.reagents.add_reagent(/datum/reagent/blob/cryogenic_poison, 0.3*reac_volume)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	if(mob_reagent_holder)
+		mob_reagent_holder.add_reagent(/datum/reagent/consumable/frostoil, 0.3*reac_volume)
+		mob_reagent_holder.add_reagent(/datum/reagent/consumable/ice, 0.3*reac_volume)
+		mob_reagent_holder.add_reagent(/datum/reagent/blob/cryogenic_poison, 0.3*reac_volume)
 	M.apply_damage(0.2*reac_volume, BRUTE)
 
 /datum/reagent/blob/cryogenic_poison/on_mob_life(mob/living/carbon/M)

@@ -25,6 +25,10 @@
 /mob/proc/getorganslot(slot)
 	return
 
+/// returns a list of organs that a mob(carbon) has, but excludes an organ that has a flag (usually ORGAN_ABSTRACT)
+/mob/proc/getOrgansList(excluding_flags=NONE)
+	return
+
 /mob/living/carbon/getorgan(typepath)
 	return (locate(typepath) in internal_organs)
 
@@ -45,3 +49,13 @@
 
 /mob/living/carbon/getorganslot(slot)
 	return internal_organs_slot[slot]
+
+/mob/living/carbon/getOrgansList(excluding_flags=NONE)
+	if(!excluding_flags)
+		return internal_organs
+
+	. = list()
+	for(var/obj/item/organ/each_organ in internal_organs)
+		if(each_organ.organ_flags & excluding_flags)
+			continue
+		. += each_organ

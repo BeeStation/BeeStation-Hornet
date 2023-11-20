@@ -12,11 +12,12 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(!target.reagents)
+	var/datum/reagents/target_reagent_holder = target.get_reagent_holder()
+	if(!target_reagent_holder)
 		return
 
 	if(reagents.total_volume > 0)
-		if(target.reagents.total_volume >= target.reagents.maximum_volume)
+		if(target_reagent_holder.total_volume >= target_reagent_holder.maximum_volume)
 			to_chat(user, "<span class='notice'>[target] is full.</span>")
 			return
 
@@ -62,7 +63,7 @@
 
 			log_combat(user, M, "squirted", R)
 
-		trans = src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
+		trans = src.reagents.trans_to(target_reagent_holder, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution.</span>")
 		update_icon()
 
@@ -72,11 +73,11 @@
 			to_chat(user, "<span class='notice'>You cannot directly remove reagents from [target].</span>")
 			return
 
-		if(!target.reagents.total_volume)
+		if(!target_reagent_holder.total_volume)
 			to_chat(user, "<span class='warning'>[target] is empty!</span>")
 			return
 
-		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
+		var/trans = target_reagent_holder.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
 
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the solution.</span>")
 

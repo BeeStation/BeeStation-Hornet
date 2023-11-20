@@ -29,8 +29,8 @@
 
 	if(damage < low_threshold)
 		return
-
-	nutriment = locate(/datum/reagent/consumable/nutriment) in H.reagents.reagent_list
+	var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+	nutriment = locate(/datum/reagent/consumable/nutriment) in mob_reagent_holder.reagent_list
 
 	if(nutriment)
 		if(prob((damage/40) * nutriment.volume * nutriment.volume))

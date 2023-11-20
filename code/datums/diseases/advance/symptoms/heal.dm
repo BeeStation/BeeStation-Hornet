@@ -66,8 +66,9 @@
 		power = 4
 
 /datum/symptom/heal/chem/Heal(mob/living/M, datum/disease/advance/A, actual_power)
-	for(var/datum/reagent/R in M.reagents.reagent_list) //Not just toxins!
-		M.reagents.remove_reagent(R.type, actual_power)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	for(var/datum/reagent/R in mob_reagent_holder.reagent_list) //Not just toxins!
+		mob_reagent_holder.remove_reagent(R.type, actual_power)
 		if(food_conversion)
 			M.adjust_nutrition(0.3)
 		if(prob(2))
@@ -252,9 +253,10 @@
 /datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
 	if(!istype(C))
 		return
-	C.reagents.metabolize(C, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+	mob_reagent_holder.metabolize(C, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
 	if(triple_metabolism)
-		C.reagents.metabolize(C, can_overdose=TRUE)
+		mob_reagent_holder.metabolize(C, can_overdose=TRUE)
 	C.overeatduration = max(C.overeatduration - 2, 0)
 	var/lost_nutrition = 9 - (reduced_hunger * 5)
 	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
@@ -311,7 +313,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			M.emp_act(EMP_HEAVY)
 			if(cellheal)
 				M.adjustCloneLoss(-30)
-				M.reagents.add_reagent(/datum/reagent/medicine/mutadone = 1)
+				var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+				mob_reagent_holder.add_reagent(/datum/reagent/medicine/mutadone = 1)
 			if(bigemp)
 				empulse(M.loc, 0, 1)
 			to_chat(M, "<span class='userdanger'>[pick("Your mind fills with static!", "You feel a jolt!", "Your sense of direction flickers out!")]</span>")
@@ -369,8 +372,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(bigsweat)
 				var/obj/effect/sweatsplash/S = new(M.loc)
 				if(toxheal)
-					for(var/datum/reagent/R in M.reagents.reagent_list) //Not just toxins!
-						M.reagents.remove_reagent(R.type, 5)
+					var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+					for(var/datum/reagent/R in mob_reagent_holder.reagent_list) //Not just toxins!
+						mob_reagent_holder.remove_reagent(R.type, 5)
 						S.reagents.add_reagent(R.type, 5)
 					M.adjustToxLoss(-20, forced = TRUE)
 				if(ammonia)

@@ -370,7 +370,8 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/silverspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
-		C.reagents.add_reagent(/datum/reagent/consumable/nutriment, 100)
+		var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/consumable/nutriment, 100)
 		activated_on_step = TRUE
 	. = ..()
 
@@ -692,9 +693,10 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/oilspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
+		var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
 		var/amt = rand(4,12)
-		C.reagents.add_reagent(/datum/reagent/water, amt)
-		C.reagents.add_reagent(/datum/reagent/potassium, amt)
+		mob_reagent_holder.add_reagent(/datum/reagent/water, amt)
+		mob_reagent_holder.add_reagent(/datum/reagent/potassium, amt)
 		activated_on_step = TRUE
 	. = ..()
 
@@ -747,7 +749,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/lightpinkspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
-		C.reagents.add_reagent(/datum/reagent/pax, 10)
+		var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/pax, 10)
 		activated_on_step = TRUE
 	. = ..()
 

@@ -81,7 +81,8 @@
 	L.SetSleeping(0, FALSE)
 	L.SetUnconscious(0, FALSE)
 	L.adjustOxyLoss(-50)// do CPR first
-	L.reagents.remove_reagent(/datum/reagent/toxin/chloralhydrate, 100)
+	var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+	mob_reagent_holder.remove_reagent(/datum/reagent/toxin/chloralhydrate, 100)
 	if(L.blood_volume <= 500) //bandage them up and give em some blood if they're bleeding
 		L.blood_volume += 30
 		L.suppress_bloodloss(1800)

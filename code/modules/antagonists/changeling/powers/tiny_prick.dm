@@ -253,8 +253,9 @@
 
 /datum/action/changeling/sting/cryo/sting_action(mob/user, mob/target)
 	log_combat(user, target, "stung", "cryo sting")
-	if(target.reagents)
-		target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 20)
+	var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
+	if(mob_reagent_holder)
+		mob_reagent_holder.add_reagent(/datum/reagent/consumable/frostoil, 20)
 	return TRUE
 
 #undef TRANSFORM_STING_COOLDOWN

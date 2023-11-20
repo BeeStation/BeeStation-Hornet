@@ -199,13 +199,14 @@
 	if(!istype(M))
 		return
 
-	if(reagents?.total_volume && M.reagents)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	if(reagents?.total_volume && mob_reagent_holder)
 		// Obvious message to other people, so that they can call out suspicious activity.
 		to_chat(user, "<span class='notice'>You prepare to engage the sleepy pen's internal mechanism!</span>")
 		if (!do_after(user, 0.5 SECONDS, M) || !..())
 			to_chat(user, "<span class='warning'>You fail to engage the sleepy pen mechanism!</span>")
 			return
-		reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
+		reagents.trans_to(mob_reagent_holder, reagents.total_volume, transfered_by = user, method = INJECT)
 		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='notice'>You successfully inject [M] with the pen's contents!</span>", vision_distance = COMBAT_MESSAGE_RANGE, ignored_mobs = list(M))
 		// Looks like a normal pen once it has been used
 		qdel(reagents)

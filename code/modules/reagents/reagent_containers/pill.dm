@@ -54,8 +54,9 @@
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), M, "<span class='notice'>[makes_me_think]</span>"), 5 SECONDS)
 
 	if(reagents.total_volume)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
 		reagents.reaction(M, apply_type, affecting = affecting)
-		reagents.trans_to(M, reagents.total_volume, transfered_by = user)
+		reagents.trans_to(mob_reagent_holder, reagents.total_volume, transfered_by = user)
 	qdel(src)
 	return TRUE
 

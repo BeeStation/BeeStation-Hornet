@@ -189,7 +189,8 @@
 	. = ..()
 	if(.)
 		update_time_of_death()
-		owner.reagents?.end_metabolization(owner, FALSE)
+		var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
+		mob_reagent_holder?.end_metabolization(owner, FALSE)
 		SEND_SIGNAL(owner, COMSIG_LIVING_ENTER_STASIS)
 
 /datum/status_effect/grouped/stasis/on_apply()
@@ -264,15 +265,17 @@
 /datum/status_effect/syringe/on_apply()
 	. = ..()
 	var/amount = syringe.initial_inject
+	var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
 	syringe.reagents.reaction(owner, INJECT)
-	syringe.reagents.trans_to(owner, max(3.1, amount * injectmult))
+	syringe.reagents.trans_to(mob_reagent_holder, max(3.1, amount * injectmult))
 	owner.throw_alert("syringealert", /atom/movable/screen/alert/syringe)
 
 /datum/status_effect/syringe/tick()
 	. = ..()
 	var/amount = syringe.units_per_tick
+	var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
 	syringe.reagents.reaction(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
-	syringe.reagents.trans_to(owner, amount * injectmult)
+	syringe.reagents.trans_to(mob_reagent_holder, amount * injectmult)
 
 
 /atom/movable/screen/alert/syringe
@@ -306,8 +309,9 @@
 			else
 				to_chat(C, "<span class='userdanger'>You screw up, and inject yourself with more chemicals by mistake!</span>")
 				var/amount = syringe.initial_inject
+				var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
 				syringe.reagents.reaction(C, INJECT)
-				syringe.reagents.trans_to(C, amount)
+				syringe.reagents.trans_to(mob_reagent_holder, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)
 		if(!C.has_status_effect(STATUS_EFFECT_SYRINGE))
@@ -378,8 +382,9 @@
 	return ..()
 
 /datum/status_effect/cultghost/tick()
-	if(owner.reagents)
-		owner.reagents.del_reagent(/datum/reagent/water/holywater) //can't be deconverted
+	var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
+	if(mob_reagent_holder)
+		mob_reagent_holder.del_reagent(/datum/reagent/water/holywater) //can't be deconverted
 
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
@@ -1274,7 +1279,8 @@
 
 /datum/status_effect/ling_transformation/tick()
 	. = ..()
-	if(owner.reagents.has_reagent(/datum/reagent/medicine/clonexadone))
+	var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
+	if(mob_reagent_holder.has_reagent(/datum/reagent/medicine/clonexadone))
 		charge_left--
 		if(prob(4))
 			to_chat(owner, "<span class='notice'>You begin to feel slightly more like yourself...</span>")

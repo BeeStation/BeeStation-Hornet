@@ -121,7 +121,8 @@ Burning extracts:
 	user.visible_message("<span class='danger'>[src] releases a burst of chilling smoke!</span>")
 	var/datum/reagents/R = new/datum/reagents(100)
 	R.add_reagent(/datum/reagent/consumable/frostoil, 40)
-	user.reagents.add_reagent(/datum/reagent/medicine/cryoxadone,10)
+	var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/medicine/cryoxadone,10)
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	smoke.set_up(R, 7, get_turf(user))
 	smoke.start()
@@ -289,7 +290,8 @@ Burning extracts:
 /obj/item/slimecross/burning/lightpink/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] lets off a hypnotizing pink glow!</span>")
 	for(var/mob/living/carbon/C in hearers(7, get_turf(user)))
-		C.reagents.add_reagent(/datum/reagent/pax,5)
+		var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/pax,5)
 	..()
 
 /obj/item/slimecross/burning/adamantine

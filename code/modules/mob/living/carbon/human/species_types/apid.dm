@@ -72,7 +72,8 @@
 /datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+		mob_reagent_holder.remove_reagent(chem.type, chem.metabolization_rate)
 		return FALSE
 	return ..()
 

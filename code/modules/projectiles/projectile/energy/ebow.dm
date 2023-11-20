@@ -36,8 +36,9 @@
 		if(blocked != 100) // not completely blocked
 			if(M.can_inject(null, FALSE, def_zone,)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
+				var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
 				reagents.reaction(M, INJECT)
-				reagents.trans_to(M, reagents.total_volume)
+				reagents.trans_to(mob_reagent_holder, reagents.total_volume)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 170)
 				M.confused += 3
 				return BULLET_ACT_HIT

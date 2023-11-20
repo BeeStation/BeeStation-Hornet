@@ -193,8 +193,9 @@
 
 
 /datum/reagent/cryostylane/on_mob_life(mob/living/carbon/M) //TODO: code freezing into an ice cube
-	if(M.reagents.has_reagent(/datum/reagent/oxygen))
-		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	if(mob_reagent_holder.has_reagent(/datum/reagent/oxygen))
+		mob_reagent_holder.remove_reagent(/datum/reagent/oxygen, 0.5)
 		M.adjust_bodytemperature(-15)
 	..()
 
@@ -215,8 +216,9 @@
 
 
 /datum/reagent/pyrosium/on_mob_life(mob/living/carbon/M)
-	if(M.reagents.has_reagent(/datum/reagent/oxygen))
-		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	if(mob_reagent_holder.has_reagent(/datum/reagent/oxygen))
+		mob_reagent_holder.remove_reagent(/datum/reagent/oxygen, 0.5)
 		M.adjust_bodytemperature(15)
 	..()
 

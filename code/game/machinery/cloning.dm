@@ -619,9 +619,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 				BP.forceMove(src)
 				unattached_flesh += BP
 
-	for(var/o in H.internal_organs)
+ 	// we'll remove non-vital, non-abstract organs, and these will be given to this clone once the clone process is completed.
+	for(var/o in H.getOrgansList(ORGAN_VITAL | ORGAN_ABSTRACT))
 		var/obj/item/organ/organ = o
-		if(!istype(organ) || (organ.organ_flags & ORGAN_VITAL))
+		if(!istype(organ))
 			continue
 		organ.organ_flags |= ORGAN_FROZEN
 		organ.Remove(H, special=TRUE)

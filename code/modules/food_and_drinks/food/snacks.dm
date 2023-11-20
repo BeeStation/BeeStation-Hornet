@@ -105,7 +105,8 @@ All foods are distributed among various categories. Use common sense.
 			return FALSE
 
 		var/fullness = M.nutrition + 10
-		for(var/datum/reagent/consumable/C in M.reagents.reagent_list) //we add the nutrition value of what we're currently digesting
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		for(var/datum/reagent/consumable/C in mob_reagent_holder.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / C.metabolization_rate
 
 		if(M == user)								//If you're eating it yourself.
@@ -153,7 +154,7 @@ All foods are distributed among various categories. Use common sense.
 				SEND_SIGNAL(src, COMSIG_FOOD_EATEN, M, user)
 				var/fraction = min(bitesize / reagents.total_volume, 1)
 				reagents.reaction(M, INGEST, fraction)
-				reagents.trans_to(M, bitesize, transfered_by = user)
+				reagents.trans_to(mob_reagent_holder, bitesize, transfered_by = user)
 				bitecount++
 				On_Consume(M)
 				checkLiked(fraction, M)

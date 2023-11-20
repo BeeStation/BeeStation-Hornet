@@ -149,7 +149,7 @@
 		user_abductor.team.abductees += H.mind
 		H.mind.add_antag_datum(/datum/antagonist/abductee)
 
-		for(var/obj/item/organ/heart/gland/G in H.internal_organs)
+		for(var/obj/item/organ/heart/gland/G in H.getOrgansList())
 			G.Start()
 			point_reward++
 		if(point_reward > 0)

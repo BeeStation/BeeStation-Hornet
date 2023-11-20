@@ -178,9 +178,10 @@
 			typeofskin = /obj/item/stack/sheet/animalhide/monkey
 		else if(isalien(C))
 			typeofskin = /obj/item/stack/sheet/animalhide/xeno
+	var/datum/reagents/reagent_holder = occupant.get_reagent_holder()
 	var/occupant_volume
-	if(occupant?.reagents)
-		occupant_volume = occupant.reagents.total_volume
+	if(reagent_holder)
+		occupant_volume = reagent_holder.total_volume
 	for (var/i=1 to meat_produced)
 		var/obj/item/reagent_containers/food/snacks/meat/slab/newmeat = new typeofmeat
 		newmeat.name = "[sourcename] [newmeat.name]"

@@ -27,7 +27,8 @@
 /datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+		mob_reagent_holder.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	if(istype(chem, /datum/reagent/consumable))
 		var/datum/reagent/consumable/nutri_check = chem

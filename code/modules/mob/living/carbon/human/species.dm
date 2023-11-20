@@ -453,7 +453,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.setToxLoss(0, TRUE, TRUE)
 
 	if(TRAIT_NOMETABOLISM in inherent_traits)
-		C.reagents.end_metabolization(C, keep_liverless = TRUE)
+		var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+		mob_reagent_holder.end_metabolization(C, keep_liverless = TRUE)
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
@@ -1265,8 +1266,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == exotic_blood)
+		var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
 		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
-		H.reagents.del_reagent(chem.type)
+		mob_reagent_holder.del_reagent(chem.type)
 		return TRUE
 	//This handles dumping unprocessable reagents.
 	var/dump_reagent = TRUE

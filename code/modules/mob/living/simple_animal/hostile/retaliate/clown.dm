@@ -65,8 +65,9 @@
 	. = ..()
 	if(attack_reagent && . && isliving(target))
 		var/mob/living/L = target
-		if(L.reagents)
-			L.reagents.add_reagent(attack_reagent, 5)
+		var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+		if(mob_reagent_holder)
+			mob_reagent_holder.add_reagent(attack_reagent, 5)
 
 /mob/living/simple_animal/hostile/retaliate/clown/lube
 	name = "Living Lube"

@@ -188,8 +188,9 @@
 
 /obj/item/organ/heart/cybernetic/on_life()
 	. = ..()
-	if(dose_available && owner.stat == UNCONSCIOUS && !owner.reagents.has_reagent(rid))
-		owner.reagents.add_reagent(rid, ramount)
+	var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
+	if(dose_available && owner.stat == UNCONSCIOUS && !mob_reagent_holder.has_reagent(rid))
+		mob_reagent_holder.add_reagent(rid, ramount)
 		used_dose()
 
 /obj/item/organ/heart/cybernetic/proc/used_dose()
@@ -225,5 +226,6 @@
 		min_next_adrenaline = world.time + rand(250, 600) //anywhere from 4.5 to 10 minutes
 		to_chat(owner, "<span class='userdanger'>You feel yourself dying, but you refuse to give up!</span>")
 		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)
-		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
-			owner.reagents.add_reagent(/datum/reagent/medicine/ephedrine, 10)
+		var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
+		if(mob_reagent_holder.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
+			mob_reagent_holder.add_reagent(/datum/reagent/medicine/ephedrine, 10)

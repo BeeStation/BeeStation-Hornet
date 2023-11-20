@@ -641,7 +641,8 @@
 					H.physiology.damage_resistance = -20000
 			if(5)
 				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
-				reagents.add_reagent(/datum/reagent/aslimetoxin, 10)
+				var/datum/reagents/reagent_holder = get_reagent_holder()
+				reagent_holder.add_reagent(/datum/reagent/aslimetoxin, 10)
 			if(6)
 				apply_status_effect(STATUS_EFFECT_GO_AWAY)
 			if(7)
@@ -649,7 +650,7 @@
 				ForceContractDisease(new/datum/disease/decloning()) //slow acting, non-viral clone damage based GBS
 			if(8)
 				var/list/elligible_organs = list()
-				for(var/obj/item/organ/O in internal_organs) //make sure we dont get an implant or cavity item
+				for(var/obj/item/organ/O in getOrgansList(ORGAN_ABSTRACT)) //make sure we dont get an implant or cavity item
 					elligible_organs += O
 				vomit(20, TRUE)
 				if(length(elligible_organs))

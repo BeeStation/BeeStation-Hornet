@@ -206,7 +206,7 @@
 		var/obj/item/organ/heart = new_body.getorganslot(ORGAN_SLOT_HEART)
 		if(!heart)
 			// damn you, heartless bastard!!
-			for(var/obj/item/organ/organ in new_body.internal_organs)
+			for(var/obj/item/organ/organ in new_body.getOrgansList())
 				organ.applyOrganDamage(rand(20, 40), organ.maxHealth - 1)
 		else
 			heart.applyOrganDamage(rand(20, 40), heart.maxHealth - 1)

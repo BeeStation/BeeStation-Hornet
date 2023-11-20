@@ -440,8 +440,9 @@
 	M.adjustBruteLoss((0.3*volume)*REM, 0)
 	. = 1
 	if(prob(15))
-		M.reagents.add_reagent(/datum/reagent/toxin/histamine, pick(5,10))
-		M.reagents.remove_reagent(/datum/reagent/toxin/venom, 1.1)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/toxin/histamine, pick(5,10))
+		mob_reagent_holder.remove_reagent(/datum/reagent/toxin/venom, 1.1)
 	else
 		..()
 
@@ -529,7 +530,8 @@
 
 /datum/reagent/toxin/itching_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		M.reagents?.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder?.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
 
 /datum/reagent/toxin/itching_powder/on_mob_life(mob/living/carbon/M)
 	if(prob(15))
@@ -545,8 +547,9 @@
 		M.adjustBruteLoss(0.2*REM, 0)
 		. = 1
 	if(prob(3))
-		M.reagents.add_reagent(/datum/reagent/toxin/histamine,rand(1,3))
-		M.reagents.remove_reagent(/datum/reagent/toxin/itching_powder,1.2)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.add_reagent(/datum/reagent/toxin/histamine,rand(1,3))
+		mob_reagent_holder.remove_reagent(/datum/reagent/toxin/itching_powder,1.2)
 		return
 	..()
 
@@ -695,9 +698,10 @@
 	.=..()
 	if(current_cycle >=11 && prob(min(50,current_cycle)))
 		C.vomit(10, prob(10), prob(50), rand(0,4), TRUE, prob(30))
-		for(var/datum/reagent/toxin/R in C.reagents.reagent_list)
+		var/datum/reagents/mob_reagent_holder = C.get_reagent_holder()
+		for(var/datum/reagent/toxin/R in mob_reagent_holder.reagent_list)
 			if(R != src)
-				C.reagents.remove_reagent(R.type,1)
+				mob_reagent_holder.remove_reagent(R.type,1)
 
 /datum/reagent/toxin/spewium/overdose_process(mob/living/carbon/C)
 	. = ..()
@@ -783,8 +787,9 @@
 	var/remove_amt = 5
 	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid))
 		remove_amt = 0.5
-	for(var/datum/reagent/medicine/R in M.reagents.reagent_list)
-		M.reagents.remove_reagent(R.type,remove_amt)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	for(var/datum/reagent/medicine/R in mob_reagent_holder.reagent_list)
+		mob_reagent_holder.remove_reagent(R.type,remove_amt)
 	return ..()
 
 //ACID

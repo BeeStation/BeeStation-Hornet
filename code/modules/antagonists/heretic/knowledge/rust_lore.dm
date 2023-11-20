@@ -224,7 +224,8 @@
 	SIGNAL_HANDLER
 
 	// No user == target check here, cause it's technically good for the heretic?
-	target.reagents?.add_reagent(/datum/reagent/eldritch, 5)
+	var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
+	mob_reagent_holder?.add_reagent(/datum/reagent/eldritch, 5)
 
 /datum/heretic_knowledge/spell/entropic_plume
 	name = "Entropic Plume"

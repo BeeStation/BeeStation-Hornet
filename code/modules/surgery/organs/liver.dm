@@ -30,30 +30,31 @@
 
 	var/mob/living/carbon/C = owner
 	..()	//perform general on_life()
+	var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
 	if(istype(C))
 		if(!(organ_flags & ORGAN_FAILING))//can't process reagents with a failing liver
 
 			var/provide_pain_message = HAS_NO_TOXIN
 			if(filterToxins && !HAS_TRAIT(owner, TRAIT_TOXINLOVER))
 				//handle liver toxin filtration
-				for(var/datum/reagent/toxin/T in C.reagents.reagent_list)
-					var/thisamount = C.reagents.get_reagent_amount(T.type)
+				for(var/datum/reagent/toxin/T in mob_reagent_holder.reagent_list)
+					var/thisamount = mob_reagent_holder.get_reagent_amount(T.type)
 					if (thisamount && thisamount <= toxTolerance)
-						C.reagents.remove_reagent(T.type, 1)
+						mob_reagent_holder.remove_reagent(T.type, 1)
 					else
 						damage += (thisamount*toxLethality)
 						if(provide_pain_message != HAS_PAINFUL_TOXIN)
 							provide_pain_message = T.silent_toxin ? HAS_SILENT_TOXIN : HAS_PAINFUL_TOXIN
 
 			//metabolize reagents
-			C.reagents.metabolize(C, can_overdose=TRUE)
+			mob_reagent_holder.metabolize(C, can_overdose=TRUE)
 
 			if(provide_pain_message && damage > 10 && prob(damage/3))//the higher the damage the higher the probability
 				to_chat(C, "<span class='warning'>You feel a dull pain in your abdomen.</span>")
 
 		else	//for when our liver's failing
-			C.reagents.end_metabolization(C, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
-			C.reagents.metabolize(C, can_overdose=FALSE, liverless = TRUE)
+			mob_reagent_holder.end_metabolization(C, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
+			mob_reagent_holder.metabolize(C, can_overdose=FALSE, liverless = TRUE)
 			if(HAS_TRAIT(C, TRAIT_STABLELIVER))
 				return
 			C.adjustToxLoss(4, TRUE,  TRUE)

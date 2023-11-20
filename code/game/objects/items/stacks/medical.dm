@@ -59,6 +59,7 @@
 
 	var/obj/item/bodypart/affecting
 	var/mob/living/carbon/C = M
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
 	affecting = C.get_bodypart(check_zone(user.zone_selected))
 
 	if(M in user.do_afters) //One at a time, please.
@@ -96,14 +97,14 @@
 		if(!do_after(user, self_delay, M))
 			return
 		//After the do_mob to ensure metabolites have had time to process at least one tick.
-		if(reagent && (C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/styptic_powder) || C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/silver_sulfadiazine)))
+		if(reagent && (mob_reagent_holder.get_reagent_amount(/datum/reagent/metabolite/medicine/styptic_powder) || mob_reagent_holder.get_reagent_amount(/datum/reagent/metabolite/medicine/silver_sulfadiazine)))
 			to_chat(user, "<span class='warning'>That stuff really hurt! You'll need to wait for the pain to go away before you can apply [src] to your wounds again, maybe someone else can help put it on for you.</span>")
 			return
 
 	user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 	if(reagent)
 		reagents.reaction(M, PATCH, affecting = affecting)
-		M.reagents.add_reagent_list(reagent) //Stack size is reduced by one instead of actually removing reagents from the stack.
+		mob_reagent_holder.add_reagent_list(reagent) //Stack size is reduced by one instead of actually removing reagents from the stack.
 		C.update_damage_overlays()
 	use(1)
 

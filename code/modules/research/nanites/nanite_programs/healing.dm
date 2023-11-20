@@ -53,15 +53,17 @@
 	rogue_types = list(/datum/nanite_program/suffocating, /datum/nanite_program/necrotic)
 
 /datum/nanite_program/purging/check_conditions()
-	var/foreign_reagent = length(host_mob.reagents?.reagent_list)
+	var/datum/reagents/mob_reagent_holder = host_mob.get_reagent_holder()
+	var/foreign_reagent = length(mob_reagent_holder?.reagent_list)
 	if(!host_mob.getToxLoss() && !foreign_reagent)
 		return FALSE
 	return ..()
 
 /datum/nanite_program/purging/active_effect()
 	host_mob.adjustToxLoss(-1)
-	for(var/datum/reagent/R in host_mob.reagents.reagent_list)
-		host_mob.reagents.remove_reagent(R.type,1)
+	var/datum/reagents/mob_reagent_holder = host_mob.get_reagent_holder()
+	for(var/datum/reagent/R in mob_reagent_holder.reagent_list)
+		mob_reagent_holder.remove_reagent(R.type,1)
 
 /datum/nanite_program/brain_heal
 	name = "Neural Regeneration"
@@ -153,7 +155,8 @@
 	if(!host_mob)
 		return FALSE
 
-	for(var/datum/reagent/toxin/R in host_mob.reagents?.reagent_list)
+	var/datum/reagents/mob_reagent_holder = host_mob.get_reagent_holder()
+	for(var/datum/reagent/toxin/R in mob_reagent_holder?.reagent_list)
 		foreign_reagent = TRUE
 		break
 
@@ -163,8 +166,9 @@
 
 /datum/nanite_program/purging_advanced/active_effect()
 	host_mob.adjustToxLoss(-1)
-	for(var/datum/reagent/toxin/R in host_mob.reagents?.reagent_list)
-		host_mob.reagents?.remove_reagent(R.type,1)
+	var/datum/reagents/mob_reagent_holder = host_mob.get_reagent_holder()
+	for(var/datum/reagent/toxin/R in mob_reagent_holder?.reagent_list)
+		mob_reagent_holder?.remove_reagent(R.type,1)
 
 /datum/nanite_program/regenerative_advanced
 	name = "Bio-Reconstruction"

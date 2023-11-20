@@ -52,7 +52,8 @@
 		if(3, 4)
 			if(prob(10))
 				to_chat(M, "<span class='notice'>You feel blobby?</span>")
-				M.reagents.add_reagent(pick(subtypesof(/datum/reagent/blob/)), 5) //Completely harmless due to how blob chemicals work, still gives some good flavour
+				var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+				mob_reagent_holder.add_reagent(pick(subtypesof(/datum/reagent/blob)), 5) //Completely harmless due to how blob chemicals work, still gives some good flavour
 		if(5)
 			ready_to_pop = TRUE
 			if(prob(5))

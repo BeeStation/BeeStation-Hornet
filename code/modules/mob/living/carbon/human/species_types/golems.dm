@@ -348,7 +348,8 @@
 /datum/species/golem/wood/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
 		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
+		mob_reagent_holder.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
 
@@ -677,15 +678,16 @@
 		C.RemoveSpell(dominate)
 
 /datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
 	if(istype(chem, /datum/reagent/water/holywater))
 		H.adjustFireLoss(4)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		mob_reagent_holder.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 
 	if(chem.type == /datum/reagent/fuel/unholywater)
 		H.adjustBruteLoss(-4)
 		H.adjustFireLoss(-4)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		mob_reagent_holder.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
 
@@ -1111,17 +1113,18 @@
 	..()
 
 /datum/species/golem/bone/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	var/datum/reagents/mob_reagent_holder = H.get_reagent_holder()
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume >= 6)
-			H.reagents.remove_reagent(chem.type, chem.volume - 5)
+			mob_reagent_holder.remove_reagent(chem.type, chem.volume - 5)
 			to_chat(H, "<span class='warning'>The excess milk is dripping off your bones!</span>")
 		H.heal_bodypart_damage(1.5,0, 0)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		mob_reagent_holder.remove_reagent(chem.type, REAGENTS_METABOLISM)
 		return TRUE
 
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
 		H.adjustBruteLoss(0.5, 0)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		mob_reagent_holder.remove_reagent(chem.type, REAGENTS_METABOLISM)
 		return TRUE
 	return ..()
 

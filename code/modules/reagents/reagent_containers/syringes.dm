@@ -76,7 +76,8 @@
 		return
 	if(!proximity)
 		return
-	if(!target.reagents)
+	var/datum/reagents/target_reagent_holder = target.get_reagent_holder()
+	if(!target_reagent_holder)
 		return
 
 	var/mob/living/L
@@ -118,7 +119,7 @@
 				transfer_diseases(L)
 
 			else //if not mob
-				if(!target.reagents.total_volume)
+				if(!target_reagent_holder.total_volume)
 					balloon_alert(user, "[src] is empty.")
 					return
 
@@ -126,7 +127,7 @@
 					balloon_alert(user, "You can't seem to draw reagents from this..")
 					return
 
-				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
+				var/trans = target_reagent_holder.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
 
 				to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
 				balloon_alert(user, "You fill [src] with [trans]u.")
@@ -147,7 +148,7 @@
 				balloon_alert(user, "You cannot inject [target].")
 				return
 
-			if(target.reagents.total_volume >= target.reagents.maximum_volume)
+			if(target_reagent_holder.total_volume >= target_reagent_holder.maximum_volume)
 				balloon_alert(user, "[target] is full.")
 				return
 
@@ -176,7 +177,7 @@
 						return
 					if(!reagents.total_volume)
 						return
-					if(L.reagents.total_volume >= L.reagents.maximum_volume)
+					if(target_reagent_holder.total_volume >= target_reagent_holder.maximum_volume)
 						return
 					L.visible_message("<span class='danger'>[user] injects [L] with the syringe!", \
 									"<span class='userdanger'>[user] injects you with the syringe!</span>")
@@ -188,7 +189,7 @@
 				transfer_diseases(L)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INJECT, fraction)
-			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
+			reagents.trans_to(target_reagent_holder, amount_per_transfer_from_this, transfered_by = user)
 			balloon_alert(user, "You inject [amount_per_transfer_from_this]u.")
 			to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
 			if (reagents.total_volume <= 0 && mode==SYRINGE_INJECT)

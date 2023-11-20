@@ -716,8 +716,9 @@
 		return
 
 	var/used_amount = (injection_amount * delta_time) /usage_ratio
-	reagents.reaction(user, INJECT,injection_amount,0)
-	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
+	var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
+	reagents.reaction(user, INJECT, injection_amount,0)
+	reagents.trans_to(mob_reagent_holder, used_amount, multiplier=usage_ratio)
 	update_icon()
 	user.update_inv_back() //for overlays update
 

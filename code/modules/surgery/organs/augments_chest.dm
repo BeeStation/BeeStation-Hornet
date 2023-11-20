@@ -32,7 +32,8 @@
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-	owner.reagents.add_reagent(/datum/reagent/toxin/bad_food, poison_amount / severity)
+	var/datum/reagents/mob_reagent_holder = owner.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/toxin/bad_food, poison_amount / severity)
 	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
 
 

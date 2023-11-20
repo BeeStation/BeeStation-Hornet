@@ -108,7 +108,7 @@
 				var/their = M.p_their()
 
 				var/list/mouth_organs = new
-				for(var/obj/item/organ/O in M.internal_organs)
+				for(var/obj/item/organ/O in M.getOrgansList())
 					if(O.zone == BODY_ZONE_PRECISE_MOUTH)
 						mouth_organs.Add(O)
 				var/organ_list = ""

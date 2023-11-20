@@ -28,8 +28,9 @@
 					syringe.embed(M)
 					return BULLET_ACT_HIT
 				else
+					var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
 					reagents.reaction(M, INJECT)
-					reagents.trans_to(M, reagents.total_volume)
+					reagents.trans_to(mob_reagent_holder, reagents.total_volume)
 					return BULLET_ACT_HIT
 			else
 				blocked = 100

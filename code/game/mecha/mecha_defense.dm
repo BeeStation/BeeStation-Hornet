@@ -312,11 +312,12 @@
 
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
-	if(target.reagents)
-		if(target.reagents.get_reagent_amount(/datum/reagent/cryptobiolin) + force < force*2)
-			target.reagents.add_reagent(/datum/reagent/cryptobiolin, force/2)
-		if(target.reagents.get_reagent_amount(/datum/reagent/toxin) + force < force*2)
-			target.reagents.add_reagent(/datum/reagent/toxin, force/2.5)
+	var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
+	if(mob_reagent_holder)
+		if(mob_reagent_holder.get_reagent_amount(/datum/reagent/cryptobiolin) + force < force*2)
+			mob_reagent_holder.add_reagent(/datum/reagent/cryptobiolin, force/2)
+		if(mob_reagent_holder.get_reagent_amount(/datum/reagent/toxin) + force < force*2)
+			mob_reagent_holder.add_reagent(/datum/reagent/toxin, force/2.5)
 
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)

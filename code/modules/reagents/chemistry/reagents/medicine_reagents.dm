@@ -11,10 +11,11 @@
 	taste_description = "bitterness"
 
 /datum/reagent/medicine/on_mob_life(mob/living/carbon/M)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
 	current_cycle++
-	holder.remove_reagent(type, metabolization_rate / M.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
-	if(!QDELETED(holder) && metabolite) // removing a reagent can sometimes delete the holder
-		holder.add_reagent(metabolite, metabolization_rate / M.metabolism_efficiency * METABOLITE_RATE)
+	mob_reagent_holder.remove_reagent(type, metabolization_rate / M.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
+	if(!QDELETED(mob_reagent_holder) && metabolite)
+		mob_reagent_holder.add_reagent(metabolite, metabolization_rate / M.metabolism_efficiency * METABOLITE_RATE)
 
 /datum/reagent/medicine/leporazine
 	name = "Leporazine"
@@ -47,7 +48,8 @@
 	taste_description = "badmins"
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
-	M.reagents.remove_all_type(/datum/reagent/toxin, 5*REM, 0, 1)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.remove_all_type(/datum/reagent/toxin, 5*REM, 0, 1)
 	M.setCloneLoss(0, 0)
 	M.setOxyLoss(0, 0)
 	M.radiation = 0
@@ -75,7 +77,7 @@
 		M.blood_volume = BLOOD_VOLUME_NORMAL
 
 	M.cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
-	for(var/organ in M.internal_organs)
+	for(var/organ in M.getOrgansList())
 		var/obj/item/organ/O = organ
 		O.setOrganDamage(0)
 	for(var/thing in M.diseases)
@@ -443,8 +445,9 @@
 				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 			M.emote("scream")
+			var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
 			//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
-			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && (M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
+			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && (mob_reagent_holder.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
 				M.cure_husk("burn")
 				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 	..()
@@ -473,9 +476,11 @@
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(-1*REM, 0)
 	. = 1
-	for(var/datum/reagent/R in M.reagents.reagent_list)
+
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	for(var/datum/reagent/R in mob_reagent_holder.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.type,0.75)
+			mob_reagent_holder.remove_reagent(R.type,0.75)
 	..()
 
 /datum/reagent/medicine/system_cleaner
@@ -490,9 +495,10 @@
 /datum/reagent/medicine/system_cleaner/on_mob_life(mob/living/M)
 	M.adjustToxLoss(-2*REM, 0)
 	. = 1
-	for(var/datum/reagent/R in M.reagents.reagent_list)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	for(var/datum/reagent/R in mob_reagent_holder.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.type,1)
+			mob_reagent_holder.remove_reagent(R.type,1)
 	..()
 
 /datum/reagent/medicine/liquid_solder
@@ -549,9 +555,10 @@
 	taste_description = "acid"
 
 /datum/reagent/medicine/calomel/on_mob_life(mob/living/carbon/M)
-	for(var/datum/reagent/R in M.reagents.reagent_list)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	for(var/datum/reagent/R in mob_reagent_holder.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.type,2.5)
+			mob_reagent_holder.remove_reagent(R.type,2.5)
 	if(M.health > 20)
 		M.adjustToxLoss(2.5*REM, 0)
 		. = 1
@@ -581,9 +588,10 @@
 /datum/reagent/medicine/pen_acid/on_mob_life(mob/living/carbon/M)
 	M.radiation -= max(M.radiation-RAD_MOB_SAFE, 0)/50
 	M.adjustToxLoss(-2*REM, 0)
-	for(var/datum/reagent/R in M.reagents.reagent_list)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	for(var/datum/reagent/R in mob_reagent_holder.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.type,2)
+			mob_reagent_holder.remove_reagent(R.type,2)
 	..()
 	. = 1
 
@@ -627,8 +635,9 @@
 	. = 1
 
 /datum/reagent/medicine/salbutamol/overdose_process(mob/living/M)
-	M.reagents.add_reagent(/datum/reagent/toxin/histamine, 1)
-	M.reagents.remove_reagent(/datum/reagent/medicine/salbutamol, 1)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/toxin/histamine, 1)
+	mob_reagent_holder.remove_reagent(/datum/reagent/medicine/salbutamol, 1)
 	..()
 
 /datum/reagent/medicine/perfluorodecalin
@@ -757,7 +766,8 @@
 	if(prob(10))
 		M.drowsyness += 1
 	M.jitteriness -= 1
-	M.reagents.remove_reagent(/datum/reagent/toxin/histamine,3)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.remove_reagent(/datum/reagent/toxin/histamine, 3)
 	..()
 
 /datum/reagent/medicine/morphine
@@ -883,8 +893,9 @@
 	..()
 
 /datum/reagent/medicine/atropine/overdose_process(mob/living/M)
-	M.reagents.add_reagent(/datum/reagent/toxin/histamine, 3)
-	M.reagents.remove_reagent(/datum/reagent/medicine/atropine, 2)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/toxin/histamine, 3)
+	mob_reagent_holder.remove_reagent(/datum/reagent/medicine/atropine, 2)
 	. = 1
 	M.Dizzy(1)
 	M.Jitter(1)
@@ -1035,7 +1046,8 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			H.drunkenness = max(H.drunkenness - 10, 0)
-	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3*REM, 0, 1)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.remove_all_type(/datum/reagent/consumable/ethanol, 3*REM, 0, 1)
 	M.adjustToxLoss(-0.2*REM, 0)
 	..()
 	. = 1
@@ -1125,7 +1137,8 @@
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/carbon/M)
 	if(M.AdjustSleeping(-20, FALSE))
 		. = 1
-	M.reagents.remove_reagent(/datum/reagent/consumable/sugar, 3)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.remove_reagent(/datum/reagent/consumable/sugar, 3)
 	..()
 
 //Trek Chems, used primarily by medibots. Only heals a specific damage type, but is very efficient.
@@ -1145,8 +1158,9 @@
 	. = 1
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
-	M.reagents.add_reagent(metabolite, 1)
-	M.reagents.remove_reagent(/datum/reagent/medicine/bicaridine, 1)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.add_reagent(metabolite, 1)
+	mob_reagent_holder.remove_reagent(/datum/reagent/medicine/bicaridine, 1)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
@@ -1205,8 +1219,9 @@
 	. = 1
 
 /datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
-	M.reagents.add_reagent(metabolite, 1)
-	M.reagents.remove_reagent(/datum/reagent/medicine/kelotane, 1)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.add_reagent(metabolite, 1)
+	mob_reagent_holder.remove_reagent(/datum/reagent/medicine/kelotane, 1)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
@@ -1228,8 +1243,9 @@
 	. = 1
 
 /datum/reagent/medicine/antitoxin/overdose_process(mob/living/M)
-	M.reagents.add_reagent(metabolite, 1)
-	M.reagents.remove_reagent(/datum/reagent/medicine/antitoxin, 1)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.add_reagent(metabolite, 1)
+	mob_reagent_holder.remove_reagent(/datum/reagent/medicine/antitoxin, 1)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
@@ -1246,8 +1262,9 @@
 	M.adjustToxLoss(-3*REM, 0)
 	if(M.getToxLoss() && prob(10))
 		M.vomit(1)
-	for(var/datum/reagent/toxin/R in M.reagents.reagent_list)
-		M.reagents.remove_reagent(R.type,1)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	for(var/datum/reagent/toxin/R in mob_reagent_holder.reagent_list)
+		mob_reagent_holder.remove_reagent(R.type,1)
 	..()
 	. = 1
 
@@ -1385,7 +1402,8 @@
 
 /datum/reagent/medicine/syndicate_nanites/overdose_process(mob/living/carbon/M) //wtb flavortext messages that hint that you're vomitting up robots
 	if(prob(25))
-		M.reagents.remove_reagent(type, metabolization_rate*15) // ~5 units at a rate of 0.4 but i wanted a nice number in code
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+		mob_reagent_holder.remove_reagent(type, metabolization_rate*15) // ~5 units at a rate of 0.4 but i wanted a nice number in code
 		M.vomit(20) // nanite safety protocols make your body expel them to prevent harmies
 	..()
 	. = 1
@@ -1425,8 +1443,9 @@
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/carbon/M)
-	for(var/datum/reagent/drug/R in M.reagents.reagent_list)
-		M.reagents.remove_reagent(R.type,5)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	for(var/datum/reagent/drug/R in mob_reagent_holder.reagent_list)
+		mob_reagent_holder.remove_reagent(R.type,5)
 	M.drowsyness += 2
 	if(M.jitteriness >= 3)
 		M.jitteriness -= 3
@@ -1518,8 +1537,9 @@
 	..()
 
 /datum/reagent/medicine/corazone/overdose_process(mob/living/M)
-	M.reagents.add_reagent(/datum/reagent/toxin/histamine, 1)
-	M.reagents.remove_reagent(/datum/reagent/medicine/corazone, 1)
+	var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/toxin/histamine, 1)
+	mob_reagent_holder.remove_reagent(/datum/reagent/medicine/corazone, 1)
 	..()
 
 /datum/reagent/medicine/muscle_stimulant

@@ -3,7 +3,6 @@
 
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
-	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	GLOB.carbon_list += src
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
@@ -445,12 +444,13 @@
 		adjust_nutrition(-lost_nutrition)
 		adjustToxLoss(-3)
 	for(var/i=0 to distance)
+		var/datum/reagents/mob_reagent_holder = get_reagent_holder()
 		if(blood)
 			if(T)
 				add_splatter_floor(T)
 			if(stun)
 				adjustBruteLoss(3)
-		else if(src.reagents.has_reagent(/datum/reagent/consumable/ethanol/blazaam, needs_metabolizing = TRUE))
+		else if(mob_reagent_holder.has_reagent(/datum/reagent/consumable/ethanol/blazaam, needs_metabolizing = TRUE))
 			if(T)
 				T.add_vomit_floor(src, toxic || VOMIT_PURPLE, purge)
 		else
@@ -461,17 +461,17 @@
 			break
 	return 1
 
-/mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
-	for(var/i in 1 to amt)
-		if(!internal_organs.len)
+/mob/living/carbon/proc/spew_organ(power = 5, amt = 1, force = FALSE)
+	var/list/real_organs = getOrgansList(force ? NONE : ORGAN_ABSTRACT | ORGAN_UNREMOVABLE)
+	while(amt-- > 0)
+		if(!length(real_organs))
 			break //Guess we're out of organs!
-		var/obj/item/organ/guts = pick(internal_organs)
+		var/obj/item/organ/guts = pick(real_organs)
 		var/turf/T = get_turf(src)
 		guts.Remove(src)
 		guts.forceMove(T)
 		var/atom/throw_target = get_edge_target_turf(guts, dir)
 		guts.throw_at(throw_target, power, 4, src)
-
 
 /mob/living/carbon/fully_replace_character_name(oldname,newname)
 	..()
@@ -789,9 +789,10 @@
 	return ..()
 
 /mob/living/carbon/fully_heal(admin_revive = FALSE)
-	if(reagents)
-		reagents.clear_reagents()
-	for(var/O in internal_organs)
+	var/datum/reagents/mob_reagent_holder = get_reagent_holder()
+	if(mob_reagent_holder)
+		mob_reagent_holder.clear_reagents()
+	for(var/O in getOrgansList())
 		var/obj/item/organ/organ = O
 		organ.setOrganDamage(0)
 	var/obj/item/organ/brain/B = getorgan(/obj/item/organ/brain)
@@ -809,8 +810,8 @@
 		for(var/obj/item/restraints/R in contents) //actually remove cuffs from inventory
 			qdel(R)
 		update_handcuffed()
-		if(reagents)
-			reagents.addiction_list = list()
+		if(mob_reagent_holder)
+			mob_reagent_holder.addiction_list = list()
 	cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
 	..()
 	// heal ears after healing traits, since ears check TRAIT_DEAF trait
@@ -826,7 +827,7 @@
 	if(QDELETED(src))
 		return
 	var/organs_amt = 0
-	for(var/X in internal_organs)
+	for(var/X in getOrgansList(ORGAN_ABSTRACT | ORGAN_UNREMOVABLE))
 		var/obj/item/organ/O = X
 		if(prob(50))
 			organs_amt++
@@ -869,7 +870,8 @@
 			hand_bodyparts += O
 
 /mob/living/carbon/proc/create_internal_organs()
-	for(var/X in internal_organs)
+	internal_organs += new /obj/item/organ/veins
+	for(var/X in getOrgansList())
 		var/obj/item/organ/I = X
 		I.Insert(src)
 
@@ -1078,3 +1080,9 @@
 	if(update_icon)
 		update_body()
 		update_body_parts(TRUE)
+
+/mob/living/carbon/is_injectable(mob/user, allowmobs = TRUE)
+	return (allowmobs && get_reagent_holder() && can_inject(user))
+
+/mob/living/carbon/is_drawable(mob/user, allowmobs = TRUE)
+	return (allowmobs && get_reagent_holder() && can_inject(user))

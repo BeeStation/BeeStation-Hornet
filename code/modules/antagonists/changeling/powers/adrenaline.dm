@@ -18,7 +18,8 @@
 	user.SetKnockdown(0)
 	user.SetImmobilized(0)
 	user.SetParalyzed(0)
-	user.reagents.add_reagent(/datum/reagent/medicine/changelingadrenaline, 10)
-	user.reagents.add_reagent(/datum/reagent/medicine/changelinghaste, 2) //For a really quick burst of speed
+	var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/medicine/changelingadrenaline, 10)
+	mob_reagent_holder.add_reagent(/datum/reagent/medicine/changelinghaste, 2) //For a really quick burst of speed
 	user.adjustStaminaLoss(-200)
 	return TRUE

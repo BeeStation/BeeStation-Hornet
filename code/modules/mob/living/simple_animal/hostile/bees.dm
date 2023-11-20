@@ -155,9 +155,10 @@
 		. = ..()
 		if(. && beegent && isliving(target))
 			var/mob/living/L = target
-			if(L.reagents)
+			var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+			if(mob_reagent_holder)
 				beegent.reaction_mob(L, INJECT)
-				L.reagents.add_reagent(beegent.type, rand(1,5))
+				mob_reagent_holder.add_reagent(beegent.type, rand(1,5))
 
 
 /mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
@@ -242,7 +243,8 @@
 	if(. && beegent && isliving(target))
 		var/mob/living/L = target
 		beegent.reaction_mob(L, TOUCH)
-		L.reagents.add_reagent(beegent.type, rand(1,5))
+		var/datum/reagents/mob_reagent_holder = L.get_reagent_holder()
+		mob_reagent_holder?.add_reagent(beegent.type, rand(1,5))
 
 
 //PEASENT BEES

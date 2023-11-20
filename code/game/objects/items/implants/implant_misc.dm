@@ -43,9 +43,10 @@
 	imp_in.set_resting(FALSE)
 	imp_in.update_mobility()
 
-	imp_in.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 10)
-	imp_in.reagents.add_reagent(/datum/reagent/medicine/omnizine, 10)
-	imp_in.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 10)
+	var/datum/reagents/mob_reagent_holder = imp_in.get_reagent_holder()
+	mob_reagent_holder.add_reagent(/datum/reagent/medicine/synaptizine, 10)
+	mob_reagent_holder.add_reagent(/datum/reagent/medicine/omnizine, 10)
+	mob_reagent_holder.add_reagent(/datum/reagent/medicine/amphetamine, 10)
 	if(!uses)
 		qdel(src)
 

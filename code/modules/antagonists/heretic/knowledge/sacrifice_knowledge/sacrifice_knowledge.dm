@@ -315,7 +315,8 @@
 	// About how long should the helgrasp last? (1 metab a tick = helgrasp_time / 2 ticks (so, 1 minute = 60 seconds = 30 ticks))
 	var/helgrasp_time = 1 MINUTES
 
-	sac_target.reagents?.add_reagent(/datum/reagent/helgrasp/heretic, helgrasp_time / 20)
+	var/datum/reagents/mob_reagent_holder = sac_target.get_reagent_holder()
+	mob_reagent_holder?.add_reagent(/datum/reagent/helgrasp/heretic, helgrasp_time / 20)
 	sac_target.apply_necropolis_curse(CURSE_BLINDING | CURSE_GRASPING)
 
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm", /datum/mood_event/shadow_realm)
@@ -370,7 +371,8 @@
 	UnregisterSignal(sac_target, COMSIG_MOB_DEATH)
 	sac_target.remove_status_effect(/datum/status_effect/necropolis_curse)
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
-	sac_target.reagents?.del_reagent(/datum/reagent/helgrasp/heretic)
+	var/datum/reagents/mob_reagent_holder = sac_target.get_reagent_holder()
+	mob_reagent_holder?.del_reagent(/datum/reagent/helgrasp/heretic)
 	SEND_SIGNAL(sac_target, COMSIG_CLEAR_MOOD_EVENT, "shadow_realm")
 
 	// Wherever we end up, we sure as hell won't be able to explain
@@ -454,8 +456,9 @@
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad)
 
 	// Could use a little pick-me-up...
-	sac_target.reagents?.add_reagent(/datum/reagent/medicine/atropine, 8)
-	sac_target.reagents?.add_reagent(/datum/reagent/medicine/epinephrine, 8)
+	var/datum/reagents/mob_reagent_holder = sac_target.get_reagent_holder()
+	mob_reagent_holder?.add_reagent(/datum/reagent/medicine/atropine, 8)
+	mob_reagent_holder?.add_reagent(/datum/reagent/medicine/epinephrine, 8)
 
 /**
  * This proc is called from [proc/return_target] if the target dies in the shadow realm.

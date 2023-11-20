@@ -421,8 +421,9 @@
 		if(check_empty(user)) //Prevents divsion by zero
 			return
 		var/fraction = min(eaten / reagents.total_volume, 1)
+		var/datum/reagents/mob_reagent_holder = M.get_reagent_holder()
 		reagents.reaction(M, INGEST, fraction * volume_multiplier)
-		reagents.trans_to(M, eaten, volume_multiplier, transfered_by = user)
+		reagents.trans_to(mob_reagent_holder, eaten, volume_multiplier, transfered_by = user)
 		// check_empty() is called during afterattack
 	else
 		..()
@@ -633,8 +634,9 @@
 			H.update_body()
 		var/used = use_charges(user, 10, FALSE)
 		var/fraction = min(1, used / reagents.maximum_volume)
+		var/datum/reagents/mob_reagent_holder = user.get_reagent_holder()
 		reagents.reaction(user, VAPOR, fraction * volume_multiplier)
-		reagents.trans_to(user, used, volume_multiplier, transfered_by = user)
+		reagents.trans_to(mob_reagent_holder, used, volume_multiplier, transfered_by = user)
 		return OXYLOSS
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
@@ -725,8 +727,9 @@
 		if(!.)
 			return FALSE
 		var/fraction = min(1, . / reagents.maximum_volume)
+		var/datum/reagents/mob_reagent_holder = target.get_reagent_holder()
 		reagents.reaction(target, TOUCH, fraction * volume_multiplier)
-		reagents.trans_to(target, ., volume_multiplier, transfered_by = user)
+		reagents.trans_to(mob_reagent_holder, ., volume_multiplier, transfered_by = user)
 
 		if(pre_noise || post_noise)
 			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
