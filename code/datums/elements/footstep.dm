@@ -66,7 +66,7 @@
 		return
 
 	if(!(source.mobility_flags & MOBILITY_STAND)) //play crawling sound if we're lying
-		playsound(turf, 'sound/effects/footstep/crawl1.ogg', 15 * volume, falloff_distance = 1, vary = sound_vary)
+		playsound(source, 'sound/effects/footstep/crawl1.ogg', 15 * volume, falloff_distance = 1, vary = sound_vary)
 		return
 
 	if(iscarbon(source))
@@ -96,7 +96,7 @@
 	if(!source_loc)
 		return
 	if(isfile(footstep_sounds) || istext(footstep_sounds))
-		playsound(source_loc, footstep_sounds, volume, falloff_distance = 1, vary = sound_vary)
+		playsound(source, footstep_sounds, volume, falloff_distance = 1, vary = sound_vary)
 		return
 	var/turf_footstep
 	switch(footstep_type)
@@ -110,7 +110,7 @@
 			turf_footstep = source_loc.footstep
 	if(!turf_footstep)
 		return
-	playsound(source_loc, pick(footstep_sounds[turf_footstep][1]), footstep_sounds[turf_footstep][2] * volume, TRUE, footstep_sounds[turf_footstep][3] + e_range, falloff_distance = 1, vary = sound_vary)
+	playsound(source, pick(footstep_sounds[turf_footstep][1]), footstep_sounds[turf_footstep][2] * volume, TRUE, footstep_sounds[turf_footstep][3] + e_range, falloff_distance = 1, vary = sound_vary)
 
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
@@ -128,15 +128,15 @@
 
 	if ((source.wear_suit?.body_parts_covered | source.w_uniform?.body_parts_covered | source.shoes?.body_parts_covered) & FEET)
 		// we are wearing shoes
-		playsound(source_loc, pick(GLOB.footstep[source_loc.footstep][1]),
+		playsound(source, pick(GLOB.footstep[source_loc.footstep][1]),
 			GLOB.footstep[source_loc.footstep][2] * volume * volume_multiplier,
 			TRUE,
 			GLOB.footstep[source_loc.footstep][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
 	else
 		if(source.dna.species.special_step_sounds)
-			playsound(source_loc, pick(source.dna.species.special_step_sounds), 50, TRUE, falloff_distance = 1, vary = sound_vary)
+			playsound(source, pick(source.dna.species.special_step_sounds), 50, TRUE, falloff_distance = 1, vary = sound_vary)
 		else
-			playsound(source_loc, pick(GLOB.barefootstep[source_loc.barefootstep][1]),
+			playsound(source, pick(GLOB.barefootstep[source_loc.barefootstep][1]),
 				GLOB.barefootstep[source_loc.barefootstep][2] * volume * volume_multiplier,
 				TRUE,
 				GLOB.barefootstep[source_loc.barefootstep][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
@@ -149,4 +149,4 @@
 	var/turf/open/source_loc = get_turf(source)
 	if(!istype(source_loc))
 		return
-	playsound(source_loc, footstep_sounds, 50, falloff_distance = 1, vary = sound_vary)
+	playsound(source, footstep_sounds, 50, falloff_distance = 1, vary = sound_vary)
