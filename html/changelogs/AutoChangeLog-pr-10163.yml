@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: Omnitool debug tool now uses TGUI as tool selection instead of the radial
+      options. Also, it has more tool options (wire, botany, bike horn) also, it's
+      tiny item now.
