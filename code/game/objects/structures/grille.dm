@@ -308,7 +308,7 @@
 	name = "prison grille"
 	desc = "a set of rods under current used to protect the prison wing. An alarm will go off if they are breached."
 	var/obj/item/assembly/control/device
-	var/id = "Prison Gate"
+	var/id = "Prisongate"
 	var/initialized_device = FALSE
 
 /obj/structure/grille/prison/proc/setup_device()

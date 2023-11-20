@@ -1126,7 +1126,7 @@
 	pixel_x = 6
 	},
 /obj/machinery/button/door{
-	id = "Prison Gate";
+	id = "Prisongate";
 	name = "Prison Wing Lockdown";
 	pixel_y = -32;
 	req_access_txt = "2";
