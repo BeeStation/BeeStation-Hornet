@@ -196,7 +196,7 @@
 	if (modifystate)
 		if(itemState)
 			itemState += "[shot.select_name]"
-	var/ratio = CEILING(CLAMP(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
+	var/ratio = CEILING(clamp(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
 	if(itemState)
 		itemState += "[ratio]"
 		item_state = itemState
