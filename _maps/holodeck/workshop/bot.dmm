@@ -4,43 +4,33 @@
 /area/template_noop)
 "b" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
+/obj/structure/closet/crate,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "c" = (
-/obj/machinery/modular_fabricator/exosuit_fab{
-	dir = 8
-	},
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 "d" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/plasteel{
-	amount = 15;
-	pixel_x = 2
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -1;
-	pixel_y = 1
-	},
+/obj/item/clothing/head/hardhat/red,
+/obj/item/clothing/head/hardhat/red,
+/obj/item/clothing/head/hardhat/red,
+/obj/item/extinguisher,
+/obj/item/extinguisher,
+/obj/item/extinguisher,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 "e" = (
@@ -104,26 +94,55 @@
 "n" = (
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
-"p" = (
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 1;
-	pixel_y = 23
-	},
-/turf/open/floor/holofloor/monotile/steel,
-/area/template_noop)
 "s" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/analyzer,
+/obj/item/analyzer,
+/obj/item/analyzer,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 "t" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/bodypart/r_arm/robot,
+/obj/item/assembly/prox_sensor{
+	pixel_x = 9;
+	pixel_y = -2
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 9;
+	pixel_y = -2
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 9;
+	pixel_y = -2
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 9;
+	pixel_y = -2
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 9;
+	pixel_y = -2
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 9;
+	pixel_y = -2
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 9;
+	pixel_y = -2
+	},
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 "w" = (
@@ -150,12 +169,20 @@
 /obj/effect/turf_decal/tile/purple/fourcorners,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
+"K" = (
+/obj/structure/closet/crate/critter,
+/turf/open/floor/holofloor/monotile/steel,
+/area/template_noop)
 "N" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/shreds,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
+/obj/item/larryframe,
+/obj/item/larryframe,
+/obj/item/larryframe,
+/obj/item/larryframe,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 "Q" = (
@@ -165,7 +192,15 @@
 /area/template_noop)
 "R" = (
 /obj/effect/turf_decal/bot,
+/obj/item/bot_assembly/firebot,
 /turf/open/floor/holofloor/monotile/dark,
+/area/template_noop)
+"S" = (
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/structure/table/reinforced,
+/turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "U" = (
 /obj/structure/table/reinforced,
@@ -211,25 +246,29 @@
 	pixel_x = 4;
 	pixel_y = -5
 	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 4;
+	pixel_y = -5
+	},
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 
 (1,1,1) = {"
 h
-n
+S
 n
 n
 G
 "}
 (2,1,1) = {"
-n
+K
 R
 W
 N
 n
 "}
 (3,1,1) = {"
-p
+K
 a
 a
 i
