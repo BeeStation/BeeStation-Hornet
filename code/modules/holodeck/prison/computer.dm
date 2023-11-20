@@ -17,14 +17,8 @@
 		qdel(src)
 		return
 	else
+		offline_program = pick("donut", "bot")
 		. = ..()
-		startup = rand(0,1)
-		switch(startup)
-			if(0)
-				offline_program = "donut"
-			if(1)
-				offline_program = "bot"
-		load_program(offline_program,TRUE)
 
 /obj/machinery/computer/holodeck/prison/generate_program_list()
 	. = ..()

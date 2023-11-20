@@ -537,8 +537,9 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 
 /obj/item/card/id/prisoner/examine(mob/user)
 	. = ..()
+	var/floortime = FLOOR(served_time / 60, 1)
 	if(sentence)
-		. += "<span class='notice'>You have served [served_time / 60] / [sentence  / 60] minutes.</span>"
+		. += "<span class='notice'>You have served [floortime] / [sentence  / 60] minutes.</span>"
 	if(crime)
 		. += "<span class='warning'>It appears its holder was convicted of: <b>[crime]</b></span>"
 
