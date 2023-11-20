@@ -170,17 +170,6 @@
 			else
 				var/area/area = get_area(beacon)
 				targets[avoid_assoc_duplicate_keys(area.name, area_index)] = beacon
-
-		for (var/obj/item/implant/tracking/tracking_implant in GLOB.tracked_implants)
-			if (!tracking_implant.imp_in || !isliving(tracking_implant.loc) || !tracking_implant.allow_teleport)
-				continue
-
-			var/mob/living/implanted = tracking_implant.loc
-			if (implanted.stat == DEAD && implanted.timeofdeath + tracking_implant.lifespan_postmortem < world.time)
-				continue
-
-			if (is_eligible(tracking_implant))
-				targets[avoid_assoc_duplicate_keys("[implanted.real_name] ([get_area(implanted)])", area_index)] = tracking_implant
 	else
 		for (var/obj/machinery/teleport/station/station as anything in power_station.linked_stations)
 			if (is_eligible(station) && station.teleporter_hub)
@@ -213,17 +202,6 @@
 				else
 					var/area/A = get_area(R)
 					L[avoid_assoc_duplicate_keys(A.name, areaindex)] = R
-
-		for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
-			if(!I.imp_in || !isliving(I.loc) || !I.allow_teleport)
-				continue
-			else
-				var/mob/living/M = I.loc
-				if(M.stat == DEAD)
-					if(M.timeofdeath + I.lifespan_postmortem < world.time)
-						continue
-				if(is_eligible(I))
-					L[avoid_assoc_duplicate_keys("[M.real_name] ([get_area(M)])", areaindex)] = I
 
 		var/desc = input("Please select a location to lock in.", "Locking Computer") as null|anything in sort_list(L)
 		target_ref = WEAKREF(L[desc])
