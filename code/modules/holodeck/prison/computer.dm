@@ -7,9 +7,8 @@
 
 	mapped_start_area = /area/holodeck/prison
 	linked = /area/holodeck/prison
-//check this if template fucks up
-	program_type = /datum/map_template/holodeck/prison
-//linked area
+	program_type = /datum/map_template/holodeck/prison //linked area
+	var/startup
 
 /obj/machinery/computer/holodeck/prison/LateInitialize()
 	var/area/computer_area = get_area(src)
@@ -19,6 +18,13 @@
 		return
 	else
 		. = ..()
+		startup = rand(0,1)
+		switch(startup)
+			if(0)
+				offline_program = "donut"
+			if(1)
+				offline_program = "bot"
+		load_program(offline_program,TRUE)
 
 /obj/machinery/computer/holodeck/prison/generate_program_list()
 	. = ..()
