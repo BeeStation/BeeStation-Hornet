@@ -5,8 +5,7 @@
 /mob/living/carbon/get_reagent_holder()
 	var/obj/item/organ/veins/veins = getorganslot(ORGAN_SLOT_VEINS)
 	if(!veins)
-		CRASH("A mob that hasn't a reagent holder is detected, and a code tried to get its reagent holder.")
-		// This shouldn't happen because 'veins' is an important organ.
+		return
 	return veins.reagents
 	// this is a temporary proc.
 
