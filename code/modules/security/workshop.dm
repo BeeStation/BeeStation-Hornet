@@ -103,9 +103,6 @@
 				if(check_list["id"] == program_to_load)
 					valid = TRUE
 					break
-			if(program_to_load == "offline")
-				valid = FALSE
-				say("ERROR. Interstellar Law forbids shutting down the workshop permanently. For emergencies, use the Emergency Shutdown button.")
 			if(!valid)
 				return
 			//load the map_template that program_to_load represents
