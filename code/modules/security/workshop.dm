@@ -9,6 +9,7 @@
 	linked = /area/holodeck/prison
 	program_type = /datum/map_template/holodeck/prison //linked area
 	var/startup
+	var/offline = FALSE
 
 /obj/machinery/computer/holodeck/prison/LateInitialize()
 	var/area/computer_area = get_area(src)
@@ -21,7 +22,11 @@
 		. = ..()
 
 /obj/machinery/computer/holodeck/prison/generate_program_list()
-	. = ..()
+	for(var/typekey in subtypesof(program_type))
+		var/datum/map_template/holodeck/program = typekey
+		var/list/info_this = list("id" = initial(program.template_id), "name" = initial(program.name))
+		if(!(initial(program.template_id) == "offline"))
+			LAZYADD(program_cache, list(info_this))
 
 /datum/map_template/holodeck/prison/update_blacklist(turf/placement, list/input_blacklist)
 	. = ..()
@@ -31,7 +36,7 @@
 //make sure the flags given at line 272 in computer.dm don't cause issues (for item)
 //add emergency shutdown call on the UI for sec to shut it off
 
-/obj/machinery/computer/holodeck/prison/process(delta_time=2) //same as parent, but don't derez items that leave the area
+/obj/machinery/computer/holodeck/prison/process(delta_time=2) //don't derez items that leave the area
 	if(damaged && DT_PROB(10, delta_time))
 		for(var/turf/holo_turf in linked)
 			if(DT_PROB(5, delta_time))
@@ -71,13 +76,56 @@
 	. = ..()
 
 /obj/machinery/computer/holodeck/prison/ui_interact(mob/user, datum/tgui/ui)
-	. = ..()
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Workshop")
+		ui.open()
+
 
 /obj/machinery/computer/holodeck/prison/ui_data(mob/user)
-	. = ..()
+	var/list/data = list()
+
+	data["default_programs"] = program_cache
+	data["program"] = program
+	return data
 
 /obj/machinery/computer/holodeck/prison/ui_act(action, params)
-	. = ..()
+	if(..())
+		return
+	switch(action)
+		if("load_program")
+			var/program_to_load = params["id"]
+
+			var/valid = FALSE //dont tell security about this
+
+			//checks if program_to_load is any one of the loadable programs, if it isnt then it rejects it
+			for(var/list/check_list as anything in program_cache)
+				if(check_list["id"] == program_to_load)
+					valid = TRUE
+					break
+			if(program_to_load == "offline")
+				valid = FALSE
+				say("ERROR. Interstellar Law forbids shutting down the workshop permanently. For emergencies, use the Emergency Shutdown button.")
+			if(!valid)
+				return
+			//load the map_template that program_to_load represents
+			load_program(program_to_load)
+			. = TRUE
+		if("shutdown")
+			log_game("[key_name(usr)] has shutdown the prison workshop at [loc_name(src)]!")
+			temporary_down()
+			. = TRUE
+
+/obj/machinery/computer/holodeck/prison/proc/temporary_down()
+	if(!offline)
+		offline = TRUE
+		say("Emergency shutdown engaged. Restarting in 2 minutes...")
+		offline_program = "offline"
+		emergency_shutdown()
+		offline_program = pick("donut", "bot")
+		addtimer(CALLBACK(src, PROC_REF(load_program), offline_program), 1200)
+	else
+		say("Workshop shutdown underway! Standby for reboot...")
 
 /obj/machinery/computer/holodeck/prison/nerf(nerf_this, is_loading) //We want items to behave as normal and to do damage
 	return
@@ -88,3 +136,6 @@
 			holo_atom -= item
 	. = ..()
 
+/obj/machinery/computer/holodeck/prison/load_program()
+	. = ..()
+	offline = FALSE

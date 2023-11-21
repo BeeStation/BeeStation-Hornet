@@ -17470,6 +17470,13 @@
 /obj/machinery/deepfryer,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
+"cCy" = (
+/obj/item/paper{
+	name = "Prison Workshop Guidelines";
+	default_raw_text = "**Prison Workshop Guidelines** <br><br>Hello future rehabilitated convict! Nanotrasen welcomes you aboard one of its cutting edge detention facility!<br><br>Here you'll find the key to your future, the workshop! That's right, Nanotrasen has committed to a revolutionary rehabilitation program, to help lost individuals such as yourself work away their misdeeds.<br><br>With your trusty prison export scanner, you too can get reduced sentences! So far we have two workshops, a donut factory workshop, and a bot assembly line!<br><br>Simply swipe your prisoner ID on the prison export scanner to link it your account, and then get working! **Don't forget to scan any donuts or bots you make!**<br><br>Once you want to redeem your precious earned time, simply swipe your card again on the scanner, and voila! You've become a useful contribution to the station! How does it feel? Pretty good right?<br><br>We hope you have a *productive* time at Nanotrasen!"
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "cCC" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
@@ -19431,6 +19438,10 @@
 /obj/machinery/computer/holodeck/prison{
 	dir = 4
 	},
+/obj/item/paper{
+	name = "Workshop control instructions";
+	default_raw_text = "**Prison Workshop Guidelines**<br><br>In compliance with section 6-1 of the Intersystems agreement on prisoner rehabilitation, Nanotrasen is to provide amenities to convicts with the aim of rehabilitating them into society.<br><br>As such, we have fitted your station with an revolutionary "workshop holodeck" that will offer a space for convicts to work in exchange for reduced prison sentences.<br><br>So far there are two workshops, a donut assembly line, and a bot assembly line. You may change them at your leisure depending on the station needs.<br><br>We are aware of the security risks posed by this endeavour, as convicts will get access to tools that may prove detrimental to the stability of the prison. As such we have fitted your console with an **emergency shutdown** button that will unload the current workshop. Be aware that we are compelled by interstellar law to reload a random program after 2 minutes.<br><br>All items contained within the workshop will be unloaded once the program is changed, except for the goods the prisoners will have produced. Be aware that any items **taken out of the area** will not be unloaded by the console, as such it is your duty as warden to make sure that prisoners aren't stashing dangerous weapons inside the prison."
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "dbF" = (
@@ -19537,6 +19548,11 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/structure/rack,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/prison,
 /area/security/prison)
 "ddP" = (
@@ -46614,9 +46630,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/chair/fancy/bench/left{
-	dir = 8
-	},
+/obj/structure/closet/crate,
 /turf/open/floor/prison,
 /area/security/prison)
 "qEl" = (
@@ -49156,12 +49170,10 @@
 /turf/open/floor/plasteel,
 /area/security/main)
 "rMw" = (
-/obj/structure/chair/fancy/bench/right{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/closet/crate,
 /turf/open/floor/prison,
 /area/security/prison)
 "rMC" = (
@@ -50408,6 +50420,10 @@
 /area/engine/gravity_generator)
 "stz" = (
 /obj/machinery/genpop_interface,
+/obj/item/paper{
+	name = "Prisoner Intake guidelines";
+	default_raw_text = "**Prisoner processing guidelines** <br><br><br>Scan the ID of the future convict, or manually input their name. <br>Select the crime they are being brigged for.<br>Select modifers that are applicable to the case, if there are any.<br>Print the prisoner ID. <br><br>Take the prisoner to one of the prisoner lockers, and strip them of their belongings.<br>Lock the belongings of the convict inside of the locker using **their** prisoner ID.<br>Dress the convict in a prison outfit, give them their ID, then walk them through the turnstile before removing the handcuffs.<br><br>Job done!"
+	},
 /turf/closed/wall/r_wall,
 /area/security/warden)
 "suw" = (
@@ -86561,8 +86577,8 @@ aed
 aed
 aed
 aed
-dds
-vji
+qDZ
+rMw
 dhB
 srR
 rLK
@@ -87332,7 +87348,7 @@ aed
 aed
 aed
 aed
-mbB
+cCy
 vji
 mbB
 mbB

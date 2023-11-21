@@ -21,6 +21,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/screwdriver,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 "d" = (
@@ -151,27 +152,18 @@
 /area/template_noop)
 "G" = (
 /obj/structure/rack,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/item/clothing/head/welding{
 	pixel_x = -2;
 	pixel_y = 3
 	},
+/obj/item/crowbar,
+/obj/item/wrench,
+/obj/item/weldingtool,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "J" = (
 /obj/effect/turf_decal/tile/purple/fourcorners,
 /turf/open/floor/holofloor/monotile/dark,
-/area/template_noop)
-"K" = (
-/obj/structure/closet/crate/critter,
-/turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "N" = (
 /obj/effect/turf_decal/bot,
@@ -261,14 +253,14 @@ n
 G
 "}
 (2,1,1) = {"
-K
+n
 R
 W
 N
 n
 "}
 (3,1,1) = {"
-K
+n
 a
 a
 i

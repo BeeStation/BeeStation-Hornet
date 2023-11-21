@@ -174,13 +174,17 @@
 //   --------------------
 /datum/map_template/holodeck/prison
 
+/datum/map_template/holodeck/prison/offline
+	name = "Workshop - Offline"
+	template_id = "offline"
+	mappath = "_maps/holodeck/workshop/offline.dmm"
+
 /datum/map_template/holodeck/prison/donut
-	name = "Holodeck - Donut Workshop"
+	name = "Workshop - Donut Workshop"
 	template_id = "donut"
 	mappath = "_maps/holodeck/workshop/donut.dmm"
 
-
 /datum/map_template/holodeck/prison/robot
-	name = "Holodeck - Bot assembly"
+	name = "Workshop - Bot assembly"
 	template_id = "bot"
 	mappath = "_maps/holodeck/workshop/bot.dmm"

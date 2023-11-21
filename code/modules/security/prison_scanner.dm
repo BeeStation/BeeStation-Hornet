@@ -53,10 +53,10 @@
 			else
 				B.scanned = TRUE
 				redeemable += B
-				to_chat(user, "<span class='notice'>[B.name] has been scanned succesfully!</span>")
+				to_chat(user, "<span class='notice'>[B.name] has been scanned succesfully! Swipe your id card on the scanner once you want to redeem your earned time.</span>")
 		else if(O.obj_flags & SCANNED)
 			to_chat(user, "<span class='warning'>The [O.name] has been scanned already!</span>")
 		else
 			redeemable += O
 			O.obj_flags |= SCANNED
-			to_chat(user, "<span class='notice'>The [O.name] has been scanned succesfully!</span>")
+			to_chat(user, "<span class='notice'>The [O.name] has been scanned succesfully! Swipe your id card on the scanner once you want to redeem your earned time.</span>")

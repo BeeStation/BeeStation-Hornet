@@ -11,6 +11,7 @@
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "c" = (
@@ -72,9 +73,9 @@
 /turf/open/floor/holofloor/monotile/light,
 /area/template_noop)
 "r" = (
-/obj/machinery/processor,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/machinery/chem_heater,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "t" = (
@@ -188,6 +189,7 @@
 /obj/structure/rack,
 /obj/item/knife/kitchen,
 /obj/item/knife/kitchen,
+/obj/item/lighter,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "M" = (
