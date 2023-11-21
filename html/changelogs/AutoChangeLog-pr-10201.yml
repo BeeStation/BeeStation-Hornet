@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: "Revert \"Fixes GetComponents() returning a list with a null entry when\
-      \ there's no component of a given type\" #10150"
