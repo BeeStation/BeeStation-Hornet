@@ -63,7 +63,13 @@
 /datum/component/moved_relay/proc/unregister_parent(atom/A)
 	UnregisterSignal(A, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
+	var/position = ordered_parents.Find(A)
+	if (!position)
+		return
 	ordered_parents -= A
+	if (position == length(ordered_parents))
+		return
+	var/atom/next = ordered_parents[position + 1]
 	//Recursively unregister parents
-	if(A.loc && !isturf(A.loc))
-		unregister_parent(A.loc)
+	if(!isturf(next))
+		unregister_parent(next)
