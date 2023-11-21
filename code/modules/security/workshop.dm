@@ -115,10 +115,10 @@
 
 /obj/machinery/computer/holodeck/prison/proc/temporary_down()
 	if(!offline)
-		offline = TRUE
 		say("Emergency shutdown engaged. Restarting in 2 minutes...")
 		offline_program = "offline"
 		emergency_shutdown()
+		offline = TRUE
 		offline_program = pick("donut", "bot")
 		addtimer(CALLBACK(src, PROC_REF(load_program), offline_program), 1200)
 	else
