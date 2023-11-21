@@ -95,12 +95,12 @@
 				A = T
 				smooth_flags = initial(A.smoothing_flags)
 				the_icon = initial(A.icon)
-				base_state = initial(A.base_state)
+				base_state = initial(A.base_icon_state)
 			else
 				A = new T(run_loc_floor_bottom_left)
 				smooth_flags = A.smoothing_flags
 				the_icon = A.icon
-				base_state = A.base_state
+				base_state = A.base_icon_state
 
 			if(!smooth_flags)
 				continue
