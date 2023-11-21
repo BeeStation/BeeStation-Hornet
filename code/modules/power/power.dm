@@ -128,7 +128,9 @@
 	if(!home)
 		return FALSE //apparently space isn't an area
 	if(!home.requires_power)
-		return amount //Shuttles get free power, don't ask why
+		return amount //Non-power eaters get free power, don't ask why
+	if(!home.always_unpowered)
+		return amount //Ruins get free power, don't ask why
 
 	var/obj/machinery/power/apc/local_apc = home.apc
 	if(!local_apc)
