@@ -87,20 +87,10 @@
 /datum/unit_test/smoothing/Run()
 	for(var/P in types_to_test)
 		for(var/T in typesof(P))
-			var/atom/A
-			var/smooth_flags
-			var/icon/the_icon
-			var/base_state
-			if(init_types[P])
-				A = T
-				smooth_flags = initial(A.smoothing_flags)
-				the_icon = initial(A.icon)
-				base_state = initial(A.base_icon_state)
-			else
-				A = new T(run_loc_floor_bottom_left)
-				smooth_flags = A.smoothing_flags
-				the_icon = A.icon
-				base_state = A.base_icon_state
+			var/atom/A = new T(run_loc_floor_bottom_left)
+			var/smooth_flags = A.smoothing_flags
+			var/icon/the_icon = A.icon
+			var/base_state = A.base_icon_state
 
 			if(!smooth_flags)
 				continue
