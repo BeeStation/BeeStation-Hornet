@@ -34,8 +34,12 @@
 		/turf/open/indestructible/hierophant,
 	)
 
+	///These need to be initialized to be tested properly
+	var/list/init_types = list(/turf/closed/mineral = TRUE)
+
 	//Don't touch these lists below unless you know what you're doing
 	//They control what icon states we're checking for in each test
+
 	var/list/bitmask_corner_suffixes = list(
 		21, 23, 29, 31, 38, 39, 46, 47, 74, 75, 78, 79, 137, 139, 141, 143, //1 Corner
 		55, 63, 95, 110, 111, 157, 159, 175, 203, 207, //2 Corners
@@ -81,24 +85,33 @@
 	)
 
 /datum/unit_test/smoothing/Run()
-//Uncomment this to run this test on every single atom
 	for(var/P in types_to_test)
 		for(var/T in typesof(P))
-			var/atom/A = T
-			var/smooth_flags = initial(A.smoothing_flags)
-			if(!smooth_flags)
-				continue //We don't want to fail here because a lot of these might not have smoothing.
+			var/atom/A
+			var/smooth_flags
+			var/icon/the_icon
+			var/base_state
+			if(init_types[P])
+				A = T
+				smooth_flags = initial(A.smoothing_flags)
+				the_icon = initial(A.icon)
+				base_state = initial(A.base_state)
+			else
+				A = new T(run_loc_floor_bottom_left)
+				smooth_flags = A.smoothing_flags
+				the_icon = A.icon
+				base_state = A.base_state
 
-			var/icon/the_icon = initial(A.icon)
-			if(!the_icon)
-				Fail("Atom subtype [A] has no icon")
+			if(!smooth_flags)
+				continue
+			else if(!the_icon)
+				Fail("Atom subtype [A] has no icon, are you sure we should be testing this?")
 				continue
 
-			if(smooth_flags & SMOOTH_CORNERS) //If both are set for some reason, this version takes priority in the subsystem
+			else if(smooth_flags & SMOOTH_CORNERS) //If both are set for some reason, this version takes priority in the subsystem
 				corner_test(T, the_icon, smooth_flags)
 
 			else if(smooth_flags & SMOOTH_BITMASK)
-				var/base_state = initial(A.base_icon_state)
 				if(!base_state)
 					Fail("Atom subtype [A] has bitmask smoothing set, but has no base_icon_state!")
 					continue
