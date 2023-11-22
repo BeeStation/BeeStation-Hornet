@@ -763,7 +763,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 /obj/machinery/vending/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Vending")
+		ui = new(user, src, "Vending", name)
 		ui.open()
 
 /obj/machinery/vending/ui_static_data(mob/user)
