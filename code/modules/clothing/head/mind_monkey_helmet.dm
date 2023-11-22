@@ -41,9 +41,9 @@
 		return
 	user.visible_message("<span class='warning'>[src] powers up!</span>")
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-	var/list/candidates = pollCandidatesForMob(
-		Question = "Do you want to play as a mind magnified monkey?",
-		jobbanType = ROLE_MONKEY_HELMET,
+	var/list/candidates = poll_candidates_for_mob(
+		question = "Do you want to play as a mind magnified monkey?",
+		jobban_type = ROLE_MONKEY_HELMET,
 		role_preference_key = null,
 		poll_time = 100,
 		M = user,
