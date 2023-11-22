@@ -57,9 +57,16 @@ type CustomInput = {
   img: string;
 };
 
+
 export const Vending = (props, context) => {
   const { data } = useBackend<VendingData>(context);
-  const { onstation, product_records = [], coin_records = [], hidden_records = [], stock } = data;
+  const {
+    onstation,
+    product_records = [],
+    coin_records = [],
+    hidden_records = [],
+    stock,
+  } = data;
 
   const [selectedCategory, setSelectedCategory] = useLocalState<string>(
     context,
@@ -104,7 +111,11 @@ export const Vending = (props, context) => {
             </Stack.Item>
           )}
           <Stack.Item grow>
-            <ProductDisplay custom={custom} inventory={inventory} selectedCategory={selectedCategory} />
+            <ProductDisplay
+              custom={custom}
+              inventory={inventory}
+              selectedCategory={selectedCategory}
+            />
           </Stack.Item>
 
           {Object.keys(filteredCategories).length > 1 && (
@@ -128,7 +139,9 @@ const UserDetails = (props, context) => {
   const { user } = data;
 
   if (!user) {
-    return <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>;
+    return (
+      <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>
+    );
   } else {
     return (
       <Section>
@@ -139,7 +152,9 @@ const UserDetails = (props, context) => {
           <Stack.Item>
             <LabeledList>
               <LabeledList.Item label="User">{user.name}</LabeledList.Item>
-              <LabeledList.Item label="Occupation">{user.job || 'Unemployed'}</LabeledList.Item>
+              <LabeledList.Item label="Occupation">
+                {user.job || 'Unemployed'}
+              </LabeledList.Item>
             </LabeledList>
           </Stack.Item>
         </Stack>
@@ -166,12 +181,11 @@ const ProductDisplay = (
       scrollable
       title="Products"
       buttons={
-        !!onstation &&
-        user && (
+        !!onstation
+        && user && (
           <Box fontSize="16px" color="green">
             {(user && user.cash) || 0} cr <Icon name="coins" color="gold" />
-          </Box>
-        )
+          </Box>)
       }>
       <Table>
         {inventory
@@ -183,7 +197,12 @@ const ProductDisplay = (
             }
           })
           .map((product) => (
-            <VendingRow key={product.name} custom={custom} product={product} productStock={stock[product.name]} />
+            <VendingRow
+              key={product.name}
+              custom={custom}
+              product={product}
+              productStock={stock[product.name]}
+            />
           ))}
       </Table>
     </Section>
@@ -191,27 +210,44 @@ const ProductDisplay = (
 };
 
 /** An individual listing for an item.
- * Uses a table layout - Labeledlist might be better,
- * but you cannot use item icons as labels currently.
- */
+* Uses a table layout - Labeledlist might be better,
+* but you cannot use item icons as labels currently.
+*/
 const VendingRow = (props, context) => {
   const { data } = useBackend<VendingData>(context);
   const { custom, product, productStock } = props;
   const { department, onstation, user } = data;
-  const free = !onstation || product.price === 0 || (!product.premium && department && user);
+  const free
+  = !onstation
+  || product.price === 0
+  || (!product.premium && department && user);
 
   return (
     <Table.Row>
       <Table.Cell collapsing>
         <ProductImage product={product} />
       </Table.Cell>
-      <Table.Cell bold>{product.name.replace(/^\w/, (c) => c.toUpperCase())}</Table.Cell>
-      <Table.Cell>{!!productStock?.colorable && <ProductColorSelect free={free} product={product} />}</Table.Cell>
+      <Table.Cell bold>
+        {product.name.replace(/^\w/, (c) => c.toUpperCase())}
+      </Table.Cell>
+      <Table.Cell>
+        {!!productStock?.colorable && (
+          <ProductColorSelect free={free} product={product} />
+        )}
+      </Table.Cell>
       <Table.Cell collapsing textAlign="right">
-        <ProductStock custom={custom} product={product} productStock={productStock} />
+        <ProductStock
+          custom={custom}
+          product={product}
+          productStock={productStock}
+        />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
-        <ProductButton free={free} product={product} productStock={productStock} />
+        <ProductButton
+          free={free}
+          product={product}
+          productStock={productStock}
+        />
       </Table.Cell>
     </Table.Row>
   );
@@ -247,10 +283,10 @@ const ProductStock = (props) => {
   return (
     <Box
       color={
-        (custom && 'good') ||
-        (productStock.amount <= 0 && 'bad') ||
-        (productStock.amount <= product.max_amount / 2 && 'average') ||
-        'good'
+        (custom && 'good')
+      || (productStock.amount <= 0 && 'bad')
+      || (productStock.amount <= product.max_amount / 2 && 'average')
+      || 'good'
       }>
       {custom ? product.amount : productStock.amount} left
     </Box>
@@ -258,19 +294,25 @@ const ProductStock = (props) => {
 };
 
 /** In the case of customizable items, ie: shoes,
- * this displays a color wheel button that opens another window.
- */
+* this displays a color wheel button that opens another window.
+*/
 const ProductColorSelect = (props, context) => {
   const { act, data } = useBackend<VendingData>(context);
   const { user, onstation, department } = data;
   const { product, productStock } = props;
-  const free = !onstation || product.price === 0 || (!product.premium && department && user);
+  const free
+  = !onstation
+  || product.price === 0
+  || (!product.premium && department && user);
 
   return (
     <Button
       icon="palette"
       tooltip="Change color"
-      disabled={productStock?.amount === 0 || !user || (product.price > user.cash && !free)}
+      disabled={
+        productStock?.amount === 0
+      || (!user || (product.price > user.cash && !free))
+      }
       onClick={() => act('select_colors', { ref: product.ref })}
     />
   );
@@ -281,30 +323,35 @@ const ProductButton = (props, context) => {
   const { act, data } = useBackend<VendingData>(context);
   const { access, department, user, onstation } = data;
   const { custom, free, product, productStock } = props;
-  const discount = (department === user?.department && !product.premium) || !data.onstation;
+  const discount
+  = department === user?.department && !product.premium || !data.onstation;
   const redPrice = Math.round(product.price * 0);
 
   return custom ? (
     <Button
       fluid
-      disabled={productStock.amount === 0 || ((!user || (product.price > user.cash && !free)) && onstation)}
+      disabled={
+        productStock.amount === 0
+      || ((!user || (product.price > user.cash && !free)) && onstation)
+      }
       content={access ? 'FREE' : product.price + ' cr'}
       onClick={() =>
         act('dispense', {
           'item': product.name,
-        })
-      }
+        })}
     />
   ) : (
     <Button
       fluid
-      disabled={productStock.amount === 0 || ((!user || (product.price > user.cash && !free)) && onstation)}
+      disabled={
+        productStock.amount === 0
+      || ((!user || (product.price > user.cash && !free)) && onstation)
+      }
       content={discount ? 'FREE' : product.price + ' cr'}
       onClick={() =>
         act('vend', {
           'ref': product.ref,
-        })
-      }
+        })}
     />
   );
 };
