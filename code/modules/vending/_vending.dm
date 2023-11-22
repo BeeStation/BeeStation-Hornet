@@ -952,6 +952,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			flick(icon_deny, src)
 			vend_ready = TRUE
 			return
+
 		var/datum/bank_account/account = C.registered_account
 		if(account.account_job && (account.active_departments & dept_req_for_free))
 			price_to_use = 0
@@ -963,7 +964,13 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			vend_ready = TRUE
 			return
 
-
+		if(price_to_use && seller_department)
+			var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+			if(length(dept_list))
+				price_to_use = round(price_to_use/length(dept_list))
+				for(var/datum/bank_account/department/D in dept_list)
+					if(D)
+						D.adjust_money(price_to_use)
 
 	if(last_shopper != usr || purchase_message_cooldown < world.time)
 		say("Thank you for shopping with [src]!")
