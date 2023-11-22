@@ -117,7 +117,7 @@
 	var/mains = list(
 			/obj/item/food/bearsteak,
 			/obj/item/food/enchiladas,
-			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
+			/obj/item/food/stewedsoymeat,
 			/obj/item/food/burger/bigbite,
 			/obj/item/food/burger/superbite,
 			/obj/item/food/burger/fivealarm)

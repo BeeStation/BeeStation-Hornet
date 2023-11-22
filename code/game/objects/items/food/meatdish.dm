@@ -262,10 +262,6 @@
 	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/stewedsoymeat/Initialize(mapload)
-	. = ..()
-	eatverb = pick("slurp","sip","inhale","drink")
-
 /obj/item/food/boiledspiderleg
 	name = "boiled spider leg"
 	desc = "A giant spider's leg that's still twitching after being cooked. Gross!"
