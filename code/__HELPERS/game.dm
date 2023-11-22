@@ -420,7 +420,7 @@
 	if(flashwindow)
 		window_flash(candidate_mob.client)
 	var/list/answers = ignore_category ? list("Yes", "No", "Never for this round") : list("Yes", "No")
-	switch(tgui_alert(candidate_mob, question, "A limited-time offer!", answers, poll_time, autofocus = FALSE))
+	switch(tgui_alert(candidate_mob, question, "A limited-time role has appeared!", answers, poll_time, autofocus = FALSE))
 		if("Yes")
 			to_chat(candidate_mob, "<span class='notice'>Choice registered: Yes.</span>")
 			if(time_passed + poll_time <= world.time)
