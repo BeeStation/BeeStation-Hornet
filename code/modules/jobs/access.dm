@@ -7,6 +7,10 @@
 	//check if it doesn't require any access at all
 	if(src.check_access(null))
 		return TRUE
+	// check if someone riding on / buckled to them has access
+	for(var/mob/living/buckled in accessor.buckled_mobs)
+		if(allowed(buckled))
+			return TRUE
 	if(issilicon(accessor))
 		var/mob/living/silicon/S = accessor
 		return check_access(S.internal_id_card)	//AI can do whatever it wants
