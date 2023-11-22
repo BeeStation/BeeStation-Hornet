@@ -890,7 +890,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			allowed_configs += "[initial(item.greyscale_config_inhand_right)]"
 
 	var/datum/greyscale_modify_menu/menu = new(
-		src, usr, allowed_configs, CALLBACK(src, .proc/vend_greyscale, params),
+		src, usr, allowed_configs, CALLBACK(src, PROC_REF(vend_greyscale), params),
 		starting_icon_state=initial(fake_atom.icon_state),
 		starting_config=initial(fake_atom.greyscale_config),
 		starting_colors=initial(fake_atom.greyscale_colors)
