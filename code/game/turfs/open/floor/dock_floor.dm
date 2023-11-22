@@ -9,7 +9,9 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
-	intact = FALSE //Makes it clearer to players that pipes/wires are destroyed when a shuttle lands on them
+	max_integrity = 500
+	overfloor_placed = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 
 /turf/open/floor/dock/crowbar_act(mob/living/user, obj/item/I)
 	return pry_tile(I, user)

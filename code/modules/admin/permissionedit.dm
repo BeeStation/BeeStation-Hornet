@@ -10,7 +10,7 @@
 	if(!check_rights(R_PERMISSIONS))
 		return
 	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/group/permissions)
-	asset_cache_datum.send(usr)
+	asset_cache_datum.send(usr.client)
 	var/list/output = list("<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url("panels.css")]'><a href='?_src_=holder;[HrefToken()];editrightsbrowser=1'>\[Permissions\]</a>")
 	if(action)
 		output += " | <a href='?_src_=holder;[HrefToken()];editrightsbrowserlog=1;editrightspage=0'>\[Log\]</a> | <a href='?_src_=holder;[HrefToken()];editrightsbrowsermanage=1'>\[Management\]</a><hr style='background:#000000; border:0; height:3px'>"

@@ -87,7 +87,7 @@
 	..()
 	new /obj/item/storage/box/suitbox/cmo(src)
 	new /obj/item/storage/backpack/duffelbag/med(src)
-	new /obj/item/clothing/suit/toggle/labcoat/med/cmo(src)
+	new /obj/item/clothing/suit/toggle/labcoat/cmo(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/radio/headset/heads/cmo(src)
 

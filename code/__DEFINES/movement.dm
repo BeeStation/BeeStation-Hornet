@@ -12,6 +12,8 @@
 #define MOVEMENT_LOOP_START_FAST (1<<0)
 ///Do we not use the priority system?
 #define MOVEMENT_LOOP_IGNORE_PRIORITY (1<<1)
+///Should we not update our movables dir on move?
+#define MOVEMENT_LOOP_NO_DIR_UPDATE (1<<3)
 
 //Index defines for movement bucket data packets
 #define MOVEMENT_BUCKET_TIME 1

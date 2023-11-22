@@ -20,6 +20,8 @@
 
 /obj/item/organ/body_egg/alien_embryo/on_life()
 	. = ..()
+	if(!owner)
+		return
 	switch(stage)
 		if(2, 3)
 			if(prob(2))
@@ -54,9 +56,6 @@
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
-	var/mob/living/L = owner
-	if(IS_IN_STASIS(L))
-		return
 	if(!next_stage_time)
 		COOLDOWN_START(src, next_stage_time, 30 SECONDS)
 		return
@@ -77,8 +76,6 @@
 				AttemptGrow(FALSE)
 				return
 		AttemptGrow()
-
-
 
 /obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success = TRUE)
 	if(!owner || bursting)
@@ -122,6 +119,7 @@
 	var/mob/living/carbon/host = owner
 	if(kill_on_success)
 		new_xeno.visible_message("<span class='danger'>[new_xeno] bursts out of [owner] in a shower of gore!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
 		if(BP)
 			BP.receive_damage(brute = 200) // Kill them dead

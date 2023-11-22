@@ -261,10 +261,6 @@
 
 	update_parents()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/atmospherics/components/unary/cryo_cell/relaymove(mob/user)
 	if(message_cooldown <= world.time)
 		message_cooldown = world.time + 50
@@ -459,7 +455,7 @@
 	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/can_crawl_through()
-	return // can't ventcrawl in or out of cryo.
+	return FALSE // can't ventcrawl in or out of cryo.
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/can_see_pipes()
 	return 0 // you can't see the pipe network when inside a cryo cell.

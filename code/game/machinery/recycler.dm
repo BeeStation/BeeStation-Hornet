@@ -49,10 +49,6 @@
 	"The safety-mode light is [safety_mode ? "on" : "off"].\n"+\
 	"The safety-sensors status light is [obj_flags & EMAGGED ? "off" : "on"]."
 
-/obj/machinery/recycler/power_change()
-	..()
-	update_icon()
-
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))

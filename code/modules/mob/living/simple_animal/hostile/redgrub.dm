@@ -33,7 +33,7 @@
 	var/food = 0
 	var/hibernating = FALSE //if they dont aggro, they hibernate until they do. They will allow themselves to be killed, butchered, or eaten.
 	var/hibernationcounter = 0
-	var/list/grubdisease = list()
+	var/list/grub_diseases = list()
 
 /mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(var/mob/living/M)
 	if(isoozeling(M))
@@ -47,8 +47,7 @@
 
 /mob/living/simple_animal/hostile/redgrub/Initialize()
 	. = ..()
-	var/datum/disease/advance/A = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4), /datum/symptom/parasite)
-	grubdisease += A
+	grub_diseases += new /datum/disease/advance/random(rand(3, 6), 9, rand(3, 4), guaranteed_symptoms = list(/datum/symptom/parasite))
 	food = rand(15, 50)
 
 /mob/living/simple_animal/hostile/redgrub/PickTarget()
@@ -94,14 +93,9 @@
 	else
 		hibernationcounter ++
 
-/mob/living/simple_animal/hostile/redgrub/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(!LAZYLEN(grubdisease))
-		return FALSE
-	if(scan)
-		E.scan(src, grubdisease, user)
-	else
-		E.extrapolate(src, grubdisease, user)
-	return TRUE
+/mob/living/simple_animal/hostile/redgrub/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., grub_diseases)
 
 /mob/living/simple_animal/hostile/redgrub/proc/togglehibernation()
 	if(hibernating)
@@ -179,12 +173,12 @@
 /mob/living/simple_animal/hostile/redgrub/harvest(mob/living/user) //used for extra objects etc. in butchering
 	for(var/i in 1 to growthstage)
 		var/obj/item/reagent_containers/food/snacks/meat/rawcutlet/grub/meat = new(src.loc)
-		for(var/datum/disease/advance/A in grubdisease)
+		for(var/datum/disease/advance/A in grub_diseases)
 			if(A.spread_flags & DISEASE_SPREAD_FALTERED)
-				grubdisease -= A
-				if(!LAZYLEN(grubdisease))
+				grub_diseases -= A
+				if(!LAZYLEN(grub_diseases))
 					return
-		meat.AddComponent(/datum/component/infective, grubdisease)
+		meat.AddComponent(/datum/component/infective, grub_diseases)
 	return ..()
 
 /mob/living/simple_animal/hostile/redgrub/attack_slime(mob/living/simple_animal/slime/M)//this is pretty unlikely to happen in game.
@@ -202,12 +196,12 @@
 		return FALSE
 	var/datum/status_effect/slimegrub/status = M.has_status_effect(STATUS_EFFECT_SLIMEGRUB)
 	if(status)
-		status.diseases += grubdisease
+		status.diseases += grub_diseases
 		status.deathcounter -= (40 * growthstage)
 		status.spawnbonus += 1
 	else
 		var/datum/status_effect/slimegrub/newstatus = M.apply_status_effect(STATUS_EFFECT_SLIMEGRUB)
-		newstatus.diseases += grubdisease
+		newstatus.diseases += grub_diseases
 	M.visible_message("<span class='warning'>[M] swallows [src] whole!</span>", "<span class='userdanger'>[src] burrows into your cytoplasm when you bite it!</span>")
 	qdel(src)
 
@@ -228,7 +222,7 @@
 			M.visible_message("<span class='danger'>the [src] begins burrowing into [M]!</span>", \
 						"<span class='userdanger'>[src] is trying to burrow into your cytoplasm!</span>")
 			if(M.can_inject(src) && do_after(src, 15, M))
-				for(var/datum/disease/D in grubdisease)
+				for(var/datum/disease/D in grub_diseases)
 					if(D.spread_flags & DISEASE_SPREAD_FALTERED)
 						continue
 					M.ForceContractDisease(D)

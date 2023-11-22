@@ -89,6 +89,12 @@
 	build_path = /obj/item/circuit_component/compare/logic
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
+/datum/design/component/iterator
+	name = "Iterator Component"
+	id = "comp_iterator"
+	build_path = /obj/item/circuit_component/iterator
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
 /datum/design/component/delay
 	name = "Delay Component"
 	id = "comp_delay"
@@ -268,6 +274,11 @@
 	id = "comp_health"
 	build_path = /obj/item/circuit_component/health
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_INPUT_COMPONENTS)
+
+/datum/design/component/bci/relative_coords
+	name = "Get relative coords Component"
+	id = "comp_relative_coords"
+	build_path = /obj/item/circuit_component/relative_coords
 
 /datum/design/component/split
 	name = "Split Component"

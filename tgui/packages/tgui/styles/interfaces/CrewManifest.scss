@@ -1,0 +1,42 @@
+@use '../colors.scss';
+
+.CrewManifest {
+  @each $department-name, $color-value in colors.$departments {
+    &--#{$department-name} {
+      .Section {
+        &__title {
+          border-color: $color-value;
+        }
+        &__titleText {
+          color: $color-value;
+        }
+      }
+    }
+  }
+
+  &__Cell {
+    padding: 3px 0;
+    vertical-align: middle;
+
+    &--Rank {
+      color: colors.$label;
+      text-align: right;
+    }
+  }
+
+  &__Icon {
+    position: relative;
+
+    &:not(:last-child) {
+      margin-right: 7px;
+    }
+
+    &--Chevron {
+      margin-right: 4px;
+    }
+
+    &--Command {
+      color: colors.$yellow;
+    }
+  }
+}

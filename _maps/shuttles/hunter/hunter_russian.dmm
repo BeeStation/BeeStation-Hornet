@@ -795,7 +795,7 @@
 "Ln" = (
 /obj/effect/turf_decal/box/corners,
 /obj/machinery/iv_drip,
-/obj/item/deployable/rollerbed{
+/obj/item/rollerbed{
 	pixel_x = -10;
 	pixel_y = 14
 	},
@@ -1040,7 +1040,7 @@
 	pixel_y = 11
 	},
 /obj/item/gun/ballistic/revolver/russian,
-/obj/item/kitchen/knife/hunting{
+/obj/item/knife/hunting{
 	pixel_y = -1
 	},
 /obj/effect/turf_decal/siding/wood,

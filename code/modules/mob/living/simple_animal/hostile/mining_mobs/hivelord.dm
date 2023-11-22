@@ -189,6 +189,7 @@
 	else
 		L = new(H.loc)
 	visible_message("<span class='warning'>[L] staggers to [L.p_their()] feet!</span>")
+	H.investigate_log("has been killed by hivelord infestation.", INVESTIGATE_DEATHS)
 	H.death()
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H
@@ -303,9 +304,9 @@
 			if(prob(10))
 				belt = /obj/item/storage/belt/mining/primitive
 			if(prob(30))
-				r_pocket = /obj/item/kitchen/knife/combat/bone
+				r_pocket = /obj/item/knife/combat/bone
 			if(prob(30))
-				l_pocket = /obj/item/kitchen/knife/combat/bone
+				l_pocket = /obj/item/knife/combat/bone
 		if(JOB_NAME_CLOWN)
 			name = pick(GLOB.clown_names)
 			outfit = /datum/outfit/job/clown

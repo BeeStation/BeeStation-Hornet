@@ -19,7 +19,6 @@
 
 /datum/element/undertile/Attach(datum/target, invisibility_trait, invisibility_level = INVISIBILITY_MAXIMUM, tile_overlay, use_alpha = TRUE, use_anchor = FALSE)
 	. = ..()
-
 	if(!ismovable(target))
 		return ELEMENT_INCOMPATIBLE
 
@@ -38,6 +37,7 @@
 
 ///called when a tile has been covered or uncovered
 /datum/element/undertile/proc/hide(atom/movable/source, covered)
+	SIGNAL_HANDLER
 
 	if(source.density)
 		stack_trace("([src]): Atom [source] was given an undertile element, but has become dense! This can lead to invisible walls!")
@@ -49,7 +49,7 @@
 
 	if(covered)
 		if(invisibility_trait)
-			ADD_TRAIT(source, invisibility_trait, TRAIT_GENERIC)
+			ADD_TRAIT(source, invisibility_trait, ELEMENT_TRAIT(type))
 		if(tile_overlay)
 			T.add_overlay(tile_overlay)
 		if(use_alpha)
@@ -59,7 +59,7 @@
 
 	else
 		if(invisibility_trait)
-			REMOVE_TRAIT(source, invisibility_trait, TRAIT_GENERIC)
+			REMOVE_TRAIT(source, invisibility_trait, ELEMENT_TRAIT(type))
 		if(tile_overlay)
 			T.overlays -= tile_overlay
 		if(use_alpha)

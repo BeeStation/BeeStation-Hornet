@@ -7,7 +7,7 @@
 	var/list/elements
 	var/floor_type = /turf/open/floor/vault
 	var/finished = FALSE
-	var/reward_type = /obj/item/reagent_containers/food/snacks/cookie
+	var/reward_type = /obj/item/food/cookie
 	var/element_type = /obj/structure/puzzle_element
 	var/auto_setup = TRUE
 	var/empty_tile_id
@@ -284,6 +284,7 @@
 /obj/effect/sliding_puzzle/prison/Destroy()
 	if(prisoner)
 		to_chat(prisoner,"<span class='userdanger'>With the cube broken by force, you can feel your body falling apart.</span>")
+		prisoner.investigate_log("has died from their prison puzzle being destroyed.", INVESTIGATE_DEATHS)
 		prisoner.death()
 		qdel(prisoner)
 	. = ..()

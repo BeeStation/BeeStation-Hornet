@@ -1020,18 +1020,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	say(message)
 
 /obj/machinery/vending/power_change()
-	if(machine_stat & BROKEN)
-		icon_state = "[initial(icon_state)]-broken"
-	else
-		if(powered())
-			icon_state = initial(icon_state)
-			machine_stat &= ~NOPOWER
-			START_PROCESSING(SSmachines, src)
-			set_light(2)
-		else
-			icon_state = "[initial(icon_state)]-off"
-			machine_stat |= NOPOWER
-			set_light(0)
+	. = ..()
+	if(powered())
+		START_PROCESSING(SSmachines, src)
 
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /**
@@ -1172,11 +1163,11 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 					item_price = T.custom_price
 					item_path = T.type
 					if(!base64)
-						if(base64_cache[T.type])
-							base64 = base64_cache[T.type]
+						if(base64_cache["[T.icon]_[T.icon_state]"])
+							base64 = base64_cache["[T.icon]_[T.icon_state]"]
 						else
 							base64 = icon2base64(icon(T.icon, T.icon_state, frame=1))
-							base64_cache[T.type] = base64
+							base64_cache["[T.icon]_[T.icon_state]"] = base64
 					break
 			var/list/data = list(
 				name = O,

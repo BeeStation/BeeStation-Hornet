@@ -44,6 +44,7 @@
 	for(var/direction in GLOB.cardinals)
 		power_station = locate(/obj/machinery/teleport/station, get_step(src, direction))
 		if(power_station)
+			power_station.link_console_and_hub()
 			break
 	return power_station
 
@@ -98,18 +99,14 @@
 	else
 		icon_state = "tele0"
 
-/obj/machinery/teleport/hub/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/teleport/hub/proc/is_ready()
 	. = !panel_open && !(machine_stat & (BROKEN|NOPOWER)) && power_station && power_station.engaged && !(power_station.machine_stat & (BROKEN|NOPOWER))
 
 /obj/machinery/teleport/hub/syndicate/Initialize(mapload)
 	. = ..()
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	var/obj/item/stock_parts/matter_bin/super/super_bin = new(src)
+	LAZYADD(component_parts, super_bin)
 	RefreshParts()
-
 
 /obj/machinery/teleport/station
 	name = "teleporter station"
@@ -140,7 +137,7 @@
 	if(!panel_open)
 		. += "<span class='notice'>The panel is <i>screwed</i> in, obstructing the linking device and wiring panel.</span>"
 	else
-		. += "<span class='notice'>The <i>linking</i> device is now able to be <i>scanned</i> with a multitool.<br>The <i>wiring</i> can be <i>connected<i> to a nearby console and hub with a pair of wirecutters.</span>"
+		. += "<span class='notice'>The <i>linking</i> device is now able to be <i>scanned</i> with a multitool.</span>"
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: This station can be linked to <b>[efficiency]</b> other station(s).</span>"
 
@@ -177,12 +174,6 @@
 
 	else if(default_deconstruction_crowbar(W))
 		return
-
-	else if(W.tool_behaviour == TOOL_WIRECUTTER)
-		if(panel_open)
-			link_console_and_hub()
-			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
-			return
 	else
 		return ..()
 
@@ -191,14 +182,14 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/teleport/station)
 DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
 	if(panel_open)
 		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-			to_chat(user, "<span class='caution'>You download the data to the [buffer_parent.name]'s buffer.</span>")
+			to_chat(user, "<span class='notice'>You download the data to the [buffer_parent.name]'s buffer.</span>")
 			return COMPONENT_BUFFER_RECIEVED
 	else
 		if(istype(buffer, /obj/machinery/teleport/station) && buffer != src)
 			if(linked_stations.len < efficiency)
 				linked_stations.Add(buffer)
 				buffer = null
-				to_chat(user, "<span class='caution'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
+				to_chat(user, "<span class='notice'>You upload the data from the [buffer_parent.name]'s buffer.</span>")
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
 			return COMPONENT_BUFFER_RECIEVED
@@ -225,8 +216,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
 	add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
-	..()
-	update_icon()
+	. = ..()
 	if(teleporter_hub)
 		teleporter_hub.update_icon()
 

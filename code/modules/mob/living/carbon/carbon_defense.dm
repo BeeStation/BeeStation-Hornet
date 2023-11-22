@@ -290,6 +290,8 @@
 		M.visible_message("<span class='notice'>[M] pats [src] on the head.</span>", \
 					"<span class='notice'>You pat [src] on the head.</span>")
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "headpat", /datum/mood_event/headpat, M)
+		for(var/datum/brain_trauma/trauma in M.get_traumas())
+			trauma.on_hug(M, src)
 	else if((M.zone_selected == BODY_ZONE_L_ARM) || (M.zone_selected == BODY_ZONE_R_ARM))
 		if(!get_bodypart(check_zone(M.zone_selected)))
 			to_chat(M, "<span class='warning'>[src] does not have a [M.zone_selected == BODY_ZONE_L_ARM ? "left" : "right"] arm!</span>")
@@ -432,3 +434,24 @@
 	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
+
+/mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= 50)
+		if(getOxyLoss() > 50)
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= 50)
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+
+
+/mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= 50)
+		if(getOxyLoss() > 50)
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= 50)
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)

@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(traumas)
 					   /mob/living/simple_animal/pet/penguin)),
 					   "birds" = typecacheof(list(/mob/living/simple_animal/parrot, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 					   /mob/living/simple_animal/pet/penguin)),
-					   "anime" = typecacheof(list(/mob/living/simple_animal/hostile/guardian))
+					   "anime" = typecacheof(list(/mob/living/simple_animal/hostile/holoparasite))
 					   )
 
 	phobia_objs = list("snakes" = typecacheof(list(/obj/item/rod_of_asclepius)),
@@ -120,7 +120,7 @@ SUBSYSTEM_DEF(traumas)
 						/obj/item/gun/magic/staff, /obj/item/gun/magic/wand,
 						/obj/item/nullrod, /obj/item/clothing/under/rank/civilian/chaplain)),
 
-						"aliens"   = typecacheof(list(/obj/item/clothing/mask/facehugger, /obj/item/organ/body_egg/alien_embryo,
+						"aliens" = typecacheof(list(/obj/item/clothing/mask/facehugger, /obj/item/organ/body_egg/alien_embryo,
 						/obj/structure/alien, /obj/item/toy/toy_xeno,
 						/obj/item/clothing/suit/armor/abductor, /obj/item/abductor, /obj/item/gun/energy/alien,
 						/obj/item/abductor/baton, /obj/item/radio/headset/abductor, /obj/item/scalpel/alien, /obj/item/hemostat/alien,
@@ -130,11 +130,20 @@ SUBSYSTEM_DEF(traumas)
 						/obj/machinery/abductor, /obj/item/crowbar/abductor, /obj/item/screwdriver/abductor, /obj/item/weldingtool/abductor,
 						/obj/item/wirecutters/abductor, /obj/item/wrench/abductor, /obj/item/stack/sheet/mineral/abductor)),
 
-						"birds" = typecacheof(list(/obj/item/clothing/mask/gas/plaguedoctor, /obj/item/reagent_containers/food/snacks/cracker,
-						/obj/item/clothing/suit/chickensuit, /obj/item/clothing/head/chicken,
-						/obj/item/clothing/suit/toggle/owlwings, /obj/item/clothing/under/costume/owl, /obj/item/clothing/mask/gas/owl_mask,
-						/obj/item/clothing/under/costume/griffin, /obj/item/clothing/shoes/griffin, /obj/item/clothing/head/griffin,
-						/obj/item/clothing/head/helmet/space/freedom, /obj/item/clothing/suit/space/freedom)),
+						"birds" = typecacheof(list(
+							/obj/item/clothing/mask/gas/plaguedoctor,
+							/obj/item/food/cracker,
+							/obj/item/clothing/suit/chickensuit,
+							/obj/item/clothing/head/chicken,
+							/obj/item/clothing/suit/toggle/owlwings,
+							/obj/item/clothing/under/costume/owl,
+							/obj/item/clothing/mask/gas/owl_mask,
+							/obj/item/clothing/under/costume/griffin,
+							/obj/item/clothing/shoes/griffin,
+							/obj/item/clothing/head/griffin,
+							/obj/item/clothing/head/helmet/space/freedom,
+							/obj/item/clothing/suit/space/freedom
+							)),
 
 					   "anime" = typecacheof(list(/obj/item/clothing/under/costume/schoolgirl, /obj/item/katana, /obj/item/reagent_containers/food/snacks/sashimi, /obj/item/reagent_containers/food/snacks/chawanmushi,
 					   /obj/item/reagent_containers/food/drinks/bottle/sake, /obj/item/throwing_star, /obj/item/clothing/head/kitty/genuine, /obj/item/clothing/suit/space/space_ninja,

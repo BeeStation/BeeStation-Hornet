@@ -341,11 +341,12 @@
 /mob/living/silicon/pai/updatehealth()
 	if(status_flags & GODMODE)
 		return
-	health = maxHealth - getBruteLoss() - getFireLoss()
+	set_health(maxHealth - getBruteLoss() - getFireLoss())
 	update_stat()
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
 
 /mob/living/silicon/pai/process(delta_time)
-	emitterhealth = CLAMP((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
+	emitterhealth = clamp((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
 
 /mob/living/silicon/pai/can_interact_with(atom/A)
 	if(A == signaler) // Bypass for signaler

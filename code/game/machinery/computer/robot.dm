@@ -88,15 +88,15 @@
 		data["cyborgs"] += list(cyborg_data)
 
 	data["drones"] = list()
-	for(var/mob/living/simple_animal/drone/D in GLOB.drones_list)
-		if(D.hacked)
+	for(var/mob/living/simple_animal/drone/drone in GLOB.drones_list)
+		if(drone.hacked)
 			continue
-		if(get_virtual_z_level() != (get_turf(D)).get_virtual_z_level())
+		if(get_virtual_z_level() != (get_turf(drone)).get_virtual_z_level())
 			continue
 		var/list/drone_data = list(
-			name = D.name,
-			status = D.stat,
-			ref = REF(D)
+			name = drone.name,
+			status = drone.stat,
+			ref = REF(drone)
 		)
 		data["drones"] += list(drone_data)
 
@@ -168,6 +168,7 @@
 					s.set_up(3, TRUE, D)
 					s.start()
 					D.visible_message("<span class='danger'>\the [D] self-destructs!</span>")
+					D.investigate_log("has been gibbed by a robotics console.", INVESTIGATE_DEATHS)
 					D.gib()
 		if("extract")
 			if(!GLOB.upload_code)
