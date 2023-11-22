@@ -46,7 +46,7 @@
 		jobban_type = ROLE_MONKEY_HELMET,
 		role_preference_key = null,
 		poll_time = 100,
-		M = user,
+		target_mob = user,
 		ignore_category = POLL_IGNORE_MONKEY_HELMET)
 
 	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter), or monkey has died
