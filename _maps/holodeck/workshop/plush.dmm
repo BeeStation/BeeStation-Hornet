@@ -6,6 +6,10 @@
 "b" = (
 /obj/structure/table/reinforced,
 /obj/item/pen,
+/obj/item/paper{
+	name = "plushes 101";
+	default_raw_text = "**How to make plushes**<br><br>Step 1: make a plush fabric with 2 sheets of cloth. You can acquire cloth by cutting bedsheets or gauzes with wirecutters, or by weaving cotton with the loom.<br><br>Step 2: stuff the plush fabric with cotton, and you're done!"
+	},
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
 "c" = (

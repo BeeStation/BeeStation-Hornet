@@ -55,14 +55,6 @@ export const GenPop = (props, context) => {
           <br />
         </Section>
         <Section title="Infractions">
-          <Input
-            autoFocus
-            placeholder="Search infraction..."
-            width={20}
-            key={searchText}
-            onInput={(_, value) => setSearchText(value)}
-          />
-          <br />
           {Object.keys(data.allCrimes).map((key) => {
             let value = data.allCrimes[key];
             return (

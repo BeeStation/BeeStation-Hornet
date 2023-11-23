@@ -188,8 +188,9 @@
 	name = "Workshop - Plushes Sweatshop"
 	template_id = "plush"
 	mappath = "_maps/holodeck/workshop/plush.dmm"
-
+/*
 /datum/map_template/holodeck/prison/robot
 	name = "Workshop - Bot assembly"
 	template_id = "bot"
 	mappath = "_maps/holodeck/workshop/bot.dmm"
+*/

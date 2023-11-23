@@ -1,5 +1,5 @@
 // Workshop area for the prison wing in Brig
-// load_program() calls derez(), find a way to adress that when implementing a loading/unloading method in the game
+
 
 /obj/machinery/computer/holodeck/prison
 	name = "workshop control console"
@@ -30,11 +30,6 @@
 
 /datum/map_template/holodeck/prison/update_blacklist(turf/placement, list/input_blacklist)
 	. = ..()
-
-//remove the proc that makes all items to stam damage. Find a way to have holo removed if the item isn't in the holodeck area.
-
-//make sure the flags given at line 272 in computer.dm don't cause issues (for item)
-//add emergency shutdown call on the UI for sec to shut it off
 
 /obj/machinery/computer/holodeck/prison/process(delta_time=2) //don't derez items that leave the area
 	if(damaged && DT_PROB(10, delta_time))

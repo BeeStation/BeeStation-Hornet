@@ -146,7 +146,11 @@
 	if(default_deconstruction_screwdriver(user, "turnstile", "turnstile", item))
 		update_appearance()//add proper panel icons
 		return
-	if(default_deconstruction_crowbar(item))
+	if(item.tool_behaviour == TOOL_CROWBAR && panel_open && circuit != null)
+		to_chat(user, "<span class='notice'>You start tearing out the circuitry...")
+		if(do_after(user, 3 SECONDS))
+			circuit.forceMove(loc)
+			circuit = null
 		return
 	. = ..()
 	if(machine_stat & BROKEN)
@@ -164,7 +168,14 @@
 
 /obj/machinery/turnstile/welder_act(mob/living/user, obj/item/I)
 	//Shamelessly copied airlock code
-	. = TRUE //Never attack it with a welding tool
+	. = TRUE
+	if(circuit == null && user.a_intent == INTENT_HARM)
+		var/obj/item/weldingtool/W = I
+		if(W.welding)
+			if(W.use_tool(src, user, 40, volume=50))
+				to_chat(user, "<span class='notice'>You start slicing off the bars of the [src]")
+				new /obj/item/stack/rods/ten(get_turf(src))
+				qdel(src)
 	if(!I.tool_start_check(user, amount=0))
 		return
 	if(obj_integrity >= max_integrity)
@@ -197,6 +208,13 @@
 			return FALSE
 		else
 			allowed = allowed(mover.pulledby)
+	//Can't get piggyback rides out of jail (anticipated for gh#10205)
+	if(!allowed && mover.buckled_mobs)
+		var/mob/living/carbon/human/H = mover.buckled_mobs
+		if(istype(H.wear_id, /obj/item/card/id/prisoner) || istype(H.get_active_held_item(), /obj/item/card/id/prisoner))
+			return FALSE
+		else
+			allowed = allowed(mover.buckled_mobs)
 	if(allowed)
 		return TRUE
 	return FALSE
