@@ -4065,6 +4065,7 @@
 #include "code\modules\wiremod\components\list\select.dm"
 #include "code\modules\wiremod\components\list\split.dm"
 #include "code\modules\wiremod\components\list\write.dm"
+#include "code\modules\wiremod\components\math\absolute.dm"
 #include "code\modules\wiremod\components\math\arithmetic.dm"
 #include "code\modules\wiremod\components\math\bitflag.dm"
 #include "code\modules\wiremod\components\math\bitwise.dm"
