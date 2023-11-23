@@ -491,23 +491,14 @@
  * Arguments:
  * * question - Question to show players as part of poll
  * * jobban_type - Type of jobban to use to filter out potential candidates.
-
  * * poll_time - Length of time in deciseconds that the poll input box exists before closing.
  * * target_mob - The mob that is being polled for.
  * * ignore_category - Unknown/needs further documentation.
  */
 /proc/poll_candidates_for_mob(question, jobban_type, role_preference_key, poll_time = 30 SECONDS, mob/target_mob, ignore_category = null)
-	var/static/list/mob/currently_polling_mobs = list()
-
-	if(currently_polling_mobs.Find(target_mob))
-		return list()
-
-	currently_polling_mobs += target_mob
-
 	var/list/possible_candidates = poll_ghost_candidates(question, jobban_type, role_preference_key, poll_time, ignore_category)
 
-	currently_polling_mobs -= target_mob
-	if(!target_mob || QDELETED(target_mob) || !target_mob.loc)
+	if(QDELETED(target_mob) || !target_mob.loc)
 		return list()
 
 	return possible_candidates
@@ -526,12 +517,12 @@
 /proc/poll_candidates_for_mobs(question, jobban_type, role_preference_key, poll_time = 30 SECONDS, list/mobs, ignore_category = null)
 	var/list/candidate_list = poll_ghost_candidates(question, jobban_type, role_preference_key, poll_time, ignore_category)
 
+	var/i=1
 	for(var/mob/potential_mob as anything in mobs)
 		if(QDELETED(potential_mob) || !potential_mob.loc)
-			mobs -= potential_mob
-
-	if(!length(mobs))
-		return list()
+			mobs.Cut(i,i+1)
+		else
+			++i
 
 	return candidate_list
 
