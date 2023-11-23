@@ -1943,7 +1943,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/xenobiology)
 "agg" = (
-/obj/machinery/telecomms/processor/preset_exploration,
+/obj/machinery/server/telecomms/processor/preset_exploration,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/box,
 /turf/open/floor/circuit/telecomms/server,
@@ -2935,7 +2935,7 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
 "ajP" = (
-/obj/machinery/telecomms/processor/preset_two,
+/obj/machinery/server/telecomms/processor/preset_two,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "ajT" = (
@@ -4613,7 +4613,7 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "aoF" = (
-/obj/machinery/telecomms/receiver/preset_right,
+/obj/machinery/server/telecomms/receiver/preset_right,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -5789,7 +5789,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "arG" = (
-/obj/machinery/telecomms/receiver/preset_left,
+/obj/machinery/server/telecomms/receiver/preset_left,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -8744,7 +8744,7 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "aBd" = (
-/obj/machinery/telecomms/bus/preset_three,
+/obj/machinery/server/telecomms/bus/preset_three,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -26640,7 +26640,7 @@
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "ccU" = (
-/obj/machinery/telecomms/processor/preset_four,
+/obj/machinery/server/telecomms/processor/preset_four,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "ccV" = (
@@ -26745,11 +26745,11 @@
 	},
 /area/tcommsat/server)
 "cdn" = (
-/obj/machinery/telecomms/server/presets/command,
+/obj/machinery/server/telecomms/server/presets/command,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cdo" = (
-/obj/machinery/telecomms/server/presets/security,
+/obj/machinery/server/telecomms/server/presets/security,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cdp" = (
@@ -26761,7 +26761,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "cdq" = (
-/obj/machinery/telecomms/hub/preset,
+/obj/machinery/server/telecomms/hub/preset,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cdt" = (
@@ -26807,11 +26807,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cdB" = (
-/obj/machinery/telecomms/server/presets/science,
+/obj/machinery/server/telecomms/server/presets/science,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cdC" = (
-/obj/machinery/telecomms/server/presets/medical,
+/obj/machinery/server/telecomms/server/presets/medical,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cdD" = (
@@ -26833,14 +26833,14 @@
 /turf/closed/wall/r_wall/rust,
 /area/security/nuke_storage)
 "cdJ" = (
-/obj/machinery/telecomms/server/presets/common,
+/obj/machinery/server/telecomms/server/presets/common,
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cdK" = (
-/obj/machinery/telecomms/server/presets/engineering,
+/obj/machinery/server/telecomms/server/presets/engineering,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cdL" = (
@@ -26848,7 +26848,7 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cdM" = (
-/obj/machinery/telecomms/server/presets/service,
+/obj/machinery/server/telecomms/server/presets/service,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cdS" = (
@@ -27183,7 +27183,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hop)
 "ceJ" = (
-/obj/machinery/telecomms/server/presets/supply,
+/obj/machinery/server/telecomms/server/presets/supply,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -27306,23 +27306,23 @@
 /turf/open/floor/engine,
 /area/security/nuke_storage)
 "cfc" = (
-/obj/machinery/telecomms/processor/preset_one,
+/obj/machinery/server/telecomms/processor/preset_one,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cfd" = (
-/obj/machinery/telecomms/broadcaster/preset_left,
+/obj/machinery/server/telecomms/broadcaster/preset_left,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cfe" = (
-/obj/machinery/telecomms/bus/preset_two,
+/obj/machinery/server/telecomms/bus/preset_two,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cfg" = (
-/obj/machinery/telecomms/broadcaster/preset_right,
+/obj/machinery/server/telecomms/broadcaster/preset_right,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cfh" = (
-/obj/machinery/telecomms/processor/preset_three,
+/obj/machinery/server/telecomms/processor/preset_three,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cfk" = (
@@ -27496,11 +27496,11 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "cfA" = (
-/obj/machinery/telecomms/bus/preset_one,
+/obj/machinery/server/telecomms/bus/preset_one,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cfB" = (
-/obj/machinery/telecomms/message_server/preset,
+/obj/machinery/server/telecomms/message_server/preset,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cfC" = (
@@ -27556,7 +27556,7 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cfG" = (
-/obj/machinery/telecomms/bus/preset_four,
+/obj/machinery/server/telecomms/bus/preset_four,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cfI" = (
@@ -42407,7 +42407,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "dRT" = (
-/obj/machinery/telecomms/hub/preset/exploration,
+/obj/machinery/server/telecomms/hub/preset/exploration,
 /obj/effect/turf_decal/box,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
@@ -45468,7 +45468,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/xenobiology)
 "feL" = (
-/obj/machinery/telecomms/server/presets/exploration,
+/obj/machinery/server/telecomms/server/presets/exploration,
 /obj/effect/turf_decal/box,
 /turf/open/floor/circuit/telecomms/server,
 /area/quartermaster/exploration_prep)
@@ -48690,7 +48690,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "gzx" = (
-/obj/machinery/telecomms/broadcaster/preset_exploration,
+/obj/machinery/server/telecomms/broadcaster/preset_exploration,
 /obj/effect/turf_decal/box,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
@@ -67346,7 +67346,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "oyI" = (
-/obj/machinery/telecomms/receiver/preset_exploration,
+/obj/machinery/server/telecomms/receiver/preset_exploration,
 /obj/effect/turf_decal/box,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
@@ -85939,7 +85939,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "wcC" = (
-/obj/machinery/telecomms/bus/preset_exploration,
+/obj/machinery/server/telecomms/bus/preset_exploration,
 /obj/effect/turf_decal/box,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)

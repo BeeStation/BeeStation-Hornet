@@ -10324,7 +10324,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/miningoffice)
 "bep" = (
-/obj/machinery/telecomms/server/presets/science,
+/obj/machinery/server/telecomms/server/presets/science,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 4
 	},
@@ -13549,7 +13549,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bvc" = (
-/obj/machinery/telecomms/server/presets/service,
+/obj/machinery/server/telecomms/server/presets/service,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/plasteel/telecomms,
 /area/tcommsat/server)
@@ -18163,11 +18163,11 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bWY" = (
-/obj/machinery/telecomms/receiver/preset_right,
+/obj/machinery/server/telecomms/receiver/preset_right,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bXa" = (
-/obj/machinery/telecomms/receiver/preset_left,
+/obj/machinery/server/telecomms/receiver/preset_left,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bXc" = (
@@ -18234,7 +18234,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bXu" = (
-/obj/machinery/telecomms/server/presets/security,
+/obj/machinery/server/telecomms/server/presets/security,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
@@ -19659,7 +19659,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cev" = (
-/obj/machinery/telecomms/broadcaster/preset_left,
+/obj/machinery/server/telecomms/broadcaster/preset_left,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -19669,7 +19669,7 @@
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "cex" = (
-/obj/machinery/telecomms/message_server/preset,
+/obj/machinery/server/telecomms/message_server/preset,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -19679,7 +19679,7 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "cez" = (
-/obj/machinery/telecomms/hub/preset,
+/obj/machinery/server/telecomms/hub/preset,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -19705,7 +19705,7 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "ceB" = (
-/obj/machinery/telecomms/broadcaster/preset_right,
+/obj/machinery/server/telecomms/broadcaster/preset_right,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -32843,7 +32843,7 @@
 /turf/closed/wall,
 /area/medical/morgue)
 "dCQ" = (
-/obj/machinery/telecomms/processor/preset_four,
+/obj/machinery/server/telecomms/processor/preset_four,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
@@ -39038,7 +39038,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/telecomms/server/presets/exploration,
+/obj/machinery/server/telecomms/server/presets/exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "eSF" = (
@@ -41249,7 +41249,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "fFT" = (
-/obj/machinery/telecomms/broadcaster/preset_exploration,
+/obj/machinery/server/telecomms/broadcaster/preset_exploration,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -46131,7 +46131,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
 "hpl" = (
-/obj/machinery/telecomms/processor/preset_one,
+/obj/machinery/server/telecomms/processor/preset_one,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
 /turf/open/floor/plasteel/white/telecomms,
 /area/tcommsat/server)
@@ -46422,7 +46422,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
 "hvk" = (
-/obj/machinery/telecomms/processor/preset_three,
+/obj/machinery/server/telecomms/processor/preset_three,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
@@ -51125,7 +51125,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "jgF" = (
-/obj/machinery/telecomms/processor/preset_two,
+/obj/machinery/server/telecomms/processor/preset_two,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
@@ -54572,7 +54572,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
 "knL" = (
-/obj/machinery/telecomms/server/presets/engineering,
+/obj/machinery/server/telecomms/server/presets/engineering,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
@@ -55659,7 +55659,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "kGh" = (
-/obj/machinery/telecomms/bus/preset_two,
+/obj/machinery/server/telecomms/bus/preset_two,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
@@ -56520,7 +56520,7 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/escape)
 "kVI" = (
-/obj/machinery/telecomms/bus/preset_four,
+/obj/machinery/server/telecomms/bus/preset_four,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
@@ -58258,7 +58258,7 @@
 /turf/open/floor/wood,
 /area/bridge/showroom/corporate)
 "lBv" = (
-/obj/machinery/telecomms/server/presets/supply,
+/obj/machinery/server/telecomms/server/presets/supply,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
@@ -61646,7 +61646,7 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "mHo" = (
-/obj/machinery/telecomms/server/presets/command,
+/obj/machinery/server/telecomms/server/presets/command,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
@@ -63959,7 +63959,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "nsq" = (
-/obj/machinery/telecomms/receiver/preset_exploration,
+/obj/machinery/server/telecomms/receiver/preset_exploration,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -64069,7 +64069,7 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/science/server)
 "nvg" = (
-/obj/machinery/telecomms/server/presets/medical,
+/obj/machinery/server/telecomms/server/presets/medical,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
@@ -65609,7 +65609,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/telecomms/hub/preset/exploration,
+/obj/machinery/server/telecomms/hub/preset/exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "nUQ" = (
@@ -70750,7 +70750,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/telecomms/processor/preset_exploration,
+/obj/machinery/server/telecomms/processor/preset_exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "pKb" = (
@@ -71560,7 +71560,7 @@
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
 "pYa" = (
-/obj/machinery/telecomms/bus/preset_three,
+/obj/machinery/server/telecomms/bus/preset_three,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
@@ -81151,7 +81151,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "toF" = (
-/obj/machinery/telecomms/server/presets/common,
+/obj/machinery/server/telecomms/server/presets/common,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
@@ -83091,7 +83091,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/aft)
 "ucF" = (
-/obj/machinery/telecomms/bus/preset_one,
+/obj/machinery/server/telecomms/bus/preset_one,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
@@ -86297,7 +86297,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/telecomms/bus/preset_exploration,
+/obj/machinery/server/telecomms/bus/preset_exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "vht" = (

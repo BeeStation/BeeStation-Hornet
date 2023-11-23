@@ -5,12 +5,12 @@
 
 */
 
-/obj/machinery/telecomms
+/obj/machinery/server/telecomms
 	var/temp = "" // output message
 	var/tempfreq = FREQ_COMMON
 	emp_disable_time = 5 MINUTES
 
-/obj/machinery/telecomms/attackby(obj/item/P, mob/user, params)
+/obj/machinery/server/telecomms/attackby(obj/item/P, mob/user, params)
 
 	var/icon_closed = initial(icon_state)
 	var/icon_open = "[initial(icon_state)]_o"
@@ -29,13 +29,13 @@
 	else
 		return ..()
 
-/obj/machinery/telecomms/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/server/telecomms/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Telecomms")
 		ui.open()
 
-/obj/machinery/telecomms/ui_data(mob/user)
+/obj/machinery/server/telecomms/ui_data(mob/user)
 	var/list/data = list()
 
 	data += add_option()
@@ -58,7 +58,7 @@
 	var/list/linked = list()
 	var/i = 0
 	data["linked"] = list()
-	for(var/obj/machinery/telecomms/machine in links)
+	for(var/obj/machinery/server/telecomms/machine in links)
 		if(machine.hide && !hide)
 			continue
 		i++			//Original was above the check if machine is hidden, index revealed there are more machines
@@ -77,7 +77,7 @@
 
 	return data
 
-/obj/machinery/telecomms/ui_act(action, params)
+/obj/machinery/server/telecomms/ui_act(action, params)
 	if(..())
 		return
 
@@ -110,7 +110,7 @@
 					playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 					return
 				else
-					for(var/obj/machinery/telecomms/T in links)
+					for(var/obj/machinery/server/telecomms/T in links)
 						T.links.Remove(src)
 						T.ui_update()
 					network = params["value"]
@@ -136,7 +136,7 @@
 			log_game("[key_name(usr)] removed frequency [params["value"]] for [src] at [AREACOORD(src)].")
 			. = TRUE
 		if("unlink")
-			var/obj/machinery/telecomms/T = links[text2num(params["value"])]
+			var/obj/machinery/server/telecomms/T = links[text2num(params["value"])]
 			if(T)
 				// Remove link entries from both T and src.
 				if(T.links)
@@ -147,7 +147,7 @@
 				. = TRUE
 		if("link")
 			if(heldmultitool)
-				var/obj/machinery/telecomms/T = heldmultitool.target
+				var/obj/machinery/server/telecomms/T = heldmultitool.target
 				if(istype(T) && T != src)
 					if(!(src in T.links))
 						T.links += src
@@ -166,25 +166,25 @@
 	if(add_act(action, params))
 		. = TRUE
 
-/obj/machinery/telecomms/proc/add_option()
+/obj/machinery/server/telecomms/proc/add_option()
 	return
 
-/obj/machinery/telecomms/bus/add_option()
+/obj/machinery/server/telecomms/bus/add_option()
 	var/list/data = list()
 	data["type"] = "bus"
 	data["changefrequency"] = change_frequency
 	return data
 
-/obj/machinery/telecomms/relay/add_option()
+/obj/machinery/server/telecomms/relay/add_option()
 	var/list/data = list()
 	data["type"] = "relay"
 	data["broadcasting"] = broadcasting
 	data["receiving"] = receiving
 	return data
 
-/obj/machinery/telecomms/proc/add_act(action, params)
+/obj/machinery/server/telecomms/proc/add_act(action, params)
 
-/obj/machinery/telecomms/relay/add_act(action, params)
+/obj/machinery/server/telecomms/relay/add_act(action, params)
 	switch(action)
 		if("broadcast")
 			broadcasting = !broadcasting
@@ -193,7 +193,7 @@
 			receiving = !receiving
 			. = TRUE
 
-/obj/machinery/telecomms/bus/add_act(action, params)
+/obj/machinery/server/telecomms/bus/add_act(action, params)
 	switch(action)
 		if("change_freq")
 			var/newfreq = text2num(params["value"]) * 10
@@ -207,7 +207,7 @@
 
 // Returns a multitool from a user depending on their mobtype.
 
-/obj/machinery/telecomms/proc/get_held_buffer_item(mob/user)
+/obj/machinery/server/telecomms/proc/get_held_buffer_item(mob/user)
 	// Let's double check
 	var/obj/item/held_item = user.get_active_held_item()
 	if(!issilicon(user) && held_item?.GetComponent(/datum/component/buffer))
@@ -220,7 +220,7 @@
 			return held_item?.GetComponent(/datum/component/buffer)
 	return null
 
-/obj/machinery/telecomms/proc/canAccess(mob/user)
+/obj/machinery/server/telecomms/proc/canAccess(mob/user)
 	if(issilicon(user) || in_range(user, src))
 		return TRUE
 	return FALSE

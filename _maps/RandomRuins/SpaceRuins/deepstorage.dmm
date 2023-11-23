@@ -2970,7 +2970,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "hd" = (
-/obj/machinery/telecomms/relay/preset/telecomms,
+/obj/machinery/server/telecomms/relay/preset/telecomms,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "he" = (

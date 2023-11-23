@@ -14,7 +14,7 @@
 
 GLOBAL_LIST_EMPTY(telecomms_list)
 
-/obj/machinery/telecomms
+/obj/machinery/server/telecomms
 	icon = 'icons/obj/machines/telecomms.dmi'
 	critical_machine = TRUE
 	light_color = LIGHT_COLOR_CYAN
@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/hide = FALSE  // Is it a hidden machine?
 
 
-/obj/machinery/telecomms/proc/relay_information(datum/signal/subspace/signal, filter, copysig, amount = 20)
+/obj/machinery/server/telecomms/proc/relay_information(datum/signal/subspace/signal, filter, copysig, amount = 20)
 	// relay signal to all linked machinery that are of type [filter]. If signal has been sent [amount] times, stop sending
 
 	if(!on)
@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		signal.data["slow"] = netlag
 
 	// Loop through all linked machines and send the signal or copy.
-	for(var/obj/machinery/telecomms/machine in links)
+	for(var/obj/machinery/server/telecomms/machine in links)
 		if(filter && !istype( machine, filter ))
 			continue
 		if(!machine.on)
@@ -70,37 +70,37 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 	return send_count
 
-/obj/machinery/telecomms/proc/relay_direct_information(datum/signal/signal, obj/machinery/telecomms/machine)
+/obj/machinery/server/telecomms/proc/relay_direct_information(datum/signal/signal, obj/machinery/server/telecomms/machine)
 	// send signal directly to a machine
 	machine.receive_information(signal, src)
 
-/obj/machinery/telecomms/proc/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
+/obj/machinery/server/telecomms/proc/receive_information(datum/signal/signal, obj/machinery/server/telecomms/machine_from)
 	// receive information from linked machinery
 
-/obj/machinery/telecomms/proc/is_freq_listening(datum/signal/signal)
+/obj/machinery/server/telecomms/proc/is_freq_listening(datum/signal/signal)
 	// return TRUE if found, FALSE if not found
 	return signal && (!freq_listening.len || (signal.frequency in freq_listening))
 
-/obj/machinery/telecomms/Initialize(mapload)
+/obj/machinery/server/telecomms/Initialize(mapload)
 	. = ..()
 	GLOB.telecomms_list += src
 	if(mapload && autolinkers.len)
 		return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/telecomms/LateInitialize()
+/obj/machinery/server/telecomms/LateInitialize()
 	..()
-	for(var/obj/machinery/telecomms/T in (long_range_link ? GLOB.telecomms_list : urange(20, src, 1)))
+	for(var/obj/machinery/server/telecomms/T in (long_range_link ? GLOB.telecomms_list : urange(20, src, 1)))
 		add_link(T)
 
-/obj/machinery/telecomms/Destroy()
+/obj/machinery/server/telecomms/Destroy()
 	GLOB.telecomms_list -= src
-	for(var/obj/machinery/telecomms/comm in GLOB.telecomms_list)
+	for(var/obj/machinery/server/telecomms/comm in GLOB.telecomms_list)
 		comm.links -= src
 	links = list()
 	return ..()
 
 // Used in auto linking
-/obj/machinery/telecomms/proc/add_link(obj/machinery/telecomms/T)
+/obj/machinery/server/telecomms/proc/add_link(obj/machinery/server/telecomms/T)
 	var/turf/position = get_turf(src)
 	var/turf/T_position = get_turf(T)
 	var/same_zlevel = FALSE
@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 					T.links |= src
 
 
-/obj/machinery/telecomms/update_icon()
+/obj/machinery/server/telecomms/update_icon()
 	if(on)
 		if(panel_open)
 			icon_state = "[initial(icon_state)]_o"
@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		else
 			icon_state = "[initial(icon_state)]_off"
 
-/obj/machinery/telecomms/proc/update_power()
+/obj/machinery/server/telecomms/proc/update_power()
 	var/newState = on
 
 	if(toggled)
@@ -143,7 +143,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		ui_update()
 		set_light(on)
 
-/obj/machinery/telecomms/process(delta_time)
+/obj/machinery/server/telecomms/process(delta_time)
 	update_power()
 
 	// Update the icon
@@ -152,10 +152,10 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	if(traffic > 0)
 		traffic -= netspeed * delta_time
 
-/obj/machinery/telecomms/obj_break(damage_flag)
+/obj/machinery/server/telecomms/obj_break(damage_flag)
 	. = ..()
 	update_power()
 
-/obj/machinery/telecomms/power_change()
+/obj/machinery/server/telecomms/power_change()
 	..()
 	update_power()

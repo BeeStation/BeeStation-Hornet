@@ -173,7 +173,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/telecomms/relay/preset/exploration,
+/obj/machinery/server/telecomms/relay/preset/exploration,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)

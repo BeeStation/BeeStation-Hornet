@@ -22,5 +22,5 @@
 
 
 /datum/round_event/communications_blackout/start()
-	for(var/obj/machinery/telecomms/T in GLOB.telecomms_list)
+	for(var/obj/machinery/server/telecomms/T in GLOB.telecomms_list)
 		T.emp_act(EMP_HEAVY)

@@ -56,7 +56,7 @@
 // Subtype of /datum/signal with additional processing information.
 /datum/signal/subspace
 	transmission_method = TRANSMISSION_SUBSPACE
-	var/server_type = /obj/machinery/telecomms/server
+	var/server_type = /obj/machinery/server/telecomms/server
 	var/datum/signal/subspace/original
 	var/list/levels
 
@@ -81,9 +81,9 @@
 		current = current.original
 
 /datum/signal/subspace/proc/send_to_receivers()
-	for(var/obj/machinery/telecomms/receiver/R in GLOB.telecomms_list)
+	for(var/obj/machinery/server/telecomms/receiver/R in GLOB.telecomms_list)
 		R.receive_signal(src)
-	for(var/obj/machinery/telecomms/allinone/R in GLOB.telecomms_list)
+	for(var/obj/machinery/server/telecomms/allinone/R in GLOB.telecomms_list)
 		R.receive_signal(src)
 
 /datum/signal/subspace/proc/broadcast()

@@ -197,7 +197,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "br" = (
-/obj/machinery/telecomms/relay/preset/mining,
+/obj/machinery/server/telecomms/relay/preset/mining,
 /obj/machinery/light/small{
 	dir = 1
 	},

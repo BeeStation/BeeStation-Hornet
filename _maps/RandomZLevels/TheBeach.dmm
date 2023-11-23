@@ -453,7 +453,7 @@
 /area/awaymission/beach)
 "bq" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/telecomms/relay/preset/mining,
+/obj/machinery/server/telecomms/relay/preset/mining,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "br" = (

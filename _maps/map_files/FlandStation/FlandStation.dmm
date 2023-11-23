@@ -37772,7 +37772,7 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
 "jUs" = (
-/obj/machinery/telecomms/hub/preset/exploration,
+/obj/machinery/server/telecomms/hub/preset/exploration,
 /obj/effect/turf_decal/stripes/box,
 /obj/effect/turf_decal/stripes/red/box,
 /obj/machinery/light/small{
@@ -43338,7 +43338,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
 "loM" = (
-/obj/machinery/telecomms/server/presets/supply,
+/obj/machinery/server/telecomms/server/presets/supply,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -50741,7 +50741,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/engine/gravity_generator)
 "nix" = (
-/obj/machinery/telecomms/bus/preset_one,
+/obj/machinery/server/telecomms/bus/preset_one,
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
@@ -53471,7 +53471,7 @@
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "nUp" = (
-/obj/machinery/telecomms/receiver/preset_exploration,
+/obj/machinery/server/telecomms/receiver/preset_exploration,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
@@ -53549,7 +53549,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/engine/atmos)
 "nVA" = (
-/obj/machinery/telecomms/processor/preset_exploration,
+/obj/machinery/server/telecomms/processor/preset_exploration,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
 /obj/structure/cable/yellow{
@@ -53594,14 +53594,14 @@
 /turf/closed/wall/r_wall,
 /area/security/execution/education)
 "nWo" = (
-/obj/machinery/telecomms/server/presets/exploration,
+/obj/machinery/server/telecomms/server/presets/exploration,
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "nWt" = (
-/obj/machinery/telecomms/processor/preset_one,
+/obj/machinery/server/telecomms/processor/preset_one,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
@@ -53667,7 +53667,7 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "nXG" = (
-/obj/machinery/telecomms/server/presets/medical,
+/obj/machinery/server/telecomms/server/presets/medical,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -53753,7 +53753,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/crew_quarters/dorms)
 "nZg" = (
-/obj/machinery/telecomms/server/presets/science,
+/obj/machinery/server/telecomms/server/presets/science,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -56264,14 +56264,14 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "oHl" = (
-/obj/machinery/telecomms/receiver/preset_left,
+/obj/machinery/server/telecomms/receiver/preset_left,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 4
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "oHE" = (
-/obj/machinery/telecomms/broadcaster/preset_right,
+/obj/machinery/server/telecomms/broadcaster/preset_right,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 8
 	},
@@ -56321,7 +56321,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/restrooms)
 "oIc" = (
-/obj/machinery/telecomms/processor/preset_two,
+/obj/machinery/server/telecomms/processor/preset_two,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
@@ -56337,12 +56337,12 @@
 	},
 /area/docking/arrival)
 "oIu" = (
-/obj/machinery/telecomms/server/presets/engineering,
+/obj/machinery/server/telecomms/server/presets/engineering,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "oIz" = (
-/obj/machinery/telecomms/server/presets/common,
+/obj/machinery/server/telecomms/server/presets/common,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -56398,7 +56398,7 @@
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "oJq" = (
-/obj/machinery/telecomms/bus/preset_two,
+/obj/machinery/server/telecomms/bus/preset_two,
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
@@ -57677,7 +57677,7 @@
 	},
 /area/hallway/secondary/service)
 "pbv" = (
-/obj/machinery/telecomms/processor/preset_four,
+/obj/machinery/server/telecomms/processor/preset_four,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
@@ -57823,7 +57823,7 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "pdJ" = (
-/obj/machinery/telecomms/bus/preset_four,
+/obj/machinery/server/telecomms/bus/preset_four,
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
@@ -58680,7 +58680,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/storage/art)
 "ppo" = (
-/obj/machinery/telecomms/broadcaster/preset_left,
+/obj/machinery/server/telecomms/broadcaster/preset_left,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 6
 	},
@@ -58768,14 +58768,14 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "pqh" = (
-/obj/machinery/telecomms/receiver/preset_right,
+/obj/machinery/server/telecomms/receiver/preset_right,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 10
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "pqi" = (
-/obj/machinery/telecomms/processor/preset_three,
+/obj/machinery/server/telecomms/processor/preset_three,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
@@ -58846,7 +58846,7 @@
 /turf/open/floor/circuit/green,
 /area/science/xenobiology)
 "pra" = (
-/obj/machinery/telecomms/server/presets/command,
+/obj/machinery/server/telecomms/server/presets/command,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -58882,7 +58882,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "pru" = (
-/obj/machinery/telecomms/server/presets/security,
+/obj/machinery/server/telecomms/server/presets/security,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -59029,7 +59029,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "puu" = (
-/obj/machinery/telecomms/bus/preset_three,
+/obj/machinery/server/telecomms/bus/preset_three,
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
@@ -59057,7 +59057,7 @@
 "pvc" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/effect/turf_decal/stripes/red/box,
-/obj/machinery/telecomms/hub/preset,
+/obj/machinery/server/telecomms/hub/preset,
 /obj/machinery/light/small,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
@@ -63271,7 +63271,7 @@
 	},
 /area/maintenance/starboard/fore)
 "qtg" = (
-/obj/machinery/telecomms/broadcaster/preset_exploration,
+/obj/machinery/server/telecomms/broadcaster/preset_exploration,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
@@ -63333,7 +63333,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/science/mixing)
 "qtA" = (
-/obj/machinery/telecomms/message_server/preset,
+/obj/machinery/server/telecomms/message_server/preset,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -63389,7 +63389,7 @@
 /turf/open/floor/plasteel/dark/side,
 /area/engine/atmos)
 "qtY" = (
-/obj/machinery/telecomms/server/presets/service,
+/obj/machinery/server/telecomms/server/presets/service,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -65851,7 +65851,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/security/execution/education)
 "qYa" = (
-/obj/machinery/telecomms/bus/preset_exploration,
+/obj/machinery/server/telecomms/bus/preset_exploration,
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},

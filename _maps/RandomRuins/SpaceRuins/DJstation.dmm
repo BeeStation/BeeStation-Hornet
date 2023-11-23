@@ -28,7 +28,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "ai" = (
-/obj/machinery/telecomms/relay/preset/ruskie,
+/obj/machinery/server/telecomms/relay/preset/ruskie,
 /obj/machinery/light{
 	dir = 1
 	},

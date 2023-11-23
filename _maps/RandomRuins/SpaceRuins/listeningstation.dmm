@@ -61,7 +61,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/listeningstation)
 "ak" = (
-/obj/machinery/telecomms/relay/preset/ruskie{
+/obj/machinery/server/telecomms/relay/preset/ruskie{
 	use_power = 0
 	},
 /obj/effect/decal/cleanable/dirt,

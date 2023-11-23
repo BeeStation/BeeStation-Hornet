@@ -157,7 +157,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "T" = (
-/obj/machinery/telecomms/relay/preset/reebe,
+/obj/machinery/server/telecomms/relay/preset/reebe,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "U" = (

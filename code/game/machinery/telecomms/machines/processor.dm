@@ -6,7 +6,7 @@
 	Link to servers if bus is not present
 */
 
-/obj/machinery/telecomms/processor
+/obj/machinery/server/telecomms/processor
 	name = "processor unit"
 	icon_state = "processor"
 	desc = "This machine is used to process large quantities of information."
@@ -14,9 +14,10 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	circuit = /obj/item/circuitboard/machine/telecomms/processor
+	heat_generation = 20000
 	var/process_mode = 1 // 1 = Uncompress Signals, 0 = Compress Signals
 
-/obj/machinery/telecomms/processor/receive_information(datum/signal/subspace/signal, obj/machinery/telecomms/machine_from)
+/obj/machinery/server/telecomms/processor/receive_information(datum/signal/subspace/signal, obj/machinery/server/telecomms/machine_from)
 	if(!is_freq_listening(signal))
 		return
 
@@ -25,7 +26,7 @@
 	else if (signal.data["compression"])
 		signal.data["compression"] = 0 // uncompress subspace signal
 
-	if(istype(machine_from, /obj/machinery/telecomms/bus))
+	if(istype(machine_from, /obj/machinery/server/telecomms/bus))
 		relay_direct_information(signal, machine_from) // send the signal back to the machine
 	else // no bus detected - send the signal to servers instead
 		signal.data["slow"] += rand(5, 10) // slow the signal down
@@ -33,30 +34,30 @@
 
 //Preset Processors
 
-/obj/machinery/telecomms/processor/preset_one
+/obj/machinery/server/telecomms/processor/preset_one
 	id = "Processor 1"
 	network = "tcommsat"
 	autolinkers = list("processor1") // processors are sort of isolated; they don't need backward links
 
-/obj/machinery/telecomms/processor/preset_two
+/obj/machinery/server/telecomms/processor/preset_two
 	id = "Processor 2"
 	network = "tcommsat"
 	autolinkers = list("processor2")
 
-/obj/machinery/telecomms/processor/preset_three
+/obj/machinery/server/telecomms/processor/preset_three
 	id = "Processor 3"
 	network = "tcommsat"
 	autolinkers = list("processor3")
 
-/obj/machinery/telecomms/processor/preset_four
+/obj/machinery/server/telecomms/processor/preset_four
 	id = "Processor 4"
 	network = "tcommsat"
 	autolinkers = list("processor4")
 
-/obj/machinery/telecomms/processor/preset_one/birdstation
+/obj/machinery/server/telecomms/processor/preset_one/birdstation
 	name = "Processor"
 
-/obj/machinery/telecomms/processor/preset_exploration
+/obj/machinery/server/telecomms/processor/preset_exploration
 	id = "Exploration Processor"
 	network = "exploration"
 	autolinkers = list("processorExp")

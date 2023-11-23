@@ -6,16 +6,17 @@
 	Link to Processor Units in case receiver can't send to bus units.
 */
 
-/obj/machinery/telecomms/receiver
+/obj/machinery/server/telecomms/receiver
 	name = "subspace receiver"
 	icon_state = "broadcast receiver"
 	desc = "This machine has a dish-like shape and green lights. It is designed to detect and process subspace radio activity."
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
+	heat_generation = 100
 	circuit = /obj/item/circuitboard/machine/telecomms/receiver
 
-/obj/machinery/telecomms/receiver/receive_signal(datum/signal/subspace/signal)
+/obj/machinery/server/telecomms/receiver/receive_signal(datum/signal/subspace/signal)
 	if(!on || !istype(signal) || !check_receive_level(signal) || signal.transmission_method != TRANSMISSION_SUBSPACE)
 		return
 	if(!is_freq_listening(signal))
@@ -24,15 +25,15 @@
 	signal.levels = list()
 
 	// send the signal to the hub if possible, or a bus otherwise
-	if(!relay_information(signal, /obj/machinery/telecomms/hub))
-		relay_information(signal, /obj/machinery/telecomms/bus)
+	if(!relay_information(signal, /obj/machinery/server/telecomms/hub))
+		relay_information(signal, /obj/machinery/server/telecomms/bus)
 
-/obj/machinery/telecomms/receiver/proc/check_receive_level(datum/signal/subspace/signal)
+/obj/machinery/server/telecomms/receiver/proc/check_receive_level(datum/signal/subspace/signal)
 	if (get_virtual_z_level() in signal.levels)
 		return TRUE
 
-	for(var/obj/machinery/telecomms/hub/H in links)
-		for(var/obj/machinery/telecomms/relay/R in H.links)
+	for(var/obj/machinery/server/telecomms/hub/H in links)
+		for(var/obj/machinery/server/telecomms/relay/R in H.links)
 			if(R.can_receive(signal) && (R.get_virtual_z_level() in signal.levels))
 				return TRUE
 
@@ -42,7 +43,7 @@
 
 //--PRESET LEFT--//
 
-/obj/machinery/telecomms/receiver/preset_left
+/obj/machinery/server/telecomms/receiver/preset_left
 	id = "Receiver A"
 	network = "tcommsat"
 	autolinkers = list("receiverA") // link to relay
@@ -51,23 +52,23 @@
 
 //--PRESET RIGHT--//
 
-/obj/machinery/telecomms/receiver/preset_right
+/obj/machinery/server/telecomms/receiver/preset_right
 	id = "Receiver B"
 	network = "tcommsat"
 	autolinkers = list("receiverB") // link to relay
 	freq_listening = list(FREQ_COMMAND, FREQ_ENGINEERING, FREQ_SECURITY)
 
 	//Common and other radio frequencies for people to freely use
-/obj/machinery/telecomms/receiver/preset_right/Initialize(mapload)
+/obj/machinery/server/telecomms/receiver/preset_right/Initialize(mapload)
 	. = ..()
 	for(var/i = MIN_FREQ, i <= MAX_FREQ, i += 2)
 		freq_listening |= i
 
-/obj/machinery/telecomms/receiver/preset_left/birdstation
+/obj/machinery/server/telecomms/receiver/preset_left/birdstation
 	name = "Receiver"
 	freq_listening = list()
 
-/obj/machinery/telecomms/receiver/preset_exploration
+/obj/machinery/server/telecomms/receiver/preset_exploration
 	id = "Exploration Receiver"
 	network = "exploration"
 	autolinkers = list("receiverExp") // link to relay

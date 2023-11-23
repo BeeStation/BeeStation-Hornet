@@ -8,16 +8,17 @@
 GLOBAL_LIST_EMPTY(recentmessages) // global list of recent messages broadcasted : used to circumvent massive radio spam
 GLOBAL_VAR_INIT(message_delay, 0) // To make sure restarting the recentmessages list is kept in sync
 
-/obj/machinery/telecomms/broadcaster
+/obj/machinery/server/telecomms/broadcaster
 	name = "subspace broadcaster"
 	icon_state = "broadcaster"
 	desc = "A dish-shaped machine used to broadcast processed subspace signals."
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 25
+	heat_generation = 100
 	circuit = /obj/item/circuitboard/machine/telecomms/broadcaster
 
-/obj/machinery/telecomms/broadcaster/receive_information(datum/signal/subspace/signal, obj/machinery/telecomms/machine_from)
+/obj/machinery/server/telecomms/broadcaster/receive_information(datum/signal/subspace/signal, obj/machinery/server/telecomms/machine_from)
 	// Don't broadcast rejected signals
 	if(!istype(signal))
 		return
@@ -55,7 +56,7 @@ GLOBAL_VAR_INIT(message_delay, 0) // To make sure restarting the recentmessages 
 	/* --- Do a snazzy animation! --- */
 	flick("broadcaster_send", src)
 
-/obj/machinery/telecomms/broadcaster/Destroy()
+/obj/machinery/server/telecomms/broadcaster/Destroy()
 	// In case message_delay is left on 1, otherwise it won't reset the list and people can't say the same thing twice anymore.
 	if(GLOB.message_delay)
 		GLOB.message_delay = 0
@@ -67,22 +68,22 @@ GLOBAL_VAR_INIT(message_delay, 0) // To make sure restarting the recentmessages 
 
 //--PRESET LEFT--//
 
-/obj/machinery/telecomms/broadcaster/preset_left
+/obj/machinery/server/telecomms/broadcaster/preset_left
 	id = "Broadcaster A"
 	network = "tcommsat"
 	autolinkers = list("broadcasterA")
 
 //--PRESET RIGHT--//
 
-/obj/machinery/telecomms/broadcaster/preset_right
+/obj/machinery/server/telecomms/broadcaster/preset_right
 	id = "Broadcaster B"
 	network = "tcommsat"
 	autolinkers = list("broadcasterB")
 
-/obj/machinery/telecomms/broadcaster/preset_left/birdstation
+/obj/machinery/server/telecomms/broadcaster/preset_left/birdstation
 	name = "Broadcaster"
 
-/obj/machinery/telecomms/broadcaster/preset_exploration
+/obj/machinery/server/telecomms/broadcaster/preset_exploration
 	id = "Exploration Broadcaster"
 	network = "exploration"
 	autolinkers = list("broadcasterExp")

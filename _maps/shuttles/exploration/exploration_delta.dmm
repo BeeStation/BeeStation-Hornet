@@ -93,7 +93,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ll" = (
-/obj/machinery/telecomms/relay/preset/exploration,
+/obj/machinery/server/telecomms/relay/preset/exploration,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light/small{
 	dir = 8

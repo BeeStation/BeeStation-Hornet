@@ -676,7 +676,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "HU" = (
-/obj/machinery/telecomms/relay/preset/exploration,
+/obj/machinery/server/telecomms/relay/preset/exploration,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)

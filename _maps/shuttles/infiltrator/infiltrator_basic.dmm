@@ -496,7 +496,7 @@
 /turf/open/floor/circuit/red,
 /area/shuttle/syndicate/armory)
 "ct" = (
-/obj/machinery/telecomms/allinone{
+/obj/machinery/server/telecomms/allinone{
 	intercept = 1
 	},
 /turf/open/floor/circuit/red,

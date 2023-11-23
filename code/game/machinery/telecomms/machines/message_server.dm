@@ -69,7 +69,7 @@
 #define MESSAGE_SERVER_FUNCTIONING_MESSAGE "This is an automated message. The messaging system is functioning correctly."
 
 // The message server itself.
-/obj/machinery/telecomms/message_server
+/obj/machinery/server/telecomms/message_server
 	icon_state = "message_server"
 	name = "Messaging Server"
 	desc = "A machine that processes and routes PDA and request console messages."
@@ -77,6 +77,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
+	heat_generation = 10000
 	circuit = /obj/item/circuitboard/machine/telecomms/message_server
 
 	var/list/datum/data_tablet_msg/modular_msgs = list()
@@ -84,7 +85,7 @@
 	var/decryptkey = "password"
 	var/calibrating = 15 MINUTES //Init reads this and adds world.time, then becomes 0 when that time has passed and the machine works
 
-/obj/machinery/telecomms/message_server/Initialize(mapload)
+/obj/machinery/server/telecomms/message_server/Initialize(mapload)
 	. = ..()
 	if (!decryptkey)
 		decryptkey = GenerateKey()
@@ -96,25 +97,25 @@
 	else
 		modular_msgs += new /datum/data_tablet_msg("System Administrator", "system", MESSAGE_SERVER_FUNCTIONING_MESSAGE)
 
-/obj/machinery/telecomms/message_server/examine(mob/user)
+/obj/machinery/server/telecomms/message_server/examine(mob/user)
 	. = ..()
 	if(calibrating)
 		. += "<span class='warning'>It's still calibrating.</span>"
 
-/obj/machinery/telecomms/message_server/proc/GenerateKey()
+/obj/machinery/server/telecomms/message_server/proc/GenerateKey()
 	var/newKey
 	newKey += pick("the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le")
 	newKey += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
 	newKey += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	return newKey
 
-/obj/machinery/telecomms/message_server/process()
+/obj/machinery/server/telecomms/message_server/process()
 	. = ..()
 	if(calibrating && calibrating <= world.time)
 		calibrating = 0
 		modular_msgs += new /datum/data_tablet_msg("System Administrator", "system", MESSAGE_SERVER_FUNCTIONING_MESSAGE)
 
-/obj/machinery/telecomms/message_server/receive_information(datum/signal/subspace/messaging/signal, obj/machinery/telecomms/machine_from)
+/obj/machinery/server/telecomms/message_server/receive_information(datum/signal/subspace/messaging/signal, obj/machinery/server/telecomms/machine_from)
 	// can't log non-message signals
 	if(!istype(signal) || !signal.data["message"] || !on || calibrating)
 		return
@@ -133,10 +134,10 @@
 	signal.data["reject"] = FALSE
 
 	// pass it along to either the hub or the broadcaster
-	if(!relay_information(signal, /obj/machinery/telecomms/hub))
-		relay_information(signal, /obj/machinery/telecomms/broadcaster)
+	if(!relay_information(signal, /obj/machinery/server/telecomms/hub))
+		relay_information(signal, /obj/machinery/server/telecomms/broadcaster)
 
-/obj/machinery/telecomms/message_server/update_icon()
+/obj/machinery/server/telecomms/message_server/update_icon()
 	..()
 	cut_overlays()
 	if(calibrating)
@@ -146,7 +147,7 @@
 // Root messaging signal datum
 /datum/signal/subspace/messaging
 	frequency = FREQ_COMMON
-	server_type = /obj/machinery/telecomms/message_server
+	server_type = /obj/machinery/server/telecomms/message_server
 	var/datum/logged
 
 /datum/signal/subspace/messaging/New(init_source, init_data)
@@ -257,7 +258,7 @@
 
 #undef MESSAGE_SERVER_FUNCTIONING_MESSAGE
 
-/obj/machinery/telecomms/message_server/preset
+/obj/machinery/server/telecomms/message_server/preset
 	id = "Messaging Server"
 	network = "tcommsat"
 	autolinkers = list("messaging")

@@ -1741,7 +1741,7 @@
 /area/lawoffice)
 "aCk" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/telecomms/receiver/preset_left{
+/obj/machinery/server/telecomms/receiver/preset_left{
 	density = 0
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -2720,7 +2720,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
 "aRf" = (
-/obj/machinery/telecomms/server/presets/service,
+/obj/machinery/server/telecomms/server/presets/service,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -2810,7 +2810,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "aTH" = (
-/obj/machinery/telecomms/processor/preset_exploration,
+/obj/machinery/server/telecomms/processor/preset_exploration,
 /obj/machinery/camera/autoname{
 	dir = 8;
 	network = list("ss13","rd")
@@ -4578,7 +4578,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/telecomms/broadcaster/preset_exploration,
+/obj/machinery/server/telecomms/broadcaster/preset_exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
 "bwP" = (
@@ -6959,7 +6959,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/telecomms/processor/preset_two,
+/obj/machinery/server/telecomms/processor/preset_two,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "ckq" = (
@@ -8625,7 +8625,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
 "cJD" = (
-/obj/machinery/telecomms/bus/preset_three,
+/obj/machinery/server/telecomms/bus/preset_three,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -10513,7 +10513,7 @@
 /turf/open/floor/plasteel,
 /area/science/robotics)
 "dpk" = (
-/obj/machinery/telecomms/broadcaster/preset_right{
+/obj/machinery/server/telecomms/broadcaster/preset_right{
 	density = 0
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -14268,7 +14268,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/obj/machinery/telecomms/bus/preset_one,
+/obj/machinery/server/telecomms/bus/preset_one,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "euY" = (
@@ -15868,7 +15868,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/telecomms/message_server/preset,
+/obj/machinery/server/telecomms/message_server/preset,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "eSQ" = (
@@ -20711,7 +20711,7 @@
 	},
 /area/hallway/primary/central)
 "gkV" = (
-/obj/machinery/telecomms/bus/preset_exploration,
+/obj/machinery/server/telecomms/bus/preset_exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
 "glm" = (
@@ -26685,7 +26685,7 @@
 /turf/closed/wall/r_wall,
 /area/security/prison/shielded)
 "ifH" = (
-/obj/machinery/telecomms/server/presets/common,
+/obj/machinery/server/telecomms/server/presets/common,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -28695,7 +28695,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32
 	},
-/obj/machinery/telecomms/processor/preset_one,
+/obj/machinery/server/telecomms/processor/preset_one,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -30720,7 +30720,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/telecomms/processor/preset_four,
+/obj/machinery/server/telecomms/processor/preset_four,
 /obj/machinery/status_display/ai{
 	pixel_y = 32
 	},
@@ -31517,7 +31517,7 @@
 /turf/open/floor/noslip,
 /area/engine/engineering)
 "jKK" = (
-/obj/machinery/telecomms/server/presets/engineering,
+/obj/machinery/server/telecomms/server/presets/engineering,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -34900,7 +34900,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/telecomms/bus/preset_four,
+/obj/machinery/server/telecomms/bus/preset_four,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "kPB" = (
@@ -34968,7 +34968,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/telecomms/server/presets/medical,
+/obj/machinery/server/telecomms/server/presets/medical,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "kQM" = (
@@ -39423,7 +39423,7 @@
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "mpz" = (
-/obj/machinery/telecomms/broadcaster/preset_left{
+/obj/machinery/server/telecomms/broadcaster/preset_left{
 	density = 0
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -40309,7 +40309,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/telecomms/server/presets/security,
+/obj/machinery/server/telecomms/server/presets/security,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "mBq" = (
@@ -40380,7 +40380,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/telecomms/server/presets/science,
+/obj/machinery/server/telecomms/server/presets/science,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "mCU" = (
@@ -52610,7 +52610,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
-/obj/machinery/telecomms/receiver/preset_exploration,
+/obj/machinery/server/telecomms/receiver/preset_exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
 "qpA" = (
@@ -56848,7 +56848,7 @@
 /area/maintenance/department/security)
 "rKn" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/telecomms/receiver/preset_right{
+/obj/machinery/server/telecomms/receiver/preset_right{
 	density = 0
 	},
 /obj/structure/sign/warning/electricshock{
@@ -60867,7 +60867,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmospherics_engine)
 "tcN" = (
-/obj/machinery/telecomms/hub/preset/exploration,
+/obj/machinery/server/telecomms/hub/preset/exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
 "tda" = (
@@ -64184,7 +64184,7 @@
 /turf/open/floor/engine,
 /area/science/explab)
 "udb" = (
-/obj/machinery/telecomms/server/presets/supply,
+/obj/machinery/server/telecomms/server/presets/supply,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -66777,7 +66777,7 @@
 /turf/open/floor/plasteel/white/side,
 /area/science/lobby)
 "uSx" = (
-/obj/machinery/telecomms/processor/preset_three,
+/obj/machinery/server/telecomms/processor/preset_three,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -70790,7 +70790,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/telecomms/hub/preset,
+/obj/machinery/server/telecomms/hub/preset,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/circuit/telecomms/mainframe{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
@@ -72429,7 +72429,7 @@
 /turf/closed/wall,
 /area/security/detectives_office)
 "wHX" = (
-/obj/machinery/telecomms/server/presets/exploration,
+/obj/machinery/server/telecomms/server/presets/exploration,
 /obj/item/gun/energy/e_gun/mini/exploration{
 	pixel_x = -4;
 	pixel_y = 2
@@ -75713,7 +75713,7 @@
 /turf/open/floor/plating,
 /area/security/warden)
 "xHg" = (
-/obj/machinery/telecomms/bus/preset_two,
+/obj/machinery/server/telecomms/bus/preset_two,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -77270,7 +77270,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/telecomms/server/presets/command,
+/obj/machinery/server/telecomms/server/presets/command,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "yjO" = (

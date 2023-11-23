@@ -435,7 +435,7 @@
 	dir = 10
 	},
 /obj/machinery/light,
-/obj/machinery/telecomms/allinone{
+/obj/machinery/server/telecomms/allinone{
 	network = "tcommsat"
 	},
 /turf/open/floor/plasteel,

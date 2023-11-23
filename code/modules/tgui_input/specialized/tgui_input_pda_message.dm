@@ -1,4 +1,4 @@
-/proc/tgui_send_admin_pda(mob/user, obj/signal_source, obj/machinery/telecomms/message_server/server, theme, allow_send_all = FALSE)
+/proc/tgui_send_admin_pda(mob/user, obj/signal_source, obj/machinery/server/telecomms/message_server/server, theme, allow_send_all = FALSE)
 	if (!user)
 		user = usr
 	if (!istype(user))

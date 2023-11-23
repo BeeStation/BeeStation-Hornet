@@ -840,7 +840,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/listeningstation)
 "Wd" = (
-/obj/machinery/telecomms/relay/preset/ruskie{
+/obj/machinery/server/telecomms/relay/preset/ruskie{
 	use_power = 0
 	},
 /obj/effect/decal/cleanable/dirt,

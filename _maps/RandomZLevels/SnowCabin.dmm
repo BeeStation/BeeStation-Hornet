@@ -96,7 +96,7 @@
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "ar" = (
-/obj/machinery/telecomms/relay/preset/mining,
+/obj/machinery/server/telecomms/relay/preset/mining,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"

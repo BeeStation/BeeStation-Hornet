@@ -5064,7 +5064,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "JN" = (
-/obj/machinery/telecomms/relay/preset/ruskie{
+/obj/machinery/server/telecomms/relay/preset/ruskie{
 	use_power = 0
 	},
 /obj/machinery/light/small{

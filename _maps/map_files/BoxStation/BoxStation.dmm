@@ -13397,7 +13397,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "bWB" = (
-/obj/machinery/telecomms/processor/preset_four,
+/obj/machinery/server/telecomms/processor/preset_four,
 /turf/open/floor/circuit/green,
 /area/tcommsat/server)
 "bWC" = (
@@ -13417,7 +13417,7 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bWD" = (
-/obj/machinery/telecomms/server/presets/medical,
+/obj/machinery/server/telecomms/server/presets/medical,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bWE" = (
@@ -13646,15 +13646,15 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bXA" = (
-/obj/machinery/telecomms/server/presets/science,
+/obj/machinery/server/telecomms/server/presets/science,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bXB" = (
-/obj/machinery/telecomms/processor/preset_one,
+/obj/machinery/server/telecomms/processor/preset_one,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bXC" = (
-/obj/machinery/telecomms/server/presets/common,
+/obj/machinery/server/telecomms/server/presets/common,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bXF" = (
@@ -13856,7 +13856,7 @@
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bYC" = (
-/obj/machinery/telecomms/bus/preset_one,
+/obj/machinery/server/telecomms/bus/preset_one,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bYH" = (
@@ -14704,11 +14704,11 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "ccg" = (
-/obj/machinery/telecomms/message_server/preset,
+/obj/machinery/server/telecomms/message_server/preset,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "cch" = (
-/obj/machinery/telecomms/bus/preset_two,
+/obj/machinery/server/telecomms/bus/preset_two,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "ccl" = (
@@ -14832,11 +14832,11 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "cdd" = (
-/obj/machinery/telecomms/server/presets/security,
+/obj/machinery/server/telecomms/server/presets/security,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "cde" = (
-/obj/machinery/telecomms/processor/preset_two,
+/obj/machinery/server/telecomms/processor/preset_two,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "cdf" = (
@@ -14997,7 +14997,7 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "cea" = (
-/obj/machinery/telecomms/server/presets/command,
+/obj/machinery/server/telecomms/server/presets/command,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "ceb" = (
@@ -16223,7 +16223,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "cmj" = (
-/obj/machinery/telecomms/server/presets/service,
+/obj/machinery/server/telecomms/server/presets/service,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "cml" = (
@@ -21525,7 +21525,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/nuke_storage)
 "dLB" = (
-/obj/machinery/telecomms/processor/preset_exploration,
+/obj/machinery/server/telecomms/processor/preset_exploration,
 /obj/machinery/airalarm/server{
 	dir = 4;
 	pixel_x = -28
@@ -22732,7 +22732,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 1
 	},
-/obj/machinery/telecomms/server/presets/exploration,
+/obj/machinery/server/telecomms/server/presets/exploration,
 /obj/machinery/camera/autoname{
 	dir = 5
 	},
@@ -25005,7 +25005,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "fBP" = (
-/obj/machinery/telecomms/receiver/preset_right,
+/obj/machinery/server/telecomms/receiver/preset_right,
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
 "fBV" = (
@@ -26269,7 +26269,7 @@
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "ggf" = (
-/obj/machinery/telecomms/receiver/preset_left,
+/obj/machinery/server/telecomms/receiver/preset_left,
 /obj/machinery/camera/autoname{
 	dir = 4;
 	network = list("ss13, engine")
@@ -29597,7 +29597,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/engine/engineering)
 "hQg" = (
-/obj/machinery/telecomms/bus/preset_three,
+/obj/machinery/server/telecomms/bus/preset_three,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "hQn" = (
@@ -31067,7 +31067,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "iAO" = (
-/obj/machinery/telecomms/receiver/preset_exploration,
+/obj/machinery/server/telecomms/receiver/preset_exploration,
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/circuit/green/telecomms/mainframe,
@@ -34288,7 +34288,7 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "kcG" = (
-/obj/machinery/telecomms/processor/preset_three,
+/obj/machinery/server/telecomms/processor/preset_three,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "kcK" = (
@@ -38958,7 +38958,7 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
 "mlV" = (
-/obj/machinery/telecomms/broadcaster/preset_right,
+/obj/machinery/server/telecomms/broadcaster/preset_right,
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
 "mmg" = (
@@ -44177,7 +44177,7 @@
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "oVe" = (
-/obj/machinery/telecomms/hub/preset,
+/obj/machinery/server/telecomms/hub/preset,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -45254,7 +45254,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "pAC" = (
-/obj/machinery/telecomms/server/presets/supply,
+/obj/machinery/server/telecomms/server/presets/supply,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "pAE" = (
@@ -49961,7 +49961,7 @@
 /turf/open/floor/plating,
 /area/security/main)
 "rKw" = (
-/obj/machinery/telecomms/hub/preset/exploration,
+/obj/machinery/server/telecomms/hub/preset/exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "rLd" = (
@@ -50319,7 +50319,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "rSr" = (
-/obj/machinery/telecomms/server/presets/engineering,
+/obj/machinery/server/telecomms/server/presets/engineering,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "rSC" = (
@@ -50354,7 +50354,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "rTt" = (
-/obj/machinery/telecomms/bus/preset_four,
+/obj/machinery/server/telecomms/bus/preset_four,
 /turf/open/floor/circuit/green,
 /area/tcommsat/server)
 "rTK" = (
@@ -51635,7 +51635,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "szx" = (
-/obj/machinery/telecomms/bus/preset_exploration,
+/obj/machinery/server/telecomms/bus/preset_exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "szC" = (
@@ -52692,7 +52692,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "sWW" = (
-/obj/machinery/telecomms/broadcaster/preset_exploration,
+/obj/machinery/server/telecomms/broadcaster/preset_exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "sXf" = (
@@ -62622,7 +62622,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "yaf" = (
-/obj/machinery/telecomms/broadcaster/preset_left,
+/obj/machinery/server/telecomms/broadcaster/preset_left,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},

@@ -722,7 +722,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Nv" = (
-/obj/machinery/telecomms/relay/preset/exploration,
+/obj/machinery/server/telecomms/relay/preset/exploration,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1

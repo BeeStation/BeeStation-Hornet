@@ -65,7 +65,7 @@
 /obj/item/circuitboard/machine/telecomms/broadcaster
 	name = "subspace broadcaster (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/telecomms/broadcaster
+	build_path = /obj/machinery/server/telecomms/broadcaster
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/cable_coil = 1,
@@ -76,7 +76,7 @@
 /obj/item/circuitboard/machine/telecomms/bus
 	name = "bus mainframe (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/telecomms/bus
+	build_path = /obj/machinery/server/telecomms/bus
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/cable_coil = 1,
@@ -85,7 +85,7 @@
 /obj/item/circuitboard/machine/telecomms/hub
 	name = "hub mainframe (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/telecomms/hub
+	build_path = /obj/machinery/server/telecomms/hub
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/cable_coil = 2,
@@ -94,7 +94,7 @@
 /obj/item/circuitboard/machine/telecomms/processor
 	name = "processor unit (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/telecomms/processor
+	build_path = /obj/machinery/server/telecomms/processor
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 3,
 		/obj/item/stock_parts/subspace/filter = 1,
@@ -106,7 +106,7 @@
 /obj/item/circuitboard/machine/telecomms/receiver
 	name = "subspace receiver (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/telecomms/receiver
+	build_path = /obj/machinery/server/telecomms/receiver
 	req_components = list(
 		/obj/item/stock_parts/subspace/ansible = 1,
 		/obj/item/stock_parts/subspace/filter = 1,
@@ -116,7 +116,7 @@
 /obj/item/circuitboard/machine/telecomms/relay
 	name = "relay mainframe (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/telecomms/relay
+	build_path = /obj/machinery/server/telecomms/relay
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/cable_coil = 2,
@@ -125,7 +125,7 @@
 /obj/item/circuitboard/machine/telecomms/server
 	name = "telecommunication server (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/telecomms/server
+	build_path = /obj/machinery/server/telecomms/server
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/cable_coil = 1,
@@ -134,7 +134,7 @@
 /obj/item/circuitboard/machine/telecomms/message_server
 	name = "messaging server (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/telecomms/message_server
+	build_path = /obj/machinery/server/telecomms/message_server
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/cable_coil = 1,

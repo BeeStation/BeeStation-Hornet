@@ -16696,7 +16696,7 @@
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "bEf" = (
-/obj/machinery/telecomms/processor/preset_one,
+/obj/machinery/server/telecomms/processor/preset_one,
 /obj/machinery/camera{
 	c_tag = "Telecomms - Server Room - Fore-Port";
 	network = list("ss13","tcomms")
@@ -16710,15 +16710,15 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bEh" = (
-/obj/machinery/telecomms/receiver/preset_left,
+/obj/machinery/server/telecomms/receiver/preset_left,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bEj" = (
-/obj/machinery/telecomms/receiver/preset_right,
+/obj/machinery/server/telecomms/receiver/preset_right,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bEk" = (
-/obj/machinery/telecomms/processor/preset_three,
+/obj/machinery/server/telecomms/processor/preset_three,
 /obj/machinery/camera{
 	c_tag = "Telecomms - Server Room - Fore-Starboard";
 	network = list("ss13","tcomms")
@@ -16964,14 +16964,14 @@
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "bGc" = (
-/obj/machinery/telecomms/bus/preset_one,
+/obj/machinery/server/telecomms/bus/preset_one,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bGd" = (
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bGf" = (
-/obj/machinery/telecomms/bus/preset_three,
+/obj/machinery/server/telecomms/bus/preset_three,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bGg" = (
@@ -17584,7 +17584,7 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bJg" = (
-/obj/machinery/telecomms/message_server/preset,
+/obj/machinery/server/telecomms/message_server/preset,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bJh" = (
@@ -17608,7 +17608,7 @@
 /turf/open/space,
 /area/space/nearstation)
 "bJm" = (
-/obj/machinery/telecomms/bus/preset_two,
+/obj/machinery/server/telecomms/bus/preset_two,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bJn" = (
@@ -17989,15 +17989,15 @@
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bKL" = (
-/obj/machinery/telecomms/processor/preset_two,
+/obj/machinery/server/telecomms/processor/preset_two,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bKN" = (
-/obj/machinery/telecomms/bus/preset_four,
+/obj/machinery/server/telecomms/bus/preset_four,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bKP" = (
-/obj/machinery/telecomms/processor/preset_four,
+/obj/machinery/server/telecomms/processor/preset_four,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bKQ" = (
@@ -18756,11 +18756,11 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "bNX" = (
-/obj/machinery/telecomms/server/presets/common,
+/obj/machinery/server/telecomms/server/presets/common,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bNY" = (
-/obj/machinery/telecomms/server/presets/engineering,
+/obj/machinery/server/telecomms/server/presets/engineering,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bNZ" = (
@@ -18774,15 +18774,15 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bOa" = (
-/obj/machinery/telecomms/server/presets/medical,
+/obj/machinery/server/telecomms/server/presets/medical,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bOb" = (
-/obj/machinery/telecomms/server/presets/science,
+/obj/machinery/server/telecomms/server/presets/science,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bOc" = (
-/obj/machinery/telecomms/broadcaster/preset_left,
+/obj/machinery/server/telecomms/broadcaster/preset_left,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bOd" = (
@@ -20730,7 +20730,7 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "bUL" = (
-/obj/machinery/telecomms/server/presets/security,
+/obj/machinery/server/telecomms/server/presets/security,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bUP" = (
@@ -21941,7 +21941,7 @@
 /turf/open/space,
 /area/solar/port/aft)
 "ceC" = (
-/obj/machinery/telecomms/server/presets/command,
+/obj/machinery/server/telecomms/server/presets/command,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "ceW" = (
@@ -22096,7 +22096,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "cgy" = (
-/obj/machinery/telecomms/server/presets/service,
+/obj/machinery/server/telecomms/server/presets/service,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "cgz" = (
@@ -22212,11 +22212,11 @@
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "chn" = (
-/obj/machinery/telecomms/broadcaster/preset_right,
+/obj/machinery/server/telecomms/broadcaster/preset_right,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "cho" = (
-/obj/machinery/telecomms/server/presets/supply,
+/obj/machinery/server/telecomms/server/presets/supply,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "chp" = (
@@ -29135,7 +29135,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "dsr" = (
-/obj/machinery/telecomms/hub/preset,
+/obj/machinery/server/telecomms/hub/preset,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -31644,7 +31644,7 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "esP" = (
-/obj/machinery/telecomms/hub/preset/exploration,
+/obj/machinery/server/telecomms/hub/preset/exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "etb" = (
@@ -32246,7 +32246,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "eId" = (
-/obj/machinery/telecomms/broadcaster/preset_exploration,
+/obj/machinery/server/telecomms/broadcaster/preset_exploration,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -34449,7 +34449,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "fEL" = (
-/obj/machinery/telecomms/relay/preset/exploration,
+/obj/machinery/server/telecomms/relay/preset/exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "fEQ" = (
@@ -64699,7 +64699,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "slE" = (
-/obj/machinery/telecomms/receiver/preset_exploration,
+/obj/machinery/server/telecomms/receiver/preset_exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "slR" = (
@@ -69610,7 +69610,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "utH" = (
-/obj/machinery/telecomms/processor/preset_exploration,
+/obj/machinery/server/telecomms/processor/preset_exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "utJ" = (
@@ -79142,7 +79142,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "yih" = (
-/obj/machinery/telecomms/bus/preset_exploration,
+/obj/machinery/server/telecomms/bus/preset_exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "yiz" = (

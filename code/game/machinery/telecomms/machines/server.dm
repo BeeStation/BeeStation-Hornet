@@ -5,7 +5,7 @@
 	Store a maximum of 100 logs and then deletes them.
 */
 
-/obj/machinery/telecomms/server
+/obj/machinery/server/telecomms/server
 	name = "telecommunication server"
 	icon_state = "comm_server"
 	desc = "A machine used to store data and network statistics."
@@ -14,12 +14,13 @@
 	idle_power_usage = 15
 	circuit = /obj/item/circuitboard/machine/telecomms/server
 	var/list/log_entries = list()
+	heat_generation = 1000
 	var/totaltraffic = 0 // gigabytes (if > 1024, divide by 1024 -> terrabytes)
 
-/obj/machinery/telecomms/server/Initialize(mapload)
+/obj/machinery/server/telecomms/server/Initialize(mapload)
 	. = ..()
 
-/obj/machinery/telecomms/server/receive_information(datum/signal/subspace/vocal/signal, obj/machinery/telecomms/machine_from)
+/obj/machinery/server/telecomms/server/receive_information(datum/signal/subspace/vocal/signal, obj/machinery/server/telecomms/machine_from)
 	// can't log non-vocal signals
 	if(!istype(signal) || !signal.data["message"] || !is_freq_listening(signal))
 		return
@@ -52,9 +53,9 @@
 	log.name = "data packet ([rustg_hash_string(RUSTG_HASH_MD5, identifier)])"
 	log_entries.Add(log)
 
-	var/can_send = relay_information(signal, /obj/machinery/telecomms/hub)
+	var/can_send = relay_information(signal, /obj/machinery/server/telecomms/hub)
 	if(!can_send)
-		relay_information(signal, /obj/machinery/telecomms/broadcaster)
+		relay_information(signal, /obj/machinery/server/telecomms/broadcaster)
 
 
 // Simple log entry datum
@@ -65,66 +66,66 @@
 
 
 // Preset Servers
-/obj/machinery/telecomms/server/presets
+/obj/machinery/server/telecomms/server/presets
 	network = "tcommsat"
 
-/obj/machinery/telecomms/server/presets/Initialize(mapload)
+/obj/machinery/server/telecomms/server/presets/Initialize(mapload)
 	. = ..()
 	name = id
 
 
-/obj/machinery/telecomms/server/presets/science
+/obj/machinery/server/telecomms/server/presets/science
 	id = "Science Server"
 	freq_listening = list(FREQ_SCIENCE)
 	autolinkers = list("science")
 
-/obj/machinery/telecomms/server/presets/medical
+/obj/machinery/server/telecomms/server/presets/medical
 	id = "Medical Server"
 	freq_listening = list(FREQ_MEDICAL)
 	autolinkers = list("medical")
 
-/obj/machinery/telecomms/server/presets/supply
+/obj/machinery/server/telecomms/server/presets/supply
 	id = "Supply Server"
 	freq_listening = list(FREQ_SUPPLY)
 	autolinkers = list("supply")
 
-/obj/machinery/telecomms/server/presets/exploration
+/obj/machinery/server/telecomms/server/presets/exploration
 	id = "Exploration Server"
 	network = "exploration"
 	freq_listening = list(FREQ_EXPLORATION)
 	autolinkers = list("exploration")
 
-/obj/machinery/telecomms/server/presets/service
+/obj/machinery/server/telecomms/server/presets/service
 	id = "Service Server"
 	freq_listening = list(FREQ_SERVICE)
 	autolinkers = list("service")
 
-/obj/machinery/telecomms/server/presets/common
+/obj/machinery/server/telecomms/server/presets/common
 	id = "Common Server"
 	freq_listening = list()
 	autolinkers = list("common")
 
 //Common and other radio frequencies for people to freely use
-/obj/machinery/telecomms/server/presets/common/Initialize(mapload)
+/obj/machinery/server/telecomms/server/presets/common/Initialize(mapload)
 	. = ..()
 	for(var/i = MIN_FREQ, i <= MAX_FREQ, i += 2)
 		freq_listening |= i
 
-/obj/machinery/telecomms/server/presets/command
+/obj/machinery/server/telecomms/server/presets/command
 	id = "Command Server"
 	freq_listening = list(FREQ_COMMAND)
 	autolinkers = list("command")
 
-/obj/machinery/telecomms/server/presets/engineering
+/obj/machinery/server/telecomms/server/presets/engineering
 	id = "Engineering Server"
 	freq_listening = list(FREQ_ENGINEERING)
 	autolinkers = list("engineering")
 
-/obj/machinery/telecomms/server/presets/security
+/obj/machinery/server/telecomms/server/presets/security
 	id = "Security Server"
 	freq_listening = list(FREQ_SECURITY)
 	autolinkers = list("security")
 
-/obj/machinery/telecomms/server/presets/common/birdstation/Initialize(mapload)
+/obj/machinery/server/telecomms/server/presets/common/birdstation/Initialize(mapload)
 	. = ..()
 	freq_listening = list()
