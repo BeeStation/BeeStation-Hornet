@@ -43,18 +43,10 @@
 	. = ..()
 	if(!linked_id)
 		to_chat(user, "<span class='warning'>No linked account!</span>")
-	else if(!istype(O, /obj/item/food/donut) && !istype(O, /mob/living/simple_animal/bot))
-		to_chat(user, "<span class='warning'>Invalid item! Only scan donuts or bots made in the workshop!</span>")
+	else if(!istype(O, /obj/item/food/donut) && !istype(O, /obj/item/toy/plush))
+		to_chat(user, "<span class='warning'>Invalid item! Only scan donuts or plushes made in the workshop!</span>")
 	else
-		if(istype(O, /mob/living/simple_animal/bot))
-			var/mob/living/simple_animal/bot/B = O
-			if(B.scanned == TRUE)
-				to_chat(user, "<span class='warning'>[B.name] has been scanned already!</span>")
-			else
-				B.scanned = TRUE
-				redeemable += B
-				to_chat(user, "<span class='notice'>[B.name] has been scanned succesfully! Swipe your id card on the scanner once you want to redeem your earned time.</span>")
-		else if(O.obj_flags & SCANNED)
+		if(O.obj_flags & SCANNED)
 			to_chat(user, "<span class='warning'>The [O.name] has been scanned already!</span>")
 		else
 			redeemable += O

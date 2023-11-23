@@ -111,6 +111,10 @@
 	},
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/effect/turf_decal/stripes/corner,
+/obj/item/reagent_containers/food/snacks/grown/apple,
+/obj/item/reagent_containers/food/snacks/grown/apple,
+/obj/item/reagent_containers/food/snacks/grown/apple,
+/obj/item/reagent_containers/food/snacks/grown/apple,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "x" = (
@@ -123,7 +127,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/egg,
 /obj/item/reagent_containers/food/snacks/egg,
 /obj/item/reagent_containers/food/snacks/egg,
 /obj/item/reagent_containers/food/snacks/egg,
@@ -250,11 +253,23 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
+"W" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/structure/closet/crate/freezer,
+/obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/food/snacks/grown/berries,
+/obj/item/reagent_containers/food/snacks/grown/berries,
+/obj/item/reagent_containers/food/snacks/grown/berries,
+/obj/item/reagent_containers/food/snacks/grown/berries,
+/obj/item/reagent_containers/food/snacks/grown/berries,
+/obj/item/reagent_containers/food/snacks/grown/berries,
+/obj/item/reagent_containers/food/snacks/grown/berries,
+/turf/open/floor/holofloor/monotile/steel,
+/area/template_noop)
 "Y" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/egg,
 /obj/item/reagent_containers/food/snacks/egg,
 /obj/item/reagent_containers/food/snacks/egg,
 /obj/item/reagent_containers/food/snacks/egg,
@@ -289,7 +304,7 @@ g
 D
 "}
 (4,1,1) = {"
-a
+W
 h
 I
 o

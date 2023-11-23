@@ -2,6 +2,7 @@
 
 GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("white jumpsuit",						/obj/item/clothing/under/color/white, 3, time = 4 SECONDS), \
+	new/datum/stack_recipe("plush fabric",						/obj/item/toy/empty_plush, 5, time = 4 SECONDS), \
 	new/datum/stack_recipe("white jumpskirt",						/obj/item/clothing/under/color/jumpskirt/white, 3, time = 4 SECONDS), \
 	new/datum/stack_recipe("white shoes",							/obj/item/clothing/shoes/sneakers/white, 2, time = 4 SECONDS), \
 	new/datum/stack_recipe("white scarf",							/obj/item/clothing/neck/scarf, 1, time = 4 SECONDS), \

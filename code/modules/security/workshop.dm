@@ -18,7 +18,7 @@
 		qdel(src)
 		return
 	else
-		offline_program = pick("donut", "bot")
+		offline_program = pick("donut", "plush")
 		. = ..()
 
 /obj/machinery/computer/holodeck/prison/generate_program_list()
@@ -105,9 +105,12 @@
 					break
 			if(!valid)
 				return
-			//load the map_template that program_to_load represents
-			load_program(program_to_load)
-			. = TRUE
+			if(offline)
+				say("Workshop shutdown underway! Standby for reboot...")
+				return
+			else //load the map_template that program_to_load represents
+				load_program(program_to_load)
+				. = TRUE
 		if("shutdown")
 			log_game("[key_name(usr)] has shutdown the prison workshop at [loc_name(src)]!")
 			temporary_down()
@@ -119,7 +122,7 @@
 		offline_program = "offline"
 		emergency_shutdown()
 		offline = TRUE
-		offline_program = pick("donut", "bot")
+		offline_program = pick("donut", "plush")
 		addtimer(CALLBACK(src, PROC_REF(load_program), offline_program), 1200)
 	else
 		say("Workshop shutdown underway! Standby for reboot...")
