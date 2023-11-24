@@ -26,6 +26,7 @@
 	/// On/Off signals
 	var/datum/port/input/signal_on
 	var/datum/port/input/signal_off
+	var/datum/port/input/signal_all_off
 
 	var/obj/item/organ/cyberimp/bci/bci
 	var/list/active_overlays = list()
@@ -36,6 +37,7 @@
 
 	signal_on = add_input_port("Create Overlay", PORT_TYPE_SIGNAL)
 	signal_off = add_input_port("Remove Overlay", PORT_TYPE_SIGNAL)
+	signal_all_off = add_input_port("Remove All Overlays", PORT_TYPE_SIGNAL)
 
 	image_pixel_x = add_input_port("X-Axis Shift", PORT_TYPE_NUMBER)
 	image_pixel_y = add_input_port("Y-Axis Shift", PORT_TYPE_NUMBER)
@@ -87,6 +89,12 @@
 	if(COMPONENT_TRIGGERED_BY(signal_off, port) && (target_atom in active_overlays))
 		QDEL_NULL(active_overlays[target_atom])
 		active_overlays.Remove(target_atom)
+
+	// Clear all overlays
+	if(COMPONENT_TRIGGERED_BY(signal_all_off, port))
+		for(var/atom/active_overlay in active_overlays)
+			QDEL_NULL(active_overlays[active_overlay])
+			active_overlays.Remove(active_overlay)
 
 /obj/item/circuit_component/object_overlay/proc/show_to_owner(atom/target_atom, mob/living/owner)
 	if(LAZYLEN(active_overlays) >= OBJECT_OVERLAY_LIMIT)
