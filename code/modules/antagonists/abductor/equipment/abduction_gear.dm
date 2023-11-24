@@ -416,7 +416,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "wonderprod"
 	slot_flags = ITEM_SLOT_BELT
 	force = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	//The mob we are currently incapacitating.
 	var/mob/current_target

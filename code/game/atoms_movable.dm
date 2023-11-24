@@ -177,11 +177,11 @@
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
-		pulling.set_pulledby(null)
-		if(ismob(usr))
-			log_combat(usr, pulling, "has stopped pulling", addition = "at [AREACOORD(usr)]")
+		if(ismob(pulling?.pulledby))
+			pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
 		if(ismob(pulling))
-			log_combat(pulling, usr, "stopped being pulled by", addition = "at [AREACOORD(pulling)]")
+			pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
+		pulling.set_pulledby(null)
 		var/mob/living/ex_pulled = pulling
 		setGrabState(GRAB_PASSIVE)
 		pulling = null
@@ -405,7 +405,7 @@
 			return
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
-		last_move = 0
+		last_move = null
 		return
 
 	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
@@ -421,6 +421,7 @@
 			check_pulling()
 
 	last_move = direct
+	last_move_time = world.time
 
 	if(set_dir_on_move && flat_direct)
 		setDir(flat_direct)
@@ -767,6 +768,7 @@
 		if(!buckled_mob.Move(newloc, direct))
 			doMove(buckled_mob.loc) //forceMove breaks buckles on stairs, use doMove
 			last_move = buckled_mob.last_move
+			last_move_time = world.time
 			return FALSE
 	return TRUE
 

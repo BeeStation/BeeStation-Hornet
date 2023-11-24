@@ -68,15 +68,6 @@
 	result = /obj/item/reagent_containers/food/snacks/cheesyfries
 	subcategory = CAT_MISCFOOD
 
-/datum/crafting_recipe/food/wrap
-	name = "Wrap"
-	reqs = list(/datum/reagent/consumable/soysauce = 10,
-		/obj/item/reagent_containers/food/snacks/friedegg = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1,
-	)
-	result = /obj/item/reagent_containers/food/snacks/eggwrap
-	subcategory = CAT_MISCFOOD
-
 /datum/crafting_recipe/food/beans
 	name = "Beans"
 	time = 40
@@ -203,9 +194,9 @@
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
 		/datum/reagent/consumable/sugar = 5,
-		/obj/item/reagent_containers/food/snacks/salad/boiledrice = 1
+		/obj/item/food/salad/boiledrice = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/salad/ricepudding
+	result = /obj/item/food/salad/ricepudding
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/butterbear //ITS ALIVEEEEEE!
