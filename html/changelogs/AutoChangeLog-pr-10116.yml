@@ -1,6 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - rscadd: Added relative coords components which lets you get relative coordinates
-      to target from circuit POV (requires line of sight)
-  - code_imp: Changed can_see default value of length var to 7

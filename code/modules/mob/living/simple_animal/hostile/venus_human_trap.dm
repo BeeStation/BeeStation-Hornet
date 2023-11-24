@@ -177,6 +177,11 @@
 		L.Paralyze(20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
+/mob/living/simple_animal/hostile/venus_human_trap/Destroy()
+	for(var/datum/beam/vine as anything in vines)
+		qdel(vine) //reference is automatically deleted by remove_vine
+	return ..()
+
 /mob/living/simple_animal/hostile/venus_human_trap/Login()
 	. = ..()
 	to_chat(src, "<span class='boldwarning'>You are venus human trap!  Protect the kudzu at all costs, and feast on those who oppose you!</span>")
