@@ -126,10 +126,19 @@
 	return
 
 /obj/machinery/computer/holodeck/prison/derez(atom/movable/holo_atom, silent = TRUE, forced = FALSE)
-	for(var/item in spawned)
-		if(!(get_turf(item) in linked)) //don't derez the items that have been hidden by prisoners
-			holo_atom -= item
-	. = ..()
+	spawned -= holo_atom
+	if(!holo_atom)
+		return
+	if(!(get_turf(holo_atom) in linked)) //Don't derez items that have been hidden or taken away by prisoners
+		return
+	UnregisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED)
+	var/turf/target_turf = get_turf(holo_atom)
+	for(var/atom/movable/atom_contents as anything in holo_atom) //make sure that things inside of a holoitem are moved outside before destroying it
+		atom_contents.forceMove(target_turf)
+	if(!silent)
+		visible_message("<span class='notice'>[holo_atom] fades away!</span>")
+
+	qdel(holo_atom)
 
 /obj/machinery/computer/holodeck/prison/load_program()
 	. = ..()

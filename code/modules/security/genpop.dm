@@ -202,7 +202,11 @@
 		return TRUE
 	var/allowed = allowed(mover)
 	//Everyone with access can drag you out. Prisoners can't drag each other out.
-	if(!allowed && mover.pulledby)
+	if(istype(mover, /obj/vehicle/ridden) && mover.buckled_mobs)
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50)
+		say("ERROR. For security reasons, wheelchairs and other ridden devices are not allowed through the turnstile.")
+		return FALSE
+	if(!allowed && mover.pulledby && ishuman(mover.pulledby))
 		var/mob/living/carbon/human/H = mover.pulledby
 		if(istype(H.wear_id, /obj/item/card/id/prisoner) || istype(H.get_active_held_item(), /obj/item/card/id/prisoner))
 			return FALSE
@@ -530,6 +534,7 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 	icon_state = "orange"
 	item_state = "orange-id"
 	assignment = "convict"
+	hud_state = JOB_HUD_PRISONER
 	var/served_time = 0 //Seconds.
 	var/sentence = 0 //'ard time innit.
 	var/crime = null //What you in for mate?
