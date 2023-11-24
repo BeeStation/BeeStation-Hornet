@@ -1455,12 +1455,6 @@
 	dir = 1
 	},
 /area/space)
-"fZ" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/space)
 "gb" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	alpha = 180
@@ -1528,6 +1522,16 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/red,
+/area/space)
+"go" = (
+/obj/structure/sign/warning/securearea{
+	name = "\improper ANTI-RAD SHELTER";
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/wood,
 /area/space)
 "gu" = (
 /obj/machinery/holopad,
@@ -1658,11 +1662,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
-"gR" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/wood,
-/area/space)
 "gS" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
@@ -2183,6 +2182,13 @@
 	pixel_y = 7
 	},
 /turf/open/floor/plasteel,
+/area/space)
+"is" = (
+/obj/structure/chair/wood/normal{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/end,
+/turf/open/floor/carpet/green,
 /area/space)
 "it" = (
 /obj/machinery/airalarm/directional/south,
@@ -3056,6 +3062,16 @@
 /obj/effect/landmark/start/captain,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
+"lv" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/space)
 "lw" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -3524,6 +3540,13 @@
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
+"nl" = (
+/obj/structure/chair/wood/normal,
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/space)
 "nm" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -4147,18 +4170,6 @@
 	pixel_y = 30
 	},
 /turf/open/floor/plasteel,
-/area/space)
-"pB" = (
-/obj/structure/chair/fancy/sofa/old/left{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/carpet/green,
 /area/space)
 "pC" = (
 /turf/closed/wall,
@@ -6081,18 +6092,6 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/plasteel,
 /area/space)
-"xo" = (
-/obj/structure/chair/fancy/sofa/old/right{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/carpet/green,
-/area/space)
 "xp" = (
 /obj/structure/table/reinforced,
 /obj/item/circuitboard/machine/public_nanite_chamber,
@@ -7105,6 +7104,14 @@
 	},
 /turf/open/floor/plating,
 /area/space)
+"AE" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "29";
+	security_level = 6
+	},
+/turf/open/floor/plating,
+/area/space)
 "AH" = (
 /obj/structure/stairs{
 	dir = 4
@@ -7441,6 +7448,18 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/space)
+"BX" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/space)
 "BZ" = (
 /obj/structure/railing{
 	dir = 8
@@ -7755,6 +7774,21 @@
 	},
 /turf/open/floor/engine,
 /area/space)
+"Do" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/crew_quarters/cafeteria)
 "Dr" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/cigarettes/cigpack_carp{
@@ -8932,19 +8966,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
-"Ig" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/fancy/sofa/old/right{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 5
-	},
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "Ih" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -10098,6 +10119,18 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/space)
+"Ms" = (
+/obj/structure/chair/fancy/sofa/old/right{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/space)
 "Mw" = (
 /obj/machinery/camera/autoname{
 	dir = 8;
@@ -11223,21 +11256,6 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/tcommsat/computer)
-"Qu" = (
-/obj/structure/chair/fancy/sofa/old/left{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
-	},
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "Qv" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/wideplating/dark,
@@ -11431,6 +11449,19 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/bar/atrium)
+"QZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/fancy/sofa/old/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/crew_quarters/cafeteria)
 "Rb" = (
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
@@ -11578,6 +11609,11 @@
 /turf/open/floor/plasteel/white/side{
 	dir = 4
 	},
+/area/space)
+"RM" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/vending/cigarette,
+/turf/open/floor/wood,
 /area/space)
 "RN" = (
 /obj/effect/turf_decal/stripes/line{
@@ -13503,10 +13539,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
-"ZY" = (
-/obj/structure/railing/corner,
-/turf/open/floor/wood,
-/area/space)
 
 (1,1,1) = {"
 aT
@@ -19096,11 +19128,11 @@ aT
 aT
 aT
 aT
-ab
-ab
-ab
-ab
-ab
+aT
+aT
+aT
+aT
+aT
 aT
 aT
 aT
@@ -19225,11 +19257,11 @@ aT
 aT
 aT
 aT
-ab
-dl
-dl
-aa
-ab
+aT
+aT
+aT
+aT
+aT
 aT
 aT
 aT
@@ -19354,11 +19386,11 @@ aT
 aT
 aT
 aT
-ab
-dl
-dl
-aa
-ab
+aT
+aT
+aT
+aT
+aT
 aT
 aT
 aT
@@ -19483,11 +19515,11 @@ aT
 aT
 aT
 aT
-ab
-dl
-dl
-aa
-ab
+aT
+aT
+aT
+aT
+aT
 aT
 aT
 aT
@@ -19612,11 +19644,11 @@ aT
 aT
 aT
 aT
-ab
-dl
-dl
-aa
-ab
+aT
+aT
+aT
+aT
+aT
 aT
 aT
 aT
@@ -19742,10 +19774,10 @@ aT
 aT
 aT
 aT
-ab
-aa
-aa
-ab
+aT
+aT
+aT
+aT
 aT
 aT
 aT
@@ -35354,7 +35386,7 @@ nr
 nr
 nr
 nr
-nr
+Um
 jw
 PS
 Nq
@@ -35483,7 +35515,7 @@ ab
 ab
 ab
 ab
-ab
+AE
 jw
 GW
 dz
@@ -35611,8 +35643,8 @@ Tk
 Tk
 Tk
 Tk
-SM
 EP
+nr
 jw
 AS
 lG
@@ -35740,8 +35772,8 @@ Tk
 Tk
 Tk
 Tk
-Tk
 rL
+nr
 jw
 tf
 rj
@@ -35869,8 +35901,8 @@ Tk
 Tk
 Tk
 Tk
-Tk
 rL
+nr
 jw
 VQ
 fs
@@ -35998,8 +36030,8 @@ Tk
 Tk
 Tk
 Tk
-Tk
 rL
+nr
 jw
 pd
 tD
@@ -36127,8 +36159,8 @@ Tk
 Tk
 Tk
 Tk
-Tk
 rL
+nr
 jw
 jw
 vW
@@ -36256,10 +36288,10 @@ Tk
 Tk
 Tk
 Tk
-Tk
 Qj
-EP
-ZD
+Tk
+SM
+go
 aa
 aa
 aa
@@ -36387,8 +36419,8 @@ Tk
 Tk
 Tk
 Tk
+Tk
 rL
-aa
 aa
 aa
 aa
@@ -36515,9 +36547,9 @@ Tk
 Tk
 Ps
 Yn
-Yn
-Qd
-aa
+nl
+lv
+is
 aa
 aa
 aa
@@ -36642,7 +36674,7 @@ Tk
 Tk
 Tk
 tb
-gR
+RM
 jw
 OV
 BZ
@@ -36769,9 +36801,9 @@ Tk
 Tk
 Tk
 Tk
-fZ
-Qu
-xo
+Tk
+Do
+Ms
 OV
 Ih
 ak
@@ -37027,9 +37059,9 @@ Tk
 Tk
 Tk
 Tk
-ZY
-Ig
-pB
+Tk
+QZ
+BX
 ov
 UH
 ak
@@ -37289,9 +37321,9 @@ Tk
 Tk
 Qj
 SM
-SM
-EP
-aa
+nl
+lv
+is
 aa
 aa
 aa
@@ -37419,8 +37451,8 @@ Tk
 Tk
 Tk
 Tk
+Tk
 rL
-aa
 aa
 aa
 aa
@@ -37548,8 +37580,8 @@ Yn
 Yn
 Yn
 Yn
+Yn
 Qd
-aa
 aa
 aa
 aa
