@@ -9,7 +9,7 @@
 	description = "To quell the homeless uprising, Nanotrasen will be serving soup to all underpaid workers. Ship any type of soup."
 	reward = 3000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/soup)
+	wanted_types = list(/obj/item/food/soup)
 
 /datum/bounty/item/chef/popcorn
 	name = "Popcorn Bags"
@@ -56,7 +56,7 @@
 	description = "CentCom management is going on a health binge. Your order is to ship salad or rice bowls."
 	reward = 3000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/salad)
+	wanted_types = list(/obj/item/food/salad)
 
 /datum/bounty/item/chef/carrotfries
 	name = "Carrot Fries"

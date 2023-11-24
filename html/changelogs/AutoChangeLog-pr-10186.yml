@@ -1,0 +1,5 @@
+author: rkz
+delete-after: true
+changes:
+  - bugfix: fixed Venus Human Traps vine beams not disappearing after successfully
+      (or unsuccessfully) grabbing a mob

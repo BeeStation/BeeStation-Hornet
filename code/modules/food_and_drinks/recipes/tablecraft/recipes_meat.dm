@@ -204,10 +204,10 @@
 /datum/crafting_recipe/food/ricepork
 	name = "Rice and Pork"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/salad/boiledrice = 1,
+		/obj/item/food/salad/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/meat/cutlet = 2
 	)
-	result = /obj/item/reagent_containers/food/snacks/salad/ricepork
+	result = /obj/item/food/salad/ricepork
 	subcategory = CAT_MEAT
 
 

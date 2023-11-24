@@ -244,8 +244,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		. = id_card
 
 	// Check inventory slot
-	if(istype(stats.ability, /datum/holoparasite_ability/major/dextrous))
-		var/datum/holoparasite_ability/major/dextrous/dextrous_ability = stats.ability
+	if(istype(stats.weapon, /datum/holoparasite_ability/weapon/dextrous))
+		var/datum/holoparasite_ability/weapon/dextrous/dextrous_ability = stats.weapon
 		id_card = dextrous_ability.internal_storage?.GetID()
 		if(id_card)
 			return id_card
