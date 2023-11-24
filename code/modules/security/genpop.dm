@@ -29,11 +29,27 @@
 	//Cooldown so we don't shock a million times a second
 	COOLDOWN_DECLARE(shock_cooldown)
 	circuit = /obj/item/circuitboard/machine/turnstile
+	var/state = TURNSTILE_SECURED
 
 /obj/item/circuitboard/machine/turnstile
 	name = "Turnstile circuitboard"
 	desc = "The circuit board for a turnstile machine."
 	build_path = /obj/machinery/turnstile
+	req_components = list(
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/ore/bluespace_crystal = 1,
+		/obj/item/stack/rods = 12
+	)
+
+/obj/machinery/turnstile/examine(mob/user)
+	. = ..()
+	if(state == TURNSTILE_SECURED)
+		. += "<span class='notice'>The turnstile panel is tightly <b>screwed</b> to the frame.</span>"
+	if(state == TURNSTILE_CIRCUIT_EXPOSED)
+		. += "<span class='notice'>The turnstile circuitboard is exposed, you could <b>pry it</b> from the frame.</span>"
+	if(state == TURNSTILE_SHELL)
+		. += "<span class='notice'>The turnstile frame is empty, ready to be sliced apart through <b>welding</b>.</span>"
 
 //Executive officer's line variant. For rule of cool.
 /*/obj/machinery/turnstile/xo
@@ -145,12 +161,14 @@
 /obj/machinery/turnstile/attackby(obj/item/item, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "turnstile", "turnstile", item))
 		update_appearance()//add proper panel icons
+		state = TURNSTILE_CIRCUIT_EXPOSED
 		return
 	if(item.tool_behaviour == TOOL_CROWBAR && panel_open && circuit != null)
 		to_chat(user, "<span class='notice'>You start tearing out the circuitry...")
 		if(do_after(user, 3 SECONDS))
 			circuit.forceMove(loc)
 			circuit = null
+			state = TURNSTILE_SHELL
 		return
 	. = ..()
 	if(machine_stat & BROKEN)
@@ -416,7 +434,7 @@
 	desired_crime = null
 	desired_name = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-	next_print = world.time + 20 SECONDS
+	next_print = world.time + 5 SECONDS
 
 
 
@@ -504,9 +522,13 @@
 			var/value = text2num(params["adjust"])
 			if(!istype(id) || id.access == ACCESS_PRISONER) //check for prisonner access too
 				return
+			if(id.served_time >= id.sentence)
+				say("Prisoner has already served their time! Please apply another charge to sentence them with!")
+				return
 			if(value && isnum(value))
 				id.sentence += value
 				id.sentence = clamp(id.sentence,0,MAX_TIMER)
+
 		if("release")
 			var/obj/item/card/id/prisoner/id = locate(params["id"])
 			if(!istype(id))

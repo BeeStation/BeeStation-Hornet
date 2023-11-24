@@ -87,25 +87,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
-"aay" = (
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/cigbutt/cigarbutt{
-	pixel_x = 5;
-	pixel_y = -1
-	},
-/obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
-/area/security/brig)
-"aaz" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plasteel/grimy,
-/area/security/brig)
 "aaC" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -127,10 +108,6 @@
 "aaH" = (
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"aaJ" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
-/turf/open/floor/plating,
-/area/security/brig)
 "aaN" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -681,12 +658,14 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "ael" = (
-/obj/machinery/door/airlock{
-	id_tag = "Cell";
-	name = "Cell 1"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Solitary Confinement";
+	req_access_txt = "63"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -859,12 +838,12 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "afQ" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Evidence Storage";
-	req_access_txt = "63"
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
+	},
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage";
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -10065,14 +10044,6 @@
 "bHE" = (
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"bHO" = (
-/obj/structure/chair,
-/obj/machinery/computer/security/telescreen/interrogation{
-	dir = 1;
-	pixel_y = -30
-	},
-/turf/open/floor/plasteel/grimy,
-/area/security/brig)
 "bHP" = (
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel,
@@ -22079,10 +22050,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"est" = (
-/obj/structure/chair,
-/turf/open/floor/plasteel/grimy,
-/area/security/brig)
 "esU" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = 32
@@ -22690,19 +22657,6 @@
 /obj/structure/kitchenspike,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
-"eGn" = (
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/structure/table/wood,
-/obj/item/radio/intercom{
-	frequency = 1423;
-	name = "Interrogation Intercom";
-	pixel_y = 25
-	},
-/turf/open/floor/plasteel/grimy,
-/area/security/brig)
 "eGr" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -24475,6 +24429,13 @@
 	pixel_y = -3
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/button/door{
+	id = "armory";
+	name = "Armory Shutters";
+	pixel_x = 6;
+	pixel_y = -26;
+	req_access_txt = "3"
+	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "fGq" = (
@@ -29962,15 +29923,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
-"iqK" = (
-/obj/machinery/door/airlock/security{
-	aiControlDisabled = 1;
-	id_tag = "prisonereducation";
-	name = "Prisoner Education Chamber";
-	req_access_txt = "63"
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/brig)
 "iqN" = (
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo"
@@ -35720,6 +35672,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"liH" = (
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("minisat")
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "liI" = (
 /obj/machinery/button/door{
 	id = "ViroA";
@@ -36152,10 +36111,6 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "lrz" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Evidence Storage";
-	req_access_txt = "63"
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
@@ -36164,6 +36119,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage";
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -39501,7 +39460,7 @@
 /area/quartermaster/exploration_prep)
 "mZd" = (
 /obj/machinery/light/small{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -46689,6 +46648,17 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
+"qDS" = (
+/obj/docking_port/stationary{
+	dwidth = 2;
+	height = 5;
+	id = "laborcamp_home";
+	name = "fore bay 1";
+	roundstart_template = /datum/map_template/shuttle/labour/box;
+	width = 9
+	},
+/turf/open/space/basic,
+/area/space)
 "qDZ" = (
 /obj/structure/railing{
 	dir = 1
@@ -47028,17 +46998,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"qMt" = (
-/obj/docking_port/stationary{
-	dwidth = 2;
-	height = 5;
-	id = "laborcamp_home";
-	name = "fore bay 1";
-	roundstart_template = /datum/map_template/shuttle/labour/box;
-	width = 9
-	},
-/turf/open/space/basic,
-/area/security/brig)
 "qMz" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
@@ -54061,6 +54020,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
+"tVt" = (
+/obj/item/radio/intercom{
+	frequency = 1423;
+	name = "Interrogation Intercom";
+	pixel_y = 25
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "tVy" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -59004,6 +58971,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"wLK" = (
+/obj/machinery/computer/security/telescreen/interrogation{
+	dir = 4;
+	pixel_y = -30
+	},
+/turf/closed/wall/r_wall,
+/area/security/brig)
 "wLL" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
@@ -88479,22 +88453,22 @@ aaa
 aaa
 aaa
 aaa
-aaa
+qDS
 fkz
 jIE
 dnz
 iLB
 oSV
 aiX
-aay
-est
-aaJ
+too
+too
+aiX
 aaN
 aaV
 sJV
 aat
 agK
-agK
+liH
 agK
 agK
 ael
@@ -88743,10 +88717,10 @@ agj
 vUJ
 umD
 aiX
-eGn
-bHO
-aaJ
 too
+too
+aiX
+tVt
 xMp
 kWz
 aiX
@@ -89000,9 +88974,9 @@ agj
 bsH
 qbt
 aiX
-aaz
-est
-iqK
+too
+too
+aiX
 mZd
 azu
 pzS
@@ -89259,7 +89233,7 @@ pXo
 aiX
 aiX
 aiX
-aiX
+wLK
 aiX
 lgm
 aiX
@@ -89507,7 +89481,7 @@ aaa
 aaa
 aaa
 aaa
-qMt
+aaa
 fkz
 ouc
 dnz
@@ -92345,7 +92319,7 @@ acl
 lwt
 adQ
 cPn
-alt
+aaZ
 afZ
 fma
 afU
@@ -93630,7 +93604,7 @@ sbB
 bkA
 acF
 lLc
-aaZ
+alt
 ahL
 qiG
 qiG

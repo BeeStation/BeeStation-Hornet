@@ -8,6 +8,7 @@
 	mapped_start_area = /area/holodeck/prison
 	linked = /area/holodeck/prison
 	program_type = /datum/map_template/holodeck/prison //linked area
+	req_access = list(ACCESS_SECURITY)
 	var/startup
 	var/offline = FALSE
 
@@ -85,6 +86,9 @@
 	return data
 
 /obj/machinery/computer/holodeck/prison/ui_act(action, params)
+	if(!allowed(usr))
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		return
 	if(..())
 		return
 	switch(action)
