@@ -22,95 +22,132 @@
 	var/choice = input("Select a species", "Human Spawner", null) in GLOB.species_list
 	selected_species = GLOB.species_list[choice]
 
-
 /obj/item/debug/omnitool
 	name = "omnitool"
 	desc = "The original hypertool, born before them all. Use it in hand to unleash its true power."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hypertool"
+	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.1
-	tool_behaviour = null
+	tool_behaviour = TOOL_SCREWDRIVER
+	var/static/obj/item/stack/cable_coil/cable_coil
+	var/static/obj/item/cultivator/cultivator
+	var/static/obj/item/shovel/spade/spade
+	var/static/list/abstract_tools
+
+	var/list/available_selections = list(
+		"Engineering tools" = list(
+			TOOL_SCREWDRIVER,
+			TOOL_WRENCH,
+			TOOL_CROWBAR,
+			TOOL_WIRECUTTER,
+			TOOL_MULTITOOL,
+			TOOL_WELDER,
+			TOOL_ANALYZER,
+			"wires"
+		),
+		"Medical tools" = list(
+			"drapes",
+			TOOL_SCALPEL,
+			TOOL_HEMOSTAT,
+			TOOL_RETRACTOR,
+			TOOL_SAW,
+			TOOL_CAUTERY,
+			TOOL_DRILL,
+			TOOL_BLOODFILTER
+		),
+		"Miscellaneous tools" = list(
+			TOOL_MINING,
+			TOOL_SHOVEL,
+			"spade",
+			"cultivator",
+			TOOL_RUSTSCRAPER,
+			TOOL_ROLLINGPIN,
+			TOOL_BIKEHORN,
+			"debug_placeholder"
+		)
+	)
+
+/obj/item/debug/omnitool/Initialize(mapload)
+	. = ..()
+
+	if(!abstract_tools)
+		abstract_tools = list()
+
+		cable_coil = new
+		abstract_tools += cable_coil
+		cable_coil.max_amount = INFINITY
+		cable_coil.amount = INFINITY
+
+		cultivator = new
+		abstract_tools += cultivator
+
+		spade = new
+		abstract_tools += spade
+
+		for(var/obj/each in src.abstract_tools)
+			each.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+			if(isitem(each))
+				var/obj/item/I = each
+				I.materials = null // we don't want to feed lathe with these items
 
 /obj/item/debug/omnitool/examine()
 	. = ..()
 	. += " The mode is: [tool_behaviour]"
 
-/obj/item/debug/omnitool/proc/check_menu(mob/user)
-	if(!istype(user))
-		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
-		return FALSE
-	return TRUE
+/obj/item/debug/omnitool/pre_attack(atom/A, mob/living/user, params)
+	switch(tool_behaviour)
+		if("wires")
+			cable_coil.melee_attack_chain(user, A, params)
+			return
+		if("cultivator")
+			cultivator.melee_attack_chain(user, A, params)
+			return
+		if("spade")
+			spade.melee_attack_chain(user, A, params)
+			return
+		if("debug_placeholder") // QoL. put anything you need.
+			return
+	. = ..()
 
 /obj/item/debug/omnitool/attack(mob/living/M, mob/living/user)
-	if(tool_behaviour == "drapes")
-		attempt_initiate_surgery(src, M, user)
-	..()
+	switch(tool_behaviour)
+		if("drapes")
+			attempt_initiate_surgery(src, M, user)
+		if("debug_placeholder") // QoL. put anything you need. - pre_attack() is preffered.
+			pass()
+	. = ..()
 
-/obj/item/debug/omnitool/attack_self(mob/user)
-	if(!user)
-		return
-	var/list/tool_list = list(
-		"Crowbar" = image(icon = 'icons/obj/tools.dmi', icon_state = "crowbar"),
-		"Multitool" = image(icon = 'icons/obj/device.dmi', icon_state = "multitool"),
-		"Screwdriver" = image(icon = 'icons/obj/tools.dmi', icon_state = "screwdriver_map"),
-		"Wirecutters" = image(icon = 'icons/obj/tools.dmi', icon_state = "cutters_map"),
-		"Wrench" = image(icon = 'icons/obj/tools.dmi', icon_state = "wrench"),
-		"Welding Tool" = image(icon = 'icons/obj/tools.dmi', icon_state = "welder"),
-		"Analyzer" = image(icon = 'icons/obj/device.dmi', icon_state = "analyzer"),
-		"Retractor" = image(icon = 'icons/obj/surgery.dmi', icon_state = "retractor"),
-		"Hemostat" = image(icon = 'icons/obj/surgery.dmi', icon_state = "hemostat"),
-		"Cautery" = image(icon = 'icons/obj/surgery.dmi', icon_state = "cautery"),
-		"Drill" = image(icon = 'icons/obj/surgery.dmi', icon_state = "drill"),
-		"Scalpel" = image(icon = 'icons/obj/surgery.dmi', icon_state = "scalpel"),
-		"Surgical drapes" = image(icon = 'icons/obj/surgery.dmi', icon_state = "surgical_drapes"),
-		"Saw" = image(icon = 'icons/obj/surgery.dmi', icon_state = "saw"),
-		"Pickaxe" = image(icon = 'icons/obj/mining.dmi', icon_state = "minipick"),
-		"Shovel" = image(icon = 'icons/obj/mining.dmi', icon_state = "spade"),
-		"Blood Filter" = image(icon = 'icons/obj/surgery.dmi', icon_state = "bloodfilter"),
-		"Wire Brush" = image(icon = 'icons/obj/tools.dmi', icon_state = "wirebrush")
+/obj/item/debug/omnitool/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ToolSelection")
+		ui.open()
+
+/obj/item/debug/omnitool/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/tools)
 	)
 
-	var/tool_result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
-	if(!check_menu(user))
+/obj/item/debug/omnitool/ui_data(mob/user)
+	var/list/data = list()
+	. = data
+
+	data["selections"] = available_selections
+
+/obj/item/debug/omnitool/ui_act(action, params)
+	. = ..()
+	if(.)
 		return
-	switch(tool_result)
-		if("Crowbar")
-			tool_behaviour = TOOL_CROWBAR
-		if("Multitool")
-			tool_behaviour = TOOL_MULTITOOL
-		if("Screwdriver")
-			tool_behaviour = TOOL_SCREWDRIVER
-		if("Wirecutters")
-			tool_behaviour = TOOL_WIRECUTTER
-		if("Wrench")
-			tool_behaviour = TOOL_WRENCH
-		if("Welding Tool")
-			tool_behaviour = TOOL_WELDER
-		if("Analyzer")
-			tool_behaviour = TOOL_ANALYZER
-		if("Surgical drapes")
-			tool_behaviour = "drapes"
-		if("Retractor")
-			tool_behaviour = TOOL_RETRACTOR
-		if("Hemostat")
-			tool_behaviour = TOOL_HEMOSTAT
-		if("Cautery")
-			tool_behaviour = TOOL_CAUTERY
-		if("Blood Filter")
-			tool_behaviour = TOOL_BLOODFILTER
-		if("Drill")
-			tool_behaviour = TOOL_DRILL
-		if("Scalpel")
-			tool_behaviour = TOOL_SCALPEL
-		if("Saw")
-			tool_behaviour = TOOL_SAW
-		if("Pickaxe")
-			tool_behaviour = TOOL_MINING
-		if("Shovel")
-			tool_behaviour = TOOL_SHOVEL
-		if("Wire Brush")
-			tool_behaviour = TOOL_RUSTSCRAPER
+
+	switch(action)
+		if("change_selection")
+			var/tool = params["chosen_selection"]
+			if(!(tool in available_selections[params["chosen_category"]]))
+				return
+			tool_behaviour = tool
+			to_chat(usr, "<span class='notice'>Tool behaviour of [src] is now [tool_behaviour]</span>")
+			return
 
 /obj/item/construction/rcd/arcd/debug
 	name = "\improper CentCom Admin RCD"
