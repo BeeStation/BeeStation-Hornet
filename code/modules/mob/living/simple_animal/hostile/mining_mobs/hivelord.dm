@@ -189,6 +189,7 @@
 	else
 		L = new(H.loc)
 	visible_message("<span class='warning'>[L] staggers to [L.p_their()] feet!</span>")
+	H.investigate_log("has been killed by hivelord infestation.", INVESTIGATE_DEATHS)
 	H.death()
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H

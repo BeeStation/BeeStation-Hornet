@@ -2,6 +2,8 @@
 	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/plasteel
 	turf_texture = /datum/turf_texture/hallway
+	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+	burnt_states = list("floorscorched1", "floorscorched2")
 
 /turf/open/floor/plasteel/examine(mob/user)
 	. = ..()

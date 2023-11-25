@@ -52,9 +52,7 @@
 	else
 		turn_off(user)
 		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/tank/jetpack/equipped(mob/user, slot)
 	..()
@@ -133,14 +131,13 @@
 
 	return TRUE
 
-/obj/item/tank/jetpack/suicide_act(mob/user)
-	if (istype(user, /mob/living/carbon/human/))
-		var/mob/living/carbon/human/H = user
-		H.say(";WHAT THE FUCK IS CARBON DIOXIDE?", forced="jetpack suicide")
-		H.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>")
-		return (OXYLOSS)
-	else
-		..()
+/obj/item/tank/jetpack/suicide_act(mob/living/user)
+	if (!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	H.say(";WHAT THE FUCK IS CARBON DIOXIDE?", forced="jetpack suicide")
+	H.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>")
+	return OXYLOSS
 
 /obj/item/tank/jetpack/improvised
 	name = "improvised jetpack"
@@ -186,7 +183,7 @@
 	item_state = "jetpack-mini"
 	volume = 40
 	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 
 /obj/item/tank/jetpack/oxygen/captain
@@ -194,7 +191,7 @@
 	desc = "A compact, lightweight jetpack containing a high amount of compressed oxygen."
 	icon_state = "jetpack-captain"
 	item_state = "jetpack-captain"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	volume = 90
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
