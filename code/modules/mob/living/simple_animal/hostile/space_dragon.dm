@@ -419,9 +419,10 @@
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
-	var/rendered = "<font color=\"#44aaff\">Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></font>"
+	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
-		rendered = "<span class='big'>[rendered]</span>"
+		valid_span_class += " big"
+	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
 			to_chat(S, rendered)

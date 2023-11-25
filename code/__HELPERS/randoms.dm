@@ -14,17 +14,18 @@
 		/obj/item/reagent_containers/food/snacks/kebab,
 		/obj/item/food/pizza,
 		/obj/item/food/pizzaslice,
-		/obj/item/reagent_containers/food/snacks/salad,
+		/obj/item/food/salad,
 		/obj/item/reagent_containers/food/snacks/meat,
 		/obj/item/reagent_containers/food/snacks/meat/slab,
-		/obj/item/reagent_containers/food/snacks/soup,
+		/obj/item/food/soup,
 		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
 		/obj/item/food/deepfryholder,
 		/obj/item/reagent_containers/food/snacks/clothing,
 		/obj/item/reagent_containers/food/snacks/grown/shell, //base types
 		/obj/item/food/bread,
-		/obj/item/reagent_containers/food/snacks/grown/nettle
+		/obj/item/reagent_containers/food/snacks/grown/nettle,
+		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 		)
 		blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 

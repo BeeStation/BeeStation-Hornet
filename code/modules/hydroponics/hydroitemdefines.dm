@@ -27,9 +27,9 @@
 	volume = 100
 	list_reagents = list(/datum/reagent/toxin/plantbgone/weedkiller = 100)
 
-/obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
+/obj/item/reagent_containers/spray/weedspray/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/reagent_containers/spray/pestspray // -- Skie
 	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
@@ -42,9 +42,9 @@
 	volume = 100
 	list_reagents = list(/datum/reagent/toxin/pestkiller = 100)
 
-/obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
+/obj/item/reagent_containers/spray/pestspray/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/cultivator
 	name = "cultivator"
@@ -62,9 +62,9 @@
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/cultivator/suicide_act(mob/user)
+/obj/item/cultivator/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is scratching [user.p_their()] back as hard as [user.p_they()] can with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/hatchet
 	name = "hatchet"
@@ -90,10 +90,10 @@
 	. = ..()
 	AddComponent(/datum/component/butchering, 70, 100)
 
-/obj/item/hatchet/suicide_act(mob/user)
+/obj/item/hatchet/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/scythe
 	icon_state = "scythe0"
@@ -118,7 +118,7 @@
 	. = ..()
 	AddComponent(/datum/component/butchering, 90, 105)
 
-/obj/item/scythe/suicide_act(mob/user)
+/obj/item/scythe/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
@@ -126,7 +126,7 @@
 		if(BP)
 			BP.drop_limb()
 			playsound(src,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/scythe/pre_attack(atom/A, mob/living/user, params)
 	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))
@@ -164,16 +164,19 @@
 	name = "bottle of E-Z-Nutrient"
 	desc = "Contains a fertilizer that causes mild mutations with each harvest."
 	list_reagents = list(/datum/reagent/plantnutriment/eznutriment = 50)
+	vendor_icon_preview = "bottle_eznutrient"
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "bottle of Left 4 Zed"
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
 	list_reagents = list(/datum/reagent/plantnutriment/left4zednutriment = 50)
+	vendor_icon_preview = "bottle_left4zed"
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "bottle of Robust Harvest"
 	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
 	list_reagents = list(/datum/reagent/plantnutriment/robustharvestnutriment = 50)
+	vendor_icon_preview = "bottle_robustharvest"
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
 	name = "bottle"

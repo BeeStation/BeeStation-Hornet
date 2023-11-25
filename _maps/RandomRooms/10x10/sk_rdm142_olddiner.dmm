@@ -194,7 +194,7 @@
 /area/template_noop)
 "Hd" = (
 /obj/structure/table/wood,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Il" = (

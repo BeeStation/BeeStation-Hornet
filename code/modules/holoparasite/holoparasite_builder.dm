@@ -366,9 +366,9 @@
 	if(debug_mode)
 		candidates = list(user)
 	else
-		candidates = pollGhostCandidates(
+		candidates = poll_ghost_candidates(
 			"Do you want to play as [holopara_name], [user.mind.name]'s [theme.name]?",
-			jobbanType = ROLE_HOLOPARASITE,
+			jobban_type = ROLE_HOLOPARASITE,
 			poll_time = 30 SECONDS
 		)
 	waiting = FALSE

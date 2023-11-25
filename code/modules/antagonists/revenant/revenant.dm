@@ -503,7 +503,7 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/list/candidates = pollCandidatesForMob("Do you want to be [revenant.name] (reforming)?", ROLE_REVENANT, /datum/role_preference/midround_ghost/revenant, 7.5 SECONDS, revenant)
+		var/list/candidates = poll_candidates_for_mob("Do you want to be [revenant.name] (reforming)?", ROLE_REVENANT, /datum/role_preference/midround_ghost/revenant, 7.5 SECONDS, revenant)
 		if(!LAZYLEN(candidates))
 			qdel(revenant)
 			message_admins("No candidates were found for the new revenant. Oh well!")
@@ -530,10 +530,10 @@
 	revenant = null
 	qdel(src)
 
-/obj/item/ectoplasm/revenant/suicide_act(mob/user)
+/obj/item/ectoplasm/revenant/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is inhaling [src]! It looks like [user.p_theyre()] trying to visit the shadow realm!</span>")
 	scatter()
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/ectoplasm/revenant/Destroy()
 	if(!QDELETED(revenant))
