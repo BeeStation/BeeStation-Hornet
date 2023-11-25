@@ -2,11 +2,6 @@
 //Credit to oraclestation for the idea! This just a recode...
 // Recode CanAllowThrough() and machine_stat
 
-#define MAX_TIMER 10 HOURS //Permabrig.
-#define PRESET_SHORT 5 MINUTES
-#define PRESET_MEDIUM 10 MINUTES
-#define PRESET_LONG 15 MINUTES
-
 /obj/machinery/turnstile
 	name = "turnstile"
 	desc = "A mechanical door that permits one-way access to the brig."
@@ -268,68 +263,12 @@
 	circuit = /obj/item/circuitboard/machine/genpop_interface
 	var/time_to_screwdrive = 20
 	var/next_print = 0
-	var/desired_sentence = 60 //What sentence do you want to give them?
-	var/desired_crime //What is their crime?
 	var/desired_name //What is their name?
-	var/desired_description //Description of their crime
+	var/desired_details //Details of the crime
 	var/obj/item/radio/Radio //needed to send messages to sec radio
-	var/static/list/crimes = list() //The list of crimes the officer user will either be filtering or searching in.
-	var/search_text //Text for the search bar
-
-	var/static/list/minor = list(
-		list(name="Assault", tooltip="To use physical force against someone without the apparent intent to kill them.", colour="yellow",icon="hand-rock",sentence="5"),
-		list(name="Pickpocketting", tooltip="To steal items from another's person..", colour="yellow",icon="mask",sentence="5"),
-		list(name="Minor Vandalism", tooltip="To damage, destroy, or permanently deface non-critical furniture, vendors, or personal property.", colour="yellow",icon="house-damage",sentence="5"),
-		list(name="Vigilantism", tooltip="To perform the responsibilities and duties of the security department without approval or due cause to act.", colour="yellow",icon="user-secret",sentence="5"),
-		list(name="Illegal Distribution", tooltip="The possession of dangerous or illegal drugs/equipment in a quantity greater than that which is reasonable for personal consumption.", colour="yellow",icon="joint",sentence="5"),
-		list(name="Disturbing the Peace", tooltip="	To knowingly organize a movement which disrupts the normal operations of a department.", colour="yellow",icon="fist-raised",sentence="5"),
-		list(name="Negligence", tooltip="To be negligent in one's duty to an extent that it may cause harm, illness, or other negative effect, to another.", colour="yellow",icon="low-vision",sentence="5"),
-		list(name="Trespass", tooltip="To be in an area which a person has either not purposefully been admitted to, does not have access, or has been asked to leave by someone who has access to that area.", colour="yellow",icon="walking",sentence="5"),
-		list(name="Breaking and Entering", tooltip="To trespass into an area using a method of forcible entry.", colour="yellow",icon="door-open",sentence="5"),
-		list(name="Discriminatory Language", tooltip="To use language which demeans, generalizes, or otherwise de-personafies the individual at which it is targeted.", colour="yellow",icon="comment-slash",sentence="5"),
-		list(name="Fine Evasion", tooltip="To purposefully avoid or refuse to pay a legal fine.", colour="yellow",icon="dollar-sign",sentence="5"),
-		list(name="Religious Activity outside of the chapel", tooltip="To convert, proselytize, hold rituals or otherwise attempt to act in the name of a religion or deity outside of the chapel.", colour="yellow",icon="cross",sentence="5"),
-	)
-	var/static/list/misdemeanours = list(
-		list(name="Aggravated Assault", tooltip="To take physical action against a person with intent to grievously harm, but not to kill.", colour="orange",icon="user-injured",sentence="10"),
-		list(name="Theft", tooltip="To steal equipment or items from a workplace, or items of extraordinary value from one's person.", colour="orange",icon="mask",sentence="10"),
-		list(name="Major Vandalism", tooltip="To destroy or damage non-critical furniture, vendors, or personal property in a manor that can not be repaired.", colour="orange",icon="house-damage",sentence="10"),
-		list(name="Conspiracy", tooltip="To knowingly work with another person in the interest of committing an illegal action.", colour="orange",icon="user-friends",sentence="10"),
-		list(name="Hostile Agent", tooltip="To knowingly act as a recruiter, representative, messenger, ally, benefactor, or other associate of a hostile organization as defined within Code 405(EOTC).", colour="orange",icon="user-ninja",sentence="10"),
-		list(name="Contrabang Equipment Possession", tooltip="To possess equipment not approved for use or production aboard Nanotrasen stations. This includes equipment produced by The Syndicate, Wizard Federation, or any other hostile organization as defined within Code 405(EOTC).", colour="orange",icon="briefcase",sentence="10"),
-		list(name="Rioting", tooltip="To act as a member in a group which collectively commits acts of major vandalism, sabotage, grand sabotage, or other felony crimes.", colour="orange",icon="fist-raised",sentence="10"),
-		list(name="High Negligence", tooltip="To be negligent in one's duty to an extent that it may cause harm to multiple individuals, a department, or in a manor which directly leads to a serious injury of another person which requires emergency medical treatment.", colour="orange",icon="blind",sentence="10"),
-		list(name="Trespass, Inherently Dangerous Areas", tooltip="Trespassing in an area which may lead to the injury of self, or others.", colour="orange",icon="door-closed",sentence="10"),
-		list(name="Breaking and Entering, Inherently Dangerous Areas", tooltip="To trespass into an area which may lead to the injury of self or others using forcible entry.", colour="orange",icon="door-open",sentence="10"),
-		list(name="Insubordination", tooltip="To knowingly disobey a lawful order from a superior.", colour="orange",icon="hand-middle-finger",sentence="10"),
-		list(name="Fraud", tooltip="To misrepresent ones intention in the interest of gaining property or money from another individual.", colour="orange",icon="comment-dollar",sentence="10"),
-		list(name="Genetic Mutilation", tooltip="To purposefully modify an individual's genetic code without consent, or with intent to harm.", colour="orange",icon="dna",sentence="10"),
-	)
-	var/static/list/major = list(
-		list(name="Murder", tooltip="To purposefully kill someone.", colour="bad",icon="skull",sentence="15"),
-		list(name="Larceny", tooltip="To steal rare, expensive (Items of greater than 1000 credit value), or restricted equipment from secure areas or one's person.", colour="bad",icon="mask",sentence="15"),
-		list(name="Sabotage", tooltip="To destroy station assets or resources critical to normal or emergency station procedures, or cause sections of the station to become uninhabitable.", colour="bad",icon="bomb",sentence="15"),
-		list(name="High Conspiracy", tooltip="To knowingly work with another person in the interest of committing a major or greater crime.", colour="bad",icon="users",sentence="15"),
-		list(name="Hostile Activity", tooltip="	To knowingly commit an act which is in direct opposition to the interests of Nanotrasen, Or to directly assist a known enemy of the corporation.", colour="bad",icon="thumbs-down",sentence="15"),
-		list(name="Possession, Illegal Inherently Dangerous Equipment", tooltip="To possess restricted or illegal equipment which has a primary purpose of causing harm to others, or large amounts of destruction..", colour="bad",icon="exclamation-triangle",sentence="15"),
-		list(name="Inciting a Riot", tooltip="To perform actions in the interest of causing large amounts of unrest up to and including rioting.", colour="bad",icon="fist-raised",sentence="15"),
-		list(name="Manslaughter", tooltip="To unintentionally kill someone through negligent, but not malicious, actions.", colour="bad",icon="book-dead",sentence="15"),
-		list(name="Trespass, High Security Areas", tooltip="Trespassing in any of the following without appropriate permission or access: Command areas, Personal offices, Weapons storage, weapon production, explosive storage, explosive production, or other high security areas.", colour="bad",icon="running",sentence="15"),
-		list(name="Breaking and Entering, High Security Areas", tooltip="To commit trespassing into a secure area as defined in Code 309(Trespass, High Security Areas) using forcible entry.", colour="bad",icon="door-open",sentence="15"),
-		list(name="Dereliction", tooltip="To willfully abandon an obligation that is critical to the station's continued operation.", colour="bad",icon="walking",sentence="15"),
-		list(name="Corporate Fraud", tooltip="To misrepresent one's intention in the interest of gaining property or money from Nanotrasen, or to gain or give property or money from Nanotrasen without proper authorization.", colour="bad",icon="hand-holding-usd",sentence="15"),
-		list(name="Identity Theft", tooltip="To assume the identity of another individual.", colour="bad",icon="theater-masks",sentence="15"),
-	)
-	var/static/list/capital = list(
-		list(name="Prime Murder", tooltip="To commit the act of murder, with clear intent to kill, and clear intent or to have materially take steps to prevent the revival of the victim", colour="grey",icon="skull-crossbones",sentence="[MAX_TIMER / 600]"),
-		list(name="Grand Larceny", tooltip="To steal inherently dangerous items from their storage, one's person, or other such methods acquire through illicit means.", colour="grey",icon="mask",sentence="[MAX_TIMER / 600]"),
-		list(name="Grand Sabotage", tooltip="To destroy or modify station assets or equipment without which the station may collapse or otherwise become uninhabitable.", colour="grey",icon="bomb",sentence="[MAX_TIMER / 600]"),
-		list(name="Espionage", tooltip="To knowingly betray critical information to enemies of the station.", colour="grey",icon="user-secret",sentence="[MAX_TIMER / 600]"),
-		list(name="Enemy of the Corporation", tooltip="To be a member of any of the following organizations: Hostile boarding parties, Wizards, Changeling Hiveminds, cults.", colour="grey",icon="user-alt-slash",sentence="[MAX_TIMER / 600]"),
-		list(name="Possession, Corporate Secrets", tooltip="To possess secret documentation or high density tamper-resistant data storage devices (Blackboxes) from any organization without authorization by Nanotrasen.", colour="grey",icon="file-invoice",sentence="[MAX_TIMER / 600]"),
-		list(name="Subversion of the Chain of Command", tooltip="Disrupting the chain of command via either murder of a commanding officer or illegaly declaring oneself to be a commanding officer.", colour="grey",icon="link",sentence="[MAX_TIMER / 600]"),
-		list(name="Biological Terror", tooltip="To knowingly release, cause, or otherwise cause the station to become affected by a disease, plant, or other biological form which may spread uncontained and or cause serious physical harm.", colour="grey",icon="biohazard",sentence="[MAX_TIMER / 600]"),
-	)
+	/// A list of all of the available crimes in a formated served to the user interface.
+	var/static/list/crime_list
+	var/static/regex/valid_crime_name_regex = null
 
 /obj/item/circuitboard/machine/genpop_interface
 	name = "Prisoner Management Interface (circuit)"
@@ -348,9 +287,44 @@
 	. = ..()
 	update_icon()
 
+	if (!crime_list || !valid_crime_name_regex)
+		build_static_information()
+
 	Radio = new/obj/item/radio(src)
 	Radio.listening = 0
 	Radio.set_frequency(FREQ_SECURITY)
+
+/obj/machinery/genpop_interface/proc/build_static_information()
+	var/crime_names = list()
+
+	// Generate the crime list
+	if (!crime_list)
+		crime_list = list()
+		for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
+			// Ignore this crime, it is abstract
+			if (isnull(initial(crime_path.name)))
+				continue
+			// We need to know about this crime for the regex
+			crime_names += initial(crime_path.name)
+			// Create the category if it is needed
+			if (!islist(crime_list[initial(crime_path.category)]))
+				crime_list[initial(crime_path.category)] = list()
+			// Add crimes to that category
+			crime_list[initial(crime_path.category)] += list(list(
+				"name" = initial(crime_path.name),
+				"tooltip" = initial(crime_path.tooltip),
+				"tooltip" = initial(crime_path.tooltip),
+				"colour" = initial(crime_path.colour),
+				"icon" = initial(crime_path.icon),
+				"sentence" = initial(crime_path.sentence),
+			))
+
+	if (valid_crime_name_regex)
+		return
+
+	// Form the valid crime regex
+	var/regex_string = "^(Attempted )?([jointext(crime_names, "|")])( \\(Repeat offender\\))?$"
+	valid_crime_name_regex = regex(regex_string, "gm")
 
 /obj/machinery/genpop_interface/update_icon()
 	if(machine_stat & (NOPOWER))
@@ -380,7 +354,6 @@
 	return GLOB.default_state
 
 /obj/machinery/genpop_interface/ui_interact(mob/user, datum/tgui/ui)
-	search_text = null
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "GenPop")
@@ -391,11 +364,8 @@
 	var/list/data = list()
 	data["allPrisoners"] = list()
 	data["desired_name"] = desired_name
-	data["desired_crime"] = desired_crime
-	data["sentence"] = desired_sentence
+	data["desired_details"] = desired_details
 	data["canPrint"] = world.time >= next_print
-	data["allCrimes"] = crimes
-	data["search_text"] = search_text
 	var/list/L = data["allPrisoners"]
 	for(var/obj/item/card/id/prisoner/ID in GLOB.prisoner_ids)
 		var/list/id_info = list()
@@ -407,13 +377,20 @@
 		data["allPrisoners"][++L.len] = id_info
 	return data
 
-/obj/machinery/genpop_interface/proc/print_id(mob/user)
+/// Send these in static data because  they will never change.
+/obj/machinery/genpop_interface/ui_static_data(mob/user)
+	var/list/data = list()
+	// The global crime list
+	data["crime_list"] = crime_list
+	return data
+
+/obj/machinery/genpop_interface/proc/print_id(mob/user, desired_crime, desired_sentence)
 
 	if(world.time < next_print)
 		to_chat(user, "<span class='warning'>[src]'s ID printer is on cooldown.</span>")
 		return FALSE
-	investigate_log("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 60] for [desired_sentence / 60] min", INVESTIGATE_RECORDS)
-	user.log_message("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 60] for [desired_sentence / 60] min", LOG_ATTACK)
+	investigate_log("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 600] for [desired_sentence / 600] min", INVESTIGATE_RECORDS)
+	user.log_message("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 600] for [desired_sentence / 600] min", LOG_ATTACK)
 
 	if(desired_crime)
 		var/datum/data/record/R = find_record("name", desired_name, GLOB.data_core.general)
@@ -425,14 +402,13 @@
 			say("Criminal record for [R.fields["name"]] successfully updated.")
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1)
 
-	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence, desired_crime, desired_name)
-	Radio.talk_into(src, "Prisoner [id.registered_name] has been incarcerated for [desired_sentence / 60 ] minutes.")
+	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence * 0.1, desired_crime, desired_name)
+	Radio.talk_into(src, "Prisoner [id.registered_name] has been incarcerated for [desired_sentence / 600 ] minutes.")
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
-	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/60]</p> <h2 id='description'>Description </h2> <p>[desired_description]</p> <p>WhiteRapids Military Council, disciplinary authority</p>")
+	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/60]</p> <h2 id='description'>Description </h2> <p>[desired_details]</p> <p>WhiteRapids Military Council, disciplinary authority</p>")
 	paperwork.update_appearance()
-	desired_sentence = 60
-	desired_crime = null
 	desired_name = null
+	desired_details = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	next_print = world.time + 5 SECONDS
 
@@ -448,75 +424,39 @@
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return
 	switch(action)
-		if("time")
-			var/value = text2num(params["adjust"])
-			if(value && isnum(value))
-				desired_sentence += value
-				desired_sentence = clamp(desired_sentence,0,MAX_TIMER)
-		if("crime")
-			crimes = stripped_input(usr, "Input prisoner's crimes...", "Crimes", desired_crime)
-			desired_description = stripped_input(usr, "Describe infraction...", "Description")
-			if(crimes == null | !Adjacent(usr))
-				return FALSE
-			desired_crime = crimes
 		if("prisoner_name")
+			// Encode the name and ensure it is saniticed for IC input
 			var/prisoner_name = stripped_input(usr, "Input prisoner's name...", "Crimes", desired_name)
-			if(prisoner_name == null | !Adjacent(usr))
+			prisoner_name = sanitize_name(prisoner_name)
+			if(!prisoner_name || (!Adjacent(usr) && !IsAdminGhost(usr)))
 				return FALSE
+			var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
+			if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
+				return FALSE
+			desired_details = prisoner_details
 			desired_name = prisoner_name
+			// Ask them for the details of the crime
+		if("edit_details")
+			var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
+			if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
+				return FALSE
+			desired_details = prisoner_details
+			// Ask them for the details of the crime
 		if("print")
-			print_id(usr)
+			if (!desired_name)
+				return
+			if (!desired_details)
+				return
+			var/desired_sentence = text2num(params["desired_sentence"])
+			if (!desired_sentence)
+				return
+			var/desired_crime = params["desired_crime"]
+			if (!valid_crime_name_regex.Find(desired_crime))
+				log_href_exploit(usr, "Entered a desired crime which was not permitted by the desired crime regex.")
+				return
+			print_id(usr, desired_crime, desired_sentence)
 
-		if("search_text") //unused, not working
-			search_text = params["text"]
-
-		if("preset")
-			var/preset = params["preset"]
-			var/preset_time = 0
-			switch(preset)
-				if("short")
-					preset_time = PRESET_SHORT
-					crimes = minor
-				if("medium")
-					preset_time = PRESET_MEDIUM
-					crimes = misdemeanours
-				if("long")
-					preset_time = PRESET_LONG
-					crimes = major
-				if("perma")
-					preset_time = MAX_TIMER
-					crimes = capital
-
-			desired_sentence = preset_time
-			desired_sentence /= 10
-		if("presetCrime")
-			var/preset_crime = params["crime"]
-			var/preset_time = text2num(params["preset"])
-			var/preset_description = params["tooltip"]
-			desired_crime = preset_crime
-			desired_sentence = preset_time MINUTES
-			desired_sentence /= 10
-			desired_description = preset_description
-		if("modifier")
-			var/modifier = params["modifier"]
-			switch(modifier)
-				if("resisted")
-					desired_sentence *= 1.20
-				if("attempted")
-					if(desired_sentence <= 300)
-						alert("Attempted minor crimes must be met with fines!", "Ok")
-						return
-					if(desired_sentence >=3600)
-						desired_sentence -= 2700 //back to major crime (900)
-					else
-						desired_sentence -= 300
-					desired_crime = "Attempted [desired_crime]"
-				if("elevated")
-					if(desired_sentence >= 900)
-						desired_sentence = 36000
-					else
-						desired_sentence += 300
-					desired_crime = "[desired_crime] (Repeat offender)"
+		// For adjusting the time of pre-existing prisoners
 		if("adjust_time")
 			var/obj/item/card/id/prisoner/id = locate(params["id"])
 			var/value = text2num(params["adjust"])
@@ -603,11 +543,5 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 		if(isliving(loc))
 			to_chat(loc, "<span class='boldnotice'>You have served your sentence! You may now exit prison through the turnstiles and collect your belongings.</span>")
 		return PROCESS_KILL
-
-
-
-#undef PRESET_SHORT
-#undef PRESET_MEDIUM
-#undef PRESET_LONG
 
 #undef MAX_TIMER

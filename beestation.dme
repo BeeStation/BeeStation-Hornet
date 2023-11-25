@@ -3731,6 +3731,7 @@
 #include "code\modules\ruins\spaceruin_code\spacehotel.dm"
 #include "code\modules\ruins\spaceruin_code\TheDerelict.dm"
 #include "code\modules\ruins\spaceruin_code\whiteshipruin_box.dm"
+#include "code\modules\security\crimes.dm"
 #include "code\modules\security\genpop.dm"
 #include "code\modules\security\workshop.dm"
 #include "code\modules\security\prison_scanner.dm"
