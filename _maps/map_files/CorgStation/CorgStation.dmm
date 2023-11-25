@@ -7607,6 +7607,13 @@
 /obj/item/storage/lockbox/loyalty,
 /obj/item/implantcase/tracking,
 /obj/item/implantcase/chem,
+/obj/item/survivalcapsule/security_checkpoint{
+	pixel_y = -4
+	},
+/obj/item/survivalcapsule/security_checkpoint,
+/obj/item/survivalcapsule/security_checkpoint{
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "cic" = (

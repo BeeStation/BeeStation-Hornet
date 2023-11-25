@@ -51330,6 +51330,13 @@
 	c_tag = "Armory - Interior";
 	dir = 6
 	},
+/obj/item/survivalcapsule/security_checkpoint{
+	pixel_y = -4
+	},
+/obj/item/survivalcapsule/security_checkpoint,
+/obj/item/survivalcapsule/security_checkpoint{
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "nrr" = (
