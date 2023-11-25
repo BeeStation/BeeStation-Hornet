@@ -2,6 +2,7 @@
 	name = "belt"
 	desc = "Can hold various things."
 	icon = 'icons/obj/clothing/belts.dmi'
+	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	worn_icon_state = "utility"
@@ -26,6 +27,13 @@
 	. = ..()
 	update_icon()
 
+/obj/item/storage/belt/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_LARGE
+	STR.max_items = 7
+	STR.max_combined_w_class = 56
+
 /obj/item/storage/belt/utility
 	name = "toolbelt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Holds tools."
@@ -40,8 +48,6 @@
 /obj/item/storage/belt/utility/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 21
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
@@ -83,9 +89,6 @@
 /obj/item/storage/belt/botanical/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 7
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 21
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/reagent_containers/spray,
 		/obj/item/reagent_containers/glass/beaker,//those will usually be used for fertilizer
@@ -164,8 +167,6 @@
 /obj/item/storage/belt/utility/servant/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 25
-	STR.max_items = 7
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
@@ -222,8 +223,6 @@
 /obj/item/storage/belt/medical/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_BULKY
-	STR.max_combined_w_class = 21
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
@@ -242,7 +241,7 @@
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/sensor_device,
 		/obj/item/radio,
-		/obj/item/clothing/gloves/,
+		/obj/item/clothing/gloves,
 		/obj/item/lazarus_injector,
 		/obj/item/bikehorn/rubberducky,
 		/obj/item/clothing/mask/surgical,
@@ -308,9 +307,6 @@
 /obj/item/storage/belt/security/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
-	STR.max_combined_w_class = 18
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton/police,
@@ -320,8 +316,7 @@
 		/obj/item/assembly/flash/handheld,
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
-		/obj/item/ammo_box,
-		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/food/donut,
 		/obj/item/knife/combat,
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/classic_baton/police/telescopic,
@@ -362,26 +357,16 @@
 	content_overlays = FALSE
 	custom_premium_price = 800
 
-/obj/item/storage/belt/security/webbing/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 6
-	STR.max_combined_w_class = 21
-
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
 	desc = "A versatile chest rig, cherished by miners and hunters alike."
 	icon_state = "explorer1"
 	item_state = "explorer1"
 	worn_icon_state = "explorer1"
-	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/belt/mining/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 6
-	STR.max_w_class = WEIGHT_CLASS_BULKY
-	STR.max_combined_w_class = 20
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
 		/obj/item/powertool,
@@ -544,8 +529,8 @@
 		/obj/item/food/cubannachos,
 		/obj/item/reagent_containers/food/snacks/nugget,
 		/obj/item/food/spaghetti/pastatomato,
-		/obj/item/reagent_containers/food/snacks/rofflewaffles,
-		/obj/item/reagent_containers/food/snacks/donkpocket,
+		/obj/item/food/rofflewaffles,
+		/obj/item/food/donkpocket,
 		/obj/item/reagent_containers/food/drinks/soda_cans/cola,
 		/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind,
 		/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
@@ -590,8 +575,6 @@
 
 /obj/item/storage/belt/military/assault/ComponentInitialize()
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 6
 
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
@@ -606,7 +589,6 @@
 	STR.max_items = 30
 	STR.display_numerical_stacking = TRUE
 	STR.max_combined_w_class = 60
-	STR.max_w_class = WEIGHT_CLASS_BULKY
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/grenade,
 		/obj/item/screwdriver,
@@ -679,8 +661,6 @@
 /obj/item/storage/belt/janitor/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 6
-	STR.max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/grenade/chem_grenade,
 		/obj/item/lightreplacer,
@@ -754,8 +734,15 @@
 /obj/item/storage/belt/fannypack/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 3
+	STR.max_items = 5
 	STR.max_w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/storage/belt/fannypack/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
+	name = "Worn belt"
+	desc = "A weathered belt that is used for storing various gadgets"
+	icon_state = "utilitybelt" //Placeholder for now.
+	item_state = "utility"
+	worn_icon_state = "utility"
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"

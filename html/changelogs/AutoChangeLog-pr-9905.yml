@@ -1,0 +1,11 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: "added chat span classes for sorting only purpose (virtually. These\
+      \ don't exist). when you want a chat to be sorted in a group, you need to use\
+      \ \"srt_SOMETHING\" in this way: \"\\<span class='srt_deadchat'>\". This example\
+      \ will sort a chat in deadchat group."
+  - bugfix: most bad practices for chat sorting in radio group are fixed. non-radio
+      messages will not be seen in radio group. (especially cult messages)
+  - rscadd: 'some chats are now sorted into radio: holopara chats, blood/clock cult
+      telepathy, etc'
