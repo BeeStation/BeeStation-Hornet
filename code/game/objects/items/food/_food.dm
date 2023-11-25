@@ -28,8 +28,10 @@
 	var/microwaved_type
 	///Type of atom thats spawned after eating this item
 	var/trash_type
+	///How much junkiness this food has? God I should remove junkiness soon
+	var/junkiness
 
-/obj/item/food/Initialize()
+/obj/item/food/Initialize(mapload)
 	. = ..()
 	if(food_reagents)
 		food_reagents = string_assoc_list(food_reagents)
@@ -53,7 +55,7 @@
 		eatverbs = eatverbs,\
 		bite_consumption = bite_consumption,\
 		microwaved_type = microwaved_type,\
-	)
+		junkiness = junkiness)
 
 
 ///This proc handles processable elements, overwrite this if you want to add behavior such as slicing, forking, spooning, whatever, to turn the item into something else

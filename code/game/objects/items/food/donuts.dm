@@ -35,6 +35,7 @@
 				eatverbs = eatverbs,\
 				bite_consumption = bite_consumption,\
 				microwaved_type = microwaved_type,\
+				junkiness = junkiness,\
 				check_liked = CALLBACK(src, PROC_REF(check_liked)))
 
 /obj/item/food/donut/proc/decorate_donut()

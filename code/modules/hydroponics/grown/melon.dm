@@ -63,10 +63,19 @@
 /obj/item/food/grown/holymelon/make_dryable()
 	return //No drying
 
-/*
 /obj/item/food/grown/holymelon/make_edible()
-	. = ..()
-	AddComponent(/datum/component/edible, check_liked = CALLBACK(src, PROC_REF(check_holyness)))
+	AddComponent(/datum/component/edible, \
+		initial_reagents = food_reagents, \
+		food_flags = food_flags, \
+		foodtypes = foodtypes, \
+		volume = max_volume, \
+		eat_time = eat_time, \
+		tastes = tastes, \
+		eatverbs = eatverbs,\
+		bite_consumption = bite_consumption, \
+		microwaved_type = microwaved_type, \
+		junkiness = junkiness, \
+		check_liked = CALLBACK(src, PROC_REF(check_holyness)))
 /*
  * Callback to be used with the edible component.
  * Checks whether or not the person eating the holymelon
@@ -81,7 +90,6 @@
 	to_chat(holy_person, "<span class='notice'>Truly, a piece of heaven!</span>")
 	holy_person.add_mood_event("Divine_chew", /datum/mood_event/holy_consumption)
 	return FOOD_LIKED
-*/
 
 /obj/item/food/grown/holymelon/Initialize(mapload)
 	. = ..()
