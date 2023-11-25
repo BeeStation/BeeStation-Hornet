@@ -430,11 +430,11 @@
 			prisoner_name = sanitize_name(prisoner_name)
 			if(!prisoner_name || (!Adjacent(usr) && !IsAdminGhost(usr)))
 				return FALSE
+			desired_name = prisoner_name
 			var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
 			if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
-				return FALSE
+				return TRUE
 			desired_details = prisoner_details
-			desired_name = prisoner_name
 			// Ask them for the details of the crime
 		if("edit_details")
 			var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
