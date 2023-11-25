@@ -422,7 +422,7 @@ Every preference needs to be in a `category`. These can be found in `code/__DEFI
 /// It serves to display and sort some special categories. Check "infotab_content" in MainPage.tsx
 /// * order: sorting order
 /// * key: dedicated category
-/// * value: displace name of a category. (because we don't want to show "non_contextual" ugly bar)
+/// * value: displaying name of a category/a key. (because we don't want to show "non_contextual" ugly bar)
 #define INFOTAB_LIST list( \
 	PREFERENCE_CATEGORY_NAMES = "Names", \
 	PREFERENCE_CATEGORY_NON_CONTEXTUAL = "Non contextual")
