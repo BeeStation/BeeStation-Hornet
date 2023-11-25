@@ -106,6 +106,13 @@
 	icon_state = "capsulesec"
 	icon = 'icons/obj/mining.dmi'
 	template_id = "capsule_barricade"
+	
+/obj/item/survivalcapsule/capsule_checkpoint
+	name = "checkpoint capsule"
+	desc = "A 3x3 glass checkpoint designed for allowing safely searching passing personnel."
+	icon_state = "capsulesec"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "capsule_checkpoint"
 
 /obj/item/survivalcapsule/party
 	name = "party capsule"

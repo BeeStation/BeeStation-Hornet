@@ -61872,13 +61872,14 @@
 	pixel_x = 5;
 	pixel_y = 4
 	},
-/obj/item/survivalcapsule/security_checkpoint{
+/obj/item/survivalcapsule/capsule_checkpoint{
 	pixel_y = -4
 	},
-/obj/item/survivalcapsule/security_checkpoint,
-/obj/item/survivalcapsule/security_checkpoint{
+/obj/item/survivalcapsule/capsule_checkpoint,
+/obj/item/survivalcapsule/capsule_checkpoint{
 	pixel_y = 4
 	},
+/obj/item/survivalcapsule/barricade,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "tqN" = (

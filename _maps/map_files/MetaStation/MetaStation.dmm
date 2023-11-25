@@ -5211,13 +5211,14 @@
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/survivalcapsule/security_checkpoint{
+/obj/item/survivalcapsule/capsule_checkpoint{
 	pixel_y = -4
 	},
-/obj/item/survivalcapsule/security_checkpoint,
-/obj/item/survivalcapsule/security_checkpoint{
+/obj/item/survivalcapsule/capsule_checkpoint,
+/obj/item/survivalcapsule/capsule_checkpoint{
 	pixel_y = 4
 	},
+/obj/item/survivalcapsule/barricade,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "aAo" = (
