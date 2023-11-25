@@ -1,0 +1,86 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing{
+	dir = 10;
+	layer = 3.1
+	},
+/turf/template_noop,
+/area/template_noop)
+"k" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/window/brigdoor{
+	dir = 4;
+	name = "Checkpoint door";
+	req_access_txt = "2"
+	},
+/turf/template_noop,
+/area/template_noop)
+"l" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/window/brigdoor{
+	name = "Checkpoint door";
+	req_access_txt = "2"
+	},
+/turf/template_noop,
+/area/template_noop)
+"n" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/template_noop,
+/area/template_noop)
+"B" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing{
+	dir = 5
+	},
+/turf/template_noop,
+/area/template_noop)
+"E" = (
+/obj/structure/railing{
+	dir = 9;
+	layer = 3.1
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/template_noop,
+/area/template_noop)
+"F" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/window/brigdoor{
+	dir = 8;
+	req_access_txt = "2";
+	name = "Checkpoint door"
+	},
+/turf/template_noop,
+/area/template_noop)
+"N" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/window/brigdoor{
+	dir = 1;
+	name = "Checkpoint door";
+	req_access_txt = "2"
+	},
+/turf/template_noop,
+/area/template_noop)
+"R" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+E
+F
+a
+"}
+(2,1,1) = {"
+N
+R
+l
+"}
+(3,1,1) = {"
+B
+k
+n
+"}
