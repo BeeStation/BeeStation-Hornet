@@ -313,7 +313,6 @@
 			crime_list[initial(crime_path.category)] += list(list(
 				"name" = initial(crime_path.name),
 				"tooltip" = initial(crime_path.tooltip),
-				"tooltip" = initial(crime_path.tooltip),
 				"colour" = initial(crime_path.colour),
 				"icon" = initial(crime_path.icon),
 				"sentence" = initial(crime_path.sentence),
