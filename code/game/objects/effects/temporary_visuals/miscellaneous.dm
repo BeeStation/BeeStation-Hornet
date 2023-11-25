@@ -562,3 +562,12 @@
 	layer = FLY_LAYER
 	duration = 4.8
 	mouse_opacity = 0
+
+/obj/effect/temp_visual/launchpad
+	icon_state = "shield"
+	alpha = 0
+
+/obj/effect/temp_visual/launchpad/Initialize(mapload, time)
+	duration = time
+	animate(src, time=time, alpha=255)
+	return ..()

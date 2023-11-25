@@ -137,6 +137,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 	teleporting = TRUE
 
+	if (!sending)
+		new /obj/effect/temp_visual/launchpad(target)
 
 	sleep(teleport_speed)
 
@@ -186,6 +188,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 			var/mob/T = ROI
 			log_msg += "[key_name(T)][on_chair]"
 		else
+			// Non-mobs can be sent if placed on the powerful pad, but cannot be pulled
+			if (!sending)
+				continue
 			log_msg += "[ROI.name]"
 			if (istype(ROI, /obj/structure/closet))
 				log_msg += " ("
