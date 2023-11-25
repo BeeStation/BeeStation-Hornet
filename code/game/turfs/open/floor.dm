@@ -96,18 +96,20 @@
 		if(use_broken_literal)
 			icon_state = pick(broken_states)
 		return
-
 	var/damage_state = pick(broken_states)
 	//Pick a random mask for damage state
 	var/icon/mask = icon(broken_icon, "broken_[damage_state]")
 	//Build under-turf icon
-	var/turf/base = pick(baseturfs - /turf/baseturf_bottom)
+	var/turf/base = pick(baseturfs - list(/turf/baseturf_bottom))
 	var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
 	//Mask under turf by damage state
 	under_turf.UseAlphaMask(mask)
-	add_overlay(under_turf)
-	damage_overlays += under_turf
-
+	//Convert to MA so we can layer stuff better
+	var/mutable_appearance/MA = new()
+	MA.appearance = under_turf
+	MA.layer = layer+0.1
+	add_overlay(MA)
+	damage_overlays += MA
 	//Add some dirt 'n shit
 	var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
 	add_overlay(dirt)
@@ -120,7 +122,6 @@
 		if(use_burnt_literal)
 			icon_state = pick(burnt_states)
 		return
-
 	var/burnt_state = pick(burnt_states)
 	//Add some burnt shit
 	var/icon/burnt_overlay = icon(burnt_icon, "burnt_[burnt_state]")

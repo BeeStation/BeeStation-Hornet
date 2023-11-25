@@ -5250,8 +5250,10 @@
 	},
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "aAo" = (
 /obj/structure/closet/secure_closet/engineering_personal,
@@ -10824,7 +10826,6 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "bbK" = (
@@ -11536,7 +11537,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "bgc" = (
@@ -16387,7 +16387,6 @@
 /area/teleporter)
 "bGD" = (
 /obj/effect/landmark/event_spawn,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "bGE" = (
@@ -23749,7 +23748,6 @@
 /obj/structure/closet{
 	name = "Evidence Closet 4"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "cCs" = (
@@ -28127,7 +28125,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "dtm" = (
@@ -32895,8 +32892,10 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "fsC" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "fsI" = (
 /obj/effect/turf_decal/tile/blue{
@@ -35450,7 +35449,6 @@
 	network = list("prison");
 	pixel_y = 30
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "gsj" = (
@@ -35999,9 +35997,11 @@
 /area/hallway/primary/aft)
 "gGl" = (
 /obj/structure/rack,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/loot_jobscale/armoury/laser_gun,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "gGr" = (
 /obj/structure/table/wood,
@@ -36155,8 +36155,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "gLC" = (
 /obj/structure/cable/yellow{
@@ -37896,7 +37898,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/item/flashlight/lamp/green{
@@ -38735,8 +38736,7 @@
 /area/science/storage)
 "hMG" = (
 /obj/machinery/holopad,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "hMM" = (
 /obj/machinery/airalarm{
@@ -39272,7 +39272,6 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "hZn" = (
@@ -39543,7 +39542,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "idd" = (
@@ -41364,8 +41362,10 @@
 /obj/structure/closet/secure_closet/contraband/armory,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/spawner/lootdrop/armory_contraband,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "iLU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -41541,8 +41541,7 @@
 	id = "executionfireblast"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/security/execution/education)
 "iRu" = (
 /obj/machinery/door/airlock{
@@ -44046,7 +44045,6 @@
 /obj/structure/closet{
 	name = "Evidence Closet 1"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "jWG" = (
@@ -44070,7 +44068,6 @@
 	pixel_x = 6;
 	pixel_y = 28
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "jXr" = (
@@ -46042,9 +46039,9 @@
 	pixel_x = 28;
 	req_access_txt = "3"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/loot_jobscale/armoury/riot_shield,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/end,
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "kFS" = (
 /obj/effect/landmark/start/scientist,
@@ -46898,7 +46895,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "kWV" = (
@@ -46943,9 +46939,11 @@
 /obj/item/storage/box/breacherslug,
 /obj/item/storage/box/breacherslug,
 /obj/item/storage/box/breacherslug,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/loot_jobscale/armoury/riot_shotgun,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "kXR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -48826,7 +48824,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "lMe" = (
@@ -48884,9 +48881,11 @@
 /area/bridge)
 "lMt" = (
 /obj/structure/rack,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/loot_jobscale/armoury/energy_gun,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "lMB" = (
 /obj/effect/turf_decal/stripes/line{
@@ -52037,7 +52036,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "mZH" = (
@@ -52451,8 +52449,7 @@
 	},
 /obj/item/gun/energy/temperature/security,
 /obj/item/clothing/suit/armor/laserproof,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "ngT" = (
 /obj/machinery/sleeper{
@@ -52995,7 +52992,6 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "nvo" = (
@@ -53004,10 +53000,9 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/loot_jobscale/armoury/riot_suit,
 /obj/effect/loot_jobscale/armoury/riot_helmet,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "nvp" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -54053,7 +54048,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/light{
@@ -56765,7 +56759,6 @@
 "oQz" = (
 /obj/effect/landmark/secequipment,
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "oRr" = (
@@ -57473,11 +57466,11 @@
 	pixel_y = -2
 	},
 /obj/item/gun/grenadelauncher/security,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/end,
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "phx" = (
 /obj/structure/table,
@@ -57863,7 +57856,6 @@
 /obj/item/storage/box/evidence,
 /obj/item/storage/box/evidence,
 /obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "ppi" = (
@@ -59458,7 +59450,6 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "pYj" = (
@@ -59994,9 +59985,8 @@
 /obj/structure/rack,
 /obj/item/storage/fancy/donut_box,
 /obj/item/beacon/nettingportal,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/loot_jobscale/armoury/dragnet,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "qhf" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -61082,7 +61072,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/recharger,
@@ -61153,8 +61142,10 @@
 /area/crew_quarters/theatre)
 "qEq" = (
 /obj/structure/closet/secure_closet/lethalshots,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "qED" = (
 /obj/effect/turf_decal/stripes/line,
@@ -61264,7 +61255,6 @@
 /obj/structure/closet{
 	name = "Evidence Closet 3"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "qGx" = (
@@ -63409,7 +63399,6 @@
 /obj/structure/filingcabinet/security{
 	pixel_x = 4
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "rDe" = (
@@ -66177,7 +66166,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "sJC" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "sJN" = (
@@ -66187,7 +66175,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "sJW" = (
@@ -67147,7 +67134,6 @@
 /area/maintenance/port/fore)
 "tfS" = (
 /obj/structure/closet/secure_closet/evidence,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "tfU" = (
@@ -67512,9 +67498,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/loot_jobscale/armoury/disabler,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "tne" = (
 /obj/machinery/light/small{
@@ -70299,8 +70287,8 @@
 	c_tag = "Armory - Internal";
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "uym" = (
 /obj/structure/cable/yellow{
@@ -72110,8 +72098,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "vnZ" = (
 /obj/machinery/firealarm{
@@ -74395,10 +74385,12 @@
 /area/security/prison)
 "wjm" = (
 /obj/structure/rack,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/loot_jobscale/armoury/bulletproof_vest,
 /obj/effect/loot_jobscale/armoury/bulletproof_helmet,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "wjw" = (
 /obj/structure/cable/yellow{
@@ -74537,7 +74529,6 @@
 /area/maintenance/fore)
 "wlp" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "wlA" = (
@@ -76191,7 +76182,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "wQf" = (
@@ -76342,7 +76332,6 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "wTR" = (
@@ -77614,7 +77603,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "xtP" = (
@@ -78962,7 +78950,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "xQk" = (

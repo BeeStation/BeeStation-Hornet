@@ -569,6 +569,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/area/A = loc
 	if(_texture in A?.turf_textures)
 		vis_contents += load_turf_texture(_texture)
+
 /// returns a list of all mobs inside of a turf.
 /// likely detects mobs hiding in a closet.
 /turf/proc/get_all_mobs()
