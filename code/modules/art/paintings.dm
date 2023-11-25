@@ -21,7 +21,10 @@
 		painting = canvas
 		canvas.forceMove(get_turf(src))
 		canvas.layer = layer+0.1
-		user.visible_message("<span class='notice'>[user] puts \the [canvas] on \the [src].</span>", "<span class='notice'>You place \the [canvas] on \the [src].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] puts \the [canvas] on \the [src].</span>",
+			"<span class='notice'>You place \the [canvas] on \the [src].</span>"
+		)
 	else
 		return ..()
 
@@ -40,20 +43,22 @@
 	desc = "Draw out your soul on this canvas!"
 	icon = 'icons/obj/artstuff.dmi'
 	icon_state = "11x11"
-	resistance_flags = FLAMMABLE
 	flags_1 = UNPAINTABLE_1
+	resistance_flags = FLAMMABLE
 	var/width = 11
 	var/height = 11
 	var/list/grid
-	var/canvas_color = "#ffffff" //empty canvas color
+	/// empty canvas color
+	var/canvas_color = "#ffffff"
+	/// Is it clean canvas or was there something painted on it at some point, used to decide when to show wip splotch overlay
 	var/used = FALSE
-	var/painting_name = "Untitled Artwork" //Painting name, this is set after framing.
 	var/finalized = FALSE //Blocks edits
-	var/author_ckey
 	var/icon_generated = FALSE
 	var/icon/generated_icon
 	///boolean that blocks persistence from saving it. enabled from printing copies, because we do not want to save copies.
 	var/no_save = FALSE
+
+	var/datum/painting/painting_metadata
 
 	// Painting overlay offset when framed
 	var/framed_offset_x = 11
@@ -65,6 +70,12 @@
 /obj/item/canvas/Initialize(mapload)
 	. = ..()
 	reset_grid()
+
+	painting_metadata = new
+	painting_metadata.title = "Untitled Artwork"
+	painting_metadata.creation_round_id = GLOB.round_id
+	painting_metadata.width = width
+	painting_metadata.height = height
 
 /obj/item/canvas/proc/reset_grid()
 	grid = new/list(width,height)
@@ -86,11 +97,10 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Canvas", name)
-		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/item/canvas/attackby(obj/item/I, mob/living/user, params)
-	if(user.a_intent == INTENT_HELP)
+	if(user.a_intent != INTENT_HARM)
 		ui_interact(user)
 	else
 		return ..()
@@ -98,8 +108,15 @@
 /obj/item/canvas/ui_data(mob/user)
 	. = ..()
 	.["grid"] = grid
-	.["name"] = painting_name
+	.["name"] = painting_metadata.title
+	.["author"] = painting_metadata.creator_name
+	.["patron"] = painting_metadata.patron_name
+	.["medium"] = painting_metadata.medium
+	.["date"] = painting_metadata.creation_date
 	.["finalized"] = finalized
+	.["editable"] = !finalized //Ideally you should be able to draw moustaches on existing paintings in the gallery but that's not implemented yet
+	.["show_plaque"] = istype(loc,/obj/structure/sign/painting)
+	.["paint_tool_color"] = get_paint_tool_color(user.get_active_held_item())
 
 /obj/item/canvas/examine(mob/user)
 	. = ..()
@@ -107,31 +124,77 @@
 
 /obj/item/canvas/ui_act(action, params)
 	. = ..()
-	if(. || finalized)
+	if(.)
 		return
 	var/mob/user = usr
 	switch(action)
 		if("paint")
+			if(finalized)
+				return TRUE
 			var/obj/item/I = user.get_active_held_item()
-			var/color = get_paint_tool_color(I)
-			if(!color)
+			var/tool_color = get_paint_tool_color(I)
+			if(!tool_color)
 				return FALSE
-			var/x = text2num(params["x"])
-			var/y = text2num(params["y"])
-			grid[x][y] = color
+			var/list/data = params["data"]
+			//could maybe validate continuity but eh
+			for(var/point in data)
+				var/x = text2num(point["x"])
+				var/y = text2num(point["y"])
+				grid[x][y] = tool_color
+			var/medium = get_paint_tool_medium(I)
+			if(medium && painting_metadata.medium && painting_metadata.medium != medium)
+				painting_metadata.medium = "Mixed medium"
+			else
+				painting_metadata.medium = medium
 			used = TRUE
-			update_icon()
+			update_appearance()
 			. = TRUE
 		if("finalize")
 			. = TRUE
-			if(!finalized)
-				finalize(user)
+			finalize(user)
+		if("patronage")
+			. = TRUE
+			patron(user)
 
 /obj/item/canvas/proc/finalize(mob/user)
+	if(painting_metadata.loaded_from_json || finalized)
+		return
 	finalized = TRUE
-	author_ckey = user.ckey
+	painting_metadata.creator_ckey = user.ckey
+	painting_metadata.creator_name = user.real_name
+	painting_metadata.creation_date = time2text(world.realtime)
+	painting_metadata.creation_round_id = GLOB.round_id
 	generate_proper_overlay()
 	try_rename(user)
+
+/obj/item/canvas/proc/patron(mob/user)
+	if(!finalized || !painting_metadata.loaded_from_json || !isliving(user))
+		return
+	var/mob/living/living_user = user
+	var/obj/item/card/id/id_card = living_user.get_idcard(TRUE)
+	if(!id_card)
+		to_chat(user, "<span class='notice'>You don't even have a id and you want to be an art patron?</span>")
+		return
+	if(!id_card.registered_account || !id_card.registered_account.account_job)
+		to_chat(user, "<span class='notice'>No valid non-departamental account found.</span>")
+		return
+	var/datum/bank_account/account = id_card.registered_account
+	if(account.account_balance < painting_metadata.credit_value)
+		to_chat(user, "<span class='notice'>You can't afford this.</span>")
+		return
+	var/sniped_amount = painting_metadata.credit_value
+	var/offer_amount = tgui_input_number(user, "How much do you want to offer?", "Patronage Amount", (painting_metadata.credit_value + 1), account.account_balance, painting_metadata.credit_value)
+	if(isnull(offer_amount))
+		return
+	if(offer_amount <= 0 || sniped_amount != painting_metadata.credit_value || offer_amount < painting_metadata.credit_value+1 || !user.canUseTopic(src))
+		return
+	if(!account.adjust_money(-offer_amount))
+		to_chat(user, "<span class='warning'>Transaction failure. Please try again.</span>")
+		return
+	painting_metadata.patron_ckey = user.ckey
+	painting_metadata.patron_name = user.real_name
+	painting_metadata.credit_value = offer_amount
+	to_chat(user, "<span class='notice'>Nanotrasen Trust Foundation thanks you for your contribution. You're now the official patron of this painting.</span>")
 
 /obj/item/canvas/update_overlays()
 	. = ..()
@@ -153,12 +216,14 @@
 	if(icon_generated)
 		return
 	var/png_filename = "data/paintings/temp_painting.png"
-	var/result = rustg_dmi_create_png(png_filename,"[width]","[height]",get_data_string())
+	var/image_data = get_data_string()
+	var/result = rustg_dmi_create_png(png_filename, "[width]", "[height]", image_data)
 	if(result)
 		CRASH("Error generating painting png : [result]")
+	painting_metadata.md5 = md5(lowertext(image_data))
 	generated_icon = new(png_filename)
 	icon_generated = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/item/canvas/proc/get_data_string()
 	var/list/data = list()
@@ -168,14 +233,17 @@
 	return data.Join("")
 
 //Todo make this element ?
-/obj/item/canvas/proc/get_paint_tool_color(obj/item/I)
-	if(!I)
+/obj/item/canvas/proc/get_paint_tool_color(obj/item/painting_implement)
+	if(!painting_implement)
 		return
-	if(istype(I, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/crayon = I
+	if(istype(painting_implement, /obj/item/paint_palette))
+		var/obj/item/paint_palette/palette = painting_implement
+		return palette.current_color
+	if(istype(painting_implement, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/crayon = painting_implement
 		return crayon.paint_color
-	else if(istype(I, /obj/item/pen))
-		var/obj/item/pen/P = I
+	else if(istype(painting_implement, /obj/item/pen))
+		var/obj/item/pen/P = painting_implement
 		switch(P.colour)
 			if("black")
 				return "#000000"
@@ -184,19 +252,41 @@
 			if("red")
 				return "#ff0000"
 		return P.colour
-	else if(istype(I, /obj/item/soap) || istype(I, /obj/item/reagent_containers/glass/rag))
+	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
 		return canvas_color
 
+/// Generates medium description
+/obj/item/canvas/proc/get_paint_tool_medium(obj/item/painting_implement)
+	if(!painting_implement)
+		return
+	if(istype(painting_implement, /obj/item/paint_palette))
+		return "Oil on canvas"
+	else if(istype(painting_implement, /obj/item/toy/crayon/spraycan))
+		return "Spraycan on canvas"
+	else if(istype(painting_implement, /obj/item/toy/crayon))
+		return "Crayon on canvas"
+	else if(istype(painting_implement, /obj/item/pen))
+		return "Ink on canvas"
+	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
+		return //These are just for cleaning, ignore them
+	else
+		return "Unknown medium"
+
 /obj/item/canvas/proc/try_rename(mob/user)
-	var/new_name = stripped_input(user,"What do you want to name the painting?")
-	if(new_name != painting_name && new_name && user.canUseTopic(src,BE_CLOSE))
-		if(!CHAT_FILTER_CHECK(new_name))
-			painting_name = new_name
-			SStgui.update_uis(src)
-		else
-			to_chat(user, "<span class='warning'>That name is prohibited by the Nanotrasen Ministry of Truth!")
+	if(painting_metadata.loaded_from_json) // No renaming old paintings
+		return
+	var/new_name = tgui_input_text(user, "What do you want to name the painting?", "Title Your Masterpiece")
+	if(new_name != painting_metadata.title && new_name && user.canUseTopic(src, BE_CLOSE))
+		painting_metadata.title = new_name
+		name = "painting - [new_name]" //give the canvas its new name immediately
+	var/sign_choice = tgui_alert(user, "Do you want to sign it or remain anonymous?", "Sign painting?", list("Yes", "No"))
+	if(sign_choice != "Yes")
+		painting_metadata.creator_name = "Anonymous"
+	SStgui.update_uis(src)
+
 
 /obj/item/canvas/nineteen_nineteen
+	name = "canvas (19x19)"
 	icon_state = "19x19"
 	width = 19
 	height = 19
@@ -206,6 +296,7 @@
 	framed_offset_y = 9
 
 /obj/item/canvas/twentythree_nineteen
+	name = "canvas (23x19)"
 	icon_state = "23x19"
 	width = 23
 	height = 19
@@ -215,6 +306,7 @@
 	framed_offset_y = 8
 
 /obj/item/canvas/twentythree_twentythree
+	name = "canvas (23x23)"
 	icon_state = "23x23"
 	width = 23
 	height = 23
@@ -224,7 +316,7 @@
 	framed_offset_y = 6
 
 /obj/item/canvas/twentyfour_twentyfour
-	name = "ai universal standard canvas"
+	name = "canvas (AI Universal Standard)"
 	desc = "Besides being very large, the AI can accept these as a display from their internal database after you've hung it up."
 	icon_state = "24x24"
 	width = 24
@@ -238,17 +330,18 @@
 	name = "painting frame"
 	desc = "The perfect showcase for your favorite deathtrap memories."
 	icon = 'icons/obj/decals.dmi'
+	materials = list(/obj/item/stack/sheet/wood = 2000)
 	flags_1 = NONE
 	icon_state = "frame-empty"
 	result_path = /obj/structure/sign/painting
-	pixel_shift = -32
+	pixel_shift = 30
 
 /obj/structure/sign/painting
 	name = "Painting"
 	desc = "Art or \"Art\"? You decide."
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "frame-empty"
-	base_icon_state = "frame" //temporal replacement before the update_appearance() port
+	base_icon_state = "frame"
 	buildable_sign = FALSE
 	///Canvas we're currently displaying.
 	var/obj/item/canvas/current_canvas
@@ -258,16 +351,18 @@
 
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
-	SSpersistence.painting_frames += src
+	SSpersistent_paintings.painting_frames += src
+	if(dir)
+		setDir(dir)
 
 /obj/structure/sign/painting/Destroy()
 	. = ..()
-	SSpersistence.painting_frames -= src
+	SSpersistent_paintings.painting_frames -= src
 
 /obj/structure/sign/painting/attackby(obj/item/I, mob/user, params)
 	if(!current_canvas && istype(I, /obj/item/canvas))
 		frame_canvas(user,I)
-	else if(current_canvas && current_canvas.painting_name == initial(current_canvas.painting_name) && istype(I,/obj/item/pen))
+	else if(current_canvas && current_canvas.painting_metadata.title == initial(current_canvas.painting_metadata.title) && istype(I,/obj/item/pen))
 		try_rename(user)
 	else
 		return ..()
@@ -286,7 +381,7 @@
 		current_canvas.forceMove(drop_location())
 		current_canvas = null
 		to_chat(user, "<span class='notice'>You remove the painting from the frame.</span>")
-		update_painting_stuff()
+		update_appearance()
 		return TRUE
 
 /obj/structure/sign/painting/proc/frame_canvas(mob/user,obj/item/canvas/new_canvas)
@@ -294,19 +389,20 @@
 		current_canvas = new_canvas
 		if(!current_canvas.finalized)
 			current_canvas.finalize(user)
-		to_chat(user,"<span class='notice'>You frame [current_canvas].</span>")
-	update_painting_stuff()
+		to_chat(user, "<span class='notice'>You frame [current_canvas].</span>")
+	update_appearance()
 
 /obj/structure/sign/painting/proc/try_rename(mob/user)
-	if(current_canvas.painting_name == initial(current_canvas.painting_name))
+	if(current_canvas.painting_metadata.title == initial(current_canvas.painting_metadata.title))
 		current_canvas.try_rename(user)
 
-/obj/structure/sign/painting/proc/update_painting_stuff()
-	name = current_canvas ? "painting - [current_canvas.painting_name]" : initial(name)
+/obj/structure/sign/painting/update_name(updates)
+	name = current_canvas ? "painting - [current_canvas.painting_metadata.title]" : initial(name)
+	return ..()
+
+/obj/structure/sign/painting/update_desc(updates)
 	desc = current_canvas ? desc_with_canvas : initial(desc)
-	update_icon()
-	update_icon_state()
-	update_overlays()
+	return ..()
 
 /obj/structure/sign/painting/update_icon_state()
 	icon_state = "[base_icon_state]-[current_canvas?.generated_icon ? "overlay" : "empty"]"
@@ -332,24 +428,13 @@
  * Deleting paintings leaves their json, so this proc will remove the json and try again if it finds one of those.
  */
 /obj/structure/sign/painting/proc/load_persistent()
-	if(!persistence_id || !SSpersistence.paintings || !SSpersistence.paintings[persistence_id])
+	if(!persistence_id)
 		return
-	var/list/painting_category = SSpersistence.paintings[persistence_id]
-	var/list/painting
-	while(!painting)
-		if(!length(SSpersistence.paintings[persistence_id]))
-			return //aborts loading anything this category has no usable paintings
-		var/list/chosen = pick(painting_category)
-		if(!fexists("data/paintings/[persistence_id]/[chosen["md5"]].png")) //shitmin deleted this art, lets remove json entry to avoid errors
-			painting_category -= list(chosen)
-			continue //and try again
-		painting = chosen
-	var/title = painting["title"]
-	var/author = painting["ckey"]
-	var/png = "data/paintings/[persistence_id]/[painting["md5"]].png"
-	if(!title)
-		title = "Untitled Artwork" //legacy artwork allowed null names which was bad for the json, lets fix that
-		painting["title"] = title
+	var/list/valid_paintings = SSpersistent_paintings.get_paintings_with_tag(persistence_id)
+	if(!length(valid_paintings))
+		return //aborts loading anything this category has no usable paintings
+	var/datum/painting/painting = pick(valid_paintings)
+	var/png = "data/paintings/images/[painting.md5].png"
 	var/icon/I = new(png)
 	var/obj/item/canvas/new_canvas
 	var/w = I.Width()
@@ -359,39 +444,43 @@
 		if(initial(new_canvas.width) == w && initial(new_canvas.height) == h)
 			new_canvas = new T(src)
 			break
+	if(!istype(new_canvas))
+		CRASH("Found painting size with no matching canvas type")
+	new_canvas.painting_metadata = painting
 	new_canvas.fill_grid_from_icon(I)
 	new_canvas.generated_icon = I
 	new_canvas.icon_generated = TRUE
 	new_canvas.finalized = TRUE
-	new_canvas.painting_name = title
-	new_canvas.author_ckey = author
-	new_canvas.name = "painting - [title]"
+	new_canvas.name = "painting - [painting.title]"
 	current_canvas = new_canvas
-	update_painting_stuff()
+	current_canvas.update_appearance()
+	update_appearance()
 
 /obj/structure/sign/painting/proc/save_persistent()
-	if(!persistence_id || !current_canvas || current_canvas.no_save)
+	if(!persistence_id || !current_canvas || current_canvas.no_save || current_canvas.painting_metadata.loaded_from_json)
 		return
 	if(SANITIZE_FILENAME(persistence_id) != persistence_id)
 		stack_trace("Invalid persistence_id - [persistence_id]")
 		return
-	if(!current_canvas.painting_name)
-		current_canvas.painting_name = "Untitled Artwork"
 	var/data = current_canvas.get_data_string()
 	var/md5 = md5(lowertext(data))
-	var/list/current = SSpersistence.paintings[persistence_id]
+	var/list/current = SSpersistent_paintings.paintings[persistence_id]
 	if(!current)
 		current = list()
-	for(var/list/entry in current)
-		if(entry["md5"] == md5)
+	for(var/datum/painting/entry in SSpersistent_paintings.paintings)
+		if(entry.md5 == md5) // No duplicates
 			return
-	var/png_directory = "data/paintings/[persistence_id]/"
+	current_canvas.painting_metadata.md5 = md5
+	if(!current_canvas.painting_metadata.tags)
+		current_canvas.painting_metadata.tags = list(persistence_id)
+	else
+		current_canvas.painting_metadata.tags |= persistence_id
+	var/png_directory = "data/paintings/images/"
 	var/png_path = png_directory + "[md5].png"
 	var/result = rustg_dmi_create_png(png_path,"[current_canvas.width]","[current_canvas.height]",data)
 	if(result)
 		CRASH("Error saving persistent painting: [result]")
-	current += list(list("title" = current_canvas.painting_name , "md5" = md5, "ckey" = current_canvas.author_ckey))
-	SSpersistence.paintings[persistence_id] = current
+	SSpersistent_paintings.paintings += current_canvas.painting_metadata
 
 /obj/item/canvas/proc/fill_grid_from_icon(icon/I)
 	var/h = I.Height() + 1
@@ -418,31 +507,20 @@
 	desc_with_canvas = "A painting hung away from lesser minds."
 	persistence_id = "library_private"
 
-/obj/structure/sign/painting/vv_get_dropdown()
-	. = ..()
-	VV_DROPDOWN_OPTION(VV_HK_REMOVE_PAINTING, "Remove Persistent Painting")
+/// Simple painting utility.
+/obj/item/paint_palette
+	name = "paint palette"
+	desc = "paintbrush included"
+	icon = 'icons/obj/artstuff.dmi'
+	icon_state = "palette"
+	lefthand_file = 'icons/mob/inhands/equipment/palette_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/palette_righthand.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	///Chosen paint color
+	var/current_color
 
-/obj/structure/sign/painting/vv_do_topic(list/href_list)
+/obj/item/paint_palette/attack_self(mob/user, modifiers)
 	. = ..()
-	if(href_list[VV_HK_REMOVE_PAINTING])
-		if(!check_rights(NONE))
-			return
-		var/mob/user = usr
-		if(!persistence_id || !current_canvas)
-			to_chat(user,"<span class='notice'>This is not a persistent painting.</span>")
-			return
-		var/md5 = md5(lowertext(current_canvas.get_data_string()))
-		var/author = current_canvas.author_ckey
-		var/list/current = SSpersistence.paintings[persistence_id]
-		if(current)
-			for(var/list/entry in current)
-				if(entry["md5"] == md5)
-					current -= entry
-			var/png = "data/paintings/[persistence_id]/[md5].png"
-			fdel(png)
-		for(var/obj/structure/sign/painting/P in SSpersistence.painting_frames)
-			if(P.current_canvas && md5(P.current_canvas.get_data_string()) == md5)
-				QDEL_NULL(P.current_canvas)
-				P.update_painting_stuff()
-		log_admin("[key_name(user)] has deleted a persistent painting made by [author].")
-		message_admins("<span class='notice'>[key_name_admin(user)] has deleted persistent painting made by [author].</span>")
+	var/chosen_color = input(user,"Pick new color","Palette") as color|null
+	if(chosen_color)
+		current_color = chosen_color
