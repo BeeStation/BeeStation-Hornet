@@ -1,17 +1,58 @@
-// From NSV13
+// Adapted From NSV13
 
+import { clamp, toFixed } from 'common/math';
 import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend, useLocalState, useSharedState } from '../backend';
 import { Button, Section, ProgressBar, Input } from '../components';
 import { Window } from '../layouts';
-import { toFixed } from 'common/math';
-import { createSearch } from 'common/string';
-
-const searchFor = (searchText) => createSearch(searchText, ([_, thing]) => thing.name + thing.tooltip);
 
 export const GenPop = (props, context) => {
   const { act, data } = useBackend(context);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+
+  const { desired_name = '', desired_details = '', crime_list = {} } = data;
+
+  // Local state for the time of the prisoner.
+  const [time, setTime] = useSharedState(context, 'time', 0);
+
+  // Local state to determine which modifiers we have active
+  const [resistedMod, setResistedMod] = useSharedState(context, 'resisted', false);
+  const [attemptedMod, setAttemptedMod] = useSharedState(context, 'attempted', false);
+  const [elevatedMod, setElevatedMod] = useSharedState(context, 'repeat_offender', false);
+
+  // Local state for the name of the crime being issued
+  const [crimeName, setCrimeName] = useSharedState(context, 'crimeName', 'No crime');
+
+  // Local state for the name of the crime details
+  const [crimeDetails, setCrimeDetails] = useSharedState(context, 'crimeDetails', 'No details provided');
+
+  // Local state for the current category that we are browsing
+  const [crimeCategory, setCrimeCategory] = useSharedState(
+    context,
+    'crimeCategory',
+    crime_list && crime_list.length > 0 ? Object.keys(crime_list)[0] : null
+  );
+
+  const resetLocalState = () => {
+    // Set back to the default crime name
+    setCrimeName('No crime');
+    setTime(3000);
+    setCrimeDetails('No details provided');
+    setResistedMod(false);
+    setAttemptedMod(false);
+    setElevatedMod(false);
+  };
+
+  const getProcessedTime = () => {
+    return (
+      (time +
+        // Back to major crime (9000)
+        (attemptedMod ? (time >= 36000 ? -27000 : -3000) : 0) +
+        // Set to 36000 if a crime over 900 deciseconds was repeated.
+        (elevatedMod ? (time >= 9000 ? 360000 - time : 3000) : 0)) *
+      // Resisting arrest applies to everything at the end
+      (resistedMod ? 1.2 : 1)
+    );
+  };
 
   return (
     <Window resizable width={625} height={400}>
@@ -21,42 +62,62 @@ export const GenPop = (props, context) => {
           buttons={
             <Fragment>
               <Button
-                icon="cogs"
-                content={data.desire_crimes ? data.desired_crime : 'Enter A Crime'}
-                onClick={() => act('crime')}
-              />
-              <Button
                 icon="id-card-alt"
                 content={data.desired_name ? data.desired_name : 'Enter Prisoner Name'}
                 onClick={() => act('prisoner_name')}
               />
-              <Button icon="print" content="Finalize ID" color="good" disabled={!data.canPrint} onClick={() => act('print')} />
+              <Button
+                icon="print"
+                content="Finalize ID"
+                tooltip={
+                  attemptedMod && time <= 3000
+                    ? 'Attempted minor crimes must be met with fines!'
+                    : crimeName === 'No crime'
+                      ? 'You have not selected a crime.'
+                      : !data.desired_name
+                        ? 'The prisoner requires an identifier for their card.'
+                        : null
+                }
+                color="good"
+                disabled={!data.canPrint || (attemptedMod && time <= 3000) || crimeName === 'No crime' || !data.desired_name}
+                onClick={() => {
+                  act('print', {
+                    desired_sentence: getProcessedTime(),
+                    desired_crime: (attemptedMod ? 'Attempted ' : '') + crimeName + (elevatedMod ? ' (Repeat offender)' : ''),
+                  });
+                  // Reset to the default state
+                  resetLocalState();
+                }}
+              />
             </Fragment>
           }>
-          <Button icon="fast-backward" onClick={() => act('time', { adjust: -120 })} />
-          <Button icon="backward" onClick={() => act('time', { adjust: -60 })} /> {String(data.sentence / 60)} min:{' '}
-          <Button icon="forward" onClick={() => act('time', { adjust: 60 })} />
-          <Button icon="fast-forward" onClick={() => act('time', { adjust: 120 })} />
+          <Button icon="fast-backward" onClick={() => setTime(clamp(time - 1200, 0, 36000))} />
+          <Button icon="backward" onClick={() => setTime(clamp(time - 600, 0, 36000))} />
+          {String(getProcessedTime() / 600)} min: <Button icon="forward" onClick={() => setTime(clamp(time + 600, 0, 36000))} />
+          <Button icon="fast-forward" onClick={() => setTime(clamp(time + 1200, 0, 36000))} />
           <br />
-          <Button icon="hourglass-start" content="Minor" color="yellow" onClick={() => act('preset', { preset: 'short' })} />
-          <Button
-            icon="hourglass-start"
-            content="Misdemeanor"
-            color="orange"
-            onClick={() => act('preset', { preset: 'medium' })}
-          />
-          <Button icon="hourglass-start" content="Major" color="bad" onClick={() => act('preset', { preset: 'long' })} />
-          <Button
-            icon="exclamation-triangle"
-            content="CAPITAL"
-            color="black"
-            onClick={() => act('preset', { preset: 'perma' })}
-          />
+          {Object.keys(crime_list)
+            // Remove any categories with no crimes so we don't bluescreen in the event that a category has no crimes.
+            .filter((crime) => crime_list[crime].length > 0)
+            .map((category) => (
+              <Button
+                key={category}
+                icon={category === 'Capital' ? 'exclamation-triangle' : 'hourglass-start'}
+                content={category}
+                color={crime_list[category][0].colour}
+                onClick={() => {
+                  // Set the crime category
+                  setCrimeCategory(category);
+                  // Set the default crime length
+                  setTime(crime_list[category][0].sentence);
+                }}
+              />
+            ))}
           <br />
         </Section>
         <Section title="Infractions">
-          {Object.keys(data.allCrimes).map((key) => {
-            let value = data.allCrimes[key];
+          {Object.keys(crime_list[crimeCategory] || {}).map((key) => {
+            let value = crime_list[crimeCategory][key];
             return (
               <Button
                 key={key}
@@ -64,7 +125,16 @@ export const GenPop = (props, context) => {
                 color={value.colour}
                 icon={value.icon}
                 tooltip={value.tooltip}
-                onClick={() => act('presetCrime', { preset: value.sentence, crime: value.name, tooltip: value.tooltip })}
+                selected={crimeName === value.name}
+                onClick={() => {
+                  if (crimeName === value.name) {
+                    setCrimeName('No crime');
+                    setTime(3000);
+                    return;
+                  }
+                  setTime(value.sentence);
+                  setCrimeName(value.name);
+                }}
               />
             );
           })}
@@ -74,25 +144,37 @@ export const GenPop = (props, context) => {
             icon="hand-paper"
             content="Attempted crime"
             color="orange"
-            onClick={() => act('modifier', { modifier: 'attempted' })}
+            selected={attemptedMod}
+            onClick={() => {
+              setAttemptedMod(!attemptedMod);
+            }}
           />
           <Button
             icon="thumbs-down"
             content="Resisted Arrest"
             color="orange"
-            onClick={() => act('modifier', { modifier: 'resisted' })}
+            selected={resistedMod}
+            onClick={() => {
+              setResistedMod(!resistedMod);
+            }}
           />
           <Button
             icon="redo"
             content="Elevated Sentencing"
             color="bad"
-            onClick={() => act('modifier', { modifier: 'elevated' })}
+            selected={elevatedMod}
+            onClick={() => {
+              setElevatedMod(!elevatedMod);
+            }}
           />
         </Section>
         <Section title="Preview">
-          Identity: {String(data.desired_name)} <br />
-          Crime: {String(data.desired_crime)} <br />
-          Sentence: {String(data.sentence / 60)} min <br />
+          Identity: {String(data.desired_name || 'No name entered')} <br />
+          Crime: {String(crimeName)} <br />
+          Sentence: {String(getProcessedTime() / 600)} min <br />
+          <Section title="Crime details" buttons={<Button content="Edit" icon="pen" onClick={() => act('edit_details')} />}>
+            {desired_details}
+          </Section>
         </Section>
         <Section title="Prison Management:">
           {Object.keys(data.allPrisoners).map((key) => {
