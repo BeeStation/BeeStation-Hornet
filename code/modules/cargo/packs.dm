@@ -707,16 +707,16 @@
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
-/datum/supply_pack/security/armory/security_checkpoints
-	name = "Security Checkpoint capsules"
-	desc = "A 3x3 reinforced glass checkpoint designed for allowing safely searching passing personnel. Requires Security access to open."
-	max_supply = 3
-	access_budget = ACCESS_BRIG
-	contains = list(/obj/item/survivalcapsule/security_checkpoint,
-					/obj/item/survivalcapsule/security_checkpoint,
-					/obj/item/survivalcapsule/security_checkpoint)
-	cost = 1000
-	crate_name = "Security Checkpoint capsule crate"
+/datum/supply_pack/security/armory/securitybarriersxl
+	name = "Security Barrier Capsules XL"
+	desc = "3x3 Reinforced glass barricades for when the nukies come knocking. Requires Security access to open."
+	small_item = TRUE
+	max_supply = 2
+	contains = list(/obj/item/survivalcapsule/barricade,
+					/obj/item/survivalcapsule/barricade,
+					/obj/item/survivalcapsule/barricade)
+	cost = 2000
+	crate_name = "security barriers crate XL"
 
 /datum/supply_pack/security/armory/mindshield
 	name = "Mindshield Implants Crate"
