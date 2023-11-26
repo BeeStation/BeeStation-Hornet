@@ -1,5 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Simplemobs can now properly use intent selection hotkeys (as long as they
-      can use multiple intents already)
