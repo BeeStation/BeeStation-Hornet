@@ -1,7 +1,0 @@
-author: rkz, ArcaneMusic, Tralezab
-delete-after: true
-changes:
-  - admin: adds new admin tool, the teambuilder! Admins can now easily put identifiable
-      markings on any player and give them a new custom radio, all with a simple machine.
-      Useful for events, or if you want multiple rival syndicates to face each other
-      with the same gear, but also know whos on what team!
