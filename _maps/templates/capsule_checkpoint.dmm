@@ -5,6 +5,9 @@
 	dir = 10;
 	layer = 3.1
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/template_noop,
 /area/template_noop)
 "k" = (
@@ -14,6 +17,9 @@
 	name = "Checkpoint door";
 	req_access_txt = "2"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/template_noop,
 /area/template_noop)
 "l" = (
@@ -22,6 +28,7 @@
 	name = "Checkpoint door";
 	req_access_txt = "2"
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/template_noop,
 /area/template_noop)
 "n" = (
@@ -29,11 +36,17 @@
 /obj/structure/railing{
 	dir = 6
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/template_noop,
 /area/template_noop)
 "B" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/railing{
+	dir = 5
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/template_noop,
@@ -44,6 +57,10 @@
 	layer = 3.1
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/chair,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/template_noop,
 /area/template_noop)
 "F" = (
@@ -53,6 +70,9 @@
 	req_access_txt = "2";
 	name = "Checkpoint door"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/template_noop,
 /area/template_noop)
 "N" = (
@@ -61,6 +81,9 @@
 	dir = 1;
 	name = "Checkpoint door";
 	req_access_txt = "2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/template_noop,
 /area/template_noop)
