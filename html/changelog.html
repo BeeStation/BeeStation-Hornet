@@ -56,7 +56,72 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">26 November 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Simplemobs can now properly use intent selection hotkeys (as long as they can use multiple intents already)</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Space-dragons will no longer be instantly killed by devastating explosives.</li>
+			</ul>
+			<h3 class="author">rkz, ArcaneMusic, Tralezab updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">adds new admin tool, the teambuilder! Admins can now easily put identifiable markings on any player and give them a new custom radio, all with a simple machine. Useful for events, or if you want multiple rival syndicates to face each other with the same gear, but also know whos on what team!</li>
+			</ul>
+
+			<h2 class="date">25 November 2023</h2>
+			<h3 class="author">Dejaku51 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added absolute value component for wiremod</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">added chat span classes for sorting only purpose (virtually. These don't exist). when you want a chat to be sorted in a group, you need to use "srt_SOMETHING" in this way: "\<span class='srt_deadchat'>". This example will sort a chat in deadchat group.</li>
+				<li class="bugfix">most bad practices for chat sorting in radio group are fixed. non-radio messages will not be seen in radio group. (especially cult messages)</li>
+				<li class="rscadd">some chats are now sorted into radio: holopara chats, blood/clock cult telepathy, etc</li>
+			</ul>
+
+			<h2 class="date">24 November 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">The Dextrous holoparasite ability is now purely a weapon, rather than a major ability.</li>
+			</ul>
+			<h3 class="author">rkz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed Venus Human Traps vine beams not disappearing after successfully (or unsuccessfully) grabbing a mob</li>
+			</ul>
+			<h3 class="author">rkz, MrStonedOne updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="server">Subsystems now track their average & last tick allocations. Can be checked through View Variables on the designated subsystem</li>
+			</ul>
+
+			<h2 class="date">22 November 2023</h2>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">The antimatter engine has been retired.</li>
+			</ul>
+
+			<h2 class="date">21 November 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Revert "Fixes GetComponents() returning a list with a null entry when there's no component of a given type" #10150</li>
+			</ul>
+
 			<h2 class="date">20 November 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">cleaned up some anomaly codes, and separated the file into multiple dm</li>
+				<li class="rscadd">Sanity Disruptor Anomaly! This will appear at +30 pops with a little bit high chance. Sadly, this doesn't have a core. The anomaly will pulse to make you stunned, blinded, and a little bit hallucinated. Although it's almost harmless.</li>
+				<li class="bugfix">Fixed the original insanity pulse artifact can't send more pulses when it reaches the end of the world map where the item exists. Also, fixed a pulse triggers the effect on a mob twice as it included a turf twice.</li>
+				<li class="code_imp">new turf calculation proc get_edge_turfs() -- By PowerfulBacon</li>
+				<li class="code_imp">Omnitool debug tool now uses TGUI as tool selection instead of the radial options. Also, it has more tool options (wire, botany, bike horn) also, it's tiny item now.</li>
+			</ul>
+			<h3 class="author">RKz, actioninja, Qustinnus updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">adds sound falloff to several sounds that sorely needed it. Includes the Supermatter, mouse squeaking, clown honking, footsteps, generic item attacks musical instruments, and a few other minor items</li>
+				<li class="code_imp">documents the entire sound looping system, adds functionality for further sound loops in the future</li>
+			</ul>
 			<h3 class="author">The-Moon-Itself updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">The wiremod write component has been given the proper ports to function again.</li>
@@ -888,79 +953,6 @@
 			<h3 class="author">Rkz, Fhaxaris updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="balance">floating/flying mobs are no longer affected by turf movespeed modifiers</li>
-			</ul>
-
-			<h2 class="date">23 September 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">removed the "Sucessfully scraped off the rust!" message from the advanced wirebrush to prevent text overlap</li>
-				<li class="bugfix">fixed the advanced wirebrush irradiating the user on any click instead of only after scraping</li>
-			</ul>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Billy Clubs now deal minor bonus damage to windows, grilles, glass tables, and windoors/windoor assemblies.</li>
-				<li class="rscadd">Fireaxes additionally deal bonus damage to glass tables, windoors, and windoor assemblies.</li>
-				<li class="rscadd">Syndicate Coat Pistol; Cheap Sidearm w/ lots of utility focused ammo</li>
-				<li class="rscadd">Coat Pistol, .38 standard, DumDum, HotShot, Iceblox, Blister, and BLK_OUT ammo available in Syndie uplink</li>
-				<li class="imageadd">Added sprite for Coat Pistol & .38 Blister rounds</li>
-				<li class="balance">Iceblox .38 deal less damage (20 -> 15)</li>
-				<li class="balance">Hot Shot .38 deal less damage (20 -> 12) and less fire stacks (6 -> 2)</li>
-				<li class="rscadd">Adds 'Wild Spread' and 'Wild Factor' variables to guns, allows 'minimum' recoil to be set</li>
-				<li class="rscadd">Enables 'Wild Spread' on Coat Pistol only, all other guns unaffected</li>
-			</ul>
-
-			<h2 class="date">22 September 2023</h2>
-			<h3 class="author">Absolucy, RKz, celotajstg, Mothblocks updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Ports the crew manifest to TGUI.</li>
-			</ul>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">additional logging for organ manipulation, cavity implant, and implant removal surgeries</li>
-			</ul>
-
-			<h2 class="date">21 September 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed wigs not properly updating the mob's hair when detached from a worn hat</li>
-			</ul>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">You can no longer interact with stuff through windows, windoors, and anything that should've blocked you from interacting really.</li>
-			</ul>
-
-			<h2 class="date">20 September 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">DNA locking has been removed from mechs.</li>
-			</ul>
-			<h3 class="author">Tyranicranger4 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed the duplicate Detective's locker - and thus the duplicate revolver from MetaStation</li>
-				<li class="tweak">Forensics crates now include the detective's camera instead of a normal camera (20 extra charges)</li>
-				<li class="rscadd">Adds a spare detective armor vest to their vendor</li>
-				<li class="bugfix">Fixes a minor runtime in rust_lore.dm</li>
-			</ul>
-
-			<h2 class="date">19 September 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">You will no longer suffocate eternally if you stop needing to breathe while in the middle of suffocating.</li>
-			</ul>
-			<h3 class="author">AgentCitrus, Time-Green updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">You can exit shuttles in transit and cling onto their sides, fly around them with jetpacks, etc.</li>
-				<li class="rscadd">Pulled & no longer pulled signals</li>
-				<li class="tweak">Mobs and items no longer instantly teleport into deep space after walking out of shuttles.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes random spawned humans not having their bodytype setup during DNA generation.</li>
-			</ul>
-			<h3 class="author">Tyranicranger4 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes a runtime in antag_panel.dm that prevents you from opening the Antagonist Panel on disconnected observers</li>
-				<li class="admin">Improved holodeck logging</li>
 			</ul>
 		</div>
 

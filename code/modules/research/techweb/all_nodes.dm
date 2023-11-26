@@ -747,6 +747,7 @@
 		"comp_bitwise",
 		"comp_hyper_trig",
 		"comp_trig",
+		"comp_abs",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 

@@ -1,8 +1,0 @@
-author: RKz, actioninja, Qustinnus
-delete-after: true
-changes:
-  - tweak: adds sound falloff to several sounds that sorely needed it. Includes the
-      Supermatter, mouse squeaking, clown honking, footsteps, generic item attacks
-      musical instruments, and a few other minor items
-  - code_imp: documents the entire sound looping system, adds functionality for further
-      sound loops in the future
