@@ -272,7 +272,7 @@
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
-			COOLDOWN_LIST_START(src, recent_victims, FAST_REF(C)", 2 SECONDS)
+			COOLDOWN_LIST_START(src, recent_victims, FAST_REF(C), 2 SECONDS)
 			C.electrocute_act(round(power), G, 1, 1)
 			if(C.ckey != G.fingerprintslast)
 				log_combat(G.thrownby, C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]")
