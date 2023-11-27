@@ -7,7 +7,8 @@
 	item_state = "atoxinbottle"
 	possible_transfer_amounts = list(5,10,15,25,30)
 	volume = 30
-	fill_icon_thresholds = list(0, 10, 30, 50, 70)
+	fill_icon_thresholds = list(1, 10, 20, 40, 60, 80, 100)
+	label_icon = "label_bottle"
 
 /obj/item/reagent_containers/glass/bottle/Initialize(mapload)
 	. = ..()
@@ -20,18 +21,21 @@
 	label_name = "epinephrine"
 	desc = "A small bottle. Contains epinephrine - used to stabilize patients."
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 30)
+	vendor_icon_preview = "bottle_epinephrine"
 
 /obj/item/reagent_containers/glass/bottle/tricordrazine
 	name = "tricordrazine bottle"
 	label_name = "tricordrazine"
 	desc = "A small bottle of tricordrazine. Used to aid in patient recovery."
 	list_reagents = list(/datum/reagent/medicine/tricordrazine = 30)
+	vendor_icon_preview = "bottle_tricordrazine"
 
 /obj/item/reagent_containers/glass/bottle/spaceacillin
 	name = "spaceacillin bottle"
 	label_name = "spaceacillin"
 	desc = "A small bottle of spaceacillin. Used to cure some diseases."
 	list_reagents = list(/datum/reagent/medicine/spaceacillin = 30)
+	vendor_icon_preview = "bottle_spaceacillin"
 
 /obj/item/reagent_containers/glass/bottle/antitoxin
 	name = "antitoxin bottle"
@@ -44,12 +48,14 @@
 	label_name = "mutagen toxin"
 	desc = "A small bottle of mutagen toxins. Do not drink, Might cause unpredictable mutations."
 	list_reagents = list(/datum/reagent/toxin/mutagen = 30)
+	vendor_icon_preview = "bottle_mutagen"
 
 /obj/item/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"
 	label_name = "toxin"
 	desc = "A small bottle of toxins. Do not drink, it is poisonous."
 	list_reagents = list(/datum/reagent/toxin = 30)
+	vendor_icon_preview = "bottle_toxin"
 
 /obj/item/reagent_containers/glass/bottle/cyanide
 	name = "cyanide bottle"
@@ -69,13 +75,14 @@
 	desc = "A small bottle of morphine."
 	icon = 'icons/obj/chemical.dmi'
 	list_reagents = list(/datum/reagent/medicine/morphine = 30)
+	vendor_icon_preview = "bottle_morphine"
 
 /obj/item/reagent_containers/glass/bottle/chloralhydrate
 	name = "chloral hydrate bottle"
 	label_name = "chloral hydrate"
 	desc = "A small bottle of Choral Hydrate. Mickey's Favorite!"
-	icon_state = "bottle20"
 	list_reagents = list(/datum/reagent/toxin/chloralhydrate = 30)
+	vendor_icon_preview = "bottle_chloralhydrate"
 
 /obj/item/reagent_containers/glass/bottle/mannitol
 	name = "mannitol bottle"
@@ -88,6 +95,7 @@
 	label_name = "charcoal"
 	desc = "A small bottle of charcoal, which removes toxins and other chemicals from the bloodstream."
 	list_reagents = list(/datum/reagent/medicine/charcoal = 30)
+	vendor_icon_preview = "bottle_charcoal"
 
 /obj/item/reagent_containers/glass/bottle/mutagen
 	name = "unstable mutagen bottle"
@@ -124,6 +132,7 @@
 	label_name = "ammonia"
 	desc = "A small bottle of ammonia."
 	list_reagents = list(/datum/reagent/ammonia = 30)
+	vendor_icon_preview = "bottle_ammonia"
 
 /obj/item/reagent_containers/glass/bottle/diethylamine
 	name = "diethylamine bottle"
@@ -144,6 +153,7 @@
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/medicine/adminordrazine = 30)
+	label_icon = null
 
 /obj/item/reagent_containers/glass/bottle/viralbase
 	name = "Highly potent Viral Base bottle"
@@ -204,6 +214,7 @@
 	label_name = "formaldehyde"
 	desc = "A small bottle. Contains Formaldehyde."
 	list_reagents = list(/datum/reagent/toxin/formaldehyde = 30)
+	vendor_icon_preview = "bottle_formaldehyde"
 
 /obj/item/reagent_containers/glass/bottle/initropidril
 	name = "initropidril bottle"
@@ -264,6 +275,7 @@
 	label_name = "saline-glucose"
 	desc = "A small bottle of saline-glucose solution. Useful for patients lacking in blood volume."
 	list_reagents = list(/datum/reagent/medicine/salglu_solution = 30)
+	vendor_icon_preview = "bottle_salineglucose"
 
 /obj/item/reagent_containers/glass/bottle/atropine
 	name = "atropine bottle"
@@ -288,6 +300,7 @@
 	label_name = "Experimental disease culture"
 	desc = "A small bottle. Contains an untested viral culture in synthblood medium."
 	spawned_disease = /datum/disease/advance/random
+	vendor_icon_preview = "bottle_virusblood"
 
 /obj/item/reagent_containers/glass/bottle/pierrot_throat
 	name = "Pierrot's Throat culture bottle"
@@ -332,6 +345,7 @@
 	desc = "A small bottle. Contains Cryptococcus Cosmosis culture in synthblood medium."
 	icon_state = "bottle3"
 	spawned_disease = /datum/disease/brainrot
+	label_icon = null
 
 /obj/item/reagent_containers/glass/bottle/magnitis
 	name = "Magnitis culture bottle"
@@ -381,6 +395,7 @@
 	desc = "A clay bowl containing a fledgling Necropolis, preserved in blood. A robust virologist may be able to unlock its full potential..."
 	icon_state = "mortar"
 	spawned_disease = /datum/disease/advance/random/necropolis
+	label_icon = null
 
 /obj/item/reagent_containers/glass/bottle/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis culture bottle"
@@ -490,6 +505,7 @@
 	name = "ethanol bottle"
 	label_name = "ethanol"
 	list_reagents = list(/datum/reagent/consumable/ethanol = 30)
+	vendor_icon_preview = "bottle_ethanol"
 
 /obj/item/reagent_containers/glass/bottle/sugar
 	name = "sugar bottle"

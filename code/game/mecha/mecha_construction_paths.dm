@@ -421,7 +421,7 @@
 	outer_plating_amount=1
 
 /datum/component/construction/mecha/gygax/action(datum/source, atom/used_atom, mob/user)
-	return INVOKE_ASYNC(src, PROC_REF(check_step), used_atom,user)
+	return check_step(used_atom, user)
 
 /datum/component/construction/mecha/gygax/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
@@ -709,63 +709,63 @@
 	result = /obj/mecha/combat/honker
 	steps = list(
 		list(
-			"key" = /obj/item/bikehorn
+			"key" = TOOL_BIKEHORN
 		),
 		list(
 			"key" = /obj/item/circuitboard/mecha/honker/main,
 			"action" = ITEM_DELETE
 		),
 		list(
-			"key" = /obj/item/bikehorn
+			"key" = TOOL_BIKEHORN
 		),
 		list(
 			"key" = /obj/item/circuitboard/mecha/honker/peripherals,
 			"action" = ITEM_DELETE
 		),
 		list(
-			"key" = /obj/item/bikehorn
+			"key" = TOOL_BIKEHORN
 		),
 		list(
 			"key" = /obj/item/circuitboard/mecha/honker/targeting,
 			"action" = ITEM_DELETE
 		),
 		list(
-			"key" = /obj/item/bikehorn
+			"key" = TOOL_BIKEHORN
 		),
 		list(
 			"key" = /obj/item/stock_parts/scanning_module,
 			"action" = ITEM_MOVE_INSIDE
 		),
 		list(
-			"key" = /obj/item/bikehorn
+			"key" = TOOL_BIKEHORN
 		),
 		list(
 			"key" = /obj/item/stock_parts/capacitor,
 			"action" = ITEM_MOVE_INSIDE
 		),
 		list(
-			"key" = /obj/item/bikehorn
+			"key" = TOOL_BIKEHORN
 		),
 		list(
 			"key" = /obj/item/stock_parts/cell,
 			"action" = ITEM_MOVE_INSIDE
 		),
 		list(
-			"key" = /obj/item/bikehorn
+			"key" = TOOL_BIKEHORN
 		),
 		list(
 			"key" = /obj/item/clothing/mask/gas/clown_hat,
 			"action" = ITEM_DELETE
 		),
 		list(
-			"key" = /obj/item/bikehorn
+			"key" = TOOL_BIKEHORN
 		),
 		list(
 			"key" = /obj/item/clothing/shoes/clown_shoes,
 			"action" = ITEM_DELETE
 		),
 		list(
-			"key" = /obj/item/bikehorn
+			"key" = TOOL_BIKEHORN
 		),
 	)
 

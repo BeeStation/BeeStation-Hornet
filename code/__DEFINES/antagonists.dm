@@ -120,6 +120,9 @@
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
 
+// Max of all fugitive types
+#define MAXIMUM_TOTAL_FUGITIVES 4
+
 // Fugitive hunter types
 #define FUGITIVE_HUNTER_SPACE_POLICE "space_police"
 #define FUGITIVE_HUNTER_RUSSIAN "russian"

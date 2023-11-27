@@ -156,6 +156,9 @@
 	if(!istype(M) || M.stat == DEAD || M.notransform || (GODMODE & M.status_flags))
 		return
 
+	if(SEND_SIGNAL(M, COMSIG_LIVING_PRE_WABBAJACKED) & STOP_WABBAJACK)
+		return
+
 	M.notransform = TRUE
 	M.mobility_flags = NONE
 	M.icon = null
@@ -279,6 +282,8 @@
 		new_mob.equip_to_appropriate_slot(W)
 
 	M.log_message("became [new_mob.real_name]", LOG_ATTACK, color="orange")
+
+	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
 
 	new_mob.a_intent = INTENT_HARM
 
@@ -589,14 +594,14 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
 	if(M.stat == DEAD)//boo.
 		return
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(M, "You have been noticed by a ghost, and it has possessed you!")
 		var/oldkey = M.key
-		M.ghostize(0)
+		M.ghostize(FALSE)
 		M.key = C.key
 		trauma.friend.key = oldkey
 		trauma.friend.reset_perspective(null)

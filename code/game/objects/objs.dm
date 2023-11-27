@@ -188,7 +188,7 @@
 
 		// check for TK users
 
-		if(usr.has_dna())
+		if(usr?.has_dna())
 			var/mob/living/carbon/C = usr
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src)
@@ -419,6 +419,10 @@
 /obj/proc/on_object_saved(var/depth = 0)
 	return ""
 
+// Should move all contained objects to it's location.
+/obj/proc/dump_contents()
+	CRASH("Unimplemented.")
+
 /obj/handle_ricochet(obj/projectile/P)
 	. = ..()
 	if(. && ricochet_damage_mod)
@@ -445,10 +449,19 @@
 /obj/proc/unfreeze()
 	SEND_SIGNAL(src, COMSIG_OBJ_UNFREEZE)
 
-/obj/use_emag(mob/user)
+/obj/use_emag(mob/user, obj/item/card/emag/hacker)
 	if(should_emag(user) && !SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
-		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
-		on_emag(user)
+		if(hacker)
+			if(hacker.charges > 0)
+				SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+				hacker.use_charge()
+				on_emag(user)
+			else
+				to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+				user.balloon_alert(user, "out of charges!")
+		else
+			SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+			on_emag(user)
 
 /// Unlike COMSIG_ATOM_SHOULD_EMAG, this is not inverted. If this is true, on_emag is called.
 /obj/proc/should_emag(mob/user)
@@ -461,3 +474,12 @@
 		obj_flags ^= EMAGGED
 	else
 		obj_flags |= EMAGGED
+
+/// shows mobs in its contents to ghosts. can be used to update
+/obj/proc/update_mob_alpha()
+	if(!length(contents))
+		SSvis_overlays.remove_mob_alpha(src)
+	var/list/exception_mobs = list()
+	for(var/mob/each_mob in contents)
+		exception_mobs += SSvis_overlays.add_mob_alpha(src, each_mob)
+	SSvis_overlays.remove_mob_alpha(src, exception_mobs)

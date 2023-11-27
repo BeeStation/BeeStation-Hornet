@@ -436,7 +436,7 @@ SUBSYSTEM_DEF(job)
 
 //We couldn't find a job from prefs for this guy.
 /datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/player)
-	var/jobless_role = player.client.prefs.read_player_preference(/datum/preference/choiced/jobless_role)
+	var/jobless_role = player.client.prefs.read_character_preference(/datum/preference/choiced/jobless_role)
 
 	if(PopcapReached() && !IS_PATRON(player.ckey))
 		RejectPlayer(player)

@@ -248,11 +248,11 @@ Burning extracts:
 /obj/item/slimecross/burning/gold/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] shudders violently, and summons an army for [user]!</span>")
 	for(var/i in 1 to 3) //Less than gold normally does, since it's safer and faster.
-		var/mob/living/simple_animal/S = create_random_mob(get_turf(user), HOSTILE_SPAWN)
-		S.faction |= "[REF(user)]"
+		var/mob/living/spawned_mob = create_random_mob(get_turf(user), HOSTILE_SPAWN)
+		spawned_mob.faction |= "[REF(user)]"
 		if(prob(50))
 			for(var/j in 1 to rand(1, 3))
-				step(S, pick(NORTH,SOUTH,EAST,WEST))
+				step(spawned_mob, pick(NORTH,SOUTH,EAST,WEST))
 	..()
 
 /obj/item/slimecross/burning/oil
@@ -308,5 +308,5 @@ Burning extracts:
 
 /obj/item/slimecross/burning/rainbow/do_effect(mob/user)
 	user.visible_message("<span class='notice'>[src] flattens into a glowing rainbow blade.</span>")
-	new /obj/item/kitchen/knife/rainbowknife(get_turf(user))
+	new /obj/item/knife/rainbowknife(get_turf(user))
 	..()

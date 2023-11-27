@@ -22,6 +22,7 @@
 		/obj/item/gun/energy,
 		/obj/item/restraints/handcuffs
 		)
+	slowdown = 0
 	var/mode = VEST_STEALTH
 	var/stealth_active = FALSE
 	/// Cooldown in seconds
@@ -57,9 +58,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to activate the vest if he's actually wearing it.
@@ -346,6 +345,11 @@
 
 		to_chat(L, "<span class='italics'>You hear a voice in your head saying: </span><span class='abductor'>[message]</span>")
 		to_chat(user, "<span class='notice'>You send the message to your target.</span>")
+
+		for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
+			var/sender = FOLLOW_LINK(ghost, user)
+			var/receiver = FOLLOW_LINK(ghost, L)
+			to_chat(ghost, "<span class='deadsay'>[sender] <span class='name'>[user]</span> <span class='abductor'>Abductor Mental Telepathy</span> -> [receiver] <span class='name'>[L]</span>: <span class='bold message'>[message]</span></span>")
 		log_directed_talk(user, L, message, LOG_SAY, "abductor whisper")
 
 
@@ -412,7 +416,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "wonderprod"
 	slot_flags = ITEM_SLOT_BELT
 	force = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	//The mob we are currently incapacitating.
 	var/mob/current_target

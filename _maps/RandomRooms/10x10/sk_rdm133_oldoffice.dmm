@@ -31,7 +31,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (

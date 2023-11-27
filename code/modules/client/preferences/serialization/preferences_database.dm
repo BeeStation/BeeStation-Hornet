@@ -8,6 +8,7 @@
 	if(parent && IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
 	dirty_undatumized_preferences_player = TRUE
+	log_preferences("[parent?.ckey]: Undatumized player preference changed.")
 	SSpreferences.queue_write(src)
 
 /// Marks undatumized preferences as dirty, so it will be serialized on the next preference write.
@@ -17,6 +18,7 @@
 	if(parent && IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
 	dirty_undatumized_preferences_character = TRUE
+	log_preferences("[parent?.ckey]: Undatumized character preference changed.")
 	SSpreferences.queue_write(src)
 
 /// If any character preference is dirty.
@@ -43,14 +45,21 @@
 
 /datum/preferences/proc/load_preferences()
 	if(!istype(parent))
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	// Cache their ckey because they can disconnect while datumized prefs read.
 	var/parent_ckey = parent.ckey
 	// Get the datumized stuff first
 	player_data = new(src)
-	if(!player_data.load_from_database(src)) // checks db connection
-		return FALSE
-
+	var/load_result = player_data.load_from_database(src)
+	if(load_result == PREFERENCE_LOAD_ERROR || load_result == null)
+		log_preferences("[parent_ckey]: ERROR - player_data failed to load datumized player preferences.")
+		if(istype(parent))
+			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized preferences. Please inform the server operator or a maintainer of this error.</span>")
+		return PREFERENCE_LOAD_ERROR
+	if(load_result == PREFERENCE_LOAD_IGNORE)
+		log_preferences("[parent_ckey]: WARN - player_data load ignored.")
+		return PREFERENCE_LOAD_IGNORE
+	log_preferences("[parent_ckey]: Undatumized player preferences loading.")
 	var/datum/DBQuery/read_player_data = SSdbcore.NewQuery(
 		"SELECT CAST(preference_tag AS CHAR) AS ptag, preference_value FROM [format_table_name("preferences")] WHERE ckey=:ckey",
 		list("ckey" = parent_ckey)
@@ -62,7 +71,8 @@
 
 	if(!read_player_data.Execute())
 		qdel(read_player_data)
-		return FALSE
+		log_preferences("[parent_ckey]: ERROR - Undatumized player preferences load query failed.")
+		return PREFERENCE_LOAD_ERROR
 	else
 		while(read_player_data.NextRow())
 			prefmap[read_player_data.item[1]] = read_player_data.item[2]
@@ -103,9 +113,12 @@
 		if(istype(entry))
 			continue
 		role_preferences_global -= preference
+		log_preferences("[parent_ckey]: WARN - Cleaned up invalid global role preference entry [preference].")
+		mark_undatumized_dirty_player()
 
 	if (!length(key_bindings))
 		set_default_key_bindings(save = TRUE)
+		log_preferences("[parent_ckey]: Created default keybindings on load.")
 	else
 		var/any_changed = FALSE
 		for(var/key_name in GLOB.keybindings_by_name)
@@ -116,10 +129,12 @@
 			set_keybind(key_name, keybind.keys.Copy())
 			any_changed = TRUE
 		if(any_changed)
+			log_preferences("[parent_ckey]: Assigned new keybind data on load.")
+			if(parent)
+				parent.update_special_keybinds(src)
 			mark_undatumized_dirty_player() // Write the new keybinds to the database.
-	if(parent)
-		apply_all_client_preferences()
-	return TRUE
+	log_preferences("[parent_ckey]: Player preferences load result: [length(prefmap)] records.")
+	return length(prefmap) ? PREFERENCE_LOAD_SUCCESS : PREFERENCE_LOAD_NO_DATA
 
 #undef READPREF_STR
 #undef READPREF_INT
@@ -134,14 +149,24 @@
 	if(!istype(parent))
 		return FALSE
 	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
+		log_preferences("[parent.ckey]: WARN - Preference save ignored due to guest key.")
 		return FALSE
 	// Cache their ckey because they can disconnect while datumized prefs write.
 	// DO NOT RENAME THIS SHIT. it will break the defines
 	var/parent_ckey = parent.ckey
-	if(!player_data?.write_to_database(src))
+	var/write_result = player_data?.write_to_database(src)
+	if(write_result == PREFERENCE_LOAD_ERROR || write_result == null)
+		log_preferences("[parent_ckey]: ERROR - player_data failed to save datumized player preferences.")
+		if(istype(parent))
+			to_chat(parent, "<span class='boldannounce'>Failed to save your datumized preferences. Please inform the server operator or a maintainer of this error.</span>")
+		return FALSE
+	if(write_result == PREFERENCE_LOAD_IGNORE)
+		log_preferences("[parent_ckey]: WARN - player_data save ignored.")
 		return FALSE
 	if(!dirty_undatumized_preferences_player) // Nothing to write. Call it a success.
+		log_preferences("[parent_ckey]: Undatumized player preferences save skipped due to no changes.")
 		return TRUE
+	log_preferences("[parent_ckey]: Undatumized player preferences saving.")
 	dirty_undatumized_preferences_player = FALSE // we edit this immediately, since the DB query sleeps, the var could be modified during the sleep.
 	var/list/datum/DBQuery/write_queries = list() // do not rename this you muppet
 
@@ -159,6 +184,7 @@
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
+	log_preferences("[parent_ckey]: Undatumized player preferences saved.")
 	return TRUE
 
 #undef PREP_WRITEPREF_STR
@@ -179,21 +205,33 @@
 
 /datum/preferences/proc/load_character(slot)
 	if(!istype(parent))
-		return FALSE
+		return PREFERENCE_LOAD_ERROR
 	if(!slot)
 		slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
 	if(slot != default_slot)
+		log_preferences("[parent.ckey]: Slot change applying, from [default_slot] to [slot].")
 		default_slot = slot
 		mark_undatumized_dirty_player()
 
 	// Cache their ckey because they can disconnect while datumized prefs read.
 	var/parent_ckey = parent.ckey
 
-	character_data = new(src, slot)
-	if(!character_data.load_from_database(src)) // checks db connection
-		return FALSE
+	if(character_data)
+		qdel(character_data)
 
+	character_data = new(src, slot)
+	var/read_result = character_data.load_from_database(src)
+
+	if(read_result == PREFERENCE_LOAD_ERROR || read_result == null)
+		log_preferences("[parent_ckey]: ERROR - character_data failed to load datumized character preferences.")
+		if(istype(parent))
+			to_chat(parent, "<span class='boldannounce'>Failed to load your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
+		return PREFERENCE_LOAD_ERROR
+	if(read_result == PREFERENCE_LOAD_IGNORE)
+		log_preferences("[parent_ckey]: WARN - character_data load ignored.")
+		return PREFERENCE_LOAD_IGNORE
+	log_preferences("[parent_ckey]: Undatumized character preferences loading.")
 	// Do NOT statically cache this or I will kill you. You are asking an evil vareditor to break the DB in a BAD way
 	// also DO NOT rename this
 	var/list/column_names = list(
@@ -214,17 +252,21 @@
 	var/list/values
 	if(!Q.warn_execute())
 		qdel(Q)
-		return FALSE
+		log_preferences("[parent_ckey]: ERROR - Undatumized character preferences load query failed.")
+		return PREFERENCE_LOAD_ERROR
 	if(Q.NextRow())
 		values = Q.item
 		if(!length(values)) // There is no character
 			qdel(Q)
-			return FALSE
+			log_preferences("[parent_ckey]: Undatumized character preferences load found no results in row.")
+			return PREFERENCE_LOAD_NO_DATA
 	else
 		qdel(Q)
-		return FALSE
+		log_preferences("[parent_ckey]: Undatumized character preferences load found no rows.")
+		return PREFERENCE_LOAD_NO_DATA
 	qdel(Q)
 	if(length(values) != length(column_names))
+		log_preferences("[parent_ckey]: ERROR - Undatumized character preferences load found the wrong amount of columns.")
 		CRASH("Error querying character data: the returned value length is not equal to the number of columns requested.")
 
 	// Decode
@@ -245,6 +287,7 @@
 	for(var/j in job_preferences)
 		if(job_preferences[j] != JP_LOW && job_preferences[j] != JP_MEDIUM && job_preferences[j] != JP_HIGH)
 			job_preferences -= j
+			log_preferences("[parent_ckey]: WARN - Cleaned up invalid job preference entry: [j]")
 			mark_undatumized_dirty_character()
 
 	// Validate role prefs
@@ -254,6 +297,7 @@
 		if(istype(entry) && entry.per_character)
 			continue
 		role_preferences -= preference
+		log_preferences("[parent_ckey]: WARN - Cleaned up invalid character role preference entry [preference].")
 		mark_undatumized_dirty_character()
 
 	// Validate equipped gear
@@ -270,7 +314,7 @@
 			equipped_gear -= gear_id
 			mark_undatumized_dirty_character()
 
-	return TRUE
+	return PREFERENCE_LOAD_SUCCESS
 
 #undef JSONREAD_PREF
 
@@ -283,13 +327,25 @@
 	if(!istype(parent))
 		return FALSE
 	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
+		log_preferences("[parent.ckey]: WARN - Character preference save ignored due to guest key.")
 		return FALSE
 	// Cache their ckey because they can disconnect while datumized prefs write.
 	var/parent_ckey = parent.ckey
-	if(!character_data?.write_to_database(src))
+
+	var/write_result = character_data?.write_to_database(src)
+	if(write_result == PREFERENCE_LOAD_ERROR || write_result == null)
+		log_preferences("[parent_ckey]: ERROR - character_data failed to save datumized character preferences.")
+		if(istype(parent))
+			to_chat(parent, "<span class='boldannounce'>Failed to save your datumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
 		return FALSE
+	if(write_result == PREFERENCE_LOAD_IGNORE)
+		log_preferences("[parent_ckey]: WARN - character_data save ignored.")
+		return FALSE
+
 	if(!dirty_undatumized_preferences_character) // Nothing to write. Call it a success.
+		log_preferences("[parent_ckey]: Undatumized character preferences save skipped due to no changes.")
 		return TRUE
+	log_preferences("[parent_ckey]: Undatumized character preferences saving.")
 	dirty_undatumized_preferences_character = FALSE // we edit this immediately, since the DB query sleeps, the var could be modified during the sleep.
 
 	// DO NOT RENAME THESE LISTS! THANKS!! <3
@@ -309,9 +365,10 @@
 	)
 	var/success = Q.warn_execute()
 	if(!success && istype(parent))
-		to_chat(parent, "<span class='boldannounce'>Failed to save your character. Please inform the server operator or a maintainer of this error.</span>")
+		to_chat(parent, "<span class='boldannounce'>Failed to save your undatumized character preferences. Please inform the server operator or a maintainer of this error.</span>")
 	qdel(Q)
 	fail_state = success
+	log_preferences("[parent_ckey]: Undatumized character preferences save status: [success ? "GOOD" : "ERROR"].")
 	return success
 
 #undef WRITEPREF_STR
@@ -326,25 +383,48 @@
 	var/pref_type
 
 /datum/preferences_holder/New(datum/preferences/prefs)
+	if(!pref_type)
+		CRASH("Preferences holder pref_type is [pref_type]")
 	preference_data = list()
 	dirty_prefs = list()
-	// Read everything into cache
+	log_preferences("[prefs?.parent?.ckey]: Holder created of type [pref_type].")
+
+/datum/preferences_holder/proc/provide_defaults(datum/preferences/prefs, should_use_informed)
+	log_preferences("[prefs?.parent?.ckey]: Holder of type [pref_type] providing defaults (informed: [should_use_informed]).")
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
-		if (preference.preference_type != pref_type || preference.informed)
+		if (preference.preference_type != pref_type || (preference.informed != should_use_informed))
 			continue
 
-		// we can't use informed values here. The name will get populated manually
-		preference_data[preference.db_key] = preference.deserialize(preference.create_default_value(), prefs)
+		if(should_use_informed)
+			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
+		else
+			preference_data[preference.db_key] = preference.deserialize(preference.create_default_value(), prefs)
+
+/datum/preferences_holder/proc/load_from_database(datum/preferences/prefs)
+	var/result = !IS_GUEST_KEY(prefs.parent.key) ? query_data(prefs) : PREFERENCE_LOAD_IGNORE
+	if(!istype(prefs.parent)) // Client was nulled during query execution
+		return PREFERENCE_LOAD_ERROR
+	return result
+
+/datum/preferences_holder/proc/query_data(datum/preferences/prefs)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!SSdbcore.IsConnected())
+		return PREFERENCE_LOAD_IGNORE
+	if(!istype(prefs.parent))
+		return PREFERENCE_LOAD_ERROR
+	return PREFERENCE_LOAD_SUCCESS
 
 /datum/preferences_holder/proc/read_preference(datum/preferences/preferences, datum/preference/preference)
 	SHOULD_NOT_SLEEP(TRUE)
 	var/value = read_raw(preferences, preference)
 	if (isnull(value))
+		log_preferences("[preferences?.parent?.ckey]: Creating default value for [preference.type].")
 		value = preference.create_informed_default_value(preferences)
 		if (write_preference(preferences, preference, value))
 			return value
 		else
+			log_preferences("[preferences?.parent?.ckey]: Failed to write default value. See runtime log.")
 			CRASH("Couldn't write the default value for [preference.type] (received [value])")
 	return value
 
@@ -359,10 +439,26 @@
 /datum/preferences_holder/proc/write_preference(datum/preferences/preferences, datum/preference/preference, value)
 	var/new_value = preference.deserialize(value, preferences)
 	if (!preference.is_valid(new_value))
+		log_preferences("[preferences?.parent?.ckey]: Preference value write for [preference.type] TO \"[new_value]\" ignored due to being invalid.")
 		return FALSE
 	preference_data[preference.db_key] = new_value
 	if(!istype(preferences.parent) || IS_GUEST_KEY(preferences.parent.key)) // NO saving guests to the DB!
 		return TRUE
 	dirty_prefs |= preference.db_key
 	SSpreferences.queue_write(preferences)
+	log_preferences("[preferences?.parent?.ckey]: Preference value write for [preference.type] TO \"[value]\" created.")
 	return TRUE
+
+/datum/preferences_holder/proc/write_to_database(datum/preferences/prefs)
+	. = write_data(prefs)
+	dirty_prefs.Cut() // clear all dirty preferences
+
+/datum/preferences_holder/proc/write_data(datum/preferences/prefs)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!SSdbcore.IsConnected())
+		return PREFERENCE_LOAD_IGNORE
+	if(!istype(prefs.parent))
+		return PREFERENCE_LOAD_ERROR
+	if(IS_GUEST_KEY(prefs.parent.key))
+		return PREFERENCE_LOAD_IGNORE
+	return PREFERENCE_LOAD_SUCCESS

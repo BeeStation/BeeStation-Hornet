@@ -16,7 +16,7 @@
 	semi_auto = FALSE
 	fire_rate = 1.5
 	burst_size = 1
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	zoomable = TRUE
 	zoom_amt = 10 //Long range, enough to see in front of you, but no tiles behind you.
 	zoom_out_amt = 5

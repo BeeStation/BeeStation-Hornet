@@ -28,7 +28,8 @@
 		name = "light switch ([area.name])"
 
 	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
-	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(turn_off))
+	if(CONFIG_GET(flag/dark_unstaffed_departments))
+		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(turn_off))
 	return
 
 /obj/machinery/light_switch/update_overlays()
@@ -54,7 +55,6 @@
 	for(var/obj/machinery/light_switch/L in GLOB.machines)
 		if(L.area == area)
 			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
-	message_admins("Turning off lights in [area]")
 	area.power_change()
 
 /obj/machinery/light_switch/examine(mob/user)
@@ -94,13 +94,9 @@
 		return
 
 /obj/machinery/light_switch/power_change()
+	SHOULD_CALL_PARENT(FALSE)
 	if(area == get_area(src))
-		if(powered(AREA_USAGE_LIGHT))
-			set_machine_stat(machine_stat & ~NOPOWER)
-		else
-			set_machine_stat(machine_stat | NOPOWER)
-
-		update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
+		return ..()
 
 /obj/machinery/light_switch/emp_act(severity)
 	. = ..()

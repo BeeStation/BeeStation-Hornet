@@ -5,7 +5,6 @@ GLOBAL_LIST_INIT(hunter_types, list(
 ))
 
 /datum/fugitive_type/hunter
-	max_amount = 4
 	/// The ship this type uses
 	var/ship_type
 
@@ -28,7 +27,6 @@ GLOBAL_LIST_INIT(hunter_types, list(
 	<span class='bold'>There is a local station housing fugitives that the man is after, he wants them returned; dead or alive.</span>\n\
 	<span class='bold'>We will not be able to make ends meet without our cargo, so we must do as he says and capture them.</span>"
 	ship_type = /datum/map_template/shuttle/hunter/russian
-	max_amount = 5
 	outfit = /datum/outfit/russian_hunter
 	has_leader = TRUE
 	leader_outfit = /datum/outfit/russian_hunter/leader
@@ -39,5 +37,4 @@ GLOBAL_LIST_INIT(hunter_types, list(
 	greet_message = "<span class='bold'>You are a bounty hunter, chasing profits through the capture of dangerous and desired people across the galaxy.</span>\n\
 	<span class='bold'>You've been tracking this bounty for a while, and you've nearly caught up to them. Now's your chance!</span>"
 	ship_type = /datum/map_template/shuttle/hunter/bounty
-	max_amount = 3
 	outfit = list(/datum/outfit/bounty/armor, /datum/outfit/bounty/hook, /datum/outfit/bounty/synth)

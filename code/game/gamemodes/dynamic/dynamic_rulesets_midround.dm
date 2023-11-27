@@ -116,7 +116,7 @@
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 
-	candidates = pollGhostCandidates("The mode is looking for volunteers to become [initial(antag_datum.name)] for [name]", initial(antag_datum.banning_key), role_preference, poll_time = 300)
+	candidates = poll_ghost_candidates("The mode is looking for volunteers to become [initial(antag_datum.name)] for [name]", initial(antag_datum.banning_key), role_preference, poll_time = 300)
 
 	if(!length(candidates))
 		message_admins("The ruleset [name] received no applications.")
@@ -298,7 +298,7 @@
 	weight = 1
 	cost = 15
 	requirements = REQUIREMENTS_VERY_HIGH_THREAT_NEEDED
-	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET
+	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
 	if(!length(GLOB.wizardstart))
@@ -367,7 +367,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 25
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
 	var/body = applicant.become_overmind()
@@ -391,7 +391,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 25
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 	var/list/vents
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/acceptable(population=0, threat=0)
@@ -492,7 +492,7 @@
 	cost = 11
 	minimum_players = 25
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 	var/list/spawn_locs
 
 /datum/dynamic_ruleset/midround/from_ghosts/space_dragon/ready(forced = FALSE)
@@ -625,6 +625,7 @@
 	cost = 8
 	minimum_players = 27
 	repeatable = FALSE
+	flags = LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/pirates/acceptable(population=0, threat=0)
 	if (!SSmapping.empty_space)
@@ -690,7 +691,7 @@
 	weight = 3
 	cost = 11
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 	minimum_players = 27
 	var/fed = 1
 	var/list/vents
@@ -865,3 +866,60 @@
 		log_game("DYNAMIC: Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_candidates].")
 		return FALSE
 	return TRUE
+
+//////////////////////////////////////////////
+//                                          //
+//           NINJA      (GHOST)             //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja
+	name = "Space Ninja"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	role_preference = /datum/role_preference/midround_ghost/ninja
+	required_type = /mob/dead/observer
+	antag_datum = /datum/antagonist/ninja
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	required_enemies = list(2,2,2,2,2,2,2,2,2,2)
+	required_candidates = 1
+	weight = 3
+	cost = 9
+	minimum_players = 20
+	repeatable = TRUE
+	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear, /datum/dynamic_ruleset/roundstart/clockcult)
+	flags = LATEGAME_RULESET
+	var/spawn_loc
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/ready(forced)
+	if (!..())
+		return FALSE
+	//selecting a spawn_loc
+	var/list/spawn_locs = list()
+	for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
+		if(isturf(L.loc))
+			spawn_locs += L.loc
+	if(!length(spawn_locs))
+		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations (#1).")
+		return FALSE
+	spawn_loc = pick(spawn_locs)
+	return TRUE
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/generate_ruleset_body(mob/applicant)
+	//spawn the ninja and assign the candidate
+	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
+
+	//Prepare ninja player mind
+	// Dynamic's finish_setup proc will handle application of antagonist datums
+	var/datum/mind/Mind = new /datum/mind(applicant.key)
+	Mind.active = TRUE
+	Mind.transfer_to(Ninja)
+
+	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by the midround ruleset")
+	log_game("[key_name(Ninja)] was spawned as a ninja by the midround ruleset.")
+
+	return Ninja
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/finish_setup(mob/new_character, index)
+	. = ..()
+	// Set their job in addition to their antag role to be a space ninja for logging purposes
+	new_character.mind.assigned_role = ROLE_NINJA

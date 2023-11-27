@@ -14,17 +14,17 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "cU" = (
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "fw" = (
-/obj/structure/chair/pew{
+/obj/structure/chair/fancy/bench/pew{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel,
 /area/ruin/unpowered)
 "fx" = (
-/obj/structure/chair/pew/right{
+/obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -32,7 +32,7 @@
 	},
 /area/ruin/unpowered)
 "gk" = (
-/obj/structure/chair/pew/right{
+/obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -102,7 +102,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "qg" = (
-/obj/structure/chair/pew{
+/obj/structure/chair/fancy/bench/pew{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -142,7 +142,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "rW" = (
-/obj/structure/chair/pew{
+/obj/structure/chair/fancy/bench/pew{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -205,7 +205,7 @@
 /turf/open/floor/grass/fakebasalt,
 /area/ruin/unpowered)
 "Gz" = (
-/obj/structure/chair/pew/left{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -246,7 +246,7 @@
 	},
 /area/ruin/unpowered)
 "Ni" = (
-/obj/structure/chair/pew/right{
+/obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel,
@@ -267,7 +267,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Ry" = (
-/obj/structure/chair/pew{
+/obj/structure/chair/fancy/bench/pew{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -275,7 +275,7 @@
 	},
 /area/ruin/unpowered)
 "TA" = (
-/obj/structure/chair/pew/left{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -283,7 +283,7 @@
 	},
 /area/ruin/unpowered)
 "TD" = (
-/obj/structure/chair/pew/left{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -291,7 +291,7 @@
 	},
 /area/ruin/unpowered)
 "UA" = (
-/obj/structure/chair/pew/right{
+/obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -306,7 +306,7 @@
 /turf/open/floor/grass/fakebasalt,
 /area/ruin/unpowered)
 "Yh" = (
-/obj/structure/chair/pew/left{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{

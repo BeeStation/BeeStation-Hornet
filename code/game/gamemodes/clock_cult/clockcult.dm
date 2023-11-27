@@ -167,7 +167,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(is_servant_of_ratvar(M))
 		return FALSE
-	if(M.mind.enslaved_to && !is_servant_of_ratvar(M.mind.enslaved_to))
+	if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 		return FALSE
 	if(M.mind.unconvertable)
 		return FALSE
@@ -194,7 +194,7 @@ GLOBAL_VAR(clockcult_eminence)
 
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
-/proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE, say=TRUE)
+/proc/hierophant_message(msg, mob/living/sender, span = "<span class='srt_radio brass'>", use_sanitisation=TRUE, say=TRUE)
 	if(CHAT_FILTER_CHECK(msg))
 		if(sender)
 			to_chat(sender, "<span class='warning'>You message contains forbidden words, please review the server rules and do not attempt to bypass this filter.</span>")

@@ -6,40 +6,33 @@
 	var/lootdoubles = TRUE	//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 	var/fan_out_items = FALSE //Whether the items should be distributed to offsets 0,1,-1,2,-2,3,-3.. This overrides pixel_x/y on the spawner itself
-	var/late_spawn = FALSE
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	. = ..()
-	if (!late_spawn)
-		spawn_loot()
-		return INITIALIZE_HINT_QDEL
-	else
-		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(late_spawn_loot))
-
-/obj/effect/spawner/lootdrop/proc/late_spawn_loot()
 	spawn_loot()
-	qdel(src)
 
 /obj/effect/spawner/lootdrop/proc/spawn_loot()
-	if(loot?.len)
-		var/turf/T = get_turf(src)
-		var/loot_spawned = 0
-		while((lootcount-loot_spawned) && loot.len)
-			var/lootspawn = pick_weight(loot)
-			if(!lootdoubles)
-				loot.Remove(lootspawn)
+	if(!length(loot))
+		return
+	var/turf/T = get_turf(src)
+	var/loot_spawned = 0
+	while((lootcount-loot_spawned) && loot.len)
+		var/lootspawn = pick_weight(loot)
+		if(!lootdoubles)
+			loot.Remove(lootspawn)
 
-			if(lootspawn)
-				var/atom/movable/spawned_loot = new lootspawn(T)
-				if (!fan_out_items)
-					if (pixel_x != 0)
-						spawned_loot.pixel_x = pixel_x
-					if (pixel_y != 0)
-						spawned_loot.pixel_y = pixel_y
-				else
-					if (loot_spawned)
-						spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
-			loot_spawned++
+		if(lootspawn)
+			var/atom/movable/spawned_loot = new lootspawn(T)
+			if (!fan_out_items)
+				if (pixel_x != 0)
+					spawned_loot.pixel_x = pixel_x
+				if (pixel_y != 0)
+					spawned_loot.pixel_y = pixel_y
+			else
+				if (loot_spawned)
+					spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
+		loot_spawned++
+
 
 /obj/effect/spawner/lootdrop/donkpockets
 	icon_state = "random_donk"
@@ -109,25 +102,25 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/soup/beet,
-			/obj/item/reagent_containers/food/snacks/soup/sweetpotato,
-			/obj/item/reagent_containers/food/snacks/soup/stew,
-			/obj/item/reagent_containers/food/snacks/soup/hotchili,
-			/obj/item/reagent_containers/food/snacks/soup/nettle,
-			/obj/item/reagent_containers/food/snacks/soup/meatball)
+			/obj/item/food/soup/beet,
+			/obj/item/food/soup/sweetpotato,
+			/obj/item/food/soup/stew,
+			/obj/item/food/soup/hotchili,
+			/obj/item/food/soup/nettle,
+			/obj/item/food/soup/meatball)
 	var/salads = list(
-			/obj/item/reagent_containers/food/snacks/salad/herbsalad,
-			/obj/item/reagent_containers/food/snacks/salad/validsalad,
-			/obj/item/reagent_containers/food/snacks/salad/fruit,
-			/obj/item/reagent_containers/food/snacks/salad/jungle,
-			/obj/item/reagent_containers/food/snacks/salad/aesirsalad)
+			/obj/item/food/salad/herbsalad,
+			/obj/item/food/salad/validsalad,
+			/obj/item/food/salad/fruit,
+			/obj/item/food/salad/jungle,
+			/obj/item/food/salad/aesirsalad)
 	var/mains = list(
 			/obj/item/reagent_containers/food/snacks/bearsteak,
-			/obj/item/reagent_containers/food/snacks/enchiladas,
+			/obj/item/food/enchiladas,
 			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
-			/obj/item/reagent_containers/food/snacks/burger/bigbite,
-			/obj/item/reagent_containers/food/snacks/burger/superbite,
-			/obj/item/reagent_containers/food/snacks/burger/fivealarm)
+			/obj/item/food/burger/bigbite,
+			/obj/item/food/burger/superbite,
+			/obj/item/food/burger/fivealarm)
 
 /obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)

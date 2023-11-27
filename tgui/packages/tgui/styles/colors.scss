@@ -90,3 +90,18 @@ $bg-map: ();
     )
   );
 }
+
+$departments: (
+  'Assistant': $grey,
+  'Captain': fg($blue),
+  'Cargo': $brown,
+  'Supply': $brown,
+  'Civilian': $grey,
+  'Command': $yellow,
+  'Security': $red,
+  'Engineering': #f1a839,
+  'Medical': $teal,
+  'Science': fg($purple),
+  'Service': $green,
+  'Silicon': $pink,
+);

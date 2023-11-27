@@ -1,6 +1,9 @@
 /** Radio channels */
-export const CHANNELS = ['Say', 'Radio', 'Me', 'OOC', 'LOOC'];
+export const CHANNELS = ['Say', 'Radio', 'Me', 'OOC', 'LOOC', 'Asay', 'Dsay', 'Msay'];
+export const CYCLEABLE_CHANNELS = ['Say', 'Radio', 'Me', 'OOC', 'LOOC'];
 export const NO_RADIO_CHANNELS = ['Me', 'OOC', 'LOOC'];
+
+export const RESTRICTED_CHANNELS = ['Asay', 'Dsay', 'Msay'];
 
 /** Window sizes in pixels */
 export enum WINDOW_SIZES {
@@ -98,5 +101,9 @@ export const RADIO_PREFIXES = {
   ':j ': {
     id: 'slime',
     label: 'Slime',
+  },
+  ':p ': {
+    id: 'holoparasite',
+    label: 'HPara',
   },
 } as const;
