@@ -4,8 +4,6 @@
 
 	icon = 'icons/obj/modular_laptop.dmi'
 	icon_state = "laptop-closed"
-	icon_state_powered = "laptop"
-	icon_state_unpowered = "laptop-off"
 	icon_state_menu = "menu"
 
 	hardware_flag = PROGRAM_LAPTOP
@@ -17,8 +15,10 @@
 	item_flags = SLOWS_WHILE_IN_HAND
 
 	screen_on = 0 		// Starts closed
-	var/start_open = TRUE	// unless this var is set to 1
+	var/start_open = FALSE	// unless this var is set to 1
 	var/icon_state_closed = "laptop-closed"
+	var/icon_state_powered = "laptop"
+	var/icon_state_unpowered = "laptop-off"
 	var/w_class_open = WEIGHT_CLASS_BULKY
 	var/slowdown_open = TRUE
 
@@ -34,11 +34,26 @@
 		toggle_open()
 
 /obj/item/modular_computer/laptop/update_icon()
+	var/init_icon = initial(icon)
+	cut_overlays()
+	icon_state = icon_state_closed
+	if(!init_icon)
+		return
+
 	if(screen_on)
-		..()
-	else
-		cut_overlays()
-		icon_state = icon_state_closed
+		icon_state = icon_state_powered
+		if(enabled)
+			add_overlay(active_program ? mutable_appearance(init_icon, active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu))
+		if(!enabled)
+			cut_overlays()
+			return
+
+	if(can_store_pai && stored_pai_card)
+		add_overlay(stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay"))
+
+	if(obj_integrity <= integrity_failure)
+		add_overlay(mutable_appearance(init_icon, "bsod"))
+		add_overlay(mutable_appearance(init_icon, "broken"))
 
 /obj/item/modular_computer/laptop/attack_self(mob/user)
 	if(!screen_on)

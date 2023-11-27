@@ -6,6 +6,7 @@
 	malfunction_probability = 1
 	var/obj/item/stock_parts/cell/battery
 	device_type = MC_CELL
+	custom_price = 10
 
 /obj/item/computer_hardware/battery/get_cell()
 	return battery
@@ -77,6 +78,7 @@
 	icon_state = "cell"
 	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 1500
+	custom_price = 40
 
 /obj/item/stock_parts/cell/computer/super
 	name = "super battery"
@@ -84,15 +86,18 @@
 	icon_state = "cell"
 	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 2000
+	custom_price = 60
 
 /obj/item/stock_parts/cell/computer/micro
 	name = "micro battery"
 	desc = "A small power cell, commonly seen in most portable microcomputers."
 	icon_state = "cell_micro"
 	maxcharge = 500
+	custom_price = 20
 
 /obj/item/stock_parts/cell/computer/nano
 	name = "nano battery"
 	desc = "A tiny power cell, commonly seen in low-end portable microcomputers."
 	icon_state = "cell_micro"
 	maxcharge = 300
+	custom_price = 10

@@ -13,6 +13,7 @@
 	var/ethernet = FALSE // Hard-wired, therefore always on, ignores NTNet wireless checks.
 	malfunction_probability = 1
 	device_type = MC_NET
+	custom_price = 10
 
 
 /obj/item/computer_hardware/network_card/LateInitialize()
@@ -74,11 +75,13 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = 40
 
 /obj/item/computer_hardware/network_card/advanced/norelay
 	name = "ultra-advanced network card"
 	desc = "An advanced network card for usage with standard NTNet frequencies. Its transmitter is strong enough to connect even off-station, even without a telecomms relay."
 	ignore_relay = TRUE
+	custom_price = 100
 
 /obj/item/computer_hardware/network_card/wired
 	name = "wired network card"

@@ -150,14 +150,16 @@
 	power_usage = 50 					// Hybrid, medium capacity and medium power storage
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 50
 
 /obj/item/computer_hardware/hard_drive/super
-	name = "super hard disk drive"
+	name = "super-advanced hard disk drive"
 	desc = "A high capacity HDD, for use in cluster storage solutions where capacity is more important than power efficiency."
 	max_capacity = 512
 	power_usage = 100					// High-capacity but uses lots of power, shortening battery life. Best used with APC link.
 	icon_state = "harddisk_mini"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 60
 
 /obj/item/computer_hardware/hard_drive/cluster
 	name = "cluster hard disk drive"
@@ -175,7 +177,7 @@
 	max_capacity = 64
 	icon_state = "ssd_mini"
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = 15
+	custom_price = 20
 
 // PDA Version of the SSD, contains all the programs that PDAs have by default, however with the variables of the SSD.
 /obj/item/computer_hardware/hard_drive/small/pda/install_default_programs()
@@ -230,8 +232,28 @@
 
 /obj/item/computer_hardware/hard_drive/micro
 	name = "micro solid state drive"
-	desc = "A highly efficient SSD chip for portable devices."
+	desc = "A highly efficient SSD chip for portable devices. It comes pre-installed with all default programs common in PDAs."
 	power_usage = 2
 	max_capacity = 32
 	icon_state = "ssd_micro"
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = 10
+
+// Micro SSD's will now contain all default programs.
+/obj/item/computer_hardware/hard_drive/micro/install_default_programs()
+	store_file(new /datum/computer_file/program/messenger(src))
+	store_file(new /datum/computer_file/program/notepad(src))
+	store_file(new/datum/computer_file/program/crew_manifest(src))
+	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
+	store_file(new/datum/computer_file/program/ntnetdownload(src))		// NTNet Downloader Utility, allows users to download more software from NTNet repository
+	store_file(new/datum/computer_file/program/computerconfig(src)) 	// Computer configuration utility, allows hardware control and displays more info than status bar
+	store_file(new/datum/computer_file/program/filemanager(src))		// File manager, allows text editor functions and basic file manipulation.
+
+/obj/item/computer_hardware/hard_drive/micro/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	. = ..()
+	if(!.)
+		return
+	// Set the default ringtone
+	for(var/datum/computer_file/program/messenger/messenger in stored_files)
+		messenger.ringer_status = install_into.init_ringer_on
+		messenger.ringtone = install_into.init_ringtone

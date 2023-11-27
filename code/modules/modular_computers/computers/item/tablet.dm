@@ -2,23 +2,21 @@
 	name = "tablet computer"
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
-	icon_state_unpowered = "tablet"
-	icon_state_powered = "tablet"
 	icon_state_menu = "menu"
 	hardware_flag = PROGRAM_TABLET
-	max_hardware_size = 1
+	max_hardware_size = 2
 	w_class = WEIGHT_CLASS_SMALL
 	max_bays = 3
 	steel_sheet_cost = 1
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	has_light = TRUE //LED flashlight!
-	comp_light_luminosity = 2.3 //Same as the PDA
+	comp_light_luminosity = 3 //not the same as the PDA
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
 	can_save_id = TRUE
 	saved_auto_imprint = TRUE
 
-	var/has_variants = TRUE
-	var/finish_color = null
+	var/has_variants = FALSE
+	var/finish_color = "red"
 
 	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)
 	var/obj/item/insert_type = /obj/item/pen
@@ -43,12 +41,22 @@
 
 /obj/item/modular_computer/tablet/update_icon()
 	..()
-	if (has_variants && !bypass_state)
+	var/init_icon = initial(icon)
+	if(!init_icon)
+		return
+	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
+	if(card)
+		if(card.stored_card)
+			add_overlay(mutable_appearance(init_icon, "id_overlay"))
+	if(inserted_item)
+		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
+	if(light_on)
+		add_overlay(mutable_appearance(init_icon, "light_overlay"))
+	if (has_variants)
 		if(!finish_color)
-			finish_color = pick("red","blue","brown","green","black")
+			finish_color = pick("red","blue","brown","green","black","pink","teal","green2")
 		icon_state = "tablet-[finish_color]"
-		icon_state_unpowered = "tablet-[finish_color]"
-		icon_state_powered = "tablet-[finish_color]"
+
 
 /obj/item/modular_computer/tablet/emp_act(severity)
 	. = ..()
@@ -185,13 +193,10 @@
 	qdel(src)
 
 // SUBTYPES
-
 /obj/item/modular_computer/tablet/syndicate_contract_uplink
 	name = "contractor tablet"
 	icon = 'icons/obj/contractor_tablet.dmi'
 	icon_state = "tablet"
-	icon_state_unpowered = "tablet"
-	icon_state_powered = "tablet"
 	icon_state_menu = "assign"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
@@ -203,8 +208,6 @@
 /// Given to Nuke Ops members.
 /obj/item/modular_computer/tablet/nukeops
 	icon_state = "tablet-syndicate"
-	icon_state_powered = "tablet-syndicate"
-	icon_state_unpowered = "tablet-syndicate"
 	comp_light_luminosity = 6.3
 	has_variants = FALSE
 	device_theme = THEME_SYNDICATE
@@ -220,8 +223,6 @@
 /obj/item/modular_computer/tablet/integrated
 	name = "modular interface"
 	icon_state = "tablet-silicon"
-	icon_state_unpowered = "tablet-silicon"
-	icon_state_powered = "tablet-silicon"
 	icon_state_menu = "menu"
 	has_light = FALSE //tablet light button actually enables/disables the borg lamp
 	comp_light_luminosity = 0
@@ -315,8 +316,6 @@
 
 /obj/item/modular_computer/tablet/integrated/syndicate
 	icon_state = "tablet-silicon-syndicate"
-	icon_state_unpowered = "tablet-silicon-syndicate"
-	icon_state_powered = "tablet-silicon-syndicate"
 	icon_state_menu = "command-syndicate"
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
@@ -336,8 +335,9 @@
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	comp_light_luminosity = 2.3
+	max_hardware_size = 1
 
-	bypass_state = TRUE
 	can_store_pai = TRUE
 
 	var/default_disk = 0
@@ -389,9 +389,9 @@
 
 /obj/item/modular_computer/tablet/pda/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/small/pda)
+	install_component(new /obj/item/computer_hardware/hard_drive/micro)
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer/nano))
 	install_component(new /obj/item/computer_hardware/network_card)
 	install_component(new /obj/item/computer_hardware/card_slot)
 	install_component(new /obj/item/computer_hardware/identifier)
@@ -405,3 +405,122 @@
 		inserted_item = new insert_type(src)
 		// show the inserted item
 		update_icon()
+
+
+//TABLET COLORIZER BOX
+/obj/item/storage/box/tabletcolorizer
+	name = "colorizer box"
+	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colours!"
+	icon_state = "tabletcbox"
+	custom_price = 50
+
+/obj/item/storage/box/tabletcolorizer/PopulateContents()
+	new /obj/item/colorizer/tablet(src)
+	new /obj/item/colorizer/tablet/pink(src)
+	new /obj/item/colorizer/tablet/sand(src)
+	new /obj/item/colorizer/tablet/green(src)
+	new /obj/item/colorizer/tablet/olive(src)
+	new /obj/item/colorizer/tablet/teal(src)
+	new /obj/item/colorizer/tablet/purple(src)
+	new /obj/item/colorizer/tablet/black(src)
+	new /obj/item/colorizer/tablet/white(src)
+
+/obj/item/colorizer/tablet
+	name = "Red Tablet Colorizer"
+	desc = "This colorizer will paint your Tablet Red!"
+	icon_state = "redcolorizer"
+	allowed_targets = list(/obj/item/modular_computer/tablet)
+	forbidden_targets = list(/obj/item/modular_computer/tablet/pda)
+	apply_icon_state = "tablet-red"
+	delete_me = FALSE
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/colorizer/tablet/pink
+	name = "Pink Tablet Colorizer"
+	desc = "This colorizer will paint your Tablet Pink!"
+	icon_state = "pinkcolorizer"
+	apply_icon_state = "tablet-pink"
+
+/obj/item/colorizer/tablet/sand
+	name = "Sand Tablet Colorizer"
+	desc = "This colorizer will paint your Tablet Sand Yellow! Very good if you're hiding from hostiles while stranded on a desert type planet!"
+	icon_state = "sandcolorizer"
+	apply_icon_state = "tablet-brown"
+
+/obj/item/colorizer/tablet/green
+	name = "Green Tablet Colorizer"
+	desc = "This colorizer will paint your Tablet Green!"
+	icon_state = "greencolorizer"
+	apply_icon_state = "tablet-green2"
+
+/obj/item/colorizer/tablet/olive
+	name = "Olive Tablet Colorizer"
+	desc = "This colorizer will paint your Tablet Olive Green! Extremely important if you're attempting to find a network connection in the jungle while being shot at."
+	icon_state = "olivecolorizer"
+	apply_icon_state = "tablet-green"
+
+/obj/item/colorizer/tablet/teal
+	name = "Teal Tablet Colorizer"
+	desc = "This colorizer will paint your Tablet Teal Blue!"
+	icon_state = "tealcolorizer"
+	apply_icon_state = "tablet-teal"
+
+/obj/item/colorizer/tablet/purple
+	name = "Purple Tablet Colorizer"
+	desc = "This colorizer will paint your Tablet Purple!"
+	icon_state = "purplecolorizer"
+	apply_icon_state = "tablet-blue"
+
+/obj/item/colorizer/tablet/black
+	name = "Black Tablet Colorizer"
+	desc = "This colorizer will paint your Tablet Black!"
+	icon_state = "blackcolorizer"
+	apply_icon_state = "tablet-black"
+
+/obj/item/colorizer/tablet/white
+	name = "White Tablet Colorizer"
+	desc = "This colorizer will paint your Tablet White! Very tasteful!"
+	icon_state = "whitecolorizer"
+	apply_icon_state = "tablet-white"
+
+/obj/item/colorizer/tablet/gw
+	name = "GameWay Tablet Colorizer"
+	desc = "This colorizer will turn your Tablet into the latest GameWay system! Rated E10+ Ages 10 years and up!"
+	icon_state = "gwcolorizer"
+	apply_icon_state = "tablet-gw"
+	custom_premium_price = 50
+
+/obj/item/colorizer/tablet/rugged
+	name = "Rugged Tablet Colorizer"
+	desc = "This colorizer will give your Tablet a Rugged look! For real men who need a phone capable of surviving the exploration shuttle landing on top of it."
+	icon_state = "ruggedcolorizer"
+	apply_icon_state = "tablet-rugged"
+	custom_premium_price = 50
+
+/obj/item/colorizer/tablet/syndi
+	name = "Syndicate Tablet Colorizer"
+	desc = "This colorizer will give your Tablet the Syndicate look! 'So you wanna be a lil' devil? You wanna be up for some mischief? You wanna get brigged for 5 minutes over a colorizer?'"
+	icon_state = "syndicolorizer"
+	apply_icon_state = "tablet-syndicate"
+	custom_price = 50
+
+/obj/item/colorizer/tablet/contractor
+	name = "Contractor Tablet Colorizer"
+	desc = "This colorizer will make your Tablet look like a Contractor Knockoff! So the HoS says you can't play with the real deal huh?"
+	icon_state = "contractorcolorizer"
+	apply_icon_state = "tablet-contractor"
+	custom_price = 50
+
+/obj/item/colorizer/tablet/clearb
+	name = "Transparent Blue Tablet Colorizer"
+	desc = "This colorizer will make your Tablet look Blue and Transparent! For the true cool techie kids!"
+	icon_state = "clearbcolorizer"
+	apply_icon_state = "tablet-clearblue"
+	custom_premium_price = 50
+
+/obj/item/colorizer/tablet/clearp
+	name = "Transparent Purple Tablet Colorizer"
+	desc = "This colorizer will make your Tablet look Purple and Transparent! For the true cool techie kids!"
+	icon_state = "clearpcolorizer"
+	apply_icon_state = "tablet-clearpurple"
+	custom_premium_price = 50
