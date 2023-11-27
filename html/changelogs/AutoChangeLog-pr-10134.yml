@@ -1,4 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - code_imp: Cleaned up safe Initialization code slightly
