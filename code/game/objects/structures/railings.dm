@@ -133,3 +133,14 @@
 	air_update_turf(1)
 	ini_dir = dir
 	add_fingerprint(user)
+
+/obj/structure/railing/sec
+	name = "checkpoint temporary wall"
+	desc = "A security wall meant to be used in checkpoints. It is just small enough that you can climb over..."
+	icon_state = "railing_sec"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/railing/sec/corner
+	icon_state = "sec_railing_corner"
+	density = FALSE
+	climbable = FALSE

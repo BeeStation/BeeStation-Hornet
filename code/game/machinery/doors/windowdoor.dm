@@ -590,3 +590,41 @@
 	dir = SOUTH
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
+
+/obj/machinery/door/window/checkpoint
+	icon_state = "sec_left"
+	base_state = "sec_left"
+	layer = ABOVE_MOB_LAYER
+	closingLayer = ABOVE_MOB_LAYER
+
+/obj/machinery/door/window/checkpoint/northleft
+	dir = NORTH
+
+/obj/machinery/door/window/checkpoint/eastleft
+	dir = EAST
+
+/obj/machinery/door/window/checkpoint/westleft
+	dir = WEST
+
+/obj/machinery/door/window/checkpoint/southleft
+	dir = SOUTH
+
+/obj/machinery/door/window/checkpoint/northright
+	dir = NORTH
+	icon_state = "sec_right"
+	base_state = "sec_right"
+
+/obj/machinery/door/window/checkpoint/eastright
+	dir = EAST
+	icon_state = "sec_right"
+	base_state = "sec_right"
+
+/obj/machinery/door/window/checkpoint/westright
+	dir = WEST
+	icon_state = "sec_right"
+	base_state = "sec_right"
+
+/obj/machinery/door/window/checkpoint/southright
+	dir = SOUTH
+	icon_state = "sec_right"
+	base_state = "sec_right"
