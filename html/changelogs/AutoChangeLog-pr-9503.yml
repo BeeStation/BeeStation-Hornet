@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - refactor: Refactors most turf breaking mechanics, removing environment smash in
-      exchange for damage. This means most simplemobs will be able to break turfs
-      slowly now.
-  - balance: Turfs now have integrity and can be damaged like normal objects.

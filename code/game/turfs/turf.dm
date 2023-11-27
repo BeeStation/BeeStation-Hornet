@@ -525,3 +525,15 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(istype(loc, /area/chapel))
 		return TRUE
 	return FALSE
+
+/// returns a list of all mobs inside of a turf.
+/// likely detects mobs hiding in a closet.
+/turf/proc/get_all_mobs()
+	. = list()
+	for(var/each in contents)
+		if(ismob(each))
+			. += each
+		else if(isstructure(each))
+			var/obj/O = each
+			for(var/mob/M in O.contents)
+				. += M
