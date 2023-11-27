@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: better color calculation code
+  - bugfix: single pure colors (red, green, blue) will not be considered to be too
+      dark.
