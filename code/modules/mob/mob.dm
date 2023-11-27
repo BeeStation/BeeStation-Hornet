@@ -1083,6 +1083,13 @@
 		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
 		if (L)
 			L.alpha = lighting_alpha
+		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.plane_masters["[LIGHTING_PLANE_ADDITIVE]"]
+		if(LA)
+			//If this ever doesn't work for some reason add update_sight() to /mob/living/Login()
+			if(client && !client.prefs.read_preference(/datum/preference/toggle/bloom))
+				LA.alpha = 0
+				return
+			LA.alpha = lighting_alpha
 
 ///Update the mouse pointer of the attached client in this mob
 /mob/proc/update_mouse_pointer()
