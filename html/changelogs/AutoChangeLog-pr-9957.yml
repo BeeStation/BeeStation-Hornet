@@ -1,5 +1,0 @@
-author: NaN-Blank
-delete-after: true
-changes:
-  - bugfix: Doubles material values of Plastitanium tiles so that when recycled they
-      return the same materials it takes to create them.
