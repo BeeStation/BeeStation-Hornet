@@ -123,9 +123,9 @@
 	UPDATE_SUM_LUM(g)
 	UPDATE_SUM_LUM(b)
 
-	add_r = clamp((self_r - 1.1) * 0.3, 0, 0.22)
-	add_g = clamp((self_g - 1.1) * 0.3, 0, 0.22)
-	add_b = clamp((self_b - 1.1) * 0.3, 0, 0.22)
+	add_r = clamp((self_r - 1.3) * 0.25, 0, 0.22)
+	add_g = clamp((self_g - 1.3) * 0.25, 0, 0.22)
+	add_b = clamp((self_b - 1.3) * 0.25, 0, 0.22)
 
 	// Client-shredding, does not cull any additive overlays.
 	//applying_additive = add_r || add_g || add_b
