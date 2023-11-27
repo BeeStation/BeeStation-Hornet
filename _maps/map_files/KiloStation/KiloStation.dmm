@@ -10899,7 +10899,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "AI Sattelite Tube"
+	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/fore)
 "aMa" = (

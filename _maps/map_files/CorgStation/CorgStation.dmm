@@ -4990,6 +4990,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/engine/storage)
 "bmR" = (
@@ -6409,6 +6410,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "bMC" = (
@@ -6797,6 +6799,7 @@
 /area/engine/atmos)
 "bSP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "bSV" = (
@@ -8173,6 +8176,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal)
 "csS" = (
@@ -11548,6 +11552,7 @@
 /obj/effect/turf_decal/box{
 	pixel_y = 16
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "dBS" = (
@@ -16818,6 +16823,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "fpQ" = (
@@ -24871,6 +24877,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "hYp" = (
@@ -24991,6 +24998,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/janitor)
 "hZf" = (
@@ -27763,6 +27771,12 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/security/brig)
+"iUU" = (
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/engine{
+	name = "Holodeck Projector Floor"
+	},
+/area/holodeck/rec_center)
 "iVy" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -29721,6 +29735,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "jEF" = (
@@ -30245,6 +30260,7 @@
 /area/science/research)
 "jNb" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "jNe" = (
@@ -31174,6 +31190,7 @@
 /area/space/nearstation)
 "kdj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "kdz" = (
@@ -33433,6 +33450,13 @@
 /obj/effect/landmark/carpspawn,
 /turf/open/space/basic,
 /area/space/nearstation)
+"kQS" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel,
+/area/quartermaster/exploration_prep)
 "kRc" = (
 /obj/structure/chair{
 	dir = 8
@@ -34180,6 +34204,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/command)
 "lct" = (
@@ -41172,6 +41197,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "npz" = (
@@ -41360,6 +41386,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/theatre)
 "nss" = (
@@ -43174,6 +43201,7 @@
 /turf/closed/wall/r_wall,
 /area/security/checkpoint/customs)
 "nUp" = (
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/chapel{
 	dir = 6
 	},
@@ -43323,6 +43351,13 @@
 "nXe" = (
 /turf/closed/wall,
 /area/security/detectives_office)
+"nXk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "nXp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -49173,6 +49208,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "pWJ" = (
@@ -50606,6 +50642,7 @@
 	security_level = 0
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
 "quz" = (
@@ -51749,6 +51786,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/lawoffice)
 "qMW" = (
@@ -52803,6 +52841,24 @@
 	dir = 5
 	},
 /area/science/breakroom)
+"rfg" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "Gravity Generator Room";
+	req_access_txt = "19;23"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel/dark,
+/area/engine/gravity_generator)
 "rfh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -53661,6 +53717,15 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/plasteel,
 /area/science/research)
+"rsE" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Security Escape Pod"
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "rsV" = (
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/effect/turf_decal/stripes/line{
@@ -55215,6 +55280,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
+"rRH" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "rRL" = (
 /obj/machinery/ai_slipper{
 	uses = 10
@@ -55599,6 +55677,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/science/shuttle)
 "rYJ" = (
@@ -56324,6 +56403,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "slJ" = (
@@ -57478,6 +57558,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
 "sFR" = (
@@ -59903,6 +59984,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "tAc" = (
@@ -60440,6 +60522,13 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
+"tIN" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Maintenance Sattelite Escape Pod"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/secondary)
 "tIW" = (
 /obj/machinery/requests_console{
 	department = "Chapel";
@@ -64314,6 +64403,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
+"uVq" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Engineering Escape Pod"
+	},
+/turf/open/floor/plasteel,
+/area/science/shuttle)
 "uVu" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -65955,6 +66053,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "vxe" = (
@@ -66951,6 +67050,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "vKL" = (
@@ -95150,7 +95250,7 @@ bxc
 wpL
 qyL
 jeo
-bxc
+uVq
 wuI
 jIU
 sTN
@@ -98530,7 +98630,7 @@ aMT
 aMT
 oaU
 mOo
-cZw
+kQS
 oUq
 qtM
 dQB
@@ -104467,7 +104567,7 @@ cUo
 cUo
 cUo
 hLT
-cUo
+iUU
 cUo
 cUo
 cUo
@@ -110801,7 +110901,7 @@ anT
 gGa
 vgb
 vgb
-uIs
+rfg
 lXw
 nvi
 naS
@@ -111110,7 +111210,7 @@ pzp
 gMB
 fsl
 fsl
-fsl
+nXk
 gMB
 nfD
 jza
@@ -112335,7 +112435,7 @@ duF
 efG
 mnB
 mug
-fKn
+rsE
 riA
 duF
 flw
@@ -113207,7 +113307,7 @@ pLJ
 sag
 kfy
 eNF
-iuM
+rRH
 avI
 aeV
 aeV
@@ -130853,7 +130953,7 @@ aMT
 aMT
 gmt
 qst
-kSS
+tIN
 baJ
 wJD
 bpU
