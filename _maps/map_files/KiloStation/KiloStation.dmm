@@ -2456,6 +2456,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/construction/mining/aux_base)
 "aig" = (
@@ -8754,6 +8755,7 @@
 	name = "E.V.A. Storage";
 	req_access_txt = "18"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "aBt" = (
@@ -10239,6 +10241,9 @@
 /obj/machinery/door/airlock/external{
 	name = "Cargo Escape Pod"
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Cargo Escape Pod"
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard)
 "aHQ" = (
@@ -10894,6 +10899,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/fore)
 "aMa" = (
@@ -15289,6 +15295,9 @@
 "biE" = (
 /obj/machinery/door/airlock/external{
 	name = "Medical Escape Pod"
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Medical Escape Pod"
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
@@ -25359,6 +25368,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
 "bYo" = (
@@ -31075,6 +31085,9 @@
 /obj/machinery/door/airlock/external{
 	name = "Security Escape Pod"
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Security Escape Pod"
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/aft)
 "crE" = (
@@ -33349,6 +33362,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "cyd" = (
@@ -34753,6 +34767,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal)
 "cBV" = (
@@ -38292,6 +38307,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/dark/visible,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
 "cMa" = (
@@ -39969,7 +39985,7 @@
 /area/security/courtroom)
 "cQS" = (
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;25;26;35;28;22;37;46;38"
+	req_access_txt = "12"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -45008,7 +45024,7 @@
 /area/hallway/primary/central)
 "faL" = (
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;25;26;35;28;22;37;46"
+	req_access_txt = "12"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -79143,10 +79159,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
-"tko" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/maintenance/central)
 "tks" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -84342,6 +84354,9 @@
 /obj/machinery/door/airlock/external{
 	name = "Science Escape Pod"
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Science Escape Pod"
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard)
 "vxV" = (
@@ -86486,6 +86501,7 @@
 	dir = 4
 	},
 /obj/structure/grille/broken,
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -86494,7 +86510,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "wnB" = (
@@ -123865,7 +123880,7 @@ vHs
 hrM
 ajt
 bic
-bpq
+aox
 apX
 aox
 aox
@@ -124122,7 +124137,7 @@ boT
 beM
 bhd
 bie
-aox
+bpq
 aHX
 bsk
 tOa
@@ -124379,11 +124394,11 @@ hUV
 beN
 afd
 bij
+apX
 bqb
-tko
 bsl
-tko
 aIN
+aox
 bvZ
 bAB
 apA

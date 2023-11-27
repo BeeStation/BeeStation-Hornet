@@ -1737,6 +1737,7 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/wood,
 /area/lawoffice)
 "aCk" = (
@@ -5232,7 +5233,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "bIM" = (
@@ -8658,7 +8658,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "cKm" = (
@@ -10854,6 +10853,9 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Science Escape Pod"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "dvq" = (
@@ -11369,7 +11371,6 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/box,
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/fore)
 "dCT" = (
@@ -13050,7 +13051,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/science/lobby)
 "ecG" = (
@@ -15844,6 +15844,17 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
+"eSD" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
 "eSE" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/disposalpipe/segment{
@@ -16735,6 +16746,7 @@
 	name = "Tech Storage";
 	req_access_txt = "23"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/storage/tech)
 "fcO" = (
@@ -17157,7 +17169,9 @@
 "fjN" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Arrivals Escape Pod"
+	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "fjR" = (
@@ -17661,7 +17675,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Waiting Room"
@@ -18661,6 +18674,9 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Dormitories Escape Pod"
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/dorms)
 "fGS" = (
@@ -19010,6 +19026,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Waiting Room"
@@ -21542,7 +21559,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Security Escape Pod"
+	},
 /turf/open/floor/plating,
 /area/security/brig{
 	name = "Brig medbay"
@@ -24060,6 +24079,7 @@
 	name = "Hydroponics";
 	req_one_access_txt = "35;28"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "hmW" = (
@@ -25623,6 +25643,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "hLl" = (
@@ -25999,6 +26020,7 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/janitor)
 "hQq" = (
@@ -29172,6 +29194,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/guideline/guideline_in/purple,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "iZt" = (
@@ -29535,13 +29558,6 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/tcommsat/computer)
-"jeY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/landmark/navigate_destination,
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "jfb" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -30590,7 +30606,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark/side{
 	dir = 2
 	},
@@ -34465,7 +34480,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "kHH" = (
@@ -34659,6 +34673,7 @@
 	name = "Brig";
 	req_one_access_txt = "63;38"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "kKw" = (
@@ -34752,7 +34767,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "kLJ" = (
@@ -39425,6 +39439,7 @@
 /obj/structure/sign/departments/minsky/security/command{
 	pixel_x = 32
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/bridge)
 "moI" = (
@@ -40458,6 +40473,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/tech/grid,
 /area/engine/gravity_generator)
 "mDe" = (
@@ -43827,6 +43843,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "nBc" = (
@@ -43912,6 +43929,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "nCn" = (
@@ -51304,6 +51322,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/security/nuke_storage)
 "pTW" = (
@@ -51446,6 +51465,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
 "pVL" = (
@@ -51851,6 +51871,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "qbl" = (
@@ -56369,6 +56390,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "rAL" = (
@@ -56491,6 +56513,7 @@
 	id = "Chefwindow";
 	name = "Chef window"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "rCC" = (
@@ -59279,6 +59302,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "sDs" = (
@@ -60347,7 +60371,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/primary/central)
 "sTA" = (
@@ -61171,7 +61194,6 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Viewing Hall"
@@ -61311,7 +61333,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "tiL" = (
@@ -61390,6 +61411,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "tjA" = (
@@ -62582,6 +62604,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/office)
 "tAq" = (
@@ -63064,6 +63087,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -63567,7 +63591,6 @@
 	color = "#267878";
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
 "tRB" = (
@@ -65162,7 +65185,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plating,
 /area/crew_quarters/dorms)
 "upL" = (
@@ -65730,7 +65752,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "uzy" = (
@@ -72917,7 +72938,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "wNd" = (
@@ -74474,6 +74494,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "xoD" = (
@@ -75532,6 +75553,7 @@
 	name = "Teleport Access";
 	req_access_txt = "17"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "xDh" = (
@@ -109855,7 +109877,7 @@ gJr
 tXp
 wKA
 jcK
-jeY
+jcK
 xbC
 vma
 nFI
@@ -118290,7 +118312,7 @@ ylI
 gFj
 grc
 fwM
-lGV
+eSD
 kkv
 dCY
 cIN
