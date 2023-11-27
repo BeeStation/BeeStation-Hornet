@@ -135,8 +135,8 @@
 	add_fingerprint(user)
 
 /obj/structure/railing/sec
-	name = "checkpoint temporary wall"
-	desc = "A security wall meant to be used in checkpoints. It is just small enough that you can climb over..."
+	name = "checkpoint railing"
+	desc = "A security wall used in checkpoints. It is just small enough that you can climb over..."
 	icon_state = "railing_sec"
 	layer = ABOVE_MOB_LAYER
 
