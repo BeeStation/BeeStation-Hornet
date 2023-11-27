@@ -1577,6 +1577,7 @@
 /obj/machinery/vending/clothing,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "akM" = (
@@ -18975,6 +18976,7 @@
 	name = "Brig Blast door"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "cbz" = (
@@ -35517,8 +35519,22 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"dXX" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/plasteel/white,
+/area/science/research)
 "dYc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
@@ -36044,6 +36060,12 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "ecz" = (
+/obj/structure/noticeboard{
+	desc = "A board for remembering the fallen of the station.";
+	dir = 1;
+	name = "memorial board";
+	pixel_y = -32
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "ecA" = (
@@ -36053,12 +36075,6 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
 "ecB" = (
-/obj/structure/noticeboard{
-	desc = "A board for remembering the fallen of the station.";
-	dir = 1;
-	name = "memorial board";
-	pixel_y = -32
-	},
 /obj/machinery/holopad,
 /obj/machinery/light,
 /obj/machinery/camera{
@@ -36066,6 +36082,7 @@
 	dir = 1;
 	name = "chapel camera"
 	},
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
 "ecF" = (
@@ -68944,6 +68961,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/fax/bridge,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "peY" = (
@@ -70504,6 +70522,7 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "pGC" = (
@@ -84474,9 +84493,6 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/medical/morgue)
 "uDx" = (
-/obj/item/radio/intercom{
-	pixel_x = 26
-	},
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
@@ -84484,6 +84500,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/digital_clock/directional/east,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar/atrium)
 "uDH" = (
@@ -89737,6 +89754,7 @@
 	dir = 1
 	},
 /obj/machinery/fax/cargo,
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "wmE" = (
@@ -92216,6 +92234,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
+"wYH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "wYY" = (
 /mob/living/basic/cockroach,
 /turf/open/floor/plating,
@@ -120057,7 +120085,7 @@ pvf
 bxE
 iBx
 bzg
-bGl
+wYH
 mTm
 bGl
 bHW
@@ -128844,7 +128872,7 @@ cMY
 cMY
 cMY
 cMY
-xDg
+dXX
 fjQ
 gPv
 cOR
@@ -134277,7 +134305,7 @@ mIR
 xUd
 vpZ
 dXN
-dYH
+dST
 dZp
 vpZ
 bFn
@@ -134913,7 +134941,7 @@ aaO
 pjz
 hPl
 akL
-aaO
+abf
 amq
 ano
 eDD

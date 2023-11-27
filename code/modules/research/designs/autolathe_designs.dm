@@ -1089,3 +1089,13 @@
 	materials = list(/datum/material/iron = 100, /datum/material/glass = 50)
 	build_path = /obj/item/assembly/control
 	category = list("initial","Misc")
+
+/datum/design/digital_clock_frame
+	name = "Digital Clock Frame"
+	id = "digital_clock_frame"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/glass = 400)
+	build_path = /obj/item/wallframe/digital_clock
+	category = list("initial", "Construction")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
+

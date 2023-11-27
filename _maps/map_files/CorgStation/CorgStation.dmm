@@ -5069,6 +5069,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/siding/wood,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "boQ" = (
@@ -6370,8 +6371,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -14137,6 +14137,11 @@
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/plasteel,
 /area/janitor)
+"evC" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/machinery/digital_clock/directional/east,
+/turf/open/floor/plasteel/white,
+/area/science/research)
 "evE" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
@@ -17912,6 +17917,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "fKx" = (
@@ -17980,6 +17986,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "fLv" = (
@@ -19333,6 +19340,14 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
+"gij" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/digital_clock/directional/south,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/exit)
 "gik" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 4
@@ -26193,6 +26208,7 @@
 	},
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "isl" = (
@@ -29939,8 +29955,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -34072,6 +34087,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "lbu" = (
@@ -38788,8 +38804,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -48541,6 +48556,7 @@
 "pLN" = (
 /obj/machinery/vending/medical,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "pLO" = (
@@ -50602,8 +50618,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -67542,6 +67557,14 @@
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/relay)
+"vWq" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/digital_clock/directional/west,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "vWw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -93436,7 +93459,7 @@ fSz
 gwG
 ahW
 eGl
-gHL
+vWq
 vqg
 qqc
 gHL
@@ -103974,7 +103997,7 @@ guQ
 hAT
 gKS
 pIk
-rnt
+gij
 bOf
 qyv
 wIF
@@ -105192,7 +105215,7 @@ dWH
 jpk
 jDg
 ipY
-jpk
+evC
 jpk
 aKt
 nwP
@@ -109834,7 +109857,7 @@ lrx
 uQJ
 ehY
 xVh
-xVx
+vJi
 irR
 eIz
 ouI

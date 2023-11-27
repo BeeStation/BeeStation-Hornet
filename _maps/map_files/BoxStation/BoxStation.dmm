@@ -6730,10 +6730,6 @@
 	dir = 8
 	},
 /area/engine/atmos)
-"aZm" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plasteel,
-/area/hallway/secondary/exit)
 "aZp" = (
 /obj/structure/rack,
 /obj/item/electronics/apc,
@@ -8558,6 +8554,10 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"blW" = (
+/obj/machinery/digital_clock,
+/turf/closed/wall,
+/area/hallway/secondary/exit)
 "blY" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -24844,6 +24844,13 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/ai_monitored/storage/eva)
+"fuN" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "fvq" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -26099,6 +26106,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "gbR" = (
@@ -27066,9 +27074,7 @@
 /area/space/nearstation)
 "gAU" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -27597,6 +27603,10 @@
 "gQd" = (
 /turf/closed/wall,
 /area/quartermaster/exploration_dock)
+"gQs" = (
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "gQA" = (
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
@@ -29758,6 +29768,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room)
+"hVP" = (
+/obj/machinery/computer/slot_machine,
+/obj/machinery/digital_clock/directional/east,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
 "hWb" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -43323,6 +43338,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
+/obj/machinery/digital_clock/directional/east,
 /turf/open/floor/plasteel/grimy,
 /area/hallway/secondary/entry)
 "otj" = (
@@ -43760,6 +43776,12 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"oEU" = (
+/obj/machinery/digital_clock/directional/east,
+/turf/open/floor/plasteel/white/side{
+	dir = 9
+	},
+/area/science/research)
 "oFJ" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 2;
@@ -44309,6 +44331,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"oZk" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "oZm" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/blue{
@@ -49439,6 +49468,15 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"rxj" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/trimline/dark_blue/filled/line,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/digital_clock/directional/south,
+/turf/open/floor/plasteel/dark,
+/area/bridge)
 "rxr" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = 32
@@ -58780,6 +58818,7 @@
 /obj/item/clothing/glasses/meson,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /obj/item/book/manual/wiki/sopengineering,
+/obj/machinery/digital_clock/directional/east,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "wji" = (
@@ -58990,6 +59029,7 @@
 	pixel_x = -2
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/digital_clock/directional/east,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "wnQ" = (
@@ -91647,7 +91687,7 @@ uHS
 vSj
 grf
 lCw
-nmS
+rxj
 aTQ
 ifm
 vGV
@@ -94437,7 +94477,7 @@ afU
 diY
 wvy
 adR
-tcd
+oZk
 wRq
 uvq
 vpz
@@ -95738,7 +95778,7 @@ arf
 arf
 arf
 arf
-dZT
+fuN
 vME
 axP
 diE
@@ -99094,7 +99134,7 @@ aJC
 gFg
 jMr
 dmt
-jMr
+hVP
 aOK
 fTI
 fTI
@@ -108860,7 +108900,7 @@ kwD
 uoe
 fTR
 aFw
-aFz
+gQs
 aFz
 aRR
 aTe
@@ -109398,7 +109438,7 @@ bpX
 kUF
 brm
 kfz
-bBD
+oEU
 bvf
 bBD
 bBD
@@ -112463,9 +112503,9 @@ aPq
 ffm
 aPs
 aPq
-aZm
-aMZ
-aZm
+aNa
+blW
+aNa
 aPq
 ecE
 scX

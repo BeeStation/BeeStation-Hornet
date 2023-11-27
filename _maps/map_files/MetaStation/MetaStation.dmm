@@ -2223,6 +2223,9 @@
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/radio/intercom{
+	pixel_x = 26
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ajD" = (
@@ -25839,7 +25842,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "cOs" = (
-/obj/machinery/status_display/ai,
+/obj/machinery/digital_clock/directional,
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "cOF" = (
@@ -26584,6 +26587,7 @@
 	color = "#666666";
 	dir = 4
 	},
+/obj/machinery/digital_clock/directional/west,
 /turf/open/floor/plasteel/chapel{
 	dir = 1
 	},
@@ -30942,6 +30946,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
+/obj/machinery/digital_clock/directional/west,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "eed" = (
@@ -35902,6 +35907,15 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/maintenance/department/science/xenobiology)
+"gfZ" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/preopen{
+	id = "Engineering";
+	name = "Engineering Security Doors"
+	},
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "ggj" = (
 /obj/effect/turf_decal/trimline/purple/filled/line,
 /turf/open/floor/plasteel,
@@ -45994,9 +46008,6 @@
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "kwF" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -48215,6 +48226,7 @@
 "loR" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "lpA" = (
@@ -49658,6 +49670,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/janitor)
+"lVb" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "lVd" = (
 /obj/machinery/shower{
 	dir = 8
@@ -50327,6 +50346,13 @@
 	},
 /turf/open/floor/carpet,
 /area/crew_quarters/bar)
+"mmO" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/digital_clock/directional/east,
+/turf/open/floor/plasteel/white/corner,
+/area/hallway/secondary/entry)
 "mnd" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/structure/disposalpipe/segment{
@@ -51998,9 +52024,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "mUF" = (
-/obj/item/radio/intercom{
-	pixel_y = 26
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -52010,6 +52033,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "mVa" = (
@@ -57171,6 +57195,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/digital_clock/directional/west,
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "oYA" = (
@@ -58374,6 +58399,19 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
+"pCU" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 1
+	},
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/plasteel/white,
+/area/science/research)
 "pDo" = (
 /obj/item/cigbutt,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -62786,6 +62824,7 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/digital_clock/directional/east,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "rti" = (
@@ -63428,6 +63467,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"rJB" = (
+/obj/structure/chair/stool/bar,
+/obj/machinery/digital_clock/directional/east,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
 "rJH" = (
 /obj/machinery/holopad{
 	pixel_x = 16;
@@ -93401,7 +93445,7 @@ nFP
 kwY
 bqd
 bsp
-bnM
+mmO
 bnM
 ndx
 bzw
@@ -102129,7 +102173,7 @@ aVR
 nml
 rJh
 bqA
-bqA
+lVb
 bqA
 bqA
 iAp
@@ -109880,7 +109924,7 @@ nnT
 ckg
 clH
 bZn
-jKR
+pCU
 ioY
 sYS
 fgQ
@@ -113969,7 +114013,7 @@ qaI
 xTu
 kJK
 foE
-blf
+rJB
 bKj
 bLK
 uEh
@@ -120635,7 +120679,7 @@ aZK
 hGd
 dgz
 aBI
-byK
+gfZ
 uUo
 rUa
 pcp

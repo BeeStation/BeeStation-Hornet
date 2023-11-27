@@ -7564,10 +7564,6 @@
 "awV" = (
 /turf/closed/wall/r_wall/rust,
 /area/crew_quarters/heads/chief)
-"awW" = (
-/obj/structure/sign/warning/securearea,
-/turf/closed/wall,
-/area/engine/break_room)
 "awX" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/chief)
@@ -25328,10 +25324,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"bWM" = (
-/obj/structure/sign/departments/cargo,
-/turf/closed/wall,
-/area/hallway/secondary/exit/departure_lounge)
 "bWO" = (
 /obj/machinery/status_display/ai,
 /turf/closed/wall,
@@ -40455,6 +40447,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "cUK" = (
@@ -60500,6 +60493,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/science/research)
 "lxx" = (
@@ -61111,6 +61105,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "lLa" = (
@@ -63585,6 +63580,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "mOe" = (
@@ -66798,12 +66794,10 @@
 	id = "QMLoad2";
 	name = "on ramp"
 	},
-/obj/structure/sign/poster/contraband/red_rum{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "oiG" = (
@@ -68687,6 +68681,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
+"pfe" = (
+/obj/structure/sign/departments/cargo,
+/turf/closed/wall/rust,
+/area/hallway/secondary/exit/departure_lounge)
 "pfj" = (
 /obj/item/storage/box/firingpins,
 /obj/item/storage/box/firingpins,
@@ -69849,6 +69847,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "pzh" = (
@@ -72582,6 +72581,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "qDT" = (
@@ -75106,6 +75106,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "rGO" = (
@@ -76980,6 +76981,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/digital_clock/directional/west,
 /turf/open/floor/plasteel,
 /area/bridge)
 "sro" = (
@@ -86532,6 +86534,18 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
+"wpi" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "ceprivate";
+	name = "Chief Engineer's Privacy Shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/structure/sign/warning/securearea{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/engine/break_room)
 "wpy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -126659,10 +126673,10 @@ bEC
 cNy
 bOj
 awL
-bKp
+wpi
 ckm
 bKp
-awW
+aIg
 qDM
 cox
 oaH
@@ -132826,7 +132840,7 @@ bSn
 vyF
 xOT
 cUA
-bWM
+bOc
 bPe
 bZC
 bPe
@@ -133344,7 +133358,7 @@ cJO
 jol
 pxZ
 iHt
-bRF
+pfe
 mjb
 mjb
 bTT

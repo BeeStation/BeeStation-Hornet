@@ -2619,6 +2619,17 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/genetics)
+"aHx" = (
+/obj/effect/turf_decal/trimline/purple/filled/line,
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/machinery/digital_clock/directional/south,
+/turf/open/floor/plasteel/grid/steel,
+/area/science/research)
 "aHz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -7601,6 +7612,16 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
+"bUq" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 8
+	},
+/obj/machinery/digital_clock/directional/east,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "bUx" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 4
@@ -17076,6 +17097,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/machinery/digital_clock/directional/east,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "eCd" = (
@@ -43269,6 +43291,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
+"lnP" = (
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "lnS" = (
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 8
@@ -47300,6 +47326,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
+"mqE" = (
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/carpet/grimy,
+/area/chapel/main)
 "mra" = (
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/plating,
@@ -58010,6 +58040,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "pgb" = (
@@ -60302,6 +60333,11 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
+"pJt" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/wood,
+/area/crew_quarters/dorms)
 "pJI" = (
 /obj/machinery/camera{
 	c_tag = "Science maintenance - Starboard";
@@ -61833,6 +61869,7 @@
 	dir = 4
 	},
 /obj/machinery/light,
+/obj/machinery/digital_clock/directional/south,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "qdH" = (
@@ -68562,6 +68599,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk,
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
 "rGy" = (
@@ -72235,6 +72273,7 @@
 	pixel_x = 22
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
 "sAO" = (
@@ -76617,6 +76656,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/machinery/digital_clock/directional/west,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "tEB" = (
@@ -83213,6 +83253,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
+/obj/machinery/digital_clock/directional/north,
 /turf/open/floor/plasteel/sepia,
 /area/engine/break_room)
 "vie" = (
@@ -119876,7 +119917,7 @@ uDP
 uDP
 vmD
 woq
-hQe
+mqE
 hQe
 eGv
 edq
@@ -126583,7 +126624,7 @@ xop
 tNk
 xyb
 iLD
-ppz
+lnP
 lkI
 ppz
 lkI
@@ -129439,7 +129480,7 @@ uOl
 vrf
 pNu
 vZi
-pNu
+bUq
 pqc
 pNu
 pNu
@@ -134362,7 +134403,7 @@ wtm
 mjN
 tyI
 odo
-bmp
+aHx
 kQd
 rAR
 wyr
@@ -143313,7 +143354,7 @@ wtw
 usA
 tIH
 wtw
-eOX
+pJt
 oqC
 qDo
 oxb
