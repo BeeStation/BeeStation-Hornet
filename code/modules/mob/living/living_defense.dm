@@ -398,12 +398,10 @@
 /mob/living/singularity_act()
 	var/gain = 20
 
-
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
-
-	usr.investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
+	investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
 	investigate_log("has been gibbed by the singularity.", INVESTIGATE_DEATHS)
 	gib()
 	return(gain)
