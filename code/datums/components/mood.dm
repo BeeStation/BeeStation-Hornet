@@ -51,9 +51,9 @@
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
 			msg += "<span class='warning'>I'm feeling a little bit unhinged...</span>\n"
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
-			msg += "<span class='boldwarning'>I'm freaking out!!</span>\n"
+			msg += "<span class='boldwarning'>I'm freaking out!!!</span>\n"
 		if(SANITY_INSANE to SANITY_CRAZY)
-			msg += "<span class='boldwarning'>AHAHAHAHAHAHAHAHAHAH!!</span>\n"
+			msg += "<span class='boldwarning'>AHAHAHAHAHAHAHAHAHAH!!!</span>\n"
 
 	msg += "<span class='notice'>My current mood: </span>" //Short term
 	switch(mood_level)
@@ -80,7 +80,7 @@
 	if(mood_events.len)
 		for(var/i in mood_events)
 			var/datum/mood_event/event = mood_events[i]
-			msg += event.description
+			msg += "[event.description]\n"
 	else
 		msg += "<span class='nicegreen'>I don't have much of a reaction to anything right now.<span>\n"
 	to_chat(user || parent, EXAMINE_BLOCK(msg))

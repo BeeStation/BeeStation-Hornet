@@ -125,7 +125,7 @@
 
 	if(!current_wizard)
 		return
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as Wizard Academy Defender?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, 10 SECONDS, current_wizard)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as Wizard Academy Defender?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, 10 SECONDS, current_wizard)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
@@ -273,7 +273,7 @@
 		if(11)
 			//Cookie
 			T.visible_message("<span class='userdanger'>A cookie appears out of thin air!</span>")
-			var/obj/item/reagent_containers/food/snacks/cookie/C = new(drop_location())
+			var/obj/item/food/cookie/C = new(drop_location())
 			do_smoke(0, drop_location())
 			C.name = "Cookie of Fate"
 		if(12)
@@ -315,7 +315,7 @@
 			A.setup_master(user)
 			servant_mind.transfer_to(H)
 
-			var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [user.real_name] Servant?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, 10 SECONDS, H)
+			var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [user.real_name] Servant?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, 10 SECONDS, H)
 			if(LAZYLEN(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")

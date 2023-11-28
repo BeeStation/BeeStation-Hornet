@@ -11,13 +11,16 @@
 	construction_type = /obj/item/pipe/binary
 	pipe_state = "manifoldlayer"
 	paintable = FALSE
+
+	///Reference to all the nodes in the front
+	var/list/front_nodes
+	///Reference to all the nodes in the back
+	var/list/back_nodes
+
 	FASTDMM_PROP(\
 		pipe_type = PIPE_TYPE_STRAIGHT,\
 		pipe_interference_group = list("atmos-1","atmos-2","atmos-3")\
 	)
-
-	var/list/front_nodes
-	var/list/back_nodes
 
 /obj/machinery/atmospherics/pipe/layer_manifold/Initialize(mapload)
 	volume = 350 // was previously 280 which was 8 ports but now this thing has 10
@@ -97,7 +100,7 @@
 			new_nodes += foundfront
 		if(foundback && !QDELETED(foundback))
 			new_nodes += foundback
-	update_icon()
+	update_appearance()
 	return new_nodes
 
 /obj/machinery/atmospherics/pipe/layer_manifold/atmosinit()
@@ -124,7 +127,7 @@
 		if(reference in back_nodes)
 			var/i = back_nodes.Find(reference)
 			back_nodes[i] = null
-	update_icon()
+	update_appearance()
 
 /obj/machinery/atmospherics/pipe/layer_manifold/relaymove(mob/living/user, dir)
 	if(initialize_directions & dir)
@@ -136,5 +139,6 @@
 	to_chat(user, "You align yourself with the [user.ventcrawl_layer]\th output.")
 
 /obj/machinery/atmospherics/pipe/layer_manifold/visible
+	hide = FALSE
 	layer = GAS_PIPE_VISIBLE_LAYER
 	hide = FALSE

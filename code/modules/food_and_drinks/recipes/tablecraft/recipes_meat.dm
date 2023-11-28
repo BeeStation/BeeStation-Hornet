@@ -172,6 +172,17 @@
 	result = /obj/item/reagent_containers/food/snacks/pigblanket
 	subcategory = CAT_MEAT
 
+/datum/crafting_recipe/food/meatbun
+	name = "Meat bun"
+	reqs = list(
+		/datum/reagent/consumable/soysauce = 5,
+		/obj/item/food/bun = 1,
+		/obj/item/reagent_containers/food/snacks/meatball = 1,
+		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatbun
+	subcategory = CAT_MEAT
+
 /datum/crafting_recipe/food/ratkebab
 	name = "Rat Kebab"
 	reqs = list(
@@ -193,10 +204,10 @@
 /datum/crafting_recipe/food/ricepork
 	name = "Rice and Pork"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/salad/boiledrice = 1,
+		/obj/item/food/salad/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/meat/cutlet = 2
 	)
-	result = /obj/item/reagent_containers/food/snacks/salad/ricepork
+	result = /obj/item/food/salad/ricepork
 	subcategory = CAT_MEAT
 
 

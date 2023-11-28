@@ -184,13 +184,6 @@
 	result = /obj/item/reagent_containers/food/snacks/scotchegg
 	subcategory = CAT_MISCFOOD
 
-/obj/item/reagent_containers/food/snacks/soup/mammi
-	name = "Mammi"
-	desc = "A bowl of mushy bread and milk. It reminds you, not too fondly, of a bowel movement."
-	icon_state = "mammi"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 1)
-
 /datum/crafting_recipe/food/mammi
 	name = "Mammi"
 	reqs = list(
@@ -198,7 +191,7 @@
 		/obj/item/reagent_containers/food/snacks/chocolatebar = 1,
 		/datum/reagent/consumable/milk = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/soup/mammi
+	result = /obj/item/food/soup/mammi
 	subcategory = CAT_MISCFOOD
 
 /obj/item/reagent_containers/food/snacks/chocolatebunny
