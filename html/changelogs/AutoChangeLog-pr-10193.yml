@@ -1,6 +1,0 @@
-author: rkz
-delete-after: true
-changes:
-  - rscadd: converts pies to newfood
-  - balance: adds protein reagents to meat, xeno, and tofu pies
-  - tweak: adjusts pie foodtypes
