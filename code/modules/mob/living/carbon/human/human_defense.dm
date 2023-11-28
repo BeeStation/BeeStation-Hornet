@@ -681,7 +681,7 @@
 	if(mind)
 		if((mind.assigned_role == JOB_NAME_STATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
 			. = 100
-		if(mind.assigned_role == "Clown")
+		if(mind.assigned_role == JOB_NAME_CLOWN)
 			. = rand(-1000, 1000)
 	..()
 
