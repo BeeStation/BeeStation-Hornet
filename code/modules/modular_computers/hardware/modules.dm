@@ -17,3 +17,13 @@
 	expansion_hw = TRUE
 	power_usage = 10
 	custom_premium_price = 20
+
+/obj/item/computer_hardware/camera_component
+	name = "photographic camera"
+	desc = "A camera to be installed into computers for the purposes of taking photos."
+	icon_state = "camera"
+	w_class = WEIGHT_CLASS_TINY
+	device_type = MC_CAMERA
+	expansion_hw = TRUE
+	power_usage = 20
+	custom_price = 30
