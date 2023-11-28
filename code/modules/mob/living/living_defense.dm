@@ -395,8 +395,11 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+/*
+ * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.
+ * Stuff like clown & engineers with their unique point values are under /mob/living/carbon/human/singularity_act()
+ */
 /mob/living/singularity_act()
-	var/gain = 20
 
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
@@ -404,7 +407,7 @@
 	investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
 	investigate_log("has been gibbed by the singularity.", INVESTIGATE_DEATHS)
 	gib()
-	return(gain)
+	return 20 //20 points goes to our lucky winner Mr. Singulo!~
 
 /mob/living/narsie_act()
 	if(status_flags & GODMODE || QDELETED(src))
