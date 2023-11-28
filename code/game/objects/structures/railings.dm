@@ -18,6 +18,9 @@
 	density = FALSE
 	climbable = FALSE
 
+/obj/structure/railing/transition //switch between outside and inside railings
+	icon_state = "railing_transition"
+
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
 	ini_dir = dir
