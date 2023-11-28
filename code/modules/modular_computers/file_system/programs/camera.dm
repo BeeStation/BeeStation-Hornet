@@ -8,7 +8,7 @@
 
 	usage_flags = PROGRAM_TABLET | PROGRAM_LAPTOP
 	tgui_id = "NtosCamera"
-	program_icon = "window-maximize-o" //TODO- find out where these are.
+	program_icon = "camera"
 
 	use_attack = TRUE
 	use_attack_obj = TRUE

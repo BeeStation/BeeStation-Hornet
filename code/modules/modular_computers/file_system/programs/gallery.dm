@@ -8,4 +8,4 @@
 
 	usage_flags = PROGRAM_ALL
 	tgui_id = "NtosGallery"
-	program_icon = "window-maximize-o" //TODO- find out where these are.
+	program_icon = "images"
