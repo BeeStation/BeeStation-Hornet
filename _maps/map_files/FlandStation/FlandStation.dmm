@@ -1657,6 +1657,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/security/nuke_storage)
 "awe" = (
@@ -5842,6 +5843,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Command Escape Pod"
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/bridge)
 "bsm" = (
@@ -8603,6 +8607,17 @@
 	},
 /turf/open/floor/plasteel/sepia,
 /area/science/shuttle)
+"cjt" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "cjS" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/disposal/bin,
@@ -10818,6 +10833,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/ai_monitored/storage/eva)
 "cRo" = (
@@ -11739,6 +11755,7 @@
 	name = "Exploration Preparation Room";
 	req_access_txt = "49"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)
 "dcZ" = (
@@ -13663,6 +13680,7 @@
 	name = "Aft Brig Entrance";
 	req_access_txt = "63"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/security/brig)
 "dFG" = (
@@ -13874,6 +13892,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/tcommsat/computer)
 "dIA" = (
@@ -21056,6 +21075,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "fyA" = (
@@ -21574,6 +21594,9 @@
 /area/engine/atmos)
 "fER" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Chapel Escape Pod"
+	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "fFg" = (
@@ -22136,6 +22159,7 @@
 	pixel_y = -24;
 	req_access_txt = "16"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "fLG" = (
@@ -27092,6 +27116,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
+"hbu" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 4
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/exit/departure_lounge)
 "hbD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
@@ -29399,6 +29430,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/bridge)
 "hJq" = (
@@ -39116,6 +39148,13 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/hallway/secondary/exit/departure_lounge)
+"kml" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "kmo" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/turf_decal/delivery,
@@ -41667,6 +41706,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/techmaint,
 /area/engine/engineering)
+"kWp" = (
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Engineering Escape Pod"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "kWq" = (
 /obj/structure/railing{
 	dir = 8
@@ -45130,6 +45175,7 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
 "lNa" = (
@@ -49999,6 +50045,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
 "naj" = (
@@ -50738,6 +50785,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/engine/gravity_generator)
 "nix" = (
@@ -51653,6 +51701,17 @@
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
 /area/drydock/security)
+"nuU" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "nva" = (
 /obj/machinery/computer/slot_machine,
 /obj/machinery/light/small{
@@ -54268,6 +54327,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/construction/mining/aux_base)
 "odQ" = (
@@ -58222,6 +58282,7 @@
 /obj/structure/chair/foldable{
 	dir = 4
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/disposal/incinerator)
 "pir" = (
@@ -61006,6 +61067,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 10
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Arrivals Escape Pod"
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "pTk" = (
@@ -61126,6 +61190,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"pVs" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Shuttle Construction Escape Pod"
+	},
+/turf/open/floor/plasteel/white,
+/area/science/lobby)
 "pVy" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -61185,6 +61256,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Shuttle Construction Escape Pod"
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/teleporter)
 "pVM" = (
@@ -63393,6 +63467,12 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
+"qtZ" = (
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/engine{
+	name = "Holodeck Projector Floor"
+	},
+/area/holodeck/rec_center)
 "que" = (
 /obj/structure/sign/map/right{
 	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
@@ -65204,6 +65284,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/theatre/backstage)
 "qQK" = (
@@ -65617,6 +65698,7 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/engine/break_room)
 "qUu" = (
@@ -70631,6 +70713,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/engine/atmos)
 "sfB" = (
@@ -83322,6 +83405,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
+"viT" = (
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Shuttle Construction Escape Pod"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/science/shuttle)
 "viY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -89418,6 +89507,7 @@
 	name = "Tech Storage";
 	req_access_txt = "23"
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/storage/tech)
 "wzX" = (
@@ -90282,6 +90372,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Shuttle Construction Escape Pod"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/janitor)
@@ -91392,6 +91485,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/dark,
 /area/storage/art)
 "wWo" = (
@@ -92303,6 +92397,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel/techmaint,
 /area/lawoffice)
 "xeM" = (
@@ -95727,6 +95822,10 @@
 /obj/structure/tank_dispenser,
 /turf/open/floor/plating,
 /area/engine/storage)
+"xLU" = (
+/obj/effect/landmark/navigate_destination,
+/turf/open/floor/plasteel,
+/area/maintenance/disposal)
 "xLW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -111263,7 +111362,7 @@ aCf
 xHF
 aCf
 ksU
-cTG
+viT
 xqF
 rqx
 pBR
@@ -113482,7 +113581,7 @@ bgc
 xbV
 aNs
 xbV
-xbV
+hbu
 xbV
 shJ
 xbV
@@ -117128,7 +117227,7 @@ qgC
 qgC
 qgC
 qgC
-qgC
+nuU
 qgC
 qgC
 qdt
@@ -126071,7 +126170,7 @@ qFh
 jQP
 kTW
 ppz
-lkI
+kml
 izL
 lkI
 ppz
@@ -133579,7 +133678,7 @@ mgT
 xqI
 kio
 chI
-chI
+pVs
 hZQ
 vBG
 aby
@@ -148715,7 +148814,7 @@ xYy
 xYy
 xYy
 xYy
-xYy
+qtZ
 xYy
 xYy
 xYy
@@ -149544,7 +149643,7 @@ abN
 abN
 vXB
 ylJ
-ylJ
+kWp
 ylJ
 ylJ
 oBV
@@ -150476,7 +150575,7 @@ vNw
 eXq
 flq
 yjG
-fTA
+cjt
 yjG
 lqi
 gDJ
@@ -154642,7 +154741,7 @@ fSj
 lZS
 xvW
 xQy
-xvW
+xLU
 clS
 xvW
 rei
