@@ -487,7 +487,7 @@
 		. += weapon.spread_unwielded
 	// Nothing to hold onto, slight penalty for flying around in space
 	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
-	var/current_speed = cached_multiplicative_slowdown || total_multiplicative_slowdown()
+	var/current_speed = cached_multiplicative_slowdown
 	var/move_time = last_move_time
 	// Check for being buckled to mobs and vehicles
 	if (buckled)
