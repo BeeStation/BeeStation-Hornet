@@ -43,7 +43,8 @@
 	contraband = list(/obj/item/computer_hardware/card_slot/secondary = 1,
 					/obj/item/computer_hardware/network_card/advanced/norelay = 1,
 					/obj/item/colorizer/tablet/syndi = 2,
-					/obj/item/colorizer/tablet/contractor = 2)
+					/obj/item/colorizer/tablet/contractor = 2,
+					/obj/item/colorizer/tablet/emag = 2)
 	refill_canister = /obj/item/vending_refill/modularpc
 	default_price = 30
 	extra_price = 100

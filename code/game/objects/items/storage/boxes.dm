@@ -1394,3 +1394,21 @@
 	new /obj/item/encryptionkey/heads/ce/fake(src)
 	new /obj/item/encryptionkey/heads/cmo/fake(src)
 	new /obj/item/encryptionkey/heads/hop/fake(src)
+
+//TABLET COLORIZER BOX
+/obj/item/storage/box/tabletcolorizer
+	name = "colorizer box"
+	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colours!"
+	icon_state = "tabletcbox"
+	custom_price = 50
+
+/obj/item/storage/box/tabletcolorizer/PopulateContents()
+	new /obj/item/colorizer/tablet(src)
+	new /obj/item/colorizer/tablet/pink(src)
+	new /obj/item/colorizer/tablet/sand(src)
+	new /obj/item/colorizer/tablet/green(src)
+	new /obj/item/colorizer/tablet/olive(src)
+	new /obj/item/colorizer/tablet/teal(src)
+	new /obj/item/colorizer/tablet/purple(src)
+	new /obj/item/colorizer/tablet/black(src)
+	new /obj/item/colorizer/tablet/white(src)
