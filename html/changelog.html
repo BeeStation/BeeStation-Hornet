@@ -56,6 +56,64 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">27 November 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">better color calculation code</li>
+				<li class="bugfix">single pure colors (red, green, blue) will not be considered to be too dark.</li>
+			</ul>
+			<h3 class="author">NaN-Blank updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Doubles material values of Plastitanium tiles so that when recycled they return the same materials it takes to create them.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Donk pockets now have their old nutriment value again, and their maltodextrin value has been updated to match this new (old) value as it should.</li>
+				<li class="bugfix">Dank pockets can now be microwaved again</li>
+				<li class="tweak">The amount of maltodextrin in premade donuts and ramen is now correct after having been missed in the previous PR.</li>
+				<li class="code_imp">Adds proper list spacing to snacks_and_vend.dm items containing maltodextrin and cleans up some unused variables</li>
+			</ul>
+
+			<h2 class="date">26 November 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Simplemobs can now properly use intent selection hotkeys (as long as they can use multiple intents already)</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Space-dragons will no longer be instantly killed by devastating explosives.</li>
+			</ul>
+			<h3 class="author">rkz, ArcaneMusic, Tralezab updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">adds new admin tool, the teambuilder! Admins can now easily put identifiable markings on any player and give them a new custom radio, all with a simple machine. Useful for events, or if you want multiple rival syndicates to face each other with the same gear, but also know whos on what team!</li>
+			</ul>
+
+			<h2 class="date">25 November 2023</h2>
+			<h3 class="author">Dejaku51 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added absolute value component for wiremod</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">added chat span classes for sorting only purpose (virtually. These don't exist). when you want a chat to be sorted in a group, you need to use "srt_SOMETHING" in this way: "\<span class='srt_deadchat'>". This example will sort a chat in deadchat group.</li>
+				<li class="bugfix">most bad practices for chat sorting in radio group are fixed. non-radio messages will not be seen in radio group. (especially cult messages)</li>
+				<li class="rscadd">some chats are now sorted into radio: holopara chats, blood/clock cult telepathy, etc</li>
+			</ul>
+
+			<h2 class="date">24 November 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">The Dextrous holoparasite ability is now purely a weapon, rather than a major ability.</li>
+			</ul>
+			<h3 class="author">rkz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed Venus Human Traps vine beams not disappearing after successfully (or unsuccessfully) grabbing a mob</li>
+			</ul>
+			<h3 class="author">rkz, MrStonedOne updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="server">Subsystems now track their average & last tick allocations. Can be checked through View Variables on the designated subsystem</li>
+			</ul>
+
 			<h2 class="date">22 November 2023</h2>
 			<h3 class="author">PestoVerde322 updated:</h3>
 			<ul class="changes bgimages16">
@@ -897,41 +955,6 @@
 			<h3 class="author">mystery3525 updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Being on the Emergency Shuttle now counts as "escaping", instead of just arriving at CentCom.</li>
-			</ul>
-
-			<h2 class="date">25 September 2023</h2>
-			<h3 class="author">Ivniinvi updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="spellcheck">Fixed typo in ERT intro text</li>
-			</ul>
-			<h3 class="author">RKz, Ghommie, tralezab, cacogen, Krysonism, qustinnus updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added Pizza and Burgers to Newfood.</li>
-				<li class="tweak">processable element uses the correct grammar and references</li>
-				<li class="code_imp">split pizzaspaghetti.dmi into pizza.dmi and spaghetti.dmi</li>
-			</ul>
-			<h3 class="author">Rkz, Fhaxaris updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">floating/flying mobs are no longer affected by turf movespeed modifiers</li>
-			</ul>
-
-			<h2 class="date">23 September 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">removed the "Sucessfully scraped off the rust!" message from the advanced wirebrush to prevent text overlap</li>
-				<li class="bugfix">fixed the advanced wirebrush irradiating the user on any click instead of only after scraping</li>
-			</ul>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Billy Clubs now deal minor bonus damage to windows, grilles, glass tables, and windoors/windoor assemblies.</li>
-				<li class="rscadd">Fireaxes additionally deal bonus damage to glass tables, windoors, and windoor assemblies.</li>
-				<li class="rscadd">Syndicate Coat Pistol; Cheap Sidearm w/ lots of utility focused ammo</li>
-				<li class="rscadd">Coat Pistol, .38 standard, DumDum, HotShot, Iceblox, Blister, and BLK_OUT ammo available in Syndie uplink</li>
-				<li class="imageadd">Added sprite for Coat Pistol & .38 Blister rounds</li>
-				<li class="balance">Iceblox .38 deal less damage (20 -> 15)</li>
-				<li class="balance">Hot Shot .38 deal less damage (20 -> 12) and less fire stacks (6 -> 2)</li>
-				<li class="rscadd">Adds 'Wild Spread' and 'Wild Factor' variables to guns, allows 'minimum' recoil to be set</li>
-				<li class="rscadd">Enables 'Wild Spread' on Coat Pistol only, all other guns unaffected</li>
 			</ul>
 		</div>
 
