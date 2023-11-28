@@ -58835,6 +58835,9 @@
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination{
+	navigation_id = "Virology Tube"
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "taY" = (
@@ -64408,7 +64411,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/navigate_destination{
-	navigation_id = "Engineering Escape Pod"
+	navigation_id = "Virology Tube"
 	},
 /turf/open/floor/plasteel,
 /area/science/shuttle)
@@ -66682,6 +66685,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/effect/landmark/navigate_destination,
 /turf/open/floor/plasteel,
 /area/storage/tools)
 "vGB" = (
