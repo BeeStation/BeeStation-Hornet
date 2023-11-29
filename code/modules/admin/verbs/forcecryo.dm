@@ -1,5 +1,5 @@
-/proc/force_cryo_ckey(ckey, instant = FALSE)
-	var/mob/living/target = get_ckey_last_living(ckey, healthy = TRUE)
+/proc/force_cryo_ckey(target_ckey, instant = FALSE)
+	var/mob/living/target = get_ckey_last_living(target_ckey, healthy = TRUE)
 	if(!target)
 		return
 	var/method = instant ? GLOBAL_PROC_REF(instant_force_cryo) : GLOBAL_PROC_REF(force_cryo)
@@ -13,6 +13,7 @@
 		pod_loc.despawn_occupant()
 		return
 	var/turf/target_turf = get_turf(target)
+	target.ghostize(can_reenter_corpse = FALSE)
 	// unbuckle them from everything and release them from any pulls
 	target.unbuckle_all_mobs(force = TRUE)
 	target.stop_pulling()
@@ -23,6 +24,7 @@
 	target.Stun(INFINITY, ignore_canstun = TRUE)
 	target.move_resist = INFINITY
 	target.anchored = TRUE
+	target.status_flags |= GODMODE
 	// ensure they're on a turf
 	target.forceMove(target_turf)
 	// send a fancy centcom pod, so nobody ICly questions this
@@ -34,7 +36,6 @@
 	if(!istype(target))
 		return
 	// drop all their things, unbuckle them from everything, and release them from any pulls
-	target.unequip_everything()
 	target.pulledby?.stop_pulling()
 	target.buckled?.unbuckle_mob(target, force = TRUE)
 	for(var/obj/machinery/cryopod/pod in GLOB.machines)
@@ -62,7 +63,6 @@
 	if(!insertion_allowed(to_insert))
 		return FALSE
 	// Drop all their stuff, and make SURE they aren't buckled or being pulled.
-	to_insert.unequip_everything()
 	to_insert.pulledby?.stop_pulling()
 	to_insert.buckled?.unbuckle_mob(target, force = TRUE)
 	to_insert.forceMove(holder)
