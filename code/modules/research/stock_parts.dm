@@ -21,7 +21,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	if(!user.Adjacent(attacked_object)) // no TK upgrading.
 		return ..()
 
-	if(istype(attacked_object, /obj/machinery))
+	if(ismachinery(attacked_object))
 		var/obj/machinery/attacked_machinery = attacked_object
 
 		if(!attacked_machinery.component_parts)
@@ -36,13 +36,14 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 
 	if(!attacked_frame.components)
 		return ..()
-	attacked_frame.attackby(src, user)
+
 	if(works_from_distance)
 		user.Beam(attacked_frame, icon_state = "rped_upgrade", time = 5)
+	attacked_frame.attackby(src, user)
 	return TRUE
 
 /obj/item/storage/part_replacer/afterattack(obj/attacked_object, mob/living/user, adjacent, params)
-	if(!istype(attacked_object, /obj/machinery) && !istype(attacked_object, /obj/structure/frame/machine))
+	if(!ismachinery(attacked_object) && !istype(attacked_object, /obj/structure/frame/machine))
 		return ..()
 
 	if(adjacent)
@@ -60,14 +61,15 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 		return
 
 	var/obj/structure/frame/machine/attacked_frame = attacked_object
+
 	if(!adjacent && !works_from_distance)
 		return
 	if(!attacked_frame.components)
 		return ..()
 
-	attacked_frame.attackby(src, user)
 	if(works_from_distance)
 		user.Beam(attacked_frame, icon_state = "rped_upgrade", time = 5)
+	attacked_frame.attackby(src, user)
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exhanging or installing parts.
@@ -86,6 +88,22 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	pshoom_or_beepboopblorpzingshadashwoosh = 'sound/items/pshoom.ogg'
 	alt_sound = 'sound/items/pshoom_2.ogg'
 	component_type = /datum/component/storage/concrete/bluespace/rped
+
+/obj/item/storage/part_replacer/bluespace/Initialize()
+	. = ..()
+
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, .proc/on_part_entered)
+
+/obj/item/storage/part_replacer/bluespace/proc/on_part_entered(datum/source, obj/item/I)
+	if(!istype(I, /obj/item/stock_parts/cell))
+		return
+
+	var/obj/item/stock_parts/cell/inserted_cell = I
+
+	if(inserted_cell.rigged || inserted_cell.corrupted)
+		message_admins("[ADMIN_LOOKUPFLW(usr)] has inserted rigged/corrupted [inserted_cell] into [src].")
+		log_game("[key_name(usr)] has inserted rigged/corrupted [inserted_cell] into [src].")
+		usr.log_message("inserted rigged/corrupted [inserted_cell] into [src]", LOG_ATTACK)
 
 /obj/item/storage/part_replacer/bluespace/tier1
 
