@@ -1,0 +1,8 @@
+author: rkz, ShizCalev, Timberpoes, rdagan
+delete-after: true
+changes:
+  - balance: corrupted cells will now blow up the BSRPED user instead of being sent
+      when targeting a machine.
+  - balance: reagents will be removed from beakers upon insertion into a BSRPED
+  - bugfix: fixes cells not inheriting plasma corruption correctly, and blowing up
+      even with no plasma inside
