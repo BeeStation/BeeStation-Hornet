@@ -229,14 +229,14 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		. += "<span data-component=\"RadarChart\" data-width=\"300\" data-height=\"300\" data-area-color=\"[accent_color]\" data-axes=\"Damage,Defense,Speed,Potential,Range\" data-stages=\"1,2,3,4,5\" data-values=\"[stats.damage],[stats.defense],[stats.speed],[stats.potential],[stats.range]\" />"
 
 /mob/living/simple_animal/hostile/holoparasite/get_idcard(hand_first = TRUE)
-	//Check hands
+	// IMPORTANT: don't use ?. for these, because held_item might be 0 for some reason!!
 	var/obj/item/card/id/id_card
 	var/obj/item/held_item
 	held_item = get_active_held_item()
-	id_card = held_item?.GetID() //Check active hand
+	id_card = held_item && held_item.GetID() //Check active hand
 	if(!id_card) //If there is no id, check the other hand
 		held_item = get_inactive_held_item()
-		id_card = held_item?.GetID()
+		id_card = held_item && held_item.GetID()
 
 	if(id_card)
 		if(hand_first)
@@ -246,7 +246,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	// Check inventory slot
 	if(istype(stats.weapon, /datum/holoparasite_ability/weapon/dextrous))
 		var/datum/holoparasite_ability/weapon/dextrous/dextrous_ability = stats.weapon
-		id_card = dextrous_ability.internal_storage?.GetID()
+		var/obj/item/internal_item = dextrous_ability.internal_storage
+		id_card = internal_item && internal_item.GetID()
 		if(id_card)
 			return id_card
 
