@@ -62,7 +62,7 @@
 /obj/structure/closet/supplypod/force_cryo/insert(mob/living/to_insert, atom/movable/holder)
 	if(!insertion_allowed(to_insert))
 		return FALSE
-	// Drop all their stuff, and make SURE they aren't buckled or being pulled.
+	// make SURE they aren't buckled or being pulled.
 	to_insert.pulledby?.stop_pulling()
 	to_insert.buckled?.unbuckle_mob(target, force = TRUE)
 	to_insert.forceMove(holder)
