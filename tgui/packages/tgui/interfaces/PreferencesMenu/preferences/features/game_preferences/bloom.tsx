@@ -1,9 +1,10 @@
-import { CheckboxInput, FeatureToggle } from '../base';
+import { FeatureNumberInput, FeatureNumeric } from '../base';
 
-export const see_bloom: FeatureToggle = {
-  name: 'See Bloom',
+export const bloom_amount: FeatureNumeric = {
+  name: 'Bloom Level',
   category: 'GRAPHICS',
   subcategory: 'Misc',
-  description: 'Enable Bloom, a lighting effect that gives bright lights a whiteout effect',
-  component: CheckboxInput,
+  description:
+    'What percentage of bloom to show. Bloom is a lighting effect that gives bright lights a whiteout effect. Disabling it entirely may increase client performance, if needed.',
+  component: FeatureNumberInput,
 };

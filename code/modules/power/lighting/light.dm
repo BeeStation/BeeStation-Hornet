@@ -18,7 +18,7 @@
 	var/on_gs = FALSE
 	var/static_power_used = 0
 	var/brightness = 10			// luminosity when on, also used in power calculation
-	var/bulb_power = 0.85			// basically the alpha of the emitted light source
+	var/bulb_power = 1			// basically the alpha of the emitted light source
 	var/bulb_colour = "#FFF6ED"	// default colour of the light.
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = FALSE
@@ -35,15 +35,15 @@
 	var/nightshift_enabled = FALSE	//Currently in night shift mode?
 	var/nightshift_allowed = TRUE	//Set to FALSE to never let this light get switched to night mode.
 	var/nightshift_brightness = 7
-	var/nightshift_light_power = 0.7
+	var/nightshift_light_power = 0.75
 	var/nightshift_light_color = "#FFDBB5" //qwerty's more cozy light
 
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
 	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
 	var/bulb_emergency_brightness_mul = 0.25	// multiplier for this light's base brightness in emergency power mode
 	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
-	var/bulb_emergency_pow_mul = 0.7	// the multiplier for determining the light's power in emergency mode
-	var/bulb_emergency_pow_min = 0.45	// the minimum value for the light's power in emergency mode
+	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode
+	var/bulb_emergency_pow_min = 0.5	// the minimum value for the light's power in emergency mode
 
 	var/bulb_vacuum_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
 	var/bulb_vacuum_brightness = 8

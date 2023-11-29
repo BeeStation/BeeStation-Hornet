@@ -14,7 +14,7 @@
 #define MINIMUM_USEFUL_LIGHT_RANGE 1.4
 
 #define LIGHTING_HEIGHT         1 //! height off the ground of light sources on the pseudo-z-axis, you should probably leave this alone
-#define LIGHTING_ROUND_VALUE    (1 / 128) //! Value used to round lumcounts, values smaller than 1/129 don't matter (if they do, thanks sinking points), greater values will make lighting less precise, but in turn increase performance, VERY SLIGHTLY.
+#define LIGHTING_ROUND_VALUE    (1 / 64) //! Value used to round lumcounts, values smaller than 1/129 don't matter (if they do, thanks sinking points), greater values will make lighting less precise, but in turn increase performance, VERY SLIGHTLY.
 
 #define LIGHTING_ICON 'icons/effects/lighting_object.dmi' //! icon used for lighting shading effects
 
@@ -65,6 +65,10 @@
 #define LIGHT_COLOR_HALOGEN    "#F0FAFA" //! Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
 
 #define LIGHT_RANGE_FIRE		3 //! How many tiles standard fires glow.
+
+#define ADDITIVE_LIGHTING_PLANE_ALPHA_MAX 255
+#define ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL 128
+#define ADDITIVE_LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
 #define LIGHTING_PLANE_ALPHA_VISIBLE 255
 #define LIGHTING_PLANE_ALPHA_NV_TRAIT 250
