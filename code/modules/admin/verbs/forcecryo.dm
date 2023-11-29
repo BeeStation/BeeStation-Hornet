@@ -35,7 +35,7 @@
 /proc/instant_force_cryo(mob/living/target)
 	if(!istype(target))
 		return
-	// drop all their things, unbuckle them from everything, and release them from any pulls
+	// unbuckle them from everything, and release them from any pulls
 	target.pulledby?.stop_pulling()
 	target.buckled?.unbuckle_mob(target, force = TRUE)
 	for(var/obj/machinery/cryopod/pod in GLOB.machines)
