@@ -578,7 +578,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "aeC" = (
@@ -992,9 +992,8 @@
 /turf/open/floor/plating,
 /area/science/test_area)
 "aja" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 4;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1094,10 +1093,11 @@
 	pixel_x = 1;
 	pixel_y = -25
 	},
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "akq" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/green/opposingcorners,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -2205,9 +2205,8 @@
 /turf/open/floor/plating,
 /area/hallway/primary/fore)
 "aAP" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 8;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 8
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -3483,7 +3482,7 @@
 /area/bridge)
 "aPw" = (
 /obj/structure/table/reinforced,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/item/reagent_containers/food/snacks/chocolatebar,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -3598,8 +3597,8 @@
 "aQQ" = (
 /obj/structure/table/wood,
 /obj/item/pneumatic_cannon/pie,
-/obj/item/reagent_containers/food/snacks/pie/cream,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
+/obj/item/food/pie/cream,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
 "aQV" = (
@@ -4050,8 +4049,8 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/east,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_vest,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_helmet,
+/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/loot_jobscale/armoury/bulletproof_helmet,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "aWA" = (
@@ -4579,6 +4578,7 @@
 	pixel_x = 6;
 	pixel_y = 1
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "bgw" = (
@@ -5346,7 +5346,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "buQ" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -6535,7 +6535,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "bOo" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
@@ -7389,7 +7389,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/dead_body_placer{
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue{
 	bodycount = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -9205,7 +9205,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/first_aid_kit,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "cNX" = (
@@ -10956,7 +10956,7 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen/coldroom)
 "dpW" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -11155,7 +11155,7 @@
 /obj/item/gun/energy/temperature/security,
 /obj/effect/turf_decal/delivery,
 /obj/item/beacon/nettingportal,
-/obj/effect/spawner/lootdrop/job_scale/armoury/dragnet,
+/obj/effect/loot_jobscale/armoury/dragnet,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "duF" = (
@@ -12668,7 +12668,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "dUz" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -15237,6 +15237,7 @@
 	},
 /obj/machinery/fax/med,
 /obj/structure/table/glass,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "ePd" = (
@@ -16861,7 +16862,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/dead_body_placer{
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue{
 	bodycount = 1
 	},
 /turf/open/floor/plasteel,
@@ -16983,7 +16984,7 @@
 	pixel_x = -3;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/snacks/pizzaslice/pineapple{
+/obj/item/food/pizzaslice/pineapple{
 	pixel_x = -2;
 	pixel_y = 9
 	},
@@ -17010,13 +17011,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/quartermaster/office)
-"fub" = (
-/obj/structure/sign/warning/securearea{
-	pixel_x = 32
-	},
-/obj/effect/landmark/carpspawn,
-/turf/open/space/basic,
-/area/space)
 "fuh" = (
 /turf/closed/wall,
 /area/hallway/secondary/service)
@@ -23990,7 +23984,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "hJm" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/item/radio/intercom{
 	pixel_x = 29;
 	pixel_y = -2
@@ -24529,7 +24523,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "hSS" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/plasteel,
@@ -24728,6 +24722,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/plasteel,
 /area/security/main)
 "hWl" = (
@@ -25957,6 +25952,7 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "ipz" = (
@@ -26988,7 +26984,7 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/laser_gun,
+/obj/effect/loot_jobscale/armoury/laser_gun,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "iGp" = (
@@ -27312,7 +27308,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "iNB" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/light,
 /turf/open/floor/grass,
 /area/hallway/primary/fore)
@@ -28206,6 +28202,9 @@
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/janitor)
 "jbA" = (
@@ -28632,7 +28631,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "jjS" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -32771,7 +32770,7 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "kDs" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -35074,7 +35073,7 @@
 	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "lrJ" = (
@@ -35403,9 +35402,6 @@
 /area/quartermaster/miningdock)
 "lxi" = (
 /obj/effect/landmark/start/janitor,
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
@@ -36116,9 +36112,9 @@
 "lIw" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_suit,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_helmet,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shield,
+/obj/effect/loot_jobscale/armoury/riot_suit,
+/obj/effect/loot_jobscale/armoury/riot_helmet,
+/obj/effect/loot_jobscale/armoury/riot_shield,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "lIO" = (
@@ -36759,7 +36755,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/dead_body_placer{
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue{
 	bodycount = 1
 	},
 /turf/open/floor/plasteel,
@@ -36923,7 +36919,7 @@
 /area/bridge)
 "lVf" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/dough,
+/obj/item/food/dough,
 /obj/item/kitchen/rollingpin,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -42350,7 +42346,7 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/disabler,
+/obj/effect/loot_jobscale/armoury/disabler,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "nIO" = (
@@ -44405,6 +44401,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "oqr" = (
@@ -44934,6 +44931,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "oze" = (
@@ -46188,6 +46186,7 @@
 	pixel_x = 5;
 	pixel_y = 8
 	},
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "oVN" = (
@@ -47710,7 +47709,6 @@
 	pixel_y = 28;
 	req_access_txt = "28"
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "pzb" = (
@@ -51998,7 +51996,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "qQB" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -52012,7 +52010,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "qQT" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -53382,6 +53380,7 @@
 "rou" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "roy" = (
@@ -55356,6 +55355,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "rUN" = (
@@ -56878,6 +56878,7 @@
 /obj/item/hand_labeler,
 /obj/item/laser_pointer,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "suf" = (
@@ -57280,6 +57281,7 @@
 /obj/machinery/keycard_auth{
 	pixel_x = 26
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "sAZ" = (
@@ -57454,7 +57456,7 @@
 "sFf" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/job_scale/armoury/wt550,
+/obj/effect/loot_jobscale/armoury/wt550,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "sFB" = (
@@ -58682,7 +58684,7 @@
 /turf/closed/wall/r_wall,
 /area/science/robotics)
 "sZN" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
@@ -60521,7 +60523,7 @@
 /obj/machinery/firealarm{
 	pixel_y = -24
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
@@ -63551,6 +63553,7 @@
 	},
 /obj/item/camera,
 /obj/item/camera_film,
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -64618,6 +64621,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "vbN" = (
@@ -64684,7 +64688,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "vcO" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -65229,7 +65233,7 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "vmr" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -67137,6 +67141,7 @@
 	pixel_x = -1;
 	pixel_y = 9
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "vOx" = (
@@ -67553,6 +67558,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "vWy" = (
@@ -68893,6 +68899,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "wvu" = (
@@ -68933,7 +68940,7 @@
 	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "wwk" = (
@@ -70633,7 +70640,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/energy_gun,
+/obj/effect/loot_jobscale/armoury/energy_gun,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "wYq" = (
@@ -71456,6 +71463,7 @@
 	pixel_x = 3;
 	pixel_y = 2
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "xoV" = (
@@ -72285,7 +72293,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "xBu" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -111063,7 +111071,7 @@ anT
 aMT
 anT
 aMT
-qiD
+aMT
 aVq
 aMT
 ktc
@@ -113634,7 +113642,7 @@ aMT
 anT
 aMT
 aMT
-fub
+ams
 aMT
 tTo
 gIX

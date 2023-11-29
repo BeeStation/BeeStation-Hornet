@@ -25,9 +25,9 @@
 	hitsound = 'sound/weapons/chainhit.ogg'
 	materials = list(/datum/material/iron = 1000)
 
-/obj/item/melee/chainofcommand/suicide_act(mob/user)
+/obj/item/melee/chainofcommand/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/melee/synthetic_arm_blade
 	name = "synthetic arm blade"
@@ -235,7 +235,7 @@
 /obj/item/melee/classic_baton/police/attack(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
-	var/def_check = target.getarmor(type = MELEE)
+	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
@@ -355,7 +355,7 @@
 		return ..()
 	return 0
 
-/obj/item/melee/classic_baton/telescopic/suicide_act(mob/user)
+/obj/item/melee/classic_baton/telescopic/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/brain/B = H.getorgan(/obj/item/organ/brain)
 
@@ -371,7 +371,7 @@
 			H.internal_organs -= B
 			qdel(B)
 		new /obj/effect/gibspawner/generic(H.drop_location(), H)
-		return (BRUTELOSS)
+		return BRUTELOSS
 
 /obj/item/melee/classic_baton/police/telescopic/attack_self(mob/user)
 	on = !on
@@ -662,7 +662,7 @@
 	consume_everything(P)
 	return BULLET_ACT_HIT
 
-/obj/item/melee/supermatter_sword/suicide_act(mob/user)
+/obj/item/melee/supermatter_sword/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] touches [src]'s blade. It looks like [user.p_theyre()] tired of waiting for the radiation to kill [user.p_them()]!</span>")
 	user.dropItemToGround(src, TRUE)
 	shard.Bumped(user)
@@ -739,7 +739,7 @@
 	target.visible_message("<span class='danger'>[user] knocks [target] off [target.p_their()] feet!</span>", "<span class='userdanger'>[user] yanks your legs out from under you!</span>")
 
 /obj/item/melee/curator_whip/proc/whip_lash(mob/living/user, mob/living/target)
-	if(target.getarmor(type = MELEE) < 16)
+	if(target.getarmor(type = MELEE, penetration = armour_penetration) < 16)
 		target.emote("scream")
 		target.visible_message("<span class='danger'>[user] whips [target]!</span>", "<span class='userdanger'>[user] whips you! It stings!</span>")
 
@@ -798,12 +798,10 @@
 		held_sausage = null
 	update_icon()
 
-/obj/item/melee/roastingstick/update_icon()
+/obj/item/melee/roastingstick/update_overlays()
 	. = ..()
-	cut_overlays()
 	if (held_sausage)
-		var/mutable_appearance/sausage = mutable_appearance(icon, "roastingstick_sausage")
-		add_overlay(sausage)
+		. += mutable_appearance(icon, "roastingstick_sausage")
 
 /obj/item/melee/roastingstick/proc/extend(user)
 	to_chat(user, "<span class='warning'>You extend [src].</span>")

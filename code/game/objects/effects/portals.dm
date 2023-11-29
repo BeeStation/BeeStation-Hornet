@@ -31,6 +31,19 @@
 	var/allow_anchored = FALSE
 	var/innate_accuracy_penalty = 0
 	var/last_effect = 0
+	// Are we currently being dispelled from a hand teleporter?
+	var/is_dispeling = FALSE
+
+/obj/effect/portal/proc/dispel()
+	if (is_dispeling)
+		return
+	is_dispeling = TRUE
+	animate(src, 1 SECONDS, transform = matrix() * 1.2, easing = SINE_EASING)
+	animate(transform = matrix() * 0.6, 1.7 SECONDS, easing = QUAD_EASING)
+	animate(transform = matrix() * 0, alpha = 0, 0.3 SECONDS, easing = QUAD_EASING)
+	QDEL_IN(src, 3 SECONDS)
+	if (linked)
+		linked.dispel()
 
 /obj/effect/portal/anom
 	name = "wormhole"
@@ -80,7 +93,7 @@
 		. = INITIALIZE_HINT_QDEL
 		CRASH("Somebody fucked up.")
 	if(_lifespan > 0)
-		QDEL_IN(src, _lifespan)
+		addtimer(CALLBACK(src, PROC_REF(dispel)), _lifespan)
 	if(!isnull(atmos_link_override))
 		atmos_link = atmos_link_override
 	link_portal(_linked)
@@ -136,7 +149,7 @@
 			LAZYREMOVE(atmos_destination.atmos_adjacent_turfs, atmos_source)
 		atmos_destination = null
 
-/obj/effect/portal/Destroy()				//Calls on_portal_destroy(destroyed portal, location of destroyed portal) on creator if creator has such call.
+/obj/effect/portal/Destroy(force)				//Calls on_portal_destroy(destroyed portal, location of destroyed portal) on creator if creator has such call.
 	if(creator && hascall(creator, "on_portal_destroy"))
 		call(creator, "on_portal_destroy")(src, src.loc)
 	creator = null
@@ -167,7 +180,7 @@
 		no_effect = TRUE
 	else
 		last_effect = world.time
-	if(do_teleport(M, real_target, innate_accuracy_penalty, no_effects = no_effect, channel = teleport_channel))
+	if(do_teleport(M, real_target, innate_accuracy_penalty, no_effects = no_effect, channel = teleport_channel, no_wake = TRUE))
 		if(istype(M, /obj/projectile))
 			var/obj/projectile/P = M
 			P.ignore_source_check = TRUE

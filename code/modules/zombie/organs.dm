@@ -9,8 +9,8 @@
 	var/living_transformation_time = 30
 	var/converts_living = FALSE
 
-	var/revive_time_min = 450
-	var/revive_time_max = 700
+	var/revive_time_min = 60 SECONDS
+	var/revive_time_max = 100 SECONDS
 	var/timer_id
 
 /obj/item/organ/zombie_infection/Initialize(mapload)
@@ -23,11 +23,11 @@
 	GLOB.zombie_infection_list -= src
 	. = ..()
 
-/obj/item/organ/zombie_infection/Insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/zombie_infection/Insert(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/organ/zombie_infection/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/zombie_infection/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 	if(iszombie(M) && old_species && !QDELETED(M) && !special)
@@ -43,14 +43,10 @@
 /obj/item/organ/zombie_infection/process(delta_time)
 	if(!owner)
 		return
-	if(IS_IN_STASIS(owner))
-		return
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
-		owner.adjustToxLoss(0.5 * delta_time, forced = TRUE)
-		if(DT_PROB(5, delta_time))
-			to_chat(owner, "<span class='danger'>You feel sick...</span>")
+		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * delta_time)
 	if(timer_id)
 		return
 	if(owner.suiciding)
@@ -82,12 +78,12 @@
 	//Fully heal the zombie's damage the first time they rise
 	C.setToxLoss(0, 0)
 	C.setOxyLoss(0, 0)
+	C.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
 	C.heal_overall_damage(INFINITY, INFINITY, INFINITY, null, TRUE)
 
 	C.revive()
-
-
 	C.grab_ghost()
+
 	C.visible_message("<span class='danger'>[owner] suddenly convulses, as [owner.p_they()][stand_up ? " stagger to [owner.p_their()] feet and" : ""] gain a ravenous hunger in [owner.p_their()] eyes!</span>", "<span class='alien'>You HUNGER!</span>")
 	playsound(C.loc, 'sound/hallucinations/far_noise.ogg', 50, 1)
 	C.do_jitter_animation(living_transformation_time)

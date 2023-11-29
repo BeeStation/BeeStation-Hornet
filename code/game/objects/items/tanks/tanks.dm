@@ -128,25 +128,25 @@
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	qdel(src)
 
-/obj/item/tank/suicide_act(mob/user)
-	var/mob/living/carbon/human/H = user
+/obj/item/tank/suicide_act(mob/living/user)
+	var/mob/living/carbon/human/human_user = user
 	user.visible_message("<span class='suicide'>[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
-	if (!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
-		for(var/obj/item/W in H)
-			H.dropItemToGround(W)
+	if (!QDELETED(human_user) && air_contents && air_contents.return_pressure() >= 1000)
+		for(var/obj/item/W in human_user)
+			human_user.dropItemToGround(W)
 			if(prob(50))
 				step(W, pick(GLOB.alldirs))
-		ADD_TRAIT(H, TRAIT_DISFIGURED, TRAIT_GENERIC)
-		H.bleed_rate = 5
-		H.gib_animation()
+		ADD_TRAIT(human_user, TRAIT_DISFIGURED, TRAIT_GENERIC)
+		human_user.bleed_rate = 5
+		human_user.gib_animation()
 		sleep(3)
-		H.adjustBruteLoss(1000) //to make the body super-bloody
-		H.spawn_gibs()
-		H.spill_organs()
-		H.spread_bodyparts()
+		human_user.adjustBruteLoss(1000) //to make the body super-bloody
+		human_user.spawn_gibs()
+		human_user.spill_organs()
+		human_user.spread_bodyparts()
 
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/tank/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
@@ -204,7 +204,7 @@
 				pressure = text2num(pressure)
 				. = TRUE
 			if(.)
-				distribute_pressure = CLAMP(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
+				distribute_pressure = clamp(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
 
 /obj/item/tank/remove_air(amount)
 	return air_contents.remove(amount)
@@ -265,7 +265,7 @@
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		var/explosion_mod = 1
 		if(!istype(src.loc, /obj/item/transfer_valve))
-			log_bomber("[src.fingerprintslast], was last key to touch [src], which ruptured explosively")
+			log_bomber(details = "[src.fingerprintslast] was the last key to touch", bomb = src, additional_details = ", which ruptured explosively")
 		else if(!istype(src.loc?.loc, /obj/machinery/syndicatebomb))
 			explosion_mod = TTV_NO_CASING_MOD
 		//Give the gas a chance to build up more pressure through reacting

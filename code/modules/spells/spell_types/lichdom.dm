@@ -26,7 +26,7 @@
 		if(iscarbon(M))
 			hand_items = list(M.get_active_held_item(),M.get_inactive_held_item())
 		if(!hand_items.len)
-			to_chat(M, "<span class='caution'>You must hold an item you wish to make your phylactery...</span>")
+			to_chat(M, "<span class='warning'>You must hold an item you wish to make your phylactery...</span>")
 			return
 
 		var/obj/item/marked_item

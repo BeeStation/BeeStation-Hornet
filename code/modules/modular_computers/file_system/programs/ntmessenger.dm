@@ -340,7 +340,7 @@
 	// Show it to ghosts
 	var/ghost_message = "<span class='name'>[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.format_message(include_photo = TRUE)]</span>"
 	for(var/mob/M in GLOB.player_list)
-		if(isobserver(M) && (M.client?.prefs.chat_toggles & CHAT_GHOSTPDA))
+		if(isobserver(M) && M.client?.prefs.read_player_preference(/datum/preference/toggle/chat_ghostpda))
 			to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")
 
 	// Log in the talk log

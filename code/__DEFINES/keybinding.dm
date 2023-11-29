@@ -14,10 +14,6 @@
 
 //Carbon
 #define COMSIG_KB_CARBON_TOGGLETHROWMODE_DOWN "keybinding_carbon_togglethrowmode_down"
-#define COMSIG_KB_CARBON_SELECTHELPINTENT_DOWN "keybinding_carbon_selecthelpintent_down"
-#define COMSIG_KB_CARBON_SELECTDISARMINTENT_DOWN "keybinding_carbon_selectdisarmintent_down"
-#define COMSIG_KB_CARBON_SELECTGRABINTENT_DOWN "keybinding_carbon_selectgrabintent_down"
-#define COMSIG_KB_CARBON_SELECTHARMINTENT_DOWN "keybinding_carbon_selectharmintent_down"
 #define COMSIG_KB_CARBON_HOLDTHROWMODE_DOWN "keybinding_carbon_holdthrowmode_down"
 #define COMSIG_KB_CARBON_GIVEITEM_DOWN "keybinding_carbon_giveitem_down"
 
@@ -26,6 +22,13 @@
 #define COMSIG_KB_CLIENT_SCREENSHOT_DOWN "keybinding_client_screenshot_down"
 #define COMSIG_KB_CLIENT_MINIMALHUD_DOWN "keybinding_client_minimalhud_down"
 #define COMSIG_KB_CLIENT_ZOOMIN_DOWN "keybinding_client_zoomin_down"
+#define COMSIG_KB_CLIENT_FULLSCREEN "keybinding_fullscreen"
+
+#define COMSIG_KB_CLIENT_SAY_DOWN "keybinding_client_say_down"
+#define COMSIG_KB_CLIENT_RADIO_DOWN "keybinding_client_radio_down"
+#define COMSIG_KB_CLIENT_ME_DOWN "keybinding_client_me_down"
+#define COMSIG_KB_CLIENT_OOC_DOWN "keybinding_client_ooc_down"
+#define COMSIG_KB_CLIENT_LOOC_DOWN "keybinding_client_looc_down"
 
 //Human
 #define COMSIG_KB_HUMAN_QUICKEQUIP_DOWN "keybinding_human_quickequip_down"
@@ -38,6 +41,10 @@
 #define COMSIG_KB_LIVING_REST_DOWN "keybinding_living_rest_down"
 #define COMSIG_KB_LIVING_LOOKUP_DOWN "keybinding_living_lookup_down"
 #define COMSIG_KB_LIVING_LOOKDOWN_DOWN "keybinding_living_lookdown_down"
+#define COMSIG_KB_LIVING_SELECTHELPINTENT_DOWN "keybinding_living_selecthelpintent_down"
+#define COMSIG_KB_LIVING_SELECTDISARMINTENT_DOWN "keybinding_living_selectdisarmintent_down"
+#define COMSIG_KB_LIVING_SELECTGRABINTENT_DOWN "keybinding_living_selectgrabintent_down"
+#define COMSIG_KB_LIVING_SELECTHARMINTENT_DOWN "keybinding_living_selectharmintent_down"
 
 //Mob
 #define COMSIG_KB_MOB_MOVENORTH_DOWN "keybinding_mob_movenorth_down"

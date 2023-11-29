@@ -57,16 +57,18 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 			changelings += changeling
 			changeling.special_role = ROLE_CHANGELING
 			changeling.restricted_roles = restricted_jobs
-		return 1
+			GLOB.pre_setup_antags += changeling
+		return TRUE
 	else
 		setup_error = "Not enough changeling candidates"
-		return 0
+		return FALSE
 
 /datum/game_mode/changeling/post_setup()
 	for(var/datum/mind/changeling in changelings)
 		log_game("[key_name(changeling)] has been selected as a changeling")
 		var/datum/antagonist/changeling/new_antag = new()
 		changeling.add_antag_datum(new_antag)
+		GLOB.pre_setup_antags -= changeling
 	..()
 
 /datum/game_mode/changeling/make_antag_chance(mob/living/carbon/human/character) //Assigns changeling to latejoiners

@@ -22,6 +22,7 @@
 		var/obj/item/clothing/head/hooded/W = new hoodtype(src)
 		W.suit = src
 		hood = W
+		W.moveToNullspace() //Moves hood to nullspace upon init; jackets on map at round otherwise start with hood in inventory.
 
 /obj/item/clothing/suit/hooded/ui_action_click()
 	ToggleHood()
@@ -45,12 +46,11 @@
 			H.update_inv_wear_suit()
 		else
 			if(!qdel_hood)
-				hood.forceMove(src)
+				hood.moveToNullspace() //Hides hood in nullspace instead of within the pocket of whatever it's on
 		if(qdel_hood)
 			QDEL_NULL(hood)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+
+	update_action_buttons()
 
 /obj/item/clothing/suit/hooded/dropped()
 	..()
@@ -77,9 +77,7 @@
 			suittoggled = TRUE
 			icon_state = "[initial(icon_state)]_t"
 			H.update_inv_wear_suit()
-			for(var/X in actions)
-				var/datum/action/A = X
-				A.UpdateButtonIcon()
+			update_action_buttons()
 	else
 		RemoveHood()
 
@@ -133,9 +131,7 @@
 			src.worn_icon_state = "[initial(icon_state)]_t"
 		src.suittoggled = TRUE
 	usr.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/clothing/suit/toggle/examine(mob/user)
 	. = ..()
@@ -151,7 +147,8 @@
 		helmet.suit = null
 		qdel(helmet)
 		helmet = null
-	QDEL_NULL(jetpack)
+	if (isatom(jetpack))
+		QDEL_NULL(jetpack)
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()

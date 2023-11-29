@@ -49,6 +49,7 @@
 		cultie.special_role = ROLE_HERETIC
 		cultie.restricted_roles = restricted_jobs
 		culties += cultie
+		GLOB.pre_setup_antags += cultie
 
 	if(!LAZYLEN(culties))
 		setup_error = "Not enough heretic candidates"
@@ -62,6 +63,7 @@
 		log_game("[key_name(cultie)] has been selected as a heretic!")
 		var/datum/antagonist/heretic/new_antag = new()
 		cultie.add_antag_datum(new_antag)
+		GLOB.pre_setup_antags -= cultie
 	return ..()
 
 /datum/game_mode/heretics/generate_report()

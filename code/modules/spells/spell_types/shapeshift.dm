@@ -139,6 +139,7 @@
 	if(source.revert_on_death)
 		restore(death=TRUE)
 	else
+		shape.investigate_log("has been killed whilst shapeshifted.", INVESTIGATE_DEATHS)
 		shape.death()
 
 /obj/shapeshift_holder/proc/shape_death(death=TRUE)

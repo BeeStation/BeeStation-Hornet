@@ -101,11 +101,11 @@
 	else
 		..()
 
-/mob/living/simple_animal/drone/getarmor(def_zone, type)
+/mob/living/simple_animal/drone/getarmor(def_zone, type, penetration)
 	var/armorval = 0
 
 	if(head)
-		armorval = head.get_armor_rating(type, src)
+		armorval = ((head.get_armor_rating(type, src) / 100) * (1 - penetration / 100)) * 100
 	return (armorval * get_armor_effectiveness()) //armor is reduced for tiny fragile drones
 
 /mob/living/simple_animal/drone/proc/get_armor_effectiveness()

@@ -250,23 +250,23 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	corgi_source.update_corgi_fluff()
 	corgi_source.regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type)
-	var/armorval = 0
+/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type, penetration)
+	var/armorval = 1
 
 	if(def_zone)
 		if(def_zone == BODY_ZONE_HEAD)
 			if(inventory_head)
-				armorval = inventory_head.get_armor_rating(type, src)
+				return ((1 - (inventory_head.get_armor_rating(type, src) / 100)) * (1 - penetration / 100)) * 100
 		else
 			if(inventory_back)
-				armorval = inventory_back.get_armor_rating(type, src)
-		return armorval
+				return ((1 - (inventory_back.get_armor_rating(type, src) / 100)) * (1 - penetration / 100)) * 100
+		return 0
 	else
 		if(inventory_head)
-			armorval += inventory_head.get_armor_rating(type, src)
+			armorval *= 1 - min((inventory_head.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
 		if(inventory_back)
-			armorval += inventory_back.get_armor_rating(type, src)
-	return armorval*0.5
+			armorval *= 1 - min((inventory_back.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
+	return (1 - armorval) * 100
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/razor))
@@ -512,6 +512,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	playsound(src, 'sound/magic/demon_dies.ogg', 75, TRUE)
 	var/mob/living/simple_animal/pet/dog/corgi/narsie/N = new(loc)
 	N.setDir(dir)
+	investigate_log("has been gibbed by Nar'Sie.", INVESTIGATE_DEATHS)
 	gib()
 
 /mob/living/simple_animal/pet/dog/corgi/narsie
@@ -710,3 +711,26 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	else
 		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
 			emote("me", 1, "growls!")
+
+/mob/living/simple_animal/pet/dog/corgi/cardigan
+	name = "\improper cardigan corgi"
+	real_name = "Cardigan Welsh corgi"
+	desc = "Ian's tailed cousin"
+	icon_state = "cardigan_corgi"
+	icon_living = "cardigan_corgi"
+	icon_dead = "cardigan_corgi_dead"
+	childtype = /mob/living/simple_animal/pet/dog/corgi/puppy/cardigan //Only one type of puppy
+	held_state = "cardigan_corgi"
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/cardigan
+	name = "\improper cardigan corgi puppy"
+	real_name = "Cardigan Welsh corgi"
+	desc = "It's a corgi puppy!"
+	icon_state = "cardigan_puppy"
+	icon_living = "cardigan_puppy"
+	icon_dead = "cardigan_puppy_dead"
+	density = FALSE
+	pass_flags = PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	collar_type = "puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD

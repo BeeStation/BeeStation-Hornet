@@ -51,15 +51,14 @@
 
 	set_light_on(on)
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user)
 	..()
 	if(suit)
 		suit.RemoveHelmet()
-		soundloop.stop(user)
+		if(user.client)
+			soundloop.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)
@@ -70,10 +69,11 @@
 	if(slot != ITEM_SLOT_HEAD)
 		if(suit)
 			suit.RemoveHelmet()
-			soundloop.stop(user)
+			if(user.client)
+				soundloop.stop(user)
 		else
 			qdel(src)
-	else
+	else if(user.client)
 		soundloop.start(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_hud(mob/user)
@@ -179,15 +179,18 @@
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
-	if(jetpack)
+	if(isatom(jetpack))
 		if(slot == ITEM_SLOT_OCLOTHING)
+			jetpack.update_known_user(user)
 			for(var/X in jetpack.actions)
 				var/datum/action/A = X
 				A.Grant(user)
 
 /obj/item/clothing/suit/space/hardsuit/dropped(mob/user)
 	..()
-	if(jetpack)
+	if(isatom(jetpack))
+		jetpack.turn_off()
+		jetpack.lose_known_user()
 		for(var/X in jetpack.actions)
 			var/datum/action/A = X
 			A.Remove(user)
@@ -449,9 +452,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
 	if(linkedsuit)

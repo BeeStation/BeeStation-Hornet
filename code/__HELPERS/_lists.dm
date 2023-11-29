@@ -507,9 +507,9 @@
 				return_list += wordlist[i]
 			bit = bit << 1
 	else
-		for(var/bit = 1, bit<=65535, bit = bit << 1)
-			if(bitfield & bit)
-				return_list += bit
+		for(var/bit = 0 to 24)
+			if(bitfield & (1 << bit))
+				return_list += (1 << bit)
 
 	return return_list
 
@@ -714,11 +714,26 @@
 		else
 			L1[key] = other_value
 
-/proc/assoc_list_strip_value(list/input)
-	var/list/ret = list()
+/// Turns an associative list into a flat list of keys
+/proc/assoc_to_keys(list/input)
+	var/list/keys = list()
 	for(var/key in input)
-		ret += key
-	return ret
+		keys += key
+	return keys
+
+/// Checks if a value is contained in an associative list's values
+/proc/assoc_contains_value(list/input, check_for)
+	for(var/key in input)
+		if(input[key] == check_for)
+			return TRUE
+	return FALSE
+
+/// Gets the first key that contains the given value in an associative list, otherwise, returns null.
+/proc/assoc_key_for_value(list/input, check_for)
+	for(var/key in input)
+		if(input[key] == check_for)
+			return key
+	return null
 
 /proc/compare_list(list/l,list/d)
 	if(!islist(l) || !islist(d))
@@ -753,3 +768,15 @@
 			stack_trace("[name] is not sorted. value at [index] ([value]) is in the wrong place compared to the previous value of [last_value] (when compared to by [cmp])")
 
 		last_value = value
+
+/**
+ * Converts a normal array list to an associated list, with the keys being the original values, and the value being the index of the value in the original list.
+ * All keys are converted to strings.
+ * Example: list("a", "b", 1, 2, 3) -> list("a" = 1, "b" = 2, "1" = 3, "2" = 4, "3" = 5)
+*/
+/proc/list_to_assoc_index(list/input)
+	. = list()
+	for(var/i = 1 to length(input))
+		var/key = "[input[i]]"
+		if(isnull(.[key]))
+			.[key] = i

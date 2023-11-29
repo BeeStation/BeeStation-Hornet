@@ -66,6 +66,7 @@ GLOBAL_VAR(clockcult_eminence)
 		selected_servants += clockie
 		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
 		clockie.special_role = ROLE_SERVANT_OF_RATVAR
+		GLOB.pre_setup_antags += clockie
 	generate_clockcult_scriptures()
 	return TRUE
 
@@ -87,6 +88,7 @@ GLOBAL_VAR(clockcult_eminence)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
 		S.prefix = CLOCKCULT_PREFIX_MASTER
+		GLOB.pre_setup_antags -= S
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()
@@ -165,7 +167,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(is_servant_of_ratvar(M))
 		return FALSE
-	if(M.mind.enslaved_to && !is_servant_of_ratvar(M.mind.enslaved_to))
+	if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 		return FALSE
 	if(M.mind.unconvertable)
 		return FALSE
@@ -192,7 +194,7 @@ GLOBAL_VAR(clockcult_eminence)
 
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
-/proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE, say=TRUE)
+/proc/hierophant_message(msg, mob/living/sender, span = "<span class='srt_radio brass'>", use_sanitisation=TRUE, say=TRUE)
 	if(CHAT_FILTER_CHECK(msg))
 		if(sender)
 			to_chat(sender, "<span class='warning'>You message contains forbidden words, please review the server rules and do not attempt to bypass this filter.</span>")

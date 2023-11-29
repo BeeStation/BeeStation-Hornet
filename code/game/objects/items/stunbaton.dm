@@ -8,7 +8,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
 	attack_verb = list("enforced the law upon")
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
@@ -23,9 +23,9 @@
 /obj/item/melee/baton/get_cell()
 	return cell
 
-/obj/item/melee/baton/suicide_act(mob/user)
+/obj/item/melee/baton/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (FIRELOSS)
+	return FIRELOSS
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -71,7 +71,7 @@
 			playsound(src, "sparks", 75, TRUE, -1)
 
 
-/obj/item/melee/baton/update_icon()
+/obj/item/melee/baton/update_icon_state()
 	if(obj_flags & OBJ_EMPED)
 		icon_state = "[initial(icon_state)]"
 	else if(turned_on)
@@ -80,6 +80,7 @@
 		icon_state = "[initial(icon_state)]_nocell"
 	else
 		icon_state = "[initial(icon_state)]"
+	return ..()
 
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()

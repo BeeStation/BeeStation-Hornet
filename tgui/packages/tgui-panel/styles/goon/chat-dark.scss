@@ -621,6 +621,16 @@ em {
   padding: 10px;
   margin: 10px 20px;
 }
+.death_message {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid rgb(240, 62, 225);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
 .unconscious {
   color: #a4bad6;
   font-weight: bold;
@@ -983,6 +993,10 @@ em {
   color: #059223;
   font-size: 24px;
 }
+.infotext {
+  color: #36f1e2;
+  font-size: 24px;
+}
 .redtext {
   color: #c51e1e;
   font-size: 24px;
@@ -1324,6 +1338,9 @@ em {
 }
 .slimemobsay {
   color: #00ced1;
+}
+.carpspeak {
+  color: #44aaff;
 }
 
 @keyframes rainbowtext {

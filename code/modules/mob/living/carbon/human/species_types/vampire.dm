@@ -19,7 +19,7 @@
 /datum/species/vampire/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
-	return FALSE
+	return ..()
 
 /datum/species/vampire/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	. = ..()
@@ -50,6 +50,7 @@
 		var/obj/shapeshift_holder/H = locate() in C
 		if(H)
 			H.shape.dust() //make sure we're killing the bat if you are out of blood, if you don't it creates weird situations where the bat is alive but the caster is dusted.
+		C.investigate_log("has been dusted by a lack of blood (vampire).", INVESTIGATE_DEATHS)
 		C.dust()
 	var/area/A = get_area(C)
 	if(istype(A, /area/chapel))
@@ -62,6 +63,69 @@
 	if(istype(weapon, /obj/item/nullrod/whip))
 		return 2 //Whips deal 2x damage to vampires. Vampire killer.
 	return 1
+
+/datum/species/vampire/get_species_description()
+	return "A classy Vampire! They descend upon Space Station Thirteen Every year to spook the crew! \"Bleeg!!\""
+
+/datum/species/vampire/get_species_lore()
+	return list(
+		"Vampires are unholy beings blessed and cursed with The Thirst. \
+		The Thirst requires them to feast on blood to stay alive, and in return it gives them many bonuses."
+	)
+
+/datum/species/vampire/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "bed",
+			SPECIES_PERK_NAME = "Coffin Brooding",
+			SPECIES_PERK_DESC = "Vampires can delay The Thirst and heal by resting in a coffin. So THAT'S why they do that!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "cross",
+			SPECIES_PERK_NAME = "Against God and Nature",
+			SPECIES_PERK_DESC = "Almost all higher powers are disgusted by the existence of \
+				Vampires, and entering the Chapel is essentially suicide. Do not do it!",
+		),
+	)
+
+	return to_add
+
+// Vampire blood is special, so it needs to be handled with its own entry.
+/datum/species/vampire/create_pref_blood_perks()
+	var/list/to_add = list()
+
+	to_add += list(list(
+		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+		SPECIES_PERK_ICON = "tint",
+		SPECIES_PERK_NAME = "The Thirst",
+		SPECIES_PERK_DESC = "In place of eating, Vampires suffer from The Thirst. \
+			Thirst of what? Blood! Their tongue allows them to grab people and drink \
+			their blood, and they will die if they run out. As a note, it doesn't \
+			matter whose blood you drink, it will all be converted into your blood \
+			type when consumed.",
+	))
+
+	return to_add
+
+// There isn't a "Minor Undead" biotype, so we have to explain it in an override (see: dullahans)
+/datum/species/vampire/create_pref_biotypes_perks()
+	var/list/to_add = list()
+
+	to_add += list(list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = "skull",
+		SPECIES_PERK_NAME = "Minor Undead",
+		SPECIES_PERK_DESC = "[name] are minor undead. \
+			Minor undead enjoy some of the perks of being dead, like \
+			not needing to breathe or eat, but do not get many of the \
+			environmental immunities involved with being fully undead.",
+	))
+
+	return to_add
 
 /obj/item/organ/tongue/vampire
 	name = "vampire tongue"
@@ -110,8 +174,8 @@
 			to_chat(victim, "<span class='danger'>[H] is draining your blood!</span>")
 			to_chat(H, "<span class='notice'>You drain some blood!</span>")
 			playsound(H, 'sound/items/drink.ogg', 30, 1, -2)
-			victim.blood_volume = CLAMP(victim.blood_volume - drained_blood, 0, BLOOD_VOLUME_MAXIMUM)
-			H.blood_volume = CLAMP(H.blood_volume + drained_blood, 0, BLOOD_VOLUME_MAXIMUM)
+			victim.blood_volume = clamp(victim.blood_volume - drained_blood, 0, BLOOD_VOLUME_MAXIMUM)
+			H.blood_volume = clamp(H.blood_volume + drained_blood, 0, BLOOD_VOLUME_MAXIMUM)
 			if(!victim.blood_volume)
 				to_chat(H, "<span class='warning'>You finish off [victim]'s blood supply!</span>")
 
