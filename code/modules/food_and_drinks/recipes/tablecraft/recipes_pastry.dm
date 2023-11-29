@@ -327,14 +327,14 @@
 	result = /obj/item/food/donkpocket
 	subcategory = CAT_PASTRY
 
-/datum/crafting_recipe/food/dankpocket
+/datum/crafting_recipe/food/donkpocket/dankpocket
 	time = 15
 	name = "Dank-pocket"
 	reqs = list(
 		/obj/item/food/pastrybase = 1,
 		/obj/item/reagent_containers/food/snacks/grown/cannabis = 1
 	)
-	result = /obj/item/food/dankpocket
+	result = /obj/item/food/donkpocket/dankpocket
 	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket/spicy
