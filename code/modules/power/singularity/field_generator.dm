@@ -182,57 +182,57 @@ field_generator power level display
 
 /obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
-	INVOKE_ASYNC(src, .proc/cleanup)
-	addtimer(CALLBACK(src, .proc/cool_down), 50)
+	INVOKE_ASYNC(src, PROC_REF(cleanup))
+	addtimer(CALLBACK(src, PROC_REF(cool_down)), 5 SECONDS)
 
 /obj/machinery/field/generator/proc/cool_down()
 	if(active || warming_up <= 0)
 		return
 	warming_up--
-	update_icon()
+	update_appearance()
 	if(warming_up > 0)
-		addtimer(CALLBACK(src, .proc/cool_down), 50)
+		addtimer(CALLBACK(src, PROC_REF(cool_down)), 5 SECONDS)
 
 /obj/machinery/field/generator/proc/turn_on()
 	active = FG_CHARGING
-	addtimer(CALLBACK(src, .proc/warm_up), 50)
+	addtimer(CALLBACK(src, PROC_REF(warm_up)), 5 SECONDS)
 
 /obj/machinery/field/generator/proc/warm_up()
 	if(!active)
 		return
 	warming_up++
-	update_icon()
+	update_appearance()
 	if(warming_up >= 3)
 		start_fields()
 	else
-		addtimer(CALLBACK(src, .proc/warm_up), 50)
+		addtimer(CALLBACK(src, PROC_REF(warm_up)), 5 SECONDS)
 
 /obj/machinery/field/generator/proc/calc_power(set_power_draw)
 	var/power_draw = 2 + fields.len
 	if(set_power_draw)
 		power_draw = set_power_draw
 
-	if(draw_power(round(power_draw/2,1)))
+	if(draw_power(round(power_draw/2, 1)))
 		check_power_level()
-		return 1
+		return TRUE
 	else
 		visible_message("<span class='danger'>The [name] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
 		investigate_log("ran out of power and <font color='red'>deactivated</font>", INVESTIGATE_ENGINES)
 		power = 0
 		check_power_level()
-		return 0
+		return FALSE
 
 //This could likely be better, it tends to start loopin if you have a complex generator loop setup.  Still works well enough to run the engine fields will likely recode the field gens and fields sometime -Mport
 /obj/machinery/field/generator/proc/draw_power(draw = 0, failsafe = FALSE, obj/machinery/field/generator/G = null, obj/machinery/field/generator/last = null)
 	if((G && (G == src)) || (failsafe >= 8))//Loopin, set fail
-		return 0
+		return FALSE
 	else
 		failsafe++
 
 	if(power >= draw)//We have enough power
 		power -= draw
-		return 1
+		return TRUE
 
 	else//Need more power
 		draw -= power
@@ -243,14 +243,14 @@ field_generator power level display
 				continue
 			if(G)//Another gen is askin for power and we dont have it
 				if(FG.draw_power(draw,failsafe,G,src))//Can you take the load
-					return 1
+					return TRUE
 				else
-					return 0
+					return FALSE
 			else//We are askin another for power
 				if(FG.draw_power(draw,failsafe,src,src))
-					return 1
+					return TRUE
 				else
-					return 0
+					return FALSE
 
 
 /obj/machinery/field/generator/proc/start_fields()
@@ -268,54 +268,54 @@ field_generator power level display
 
 
 /obj/machinery/field/generator/proc/setup_field(NSEW)
-	var/turf/T = loc
-	if(!istype(T))
-		return 0
+	var/turf/current_turf = loc
+	if(!istype(current_turf))
+		return FALSE
 
-	var/obj/machinery/field/generator/G = null
+	var/obj/machinery/field/generator/found_generator = null
 	var/steps = 0
 	if(!NSEW)//Make sure its ran right
-		return 0
+		return FALSE
 	for(var/dist in 0 to 7) // checks out to 8 tiles away for another generator
-		T = get_step(T, NSEW)
-		if(T.density)//We cant shoot a field though this
-			return 0
+		current_turf = get_step(current_turf, NSEW)
+		if(current_turf.density)//We cant shoot a field though this
+			return FALSE
 
-		G = locate(/obj/machinery/field/generator) in T
-		if(G)
+		found_generator = locate(/obj/machinery/field/generator) in current_turf
+		if(found_generator)
 			steps -= 1
-			if(!G.active)
-				return 0
+			if(!found_generator.active)
+				return FALSE
 			break
 
-		for(var/TC in T.contents)
-			var/atom/A = TC
-			if(ismob(A))
+		for(var/turf_content in current_turf.contents)
+			var/atom/found_atom = turf_content
+			if(ismob(found_atom))
 				continue
-			if(A.density)
-				return 0
+			if(found_atom.density)
+				return FALSE
 
 		steps++
 
-	if(!G)
-		return 0
+	if(!found_generator)
+		return FALSE
 
-	T = loc
+	current_turf = loc
 	for(var/dist in 0 to steps) // creates each field tile
-		var/field_dir = get_dir(T,get_step(G.loc, NSEW))
-		T = get_step(T, NSEW)
-		if(!locate(/obj/machinery/field/containment) in T)
-			var/obj/machinery/field/containment/CF = new(T)
-			CF.set_master(src,G)
-			CF.setDir(field_dir)
-			fields += CF
-			G.fields += CF
-			for(var/mob/living/L in T)
-				CF.on_entered(null, L)
+		var/field_dir = get_dir(current_turf, get_step(found_generator.loc, NSEW))
+		current_turf = get_step(current_turf, NSEW)
+		if(!locate(/obj/machinery/field/containment) in current_turf)
+			var/obj/machinery/field/containment/created_field = new(current_turf)
+			created_field.set_master(src, found_generator)
+			created_field.setDir(field_dir)
+			fields += created_field
+			found_generator.fields += created_field
+			for(var/mob/living/shocked_mob in current_turf)
+				created_field.on_entered(null, shocked_mob)
 
-	connected_gens |= G
-	G.connected_gens |= src
-	update_icon()
+	connected_gens |= found_generator
+	found_generator.connected_gens |= src
+	update_appearance()
 
 
 /obj/machinery/field/generator/proc/cleanup()

@@ -214,7 +214,7 @@
 
 				//AdminPM popup for ApocStation and anybody else who wants to use it. Set it with POPUP_ADMIN_PM in config.txt ~Carn
 				if(CONFIG_GET(flag/popup_admin_pm))
-					INVOKE_ASYNC(src, .proc/popup_admin_pm, recipient, msg)
+					INVOKE_ASYNC(src, PROC_REF(popup_admin_pm), recipient, msg)
 
 			else		//neither are admins
 				to_chat(src, "<span class='danger'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</span>", type = MESSAGE_TYPE_ADMINPM)

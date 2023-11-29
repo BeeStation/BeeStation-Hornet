@@ -331,7 +331,7 @@
 		return
 	to_chat(victim, "<span class='reallybig redtext'>RIP AND TEAR</span>")
 
-	INVOKE_ASYNC(src, .proc/blood_delusion, victim)
+	INVOKE_ASYNC(src, PROC_REF(blood_delusion), victim)
 
 	chainsaw = new(victim.loc)
 	victim.log_message("entered a blood frenzy", LOG_ATTACK)

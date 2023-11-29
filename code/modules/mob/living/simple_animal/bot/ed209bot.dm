@@ -352,7 +352,7 @@
 			playsound(src, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
-			INVOKE_ASYNC(src, .proc/handle_automated_action) // ensure bot quickly responds to a perp
+			INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // ensure bot quickly responds to a perp
 			break
 		else
 			continue
