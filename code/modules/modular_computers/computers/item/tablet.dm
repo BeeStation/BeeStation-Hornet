@@ -1,6 +1,6 @@
 /obj/item/modular_computer/tablet  //Its called tablet for theme of 90ies but actually its a "big smartphone" sized
 	name = "tablet computer"
-	icon = 'icons/obj/modular_tablet.dmi'
+	icon = 'icons/obj/modular_tablet.dmi' //Please do not delete the WIP's. They will make it easier to implement more transparent skins in the future.
 	icon_state = "tablet-red"
 	icon_state_menu = "menu"
 	hardware_flag = PROGRAM_TABLET
@@ -195,7 +195,7 @@
 // SUBTYPES
 /obj/item/modular_computer/tablet/syndicate_contract_uplink
 	name = "contractor tablet"
-	icon = 'icons/obj/contractor_tablet.dmi'
+	icon = 'icons/obj/contractor_tablet.dmi' //Please do not delete the WIP's. They will make it easier to implement more transparent skins in the future.
 	icon_state = "tablet"
 	icon_state_menu = "assign"
 	w_class = WEIGHT_CLASS_SMALL
@@ -330,7 +330,7 @@
 // Round start tablets
 
 /obj/item/modular_computer/tablet/pda
-	icon = 'icons/obj/pda.dmi'
+	icon = 'icons/obj/pda.dmi' //Please do not delete the WIP's. They will make it easier to implement more transparent skins in the future.
 	icon_state = "pda"
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
