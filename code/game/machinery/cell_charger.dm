@@ -13,8 +13,6 @@
 	var/obj/item/modular_computer/tablet/pda/pda = null
 	var/chargelevel = -1
 	var/charge_rate = 250
-	var/recharge_coeff = 1
-	var/using_power = FALSE
 
 /obj/machinery/cell_charger/update_icon()
 	cut_overlays()
