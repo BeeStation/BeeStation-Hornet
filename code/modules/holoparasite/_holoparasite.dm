@@ -233,12 +233,14 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	var/obj/item/card/id/id_card
 	var/obj/item/held_item
 	held_item = get_active_held_item()
-	id_card = held_item && held_item.GetID() //Check active hand
-	if(!id_card) //If there is no id, check the other hand
+	if(!QDELETED(held_item))
+		id_card = held_item.GetID() //Check active hand
+	if(QDELETED(id_card)) //If there is no id, check the other hand
 		held_item = get_inactive_held_item()
-		id_card = held_item && held_item.GetID()
+		if(!QDELETED(held_item))
+			id_card = held_item.GetID()
 
-	if(id_card)
+	if(!QDELETED(id_card))
 		if(hand_first)
 			return id_card
 		. = id_card
@@ -247,9 +249,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	if(istype(stats.weapon, /datum/holoparasite_ability/weapon/dextrous))
 		var/datum/holoparasite_ability/weapon/dextrous/dextrous_ability = stats.weapon
 		var/obj/item/internal_item = dextrous_ability.internal_storage
-		id_card = internal_item && internal_item.GetID()
-		if(id_card)
-			return id_card
+		if(!QDELETED(internal_item))
+			return internal_item.GetID()
 
 /mob/living/simple_animal/hostile/holoparasite/CtrlClickOn(atom/target)
 	. = ..()
