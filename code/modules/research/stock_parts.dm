@@ -92,8 +92,8 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 /obj/item/storage/part_replacer/bluespace/Initialize(mapload)
 	. = ..()
 
-	RegisterSignal(src, COMSIG_ATOM_ENTERED, .proc/on_part_entered)
-	RegisterSignal(src, COMSIG_ATOM_EXITED, .proc/on_part_exited)
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_part_entered))
+	RegisterSignal(src, COMSIG_ATOM_EXITED,PROC_REF(on_part_exited))
 
 /**
  * Signal handler for when a part has been inserted into the BRPED.
@@ -119,7 +119,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 		if(length(inserted_component.reagents.reagent_list))
 			inserted_component.reagents.clear_reagents()
 			to_chat(usr, "<span class='warning'>[src] churns as [inserted_component] has its reagents emptied into bluespace.</span>")
-		RegisterSignal(inserted_component.reagents, COMSIG_REAGENTS_PRE_ADD_REAGENT, .proc/on_insered_component_reagent_pre_add)
+		RegisterSignal(inserted_component.reagents, COMSIG_REAGENTS_PRE_ADD_REAGENT, PROC_REF(on_insered_component_reagent_pre_add))
 
 /**
  * Signal handler for when the reagents datum of an inserted part has reagents added to it.
