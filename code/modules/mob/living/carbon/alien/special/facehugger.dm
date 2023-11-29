@@ -135,7 +135,7 @@
 		Leap(hit_atom)
 
 /obj/item/clothing/mask/facehugger/proc/valid_to_attach(mob/living/M)
-	// valid targets: carbons except aliens and devils
+	// valid targets: carbons except aliens
 	// facehugger state early exit checks
 	if(stat != CONSCIOUS || attached)
 		return FALSE
@@ -147,7 +147,7 @@
 		// gotta have a head to be implanted (no changelings or sentient plants), gotta be able to have the xeno implanted
 		if(!target.get_bodypart(BODY_ZONE_HEAD) || HAS_TRAIT(target, TRAIT_XENO_IMMUNE))
 			return FALSE
-		// carbon, has head, not alien or devil, has no hivenode or embryo: valid
+		// carbon, has head, not alien, has no hivenode or embryo: valid
 		return TRUE
 
 	return FALSE
