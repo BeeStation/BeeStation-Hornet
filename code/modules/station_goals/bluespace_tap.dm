@@ -160,7 +160,7 @@
 		/obj/item/food/burger/fish,
 		/obj/item/reagent_containers/food/snacks/cubancarp,
 		/obj/item/reagent_containers/food/snacks/fishandchips,
-		/obj/item/reagent_containers/food/snacks/pie/meatpie,
+		/obj/item/food/pie/meatpie,
 		/obj/item/pizzabox,
 	)
 
