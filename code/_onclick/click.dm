@@ -45,7 +45,7 @@
 
 /atom/DblClick(location,control,params)
 	if(flags_1 & INITIALIZED_1)
-		usr.DblClickOn(src,params)
+		usr.DblClickOn(src, params)
 
 /atom/MouseWheel(delta_x,delta_y,location,control,params)
 	if(flags_1 & INITIALIZED_1)
