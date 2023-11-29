@@ -3,61 +3,62 @@
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "c" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"e" = (
+/obj/machinery/door/window/westleft{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"g" = (
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	icon_state = "right"
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"h" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+"j" = (
 /obj/machinery/button/massdriver/indestructible{
 	id = "trektorpedo1";
 	layer = 3.9;
 	name = "photon torpedo button";
-	pixel_x = -16;
+	pixel_x = -5;
 	pixel_y = -5
 	},
 /obj/machinery/button/massdriver/indestructible{
 	id = "trektorpedo2";
 	layer = 3.9;
 	name = "photon torpedo button";
-	pixel_x = 16;
+	pixel_x = 5;
 	pixel_y = -5
 	},
 /obj/machinery/computer/arcade/orion_trail/kobayashi,
-/turf/open/floor/holofloor/plating,
-/area/template_noop)
-"d" = (
-/obj/machinery/computer/station_alert{
-	dir = 8
-	},
-/turf/open/floor/holofloor/plating,
-/area/template_noop)
-"f" = (
-/obj/machinery/door/window/westleft{
-	dir = 2
-	},
-/turf/open/floor/holofloor/plating,
-/area/template_noop)
-"g" = (
-/obj/structure/table,
-/obj/item/folder,
-/obj/item/pen,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/holofloor,
-/area/template_noop)
-"i" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/holofloor,
-/area/template_noop)
-"j" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "k" = (
 /obj/structure/chair/office{
 	dir = 8
 	},
-/turf/open/floor/holofloor/plating,
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor,
 /area/template_noop)
 "l" = (
 /obj/structure/window/reinforced,
@@ -68,11 +69,10 @@
 /area/template_noop)
 "n" = (
 /obj/structure/window/reinforced{
-	dir = 4;
 	layer = 2.9
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/holofloor,
 /area/template_noop)
@@ -83,27 +83,26 @@
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "p" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/computer/arcade/orion_trail/kobayashi,
-/turf/open/floor/holofloor/plating,
-/area/template_noop)
-"q" = (
-/obj/structure/rack,
-/obj/item/clothing/under/trek/medsci,
-/obj/item/clothing/under/trek/medsci,
-/obj/item/clothing/under/trek/command,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 1
 	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "r" = (
-/obj/structure/table,
+/obj/structure/chair/office{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"s" = (
+/obj/structure/rack,
+/obj/item/clothing/under/trek/engsec,
+/obj/item/clothing/under/trek/engsec,
+/obj/structure/window/reinforced{
+	dir = 4;
+	layer = 2.9
+	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "t" = (
@@ -115,12 +114,11 @@
 /obj/machinery/recharger,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
-"x" = (
-/obj/structure/window/reinforced{
-	dir = 4
+"u" = (
+/obj/machinery/door/window/westleft{
+	dir = 2
 	},
-/obj/machinery/computer/arcade/orion_trail/kobayashi,
-/turf/open/floor/holofloor/plating,
+/turf/open/floor/holofloor/hyperspace,
 /area/template_noop)
 "y" = (
 /turf/open/floor/holofloor/hyperspace,
@@ -132,88 +130,11 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
-"A" = (
-/obj/structure/window/reinforced,
-/turf/open/floor/holofloor/plating,
-/area/template_noop)
 "B" = (
 /obj/structure/window/reinforced,
 /turf/open/floor/holofloor/hyperspace,
 /area/template_noop)
 "C" = (
-/obj/machinery/computer/station_alert{
-	dir = 4
-	},
-/turf/open/floor/holofloor/plating,
-/area/template_noop)
-"E" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/open/floor/holofloor,
-/area/template_noop)
-"H" = (
-/obj/machinery/door/window/westleft{
-	dir = 2;
-	icon_state = "right"
-	},
-/turf/open/floor/holofloor/plating,
-/area/template_noop)
-"I" = (
-/obj/structure/table,
-/obj/item/folder,
-/obj/item/pen/blue,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/holofloor,
-/area/template_noop)
-"K" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/holofloor,
-/area/template_noop)
-"L" = (
-/obj/structure/table/glass,
-/obj/item/gun/energy/e_gun/mini/practice_phaser,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/holofloor/plating,
-/area/template_noop)
-"O" = (
-/obj/structure/table,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/folder,
-/obj/item/pen/red,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/holofloor,
-/area/template_noop)
-"R" = (
-/obj/structure/rack,
-/obj/item/clothing/under/trek/engsec,
-/obj/item/clothing/under/trek/engsec,
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/holofloor,
-/area/template_noop)
-"V" = (
 /obj/structure/window/reinforced,
 /obj/machinery/mass_driver{
 	dir = 1;
@@ -226,120 +147,170 @@
 	icon_state = "impact_laser";
 	name = "photon torpedo"
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/holofloor/hyperspace,
 /area/template_noop)
-"X" = (
+"E" = (
 /obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"F" = (
+/obj/machinery/computer/station_alert{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+"G" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"J" = (
+/obj/structure/rack,
+/obj/item/clothing/under/trek/medsci,
+/obj/item/clothing/under/trek/medsci,
+/obj/item/clothing/under/trek/command,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+"K" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+"L" = (
+/obj/structure/table/glass,
+/obj/item/gun/energy/e_gun/mini/practice_phaser,
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/open/floor/holofloor/plating,
+/area/template_noop)
+"N" = (
+/obj/structure/window/reinforced,
+/obj/machinery/mass_driver{
+	dir = 1;
+	id = "trektorpedo2";
+	name = "photon torpedo tube"
+	},
+/obj/item/toy/minimeteor{
+	desc = "A primitive long-range weapon, inferior to Nanotrasen's perfected bluespace artillery.";
+	icon = 'icons/effects/effects.dmi';
+	icon_state = "impact_laser";
+	name = "photon torpedo"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/holofloor/hyperspace,
+/area/template_noop)
+"R" = (
+/obj/machinery/computer/station_alert{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+"S" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"T" = (
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	icon_state = "right"
+	},
+/turf/open/floor/holofloor/hyperspace,
+/area/template_noop)
+"X" = (
+/obj/structure/window/reinforced{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+"Y" = (
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor,
 /area/template_noop)
 
 (1,1,1) = {"
 y
 y
 B
-a
-C
+G
+F
 l
-a
-a
-a
-a
+G
 "}
 (2,1,1) = {"
 y
 y
-B
-a
+T
+p
 k
-k
-a
-a
-a
-a
+E
+G
 "}
 (3,1,1) = {"
 y
-V
+C
 t
-a
-a
-a
-a
-H
+c
+g
 K
-q
+J
 "}
 (4,1,1) = {"
 B
-p
+j
+o
+c
+n
 a
-a
-a
-a
-A
-I
-E
-i
+h
 "}
 (5,1,1) = {"
-B
+y
+N
+L
 c
-j
-a
-a
-o
-A
-g
-E
-i
+e
+X
+s
 "}
 (6,1,1) = {"
-B
-x
-a
-a
-a
+y
+y
+u
+Y
 r
-A
-O
-E
-i
+S
+G
 "}
 (7,1,1) = {"
 y
-V
-L
-a
-a
-a
-a
-f
-n
+y
+B
+G
 R
-"}
-(8,1,1) = {"
-y
-y
-B
-a
-X
-X
-a
-a
-a
-a
-"}
-(9,1,1) = {"
-y
-y
-B
-a
-d
 z
-a
-a
-a
-a
+G
 "}

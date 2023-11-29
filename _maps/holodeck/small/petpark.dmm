@@ -3,14 +3,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
-"b" = (
-/obj/structure/flora/ausbushes/fernybush,
-/turf/open/floor/holofloor/grass,
-/area/template_noop)
-"c" = (
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/holofloor/grass,
-/area/template_noop)
 "f" = (
 /obj/structure/flora/ausbushes/genericbush,
 /turf/open/floor/holofloor/grass,
@@ -38,8 +30,8 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
-"p" = (
-/obj/structure/flora/ausbushes/ywflowers,
+"o" = (
+/obj/structure/flora/ausbushes/ppflowers,
 /obj/effect/holodeck_effect/mobspawner/pet,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
@@ -108,6 +100,11 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
+"O" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/reagent_containers/glass/bucket,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
 "R" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/holofloor/grass,
@@ -117,116 +114,72 @@
 /obj/item/cultivator,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
-"X" = (
-/obj/item/reagent_containers/glass/bucket,
+"W" = (
+/obj/structure/flora/ausbushes/palebush,
+/obj/effect/holodeck_effect/mobspawner/pet,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 
 (1,1,1) = {"
-g
 I
 I
-I
-f
 I
 I
 f
-I
+f
 a
 "}
 (2,1,1) = {"
 I
+I
+k
 f
-I
-v
 g
-I
-v
 H
-M
 I
 "}
 (3,1,1) = {"
+I
+o
 M
 g
-R
 I
-k
-l
-I
-c
-c
+U
 I
 "}
 (4,1,1) = {"
-I
-l
-M
-I
-I
-G
-R
-U
-q
-I
-"}
-(5,1,1) = {"
 y
 w
 x
 E
 D
-M
-X
 q
-c
 f
 "}
-(6,1,1) = {"
+(5,1,1) = {"
 I
 I
 r
 j
-I
-p
-I
-c
-c
+C
+O
 I
 "}
-(7,1,1) = {"
+(6,1,1) = {"
 I
 M
 g
 v
-I
-f
-C
-I
-I
-v
-"}
-(8,1,1) = {"
-f
-C
-f
-I
-I
-I
 g
-I
-b
-I
+l
+W
 "}
-(9,1,1) = {"
-I
-I
-I
-I
-I
+(7,1,1) = {"
+f
+C
 R
+f
 I
-I
-I
+G
 I
 "}

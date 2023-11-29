@@ -3,13 +3,6 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
-"c" = (
-/obj/structure/flora/bush{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/turf/open/floor/holofloor/snow,
-/area/template_noop)
 "d" = (
 /obj/structure/flora/tree/pine,
 /turf/open/floor/holofloor/snow,
@@ -88,13 +81,6 @@
 /obj/structure/flora/grass/green,
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
-"O" = (
-/obj/structure/flora/bush{
-	pixel_x = 5;
-	pixel_y = 7
-	},
-/turf/open/floor/holofloor/snow,
-/area/template_noop)
 "P" = (
 /obj/item/clothing/head/collectable/tophat{
 	pixel_x = 9;
@@ -105,12 +91,6 @@
 "Q" = (
 /obj/item/clothing/shoes/winterboots{
 	pixel_y = 12
-	},
-/turf/open/floor/holofloor/snow,
-/area/template_noop)
-"R" = (
-/obj/structure/flora/tree/pine{
-	pixel_x = -10
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
@@ -141,106 +121,61 @@
 L
 S
 Z
-Z
 A
-Z
-Z
 Z
 Z
 a
 "}
 (2,1,1) = {"
 Z
-h
-Z
-Z
-Z
-Z
+P
 Z
 Z
 l
 Z
+Z
 "}
 (3,1,1) = {"
-Z
-P
+H
+D
 U
 Z
 Z
-Z
-Z
-Z
-Z
-c
-"}
-(4,1,1) = {"
-H
-D
-Z
-Z
-Z
-Z
-Z
-Z
 m
 Z
 "}
-(5,1,1) = {"
+(4,1,1) = {"
 A
 n
 Z
-Z
-Z
 s
 E
-Z
 w
 Q
 "}
-(6,1,1) = {"
+(5,1,1) = {"
 Z
 Z
 m
-Z
-Z
-Z
 Z
 U
 u
 G
 "}
-(7,1,1) = {"
+(6,1,1) = {"
 Z
 Z
 d
-O
 Z
 Z
-Z
-Z
-Z
+h
 Z
 "}
-(8,1,1) = {"
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-R
-"}
-(9,1,1) = {"
+(7,1,1) = {"
 Z
 a
 Z
-Z
-Z
 L
-Z
 Z
 Z
 q

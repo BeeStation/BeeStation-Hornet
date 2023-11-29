@@ -2,31 +2,28 @@
 "a" = (
 /turf/open/floor/holofloor/beach/water,
 /area/template_noop)
-"f" = (
-/obj/item/shovel/spade,
-/turf/open/floor/holofloor/beach/coast_t,
-/area/template_noop)
-"g" = (
-/obj/item/toy/beach_ball,
-/turf/open/floor/holofloor/beach,
-/area/template_noop)
-"h" = (
-/obj/item/clothing/under/color/rainbow,
-/obj/item/clothing/glasses/sunglasses,
-/turf/open/floor/holofloor/beach,
-/area/template_noop)
 "k" = (
 /turf/open/floor/holofloor/beach/coast_b,
-/area/template_noop)
-"q" = (
-/obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/holofloor/beach/coast_t,
 /area/template_noop)
 "t" = (
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
+"v" = (
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/shovel/spade,
+/turf/open/floor/holofloor/beach/coast_t,
+/area/template_noop)
+"A" = (
+/obj/item/toy/beach_ball,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
 "H" = (
 /obj/effect/holodeck_effect/mobspawner/monkey,
+/turf/open/floor/holofloor/beach,
+/area/template_noop)
+"I" = (
+/obj/effect/overlay/palmtree_r,
+/obj/effect/overlay/coconut,
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "J" = (
@@ -42,9 +39,9 @@
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "T" = (
-/obj/effect/overlay/palmtree_l,
-/obj/effect/overlay/coconut,
-/turf/open/floor/holofloor/beach,
+/obj/item/clothing/under/color/rainbow,
+/obj/item/clothing/glasses/sunglasses,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "W" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -56,10 +53,7 @@
 /area/template_noop)
 
 (1,1,1) = {"
-R
-R
-R
-R
+W
 R
 R
 R
@@ -70,22 +64,16 @@ a
 (2,1,1) = {"
 R
 R
-R
+W
 X
-R
-R
-R
 Q
 k
 a
 "}
 (3,1,1) = {"
-X
-H
+I
 R
-R
-R
-t
+T
 t
 J
 k
@@ -96,67 +84,31 @@ R
 R
 R
 R
-h
-R
-R
 J
 k
 a
 "}
 (5,1,1) = {"
-R
-R
 W
-R
-R
+H
+A
 t
-t
-J
+v
 k
 a
 "}
 (6,1,1) = {"
 R
 R
-R
-R
 X
-g
-R
-q
+H
+J
 k
 a
 "}
 (7,1,1) = {"
 R
-T
-H
-R
-R
-R
-R
-f
-k
-a
-"}
-(8,1,1) = {"
 W
-R
-R
-R
-H
-R
-R
-J
-k
-a
-"}
-(9,1,1) = {"
-R
-R
-R
-R
-R
 R
 R
 J

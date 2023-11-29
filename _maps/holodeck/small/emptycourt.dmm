@@ -1,8 +1,18 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
 "g" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"j" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/holofloor,
 /area/template_noop)
 "n" = (
@@ -61,19 +71,13 @@
 g
 R
 R
-R
-R
-B
-B
+b
 B
 B
 p
 "}
 (2,1,1) = {"
 U
-D
-D
-D
 D
 D
 D
@@ -88,16 +92,10 @@ D
 D
 D
 D
-D
-D
-D
 G
 "}
 (4,1,1) = {"
 U
-D
-D
-D
 D
 D
 D
@@ -112,9 +110,6 @@ D
 D
 D
 D
-D
-D
-D
 G
 "}
 (6,1,1) = {"
@@ -124,43 +119,13 @@ D
 D
 D
 D
-D
-D
-D
 G
 "}
 (7,1,1) = {"
-U
-D
-D
-D
-D
-D
-D
-D
-D
-G
-"}
-(8,1,1) = {"
-U
-D
-D
-D
-D
-D
-D
-D
-D
-G
-"}
-(9,1,1) = {"
 C
 w
 w
-w
-w
-S
-S
+j
 S
 S
 n

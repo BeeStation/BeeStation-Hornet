@@ -2,6 +2,11 @@
 "a" = (
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
+"f" = (
+/turf/open/floor/holofloor{
+	icon_state = "stairs-r"
+	},
+/area/template_noop)
 "l" = (
 /obj/vehicle/ridden/scooter/skateboard/pro/holodeck{
 	dir = 8;
@@ -9,13 +14,41 @@
 	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
+"m" = (
+/obj/structure/table,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+"n" = (
+/obj/structure/table,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
 "t" = (
 /obj/structure/table,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
-"H" = (
-/obj/structure/table,
+"B" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
 /turf/open/floor/holofloor/plating,
+/area/template_noop)
+"L" = (
+/obj/structure/table,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/holofloor/plating,
+/area/template_noop)
+"Y" = (
+/turf/open/floor/holofloor{
+	icon_state = "stairs-l"
+	},
 /area/template_noop)
 
 (1,1,1) = {"
@@ -26,98 +59,53 @@ a
 a
 a
 a
-a
-a
-a
 "}
 (2,1,1) = {"
 a
-H
-H
+t
+t
 a
-a
-a
-a
-a
-a
+t
+t
 l
 "}
 (3,1,1) = {"
 a
-H
-H
-H
-H
 a
-H
-H
-a
+t
+t
+m
+B
 l
 "}
 (4,1,1) = {"
 a
+t
 a
-H
-H
-H
-H
-H
-a
+t
+Y
 a
 l
 "}
 (5,1,1) = {"
 a
-a
-H
 t
-a
-H
-H
-a
+t
+t
+f
 a
 l
 "}
 (6,1,1) = {"
 a
+t
 a
-H
-H
-H
-H
-a
-a
-a
+t
+n
+L
 l
 "}
 (7,1,1) = {"
-a
-H
-H
-H
-H
-a
-H
-H
-a
-l
-"}
-(8,1,1) = {"
-a
-H
-a
-a
-a
-a
-H
-H
-a
-a
-"}
-(9,1,1) = {"
-a
-a
-a
 a
 a
 a

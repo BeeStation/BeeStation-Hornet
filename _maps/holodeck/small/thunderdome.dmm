@@ -17,6 +17,9 @@
 /obj/item/holo/esword/green,
 /turf/open/floor/holofloor/basalt,
 /area/template_noop)
+"m" = (
+/turf/open/floor/holofloor/hyperspace,
+/area/template_noop)
 "q" = (
 /obj/structure/table,
 /obj/item/clothing/head/helmet/thunderdome/holosuit,
@@ -43,104 +46,59 @@ Q
 B
 B
 B
-x
-c
-B
 B
 B
 a
 "}
 (2,1,1) = {"
-q
-B
 B
 B
 x
+m
 c
 B
 B
-B
-h
 "}
 (3,1,1) = {"
 q
 B
-B
-B
 x
+m
 c
-B
-B
 B
 h
 "}
 (4,1,1) = {"
 q
 B
-B
-B
 x
+m
 c
-B
-B
 B
 h
 "}
 (5,1,1) = {"
 q
 B
-B
-B
 x
+m
 c
-B
-B
 B
 h
 "}
 (6,1,1) = {"
-q
-B
 B
 B
 x
+m
 c
 B
 B
-B
-h
 "}
 (7,1,1) = {"
-q
-B
-B
-B
-x
-c
-B
-B
-B
-h
-"}
-(8,1,1) = {"
-q
-B
-B
-B
-x
-c
-B
-B
-B
-h
-"}
-(9,1,1) = {"
 a
 B
 B
-B
-x
-c
 B
 B
 B

@@ -15,12 +15,6 @@
 /obj/item/banner/blue,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
-"k" = (
-/obj/structure/table/wood/fancy,
-/obj/item/clothing/suit/armor/riot/knight/blue,
-/obj/item/clothing/head/helmet/knight/blue,
-/turf/open/floor/holofloor/grass,
-/area/template_noop)
 "n" = (
 /obj/machinery/door/window/westleft{
 	dir = 2
@@ -81,11 +75,6 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
-"N" = (
-/obj/structure/table/wood,
-/obj/item/spear,
-/turf/open/floor/holofloor/asteroid,
-/area/template_noop)
 "Q" = (
 /obj/structure/table/wood/fancy,
 /obj/item/clothing/suit/armor/riot/knight/blue,
@@ -115,10 +104,7 @@
 (1,1,1) = {"
 H
 J
-N
-p
-p
-p
+r
 p
 g
 x
@@ -126,95 +112,53 @@ a
 "}
 (2,1,1) = {"
 x
-J
-r
-p
-p
-p
+s
+B
 p
 E
 x
 a
 "}
 (3,1,1) = {"
-k
-s
-B
+Q
+J
+y
 p
-p
-p
-p
-E
+R
 x
 a
 "}
 (4,1,1) = {"
-Q
-J
-y
-p
-p
-p
-p
-R
-x
-a
-"}
-(5,1,1) = {"
 C
 J
 X
 p
-p
-p
-p
 E
 x
 a
 "}
-(6,1,1) = {"
+(5,1,1) = {"
 Q
 J
 T
-p
-p
-p
 p
 R
 x
 a
 "}
-(7,1,1) = {"
-k
+(6,1,1) = {"
+x
 n
 B
 p
-p
-p
-p
 E
 x
 a
 "}
-(8,1,1) = {"
-x
-J
-y
-p
-p
-p
-p
-E
-x
-a
-"}
-(9,1,1) = {"
+(7,1,1) = {"
 H
 J
-T
-p
-p
-p
+y
 p
 f
 x
