@@ -32536,17 +32536,18 @@
 /turf/open/floor/plasteel,
 /area/medical/morgue)
 "eLu" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 8;
+	sortType = 12
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
@@ -36816,9 +36817,6 @@
 "gwW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -61455,9 +61453,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -61467,6 +61462,9 @@
 /obj/effect/turf_decal/trimline/purple/filled/line,
 /obj/effect/turf_decal/trimline/purple/filled/corner{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
@@ -64472,18 +64470,17 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/secondary)
 "rQN" = (
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 8;
-	sortType = 12
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
@@ -95263,7 +95260,7 @@ aaa
 aaf
 aaf
 aqF
-mYQ
+gKn
 atq
 aaf
 aaa
@@ -95520,7 +95517,7 @@ aaa
 aaa
 aaf
 aqF
-rbS
+fFu
 atq
 aaf
 aaa
@@ -95777,7 +95774,7 @@ aaa
 aaf
 aaf
 aqF
-mYQ
+gKn
 atq
 aaf
 aaa
@@ -109468,8 +109465,8 @@ clD
 cmI
 cnV
 qAB
-cqA
-crI
+cqB
+cJm
 eLu
 ctL
 ctL
@@ -109725,8 +109722,8 @@ fdd
 jCb
 fTa
 gwW
-cqB
-cJm
+cqA
+crI
 rQN
 ctL
 cuF
