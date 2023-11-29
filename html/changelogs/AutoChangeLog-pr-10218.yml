@@ -1,0 +1,5 @@
+author: JixS4v
+delete-after: true
+changes:
+  - bugfix: deadminning gives you mentor status if you were a mentor before becoming
+      an admin
