@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: You can no longer fit every item into a Bluespace RPED by dragging the
+      item into it.
