@@ -1926,6 +1926,29 @@
 			return
 		paper_to_show.ui_interact(usr)
 
+	else if(href_list["force_cryo"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/param = href_list["force_cryo"]
+		// If it's a direct reference to a mob, use that.
+		var/mob/living/target = locate(param)
+		if(!istype(target))
+			// Might be a ckey? Let's see.
+			target = get_ckey_last_living(target)
+			if(!istype(target))
+				to_chat(usr, "This can only be used on instances of type /mob/living.")
+				return
+		var/method = tgui_alert(usr, "Select force-cryo method", "Cryo Express", list("Centcom Pod (recommended)", "Instant", "Cancel"))
+		switch(method)
+			if("Centcom Pod (recommended)")
+				INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(force_cryo), target)
+			if("Instant")
+				INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(instant_force_cryo), target)
+			else
+				return
+		message_admins("[key_name_admin(usr)] force-cryoed [ADMIN_LOOKUPFLW(target)]].")
+		log_admin("[key_name(usr)] force-cryoed [key_name(target)]].")
+
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))
 		return

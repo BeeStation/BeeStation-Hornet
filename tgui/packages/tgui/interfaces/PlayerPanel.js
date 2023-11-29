@@ -441,6 +441,7 @@ class PlayerDetailsActionButtons extends PureComponent {
         'Ban': 'open_ban',
         'Smite': 'smite',
         'Prison': 'jail',
+        'Cryo': 'force_cryo',
       },
     };
     if (!has_mind) {

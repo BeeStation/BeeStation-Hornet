@@ -345,6 +345,20 @@
 			return M
 	return null
 
+/proc/get_ckey_last_living(key, healthy = FALSE)
+	if(!istext(key))
+		return
+	var/ckey = ckey(key) //just to be safe
+	for(var/mob/living/potential_target as() in GLOB.mob_living_list)
+		if(QDELETED(potential_target) || (healthy && potential_target.stat))
+			continue
+		var/has_ckey = length(potential_target.ckey)
+		if(potential_target.ckey == ckey || (!has_ckey && ckey(potential_target.mind?.key) == ckey))
+			return potential_target
+		var/mob/living/carbon/potential_carbon_target = potential_target
+		if(!has_ckey && istype(potential_carbon_target) && ckey(potential_carbon_target.last_mind?.key) == ckey)
+			return potential_carbon_target
+
 /proc/considered_alive(datum/mind/M, enforce_human = TRUE)
 	if(M?.current)
 		if(enforce_human)
