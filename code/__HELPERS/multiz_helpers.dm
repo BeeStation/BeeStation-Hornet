@@ -1,12 +1,15 @@
-/proc/get_step_multiz(ref, dir)
-	var/turf/reference_turf = get_turf(ref)
-	if(dir & UP)
-		dir &= ~UP
-		return get_step(GET_TURF_ABOVE(reference_turf), dir)
-	if(dir & DOWN)
-		dir &= ~DOWN
-		return get_step(GET_TURF_BELOW(reference_turf), dir)
-	return get_step(ref, dir)
+GLOBAL_VAR_TYPED(temporary_multiz_step_ref, /turf)
+
+#define get_step_multiz(ref, dir) \
+	(dir & UP ? ( \
+		(GLOB.temporary_multiz_step_ref = get_turf(ref)) ? get_step(GET_TURF_ABOVE(GLOB.temporary_multiz_step_ref), dir & ~UP) : null \
+	) : ( \
+		(dir & DOWN) ? ( \
+			(GLOB.temporary_multiz_step_ref = get_turf(ref)) ? get_step(GET_TURF_BELOW(GLOB.temporary_multiz_step_ref), dir & ~DOWN) : null \
+		) : ( \
+			get_step(ref, dir) \
+		) \
+	))
 
 /proc/get_dir_multiz(turf/us, turf/them)
 	us = get_turf(us)
