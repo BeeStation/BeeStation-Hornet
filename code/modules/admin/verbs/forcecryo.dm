@@ -39,7 +39,7 @@
 	target.pulledby?.stop_pulling()
 	target.buckled?.unbuckle_mob(target, force = TRUE)
 	for(var/obj/machinery/cryopod/pod in GLOB.machines)
-		if(!QDELETED(pod.occupant) || pod.panel_open)
+		if(!is_station_level(pod.z) || !QDELETED(pod.occupant) || pod.panel_open)
 			continue
 		pod.close_machine(target)
 		pod.despawn_occupant()
