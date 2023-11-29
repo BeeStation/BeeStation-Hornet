@@ -28,7 +28,7 @@
 			if(M.stat == DEAD)
 				if(M.mind)
 					loaded = 0
-					if(M.suiciding || M.ishellbound())
+					if(M.suiciding)
 						user.visible_message("<span class='notice'>[user] injects [M] with [src], but nothing happened.</span>")
 						return
 					M.revive(full_heal = 1, admin_revive = 1)
