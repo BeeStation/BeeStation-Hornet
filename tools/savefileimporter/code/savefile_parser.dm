@@ -128,7 +128,7 @@
 
 	// And save these to the DB
 
-	var/list/datum/DBQuery/queries = list()
+	var/list/datum/db_query/queries = list()
 	NEW_QUERY(PREFERENCE_TAG_TOGGLES, owning_ckey, toggles_out)
 	NEW_QUERY(PREFERENCE_TAG_TOGGLES2, owning_ckey, toggles2_out)
 
@@ -212,7 +212,7 @@
 	var/special_json = json_encode(be_special)
 	NEW_QUERY(PREFERENCE_TAG_BE_SPECIAL, owning_ckey, special_json)
 
-	for(var/datum/DBQuery/query in queries)
+	for(var/datum/db_query/query in queries)
 		query.Execute()
 		var/em = query.ErrorMsg()
 		if(em)

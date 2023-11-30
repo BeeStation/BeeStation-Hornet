@@ -15,7 +15,7 @@
 	. = ..()
 	if(. != PREFERENCE_LOAD_SUCCESS)
 		return .
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"SELECT CAST(preference_tag AS CHAR) AS ptag, preference_value FROM [format_table_name("preferences")] WHERE ckey=:ckey",
 		list("ckey" = prefs.parent.ckey)
 	)

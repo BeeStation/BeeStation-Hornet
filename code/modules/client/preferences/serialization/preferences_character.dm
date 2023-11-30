@@ -23,7 +23,7 @@
 	if(. != PREFERENCE_LOAD_SUCCESS)
 		return .
 	var/list/values
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"SELECT [db_column_list(column_names)] FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
 		list("ckey" = prefs.parent.ckey, "slot" = slot_number)
 	)
@@ -82,7 +82,7 @@
 		return PREFERENCE_LOAD_NO_DATA
 	new_data["ckey"] = prefs.parent.ckey
 	new_data["slot"] = slot_number
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("characters")] (ckey, slot, [db_column_list(column_names_short)]) VALUES (:ckey, :slot, [db_column_list(column_names_short, TRUE)]) ON DUPLICATE KEY UPDATE [db_column_values(column_names_short)]", new_data
 	)
 	var/success = Q.warn_execute()
@@ -158,7 +158,7 @@
 		data[prefs.default_slot] = read_preference(prefs, GLOB.preference_entries[/datum/preference/name/real_name])
 		prefs.character_profiles_cached = data
 		return
-	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+	var/datum/db_query/Q = SSdbcore.NewQuery(
 		"SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey=:ckey",
 		list("ckey" = prefs.parent.ckey)
 	)

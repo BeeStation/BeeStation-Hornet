@@ -790,6 +790,24 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		to_chat(src, "<span class='warning'>Failed to place [template.name].</span>")
 
+/client/proc/run_empty_query(val as num)
+	set category = "Debug"
+	set name = "Run empty query"
+	set desc = "Amount of queries to run"
+
+	var/list/queries = list()
+	for(var/i in 1 to val)
+		var/datum/db_query/query = SSdbcore.NewQuery("NULL")
+		INVOKE_ASYNC(query, /datum/db_query.proc/Execute)
+		queries += query
+
+	for(var/datum/db_query/query as anything in queries)
+		query.sync()
+		qdel(query)
+	queries.Cut()
+
+	message_admins("[key_name_admin(src)] ran [val] empty queries.")
+
 /client/proc/generate_ruin()
 	set category = "Debug"
 	set name = "Generate Ruin"

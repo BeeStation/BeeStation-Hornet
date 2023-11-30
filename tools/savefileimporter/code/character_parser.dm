@@ -198,7 +198,7 @@ var/global/list/custom_name_types = list(
 			"gear" = json_encode(equipped_gear)
 		)
 
-		var/datum/DBQuery/query = NewDBQuery(querytext, qargs)
+		var/datum/db_query/query = NewDBQuery(querytext, qargs)
 		query.Execute()
 		var/em = query.ErrorMsg()
 		if(em)
