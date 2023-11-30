@@ -9,5 +9,10 @@
 /obj/item/computer_hardware/identifier/proc/UpdateDisplay()
 	var/name = holder.saved_identification
 	var/job = holder.saved_job
+	var/obj/item/modular_computer/tablet/pda/pda = null
+	var/obj/item/modular_computer/tablet/tablet = null
 
-	holder.name = "PDA-[name] ([job])"
+	if(pda)
+		holder.name = "PDA-[name] ([job])"
+	else if(tablet)
+		holder.name = "Tablet-[name] ([job])"

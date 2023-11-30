@@ -52,10 +52,6 @@
 		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
 	if(light_on)
 		add_overlay(mutable_appearance(init_icon, "light_overlay"))
-	if (has_variants)
-		if(!finish_color)
-			finish_color = pick("red","blue","brown","green","black","pink","teal","green2")
-		icon_state = "tablet-[finish_color]"
 
 
 /obj/item/modular_computer/tablet/emp_act(severity)
@@ -367,20 +363,6 @@
 	if(!theme_locked && !ignore_theme_pref && (pref_theme in allowed_themes))
 		device_theme = allowed_themes[pref_theme]
 	classic_color = user.client.prefs.read_character_preference(/datum/preference/color/pda_classic_color)
-
-/obj/item/modular_computer/tablet/pda/update_icon()
-	..()
-	var/init_icon = initial(icon)
-	if(!init_icon)
-		return
-	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
-	if(card)
-		if(card.stored_card)
-			add_overlay(mutable_appearance(init_icon, "id_overlay"))
-	if(inserted_item)
-		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
-	if(light_on)
-		add_overlay(mutable_appearance(init_icon, "light_overlay"))
 
 
 /obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
