@@ -8,7 +8,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 STACKSIZE_MACRO(/obj/item/stack/sheet/glass)
 
 /obj/item/stack/sheet/glass/cyborg
-	custom_materials = null
+	mats_per_unit = null
 	is_cyborg = TRUE
 	cost = 500
 

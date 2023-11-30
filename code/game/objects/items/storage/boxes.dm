@@ -1272,6 +1272,7 @@
 
 /obj/item/storage/box/material/ComponentInitialize()
 	. = ..()
+	AddComponent(/datum/component/rad_insulation, 0.50) //please datum mats no more cancer
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_combined_w_class = 1000
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC

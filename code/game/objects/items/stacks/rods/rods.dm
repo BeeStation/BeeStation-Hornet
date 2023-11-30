@@ -10,7 +10,7 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	custom_materials = list(/datum/material/iron=1000)
+	mats_per_unit = list(/datum/material/iron=1000)
 	max_amount = 50
 	merge_type = /obj/item/stack/rods
 	attack_verb = list("hit", "bludgeoned", "whacked")

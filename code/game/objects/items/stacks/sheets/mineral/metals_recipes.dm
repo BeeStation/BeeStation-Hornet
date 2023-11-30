@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 STACKSIZE_MACRO(/obj/item/stack/sheet/iron)
 
 /obj/item/stack/sheet/iron/cyborg
-	custom_materials = null
+	mats_per_unit = null
 	is_cyborg = 1
 	cost = 500
 
