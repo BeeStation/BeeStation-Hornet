@@ -170,7 +170,7 @@
 	item_state = "tile-darkshuttle"
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
-	materials = list(/datum/material/titanium=500, /datum/material/plasma=500)
+	custom_materials = list(/datum/material/titanium=500, /datum/material/plasma=500)
 	material_flags = MATERIAL_NO_EFFECTS
 
 /obj/item/stack/tile/mineral/snow
