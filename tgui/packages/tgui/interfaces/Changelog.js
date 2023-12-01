@@ -1,15 +1,7 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
 import { Component, Fragment } from 'inferno';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Icon,
-  Section,
-  Stack,
-  Table,
-} from '../components';
+import { Box, Button, Dropdown, Icon, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 import dateformat from 'dateformat';
@@ -72,33 +64,30 @@ export class Changelog extends Component {
 
     act('get_month', { date });
 
-    fetch(resolveAsset(date + '.yml'))
-      .then(async (changelogData) => {
-        const result = await changelogData.text();
-        const errorRegex = /^Cannot find/;
+    fetch(resolveAsset(date + '.yml')).then(async (changelogData) => {
+      const result = await changelogData.text();
+      const errorRegex = /^Cannot find/;
 
-        if (errorRegex.test(result)) {
-          const timeout = 50 + attemptNumber * 50;
+      if (errorRegex.test(result)) {
+        const timeout = 50 + attemptNumber * 50;
 
-          self.setData(
-            'Loading changelog data' + '.'.repeat(attemptNumber + 3)
-          );
-          setTimeout(() => {
-            self.getData(date, attemptNumber + 1);
-          }, timeout);
-        } else {
-          self.setData(yaml.load(result, { schema: yaml.CORE_SCHEMA }));
-        }
-      });
+        self.setData('Loading changelog data' + '.'.repeat(attemptNumber + 3));
+        setTimeout(() => {
+          self.getData(date, attemptNumber + 1);
+        }, timeout);
+      } else {
+        self.setData(yaml.load(result, { schema: yaml.CORE_SCHEMA }));
+      }
+    });
   };
 
   componentDidMount() {
-    const { data: { dates = [] } } = useBackend(this.context);
+    const {
+      data: { dates = [] },
+    } = useBackend(this.context);
 
     if (dates) {
-      dates.forEach(
-        date => this.dateChoices.push(dateformat(date, 'mmmm yyyy', true))
-      );
+      dates.forEach((date) => this.dateChoices.push(dateformat(date, 'mmmm yyyy', true)));
       this.setSelectedDate(this.dateChoices[0]);
       this.getData(dates[0]);
     }
@@ -106,7 +95,9 @@ export class Changelog extends Component {
 
   render() {
     const { data, selectedDate, selectedIndex } = this.state;
-    const { data: { dates } } = useBackend(this.context);
+    const {
+      data: { dates },
+    } = useBackend(this.context);
     const { dateChoices } = this;
 
     const dateDropdown = dateChoices.length > 0 && (
@@ -122,33 +113,27 @@ export class Changelog extends Component {
               this.setData('Loading changelog data...');
               this.setSelectedIndex(index);
               this.setSelectedDate(dateChoices[index]);
-              window.scrollTo(
-                0,
-                document.body.scrollHeight
-                || document.documentElement.scrollHeight
-              );
+              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
               return this.getData(dates[index]);
-            }} />
+            }}
+          />
         </Stack.Item>
         <Stack.Item>
           <Dropdown
             displayText={selectedDate}
             options={dateChoices}
-            onSelected={value => {
+            onSelected={(value) => {
               const index = dateChoices.indexOf(value);
 
               this.setData('Loading changelog data...');
               this.setSelectedIndex(index);
               this.setSelectedDate(value);
-              window.scrollTo(
-                0,
-                document.body.scrollHeight
-                || document.documentElement.scrollHeight
-              );
+              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
               return this.getData(dates[index]);
             }}
             selected={selectedDate}
-            width={'150px'} />
+            width={'150px'}
+          />
         </Stack.Item>
         <Stack.Item>
           <Button
@@ -161,13 +146,10 @@ export class Changelog extends Component {
               this.setData('Loading changelog data...');
               this.setSelectedIndex(index);
               this.setSelectedDate(dateChoices[index]);
-              window.scrollTo(
-                0,
-                document.body.scrollHeight
-                || document.documentElement.scrollHeight
-              );
+              window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
               return this.getData(dates[index]);
-            }} />
+            }}
+          />
         </Stack.Item>
       </Stack>
     );
@@ -177,26 +159,19 @@ export class Changelog extends Component {
         <h1>Traditional Games Space Station 13</h1>
         <p>
           <b>Thanks to: </b>
-          Baystation 12, /vg/station, NTstation, CDK Station devs,
-          FacepunchStation, GoonStation devs, the original Space Station 13
-          developers, Invisty for the title image and the countless others who
-          have contributed to the game, issue tracker or wiki over the years.
+          Baystation 12, /vg/station, NTstation, CDK Station devs, FacepunchStation, GoonStation devs, the original Space
+          Station 13 developers, Invisty for the title image and the countless others who have contributed to the game, issue
+          tracker or wiki over the years.
         </p>
         <p>
           {'Current project maintainers can be found '}
-          <a href="https://github.com/tgstation?tab=members">
-            here
-          </a>
+          <a href="https://github.com/tgstation?tab=members">here</a>
           {', recent GitHub contributors can be found '}
-          <a href="https://github.com/tgstation/tgstation/pulse/monthly">
-            here
-          </a>.
+          <a href="https://github.com/tgstation/tgstation/pulse/monthly">here</a>.
         </p>
         <p>
           {'You can also join our discord '}
-          <a href="https://tgstation13.org/phpBB/viewforum.php?f=60">
-            here
-          </a>.
+          <a href="https://tgstation13.org/phpBB/viewforum.php?f=60">here</a>.
         </p>
         {dateDropdown}
       </Section>
@@ -208,22 +183,17 @@ export class Changelog extends Component {
         <h3>GoonStation 13 Development Team</h3>
         <p>
           <b>Coders: </b>
-          Stuntwaffle, Showtime, Pantaloons, Nannek, Keelin, Exadv1, hobnob,
-          Justicefries, 0staf, sniperchance, AngriestIBM, BrianOBlivion
+          Stuntwaffle, Showtime, Pantaloons, Nannek, Keelin, Exadv1, hobnob, Justicefries, 0staf, sniperchance, AngriestIBM,
+          BrianOBlivion
         </p>
         <p>
           <b>Spriters: </b>
-          Supernorn, Haruhi, Stuntwaffle, Pantaloons, Rho, SynthOrange,
-          I Said No
+          Supernorn, Haruhi, Stuntwaffle, Pantaloons, Rho, SynthOrange, I Said No
         </p>
         <p>
-          BeeStation Space Station 13 is thankful to the
-          GoonStation 13 Development Team for its work on the game up to the
+          BeeStation Space Station 13 is thankful to the GoonStation 13 Development Team for its work on the game up to the
           {' r4407 release. The changelog for changes up to r4407 can be seen '}
-          <a href="https://wiki.ss13.co/Changelog#April_2010">
-            here
-          </a>
-          .
+          <a href="https://wiki.ss13.co/Changelog#April_2010">here</a>.
         </p>
         <p>
           {'Except where otherwise noted, Goon Station 13 is licensed under a '}
@@ -236,60 +206,45 @@ export class Changelog extends Component {
         </p>
         <p>
           {'Traditional Games Space Station 13 is licensed under a '}
-          <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
-            GNU Affero General Public 3.0 License
-          </a>
-          .
+          <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">GNU Affero General Public 3.0 License</a>.
         </p>
       </Section>
     );
 
-    const changes = typeof data === 'object' && Object.keys(data).length > 0 && (
-      Object.entries(data).reverse().map(([date, authors]) => (
-        <Section key={date} title={dateformat(date, 'd mmmm yyyy', true)}>
-          <Box ml={3}>
-            {Object.entries(authors).map(([name, changes]) => (
-              <Fragment key={name}>
-                <h4>{name} changed:</h4>
-                <Box ml={3}>
-                  <Table>
-                    {changes.map(change => {
-                      const changeType = Object.keys(change)[0];
-                      return (
-                        <Table.Row key={changeType + change[changeType]}>
-                          <Table.Cell
-                            className={classes([
-                              'Changelog__Cell',
-                              'Changelog__Cell--Icon',
-                            ])}
-                          >
-                            <Icon
-                              color={
-                                icons[changeType]
-                                  ? icons[changeType].color
-                                  : icons['unknown'].color
-                              }
-                              name={
-                                icons[changeType]
-                                  ? icons[changeType].icon
-                                  : icons['unknown'].icon
-                              }
-                            />
-                          </Table.Cell>
-                          <Table.Cell className="Changelog__Cell">
-                            {change[changeType]}
-                          </Table.Cell>
-                        </Table.Row>
-                      );
-                    })}
-                  </Table>
-                </Box>
-              </Fragment>
-            ))}
-          </Box>
-        </Section>
-      ))
-    );
+    const changes =
+      typeof data === 'object' &&
+      Object.keys(data).length > 0 &&
+      Object.entries(data)
+        .reverse()
+        .map(([date, authors]) => (
+          <Section key={date} title={dateformat(date, 'd mmmm yyyy', true)}>
+            <Box ml={3}>
+              {Object.entries(authors).map(([name, changes]) => (
+                <Fragment key={name}>
+                  <h4>{name} changed:</h4>
+                  <Box ml={3}>
+                    <Table>
+                      {changes.map((change) => {
+                        const changeType = Object.keys(change)[0];
+                        return (
+                          <Table.Row key={changeType + change[changeType]}>
+                            <Table.Cell className={classes(['Changelog__Cell', 'Changelog__Cell--Icon'])}>
+                              <Icon
+                                color={icons[changeType] ? icons[changeType].color : icons['unknown'].color}
+                                name={icons[changeType] ? icons[changeType].icon : icons['unknown'].icon}
+                              />
+                            </Table.Cell>
+                            <Table.Cell className="Changelog__Cell">{change[changeType]}</Table.Cell>
+                          </Table.Row>
+                        );
+                      })}
+                    </Table>
+                  </Box>
+                </Fragment>
+              ))}
+            </Box>
+          </Section>
+        ));
 
     return (
       <Window title="Changelog" width={675} height={650}>
