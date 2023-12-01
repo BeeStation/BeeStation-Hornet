@@ -3248,6 +3248,18 @@
 					/obj/item/laser_pointer/purple)
 	crate_name = "bureaucracy crate"
 
+/datum/supply_pack/misc/bulk_paper
+	name = "Bulk Paper Tray Crate"
+	dec = "Plenty of paper for all your papercraft needs."
+	cost = 500
+	max_supply = 5
+	contains = list(/obj/item/paper_bin,
+					/obj/item/paper_bin,
+					/obj/item/paper_bin,
+					/obj/item/paper_bin,
+					/obj/item/paper_bin)
+	crate_name = "bulk paper tray crate"
+
 /datum/supply_pack/misc/fountainpens
 	name = "Calligraphy Crate"
 	desc = "Sign death warrants in style with these seven executive fountain pens."
