@@ -3,7 +3,7 @@
 	plural_form = "Pumpkinpeople"
 	id = SPECIES_PUMPKINPERSON
 	sexes = 0
-	meat = /obj/item/reagent_containers/food/snacks/pumpkinpieslice
+	meat = /obj/item/food/pieslice/pumpkin
 	species_traits = list(NOEYESPRITES)
 	attack_verb = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -81,7 +81,7 @@
 				P?.carved = TRUE
 		else
 			to_chat(_user, "<span class='warning'>You fail to carve a face into [_source]!</span>")
-		
+
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"
 	actions_types = list(/datum/action/item_action/organ_action/pumpkin_head_candy)

@@ -3597,8 +3597,8 @@
 "aQQ" = (
 /obj/structure/table/wood,
 /obj/item/pneumatic_cannon/pie,
-/obj/item/reagent_containers/food/snacks/pie/cream,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
+/obj/item/food/pie/cream,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
 "aQV" = (

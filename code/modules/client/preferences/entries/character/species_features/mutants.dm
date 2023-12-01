@@ -14,7 +14,7 @@
 	if (!..(value))
 		return FALSE
 
-	if (is_color_dark(expand_three_digit_color(value)))
+	if (is_color_dark_with_saturation(expand_three_digit_color(value)))
 		return FALSE
 
 	return TRUE

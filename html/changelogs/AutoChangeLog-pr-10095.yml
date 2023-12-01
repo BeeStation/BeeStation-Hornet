@@ -1,0 +1,6 @@
+author: ''
+delete-after: true
+changes:
+  - balance: Shotguns now require a minimum of 3 shots to kill unarmoured targets
+      with slugs, buckshot and improvied buckshot.
+  - balance: Improvised shotgun shells are now less consistent and more reliable.
