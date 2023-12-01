@@ -1,5 +1,0 @@
-author: ''
-delete-after: true
-changes:
-  - bugfix: Boxes of lights are now able to store the right number of lights again
-      before saying they are full.

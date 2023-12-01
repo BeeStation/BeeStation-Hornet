@@ -1,4 +1,0 @@
-author: ''
-delete-after: true
-changes:
-  - code_imp: Holopara color check no longer throws runtime
