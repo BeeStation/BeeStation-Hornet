@@ -44,10 +44,8 @@
 
 /// gets z of the parent, but possibly not as 0
 /datum/component/jam_receiver/proc/get_sanitized_z()
-	var/atom/parent_atom = parent
-	while(parent_atom.z == 0 && !isarea(parent_atom.loc)) // we try to find a true Z value
-		parent_atom = parent_atom.loc
-	return parent_atom.z
+	var/turf/myturf = get_turf(parent)
+	return myturf?.z || 0 // null is bad here.
 
 /datum/component/jam_receiver/proc/check_z_list_sanity()
 	var/current_z = get_sanitized_z()
