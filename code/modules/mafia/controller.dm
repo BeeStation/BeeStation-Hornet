@@ -761,17 +761,17 @@
 				return TRUE
 			if("vote_to_start")
 				if(phase != MAFIA_PHASE_SETUP)
-					to_chat(usr, span_notice("You cannot vote to start while a game is underway!"))
+					to_chat(usr, "<span class='notice'>You cannot vote to start while a game is underway!</span>")
 					return
 				if(!GLOB.mafia_signup[C.ckey])
-					to_chat(usr, span_notice("You must be signed up for this game to vote!"))
+					to_chat(usr, "<span class='notice'>You must be signed up for this game to vote!</span>")
 					return
 				if(GLOB.mafia_early_votes[C.ckey])
 					GLOB.mafia_early_votes -= C.ckey
-					to_chat(usr, span_notice("You are no longer voting to start the game early."))
+					to_chat(usr, "<span class='notice'>You are no longer voting to start the game early.</span>")
 				else
 					GLOB.mafia_early_votes[C.ckey] = C
-					to_chat(usr, span_notice("You vote to start the game early ([length(GLOB.mafia_early_votes)] out of [FLOOR(round(length(GLOB.mafia_signup) / 2), MINIMUM_MAFIA_PLAYERS)])."))
+					to_chat(usr, "<span class='notice'>You vote to start the game early ([length(GLOB.mafia_early_votes)] out of [FLOOR(round(length(GLOB.mafia_signup) / 2), MINIMUM_MAFIA_PLAYERS)]).</span>")
 					if(check_start_votes()) //See if we have enough votes to start
 						forced_setup()
 				return TRUE
