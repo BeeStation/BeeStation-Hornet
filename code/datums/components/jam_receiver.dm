@@ -5,6 +5,8 @@
 	var/jammed = FALSE
 	/// Moved relay
 	var/datum/component/moved_relay/associated_relay
+	/// used to track which z array of GLOB.jam_receivers_by_z this component is in.
+	var/associated_z
 
 /datum/component/jam_receiver/Initialize(_intensity_resist = JAMMER_PROTECTION_RADIO_BASIC)
 	. = ..()
@@ -12,12 +14,10 @@
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	var/atom/parent_atom = parent
-	// Register this receiver. Clump them together by Z since there will be more of them then jammers.
-	while (length(GLOB.jam_receivers_by_z) < parent_atom.z)
-		GLOB.jam_receivers_by_z += list(list())
+	associated_z = get_sanitized_z()
 
-	GLOB.jam_receivers_by_z[parent_atom.z] += src
+	// Register this receiver. Clump them together by Z since there will be more of them then jammers.
+	add_self_to_list(associated_z)
 
 	// We need to know when our parent atoms move
 	associated_relay = parent.AddComponent(/datum/component/moved_relay)
@@ -35,10 +35,40 @@
 	if (move_relay.depth == 0)
 		move_relay.RemoveComponent()
 		associated_relay = null
+	remove_self_from_list(associated_z)
 
 /datum/component/jam_receiver/proc/on_move(...)
 	SIGNAL_HANDLER
+	check_z_list_sanity()
 	check_jammed()
+
+/// gets z of the parent, but possibly not as 0
+/datum/component/jam_receiver/proc/get_sanitized_z()
+	var/atom/parent_atom = parent
+	while(parent_atom.z == 0 && !isarea(parent_atom.loc)) // we try to find a true Z value
+		parent_atom = parent_atom.loc
+	return parent_atom.z
+
+/datum/component/jam_receiver/proc/check_z_list_sanity()
+	var/current_z = get_sanitized_z()
+	if(current_z != associated_z) // z is changed. we change this.
+		remove_self_from_list(associated_z)
+		add_self_to_list(current_z)
+		associated_z = current_z
+
+/datum/component/jam_receiver/proc/add_self_to_list(target_z)
+	while (length(GLOB.jam_receivers_by_z) < target_z)
+		GLOB.jam_receivers_by_z += list(list())
+	if(target_z == 0)
+		GLOB.jam_receivers_by_nullz += src
+	else
+		GLOB.jam_receivers_by_z[target_z] += src
+
+/datum/component/jam_receiver/proc/remove_self_from_list(target_z)
+	if(target_z == 0)
+		GLOB.jam_receivers_by_nullz -= src
+	else
+		GLOB.jam_receivers_by_z[target_z] -= src
 
 /datum/component/jam_receiver/proc/check_jammed()
 	var/atom/atom_parent = parent

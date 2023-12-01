@@ -31,6 +31,7 @@ GLOBAL_LIST_EMPTY(zombie_infection_list) 		// A list of all zombie_infection org
 GLOBAL_LIST_EMPTY(meteor_list)				// List of all meteors.
 GLOBAL_LIST_EMPTY(active_jammers)             // List of active radio jammers
 GLOBAL_LIST_EMPTY(jam_receivers_by_z)		// List of jam receivers by Z
+GLOBAL_LIST_EMPTY(jam_receivers_by_nullz)	// List of jam receivers that aren't in real Z
 GLOBAL_LIST_EMPTY(ladders)
 GLOBAL_LIST_EMPTY(bot_elevator)
 GLOBAL_LIST_EMPTY(janitor_devices)
