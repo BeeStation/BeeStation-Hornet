@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Fixed HTML encoding issues with some inputs, mainly admin PMs.
