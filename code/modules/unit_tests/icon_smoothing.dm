@@ -25,7 +25,6 @@
 		/turf/open/chasm,
 		/turf/open/floor/fakepit,
 		/turf/open/floor/holofloor/carpet,
-		/turf/closed/indestructible,
 		/turf/open/lava/smooth,
 		/turf/closed/mineral,
 		/turf/open/floor/plating,
@@ -87,16 +86,13 @@
 /datum/unit_test/smoothing/Run()
 	for(var/P in types_to_test)
 		for(var/T in typesof(P))
-			var/atom/A = new T(run_loc_floor_bottom_left)
+			var/atom/A = ispath(P, /turf) ? allocate(T) : new T() //We don't need to delete the turf at the end of this.
 			var/smooth_flags = A.smoothing_flags
 			var/icon/the_icon = A.icon
 			var/base_state = A.base_icon_state
 
-			if(!smooth_flags)
-				continue
-			else if(!the_icon)
+			if(!the_icon)
 				Fail("Atom subtype [A] has no icon, are you sure we should be testing this?")
-				continue
 
 			else if(smooth_flags & SMOOTH_CORNERS) //If both are set for some reason, this version takes priority in the subsystem
 				corner_test(T, the_icon, smooth_flags)
@@ -104,8 +100,11 @@
 			else if(smooth_flags & SMOOTH_BITMASK)
 				if(!base_state)
 					Fail("Atom subtype [A] has bitmask smoothing set, but has no base_icon_state!")
-					continue
-				bitmask_test(T, the_icon, smooth_flags, base_state)
+				else
+					bitmask_test(T, the_icon, smooth_flags, base_state)
+
+			if(istype(A, /turf))
+				new /turf/open/floor/plasteel(A)
 
 /datum/unit_test/smoothing/proc/bitmask_test(atom_path, icon/the_icon, smooth_flags, base_state)
 	var/list/expected_suffixes = list(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
