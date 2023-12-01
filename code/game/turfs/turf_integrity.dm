@@ -8,7 +8,7 @@
 	/// Can this turf be hit by players?
 	var/can_hit = TRUE
 	/// Has armour been generated yet?
-	var/armor_generated = FALSE
+	var/armor_generated
 	/// The armour of the turf. Capable of being null for optimisation purposes
 	var/datum/armor/armor
 	/// The integrity that the turf starts at, defaulting to max_integrity
@@ -117,7 +117,8 @@
 		return
 	// Cascade turf damage downwards on destruction
 	if (additional_damage > 0)
-		take_damage(additional_damage, BRUTE, damage_flag, FALSE)
+		if (damage_flag == BOMB || damage_flag == ACID || damage_flag == FIRE)
+			take_damage(additional_damage, BRUTE, damage_flag, FALSE)
 
 //====================================
 // Generic Hits

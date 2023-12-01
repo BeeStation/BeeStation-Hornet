@@ -750,7 +750,7 @@
 	to_chat(user, "<span class='notice'>You offer [src] to [SM]...</span>")
 	being_used = TRUE
 
-	var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, 5 SECONDS, SM)
+	var/list/candidates = poll_candidates_for_mob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, 5 SECONDS, SM)
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key

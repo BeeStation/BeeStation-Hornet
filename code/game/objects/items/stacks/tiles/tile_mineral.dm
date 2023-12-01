@@ -187,7 +187,7 @@
 	item_state = "tile-darkshuttle"
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
-	materials = list(/datum/material/titanium=250, /datum/material/plasma=250)
+	materials = list(/datum/material/titanium=500, /datum/material/plasma=500)
 	merge_type = /obj/item/stack/tile/mineral/plastitanium
 
 /obj/item/stack/tile/mineral/snow

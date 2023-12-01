@@ -19768,7 +19768,7 @@
 /area/bridge)
 "fhD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/effect/turf_decal/bot,
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/food/snacks/hotdog,
@@ -61729,7 +61729,7 @@
 /area/crew_quarters/bar)
 "qcG" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/item/clothing/head/lobsterhat,
 /obj/machinery/airalarm{
 	dir = 1;
