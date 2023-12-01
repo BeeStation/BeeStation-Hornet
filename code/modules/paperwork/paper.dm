@@ -757,3 +757,41 @@
 /obj/item/paper/troll
 	name = "very special note"
 	default_raw_text = "<span style=color:'black';font-family:'Verdana';><p>░░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄░░░░░░░<br>░░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄░░░░<br>░░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█░░░<br>░░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░░█░░<br>░▄▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░░█░<br>█░▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒░█<br>█░▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█<br>░█░▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█░<br>░░█░░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█░░<br>░░░█░░░░██░░▀█▄▄▄█▄▄█▄████░█░░░<br>░░░░█░░░░▀▀▄░█░░░█░█▀██████░█░░<br>░░░░░▀▄░░░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█░░<br>░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░▒░░░█░<br>░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░░░░█░<br>░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░</p> </span>"
+
+/obj/item/paper/tablet_guide
+	color = COLOR_OFF_WHITE
+	name = "Assembly Instructions"
+	desc = "Instructions for the assembly of a Tablet computer."
+
+/obj/item/paper/tablet_guide/Initialize(mapload)
+	default_raw_text = {"Congratulations on acquiring your very own 'Tablets for Dummies' kit. You now have everything you need to build your own Tablet!
+
+	Within this kit you will find the following:
+
+		A Tablet (void of any components).
+		A Power Cell Controler.
+		A small Battery.
+		A Processor Unit.
+		A micro Solid State Drive.
+		A Network Card.
+		A Primary Card Slot.
+		An Identifier.
+		And a Screwdriver.
+
+		To begin, please insert the provided Power Cell Controler onto the PDA. Doing so will allow you to now attach a Battery to it. Insert, now, the Battery.
+
+		Without a Battery (and a Power Cell Controler to attach it to), a CPU and a Drive the Tablet will be unable to start. Please ensure these three items are inserted well into the machines' body.
+
+		Congratulations, your Tablet may start now, but we have provided you with 3 bonus components you may find useful.
+
+		A Network Card will allow you to download programs from the web, and may even allow you to chat with other users "online".
+
+		A Primary Card Slot will allow you to insert your ID into your newly constructed tablet.
+
+		The Identifier will allow you to imprint your inserted ID into the machine, serving as your form of identification "online".
+
+		We now believe that you are ready and able to build your own tablet without aid in the future. If you'd like to retrieve the components, simply use the screwdriver provided to you to dislodge them from the body of your Tablet.
+
+		We wish you good luck and happy tinkering!"}
+
+	return ..()

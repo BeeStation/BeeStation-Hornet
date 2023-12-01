@@ -2,7 +2,7 @@
 	filename = "crewmani"
 	filedesc = "Crew Manifest"
 	category = PROGRAM_CATEGORY_CREW
-	program_icon_state = "id"
+	program_icon_state = "crew"
 	extended_desc = "Program for viewing and printing the current crew manifest"
 	transfer_access = list(ACCESS_HEADS)
 	requires_ntnet = FALSE

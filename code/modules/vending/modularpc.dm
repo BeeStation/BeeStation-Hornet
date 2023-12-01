@@ -8,6 +8,8 @@
 	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/modular_computer/laptop = 3,
 					/obj/item/modular_computer/tablet = 5,
+					/obj/item/storage/box/tablet4dummies = 4,
+					/obj/item/computer_hardware/identifier = 4,
 					/obj/item/computer_hardware/card_slot = 4,
 					/obj/item/computer_hardware/hard_drive/micro = 8,
 					/obj/item/computer_hardware/hard_drive/small = 4,
@@ -31,6 +33,7 @@
 					/obj/item/computer_hardware/processor_unit/photonic = 1,
 					/obj/item/computer_hardware/sensorpackage = 4,
 					/obj/item/computer_hardware/printer/mini = 2,
+					/obj/item/computer_hardware/camera_component = 4,
 					/obj/item/storage/box/tabletcolorizer = 5)
 	premium = list(/obj/item/colorizer/tablet/gw = 2,
 					/obj/item/colorizer/tablet/rugged = 2,

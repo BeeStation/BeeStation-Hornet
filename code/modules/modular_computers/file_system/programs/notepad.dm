@@ -2,7 +2,7 @@
 	filename = "notepad"
 	filedesc = "Notepad"
 	category = PROGRAM_CATEGORY_MISC
-	program_icon_state = "generic"
+	program_icon_state = "notepad"
 	extended_desc = "Jot down your work-safe thoughts and what not."
 	size = 0
 	undeletable = FALSE // It comes by default in tablets, can't be downloaded, takes no space and is now able to be deleted and transfered. Let players make mistakes.

@@ -160,7 +160,7 @@
 
 	if(charging.percent() >= 100)
 		return
-	use_power(charge_rate * delta_time * (pda? 0.3 : 1))
-	charging.give(charge_rate * delta_time * (pda? 0.3 : 1))	//this is 2558, efficient batteries exist
+	use_power(charge_rate * delta_time * (pda? 0.2 : 1))
+	charging.give(charge_rate * delta_time * (pda? 0.2 : 1))	//this is 2558, efficient batteries exist
 
 	update_icon()
