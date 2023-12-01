@@ -75,7 +75,7 @@
 	if (!position)
 		return
 	ordered_parents -= A
-	if (position == length(ordered_parents))
+	if (position >= length(ordered_parents))
 		return
 	var/atom/next = ordered_parents[position + 1]
 	//Recursively unregister parents
