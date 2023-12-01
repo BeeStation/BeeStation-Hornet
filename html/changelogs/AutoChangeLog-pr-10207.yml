@@ -1,4 +1,0 @@
-author: "rkz, MrStonedOne\r"
-delete-after: true
-changes:
-  - server: Fixes being unable to postpone a subsystem whilst its firing
