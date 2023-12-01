@@ -59,15 +59,11 @@
 /datum/component/jam_receiver/proc/add_self_to_list(target_z)
 	while (length(GLOB.jam_receivers_by_z) < target_z)
 		GLOB.jam_receivers_by_z += list(list())
-	if(target_z == 0)
-		GLOB.jam_receivers_by_nullz += src
-	else
+	if(target_z > 0)
 		GLOB.jam_receivers_by_z[target_z] += src
 
 /datum/component/jam_receiver/proc/remove_self_from_list(target_z)
-	if(target_z == 0)
-		GLOB.jam_receivers_by_nullz -= src
-	else
+	if(target_z > 0)
 		GLOB.jam_receivers_by_z[target_z] -= src
 
 /datum/component/jam_receiver/proc/check_jammed()
