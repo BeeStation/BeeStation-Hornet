@@ -3250,7 +3250,7 @@
 
 /datum/supply_pack/misc/bulk_paper
 	name = "Bulk Paper Tray Crate"
-	dec = "Plenty of paper for all your papercraft needs."
+	desc = "Plenty of paper for all your papercraft needs."
 	cost = 500
 	max_supply = 5
 	contains = list(/obj/item/paper_bin,
