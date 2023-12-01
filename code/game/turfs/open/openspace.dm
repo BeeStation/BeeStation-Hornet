@@ -7,6 +7,7 @@
 	overfloor_placed = FALSE
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	allow_z_travel = TRUE
+	resistance_flags = INDESTRUCTIBLE
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	/* PORT WITH JPS IMPROVEMENT PR
