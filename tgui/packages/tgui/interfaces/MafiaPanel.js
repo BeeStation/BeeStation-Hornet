@@ -352,6 +352,14 @@ export const MafiaPanel = (props, context) => {
                     content="Reset Custom Setup"
                     onClick={() => act('cancel_setup')}
                   />
+                  <Button
+                    icon="magic"
+                    tooltipPosition="top"
+                    tooltip={multiline`
+                    Force it.`}
+                    content="Reset Custom Setup"
+                    onClick={() => act('start_now')}
+                  />
                 </Collapsible>
               </Section>
             )}
@@ -389,6 +397,17 @@ const LobbyDisplay = (props, context) => {
         rejoin SS13.`}
         content="Spectate"
         onClick={() => act('mf_spectate')}
+      />
+        <Button
+          icon="arrow-right"
+          tooltipPosition="bottom-start"
+          tooltip={multiline`
+            Submit a vote to start the game early.
+            Starts when half of the current signup list have voted to start.
+            Requires a bare minimum of three players.
+          `}
+          content="Start Now!"
+          onClick={() => act('vote_to_start')}
       />
       {!!admin_controls && (
         <Button
