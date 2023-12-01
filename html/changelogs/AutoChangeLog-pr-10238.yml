@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Fixed a runtime error related to holoparasites with ID cards.
