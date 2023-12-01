@@ -65,6 +65,9 @@
 	///used for debugging in testing (doesn't put people out of the game, some other shit i forgot, who knows just don't set this in live) honestly kinda deprecated
 	var/debug = FALSE
 
+	///was our game forced to start early?
+	var/early_start = FALSE
+
 /datum/mafia_controller/New()
 	. = ..()
 	GLOB.mafia_game = src
@@ -335,14 +338,16 @@
 	if(blocked_victory)
 		return FALSE
 	if(alive_mafia == 0)
-		for(var/datum/mafia_role/townie in total_town)
-			award_role(townie.winner_award, townie)
+		if(!early_start && !length(custom_setup))
+			for(var/datum/mafia_role/townie in total_town)
+				award_role(townie.winner_award, townie)
 		start_the_end("<span class='big green'>!! TOWN VICTORY !!</span>")
 		return TRUE
 	else if(alive_mafia >= anti_mafia_power && !town_can_kill)
 		start_the_end("<span class='big red'>!! MAFIA VICTORY !!</span>")
-		for(var/datum/mafia_role/changeling in total_mafia)
-			award_role(changeling.winner_award, changeling)
+		if(!early_start && !length(custom_setup))
+			for(var/datum/mafia_role/changeling in total_mafia)
+				award_role(changeling.winner_award, changeling)
 		return TRUE
 
 /**
@@ -397,6 +402,8 @@
 	QDEL_NULL(town_center_landmark)
 	phase = MAFIA_PHASE_SETUP
 
+	early_start = initial(early_start)
+
 /**
  * After the voting and judgement phases, the game goes to night shutting the windows and beginning night with a proc.
  */
@@ -410,7 +417,7 @@
  * * close: boolean, the state you want the curtains in.
  */
 /datum/mafia_controller/proc/toggle_night_curtains(close)
-	for(var/obj/machinery/door/poddoor/D in GLOB.machines) //I really dislike pathing of these
+	for(var/obj/machinery/door/poddoor/D in GLOB.airlocks) //I really dislike pathing of these
 		if(D.id != "mafia") //so as to not trigger shutters on station, lol
 			continue
 		if(close)
@@ -486,10 +493,10 @@
 	else
 		send_message("<span class='notice'>[voter.body.real_name] voted for [target.body.real_name]!</span>",team = teams)
 	if(!teams)
-		target.body.update_icon() //Update the vote display if it's a public vote
+		target.body.update_appearance() //Update the vote display if it's a public vote
 		var/datum/mafia_role/old = old_vote
 		if(old)
-			old.body.update_icon()
+			old.body.update_appearance()
 
 /**
  * Clears out the votes of a certain type (day votes, mafia kill votes) while leaving others untouched
@@ -501,7 +508,7 @@
 		bodies_to_update += R.body
 	votes[vote_type] = list()
 	for(var/mob/M in bodies_to_update)
-		M.update_icon()
+		M.update_appearance()
 
 /**
  * Returns how many people voted for the role, in whatever vote (day vote, night kill vote)
@@ -529,7 +536,7 @@
 			tally[votes[vote_type][votee]] = 1
 		else
 			tally[votes[vote_type][votee]] += 1
-	sortTim(tally,/proc/cmp_numeric_dsc,associative=TRUE)
+	sortTim(tally, GLOBAL_PROC_REF(cmp_numeric_dsc),associative=TRUE)
 	return length(tally) ? tally[1] : null
 
 /**
@@ -976,6 +983,7 @@
 	var/list/setup = generate_forced_setup(req_players)
 
 	prepare_game(setup, filtered_keys)
+	early_start = TRUE
 	start_game()
 
 /**
@@ -1064,6 +1072,7 @@
 		if(!C)//vice versa but in a variable we use later
 			GLOB.mafia_signup -= key
 			GLOB.mafia_bad_signup += key
+			continue
 		if(!isobserver(C.mob))
 			//they are back to playing the game, remove them from the signups
 			GLOB.mafia_signup -= key
