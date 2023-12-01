@@ -1,5 +1,3 @@
-GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
-
 /datum/crew_manifest/New()
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_CREW_MANIFEST_UPDATE, PROC_REF(on_manifest_update))

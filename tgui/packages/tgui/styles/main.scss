@@ -14,6 +14,7 @@
 @include meta.load-css('./atomic/centered-image.scss');
 @include meta.load-css('./atomic/color.scss');
 @include meta.load-css('./atomic/debug-layout.scss');
+@include meta.load-css('./atomic/links.scss');
 @include meta.load-css('./atomic/fit-text.scss');
 @include meta.load-css('./atomic/loading.scss');
 @include meta.load-css('./atomic/outline.scss');
@@ -49,6 +50,7 @@
 @include meta.load-css('./interfaces/ColorPicker.scss');
 @include meta.load-css('./interfaces/AntagInfo.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
+@include meta.load-css('./interfaces/Changelog.scss');
 @include meta.load-css('./interfaces/CrewManifest.scss');
 @include meta.load-css('./interfaces/ClockworkSlab.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
