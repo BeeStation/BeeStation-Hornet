@@ -1,0 +1,7 @@
+author: Absolucy
+delete-after: true
+changes:
+  - tweak: Whenever a mob's access is checked (i.e for doors), it will now also take
+      into account the access of any mobs buckled to them. Basically, your ID now
+      works properly when bumping into doors if you're riding a carp or goliath or
+      something.
