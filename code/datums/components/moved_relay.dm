@@ -38,10 +38,11 @@
 	return ..()
 
 /datum/component/moved_relay/UnregisterFromParent()
-	for(var/atom/A as() in ordered_parents)
-		UnregisterSignal(A, COMSIG_PARENT_QDELETING)
-		UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
-	ordered_parents.Cut()
+	if (ordered_parents)
+		for(var/atom/A as() in ordered_parents)
+			UnregisterSignal(A, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
+		ordered_parents.Cut()
 	return ..()
 
 /datum/component/moved_relay/proc/register_parent(atom/A)
