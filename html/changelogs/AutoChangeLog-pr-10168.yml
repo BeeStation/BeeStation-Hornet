@@ -1,0 +1,4 @@
+author: "BeeBot\r"
+delete-after: true
+changes:
+  - server: Bumps TGS DMAPI to 6.7.0
