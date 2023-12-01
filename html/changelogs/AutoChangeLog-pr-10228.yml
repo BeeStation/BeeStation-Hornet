@@ -1,5 +1,0 @@
-author: Programs-The-Station
-delete-after: true
-changes:
-  - bugfix: NT Atmospherics Division have corrected the lack of atmospheric devices
-      within the MetaStation Chapel.
