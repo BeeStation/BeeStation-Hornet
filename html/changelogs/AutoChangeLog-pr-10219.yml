@@ -1,0 +1,5 @@
+author: ''
+delete-after: true
+changes:
+  - tweak: Light explosions will no longer destroy undamaged plating and now only
+      acid, bombs and heat will propogate their damage to the baseturfs.
