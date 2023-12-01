@@ -67,12 +67,7 @@ export const Reflector = (props, context) => {
                   </Table.Row>
                   <Table.Row>
                     <Box px={0.75}>
-                      <Icon
-                        name="angle-double-up"
-                        size={1.66}
-                        rotation={rotation_angle}
-                        mb={1}
-                      />
+                      <Icon name="angle-double-up" size={1.66} rotation={rotation_angle} mb={1} />
                     </Box>
                   </Table.Row>
                   <Table.Row>
