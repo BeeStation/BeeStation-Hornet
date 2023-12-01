@@ -37,7 +37,7 @@
 	. = FALSE
 	// check if someone riding on / buckled to them has access
 	for(var/mob/living/buckled in accessor.buckled_mobs)
-		if(accessor == buckled || buckled == src)
+		if(accessor == buckled || buckled == src) // just in case to prevent a possible infinite loop scenario (but it won't happen)
 			continue
 		if(allowed(buckled))
 			return TRUE
