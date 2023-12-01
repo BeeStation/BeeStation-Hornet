@@ -26080,7 +26080,6 @@
 	pixel_x = 24
 	},
 /obj/structure/table/wood,
-/obj/item/food/pie/cream,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "cUA" = (
@@ -35499,7 +35498,6 @@
 	id = "kitchen";
 	name = "Serving Hatch"
 	},
-/obj/item/food/pie/cream,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
@@ -52933,12 +52931,11 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/patients_rooms)
 "nnO" = (
-/obj/machinery/door/airlock/research{
-	name = "Euthanization Chamber";
-	req_access_txt = "55";
-	glass = 1
-	},
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/door/airlock/research/glass{
+	name = "Euthanization Chamber";
+	req_access_txt = "55"
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science/xenobiology)
 "nnT" = (
