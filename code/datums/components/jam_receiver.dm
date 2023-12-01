@@ -14,7 +14,8 @@
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	associated_z = get_sanitized_z()
+	var/turf/myturf = get_turf(parent)
+	associated_z = myturf?.z
 
 	// Register this receiver. Clump them together by Z since there will be more of them then jammers.
 	add_self_to_list(associated_z)
@@ -42,13 +43,9 @@
 	check_z_changed()
 	check_jammed()
 
-/// gets z of the parent, but possibly not as 0
-/datum/component/jam_receiver/proc/get_sanitized_z()
-	var/turf/myturf = get_turf(parent)
-	return myturf?.z || 0 // null is bad here.
-
 /datum/component/jam_receiver/proc/check_z_changed()
-	var/current_z = get_sanitized_z()
+	var/turf/myturf = get_turf(parent)
+	var/current_z = myturf?.z
 	if(current_z != associated_z) // z is changed. we change this.
 		remove_self_from_list(associated_z)
 		add_self_to_list(current_z)
