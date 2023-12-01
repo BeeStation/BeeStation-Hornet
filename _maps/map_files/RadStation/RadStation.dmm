@@ -76950,7 +76950,7 @@
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "yde" = (
-/obj/machinery/food_cart,
+/obj/machinery/icecream_vat,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "ydt" = (
