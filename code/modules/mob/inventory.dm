@@ -26,9 +26,9 @@
 
 
 /mob/proc/get_item_for_held_index(i)
-	if(i > 0 && i <= held_items.len)
-		return held_items[i]
-
+    if(!i)
+        return null
+    return held_items[i]
 
 //Odd = left. Even = right
 /mob/proc/held_index_to_dir(i)
