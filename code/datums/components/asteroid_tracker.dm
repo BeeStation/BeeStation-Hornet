@@ -17,14 +17,16 @@
 
 /datum/component/asteroid_tracker/RegisterWithParent()
 	var/turf/self = parent
+	// Find the baseturf depth
 	for (var/i in length(self.baseturfs) to 1 step -1)
 		if (self.baseturfs[i] == /turf/baseturf_skipover/asteroid)
 			base_turf_depth = i
 			break
 	if (base_turf_depth == -1)
 		return
-	if (self.baseturfs[1] == /turf/open/space)
-		self.baseturfs[1] = /turf/open/openspace
+	var/list/new_baseturfs = self.baseturfs.Copy()
+	new_baseturfs.Insert(base_turf_depth + 1, /turf/open/openspace)
+	self.baseturfs = baseturfs_string_list(new_baseturfs, self)
 	// Change our underlying turf
 	underlying_turf_below = self.below
 	self.set_below(underground_turf)
@@ -57,3 +59,4 @@
 		return
 	if (baseturf_list[base_turf_depth] != /turf/baseturf_skipover/asteroid)
 		qdel(src)
+
