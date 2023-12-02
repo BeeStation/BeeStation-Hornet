@@ -33,7 +33,7 @@
 	var/datum/component/moved_relay/move_relay = associated_relay
 	move_relay.depth --
 	if (move_relay.depth == 0)
-		move_relay.RemoveComponent()
+		qdel(move_relay)
 		associated_relay = null
 
 /datum/component/jam_receiver/proc/on_move(...)
