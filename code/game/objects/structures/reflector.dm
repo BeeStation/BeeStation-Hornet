@@ -296,14 +296,20 @@
 		if("rotate")
 			if (!can_rotate || admin)
 				return FALSE
-			var/new_angle = params["rotation_angle"]
+			var/new_angle = text2num(params["rotation_angle"])
+			if(new_angle == null)
+				stack_trace("A string was inputted to [src] instead of a number while rotating, somehow.")
+				return FALSE
 			if(!isnull(new_angle))
 				setAngle(SIMPLIFY_DEGREES(new_angle))
 			return TRUE
 		if("calculate")
 			if (!can_rotate || admin)
 				return FALSE
-			var/new_angle = rotation_angle + params["rotation_angle"]
+			var/new_angle = rotation_angle + text2num(params["rotation_angle"])
+			if(new_angle == null)
+				stack_trace("A string was inputted to [src] instead of a number while calculating, somehow.")
+				return FALSE
 			if(!isnull(new_angle))
 				setAngle(SIMPLIFY_DEGREES(new_angle))
 			return TRUE
