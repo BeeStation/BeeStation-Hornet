@@ -141,6 +141,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/load_immediately = FALSE
 
 /datum/asset/spritesheet/proc/should_load_immediately()
+#ifdef LOWMEMORYMODE
+	// If we want fast boot, then don't bother waiting for prefs
+	return FALSE
+#endif
 #ifdef DO_NOT_DEFER_ASSETS
 	return TRUE
 #else

@@ -1,8 +1,11 @@
 /datum/component/asteroid_fracture
+	can_transfer = TRUE
 	var/cavity_opened = FALSE
 	var/setup = FALSE
 	var/broken = FALSE
 	var/list/linked_fractures = list()
+	var/og_x
+	var/og_y
 	var/turf/center
 	var/width
 	var/height
@@ -18,9 +21,24 @@
 	src.center = center_turf
 	src.asteroid_biome = asteroid_biome
 	src.asteroid_ore_list = asteroid_ore_list
+
+/datum/component/asteroid_fracture/RegisterWithParent()
+	var/turf/t = parent
+	// Relocate the center of the asteroid
+	if (center && og_x && og_y)
+		center = locate(center.x - og_x + t.x, center.y - og_x + t.y, t.z)
 	RegisterSignal(parent, COMSIG_ATOM_EX_ACT, PROC_REF(on_explosion))
 	RegisterSignal(parent, COMSIG_POST_TURF_CHANGE, PROC_REF(on_turf_change))
 	on_turf_change(parent, parent.type, null, null, null)
+	og_x = t.x
+	og_y = t.y
+
+/datum/component/asteroid_fracture/UnregisterFromParent()
+	UnregisterSignal(parent, list(COMSIG_ATOM_EX_ACT, COMSIG_POST_TURF_CHANGE))
+
+/datum/component/asteroid_fracture/PostTransfer()
+	if (!isturf(parent))
+		return COMPONENT_INCOMPATIBLE
 
 /datum/component/asteroid_fracture/Destroy(force, silent)
 	// Break this fracture
@@ -34,6 +52,10 @@
 	SIGNAL_HANDLER
 	// We are already setup, this just means we were broken
 	if (setup)
+		// Component transfer
+		if (path == /turf/open/floor/plating/asteroid/rupture)
+			message_admins("Component transferred")
+			return
 		message_admins("Deleting fracture")
 		qdel(src)
 		return

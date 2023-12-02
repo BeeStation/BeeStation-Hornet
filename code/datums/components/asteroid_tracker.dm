@@ -38,6 +38,10 @@
 	underlying_turf_below = null
 	UnregisterSignal(parent, COMSIG_POST_TURF_CHANGE)
 
+/datum/component/asteroid_tracker/PostTransfer()
+	if (!isturf(parent))
+		return COMPONENT_INCOMPATIBLE
+
 /datum/component/asteroid_tracker/Destroy(force, silent)
 	. = ..()
 	var/turf/self = parent

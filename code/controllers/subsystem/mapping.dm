@@ -337,6 +337,15 @@ SUBSYSTEM_DEF(mapping)
 		LoadGroup(FailedZs, "Lavaland", "map_files/Mining", "Lavaland.dmm", default_traits = ZTRAITS_LAVALAND, orbital_body_type = /datum/orbital_object/z_linked/lavaland)
 	else if (!isnull(config.minetype))
 		INIT_ANNOUNCE("WARNING: An unknown minetype '[config.minetype]' was set! This is being ignored! Update the maploader code!")
+#else
+	// load mining
+	if (config.minetype == "asteroid")
+		new /datum/orbital_object/z_linked/lavaland/shattered
+	else if(config.minetype == "lavaland")
+		INIT_ANNOUNCE("This map is set to use lavaland but low memory mode is enabled, lavaland will be inaccessible!")
+		new /datum/orbital_object/z_linked/lavaland/shattered
+	else if (!isnull(config.minetype))
+		INIT_ANNOUNCE("WARNING: An unknown minetype '[config.minetype]' was set! This is being ignored! Update the maploader code!")
 #endif
 
 	if(LAZYLEN(FailedZs))	//but seriously, unless the server's filesystem is messed up this will never happen

@@ -75,7 +75,7 @@
 	//Calculate relevant grav range
 	relevant_gravity_range = sqrt((mass * GRAVITATIONAL_CONSTANT) / MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCEELRATION)
 	// Abstract object not on a map
-	if (!orbital_map_index)
+	if (!src.orbital_map_index)
 		return
 	//Process this
 	if(!static_object)
