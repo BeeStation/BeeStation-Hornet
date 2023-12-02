@@ -155,7 +155,7 @@ SUBSYSTEM_DEF(zcopy)
 				break
 			continue
 
-		// If we're not at our most recent queue position, don't bother -- we're updating again later anyways.
+		// If we're not at our most recent queue position, don't bother -- we're updating again later anyways.aw
 		if (T.z_queued > 1)
 			T.z_queued -= 1
 			multiqueue_skips_turf += 1
@@ -188,6 +188,7 @@ SUBSYSTEM_DEF(zcopy)
 			continue
 
 		if (!T.shadower)	// If we don't have a shadower yet, something has gone horribly wrong.
+			T.z_queued -= 1
 			WARNING("Turf [T] at [T.x],[T.y],[T.z] was queued, but had no shadower.")
 			continue
 

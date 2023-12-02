@@ -27,6 +27,9 @@
 	z_queued += 1
 	// This adds duplicates for a reason. Do not change this unless you understand how ZM queues work.
 	SSzcopy.queued_turfs += src
+	if (!shadower)
+		WARNING("Turf at [x], [y], [z] queued without a shadower, please investigate")
+		return
 
 /// Enables Z-mimic for a turf that didn't already have it enabled.
 /turf/proc/enable_zmimic(additional_flags = 0)
@@ -79,6 +82,7 @@
 	above.update_mimic()
 
 /// Calculate the z-depth of this provided turf.
+/// If it needs to be changed, then re-initialise z-mimic
 /turf/proc/calculate_zdepth()
 	z_depth = null
 	// Traverse to the bottom of the stack
@@ -92,8 +96,11 @@
 	while (nextb && !nextb.z_depth)
 		b = nextb
 		nextb = b.below || MAPPING_TURF_BELOW(b)
-	// Set the base zdepth
-	b.z_depth = 0
+	if (nextb)
+		b = nextb
+	// Set the base zdepth if b has nothing below it (Reset the stack)
+	if (!b.below && !MAPPING_TURF_BELOW(b))
+		b.z_depth = 0
 	// Begin building up, we know there is at least 1 turf above
 	var/turf/a = b.above || MAPPING_TURF_ABOVE(b)
 	var/turf/nexta = a.above || MAPPING_TURF_ABOVE(a)

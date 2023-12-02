@@ -14,6 +14,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	/// The turf that we are linked to above
 	var/tmp/turf/above = null
 
+	/// The turf that we are linked to below
+	var/tmp/turf/below = null
+	/// The turf that we are linked to above
+	var/tmp/turf/above = null
+
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
 	// A list will be created in initialization that figures out the baseturf's baseturf etc.
