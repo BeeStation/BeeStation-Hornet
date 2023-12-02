@@ -1,7 +1,7 @@
 /obj/projectile/bullet/shotgun_slug
 	name = "12g shotgun slug"
-	damage = 60
-	armour_penetration = -20
+	damage = 41
+	armour_penetration = 0
 
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
@@ -64,8 +64,9 @@
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
-	damage = 9
+	damage = 8
 	tile_dropoff = 0.5
+	armour_penetration = 20
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
@@ -87,8 +88,8 @@
 		qdel(src)
 
 /obj/projectile/bullet/pellet/shotgun_improvised
-	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
-	damage = 6
+	tile_dropoff = 0.3		//Come on it does 6 damage don't be like that.
+	damage = 5
 
 /obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
 	. = ..()
