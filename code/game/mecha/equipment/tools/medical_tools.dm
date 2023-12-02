@@ -315,7 +315,7 @@
 	playsound(chassis, 'sound/items/syringeproj.ogg', 50, 1)
 	log_message("Launched [mechsyringe] from [src], targeting [target].", LOG_MECHA)
 	var/mob/originaloccupant = chassis.occupant
-	spawn(0)
+	spawn(0) // THIS TOO SHALL DIE, but in the mech rework :>
 		src = null //if src is deleted, still process the syringe
 		for(var/i=0, i<6, i++)
 			if(!mechsyringe)

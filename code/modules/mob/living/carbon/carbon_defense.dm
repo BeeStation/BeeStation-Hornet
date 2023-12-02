@@ -251,7 +251,7 @@
 	stuttering += 2
 	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
 		Paralyze(40)
-	spawn(20)
+	spawn(20) // THIS TOO SHALL DIE, but in the zap refactor :>
 		jitteriness = max(jitteriness - 990, 10) //Still jittery, but vastly less
 		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
 			Paralyze(60)

@@ -681,7 +681,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	if(!stat && !resting && !buckled)
 		if(prob(1))
 			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("dances around.","chases her tail."))
-			spawn(0)
+			spawn(0) // THIS TOO SHALL DIE, but in https://github.com/tgstation/tgstation/pull/46925
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
 					sleep(1)
