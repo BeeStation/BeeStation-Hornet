@@ -20,7 +20,7 @@
 		other_hand = active_hand_index-1 //finding the matching "left" limb
 	else
 		other_hand = active_hand_index+1 //finding the matching "right" limb
-	if(other_hand < 0 || other_hand > held_items.len)
+	if(other_hand < 0 || other_hand > length(held_items))
 		other_hand = 0
 	return other_hand
 
@@ -61,7 +61,7 @@
 	if(!start)
 		return FALSE
 	var/list/empty_indexes
-	for(var/i in start to held_items.len step 2)
+	for(var/i in start to length(held_items) step 2)
 		if(!held_items[i])
 			if(!all)
 				return i
@@ -83,7 +83,7 @@
 	if(!start)
 		return FALSE
 	var/list/holding_items
-	for(var/i in start to held_items.len step 2)
+	for(var/i in start to length(held_items) step 2)
 		var/obj/item/I = held_items[i]
 		if(I)
 			if(!all)
@@ -96,7 +96,7 @@
 
 /mob/proc/get_empty_held_indexes()
 	var/list/L
-	for(var/i in 1 to held_items.len)
+	for(var/i in 1 to length(held_items))
 		if(!held_items[i])
 			if(!L)
 				L = list()
@@ -161,7 +161,7 @@
 	return FALSE
 
 /mob/proc/can_put_in_hand(I, hand_index)
-	if(hand_index > held_items.len)
+	if(hand_index > length(held_items))
 		return FALSE
 	if(!put_in_hand_check(I))
 		return FALSE
@@ -476,8 +476,8 @@
 //This is a very rare proc to call (besides admin fuckery) so
 //any cost it has isn't a worry
 /mob/proc/change_number_of_hands(amt)
-	if(amt < held_items.len)
-		for(var/i in held_items.len to amt step -1)
+	if(amt < length(held_items))
+		for(var/i in length(held_items) to amt step -1)
 			dropItemToGround(held_items[i])
 	held_items.len = amt
 
@@ -486,7 +486,7 @@
 
 
 /mob/living/carbon/human/change_number_of_hands(amt)
-	var/old_limbs = held_items.len
+	var/old_limbs = length(held_items)
 	if(amt < old_limbs)
 		for(var/i in hand_bodyparts.len to amt step -1)
 			var/obj/item/bodypart/BP = hand_bodyparts[i]
