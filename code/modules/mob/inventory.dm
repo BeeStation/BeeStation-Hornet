@@ -118,6 +118,7 @@
 	for(var/obj/item/I in held_items)
 		if(istype(I, typepath))
 			return I
+	return null
 
 //Checks if we're holding a tool that has given quality
 //Returns the tool that has the best version of this quality
