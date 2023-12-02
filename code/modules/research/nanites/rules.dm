@@ -205,7 +205,7 @@
 	return rule
 
 /datum/nanite_rule/nutrition/display()
-	return "Nutrition [above ? ">=" : "<"] [min(round(threshold / NUTRITION_LEVEL_FAT, 5), 100)]%"
+	return "Nutrition [above ? ">=" : "<"] [min(round(( threshold / NUTRITION_LEVEL_FAT )*100, 5), 100)]%"
 
 /datum/nanite_rule/blood
 	name = "Blood"
