@@ -38,7 +38,7 @@
 		C.regenerate_icons()
 
 	notransform = TRUE
-	INVOKE_ASYNC(src, .proc/bloodpool_sink, B)
+	INVOKE_ASYNC(src, PROC_REF(bloodpool_sink), B)
 
 	return TRUE
 

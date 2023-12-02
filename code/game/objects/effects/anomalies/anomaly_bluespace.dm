@@ -55,7 +55,7 @@
 				if(ismob(A) && !(A in flashers)) // don't flash if we're already doing an effect
 					var/mob/M = A
 					if(M.client)
-						INVOKE_ASYNC(src, .proc/blue_effect, M)
+						INVOKE_ASYNC(src, PROC_REF(blue_effect), M)
 
 	var/turf/F = get_turf(src)
 	F.generate_fake_pierced_realities(FALSE, max_spawned_faked)

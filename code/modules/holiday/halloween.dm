@@ -206,7 +206,7 @@
 ///Adds a timer to call stalk() on Aggro
 /mob/living/simple_animal/hostile/clown_insane/Aggro()
 	. = ..()
-	timer = addtimer(CALLBACK(src, .proc/stalk), 30, TIMER_STOPPABLE|TIMER_UNIQUE)
+	timer = addtimer(CALLBACK(src, PROC_REF(stalk)), 30, TIMER_STOPPABLE|TIMER_UNIQUE)
 
 /mob/living/simple_animal/hostile/clown_insane/LoseAggro()
 	. = ..()
@@ -225,8 +225,8 @@
 		qdel(src)
 		return
 	playsound(M.loc, pick('sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg', 'sound/spookoween/scary_horn3.ogg'), 300, 1)
-	timer = addtimer(CALLBACK(src, .proc/stalk), 30, TIMER_STOPPABLE|TIMER_UNIQUE)
-	addtimer(CALLBACK(src, .proc/teleport_to_target), 12, TIMER_STOPPABLE|TIMER_UNIQUE)
+	timer = addtimer(CALLBACK(src, PROC_REF(stalk)), 30, TIMER_STOPPABLE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(teleport_to_target)), 12, TIMER_STOPPABLE|TIMER_UNIQUE)
 
 ///Does what's in the name. Teleports to target.loc. Called from a timer.
 /mob/living/simple_animal/hostile/clown_insane/proc/teleport_to_target()

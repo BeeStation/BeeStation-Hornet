@@ -258,7 +258,7 @@
 				to_chat(usr, "<span class='warning'>Something's wrong with that camera!  You can't get a feed.</span>")
 				return
 			current = camera
-			addtimer(CALLBACK(src, .proc/view_camera, usr, camera), 0.6 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(view_camera), usr, camera), 0.6 SECONDS)
 			return
 		else
 			usr.unset_machine()
