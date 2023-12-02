@@ -153,11 +153,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/quantumpad)
 	teleporting = FALSE
 	if(machine_stat & NOPOWER)
 		if(user)
-			to_chat(user, span_warning("[src] is unpowered!"))
+			to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
 		return
 	if(QDELETED(target_pad) || target_pad.machine_stat & NOPOWER)
 		if(user)
-			to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
+			to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
 		return
 
 	last_teleport = world.time

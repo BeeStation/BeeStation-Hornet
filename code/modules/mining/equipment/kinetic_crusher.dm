@@ -139,8 +139,9 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 	update_appearance()
 
+
 /obj/item/kinetic_crusher/update_icon_state()
-	item_state = "crusher[wielded]" // this is not icon_state and not supported by 2hcomponent
+	item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]" // this is not icon_state and not supported by 2hcomponent
 	return ..()
 
 /obj/item/kinetic_crusher/update_overlays()
