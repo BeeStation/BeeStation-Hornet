@@ -237,10 +237,10 @@
 		sendername = holder.fakekey
 	else
 		sendername = key
-	var/reply = tgui_input_text(recipient, msg, "Admin PM from-[sendername]", "", multiline = TRUE) //show message and await a reply
+	var/reply = tgui_input_text(recipient, msg, "Admin PM from-[sendername]", "", multiline = TRUE) //show message and await a reply. tgui_input_text encodes by default.
 	if(recipient && reply)
 		if(sender)
-			recipient.cmd_admin_pm(sender,reply) //sender is still about, let's reply to them
+			recipient.cmd_admin_pm(sender, reply, html_encoded = TRUE) // sender is still about, let's reply to them.
 		else
 			adminhelp(reply) //sender has left, adminhelp instead
 
