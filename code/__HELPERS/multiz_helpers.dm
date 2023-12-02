@@ -108,8 +108,6 @@ GLOBAL_VAR_TYPED(temporary_multiz_step_ref, /turf)
 	if (above)
 		above.z_depth = null
 		above.below = null
-		// Cleanup z-mimic stuff as it is no longer being used
-		above.cleanup_zmimic()
 	else if (!above_turf)
 		return null
 	above = above_turf
