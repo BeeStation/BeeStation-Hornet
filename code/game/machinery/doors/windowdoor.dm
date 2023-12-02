@@ -596,6 +596,7 @@
 	base_state = "sec_left"
 	layer = ABOVE_MOB_LAYER
 	closingLayer = ABOVE_MOB_LAYER
+	req_access = list(ACCESS_SEC_DOORS)
 
 /obj/machinery/door/window/checkpoint/northleft
 	dir = NORTH
