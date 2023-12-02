@@ -66,6 +66,7 @@
 	turf_type = /turf/open/floor/mineral/bananium
 	mineralType = "bananium"
 	mats_per_unit = list(/datum/material/bananium=500)
+	material_flags = NONE //The slippery comp makes it unpractical for good clown decor. The material tiles should still slip.
 
 /obj/item/stack/tile/mineral/abductor
 	name = "alien floor tile"
@@ -171,7 +172,6 @@
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
 	mats_per_unit = list(/datum/material/titanium=500, /datum/material/plasma=500)
-	material_flags = MATERIAL_NO_EFFECTS
 
 /obj/item/stack/tile/mineral/snow
 	name = "snow tile"

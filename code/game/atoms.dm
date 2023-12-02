@@ -599,7 +599,7 @@
 		var/diff = abs(user.z - z)
 		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
 
-	if(custom_materials)
+	if(custom_materials && material_flags & MATERIAL_EFFECTS) //Only runs if custom materials existed at first and affected src.
 		for(var/i in custom_materials)
 			var/datum/material/M = i
 			. += "<u>It is made out of [M.name]</u>."
@@ -1657,7 +1657,7 @@
 		custom_materials = null
 		return
 
-	if(!(material_flags & MATERIAL_NO_EFFECTS))
+	if(material_flags & MATERIAL_EFFECTS)
 		for(var/x in materials)
 			var/datum/material/custom_material = SSmaterials.GetMaterialRef(x)
 			custom_material.on_applied(src, materials[x] * multiplier * material_modifier, material_flags)

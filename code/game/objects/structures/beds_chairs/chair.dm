@@ -156,7 +156,7 @@
 
 ///Material chair
 /obj/structure/chair/greyscale
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	item_chair = /obj/item/chair/greyscale
 	buildstacktype = null //Custom mats handle this
 

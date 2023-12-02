@@ -15,7 +15,7 @@
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
 	custom_materials = list(/datum/material/iron = 500) //Toolboxes by default use iron as their core, custom material.
-	material_flags = MATERIAL_COLOR
+	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	var/latches = "single_latch"
 	var/has_latches = TRUE
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'

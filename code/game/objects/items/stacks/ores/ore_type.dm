@@ -10,7 +10,7 @@
 	item_state = "uranium_ore"
 	singular_name = "uranium ore chunk"
 	points = 38
-	material_flags = MATERIAL_NO_EFFECTS
+	material_flags = NONE
 	mats_per_unit = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/uranium
 	scan_state = "rock_Uranium"
