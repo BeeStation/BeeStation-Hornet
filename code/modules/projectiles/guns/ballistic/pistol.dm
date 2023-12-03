@@ -47,7 +47,7 @@
 	tac_reloads = FALSE
 	fire_sound_volume = 60
 	spread = 18 //Innate spread of 18 degrees, unwielded spread of 48; Stechkin is unwielded 40
-	spread_unwielded = WEAPON_LIGHT * 0.5 //Equivelant weight to 0.5 (Stechkin has weight 1)
+	weapon_weight = WEAPON_LIGHT * 0.5 //Equivelant weight to 0.5 (Stechkin has weight 1)
 	wild_spread = TRUE
 	wild_factor = 0.70 //Minimum spread is 70% of spread value
 	equip_time = 0
