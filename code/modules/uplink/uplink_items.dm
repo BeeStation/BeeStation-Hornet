@@ -2250,7 +2250,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/role_restricted/spanish_flu
 	name = "Spanish Flu Culture"
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell. \
-			At least, thats what the label says"
+			At least, that's what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
 	cost = 12
 	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
