@@ -139,8 +139,8 @@
 	damage = 60
 
 /obj/projectile/bullet/a357/improv
-	damage = 45
-	armour_penetration = -15
+	damage = 50
+	armour_penetration = -10
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

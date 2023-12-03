@@ -93,14 +93,14 @@
 
 /obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
 	. = ..()
-	range = rand(4, 8)
+	range = rand(3, 8)
 
 /obj/projectile/bullet/pellet/shotgun_improvised/on_range()
 	do_sparks(1, TRUE, src)
 	..()
 
 /obj/projectile/bullet/pellet/shotgun_glass
-	tile_dropoff = 0.75
+	tile_dropoff = 0.5
 	damage = 6
 	range = 8
 	ricochets_max = 0

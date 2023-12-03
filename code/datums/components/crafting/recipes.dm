@@ -436,6 +436,20 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
+/datum/crafting_recipe/improv10mm_pack
+	name = "Improvised 10mm Ammo Pack"
+	result = /obj/item/ammo_box/pouch/c10mm/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 2,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/stack/cable_coil = 2,
+				/datum/reagent/fuel = 20,
+				/obj/item/paper = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/improv38_pack
 	name = "Improvised .38 Ammo Pack"
 	result = /obj/item/ammo_box/pouch/c38/improv

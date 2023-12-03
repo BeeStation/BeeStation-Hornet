@@ -6,6 +6,14 @@
 	caliber = "10mm"
 	projectile_type = /obj/projectile/bullet/c10mm
 
+/obj/item/ammo_casing/c10mm/improv
+	name = "improvised 10mm bullet casing"
+	desc = "A handmade 10mm bullet casing."
+	caliber = "10mm"
+	projectile_type = /obj/projectile/bullet/c10mm/improv
+	randomspread = TRUE
+	variance = 10 //Shit ammo is inaccurate.
+
 /obj/item/ammo_casing/c10mm/ap
 	name = "10mm armor-piercing bullet casing"
 	desc = "A 10mm armor-piercing bullet casing."
