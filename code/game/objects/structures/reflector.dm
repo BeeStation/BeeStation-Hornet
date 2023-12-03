@@ -298,7 +298,7 @@
 				return FALSE
 			var/new_angle = text2num(params["rotation_angle"])
 			if(isnull(new_angle))
-				stack_trace("A string was inputted to [src] instead of a number while rotating, somehow.")
+				CRASH("A string was inputted to [src] instead of a number while rotating, somehow.")
 				return FALSE
 			setAngle(SIMPLIFY_DEGREES(new_angle))
 			return TRUE
@@ -307,7 +307,7 @@
 				return FALSE
 			var/new_angle = rotation_angle + text2num(params["rotation_angle"])
 			if(new_angle == null)
-				stack_trace("A string was inputted to [src] instead of a number while calculating, somehow.")
+				CRASH("A string was inputted to [src] instead of a number while calculating, somehow.")
 				return FALSE
 			if(!isnull(new_angle))
 				setAngle(SIMPLIFY_DEGREES(new_angle))
