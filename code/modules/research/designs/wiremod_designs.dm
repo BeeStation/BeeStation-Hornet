@@ -53,6 +53,12 @@
 		var/obj/item/circuit_component/component_path = build_path
 		desc = initial(component_path.desc)
 
+/datum/design/component/abs
+	name = "Absolute Component"
+	id = "comp_abs"
+	build_path = /obj/item/circuit_component/abs
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
 /datum/design/component/arbitrary_input_amount/arithmetic
 	name = "Arithmetic Component"
 	id = "comp_arithmetic"
