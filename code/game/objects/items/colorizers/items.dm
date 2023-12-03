@@ -111,3 +111,10 @@
 	icon_state = "emagcolorizer"
 	apply_icon_state = "tablet-emag"
 	custom_price = 50
+
+/obj/item/colorizer/tablet/cat
+	name = "cat colorizer"
+	desc = "A freak born from a Xenobiology screw up. How it came to be... I'm not telling..."
+	icon_state = "catcolorizer"
+	apply_icon_state = "tablet-cat"
+	custom_price = 50

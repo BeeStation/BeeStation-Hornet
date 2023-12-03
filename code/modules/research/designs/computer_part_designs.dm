@@ -5,7 +5,7 @@
 /datum/design/disk/normal
 	name = "Hard Disk Drive"
 	id = "hdd_basic"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 400, /datum/material/glass = 100, /datum/material/copper = 150)
 	build_path = /obj/item/computer_hardware/hard_drive
 	category = list("Computer Parts")
@@ -14,7 +14,7 @@
 /datum/design/disk/advanced
 	name = "Advanced Hard Disk Drive"
 	id = "hdd_advanced"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 800, /datum/material/glass = 200, /datum/material/copper = 300)
 	build_path = /obj/item/computer_hardware/hard_drive/advanced
 	category = list("Computer Parts")
@@ -23,7 +23,7 @@
 /datum/design/disk/super
 	name = "Super Hard Disk Drive"
 	id = "hdd_super"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 1600, /datum/material/glass = 400, /datum/material/copper = 600)
 	build_path = /obj/item/computer_hardware/hard_drive/super
 	category = list("Computer Parts")
@@ -32,7 +32,7 @@
 /datum/design/disk/cluster
 	name = "Cluster Hard Disk Drive"
 	id = "hdd_cluster"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 3200, /datum/material/glass = 800, /datum/material/copper = 1000)
 	build_path = /obj/item/computer_hardware/hard_drive/cluster
 	category = list("Computer Parts")
@@ -41,7 +41,7 @@
 /datum/design/disk/small
 	name = "Solid State Drive"
 	id = "ssd_small"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 800, /datum/material/glass = 200, /datum/material/copper = 200)
 	build_path = /obj/item/computer_hardware/hard_drive/small
 	category = list("Computer Parts")
@@ -50,7 +50,7 @@
 /datum/design/disk/micro
 	name = "Micro Solid State Drive"
 	id = "ssd_micro"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 400, /datum/material/glass = 100, /datum/material/copper = 150)
 	build_path = /obj/item/computer_hardware/hard_drive/micro
 	category = list("Computer Parts")
@@ -84,6 +84,16 @@
 	category = list("Computer Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
+// No-Relay Network Card
+/datum/design/XNetCard
+	name = "Experimental Network Card"
+	id = "XNetCard"
+	build_type = IMPRINTER
+	materials = list(/datum/material/iron = 200, /datum/material/silver = 100, /datum/material/diamond = 50, /datum/material/bluespace = 25, /datum/material/copper = 100)
+	build_path = /obj/item/computer_hardware/network_card/advanced/norelay
+	category = list("Computer Parts")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
 // Data disks
 /datum/design/portabledrive/basic
 	name = "Data Disk"
@@ -112,21 +122,31 @@
 	category = list("Computer Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
-// Card slot
+// Card slots
 /datum/design/cardslot
 	name = "ID Card Slot"
 	id = "cardslot"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
 	build_path = /obj/item/computer_hardware/card_slot
 	category = list("Computer Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/cardslot2
+	name = "Secondary ID Card Slot"
+	id = "cardslot2"
+	build_type = IMPRINTER
+	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
+	build_path = /obj/item/computer_hardware/card_slot/secondary
+	category = list("Computer Parts")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
+
 // Intellicard slot
 /datum/design/aislot
 	name = "Intellicard Slot"
 	id = "aislot"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
 	build_path = /obj/item/computer_hardware/ai_slot
 	category = list("Computer Parts")
@@ -136,9 +156,28 @@
 /datum/design/miniprinter
 	name = "Miniprinter"
 	id = "miniprinter"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
 	build_path = /obj/item/computer_hardware/printer/mini
+	category = list("Computer Parts")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/printer
+	name = "Printer"
+	id = "printer"
+	build_type = IMPRINTER
+	materials = list(/datum/material/iron = 1200, /datum/material/copper = 300)
+	build_path = /obj/item/computer_hardware/printer
+	category = list("Computer Parts")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
+// Camera Component
+/datum/design/camera
+	name = "Photographic Camera Component"
+	id = "comp_camera"
+	build_type = IMPRINTER
+	materials = list(/datum/material/iron = 300, /datum/material/glass = 200)
+	build_path = /obj/item/computer_hardware/camera_component
 	category = list("Computer Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
@@ -146,7 +185,7 @@
 /datum/design/APClink
 	name = "Area Power Connector"
 	id = "APClink"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/computer_hardware/recharger/APC
 	category = list("Computer Parts")
@@ -156,7 +195,7 @@
 /datum/design/battery/controller
 	name = "Power Cell Controller"
 	id = "bat_control"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 400)
 	build_path = /obj/item/computer_hardware/battery
 	category = list("Computer Parts")
@@ -165,7 +204,7 @@
 /datum/design/battery/normal
 	name = "Battery Module"
 	id = "bat_normal"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 400)
 	build_path = /obj/item/stock_parts/cell/computer
 	category = list("Computer Parts")
@@ -174,7 +213,7 @@
 /datum/design/battery/advanced
 	name = "Advanced Battery Module"
 	id = "bat_advanced"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 800)
 	build_path = /obj/item/stock_parts/cell/computer/advanced
 	category = list("Computer Parts")
@@ -183,7 +222,7 @@
 /datum/design/battery/super
 	name = "Super Battery Module"
 	id = "bat_super"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 1600)
 	build_path = /obj/item/stock_parts/cell/computer/super
 	category = list("Computer Parts")
@@ -192,7 +231,7 @@
 /datum/design/battery/nano
 	name = "Nano Battery Module"
 	id = "bat_nano"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 200)
 	build_path = /obj/item/stock_parts/cell/computer/nano
 	category = list("Computer Parts")
@@ -201,7 +240,7 @@
 /datum/design/battery/micro
 	name = "Micro Battery Module"
 	id = "bat_micro"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 400)
 	build_path = /obj/item/stock_parts/cell/computer/micro
 	category = list("Computer Parts")
@@ -250,7 +289,7 @@
 	name = "Basic Antivirus"
 	desc = "A licensed copy of NTOS defender"
 	id = "antivirus"
-	build_type = PROTOLATHE | AUTOLATHE
+	build_type = IMPRINTER | AUTOLATHE
 	materials = list(/datum/material/iron = 100, /datum/material/glass = 50, /datum/material/copper = 50)
 	build_path = /obj/item/disk/antivirus
 	category = list("Computer Parts","Machinery","initial")
@@ -261,7 +300,7 @@
 	name = "Upgraded Antivirus"
 	desc = "A licensed copy of Ahoy antivirus."
 	id = "antivirus2"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 150, /datum/material/glass = 100, /datum/material/copper = 100)
 	build_path = /obj/item/disk/antivirus/tier2
 	category = list("Computer Parts")
@@ -272,7 +311,7 @@
 	name = "Robust Antivirus"
 	desc = "A licensed copy of McValosk antivirus."
 	id = "antivirus3"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 200, /datum/material/glass = 150, /datum/material/silver = 60, /datum/material/copper = 100)
 	build_path = /obj/item/disk/antivirus/tier3
 	category = list("Computer Parts")
@@ -283,7 +322,7 @@
 	name = "Luxury Antivirus"
 	desc = "A licensed copy of Nano-Ton antivirus."
 	id = "antivirus4"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 200, /datum/material/glass = 200, /datum/material/diamond = 30, /datum/material/bluespace = 30, /datum/material/copper = 100)
 	build_path = /obj/item/disk/antivirus/tier4
 	category = list("Computer Parts")
@@ -293,7 +332,7 @@
 /datum/design/sensorpackage
 	name = "Sensor Package"
 	id = "sensorpackage"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 200, /datum/material/glass = 100, /datum/material/gold = 50, /datum/material/silver = 50)
 	build_path = /obj/item/computer_hardware/sensorpackage
 	category = list("Computer Parts")
@@ -302,7 +341,7 @@
 /datum/design/signaler_part
 	name = "Integrated Signaler"
 	id = "signalpart"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 400, /datum/material/glass = 100)
 	build_path = /obj/item/computer_hardware/radio_card
 	category = list("Computer Parts")

@@ -1089,47 +1089,85 @@
 		"mining",
 		"objective",
 		"rdcamera",
-		"seccamera",
+		"seccamera"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	export_price = 5000
 
-/datum/techweb_node/computer_hardware_basic				//Modular computers are shitty and nearly useless so until someone makes them actually useful this can be easy to get.
+/datum/techweb_node/computer_hardware_basic				//Previous comment refered to Modular Components as shitty. They wont be anymore.
 	id = "computer_hardware_basic"
 	tech_tier = 1
-	display_name = "Computer Hardware"
-	description = "How computer hardware are made."
-	prereq_ids = list("comptech")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //they are really shitty
+	display_name = "Basic Computer Hardware"
+	description = "Necessary basic components for Modular Computer assembly."
+	prereq_ids = list("datatheory") //Since Modular Computers are becoming more distinct, Computer Consoles will no longer be required to research this
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //Very basic hardware, very basic cost
 	export_price = 2000
+	design_ids = list(
+		"bat_control",
+		"bat_nano",
+		"bat_micro",
+		"cardslot",
+		"cpu_small",
+		"pcpu_small",
+		"netcard_basic",
+		"netcard_wired",
+		"portadrive_basic",
+		"ssd_micro",
+		"ssd_small"
+	)
+
+/datum/techweb_node/computer_hardware_advanced
+	id = "computer_hardware_advanced"
+	tech_tier = 2
+	display_name = "Advanced Computer Hardware"
+	description = "Standard quality components and functional parts."
+	prereq_ids = list("computer_hardware_basic")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 3000
+	design_ids = list(
+		"bat_normal",
+		"bat_advanced",
+		"hdd_basic",
+		"hdd_advanced",
+		"hdd_cluster",
+		"netcard_advanced",
+		"cpu_normal",
+		"pcpu_normal",
+		"portadrive_advanced",
+		"miniprinter",
+		"printer",
+		"sensorpackage",
+		"comp_camera",
+		"signalpart"
+	)
+
+/datum/techweb_node/computer_hardware_super
+	id = "computer_hardware_super"
+	tech_tier = 3
+	display_name = "Superior Computer Hardware"
+	description = "Superior quality components and useful parts."
+	prereq_ids = list("computer_hardware_advanced")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
+	export_price = 4000
 	design_ids = list(
 		"aislot",
 		"APClink",
-		"bat_advanced",
-		"bat_control",
-		"bat_micro",
-		"bat_nano",
-		"bat_normal",
-		"bat_super",
-		"cardslot",
-		"cpu_normal",
-		"cpu_small",
-		"hdd_advanced",
-		"hdd_basic",
-		"hdd_cluster",
-		"hdd_super",
-		"miniprinter",
-		"netcard_advanced",
-		"netcard_basic",
-		"netcard_wired",
-		"pcpu_normal",
-		"pcpu_small",
-		"portadrive_advanced",
-		"portadrive_basic",
 		"portadrive_super",
-		"sensorpackage",
-		"ssd_micro",
-		"ssd_small",
+		"bat_super",
+		"hdd_super",
+		"cardslot2"
+	)
+
+/datum/techweb_node/computer_hardware_experimental
+	id = "computer_hardware_experimental"
+	tech_tier = 4
+	display_name = "Experimental Computer Hardware"
+	description = "Experimental parts currently in development. Test cautiously."
+	prereq_ids = list("computer_hardware_super", "telecomms")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
+	export_price = 5000
+	design_ids = list(
+		"XNetCard"
 	)
 
 /datum/techweb_node/computer_board_gaming

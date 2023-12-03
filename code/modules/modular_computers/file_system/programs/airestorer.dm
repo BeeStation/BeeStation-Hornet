@@ -99,6 +99,7 @@
 	data["AI_present"] = FALSE
 	data["error"] = null
 	program_icon_state = "ai_restorer_off"
+	update_computer_icon()
 
 	if(!aicard)
 		data["error"] = "Please insert an intelliCard."
@@ -117,6 +118,8 @@
 				data["isDead"] = AI.stat == DEAD
 				data["laws"] = AI.laws.get_law_list(include_zeroth = 1)
 				program_icon_state = "ai_restorer"
+				update_computer_icon()
+
 
 	return data
 
