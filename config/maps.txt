@@ -22,13 +22,12 @@ map corgstation
 endmap
 
 map boxstation
-	maxplayers 30
+	maxplayers 40
 	votable
 endmap
 
 map metastation
 	default
-	maxplayers 30
 	votable
 endmap
 
