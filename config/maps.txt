@@ -32,7 +32,7 @@ map metastation
 endmap
 
 map deltastation
-	minplayers 40
+	minplayers 30
 	votable
 endmap
 
@@ -42,7 +42,7 @@ map kilostation
 endmap
 
 map flandstation
-	minplayers 40
+	minplayers 30
 	votable
 endmap
 
