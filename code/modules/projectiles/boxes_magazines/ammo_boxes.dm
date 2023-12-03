@@ -99,8 +99,12 @@
 
 /obj/item/ammo_box/pouch/c10mm
 	name = "ammo pouch (10mm)"
-	ammo_type = /obj/item/ammo_casing/c10mm/improv
+	ammo_type = /obj/item/ammo_casing/c10mm
 	max_ammo = 4
+
+/obj/item/ammo_box/pouch/c10mm/improv
+	name = "ammo pouch (improv 10mm)"
+	ammo_type = /obj/item/ammo_casing/c10mm/improv
 
 /obj/item/ammo_box/c45
 	name = "ammo box (.45)"
