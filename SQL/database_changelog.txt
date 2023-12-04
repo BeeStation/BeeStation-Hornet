@@ -15,6 +15,15 @@ In any query remember to add a prefix to the table names if you use one.
 Version 7.1, 4 December 2023, by DrDuckedGoose
 Psyphoza - Species Addition
 
+ALTER TABLE `SS13_characters` ADD COLUMN IF NOT EXISTS `feature_psyphoza_cap` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_human_ears`;
+
+-----------------------------------------------------
+
+-----------------------------------------------------
+
+Version 7.0, 24 July 2023, by itsmeow
+Datumized preferences (TGUI Prefs)
+
 See prefs_migration_2023-07-26.sql
 
 -----------------------------------------------------
