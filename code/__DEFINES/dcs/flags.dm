@@ -40,8 +40,9 @@
 #define ARCH_MAXDROP "max_drop_amount"				//each item's max drop amount
 
 //Ouch my toes!
-#define CALTROP_BYPASS_SHOES 1
-#define CALTROP_IGNORE_WALKERS 2
+#define CALTROP_BYPASS_SHOES (1<<0)
+#define CALTROP_IGNORE_WALKERS (1<<1)
+#define CALTROP_NO_PARALYSIS (1<<2)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name

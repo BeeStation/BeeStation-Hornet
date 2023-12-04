@@ -788,17 +788,6 @@
 				/obj/item/bikehorn = 1)
 	category = CAT_MISC
 
-/datum/crafting_recipe/flash_ducky
-	name = "Toy Rubber Duck Mine"
-	result = /obj/item/deployablemine/traitor/toy
-	time = 20
-	reqs = list(/obj/item/bikehorn/rubberducky = 1,
-				/obj/item/assembly/flash/handheld = 1,
-				/obj/item/stack/cable_coil = 2,
-				/obj/item/assembly/prox_sensor)
-	blacklist = list(/obj/item/assembly/flash/handheld/strong)
-	category = CAT_MISC
-
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"
 	result = /obj/item/knife/combat/bone
@@ -870,6 +859,41 @@
 	parts = list(/obj/item/bodypart/head = 1,
 			/obj/item/spear/bamboospear = 1)
 	result = /obj/structure/headpike/bamboo
+	category = CAT_PRIMAL
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/splinterknife
+	name = "Splinter Knife"
+	result = /obj/item/kitchen/knife/splinter
+	time = 30
+	reqs = list(/obj/item/stack/sheet/splinter = 10)
+	category = CAT_PRIMAL
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/splinterspear
+	name = "Splinter Spear"
+	result = /obj/item/spear/splinter
+	time = 30
+	reqs = list(/obj/item/stack/sheet/splinter = 20,
+				/obj/item/stack/sheet/mineral/silver = 10)
+	category = CAT_PRIMAL
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/splintersword
+	name = "Splinter Sword"
+	result = /obj/item/claymore/splinter
+	time = 30
+	reqs = list(/obj/item/stack/sheet/splinter = 20,
+				/obj/item/stack/sheet/mineral/titanium = 10)
+	category = CAT_PRIMAL
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/splinteraxe
+	name = "Splinter Axe"
+	result = /obj/item/fireaxe/splinter
+	time = 30
+	reqs = list(/obj/item/stack/sheet/splinter = 30,
+				/obj/item/stack/sheet/mineral/diamond = 10)
 	category = CAT_PRIMAL
 	dangerous_craft = TRUE
 

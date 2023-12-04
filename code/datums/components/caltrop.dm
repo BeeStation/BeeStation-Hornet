@@ -73,7 +73,8 @@
 				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", \
 						"<span class='userdanger'>You slide on [A]!</span>")
 
-		H.Paralyze(40)
+		if(!(flags & CALTROP_NO_PARALYSIS))
+			H.Paralyze(40)
 
 /datum/component/caltrop/UnregisterFromParent()
 	. = ..()
