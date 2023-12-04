@@ -1,8 +1,0 @@
-author: ''
-delete-after: true
-changes:
-  - refactor: Refactors emissive lighting and emissive blockers.
-  - rscadd: Adds in emissive overlays for energy weapons.
-  - rscadd: IPC screens are now emissive.
-  - rscadd: Cult halos are now emissive.
-  - rscadd: HUD glasses are now emissive.
