@@ -33,12 +33,17 @@
 
 /*******Component Specific Signals*******/
 //Janitor
-#define COMSIG_TURF_IS_WET "check_turf_wet"							//! (): Returns bitflags of wet values.
-#define COMSIG_TURF_MAKE_DRY "make_turf_try"						//! (max_strength, immediate, duration_decrease = INFINITY): Returns bool.
-#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"					//! called on an object to clean it of cleanables. Usualy with soap: (num/strength)
+#define COMSIG_TURF_IS_WET "check_turf_wet"
+///(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
+#define COMSIG_TURF_MAKE_DRY "make_turf_try"
+
+///Called on an object to "clean it", such as removing blood decals/overlays, etc. The clean types bitfield is sent with it. Return TRUE if any cleaning was necessary and thus performed.
+#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
 
 //Creamed
-#define COMSIG_COMPONENT_CLEAN_FACE_ACT "clean_face_act"		//! called when you wash your face at a sink: (num/strength)
+
+///called when you wash your face at a sink: (num/strength)
+#define COMSIG_COMPONENT_CLEAN_FACE_ACT "clean_face_act"
 
 //Food
 

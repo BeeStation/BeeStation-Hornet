@@ -80,10 +80,10 @@
 	qdel(src)
 
 /datum/component/thermite/proc/clean_react(datum/source, strength)
-	SIGNAL_HANDLER
 
 	//Thermite is just some loose powder, you could probably clean it with your hands. << todo?
 	qdel(src)
+	return TRUE
 
 /datum/component/thermite/proc/flame_react(datum/source, exposed_temperature, exposed_volume)
 	SIGNAL_HANDLER
