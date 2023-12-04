@@ -266,6 +266,7 @@
 	var/desired_name //What is their name?
 	var/desired_details //Details of the crime
 	var/obj/item/radio/Radio //needed to send messages to sec radio
+	var/config_file = file("config/space_law.json")
 	/// A list of all of the available crimes in a formated served to the user interface.
 	var/static/list/crime_list
 	var/static/regex/valid_crime_name_regex = null
@@ -300,23 +301,27 @@
 	// Generate the crime list
 	if (!crime_list)
 		crime_list = list()
-		for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
-			// Ignore this crime, it is abstract
-			if (isnull(initial(crime_path.name)))
-				continue
-			// We need to know about this crime for the regex
-			crime_names += initial(crime_path.name)
-			// Create the category if it is needed
-			if (!islist(crime_list[initial(crime_path.category)]))
-				crime_list[initial(crime_path.category)] = list()
-			// Add crimes to that category
-			crime_list[initial(crime_path.category)] += list(list(
-				"name" = initial(crime_path.name),
-				"tooltip" = initial(crime_path.tooltip),
-				"colour" = initial(crime_path.colour),
-				"icon" = initial(crime_path.icon),
-				"sentence" = initial(crime_path.sentence),
-			))
+		if(!config_file) //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
+			for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
+				// Ignore this crime, it is abstract
+				if (isnull(initial(crime_path.name)))
+					continue
+				// We need to know about this crime for the regex
+				crime_names += initial(crime_path.name)
+				// Create the category if it is needed
+				if (!islist(crime_list[initial(crime_path.category)]))
+					crime_list[initial(crime_path.category)] = list()
+				// Add crimes to that category
+				crime_list[initial(crime_path.category)] += list(list(
+					"name" = initial(crime_path.name),
+					"tooltip" = initial(crime_path.tooltip),
+					"colour" = initial(crime_path.colour),
+					"icon" = initial(crime_path.icon),
+					"sentence" = initial(crime_path.sentence),
+				))
+		else
+			crime_list = json_decode(rustg_file_read(config_file))
+			//create the categories of crime
 
 	if (valid_crime_name_regex)
 		return
