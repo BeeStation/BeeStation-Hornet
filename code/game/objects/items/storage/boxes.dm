@@ -1398,7 +1398,7 @@
 //TABLET COLORIZER BOX
 /obj/item/storage/box/tabletcolorizer
 	name = "colorizer box"
-	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colours!"
+	desc = "A box full of Tablet Colorizers. Unleash your inner child and play around with a vast array of colors!"
 	icon_state = "tabletcbox"
 	custom_price = 50
 
