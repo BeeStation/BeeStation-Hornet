@@ -25,6 +25,9 @@
 	)
 	turf_texture = /datum/turf_texture/maint
 
+/turf/open/floor/plating/broken
+	broken = TRUE
+
 /turf/open/floor/plating/examine(mob/user)
 	. = ..()
 	if(broken || burnt)
