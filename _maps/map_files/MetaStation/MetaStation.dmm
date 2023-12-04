@@ -13042,6 +13042,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bor" = (
@@ -29524,9 +29525,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/turf/open/floor/wood/broken,
 /area/library)
 "dUA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -37896,21 +37895,12 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/flashlight/lamp/green{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/machinery/button/door{
 	id = "hop";
 	name = "Privacy Shutters Control";
 	pixel_y = 25;
 	req_access_txt = "28"
 	},
-/obj/structure/table/wood,
 /obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -44707,6 +44697,13 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/starboard/fore)
+"kju" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood/broken,
+/area/library)
 "kjv" = (
 /obj/machinery/light_switch{
 	pixel_x = -9;
@@ -54038,28 +54035,12 @@
 /obj/item/storage/secure/briefcase,
 /obj/structure/table/wood,
 /obj/item/folder/blue,
-/obj/item/storage/secure/briefcase,
 /obj/item/assembly/flash/handheld,
 /obj/machinery/computer/security/telescreen/vault{
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/storage/secure/briefcase,
-/obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/item/storage/secure/briefcase,
-/obj/item/assembly/flash/handheld,
-/obj/machinery/computer/security/telescreen/vault{
-	pixel_y = 30
 	},
 /obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/wood,
@@ -57781,6 +57762,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"pnj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood/broken,
+/area/library)
 "pnt" = (
 /obj/machinery/door/airlock/research{
 	id_tag = "ResearchInt";
@@ -57859,9 +57846,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "ppi" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken"
-	},
+/turf/open/floor/wood/broken,
 /area/library)
 "ppx" = (
 /obj/structure/cable/yellow{
@@ -61070,15 +61055,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/recharger,
-/obj/item/storage/secure/safe{
-	pixel_x = 34
-	},
-/obj/structure/table/wood,
 /obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -100569,7 +100545,7 @@ bue
 qbE
 bwc
 kOK
-waB
+pnj
 bHS
 bzE
 bLk
@@ -100823,7 +100799,7 @@ bue
 aAz
 bxW
 bzG
-gLY
+kju
 bwc
 kOK
 waB
@@ -101085,7 +101061,7 @@ bwc
 kOK
 waB
 bPT
-bzE
+ppi
 bzE
 uBb
 bue

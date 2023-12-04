@@ -44,11 +44,12 @@
 	max_integrity = 100
 
 /turf/open/floor/wood/broken
-
+	broken = TRUE
 
 /turf/open/floor/wood/big
 	icon_state = "wood_big"
 	variants = list("wood_big", "wood_big1", "wood_big2", "wood_big3", "wood_big4")
+	broken_states = list("damaged_woodbig1", "damaged_woodbig2")
 
 /turf/open/floor/wood/examine(mob/user)
 	. = ..()
@@ -383,7 +384,6 @@
 	desc = "This one takes you back."
 	icon_state = "eighties"
 	floor_tile = /obj/item/stack/tile/eighties
-	broken_states = list("damaged")
 
 /turf/open/floor/carpet/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)

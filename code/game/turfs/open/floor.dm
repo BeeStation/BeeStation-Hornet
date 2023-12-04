@@ -26,15 +26,14 @@
 	var/burnt = FALSE
 	var/floor_tile = null //tile that this floor drops
 
+	var/broken_icon = 'icons/turf/turf_damage.dmi'
+
 	var/list/broken_states = list("damaged1")
 	var/list/broken_dirt_states = list("damaged1")
-	var/use_broken_dirt = TRUE
-	var/broken_icon = 'icons/turf/turf_damage.dmi'
 	//Do we just swap the state to one of the damage states
 	var/use_broken_literal = FALSE
 
 	var/list/burnt_states = list("damaged1")
-	var/burnt_icon = 'icons/turf/turf_damage.dmi'
 	//Do we just swap the state to one of the damage states
 	var/use_burnt_literal = FALSE
 	
@@ -116,7 +115,7 @@
 		damage_overlays += MA
 	//Add some dirt 'n shit
 	if(length(broken_dirt_states) && damage_state)
-		var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
+		var/mutable_appearance/dirt = mutable_appearance(broken_icon, "dirt_[damage_state]")
 		add_overlay(dirt)
 		damage_overlays += dirt
 
@@ -130,7 +129,7 @@
 	if(length(burnt_states))
 		var/burnt_state = pick(burnt_states)
 		//Add some burnt shit
-		var/icon/burnt_overlay = icon(burnt_icon, "burnt_[burnt_state]")
+		var/icon/burnt_overlay = icon(broken_icon, "burnt_[burnt_state]")
 		add_overlay(burnt_overlay)
 		damage_overlays += burnt_overlay
 
