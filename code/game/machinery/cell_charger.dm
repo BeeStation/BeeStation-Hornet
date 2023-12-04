@@ -34,7 +34,37 @@
 		. += "<span class='notice'>The status display reads: Charging power: <b>[charge_rate]W</b>.</span>"
 
 /obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell) && !panel_open)
+	if(istype(W, /obj/item/modular_computer/tablet/pda) && !panel_open)
+		if(machine_stat & BROKEN)
+			to_chat(user, "<span class='warning'>[src] is broken!</span>")
+			return
+		if(!anchored)
+			to_chat(user, "<span class='warning'>[src] isn't attached to the ground!</span>")
+			return
+		if(charging)
+			to_chat(user, "<span class='warning'>The charger is already in use!</span>")
+			return
+		pda = W
+		if(pda.get_cell() == null)
+			to_chat(user, "<span class='warning'>There is no cell in that PDA!</span>")
+			pda = null
+			return
+		else
+			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
+			if(!isarea(a))
+				return
+			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
+				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the PDA!</span>")
+				return
+			if(!user.transferItemToLoc(W,src))
+				return
+
+			pda = W
+			charging = pda.get_cell()
+			user.visible_message("[user] inserts a PDA into [src].", "<span class='notice'>You insert the PDA into [src].</span>")
+			chargelevel = -1
+			update_icon()
+	else if(istype(W, /obj/item/stock_parts/cell) && !panel_open)
 		if(machine_stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is broken!</span>")
 			return
@@ -56,32 +86,6 @@
 
 			charging = W
 			user.visible_message("[user] inserts a cell into [src].", "<span class='notice'>You insert a cell into [src].</span>")
-			chargelevel = -1
-			update_icon()
-
-	else if(istype(W, /obj/item/modular_computer/tablet/pda) && !panel_open)
-		if(machine_stat & BROKEN)
-			to_chat(user, "<span class='warning'>[src] is broken!</span>")
-			return
-		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] isn't attached to the ground!</span>")
-			return
-		if(charging)
-			to_chat(user, "<span class='warning'>The charger is already in use!</span>")
-			return
-		else
-			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
-			if(!isarea(a))
-				return
-			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
-				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the PDA!</span>")
-				return
-			if(!user.transferItemToLoc(W,src))
-				return
-
-			pda = W
-			charging = pda.get_cell()
-			user.visible_message("[user] inserts a PDA into [src].", "<span class='notice'>You insert the PDA into [src].</span>")
 			chargelevel = -1
 			update_icon()
 	else

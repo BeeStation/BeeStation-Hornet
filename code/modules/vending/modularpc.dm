@@ -39,7 +39,7 @@
 					/obj/item/colorizer/tablet/rugged = 2,
 					/obj/item/colorizer/tablet/clearp = 2,
 					/obj/item/colorizer/tablet/clearb = 2,
-					/obj/item/colorizer/tablet/cat,
+					/obj/item/colorizer/tablet/cat = 2,
 					/obj/item/computer_hardware/ai_slot = 2,
 					/obj/item/computer_hardware/recharger/APC = 2,
 					/obj/item/computer_hardware/radio_card = 1,

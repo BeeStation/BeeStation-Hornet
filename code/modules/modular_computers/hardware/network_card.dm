@@ -81,6 +81,7 @@
 	name = "ultra-advanced network card"
 	desc = "An advanced network card for usage with standard NTNet frequencies. Its transmitter is strong enough to connect even off-station, even without a telecomms relay."
 	ignore_relay = TRUE
+	icon_state = "no-relay"
 	custom_price = 100
 
 /obj/item/computer_hardware/network_card/wired
