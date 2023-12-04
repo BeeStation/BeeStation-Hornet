@@ -656,15 +656,13 @@
 		to_chat(user, "<span class='notice'>You sense a presence here...")
 		//Count of souls
 		var/list/present_souls = list()
-		for(var/i in souls)
-			if(!present_souls[i])
-				present_souls[i] = 0
-			present_souls[i] += 1
+		for(var/soul in souls)
+			present_souls[soul] += 1
 		//Display the total soul count
-		for(var/i in present_souls)
-			if(!present_souls[i] || !GLOB.SOUL_GLIMMER_COLORS[i])
+		for(var/soul in present_souls)
+			if(!present_souls[soul] || !GLOB.SOUL_GLIMMER_COLORS[i])
 				continue
-			to_chat(user, "<span class='notice'><span style='color: [GLOB.SOUL_GLIMMER_COLORS[i]]'>[i]</span>, [present_souls[i] > 1 ? "[present_souls[i]] times" : "once"].</span>")
+			to_chat(user, "<span class='notice'><span style='color: [GLOB.SOUL_GLIMMER_COLORS[i]]'>[soul]</span>, [present_souls[i] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 	
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 

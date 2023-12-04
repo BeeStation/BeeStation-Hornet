@@ -24,7 +24,7 @@
 
 	//Psychic soul stuff
 	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE) && mind)
-		to_chat(user, "<span class='notice'>[src] has a <span style='color: [GLOB.SOUL_GLIMMER_COLORS[mind?.soul_glimmer]]'>[mind?.soul_glimmer]</span> presence.")
+		to_chat(user, "<span class='notice'>[src] has a <span style='color: [GLOB.SOUL_GLIMMER_COLORS[mind.soul_glimmer]]'>[mind.soul_glimmer]</span> presence.")
 	
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING) && !(w_uniform.item_flags & EXAMINE_SKIP))

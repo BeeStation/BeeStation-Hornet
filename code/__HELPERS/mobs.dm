@@ -99,9 +99,7 @@
 	if(!GLOB.apid_headstripes_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 	if(!GLOB.psyphoza_cap_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list.len)
-	if(!GLOB.psyphoza_cap_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list)
 	//For now we will always return none for tail_human and ears.
 	return(
 		list(

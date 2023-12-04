@@ -190,7 +190,7 @@ GENE SCANNER
 
 // Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, to_chat = TRUE)
-	if(isliving(user) && (user.incapacitated()))
+	if(isliving(user) && user.incapacitated())
 		return
 
 	// the final list of strings to render
