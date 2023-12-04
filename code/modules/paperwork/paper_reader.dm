@@ -38,7 +38,7 @@
 		cooldown_timer = null
 
 /obj/item/paper_reader/proc/handle_todo()
-	if(!length(to_read))
+	if(!length(to_read) || QDELETED(src))
 		return
 	say(strip_html_tags(to_read[1]))
 	to_read -= to_read[1]
