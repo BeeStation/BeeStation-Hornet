@@ -32,6 +32,9 @@
 	desc = "Stylish dark wood."
 	icon_state = "wood"
 	variants = list("wood", "wood1", "wood2", "wood3", "wood4", "wood5", "wood6")
+	broken_states = list("damaged_wood1", "damaged_wood2")
+	broken_dirt_states = list()
+	burnt_states = list()
 	floor_tile = /obj/item/stack/tile/wood
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
@@ -39,6 +42,9 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	max_integrity = 100
+
+/turf/open/floor/wood/broken
+
 
 /turf/open/floor/wood/big
 	icon_state = "wood_big"

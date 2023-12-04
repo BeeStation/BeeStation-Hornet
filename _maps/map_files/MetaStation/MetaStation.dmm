@@ -75922,14 +75922,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"wMV" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/library)
 "wMZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -100577,7 +100569,7 @@ bue
 qbE
 bwc
 kOK
-wMV
+waB
 bHS
 bzE
 bLk

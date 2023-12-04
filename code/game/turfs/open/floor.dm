@@ -22,16 +22,18 @@
 	overfloor_placed = TRUE
 
 	var/icon_plating = "plating"
-	var/broken = 0
-	var/burnt = 0
+	var/broken = FALSE
+	var/burnt = FALSE
 	var/floor_tile = null //tile that this floor drops
 
-	var/list/broken_states
+	var/list/broken_states = list("damaged1")
+	var/list/broken_dirt_states = list("damaged1")
+	var/use_broken_dirt = TRUE
 	var/broken_icon = 'icons/turf/turf_damage.dmi'
 	//Do we just swap the state to one of the damage states
 	var/use_broken_literal = FALSE
 
-	var/list/burnt_states
+	var/list/burnt_states = list("damaged1")
 	var/burnt_icon = 'icons/turf/turf_damage.dmi'
 	//Do we just swap the state to one of the damage states
 	var/use_burnt_literal = FALSE
@@ -44,10 +46,10 @@
 
 /turf/open/floor/Initialize(mapload)
 
-	if(!length(broken_states))
-		broken_states = list("damaged1")
-	if(!length(burnt_states))
-		burnt_states = list("damaged1")
+	if(broken)
+		break_tile()
+	if(burnt)
+		burn_tile()
 	
 	. = ..()
 	if(mapload && prob(33))
@@ -96,39 +98,43 @@
 		if(use_broken_literal)
 			icon_state = pick(broken_states)
 		return
-	var/damage_state = pick(broken_states)
-	//Pick a random mask for damage state
-	var/icon/mask = icon(broken_icon, "broken_[damage_state]")
-	//Build under-turf icon
-	var/turf/base = pick(baseturfs - list(/turf/baseturf_bottom))
-	var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
-	//Mask under turf by damage state
-	under_turf.UseAlphaMask(mask)
-	//Convert to MA so we can layer stuff better
-	var/mutable_appearance/MA = new()
-	MA.appearance = under_turf
-	MA.layer = layer+0.1
-	add_overlay(MA)
-	damage_overlays += MA
+	var/damage_state
+	if(length(broken_states))
+		damage_state = pick(broken_states)
+		//Pick a random mask for damage state
+		var/icon/mask = icon(broken_icon, "broken_[damage_state]")
+		//Build under-turf icon
+		var/turf/base = pick(baseturfs - list(/turf/baseturf_bottom))
+		var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
+		//Mask under turf by damage state
+		under_turf.UseAlphaMask(mask)
+		//Convert to MA so we can layer stuff better
+		var/mutable_appearance/MA = new()
+		MA.appearance = under_turf
+		MA.layer = layer+0.1
+		add_overlay(MA)
+		damage_overlays += MA
 	//Add some dirt 'n shit
-	var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
-	add_overlay(dirt)
-	damage_overlays += dirt
+	if(length(broken_dirt_states) && damage_state)
+		var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
+		add_overlay(dirt)
+		damage_overlays += dirt
 
-	broken = 1
+	broken = TRUE
 
 /turf/open/floor/burn_tile()
 	if(burnt || use_burnt_literal)
 		if(use_burnt_literal)
 			icon_state = pick(burnt_states)
 		return
-	var/burnt_state = pick(burnt_states)
-	//Add some burnt shit
-	var/icon/burnt_overlay = icon(burnt_icon, "burnt_[burnt_state]")
-	add_overlay(burnt_overlay)
-	damage_overlays += burnt_overlay
+	if(length(burnt_states))
+		var/burnt_state = pick(burnt_states)
+		//Add some burnt shit
+		var/icon/burnt_overlay = icon(burnt_icon, "burnt_[burnt_state]")
+		add_overlay(burnt_overlay)
+		damage_overlays += burnt_overlay
 
-	burnt = 1
+	burnt = TRUE
 
 /turf/open/floor/proc/make_plating()
 	//Remove previous damage overlays
