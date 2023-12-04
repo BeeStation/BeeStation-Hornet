@@ -1,9 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: Lazarus injector will not accidentally change faction status when it has
-      a player mind.
-  - bugfix: Mobs with player mind that are revived by Lazarus injector will have their
-      AI status off, so that people will not be attacked randomly.
-  - rscadd: Lazarus injector will not revive a mob with an unrevivable mind. If it
-      revives a mob, it will notify its ghost.

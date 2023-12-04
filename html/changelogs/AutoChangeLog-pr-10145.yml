@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - code_imp: Fixed compile warnings
-  - bugfix: Fixed clockcult mid-init disconnections incorrectly spawning regular drones
-      instead of cogscarabs.
