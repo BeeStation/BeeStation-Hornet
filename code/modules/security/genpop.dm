@@ -320,27 +320,8 @@
 					"sentence" = initial(crime_path.sentence),
 				))
 		else
-			var/list/crime_path = list()
-			crime_path = json_decode(rustg_file_read(config_file))
+			crime_list = json_decode(rustg_file_read(config_file))
 			//create the categories of crime
-			var/i
-			for (i=1, i<=crime_path.len, i++)
-				if (!islist(crime_list[initial(crime_path[i])]))
-					crime_list[initial(crime_path[i])] = list()
-				var/list/processing_category = list()
-				var/list/processing_crime = list()
-				var/f
-				processing_category = crime_path[i]
-				processing_crime = processing_category[f]
-				for (f=1, f<=processing_category.len, f++)
-					crime_names += initial(processing_crime[f]["name"])
-					crime_list[initial(processing_crime)] += list(list(
-						"name" = initial(processing_crime[f]["name"]),
-						"tooltip" = initial(processing_crime[f]["tooltip"]),
-						"colour" = initial(processing_crime[f]["color"]),
-						"icon" = initial(processing_crime[f]["icon"]),
-						"sentence" = initial(processing_crime[f]["sentence"]),
-					))
 
 	if (valid_crime_name_regex)
 		return
