@@ -115,6 +115,12 @@
 			SPECIES_PERK_NAME = "Blind",
 			SPECIES_PERK_DESC = "Psyphoza are blind and can't see outside their immediate location and psychic sense.",
 		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "eye",
+			SPECIES_PERK_NAME = "Epilepsy Warning",
+			SPECIES_PERK_DESC = "This species features effects that individuals with epilepsy may experience negatively!",
+		),
 	)
 
 	return to_add
