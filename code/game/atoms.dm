@@ -660,9 +660,9 @@
 			present_souls[soul] += 1
 		//Display the total soul count
 		for(var/soul in present_souls)
-			if(!present_souls[soul] || !GLOB.SOUL_GLIMMER_COLORS[i])
+			if(!present_souls[soul] || !GLOB.SOUL_GLIMMER_COLORS[soul])
 				continue
-			to_chat(user, "<span class='notice'><span style='color: [GLOB.SOUL_GLIMMER_COLORS[i]]'>[soul]</span>, [present_souls[i] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
+			to_chat(user, "<span class='notice'><span style='color: [GLOB.SOUL_GLIMMER_COLORS[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
 	
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
