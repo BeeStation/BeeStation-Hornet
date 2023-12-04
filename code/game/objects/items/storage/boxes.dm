@@ -814,7 +814,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 
-/obj/item/storage/box/lights/ComponentInitialize()
+/obj/item/storage/box/lights/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 21
