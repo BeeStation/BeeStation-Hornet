@@ -1,0 +1,92 @@
+{
+	"Minor": {
+	  "Assault": {
+		"name": "Assault",
+		"icon": "hand-rock",
+		"tooltip":"To use physical force against someone without the apparent intent to kill them.",
+		"color": "yellow",
+		"sentence":5
+	  },
+	  "Pickpocketting":{
+		"name":"Pickpocketting",
+		"icon":"mask",
+		"tooltip":"To steal items from another's person.",
+		"color":"yellow",
+		"sentence":5
+	  },
+	  "Minor Vandalism":{
+		"name":"Minor Vandalism",
+		"icon":"house-damage",
+		"tooltip":"To damage, destroy, or permanently deface non-critical furniture, vendors, or personal property.",
+		"color":"yellow",
+		"category":"minor",
+		"sentence":5
+	  },
+	  "Vigilantism":{
+		"name":"Vigilantism",
+		"icon":"user-secret",
+		"tooltip":"To perform the responsibilities and duties of the security department without approval or due cause to act.",
+		"color":"yellow",
+		"sentence":5
+	  },
+	  "Illegal Distribution":{
+		"name":"Illegal Distribution",
+		"icon":"joint",
+		"tooltip":"The possession of dangerous or illegal drugs/equipment in a quantity greater than that which is reasonable for personal consumption.",
+		"color":"yellow",
+		"sentence":5
+	  },
+	  "Disturbing the Peace":{
+		"name":"Disturbing the Peace",
+		"icon":"fist-raised",
+		"tooltip":"To knowingly organize a movement which disrupts the normal operations of a department.",
+		"color":"yellow",
+		"sentence":5
+	  },
+	  "Negligence":{
+		"name":"Negligence",
+		"icon":"low-vision",
+		"tooltip":"To be negligent in one's duty to an extent that it may cause harm, illness, or other negative effect, to another.",
+		"color":"yellow",
+		"sentence":5
+	  },
+	  "Trespass":{
+		"name":"Trespass",
+		"icon":"walking",
+		"tooltip":"To be in an area which a person has either not purposefully been admitted to, does not have access, or has been asked to leave by someone who has access to that area.",
+		"color":"yellow",
+		"sentence":5
+	  },
+	  "Breaking and Entering":{
+		"name":"Breaking and Entering",
+		"icon":"door-open",
+		"tooltip":"To trespass into an area using a method of forcible entry.",
+		"color":"yellow",
+		"sentence":5
+	  },
+	  "Discriminatory Language":{
+		"name":"Discriminatory Language",
+		"icon":"comment-slash",
+		"tooltip":"To use language which demeans, generalizes, or otherwise de-personafies the individual at which it is targeted.",
+		"color":"yellow",
+		"sentence":5
+	  },
+	  "Fine Evasion":{
+		"name":"Fine Evasion",
+		"icon":"dollar-sign",
+		"tooltip":"To purposefully avoid or refuse to pay a legal fine.",
+		"color":"yellow",
+		"sentence":5
+	  },
+	  "Religious Activity outside of the chapel":{
+		"name":"Religious Activity outside of the chapel",
+		"icon":"cross",
+		"tooltip":"To convert, proselytize, hold rituals or otherwise attempt to act in the name of a religion or deity outside of the chapel.",
+		"color":"yellow",
+		"sentence":5
+	  }
+	},
+	"Misdemeaner": [],
+	"Major": [],
+	"Capital": []
+  }
