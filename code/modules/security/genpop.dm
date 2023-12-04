@@ -321,7 +321,6 @@
 				))
 		else
 			var/list/crime_path = list()
-			json_encode(config_file)
 			crime_path = json_decode(rustg_file_read(config_file))
 			//create the categories of crime
 			var/i
