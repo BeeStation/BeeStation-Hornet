@@ -142,6 +142,7 @@
 	return
 
 /atom/movable/lighting_object/wash(clean_types)
+	SHOULD_CALL_PARENT(FALSE)
 	return
 
 // Override here to prevent things accidentally moving around overlays.
