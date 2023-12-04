@@ -86,7 +86,7 @@
 /datum/unit_test/smoothing/Run()
 	for(var/P in types_to_test)
 		for(var/T in typesof(P))
-			var/atom/A = ispath(P, /turf) ? allocate(T) : new T() //We don't need to delete the turf at the end of this.
+			var/atom/A = ispath(P, /turf) ? allocate(T) : new T(run_loc_floor_bottom_left) //We don't need to delete the turf at the end of this.
 			var/smooth_flags = A.smoothing_flags
 			var/icon/the_icon = A.icon
 			var/base_state = A.base_icon_state
