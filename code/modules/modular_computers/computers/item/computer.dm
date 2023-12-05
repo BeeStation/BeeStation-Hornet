@@ -13,8 +13,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	light_on = FALSE
 
 
-	var/enabled = 0											// Whether the computer is turned on.
-	var/screen_on = 1										// Whether the computer is active/opened/it's screen is on.
+	var/enabled = FALSE											// Whether the computer is turned on.
+	var/screen_on = TRUE										// Whether the computer is active/opened/it's screen is on.
 	/// Whether or not the computer can be upgraded
 	var/upgradable = TRUE
 	/// Whether or not the computer can be deconstructed
@@ -282,22 +282,22 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	. += get_modular_computer_parts_examine(user)
 
-/obj/item/modular_computer/update_icon()
-	cut_overlays()
+/obj/item/modular_computer/update_overlays()
+	. = ..()
 
 	var/init_icon = initial(icon)
 	if(!init_icon)
 		return
 
-	if(enabled)
-		add_overlay(active_program ? mutable_appearance(init_icon, active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu))
+	if(enabled && screen_on)
+		. += active_program ? mutable_appearance(init_icon, active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu)
 
-	if(can_store_pai && stored_pai_card)
-		add_overlay(stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay"))
+	if(stored_pai_card)
+		. += stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay")
 
 	if(obj_integrity <= integrity_failure)
-		add_overlay(mutable_appearance(init_icon, "bsod"))
-		add_overlay(mutable_appearance(init_icon, "broken"))
+		. += mutable_appearance(init_icon, "bsod")
+		. += mutable_appearance(init_icon, "broken")
 
 /obj/item/modular_computer/proc/turn_on(mob/user, open_ui = TRUE)
 	if(enabled)
