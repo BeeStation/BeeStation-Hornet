@@ -23,7 +23,7 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1\
 	)
-	turf_texture = /datum/turf_texture/maint
+	turf_texture = list(/datum/turf_texture/maint)
 
 /turf/open/floor/plating/broken
 	broken = TRUE

@@ -1,7 +1,7 @@
 /turf/open/floor/plasteel
 	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/plasteel
-	turf_texture = /datum/turf_texture/hallway
+	turf_texture = list(/datum/turf_texture/hallway, /datum/turf_texture/maint/tile)
 
 /turf/open/floor/plasteel/examine(mob/user)
 	. = ..()

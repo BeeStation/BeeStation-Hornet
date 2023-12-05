@@ -33,6 +33,7 @@
 	icon_state = "wood"
 	variants = list("wood", "wood1", "wood2", "wood3", "wood4", "wood5", "wood6")
 	broken_states = list("damaged_wood1", "damaged_wood2")
+	broken_dirt_states = list("dirt_damaged_wood1", "dirt_damaged_wood2")
 	broken_dirt_states = list()
 	burnt_states = list()
 	floor_tile = /obj/item/stack/tile/wood
@@ -50,6 +51,7 @@
 	icon_state = "wood_big"
 	variants = list("wood_big", "wood_big1", "wood_big2", "wood_big3", "wood_big4")
 	broken_states = list("damaged_woodbig1", "damaged_woodbig2")
+	broken_dirt_states = list("dirt_damaged_wood1", "dirt_damaged_wood2")
 
 /turf/open/floor/wood/examine(mob/user)
 	. = ..()

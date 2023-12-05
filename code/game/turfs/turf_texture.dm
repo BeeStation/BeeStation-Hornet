@@ -13,6 +13,8 @@
 	var/alpha = 255
 	///Color adjustment - this isn't used often
 	var/color = "#ffffffff"
+	///The priority of this texture
+	var/priority = 1
 
 //Effect object we use to hold our groceries
 /obj/effect/turf_texture
@@ -36,3 +38,8 @@
 	icon_state = "maint"
 	alpha = 80
 
+//Deep maint use for tiles
+/datum/turf_texture/maint/tile
+	icon_state = "maint_tile"
+	alpha = 80
+	priority = 2
