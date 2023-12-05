@@ -306,9 +306,8 @@
 			if (!can_rotate || admin)
 				return FALSE
 			var/new_angle = rotation_angle + text2num(params["rotation_angle"])
-			if(new_angle == null)
+			if(isnull(new_angle))
 				log_href_exploit(usr, " inputted a string to [src] instead of a number while interacting with the calculate UI, somehow.")
 				return FALSE
-			if(!isnull(new_angle))
-				setAngle(SIMPLIFY_DEGREES(new_angle))
+			setAngle(SIMPLIFY_DEGREES(new_angle))
 			return TRUE
