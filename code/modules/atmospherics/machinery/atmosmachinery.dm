@@ -176,6 +176,10 @@
 		nodes[nodes.Find(reference)] = null
 		update_icon()
 
+/// only debug purpose
+/obj/machinery/atmospherics/proc/check_parent()
+	return
+
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pipe)) //lets you autodrop
 		var/obj/item/pipe/pipe = W
@@ -191,6 +195,19 @@
 
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
+
+	var/crash_text
+	if(!int_air)
+		if(!crash_text)
+			crash_text = ""
+		crash_text += "variable 'int_air' has no gas datum![check_parent()] / "
+	if(!env_air)
+		if(!crash_text)
+			crash_text = ""
+		crash_text += "variable 'env_air' has no gas datum! Its loc is [loc]"
+	if(crash_text)
+		CRASH(crash_text)
+
 	add_fingerprint(user)
 
 	var/unsafe_wrenching = FALSE

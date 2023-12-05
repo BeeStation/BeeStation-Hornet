@@ -117,3 +117,9 @@
 		pipe_color = paint_color
 		update_node_icon()
 	return paintable
+
+/obj/machinery/atmospherics/pipe/check_parent()
+	if(!parent)
+		return " / info: parent removed"
+	else if(QDELING(parent) || QDESTROYING(parent))
+		return " / info: parent under qdel"

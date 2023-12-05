@@ -61,6 +61,18 @@
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
 
+	var/crash_text
+	if(!air1)
+		if(!crash_text)
+			crash_text = ""
+		crash_text += "variable 'air1' has no gas datum! "
+	if(!air2)
+		if(!crash_text)
+			crash_text = ""
+		crash_text += "variable 'air2' has no gas datum! "
+	if(crash_text)
+		CRASH(crash_text + "/ airs length: [length(airs)]")
+
 // Pump mechanism just won't do anything if the pressure is too high/too low unless you overclock it.
 
 	var/input_starting_pressure = air1.return_pressure()
