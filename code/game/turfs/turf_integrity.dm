@@ -117,7 +117,8 @@
 		return
 	// Cascade turf damage downwards on destruction
 	if (additional_damage > 0)
-		take_damage(additional_damage, BRUTE, damage_flag, FALSE)
+		if (damage_flag == BOMB || damage_flag == ACID || damage_flag == FIRE)
+			take_damage(additional_damage, BRUTE, damage_flag, FALSE)
 
 //====================================
 // Generic Hits
