@@ -566,13 +566,13 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/add_turf_texture(list/textures, force)
 	if(!length(textures) || locate(/obj/effect/decal/cleanable/dirt) in contents && !force)
 		return
-	var/datum/turf_texture
+	var/datum/turf_texture/turf_texture
 	for(var/datum/turf_texture/TF as() in textures)
 		var/area/A = loc
 		if(TF in A?.turf_textures)
 			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
 	if(turf_texture)
-		vis_contents += load_turf_texture(TF)
+		vis_contents += load_turf_texture(turf_texture)
 
 /// returns a list of all mobs inside of a turf.
 /// likely detects mobs hiding in a closet.
