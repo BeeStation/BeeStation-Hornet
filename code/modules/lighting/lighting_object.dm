@@ -123,6 +123,9 @@
 
 // Variety of overrides so the overlays don't get affected by weird things.
 
+/atom/movable/lighting_object/update_luminosity()
+	return
+
 /atom/movable/lighting_object/ex_act(severity)
 	return 0
 

@@ -593,7 +593,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "co" = (
-/obj/item/reagent_containers/food/snacks/pie/grapetart,
+/obj/item/food/pie/grapetart,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -658,7 +658,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cA" = (
-/obj/item/reagent_containers/food/snacks/pie/appletart,
+/obj/item/food/pie/appletart,
 /obj/structure/table/wood/fancy/blue,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/cafeteria,
@@ -705,7 +705,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cI" = (
-/obj/item/reagent_containers/food/snacks/salad/validsalad,
+/obj/item/food/salad/validsalad,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)

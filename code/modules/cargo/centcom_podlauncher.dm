@@ -54,7 +54,7 @@
 	// Stuff needed to render the map
 	var/map_name
 	var/atom/movable/screen/map_view/cam_screen
-	var/list/cam_plane_masters
+	var/datum/remote_view/remote_view
 	var/atom/movable/screen/background/cam_background
 	var/tabIndex = 1
 	var/renderLighting = FALSE
@@ -83,8 +83,8 @@
 	ui_interact(owner_client.mob)
 
 /datum/centcom_podlauncher/proc/initMap()
-	if(map_name)
-		owner_client.clear_map(map_name)
+	if(remote_view)
+		QDEL_NULL(remote_view)
 
 	map_name = "admin_supplypod_bay_[REF(src)]_map"
 	// Initialize map objects
@@ -93,24 +93,13 @@
 	cam_screen.assigned_map = map_name
 	cam_screen.del_on_map_removal = TRUE
 	cam_screen.screen_loc = "[map_name]:1,1"
-	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
-		var/atom/movable/screen/plane_master/instance = new plane()
-		if (!renderLighting && instance.plane == LIGHTING_PLANE)
-			instance.alpha = 100
-		if(instance.blend_mode_override)
-			instance.blend_mode = instance.blend_mode_override
-		instance.assigned_map = map_name
-		instance.del_on_map_removal = TRUE
-		instance.screen_loc = "[map_name]:CENTER"
-		cam_plane_masters += instance
+	remote_view = new(map_name)
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = TRUE
 	refreshView()
 	owner_client.register_map_obj(cam_screen)
-	for(var/plane in cam_plane_masters)
-		owner_client.register_map_obj(plane)
+	remote_view.join(owner_client)
 	owner_client.register_map_obj(cam_background)
 
 
@@ -530,9 +519,9 @@
 
 /datum/centcom_podlauncher/ui_close(mob/user, datum/tgui/tgui) //Uses the destroy() proc. When the user closes the UI, we clean up the temp_pod and supplypod_selector variables.
 	QDEL_NULL(temp_pod)
-	user.client?.clear_map(map_name)
+	remote_view?.leave(user.client)
 	QDEL_NULL(cam_screen)
-	QDEL_LIST(cam_plane_masters)
+	QDEL_NULL(remote_view)
 	QDEL_NULL(cam_background)
 	qdel(src)
 
@@ -582,7 +571,7 @@
 	var/list/modifiers = params2list(params)
 
 	var/left_click = LAZYACCESS(modifiers, LEFT_CLICK)
-	
+
 	if (launcherActivated)
 		//Clicking on UI elements shouldn't launch a pod
 		if(istype(target,/atom/movable/screen))
