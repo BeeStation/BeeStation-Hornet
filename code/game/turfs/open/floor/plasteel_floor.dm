@@ -125,12 +125,6 @@
 /turf/open/floor/plasteel/freezer/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-
-/turf/open/floor/plasteel/grimy
-	icon_state = "grimy"
-	base_icon_state = "grimy"
-	tiled_dirt = FALSE
-
 /turf/open/floor/plasteel/cafeteria
 	icon_state = "cafeteria"
 	base_icon_state = "cafeteria"

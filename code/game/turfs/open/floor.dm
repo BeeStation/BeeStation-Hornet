@@ -92,7 +92,8 @@
 	T.break_tile()
 
 /turf/open/floor/proc/break_tile(force)
-	if(broken && !force || use_broken_literal || !length(list(baseturfs) - /turf/baseturf_bottom))
+	var/list/options = baseturfs.Copy() //This is weird
+	if(broken && !force || use_broken_literal || !length(options - /turf/baseturf_bottom))
 		if(use_broken_literal)
 			icon_state = pick(broken_states)
 		return
@@ -104,8 +105,7 @@
 		add_filter("damage_mask", 1, alpha_mask_filter(icon = mask, flags = MASK_INVERSE))
 		damage_overlays += "damage_mask"
 		//Build under-turf icon
-		var/list/options = baseturfs.Copy() //This is weird
-		var/turf/base = pick(options - /turf/baseturf_bottom)
+		var/turf/base = pick(options - (force ? null : /turf/baseturf_bottom))
 		var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
 		//Underlay turf icon
 		add_filter("turf_underlay", 2, layering_filter(icon = under_turf, flags = FILTER_UNDERLAY))

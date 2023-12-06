@@ -49,7 +49,7 @@
 	icon_state = "wood_big"
 	variants = list("wood_big", "wood_big1", "wood_big2", "wood_big3", "wood_big4")
 	broken_states = list("damaged_woodbig1", "damaged_woodbig2")
-	broken_dirt_states = list("dirt_damaged_wood1", "dirt_damaged_wood2")
+	broken_dirt_states = list("damaged_wood1", "damaged_wood2")
 
 /turf/open/floor/wood/examine(mob/user)
 	. = ..()
