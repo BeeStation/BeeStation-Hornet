@@ -28,8 +28,8 @@
 
 	var/broken_icon = 'icons/turf/turf_damage.dmi'
 
-	var/list/broken_states = list("damaged1")
-	var/list/broken_dirt_states = list("damaged1")
+	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4")
+	var/list/broken_dirt_states = list("damaged1", "damaged2", "damaged3", "damaged4")
 	//Do we just swap the state to one of the damage states
 	var/use_broken_literal = FALSE
 
@@ -113,7 +113,7 @@
 	//Add some dirt 'n shit
 	if(length(broken_dirt_states) && damage_state)
 		var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
-		add_filter("dirt_overlay", 3, layering_filter(icon = dirt))
+		add_filter("dirt_overlay", 3, layering_filter(icon = dirt, blend_mode = BLEND_MULTIPLY))
 		damage_overlays += "dirt_overlay"
 	broken = TRUE
 
