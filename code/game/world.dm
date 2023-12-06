@@ -140,6 +140,7 @@ GLOBAL_VAR(restart_counter)
 		GLOB.picture_log_directory = "data/picture_logs/[override_dir]"
 
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
+	GLOB.world_game_log_debug = "[GLOB.log_directory]/tm_debug.log"
 	GLOB.world_objective_log = "[GLOB.log_directory]/objectives.log"
 	GLOB.world_mecha_log = "[GLOB.log_directory]/mecha.log"
 	GLOB.world_virus_log = "[GLOB.log_directory]/virus.log"
@@ -171,6 +172,7 @@ GLOBAL_VAR(restart_counter)
 	start_log(GLOB.harddel_log)
 #endif
 	start_log(GLOB.world_game_log)
+	start_log(GLOB.world_game_log_debug)
 	start_log(GLOB.world_attack_log)
 	start_log(GLOB.world_pda_log)
 	start_log(GLOB.world_telecomms_log)

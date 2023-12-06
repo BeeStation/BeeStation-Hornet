@@ -6,21 +6,33 @@
 	var/list/obj/machinery/atmospherics/components/other_atmosmch
 
 	var/update = TRUE
+	var/static/increment_count
+	var/mycount
 
 /datum/pipeline/New()
 	other_airs = list()
 	members = list()
 	other_atmosmch = list()
 	SSair.networks += src
+	mycount = ++increment_count
+	log_debug("P[mycount] pipeline datum is created")
 
 /datum/pipeline/Destroy()
+	log_debug("P[mycount]: pipeline datum([FAST_REF(src)]) proc call: Destroy()")
 	SSair.networks -= src
 	if(air && air.return_volume())
 		temporarily_store_air()
+	var/do_log
+	if(length(members))
+		do_log = TRUE
+		log_debug("P[mycount]: pipeline datum([FAST_REF(src)]) Destroy() -- attempts remove parents")
 	for(var/obj/machinery/atmospherics/pipe/P in members)
+		if(do_log)
+			log_debug("P[mycount]: pipeline datum([FAST_REF(src)]) null'ed parent of the pipe [P.get_obj_info()]")
 		P.parent = null
 	for(var/obj/machinery/atmospherics/components/C in other_atmosmch)
 		C.nullifyPipenet(src)
+	log_debug("P[mycount]: pipeline datum([FAST_REF(src)]) proc escape: Destroy() -> parent proc")
 	return ..()
 
 /datum/pipeline/process()
@@ -66,6 +78,7 @@
 
 							volume += item.volume
 							item.parent = src
+							log_debug("P[mycount]: pipeline datum([FAST_REF(src)]) / build_pipeline() gets parent assigned")
 
 							if(item.air_temporary)
 								air.merge(item.air_temporary)
@@ -89,7 +102,9 @@
 	if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = A
 		if(P.parent)
+			log_debug("P[mycount]: pipeline datum([FAST_REF(src)]) / addMember() merged parents")
 			merge(P.parent)
+		log_debug("P[mycount]: pipeline datum([FAST_REF(src)]) / addMember() gets parent assigned")
 		P.parent = src
 		var/list/adjacent = P.pipeline_expansion()
 		for(var/obj/machinery/atmospherics/pipe/I in adjacent)
@@ -97,6 +112,7 @@
 				continue
 			var/datum/pipeline/E = I.parent
 			merge(E)
+			log_debug("P[mycount]: pipeline datum([FAST_REF(src)]) / addMember() did something to parent")
 		if(!members.Find(P))
 			members += P
 			air.set_volume(air.return_volume() + P.volume)

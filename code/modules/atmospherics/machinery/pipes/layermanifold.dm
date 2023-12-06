@@ -114,8 +114,10 @@
 	return get_all_connected_nodes()
 
 /obj/machinery/atmospherics/pipe/layer_manifold/disconnect(obj/machinery/atmospherics/reference)
+	log_debug("[get_obj_info()]proc call: disconnect() [reference ? "from [reference.atmos_debug] " : ""] -- layer_manifold")
 	if(istype(reference, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = reference
+		log_debug("[get_obj_info()] calls destroy_network() -- layer_manifold")
 		P.destroy_network()
 	while(reference in get_all_connected_nodes())
 		if(reference in nodes)
@@ -128,6 +130,7 @@
 			var/i = back_nodes.Find(reference)
 			back_nodes[i] = null
 	update_appearance()
+	log_debug("[get_obj_info()]proc escape: disconnect() -- layer_manifold")
 
 /obj/machinery/atmospherics/pipe/layer_manifold/relaymove(mob/living/user, dir)
 	if(initialize_directions & dir)

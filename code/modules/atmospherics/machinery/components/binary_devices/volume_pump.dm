@@ -71,7 +71,10 @@
 			crash_text = ""
 		crash_text += "variable 'air2' has no gas datum! "
 	if(crash_text)
-		CRASH(crash_text + "/ airs length: [length(airs)]")
+		crash_text += "/ airs length: [length(airs)]"
+		log_debug(crash_text)
+		log_debug("[get_obj_info()]Refs: air1 [FAST_REF(air1)] / air2 [FAST_REF(air2)] / src [FAST_REF(src)] / loc [FAST_REF(loc)]")
+		CRASH(crash_text)
 
 // Pump mechanism just won't do anything if the pressure is too high/too low unless you overclock it.
 

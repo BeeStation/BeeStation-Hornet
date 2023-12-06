@@ -64,6 +64,7 @@
 	SetInitDirections()
 
 /obj/machinery/atmospherics/Destroy()
+	log_debug("[get_obj_info()] proc call: Destroy() -- atmos basic")
 	for(var/i in 1 to device_type)
 		nullifyNode(i)
 
@@ -73,6 +74,7 @@
 	if(pipe_vision_img)
 		qdel(pipe_vision_img)
 
+	log_debug("[get_obj_info()] proc parent: Destroy() -- to atmos upper")
 	return ..()
 	//return QDEL_HINT_FINDREFERENCE
 
@@ -84,6 +86,7 @@
 	return
 
 /obj/machinery/atmospherics/proc/nullifyNode(i)
+	log_debug("[get_obj_info()] pro call: nullifyNode([i]) -- basic")
 	if(nodes[i])
 		var/obj/machinery/atmospherics/N = nodes[i]
 		N.disconnect(src)
@@ -169,12 +172,15 @@
 	return
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
+	log_debug("[get_obj_info()]proc call: disconnect() [reference ? "from [reference.atmos_debug] " : ""]-- basic")
 	if(istype(reference, /obj/machinery/atmospherics/pipe))
+		log_debug("[get_obj_info()] calls destroy_network() -- basic")
 		var/obj/machinery/atmospherics/pipe/P = reference
 		P.destroy_network()
 	if(nodes.len >= nodes.Find(reference)) // for some reason things can still be acted on even though they've been deleted this is a really fucky way of detecting that
 		nodes[nodes.Find(reference)] = null
 		update_icon()
+	log_debug("[get_obj_info()]proc escape: disconnect() -- basic")
 
 /// only debug purpose
 /obj/machinery/atmospherics/proc/check_parent()
@@ -189,8 +195,17 @@
 	else
 		return ..()
 
+/obj/machinery/atmospherics/var/atmos_debug
+/obj/machinery/atmospherics/proc/get_obj_info()
+	if(!atmos_debug)
+		var/static/count
+		atmos_debug = ++count
+	return "No.[atmos_debug] >> [FAST_REF(src)]:x[x].y[y].z[z] [loc ? "lx[loc.x].ly[loc.y].lz[loc.z]" : ""]\t>> "
+
 /obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/I)
+	log_debug("[get_obj_info()]proc call: wrench_act() / refs: src [FAST_REF(src)] / loc [FAST_REF(loc)] / [check_parent()]")
 	if(!can_unwrench(user))
+		log_debug("[get_obj_info()]proc parent: wrench_act()")
 		return ..()
 
 	var/datum/gas_mixture/int_air = return_air()
@@ -206,6 +221,8 @@
 			crash_text = ""
 		crash_text += "variable 'env_air' has no gas datum! Its loc is [loc]"
 	if(crash_text)
+		log_debug(crash_text)
+		log_debug("[get_obj_info()]Refs: int_air [FAST_REF(int_air)] / env_air [FAST_REF(env_air)] / src [FAST_REF(src)] / loc [FAST_REF(loc)]")
 		CRASH(crash_text)
 
 	add_fingerprint(user)
@@ -232,6 +249,7 @@
 			if (user.client)
 				user.client.give_award(/datum/award/achievement/misc/pressure, user)
 		return deconstruct(TRUE)
+	log_debug("[get_obj_info()]proc escape: wrench_act()")
 	return TRUE
 
 /obj/machinery/atmospherics/proc/can_unwrench(mob/user)

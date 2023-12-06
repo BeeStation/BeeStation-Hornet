@@ -74,6 +74,13 @@
 	if (CONFIG_GET(flag/log_game))
 		WRITE_LOG(GLOB.world_game_log, "GAME: [text]")
 
+/// TM only
+/proc/log_debug(text)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		return
+	if (CONFIG_GET(flag/log_game))
+		WRITE_LOG(GLOB.world_game_log_debug, text)
+
 /proc/log_objective(whom, objective, admin_involved)
 	if (CONFIG_GET(flag/log_objective))
 		WRITE_LOG(GLOB.world_objective_log, "OBJ: [key_name(whom)] was assigned the following objective [admin_involved ? "by [key_name(admin_involved)]" : "automatically"]: [objective]")
