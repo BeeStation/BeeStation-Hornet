@@ -651,7 +651,7 @@
 		/obj/item/gun/ballistic/revolver/detective,
 		/obj/item/detective_scanner,
 		/obj/item/flashlight,
-		/obj/item/taperecorder
+		/obj/item/taperecorder,
 		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/restraints/handcuffs
 	)
