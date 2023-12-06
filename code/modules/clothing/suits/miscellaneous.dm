@@ -651,9 +651,15 @@
 		/obj/item/gun/ballistic/revolver/detective,
 		/obj/item/detective_scanner,
 		/obj/item/flashlight,
-		/obj/item/taperecorder
+		/obj/item/taperecorder,
 		/obj/item/reagent_containers/peppercloud_deployer,
-		/obj/item/restraints/handcuffs
+		/obj/item/restraints/handcuffs,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
 	)
 	armor = list(MELEE = 25,  BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 40)
 	heat_protection = CHEST|GROIN|ARMS
@@ -683,7 +689,13 @@
 		/obj/item/stack/medical,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/firstaid/medical,
-		/obj/item/storage/pill_bottle
+		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
 	)
 	armor = list(MELEE = 10,  BULLET = 0, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/brigphys
@@ -714,6 +726,12 @@
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/firstaid/medical,
 		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
 	)
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical
@@ -742,7 +760,13 @@
 		/obj/item/stack/medical,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/firstaid/medical,
-		/obj/item/storage/pill_bottle
+		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
 	)
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 80, RAD = 0, FIRE = 0, ACID = 15, STAMINA = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/virologist
@@ -773,7 +797,13 @@
 		/obj/item/stack/medical,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/firstaid/medical,
-		/obj/item/storage/pill_bottle
+		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
 	)
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 40, STAMINA = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -808,7 +838,13 @@
 		/obj/item/stack/medical,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/firstaid/medical,
-		/obj/item/storage/pill_bottle
+		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
 	)
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 30, FIRE = 0, ACID = 45, STAMINA = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/geneticist
@@ -869,7 +905,13 @@
 		/obj/item/clipboard,
 		/obj/item/stamp,
 		/obj/item/export_scanner,
-		/obj/item/reagent_containers/food/drinks/bottle
+		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
 	)
 
 
@@ -890,7 +932,13 @@
 		/obj/item/mining_scanner,
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/gun/energy/kinetic_accelerator,
-		/obj/item/reagent_containers/food/drinks/bottle
+		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
 	)
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	heat_protection = CHEST|GROIN|ARMS
