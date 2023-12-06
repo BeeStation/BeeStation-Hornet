@@ -23,6 +23,6 @@ SUBSYSTEM_DEF(natural_light_cycle)
 	var/next_index = FLOOR(next_proportion, 1)
 	var/next_offset = next_proportion - next_index
 	var/lower_colour = cycle_colours[next_index]
-	var/upper_colour = cycle_colours[((next_index + 1) % length(cycle_colours)) + 1]
+	var/upper_colour = cycle_colours[((next_index - 1) % length(cycle_colours)) + 1]
 	var/blended_colour = BlendRGB(lower_colour, upper_colour, next_offset)
 	set_starlight_colour(blended_colour, wait)
