@@ -33,9 +33,7 @@
 	icon_state = "wood"
 	variants = list("wood", "wood1", "wood2", "wood3", "wood4", "wood5", "wood6")
 	broken_states = list("damaged_wood1", "damaged_wood2")
-	broken_dirt_states = list("dirt_damaged_wood1", "dirt_damaged_wood2")
-	broken_dirt_states = list()
-	burnt_states = list()
+	broken_dirt_states = list("damaged_wood1", "damaged_wood2")
 	floor_tile = /obj/item/stack/tile/wood
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT

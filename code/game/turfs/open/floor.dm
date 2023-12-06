@@ -37,18 +37,17 @@
 	//Do we just swap the state to one of the damage states
 	var/use_burnt_literal = FALSE
 	
-	//Refs to overlays, for later removal
+	//Refs to filters, for later removal
 	var/list/damage_overlays = list()
 
 	///The variant tiles we can choose from (name = chance, name = chance, name = chance)
 	var/list/variants
 
 /turf/open/floor/Initialize(mapload)
-
 	if(broken)
-		break_tile()
+		break_tile(TRUE)
 	if(burnt)
-		burn_tile()
+		burn_tile(TRUE)
 	
 	. = ..()
 	if(mapload && prob(33))
@@ -92,37 +91,34 @@
 		return
 	T.break_tile()
 
-/turf/open/floor/proc/break_tile()
-	if(broken || use_broken_literal)
+/turf/open/floor/proc/break_tile(force)
+	if(broken && !force || use_broken_literal || !length(list(baseturfs) - /turf/baseturf_bottom))
 		if(use_broken_literal)
 			icon_state = pick(broken_states)
 		return
 	var/damage_state
 	if(length(broken_states))
 		damage_state = pick(broken_states)
-		//Pick a random mask for damage state
+		//Damage mask
 		var/icon/mask = icon(broken_icon, "broken_[damage_state]")
+		add_filter("damage_mask", 1, alpha_mask_filter(icon = mask, flags = MASK_INVERSE))
+		damage_overlays += "damage_mask"
 		//Build under-turf icon
-		var/turf/base = pick(baseturfs - list(/turf/baseturf_bottom))
+		var/list/options = baseturfs.Copy() //This is weird
+		var/turf/base = pick(options - /turf/baseturf_bottom)
 		var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
-		//Mask under turf by damage state
-		under_turf.UseAlphaMask(mask)
-		//Convert to MA so we can layer stuff better
-		var/mutable_appearance/MA = new()
-		MA.appearance = under_turf
-		MA.layer = layer+0.1
-		add_overlay(MA)
-		damage_overlays += MA
+		//Underlay turf icon
+		add_filter("turf_underlay", 2, layering_filter(icon = under_turf, flags = FILTER_UNDERLAY))
+		damage_overlays += "turf_underlay"
 	//Add some dirt 'n shit
 	if(length(broken_dirt_states) && damage_state)
-		var/mutable_appearance/dirt = mutable_appearance(broken_icon, "dirt_[damage_state]")
-		add_overlay(dirt)
-		damage_overlays += dirt
-
+		var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
+		add_filter("dirt_overlay", 3, layering_filter(icon = dirt))
+		damage_overlays += "dirt_overlay"
 	broken = TRUE
 
-/turf/open/floor/burn_tile()
-	if(burnt || use_burnt_literal)
+/turf/open/floor/burn_tile(force)
+	if(burnt && !force || use_burnt_literal)
 		if(use_burnt_literal)
 			icon_state = pick(burnt_states)
 		return
@@ -130,15 +126,15 @@
 		var/burnt_state = pick(burnt_states)
 		//Add some burnt shit
 		var/icon/burnt_overlay = icon(broken_icon, "burnt_[burnt_state]")
-		add_overlay(burnt_overlay)
-		damage_overlays += burnt_overlay
-
+		add_filter("brunt_overlay", 4, layering_filter(icon = burnt_overlay))
+		damage_overlays += "brunt_overlay"
 	burnt = TRUE
 
 /turf/open/floor/proc/make_plating()
 	//Remove previous damage overlays
 	for(var/i in damage_overlays)
-		cut_overlay(i)
+		remove_filter(i)
+		damage_overlays -= i
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/open/floor/ChangeTurf(path, new_baseturf, flags)
