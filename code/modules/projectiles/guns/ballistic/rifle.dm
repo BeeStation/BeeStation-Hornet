@@ -15,10 +15,6 @@
 	tac_reloads = FALSE
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/ballistic/rifle/update_icon()
-	..()
-	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
-
 /obj/item/gun/ballistic/rifle/rack(mob/user = null)
 	if(!is_wielded)
 		to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
@@ -105,6 +101,7 @@
 	item_flags = NEEDS_PERMIT | DROPDEL | ABSTRACT | NOBLUDGEON
 	flags_1 = NONE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	show_bolt_icon = FALSE //It's a magic hand, not a rifle
 
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
 

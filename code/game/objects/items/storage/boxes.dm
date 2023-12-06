@@ -769,6 +769,7 @@
 	desc = "Eight wrappers of fun! Ages 8 and up. Not suitable for children."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "spbox"
+	illustration = ""
 
 /obj/item/storage/box/snappops/ComponentInitialize()
 	. = ..()

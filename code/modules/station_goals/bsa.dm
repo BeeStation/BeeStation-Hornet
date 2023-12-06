@@ -245,6 +245,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"
+	icon_keyboard = ""
 	base_icon_state = null
 	smoothing_flags = NONE
 	smoothing_groups = null

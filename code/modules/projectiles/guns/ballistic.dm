@@ -26,12 +26,18 @@
 	var/empty_alarm_vary = TRUE
 
 	var/spawnwithmagazine = TRUE
-	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
-	var/mag_display = FALSE //Whether the sprite has a visible magazine or not
-	var/mag_display_ammo = FALSE //Whether the sprite has a visible ammo display or not
-	var/empty_indicator = FALSE //Whether the sprite has an indicator for being empty or not.
-	var/empty_alarm = FALSE //Whether the gun alarms when empty or not.
-	var/special_mags = FALSE //Whether the gun supports multiple special mag types
+	//Removes the need for max_ammo and caliber info
+	var/mag_type = /obj/item/ammo_box/magazine/m10mm
+	//Whether the sprite has a visible magazine or not
+	var/mag_display = FALSE
+	//Whether the sprite has a visible ammo display or not
+	var/mag_display_ammo = FALSE
+	//Whether the sprite has an indicator for being empty or not.
+	var/empty_indicator = FALSE
+	//Whether the gun alarms when empty or not.
+	var/empty_alarm = FALSE
+	//Whether the gun supports multiple special mag types
+	var/special_mags = FALSE
 	var/alarmed = FALSE
 	//Four bolt types:
 	//BOLT_TYPE_STANDARD: Gun has a bolt, it stays closed while not cycling. The gun must be racked to have a bullet chambered when a mag is inserted.
@@ -43,6 +49,8 @@
 	//BOLT_TYPE_LOCKING: Gun has a bolt, it locks back when empty. It can be released to chamber a round if a magazine is in.
 	//Example: Pistols with a slide lock, some SMGs
 	var/bolt_type = BOLT_TYPE_STANDARD
+	///Hides the bolt icon.
+	var/show_bolt_icon = TRUE
 	var/bolt_locked = FALSE //Used for locking bolt and open bolt guns. Set a bit differently for the two but prevents firing when true for both.
 	var/bolt_wording = "bolt" //bolt, slide, etc.
 	var/semi_auto = TRUE //Whether the gun has to be racked each shot or not.
@@ -95,10 +103,11 @@
 	else
 		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
 	cut_overlays()
-	if (bolt_type == BOLT_TYPE_LOCKING)
-		add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
-	if (bolt_type == BOLT_TYPE_OPEN && bolt_locked)
-		add_overlay("[icon_state]_bolt")
+	if(show_bolt_icon)
+		if (bolt_type == BOLT_TYPE_LOCKING)
+			add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
+		if (bolt_type == BOLT_TYPE_OPEN && bolt_locked)
+			add_overlay("[icon_state]_bolt")
 	if (suppressed)
 		add_overlay("[icon_state]_suppressor")
 	if(!chambered && empty_indicator)

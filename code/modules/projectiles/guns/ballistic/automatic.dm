@@ -19,6 +19,7 @@
 	fire_rate = 5
 	fire_delay = 2
 	bolt_type = BOLT_TYPE_LOCKING
+	show_bolt_icon = FALSE
 	mag_display = TRUE
 	weapon_weight = WEAPON_LIGHT
 	burst_size = 3
@@ -109,6 +110,7 @@
 	icon_state = "miniuzi"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	bolt_type = BOLT_TYPE_OPEN
+	show_bolt_icon = FALSE
 	mag_display = TRUE
 	fire_rate = 4
 	rack_sound = "sound/weapons/pistollock.ogg"
@@ -199,6 +201,7 @@
 	fire_rate = 5
 	can_suppress = FALSE
 	bolt_type = BOLT_TYPE_OPEN
+	show_bolt_icon = FALSE
 
 /obj/item/gun/ballistic/automatic/ar
 	name = "\improper NT-ARG 'Boarder'"
@@ -229,6 +232,7 @@
 	spread = 7
 	pin = /obj/item/firing_pin/implant/pindicate
 	bolt_type = BOLT_TYPE_OPEN
+	show_bolt_icon = FALSE
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	tac_reloads = FALSE
