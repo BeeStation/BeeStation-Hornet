@@ -672,7 +672,6 @@
 		/obj/item/dnainjector,
 		/obj/item/flashlight/pen,
 		/obj/item/healthanalyzer,
-		/obj/item/melee/classic_baton/police/telescopic,
 		/obj/item/paper,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/glass/beaker,
@@ -885,7 +884,7 @@
 	allowed = list(
 		/obj/item/pickaxe,
 		/obj/item/flashlight,
-		/obj/item/tank/internalsm,
+		/obj/item/tank/internals,
 		/obj/item/lighter,
 		/obj/item/resonator,
 		/obj/item/mining_scanner,
