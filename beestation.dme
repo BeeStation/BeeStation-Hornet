@@ -1413,6 +1413,7 @@
 #include "code\game\objects\items\food\donuts.dm"
 #include "code\game\objects\items\food\dough.dm"
 #include "code\game\objects\items\food\mexican.dm"
+#include "code\game\objects\items\food\packaged.dm"
 #include "code\game\objects\items\food\pancakes.dm"
 #include "code\game\objects\items\food\pastries.dm"
 #include "code\game\objects\items\food\pie.dm"
