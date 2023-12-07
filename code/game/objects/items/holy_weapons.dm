@@ -434,7 +434,7 @@
 	block_power = 20
 	var/shield_icon = "shield-red"
 
-/obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands)
+/obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(isinhands)
 		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_SHIELD_LAYER)
