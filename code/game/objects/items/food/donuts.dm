@@ -67,7 +67,7 @@
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sprinkles = 1,
 		/datum/reagent/consumable/sugar = 2,
-		/datum/reagent/consumable/maltodextrin = 6
+		/datum/reagent/consumable/maltodextrin = 3.65
 	)
 
 /obj/item/food/donut/chaos

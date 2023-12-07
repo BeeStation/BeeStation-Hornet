@@ -3594,13 +3594,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
-"aQQ" = (
-/obj/structure/table/wood,
-/obj/item/pneumatic_cannon/pie,
-/obj/item/reagent_containers/food/snacks/pie/cream,
-/obj/item/reagent_containers/food/snacks/pie/cream,
-/turf/open/floor/carpet/purple,
-/area/crew_quarters/theatre)
 "aQV" = (
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical,
 /turf/open/floor/engine,
@@ -4501,11 +4494,6 @@
 "bfm" = (
 /turf/closed/wall,
 /area/medical/morgue)
-"bfH" = (
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/hallway/secondary/entry)
 "bfN" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/structure/disposalpipe/segment,
@@ -9231,13 +9219,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/dorms)
-"cOo" = (
-/obj/structure/marker_beacon,
-/obj/machinery/camera/autoname,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/hallway/secondary/entry)
 "cOr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -18936,6 +18917,12 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
+"gaS" = (
+/obj/structure/marker_beacon,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/hallway/secondary/entry)
 "gaY" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -25822,6 +25809,11 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"inX" = (
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/hallway/secondary/entry)
 "iof" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -30727,6 +30719,13 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hydroponics)
+"jWf" = (
+/obj/structure/marker_beacon,
+/obj/machinery/camera/autoname,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/hallway/secondary/entry)
 "jWk" = (
 /turf/closed/wall,
 /area/bridge)
@@ -31039,12 +31038,6 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
-"kaw" = (
-/obj/structure/marker_beacon,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/hallway/secondary/entry)
 "kaW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -41728,11 +41721,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"nyG" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/hallway/secondary/entry)
 "nyJ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -55220,6 +55208,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/ai_monitored/turret_protected/aisat/foyer)
+"rRM" = (
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/hallway/secondary/entry)
 "rSn" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -72794,6 +72787,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"xJs" = (
+/obj/structure/table/wood,
+/obj/item/pneumatic_cannon/pie,
+/obj/item/food/pie/cream,
+/obj/item/food/pie/cream,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "xJu" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -101650,7 +101650,7 @@ kVR
 vXY
 glo
 fpf
-aQQ
+xJs
 rdA
 aMT
 anT
@@ -108527,9 +108527,9 @@ lFz
 vQd
 dLv
 uaJ
-nyG
+rRM
 xhM
-nyG
+rRM
 jza
 dyi
 leO
@@ -108784,8 +108784,8 @@ onp
 lib
 jKQ
 uaJ
-kaw
-bfH
+gaS
+inX
 ehY
 ehY
 ehY
@@ -109041,8 +109041,8 @@ ijB
 cRu
 pEl
 uaJ
-bfH
-bfH
+inX
+inX
 ehY
 ehY
 ehY
@@ -109300,7 +109300,7 @@ jKQ
 uaJ
 xhM
 lrx
-nyG
+rRM
 ehY
 ehY
 ehY
@@ -109555,10 +109555,10 @@ faD
 aiS
 upa
 uaJ
-nyG
-nyG
-bfH
-nyG
+rRM
+rRM
+inX
+rRM
 ehY
 dmv
 dmv
@@ -109812,9 +109812,9 @@ lTO
 hQw
 dgv
 uaJ
-cOo
+jWf
 gmX
-nyG
+rRM
 ehY
 ehY
 ehY
@@ -110069,9 +110069,9 @@ aWm
 bBz
 keg
 uaJ
-nyG
-bfH
-nyG
+rRM
+inX
+rRM
 ehY
 ehY
 dmv
@@ -110583,9 +110583,9 @@ dyW
 ajJ
 fgm
 uaJ
-bfH
-nyG
-nyG
+inX
+rRM
+rRM
 ehY
 ehY
 ehY
@@ -110841,8 +110841,8 @@ lib
 gmQ
 uaJ
 xhM
-bfH
-nyG
+inX
+rRM
 ehY
 ehY
 yfC
@@ -111097,9 +111097,9 @@ hgF
 fMO
 mPd
 uaJ
-bfH
+inX
 xhM
-nyG
+rRM
 jza
 pzp
 gMB
