@@ -777,10 +777,6 @@
 /obj/vehicle/sealed/mecha/medical/odysseus,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
-"dL" = (
-/obj/vehicle/sealed/mecha/working/ripley/firefighter
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
 "dM" = (
 /obj/structure/closet/crate{
 	name = "Gold Crate"
@@ -28026,8 +28022,8 @@ cc
 cA
 cc
 bT
-dL
-dL
+cK
+cK
 cK
 cK
 cK
