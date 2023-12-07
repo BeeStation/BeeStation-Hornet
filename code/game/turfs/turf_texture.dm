@@ -22,7 +22,7 @@
 /obj/effect/turf_texture
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	///Associated texture
-	var/obj/effect/turf_texture/parent_texture
+	var/datum/turf_texture/parent_texture
 
 /obj/effect/turf_texture/Initialize(mapload, datum/turf_texture/_texture)
 	. = ..()
