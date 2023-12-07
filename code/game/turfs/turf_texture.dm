@@ -6,7 +6,7 @@
 //Default - pristine
 /datum/turf_texture
 	///Texture path
-	var/icon = 'icons/turf/floor_texture.dmi'
+	var/icon = 'icons/turf/turf_texture.dmi'
 	///Texture state
 	var/icon_state = ""
 	///The opacity of the texture used
