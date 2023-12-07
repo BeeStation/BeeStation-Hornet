@@ -529,7 +529,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cc" = (
-/obj/item/reagent_containers/food/snacks/honkdae,
+/obj/item/food/honkdae,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
