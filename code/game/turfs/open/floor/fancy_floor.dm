@@ -111,7 +111,7 @@
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	variants = list("grass", "grass1", "grass2", "grass3", "grass4")
+	variants = list("grass", "grass1", "grass2", "grass3")
 	var/ore_type = /obj/item/stack/ore/glass
 	var/turfverb = "uproot"
 	tiled_dirt = FALSE

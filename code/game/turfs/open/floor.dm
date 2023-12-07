@@ -22,33 +22,9 @@
 	overfloor_placed = TRUE
 
 	var/icon_plating = "plating"
-	var/broken = FALSE
-	var/burnt = FALSE
 	var/floor_tile = null //tile that this floor drops
 
-	var/broken_icon = 'icons/turf/turf_damage.dmi'
-
-	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4")
-	var/list/broken_dirt_states = list("damaged1", "damaged2", "damaged3", "damaged4")
-	//Do we just swap the state to one of the damage states
-	var/use_broken_literal = FALSE
-
-	var/list/burnt_states = list("damaged1")
-	//Do we just swap the state to one of the damage states
-	var/use_burnt_literal = FALSE
-	
-	//Refs to filters, for later removal
-	var/list/damage_overlays = list()
-
-	///The variant tiles we can choose from (name = chance, name = chance, name = chance)
-	var/list/variants
-
 /turf/open/floor/Initialize(mapload)
-	if(broken)
-		break_tile(TRUE)
-	if(burnt)
-		burn_tile(TRUE)
-	
 	. = ..()
 	if(mapload && prob(33))
 		MakeDirty()
@@ -90,49 +66,6 @@
 	if(!istype(T))
 		return
 	T.break_tile()
-
-/turf/open/floor/proc/break_tile(force, allow_base)
-	var/list/options = list()
-	if(islist(baseturfs)) //Somehow 
-		options = baseturfs.Copy() //This is weird
-	else
-		options += baseturfs
-	if(broken && !force || use_broken_literal || !length(options - GLOB.turf_underlay_blacklist) && !allow_base)
-		if(use_broken_literal)
-			icon_state = pick(broken_states)
-		return
-	var/damage_state
-	if(length(broken_states))
-		damage_state = pick(broken_states)
-		//Damage mask
-		var/icon/mask = icon(broken_icon, "broken_[damage_state]")
-		add_filter("damage_mask", 1, alpha_mask_filter(icon = mask))
-		damage_overlays += "damage_mask"
-		//Build under-turf icon
-		var/turf/base = pick(options - (allow_base ? null : GLOB.turf_underlay_blacklist))
-		var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
-		//Underlay turf icon
-		add_filter("turf_underlay", 2, layering_filter(icon = under_turf, flags = FILTER_UNDERLAY))
-		damage_overlays += "turf_underlay"
-	//Add some dirt 'n shit
-	if(length(broken_dirt_states) && damage_state)
-		var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
-		add_filter("dirt_overlay", 3, layering_filter(icon = dirt, blend_mode = BLEND_MULTIPLY))
-		damage_overlays += "dirt_overlay"
-	broken = TRUE
-
-/turf/open/floor/burn_tile(force)
-	if(burnt && !force || use_burnt_literal)
-		if(use_burnt_literal)
-			icon_state = pick(burnt_states)
-		return
-	if(length(burnt_states))
-		var/burnt_state = pick(burnt_states)
-		//Add some burnt shit
-		var/icon/burnt_overlay = icon(broken_icon, "burnt_[burnt_state]")
-		add_filter("brunt_overlay", 4, layering_filter(icon = burnt_overlay))
-		damage_overlays += "brunt_overlay"
-	burnt = TRUE
 
 /turf/open/floor/proc/make_plating()
 	//Remove previous damage overlays
