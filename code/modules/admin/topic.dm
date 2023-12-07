@@ -1936,7 +1936,7 @@
 			// Might be a ckey? Let's see.
 			target = get_ckey_last_living(target)
 			if(!istype(target))
-				to_chat(usr, "This can only be used on instances of type /mob/living.")
+				to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living.</span>")
 				return
 		var/method = tgui_alert(usr, "Select force-cryo method", "Cryo Express", list("Centcom Pod (recommended)", "Instant", "Cancel"))
 		switch(method)

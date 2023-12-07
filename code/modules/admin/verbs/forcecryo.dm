@@ -44,7 +44,7 @@
 		pod.close_machine(target)
 		pod.despawn_occupant()
 		return
-	message_admins("<span class='danger'>Failed to force-cryo [ADMIN_LOOKUPFLW(target)] (no valid cryopods)</san>")
+	message_admins("<span class='danger'>Failed to force-cryo [ADMIN_LOOKUPFLW(target)] (no valid cryopods)</span>")
 	log_admin("Failed to force-cryo [key_name(target)] (no valid cryopods)")
 
 /obj/structure/closet/supplypod/force_cryo
