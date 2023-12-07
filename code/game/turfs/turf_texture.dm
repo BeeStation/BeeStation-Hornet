@@ -21,6 +21,8 @@
 //Effect object we use to hold our groceries
 /obj/effect/turf_texture
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	///Associated texture
+	var/obj/effect/turf_texture/parent_texture
 
 /obj/effect/turf_texture/Initialize(mapload, datum/turf_texture/_texture)
 	. = ..()
@@ -30,6 +32,7 @@
 	MA.alpha = texture.alpha //Why do I have to set this here, why can't it just work in the proc?
 	MA.blend_mode = BLEND_MULTIPLY
 	add_overlay(MA)
+	parent_texture = _texture
 
 //Subtle hallway wear & tear
 /datum/turf_texture/hallway
