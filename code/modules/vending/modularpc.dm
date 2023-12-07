@@ -45,7 +45,6 @@
 					/obj/item/computer_hardware/radio_card = 1,
 					/obj/item/paicard = 2)
 	contraband = list(/obj/item/computer_hardware/card_slot/secondary = 1,
-					/obj/item/computer_hardware/network_card/advanced/norelay = 1,
 					/obj/item/colorizer/tablet/syndi = 2,
 					/obj/item/colorizer/tablet/contractor = 2,
 					/obj/item/colorizer/tablet/emag = 2)

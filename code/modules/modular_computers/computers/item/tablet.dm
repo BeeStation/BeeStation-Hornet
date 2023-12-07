@@ -14,10 +14,6 @@
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
 	can_save_id = TRUE
 	saved_auto_imprint = TRUE
-
-	var/has_variants = FALSE
-	var/finish_color = "red"
-
 	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)
 	var/obj/item/insert_type = /obj/item/pen
 	var/obj/item/inserted_item
@@ -39,19 +35,19 @@
 	data["show_imprint"] = TRUE
 	return data
 
-/obj/item/modular_computer/tablet/update_icon()
-	..()
+/obj/item/modular_computer/tablet/update_overlays()
+	. = ..()
 	var/init_icon = initial(icon)
 	if(!init_icon)
 		return
 	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
 	if(card)
 		if(card.stored_card)
-			add_overlay(mutable_appearance(init_icon, "id_overlay"))
+			. += mutable_appearance(init_icon, "id_overlay")
 	if(inserted_item)
-		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
+		. += mutable_appearance(init_icon, "insert_overlay")
 	if(light_on)
-		add_overlay(mutable_appearance(init_icon, "light_overlay"))
+		. += mutable_appearance(init_icon, "light_overlay")
 
 
 /obj/item/modular_computer/tablet/emp_act(severity)
@@ -197,7 +193,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	comp_light_luminosity = 6.3
-	has_variants = FALSE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
@@ -205,7 +200,6 @@
 /obj/item/modular_computer/tablet/nukeops
 	icon_state = "tablet-syndicate"
 	comp_light_luminosity = 6.3
-	has_variants = FALSE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	light_color = COLOR_RED
@@ -222,7 +216,6 @@
 	icon_state_menu = "menu"
 	has_light = FALSE //tablet light button actually enables/disables the borg lamp
 	comp_light_luminosity = 0
-	has_variants = FALSE
 	///Ref to the silicon we're installed in. Set by the borg during our creation.
 	var/mob/living/silicon/borgo
 	///Ref to the Cyborg Self-Monitoring app. Important enough to borgs to deserve a ref.

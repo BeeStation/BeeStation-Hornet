@@ -768,15 +768,15 @@
 
 	Within this kit you will find the following:
 
-		A Tablet (void of any components).
-		A Power Cell Controler.
-		A small Battery.
-		A Processor Unit.
-		A micro Solid State Drive.
-		A Network Card.
-		A Primary Card Slot.
-		An Identifier.
-		And a Screwdriver.
+		- A Tablet (void of any components).
+		- A Power Cell Controler.
+		- A small Battery.
+		- A Processor Unit.
+		- A micro Solid State Drive.
+		- A Network Card.
+		- A Primary Card Slot.
+		- An Identifier.
+		- And a Screwdriver.
 
 		To begin, please insert the provided Power Cell Controler onto the PDA. Doing so will allow you to now attach a Battery to it. Insert, now, the Battery.
 
