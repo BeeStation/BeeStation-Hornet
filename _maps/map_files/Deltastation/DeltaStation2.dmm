@@ -368,7 +368,7 @@
 "abw" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "abx" = (
@@ -1842,7 +1842,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "alZ" = (
@@ -3083,7 +3083,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "atf" = (
@@ -6568,7 +6568,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/prison)
 "aJB" = (
@@ -7061,7 +7061,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/security/prison)
 "aMe" = (
@@ -7698,7 +7698,7 @@
 "aPt" = (
 /obj/machinery/vending/sustenance,
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/security/prison)
 "aPw" = (
@@ -8108,7 +8108,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/prison)
 "aRi" = (
@@ -8704,7 +8704,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/prison)
 "aUH" = (
@@ -8908,7 +8908,7 @@
 	pixel_x = -28
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/security/prison)
 "aWt" = (
@@ -9714,7 +9714,7 @@
 /area/security/prison)
 "bbr" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/prison)
 "bbt" = (
@@ -21808,7 +21808,7 @@
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "coD" = (
@@ -24926,7 +24926,7 @@
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/crew_quarters/dorms)
 "cCd" = (
@@ -25353,7 +25353,7 @@
 "cDD" = (
 /obj/item/flashlight/seclite,
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/crew_quarters/dorms)
 "cDE" = (
@@ -40546,7 +40546,7 @@
 "ftr" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/quartermaster/exploration_prep)
 "ftC" = (
@@ -51173,7 +51173,7 @@
 "jhq" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/prison)
 "jhI" = (
@@ -53637,7 +53637,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/security/prison)
 "kbv" = (
@@ -56041,7 +56041,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/prison)
 "kMB" = (
@@ -56650,7 +56650,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/medical/morgue)
 "kYX" = (
@@ -73053,7 +73053,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/crew_quarters/dorms)
 "qyR" = (
@@ -82296,7 +82296,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/quartermaster/exploration_prep)
 "tMg" = (
@@ -82777,7 +82777,7 @@
 	},
 /obj/machinery/light/small,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/medical/morgue)
 "tWH" = (
@@ -92566,7 +92566,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/quartermaster/exploration_prep)
 "xhe" = (

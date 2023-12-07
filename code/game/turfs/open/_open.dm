@@ -19,8 +19,8 @@
 	var/broken = FALSE
 	var/burnt = FALSE
 
-	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4")
-	var/list/broken_dirt_states = list("damaged1", "damaged2", "damaged3", "damaged4")
+	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+	var/list/broken_dirt_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	//Do we just swap the state to one of the damage states
 	var/use_broken_literal = FALSE
 

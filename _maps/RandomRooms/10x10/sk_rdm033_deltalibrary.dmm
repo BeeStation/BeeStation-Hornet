@@ -29,14 +29,14 @@
 "f" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "h" = (
@@ -167,11 +167,6 @@
 "D" = (
 /turf/closed/wall,
 /area/template_noop)
-"E" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/template_noop)
 "F" = (
 /obj/structure/bookcase/random/reference,
 /turf/open/floor/wood,
@@ -222,7 +217,7 @@
 /area/template_noop)
 "O" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/template_noop)
 "Q" = (
@@ -312,8 +307,8 @@ p
 p
 e
 e
-E
-E
+O
+O
 I
 T
 "}

@@ -91,7 +91,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aas" = (
@@ -755,7 +755,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/ai_monitored/storage/satellite)
 "acH" = (
@@ -1547,7 +1547,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "aeR" = (
@@ -1588,7 +1588,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/science/xenobiology)
 "aeX" = (
@@ -1614,7 +1614,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/science/xenobiology)
 "afb" = (
@@ -1625,7 +1625,7 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "afc" = (
@@ -2135,7 +2135,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "agO" = (
@@ -2297,7 +2297,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "ahF" = (
@@ -2421,7 +2421,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "aia" = (
@@ -2590,7 +2590,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "aiF" = (
@@ -2599,7 +2599,7 @@
 /obj/effect/spawner/lootdrop/costume,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "aiM" = (
@@ -2758,7 +2758,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "ajr" = (
@@ -3056,7 +3056,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "aks" = (
@@ -3209,7 +3209,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "akU" = (
@@ -3308,7 +3308,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "alb" = (
@@ -3346,7 +3346,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "alf" = (
@@ -3431,7 +3431,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "alm" = (
@@ -3470,7 +3470,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "alp" = (
@@ -3574,7 +3574,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "alD" = (
@@ -3646,7 +3646,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "alL" = (
@@ -3732,7 +3732,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "amd" = (
@@ -3787,7 +3787,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "amg" = (
@@ -3846,7 +3846,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "amo" = (
@@ -3904,7 +3904,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "amu" = (
@@ -3938,7 +3938,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "amw" = (
@@ -3949,7 +3949,7 @@
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "amx" = (
@@ -3958,7 +3958,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "amy" = (
@@ -4085,7 +4085,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "amV" = (
@@ -4124,7 +4124,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "anh" = (
@@ -4196,7 +4196,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "anq" = (
@@ -4211,7 +4211,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "anr" = (
@@ -4242,7 +4242,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "ant" = (
@@ -4251,7 +4251,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/aft)
 "anw" = (
@@ -4274,7 +4274,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "anA" = (
@@ -4286,7 +4286,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "anB" = (
@@ -4320,7 +4320,7 @@
 /area/crew_quarters/heads/hos)
 "anD" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "anE" = (
@@ -4334,7 +4334,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "anG" = (
@@ -4395,7 +4395,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "anU" = (
@@ -4441,7 +4441,7 @@
 /area/maintenance/port/aft)
 "aoa" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "aob" = (
@@ -4588,7 +4588,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "aoD" = (
@@ -4718,7 +4718,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aoO" = (
@@ -4740,7 +4740,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/port/fore)
 "aoP" = (
@@ -4758,7 +4758,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aoR" = (
@@ -4817,7 +4817,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/port/fore)
 "aoZ" = (
@@ -4839,7 +4839,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "apb" = (
@@ -4857,7 +4857,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "apf" = (
@@ -4891,7 +4891,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/chapel/office)
 "apk" = (
@@ -4955,7 +4955,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "apt" = (
@@ -5046,7 +5046,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "apE" = (
@@ -5330,7 +5330,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aqw" = (
@@ -5351,7 +5351,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/port/fore)
 "aqA" = (
@@ -5369,7 +5369,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aqB" = (
@@ -5399,7 +5399,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aqF" = (
@@ -5420,7 +5420,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aqG" = (
@@ -5503,7 +5503,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aqQ" = (
@@ -5544,7 +5544,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aqV" = (
@@ -5609,7 +5609,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "ard" = (
@@ -5662,7 +5662,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "ari" = (
@@ -5830,7 +5830,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "arO" = (
@@ -5841,7 +5841,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "arS" = (
@@ -5859,7 +5859,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "arU" = (
@@ -5884,7 +5884,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "arY" = (
@@ -5962,7 +5962,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "aso" = (
@@ -5976,7 +5976,7 @@
 	},
 /obj/effect/decal/cleanable/greenglow/filled,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "asv" = (
@@ -5992,7 +5992,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "asx" = (
@@ -6012,7 +6012,7 @@
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "asA" = (
@@ -6023,7 +6023,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "asB" = (
@@ -6075,7 +6075,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "asJ" = (
@@ -6097,7 +6097,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "asN" = (
@@ -6206,7 +6206,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "ath" = (
@@ -6270,7 +6270,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/chapel/office)
 "atu" = (
@@ -6314,7 +6314,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "atz" = (
@@ -6402,7 +6402,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "atG" = (
@@ -6454,7 +6454,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "atN" = (
@@ -6499,7 +6499,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "atT" = (
@@ -6526,7 +6526,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "atW" = (
@@ -6585,7 +6585,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "auf" = (
@@ -6734,7 +6734,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "auH" = (
@@ -6794,7 +6794,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "auP" = (
@@ -6816,7 +6816,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "auS" = (
@@ -6870,7 +6870,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "auW" = (
@@ -6956,7 +6956,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/port/fore)
 "avg" = (
@@ -6993,7 +6993,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "avj" = (
@@ -7044,7 +7044,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "avp" = (
@@ -7079,7 +7079,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "avx" = (
@@ -7325,7 +7325,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "awc" = (
@@ -7495,7 +7495,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "awL" = (
@@ -7589,7 +7589,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "awZ" = (
@@ -7618,7 +7618,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "axf" = (
@@ -7733,7 +7733,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "axy" = (
@@ -7746,7 +7746,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "axD" = (
@@ -7883,7 +7883,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "ayf" = (
@@ -7905,7 +7905,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "ayi" = (
@@ -7984,7 +7984,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "ayI" = (
@@ -8076,7 +8076,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "azc" = (
@@ -8090,7 +8090,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/grille,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "azf" = (
@@ -8268,7 +8268,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "azz" = (
@@ -8438,7 +8438,7 @@
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "azV" = (
@@ -8453,7 +8453,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "azW" = (
@@ -8620,7 +8620,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aAC" = (
@@ -8904,7 +8904,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aBH" = (
@@ -9028,7 +9028,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aCj" = (
@@ -9074,7 +9074,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aCp" = (
@@ -9233,7 +9233,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aDb" = (
@@ -9250,7 +9250,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aDd" = (
@@ -9266,7 +9266,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aDe" = (
@@ -9311,7 +9311,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aDp" = (
@@ -9328,7 +9328,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aDz" = (
@@ -9411,7 +9411,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "aDS" = (
@@ -9605,7 +9605,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aEB" = (
@@ -9662,7 +9662,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aEO" = (
@@ -10046,7 +10046,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "aGh" = (
@@ -10092,7 +10092,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "aGq" = (
@@ -10346,7 +10346,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "aHU" = (
@@ -10362,7 +10362,7 @@
 /obj/structure/girder,
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "aHX" = (
@@ -10744,7 +10744,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "aLh" = (
@@ -11194,7 +11194,7 @@
 "aNk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aNm" = (
@@ -11333,7 +11333,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "aNX" = (
@@ -11350,7 +11350,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "aNZ" = (
@@ -11383,7 +11383,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "aOk" = (
@@ -11539,7 +11539,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "aPA" = (
@@ -11568,7 +11568,7 @@
 /obj/structure/girder,
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "aPK" = (
@@ -11693,13 +11693,13 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "aQz" = (
 /obj/structure/girder,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "aQE" = (
@@ -11912,7 +11912,7 @@
 "aRQ" = (
 /obj/structure/girder,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "aRR" = (
@@ -12024,7 +12024,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "aSK" = (
@@ -12159,7 +12159,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "aTz" = (
@@ -12168,7 +12168,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "aTE" = (
@@ -12370,7 +12370,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "aUG" = (
@@ -12392,7 +12392,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "aUN" = (
@@ -12608,7 +12608,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "aVH" = (
@@ -12667,7 +12667,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "aWl" = (
@@ -12725,7 +12725,7 @@
 	},
 /obj/effect/turf_decal/siding/wood/end,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/crew_quarters/bar)
 "aWG" = (
@@ -13004,7 +13004,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "aYy" = (
@@ -13134,7 +13134,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/crew_quarters/bar)
 "aYY" = (
@@ -13171,7 +13171,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "aZc" = (
@@ -13185,7 +13185,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "aZd" = (
@@ -13282,7 +13282,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "aZF" = (
@@ -13360,7 +13360,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "aZS" = (
@@ -13409,7 +13409,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/bridge)
 "bag" = (
@@ -13603,7 +13603,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "baU" = (
@@ -13708,7 +13708,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "bbs" = (
@@ -13742,7 +13742,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "bbw" = (
@@ -13831,7 +13831,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "bbT" = (
@@ -13960,7 +13960,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/bridge)
 "bcw" = (
@@ -14105,7 +14105,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bda" = (
@@ -14119,7 +14119,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bdb" = (
@@ -14161,7 +14161,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "bdi" = (
@@ -14178,7 +14178,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bdl" = (
@@ -14410,7 +14410,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "beF" = (
@@ -14665,7 +14665,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "bfP" = (
@@ -14736,7 +14736,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "bfY" = (
@@ -14759,7 +14759,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "bgc" = (
@@ -14788,7 +14788,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "bge" = (
@@ -14846,7 +14846,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "bgl" = (
@@ -14864,7 +14864,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bgn" = (
@@ -15109,7 +15109,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bhj" = (
@@ -15399,7 +15399,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "bin" = (
@@ -15458,7 +15458,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "biE" = (
@@ -15492,7 +15492,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "biR" = (
@@ -15526,7 +15526,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "biX" = (
@@ -15541,7 +15541,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "biY" = (
@@ -15639,7 +15639,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "bjt" = (
@@ -15783,7 +15783,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "bjW" = (
@@ -15910,7 +15910,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/crew_quarters/locker)
 "bkG" = (
@@ -16047,7 +16047,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/crew_quarters/locker)
 "blf" = (
@@ -16210,7 +16210,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "blO" = (
@@ -16353,7 +16353,7 @@
 /obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "bmM" = (
@@ -16481,7 +16481,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "bnq" = (
@@ -16678,7 +16678,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "boh" = (
@@ -16892,7 +16892,7 @@
 	name = "plasmaperson emergency closet"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "boZ" = (
@@ -16915,7 +16915,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/science/mixing)
 "bph" = (
@@ -17003,7 +17003,7 @@
 	},
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bpU" = (
@@ -17190,7 +17190,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "bqO" = (
@@ -17451,7 +17451,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "bsl" = (
@@ -17493,7 +17493,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "bsz" = (
@@ -17592,7 +17592,7 @@
 	dir = 10
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/crew_quarters/bar)
 "bsV" = (
@@ -17630,7 +17630,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "bsY" = (
@@ -17732,7 +17732,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "btk" = (
@@ -17778,7 +17778,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bto" = (
@@ -17828,7 +17828,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "btu" = (
@@ -17846,7 +17846,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "btw" = (
@@ -17945,7 +17945,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "btO" = (
@@ -17963,7 +17963,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "btP" = (
@@ -17982,7 +17982,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "btR" = (
@@ -18066,7 +18066,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "bul" = (
@@ -18106,7 +18106,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/crew_quarters/bar)
 "buA" = (
@@ -18287,7 +18287,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "bvy" = (
@@ -18337,7 +18337,7 @@
 	dir = 5
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/crew_quarters/bar)
 "bvT" = (
@@ -18385,7 +18385,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "bwa" = (
@@ -18636,7 +18636,7 @@
 "bxq" = (
 /obj/structure/girder,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bxt" = (
@@ -18684,7 +18684,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/emitter,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/engine/engineering)
 "bxN" = (
@@ -18696,7 +18696,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "bxT" = (
@@ -18813,7 +18813,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "byD" = (
@@ -19204,7 +19204,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "bzr" = (
@@ -19264,7 +19264,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "bzG" = (
@@ -19299,7 +19299,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "bzM" = (
@@ -19319,7 +19319,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bzP" = (
@@ -19433,7 +19433,7 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "bAw" = (
@@ -19506,7 +19506,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "bAC" = (
@@ -19600,7 +19600,7 @@
 "bAT" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "bAU" = (
@@ -19656,7 +19656,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "bBb" = (
@@ -19843,7 +19843,7 @@
 /obj/structure/girder,
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "bCm" = (
@@ -20047,7 +20047,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bDl" = (
@@ -20095,7 +20095,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bDs" = (
@@ -20111,7 +20111,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bDv" = (
@@ -20222,7 +20222,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "bDK" = (
@@ -20443,7 +20443,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "bEE" = (
@@ -20461,7 +20461,7 @@
 /obj/structure/girder/displaced,
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bEJ" = (
@@ -20469,7 +20469,7 @@
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bEK" = (
@@ -20816,7 +20816,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "bGm" = (
@@ -20844,7 +20844,7 @@
 "bGr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "bGw" = (
@@ -20913,7 +20913,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "bGL" = (
@@ -20935,7 +20935,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "bGQ" = (
@@ -21779,7 +21779,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/crew_quarters/locker)
 "bKk" = (
@@ -21910,7 +21910,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "bKN" = (
@@ -21938,7 +21938,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/central)
 "bKT" = (
@@ -22080,7 +22080,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/hallway/primary/aft)
 "bLS" = (
@@ -22133,7 +22133,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bMk" = (
@@ -22144,7 +22144,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bMm" = (
@@ -22276,7 +22276,7 @@
 "bMH" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/primary/aft)
 "bMJ" = (
@@ -22330,13 +22330,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bMR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bMS" = (
@@ -22404,7 +22404,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bMW" = (
@@ -22445,7 +22445,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/primary/aft)
 "bNb" = (
@@ -22488,7 +22488,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bNd" = (
@@ -22515,7 +22515,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bNe" = (
@@ -22601,7 +22601,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bNr" = (
@@ -22654,7 +22654,7 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "bNA" = (
@@ -22778,7 +22778,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "bNZ" = (
@@ -22794,7 +22794,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "bOc" = (
@@ -22877,7 +22877,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "bOn" = (
@@ -22896,7 +22896,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "bOo" = (
@@ -22954,7 +22954,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "bOz" = (
@@ -23013,7 +23013,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "bOM" = (
@@ -23076,7 +23076,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "bOR" = (
@@ -23129,7 +23129,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bOW" = (
@@ -23169,7 +23169,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bOY" = (
@@ -23238,7 +23238,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/security/main)
 "bPh" = (
@@ -23756,7 +23756,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bQS" = (
@@ -23797,7 +23797,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bRe" = (
@@ -23811,7 +23811,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bRh" = (
@@ -24011,7 +24011,7 @@
 "bRT" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "bRU" = (
@@ -24045,7 +24045,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "bSa" = (
@@ -24146,7 +24146,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bSw" = (
@@ -24207,7 +24207,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bSE" = (
@@ -24245,7 +24245,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bSI" = (
@@ -24283,7 +24283,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "bSO" = (
@@ -24300,7 +24300,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bSP" = (
@@ -24357,7 +24357,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/entry)
 "bTb" = (
@@ -24529,7 +24529,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/entry)
 "bTT" = (
@@ -24623,7 +24623,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bUn" = (
@@ -25042,7 +25042,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/engine/atmos)
 "bVn" = (
@@ -25095,7 +25095,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "bVx" = (
@@ -25129,7 +25129,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "bVH" = (
@@ -25240,7 +25240,7 @@
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "bWk" = (
@@ -25258,7 +25258,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "bWq" = (
@@ -25320,7 +25320,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "bWK" = (
@@ -25667,7 +25667,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bYw" = (
@@ -25678,7 +25678,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/binary/pump/on,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "bYB" = (
@@ -25727,7 +25727,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bZc" = (
@@ -25945,7 +25945,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cah" = (
@@ -26077,7 +26077,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "caO" = (
@@ -26108,7 +26108,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "caT" = (
@@ -26182,7 +26182,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/science/mixing)
 "cbf" = (
@@ -26229,7 +26229,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cbk" = (
@@ -26319,7 +26319,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/entry)
 "cbS" = (
@@ -26334,7 +26334,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/hallway/secondary/entry)
 "cbU" = (
@@ -26576,7 +26576,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "ccJ" = (
@@ -26600,7 +26600,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "ccM" = (
@@ -26796,7 +26796,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "cdy" = (
@@ -27066,7 +27066,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "ceo" = (
@@ -27413,7 +27413,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "cft" = (
@@ -27457,7 +27457,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "cfx" = (
@@ -27521,7 +27521,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "cfD" = (
@@ -27574,7 +27574,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "cfK" = (
@@ -27851,7 +27851,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cgt" = (
@@ -27976,7 +27976,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "cgL" = (
@@ -28080,7 +28080,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/aft)
 "chf" = (
@@ -28165,7 +28165,7 @@
 	target_pressure = 4500
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "chp" = (
@@ -28216,7 +28216,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "chA" = (
@@ -28239,7 +28239,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "chB" = (
@@ -28358,7 +28358,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/prison)
 "chS" = (
@@ -28373,7 +28373,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "chT" = (
@@ -28519,7 +28519,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/aft)
 "cin" = (
@@ -28677,7 +28677,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/prison)
 "ciO" = (
@@ -28689,7 +28689,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "ciP" = (
@@ -28914,7 +28914,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/aft)
 "cjB" = (
@@ -28948,7 +28948,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "cjK" = (
@@ -29305,7 +29305,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "ckG" = (
@@ -29545,7 +29545,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cls" = (
@@ -29564,7 +29564,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "clu" = (
@@ -29603,7 +29603,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/aft)
 "clD" = (
@@ -29665,7 +29665,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "clL" = (
@@ -29806,7 +29806,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cmg" = (
@@ -29853,7 +29853,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cmm" = (
@@ -29958,7 +29958,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "cmB" = (
@@ -30045,7 +30045,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "cmN" = (
@@ -30092,7 +30092,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "cmS" = (
@@ -30169,7 +30169,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "cnd" = (
@@ -30198,7 +30198,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "cnk" = (
@@ -30238,7 +30238,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cnr" = (
@@ -30269,7 +30269,7 @@
 "cnz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/aft)
 "cnA" = (
@@ -30317,7 +30317,7 @@
 "cnL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cnM" = (
@@ -30360,7 +30360,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cnR" = (
@@ -30471,7 +30471,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cop" = (
@@ -30702,7 +30702,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cpw" = (
@@ -30745,7 +30745,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "cpB" = (
@@ -30828,7 +30828,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cpY" = (
@@ -30855,7 +30855,7 @@
 	},
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/port/aft)
 "cqa" = (
@@ -30895,14 +30895,14 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cqe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cqf" = (
@@ -30919,7 +30919,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/port/aft)
 "cqi" = (
@@ -31071,7 +31071,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cqD" = (
@@ -31079,7 +31079,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cqF" = (
@@ -31126,7 +31126,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cqL" = (
@@ -31134,7 +31134,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cqM" = (
@@ -31372,7 +31372,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "crv" = (
@@ -31467,7 +31467,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "crJ" = (
@@ -31516,7 +31516,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "crT" = (
@@ -31525,7 +31525,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "crV" = (
@@ -31544,7 +31544,7 @@
 	},
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "crY" = (
@@ -31625,7 +31625,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "csj" = (
@@ -31638,7 +31638,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "csk" = (
@@ -31656,7 +31656,7 @@
 /area/maintenance/port)
 "csl" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "csm" = (
@@ -31665,7 +31665,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "csn" = (
@@ -31792,7 +31792,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/disposal)
 "csM" = (
@@ -31829,7 +31829,7 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "csV" = (
@@ -31976,7 +31976,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/disposal)
 "ctA" = (
@@ -32117,7 +32117,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "cua" = (
@@ -32173,7 +32173,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cum" = (
@@ -32243,7 +32243,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cuw" = (
@@ -32279,7 +32279,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cuC" = (
@@ -32378,7 +32378,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cuV" = (
@@ -32403,7 +32403,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cuY" = (
@@ -32524,7 +32524,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/starboard/aft)
 "cvi" = (
@@ -32532,7 +32532,7 @@
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cvj" = (
@@ -32605,14 +32605,14 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cvq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cvr" = (
@@ -32710,7 +32710,7 @@
 "cvz" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "cvA" = (
@@ -32720,7 +32720,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cvB" = (
@@ -32767,7 +32767,7 @@
 /obj/structure/girder/displaced,
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "cvH" = (
@@ -32776,7 +32776,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cvJ" = (
@@ -33150,7 +33150,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cwQ" = (
@@ -33161,7 +33161,7 @@
 /obj/structure/girder,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "cwV" = (
@@ -33197,7 +33197,7 @@
 "cxb" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cxd" = (
@@ -33209,7 +33209,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "cxe" = (
@@ -33415,7 +33415,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "cxz" = (
@@ -33535,7 +33535,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "cxO" = (
@@ -33663,7 +33663,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "cxZ" = (
@@ -33749,7 +33749,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "cyg" = (
@@ -33777,7 +33777,7 @@
 /obj/structure/girder/displaced,
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "cym" = (
@@ -33851,7 +33851,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cyF" = (
@@ -33861,7 +33861,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cyG" = (
@@ -33885,7 +33885,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "cyI" = (
@@ -33916,7 +33916,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "cyN" = (
@@ -33996,7 +33996,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "czd" = (
@@ -34031,14 +34031,14 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "czl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "czm" = (
@@ -34051,7 +34051,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "czo" = (
@@ -34140,7 +34140,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/entry)
 "czF" = (
@@ -34149,7 +34149,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "czG" = (
@@ -34161,7 +34161,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "czJ" = (
@@ -34193,7 +34193,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "czN" = (
@@ -34205,7 +34205,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "czO" = (
@@ -34213,7 +34213,7 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "czP" = (
@@ -34221,7 +34221,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/wardrobe/green,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "czQ" = (
@@ -34318,7 +34318,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cAf" = (
@@ -34405,7 +34405,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "cAv" = (
@@ -34430,7 +34430,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cAx" = (
@@ -34450,7 +34450,7 @@
 /obj/effect/landmark/xeno_spawn,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cAy" = (
@@ -34492,7 +34492,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cAD" = (
@@ -34524,7 +34524,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cAG" = (
@@ -34621,7 +34621,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cAP" = (
@@ -34675,7 +34675,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cAU" = (
@@ -34697,7 +34697,7 @@
 /obj/structure/closet/crate/coffin,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cAX" = (
@@ -34739,7 +34739,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/starboard/aft)
 "cBa" = (
@@ -34792,7 +34792,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "cBh" = (
@@ -34826,7 +34826,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cBl" = (
@@ -34844,7 +34844,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cBp" = (
@@ -35002,7 +35002,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "cBL" = (
@@ -35033,7 +35033,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cBO" = (
@@ -35049,7 +35049,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cBQ" = (
@@ -35077,7 +35077,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/engine/engineering)
 "cBT" = (
@@ -35160,7 +35160,7 @@
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/disposal)
 "cCc" = (
@@ -35191,7 +35191,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/disposal)
 "cCf" = (
@@ -35514,7 +35514,7 @@
 "cCW" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "cCX" = (
@@ -35522,7 +35522,7 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "cCY" = (
@@ -35556,7 +35556,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard,
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "cDj" = (
@@ -35597,7 +35597,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "cDo" = (
@@ -35637,7 +35637,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard,
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "cDt" = (
@@ -35716,7 +35716,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "cDH" = (
@@ -35783,7 +35783,7 @@
 /area/maintenance/fore)
 "cEe" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cEg" = (
@@ -35819,7 +35819,7 @@
 "cEo" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "cEp" = (
@@ -35887,7 +35887,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "cED" = (
@@ -35906,7 +35906,7 @@
 	},
 /obj/item/shard,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cEF" = (
@@ -35914,7 +35914,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cEG" = (
@@ -35996,7 +35996,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cFa" = (
@@ -36014,7 +36014,7 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cFc" = (
@@ -36088,7 +36088,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "cFp" = (
@@ -36123,14 +36123,14 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "cFy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "cFC" = (
@@ -36173,7 +36173,7 @@
 "cFL" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cFM" = (
@@ -36188,7 +36188,7 @@
 	pixel_x = -27
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "cFP" = (
@@ -36243,7 +36243,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "cFX" = (
@@ -36293,7 +36293,7 @@
 "cGc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cGd" = (
@@ -36344,7 +36344,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "cGk" = (
@@ -36430,7 +36430,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cGw" = (
@@ -36455,7 +36455,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cGz" = (
@@ -36499,7 +36499,7 @@
 "cGF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "cGG" = (
@@ -36513,7 +36513,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "cGI" = (
@@ -36527,7 +36527,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "cGJ" = (
@@ -36558,7 +36558,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cGM" = (
@@ -36617,7 +36617,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "cGS" = (
@@ -36634,7 +36634,7 @@
 	},
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "cGU" = (
@@ -36735,7 +36735,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "cHe" = (
@@ -36751,7 +36751,7 @@
 /obj/structure/girder/displaced,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "cHg" = (
@@ -36766,7 +36766,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "cHh" = (
@@ -36775,7 +36775,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "cHj" = (
@@ -36854,7 +36854,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "cHr" = (
@@ -36874,7 +36874,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/fore)
 "cHt" = (
@@ -36888,7 +36888,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cHu" = (
@@ -36978,7 +36978,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "cHL" = (
@@ -37063,7 +37063,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cIa" = (
@@ -37083,7 +37083,7 @@
 "cIc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "cId" = (
@@ -37095,7 +37095,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "cIe" = (
@@ -37442,7 +37442,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "cIL" = (
@@ -37730,7 +37730,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/security/execution/education)
 "cJE" = (
@@ -37754,7 +37754,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/execution/education)
 "cJH" = (
@@ -37782,14 +37782,14 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/execution/education)
 "cJL" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/security/execution/education)
 "cJM" = (
@@ -38051,14 +38051,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cKM" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cKN" = (
@@ -38165,7 +38165,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "cLh" = (
@@ -38195,7 +38195,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "cLo" = (
@@ -38288,7 +38288,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/port/fore)
 "cLw" = (
@@ -38376,7 +38376,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "cLC" = (
@@ -38413,7 +38413,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "cLH" = (
@@ -38436,7 +38436,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port)
 "cLJ" = (
@@ -38523,7 +38523,7 @@
 	name = "Atmospherics Junction Cutoff"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cLQ" = (
@@ -38583,7 +38583,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cLU" = (
@@ -38716,7 +38716,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cMj" = (
@@ -38857,7 +38857,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "cMB" = (
@@ -38898,7 +38898,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cME" = (
@@ -38920,7 +38920,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/port/aft)
 "cMF" = (
@@ -38940,7 +38940,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/port/aft)
 "cMG" = (
@@ -38950,7 +38950,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cMH" = (
@@ -38994,7 +38994,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cMK" = (
@@ -39009,7 +39009,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/engine/engineering)
 "cML" = (
@@ -39053,7 +39053,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "cMO" = (
@@ -39070,7 +39070,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cMR" = (
@@ -39083,7 +39083,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/hallway/secondary/entry)
 "cMS" = (
@@ -39104,7 +39104,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/engine/engineering)
 "cMY" = (
@@ -39157,7 +39157,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/entry)
 "cNd" = (
@@ -39176,7 +39176,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/engine/engineering)
 "cNe" = (
@@ -39200,7 +39200,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/engine/engineering)
 "cNk" = (
@@ -39221,7 +39221,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/starboard/aft)
 "cNr" = (
@@ -39340,7 +39340,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "cND" = (
@@ -39370,7 +39370,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cNF" = (
@@ -39896,7 +39896,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "cPn" = (
@@ -39981,7 +39981,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/engine/engineering)
 "cPw" = (
@@ -40058,7 +40058,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/port/aft)
 "cPB" = (
@@ -40127,7 +40127,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/starboard/aft)
 "cPH" = (
@@ -40211,7 +40211,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "cPQ" = (
@@ -41648,7 +41648,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "dxM" = (
@@ -41888,7 +41888,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "dEg" = (
@@ -41906,7 +41906,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "dEl" = (
@@ -42360,7 +42360,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "dQm" = (
@@ -43061,7 +43061,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "eeD" = (
@@ -43246,7 +43246,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "egT" = (
@@ -43983,7 +43983,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/starboard/fore)
 "ewS" = (
@@ -43991,7 +43991,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/box/corners,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/exploration_dock)
 "ext" = (
@@ -44227,7 +44227,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "eFW" = (
@@ -44491,7 +44491,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "eKE" = (
@@ -45155,7 +45155,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "eXn" = (
@@ -45170,7 +45170,7 @@
 	pixel_y = -14
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "eXH" = (
@@ -45291,7 +45291,7 @@
 	pixel_y = -27
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/disposal)
 "eZZ" = (
@@ -45765,7 +45765,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "fkI" = (
@@ -47441,7 +47441,7 @@
 "fVb" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/exploration_dock)
 "fVc" = (
@@ -48119,7 +48119,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "gkc" = (
@@ -48828,7 +48828,7 @@
 "gEZ" = (
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "gFe" = (
@@ -49256,7 +49256,7 @@
 "gPP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/science/shuttledock)
 "gPW" = (
@@ -49592,7 +49592,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "gVy" = (
@@ -50212,7 +50212,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/starboard/fore)
 "hiM" = (
@@ -50323,7 +50323,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/fore)
 "hkY" = (
@@ -50453,7 +50453,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "hnP" = (
@@ -51643,7 +51643,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "hLm" = (
@@ -51709,7 +51709,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "hNd" = (
@@ -51718,7 +51718,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "hNk" = (
@@ -51838,7 +51838,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "hPN" = (
@@ -53367,7 +53367,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "iyM" = (
@@ -53838,7 +53838,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "iIV" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "iIW" = (
@@ -54063,7 +54063,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "iMQ" = (
@@ -54723,7 +54723,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "iWi" = (
@@ -54910,7 +54910,7 @@
 "jbh" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "jbT" = (
@@ -55327,7 +55327,7 @@
 /area/hallway/primary/central)
 "jkH" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/science/shuttledock)
 "jkP" = (
@@ -55658,7 +55658,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "jpV" = (
@@ -56213,7 +56213,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "jAn" = (
@@ -56368,7 +56368,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "jDZ" = (
@@ -57248,7 +57248,7 @@
 /obj/structure/chair/fancy/sofa/old/right,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "jYB" = (
@@ -57349,7 +57349,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/entry)
 "kal" = (
@@ -57999,7 +57999,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "koc" = (
@@ -59810,7 +59810,7 @@
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "ljC" = (
@@ -60971,7 +60971,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "lGT" = (
@@ -62473,7 +62473,7 @@
 /area/crew_quarters/kitchen)
 "mmW" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "mnd" = (
@@ -62725,7 +62725,7 @@
 	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "mti" = (
@@ -62907,7 +62907,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "mwO" = (
@@ -64720,7 +64720,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/starboard/fore)
 "npl" = (
@@ -65006,7 +65006,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "nzA" = (
@@ -65142,7 +65142,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "nEP" = (
@@ -65199,7 +65199,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "nGH" = (
@@ -66104,7 +66104,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/starboard/fore)
 "nXD" = (
@@ -67208,7 +67208,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "ouB" = (
@@ -67482,7 +67482,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "oDN" = (
@@ -67764,7 +67764,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/exploration_dock)
 "oKx" = (
@@ -68082,7 +68082,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "oSD" = (
@@ -68149,7 +68149,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "oUu" = (
@@ -68327,7 +68327,7 @@
 "oXq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/science/shuttledock)
 "oXt" = (
@@ -69087,7 +69087,7 @@
 "pjW" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "pkc" = (
@@ -69489,7 +69489,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "pst" = (
@@ -69959,7 +69959,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "pAX" = (
@@ -69974,7 +69974,7 @@
 /obj/effect/turf_decal/box/corners,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/science/shuttledock)
 "pBX" = (
@@ -70175,7 +70175,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port)
 "pEu" = (
@@ -70200,7 +70200,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "pEH" = (
@@ -70354,7 +70354,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "pHY" = (
@@ -71020,7 +71020,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "pWD" = (
@@ -71303,7 +71303,7 @@
 "qeZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "qfS" = (
@@ -71391,7 +71391,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "qia" = (
@@ -71580,7 +71580,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "qlQ" = (
@@ -71875,7 +71875,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "qrU" = (
@@ -72203,7 +72203,7 @@
 	pixel_x = 15
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "qwY" = (
@@ -72273,7 +72273,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "qyh" = (
@@ -72467,7 +72467,7 @@
 	pixel_x = 30
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "qCg" = (
@@ -73159,7 +73159,7 @@
 "qOl" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "qOG" = (
@@ -74191,7 +74191,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/space_heater,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "rmg" = (
@@ -74369,7 +74369,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "roD" = (
@@ -74612,7 +74612,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "rui" = (
@@ -74976,7 +74976,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "rDP" = (
@@ -74997,7 +74997,7 @@
 /area/hallway/primary/starboard)
 "rEv" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/space/nearstation)
 "rEP" = (
@@ -75623,7 +75623,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "rQl" = (
@@ -75908,7 +75908,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "rVO" = (
@@ -76762,7 +76762,7 @@
 "slo" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/exploration_dock)
 "slv" = (
@@ -77212,7 +77212,7 @@
 /area/science/explab)
 "swr" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/fore)
 "swt" = (
@@ -77270,7 +77270,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "swV" = (
@@ -77442,7 +77442,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "syF" = (
@@ -77620,7 +77620,7 @@
 "sCg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "sCj" = (
@@ -77691,7 +77691,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "sDM" = (
@@ -77724,7 +77724,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "sFx" = (
@@ -78216,7 +78216,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "sQJ" = (
@@ -80300,7 +80300,7 @@
 "tJu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "tJv" = (
@@ -80503,7 +80503,7 @@
 /obj/machinery/fax/service,
 /obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "tOz" = (
@@ -80578,7 +80578,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "tQS" = (
@@ -80683,7 +80683,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "tTW" = (
@@ -80904,7 +80904,7 @@
 "tZc" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "tZw" = (
@@ -81462,7 +81462,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "unQ" = (
@@ -81516,7 +81516,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/science/shuttledock)
 "upv" = (
@@ -82429,7 +82429,7 @@
 	name = "potted plant"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "uMs" = (
@@ -82676,7 +82676,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "uSg" = (
@@ -83335,7 +83335,7 @@
 "vfV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "vfX" = (
@@ -83393,7 +83393,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/starboard/fore)
 "vgp" = (
@@ -83402,7 +83402,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/science/shuttledock)
 "vgt" = (
@@ -84072,7 +84072,7 @@
 	pixel_x = 15
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "vtz" = (
@@ -84624,7 +84624,7 @@
 /area/engine/atmos)
 "vEm" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "vEC" = (
@@ -85168,7 +85168,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/starboard/fore)
 "vPt" = (
@@ -85308,7 +85308,7 @@
 /obj/structure/chair/fancy/sofa/old/left,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "vSy" = (
@@ -85512,7 +85512,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "vWL" = (
@@ -86333,7 +86333,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "wkU" = (
@@ -86691,7 +86691,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "wrk" = (
@@ -86827,7 +86827,7 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "wtM" = (
@@ -87024,7 +87024,7 @@
 "wxg" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "wxm" = (
@@ -87267,7 +87267,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "wAI" = (
@@ -87303,7 +87303,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "wBd" = (
@@ -87566,7 +87566,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "wHI" = (
@@ -87865,7 +87865,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/aft)
 "wNG" = (
@@ -87997,7 +87997,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "wQL" = (
@@ -88347,7 +88347,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "wVD" = (
@@ -88715,7 +88715,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/fore)
 "xeV" = (
@@ -89117,7 +89117,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard)
 "xoW" = (
@@ -89340,7 +89340,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "xtN" = (
@@ -89519,7 +89519,7 @@
 	pixel_x = -26
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/quartermaster/warehouse)
 "xye" = (
@@ -89663,7 +89663,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "xCn" = (
@@ -90234,7 +90234,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/warehouse)
 "xRk" = (
@@ -91102,7 +91102,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "yjJ" = (
@@ -91164,7 +91164,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/quartermaster/exploration_dock)
 "ykA" = (
@@ -91268,7 +91268,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/starboard)
 "ymb" = (

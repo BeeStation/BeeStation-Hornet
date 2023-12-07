@@ -2953,7 +2953,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lj" = (

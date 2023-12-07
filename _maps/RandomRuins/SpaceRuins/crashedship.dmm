@@ -258,7 +258,7 @@
 "jx" = (
 /obj/structure/cable,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
 "jD" = (
@@ -341,7 +341,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/BMPship/Midship)
 "ld" = (
@@ -366,11 +366,6 @@
 	icon_state = "right"
 	},
 /turf/open/floor/plating,
-/area/awaymission/BMPship/Midship)
-"lm" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
-	},
 /area/awaymission/BMPship/Midship)
 "ln" = (
 /obj/structure/cable{
@@ -434,12 +429,12 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
 "mS" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
 "mX" = (
@@ -696,7 +691,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
 "sP" = (
@@ -724,7 +719,7 @@
 /area/awaymission/BMPship/Aft)
 "tf" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/BMPship/Midship)
 "ts" = (
@@ -811,12 +806,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
-	},
-/area/awaymission/BMPship/Midship)
-"uJ" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/BMPship/Midship)
 "uP" = (
@@ -891,11 +881,6 @@
 /obj/item/clothing/gloves/color/fyellow,
 /turf/open/floor/plating/asteroid/airless,
 /area/awaymission/BMPship)
-"xr" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
-	},
-/area/awaymission/BMPship/Fore)
 "xD" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
@@ -917,7 +902,7 @@
 "yo" = (
 /obj/item/multitool,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/BMPship)
 "yx" = (
@@ -1215,7 +1200,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/BMPship/Fore)
 "EV" = (
@@ -1328,7 +1313,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/BMPship/Fore)
 "Hh" = (
@@ -1454,7 +1439,7 @@
 /area/awaymission/BMPship/Fore)
 "IZ" = (
 /turf/open/floor/plating/airless{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/BMPship/Midship)
 "Ja" = (
@@ -1501,11 +1486,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Midship)
-"Kn" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
-	},
-/area/awaymission/BMPship/Fore)
 "Kt" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1737,7 +1717,7 @@
 "Pi" = (
 /obj/item/shard,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
 "Pu" = (
@@ -1806,7 +1786,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/titanium,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/BMPship/Aft)
 "Rx" = (
@@ -2196,7 +2176,7 @@
 /area/awaymission/BMPship/Aft)
 "YX" = (
 /turf/open/floor/plasteel{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/BMPship/Midship)
 "Zc" = (
@@ -2221,7 +2201,7 @@
 /area/awaymission/BMPship/Fore)
 "Zw" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
 "ZS" = (
@@ -2666,7 +2646,7 @@ SS
 Vu
 Vu
 zU
-xr
+mS
 Fz
 aa
 Pa
@@ -2718,7 +2698,7 @@ Vu
 Vu
 zU
 Fz
-Kn
+mS
 Fz
 aa
 aa
@@ -3028,7 +3008,7 @@ zU
 zU
 zU
 MB
-Kn
+mS
 mS
 Zi
 qA
@@ -3131,7 +3111,7 @@ jW
 VT
 ol
 lg
-xr
+mS
 lg
 qA
 qA
@@ -3180,7 +3160,7 @@ wY
 UU
 UU
 VT
-xr
+mS
 QG
 lg
 zU
@@ -3622,7 +3602,7 @@ Pa
 aa
 tB
 VT
-uJ
+tf
 VT
 Vr
 CT
@@ -3671,7 +3651,7 @@ Pa
 aa
 Fc
 tB
-uJ
+tf
 mu
 IZ
 VT
@@ -3722,7 +3702,7 @@ aa
 Pa
 tB
 tf
-lm
+tf
 IZ
 mu
 VT
@@ -3772,9 +3752,9 @@ aa
 aa
 ik
 VT
-lm
+tf
 mu
-lm
+tf
 JO
 VT
 Gu
@@ -3792,10 +3772,10 @@ ht
 sx
 UU
 WN
-uJ
+tf
 BP
 Fg
-uJ
+tf
 VT
 XZ
 qA
@@ -3946,7 +3926,7 @@ sx
 UU
 Bu
 mu
-uJ
+tf
 mu
 mu
 mu
@@ -4051,7 +4031,7 @@ uF
 mu
 mu
 mu
-lm
+tf
 WN
 Fm
 Fm

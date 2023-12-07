@@ -40,7 +40,7 @@
 "m" = (
 /obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "n" = (
@@ -69,7 +69,7 @@
 "z" = (
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "B" = (
@@ -127,7 +127,7 @@
 	pixel_y = 26
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "Z" = (

@@ -21099,7 +21099,7 @@
 "dwP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/vacant_room/office)
 "dwU" = (
@@ -36531,7 +36531,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/vacant_room/office)
 "lds" = (
@@ -39711,7 +39711,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/vacant_room/office)
 "mFY" = (
@@ -41427,7 +41427,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "ntl" = (
@@ -44342,7 +44342,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/crew_quarters/heads/captain)
 "pan" = (
@@ -44946,7 +44946,7 @@
 	pixel_y = 26
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/vacant_room/office)
 "psE" = (
@@ -60678,7 +60678,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/fore)
 "xhP" = (

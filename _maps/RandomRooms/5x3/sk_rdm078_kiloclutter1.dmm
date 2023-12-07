@@ -30,7 +30,7 @@
 "c" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "d" = (
@@ -71,7 +71,7 @@
 /obj/effect/spawner/lootdrop/trap,
 /obj/effect/trap/nexus/trickyspawner/shitsec,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "h" = (

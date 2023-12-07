@@ -33,18 +33,8 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"af" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/shuttle/escape/luxury)
 "ag" = (
 /turf/open/floor/wood,
-/area/shuttle/escape/luxury)
-"ah" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken"
-	},
 /area/shuttle/escape/luxury)
 "ai" = (
 /turf/open/floor/wood{
@@ -68,7 +58,7 @@
 /area/shuttle/escape/luxury)
 "am" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/shuttle/escape/luxury)
 "an" = (
@@ -80,7 +70,7 @@
 "ao" = (
 /obj/machinery/light/small,
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/shuttle/escape/luxury)
 "ap" = (
@@ -455,7 +445,7 @@ ab
 "}
 (3,1,1) = {"
 ab
-af
+am
 ag
 ab
 ab
@@ -519,7 +509,7 @@ ab
 "}
 (7,1,1) = {"
 ab
-ah
+am
 ag
 ab
 aj
@@ -600,7 +590,7 @@ ab
 (12,1,1) = {"
 ac
 ag
-af
+am
 ab
 aj
 au

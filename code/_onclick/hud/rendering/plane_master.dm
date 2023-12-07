@@ -37,10 +37,6 @@
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
-/atom/movable/screen/plane_master/floor/Initialize(mapload)
-	. = ..()
-	add_filter("floor_texture", 1, layering_filter(render_source = FLOOR_TEXTURE_PLANE_RENDER_TARGET, blend_mode = BLEND_MULTIPLY))
-
 /atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
 	. = ..()
 	remove_filter("openspace_shadow")
@@ -231,23 +227,4 @@
 	name = "fullscreen alert plane"
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
-
-//floor highlights
-/atom/movable/screen/plane_master/floor_texture
-	name = "floor texture plane"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	plane = FLOOR_TEXTURE_PLANE
-	render_target = FLOOR_TEXTURE_PLANE_RENDER_TARGET
-	render_relay_plane = null
-
-/atom/movable/screen/plane_master/floor_texture/Initialize(mapload)
-	. = ..()
-	add_filter("mask", 1, alpha_mask_filter(render_source = FLOOR_TEXTURE_MASK_PLANE_RENDER_TARGET, flags = MASK_INVERSE))
-
-/atom/movable/screen/plane_master/floor_texture_mask
-	name = "floor texture mask plane"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	plane = FLOOR_TEXTURE_MASK_PLANE
-	render_target = FLOOR_TEXTURE_MASK_PLANE_RENDER_TARGET
-	render_relay_plane = null
 

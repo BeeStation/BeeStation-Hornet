@@ -87,7 +87,7 @@
 /obj/structure/table/glass,
 /obj/item/hemostat,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "o" = (
@@ -101,7 +101,7 @@
 /obj/item/weldingtool/mini,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "q" = (

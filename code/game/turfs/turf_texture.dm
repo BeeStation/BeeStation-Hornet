@@ -15,6 +15,8 @@
 	var/color = "#ffffffff"
 	///The priority of this texture
 	var/priority = 1
+	///Is this texture cleanable?
+	var/cleanable = TRUE
 
 //Effect object we use to hold our groceries
 /obj/effect/turf_texture
@@ -23,9 +25,10 @@
 /obj/effect/turf_texture/Initialize(mapload, datum/turf_texture/_texture)
 	. = ..()
 	var/datum/turf_texture/texture = new _texture()
-	var/mutable_appearance/MA = mutable_appearance(texture.icon, texture.icon_state, plane = FLOOR_TEXTURE_PLANE, alpha = 0, color = texture.color)
+	var/mutable_appearance/MA = mutable_appearance(texture.icon, texture.icon_state, plane = FLOOR_PLANE, alpha = 0, color = texture.color)
 	MA.appearance_flags = RESET_ALPHA | RESET_COLOR	
 	MA.alpha = texture.alpha //Why do I have to set this here, why can't it just work in the proc?
+	MA.blend_mode = BLEND_MULTIPLY
 	add_overlay(MA)
 
 //Subtle hallway wear & tear

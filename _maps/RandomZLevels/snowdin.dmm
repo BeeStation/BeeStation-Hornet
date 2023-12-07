@@ -199,7 +199,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "aR" = (
@@ -288,7 +288,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "bb" = (
@@ -339,7 +339,7 @@
 	dir = 6
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "bj" = (
@@ -393,7 +393,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "bo" = (
@@ -466,7 +466,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "bB" = (
@@ -632,7 +632,7 @@
 	name = "Rachel Migro's Private Quarters"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "bU" = (
@@ -658,7 +658,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/research)
 "bW" = (
@@ -805,7 +805,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "cB" = (
@@ -813,7 +813,7 @@
 /area/awaymission/snowdin/post/research)
 "cC" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/research)
 "cG" = (
@@ -1043,7 +1043,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "dc" = (
@@ -1062,7 +1062,7 @@
 	pixel_y = -32
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "dd" = (
@@ -1086,7 +1086,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "dj" = (
@@ -1130,7 +1130,7 @@
 "ds" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/kitchen)
 "dt" = (
@@ -1286,7 +1286,7 @@
 /obj/effect/decal/cleanable/food/egg_smudge,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/kitchen)
 "dW" = (
@@ -1294,7 +1294,7 @@
 /obj/machinery/reagentgrinder,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/kitchen)
 "dX" = (
@@ -1372,7 +1372,7 @@
 /obj/effect/landmark/awaystart,
 /obj/item/bedsheet/red,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "ei" = (
@@ -1514,7 +1514,7 @@
 "eF" = (
 /obj/structure/mineral_door/wood,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/outside)
 "eG" = (
@@ -1578,7 +1578,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "eS" = (
@@ -1621,7 +1621,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "eV" = (
@@ -1839,7 +1839,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "fQ" = (
@@ -1878,7 +1878,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/outside)
 "ga" = (
@@ -2044,7 +2044,7 @@
 /area/awaymission/snowdin/post/messhall)
 "gC" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/messhall)
 "gD" = (
@@ -2074,7 +2074,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "gG" = (
@@ -2110,7 +2110,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "gM" = (
@@ -2372,19 +2372,13 @@
 /area/awaymission/snowdin/post/messhall)
 "hx" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "hy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
-/area/awaymission/snowdin/post/hydro)
-"hz" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
 /area/awaymission/snowdin/post/hydro)
 "hA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -2581,7 +2575,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "ic" = (
@@ -2702,7 +2696,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post)
 "iw" = (
@@ -2722,7 +2716,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post)
 "iz" = (
@@ -2796,11 +2790,6 @@
 /area/awaymission/snowdin/post/messhall)
 "iJ" = (
 /turf/open/floor/plasteel,
-/area/awaymission/snowdin/post/hydro)
-"iK" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
 /area/awaymission/snowdin/post/hydro)
 "iM" = (
 /obj/structure/cable{
@@ -2908,7 +2897,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/garage)
 "iU" = (
@@ -2989,7 +2978,7 @@
 /area/awaymission/snowdin/post/dorm)
 "jj" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/dorm)
 "jm" = (
@@ -3006,7 +2995,7 @@
 /area/awaymission/snowdin/post)
 "jo" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post)
 "jp" = (
@@ -3026,7 +3015,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post)
 "jq" = (
@@ -3176,7 +3165,7 @@
 "jF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/garage)
 "jG" = (
@@ -3284,7 +3273,7 @@
 "jW" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post)
 "jY" = (
@@ -3317,11 +3306,6 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/awaymission/snowdin/post/messhall)
-"kb" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/awaymission/snowdin/post/messhall)
 "kc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -3329,7 +3313,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/messhall)
 "kd" = (
@@ -3341,7 +3325,7 @@
 "kf" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "kg" = (
@@ -3370,7 +3354,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/garage)
 "kj" = (
@@ -3594,7 +3578,7 @@
 "kP" = (
 /obj/item/trash/candy,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/messhall)
 "kR" = (
@@ -3659,7 +3643,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/garage)
 "la" = (
@@ -4073,7 +4057,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "lH" = (
@@ -4124,7 +4108,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "lL" = (
@@ -4135,7 +4119,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "lM" = (
@@ -4417,19 +4401,11 @@
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "mt" = (
 /turf/open/floor/plating,
-/area/awaymission/snowdin/post/hydro)
-"mu" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
 /area/awaymission/snowdin/post/hydro)
 "mv" = (
 /obj/structure/sink{
@@ -4437,7 +4413,7 @@
 	pixel_x = 11
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "mw" = (
@@ -4529,7 +4505,7 @@
 	pixel_x = -26
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post)
 "mI" = (
@@ -4541,7 +4517,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post)
 "mJ" = (
@@ -4690,7 +4666,7 @@
 	},
 /obj/machinery/light/broken,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post)
 "nd" = (
@@ -4698,7 +4674,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post)
 "ng" = (
@@ -4786,7 +4762,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
 "nr" = (
@@ -4827,7 +4803,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/hydro)
 "nA" = (
@@ -5369,7 +5345,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
 "pw" = (
@@ -5526,7 +5502,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
 "pY" = (
@@ -5534,7 +5510,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
 "pZ" = (
@@ -5626,7 +5602,7 @@
 /area/awaymission/snowdin/post/cavern2)
 "ql" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/cavern2)
 "qm" = (
@@ -5738,7 +5714,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
 "qB" = (
@@ -5870,7 +5846,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
 "qX" = (
@@ -5885,7 +5861,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/engineering)
 "rc" = (
@@ -6037,7 +6013,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/cavern2)
 "rz" = (
@@ -6829,7 +6805,7 @@
 "ub" = (
 /obj/structure/bed,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/cavern1)
 "uc" = (
@@ -6849,7 +6825,7 @@
 	},
 /obj/structure/closet/cabinet,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/cavern1)
 "ug" = (
@@ -6883,7 +6859,7 @@
 /area/awaymission/snowdin/post/cavern1)
 "uk" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/cavern1)
 "ul" = (
@@ -7001,7 +6977,7 @@
 /area/awaymission/snowdin/post/cavern1)
 "uF" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/cavern1)
 "uG" = (
@@ -7024,7 +7000,7 @@
 "uM" = (
 /obj/structure/table,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/cavern1)
 "uO" = (
@@ -7055,7 +7031,7 @@
 "uS" = (
 /mob/living/simple_animal/hostile/skeleton/plasmaminer,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/cavern1)
 "uU" = (
@@ -7125,7 +7101,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/cavern1)
 "vk" = (
@@ -7729,7 +7705,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "xh" = (
@@ -7783,7 +7759,7 @@
 "xr" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "xs" = (
@@ -7820,7 +7796,7 @@
 /area/awaymission/snowdin/post/mining_dock)
 "xy" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "xz" = (
@@ -7865,7 +7841,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "xL" = (
@@ -7990,7 +7966,7 @@
 /obj/item/relic,
 /obj/item/relic,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "yl" = (
@@ -8086,7 +8062,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "yB" = (
@@ -8097,7 +8073,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "yE" = (
@@ -8108,7 +8084,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "yF" = (
@@ -8626,7 +8602,7 @@
 /area/awaymission/snowdin/post/minipost)
 "Ai" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/minipost)
 "Aj" = (
@@ -8739,7 +8715,7 @@
 "AE" = (
 /obj/item/pen,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/minipost)
 "AG" = (
@@ -8798,7 +8774,7 @@
 "AN" = (
 /obj/item/key,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/minipost)
 "AP" = (
@@ -8882,7 +8858,7 @@
 "Bf" = (
 /obj/machinery/space_heater,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/minipost)
 "Bg" = (
@@ -10554,7 +10530,7 @@
 /area/awaymission/snowdin/post/mining_main)
 "GR" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main)
 "GS" = (
@@ -10590,7 +10566,7 @@
 "GX" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main/robotics)
 "GY" = (
@@ -10631,7 +10607,7 @@
 /area/awaymission/snowdin/post/mining_main/mechbay)
 "Hf" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main/mechbay)
 "Hg" = (
@@ -10713,7 +10689,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main/robotics)
 "Hu" = (
@@ -10740,13 +10716,13 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "Hx" = (
 /obj/machinery/holopad,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "Hy" = (
@@ -10782,7 +10758,7 @@
 "HD" = (
 /obj/structure/table,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main)
 "HH" = (
@@ -10834,7 +10810,7 @@
 	pixel_x = -23
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main/mechbay)
 "HO" = (
@@ -10849,7 +10825,7 @@
 "HQ" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main/mechbay)
 "HR" = (
@@ -10906,7 +10882,7 @@
 "Ie" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "Ii" = (
@@ -11037,7 +11013,7 @@
 "II" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main)
 "IJ" = (
@@ -11122,7 +11098,7 @@
 "IY" = (
 /obj/machinery/light,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main)
 "IZ" = (
@@ -11455,7 +11431,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/snowdin/post/mining_main)
 "KO" = (
@@ -26475,7 +26451,7 @@ gA
 gA
 jx
 ka
-kb
+gC
 lz
 mn
 dO
@@ -27245,7 +27221,7 @@ gA
 hV
 iF
 gD
-kb
+gC
 kO
 lC
 mo
@@ -29813,12 +29789,12 @@ FX
 gJ
 hy
 gH
-iK
+hx
 gH
-hz
+kf
 hy
 lJ
-mu
+nz
 mR
 nz
 nX
@@ -30068,11 +30044,11 @@ eD
 cd
 fU
 gK
-hz
+kf
 gG
 iJ
 gI
-hz
+kf
 gI
 lK
 ms

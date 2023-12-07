@@ -4503,7 +4503,7 @@
 /area/medical/morgue)
 "bfH" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/hallway/secondary/entry)
 "bfN" = (
@@ -9235,7 +9235,7 @@
 /obj/structure/marker_beacon,
 /obj/machinery/camera/autoname,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/hallway/secondary/entry)
 "cOr" = (
@@ -31042,7 +31042,7 @@
 "kaw" = (
 /obj/structure/marker_beacon,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/hallway/secondary/entry)
 "kaW" = (
@@ -41730,7 +41730,7 @@
 /area/security/brig)
 "nyG" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/entry)
 "nyJ" = (

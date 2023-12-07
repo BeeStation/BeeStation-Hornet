@@ -30,7 +30,7 @@
 /obj/structure/closet/crate,
 /obj/item/paper/crumpled/beernuke,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "h" = (
@@ -42,7 +42,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "j" = (
@@ -104,7 +104,7 @@
 "t" = (
 /obj/item/cigbutt/cigarbutt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "u" = (
@@ -178,12 +178,12 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "F" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "G" = (

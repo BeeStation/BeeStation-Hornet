@@ -553,21 +553,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	//handle switch
 	traction = TRUE
 
-/turf/proc/block_texture(force = FALSE)
-	if(texture_mask_overlay && !force)
-		return
-	cut_overlay(texture_mask_overlay)
-	var/mutable_appearance/MA = mutable_appearance('icons/turf/overlays.dmi', "whiteOverlay", plane = FLOOR_TEXTURE_MASK_PLANE)
-	add_overlay(MA)
-	texture_mask_overlay = MA
-
-/turf/proc/unblock_texture()
-	cut_overlay(texture_mask_overlay)
-	texture_mask_overlay = null
-
 ///Add our relevant floor texture, if we can / need
 /turf/proc/add_turf_texture(list/textures, force)
-	if(!length(textures) || locate(/obj/effect/decal/cleanable/dirt) in contents && !force)
+	if(!length(textures) || (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents) && !force)
 		return
 	var/datum/turf_texture/turf_texture
 	for(var/datum/turf_texture/TF as() in textures)
@@ -576,6 +564,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
 	if(turf_texture)
 		vis_contents += load_turf_texture(turf_texture)
+
+/turf/proc/clean_turf_texture()
+	for(var/datum/turf_texture/TF in vis_contents)
+		if(TF.cleanable)
+			vis_contents -= TF
 
 /// returns a list of all mobs inside of a turf.
 /// likely detects mobs hiding in a closet.

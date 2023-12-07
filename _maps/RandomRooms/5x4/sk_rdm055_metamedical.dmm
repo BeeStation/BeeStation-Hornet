@@ -76,7 +76,7 @@
 /area/template_noop)
 "j" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "k" = (

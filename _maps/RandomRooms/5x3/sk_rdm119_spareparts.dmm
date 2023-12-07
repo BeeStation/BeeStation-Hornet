@@ -45,7 +45,7 @@
 /area/template_noop)
 "g" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "h" = (

@@ -192,7 +192,7 @@
 	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
 	if(A)
 		A.acid_level = max(A.acid_level - reac_volume*50, 0)
-	T.block_texture(force = FALSE)
+	T.clean_turf_texture()
 
 /*
  *	Water reaction to an object

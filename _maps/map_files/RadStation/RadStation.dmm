@@ -2047,7 +2047,7 @@
 /obj/item/stack/sheet/wood,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "aHb" = (
@@ -2590,7 +2590,7 @@
 "aON" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/central)
 "aOU" = (
@@ -3494,7 +3494,7 @@
 "bcD" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/medical/morgue)
 "bcN" = (
@@ -4546,7 +4546,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/department/engine)
 "bws" = (
@@ -4887,7 +4887,7 @@
 "bDe" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "bDj" = (
@@ -6011,7 +6011,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/maintenance/department/bridge)
 "bTb" = (
@@ -6481,7 +6481,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/vacant_room/office)
 "ccE" = (
@@ -6697,7 +6697,7 @@
 "cfR" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cga" = (
@@ -8072,7 +8072,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/medical)
 "cyW" = (
@@ -10674,7 +10674,7 @@
 /obj/machinery/light/small,
 /obj/machinery/food_cart,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/service)
 "dst" = (
@@ -12164,7 +12164,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/medical)
 "dNX" = (
@@ -12384,7 +12384,7 @@
 "dRY" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/starboard/aft)
 "dSc" = (
@@ -17634,7 +17634,7 @@
 /area/hallway/primary/port)
 "fpY" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "fqb" = (
@@ -17882,7 +17882,7 @@
 "fuQ" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/service)
 "fuX" = (
@@ -20654,7 +20654,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/library)
 "gjJ" = (
@@ -26074,7 +26074,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/central)
 "hSE" = (
@@ -26260,7 +26260,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/maintenance/port/central)
 "hWH" = (
@@ -31047,7 +31047,7 @@
 "jDW" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/science)
 "jEa" = (
@@ -32699,7 +32699,7 @@
 	pixel_y = 7
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/library)
 "kfU" = (
@@ -38888,7 +38888,7 @@
 /area/quartermaster/exploration_prep)
 "mgf" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/medical)
 "mgp" = (
@@ -40934,7 +40934,7 @@
 /area/security/brig)
 "mHO" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/medical/morgue)
 "mIn" = (
@@ -40955,7 +40955,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/maintenance/central)
 "mIM" = (
@@ -43953,7 +43953,7 @@
 /area/medical/genetics/cloning)
 "nDk" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/central)
 "nDn" = (
@@ -45800,7 +45800,7 @@
 	pixel_y = -1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/library)
 "ojc" = (
@@ -46140,7 +46140,7 @@
 "ooK" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "ooT" = (
@@ -46844,7 +46844,7 @@
 /area/security/warden)
 "ozZ" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/vacant_room/office)
 "oAq" = (
@@ -46981,7 +46981,7 @@
 /area/crew_quarters/bar)
 "oCc" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "oCe" = (
@@ -47324,7 +47324,7 @@
 	dir = 10
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/library)
 "oIA" = (
@@ -47471,7 +47471,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/department/engine)
 "oLh" = (
@@ -49732,7 +49732,7 @@
 "pwd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/vacant_room/office)
 "pwh" = (
@@ -50814,7 +50814,7 @@
 	},
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/department/engine)
 "pNG" = (
@@ -51747,7 +51747,7 @@
 /area/maintenance/port/central)
 "qaH" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "qaP" = (
@@ -52165,7 +52165,7 @@
 "qhn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/security)
 "qhx" = (
@@ -54099,7 +54099,7 @@
 /area/engine/atmos)
 "qMI" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/central)
 "qMM" = (
@@ -54608,7 +54608,7 @@
 	location = "Bridge"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/bridge)
 "qWt" = (
@@ -55872,7 +55872,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/vacant_room/office)
 "rsT" = (
@@ -57700,7 +57700,7 @@
 "rZV" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "saf" = (
@@ -59435,7 +59435,7 @@
 	},
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/central)
 "sGZ" = (
@@ -62658,7 +62658,7 @@
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/aft)
 "tCq" = (
@@ -63121,7 +63121,7 @@
 "tKo" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/department/engine)
 "tKp" = (
@@ -63603,7 +63603,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/medical/morgue)
 "tTE" = (
@@ -64883,7 +64883,7 @@
 "umO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/port/central)
 "unc" = (
@@ -65135,12 +65135,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/noslip/standard,
 /area/crew_quarters/toilet)
-"urk" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/vacant_room/office)
 "urD" = (
 /obj/structure/railing/corner,
 /obj/structure/disposalpipe/segment{
@@ -66345,7 +66339,7 @@
 "uKd" = (
 /obj/effect/decal/cleanable/chem_pile,
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/maintenance/starboard/aft)
 "uKi" = (
@@ -66671,7 +66665,7 @@
 /area/solar/port/fore)
 "uQs" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/central)
 "uQw" = (
@@ -71915,7 +71909,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/department/engine)
 "wzY" = (
@@ -76382,7 +76376,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/department/medical)
 "xST" = (
@@ -77469,7 +77463,7 @@
 	pixel_y = -32
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 
@@ -105621,7 +105615,7 @@ ceW
 oiI
 lSZ
 xYW
-urk
+pwd
 jLb
 qOU
 fsy

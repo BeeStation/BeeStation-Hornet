@@ -488,7 +488,7 @@
 "ur" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "vt" = (
@@ -531,7 +531,7 @@
 "zy" = (
 /obj/structure/girder,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "Ax" = (
@@ -810,7 +810,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "Ov" = (
@@ -893,7 +893,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "Su" = (
@@ -946,7 +946,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "VN" = (

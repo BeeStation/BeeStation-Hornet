@@ -60,7 +60,7 @@
 /area/template_noop)
 "ak" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter3)
 "an" = (
@@ -807,7 +807,7 @@
 	icon_state = "pile"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "iz" = (
@@ -820,7 +820,7 @@
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter3)
 "iB" = (
@@ -1156,7 +1156,7 @@
 "kd" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "ke" = (
@@ -1226,7 +1226,7 @@
 "lD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/ruin/unpowered)
 "tH" = (
