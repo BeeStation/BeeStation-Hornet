@@ -19,7 +19,7 @@
 /area/template_noop)
 "e" = (
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "f" = (

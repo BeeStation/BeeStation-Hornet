@@ -84,12 +84,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"ax" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/template_noop)
 "az" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
@@ -191,7 +185,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/doorbolt,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "aQ" = (
@@ -238,7 +232,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "aW" = (
@@ -304,7 +298,7 @@ ai
 ac
 ab
 ab
-ax
+ai
 "}
 (2,1,1) = {"
 ab
@@ -395,7 +389,7 @@ ai
 aL
 aU
 ao
-ax
+ai
 ab
 aH
 aW

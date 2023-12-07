@@ -4080,7 +4080,7 @@
 /area/engine/engine_room)
 "boh" = (
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/maintenance/department/medical/morgue)
 "boq" = (
@@ -4583,7 +4583,7 @@
 /area/quartermaster/exploration_prep)
 "bwP" = (
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/maintenance/department/medical)
 "bwT" = (
@@ -27363,7 +27363,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/maintenance/department/engine)
 "ira" = (
@@ -32423,7 +32423,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/maintenance/port/central)
 "kaA" = (
@@ -40114,7 +40114,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/library)
 "mzv" = (
@@ -46641,7 +46641,7 @@
 "ovR" = (
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/maintenance/department/medical)
 "owg" = (
@@ -63813,7 +63813,7 @@
 	dir = 2
 	},
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/maintenance/department/engine)
 "tXp" = (
@@ -64834,7 +64834,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/maintenance/port/central)
 "ulM" = (
@@ -76961,7 +76961,7 @@
 "ydx" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/maintenance/department/medical/morgue)
 "ydA" = (

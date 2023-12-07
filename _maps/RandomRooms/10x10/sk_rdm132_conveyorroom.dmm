@@ -216,11 +216,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"O" = (
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/template_noop)
 "P" = (
 /obj/machinery/light/built,
 /turf/open/floor/plasteel,
@@ -347,7 +342,7 @@ a
 C
 J
 f
-O
+C
 a
 "}
 (10,1,1) = {"

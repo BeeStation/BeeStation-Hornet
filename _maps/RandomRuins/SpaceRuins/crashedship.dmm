@@ -559,7 +559,7 @@
 "pT" = (
 /obj/structure/chair/stool,
 /turf/open/floor/plating/airless{
-	broken = TRUE
+	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
 "qc" = (
@@ -1847,11 +1847,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Midship)
-"SF" = (
-/turf/open/floor/plasteel{
-	broken = TRUE
-	},
 /area/awaymission/BMPship/Midship)
 "SJ" = (
 /turf/open/floor/plasteel,
@@ -3362,7 +3357,7 @@ eN
 kY
 wY
 UU
-SF
+YX
 VT
 qA
 qA
@@ -3515,7 +3510,7 @@ UU
 fF
 UU
 UU
-SF
+YX
 WN
 XZ
 qA

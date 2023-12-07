@@ -18,11 +18,6 @@
 "d" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"e" = (
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/template_noop)
 "f" = (
 /obj/machinery/light/broken{
 	icon_state = "tube-broken";
@@ -246,7 +241,7 @@ n
 i
 y
 b
-e
+J
 L
 d
 "}
@@ -287,7 +282,7 @@ N
 b
 "}
 (6,1,1) = {"
-e
+J
 k
 q
 t
@@ -340,7 +335,7 @@ n
 i
 v
 b
-e
+J
 I
 b
 b

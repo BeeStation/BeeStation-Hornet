@@ -49887,11 +49887,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"qka" = (
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/hallway/secondary/entry)
 "qkk" = (
 /obj/structure/table/reinforced,
 /obj/item/assembly/signaler{
@@ -108790,7 +108785,7 @@ lib
 jKQ
 uaJ
 kaw
-qka
+bfH
 ehY
 ehY
 ehY
@@ -109046,7 +109041,7 @@ ijB
 cRu
 pEl
 uaJ
-qka
+bfH
 bfH
 ehY
 ehY
@@ -109562,7 +109557,7 @@ upa
 uaJ
 nyG
 nyG
-qka
+bfH
 nyG
 ehY
 dmv
@@ -110075,7 +110070,7 @@ bBz
 keg
 uaJ
 nyG
-qka
+bfH
 nyG
 ehY
 ehY

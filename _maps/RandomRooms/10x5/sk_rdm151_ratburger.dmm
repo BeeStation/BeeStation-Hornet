@@ -214,16 +214,11 @@
 /mob/living/simple_animal/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)
-"Y" = (
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/template_noop)
 
 (1,1,1) = {"
 a
 a
-Y
+v
 H
 a
 "}
@@ -253,7 +248,7 @@ O
 C
 L
 r
-Y
+v
 "}
 (6,1,1) = {"
 S

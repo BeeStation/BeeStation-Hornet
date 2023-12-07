@@ -14,7 +14,7 @@
 /area/template_noop)
 "j" = (
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "k" = (
@@ -92,7 +92,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "F" = (

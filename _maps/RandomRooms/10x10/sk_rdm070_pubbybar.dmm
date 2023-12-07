@@ -92,7 +92,7 @@
 /area/template_noop)
 "r" = (
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "s" = (
@@ -236,7 +236,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "P" = (

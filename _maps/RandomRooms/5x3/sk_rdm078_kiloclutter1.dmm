@@ -56,12 +56,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"f" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/chair/office{
@@ -86,7 +80,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "j" = (
@@ -103,7 +97,7 @@
 
 (1,1,1) = {"
 a
-f
+c
 h
 "}
 (2,1,1) = {"

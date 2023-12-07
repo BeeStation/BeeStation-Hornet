@@ -21,7 +21,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "i" = (

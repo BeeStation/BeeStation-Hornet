@@ -137,7 +137,7 @@
 "K" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "L" = (
@@ -189,11 +189,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"Y" = (
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/template_noop)
 "Z" = (
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -209,7 +204,7 @@ a
 H
 c
 v
-Y
+D
 U
 "}
 (3,1,1) = {"

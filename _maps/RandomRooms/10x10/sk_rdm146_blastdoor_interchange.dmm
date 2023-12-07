@@ -50,11 +50,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"ec" = (
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/template_noop)
 "eD" = (
 /turf/open/floor/plating{
 	broken = 1
@@ -162,7 +157,7 @@
 "rm" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "rP" = (
@@ -452,7 +447,7 @@ iv
 iv
 aT
 hM
-ec
+eD
 Sg
 hM
 aC

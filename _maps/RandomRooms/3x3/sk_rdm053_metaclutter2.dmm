@@ -4,7 +4,7 @@
 /obj/item/storage/box/lights/mixed,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	broken = TRUE
+	broken = 1
 	},
 /area/template_noop)
 "c" = (

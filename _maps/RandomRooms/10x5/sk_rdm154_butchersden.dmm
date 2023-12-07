@@ -62,11 +62,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/template_noop)
-"C" = (
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/template_noop)
 "E" = (
 /obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
 /obj/structure/closet/secure_closet/freezer/meat,
@@ -186,7 +181,7 @@ c
 F
 "}
 (6,1,1) = {"
-C
+w
 J
 R
 W

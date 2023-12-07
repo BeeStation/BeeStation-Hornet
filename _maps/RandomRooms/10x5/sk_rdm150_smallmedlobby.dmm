@@ -32,11 +32,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"o" = (
-/turf/open/floor/plating{
-	broken = TRUE
-	},
-/area/template_noop)
 "p" = (
 /turf/closed/wall,
 /area/template_noop)
@@ -185,7 +180,7 @@ a
 (2,1,1) = {"
 T
 S
-o
+G
 c
 F
 "}
