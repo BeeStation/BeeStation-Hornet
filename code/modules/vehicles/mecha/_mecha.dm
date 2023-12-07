@@ -1,22 +1,22 @@
-//////////////////WELCOME TO MECHA.DM, ENJOY YOUR STAY\\\\\\\\\\\\\\\\\
+/***************** WELCOME TO MECHA.DM, ENJOY YOUR STAY *****************/
 
 /**
-  * Mechs are now (finally) vehicles, this means you can make them multicrew
-  * They can also grant select ability buttons based on occupant bitflags
-  *
-  * Movement is handled through vehicle_move() which is called by relaymove
-  * Clicking is done by way of signals registering to the entering mob
-  * NOTE: MMIS are NOT mobs but instead contain a brain that is, so you need special checks
-  * AI also has special checks becaus it gets in and out of the mech differently
-  * Always call remove_occupant(mob) when leaving the mech so the mob is removed properly
-  *
-  * For multi-crew, you need to set how the occupants recieve ability bitflags corresponding to their status on the vehicle(i.e: driver, gunner etc)
-  * Abilities can then be set to only apply for certain bitflags and are assigned as such automatically
-  *
-  * Clicks are wither translated into mech_melee_attack (see mech_melee_attack.dm)
-  * Or are used to call action() on equipped gear
-  * Cooldown for gear is on the mech because exploits
-  */
+ * Mechs are now (finally) vehicles, this means you can make them multicrew
+ * They can also grant select ability buttons based on occupant bitflags
+ *
+ * Movement is handled through vehicle_move() which is called by relaymove
+ * Clicking is done by way of signals registering to the entering mob
+ * NOTE: MMIS are NOT mobs but instead contain a brain that is, so you need special checks
+ * AI also has special checks becaus it gets in and out of the mech differently
+ * Always call remove_occupant(mob) when leaving the mech so the mob is removed properly
+ *
+ * For multi-crew, you need to set how the occupants recieve ability bitflags corresponding to their status on the vehicle(i.e: driver, gunner etc)
+ * Abilities can then be set to only apply for certain bitflags and are assigned as such automatically
+ *
+ * Clicks are wither translated into mech_melee_attack (see mech_melee_attack.dm)
+ * Or are used to call action() on equipped gear
+ * Cooldown for gear is on the mech because exploits
+ */
 /obj/vehicle/sealed/mecha
 	name = "mecha"
 	desc = "Exosuit"
@@ -28,7 +28,6 @@
 	anchored = TRUE
 	emulate_door_bumps = TRUE
 	COOLDOWN_DECLARE(mecha_bump_smash)
-
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_power = 1
@@ -180,10 +179,13 @@
 		add_airtank()
 		RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE , PROC_REF(disconnect_air))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(play_stepsound))
+
 	spark_system.set_up(2, 0, src)
 	spark_system.attach(src)
+
 	smoke_system.set_up(3, src)
 	smoke_system.attach(src)
+	
 	add_cell()
 	add_scanmod()
 	add_capacitor()
