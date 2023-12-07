@@ -40982,7 +40982,7 @@
 /obj/item/reagent_containers/food/condiment/flour{
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -48907,7 +48907,7 @@
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/item/storage/box/ingredients/wildcard,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -77424,7 +77424,7 @@
 /area/teleporter)
 "tPo" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint{
+/obj/item/food/mint{
 	pixel_y = 9
 	},
 /obj/item/reagent_containers/food/condiment/peppermill{
