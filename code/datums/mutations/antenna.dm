@@ -4,6 +4,7 @@
 	quality = POSITIVE
 	instability = 5
 	difficulty = 8
+	layer_used = BODY_LAYER
 	var/datum/weakref/radio_weakref
 
 /datum/mutation/antenna/on_acquiring(mob/living/carbon/owner)
@@ -23,7 +24,7 @@
 /datum/mutation/antenna/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
 	..()
 	if(!(type in visual_indicators))
-		visual_indicators[type] = list(mutable_appearance('icons/effects/genetics.dmi', "antenna", -FRONT_MUTATIONS_LAYER+1))//-MUTATIONS_LAYER+1
+		visual_indicators[type] = list(mutable_appearance('icons/effects/genetics.dmi', "antenna"))
 
 /datum/mutation/antenna/get_visual_indicator()
 	return visual_indicators[type][1]
