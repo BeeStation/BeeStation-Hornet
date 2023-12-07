@@ -18,7 +18,7 @@
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "i" = (
@@ -94,7 +94,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/five,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "H" = (

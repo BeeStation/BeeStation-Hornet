@@ -87,7 +87,7 @@
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "az" = (
@@ -191,7 +191,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/doorbolt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "aQ" = (
@@ -238,7 +238,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "aW" = (

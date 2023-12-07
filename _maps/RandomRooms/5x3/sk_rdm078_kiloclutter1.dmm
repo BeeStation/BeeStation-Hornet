@@ -59,7 +59,7 @@
 "f" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "g" = (
@@ -86,7 +86,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "j" = (

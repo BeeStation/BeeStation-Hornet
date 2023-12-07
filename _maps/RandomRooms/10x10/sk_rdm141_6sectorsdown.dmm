@@ -190,7 +190,7 @@
 "Ee" = (
 /obj/item/trash/popcorn,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "GN" = (

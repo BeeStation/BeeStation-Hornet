@@ -52,7 +52,7 @@
 /area/template_noop)
 "ec" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "eD" = (
@@ -162,7 +162,7 @@
 "rm" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/template_noop)
 "rP" = (

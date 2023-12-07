@@ -49889,7 +49889,7 @@
 /area/maintenance/starboard/fore)
 "qka" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/hallway/secondary/entry)
 "qkk" = (

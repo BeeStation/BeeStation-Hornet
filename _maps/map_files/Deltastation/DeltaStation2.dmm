@@ -7183,7 +7183,7 @@
 /obj/structure/weightmachine/weightlifter,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/security/prison)
 "aMt" = (
@@ -7413,7 +7413,7 @@
 "aNG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/security/prison)
 "aNI" = (
@@ -7425,7 +7425,7 @@
 /area/security/prison)
 "aNJ" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/security/prison)
 "aNK" = (
@@ -21425,7 +21425,7 @@
 	pixel_y = 24
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/maintenance/starboard)
 "cne" = (
@@ -56591,7 +56591,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/security/prison)
 "kXs" = (
@@ -67034,7 +67034,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/security/prison)
 "ovg" = (
@@ -77514,7 +77514,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/security/prison)
 "rXK" = (
@@ -84586,7 +84586,7 @@
 	target_pressure = 3000
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/maintenance/port/fore)
 "uEv" = (

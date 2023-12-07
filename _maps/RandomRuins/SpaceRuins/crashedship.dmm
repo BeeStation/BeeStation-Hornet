@@ -559,7 +559,7 @@
 "pT" = (
 /obj/structure/chair/stool,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/awaymission/BMPship/Fore)
 "qc" = (
@@ -1850,7 +1850,7 @@
 /area/awaymission/BMPship/Midship)
 "SF" = (
 /turf/open/floor/plasteel{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/awaymission/BMPship/Midship)
 "SJ" = (

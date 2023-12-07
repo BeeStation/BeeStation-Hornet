@@ -230,7 +230,7 @@
 /area/shuttle/caravan/freighter2)
 "bd" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/shuttle/caravan/freighter3)
 "bg" = (
@@ -250,7 +250,7 @@
 	},
 /obj/effect/gibspawner/human,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/shuttle/caravan/freighter2)
 "bi" = (
@@ -336,7 +336,7 @@
 	amount = 1
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/ruin/unpowered)
 "fZ" = (
@@ -495,7 +495,7 @@
 	name = "Cargo Blast Door"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/shuttle/caravan/freighter2)
 "hp" = (
@@ -512,7 +512,7 @@
 	name = "Cargo Blast Door"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/shuttle/caravan/freighter2)
 "hr" = (
@@ -813,7 +813,7 @@
 "iz" = (
 /obj/item/shard,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = TRUE
 	},
 /area/shuttle/caravan/freighter3)
 "iA" = (
