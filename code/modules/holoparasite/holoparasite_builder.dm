@@ -43,7 +43,7 @@
 	if(isnum_safe(_uses))
 		uses = max(round(_uses), 1)
 	debug_mode = _debug_mode
-	accent_color = pick(GLOB.color_list_blood_brothers)
+	accent_color = pick(GLOB.color_list_rainbow)
 
 /datum/holoparasite_builder/Destroy()
 	QDEL_NULL(saved_stats)
@@ -195,7 +195,7 @@
 			var/color = params["color"]
 			if(!istext(color) || length(color) != 7)
 				return
-			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_blood_brothers))
+			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_rainbow))
 			if(is_color_dark_with_saturation(new_accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
 				to_chat(usr, "<span class='warning'>Selected accent color is too dark!</span>")
 				return
