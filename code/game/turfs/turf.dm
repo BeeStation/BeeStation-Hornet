@@ -567,7 +567,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/clean_turf_texture()
 	for(var/obj/effect/turf_texture/TF in vis_contents)
-		if(TF.parent_texture?.cleanable)
+		if(initial(TF.parent_texture?.cleanable))
 			vis_contents -= TF
 
 /// returns a list of all mobs inside of a turf.
