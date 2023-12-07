@@ -338,63 +338,6 @@
 	foodtype = FRUIT | PINEAPPLE
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/food/snacks/canned
-	name = "Canned Air"
-	desc = "If you ever wondered where air came from..."
-	list_reagents = list(/datum/reagent/oxygen = 6, /datum/reagent/nitrogen = 24)
-	icon_state = "peachcan"
-	in_container = TRUE
-	reagent_flags = NONE
-	spillable = FALSE
-	w_class = WEIGHT_CLASS_NORMAL
-	volume = 30
-
-/obj/item/reagent_containers/food/snacks/canned/proc/open_can(mob/user)
-	to_chat(user, "You pull back the tab of \the [src].")
-	playsound(user.loc, 'sound/items/foodcanopen.ogg', 50)
-	ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
-	spillable = TRUE
-
-/obj/item/reagent_containers/food/snacks/canned/attack_self(mob/user)
-	if(!is_drainable())
-		open_can(user)
-		icon_state = "[icon_state]_open"
-	return ..()
-
-/obj/item/reagent_containers/food/snacks/canned/attack(mob/living/M, mob/user, def_zone)
-	if (!is_drainable())
-		to_chat(user, "<span class='warning'>[src]'s lid hasn't been opened!</span>")
-		return 0
-	return ..()
-
-/obj/item/reagent_containers/food/snacks/canned/beans
-	name = "tin of beans"
-	desc = "Musical fruit in a slightly less musical container."
-	icon_state = "beans"
-	trash = /obj/item/trash/can/food/beans
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 10)
-	filling_color = "#B22222"
-	tastes = list("beans" = 1)
-	foodtype = VEGETABLES
-
-/obj/item/reagent_containers/food/snacks/canned/peaches
-	name = "canned peaches"
-	desc = "Just a nice can of ripe peaches swimming in their own juices."
-	icon_state = "peachcan"
-	trash = /obj/item/trash/can/food/peaches
-	list_reagents = list(/datum/reagent/consumable/peachjuice = 20, /datum/reagent/consumable/sugar = 8, /datum/reagent/consumable/nutriment = 2)
-	filling_color = "#ffdf26"
-	tastes = list("peaches" = 7, "tin" = 1)
-	foodtype = FRUIT | SUGAR
-
-/obj/item/reagent_containers/food/snacks/canned/peaches/maint
-	name = "Maintenance Peaches"
-	desc = "I have a mouth and I must eat."
-	icon_state = "peachcanmaint"
-	trash = /obj/item/trash/can/food/peaches/maint
-	tastes = list("peaches" = 1, "tin" = 7)
-
 /obj/item/reagent_containers/food/snacks/crab_rangoon
 	name = "Crab Rangoon"
 	desc = "Has many names, like crab puffs, cheese wontons, crab dumplings? Whatever you call them, they're a fabulous blast of cream cheesy crab."
@@ -416,16 +359,6 @@
 	filling_color = "#ECA735"
 	tastes = list("fried corn" = 1)
 	foodtype = JUNKFOOD | FRIED
-
-/obj/item/reagent_containers/food/snacks/canned/beefbroth
-	name = "canned beef broth"
-	desc = "Why does this exist?"
-	icon_state = "beefcan"
-	trash = /obj/item/trash/can/food/beefbroth
-	list_reagents = list(/datum/reagent/consumable/beefbroth = 50)
-	filling_color = "#100800"
-	tastes = list("disgust" = 7, "tin" = 1)
-	foodtype = MEAT | GROSS | JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/pingles
 	name = "pingles"
