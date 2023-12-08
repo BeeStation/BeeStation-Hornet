@@ -4,17 +4,19 @@
  * @license MIT
  */
 
-import { BooleanLike, classes, pureComponentHooks } from 'common/react';
-import { RefObject } from 'inferno';
+import { classes } from 'common/react';
 import { BoxProps, computeBoxClassName, computeBoxProps, unit } from './Box';
 
-export type FlexProps = BoxProps & {
-  direction?: string | BooleanLike;
-  wrap?: string | BooleanLike;
-  align?: string | BooleanLike;
-  justify?: string | BooleanLike;
-  inline?: BooleanLike;
-};
+export type FlexProps = Partial<{
+  align: string | boolean;
+  direction: string;
+  inline: boolean;
+  justify: string;
+  scrollable: boolean;
+  style: Partial<HTMLDivElement['style']>;
+  wrap: string | boolean;
+}> &
+  BoxProps;
 
 export const computeFlexClassName = (props: FlexProps) => {
   return classes([
@@ -28,13 +30,14 @@ export const computeFlexClassName = (props: FlexProps) => {
 
 export const computeFlexProps = (props: FlexProps) => {
   const { className, direction, wrap, align, justify, inline, ...rest } = props;
+
   return computeBoxProps({
     style: {
       ...rest.style,
-      'flex-direction': direction,
-      'flex-wrap': wrap === true ? 'wrap' : wrap,
-      'align-items': align,
-      'justify-content': justify,
+      flexDirection: direction,
+      flexWrap: wrap === true ? 'wrap' : wrap,
+      alignItems: align,
+      justifyContent: justify,
     },
     ...rest,
   });
@@ -45,16 +48,15 @@ export const Flex = (props) => {
   return <div className={classes([className, computeFlexClassName(rest)])} {...computeFlexProps(rest)} />;
 };
 
-Flex.defaultHooks = pureComponentHooks;
-
-export type FlexItemProps = BoxProps & {
-  grow?: number;
-  order?: number;
-  shrink?: number;
-  basis?: string | BooleanLike;
-  align?: string | BooleanLike;
-  innerRef?: RefObject<HTMLDivElement>;
-};
+export type FlexItemProps = BoxProps &
+  Partial<{
+    grow: number | boolean;
+    order: number;
+    shrink: number | boolean;
+    basis: string | number;
+    align: string | boolean;
+    style: Partial<HTMLDivElement['style']>;
+  }>;
 
 export const computeFlexItemClassName = (props: FlexItemProps) => {
   return classes(['Flex__item', Byond.IS_LTE_IE10 && 'Flex__item--iefix', computeBoxClassName(props)]);
@@ -62,6 +64,7 @@ export const computeFlexItemClassName = (props: FlexItemProps) => {
 
 export const computeFlexItemProps = (props: FlexItemProps) => {
   const { className, style, grow, order, shrink, basis, align, ...rest } = props;
+
   const computedBasis =
     basis ??
     // IE11: Set basis to specified width if it's known, which fixes certain
@@ -73,11 +76,11 @@ export const computeFlexItemProps = (props: FlexItemProps) => {
   return computeBoxProps({
     style: {
       ...style,
-      'flex-grow': grow !== undefined && Number(grow),
-      'flex-shrink': shrink !== undefined && Number(shrink),
-      'flex-basis': unit(computedBasis),
-      'order': order,
-      'align-self': align,
+      flexGrow: grow !== undefined && Number(grow),
+      flexShrink: shrink !== undefined && Number(shrink),
+      flexBasis: unit(computedBasis),
+      order: order,
+      alignSelf: align,
     },
     ...rest,
   });
@@ -93,7 +96,5 @@ const FlexItem = (props) => {
     />
   );
 };
-
-FlexItem.defaultHooks = pureComponentHooks;
 
 Flex.Item = FlexItem;

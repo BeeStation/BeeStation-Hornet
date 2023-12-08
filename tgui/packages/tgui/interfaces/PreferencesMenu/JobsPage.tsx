@@ -1,6 +1,6 @@
 import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
-import type { Inferno, InfernoNode } from 'inferno';
+import { PropsWithChildren, ReactNode } from 'react';
 import { useBackend } from '../../backend';
 import { Box, Button, Dropdown, Stack, Flex, Tooltip } from '../../components';
 import { createSetPreference, Job, JoblessRole, JobPriority, PreferencesMenuData } from './data';
@@ -75,10 +75,10 @@ const PriorityButtons = (props: { createSetPriority: CreateSetPriority; isOverfl
   return (
     <Flex
       style={{
-        'align-items': 'center',
-        'justify-content': 'flex-end',
-        'height': '100%',
-        'border': '1px solid rgba(0, 0, 0, 0.4)',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        height: '100%',
+        border: '1px solid rgba(0, 0, 0, 0.4)',
       }}>
       {isOverflow ? (
         <>
@@ -129,7 +129,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
   const daysLeft = data.job_days_left ? data.job_days_left[name] : 0;
   const lockReason = job.lock_reason;
 
-  let rightSide: InfernoNode;
+  let rightSide: ReactNode;
 
   if (lockReason) {
     rightSide = (
@@ -171,19 +171,14 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
   }
 
   return (
-    <Stack.Item
-      className={className}
-      height="100%"
-      style={{
-        'margin-top': 0,
-      }}>
+    <Stack.Item className={className} height="100%" mt={0}>
       <Stack fill align="center">
         <Tooltip content={job.description} position="bottom-start">
           <Stack.Item
             className="job-name"
             width="50%"
             style={{
-              'padding-left': '0.3em',
+              paddingLeft: '0.3em',
             }}>
             {name}
           </Stack.Item>
@@ -197,7 +192,7 @@ const JobRow = (props: { className?: string; job: Job; name: string }) => {
   );
 };
 
-const Department: Inferno.SFC<{ department: string }> = (props) => {
+const Department = (props: { department: string } & PropsWithChildren) => {
   const { children, department: name } = props;
   const className = `PreferencesMenu__Jobs__departments--${name}`;
 

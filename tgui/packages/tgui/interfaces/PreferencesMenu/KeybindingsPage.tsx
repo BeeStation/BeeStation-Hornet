@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { Box, Button, KeyListener, Stack, Tooltip, TrackOutsideClicks, Dimmer } from '../../components';
 import { resolveAsset } from '../../assets';
 import { PreferencesMenuData } from './data';
@@ -160,7 +160,7 @@ const KeybindingName = (props: { keybinding: Keybinding }) => {
       <Box
         as="span"
         style={{
-          'border-bottom': '2px dotted rgba(255, 255, 255, 0.8)',
+          borderBottom: '2px dotted rgba(255, 255, 255, 0.8)',
         }}>
         {keybinding.name}
       </Box>
@@ -205,8 +205,8 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
     error: false,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);

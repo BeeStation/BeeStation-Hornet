@@ -1,5 +1,4 @@
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { sortBy } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Input, NoticeBox, Section, Collapsible, Table } from '../components';
@@ -42,10 +41,10 @@ export const Stack = (props) => {
         <Section
           title={'Amount: ' + amount}
           buttons={
-            <Fragment>
+            <>
               Search
               <Input autoFocus value={searchText} onInput={(e, value) => setSearchText(value)} mx={1} />
-            </Fragment>
+            </>
           }>
           {(items.length === 0 && <NoticeBox>No recipes found.</NoticeBox>) || (
             <RecipeList recipes={items} do_sort={doSearch} expand={doSearch} />

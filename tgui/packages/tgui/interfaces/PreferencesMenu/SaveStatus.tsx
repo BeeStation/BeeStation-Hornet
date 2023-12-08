@@ -21,9 +21,9 @@ export const SaveStatus = (props) => {
         save_in_progress ? (
           <span>
             Saving
-            <span class="loading-one">.</span>
-            <span class="loading-two">.</span>
-            <span class="loading-three">.</span>
+            <span className="loading-one">.</span>
+            <span className="loading-two">.</span>
+            <span className="loading-three">.</span>
           </span>
         ) : (
           <strong>{save_sucess ? 'Saved' : 'Error'}</strong>

@@ -31,7 +31,7 @@ export const LoadoutPage = (props) => {
 
         return (
           <Stack height="100%">
-            <Stack.Item style={{ 'max-height': '640px' }}>
+            <Stack.Item style={{ maxHeight: '640px' }}>
               <Flex
                 width="219px"
                 mb={1}

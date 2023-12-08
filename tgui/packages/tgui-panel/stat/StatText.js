@@ -1,6 +1,5 @@
 import { useSelector } from 'tgui/backend';
 import { Button, Flex, Box, Section } from 'tgui/components';
-import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { Divider, Table } from '../../tgui/components';
 import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_BLANK } from './constants';
@@ -153,7 +152,7 @@ export const StatTextButton = (props) => {
               grow={1}
               ml={1.5}
               style={{
-                'white-space': 'normal',
+                whiteSpace: 'normal',
               }}>
               {text}
             </Flex.Item>
@@ -180,7 +179,7 @@ export const StatTextButton = (props) => {
             </Flex>
             <Box
               style={{
-                'white-space': 'normal',
+                whiteSpace: 'normal',
               }}>
               {text}
             </Box>
@@ -395,11 +394,12 @@ export const HoboStatTextAtom = (props) => {
         <Table>
           <Table.Row>
             <Table.Cell>
-              <img
+              <Box
+                as="img"
                 src={`data:image/jpeg;base64,${atom_icon}`}
                 style={{
-                  'vertical-align': 'middle',
-                  'horizontal-align': 'middle',
+                  verticalAlign: 'middle',
+                  horizontalAlign: 'middle',
                 }}
               />
             </Table.Cell>

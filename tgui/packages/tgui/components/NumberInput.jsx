@@ -5,8 +5,8 @@
  */
 
 import { clamp } from 'common/math';
-import { classes, pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { classes } from 'common/react';
+import { Component, createRef } from 'react';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box } from './Box';
 
@@ -151,19 +151,20 @@ export class NumberInput extends Component {
     if (dragging || suppressingFlicker) {
       displayValue = intermediateValue;
     }
-    // IE8: Use an "unselectable" prop because "user-select" doesn't work.
-    const renderContentElement = (value) => (
-      <div className="NumberInput__content" unselectable={Byond.IS_LTE_IE8}>
-        {value + (unit ? ' ' + unit : '')}
+
+    const contentElement = (
+      <div className="NumberInput__content">
+        {animated && !dragging && !suppressingFlicker ? (
+          <AnimatedNumber value={displayValue} format={format} />
+        ) : format ? (
+          format(displayValue)
+        ) : (
+          displayValue
+        )}
+
+        {unit ? ' ' + unit : ''}
       </div>
     );
-    const contentElement =
-      (animated && !dragging && !suppressingFlicker && (
-        <AnimatedNumber value={displayValue} format={format}>
-          {renderContentElement}
-        </AnimatedNumber>
-      )) ||
-      renderContentElement(format ? format(displayValue) : displayValue);
     return (
       <Box
         className={classes(['NumberInput', fluid && 'NumberInput--fluid', className])}
@@ -187,8 +188,8 @@ export class NumberInput extends Component {
           style={{
             display: !editing ? 'none' : undefined,
             height: height,
-            'line-height': lineHeight,
-            'font-size': fontSize,
+            lineHeight: lineHeight,
+            fontSize: fontSize,
           }}
           onBlur={(e) => {
             if (!editing) {
@@ -248,7 +249,6 @@ export class NumberInput extends Component {
   }
 }
 
-NumberInput.defaultHooks = pureComponentHooks;
 NumberInput.defaultProps = {
   minValue: -Infinity,
   maxValue: +Infinity,

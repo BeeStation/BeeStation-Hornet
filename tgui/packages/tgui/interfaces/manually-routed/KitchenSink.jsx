@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../../backend';
 import { BlockQuote, Box, Button, ByondUi, Collapsible, Flex, Icon, Input, Knob, LabeledList, NumberInput, ProgressBar, Section, Slider, Tabs, Tooltip } from '../../components';
 import { DraggableControl } from '../../components/DraggableControl';
@@ -189,7 +188,7 @@ const KitchenSinkTabs = (props) => {
 const KitchenSinkTooltip = (props) => {
   const positions = ['top', 'left', 'right', 'bottom', 'bottom-left', 'bottom-right'];
   return (
-    <Fragment>
+    <>
       <Box>
         <Tooltip content="Tooltip text.">
           <Box inline position="relative" mr={1}>
@@ -203,7 +202,7 @@ const KitchenSinkTooltip = (props) => {
           <Button key={position} color="transparent" tooltip="Tooltip text." tooltipPosition={position} content={position} />
         ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 

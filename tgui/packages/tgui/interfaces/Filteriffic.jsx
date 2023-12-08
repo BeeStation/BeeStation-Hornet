@@ -1,5 +1,4 @@
 import { useBackend, useLocalState } from '../backend';
-import { Fragment } from 'inferno';
 import { Box, Button, Collapsible, ColorBox, Dropdown, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 import { map } from 'common/collections';
@@ -33,7 +32,7 @@ const FilterFloatEntry = (props) => {
   const { act } = useBackend();
   const [step, setStep] = useLocalState(`${filterName}-${name}`, 0.01);
   return (
-    <Fragment>
+    <>
       <NumberInput
         value={value}
         minValue={-500}
@@ -61,7 +60,7 @@ const FilterFloatEntry = (props) => {
         width="70px"
         onChange={(e, value) => setStep(value)}
       />
-    </Fragment>
+    </>
   );
 };
 
@@ -89,7 +88,7 @@ const FilterColorEntry = (props) => {
   const { value, filterName, name } = props;
   const { act } = useBackend();
   return (
-    <Fragment>
+    <>
       <Button
         icon="pencil-alt"
         onClick={() =>
@@ -111,7 +110,7 @@ const FilterColorEntry = (props) => {
           })
         }
       />
-    </Fragment>
+    </>
   );
 };
 
@@ -119,7 +118,7 @@ const FilterIconEntry = (props) => {
   const { value, filterName } = props;
   const { act } = useBackend();
   return (
-    <Fragment>
+    <>
       <Button
         icon="pencil-alt"
         onClick={() =>
@@ -131,7 +130,7 @@ const FilterIconEntry = (props) => {
       <Box inline ml={1}>
         {value}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -211,7 +210,7 @@ const FilterEntry = (props) => {
     <Collapsible
       title={name + ' (' + type + ')'}
       buttons={
-        <Fragment>
+        <>
           <NumberInput
             value={priority}
             stepPixelSize={10}
@@ -235,7 +234,7 @@ const FilterEntry = (props) => {
             width="90px"
           />
           <Button.Confirm icon="minus" onClick={() => act('remove_filter', { name: name })} />
-        </Fragment>
+        </>
       }>
       <Section level={2}>
         <LabeledList>
@@ -277,7 +276,7 @@ export const Filteriffic = (props) => {
         <Section
           title={
             hiddenSecret ? (
-              <Fragment>
+              <>
                 <Box mr={0.5} inline>
                   MASS EDIT:
                 </Box>
@@ -287,7 +286,7 @@ export const Filteriffic = (props) => {
                   confirmContent="ARE YOU SURE?"
                   onClick={() => act('mass_apply', { path: massApplyPath })}
                 />
-              </Fragment>
+              </>
             ) : (
               <Box inline onDblClick={() => setHiddenSecret(true)}>
                 {name}

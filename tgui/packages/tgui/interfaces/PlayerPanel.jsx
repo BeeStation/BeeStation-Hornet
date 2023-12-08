@@ -5,7 +5,7 @@ import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
 import { ButtonCheckbox } from '../components/Button';
-import { Component } from 'inferno';
+import { Component } from 'react';
 
 /**
 --------------------

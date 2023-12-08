@@ -1,7 +1,6 @@
 import { binaryInsertWith, sortBy } from 'common/collections';
-import { useLocalState } from '../../backend';
-import type { InfernoNode } from 'inferno';
-import { useBackend } from '../../backend';
+import { ReactNode } from 'react';
+import { useBackend, useLocalState } from '../../backend';
 import { Box, Flex, Tooltip, Section, Input, Icon } from '../../components';
 import { PreferencesMenuData } from './data';
 import features from './preferences/features';
@@ -35,7 +34,7 @@ const SUBCATEGORY_SCALES = {
 
 type PreferenceChild = {
   name: string;
-  children: InfernoNode;
+  children: ReactNode;
 };
 
 const binaryInsertPreference = binaryInsertWith<PreferenceChild>((child) => child.name);
@@ -49,21 +48,21 @@ export const GamePreferencesPage = (props) => {
   for (const [featureId, value] of Object.entries(data.character_preferences.game_preferences)) {
     const feature = features[featureId];
 
-    let nameInner: InfernoNode = feature?.name || featureId;
+    let nameInner: ReactNode = feature?.name || featureId;
 
     if (feature?.description) {
       nameInner = (
         <Box
           as="span"
           style={{
-            'border-bottom': '2px dotted rgba(180, 180, 180, 0.8)',
+            borderBottom: '2px dotted rgba(180, 180, 180, 0.8)',
           }}>
           {nameInner}
         </Box>
       );
     }
 
-    let name: InfernoNode = (
+    let name: ReactNode = (
       <Flex.Item grow={1} pr={2} basis={0} ml={2}>
         {nameInner}
       </Flex.Item>
@@ -124,7 +123,7 @@ export const GamePreferencesPage = (props) => {
     return result;
   };
 
-  const gamePreferenceEntries: [string, InfernoNode][] = sortByManual(Object.entries(gamePreferences)).map(
+  const gamePreferenceEntries: [string, ReactNode][] = sortByManual(Object.entries(gamePreferences)).map(
     ([category, subcategory]) => {
       let subcategories = sortByName(Object.entries(subcategory));
       return [
@@ -144,7 +143,7 @@ export const GamePreferencesPage = (props) => {
                   fitted
                   pb={1}
                   backgroundColor="rgba(40, 40, 45, 0.25)"
-                  style={{ 'box-shadow': '1px 1px 5px rgba(0, 0, 0, 0.4)' }}
+                  style={{ boxShadow: '1px 1px 5px rgba(0, 0, 0, 0.4)' }}
                   title={<Box fontSize={1.1}>{subcategory}</Box>}>
                   <Box backgroundColor="rgba(40, 40, 45, 0.75)">{preferences.map((preference) => preference.children)}</Box>
                 </Section>
@@ -163,7 +162,7 @@ export const GamePreferencesPage = (props) => {
   const sortByNameTyped = sortBy<[string, Record<string, PreferenceChild[]>]>(([name]) => name);
 
   const search = createSearch(searchText, (preference: PreferenceChild) => preference.name);
-  const searchResult: null | [string, InfernoNode][] =
+  const searchResult: null | [string, ReactNode][] =
     searchText?.length > 0
       ? [
         [
@@ -199,7 +198,7 @@ export const GamePreferencesPage = (props) => {
       ]
       : null;
 
-  const result: [string, InfernoNode][] = searchResult || gamePreferenceEntries;
+  const result: [string, ReactNode][] = searchResult || gamePreferenceEntries;
 
   return (
     <TabbedMenu categoryEntries={result} categoryScales={CATEGORY_SCALES}>

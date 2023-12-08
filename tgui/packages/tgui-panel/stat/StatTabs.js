@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'tgui/backend';
-import { Button, Flex, Tabs, Section, Input } from 'tgui/components';
-import { Box, ScrollableBox, Fragment, Divider } from '../../tgui/components';
+import { Button, Flex, Tabs, Section, Input, Box, ScrollableBox, Divider } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { StatStatus, HoboStatStatus } from './StatStatus';
@@ -24,7 +23,7 @@ export const StatTabs = (props) => {
       break;
   }
   return (
-    <Fragment>
+    <>
       <Flex.Item shrink={0}>
         <div className="StatTabBackground">{settings.statTabMode === 'Scroll' ? <StatTabScroll /> : <StatTabWrap />}</div>
       </Flex.Item>
@@ -34,7 +33,7 @@ export const StatTabs = (props) => {
         </div>
       </ScrollableBox>
       {stat.selectedTab === '(!) Admin PM' && (
-        <Fragment>
+        <>
           <Divider />
           <Input
             fluid
@@ -48,9 +47,9 @@ export const StatTabs = (props) => {
               })
             }
           />
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -117,7 +116,6 @@ export const StatTabWrap = (props) => {
 
 export const HoboStatTabs = (props) => {
   const stat = useSelector(selectStatPanel);
-  const settings = useSettings();
   let statSection = <HoboStatText />;
   switch (stat.selectedTab) {
     case 'Status':
@@ -132,7 +130,7 @@ export const HoboStatTabs = (props) => {
       <StatTabWrap />
       <Box grow={1}>{statSection}</Box>
       {stat.selectedTab === '(!) Admin PM' && (
-        <Fragment>
+        <>
           <Divider />
           <Input
             fluid
@@ -146,7 +144,7 @@ export const HoboStatTabs = (props) => {
               })
             }
           />
-        </Fragment>
+        </>
       )}
     </Box>
   );

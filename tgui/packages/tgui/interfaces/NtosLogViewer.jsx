@@ -1,7 +1,7 @@
 import { NtosWindow } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
 import { Section, Table, Button } from '../components';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 
 export const NtosLogViewer = (props) => {
   const { act, data } = useBackend();

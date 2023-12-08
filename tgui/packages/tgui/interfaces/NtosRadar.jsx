@@ -1,5 +1,4 @@
 import { classes } from 'common/react';
-import { Fragment } from 'inferno';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Button, Flex, Icon, NoticeBox, Section, Tooltip } from '../components';
@@ -146,7 +145,7 @@ export const NtosRadarContent = (props) => {
             </NoticeBox>
           )
           : (!!target.use_rotate && (
-            <Fragment>
+            <>
               <Box
                 as="img"
                 src={resolveAsset(target.arrowstyle)}
@@ -167,7 +166,7 @@ export const NtosRadarContent = (props) => {
                   left={224 + 'px'}
                 />
               ) : null}
-            </Fragment>
+            </>
           )) || (
             <Icon
               name={target.pointer_z ? target.pointer_z : 'crosshairs'}

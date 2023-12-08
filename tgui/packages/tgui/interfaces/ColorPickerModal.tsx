@@ -12,7 +12,7 @@ import { clamp } from 'common/math';
 import { hexToHsva, HsvaColor, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
 import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { classes } from 'common/react';
-import { Component, FocusEvent, FormEvent, InfernoNode } from 'inferno';
+import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
 import { logger } from 'tgui/logging';
 import { InputButtons } from './common/InputButtons';
 
@@ -273,7 +273,7 @@ interface HexColorInputProps extends Omit<ColorInputBaseProps, 'escape' | 'valid
 /** Adds "#" symbol to the beginning of the string */
 const prefix = (value: string) => '#' + value;
 
-export const HexColorInput = (props: HexColorInputProps): InfernoNode => {
+export const HexColorInput = (props: HexColorInputProps) => {
   const { prefixed, alpha, color, fluid, onChange, ...rest } = props;
 
   /** Escapes all non-hexadecimal characters including "#" */
@@ -312,7 +312,7 @@ export class ColorInput extends Component {
   state: { localValue: string };
 
   constructor(props: ColorInputBaseProps) {
-    super();
+    super(props);
     this.props = props;
     this.state = { localValue: this.props.escape(this.props.color) };
   }
@@ -374,7 +374,7 @@ const SaturationValue = ({ hsva, onChange }) => {
   };
 
   const containerStyle = {
-    'background-color': `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
+    backgroundColor: `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
   };
 
   return (
@@ -454,7 +454,7 @@ const Saturation = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: 0,
             v: color.v,

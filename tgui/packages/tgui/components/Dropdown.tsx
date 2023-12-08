@@ -1,39 +1,39 @@
 import { createPopper, VirtualElement } from '@popperjs/core';
 import { classes } from 'common/react';
-import { Component, findDOMFromVNode, InfernoNode, render } from 'inferno';
+import { Component, ReactNode } from 'react';
+import { findDOMNode, render } from 'react-dom';
 import { Box, BoxProps } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Stack } from './Stack';
 
 export interface DropdownEntry {
-  displayText: string | number | InfernoNode;
+  displayText: string | number | ReactNode;
   value: string | number | Enumerator;
 }
 
-export type DropdownRequiredProps = {
-  options: string[] | DropdownEntry[];
-};
-
-export type DropdownOptionalProps = {
-  icon?: string;
-  iconRotation?: number;
-  clipSelectedText?: boolean;
-  width?: string;
-  menuWidth?: string;
-  over?: boolean;
-  color?: string;
-  nochevron?: boolean;
-  displayText?: string | number | InfernoNode;
-  onClick?: (event) => void;
-  // you freaks really are just doing anything with this shit
-  selected?: any;
-  onSelected?: (selected: any) => void;
-  buttons?: boolean;
+export type DropdownPartialProps = Partial<{
+  buttons: boolean;
+  clipSelectedText: boolean;
+  color: string;
+  disabled: boolean;
   displayHeight?: string;
-};
+  displayText: string | number | ReactNode;
+  dropdownStyle: any;
+  icon: string;
+  iconRotation: number;
+  iconSpin: boolean;
+  menuWidth: string;
+  nochevron: boolean;
+  onClick: (event) => void;
+  onSelected: (selected: any) => void;
+  over: boolean;
+  // you freaks really are just doing anything with this shit
+  selected: any;
+  width: string;
+}>;
 
-export type DropdownUniqueProps = DropdownRequiredProps & DropdownOptionalProps;
+type DropdownUniqueProps = { options: string[] | DropdownEntry[] } & DropdownPartialProps;
 
 export type DropdownProps = BoxProps & DropdownUniqueProps;
 
@@ -86,7 +86,8 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
   };
 
   getDOMNode() {
-    return findDOMFromVNode(this.$LI, true);
+    // eslint-disable-next-line react/no-find-dom-node
+    return findDOMNode(this) as Element;
   }
 
   componentDidMount() {
@@ -110,11 +111,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     Dropdown.currentOpenMenu = domNode;
 
     renderedMenu.scrollTop = 0;
-    renderedMenu.style.width =
-      this.props.menuWidth ||
-      // Hack, but domNode should *always* be the parent control meaning it will have width
-      // @ts-ignore
-      `${domNode.offsetWidth}px`;
+    renderedMenu.style.width = this.props.menuWidth || '10rem';
     renderedMenu.style.opacity = '1';
     renderedMenu.style.pointerEvents = 'auto';
 
@@ -336,7 +333,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
               {displayText || this.state.selected}
             </span>
             {nochevron || (
-              <span className="Dropdown__arrow-button" style={{ 'line-height': displayHeight }}>
+              <span className="Dropdown__arrow-button" style={displayHeight ? { lineHeight: displayHeight } : undefined}>
                 <Icon name={adjustedOpen ? 'chevron-up' : 'chevron-down'} />
               </span>
             )}
@@ -350,7 +347,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
                 content={
                   <Icon
                     ml="0.25em"
-                    style={{ 'display': 'inline-block', 'line-height': displayHeight || 'unset' }}
+                    style={{ display: 'inline-block', lineHeight: displayHeight || 'unset' }}
                     name="chevron-left"
                   />
                 }
@@ -371,7 +368,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
                 content={
                   <Icon
                     ml="0.25em"
-                    style={{ 'display': 'inline-block', 'line-height': displayHeight || 'unset' }}
+                    style={{ display: 'inline-block', lineHeight: displayHeight || 'unset' }}
                     name="chevron-right"
                   />
                 }

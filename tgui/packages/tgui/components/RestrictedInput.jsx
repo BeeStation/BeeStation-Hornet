@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { clamp } from 'common/math';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { Box } from './Box';
 import { KEY_ESCAPE, KEY_ENTER } from 'common/keycodes';
 
@@ -27,8 +27,8 @@ const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
 };
 
 export class RestrictedInput extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.inputRef = createRef();
     this.state = {
       editing: false,

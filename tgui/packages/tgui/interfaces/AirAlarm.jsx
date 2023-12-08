@@ -1,9 +1,7 @@
 import { toFixed } from 'common/math';
-import { Fragment } from 'inferno';
-import { decodeHtmlEntities } from 'common/string';
+import { Fragment } from 'react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, LabeledList, NumberInput, Section } from '../components';
-import { getGasLabel } from '../constants';
+import { Box, Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 import { Vent, Scrubber } from './common/AtmosControls';

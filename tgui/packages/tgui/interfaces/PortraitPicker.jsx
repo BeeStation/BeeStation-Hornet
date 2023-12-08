@@ -58,8 +58,8 @@ export const PortraitPicker = (props) => {
                     height="96px"
                     width="96px"
                     style={{
-                      'vertical-align': 'middle',
-                      '-ms-interpolation-mode': 'nearest-neighbor',
+                      verticalAlign: 'middle',
+                      msInterpolationMode: 'nearest-neighbor',
                     }}
                   />
                 </Flex.Item>

@@ -1,8 +1,6 @@
-import { map } from 'common/collections';
 import { useBackend } from '../backend';
 import { Box, Button, Collapsible, NoticeBox, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
-import { Fragment } from 'inferno';
 
 export const CloningConsole = (props) => {
   const { act, data } = useBackend();
@@ -107,7 +105,7 @@ export const CloningConsole = (props) => {
                             />
                             <br />
                             {record['damages'] ? (
-                              <Fragment>
+                              <>
                                 Health Implant Data
                                 <br />
                                 <small>
@@ -125,12 +123,12 @@ export const CloningConsole = (props) => {
                                   <ProgressBar color="red" value={record['damages']['brute'] / 100} />
                                 </small>
                                 <br />
-                              </Fragment>
+                              </>
                             ) : (
-                              <Fragment>
+                              <>
                                 Health implant data not available
                                 <br />
-                              </Fragment>
+                              </>
                             )}
                             Unique Identifier:
                             <br />

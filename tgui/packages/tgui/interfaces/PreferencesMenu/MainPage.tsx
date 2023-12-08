@@ -235,7 +235,7 @@ const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender
         placement: 'right',
       }}
       popperContent={
-        genderMenuOpen && (
+        genderMenuOpen ? (
           <TrackOutsideClicks onOutsideClick={() => setGenderMenuOpen(false)} removeOnOutsideClick>
             <Box className="theme-generic-yellow">
               <Stack className="PopupWindow" ml={0.5} p={0.5}>
@@ -259,6 +259,8 @@ const GenderButton = (props: { handleSetGender: (gender: Gender) => void; gender
               </Stack>
             </Box>
           </TrackOutsideClicks>
+        ) : (
+          <> </>
         )
       }>
       <Button
@@ -304,8 +306,8 @@ const MainFeature = (props: {
         placement: 'bottom-start',
       }}
       popperContent={
-        isOpen && (
-          <TrackOutsideClicks onOutsideClick={handleCloseInternal} removeOnOutsideClick>
+        isOpen ? (
+          <TrackOutsideClicks onOutsideClick={props.handleClose} removeOnOutsideClick>
             <ChoicedSelection
               name={catalog.name}
               catalog={catalog}
@@ -318,6 +320,8 @@ const MainFeature = (props: {
               setSearchText={setSearchText}
             />
           </TrackOutsideClicks>
+        ) : (
+          <> </>
         )
       }>
       <Button
@@ -515,12 +519,9 @@ export const MainPage = (props: { openSpecies: () => void }) => {
             )}
 
             <Stack height={`${CLOTHING_SIDEBAR_ROWS * CLOTHING_CELL_SIZE}px`}>
-              <Stack.Item fill style={{ 'margin-right': '-2.5px' }}>
+              <Stack.Item style={{ marginRight: '-2.5px' }}>
                 <Stack vertical fill>
-                  <Stack.Item
-                    className="section-background"
-                    p={0.75}
-                    style={{ 'margin-right': '1px', 'margin-bottom': '-5px' }}>
+                  <Stack.Item className="section-background" p={0.75} style={{ marginRight: '1px', marginBottom: '-5px' }}>
                     <CharacterControls
                       gender={data.character_preferences.misc.gender}
                       handleOpenSpecies={props.openSpecies}
@@ -548,7 +549,7 @@ export const MainPage = (props: { openSpecies: () => void }) => {
                 </Stack>
               </Stack.Item>
 
-              <Stack.Item fill width={`${CLOTHING_CELL_SIZE * 2 + 15}px`} className="section-background" p={0.75}>
+              <Stack.Item width={`${CLOTHING_CELL_SIZE * 2 + 15}px`} className="section-background" p={0.75}>
                 <Stack height="100%" vertical wrap>
                   {mainFeatures.map(([clothingKey, clothing]) => {
                     const catalog =

@@ -1,5 +1,5 @@
 import { clamp } from 'common/math';
-import { Component } from 'inferno';
+import { Component } from 'react';
 
 const FPS = 20;
 // Scales the positions to make things on the map appear closer or further away.

@@ -1,4 +1,4 @@
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { useBackend, useLocalState } from '../backend';
 import { Tabs, Section, Icon, Button, Box, Flex, Dimmer, Table, BlockQuote } from '../components';
 import { ButtonConfirm } from '../components/Button';
