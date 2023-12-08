@@ -14317,10 +14317,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/hallway/primary/starboard)
-"bCg" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "bCi" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -69234,10 +69230,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
-"pJG" = (
-/obj/structure/lattice/catwalk,
-/turf/closed/wall/r_wall,
-/area/space)
 "pJI" = (
 /obj/effect/landmark/start/virologist,
 /obj/structure/chair/office/light{
@@ -89760,12 +89752,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"wNi" = (
-/obj/structure/lattice,
-/obj/structure/grille/broken,
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/space/nearstation)
 "wNF" = (
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel/white,
@@ -149036,7 +149022,7 @@ weZ
 pvR
 aKV
 aFm
-bCg
+aFm
 aFm
 aFm
 aad
@@ -149759,7 +149745,7 @@ aaa
 aaa
 wiQ
 wiQ
-wNi
+aFo
 anv
 anv
 anv
@@ -150016,7 +150002,7 @@ aaa
 aaa
 sav
 aaa
-pJG
+anv
 aaa
 aaa
 aaa
