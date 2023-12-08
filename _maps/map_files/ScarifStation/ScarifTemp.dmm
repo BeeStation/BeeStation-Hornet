@@ -370,6 +370,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
+"agR" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-32"
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/beach)
 "agT" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/start/cyborg,
@@ -12963,6 +12969,15 @@
 /obj/effect/landmark/start/chaplain,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
+"jjv" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "jkp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -15739,10 +15754,13 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-16"
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -16022,6 +16040,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"lPK" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-32"
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/beach)
 "lPU" = (
 /obj/structure/closet/secure_closet/evidence,
 /obj/effect/turf_decal/bot,
@@ -16376,6 +16400,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/lab)
+"mdB" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-32"
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/beach)
 "meb" = (
 /obj/machinery/photocopier,
 /obj/effect/turf_decal/bot{
@@ -17020,6 +17050,15 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/openspace,
 /area/engine/atmos)
+"mEU" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel,
+/area/maintenance/port)
 "mEZ" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /mob/living/simple_animal/hostile/retaliate/frog{
@@ -18926,6 +18965,15 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/techmaint,
 /area/storage/tech)
+"oeA" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/beach)
 "ofi" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable/yellow{
@@ -21236,6 +21284,12 @@
 	},
 /turf/closed/wall/r_wall,
 /area/security/prison)
+"pRP" = (
+/obj/structure/cable/yellow{
+	icon_state = "8-16"
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/beach)
 "pSn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/barricade/wooden/crude,
@@ -22516,6 +22570,13 @@
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
 	})
+"qRy" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-32"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "qSf" = (
 /turf/open/floor/plating/dirt,
 /area/awaymission/beach)
@@ -24647,13 +24708,15 @@
 /turf/open/floor/plating/rust,
 /area/science/test_area)
 "sBt" = (
-/obj/structure/ladder,
-/obj/structure/railing{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel,
-/area/maintenance/central)
+/area/maintenance/port)
 "sBD" = (
 /obj/machinery/suit_storage_unit/engine,
 /obj/effect/turf_decal/stripes/line{
@@ -27512,6 +27575,12 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
+"uLX" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-16"
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/beach)
 "uMD" = (
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners{
 	dir = 1
@@ -27636,6 +27705,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
+"uPM" = (
+/obj/structure/cable/yellow{
+	icon_state = "8-32"
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/beach)
 "uPQ" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/turf_decal/bot,
@@ -29595,6 +29670,12 @@
 	icon_state = "engine_light"
 	},
 /area/holodeck/small)
+"wLw" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-16"
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/beach)
 "wLy" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
@@ -29678,6 +29759,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/vacant_room/office)
+"wNn" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-16"
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/beach)
 "wNK" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -37722,7 +37809,7 @@ rVK
 rVK
 hvI
 img
-vSp
+sBt
 nHi
 eiO
 kYW
@@ -37979,7 +38066,7 @@ rVK
 rVK
 rVK
 eXB
-sBt
+nAc
 ajy
 nHi
 nHi
@@ -39853,9 +39940,9 @@ xtO
 rVK
 rVK
 rVK
-rVK
-rVK
-rVK
+mGI
+wNn
+mGI
 rVK
 rVK
 rVK
@@ -39982,9 +40069,9 @@ rVK
 rVK
 rVK
 rVK
-rVK
-rVK
-rVK
+wLw
+oeA
+uLX
 rVK
 rVK
 rVK
@@ -40111,9 +40198,9 @@ rVK
 rVK
 rVK
 rVK
-rVK
-rVK
-rVK
+mGI
+pRP
+mGI
 rVK
 rVK
 rVK
@@ -40369,9 +40456,9 @@ rVK
 rVK
 rVK
 rVK
-rVK
-rVK
-rVK
+mGI
+mdB
+mGI
 rVK
 rVK
 rVK
@@ -40498,9 +40585,9 @@ rVK
 rVK
 rVK
 rVK
-rVK
-rVK
-rVK
+lPK
+oeA
+agR
 rVK
 rVK
 rVK
@@ -40627,9 +40714,9 @@ rVK
 rVK
 rVK
 rVK
-rVK
-rVK
-rVK
+mGI
+uPM
+mGI
 rVK
 rVK
 rVK
@@ -53505,8 +53592,8 @@ hdJ
 hdJ
 vqE
 img
-uaU
-pyd
+mEU
+qRy
 vpJ
 eeB
 vLG
@@ -54104,7 +54191,7 @@ rVK
 rVK
 rVK
 rba
-jES
+jjv
 vnY
 afw
 afw
