@@ -860,6 +860,12 @@
 /obj/item/screwdriver{
 	pixel_y = 10
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel,
 /area/security/main)
 "agd" = (
@@ -1031,6 +1037,11 @@
 /obj/structure/desk_bell{
 	pixel_x = 8
 	},
+/obj/machinery/door/window/brigdoor/northright{
+	dir = 8;
+	name = "Warden's Desk";
+	req_access_txt = "3"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "ahx" = (
@@ -1119,6 +1130,11 @@
 	name = "Armory Shutters";
 	req_access_txt = "3";
 	pixel_y = -24
+	},
+/obj/machinery/door/window/brigdoor/northright{
+	dir = 8;
+	name = "Warden's Desk";
+	req_access_txt = "3"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -6339,8 +6355,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1
+/obj/structure/disposalpipe/junction{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -8274,11 +8290,14 @@
 	name = "security shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/brigdoor{
-	name = "Armory Desk";
+/obj/item/restraints/handcuffs,
+/obj/machinery/door/window/southright{
+	name = "Warden's Desk"
+	},
+/obj/machinery/door/window/brigdoor/northright{
+	name = "Warden's Desk";
 	req_access_txt = "3"
 	},
-/obj/item/restraints/handcuffs,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "bqi" = (
@@ -20682,6 +20701,12 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
+"dJd" = (
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/structure/punching_bag,
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/prison,
+/area/security/prison)
 "dJi" = (
 /obj/machinery/requests_console{
 	department = "Atmospherics";
@@ -22640,6 +22665,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "eFB" = (
@@ -23816,6 +23844,9 @@
 /obj/machinery/camera/autoname{
 	dir = 4;
 	network = list("ss13, engine")
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -30254,6 +30285,13 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
+"iBd" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "iBk" = (
 /obj/structure/table,
 /obj/machinery/airalarm{
@@ -31216,6 +31254,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/turnstile,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "jaQ" = (
@@ -33133,17 +33172,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
-"jXg" = (
-/obj/effect/landmark/secequipment,
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/security/main)
 "jXD" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -39155,8 +39183,11 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/recharger,
-/obj/machinery/door/window/brigdoor{
-	name = "Armory Desk";
+/obj/machinery/door/window/southright{
+	name = "Warden's Desk"
+	},
+/obj/machinery/door/window/brigdoor/northright{
+	name = "Warden's Desk";
 	req_access_txt = "3"
 	},
 /turf/open/floor/plasteel/dark,
@@ -40058,6 +40089,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel,
 /area/security/main)
 "nmk" = (
@@ -40228,9 +40262,6 @@
 /obj/machinery/light{
 	dir = 4;
 	light_color = "#c1caff"
-	},
-/obj/structure/chair/stool{
-	dir = 8
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -40689,6 +40720,17 @@
 	},
 /turf/open/floor/plasteel/dark/side,
 /area/engine/atmos)
+"nAr" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/bin,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "nAK" = (
 /obj/machinery/newscaster{
 	pixel_y = -28
@@ -45070,6 +45112,14 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"pQn" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel,
+/area/security/main)
 "pQr" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -47247,6 +47297,9 @@
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -52373,12 +52426,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"tkP" = (
-/obj/structure/punching_bag,
-/obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/black/fourcorners,
-/turf/open/floor/prison,
-/area/security/prison)
 "tlM" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/tile/black/fourcorners,
@@ -53047,6 +53094,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"tAe" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/security/armory)
 "tAf" = (
 /obj/machinery/light/small,
 /turf/open/floor/engine/o2,
@@ -54223,14 +54277,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
-"uay" = (
-/obj/effect/landmark/secequipment,
-/obj/effect/turf_decal/bot,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/main)
 "ubb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/tank/plasma{
@@ -57088,6 +57134,7 @@
 	name = "Solitary Confinement";
 	req_access_txt = "63"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "vJV" = (
@@ -59291,9 +59338,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/security{
 	name = "Armory";
@@ -88230,7 +88274,7 @@ anQ
 mbB
 mcZ
 fCD
-tkP
+fCD
 acd
 mbB
 wWx
@@ -88481,13 +88525,13 @@ rbz
 anQ
 mbB
 jZi
-kME
-gNK
-anQ
+mbB
+bEx
+mbB
 mbB
 mcZ
 sch
-fCD
+dJd
 acd
 xIc
 xIc
@@ -89001,7 +89045,7 @@ aai
 mrX
 dZC
 qUp
-aai
+iBd
 gXs
 gXs
 gXs
@@ -90521,7 +90565,7 @@ rcF
 fFi
 lFp
 psy
-tcd
+nAr
 hqe
 iWo
 nth
@@ -92319,10 +92363,10 @@ acl
 lwt
 adQ
 cPn
-aaZ
+tAe
 afZ
 fma
-afU
+acq
 nmj
 afU
 cpA
@@ -92576,8 +92620,8 @@ ack
 ujS
 owQ
 wol
-aaZ
-lhd
+tAe
+pQn
 afU
 afU
 jsz
@@ -93608,11 +93652,11 @@ alt
 ahL
 qiG
 qiG
-aev
-jXg
-uay
-aev
 afU
+abl
+dZS
+afU
+aev
 adR
 hfJ
 coS
@@ -93869,7 +93913,7 @@ afU
 abl
 dZS
 afU
-afU
+aev
 adR
 rIF
 coS
