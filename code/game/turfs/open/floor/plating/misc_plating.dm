@@ -83,6 +83,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	initial_gas_mix = ATMOS_TANK_AIRMIX
 
 /turf/open/floor/plating/ashplanet/wateryrock
 	gender = PLURAL

@@ -47,10 +47,10 @@
 	blow off steam by doing stupid things like laying down, throwing
 	spheres at holes, or bludgeoning people.
 */
-/area/holodeck/rec_center
+/area/holodeck
 	name = "\improper Recreational Holodeck"
 
-/area/holodeck/rec_center/offstation_one
+/area/holodeck/offstation_one
 	name = "\improper Recreational Holodeck"
 
 /area/holodeck/small

@@ -170,6 +170,10 @@
 			Change_Ore(path, 1)
 			Spread_Vein(path)
 
+/turf/closed/mineral/random/rocky_air
+	baseturfs = /turf/open/floor/plating/ashplanet/rocky
+	initial_gas_mix = ATMOS_TANK_AIRMIX
+
 /turf/closed/mineral/random/high_chance
 	icon_state = "rock_highchance"
 	mineralChance = 25

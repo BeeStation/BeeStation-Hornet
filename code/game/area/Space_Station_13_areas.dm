@@ -75,6 +75,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
+/area/asteroid/paradice
+	name = "Paradice"
+	icon_state = "asteroid"
+	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
+	area_flags = VALID_TERRITORY | UNIQUE_AREA
+
+/area/asteroid/paradice/surface
+	name = "Paradice surface"
+	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+//	fullbright_type = FULLBRIGHT_STARLIGHT
+	sound_environment = null
+
 //STATION13
 
 //Docking Areas
