@@ -104,19 +104,22 @@
 /// Uses a dedicated render_target object to copy the entire appearance in real time to the blocking layer. For things that can change in appearance a lot from the base state, like humans.
 #define EMISSIVE_BLOCK_UNIQUE 2
 
-#define EMISSIVE_COLOR list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 1,1,1,0)
-/// A globaly cached version of [EMISSIVE_COLOR] for quick access.
-GLOBAL_LIST_INIT(emissive_color, EMISSIVE_COLOR)
-/// The color matrix applied to all emissive blockers. Should be solely dependent on alpha and not have RGB overlap with [EMISSIVE_COLOR].
-#define EM_BLOCK_COLOR list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
-/// A globaly cached version of [EM_BLOCK_COLOR] for quick access.
-GLOBAL_LIST_INIT(em_block_color, EM_BLOCK_COLOR)
+/// A globaly cached version of [EMISSIVE_COLOR] for quick access. Indexed by alpha value
+GLOBAL_LIST_INIT(emissive_color, new(256))
 /// A set of appearance flags applied to all emissive and emissive blocker overlays.
-#define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|KEEP_TOGETHER|RESET_COLOR|RESET_TRANSFORM)
-/// The color matrix used to mask out emissive blockers on the emissive plane. Alpha should default to zero, be solely dependent on the RGB value of [EMISSIVE_COLOR], and be independent of the RGB value of [EM_BLOCK_COLOR].
-#define EM_MASK_MATRIX list(0,0,0,1/3, 0,0,0,1/3, 0,0,0,1/3, 0,0,0,0, 1,1,1,0)
-/// A globaly cached version of [EM_MASK_MATRIX] for quick access.
-GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)
+#define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|RESET_COLOR|NO_CLIENT_COLOR|PIXEL_SCALE)
+
+/// Colour matrix used to convert items into blockers. The only thing that should be taken into account is the alpha value, and
+/// alpha of 1 should be fully black and an alpha of 0 should be black but transparent
+/// The reason we aren't working with just white and black here is because white means that the item emits light, and we do not
+/// want blockers to start emitting light just because they are transparent. We only want their blocking effect to be reduced.
+/// Red = 0
+/// Blue = 0
+/// Green = 0
+/// Alpha = alpha
+#define EM_BLOCKER_MATRIX list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
+/// A globaly cached version of [EM_BLOCKER_MATRIX] for quick access.
+GLOBAL_LIST_INIT(em_blocker_matrix, EM_BLOCKER_MATRIX)
 
 /// Returns the red part of a #RRGGBB hex sequence as number
 #define GETREDPART(hexa) hex2num(copytext(hexa, 2, 4))
@@ -155,3 +158,31 @@ GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
 	var/image/lighting_effect = new()
 	lighting_effect.appearance = /obj/effect/fullbright/starlight
 	return lighting_effect
+
+/// Innate lum source that cannot be removed
+#define LUM_SOURCE_INNATE (1 << 4)
+/// Luminosity source for glasses
+#define LUM_SOURCE_GLASSES (1 << 3)
+/// Lum source from mutant bodyparts
+#define LUM_SOURCE_MUTANT_BODYPART (1 << 2)
+/// Mutually exclusive holy statuses such as cult halos
+#define LUM_SOURCE_HOLY (1 << 1)
+/// Overlay based luminosity, cleared when overlays are cleared.
+/// This is for managed overlays only. You should not be using this.
+#define LUM_SOURCE_MANAGED_OVERLAY (1 << 0)
+
+/// Add a luminosity source to a target
+#define ADD_LUM_SOURCE(target, em_source) \
+target._emissive_count |= em_source;\
+if (target._emissive_count == em_source)\
+{\
+	target.update_luminosity();\
+}
+
+/// Remove a luminosity source to a target
+#define REMOVE_LUM_SOURCE(target, em_source) \
+target._emissive_count &= ~(em_source);\
+if (target._emissive_count == 0)\
+{\
+	target.update_luminosity();\
+}

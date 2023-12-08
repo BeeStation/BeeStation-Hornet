@@ -15315,7 +15315,7 @@
 /area/space/nearstation)
 "bib" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	req_one_access_txt = "12;25;26;35;28;22;37;46;38"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -15411,7 +15411,6 @@
 	dir = 4
 	},
 /obj/structure/grille/broken,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -15420,6 +15419,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "biq" = (
@@ -25013,7 +25013,7 @@
 /area/hallway/primary/starboard)
 "bVl" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	req_one_access_txt = "12;25;26;35;28;22;37;46"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -43739,7 +43739,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/food/snacks/pie/cream{
+/obj/item/food/pie/cream{
 	pixel_y = 7
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -64136,6 +64136,10 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel,
 /area/security/warden)
+"nbl" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/maintenance/central)
 "nbw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -82436,7 +82440,7 @@
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/item/clothing/head/lobsterhat,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
@@ -123800,7 +123804,7 @@ vHs
 hrM
 ajt
 bic
-aox
+bpq
 apX
 aox
 aox
@@ -124057,7 +124061,7 @@ boT
 beM
 bhd
 bie
-bpq
+aox
 aHX
 bsk
 tOa
@@ -124314,11 +124318,11 @@ hUV
 beN
 afd
 bij
-apX
 bqb
+nbl
 bsl
+nbl
 aIN
-aox
 bvZ
 bAB
 apA
