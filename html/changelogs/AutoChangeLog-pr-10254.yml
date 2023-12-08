@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: bookcase no longer throws a runtime from swap sort list proc.
