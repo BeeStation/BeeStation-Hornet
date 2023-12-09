@@ -1,6 +1,0 @@
-author: rkz
-delete-after: true
-changes:
-  - rscadd: converted sandwiches to newfood
-  - tweak: added protein values to sandwiches
-  - tweak: modified sandwich foodtypes
