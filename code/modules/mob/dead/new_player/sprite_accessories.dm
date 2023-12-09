@@ -51,6 +51,8 @@
 /datum/sprite_accessory
 	var/icon			//the icon file the accessory is located in
 	var/icon_state		//the icon_state of the accessory
+	var/emissive_state	//state of the emissive overlay
+	var/emissive_alpha = 255	//Alpha of the emissive
 	var/name			//the preview name of the accessory
 	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 	var/gender_specific //Something that can be worn by either gender, but looks different on each
@@ -2277,6 +2279,8 @@
 
 /datum/sprite_accessory/ipc_screens
 	icon = 'icons/mob/ipc_accessories.dmi'
+	emissive_state = "m_ipc_screen_emissive"
+	emissive_alpha = 60
 	color_src = EYECOLOR
 
 /datum/sprite_accessory/ipc_screens/blue

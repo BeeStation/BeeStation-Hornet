@@ -73,13 +73,14 @@
 #define BELOW_MOB_LAYER 3.7
 #define LYING_MOB_LAYER 3.8
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
-#define MOB_SHIELD_LAYER 4.01
-#define ABOVE_MOB_LAYER 4.1
-#define WALL_OBJ_LAYER 4.25
-#define EDGED_TURF_LAYER 4.3
-#define ON_EDGED_TURF_LAYER 4.35
-#define LARGE_MOB_LAYER 4.4
-#define ABOVE_ALL_MOB_LAYER 4.5
+#define MOB_MAX_CLOTHING_LAYER 4.1
+#define MOB_SHIELD_LAYER 4.11
+#define ABOVE_MOB_LAYER 4.2
+#define WALL_OBJ_LAYER 4.35
+#define EDGED_TURF_LAYER 4.4
+#define ON_EDGED_TURF_LAYER 4.45
+#define LARGE_MOB_LAYER 4.5
+#define ABOVE_ALL_MOB_LAYER 4.6
 
 #define METEOR_SHADOW_LAYER 4.69
 #define METEOR_LAYER 4.7
@@ -127,14 +128,6 @@
 ///This plane masks out lighting to create an "emissive" effect, ie for glowing lights in otherwise dark areas
 #define EMISSIVE_PLANE 150
 #define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
-
-///This plane masks the emissive plane to "block" it. Byond is wacky, this is the only way to get things to look like they're actually blocking said glowing lights.
-#define EMISSIVE_BLOCKER_PLANE 160
-#define EMISSIVE_BLOCKER_RENDER_TARGET "*EMISSIVE_BLOCKER_PLANE"
-
-///This plane is "unblockable" emissives. It does the same thing as the emissive plane but isn't masked by the emissive blocker plane. Use for on-mob and movable emissives.
-#define EMISSIVE_UNBLOCKABLE_PLANE 170
-#define EMISSIVE_UNBLOCKABLE_RENDER_TARGET "*EMISSIVE_UNBLOCKABLE_PLANE"
 
 ///---------------- MISC -----------------------
 

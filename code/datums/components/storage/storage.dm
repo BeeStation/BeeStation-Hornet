@@ -601,7 +601,7 @@
 		if(iscarbon(M) || isdrone(M))
 			var/mob/living/L = M
 			if(!L.incapacitated() && I == L.get_active_held_item())
-				if(!SEND_SIGNAL(I, COMSIG_CONTAINS_STORAGE) && can_be_inserted(I, FALSE))	//If it has storage it should be trying to dump, not insert.
+				if(!SEND_SIGNAL(I, COMSIG_CONTAINS_STORAGE) && can_be_inserted(I, FALSE, L))	//If it has storage it should be trying to dump, not insert.
 					handle_item_insertion(I, FALSE, L)
 
 //This proc return 1 if the item can be picked up and 0 if it can't.
