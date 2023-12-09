@@ -107,13 +107,12 @@
 /area/shuttle/mining)
 "J" = (
 /obj/docking_port/mobile{
-	dir = 8;
 	dwidth = 3;
-	height = 5;
+	height = 4;
 	id = "mining";
 	name = "mining shuttle";
 	port_direction = 4;
-	width = 7
+	width = 5
 	},
 /obj/machinery/door/airlock/survival_pod/glass{
 	dir = 4
