@@ -31540,16 +31540,6 @@
 "ugW" = (
 /turf/open/floor/plating/asteroid,
 /area/quartermaster/storage)
-"uhi" = (
-/obj/docking_port/stationary{
-	dwidth = 4;
-	height = 5;
-	id = "supply_home";
-	name = "Cargo Bay";
-	width = 7
-	},
-/turf/open/floor/dock/drydock,
-/area/quartermaster/storage)
 "uhk" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -46695,7 +46685,7 @@ dcZ
 wnT
 ohg
 wnT
-uhi
+wnT
 kEL
 rhv
 vnY
