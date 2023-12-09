@@ -11,6 +11,7 @@
 	name = "alien floor"
 	icon_state = "alienpod1"
 	tiled_dirt = FALSE
+	max_integrity = 1800
 
 /turf/open/floor/plating/abductor/Initialize(mapload)
 	. = ..()
@@ -21,6 +22,7 @@
 	name = "alien plating"
 	icon_state = "alienplating"
 	tiled_dirt = FALSE
+	max_integrity = 1800
 
 /turf/open/floor/plating/abductor2/break_tile()
 	return //unbreakable
@@ -111,12 +113,12 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	max_integrity = 100
+	resistance_flags = INDESTRUCTIBLE
+	max_integrity = 300
 
 /turf/open/floor/plating/beach/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
-
-/turf/open/floor/plating/beach/ex_act(severity, target)
-	contents_explosion(severity, target)
 
 /turf/open/floor/plating/beach/sand
 	gender = PLURAL

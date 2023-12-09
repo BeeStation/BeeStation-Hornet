@@ -110,7 +110,7 @@
 
 /obj/item/radio/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/radio/AltClick(mob/user)
 	if(headset)
@@ -225,7 +225,7 @@
 		spans = list(M.speech_span)
 	if(!language)
 		language = M.get_selected_language()
-	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, M, message, channel)
+	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, M, message, channel, message_mods)
 	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), M, message, channel, spans.Copy(), language, message_mods)
 	return ITALICS | REDUCE_RANGE
 
@@ -261,10 +261,12 @@
 
 	// From the channel, determine the frequency and get a reference to it.
 	var/freq
-	if(channel && channels && channels.len > 0)
-		if(channel == MODE_DEPARTMENT)
+	if(channel && channels)
+		if(channel == MODE_DEPARTMENT && channels.len > 0)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
+		if(istype(M, /mob) && !freq && channel != RADIO_CHANNEL_UPLINK)
+			to_chat(M, "<span class='warning'>You can't access this channel without an encryption key!</span>")
 		if (!channels[channel]) // if the channel is turned off, don't broadcast
 			return
 	else
@@ -400,6 +402,11 @@
 	emped = FALSE
 	on = TRUE
 	return TRUE
+
+/obj/item/radio/proc/get_specific_hearers()
+	if(istype(loc, /obj/item/implant))
+		var/obj/item/implant/radio_implant = loc
+		return radio_implant.imp_in
 
 ///////////////////////////////
 //////////Borg Radios//////////

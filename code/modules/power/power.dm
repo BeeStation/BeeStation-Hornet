@@ -42,7 +42,7 @@
 
 /obj/machinery/power/proc/surplus()
 	if(powernet)
-		return CLAMP(powernet.avail-powernet.load, 0, powernet.avail)
+		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
 	else
 		return 0
 
@@ -58,7 +58,7 @@
 
 /obj/machinery/power/proc/delayed_surplus()
 	if(powernet)
-		return CLAMP(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
+		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
 	else
 		return 0
 
@@ -74,10 +74,10 @@
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
 /obj/machinery/proc/powered(var/chan = -1) // defaults to power_channel
-	if(!loc)
-		return FALSE
 	if(!use_power)
 		return TRUE
+	if(!loc)
+		return FALSE
 	if(machine_stat & EMPED)
 		return FALSE
 	var/area/A = get_area(src)		// make sure it's in an area
@@ -105,17 +105,30 @@
 /obj/machinery/proc/removeStaticPower(value, powerchannel)
 	addStaticPower(-value, powerchannel)
 
-// called whenever the power settings of the containing area change
-// by default, check equipment channel & set flag
-// can override if needed
+/**
+  * Called whenever the power settings of the containing area change
+  *
+  * by default, check equipment channel & set flag, can override if needed
+  *
+  * Returns TRUE if the NOPOWER flag was toggled
+  */
 /obj/machinery/proc/power_change()
 	SIGNAL_HANDLER
+	SHOULD_CALL_PARENT(TRUE)
 
+	if(machine_stat & BROKEN)
+		return
 	if(powered(power_channel))
-		machine_stat &= ~NOPOWER
+		if(machine_stat & NOPOWER)
+			SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_RESTORED)
+			. = TRUE
+		set_machine_stat(machine_stat & ~NOPOWER)
 	else
-		machine_stat |= NOPOWER
-	return
+		if(!(machine_stat & NOPOWER))
+			SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_LOST)
+			. = TRUE
+		set_machine_stat(machine_stat | NOPOWER)
+	update_appearance()
 
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network()
@@ -143,7 +156,7 @@
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
 		var/turf/T = user.loc
-		if(T.intact || !isfloorturf(T))
+		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !isfloorturf(T))
 			return
 		if(get_dist(src, user) > 1)
 			return

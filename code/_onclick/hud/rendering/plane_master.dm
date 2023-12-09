@@ -111,8 +111,33 @@
 
 /atom/movable/screen/plane_master/lighting/Initialize(mapload)
 	. = ..()
-	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
+	add_filter("emissives", 1, layering_filter(render_source = EMISSIVE_RENDER_TARGET, blend_mode = BLEND_ADD))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
+
+/**
+ * Renders extremely blurred white stuff over space to give the effect of starlight lighting.
+ */
+
+/atom/movable/screen/plane_master/starlight
+	name = "starlight plane master"
+	plane = STARLIGHT_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_plane = LIGHTING_PLANE
+	blend_mode_override = BLEND_OVERLAY
+	color = "#bcdaf7"
+
+/atom/movable/screen/plane_master/starlight/Initialize(mapload)
+	. = ..()
+	add_filter("guassian_blur", 1, gauss_blur_filter(6))
+	// Default the colour to whatever the parallax is currently
+	transition_colour(src, GLOB.starlight_colour, 0, FALSE)
+	// Transition the colour to whatever the global tells us to go to
+	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour))
+
+/atom/movable/screen/plane_master/starlight/proc/transition_colour(datum/source, new_colour, transition_time = 5 SECONDS)
+	SIGNAL_HANDLER
+	animate(src, time = transition_time, color = new_colour)
+
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
   *
@@ -126,9 +151,9 @@
 	render_target = EMISSIVE_RENDER_TARGET
 	render_relay_plane = null
 
-/atom/movable/screen/plane_master/emissive/Initialize(mapload)
+/atom/movable/screen/plane_master/emissive/backdrop(mob/mymob)
 	. = ..()
-	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))
+	mymob.overlay_fullscreen("emissive_backdrop", /atom/movable/screen/fullscreen/lighting_backdrop/emissive_backdrop)
 
 /atom/movable/screen/plane_master/above_lighting
 	name = "above lighting plane master"

@@ -507,9 +507,9 @@
 				return_list += wordlist[i]
 			bit = bit << 1
 	else
-		for(var/bit = 1, bit<=65535, bit = bit << 1)
-			if(bitfield & bit)
-				return_list += bit
+		for(var/bit = 0 to 24)
+			if(bitfield & (1 << bit))
+				return_list += (1 << bit)
 
 	return return_list
 
@@ -768,3 +768,15 @@
 			stack_trace("[name] is not sorted. value at [index] ([value]) is in the wrong place compared to the previous value of [last_value] (when compared to by [cmp])")
 
 		last_value = value
+
+/**
+ * Converts a normal array list to an associated list, with the keys being the original values, and the value being the index of the value in the original list.
+ * All keys are converted to strings.
+ * Example: list("a", "b", 1, 2, 3) -> list("a" = 1, "b" = 2, "1" = 3, "2" = 4, "3" = 5)
+*/
+/proc/list_to_assoc_index(list/input)
+	. = list()
+	for(var/i = 1 to length(input))
+		var/key = "[input[i]]"
+		if(isnull(.[key]))
+			.[key] = i

@@ -113,6 +113,27 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/atmos_backpack_upgrade
+	name = "Generic Backpack Firefighter Tank upgrade"
+	desc = "You're not supposed to see this"
+	build_type = PROTOLATHE
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/atmos_backpack_upgrade/smartfoam
+	name = "Backpack Firefighter Tank smart foam upgrade"
+	desc = "Allows the backpack firefighter tank to synthesize a better foam compound which can pass through already deployed foam and have a chain reaction of dissipation."
+	id = "bft_upgrade_smartfoam"
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 5000, /datum/material/plasma = 2500, /datum/material/plastic = 2500) //That's right, gotta ask chem for help
+	build_path = /obj/item/atmostank_upgrade/smartfoam
+
+/datum/design/atmos_backpack_upgrade/efficiency
+	name = "Backpack Firefighter Tank efficiency upgrade"
+	desc = "Improves the nozzle's efficiency, decreasing the amount of water used per resin launch and shortets the time it takes to synthesize the resin, as well as increasing the volume of the tank."
+	id = "bft_upgrade_efficiency"
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500)
+	build_path = /obj/item/atmostank_upgrade/efficiency
+
 /////////////////////////////////////////
 //////////////Alien Tools////////////////
 /////////////////////////////////////////

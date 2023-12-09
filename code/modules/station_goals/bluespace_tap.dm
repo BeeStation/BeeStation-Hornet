@@ -144,23 +144,23 @@
 	name = "fancy food"
 	lootcount = 3
 	loot = list(
-		/obj/item/reagent_containers/food/snacks/burger/crab,
+		/obj/item/food/burger/crab,
 		/obj/item/reagent_containers/food/snacks/crab_rangoon,
 		/obj/item/reagent_containers/food/snacks/scotchegg,
-		/obj/item/reagent_containers/food/snacks/pancakes/chocolatechip,
+		/obj/item/food/pancakes/chocolatechip,
 		/obj/item/reagent_containers/food/snacks/carrotfries,
 		/obj/item/reagent_containers/food/snacks/chocolatebunny,
 		/obj/item/reagent_containers/food/snacks/benedict,
 		/obj/item/reagent_containers/food/snacks/cornedbeef,
-		/obj/item/reagent_containers/food/snacks/soup/meatball,
-		/obj/item/reagent_containers/food/snacks/soup/monkeysdelight,
-		/obj/item/reagent_containers/food/snacks/soup/stew,
-		/obj/item/reagent_containers/food/snacks/soup/hotchili,
-		/obj/item/reagent_containers/food/snacks/burrito,
-		/obj/item/reagent_containers/food/snacks/burger/fish,
+		/obj/item/food/soup/meatball,
+		/obj/item/food/soup/monkeysdelight,
+		/obj/item/food/soup/stew,
+		/obj/item/food/soup/hotchili,
+		/obj/item/food/burrito,
+		/obj/item/food/burger/fish,
 		/obj/item/reagent_containers/food/snacks/cubancarp,
 		/obj/item/reagent_containers/food/snacks/fishandchips,
-		/obj/item/reagent_containers/food/snacks/pie/meatpie,
+		/obj/item/food/pie/meatpie,
 		/obj/item/pizzabox,
 	)
 

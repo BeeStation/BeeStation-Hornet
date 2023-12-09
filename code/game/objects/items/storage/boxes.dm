@@ -25,6 +25,7 @@
 /obj/item/storage/box
 	name = "box"
 	desc = "It's just an ordinary box."
+	w_class = WEIGHT_CLASS_LARGE
 	icon_state = "box"
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -37,6 +38,9 @@
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 8
+	STR.max_combined_w_class = 8
 	update_icon()
 
 /obj/item/storage/box/suicide_act(mob/living/carbon/user)
@@ -50,11 +54,10 @@
 	user.visible_message("<span class='suicide'>[user] beating [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/storage/box/update_icon()
+/obj/item/storage/box/update_overlays()
 	. = ..()
 	if(illustration)
-		cut_overlays()
-		add_overlay(illustration)
+		. += illustration
 
 /obj/item/storage/box/attack_self(mob/user)
 	..()
@@ -152,8 +155,38 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/nanite_program(src)
 
-// Ordinary survival box
+//Parent box to accomodate station trait and apply unique restrictions
+/obj/item/storage/box/survival
+	name = "survival box"
+	illustration = "survival"
+	desc = "A compact box that is designed to hold specific emergency supplies"
+	w_class = WEIGHT_CLASS_SMALL //So the roundstart box takes up less space.
+
+/obj/item/storage/box/survival/Initialize(mapload)
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 5
+	STR.max_combined_w_class = 21
+	STR.max_w_class = WEIGHT_CLASS_TINY
+	var/static/list/exception_hold = typecacheof(list(
+		/obj/item/flashlight/flare,
+		/obj/item/radio,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/gas,
+		/obj/item/reagent_containers/hypospray/medipen,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman/belt
+		))
+	STR.exception_hold = exception_hold
+
 /obj/item/storage/box/survival/PopulateContents()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/flashlight/flare(src)
+		new /obj/item/radio/off(src)
+
+// Ordinary survival box
+/obj/item/storage/box/survival/normal/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -162,18 +195,10 @@
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
-		new /obj/item/radio/off(src)
-
-/obj/item/storage/box/survival/radio/PopulateContents()
-	..() // we want the survival stuff too.
-	new /obj/item/radio/off(src)
-
 // Mining survival box
-/obj/item/storage/box/survival_mining/PopulateContents()
+/obj/item/storage/box/survival/mining/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
 	if(!isplasmaman(loc))
@@ -182,7 +207,8 @@
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
 // Engineer survival box
-/obj/item/storage/box/engineer/PopulateContents()
+/obj/item/storage/box/survival/engineer/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -190,10 +216,6 @@
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
-
-/obj/item/storage/box/engineer/radio/PopulateContents()
-	..() // we want the regular items too.
-	new /obj/item/radio/off(src)
 
 // Syndie survival box
 /obj/item/storage/box/syndie/PopulateContents()
@@ -205,7 +227,8 @@
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
 // Security survival box
-/obj/item/storage/box/security/PopulateContents()
+/obj/item/storage/box/survival/security/PopulateContents()
+	..()
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -214,9 +237,21 @@
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
-/obj/item/storage/box/security/radio/PopulateContents()
-	..() // we want the regular stuff too
-	new /obj/item/radio/off(src)
+// Clown survival box
+
+/obj/item/storage/box/survival/hug
+	icon_state = "hugbox"
+	illustration = "heart"
+
+/obj/item/storage/box/survival/hug/PopulateContents()
+	..()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/reagent_containers/hypospray/medipen(src)
+
+	if(!isplasmaman(loc))
+		new /obj/item/tank/internals/emergency_oxygen/clown(src)
+	else
+		new /obj/item/tank/internals/plasmaman/belt(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
@@ -449,7 +484,7 @@
 /obj/item/storage/box/bodybags/PopulateContents()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/deployable/bodybag(src)
+		new /obj/item/bodybag(src)
 
 /obj/item/storage/box/rxglasses
 	name = "box of prescription glasses"
@@ -498,49 +533,49 @@
 	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
 	icon_state = "donkpocketbox"
 	illustration=null
-	var/donktype = /obj/item/reagent_containers/food/snacks/donkpocket
-	donktype = /obj/item/reagent_containers/food/snacks/donkpocket
+	var/donktype = /obj/item/food/donkpocket
+	donktype = /obj/item/food/donkpocket
 
 /obj/item/storage/box/donkpockets/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/donkpocket))
+	STR.can_hold = typecacheof(list(/obj/item/food/donkpocket))
 
 /obj/item/storage/box/donkpockets/donkpocketspicy
 	name = "box of spicy-flavoured donk-pockets"
 	icon_state = "donkpocketboxspicy"
-	donktype = /obj/item/reagent_containers/food/snacks/donkpocket/spicy
+	donktype = /obj/item/food/donkpocket/spicy
 
 /obj/item/storage/box/donkpockets/donkpocketteriyaki
 	name = "box of teriyaki-flavoured donk-pockets"
 	icon_state = "donkpocketboxteriyaki"
-	donktype = /obj/item/reagent_containers/food/snacks/donkpocket/teriyaki
+	donktype = /obj/item/food/donkpocket/teriyaki
 
 /obj/item/storage/box/donkpockets/donkpocketpizza
 	name = "box of pizza-flavoured donk-pockets"
 	icon_state = "donkpocketboxpizza"
-	donktype = /obj/item/reagent_containers/food/snacks/donkpocket/pizza
+	donktype = /obj/item/food/donkpocket/pizza
 
 /obj/item/storage/box/donkpockets/donkpocketgondola
 	name = "box of gondola-flavoured donk-pockets"
 	icon_state = "donkpocketboxgondola"
-	donktype = /obj/item/reagent_containers/food/snacks/donkpocket/gondola
+	donktype = /obj/item/food/donkpocket/gondola
 
 /obj/item/storage/box/donkpockets/donkpocketgondolafinlandia
 	name = "laatikko gondolin makuisia donk-taskuja"
 	desc = "<B>Ohjeet:</B> <I>Lämmitä mikroaaltouunissa. Tuote jäähtyy, jos sitä ei syödä seitsemän minuutin kuluessa.</I>"
 	icon_state = "donkpocketboxgondola"
-	donktype = /obj/item/reagent_containers/food/snacks/donkpocket/gondola
+	donktype = /obj/item/food/donkpocket/gondola
 
 /obj/item/storage/box/donkpockets/donkpocketberry
 	name = "box of berry-flavoured donk-pockets"
 	icon_state = "donkpocketboxberry"
-	donktype = /obj/item/reagent_containers/food/snacks/donkpocket/berry
+	donktype = /obj/item/food/donkpocket/berry
 
 /obj/item/storage/box/donkpockets/donkpockethonk
 	name = "box of banana-flavoured donk-pockets"
 	icon_state = "donkpocketboxbanana"
-	donktype = /obj/item/reagent_containers/food/snacks/donkpocket/honk
+	donktype = /obj/item/food/donkpocket/honk
 
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"
@@ -779,7 +814,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
 
-/obj/item/storage/box/lights/ComponentInitialize()
+/obj/item/storage/box/lights/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 21
@@ -834,9 +869,9 @@
 	illustration = "heart"
 	foldable = null
 
-/obj/item/storage/box/hug/suicide_act(mob/user)
+/obj/item/storage/box/hug/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
@@ -870,20 +905,6 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
-
-// Clown survival box
-/obj/item/storage/box/hug/survival/PopulateContents()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/reagent_containers/hypospray/medipen(src)
-
-	if(!isplasmaman(loc))
-		new /obj/item/tank/internals/emergency_oxygen/clown(src)
-	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
-
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
-		new /obj/item/radio/off(src)
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"
@@ -960,10 +981,12 @@
 	foldable = null
 	var/design = NODESIGN
 
-/obj/item/storage/box/papersack/update_icon()
+/obj/item/storage/box/papersack/update_icon_state()
 	if(contents.len == 0)
 		icon_state = "[item_state]"
-	else icon_state = "[item_state]_closed"
+	else
+		icon_state = "[item_state]_closed"
+	return ..()
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
@@ -1052,7 +1075,7 @@
 	theme_name = "fiesta"
 
 /obj/item/storage/box/ingredients/fiesta/PopulateContents()
-	new /obj/item/reagent_containers/food/snacks/tortilla(src)
+	new /obj/item/food/tortilla(src)
 	for(var/i in 1 to 2)
 		new /obj/item/reagent_containers/food/snacks/grown/corn(src)
 		new /obj/item/reagent_containers/food/snacks/grown/soybeans(src)

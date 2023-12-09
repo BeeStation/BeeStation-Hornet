@@ -46,6 +46,8 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 	set waitfor = FALSE
 	// Minimal sleep to defer initialization to after client constructor
 	sleep(1)
+	if(!src.client)
+		return
 	initialized_at = world.time
 	// Perform a clean initialization
 	window.initialize(assets = list(
@@ -57,13 +59,20 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 	window.send_asset(get_asset_datum(/datum/asset/spritesheet/chat))
 	// Preload assets for /datum/tgui
 	var/datum/asset/asset_tgui = get_asset_datum(/datum/asset/simple/tgui)
+	if(!src.client)
+		return
 	var/flush_queue = asset_tgui.send(src.client)
+	if(!src.client)
+		return
 	if(flush_queue)
 		src.client.browse_queue_flush()
+	if(!src.client)
+		return
 	// Other setup
 	request_telemetry()
 	// Send verbs
-	set_verb_infomation(client)
+	if(client)
+		set_verb_infomation(client)
 	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), 5 SECONDS)
 
 /**
@@ -72,6 +81,8 @@ GLOBAL_LIST_EMPTY(tgui_panels)
  * Called when initialization has timed out.
  */
 /datum/tgui_panel/proc/on_initialize_timed_out()
+	if(!client)
+		return
 	// Currently does nothing but sending a message to old chat.
 	SEND_TEXT(client, "<span class=\"userdanger\">Failed to load fancy chat, click <a href='?src=[REF(src)];reload_tguipanel=1'>HERE</a> to attempt to reload it.</span>")
 	log_tgui("ERROR: [client?.ckey] failed to load their fancy chat after a 5 second timeout when loading.")

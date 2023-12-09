@@ -27,9 +27,9 @@
 /obj/item/instrument/proc/should_stop_playing(mob/user)
 	return user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))		// sorry, no more TK playing.
 
-/obj/item/instrument/suicide_act(mob/user)
+/obj/item/instrument/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/instrument/attack_self(mob/user)
 	if(!user.IsAdvancedToolUser())

@@ -38,10 +38,20 @@ GLOBAL_LIST_EMPTY(possible_items)
 		explanation_text = "Steal [targetinfo.name]"
 		if (length(targetinfo.special_equipment))
 			generate_stash(targetinfo.special_equipment)
+		update_explanation_text()
 		return steal_target
 	else
 		explanation_text = "Free objective"
 		return
+
+/datum/objective/steal/update_explanation_text()
+	if (!targetinfo)
+		explanation_text = "Free objective"
+		return
+	explanation_text = "Steal [targetinfo.name]"
+	if (length(targetinfo.special_equipment))
+		explanation_text += " Check your character's notes for the location of your special equipment."
+	return ..()
 
 /datum/objective/steal/admin_edit(mob/admin)
 	var/list/possible_items_all = GLOB.possible_items
@@ -71,9 +81,12 @@ GLOBAL_LIST_EMPTY(possible_items)
 		if(!isliving(M.current))
 			continue
 
-		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		var/list/all_items = M.current.GetAllContents(/obj/item)	//this should get things in cheesewheels, books, etc.
 
-		for(var/obj/I in all_items) //Check for items
+		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in M.holoparasite_holder?.holoparasites)
+			all_items |= holopara.GetAllContents(/obj/item)
+
+		for(var/obj/I as() in all_items) //Check for items
 			if(istype(I, steal_target))
 				if(!targetinfo) //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
 					return TRUE

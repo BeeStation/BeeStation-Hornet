@@ -110,6 +110,11 @@
 	layer = BLIND_LAYER
 	plane = FULLSCREEN_PLANE
 
+/atom/movable/screen/fullscreen/law_change
+    icon_state = "law_change"
+    layer = BLIND_LAYER
+    plane = FULLSCREEN_PLANE
+
 /atom/movable/screen/fullscreen/curse
 	icon_state = "curse"
 	layer = CURSE_LAYER
@@ -181,6 +186,12 @@
 //Provides whiteness in case you don't see lights so everything is still visible
 /atom/movable/screen/fullscreen/lighting_backdrop/unlit
 	layer = BACKGROUND_LAYER+20
+	show_when_dead = TRUE
+
+/atom/movable/screen/fullscreen/lighting_backdrop/emissive_backdrop
+	color = "#000"
+	plane = EMISSIVE_PLANE
+	layer = 0
 	show_when_dead = TRUE
 
 /atom/movable/screen/fullscreen/see_through_darkness
