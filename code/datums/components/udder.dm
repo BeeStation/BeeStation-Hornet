@@ -110,7 +110,7 @@
 	if(milk_holder.reagents.total_volume >= milk_holder.volume)
 		to_chat(user, "<span class='warning'>[milk_holder] is full.</span>")
 		return
-	var/transfered = reagents.trans_to(milk_holder, rand(5,10))
+	var/transfered = reagents.trans_to(milk_holder, rand(5, 10))
 	if(transfered)
 		user.visible_message("<span class='notice'>[user] milks [src] using \the [milk_holder].</span>", "<span class='notice'>You milk [src] using \the [milk_holder].</span>")
 	else
@@ -150,20 +150,52 @@
 */
 /obj/item/udder/gutlunch/proc/on_mob_attacking(mob/living/simple_animal/hostile/gutlunch, atom/target)
 	SIGNAL_HANDLER
-
-	if(is_type_in_typecache(target, gutlunch.wanted_objects)) //we eats
+	if(is_type_in_typecache(target, gutlunch.wanted_objects) && reagents.total_volume < reagents.maximum_volume) //we eats
 		generate()
 		gutlunch.visible_message("<span class='notice'>[udder_mob] slurps up [target].</span>")
+		playsound(gutlunch.loc, 'sound/items/drink.ogg', 50, 1)
+		gutlunch.regenerate_icons()
 		qdel(target)
+	else if (reagents.total_volume == reagents.maximum_volume)
+		gutlunch.show_message("<span class='notice'>You are too full to eat.</span>")
+		gutlunch.regenerate_icons()
 	return COMPONENT_HOSTILE_NO_ATTACK //there is no longer a target to attack
 
-/obj/item/udder/gutlunch/generate()
+/obj/item/udder/gutlunch/generate(mob/living/simple_animal/hostile/gutlunch)
 	var/made_something = FALSE
 	if(prob(60))
-		reagents.add_reagent(/datum/reagent/consumable/cream, rand(2, 5))
+		reagents.add_reagent(/datum/reagent/consumable/cream, rand(5, 10))
 		made_something = TRUE
 	if(prob(45))
-		reagents.add_reagent(/datum/reagent/medicine/salglu_solution, rand(2,5))
+		reagents.add_reagent(/datum/reagent/medicine/salglu_solution, rand(5, 10))
+		made_something = TRUE
+	if(made_something && on_generate_callback)
+		on_generate_callback.Invoke(reagents.total_volume, reagents.maximum_volume)
+
+/obj/item/udder/gutlunch/baby
+	size = 30
+
+/obj/item/udder/gutlunch/baby/generate()
+	var/made_something = FALSE
+	reagents.add_reagent(/datum/reagent/blood, rand(5, 10))
+	made_something = TRUE
+	if(made_something && on_generate_callback)
+		on_generate_callback.Invoke(reagents.total_volume, reagents.maximum_volume)
+
+/obj/item/udder/gutlunch/baby/milk(obj/item/reagent_containers/glass/milk_holder, mob/user)
+	to_chat(user, "<span class='warning'>[milk_holder] is still a baby, it can't be milked!</span>")
+	return
+
+/obj/item/udder/gutlunch/male
+
+/obj/item/udder/gutlunch/baby/generate()
+	var/made_something = FALSE
+	reagents.add_reagent(/datum/reagent/liquidgibs, rand(1, 3))
+	if(prob(60))
+		reagents.add_reagent(/datum/reagent/mercury, rand(3, 7))
+		made_something = TRUE
+	if(prob(40))
+		reagents.add_reagent(/datum/reagent/toxin/acid, rand(3, 7))
 		made_something = TRUE
 	if(made_something && on_generate_callback)
 		on_generate_callback.Invoke(reagents.total_volume, reagents.maximum_volume)
