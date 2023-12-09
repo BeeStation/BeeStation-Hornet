@@ -40,19 +40,17 @@
 	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
 	wanted_objects = list(/obj/effect/decal/cleanable/xenoblood, /obj/effect/decal/cleanable/blood, /obj/item/organ, /obj/item/reagent_containers/food/snacks/meat/slab)
 	deathsound = "desecration"
+	var/udder_type = /obj/item/udder/gutlunch
+	var/datum/component/udder/comp
+	var/obj/item/udder/gutlunch/udder
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
 	. = ..()
-	if(wanted_objects.len && gender == FEMALE || gender == NEUTER)
-		AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, CALLBACK(src, PROC_REF(regenerate_icons)), CALLBACK(src, PROC_REF(regenerate_icons)))
-	else if(gender == MALE)
-		AddComponent(/datum/component/udder, /obj/item/udder/gutlunch/male, CALLBACK(src, PROC_REF(regenerate_icons)), CALLBACK(src, PROC_REF(regenerate_icons)))
-	else
-		AddComponent(/datum/component/udder, /obj/item/udder/gutlunch/baby, CALLBACK(src, PROC_REF(regenerate_icons)), CALLBACK(src, PROC_REF(regenerate_icons)))
+	AddComponent(/datum/component/udder, udder_type, CALLBACK(src, PROC_REF(regenerate_icons)), CALLBACK(src, PROC_REF(regenerate_icons)))
+	comp = GetComponent(/datum/component/udder)
+	udder = comp.udder
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/CanAttack(atom/the_target) // Gutlunch-specific version of CanAttack to handle stupid stat_exclusive = true crap so we don't have to do it for literally every single simple_animal/hostile except the two that spawn in lavaland
-	var/datum/component/udder/comp = GetComponent(/datum/component/udder)
-	var/obj/item/udder/gutlunch/udder = comp.udder
 	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids
 		return FALSE
 
@@ -79,8 +77,6 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons()
 	cut_overlays()
-	var/datum/component/udder/comp = GetComponent(/datum/component/udder)
-	var/obj/item/udder/gutlunch/udder = comp.udder
 	var/static/gutlunch_full_overlay
 	if(isnull(gutlunch_full_overlay))
 		gutlunch_full_overlay = iconstate2appearance(icon, "gl_full")
@@ -90,17 +86,19 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/death()
 	. = ..()
+	chem_splash(get_turf(src), 1, list(udder.reagents))
+	spawn_gibs()
 	regenerate_icons()
 
 //Male gutlunch. They're smaller and more colorful!
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
 	name = "gubbuck"
+	desc = "A scavenger that eats raw meat, often found alongside ash walkers. Males produce harmful chemicals in their nutrient sacs."
 	icon_state = "gutlunch_male"
 	icon_living = "gutlunch_male"
 	icon_dead = "gutlunch_male_dead"
 	gender = MALE
-
-	/obj/item/udder/gutlunch/male
+	udder_type = /obj/item/udder/gutlunch/male
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
 	. = ..()
@@ -111,6 +109,7 @@
 	name = "guthen"
 	gender = FEMALE
 
+//Baby gutlunch
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
 	name = "grublunch"
 	icon_state = "gutlunch_baby"
@@ -118,17 +117,15 @@
 	icon_dead = "gutlunch_baby_dead"
 	desc = "A baby Gutlunch. It must feed on a lot of meat and guts to become a strong bug!"
 	gold_core_spawnable = NO_SPAWN
+	udder_type = /obj/item/udder/gutlunch/baby
 	var/growth = 0
 
-//Baby gutlunch
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Initialize(mapload)
 	. = ..()
 	update_transform()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Life()
 	..()
-	var/datum/component/udder/comp = GetComponent(/datum/component/udder)
-	var/obj/item/udder/gutlunch/baby/udder = comp.udder
 	if(udder.reagents.total_volume == udder.reagents.maximum_volume) //originally used a timer for this, but it became more of a problem than it was worth.
 		growUp()
 
@@ -145,6 +142,5 @@
 	mind?.transfer_to(L)
 	L.faction = faction
 	L.setDir(dir)
-	L.Stun(20, ignore_canstun = TRUE)
 	visible_message("<span class='notice'>[src] grows up into [L].</span>")
 	Destroy()

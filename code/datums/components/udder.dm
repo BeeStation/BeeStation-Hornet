@@ -183,14 +183,14 @@
 		on_generate_callback.Invoke(reagents.total_volume, reagents.maximum_volume)
 
 /obj/item/udder/gutlunch/baby/milk(obj/item/reagent_containers/glass/milk_holder, mob/user)
-	to_chat(user, "<span class='warning'>[milk_holder] is still a baby, it can't be milked!</span>")
+	to_chat(user, "<span class='warning'>The gutlunch is still a baby, it can't be milked!</span>")
 	return
 
 /obj/item/udder/gutlunch/male
 
-/obj/item/udder/gutlunch/baby/generate()
+/obj/item/udder/gutlunch/male/generate()
 	var/made_something = FALSE
-	reagents.add_reagent(/datum/reagent/liquidgibs, rand(1, 3))
+	reagents.add_reagent(/datum/reagent/blood, rand(1, 3))
 	if(prob(60))
 		reagents.add_reagent(/datum/reagent/mercury, rand(3, 7))
 		made_something = TRUE
