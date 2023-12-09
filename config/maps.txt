@@ -16,7 +16,6 @@ endmap
 
 #Active Rotation
 
-
 map EchoStation
 	maxplayers 25
 	votable

@@ -413,7 +413,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 #undef HOLODECK_CD
 #undef HOLODECK_DMG_CD
 
-/obj/machinery/computer/holodeck/small //5x5 holodeck
+/obj/machinery/computer/holodeck/small //7x7 holodeck
 	mapped_start_area = /area/holodeck/small
 	linked = /area/holodeck/small
 	program_type = /datum/map_template/holodeck/small

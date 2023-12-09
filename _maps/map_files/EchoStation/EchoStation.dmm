@@ -2031,7 +2031,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "aHk" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -6619,7 +6621,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "dqs" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -6799,7 +6803,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "dxK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -8306,7 +8312,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "err" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
@@ -14114,7 +14122,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "ipb" = (
 /obj/structure/lattice,
 /turf/open/openspace,
@@ -14471,7 +14481,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "iEJ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
@@ -17764,7 +17776,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "kWl" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
 	alpha = 180
@@ -18207,7 +18221,7 @@
 	pixel_x = -4;
 	pixel_y = 6
 	},
-/obj/machinery/computer/holodeck/small{
+/obj/machinery/computer{
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
@@ -18621,7 +18635,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "lyO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/ashplanet/rocky,
@@ -18669,7 +18685,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "lCS" = (
 /turf/closed/wall/r_wall/rust,
 /area/engine/engineering)
@@ -20398,7 +20416,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "mJX" = (
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 1
@@ -22642,7 +22662,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "ooN" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
@@ -24052,7 +24074,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "peH" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Medbay Maintenance";
@@ -24295,7 +24319,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "pmQ" = (
 /obj/machinery/light_switch{
 	pixel_x = -23;
@@ -35064,7 +35090,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "wLw" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-16"
@@ -36595,7 +36623,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "xNn" = (
 /obj/structure/railing{
 	dir = 4;
@@ -36696,7 +36726,9 @@
 /turf/open/floor/holofloor/plating{
 	icon_state = "engine_light"
 	},
-/area/holodeck/small)
+/area/hallway/primary/aft{
+	name = "-3 Primary Hallway"
+	})
 "xQT" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
