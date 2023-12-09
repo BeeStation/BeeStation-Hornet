@@ -12,7 +12,6 @@
 	icon_state = "cmo_skirt"
 	item_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
@@ -30,7 +29,6 @@
 	icon_state = "geneticswhite_skirt"
 	item_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
@@ -48,7 +46,6 @@
 	icon_state = "virologywhite_skirt"
 	item_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
@@ -66,9 +63,9 @@
 	icon_state = "emt_skirt"
 	item_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	can_adjust = TRUE
 
 /obj/item/clothing/under/rank/medical/doctor/nurse
 	desc = "It's a jumpsuit commonly worn by nursing staff in the medical department."
@@ -95,7 +92,6 @@
 	icon_state = "medical_skirt"
 	item_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
@@ -131,6 +127,5 @@
 	icon_state = "chemistrywhite_skirt"
 	item_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
