@@ -147,7 +147,7 @@
 /area/science/mixing)
 "aeL" = (
 /obj/effect/turf_decal/box,
-/mob/living/simple_animal/mothroach{
+/mob/living/basic/mothroach{
 	density = 0;
 	desc = "A festive mothroach";
 	name = "Erster"
@@ -3699,7 +3699,7 @@
 	},
 /area/crew_quarters/dorms)
 "bmj" = (
-/turf/open/space/basic,
+/turf/closed/indestructible/rock,
 /area/space)
 "bnh" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4589,7 +4589,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/carpet/green,
@@ -5951,7 +5951,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cLm" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plasteel/grimy,
@@ -8282,7 +8282,7 @@
 /area/quartermaster/sorting)
 "eqJ" = (
 /obj/structure/railing/corner,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
@@ -9376,10 +9376,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall,
 /area/maintenance/central)
-"feE" = (
-/obj/structure/railing/transition,
-/turf/open/openspace,
-/area/crew_quarters/kitchen)
 "ffN" = (
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
@@ -10259,15 +10255,15 @@
 /area/maintenance/starboard)
 "fMJ" = (
 /obj/structure/table/reinforced,
-/obj/item/deployable/barricade/security{
+/obj/structure/barricade/security{
 	pixel_x = 8;
 	pixel_y = 12
 	},
-/obj/item/deployable/barricade/security{
+/obj/structure/barricade/security{
 	pixel_x = 8;
 	pixel_y = 7
 	},
-/obj/item/deployable/barricade/security{
+/obj/structure/barricade/security{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -10275,10 +10271,10 @@
 	pixel_x = -6;
 	pixel_y = 9
 	},
-/obj/item/deployable/barricade/security{
+/obj/structure/barricade/security{
 	pixel_y = 10
 	},
-/obj/item/deployable/barricade/security{
+/obj/structure/barricade/security{
 	pixel_y = 5
 	},
 /obj/item/storage/lockbox/loyalty,
@@ -10638,7 +10634,7 @@
 	name = "-3 Primary Hallway"
 	})
 "fXj" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/cafeteria)
@@ -13440,12 +13436,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
-"hQe" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/openspace,
-/area/crew_quarters/kitchen)
 "hQk" = (
 /turf/open/floor/plating/rust,
 /area/science/test_area)
@@ -16428,7 +16418,7 @@
 	name = "-3 Primary Hallway"
 	})
 "kct" = (
-/obj/structure/railing/transition{
+/obj/structure/railing{
 	dir = 4
 	},
 /turf/open/openspace,
@@ -17744,7 +17734,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/machinery/light,
 /obj/machinery/status_display/evac{
 	pixel_y = -32
@@ -18078,7 +18068,7 @@
 	layer = 2.5;
 	output_dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/donkpocket/pizza{
+/obj/item/food/donkpocket/pizza{
 	pixel_x = 10;
 	pixel_y = 9
 	},
@@ -18321,7 +18311,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "lnr" = (
@@ -20018,7 +20008,7 @@
 /area/quartermaster/sorting)
 "mtf" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -23144,10 +23134,10 @@
 /area/maintenance/central)
 "oEM" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_y = 1
 	},
 /obj/item/kitchen/rollingpin{
@@ -25127,7 +25117,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/item/kitchen/knife/carrotshiv{
+/obj/item/knife/carrotshiv{
 	pixel_x = 9;
 	pixel_y = 9
 	},
@@ -27654,7 +27644,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/light,
 /obj/machinery/status_display/evac{
 	pixel_y = -32
@@ -30759,7 +30749,7 @@
 /area/maintenance/central)
 "tKq" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -31020,7 +31010,7 @@
 /obj/item/trash/plate{
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/donkpocket/pizza{
+/obj/item/food/donkpocket/pizza{
 	pixel_x = -1;
 	pixel_y = 4
 	},
@@ -33955,7 +33945,7 @@
 	pixel_x = 1;
 	pixel_y = 34
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "waf" = (
@@ -113339,7 +113329,7 @@ cOp
 cOp
 phi
 cOp
-feE
+tea
 dFu
 jzm
 xBd
@@ -113851,9 +113841,9 @@ pyd
 afw
 cOp
 kct
-hQe
-hQe
-hQe
+kct
+kct
+kct
 bDD
 bDD
 fcZ

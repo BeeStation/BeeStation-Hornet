@@ -1,9 +1,0 @@
-{
-    "map_name": "Scarif Station",
-	"map_link": "None",
-    "map_path": "map_files/ScarifStation",
-    "map_file": "ScarifStation.dmm",
-	"shuttles": {
-		"cargo": "cargo_delta"
-	}
-}
