@@ -7220,7 +7220,6 @@
 /area/awaymission/snowdin/post/cavern1)
 "vF" = (
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7240,7 +7239,6 @@
 "vI" = (
 /mob/living/simple_animal/hostile/asteroid/basilisk,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7274,14 +7272,12 @@
 "vP" = (
 /obj/structure/bed,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
 /area/awaymission/snowdin/cave)
 "vQ" = (
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7313,7 +7309,6 @@
 "vW" = (
 /mob/living/simple_animal/hostile/skeleton/ice,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7362,7 +7357,6 @@
 	name = "Captain Bones"
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7373,7 +7367,6 @@
 	name = "Privateer Jones"
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7383,7 +7376,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7393,7 +7385,6 @@
 	dir = 10
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7401,7 +7392,6 @@
 "wi" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7411,7 +7401,6 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7425,7 +7414,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7443,7 +7431,6 @@
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/snowdin/dungeonlite,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7453,7 +7440,6 @@
 	dir = 6
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7467,7 +7453,6 @@
 	dir = 5
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7486,7 +7471,6 @@
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/snowdin/dungeonmisc,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7495,7 +7479,6 @@
 /obj/structure/table/wood,
 /obj/item/trash/candy,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7503,7 +7486,6 @@
 "wv" = (
 /obj/item/trash/can,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7511,7 +7493,6 @@
 "ww" = (
 /obj/structure/chair/stool,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7532,7 +7513,6 @@
 	name = "fire light"
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7540,7 +7520,6 @@
 "wz" = (
 /obj/structure/closet/crate/wooden,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -7548,7 +7527,6 @@
 "wA" = (
 /obj/structure/table/wood,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8143,7 +8121,6 @@
 "yN" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8229,14 +8206,12 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
 /area/awaymission/snowdin/outside)
 "zh" = (
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8247,7 +8222,6 @@
 	dir = 5
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8308,7 +8282,6 @@
 	dir = 10
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8316,7 +8289,6 @@
 "zs" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8371,7 +8343,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8381,7 +8352,6 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8477,7 +8447,6 @@
 	dir = 6
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8549,7 +8518,6 @@
 	},
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8625,7 +8593,6 @@
 	dir = 9
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8697,7 +8664,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8745,7 +8711,6 @@
 	set_luminosity = 6
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8850,7 +8815,6 @@
 "Bd" = (
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8867,7 +8831,6 @@
 	},
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -8897,7 +8860,6 @@
 	dir = 5
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9050,7 +9012,6 @@
 /obj/effect/turf_decal/weather/snow/corner,
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9248,7 +9209,6 @@
 "Cs" = (
 /obj/structure/girder,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9327,7 +9287,6 @@
 "CG" = (
 /obj/item/shard,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9378,7 +9337,6 @@
 "CR" = (
 /obj/effect/gibspawner/generic,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9418,7 +9376,6 @@
 "Dc" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9483,7 +9440,6 @@
 	},
 /obj/item/stack/rods,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9507,7 +9463,6 @@
 "Du" = (
 /obj/structure/girder,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9519,7 +9474,6 @@
 "Dw" = (
 /obj/item/stack/rods,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9543,7 +9497,6 @@
 "DE" = (
 /obj/item/stack/sheet/mineral/plastitanium,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9551,7 +9504,6 @@
 "DF" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9584,7 +9536,6 @@
 "DM" = (
 /mob/living/simple_animal/hostile/bear/snow,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9697,7 +9648,6 @@
 /obj/item/shard,
 /mob/living/simple_animal/hostile/bear/snow,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -9765,7 +9715,6 @@
 /obj/structure/girder,
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},

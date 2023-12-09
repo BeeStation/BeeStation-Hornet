@@ -2834,7 +2834,6 @@
 /area/awaymission/cabin/caves)
 "iL" = (
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -3450,7 +3449,6 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -3468,7 +3466,6 @@
 "kt" = (
 /obj/structure/barricade/wooden/snowed,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -4247,7 +4244,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -4261,7 +4257,6 @@
 	wander = 0
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -4271,7 +4266,6 @@
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
