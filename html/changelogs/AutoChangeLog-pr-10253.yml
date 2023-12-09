@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: Insanity anomaly now properly works
+  - tweak: insanity pulse anomaly event now less requires player pop (15)
