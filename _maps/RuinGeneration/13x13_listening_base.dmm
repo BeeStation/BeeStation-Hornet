@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "bD" = (
 /obj/structure/bookcase/random,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "bO" = (
 /obj/machinery/light/small{
@@ -518,7 +518,7 @@
 /obj/structure/table/wood,
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/paper/fluff/ruins/listeningstation/briefing,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "Df" = (
 /obj/structure/table,
@@ -746,7 +746,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "Tg" = (
 /obj/effect/decal/cleanable/dirt,
@@ -791,7 +791,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/photo_album,
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "TD" = (
 /obj/machinery/door/airlock/maintenance,
@@ -855,7 +855,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "XB" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,

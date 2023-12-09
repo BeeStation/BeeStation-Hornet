@@ -572,7 +572,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/crew_quarters/bar)
 "aix" = (
 /obj/item/stack/cable_coil,
@@ -58824,7 +58824,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/crew_quarters/bar)
 "pqA" = (
 /obj/machinery/disposal/bin,
@@ -73468,7 +73468,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/crew_quarters/bar)
 "sRz" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -85912,7 +85912,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/crew_quarters/bar)
 "vJW" = (
 /turf/open/floor/plasteel/dark/side{

@@ -2159,7 +2159,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "aAE" = (
 /obj/effect/turf_decal/stripes/line{
@@ -4994,7 +4994,7 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "bnu" = (
 /obj/effect/turf_decal/tile/red{
@@ -6466,7 +6466,7 @@
 /obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/effect/landmark/event_spawn,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "bNP" = (
 /obj/structure/closet/cabinet,
@@ -6641,7 +6641,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "bQz" = (
 /obj/machinery/door/airlock/external{
@@ -9466,7 +9466,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "cTE" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "cTJ" = (
 /obj/structure/disposalpipe/segment{
@@ -12907,7 +12907,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "dZL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -14855,7 +14855,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "eIj" = (
 /obj/effect/turf_decal/tile/green/half/contrasted,
@@ -15676,7 +15676,7 @@
 /obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "eYf" = (
 /obj/effect/turf_decal/stripes/line{
@@ -16419,7 +16419,7 @@
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "fjU" = (
 /obj/structure/chair/fancy/comfy{
@@ -18285,7 +18285,7 @@
 /area/maintenance/department/chapel/monastery)
 "fPK" = (
 /obj/machinery/airalarm/directional/north,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "fPU" = (
 /obj/machinery/light{
@@ -32565,7 +32565,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "kzL" = (
 /obj/structure/cable/yellow{
@@ -32926,7 +32926,7 @@
 /obj/item/storage/box/bodybags{
 	pixel_y = 6
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "kFE" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
@@ -39176,7 +39176,7 @@
 	name = "Mass Driver";
 	req_access_txt = "22"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "mEf" = (
 /obj/machinery/door/airlock/medical{
@@ -39386,7 +39386,7 @@
 	pixel_x = 28;
 	pixel_y = -25
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "mHb" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -41267,7 +41267,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "nqK" = (
 /obj/structure/disposalpipe/segment{
@@ -41856,7 +41856,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "nzL" = (
 /obj/structure/cable/yellow{
@@ -45917,7 +45917,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "oQB" = (
 /obj/machinery/firealarm{
@@ -50313,7 +50313,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "qrC" = (
 /obj/machinery/navbeacon{
@@ -52652,7 +52652,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "rcV" = (
 /obj/machinery/atmospherics/components/unary/portables_connector{
@@ -71728,7 +71728,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "xsZ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{

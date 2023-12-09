@@ -1999,7 +1999,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "gu" = (
 /obj/structure/table/wood,
@@ -2007,7 +2007,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "gv" = (
 /obj/structure/table/wood,
@@ -2022,7 +2022,7 @@
 	gpstag = "Twin-Nexus Hotel Retreat";
 	name = "hotel gps"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "gw" = (
 /turf/open/floor/plasteel/dark,
@@ -2121,17 +2121,17 @@
 /area/ruin/space/has_grav/hotel/workroom)
 "gN" = (
 /obj/structure/filingcabinet,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "gO" = (
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "gP" = (
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "gQ" = (
 /obj/machinery/computer/teleporter,
@@ -2184,7 +2184,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "hb" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "hc" = (
 /obj/structure/table/wood,
@@ -2196,7 +2196,7 @@
 /obj/item/paper/pamphlet/ruin/spacehotel,
 /obj/item/paper/pamphlet/ruin/spacehotel,
 /obj/item/paper/pamphlet/ruin/spacehotel,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "hd" = (
 /obj/structure/table/wood,
@@ -2449,12 +2449,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "hM" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "hN" = (
 /obj/structure/table/wood,
@@ -2462,7 +2462,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "hO" = (
 /obj/machinery/light,
@@ -2522,13 +2522,13 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "hW" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "hX" = (
 /obj/structure/window/reinforced{
@@ -2537,7 +2537,7 @@
 /obj/structure/musician/piano{
 	icon_state = "piano"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "hY" = (
 /obj/structure/window/reinforced{
@@ -2547,7 +2547,7 @@
 	dir = 1
 	},
 /obj/structure/chair/stool,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "hZ" = (
 /obj/machinery/light{
@@ -2600,16 +2600,16 @@
 "ig" = (
 /obj/structure/table/wood,
 /obj/item/instrument/violin,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "ih" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "ii" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "ij" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -2690,11 +2690,11 @@
 	name = "Theatre";
 	req_access_txt = "200"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "iB" = (
 /obj/machinery/light,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "iC" = (
 /obj/machinery/light,

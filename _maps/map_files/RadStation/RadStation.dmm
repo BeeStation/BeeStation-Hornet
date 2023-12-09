@@ -8671,7 +8671,7 @@
 "cKT" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
 "cLa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -13887,7 +13887,7 @@
 	name = "Relic Closet";
 	req_access_txt = "27"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "eqa" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -14208,7 +14208,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
 "etz" = (
 /obj/effect/turf_decal/bot,
@@ -14971,7 +14971,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "eEY" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -20977,7 +20977,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/airalarm/directional/east,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "gpK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -41336,7 +41336,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
 /obj/item/soulstone/anybody/chaplain,
 /obj/item/organ/heart,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "mQP" = (
 /obj/structure/rack,
@@ -49868,7 +49868,7 @@
 "pzC" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "pzH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -56499,7 +56499,7 @@
 /obj/structure/bodycontainer/crematorium{
 	id = "cremawheat"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "rDB" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -64383,7 +64383,7 @@
 	},
 /obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/structure/table/wood/fancy,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "ufy" = (
 /obj/structure/disposalpipe/segment{
@@ -70976,7 +70976,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "wjm" = (
 /obj/machinery/light,

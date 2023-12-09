@@ -5238,17 +5238,17 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pc" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pd" = (
 /obj/structure/bed,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pe" = (
 /obj/structure/table,
@@ -5390,14 +5390,14 @@
 /area/awaymission/snowdin/cave/cavern)
 "pB" = (
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pC" = (
 /obj/item/chair,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pD" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pE" = (
 /turf/closed/wall/mineral/cult,
@@ -5598,7 +5598,7 @@
 /area/awaymission/snowdin/post/cavern2)
 "qk" = (
 /obj/structure/closet/cabinet,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "ql" = (
 /turf/open/floor/plating{
@@ -5755,7 +5755,7 @@
 /obj/machinery/door/airlock{
 	name = "Private Quarters"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "qH" = (
 /turf/open/floor/engine/cult,
@@ -10839,19 +10839,19 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/mining_main/mechbay)
 "HT" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "HU" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "HV" = (
 /obj/machinery/door/airlock{
 	name = "Private Quarters"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "HW" = (
 /turf/open/floor/plasteel,
@@ -10928,15 +10928,15 @@
 "Iq" = (
 /obj/structure/bed,
 /obj/item/bedsheet/grey,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "Ir" = (
 /obj/structure/closet/cabinet,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "Is" = (
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "It" = (
 /obj/machinery/light{
@@ -11247,7 +11247,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "JN" = (
 /obj/structure/closet/crate{
