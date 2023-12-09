@@ -118,7 +118,14 @@ const LaunchpadButtonPad = (props, context) => {
 export const LaunchpadControl = (props, context) => {
   const { topLevel } = props;
   const { act, data } = useBackend(context);
-  const { x, y, pad_name, range } = data;
+  const {
+    x,
+    y,
+    pad_name,
+    range,
+    can_adjust_recall_time = false,
+    recall_time = 0,
+  } = data;
   return (
     <Section
       title={
@@ -187,6 +194,15 @@ export const LaunchpadControl = (props, context) => {
           </Section>
         </Grid.Column>
       </Grid>
+      {can_adjust_recall_time && (
+        <Button
+          content={"Recall Time: " + recall_time + "s"}
+          icon="clock"
+          textAlign="center"
+          onClick={() => {
+            act('set_recall');
+          }} />
+      )}
       <Grid>
         <Grid.Column>
           <Button fluid icon="upload" content="Launch" textAlign="center" onClick={() => act('launch')} />
@@ -201,7 +217,10 @@ export const LaunchpadControl = (props, context) => {
 
 export const LaunchpadConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const { launchpads = [], selected_id } = data;
+  const {
+    launchpads = [],
+    selected_id,
+  } = data;
   return (
     <Window width={475} height={260}>
       <Window.Content scrollable>
