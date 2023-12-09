@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	//new vars
 
 	///what area type this holodeck loads into. linked turns into the nearest instance of this area
-	var/area/mapped_start_area = /area/holodeck
+	var/area/mapped_start_area = /area/holodeck/rec_center
 
 	///the currently used map template
 	var/datum/map_template/holodeck/template
@@ -416,8 +416,3 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 #undef HOLODECK_CD
 #undef HOLODECK_DMG_CD
-
-/obj/machinery/computer/holodeck/small //7x7 holodeck
-	mapped_start_area = /area/holodeck/small
-	linked = /area/holodeck/small
-	program_type = /datum/map_template/holodeck/small

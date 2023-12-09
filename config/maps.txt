@@ -16,8 +16,38 @@ endmap
 
 #Active Rotation
 
-map EchoStation
-	maxplayers 25
+map corgstation
+	minplayers 15
+	votable
+endmap
+
+map boxstation
+	maxplayers 60
+	votable
+endmap
+
+map metastation
+	default
+	votable
+endmap
+
+map deltastation
+	minplayers 40
+	votable
+endmap
+
+map kilostation
+	maxplayers 50
+	votable
+endmap
+
+map flandstation
+	minplayers 40
+	votable
+endmap
+
+map radstation
+	minplayers 20
 	votable
 endmap
 
