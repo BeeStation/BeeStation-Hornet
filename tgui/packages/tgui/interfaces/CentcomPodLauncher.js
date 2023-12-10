@@ -135,13 +135,11 @@ const REVERSE_OPTIONS = [
   {
     title: 'Walls',
     icon: 'square',
-
   },
   {
     title: 'Mechs',
     key: 'Mecha',
     icon: 'truck',
-
   },
 ];
 
