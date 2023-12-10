@@ -218,9 +218,9 @@
 
 /obj/structure/janitorialcart/examine(mob/user)
 	. = ..()
-	if(contents.len)
+	if(length(contents))
 		. += ("<span class='notice'><b>\nIt is carrying:</b></span>")
-		for(var/thing in sort_names(contents))
+		for(var/thing in sort_names(contents.Copy()))
 			if(istype(thing, /obj/item/clothing/suit/caution))
 				continue //we'll do this after.
 			. += "\t[icon2html(thing, user)] \a [thing]"

@@ -108,6 +108,7 @@
 //---------- LIGHTING -------------
 ///Normal 1 per turf dynamic lighting objects
 #define LIGHTING_PLANE 100
+#define LIGHTING_PLANE_ADDITIVE 101
 
 /// The plane for managing the global starlight effect
 #define STARLIGHT_PLANE 105

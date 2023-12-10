@@ -42,7 +42,7 @@
 	name = "egg-plant"
 	desc = "There MUST be a chicken inside."
 	icon_state = "eggyplant"
-	trash_type = /obj/item/reagent_containers/food/snacks/egg
+	trash = /obj/item/food/egg
 	bite_consumption_mod = 2
 	foodtypes = MEAT
 	distill_reagent = /datum/reagent/consumable/ethanol/eggnog
