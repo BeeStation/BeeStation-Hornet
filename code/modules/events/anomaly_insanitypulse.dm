@@ -2,9 +2,9 @@
 	name = "Anomaly: Sanity Disruptor"
 	typepath = /datum/round_event/anomaly/insanity_pulse
 
-	min_players = 30
+	min_players = 15
 	max_occurrences = 2
-	weight = 30
+	weight = 25
 	// This has a high chance to appear, but needs more players
 
 /datum/round_event/anomaly/insanity_pulse
