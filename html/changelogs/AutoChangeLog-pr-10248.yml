@@ -1,5 +1,0 @@
-author: rkz, Sparkezel, helg2
-delete-after: true
-changes:
-  - rscadd: Adds advanced TGUI menu to Reflectors, from Aetherstation. Determine rotation
-      with no flaws or guesswork!
