@@ -65,10 +65,6 @@
 	board.obj_flags |= EMAGGED
 	update_static_data(user)
 
-/obj/machinery/computer/cargo/on_construction()
-	. = ..()
-	circuit.configure_machine(src)
-
 /obj/machinery/computer/cargo/ui_state(mob/user)
 	return GLOB.default_state
 
