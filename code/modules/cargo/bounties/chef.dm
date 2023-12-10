@@ -87,7 +87,7 @@
 	name = "Hot Dog"
 	description = "Nanotrasen is conducting taste tests to determine the best hot dog recipe. Ship your station's version to participate."
 	reward = 8000
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/hotdog)
+	wanted_types = list(/obj/item/food/hotdog)
 
 /datum/bounty/item/chef/eggplantparm
 	name = "Eggplant Parmigianas"

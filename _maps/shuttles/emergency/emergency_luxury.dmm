@@ -111,11 +111,6 @@
 /obj/item/food/spaghetti/meatballspaghetti,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"ay" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/notasandwich,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
 "az" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/spaghetti/pastatomato,
@@ -161,6 +156,11 @@
 /obj/item/food/spaghetti/chowmein,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
+"aI" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/pieslice/dulcedebatata,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
 "aJ" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/salad/validsalad,
@@ -190,16 +190,6 @@
 "aO" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/khachapuri,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
-"aP" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grilledcheese,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
-"aQ" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/jelliedtoast/cherry,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aR" = (
@@ -237,9 +227,9 @@
 /obj/item/food/pizza/dank,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"aY" = (
+"aZ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/hotdog,
+/obj/item/food/pie/grapetart,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "ba" = (
@@ -315,20 +305,14 @@
 /obj/item/surgical_drapes,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"mA" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/hotdog,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
 "nZ" = (
 /obj/item/pool/pool_noodle,
 /turf/open/indestructible/sound/pool,
-/area/shuttle/escape/luxury)
-"og" = (
-/obj/machinery/light/small,
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/shuttle/escape/luxury)
-"uR" = (
-/obj/structure/table/wood/fancy,
-/obj/item/food/pieslice/dulcedebatata,
-/turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "vB" = (
 /obj/item/kirbyplants{
@@ -354,6 +338,12 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"xl" = (
+/obj/machinery/light/small,
+/turf/open/floor/wood{
+	broken = 1
+	},
+/area/shuttle/escape/luxury)
 "zg" = (
 /obj/machinery/vending/wallmed,
 /turf/closed/indestructible/riveted/uranium,
@@ -362,9 +352,29 @@
 /obj/effect/turf_decal/pool/corner,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"EC" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/jelliedtoast/cherry,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
 "Jr" = (
 /obj/effect/turf_decal/pool,
 /turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"MK" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/grilled_cheese_sandwich,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
+"NJ" = (
+/turf/open/floor/wood{
+	broken = 1
+	},
+/area/shuttle/escape/luxury)
+"NT" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/notasandwich,
+/turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "OL" = (
 /obj/item/surgicaldrill,
@@ -375,16 +385,6 @@
 /obj/item/circular_saw,
 /obj/structure/table/wood/fancy,
 /turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"PT" = (
-/obj/structure/table/wood/fancy,
-/obj/item/food/pie/grapetart,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
-"SW" = (
-/turf/open/floor/wood{
-	broken = 1
-	},
 /area/shuttle/escape/luxury)
 "Ui" = (
 /obj/item/pool/rubber_ring,
@@ -430,7 +430,7 @@ aa
 (2,1,1) = {"
 ab
 ab
-SW
+NJ
 ab
 ab
 as
@@ -445,7 +445,7 @@ ab
 "}
 (3,1,1) = {"
 ab
-SW
+NJ
 ag
 ab
 ab
@@ -509,12 +509,12 @@ ab
 "}
 (7,1,1) = {"
 ab
-SW
+NJ
 ag
 ab
 aj
 au
-ay
+NT
 aO
 bd
 aj
@@ -531,7 +531,7 @@ ab
 aj
 au
 az
-aP
+MK
 bd
 aj
 Jr
@@ -547,7 +547,7 @@ ab
 aj
 au
 aA
-aQ
+EC
 bd
 aj
 Jr
@@ -558,7 +558,7 @@ ab
 (10,1,1) = {"
 ab
 ai
-og
+xl
 ab
 aj
 au
@@ -590,7 +590,7 @@ ab
 (12,1,1) = {"
 ac
 ag
-SW
+NJ
 ab
 aj
 au
@@ -674,8 +674,8 @@ aj
 aj
 aj
 au
-uR
-aY
+aI
+mA
 bd
 aj
 Jr
@@ -691,7 +691,7 @@ aj
 aj
 au
 aJ
-PT
+aZ
 bd
 aj
 Jr
