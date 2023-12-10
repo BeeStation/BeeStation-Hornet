@@ -12,6 +12,8 @@
 #define SILICON_PILOT (1<<4)
 #define IS_ENCLOSED (1<<5)
 #define HAS_LIGHTS (1<<6)
+#define QUIET_STEPS (1<<7)
+#define QUIET_TURNS (1<<8)
 
 #define MECHA_MELEE (1 << 0)
 #define MECHA_RANGED (1 << 1)

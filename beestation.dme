@@ -298,6 +298,7 @@
 #include "code\_globalvars\misc.dm"
 #include "code\_globalvars\regexes.dm"
 #include "code\_globalvars\religion.dm"
+#include "code\_globalvars\time_vars.dm"
 #include "code\_globalvars\traits.dm"
 #include "code\_globalvars\xenoartifact.dm"
 #include "code\_globalvars\lists\achievements.dm"
