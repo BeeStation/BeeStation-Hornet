@@ -139,9 +139,13 @@
 
 	//Item is handled and in slot, valid to call callback, for this proc should always be true
 	if(!not_handled)
-		I.equipped(src, slot)
+		has_equipped(I, slot)
 
 	return not_handled //For future deeper overrides
+
+/// This proc is called after an item has been successfully handled and equipped to a slot.
+/mob/living/carbon/proc/has_equipped(obj/item/item, slot, initial = FALSE)
+	return item.equipped(src, slot, initial)
 
 /mob/living/carbon/human/equipped_speed_mods()
 	. = ..()

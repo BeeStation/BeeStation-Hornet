@@ -72,7 +72,7 @@
 			to_chat(M,"<span class='warning'>The sensors on the [src] change rapidly!</span>")
 		update_sensors(new_sensor_mode)
 
-/obj/item/clothing/under/equipped(mob/user, slot)
+/obj/item/clothing/under/visual_equipped(mob/user, slot)
 	..()
 	if(adjusted)
 		adjusted = NORMAL_STYLE
@@ -86,15 +86,17 @@
 	if(slot == ITEM_SLOT_ICLOTHING)
 		update_sensors(sensor_mode, TRUE)
 
-	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
-		freshly_laundered = FALSE
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
-
 	if(attached_accessory && slot != ITEM_SLOT_HANDS && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
 			H.update_inv_wear_suit()
+
+/obj/item/clothing/under/equipped(mob/user, slot)
+	..()
+	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
+		freshly_laundered = FALSE
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
 
 /obj/item/clothing/under/dropped(mob/user)
 	..()

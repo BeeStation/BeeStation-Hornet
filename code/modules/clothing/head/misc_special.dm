@@ -311,13 +311,17 @@
 	hair_style = pick(GLOB.hair_styles_list - "Bald")
 	. = ..()
 
-/obj/item/clothing/head/wig/natural/equipped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/head/kitty/visual_equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 	if(ishuman(user) && (slot == ITEM_SLOT_HEAD || slot == ITEM_SLOT_NECK))
-		hair_color = "#[user.hair_color]"
-		gradient_style = user.gradient_style
-		gradient_color = "#[user.gradient_color]"
-		update_icon()
+		update_icon(ALL, user)
+		user.update_inv_head() //Color might have been changed by update_appearance.
+	..()
+
+/obj/item/clothing/head/kitty/update_icon(updates=ALL, mob/living/carbon/human/user)
+	. = ..()
+	if(ishuman(user))
+		add_atom_colour(user.hair_color, FIXED_COLOUR_PRIORITY)
 
 /obj/item/clothing/head/bronze
 	name = "bronze hat"
