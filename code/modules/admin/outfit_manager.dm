@@ -62,7 +62,7 @@
 				return
 			if(!ispath(outfit))
 				return
-				owner.open_outfit_editor(new outfit)
+			owner.open_outfit_editor(new outfit)
 
 	var/datum/outfit/target_outfit = locate(params["outfit"])
 	if(!istype(target_outfit))
