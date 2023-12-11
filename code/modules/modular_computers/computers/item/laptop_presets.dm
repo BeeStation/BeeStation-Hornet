@@ -20,3 +20,9 @@
 /obj/item/modular_computer/laptop/preset/civillian/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
+
+//Used for Mafia testing purposes.
+/obj/item/modular_computer/laptop/preset/mafia
+	starting_programs = list(
+		/datum/computer_file/program/mafia,
+	)

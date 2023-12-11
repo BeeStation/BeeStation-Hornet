@@ -8,6 +8,9 @@
 	var/clusterCheckFlags = CLUSTER_CHECK_SAME_ATOMS
 	var/allowAtomsOnSpace = FALSE
 
+/datum/mapGeneratormModule/Destroy(force, ...)
+	mother = null
+	return ..()
 
 //Syncs the module up with its mother
 /datum/mapGeneratorModule/proc/sync(datum/mapGenerator/mum)
