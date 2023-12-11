@@ -49,7 +49,7 @@
 	name = "Pie"
 	description = "3.14159? No! CentCom management wants edible pie! Ship a whole one."
 	reward = 1047
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/pie)
+	wanted_types = list(/obj/item/food/pie)
 
 /datum/bounty/item/chef/salad
 	name = "Salad or Rice Bowls"
@@ -87,7 +87,7 @@
 	name = "Hot Dog"
 	description = "Nanotrasen is conducting taste tests to determine the best hot dog recipe. Ship your station's version to participate."
 	reward = 8000
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/hotdog)
+	wanted_types = list(/obj/item/food/hotdog)
 
 /datum/bounty/item/chef/eggplantparm
 	name = "Eggplant Parmigianas"
@@ -107,7 +107,7 @@
 	name = "Chawanmushi"
 	description = "Nanotrasen wants to improve relations with its sister company, Japanotrasen. Ship Chawanmushi immediately."
 	reward = 8000
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/chawanmushi)
+	wanted_types = list(/obj/item/food/chawanmushi)
 
 /datum/bounty/item/chef/kebab
 	name = "Kebabs"
