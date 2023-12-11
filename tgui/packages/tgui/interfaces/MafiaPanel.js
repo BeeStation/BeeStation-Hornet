@@ -6,7 +6,7 @@ import { Window } from '../layouts';
 
 export const MafiaPanel = (props, context) => {
   const { act, data } = useBackend(context);
-  const { actions, phase, roleinfo, role_theme, admin_controls } = data;
+  const { phase, roleinfo, role_theme, admin_controls } = data;
   return (
     <Window title="Mafia" theme={role_theme} width={650} height={580}>
       <Window.Content>
@@ -21,18 +21,6 @@ export const MafiaPanel = (props, context) => {
               <MafiaRole />
             </Stack.Item>
           )}
-          {actions?.map((action) => (
-            <Stack.Item key={action}>
-              <Button
-                onClick={() =>
-                  act('mf_action', {
-                    atype: action,
-                  })
-                }>
-                {action}
-              </Button>
-            </Stack.Item>
-          ))}
           {!!roleinfo && (
             <Stack.Item>
               <MafiaJudgement />
@@ -77,7 +65,9 @@ export const MafiaPanel = (props, context) => {
 const MafiaLobby = (props, context) => {
   const { act, data } = useBackend(context);
   const { lobbydata, phase, timeleft } = data;
-  const readyGhosts = lobbydata ? lobbydata.filter((player) => player.status === 'Ready') : null;
+  const readyGhosts = lobbydata
+    ? lobbydata.filter((player) => player.status === 'Ready')
+    : null;
   return (
     <Section
       fill
@@ -118,14 +108,17 @@ const MafiaLobby = (props, context) => {
             tooltip={multiline`
               Submit a vote to start the game early.
               Starts when half of the current signup list have voted to start.
-              Requires a bare minimum of three players.
+              Requires a bare minimum of six players.
             `}
             content="Start Now!"
             onClick={() => act('vote_to_start')}
           />
         </>
       }>
-      <NoticeBox info>The lobby currently has {readyGhosts ? readyGhosts.length : '0'}/12 valid players signed up.</NoticeBox>
+      <NoticeBox info>
+        The lobby currently has {readyGhosts ? readyGhosts.length : '0'}/12
+        valid players signed up.
+      </NoticeBox>
       {lobbydata?.map((lobbyist) => (
         <Stack key={lobbyist} className="candystripe" p={1} align="baseline">
           <Stack.Item grow>{lobbyist.name}</Stack.Item>
@@ -218,7 +211,10 @@ const MafiaListOfRoles = (props, context) => {
       }>
       <Flex direction="column">
         {all_roles?.map((r) => (
-          <Flex.Item key={r} height="30px" className="Section__title candystripe">
+          <Flex.Item
+            key={r}
+            height="30px"
+            className="Section__title candystripe">
             <Flex height="18px" align="center" justify="space-between">
               <Flex.Item>{r}</Flex.Item>
               <Flex.Item textAlign="right">
@@ -227,7 +223,7 @@ const MafiaListOfRoles = (props, context) => {
                   icon="question"
                   onClick={() =>
                     act('mf_lookup', {
-                      atype: r.slice(0, -3),
+                      role_name: r.slice(0, -3),
                     })
                   }
                 />
@@ -268,13 +264,25 @@ const MafiaJudgement = (props, context) => {
           onClick={() => act('vote_innocent')}
         />
         {!judgement_phase && <Box>There is nobody on trial at the moment.</Box>}
-        {!!judgement_phase && <Box>It is now time to vote, vote the accused innocent or guilty!</Box>}
-        <Button icon="angry" color="bad" disabled={!judgement_phase} onClick={() => act('vote_guilty')}>
+        {!!judgement_phase && (
+          <Box>
+            It is now time to vote, vote the accused innocent or guilty!
+          </Box>
+        )}
+        <Button
+          icon="angry"
+          color="bad"
+          disabled={!judgement_phase}
+          onClick={() => act('vote_guilty')}>
           GUILTY!
         </Button>
       </Flex>
       <Flex justify="center">
-        <Button icon="meh" color="white" disabled={!judgement_phase} onClick={() => act('vote_abstain')}>
+        <Button
+          icon="meh"
+          color="white"
+          disabled={!judgement_phase}
+          onClick={() => act('vote_abstain')}>
           Abstain
         </Button>
       </Flex>
@@ -289,24 +297,30 @@ const MafiaPlayers = (props, context) => {
     <Section fill scrollable title="Players">
       <Flex direction="column">
         {players?.map((player) => (
-          <Flex.Item height="30px" className="Section__title candystripe" key={player.ref}>
+          <Flex.Item
+            height="30px"
+            className="Section__title candystripe"
+            key={player.ref}>
             <Stack height="18px" align="center">
               <Stack.Item grow color={!player.alive && 'red'}>
                 {player.name} {!player.alive && '(DEAD)'}
               </Stack.Item>
-              <Stack.Item shrink={0}>{player.votes !== undefined && !!player.alive && `Votes: ${player.votes}`}</Stack.Item>
+              <Stack.Item shrink={0}>
+                {player.votes !== undefined &&
+                  !!player.alive &&
+                  `Votes: ${player.votes}`}
+              </Stack.Item>
               <Stack.Item shrink={0} minWidth="42px" textAlign="center">
-                {player.actions?.map((action) => (
+                {player.possible_actions?.map((action) => (
                   <Button
-                    key={action}
-                    fluid
+                    key={action.name}
                     onClick={() =>
-                      act('mf_targ_action', {
-                        atype: action,
+                      act('perform_action', {
+                        action_ref: action.ref,
                         target: player.ref,
                       })
                     }>
-                    {action}
+                    {action.name}
                   </Button>
                 ))}
               </Stack.Item>
@@ -324,9 +338,11 @@ const MafiaAdmin = (props, context) => {
     <Collapsible title="ADMIN CONTROLS" color="red">
       <Section>
         <Collapsible title="A kind, coder warning" color="transparent">
-          Almost all of these are all built to help me debug the game (ow, debugging a 12 player game!) So they are rudamentary
-          and prone to breaking at the drop of a hat. Make sure you know what you&apos;re doing when you press one. Also because
-          an admin did it: do not gib/delete/dust anyone! It will runtime the game to death
+          Almost all of these are all built to help me debug the game (ow,
+          debugging a 12 player game!) So they are rudamentary and prone to
+          breaking at the drop of a hat. Make sure you know what you&apos;re
+          doing when you press one. Also because an admin did it: do not
+          gib/delete/dust anyone! It will runtime the game to death
         </Collapsible>
         <Button icon="arrow-right" onClick={() => act('next_phase')}>
           Next Phase
