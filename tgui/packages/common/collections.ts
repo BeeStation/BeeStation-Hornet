@@ -149,6 +149,8 @@ export const sortStrings = sortBy<string>();
 export const range = (start: number, end: number): number[] =>
   new Array(end - start).fill(null).map((_, index) => index + start);
 
+  export const sort = sortBy();
+
 /**
  * A fast implementation of reduce.
  */

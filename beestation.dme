@@ -1771,6 +1771,7 @@
 #include "code\modules\admin\verbs\randomverbs.dm"
 #include "code\modules\admin\verbs\reestablish_db_connection.dm"
 #include "code\modules\admin\verbs\requests.dm"
+#include "code\modules\admin\verbs\selectequipment.dm"
 #include "code\modules\admin\verbs\shuttlepanel.dm"
 #include "code\modules\admin\verbs\spawnfloorcluwne.dm"
 #include "code\modules\admin\verbs\spawnobjasmob.dm"

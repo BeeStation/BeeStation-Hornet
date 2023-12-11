@@ -218,6 +218,16 @@
 		if(em)
 			log_info("Query error when processing [owning_ckey] | [em]")
 
+	//favorite outfits
+	READ_FILE(S["favorite_outfits"], favorite_outfits)
+
+	var/list/parsed_favs = list()
+	for(var/typetext in favorite_outfits)
+		var/datum/outfit/path = text2path(typetext)
+		if(ispath(path)) //whatever typepath fails this check probably doesn't exist anymore
+			parsed_favs += path
+	favorite_outfits = uniqueList(parsed_favs)
+
 	// Now do characters
 	parse_characters(owning_ckey, S, character_dirs)
 
