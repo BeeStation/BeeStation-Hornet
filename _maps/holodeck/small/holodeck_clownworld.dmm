@@ -1,0 +1,101 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/turf/open/floor/holofloor/snow{
+	color = "#FF9900"
+	},
+/area/template_noop)
+"c" = (
+/obj/effect/holodeck_effect/mobspawner/clown,
+/turf/open/floor/holofloor/snow,
+/area/template_noop)
+"d" = (
+/turf/open/floor/holofloor/snow,
+/area/template_noop)
+"e" = (
+/turf/open/floor/holofloor/clown,
+/area/template_noop)
+"f" = (
+/obj/effect/holodeck_effect/mobspawner/clown,
+/turf/open/floor/holofloor/clown,
+/area/template_noop)
+"h" = (
+/turf/open/floor/holofloor/snow{
+	color = "#FF0000"
+	},
+/area/template_noop)
+"H" = (
+/obj/effect/holodeck_effect/mobspawner/clown,
+/turf/open/floor/holofloor/snow{
+	color = "#FF0000"
+	},
+/area/template_noop)
+"Y" = (
+/obj/effect/holodeck_effect/mobspawner/clown,
+/turf/open/floor/holofloor/snow{
+	color = "#FF9900"
+	},
+/area/template_noop)
+
+(1,1,1) = {"
+b
+Y
+e
+e
+e
+h
+h
+"}
+(2,1,1) = {"
+b
+d
+d
+d
+h
+H
+h
+"}
+(3,1,1) = {"
+d
+c
+f
+d
+d
+h
+h
+"}
+(4,1,1) = {"
+d
+d
+d
+h
+c
+e
+e
+"}
+(5,1,1) = {"
+c
+d
+f
+d
+d
+H
+h
+"}
+(6,1,1) = {"
+b
+d
+d
+d
+h
+h
+h
+"}
+(7,1,1) = {"
+b
+b
+e
+e
+e
+h
+h
+"}

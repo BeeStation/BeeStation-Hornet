@@ -182,6 +182,10 @@
 	light_color = "#AAD84B"
 	color = "#53003f"
 
+/turf/open/floor/grass/planetary
+	planetary_atmos = TRUE
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+
 /turf/open/floor/grass/snow
 	gender = PLURAL
 	name = "snow"

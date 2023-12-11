@@ -1,0 +1,134 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"o" = (
+/obj/structure/table/wood,
+/obj/item/paint/anycolor{
+	pixel_x = 7
+	},
+/obj/item/paint/anycolor{
+	pixel_x = 7
+	},
+/obj/item/storage/crayons{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/item/paint/anycolor{
+	pixel_x = -5
+	},
+/obj/item/paint/anycolor{
+	pixel_x = 7
+	},
+/obj/item/toy/crayon/spraycan{
+	charges = 1e+017;
+	desc = "A metallic container containing near unlimited  tasty holographic paint.";
+	name = "holographic spray can";
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/item/toy/crayon/spraycan{
+	charges = 1e+017;
+	desc = "A metallic container containing near unlimited  tasty holographic paint.";
+	name = "holographic spray can";
+	pixel_x = 9;
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"q" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/camera{
+	desc = "A holographic camera with near infinite pictures.";
+	name = "holographic camera";
+	pictures_left = 999;
+	pictures_max = 999
+	},
+/obj/item/razor{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"E" = (
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
+/obj/structure/easel,
+/obj/item/canvas/twentythree_twentythree,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+o
+a
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+q
+a
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+E
+a
+a
+a
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(7,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+"}

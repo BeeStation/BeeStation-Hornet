@@ -1,0 +1,132 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"q" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/holofloor/plating{
+	icon_state = "engine_light"
+	},
+/area/template_noop)
+"z" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/holofloor/plating{
+	icon_state = "engine_light"
+	},
+/area/template_noop)
+"A" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/holofloor/plating{
+	icon_state = "engine_light"
+	},
+/area/template_noop)
+"E" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/holofloor/plating{
+	icon_state = "engine_light"
+	},
+/area/template_noop)
+"M" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/holofloor/plating{
+	icon_state = "engine_light"
+	},
+/area/template_noop)
+"Q" = (
+/turf/open/floor/holofloor/plating{
+	icon_state = "engine_light"
+	},
+/area/template_noop)
+"S" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/holofloor/plating{
+	icon_state = "engine_light"
+	},
+/area/template_noop)
+"T" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/holofloor/plating{
+	icon_state = "engine_light"
+	},
+/area/template_noop)
+"Z" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/holofloor/plating{
+	icon_state = "engine_light"
+	},
+/area/template_noop)
+
+(1,1,1) = {"
+E
+Q
+T
+M
+z
+Q
+Z
+"}
+(2,1,1) = {"
+A
+Q
+Q
+Q
+Q
+Q
+q
+"}
+(3,1,1) = {"
+z
+Q
+Q
+Q
+Q
+Q
+T
+"}
+(4,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+"}
+(5,1,1) = {"
+E
+Q
+Q
+Q
+Q
+Q
+Z
+"}
+(6,1,1) = {"
+A
+Q
+Q
+Q
+Q
+Q
+q
+"}
+(7,1,1) = {"
+z
+Q
+Z
+S
+E
+Q
+T
+"}

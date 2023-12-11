@@ -80,15 +80,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/paradice
 	name = "Paradice"
 	icon_state = "asteroid"
-	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
-	area_flags = VALID_TERRITORY | UNIQUE_AREA
+	area_flags = VALID_TERRITORY
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED //it's underground
 
 /area/asteroid/paradice/surface
 	name = "Paradice surface"
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
-//	fullbright_type = FULLBRIGHT_STARLIGHT
 	sound_environment = null
+	fullbright_type = FULLBRIGHT_STARLIGHT
 
 //STATION13
 
