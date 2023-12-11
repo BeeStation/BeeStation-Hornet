@@ -339,11 +339,22 @@
 			break
 
 /proc/get_mob_by_ckey(key)
-	var/ckey = ckey(key) //just to be safe
+	var/mob_ckey = ckey(key) //just to be safe
+	if(!mob_ckey)
+		return
 	for(var/mob/M as() in GLOB.player_list)
-		if(M?.ckey == ckey)
+		if(M?.ckey == mob_ckey)
 			return M
-	return null
+
+/proc/get_ckey_last_living(key, healthy = FALSE)
+	var/mob_ckey = ckey(key) //just to be safe
+	if(!mob_ckey)
+		return
+	for(var/mob/living/potential_target as() in GLOB.mob_living_list)
+		if(QDELETED(potential_target) || (healthy && potential_target.stat))
+			continue
+		if(potential_target.ckey == mob_ckey || (!length(potential_target.ckey) && ckey(potential_target.mind?.key) == mob_ckey))
+			return potential_target
 
 /proc/considered_alive(datum/mind/M, enforce_human = TRUE)
 	if(M?.current)
