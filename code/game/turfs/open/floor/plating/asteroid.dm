@@ -13,7 +13,6 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	initial_gas_mix = ATMOS_TANK_AIRMIX
 	max_integrity = 200
 	damage_deflection = 0
 	var/environment_type = "asteroid"
