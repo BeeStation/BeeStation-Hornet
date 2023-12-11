@@ -71,12 +71,12 @@ SUBSYSTEM_DEF(sound_effects)
 /datum/sound_effect/proc/generate_id()
 	var/id = "[name][sound.file]"
 	for(var/A in listeners)
-		id = "[id][REF(A)]"
+		id = "[id][FAST_REF(A)]"
 	return id
 
 /datum/sound_effect/proc/send_sound()
-	for(var/reciever in listeners)
-		SEND_SOUND(reciever, sound)
+	for(var/receiver in listeners)
+		SEND_SOUND(receiver, sound)
 
 /datum/sound_effect/proc/update_effect()
 	return	//Not implemented
@@ -114,13 +114,13 @@ SUBSYSTEM_DEF(sound_effects)
 	SSsound_effects.acting_effects[effect_id] = src
 
 /datum/sound_effect/fade/update_effect()
-	var/time_multiplier = CLAMP((world.time - start_tick) / (end_tick - start_tick), 0, 1)
+	var/time_multiplier = clamp((world.time - start_tick) / (end_tick - start_tick), 0, 1)
 	current_vol = (time_multiplier * out_vol) + ((1-time_multiplier) * in_vol)
 	sound.status = SOUND_UPDATE
 	sound.volume = current_vol
 
-	for(var/reciever in listeners)
-		SEND_SOUND(reciever, sound)
+	for(var/receiver in listeners)
+		SEND_SOUND(receiver, sound)
 
 /datum/sound_effect/fade/end_effect()
 	if(!out_vol)

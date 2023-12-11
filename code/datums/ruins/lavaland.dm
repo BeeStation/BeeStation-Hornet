@@ -41,7 +41,7 @@
 	description = "The creators of these vaults were a highly advanced and benevolent race, and launched many into the stars, hoping to aid fledgling civilizations. \
 	However, all the inhabitants seem to do is grow drugs and guns."
 	suffix = "lavaland_surface_seed_vault.dmm"
-	cost = 10
+	cost = 5
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/ash_walker
@@ -50,7 +50,7 @@
 	description = "A race of unbreathing lizards live here, that run faster than a human can, worship a broken dead city, and are capable of reproducing by something involving tentacles? \
 	Probably best to stay clear."
 	suffix = "lavaland_surface_ash_walker1.dmm"
-	cost = 20
+	cost = 5
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/syndicate_base
@@ -58,7 +58,7 @@
 	id = "lava-base"
 	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
 	suffix = "lavaland_surface_syndicate_base1.dmm"
-	cost = 20
+	cost = 5
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/free_golem
@@ -66,7 +66,7 @@
 	id = "golem-ship"
 	description = "Lumbering humanoids, made out of precious metals, move inside this ship. They frequently leave to mine more minerals, which they somehow turn into more of them. \
 	Seem very intent on research and individual liberty, and also geology based naming?"
-	cost = 20
+	cost = 5
 	suffix = "lavaland_surface_golem_ship.dmm"
 	allow_duplicates = FALSE
 
@@ -198,7 +198,7 @@
 	description = "A place of shelter for a lone hermit, scraping by to live another day."
 	suffix = "lavaland_surface_hermit.dmm"
 	allow_duplicates = FALSE
-	cost = 10
+	cost = 5
 
 /datum/map_template/ruin/lavaland/swarmer_boss
 	name = "Crashed Shuttle"
@@ -222,7 +222,7 @@
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
 	cost = 5
-  
+
 /datum/map_template/ruin/lavaland/elite_tumor
 	name = "Pulsating Tumor"
 	id = "tumor"

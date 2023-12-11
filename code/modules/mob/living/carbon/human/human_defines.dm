@@ -6,7 +6,9 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
+	/// or other bodyparts may block the emissive elements of it.
+	blocks_emissive = FALSE
 	///Hair color
 	var/hair_color = "000"
 	///Hair style
@@ -14,7 +16,7 @@
 	///Colour used for the hair gradient.
 	var/gradient_color = "000"
 	///Style used for the hair gradient.
-	var/gradient_style
+	var/gradient_style = "None"
 	///Facial hair colour
 	var/facial_hair_color = "000"
 	///Facial hair style
@@ -52,7 +54,6 @@
 
 	var/list/datum/bioware = list()
 
-	var/creamed = FALSE //to use with creampie overlays
 	var/static/list/can_ride_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/simple_animal/slime, /mob/living/simple_animal/parrot, /mob/living/carbon/monkey))
 	var/lastpuke = 0
 	var/last_fire_update

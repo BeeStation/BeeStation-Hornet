@@ -1,7 +1,7 @@
 /proc/translate_legacy_chem_id(id)
 	switch (id)
 		if ("sacid")
-			return "sulphuricacid"
+			return "sulfuricacid"
 		if ("facid")
 			return "fluorosulfuricacid"
 		if ("co2")
@@ -17,6 +17,7 @@
 	density = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "dispenser"
+	base_icon_state = "dispenser"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
@@ -85,12 +86,12 @@
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
-	dispensable_reagents = sortList(dispensable_reagents, /proc/cmp_reagents_asc)
+	dispensable_reagents = sort_list(dispensable_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
 	if(emagged_reagents)
-		emagged_reagents = sortList(emagged_reagents, /proc/cmp_reagents_asc)
+		emagged_reagents = sort_list(emagged_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
 	if(upgrade_reagents)
-		upgrade_reagents = sortList(upgrade_reagents, /proc/cmp_reagents_asc)
-	update_icon()
+		upgrade_reagents = sort_list(upgrade_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
+	update_appearance()
 
 /obj/machinery/chem_dispenser/Destroy()
 	QDEL_NULL(beaker)
@@ -127,18 +128,18 @@
 	if(working_state)
 		flick(working_state,src)
 
-/obj/machinery/chem_dispenser/power_change()
-	..()
-	icon_state = "[(nopower_state && !powered()) ? nopower_state : initial(icon_state)]"
+/obj/machinery/chem_dispenser/update_icon_state()
+	icon_state = "[(nopower_state && !powered()) ? nopower_state : base_icon_state]"
+	return ..()
 
-/obj/machinery/chem_dispenser/update_icon()
-	cut_overlays()
+/obj/machinery/chem_dispenser/update_overlays()
+	. = ..()
 	if(has_panel_overlay && panel_open)
-		add_overlay(mutable_appearance(icon, "[initial(icon_state)]_panel-o"))
+		. += mutable_appearance(icon, "[base_icon_state]_panel-o")
 
 	if(beaker)
 		beaker_overlay = display_beaker()
-		add_overlay(beaker_overlay)
+		. += beaker_overlay
 
 /obj/machinery/chem_dispenser/on_emag(mob/user)
 	..()
@@ -297,10 +298,14 @@
 				else
 					recording_recipe[key] += dispense_amount
 			. = TRUE
-		if("clear_recipes")
-			var/yesno = alert("Clear all recipes?",, "Yes","No")
-			if(yesno == "Yes")
-				saved_recipes = list()
+		if("delete_recipe")
+			var/recipe_name = params["recipe"]
+			if(!recipe_name || !saved_recipes[recipe_name])
+				return
+			saved_recipes -= recipe_name
+			. = TRUE
+		if("clear_all_recipes")
+			saved_recipes.Cut()
 			. = TRUE
 		if("record_recipe")
 			recording_recipe = list()
@@ -309,7 +314,7 @@
 			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
 			if(!usr.canUseTopic(src, !issilicon(usr)))
 				return
-			if(saved_recipes[name] && alert("\"[name]\" already exists, do you want to overwrite it?",, "Yes", "No") == "No")
+			if(saved_recipes[name] && alert("\"[name]\" already exists, do you want to overwrite it?",, "Yes", "No") != "Yes")
 				return
 			if(name && recording_recipe)
 				for(var/reagent in recording_recipe)
@@ -330,7 +335,7 @@
 	if(default_unfasten_wrench(user, I))
 		return
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
-		update_icon()
+		update_appearance()
 		return
 	if(default_deconstruction_crowbar(I))
 		return
@@ -342,8 +347,7 @@
 		replace_beaker(user, B)
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
 		updateUsrDialog()
-		update_icon()
-	else if(user.a_intent != INTENT_HARM && !istype(I, /obj/item/card/emag))
+	else if(user.a_intent != INTENT_HARM && !istype(I, /obj/item/card/emag) && !istype(I, /obj/item/stock_parts/cell))
 		to_chat(user, "<span class='warning'>You can't load [I] into [src]!</span>")
 		return ..()
 	else
@@ -387,15 +391,14 @@
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
+	if(!user)
+		return FALSE
 	if(beaker)
-		beaker.forceMove(drop_location())
-		if(user && Adjacent(user) && !issiliconoradminghost(user))
-			user.put_in_hands(beaker)
+		try_put_in_hand(beaker, user)
+		beaker = null
 	if(new_beaker)
 		beaker = new_beaker
-	else
-		beaker = null
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/chem_dispenser/on_deconstruction()
@@ -407,8 +410,9 @@
 
 /obj/machinery/chem_dispenser/AltClick(mob/living/user)
 	. = ..()
-	if(istype(user) && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		replace_beaker(user)
+	if(!can_interact(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		return
+	replace_beaker(user)
 
 /obj/machinery/chem_dispenser/drinks/Initialize(mapload)
 	. = ..()
@@ -418,7 +422,7 @@
 	var/old = dir
 	. = ..()
 	if(dir != old)
-		update_icon()  // the beaker needs to be re-positioned if we rotate
+		update_appearance()  // the beaker needs to be re-positioned if we rotate
 
 /obj/machinery/chem_dispenser/drinks/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
@@ -442,6 +446,7 @@
 	desc = "Contains a large reservoir of soft drinks."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "soda_dispenser"
+	base_icon_state = "soda_dispenser"
 	has_panel_overlay = FALSE
 	amount = 10
 	pixel_y = 6
@@ -483,7 +488,7 @@
 		/datum/reagent/toxin/staminatoxin
 	)
 
-/obj/machinery/chem_dispenser/drinks/fullupgrade //fully ugpraded stock parts, emagged
+/obj/machinery/chem_dispenser/drinks/fullupgrade //fully upgraded stock parts, emagged
 	desc = "Contains a large reservoir of soft drinks. This model has had its safeties shorted out."
 	obj_flags = CAN_BE_HIT | EMAGGED
 	flags_1 = NODECONSTRUCT_1
@@ -498,6 +503,7 @@
 	desc = "Contains a large reservoir of the good stuff."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "booze_dispenser"
+	base_icon_state = "booze_dispenser"
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
 	dispensable_reagents = list(
 		/datum/reagent/consumable/ethanol/beer,
@@ -574,6 +580,7 @@
 	name = "minor botanical chemical dispenser"
 	desc = "A botanical chemical dispenser on a budget."
 	icon_state = "minidispenser"
+	base_icon_state = "minidispenser"
 	working_state = "minidispenser_working"
 	nopower_state = "minidispenser_nopower"
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/botany
@@ -608,6 +615,7 @@
 	desc = "Synthesizes a variety of reagents using proto-matter."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "chem_dispenser"
+	base_icon_state = "chem_dispenser"
 	has_panel_overlay = FALSE
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/abductor
 	working_state = null

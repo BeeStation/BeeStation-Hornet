@@ -141,7 +141,7 @@
 	else if(owner.get_active_held_item())
 		var/drop_chance = 1
 		var/obj/item/I = owner.get_active_held_item()
-		drop_chance += I.w_class
+		drop_chance += I.w_class / 2
 		if(prob(drop_chance) && owner.dropItemToGround(I))
 			to_chat(owner, "<span class='warning'>You drop [I]!</span>")
 
@@ -178,8 +178,8 @@
 			to_chat(owner, "<span notice='warning'>[pick("You have a coughing fit!", "You can't stop coughing!")]</span>")
 			owner.Immobilize(20)
 			owner.emote("cough")
-			addtimer(CALLBACK(owner, /mob/.proc/emote, "cough"), 6)
-			addtimer(CALLBACK(owner, /mob/.proc/emote, "cough"), 12)
+			addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob, emote), "cough"), 6)
+			addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob, emote), "cough"), 12)
 		owner.emote("cough")
 	..()
 

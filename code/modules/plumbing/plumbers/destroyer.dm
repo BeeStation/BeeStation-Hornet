@@ -9,6 +9,7 @@
 /obj/machinery/plumbing/disposer/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/disposer/process(delta_time)
 	if(machine_stat & NOPOWER)

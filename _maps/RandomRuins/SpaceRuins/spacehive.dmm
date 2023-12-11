@@ -12,9 +12,6 @@
 "d" = (
 /turf/open/floor/wood/airless,
 /area/ruin/unpowered)
-"e" = (
-/turf/open/floor/wood/airless,
-/area/ruin/unpowered)
 "f" = (
 /obj/machinery/door/airlock/wood,
 /obj/structure/punji_sticks,
@@ -27,7 +24,7 @@
 /turf/closed/wall/mineral/sandstone,
 /area/ruin/unpowered)
 "i" = (
-/obj/item/stack/sheet/mineral/wax,
+/obj/item/stack/sheet/wax,
 /turf/open/floor/wax/airless,
 /area/ruin/unpowered)
 "j" = (
@@ -35,10 +32,6 @@
 /turf/open/floor/wax/airless,
 /area/ruin/unpowered)
 "k" = (
-/obj/machinery/hydroponics,
-/turf/open/floor/wood/airless,
-/area/ruin/unpowered)
-"l" = (
 /obj/machinery/hydroponics,
 /turf/open/floor/wood/airless,
 /area/ruin/unpowered)
@@ -390,8 +383,8 @@ g
 b
 c
 d
-e
-e
+d
+d
 f
 j
 g
@@ -424,8 +417,8 @@ h
 g
 g
 b
-l
-l
+k
+k
 m
 b
 g

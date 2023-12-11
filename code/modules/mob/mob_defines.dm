@@ -42,7 +42,7 @@
 
 	/* A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
-	The current method unnecessarily clusters up the variable list, especially for humans (although rearranging won't really clean it up a lot but the difference will be noticable for other mobs).
+	The current method unnecessarily clusters up the variable list, especially for humans (although rearranging won't really clean it up a lot but the difference will be noticeable for other mobs).
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
@@ -114,9 +114,9 @@
 	/// The last known IP of the client who was in this mob
 	var/lastKnownIP = null
 
-	/// movable atoms buckled to this mob
+	/// The atom that this mob is currently buckled to
 	var/atom/movable/buckled = null//Living
-	/// movable atom we are buckled to
+	/// The movable atom that we are currently in the process of buckling to, but haven't buckled with yet.
 	var/atom/movable/buckling
 
 	//Hands
@@ -220,5 +220,15 @@
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
+	///Is the mob pixel shifted?
+	var/is_shifted
+
+	///Is the mob actively shifting?
+	var/shifting
+
 	///Currently possesses a typing indicator icon
 	var/typing_indicator = FALSE
+	/// Thinking indicator - mob has input window open
+	var/thinking_indicator = FALSE
+	/// User is thinking in character. Used to revert to thinking state after stop_typing
+	var/thinking_IC = FALSE

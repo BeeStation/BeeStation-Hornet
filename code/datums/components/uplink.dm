@@ -21,6 +21,7 @@
 	var/datum/uplink_purchase_log/purchase_log
 	var/list/uplink_items
 	var/hidden_crystals = 0
+	var/unlock_text
 	var/unlock_note
 	var/unlock_code
 	var/failsafe_code
@@ -35,19 +36,19 @@
 		return COMPONENT_INCOMPATIBLE
 
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/interact)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
 	if(istype(parent, /obj/item/implant))
-		RegisterSignal(parent, COMSIG_IMPLANT_ACTIVATED, .proc/implant_activation)
-		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, .proc/implanting)
-		RegisterSignal(parent, COMSIG_IMPLANT_OTHER, .proc/old_implant)
-		RegisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK, .proc/new_implant)
+		RegisterSignal(parent, COMSIG_IMPLANT_ACTIVATED, PROC_REF(implant_activation))
+		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanting))
+		RegisterSignal(parent, COMSIG_IMPLANT_OTHER, PROC_REF(old_implant))
+		RegisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK, PROC_REF(new_implant))
 	else if(istype(parent, /obj/item/modular_computer/tablet))
-		RegisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE, .proc/new_ringtone)
+		RegisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE, PROC_REF(new_ringtone))
 	else if(istype(parent, /obj/item/radio))
-		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, .proc/radio_message)
+		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, PROC_REF(radio_message))
 	else if(istype(parent, /obj/item/pen))
-		RegisterSignal(parent, COMSIG_PEN_ROTATED, .proc/pen_rotation)
+		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
 
 	if(_owner)
 		owner = _owner
@@ -93,7 +94,7 @@
 		if (uplink_items[category] != null && updated_items[category] != null)
 			updated_items[category] = uplink_items[category]
 
-/datum/component/uplink/proc/LoadTC(mob/user, obj/item/stack/telecrystal/TC, silent = FALSE)
+/datum/component/uplink/proc/LoadTC(mob/user, obj/item/stack/sheet/telecrystal/TC, silent = FALSE)
 	if(!silent)
 		to_chat(user, "<span class='notice'>You slot [TC] into [parent] and charge its internal uplink.</span>")
 	var/amt = TC.amount
@@ -105,7 +106,7 @@
 
 	if(!active)
 		return	//no hitting everyone/everything just to try to slot tcs in!
-	if(istype(I, /obj/item/stack/telecrystal))
+	if(istype(I, /obj/item/stack/sheet/telecrystal))
 		LoadTC(user, I)
 	for(var/category in uplink_items)
 		for(var/item in uplink_items[category])
@@ -118,7 +119,7 @@
 			//Check that the uplink has purchased this item (Sales can be refunded as the path relates to the old one)
 			var/hash = purchase_log.hash_purchase(UI, UI.cost)
 			var/datum/uplink_purchase_entry/UPE = purchase_log.purchase_log[hash]
-			if(I.type == path && UI.refundable && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)
+			if(I.type == path && UI.can_be_refunded(I, src) && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)
 				UPE.amount_purchased --
 				if(!UPE.amount_purchased)
 					purchase_log.purchase_log.Remove(hash)
@@ -138,7 +139,7 @@
 	active = TRUE
 	update_items()
 	if(user)
-		INVOKE_ASYNC(src, .proc/ui_interact, user)
+		INVOKE_ASYNC(src, PROC_REF(ui_interact), user)
 	// an unlocked uplink blocks also opening the PDA or headset menu
 	return COMPONENT_NO_INTERACT
 
@@ -313,14 +314,15 @@
 		interact(null, master.loc)
 
 
-/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message, channel)
+/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, treated_message, channel, list/message_mods)
 	SIGNAL_HANDLER
+	var/message_to_use = message_mods[MODE_UNTREATED_MESSAGE]
 
 	if(channel != RADIO_CHANNEL_UPLINK)
 		return
 
-	if(!findtext(lowertext(message), lowertext(unlock_code)))
-		if(failsafe_code && findtext(lowertext(message), lowertext(failsafe_code)))
+	if(!findtext(lowertext(message_to_use), lowertext(unlock_code)))
+		if(failsafe_code && findtext(lowertext(message_to_use), lowertext(failsafe_code)))
 			failsafe()
 		return
 	locked = FALSE

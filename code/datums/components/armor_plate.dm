@@ -2,16 +2,18 @@
 	var/amount = 0
 	var/maxamount = 3
 	var/upgrade_item = /obj/item/stack/sheet/animalhide/goliath_hide
-	var/datum/armor/added_armor = list("melee" = 10)
+	var/datum/armor/added_armor = list(MELEE = 10)
 	var/upgrade_name
 
 /datum/component/armor_plate/Initialize(_maxamount,obj/item/_upgrade_item,datum/armor/_added_armor)
 	if(!isobj(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/examine)
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/applyplate)
-	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, .proc/dropplates)
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(applyplate))
+	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(dropplates))
+	if(istype(parent, /obj/mecha/working/ripley))
+		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_mech_overlays))
 
 	if(_maxamount)
 		maxamount = _maxamount
@@ -82,3 +84,14 @@
 	if(ismecha(parent)) //items didn't drop the plates before and it causes erroneous behavior for the time being with collapsible helmets
 		for(var/i in 1 to amount)
 			new upgrade_item(get_turf(parent))
+
+/datum/component/armor_plate/proc/apply_mech_overlays(obj/mecha/mech, list/overlays)
+	SIGNAL_HANDLER
+
+	if(amount)
+		var/overlay_string = "ripley-g"
+		if(amount >= 3)
+			overlay_string += "-full"
+		if(!LAZYLEN(mech.occupant))
+			overlay_string += "-open"
+		overlays += overlay_string

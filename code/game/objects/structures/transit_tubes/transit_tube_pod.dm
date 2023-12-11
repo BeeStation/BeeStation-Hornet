@@ -99,9 +99,9 @@
 	moving = TRUE
 	current_tube = tube
 	var/datum/move_loop/engine = SSmove_manager.force_move_dir(src, dir, 0, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	RegisterSignal(engine, COMSIG_MOVELOOP_PREPROCESS_CHECK, .proc/before_pipe_transfer)
-	RegisterSignal(engine, COMSIG_MOVELOOP_POSTPROCESS, .proc/after_pipe_transfer)
-	RegisterSignal(engine, COMSIG_PARENT_QDELETING, .proc/engine_finish)
+	RegisterSignal(engine, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(before_pipe_transfer))
+	RegisterSignal(engine, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(after_pipe_transfer))
+	RegisterSignal(engine, COMSIG_PARENT_QDELETING, PROC_REF(engine_finish))
 	calibrate_engine(engine)
 
 /obj/structure/transit_tube_pod/proc/before_pipe_transfer(datum/move_loop/move/source)
@@ -111,7 +111,7 @@
 /obj/structure/transit_tube_pod/proc/after_pipe_transfer(datum/move_loop/move/source)
 	SIGNAL_HANDLER
 
-	density = current_tube.density
+	set_density(current_tube.density)
 	if(current_tube.should_stop_pod(src, source.direction))
 		current_tube.pod_stopped(src, dir)
 		qdel(source)
@@ -146,7 +146,7 @@
 
 /obj/structure/transit_tube_pod/proc/engine_finish()
 	SIGNAL_HANDLER
-	density = TRUE
+	set_density(TRUE)
 	moving = 0
 
 	var/obj/structure/transit_tube/TT = locate(/obj/structure/transit_tube) in loc

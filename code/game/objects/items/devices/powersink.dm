@@ -25,9 +25,11 @@
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
 
 	var/obj/structure/cable/attached		// the attached cable
+	item_flags = NO_PIXEL_RANDOM_DROP
 
-/obj/item/powersink/update_icon()
+/obj/item/powersink/update_icon_state()
 	icon_state = "powersink[mode == OPERATING]"
+	return ..()
 
 /obj/item/powersink/proc/set_mode(value)
 	if(value == mode)
@@ -38,7 +40,7 @@
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
 			anchored = FALSE
-			density = FALSE
+			set_density(FALSE)
 
 		if(CLAMPED_OFF)
 			if(!attached)
@@ -46,24 +48,24 @@
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
 			anchored = TRUE
-			density = TRUE
+			set_density(TRUE)
 
 		if(OPERATING)
 			if(!attached)
 				return
 			START_PROCESSING(SSobj, src)
 			anchored = TRUE
-			density = TRUE
+			set_density(TRUE)
 
 	mode = value
-	update_icon()
+	update_appearance()
 	set_light(0)
 
 /obj/item/powersink/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(mode == DISCONNECTED)
 			var/turf/T = loc
-			if(isturf(T) && !T.intact)
+			if(isturf(T) && T.underfloor_accessibility >= UNDERFLOOR_INTERACTABLE)
 				attached = locate() in T
 				if(!attached)
 					to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")

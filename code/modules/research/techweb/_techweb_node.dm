@@ -1,5 +1,5 @@
 
-//Techweb nodes are GLOBAL, there should only be one instance of them in the game. Persistant changes should never be made to them in-game.
+//Techweb nodes are GLOBAL, there should only be one instance of them in the game. Persistent changes should never be made to them in-game.
 //USE SSRESEARCH PROCS TO OBTAIN REFERENCES. DO NOT REFERENCE OUTSIDE OF SSRESEARCH OR YOU WILL FUCK UP GC.
 
 /datum/techweb_node
@@ -42,9 +42,9 @@
 	VARSET_TO_LIST(., display_name)
 	VARSET_TO_LIST(., hidden)
 	VARSET_TO_LIST(., starting_node)
-	VARSET_TO_LIST(., assoc_list_strip_value(prereq_ids))
-	VARSET_TO_LIST(., assoc_list_strip_value(design_ids))
-	VARSET_TO_LIST(., assoc_list_strip_value(unlock_ids))
+	VARSET_TO_LIST(., assoc_to_keys(prereq_ids))
+	VARSET_TO_LIST(., assoc_to_keys(design_ids))
+	VARSET_TO_LIST(., assoc_to_keys(unlock_ids))
 	VARSET_TO_LIST(., boost_item_paths)
 	VARSET_TO_LIST(., autounlock_by_boost)
 	VARSET_TO_LIST(., export_price)

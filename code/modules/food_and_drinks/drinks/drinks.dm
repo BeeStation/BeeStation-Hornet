@@ -8,7 +8,7 @@
 	icon_state = null
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
-	reagent_flags = OPENCONTAINER
+	reagent_flags = OPENCONTAINER | DUNKABLE
 	var/gulp_size = 5 //This is now officially broken ... need to think of a nice way to fix it.
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
@@ -38,7 +38,7 @@
 			beingChugged = TRUE
 			user.visible_message("<span class='notice'>[user] starts chugging [src].</span>", \
 				"<span class='notice'>You start chugging [src].</span>")
-			if(!do_mob(user, M))
+			if(!do_after(user, target = M))
 				return
 			if(!reagents || !reagents.total_volume)
 				return
@@ -55,7 +55,7 @@
 	else
 		M.visible_message("<span class='danger'>[user] attempts to feed [M] the contents of [src].</span>", \
 			"<span class='userdanger'>[user] attempts to feed you the contents of [src].</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The drink might be empty after the delay, such as by spam-feeding
@@ -91,7 +91,7 @@
 		if(iscyborg(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 			var/mob/living/silicon/robot/bro = user
 			bro.cell.use(30)
-			addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 600)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent), refill, trans), 600)
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if (!is_refillable())
@@ -143,7 +143,7 @@
 	qdel(src)
 	target.Bumped(B)
 
-/obj/item/reagent_containers/food/drinks/bullet_act(obj/item/projectile/P)
+/obj/item/reagent_containers/food/drinks/bullet_act(obj/projectile/P)
 	. = ..()
 	if(!(P.nodamage) && P.damage_type == BRUTE && !QDELETED(src))
 		var/atom/T = get_turf(src)
@@ -213,7 +213,7 @@
 //	Formatting is the same as food.
 
 /obj/item/reagent_containers/food/drinks/coffee
-	name = "robust coffee"
+	name = "Robust coffee"
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
 	icon_state = "coffee"
 	list_reagents = list(/datum/reagent/consumable/coffee = 30)
@@ -221,6 +221,15 @@
 	resistance_flags = FREEZE_PROOF
 	isGlass = FALSE
 	foodtype = BREAKFAST
+
+/obj/item/reagent_containers/food/drinks/bubble_tea
+	name = "Bubble tea"
+	desc = "Refreshing! You aren't sure what those things in the bottom are."
+	icon_state = "bubble_tea"
+	list_reagents = list(/datum/reagent/consumable/bubble_tea = 50)
+	foodtype = SUGAR
+	spillable = TRUE
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
@@ -262,12 +271,15 @@
 	resistance_flags = FREEZE_PROOF
 	custom_price = 42
 
-
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
 	desc = "Just add 5ml of water, self heats! A taste that reminds you of your school years. Now new with salty flavour!"
 	icon_state = "ramen"
-	list_reagents = list(/datum/reagent/consumable/dry_ramen = 15, /datum/reagent/consumable/sodiumchloride = 3)
+	list_reagents = list(
+		/datum/reagent/consumable/dry_ramen = 15,
+		/datum/reagent/consumable/sodiumchloride = 3,
+		/datum/reagent/consumable/maltodextrin = 5
+	)
 	foodtype = GRAIN
 	isGlass = FALSE
 	custom_price = 38
@@ -406,7 +418,7 @@
 	if(!reagents.total_volume)
 		user.visible_message("<span class='warning'>[user] snaps the [src] into 2 pieces!</span>",
 		"<span class='notice'>You snap [src] in half.</span>")
-		new /obj/item/stack/sheet/mineral/wax(user.loc, 2)
+		new /obj/item/stack/sheet/wax(user.loc, 2)
 		qdel(src)
 		return
 	return ..()
@@ -496,7 +508,7 @@
 		qdel(src)
 	..()
 
-/obj/item/reagent_containers/food/drinks/soda_cans/bullet_act(obj/item/projectile/P)
+/obj/item/reagent_containers/food/drinks/soda_cans/bullet_act(obj/projectile/P)
 	. = ..()
 	if(!(P.nodamage) && P.damage_type == BRUTE && !QDELETED(src))
 		var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(src.loc)

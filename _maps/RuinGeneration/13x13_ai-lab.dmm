@@ -130,9 +130,6 @@
 /area/ruin/unpowered)
 "tD" = (
 /obj/effect/abstract/doorway_marker,
-/obj/machinery/door/airlock/grunge{
-	name = "Artificial Intelligence research"
-	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "tJ" = (

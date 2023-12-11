@@ -27,7 +27,7 @@
 	if(!check_allowed(user))
 		return
 
-	if(are_you_sure == "No")
+	if(are_you_sure != "Yes")
 		to_chat(user, "On second thought, the element of surprise isn't so bad after all.")
 		return
 
@@ -51,6 +51,7 @@
 	declare_war(user, war_declaration)
 
 /obj/item/nuclear_challenge/proc/declare_war(mob/user, war_declaration)
+	set_dynamic_high_impact_event("nuclear operatives have declared war")
 	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 
 	play_soundtrack_music(/datum/soundtrack_song/bee/future_perception)
@@ -87,14 +88,14 @@
 
 
 	for (var/mob/living/L in orphans)
-		var/TC = new /obj/item/stack/telecrystal(L.drop_location(), tc_per_nukie)
+		var/TC = new /obj/item/stack/sheet/telecrystal(L.drop_location(), tc_per_nukie)
 		to_chat(L, "<span class='warning'>Your uplink could not be found so your share of the team's bonus telecrystals has been bluespaced to your [L.put_in_hands(TC) ? "hands" : "feet"].</span>")
 		tc_to_distribute -= tc_per_nukie
 
 	if (tc_to_distribute > 0) // What shall we do with the remainder...
 		for (var/mob/living/simple_animal/hostile/carp/cayenne/C in GLOB.mob_living_list)
 			if (C.stat != DEAD)
-				var/obj/item/stack/telecrystal/TC = new(C.drop_location(), tc_to_distribute)
+				var/obj/item/stack/sheet/telecrystal/TC = new(C.drop_location(), tc_to_distribute)
 				TC.throw_at(get_step(C, C.dir), 3, 3)
 				C.visible_message("<span class='notice'>[C] coughs up a half-digested telecrystal</span>","<span class='usernotice'>You cough up a half-digested telecrystal!</span>")
 				break

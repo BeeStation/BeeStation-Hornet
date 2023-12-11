@@ -17,7 +17,7 @@
 	// 7.40./2 = 3.70 (note, all these values are rounded).  This is howw this number was found.
 	var/base_mining_income = 3.70
 
-	// Heating is wierd.  Since  the servers are stored in a room that sucks air in one vent, into a pipe network, to a
+	// Heating is weird.  Since  the servers are stored in a room that sucks air in one vent, into a pipe network, to a
 	// T1 freezer, then out another vent at standard presure, the rooms temps could vary as wieldy as 100K.  The T1 freezer
 	// has 10000 heat power at the start, so each of the servers produce that but only heat a quarter of the turf
 	// This allows the servers to rapidly heat up in under 5 min to the shut off point and make it annoying to cool back
@@ -47,8 +47,6 @@
 	name += " [uppertext(num2hex(server_id, -1))]" //gives us a random four-digit hex number as part of the name. Y'know, for fluff.
 	SSresearch.servers |= src
 	stored_research = SSresearch.science_tech
-	var/obj/item/circuitboard/machine/B = new /obj/item/circuitboard/machine/rdserver(null)
-	B.apply_default_parts(src)
 	// The +10 is so the sparks work
 	RefreshParts()
 

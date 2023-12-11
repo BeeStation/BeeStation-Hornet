@@ -24,6 +24,7 @@
 	var/on = FALSE
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5
+	item_flags = ISWEAPON
 
 /obj/item/chainsaw/Initialize(mapload)
 	. = ..()
@@ -43,7 +44,7 @@
 	else
 		user.visible_message("<span class='suicide'>[user] smashes [src] into [user.p_their()] neck, destroying [user.p_their()] esophagus! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(src, 'sound/weapons/genhit1.ogg', 100, TRUE)
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/chainsaw/attack_self(mob/user)
 	on = !on
@@ -61,9 +62,7 @@
 
 	if(src == user.get_active_held_item()) //update inhands
 		user.update_inv_hands()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 // DOOMGUY CHAINSAW
 /obj/item/chainsaw/doomslayer
@@ -123,16 +122,14 @@
 
 	if(src == user.get_active_held_item())
 		user.update_inv_hands()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 // DOOMGUY ENERGY CHAINSAW
 /obj/item/chainsaw/energy/doom
 	name = "super energy chainsaw"
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
 	force_on = 60
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	block_power = 75
 	block_level = 1
 	attack_weight = 3 //fear him

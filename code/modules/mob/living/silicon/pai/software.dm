@@ -45,9 +45,9 @@
 	var/mob/living/silicon/pai/pai = user
 	data["available"] = available_software
 	data["records"] = list()
-	if("medical records" in pai.software)
+	if(PAI_PROGRAM_MEDICAL_RECORDS in pai.software)
 		data["records"]["medical"] = medical_records
-	if("security records" in pai.software)
+	if(PAI_PROGRAM_SECURITY_RECORDS in pai.software)
 		data["records"]["security"] = security_records
 	return data
 
@@ -96,7 +96,7 @@
 			aicamera.adjust_zoom(usr)
 		if("change_image")
 			var/atom/anchor = get_atom_on_turf(src)
-			var/newImage = show_radial_menu(usr, anchor, GLOB.pAI_faces_icons, custom_check = CALLBACK(src, .proc/check_radial_menu, anchor), radius = 40, require_near = TRUE)
+			var/newImage = show_radial_menu(usr, anchor, GLOB.pAI_faces_icons, custom_check = CALLBACK(src, PROC_REF(check_radial_menu), anchor), radius = 40, require_near = TRUE)
 			if(isnull(newImage))
 				card.emotion_icon = "null"
 			else
@@ -166,8 +166,8 @@
 				medical_records = GLOB.data_core.get_general_records()
 			if(params["list"] == "security")
 				security_records = GLOB.data_core.get_security_records()
-			ui.send_full_update()
-			addtimer(CALLBACK(src, .proc/refresh_again), 3 SECONDS)
+			ui.send_full_update(bypass_cooldown = TRUE)
+			addtimer(CALLBACK(src, PROC_REF(refresh_again)), 3 SECONDS)
 		if("remote_signaler")
 			signaler.ui_interact(src)
 		if("security_hud")
@@ -256,9 +256,9 @@
 		if(hacker.put_in_hands(hacking_cable))
 			transfered_to_mob = TRUE
 			hacker.visible_message("<span class='warning'>A port on [src] opens to reveal \a [hacking_cable], which you quickly grab hold of.", "<span class='hear'>You hear the soft click of something light and manage to catch hold of [hacking_cable].</span></span>")
-		if(!transfered_to_mob)
-			hacking_cable.forceMove(drop_location())
-			hacking_cable.visible_message("<span class='warning'>A port on [src] opens to reveal \a [hacking_cable], which promptly falls to the floor.", "<span class='hear'>You hear the soft click of something light and hard falling to the ground.</span></span>")
+	if(!transfered_to_mob)
+		hacking_cable.forceMove(drop_location())
+		hacking_cable.visible_message("<span class='warning'>A port on [src] opens to reveal \a [hacking_cable], which promptly falls to the floor.", "<span class='hear'>You hear the soft click of something light and hard falling to the ground.</span></span>")
 
 /**
  * Door jacking supporting proc

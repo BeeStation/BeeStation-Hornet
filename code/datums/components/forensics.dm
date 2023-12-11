@@ -25,7 +25,7 @@
 
 /datum/component/forensics/RegisterWithParent()
 	add_blood_decal()
-	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_act)
+	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_act))
 
 /datum/component/forensics/UnregisterFromParent()
     UnregisterSignal(parent, list(COMSIG_COMPONENT_CLEAN_ACT))

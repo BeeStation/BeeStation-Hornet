@@ -26,7 +26,7 @@
 
 	var/body_zone //BODY_ZONE_CHEST, BODY_ZONE_L_ARM, etc , used for def_zone
 	var/aux_zone // used for hands
-	var/aux_layer
+	var/aux_layer = BODYPARTS_LAYER
 	var/body_part = null //bitflag used to check which clothes cover this bodypart
 
 	var/list/embedded_objects = list()
@@ -207,7 +207,7 @@
 	var/current_damage = get_damage(TRUE)		//This time around, count stamina loss too.
 	var/available_damage = max_damage - current_damage
 	var/applied_damage = min(max_stamina_damage - stamina_dam, available_damage)
-	stamina_dam += round(CLAMP(stamina, 0, applied_damage), DAMAGE_PRECISION)
+	stamina_dam += round(clamp(stamina, 0, applied_damage), DAMAGE_PRECISION)
 
 
 	if(owner && updating_health)
@@ -327,7 +327,6 @@
 		dmg_overlay_type = "" //no damage overlay shown when husked
 		is_husked = TRUE
 	else
-		dmg_overlay_type = initial(dmg_overlay_type)
 		is_husked = FALSE
 
 	if(!dropping_limb && C.dna?.check_mutation(HULK)) //Please remove hulk from the game. I beg you.
@@ -338,7 +337,7 @@
 	if(mutation_color) //I hate mutations
 		draw_color = mutation_color
 	else if(should_draw_greyscale)
-		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 	else
 		draw_color = null
 
@@ -353,7 +352,7 @@
 
 		var/datum/species/S = H.dna.species
 		species_flags_list = H.dna.species.species_traits //Literally only exists for a single use of NOBLOOD, but, no reason to remove it i guess...?
-		limb_gender = (H.gender == MALE) ? "m" : "f"
+		limb_gender = (H.dna.features["body_model"] == MALE) ? "m" : "f"
 		if(S.use_skintones)
 			skin_tone = H.skin_tone
 		else
@@ -369,7 +368,7 @@
 
 		draw_color = mutation_color
 		if(should_draw_greyscale) //Should the limb be colored?
-			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
+			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
 		dmg_overlay_type = S.damage_overlay_type
 
@@ -406,14 +405,13 @@
 		image_dir = SOUTH
 		if(dmg_overlay_type)
 			if(brutestate)
-				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", -DAMAGE_LAYER, image_dir)
+				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
 			if(burnstate)
-				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", -DAMAGE_LAYER, image_dir)
+				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
 
-	var/image/limb = image(layer = -BODYPARTS_LAYER, dir = image_dir)
+	var/image/limb = image(layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER), dir = image_dir)
 	var/image/aux
 	. += limb
-
 
 	if(animal_origin) //Cringe ass animal-specific code.
 		if(IS_ORGANIC_LIMB(src))
@@ -425,14 +423,17 @@
 		else
 			limb.icon = 'icons/mob/augmentation/augments.dmi'
 			limb.icon_state = "[animal_origin]_[body_zone]"
+		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 		return
 
 	if(is_husked)
 		limb.icon = husk_icon
 		limb.icon_state = "[husk_type]_husk_[body_zone]"
+		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 		if(aux_zone) //Hand shit
-			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", -aux_layer, image_dir)
+			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 			. += aux
+			. += emissive_blocker(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 		return
 
 	////This is the MEAT of limb icon code
@@ -443,17 +444,19 @@
 
 	///The icon_state overlay for the limb
 	limb.icon_state = "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]"
+	. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 
 	if(!icon_exists(limb.icon, limb.icon_state))
 		stack_trace("Limb generated with nonexistant icon. File: [limb.icon] | State: [limb.icon_state]")
 
 	if(aux_zone) //Hand shit
-		aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
+		aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 		. += aux
+		. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
 
 	draw_color = mutation_color
 	if(should_draw_greyscale) //Should the limb be colored?
-		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
 	if(draw_color)
 		limb.color = "#[draw_color]"

@@ -78,6 +78,11 @@
 	req_access = list(ACCESS_CMO)
 	icon_state = "cmo"
 
+/obj/structure/closet/secure_closet/CMO/populate_contents_immediate()
+	..()
+	new /obj/item/card/id/departmental_budget/med(src)
+	new /obj/item/reagent_containers/hypospray/CMO(src)
+
 /obj/structure/closet/secure_closet/CMO/PopulateContents()
 	..()
 	new /obj/item/storage/box/suitbox/cmo(src)
@@ -103,8 +108,6 @@
 
 	// prioritized items
 	new /obj/item/door_remote/chief_medical_officer(src)
-	new /obj/item/card/id/departmental_budget/med(src)
-	new /obj/item/reagent_containers/hypospray/CMO(src)
 	new /obj/item/autosurgeon/cmo(src)
 	new /obj/item/extrapolator(src)
 	new /obj/item/storage/belt/medical(src)

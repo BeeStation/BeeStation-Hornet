@@ -1570,7 +1570,7 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/snacks/grown/harebell{
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
 	pixel_x = 6;
 	pixel_y = 3
 	},
@@ -1899,13 +1899,13 @@
 	pixel_y = -3
 	},
 /obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/item/reagent_containers/food/snacks/muffin/berry{
+/obj/item/food/muffin/berry{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/muffin/berry,
+/obj/item/food/muffin/berry,
 /obj/item/reagent_containers/food/snacks/tofu,
-/obj/item/reagent_containers/food/snacks/burrito,
+/obj/item/food/burrito,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},

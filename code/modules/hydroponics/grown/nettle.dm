@@ -25,7 +25,7 @@
 	yield = 2
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/stinging)
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/acid/fluacid = 0.25)
+	reagents_add = list(/datum/reagent/toxin/acid/fluacid = 0.12)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/nettle // "snack"
@@ -36,7 +36,7 @@
 	icon_state = "nettle"
 	lefthand_file = 'icons/mob/inhands/weapons/plants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/plants_righthand.dmi'
-	damtype = "fire"
+	damtype = BURN
 	force = 15
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 5
@@ -45,7 +45,7 @@
 	throw_range = 3
 	attack_verb = list("stung")
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/suicide_act(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/nettle/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS|TOXLOSS)
 

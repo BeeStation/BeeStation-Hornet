@@ -10,17 +10,19 @@
 /turf/open/floor/plating
 	name = "plating"
 	icon_state = "plating"
-	intact = FALSE
+	overfloor_placed = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	baseturfs = /turf/baseturf_bottom
 	footstep = FOOTSTEP_PLATING
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	max_integrity = 900
+	var/attachment_holes = TRUE
+
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1\
 	)
-
-	var/attachment_holes = TRUE
 
 /turf/open/floor/plating/examine(mob/user)
 	. = ..()
@@ -85,10 +87,9 @@
 	else if(istype(C, /obj/item/stack/tile) && !locate(/obj/structure/lattice/catwalk, src))
 		if(!broken && !burnt)
 			for(var/obj/O in src)
-				if(O.level == 1) //ex. pipes laid underneath a tile
-					for(var/M in O.buckled_mobs)
-						to_chat(user, "<span class='warning'>Someone is buckled to \the [O]! Unbuckle [M] to move \him out of the way.</span>")
-						return
+				for(var/M in O.buckled_mobs)
+					to_chat(user, "<span class='warning'>Someone is buckled to \the [O]! Unbuckle [M] to move \him out of the way.</span>")
+					return
 			var/obj/item/stack/tile/W = C
 			if(!W.use(1))
 				return
@@ -122,6 +123,7 @@
 	name = "metal foam plating"
 	desc = "Thin, fragile flooring created with metal foam."
 	icon_state = "foam_plating"
+	max_integrity = 300
 
 /turf/open/floor/plating/foam/burn_tile()
 	return //jetfuel can't melt steel foam
@@ -157,6 +159,7 @@
 /turf/open/floor/plating/foam/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_FLOORWALL)
 		to_chat(user, "<span class='notice'>You build a floor.</span>")
+		log_attack("[key_name(user)] has constructed a floor over metalfoam plating at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE
 	return FALSE

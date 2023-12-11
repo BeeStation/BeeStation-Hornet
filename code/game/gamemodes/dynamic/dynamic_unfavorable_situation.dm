@@ -5,7 +5,7 @@
 /datum/game_mode/dynamic/proc/unfavorable_situation()
 	SHOULD_NOT_SLEEP(TRUE)
 
-	INVOKE_ASYNC(src, .proc/_unfavorable_situation)
+	INVOKE_ASYNC(src, PROC_REF(_unfavorable_situation))
 
 /datum/game_mode/dynamic/proc/_unfavorable_situation()
 	var/static/list/unfavorable_random_events = list(
@@ -24,13 +24,13 @@
 		if (ruleset.weight == 0)
 			continue
 
-		if (ruleset.cost > max_threat_level)
+		if (ruleset.cost > max_threat_level && !is_lategame())
 			continue
 
 		if (!ruleset.acceptable(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len, threat_level))
 			continue
 
-		if (ruleset.minimum_round_time > world.time - SSticker.round_start_time)
+		if (ruleset.minimum_round_time > get_time() - SSticker.round_start_time)
 			continue
 
 		if(istype(ruleset, /datum/dynamic_ruleset/midround/from_ghosts) && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
@@ -50,8 +50,8 @@
 		dynamic_log("An unfavorable situation was requested, but no heavy rulesets could be drafted. Spawning [initial(round_event_control_type.name)] in [DisplayTimeText(delay)] instead.")
 
 		var/datum/round_event_control/round_event_control = new round_event_control_type
-		addtimer(CALLBACK(round_event_control, /datum/round_event_control.proc/runEvent), delay)
+		addtimer(CALLBACK(round_event_control, TYPE_PROC_REF(/datum/round_event_control, runEvent)), delay)
 	else
-		var/datum/dynamic_ruleset/midround/heavy_ruleset = pickweightAllowZero(possible_heavies)
+		var/datum/dynamic_ruleset/midround/heavy_ruleset = pick_weight_allow_zero(possible_heavies)
 		dynamic_log("An unfavorable situation was requested, spawning [initial(heavy_ruleset.name)]")
 		picking_specific_rule(heavy_ruleset, forced = TRUE, ignore_cost = TRUE)

@@ -18,7 +18,6 @@ Buildable meters
 	icon_state = "simple"
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_NORMAL
-	level = 2
 	var/piping_layer = PIPING_LAYER_DEFAULT
 	var/RPD_type
 	/// whether it can be painted
@@ -177,7 +176,7 @@ Buildable meters
 	..()
 	T.flipped = flipped
 
-/obj/item/pipe/directional/suicide_act(mob/user)
+/obj/item/pipe/directional/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] shoves [src] in [user.p_their()] mouth and turns it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user

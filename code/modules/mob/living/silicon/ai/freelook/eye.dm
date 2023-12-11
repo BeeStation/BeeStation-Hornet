@@ -90,31 +90,31 @@
 			ai.client.eye = src
 		update_ai_detect_hud()
 		//Holopad
-		if(istype(ai.current, /obj/machinery/holopad))
-			var/obj/machinery/holopad/H = ai.current
-			H.move_hologram(ai, destination)
+		if(istype(ai.current_holopad, /obj/machinery/holopad))
+			ai.current_holopad.move_hologram(ai, destination)
 		if(ai.camera_light_on)
 			ai.light_cameras()
 		if(ai.master_multicam)
 			ai.master_multicam.refresh_view()
 
 //it uses setLoc not forceMove, talks to the sillycone and not the camera mob
-/mob/camera/ai_eye/zMove(dir, feedback = FALSE)
+/mob/camera/ai_eye/zMove(dir, feedback = FALSE, feedback_to = ai)
 	if(dir != UP && dir != DOWN)
 		return FALSE
+	var/turf/source = get_turf(src)
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(ai, "<span class='warning'>There's nowhere to go in that direction!</span>")
+			to_chat(feedback_to, "<span class='warning'>There's nowhere to go in that direction!</span>")
 		return FALSE
-	if(!canZMove(dir, target))
+	if(!canZMove(dir, source, target))
 		if(feedback)
-			to_chat(ai, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(feedback_to, "<span class='warning'>You couldn't move there!</span>")
 		return FALSE
 	setLoc(target, TRUE)
 	return TRUE
 
-/mob/camera/ai_eye/canZMove(direction, turf/target) //cameras do not respect these FLOORS you speak so much of
+/mob/camera/ai_eye/canZMove(direction, turf/source, turf/target, pre_move = TRUE) //cameras do not respect these FLOORS you speak so much of
 	return TRUE
 
 /mob/camera/ai_eye/Move()
@@ -127,6 +127,7 @@
 
 /mob/camera/ai_eye/Destroy()
 	if(ai)
+		transfer_observers_to(ai) // eye mob is destroyed for some reason...
 		ai.all_eyes -= src
 		ai = null
 	for(var/V in visibleCameraChunks)
@@ -174,11 +175,10 @@
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/view_core()
-	if(istype(current,/obj/machinery/holopad))
-		var/obj/machinery/holopad/H = current
-		H.clear_holo(src)
+	if(istype(current_holopad, /obj/machinery/holopad))
+		current_holopad.clear_holo(src)
 	else
-		current = null
+		current_holopad = null
 	if(ai_tracking_target)
 		ai_stop_tracking()
 	unset_machine()
@@ -187,18 +187,19 @@
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
 		create_eye()
 
-	eyeobj?.setLoc(loc)
+	transfer_observers_to(eyeobj) // ai core to eyemob
+	eyeobj.setLoc(loc)
 
 /mob/living/silicon/ai/proc/create_eye()
-	if(eyeobj)
-		return
-	eyeobj = new /mob/camera/ai_eye()
-	all_eyes += eyeobj
-	eyeobj.ai = src
-	eyeobj.setLoc(loc)
-	eyeobj.name = "[name] (AI Eye)"
-	eyeobj.real_name = eyeobj.name
-	set_eyeobj_visible(TRUE)
+	if(!eyeobj || QDELETED(eyeobj))
+		eyeobj = new /mob/camera/ai_eye()
+		all_eyes += eyeobj
+		eyeobj.ai = src
+		eyeobj.setLoc(loc)
+		eyeobj.name = "[name] (AI Eye)"
+		eyeobj.real_name = eyeobj.name
+		set_eyeobj_visible(TRUE)
+		transfer_observers_to(eyeobj)
 
 /mob/living/silicon/ai/proc/set_eyeobj_visible(state = TRUE)
 	if(!eyeobj)

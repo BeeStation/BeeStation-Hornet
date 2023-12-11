@@ -18,6 +18,11 @@
 	var/vision_correction = 0 //does wearing these glasses correct some of our vision defects?
 	var/glass_colour_type //colors your vision when worn
 	var/force_glass_colour = FALSE	//Should the user be forced to see the colour?
+	var/emissive_state = null
+
+/obj/item/clothing/glasses/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/clothing/glasses/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing \the [src] into [user.p_their()] eyes! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -27,6 +32,19 @@
 	. = ..()
 	if(glass_colour_type && ishuman(user))
 		. += "<span class='notice'>Alt-click to toggle its colors.</span>"
+
+/obj/item/clothing/glasses/update_overlays()
+	. = ..()
+	if (emissive_state)
+		. += emissive_appearance(icon, emissive_state, layer, 100)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+
+/obj/item/clothing/glasses/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
+	. = ..()
+	// If we have an emissive state, add it to the worn icon too
+	if (!isinhands && emissive_state)
+		. += emissive_appearance(icon_file, emissive_state, item_layer, 100)
+		ADD_LUM_SOURCE(origin, LUM_SOURCE_GLASSES)
 
 /obj/item/clothing/glasses/visor_toggling()
 	..()
@@ -47,11 +65,11 @@
 	if(ishuman(src.loc))
 		var/mob/living/carbon/human/H = src.loc
 		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
-		if(!(HAS_TRAIT(H, TRAIT_BLIND)))
+		if(!H.is_blind())
 			if(H.glasses == src)
 				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
 				H.flash_act(visual = 1)
-				H.blind_eyes(3)
+				H.adjust_blindness(3)
 				H.blur_eyes(5)
 				eyes.applyOrganDamage(5)
 
@@ -60,6 +78,7 @@
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting conditions."
 	icon_state = "meson"
 	item_state = "meson"
+	emissive_state = "meson_emissive"
 	darkness_view = 2
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -88,6 +107,7 @@
 	desc = "An optical meson scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
 	icon_state = "nvgmeson"
 	item_state = "nvgmeson"
+	emissive_state = "nvgmeson_emissive"
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
@@ -109,6 +129,7 @@
 	desc = "A crude combination between a pair of prescription glasses and the electronics of a meson scanner."
 	icon_state = "prescmeson"
 	item_state = "glasses"
+	emissive_state = "prehud_emissive"
 	vision_correction = 1
 
 /obj/item/clothing/glasses/science
@@ -116,11 +137,12 @@
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "purple"
 	item_state = "glasses"
+	emissive_state = "meson_emissive"
 	clothing_flags = SCAN_REAGENTS
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100, STAMINA = 0)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -130,8 +152,9 @@
 	name = "prescription science goggles"
 	desc = "A crude combination between a pair of prescription glasses and the electronics of science goggles."
 	icon_state = "prescscihud"
+	emissive_state = "prehud_emissive"
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 40, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 0)
 	vision_correction = 1
 
 /obj/item/clothing/glasses/science/sciencesun
@@ -139,6 +162,7 @@
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
 	icon_state = "sunhudscience"
 	item_state = "sunhudscience"
+	emissive_state = "sun_emissive"
 	flash_protect = 1
 
 /obj/item/clothing/glasses/science/sciencesun/degraded
@@ -151,6 +175,7 @@
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
 	item_state = "glasses"
+	emissive_state = "nvg_emissive"
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
@@ -253,7 +278,12 @@
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
 	..()
-	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.glasses != src)
+			return
+		else
+			REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
@@ -327,7 +357,7 @@
 /obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
 	. = ..()
 	//Have the HUD enabled by default, since the glasses start in the down position.
-	var/datum/component/team_monitor/ghost_vision = AddComponent(/datum/component/team_monitor, "ghost", 1)
+	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)
 	ghost_vision.toggle_hud(TRUE, null)
 
 /obj/item/clothing/glasses/welding/ghostbuster/weldingvisortoggle()
@@ -347,7 +377,7 @@
 			C = null
 	//Toggle the hud of the component
 	//Pass in the wearer, or null if they are not wearing the goggles
-	var/datum/component/team_monitor/ghost_vision = GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/ghost_vision = GetComponent(/datum/component/team_monitor/worn)
 	ghost_vision.toggle_hud(!ghost_vision.hud_visible, C)
 	//Update the hud colour
 	if(ghost_vision.hud_visible)
@@ -383,11 +413,11 @@
 		add_atom_colour("#[user.eye_color]", FIXED_COLOUR_PRIORITY)
 		colored_before = TRUE
 
-/obj/item/clothing/glasses/blindfold/white/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use)
+/obj/item/clothing/glasses/blindfold/white/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands && ishuman(loc) && !colored_before)
 		var/mob/living/carbon/human/H = loc
-		var/mutable_appearance/M = mutable_appearance('icons/mob/eyes.dmi', "blindfoldwhite")
+		var/mutable_appearance/M = mutable_appearance('icons/mob/eyes.dmi', "blindfoldwhite", item_layer)
 		M.appearance_flags |= RESET_COLOR
 		M.color = "#[H.eye_color]"
 		. += M
@@ -521,12 +551,13 @@
 		if(H.client)
 			if(H.client.prefs)
 				if(src == H.glasses)
-					H.client.prefs.toggles2 ^= PREFTOGGLE_2_USES_GLASSES_COLOUR
-					if(H.client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR)
+					var/current_color = H.client.prefs.read_player_preference(/datum/preference/toggle/glasses_color)
+					H.client.prefs.update_preference(/datum/preference/toggle/glasses_color, !current_color)
+					if(!current_color)
 						to_chat(H, "You will now see glasses colors.")
 					else
 						to_chat(H, "You will no longer see glasses colors.")
-					H.update_glasses_color(src, 1)
+					H.update_glasses_color(src, TRUE)
 
 /obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type
@@ -540,7 +571,9 @@
 
 
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
-	if(((client && client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR) || G.force_glass_colour) && glasses_equipped)
+	if(!client)
+		return
+	if((client.prefs?.read_player_preference(/datum/preference/toggle/glasses_color) || G.force_glass_colour) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)

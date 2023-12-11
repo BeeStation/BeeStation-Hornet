@@ -81,14 +81,14 @@
 	description = "CentCom's security forces are facing heavy losses against the Syndicate. Ship donuts to raise morale."
 	reward = 3000
 	required_count = 10
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/donut)
+	wanted_types = list(/obj/item/food/donut)
 
 /datum/bounty/item/assistant/donkpocket
 	name = "Donk-Pockets"
 	description = "Consumer safety recall: Warning. Donk-Pockets manufactured in the past year contain hazardous lizard biomatter. Return units to CentCom immediately."
 	reward = 3000
 	required_count = 10
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/donkpocket)
+	wanted_types = list(/obj/item/food/donkpocket)
 
 /datum/bounty/item/assistant/briefcase
 	name = "Briefcase"
@@ -129,7 +129,7 @@
 	description = "Commander Zot really wants to sweep Security Officer Olivia off her feet. Send a shipment of Poppies - her favorite flower - and he'll happily reward you."
 	reward = 1000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/poppy)
+	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/flower/poppy)
 	include_subtypes = FALSE
 
 /datum/bounty/item/assistant/shadyjims

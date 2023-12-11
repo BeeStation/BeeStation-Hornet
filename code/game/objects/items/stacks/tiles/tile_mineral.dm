@@ -170,7 +170,7 @@
 	item_state = "tile-darkshuttle"
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
-	materials = list(/datum/material/titanium=250, /datum/material/plasma=250)
+	materials = list(/datum/material/titanium=500, /datum/material/plasma=500)
 
 /obj/item/stack/tile/mineral/snow
 	name = "snow tile"
@@ -189,3 +189,19 @@
 	item_state = "tile-wax"
 	turf_type = /turf/open/floor/wax
 	mineralType = "wax"
+
+/obj/item/stack/tile/mineral/brass
+	name = "brass tiles"
+	desc = "An ornante tile made out of brass."
+	icon_state = "tile_brass"
+	item_state = "tile_brass"
+	turf_type = /turf/open/floor/clockwork
+	mineralType = "brass"
+
+/obj/item/stack/tile/mineral/bronze
+	name = "bronze tiles"
+	desc = "An ornante tile made out of... wait this is bronze!"
+	icon_state = "tile_brass"
+	item_state = "tile_brass"
+	turf_type = /turf/open/floor/bronze
+	mineralType = "bronze"

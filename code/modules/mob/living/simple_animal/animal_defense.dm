@@ -12,7 +12,23 @@
 		if("grab")
 			grabbedby(M)
 
-		if("harm", "disarm")
+		if("disarm")
+			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+			var/shove_dir = get_dir(M, src)
+			if(!Move(get_step(src, shove_dir), shove_dir))
+				log_combat(M, src, "shoved", "failing to move it")
+				M.visible_message("<span class='danger'>[M.name] shoves [src]!</span>",
+					"<span class='danger'>You shove [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
+				to_chat(src, "<span class='userdanger'>You're shoved by [M.name]!</span>")
+				return TRUE
+			log_combat(M, src, "shoved", "pushing it")
+			M.visible_message("<span class='danger'>[M.name] shoves [src], pushing [p_them()]!</span>",
+				"<span class='danger'>You shove [src], pushing [p_them()]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
+			to_chat(src, "<span class='userdanger'>You're pushed by [name]!</span>")
+			return TRUE
+
+		if("harm")
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
 				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
 				return
@@ -74,6 +90,11 @@
 		if(.)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 
+/mob/living/simple_animal/attack_basic_mob(mob/living/basic/user, list/modifiers)
+	. = ..()
+	if(.)
+		return attack_threshold_check(user.melee_damage, user.melee_damage_type)
+
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(.)
@@ -94,7 +115,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = "melee")
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -108,7 +129,14 @@
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
 
-/mob/living/simple_animal/bullet_act(obj/item/projectile/Proj, def_zone, piercing_hit = FALSE)
+/mob/living/simple_animal/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, Proj, def_zone)
+	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
+		return BULLET_ACT_FORCE_PIERCE
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
+		return BULLET_ACT_BLOCK
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
+		return BULLET_ACT_HIT
 	apply_damage(Proj.damage, Proj.damage_type)
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
@@ -119,12 +147,13 @@
 	..()
 	if(QDELETED(src))
 		return
-	var/bomb_armor = getarmor(null, "bomb")
+	var/bomb_armor = getarmor(null, BOMB)
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(prob(bomb_armor))
 				adjustBruteLoss(500)
 			else
+				investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 				gib()
 				return
 		if (EXPLODE_HEAVY)

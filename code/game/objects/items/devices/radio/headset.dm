@@ -112,6 +112,11 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sec
 
+/obj/item/radio/headset/headset_spacepol
+	name = "spacepol radio headset"
+	desc = "This is used by the intergalatic organization SpacePol."
+	icon_state = "sec_headset"
+
 /obj/item/radio/headset/headset_medsec
 	name = "medical-security radio headset"
 	desc = "Used to hear how many security officers need to be stiched back together."
@@ -148,12 +153,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "A sciency headset. Like usual."
 	icon_state = "sci_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sci
-
-/obj/item/radio/headset/headset_medsci
-	name = "medical research radio headset"
-	desc = "A headset that is a result of the mating between medical and science."
-	icon_state = "medsci_headset"
-	keyslot = new /obj/item/encryptionkey/headset_medsci
 
 /obj/item/radio/headset/headset_srvsec
 	name = "law and order headset"
@@ -269,6 +268,9 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/headset_cent/commander
 	keyslot = new /obj/item/encryptionkey/heads/captain
+
+/obj/item/radio/headset/headset_cent/debug
+	keyslot = new /obj/item/encryptionkey/debug
 
 /obj/item/radio/headset/headset_cent/alt
 	name = "\improper CentCom bowman headset"

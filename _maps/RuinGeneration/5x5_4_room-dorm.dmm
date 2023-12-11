@@ -39,7 +39,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table_frame/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 

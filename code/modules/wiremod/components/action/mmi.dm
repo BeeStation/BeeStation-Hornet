@@ -5,7 +5,7 @@
  */
 /obj/item/circuit_component/mmi
 	display_name = "Man-Machine Interface"
-	display_desc = "A component that allows MMI to enter shells to send output signals."
+	desc = "A component that allows MMI to enter shells to send output signals."
 
 	/// The message to send to the MMI in the shell.
 	var/datum/port/input/message
@@ -36,8 +36,7 @@
 	/// Maximum length of the message that can be sent to the MMI
 	var/max_length = 300
 
-/obj/item/circuit_component/mmi/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/mmi/populate_ports()
 	message = add_input_port("Message", PORT_TYPE_STRING)
 	send = add_input_port("Send Message", PORT_TYPE_SIGNAL)
 	eject = add_input_port("Eject", PORT_TYPE_SIGNAL)
@@ -53,22 +52,9 @@
 
 /obj/item/circuit_component/mmi/Destroy()
 	remove_current_brain()
-	message = null
-	send = null
-	eject = null
-	north = null
-	east = null
-	south = null
-	west = null
-	attack = null
-	secondary_attack = null
-	clicked_atom = null
 	return ..()
 
 /obj/item/circuit_component/mmi/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!brain)
 		return
@@ -76,10 +62,10 @@
 	if(COMPONENT_TRIGGERED_BY(eject, port))
 		remove_current_brain()
 	if(COMPONENT_TRIGGERED_BY(send, port))
-		if(!message.input_value)
+		if(!message.value)
 			return
 
-		var/msg_str = copytext(html_encode(message.input_value), 1, max_length)
+		var/msg_str = copytext(html_encode(message.value), 1, max_length)
 
 		var/mob/living/target = brain.brainmob
 		if(!target)
@@ -90,7 +76,7 @@
 
 /obj/item/circuit_component/mmi/register_shell(atom/movable/shell)
 	. = ..()
-	RegisterSignal(shell, COMSIG_PARENT_ATTACKBY, .proc/handle_attack_by)
+	RegisterSignal(shell, COMSIG_PARENT_ATTACKBY, PROC_REF(handle_attack_by))
 
 /obj/item/circuit_component/mmi/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, COMSIG_PARENT_ATTACKBY)
@@ -113,10 +99,12 @@
 	if(to_add.brainmob)
 		update_mmi_mob(to_add, null, to_add.brainmob)
 	brain = to_add
-	RegisterSignal(to_add, COMSIG_PARENT_QDELETING, .proc/remove_current_brain)
-	RegisterSignal(to_add, COMSIG_MOVABLE_MOVED, .proc/mmi_moved)
+	RegisterSignal(to_add, COMSIG_PARENT_QDELETING, PROC_REF(remove_current_brain))
+	RegisterSignal(to_add, COMSIG_MOVABLE_MOVED, PROC_REF(mmi_moved))
 
 /obj/item/circuit_component/mmi/proc/mmi_moved(atom/movable/mmi)
+	SIGNAL_HANDLER
+
 	if(mmi.loc != src)
 		remove_current_brain()
 
@@ -142,7 +130,7 @@
 		UnregisterSignal(old_mmi, COMSIG_MOB_CLICKON)
 	if(new_mmi)
 		new_mmi.remote_control = src
-		RegisterSignal(new_mmi, COMSIG_MOB_CLICKON, .proc/handle_mmi_attack)
+		RegisterSignal(new_mmi, COMSIG_MOB_CLICKON, PROC_REF(handle_mmi_attack))
 
 /obj/item/circuit_component/mmi/relaymove(mob/living/user, direct)
 	if(user != brain.brainmob)
@@ -159,7 +147,7 @@
 
 	return TRUE
 
-/obj/item/circuit_component/mmi/proc/handle_mmi_attack(mob/living/source, atom/target)
+/obj/item/circuit_component/mmi/proc/handle_mmi_attack(mob/living/source, atom/target, list/mods)
 	SIGNAL_HANDLER
 
 	if(source.a_intent == INTENT_HARM)

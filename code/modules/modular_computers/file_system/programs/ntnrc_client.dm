@@ -63,7 +63,7 @@
 			var/mob/living/user = usr
 			var/ghost_message = "<span class='name'>[user] (as [username])</span> <span class='game say'>NTRC Message to </span> <span class='name'>[channel.title]</span>: <span class='message'>[message]</span>"
 			for(var/mob/M in GLOB.player_list)
-				if(isobserver(M) && (M.client?.prefs.chat_toggles & CHAT_GHOSTPDA)) // TODO tablet-pda add a preference for this (currently frozen)
+				if(isobserver(M) && M.client?.prefs.read_player_preference(/datum/preference/toggle/chat_ghostpda)) // TODO tablet-pda add a preference for this (currently frozen)
 					to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")
 			user.log_talk(message, LOG_CHAT, tag="as [username] to channel [channel.title]")
 			return TRUE
@@ -217,8 +217,6 @@
 		return list()
 
 	var/list/data = list()
-
-	data = get_header_data()
 
 	var/list/all_channels = list()
 	for(var/C in SSnetworks.station_network.chat_channels)

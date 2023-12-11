@@ -88,9 +88,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	name = "Devil"
 	roundend_category = "devils"
 	antagpanel_category = "Devil"
-	job_rank = ROLE_DEVIL
-	//Don't delete upon mind destruction, otherwise soul re-selling will break.
-	delete_on_mind_deletion = FALSE
+	banning_key = ROLE_DEVIL
 	show_to_ghosts = TRUE
 	var/obligation
 	var/ban
@@ -119,7 +117,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 /datum/antagonist/devil/get_admin_commands()
 	. = ..()
-	.["Toggle ascendable"] = CALLBACK(src,.proc/admin_toggle_ascendable)
+	.["Toggle ascendable"] = CALLBACK(src,PROC_REF(admin_toggle_ascendable))
 
 
 /datum/antagonist/devil/proc/admin_toggle_ascendable(mob/admin)

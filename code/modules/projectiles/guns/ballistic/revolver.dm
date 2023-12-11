@@ -95,16 +95,33 @@
 	fire_rate = 2
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/rubber
 	obj_flags = UNIQUE_RENAME
-	unique_reskin = list("Default" = "detective",
-						"Fitz Special" = "detective_fitz",
-						"Police Positive Special" = "detective_police",
-						"Blued Steel" = "detective_blued",
-						"Stainless Steel" = "detective_stainless",
-						"Gold Trim" = "detective_gold",
-						"Leopard Spots" = "detective_leopard",
-						"The Peacemaker" = "detective_peacemaker",
-						"Black Panther" = "detective_panther"
-						)
+	unique_reskin_icon = list(
+		"Default" = "detective",
+		"Fitz Special" = "detective_fitz",
+		"Police Positive Special" = "detective_police",
+		"Blued Steel" = "detective_blued",
+		"Stainless Steel" = "detective_stainless",
+		"Gold Trim" = "detective_gold",
+		"Leopard Spots" = "detective_leopard",
+		"The Peacemaker" = "detective_peacemaker",
+		"Black Panther" = "detective_panther"
+	)
+
+/obj/item/gun/ballistic/revolver/detective/reskin_obj(mob/M)
+	if(isnull(unique_reskin))
+		unique_reskin = list(
+			"Default" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective"),
+			"Fitz Special" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_fitz"),
+			"Police Positive Special" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_police"),
+			"Blued Steel" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_blued"),
+			"Stainless Steel" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_stainless"),
+			"Gold Trim" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_gold"),
+			"Leopard Spots" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_leopard"),
+			"The Peacemaker" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_peacemaker"),
+			"Black Panther" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_panther")
+		)
+	. = ..()
+
 
 /obj/item/gun/ballistic/revolver/detective/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(magazine.caliber != initial(magazine.caliber))

@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	layer = FLY_LAYER
 
 	pass_flags = PASSBLOB
-	faction = list(ROLE_BLOB)
+	faction = list(FACTION_BLOB)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = /datum/hud/blob_overmind
 	var/obj/structure/blob/core/blob_core = null // The blob overmind's core
@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /mob/camera/blob/proc/is_valid_turf(turf/T)
 	var/area/A = get_area(T)
-	if((A && !(A.area_flags & BLOBS_ALLOWED)) || !T || !is_station_level(T.z) || isspaceturf(T))
+	if((A && !(A.area_flags & BLOBS_ALLOWED)) || !T || !is_station_level(T.z) || isspaceturf(T) || istype(T, /turf/open/openspace))
 		return FALSE
 	return TRUE
 
@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		set_security_level("delta")
 		max_blob_points = INFINITY
 		blob_points = INFINITY
-		addtimer(CALLBACK(src, .proc/victory), 450)
+		addtimer(CALLBACK(src, PROC_REF(victory)), 450)
 	else if(!free_strain_rerolls && (last_reroll_time + BLOB_REROLL_TIME<world.time))
 		to_chat(src, "<b><span class='big'><font color=\"#EE4000\">You have gained another free strain re-roll.</font></span></b>")
 		free_strain_rerolls = 1
@@ -146,14 +146,16 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		if(!(Ablob.area_flags & BLOBS_ALLOWED))
 			continue
 
-		if(!(ROLE_BLOB in L.faction))
+		if(!(FACTION_BLOB in L.faction))
 			playsound(L, 'sound/effects/splat.ogg', 50, 1)
+			if(L.stat != DEAD)
+				L.investigate_log("has died from blob takeover.", INVESTIGATE_DEATHS)
 			L.death()
 			new/mob/living/simple_animal/hostile/blob/blobspore(T)
 		else
 			L.fully_heal()
 
-		for(var/area/A in GLOB.sortedAreas)
+		for(var/area/A in GLOB.areas)
 			if(!(A.type in GLOB.the_station_areas))
 				continue
 			if(!(A.area_flags & BLOBS_ALLOWED))
@@ -215,7 +217,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 				B.hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_core.obj_integrity)]</font></div>")
 
 /mob/camera/blob/proc/add_points(points)
-	blob_points = CLAMP(blob_points + points, 0, max_blob_points)
+	blob_points = clamp(blob_points + points, 0, max_blob_points)
 	hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_points)]</font></div>")
 
 /mob/camera/blob/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
@@ -273,7 +275,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		tab_data["Time Before Automatic Placement"] = GENERATE_STAT_TEXT("[max(round((autoplace_max_time - world.time)*0.1, 0.1), 0)]")
 	return tab_data
 
-/mob/camera/blob/canZMove(direction, turf/target)
+/mob/camera/blob/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
 	return !placed
 
 /mob/camera/blob/Move(NewLoc, Dir = 0)
@@ -282,13 +284,13 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		if(B)
 			forceMove(NewLoc)
 		else
-			return 0
+			return FALSE
 	else
-		var/area/A = get_area(NewLoc)
-		if(isspaceturf(NewLoc) || istype(A, /area/shuttle)) //if unplaced, can't go on shuttles or space tiles
-			return 0
+		var/turf/T = get_turf(NewLoc)
+		if(!is_valid_turf(T)) //if unplaced, can't go out of placeable area
+			return FALSE
 		forceMove(NewLoc)
-		return 1
+		return TRUE
 
 /mob/camera/blob/mind_initialize()
 	. = ..()

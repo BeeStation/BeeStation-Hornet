@@ -18,6 +18,7 @@
 	var/message_queue
 	var/sent_assets = list()
 	// Vars passed to initialize proc (and saved for later)
+	var/initial_strict_mode
 	var/initial_fancy
 	var/initial_assets
 	var/initial_inline_html
@@ -47,11 +48,15 @@
  * state. You can begin sending messages right after initializing. Messages
  * will be put into the queue until the window finishes loading.
  *
- * optional assets list List of assets to inline into the html.
- * optional inline_html string Custom HTML to inject.
- * optional fancy bool If TRUE, will hide the window titlebar.
+ * optional strict_mode bool - Enables strict error handling and BSOD.
+ * optional fancy bool - If TRUE and if this is NOT a panel, will hide the window titlebar.
+ * optional assets list - List of assets to load during initialization.
+ * optional inline_html string - Custom HTML to inject.
+ * optional inline_js string - Custom JS to inject.
+ * optional inline_css string - Custom CSS to inject.
  */
 /datum/tgui_window/proc/initialize(
+		strict_mode = FALSE,
 		fancy = FALSE,
 		assets = list(),
 		inline_html = "",
@@ -77,6 +82,7 @@
 	// Generate page html
 	var/html = SStgui.basehtml
 	html = replacetextEx(html, "\[tgui:windowId]", id)
+	html = replacetextEx(html, "\[tgui:strictMode]", strict_mode)
 	// Inject assets
 	var/inline_assets_str = ""
 	for(var/datum/asset/asset in assets)
@@ -88,29 +94,47 @@
 				inline_assets_str += "Byond.loadCss('[url]', true);\n"
 			else if(copytext(name, -3) == ".js")
 				inline_assets_str += "Byond.loadJs('[url]', true);\n"
-		if(!asset.send(client))
-			return
+		asset.send(client)
 	if(length(inline_assets_str))
 		inline_assets_str = "<script>\n" + inline_assets_str + "</script>\n"
 	html = replacetextEx(html, "<!-- tgui:assets -->\n", inline_assets_str)
 	// Inject inline HTML
 	if (inline_html)
-		html = replacetextEx(html, "<!-- tgui:inline-html -->", inline_html)
+		html = replacetextEx(html, "<!-- tgui:inline-html -->", isfile(inline_html) ? file2text(inline_html) : inline_html)
 	// Inject inline JS
 	if (inline_js)
-		inline_js = "<script>\n[inline_js]\n</script>"
+		inline_js = "<script>\n'use strict';\n[isfile(inline_js) ? file2text(inline_js) : inline_js]\n</script>"
 		html = replacetextEx(html, "<!-- tgui:inline-js -->", inline_js)
 	// Inject inline CSS
 	if (inline_css)
-		inline_css = "<style>\n[inline_css]\n</style>"
+		inline_css = "<style>\n[isfile(inline_css) ? file2text(inline_css) : inline_css]\n</style>"
 		html = replacetextEx(html, "<!-- tgui:inline-css -->", inline_css)
 	// Open the window
 	client << browse(html, "window=[id];[options]")
 	// Detect whether the control is a browser
 	is_browser = winexists(client, id) == "BROWSER"
+	if(!client) // winexists() sleeps so the client can become null
+		return
 	// Instruct the client to signal UI when the window is closed.
 	if(!is_browser)
 		winset(client, id, "on-close=\"uiclose [id]\"")
+
+/**
+ * public
+ *
+ * Reinitializes the panel with previous data used for initialization.
+ */
+/datum/tgui_window/proc/reinitialize()
+	initialize(
+		strict_mode = initial_strict_mode,
+		fancy = initial_fancy,
+		assets = initial_assets,
+		inline_html = initial_inline_html,
+		inline_js = initial_inline_js,
+		inline_css = initial_inline_css)
+	// Resend assets
+	for(var/datum/asset/asset in sent_assets)
+		send_asset(asset)
 
 /**
  * public
@@ -267,8 +291,6 @@
 		return
 	sent_assets |= list(asset)
 	. = asset.send(client)
-	if(!.)
-		return
 	if(istype(asset, /datum/asset/spritesheet))
 		var/datum/asset/spritesheet/spritesheet = asset
 		send_message("asset/stylesheet", spritesheet.css_filename())
@@ -287,6 +309,18 @@
 			? "[id]:update" \
 			: "[id].browser:update")
 	message_queue = null
+
+/**
+ * public
+ *
+ * Replaces the inline HTML content.
+ *
+ * required inline_html string HTML to inject
+ */
+/datum/tgui_window/proc/replace_html(inline_html = "")
+	client << output(url_encode(inline_html), is_browser \
+		? "[id]:replaceHtml" \
+		: "[id].browser:replaceHtml")
 
 /**
  * private
@@ -330,16 +364,21 @@
 		if("openLink")
 			client << link(href_list["url"])
 		if("cacheReloaded")
-			// Reinitialize
-			initialize(
-				fancy = initial_fancy,
-				assets = initial_assets,
-				inline_html = initial_inline_html,
-				inline_js = initial_inline_js,
-				inline_css = initial_inline_css)
-			// Resend the assets
-			for(var/asset in sent_assets)
-				send_asset(asset)
+			reinitialize()
+		if("byondui_update")
+			update_byondui(payload["id"], payload["mounting"])
+
+/**
+ * Respond to a ByondUi element mounting or unmounting.
+ * This is used by the prefs menu to avoid https://www.byond.com/forum/post/2873835 in 514.
+ * This is no longer necessary for clients above 515.1609
+ */
+/datum/tgui_window/proc/update_byondui(id, mounting)
+	if(findtext(id, "character_preview")) // this is a character preview byondui
+		// HACK: Without this the character starts out really tiny because of https://www.byond.com/forum/post/2873835
+		// You can fix it by updating the atom's appearance (in any way), so let's just do something unexpensive and change its name!
+		client?.prefs?.character_preview_view?.rename_byond_bug_moment()
+
 
 /datum/tgui_window/vv_edit_var(var_name, var_value)
 	return var_name != NAMEOF(src, id) && ..()

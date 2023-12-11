@@ -747,7 +747,7 @@
 /area/awaymission/beach)
 "ce" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "cf" = (
@@ -783,7 +783,7 @@
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "ck" = (
-/obj/effect/mob_spawn/human/bartender/alive,
+/obj/effect/mob_spawn/human/bartender/alive/beach,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "cl" = (

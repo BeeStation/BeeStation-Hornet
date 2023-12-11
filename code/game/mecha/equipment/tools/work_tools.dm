@@ -216,7 +216,7 @@
 
 	var/delay = 2
 	var/datum/move_loop/our_loop = SSmove_manager.move_towards_legacy(water, pick(targets), delay, timeout = delay * 4, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, .proc/water_finished_moving)
+	RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, PROC_REF(water_finished_moving))
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/proc/water_finished_moving(datum/move_loop/has_target/source)
 	SIGNAL_HANDLER
@@ -243,7 +243,7 @@
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MECHA_MELEE|MECHA_RANGED
-	item_flags = NO_MAT_REDEMPTION
+	item_flags = NO_MAT_REDEMPTION | ISWEAPON
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Initialize(mapload)
@@ -360,7 +360,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()
-	event = chassis.events.addEvent("onMove", CALLBACK(src, .proc/layCable))
+	event = chassis.events.addEvent("onMove", CALLBACK(src, PROC_REF(layCable)))
 	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach()
@@ -439,7 +439,7 @@
 			if(!T.broken && !T.burnt)
 				new T.floor_tile(T)
 			T.make_plating()
-	return !new_turf.intact
+	return !new_turf.underfloor_accessibility
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(var/turf/new_turf)
 	if(equip_ready || !istype(new_turf) || !dismantleFloor(new_turf))
@@ -525,7 +525,6 @@
 		E.detach()
 		E.attach(N)
 		M.equipment -= E
-	N.dna_lock = M.dna_lock
 	N.maint_access = M.maint_access
 	N.strafe = M.strafe
 	N.obj_integrity = M.obj_integrity //This is not a repair tool

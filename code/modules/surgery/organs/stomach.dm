@@ -77,7 +77,7 @@
 			H.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
 
-/obj/item/organ/stomach/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/stomach/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	var/mob/living/carbon/human/H = owner
 	if(istype(H))
 		H.clear_alert("disgust")
@@ -101,12 +101,12 @@
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
-/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
-	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
+	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
 
-/obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = 0
@@ -173,11 +173,11 @@
 	max_charge = 2500 //same as upgraded cell
 	charge = 2500
 
-/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0)
-	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, .proc/on_electrocute)
+/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 	return ..()
 
-/obj/item/organ/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
 	return ..()
 

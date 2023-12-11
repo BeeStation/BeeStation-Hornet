@@ -25,7 +25,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 
 	materials = list(/datum/material/iron=70, /datum/material/glass=30)
@@ -39,6 +39,7 @@
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
 	var/light_intensity = 2
+	var/disabled_time = 0 //Used by the cyborg welders to determine how long they remain off after getting hit by a nightmare
 	heat = 3800
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
@@ -49,29 +50,32 @@
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
 	update_icon()
 
-/obj/item/weldingtool/proc/update_torch()
+/obj/item/weldingtool/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
+/obj/item/weldingtool/update_icon_state()
 	if(welding)
-		add_overlay("[initial(icon_state)]-on")
 		item_state = "[initial(item_state)]1"
 	else
 		item_state = "[initial(item_state)]"
+	return ..()
 
-
-/obj/item/weldingtool/update_icon()
-	cut_overlays()
+/obj/item/weldingtool/update_overlays()
+	. = ..()
 	if(change_icons)
 		var/ratio = get_fuel() / max_fuel
 		ratio = CEILING(ratio*4, 1) * 25
-		add_overlay("[initial(icon_state)][ratio]")
-	update_torch()
-	return
+		. += "[initial(icon_state)][ratio]"
+	if(welding)
+		. += "[initial(icon_state)]-on"
 
 
 /obj/item/weldingtool/process(delta_time)
 	switch(welding)
 		if(0)
 			force = 3
-			damtype = "brute"
+			damtype = BRUTE
 			update_icon()
 			if(!can_off_process)
 				STOP_PROCESSING(SSobj, src)
@@ -79,7 +83,7 @@
 	//Welders left on now use up fuel, but lets not have them run out quite that fast
 		if(1)
 			force = 15
-			damtype = "fire"
+			damtype = BURN
 			burned_fuel_for += delta_time
 			if(burned_fuel_for >= WELDER_FUEL_BURN_INTERVAL)
 				use(1)
@@ -89,9 +93,9 @@
 	open_flame()
 
 
-/obj/item/weldingtool/suicide_act(mob/user)
+/obj/item/weldingtool/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (FIRELOSS)
+	return FIRELOSS
 
 
 /obj/item/weldingtool/attackby(obj/item/I, mob/user, params)
@@ -181,11 +185,6 @@
 		set_light_on(FALSE)
 		switched_on(user)
 		update_icon()
-		//mob icon update
-		if(ismob(loc))
-			var/mob/M = loc
-			M.update_inv_hands(0)
-
 		return 0
 	return 1
 
@@ -194,13 +193,16 @@
 	if(!status)
 		balloon_alert(user, "You try to turn [src] on, but it's unsecured!")
 		return
+	if(world.time < disabled_time)
+		balloon_alert(user, "You try to turn [src] on, but nothing happens!")
+		return
 	set_welding(!welding)
 	if(welding)
 		if(get_fuel() >= 1)
 			balloon_alert(user, "You turn [src] on.")
 			playsound(loc, acti_sound, 50, 1)
 			force = 15
-			damtype = "fire"
+			damtype = BURN
 			hitsound = 'sound/items/welder.ogg'
 			update_icon()
 			START_PROCESSING(SSobj, src)
@@ -217,7 +219,7 @@
 	set_welding(FALSE)
 
 	force = 3
-	damtype = "brute"
+	damtype = BRUTE
 	hitsound = "swing_hit"
 	update_icon()
 
@@ -286,6 +288,7 @@
 			add_fingerprint(user)
 			balloon_alert(user, "You start bulding a flamethrower...")
 			user.put_in_hands(F)
+			log_crafting(user, F, TRUE)
 		else
 			balloon_alert(user, "You need one rod to build a flamethrower!")
 
@@ -305,18 +308,6 @@
 /obj/item/weldingtool/largetank/flamethrower_screwdriver()
 	return
 
-/obj/item/weldingtool/largetank/cyborg
-	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems. Custom framework doubles the speed of welding."
-	icon = 'icons/obj/items_cyborg.dmi'
-	icon_state = "indwelder_cyborg"
-	toolspeed = 0.5
-
-/obj/item/weldingtool/largetank/cyborg/cyborg_unequip(mob/user)
-	if(!isOn())
-		return
-	switched_on(user)
-
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
 	desc = "A miniature welder used during emergencies."
@@ -328,6 +319,40 @@
 
 /obj/item/weldingtool/mini/flamethrower_screwdriver()
 	return
+
+/obj/item/weldingtool/cyborg
+	name = "integrated welding tool"
+	desc = "An advanced welder designed to be used in robotic systems. Custom framework doubles the speed of welding."
+	icon = 'icons/obj/items_cyborg.dmi'
+	icon_state = "indwelder_cyborg"
+	toolspeed = 0.5
+	max_fuel = 40
+	materials = list(/datum/material/glass=60)
+
+/obj/item/weldingtool/cyborg/cyborg_unequip(mob/user)
+	if(!isOn())
+		return
+	switched_on(user)
+
+/obj/item/weldingtool/cyborg/flamethrower_screwdriver()
+	return
+
+///This gets called by the lighteater to temporarity disable it
+/obj/item/weldingtool/cyborg/proc/disable()
+	disabled_time = world.time + 30 SECONDS
+	switched_off(usr)
+	playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+
+
+/obj/item/weldingtool/cyborg/mini
+	name = "integrated emergency welding tool"
+	desc = "A miniature integrated welder used during emergencies."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "miniwelder"
+	max_fuel = 10
+	w_class = WEIGHT_CLASS_TINY
+	materials = list(/datum/material/iron=30, /datum/material/glass=10)
+	change_icons = 0
 
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"

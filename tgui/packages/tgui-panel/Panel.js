@@ -22,9 +22,7 @@ import { updateSettings } from './settings/actions';
 export const Panel = (props, context) => {
   // IE8-10: Needs special treatment due to missing Flex support
   if (Byond.IS_LTE_IE10) {
-    return (
-      <HoboPanel />
-    );
+    return <HoboPanel />;
   }
   const audio = useAudio(context);
   const settings = useSettings(context);
@@ -33,29 +31,23 @@ export const Panel = (props, context) => {
     const { useDebug, KitchenSink } = require('tgui/debug');
     const debug = useDebug(context);
     if (debug.kitchenSink) {
-      return (
-        <KitchenSink panel />
-      );
+      return <KitchenSink panel />;
     }
   }
 
-  const [
-    number,
-    setNumber,
-  ] = useLocalState(context, 'number', settings.statSize);
+  const [number, setNumber] = useLocalState(context, 'number', settings.statSize);
   const dispatch = useDispatch(context);
-  const resizeFunction = value => {
-    dispatch(updateSettings({
-      statSize: Math.max(Math.min(value, 90), 10),
-    }));
+  const resizeFunction = (value) => {
+    dispatch(
+      updateSettings({
+        statSize: Math.max(Math.min(value, 90), 10),
+      })
+    );
   };
   return (
     <Pane theme={settings.theme}>
-      <Stack
-        height={(98-number) + '%'}
-        vertical>
-        <StatTabs
-          direction="column" />
+      <Stack height={98 - number + '%'} vertical>
+        <StatTabs direction="column" />
       </Stack>
       <DraggableControl
         value={number}
@@ -67,22 +59,16 @@ export const Panel = (props, context) => {
         stepPixelSize={9}
         onDrag={(e, value) => resizeFunction(value)}
         updateRate={5}>
-        {control => (
-          <Box
-            onMouseDown={control.handleDragStart}
-            height="10px">
-            <Box
-              position="relative"
-              height="4px"
-              backgroundColor="grey"
-              top="3px">
+        {(control) => (
+          <Box onMouseDown={control.handleDragStart} height="10px">
+            <Box position="relative" height="4px" backgroundColor="grey" top="3px">
               <Divider />
               {control.inputElement}
             </Box>
           </Box>
         )}
       </DraggableControl>
-      <Stack mt={1} vertical height={(number-1) + '%'}>
+      <Stack mt={1} vertical height={number - 1 + '%'}>
         <Stack.Item>
           <Section>
             <Stack my={-1.25} align="center">
@@ -99,17 +85,17 @@ export const Panel = (props, context) => {
                   icon="music"
                   tooltip="Music player"
                   tooltipPosition="bottom-start"
-                  onClick={() => audio.toggle()} />
+                  onClick={() => audio.toggle()}
+                />
               </Stack.Item>
               <Stack.Item>
                 <Button
                   icon={settings.visible ? 'times' : 'cog'}
                   selected={settings.visible}
-                  tooltip={settings.visible
-                    ? 'Close settings'
-                    : 'Open settings'}
+                  tooltip={settings.visible ? 'Close settings' : 'Open settings'}
                   tooltipPosition="bottom-start"
-                  onClick={() => settings.toggle()} />
+                  onClick={() => settings.toggle()}
+                />
               </Stack.Item>
             </Stack>
           </Section>
@@ -133,16 +119,14 @@ export const Panel = (props, context) => {
             </Pane.Content>
             <Notifications>
               {game.connectionLostAt && (
-                <Notifications.Item
-                  rightSlot={<ReconnectButtons />}>
-                  You are either AFK, experiencing lag or the connection
-                  has closed.
+                <Notifications.Item rightSlot={<ReconnectButtons />}>
+                  You are either AFK, experiencing lag or the connection has closed.
                 </Notifications.Item>
               )}
               {game.roundRestartedAt && (
                 <Notifications.Item>
-                  The connection has been closed because the server is
-                  restarting. Please wait while you automatically reconnect.
+                  The connection has been closed because the server is restarting. Please wait while you automatically
+                  reconnect.
                 </Notifications.Item>
               )}
             </Notifications>
@@ -161,31 +145,24 @@ const HoboPanel = (props, context) => {
     const { useDebug, KitchenSink } = require('tgui/debug');
     const debug = useDebug(context);
     if (debug.kitchenSink) {
-      return (
-        <KitchenSink panel />
-      );
+      return <KitchenSink panel />;
     }
   }
 
-  const [
-    number,
-    setNumber,
-  ] = useLocalState(context, 'number', settings.statSize);
+  const [number, setNumber] = useLocalState(context, 'number', settings.statSize);
   const dispatch = useDispatch(context);
-  const resizeFunction = value => {
-    dispatch(updateSettings({
-      statSize: Math.max(Math.min(value, 90), 10),
-    }));
+  const resizeFunction = (value) => {
+    dispatch(
+      updateSettings({
+        statSize: Math.max(Math.min(value, 90), 10),
+      })
+    );
   };
 
   return (
     <Pane theme={settings.theme}>
-      <Section
-        direction="column"
-        height={(98-number) + '%'}
-        overflowY="scroll">
-        <HoboStatTabs
-          height="100%" />
+      <Section direction="column" height={98 - number + '%'} overflowY="scroll">
+        <HoboStatTabs height="100%" />
       </Section>
       <DraggableControl
         value={number}
@@ -197,22 +174,16 @@ const HoboPanel = (props, context) => {
         stepPixelSize={9}
         onDrag={(e, value) => resizeFunction(value)}
         updateRate={5}>
-        {control => (
-          <Box
-            onMouseDown={control.handleDragStart}
-            height="10px">
-            <Box
-              position="relative"
-              height="4px"
-              backgroundColor="grey"
-              top="3px">
+        {(control) => (
+          <Box onMouseDown={control.handleDragStart} height="10px">
+            <Box position="relative" height="4px" backgroundColor="grey" top="3px">
               <Divider />
               {control.inputElement}
             </Box>
           </Box>
         )}
       </DraggableControl>
-      <Section height={(number-1) + '%'}>
+      <Section height={number - 1 + '%'}>
         <Pane.Content scrollable>
           <Button
             style={{
@@ -225,13 +196,11 @@ const HoboPanel = (props, context) => {
             onClick={() => settings.toggle()}>
             Settings
           </Button>
-          {settings.visible && (
+          {(settings.visible && (
             <Stack.Item>
               <SettingsPanel />
             </Stack.Item>
-          ) || (
-            <ChatPanel lineHeight={settings.lineHeight} />
-          )}
+          )) || <ChatPanel lineHeight={settings.lineHeight} />}
         </Pane.Content>
       </Section>
     </Pane>

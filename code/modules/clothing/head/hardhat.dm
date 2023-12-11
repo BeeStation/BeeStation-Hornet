@@ -1,6 +1,6 @@
 /*
 
-	Contents: 
+	Contents:
 
 		Hard hat
 		Orange hard hat
@@ -19,7 +19,7 @@
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight."
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
-	armor = list("melee" = 15, "bullet" = 5, "laser" = 20, "energy" = 10, "bomb" = 20, "bio" = 10, "rad" = 20, "fire" = 100, "acid" = 50, "stamina" = 20)
+	armor = list(MELEE = 15,  BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, RAD = 20, FIRE = 100, ACID = 50, STAMINA = 20)
 	flags_inv = NONE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
@@ -83,6 +83,9 @@
 	cold_protection = HEAD
 	heat_protection = HEAD
 	dog_fashion = null
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT|HIDEMASK
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
 
 /obj/item/clothing/head/hardhat/white
 	name = "white hard hat"
@@ -109,8 +112,8 @@
 	icon_state = "hardhat0_atmos"
 	item_state = "hardhat0_atmos"
 	hat_type = "atmos"
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT  | HEADINTERNALS
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -125,10 +128,10 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen)
 	flash_protect = 2
 	tint = 2
-	flags_inv = HIDEEYES | HIDEFACE
+	flags_inv = HIDEEYES | HIDEFACE | HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
-	visor_flags_inv = HIDEEYES | HIDEFACE
+	visor_flags_inv = HIDEEYES | HIDEFACE | HIDESNOUT
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 /obj/item/clothing/head/hardhat/weldhat/Initialize(mapload)
@@ -144,12 +147,12 @@
 		playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
 	update_icon()
 
-/obj/item/clothing/head/hardhat/weldhat/worn_overlays(mutable_appearance/standing, isinhands)
+/obj/item/clothing/head/hardhat/weldhat/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	if(!isinhands)
-		. += mutable_appearance('icons/mob/clothing/head.dmi', "weldhelmet")
+		. += mutable_appearance('icons/mob/clothing/head.dmi', "weldhelmet", item_layer)
 		if(!up)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', "weldvisor")
+			. += mutable_appearance('icons/mob/clothing/head.dmi', "weldvisor", item_layer)
 
 /obj/item/clothing/head/hardhat/weldhat/update_icon()
 	cut_overlays()

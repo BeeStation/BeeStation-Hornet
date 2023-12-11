@@ -101,8 +101,17 @@
 		return TRUE
 	return FALSE
 
-/mob/living/silicon/robot/proc/on_emag(atom/target, mob/user)
+/mob/living/silicon/robot/proc/on_emag(atom/target, mob/user, obj/item/card/emag/hacker)
 	SIGNAL_HANDLER
+
+	if(hacker)
+		if(hacker.charges <= 0)
+			to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+			user.balloon_alert(user, "out of charges!")
+			return
+		else
+			hacker.use_charge()
+
 	if(!opened && locked) //Cover is closed
 		to_chat(user, "<span class='notice'>You emag the cover lock.</span>")
 		locked = FALSE
@@ -112,7 +121,7 @@
 
 	to_chat(user, "<span class='notice'>You emag [src]'s interface.</span>")
 	emag_cooldown = world.time + 100
-	addtimer(CALLBACK(src, .proc/after_emag, user), 1)
+	addtimer(CALLBACK(src, PROC_REF(after_emag), user), 1)
 
 /mob/living/silicon/robot/proc/after_emag(mob/user)
 	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/traitor))
@@ -125,7 +134,7 @@
 	if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
 		to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempt has triggered a system reset instead!</span>")
 		log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
-		addtimer(CALLBACK(src, .proc/after_emag_shell, user), 1)
+		addtimer(CALLBACK(src, PROC_REF(after_emag_shell), user), 1)
 		return
 
 	SetEmagged(1)
@@ -166,24 +175,46 @@
 	if(stat != DEAD)
 		adjustBruteLoss(30)
 	else
+		investigate_log("has been gibbed a blob.", INVESTIGATE_DEATHS)
 		gib()
 	return TRUE
 
 /mob/living/silicon/robot/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			gib()
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if (stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
-		if(3)
+		if(EXPLODE_LIGHT)
 			if (stat != DEAD)
 				adjustBruteLoss(30)
 
-/mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj, def_zone)
+/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj, def_zone)
 	. = ..()
 	updatehealth()
 	if(prob(75) && Proj.damage > 0)
 		spark_system.start()
+
+/mob/living/silicon/robot/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= (maxHealth * 0.5))
+		if(getOxyLoss() > (maxHealth * 0.5))
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= (maxHealth * 0.5))
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+
+
+/mob/living/silicon/robot/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= (maxHealth * 0.5))
+		if(getOxyLoss() > (maxHealth * 0.5))
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= (maxHealth * 0.5))
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)

@@ -11,6 +11,7 @@
 	name = "alien floor"
 	icon_state = "alienpod1"
 	tiled_dirt = FALSE
+	max_integrity = 1800
 
 /turf/open/floor/plating/abductor/Initialize(mapload)
 	. = ..()
@@ -21,6 +22,7 @@
 	name = "alien plating"
 	icon_state = "alienplating"
 	tiled_dirt = FALSE
+	max_integrity = 1800
 
 /turf/open/floor/plating/abductor2/break_tile()
 	return //unbreakable
@@ -110,12 +112,12 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	max_integrity = 100
+	resistance_flags = INDESTRUCTIBLE
+	max_integrity = 300
 
 /turf/open/floor/plating/beach/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
-
-/turf/open/floor/plating/beach/ex_act(severity, target)
-	contents_explosion(severity, target)
 
 /turf/open/floor/plating/beach/sand
 	gender = PLURAL
@@ -169,7 +171,7 @@
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."
 	icon = 'icons/turf/floors/ice_turf.dmi'
-	icon_state = "unsmooth"
+	icon_state = "ice-0"
 	initial_gas_mix = FROZEN_ATMOS
 	initial_temperature = 180
 	planetary_atmos = TRUE
@@ -190,9 +192,11 @@
 	return
 
 /turf/open/floor/plating/ice/smooth
-	icon_state = "ice_turf-255"
-	base_icon_state = "ice_turf"
+	icon_state = "ice-255"
+	base_icon_state = "ice"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ICE)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/open/floor/plating/ice/colder
 	initial_temperature = 140

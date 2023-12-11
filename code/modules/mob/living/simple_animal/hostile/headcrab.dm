@@ -47,7 +47,7 @@
 				return
 			Infect(target)
 			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
-			addtimer(CALLBACK(src, .proc/death), 100)
+			addtimer(CALLBACK(src, PROC_REF(death)), 100)
 
 /obj/item/organ/body_egg/changeling_egg
 	name = "changeling egg"
@@ -56,10 +56,7 @@
 	var/time
 
 /obj/item/organ/body_egg/changeling_egg/egg_process()
-	// Changeling eggs grow in dead people, but not people in stasis
-	var/mob/living/L = owner
-	if(L.IsInStasis())
-		return
+	// Changeling eggs grow in dead people
 	time++
 	if(time >= EGG_INCUBATION_TIME)
 		Pop()
@@ -84,6 +81,7 @@
 		C.purchasedpowers += hf
 		C.regain_powers()
 		M.key = origin.key
+	owner.investigate_log("has been gibbed by a changeling egg burst.", INVESTIGATE_DEATHS)
 	owner.gib()
 
 #undef EGG_INCUBATION_TIME

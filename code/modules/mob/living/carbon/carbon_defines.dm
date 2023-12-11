@@ -18,7 +18,10 @@
 	var/obj/item/back = null
 	var/obj/item/clothing/mask/wear_mask = null
 	var/obj/item/clothing/neck/wear_neck = null
+	/// Equipped air tank. Never set this manually.
 	var/obj/item/tank/internal = null
+	/// "External" air tank. Never set this manually. Not required to stay directly equipped on the mob (i.e. could be a machine).
+	var/obj/item/tank/external = null
 	var/obj/item/clothing/head = null
 
 	var/obj/item/clothing/gloves = null //only used by humans
@@ -69,7 +72,6 @@
 
 	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
-	var/stam_paralyzed = FALSE //knocks you down
 	var/stam_heal = 10	//Stamina healed per 2 seconds overall. When the mob has taken more than 60 stamina damage, the rate of stamina regeneration will be increased, up to 20 per second when the mob has taken 120 stamina damage.
 
 	/// Timer id of any transformation

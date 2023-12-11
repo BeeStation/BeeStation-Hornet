@@ -33,15 +33,15 @@
 	output = /obj/item/reagent_containers/food/snacks/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/reagent_containers/food/snacks/doughslice
-	output = /obj/item/reagent_containers/food/snacks/spaghetti
+	input = /obj/item/food/doughslice
+	output = /obj/item/food/spaghetti/raw
 
 /datum/food_processor_process/corn
 	input = /obj/item/reagent_containers/food/snacks/grown/corn
-	output = /obj/item/reagent_containers/food/snacks/tortilla
+	output = /obj/item/food/tortilla
 
 /datum/food_processor_process/tortilla
-	input = /obj/item/reagent_containers/food/snacks/tortilla
+	input = /obj/item/food/tortilla
 	output = /obj/item/reagent_containers/food/snacks/cornchips
 
 /datum/food_processor_process/parsnip
@@ -55,4 +55,4 @@
 
 /datum/food_processor_process/fish
 	input = /obj/item/fish
-	output = /obj/item/reagent_containers/food/snacks/carpmeat/icantbeliveitsnotcarp
+	output = /obj/item/reagent_containers/food/snacks/carpmeat/icantbelieveitsnotcarp

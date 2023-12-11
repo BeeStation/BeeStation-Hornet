@@ -22,8 +22,9 @@
 	clawfootstep = FOOTSTEP_WOOD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	max_integrity = 50
 
-/turf/open/floor/carpet/examine(mob/user)
+/turf/open/floor/bamboo/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 
@@ -36,6 +37,7 @@
 	clawfootstep = FOOTSTEP_WOOD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	max_integrity = 100
 
 /turf/open/floor/wood/examine(mob/user)
 	. = ..()
@@ -101,6 +103,7 @@
 	var/ore_type = /obj/item/stack/ore/glass
 	var/turfverb = "uproot"
 	tiled_dirt = FALSE
+	max_integrity = 80
 
 /turf/open/floor/grass/Initialize(mapload)
 	. = ..()
@@ -136,6 +139,12 @@
 	floor_tile = /obj/item/stack/tile/fairygrass/red
 	light_color = "#FF3333"
 	color = "#FF3333"
+
+/turf/open/floor/grass/fairy/orange
+	name = "orange fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/orange
+	light_color = "#FFA500"
+	color = "#FFA500"
 
 /turf/open/floor/grass/fairy/yellow
 	name = "yellow fairygrass patch"
@@ -179,7 +188,8 @@
 	icon = 'icons/turf/snow.dmi'
 	desc = "Looks cold."
 	icon_state = "snow"
-	ore_type = /obj/item/stack/sheet/mineral/snow
+	ore_type = /obj/item/stack/sheet/snow
+
 	planetary_atmos = TRUE
 	floor_tile = null
 	initial_gas_mix = FROZEN_ATMOS
@@ -254,6 +264,7 @@
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	max_integrity = 150
 
 /turf/open/floor/carpet/examine(mob/user)
 	. = ..()
@@ -362,6 +373,7 @@
 	icon_state = "eighties"
 	floor_tile = /obj/item/stack/tile/eighties
 	broken_states = list("damaged")
+	max_integrity = 150
 
 /turf/open/floor/carpet/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)
@@ -393,6 +405,7 @@
 	icon = 'icons/turf/floors/Chasms.dmi'
 	icon_state = "chasms-0"
 	tiled_dirt = FALSE
+	max_integrity = 100
 
 /turf/open/floor/fakepit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
@@ -406,6 +419,9 @@
 	broken_states = list("damaged")
 	plane = PLANE_SPACE
 	tiled_dirt = FALSE
+	max_integrity = 100
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /turf/open/floor/fakespace/Initialize(mapload)
 	. = ..()
@@ -427,6 +443,7 @@
 	clawfootstep = FOOTSTEP_WOOD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	max_integrity = 120
 
 /turf/open/floor/wax/airless
 	initial_gas_mix = AIRLESS_ATMOS

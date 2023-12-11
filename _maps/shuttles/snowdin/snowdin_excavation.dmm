@@ -10,13 +10,6 @@
 "e" = (
 /turf/open/floor/engine,
 /area/shuttle/snowdin/elevator1)
-"f" = (
-/obj/machinery/computer/turbolift{
-	shuttle_id = "snowdin_excavation";
-	time_between_stops = 50
-	},
-/turf/open/floor/engine,
-/area/shuttle/snowdin/elevator1)
 "N" = (
 /obj/docking_port/mobile/elevator{
 	dir = 4;
@@ -25,11 +18,9 @@
 	name = "excavation elevator";
 	width = 6
 	},
-/obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plating,
 /area/shuttle/snowdin/elevator1)
 "R" = (
-/obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plating,
 /area/shuttle/snowdin/elevator1)
 
@@ -67,7 +58,7 @@ R
 "}
 (5,1,1) = {"
 d
-f
+e
 e
 e
 e

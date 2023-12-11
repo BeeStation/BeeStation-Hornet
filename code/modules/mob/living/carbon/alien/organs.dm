@@ -1,5 +1,6 @@
 /obj/item/organ/alien
 	icon_state = "xgibmid2"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/acid = 10)
 	var/list/alien_powers = list()
 
 /obj/item/organ/alien/Initialize(mapload)
@@ -13,20 +14,16 @@
 	QDEL_LIST(alien_powers)
 	return ..()
 
-/obj/item/organ/alien/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/alien/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	for(var/obj/effect/proc_holder/alien/P in alien_powers)
 		M.AddAbility(P)
 
-/obj/item/organ/alien/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/alien/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	for(var/obj/effect/proc_holder/alien/P in alien_powers)
 		M.RemoveAbility(P)
 	return ..()
 
-/obj/item/organ/alien/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/toxin/acid, 10)
-	return S
 
 /obj/item/organ/alien/plasmavessel
 	name = "plasma vessel"
@@ -35,16 +32,12 @@
 	zone = BODY_ZONE_CHEST
 	slot = "plasmavessel"
 	alien_powers = list(/obj/effect/proc_holder/alien/plant, /obj/effect/proc_holder/alien/transfer)
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/plasma = 10)
 
 	var/storedPlasma = 100
 	var/max_plasma = 250
 	var/heal_rate = 5
 	var/plasma_rate = 10
-
-/obj/item/organ/alien/plasmavessel/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/toxin/plasma, storedPlasma/10)
-	return S
 
 /obj/item/organ/alien/plasmavessel/large
 	name = "large plasma vessel"
@@ -89,14 +82,14 @@
 	else
 		owner.adjustPlasma(plasma_rate * 0.1)
 
-/obj/item/organ/alien/plasmavessel/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/alien/plasmavessel/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	if(!isalien(M))
 		return
 	var/mob/living/carbon/alien/A = M
 	A.updatePlasmaDisplay()
 
-/obj/item/organ/alien/plasmavessel/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/alien/plasmavessel/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	if(!isalien(M))
 		return
@@ -114,13 +107,13 @@
 	alien_powers = list(/obj/effect/proc_holder/alien/whisper)
 	var/recent_queen_death = 0 //Indicates if the queen died recently, aliens are heavily weakened while this is active.
 
-/obj/item/organ/alien/hivenode/Insert(mob/living/carbon/M, special = 0)
-	M.faction |= ROLE_ALIEN
+/obj/item/organ/alien/hivenode/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	M.faction |= FACTION_ALIEN
 	ADD_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
 	return ..()
 
-/obj/item/organ/alien/hivenode/Remove(mob/living/carbon/M, special = 0)
-	M.faction -= ROLE_ALIEN
+/obj/item/organ/alien/hivenode/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	M.faction -= FACTION_ALIEN
 	REMOVE_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
 	return ..()
 
@@ -145,7 +138,7 @@
 
 	recent_queen_death = TRUE
 	owner.throw_alert("alien_noqueen", /atom/movable/screen/alert/alien_vulnerable)
-	addtimer(CALLBACK(src, .proc/clear_queen_death), QUEEN_DEATH_DEBUFF_DURATION)
+	addtimer(CALLBACK(src, PROC_REF(clear_queen_death)), QUEEN_DEATH_DEBUFF_DURATION)
 
 
 /obj/item/organ/alien/hivenode/proc/clear_queen_death()

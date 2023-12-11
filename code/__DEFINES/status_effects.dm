@@ -97,7 +97,7 @@
 
 #define STATUS_EFFECT_GO_AWAY /datum/status_effect/go_away //! makes you launch through walls in a single direction for a while
 
-#define STATUS_EFFECT_STASIS /datum/status_effect/incapacitating/stasis //! Halts biological functions like bleeding, chemical processing, blood regeneration, walking, etc
+#define STATUS_EFFECT_STASIS /datum/status_effect/grouped/stasis //! Halts biological functions like bleeding, chemical processing, blood regeneration, walking, etc
 
 #define STATUS_EFFECT_SYRINGE /datum/status_effect/syringe //used to handle being injected with a syringe
 
@@ -110,6 +110,14 @@
 #define STATUS_EFFECT_AMOK /datum/status_effect/amok //Makes the target automatically strike out at adjecent non-heretics.
 
 #define STATUS_EFFECT_CLOUDSTRUCK /datum/status_effect/cloudstruck //blinds and applies an overlay.
+
+#define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned /// If a moth is in a cocoon
+
+#define STATUS_EFFECT_SMOKE /datum/status_effect/smoke
+
+#define STATUS_EFFECT_LING_TRANSFORMATION /datum/status_effect/ling_transformation // transform stung by a changeling
+
+
 //---------//
 // NEUTRAL //
 //---------//
@@ -133,8 +141,10 @@
 #define STATUS_EFFECT_RAINBOWPROTECTION /datum/status_effect/rainbow_protection //! Invulnerable and pacifistic
 #define STATUS_EFFECT_SLIMESKIN /datum/status_effect/slimeskin //! Increased armor
 
-// Stasis helpers
+// Grouped effect sources, see also code/__DEFINES/traits.dm
+#define STASIS_MACHINE_EFFECT "stasis_machine"
 
+// Stasis helpers
 #define STASIS_ASCENSION_EFFECT "heretic_ascension"
 
 #define IS_IN_STASIS(mob) (mob.has_status_effect(STATUS_EFFECT_STASIS))

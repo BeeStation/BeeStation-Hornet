@@ -4,9 +4,12 @@
 	id = SPECIES_APID
 	bodyflag = FLAG_APID
 	default_color = "FFE800"
-	species_traits = list(LIPS,NOEYESPRITES)
+	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
+	mutant_bodyparts = list("apid_stripes","apid_antenna","apid_headstripes")
+	default_features = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
+	hair_color = "fixedmutcolor"
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -84,3 +87,47 @@
 /datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	C.mind?.forget_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	return ..()
+
+/datum/species/apid/get_species_description()
+	return "Beepeople, god damn it. It's hip, and alive! Buzz buzz!"
+
+/datum/species/apid/get_species_lore()
+	return null
+
+/datum/species/apid/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "bug",
+			SPECIES_PERK_NAME = "Hive-Friend",
+			SPECIES_PERK_DESC = "Apids are naturally friends with bees, and can make honeycombs!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "level-down-alt",
+			SPECIES_PERK_NAME = "Low Air Requirements",
+			SPECIES_PERK_DESC = "Apids can breathe in lower air pressures just fine!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "wind",
+			SPECIES_PERK_NAME = "Dashing!",
+			SPECIES_PERK_DESC = "Apids can use their wings to quickly dash forward in a flurry of buzzing!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "icicles",
+			SPECIES_PERK_NAME = "Cold-Sensitive Biology",
+			SPECIES_PERK_DESC = "The cold makes Apids sleepy, as does smoke...",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "fist-raised",
+			SPECIES_PERK_NAME = "Insectoid Biology",
+			SPECIES_PERK_DESC = "Fly swatters will deal significantly higher amounts of damage to Apids.",
+		),
+	)
+
+	return to_add

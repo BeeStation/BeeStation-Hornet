@@ -20,7 +20,7 @@
 	icon_state = "pewmiddle"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-	buildstacktype = /obj/item/stack/sheet/mineral/wood
+	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 3
 	item_chair = null
 
@@ -39,7 +39,7 @@
 	icon_state = "bamboo_sofamiddle"
 	resistance_flags = FLAMMABLE
 	max_integrity = 60
-	buildstacktype = /obj/item/stack/sheet/mineral/bamboo
+	buildstacktype = /obj/item/stack/sheet/bamboo
 	buildstackamount = 3
 
 /obj/structure/chair/fancy/bench/bamboo/left

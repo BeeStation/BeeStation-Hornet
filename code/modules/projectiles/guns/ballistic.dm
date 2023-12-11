@@ -2,7 +2,7 @@
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
 	name = "projectile gun"
 	icon_state = "pistol"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 
 	//sound info vars
 	var/load_sound = "gun_insert_full_magazine"
@@ -67,9 +67,15 @@
 	update_icon()
 
 /obj/item/gun/ballistic/fire_sounds()
-	var/frequency_to_use = sin((90/magazine?.max_ammo) * get_ammo())
+	var/frequency_to_use
+	var/play_click
+	if(magazine)
+		frequency_to_use = sin((90/magazine?.max_ammo) * get_ammo())
+		play_click = round(sqrt(magazine?.max_ammo * 2)) > get_ammo()
+	else
+		frequency_to_use = sin((90) * get_ammo())
+		play_click = round(sqrt(2)) > get_ammo()
 	var/click_frequency_to_use = 1 - frequency_to_use * 0.75
-	var/play_click = round(sqrt(magazine?.max_ammo * 2)) > get_ammo()
 
 	if(suppressed)
 		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
@@ -85,7 +91,7 @@
 		return
 	..()
 	if(current_skin)
-		icon_state = "[unique_reskin[current_skin]][sawn_off ? "_sawn" : ""]"
+		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
 	cut_overlays()
@@ -207,7 +213,7 @@
 		if (insert_magazine(user, tac_load, FALSE))
 			to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src].")
 		else
-			to_chat(user, "<span class='warning'>You dropped the old [magazine_wording], but the new one doesn't fit. How embarassing.</span>")
+			to_chat(user, "<span class='warning'>You dropped the old [magazine_wording], but the new one doesn't fit. How embarrassing.</span>")
 			magazine = null
 	else
 		magazine = null
@@ -263,6 +269,9 @@
 			to_chat(user, "<span class='notice'>You screw \the [S] onto \the [src].</span>")
 			install_suppressor(A)
 			return
+	if((A.tool_behaviour == TOOL_SAW || istype(A, /obj/item/gun/energy/plasmacutter)) && can_sawoff == TRUE)
+		sawoff(user)
+		return
 	return FALSE
 
 /obj/item/gun/ballistic/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
@@ -273,21 +282,20 @@
 /obj/item/gun/ballistic/proc/install_suppressor(obj/item/suppressor/S)
 	// this proc assumes that the suppressor is already inside src
 	suppressed = S
-	w_class += S.w_class //so pistols do not fit in pockets when suppressed
+	weight_class_up() //so pistols do not fit in pockets when suppressed
 	update_icon()
 
 /obj/item/gun/ballistic/AltClick(mob/user)
-	if (unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if (unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		reskin_obj(user)
 		return
 	if(loc == user)
 		if(suppressed && can_unsuppress)
-			var/obj/item/suppressor/S = suppressed
 			if(!user.is_holding(src))
 				return
 			to_chat(user, "<span class='notice'>You unscrew \the [suppressed] from \the [src].</span>")
 			user.put_in_hands(suppressed)
-			w_class -= S.w_class
+			weight_class_down()
 			suppressed = null
 			update_icon()
 			return
@@ -381,7 +389,8 @@
 
 #define BRAINS_BLOWN_THROW_RANGE 3
 #define BRAINS_BLOWN_THROW_SPEED 1
-/obj/item/gun/ballistic/suicide_act(mob/user)
+
+/obj/item/gun/ballistic/suicide_act(mob/living/user)
 	var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
 	if (B && chambered && chambered.BB && can_trigger_gun(user) && !chambered.BB.nodamage)
 		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -393,21 +402,20 @@
 			var/turf/target = get_ranged_target_turf(user, turn(user.dir, 180), BRAINS_BLOWN_THROW_RANGE)
 			B.Remove(user)
 			B.forceMove(T)
-			var/datum/callback/gibspawner = CALLBACK(GLOBAL_PROC, /proc/spawn_atom_to_turf, /obj/effect/gibspawner/generic, B, 1, FALSE, user)
+			var/datum/callback/gibspawner = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_atom_to_turf), /obj/effect/gibspawner/generic, B, 1, FALSE, user)
 			B.throw_at(target, BRAINS_BLOWN_THROW_RANGE, BRAINS_BLOWN_THROW_SPEED, callback=gibspawner)
-			return(BRUTELOSS)
+			return BRUTELOSS
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
-			return(OXYLOSS)
+			return OXYLOSS
 	else
 		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brain[user.p_s()] out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(src, dry_fire_sound, 30, TRUE)
-		return (OXYLOSS)
+		return OXYLOSS
 #undef BRAINS_BLOWN_THROW_SPEED
 #undef BRAINS_BLOWN_THROW_RANGE
 
 
-//TODO: sawing off guns with TOOL_SAW
 /obj/item/gun/ballistic/proc/sawoff(mob/user)
 	if(sawn_off)
 		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")
@@ -424,13 +432,31 @@
 		if(sawn_off)
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
-		name = "sawn-off [src.name]"
+		if (bayonet)
+			bayonet.forceMove(drop_location())
+			clear_bayonet()
+		if (suppressed)
+			if (istype(suppressed, /obj/item/suppressor))
+				//weight class is set later, don't need to worry about removing extra weight from the suppressor
+				var/obj/S = suppressed
+				S.forceMove(drop_location())
+			//If it's integrally suppressed, you're messing that up by chopping off most of it from the tip
+			suppressed = null
+		if (sawn_name)
+			name = sawn_name
+		else
+			name = "sawn-off [src.name]"
 		desc = sawn_desc
-		w_class = WEIGHT_CLASS_NORMAL
-		item_state = "gun"
+		w_class = WEIGHT_CLASS_LARGE
+		if (sawn_item_state)
+			item_state = sawn_item_state
+		else
+			item_state = "gun"
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
-		slot_flags |= ITEM_SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
+		slot_flags |= ITEM_SLOT_BELT	//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		recoil = SAWN_OFF_RECOIL
+		can_bayonet = FALSE				//you got rid of the mounting lug with the rest of the barrel, dumbass
+		can_suppress = FALSE			//ditto for the threaded barrel
 		sawn_off = TRUE
 		spread_multiplier = 1.6
 		update_icon()

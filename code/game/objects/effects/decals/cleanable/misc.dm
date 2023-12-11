@@ -14,8 +14,8 @@
 /obj/effect/decal/cleanable/ash/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/ash, 30)
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 /obj/effect/decal/cleanable/ash/crematorium
 //crematoriums need their own ash cause default ash deletes itself if created in an obj
@@ -53,7 +53,7 @@
 	base_icon_state = "dirt"
 	smoothing_flags = NONE
 	smoothing_groups = list(SMOOTH_GROUP_CLEANABLE_DIRT)
-	canSmoothWith = list(SMOOTH_GROUP_CLEANABLE_DIRT, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_CLEANABLE_DIRT)
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/decal/cleanable/dirt/Initialize(mapload)
@@ -145,23 +145,20 @@
 /obj/effect/decal/cleanable/vomit/old
 	name = "crusty dried vomit"
 	desc = "You try not to look at the chunks, and fail."
-	var/list/disease = list()
+	var/list/datum/disease/diseases = list()
 
 /obj/effect/decal/cleanable/vomit/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	icon_state += "-old"
+	if(length(diseases))
+		src.diseases += diseases
 	if(prob(95))//vomit is much more likely to be diseased than blood is
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), rand(7, 9), 4, infected = src)
-		disease += R
+		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(2, 5), rand(7, 9), 4, infected = src)
+		src.diseases += new_disease
 
-/obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(!disease.len)
-		return FALSE
-	if(scan)
-		E.scan(src, disease, user)
-	else
-		E.extrapolate(src, disease, user)
-	return TRUE
+/obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /obj/effect/decal/cleanable/chem_pile
 	name = "chemical pile"

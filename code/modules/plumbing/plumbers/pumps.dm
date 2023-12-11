@@ -24,6 +24,7 @@
 	. = ..()
 	create_reagents(volume)
 	AddComponent(/datum/component/plumbing/simple_supply, TRUE)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/power/liquid_pump/attackby(obj/item/W, mob/user, params)
 	if(!powered)
@@ -37,7 +38,7 @@
 /obj/machinery/power/liquid_pump/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I)
 	return TRUE
-///please note that the component has a hook in the parent call, wich handles activating and deactivating
+///please note that the component has a hook in the parent call, which handles activating and deactivating
 /obj/machinery/power/liquid_pump/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	. = ..()
 	if(. == SUCCESSFUL_UNFASTEN)

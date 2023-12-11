@@ -29,21 +29,21 @@
 	setup_visuals()
 
 /mob/living/simple_animal/hostile/zombie/proc/setup_visuals()
-	var/datum/character_save/CS = new
-	CS.pref_species = new /datum/species/zombie
-	CS.be_random_body = TRUE
-	var/datum/job/J = SSjob.GetJob(zombiejob)
-	var/datum/outfit/O
-	if(J.outfit)
-		O = new J.outfit
-		//They have claws now.
-		O.r_hand = null
-		O.l_hand = null
+	var/datum/job/job = SSjob.GetJob(zombiejob)
 
-	var/icon/P = get_flat_human_icon("zombie_[zombiejob]", J , CS, "zombie", outfit_override = O)
-	icon = P
+	var/datum/outfit/outfit = new job.outfit
+	outfit.l_hand = null
+	outfit.r_hand = null
+
+	var/mob/living/carbon/human/dummy/dummy = new
+	dummy.equipOutfit(outfit)
+	dummy.set_species(/datum/species/zombie)
+	COMPILE_OVERLAYS(dummy)
+	icon = getFlatIcon(dummy)
+	qdel(dummy)
+
 	corpse = new(src)
-	corpse.outfit = O
+	corpse.outfit = outfit
 	corpse.mob_species = /datum/species/zombie
 	corpse.mob_name = name
 

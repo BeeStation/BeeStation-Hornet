@@ -7,15 +7,15 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
 	resistance_flags = FIRE_PROOF
+	interacts_with_air = TRUE
 
 	var/on = TRUE
-
 	var/frequency = FREQ_ATMOS_STORAGE
 	var/datum/radio_frequency/radio_connection
 
-/obj/machinery/air_sensor/atmos/toxin_tank
+/obj/machinery/air_sensor/atmos/plasma_tank
 	name = "plasma tank gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_TOX
+	id_tag = ATMOS_GAS_MONITOR_SENSOR_PLASMA
 /obj/machinery/air_sensor/atmos/toxins_mixing_tank
 	name = "toxins mixing gas sensor"
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB
@@ -40,9 +40,15 @@
 /obj/machinery/air_sensor/atmos/incinerator_tank
 	name = "incinerator chamber gas sensor"
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_INCINERATOR
+/obj/machinery/air_sensor/atmos/toxins_waste
+	name = "toxins waste sensor"
+	id_tag = ATMOS_GAS_MONITOR_SENSOR_TOXINS_WASTE
 /obj/machinery/air_sensor/atmos/sm_core
 	name = "supermatter gas sensor"
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_SM
+/obj/machinery/air_sensor/atmos/sm_waste
+	name = "supermatter waste sensor"
+	id_tag = ATMOS_GAS_MONITOR_SENSOR_SM_WASTE
 
 /obj/machinery/air_sensor/update_icon()
 	icon_state = "gsensor[on]"
@@ -75,11 +81,11 @@
 
 /obj/machinery/air_sensor/Initialize(mapload)
 	. = ..()
-	SSair.atmos_air_machinery += src
+	SSair.start_processing_machine(src)
 	set_frequency(frequency)
 
 /obj/machinery/air_sensor/Destroy()
-	SSair.atmos_air_machinery -= src
+	SSair.stop_processing_machine(src)
 	SSradio.remove_object(src, frequency)
 	return ..()
 
@@ -102,7 +108,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		ATMOS_GAS_MONITOR_SENSOR_N2 = "Nitrogen Tank",
 		ATMOS_GAS_MONITOR_SENSOR_O2 = "Oxygen Tank",
 		ATMOS_GAS_MONITOR_SENSOR_CO2 = "Carbon Dioxide Tank",
-		ATMOS_GAS_MONITOR_SENSOR_TOX = "Plasma Tank",
+		ATMOS_GAS_MONITOR_SENSOR_PLASMA = "Plasma Tank",
 		ATMOS_GAS_MONITOR_SENSOR_N2O = "Nitrous Oxide Tank",
 		ATMOS_GAS_MONITOR_SENSOR_AIR = "Mixed Air Tank",
 		ATMOS_GAS_MONITOR_SENSOR_MIX = "Mix Tank",
@@ -110,7 +116,9 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		ATMOS_GAS_MONITOR_LOOP_ATMOS_WASTE = "Atmos Waste Loop",
 		ATMOS_GAS_MONITOR_SENSOR_INCINERATOR = "Incinerator Chamber",
 		ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB = "Toxins Mixing Chamber",
-		ATMOS_GAS_MONITOR_SENSOR_SM = "Supermatter Core"
+		ATMOS_GAS_MONITOR_SENSOR_TOXINS_WASTE = "Toxins Waste Tank",
+		ATMOS_GAS_MONITOR_SENSOR_SM = "Supermatter Core",
+		ATMOS_GAS_MONITOR_SENSOR_SM_WASTE = "Supermatter Waste Tank",
 	)
 	var/list/sensor_information = list()
 	var/datum/radio_frequency/radio_connection
@@ -194,12 +202,12 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_O2 = "Oxygen Tank")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/oxygen_tank
 
-/obj/machinery/computer/atmos_control/tank/toxin_tank
+/obj/machinery/computer/atmos_control/tank/plasma_tank
 	name = "Plasma Supply Control"
-	input_tag = ATMOS_GAS_MONITOR_INPUT_TOX
-	output_tag = ATMOS_GAS_MONITOR_OUTPUT_TOX
-	sensors = list(ATMOS_GAS_MONITOR_SENSOR_TOX = "Plasma Tank")
-	circuit = /obj/item/circuitboard/computer/atmos_control/tank/toxin_tank
+	input_tag = ATMOS_GAS_MONITOR_INPUT_PLASMA
+	output_tag = ATMOS_GAS_MONITOR_OUTPUT_PLASMA
+	sensors = list(ATMOS_GAS_MONITOR_SENSOR_PLASMA = "Plasma Tank")
+	circuit = /obj/item/circuitboard/computer/atmos_control/tank/plasma_tank
 
 /obj/machinery/computer/atmos_control/tank/air_tank
 	name = "Mixed Air Supply Control"
@@ -250,12 +258,26 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_SM = "Supermatter Core")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
 
+/obj/machinery/computer/atmos_control/tank/sm_waste
+	name = "Supermatter Air Monitor"
+	input_tag = ATMOS_GAS_MONITOR_INPUT_SM_WASTE
+	output_tag = ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE
+	sensors = list(ATMOS_GAS_MONITOR_SENSOR_SM_WASTE = "Supermatter Waste")
+	circuit = /obj/item/circuitboard/computer/atmos_control/tank/sm_waste
+
 /obj/machinery/computer/atmos_control/tank/toxins_mixing_tank
 	name = "Toxin Chamber Air Monitor"
 	input_tag = ATMOS_GAS_MONITOR_INPUT_TOXINS_LAB
 	output_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_LAB
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB = "Toxins Mixing Chamber")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
+
+/obj/machinery/computer/atmos_control/tank/toxins_waste_tank
+	name = "Toxin Waste Air Monitor"
+	input_tag = ATMOS_GAS_MONITOR_INPUT_TOXINS_WASTE
+	output_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE
+	sensors = list(ATMOS_GAS_MONITOR_SENSOR_TOXINS_WASTE = "Toxins Waste Chamber")
+	circuit = /obj/item/circuitboard/computer/atmos_control/tank/toxins_waste
 
 // This hacky madness is the evidence of the fact that a lot of machines were never meant to be constructable, im so sorry you had to see this
 /obj/machinery/computer/atmos_control/tank/proc/reconnect(mob/user)
@@ -279,7 +301,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		IO |= text[1]
 	if(!IO.len)
 		to_chat(user, "<span class='alert'>No machinery detected.</span>")
-	var/S = input("Select the device set: ", "Selection", IO[1]) as anything in sortList(IO)
+	var/S = input("Select the device set: ", "Selection", IO[1]) as anything in sort_list(IO)
 	if(src)
 		src.input_tag = "[S]_in"
 		src.output_tag = "[S]_out"

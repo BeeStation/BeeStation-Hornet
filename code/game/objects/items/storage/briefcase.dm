@@ -19,7 +19,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 21
+	STR.max_combined_w_class = 28
 
 /obj/item/storage/briefcase/PopulateContents()
 	new /obj/item/pen(src)
@@ -40,7 +40,7 @@
 
 /obj/item/storage/briefcase/sniperbundle/PopulateContents()
 	..() // in case you need any paperwork done after your rampage
-	new /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate(src)
+	new /obj/item/gun/ballistic/sniper_rifle/syndicate(src)
 	new /obj/item/clothing/neck/tie/red(src)
 	new /obj/item/clothing/under/syndicate/sniper(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)

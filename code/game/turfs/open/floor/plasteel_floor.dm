@@ -3,7 +3,7 @@
 	floor_tile = /obj/item/stack/tile/plasteel
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
-
+	max_integrity = 250
 
 /turf/open/floor/plasteel/examine(mob/user)
 	. = ..()
@@ -15,6 +15,7 @@
 		new /obj/effect/temp_visual/glowing_rune(src)
 	var/atom/changed_turf = ChangeTurf(/turf/open/floor/plating)
 	changed_turf.AddElement(/datum/element/rust)
+	return TRUE
 
 /turf/open/floor/plasteel/update_icon_state()
 	if(broken || burnt)

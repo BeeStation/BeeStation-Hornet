@@ -7,6 +7,7 @@
 	response_harm   = "kicks"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
 	speak_emote = list("barks", "woofs")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
 	faction = list("neutral")
@@ -96,6 +97,7 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	speak = list("barks!", "woofs!", "Walter", "firetrucks", "monstertrucks")
+	speak_language = /datum/language/common // barks woofs are not common, but wouldn't be matter if they can't understand firetrucks, monstertrucks
 
 /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
 	name = "Exotic Corgi"
@@ -248,23 +250,23 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	corgi_source.update_corgi_fluff()
 	corgi_source.regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type)
-	var/armorval = 0
+/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type, penetration)
+	var/armorval = 1
 
 	if(def_zone)
 		if(def_zone == BODY_ZONE_HEAD)
 			if(inventory_head)
-				armorval = inventory_head.get_armor_rating(type, src)
+				return ((1 - (inventory_head.get_armor_rating(type, src) / 100)) * (1 - penetration / 100)) * 100
 		else
 			if(inventory_back)
-				armorval = inventory_back.get_armor_rating(type, src)
-		return armorval
+				return ((1 - (inventory_back.get_armor_rating(type, src) / 100)) * (1 - penetration / 100)) * 100
+		return 0
 	else
 		if(inventory_head)
-			armorval += inventory_head.get_armor_rating(type, src)
+			armorval *= 1 - min((inventory_head.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
 		if(inventory_back)
-			armorval += inventory_back.get_armor_rating(type, src)
-	return armorval*0.5
+			armorval *= 1 - min((inventory_back.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
+	return (1 - armorval) * 100
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/razor))
@@ -333,7 +335,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			item_to_add.forceMove(drop_location())
 		if(prob(25))
 			step_rand(item_to_add)
-		INVOKE_ASYNC(src, /mob.proc/emote, "spin")
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "spin")
 
 	return valid
 
@@ -497,10 +499,10 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 						movement_target.attack_animal(src)
 					else if(ishuman(movement_target.loc) )
 						if(prob(20))
-							INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+							INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
-			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases its tail!"))
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("dances around.","chases its tail!"))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -510,6 +512,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	playsound(src, 'sound/magic/demon_dies.ogg', 75, TRUE)
 	var/mob/living/simple_animal/pet/dog/corgi/narsie/N = new(loc)
 	N.setDir(dir)
+	investigate_log("has been gibbed by Nar'Sie.", INVESTIGATE_DEATHS)
 	gib()
 
 /mob/living/simple_animal/pet/dog/corgi/narsie
@@ -538,6 +541,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 					P.mind.hasSoul = FALSE //Nars-Ian ate your soul; you don't have one anymore
 				else
 					visible_message("<span class='cult big bold'>... Aw, someone beat me to this one.</span>")
+			P.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 			P.gib()
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/update_corgi_fluff()
@@ -679,7 +683,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases her tail."))
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("dances around.","chases her tail."))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -690,7 +694,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("chases its tail."))
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("chases its tail."))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -713,3 +717,26 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	else
 		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
 			emote("me", 1, "growls!")
+
+/mob/living/simple_animal/pet/dog/corgi/cardigan
+	name = "\improper cardigan corgi"
+	real_name = "Cardigan Welsh corgi"
+	desc = "Ian's tailed cousin"
+	icon_state = "cardigan_corgi"
+	icon_living = "cardigan_corgi"
+	icon_dead = "cardigan_corgi_dead"
+	childtype = /mob/living/simple_animal/pet/dog/corgi/puppy/cardigan //Only one type of puppy
+	held_state = "cardigan_corgi"
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/cardigan
+	name = "\improper cardigan corgi puppy"
+	real_name = "Cardigan Welsh corgi"
+	desc = "It's a corgi puppy!"
+	icon_state = "cardigan_puppy"
+	icon_living = "cardigan_puppy"
+	icon_dead = "cardigan_puppy_dead"
+	density = FALSE
+	pass_flags = PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	collar_type = "puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD

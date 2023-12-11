@@ -47,7 +47,7 @@ var/global/list/custom_name_types = list(
 		READ_FILE(S["helmet_style"], helmet_style, "Default")
 		READ_FILE(S["preferred_ai_core_display"], preferred_ai_core_display, "Blue")
 		// I will kill whoever couldnt spell this
-		READ_FILE(S["prefered_security_department"], prefered_security_department, "Random")
+		READ_FILE(S["preferred_security_department"], preferred_security_department, "Random")
 		READ_FILE(S["joblessrole"], joblessrole, 2)
 
 		var/list/features = list()
@@ -68,7 +68,9 @@ var/global/list/custom_name_types = list(
 		READ_FILE_EXVAR(S["feature_insect_type"], features["insect_type"])
 		READ_FILE_EXVAR(S["feature_human_tail"], features["tail_human"])
 		READ_FILE_EXVAR(S["feature_human_ears"], features["ears"])
-
+		READ_FILE_EXVAR(S["feature_apid_antenna"], features["apid_antenna"])
+		READ_FILE_EXVAR(S["feature_apid_stripes"], features["apid_stripes"])
+		READ_FILE_EXVAR(S["feature_apid_headstripes"], features["apid_headstripes"])
 		var/list/custom_names = list()
 
 		//Custom names
@@ -189,7 +191,7 @@ var/global/list/custom_name_types = list(
 			"customnames" = json_encode(custom_names),
 			"helmetstyle" = helmet_style,
 			"aicore" = preferred_ai_core_display,
-			"secdept" = prefered_security_department,
+			"secdept" = preferred_security_department,
 			"joblessrole" = joblessrole,
 			"jobprefs" = json_encode(job_preferences),
 			"allquirks" = json_encode(all_quirks),

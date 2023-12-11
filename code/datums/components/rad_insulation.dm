@@ -6,11 +6,11 @@
 		return COMPONENT_INCOMPATIBLE
 
 	if(protects) // Does this protect things in its contents from being affected?
-		RegisterSignal(parent, COMSIG_ATOM_RAD_PROBE, .proc/rad_probe_react)
+		RegisterSignal(parent, COMSIG_ATOM_RAD_PROBE, PROC_REF(rad_probe_react))
 	if(contamination_proof) // Can this object be contaminated?
-		RegisterSignal(parent, COMSIG_ATOM_RAD_CONTAMINATING, .proc/rad_contaminating)
+		RegisterSignal(parent, COMSIG_ATOM_RAD_CONTAMINATING, PROC_REF(rad_contaminating))
 	if(_amount != 1) // If it's 1 it wont have any impact on radiation passing through anyway
-		RegisterSignal(parent, COMSIG_ATOM_RAD_WAVE_PASSING, .proc/rad_pass)
+		RegisterSignal(parent, COMSIG_ATOM_RAD_WAVE_PASSING, PROC_REF(rad_pass))
 
 	amount = _amount
 

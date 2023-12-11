@@ -15,7 +15,7 @@
 	var/list/allmins = adm["total"]
 	var/status = "Admins: [allmins.len] (Active: [english_list(adm["present"])] AFK: [english_list(adm["afk"])] Stealth: [english_list(adm["stealth"])] Skipped: [english_list(adm["noflags"])]). "
 	status += "Players: [GLOB.clients.len] (Active: [get_active_player_count(0,1,0)]). Mode: [SSticker.mode ? SSticker.mode.name : "Not started"]."
-	return status
+	return new /datum/tgs_message_content(status)
 
 /datum/tgs_chat_command/irccheck
 	name = "check"
@@ -28,7 +28,7 @@
 		return
 	last_irc_check = rtod
 	var/server = CONFIG_GET(string/server)
-	return "[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players on [SSmapping.config.map_name], Mode: [GLOB.master_mode]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]"
+	return new /datum/tgs_message_content("[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players on [SSmapping.config.map_name], Mode: [GLOB.master_mode]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]")
 
 /** -- Not for use within BeeStation
 /datum/tgs_chat_command/ahelp
@@ -62,10 +62,10 @@
 /datum/tgs_chat_command/namecheck/Run(datum/tgs_chat_user/sender, params)
 	params = trim(params)
 	if(!params)
-		return "Insufficient parameters"
+		return new /datum/tgs_message_content("Insufficient parameters")
 	log_admin("Chat Name Check: [sender.friendly_name] on [params]")
 	message_admins("Name checking [params] from [sender.friendly_name]")
-	return keywords_lookup(params, 1)
+	return new /datum/tgs_message_content(keywords_lookup(params, 1))
 
 /datum/tgs_chat_command/adminwho
 	name = "adminwho"
@@ -73,7 +73,7 @@
 	admin_only = TRUE
 
 /datum/tgs_chat_command/adminwho/Run(datum/tgs_chat_user/sender, params)
-	return tgsadminwho()
+	return new /datum/tgs_message_content(tgsadminwho())
 
 GLOBAL_LIST(round_end_notifiees)
 
@@ -84,10 +84,10 @@ GLOBAL_LIST(round_end_notifiees)
 
 /datum/tgs_chat_command/notify/Run(datum/tgs_chat_user/sender, params)
 	if(!SSticker.IsRoundInProgress() && SSticker.HasRoundStarted())
-		return "[sender.mention], the round has already ended!"
+		return new /datum/tgs_message_content("[sender.mention], the round has already ended!")
 	LAZYINITLIST(GLOB.round_end_notifiees)
 	GLOB.round_end_notifiees[sender.mention] = TRUE
-	return "I will notify [sender.mention] when the round ends."
+	return new /datum/tgs_message_content("I will notify [sender.mention] when the round ends.")
 
 /** -- Not for use within BeeStation
 /datum/tgs_chat_command/sdql

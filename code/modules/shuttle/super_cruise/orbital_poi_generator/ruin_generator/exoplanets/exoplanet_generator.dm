@@ -17,9 +17,10 @@
 	var/area/new_area = new biome.area_type
 	new_area.setup("Alien Planet")
 	for(var/turf/T as() in block(locate(1, 1, center_z), locate(world.maxx, world.maxy, center_z)))
-		if(istype(T.loc, /area/space) && new_area)
-			T.change_area(T.loc, new_area)
-			new_area.contents += T
+		var/area/old_area = T.loc
+		if(istype(old_area, /area/space) && new_area)
+			T.change_area(old_area, new_area)
+
 		if(isspaceturf(T))
 			var/area_height = text2num(rustg_noise_get_at_coordinates("[seed]", "[T.x / perlin_noise_scale]", "[T.y / perlin_noise_scale]"))
 			if(area_height > deepmountain_height)
@@ -32,13 +33,13 @@
 				if(biome_noise > 0.5)
 					T.ChangeTurf(biome.plains_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
 					if(prob(20) && length(biome.plains_decoration))
-						var/type_to_spawn = pickweight(biome.plains_decoration)
+						var/type_to_spawn = pick_weight(biome.plains_decoration)
 						if(ispath(type_to_spawn))
 							new type_to_spawn(T)
 				else
 					T.ChangeTurf(biome.jungle_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
 					if(prob(60) && length(biome.plains_decoration))
-						var/type_to_spawn = pickweight(biome.jungle_decoration)
+						var/type_to_spawn = pick_weight(biome.jungle_decoration)
 						if(ispath(type_to_spawn))
 							new type_to_spawn(T)
 			//beach

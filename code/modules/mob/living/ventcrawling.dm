@@ -35,8 +35,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 
 	if(!vent_found)
 		for(var/obj/machinery/atmospherics/machine in range(1,src))
-			if(is_type_in_typecache(machine, GLOB.ventcrawl_machinery))
-				vent_found = machine
+			if(!is_type_in_typecache(machine, GLOB.ventcrawl_machinery))
+				continue
+			vent_found = machine
 
 			if(!vent_found.can_crawl_through())
 				vent_found = null
@@ -97,7 +98,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 			var/obj/machinery/atmospherics/A = X //all elements in totalMembers are necessarily of this type.
 			if(in_view_range(client.mob, A))
 				if(!A.pipe_vision_img)
-					A.pipe_vision_img = image(A, A.loc, layer = ABOVE_HUD_LAYER, dir = A.dir)
+					A.pipe_vision_img = image(A, A.loc, dir = A.dir)
 					A.pipe_vision_img.plane = ABOVE_HUD_PLANE
 				client.images += A.pipe_vision_img
 				pipes_shown += A.pipe_vision_img

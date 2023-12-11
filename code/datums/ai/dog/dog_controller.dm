@@ -9,6 +9,7 @@
 		BB_DOG_PLAYING_DEAD = FALSE,\
 		BB_DOG_HARASS_TARGET = null)
 	ai_movement = /datum/ai_movement/jps
+	idle_behavior = /datum/idle_behavior/idle_dog
 	planning_subtrees = list(/datum/ai_planning_subtree/dog)
 
 	COOLDOWN_DECLARE(heel_cooldown)
@@ -25,11 +26,11 @@
 	if(!isliving(new_pawn))
 		return AI_CONTROLLER_INCOMPATIBLE
 
-	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
-	RegisterSignal(new_pawn, COMSIG_PARENT_EXAMINE, .proc/on_examined)
-	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, .proc/check_altclicked)
-	RegisterSignal(new_pawn, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), .proc/on_death)
-	RegisterSignal(SSdcs, COMSIG_GLOB_CARBON_THROW_THING, .proc/listened_throw)
+	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(new_pawn, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
+	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
+	RegisterSignal(new_pawn, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(on_death))
+	RegisterSignal(SSdcs, COMSIG_GLOB_CARBON_THROW_THING, PROC_REF(listened_throw))
 	return ..() //Run parent at end
 
 /datum/ai_controller/dog/UnpossessPawn(destroy)
@@ -55,30 +56,6 @@
 
 	return simple_pawn.access_card
 
-/datum/ai_controller/dog/PerformIdleBehavior(delta_time)
-	var/mob/living/living_pawn = pawn
-	if(!isturf(living_pawn.loc) || living_pawn.pulledby)
-		return
-
-	// if we were just ordered to heel, chill out for a bit
-	if(!COOLDOWN_FINISHED(src, heel_cooldown))
-		return
-
-	// if we're just ditzing around carrying something, occasionally print a message so people know we have something
-	if(blackboard[BB_SIMPLE_CARRY_ITEM] && DT_PROB(5, delta_time))
-		var/obj/item/carry_item = blackboard[BB_SIMPLE_CARRY_ITEM]
-		living_pawn.visible_message("<span class='notice'>[living_pawn] gently teethes on \the [carry_item] in [living_pawn.p_their()] mouth.</span>", vision_distance=COMBAT_MESSAGE_RANGE)
-
-	if(DT_PROB(5, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE))
-		var/move_dir = pick(GLOB.alldirs)
-		living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
-	else if(DT_PROB(10, delta_time))
-		living_pawn.manual_emote(pick("dances around.", "chases [living_pawn.p_their()] tail!</span>"))
-		living_pawn.AddComponent(/datum/component/spinny)
-		for(var/mob/living/carbon/human/H in oviewers(living_pawn))
-			if(H.mind)
-				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, living_pawn)
-
 /// Someone has thrown something, see if it's someone we care about and start listening to the thrown item so we can see if we want to fetch it when it lands
 /datum/ai_controller/dog/proc/listened_throw(datum/source, mob/living/carbon/carbon_thrower)
 	SIGNAL_HANDLER
@@ -94,14 +71,14 @@
 	if(blackboard[BB_FETCH_IGNORE_LIST][WEAKREF(thrown_thing)])
 		return
 
-	RegisterSignal(thrown_thing, COMSIG_MOVABLE_THROW_LANDED, .proc/listen_throw_land)
+	RegisterSignal(thrown_thing, COMSIG_MOVABLE_THROW_LANDED, PROC_REF(listen_throw_land))
 
 /// A throw we were listening to has finished, see if it's in range for us to try grabbing it
 /datum/ai_controller/dog/proc/listen_throw_land(obj/item/thrown_thing, datum/thrownthing/throwing_datum)
 	SIGNAL_HANDLER
 
 	UnregisterSignal(thrown_thing, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_THROW_LANDED))
-	if(!istype(thrown_thing) || !isturf(thrown_thing.loc) || !can_see(pawn, thrown_thing, length=AI_DOG_VISION_RANGE))
+	if(!istype(thrown_thing) || !isturf(thrown_thing.loc) || !can_see(pawn, thrown_thing, length=AI_DOG_VISION_RANGE) || !throwing_datum?.thrower)
 		return
 
 	current_movement_target = thrown_thing
@@ -136,8 +113,8 @@
 	if(in_range(pawn, new_friend))
 		new_friend.visible_message("<b>[pawn]</b> licks at [new_friend] in a friendly manner!", "<span class='notice'>[pawn] licks at you in a friendly manner!</span>")
 	friends[friend_ref] = TRUE
-	RegisterSignal(new_friend, COMSIG_MOB_POINTED, .proc/check_point)
-	RegisterSignal(new_friend, COMSIG_MOB_SAY, .proc/check_verbal_command)
+	RegisterSignal(new_friend, COMSIG_MOB_POINTED, PROC_REF(check_point))
+	RegisterSignal(new_friend, COMSIG_MOB_SAY, PROC_REF(check_verbal_command))
 
 /// Someone is being mean to us, take them off our friends (add actual enemies behavior later)
 /datum/ai_controller/dog/proc/unfriend(mob/living/ex_friend)
@@ -179,7 +156,7 @@
 		return
 	if(!istype(clicker) || !blackboard[BB_DOG_FRIENDS][WEAKREF(clicker)])
 		return
-	INVOKE_ASYNC(src, .proc/command_radial, clicker)
+	INVOKE_ASYNC(src, PROC_REF(command_radial), clicker)
 	return COMPONENT_INTERCEPT_ALT
 
 /// Show the command radial menu
@@ -191,7 +168,7 @@
 		COMMAND_DIE = image(icon = 'icons/mob/pets.dmi', icon_state = "puppy_dead")
 		)
 
-	var/choice = show_radial_menu(clicker, pawn, commands, custom_check = CALLBACK(src, .proc/check_menu, clicker), tooltips = TRUE)
+	var/choice = show_radial_menu(clicker, pawn, commands, custom_check = CALLBACK(src, PROC_REF(check_menu), clicker), tooltips = TRUE)
 	if(!choice || !check_menu(clicker))
 		return
 	set_command_mode(clicker, choice)

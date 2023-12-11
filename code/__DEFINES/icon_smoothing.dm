@@ -11,7 +11,10 @@
 #define SMOOTH_QUEUED	(1<<4)
 /// Smooths with objects, and will thus need to scan turfs for contents.
 #define SMOOTH_OBJ		(1<<5)
-
+/// Smooths with atoms facing the same direction only
+#define SMOOTH_DIRECTIONAL (1<<6)
+/// Skips the corner step of bitmask smoothing (does nothing without SMOOTH_BITMASK)
+#define SMOOTH_BITMASK_SKIP_CORNERS (1<<7)
 
 DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_CORNERS" = SMOOTH_CORNERS,
@@ -20,6 +23,8 @@ DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_BORDER" = SMOOTH_BORDER,
 	"SMOOTH_QUEUED" = SMOOTH_QUEUED,
 	"SMOOTH_OBJ" = SMOOTH_OBJ,
+	"SMOOTH_DIRECTIONAL" = SMOOTH_DIRECTIONAL,
+	"SMOOTH_BITMASK_SKIP_CORNERS" = SMOOTH_BITMASK_SKIP_CORNERS,
 ))
 
 
@@ -57,8 +62,8 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_CARPET_ROYAL_BLACK S_TURF(18)		///turf/open/floor/carpet/royalblack
 #define SMOOTH_GROUP_CARPET_ROYAL_BLUE S_TURF(19)		///turf/open/floor/carpet/royalblue
 #define SMOOTH_GROUP_CARPET_GRIMY S_TURF(20)			///turf/open/floor/carpet/grimy
-#define SMOOTH_GROUP_BAMBOO_FLOOR S_TURF(52) 			//![/turf/open/floor/bamboo]
-#define SMOOTH_GROUP_CATWALK  S_OBJ(31) 				///obj/structure/lattice/catwalk
+#define SMOOTH_GROUP_BAMBOO_FLOOR S_TURF(21) 			//![/turf/open/floor/bamboo]
+#define SMOOTH_GROUP_CATWALK  S_OBJ(22) 				///obj/structure/lattice/catwalk
 #define SMOOTH_GROUP_CLOSED_TURFS S_TURF(24)			///turf/closed
 #define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(25)			///turf/closed/wall/material
 #define SMOOTH_GROUP_SYNDICATE_WALLS S_TURF(26)			///turf/closed/wall/r_wall/syndicate, /turf/closed/indestructible/syndicate
@@ -114,6 +119,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_HEDGE_FLUFF S_OBJ(65)				///obj/structure/fluff/hedge
 #define SMOOTH_GROUP_SHUTTLE_PARTS S_OBJ(66)			///obj/structure/window/shuttle, /obj/structure/window/plasma/reinforced/plastitanium, /turf/closed/indestructible/opsglass, /obj/structure/shuttle
 #define SMOOTH_GROUP_CLEANABLE_DIRT	S_OBJ(67)			///obj/effect/decal/cleanable/dirt
+#define SMOOTH_GROUP_COMPUTERS S_OBJ(68)				///obj/machinery/computer/_computer
 
 //LIQUIDS
 

@@ -32,7 +32,8 @@ God bless America.
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	layer = BELOW_OBJ_LAYER
-	var/obj/item/reagent_containers/food/snacks/deepfryholder/frying	//What's being fried RIGHT NOW?
+	circuit = /obj/item/circuitboard/machine/deep_fryer
+	var/obj/item/food/deepfryholder/frying	//What's being fried RIGHT NOW?
 	var/cook_time = 0
 	var/oil_use = 0.025 //How much cooking oil is used per second
 	var/fry_speed = 1 //How quickly we fry food
@@ -50,6 +51,7 @@ God bless America.
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/food/condiment,
 		/obj/item/storage,
+		/obj/item/bluespace_capsule,
 		/obj/item/small_delivery,
 		/obj/item/his_grace))
 	var/datum/looping_sound/deep_fryer/fry_loop
@@ -58,10 +60,6 @@ God bless America.
 	. = ..()
 	create_reagents(50, OPENCONTAINER)
 	reagents.add_reagent(/datum/reagent/consumable/cooking_oil, 25)
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/machine/deep_fryer(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	RefreshParts()
 	fry_loop = new(src, FALSE)
 
 /obj/machinery/deepfryer/Destroy()
@@ -97,7 +95,7 @@ God bless America.
 	if(I.resistance_flags & INDESTRUCTIBLE)
 		to_chat(user, "<span class='warning'>You don't feel it would be wise to fry [I]...</span>")
 		return
-	if(istype(I, /obj/item/reagent_containers/food/snacks/deepfryholder))
+	if(istype(I, /obj/item/food/deepfryholder))
 		to_chat(user, "<span class='userdanger'>Your cooking skills are not up to the legendary Doublefry technique.</span>")
 		return
 	if(istype(I, /obj/item/clothing/head/mob_holder))
@@ -114,7 +112,7 @@ God bless America.
 			to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 			log_game("[key_name(user)] deep fried [I.name] ([I.type]) at [AREACOORD(src)].")
 			user.log_message("deep fried [I.name] ([I.type]) at [AREACOORD(src)].", LOG_GAME)
-			frying = new/obj/item/reagent_containers/food/snacks/deepfryholder(src, I)
+			frying = new/obj/item/food/deepfryholder(src, I)
 			icon_state = "fryer_on"
 			fry_loop.start()
 

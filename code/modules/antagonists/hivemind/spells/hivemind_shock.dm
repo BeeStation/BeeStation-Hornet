@@ -12,7 +12,7 @@
 		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
 		return
 	to_chat(user, "<span class='notice'>We begin increasing the psionic bandwidth between ourself and the vessel!</span>")
-	if(do_after(user,30,0,user))
+	if(do_after(user, 30, user, timed_action_flags = IGNORE_HELD_ITEM))
 		if(target.mind.assigned_role in (GLOB.security_positions || GLOB.command_positions)) //Doesn't work on sec or command for balance reasons
 			to_chat(user, "<span class='warning'>A subconsciously trained response barely protects [target.name]'s mind.</span>")
 			to_chat(target, "<span class='assimilator'>Powerful mental attacks strike out against us, our training allows us to barely overcome it.</span>")

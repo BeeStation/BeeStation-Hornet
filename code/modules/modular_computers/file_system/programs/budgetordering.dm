@@ -48,13 +48,12 @@
 	return TRUE
 
 /datum/computer_file/program/budgetorders/ui_data(mob/user)
-	. = ..()
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["location"] = SSshuttle.supply.getStatusText()
 	var/datum/bank_account/buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/obj/item/card/id/id_card = get_buyer_id(user)
 	if(get_buyer_id(user))
-		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
+		if((ACCESS_QM in id_card.access) || (ACCESS_HEADS in id_card.access))
 			requestonly = FALSE
 			buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			can_approve_requests = TRUE
@@ -73,8 +72,8 @@
 //Otherwise static data, that is being applied in ui_data as the crates visible and buyable are not static
 	data["requestonly"] = requestonly
 	data["supplies"] = list()
-	for(var/pack in SSshuttle.supply_packs)
-		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]
+	for(var/pack in SSsupply.supply_packs)
+		var/datum/supply_pack/P = SSsupply.supply_packs[pack]
 		if(!is_visible_pack(user, P.contraband) || P.hidden)
 			continue
 		if(!data["supplies"][P.group])
@@ -87,6 +86,7 @@
 		data["supplies"][P.group]["packs"] += list(list(
 			"name" = P.name,
 			"cost" = P.cost,
+			"supply" = P.current_supply,
 			"id" = pack,
 			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
 			"access" = P.access
@@ -109,20 +109,22 @@
 		message = blockade_warning
 	data["message"] = message
 	data["cart"] = list()
-	for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
+	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 		data["cart"] += list(list(
 			"object" = SO.pack.name,
 			"cost" = SO.pack.cost,
+			"supply" = SO.pack.current_supply,
 			"id" = SO.id,
 			"orderer" = SO.orderer,
 			"paid" = !isnull(SO.paying_account) //paid by requester
 		))
 
 	data["requests"] = list()
-	for(var/datum/supply_order/SO in SSshuttle.requestlist)
+	for(var/datum/supply_order/SO in SSsupply.requestlist)
 		data["requests"] += list(list(
 			"object" = SO.pack.name,
 			"cost" = SO.pack.cost,
+			"supply" = SO.pack.current_supply,
 			"orderer" = SO.orderer,
 			"reason" = SO.reason,
 			"id" = SO.id
@@ -169,7 +171,7 @@
 				. = TRUE
 		if("add")
 			var/id = text2path(params["id"])
-			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
+			var/datum/supply_pack/pack = SSsupply.supply_packs[id]
 			if(!istype(pack))
 				return
 			if((pack.hidden && (pack.contraband && !contraband) || pack.DropPodOnly))
@@ -232,44 +234,44 @@
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
 			SO.generateRequisition(T)
 			if((requestonly && !self_paid) || !(get_buyer_id(usr)))
-				SSshuttle.requestlist += SO
+				SSsupply.requestlist += SO
 			else
-				SSshuttle.shoppinglist += SO
+				SSsupply.shoppinglist += SO
 				if(self_paid)
 					computer.say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
 			. = TRUE
 		if("remove")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
+			for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 				if(SO.id == id)
-					SSshuttle.shoppinglist -= SO
+					SSsupply.shoppinglist -= SO
 					. = TRUE
 					break
 		if("clear")
-			SSshuttle.shoppinglist.Cut()
+			SSsupply.shoppinglist.Cut()
 			. = TRUE
 		if("approve")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.requestlist)
+			for(var/datum/supply_order/SO in SSsupply.requestlist)
 				if(SO.id == id)
 					var/obj/item/card/id/id_card = get_buyer_id(usr)
 					if(id_card && id_card?.registered_account)
 						SO.paying_account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 					if(SSeconomy.is_nonstation_account(SO.paying_account))
 						return
-					SSshuttle.requestlist -= SO
-					SSshuttle.shoppinglist += SO
+					SSsupply.requestlist -= SO
+					SSsupply.shoppinglist += SO
 					. = TRUE
 					break
 		if("deny")
 			var/id = text2num(params["id"])
-			for(var/datum/supply_order/SO in SSshuttle.requestlist)
+			for(var/datum/supply_order/SO in SSsupply.requestlist)
 				if(SO.id == id)
-					SSshuttle.requestlist -= SO
+					SSsupply.requestlist -= SO
 					. = TRUE
 					break
 		if("denyall")
-			SSshuttle.requestlist.Cut()
+			SSsupply.requestlist.Cut()
 			. = TRUE
 		if("toggleprivate")
 			self_paid = !self_paid

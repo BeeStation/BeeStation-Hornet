@@ -34,7 +34,7 @@
 	reagents.handle_reactions()
 
 	RC.emptying = TRUE //If we move this up, it'll instantly get turned off since any reaction always sets the reagent_total to zero. Other option is make the reaction update
-	//everything for every chemical removed, wich isn't a good option either.
+	//everything for every chemical removed, which isn't a good option either.
 	RC.on_reagent_change() //We need to check it now, because some reactions leave nothing left.
 
 /datum/component/plumbing/reaction_chamber/can_give(amount, reagent, datum/ductnet/net)

@@ -17,9 +17,12 @@
 		return 0
 	new /obj/effect/mob_spawn/swarmer(get_turf(GLOB.the_gateway))
 	if(prob(25)) //25% chance to announce it to the crew
-		var/swarmer_report = "<span class='big bold'>[command_name()] High-Priority Update</span>"
-		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come through."
-		print_command_report(swarmer_report, announce=TRUE)
+		announce_swarmer()
+
+/proc/announce_swarmer()
+	var/swarmer_report = "<span class='big bold'>[command_name()] High-Priority Update</span>"
+	swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come through."
+	print_command_report(swarmer_report, announce=TRUE)
 
 /datum/round_event/spawn_swarmer/proc/find_swarmer()
 	for(var/i in GLOB.mob_living_list)

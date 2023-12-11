@@ -6,8 +6,10 @@
 	name = "Servant Of Ratvar"
 	roundend_category = "clock cultists"
 	antagpanel_category = "Clockcult"
+	// TODO: ui_name = "AntagInfoClockCult"
 	antag_moodlet = /datum/mood_event/cult
-	job_rank = ROLE_SERVANT_OF_RATVAR
+	banning_key = ROLE_SERVANT_OF_RATVAR
+	required_living_playtime = 4
 
 	//The class of the servant
 	var/datum/action/innate/clockcult/transmit/transmit_spell
@@ -22,7 +24,7 @@
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
 		return
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', 60, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', vol = 60, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE)
 	to_chat(owner.current, "<span class='heavy_brass'><font size='7'>You feel a flash of light and the world spin around you!</font></span>")
 	to_chat(owner.current, "<span class='brass'><font size='5'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</font></span>")
 	to_chat(owner.current, "<span class='brass'>Use Rat'varian observation consoles to monitor the crew and warp to the station.</span>")

@@ -10,6 +10,7 @@
 	det_time = 10
 	display_timer = 0
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 	var/atom/target = null
 	var/mutable_appearance/plastic_overlay
 	var/obj/item/assembly_holder/nadeassembly = null
@@ -24,13 +25,13 @@
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/grenade/plastic/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/grenade/plastic/Destroy()
 	qdel(nadeassembly)
@@ -105,7 +106,7 @@
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
 	if(user.get_active_held_item() == src)
-		newtime = CLAMP(newtime, 10, 60000)
+		newtime = clamp(newtime, 10, 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
@@ -144,7 +145,7 @@
 		target.add_overlay(plastic_overlay)
 		if(!nadeassembly)
 			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
-			addtimer(CALLBACK(src, .proc/prime), det_time*10)
+			addtimer(CALLBACK(src, PROC_REF(prime)), det_time*10)
 		else
 			qdel(src)	//How?
 
@@ -164,7 +165,7 @@
 			message_say = "VIVA LA REVOLUTION!"
 	M.say(message_say, forced="C4 suicide")
 
-/obj/item/grenade/plastic/suicide_act(mob/user)
+/obj/item/grenade/plastic/suicide_act(mob/living/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src] at [ADMIN_VERBOSEJMP(user)]")
 	log_game("[key_name(user)] suicided with [src] at [AREACOORD(user)]")
 	user.visible_message("<span class='suicide'>[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
@@ -200,7 +201,7 @@
 	target = null
 	return ..()
 
-/obj/item/grenade/plastic/c4/suicide_act(mob/user)
+/obj/item/grenade/plastic/c4/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] activates the [src.name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
 	shout_syndicate_crap(user)
 	target = user

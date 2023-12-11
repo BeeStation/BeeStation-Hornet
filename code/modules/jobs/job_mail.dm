@@ -4,10 +4,10 @@
 //ASSISTANT
 /datum/job/assistant
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
+		/obj/item/food/donkpocket/random = 10,
 		/obj/item/clothing/mask/gas/old = 10,
 		/obj/item/clothing/gloves/color/fyellow = 7,
-		/obj/item/choice_beacon/music = 5,
+		/obj/item/choice_beacon/radial/music = 5,
 		/obj/item/toy/crayon/spraycan = 3,
 		/obj/item/crowbar/large = 2,
 	)
@@ -106,7 +106,7 @@
 /datum/job/chief_engineer
 	mail_goodies = list(
 		//you know. for poly
-		/obj/item/reagent_containers/food/snacks/cracker = 15,
+		/obj/item/food/cracker = 15,
 		/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko = 15,
 		/obj/item/rcd_ammo = 10,
 		/obj/item/wrench/caravan = 3,
@@ -133,7 +133,7 @@
 /datum/job/clown
 	mail_goodies = list(
 		/obj/item/reagent_containers/food/snacks/grown/banana = 20,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 15,
+		/obj/item/food/pie/cream = 15,
 		/obj/item/clothing/shoes/clown_shoes/combat = 5,
 		// lube
 		/obj/item/reagent_containers/spray/waterflower/lube = 3,
@@ -157,9 +157,9 @@
 		/obj/item/storage/box/ingredients/wildcard = 10,
 		//EEEEEEEK
 		/obj/item/storage/box/monkeycubes = 5,
-		/obj/item/kitchen/knife = 4,
+		/obj/item/knife/kitchen = 4,
 		/obj/item/storage/box/ingredients/exotic = 3,
-		/obj/item/kitchen/knife/butcher = 2,
+		/obj/item/knife/butcher = 2,
 	)
 
 //CURATOR
@@ -284,7 +284,7 @@
 		/obj/item/toy/cards/deck = 10,
 		/obj/item/clothing/glasses/sunglasses/advanced/big = 5,
 		/obj/item/book/manual/wiki/security_space_law = 5,
-		//Harrassing security has never been this fun
+		//Harassing security has never been this fun
 		/obj/item/megaphone = 3,
 	)
 
@@ -312,7 +312,7 @@
 //MIME
 /datum/job/mime
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/baguette/mime = 15,
+		/obj/item/food/baguette/mime = 15,
 		/obj/item/reagent_containers/food/snacks/store/cheesewheel = 10,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,
@@ -331,7 +331,7 @@
 //QUARTERMASTER
 /datum/job/quartermaster
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
+		/obj/item/food/donkpocket/random = 10,
 		//the beginning of your department's independence
 		/obj/item/banner/cargo = 5,
 		//if you want to watch the world burn, this is it.
@@ -377,7 +377,7 @@
 //SECURITY OFFICER
 /datum/job/security_officer
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/donut/plain = 15,
+		/obj/item/food/donut/plain = 15,
 		/obj/effect/spawner/mail/donut = 10,
 		//just in case...
 		/obj/item/assembly/flash/handheld = 7,

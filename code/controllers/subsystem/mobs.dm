@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(mobs)
 	wait = 2 SECONDS
 
 	var/list/currentrun = list()
+	/// This contains all living clients, and does not include observers, see dead_players_by_zlevel
 	var/static/list/clients_by_zlevel[][]
 	var/static/list/dead_players_by_zlevel[][] = list(list()) // Needs to support zlevel 1 here, MaxZChanged only happens when z2 is created and new_players can login before that.
 	var/static/list/cubemonkeys = list()

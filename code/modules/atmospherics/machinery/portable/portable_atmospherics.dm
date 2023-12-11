@@ -3,34 +3,28 @@
 	icon = 'icons/obj/atmos.dmi'
 	use_power = NO_POWER_USE
 	max_integrity = 250
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 60, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 60, ACID = 30, STAMINA = 0)
 	anchored = FALSE
+	interacts_with_air = TRUE
 
 	var/datum/gas_mixture/air_contents
 	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port
 	var/obj/item/tank/holding
 
 	var/volume = 0
-
 	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
-/obj/machinery/portable_atmospherics/New()
-	..()
-	SSair.atmos_air_machinery += src
-
+/obj/machinery/portable_atmospherics/Initialize(mapload)
+	. = ..()
 	air_contents = new(volume)
 	air_contents.set_temperature(T20C)
-
-	return 1
+	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/Destroy()
-	SSair.atmos_air_machinery -= src
+	SSair.stop_processing_machine(src)
 	disconnect()
 	qdel(air_contents)
 	air_contents = null
-
-	SSair.atmos_machinery -= src
-
 	return ..()
 
 /obj/machinery/portable_atmospherics/ex_act(severity, target)
@@ -44,6 +38,10 @@
 		T.air_update_turf()
 
 	return ..()
+
+/obj/machinery/portable_atmospherics/analyzer_act(mob/living/user, obj/item/I)
+	if(..() && holding)
+		return atmosanalyzer_scan(user, holding, TRUE)
 
 /obj/machinery/portable_atmospherics/process_atmos()
 	if(!connected_port && air_contents != null && src != null) // Pipe network handles reactions if connected.
@@ -72,7 +70,8 @@
 	anchored = TRUE //Prevent movement
 	pixel_x = new_port.pixel_x
 	pixel_y = new_port.pixel_y
-	update_icon()
+
+	update_appearance()
 	return TRUE
 
 /obj/machinery/portable_atmospherics/Move()
@@ -88,14 +87,16 @@
 	connected_port = null
 	pixel_x = 0
 	pixel_y = 0
-	update_icon()
+
+	update_appearance()
 	return TRUE
 
 /obj/machinery/portable_atmospherics/portableConnectorReturnAir()
 	return air_contents
 
 /obj/machinery/portable_atmospherics/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, !ismonkey(user)))
+	. = ..()
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, !ismonkey(user)) || !can_interact(user))
 		return
 	if(holding)
 		to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
@@ -108,15 +109,14 @@
 			"<span class='notice'>Click [src] with another gas tank to hot swap [holding].</span>"
 
 /obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
+	if(!user)
+		return FALSE
 	if(holding)
-		holding.forceMove(drop_location())
-		if(Adjacent(user) && !issiliconoradminghost(user))
-			user.put_in_hands(holding)
+		user.put_in_hands(holding)
+		holding = null
 	if(new_tank)
 		holding = new_tank
-	else
-		holding = null
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
@@ -128,7 +128,7 @@
 			to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
 			investigate_log("had its internal [holding] swapped with [T] by [key_name(user)].", INVESTIGATE_ATMOS)
 			replace_tank(user, FALSE, T)
-			update_icon()
+			update_appearance()
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(!(machine_stat & BROKEN))
 			if(connected_port)
@@ -139,7 +139,7 @@
 					"[user] disconnects [src].", \
 					"<span class='notice'>You unfasten [src] from the port.</span>", \
 					"<span class='italics'>You hear a ratchet.</span>")
-				update_icon()
+				update_appearance()
 				return
 			else
 				var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
@@ -154,7 +154,7 @@
 					"[user] connects [src].", \
 					"<span class='notice'>You fasten [src] to the port.</span>", \
 					"<span class='italics'>You hear a ratchet.</span>")
-				update_icon()
+				update_appearance()
 				investigate_log("was connected to [possible_port] by [key_name(user)].", INVESTIGATE_ATMOS)
 	else
 		return ..()

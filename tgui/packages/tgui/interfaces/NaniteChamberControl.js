@@ -4,9 +4,7 @@ import { Window } from '../layouts';
 
 export const NaniteChamberControl = (props, context) => {
   return (
-    <Window
-      width={380}
-      height={570}>
+    <Window width={380} height={570}>
       <Window.Content scrollable>
         <NaniteChamberControlContent />
       </Window.Content>
@@ -16,24 +14,11 @@ export const NaniteChamberControl = (props, context) => {
 
 export const NaniteChamberControlContent = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    status_msg,
-    locked,
-    occupant_name,
-    has_nanites,
-    nanite_volume,
-    regen_rate,
-    safety_threshold,
-    cloud_id,
-    scan_level,
-  } = data;
+  const { status_msg, locked, occupant_name, has_nanites, nanite_volume, regen_rate, safety_threshold, cloud_id, scan_level } =
+    data;
 
   if (status_msg) {
-    return (
-      <NoticeBox textAlign="center">
-        {status_msg}
-      </NoticeBox>
-    );
+    return <NoticeBox textAlign="center">{status_msg}</NoticeBox>;
   }
 
   const mob_programs = data.mob_programs || [];
@@ -41,21 +26,17 @@ export const NaniteChamberControlContent = (props, context) => {
   return (
     <Section
       title={'Chamber: ' + occupant_name}
-      buttons={(
+      buttons={
         <Button
           icon={locked ? 'lock' : 'lock-open'}
           content={locked ? 'Locked' : 'Unlocked'}
           color={locked ? 'bad' : 'default'}
-          onClick={() => act('toggle_lock')} />
-      )}>
+          onClick={() => act('toggle_lock')}
+        />
+      }>
       {!has_nanites ? (
         <>
-          <Box
-            bold
-            color="bad"
-            textAlign="center"
-            fontSize="30px"
-            mb={1}>
+          <Box bold color="bad" textAlign="center" fontSize="30px" mb={1}>
             No Nanites Detected
           </Box>
           <Button
@@ -67,29 +48,22 @@ export const NaniteChamberControlContent = (props, context) => {
             textAlign="center"
             fontSize="30px"
             lineHeight="50px"
-            onClick={() => act('nanite_injection')} />
+            onClick={() => act('nanite_injection')}
+          />
         </>
       ) : (
         <>
           <Section
             title="Status"
             level={2}
-            buttons={(
-              <Button
-                icon="exclamation-triangle"
-                content="Destroy Nanites"
-                color="bad"
-                onClick={() => act('remove_nanites')} />
-            )}>
+            buttons={
+              <Button icon="exclamation-triangle" content="Destroy Nanites" color="bad" onClick={() => act('remove_nanites')} />
+            }>
             <Grid>
               <Grid.Column>
                 <LabeledList>
-                  <LabeledList.Item label="Nanite Volume">
-                    {nanite_volume}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Growth Rate">
-                    {regen_rate}
-                  </LabeledList.Item>
+                  <LabeledList.Item label="Nanite Volume">{nanite_volume}</LabeledList.Item>
+                  <LabeledList.Item label="Growth Rate">{regen_rate}</LabeledList.Item>
                 </LabeledList>
               </Grid.Column>
               <Grid.Column>
@@ -100,9 +74,12 @@ export const NaniteChamberControlContent = (props, context) => {
                       minValue={0}
                       maxValue={500}
                       width="39px"
-                      onChange={(e, value) => act('set_safety', {
-                        value: value,
-                      })} />
+                      onChange={(e, value) =>
+                        act('set_safety', {
+                          value: value,
+                        })
+                      }
+                    />
                   </LabeledList.Item>
                   <LabeledList.Item label="Cloud ID">
                     <NumberInput
@@ -112,40 +89,33 @@ export const NaniteChamberControlContent = (props, context) => {
                       step={1}
                       stepPixelSize={3}
                       width="39px"
-                      onChange={(e, value) => act('set_cloud', {
-                        value: value,
-                      })} />
+                      onChange={(e, value) =>
+                        act('set_cloud', {
+                          value: value,
+                        })
+                      }
+                    />
                   </LabeledList.Item>
                 </LabeledList>
               </Grid.Column>
             </Grid>
           </Section>
-          <Section
-            title="Programs"
-            level={2}>
-            {mob_programs.map(program => {
+          <Section title="Programs" level={2}>
+            {mob_programs.map((program) => {
               const extra_settings = program.extra_settings || [];
               const rules = program.rules || [];
               return (
-                <Collapsible
-                  key={program.name}
-                  title={program.name}>
+                <Collapsible key={program.name} title={program.name}>
                   <Section>
                     <Grid>
-                      <Grid.Column>
-                        {program.desc}
-                      </Grid.Column>
+                      <Grid.Column>{program.desc}</Grid.Column>
                       {scan_level >= 2 && (
                         <Grid.Column size={0.6}>
                           <LabeledList>
                             <LabeledList.Item label="Activation Status">
-                              <Box color={program.activated ? 'good' : 'bad'}>
-                                {program.activated ? 'Active' : 'Inactive' }
-                              </Box>
+                              <Box color={program.activated ? 'good' : 'bad'}>{program.activated ? 'Active' : 'Inactive'}</Box>
                             </LabeledList.Item>
-                            <LabeledList.Item label="Nanites Consumed">
-                              {program.use_rate}/s
-                            </LabeledList.Item>
+                            <LabeledList.Item label="Nanites Consumed">{program.use_rate}/s</LabeledList.Item>
                           </LabeledList>
                         </Grid.Column>
                       )}
@@ -154,47 +124,31 @@ export const NaniteChamberControlContent = (props, context) => {
                       <Grid>
                         {!!program.can_trigger && (
                           <Grid.Column>
-                            <Section
-                              title="Triggers"
-                              level={2}>
+                            <Section title="Triggers" level={2}>
                               <LabeledList>
-                                <LabeledList.Item label="Trigger Cost">
-                                  {program.trigger_cost}
-                                </LabeledList.Item>
-                                <LabeledList.Item label="Trigger Cooldown">
-                                  {program.trigger_cooldown}
-                                </LabeledList.Item>
+                                <LabeledList.Item label="Trigger Cost">{program.trigger_cost}</LabeledList.Item>
+                                <LabeledList.Item label="Trigger Cooldown">{program.trigger_cooldown}</LabeledList.Item>
                                 {!!program.timer_trigger_delay && (
-                                  <LabeledList.Item label="Trigger Delay">
-                                    {program.timer_trigger_delay} s
-                                  </LabeledList.Item>
+                                  <LabeledList.Item label="Trigger Delay">{program.timer_trigger_delay} s</LabeledList.Item>
                                 )}
                                 {!!program.timer_trigger && (
-                                  <LabeledList.Item
-                                    label="Trigger Repeat Timer">
-                                    {program.timer_trigger} s
-                                  </LabeledList.Item>
+                                  <LabeledList.Item label="Trigger Repeat Timer">{program.timer_trigger} s</LabeledList.Item>
                                 )}
                               </LabeledList>
                             </Section>
                           </Grid.Column>
                         )}
-                        {!!(program.timer_restart
-                          || program.timer_shutdown) && (
+                        {!!(program.timer_restart || program.timer_shutdown) && (
                           <Grid.Column>
                             <Section>
                               <LabeledList>
                                 {/* I mean, bruh, this indentation level
                                     is ABSOLUTELY INSANE!!! */}
                                 {program.timer_restart && (
-                                  <LabeledList.Item label="Restart Timer">
-                                    {program.timer_restart} s
-                                  </LabeledList.Item>
+                                  <LabeledList.Item label="Restart Timer">{program.timer_restart} s</LabeledList.Item>
                                 )}
                                 {program.timer_shutdown && (
-                                  <LabeledList.Item label="Shutdown Timer">
-                                    {program.timer_shutdown} s
-                                  </LabeledList.Item>
+                                  <LabeledList.Item label="Shutdown Timer">{program.timer_shutdown} s</LabeledList.Item>
                                 )}
                               </LabeledList>
                             </Section>
@@ -202,63 +156,40 @@ export const NaniteChamberControlContent = (props, context) => {
                         )}
                       </Grid>
                     )}
-                    {scan_level >= 3 && (
-                      !!program.has_extra_settings && (
-                        <Section
-                          title="Extra Settings"
-                          level={2}>
-                          <LabeledList>
-                            {extra_settings.map(extra_setting => (
-                              <LabeledList.Item
-                                key={extra_setting.name}
-                                label={extra_setting.name}>
-                                {extra_setting.value}
-                              </LabeledList.Item>
-                            ))}
-                          </LabeledList>
-                        </Section>
-                      )
+                    {scan_level >= 3 && !!program.has_extra_settings && (
+                      <Section title="Extra Settings" level={2}>
+                        <LabeledList>
+                          {extra_settings.map((extra_setting) => (
+                            <LabeledList.Item key={extra_setting.name} label={extra_setting.name}>
+                              {extra_setting.value}
+                            </LabeledList.Item>
+                          ))}
+                        </LabeledList>
+                      </Section>
                     )}
                     {scan_level >= 4 && (
                       <Grid>
                         <Grid.Column>
-                          <Section
-                            title="Codes"
-                            level={2}>
+                          <Section title="Codes" level={2}>
                             <LabeledList>
                               {!!program.activation_code && (
-                                <LabeledList.Item label="Activation">
-                                  {program.activation_code}
-                                </LabeledList.Item>
+                                <LabeledList.Item label="Activation">{program.activation_code}</LabeledList.Item>
                               )}
                               {!!program.deactivation_code && (
-                                <LabeledList.Item label="Deactivation">
-                                  {program.deactivation_code}
-                                </LabeledList.Item>
+                                <LabeledList.Item label="Deactivation">{program.deactivation_code}</LabeledList.Item>
                               )}
-                              {!!program.kill_code && (
-                                <LabeledList.Item label="Kill">
-                                  {program.kill_code}
-                                </LabeledList.Item>
-                              )}
-                              {!!program.can_trigger
-                                && !!program.trigger_code && (
-                                <LabeledList.Item label="Trigger">
-                                  {program.trigger_code}
-                                </LabeledList.Item>
+                              {!!program.kill_code && <LabeledList.Item label="Kill">{program.kill_code}</LabeledList.Item>}
+                              {!!program.can_trigger && !!program.trigger_code && (
+                                <LabeledList.Item label="Trigger">{program.trigger_code}</LabeledList.Item>
                               )}
                             </LabeledList>
                           </Section>
                         </Grid.Column>
                         {program.has_rules && (
                           <Grid.Column>
-                            <Section
-                              title="Rules"
-                              level={2}>
-                              {rules.map(rule => (
-                                <Box key={rule.display}>
-                                  {rule.display}
-                                </Box>
+                            <Section title="Rules" level={2}>
+                              {rules.map((rule) => (
+                                <Box key={rule.display}>{rule.display}</Box>
                               ))}
                             </Section>
                           </Grid.Column>
