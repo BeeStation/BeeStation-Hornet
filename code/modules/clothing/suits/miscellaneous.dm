@@ -947,22 +947,21 @@
 	high_pressure_multiplier = 0.4
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
 
-/obj/item/clothing/suit/hooded/explorer/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
-
-/obj/item/clothing/head/hooded/explorer/Initialize(mapload)
+/obj/item/clothing/suit/hooded/wintercoat/miner/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
 /obj/item/clothing/head/hooded/winterhood/miner
-	name = "explorer hood"
 	desc = "A hood attached to a heavy winter jacket. It is quite armoured and well suited to explore harsh environments."
 	icon_state = "winterhood_miner"
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 10, RAD = 20, FIRE = 50, ACID = 50, STAMINA = 20)
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
+
+/obj/item/clothing/head/hooded/winterhood/miner/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/armor_plate)
 
 //Old winter coats
 
