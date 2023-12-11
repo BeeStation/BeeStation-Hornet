@@ -111,7 +111,7 @@
 	desc = "Cook it to get a pie."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "piedough"
-	microwaved_type = /obj/item/reagent_containers/food/snacks/pie/plain
+	microwaved_type = /obj/item/food/pie/plain
 	food_reagents = list(/datum/reagent/consumable/nutriment = 9)
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN | DAIRY

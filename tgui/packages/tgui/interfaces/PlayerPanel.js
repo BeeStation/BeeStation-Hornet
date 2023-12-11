@@ -46,7 +46,7 @@ const LOG_TYPES_REVERSE = {
 
 const LOG_TYPES_LIST = Object.keys(LOG_TYPES_REVERSE);
 
-const PANEL_HEIGHT = 260;
+const PANEL_HEIGHT = 300;
 
 /**
 --------------------
@@ -88,7 +88,7 @@ export const PlayerPanel = (_, context) => {
   return (
     <Window
       width={1000}
-      height={615}
+      height={700}
       theme="admin"
       buttons={
         <>
@@ -441,6 +441,7 @@ class PlayerDetailsActionButtons extends PureComponent {
         'Ban': 'open_ban',
         'Smite': 'smite',
         'Prison': 'jail',
+        'Cryo': 'force_cryo',
       },
     };
     if (!has_mind) {
