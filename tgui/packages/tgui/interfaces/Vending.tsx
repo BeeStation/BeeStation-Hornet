@@ -262,7 +262,6 @@ const ProductImage = (props) => {
       src={`data:image/jpeg;base64,${product.img}`}
       style={{
         'vertical-align': 'middle',
-        'horizontal-align': 'middle',
       }}
     />
   ) : (
@@ -270,7 +269,6 @@ const ProductImage = (props) => {
       className={classes(['vending32x32', product.path])}
       style={{
         'vertical-align': 'middle',
-        'horizontal-align': 'middle',
       }}
     />
   );
