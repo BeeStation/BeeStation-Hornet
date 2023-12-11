@@ -853,7 +853,7 @@ const GeneCycler = (props) => {
         const nextGene = GENES[(index + 1) % length];
         onChange(e, nextGene);
       }}
-      oncontextmenu={(e) => {
+      onContextMenu={(e) => {
         e.preventDefault();
         if (!onChange) {
           return;
