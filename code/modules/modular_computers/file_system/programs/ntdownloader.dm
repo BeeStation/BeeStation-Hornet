@@ -9,22 +9,20 @@
 	requires_ntnet = 1
 	requires_ntnet_feature = NTNET_SOFTWAREDOWNLOAD
 	available_on_ntnet = 0
-	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
 	program_icon = "download"
 
 
 
-	var/datum/computer_file/program/downloaded_file = null
+	var/datum/computer_file/program/downloaded_file
 	var/hacked_download = 0
 	var/download_completion = 0 //GQ of downloaded data.
 	var/download_netspeed = 0
 	var/downloaderror = ""
 	var/obj/item/modular_computer/my_computer = null
 	var/emagged = FALSE
-	var/list/main_repo
-	var/list/antag_repo
-	var/list/show_categories = list(
+
+	var/static/list/show_categories = list(
 		PROGRAM_CATEGORY_CREW,
 		PROGRAM_CATEGORY_ENGI,
 		PROGRAM_CATEGORY_ROBO,
@@ -32,12 +30,9 @@
 		PROGRAM_CATEGORY_MISC,
 	)
 
-/datum/computer_file/program/ntnetdownload/on_start()
+/datum/computer_file/program/ntnetdownload/kill_program(mob/user)
 	. = ..()
-	if(!.)
-		return
-	main_repo = SSnetworks.station_network.available_station_software
-	antag_repo = SSnetworks.station_network.available_antag_software
+	ui_header = null
 
 /datum/computer_file/program/ntnetdownload/run_emag()
 	if(emagged)
@@ -66,10 +61,10 @@
 
 	ui_header = "downloader_running.gif"
 
-	if(PRG in main_repo)
+	if(PRG in SSmodular_computers.available_station_software)
 		generate_network_log("Began downloading file [PRG.filename].[PRG.filetype] from NTNet Software Repository.")
 		hacked_download = 0
-	else if(PRG in antag_repo)
+	else if(PRG in SSmodular_computers.available_antag_software)
 		generate_network_log("Began downloading file **ENCRYPTED**.[PRG.filetype] from unspecified server.")
 		hacked_download = 1
 	else
@@ -84,7 +79,7 @@
 	generate_network_log("Aborted download of file [hacked_download ? "**ENCRYPTED**" : "[downloaded_file.filename].[downloaded_file.filetype]"].")
 	downloaded_file = null
 	download_completion = 0
-	ui_header = "downloader_finished.gif"
+	ui_header = null
 
 /datum/computer_file/program/ntnetdownload/proc/complete_file_download()
 	if(!downloaded_file)
@@ -159,7 +154,7 @@
 	data["disk_used"] = hard_drive.used_capacity
 	data["emagged"] = emagged
 
-	var/list/repo = antag_repo | main_repo
+	var/list/repo = SSmodular_computers.available_antag_software | SSmodular_computers.available_station_software
 	var/list/program_categories = list()
 
 	for(var/I in repo)

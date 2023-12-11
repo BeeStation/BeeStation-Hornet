@@ -3269,6 +3269,7 @@
 #include "code\modules\modular_computers\file_system\programs\crewmanifest.dm"
 #include "code\modules\modular_computers\file_system\programs\file_browser.dm"
 #include "code\modules\modular_computers\file_system\programs\jobmanagement.dm"
+#include "code\modules\modular_computers\file_system\programs\mafia_ntos.dm"
 #include "code\modules\modular_computers\file_system\programs\log_viewer.dm"
 #include "code\modules\modular_computers\file_system\programs\newscaster.dm"
 #include "code\modules\modular_computers\file_system\programs\notepad.dm"

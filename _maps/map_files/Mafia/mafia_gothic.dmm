@@ -1,68 +1,53 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/closed/indestructible/riveted,
-/area/mafia)
+/area/centcom/mafia)
 "b" = (
 /turf/closed/wall/mineral/iron,
-/area/mafia)
+/area/centcom/mafia)
 "c" = (
 /turf/closed/wall/rust,
-/area/mafia)
+/area/centcom/mafia)
 "d" = (
 /turf/open/floor/plating,
-/area/mafia)
+/area/centcom/mafia)
 "e" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/mafia)
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/centcom/mafia)
 "f" = (
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/mafia)
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/centcom/mafia)
 "g" = (
 /obj/mafia_game_board,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/mafia)
-"h" = (
-/obj/structure/grille/indestructable,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
-/area/mafia)
-"i" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/mafia)
+/area/centcom/mafia)
+"h" = (
+/obj/structure/grille/indestructible,
+/turf/open/floor/plating,
+/area/centcom/mafia)
 "j" = (
 /turf/closed/indestructible/fakedoor,
-/area/mafia)
+/area/centcom/mafia)
 "k" = (
 /obj/mafia_game_board,
 /turf/open/floor/plating,
-/area/mafia)
+/area/centcom/mafia)
 "l" = (
 /obj/structure/closet/crate/coffin,
 /turf/open/floor/carpet/red,
-/area/mafia)
+/area/centcom/mafia)
 "m" = (
-/obj/effect/landmark/mafia,
 /turf/open/floor/carpet/red,
-/area/mafia)
-"n" = (
-/obj/effect/landmark/mafia,
-/turf/open/floor/plasteel/chapel{
-	dir = 1
-	},
-/area/mafia)
+/area/centcom/mafia)
 "o" = (
 /obj/structure/closet/crate/coffin,
-/turf/open/floor/plasteel/chapel{
+/turf/open/floor/iron/chapel{
 	dir = 4
 	},
-/area/mafia)
+/area/centcom/mafia)
 "p" = (
 /obj/machinery/door/poddoor/preopen{
 	desc = "When it's time to sleep, the lights will go out. Remember - no one in space can hear you scream.";
@@ -71,80 +56,86 @@
 	name = "Station Night Shutters"
 	},
 /turf/closed/indestructible/opsglass,
-/area/mafia)
+/area/centcom/mafia)
 "q" = (
+/obj/effect/landmark/mafia,
 /turf/open/floor/carpet/red,
-/area/mafia)
+/area/centcom/mafia)
 "r" = (
-/turf/open/floor/plasteel/chapel{
+/obj/effect/landmark/mafia,
+/turf/open/floor/iron/chapel{
 	dir = 8
 	},
-/area/mafia)
+/area/centcom/mafia)
 "t" = (
 /turf/open/floor/carpet/royalblack,
-/area/mafia)
+/area/centcom/mafia)
 "u" = (
 /obj/effect/baseturf_helper/asteroid,
 /obj/effect/landmark/mafia/town_center,
 /turf/open/floor/carpet/royalblack,
-/area/mafia)
+/area/centcom/mafia)
 "v" = (
 /obj/mafia_game_board,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/mafia)
-"D" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/centcom/mafia)
+"x" = (
 /obj/effect/landmark/mafia,
-/turf/open/floor/plasteel/chapel{
-	dir = 4
+/turf/open/floor/iron/chapel{
+	dir = 1
 	},
-/area/mafia)
+/area/centcom/mafia)
 "E" = (
-/turf/open/floor/plasteel/chapel{
+/turf/open/floor/iron/chapel{
 	dir = 4
 	},
-/area/mafia)
+/area/centcom/mafia)
 "H" = (
 /obj/structure/closet/cabinet{
 	anchored = 1
 	},
 /turf/open/floor/carpet/red,
-/area/mafia)
+/area/centcom/mafia)
 "J" = (
 /obj/structure/closet/crate/coffin,
-/turf/open/floor/plasteel/chapel{
+/turf/open/floor/iron/chapel{
 	dir = 1
 	},
-/area/mafia)
-"M" = (
+/area/centcom/mafia)
+"K" = (
 /obj/effect/landmark/mafia,
-/turf/open/floor/plasteel/chapel{
+/turf/open/floor/iron/chapel{
+	dir = 4
+	},
+/area/centcom/mafia)
+"M" = (
+/turf/open/floor/iron/chapel{
 	dir = 8
 	},
-/area/mafia)
+/area/centcom/mafia)
 "N" = (
-/obj/effect/landmark/mafia,
-/turf/open/floor/plasteel/chapel,
-/area/mafia)
+/turf/open/floor/iron/chapel,
+/area/centcom/mafia)
 "O" = (
-/turf/open/floor/plasteel/chapel,
-/area/mafia)
+/obj/effect/landmark/mafia,
+/turf/open/floor/iron/chapel,
+/area/centcom/mafia)
 "P" = (
 /obj/structure/closet/crate/coffin,
-/turf/open/floor/plasteel/chapel,
-/area/mafia)
+/turf/open/floor/iron/chapel,
+/area/centcom/mafia)
 "Q" = (
 /obj/structure/closet/crate/coffin,
-/turf/open/floor/plasteel/chapel{
+/turf/open/floor/iron/chapel{
 	dir = 8
 	},
-/area/mafia)
+/area/centcom/mafia)
 "X" = (
-/turf/open/floor/plasteel/chapel{
+/turf/open/floor/iron/chapel{
 	dir = 1
 	},
-/area/mafia)
+/area/centcom/mafia)
 
 (1,1,1) = {"
 a
@@ -264,7 +255,7 @@ b
 b
 d
 d
-i
+e
 h
 c
 b
@@ -276,13 +267,13 @@ a
 b
 b
 c
-i
+e
 b
 b
 j
 b
 l
-q
+m
 b
 X
 Q
@@ -304,15 +295,15 @@ c
 d
 b
 J
-r
+M
 p
 m
-q
+m
 p
 E
 N
 p
-q
+m
 l
 b
 d
@@ -328,16 +319,16 @@ c
 d
 d
 b
-D
-O
+E
+N
 b
 b
-q
+m
 b
-r
+M
 b
 b
-q
+m
 m
 b
 d
@@ -362,7 +353,7 @@ p
 O
 p
 q
-q
+m
 p
 b
 b
@@ -403,16 +394,16 @@ c
 d
 j
 m
-q
-q
+m
+m
 q
 p
 t
 t
 t
 p
-X
-r
+x
+M
 E
 N
 j
@@ -452,8 +443,8 @@ b
 c
 d
 j
-n
-r
+X
+M
 E
 O
 p
@@ -462,8 +453,8 @@ t
 t
 p
 q
-q
-q
+m
+m
 m
 j
 d
@@ -491,7 +482,7 @@ b
 p
 l
 b
-i
+e
 c
 b
 a
@@ -504,15 +495,15 @@ d
 b
 b
 p
-q
-q
-p
-X
-p
+m
 q
 p
-E
-O
+x
+p
+q
+p
+K
+N
 p
 b
 b
@@ -529,12 +520,12 @@ f
 d
 b
 m
-q
+m
 b
 b
 E
 b
-q
+m
 b
 b
 X
@@ -554,12 +545,12 @@ c
 d
 b
 l
-q
+m
 p
-n
-r
+X
+M
 p
-q
+m
 m
 p
 E
@@ -582,9 +573,9 @@ b
 j
 b
 o
-O
+N
 b
-q
+m
 H
 b
 j
@@ -602,7 +593,7 @@ b
 b
 c
 h
-i
+e
 d
 d
 b

@@ -1,45 +1,37 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/closed/indestructible/riveted,
-/area/mafia)
+/area/centcom/mafia)
 "b" = (
 /obj/structure/closet/cabinet{
 	anchored = 1
 	},
-/obj/item/reagent_containers/food/snacks/sashimi,
+/obj/item/food/sashimi,
 /turf/open/floor/carpet/black,
-/area/mafia)
+/area/centcom/mafia)
 "c" = (
 /turf/closed/wall/rust,
-/area/mafia)
+/area/centcom/mafia)
 "d" = (
 /turf/open/floor/plating,
-/area/mafia)
+/area/centcom/mafia)
 "e" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/mafia)
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/centcom/mafia)
 "f" = (
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/mafia)
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/centcom/mafia)
 "g" = (
 /obj/mafia_game_board,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/mafia)
-"h" = (
-/obj/structure/grille/indestructable,
+/obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating,
-/area/mafia)
-"i" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/mafia)
+/area/centcom/mafia)
+"h" = (
+/obj/structure/grille/indestructible,
+/turf/open/floor/plating,
+/area/centcom/mafia)
 "j" = (
 /turf/closed/wall/mineral/wood{
 	desc = "A door that goes nowhere. How kafkaesque.";
@@ -47,26 +39,24 @@
 	icon_state = "paperframe";
 	name = "Door"
 	},
-/area/mafia)
+/area/centcom/mafia)
 "k" = (
 /obj/mafia_game_board,
 /turf/open/floor/plating,
-/area/mafia)
+/area/centcom/mafia)
 "m" = (
-/obj/effect/landmark/mafia,
 /turf/open/floor/wood,
-/area/mafia)
+/area/centcom/mafia)
 "n" = (
-/obj/effect/landmark/mafia,
 /turf/open/floor/carpet/black,
-/area/mafia)
+/area/centcom/mafia)
 "o" = (
 /obj/structure/closet/cabinet{
 	anchored = 1
 	},
-/obj/item/reagent_containers/food/snacks/sashimi,
+/obj/item/food/sashimi,
 /turf/open/floor/wood,
-/area/mafia)
+/area/centcom/mafia)
 "p" = (
 /obj/machinery/door/poddoor/preopen{
 	desc = "When it's time to sleep, the lights will go out. Remember - no one in space can hear you scream.";
@@ -78,40 +68,35 @@
 	icon = 'icons/obj/smooth_structures/paperframes.dmi';
 	icon_state = "paper"
 	},
-/area/mafia)
+/area/centcom/mafia)
 "q" = (
+/obj/effect/landmark/mafia,
 /turf/open/floor/wood,
-/area/mafia)
+/area/centcom/mafia)
 "r" = (
+/obj/effect/landmark/mafia,
 /turf/open/floor/carpet/black,
-/area/mafia)
+/area/centcom/mafia)
 "t" = (
-/turf/open/floor/plating/beach/sand,
-/area/mafia)
+/turf/open/misc/beach/sand,
+/area/centcom/mafia)
 "u" = (
 /obj/effect/baseturf_helper/asteroid,
 /obj/effect/landmark/mafia/town_center,
-/turf/open/floor/plating/beach/sand,
-/area/mafia)
+/turf/open/misc/beach/sand,
+/area/centcom/mafia)
 "v" = (
 /obj/mafia_game_board,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/mafia)
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/plating,
+/area/centcom/mafia)
 "B" = (
-/obj/structure/showcase{
-	density = 0;
-	desc = "Welp, only one way to recover your honour.";
-	icon = 'icons/obj/items_and_weapons.dmi';
-	icon_state = "katana";
-	name = "seppuku katana"
-	},
-/turf/open/floor/plating/beach/sand,
-/area/mafia)
+/obj/structure/showcase/katana,
+/turf/open/misc/beach/sand,
+/area/centcom/mafia)
 "S" = (
 /turf/closed/wall/mineral/wood,
-/area/mafia)
+/area/centcom/mafia)
 
 (1,1,1) = {"
 a
@@ -231,7 +216,7 @@ S
 S
 d
 d
-i
+e
 h
 c
 S
@@ -243,15 +228,15 @@ a
 S
 S
 c
-i
+e
 S
 S
 j
 S
 o
-q
+m
 S
-r
+n
 b
 S
 j
@@ -271,15 +256,15 @@ c
 d
 S
 b
-r
-p
-m
-q
-p
-r
 n
 p
-q
+m
+m
+p
+n
+n
+p
+m
 o
 S
 d
@@ -296,15 +281,15 @@ d
 d
 S
 n
-r
+n
 S
 S
-q
+m
 S
-r
+n
 S
 S
-q
+m
 m
 S
 d
@@ -321,15 +306,15 @@ d
 S
 S
 p
-r
-r
-p
-q
-p
+n
 r
 p
 q
+p
+r
+p
 q
+m
 p
 S
 S
@@ -370,8 +355,8 @@ c
 d
 j
 m
-q
-q
+m
+m
 q
 p
 t
@@ -379,8 +364,8 @@ t
 t
 p
 r
-r
-r
+n
+n
 n
 j
 e
@@ -420,8 +405,8 @@ c
 d
 j
 n
-r
-r
+n
+n
 r
 p
 t
@@ -429,8 +414,8 @@ t
 t
 p
 q
-q
-q
+m
+m
 m
 j
 d
@@ -458,7 +443,7 @@ S
 p
 o
 S
-i
+e
 c
 S
 a
@@ -471,15 +456,15 @@ d
 S
 S
 p
-q
-q
-p
-r
-p
+m
 q
 p
 r
+p
+q
+p
 r
+n
 p
 S
 S
@@ -496,15 +481,15 @@ f
 d
 S
 m
-q
+m
 S
 S
-r
+n
 S
-q
+m
 S
 S
-r
+n
 n
 S
 d
@@ -521,15 +506,15 @@ c
 d
 S
 o
-q
-p
-n
-r
-p
-q
 m
 p
-r
+n
+n
+p
+m
+m
+p
+n
 b
 S
 d
@@ -549,9 +534,9 @@ S
 j
 S
 b
-r
+n
 S
-q
+m
 o
 S
 j
@@ -569,7 +554,7 @@ S
 S
 c
 h
-i
+e
 d
 d
 S

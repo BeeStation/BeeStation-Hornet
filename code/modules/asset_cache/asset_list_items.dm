@@ -50,7 +50,8 @@
 		"smmon_4.gif" = 'icons/program_icons/smmon_4.gif',
 		"smmon_5.gif" = 'icons/program_icons/smmon_5.gif',
 		"smmon_6.gif" = 'icons/program_icons/smmon_6.gif',
-		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif'
+		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif',
+		"mafia.gif" = 'icons/program_icons/mafia.gif',
 	)
 
 /datum/asset/simple/circuit_assets
