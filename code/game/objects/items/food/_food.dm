@@ -1,3 +1,9 @@
+// A few defines for use in calculating our plant's bite size.
+/// When calculating bite size, potency is multiplied by this number.
+#define BITE_SIZE_POTENCY_MULTIPLIER 0.05
+/// When calculating bite size, max_volume is multiplied by this number.
+#define BITE_SIZE_VOLUME_MULTIPLIER 0.01
+
 ///Abstract class to allow us to easily create all the generic "normal" food without too much copy pasta of adding more components
 /obj/item/food
 	name = "food"

@@ -13,7 +13,7 @@
 	name = "generic flower"
 	desc = "You should not be seeing this"
 	slot_flags = ITEM_SLOT_HEAD
-	bite_consumption_mod = 3
+	bite_consumption_mod = 2
 	food_reagents = null //get the unit test off our back
 	foodtypes = VEGETABLES | GROSS
 
@@ -144,7 +144,6 @@
 	name = "forget-me-not"
 	desc = "A clump of small blue flowers, they are primarily associated with rememberance, respect and loyalty."
 	icon_state = "forget_me_not"
-	bite_consumption_mod = 2
 	discovery_points = 300
 
 // Harebell

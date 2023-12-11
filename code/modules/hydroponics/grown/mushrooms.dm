@@ -1,6 +1,6 @@
 /obj/item/food/grown/mushroom
 	name = "mushroom"
-	bite_consumption_mod = 2
+	bite_consumption_mod = 3
 	foodtypes = VEGETABLES
 	wine_power = 40
 

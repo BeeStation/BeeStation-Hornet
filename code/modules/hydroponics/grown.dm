@@ -14,8 +14,8 @@
 	var/obj/item/seeds/seed = null
 	///Name of the plant
 	var/plantname = ""
-	/// If set, bitesize = 1 + round(reagents.total_volume / bite_consumption_mod)
-	var/bite_consumption_mod = 0
+	/// The modifier applied to the plant's bite size. If a plant has a large amount of reagents naturally, this should be increased to match.
+	var/bite_consumption_mod = 1
 	///the splat it makes when it splats lol
 	var/splat_type = /obj/effect/decal/cleanable/food/plant_smudge
 	/// If TRUE, this object needs to be dry to be ground up
@@ -53,8 +53,13 @@
 
 	make_dryable()
 
-	for(var/datum/plant_gene/trait/T in seed.genes)
-		T.on_new(src, loc)
+	for(var/datum/plant_gene/trait/trait in seed.genes)
+		trait.on_new(src, loc)
+
+	// Set our default bitesize: bite size = 1 + (potency * 0.05) * (max_volume * 0.01) * modifier
+	// A 100 potency, non-densified plant = 1 + (5 * 1 * modifier) = 6u bite size
+	// For reference, your average 100 potency tomato has 14u of reagents - So, with no modifier it is eaten in 3 bites
+	bite_consumption = 1 + round(max((seed.potency * BITE_SIZE_POTENCY_MULTIPLIER), 1) * (max_volume * BITE_SIZE_VOLUME_MULTIPLIER) * bite_consumption_mod)
 
 	. = ..() //Only call it here because we want all the genes and shit to be applied before we add edibility. God this code is a mess.
 
@@ -198,3 +203,6 @@
 		var/investigate_data = seed.get_gene_datas_for_investigate()
 		log_game("[key_name(user)] dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]")
 		investigate_log("[key_name(user)] dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]", INVESTIGATE_BOTANY)
+
+#undef BITE_SIZE_POTENCY_MULTIPLIER
+#undef BITE_SIZE_VOLUME_MULTIPLIER

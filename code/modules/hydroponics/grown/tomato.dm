@@ -20,8 +20,6 @@
 	desc = "I say to-mah-to, you say tom-mae-to."
 	icon_state = "tomato"
 	splat_type = /obj/effect/decal/cleanable/food/tomato_smudge
-	filling_color = "#FF6347"
-	bite_consumption_mod = 2
 	foodtypes = FRUIT
 	grind_results = list(/datum/reagent/consumable/ketchup = 0)
 	juice_results = list(/datum/reagent/consumable/tomatojuice = 0)
@@ -44,8 +42,8 @@
 	name = "blood-tomato"
 	desc = "So bloody...so...very...bloody....AHHHH!!!!"
 	icon_state = "bloodtomato"
+	bite_consumption_mod = 3
 	splat_type = /obj/effect/gibspawner/generic/bloodtomato
-	filling_color = "#FF0000"
 	foodtypes = FRUIT | GROSS
 	grind_results = list(/datum/reagent/consumable/ketchup = 0, /datum/reagent/blood = 0)
 	distill_reagent = /datum/reagent/consumable/ethanol/bloody_mary
@@ -76,8 +74,8 @@
 	name = "blue-tomato"
 	desc = "I say blue-mah-to, you say blue-mae-to."
 	icon_state = "bluetomato"
+	bite_consumption_mod = 2
 	splat_type = /obj/effect/decal/cleanable/oil
-	filling_color = "#0000FF"
 	distill_reagent = /datum/reagent/consumable/laughter
 	discovery_points = 300
 
@@ -100,6 +98,7 @@
 	name = "bluespace tomato"
 	desc = "So lubricated, you might slip through space-time."
 	icon_state = "bluespacetomato"
+	bite_consumption_mod = 3
 	distill_reagent = null
 	wine_power = 80
 	discovery_points = 300

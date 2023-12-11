@@ -52,7 +52,6 @@
 	name = "parsnip"
 	desc = "Closely related to carrots."
 	icon_state = "parsnip"
-	bite_consumption_mod = 2
 	foodtypes = VEGETABLES
 	juice_results = list(/datum/reagent/consumable/parsnipjuice = 0)
 	wine_power = 35
@@ -81,7 +80,7 @@
 	desc = "You can't beat white-beet."
 	icon_state = "whitebeet"
 	filling_color = "#F4A460"
-	bite_consumption_mod = 2
+	bite_consumption_mod = 3
 	foodtypes = VEGETABLES
 	wine_power = 40
 

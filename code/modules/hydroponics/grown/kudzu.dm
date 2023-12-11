@@ -100,8 +100,6 @@
 	name = "kudzu pod"
 	desc = "<I>Pueraria Virallis</I>: An invasive species with vines that rapidly creep and wrap around whatever they contact."
 	icon_state = "kudzupod"
-	filling_color = "#6B8E23"
-	bite_consumption_mod = 2
 	foodtypes = VEGETABLES | GROSS
 	tastes = list("kudzu" = 1)
 	wine_power = 20

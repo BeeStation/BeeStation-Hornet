@@ -19,6 +19,7 @@
 	name = "pineapples"
 	desc = "Blorble."
 	icon_state = "pineapple"
+	bite_consumption_mod = 2
 	force = 4
 	throwforce = 8
 	hitsound = 'sound/weapons/bladeslice.ogg'

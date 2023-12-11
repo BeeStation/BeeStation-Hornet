@@ -21,8 +21,6 @@
 	name = "onion"
 	desc = "Nothing to cry over."
 	icon_state = "onion"
-	filling_color = "#C0C9A0"
-	bite_consumption_mod = 2
 	tastes = list("onions" = 1)
 	wine_power = 30
 

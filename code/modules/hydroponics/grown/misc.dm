@@ -59,7 +59,7 @@
 	desc = "This spiny cluster of florets reminds you of the highlands."
 	icon_state = "galaxythistle"
 	filling_color = "#1E7549"
-	bite_consumption_mod = 3
+	bite_consumption_mod = 2
 	foodtypes = VEGETABLES
 	wine_power = 35
 	tastes = list("thistle" = 2, "artichoke" = 1)
@@ -89,7 +89,6 @@
 	desc = "Ewwwwwwwwww. Cabbage."
 	icon_state = "cabbage"
 	filling_color = "#90EE90"
-	bite_consumption_mod = 2
 	foodtypes = VEGETABLES
 	wine_power = 20
 
@@ -169,8 +168,7 @@
 	icon_state = "cherry_bomb"
 	filling_color = rgb(20, 20, 20)
 	seed = /obj/item/seeds/cherry/bomb
-	seed = /obj/item/seeds/cherry/bomb
-	bite_consumption_mod = 2
+	bite_consumption_mod = 3
 	max_volume = 125 //Gives enough room for the black powder at max potency
 	max_integrity = 40
 	wine_power = 80
