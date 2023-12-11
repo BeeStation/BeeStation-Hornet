@@ -7,10 +7,10 @@ import { Button } from './Button';
 import { Icon } from './Icon';
 import { Stack } from './Stack';
 
-export interface DropdownEntry {
+type DropdownEntry = {
   displayText: string | number | ReactNode;
   value: string | number | Enumerator;
-}
+};
 
 export type DropdownPartialProps = Partial<{
   buttons: boolean;
@@ -33,9 +33,12 @@ export type DropdownPartialProps = Partial<{
   width: string;
 }>;
 
-type DropdownUniqueProps = { options: string[] | DropdownEntry[] } & DropdownPartialProps;
+type Props = { options: string[] | DropdownEntry[] } & DropdownPartialProps & BoxProps;
 
-export type DropdownProps = BoxProps & DropdownUniqueProps;
+type State = {
+  selected?: string;
+  open: boolean;
+};
 
 const DEFAULT_OPTIONS = {
   placement: 'left-start',
@@ -46,6 +49,7 @@ const DEFAULT_OPTIONS = {
     },
   ],
 };
+
 const NULL_RECT: DOMRect = {
   width: 0,
   height: 0,
@@ -58,15 +62,10 @@ const NULL_RECT: DOMRect = {
   toJSON: () => null,
 } as const;
 
-type DropdownState = {
-  selected?: string;
-  open: boolean;
-};
-
 const DROPDOWN_DEFAULT_CLASSNAMES = 'Layout Dropdown__menu';
 const DROPDOWN_SCROLL_CLASSNAMES = 'Layout Dropdown__menu-scroll';
 
-export class Dropdown extends Component<DropdownProps, DropdownState> {
+export class Dropdown extends Component<Props, State> {
   static renderedMenu: HTMLDivElement | undefined;
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentOpenMenu: Element | undefined;
@@ -74,7 +73,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     getBoundingClientRect: () => Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
-  state: DropdownState = {
+  state: State = {
     open: false,
     selected: this.props.selected,
   };
@@ -111,7 +110,11 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     Dropdown.currentOpenMenu = domNode;
 
     renderedMenu.scrollTop = 0;
-    renderedMenu.style.width = this.props.menuWidth || '10rem';
+    renderedMenu.style.width =
+      this.props.menuWidth ||
+      // Hack, but domNode should *always* be the parent control meaning it will have width
+      // @ts-ignore
+      `${domNode.offsetWidth}px`;
     renderedMenu.style.opacity = '1';
     renderedMenu.style.pointerEvents = 'auto';
 
@@ -330,7 +333,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
               style={{
                 overflow: clipSelectedText ? 'hidden' : 'visible',
               }}>
-              {displayText || this.state.selected}
+              {this.state.selected || displayText}
             </span>
             {nochevron || (
               <span className="Dropdown__arrow-button" style={displayHeight ? { lineHeight: displayHeight } : undefined}>
