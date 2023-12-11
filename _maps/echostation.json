@@ -8,5 +8,10 @@
 		"ferry": "ferry_fancy",
 		"whiteship": "whiteship_box",
 		"emergency": "emergency_delta"
+	},
+
+	"traits": [{"Up" : true, "Baseturf" : "/turf/open/floor/plating/ashplanet/rocky", "Linkage" : "Cross", "Gravity": true},
+		{"Up" : true, "Down" : true, "Baseturf" : "/turf/open/floor/plating/ashplanet/rocky", "Linkage" : "Cross", "Gravity": true},
+		{"Up" : true, "Down" : true, "Baseturf" : "/turf/open/floor/plating/ashplanet/rocky", "Linkage" : "Cross", "Gravity": true},
+		{"Down" : true, "Baseturf" : "/turf/open/floor/plating/ashplanet/rocky", "Linkage" : "Cross", "Gravity": true}]
 	}
-}
