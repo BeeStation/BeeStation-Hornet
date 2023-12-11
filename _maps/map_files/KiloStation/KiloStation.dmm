@@ -11262,6 +11262,10 @@
 /area/crew_quarters/fitness/recreation)
 "aQV" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry Hall Shutters"
+	},
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "aQW" = (
@@ -37595,6 +37599,9 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "cLU" = (
@@ -40178,6 +40185,9 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "dmo" = (
@@ -40507,6 +40517,9 @@
 /mob/living/simple_animal/pet/hamster/vector,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	color = "#439C1E"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -41198,6 +41211,9 @@
 "dIO" = (
 /obj/effect/landmark/start/chemist,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "dJr" = (
@@ -57886,10 +57902,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "kBm" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry Hall Shutters"
-	},
 /obj/machinery/door/window/northleft{
 	dir = 8;
 	name = "Chemistry Desk";
@@ -58459,13 +58471,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
-"kRa" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters";
-	name = "Chemistry Hall Shutters"
-	},
-/turf/closed/wall/r_wall,
-/area/medical/chemistry)
 "kRb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -59135,6 +59140,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "lgY" = (
@@ -59533,6 +59541,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "lpV" = (
@@ -62632,6 +62641,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "mHJ" = (
@@ -64053,6 +64063,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -70390,6 +70403,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "pQH" = (
@@ -71049,6 +71065,9 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/dark_green/anticorner/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
@@ -75312,6 +75331,9 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	color = "#439C1E"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "rSM" = (
@@ -75560,6 +75582,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/chemist,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "rYi" = (
@@ -80988,6 +81011,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "uls" = (
@@ -81808,6 +81832,9 @@
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	color = "#439C1E"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -84445,6 +84472,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "vIM" = (
@@ -85533,6 +85561,14 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/prison)
+"wck" = (
+/obj/machinery/chem_heater,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/chemistry)
 "wcn" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
@@ -87219,6 +87255,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "wFS" = (
@@ -87632,6 +87671,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "wOS" = (
@@ -87754,14 +87794,6 @@
 	icon_state = "platingdmg1"
 	},
 /area/quartermaster/warehouse)
-"wQU" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/chem_heater,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/dark,
-/area/medical/chemistry)
 "wRe" = (
 /obj/structure/table/glass,
 /obj/machinery/newscaster{
@@ -113570,8 +113602,8 @@ wEa
 gkX
 xUZ
 jgE
+wck
 gts
-wQU
 xGx
 kLK
 xyC
@@ -113831,7 +113863,7 @@ aQW
 aQV
 kBm
 teI
-kRa
+wGf
 nSZ
 omW
 esc
