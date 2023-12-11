@@ -6,7 +6,9 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
+	/// or other bodyparts may block the emissive elements of it.
+	blocks_emissive = FALSE
 	///Hair color
 	var/hair_color = "000"
 	///Hair style

@@ -434,7 +434,7 @@
 	block_power = 20
 	var/shield_icon = "shield-red"
 
-/obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands)
+/obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(isinhands)
 		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_SHIELD_LAYER)
@@ -620,7 +620,7 @@
 
 	possessed = TRUE
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_SPECTRAL_BLADE, null, 10 SECONDS, ignore_category = POLL_IGNORE_SPECTRAL_BLADE)
+	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_SPECTRAL_BLADE, null, 10 SECONDS, ignore_category = POLL_IGNORE_SPECTRAL_BLADE)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
