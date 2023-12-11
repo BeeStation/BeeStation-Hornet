@@ -219,20 +219,20 @@
 		O.emp_act(severity)
 
 ///Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
-/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	. = ..()
 	if(!.)
 		return
 	//Pulling
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, safety, tesla_shock, illusion, stun)
-	if(iscarbon(pulling) && !illusion && source != pulling)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
+	if(iscarbon(pulling) && !(flags & SHOCK_ILLUSION) && source != pulling)
 		var/mob/living/carbon/C = pulling
-		C.electrocute_act(shock_damage*0.75, src, 1, 0, override, 0, illusion, stun)
-	if(iscarbon(pulledby) && !illusion && source != pulledby)
+		C.electrocute_act(shock_damage*0.75, src, flags)
+	if(iscarbon(pulledby) && !(flags & SHOCK_ILLUSION) && source != pulledby)
 		var/mob/living/carbon/C = pulledby
-		C.electrocute_act(shock_damage*0.75, src, 1, 0, override, 0, illusion, stun)
+		C.electrocute_act(shock_damage*0.75, src, flags)
 	//Stun
-	var/should_stun = (!tesla_shock || siemens_coeff > 0.5) && stun
+	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
 	if(should_stun)
 		Paralyze(40)
 	//Jitter and other fluff.
@@ -240,10 +240,7 @@
 	do_jitter_animation(jitteriness)
 	stuttering += 2
 	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 20)
-	if(override)
-		return override
-	else
-		return shock_damage
+	return shock_damage
 
 /mob/living/carbon/proc/secondary_shock(should_stun)
 	jitteriness = max(jitteriness - 990, 10)
