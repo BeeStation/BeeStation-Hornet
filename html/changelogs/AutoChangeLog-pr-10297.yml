@@ -1,8 +1,0 @@
-author: BeeLover66
-delete-after: true
-changes:
-  - bugfix: Icewing watchers no longer freeze their targets indefinitely
-  - tweak: Changed the duration of the icewing watcher's freezing blast from 0.8 seconds
-      to 8 seconds
-  - bugfix: You can now resist being frozen by clicking the status icon in the top
-      right
