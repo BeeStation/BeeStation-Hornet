@@ -149,7 +149,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		return
 
 	if(e.stack_trace_hint)
-		min_name = "<b>\[[time_stamp()]]</b> Runtime in stack_trace <b>[e.stack_trace_hint]</b>, <b>[e.name]</b>"
+		min_name = "<b>\[[time_stamp()]]</b> Runtime in stack_trace <b>[e.stack_trace_hint]</b>"
 	else
 		min_name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>"
 	name = min_name + ": <b>[html_encode(e.name)]</b>"
@@ -179,7 +179,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 
 	if(skip_count)
 		if(e.stack_trace_hint)
-			name = "\[[time_stamp()]] Skipped [skip_count] runtimes in stack_trace [e.stack_trace_hint]: [e.name]."
+			name = "\[[time_stamp()]] Skipped [skip_count] runtimes in stack_trace [e.stack_trace_hint]."
 		else
 			name = "\[[time_stamp()]] Skipped [skip_count] runtimes in [e.file],[e.line]."
 		is_skip_count = TRUE

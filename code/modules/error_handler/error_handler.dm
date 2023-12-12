@@ -41,7 +41,6 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		return ..()
 
 	E.stack_trace_hint = GLOB.stack_trace_hints[E.name] // kinda hardcoding, but we don't want these to be stacked together.
-	GLOB.stack_trace_hints -= E.stack_trace_hint
 	var/erroruid
 	if(E.stack_trace_hint)
 		erroruid = E.stack_trace_hint
