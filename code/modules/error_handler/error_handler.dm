@@ -1,5 +1,6 @@
 GLOBAL_VAR_INIT(total_runtimes, GLOB.total_runtimes || 0)
 GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
+/exception/var/stack_trace_hint
 
 #ifdef USE_CUSTOM_ERROR_HANDLER
 #define ERROR_USEFUL_LEN 2
@@ -39,7 +40,13 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	if(!error_last_seen) // A runtime is occurring too early in start-up initialization
 		return ..()
 
-	var/erroruid = "[E.file][E.line]"
+	E.stack_trace_hint = GLOB.stack_trace_hints[E.name] // kinda hardcoding, but we don't want these to be stacked together.
+	GLOB.stack_trace_hints -= E.stack_trace_hint
+	var/erroruid
+	if(E.stack_trace_hint)
+		erroruid = E.stack_trace_hint
+	else
+		erroruid = "[E.file][E.line]"
 	var/last_seen = error_last_seen[erroruid]
 	var/cooldown = error_cooldown[erroruid] || 0
 
@@ -84,7 +91,10 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 			var/skipcount = abs(error_cooldown[erroruid]) - 1
 			error_cooldown[erroruid] = 0
 			if(skipcount > 0)
-				SEND_TEXT(world.log, "\[[time_stamp()]] Skipped [skipcount] runtimes in [E.file],[E.line].")
+				if(E.stack_trace_hint)
+					SEND_TEXT(world.log, "\[[time_stamp()]] Skipped [skipcount] runtimes in stack_trace [E.stack_trace_hint]: [E.name].")
+				else
+					SEND_TEXT(world.log, "\[[time_stamp()]] Skipped [skipcount] runtimes in [E.file],[E.line].")
 				GLOB.error_cache.log_error(E, skip_count = skipcount)
 
 	error_last_seen[erroruid] = world.time
@@ -121,7 +131,11 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	if(GLOB.error_cache)
 		GLOB.error_cache.log_error(E, desclines)
 
-	var/main_line = "\[[time_stamp()]] Runtime in [E.file],[E.line]: [E]"
+	var/main_line
+	if(E.stack_trace_hint)
+		main_line = "\[[time_stamp()]] Runtime in stack_trace [E.stack_trace_hint]: [E.name]"
+	else
+		main_line = "\[[time_stamp()]] Runtime in [E.file],[E.line]: [E]"
 	SEND_TEXT(world.log, main_line)
 	for(var/line in desclines)
 		SEND_TEXT(world.log, line)

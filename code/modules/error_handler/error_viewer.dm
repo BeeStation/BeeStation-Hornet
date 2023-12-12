@@ -96,7 +96,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		var/datum/error_viewer/error_source/error_source
 		for (var/erroruid in error_sources)
 			error_source = error_sources[erroruid]
-			html += "[error_source.make_link(null, src)]<br>"
+			html += "[error_source.make_link(null, src)] (Len: [length(error_source.errors)])<br>"
 
 	else
 		html += "[make_link("organized", null)] | linear<hr>"
@@ -109,7 +109,11 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	if (!istype(e))
 		return // Abnormal exception, don't even bother
 
-	var/erroruid = "[e.file][e.line]"
+	var/erroruid
+	if(e.stack_trace_hint)
+		erroruid = e.stack_trace_hint
+	else
+		erroruid = "[e.file][e.line]"
 	var/datum/error_viewer/error_source/error_source = error_sources[erroruid]
 	if (!error_source)
 		error_source = new(e)
@@ -144,7 +148,10 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		name = "\[[time_stamp()]] Uncaught exceptions"
 		return
 
-	min_name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>"
+	if(e.stack_trace_hint)
+		min_name = "<b>\[[time_stamp()]]</b> Runtime in stack_trace <b>[e.stack_trace_hint]</b>, <b>[e.name]</b>"
+	else
+		min_name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>"
 	name = min_name + ": <b>[html_encode(e.name)]</b>"
 
 /datum/error_viewer/error_source/show_to(user, datum/error_viewer/back_to, linear)
@@ -171,11 +178,17 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		return
 
 	if(skip_count)
-		name = "\[[time_stamp()]] Skipped [skip_count] runtimes in [e.file],[e.line]."
+		if(e.stack_trace_hint)
+			name = "\[[time_stamp()]] Skipped [skip_count] runtimes in stack_trace [e.stack_trace_hint]: [e.name]."
+		else
+			name = "\[[time_stamp()]] Skipped [skip_count] runtimes in [e.file],[e.line]."
 		is_skip_count = TRUE
 		return
 
-	min_name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>"
+	if(e.stack_trace_hint)
+		min_name = "<b>\[[time_stamp()]]</b> Runtime in stack_trace <b>[e.stack_trace_hint]</b>"
+	else
+		min_name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>"
 	name = min_name + ": <b>[html_encode(e.name)]</b>"
 	exc = e
 	if (istype(desclines))

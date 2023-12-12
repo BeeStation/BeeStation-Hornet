@@ -14,12 +14,12 @@
 /datum/mentors/New(ckey)
 	if(!ckey)
 		QDEL_IN(src, 0)
-		stack_trace("Mentor datum created without a ckey: [ckey]")
+		stack_trace("mentor.dm/1", "Mentor datum created without a ckey: [ckey]")
 		return
 	target = ckey(ckey)
 	if(GLOB.mentor_datums[target])
 		QDEL_IN(src, 0)
-		stack_trace("A second mentor datum was created for [target]!")
+		stack_trace("mentor.dm/2", "A second mentor datum was created for [target]!")
 		return
 	name = "[ckey]'s mentor datum"
 	href_token = GenerateToken()
@@ -33,7 +33,7 @@
 		return
 	var/new_client_ckey = ckey(C.ckey)
 	if(new_client_ckey != target) // what the fuck
-		stack_trace("Invalid client assigned to mentor datum for [target], the new client was [new_client_ckey]")
+		stack_trace("mentor.dm/3", "Invalid client assigned to mentor datum for [target], the new client was [new_client_ckey]")
 		return
 	owner = C
 	owner.mentor_datum = src

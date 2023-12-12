@@ -32,25 +32,25 @@
 	GetExpectedValues(required_values, optional_values)
 	for(var/keyname in json_data)
 		if(required_values[keyname] && optional_values[keyname])
-			stack_trace("Key '[keyname]' found in both required and optional lists. Make sure keys are only in one or the other.")
+			stack_trace("layer.dm/1", "Key '[keyname]' found in both required and optional lists. Make sure keys are only in one or the other.")
 			continue
 		if(!required_values[keyname] && !optional_values[keyname])
-			stack_trace("Unknown key found in json for [src]: '[keyname]'")
+			stack_trace("layer.dm/2", "Unknown key found in json for [src]: '[keyname]'")
 			continue
 		if(!(keyname in vars))
-			stack_trace("[src] expects a value from '[keyname]' but has no var to hold the output.")
+			stack_trace("layer.dm/3", "[src] expects a value from '[keyname]' but has no var to hold the output.")
 			continue
 		var/datum/json_reader/reader = required_values[keyname] || optional_values[keyname]
 		reader = json_readers[reader]
 		if(!reader)
-			stack_trace("[src] has an invalid json reader type '[required_values[keyname]]' for key '[keyname]'.")
+			stack_trace("layer.dm/4", "[src] has an invalid json reader type '[required_values[keyname]]' for key '[keyname]'.")
 			continue
 		vars[keyname] = reader.ReadJson(json_data[keyname])
 
 	// Final check to make sure we got everything we needed
 	for(var/keyname in required_values)
 		if(isnull(json_data[keyname]))
-			stack_trace("[src] is missing required json data key '[keyname]'.")
+			stack_trace("layer.dm/5", "[src] is missing required json data key '[keyname]'.")
 
 /// Gathers information from the layer about what variables are expected in the json.
 /// Override and add to the two argument lists if you want extra information in your layer.

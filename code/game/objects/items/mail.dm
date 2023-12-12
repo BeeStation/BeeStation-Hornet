@@ -346,7 +346,7 @@
 			else //Already set by admins/something else?
 				code = nuke.r_code
 		else
-			stack_trace("Station self-destruct not found during lone op team creation.")
+			stack_trace("mail.dm/1", "Station self-destruct not found during lone op team creation.")
 			code = null
 	add_raw_text("<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]]...'")
 	return ..()

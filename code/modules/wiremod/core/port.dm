@@ -86,7 +86,7 @@
 		type_to_set = PORT_TYPE_ANY
 		handler = GLOB.circuit_datatypes[type_to_set]
 		// We can't leave this port without a type or else it'll just keep spewing out unnecessary and unneeded runtimes as well as leaving the circuit in a broken state.
-		stack_trace("[src] port attempted to be set to an incompatible datatype! (target datatype to set: [type_to_set])")
+		stack_trace("port.dm/set_datatype", "[src] port attempted to be set to an incompatible datatype! (target datatype to set: [type_to_set])")
 
 	datatype = type_to_set
 	datatype_handler = handler
@@ -143,7 +143,7 @@
 	if(value == source)
 		value = null
 	else
-		stack_trace("Impossible? [src] should only receive COMSIG_PARENT_QDELETING from an atom currently in the port, not [source].")
+		stack_trace("port.dm/on_value_qdeleting", "Impossible? [src] should only receive COMSIG_PARENT_QDELETING from an atom currently in the port, not [source].")
 
 /**
  * # Input Port

@@ -107,7 +107,7 @@
 
 		var/image/static_image_to_allocate = inactive_static_images[length(inactive_static_images)]
 		if(!static_image_to_allocate)
-			stack_trace("somehow a camera chunk ran out of static images!")
+			stack_trace("chunk.dm/1", "somehow a camera chunk ran out of static images!")
 			break
 
 		obscuredTurfs[obscured_turf] = static_image_to_allocate

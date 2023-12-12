@@ -40,7 +40,7 @@
 	SIGNAL_HANDLER
 
 	if(source.density)
-		stack_trace("([src]): Atom [source] was given an undertile element, but has become dense! This can lead to invisible walls!")
+		stack_trace("undertile.dm/1", "([src]): Atom [source] was given an undertile element, but has become dense! This can lead to invisible walls!")
 		return //Returning to actually prevent this from happening
 
 	source.invisibility = covered ? invisibility_level : 0

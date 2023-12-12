@@ -35,7 +35,7 @@
 		return
 	var/grid_diameter = sqrt(length(grid))
 	if(nx > grid_diameter || ny > grid_diameter)
-		stack_trace("Attempted to set a position outside the size of [grid_diameter]")
+		stack_trace("space_transition.dm/1", "Attempted to set a position outside the size of [grid_diameter]")
 		qdel(src)
 		return
 	x = nx

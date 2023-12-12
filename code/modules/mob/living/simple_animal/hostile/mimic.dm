@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	if (no_googlies)
 		overlay_googly_eyes = FALSE
 	if(!CopyObject(original, creator, destroy_original))
-		stack_trace("something's wrong to create a mimic. It failed to mimic something - [original].")
+		stack_trace("mimic.dm/1", "something's wrong to create a mimic. It failed to mimic something - [original].")
 
 /mob/living/simple_animal/hostile/mimic/copy/Life()
 	..()

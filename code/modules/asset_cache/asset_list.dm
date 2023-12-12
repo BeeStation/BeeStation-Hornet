@@ -249,7 +249,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		fcopy(size[SPRSZ_ICON], fname)
 		var/error = rustg_dmi_strip_metadata(fname)
 		if(length(error))
-			stack_trace("Failed to strip [name]_[size_id].png: [error]")
+			stack_trace("asset_list.dm/1", "Failed to strip [name]_[size_id].png: [error]")
 		size[SPRSZ_STRIPPED] = icon(fname)
 		fdel(fname)
 
@@ -298,7 +298,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/spritesheet/proc/send_from_cache(client/client)
 	if (isnull(cached_spritesheets_needed))
-		stack_trace("cached_spritesheets_needed was null when sending assets from [type] from cache")
+		stack_trace("asset_list.dm/2", "cached_spritesheets_needed was null when sending assets from [type] from cache")
 		cached_spritesheets_needed = list()
 
 	return SSassets.transport.send_assets(client, cached_spritesheets_needed + "spritesheet_[name].css")

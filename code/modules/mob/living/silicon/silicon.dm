@@ -487,7 +487,7 @@
 	if(stat == DEAD) //Dead silicons log no longer
 		return
 	if(!modularInterface)
-		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
+		stack_trace("silicon.dm/1", "Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 		create_modularInterface()
 	var/mob/living/silicon/robot/robo = modularInterface.borgo
 	if(istype(robo))
@@ -500,6 +500,6 @@
 /mob/living/silicon/fully_replace_character_name(oldname, newname)
 	. = ..()
 	if(!modularInterface)
-		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
+		stack_trace("silicon.dm/2", "Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 		create_modularInterface()
 	modularInterface.saved_identification = newname

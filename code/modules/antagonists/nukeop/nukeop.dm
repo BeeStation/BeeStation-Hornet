@@ -91,7 +91,7 @@
 				if(beernuke.r_code == "ADMIN")
 					beernuke.r_code = nuke_team.memorized_code
 		else
-			stack_trace("Syndicate nuke not found during nuke team creation.")
+			stack_trace("nukeop.dm/1", "Syndicate nuke not found during nuke team creation.")
 			nuke_team.memorized_code = null
 
 /datum/antagonist/nukeop/proc/give_alias()
@@ -148,7 +148,7 @@
 		assign_nuke() //This is bit ugly
 		return
 	if(!istype(new_team))
-		stack_trace("Wrong team type passed to [type] initialization.")
+		stack_trace("nukeop.dm/2", "Wrong team type passed to [type] initialization.")
 	nuke_team = new_team
 
 /datum/antagonist/nukeop/admin_add(datum/mind/new_owner,mob/admin)
@@ -262,7 +262,7 @@
 			else //Already set by admins/something else?
 				nuke_team.memorized_code = nuke.r_code
 		else
-			stack_trace("Station self-destruct not found during lone op team creation.")
+			stack_trace("nukeop.dm/3", "Station self-destruct not found during lone op team creation.")
 			nuke_team.memorized_code = null
 		nuke_team.name = "Lone Operative - [nuke_team.syndicate_name]"
 

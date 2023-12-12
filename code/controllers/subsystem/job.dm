@@ -446,7 +446,7 @@ SUBSYSTEM_DEF(job)
 		if (BEOVERFLOW)
 			var/datum/job/overflow_role_datum = GetJob(overflow_role)
 			if(!istype(overflow_role_datum))
-				stack_trace("Invalid overflow_role set ([overflow_role]), please make sure it matches a valid job datum.")
+				stack_trace("job.dm", "Invalid overflow_role set ([overflow_role]), please make sure it matches a valid job datum.")
 				RejectPlayer(player)
 			else
 				var/allowed_to_be_a_loser = !is_banned_from(player.ckey, overflow_role_datum.title)

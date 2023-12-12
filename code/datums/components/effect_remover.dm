@@ -24,7 +24,7 @@
 		return COMPONENT_INCOMPATIBLE
 
 	if(!effects_we_clear)
-		stack_trace("[type] was instantiated without any valid removable effects!")
+		stack_trace("effect_remover.dm/1", "[type] was instantiated without any valid removable effects!")
 		return COMPONENT_INCOMPATIBLE
 
 	src.success_feedback = success_feedback

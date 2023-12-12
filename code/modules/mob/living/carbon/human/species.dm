@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		base += species_id
 		no_hard_check -= species_id
 	for(var/species_id in no_hard_check) // warn any invalid species in the config.
-		stack_trace("WARNING: roundstart_no_hard_check contains invalid species ID: [species_id]")
+		stack_trace("species.dm/1", "WARNING: roundstart_no_hard_check contains invalid species ID: [species_id]")
 	return base
 
 /datum/species/proc/check_roundstart_eligible()
@@ -2327,7 +2327,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/get_species_description()
 	SHOULD_CALL_PARENT(FALSE)
 
-	stack_trace("Species [name] ([type]) did not have a description set, and is a selectable roundstart race! Override get_species_description.")
+	stack_trace("species.dm/2", "Species [name] ([type]) did not have a description set, and is a selectable roundstart race! Override get_species_description.")
 	return "No species description set, file a bug report!"
 
 /**
@@ -2341,7 +2341,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SHOULD_CALL_PARENT(FALSE)
 	RETURN_TYPE(/list)
 
-	stack_trace("Species [name] ([type]) did not have lore set, and is a selectable roundstart race! Override get_species_lore.")
+	stack_trace("species.dm/3", "Species [name] ([type]) did not have lore set, and is a selectable roundstart race! Override get_species_lore.")
 	return list("No species lore set, file a bug report!")
 
 /**
@@ -2411,7 +2411,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// If we find a perk that isn't postiive, negative, or neutral,
 		// it's a bad entry - don't add it to our list. Throw a stack trace and skip it instead.
 		if(isnull(perks_to_return[perk_type]))
-			stack_trace("Invalid species perk ([perk[SPECIES_PERK_NAME]]) found for species [name]. \
+			stack_trace("species.dm/4", "Invalid species perk ([perk[SPECIES_PERK_NAME]]) found for species [name]. \
 				The type should be positive, negative, or neutral. (Got: [perk_type])")
 			continue
 

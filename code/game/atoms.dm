@@ -207,7 +207,7 @@
   */
 /atom/proc/Initialize(mapload, ...)
 	if(flags_1 & INITIALIZED_1)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
+		stack_trace("atoms.dm/Init", "Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
 	if(loc)
@@ -1511,7 +1511,7 @@
 		if(LOG_SPEECH_INDICATORS)
 			log_speech_indicators(log_text)
 		else
-			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
+			stack_trace("atoms.dm/log_message", "Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
 
 /// Helper for logging chat messages or other logs with arbitrary inputs (e.g. announcements)
@@ -1523,7 +1523,7 @@
 /// Helper for logging of messages with only one sender and receiver
 /proc/log_directed_talk(atom/source, atom/target, message, message_type, tag)
 	if(!tag)
-		stack_trace("Unspecified tag for private message")
+		stack_trace("atoms.dm/log_directed_talk", "Unspecified tag for private message")
 		tag = "UNKNOWN"
 
 	source.log_talk(message, message_type, tag="[tag] to [key_name(target)]")

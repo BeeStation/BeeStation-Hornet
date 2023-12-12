@@ -52,7 +52,7 @@
 	else if (!armour_val)
 		return
 	else if (!istype(armour_val, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+		stack_trace("turf_integrity.dm/1", "Invalid type [armor.type] found in .armor during /obj Initialize()")
 	else
 		armor = armour_val
 

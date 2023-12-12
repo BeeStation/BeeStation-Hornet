@@ -52,20 +52,20 @@
 		// create pre-defined vials first and insert it into sleeper
 		for (var/each_vial in roundstart_vials)
 			if(created_vials >= max_vials)
-				stack_trace("Sleeper attempts to create roundstart chems more than [max_vials]")
+				stack_trace("sleeper.dm/1", "Sleeper attempts to create roundstart chems more than [max_vials]")
 				break
 			if(!ispath(each_vial, /obj/item/reagent_containers))
-				stack_trace("Sleeper attempts to create weird item inside of it: [each_vial]")
+				stack_trace("sleeper.dm/2", "Sleeper attempts to create weird item inside of it: [each_vial]")
 				continue
 			inserted_vials += new each_vial
 			created_vials++
 		// and then chemical bag with a single chem will go into sleeper
 		for (var/each_chem in roundstart_chems)
 			if(created_vials >= max_vials)
-				stack_trace("Sleeper attempts to create roundstart chems more than [max_vials]")
+				stack_trace("sleeper.dm/3", "Sleeper attempts to create roundstart chems more than [max_vials]")
 				break
 			if(!ispath(each_chem, /datum/reagent))
-				stack_trace("Sleeper attempts to create not-chemical inside of it: [each_chem]")
+				stack_trace("sleeper.dm/4", "Sleeper attempts to create not-chemical inside of it: [each_chem]")
 				continue
 			var/obj/item/reagent_containers/chem_bag/beaker = new(null)
 			beaker.reagents.add_reagent(each_chem, roundstart_chems[each_chem])

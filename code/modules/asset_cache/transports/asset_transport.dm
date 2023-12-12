@@ -49,7 +49,7 @@
 		OACI.namespace = OACI.namespace || ACI.namespace
 		if (OACI.hash != ACI.hash)
 			var/error_msg = "ERROR: new asset added to the asset cache with the same name as another asset: [asset_name] existing asset hash: [OACI.hash] new asset hash:[ACI.hash]"
-			stack_trace(error_msg)
+			stack_trace("asset_transport.dm/1", error_msg)
 			log_asset(error_msg)
 		else
 			if (length(ACI.namespace))

@@ -66,7 +66,7 @@
 
 	var/atom/movable/movable_parent = parent
 	if(movable_parent.light_system != MOVABLE_LIGHT)
-		stack_trace("[type] added to [parent], with [movable_parent.light_system] value for the light_system var. Use [MOVABLE_LIGHT] instead.")
+		stack_trace("overlay_lighting.dm/1", "[type] added to [parent], with [movable_parent.light_system] value for the light_system var. Use [MOVABLE_LIGHT] instead.")
 		return COMPONENT_INCOMPATIBLE
 
 	. = ..()

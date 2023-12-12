@@ -42,7 +42,7 @@
 		hunter_team.forge_team_objectives()
 		return
 	if(!istype(new_team))
-		stack_trace("Wrong team type passed to [type] initialization.")
+		stack_trace("hunter.dm/1", "Wrong team type passed to [type] initialization.")
 	hunter_team = new_team
 
 /datum/antagonist/fugitive_hunter/get_team()

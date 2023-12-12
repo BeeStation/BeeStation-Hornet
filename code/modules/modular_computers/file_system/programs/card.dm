@@ -219,7 +219,7 @@
 					jobdatum = SSjob.GetJob(target)
 					if(!jobdatum)
 						to_chat(usr, "<span class='warning'>No log exists for this job.</span>")
-						stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
+						stack_trace("card.dm/1", "bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
 						playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 						return
 

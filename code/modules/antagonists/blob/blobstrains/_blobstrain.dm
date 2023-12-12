@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 
 /datum/blobstrain/New(mob/camera/blob/new_overmind)
 	if (!istype(new_overmind))
-		stack_trace("blobstrain created without overmind")
+		stack_trace("blobstrain.dm/1", "blobstrain created without overmind")
 	overmind = new_overmind
 
 /datum/blobstrain/Destroy()

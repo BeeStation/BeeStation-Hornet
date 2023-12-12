@@ -126,13 +126,13 @@
 
 /turf/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = COLOR_WHITE, _duration = FLASH_LIGHT_DURATION)
 	if(!_duration)
-		stack_trace("Lighting FX obj created on a turf without a duration")
+		stack_trace("lighting_atom.dm/1", "Lighting FX obj created on a turf without a duration")
 	new /obj/effect/dummy/lighting_obj (src, _range, _power, _color, _duration)
 
 
 /obj/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = COLOR_WHITE, _duration = FLASH_LIGHT_DURATION)
 	if(!_duration)
-		stack_trace("Lighting FX obj created on a obj without a duration")
+		stack_trace("lighting_atom.dm/2", "Lighting FX obj created on a obj without a duration")
 	new /obj/effect/dummy/lighting_obj (get_turf(src), _range, _power, _color, _duration)
 
 

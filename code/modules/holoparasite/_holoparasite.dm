@@ -102,13 +102,13 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 /mob/living/simple_animal/hostile/holoparasite/Initialize(_mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
 	. = ..()
 	if(!istype(_summoner))
-		stack_trace("Holoparasite initialized without a valid summoner!")
+		stack_trace("holoparasite.dm/Init1", "Holoparasite initialized without a valid summoner!")
 		return INITIALIZE_HINT_QDEL
 	if(!istype(_stats))
-		stack_trace("Holoparasite initialized without valid stats!")
+		stack_trace("holoparasite.dm/Init2", "Holoparasite initialized without valid stats!")
 		return INITIALIZE_HINT_QDEL
 	if(!istype(_theme))
-		stack_trace("Holoparasite initialized without a valid theme!")
+		stack_trace("holoparasite.dm/Init3", "Holoparasite initialized without a valid theme!")
 		return INITIALIZE_HINT_QDEL
 	GLOB.holoparasites += src
 	set_accent_color(_accent_color || pick(GLOB.color_list_rainbow), silent = TRUE)

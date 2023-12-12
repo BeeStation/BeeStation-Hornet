@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /// gets team name for orbit category. Reasoning is described in each subtype
 /datum/team/proc/get_team_name()
 	if(name == "team")
-		stack_trace("[type] has no team name")
+		stack_trace("antag_team.dm/1", "[type] has no team name")
 		return "Unnamed team"
 	return name
 

@@ -160,7 +160,7 @@
 					tgt_color = COLOR_PERSON_UNKNOWN
 			else
 				if(!target.chat_color)		//extreme case - mob doesn't have set color
-					stack_trace("Error: Mob did not have a chat_color. The only way this can happen is if you set it to null purposely in the thing. Don't do that please.")
+					stack_trace("chatmessage.dm/1", "Error: Mob did not have a chat_color. The only way this can happen is if you set it to null purposely in the thing. Don't do that please.")
 					target.chat_color = colorize_string(target.name)
 					target.chat_color_name = target.name
 				tgt_color = target.chat_color
@@ -486,7 +486,7 @@
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
-		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
+		stack_trace("chatmessage.dm/2", "/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
 	//handle color

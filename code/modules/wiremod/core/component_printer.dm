@@ -136,7 +136,7 @@
 		var/list/errors = list()
 		circuit.load_circuit_data(design["dupe_data"], errors)
 		if(length(errors))
-			stack_trace("Error loading user saved circuit [errors.Join(", ")].")
+			stack_trace("component_printer.dm/1", "Error loading user saved circuit [errors.Join(", ")].")
 		created_atom = circuit
 	else
 		var/obj/item/circuit_component/module/module = new(drop_location())

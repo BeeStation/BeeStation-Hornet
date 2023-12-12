@@ -446,7 +446,7 @@
 	if(move_stacks > 0) //we want only the first Moved() call in the stack to send this signal, all the other ones have an incorrect old_loc
 		return
 	if(move_stacks < 0)
-		stack_trace("move_stacks is negative in Moved()!")
+		stack_trace("atoms_movable.dm/1", "move_stacks is negative in Moved()!")
 		move_stacks = 0 //setting it to 0 so that we dont get every movable with negative move_stacks runtiming on every movement
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)

@@ -224,7 +224,7 @@
 		else
 			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
 			ghostize()
-			stack_trace("Borg MMI lacked a brainmob")
+			stack_trace("robot.dm/1", "Borg MMI lacked a brainmob")
 		mmi = null
 	if(modularInterface)
 		QDEL_NULL(modularInterface)
@@ -554,7 +554,7 @@
 			to_chat(user, "<span class='notice'>You replace the headlamp bulbs.</span>")
 	else if(istype(W, /obj/item/computer_hardware/hard_drive/portable)) //Allows borgs to install new programs with human help
 		if(!modularInterface)
-			stack_trace("Cyborg [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
+			stack_trace("robot.dm/2", "Cyborg [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 			create_modularInterface()
 		var/obj/item/computer_hardware/hard_drive/portable/floppy = W
 		if(modularInterface.install_component(floppy, user))

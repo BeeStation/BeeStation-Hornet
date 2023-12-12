@@ -41,7 +41,7 @@
 	if(!new_team)
 		return
 	if(!istype(new_team))
-		stack_trace("Wrong team type passed to [type] initialization.")
+		stack_trace("wizard.dm/1", "Wrong team type passed to [type] initialization.")
 	wiz_team = new_team
 
 /datum/antagonist/wizard/get_team()

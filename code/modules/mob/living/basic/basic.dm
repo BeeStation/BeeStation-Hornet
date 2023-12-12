@@ -97,7 +97,7 @@
 		real_name = name
 
 	if(!loc)
-		stack_trace("Basic mob being instantiated in nullspace")
+		stack_trace("mob/living/basic/Init", "Basic mob being instantiated in nullspace")
 
 	update_basic_mob_varspeed()
 

@@ -94,7 +94,7 @@
 
 /atom/movable/openspace/multiplier/Destroy(force)
 	if(!force)
-		stack_trace("Turf shadower improperly qdel'd.")
+		stack_trace("mimic_movable.dm/1", "Turf shadower improperly qdel'd.")
 		return QDEL_HINT_LETMELIVE
 	var/turf/myturf = loc
 	if (istype(myturf))

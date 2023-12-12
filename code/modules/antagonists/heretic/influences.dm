@@ -23,7 +23,7 @@
 
 /datum/reality_smash_tracker/Destroy(force, ...)
 	if(GLOB.reality_smash_track == src)
-		stack_trace("[type] was deleted. Heretics may no longer access any influences. Fix it, or call coder support.")
+		stack_trace("influences.dm/1", "[type] was deleted. Heretics may no longer access any influences. Fix it, or call coder support.")
 		message_admins("The [type] was deleted. Heretics may no longer access any influences. Fix it, or call coder support.")
 	QDEL_LIST(smashes)
 	tracked_heretics.Cut()
@@ -39,7 +39,7 @@
 
 	for(var/mind in tracked_heretics)
 		if(isnull(mind))
-			stack_trace("A null somehow landed in the [type] list of minds. How?")
+			stack_trace("influences.dm/2", "A null somehow landed in the [type] list of minds. How?")
 			tracked_heretics -= mind
 			continue
 

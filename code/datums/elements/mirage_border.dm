@@ -8,7 +8,7 @@
 	// This is a highly used proc, and these error states never occur, so limit it to testing.
 	// If something goes wrong it will runtime anyway.
 	if(!target_turf || !istype(target_turf) || !direction)
-		stack_trace("[type] improperly attached with the following args: target=\[[target_turf]\], direction=\[[direction]\], range=\[[range]\]")
+		stack_trace("mirage_border.dm/1", "[type] improperly attached with the following args: target=\[[target_turf]\], direction=\[[direction]\], range=\[[range]\]")
 		return ELEMENT_INCOMPATIBLE
 	#endif
 

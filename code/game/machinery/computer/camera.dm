@@ -195,7 +195,7 @@
 		if((is_away_level(z) || is_away_level(cam.z)) && (cam.get_virtual_z_level() != get_virtual_z_level()))//if on away mission, can only receive feed from same z_level cameras
 			continue
 		if(!islist(cam.network))
-			stack_trace("Camera in a cameranet has invaid camera network")
+			stack_trace("camera.dm/1", "Camera in a cameranet has invaid camera network")
 			continue
 		if(!length(cam.network & network))
 			continue

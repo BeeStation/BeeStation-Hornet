@@ -106,7 +106,7 @@
 	if(!real_name)
 		real_name = name
 	if(!loc)
-		stack_trace("Simple animal being instantiated in nullspace")
+		stack_trace("simple_animal.dm/Init", "Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
 
 /mob/living/simple_animal/ComponentInitialize()
@@ -628,7 +628,7 @@
 			GLOB.simple_animals[togglestatus] += src
 			AIStatus = togglestatus
 		else
-			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+			stack_trace("simple_animal.dm/1", "Something attempted to set simple animals AI to an invalid state: [togglestatus]")
 
 /mob/living/simple_animal/proc/get_discovery_id()
 	return type

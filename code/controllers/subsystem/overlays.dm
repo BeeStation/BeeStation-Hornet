@@ -55,7 +55,7 @@ SUBSYSTEM_DEF(overlays)
 		if(length(atom_to_compile.overlays) >= MAX_ATOM_OVERLAYS)
 			//Break it real GOOD
 			var/text_lays = overlays2text(atom_to_compile.overlays)
-			stack_trace("Too many overlays on [atom_to_compile.type] - [length(atom_to_compile.overlays)], refusing to update and cutting.\
+			stack_trace("overlays.dm", "Too many overlays on [atom_to_compile.type] - [length(atom_to_compile.overlays)], refusing to update and cutting.\
 				\n What follows is a printout of all existing overlays at the time of the overflow \n[text_lays]")
 			atom_to_compile.overlays.Cut()
 			//Let them know they fucked up

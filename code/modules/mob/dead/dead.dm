@@ -9,7 +9,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 /mob/dead/Initialize(mapload)
 	if(flags_1 & INITIALIZED_1)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
+		stack_trace("dead.dm/Init", "Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 	tag = "mob_[next_mob_id++]"
 	add_to_mob_list()

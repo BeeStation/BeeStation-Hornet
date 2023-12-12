@@ -212,18 +212,18 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	for(var/mob/living/carbon/human/tracked_human as () in GLOB.suit_sensors_list)
 		if(!tracked_human)
-			stack_trace("Null reference in suit sensors list")
+			stack_trace("crew.dm/1", "Null reference in suit sensors list")
 			GLOB.suit_sensors_list -= tracked_human
 			continue
 
 		var/turf/pos = get_turf(tracked_human)
 		if(!pos)
-			stack_trace("Tracked mob has no loc and is likely in nullspace: [tracked_human] ([tracked_human.type])")
+			stack_trace("crew.dm/2", "Tracked mob has no loc and is likely in nullspace: [tracked_human] ([tracked_human.type])")
 			continue
 
 		// Check their humanity.
 		if(!ishuman(tracked_human))
-			stack_trace("Non-human mob is in suit_sensors_list: [tracked_human] ([tracked_human.type])")
+			stack_trace("crew.dm/3", "Non-human mob is in suit_sensors_list: [tracked_human] ([tracked_human.type])")
 			continue
 
 		var/virtual_z_level = tracked_human.get_virtual_z_level()
@@ -241,12 +241,12 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		var/obj/item/clothing/under/uniform = tracked_human.w_uniform
 
 		if (!nanite_sensors && !istype(uniform))
-			stack_trace("Human without a suit sensors compatible uniform is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform?.type])")
+			stack_trace("crew.dm/4", "Human without a suit sensors compatible uniform is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform?.type])")
 			continue
 
 		// Are the suit sensors on?
 		if (!nanite_sensors && (uniform?.has_sensor <= NO_SENSORS || !uniform?.sensor_mode))
-			stack_trace("Human without active nanite and suit sensors is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform.type])")
+			stack_trace("crew.dm/5", "Human without active nanite and suit sensors is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform.type])")
 			continue
 
 		// Radio transmitters are jammed

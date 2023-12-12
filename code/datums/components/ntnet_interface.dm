@@ -15,7 +15,7 @@
 	var/datum/netdata/data = packet_data
 	if(!istype(data)) // construct netdata from list()
 		if(!islist(packet_data))
-			stack_trace("ntnet_send: Bad packet creation") // hard fail as its runtime fault
+			stack_trace("ntnet_interface.dm/1", "ntnet_send: Bad packet creation") // hard fail as its runtime fault
 			return
 		data = new(packet_data)
 		data.receiver_id = target_id
@@ -91,10 +91,10 @@
  */
 /datum/component/ntnet_interface/proc/register_port(port, list/data)
 	if(!port || !length(data))
-		stack_trace("port is null or data is empty")
+		stack_trace("ntnet_interface.dm/2", "port is null or data is empty")
 		return
 	if(registered_sockets[port])
-		stack_trace("port already regestered")
+		stack_trace("ntnet_interface.dm/3", "port already regestered")
 		return
 	data["_updated"] = FALSE
 	registered_sockets[port] = data

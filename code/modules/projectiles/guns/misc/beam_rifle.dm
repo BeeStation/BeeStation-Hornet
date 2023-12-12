@@ -341,7 +341,7 @@
 /obj/item/ammo_casing/energy/beam_rifle/proc/sync_stats()
 	var/obj/item/gun/energy/beam_rifle/BR = loc
 	if(!istype(BR))
-		stack_trace("Beam rifle syncing error")
+		stack_trace("beam_rifle.dm/1", "Beam rifle syncing error")
 	host = BR
 	do_pierce = BR.projectile_setting_pierce
 	wall_pierce_amount = BR.wall_pierce_amount

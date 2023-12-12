@@ -329,7 +329,7 @@
 		WARNING("gain_trauma was given an already active trauma.")
 		return
 	if(QDELETED(actual_trauma)) // hypnosis might qdel on New, causing problems
-		stack_trace("brain_gain_trauma tried to add qdeleted trauma.")
+		stack_trace("brain_item.dm/1", "brain_gain_trauma tried to add qdeleted trauma.")
 		return
 
 	traumas += actual_trauma

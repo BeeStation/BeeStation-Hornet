@@ -739,7 +739,7 @@
 		swarm.gain_objectives()
 		return
 	if(!istype(new_team))
-		stack_trace("Wrong team type passed to [type] initialization.")
+		stack_trace("swarmer.dm/1", "Wrong team type passed to [type] initialization.")
 	swarm = new_team
 
 /datum/team/swarmer/proc/gain_objectives()

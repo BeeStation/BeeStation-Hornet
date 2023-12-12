@@ -527,7 +527,7 @@
  */
 /datum/antagonist/heretic/proc/gain_knowledge(datum/heretic_knowledge/knowledge_type)
 	if(!ispath(knowledge_type))
-		stack_trace("[type] gain_knowledge was given an invalid path! (Got: [knowledge_type])")
+		stack_trace("heretic_antag.dm/1", "[type] gain_knowledge was given an invalid path! (Got: [knowledge_type])")
 		return FALSE
 	if(get_knowledge(knowledge_type))
 		return FALSE

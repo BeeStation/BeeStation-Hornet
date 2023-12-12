@@ -373,7 +373,7 @@
 	if(!persistence_id || !current_canvas || current_canvas.no_save)
 		return
 	if(SANITIZE_FILENAME(persistence_id) != persistence_id)
-		stack_trace("Invalid persistence_id - [persistence_id]")
+		stack_trace("artstuff.dm/1", "Invalid persistence_id - [persistence_id]")
 		return
 	if(!current_canvas.painting_name)
 		current_canvas.painting_name = "Untitled Artwork"

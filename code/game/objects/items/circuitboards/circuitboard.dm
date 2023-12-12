@@ -18,7 +18,7 @@
 /obj/item/circuitboard/proc/apply_default_parts(obj/machinery/M)
 	if(LAZYLEN(M.component_parts))
 		// This really shouldn't happen. If it somehow does, print out a stack trace and gracefully handle it.
-		stack_trace("apply_defauly_parts called on machine that already had component_parts: [M]")
+		stack_trace("circuitboard.dm/1", "apply_defauly_parts called on machine that already had component_parts: [M]")
 
 		// Move to nullspace so you don't trigger handle_atom_del logic and remove existing parts.
 		for(var/obj/item/part in M.component_parts)
@@ -31,7 +31,7 @@
 
 	if(M.circuit != src)
 		// This really shouldn't happen. If it somehow does, print out a stack trace and gracefully handle it.
-		stack_trace("apply_default_parts called from a circuit board that does not belong to machine: [M]")
+		stack_trace("circuitboard.dm/2", "apply_default_parts called from a circuit board that does not belong to machine: [M]")
 
 		// Move to nullspace so you don't trigger handle_atom_del logic, remove old circuit, add new circuit.
 		M.circuit.moveToNullspace()

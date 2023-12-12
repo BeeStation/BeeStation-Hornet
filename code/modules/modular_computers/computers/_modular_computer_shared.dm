@@ -10,7 +10,7 @@
 
 /obj/item/modular_computer/get_modular_computer_part(part_type)
 	if(!part_type)
-		stack_trace("get_modular_computer_part() called without a valid part_type")
+		stack_trace("_modular_computer_shared.dm/1", "get_modular_computer_part() called without a valid part_type")
 		return null
 	return all_components[part_type]
 
@@ -20,7 +20,7 @@
 
 /obj/machinery/modular_computer/get_modular_computer_part(part_type)
 	if(!part_type)
-		stack_trace("get_modular_computer_part() called without a valid part_type")
+		stack_trace("_modular_computer_shared.dm/2", "get_modular_computer_part() called without a valid part_type")
 		return null
 	return cpu?.all_components[part_type]
 

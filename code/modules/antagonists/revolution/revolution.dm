@@ -68,7 +68,7 @@
 		rev_team.update_heads()
 		return
 	if(!istype(new_team))
-		stack_trace("Wrong team type passed to [type] initialization.")
+		stack_trace("revolution.dm/1", "Wrong team type passed to [type] initialization.")
 	rev_team = new_team
 
 /datum/antagonist/rev/get_team()

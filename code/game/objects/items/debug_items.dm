@@ -94,6 +94,11 @@
 /obj/item/debug/omnitool/examine()
 	. = ..()
 	. += " The mode is: [tool_behaviour]"
+	stack_trace("Debug-thing", "current world time: [world.time]")
+	stack_trace("no unique hint case")
+	stack_trace("another thing", "This is working well!")
+	stack_trace("another thing", "Even if the name is different!")
+	stack_trace("hello world", "This is fine totally")
 
 /obj/item/debug/omnitool/pre_attack(atom/A, mob/living/user, params)
 	switch(tool_behaviour)

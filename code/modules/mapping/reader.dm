@@ -652,7 +652,7 @@ GLOBAL_LIST_EMPTY(map_model_default)
 					if(editing) // it was the end of an area edit (shouldn't do those anyhow)
 						editing = FALSE
 						continue
-					stack_trace("ended a line on JUST a }, with no ongoing edit. What? Area shit?")
+					stack_trace("reader.dm/1", "ended a line on JUST a }, with no ongoing edit. What? Area shit?")
 				else // If we're editing, this is a var edit entry. the last one in a stack, cause god hates me. Otherwise, it's an area
 					if(editing) // I want inline I want inline I want inline
 						// Var edits look like \tname = value;

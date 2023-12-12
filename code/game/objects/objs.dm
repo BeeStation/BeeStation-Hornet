@@ -72,7 +72,7 @@
 	else if (!armor)
 		armor = getArmor()
 	else if (!istype(armor, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+		stack_trace("objs.dm/1", "Invalid type [armor.type] found in .armor during /obj Initialize()")
 
 	if(obj_integrity == null)
 		obj_integrity = max_integrity

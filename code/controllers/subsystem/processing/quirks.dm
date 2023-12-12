@@ -50,7 +50,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			user.add_quirk(Q, spawn_effects)
 			bad_quirk_checker += initial(Q.value)
 		else
-			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences. the game has reset their quirks automatically.")
+			stack_trace("quirks.dm/1", "Invalid quirk \"[V]\" in client [cli.ckey] preferences. the game has reset their quirks automatically.")
 			bad_quirks += V
 	if(bad_quirk_checker > 0 || length(bad_quirks)) // negative & zero value = calculation good / positive quirk value = something's wrong
 		cli.prefs.all_quirks = list()

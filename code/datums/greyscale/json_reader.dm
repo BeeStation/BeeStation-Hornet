@@ -25,7 +25,7 @@
 		var/new_value = text2num(number_string)
 		if(!isnum(new_value))
 			if(!istext(number_string) || number_string[1] != "#")
-				stack_trace("Expected list to only contain numbers or colors but got '[number_string]'")
+				stack_trace("json_reader.dm/1", "Expected list to only contain numbers or colors but got '[number_string]'")
 				continue
 			new_value = number_string
 		new_values += new_value
@@ -40,12 +40,12 @@
 	for(var/list/row in value)
 		var/list/interpreted_row = list()
 		if(!istype(row) || length(row) != 4)
-			stack_trace("Expected list to contain further row lists with exactly 4 entries")
+			stack_trace("json_reader.dm/2", "Expected list to contain further row lists with exactly 4 entries")
 			interpreted_row = list(0, 0, 0, 0)
 			continue
 		for(var/number in row)
 			if(!isnum(number))
-				stack_trace("Each color matrix row must only contain numbers")
+				stack_trace("json_reader.dm/3", "Each color matrix row must only contain numbers")
 				interpreted_row += 0
 			else
 				interpreted_row += number

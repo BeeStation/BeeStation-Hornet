@@ -10,10 +10,10 @@
 	for(var/i in archdrops)
 		if(isnull(archdrops[i][ARCH_MAXDROP]))
 			archdrops[i][ARCH_MAXDROP] = 1
-			stack_trace("ARCHAEOLOGY WARNING: [parent] contained a null max_drop value in [i].")
+			stack_trace("archaeology.dm/1", "ARCHAEOLOGY WARNING: [parent] contained a null max_drop value in [i].")
 		if(isnull(archdrops[i][ARCH_PROB]))
 			archdrops[i][ARCH_PROB] = 100
-			stack_trace("ARCHAEOLOGY WARNING: [parent] contained a null probability value in [i].")
+			stack_trace("archaeology.dm/2", "ARCHAEOLOGY WARNING: [parent] contained a null probability value in [i].")
 	callback = _callback
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(Dig))
 	RegisterSignal(parent, COMSIG_ATOM_EX_ACT, PROC_REF(BombDig))

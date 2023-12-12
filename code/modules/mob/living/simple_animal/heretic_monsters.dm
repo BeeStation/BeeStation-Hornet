@@ -191,7 +191,7 @@
 /mob/living/simple_animal/hostile/heretic_summon/armsy/Initialize(mapload, spawn_bodyparts = TRUE, worm_length = 6)
 	. = ..()
 	if(worm_length < 3)
-		stack_trace("[type] created with invalid len ([worm_length]). Reverting to 3.")
+		stack_trace("heretic_monsters.dm/1", "[type] created with invalid len ([worm_length]). Reverting to 3.")
 		worm_length = 3 //code breaks below 3, let's just not allow it.
 
 	oldloc = loc

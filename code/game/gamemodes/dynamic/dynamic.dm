@@ -449,7 +449,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			if(configuration["Dynamic"])
 				for(var/variable in configuration["Dynamic"])
 					if(!vars[variable])
-						stack_trace("Invalid dynamic configuration variable [variable] in game mode variable changes.")
+						stack_trace("dynamic.dm/1", "Invalid dynamic configuration variable [variable] in game mode variable changes.")
 						continue
 					vars[variable] = configuration["Dynamic"][variable]
 
@@ -570,7 +570,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 		var/cost = (ruleset in rulesets_picked) ? ruleset.scaling_cost : ruleset.cost
 		if (cost == 0)
-			stack_trace("[ruleset] cost 0, this is going to result in an infinite loop.")
+			stack_trace("dynamic.dm/2", "[ruleset] cost 0, this is going to result in an infinite loop.")
 			drafted_rules[ruleset] = null
 			continue
 
@@ -621,7 +621,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		executed_rules += ruleset
 		return ruleset.cost + added_threat
 	else
-		stack_trace("The starting rule \"[ruleset.name]\" failed to pre_execute.")
+		stack_trace("dynamic.dm/3", "The starting rule \"[ruleset.name]\" failed to pre_execute.")
 	return 0
 
 /// Mainly here to facilitate delayed rulesets. All roundstart rulesets are executed with a timered callback to this proc.
@@ -770,7 +770,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/rule_conf = LAZYACCESSASSOC(configuration, ruleset.ruletype, ruleset.name)
 	for(var/variable in rule_conf)
 		if(!(variable in ruleset.vars))
-			stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name].")
+			stack_trace("dynamic.dm/4", "Invalid dynamic configuration variable [variable] in [ruleset.ruletype] [ruleset.name].")
 			continue
 		ruleset.vars[variable] = rule_conf[variable]
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))

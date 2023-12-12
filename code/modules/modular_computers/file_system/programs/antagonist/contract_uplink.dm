@@ -161,7 +161,7 @@
 
 		for (var/datum/syndicate_contract/contract in traitor_data.contractor_hub.assigned_contracts)
 			if(!contract.contract)
-				stack_trace("Syndiate contract with null contract objective found in [traitor_data.owner]'s contractor hub!")
+				stack_trace("contract_uplink.dm/1", "Syndiate contract with null contract objective found in [traitor_data.owner]'s contractor hub!")
 				contract.status = CONTRACT_STATUS_ABORTED
 				continue
 			data["contracts"] += list(list(

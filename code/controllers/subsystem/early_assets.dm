@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(early_assets)
 			continue
 
 		if (!get_asset_datum(asset_type))
-			stack_trace("Could not initialize early asset [asset_type]!")
+			stack_trace("early_assets.dm", "Could not initialize early asset [asset_type]!")
 
 		CHECK_TICK
 

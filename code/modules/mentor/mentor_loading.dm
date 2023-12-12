@@ -49,7 +49,7 @@
 		var/raw_ckey = query_load_mentors.item[2]
 		var/ckey = ckey(raw_ckey)
 		if(!ckey)
-			stack_trace("Invalid mentor row in database with null ckey with id: [id] and raw data: [raw_ckey]")
+			stack_trace("mentor_loading.dm/1", "Invalid mentor row in database with null ckey with id: [id] and raw data: [raw_ckey]")
 			continue
 		new /datum/mentors(ckey)
 	qdel(query_load_mentors)

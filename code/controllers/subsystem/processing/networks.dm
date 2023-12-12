@@ -352,7 +352,7 @@ SUBSYSTEM_DEF(networks)
 	ASSERT(tree && tree.len > 0) // this should be obvious but JUST in case.
 	for(var/part in tree)
 		if(!verify_network_name(part) || findtext(name,".")!=0) // and no stray dots
-			stack_trace("network_list_to_string: Cannot create network with ([part]) of ([tree.Join(".")])")
+			stack_trace("networks.dm/1", "network_list_to_string: Cannot create network with ([part]) of ([tree.Join(".")])")
 			break
 #endif
 	return tree.Join(".")
@@ -370,7 +370,7 @@ SUBSYSTEM_DEF(networks)
 /datum/controller/subsystem/networks/proc/network_string_to_list(name)
 #ifdef DEBUG_NETWORKS
 	if(!verify_network_name(name))
-		stack_trace("network_string_to_list: [name] IS INVALID")
+		stack_trace("networks.dm/2", "network_string_to_list: [name] IS INVALID")
 #endif
 	return splittext(name,".") // should we do a splittext_char?  I doubt we really need unicode in network names
 
@@ -466,7 +466,7 @@ SUBSYSTEM_DEF(networks)
 #ifdef DEBUG_NETWORKS
 		if(!part || !istext(part))
 			/// stack trace here because this is a bad error
-			stack_trace("create_network: We only take text on [part] index [i]")
+			stack_trace("networks.dm/3", "create_network: We only take text on [part] index [i]")
 			return null
 #endif
 		network_tree += network_string_to_list(part)
