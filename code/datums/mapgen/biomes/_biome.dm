@@ -10,6 +10,9 @@
 	var/list/flora_types = list(/obj/structure/flora/grass/jungle)
 	///list of type paths of mobs that can be spawned when the turf spawns fauna
 	var/list/fauna_types = list()
+	///X and Y maximum pixel offsets posative and negative of flora
+	var/flora_x_offset 0,
+	var/flora_y_offset 0
 
 ///This proc handles the creation of a turf of a specific biome type
 /datum/biome/proc/generate_turf(var/turf/gen_turf)
@@ -20,6 +23,8 @@
 
 	if(length(flora_types) && prob(flora_density))
 		var/obj/structure/flora = pick(flora_types)
+		flora.pixel_x += rand(-flora_x_offset, flora_x_offset)
+		flora.pixel_y += rand(-flora_y_offset, flora_y_offset)
 		new flora(gen_turf)
 
 //jungle
