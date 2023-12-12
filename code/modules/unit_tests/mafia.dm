@@ -13,7 +13,7 @@
 	TEST_ASSERT(controller, "No Mafia game was found, nor was it able to be created properly.")
 
 	//spawn human and give them a laptop.
-	var/mob/living/carbon/human/consistent/living_player = allocate(/mob/living/carbon/human/consistent)
+	var/mob/living/carbon/human/living_player = allocate(/mob/living/carbon/human)
 	var/obj/item/modular_computer/laptop/preset/mafia/modpc_player = allocate(/obj/item/modular_computer/laptop/preset/mafia)
 	living_player.put_in_active_hand(modpc_player, TRUE)
 
