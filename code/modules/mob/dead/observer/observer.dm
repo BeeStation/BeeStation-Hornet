@@ -232,7 +232,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		if(facial_hair_style)
 			S = GLOB.facial_hair_styles_list[facial_hair_style]
 			if(S)
-				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", -HAIR_LAYER)
+				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(facial_hair_color)
 					facial_hair_overlay.color = "#" + facial_hair_color
 				facial_hair_overlay.alpha = 200
@@ -240,7 +240,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		if(hair_style)
 			S = GLOB.hair_styles_list[hair_style]
 			if(S)
-				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", -HAIR_LAYER)
+				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(hair_color)
 					hair_overlay.color = "#" + hair_color
 				hair_overlay.alpha = 200
