@@ -9,4 +9,4 @@
 
 /obj/vehicle/sealed/mecha/combat/restore_equipment()
 	mouse_pointer = 'icons/mecha/mecha_mouse.dmi'
-	. = ..()
+	return ..()

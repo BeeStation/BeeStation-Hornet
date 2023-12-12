@@ -216,14 +216,10 @@
 			var/obj/item/mecha_parts/mecha_equipment/equip = E
 			equip.detach(loc)
 			qdel(equip)
-	if(cell)
-		QDEL_NULL(cell)
-	if(scanmod)
-		QDEL_NULL(scanmod)
-	if(capacitor)
-		QDEL_NULL(capacitor)
-	if(internal_tank)
-		QDEL_NULL(internal_tank)
+	QDEL_NULL(cell)
+	QDEL_NULL(scanmod)
+	QDEL_NULL(capacitor)
+	QDEL_NULL(internal_tank)
 	STOP_PROCESSING(SSobj, src)
 	LAZYCLEARLIST(equipment)
 	assume_air(cabin_air)
@@ -364,18 +360,20 @@
 		. += "It's equipped with:"
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in visible_equipment)
 			. += "[icon2html(ME, user)] \A [ME]."
-	if(!enclosed)
-		if(mecha_flags & SILICON_PILOT)
-			. += "[src] appears to be piloting itself..."
-		else
-			for(var/occupante in occupants)
-				. += "You can see [occupante] inside."
-			if(ishuman(user))
-				var/mob/living/carbon/human/H = user
-				for(var/O in H.held_items)
-					if(istype(O, /obj/item/gun))
-						. += "<span class='warning'>It looks like you can hit the pilot directly if you target the center or above.</span>"
-						break //in case user is holding two guns
+	if(enclosed)
+		return
+	if(mecha_flags & SILICON_PILOT)
+		. += "[src] appears to be piloting itself..."
+	else
+		for(var/occupante in occupants)
+			. += "You can see [occupante] inside."
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			for(var/held_item in H.held_items)
+				if(!isgun(held_item))
+					continue
+				. += "<span class='warning'>It looks like you can hit the pilot directly if you target the center or above.</span>"
+				break //in case user is holding two guns
 
 //processing internal damage, temperature, air regulation, alert updates, lights power use.
 /obj/vehicle/sealed/mecha/process()
@@ -478,7 +476,7 @@
 
 	if(mecha_flags & LIGHTS_ON)
 		var/lights_energy_drain = 2
-		use_power(lights_energy_drain)
+		use_power(lights_energy_drain*delta_time)
 
 	for(var/b in occupants)
 		var/mob/living/occupant = b
@@ -881,7 +879,7 @@
 
 ///Handles an actual AI (simple_animal mecha pilot) entering the mech
 /obj/vehicle/sealed/mecha/proc/aimob_enter_mech(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
-	if(pilot_mob && pilot_mob.Adjacent(src))
+	if(pilot_mob?.Adjacent(src))
 		if(occupants)
 			return
 		LAZYADD(occupants, src)
