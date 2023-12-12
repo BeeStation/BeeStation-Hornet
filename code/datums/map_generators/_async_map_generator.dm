@@ -22,7 +22,7 @@
 	return TRUE
 
 /datum/async_map_generator/proc/get_name()
-	return "Ruin Map generator"
+	return "Async Map generator"
 
 /datum/async_map_generator/proc/complete()
 	completed = TRUE

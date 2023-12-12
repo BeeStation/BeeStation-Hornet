@@ -1,5 +1,5 @@
 SUBSYSTEM_DEF(async_map_generator)
-	name = "Ruin Map Generator"
+	name = "Async Map Generator"
 	wait = 1
 	flags = SS_TICKER | SS_NO_INIT
 	runlevels = ALL
