@@ -11,8 +11,8 @@
 	///list of type paths of mobs that can be spawned when the turf spawns fauna
 	var/list/fauna_types = list()
 	///X and Y maximum pixel offsets posative and negative of flora
-	var/flora_x_offset 0,
-	var/flora_y_offset 0
+	var/flora_x_offset = 0
+	var/flora_y_offset = 0
 
 ///This proc handles the creation of a turf of a specific biome type
 /datum/biome/proc/generate_turf(var/turf/gen_turf)
@@ -85,3 +85,95 @@
 
 /datum/biome/frostmountain
 	turf_type = /turf/closed/mineral/snowmountain/cavern
+
+//island
+
+/datum/biome/islandedge
+	turf_type = /turf/open/floor/grass/planetary
+	flora_density = 30
+	flora_x_offset = 30
+	flora_y_offset = 30
+	flora_types = list(
+		/obj/structure/flora/tree/palm,
+		/obj/structure/flora/ausbushes/fullgrass,
+		/obj/structure/flora/ausbushes/sparsegrass,
+		/obj/structure/flora/ausbushes/lavendergrass,
+		/obj/structure/flora/ausbushes/ywflowers,
+		/obj/structure/flora/rock/jungle,
+		/obj/structure/flora/rock/pile
+	)
+
+/datum/biome/islandlush
+	turf_type = /turf/open/floor/grass/planetary
+	flora_density = 80
+	fauna_density = 40
+	flora_x_offset = 30
+	flora_y_offset = 30
+	flora_types = list(
+		/obj/structure/flora/tree/jungle/small,
+		/obj/structure/flora/tree/jungle,
+		/obj/structure/flora/junglebush/large,
+		/obj/structure/flora/grass/jungle/b,
+		/obj/structure/flora/ausbushes/fernybush,
+		/obj/structure/flora/ausbushes/palebush,
+		/obj/structure/flora/grass/jungle,
+		/obj/structure/flora/junglebush,
+		/obj/structure/flora/ausbushes/brflowers,
+		/obj/structure/flora/ausbushes/grassybush,
+		/obj/structure/flora/junglebush/b,
+		/obj/structure/flora/junglebush/c,
+		/obj/structure/flora/ausbushes/ppflowers,
+		/obj/structure/flora/rock,
+		/obj/structure/flora/rock/jungle,
+		/obj/structure/flora/rock/pile,
+		/obj/structure/flora/rock/pile/largejungle
+	)
+	fauna_types = list(
+		/mob/living/simple_animal/crab,
+		/mob/living/simple_animal/butterfly,
+		/mob/living/simple_animal/hostile/gorilla,
+		/mob/living/simple_animal/hostile/lizard,
+		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/sloth,
+		/mob/living/carbon/monkey
+	)
+
+/datum/biome/islandclearing
+	turf_type = /turf/open/floor/grass/planetary
+	flora_density = 60
+	flora_x_offset = 30
+	flora_y_offset = 30
+	flora_types = list(
+		/obj/structure/flora/grass/jungle/b,
+		/obj/structure/flora/ausbushes/fernybush,
+		/obj/structure/flora/ausbushes/palebush,
+		/obj/structure/flora/grass/jungle,
+		/obj/structure/flora/ausbushes/brflowers,
+		/obj/structure/flora/ausbushes/ppflowers,
+		/obj/structure/flora/rock,
+		/obj/structure/flora/rock/jungle,
+		/obj/structure/flora/rock/pile,
+		/obj/structure/flora/rock/pile/largejungle
+	)
+
+
+/datum/biome/beach
+	turf_type = /turf/open/floor/plating/beach/sand
+	flora_density = 30
+	fauna_density = 20
+	flora_x_offset = 30
+	flora_y_offset = 30
+	flora_types = list(
+		/obj/structure/flora/tree/palm,
+		/obj/structure/flora/ausbushes/fullgrass,
+		/obj/structure/flora/ausbushes/sparsegrass,
+		/obj/structure/flora/ausbushes/lavendergrass,
+		/obj/structure/flora/ausbushes/ywflowers,
+		/obj/effect/overlay/coconut,
+		/obj/structure/flora/rock/pile
+	)
+	fauna_types = list(
+		/mob/living/simple_animal/crab,
+		/mob/living/simple_animal/butterfly,
+		/mob/living/simple_animal/hostile/lizard,
+	)

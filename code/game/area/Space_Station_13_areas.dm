@@ -89,6 +89,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = null
 	fullbright_type = FULLBRIGHT_STARLIGHT
 
+/area/asteroid/paradice/surface/sand
+	name = "Paradice surface sand"
+	map_generator = /datum/map_generator/island_generator_sand
+
+/area/asteroid/paradice/surface/water
+	name = "Paradice surface water"
+
+/area/asteroid/paradice/surface/grass
+	name = "Paradice surface grass"
+	map_generator = /datum/map_generator/island_generator_grass
 //STATION13
 
 //Docking Areas

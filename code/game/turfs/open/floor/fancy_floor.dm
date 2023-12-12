@@ -105,10 +105,6 @@
 	tiled_dirt = FALSE
 	max_integrity = 80
 
-/turf/open/floor/grass/Initialize(mapload)
-	. = ..()
-	update_icon()
-
 /turf/open/floor/grass/attackby(obj/item/C, mob/user, params)
 	if((C.tool_behaviour == TOOL_SHOVEL) && params)
 		new ore_type(src, 2)

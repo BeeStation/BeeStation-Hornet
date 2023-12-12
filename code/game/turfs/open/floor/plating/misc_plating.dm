@@ -132,6 +132,7 @@
 	desc = "You get the feeling that nobody's bothered to actually make this water functional..."
 	icon_state = "water"
 	baseturfs = /turf/open/floor/plating/beach/water
+	slowdown = 3
 	var/obj/effect/water_overlay = null
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = 'sound/effects/splash.ogg'
