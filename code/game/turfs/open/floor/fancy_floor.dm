@@ -183,8 +183,10 @@
 	color = "#53003f"
 
 /turf/open/floor/grass/planetary
+	desc = "You're almost positive this is real grass."
 	planetary_atmos = TRUE
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	baseturfs = /turf/open/floor/plating/dirt
 
 /turf/open/floor/grass/snow
 	gender = PLURAL

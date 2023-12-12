@@ -12,6 +12,8 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	resistance_flags = INDESTRUCTIBLE
+	baseturfs = /turf/open/floor/plating/dirt
 
 /turf/open/floor/plating/dirt/planetary
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
