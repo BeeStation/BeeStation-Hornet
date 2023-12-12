@@ -263,6 +263,7 @@
 
 /turf/open/floor/plating/beach/water/deep
 	desc = "Deep water. What if there's sharks?"
+	icon_state = "water_deep"
 	density = 1 //no swimming
 /turf/open/floor/plating/beach/water/coastline_t
 	name = "coastline"
