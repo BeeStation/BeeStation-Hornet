@@ -15,37 +15,37 @@
 /turf/open/floor/plating/beach/water,
 /area/awaymission/beach)
 "ad" = (
-/turf/open/floor/plating/beach/coastline_b{
+/turf/open/floor/plating/beach/water/coastline_b{
 	dir = 1
 	},
 /area/awaymission/beach)
 "ae" = (
-/turf/open/floor/plating/beach/coastline_b{
+/turf/open/floor/plating/beach/water/coastline_b{
 	dir = 8
 	},
 /area/awaymission/beach)
 "af" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 9
 	},
 /area/awaymission/beach)
 "ag" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 1
 	},
 /area/awaymission/beach)
 "ah" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 5
 	},
 /area/awaymission/beach)
 "ai" = (
-/turf/open/floor/plating/beach/coastline_b{
+/turf/open/floor/plating/beach/water/coastline_b{
 	dir = 4
 	},
 /area/awaymission/beach)
 "aj" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 8
 	},
 /area/awaymission/beach)
@@ -61,7 +61,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "am" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 4
 	},
 /area/awaymission/beach)
@@ -73,20 +73,20 @@
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "ao" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 10
 	},
 /area/awaymission/beach)
 "ap" = (
-/turf/open/floor/plating/beach/coastline_t,
+/turf/open/floor/plating/beach/water/coastline_t,
 /area/awaymission/beach)
 "aq" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 6
 	},
 /area/awaymission/beach)
 "ar" = (
-/turf/open/floor/plating/beach/coastline_b,
+/turf/open/floor/plating/beach/water/coastline_b,
 /area/awaymission/beach)
 "as" = (
 /obj/structure/flora/rock{
@@ -147,22 +147,22 @@
 	},
 /area/awaymission/beach)
 "aw" = (
-/turf/open/floor/plating/beach/coastline_b{
+/turf/open/floor/plating/beach/water/coastline_b{
 	dir = 6
 	},
 /area/awaymission/beach)
 "ax" = (
-/turf/open/floor/plating/beach/coastline_b{
+/turf/open/floor/plating/beach/water/coastline_b{
 	dir = 10
 	},
 /area/awaymission/beach)
 "ay" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner{
 	dir = 4
 	},
 /area/awaymission/beach)
 "az" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner{
 	dir = 1
 	},
 /area/awaymission/beach)
@@ -291,7 +291,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "aT" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner{
 	dir = 8
 	},
 /area/awaymission/beach)
@@ -325,7 +325,7 @@
 /turf/closed/wall/mineral/sandstone,
 /area/awaymission/beach)
 "aY" = (
-/turf/open/floor/plating/beach/coastline_b{
+/turf/open/floor/plating/beach/water/coastline_b{
 	dir = 5
 	},
 /area/awaymission/beach)
@@ -442,7 +442,7 @@
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "bo" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner,
+/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner,
 /area/awaymission/beach)
 "bp" = (
 /obj/effect/turf_decal/sand,
@@ -489,7 +489,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "bw" = (
-/turf/open/floor/plating/beach/coastline_b{
+/turf/open/floor/plating/beach/water/coastline_b{
 	dir = 9
 	},
 /area/awaymission/beach)
@@ -1022,7 +1022,7 @@
 	pixel_x = -5;
 	pixel_y = 4
 	},
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner,
+/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner,
 /area/awaymission/beach)
 "cW" = (
 /obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime{

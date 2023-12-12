@@ -4451,7 +4451,7 @@
 	name = "-3 Primary Hallway"
 	})
 "bOQ" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 10
 	},
 /area/asteroid/paradice/surface)
@@ -8954,7 +8954,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port)
 "eOZ" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner{
 	dir = 1
 	},
 /area/asteroid/paradice/surface)
@@ -11057,7 +11057,7 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "ggF" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 4
 	},
 /area/asteroid/paradice/surface)
@@ -14801,7 +14801,7 @@
 /turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "iMO" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 6
 	},
 /area/asteroid/paradice/surface)
@@ -14843,7 +14843,7 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "iPJ" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner{
 	dir = 4
 	},
 /area/asteroid/paradice/surface)
@@ -15270,7 +15270,7 @@
 	},
 /area/science/lab)
 "jfR" = (
-/turf/open/floor/plating/beach/coastline_b{
+/turf/open/floor/plating/beach/water/coastline_b{
 	dir = 1
 	},
 /area/asteroid/paradice/surface)
@@ -20718,7 +20718,7 @@
 /turf/open/floor/dock/drydock,
 /area/quartermaster/storage)
 "mPc" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 5
 	},
 /area/asteroid/paradice/surface)
@@ -20905,7 +20905,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "mTy" = (
-/turf/open/floor/plating/beach/coastline_b,
+/turf/open/floor/plating/beach/water/coastline_b,
 /area/asteroid/paradice/surface)
 "mTJ" = (
 /obj/structure/ladder,
@@ -21026,7 +21026,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "mXY" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 9
 	},
 /area/asteroid/paradice/surface)
@@ -21384,7 +21384,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/cafeteria)
 "nkH" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner,
+/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner,
 /area/asteroid/paradice/surface)
 "nlG" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
@@ -21581,7 +21581,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "nph" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 8
 	},
 /area/asteroid/paradice/surface)
@@ -27390,7 +27390,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "rwX" = (
-/turf/open/floor/plating/beach/coastline_t{
+/turf/open/floor/plating/beach/water/coastline_t{
 	dir = 1
 	},
 /area/asteroid/paradice/surface)
@@ -33463,7 +33463,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "vBU" = (
-/turf/open/floor/plating/beach/coastline_t,
+/turf/open/floor/plating/beach/water/coastline_t,
 /area/asteroid/paradice/surface)
 "vBZ" = (
 /obj/structure/railing/corner{
@@ -34789,7 +34789,7 @@
 	name = "-3 Primary Hallway"
 	})
 "wzv" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner{
 	dir = 8
 	},
 /area/asteroid/paradice/surface)

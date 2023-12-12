@@ -375,17 +375,17 @@
 /area/ruin/powered/beach)
 "bQ" = (
 /obj/structure/flora/ausbushes/reedbush,
-/turf/open/floor/plating/beach/coastline_t,
+/turf/open/floor/plating/beach/water/coastline_t,
 /area/ruin/powered/beach)
 "bR" = (
-/turf/open/floor/plating/beach/coastline_t,
+/turf/open/floor/plating/beach/water/coastline_t,
 /area/ruin/powered/beach)
 "bS" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plating/beach/coastline_t,
+/turf/open/floor/plating/beach/water/coastline_t,
 /area/ruin/powered/beach)
 "bT" = (
-/turf/open/floor/plating/beach/coastline_b,
+/turf/open/floor/plating/beach/water/coastline_b,
 /area/ruin/powered/beach)
 "bU" = (
 /turf/open/floor/plating/beach/water,
