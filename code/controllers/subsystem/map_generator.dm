@@ -1,5 +1,5 @@
-SUBSYSTEM_DEF(map_generator)
-	name = "Map Generator"
+SUBSYSTEM_DEF(async_map_generator)
+	name = "Ruin Map Generator"
 	wait = 1
 	flags = SS_TICKER | SS_NO_INIT
 	runlevels = ALL
@@ -13,13 +13,13 @@ SUBSYSTEM_DEF(map_generator)
 	/// Length of current run
 	var/current_run_length
 
-/datum/controller/subsystem/map_generator/stat_entry()
+/datum/controller/subsystem/async_map_generator/stat_entry()
 	var/list/things = list()
-	for(var/datum/map_generator/running_generator as() in executing_generators)
+	for(var/datum/async_map_generator/running_generator as() in executing_generators)
 		things += "{Ticks: [running_generator.ticks]}"
 	. = ..("GenCnt:[length(executing_generators)], [things.Join(",")]")
 
-/datum/controller/subsystem/map_generator/fire()
+/datum/controller/subsystem/async_map_generator/fire()
 	if (!length(executing_generators))
 		return
 	//Reset the queue
@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(map_generator)
 	//Start processing
 	while (current_run_index <= current_run_length)
 		//Get current action
-		var/datum/map_generator/currently_running = executing_generators[current_run_index]
+		var/datum/async_map_generator/currently_running = executing_generators[current_run_index]
 		current_run_index ++
 		//Perform generate action
 		var/completed = TRUE
