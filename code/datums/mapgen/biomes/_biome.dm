@@ -23,9 +23,9 @@
 
 	if(length(flora_types) && prob(flora_density))
 		var/obj/structure/flora = pick(flora_types)
+		flora = new flora(gen_turf)
 		flora.pixel_x += rand(-flora_x_offset, flora_x_offset)
 		flora.pixel_y += rand(-flora_y_offset, flora_y_offset)
-		new flora(gen_turf)
 
 //jungle
 /datum/biome/mudlands
@@ -88,10 +88,10 @@
 
 //island
 
-/datum/biome/islandedge
+/datum/biome/grassedge
 	turf_type = /turf/open/floor/grass/planetary
 	flora_density = 30
-	flora_x_offset = 30
+	flora_x_offset = 10
 	flora_y_offset = 30
 	flora_types = list(
 		/obj/structure/flora/tree/palm,
@@ -103,10 +103,10 @@
 		/obj/structure/flora/rock/pile
 	)
 
-/datum/biome/islandlush
+/datum/biome/grasslush
 	turf_type = /turf/open/floor/grass/planetary
 	flora_density = 80
-	fauna_density = 40
+	fauna_density = 20
 	flora_x_offset = 30
 	flora_y_offset = 30
 	flora_types = list(
@@ -138,10 +138,10 @@
 		/mob/living/carbon/monkey
 	)
 
-/datum/biome/islandclearing
+/datum/biome/grassclearing
 	turf_type = /turf/open/floor/grass/planetary
 	flora_density = 60
-	flora_x_offset = 30
+	flora_x_offset = 15
 	flora_y_offset = 30
 	flora_types = list(
 		/obj/structure/flora/grass/jungle/b,
@@ -157,10 +157,10 @@
 	)
 
 
-/datum/biome/beach
+/datum/biome/sand
 	turf_type = /turf/open/floor/plating/beach/sand
 	flora_density = 30
-	fauna_density = 20
+	fauna_density = 10
 	flora_x_offset = 30
 	flora_y_offset = 30
 	flora_types = list(

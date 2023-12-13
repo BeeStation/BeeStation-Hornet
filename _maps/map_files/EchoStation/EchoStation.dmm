@@ -925,10 +925,7 @@
 /area/engine/atmos)
 "aoq" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/science/misc_lab)
 "aow" = (
 /obj/item/radio/intercom{
@@ -3215,10 +3212,7 @@
 "aWA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "aXt" = (
 /obj/structure/rack,
@@ -3533,10 +3527,7 @@
 /area/engine/atmos)
 "bfD" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "bfI" = (
 /obj/structure/cable{
@@ -5926,10 +5917,7 @@
 "cKs" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "cKK" = (
 /obj/effect/turf_decal/stripes/line{
@@ -7243,10 +7231,7 @@
 /area/maintenance/port)
 "dJc" = (
 /obj/structure/flora/rock,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "dJL" = (
 /obj/machinery/power/terminal{
@@ -7441,10 +7426,7 @@
 	})
 "dOC" = (
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "dOT" = (
 /obj/effect/spawner/structure/window,
@@ -7558,10 +7540,7 @@
 	})
 "dRp" = (
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "dRz" = (
 /obj/effect/turf_decal/stripes/line{
@@ -9387,10 +9366,7 @@
 "fdy" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "fdz" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -10050,10 +10026,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "fBG" = (
 /obj/effect/mapping_helpers/airlock/locked,
@@ -15078,10 +15051,7 @@
 "jac" = (
 /obj/item/storage/bag/ore,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "jag" = (
 /obj/effect/turf_decal/siding/red{
@@ -16194,10 +16164,7 @@
 "jMz" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "jME" = (
 /turf/closed/wall,
@@ -16341,10 +16308,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "jUw" = (
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "jUH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -16642,10 +16606,7 @@
 	pixel_y = 11
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "kfl" = (
 /turf/closed/wall/r_wall,
@@ -17229,10 +17190,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "kwk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -18796,10 +18754,7 @@
 	})
 "lyO" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "lzR" = (
 /obj/structure/lattice/catwalk/over,
@@ -18937,10 +18892,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/hydroponics)
 "lGo" = (
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "lGq" = (
 /obj/structure/table/wood,
@@ -19711,10 +19663,7 @@
 "meK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "meM" = (
 /obj/effect/turf_decal/tile/dark_red/corner_ramp{
@@ -20045,10 +19994,7 @@
 /area/maintenance/central)
 "mni" = (
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/maintenance/starboard)
 "mnl" = (
 /obj/structure/chair/stool{
@@ -20319,10 +20265,7 @@
 "myx" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/science/misc_lab)
 "myV" = (
 /obj/structure/flora/grass/jungle,
@@ -20383,10 +20326,7 @@
 "mBM" = (
 /obj/structure/flora/rock/pile,
 /obj/machinery/light/small,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "mBS" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -20937,10 +20877,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "mWC" = (
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/science/misc_lab)
 "mWG" = (
 /obj/structure/extinguisher_cabinet{
@@ -21476,10 +21413,7 @@
 /area/maintenance/central)
 "nnv" = (
 /obj/structure/barricade/wooden,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/science/misc_lab)
 "nnC" = (
 /obj/effect/turf_decal/stripes/line{
@@ -21599,10 +21533,7 @@
 "nqx" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "nqD" = (
 /obj/machinery/light{
@@ -22758,10 +22689,7 @@
 "opj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/pickaxe,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/science/misc_lab)
 "opq" = (
 /obj/item/kirbyplants/random,
@@ -22992,10 +22920,7 @@
 "owM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "oxg" = (
 /obj/structure/extinguisher_cabinet{
@@ -25525,10 +25450,7 @@
 "qbu" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/science/misc_lab)
 "qbw" = (
 /obj/structure/table/reinforced,
@@ -25936,10 +25858,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "qpS" = (
 /turf/closed/mineral/random,
@@ -26112,10 +26031,7 @@
 "qxA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/bot_assembly/floorbot,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/science/misc_lab)
 "qxK" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -27063,10 +26979,7 @@
 "rlk" = (
 /obj/structure/ore_box,
 /obj/item/pickaxe,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "rll" = (
 /obj/structure/ladder,
@@ -27167,10 +27080,7 @@
 "rpt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "rpz" = (
 /obj/structure/railing{
@@ -29081,10 +28991,7 @@
 /area/maintenance/disposal/incinerator)
 "sFV" = (
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "sGJ" = (
 /obj/structure/railing{
@@ -30299,10 +30206,7 @@
 	layer = 5;
 	max_integrity = 1e+007
 	},
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "ttY" = (
 /turf/closed/wall,
@@ -30387,10 +30291,7 @@
 /area/security/brig)
 "twd" = (
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/science/misc_lab)
 "twg" = (
 /obj/effect/mapping_helpers/airlock/unres{
@@ -32109,10 +32010,7 @@
 /area/science/xenobiology)
 "uDX" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "uDY" = (
 /obj/machinery/requests_console{
@@ -32207,10 +32105,7 @@
 /area/engine/engineering)
 "uHc" = (
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "uHM" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -35731,10 +35626,7 @@
 "xfd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "xfm" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -35756,10 +35648,7 @@
 "xfL" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/science/misc_lab)
 "xfN" = (
 /obj/effect/turf_decal/stripes/line,
@@ -36607,10 +36496,7 @@
 "xKJ" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/asteroid/paradice)
 "xLA" = (
 /obj/effect/turf_decal/tile/dark_blue{
@@ -37028,10 +36914,7 @@
 	layer = 5;
 	max_integrity = 1e+007
 	},
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "xXO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -37196,10 +37079,7 @@
 	layer = 5;
 	max_integrity = 1e+007
 	},
-/turf/open/floor/plating/asteroid{
-	icon = 'icons/turf/mining.dmi';
-	icon_state = "rockyash"
-	},
+/turf/open/floor/plating/asteroid/basalt,
 /area/quartermaster/storage)
 "ydj" = (
 /obj/structure/railing,

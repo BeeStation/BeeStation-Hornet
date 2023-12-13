@@ -91,14 +91,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/asteroid/paradice/surface/sand
 	name = "Paradice surface sand"
-	map_generator = /datum/map_generator/island_generator_sand
+	map_generator = /datum/map_generator/sand_generator
 
 /area/asteroid/paradice/surface/water
 	name = "Paradice surface water"
 
 /area/asteroid/paradice/surface/grass
 	name = "Paradice surface grass"
-	map_generator = /datum/map_generator/island_generator_grass
+	map_generator = /datum/map_generator/grass_generator
 //STATION13
 
 //Docking Areas
