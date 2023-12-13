@@ -52,6 +52,7 @@
 /turf/open/floor/holofloor/grass
 	gender = PLURAL
 	name = "lush grass"
+	icon = 'icons/turf/floors/grass.dmi'
 	icon_state = "grass"
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
