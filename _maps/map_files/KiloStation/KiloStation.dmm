@@ -30634,7 +30634,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "csb" = (
-/obj/machinery/smartfridge/chemistry/virology,
+/obj/machinery/smartfridge/chemistry/virology/preloaded,
 /turf/closed/wall,
 /area/medical/virology)
 "csc" = (
