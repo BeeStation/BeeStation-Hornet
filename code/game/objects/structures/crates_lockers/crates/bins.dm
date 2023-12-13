@@ -16,7 +16,7 @@
 
 /obj/structure/closet/crate/bin/update_overlays()
 	. = ..()
-	. += emissive_appearance(icon, base_icon_state + "_empty", src, alpha = src.alpha)
+	. += emissive_appearance(icon, base_icon_state + "_empty", src.layer)
 	if(contents.len == 0)
 		. += base_icon_state + "_empty"
 		return

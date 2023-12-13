@@ -84,16 +84,12 @@
 	. = ..()
 	if(istype(src, /obj/structure/closet/supplypod))
 		return
-	if (!imacrate)
-		layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
-
 	else
-		layer = BELOW_OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door_override)
-				add_overlay("[icon_door]_open")
-			else
-				add_overlay("[icon_state]_open")
+		if (!imacrate)
+			layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
+		else
+			layer = BELOW_OBJ_LAYER
+
 	update_mob_alpha()
 /obj/structure/closet/update_overlays()
 	. = ..()
@@ -119,7 +115,7 @@
 		return
 
 	//Overlay is similar enough for both that we can use the same mask for both
-	. += emissive_appearance(icon, icon_locked, src, alpha = src.alpha)
+	. += emissive_appearance(icon, icon_locked, src.layer)
 	. += locked ? icon_locked : icon_unlocked
 
 /obj/structure/closet/update_appearance(updates=ALL)
