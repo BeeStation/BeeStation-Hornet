@@ -173,8 +173,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 
 		if("pull")
 			teleport(usr, current_pad, FALSE)
-			if (recall_time)
-				addtimer(CALLBACK(src, PROC_REF(teleport), usr, current_pad, TRUE), recall_time * 10)
 			. = TRUE
 
 /obj/machinery/computer/launchpad/Initialize(mapload)
