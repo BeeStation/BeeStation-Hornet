@@ -622,7 +622,9 @@ const NewscasterChannelMessages = (_) => {
                   <b>D-Notice</b>.
                 </Section>
               ) : (
-                <Section dangerouslySetInnerHTML={processedText(message.body)} pl={1} />
+                <Section pl={1}>
+                  <Box dangerouslySetInnerHTML={processedText(message.body)} />
+                </Section>
               )}
               {message.photo !== null && !message.censored_message && (
                 <>
@@ -637,7 +639,9 @@ const NewscasterChannelMessages = (_) => {
                       <Box italic textColor="white">
                         By: {comment.auth} at {comment.time}
                       </Box>
-                      <Section dangerouslySetInnerHTML={processedText(comment.body)} ml={2.5} />
+                      <Section ml={2.5}>
+                        <Box dangerouslySetInnerHTML={processedText(comment.body)} />
+                      </Section>
                     </BlockQuote>
                   ))}
                 </Box>
