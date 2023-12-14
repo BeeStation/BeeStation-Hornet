@@ -13,7 +13,7 @@
 	if(!.)
 		return FALSE
 
-	host_role.send_message_to_player(span_warning("You have revealed the true nature of the [target_role]!"))
+	to_chat(host_role.body, span_warning("You have revealed the true nature of the [target_role]!"))
 	target_role.reveal_role(game, verbose = TRUE)
 	return TRUE
 

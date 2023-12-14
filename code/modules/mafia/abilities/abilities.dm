@@ -29,11 +29,6 @@
 	target_role = null
 	return ..()
 
-///Handles special messagese sent by ability-specific stuff (such as changeling chat).
-/datum/mafia_ability/proc/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
-	return FALSE
-
 /**
  * Called when refs need to be cleared, when the target is no longer set.
  */
@@ -57,28 +52,21 @@
 	if(game.phase != valid_use_period)
 		return FALSE
 	if(host_role.role_flags & ROLE_ROLEBLOCKED)
-		host_role.send_message_to_player(span_warning("You were roleblocked!"))
-		return FALSE
-	if(host_role.game_status == MAFIA_DEAD)
+		to_chat(host_role.body, span_warning("You were roleblocked!"))
 		return FALSE
 
 	if(potential_target)
-		if(use_flags & CAN_USE_ON_DEAD)
-			if(potential_target.game_status != MAFIA_DEAD)
-				if(!silent)
-					host_role.send_message_to_player(span_notice("This can only be used on dead players."))
-				return FALSE
-		else if(potential_target.game_status == MAFIA_DEAD)
+		if(!(use_flags & CAN_USE_ON_DEAD) && (potential_target.game_status == MAFIA_DEAD))
 			if(!silent)
-				host_role.send_message_to_player(span_notice("This can only be used on living players."))
+				to_chat(host_role.body, span_notice("This can only be used on dead players."))
 			return FALSE
 		if(!(use_flags & CAN_USE_ON_SELF) && (potential_target == host_role))
 			if(!silent)
-				host_role.send_message_to_player(span_notice("This can only be used on others."))
+				to_chat(host_role.body, span_notice("This can only be used on others."))
 			return FALSE
 		if(!(use_flags & CAN_USE_ON_OTHERS) && (potential_target != host_role))
 			if(!silent)
-				host_role.send_message_to_player(span_notice("This can only be used on yourself."))
+				to_chat(host_role.body, span_notice("This can only be used on yourself."))
 			return FALSE
 	return TRUE
 
@@ -102,7 +90,7 @@
 
 	if(target_role)
 		if(SEND_SIGNAL(target_role, COMSIG_MAFIA_ON_VISIT, game, host_role) & MAFIA_VISIT_INTERRUPTED) //visited a warden. something that prevents you by visiting that person
-			host_role.send_message_to_player(span_danger("Your [name] was interrupted!"))
+			to_chat(host_role.body, span_danger("Your [name] was interrupted!"))
 			return FALSE
 
 	return TRUE
@@ -133,5 +121,5 @@
 		target_role = new_target
 		feedback_text = replacetext(feedback_text, "%WILL_PERFORM%", "now")
 
-	host_role.send_message_to_player(span_notice(feedback_text))
+	to_chat(host_role.body, span_notice(feedback_text))
 	return TRUE

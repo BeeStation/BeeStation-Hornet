@@ -102,7 +102,7 @@
 	if(IsAdminGhost(user))
 		return TRUE
 
-	if(computer && (computer.obj_flags & EMAGGED) && (available_on_syndinet || !transfer)) //emagged can run anything on syndinet, and can bypass execution locks, but not download.
+	if(!transfer && computer && (computer.obj_flags & EMAGGED))	//emags can bypass the execution locks but not the download ones.
 		return TRUE
 
 	// Defaults to required_access

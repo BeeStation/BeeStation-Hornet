@@ -98,3 +98,14 @@
 	if(!istype(user) || !user.mind || !length(message) || (!isholopara(user) && !user.has_holoparasites()))
 		return TRUE
 	user.holoparasite_telepathy(message, sanitize = FALSE) // sanitize = FALSE is used because say() sanitizes the message before passing it to any saymodes, even early saymodes.
+
+/datum/saymode/mafia
+	key = "j"
+
+/datum/saymode/mafia/handle_message(mob/living/user, message, datum/language/language)
+	var/datum/mafia_controller/MF = GLOB.mafia_game
+	var/datum/mafia_role/R = MF.player_role_lookup[user]
+	if(!R || R.team != "mafia")
+		return TRUE
+	MF.send_message("<span class='changeling'><b>[R.body.real_name]:</b> [message]</span>","mafia")
+	return FALSE

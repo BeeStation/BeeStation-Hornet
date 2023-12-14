@@ -393,7 +393,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
 		return
 	playsound(src, sound, 50, TRUE)
-	physical.loc.visible_message("<span class='notice'>[icon2html(physical, viewers(physical.loc))] \The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+	visible_message("<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
 	var/mob/living/holder = loc
 	if(istype(holder))
 		to_chat(holder, "[icon2html(src)] <span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
@@ -436,11 +436,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 				data["PC_batteryicon"] = "batt_20.gif"
 			else
 				data["PC_batteryicon"] = "batt_5.gif"
-		data["PC_batteryicon"] = "batt_5.gif"
 		data["PC_batterypercent"] = "[round(battery_module.battery.percent())]%"
+		data["PC_showbatteryicon"] = 1
 	else
-		data["PC_batteryicon"] = null
-		data["PC_batterypercent"] = null
+		data["PC_batteryicon"] = "batt_5.gif"
+		data["PC_batterypercent"] = "N/C"
 		data["PC_showbatteryicon"] = battery_module ? 1 : 0
 
 	if(recharger && recharger.enabled && recharger.check_functionality() && recharger.use_power(0))
