@@ -158,7 +158,7 @@
 	matter = INFINITY
 	delay_mod = 0.1
 	ranged = TRUE
-	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 	canRturf = TRUE
 
 /obj/item/construction/rld/debug
