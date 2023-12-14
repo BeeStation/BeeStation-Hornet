@@ -150,7 +150,7 @@
 		/obj/item/food/pancakes/chocolatechip,
 		/obj/item/reagent_containers/food/snacks/carrotfries,
 		/obj/item/reagent_containers/food/snacks/chocolatebunny,
-		/obj/item/reagent_containers/food/snacks/benedict,
+		/obj/item/food/benedict,
 		/obj/item/reagent_containers/food/snacks/cornedbeef,
 		/obj/item/food/soup/meatball,
 		/obj/item/food/soup/monkeysdelight,

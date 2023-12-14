@@ -46,7 +46,7 @@
 		if(!length(edge_turfs)) // it looks everything reached the end of world map. No need to run more.
 			break
 		var/datum/enumerator/turf_enumerator = get_dereferencing_enumerator(edge_turfs)
-		SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(GLOBAL_PROC, PROC_REF(_insanity_pulse_on_turf))))
+		SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_insanity_pulse_on_turf))))
 		sleep(1)
 
 /proc/_insanity_pulse_on_turf(turf/target_turf)
