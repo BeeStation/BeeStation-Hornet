@@ -25,30 +25,22 @@
   * Parent call
   */
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
-	if(client)
-		stack_trace("Mob with client has been deleted.")
-	else if(ckey)
-		stack_trace("Mob without client but with associated ckey, [ckey], has been deleted.")
-
 	remove_from_mob_list()
 	remove_from_dead_mob_list()
 	remove_from_alive_mob_list()
 	remove_from_mob_suicide_list()
 	focus = null
-	if(length(progressbars))
-		stack_trace("[src] destroyed with elements in its progressbars list")
-		progressbars = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	if(observers?.len)
-		for(var/mob/dead/observe as anything in observers)
+		for(var/M in observers)
+			var/mob/dead/observe = M
 			observe.reset_perspective(null)
-
 	qdel(hud_used)
 	for(var/cc in client_colours)
 		qdel(cc)
 	client_colours = null
-	ghostize(can_reenter)
+	ghostize()
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
 	QDEL_LIST(mob_spell_list)
@@ -58,7 +50,6 @@
 		else
 			qdel(A) // Other actions can be safely deleted
 	actions.Cut()
-
 	return ..()
 
 /**

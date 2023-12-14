@@ -8,8 +8,6 @@
 	///role flags (special status of roles like detection immune)
 	var/role_flags = NONE
 
-	///The mafia popup we edit text to give different alerts for (such as when to vote).
-	var/atom/movable/screen/mafia_popup/mafia_alert
 	///List of all mafia abilities this role is able to perform.
 	var/list/datum/mafia_ability/role_unique_actions = list()
 	///The player's written notes, that they can send to chat at any time.
@@ -24,11 +22,9 @@
 	var/list/role_messages = list()
 
 
+	var/player_key
 	var/mob/living/carbon/human/body
 	var/obj/effect/landmark/mafia/assigned_landmark
-
-	///The Mafia innate action panel that allows players to view the game's state.
-	var/datum/action/innate/mafia_panel/mafia_panel
 
 	///how many votes submitted when you vote. used in voting and deciding victory.
 	var/vote_power = 1
@@ -52,29 +48,20 @@
 
 /datum/mafia_role/New(datum/mafia_controller/game)
 	. = ..()
-	mafia_panel = new(null, game)
 	for(var/datum/mafia_ability/abilities as anything in role_unique_actions + /datum/mafia_ability/voting)
 		role_unique_actions += new abilities(game, src)
 		role_unique_actions -= abilities
 
 /datum/mafia_role/Destroy(force, ...)
 	UnregisterSignal(body, COMSIG_MOB_SAY)
-	QDEL_NULL(mafia_alert)
-	QDEL_NULL(mafia_panel)
-	QDEL_LIST(role_unique_actions)
-	//we null these instead of qdel because Mafia controller's mapdeleter deletes it all.
-	assigned_landmark = null
-	body = null
-	role_messages.Cut()
+	QDEL_NULL(body)
+	QDEL_NULL(role_unique_actions)
+	role_messages = null
 	return ..()
 
 /datum/mafia_role/proc/register_body(mob/living/carbon/human/new_body)
-	if(body)
-		UnregisterSignal(new_body, COMSIG_MOB_SAY)
-		mafia_panel.Remove(body)
 	body = new_body
 	RegisterSignal(new_body, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	mafia_panel.Grant(new_body)
 
 /**
  * send_message_to_player
@@ -112,42 +99,28 @@
 	mafia_game.send_message(message, log_only = TRUE)
 
 /**
- * Puts the player in their body and keeps track of their previous one to put them back in later.
- * Adds the playing_mafia trait so people examining them will know why they're currently lacking a soul.
- */
-/datum/mafia_role/proc/put_player_in_body(client/player)
-	if(player.mob.mind && player.mob.mind.current)
-		body.AddComponent( \
-			/datum/component/temporary_body, \
-			old_mind = player.mob.mind, \
-			old_body = player.mob.mind.current, \
-		)
-	body.key = player.key
-
-/**
  * Tests kill immunities, if nothing prevents the kill, kills this role.
  *
  * Does not count as visiting, see visit proc.
  */
-/datum/mafia_role/proc/kill(datum/mafia_controller/game, datum/mafia_role/attacker, lynch = FALSE)
-	if(game_status == MAFIA_DEAD)
-		return FALSE
+/datum/mafia_role/proc/kill(datum/mafia_controller/game, datum/mafia_role/attacker, lynch=FALSE)
 	if(attacker && (attacker.role_flags & ROLE_ROLEBLOCKED))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MAFIA_ON_KILL, game, attacker, lynch) & MAFIA_PREVENT_KILL)
 		return FALSE
-	game_status = MAFIA_DEAD
-	body.death()
+	if(game_status != MAFIA_DEAD)
+		game_status = MAFIA_DEAD
+		body.death()
 	if(lynch)
 		reveal_role(game, verbose = TRUE)
-	game.living_roles -= src
+	if(!(player_key in game.mafia_spectators)) //people who played will want to see the end of the game more often than not
+		game.mafia_spectators += player_key
 	return TRUE
 
 /datum/mafia_role/proc/greet()
-	mafia_alert = new(body, src)
 	SEND_SOUND(body, 'sound/ambience/ambifailure.ogg')
-	to_chat(body, span_danger("You are the [name]."))
-	to_chat(body, span_danger("[desc]"))
+	to_chat(body,span_danger("You are the [name]."))
+	to_chat(body,span_danger("[desc]"))
 	switch(team)
 		if(MAFIA_TEAM_MAFIA)
 			to_chat(body,span_danger("You and your co-conspirators win if you outnumber crewmembers."))
@@ -171,6 +144,12 @@
 
 /datum/mafia_role/proc/special_reveal_equip(datum/mafia_controller/game)
 	return
+
+/datum/mafia_role/proc/check_total_victory(alive_town, alive_mafia) //solo antags can win... solo.
+	return FALSE
+
+/datum/mafia_role/proc/block_team_victory(alive_town, alive_mafia) //solo antags can also block team wins.
+	return FALSE
 
 /datum/mafia_role/proc/show_help(clueless)
 	var/list/result = list()

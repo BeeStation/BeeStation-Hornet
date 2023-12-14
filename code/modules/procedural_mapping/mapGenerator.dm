@@ -17,15 +17,13 @@
 //All
 #define CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
 
-///This type is responsible for any map generation behavior that is done in areas, override this to allow for
-///area-specific map generation. This generation is ran by areas in initialize.
 /datum/mapGenerator
 
-	///Map information, such as the start and end turfs of the map generation.
-	var/list/turf/map = list()
+	//Map information
+	var/list/map = list()
 
-	///The map generator modules that we will generate and sync to.
-	var/list/datum/map_generator_module/modules = list()
+	//mapGeneratorModule information
+	var/list/modules = list()
 
 	var/buildmode_name = "Undocumented"
 
@@ -35,18 +33,6 @@
 		buildmode_name = copytext_char("[type]", 20)	// / d a t u m / m a p g e n e r a t o r / = 20 characters.
 	initialiseModules()
 
-/datum/map_generator/Destroy(force, ...)
-	. = ..()
-	QDEL_LIST(modules)
-
-///This proc will be ran by areas on Initialize, and provides the areas turfs as argument to allow for generation.
-/datum/map_generator/proc/generate_terrain(list/turfs, area/generate_in)
-	return
-
-/// Populate terrain with flora, fauna, features and basically everything that isn't a turf.
-/datum/map_generator/proc/populate_terrain(list/turfs, area/generate_in)
-	return
-
 //Defines the region the map represents, sets map
 //Returns the map
 /datum/mapGenerator/proc/defineRegion(turf/Start, turf/End, replace = 0)
@@ -55,7 +41,7 @@
 
 	if(replace)
 		undefineRegion()
-	map |= block(Start, End)
+	map |= block(Start,End)
 	return map
 
 
@@ -121,7 +107,7 @@
 	syncModules()
 	if(!modules || !modules.len)
 		return
-	for(var/datum/mapGeneratorModule/mod as anything in modules)
+	for(var/datum/mapGeneratorModule/mod in modules)
 		INVOKE_ASYNC(mod, TYPE_PROC_REF(/datum/mapGeneratorModule, generate))
 
 
@@ -132,7 +118,7 @@
 	syncModules()
 	if(!modules || !modules.len)
 		return
-	for(var/datum/mapGeneratorModule/mod as anything in modules)
+	for(var/datum/mapGeneratorModule/mod in modules)
 		INVOKE_ASYNC(mod, TYPE_PROC_REF(/datum/mapGeneratorModule, place), T)
 
 
@@ -147,7 +133,7 @@
 
 //Sync mapGeneratorModule(s) to mapGenerator
 /datum/mapGenerator/proc/syncModules()
-	for(var/datum/mapGeneratorModule/mod as anything in modules)
+	for(var/datum/mapGeneratorModule/mod in modules)
 		mod.sync(src)
 
 
@@ -184,18 +170,9 @@
 		to_chat(src, "End Coords: [endCoords[1]] - [endCoords[2]] - [endCoords[3]]")
 		return
 
-	var/static/list/clusters = list(
-		"None" = CLUSTER_CHECK_NONE,
-		"All" = CLUSTER_CHECK_ALL,
-		"Sames" = CLUSTER_CHECK_SAMES,
-		"Differents" = CLUSTER_CHECK_DIFFERENTS,
-		"Same turfs" = CLUSTER_CHECK_SAME_TURFS,
-		"Same atoms" = CLUSTER_CHECK_SAME_ATOMS,
-		"Different turfs" = CLUSTER_CHECK_DIFFERENT_TURFS,
-		"Different atoms" = CLUSTER_CHECK_DIFFERENT_ATOMS,
-		"All turfs" = CLUSTER_CHECK_ALL_TURFS,
-		"All atoms" = CLUSTER_CHECK_ALL_ATOMS,
-	)
+	var/list/clusters = list("None"=CLUSTER_CHECK_NONE,"All"=CLUSTER_CHECK_ALL,"Sames"=CLUSTER_CHECK_SAMES,"Differents"=CLUSTER_CHECK_DIFFERENTS, \
+	"Same turfs"=CLUSTER_CHECK_SAME_TURFS, "Same atoms"=CLUSTER_CHECK_SAME_ATOMS, "Different turfs"=CLUSTER_CHECK_DIFFERENT_TURFS, \
+	"Different atoms"=CLUSTER_CHECK_DIFFERENT_ATOMS, "All turfs"=CLUSTER_CHECK_ALL_TURFS,"All atoms"=CLUSTER_CHECK_ALL_ATOMS)
 
 	var/moduleClusters = input("Cluster Flags (Cancel to leave unchanged from defaults)","Map Gen Settings") as null|anything in clusters
 	//null for default
@@ -210,7 +187,7 @@
 		theCluster =  CLUSTER_CHECK_NONE
 
 	if(theCluster)
-		for(var/datum/mapGeneratorModule/M as anything in N.modules)
+		for(var/datum/mapGeneratorModule/M in N.modules)
 			M.clusterCheckFlags = theCluster
 
 

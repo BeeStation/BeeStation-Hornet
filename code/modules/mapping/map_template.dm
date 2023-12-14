@@ -20,8 +20,6 @@
 	//make sure this list is accounted for/cleared if you request it from ssatoms!
 
 /datum/map_template/New(path = null, rename = null, cache = FALSE, admin_load = FALSE)
-	SHOULD_CALL_PARENT(TRUE)
-	. = ..()
 	if(path)
 		mappath = path
 	if(mappath)
