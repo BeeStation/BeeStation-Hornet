@@ -2029,8 +2029,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * * humi (required) The mob we will targeting
  */
 /datum/species/proc/body_temperature_alerts(mob/living/carbon/human/humi)
+	var/old_bodytemp = humi.old_bodytemperature
+	var/bodytemp = humi.bodytemperature
 	// Body temperature is too hot, and we do not have resist traits
-	if(humi.bodytemperature > bodytemp_heat_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTHEAT))
+	if(bodytemp > bodytemp_heat_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTHEAT))
 		// Clear cold mood and apply hot mood
 		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "cold")
 		SEND_SIGNAL(humi, COMSIG_ADD_MOOD_EVENT, "hot", /datum/mood_event/hot)
@@ -2038,13 +2040,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		//Remove any slowdown from the cold.
 		humi.remove_movespeed_modifier(MOVESPEED_ID_COLD)
 		// display alerts based on how hot it is
-		switch(humi.bodytemperature)
-			if(0 to 461)
-				humi.throw_alert("temp", /atom/movable/screen/alert/hot, 1)
-			if(460 to 700)
-				humi.throw_alert("temp", /atom/movable/screen/alert/hot, 2)
-			elsef
-				humi.throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+		// Can't be a switch due to http://www.byond.com/forum/post/2750423
+		if(bodytemp in bodytemp_heat_damage_limit to BODYTEMP_HEAT_WARNING_2)
+			humi.throw_alert("temp", /atom/movable/screen/alert/hot, 1)
+		else if(bodytemp in BODYTEMP_HEAT_WARNING_2 to BODYTEMP_HEAT_WARNING_3)
+			humi.throw_alert("temp", /atom/movable/screen/alert/hot, 2)
+		else
+			humi.throw_alert("temp", /atom/movable/screen/alert/hot, 3)
 
 	// Body temperature is too cold, and we do not have resist traits
 	else if(humi.bodytemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
@@ -2052,22 +2054,27 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "hot")
 		SEND_SIGNAL(humi, COMSIG_ADD_MOOD_EVENT, "cold", /datum/mood_event/cold)
 		// Apply cold slow down
-		humi.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = ((bodytemp_cold_damage_limit - humi.bodytemperature) / COLD_SLOWDOWN_FACTOR))
+		humi.add_movespeed_modifier(MOVESPEED_ID_COLD, multiplicative_slowdown = ((bodytemp_cold_damage_limit - humi.bodytemperature) / COLD_SLOWDOWN_FACTOR))
 		// Display alerts based how cold it is
-		switch(humi.bodytemperature)
-			if(201 to bodytemp_cold_damage_limit)
-				humi.throw_alert("temp", /atom/movable/screen/alert/cold, 1)
-			if(120 to 200)
-				humi.throw_alert("temp", /atom/movable/screen/alert/cold, 2)
-			else
-				humi.throw_alert("temp", /atom/movable/screen/alert/cold, 3)
+		// Can't be a switch due to http://www.byond.com/forum/post/2750423
+		if(bodytemp in BODYTEMP_COLD_WARNING_2 to bodytemp_cold_damage_limit)
+			humi.throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+		else if(bodytemp in BODYTEMP_COLD_WARNING_3 to BODYTEMP_COLD_WARNING_2)
+			humi.throw_alert("temp", /atom/movable/screen/alert/cold, 2)
+		else
+			humi.throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 
 	// We are not to hot or cold, remove status and moods
-	else
+	// Optimization here, we check these things based off the old temperature to avoid unneeded work
+	// We're not perfect about this, because it'd just add more work to the base case, and resistances are rare
+	else if (old_bodytemp > bodytemp_heat_damage_limit || old_bodytemp < bodytemp_cold_damage_limit)
 		humi.clear_alert("temp")
-		humi.remove_movespeed_modifier(/datum/movespeed_modifier/cold)
+		humi.remove_movespeed_modifier(MOVESPEED_ID_COLD)
 		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "cold")
 		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "hot")
+
+	// Store the old bodytemp for future checking
+	humi.old_bodytemperature = bodytemp
 
 /**
  * Used to apply wounds and damage based on core/body temp
@@ -2105,7 +2112,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			humi.emote("scream")
 
 		// Apply the damage to all body parts
-		humi.apply_damage(burn_damage, BURN, spread_damage = TRUE)
+		humi.apply_damage(burn_damage, BURN)
 
 	// Apply some burn damage to the body
 	if(humi.coretemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
@@ -2136,6 +2143,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	// Lets pick a random body part and check for an existing burn
 	var/obj/item/bodypart/bodypart = pick(humi.bodyparts)
+	/* No wounds yet
 	var/datum/wound/burn/existing_burn = locate(/datum/wound/burn) in bodypart.wounds
 
 	// If we have an existing burn try to upgrade it
@@ -2149,6 +2157,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					bodypart.force_wound_upwards(/datum/wound/burn/critical)
 	else // If we have no burn apply the lowest level burn
 		bodypart.force_wound_upwards(/datum/wound/burn/moderate)
+	*/
 
 	// always take some burn damage
 	var/burn_damage = HEAT_DAMAGE_LEVEL_1
