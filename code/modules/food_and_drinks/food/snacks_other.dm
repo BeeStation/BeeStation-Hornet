@@ -143,7 +143,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	filling_color = "#FFD700"
 	tastes = list("fries" = 3, "cheese" = 1)
-	foodtype = VEGETABLES | GRAIN
+	foodtype = VEGETABLES | GROSS
 
 /obj/item/reagent_containers/food/snacks/cheesyfries/Initialize()
 	. = ..()
