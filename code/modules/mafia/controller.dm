@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(mafia_role_by_alignment, setup_mafia_role_by_alignment())
 	rewarded.body?.client?.give_award(award, rewarded.body)
 	if(!rewarded.player_pda)
 		return
-	for(var/datum/tgui/window as anything in rewarded.player_pda.open_uis_by_src[key])
+	for(var/datum/tgui/window as anything in rewarded.player_pda.open_uis)
 		window.user?.client?.give_award(award, rewarded.body)
 
 /**
@@ -438,7 +438,7 @@ GLOBAL_LIST_INIT(mafia_role_by_alignment, setup_mafia_role_by_alignment())
  * * close: boolean, the state you want the curtains in.
  */
 /datum/mafia_controller/proc/toggle_night_curtains(close)
-	for(var/obj/machinery/door/poddoor/D in GLOB.airlocks) //I really dislike pathing of these
+	for(var/obj/machinery/door/poddoor/D as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor))
 		if(D.id != "mafia") //so as to not trigger shutters on station, lol
 			continue
 		if(close)
@@ -602,9 +602,7 @@ GLOBAL_LIST_INIT(mafia_role_by_alignment, setup_mafia_role_by_alignment())
 
 	for(var/datum/mafia_role/role as anything in all_roles)
 		var/mob/living/carbon/human/H = new(get_turf(role.assigned_landmark))
-		ADD_TRAIT(H, TRAIT_NOFIRE, MAFIA_TRAIT)
-		ADD_TRAIT(H, TRAIT_NOBREATH, MAFIA_TRAIT)
-		//ADD_TRAIT(H, TRAIT_CANNOT_CRYSTALIZE, MAFIA_TRAIT)
+		H.add_traits(list(TRAIT_NOFIRE, TRAIT_NOBREATH, TRAIT_CANNOT_CRYSTALIZE, TRAIT_PERMANENTLY_MORTAL), MAFIA_TRAIT)
 		H.equipOutfit(outfit_to_distribute)
 		H.status_flags |= GODMODE
 		RegisterSignal(H, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(display_votes))

@@ -48,7 +48,7 @@
 	for(var/cc in client_colours)
 		qdel(cc)
 	client_colours = null
-	ghostize()
+	ghostize(can_reenter)
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
 	QDEL_LIST(mob_spell_list)

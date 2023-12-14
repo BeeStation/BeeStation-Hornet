@@ -25,7 +25,7 @@
 	var/list/turf/map = list()
 
 	///The map generator modules that we will generate and sync to.
-	var/list/datum/mapGeneratorModule/modules = list()
+	var/list/datum/map_generator_module/modules = list()
 
 	var/buildmode_name = "Undocumented"
 
@@ -35,16 +35,16 @@
 		buildmode_name = copytext_char("[type]", 20)	// / d a t u m / m a p g e n e r a t o r / = 20 characters.
 	initialiseModules()
 
-/datum/mapGenerator/Destroy(force, ...)
+/datum/map_generator/Destroy(force, ...)
 	. = ..()
 	QDEL_LIST(modules)
 
 ///This proc will be ran by areas on Initialize, and provides the areas turfs as argument to allow for generation.
-/datum/mapGenerator/proc/generate_terrain(list/turfs, area/generate_in)
+/datum/map_generator/proc/generate_terrain(list/turfs, area/generate_in)
 	return
 
 /// Populate terrain with flora, fauna, features and basically everything that isn't a turf.
-/datum/mapGenerator/proc/populate_terrain(list/turfs, area/generate_in)
+/datum/map_generator/proc/populate_terrain(list/turfs, area/generate_in)
 	return
 
 //Defines the region the map represents, sets map
@@ -127,6 +127,8 @@
 
 //Requests the mapGeneratorModule(s) to (re)generate this one turf
 /datum/mapGenerator/proc/generateOneTurf(turf/T)
+	if(!T)
+		return
 	syncModules()
 	if(!modules || !modules.len)
 		return

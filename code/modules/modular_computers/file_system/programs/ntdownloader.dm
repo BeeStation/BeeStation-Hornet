@@ -43,28 +43,28 @@
 
 /datum/computer_file/program/ntnetdownload/proc/begin_file_download(filename)
 	if(downloaded_file)
-		return FALSE
+		return 0
 
 	var/datum/computer_file/program/PRG = SSnetworks.station_network.find_ntnet_file_by_name(filename)
 
 	if(!PRG || !istype(PRG))
-		return FALSE
+		return 0
 
 	// Attempting to download antag only program, but without having emagged/syndicate computer. No.
 	if(PRG.available_on_syndinet && !emagged)
-		return FALSE
+		return 0
 
 	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 
 	if(!computer || !hard_drive || !hard_drive.can_store_file(PRG))
-		return FALSE
+		return 0
 
 	ui_header = "downloader_running.gif"
 
-	if(PRG in SSnetworks.station_network.available_station_software)
+	if(PRG in SSmodular_computers.available_station_software)
 		generate_network_log("Began downloading file [PRG.filename].[PRG.filetype] from NTNet Software Repository.")
 		hacked_download = 0
-	else if(PRG in SSnetworks.station_network.available_antag_software)
+	else if(PRG in SSmodular_computers.available_antag_software)
 		generate_network_log("Began downloading file **ENCRYPTED**.[PRG.filetype] from unspecified server.")
 		hacked_download = 1
 	else
@@ -154,7 +154,7 @@
 	data["disk_used"] = hard_drive.used_capacity
 	data["emagged"] = emagged
 
-	var/list/repo = SSnetworks.station_network.available_antag_software | SSnetworks.station_network.available_station_software
+	var/list/repo = SSmodular_computers.available_antag_software | SSmodular_computers.available_station_software
 	var/list/program_categories = list()
 
 	for(var/I in repo)

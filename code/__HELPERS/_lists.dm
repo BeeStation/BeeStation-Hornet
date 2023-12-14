@@ -735,13 +735,6 @@
 			return key
 	return null
 
-///Gets the total amount of everything in the associative list.
-/proc/assoc_value_sum(list/input)
-	var/keys = 0
-	for(var/key in input)
-		keys += input[key]
-	return keys
-
 /proc/compare_list(list/l,list/d)
 	if(!islist(l) || !islist(d))
 		return FALSE
