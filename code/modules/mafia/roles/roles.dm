@@ -1,5 +1,5 @@
 /datum/mafia_role
-	var/name = JOB_ASSISTANT
+	var/name = JOB_NAME_ASSISTANT
 	var/desc = "You are a crewmember without any special abilities."
 	var/win_condition = "kill all mafia and solo killing roles."
 	var/team = MAFIA_TEAM_TOWN

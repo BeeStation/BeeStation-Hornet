@@ -6868,6 +6868,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/centcom/control)
+"BF" = (
+/obj/effect/landmark/mafia_game_area,
+/turf/open/space/basic,
+/area/space)
 "BH" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -48867,7 +48871,7 @@ aa
 aa
 aa
 aa
-aa
+BF
 aa
 aa
 aa
