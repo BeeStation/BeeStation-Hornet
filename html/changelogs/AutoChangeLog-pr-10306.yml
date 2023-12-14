@@ -1,4 +1,0 @@
-author: rkz, PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: renamed the shuttle/ruin mapgen datum & subsystem
