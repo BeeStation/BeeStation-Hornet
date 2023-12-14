@@ -44,6 +44,8 @@
 	var/material_type
 	///Stores table variant to be built from this stack
 	var/obj/structure/table/tableVariant
+	/// Amount of matter for RCD
+	var/matter_amount = 0
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	if(new_amount != null)

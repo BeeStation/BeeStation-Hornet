@@ -20,6 +20,8 @@
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
 
+	light_power = 0.85
+
 
 
 	FASTDMM_PROP(\

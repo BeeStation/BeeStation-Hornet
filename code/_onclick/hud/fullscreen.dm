@@ -188,6 +188,12 @@
 	layer = BACKGROUND_LAYER+20
 	show_when_dead = TRUE
 
+/atom/movable/screen/fullscreen/lighting_backdrop/emissive_backdrop
+	color = "#000"
+	plane = EMISSIVE_PLANE
+	layer = 0
+	show_when_dead = TRUE
+
 /atom/movable/screen/fullscreen/see_through_darkness
 	icon_state = "nightvision"
 	plane = LIGHTING_PLANE

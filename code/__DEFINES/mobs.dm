@@ -420,6 +420,9 @@
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
 
+/// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
+/// The bigger the input layer, the deeper it will be (mutations layer is at the bottom, so has a float layer of FLOAT_LAYER - 0.1).
+#define CALCULATE_MOB_OVERLAY_LAYER(_layer) (FLOAT_LAYER - (_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 // Mob Overlays Indexes
 /// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;

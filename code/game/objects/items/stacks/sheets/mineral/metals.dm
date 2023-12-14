@@ -28,6 +28,7 @@ Metals Sheets
 	grind_results = list(/datum/reagent/iron = 20)
 	point_value = 2
 	material_type = /datum/material/iron
+	matter_amount = 4
 
 /obj/item/stack/sheet/iron/ratvar_act()
 	new /obj/item/stack/sheet/brass(loc, amount)
@@ -62,6 +63,7 @@ Metals Sheets
 	grind_results = list(/datum/reagent/iron = 20, /datum/reagent/toxin/plasma = 20)
 	point_value = 23
 	tableVariant = /obj/structure/table/reinforced
+	matter_amount = 12
 	material_flags = NONE
 
 /obj/item/stack/sheet/plasteel/get_main_recipes()
