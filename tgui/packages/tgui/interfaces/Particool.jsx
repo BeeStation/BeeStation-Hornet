@@ -642,7 +642,7 @@ export const Particool = (props) => {
         )}
         <Section
           title={
-            <Box inline onDblClick={() => setHiddenSecret(true)}>
+            <Box inline onDoubleClick={() => setHiddenSecret(true)}>
               Particle
             </Box>
           }
