@@ -1,0 +1,6 @@
+author: PinkSuzuki
+delete-after: true
+changes:
+  - bugfix: Flypeople will no longer be permanently locked in vomiting. They also
+      now feed by drinking vomit as intended.
+  - tweak: Vomiting will now cause flypeople to lose nutrition.
