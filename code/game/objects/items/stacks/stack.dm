@@ -38,6 +38,8 @@
 	var/novariants = TRUE
 	///Stores table variant to be built from this stack
 	var/obj/structure/table/tableVariant
+	/// Amount of matter for RCD
+	var/matter_amount = 0
 
 	//NOTE: When adding grind_results, the amounts should be for an INDIVIDUAL ITEM - these amounts will be multiplied by the stack size in on_grind()
 
