@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	var/datum/async_map_generator/template_placer = ship.load(T)
 	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(announce_fugitive_spawns), ship, candidates, backstory))
 
-/proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, datum/fugitive_type/hunter/backstory, datum/map_generator/map_generator, turf/T)
+/proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, datum/fugitive_type/hunter/backstory, datum/mapGenerator/mapGenerator, turf/T)
 	var/obj/effect/mob_spawn/human/fugitive_hunter/leader_spawn
 	var/list/spawners = list()
 	for(var/turf/A in ship.get_affected_turfs(T))

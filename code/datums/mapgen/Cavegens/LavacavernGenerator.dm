@@ -1,4 +1,4 @@
-/datum/map_generator/cave_generator/lavacavern
+/datum/mapGenerator/cave_generator/lavacavern
 	//simular to lavaland but less lethal
 	weighted_open_turf_types = list(/turf/open/floor/plating/asteroid/basalt/iceland_surface = 1)
 	weighted_closed_turf_types =  list(/turf/closed/mineral/random/snowmountain/cavern = 1)

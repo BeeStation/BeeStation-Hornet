@@ -19,7 +19,7 @@
 	lighting_overlay_opacity = 60
 
 /area/iceland/planetgen
-	map_generator = /datum/map_generator/tundra_generator
+	mapGenerator = /datum/mapGenerator/tundra_generator
 
 /area/iceland/shaded
 	name = "iceland plains"
@@ -40,10 +40,10 @@
 	ambience_index = AMBIENCE_RUINS
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 	area_flags = UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED | MOB_SPAWN_ALLOWED
-	map_generator = /datum/map_generator/cave_generator/iceland
+	mapGenerator = /datum/mapGenerator/cave_generator/iceland
 	lighting_overlay_opacity = 0
 
 /area/iceland/cavern/lavacavern
 	name = "lavacaverns"
 	icon_state = "iceland_lavacave"
-	map_generator = /datum/map_generator/cave_generator/lavacavern
+	mapGenerator = /datum/mapGenerator/cave_generator/lavacavern

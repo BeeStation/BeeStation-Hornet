@@ -118,7 +118,7 @@
 	var/lighting_overlay_cached_darkening_matrix
 
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
-	var/datum/map_generator/map_generator
+	var/datum/mapGenerator/mapGenerator
 
 	///Lazylist that contains additional turfs that map generation should be ran on. This is used for ruins which need a noop turf under non-noop areas so they don't leave genturfs behind.
 	var/list/additional_genturfs
@@ -269,25 +269,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	lighting_overlay_cached_darkening_matrix = null // Clear cached list
 
 /area/proc/RunGeneration()
-	if(map_generator)
-		map_generator = new map_generator()
+	if(mapGenerator)
+		mapGenerator = new mapGenerator()
 		var/list/turfs = list()
 		for(var/turf/T in contents)
 			turfs += T
 		if(additional_genturfs)
 			turfs += additional_genturfs
 			additional_genturfs = null
-		map_generator.generate_terrain(turfs, src)
+		mapGenerator.generate_terrain(turfs, src)
 
 /area/proc/test_gen()
-	if(map_generator)
+	if(mapGenerator)
 		var/list/turfs = list()
 		for(var/turf/T in contents)
 			turfs += T
 		if(additional_genturfs)
 			turfs += additional_genturfs
 			additional_genturfs = null
-		map_generator.generate_terrain(turfs, src)
+		mapGenerator.generate_terrain(turfs, src)
 
 /area/proc/get_contained_turfs()
 	if(length(turfs_to_uncontain))
