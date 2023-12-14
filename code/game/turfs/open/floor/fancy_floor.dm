@@ -121,14 +121,12 @@
 	var/turfverb = "uproot"
 	tiled_dirt = FALSE
 	max_integrity = 80
+	icon_x_offset = 9
+	icon_y_offset = 9
 
 /turf/open/floor/grass/Initialize(mapload)
 	. = ..()
 	update_icon()
-	//Oh boy, jank!
-	var/matrix/M = new
-	M.Translate(-5, -5)
-	transform = M
 
 /turf/open/floor/grass/attackby(obj/item/C, mob/user, params)
 	if((C.tool_behaviour == TOOL_SHOVEL) && params)

@@ -54,9 +54,8 @@
 
 /turf/open/floor/plating/ashplanet/Initialize(mapload)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-		var/matrix/M = new
-		M.Translate(-4, -4)
-		transform = M
+		icon_x_offset = 4
+		icon_y_offset = 4
 		icon = smooth_icon
 	. = ..()
 

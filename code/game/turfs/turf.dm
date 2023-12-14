@@ -74,6 +74,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Can this floor be an underlay, for turf damage
 	var/can_underlay = TRUE
 
+	///Offsets for non-32 turfs - This will be the distance of the pixel border around your icon, grass.dmi is 9 pixels, because the border is 9 pixels
+	var/icon_x_offset = 0
+	var/icon_y_offset = 0
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -149,6 +153,12 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	//Handle turf texture
 	add_turf_texture(turf_texture)
+
+	//Handle icon border
+	if(icon_x_offset || icon_y_offset)
+		var/matrix/M = new
+		M.Translate(-icon_x_offset, -icon_y_offset)
+		transform = M
 
 	return INITIALIZE_HINT_NORMAL
 
