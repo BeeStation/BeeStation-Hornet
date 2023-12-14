@@ -29,7 +29,7 @@
 	if(!obsession)
 		obsession = pick(all_roles_shuffle) //okay no town just pick anyone here
 	//if you still don't have an obsession you're playing a single player game like i can't help your dumb ass
-	to_chat(body, span_userdanger("Your obsession is [obsession.body.real_name]! Get them lynched to win!"))
+	to_chat(body, "<span class='userdanger'>Your obsession is [obsession.body.real_name]! Get them lynched to win!</span>")
 	RegisterSignal(obsession, COMSIG_MAFIA_ON_KILL, PROC_REF(check_victory))
 	UnregisterSignal(game, COMSIG_MAFIA_SUNDOWN)
 
@@ -44,7 +44,7 @@
 		game.award_role(winner_award, src)
 		reveal_role(game, FALSE)
 	else
-		to_chat(body, span_userdanger("You have failed your objective to lynch [obsession.body.real_name]!"))
+		to_chat(body, "<span class='userdanger'>You have failed your objective to lynch [obsession.body.real_name]!</span>")
 
 /datum/mafia_role/clown
 	name = "Clown"

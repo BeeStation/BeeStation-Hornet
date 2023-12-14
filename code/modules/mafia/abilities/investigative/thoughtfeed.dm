@@ -13,7 +13,7 @@
 		return FALSE
 
 	if((target_role.role_flags & ROLE_UNDETECTABLE))
-		to_chat(host_role.body,span_warning("[target_role.body.real_name]'s memories reveal that they are the [pick(game.all_roles - target_role)]."))
+		to_chat(host_role.body, "<span class='warning'>[target_role.body.real_name]'s memories reveal that they are the [pick(game.all_roles - target_role)].</span>")
 	else
-		to_chat(host_role.body,span_warning("[target_role.body.real_name]'s memories reveal that they are the [target_role.name]."))
+		to_chat(host_role.body, "<span class='warning'>[target_role.body.real_name]'s memories reveal that they are the [target_role.name].</span>")
 	return TRUE

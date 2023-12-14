@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(mafia_role_by_alignment, setup_mafia_role_by_alignment())
 /datum/mafia_controller/proc/start_game()
 	create_bodies()
 	start_day(can_vote = FALSE)
-	send_message(span_notice("<b>The selected map is [current_map.name]!</b></br>[current_map.description]"))
+	send_message("<span class='notice'><b>The selected map is [current_map.name]!</b></br>[current_map.description]</span>")
 	send_message("<b>Day [turn] started! There is no voting on the first day. Say hello to everybody!</b>")
 	next_phase_timer = addtimer(CALLBACK(src, PROC_REF(check_trial), FALSE), (FIRST_DAY_PERIOD_LENGTH / time_speedup), TIMER_STOPPABLE) //no voting period = no votes = instant night
 
@@ -266,24 +266,24 @@ GLOBAL_LIST_INIT(mafia_role_by_alignment, setup_mafia_role_by_alignment())
  */
 /datum/mafia_controller/proc/lynch()
 	for(var/datum/mafia_role/role as anything in judgement_abstain_votes)
-		send_message(span_comradio("[role.body.real_name] abstained."))
+		send_message("<span class='comradio'>[role.body.real_name] abstained.</span>")
 
 	var/total_innocent_votes
 	for(var/datum/mafia_role/role as anything in judgement_innocent_votes)
-		send_message(span_green("[role.body.real_name] voted innocent."))
+		send_message("<span class='green'>[role.body.real_name] voted innocent.</span>")
 		total_innocent_votes += role.vote_power
 
 	var/total_guilty_votes
 	for(var/datum/mafia_role/role as anything in judgement_guilty_votes)
-		send_message(span_red("[role.body.real_name] voted guilty."))
+		send_message("<span class='red'>[role.body.real_name] voted guilty.</span>")
 		total_guilty_votes += role.vote_power
 
 	if(total_guilty_votes > total_innocent_votes) //strictly need majority guilty to lynch
-		send_message(span_red("<b>Guilty wins majority, [on_trial.body.real_name] has been lynched.</b>"))
+		send_message("<span class='red'><b>Guilty wins majority, [on_trial.body.real_name] has been lynched.</b></span>")
 		on_trial.kill(src, lynch = TRUE)
 		addtimer(CALLBACK(src, PROC_REF(send_home), on_trial), (LYNCH_PERIOD_LENGTH / time_speedup))
 	else
-		send_message(span_green("<b>Innocent wins majority, [on_trial.body.real_name] has been spared.</b>"))
+		send_message("<span class='green'><b>Innocent wins majority, [on_trial.body.real_name] has been spared.</b></span>")
 		on_trial.body.forceMove(get_turf(on_trial.assigned_landmark))
 	on_trial = null
 	//day votes are already cleared, so this will skip the trial and check victory/lockdown/whatever else
@@ -501,9 +501,9 @@ GLOBAL_LIST_INIT(mafia_role_by_alignment, setup_mafia_role_by_alignment())
 	else
 		votes[vote_type][voter] = target
 	if(old_vote && old_vote == target)
-		send_message(span_notice("[voter.body.real_name] retracts their vote for [target.body.real_name]!"), team = teams)
+		send_message("<span class='notice'>[voter.body.real_name] retracts their vote for [target.body.real_name]!</span>", team = teams)
 	else
-		send_message(span_notice("[voter.body.real_name] voted for [target.body.real_name]!"),team = teams)
+		send_message("<span class='notice'>[voter.body.real_name] voted for [target.body.real_name]!</span>",team = teams)
 	if(!teams)
 		target.body.update_appearance() //Update the vote display if it's a public vote
 		var/datum/mafia_role/old = old_vote
@@ -745,16 +745,16 @@ GLOBAL_LIST_INIT(mafia_role_by_alignment, setup_mafia_role_by_alignment())
 			if("mf_signup")
 				var/client/C = ui.user.client
 				if(!SSticker.HasRoundStarted())
-					to_chat(usr, span_warning("Wait for the round to start."))
+					to_chat(usr, "<span class='notice'>Wait for the round to start.</span>")
 					return
 				if(GLOB.mafia_signup[C.ckey])
 					GLOB.mafia_signup -= C.ckey
 					GLOB.mafia_early_votes -= C.ckey //Remove their early start vote as well
-					to_chat(usr, span_notice("You unregister from Mafia."))
+					to_chat(usr, "<span class='notice'>You unregister from Mafia.</span>")
 					return TRUE
 				else
 					GLOB.mafia_signup[C.ckey] = TRUE
-					to_chat(usr, span_notice("You sign up for Mafia."))
+					to_chat(usr, "<span class='notice'>You sign up for Mafia.</span>")
 				if(phase == MAFIA_PHASE_SETUP)
 					check_signups()
 					try_autostart()
@@ -762,26 +762,26 @@ GLOBAL_LIST_INIT(mafia_role_by_alignment, setup_mafia_role_by_alignment())
 			if("mf_spectate")
 				var/client/C = ui.user.client
 				if(C.ckey in mafia_spectators)
-					to_chat(usr, span_notice("You will no longer get messages from the game."))
+					to_chat(usr, "<span class='notice'>You will no longer get messages from the game.</span>")
 					mafia_spectators -= C.ckey
 				else
-					to_chat(usr, span_notice("You will now get messages from the game."))
+					to_chat(usr, "<span class='notice'>You will now get messages from the game.</span>")
 					mafia_spectators += C.ckey
 				return TRUE
 			if("vote_to_start")
 				var/client/C = ui.user.client
 				if(phase != MAFIA_PHASE_SETUP)
-					to_chat(usr, span_notice("You cannot vote to start while a game is underway!"))
+					to_chat(usr, "<span class='notice'>You cannot vote to start while a game is underway!</span>")
 					return
 				if(!GLOB.mafia_signup[C.ckey])
-					to_chat(usr, span_notice("You must be signed up for this game to vote!"))
+					to_chat(usr, "<span class='notice'>You must be signed up for this game to vote!</span>")
 					return
 				if(GLOB.mafia_early_votes[C.ckey])
 					GLOB.mafia_early_votes -= C.ckey
-					to_chat(usr, span_notice("You are no longer voting to start the game early."))
+					to_chat(usr, "<span class='notice'>You are no longer voting to start the game early.</span>")
 				else
 					GLOB.mafia_early_votes[C.ckey] = C
-					to_chat(usr, span_notice("You vote to start the game early ([length(GLOB.mafia_early_votes)] out of [max(round(length(GLOB.mafia_signup) / 2), round(MAFIA_MIN_PLAYER_COUNT / 2))])."))
+					to_chat(usr, "<span class='notice'>You vote to start the game early ([length(GLOB.mafia_early_votes)] out of [max(round(length(GLOB.mafia_signup) / 2), round(MAFIA_MIN_PLAYER_COUNT / 2))]).</span>")
 					if(check_start_votes()) //See if we have enough votes to start
 						forced_setup()
 				return TRUE
@@ -990,8 +990,8 @@ GLOBAL_LIST_INIT(mafia_role_by_alignment, setup_mafia_role_by_alignment())
 	//small message about not getting into this game for clarity on why they didn't get in
 	for(var/unpicked in possible_keys)
 		var/client/unpicked_client = GLOB.directory[unpicked]
-		to_chat(unpicked_client, span_danger("Sorry, the starting mafia game has too many players and you were not picked."))
-		to_chat(unpicked_client, span_warning("You're still signed up, getting messages from the current round, and have another chance to join when the one starting now finishes."))
+		to_chat(unpicked_client, "<span class='danger'>Sorry, the starting mafia game has too many players and you were not picked.</span>")
+		to_chat(unpicked_client, "<span class='warning'>You're still signed up, getting messages from the current round, and have another chance to join when the one starting now finishes.</span>")
 
 	return filtered_keys
 

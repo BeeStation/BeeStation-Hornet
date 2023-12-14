@@ -69,15 +69,15 @@
 
 /datum/mafia_role/proc/greet()
 	SEND_SOUND(body, 'sound/ambience/ambifailure.ogg')
-	to_chat(body,span_danger("You are the [name]."))
-	to_chat(body,span_danger("[desc]"))
+	to_chat(body, "<span class='danger'>You are the [name].</span>")
+	to_chat(body, "<span class='danger'>[desc]</span>")
 	switch(team)
 		if(MAFIA_TEAM_MAFIA)
-			to_chat(body,span_danger("You and your co-conspirators win if you outnumber crewmembers."))
+			to_chat(body, "<span class='danger'>You and your co-conspirators win if you outnumber crewmembers.</span>")
 		if(MAFIA_TEAM_TOWN)
-			to_chat(body,span_danger("You are a crewmember. Find out and lynch the changelings!"))
+			to_chat(body, "<span class='danger'>You are a crewmember. Find out and lynch the changelings!</span>")
 		if(MAFIA_TEAM_SOLO)
-			to_chat(body,span_danger("You are not aligned to town or mafia. Accomplish your own objectives!"))
+			to_chat(body, "<span class='danger'>You are not aligned to town or mafia. Accomplish your own objectives!</span>")
 	to_chat(body, "<span class='warningplain'><b>Be sure to read <a href=\"https://tgstation13.org/wiki/Mafia\">the wiki page</a> to learn more, if you have no idea what's going on.</b></span>")
 
 /datum/mafia_role/proc/reveal_role(datum/mafia_controller/game, verbose = FALSE)
@@ -117,7 +117,7 @@
 			team_desc = "Nobody"
 			team_span = "comradio"
 			the = FALSE
-	result += span_notice("The [span_bold("[name]")] is aligned with [the ? "the " : ""]<span class='[team_span]'>[team_desc]</span>")
+	result += "<span class='notice'>The [("<b>[name]<b>")] is aligned with [the ? "the " : ""]<span class='[team_span]'>[team_desc]</span>"
 	result += "<span class='bold notice'>\"[desc]\"</span>"
-	result += span_notice("[name] wins when they [win_condition]")
+	result += "<span class='notice'>[name] wins when they [win_condition]</span>"
 	to_chat(clueless, result.Join("</br>"))

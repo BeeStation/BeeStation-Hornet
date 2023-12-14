@@ -22,11 +22,11 @@
 		return FALSE
 
 	if(!(target_role in darkened_players))
-		to_chat(target_role.body, span_userdanger("The lights begin to flicker and dim. You're in danger."))
+		to_chat(target_role.body, "<span class='userdanger'>The lights begin to flicker and dim. You're in danger.</span>")
 		darkened_players += target_role
 	else
 		for(var/datum/mafia_role/dead_players as anything in darkened_players)
-			to_chat(dead_players.body, span_userdanger("A shadowy figure appears out of the darkness!"))
+			to_chat(dead_players.body, "<span class='userdanger'>A shadowy figure appears out of the darkness!</span>")
 			dead_players.kill(game, host_role, FALSE)
 			darkened_players -= dead_players
 	return TRUE
@@ -37,5 +37,5 @@
 		return //no chance man, that's a town lynch
 
 	if(attacker in darkened_players)
-		to_chat(host_role.body, span_userdanger("You were attacked by someone in a flickering room. You have danced in the shadows, evading them."))
+		to_chat(host_role.body, "<span class='userdanger'>You were attacked by someone in a flickering room. You have danced in the shadows, evading them.</span>")
 		return MAFIA_PREVENT_KILL

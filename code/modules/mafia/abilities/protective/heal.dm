@@ -18,7 +18,7 @@
 	if(!.)
 		return FALSE
 	if(new_target.role_flags & ROLE_VULNERABLE)
-		to_chat(host_role.body, span_notice("[new_target] can't be protected."))
+		to_chat(host_role.body, "<span class='notice'>[new_target] can't be protected.</span>")
 		return FALSE
 
 /datum/mafia_ability/heal/perform_action_target(datum/mafia_controller/game, datum/mafia_role/day_target)
@@ -39,10 +39,10 @@
 /datum/mafia_ability/heal/proc/prevent_kill(datum/source, datum/mafia_controller/game, datum/mafia_role/attacker, lynch)
 	SIGNAL_HANDLER
 	if(host_role == target_role)
-		to_chat(host_role.body, span_warning("You were attacked last night!"))
+		to_chat(host_role.body, "<span class='warning'>You were attacked last night!</span>")
 		return MAFIA_PREVENT_KILL
-	to_chat(host_role.body, span_warning("The person you protected tonight was attacked!"))
-	to_chat(target_role.body, span_greentext("You were attacked last night, but [saving_message]!"))
+	to_chat(host_role.body, "<span class='warning'>The person you protected tonight was attacked!</span>")
+	to_chat(target_role.body, "<span class='greentext'>You were attacked last night, but [saving_message]!</span>")
 	return MAFIA_PREVENT_KILL
 
 /**
@@ -60,6 +60,6 @@
 		return FALSE
 
 	if(attacker.kill(game, host_role, FALSE)) //you attack the attacker
-		to_chat(attacker.body, span_userdanger("You have been ambushed by Security!"))
+		to_chat(attacker.body, "<span class='userdanger'>You have been ambushed by Security!</span>")
 	host_role.kill(game, attacker, FALSE) //the attacker attacks you, they were able to attack the target so they can attack you.
 	return FALSE

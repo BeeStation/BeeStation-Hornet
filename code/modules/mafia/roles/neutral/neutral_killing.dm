@@ -27,7 +27,7 @@
 	SIGNAL_HANDLER
 
 	if(game.phase == MAFIA_PHASE_NIGHT && !lynch)
-		to_chat(body,span_userdanger("You were attacked, but they'll have to try harder than that to put you down."))
+		to_chat(body, "<span class='userdanger'>You were attacked, but they'll have to try harder than that to put you down.</span>")
 		return MAFIA_PREVENT_KILL
 
 /datum/mafia_role/nightmare

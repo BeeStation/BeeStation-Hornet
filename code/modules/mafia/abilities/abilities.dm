@@ -52,21 +52,21 @@
 	if(game.phase != valid_use_period)
 		return FALSE
 	if(host_role.role_flags & ROLE_ROLEBLOCKED)
-		to_chat(host_role.body, span_warning("You were roleblocked!"))
+		to_chat(host_role.body, "<span class='warning'>You were roleblocked!</span>")
 		return FALSE
 
 	if(potential_target)
 		if(!(use_flags & CAN_USE_ON_DEAD) && (potential_target.game_status == MAFIA_DEAD))
 			if(!silent)
-				to_chat(host_role.body, span_notice("This can only be used on dead players."))
+				to_chat(host_role.body, "<span class='notice'>This can only be used on dead players.</span>")
 			return FALSE
 		if(!(use_flags & CAN_USE_ON_SELF) && (potential_target == host_role))
 			if(!silent)
-				to_chat(host_role.body, span_notice("This can only be used on others."))
+				to_chat(host_role.body, "<span class='notice'>This can only be used on others.</span>")
 			return FALSE
 		if(!(use_flags & CAN_USE_ON_OTHERS) && (potential_target != host_role))
 			if(!silent)
-				to_chat(host_role.body, span_notice("This can only be used on yourself."))
+				to_chat(host_role.body, "<span class='warning'>This can only be used on yourself.</span>")
 			return FALSE
 	return TRUE
 
@@ -90,7 +90,7 @@
 
 	if(target_role)
 		if(SEND_SIGNAL(target_role, COMSIG_MAFIA_ON_VISIT, game, host_role) & MAFIA_VISIT_INTERRUPTED) //visited a warden. something that prevents you by visiting that person
-			to_chat(host_role.body, span_danger("Your [name] was interrupted!"))
+			to_chat(host_role.body, "<span class='danger'>Your [name] was interrupted!</span>")
 			return FALSE
 
 	return TRUE
@@ -121,5 +121,5 @@
 		target_role = new_target
 		feedback_text = replacetext(feedback_text, "%WILL_PERFORM%", "now")
 
-	to_chat(host_role.body, span_notice(feedback_text))
+	to_chat(host_role.body, "<span class='notice'>[feedback_text]</span>")
 	return TRUE

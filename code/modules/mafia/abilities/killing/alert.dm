@@ -22,8 +22,8 @@
 	SIGNAL_HANDLER
 	if(attacker == host_role)
 		return
-	to_chat(host_role.body, span_userdanger("You have shot a visitor!"))
-	to_chat(attacker.body, span_userdanger("You have visited the warden!"))
+	to_chat(host_role.body, "<span class='userdanger'>You have shot a visitor!</span>")
+	to_chat(attacker.body, "<span class='userdanger'>You have visited the warden!</span>")
 	attacker.kill(game, host_role, lynch = FALSE)
 	return MAFIA_VISIT_INTERRUPTED
 
