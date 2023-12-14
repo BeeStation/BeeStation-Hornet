@@ -41,7 +41,7 @@
 	damage_type = BURN
 	nodamage = TRUE
 	armor_flag = ENERGY
-	temperature = 50
+	temperature = -50 // Cools you down! per hit!
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)
 	if(..()) //we have a target
@@ -129,7 +129,7 @@
 	damage = 5
 	damage_type = BURN
 	nodamage = FALSE
-	temperature = 500 //Heats you up!
+	temperature = 200 // Heats you up! per hit!
 
 /obj/projectile/temp/basilisk/magmawing/on_hit(atom/target, blocked = FALSE)
 	. = ..()
