@@ -24,6 +24,7 @@
 		to_read.Cut()
 		in_use = FALSE
 		balloon_alert(user, "Interrupts the reader.")
+		return
 	if(istype(target, /obj/item/paper))
 		var/obj/item/paper/P = target
 		for(var/datum/paper_input/i in P.raw_text_inputs)
