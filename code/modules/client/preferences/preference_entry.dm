@@ -527,7 +527,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		"step" = step,
 	)
 
-/// A prefernece whose value is always TRUE or FALSE
+/// A preference whose value is always TRUE or FALSE
 /datum/preference/toggle
 	abstract_type = /datum/preference/toggle
 
