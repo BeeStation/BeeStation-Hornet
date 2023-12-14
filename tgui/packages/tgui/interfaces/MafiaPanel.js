@@ -8,17 +8,9 @@ import { formatTime } from '../format';
 export const MafiaPanel = (props, context) => {
   const { act, data } = useBackend(context);
   const { phase, roleinfo, admin_controls } = data;
-  const [mafia_tab, setMafiaMode] = useLocalState(
-    context,
-    mafia_tab,
-    'Role list'
-  );
+  const [mafia_tab, setMafiaMode] = useLocalState(context, mafia_tab, 'Role list');
   return (
-    <Window
-      title="Mafia"
-      theme={roleinfo && roleinfo.role_theme}
-      width={650}
-      height={580}>
+    <Window title="Mafia" theme={roleinfo && roleinfo.role_theme} width={650} height={580}>
       <Window.Content>
         <Stack fill vertical>
           {!roleinfo && (
@@ -49,10 +41,7 @@ export const MafiaPanel = (props, context) => {
                   <Stack.Item fluid grow>
                     <Stack.Item>
                       <Tabs fluid>
-                        <Tabs.Tab
-                          align="center"
-                          selected={mafia_tab === 'Role list'}
-                          onClick={() => setMafiaMode('Role list')}>
+                        <Tabs.Tab align="center" selected={mafia_tab === 'Role list'} onClick={() => setMafiaMode('Role list')}>
                           Role list
                           <Button
                             color="transparent"
@@ -64,10 +53,7 @@ export const MafiaPanel = (props, context) => {
                             about the role itself.`}
                           />
                         </Tabs.Tab>
-                        <Tabs.Tab
-                          align="center"
-                          selected={mafia_tab === 'Notes'}
-                          onClick={() => setMafiaMode('Notes')}>
+                        <Tabs.Tab align="center" selected={mafia_tab === 'Notes'} onClick={() => setMafiaMode('Notes')}>
                           Notes
                           <Button
                             color="transparent"
@@ -97,9 +83,7 @@ export const MafiaPanel = (props, context) => {
 const MafiaLobby = (props, context) => {
   const { act, data } = useBackend(context);
   const { lobbydata } = data;
-  const readyGhosts = lobbydata
-    ? lobbydata.filter((player) => player.status === 'Ready')
-    : null;
+  const readyGhosts = lobbydata ? lobbydata.filter((player) => player.status === 'Ready') : null;
   return (
     <Section
       fill
@@ -144,10 +128,7 @@ const MafiaLobby = (props, context) => {
           />
         </>
       }>
-      <NoticeBox info>
-        The lobby currently has {readyGhosts ? readyGhosts.length : '0'}/12
-        valid players signed up.
-      </NoticeBox>
+      <NoticeBox info>The lobby currently has {readyGhosts ? readyGhosts.length : '0'}/12 valid players signed up.</NoticeBox>
       {lobbydata?.map((lobbyist) => (
         <Stack key={lobbyist} className="candystripe" p={1} align="baseline">
           <Stack.Item grow>{lobbyist.name}</Stack.Item>
@@ -238,11 +219,7 @@ const MafiaListOfRoles = (props, context) => {
 const MafiaNotesTab = (props, context) => {
   const { act, data } = useBackend(context);
   const { user_notes } = data;
-  const [note_message, setNotesMessage] = useLocalState(
-    context,
-    'Notes',
-    user_notes
-  );
+  const [note_message, setNotesMessage] = useLocalState(context, 'Notes', user_notes);
   return (
     <Section grow fill>
       <TextArea
@@ -282,12 +259,7 @@ const MafiaJudgement = (props, context) => {
   return (
     <Section title="Judgement">
       <Flex justify="space-around">
-        <Button
-          icon="smile-beam"
-          content="INNOCENT!"
-          color="good"
-          onClick={() => act('vote_innocent')}
-        />
+        <Button icon="smile-beam" content="INNOCENT!" color="good" onClick={() => act('vote_innocent')} />
         <Box>It is now time to vote, vote the accused innocent or guilty!</Box>
         <Button icon="angry" color="bad" onClick={() => act('vote_guilty')}>
           GUILTY!
@@ -309,19 +281,12 @@ const MafiaPlayers = (props, context) => {
     <Section fill scrollable title="Players">
       <Flex direction="column">
         {players?.map((player) => (
-          <Flex.Item
-            height="30px"
-            className="Section__title candystripe"
-            key={player.ref}>
+          <Flex.Item height="30px" className="Section__title candystripe" key={player.ref}>
             <Stack height="18px" align="center">
               <Stack.Item grow color={!player.alive && 'red'}>
                 {player.name} {!player.alive && '(DEAD)'}
               </Stack.Item>
-              <Stack.Item shrink={0}>
-                {player.votes !== undefined &&
-                  !!player.alive &&
-                  `Votes: ${player.votes}`}
-              </Stack.Item>
+              <Stack.Item shrink={0}>{player.votes !== undefined && !!player.alive && `Votes: ${player.votes}`}</Stack.Item>
               <Stack.Item shrink={0} minWidth="42px" textAlign="center">
                 {player.possible_actions?.map((action) => (
                   <Button
@@ -350,11 +315,9 @@ const MafiaAdmin = (props, context) => {
     <Collapsible title="ADMIN CONTROLS" color="red">
       <Section>
         <Collapsible title="A kind, coder warning" color="transparent">
-          Almost all of these are all built to help me debug the game (ow,
-          debugging a 12 player game!) So they are rudamentary and prone to
-          breaking at the drop of a hat. Make sure you know what you&apos;re
-          doing when you press one. Also because an admin did it: do not
-          gib/delete/dust anyone! It will runtime the game to death
+          Almost all of these are all built to help me debug the game (ow, debugging a 12 player game!) So they are rudamentary
+          and prone to breaking at the drop of a hat. Make sure you know what you&apos;re doing when you press one. Also because
+          an admin did it: do not gib/delete/dust anyone! It will runtime the game to death
         </Collapsible>
         <Button icon="arrow-right" onClick={() => act('next_phase')}>
           Next Phase
