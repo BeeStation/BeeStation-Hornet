@@ -568,6 +568,9 @@
 	owner.set_blurriness(0)
 	owner.restore_blood()
 	owner.bodytemperature = owner.get_body_temp_normal()
+	if(istype(owner, /mob/living/carbon/human))
+		var/mob/living/carbon/human/humi = owner
+		humi.coretemperature = humi.get_body_temp_normal()
 	owner.restoreEars()
 	duration = rand(150, 450) * power
 	return TRUE

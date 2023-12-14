@@ -196,6 +196,9 @@
 	if(M.reagents.has_reagent(/datum/reagent/oxygen))
 		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5)
 		M.adjust_bodytemperature(-15)
+		if(ishuman(M))
+			var/mob/living/carbon/human/humi = M
+			humi.adjust_coretemperature(-15)
 	..()
 
 /datum/reagent/cryostylane/reaction_turf(turf/T, reac_volume)
@@ -218,6 +221,9 @@
 	if(M.reagents.has_reagent(/datum/reagent/oxygen))
 		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5)
 		M.adjust_bodytemperature(15)
+		if(ishuman(M))
+			var/mob/living/carbon/human/humi = M
+			humi.adjust_coretemperature(15)
 	..()
 
 /datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.

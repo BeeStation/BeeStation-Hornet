@@ -245,6 +245,9 @@
 	user.playsound_local(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	target.become_blind(MAGIC_BLIND)
 	addtimer(CALLBACK(src, PROC_REF(cure_blindness), target), 40)
+	if(ishuman(targets[1]))
+		var/mob/living/carbon/human/humi = targets[1]
+		humi.adjust_coretemperature(-200)
 	target.adjust_bodytemperature(-200)
 
 /obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/living/L)

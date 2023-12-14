@@ -427,6 +427,7 @@ GENE SCANNER
 			mutant = TRUE
 
 		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
+		message += "<span class='info'>Core temperature: [round(H.coretemperature-T0C,0.1)] &deg;C ([round(H.coretemperature*1.8-459.67,0.1)] &deg;F)</span>"
 	message += "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>"
 
 	// Time of death

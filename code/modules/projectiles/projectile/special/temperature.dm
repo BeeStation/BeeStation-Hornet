@@ -9,9 +9,14 @@
 
 /obj/projectile/temp/on_hit(atom/target, blocked = 0)
 	. = ..()
-	if(isliving(target))
+	if(iscarbon(target))
+		var/mob/living/carbon/hit_mob = target
+		// Reduce the amount of the effect temperature change based on the amount of insulation the mob is wearing
+		hit_mob.adjust_bodytemperature((thermal_protection * temperature) + temperature)
+	else if(isliving(target))
 		var/mob/living/L = target
-		L.adjust_bodytemperature(((100-blocked)/100)*(temperature - L.bodytemperature)) // the new body temperature is adjusted by 100-blocked % of the delta between body temperature and the bullet's effect temperature
+		// the new body temperature is adjusted by the bullet's effect temperature
+		L.adjust_bodytemperature((1 - blocked) * temperature)
 
 /obj/projectile/temp/hot
 	name = "heat beam"

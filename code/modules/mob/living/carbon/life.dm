@@ -679,7 +679,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		amount = (amount > 0) ? min(amount / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX) : max(amount / BODYTEMP_COLD_DIVISOR, BODYTEMP_COOLING_MAX)
 
 	if(bodytemperature >= min_temp && bodytemperature <= max_temp)
-		bodytemperature = clamp(bodytemperature + amount,min_temp,max_temp)
+		bodytemperature = clamp(bodytemperature + amount, min_temp, max_temp)
 
 /////////
 //LIVER//
