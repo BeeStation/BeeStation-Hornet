@@ -1,7 +1,7 @@
 //the random offset applied to square coordinates, causes intermingling at biome borders
 #define TUNDRA_RANDOM_SQUARE_DRIFT 2
 
-/datum/map_generator/tundra_generator
+/datum/mapGenerator/tundra_generator
 	///2D list of all biomes based on heat and humidity combos.
 	var/list/possible_biomes = list(
 	BIOME_LOW_HEAT = list(
@@ -33,7 +33,7 @@
 	var/perlin_zoom = 65
 
 ///Seeds the rust-g perlin noise with a random number.
-/datum/map_generator/tundra_generator/generate_terrain(list/turfs, area/generate_in)
+/datum/mapGenerator/tundra_generator/generate_terrain(list/turfs, area/generate_in)
 	. = ..()
 	var/height_seed = rand(0, 50000) //no mountains please
 	var/humidity_seed = rand(0, 50000)

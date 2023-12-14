@@ -1,4 +1,4 @@
-/datum/map_generator/cave_generator
+/datum/mapGenerator/cave_generator
 	var/name = "Cave Generator"
 	///Weighted list of the types that spawns if the turf is open
 	var/weighted_open_turf_types = list(/turf/open/floor/plating/asteroid = 1)
@@ -50,7 +50,7 @@
 	///How little neighbours does a alive cell need to die
 	var/death_limit = 3
 
-/datum/map_generator/cave_generator/New()
+/datum/mapGenerator/cave_generator/New()
 	. = ..()
 	if(!weighted_mob_spawn_list)
 		weighted_mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /obj/structure/spawner/lavaland/goliath = 3, \
@@ -72,7 +72,7 @@
 	closed_turf_types = expand_weights(weighted_closed_turf_types)
 
 
-/datum/map_generator/cave_generator/generate_terrain(list/turfs, area/generate_in)
+/datum/mapGenerator/cave_generator/generate_terrain(list/turfs, area/generate_in)
 	. = ..()
 
 	var/start_time = REALTIMEOFDAY

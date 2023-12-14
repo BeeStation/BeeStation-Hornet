@@ -1,4 +1,4 @@
-/datum/map_generator/cave_generator/lavaland
+/datum/mapGenerator/cave_generator/lavaland
 	weighted_open_turf_types = list(/turf/open/floor/plating/asteroid/basalt/lava_land_surface = 1)
 	weighted_closed_turf_types =  list(/turf/closed/mineral/random/volcanic = 1)
 	blacklisted_turf_types = list(/turf/open/lava) // Don't override lava rivers

@@ -161,7 +161,7 @@
 /area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
 	icon_state = "danger"
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED | FLORA_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED
-	map_generator = /datum/map_generator/cave_generator/lavaland
+	mapGenerator = /datum/mapGenerator/cave_generator/lavaland
 
 /area/lavaland/surface/outdoors/explored
 	name = "Lavaland Labor Camp"

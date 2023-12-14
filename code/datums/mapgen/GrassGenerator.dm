@@ -1,4 +1,4 @@
-/datum/map_generator/grass_generator
+/datum/mapGenerator/grass_generator
 	///2D list of all biomes based on heat and humidity combos.
 	var/list/possible_biomes = list(
 		/datum/biome/grassedge,
@@ -10,7 +10,7 @@
 	var/perlin_zoom = 65
 
 ///Seeds the rust-g perlin noise with a random number.
-/datum/map_generator/jungle_generator/generate_terrain(list/turfs, area/generate_in)
+/datum/mapGenerator/jungle_generator/generate_terrain(list/turfs, area/generate_in)
 	. = ..()
 
 	for(var/t in turfs) //Go through all the turfs and generate them
