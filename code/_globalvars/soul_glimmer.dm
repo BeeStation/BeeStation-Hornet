@@ -32,19 +32,19 @@ GLOBAL_LIST_INIT(soul_glimmer_cfc_list, list(
 	"Humour" = "cfc_soul_glimmer_humour"))
 
 #define SOUL_GLIMMER_MINIMUM_POP_COLOR 3 // regardless of the pop, 3 colours will always come
-#define SOUL_GLIMMER_POP_REQ_CREEP_STARTING 4 // Starting value. The pop requirement for additional colour will be increased by +1. (4, 5, 6, 7...) eventually you need 73 pop for Humour.
+#define SOUL_GLIMMER_POP_REQ_CREEP_STARTING 6 // Starting value. The pop requirement for additional colour will be increased by +1. (6, 7, 8, 9...) eventually you need 91 pop for Humour.
 
 /*
-	Summary for pop count (based on 4 interval)
+	Summary for pop count (based on 6 interval)
 		Color amount / Pop requirement
 			1	0 (0)
-			2	0 (5)
-			3	0 (10)
-			4	16 -- Starts to get a new color since 16 pop
-			5	23
-			6	31
-			7	40
-			8	50
-			9	61
-			10	73
+			2	0 (7)
+			3	0 (14)
+			4	22	-- Starts to get a new color since 22 pop
+			5	31
+			6	41
+			7	52
+			8	64
+			9	77
+			10	91
 */
