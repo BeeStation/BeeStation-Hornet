@@ -1259,20 +1259,6 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
-"dM" = (
-/obj/item/food/meat/slab/monkey,
-/obj/item/food/meat/slab/monkey,
-/obj/item/food/meat/slab/monkey,
-/obj/item/food/meat/slab/monkey,
-/obj/structure/closet/secure_closet/freezer{
-	locked = 0;
-	name = "meat fridge";
-	req_access_txt = "201"
-	},
-/turf/open/floor/plasteel/showroomfloor{
-	heat_capacity = 1e+006
-	},
-/area/awaymission/undergroundoutpost45/crew_quarters)
 "dN" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -2635,14 +2621,6 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3
 	},
-/turf/open/floor/plasteel/cafeteria{
-	dir = 5;
-	heat_capacity = 1e+006
-	},
-/area/awaymission/undergroundoutpost45/crew_quarters)
-"hS" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5;
 	heat_capacity = 1e+006
@@ -10256,6 +10234,20 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/engineering)
+"zO" = (
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/structure/closet/secure_closet/freezer{
+	locked = 0;
+	name = "meat fridge";
+	req_access_txt = "201"
+	},
+/turf/open/floor/plasteel/showroomfloor{
+	heat_capacity = 1e+006
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "zR" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -12058,6 +12050,14 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
+"So" = (
+/obj/structure/table,
+/obj/item/food/mint,
+/turf/open/floor/plasteel/cafeteria{
+	dir = 5;
+	heat_capacity = 1e+006
+	},
+/area/awaymission/undergroundoutpost45/crew_quarters)
 "Sq" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -48403,12 +48403,12 @@ fw
 fN
 ga
 fZ
-dM
+zO
 fO
 gE
 gO
 hr
-hS
+So
 iq
 gO
 gO

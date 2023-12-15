@@ -875,3 +875,9 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+
+/datum/chemical_reaction/mutationtoxin/psyphoza
+	name = /datum/reagent/mutationtoxin/psyphoza
+	id = /datum/reagent/mutationtoxin/psyphoza
+	results = list(/datum/reagent/mutationtoxin/psyphoza = 5)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/amatoxin = 5)

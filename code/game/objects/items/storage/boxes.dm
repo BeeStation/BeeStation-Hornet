@@ -1055,20 +1055,21 @@
 
 /obj/item/storage/box/ingredients/wildcard/PopulateContents()
 	for(var/i in 1 to 7)
-		var/randomFood = pick(/obj/item/reagent_containers/food/snacks/grown/chili,
-							  /obj/item/reagent_containers/food/snacks/grown/tomato,
-							  /obj/item/reagent_containers/food/snacks/grown/carrot,
-							  /obj/item/reagent_containers/food/snacks/grown/potato,
-							  /obj/item/reagent_containers/food/snacks/grown/potato/sweet,
-							  /obj/item/reagent_containers/food/snacks/grown/apple,
-							  /obj/item/reagent_containers/food/snacks/chocolatebar,
-							  /obj/item/reagent_containers/food/snacks/grown/cherries,
-							  /obj/item/reagent_containers/food/snacks/grown/banana,
-							  /obj/item/reagent_containers/food/snacks/grown/cabbage,
-							  /obj/item/reagent_containers/food/snacks/grown/soybeans,
-							  /obj/item/reagent_containers/food/snacks/grown/corn,
-							  /obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet,
-							  /obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle)
+		var/randomFood = pick(
+			/obj/item/reagent_containers/food/snacks/grown/chili,
+			/obj/item/reagent_containers/food/snacks/grown/tomato,
+			/obj/item/reagent_containers/food/snacks/grown/carrot,
+			/obj/item/reagent_containers/food/snacks/grown/potato,
+			/obj/item/reagent_containers/food/snacks/grown/potato/sweet,
+			/obj/item/reagent_containers/food/snacks/grown/apple,
+			/obj/item/food/chocolatebar,
+			/obj/item/reagent_containers/food/snacks/grown/cherries,
+			/obj/item/reagent_containers/food/snacks/grown/banana,
+			/obj/item/reagent_containers/food/snacks/grown/cabbage,
+			/obj/item/reagent_containers/food/snacks/grown/soybeans,
+			/obj/item/reagent_containers/food/snacks/grown/corn,
+			/obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet,
+			/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle)
 		new randomFood(src)
 
 /obj/item/storage/box/ingredients/fiesta
@@ -1130,7 +1131,7 @@
 	for(var/i in 1 to 2)
 		new /obj/item/reagent_containers/food/snacks/grown/cherries(src)
 		new /obj/item/reagent_containers/food/snacks/grown/banana(src)
-	new /obj/item/reagent_containers/food/snacks/chocolatebar(src)
+	new /obj/item/food/chocolatebar(src)
 	new /obj/item/reagent_containers/food/snacks/grown/cocoapod(src)
 	new /obj/item/reagent_containers/food/snacks/grown/apple(src)
 

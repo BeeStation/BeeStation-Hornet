@@ -6240,12 +6240,6 @@
 "atn" = (
 /turf/closed/wall/r_wall/rust,
 /area/security/courtroom)
-"ato" = (
-/obj/structure/table,
-/obj/item/storage/bag/tray,
-/obj/item/food/fishfingers,
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/bar/atrium)
 "atq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -14251,16 +14245,6 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"bdE" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet{
-	name = "kitchen closet"
-	},
-/obj/item/clothing/suit/toggle/chef,
-/obj/item/reagent_containers/food/snacks/chococoin,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "bdJ" = (
 /obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/airlock/research{
@@ -44878,6 +44862,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
+"eQU" = (
+/obj/structure/table,
+/obj/item/storage/bag/tray,
+/obj/item/food/sausage,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/bar/atrium)
 "eRb" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -48066,6 +48059,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
+"gif" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet{
+	name = "kitchen closet"
+	},
+/obj/item/clothing/suit/toggle/chef,
+/obj/item/food/chococoin,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "gin" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -58487,15 +58490,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
-"kyV" = (
-/obj/structure/table,
-/obj/item/storage/bag/tray,
-/obj/item/food/sausage,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/bar/atrium)
 "kzl" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
@@ -64090,6 +64084,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
+"nat" = (
+/obj/structure/table,
+/obj/item/storage/bag/tray,
+/obj/item/food/fishfingers,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/bar/atrium)
 "nav" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -65770,23 +65770,6 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
-"nPI" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/condiment/sugar{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/beaker,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/kitchen)
 "nQw" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/effect/turf_decal/delivery,
@@ -74673,6 +74656,23 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"rvi" = (
+/obj/structure/table,
+/obj/item/food/mint,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/sugar{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "rvC" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -125593,7 +125593,7 @@ rKa
 dxP
 bna
 bqL
-kyV
+eQU
 lOa
 dqg
 tBK
@@ -125858,7 +125858,7 @@ eeK
 ohZ
 bmA
 fKZ
-nPI
+rvi
 xQc
 ubM
 icj
@@ -126882,7 +126882,7 @@ eUu
 sZl
 ges
 wCW
-ato
+nat
 mNG
 bwi
 ajt
@@ -130481,7 +130481,7 @@ aRI
 oIt
 sfd
 baV
-bdE
+gif
 bbf
 cbk
 bhG

@@ -2849,12 +2849,6 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"arO" = (
-/obj/machinery/monkey_recycler,
-/obj/item/food/monkeycube,
-/obj/item/food/monkeycube,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "arP" = (
 /turf/closed/wall,
 /area/maintenance/fore)
@@ -6153,11 +6147,6 @@
 /obj/machinery/portable_atmospherics/canister/water_vapor,
 /turf/open/floor/plasteel,
 /area/janitor)
-"aTM" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "aTN" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
@@ -55256,6 +55245,12 @@
 /obj/item/book/manual/wiki/security_space_law,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/engineering)
+"uid" = (
+/obj/machinery/monkey_recycler,
+/obj/item/food/monkeycube,
+/obj/item/food/monkeycube,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "uis" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -60344,6 +60339,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
+"wYI" = (
+/obj/structure/table,
+/obj/item/food/mint,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "wYO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -82117,7 +82117,7 @@ alU
 amC
 amC
 amC
-arO
+uid
 alU
 nrr
 iiF
@@ -101154,7 +101154,7 @@ eGg
 aJI
 aRy
 fQm
-aTM
+wYI
 aVB
 aVz
 aVz

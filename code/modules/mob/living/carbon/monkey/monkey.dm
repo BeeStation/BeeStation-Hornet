@@ -41,6 +41,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/lay_down)
 
+	icon_state = null
+
 	if(unique_name) //used to exclude pun pun
 		gender = pick(MALE, FEMALE)
 	real_name = name

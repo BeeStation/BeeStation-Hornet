@@ -708,6 +708,14 @@
 	race = /datum/species/plasmaman
 	taste_description = "plasma"
 
+/datum/reagent/mutationtoxin/psyphoza
+	name = "Psyphoza Mutation Toxin"
+	description = "A fungal-based toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	chem_flags = CHEMICAL_RNG_FUN
+	race = /datum/species/psyphoza
+	taste_description = "fungus"
+
 #undef MUT_MSG_IMMEDIATE
 #undef MUT_MSG_EXTENDED
 #undef MUT_MSG_ABOUT2TURN
