@@ -188,3 +188,8 @@
 	name = "white floor"
 	desc = "A tile in a pure white color."
 	icon_state = "pure_white"
+
+/turf/open/floor/holofloor/eighties
+	name = "retro floor"
+	desc = "This one takes you back."
+	icon_state = "eighties"

@@ -64,6 +64,13 @@
 	},
 /turf/open/floor/holofloor,
 /area/template_noop)
+"C" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/readybutton,
+/turf/open/floor/holofloor,
+/area/template_noop)
 "D" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/holofloor,
@@ -86,11 +93,9 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
-/obj/machinery/readybutton,
 /turf/open/floor/holofloor,
 /area/template_noop)
 "M" = (
-/obj/machinery/readybutton,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/holofloor,
 /area/template_noop)
@@ -104,6 +109,13 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"Q" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/readybutton,
 /turf/open/floor/holofloor,
 /area/template_noop)
 "R" = (
@@ -161,13 +173,13 @@ X
 R
 "}
 (4,1,1) = {"
-I
+Q
 X
 u
 K
 w
 X
-R
+C
 "}
 (5,1,1) = {"
 I

@@ -43,10 +43,10 @@
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
 "l" = (
-/turf/open/floor/plating/beach/water/coastline_t,
+/turf/open/floor/plating/beach/coastline_t,
 /area/template_noop)
 "m" = (
-/turf/open/floor/plating/beach/water/coastline_b,
+/turf/open/floor/plating/beach/coastline_b,
 /area/template_noop)
 "n" = (
 /turf/open/floor/plating/beach/water,

@@ -89,10 +89,10 @@
 //island
 
 /datum/biome/grassedge
-	turf_type = /turf/open/floor/grass/planetary
-	flora_density = 30
-	flora_x_offset = 10
-	flora_y_offset = 30
+	turf_type = /turf/open/floor/plating/dirt/grass
+	flora_density = 90
+	flora_x_offset = 16
+	flora_y_offset = 16
 	flora_types = list(
 		/obj/structure/flora/tree/palm,
 		/obj/structure/flora/ausbushes/fullgrass,
@@ -104,11 +104,11 @@
 	)
 
 /datum/biome/grasslush
-	turf_type = /turf/open/floor/grass/planetary
-	flora_density = 80
-	fauna_density = 20
-	flora_x_offset = 30
-	flora_y_offset = 30
+	turf_type = /turf/open/floor/plating/dirt/planetary
+	flora_density = 120
+	fauna_density = 5
+	flora_x_offset = 16
+	flora_y_offset = 16
 	flora_types = list(
 		/obj/structure/flora/tree/jungle/small,
 		/obj/structure/flora/tree/jungle,
@@ -139,10 +139,10 @@
 	)
 
 /datum/biome/grassclearing
-	turf_type = /turf/open/floor/grass/planetary
-	flora_density = 60
-	flora_x_offset = 15
-	flora_y_offset = 30
+	turf_type = /turf/open/floor/plating/dirt/grass
+	flora_density = 80
+	flora_x_offset = 16
+	flora_y_offset = 16
 	flora_types = list(
 		/obj/structure/flora/grass/jungle/b,
 		/obj/structure/flora/ausbushes/fernybush,
@@ -160,9 +160,9 @@
 /datum/biome/sand
 	turf_type = /turf/open/floor/plating/beach/sand
 	flora_density = 30
-	fauna_density = 10
-	flora_x_offset = 30
-	flora_y_offset = 30
+	fauna_density = 3
+	flora_x_offset = 16
+	flora_y_offset = 16
 	flora_types = list(
 		/obj/structure/flora/tree/palm,
 		/obj/structure/flora/ausbushes/fullgrass,

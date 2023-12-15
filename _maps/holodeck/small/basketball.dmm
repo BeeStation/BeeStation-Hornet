@@ -41,10 +41,10 @@
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
 "j" = (
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/holohoop{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood,
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
 "k" = (
@@ -176,12 +176,10 @@
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
 "R" = (
-/obj/structure/holohoop{
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/structure/holohoop,
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
 "T" = (

@@ -1,9 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "an" = (
-/obj/structure/closet/secure_closet/courtroom,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "aR" = (

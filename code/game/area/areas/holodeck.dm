@@ -11,6 +11,8 @@
 
 	network_root_id = "HOLODECK"
 
+/area/holodeck/small
+	linked = /obj/machinery/computer/holodeck/small/
 /*
 	Power tracking: Use the holodeck computer's power grid
 	Asserts are to avoid the inevitable infinite loops
@@ -52,3 +54,6 @@
 
 /area/holodeck/rec_center/offstation_one
 	name = "\improper Recreational Holodeck"
+
+/area/holodeck/small //7x7 internal
+	name = "\improper Small Recreational Holodeck"

@@ -18,6 +18,17 @@
 /turf/open/floor/plating/dirt/planetary
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
+/turf/open/floor/plating/dirt/grass
+	desc = "You're almost positive this is real grass."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "grass"
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	baseturfs = /turf/open/floor/plating/dirt
+
 /turf/open/floor/plating/dirt/dark
 	icon_state = "greenerdirt"
 

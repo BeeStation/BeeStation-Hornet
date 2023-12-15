@@ -27,9 +27,6 @@
 	pixel_x = -9;
 	pixel_y = 5
 	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
 /area/template_noop)
@@ -41,9 +38,6 @@
 /area/template_noop)
 "n" = (
 /obj/machinery/chem_master/condimaster,
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
 /area/template_noop)
@@ -61,10 +55,8 @@
 	pixel_x = -10;
 	pixel_y = 11
 	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/item/food/dough,
 /turf/open/floor/holofloor,
 /area/template_noop)
 "q" = (
@@ -76,18 +68,12 @@
 "r" = (
 /obj/machinery/chem_dispenser/drinks,
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
 /area/template_noop)
 "t" = (
 /obj/machinery/chem_dispenser/drinks/beer,
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
 /area/template_noop)
@@ -99,17 +85,11 @@
 /area/template_noop)
 "w" = (
 /obj/machinery/deepfryer,
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
 /area/template_noop)
 "x" = (
 /obj/machinery/processor,
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
 /area/template_noop)
@@ -127,9 +107,6 @@
 /obj/machinery/microwave{
 	pixel_x = -1;
 	pixel_y = 8
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
@@ -180,16 +157,10 @@
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
 /area/template_noop)
 "O" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
 /area/template_noop)
@@ -202,18 +173,9 @@
 	pixel_x = -6;
 	pixel_y = 19
 	},
-/obj/item/reagent_containers/food/snacks/dough{
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/food/snacks/dough{
-	pixel_x = -4
-	},
 /obj/item/kitchen/rollingpin{
 	pixel_x = 3;
 	pixel_y = 5
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
@@ -221,9 +183,6 @@
 "Z" = (
 /obj/structure/closet/crate/freezer,
 /obj/effect/turf_decal/box,
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor,
 /area/template_noop)

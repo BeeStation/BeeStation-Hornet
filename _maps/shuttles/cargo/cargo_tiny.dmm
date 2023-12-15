@@ -17,23 +17,27 @@
 /area/shuttle/supply)
 "c" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "MailConv"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/obj/machinery/status_display/supply{
+	pixel_y = -31
+	},
+/obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
 "d" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "MailConv"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
@@ -74,14 +78,14 @@
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "t" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "MailConv"
+	},
+/turf/open/floor/plating,
 /area/shuttle/supply)
 "u" = (
 /obj/effect/turf_decal/bot,
@@ -99,10 +103,25 @@
 	name = "Supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
+	dir = 8;
+	id = "MailConv"
+	},
+/obj/machinery/button/door{
+	id = "QMLoaddoor";
+	layer = 4;
+	name = "Bounty blast doors";
+	normaldoorcontrol = 1;
+	req_access_txt = "31";
+	pixel_y = 38
 	},
 /obj/structure/plasticflaps,
+/obj/machinery/button/door{
+	id = "QMLoaddoor2";
+	layer = 4;
+	name = "Loading Doors";
+	req_access_txt = "31";
+	pixel_y = 29
+	},
 /turf/open/floor/plasteel/sepia,
 /area/shuttle/supply)
 "D" = (
@@ -122,16 +141,13 @@
 /area/shuttle/supply)
 "G" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/status_display/supply{
-	pixel_y = 32
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "MailConv"
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
@@ -145,14 +161,14 @@
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "I" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "MailConv"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
 "K" = (
@@ -160,26 +176,26 @@
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "R" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"T" = (
-/obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "MailConv"
 	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"T" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/structure/sign/warning/fire{
 	pixel_x = 1;
 	pixel_y = -33
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
@@ -202,8 +218,8 @@
 	name = "Supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
-	dir = 8;
-	id = "MailConv"
+	dir = 4;
+	id = "QMLoad2"
 	},
 /obj/structure/plasticflaps,
 /turf/open/floor/plasteel/sepia,
@@ -224,28 +240,28 @@ Y
 m
 "}
 (3,1,1) = {"
-o
+K
 R
 u
 I
-q
+m
 "}
 (4,1,1) = {"
-o
+K
 G
 y
 c
-q
+m
 "}
 (5,1,1) = {"
-o
+K
 R
 F
 d
-K
+o
 "}
 (6,1,1) = {"
-m
+q
 t
 D
 T

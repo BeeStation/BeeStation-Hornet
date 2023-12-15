@@ -262,7 +262,7 @@
 	if(!(H.head?.clothing_flags))
 		return TRUE
 
-/turf/open/floor/plating/beach/water/deep
+/turf/open/floor/plating/beach/deep_water
 	desc = "Deep water. What if there's sharks?"
 	icon_state = "water_deep"
 	density = 1 //no swimming
@@ -272,14 +272,14 @@
 	icon_state = "sandwater_t"
 	baseturfs = /turf/open/floor/plating/beach/water/coastline_t
 
-/turf/open/floor/plating/beach/water/coastline_b
+/turf/open/floor/plating/beach/coastline_b
 	name = "coastline"
 	icon_state = "sandwater_b"
-	baseturfs = /turf/open/floor/plating/beach/water/coastline_b
+	baseturfs = /turf/open/floor/plating/beach/coastline_b
 
-/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner
 	icon_state = "sandwater_inner"
-	baseturfs = /turf/open/floor/plating/beach/water/coastline_t/sandwater_inner
+	baseturfs = /turf/open/floor/plating/beach/coastline_t/sandwater_inner
 
 /turf/open/floor/plating/ironsand
 	gender = PLURAL

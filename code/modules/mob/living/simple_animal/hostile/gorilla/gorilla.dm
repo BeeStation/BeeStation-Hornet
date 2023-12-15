@@ -125,3 +125,7 @@
 	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+
+/mob/living/simple_animal/hostile/gorilla/passive
+	desc = "A Gorilla, don't get too close, they look annoyed"
+	vision_range = 2

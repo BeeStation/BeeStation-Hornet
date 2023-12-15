@@ -650,9 +650,17 @@
 	suffix = "rad"
 	name = "mining shuttle (Rad)"
 
+/datum/map_template/shuttle/mining/tiny
+	suffix = "tiny"
+	name = "mining shuttle (Tiny)"
+
 /datum/map_template/shuttle/cargo/rad
 	suffix = "rad"
 	name = "cargo ferry (Rad)"
+
+/datum/map_template/shuttle/cargo/tiny
+	suffix = "tiny"
+	name = "cargo ferry (Tiny)"
 
 /datum/map_template/shuttle/science
 	port_id = "science"

@@ -1051,7 +1051,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/bridge)
 "apl" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -1229,7 +1229,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/bridge)
 "atf" = (
 /obj/structure/closet/secure_closet/personal,
@@ -2134,7 +2134,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/bridge)
 "aJd" = (
 /obj/machinery/chem_heater{
@@ -2461,7 +2461,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/bridge)
 "aMJ" = (
 /obj/structure/extinguisher_cabinet{
@@ -2487,7 +2487,7 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
 "aNA" = (
-/turf/open/floor/plating/beach/water/coastline_b{
+/turf/open/floor/plating/beach/coastline_b{
 	dir = 8
 	},
 /area/asteroid/paradice/surface/water)
@@ -2496,6 +2496,10 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/delivery,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "aNK" = (
@@ -2593,7 +2597,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard)
 "aOY" = (
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/asteroid/paradice/surface/grass)
 "aPc" = (
 /turf/closed/wall,
@@ -3663,7 +3667,8 @@
 	name = "Holodeck Access"
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "bjl" = (
 /obj/effect/turf_decal/stripes/line,
@@ -3831,11 +3836,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/docking_port/stationary{
-	dwidth = 3;
-	height = 4;
+	dwidth = 5;
+	height = 10;
 	id = "mining_home";
 	name = "mining shuttle bay";
-	width = 5
+	roundstart_template = /datum/map_template/shuttle/mining/tiny;
+	width = 10
 	},
 /turf/open/floor/dock/drydock,
 /area/quartermaster/storage)
@@ -4277,11 +4283,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/delivery,
 /obj/machinery/computer/shuttle_flight/mining{
 	dir = 4;
 	req_access = null
 	},
-/obj/effect/turf_decal/delivery,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "bDV" = (
@@ -4512,7 +4521,7 @@
 	name = "-3 Primary Hallway"
 	})
 "bOQ" = (
-/turf/open/floor/plating/beach/water/coastline_t{
+/turf/open/floor/plating/beach/coastline_t{
 	dir = 10
 	},
 /area/asteroid/paradice/surface)
@@ -5054,15 +5063,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics)
-"cke" = (
-/obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior 3";
-	dir = 10;
-	network = list("minisat");
-	view_range = 5
-	},
-/turf/open/openspace,
-/area/maintenance/central)
 "ckM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -6705,9 +6705,7 @@
 "dqm" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "dqs" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -6918,9 +6916,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "dxK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -7313,7 +7309,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
@@ -9065,7 +9061,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port)
 "eOZ" = (
-/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 1
 	},
 /area/asteroid/paradice/surface)
@@ -9260,7 +9256,7 @@
 /obj/structure/flora/tree/jungle{
 	plane = -3
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
@@ -10287,7 +10283,6 @@
 /obj/item/clothing/under/misc/assistantformal,
 /obj/item/lighter,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/airalarm/directional/west,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "fFu" = (
@@ -10308,7 +10303,6 @@
 /obj/structure/sign/warning/securearea{
 	pixel_x = 32
 	},
-/obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -11172,7 +11166,7 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "ggF" = (
-/turf/open/floor/plating/beach/water/coastline_t{
+/turf/open/floor/plating/beach/coastline_t{
 	dir = 4
 	},
 /area/asteroid/paradice/surface)
@@ -12522,10 +12516,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/medical/storage)
 "gWa" = (
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
@@ -12593,6 +12587,9 @@
 "gXJ" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
@@ -13301,7 +13298,6 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/fitness/recreation)
 "hzM" = (
-/obj/machinery/airalarm/directional/west,
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
@@ -13828,7 +13824,7 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/cafeteria)
 "hUP" = (
-/turf/open/floor/plating/beach/water/coastline_b{
+/turf/open/floor/plating/beach/coastline_b{
 	dir = 10
 	},
 /area/asteroid/paradice/surface/water)
@@ -14358,9 +14354,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "ipb" = (
 /obj/structure/lattice,
 /turf/open/openspace,
@@ -14722,9 +14716,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "iEJ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
@@ -14973,7 +14965,7 @@
 /turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "iMO" = (
-/turf/open/floor/plating/beach/water/coastline_t{
+/turf/open/floor/plating/beach/coastline_t{
 	dir = 6
 	},
 /area/asteroid/paradice/surface)
@@ -15015,7 +15007,7 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "iPJ" = (
-/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 4
 	},
 /area/asteroid/paradice/surface)
@@ -15448,7 +15440,7 @@
 	},
 /area/science/lab)
 "jfR" = (
-/turf/open/floor/plating/beach/water/coastline_b{
+/turf/open/floor/plating/beach/coastline_b{
 	dir = 1
 	},
 /area/asteroid/paradice/surface/water)
@@ -15484,6 +15476,7 @@
 /obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/bot,
 /obj/machinery/firealarm/directional/north,
+/obj/item/toy/spinningtoy,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "jhN" = (
@@ -15812,6 +15805,15 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
+"juc" = (
+/obj/machinery/camera/motion{
+	c_tag = "MiniSat Exterior 3";
+	dir = 10;
+	network = list("minisat");
+	view_range = 5
+	},
+/turf/open/floor/plating,
+/area/maintenance/central)
 "jug" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -15984,6 +15986,18 @@
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
+"jAN" = (
+/obj/machinery/conveyor{
+	id = "QMLoad2"
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/storage)
 "jBj" = (
 /obj/machinery/power/smes{
 	charge = 2e+007
@@ -16285,7 +16299,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
@@ -18203,9 +18217,7 @@
 	dir = 4
 	},
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "kWl" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
 	alpha = 180
@@ -18498,9 +18510,7 @@
 "lgq" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/mineral/ore_redemption{
-	input_dir = 8;
-	layer = 2.5;
-	output_dir = 1
+	layer = 2.5
 	},
 /obj/item/food/donkpocket/pizza{
 	pixel_x = 10;
@@ -18645,7 +18655,7 @@
 	pixel_x = -4;
 	pixel_y = 6
 	},
-/obj/machinery/computer{
+/obj/machinery/computer/holodeck/small{
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
@@ -18711,13 +18721,6 @@
 	},
 /turf/open/floor/plating,
 /area/hydroponics)
-"lmo" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/storage)
 "lmr" = (
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating/asteroid,
@@ -19050,9 +19053,7 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "lyO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/basalt,
@@ -19104,9 +19105,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "lCS" = (
 /turf/closed/wall/r_wall/rust,
 /area/engine/engineering)
@@ -19300,7 +19299,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
@@ -20274,7 +20273,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/medical/storage)
 "mmv" = (
 /obj/structure/cable/yellow{
@@ -20589,7 +20588,6 @@
 	alpha = 100;
 	dir = 8
 	},
-/obj/machinery/firealarm/directional/east,
 /turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "mzo" = (
@@ -20635,7 +20633,7 @@
 	id = "Engidesk";
 	name = "engineering security door"
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/crew_quarters/heads/chief)
 "mAS" = (
 /obj/structure/railing{
@@ -20779,7 +20777,7 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "mIJ" = (
-/turf/open/floor/plating/beach/water/coastline_b{
+/turf/open/floor/plating/beach/coastline_b{
 	dir = 5
 	},
 /area/asteroid/paradice/surface/water)
@@ -20972,7 +20970,7 @@
 /turf/open/floor/dock/drydock,
 /area/quartermaster/storage)
 "mPc" = (
-/turf/open/floor/plating/beach/water/coastline_t{
+/turf/open/floor/plating/beach/coastline_t{
 	dir = 5
 	},
 /area/asteroid/paradice/surface)
@@ -21159,7 +21157,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "mTy" = (
-/turf/open/floor/plating/beach/water/coastline_b,
+/turf/open/floor/plating/beach/coastline_b,
 /area/asteroid/paradice/surface/water)
 "mTJ" = (
 /obj/structure/ladder,
@@ -21277,7 +21275,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "mXY" = (
-/turf/open/floor/plating/beach/water/coastline_t{
+/turf/open/floor/plating/beach/coastline_t{
 	dir = 9
 	},
 /area/asteroid/paradice/surface)
@@ -21628,7 +21626,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/cafeteria)
 "nkH" = (
-/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner,
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner,
 /area/asteroid/paradice/surface)
 "nlG" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
@@ -21809,7 +21807,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "nph" = (
-/turf/open/floor/plating/beach/water/coastline_t{
+/turf/open/floor/plating/beach/coastline_t{
 	dir = 8
 	},
 /area/asteroid/paradice/surface)
@@ -21835,7 +21833,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "nqu" = (
-/obj/machinery/airalarm/directional/west,
 /obj/structure/chair/wood/normal{
 	dir = 4
 	},
@@ -22989,9 +22986,7 @@
 	dir = 4
 	},
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "ooN" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
@@ -23964,7 +23959,7 @@
 	id = "Engidesk";
 	name = "engineering security door"
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/crew_quarters/heads/chief)
 "oPi" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -24635,10 +24630,11 @@
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "pmQ" = (
 /obj/machinery/light_switch{
 	pixel_x = -23;
@@ -25971,7 +25967,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
@@ -26724,10 +26720,23 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"qMp" = (
+/obj/machinery/mineral/ore_redemption{
+	layer = 2.5;
+	output_dir = 1
+	},
+/turf/closed/wall,
+/area/maintenance/starboard)
 "qMA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"qMM" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/engine/light,
+/area/holodeck/small)
 "qMZ" = (
 /obj/structure/bodycontainer/morgue,
 /turf/open/floor/plasteel/dark,
@@ -26818,9 +26827,6 @@
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
 	})
-"qSf" = (
-/turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradice/surface)
 "qSu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -27431,12 +27437,6 @@
 	dir = 9;
 	id = "QMLoad2"
 	},
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 8
-	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "rnq" = (
@@ -27591,7 +27591,7 @@
 /turf/open/floor/plasteel,
 /area/janitor)
 "rtF" = (
-/turf/open/floor/plating/beach/water/coastline_b{
+/turf/open/floor/plating/beach/coastline_b{
 	dir = 9
 	},
 /area/asteroid/paradice/surface/water)
@@ -27691,7 +27691,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "rwX" = (
-/turf/open/floor/plating/beach/water/coastline_t{
+/turf/open/floor/plating/beach/coastline_t{
 	dir = 1
 	},
 /area/asteroid/paradice/surface)
@@ -27927,7 +27927,7 @@
 	pixel_x = -2;
 	pixel_y = -27
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
@@ -28476,6 +28476,17 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"sap" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 5;
+	height = 10;
+	id = "supply_home";
+	name = "Cargo Bay";
+	width = 10
+	},
+/turf/open/floor/dock/drydock,
+/area/quartermaster/storage)
 "sav" = (
 /obj/effect/turf_decal/caution,
 /obj/machinery/computer/security/telescreen/toxins{
@@ -29806,6 +29817,9 @@
 	pixel_x = 1;
 	pixel_y = 28
 	},
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "sVE" = (
@@ -30082,7 +30096,7 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "tey" = (
-/turf/open/floor/plating/beach/water/coastline_t,
+/turf/open/floor/plating/beach/coastline_t,
 /area/asteroid/paradice/surface/sand)
 "teR" = (
 /obj/structure/bed,
@@ -30454,10 +30468,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/tech/grid,
 /area/ai_monitored/turret_protected/aisat_interior)
-"tmi" = (
-/obj/machinery/airalarm/directional/west,
-/turf/open/floor/carpet/purple,
-/area/crew_quarters/dorms)
 "tmB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -30778,11 +30788,8 @@
 	pixel_x = -29;
 	pixel_y = -2
 	},
-/obj/structure/table/reinforced,
-/obj/item/clothing/neck/stethoscope{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/mineral/mint,
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
 "twN" = (
@@ -31407,7 +31414,7 @@
 	id = "Engidesk";
 	name = "engineering security door"
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/crew_quarters/heads/chief)
 "tRd" = (
 /obj/effect/turf_decal/stripes/line,
@@ -31598,7 +31605,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "tTJ" = (
-/turf/open/floor/plating/beach/water/coastline_b{
+/turf/open/floor/plating/beach/coastline_b{
 	dir = 4
 	},
 /area/asteroid/paradice/surface/water)
@@ -33238,6 +33245,9 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/engineering_hacking,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/item/clothing/neck/stethoscope{
+	pixel_y = 5
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
 "vcv" = (
@@ -33287,7 +33297,7 @@
 /area/science/lab)
 "vdf" = (
 /obj/structure/flora/tree/jungle/small,
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
@@ -33808,7 +33818,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "vBU" = (
-/turf/open/floor/plating/beach/water/coastline_t,
+/turf/open/floor/plating/beach/coastline_t,
 /area/asteroid/paradice/surface)
 "vBZ" = (
 /obj/structure/railing/corner{
@@ -34468,7 +34478,6 @@
 	alpha = 100;
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/west,
 /turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "wbB" = (
@@ -34663,6 +34672,7 @@
 	alpha = 100;
 	dir = 9
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/plating/asteroid,
 /area/crew_quarters/dorms)
 "whD" = (
@@ -34739,7 +34749,7 @@
 	req_access_txt = "31"
 	},
 /obj/machinery/button/door{
-	id = "Bountydoors";
+	id = "QMLoaddoor";
 	layer = 4;
 	name = "Bounty blast doors";
 	normaldoorcontrol = 1;
@@ -35142,7 +35152,7 @@
 	name = "-3 Primary Hallway"
 	})
 "wzv" = (
-/turf/open/floor/plating/beach/water/coastline_t/sandwater_inner{
+/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 8
 	},
 /area/asteroid/paradice/surface)
@@ -35413,7 +35423,7 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
 "wHr" = (
-/turf/open/floor/plating/beach/water/deep,
+/turf/open/floor/plating/beach/deep_water,
 /area/asteroid/paradice/surface/water)
 "wHw" = (
 /obj/structure/stairs{
@@ -35523,9 +35533,7 @@
 /area/science/test_area)
 "wLe" = (
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "wLz" = (
 /obj/structure/sign/departments/minsky/supply/cargo,
 /turf/closed/wall,
@@ -35966,7 +35974,7 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room)
 "xbh" = (
-/turf/open/floor/plating/beach/water/coastline_b{
+/turf/open/floor/plating/beach/coastline_b{
 	dir = 6
 	},
 /area/asteroid/paradice/surface/water)
@@ -36423,7 +36431,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/grass/planetary,
+/turf/open/floor/plating/dirt/grass,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
@@ -37146,14 +37154,22 @@
 	dir = 1
 	},
 /turf/open/floor/engine/light,
-/area/hallway/primary/aft{
-	name = "-3 Primary Hallway"
-	})
+/area/holodeck/small)
 "xQT" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
+/area/maintenance/central)
+"xRa" = (
+/obj/effect/spawner/structure/window,
+/obj/machinery/camera/motion{
+	c_tag = "MiniSat Exterior 3";
+	dir = 10;
+	network = list("minisat");
+	view_range = 5
+	},
+/turf/open/floor/plating,
 /area/maintenance/central)
 "xRe" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -47753,12 +47769,12 @@ ngp
 lEY
 rEB
 tyg
-lmo
+tyg
 rJX
 ksO
 wnT
 wnT
-wnT
+sap
 wnT
 wnT
 rba
@@ -48017,7 +48033,7 @@ kIo
 mNu
 kjC
 wSM
-uwb
+jAN
 iOA
 uwb
 rmX
@@ -50318,7 +50334,7 @@ rNo
 rNo
 bBU
 wAz
-tmi
+lQi
 skF
 fMX
 nIw
@@ -50825,8 +50841,8 @@ fMX
 fdK
 fMX
 qbW
+fMX
 tFF
-oOr
 oOr
 ajH
 oOr
@@ -51083,11 +51099,11 @@ okY
 okY
 hhu
 kWi
-wLe
+qMM
 iEy
 ioR
 xQN
-wLe
+qMM
 dqm
 ktI
 iml
@@ -56748,7 +56764,7 @@ orX
 orX
 orX
 aBX
-orX
+qMp
 orX
 orX
 orX
@@ -183686,7 +183702,7 @@ nNW
 lsj
 rcQ
 ehJ
-cke
+ykM
 aEi
 aEi
 mjZ
@@ -184973,7 +184989,7 @@ qaU
 eXB
 eXB
 pWt
-pWt
+xRa
 pWt
 eXB
 eXB
@@ -185230,7 +185246,7 @@ sUW
 eXB
 rPT
 rPT
-rPT
+juc
 rPT
 kUU
 eXB
@@ -242554,7 +242570,7 @@ kha
 kha
 kha
 kha
-qSf
+iay
 iay
 iay
 iay

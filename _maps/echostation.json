@@ -4,7 +4,7 @@
 	"map_path": "map_files/EchoStation",
 	"map_file": "EchoStation.dmm",
 	"shuttles": {
-		"cargo": "cargo_kilo",
+		"cargo": "cargo_tiny",
 		"ferry": "ferry_fancy",
 		"whiteship": "whiteship_box",
 		"emergency": "emergency_delta"

@@ -84,6 +84,11 @@
 /obj/machinery/recharger,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
+"K" = (
+/obj/effect/turf_decal/sand,
+/obj/machinery/light/floor,
+/turf/open/floor/holofloor/asteroid,
+/area/template_noop)
 "M" = (
 /obj/item/soap,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -181,7 +186,7 @@ X
 o
 A
 R
-q
+K
 q
 m
 X
