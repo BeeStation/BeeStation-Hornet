@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - config: Set the max population for Kilo Station to appear in the roundend vote
+      as 20 players.
