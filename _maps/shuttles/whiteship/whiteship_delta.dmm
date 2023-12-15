@@ -2218,7 +2218,7 @@
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/food/drinks/beer,
-/obj/item/food/sandwich,
+/obj/item/reagent_containers/food/snacks/sandwich,
 /obj/structure/spider/stickyweb,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
