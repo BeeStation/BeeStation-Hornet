@@ -149,7 +149,7 @@
 /area/shuttle/escape/luxury)
 "aB" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/honkdae,
+/obj/item/reagent_containers/food/snacks/honkdae,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aC" = (
@@ -159,7 +159,7 @@
 /area/shuttle/escape/luxury)
 "aD" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/candiedapple,
+/obj/item/reagent_containers/food/snacks/candiedapple,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aE" = (
@@ -169,7 +169,7 @@
 /area/shuttle/escape/luxury)
 "aF" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/benedict,
+/obj/item/reagent_containers/food/snacks/benedict,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aG" = (
@@ -184,12 +184,12 @@
 /area/shuttle/escape/luxury)
 "aI" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/pieslice/dulcedebatata,
+/obj/item/reagent_containers/food/snacks/dulcedebatataslice,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aJ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/salad/validsalad,
+/obj/item/reagent_containers/food/snacks/salad/validsalad,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aK" = (
@@ -199,7 +199,7 @@
 /area/shuttle/escape/luxury)
 "aL" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/chawanmushi,
+/obj/item/reagent_containers/food/snacks/chawanmushi,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aM" = (
@@ -225,7 +225,7 @@
 /area/shuttle/escape/luxury)
 "aQ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/jelliedtoast/cherry,
+/obj/item/reagent_containers/food/snacks/jelliedtoast/cherry,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aR" = (
@@ -270,7 +270,7 @@
 /area/shuttle/escape/luxury)
 "aZ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/pie/grapetart,
+/obj/item/reagent_containers/food/snacks/pie/grapetart,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "ba" = (
