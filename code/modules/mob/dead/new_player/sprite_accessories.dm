@@ -2155,6 +2155,14 @@
 	name = "Brown"
 	icon_state = "brown"
 
+/datum/sprite_accessory/moth_wings/brown
+	name = "Rosy"
+	icon_state = "rosy"
+
+/datum/sprite_accessory/moth_wingsopen/brown
+	name = "Rosy"
+	icon_state = "rosy"
+
 /datum/sprite_accessory/moth_wings/angel
 	name = "Angel"
 	icon_state = "angel"
@@ -2253,6 +2261,10 @@
 /datum/sprite_accessory/moth_antennae/brown
 	name = "Brown"
 	icon_state = "brown"
+
+/datum/sprite_accessory/moth_antennae/rosy
+	name = "Rosy"
+	icon_state = "rosy"
 
 /datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
 	icon = 'icons/mob/moth_markings.dmi'
