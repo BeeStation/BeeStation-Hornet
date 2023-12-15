@@ -134,6 +134,14 @@
 		user.visible_message("[user] digs up [src].", "<span class='notice'>You [turfverb] [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
+	else if(C.sharpness != IS_BLUNT)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		icon_state = "grass"
+		smoothing_groups = list()
+		canSmoothWith = list()
+		transform = null
+		playsound(src, 'sound/items/wirecutter.ogg')
 	if(..())
 		return
 

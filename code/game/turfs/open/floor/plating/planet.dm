@@ -41,15 +41,14 @@
 	if(prob(floor_variance))
 		icon_state = "[initial(icon_state)][rand(0,12)]"
 
-/turf/open/floor/plating/grass/jungle
+/turf/open/floor/grass/jungle
 	name = "jungle grass"
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	planetary_atmos = TRUE
 	desc = "Greener on the other side."
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "junglegrass"
+	color = "#0f9731"
 
-/turf/open/floor/plating/grass/jungle/Initialize(mapload)
+/turf/open/floor/grass/jungle/Initialize(mapload)
 	.=..()
 	icon_state = "[initial(icon_state)][rand(1,3)]"
 
