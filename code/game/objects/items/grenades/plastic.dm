@@ -118,6 +118,9 @@
 	if(ismob(AM) && !can_attach_mob)
 		return
 
+	if(ismob(AM))
+		to_chat(AM, "<span class='userdanger'>[user.name] is trying to plant [name] on you!</span>")
+
 	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
 
 	if(do_after(user, 30, target = AM))

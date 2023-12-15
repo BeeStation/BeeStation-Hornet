@@ -157,15 +157,27 @@
 		return
 	fail_chance = min(fail_chance + round(15/severity), 100)
 
-/obj/item/gun/energy/e_gun/nuclear/update_icon()
-	..()
+/obj/item/gun/energy/e_gun/nuclear/update_overlays()
+	. = ..()
 	if(reactor_overloaded)
-		add_overlay("[icon_state]_fail_3")
+		. += "[icon_state]_fail_3"
+		if (emissive_charge)
+			. += emissive_appearance(icon, "[icon_state]_fail_3", layer, alpha = 80)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		switch(fail_tick)
 			if(0)
-				add_overlay("[icon_state]_fail_0")
+				. += "[icon_state]_fail_0"
+				if (emissive_charge)
+					. += emissive_appearance(icon, "[icon_state]_fail_0", layer, alpha = 80)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 			if(1 to 150)
-				add_overlay("[icon_state]_fail_1")
+				. += "[icon_state]_fail_1"
+				if (emissive_charge)
+					. += emissive_appearance(icon, "[icon_state]_fail_1", layer, alpha = 80)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 			if(151 to INFINITY)
-				add_overlay("[icon_state]_fail_2")
+				. += "[icon_state]_fail_2"
+				if (emissive_charge)
+					. += emissive_appearance(icon, "[icon_state]_fail_2", layer, alpha = 80)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)

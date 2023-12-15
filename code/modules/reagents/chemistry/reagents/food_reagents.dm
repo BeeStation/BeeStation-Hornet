@@ -388,6 +388,8 @@
 	taste_description = "mushroom"
 
 /datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/M)
+	if(ispsyphoza(M))
+		return
 	if(!M.slurring)
 		M.slurring = 1
 	switch(current_cycle)
