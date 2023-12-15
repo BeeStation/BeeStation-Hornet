@@ -337,7 +337,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 // Putting this on a space turf is recommended. If you put this on an open tile, it will place directional windows anyway.
 // If a turf is not valid to put a tile, it will automatically make a turf for failsafe.
 /obj/effect/mapping_helpers/space_window_placer
-	name = "Placer: Directional windows for space"
+	name = "Placer: Spaceproof directional windows"
 	icon_state = "directional_window_placer"
 	late = TRUE
 	var/window_type = /obj/structure/window/reinforced
