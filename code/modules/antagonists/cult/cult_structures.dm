@@ -7,6 +7,10 @@
 	break_sound = 'sound/hallucinations/veryfar_noise.ogg'
 	debris = list(/obj/item/stack/sheet/runed_metal = 1)
 
+/obj/structure/destructible/cult/Initialize(mapload)
+	. = ..()	
+	generate_psychic_mask()
+
 /obj/structure/destructible/cult/proc/conceal() //for spells that hide cult presence
 	set_density(FALSE)
 	visible_message("<span class='danger'>[src] fades away.</span>")

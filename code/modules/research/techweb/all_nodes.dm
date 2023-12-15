@@ -57,6 +57,7 @@
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
+		"epaperread"
 	)
 
 /datum/techweb_node/mmi

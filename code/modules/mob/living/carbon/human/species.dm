@@ -883,6 +883,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if("apid_headstripe" in mutant_bodyparts)
 		if(!H.dna.features["apid_headstripe"] || H.dna.features["apid_headstripe"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "apid_headstripe"
+	if("psyphoza_cap" in mutant_bodyparts)
+		if(!H.dna.features["psyphoza_cap"] || H.dna.features["psyphoza_cap"] == "None" || !HD)
+			bodyparts_to_add -= "psyphoza_cap"
+
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	///Digi handling
@@ -979,6 +983,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.apid_stripes_list[H.dna.features["apid_stripes"]]
 				if("apid_headstripes")
 					S = GLOB.apid_headstripes_list[H.dna.features["apid_headstripes"]]
+				if("psyphoza_cap")
+					S = GLOB.psyphoza_cap_list[H.dna.features["psyphoza_cap"]]
 			if(!S || S.icon_state == "none")
 				continue
 
@@ -2843,3 +2849,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	qdel(temp_holder)
 
 	return to_add
+
+//generic action proc for keybind stuff
+/datum/species/proc/primary_species_action()
+	return

@@ -25,6 +25,11 @@
 	if(D)
 		. = D.fibers
 
+/atom/proc/return_souls()
+	var/datum/component/forensics/D = GetComponent(/datum/component/forensics)
+	if(D)
+		. = D.souls
+
 /atom/proc/add_fingerprint_list(list/fingerprints)		//ASSOC LIST FINGERPRINT = FINGERPRINT
 	if(length(fingerprints))
 		. = AddComponent(/datum/component/forensics, fingerprints)
@@ -70,6 +75,14 @@
 
 /atom/proc/add_blood_DNA(list/dna)						//ASSOC LIST DNA = BLOODTYPE
 	return FALSE
+
+/atom/proc/add_soul_list(list/souls)
+	if(length(souls))
+		. = AddComponent(/datum/component/forensics, null, null, null, null, souls)
+
+/atom/proc/add_soul(mob/living/carbon/human/M)
+	var/datum/component/forensics/D = AddComponent(/datum/component/forensics)
+	. = D.add_soul(M)
 
 /obj/add_blood_DNA(list/dna)
 	. = ..()
