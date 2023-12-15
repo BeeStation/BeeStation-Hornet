@@ -649,6 +649,21 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
+		var/list/souls = return_souls()
+		if(!length(souls))
+			return
+		to_chat(user, "<span class='notice'>You sense a presence here...")
+		//Count of souls
+		var/list/present_souls = list()
+		for(var/soul in souls)
+			present_souls[soul] += 1
+		//Display the total soul count
+		for(var/soul in present_souls)
+			if(!present_souls[soul] || !GLOB.SOUL_GLIMMER_COLORS[soul])
+				continue
+			to_chat(user, "<span class='notice'><span style='color: [GLOB.SOUL_GLIMMER_COLORS[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
+	
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
@@ -1823,6 +1838,13 @@
 			qdel(src)
 		return TRUE
 	return FALSE
+
+//Used to exclude this atom from the psychic highlight plane
+/atom/proc/generate_psychic_mask()
+	var/mutable_appearance/MA = mutable_appearance()
+	MA.appearance = appearance
+	MA.plane = ANTI_PSYCHIC_PLANE
+	add_overlay(MA)
 
 /atom/proc/update_luminosity()
 	if (isnull(base_luminosity))

@@ -203,7 +203,10 @@
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/Airlock in GLOB.airlocks)
 		if(Airlock.closeOtherId == closeOtherId && Airlock != src)
-			close_others += Airlock
+			if(!(Airlock in close_others))
+				close_others += Airlock
+			if(!(src in Airlock.close_others))
+				Airlock.close_others += src
 
 /obj/machinery/door/airlock/proc/cyclelinkairlock()
 	if (cyclelinkedairlock)
@@ -721,6 +724,10 @@
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
+	if(closeOtherId)
+		. += "<span_class='warning'>This airlock cycles on ID: [sanitize(closeOtherId)].</span>"
+	if(obj_flags & EMAGGED)
+		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 	if(charge && !panel_open && in_range(user, src))
 		. += "<span class='warning'>The maintenance panel seems haphazardly fastened.</span>"
 	if(charge && panel_open)
