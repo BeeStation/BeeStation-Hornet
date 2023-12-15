@@ -331,3 +331,71 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	. = ..()
 	var/area/A = get_area(get_turf(src))
 	A.color_correction = color_correction
+
+
+// This will put directional windows to adjucant turfs if airs will likely be vaccuumed.
+// Putting this on a space turf is recommended. If you put this on an open tile, it will place directional windows anyway.
+// If a turf is not valid to put a tile, it will automatically make a turf for failsafe.
+/obj/effect/mapping_helpers/space_window_placer
+	name = "Placer: Directional windows for space"
+	icon_state = "directional_window_placer"
+	late = TRUE
+	var/window_type = /obj/structure/window/reinforced
+
+	var/static/list/unliable_atmos_blockers
+
+/obj/effect/mapping_helpers/space_window_placer/Initialize(mapload)
+	. = ..()
+	if(!unliable_atmos_blockers)
+		unliable_atmos_blockers = typecacheof(list(/obj/machinery/door))
+
+/obj/effect/mapping_helpers/space_window_placer/LateInitialize()
+	. = ..()
+	if(!z || !x || !y)
+		CRASH("It's not unable to place directional windows - xyz is null.")
+
+	var/turf/my_turf = get_turf(src)
+	var/list/nearby_turfs = list(
+		my_turf.get_nearby_turf_by_dir(SOUTH),
+		my_turf.get_nearby_turf_by_dir(NORTH),
+		my_turf.get_nearby_turf_by_dir(WEST),
+		my_turf.get_nearby_turf_by_dir(EAST))
+
+	// checks if turfs are fine to place a directional window
+	var/unliable_atmos_blocking
+	for(var/turf/each_turf in nearby_turfs)
+		if(!each_turf || isspaceturf(each_turf) || isopenspace(each_turf))
+			continue
+
+		if(!each_turf.CanAtmosPass(my_turf))
+			for(var/atom/movable/movable_content as anything in each_turf.contents)
+				if(is_type_in_typecache(movable_content, unliable_atmos_blockers))
+					unliable_atmos_blocking = TRUE
+					break
+			if(unliable_atmos_blocking)
+				break
+
+	// well, it's a bad idea to put a directional window here. Mapping failsafe process here.
+	if(unliable_atmos_blocking && (isspaceturf(my_turf) || isopenspace(my_turf)))
+		my_turf.PlaceOnTop(list(/turf/open/floor/plating, /turf/open/floor/plasteel), flags = CHANGETURF_INHERIT_AIR)
+		for(var/turf/each_turf in nearby_turfs)
+			if(isspaceturf(each_turf) || isopenspace(each_turf))
+				var/obj/d_glass = new window_type(my_turf)
+				d_glass.dir = get_dir(my_turf, each_turf)
+			else
+				var/improper_dir = get_dir(each_turf, my_turf)
+				for(var/obj/structure/window/d_glass in each_turf.contents)
+					if(d_glass.dir == improper_dir)
+						qdel(d_glass)
+		qdel(src)
+		return
+
+	// puts a directional window for each direction.
+	for(var/turf/each_turf in nearby_turfs)
+		if(!each_turf || !each_turf.CanAtmosPass(my_turf) || isspaceturf(each_turf) || isopenspace(each_turf))
+			continue
+
+		var/obj/d_glass = new window_type(each_turf)
+		d_glass.dir = get_dir(d_glass, my_turf)
+
+	qdel(src)

@@ -42,13 +42,61 @@
 	room_width = 10
 	room_height = 5
 	icon_state = "random_room_alternative"
-	rooms = list("sk_rdm011_barbershop","sk_rdm031_deltarobotics","sk_rdm039_deltaclutter1","sk_rdm040_deltabotnis","sk_rdm045_deltacafeteria","sk_rdm046_deltaarcade","sk_rdm082_maintmedical","sk_rdm091_skidrow","sk_rdm100_meetingroom","sk_rdm105_phage","sk_rdm125_courtroom","sk_rdm126_gaschamber","sk_rdm127_oldaichamber","sk_rdm128_radiationtherapy","sk_rdm150_smallmedlobby","sk_rdm151_ratburger","sk_rdm152_geneticsoffice","sk_rdm153_hobowithpeter","sk_rdm154_butchersden","sk_rdm155_punjiconveyor","sk_rdm156_oldairlock_interchange","sk_rdm161_kilovault")
+	rooms = list(
+		"sk_rdm011_barbershop",
+		"sk_rdm031_deltarobotics",
+		"sk_rdm039_deltaclutter1",
+		"sk_rdm040_deltabotnis",
+		"sk_rdm045_deltacafeteria",
+		"sk_rdm046_deltaarcade",
+		"sk_rdm082_maintmedical",
+		"sk_rdm091_skidrow",
+		"sk_rdm100_meetingroom",
+		"sk_rdm105_phage",
+		"sk_rdm125_courtroom",
+		"sk_rdm126_gaschamber",
+		"sk_rdm127_oldaichamber",
+		"sk_rdm128_radiationtherapy",
+		"sk_rdm150_smallmedlobby",
+		"sk_rdm151_ratburger",
+		"sk_rdm152_geneticsoffice",
+		"sk_rdm153_hobowithpeter",
+		"sk_rdm154_butchersden",
+		"sk_rdm155_punjiconveyor",
+		"sk_rdm156_oldairlock_interchange",
+		"sk_rdm161_kilovault")
 /obj/effect/spawner/room/special/tenxten_terrestrial
 	name = "10x10 terrestrial room"
 	room_width = 10
 	room_height = 10
 	icon_state = "random_room_alternative"
-	rooms = list("sk_rdm033_deltalibrary","sk_rdm060_snakefighter","sk_rdm062_roosterdome","sk_rdm070_pubbybar","sk_rdm083_bigtheatre","sk_rdm098_graffitiroom","sk_rdm102_podrepairbay","sk_rdm106_sanitarium","sk_rdm129_beach","sk_rdm130_benoegg","sk_rdm131_confinementroom","sk_rdm132_conveyorroom","sk_rdm133_oldoffice","sk_rdm134_snowforest","sk_rdm141_6sectorsdown","sk_rdm142_olddiner","sk_rdm143_gamercave","sk_rdm144_smallmagician","sk_rdm145_ladytesla_altar","sk_rdm146_blastdoor_interchange","sk_rdm147_advbotany","sk_rdm148_botany_apiary","sk_rdm157_chess","sk_rdm159_kilosnakepit","sk_rdm167_library_ritual")
+	rooms = list(
+		"sk_rdm033_deltalibrary",
+		"sk_rdm060_snakefighter",
+		"sk_rdm062_roosterdome",
+		"sk_rdm070_pubbybar",
+		"sk_rdm083_bigtheatre",
+		"sk_rdm098_graffitiroom",
+		"sk_rdm102_podrepairbay",
+		"sk_rdm106_sanitarium",
+		"sk_rdm129_beach",
+		"sk_rdm130_benoegg",
+		"sk_rdm131_confinementroom",
+		"sk_rdm132_conveyorroom",
+		"sk_rdm133_oldoffice",
+		"sk_rdm134_snowforest",
+		"sk_rdm141_6sectorsdown",
+		"sk_rdm142_olddiner",
+		"sk_rdm143_gamercave",
+		"sk_rdm144_smallmagician",
+		"sk_rdm145_ladytesla_altar",
+		"sk_rdm146_blastdoor_interchange",
+		"sk_rdm147_advbotany",
+		"sk_rdm148_botany_apiary",
+		"sk_rdm157_chess",
+		"sk_rdm159_kilosnakepit",
+		"sk_rdm167_library_ritual",
+		"sk_rdm170_spacewindowroom")
 /obj/effect/spawner/room/fivexfour
 	name = "5x4 room spawner"
 	room_width = 5

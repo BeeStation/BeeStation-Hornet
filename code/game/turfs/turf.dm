@@ -537,3 +537,26 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			var/obj/O = each
 			for(var/mob/M in O.contents)
 				. += M
+
+/turf/proc/get_nearby_turf_by_dir(target_dir)
+	switch(target_dir)
+		if(NORTH)
+			return locate(x, y+1, z)
+		if(SOUTH)
+			return locate(x, y-1, z)
+		if(WEST)
+			return locate(x-1, y, z)
+		if(EAST)
+			return locate(x+1, y, z)
+
+		if(NORTHWEST)
+			return locate(x-1, y+1, z)
+		if(NORTHEAST)
+			return locate(x+1, y+1, z)
+		if(SOUTHWEST)
+			return locate(x-1, y-1, z)
+		if(SOUTHEAST)
+			return locate(x+1, y-1, z)
+
+		else
+			CRASH("Unknown direction has been passed to the proc: [target_dir]")
