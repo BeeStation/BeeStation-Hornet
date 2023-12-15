@@ -233,7 +233,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 	log_game("[key_name(usr)] has loaded the holodeck program '[program]' at [loc_name(src)].")
 	template = SSmapping.holodeck_templates[map_id]
-	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	var/datum/async_map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
 	template_placer.on_completion(CALLBACK(src, PROC_REF(finish_spawn), template))
 
 ///finalizes objects in the spawned list

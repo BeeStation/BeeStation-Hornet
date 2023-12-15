@@ -105,7 +105,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/hilbertshotel/proc/sendToNewRoom(var/roomNumber, var/mob/user)
     var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
-    var/datum/map_generator/placer
+    var/datum/async_map_generator/placer
     if(ruinSpawned)
         mysteryRoom = GLOB.hhmysteryRoomNumber
         if(roomNumber == mysteryRoom)
