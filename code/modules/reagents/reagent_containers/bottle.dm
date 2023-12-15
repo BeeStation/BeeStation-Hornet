@@ -409,6 +409,12 @@
 	desc = "A small bottle. Contains a sample of a dangerous A.R.C. experimental disease"
 	spawned_disease = /datum/disease/advance/feline_hysteria
 
+/obj/item/reagent_containers/glass/bottle/psyphoza
+	name = "Acute Fungal Infection culture bottle"
+	label_name = "Acute Fungal Infection culture"
+	desc = "A small bottle. Contains a sample of an agressive fungal species in synthblood medium."
+	spawned_disease = /datum/disease/transformation/psyphoza
+
 //Oldstation.dmm chemical storage bottles
 
 /obj/item/reagent_containers/glass/bottle/hydrogen
