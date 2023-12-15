@@ -2155,11 +2155,11 @@
 	name = "Brown"
 	icon_state = "brown"
 
-/datum/sprite_accessory/moth_wings/brown
+/datum/sprite_accessory/moth_wings/rosy
 	name = "Rosy"
 	icon_state = "rosy"
 
-/datum/sprite_accessory/moth_wingsopen/brown
+/datum/sprite_accessory/moth_wingsopen/rosy
 	name = "Rosy"
 	icon_state = "rosy"
 
