@@ -379,6 +379,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	if(unliable_atmos_blocking && (isspaceturf(my_turf) || isopenspace(my_turf)))
 		my_turf.PlaceOnTop(list(/turf/open/floor/plating, /turf/open/floor/plasteel), flags = CHANGETURF_INHERIT_AIR)
 		for(var/turf/each_turf in nearby_turfs)
+			if(!each_turf)
+				continue
 			if(isspaceturf(each_turf) || isopenspace(each_turf))
 				var/obj/d_glass = new window_type(my_turf)
 				d_glass.dir = get_dir(my_turf, each_turf)
