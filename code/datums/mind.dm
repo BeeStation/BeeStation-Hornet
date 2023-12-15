@@ -878,7 +878,5 @@
 	return holoparasite_holder
 
 /datum/mind/proc/setup_soul_glimmer()
-	var/list/options = GLOB.SOUL_GLIMMER_COLORS_LOW
-	if(length(SSticker.minds) >= SOUL_GLIMMER_LOWER_POP)
-		options += GLOB.SOUL_GLIMMER_COLORS_MID
-	soul_glimmer = pick(options)
+	var/rand_result = rand(1, clamp(ROUND_UP(max(length(GLOB.player_list), length(SSticker.minds)) / SOUL_GLIMMER_POP_COUNT_INTERVAL), SOUL_GLIMMER_MINIMUM_POP_COLOR, length(GLOB.soul_glimmer_colors)))
+	soul_glimmer = GLOB.soul_glimmer_colors[rand_result]
