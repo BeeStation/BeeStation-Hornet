@@ -271,12 +271,15 @@
 	resistance_flags = FREEZE_PROOF
 	custom_price = 42
 
-
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
 	desc = "Just add 5ml of water, self heats! A taste that reminds you of your school years. Now new with salty flavour!"
 	icon_state = "ramen"
-	list_reagents = list(/datum/reagent/consumable/dry_ramen = 15, /datum/reagent/consumable/sodiumchloride = 3, /datum/reagent/consumable/maltodextrin = 10)
+	list_reagents = list(
+		/datum/reagent/consumable/dry_ramen = 15,
+		/datum/reagent/consumable/sodiumchloride = 3,
+		/datum/reagent/consumable/maltodextrin = 5
+	)
 	foodtype = GRAIN
 	isGlass = FALSE
 	custom_price = 38

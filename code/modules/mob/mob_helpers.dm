@@ -480,7 +480,7 @@
 /**
   * Offer control of the passed in mob to dead player
   *
-  * Automatic logging and uses pollCandidatesForMob, how convenient
+  * Automatic logging and uses poll_candidates_for_mob, how convenient
   */
 /proc/offer_control(mob/M)
 	to_chat(M, "Control of your mob has been offered to dead players.")
@@ -498,7 +498,7 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)

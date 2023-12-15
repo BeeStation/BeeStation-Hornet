@@ -10461,7 +10461,7 @@
 /area/bridge)
 "cLX" = (
 /obj/structure/closet/crate/bin,
-/obj/item/reagent_containers/food/snacks/donut/chaos,
+/obj/item/food/donut/chaos,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
@@ -19768,10 +19768,10 @@
 /area/bridge)
 "fhD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/effect/turf_decal/bot,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/food/snacks/hotdog,
+/obj/item/food/hotdog,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -25291,25 +25291,25 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "gCA" = (
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = -2
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 1;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 8;
 	pixel_y = -3
 	},
@@ -40982,7 +40982,7 @@
 /obj/item/reagent_containers/food/condiment/flour{
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -48907,7 +48907,7 @@
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/item/storage/box/ingredients/wildcard,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -51794,7 +51794,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "nxr" = (
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -54756,7 +54756,7 @@
 	pixel_y = 4
 	},
 /obj/item/pen,
-/obj/item/reagent_containers/food/snacks/cookie,
+/obj/item/food/cookie,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -61729,7 +61729,7 @@
 /area/crew_quarters/bar)
 "qcG" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/item/clothing/head/lobsterhat,
 /obj/machinery/airalarm{
 	dir = 1;
@@ -62959,10 +62959,10 @@
 /area/science/research)
 "qpN" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/canned/beefbroth{
+/obj/item/food/canned/beefbroth{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/canned/peaches{
+/obj/item/food/canned/peaches{
 	pixel_x = 4
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -77424,7 +77424,7 @@
 /area/teleporter)
 "tPo" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint{
+/obj/item/food/mint{
 	pixel_y = 9
 	},
 /obj/item/reagent_containers/food/condiment/peppermill{

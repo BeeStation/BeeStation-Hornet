@@ -73,7 +73,7 @@
 	var/datum/dynamic_snapshot/new_snapshot = new
 
 	new_snapshot.remaining_threat = mid_round_budget
-	new_snapshot.time = world.time
+	new_snapshot.time = get_time()
 	new_snapshot.alive_players = current_players[CURRENT_LIVING_PLAYERS].len
 	new_snapshot.dead_players = current_players[CURRENT_DEAD_PLAYERS].len
 	new_snapshot.observers = current_players[CURRENT_OBSERVERS].len
