@@ -878,5 +878,12 @@
 	return holoparasite_holder
 
 /datum/mind/proc/setup_soul_glimmer()
-	var/rand_result = rand(1, clamp(ROUND_UP(max(length(GLOB.player_list), length(SSticker.minds)) / SOUL_GLIMMER_POP_COUNT_INTERVAL), SOUL_GLIMMER_MINIMUM_POP_COLOR, length(GLOB.soul_glimmer_colors)))
+	var/value_to_check = max(length(GLOB.player_list), length(SSticker.minds))
+	var/decrement = SOUL_GLIMMER_POP_REQ_CREEP_STARTING
+	var/count = 0
+	while(value_to_check > 0)
+		value_to_check -= decrement++
+		count++
+
+	var/rand_result = rand(1, clamp(count, SOUL_GLIMMER_MINIMUM_POP_COLOR, length(GLOB.soul_glimmer_colors)))
 	soul_glimmer = GLOB.soul_glimmer_colors[rand_result]
