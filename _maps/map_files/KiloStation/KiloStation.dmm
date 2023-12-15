@@ -78159,10 +78159,6 @@
 	pixel_x = 8;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grilledcheese{
-	pixel_y = 8;
-	pixel_x = -13
-	},
 /turf/open/floor/carpet/royalblack,
 /area/maintenance/port)
 "sWe" = (
