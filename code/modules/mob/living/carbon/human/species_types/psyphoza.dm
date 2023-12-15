@@ -88,7 +88,7 @@
 
 		"Although most Psyphoza have left behind a majority of the especially superstitious ideas of their \
 			progenitors, some lower caste members still cling to these old ideas as strongly as ever. These beliefs \
-			impact their culture deeply, resulting in very different behaviors between the typical and lower castes. \
+			impact their culture deeply, resulting in very different behaviors between the typical and lower castes.
 	)
 
 /datum/species/psyphoza/create_pref_unique_perks()
