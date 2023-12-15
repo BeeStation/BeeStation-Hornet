@@ -140,6 +140,14 @@
 	tastes = list("honey" = 1, "flowers" = 1, "meat" = 2)
 	foodtypes = MEAT | RAW | GORE
 
+/obj/item/food/meat/slab/human/mutant/psyphoza
+	icon_state = "psyphoza_meat"
+	desc = "Psychically awaiting consumption, spooky."
+	food_reagents = list(/datum/reagent/drug/mushroomhallucinogen = 3)
+	tastes = list("pop candy" = 1, "meat" = 1)
+	foodtypes = VEGETABLES | RAW | GORE
+	microwaved_type = /obj/item/food/meat/steak/plain/human/psyphoza
+
 ////////////////////////////////////// OTHER MEATS ////////////////////////////////////////////////////////
 
 
@@ -534,6 +542,12 @@
 	//icon_state = "birdsteak"
 	tastes = list("juicy chicken" = 3, "scales" = 1)
 	foodtypes = MEAT
+
+/obj/item/food/meat/steak/plain/human/psyphoza
+	name = "psyphoza steak"
+	icon_state = "psyphoza_meat_cooked"
+	tastes = list("dirt" = 3, "wood" = 1)
+	foodtypes = VEGETABLES
 
 /obj/item/food/meat/steak/meatproduct
 	name = "thermally processed meat product"
