@@ -349,7 +349,7 @@
 	dwidth = 8;
 	height = 8;
 	name = "Echo emergency shuttle";
-	width = 15
+	width = 14
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
