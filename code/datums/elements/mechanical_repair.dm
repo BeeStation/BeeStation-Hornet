@@ -43,25 +43,27 @@
 
 	// Handles welder repairs on human limbs
 	if(I.tool_behaviour == TOOL_WELDER)
-		if(I.use_tool(target, user, 0, volume=50, amount=1))
-			if(user == target)
-				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
-				"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
-				if(!do_after(user, 1.5 SECONDS, target))
-					return COMPONENT_NO_AFTERATTACK
-			item_heal_robotic(target, user, 15, 0, affecting)
+		do
+			if(I.use_tool(target, user, 0, volume=50, amount=1))
+				if(user == target)
+					user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
+					"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
+					if(!do_after(user, 1.5 SECONDS, target))
+						return COMPONENT_NO_AFTERATTACK
+		while (item_heal_robotic(target, user, 15, 0, affecting) && user.is_zone_selected(selected_zone) && !QDELETED(I))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
 		return COMPONENT_NO_AFTERATTACK
 
 	// Handles cable repairs
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = I
-		if(user == target)
-			user.visible_message("<span class='notice'>[user] starts to fix some of the burn wires in [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
-			"<span class='notice'>You start fixing some of the burnt wires in [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
-			if(!do_after(user, 1.5 SECONDS, target))
-				return COMPONENT_NO_AFTERATTACK
-		if(coil.amount && item_heal_robotic(target, user, 0, 15, affecting))
-			coil.use(1)
+		do
+			if(user == target)
+				user.visible_message("<span class='notice'>[user] starts to fix some of the burn wires in [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
+				"<span class='notice'>You start fixing some of the burnt wires in [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
+				if(!do_after(user, 1.5 SECONDS, target))
+					return COMPONENT_NO_AFTERATTACK
+		// Run checks to ensure that we can continue healing. We check coil twice, as we want to break out of the loop if we ran out of coil
+		while (coil.amount && item_heal_robotic(target, user, 0, 15, affecting) && coil.use(1) && coil.amount && user.is_zone_selected(selected_zone) && !QDELETED(coil))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
 		return COMPONENT_NO_AFTERATTACK

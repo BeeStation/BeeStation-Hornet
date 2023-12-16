@@ -392,7 +392,7 @@
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
 
 	LE.firer = src
-	LE.def_zone = ran_zone(zone_selected)
+	LE.def_zone = ran_zone(get_combat_bodyzone(A))
 	LE.preparePixelProjectile(A, src, params)
 	LE.fire()
 
