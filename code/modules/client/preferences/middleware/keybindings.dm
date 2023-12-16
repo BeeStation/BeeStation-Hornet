@@ -27,6 +27,7 @@
 /datum/preference_middleware/keybindings/proc/reset_all_keybinds(list/params, mob/user)
 	preferences.set_default_key_bindings(save = TRUE) // this also updates special keybinds
 	preferences.update_static_data(user)
+	log_preferences("[preferences?.parent?.ckey]: Reset all keybinds.")
 	return TRUE
 
 /datum/preference_middleware/keybindings/proc/reset_keybinds_to_defaults(list/params, mob/user)

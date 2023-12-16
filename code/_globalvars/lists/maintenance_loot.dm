@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/radio/headset = 1,
 	/obj/item/radio/off = 2,
 	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
-	/obj/item/reagent_containers/food/snacks/canned/peaches/maint = 1,
+	/obj/item/food/canned/peaches/maint = 1,
 	/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1,
 	/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 10,
 	/obj/item/reagent_containers/glass/rag = 3,
@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/storage/toolbox/mechanical = 1,
 	/obj/item/t_scanner = 5,
 	/obj/item/tank/internals/emergency_oxygen = 2,
-	/obj/item/throwing_star = 1,
+	/obj/item/throwing_star/toy = 1,
 	/obj/item/toy/eightball = 1,
 	/obj/item/vending_refill/cola = 1,
 	/obj/item/weaponcrafting/receiver = 2,
@@ -116,4 +116,5 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/wrench = 4,
 	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
 	/obj/item/xenoartifact/maint = 1,
+	/obj/item/paper_reader = 1,
 ))

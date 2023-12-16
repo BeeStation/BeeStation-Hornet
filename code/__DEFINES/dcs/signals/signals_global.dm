@@ -13,6 +13,7 @@
 #define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"			//! global living say plug - use sparingly: (mob/speaker , message)
 #define COMSIG_GLOB_CARBON_THROW_THING	"!throw_thing"			//! a person somewhere has thrown something : (mob/living/carbon/carbon_thrower, target)
 #define COMSIG_GLOB_SECURITY_ALERT_CHANGE "!alert_change"		//! security level was changed : (new_alert)
+#define COMSIG_GLOB_SOUND_PLAYED "!sound_played"				//! a sound was played : (sound_player, sound_file)
 /// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)
 #define COMSIG_GLOB_PLAY_CINEMATIC "!play_cinematic"
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC 1
@@ -35,3 +36,5 @@
 #define COMSIG_GLOB_POST_START "!post_start"
 /// Called when the parallax background changes colour. (new_colour, transition_time)
 #define COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE "!starlight_colour_change"
+/// Called whenever the crew manifest is updated
+#define COMSIG_GLOB_CREW_MANIFEST_UPDATE "!crew_manifest_update"

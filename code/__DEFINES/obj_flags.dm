@@ -31,6 +31,7 @@
 #define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
 #define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
 #define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
+#define ISCARVABLE			    (1<<17) //! Examine will not read out this item
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

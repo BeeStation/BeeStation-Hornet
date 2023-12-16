@@ -28,10 +28,10 @@
 /obj/item/gun/energy/e_gun/mini/heads
 	name = "Personal Tiny Self Defense Gun"
 	desc = "The PTSD gun has a built-in flashlight and the ability to recharge itself in two minutes. PTSD is standard issue for leadership within Nanotrasen. It has two settings: disable and kill."
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser) ///uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot. 
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser) ///uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot.
 	selfcharge = 1
 	charge_delay = 20
-	can_charge = FALSE 			///Not compatible with fast charging stations, must recharge slowly. 
+	can_charge = FALSE 			///Not compatible with fast charging stations, must recharge slowly.
 	icon_state = "personal"
 	item_state = "gun"
 	ammo_x_offset = 2
@@ -68,7 +68,7 @@
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
 	gun_charge = 1200
 	icon_state = "hoslaser"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	force = 10
 	automatic = 1
 	fire_rate = 3
@@ -89,7 +89,7 @@
 	can_flashlight = FALSE
 	ammo_x_offset = 1
 	fire_rate = 1.5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 
 /obj/item/gun/energy/e_gun/dragnet/snare
 	name = "Energy Snare Launcher"
@@ -157,15 +157,27 @@
 		return
 	fail_chance = min(fail_chance + round(15/severity), 100)
 
-/obj/item/gun/energy/e_gun/nuclear/update_icon()
-	..()
+/obj/item/gun/energy/e_gun/nuclear/update_overlays()
+	. = ..()
 	if(reactor_overloaded)
-		add_overlay("[icon_state]_fail_3")
+		. += "[icon_state]_fail_3"
+		if (emissive_charge)
+			. += emissive_appearance(icon, "[icon_state]_fail_3", layer, alpha = 80)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		switch(fail_tick)
 			if(0)
-				add_overlay("[icon_state]_fail_0")
+				. += "[icon_state]_fail_0"
+				if (emissive_charge)
+					. += emissive_appearance(icon, "[icon_state]_fail_0", layer, alpha = 80)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 			if(1 to 150)
-				add_overlay("[icon_state]_fail_1")
+				. += "[icon_state]_fail_1"
+				if (emissive_charge)
+					. += emissive_appearance(icon, "[icon_state]_fail_1", layer, alpha = 80)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 			if(151 to INFINITY)
-				add_overlay("[icon_state]_fail_2")
+				. += "[icon_state]_fail_2"
+				if (emissive_charge)
+					. += emissive_appearance(icon, "[icon_state]_fail_2", layer, alpha = 80)
+					ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)

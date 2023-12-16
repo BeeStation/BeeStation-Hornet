@@ -20,6 +20,8 @@
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
 
+	light_power = 0.85
+
 
 
 	FASTDMM_PROP(\
@@ -175,7 +177,7 @@
 	GLOB.apcs_list -= src
 
 	if(malfai && operating)
-		malfai.malf_picker.processing_time = CLAMP(malfai.malf_picker.processing_time - 10,0,1000)
+		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	if(area)
 		area.power_light = FALSE
 		area.power_equip = FALSE
@@ -578,7 +580,7 @@
 
 		//=====Clock Cult=====
 		if(integration_cog && cell.charge >= cell.maxcharge/2)
-			var/power_delta = CLAMP(cell.charge - 20, 0, 20)
+			var/power_delta = clamp(cell.charge - 20, 0, 20)
 			GLOB.clockcult_power += power_delta
 			cell.charge -= power_delta
 

@@ -17,7 +17,8 @@
 	mobchatspan = "alienmobsay"
 
 	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
-	var/heat_protection = 0.5
+	heat_protection = 0.5 // minor heat insulation
+
 	var/leaping = FALSE
 	var/has_fine_manipulation = FALSE
 	var/move_delay_add = 0 // movement delay to add
@@ -42,22 +43,9 @@
 	return -10
 
 /mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
-		return
-
-	var/loc_temp = get_temperature(environment)
-
-	// Aliens are now weak to fire.
-	//After then, it reacts to the surrounding atmosphere based on your thermal protection
-
-	if(!on_fire) // If you're on fire, ignore local air temperature
-		if(loc_temp > bodytemperature)
-			//Place is hotter than we are
-			var/thermal_protection = heat_protection //This returns a 0 - 1 value, which corresponds to the percentage of heat protection.
-			if(thermal_protection < 1)
-				adjust_bodytemperature((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR))
-		else
-			adjust_bodytemperature(1 * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR))
+	// Run base mob body temperature proc before taking damage
+	// this balances body temp to the enviroment and natural stabilization
+	. = ..()
 
 	if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
 		//Body temperature is too hot.

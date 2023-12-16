@@ -85,11 +85,14 @@
 	/// Boolean value indicating if the mob attached to this mind entered cryosleep.
 	var/cryoed = FALSE
 
+	/// What color our soul is
+	var/soul_glimmer
 
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
 	martial_art = default_martial_art
+	setup_soul_glimmer()
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -353,6 +356,8 @@
 		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
 		if(src.has_antag_datum(/datum/antagonist/incursion))
 			U.uplink_flag = UPLINK_INCURSION
+		if(src.has_antag_datum(/datum/antagonist/traitor/excommunicate))
+			U.uplink_flag = UPLINK_EXCOMMUNICATE
 		if(!U)
 			CRASH("Uplink creation failed.")
 		U.setup_unlock_code()
@@ -871,3 +876,9 @@
 	if(!holoparasite_holder)
 		holoparasite_holder = new(src)
 	return holoparasite_holder
+
+/datum/mind/proc/setup_soul_glimmer()
+	var/list/options = GLOB.SOUL_GLIMMER_COLORS_LOW
+	if(length(SSticker.minds) >= SOUL_GLIMMER_LOWER_POP)
+		options += GLOB.SOUL_GLIMMER_COLORS_MID
+	soul_glimmer = pick(options)

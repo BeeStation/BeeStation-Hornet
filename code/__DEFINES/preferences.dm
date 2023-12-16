@@ -144,11 +144,35 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
 #define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
 
+GLOBAL_LIST_INIT(undatumized_preference_tags_player, list(
+	PREFERENCE_TAG_LAST_CL,
+	PREFERENCE_TAG_DEFAULT_SLOT,
+	PREFERENCE_TAG_IGNORING,
+	PREFERENCE_TAG_KEYBINDS,
+	PREFERENCE_TAG_PURCHASED_GEAR,
+	PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL,
+	PREFERENCE_TAG_PAI_NAME,
+	PREFERENCE_TAG_PAI_DESCRIPTION,
+	PREFERENCE_TAG_PAI_COMMENT,
+))
+
+GLOBAL_PROTECT(undatumized_preference_tags_player)
+
 #define CHARACTER_PREFERENCE_RANDOMIZE "randomize"
 #define CHARACTER_PREFERENCE_JOB_PREFERENCES "job_preferences"
 #define CHARACTER_PREFERENCE_ALL_QUIRKS "all_quirks"
 #define CHARACTER_PREFERENCE_EQUIPPED_GEAR "equipped_gear"
 #define CHARACTER_PREFERENCE_ROLE_PREFERENCES "role_preferences"
+
+GLOBAL_LIST_INIT(undatumized_preference_tags_character, list(
+	CHARACTER_PREFERENCE_RANDOMIZE,
+	CHARACTER_PREFERENCE_JOB_PREFERENCES,
+	CHARACTER_PREFERENCE_ALL_QUIRKS,
+	CHARACTER_PREFERENCE_EQUIPPED_GEAR,
+	CHARACTER_PREFERENCE_ROLE_PREFERENCES,
+))
+
+GLOBAL_PROTECT(undatumized_preference_tags_character)
 
 #define PREFERENCE_SHEET_NORMAL "preferences"
 #define PREFERENCE_SHEET_LARGE "preferences_l"
@@ -156,3 +180,13 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 
 #define PREFERENCE_BODYZONE_SIMPLIFIED "Simplified Targeting"	// Use the simplified system
 #define PREFERENCE_BODYZONE_INTENT "Precise Targeting"	// Use the bodyzone intent system
+
+/// Stop loading immediately, inform the user. Do not save the data.
+#define PREFERENCE_LOAD_ERROR 0
+/// There is no data to load, they are a guest and will never have this data.
+#define PREFERENCE_LOAD_IGNORE 1
+/// No data found - create a new character, continue loading
+#define PREFERENCE_LOAD_NO_DATA 2
+/// Normal behavior - success!
+#define PREFERENCE_LOAD_SUCCESS 3
+

@@ -57,6 +57,7 @@
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
+		"epaperread"
 	)
 
 /datum/techweb_node/mmi
@@ -181,9 +182,11 @@
 		"comp_concat",
 		"comp_delay",
 		"comp_direction",
+		"comp_iterator",
 		"comp_get_column",
 		"comp_get_name",
 		"comp_gps",
+		"comp_relative_coords",
 		"comp_health",
 		"comp_hear",
 		"comp_index_table",
@@ -744,6 +747,7 @@
 		"comp_bitwise",
 		"comp_hyper_trig",
 		"comp_trig",
+		"comp_abs",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
@@ -1572,8 +1576,9 @@
 	description = "Unlocks new designs that improve rapid devices."
 	design_ids = list(
 		"rcd_upgrade_frames",
+		"rcd_upgrade_furnishing",
 		"rcd_upgrade_simple_circuits",
-		"rpd_upgrade_unwrench",
+		"rpd_upgrade_unwrench"
 	)
 	prereq_ids = list("adv_engi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
@@ -2115,6 +2120,7 @@
 		"nanite_program_hub",
 		"nanite_programmer",
 		"nanite_remote",
+		"nanite_comm_remote",
 		"nanite_scanner",
 		"public_nanite_chamber",
 		"red_diag_nanites",
@@ -2145,6 +2151,8 @@
 		"sensor_voice_nanites",
 		"stealth_nanites",
 		"voice_nanites",
+		"sensor_receiver_nanites",
+		"remote_signal_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500, TECHWEB_POINT_TYPE_NANITES = 500)
 	export_price = 4000
@@ -2167,6 +2175,7 @@
 		"refractive_nanites",
 		"shock_nanites",
 		"temperature_nanites",
+		"dermal_toggle_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500, TECHWEB_POINT_TYPE_NANITES = 500)
 	export_price = 5000
@@ -2190,6 +2199,8 @@
 		"sensor_damage_nanites",
 		"sensor_death_nanites",
 		"sensor_health_nanites",
+		"sensor_nutrition_nanites",
+		"sensor_blood_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500, TECHWEB_POINT_TYPE_NANITES = 500)
 	export_price = 5000
@@ -2237,7 +2248,7 @@
 	id = "nanite_harmonic"
 	tech_tier = 4
 	display_name = "Harmonic Nanite Programming"
-	description = "Nanite programs that require seamless integration between nanites and biology."
+	description = "Nanite programs that require seamless integration between nanites and biology. Passively increases nanite regeneration rate for all clouds upon researching."
 	prereq_ids = list(
 		"nanite_bio",
 		"nanite_mesh",
@@ -2252,9 +2263,38 @@
 		"purging_plus_nanites",
 		"regenerative_plus_nanites",
 		"sensor_species_nanites",
+		"vampire_nanites",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000, TECHWEB_POINT_TYPE_NANITES = 2000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000, TECHWEB_POINT_TYPE_NANITES = 3000)
 	export_price = 8000
+
+/datum/techweb_node/nanite_replication_protocols
+	id = "nanite_replication_protocols"
+	tech_tier = 4
+	display_name = "Nanite Replication Protocols"
+	description = "Protocols that overwrite the default nanite replication routine to achieve more efficiency in certain circumstances."
+	prereq_ids = list("nanite_smart")
+	design_ids = list(
+		"factory_nanites",
+		"kickstart_nanites",
+		"offline_nanites",
+		"pyramid_nanites",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 2500)
+
+/datum/techweb_node/nanite_storage_protocols
+	id = "nanite_storage_protocols"
+	tech_tier = 4
+	display_name = "Nanite Storage Protocols"
+	description = "Protocols that overwrite the default nanite storage routine to achieve more efficiency or greater capacity."
+	prereq_ids = list("nanite_smart")
+	design_ids = list(
+		"free_range_nanites",
+		"hive_nanites",
+		"unsafe_storage_nanites",
+		"zip_nanites",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 2500)
 
 /datum/techweb_node/nanite_combat
 	id = "nanite_military"
@@ -2272,6 +2312,7 @@
 		"nanite_sting_nanites",
 		"pyro_nanites",
 		"viral_nanites",
+		"armblade_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
 	export_price = 12500
@@ -2280,7 +2321,7 @@
 	id = "nanite_hazard"
 	tech_tier = 5
 	display_name = "Hazard Nanite Programs"
-	description = "Extremely advanced Nanite programs with the potential of being extremely dangerous."
+	description = "Extremely advanced nanite programs using knowledge gained from advanced alien technology."
 	prereq_ids = list(
 		"alientech",
 		"nanite_harmonic",
@@ -2288,7 +2329,7 @@
 	design_ids = list(
 		"mindcontrol_nanites",
 		"mitosis_nanites",
-		"spreading_nanites",
+		"spreading_nanites"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000, TECHWEB_POINT_TYPE_NANITES = 4000)
 	export_price = 15000

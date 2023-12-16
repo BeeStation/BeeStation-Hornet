@@ -123,10 +123,8 @@ Possible to do for anyone motivated enough:
 	return ..()
 
 /obj/machinery/holopad/power_change()
-	if (powered())
-		set_machine_stat(machine_stat & ~NOPOWER)
-	else
-		set_machine_stat(machine_stat | NOPOWER)
+	. = ..()
+	if (!powered())
 		if(replay_mode)
 			replay_stop()
 		if(record_mode)

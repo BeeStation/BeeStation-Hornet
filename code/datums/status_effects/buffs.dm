@@ -484,6 +484,7 @@
 			healSnake.desc = "A mystical snake previously trapped upon the Rod of Asclepius, now freed of its burden. Unlike the average snake, its bites contain chemicals with minor healing properties."
 			new /obj/effect/decal/cleanable/ash(owner.loc)
 			new /obj/item/rod_of_asclepius(owner.loc)
+			owner.investigate_log("has been consumed by the Rod of Asclepius.", INVESTIGATE_DEATHS)
 			qdel(owner)
 	else
 		if(iscarbon(owner))
@@ -566,7 +567,7 @@
 	owner.set_blindness(0)
 	owner.set_blurriness(0)
 	owner.restore_blood()
-	owner.bodytemperature = BODYTEMP_NORMAL
+	owner.bodytemperature = owner.get_body_temp_normal()
 	owner.restoreEars()
 	duration = rand(150, 450) * power
 	return TRUE

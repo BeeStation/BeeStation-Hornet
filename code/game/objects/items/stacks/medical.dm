@@ -146,9 +146,9 @@
 /obj/item/stack/medical/bruise_pack/one
 	amount = 1
 
-/obj/item/stack/medical/bruise_pack/suicide_act(mob/user)
+/obj/item/stack/medical/bruise_pack/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/stack/medical/ointment
 	name = "ointment"

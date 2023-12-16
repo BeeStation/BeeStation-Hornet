@@ -141,6 +141,11 @@
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
+	/// How much luminosity should we have by default?
+	var/base_luminosity = 0
+	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
+	var/_emissive_count = 0
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -362,21 +367,29 @@
 					if(T in shuttle_area)
 						return TRUE
 
-	if(!is_centcom_level(T.z))//if not, don't bother
-		return FALSE
-
 	//Check for centcom itself
 	if(istype(T.loc, /area/centcom))
 		return TRUE
 
-	//Check for centcom shuttles
+	return onCentComShuttle()
+
+/**
+ * Is this atom currently on a centcom roundend escape shuttle?
+ */
+/atom/proc/onCentComShuttle()
+	var/turf/T = get_turf(src)
+	if(!T)
+		return FALSE
+
+	var/area/shuttle/loc_area = get_area(T)
+	if(isnull(loc_area))
+		return FALSE
+
 	for(var/A in SSshuttle.mobile)
 		var/obj/docking_port/mobile/M = A
 		if(M.launch_status == ENDGAME_LAUNCHED)
-			for(var/place in M.shuttle_areas)
-				var/area/shuttle/shuttle_area = place
-				if(T in shuttle_area)
-					return TRUE
+			if(loc_area in M.shuttle_areas)
+				return TRUE
 
 /**
   * Is the atom in any of the centcom syndicate areas
@@ -419,7 +432,6 @@
   * Otherwise it simply forceMoves the atom into this atom
   */
 /atom/proc/CheckParts(list/parts_list, datum/crafting_recipe/R)
-	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
 	if(parts_list)
 		for(var/A in parts_list)
 			if(istype(A, /datum/reagent))
@@ -435,6 +447,7 @@
 				else
 					M.forceMove(src)
 		parts_list.Cut()
+	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
 
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -636,6 +649,21 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
+		var/list/souls = return_souls()
+		if(!length(souls))
+			return
+		to_chat(user, "<span class='notice'>You sense a presence here...")
+		//Count of souls
+		var/list/present_souls = list()
+		for(var/soul in souls)
+			present_souls[soul] += 1
+		//Display the total soul count
+		for(var/soul in present_souls)
+			if(!present_souls[soul] || !GLOB.SOUL_GLIMMER_COLORS[soul])
+				continue
+			to_chat(user, "<span class='notice'><span style='color: [GLOB.SOUL_GLIMMER_COLORS[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
+	
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
@@ -687,6 +715,9 @@
 		if(LAZYLEN(managed_vis_overlays))
 			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 
+		// Clear the luminosity sources for our managed overlays
+		REMOVE_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		// Update the overlays where any luminous things get added again
 		var/list/new_overlays = update_overlays(updates)
 		if(managed_overlays)
 			cut_overlay(managed_overlays)
@@ -1151,6 +1182,8 @@
 		if(NAMEOF(src, base_pixel_y))
 			set_base_pixel_y(var_value)
 			. = TRUE
+		if (NAMEOF(src, _emissive_count))
+			return FALSE
 
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED
@@ -1160,6 +1193,11 @@
 		flags_1 |= ADMIN_SPAWNED_1
 
 	. = ..()
+
+	// Check for appearance updates
+	var/static/list/appearance_updaters = list("layer", "plane", "alpha", "icon", "icon_state", "name", "desc", "blocks_emissive", "appearance_flags")
+	if (var_name in appearance_updaters)
+		update_appearance()
 
 	switch(var_name)
 		if(NAMEOF(src, color))
@@ -1378,15 +1416,29 @@
 	StartProcessingAtom(user, I, choices_to_options[pick])
 
 
-/atom/proc/StartProcessingAtom(mob/living/user, obj/item/I, list/chosen_option)
+/atom/proc/StartProcessingAtom(mob/living/user, obj/item/process_item, list/chosen_option)
+	var/processing_time = chosen_option[TOOL_PROCESSING_TIME]
 	to_chat(user, "<span class='notice'>You start working on [src]</span>")
-	if(I.use_tool(src, user, chosen_option[TOOL_PROCESSING_TIME], volume=50))
+	if(process_item.use_tool(src, user, processing_time, volume=50))
 		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
-		for(var/i = 1 to chosen_option[TOOL_PROCESSING_AMOUNT])
-			new atom_to_create(loc)
-		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.name)] from [src]</span>")
-		qdel(src)
+		//var/list/atom/created_atoms = list() //Customfood
+		var/amount_to_create = chosen_option[TOOL_PROCESSING_AMOUNT]
+		for(var/i = 1 to amount_to_create)
+			var/atom/created_atom = new atom_to_create(drop_location())
+			created_atom.pixel_x = pixel_x
+			created_atom.pixel_y = pixel_y
+			if(i > 1)
+				created_atom.pixel_x += rand(-8,8)
+				created_atom.pixel_y += rand(-8,8)
+			created_atom.OnCreatedFromProcessing(user, process_item, chosen_option, src)
+		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
+		//SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms) //Custom food
+		UsedforProcessing(user, process_item, chosen_option)
 		return
+
+/atom/proc/UsedforProcessing(mob/living/user, obj/item/used_item, list/chosen_option)
+	qdel(src)
+	return
 
 /atom/proc/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
 	return
@@ -1601,6 +1653,10 @@
 	filter_data[name]["priority"] = new_priority
 	update_filters()
 
+/obj/item/update_filters()
+	. = ..()
+	update_action_buttons()
+
 /atom/proc/get_filter(name)
 	if(filter_data && filter_data[name])
 		return filters[filter_data.Find(name)]
@@ -1787,3 +1843,27 @@
 		return TRUE
 	return FALSE
 
+//Used to exclude this atom from the psychic highlight plane
+/atom/proc/generate_psychic_mask()
+	var/mutable_appearance/MA = mutable_appearance()
+	MA.appearance = appearance
+	MA.plane = ANTI_PSYCHIC_PLANE
+	add_overlay(MA)
+
+/atom/proc/update_luminosity()
+	if (isnull(base_luminosity))
+		base_luminosity = initial(luminosity)
+
+	if (_emissive_count)
+		luminosity = max(1, base_luminosity)
+	else
+		luminosity = base_luminosity
+
+/atom/movable/update_luminosity()
+	if (isnull(base_luminosity))
+		base_luminosity = initial(luminosity)
+
+	if (_emissive_count)
+		luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1)
+	else
+		luminosity = max(base_luminosity, affecting_dynamic_lumi)

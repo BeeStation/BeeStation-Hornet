@@ -75,7 +75,7 @@
 	name = "Fish fingers"
 	reqs = list(
 		/datum/reagent/consumable/flour = 5,
-		/obj/item/reagent_containers/food/snacks/bun = 1,
+		/obj/item/food/bun = 1,
 		/obj/item/reagent_containers/food/snacks/carpmeat = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/fishfingers
@@ -125,16 +125,6 @@
 	result = /obj/item/reagent_containers/food/snacks/bearsteak
 	subcategory = CAT_MEAT
 
-/datum/crafting_recipe/food/enchiladas
-	name = "Enchiladas"
-	reqs = list(
-		/obj/item/reagent_containers/food/snacks/meat/cutlet = 2,
-		/obj/item/reagent_containers/food/snacks/grown/chili = 2,
-		/obj/item/reagent_containers/food/snacks/tortilla = 2
-	)
-	result = /obj/item/reagent_containers/food/snacks/enchiladas
-	subcategory = CAT_MEAT
-
 /datum/crafting_recipe/food/stewedsoymeat
 	name = "Stewed soymeat"
 	reqs = list(
@@ -165,7 +155,7 @@
 /datum/crafting_recipe/food/rawkhinkali
 	name = "Raw Khinkali"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/doughslice = 1,
+		/obj/item/food/doughslice = 1,
 		/obj/item/reagent_containers/food/snacks/grown/garlic = 1,
 		/obj/item/reagent_containers/food/snacks/meatball = 1
 	)
@@ -175,11 +165,22 @@
 /datum/crafting_recipe/food/pigblanket
 	name = "Pig in a Blanket"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/bun = 1,
+		/obj/item/food/bun = 1,
 		/obj/item/reagent_containers/food/snacks/butter = 1,
 		/obj/item/reagent_containers/food/snacks/meat/cutlet = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/pigblanket
+	subcategory = CAT_MEAT
+
+/datum/crafting_recipe/food/meatbun
+	name = "Meat bun"
+	reqs = list(
+		/datum/reagent/consumable/soysauce = 5,
+		/obj/item/food/bun = 1,
+		/obj/item/reagent_containers/food/snacks/meatball = 1,
+		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatbun
 	subcategory = CAT_MEAT
 
 /datum/crafting_recipe/food/ratkebab
@@ -203,10 +204,10 @@
 /datum/crafting_recipe/food/ricepork
 	name = "Rice and Pork"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/salad/boiledrice = 1,
+		/obj/item/food/salad/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/meat/cutlet = 2
 	)
-	result = /obj/item/reagent_containers/food/snacks/salad/ricepork
+	result = /obj/item/food/salad/ricepork
 	subcategory = CAT_MEAT
 
 

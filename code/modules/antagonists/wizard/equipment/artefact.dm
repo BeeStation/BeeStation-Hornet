@@ -147,6 +147,7 @@
 		return
 	C.vomit(0, TRUE, TRUE, 3, TRUE)
 	C.spew_organ(3, 2)
+	C.investigate_log("has died from using telekinesis on a tear in reality.", INVESTIGATE_DEATHS)
 	C.death()
 
 /obj/tear_in_reality/Bump(atom/A)
@@ -423,7 +424,7 @@
 /obj/item/voodoo/suicide_act(mob/living/carbon/user)
     user.visible_message("<span class='suicide'>[user] links the voodoo doll to [user.p_them()]self and sits on it, infinitely crushing [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
     user.gib()
-    return(BRUTELOSS)
+    return BRUTELOSS
 
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	if(target)

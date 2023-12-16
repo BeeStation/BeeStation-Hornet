@@ -20,10 +20,14 @@
 		display_results(user, target, "<span class='notice'>You begin to extract [I] from [target]'s [surgery.location]...</span>",
 			"[user] begins to extract [I] from [target]'s [surgery.location].",
 			"[user] begins to extract something from [target]'s [surgery.location].")
+		//Incase they are interupted mid-extraction, log it
+		log_combat(user, target, "tried to extract [I.name] from")
 	else
 		display_results(user, target, "<span class='notice'>You look for an implant in [target]'s [surgery.location]...</span>",
 			"[user] looks for an implant in [target]'s [surgery.location].",
 			"[user] looks for something in [target]'s [surgery.location].")
+		//Doesn't matter if they finish or not, defaults to this if there are no implants
+		log_combat(user, target, "implant checked")
 
 /datum/surgery_step/extract_implant/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(I)
@@ -31,6 +35,9 @@
 			"[user] successfully removes [I] from [target]'s [surgery.location]!",
 			"[user] successfully removes something from [target]'s [surgery.location]!")
 		I.removed(target)
+
+		//Logs removal of implants, similar to removal of organs during organ manipulation
+		log_combat(user, target, "surgically extracted [I.name] from")
 
 		var/obj/item/implantcase/case
 		for(var/obj/item/implantcase/ic in user.held_items)

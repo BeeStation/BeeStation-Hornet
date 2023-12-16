@@ -51,6 +51,8 @@
 /datum/sprite_accessory
 	var/icon			//the icon file the accessory is located in
 	var/icon_state		//the icon_state of the accessory
+	var/emissive_state	//state of the emissive overlay
+	var/emissive_alpha = 255	//Alpha of the emissive
 	var/name			//the preview name of the accessory
 	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 	var/gender_specific //Something that can be worn by either gender, but looks different on each
@@ -2113,6 +2115,14 @@
 	name = "Moon Fly"
 	icon_state = "moonfly"
 
+/datum/sprite_accessory/moth_wings/witchwingi
+	name = "Witch Wing"
+	icon_state = "witchwing"
+
+/datum/sprite_accessory/moth_wingsopen/witchwing
+	name = "Witch Wing"
+	icon_state = "witchwing"
+
 /datum/sprite_accessory/moth_wings/snow
 	name = "Snow"
 	icon_state = "snow"
@@ -2204,6 +2214,10 @@
 	name = "Snow"
 	icon_state = "snow"
 
+/datum/sprite_accessory/moth_antennae/witchwing
+	name = "Witch Wing"
+	icon_state = "witchwing"
+
 /datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
 	icon = 'icons/mob/moth_markings.dmi'
 	color_src = null
@@ -2257,10 +2271,16 @@
 	name = "Moon Fly"
 	icon_state = "moonfly"
 
+/datum/sprite_accessory/moth_markings/witchwing
+	name = "Witch Wing"
+	icon_state = "witchwing"
+
 // IPC accessories.
 
 /datum/sprite_accessory/ipc_screens
 	icon = 'icons/mob/ipc_accessories.dmi'
+	emissive_state = "m_ipc_screen_emissive"
+	emissive_alpha = 60
 	color_src = EYECOLOR
 
 /datum/sprite_accessory/ipc_screens/blue
@@ -2504,6 +2524,52 @@
 /datum/sprite_accessory/ipc_chassis/zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
+
+//Psyphoza caps
+
+/datum/sprite_accessory/psyphoza_cap
+	icon = 'icons/mob/psyphoza_caps.dmi'
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/psyphoza_cap/wide
+	name = "Portobello"
+	icon_state = "wide"
+
+/datum/sprite_accessory/psyphoza_cap/cup
+	name = "Chanterelle"
+	icon_state = "cup"
+
+/datum/sprite_accessory/psyphoza_cap/round
+	name = "Psilocybe"
+	icon_state = "round"
+
+/datum/sprite_accessory/psyphoza_cap/flat
+	name = "Pleurotus"
+	icon_state = "flat"
+
+/datum/sprite_accessory/psyphoza_cap/string
+	name = "Aseroe"
+	icon_state = "string"
+
+/datum/sprite_accessory/psyphoza_cap/fuzz
+	name = "Enoki"
+	icon_state = "fuzz"
+
+/datum/sprite_accessory/psyphoza_cap/rizz
+	name = "Verpa"
+	icon_state = "rizz"
+
+/datum/sprite_accessory/psyphoza_cap/brain
+	name = "Laetiporus"
+	icon_state = "brain"
+
+/datum/sprite_accessory/psyphoza_cap/crown
+	name = "Morel"
+	icon_state = "crown"
+
+/datum/sprite_accessory/psyphoza_cap/sponge
+	name = "Helvella"
+	icon_state = "sponge"
 
 //apids
 
