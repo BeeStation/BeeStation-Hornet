@@ -1,5 +1,8 @@
 /atom/movable
 	layer = OBJ_LAYER
+	glide_size = 8
+	appearance_flags = TILE_BOUND|PIXEL_SCALE
+
 	var/move_stacks = 0 //how many times a this movable had movement procs called on it since Moved() was last called
 	var/last_move = null
 	var/last_move_time = 0
@@ -13,6 +16,7 @@
 	var/mob/pulledby = null
 	var/initial_language_holder = /datum/language_holder
 	var/datum/language_holder/language_holder	// Mindless mobs and objects need language too, some times. Mind holder takes prescedence.
+
 	var/verb_say = "says"
 	var/verb_ask = "asks"
 	var/verb_exclaim = "exclaims"
@@ -33,8 +37,6 @@
 	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
 	var/datum/movement_packet/move_packet
 	var/list/acted_explosions	//for explosion dodging
-	glide_size = 8
-	appearance_flags = TILE_BOUND|PIXEL_SCALE
 	var/datum/forced_movement/force_moving = null	//handled soley by forced_movement.dm
 	var/movement_type = GROUND		//Incase you have multiple types, you automatically use the most useful one. IE: Skating on ice, flippers on water, flying over chasm/space, etc.
 	var/atom/movable/pulling
@@ -708,7 +710,7 @@
 
 	if (pulledby)
 		pulledby.stop_pulling()
-	
+
 
 	//They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if (thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag*2)

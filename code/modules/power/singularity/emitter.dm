@@ -175,7 +175,7 @@
 
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/M)
 	if(ismegafauna(M) && anchored)
-		setAnchored(FALSE)
+		set_anchored(FALSE)
 		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
 	else
 		. = ..()
