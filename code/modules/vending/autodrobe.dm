@@ -10,7 +10,7 @@
 	products = list(/obj/item/clothing/mask/gas/clown_hat = 1,
 					/obj/item/clothing/mask/gas/sexyclown = 1,
 					/obj/item/clothing/under/rank/civilian/clown = 1,
-					/obj/item/clothing/shoes/clown_shoes,
+					/obj/item/clothing/shoes/clown_shoes = 1,
 					/obj/item/clothing/under/rank/civilian/clown/blue = 1,
 					/obj/item/clothing/under/rank/civilian/clown/green = 1,
 					/obj/item/clothing/under/rank/civilian/clown/yellow = 1,
