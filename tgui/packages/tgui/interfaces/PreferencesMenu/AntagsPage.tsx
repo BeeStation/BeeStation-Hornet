@@ -1,3 +1,4 @@
+import { round } from 'common/math';
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../../backend';
 import { Box, Button, Flex, Section, Stack, Tooltip, Divider, Input, Icon } from '../../components';
@@ -104,12 +105,13 @@ const AntagSelection = (
               data.antag_living_playtime_hours_left[antagonist.path]) ||
             0;
 
+          let displayHours = round(hoursLeft, 2);
           let full_description = `${
             isBanned ? `You are banned from ${antagonist.name}.${antagonist.description || hoursLeft > 0 ? '\n' : ''}` : ''
           }${
             hoursLeft > 0
-              ? `You require ${hoursLeft} more hour${
-                hoursLeft !== 1 ? 's' : ''
+              ? `You require ${displayHours} more hour${
+                displayHours !== 1 ? 's' : ''
               } of living playtime in order to play this role.${antagonist.description ? '\n' : ''}`
               : ''
           }${antagonist.description}`;
@@ -201,7 +203,7 @@ const AntagSelection = (
 
                       {hoursLeft > 0 && (
                         <Box className="antagonist-overlay-text">
-                          <span className="antagonist-overlay-text-hours">{hoursLeft}</span>
+                          <span className="antagonist-overlay-text-hours">{Math.ceil(hoursLeft)}</span>
                           <br />
                           hours left
                         </Box>

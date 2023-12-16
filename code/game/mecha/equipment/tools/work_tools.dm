@@ -439,7 +439,7 @@
 			if(!T.broken && !T.burnt)
 				new T.floor_tile(T)
 			T.make_plating()
-	return !new_turf.intact
+	return !new_turf.underfloor_accessibility
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(var/turf/new_turf)
 	if(equip_ready || !istype(new_turf) || !dismantleFloor(new_turf))
@@ -525,7 +525,6 @@
 		E.detach()
 		E.attach(N)
 		M.equipment -= E
-	N.dna_lock = M.dna_lock
 	N.maint_access = M.maint_access
 	N.strafe = M.strafe
 	N.obj_integrity = M.obj_integrity //This is not a repair tool

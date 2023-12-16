@@ -43,6 +43,7 @@
 
 /obj/item/storage/wallet/proc/refreshID()
 	LAZYCLEARLIST(combined_access)
+	
 	if(!(front_id in src))
 		front_id = null
 	for(var/obj/item/card/id/I in contents)

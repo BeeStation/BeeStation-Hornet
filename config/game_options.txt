@@ -491,6 +491,7 @@ ROUNDSTART_RACES felinid
 ROUNDSTART_RACES lizard
 ROUNDSTART_RACES moth
 #ROUNDSTART_RACES fly
+ROUNDSTART_RACES psyphoza
 
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES apid
@@ -656,3 +657,6 @@ SPARE_ENFORCE_COC
 
 ## Uncomment to disable local bans, effectively enforcing only global bans
 DISABLE_LOCAL_BANS
+
+## Comment this to disable roundstart lights being turned off in non-staffed departments
+#DARK_UNSTAFFED_DEPARTMENTS

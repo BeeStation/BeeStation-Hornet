@@ -23,6 +23,7 @@
 	grind_results = list(/datum/reagent/silicon = 20)
 	point_value = 1
 	tableVariant = /obj/structure/table/glass
+	matter_amount = 4
 
 /obj/item/stack/sheet/glass/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to slice [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -71,6 +72,7 @@
 	merge_type = /obj/item/stack/sheet/rglass
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/iron = 10)
 	point_value = 4
+	matter_amount = 6
 
 /obj/item/stack/sheet/rglass/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
@@ -146,6 +148,7 @@
 	merge_type = /obj/item/stack/sheet/plasmarglass
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10, /datum/reagent/iron = 10)
 	point_value = 23
+	matter_amount = 8
 
 /obj/item/stack/sheet/plasmarglass/get_recipes()
 	return GLOB.prglass_recipes
@@ -206,9 +209,9 @@
 	embedding = list("embed_chance" = 65)
 
 
-/obj/item/shard/suicide_act(mob/user)
+/obj/item/shard/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shard of glass! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 
 /obj/item/shard/Initialize(mapload)

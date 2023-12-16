@@ -233,10 +233,19 @@
 		for(var/datum/help_ticket/AH in l)
 			if(AH.initiator)
 				tab_data["#[AH.id]. [AH.initiator_key_name]"] = list(
-					text = AH.name,
+					text = AH.stat_text,
 					type = STAT_BUTTON,
 					action = "open_ticket",
 					params = list("id" = AH.id),
+					multirow = TRUE,
+					buttons = list(
+						list(
+							"title" = AH.claimee_key_name ? "Claimed by [AH.claimee_key_name]" : "Claim",
+							"color" = AH.claimee_key_name ? "red" : "green",
+							"action_id" = "claim_ticket",
+							"params" = list("id" = AH.id)
+						)
+					)
 				)
 			else
 				++num_disconnected
@@ -311,6 +320,7 @@
 /datum/help_ticket
 	var/id
 	var/name
+	var/stat_text
 	var/state = TICKET_UNCLAIMED
 	/// The first (sanitized) message for this ticket
 	var/initial_msg
@@ -348,17 +358,18 @@
 	initiator_key_name = key_name(initiator, FALSE, TRUE)
 
 /// Call this on its own to create a ticket, don't manually assign current_ticket, msg is the title of the ticket: usually the ahelp text
-/datum/help_ticket/proc/Create(msg)
+/datum/help_ticket/proc/Create(msg, sanitized = FALSE)
 	//Clean the input message
-	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
-	if(!msg || !initiator || !initiator.mob)
+	msg = trim(sanitized ? html_decode(msg) : msg, MAX_MESSAGE_LEN)
+	if(!length(msg) || QDELETED(initiator?.mob))
 		qdel(src)
 		return FALSE
 	initial_msg = msg
 	id = ++ticket_counter
 	opened_at = world.time
 
-	name = copytext_char(msg, 1, 100)
+	name = trim(msg, 100)
+	stat_text = trim(msg, 500)
 
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))
@@ -785,7 +796,7 @@
 		else
 			final = "[msg] - All admins stealthed\[[english_list(stealthmins)]\], AFK\[[english_list(afkmins)]\], or lacks +BAN\[[english_list(powerlessmins)]\]! Total: [allmins.len] "
 		send2tgs(source,final)
-		SStopic.crosscomms_send("ahelp", final, source)
+		SStopic.crosscomms_send_async("ahelp", final, source)
 
 
 /proc/send2tgs(msg,msg2)

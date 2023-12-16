@@ -612,6 +612,8 @@
 		return
 	for(var/mob/M in GLOB.mob_list)
 		if(M.stat != DEAD && M.get_virtual_z_level() == z)
+			to_chat(M, "<span class='userdanger'>You are shredded to atoms!</span>")
+			M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
 			M.gib()
 
 /*
@@ -733,7 +735,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 		return TRUE
 	return ..()
 
-/obj/item/disk/nuclear/suicide_act(mob/user)
+/obj/item/disk/nuclear/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is going delta! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src, 'sound/machines/alarm.ogg', 50, -1, TRUE)
 	for(var/i in 1 to 100)
@@ -745,7 +747,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY)
 	user.visible_message("<span class='suicide'>[user] is destroyed by the nuclear blast!</span>")
 	user.adjustOxyLoss(200)
-	user.death(0)
+	user.death(FALSE)
 
 /obj/item/disk/nuclear/fake
 	fake = TRUE

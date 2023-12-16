@@ -74,6 +74,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/pickup_sound
 	///Sound uses when dropping the item, or when its thrown.
 	var/drop_sound
+	///Whether or not we use stealthy audio levels for this item's attack sounds
+	var/stealthy_audio = FALSE
+
 	/// The weight class of an object. Used to determine tons of things, like if it's too cumbersome for you to drag, if it can fit in certain storage items, how long it takes to burn, and more. See _DEFINES/inventory.dm to see all weight classes.
 	var/w_class = WEIGHT_CLASS_NORMAL
 	/// This is used to determine on which inventory slots an item can fit.
@@ -221,6 +224,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///Icon for monkey
 	var/icon/monkey_icon
 
+	var/canMouseDown = FALSE
+
+	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
+	var/vendor_icon_preview = null
+
 
 /obj/item/Initialize(mapload)
 
@@ -305,7 +313,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //TOXLOSS = 4
 //OXYLOSS = 8
 //Output a creative message and then return the damagetype done
-/obj/item/proc/suicide_act(mob/user)
+/obj/item/proc/suicide_act(mob/living/user)
 	return
 
 /obj/item/set_greyscale(list/colors, new_config, new_worn_config, new_inhand_left, new_inhand_right)
@@ -450,6 +458,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(anchored)
 		return
 
+	. = TRUE
+
 	if(resistance_flags & ON_FIRE)
 		var/mob/living/carbon/C = user
 		var/can_handle_hot = FALSE
@@ -502,10 +512,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
+	. = FALSE
 	remove_outline()
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
+		return TRUE
 
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
@@ -713,6 +725,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // for items that can be placed in multiple slots
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	for(var/X in actions)
@@ -971,6 +984,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return ..()
 	return 0
 
+/obj/item/attack_basic_mob(mob/living/basic/user)
+	if (obj_flags & CAN_BE_HIT)
+		return ..()
+	return 0
+
 /obj/item/mech_melee_attack(obj/mecha/M)
 	return 0
 
@@ -994,7 +1012,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		..()
 
 /obj/item/proc/microwave_act(obj/machinery/microwave/M)
-	SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M) & COMPONENT_SUCCESFUL_MICROWAVE)
+		return
 	if(istype(M) && M.dirty < 100)
 		M.dirty++
 
@@ -1211,6 +1230,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & DROPDEL)
 		QDEL_NULL(src)
 		return TRUE
+	if(istype(src, /obj/item/shrapnel))
+		src.disableEmbedding()
 
 /**
   * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.
@@ -1349,6 +1370,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 #undef MAX_MATS_PER_BITE
 
 /**
+ * Updates all action buttons associated with this item
+ *
+ * Arguments:
+ * * status_only - Update only current availability status of the buttons to show if they are ready or not to use
+ * * force - Force buttons update even if the given button icon state has not changed
+ */
+/obj/item/proc/update_action_buttons(status_only = FALSE, force = FALSE)
+	for(var/datum/action/current_action as anything in actions)
+		current_action.UpdateButtonIcon(status_only, force)
+
+/**
  * * An interrupt for offering an item to other people, called mainly from [/mob/living/carbon/proc/give], in case you want to run your own offer behavior instead.
  *
  * * Return TRUE if you want to interrupt the offer.
@@ -1389,3 +1421,41 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  */
 /obj/item/proc/get_writing_implement_details()
 	return null
+
+/// Increases weight class by one class and returns true, or else returns false
+/obj/item/proc/weight_class_up()
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			w_class = WEIGHT_CLASS_SMALL
+		if(WEIGHT_CLASS_SMALL)
+			w_class = WEIGHT_CLASS_NORMAL
+		if(WEIGHT_CLASS_NORMAL)
+			w_class = WEIGHT_CLASS_LARGE
+		if(WEIGHT_CLASS_LARGE)
+			w_class = WEIGHT_CLASS_BULKY
+		if(WEIGHT_CLASS_BULKY)
+			w_class = WEIGHT_CLASS_HUGE
+		if(WEIGHT_CLASS_HUGE)
+			w_class = WEIGHT_CLASS_GIGANTIC
+		else
+			return FALSE
+	return TRUE
+
+/// Decreases weight class by one class and returns true, or else returns false
+/obj/item/proc/weight_class_down()
+	switch(w_class)
+		if(WEIGHT_CLASS_SMALL)
+			w_class = WEIGHT_CLASS_TINY
+		if(WEIGHT_CLASS_NORMAL)
+			w_class = WEIGHT_CLASS_SMALL
+		if(WEIGHT_CLASS_LARGE)
+			w_class = WEIGHT_CLASS_NORMAL
+		if(WEIGHT_CLASS_BULKY)
+			w_class = WEIGHT_CLASS_LARGE
+		if(WEIGHT_CLASS_HUGE)
+			w_class = WEIGHT_CLASS_BULKY
+		if(WEIGHT_CLASS_GIGANTIC)
+			w_class = WEIGHT_CLASS_HUGE
+		else
+			return FALSE
+

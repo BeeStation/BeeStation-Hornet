@@ -1,5 +1,5 @@
 /obj/item/gun/ballistic/automatic
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	var/select = 1
 	can_suppress = TRUE
 	actions_types = list(/datum/action/item_action/toggle_firemode)
@@ -53,9 +53,7 @@
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 	autofire_target = null
 
 /obj/item/gun/ballistic/automatic/c20r
@@ -67,7 +65,7 @@
 	fire_delay = 2
 	burst_size = 2
 	pin = /obj/item/firing_pin/implant/pindicate
-	spread_unwielded = 15
+	spread_unwielded = 8
 	can_bayonet = TRUE
 	knife_x_offset = 26
 	knife_y_offset = 12
@@ -127,7 +125,7 @@
 	burst_size = 3
 	fire_delay = 2
 	pin = /obj/item/firing_pin/implant/pindicate
-	spread_unwielded = 15
+	spread_unwielded = 8
 	mag_display = TRUE
 	empty_indicator = TRUE
 

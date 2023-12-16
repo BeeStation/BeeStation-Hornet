@@ -17,6 +17,8 @@
 	light_power = 1
 	light_on = FALSE
 	var/on = FALSE
+	var/sound_on = 'sound/items/flashlight_on.ogg'
+	var/sound_off = 'sound/items/flashlight_off.ogg'
 
 
 /obj/item/flashlight/Initialize(mapload)
@@ -28,10 +30,12 @@
 /obj/item/flashlight/proc/update_brightness(mob/user)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		playsound(src, 'sound/items/flashlight_on.ogg', 25, 1)
+		if(sound_on)
+			playsound(src, sound_on, 25, 1)
 	else
 		icon_state = initial(icon_state)
-		playsound(src, 'sound/items/flashlight_off.ogg', 25, 1)
+		if(sound_off)
+			playsound(src, sound_off, 25, 1)
 	set_light_on(on)
 	if(light_system == STATIC_LIGHT)
 		update_light()
@@ -40,9 +44,7 @@
 /obj/item/flashlight/attack_self(mob/user)
 	on = !on
 	update_brightness(user)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 	return 1
 
 /obj/item/flashlight/suicide_act(mob/living/carbon/human/user)
@@ -50,7 +52,7 @@
 		user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (FIRELOSS)
+	return FIRELOSS
 
 /obj/item/flashlight/attack(mob/living/carbon/M, mob/living/carbon/human/user)
 	add_fingerprint(user)
@@ -266,6 +268,8 @@
 	heat = 1000
 	light_color = LIGHT_COLOR_FLARE
 	grind_results = list(/datum/reagent/sulfur = 15)
+	sound_on = 'sound/items/matchstick_lit.ogg'
+	sound_off = null
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()
@@ -304,10 +308,12 @@
 
 	// Usual checks
 	if(fuel <= 0)
-		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
+		if(user)
+			balloon_alert(user, "out of fuel!")
 		return
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is already on.</span>")
+		if(user)
+			balloon_alert(user, "already lit!")
 		return
 
 	. = ..()
@@ -508,7 +514,7 @@
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] is squirting [src]'s fluids into [user.p_their()] eyes! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	fuel = 0
-	return (FIRELOSS)
+	return FIRELOSS
 
 /obj/item/flashlight/glowstick/red
 	name = "red glowstick"

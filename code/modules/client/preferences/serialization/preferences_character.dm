@@ -1,5 +1,6 @@
 /// A cache for character preferences data
 /datum/preferences_holder/preferences_character
+	pref_type = PREFERENCE_CHARACTER
 	/// INT: Slot number. Used for internal tracking. The slot number also correspnds to the number of slots in the characters list
 	var/slot_number = 0
 	/// List of column names to be queried
@@ -17,23 +18,10 @@
 		column_names = get_column_names()
 	..(prefs)
 
-/datum/preferences_holder/preferences_character/proc/load_from_database(datum/preferences/prefs)
-	if(IS_GUEST_KEY(prefs.parent.key) || !query_data(prefs)) // Query direct, otherwise create informed defaults
-		for (var/preference_type in GLOB.preference_entries)
-			var/datum/preference/preference = GLOB.preference_entries[preference_type]
-			if (preference.preference_type != pref_type)
-				continue
-			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
-		return FALSE
-	if(!istype(prefs.parent)) // Client was nulled during query execution
-		return FALSE
-	return TRUE
-
-/datum/preferences_holder/preferences_character/proc/query_data(datum/preferences/prefs)
-	if(!SSdbcore.IsConnected())
-		return FALSE
-	if(!istype(prefs.parent))
-		return FALSE
+/datum/preferences_holder/preferences_character/query_data(datum/preferences/prefs)
+	. = ..()
+	if(. != PREFERENCE_LOAD_SUCCESS)
+		return .
 	var/list/values
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
 		"SELECT [db_column_list(column_names)] FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
@@ -41,65 +29,77 @@
 	)
 	if(!Q.warn_execute())
 		qdel(Q)
-		return FALSE
+		log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences load query failed.")
+		return PREFERENCE_LOAD_ERROR
 	if(Q.NextRow())
 		values = Q.item
 		if(!length(values)) // There is no character
 			qdel(Q)
-			return FALSE
+			log_preferences("[prefs.parent.ckey]: Datumized character preferences load found no results in row.")
+			return PREFERENCE_LOAD_NO_DATA
 	else
 		qdel(Q)
-		return FALSE
+		log_preferences("[prefs.parent.ckey]: Datumized character preferences load found no rows.")
+		return PREFERENCE_LOAD_NO_DATA
 	qdel(Q)
 	if(length(values) != length(column_names))
+		log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences load found the wrong amount of columns.")
 		CRASH("Error querying character data: the returned value length is not equal to the number of columns requested.")
 	for(var/index in 1 to length(values))
 		var/db_key = column_names[index]
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!istype(preference))
+			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences failed to find preference column [db_key] in game, but it was in the database.")
 			CRASH("Could not find preference with db_key [db_key] when querying database.")
 		var/value = values[index]
 		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
-	return TRUE
+	log_preferences("[prefs.parent.ckey]: Successfully loaded datumized character preferences.")
+	return PREFERENCE_LOAD_SUCCESS
 
-/datum/preferences_holder/preferences_character/proc/write_to_database(datum/preferences/prefs)
-	. = write_data(prefs)
-	dirty_prefs.Cut() // clear all dirty preferences
-
-/datum/preferences_holder/preferences_character/proc/write_data(datum/preferences/prefs)
-	if(!SSdbcore.IsConnected() || !istype(prefs.parent) || IS_GUEST_KEY(prefs.parent.key))
-		return FALSE
+/datum/preferences_holder/preferences_character/write_data(datum/preferences/prefs)
+	. = ..()
+	if(. != PREFERENCE_LOAD_SUCCESS)
+		return .
 	var/list/column_names_short = list()
 	var/list/new_data = list()
 	for(var/db_key in dirty_prefs)
 		if(!(db_key in preference_data))
+			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences write found invalid db_key [db_key] in dirty preferences list.")
 			CRASH("Invalid db_key found in dirty preferences list: [db_key].")
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!istype(preference))
+			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences write found invalid db_key [db_key] in dirty preferences list (2).")
 			CRASH("Could not find preference with db_key [db_key] when writing to database.")
+		if(preference.disable_serialization)
+			continue
+		if(preference.preference_type != pref_type)
+			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences write found invalid preference type [preference.preference_type] for [db_key] (want [pref_type]).")
+			CRASH("Invalid preference located from db_key [db_key] for the preference type [pref_type] (had [preference.preference_type])")
 		new_data[db_key] = preference.serialize(preference_data[db_key])
 		var/column_name = clean_column_name(preference)
 		if(length(column_name))
 			column_names_short += column_name
 	if(!length(column_names_short)) // nothing to update
-		return TRUE
+		log_preferences("[prefs.parent.ckey]: Datumized character preferences write - no columns to write.")
+		return PREFERENCE_LOAD_NO_DATA
 	new_data["ckey"] = prefs.parent.ckey
 	new_data["slot"] = slot_number
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("characters")] (ckey, slot, [db_column_list(column_names_short)]) VALUES (:ckey, :slot, [db_column_list(column_names_short, TRUE)]) ON DUPLICATE KEY UPDATE [db_column_values(column_names_short)]", new_data
 	)
 	var/success = Q.warn_execute()
-	if(!success)
-		to_chat(prefs.parent, "<span class='boldannounce'>Failed to save your character. Please inform the server operator or a maintainer of this error.</span>")
 	qdel(Q)
 	prefs.fail_state = success
-	return success
+	log_preferences("[prefs.parent.ckey]: Datumized character preferences write result [success ? "GOOD" : "ERROR"].")
+	return success ? PREFERENCE_LOAD_SUCCESS : PREFERENCE_LOAD_ERROR
 
 /datum/preferences_holder/preferences_character/proc/get_column_names()
 	var/list/result = list()
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
 		if (preference.preference_type != PREFERENCE_CHARACTER)
+			continue
+		if(preference.disable_serialization)
 			continue
 		// IMPORTANT: use of initial evades varedits. Filter to only alphanumeric and underscores
 		var/column_name = clean_column_name(preference)
@@ -168,6 +168,7 @@
 	)
 	if(!Q.warn_execute())
 		qdel(Q)
+		log_preferences("[prefs.parent.ckey]: ERROR - SQL error while retrieving character profiles.")
 		CRASH("An SQL error occurred while retrieving character profile data.")
 	var/list/data = list()
 	for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
@@ -185,3 +186,4 @@
 		data[values[1]] = values[2] // data[1] = "John Smith"
 	qdel(Q)
 	prefs.character_profiles_cached = data
+	log_preferences("[prefs.parent.ckey]: Successfully retrieved character profiles.")

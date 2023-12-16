@@ -29,6 +29,12 @@
 	species_l_leg = /obj/item/bodypart/l_leg/ethereal
 	species_r_leg = /obj/item/bodypart/r_leg/ethereal
 
+	// Body temperature for ethereals is much higher then humans as they like hotter environments
+	bodytemp_normal = (BODYTEMP_NORMAL + 50)
+	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_SPREAD // about 150C
+	// Cold temperatures hurt faster as it is harder to move with out the heat energy
+	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
+
 	var/current_color
 	var/EMPeffect = FALSE
 	var/emageffect = FALSE
@@ -122,8 +128,16 @@
 	SIGNAL_HANDLER
 	return !(!emageffect || !istype(H)) // signal is inverted
 
-/datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user)
+/datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user, obj/item/card/emag/hacker)
 	SIGNAL_HANDLER
+
+	if(hacker)
+		if(hacker.charges <= 0)
+			to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+			user.balloon_alert(user, "out of charges!")
+			return
+		else
+			hacker.use_charge()
 
 	emageffect = TRUE
 	if(user)

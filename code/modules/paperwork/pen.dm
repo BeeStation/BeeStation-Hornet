@@ -30,9 +30,9 @@
 	var/degrees = 0
 	var/font = PEN_FONT
 
-/obj/item/pen/suicide_act(mob/user)
+/obj/item/pen/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is scribbling numbers all over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/pen/blue
 	desc = "It's a normal blue ink pen."
@@ -158,6 +158,7 @@
 		var/penchoice = input(user, "What would you like to edit?", "Rename or change description?") as null|anything in list("Rename","Change description")
 		if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
 			return
+		var/anythingchanged = FALSE
 		if(penchoice == "Rename")
 			var/input = stripped_input(user,"What do you want to name \the [O.name]?", ,"", MAX_NAME_LEN)
 			var/oldname = O.name
@@ -169,13 +170,16 @@
 				O.name = input
 				to_chat(user, "\The [oldname] has been successfully been renamed to \the [input].")
 				O.renamedByPlayer = TRUE
-
+				anythingchanged = TRUE
 		if(penchoice == "Change description")
 			var/input = stripped_input(user,"Describe \the [O.name] here", ,"", 100)
 			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
 				return
 			O.desc = input
 			to_chat(user, "You have successfully changed \the [O.name]'s description.")
+			anythingchanged = TRUE
+		if(anythingchanged)
+			O.update_icon()
 
 /obj/item/pen/get_writing_implement_details()
 	return list(
@@ -225,7 +229,7 @@
 
 /obj/item/pen/edagger/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/blade1.ogg', TRUE)
+	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/edagger.ogg', TRUE)
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
@@ -246,7 +250,7 @@
 		throw_speed = 4
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
-		hitsound = 'sound/weapons/blade1.ogg'
+		hitsound = 'sound/weapons/edagger.ogg'
 		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
 		throwforce = 35
 		sharpness = IS_SHARP

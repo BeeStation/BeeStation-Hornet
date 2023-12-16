@@ -49,10 +49,12 @@
 	if (new_charging)
 		START_PROCESSING(SSmachines, src)
 		use_power = ACTIVE_POWER_USE
-		update_icon(scan = TRUE)
+		using_power = TRUE
+		update_appearance()
 	else
 		use_power = IDLE_POWER_USE
-		update_icon()
+		using_power = FALSE
+		update_appearance()
 
 /obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
 	if(G.tool_behaviour == TOOL_WRENCH)
@@ -93,7 +95,8 @@
 		return 1
 
 	if(anchored && !charging)
-		if(default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", G))
+		if(default_deconstruction_screwdriver(user, "recharger", "recharger", G))
+			update_appearance()
 			return
 
 		if(panel_open && G.tool_behaviour == TOOL_CROWBAR)
@@ -115,10 +118,11 @@
 		setCharging(null)
 
 /obj/machinery/recharger/attack_tk(mob/user)
-	if(charging)
-		charging.update_icon()
-		charging.forceMove(drop_location())
-		setCharging(null)
+	if(!charging)
+		return
+	charging.update_icon()
+	charging.forceMove(drop_location())
+	setCharging(null)
 
 /obj/machinery/recharger/process(delta_time)
 	if(machine_stat & (NOPOWER|BROKEN) || !anchored)
@@ -145,10 +149,6 @@
 	else
 		return PROCESS_KILL
 
-/obj/machinery/recharger/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/recharger/emp_act(severity)
 	. = ..()
 	if (. & EMP_PROTECT_CONTENTS)
@@ -165,20 +165,16 @@
 				B.cell.charge = 0
 
 
-/obj/machinery/recharger/update_icon(scan)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
+/obj/machinery/recharger/update_icon_state()
+	. = ..()
 	if(machine_stat & (NOPOWER|BROKEN) || !anchored)
 		icon_state = "rechargeroff"
-		return
-	if(scan)
-		icon_state = "rechargeroff"
-		return
-	if(panel_open)
+	else if(panel_open)
 		icon_state = "rechargeropen"
-		return
-	if(charging)
+	else if(charging)
 		if(using_power)
 			icon_state = "recharger1"
 		else
 			icon_state = "recharger2"
-		return
-	icon_state = "recharger0"
+	else
+		icon_state = "recharger0"

@@ -102,7 +102,7 @@
 		investigate_log("decreased to <font color='green'>[strength]</font> by [key_name(usr)] at [AREACOORD(src)]", INVESTIGATE_ENGINES)
 
 /obj/machinery/particle_accelerator/control_box/power_change()
-	..()
+	. = ..()
 	if(machine_stat & NOPOWER)
 		active = FALSE
 		use_power = NO_POWER_USE

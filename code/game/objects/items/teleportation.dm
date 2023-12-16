@@ -164,7 +164,7 @@
 			continue
 		var/distance = get_dist(wake, user)
 		var/range = distance <= 3 ? "Strong" : "Weak"
-		L["Slipspace Wake [++i] ([range])"] = get_teleport_turf(wake.destination, 2 + distance)
+		L["Slipspace Wake [++i] ([range])"] = wake
 	// Add on a random turf nearby
 	var/list/turfs = list()
 	for(var/turf/T as() in (RANGE_TURFS(10, user) - get_turf(user)))
@@ -184,8 +184,23 @@
 	if(active_portal_pairs.len >= max_portal_pairs)
 		user.show_message("<span class='notice'>\The [src] is recharging!</span>")
 		return
-	var/atom/T = L[t1]
-	var/area/A = get_area(T)
+	var/teleport_target = L[t1]
+	// Non-turfs (Wakes) are handled differently
+	if (istype(teleport_target, /obj/effect/temp_visual/teleportation_wake))
+		var/distance = get_dist(teleport_target, user)
+		var/obj/effect/temp_visual/teleportation_wake/wake = teleport_target
+		var/turf/target_turf = get_teleport_turf(wake.destination, 2 + distance)
+		to_chat(user, "<span class='notice'>You begin teleporting to the target.</span>")
+		var/obj/effect/temp_visual/portal_opening/target_effect = new(target_turf)
+		var/obj/effect/temp_visual/portal_opening/source_effect = new(get_turf(user))
+		if (do_after(user, 10 SECONDS, user))
+			do_teleport(user, target_turf)
+		else
+			animate(user, flags = ANIMATION_END_NOW)
+			qdel(target_effect)
+			qdel(source_effect)
+		return
+	var/area/A = get_area(teleport_target)
 	if(A.teleport_restriction)
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
@@ -194,7 +209,7 @@
 	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
-	var/list/obj/effect/portal/created = create_portal_pair(current_location, get_teleport_turf(get_turf(T)), src, 300, 1, null, atmos_link_override)
+	var/list/obj/effect/portal/created = create_portal_pair(current_location, get_teleport_turf(get_turf(teleport_target)), src, 300, 1, null, atmos_link_override)
 	if(!(LAZYLEN(created) == 2))
 		return
 
@@ -236,7 +251,7 @@
 			return DESTINATION_PORTAL
 	return FALSE
 
-/obj/item/hand_tele/suicide_act(mob/user)
+/obj/item/hand_tele/suicide_act(mob/living/user)
 	if(iscarbon(user))
 		user.visible_message("<span class='suicide'>[user] is creating a weak portal and sticking [user.p_their()] head through! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/mob/living/carbon/itemUser = user
@@ -248,7 +263,7 @@
 			itemUser.visible_message("<span class='suicide'>The portal snaps closed taking [user]'s head with it!</span>")
 		else
 			itemUser.visible_message("<span class='suicide'>[user] looks even further depressed as they realize they do not have a head...and suddenly dies of shame!</span>")
-		return (BRUTELOSS)
+		return BRUTELOSS
 
 /*
  * Syndicate Teleporter

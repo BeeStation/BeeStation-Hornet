@@ -14,7 +14,7 @@
 "c" = (
 /obj/structure/table/wood/fancy/purple,
 /obj/item/food/cake/chocolate,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "d" = (
@@ -63,11 +63,11 @@
 "n" = (
 /obj/structure/table/wood/fancy/purple,
 /obj/item/reagent_containers/food/snacks/pizzabread,
-/obj/item/reagent_containers/food/snacks/egg{
+/obj/item/food/egg{
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/egg{
+/obj/item/food/egg{
 	pixel_x = -4;
 	pixel_y = 3
 	},
@@ -175,7 +175,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "L" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/fancy/corp,
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "M" = (
@@ -195,7 +195,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "P" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/corp{
 	dir = 1
 	},
 /turf/open/floor/carpet/orange,

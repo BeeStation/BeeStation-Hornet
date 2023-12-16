@@ -102,6 +102,11 @@
 /// A define used in ritual priority for heretics.
 #define MAX_KNOWLEDGE_PRIORITY 100
 
+//Cult Construct defines
+
+#define CONSTRUCT_JUGGERNAUT "Juggernaut"
+#define CONSTRUCT_WRAITH "Wraith"
+#define CONSTRUCT_ARTIFICER "Artificer"
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40
@@ -119,6 +124,9 @@
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
+
+// Max of all fugitive types
+#define MAXIMUM_TOTAL_FUGITIVES 4
 
 // Fugitive hunter types
 #define FUGITIVE_HUNTER_SPACE_POLICE "space_police"
