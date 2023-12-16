@@ -498,4 +498,4 @@
 	icon_state = "conc_slab"
 
 /turf/open/floor/concrete/tile
-	icon_state = "conc_tile"
+	icon_state = "conc_tiles"
