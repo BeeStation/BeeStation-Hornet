@@ -31,7 +31,7 @@
 	set_butchering()
 
 /obj/item/knife/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
+	if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
 		return eyestab(M,user)
