@@ -1,0 +1,6 @@
+/obj/item/food/sandwich : /obj/item/reagent_containers/food/snacks/sandwich{@OLD}
+
+/obj/item/food/grilled_cheese_sandwich : /obj/item/reagent_containers/food/snacks/grilledcheese{@OLD}
+/obj/item/food/jellysandwich : /obj/item/reagent_containers/food/snacks/jellysandwich{@OLD}
+/obj/item/food/notasandwich : /obj/item/reagent_containers/food/snacks/notasandwich{@OLD}
+/obj/item/food/hotdog : /obj/item/reagent_containers/food/snacks/hotdog{@OLD}

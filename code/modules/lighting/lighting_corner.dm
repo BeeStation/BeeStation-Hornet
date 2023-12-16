@@ -28,6 +28,13 @@
 	var/cache_r  = LIGHTING_SOFT_THRESHOLD
 	var/cache_g  = LIGHTING_SOFT_THRESHOLD
 	var/cache_b  = LIGHTING_SOFT_THRESHOLD
+
+	//additive light values
+	var/add_r = 0
+	var/add_g = 0
+	var/add_b = 0
+	var/applying_additive = FALSE
+
 	///the maximum of sum_r, sum_g, and sum_b. if this is > 1 then the three cached color values are divided by this
 	var/largest_color_luminosity = 0
 
@@ -111,9 +118,22 @@
 	self_r += delta_r
 	self_g += delta_g
 	self_b += delta_b
+
 	UPDATE_SUM_LUM(r)
 	UPDATE_SUM_LUM(g)
 	UPDATE_SUM_LUM(b)
+
+	add_r = clamp((self_r - 1.3) * 0.25, 0, 0.22)
+	add_g = clamp((self_g - 1.3) * 0.25, 0, 0.22)
+	add_b = clamp((self_b - 1.3) * 0.25, 0, 0.22)
+
+	// Client-shredding, does not cull any additive overlays.
+	//applying_additive = add_r || add_g || add_b
+	// Cull additive overlays that would be below 0.03 alpha in any color.
+	applying_additive = max(add_r, add_g, add_b) > 0.03
+	// Cull additive overlays whose color alpha sum is lower than 0.03
+	//applying_additive = (add_r + add_g + add_b) > 0.03
+
 
 	#ifdef ZMIMIC_LIGHT_BLEED
 	var/turf/T

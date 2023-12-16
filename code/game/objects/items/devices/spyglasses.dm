@@ -13,8 +13,7 @@
 		return
 	user.client.setup_popup("spypopup", 3, 3, 2)
 	user.client.register_map_obj(linked_bug.cam_screen)
-	for(var/plane in linked_bug.cam_plane_masters)
-		user.client.register_map_obj(plane)
+	linked_bug.remote_view.join(user.client)
 	linked_bug.update_view()
 
 /obj/item/clothing/glasses/sunglasses/spy/equipped(mob/user, slot)
@@ -45,7 +44,7 @@
 	desc = "An advanced piece of espionage equipment in the shape of a pocket protector. It has a built in 360 degree camera for all your \"admirable\" needs. Microphone not included."
 	var/obj/item/clothing/glasses/sunglasses/spy/linked_glasses
 	var/atom/movable/screen/map_view/cam_screen
-	var/list/cam_plane_masters
+	var/datum/remote_view/remote_view
 	// Ranges higher than one can be used to see through walls.
 	var/cam_range = 1
 	var/datum/movement_detector/tracker
@@ -64,21 +63,13 @@
 	// blending fucks up massively. Any planesmaster on the main screen does
 	// NOT apply to map popups. If there's ever a way to make planesmasters
 	// omnipresent, then this wouldn't be needed.
-	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
-		var/atom/movable/screen/plane_master/instance = new plane()
-		if(instance.blend_mode_override)
-			instance.blend_mode = instance.blend_mode_override
-		instance.assigned_map = "spypopup_map"
-		instance.del_on_map_removal = FALSE
-		instance.screen_loc = "spypopup_map:CENTER"
-		cam_plane_masters += instance
+	remote_view = new("spypopup_map")
 
 /obj/item/clothing/accessory/spy_bug/Destroy()
 	if(linked_glasses)
 		linked_glasses.linked_bug = null
 	QDEL_NULL(cam_screen)
-	QDEL_LIST(cam_plane_masters)
+	QDEL_NULL(remote_view)
 	QDEL_NULL(tracker)
 	return ..()
 

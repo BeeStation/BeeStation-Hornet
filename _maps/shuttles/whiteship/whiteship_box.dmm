@@ -1898,7 +1898,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /obj/item/food/muffin/berry{
 	pixel_x = 4;
 	pixel_y = 4

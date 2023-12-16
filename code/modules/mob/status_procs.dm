@@ -26,7 +26,9 @@
   *
   * Will apply the blind alerts if needed
   */
-/mob/proc/adjust_blindness(amount)
+/mob/proc/adjust_blindness(amount, force)
+	if(!force && HAS_TRAIT_FROM(src, TRAIT_BLIND, "uncurable"))
+		return
 	var/old_eye_blind = eye_blind
 	eye_blind = max(eye_blind + amount, 0)
 	if(!old_eye_blind || !eye_blind && !HAS_TRAIT(src, TRAIT_BLIND))
@@ -35,24 +37,32 @@
 /**
   * Force set the blindness of a mob to some level
   */
-/mob/proc/set_blindness(amount)
+/mob/proc/set_blindness(amount, force)
+	if(!force && HAS_TRAIT_FROM(src, TRAIT_BLIND, "uncurable"))
+		return
 	var/old_eye_blind = eye_blind
 	eye_blind = max(amount, 0)
 	if(!old_eye_blind || !eye_blind && !HAS_TRAIT(src, TRAIT_BLIND))
 		update_blindness()
 
 /// proc that adds and removes blindness overlays when necessary
-/mob/proc/update_blindness()
+/mob/proc/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color = TRUE, var/can_see = TRUE)
 	if(stat == UNCONSCIOUS || HAS_TRAIT(src, TRAIT_BLIND) || eye_blind) // UNCONSCIOUS or has blind trait, or has temporary blindness
-		if(stat == CONSCIOUS || stat == SOFT_CRIT)
-			throw_alert("blind", /atom/movable/screen/alert/blind)
-		overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
+		if((stat == CONSCIOUS || stat == SOFT_CRIT) && istype(overlay, /atom/movable/screen/alert))
+			throw_alert("blind", overlay)
+		overlay_fullscreen("blind", overlay)
 		// You are blind why should you be able to make out details like color, only shapes near you
-		add_client_colour(/datum/client_colour/monochrome/blind)
-	else // CONSCIOUS no blind trait, no blindness
+		if(add_color)
+			add_client_colour(/datum/client_colour/monochrome/blind)
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+		if(!B && !QDELING(src) && !QDELETED(src))
+			AddComponent(/datum/component/blind_sense)
+	else if(can_see) // CONSCIOUS no blind trait, no blindness
 		clear_alert("blind")
 		clear_fullscreen("blind")
 		remove_client_colour(/datum/client_colour/monochrome/blind)
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+		B?.RemoveComponent()
 
 /**
   * Make the mobs vision blurry

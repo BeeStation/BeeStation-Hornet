@@ -7,6 +7,8 @@
 	//check if it doesn't require any access at all
 	if(src.check_access(null))
 		return TRUE
+	if(length(accessor.buckled_mobs) && handle_buckled_access(accessor))
+		return TRUE
 	if(issilicon(accessor))
 		var/mob/living/silicon/S = accessor
 		return check_access(S.internal_id_card)	//AI can do whatever it wants
@@ -30,6 +32,15 @@
 		if(check_access(A.get_active_held_item()) || check_access(A.access_card))
 			return TRUE
 	return FALSE
+
+/obj/proc/handle_buckled_access(mob/accessor)
+	. = FALSE
+	// check if someone riding on / buckled to them has access
+	for(var/mob/living/buckled in accessor.buckled_mobs)
+		if(accessor == buckled || buckled == src) // just in case to prevent a possible infinite loop scenario (but it won't happen)
+			continue
+		if(allowed(buckled))
+			return TRUE
 
 /obj/item/proc/GetAccess()
 	return list()

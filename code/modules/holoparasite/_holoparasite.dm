@@ -111,7 +111,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		stack_trace("Holoparasite initialized without a valid theme!")
 		return INITIALIZE_HINT_QDEL
 	GLOB.holoparasites += src
-	set_accent_color(_accent_color || pick(GLOB.color_list_blood_brothers), silent = TRUE)
+	set_accent_color(_accent_color || pick(GLOB.color_list_rainbow), silent = TRUE)
 	set_theme(_theme)
 	if(length(_name))
 		set_name(_name, internal = TRUE)
@@ -125,6 +125,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		key = _key
 	RegisterSignal(src, COMSIG_LIVING_PRE_WABBAJACKED, PROC_REF(on_pre_wabbajacked))
 	tracking_beacon = LoadComponent(/datum/component/tracking_beacon, REF(parent_holder), null, parent_holder.get_monitor(), FALSE, accent_color, TRUE, TRUE)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_INNATE)
 
 /mob/living/simple_animal/hostile/holoparasite/Destroy()
 	GLOB.holoparasites -= src
@@ -229,26 +230,28 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		. += "<span data-component=\"RadarChart\" data-width=\"300\" data-height=\"300\" data-area-color=\"[accent_color]\" data-axes=\"Damage,Defense,Speed,Potential,Range\" data-stages=\"1,2,3,4,5\" data-values=\"[stats.damage],[stats.defense],[stats.speed],[stats.potential],[stats.range]\" />"
 
 /mob/living/simple_animal/hostile/holoparasite/get_idcard(hand_first = TRUE)
-	//Check hands
+	// IMPORTANT: don't use ?. for these, because held_item might be 0 for some reason!!
 	var/obj/item/card/id/id_card
 	var/obj/item/held_item
 	held_item = get_active_held_item()
-	id_card = held_item?.GetID() //Check active hand
-	if(!id_card) //If there is no id, check the other hand
+	if(!QDELETED(held_item))
+		id_card = held_item.GetID() //Check active hand
+	if(QDELETED(id_card)) //If there is no id, check the other hand
 		held_item = get_inactive_held_item()
-		id_card = held_item?.GetID()
+		if(!QDELETED(held_item))
+			id_card = held_item.GetID()
 
-	if(id_card)
+	if(!QDELETED(id_card))
 		if(hand_first)
 			return id_card
 		. = id_card
 
 	// Check inventory slot
-	if(istype(stats.ability, /datum/holoparasite_ability/major/dextrous))
-		var/datum/holoparasite_ability/major/dextrous/dextrous_ability = stats.ability
-		id_card = dextrous_ability.internal_storage?.GetID()
-		if(id_card)
-			return id_card
+	if(istype(stats.weapon, /datum/holoparasite_ability/weapon/dextrous))
+		var/datum/holoparasite_ability/weapon/dextrous/dextrous_ability = stats.weapon
+		var/obj/item/internal_item = dextrous_ability.internal_storage
+		if(!QDELETED(internal_item))
+			return internal_item.GetID()
 
 /mob/living/simple_animal/hostile/holoparasite/CtrlClickOn(atom/target)
 	. = ..()

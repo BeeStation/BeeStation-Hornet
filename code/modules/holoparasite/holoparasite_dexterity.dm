@@ -9,39 +9,45 @@
 	var/static/internal_storage_slot_aliases = ITEM_SLOT_DEX_STORAGE | ITEM_SLOT_BACK | ITEM_SLOT_BELT
 
 /mob/living/simple_animal/hostile/holoparasite/doUnEquip(obj/item/equipped_item, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
-	if(!is_manifested())
+	if(!is_manifested() || !can_use_abilities)
 		return FALSE
 	. = ..()
 	if(.)
 		update_inv_hands()
-		var/datum/holoparasite_ability/major/dextrous/dexterity = stats.ability
+		var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 		if(!istype(dexterity))
 			return FALSE
 		if(equipped_item == dexterity.internal_storage)
 			dexterity.internal_storage = null
 			update_inv_internal_storage()
 
+/mob/living/simple_animal/hostile/holoparasite/incapacitated(ignore_restraints, ignore_grab, ignore_stasis)
+	return !can_use_abilities || ..()
+
+/mob/living/simple_animal/hostile/holoparasite/can_put_in_hand(item, hand_index)
+	return can_use_abilities && ..()
+
+/mob/living/simple_animal/hostile/holoparasite/put_in_hand_check(obj/item/item)
+	return can_use_abilities && ..()
 
 /mob/living/simple_animal/hostile/holoparasite/get_equipped_items(include_pockets = FALSE)
-	var/datum/holoparasite_ability/major/dextrous/dexterity = stats.ability
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity))
 		return
 	if(!QDELETED(dexterity.internal_storage))
 		return list(dexterity.internal_storage)
 
 /mob/living/simple_animal/hostile/holoparasite/can_equip(obj/item/item, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
-	var/datum/holoparasite_ability/major/dextrous/dexterity = stats.ability
-	if(!istype(dexterity))
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
+	if(!istype(dexterity) || !can_use_abilities)
 		return FALSE
 	if(CHECK_BITFIELD(internal_storage_slot_aliases, slot))
 		return item.w_class <= dexterity.max_w_class && QDELETED(dexterity.internal_storage)
 	return ..()
 
 /mob/living/simple_animal/hostile/holoparasite/equip_to_slot(obj/item/item, slot)
-	if(!is_manifested())
-		return
-	var/datum/holoparasite_ability/major/dextrous/dexterity = stats.ability
-	if(!istype(dexterity))
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
+	if(!istype(dexterity) || !is_manifested() || !can_use_abilities)
 		return
 	if(CHECK_BITFIELD(internal_storage_slot_aliases, slot))
 		if(item.w_class > dexterity.max_w_class)
@@ -58,7 +64,7 @@
 		to_chat(src, "<span class='danger'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
 
 /mob/living/simple_animal/hostile/holoparasite/get_item_by_slot(slot_id)
-	var/datum/holoparasite_ability/major/dextrous/dexterity = stats.ability
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity))
 		return
 	if(CHECK_BITFIELD(internal_storage_slot_aliases, slot_id))
@@ -66,12 +72,12 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/holoparasite/getBackSlot()
-	var/datum/holoparasite_ability/major/dextrous/dexterity = stats.ability
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(istype(dexterity))
 		return ITEM_SLOT_DEX_STORAGE
 
 /mob/living/simple_animal/hostile/holoparasite/getBeltSlot()
-	var/datum/holoparasite_ability/major/dextrous/dexterity = stats.ability
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(istype(dexterity))
 		return ITEM_SLOT_DEX_STORAGE
 
@@ -103,13 +109,13 @@
 	if(LAZYLEN(hand_overlays))
 		add_overlay(hand_overlays)
 	// Update dextrous drop HUD icon.
-	var/datum/holoparasite_ability/major/dextrous/dexterity = stats.ability
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity))
 		return
 	dexterity.drop?.update_icon()
 
 /mob/living/simple_animal/hostile/holoparasite/proc/update_inv_internal_storage()
-	var/datum/holoparasite_ability/major/dextrous/dexterity = stats.ability
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity))
 		return
 	if(dexterity.internal_storage && client && hud_used?.hud_shown)

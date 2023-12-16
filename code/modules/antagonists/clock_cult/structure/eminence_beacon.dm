@@ -35,7 +35,7 @@
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 10 SECONDS)
+		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 10 SECONDS)
 		if(LAZYLEN(candidates))
 			eminence = pick(candidates)
 	else

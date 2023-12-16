@@ -141,6 +141,11 @@
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
+	/// How much luminosity should we have by default?
+	var/base_luminosity = 0
+	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
+	var/_emissive_count = 0
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -644,6 +649,21 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
+		var/list/souls = return_souls()
+		if(!length(souls))
+			return
+		to_chat(user, "<span class='notice'>You sense a presence here...")
+		//Count of souls
+		var/list/present_souls = list()
+		for(var/soul in souls)
+			present_souls[soul] += 1
+		//Display the total soul count
+		for(var/soul in present_souls)
+			if(!present_souls[soul] || !GLOB.SOUL_GLIMMER_COLORS[soul])
+				continue
+			to_chat(user, "<span class='notice'><span style='color: [GLOB.SOUL_GLIMMER_COLORS[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
+	
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
@@ -695,6 +715,9 @@
 		if(LAZYLEN(managed_vis_overlays))
 			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 
+		// Clear the luminosity sources for our managed overlays
+		REMOVE_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		// Update the overlays where any luminous things get added again
 		var/list/new_overlays = update_overlays(updates)
 		if(managed_overlays)
 			cut_overlay(managed_overlays)
@@ -1159,6 +1182,8 @@
 		if(NAMEOF(src, base_pixel_y))
 			set_base_pixel_y(var_value)
 			. = TRUE
+		if (NAMEOF(src, _emissive_count))
+			return FALSE
 
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED
@@ -1168,6 +1193,11 @@
 		flags_1 |= ADMIN_SPAWNED_1
 
 	. = ..()
+
+	// Check for appearance updates
+	var/static/list/appearance_updaters = list("layer", "plane", "alpha", "icon", "icon_state", "name", "desc", "blocks_emissive", "appearance_flags")
+	if (var_name in appearance_updaters)
+		update_appearance()
 
 	switch(var_name)
 		if(NAMEOF(src, color))
@@ -1812,3 +1842,28 @@
 			qdel(src)
 		return TRUE
 	return FALSE
+
+//Used to exclude this atom from the psychic highlight plane
+/atom/proc/generate_psychic_mask()
+	var/mutable_appearance/MA = mutable_appearance()
+	MA.appearance = appearance
+	MA.plane = ANTI_PSYCHIC_PLANE
+	add_overlay(MA)
+
+/atom/proc/update_luminosity()
+	if (isnull(base_luminosity))
+		base_luminosity = initial(luminosity)
+
+	if (_emissive_count)
+		luminosity = max(1, base_luminosity)
+	else
+		luminosity = base_luminosity
+
+/atom/movable/update_luminosity()
+	if (isnull(base_luminosity))
+		base_luminosity = initial(luminosity)
+
+	if (_emissive_count)
+		luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1)
+	else
+		luminosity = max(base_luminosity, affecting_dynamic_lumi)

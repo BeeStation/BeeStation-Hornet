@@ -72,6 +72,8 @@
 	dna.mutations += src
 	if(length(visual_indicators))
 		var/list/mut_overlay = list(get_visual_indicator())
+		for (var/mutable_appearance/ma in mut_overlay)
+			ma.layer = CALCULATE_MOB_OVERLAY_LAYER(layer_used)
 		if(owner.overlays_standing[layer_used])
 			mut_overlay = owner.overlays_standing[layer_used]
 			mut_overlay |= get_visual_indicator()

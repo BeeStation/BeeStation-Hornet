@@ -40,7 +40,7 @@
 			playsound(user, 'sound/weapons/genhit2.ogg', 50, TRUE)
 		return BRUTELOSS
 
-/obj/item/clothing/shoes/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+/obj/item/clothing/shoes/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		var/bloody = FALSE
@@ -50,9 +50,9 @@
 			bloody = bloody_shoes[BLOOD_STATE_HUMAN]
 
 		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe")
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe", item_layer)
 		if(bloody)
-			. += mutable_appearance('icons/effects/blood.dmi', "shoeblood")
+			. += mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
 
 /obj/item/clothing/shoes/equipped(mob/user, slot)
 	. = ..()

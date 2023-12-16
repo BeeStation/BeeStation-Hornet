@@ -85,7 +85,7 @@ GLOBAL_PROTECT(href_token)
 	deadmined = FALSE
 	if (GLOB.directory[target])
 		associate(GLOB.directory[target])	//find the client for a ckey if they are connected and associate them with us
-
+	load_mentors()
 
 /datum/admins/proc/deactivate()
 	if(IsAdminAdvancedProcCall())
@@ -101,6 +101,7 @@ GLOBAL_PROTECT(href_token)
 		disassociate()
 		C.add_verb(/client/proc/readmin)
 		C.update_special_keybinds()
+	load_mentors()
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())

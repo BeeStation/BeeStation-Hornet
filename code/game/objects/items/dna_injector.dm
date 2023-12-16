@@ -482,6 +482,14 @@
 	name = "\improper DNA injector (Anti-Medieval)"
 	remove_mutations = list(MEDIEVAL)
 
+/obj/item/dnainjector/spores
+	name = "\improper DNA injector (Agaricale Pores)"
+	add_mutations = list(SPORES)
+
+/obj/item/dnainjector/antispores
+	name = "\improper DNA injector (Anti-Agaricale Pores)"
+	remove_mutations = list(SPORES)
+
 // note: this is not functional. mutation is not added to temporary_mutation list - it becomes permanent.
 /obj/item/dnainjector/timed
 	var/duration = 600

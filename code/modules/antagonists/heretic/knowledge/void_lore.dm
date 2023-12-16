@@ -28,7 +28,7 @@
 	name = "Glimmer of Winter"
 	desc = "Opens up the path of void to you. \
 		Allows you to transmute a knife in sub-zero temperatures into a Void Blade. \
-		You can only create two at a time."
+		You can only create two at a time. Destroys the blade furthest from you if you invoke this ritual at the limit."
 	gain_text = "I feel a shimmer in the air, the air around me gets colder. \
 		I start to realize the emptiness of existence. Something's watching me."
 	next_knowledge = list(/datum/heretic_knowledge/void_grasp)
@@ -43,6 +43,7 @@
 	required_atoms = list(/obj/item/knife = 1)
 	result_atoms = list(/obj/item/melee/sickly_blade/void)
 	limit = 2
+	destroy_if_over_limit = TRUE
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_VOID

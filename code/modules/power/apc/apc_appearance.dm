@@ -54,19 +54,24 @@
 	if((machine_stat & (BROKEN|MAINT)) || update_state)
 		return
 
-	. += mutable_appearance(icon, "apcox-[locked]")
-	. += emissive_appearance(icon, "apcox-[locked]")
-	. += mutable_appearance(icon, "apco3-[charging]")
-	. += emissive_appearance(icon, "apco3-[charging]")
+	. += mutable_appearance(icon, "apcox-[locked]", layer)
+	. += emissive_appearance(icon, "apcox-[locked]", layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	. += mutable_appearance(icon, "apco3-[charging]", layer)
+	. += emissive_appearance(icon, "apco3-[charging]", layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	if(!operating)
 		return
 
-	. += mutable_appearance(icon, "apco0-[equipment]")
-	. += emissive_appearance(icon, "apco0-[equipment]")
-	. += mutable_appearance(icon, "apco1-[lighting]")
-	. += emissive_appearance(icon, "apco1-[lighting]")
-	. += mutable_appearance(icon, "apco2-[environ]")
-	. += emissive_appearance(icon, "apco2-[environ]")
+	. += mutable_appearance(icon, "apco0-[equipment]", layer)
+	. += emissive_appearance(icon, "apco0-[equipment]", layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	. += mutable_appearance(icon, "apco1-[lighting]", layer)
+	. += emissive_appearance(icon, "apco1-[lighting]", layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	. += mutable_appearance(icon, "apco2-[environ]", layer)
+	. += emissive_appearance(icon, "apco2-[environ]", layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /// Checks for what icon updates we will need to handle
 /obj/machinery/power/apc/proc/check_updates()

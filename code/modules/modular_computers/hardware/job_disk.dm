@@ -129,7 +129,7 @@
 /obj/item/computer_hardware/hard_drive/role/detective
 	name = "\improper D.E.T.E.C.T. disk"
 	icon_state = "cart-det"
-	disk_flags = DISK_MED | DISK_SEC | DISK_MANIFEST | DISK_ROBOS
+	disk_flags = DISK_MED | DISK_SEC | DISK_MANIFEST | DISK_ROBOS | DISK_CHEM
 
 /obj/item/computer_hardware/hard_drive/role/janitor
 	name = "\improper CustodiPRO disk"

@@ -102,18 +102,18 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/soup/beet,
-			/obj/item/reagent_containers/food/snacks/soup/sweetpotato,
-			/obj/item/reagent_containers/food/snacks/soup/stew,
-			/obj/item/reagent_containers/food/snacks/soup/hotchili,
-			/obj/item/reagent_containers/food/snacks/soup/nettle,
-			/obj/item/reagent_containers/food/snacks/soup/meatball)
+			/obj/item/food/soup/beet,
+			/obj/item/food/soup/sweetpotato,
+			/obj/item/food/soup/stew,
+			/obj/item/food/soup/hotchili,
+			/obj/item/food/soup/nettle,
+			/obj/item/food/soup/meatball)
 	var/salads = list(
-			/obj/item/reagent_containers/food/snacks/salad/herbsalad,
-			/obj/item/reagent_containers/food/snacks/salad/validsalad,
-			/obj/item/reagent_containers/food/snacks/salad/fruit,
-			/obj/item/reagent_containers/food/snacks/salad/jungle,
-			/obj/item/reagent_containers/food/snacks/salad/aesirsalad)
+			/obj/item/food/salad/herbsalad,
+			/obj/item/food/salad/validsalad,
+			/obj/item/food/salad/fruit,
+			/obj/item/food/salad/jungle,
+			/obj/item/food/salad/aesirsalad)
 	var/mains = list(
 			/obj/item/reagent_containers/food/snacks/bearsteak,
 			/obj/item/food/enchiladas,
@@ -282,7 +282,7 @@
 		/obj/item/clothing/mask/gas/clown_hat = 4,
 		/obj/item/clothing/shoes/clown_shoes = 3,
 		/obj/item/bikehorn = 5,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 3)
+		/obj/item/food/pie/cream = 3)
 
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner
 	name = "2% chance xeno egg spawner"

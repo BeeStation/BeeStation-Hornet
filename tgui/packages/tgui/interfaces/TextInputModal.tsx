@@ -1,6 +1,7 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { useBackend, useLocalState } from '../backend';
+import { decodeHtmlEntities } from '../../common/string';
 import { KEY_ENTER, KEY_ESCAPE } from '../../common/keycodes';
 import { Box, Section, Stack, TextArea } from '../components';
 import { Window } from '../layouts';
@@ -59,7 +60,7 @@ export const TextInputModal = (_, context) => {
         <Section fill>
           <Stack fill vertical>
             <Stack.Item>
-              <Box color="label">{message}</Box>
+              <Box color="label">{decodeHtmlEntities(message)}</Box>
             </Stack.Item>
             <Stack.Item grow>
               <InputArea input={input} onType={onType} />

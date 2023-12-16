@@ -33,7 +33,8 @@
 		/datum/language/slime,
 		/datum/language/sylvan,
 		/datum/language/terrum,
-		/datum/language/uncommon))
+		/datum/language/uncommon,
+		/datum/language/sonus))
 
 /obj/item/organ/tongue/Initialize(mapload)
 	. = ..()
@@ -377,3 +378,13 @@
 		to_chat(owner, "<span class='warning'>Something is covering your mouth!</span>")
 		to_chat(owner, "<span class='notice'>Try carving your head.</span>")
 	speech_args[SPEECH_MESSAGE] = message
+
+/obj/item/organ/tongue/psyphoza
+	name = "fungal tongue"
+	desc = "Black and moldy."
+	icon_state = "tonguepsyphoza"
+	say_mod = "clicks"
+	//Black tongue
+	color = "#1b1b1b"
+	liked_food = RAW | GROSS
+	disliked_food = DAIRY

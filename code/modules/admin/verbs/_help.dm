@@ -358,18 +358,18 @@
 	initiator_key_name = key_name(initiator, FALSE, TRUE)
 
 /// Call this on its own to create a ticket, don't manually assign current_ticket, msg is the title of the ticket: usually the ahelp text
-/datum/help_ticket/proc/Create(msg)
+/datum/help_ticket/proc/Create(msg, sanitized = FALSE)
 	//Clean the input message
-	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
-	if(!msg || !initiator || !initiator.mob)
+	msg = trim(sanitized ? html_decode(msg) : msg, MAX_MESSAGE_LEN)
+	if(!length(msg) || QDELETED(initiator?.mob))
 		qdel(src)
 		return FALSE
 	initial_msg = msg
 	id = ++ticket_counter
 	opened_at = world.time
 
-	name = copytext_char(msg, 1, 100)
-	stat_text = copytext_char(msg, 1, 500)
+	name = trim(msg, 100)
+	stat_text = trim(msg, 500)
 
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))

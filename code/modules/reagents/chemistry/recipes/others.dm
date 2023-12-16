@@ -685,6 +685,18 @@
 	results = list(/datum/reagent/concentrated_barbers_aid = 2)
 	required_reagents = list(/datum/reagent/barbers_aid = 1, /datum/reagent/toxin/mutagen = 1)
 
+/datum/chemical_reaction/barbers_afro_mania
+	name = /datum/reagent/barbers_afro_mania
+	id = /datum/reagent/barbers_afro_mania
+	results = list(/datum/reagent/barbers_afro_mania = 2)
+	required_reagents = list(/datum/reagent/concentrated_barbers_aid = 1, /datum/reagent/colorful_reagent = 1)
+
+/datum/chemical_reaction/barbers_shaving_aid
+	name = /datum/reagent/barbers_shaving_aid
+	id = /datum/reagent/barbers_shaving_aid
+	results = list(/datum/reagent/barbers_shaving_aid = 2)
+	required_reagents = list(/datum/reagent/concentrated_barbers_aid = 1, /datum/reagent/napalm = 1)
+
 /datum/chemical_reaction/saltpetre
 	name = /datum/reagent/saltpetre
 	id = /datum/reagent/saltpetre
@@ -863,3 +875,9 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+
+/datum/chemical_reaction/mutationtoxin/psyphoza
+	name = /datum/reagent/mutationtoxin/psyphoza
+	id = /datum/reagent/mutationtoxin/psyphoza
+	results = list(/datum/reagent/mutationtoxin/psyphoza = 5)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/amatoxin = 5)

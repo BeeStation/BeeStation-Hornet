@@ -20,6 +20,8 @@
 
 /obj/item/organ/body_egg/alien_embryo/on_life()
 	. = ..()
+	if(!owner)
+		return
 	switch(stage)
 		if(2, 3)
 			if(prob(2))
@@ -81,7 +83,7 @@
 
 	bursting = TRUE
 
-	var/list/candidates = pollGhostCandidates("Do you want to play as an alien larva that will burst out of [owner]?", ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph, 10 SECONDS, POLL_IGNORE_ALIEN_LARVA) // separate poll from xeno event spawns
+	var/list/candidates = poll_ghost_candidates("Do you want to play as an alien larva that will burst out of [owner]?", ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph, 10 SECONDS, POLL_IGNORE_ALIEN_LARVA) // separate poll from xeno event spawns
 
 	if(QDELETED(src) || QDELETED(owner))
 		return
@@ -117,6 +119,7 @@
 	var/mob/living/carbon/host = owner
 	if(kill_on_success)
 		new_xeno.visible_message("<span class='danger'>[new_xeno] bursts out of [owner] in a shower of gore!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
 		if(BP)
 			BP.receive_damage(brute = 200) // Kill them dead
@@ -127,7 +130,6 @@
 		new_xeno.visible_message("<span class='danger'>[new_xeno] wriggles out of [owner]!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>")
 		owner.adjustBruteLoss(40)
 	host.cut_overlay(overlay)
-	owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 	qdel(src)
 
 

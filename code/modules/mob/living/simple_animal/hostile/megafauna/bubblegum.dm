@@ -259,14 +259,15 @@ Difficulty: Hard
 		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(T)
 	SLEEP_CHECK_DEATH(6)
 	for(var/mob/living/L in T)
-		if(!faction_check_mob(L))
-			if(L.stat != CONSCIOUS)
-				to_chat(L, "<span class='userdanger'>[src] drags you through the blood!</span>")
-				playsound(T, 'sound/magic/enter_blood.ogg', 100, 1, -1)
-				var/turf/targetturf = get_step(src, dir)
-				L.forceMove(targetturf)
-				playsound(targetturf, 'sound/magic/exit_blood.ogg', 100, 1, -1)
-				addtimer(CALLBACK(src, PROC_REF(devour), L), 2)
+		if(faction_check_mob(L))
+			continue
+		if(L.stat == CONSCIOUS || L.stat == DEAD)
+			continue
+		to_chat(L, "<span class='userdanger'>[src] drags you through the blood!</span>")
+		playsound(T, 'sound/magic/enter_blood.ogg', 100, 1, -1)
+		var/turf/targetturf = get_step(src, dir)
+		L.forceMove(targetturf)
+		playsound(targetturf, 'sound/magic/exit_blood.ogg', 100, 1, -1)
 	SLEEP_CHECK_DEATH(1)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/blood_warp()
@@ -383,13 +384,6 @@ Difficulty: Hard
 		INVOKE_ASYNC(B, PROC_REF(charge), chargeat, delay, chargepast)
 	if(useoriginal)
 		charge(chargeat, delay, chargepast)
-
-/mob/living/simple_animal/hostile/megafauna/bubblegum/devour(mob/living/L)
-	var/turf/death_turf = get_turf(L)
-	. = ..()
-	if(. && death_turf)
-		for(var/i in 1 to 3)
-			new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter(death_turf)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()

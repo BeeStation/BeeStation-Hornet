@@ -15,10 +15,10 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.binarycheck())
 			if(isAI(M))
-				var/renderedAI = "<span class='binarysay'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([desig])</span></a> <span class='message'>[message_a]</span></span>"
+				var/renderedAI = "<span class='srt_radio binarysay'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([desig])</span></a> <span class='message'>[message_a]</span></span>"
 				to_chat(M, renderedAI)
 			else
-				to_chat(M, "<span class='binarysay'>[rendered]</span>")
+				to_chat(M, "<span class='srt_radio binarysay'>[rendered]</span>")
 		if(isobserver(M))
 			var/following = src
 			// If the AI talks on binary chat, we still want to follow
@@ -27,7 +27,7 @@
 				var/mob/living/silicon/ai/ai = src
 				following = ai.eyeobj
 			var/link = FOLLOW_LINK(M, following)
-			to_chat(M, "<span class='binarysay'>[link] [rendered]</span>")
+			to_chat(M, "<span class='srt_radio binarysay'>[link] [rendered]</span>")
 
 /mob/living/silicon/binarycheck()
 	return 1

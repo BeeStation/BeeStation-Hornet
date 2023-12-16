@@ -63,11 +63,11 @@
 "n" = (
 /obj/structure/table/wood/fancy/purple,
 /obj/item/reagent_containers/food/snacks/pizzabread,
-/obj/item/reagent_containers/food/snacks/egg{
+/obj/item/food/egg{
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/egg{
+/obj/item/food/egg{
 	pixel_x = -4;
 	pixel_y = 3
 	},

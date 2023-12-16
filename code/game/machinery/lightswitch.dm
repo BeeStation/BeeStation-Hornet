@@ -6,10 +6,6 @@
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
 	layer = ABOVE_WINDOW_LAYER
-	// Small light so emissive is visible even in full blackness
-	light_range = 1
-	light_power = 0.05
-	light_on = TRUE
 	/// Set this to a string, path, or area instance to control that area
 	/// instead of the switch's location.
 	var/area/area = null
@@ -38,7 +34,8 @@
 		return
 	var/state = "light-[area.lightswitch ? "on" : "off"]"
 	. += mutable_appearance(icon, state)
-	. += emissive_appearance(icon, state, alpha = src.alpha)
+	. += emissive_appearance(icon, state, layer, alpha = src.alpha)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/light_switch/proc/turn_off()
 	if(!is_station_level(z))//Only affects on-station lights

@@ -53,7 +53,7 @@
 				if(M.mind)
 					M.mind.grab_ghost(TRUE)
 				else
-					var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [M.name], an inactive clock cultist?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 7.5 SECONDS, M)
+					var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [M.name], an inactive clock cultist?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 7.5 SECONDS, M)
 					if(LAZYLEN(candidates))
 						var/mob/dead/observer/C = pick(candidates)
 						message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(M)]) to replace an AFK player.")

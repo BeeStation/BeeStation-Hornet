@@ -7,6 +7,8 @@
 	smoothing_flags = SMOOTH_BITMASK
 	opacity = TRUE
 	density = TRUE
+	max_integrity = 900
+	damage_deflection = 21
 
 	var/d_state = INTACT
 	hardness = 10
@@ -18,6 +20,9 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 50 \
 	)
+
+/turf/closed/wall/r_wall/get_armour_list()
+	return list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0)
 
 /turf/closed/wall/r_wall/deconstruction_hints(mob/user)
 	switch(d_state)
@@ -39,18 +44,6 @@
 /turf/closed/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)
 	new /obj/item/stack/sheet/iron(src, 2)
-
-/turf/closed/wall/r_wall/attack_animal(mob/living/simple_animal/M)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	if(!M.environment_smash)
-		return
-	if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
-		dismantle_wall(1)
-		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-	else
-		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		to_chat(M, "<span class='warning'>This wall is far too strong for you to destroy.</span>")
 
 /turf/closed/wall/r_wall/try_destroy(obj/item/I, mob/user, turf/T)
 	return FALSE

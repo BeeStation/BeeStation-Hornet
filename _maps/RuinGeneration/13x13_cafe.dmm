@@ -21,7 +21,7 @@
 "e" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "h" = (

@@ -1,6 +1,6 @@
 /datum/component/storage/concrete/implant
 	max_w_class = WEIGHT_CLASS_NORMAL
-	max_combined_w_class = 6
+	max_combined_w_class = 16
 	max_items = 2
 	drop_all_on_destroy = TRUE
 	drop_all_on_deconstruct = TRUE

@@ -84,12 +84,12 @@
 
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
-	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."
+	desc = "A shotgun shell improvised from small metal shards. It won't travel as far as a regular shotgun shell, but it will still pack a punch against unarmoured opponents at close ranges."
 	icon_state = "improvshell"
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_improvised
 	materials = list(/datum/material/iron=250)
-	pellets = 10
-	variance = 25
+	pellets = 9
+	variance = 15
 
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"

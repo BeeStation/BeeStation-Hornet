@@ -18,7 +18,7 @@
 	depth ++
 	return TRUE
 
-/datum/component/moved_relay/Initialize(...)
+/datum/component/moved_relay/RegisterWithParent()
 	var/atom/A = parent
 	//Start tracking from the parent
 	//We will relay the parents move to itself for convenience
@@ -28,12 +28,21 @@
 	//Recursively register parents
 	if(A.loc && !isturf(A.loc))
 		register_parent(A.loc)
+	return ..()
 
 /datum/component/moved_relay/Destroy(force, silent)
 	for(var/atom/A as() in ordered_parents)
 		UnregisterSignal(A, COMSIG_PARENT_QDELETING)
 		UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
 	ordered_parents = null
+	return ..()
+
+/datum/component/moved_relay/UnregisterFromParent()
+	if (ordered_parents)
+		for(var/atom/A as() in ordered_parents)
+			UnregisterSignal(A, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
+		ordered_parents.Cut()
 	return ..()
 
 /datum/component/moved_relay/proc/register_parent(atom/A)
@@ -63,7 +72,13 @@
 /datum/component/moved_relay/proc/unregister_parent(atom/A)
 	UnregisterSignal(A, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
+	var/position = ordered_parents.Find(A)
+	if (!position)
+		return
 	ordered_parents -= A
+	if (position >= length(ordered_parents))
+		return
+	var/atom/next = ordered_parents[position + 1]
 	//Recursively unregister parents
-	if(A.loc && !isturf(A.loc))
-		unregister_parent(A.loc)
+	if(!isturf(next))
+		unregister_parent(next)

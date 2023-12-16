@@ -29,6 +29,8 @@
 
 	new /obj/item/circuitboard/machine/techfab/department/engineering(src)
 
+	new /obj/item/paper_reader(src)
+
 	// prioritized items
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/clothing/neck/cloak/ce(src)

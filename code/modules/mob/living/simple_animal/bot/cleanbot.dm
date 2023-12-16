@@ -397,7 +397,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/larry/update_icons()
 	if(knife)
-		var/mutable_appearance/knife_overlay = knife.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/larry.dmi')
+		var/mutable_appearance/knife_overlay = knife.build_worn_icon(src, default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/larry.dmi')
 		add_overlay(knife_overlay)
 
 /mob/living/simple_animal/bot/cleanbot/larry/explode()

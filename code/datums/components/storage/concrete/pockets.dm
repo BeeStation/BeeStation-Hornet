@@ -76,8 +76,8 @@
 	return original_parent
 
 /datum/component/storage/concrete/pockets/holster
-	max_items = 3
-	max_w_class = WEIGHT_CLASS_NORMAL
+	max_items = 2
+	max_w_class = WEIGHT_CLASS_LARGE
 	var/atom/original_parent
 
 /datum/component/storage/concrete/pockets/holster/Initialize()
@@ -86,7 +86,8 @@
 	can_hold = typecacheof(list(
 		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/gun/ballistic/revolver,
-		/obj/item/ammo_box))
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing))
 
 /datum/component/storage/concrete/pockets/holster/real_location()
 	// if the component is reparented to a jumpsuit, the items still go in the protector
@@ -97,7 +98,8 @@
 	. = ..()
 	can_hold = typecacheof(list(
 		/obj/item/gun/ballistic/revolver/detective,
-		/obj/item/ammo_box/c38))
+		/obj/item/ammo_box/c38,
+		/obj/item/ammo_casing/c38))
 
 /datum/component/storage/concrete/pockets/helmet
 	quickdraw = TRUE

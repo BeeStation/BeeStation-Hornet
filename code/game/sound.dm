@@ -42,6 +42,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 */
 
 /proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
+
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -49,6 +51,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 	if (!turf_source || !soundin || !vol)
 		return
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
 
 	var/maxdistance = (SOUND_RANGE + extrarange)
 	var/source_z = turf_source.z

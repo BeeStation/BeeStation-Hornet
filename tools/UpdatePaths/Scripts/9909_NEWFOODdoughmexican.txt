@@ -3,7 +3,7 @@
 /obj/item/food/doughslice : /obj/item/reagent_containers/food/snacks/doughslice{@OLD}
 /obj/item/food/bun : /obj/item/reagent_containers/food/snacks/bun{@OLD}
 /obj/item/food/cakebatter : /obj/item/reagent_containers/food/snacks/cakebatter{@OLD}
-/obj/item/food/piedough : /obj/item/reagent_containers/food/snacks/piedough{@OLD}
+/obj/item/food/piedough : /obj/item/food/piedough{@OLD}
 /obj/item/food/pastrybase : /obj/item/reagent_containers/food/snacks/pastrybase{@OLD}
 /obj/item/food/tortilla : /obj/item/reagent_containers/food/snacks/tortilla{@OLD}
 /obj/item/food/burrito : /obj/item/reagent_containers/food/snacks/burrito{@OLD}

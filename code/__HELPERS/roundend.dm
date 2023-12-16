@@ -378,7 +378,10 @@
 				parts += "[FOURSPACES][FOURSPACES][entry]<BR>"
 		parts += "[FOURSPACES]Executed rules:"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
+			if (rule.lategame_spawned)
+				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat (Lategame, threat level ignored)"
+			else
+				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
@@ -726,29 +729,32 @@
 
 
 /datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
-    var/discordmsg = ""
-    discordmsg += "--------------ROUND END--------------\n"
-    discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
-    discordmsg += "Round Number: [GLOB.round_id]\n"
-    discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
-    discordmsg += "Players: [GLOB.player_list.len]\n"
-    discordmsg += "Survivors: [survivors]\n"
-    discordmsg += "Escapees: [escapees]\n"
-    discordmsg += "Integrity: [integrity]\n"
-    discordmsg += "Gamemode: [SSticker.mode.name]\n"
-    if(istype(SSticker.mode, /datum/game_mode/dynamic))
-        var/datum/game_mode/dynamic/mode = SSticker.mode
-        discordmsg += "Threat level: [mode.threat_level]\n"
-        discordmsg += "Threat left: [mode.mid_round_budget]\n"
-        discordmsg += "Executed rules:\n"
-        for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-            discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
-    var/list/ded = SSblackbox.first_death
-    if(ded)
-        discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
-        var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They had no last words.\n"
-        discordmsg += "[last_words]\n"
-    else
-        discordmsg += "Nobody died!\n"
-    discordmsg += "--------------------------------------\n"
-    sendooc2ext(discordmsg)
+	var/discordmsg = ""
+	discordmsg += "--------------ROUND END--------------\n"
+	discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
+	discordmsg += "Round Number: [GLOB.round_id]\n"
+	discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
+	discordmsg += "Players: [GLOB.player_list.len]\n"
+	discordmsg += "Survivors: [survivors]\n"
+	discordmsg += "Escapees: [escapees]\n"
+	discordmsg += "Integrity: [integrity]\n"
+	discordmsg += "Gamemode: [SSticker.mode.name]\n"
+	if(istype(SSticker.mode, /datum/game_mode/dynamic))
+		var/datum/game_mode/dynamic/mode = SSticker.mode
+		discordmsg += "Threat level: [mode.threat_level]\n"
+		discordmsg += "Threat left: [mode.mid_round_budget]\n"
+		discordmsg += "Executed rules:\n"
+		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
+			if (rule.lategame_spawned)
+				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat (Lategame, threat level ignored)\n"
+			else
+				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
+	var/list/ded = SSblackbox.first_death
+	if(ded)
+		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
+		var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They had no last words.\n"
+		discordmsg += "[last_words]\n"
+	else
+		discordmsg += "Nobody died!\n"
+	discordmsg += "--------------------------------------\n"
+	sendooc2ext(discordmsg)

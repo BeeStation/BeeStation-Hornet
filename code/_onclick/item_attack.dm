@@ -77,9 +77,9 @@
 		nonharmfulhit = TRUE
 
 	if(!force || nonharmfulhit)
-		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
+		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else if(hitsound)
-		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+		playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey
@@ -110,7 +110,7 @@
 	user.do_attack_animation(O)
 	O.attacked_by(src, user)
 
-/atom/movable/proc/attacked_by()
+/atom/proc/attacked_by()
 	return
 
 /obj/attacked_by(obj/item/I, mob/living/user)

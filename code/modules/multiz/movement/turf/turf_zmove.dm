@@ -45,6 +45,7 @@
 			if(!buckled_mob.Move(target, dir))
 				user.doMove(buckled_mob.loc) //forceMove breaks buckles, use doMove
 				user.last_move = buckled_mob.last_move
+				user.last_move_time = world.time
 				// Otherwise they will always face north
 				buckled_mob.setDir(old_dir)
 				user.setDir(old_dir)

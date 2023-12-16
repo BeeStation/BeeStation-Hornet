@@ -32,7 +32,7 @@
 /datum/hud/holoparasite/persistent_inventory_update(mob/viewer)
 	if(!owner)
 		return
-	var/datum/holoparasite_ability/major/dextrous/dexterity = owner.stats.ability
+	var/datum/holoparasite_ability/weapon/dextrous/dexterity = owner.stats.weapon
 	if(!dexterity || !istype(dexterity))
 		return
 	if(hud_shown)

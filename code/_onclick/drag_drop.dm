@@ -68,10 +68,6 @@
 
 /obj/item/proc/onMouseUp(object, location, params, mob)
 	return
-
-/obj/item
-	var/canMouseDown = FALSE
-
 /obj/item/gun
 	item_flags = ISWEAPON
 	var/automatic = 0 //can gun use it, 0 is no, anything above 0 is the delay between clicks in ds

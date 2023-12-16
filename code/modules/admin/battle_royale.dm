@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/box/lethalshot,
 		/obj/item/storage/box/gorillacubes,
 		/obj/item/storage/box/teargas,
-		/obj/item/storage/box/security/radio,
+		/obj/item/storage/box/survival/security,
 		/obj/item/storage/box/medsprays,
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/storage/box/syndie_kit/bee_grenades,
@@ -324,7 +324,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
+	var/list/participants = poll_ghost_candidates("Would you like to partake in BATTLE ROYALE?")
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()

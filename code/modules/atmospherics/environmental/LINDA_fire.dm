@@ -37,7 +37,8 @@
 	blend_mode = BLEND_ADD
 	light_system = MOVABLE_LIGHT
 	light_range = LIGHT_RANGE_FIRE
-	light_power = 1
+	// increase power for more bloom
+	light_power = 4
 	light_color = LIGHT_COLOR_FIRE
 
 	var/volume = 125
@@ -112,18 +113,22 @@
 		heat_b = LERP(heat_b,255,normal_amt)
 		heat_a -= gauss_lerp(temperature, -5000, 5000) * 128
 		greyscale_fire -= normal_amt
+		light_power = 4
 	if(temperature > 40000) //Past this temperature the fire will gradually turn a bright purple
 		var/purple_amt = temperature < LERP(40000,200000,0.5) ? gauss_lerp(temperature, 40000, 200000) : 1
 		heat_r = LERP(heat_r,255,purple_amt)
+		light_power = 5
 	if(temperature > 200000 && temperature < 500000) //Somewhere at this temperature nitryl happens.
 		var/sparkle_amt = gauss_lerp(temperature, 200000, 500000)
 		var/mutable_appearance/sparkle_overlay = mutable_appearance('icons/effects/effects.dmi', "shieldsparkles")
 		sparkle_overlay.blend_mode = BLEND_ADD
 		sparkle_overlay.alpha = sparkle_amt * 255
+		light_power = 6
 		add_overlay(sparkle_overlay)
 	if(temperature > 400000 && temperature < 1500000) //Lightning because very anime.
 		var/mutable_appearance/lightning_overlay = mutable_appearance(icon, "overcharged")
 		lightning_overlay.blend_mode = BLEND_ADD
+		light_power = 6
 		add_overlay(lightning_overlay)
 	if(temperature > 4500000) //This is where noblium happens. Some fusion-y effects.
 		var/fusion_amt = temperature < LERP(4500000,12000000,0.5) ? gauss_lerp(temperature, 4500000, 12000000) : 1
@@ -139,6 +144,7 @@
 		heat_b = LERP(heat_b,150,fusion_amt)
 		add_overlay(fusion_overlay)
 		add_overlay(rainbow_overlay)
+		light_power = 8
 
 	set_light_color(rgb(LERP(250, heat_r, greyscale_fire), LERP(160, heat_g, greyscale_fire), LERP(25, heat_b, greyscale_fire)))
 

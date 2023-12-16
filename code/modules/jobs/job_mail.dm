@@ -133,7 +133,7 @@
 /datum/job/clown
 	mail_goodies = list(
 		/obj/item/reagent_containers/food/snacks/grown/banana = 20,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 15,
+		/obj/item/food/pie/cream = 15,
 		/obj/item/clothing/shoes/clown_shoes/combat = 5,
 		// lube
 		/obj/item/reagent_containers/spray/waterflower/lube = 3,
@@ -153,7 +153,7 @@
 		/obj/item/reagent_containers/food/condiment/soymilk = 15,
 		/obj/item/reagent_containers/food/condiment/milk = 15,
 		//UR SO FAT!
-		/obj/item/reagent_containers/food/snacks/mint = 12,
+		/obj/item/food/mint = 12,
 		/obj/item/storage/box/ingredients/wildcard = 10,
 		//EEEEEEEK
 		/obj/item/storage/box/monkeycubes = 5,

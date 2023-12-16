@@ -278,7 +278,7 @@
 	list_reagents = list(
 		/datum/reagent/consumable/dry_ramen = 15,
 		/datum/reagent/consumable/sodiumchloride = 3,
-		/datum/reagent/consumable/maltodextrin = 10
+		/datum/reagent/consumable/maltodextrin = 5
 	)
 	foodtype = GRAIN
 	isGlass = FALSE

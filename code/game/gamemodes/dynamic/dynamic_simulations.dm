@@ -40,20 +40,55 @@
 	initialize_gamemode(config.forced_threat_level, config.roundstart_players)
 	create_candidates(config.roundstart_players)
 	gamemode.pre_setup()
+	gamemode.simulated = TRUE
 
 	var/total_antags = 0
 	for (var/_ruleset in gamemode.executed_rules)
 		var/datum/dynamic_ruleset/ruleset = _ruleset
 		total_antags += ruleset.assigned.len
 
+	var/midround_threat = gamemode.mid_round_budget
+
+	var/list/roundstart_rules = gamemode.executed_rules.Copy()
+
+	var/list/midround_rules = list()
+
+	// Generate midround threats
+	SSticker.round_start_time = 0
+	var/simulated_time = 1
+	gamemode.simulated_alive_players = config.roundstart_players
+	while (simulated_time < gamemode.midround_upper_bound)
+		// Simulate deaths and leaves
+		gamemode.simulated_alive_players = FLOOR(gamemode.simulated_alive_players * rand(90, 100) / 100, 1)
+		// Set the new world time
+		simulated_time = gamemode.next_midround_injection()
+		// Simulate an injection
+		gamemode.forced_injection = TRUE
+		// Set the simulated time
+		gamemode.simulated_time = simulated_time
+		// Run a midround injection
+		var/datum/dynamic_ruleset/simulated_result = gamemode.try_midround_roll(TRUE)
+		if (!simulated_result)
+			continue
+		midround_rules += list(list(
+			"ruleset" = simulated_result.name,
+			"weight" = simulated_result.weight,
+			"cost" = simulated_result.cost,
+			"execution_time" = simulated_time,
+			"remaining_threat" = gamemode.mid_round_budget,
+			"simulated_alive_players" = gamemode.simulated_alive_players,
+			"is_lategame" = gamemode.is_lategame()
+		))
+
 	return list(
 		"roundstart_players" = config.roundstart_players,
 		"threat_level" = gamemode.threat_level,
 		"snapshot" = list(
 			"antag_percent" = total_antags / config.roundstart_players,
-			"remaining_threat" = gamemode.mid_round_budget,
-			"rulesets" = gamemode.executed_rules.Copy(),
+			"remaining_threat" = midround_threat,
+			"rulesets" = roundstart_rules,
 		),
+		"midround_rules" = midround_rules,
 	)
 
 /datum/dynamic_simulation_config
@@ -95,6 +130,8 @@
 	message_admins("Writing file...")
 	WRITE_FILE(file("[GLOB.log_directory]/dynamic_simulations.json"), json_encode(outputs))
 	message_admins("Writing complete.")
+
+
 
 /proc/export_dynamic_json_of(ruleset_list)
 	var/list/export = list()

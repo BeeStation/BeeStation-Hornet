@@ -580,6 +580,7 @@
 	name = "minor botanical chemical dispenser"
 	desc = "A botanical chemical dispenser on a budget."
 	icon_state = "minidispenser"
+	base_icon_state = "minidispenser"
 	working_state = "minidispenser_working"
 	nopower_state = "minidispenser_nopower"
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/botany

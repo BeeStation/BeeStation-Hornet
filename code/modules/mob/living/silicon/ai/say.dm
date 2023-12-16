@@ -51,7 +51,7 @@
 			language_icon = "[D.get_icon()] "
 
 		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
-		message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[real_name]</span></b> [message]</span>"
+		message = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[real_name]</span></b> [message]</span>"
 		to_chat(src, message)
 
 		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)

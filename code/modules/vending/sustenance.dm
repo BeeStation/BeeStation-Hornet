@@ -7,7 +7,7 @@
 	light_color = LIGHT_COLOR_BLUEGREEN
 	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison = 24,
 					/obj/item/reagent_containers/food/drinks/ice/prison = 12,
-					/obj/item/reagent_containers/food/snacks/candy_corn/prison = 6)
+					/obj/item/food/candy_corn/prison = 6)
 	contraband = list(/obj/item/knife/kitchen = 6,
 					  /obj/item/reagent_containers/food/drinks/coffee = 12,
 					  /obj/item/tank/internals/emergency_oxygen = 6,

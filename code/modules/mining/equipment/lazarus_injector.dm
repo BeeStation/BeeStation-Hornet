@@ -26,18 +26,27 @@
 				to_chat(user, "<span class='info'>[src] does not work on this sort of creature.</span>")
 				return
 			if(M.stat == DEAD)
-				M.faction = list("neutral")
-				M.revive(full_heal = 1, admin_revive = 1)
-				if(ishostile(target))
-					var/mob/living/simple_animal/hostile/H = M
-					if(malfunctioning)
-						H.faction |= list("lazarus", "[REF(user)]")
-						H.robust_searching = 1
-						H.friends += user
-						H.attack_same = 1
-						log_game("[key_name(user)] has revived hostile mob [key_name(target)] with a malfunctioning lazarus injector")
-					else
-						H.attack_same = 0
+				if(M.mind)
+					loaded = 0
+					if(M.suiciding || M.ishellbound())
+						user.visible_message("<span class='notice'>[user] injects [M] with [src], but nothing happened.</span>")
+						return
+					M.revive(full_heal = 1, admin_revive = 1)
+					M.AIStatus = AI_OFF // don't let them attack people randomly after revived
+					M.notify_ghost_cloning("Your body is revived by a lazarus injector!", source=M)
+					log_game("[key_name(user)] has revived a player mob [key_name(target)] with a lazarus injector")
+				else // only do this to mindless mobs
+					M.revive(full_heal = 1, admin_revive = 1)
+					if(ishostile(target))
+						var/mob/living/simple_animal/hostile/H = M
+						if(malfunctioning)
+							H.faction |= list("lazarus", "[REF(user)]")
+							H.robust_searching = 1
+							H.friends += user
+							H.attack_same = 1
+							log_game("[key_name(user)] has revived hostile mob [key_name(target)] with a malfunctioning lazarus injector")
+						else
+							H.attack_same = 0
 				loaded = 0
 				user.visible_message("<span class='notice'>[user] injects [M] with [src], reviving it.</span>")
 				SSblackbox.record_feedback("tally", "lazarus_injector", 1, M.type)

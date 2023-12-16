@@ -77,7 +77,7 @@
 		turfs[turf] = turf.loc
 	. = ..(T, centered, init_atmos, finalize, register, turfs)
 
-/datum/map_template/shuttle/on_placement_completed(datum/map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
+/datum/map_template/shuttle/on_placement_completed(datum/async_map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
 	. = ..(map_gen, T, TRUE, parsed, FALSE)
 	if(!.)
 		log_runtime("Failed to load shuttle [map_gen.get_name()].")

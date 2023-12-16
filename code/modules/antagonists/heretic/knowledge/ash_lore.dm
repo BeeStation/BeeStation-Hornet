@@ -28,7 +28,7 @@
 	name = "Nightwatcher's Secret"
 	desc = "Opens up the Path of Ash to you. \
 		Allows you to transmute a match and a knife into an Ashen Blade. \
-		You can only create two at a time."
+		You can only create two at a time. Destroys the blade furthest from you if you invoke this ritual at the limit."
 	gain_text = "The City Guard know their watch. If you ask them at night, they may tell you about the ashy lantern."
 	next_knowledge = list(/datum/heretic_knowledge/ashen_grasp)
 	banned_knowledge = list(
@@ -45,6 +45,7 @@
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
 	limit = 2
+	destroy_if_over_limit = TRUE
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_ASH

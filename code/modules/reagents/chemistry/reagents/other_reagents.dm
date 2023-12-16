@@ -708,6 +708,14 @@
 	race = /datum/species/plasmaman
 	taste_description = "plasma"
 
+/datum/reagent/mutationtoxin/psyphoza
+	name = "Psyphoza Mutation Toxin"
+	description = "A fungal-based toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	chem_flags = CHEMICAL_RNG_FUN
+	race = /datum/species/psyphoza
+	taste_description = "fungus"
+
 #undef MUT_MSG_IMMEDIATE
 #undef MUT_MSG_EXTENDED
 #undef MUT_MSG_ABOUT2TURN
@@ -1812,6 +1820,37 @@
 			var/mob/living/carbon/human/H = M
 			H.hair_style = "Very Long Hair"
 			H.facial_hair_style = "Beard (Very Long)"
+			H.update_hair()
+
+/datum/reagent/barbers_afro_mania
+	name = "Barber's Afro Mania"
+	description = "Unleash the funk within you."
+	reagent_state = LIQUID
+	color = "#FF8800"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "funky sugar"
+
+/datum/reagent/barbers_afro_mania/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(method == TOUCH || method == VAPOR)
+		if(M && ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.hair_style = "Afro (Large)"
+			H.update_hair()
+
+/datum/reagent/barbers_shaving_aid
+	name = "Barber's Shaving Aid"
+	description = "It seems I messed up. Time to go bald."
+	reagent_state = LIQUID
+	color = "#C0FFAB"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "hairloss"
+
+/datum/reagent/barbers_shaving_aid/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(method == TOUCH || method == VAPOR)
+		if(M && ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.hair_style = "Bald 2"
+			H.facial_hair_style = "Shaved"
 			H.update_hair()
 
 /datum/reagent/saltpetre

@@ -140,12 +140,6 @@
 	var/unlocked = FALSE
 	var/setting = DUEL_SETTING_A
 	var/datum/duel/duel
-	var/mutable_appearance/setting_overlay
-
-/obj/item/gun/energy/dueling/Initialize(mapload)
-	. = ..()
-	setting_overlay = mutable_appearance(icon,setting_iconstate())
-	add_overlay(setting_overlay)
 
 /obj/item/gun/energy/dueling/proc/setting_iconstate()
 	switch(setting)
@@ -175,12 +169,12 @@
 	to_chat(user,"<span class='notice'>You switch [src] setting to [setting] mode.")
 	update_icon()
 
-/obj/item/gun/energy/dueling/update_icon(force_update)
+/obj/item/gun/energy/dueling/update_overlays()
 	. = ..()
-	if(setting_overlay)
-		cut_overlay(setting_overlay)
-		setting_overlay.icon_state = setting_iconstate()
-		add_overlay(setting_overlay)
+	. += setting_iconstate()
+	if (emissive_charge)
+		. += emissive_appearance(icon, setting_iconstate(), layer, alpha = 80)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/gun/energy/dueling/Destroy()
 	. = ..()
@@ -309,7 +303,7 @@
 	icon_state = "medalbox+l"
 	item_state = "medalbox+l"
 	base_icon_state = "medalbox"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	req_access = list(ACCESS_CAPTAIN)
 
 /obj/item/storage/lockbox/dueling/ComponentInitialize()

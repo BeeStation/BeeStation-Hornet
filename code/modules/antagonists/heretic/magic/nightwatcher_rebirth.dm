@@ -13,11 +13,12 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "smoke"
 
-/obj/effect/proc_holder/spell/targeted/fiery_rebirth/cast(list/targets, mob/user)
-	if(!ishuman(user))
+/obj/effect/proc_holder/spell/targeted/fiery_rebirth/cast(list/targets, mob/living/carbon/human/user)
+	if(!istype(user))
+		revert_cast()
 		return
-	var/mob/living/carbon/human/human_user = user
-	human_user.ExtinguishMob()
+	var/did_something = user.on_fire // This might be a false negative if the user has items on fire but they themselves are not.
+	user.ExtinguishMob()
 
 	for(var/mob/living/carbon/target in view(7, user))
 		if(!target.mind || !target.client || target.stat == DEAD || !target.on_fire || IS_HERETIC_OR_MONSTER(target))
@@ -27,13 +28,15 @@
 			target.investigate_log("has been killed by fiery rebirth.", INVESTIGATE_DEATHS)
 			target.death()
 
-		target.adjustFireLoss(20)
+		target.take_overall_damage(burn = 20)
 		new /obj/effect/temp_visual/eldritch_smoke(target.drop_location())
-		human_user.adjustBruteLoss(-10, FALSE)
-		human_user.adjustFireLoss(-10, FALSE)
-		human_user.adjustToxLoss(-10, FALSE)
-		human_user.adjustOxyLoss(-10, FALSE)
-		human_user.adjustStaminaLoss(-10)
+		user.heal_overall_damage(brute = 10, burn = 10, stamina = 10, updating_health = FALSE)
+		user.adjustToxLoss(-10, updating_health = FALSE, forced = TRUE)
+		user.adjustOxyLoss(-10)
+		did_something = TRUE
+
+	if(!did_something)
+		revert_cast()
 
 /obj/effect/temp_visual/eldritch_smoke
 	icon = 'icons/effects/heretic.dmi'

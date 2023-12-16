@@ -9,7 +9,7 @@
 			running_find_references = null
 			//restart the garbage collector
 			SSgarbage.can_fire = TRUE
-			SSgarbage.next_fire = world.time + world.tick_lag
+			SSgarbage.update_nextfire(reset_time = TRUE)
 			return
 
 		if(!skip_alert && alert("Running this will lock everything up for about 5 minutes.  Would you like to begin the search?", "Find References", "Yes", "No") != "Yes")
@@ -74,7 +74,7 @@
 
 	//restart the garbage collector
 	SSgarbage.can_fire = TRUE
-	SSgarbage.next_fire = world.time + world.tick_lag
+	SSgarbage.update_nextfire(reset_time = TRUE)
 
 /datum/proc/DoSearchVar(potential_container, container_name, recursive_limit = 64, search_time = world.time)
 	. = FALSE

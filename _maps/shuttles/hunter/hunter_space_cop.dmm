@@ -749,7 +749,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/firstaid/medical/doctorbag,
+/obj/item/storage/firstaid/medical,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/hunter)
 "Cc" = (

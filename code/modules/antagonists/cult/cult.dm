@@ -141,7 +141,8 @@
 		H.eye_color = initial(H.eye_color)
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 		REMOVE_TRAIT(H, CULT_EYES, null)
-		H.remove_overlay(HALO_LAYER)
+		if (H.remove_overlay(HALO_LAYER))
+			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.update_body()
 
 /datum/antagonist/cult/on_removal()
@@ -241,7 +242,8 @@
 		H.eye_color = initial(H.eye_color)
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 		REMOVE_TRAIT(H, CULT_EYES, null)
-		H.remove_overlay(HALO_LAYER)
+		if (H.remove_overlay(HALO_LAYER))
+			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.update_body()
 
 /datum/team/cult
@@ -303,7 +305,9 @@
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1","halo2","halo3","halo4","halo5","halo6")
-		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
+		new_halo_overlay.overlays.Add(emissive_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER), 160))
+		ADD_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.overlays_standing[HALO_LAYER] = new_halo_overlay
 		H.apply_overlay(HALO_LAYER)
 

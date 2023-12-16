@@ -2,6 +2,7 @@ import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Input, Section, Stack } from '../components';
 import { useBackend, useLocalState } from '../backend';
+import { decodeHtmlEntities } from '../../common/string';
 import { KEY_A, KEY_DOWN, KEY_ESCAPE, KEY_ENTER, KEY_UP, KEY_Z } from '../../common/keycodes';
 import { Window } from '../layouts';
 
@@ -128,7 +129,7 @@ export const ListInputModal = (_, context) => {
           }
           className="ListInput__Section"
           fill
-          title={message}>
+          title={decodeHtmlEntities(message)}>
           <Stack fill vertical>
             <Stack.Item grow>
               <ListDisplay

@@ -43,7 +43,7 @@
 	if(isnum_safe(_uses))
 		uses = max(round(_uses), 1)
 	debug_mode = _debug_mode
-	accent_color = pick(GLOB.color_list_blood_brothers)
+	accent_color = pick(GLOB.color_list_rainbow)
 
 /datum/holoparasite_builder/Destroy()
 	QDEL_NULL(saved_stats)
@@ -104,7 +104,7 @@
 			)
 		),
 		"validation" = list(
-			"color" = is_color_dark(accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS) ? "too dark" : "valid",
+			"color" = is_color_dark_with_saturation(accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS) ? "too dark" : "valid",
 			"name" = check_name_validity(),
 			"notes" = check_notes_validity()
 		)
@@ -195,8 +195,8 @@
 			var/color = params["color"]
 			if(!istext(color) || length(color) != 7)
 				return
-			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_blood_brothers))
-			if(is_color_dark(new_accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
+			var/new_accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_rainbow))
+			if(is_color_dark_with_saturation(new_accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
 				to_chat(usr, "<span class='warning'>Selected accent color is too dark!</span>")
 				return
 			accent_color = new_accent_color
@@ -346,7 +346,7 @@
 		to_chat(src, "<span class='warning'>The provided notes contain forbidden words.</span>")
 		user.balloon_alert(user, "failed, filtered notes", show_in_chat = FALSE)
 		return FALSE
-	if(is_color_dark(accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
+	if(is_color_dark_with_saturation(accent_color, HOLOPARA_MAX_ACCENT_LIGHTNESS))
 		to_chat(src, "<span class='warning'>The provided accent color ([accent_color]) is too dark (lightness of [rgb2num(accent_color, COLORSPACE_HSL)[3]], must be below [HOLOPARA_MAX_ACCENT_LIGHTNESS]).</span>")
 		user.balloon_alert(user, "failed, accent color too dark", show_in_chat = FALSE)
 		return FALSE
@@ -366,9 +366,9 @@
 	if(debug_mode)
 		candidates = list(user)
 	else
-		candidates = pollGhostCandidates(
+		candidates = poll_ghost_candidates(
 			"Do you want to play as [holopara_name], [user.mind.name]'s [theme.name]?",
-			jobbanType = ROLE_HOLOPARASITE,
+			jobban_type = ROLE_HOLOPARASITE,
 			poll_time = 30 SECONDS
 		)
 	waiting = FALSE

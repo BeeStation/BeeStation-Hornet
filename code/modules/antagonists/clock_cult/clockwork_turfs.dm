@@ -44,6 +44,8 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/destructible/clockwork/wall_gear
 	baseturfs = /turf/open/floor/clockwork/reebe
+	max_integrity = 1000
+	damage_deflection = 0
 	var/obj/effect/clockwork/overlay/wall/realappearance
 	var/d_state = INTACT
 	flags_1 = NOJAUNT_1
@@ -79,14 +81,6 @@
 
 /turf/closed/wall/clockwork/ratvar_act()
 	return 0
-
-/turf/closed/wall/clockwork/attack_animal(mob/living/simple_animal/M)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	if(!M.environment_smash)
-		return
-	playsound(src, 'sound/effects/bang.ogg', 50, 1)
-	to_chat(M, "<span class='warning'>This wall is far too strong for you to destroy.</span>")
 
 /turf/closed/wall/clockwork/dismantle_wall(devastated=0, explode=0)
 	if(devastated)
@@ -180,6 +174,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	resistance_flags = INDESTRUCTIBLE
 	var/dropped_brass
 	var/uses_overlay = TRUE
 	var/obj/effect/clockwork/overlay/floor/realappearance
@@ -241,9 +236,6 @@
 
 /turf/open/floor/clockwork/ratvar_act(force, ignore_mobs)
 	return 0
-
-/turf/open/floor/clockwork/ex_act(severity, target)
-	return
 
 /turf/open/floor/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	return

@@ -38,3 +38,7 @@
 	name = "invisible blockade"
 	desc = "You're gonna be here awhile."
 	timeleft = 600
+
+/obj/effect/forcefield/mime/Initialize(mapload, ntimeleft)
+	. = ..()
+	SSvis_overlays.add_obj_alpha(src, 'icons/turf/walls/snow_wall.dmi', "snow_wall-0")

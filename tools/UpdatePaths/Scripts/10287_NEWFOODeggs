@@ -1,0 +1,8 @@
+/obj/item/food/chocolateegg : /obj/item/reagent_containers/food/snacks/chocolateegg{@OLD}
+/obj/item/food/egg : /obj/item/reagent_containers/food/snacks/egg{@OLD}
+/obj/item/food/friedegg : /obj/item/reagent_containers/food/snacks/friedegg{@OLD}
+/obj/item/food/boiledegg : /obj/item/reagent_containers/food/snacks/boiledegg{@OLD}
+/obj/item/food/omelette : /obj/item/reagent_containers/food/snacks/omelette{@OLD}
+/obj/item/food/benedict : /obj/item/reagent_containers/food/snacks/benedict{@OLD}
+/obj/item/food/eggwrap : /obj/item/reagent_containers/food/snacks/eggwrap{@OLD}
+/obj/item/food/chawanmushi : /obj/item/reagent_containers/food/snacks/chawanmushi{@OLD}
