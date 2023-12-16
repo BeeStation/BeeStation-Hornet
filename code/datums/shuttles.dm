@@ -446,6 +446,13 @@
 	admin_notes = "Choo choo motherfucker!"
 	credit_cost = 1000
 
+/datum/map_template/shuttle/emergency/tiny
+	suffix = "tiny"
+	name = "Echo Station Emergency Shuttle"
+	description = "A small emergancy escape shuttle"
+	admin_notes = "A *very* small shuttle"
+	credit_cost = 1000
+
 /datum/map_template/shuttle/emergency/cere
 	suffix = "cere"
 	name = "Cere Station Emergency Shuttle"
@@ -713,6 +720,10 @@
 /datum/map_template/shuttle/arrival/pubby
 	suffix = "pubby"
 	name = "arrival shuttle (Pubby)"
+
+/datum/map_template/shuttle/arrival/tiny
+	suffix = "tiny"
+	name = "arrival shuttle (Tiny)"
 
 /datum/map_template/shuttle/arrival/omega
 	suffix = "omega"

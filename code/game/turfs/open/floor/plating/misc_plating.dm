@@ -266,15 +266,17 @@
 	desc = "Deep water. What if there's sharks?"
 	icon_state = "water_deep"
 	density = 1 //no swimming
-/turf/open/floor/plating/beach/water/coastline_t
+
+/turf/open/floor/plating/beach/coastline_t
 	name = "coastline"
 	desc = "Tide's high tonight. Charge your batons."
 	icon_state = "sandwater_t"
-	baseturfs = /turf/open/floor/plating/beach/water/coastline_t
+	baseturfs = /turf/open/floor/plating/beach/coastline_t
 
 /turf/open/floor/plating/beach/coastline_b
 	name = "coastline"
 	icon_state = "sandwater_b"
+	desc = "Tide's high tonight. Charge your batons."
 	baseturfs = /turf/open/floor/plating/beach/coastline_b
 
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner

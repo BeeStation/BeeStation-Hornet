@@ -172,6 +172,12 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "icerock"
 
+/turf/closed/indestructible/rock/bedrock
+	name = "bedrock rock"
+	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."
+	icon = 'icons/turf/mining.dmi'
+	icon_state = "rock_dense"
+
 /turf/closed/indestructible/paper
 	name = "thick paper wall"
 	desc = "A wall layered with impenetrable sheets of paper."

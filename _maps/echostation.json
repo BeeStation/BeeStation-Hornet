@@ -7,7 +7,7 @@
 		"cargo": "cargo_tiny",
 		"ferry": "ferry_fancy",
 		"whiteship": "whiteship_box",
-		"emergency": "emergency_delta"
+		"emergency": "emergency_tiny"
 	},
 
 	"traits": [{"Up" : true, "Baseturf" : "/turf/open/floor/plating/asteroid", "Linkage" : "Cross", "Gravity": true},

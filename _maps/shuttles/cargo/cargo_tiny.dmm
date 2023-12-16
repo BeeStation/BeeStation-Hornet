@@ -98,30 +98,11 @@
 /area/shuttle/supply)
 "C" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id = "QMLoaddoor";
-	name = "Supply Dock Loading Door"
-	},
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "MailConv"
 	},
-/obj/machinery/button/door{
-	id = "QMLoaddoor";
-	layer = 4;
-	name = "Bounty blast doors";
-	normaldoorcontrol = 1;
-	req_access_txt = "31";
-	pixel_y = 38
-	},
 /obj/structure/plasticflaps,
-/obj/machinery/button/door{
-	id = "QMLoaddoor2";
-	layer = 4;
-	name = "Loading Doors";
-	req_access_txt = "31";
-	pixel_y = 29
-	},
 /turf/open/floor/plasteel/sepia,
 /area/shuttle/supply)
 "D" = (
@@ -213,10 +194,6 @@
 /area/shuttle/supply)
 "Z" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id = "QMLoaddoor2";
-	name = "Supply Dock Loading Door"
-	},
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "QMLoad2"
