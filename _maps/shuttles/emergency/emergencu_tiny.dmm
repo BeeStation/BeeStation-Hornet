@@ -1,0 +1,499 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/window/shuttle,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/grass,
+/area/shuttle/escape)
+"b" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"c" = (
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"d" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"f" = (
+/obj/structure/chair/fancy/shuttle,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"g" = (
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"h" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/escape)
+"i" = (
+/obj/machinery/computer/emergency_shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"j" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"k" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/sign/departments/security{
+	pixel_y = 32
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"l" = (
+/turf/template_noop,
+/area/shuttle/escape)
+"m" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
+"n" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/fire{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"o" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"p" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Shuttle Infirmary"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"q" = (
+/obj/structure/window/shuttle,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/grass,
+/area/shuttle/escape)
+"r" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"t" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/window/shuttle,
+/turf/open/floor/grass,
+/area/shuttle/escape)
+"u" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"v" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 32;
+	pixel_y = -1
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"w" = (
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"x" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/zipties{
+	pixel_y = 4
+	},
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs{
+	pixel_x = 1;
+	pixel_y = 3
+	},
+/obj/machinery/recharger,
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"y" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"z" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/escape)
+"A" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"B" = (
+/obj/structure/table,
+/obj/item/reagent_containers/hypospray/medipen{
+	pixel_x = 4
+	},
+/obj/item/reagent_containers/hypospray/medipen{
+	pixel_x = 5;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/hypospray/medipen{
+	pixel_x = 6
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"C" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"D" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/stasis,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"E" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"F" = (
+/obj/machinery/computer/communications{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"G" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"H" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/structure/grille,
+/obj/structure/shuttle/engine/heater,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"I" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"J" = (
+/obj/structure/sign/departments/medbay/alt,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
+"K" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"L" = (
+/obj/structure/window/shuttle,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/palebush,
+/turf/open/floor/grass,
+/area/shuttle/escape)
+"M" = (
+/obj/machinery/status_display/evac,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
+"N" = (
+/obj/machinery/shower{
+	layer = 4;
+	name = "emergency shower";
+	pixel_y = 7
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/noslip/dark,
+/area/shuttle/escape)
+"O" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/command/glass{
+	name = "Shuttle Control";
+	req_one_access_txt = "19"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"P" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"Q" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/button/flasher{
+	id = "tinyflash";
+	pixel_y = -25
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"R" = (
+/obj/structure/shuttle/engine/propulsion,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"S" = (
+/obj/structure/window/shuttle,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/grass,
+/area/shuttle/escape)
+"T" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/flasher{
+	id = "tinyflash";
+	pixel_y = 27
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"U" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/window/shuttle,
+/turf/open/floor/grass,
+/area/shuttle/escape)
+"V" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/docking_port/mobile/emergency{
+	dwidth = 8;
+	height = 8;
+	name = "Echo emergency shuttle";
+	width = 15
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"W" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"X" = (
+/obj/structure/shuttle/engine/large,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"Z" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
+
+(1,1,1) = {"
+l
+l
+l
+l
+Z
+S
+a
+V
+q
+a
+L
+m
+h
+l
+"}
+(2,1,1) = {"
+l
+z
+I
+I
+Z
+k
+P
+c
+P
+P
+P
+H
+R
+l
+"}
+(3,1,1) = {"
+z
+z
+b
+r
+W
+P
+P
+c
+P
+P
+P
+H
+K
+X
+"}
+(4,1,1) = {"
+I
+f
+g
+g
+O
+j
+j
+v
+o
+o
+E
+H
+C
+G
+"}
+(5,1,1) = {"
+I
+x
+A
+Q
+Z
+T
+P
+Z
+W
+p
+J
+H
+K
+X
+"}
+(6,1,1) = {"
+z
+z
+i
+F
+M
+u
+y
+Z
+N
+w
+d
+H
+C
+G
+"}
+(7,1,1) = {"
+l
+z
+I
+I
+Z
+P
+P
+Z
+n
+B
+D
+H
+R
+l
+"}
+(8,1,1) = {"
+l
+l
+l
+l
+z
+t
+U
+Z
+I
+I
+I
+m
+h
+l
+"}
