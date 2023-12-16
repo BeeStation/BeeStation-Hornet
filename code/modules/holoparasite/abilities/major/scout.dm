@@ -139,7 +139,7 @@
 /datum/holoparasite_ability/major/scout/proc/on_post_manifest()
 	SIGNAL_HANDLER
 	if(scouting)
-		owner.anchored = TRUE
+		owner.set_anchored(TRUE)
 		owner.incorporeal_move = INCORPOREAL_MOVE_BASIC
 		owner.move_resist = INFINITY
 		owner.set_density(FALSE)
@@ -156,7 +156,7 @@
 /datum/holoparasite_ability/major/scout/proc/on_recall()
 	SIGNAL_HANDLER
 	owner.incorporeal_move = FALSE
-	owner.anchored = FALSE
+	owner.set_anchored(FALSE)
 	owner.move_resist = initial(owner.move_resist)
 	owner.set_density(initial(owner.density))
 	owner.attack_sound = owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND] || initial(owner.attack_sound)
@@ -372,7 +372,7 @@
 		to_chat(stalking, "<span class='holoparasite italics'>You feel relief as the strange feeling of being watched fades away...</span>")
 	var/out_and_about = scouting && owner.is_manifested()
 	owner.incorporeal_move = out_and_about ? INCORPOREAL_MOVE_BASIC : FALSE
-	owner.anchored = out_and_about
+	owner.set_anchored(out_and_about)
 	UnregisterSignal(stalking, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE, COMSIG_PARENT_PREQDELETED))
 	stalking = null
 	stalkee_was_notified = FALSE

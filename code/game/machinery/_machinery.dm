@@ -548,7 +548,7 @@ Class Procs:
 
 	new_frame.icon_state = "box_1"
 	. = new_frame
-	new_frame.anchored = TRUE
+	new_frame.set_anchored(TRUE)
 	if(!disassembled)
 		new_frame.obj_integrity = new_frame.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(new_frame)

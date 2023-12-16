@@ -87,7 +87,7 @@
 		anchored = TRUE
 		return
 	//passing means the user picked up the flag so we can now apply this
-	user.anchored = TRUE
+	user.set_anchored(TRUE)
 	user.status_flags &= ~CANPUSH
 
 /obj/item/ctf/dropped(mob/user)

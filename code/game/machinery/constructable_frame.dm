@@ -195,7 +195,7 @@
 						// Set anchor state and move the frame's parts over to the new machine.
 						// Then refresh parts and call on_construction().
 
-						new_machine.anchored = anchored
+						new_machine.set_anchored(anchored)
 						new_machine.component_parts = list()
 
 						circuit.forceMove(new_machine)
