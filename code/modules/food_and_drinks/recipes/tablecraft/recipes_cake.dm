@@ -61,7 +61,7 @@
 	name = "Chocolate cake"
 	reqs = list(
 		/obj/item/food/cake/plain = 1,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 2
+		/obj/item/food/chocolatebar = 2
 	)
 	result = /obj/item/food/cake/chocolate
 	subcategory = CAT_CAKE
@@ -145,7 +145,7 @@
 	name = "blackberry and strawberry chocolate cake"
 	reqs = list(
 		/obj/item/food/cake/plain = 1,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 2,
+		/obj/item/food/chocolatebar = 2,
 		/obj/item/food/grown/berries = 5
 	)
 	result = /obj/item/food/cake/bscc
@@ -165,7 +165,7 @@
 	always_available = FALSE
 	reqs = list(
 		/obj/item/food/cake/plain = 1,
-		/obj/item/reagent_containers/food/snacks/sundae = 2,
+		/obj/item/food/sundae = 2,
 		/obj/item/food/grown/banana = 5
 	)
 	result = /obj/item/food/cake/clown_cake

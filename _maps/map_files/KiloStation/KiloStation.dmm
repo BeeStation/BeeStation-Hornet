@@ -2959,17 +2959,6 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
-"ajY" = (
-/obj/structure/flora/junglebush,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/sunnybush,
-/obj/item/food/grown/banana,
-/obj/machinery/light{
-	dir = 8
-	},
-/mob/living/carbon/monkey,
-/turf/open/floor/grass,
-/area/medical/genetics)
 "ajZ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -7328,19 +7317,6 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
-"awc" = (
-/obj/item/food/grown/banana,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/turf/open/floor/grass,
-/area/medical/genetics)
 "awe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
@@ -14251,16 +14227,6 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"bdE" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet{
-	name = "kitchen closet"
-	},
-/obj/item/clothing/suit/toggle/chef,
-/obj/item/reagent_containers/food/snacks/chococoin,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "bdJ" = (
 /obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/airlock/research{
@@ -37225,22 +37191,6 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/fore)
-"cIp" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor,
-/obj/item/clipboard,
-/obj/item/food/grown/wheat,
-/obj/item/food/grown/watermelon,
-/obj/item/food/grown/citrus/orange,
-/obj/item/food/grown/grapes,
-/obj/machinery/door/window/eastright{
-	dir = 8;
-	name = "Hydroponics Desk";
-	req_access_txt = "35"
-	},
-/turf/open/floor/plating,
-/area/hydroponics)
 "cIq" = (
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/effect/turf_decal/bot,
@@ -42915,28 +42865,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"eaq" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor,
-/obj/item/food/grown/pumpkin{
-	pixel_y = 6
-	},
-/obj/item/food/grown/carrot,
-/obj/item/food/grown/tomato,
-/obj/machinery/door/window/eastleft{
-	dir = 8;
-	name = "Hydroponics Desk";
-	req_access_txt = "35"
-	},
-/obj/structure/desk_bell{
-	pixel_y = 8
-	},
-/obj/item/food/grown/corn{
-	pixel_y = 6
-	},
-/turf/open/floor/plating,
-/area/hydroponics)
 "eaY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -55774,6 +55702,17 @@
 	},
 /turf/open/floor/engine,
 /area/engine/gravity_generator)
+"jsd" = (
+/obj/structure/flora/junglebush,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/item/food/grown/banana,
+/obj/machinery/light{
+	dir = 8
+	},
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/medical/genetics)
 "jse" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -60915,6 +60854,22 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
+"lER" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/lily{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/food/grown/flower/geranium{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/food/grown/flower/poppy,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "lEY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -65770,23 +65725,6 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
-"nPI" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/condiment/sugar{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/beaker,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/kitchen)
 "nQw" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/effect/turf_decal/delivery,
@@ -73636,6 +73574,16 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
+"raY" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet{
+	name = "kitchen closet"
+	},
+/obj/item/clothing/suit/toggle/chef,
+/obj/item/food/chococoin,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "rbX" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -77706,6 +77654,22 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
+"sEc" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/obj/item/clipboard,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/grapes,
+/obj/machinery/door/window/eastright{
+	dir = 8;
+	name = "Hydroponics Desk";
+	req_access_txt = "35"
+	},
+/turf/open/floor/plating,
+/area/hydroponics)
 "sEN" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -78124,6 +78088,28 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"sOO" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/obj/item/food/grown/pumpkin{
+	pixel_y = 6
+	},
+/obj/item/food/grown/carrot,
+/obj/item/food/grown/tomato,
+/obj/machinery/door/window/eastleft{
+	dir = 8;
+	name = "Hydroponics Desk";
+	req_access_txt = "35"
+	},
+/obj/structure/desk_bell{
+	pixel_y = 8
+	},
+/obj/item/food/grown/corn{
+	pixel_y = 6
+	},
+/turf/open/floor/plating,
+/area/hydroponics)
 "sOQ" = (
 /obj/structure/table/glass,
 /obj/item/assembly/timer{
@@ -80007,22 +79993,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
-"tDf" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/lily{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/food/grown/flower/geranium{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/food/grown/flower/poppy,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main)
 "tDg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -82040,6 +82010,19 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
+"uDy" = (
+/obj/item/food/grown/banana,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/grass,
+/area/medical/genetics)
 "uDA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -91025,6 +91008,23 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
+"yhX" = (
+/obj/structure/table,
+/obj/item/food/mint,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/sugar{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "yio" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-17";
@@ -109387,7 +109387,7 @@ fNM
 wMS
 aqO
 aNG
-ajY
+jsd
 auj
 aFb
 aKV
@@ -110160,7 +110160,7 @@ cLB
 aNG
 akq
 auo
-awc
+uDy
 aOc
 afD
 hXL
@@ -115562,7 +115562,7 @@ cBh
 btA
 uCE
 odj
-tDf
+lER
 wsH
 btA
 qKQ
@@ -125858,7 +125858,7 @@ eeK
 ohZ
 bmA
 fKZ
-nPI
+yhX
 xQc
 ubM
 icj
@@ -126892,9 +126892,9 @@ bmS
 bmZ
 aZd
 bqS
-cIp
+sEc
 mdg
-eaq
+sOO
 aZd
 bnq
 bnH
@@ -130481,7 +130481,7 @@ aRI
 oIt
 sfd
 baV
-bdE
+raY
 bbf
 cbk
 bhG

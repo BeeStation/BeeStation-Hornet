@@ -5636,26 +5636,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
-"bpY" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/food/grown/tomato/blood{
-	pixel_x = 7;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/syringe{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -6;
-	pixel_y = 7
-	},
-/turf/open/floor/plasteel/grid,
-/area/medical/virology)
 "bqi" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -12865,12 +12845,6 @@
 	dir = 1
 	},
 /area/hydroponics/garden)
-"dtC" = (
-/obj/structure/rack,
-/obj/item/cane,
-/obj/item/food/grown/mushroom/glowshroom,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "dtE" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
@@ -13544,32 +13518,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"dED" = (
-/obj/item/shovel/spade,
-/obj/item/crowbar,
-/obj/item/cultivator,
-/obj/item/seeds/wheat{
-	pixel_x = 6
-	},
-/obj/item/seeds/potato,
-/obj/item/seeds/pumpkin{
-	pixel_x = -6
-	},
-/obj/item/food/grown/wheat,
-/obj/item/food/grown/watermelon,
-/obj/item/food/grown/grapes,
-/obj/item/food/grown/tomato,
-/obj/effect/turf_decal/bot,
-/obj/structure/table,
-/obj/item/food/grown/pumpkin{
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/siding/wideplating_new{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel,
-/area/hydroponics)
 "dEH" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -19141,23 +19089,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
-"eYB" = (
-/obj/item/food/grown/flower/harebell,
-/obj/structure/table/wood,
-/obj/machinery/button/massdriver{
-	id = "chapelgun";
-	name = "Chapel Mass Driver";
-	pixel_y = -24
-	},
-/obj/item/food/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/siding/wideplating/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/chapel/main)
 "eYH" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/turf_decal/sand/plating,
@@ -20431,6 +20362,24 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
+"frg" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/geranium{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/food/grown/flower/lily,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/obj/effect/turf_decal/siding/wideplating/dark/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "frp" = (
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -28763,17 +28712,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/engine/light,
 /area/science/xenobiology)
-"hAj" = (
-/obj/structure/rack,
-/obj/item/food/grown/wheat,
-/obj/item/food/grown/grapes,
-/obj/item/food/grown/watermelon,
-/obj/item/food/grown/citrus/orange,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/hydroponics)
 "hAt" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -33223,6 +33161,15 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/end,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
+"iHr" = (
+/obj/structure/table,
+/obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/glass/bowl,
+/obj/item/food/grown/tomato,
+/obj/item/food/dough,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "iHt" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -38508,6 +38455,23 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
+"kcO" = (
+/obj/item/food/grown/flower/harebell,
+/obj/structure/table/wood,
+/obj/machinery/button/massdriver{
+	id = "chapelgun";
+	name = "Chapel Mass Driver";
+	pixel_y = -24
+	},
+/obj/item/food/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/siding/wideplating/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "kcS" = (
 /turf/closed/wall/r_wall,
 /area/science/explab)
@@ -40481,6 +40445,12 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
+"kGT" = (
+/obj/structure/rack,
+/obj/item/cane,
+/obj/item/food/grown/mushroom/glowshroom,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "kGX" = (
 /obj/machinery/advanced_airlock_controller{
 	pixel_y = 26
@@ -40975,17 +40945,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
-"kMK" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/condiment/flour{
-	pixel_x = 4
-	},
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "kNb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -43717,6 +43676,26 @@
 "lsS" = (
 /turf/open/floor/engine/n2o/light,
 /area/engine/atmos)
+"lsX" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/tile/green/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/food/grown/tomato/blood{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/syringe{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/turf/open/floor/plasteel/grid,
+/area/medical/virology)
 "lte" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -48000,6 +47979,26 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/starboard/fore)
+"mAf" = (
+/obj/structure/table,
+/obj/item/food/mint{
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_y = 2
+	},
+/obj/structure/noticeboard{
+	dir = 8;
+	pixel_x = 26
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/vacant_room/commissary/commissaryFood)
 "mAi" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -48903,14 +48902,6 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel/dark/side,
 /area/ai_monitored/storage/eva)
-"mLj" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/item/storage/box/ingredients/wildcard,
-/obj/item/reagent_containers/food/snacks/mint,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "mLS" = (
 /obj/machinery/light{
 	dir = 8
@@ -51741,6 +51732,17 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/storage)
+"nwo" = (
+/obj/structure/rack,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/citrus/orange,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "nwy" = (
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plasteel/dark/side,
@@ -58726,6 +58728,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"pqd" = (
+/obj/structure/table,
+/obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/reagent_containers/food/condiment/flour{
+	pixel_x = 4
+	},
+/obj/item/food/chocolatebar,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "pqf" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/armor/vest{
@@ -59307,6 +59320,32 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
+"pyu" = (
+/obj/item/shovel/spade,
+/obj/item/crowbar,
+/obj/item/cultivator,
+/obj/item/seeds/wheat{
+	pixel_x = 6
+	},
+/obj/item/seeds/potato,
+/obj/item/seeds/pumpkin{
+	pixel_x = -6
+	},
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/tomato,
+/obj/effect/turf_decal/bot,
+/obj/structure/table,
+/obj/item/food/grown/pumpkin{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "pyA" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -76082,6 +76121,14 @@
 	initial_gas_mix = "n2=23;o2=14"
 	},
 /area/security/prison)
+"txH" = (
+/obj/structure/table,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/box/ingredients/wildcard,
+/obj/item/food/mint,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "txJ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -77422,26 +77469,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/teleporter)
-"tPo" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint{
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 2
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_y = 2
-	},
-/obj/structure/noticeboard{
-	dir = 8;
-	pixel_x = 26
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/vacant_room/commissary/commissaryFood)
 "tPC" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -83659,24 +83686,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engine_room)
-"vmD" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/geranium{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/food/grown/flower/lily,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/effect/turf_decal/siding/wideplating/dark/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main)
 "vmJ" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -93220,15 +93229,6 @@
 	},
 /turf/open/floor/plasteel/tiled/light,
 /area/medical/virology)
-"xnJ" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/glass/bowl,
-/obj/item/food/grown/tomato,
-/obj/item/food/dough,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "xnM" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -117085,7 +117085,7 @@ cqq
 aoI
 foJ
 mxb
-tPo
+mAf
 sha
 sha
 sha
@@ -118619,7 +118619,7 @@ arZ
 eZi
 kIg
 jBC
-hAj
+nwo
 dxT
 arZ
 put
@@ -119874,7 +119874,7 @@ aSv
 xiG
 uDP
 uDP
-vmD
+frg
 woq
 hQe
 hQe
@@ -120902,7 +120902,7 @@ jOs
 cPC
 kaV
 kaV
-eYB
+kcO
 woq
 vod
 gao
@@ -120951,7 +120951,7 @@ roM
 fhD
 mib
 dam
-xnJ
+iHr
 mib
 iyS
 wRF
@@ -121444,7 +121444,7 @@ aEX
 arZ
 dBt
 kqY
-dED
+pyu
 aAu
 ijY
 mjB
@@ -121464,8 +121464,8 @@ iLg
 pYP
 qxm
 mib
-mLj
-kMK
+txH
+pqd
 mib
 qrj
 jOJ
@@ -125274,7 +125274,7 @@ cWr
 nTs
 eoo
 rKW
-bpY
+lsX
 cWr
 vqt
 uuW
@@ -148777,7 +148777,7 @@ ulX
 vXB
 vXB
 vXB
-dtC
+kGT
 peN
 dOZ
 edS

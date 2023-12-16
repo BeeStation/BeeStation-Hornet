@@ -1062,7 +1062,7 @@
 			/obj/item/food/grown/potato,
 			/obj/item/food/grown/potato/sweet,
 			/obj/item/food/grown/apple,
-			/obj/item/reagent_containers/food/snacks/chocolatebar,
+			/obj/item/food/chocolatebar,
 			/obj/item/food/grown/cherries,
 			/obj/item/food/grown/banana,
 			/obj/item/food/grown/cabbage,
@@ -1131,7 +1131,7 @@
 	for(var/i in 1 to 2)
 		new/obj/item/food/grown/cherries(src)
 		new /obj/item/food/grown/banana(src)
-	new /obj/item/reagent_containers/food/snacks/chocolatebar(src)
+	new /obj/item/food/chocolatebar(src)
 	new /obj/item/food/grown/cocoapod(src)
 	new /obj/item/food/grown/apple(src)
 

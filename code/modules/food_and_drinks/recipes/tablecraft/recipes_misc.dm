@@ -9,7 +9,7 @@
 		/datum/reagent/consumable/caramel = 5,
 		/obj/item/food/grown/apple = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/candiedapple
+	result = /obj/item/food/candiedapple
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/spiderlollipop
@@ -19,34 +19,34 @@
 		/datum/reagent/water = 5,
 		/obj/item/reagent_containers/food/snacks/spiderling = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/spiderlollipop
+	result = /obj/item/food/spiderlollipop
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/chococoin
 	name = "Choco coin"
 	reqs = list(
 		/obj/item/coin = 1,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1,
+		/obj/item/food/chocolatebar = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/chococoin
+	result = /obj/item/food/chococoin
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/fudgedice
 	name = "Fudge dice"
 	reqs = list(
 		/obj/item/dice = 1,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1,
+		/obj/item/food/chocolatebar = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/fudgedice
+	result = /obj/item/food/fudgedice
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/chocoorange
 	name = "Choco orange"
 	reqs = list(
 		/obj/item/food/grown/citrus/orange = 1,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1,
+		/obj/item/food/chocolatebar = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/chocoorange
+	result = /obj/item/food/chocoorange
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/loadedbakedpotato

@@ -2956,19 +2956,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"aJQ" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/poppy,
-/obj/item/food/grown/flower/poppy,
-/obj/item/food/grown/flower/poppy,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "aJW" = (
 /obj/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
@@ -3480,16 +3467,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
-"aPw" = (
-/obj/structure/table/reinforced,
-/obj/item/knife/kitchen,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
-/area/crew_quarters/kitchen)
 "aPF" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -6470,16 +6447,6 @@
 	dir = 5
 	},
 /area/science/breakroom)
-"bNL" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/poppy,
-/obj/item/food/grown/flower/poppy,
-/obj/item/food/grown/flower/poppy,
-/obj/item/food/grown/flower/harebell,
-/obj/item/food/grown/flower/harebell,
-/obj/effect/landmark/event_spawn,
-/turf/open/floor/plasteel/grimy,
-/area/chapel/office)
 "bNP" = (
 /obj/structure/closet/cabinet,
 /turf/open/floor/plasteel/dark,
@@ -15379,6 +15346,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/chapel/monastery)
+"eQL" = (
+/obj/structure/table/reinforced,
+/obj/item/knife/kitchen,
+/obj/item/food/chocolatebar,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/kitchen)
 "eQM" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
@@ -15688,15 +15665,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
-"eYb" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/lily,
-/obj/item/food/grown/flower/lily,
-/obj/item/food/grown/flower/lily,
-/obj/item/food/grown/flower/harebell,
-/obj/item/food/grown/flower/harebell,
-/turf/open/floor/plasteel/grimy,
-/area/chapel/office)
 "eYf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -18289,19 +18257,6 @@
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"fPC" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/poppy,
-/obj/item/food/grown/flower/poppy,
-/obj/item/food/grown/flower/poppy,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/chapel/monastery)
 "fPK" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plasteel/grimy,
@@ -19984,18 +19939,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
-"gtG" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/harebell,
-/obj/item/food/grown/flower/harebell,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "gtI" = (
 /obj/machinery/suit_storage_unit/captain,
 /obj/machinery/door/window/brigdoor/northright,
@@ -23136,6 +23079,19 @@
 "huQ" = (
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
+"huV" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "hvo" = (
 /obj/structure/cable/white{
 	icon_state = "1-2"
@@ -25371,6 +25327,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
+"ifp" = (
+/obj/structure/table/reinforced,
+/obj/item/food/mint,
+/obj/item/kitchen/rollingpin,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/kitchen)
 "ifz" = (
 /obj/effect/landmark/start/cargo_technician,
 /obj/effect/landmark/event_spawn,
@@ -33707,6 +33673,15 @@
 /obj/effect/spawner/room/tenxten,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
+"kVz" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/turf/open/floor/plasteel/grimy,
+/area/chapel/office)
 "kVK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
@@ -46686,6 +46661,19 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/medical/storage)
+"pgk" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/department/chapel/monastery)
 "pgq" = (
 /obj/structure/bed/roller,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -46697,16 +46685,6 @@
 /obj/machinery/nuclearbomb/beer,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"pgJ" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
-/obj/item/kitchen/rollingpin,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
-/area/crew_quarters/kitchen)
 "phh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -49433,6 +49411,16 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/engine/engine_room)
+"qbm" = (
+/obj/structure/table/reinforced,
+/obj/item/food/mint,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/kitchen)
 "qbO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -50462,16 +50450,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
-"qsX" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
-/area/crew_quarters/kitchen)
 "qtg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -58460,13 +58438,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"sVH" = (
-/obj/structure/table/wood,
-/obj/item/food/grown/flower/poppy,
-/obj/item/nullrod,
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/plasteel/dark,
-/area/chapel/office)
 "sVQ" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -67931,6 +67902,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"wei" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/nullrod,
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/chapel/office)
 "wej" = (
 /obj/machinery/vending/cola,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -68890,6 +68868,16 @@
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel,
 /area/science/shuttle)
+"wuZ" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/plasteel/grimy,
+/area/chapel/office)
 "wvq" = (
 /obj/structure/table/reinforced,
 /obj/item/melee/baton/loaded,
@@ -73752,6 +73740,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/chapel/monastery)
+"xXr" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "xXy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -91896,8 +91896,8 @@ nCP
 nCP
 oxd
 qry
-bNL
-eYb
+wuZ
+kVz
 cTE
 kFz
 wrU
@@ -92148,7 +92148,7 @@ aMT
 bLB
 nCP
 qHQ
-sVH
+wei
 hWu
 nCP
 oxd
@@ -93953,7 +93953,7 @@ vDX
 vDX
 fWp
 fKG
-aJQ
+huV
 jbr
 kvz
 tiU
@@ -94210,7 +94210,7 @@ fqH
 kco
 mPJ
 nwT
-gtG
+xXr
 jbr
 caj
 xgs
@@ -95753,7 +95753,7 @@ kco
 hNt
 iuR
 mkF
-fPC
+pgk
 veT
 vcp
 jbr
@@ -110107,7 +110107,7 @@ djh
 sIf
 cyL
 uYN
-qsX
+qbm
 bKR
 wWq
 jOn
@@ -110621,7 +110621,7 @@ iAG
 aYT
 tnJ
 hZf
-aPw
+eQL
 cHq
 wWq
 gEw
@@ -110878,7 +110878,7 @@ lWV
 aYT
 lBT
 hZf
-pgJ
+ifp
 mgr
 wWq
 tzW

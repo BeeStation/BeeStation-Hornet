@@ -1562,20 +1562,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/medbay)
-"dq" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table,
-/obj/item/folder/white,
-/obj/item/pen{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/food/grown/flower/harebell{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/turf/open/floor/plasteel/white/side,
-/area/shuttle/abandoned/medbay)
 "dr" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1660,6 +1646,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/bridge)
+"ev" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table,
+/obj/item/folder/white,
+/obj/item/pen{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/food/grown/flower/harebell{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/white/side,
+/area/shuttle/abandoned/medbay)
 "eS" = (
 /obj/structure/closet/crate{
 	name = "food crate"
@@ -1880,44 +1880,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/crew)
-"Eg" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/structure/closet/secure_closet/freezer{
-	locked = 0;
-	name = "fridge"
-	},
-/obj/item/reagent_containers/glass/waterbottle{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/glass/waterbottle,
-/obj/item/reagent_containers/glass/waterbottle{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/item/food/muffin/berry{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/food/muffin/berry,
-/obj/item/reagent_containers/food/snacks/tofu,
-/obj/item/food/burrito,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Hospital Ship Crew Quarters APC";
-	pixel_y = 24;
-	req_access = null
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel,
-/area/shuttle/abandoned/crew)
 "ED" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1981,6 +1943,44 @@
 /obj/item/trash/can,
 /obj/item/light/bulb/broken,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/turf/open/floor/plasteel,
+/area/shuttle/abandoned/crew)
+"SN" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/freezer{
+	locked = 0;
+	name = "fridge"
+	},
+/obj/item/reagent_containers/glass/waterbottle{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/waterbottle,
+/obj/item/reagent_containers/glass/waterbottle{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/food/chocolatebar,
+/obj/item/food/muffin/berry{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/food/muffin/berry,
+/obj/item/reagent_containers/food/snacks/tofu,
+/obj/item/food/burrito,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Hospital Ship Crew Quarters APC";
+	pixel_y = 24;
+	req_access = null
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/crew)
 "Tm" = (
@@ -2423,7 +2423,7 @@ al
 cS
 dd
 cR
-dq
+ev
 al
 "}
 (21,1,1) = {"
@@ -2525,7 +2525,7 @@ aa
 aa
 ab
 ac
-Eg
+SN
 Gf
 Ok
 be

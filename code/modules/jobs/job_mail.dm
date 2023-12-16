@@ -153,7 +153,7 @@
 		/obj/item/reagent_containers/food/condiment/soymilk = 15,
 		/obj/item/reagent_containers/food/condiment/milk = 15,
 		//UR SO FAT!
-		/obj/item/reagent_containers/food/snacks/mint = 12,
+		/obj/item/food/mint = 12,
 		/obj/item/storage/box/ingredients/wildcard = 10,
 		//EEEEEEEK
 		/obj/item/storage/box/monkeycubes = 5,
