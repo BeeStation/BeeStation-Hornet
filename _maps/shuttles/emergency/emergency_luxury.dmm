@@ -111,6 +111,11 @@
 /obj/item/food/spaghetti/meatballspaghetti,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
+"ay" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/notasandwich,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
 "az" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/spaghetti/pastatomato,
@@ -121,19 +126,9 @@
 /obj/item/reagent_containers/food/snacks/kebab/tofu,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"aB" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/honkdae,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
 "aC" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/enchiladas,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
-"aD" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/candiedapple,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aE" = (
@@ -192,6 +187,16 @@
 /obj/item/food/khachapuri,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
+"aP" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/grilled_cheese_sandwich,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
+"aQ" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/jelliedtoast/cherry,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
 "aR" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/honeybun,
@@ -225,6 +230,11 @@
 "aX" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/pizza/dank,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
+"aY" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/hotdog,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aZ" = (
@@ -300,15 +310,16 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"dH" = (
+/obj/machinery/light/small,
+/turf/open/floor/wood{
+	broken = 1
+	},
+/area/shuttle/escape/luxury)
 "hA" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
 /turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"mA" = (
-/obj/structure/table/wood/fancy,
-/obj/item/food/hotdog,
-/turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "nZ" = (
 /obj/item/pool/pool_noodle,
@@ -338,43 +349,32 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"xl" = (
-/obj/machinery/light/small,
-/turf/open/floor/wood{
-	broken = 1
-	},
-/area/shuttle/escape/luxury)
 "zg" = (
 /obj/machinery/vending/wallmed,
 /turf/closed/indestructible/riveted/uranium,
+/area/shuttle/escape/luxury)
+"zJ" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/honkdae,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
+"Ac" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/candiedapple,
+/turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "CU" = (
 /obj/effect/turf_decal/pool/corner,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"EC" = (
-/obj/structure/table/wood/fancy,
-/obj/item/food/jelliedtoast/cherry,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
 "Jr" = (
 /obj/effect/turf_decal/pool,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"MK" = (
-/obj/structure/table/wood/fancy,
-/obj/item/food/grilled_cheese_sandwich,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
-"NJ" = (
+"Ma" = (
 /turf/open/floor/wood{
 	broken = 1
 	},
-/area/shuttle/escape/luxury)
-"NT" = (
-/obj/structure/table/wood/fancy,
-/obj/item/food/notasandwich,
-/turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "OL" = (
 /obj/item/surgicaldrill,
@@ -430,7 +430,7 @@ aa
 (2,1,1) = {"
 ab
 ab
-NJ
+Ma
 ab
 ab
 as
@@ -445,7 +445,7 @@ ab
 "}
 (3,1,1) = {"
 ab
-NJ
+Ma
 ag
 ab
 ab
@@ -509,12 +509,12 @@ ab
 "}
 (7,1,1) = {"
 ab
-NJ
+Ma
 ag
 ab
 aj
 au
-NT
+ay
 aO
 bd
 aj
@@ -531,7 +531,7 @@ ab
 aj
 au
 az
-MK
+aP
 bd
 aj
 Jr
@@ -547,7 +547,7 @@ ab
 aj
 au
 aA
-EC
+aQ
 bd
 aj
 Jr
@@ -558,11 +558,11 @@ ab
 (10,1,1) = {"
 ab
 ai
-xl
+dH
 ab
 aj
 au
-aB
+zJ
 aR
 bd
 aj
@@ -590,11 +590,11 @@ ab
 (12,1,1) = {"
 ac
 ag
-NJ
+Ma
 ab
 aj
 au
-aD
+Ac
 aT
 bd
 aj
@@ -675,7 +675,7 @@ aj
 aj
 au
 aI
-mA
+aY
 bd
 aj
 Jr
