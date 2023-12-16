@@ -14258,7 +14258,7 @@
 	name = "kitchen closet"
 	},
 /obj/item/clothing/suit/toggle/chef,
-/obj/item/reagent_containers/food/snacks/chococoin,
+/obj/item/food/chococoin,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bdJ" = (
@@ -65772,7 +65772,7 @@
 /area/security/prison)
 "nPI" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_x = -2;
 	pixel_y = 6

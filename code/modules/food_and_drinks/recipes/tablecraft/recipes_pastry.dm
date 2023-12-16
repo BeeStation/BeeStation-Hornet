@@ -85,7 +85,7 @@
 /datum/crafting_recipe/food/donut/choco
 	name = "Chocolate Donut"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1,
+		/obj/item/food/chocolatebar = 1,
 		/obj/item/food/donut/plain = 1
 	)
 	result = /obj/item/food/donut/choco
@@ -152,7 +152,7 @@
 /datum/crafting_recipe/food/donut/jelly/choco
 	name = "Chocolate Jelly Donut"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1,
+		/obj/item/food/chocolatebar = 1,
 		/obj/item/food/donut/jelly/plain = 1
 	)
 	result = /obj/item/food/donut/jelly/choco
@@ -219,7 +219,7 @@
 /datum/crafting_recipe/food/donut/slimejelly/choco
 	name = "Chocolate Slime Donut"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1,
+		/obj/item/food/chocolatebar = 1,
 		/obj/item/food/donut/jelly/slimejelly/plain = 1
 	)
 	result = /obj/item/food/donut/jelly/slimejelly/choco
@@ -309,7 +309,7 @@
 	name = "Chocolate chip pancake"
 	reqs = list(
 		/obj/item/food/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1
+		/obj/item/food/chocolatebar = 1
 	)
 	result = /obj/item/food/pancakes/chocolatechip
 	subcategory = CAT_PASTRY
@@ -511,7 +511,7 @@
 	reqs = list(
 		/datum/reagent/consumable/sodiumchloride = 1,
 		/obj/item/food/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1
+		/obj/item/food/chocolatebar = 1
 	)
 	result = /obj/item/food/chococornet
 	subcategory = CAT_PASTRY
