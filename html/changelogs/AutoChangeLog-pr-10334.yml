@@ -1,4 +1,0 @@
-author: DrDuckedGoose, PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes filters being applied multiple times to pscyhozia plane masters,
