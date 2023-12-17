@@ -8,7 +8,7 @@
 	held_lh = 'icons/mob/pets_held_lh.dmi'
 	held_rh = 'icons/mob/pets_held_rh.dmi'
 	head_icon = 'icons/mob/pets_held.dmi'
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/mothroach = 3, /obj/item/stack/sheet/animalhide/mothroach = 1)
+	butcher_results = list(/obj/item/food/meat/slab/mothroach = 3, /obj/item/stack/sheet/animalhide/mothroach = 1)
 	density = TRUE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
 	mob_size = MOB_SIZE_SMALL
