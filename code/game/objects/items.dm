@@ -1458,4 +1458,4 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			w_class = WEIGHT_CLASS_HUGE
 		else
 			return FALSE
-		return TRUE
+	return TRUE

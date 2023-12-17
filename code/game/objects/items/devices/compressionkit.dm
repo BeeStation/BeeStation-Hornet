@@ -41,7 +41,7 @@
 
 /obj/item/compressionkit/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	if(!proximity || !target)
+	if(!proximity || !target || length(user.progressbars))
 		return
 	else
 		if(charges == 0)
@@ -53,7 +53,7 @@
 		if(O.GetComponent(/datum/component/storage))
 			to_chat(user, "<span class='notice'>You can't make this item any smaller without compromising its storage functions!.</span>")
 			return
-		if(O.w_class == WEIGHT_CLASS_TINY)
+		if(O.w_class == WEIGHT_CLASS_TINY || O.w_class < initial(O.w_class))
 			playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>[target] cannot be compressed smaller!.</span>")
 			return
