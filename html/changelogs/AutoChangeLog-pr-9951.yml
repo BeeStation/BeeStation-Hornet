@@ -1,0 +1,10 @@
+author: rkz
+delete-after: true
+changes:
+  - rscadd: converted meat, monkeycubes to newfood
+  - tweak: moved meatbun from Bread recipes to Meat recipes
+  - rscadd: Adjusted meatdish & meatslab values to account for protein reagent
+  - tweak: converted a few extraneous meats to follow proper subtyping. Dolphin meat
+      is now a meatslab instead of snowflake. Carp meat is now a subtype of fishmeat,
+      rather than regular fishmeat being a subtype of carp meat
+  - bugfix: fixes psyphoza meat using the wrong typepath and stats
