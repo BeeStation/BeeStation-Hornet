@@ -1772,7 +1772,7 @@
 	pixel_x = -3;
 	pixel_y = 1
 	},
-/obj/item/food/snacks/candy,
+/obj/item/food/candy,
 /obj/item/food/candy{
 	pixel_x = 3;
 	pixel_y = -1
