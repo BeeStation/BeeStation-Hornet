@@ -1,0 +1,34 @@
+/obj/item/food/meat/slab/dolphinmeat : /obj/item/reagent_containers/food/snacks/dolphinmeat{@OLD}
+
+/obj/item/food/meat/slab : /obj/item/reagent_containers/food/snacks/meat/slab{@OLD}
+
+/obj/item/food/meat/steak : /obj/item/reagent_containers/food/snacks/meat/steak{@OLD}
+
+/obj/item/food/fishmeat : /obj/item/reagent_containers/food/snacks/carpmeat/icantbelieveitsnotcarp{@OLD}
+/obj/item/food/fishmeat/carp/imitation : /obj/item/reagent_containers/food/snacks/carpmeat/imitation{@OLD}
+/obj/item/food/fishmeat/carp : /obj/item/reagent_containers/food/snacks/carpmeat{@OLD}
+
+/obj/item/food/cubancarp : /obj/item/reagent_containers/food/snacks/cubancarp{@OLD}
+/obj/item/food/fishfingers : /obj/item/reagent_containers/food/snacks/fishfingers{@OLD}
+/obj/item/food/fishandchips : /obj/item/reagent_containers/food/snacks/fishandchips{@OLD}
+/obj/item/food/tofu : /obj/item/reagent_containers/food/snacks/tofu{@OLD}
+/obj/item/food/spiderleg : /obj/item/reagent_containers/food/snacks/spiderleg{@OLD}
+/obj/item/food/cornedbeef : /obj/item/reagent_containers/food/snacks/cornedbeef{@OLD}
+/obj/item/food/bearsteak : /obj/item/reagent_containers/food/snacks/bearsteak{@OLD}
+/obj/item/food/meatball : /obj/item/reagent_containers/food/snacks/meatball{@OLD}
+/obj/item/food/sausage : /obj/item/reagent_containers/food/snacks/sausage{@OLD}
+/obj/item/food/salami : /obj/item/reagent_containers/food/snacks/salami{@OLD}
+/obj/item/food/rawkhinkali : /obj/item/reagent_containers/food/snacks/rawkhinkali{@OLD}
+/obj/item/food/khinkali : /obj/item/reagent_containers/food/snacks/khinkali{@OLD}
+/obj/item/food/meatbun : /obj/item/reagent_containers/food/snacks/meatbun{@OLD}
+
+/obj/item/food/stewedsoymeat : /obj/item/reagent_containers/food/snacks/stewedsoymeat{@OLD}
+/obj/item/food/boiledspiderleg : /obj/item/reagent_containers/food/snacks/boiledspiderleg{@OLD}
+/obj/item/food/spidereggsham : /obj/item/reagent_containers/food/snacks/spidereggsham{@OLD}
+/obj/item/food/sashimi : /obj/item/reagent_containers/food/snacks/sashimi{@OLD}
+/obj/item/food/nugget : /obj/item/reagent_containers/food/snacks/nugget{@OLD}
+/obj/item/food/pigblanket : /obj/item/reagent_containers/food/snacks/pigblanket{@OLD}
+/obj/item/food/bbqribs : /obj/item/reagent_containers/food/snacks/bbqribs{@OLD}
+/obj/item/food/meatclown : /obj/item/reagent_containers/food/snacks/meatclown{@OLD}
+/obj/item/food/kebab : /obj/item/reagent_containers/food/snacks/kebab{@OLD}
+
