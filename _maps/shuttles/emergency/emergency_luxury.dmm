@@ -195,7 +195,7 @@
 /area/shuttle/escape/luxury)
 "aN" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/melonfruitbowl,
+/obj/item/food/melonfruitbowl,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aO" = (
@@ -220,7 +220,7 @@
 /area/shuttle/escape/luxury)
 "aS" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/eggplantparm,
+/obj/item/food/eggplantparm,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aT" = (

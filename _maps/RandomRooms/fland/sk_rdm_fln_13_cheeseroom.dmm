@@ -70,7 +70,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/template_noop)
 "D" = (
-/obj/item/reagent_containers/food/snacks/butter/on_a_stick,
+/obj/item/food/butter/on_a_stick,
 /obj/effect/decal/cleanable/crayon,
 /obj/structure/table/wood/fancy/black,
 /turf/open/floor/plating,
@@ -99,7 +99,7 @@
 /area/template_noop)
 "I" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/store/cheesewheel,
+/obj/item/food/cheese/wheel,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plasteel/techmaint,
 /area/template_noop)

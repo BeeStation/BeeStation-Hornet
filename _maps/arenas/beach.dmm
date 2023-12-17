@@ -79,7 +79,7 @@
 /turf/open/floor/wood,
 /area/tdome/arena)
 "q" = (
-/obj/item/reagent_containers/food/snacks/crab_rangoon,
+/obj/item/food/crab_rangoon,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "r" = (

@@ -2251,11 +2251,11 @@
 "aEb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cheesiehonkers{
+/obj/item/food/cheesiehonkers{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aEp" = (
@@ -7899,7 +7899,7 @@
 "bYK" = (
 /mob/living/simple_animal/mouse/gray,
 /obj/structure/lattice/catwalk,
-/obj/item/reagent_containers/food/snacks/store/cheesewheel,
+/obj/item/food/cheese/wheel,
 /obj/item/food/breadslice/creamcheese,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
@@ -17359,8 +17359,8 @@
 /area/crew_quarters/bar)
 "eGv" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/hotcrossbun,
-/obj/item/reagent_containers/food/snacks/hotcrossbun{
+/obj/item/food/hotcrossbun,
+/obj/item/food/hotcrossbun{
 	pixel_y = 5
 	},
 /turf/open/floor/carpet/grimy,
@@ -61760,7 +61760,7 @@
 	pixel_x = 7;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
 "qdd" = (
@@ -70543,8 +70543,8 @@
 /area/crew_quarters/locker)
 "sdY" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/chips,
-/obj/item/reagent_containers/food/snacks/cheesiehonkers{
+/obj/item/food/chips,
+/obj/item/food/cheesiehonkers{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -71251,7 +71251,7 @@
 /area/maintenance/starboard/fore)
 "sni" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/port)
 "snm" = (
