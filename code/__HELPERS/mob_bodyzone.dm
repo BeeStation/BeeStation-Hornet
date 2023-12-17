@@ -51,7 +51,7 @@
 	// Disconnected or no result
 	if (!result || !client)
 		ASYNC_RETURN(null)
-	if (!(result in parts))
+	if (!(result in parts) && !(result in suboptions))
 		ASYNC_RETURN(null)
 	ASYNC_RETURN(result)
 
