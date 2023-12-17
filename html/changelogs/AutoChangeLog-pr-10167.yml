@@ -1,0 +1,6 @@
+author: Varo, Naevi for helping me make the bluespace wings, PapaporoPaprito for the
+  ported wings from Fulp
+delete-after: true
+changes:
+  - rscadd: 'Added 4 new Moth wings and antennae: Rosy, Plasmafire, Brown, and Bluespace.'
+  - bugfix: Fixed Luna moth's open wing sprites having the fluf misplaced.
