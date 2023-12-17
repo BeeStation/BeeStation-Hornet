@@ -246,6 +246,7 @@
 
 /atom/movable/screen/plane_master/psychic/backdrop(mob/mymob)
 	. = ..()
+	filters = null
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "alpha", render_source = "psychic_mask")
 	filters += filter(type = "radial_blur", size = 0.0125)
@@ -262,6 +263,7 @@
 /atom/movable/screen/plane_master/anti_psychic/backdrop(mob/mymob)
 	. = ..()
 	//fixes issue with bloom outlines
+	remove_filter("hide_outline")
 	add_filter("hide_outline", 1, outline_filter(5, "#fff"))
 
 /atom/movable/screen/plane_master/blind_feature
