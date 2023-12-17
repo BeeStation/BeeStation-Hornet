@@ -24,7 +24,7 @@
 
 /obj/item/food/stewedsoymeat : /obj/item/reagent_containers/food/snacks/stewedsoymeat{@OLD}
 /obj/item/food/boiledspiderleg : /obj/item/reagent_containers/food/snacks/boiledspiderleg{@OLD}
-/obj/item/food/spidereggsham : /obj/item/reagent_containers/food/snacks/spidereggsham{@OLD}
+/obj/item/food/spidereggsham : /obj/item/food/spidereggsham{@OLD}
 /obj/item/food/sashimi : /obj/item/reagent_containers/food/snacks/sashimi{@OLD}
 /obj/item/food/nugget : /obj/item/reagent_containers/food/snacks/nugget{@OLD}
 /obj/item/food/pigblanket : /obj/item/reagent_containers/food/snacks/pigblanket{@OLD}

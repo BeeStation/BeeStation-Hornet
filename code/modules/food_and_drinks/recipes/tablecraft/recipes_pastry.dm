@@ -447,7 +447,7 @@
 	name = "Khachapuri"
 	reqs = list(
 		/datum/reagent/consumable/eggyolk = 5,
-		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
+		/obj/item/food/cheese/wedge = 1,
 		/obj/item/food/bread/plain = 1
 	)
 	result = /obj/item/food/khachapuri

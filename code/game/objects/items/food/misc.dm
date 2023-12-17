@@ -39,10 +39,6 @@
 	eatverbs = list("bite", "nibble", "gnaw", "gobble", "chomp")
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/popcorn/Initialize(mapload)
-	. = ..()
-	eatverb = pick("bite","nibble","gnaw","gobble","chomp")
-
 /obj/item/food/soydope
 	name = "soy dope"
 	desc = "Dope from a soy."
@@ -73,120 +69,143 @@
 		SSfire_burning.processing -= src
 	qdel(src)
 
-/obj/item/reagent_containers/food/snacks/spidereggs
+
+/obj/item/food/spidereggs
 	name = "spider eggs"
 	desc = "A cluster of juicy spider eggs. A great side dish for when you care not for your health."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "spidereggs"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/toxin = 2)
-	filling_color = "#008000"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment/protein = 4,
+		/datum/reagent/toxin = 2,
+	)
 	tastes = list("cobwebs" = 1)
-	foodtype = MEAT | TOXIC
+	foodtypes = MEAT | TOXIC// | BUGS
+	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/food/snacks/spiderling
+/obj/item/food/spiderling
 	name = "spiderling"
 	desc = "It's slightly twitching in your hand. Ew..."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "spiderling"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/toxin = 4)
-	filling_color = "#00800"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment/protein = 2,
+		/datum/reagent/toxin = 4,
+	)
 	tastes = list("cobwebs" = 1, "guts" = 2)
-	foodtype = MEAT | TOXIC
+	foodtypes = MEAT | TOXIC// | BUGS
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/melonfruitbowl
+/obj/item/food/melonfruitbowl
 	name = "melon fruit bowl"
 	desc = "For people who wants edible fruit bowls."
 	icon_state = "melonfruitbowl"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 4)
-	filling_color = "#FF5500"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 6,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("melon" = 1)
-	foodtype = FRUIT
+	foodtypes = FRUIT
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/melonkeg
+/obj/item/food/melonkeg
 	name = "melon keg"
 	desc = "Who knew vodka was a fruit?"
 	icon_state = "melonkeg"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 3)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 9, /datum/reagent/consumable/ethanol/vodka = 15, /datum/reagent/consumable/nutriment/vitamin = 4)
-	filling_color = "#FFD700"
-	volume = 80
-	bitesize = 5
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 9,
+		/datum/reagent/consumable/ethanol/vodka = 15,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
+	max_volume = 80
+	bite_consumption = 5
 	tastes = list("grain alcohol" = 1, "fruit" = 1)
-	foodtype = FRUIT | ALCOHOL
+	foodtypes = FRUIT | ALCOHOL
 
-/obj/item/reagent_containers/food/snacks/honeybar
+/obj/item/food/honeybar
 	name = "honey nut bar"
 	desc = "Oats and nuts compressed together into a bar, held together with a honey glaze."
 	icon_state = "honeybar"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/honey = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/honey = 5)
-	filling_color = "#F2CE91"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 5,
+		/datum/reagent/consumable/honey = 5,
+	)
 	tastes = list("oats" = 3, "nuts" = 2, "honey" = 1)
-	foodtype = GRAIN | SUGAR
-	/*food_flags = FOOD_FINGER_FOOD*/
+	foodtypes = GRAIN | SUGAR
+	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/powercrepe
+/obj/item/food/powercrepe
 	name = "Powercrepe"
 	desc = "With great power, comes great crepes.  It looks like a pancake filled with jelly but packs quite a punch."
 	icon_state = "powercrepe"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 3, /datum/reagent/iron = 10)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/cherryjelly = 5)
-	force = 20
-	throwforce = 10
+	item_state = "powercrepe"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 10,
+		/datum/reagent/consumable/nutriment/vitamin = 5,
+		/datum/reagent/consumable/cherryjelly = 5,
+	)
+	force = 30
+	throwforce = 15
 	block_level = 2
 	block_upgrade_walk = 1
-	block_power = 40
+	block_power = 55
 	attack_weight = 2
-	armour_penetration = 75
+	armour_penetration = 80
+	//wound_bonus = -50
 	attack_verb = list("slapped", "slathered")
 	w_class = WEIGHT_CLASS_BULKY
 	tastes = list("cherry" = 1, "crepe" = 1)
-	foodtype = GRAIN | FRUIT | SUGAR
+	foodtypes = GRAIN | FRUIT | SUGAR
 
-/obj/item/reagent_containers/food/snacks/branrequests
+/obj/item/food/branrequests
 	name = "Bran Requests Cereal"
 	desc = "A dry cereal that satiates your requests for bran. Tastes uniquely like raisins and salt."
 	icon_state = "bran_requests"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/sodiumchloride = 5)
-	bonus_reagents = list(/datum/reagent/consumable/sodiumchloride = 10)
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/consumable/sodiumchloride = 8,
+	)
 	tastes = list("bran" = 4, "raisins" = 3, "salt" = 1)
-	foodtype = GRAIN | FRUIT | BREAKFAST
+	foodtypes = GRAIN | FRUIT | BREAKFAST
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/butter
+/obj/item/food/butter
 	name = "stick of butter"
 	desc = "A stick of delicious, golden, fatty goodness."
 	icon_state = "butter"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
-	filling_color = "#FFD700"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	tastes = list("butter" = 1)
-	foodtype = DAIRY
+	foodtypes = DAIRY
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/butter/examine(mob/user)
+/obj/item/food/butter/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>If you had a rod you could make <b>butter on a stick</b>.</span>"
 
-/obj/item/reagent_containers/food/snacks/butter/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = W
-		if(!R.use(1))//borgs can still fail this if they have no metal
+/obj/item/food/butter/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/stack/rods))
+		var/obj/item/stack/rods/rods = item
+		if(!rods.use(1))//borgs can still fail this if they have no metal
 			to_chat(user, "<span class='warning'>You do not have enough metal to put [src] on a stick!</span>")
 			return ..()
 		to_chat(user, "<span class='notice'>You stick the rod into the stick of butter.</span>")
-		var/obj/item/reagent_containers/food/snacks/butter/on_a_stick/new_item = new(usr.loc)
-		var/replace = (user.get_inactive_held_item() == R)
-		if(!R && replace)
+		var/obj/item/food/butter/on_a_stick/new_item = new(usr.loc)
+		var/replace = (user.get_inactive_held_item() == rods)
+		if(!rods && replace)
 			user.put_in_hands(new_item)
 		qdel(src)
 		return TRUE
 	..()
 
-/obj/item/reagent_containers/food/snacks/butter/on_a_stick //there's something so special about putting it on a stick.
+/obj/item/food/butter/on_a_stick //there's something so special about putting it on a stick.
 	name = "butter on a stick"
 	desc = "delicious, golden, fatty goodness on a stick."
 	icon_state = "butteronastick"
-	trash = /obj/item/stack/rods
-	/*food_flags = FOOD_FINGER_FOOD*/
+	trash_type = /obj/item/stack/rods
+	food_flags = FOOD_FINGER_FOOD
 
 /obj/item/food/onionrings
 	name = "onion rings"
@@ -207,33 +226,63 @@
 	foodtypes = FRUIT | PINEAPPLE
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/food/snacks/crab_rangoon
+/obj/item/food/crab_rangoon
 	name = "Crab Rangoon"
-	desc = "Has many names, like crab puffs, cheese wontons, crab dumplings? Whatever you call them, they're a fabulous blast of cream cheesy crab."
+	desc = "Has many names, like crab puffs, cheese won'tons, crab dumplings? Whatever you call them, they're a fabulous blast of cream cheesy crab."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "crabrangoon"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 5)
-	filling_color = "#f2efdc"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 5,
+		/datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/vitamin = 5,
+	)
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("cream cheese" = 4, "crab" = 3, "crispiness" = 2)
-	foodtype = MEAT | DAIRY | GRAIN
+	foodtypes = MEAT | DAIRY | GRAIN
 
-/obj/item/reagent_containers/food/snacks/cornchips
+/obj/item/food/cornchips
 	name = "boritos corn chips"
 	desc = "Triangular corn chips. They do seem a bit bland but would probably go well with some kind of dipping sauce."
 	icon_state = "boritos"
-	trash = /obj/item/trash/boritos
-	bitesize = 2
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/cooking_oil = 2, /datum/reagent/consumable/sodiumchloride = 3)
+	trash_type = /obj/item/trash/boritos
+	bite_consumption = 2
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/cooking_oil = 2,
+		/datum/reagent/consumable/sodiumchloride = 3
+	)
 	junkiness = 20
-	filling_color = "#ECA735"
 	tastes = list("fried corn" = 1)
-	foodtype = JUNKFOOD | FRIED
+	foodtypes = JUNKFOOD | FRIED
 
-/obj/item/reagent_containers/food/snacks/pingles
+/obj/item/food/pingles
 	name = "pingles"
 	desc = "A perfect blend of sour cream and onion on a potato chip. May cause space lag."
 	icon_state = "pingles"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/cooking_oil = 2, /datum/reagent/consumable/sodiumchloride = 2)
-	trash = /obj/item/c_tube
+	trash_type = /obj/item/c_tube
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 6,
+		/datum/reagent/consumable/cooking_oil = 2,
+		/datum/reagent/consumable/sodiumchloride = 2
+	)
+
 	tastes = list("sour cream" = 2, "onion" = 1)
-	foodtype = FRIED
+	foodtypes = FRIED
+
+/obj/item/food/rationpack
+	name = "ration pack"
+	desc = "A square bar that sadly <i>looks</i> like chocolate, packaged in a nondescript grey wrapper. Has saved soldiers' lives before - usually by stopping bullets."
+	icon_state = "rationpack"
+	bite_consumption = 3
+	junkiness = 15
+	tastes = list("cardboard" = 3, "sadness" = 3)
+	foodtypes = null //Don't ask what went into them. You're better off not knowing.
+	food_reagents = list(/datum/reagent/consumable/nutriment/stabilized = 10, /datum/reagent/consumable/nutriment = 2) //Won't make you fat. Will make you question your sanity.
+
+///Override for checkliked callback
+/obj/item/food/rationpack/make_edible()
+	. = ..()
+	AddComponent(/datum/component/edible, check_liked = CALLBACK(src, PROC_REF(check_liked)))
+
+/obj/item/food/rationpack/proc/check_liked(fraction, mob/M)	//Nobody likes rationpacks. Nobody.
+	return FOOD_DISLIKED

@@ -322,7 +322,7 @@ All foods are distributed among various categories. Use common sense.
 			initialize_cooked_food(result, 1)
 		SSblackbox.record_feedback("tally", "food_made", 1, result.type)
 	else
-		result = new /obj/item/reagent_containers/food/snacks/badrecipe(T)
+		result = new /obj/item/food/badrecipe(T)
 		if(istype(M) && M.dirty < 100)
 			M.dirty++
 	qdel(src)
@@ -336,7 +336,7 @@ All foods are distributed among various categories. Use common sense.
 		microwave_act()
 	else
 		var/turf/T = get_turf(src)
-		new /obj/item/reagent_containers/food/snacks/badrecipe(T)
+		new /obj/item/food/badrecipe(T)
 		if(resistance_flags & ON_FIRE)
 			SSfire_burning.processing -= src
 		qdel(src)

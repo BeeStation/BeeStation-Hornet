@@ -1,99 +1,110 @@
-/obj/item/reagent_containers/food/snacks/eggplantparm
+/obj/item/food/eggplantparm
 	name = "eggplant parmigiana"
 	desc = "The only good recipe for eggplant."
 	icon_state = "eggplantparm"
-	trash = /obj/item/trash/plate
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 3)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
-	filling_color = "#BA55D3"
-	tastes = list("eggplant" = 3, "cheese" = 1)
-	foodtype = VEGETABLES | DAIRY
 
-/obj/item/reagent_containers/food/snacks/yakiimo
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 6,
+		/datum/reagent/consumable/nutriment/protein = 2,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
+	tastes = list("eggplant" = 3, "cheese" = 1)
+	foodtypes = VEGETABLES | DAIRY
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/yakiimo
 	name = "yaki imo"
 	desc = "Made with roasted sweet potatoes!"
 	icon_state = "yakiimo"
-	trash = /obj/item/trash/plate
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
-	filling_color = "#8B1105"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 5,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
 	tastes = list("sweet potato" = 1)
-	foodtype = GRAIN | VEGETABLES | SUGAR
+	foodtypes = VEGETABLES | SUGAR
+	w_class = WEIGHT_CLASS_SMALL
+	//burns_in_oven = TRUE
 
-/obj/item/reagent_containers/food/snacks/roastparsnip
+/obj/item/food/roastparsnip
 	name = "roast parsnip"
 	desc = "Sweet and crunchy."
 	icon_state = "roastparsnip"
-	trash = /obj/item/trash/plate
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 4)
-	filling_color = "#FF5500"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
 	tastes = list("parsnip" = 1)
-	foodtype = VEGETABLES
+	foodtypes = VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
 
 // Potatoes
-/obj/item/reagent_containers/food/snacks/tatortot
+/obj/item/food/tatortot
 	name = "tator tot"
 	desc = "A large fried potato nugget that may or may not try to valid you."
 	icon_state = "tatortot"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
-	filling_color = "FFD700"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	tastes = list("potato" = 3, "valids" = 1)
-	foodtype = FRIED | VEGETABLES
-	/*food_flags = FOOD_FINGER_FOOD*/
+	foodtypes = FRIED | VEGETABLES
+	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/tatortot/Initialize()
+/obj/item/food/tatortot/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
 
-/obj/item/reagent_containers/food/snacks/loadedbakedpotato
+/obj/item/food/loaded_baked_potato
 	name = "loaded baked potato"
-	desc = "Totally baked."
+	desc = "A piping hot baked potato, with the insides scooped out and mixed with bacon bits, cheese, and cabbage."
 	icon_state = "loadedbakedpotato"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
-	filling_color = "#D2B48C"
-	tastes = list("potato" = 1)
-	foodtype = VEGETABLES | DAIRY
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 10,
+		/datum/reagent/consumable/nutriment/vitamin = 6,
+		/datum/reagent/consumable/nutriment/protein = 4
+	)
+	tastes = list("baked potato" = 1, "bacon" = 1, "cheese" = 1, "cabbage" = 1)
+	foodtypes = VEGETABLES | DAIRY | MEAT
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/fries
+// Fries
+/obj/item/food/fries
 	name = "space fries"
 	desc = "AKA: French Fries, Freedom Fries, etc."
 	icon_state = "fries"
-	trash = /obj/item/trash/plate
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
-	filling_color = "#FFD700"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	tastes = list("fries" = 3, "salt" = 1)
-	foodtype = VEGETABLES | GRAIN | FRIED
+	foodtypes = VEGETABLES | FRIED
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/fries/Initialize()
+/obj/item/food/fries/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
 
-/obj/item/reagent_containers/food/snacks/cheesyfries
+/obj/item/food/cheesyfries
 	name = "cheesy fries"
 	desc = "Fries. Covered in cheese. Duh."
 	icon_state = "cheesyfries"
-	trash = /obj/item/trash/plate
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
-	filling_color = "#FFD700"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 6,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+	)
 	tastes = list("fries" = 3, "cheese" = 1)
-	foodtype = VEGETABLES | GRAIN
+	foodtypes = VEGETABLES | DAIRY
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/cheesyfries/Initialize()
+/obj/item/food/cheesyfries/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
 
-/obj/item/reagent_containers/food/snacks/carrotfries
+/obj/item/food/carrotfries
 	name = "carrot fries"
 	desc = "Tasty fries from fresh carrots."
 	icon_state = "carrotfries"
-	trash = /obj/item/trash/plate
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/medicine/oculine = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
-	filling_color = "#FFA500"
-	tastes = list("carrots" = 3, "salt" = 1)
-	foodtype = VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/carrotfries/Initialize()
+	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
+	tastes = list("carrots" = 3, "salt" = 1)
+	foodtypes = VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/carrotfries/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/dunkable, 10)
