@@ -426,7 +426,7 @@
 /area/ruin/space/has_grav/powered/macspace)
 "bK" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/butter/on_a_stick,
+/obj/item/food/butter/on_a_stick,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bL" = (

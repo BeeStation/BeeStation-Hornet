@@ -14870,7 +14870,7 @@
 	dir = 10
 	},
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/item/food/popcorn,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
 	pixel_x = 4;
 	pixel_y = 6
@@ -61756,7 +61756,7 @@
 /area/crew_quarters/bar)
 "qcX" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/no_raisin{
+/obj/item/food/no_raisin{
 	pixel_x = 7;
 	pixel_y = 8
 	},

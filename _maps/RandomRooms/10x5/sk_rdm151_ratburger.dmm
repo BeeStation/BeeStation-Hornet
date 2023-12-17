@@ -6,13 +6,13 @@
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/rack,
 /obj/item/storage/box/ingredients/carnivore,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
+/obj/item/food/bun,
 /turf/open/floor/grass,
 /area/template_noop)
 "c" = (
@@ -164,7 +164,7 @@
 /area/template_noop)
 "K" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/food/bun,
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "L" = (
