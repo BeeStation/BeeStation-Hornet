@@ -1781,6 +1781,15 @@
 	},
 /turf/open/floor/plating/foam,
 /area/asteroid/nearstation)
+"axM" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
+/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/food/tofu/prison,
+/turf/open/floor/plasteel/dark,
+/area/vacant_room/commissary/commissaryFood)
 "axS" = (
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/yellow,
@@ -16068,6 +16077,17 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/heads/hop)
+"enl" = (
+/obj/structure/table,
+/obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/reagent_containers/food/condiment/flour{
+	pixel_x = 4
+	},
+/obj/item/food/chocolatebar,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "enm" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -19768,10 +19788,10 @@
 /area/bridge)
 "fhD" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/effect/turf_decal/bot,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/food/snacks/hotdog,
+/obj/item/food/hotdog,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -25291,25 +25311,25 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "gCA" = (
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = -2
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 1;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 8;
 	pixel_y = -3
 	},
@@ -40975,17 +40995,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
-"kMK" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/condiment/flour{
-	pixel_x = 4
-	},
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "kNb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -48780,15 +48789,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/dorms)
-"mJV" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
-/obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/snacks/tofu/prison,
-/turf/open/floor/plasteel/dark,
-/area/vacant_room/commissary/commissaryFood)
 "mJZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -48903,14 +48903,6 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel/dark/side,
 /area/ai_monitored/storage/eva)
-"mLj" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/item/storage/box/ingredients/wildcard,
-/obj/item/reagent_containers/food/snacks/mint,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "mLS" = (
 /obj/machinery/light{
 	dir = 8
@@ -58159,6 +58151,26 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel/sepia,
 /area/science/shuttle)
+"phE" = (
+/obj/structure/table,
+/obj/item/food/mint{
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_y = 2
+	},
+/obj/structure/noticeboard{
+	dir = 8;
+	pixel_x = 26
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/vacant_room/commissary/commissaryFood)
 "phJ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Courtroom";
@@ -61729,7 +61741,7 @@
 /area/crew_quarters/bar)
 "qcG" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/item/clothing/head/lobsterhat,
 /obj/machinery/airalarm{
 	dir = 1;
@@ -62959,10 +62971,10 @@
 /area/science/research)
 "qpN" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/canned/beefbroth{
+/obj/item/food/canned/beefbroth{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/canned/peaches{
+/obj/item/food/canned/peaches{
 	pixel_x = 4
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -77422,26 +77434,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/teleporter)
-"tPo" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint{
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 2
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_y = 2
-	},
-/obj/structure/noticeboard{
-	dir = 8;
-	pixel_x = 26
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/vacant_room/commissary/commissaryFood)
 "tPC" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -81534,6 +81526,14 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/captain/private)
+"uNX" = (
+/obj/structure/table,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/box/ingredients/wildcard,
+/obj/item/food/mint,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "uOa" = (
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -115546,7 +115546,7 @@ ovf
 ocT
 cZb
 qar
-mJV
+axM
 sha
 xDh
 wxd
@@ -117085,7 +117085,7 @@ cqq
 aoI
 foJ
 mxb
-tPo
+phE
 sha
 sha
 sha
@@ -121464,8 +121464,8 @@ iLg
 pYP
 qxm
 mib
-mLj
-kMK
+uNX
+enl
 mib
 qrj
 jOJ

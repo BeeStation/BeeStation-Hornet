@@ -21,6 +21,8 @@
 	 * But for now, this works.
 	 */
 	var/del_on_map_removal = TRUE
+	///Can we throw things at this
+	var/can_throw_target = FALSE
 
 /**
  * A screen object, which acts as a container for turfs and other things
