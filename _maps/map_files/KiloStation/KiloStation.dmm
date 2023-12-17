@@ -67741,7 +67741,6 @@
 	pixel_y = -24
 	},
 /turf/closed/wall,
-/area/space,
 /area/medical/storage)
 "oTC" = (
 /obj/effect/decal/cleanable/dirt,
