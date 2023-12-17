@@ -134,7 +134,7 @@
 /area/shuttle/escape/luxury)
 "ay" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/notasandwich,
+/obj/item/reagent_containers/food/snacks/notasandwich,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "az" = (
@@ -205,7 +205,7 @@
 /area/shuttle/escape/luxury)
 "aP" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/grilled_cheese_sandwich,
+/obj/item/reagent_containers/food/snacks/grilledcheese,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aQ" = (
@@ -245,7 +245,7 @@
 /area/shuttle/escape/luxury)
 "aY" = (
 /obj/structure/table/wood/fancy,
-/obj/item/food/hotdog,
+/obj/item/reagent_containers/food/snacks/hotdog,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aZ" = (
