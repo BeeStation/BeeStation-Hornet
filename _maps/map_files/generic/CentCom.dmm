@@ -10099,7 +10099,7 @@
 /area/tdome/tdomeobserve)
 "PE" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_y = 3
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
