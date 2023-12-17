@@ -62,7 +62,7 @@
 	if(!ckey)
 		..(1)
 		if(!gibbed)
-			var/obj/item/reagent_containers/food/snacks/deadmouse/M = new(loc)
+			var/obj/item/food/deadmouse/M = new(loc)
 			M.icon_state = icon_dead
 			M.name = name
 			M.reagents.add_reagent(/datum/reagent/blood, 2, data)
@@ -123,19 +123,19 @@
 	response_harm   = "splats"
 	gold_core_spawnable = NO_SPAWN
 
-/obj/item/reagent_containers/food/snacks/deadmouse
+/obj/item/food/deadmouse
 	name = "dead mouse"
 	desc = "It looks like somebody dropped the bass on it. A lizard's favorite meal. May contain diseases."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray_dead"
-	bitesize = 3
-	eatverb = "devour"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
-	foodtype = GORE | MEAT | RAW
+	bite_consumption = 3
+	eatverbs = list("devour")
+	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
+	foodtypes = GORE | MEAT | RAW
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5)
 
 
-/obj/item/reagent_containers/food/snacks/deadmouse/attackby(obj/item/I, mob/user, params)
+/obj/item/food/deadmouse/attackby(obj/item/I, mob/user, params)
 	if(I.is_sharp() && user.a_intent == INTENT_HARM)
 		if(isturf(loc))
 			new /obj/item/food/meat/slab/mouse(loc)
@@ -146,10 +146,10 @@
 	else
 		return ..()
 
-/obj/item/reagent_containers/food/snacks/deadmouse/on_grind()
+/obj/item/food/deadmouse/on_grind()
 	reagents.clear_reagents()
 
-/obj/item/reagent_containers/food/snacks/deadmouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run)
+/obj/item/food/deadmouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run)
 	. = ..()
 	if(EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_ISOLATE))
 		. -= EXTRAPOLATOR_RESULT_ACT_PRIORITY

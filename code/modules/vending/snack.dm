@@ -4,15 +4,15 @@
 	product_slogans = "Try our new nougat bar!;Twice the calories for half the price!"
 	product_ads = "The healthiest!;Award-winning chocolate bars!;Mmm! So good!;Oh my god it's so juicy!;Have a snack.;Snacks are good for you!;Have some more Getmore!;Best quality snacks straight from mars.;We love chocolate!;Try our new jerky!"
 	icon_state = "snack"
-	products = list(/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,
-					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,
-					/obj/item/reagent_containers/food/snacks/candy = 6,
-					/obj/item/reagent_containers/food/snacks/chips = 6,
-					/obj/item/reagent_containers/food/snacks/sosjerky = 6,
-					/obj/item/reagent_containers/food/snacks/no_raisin = 6,
+	products = list(/obj/item/food/spacetwinkie = 6,
+					/obj/item/food/cheesiehonkers = 6,
+					/obj/item/food/candy = 6,
+					/obj/item/food/chips = 6,
+					/obj/item/food/sosjerky = 6,
+					/obj/item/food/no_raisin = 6,
 					/obj/item/reagent_containers/food/drinks/dry_ramen = 3,
-					/obj/item/reagent_containers/food/snacks/energybar = 6)
-	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
+					/obj/item/food/energybar = 6)
+	contraband = list(/obj/item/food/syndicake = 6)
 	refill_canister = /obj/item/vending_refill/snack
 	var/chef_compartment_access = "28" //ACCESS_KITCHEN
 	default_price = 20
@@ -23,10 +23,10 @@
 	machine_name = "Getmore Chocolate Corp"
 
 /obj/machinery/vending/snack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/reagent_containers/food/snacks))
+	if(IS_EDIBLE(W))
 		if(!compartment_access_check(user))
 			return
-		var/obj/item/reagent_containers/food/snacks/S = W
+		var/obj/item/food/S = W
 		if(!S.junkiness)
 			if(!iscompartmentfull(user))
 				if(!user.transferItemToLoc(W, src))
@@ -42,7 +42,7 @@
 		var/obj/item/storage/T = W
 		var/loaded = 0
 		var/denied_items = 0
-		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
+		for(var/obj/item/food/S in T.contents)
 			if(iscompartmentfull(user))
 				break
 			if(!S.junkiness)
@@ -62,7 +62,7 @@
 		return ..()
 
 /obj/machinery/vending/snack/Destroy()
-	for(var/obj/item/reagent_containers/food/snacks/S in contents)
+	for(var/obj/item/food/S in contents)
 		S.forceMove(get_turf(src))
 	return ..()
 
@@ -81,7 +81,7 @@
 		return 1
 	return 0
 
-/obj/machinery/vending/snack/proc/food_load(obj/item/reagent_containers/food/snacks/S)
+/obj/machinery/vending/snack/proc/food_load(obj/item/food/S)
 	if(dish_quants[S.name])
 		dish_quants[S.name]++
 	else

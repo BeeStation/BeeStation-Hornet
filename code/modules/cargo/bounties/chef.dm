@@ -134,5 +134,5 @@
 	description = "The vice president's son won't shut up about chicken nuggies. Would you mind shipping some?"
 	reward = 4000
 	required_count = 6
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/nugget)
+	wanted_types = list(/obj/item/food/nugget)
 

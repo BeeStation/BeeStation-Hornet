@@ -124,7 +124,7 @@
 	name = "Bran Requests Cereal"
 	reqs = list(
 		/obj/item/food/grown/wheat = 1,
-		/obj/item/reagent_containers/food/snacks/no_raisin = 1,
+		/obj/item/food/no_raisin = 1,
 	)
 	result = /obj/item/food/branrequests
 	subcategory = CAT_MISCFOOD
