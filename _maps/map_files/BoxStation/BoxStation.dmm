@@ -45,6 +45,7 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "aau" = (
@@ -666,6 +667,9 @@
 	id_tag = "prisonereducation";
 	name = "Solitary Confinement";
 	req_access_txt = "63"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -19543,14 +19547,14 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "dds" = (
-/obj/structure/railing{
-	dir = 1
-	},
 /obj/structure/rack,
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
+/obj/structure/railing{
+	pixel_y = 32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "ddP" = (
@@ -19715,14 +19719,14 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "dhE" = (
-/obj/structure/railing{
-	dir = 1
-	},
 /obj/structure/rack,
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
+/obj/structure/railing{
+	pixel_y = 32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "dhN" = (
@@ -46710,10 +46714,10 @@
 /turf/open/space/basic,
 /area/space)
 "qDZ" = (
-/obj/structure/railing{
-	dir = 1
-	},
 /obj/structure/closet/crate,
+/obj/structure/railing{
+	pixel_y = 32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "qEl" = (
@@ -57135,6 +57139,9 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "vJV" = (
