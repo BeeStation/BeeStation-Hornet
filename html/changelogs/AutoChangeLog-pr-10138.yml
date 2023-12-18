@@ -1,5 +1,0 @@
-author: JixS4v
-delete-after: true
-changes:
-  - tweak: Heretics now shatter the blade farthest away from them when they make a
-      new blade at the limit.

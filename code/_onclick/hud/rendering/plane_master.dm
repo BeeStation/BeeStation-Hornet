@@ -47,6 +47,7 @@
 /atom/movable/screen/plane_master/game_world
 	name = "game world plane master"
 	plane = GAME_PLANE
+	render_target = GAME_PLANE_RENDER_TARGET
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
 
@@ -111,8 +112,14 @@
 
 /atom/movable/screen/plane_master/lighting/Initialize(mapload)
 	. = ..()
-	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
+	add_filter("emissives", 1, layering_filter(render_source = EMISSIVE_RENDER_TARGET, blend_mode = BLEND_ADD))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
+
+/atom/movable/screen/plane_master/additive_lighting
+	name = "additive lighting plane master"
+	plane = LIGHTING_PLANE_ADDITIVE
+	blend_mode_override = BLEND_ADD
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /**
  * Renders extremely blurred white stuff over space to give the effect of starlight lighting.
@@ -151,9 +158,9 @@
 	render_target = EMISSIVE_RENDER_TARGET
 	render_relay_plane = null
 
-/atom/movable/screen/plane_master/emissive/Initialize(mapload)
+/atom/movable/screen/plane_master/emissive/backdrop(mob/mymob)
 	. = ..()
-	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))
+	mymob.overlay_fullscreen("emissive_backdrop", /atom/movable/screen/fullscreen/lighting_backdrop/emissive_backdrop)
 
 /atom/movable/screen/plane_master/above_lighting
 	name = "above lighting plane master"
@@ -227,3 +234,44 @@
 	name = "fullscreen alert plane"
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
+
+//Psychic & Blind stuff
+/atom/movable/screen/plane_master/psychic
+	name = "psychic plane master"
+	plane = PSYCHIC_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = PLANE_MASTER
+	render_target = PSYCHIC_PLANE_RENDER_TARGET
+	render_relay_plane = RENDER_PLANE_NON_GAME
+
+/atom/movable/screen/plane_master/psychic/backdrop(mob/mymob)
+	. = ..()
+	add_filter("psychic_bloom", 1, list(type = "bloom", size = 2, threshold = rgb(85,85,85)))
+	add_filter("psychic_alpha_mask", 1, alpha_mask_filter(render_source = "psychic_mask"))
+	add_filter("psychic_radial_blur", 1, radial_blur_filter(size = 0.0125))
+	add_filter("psychic_blur", 1, gauss_blur_filter(size = 1.5))
+
+/atom/movable/screen/plane_master/anti_psychic
+	name = "anti psychic plane master"
+	plane = ANTI_PSYCHIC_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = PLANE_MASTER
+	render_target = ANTI_PSYCHIC_PLANE_RENDER_TARGET
+	render_relay_plane = null
+
+/atom/movable/screen/plane_master/anti_psychic/backdrop(mob/mymob)
+	. = ..()
+	//fixes issue with bloom outlines
+	add_filter("hide_outline", 1, outline_filter(5, "#fff"))
+
+/atom/movable/screen/plane_master/blind_feature
+	name = "blind feature plane master"
+	plane = BLIND_FEATURE_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = PLANE_MASTER
+	render_relay_plane = RENDER_PLANE_NON_GAME
+
+/atom/movable/screen/plane_master/blind_feature/backdrop(mob/mymob)
+	. = ..()
+	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
+	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))

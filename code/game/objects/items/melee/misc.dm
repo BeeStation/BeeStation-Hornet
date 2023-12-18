@@ -231,6 +231,7 @@
 //Police Baton
 /obj/item/melee/classic_baton/police
 	name = "police baton"
+	stun_animation = TRUE
 
 /obj/item/melee/classic_baton/police/attack(mob/living/target, mob/living/user)
 	if(!on)
@@ -325,6 +326,7 @@
 	force = 12
 	cooldown = 10
 	stamina_damage = 20
+	stun_animation = TRUE
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -335,6 +337,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	stamina_damage = 0
+	stun_animation = FALSE
 	item_state = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -753,7 +756,7 @@
 	item_flags = ISWEAPON
 	force = 0
 	attack_verb = list("hit", "poked")
-	var/obj/item/reagent_containers/food/snacks/sausage/held_sausage
+	var/obj/item/food/sausage/held_sausage
 	var/static/list/ovens
 	var/on = FALSE
 	var/datum/beam/beam
@@ -778,7 +781,7 @@
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
 	..()
-	if (istype(target, /obj/item/reagent_containers/food/snacks/sausage))
+	if (istype(target, /obj/item/food/sausage))
 		if (!on)
 			to_chat(user, "<span class='warning'>You must extend [src] to attach anything to it!</span>")
 			return

@@ -35,11 +35,14 @@
 	pin = null
 	ammo_x_offset = 1
 
-/obj/item/gun/energy/decloner/update_icon()
-	..()
+/obj/item/gun/energy/decloner/update_overlays()
+	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(!QDELETED(cell) && (cell.charge > shot.e_cost))
-		add_overlay("decloner_spin")
+		. += mutable_appearance(icon, "decloner_spin")
+		if (emissive_charge)
+			. += emissive_appearance(icon, "decloner_spin", layer, alpha = 80)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/gun/energy/decloner/unrestricted
 	pin = /obj/item/firing_pin

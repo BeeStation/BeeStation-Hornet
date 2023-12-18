@@ -79,9 +79,8 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/tk_grab/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
 	focus = null
-	tk_user = null
+	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /obj/item/tk_grab/process()
@@ -96,10 +95,10 @@
 
 //stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot)
-	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
 		return
 	qdel(src)
+	return ..()
 
 /obj/item/tk_grab/examine(user)
 	if (focus)
