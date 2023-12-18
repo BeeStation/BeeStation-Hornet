@@ -232,7 +232,7 @@
 	mail_goodies = list(
 		/obj/item/reagent_containers/pill/mutadone = 15,
 		/obj/item/storage/pill_bottle/mannitol = 10,
-		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
+		/obj/item/food/monkeycube = 10,
 		/obj/effect/spawner/mail/genes = 5,
 	)
 
@@ -414,7 +414,7 @@
 		/obj/item/reagent_containers/syringe/used = 15,
 		//keep your workplace clean, please.
 		/obj/item/reagent_containers/spray/cleaner = 15,
-		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
+		/obj/item/food/monkeycube = 10,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 10,
 		/obj/item/reagent_containers/glass/bottle/random_virus/minor = 10,
 		/obj/item/reagent_containers/glass/bottle/random_virus = 5,

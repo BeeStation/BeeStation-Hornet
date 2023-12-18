@@ -179,34 +179,9 @@
 						break
 				if(component_check)
 					P.play_tool_sound(src)
-					var/obj/machinery/new_machine = new circuit.build_path(loc)
+					var/obj/machinery/new_machine = new circuit.build_path(loc, src.contents)
 					if(istype(new_machine))
-						// Machines will init with a set of default components. Move to nullspace so we don't trigger handle_atom_del, then qdel.
-						// Finally, replace with this frame's parts.
-						if(new_machine.circuit)
-							// Move to nullspace and delete.
-							new_machine.circuit.moveToNullspace()
-							QDEL_NULL(new_machine.circuit)
-						for(var/obj/old_part in new_machine.component_parts)
-							// Move to nullspace and delete.
-							old_part.moveToNullspace()
-							qdel(old_part)
-
-						// Set anchor state and move the frame's parts over to the new machine.
-						// Then refresh parts and call on_construction().
-
 						new_machine.anchored = anchored
-						new_machine.component_parts = list()
-
-						circuit.forceMove(new_machine)
-						new_machine.component_parts += circuit
-						new_machine.circuit = circuit
-
-						for(var/obj/new_part in src)
-							new_part.forceMove(new_machine)
-							new_machine.component_parts += new_part
-						new_machine.RefreshParts()
-
 						new_machine.on_construction()
 					qdel(src)
 				return

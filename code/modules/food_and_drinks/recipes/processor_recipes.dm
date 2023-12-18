@@ -5,12 +5,12 @@
 	var/required_machine = /obj/machinery/processor
 
 /datum/food_processor_process/meat
-	input = /obj/item/reagent_containers/food/snacks/meat/slab
-	output = /obj/item/reagent_containers/food/snacks/meatball
+	input = /obj/item/food/meat/slab
+	output = /obj/item/food/meatball
 
 /datum/food_processor_process/bacon
-	input = /obj/item/reagent_containers/food/snacks/meat/rawcutlet
-	output = /obj/item/reagent_containers/food/snacks/meat/rawbacon
+	input = /obj/item/food/meat/rawcutlet
+	output = /obj/item/food/meat/rawbacon
 
 /datum/food_processor_process/potatowedges
 	input = /obj/item/food/grown/potato/wedges
@@ -55,4 +55,4 @@
 
 /datum/food_processor_process/fish
 	input = /obj/item/fish
-	output = /obj/item/reagent_containers/food/snacks/carpmeat/icantbelieveitsnotcarp
+	output = /obj/item/food/fishmeat
