@@ -1,4 +1,5 @@
 GLOBAL_DATUM(ore_silo_default, /obj/machinery/ore_silo)
+GLOBAL_LIST_EMPTY(ore_silo_list)
 GLOBAL_LIST_EMPTY(silo_access_logs)
 
 /obj/machinery/ore_silo
@@ -9,6 +10,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/ore_silo
 
+	var/department_id = DEPT_ALL // the department ID of the department the silo is assigned to, default all, but board starts as sci
 	var/list/holds = list()
 	var/list/datum/component/remote_materials/connected = list()
 	var/log_page = 1
@@ -30,13 +32,36 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		/datum/material/plastic,
 		)
 	AddComponent(/datum/component/material_container, materials_list, INFINITY, allowed_types=/obj/item/stack, _disable_attackby=TRUE)
+	var/same_dept_in_silo_list = FALSE
+	for(var/obj/machinery/ore_silo/silo_in_list in GLOB.ore_silo_list)
+		if(department_id == silo_in_list.department_id)
+			same_dept_in_silo_list = TRUE
 
-	if (!GLOB.ore_silo_default && mapload && is_station_level(z))
-		GLOB.ore_silo_default = src
+	if (!same_dept_in_silo_list && mapload && is_station_level(z))
+		GLOB.ore_silo_list += src
+
+	if (department_id!=DEPT_ALL)
+		name = "departmental ore silo ([department_id])"
+		desc = "An all-in-one bluespace storage and transmission system for the station's mineral distribution needs. This one is linked to the [department_id] department"
+	else
+		name = "ore silo"
+		desc = "An all-in-one bluespace storage and transmission system for the station's mineral distribution needs."
+
+/obj/machinery/ore_silo/on_construction()
+	var/obj/item/circuitboard/machine/ore_silo/board = circuit
+	if(board)
+		department_id = board.department_id
+	if (department_id!=DEPT_ALL)
+		name = "departmental ore silo ([department_id])"
+		desc = "An all-in-one bluespace storage and transmission system for the station's mineral distribution needs. This one is linked to the [department_id] department"
+	else
+		name = "ore silo"
+		desc = "An all-in-one bluespace storage and transmission system for the station's mineral distribution needs."
+	return ..(department_id)
 
 /obj/machinery/ore_silo/Destroy()
-	if (GLOB.ore_silo_default == src)
-		GLOB.ore_silo_default = null
+	if (locate(src) in GLOB.ore_silo_list)
+		GLOB.ore_silo_list -= src
 
 	for(var/C in connected)
 		var/datum/component/remote_materials/mats = C

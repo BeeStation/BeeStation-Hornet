@@ -15,14 +15,14 @@ handles linking back and forth.
 	var/category
 	var/allow_standalone
 	var/local_size = INFINITY
+	var/department_id
 
-/datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE)
+/datum/component/remote_materials/Initialize(category, mapload, allow_standalone = TRUE, force_connect = FALSE, department_id)
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
-
+	src.department_id = department_id
 	src.category = category
 	src.allow_standalone = allow_standalone
-
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_z_disconnect))
 	RegisterSignal(parent, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(recieve_buffer))
@@ -34,7 +34,18 @@ handles linking back and forth.
 		_MakeLocal()
 
 /datum/component/remote_materials/proc/LateInitialize()
-	set_silo(GLOB.ore_silo_default)
+
+	var/obj/machinery/ore_silo/silo_to_set = null
+	var/obj/machinery/ore_silo/global_silo = null
+	for(var/obj/machinery/ore_silo/silo_in_list in GLOB.ore_silo_list)
+		if(department_id == silo_in_list.department_id)
+			silo_to_set = silo_in_list
+		if(silo_in_list.department_id==DEPT_ALL)
+			global_silo = silo_in_list
+	if(silo_to_set == null && global_silo != null)
+		set_silo(global_silo)
+	else
+		set_silo(silo_to_set)
 	if (silo)
 		silo.connected += src
 		mat_container = silo.GetComponent(/datum/component/material_container)
@@ -121,11 +132,15 @@ handles linking back and forth.
 /datum/component/remote_materials/proc/recieve_buffer(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
 	if (!QDELETED(buffer) && istype(buffer, /obj/machinery/ore_silo))
 		var/atom/P = parent
+		var/obj/machinery/ore_silo/buffer_silo = buffer
 		if (!is_valid_link(P, buffer))
 			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of Range.</span>")
 			return COMPONENT_NO_AFTERATTACK
 		if (silo == buffer)
 			to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")
+			return COMPONENT_NO_AFTERATTACK
+		if(!((department_id == buffer_silo.department_id)||department_id == DEPT_ALL || buffer_silo.department_id == DEPT_ALL))
+			to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Not Compatible.</span>")
 			return COMPONENT_NO_AFTERATTACK
 		if (silo)
 			silo.connected -= src
@@ -161,10 +176,10 @@ handles linking back and forth.
 		return 0
 
 	if (!mat_container)
-		movable_parent.say("No access to material storage, please contact the quartermaster.")
+		movable_parent.say("No access to material storage, please contact the relevant head of staff.")
 		return 0
 	if (on_hold())
-		movable_parent.say("Mineral access is on hold, please contact the quartermaster.")
+		movable_parent.say("Mineral access is on hold, please contact the relevant head of staff.")
 		return 0
 	var/count = mat_container.retrieve_sheets(eject_amount, material_ref, movable_parent.drop_location())
 	var/list/matlist = list()

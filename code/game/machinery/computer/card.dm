@@ -1,4 +1,4 @@
-#define DEPT_ALL 0
+#define DEPT_ALL_NUM 0
 #define DEPT_GEN 1
 #define DEPT_SEC 2
 #define DEPT_MED 3
@@ -21,7 +21,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	circuit = /obj/item/circuitboard/computer/card
 	var/mode = 0
 	var/printing = null
-	var/target_dept = DEPT_ALL //Which department this computer has access to.
+	var/target_dept = DEPT_ALL_NUM //Which department this computer has access to.
 	var/available_paycheck_departments = list()
 	var/target_paycheck = ACCOUNT_SRV_ID
 
@@ -522,7 +522,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!target_dept)
 				body += "<br><hr><a href = '?src=[REF(src)];choice=mode;mode_target=2'>Job Management</a>"
 			body += "<a href='?src=[REF(src)];choice=mode;mode_target=3'>Paycheck Management</a>"
-			if(target_dept == DEPT_ALL) // currently locked in HoP console only. other console can make bank account with their own budget if this lock is removed
+			if(target_dept == DEPT_ALL_NUM) // currently locked in HoP console only. other console can make bank account with their own budget if this lock is removed
 				body += "<a href='?src=[REF(src)];choice=open_new_account'>Open a new bank account</a>"
 
 		dat = "<tt>[header][body]<hr><br></tt>"
@@ -1005,7 +1005,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	light_color = LIGHT_COLOR_YELLOW
 
-#undef DEPT_ALL
+#undef DEPT_ALL_NUM
 #undef DEPT_GEN
 #undef DEPT_SEC
 #undef DEPT_MED

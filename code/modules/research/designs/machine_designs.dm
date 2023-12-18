@@ -628,6 +628,14 @@
 	category = list ("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
+/datum/design/board/material_deposit
+	name = "Machine Design (Material Deposit Machine)"
+	desc = "The circuit board for an ore silo."
+	id = "material_deposit"
+	build_path = /obj/item/circuitboard/machine/material_deposit
+	category = list ("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+
 /datum/design/board/paystand
 	name = "Machine Design (Pay Stand)"
 	desc = "The circuit board for a paystand."

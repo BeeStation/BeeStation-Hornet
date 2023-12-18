@@ -1,5 +1,6 @@
 // All departments on the station
 
+#define DEPT_ALL "All"
 #define DEPT_SCIENCE "Science"
 #define DEPT_ENGINEERING "Engineering"
 #define DEPT_MEDICAL "Medical"
