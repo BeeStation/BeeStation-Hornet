@@ -92,7 +92,7 @@
 	. = ..()
 	if(ismovable(source))
 		source.AddElement(/datum/element/firestacker, amount=1)
-		source.AddComponent(/datum/component/explodable, 0, 0, amount / 1000, amount / 500)
+		source.AddComponent(/datum/component/explodable, 0, 0, amount / 1000, amount / 500, delete_after = EXPLODABLE_NO_DELETE)
 
 /datum/material/plasma/on_removed(atom/source, material_flags)
 	. = ..()

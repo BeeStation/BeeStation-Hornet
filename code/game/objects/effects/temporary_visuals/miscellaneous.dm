@@ -97,13 +97,25 @@
 	icon_state = "phaseout"
 
 /obj/effect/temp_visual/dir_setting/wraith
-	name = "blood"
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "phase_shift2"
-	duration = 12
+	name = "shadow"
+	icon = 'icons/mob/cult.dmi'
+	icon_state = "phase_shift2_cult"
+	duration = 0.6 SECONDS
+
+/obj/effect/temp_visual/dir_setting/wraith/angelic
+	icon_state = "phase_shift2_holy"
+
+/obj/effect/temp_visual/dir_setting/wraith/mystic
+	icon_state = "phase_shift2_wizard"
 
 /obj/effect/temp_visual/dir_setting/wraith/out
-	icon_state = "phase_shift"
+	icon_state = "phase_shift_cult"
+
+/obj/effect/temp_visual/dir_setting/wraith/out/angelic
+	icon_state = "phase_shift_holy"
+
+/obj/effect/temp_visual/dir_setting/wraith/out/mystic
+	icon_state = "phase_shift_wizard"
 
 /obj/effect/temp_visual/dir_setting/tailsweep
 	icon_state = "tailsweep"
