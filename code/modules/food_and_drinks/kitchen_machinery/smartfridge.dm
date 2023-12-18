@@ -348,9 +348,13 @@
 /obj/machinery/smartfridge/drying_rack/process()
 	..()
 	if(drying)
-		if(rack_dry())//no need to update unless something got dried
-			SStgui.update_uis(src)
-			update_icon()
+		for(var/obj/item/item_iterator in src)
+			if(!accept_check(item_iterator))
+				continue
+			rack_dry(item_iterator)
+
+		SStgui.update_uis(src)
+		update_icon()
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
 	if(HAS_TRAIT(O, TRAIT_DRYABLE)) //set on dryable element
