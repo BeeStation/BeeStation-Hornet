@@ -34,6 +34,7 @@
 
 
 /datum/reagent/blood/on_new(list/data)
+	. = ..()
 	if(istype(data))
 		SetViruses(src, data)
 
@@ -201,8 +202,8 @@
 	O.extinguish()
 	O.acid_level = 0
 	// Monkey cube
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
-		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O
+	if(istype(O, /obj/item/food/monkeycube))
+		var/obj/item/food/monkeycube/cube = O
 		cube.Expand()
 
 	// Dehydrated carp
@@ -707,6 +708,14 @@
 	chem_flags = CHEMICAL_RNG_FUN
 	race = /datum/species/plasmaman
 	taste_description = "plasma"
+
+/datum/reagent/mutationtoxin/psyphoza
+	name = "Psyphoza Mutation Toxin"
+	description = "A fungal-based toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	chem_flags = CHEMICAL_RNG_FUN
+	race = /datum/species/psyphoza
+	taste_description = "fungus"
 
 #undef MUT_MSG_IMMEDIATE
 #undef MUT_MSG_EXTENDED

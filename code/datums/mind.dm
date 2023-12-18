@@ -85,11 +85,14 @@
 	/// Boolean value indicating if the mob attached to this mind entered cryosleep.
 	var/cryoed = FALSE
 
+	/// What color our soul is
+	var/soul_glimmer
 
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
 	martial_art = default_martial_art
+	setup_soul_glimmer()
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -135,7 +138,7 @@
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(current)
-		current.transfer_observers_to(new_character)	//transfer anyone observing the old character to the new one
+		current.transfer_observers_to(new_character, TRUE)	//transfer anyone observing the old character to the new one
 	set_current(new_character)								//associate ourself with our new body
 	new_character.mind = src							//and associate our new body with ourself
 
@@ -873,3 +876,9 @@
 	if(!holoparasite_holder)
 		holoparasite_holder = new(src)
 	return holoparasite_holder
+
+/datum/mind/proc/setup_soul_glimmer()
+	var/list/options = GLOB.SOUL_GLIMMER_COLORS_LOW
+	if(length(SSticker.minds) >= SOUL_GLIMMER_LOWER_POP)
+		options += GLOB.SOUL_GLIMMER_COLORS_MID
+	soul_glimmer = pick(options)

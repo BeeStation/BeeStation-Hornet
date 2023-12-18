@@ -57,7 +57,7 @@
 	#define COMPONENT_ATOM_BLOCK_EXIT 1
 ///! from base of atom/Exited(): (atom/movable/exiting, atom/newloc)
 #define COMSIG_ATOM_EXITED "atom_exited"
-///! from base of atom/ex_act(): (severity, target)
+///from the [EX_ACT] wrapper macro: (severity, target)
 #define COMSIG_ATOM_EX_ACT "atom_ex_act"
 ///from base of atom/Bumped(): (/atom/movable)
 #define COMSIG_ATOM_BUMPED "atom_bumped"

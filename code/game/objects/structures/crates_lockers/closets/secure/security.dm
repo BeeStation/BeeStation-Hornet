@@ -34,6 +34,8 @@
 	new /obj/item/storage/box/silver_ids(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 
+	new /obj/item/paper_reader(src)
+
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/cap(src)
 	new /obj/item/door_remote/captain(src)
@@ -78,6 +80,8 @@
 	new /obj/item/storage/box/ids(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
+
+	new /obj/item/paper_reader(src)
 
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/hop(src)
@@ -155,6 +159,8 @@
 	new /obj/item/storage/lockbox/loyalty(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
+
+	new /obj/item/paper_reader(src)
 
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/hos(src)

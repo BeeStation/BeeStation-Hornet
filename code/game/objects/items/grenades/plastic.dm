@@ -72,7 +72,7 @@
 			density_check = target.density //since turfs getting exploded makes this a bit fucky wucky we need to assert whether we should go directional before that part
 			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
-				target.ex_act(EXPLODE_HEAVY, target)
+				EX_ACT(target, EXPLODE_HEAVY, target)
 	else
 		location = get_turf(src)
 	if(location)
@@ -117,6 +117,9 @@
 		return
 	if(ismob(AM) && !can_attach_mob)
 		return
+
+	if(ismob(AM))
+		to_chat(AM, "<span class='userdanger'>[user.name] is trying to plant [name] on you!</span>")
 
 	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
 

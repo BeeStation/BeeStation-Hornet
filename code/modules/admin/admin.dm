@@ -105,6 +105,8 @@
 		body += "<A href='?_src_=holder;[HrefToken()];newbankey=[M.key]'>Ban</A> "
 
 	body += "<A href='?_src_=holder;[HrefToken()];showmessageckey=[M.ckey]'>Notes</A>"
+	if(isliving(M))
+		body += " <A href='?_src_=holder;[HrefToken()];force_cryo=[REF(M)]'>Force Cryo</A> "
 	if(M.client)
 		body += " <A href='?_src_=holder;[HrefToken()];sendtoprison=[REF(M)]'>Prison</A> "
 		body += " <A href='?_src_=holder;[HrefToken()];sendbacktolobby=[REF(M)]'>Send to Lobby</A>"

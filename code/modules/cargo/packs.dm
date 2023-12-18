@@ -1763,7 +1763,7 @@
 	cost = 1500
 	max_supply = 4
 	access = ACCESS_VIROLOGY
-	contains = list(/obj/item/reagent_containers/food/snacks/monkeycube,
+	contains = list(/obj/item/food/monkeycube,
 					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
 					/obj/item/reagent_containers/glass/bottle/mutagen,
 					/obj/item/reagent_containers/glass/bottle/formaldehyde,
@@ -2279,16 +2279,16 @@
 	cost = 1700
 	max_supply = 5
 	access_budget = ACCESS_KITCHEN
-	contains = list(/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime,
-					/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
-					/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-					/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-					/obj/item/reagent_containers/food/snacks/meat/slab/spider,
-					/obj/item/reagent_containers/food/snacks/meat/rawbacon,
-					/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
-					/obj/item/reagent_containers/food/snacks/spiderleg,
-					/obj/item/reagent_containers/food/snacks/carpmeat,
-					/obj/item/reagent_containers/food/snacks/meat/slab/human)
+	contains = list(/obj/item/food/meat/slab/human/mutant/slime,
+					/obj/item/food/meat/slab/killertomato,
+					/obj/item/food/meat/slab/bear,
+					/obj/item/food/meat/slab/xeno,
+					/obj/item/food/meat/slab/spider,
+					/obj/item/food/meat/rawbacon,
+					/obj/item/food/meat/slab/penguin,
+					/obj/item/food/spiderleg,
+					/obj/item/food/fishmeat/carp,
+					/obj/item/food/meat/slab/human)
 	crate_name = "food crate"
 
 /datum/supply_pack/organic/randomized/chef/fill(obj/structure/closet/crate/C)
@@ -2335,7 +2335,7 @@
 					/obj/item/storage/fancy/egg_box,
 					/obj/item/reagent_containers/food/condiment/enzyme,
 					/obj/item/reagent_containers/food/condiment/sugar,
-					/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+					/obj/item/food/meat/slab/monkey,
 					/obj/item/reagent_containers/food/snacks/grown/banana,
 					/obj/item/reagent_containers/food/snacks/grown/banana,
 					/obj/item/reagent_containers/food/snacks/grown/banana)
@@ -2523,16 +2523,16 @@
 	max_supply = 3
 	contraband = TRUE
 	crate_type = /obj/structure/closet/crate
-	contains = list(/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+	contains = list(/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth
 					)
 	crate_name = "Beef Broth Care"
 //////////////////////////////////////////////////////////////////////////////
@@ -3247,6 +3247,18 @@
 					/obj/item/stamp/denied,
 					/obj/item/laser_pointer/purple)
 	crate_name = "bureaucracy crate"
+
+/datum/supply_pack/misc/bulk_paper
+	name = "Bulk Paper Tray Crate"
+	desc = "Plenty of paper for all your papercraft needs."
+	cost = 500
+	max_supply = 5
+	contains = list(/obj/item/paper_bin,
+					/obj/item/paper_bin,
+					/obj/item/paper_bin,
+					/obj/item/paper_bin,
+					/obj/item/paper_bin)
+	crate_name = "bulk paper tray crate"
 
 /datum/supply_pack/misc/fountainpens
 	name = "Calligraphy Crate"
