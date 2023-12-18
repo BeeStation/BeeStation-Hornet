@@ -138,7 +138,9 @@
 	if(!target || !isturf(loc))
 		return FALSE
 	if(istype(target, /atom/movable/screen))
-		return FALSE
+		var/atom/movable/screen/S = target
+		if(!S.can_throw_target)
+			return FALSE
 
 	var/atom/movable/thrown_thing
 	var/obj/item/I = get_active_held_item()
@@ -594,7 +596,6 @@
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(E)
 		. += E.tint
-
 	else
 		. += INFINITY
 
@@ -750,6 +751,9 @@
 				set_stat(SOFT_CRIT)
 			else
 				set_stat(CONSCIOUS)
+			if(!is_blind())
+				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+				B?.RemoveComponent()
 		update_mobility()
 	update_damage_hud()
 	update_health_hud()

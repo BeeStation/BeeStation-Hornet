@@ -26,7 +26,7 @@
 	name = "Chocolate egg"
 	reqs = list(
 		/obj/item/food/boiledegg = 1,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1
+		/obj/item/food/chocolatebar = 1
 	)
 	result = /obj/item/food/chocolateegg
 	subcategory = CAT_EGG
@@ -35,7 +35,7 @@
 	name = "Eggs benedict"
 	reqs = list(
 		/obj/item/food/friedegg = 1,
-		/obj/item/reagent_containers/food/snacks/meat/steak = 1,
+		/obj/item/food/meat/steak = 1,
 		/obj/item/food/breadslice/plain = 1,
 	)
 	result = /obj/item/food/benedict
