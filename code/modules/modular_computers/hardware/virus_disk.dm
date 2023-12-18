@@ -86,7 +86,6 @@
 
 	var/difficulty = 0
 	var/obj/item/computer_hardware/hard_drive/role/disk = target.all_components[MC_HDD_JOB]
-
 	if(disk)
 		difficulty += bit_count(disk.disk_flags & (DISK_MED | DISK_SEC | DISK_POWER | DISK_MANIFEST))
 		if(disk.disk_flags & DISK_MANIFEST)
@@ -94,7 +93,10 @@
 		else
 			difficulty += 2
 	var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)
-	if(!target.detonatable || prob(difficulty * 15) || (hidden_uplink))
+	var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
+	var/datum/computer_file/program/messenger/app = drive.find_file_by_name("nt_messenger")
+
+	if(!target.detonatable || prob(difficulty * 15) || (hidden_uplink) || app.sending_and_receiving == FALSE)
 		to_chat(user, "<span class='danger'>An error flashes on your [src].</span>")
 	else
 		log_bomber(user, "triggered a PDA explosion on", target, "[!is_special_character(user) ? "(TRIGGED BY NON-ANTAG)" : ""]")

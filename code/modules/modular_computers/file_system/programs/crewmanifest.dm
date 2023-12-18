@@ -2,12 +2,12 @@
 	filename = "crewmani"
 	filedesc = "Crew Manifest"
 	category = PROGRAM_CATEGORY_CREW
-	program_icon_state = "id"
+	program_icon_state = "crew"
 	extended_desc = "Program for viewing and printing the current crew manifest"
 	transfer_access = list(ACCESS_HEADS)
 	requires_ntnet = FALSE
 	size = 0
-	undeletable = TRUE // It comes by default in PDAs, can't be downloaded, takes no space and should obviously not be able to be deleted.
+	undeletable = FALSE // It comes by default in tablets, can't be downloaded, takes no space and is now able to be deleted and transfered. Let players make mistakes.
 	available_on_ntnet = FALSE
 	tgui_id = "NtosCrewManifest"
 	program_icon = "clipboard-list"

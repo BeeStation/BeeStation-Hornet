@@ -4,8 +4,7 @@
 
 	icon = 'icons/obj/modular_laptop.dmi'
 	icon_state = "laptop-closed"
-	icon_state_powered = "laptop"
-	icon_state_unpowered = "laptop-off"
+	base_icon_state = "laptop"
 	icon_state_menu = "menu"
 
 	hardware_flag = PROGRAM_LAPTOP
@@ -17,8 +16,7 @@
 	item_flags = SLOWS_WHILE_IN_HAND
 
 	screen_on = 0 		// Starts closed
-	var/start_open = TRUE	// unless this var is set to 1
-	var/icon_state_closed = "laptop-closed"
+	var/start_open = FALSE	// unless this var is set to 1
 	var/w_class_open = WEIGHT_CLASS_BULKY
 	var/slowdown_open = TRUE
 
@@ -33,12 +31,9 @@
 	if(start_open && !screen_on)
 		toggle_open()
 
-/obj/item/modular_computer/laptop/update_icon()
-	if(screen_on)
-		..()
-	else
-		cut_overlays()
-		icon_state = icon_state_closed
+/obj/item/modular_computer/laptop/update_icon_state()
+	. = ..()
+	icon_state = "[base_icon_state][screen_on && "-closed"]"
 
 /obj/item/modular_computer/laptop/attack_self(mob/user)
 	if(!screen_on)
@@ -90,7 +85,7 @@
 	else
 		..()
 
-/obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user=null)
+/obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user)
 	if(screen_on)
 		to_chat(user, "<span class='notice'>You close \the [src].</span>")
 		slowdown = initial(slowdown)

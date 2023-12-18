@@ -124,7 +124,7 @@
 			var/logname = check_filename(params["log_name"])
 			if(!logname)
 				return
-			var/datum/computer_file/data/log_file/logfile = new()
+			var/datum/computer_file/data/text/log_file/logfile = new()
 			// Now we will generate HTML-compliant file that can actually be viewed/printed.
 			logfile.filename = logname
 			var/log_data = "Logfile dump from NTNRC channel [channel.title]\n"

@@ -42157,10 +42157,10 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "iLA" = (
-/obj/machinery/lapvend,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
+/obj/structure/chair,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "iLI" = (

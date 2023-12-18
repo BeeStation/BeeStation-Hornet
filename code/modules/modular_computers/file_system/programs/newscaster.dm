@@ -2,7 +2,7 @@
 	filename = "newscaster"
 	filedesc = "Newscaster & Bounty Board"
 	category = PROGRAM_CATEGORY_CREW
-	program_icon_state = "computer"
+	program_icon_state = "newscaster"
 	extended_desc = "This program allows any user to access the Newscaster network from anywhere."
 	size = 5
 	requires_ntnet = TRUE

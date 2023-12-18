@@ -1,7 +1,7 @@
 /datum/computer_file/program/phys_scanner
 	filename = "phys_scanner"
 	filedesc = "Physical Scanner"
-	program_icon_state = "generic"
+	program_icon_state = "comm_monitor"
 	category = PROGRAM_CATEGORY_MISC
 	extended_desc = "This program allows the tablet to scan physical objects and display a data output."
 	size = 8

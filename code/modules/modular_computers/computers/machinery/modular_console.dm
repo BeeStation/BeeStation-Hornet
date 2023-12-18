@@ -8,8 +8,6 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL | SMOOTH_BITMASK_SKIP_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
-	icon_state_powered = "console"
-	icon_state_unpowered = "console" //These are the same because the base modifies the icon, which messes with smoothing
 	screen_icon_state_menu = "menu"
 	hardware_flag = PROGRAM_CONSOLE
 	density = TRUE
@@ -71,8 +69,6 @@
 	if ((machine_stat & NOPOWER) || !(cpu?.use_power()))
 		keyboard = "keyboard_off"
 	add_overlay(keyboard)
-
-	icon_state = "[icon_state]-[smoothing_junction]"
 
 	if(machine_stat & BROKEN)
 		add_overlay("broken-[smoothing_junction]")

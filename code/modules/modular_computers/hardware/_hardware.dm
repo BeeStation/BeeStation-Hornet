@@ -48,6 +48,7 @@
 
 /// Called when the hardware is inserted BY HAND. Use on_install for cases where it's installed by code.
 /obj/item/computer_hardware/proc/on_inserted()
+	playsound(src, 'sound/items/flashlight_on.ogg', 50, TRUE)
 	return
 
 /obj/item/computer_hardware/attackby(obj/item/I, mob/living/user)

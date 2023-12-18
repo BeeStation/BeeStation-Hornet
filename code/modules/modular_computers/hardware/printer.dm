@@ -89,3 +89,4 @@
 	w_class = WEIGHT_CLASS_TINY
 	stored_paper = 5
 	max_paper = 15
+	custom_price = 20
