@@ -37556,6 +37556,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/item/stamp/cmo{
+	pixel_x = 10;
+	pixel_y = 12
+	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "hek" = (
