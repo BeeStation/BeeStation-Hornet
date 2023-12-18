@@ -421,40 +421,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
-"afk" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer4{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer4{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "afu" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
@@ -16418,7 +16384,7 @@
 /area/crew_quarters/dorms)
 "eYH" = (
 /obj/structure/table_frame/wood,
-/obj/item/knife/kitchen,
+/obj/item/kitchen/knife,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/cafeteria,
 /area/maintenance/port/aft)
@@ -34297,7 +34263,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/item/knife/carrotshiv{
+/obj/item/kitchen/knife/carrotshiv{
 	pixel_x = 9;
 	pixel_y = 9
 	},
@@ -123428,7 +123394,7 @@ yeA
 yeA
 yeA
 yeA
-afk
+gsA
 gsA
 gsA
 dVs
