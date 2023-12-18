@@ -1,7 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: Machines (and computers) will not needlessly create parts and circuit
-      at Initialized() when it's made by a player.
-  - rscadd: Fake computer circuit board. Available from Arcade rewards. Use multitool
-      to adjust the fake info.
