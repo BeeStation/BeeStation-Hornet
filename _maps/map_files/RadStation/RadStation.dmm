@@ -184,6 +184,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hos)
 "abL" = (
@@ -505,6 +506,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "agM" = (
@@ -1407,6 +1409,7 @@
 	pixel_y = 1
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "awd" = (
@@ -2409,7 +2412,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/power/apc/auto_name/north{
@@ -3093,6 +3096,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/book/manual/wiki/sopcommand,
+/obj/item/book/manual/wiki/sopservice,
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "aWV" = (
@@ -4840,6 +4846,7 @@
 	pixel_y = 4
 	},
 /obj/item/powertool/jaws_of_life,
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
 "bDe" = (
@@ -5677,10 +5684,10 @@
 /area/hallway/primary/central)
 "bOn" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_y = 1
 	},
 /obj/item/kitchen/rollingpin{
@@ -6856,6 +6863,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hos)
 "cjc" = (
@@ -9519,6 +9527,7 @@
 	pixel_x = 8;
 	pixel_y = 4
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
 "cZw" = (
@@ -14075,9 +14084,8 @@
 	name = "Brig Cell 3"
 	})
 "ert" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 2;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 2
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -14205,7 +14213,7 @@
 /area/crew_quarters/dorms)
 "etz" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "etB" = (
@@ -16384,7 +16392,7 @@
 /area/crew_quarters/dorms)
 "eYH" = (
 /obj/structure/table_frame/wood,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/cafeteria,
 /area/maintenance/port/aft)
@@ -17040,6 +17048,7 @@
 	pixel_y = 29
 	},
 /obj/item/hand_labeler,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "fiM" = (
@@ -21599,7 +21608,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/firealarm/directional/north,
@@ -23228,7 +23237,7 @@
 	dir = 10;
 	layer = 3.1
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
 	},
@@ -26481,6 +26490,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "ibG" = (
@@ -28902,7 +28912,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "iUD" = (
-/obj/item/reagent_containers/food/snacks/butter/on_a_stick,
 /obj/effect/decal/cleanable/crayon,
 /obj/machinery/light/small{
 	brightness = 3;
@@ -29892,7 +29901,7 @@
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/stripes/corner,
-/obj/item/reagent_containers/food/snacks/piedough,
+/obj/item/food/piedough,
 /obj/machinery/light_switch{
 	pixel_x = 21
 	},
@@ -30121,7 +30130,7 @@
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/plasteel,
 /area/medical/break_room)
@@ -32190,6 +32199,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 23
 	},
+/obj/item/book/manual/wiki/sopscience,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "jVS" = (
@@ -32813,6 +32823,7 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/rack,
 /obj/item/stack/sticky_tape,
+/obj/item/book/manual/wiki/sopservice,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "khE" = (
@@ -34263,7 +34274,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/item/kitchen/knife/carrotshiv{
+/obj/item/knife/carrotshiv{
 	pixel_x = 9;
 	pixel_y = 9
 	},
@@ -40245,7 +40256,7 @@
 	})
 "mAV" = (
 /obj/machinery/airalarm/directional/west,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
@@ -41926,11 +41937,6 @@
 /area/engine/engineering)
 "mYY" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box{
-	name = "Emergency donut box";
-	pixel_x = -2;
-	pixel_y = 15
-	},
 /obj/item/gun/energy/e_gun/dragnet{
 	pixel_x = -2;
 	pixel_y = 1
@@ -46665,7 +46671,6 @@
 /turf/open/floor/plasteel,
 /area/gateway)
 "ovR" = (
-/obj/item/reagent_containers/food/snacks/butteredtoast,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -47790,9 +47795,8 @@
 	},
 /area/quartermaster/exploration_prep)
 "oOw" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 2;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 2
 	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -48952,7 +48956,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "pkb" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/guideline/guideline_edge/yellow{
 	dir = 4
@@ -49503,6 +49507,7 @@
 	pixel_x = -32;
 	pixel_y = -2
 	},
+/obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "psf" = (
@@ -51503,7 +51508,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 1
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "pWx" = (
@@ -54061,6 +54066,7 @@
 	pixel_x = 14;
 	pixel_y = 4
 	},
+/obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/office)
 "qLC" = (
@@ -56880,6 +56886,7 @@
 	pixel_y = 1
 	},
 /obj/item/folder/white,
+/obj/item/book/manual/wiki/sopmedical,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "rKZ" = (
@@ -59162,6 +59169,7 @@
 	pixel_y = 3
 	},
 /obj/item/pipe_dispenser,
+/obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "sBR" = (
@@ -63113,7 +63121,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/radio/intercom{
@@ -63504,6 +63512,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/item/book/manual/wiki/sopsecurity,
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Locker Room"
@@ -68434,7 +68443,7 @@
 /turf/open/floor/wood,
 /area/library)
 "vtj" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
@@ -70162,7 +70171,6 @@
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "vWl" = (
-/obj/item/food/butterdog,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -70530,9 +70538,8 @@
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical)
 "wcw" = (
-/obj/machinery/power/emitter/anchored{
-	dir = 2;
-	state = 2
+/obj/machinery/power/emitter/welded{
+	dir = 2
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -71664,7 +71671,7 @@
 	alpha = 180;
 	dir = 8
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/item/radio/intercom{
 	dir = 8;
 	freerange = 1;
@@ -76371,7 +76378,6 @@
 /turf/open/floor/noslip/white,
 /area/crew_quarters/heads/captain/private)
 "xSK" = (
-/obj/item/food/spaghetti/butternoodles,
 /obj/effect/decal/cleanable/crayon,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
