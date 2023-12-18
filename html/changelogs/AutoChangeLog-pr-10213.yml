@@ -1,0 +1,20 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - rscadd: 'Meta: Added BZ Canister to Xenobio.'
+  - tweak: 'Meta: Changed Xenobio cold room door to have a glass window.'
+  - tweak: 'Meta: Changed Science break room door to be Science themed.'
+  - tweak: 'Meta: Changed access of the southern Exploration door to be the same as
+      the north maintenance door.'
+  - bugfix: 'Meta: Fixed weird light placement in Medbay-Chapel Maints.'
+  - rscadd: 'Meta: Added an O2 canister in Aux base for the purpose of refilling oxygen
+      tanks once on lavaland, welding tank was moved to Aux base maintenance.'
+  - rscadd: 'Meta: Added intercom to toxin testing room.'
+  - tweak: 'Meta: Replaced Robotics Medical tools with a Medical Duffel bag.'
+  - rscadd: 'Meta: Added welding tool, welding goggles and floor tiles to the janitor.'
+  - tweak: 'Meta: Changed the flooring in maintenance areas on the station to be consistent
+      with Medbay maintenance.'
+  - balance: 'Meta: Replaced Brig Phys back walls with regular non-reinforced walls
+      to allow break ins/outs and allow them to expand easier.'
+  - rscadd: 'Meta: Added camera to toxins to allow AI to see the inner door.'
+  - bugfix: 'Meta: Moved a useless box and closet out of the way in Exploration maints.'
