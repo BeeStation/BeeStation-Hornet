@@ -9,9 +9,8 @@
 	maturation = 8
 	potency = 20
 	growthstages = 1
-	growing_icon = 'goon/icons/obj/hydroponics.dmi'
-	icon_grow = "cannabis-grow" // Uses one growth icons set for all the subtypes
-	icon_dead = "cannabis-dead" // Same for the dead icon
+	icon_grow = "cannabis-grow" // We wont use the same icon grow for every subtypes...
+	icon_dead = "cannabis-dead" // ... But the same for the dead icon
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/cannabis/rainbow,
 						/obj/item/seeds/cannabis/death,
@@ -25,6 +24,7 @@
 	desc = "These seeds grow into rainbow weed. Groovy."
 	icon_state = "seed-megacannabis"
 	species = "megacannabis"
+	icon_grow = "megacannabis-grow"
 	plantname = "Rainbow Weed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow
 	mutatelist = list()
@@ -36,6 +36,7 @@
 	desc = "These seeds grow into deathweed. Not groovy."
 	icon_state = "seed-blackcannabis"
 	species = "blackcannabis"
+	icon_grow = "blackcannabis-grow"
 	plantname = "Deathweed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/death
 	mutatelist = list()
@@ -47,6 +48,7 @@
 	desc = "I will give unto him that is munchies of the fountain of the cravings of life, freely."
 	icon_state = "seed-whitecannabis"
 	species = "whitecannabis"
+	icon_grow = "whitecannabis-grow"
 	plantname = "Lifeweed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/white
 	mutatelist = list()
@@ -59,6 +61,7 @@
 	desc = "These seeds grow into omega weed."
 	icon_state = "seed-ocannabis"
 	species = "ocannabis"
+	icon_grow = "ocannabis-grow"
 	plantname = "Omega Weed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate
 	genes = list(/datum/plant_gene/trait/glow/green)
@@ -78,14 +81,13 @@
 						/datum/reagent/drug/krokodil = 0.15,
 						/datum/reagent/toxin/histamine = 0.15,
 						/datum/reagent/toxin/lipolicide = 0.15)
-	rarity = 69
+	rarity = 69 ///really...
 
 
 // ---------------------------------------------------------------
 
 /obj/item/reagent_containers/food/snacks/grown/cannabis
 	seed = /obj/item/seeds/cannabis
-	icon = 'goon/icons/obj/hydroponics.dmi'
 	name = "cannabis leaf"
 	desc = "Recently legalized in most galaxies."
 	icon_state = "cannabis"
