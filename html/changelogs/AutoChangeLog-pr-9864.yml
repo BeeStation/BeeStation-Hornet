@@ -1,0 +1,11 @@
+author: PestoVerde322, JohnFulpWillard
+delete-after: true
+changes:
+  - rscdel: Removed the grand majority of the Goon icon
+  - soundadd: Replaced some sounds with non-goon variants
+  - imageadd: added new icons for the marijuana, gym equipement, dish driver and vault
+      terminal
+  - refactor: Gym equipment was reworked. You now buckle yourself to weight machines
+      to use them, rather than clicking on it and getting stunned for a few seconds.
+      It also means it works like a chair now.
+  - tweak: Gym equipment no longer breaks a sweat in no gravity.
