@@ -1904,7 +1904,7 @@
 	pixel_y = 4
 	},
 /obj/item/food/muffin/berry,
-/obj/item/reagent_containers/food/snacks/tofu,
+/obj/item/food/tofu,
 /obj/item/food/burrito,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"

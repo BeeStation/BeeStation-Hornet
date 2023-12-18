@@ -211,14 +211,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"aE" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/baseturf_helper/asteroid/snow,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/awaymission/cabin)
 "aF" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -269,15 +261,6 @@
 "aL" = (
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"aM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/awaymission/cabin)
 "aN" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -297,21 +280,6 @@
 	name = "free refill dispenser"
 	},
 /turf/open/floor/carpet,
-/area/awaymission/cabin)
-"aQ" = (
-/obj/structure{
-	anchored = 1;
-	density = 1;
-	desc = "Generates power from lava!";
-	dir = 1;
-	icon = 'icons/obj/atmospherics/pipes/simple.dmi';
-	icon_state = "compressor";
-	name = "geothermal generator"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/awaymission/cabin)
 "aR" = (
 /obj/machinery/door/window/westright{
@@ -382,23 +350,6 @@
 	name = "Cabin"
 	},
 /turf/open/floor/wood,
-/area/awaymission/cabin)
-"bb" = (
-/obj/structure{
-	anchored = 1;
-	density = 1;
-	desc = "Generates power from lava!";
-	icon = 'icons/obj/atmospherics/pipes/simple.dmi';
-	icon_state = "turbine";
-	name = "geothermal generator"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/awaymission/cabin)
 "bc" = (
 /obj/structure/table/wood,
@@ -918,14 +869,6 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
-"cG" = (
-/obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/turf/open/floor/plasteel/freezer,
-/area/awaymission/cabin)
 "cH" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1010,12 +953,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"cT" = (
-/obj/vehicle/ridden/atv,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/awaymission/cabin)
 "cU" = (
 /obj/machinery/light{
 	dir = 1
@@ -1025,18 +962,6 @@
 "cV" = (
 /obj/vehicle/ridden/atv,
 /turf/open/floor/plating,
-/area/awaymission/cabin)
-"cW" = (
-/obj/item/shovel,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/awaymission/cabin)
-"cX" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/open/floor/plating{
-	broken = 1
-	},
 /area/awaymission/cabin)
 "cY" = (
 /obj/vehicle/ridden/atv{
@@ -1359,11 +1284,6 @@
 	},
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
-"ea" = (
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/turf/open/floor/plating/ice/smooth,
-/area/awaymission/cabin/snowforest)
 "eb" = (
 /obj/structure/closet,
 /obj/item/clothing/suit/hooded/wintercoat,
@@ -1375,12 +1295,6 @@
 /obj/item/clothing/suit/hooded/wintercoat,
 /obj/item/clothing/suit/hooded/wintercoat,
 /turf/open/floor/plating,
-/area/awaymission/cabin)
-"ec" = (
-/obj/machinery/light,
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/awaymission/cabin)
 "ed" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2002,6 +1916,15 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/engine,
 /area/awaymission/cabin/caves/mountain)
+"go" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/snow{
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/awaymission/cabin/caves)
 "gs" = (
 /obj/effect/light_emitter{
 	name = "outdoor light";
@@ -2396,15 +2319,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"hw" = (
-/obj/structure/closet/toolcloset,
-/obj/item/lightreplacer,
-/obj/item/storage/toolbox/mechanical,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/awaymission/cabin)
 "hx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -2418,18 +2332,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/awaymission/cabin)
-"hz" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
 /area/awaymission/cabin)
 "hA" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2831,12 +2733,6 @@
 	desc = "A mountain rock."
 	},
 /turf/open/floor/plating/asteroid/snow,
-/area/awaymission/cabin/caves)
-"iL" = (
-/turf/open/floor/plating/asteroid/snow{
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
 /area/awaymission/cabin/caves)
 "iM" = (
 /turf/open/floor/wood,
@@ -3444,15 +3340,6 @@
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves)
-"kn" = (
-/obj/structure/sign/basic{
-	pixel_x = 32
-	},
-/turf/open/floor/plating/asteroid/snow{
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/awaymission/cabin/caves)
 "kq" = (
 /turf/open/floor/wood/cold{
 	icon_state = "wood-broken5"
@@ -3461,18 +3348,6 @@
 "ks" = (
 /turf/open/floor/wood/cold{
 	icon_state = "wood-broken2"
-	},
-/area/awaymission/cabin/caves)
-"kt" = (
-/obj/structure/barricade/wooden/snowed,
-/turf/open/floor/plating/asteroid/snow{
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/awaymission/cabin/caves)
-"ku" = (
-/turf/open/floor/wood/cold{
-	broken = 1
 	},
 /area/awaymission/cabin/caves)
 "kv" = (
@@ -4239,37 +4114,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
-"mf" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid/snow{
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/awaymission/cabin/caves)
-"mg" = (
-/mob/living/simple_animal/hostile/bear/russian{
-	desc = "He'll hold the line against you!";
-	light_range = 3;
-	name = "Artyom";
-	speak = list("Blyat!","Rawr!","GRR!","Growl!");
-	wander = 0
-	},
-/turf/open/floor/plating/asteroid/snow{
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/awaymission/cabin/caves)
-"mh" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid/snow{
-	icon_state = "snow_dug";
-	slowdown = 1
-	},
-/area/awaymission/cabin/caves)
 "mi" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/shreds{
@@ -4938,6 +4782,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"ow" = (
+/obj/machinery/light,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/awaymission/cabin)
+"oX" = (
+/obj/vehicle/ridden/atv,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/awaymission/cabin)
 "qH" = (
 /obj/structure/ladder/unbreakable/rune{
 	alpha = 0;
@@ -4981,6 +4837,18 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"tL" = (
+/turf/open/floor/wood/cold{
+	broken = 1
+	},
+/area/awaymission/cabin/caves)
+"ux" = (
+/obj/structure/barricade/wooden/snowed,
+/turf/open/floor/plating/asteroid/snow{
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/awaymission/cabin/caves)
 "ww" = (
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = 32
@@ -5007,6 +4875,15 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"zY" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/snow{
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/awaymission/cabin/caves)
 "Bk" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 32
@@ -5016,6 +4893,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"Bu" = (
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/turf/open/floor/plating/ice/smooth,
+/area/awaymission/cabin/snowforest)
 "Cq" = (
 /obj/item/nullrod/claymore/multiverse{
 	anchored = 1;
@@ -5035,6 +4917,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"DK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/awaymission/cabin)
 "DU" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
@@ -5063,6 +4954,12 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"GG" = (
+/turf/open/floor/plating/asteroid/snow{
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/awaymission/cabin/caves)
 "Ha" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -5127,6 +5024,32 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"Ls" = (
+/obj/structure/sign/basic{
+	pixel_x = 32
+	},
+/turf/open/floor/plating/asteroid/snow{
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/awaymission/cabin/caves)
+"ME" = (
+/obj/structure{
+	anchored = 1;
+	density = 1;
+	desc = "Generates power from lava!";
+	icon = 'icons/obj/atmospherics/pipes/simple.dmi';
+	icon_state = "turbine";
+	name = "geothermal generator"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/awaymission/cabin)
 "MH" = (
 /obj/structure/sign/poster/official/space_cops{
 	pixel_y = 32
@@ -5139,6 +5062,27 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"MO" = (
+/obj/item/shovel,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/awaymission/cabin)
+"NK" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/awaymission/cabin)
+"Pl" = (
+/obj/structure/closet/toolcloset,
+/obj/item/lightreplacer,
+/obj/item/storage/toolbox/mechanical,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/awaymission/cabin)
 "Pw" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -5166,6 +5110,14 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"Ql" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/baseturf_helper/asteroid/snow,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/awaymission/cabin)
 "Qo" = (
 /obj/machinery/vending/sustenance{
 	desc = "A vending machine which vends food.";
@@ -5178,6 +5130,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"Rx" = (
+/mob/living/simple_animal/hostile/bear/russian{
+	desc = "He'll hold the line against you!";
+	light_range = 3;
+	name = "Artyom";
+	speak = list("Blyat!","Rawr!","GRR!","Growl!");
+	wander = 0
+	},
+/turf/open/floor/plating/asteroid/snow{
+	icon_state = "snow_dug";
+	slowdown = 1
+	},
+/area/awaymission/cabin/caves)
 "RR" = (
 /obj/structure/sign/poster/contraband/free_drone{
 	desc = "This poster is just really ironic right now."
@@ -5216,6 +5181,21 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"Vb" = (
+/obj/structure{
+	anchored = 1;
+	density = 1;
+	desc = "Generates power from lava!";
+	dir = 1;
+	icon = 'icons/obj/atmospherics/pipes/simple.dmi';
+	icon_state = "compressor";
+	name = "geothermal generator"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/awaymission/cabin)
 "Wa" = (
 /obj/structure/ladder/unbreakable{
 	desc = "Who left the grate open?";
@@ -5230,6 +5210,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"Wg" = (
+/obj/structure/closet/secure_closet/freezer/meat/open,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/turf/open/floor/plasteel/freezer,
+/area/awaymission/cabin)
 "Wl" = (
 /obj/structure/easel{
 	desc = "Art so fine, the universe can't handle it!";
@@ -5247,6 +5235,18 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"WC" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/awaymission/cabin)
 "Xa" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
@@ -21551,12 +21551,12 @@ ab
 it
 it
 it
-ku
+tL
 ki
 ki
 ki
 ki
-ku
+tL
 ki
 it
 it
@@ -25151,7 +25151,7 @@ ki
 ki
 ki
 ki
-ku
+tL
 it
 it
 gx
@@ -25406,7 +25406,7 @@ it
 ki
 ki
 ki
-ku
+tL
 ki
 ki
 it
@@ -25492,7 +25492,7 @@ ei
 aq
 aq
 an
-cT
+oX
 cV
 gL
 cV
@@ -25752,7 +25752,7 @@ an
 cU
 aL
 aL
-ec
+ow
 an
 dB
 ac
@@ -26521,7 +26521,7 @@ aq
 aq
 an
 cU
-cW
+MO
 aL
 gN
 an
@@ -27292,7 +27292,7 @@ aq
 aq
 an
 eb
-cX
+NK
 an
 an
 dB
@@ -29125,7 +29125,7 @@ dj
 dj
 dj
 dj
-ea
+Bu
 dj
 dj
 dj
@@ -29381,9 +29381,9 @@ dj
 dj
 dj
 dY
-ea
+Bu
 dY
-ea
+Bu
 dY
 dj
 dj
@@ -29639,7 +29639,7 @@ dj
 dj
 dj
 dY
-ea
+Bu
 dY
 dj
 dj
@@ -31568,15 +31568,15 @@ it
 it
 hO
 hO
-iL
-iL
-iL
-iL
-iL
-iL
-iL
-iL
-iL
+GG
+GG
+GG
+GG
+GG
+GG
+GG
+GG
+GG
 it
 it
 it
@@ -31823,17 +31823,17 @@ it
 it
 it
 it
-iL
-iL
-iL
-iL
-iL
-iL
-iL
-iL
-iL
-iL
-iL
+GG
+GG
+GG
+GG
+GG
+GG
+GG
+GG
+GG
+GG
+GG
 it
 it
 it
@@ -32079,18 +32079,18 @@ it
 it
 it
 it
-iL
-iL
-iL
-iL
+GG
+GG
+GG
+GG
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 iK
@@ -32341,14 +32341,14 @@ it
 it
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 it
@@ -32426,7 +32426,7 @@ bB
 bY
 is
 dt
-cG
+Wg
 an
 aq
 bh
@@ -32598,14 +32598,14 @@ it
 it
 it
 it
-iL
-iL
-kn
+GG
+GG
+Ls
 it
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 it
@@ -32861,9 +32861,9 @@ iv
 iv
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 gx
@@ -33119,8 +33119,8 @@ iv
 iv
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 gx
@@ -33376,8 +33376,8 @@ iM
 iv
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 gx
@@ -33633,8 +33633,8 @@ iM
 iv
 it
 it
-iL
-iL
+GG
+GG
 it
 gx
 gx
@@ -33890,8 +33890,8 @@ iM
 iv
 it
 it
-iL
-iL
+GG
+GG
 it
 gx
 gx
@@ -34147,8 +34147,8 @@ iv
 iv
 it
 it
-iL
-iL
+GG
+GG
 gx
 gx
 ab
@@ -34404,8 +34404,8 @@ iv
 it
 it
 it
-iL
-iL
+GG
+GG
 gx
 ab
 ab
@@ -34661,8 +34661,8 @@ gx
 gx
 gx
 gx
-kt
-kt
+ux
+ux
 gx
 gx
 ab
@@ -34918,8 +34918,8 @@ gx
 gx
 gx
 gx
-iL
-iL
+GG
+GG
 gx
 gx
 gx
@@ -35175,8 +35175,8 @@ gx
 gx
 gx
 gx
-kt
-kt
+ux
+ux
 gx
 gx
 gx
@@ -35432,8 +35432,8 @@ gx
 gx
 gx
 it
-iL
-iL
+GG
+GG
 gx
 gx
 gx
@@ -35689,8 +35689,8 @@ gx
 gx
 it
 it
-iL
-iL
+GG
+GG
 gx
 gx
 gx
@@ -35945,9 +35945,9 @@ gx
 gx
 gx
 it
-iL
-iL
-iL
+GG
+GG
+GG
 gx
 gx
 gx
@@ -36202,9 +36202,9 @@ gx
 gx
 gx
 it
-iL
-iL
-iL
+GG
+GG
+GG
 gx
 gx
 gx
@@ -36267,9 +36267,9 @@ ac
 dB
 ax
 av
-hz
-aM
-hw
+WC
+DK
+Pl
 an
 aZ
 be
@@ -36459,8 +36459,8 @@ gx
 gx
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 gx
@@ -36523,9 +36523,9 @@ ac
 gP
 dB
 ax
-aE
-aQ
-bb
+Ql
+Vb
+ME
 an
 an
 ao
@@ -36716,8 +36716,8 @@ gx
 gx
 it
 it
-iL
-iL
+GG
+GG
 it
 gx
 gx
@@ -36972,9 +36972,9 @@ gx
 gx
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 gx
 gx
@@ -37229,8 +37229,8 @@ gx
 gx
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 gx
@@ -37486,8 +37486,8 @@ gx
 gx
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 gx
@@ -37742,8 +37742,8 @@ gx
 it
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 gx
@@ -37998,9 +37998,9 @@ gx
 gx
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 gx
@@ -38255,8 +38255,8 @@ gx
 it
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 gx
@@ -38511,9 +38511,9 @@ gx
 it
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 gx
 gx
@@ -38767,9 +38767,9 @@ gx
 gx
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 gx
@@ -39023,9 +39023,9 @@ gx
 gx
 iK
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 gx
@@ -39280,9 +39280,9 @@ it
 it
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 gx
 gx
@@ -39536,9 +39536,9 @@ it
 it
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 gx
 gx
@@ -39792,9 +39792,9 @@ it
 it
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 gx
@@ -40048,9 +40048,9 @@ gx
 it
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 gx
@@ -40304,9 +40304,9 @@ gx
 it
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 gx
@@ -40560,9 +40560,9 @@ gx
 gx
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 it
@@ -40817,9 +40817,9 @@ gx
 gx
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 gx
@@ -41074,9 +41074,9 @@ gx
 it
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 it
 gx
@@ -45331,7 +45331,7 @@ ab
 gx
 lX
 lY
-iL
+GG
 it
 gx
 ab
@@ -45587,9 +45587,9 @@ ab
 ab
 gx
 gx
-iL
-iL
-iL
+GG
+GG
+GG
 ab
 ab
 ab
@@ -45845,8 +45845,8 @@ ab
 gx
 gx
 it
-iL
-iL
+GG
+GG
 it
 ab
 ab
@@ -46102,8 +46102,8 @@ gx
 gx
 gx
 ab
-iL
-iL
+GG
+GG
 it
 gx
 ab
@@ -46359,8 +46359,8 @@ gx
 gx
 gx
 ab
-iL
-iL
+GG
+GG
 it
 gx
 ab
@@ -46616,9 +46616,9 @@ gx
 gx
 gx
 ab
-iL
-iL
-iL
+GG
+GG
+GG
 gx
 ab
 ab
@@ -46874,8 +46874,8 @@ gx
 gx
 gx
 gx
-iL
-iL
+GG
+GG
 gx
 ab
 ab
@@ -47131,8 +47131,8 @@ gx
 gx
 ab
 it
-iL
-iL
+GG
+GG
 gx
 ab
 ab
@@ -47388,8 +47388,8 @@ gx
 gx
 gx
 it
-iL
-iL
+GG
+GG
 ab
 ab
 ab
@@ -47644,9 +47644,9 @@ gx
 gx
 gx
 it
-iL
-iL
-iL
+GG
+GG
+GG
 gx
 ab
 ab
@@ -47900,9 +47900,9 @@ gx
 gx
 gx
 ab
-iL
-iL
-iL
+GG
+GG
+GG
 it
 gx
 ab
@@ -48157,8 +48157,8 @@ ab
 gx
 gx
 ab
-iL
-iL
+GG
+GG
 it
 gx
 gx
@@ -48414,8 +48414,8 @@ gx
 gx
 gx
 ab
-iL
-iL
+GG
+GG
 it
 gx
 ab
@@ -48671,8 +48671,8 @@ gx
 gx
 ab
 ab
-iL
-iL
+GG
+GG
 it
 ab
 ab
@@ -48928,8 +48928,8 @@ gx
 gx
 ab
 ab
-iL
-iL
+GG
+GG
 ab
 ab
 gx
@@ -49185,8 +49185,8 @@ gx
 gx
 ab
 it
-iL
-iL
+GG
+GG
 ab
 gx
 gx
@@ -49441,9 +49441,9 @@ ab
 ab
 gx
 it
-iL
-iL
-iL
+GG
+GG
+GG
 gx
 gx
 gx
@@ -49698,8 +49698,8 @@ ab
 ab
 gx
 it
-iL
-iL
+GG
+GG
 gx
 gx
 gx
@@ -49954,9 +49954,9 @@ ab
 ab
 ab
 gx
-iL
-iL
-iL
+GG
+GG
+GG
 gx
 gx
 gx
@@ -50211,8 +50211,8 @@ ab
 ab
 ab
 gx
-iL
-iL
+GG
+GG
 gx
 gx
 gx
@@ -50468,9 +50468,9 @@ ab
 ab
 ab
 gx
-iL
-iL
-iL
+GG
+GG
+GG
 gx
 gx
 gx
@@ -50726,9 +50726,9 @@ ab
 ab
 ab
 it
-iL
-iL
-iL
+GG
+GG
+GG
 it
 gx
 gx
@@ -50984,10 +50984,10 @@ ab
 ab
 ab
 it
-iL
-iL
-iL
-iL
+GG
+GG
+GG
+GG
 gx
 gx
 ab
@@ -51242,10 +51242,10 @@ ab
 ab
 ab
 it
-iL
-iL
-iL
-iL
+GG
+GG
+GG
+GG
 gx
 ab
 ab
@@ -51501,8 +51501,8 @@ ab
 ab
 ab
 ab
-iL
-iL
+GG
+GG
 gx
 ab
 ab
@@ -51758,8 +51758,8 @@ ab
 ab
 ab
 gx
-iL
-iL
+GG
+GG
 it
 it
 it
@@ -52015,9 +52015,9 @@ ab
 ab
 ab
 iK
-iL
-iL
-iL
+GG
+GG
+GG
 it
 ab
 ab
@@ -52273,8 +52273,8 @@ ab
 it
 it
 it
-iL
-iL
+GG
+GG
 gx
 ab
 ab
@@ -52530,8 +52530,8 @@ ab
 ab
 ab
 ab
-iL
-iL
+GG
+GG
 it
 ab
 ab
@@ -52787,8 +52787,8 @@ ab
 ab
 ab
 ab
-iL
-iL
+GG
+GG
 it
 gx
 ab
@@ -53044,8 +53044,8 @@ ab
 gx
 gx
 it
-iL
-iL
+GG
+GG
 it
 gx
 gx
@@ -53301,8 +53301,8 @@ ab
 gx
 it
 it
-iL
-iL
+GG
+GG
 it
 it
 gx
@@ -53558,8 +53558,8 @@ gx
 gx
 ab
 ab
-iL
-iL
+GG
+GG
 ab
 it
 it
@@ -53815,8 +53815,8 @@ gx
 gx
 gx
 gx
-iL
-iL
+GG
+GG
 ab
 ab
 ab
@@ -54072,8 +54072,8 @@ gx
 gx
 gx
 gx
-iL
-iL
+GG
+GG
 gx
 gx
 gx
@@ -54329,8 +54329,8 @@ gx
 gx
 ab
 ab
-iL
-iL
+GG
+GG
 ab
 ab
 ab
@@ -54586,8 +54586,8 @@ ab
 gx
 ab
 it
-iL
-iL
+GG
+GG
 it
 it
 ab
@@ -54843,8 +54843,8 @@ ab
 gx
 ab
 ab
-iL
-iL
+GG
+GG
 it
 it
 it
@@ -55100,8 +55100,8 @@ gx
 gx
 gx
 it
-iL
-iL
+GG
+GG
 it
 gx
 it
@@ -55357,8 +55357,8 @@ ab
 ab
 gx
 it
-iL
-iL
+GG
+GG
 it
 it
 it
@@ -55614,8 +55614,8 @@ gx
 gx
 gx
 gx
-iL
-iL
+GG
+GG
 ab
 ab
 it
@@ -55871,8 +55871,8 @@ ii
 ab
 ab
 gx
-iL
-iL
+GG
+GG
 it
 ab
 ab
@@ -56128,8 +56128,8 @@ it
 it
 ab
 it
-iL
-iL
+GG
+GG
 it
 ab
 ab
@@ -56384,9 +56384,9 @@ ii
 it
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 ab
 ab
 gx
@@ -56640,9 +56640,9 @@ gx
 ii
 it
 it
-iL
-iL
-iL
+GG
+GG
+GG
 gx
 gx
 gx
@@ -56896,9 +56896,9 @@ gx
 gx
 ii
 ii
-mf
-iL
-iL
+zY
+GG
+GG
 gx
 gx
 gx
@@ -57152,9 +57152,9 @@ ii
 ii
 ii
 ii
-iL
-mg
-mh
+GG
+Rx
+go
 it
 it
 gx
@@ -57409,8 +57409,8 @@ im
 mM
 im
 mS
-iL
-iL
+GG
+GG
 ii
 it
 it

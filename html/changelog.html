@@ -56,6 +56,34 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">17 December 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You can no longer use a hand tele to enter and promptly trap yourself in the heretic touhou shadow realm.</li>
+			</ul>
+			<h3 class="author">ClownMoff updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">spare full clown and mime outfit to the AutoDrobe.</li>
+				<li class="tweak">rearranges the organization of the autodrobe</li>
+			</ul>
+			<h3 class="author">DrDuckedGoose, PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes filters being applied multiple times to pscyhozia plane masters,</li>
+			</ul>
+			<h3 class="author">Varo, Naevi for helping me make the bluespace wings, PapaporoPaprito for the ported wings from Fulp updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added 4 new Moth wings and antennae: Rosy, Plasmafire, Brown, and Bluespace.</li>
+				<li class="bugfix">Fixed Luna moth's open wing sprites having the fluf misplaced.</li>
+			</ul>
+			<h3 class="author">rkz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">converted meat, monkeycubes to newfood</li>
+				<li class="tweak">moved meatbun from Bread recipes to Meat recipes</li>
+				<li class="rscadd">Adjusted meatdish & meatslab values to account for protein reagent</li>
+				<li class="tweak">converted a few extraneous meats to follow proper subtyping. Dolphin meat is now a meatslab instead of snowflake. Carp meat is now a subtype of fishmeat, rather than regular fishmeat being a subtype of carp meat</li>
+				<li class="bugfix">fixes psyphoza meat using the wrong typepath and stats</li>
+			</ul>
+
 			<h2 class="date">15 December 2023</h2>
 			<h3 class="author">@kit-katz (Sprites) @DrDuckedGoose (Code) @HowToLoLu (Code) updated:</h3>
 			<ul class="changes bgimages16">
@@ -872,55 +900,6 @@
 				<li class="bugfix">being woken up from unconsciousness should always clear trauma-induced monochromatic vision</li>
 				<li class="bugfix">moves a sleeping check in regenerative coma a few lines ahead. It's intended use in code that voluntarily sleeping provides less healing benefit than entering a coma through trauma/medicine.</li>
 				<li class="balance">Which... now technically makes it a balance change. It was always intended, but using the sleep verb will now heal you less than involuntary unconciousness, in terms of the regen rate of the regenerative coma</li>
-			</ul>
-
-			<h2 class="date">16 October 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">Modular Console on/off icon states are now separated into body and keyboard states instead of being combined</li>
-				<li class="code_imp">Added another bitflag for smoothing, SMOOTH_BITMASK_SKIP_CORNERS</li>
-				<li class="bugfix">Modular Consoles no longer look fully broken when only the CPU is broken</li>
-				<li class="bugfix">Fixed computers becoming invisible in certain arrangements</li>
-				<li class="bugfix">Some computers with special icons no longer become invisible</li>
-				<li class="bugfix">Computers now handle smoothing properly when acted on by Narsie or Ratvar</li>
-				<li class="bugfix">Broken computers now show up properly</li>
-			</ul>
-			<h3 class="author">Programs-The-Station updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes the Sabotage and Explosives Objective for "the telecommunications relay".</li>
-			</ul>
-
-			<h2 class="date">15 October 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Pizzaboxes now accept pizza being put in once again</li>
-			</ul>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Combat shotguns can now be toggled in-hand to function like manual pump-action shotguns</li>
-				<li class="rscadd">Combat shotguns will 'click' when cycling firing modes.</li>
-				<li class="bugfix">Compact combat shotgun will now cycle properly when fired one-handed</li>
-				<li class="code_imp">Fixes runtime when firing a ballistic gun without a magazine installed</li>
-				<li class="code_imp">Removes unneeded proc for automatic shotguns, functionally the same</li>
-				<li class="code_imp">Retypes bulldog to be a child of shotgun/automatic</li>
-			</ul>
-
-			<h2 class="date">14 October 2023</h2>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Mosin Obrez! Sawn-off Mosin Nagant; has innate & wild spread, kicks like a mule, and can be fired 1-handed</li>
-				<li class="tweak">Any saw type item (and plasmacutters) can be used to saw guns short</li>
-				<li class="tweak">Energy saws can be used as saws now (similar to chainsaws)</li>
-				<li class="tweak">You cannot add multiple slings to an improvised shotgun, and it shows on examine text now</li>
-				<li class="balance">Mosin Nagant and Obrez require 2-hands to cycle the bolt (up from 1-hand)</li>
-				<li class="imageadd">Added icon and in-hand sprites for Mosin Obrez</li>
-				<li class="refactor">removed redundant sawoff code for shotguns, now part of the parent gun/ballistic item</li>
-				<li class="code_imp">rewrites some boltaction code to make it less weird for item interactions/attaching bayonets</li>
-				<li class="code_imp">sawing checks for TOOL_SAW instead of using bespoke items, is an innate ballistic gun function, and is more configurable.</li>
-			</ul>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Excommunicates can no longer purchase syndicate communication keys or implants</li>
 			</ul>
 		</div>
 

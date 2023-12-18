@@ -1990,40 +1990,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
-"gt" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
-"gu" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
-"gv" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/item/gps{
-	gpstag = "Twin-Nexus Hotel Retreat";
-	name = "hotel gps"
-	},
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
 "gw" = (
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/dock)
@@ -2119,20 +2085,6 @@
 /obj/effect/mob_spawn/human/hotel_staff,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
-"gN" = (
-/obj/structure/filingcabinet,
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
-"gO" = (
-/obj/structure/chair/office/light{
-	dir = 4
-	},
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
-"gP" = (
-/obj/structure/table/wood,
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
 "gQ" = (
 /obj/machinery/computer/teleporter,
 /turf/open/floor/plasteel/dark,
@@ -2183,21 +2135,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
-"hb" = (
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
-"hc" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/paper/pamphlet/ruin/spacehotel,
-/obj/item/paper/pamphlet/ruin/spacehotel,
-/obj/item/paper/pamphlet/ruin/spacehotel,
-/obj/item/paper/pamphlet/ruin/spacehotel,
-/obj/item/paper/pamphlet/ruin/spacehotel,
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
 "hd" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mug/tea,
@@ -2305,43 +2242,6 @@
 /obj/item/storage/box/monkeycubes,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/hotel/bar)
-"hu" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
-/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/pug,
-/obj/item/reagent_containers/food/snacks/meat/slab/pug,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant,
-/turf/open/floor/plasteel/freezer,
-/area/ruin/space/has_grav/hotel/bar)
-"hv" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
-/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/pug,
-/obj/item/reagent_containers/food/snacks/meat/slab/pug,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant,
-/turf/open/floor/plasteel/freezer,
-/area/ruin/space/has_grav/hotel/bar)
 "hw" = (
 /obj/structure/table,
 /obj/item/knife/kitchen,
@@ -2443,27 +2343,6 @@
 /obj/machinery/reagentgrinder,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/hotel/bar)
-"hL" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
-"hM" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced,
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
-"hN" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/dock)
 "hO" = (
 /obj/machinery/light,
 /turf/open/floor/plasteel/dark,
@@ -2516,39 +2395,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
 /area/ruin/space/has_grav/hotel/bar)
-"hV" = (
-/obj/structure/table/wood,
-/obj/item/instrument/guitar,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/bar)
-"hW" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/bar)
-"hX" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/bar)
-"hY" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/chair/stool,
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/bar)
 "hZ" = (
 /obj/machinery/light{
 	dir = 1
@@ -2596,20 +2442,6 @@
 "if" = (
 /obj/machinery/smartfridge/food,
 /turf/open/floor/plasteel/cafeteria,
-/area/ruin/space/has_grav/hotel/bar)
-"ig" = (
-/obj/structure/table/wood,
-/obj/item/instrument/violin,
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/bar)
-"ih" = (
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/bar)
-"ii" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "ij" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -2683,18 +2515,6 @@
 	pixel_y = -30
 	},
 /turf/open/floor/plasteel/cafeteria,
-/area/ruin/space/has_grav/hotel/bar)
-"iA" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/machinery/door/airlock{
-	name = "Theatre";
-	req_access_txt = "200"
-	},
-/turf/open/floor/carpet/grimy,
-/area/ruin/space/has_grav/hotel/bar)
-"iB" = (
-/obj/machinery/light,
-/turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "iC" = (
 /obj/machinery/light,
@@ -3109,6 +2929,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/power)
+"kg" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/bar)
 "ki" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel,
@@ -3331,6 +3157,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/security)
+"lz" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/bar)
 "lB" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -3564,6 +3396,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/pool)
+"mH" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "mL" = (
 /obj/machinery/light,
 /obj/structure/table,
@@ -3642,6 +3480,25 @@
 /obj/effect/baseturf_helper/space,
 /turf/closed/wall,
 /area/ruin/space/has_grav/hotel/pool)
+"nG" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/corgi,
+/obj/item/food/meat/slab/corgi,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/pug,
+/obj/item/food/meat/slab/pug,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/plant,
+/obj/item/food/meat/slab/human/mutant/plant,
+/turf/open/floor/plasteel/freezer,
+/area/ruin/space/has_grav/hotel/bar)
 "nT" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -3687,6 +3544,21 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/bar)
+"oS" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/item/gps{
+	gpstag = "Twin-Nexus Hotel Retreat";
+	name = "hotel gps"
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "pg" = (
 /turf/open/indestructible/sound/pool,
 /area/ruin/space/has_grav/hotel/pool)
@@ -3776,6 +3648,14 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/bar)
+"ti" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "tr" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/effect/spawner/structure/window/reinforced,
@@ -3784,6 +3664,10 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/secondary_solars)
+"tJ" = (
+/obj/machinery/light,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/bar)
 "tS" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-25"
@@ -3803,6 +3687,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/power)
+"ui" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/door/airlock{
+	name = "Theatre";
+	req_access_txt = "200"
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/bar)
 "ul" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -3882,6 +3774,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/pool)
+"xx" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "xG" = (
 /obj/structure/chair{
 	dir = 8
@@ -3981,6 +3881,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/pool)
+"zK" = (
+/obj/structure/filingcabinet,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "zZ" = (
 /obj/structure/pool_ladder,
 /turf/open/indestructible/sound/pool/end,
@@ -4028,6 +3932,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/custodial)
+"De" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/musician/piano{
+	icon_state = "piano"
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/bar)
 "Dv" = (
 /obj/structure/table,
 /obj/item/grenade/chem_grenade/cleaner,
@@ -4059,6 +3972,14 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/security)
+"Eq" = (
+/obj/structure/table/wood,
+/obj/item/instrument/guitar,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/bar)
 "ER" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -4256,6 +4177,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/security)
+"MA" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
+"MF" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "MR" = (
 /turf/open/indestructible/sound/pool/end,
 /area/ruin/space/has_grav/hotel/pool)
@@ -4347,6 +4287,39 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/bar)
+"Qc" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/chair/stool,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/bar)
+"Qi" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/corgi,
+/obj/item/food/meat/slab/corgi,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/pug,
+/obj/item/food/meat/slab/pug,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/plant,
+/obj/item/food/meat/slab/human/mutant/plant,
+/turf/open/floor/plasteel/freezer,
+/area/ruin/space/has_grav/hotel/bar)
+"Qz" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "QA" = (
 /obj/structure/chair{
 	dir = 8
@@ -4374,6 +4347,9 @@
 /obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/secondary_solars)
+"Rd" = (
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/bar)
 "Rp" = (
 /obj/structure/table,
 /obj/item/storage/bag/trash,
@@ -4448,6 +4424,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/pool)
+"Tq" = (
+/obj/structure/table/wood,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "TD" = (
 /obj/structure/chair{
 	dir = 1
@@ -4516,6 +4496,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/power)
+"Wd" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/paper/pamphlet/ruin/spacehotel,
+/obj/item/paper/pamphlet/ruin/spacehotel,
+/obj/item/paper/pamphlet/ruin/spacehotel,
+/obj/item/paper/pamphlet/ruin/spacehotel,
+/obj/item/paper/pamphlet/ruin/spacehotel,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "Wl" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
@@ -4523,6 +4515,9 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/power)
+"Wo" = (
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/dock)
 "WR" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
@@ -4543,6 +4538,11 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/power)
+"Xz" = (
+/obj/structure/table/wood,
+/obj/item/instrument/violin,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/has_grav/hotel/bar)
 "Yh" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -5414,7 +5414,7 @@ gm
 gA
 fQ
 hj
-hu
+Qi
 fi
 cJ
 ic
@@ -5484,7 +5484,7 @@ gn
 gB
 fQ
 hk
-hv
+nG
 fi
 cJ
 ic
@@ -6188,7 +6188,7 @@ hz
 hz
 hU
 hU
-iA
+ui
 hU
 iW
 jr
@@ -6256,9 +6256,9 @@ oC
 BF
 oC
 BF
-hV
-ig
-ih
+Eq
+Xz
+Rd
 fi
 cJ
 jo
@@ -6326,9 +6326,9 @@ PW
 BF
 PW
 BF
-hW
-ih
-ih
+kg
+Rd
+Rd
 fi
 cJ
 jo
@@ -6396,9 +6396,9 @@ TR
 BF
 TR
 BF
-hW
-ih
-ih
+kg
+Rd
+Rd
 fi
 cJ
 jp
@@ -6466,9 +6466,9 @@ QA
 BF
 QA
 BF
-hW
-ih
-iB
+kg
+Rd
+tJ
 fi
 cJ
 js
@@ -6536,9 +6536,9 @@ PW
 BF
 PW
 BF
-hW
-ih
-ih
+kg
+Rd
+Rd
 fi
 hQ
 hf
@@ -6606,9 +6606,9 @@ TR
 BF
 TR
 BF
-hX
-ih
-ih
+De
+Rd
+Rd
 fi
 cJ
 jt
@@ -6676,9 +6676,9 @@ QA
 BF
 QA
 BF
-hY
-ii
-ii
+Qc
+lz
+lz
 fi
 cJ
 jt
@@ -7720,12 +7720,12 @@ fs
 fO
 fX
 fu
-gt
-gN
-hb
-hb
-gN
-hL
+MA
+zK
+Wo
+Wo
+zK
+ti
 fu
 im
 iF
@@ -7790,12 +7790,12 @@ ft
 fu
 fu
 fu
-gu
-gO
-hb
-hb
-gO
-hM
+xx
+mH
+Wo
+Wo
+mH
+Qz
 fu
 in
 fu
@@ -7860,12 +7860,12 @@ fu
 fu
 fu
 fu
-gv
-gP
-hc
-hc
-gP
-hN
+oS
+Tq
+Wd
+Wd
+Tq
+MF
 fu
 in
 fu
