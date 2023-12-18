@@ -168,7 +168,7 @@
 		/datum/reagent/consumable/soysauce = 5,
 		/obj/item/food/bun = 1,
 		/obj/item/food/meatball = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
+		/obj/item/food/grown/cabbage = 1
 	)
 	result = /obj/item/food/meatbun
 	subcategory = CAT_MEAT
