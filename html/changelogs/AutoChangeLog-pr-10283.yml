@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Adds a day/night cycle config setting for maps.
