@@ -74,9 +74,13 @@
 	var/rad_insulation = RAD_NO_INSULATION
 
 	///The custom materials this atom is made of, used by a lot of things like furniture, walls, and floors (if I finish the functionality, that is.)
+	///The list referenced by this var can be shared by multiple objects and should not be directly modified. Instead, use [set_custom_materials][/atom/proc/set_custom_materials].
 	var/list/custom_materials
 	///Bitfield for how the atom handles materials.
 	var/material_flags = NONE
+	///Modifier that raises/lowers the effect of the amount of a material, prevents small and easy to get items from being death machines.
+	var/material_modifier = 1
+
 	///Light systems, both shouldn't be active at the same time.
 	var/light_system = STATIC_LIGHT
 	///Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.
@@ -223,13 +227,8 @@
 	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
-	if(custom_materials && custom_materials.len)
-		var/temp_list = list()
-		for(var/i in custom_materials)
-			temp_list[getmaterialref(i)] = custom_materials[i] //Get the proper instanced version
-
-		custom_materials = null //Null the list to prepare for applying the materials properly
-		set_custom_materials(temp_list)
+	// apply materials properly from the default custom_materials value
+	set_custom_materials(custom_materials)
 
 	ComponentInitialize()
 	InitializeAIController()
@@ -605,7 +604,7 @@
 		var/diff = abs(user.z - z)
 		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
 
-	if(custom_materials)
+	if(custom_materials && material_flags & MATERIAL_EFFECTS) //Only runs if custom materials existed at first and affected src.
 		for(var/i in custom_materials)
 			var/datum/material/M = i
 			. += "<u>It is made out of [M.name]</u>."
@@ -1678,21 +1677,22 @@
 
 ///Sets the custom materials for an item.
 /atom/proc/set_custom_materials(var/list/materials, multiplier = 1)
+
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
-			var/datum/material/custom_material = i
+			var/datum/material/custom_material = SSmaterials.GetMaterialRef(i)
 			custom_material.on_removed(src, material_flags) //Remove the current materials
 
 	if(!length(materials))
+		custom_materials = null
 		return
 
-	custom_materials = list() //Reset the list
+	if(material_flags & MATERIAL_EFFECTS)
+		for(var/x in materials)
+			var/datum/material/custom_material = SSmaterials.GetMaterialRef(x)
+			custom_material.on_applied(src, materials[x] * multiplier * material_modifier, material_flags)
 
-	for(var/x in materials)
-		var/datum/material/custom_material = x
-
-		custom_material.on_applied(src, materials[custom_material] * multiplier, material_flags)
-		custom_materials[custom_material] += materials[custom_material] * multiplier
+	custom_materials = SSmaterials.FindOrCreateMaterialCombo(materials, multiplier)
 
 /// Returns the indice in filters of the given filter name.
 /// If it is not found, returns null.

@@ -209,6 +209,6 @@
 	amount = 1
 
 /obj/item/stack/medical/gauze/cyborg
-	materials = list()
+	custom_materials = null
 	is_cyborg = TRUE
 	cost = 250
