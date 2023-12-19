@@ -456,7 +456,7 @@ export const MainPage = (
   const { act, data } = useBackend<PreferencesMenuData>(context);
   const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<string | null>(context, 'currentClothingMenu', null);
   const [randomToggleEnabled] = useRandomToggleState(context);
-  const [prefInfoTab, setPrefInfoTab] = useLocalState(context, 'prefInfoTab', Object.entries(data.infotab_menus)[0][0]);
+  const [prefInfoTab, setPrefInfoTab] = useLocalState(context, 'prefInfoTab', Object.keys(data.infotab_menus)[0]);
 
   return (
     <ServerPreferencesFetcher
