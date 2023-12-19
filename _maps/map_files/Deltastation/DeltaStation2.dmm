@@ -42397,7 +42397,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "gyw" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "gyy" = (
@@ -60533,6 +60535,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
+"mMG" = (
+/obj/structure/table/reinforced,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "mMW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -71819,6 +71835,23 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
+"qIl" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/security/prison)
 "qIv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -74236,10 +74269,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "ryk" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
+/obj/structure/closet/secure_closet/warden,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/warden,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "ryy" = (
@@ -76626,6 +76659,19 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/science/research)
+"smp" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/food/condiment/flour{
+	pixel_x = -2;
+	pixel_y = 13
+	},
+/obj/item/clothing/head/chefhat,
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "smq" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -78076,6 +78122,29 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"sPs" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/grown/carrot{
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/grown/carrot{
+	pixel_x = -6;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/food/snacks/grown/carrot{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/grown/carrot{
+	pixel_x = -1;
+	pixel_y = 11
+	},
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "sPz" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery/red,
@@ -79393,6 +79462,14 @@
 	},
 /turf/open/floor/plasteel/telecomms,
 /area/tcommsat/server)
+"toP" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/bowl,
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "tpl" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -84850,6 +84927,9 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "vmz" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "vmE" = (
@@ -87440,6 +87520,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
+"waQ" = (
+/obj/machinery/computer/cryopod{
+	pixel_x = 32
+	},
+/obj/machinery/cryopod,
+/turf/open/floor/prison,
+/area/security/prison)
 "waR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -91624,6 +91711,21 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"xuU" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/obj/item/book/manual/chef_recipes{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "xvb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -144539,7 +144641,7 @@ qos
 lja
 lVG
 otf
-bjQ
+qIl
 tJx
 bqA
 ulE
@@ -148142,7 +148244,7 @@ nVN
 bqG
 nVN
 tpu
-nVN
+waQ
 nVN
 nVN
 nVN
@@ -148396,7 +148498,7 @@ hPo
 hPo
 aKV
 nVN
-bqG
+gxI
 tfk
 aFm
 aFm
@@ -149425,7 +149527,7 @@ rXd
 rXd
 ybB
 bqG
-nVN
+mMG
 aFm
 aFm
 aFm
@@ -149681,8 +149783,8 @@ rXd
 rXd
 rXd
 ghD
-gxI
-rbj
+bqG
+smp
 aFm
 qYo
 qYo
@@ -149939,7 +150041,7 @@ rXd
 rXd
 ybB
 bqG
-nVN
+toP
 aFm
 qYo
 aaa
@@ -150196,7 +150298,7 @@ rXd
 rXd
 vRM
 jlR
-nVN
+xuU
 aFm
 qYo
 aaa
@@ -150453,7 +150555,7 @@ rXd
 rXd
 ldM
 nVN
-nVN
+sPs
 aFm
 qYo
 aaa

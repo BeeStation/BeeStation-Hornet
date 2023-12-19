@@ -16322,8 +16322,9 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "cAW" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
-/turf/open/floor/plating,
+/obj/structure/curtain,
+/obj/effect/spawner/structure/window,
+/turf/open/floor/prison,
 /area/security/prison)
 "cAY" = (
 /obj/structure/disposalpipe/junction/flip,
@@ -36517,11 +36518,11 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -41451,10 +41452,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
-"oax" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
-/turf/open/floor/prison,
-/area/security/prison)
 "oaz" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -46438,12 +46435,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "qGr" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -46463,6 +46459,7 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate"
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/security/prison)
 "qHN" = (
@@ -88027,10 +88024,10 @@ ruR
 sRh
 acd
 vwL
-oax
+cAW
 acd
 vwL
-oax
+cAW
 aai
 gXs
 ayE

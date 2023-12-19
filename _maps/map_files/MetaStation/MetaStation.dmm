@@ -39911,6 +39911,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
+"iEf" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/mob/living/simple_animal/kalo{
+	desc = "The Perma brig's cute grass snake.";
+	icon = 'icons/mob/animal.dmi';
+	icon_dead = "snake_dead";
+	icon_living = "snake";
+	icon_state = "snake";
+	name = "Hugel"
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "iEo" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Storage";
@@ -45812,6 +45830,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/maintenance/aft/secondary)
+"kXF" = (
+/obj/machinery/cryopod,
+/obj/machinery/computer/cryopod{
+	pixel_x = 32
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "kXI" = (
 /obj/structure/rack,
 /obj/item/storage/box/rubbershot,
@@ -71690,11 +71715,17 @@
 /turf/closed/wall,
 /area/maintenance/department/science)
 "vEn" = (
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
-/obj/item/kirbyplants/random,
+/obj/structure/rack,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -102084,7 +102115,7 @@ eru
 fwT
 fwT
 fwT
-glH
+iEf
 wVv
 wVv
 dZx
@@ -102336,7 +102367,7 @@ aaZ
 aaZ
 aaZ
 tLu
-eru
+kXF
 syn
 eru
 eru
