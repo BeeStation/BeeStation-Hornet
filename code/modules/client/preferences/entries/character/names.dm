@@ -93,7 +93,7 @@
 	db_key = "human_name"
 
 	name_type = "Alt. Human name"
-	tooltip = "This name is used when the role you are picked for only allows for humans."
+	tooltip = "This name is used when the role you are picked for only allows for humans, or when spawning as certain ghost roles."
 	group = NAME_SORT_ALTBASIC
 	informed = TRUE
 
