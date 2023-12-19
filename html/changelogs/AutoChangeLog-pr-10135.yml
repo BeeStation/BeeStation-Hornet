@@ -1,0 +1,15 @@
+author: rkz, kitz-katz, willox, ninjanomnom, haukeschaumann, Qustinnus, TemporalOroborous
+delete-after: true
+changes:
+  - rscadd: Adds additional framework to basemats, Materials under the label 'basemat'
+      include Iron, Titanium, Plastic, Uranium, Plasma, Silver and Gold.
+  - rscadd: Adds ability to craft chairs and tables out of any basemat material.
+  - tweak: Miner satchels now provide minor radiation protection from their contents,
+      this is to prevent uranium ore from giving you cancer just for existing.
+  - refactor: lazy initializes the basemats subsystem to cut down on processing
+  - refactor: reduces overall unecessary lists in the basemats & custom_materials
+      code
+  - bugfix: fixes a bug relating to duplicating materials
+  - bugfix: fixes a bug where basemats would exagerrate their material properties.
+  - bugfix: fixes a bug where basemats properties would be inherited by anything crafted
+      with them in an auto/protolathe
