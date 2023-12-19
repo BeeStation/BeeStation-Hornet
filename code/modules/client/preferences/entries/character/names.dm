@@ -144,7 +144,7 @@
 
 	group = NAME_SORT_ROBOT
 	name_type = "AI name"
-	tooltip = "Used when you are a cyborg rather than a human. Same as the cyborg name, but when you are an AI."
+	tooltip = "Used when you are an AI."
 
 	allow_numbers = TRUE
 	relevant_job = /datum/job/ai
