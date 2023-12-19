@@ -30,6 +30,10 @@
 	var/lighting_alpha
 	var/no_glasses
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
+	///the type of overlay we use for this eye's blind effect
+	var/atom/movable/screen/fullscreen/blind/blind_type
+	///Can these eyes every be cured of blind? - Each eye atom should handle this themselves, don't make this make you blind
+	var/can_see = TRUE
 
 /obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
 	. = ..()
@@ -65,10 +69,10 @@
 		organ_flags &= ~ORGAN_FAILING
 		C.cure_blind(EYE_DAMAGE)
 	//various degrees of "oh fuck my eyes", from "point a laser at your eye" to "staring at the Sun" intensities
-	if(damage > 20)
+	if(damage > 20 && can_see)
 		damaged = TRUE
 		if((organ_flags & ORGAN_FAILING))
-			C.become_blind(EYE_DAMAGE)
+			C.become_blind(EYE_DAMAGE, blind_type)
 		else if(damage > 30)
 			C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 2)
 		else
@@ -405,3 +409,30 @@
 	name = "apid eyes"
 	desc = "Designed for navigating dark hives, these eyes have improvement to low light vision."
 	see_in_dark = 8
+
+/obj/item/organ/eyes/psyphoza
+	name = "psyphoza eyes"
+	desc = "Conduits for psychic energy, hardly even eyes."
+	icon_state = "psyphoza_eyeballs"
+	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	blind_type = /atom/movable/screen/fullscreen/blind/psychic
+	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	can_see = FALSE
+
+/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
+	. = ..()
+	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
+	M.remove_client_colour(/datum/client_colour/monochrome/blind)
+	//Handle weird ability code
+	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
+	if(P?.removed)
+		P.Grant(M)
+		P?.removed = FALSE
+
+/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
+	M.cure_blind("uncurable", TRUE)
+	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
+	P?.remove()
+	return ..()

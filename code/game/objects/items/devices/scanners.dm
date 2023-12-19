@@ -190,7 +190,7 @@ GENE SCANNER
 
 // Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, to_chat = TRUE)
-	if(isliving(user) && (user.incapacitated() || user.is_blind()))
+	if(isliving(user) && user.incapacitated())
 		return
 
 	// the final list of strings to render
@@ -398,6 +398,11 @@ GENE SCANNER
 			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
 				message += "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>"
 
+		// Embedded Items
+		for(var/obj/item/bodypart/limb as anything in H.bodyparts)
+			for(var/obj/item/embed as anything in limb.embedded_objects)
+				message += "\t<span class='alert'>Foreign object embedded in subject's [limb.name].</span>"
+
 	// Species and body temperature
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -553,7 +558,7 @@ GENE SCANNER
 /obj/item/analyzer/attack_self(mob/user)
 	add_fingerprint(user)
 
-	if(user.stat || user.is_blind())
+	if(user.stat)
 		return
 
 	//Functionality moved down to proc/scan_turf()
@@ -755,7 +760,7 @@ GENE SCANNER
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
-	if(user.stat || user.is_blind())
+	if(user.stat)
 		return
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")

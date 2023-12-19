@@ -66,7 +66,7 @@
 	var/custom_premium_price
 
 	//List of datums orbiting this atom
-	var/datum/component/orbiter/orbiters
+	var/datum/component/orbiter/orbit_datum
 
 	/// Will move to flags_1 when i can be arsed to (2019, has not done so)
 	var/rad_flags = NONE
@@ -287,7 +287,7 @@
 	if(reagents)
 		QDEL_NULL(reagents)
 
-	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
+	orbit_datum = null // The component is attached to us normaly and will be deleted elsewhere
 
 	// Checking length(overlays) before cutting has significant speed benefits
 	if (length(overlays))
@@ -649,6 +649,21 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE))
+		var/list/souls = return_souls()
+		if(!length(souls))
+			return
+		to_chat(user, "<span class='notice'>You sense a presence here...")
+		//Count of souls
+		var/list/present_souls = list()
+		for(var/soul in souls)
+			present_souls[soul] += 1
+		//Display the total soul count
+		for(var/soul in present_souls)
+			if(!present_souls[soul] || !GLOB.SOUL_GLIMMER_COLORS[soul])
+				continue
+			to_chat(user, "<span class='notice'><span style='color: [GLOB.SOUL_GLIMMER_COLORS[soul]]'>[soul]</span>, [present_souls[soul] > 1 ? "[present_souls[soul]] times" : "once"].</span>")
+	
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
@@ -773,14 +788,14 @@
 	return //For handling the effects of explosions on contents that would not normally be effected
 
 /**
-  * React to being hit by an explosion
-  *
-  * Default behaviour is to call contents_explosion() and send the COMSIG_ATOM_EX_ACT signal
-  */
+ * React to being hit by an explosion
+ *
+ * Should be called through the [EX_ACT] wrapper macro.
+ * The wrapper takes care of the [COMSIG_ATOM_EX_ACT] signal.
+ * as well as calling [/atom/proc/contents_explosion].
+ */
 /atom/proc/ex_act(severity, target)
 	set waitfor = FALSE
-	contents_explosion(severity, target)
-	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
 
 /**
   * React to a hit by a blob objecd
@@ -1827,6 +1842,13 @@
 			qdel(src)
 		return TRUE
 	return FALSE
+
+//Used to exclude this atom from the psychic highlight plane
+/atom/proc/generate_psychic_mask()
+	var/mutable_appearance/MA = mutable_appearance()
+	MA.appearance = appearance
+	MA.plane = ANTI_PSYCHIC_PLANE
+	add_overlay(MA)
 
 /atom/proc/update_luminosity()
 	if (isnull(base_luminosity))

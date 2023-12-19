@@ -105,3 +105,6 @@
 
 //Used in visible_message_flags, audible_message_flags and message_mods
 #define CHATMESSAGE_EMOTE "emotemessage"
+
+///How far away blind people can see visible messages from
+#define BLIND_TEXT_DIST 2
