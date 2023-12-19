@@ -7,7 +7,7 @@ export const real_name: Feature<string> = {
 };
 
 export const human_name: Feature<string> = {
-  name: "Alt' Human name",
+  name: "Alt. Human name",
   tooltip: 'In specific cases, this name is used instead of your real name.',
   component: TextButtonInput,
 };
