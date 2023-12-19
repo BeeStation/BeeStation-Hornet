@@ -61,7 +61,7 @@
 	//Check if the item is sharp - give owner a random face if applicable
 	var/mob/living/carbon/human/M = _source
 	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
-	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.zone_selected == BODY_ZONE_HEAD)
+	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.is_zone_selected(BODY_ZONE_HEAD))
 		to_chat(_user, "<span class='notice'>You begin to carve a face into [_source]...</span>")
 		//Do after for *flourish*
 		if(do_after(_user, 3 SECONDS))
