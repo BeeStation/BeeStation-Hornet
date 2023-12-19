@@ -134,7 +134,7 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// * value: displace name of a category. (because we don't want to show "non_contextual" ugly bar)
 #define INFOTAB_LIST list( \
 	PREFERENCE_CATEGORY_NAMES = "Names", \
-	PREFERENCE_CATEGORY_NON_CONTEXTUAL = "Non contextual")
+	PREFERENCE_CATEGORY_NON_CONTEXTUAL = "Character Info")
 
 //randomized elements
 #define RANDOM_ANTAG_ONLY 1
