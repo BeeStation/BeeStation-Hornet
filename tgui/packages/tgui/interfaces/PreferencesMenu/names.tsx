@@ -102,7 +102,7 @@ export const MultiNameInput = (
                                 <span>
                                   {name.policy_tooltip}
                                   {name.policy_link ? <br /> : ''}
-                                  {name.policy_link ? 'Click the alert icon to check the guideline.' : ''}
+                                  {name.policy_link ? 'Click this alert icon to view the policy.' : ''}
                                 </span>
                               }>
                               {name.policy_link ? (
