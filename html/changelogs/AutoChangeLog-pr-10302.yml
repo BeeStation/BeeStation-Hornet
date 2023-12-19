@@ -1,6 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - rscadd: Added the ability for health analyzers to see embedded items inside of
-      a person.4
-  - bugfix: Fixed embeds not properly being blocked by shields.
