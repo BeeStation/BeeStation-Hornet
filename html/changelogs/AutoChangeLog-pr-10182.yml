@@ -1,0 +1,9 @@
+author: rkz, qustinnus, Timberpoes, ShizCalev, cacogen, WeSoda25
+delete-after: true
+changes:
+  - tweak: chaplains enjoy the taste of Holy Melons, and get a mood event for it.
+  - rscadd: converts grown food to newfood
+  - code_imp: unit tests to check food edibility & icons
+  - code_imp: establishes junkiness framework for snacks
+  - bugfix: fixes incorrect microwave cooking paths for some meats
+  - bugfix: makes processors, microwaves, drying racks accept all food again
