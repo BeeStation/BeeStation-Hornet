@@ -1,5 +1,0 @@
-author: rkz, Mothblocks, Kylerace
-delete-after: true
-changes:
-  - refactor: speeds up init by ~0.8s by splitting registering lists of signals
-  - code_imp: documents component code
