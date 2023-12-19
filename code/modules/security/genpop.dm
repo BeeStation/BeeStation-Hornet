@@ -320,7 +320,7 @@
 					"sentence" = initial(crime_path.sentence),
 				))
 		else
-			crime_list = json_decode(rustg_file_read(config_file))
+			crime_list = json_decode(file2text(config_file))
 			//create the categories of crime
 
 	if (valid_crime_name_regex)
