@@ -73,8 +73,8 @@
 /obj/item/clothing/under/costume/redcoat
 	name = "redcoat uniform"
 	desc = "Looks old."
-	icon_state = "redcoat"
-	item_state = "redcoat"
+	icon_state = "redcoat_old"
+	item_state = "redcoat_old"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/costume/kilt
