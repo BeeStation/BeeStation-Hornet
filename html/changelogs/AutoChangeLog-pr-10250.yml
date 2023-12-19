@@ -1,4 +1,0 @@
-author: rkz
-delete-after: true
-changes:
-  - bugfix: Fixes Dish-drives dispensing their stock parts upon attack_hand
