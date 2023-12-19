@@ -331,7 +331,7 @@
 			target.adjust_bodytemperature(50)
 			GiveHint(target)
 		else if(is_pointed(I))
-			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_selected)]!</span>")
+			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.get_combat_bodyzone(target))]!</span>")
 			target.Paralyze(40)
 			GiveHint(target)
 		else if(istype(I, /obj/item/bikehorn))
@@ -359,7 +359,15 @@
 		target = input(user, "Select your victim!", "Voodoo") as null|anything in sort_names(possible)
 		return
 
-	if(user.zone_selected == BODY_ZONE_CHEST)
+	var/datum/task/select_zone_task = user.select_bodyzone(user, TRUE, BODYZONE_STYLE_DEFAULT)
+	select_zone_task.continue_with(CALLBACK(PROC_REF(perform_voodoo), user))
+
+/obj/item/voodoo/proc/perform_voodoo(mob/user, zone_selected)
+	if (!can_interact(user))
+		to_chat(user, "<span class='warning'>You are too far away!</span>")
+		return
+
+	if(zone_selected == BODY_ZONE_CHEST)
 		if(voodoo_link)
 			target = null
 			voodoo_link.forceMove(drop_location())
@@ -369,7 +377,7 @@
 			return
 
 	if(target && cooldown < world.time)
-		switch(user.zone_selected)
+		switch(zone_selected)
 			if(BODY_ZONE_PRECISE_MOUTH)
 				var/wgw =  stripped_input(user, "What would you like the victim to say", "Voodoo")
 				target.say(wgw, forced = "voodoo doll")

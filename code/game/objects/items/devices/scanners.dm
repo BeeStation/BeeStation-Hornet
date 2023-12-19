@@ -398,6 +398,11 @@ GENE SCANNER
 			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
 				message += "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>"
 
+		// Embedded Items
+		for(var/obj/item/bodypart/limb as anything in H.bodyparts)
+			for(var/obj/item/embed as anything in limb.embedded_objects)
+				message += "\t<span class='alert'>Foreign object embedded in subject's [limb.name].</span>"
+
 	// Species and body temperature
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
