@@ -1,0 +1,7 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: More soul glimmer colours are added to Psyphoza. If a round started with
+      more player clients, the round will have more colour pool. Max size 10, max
+      pop size +91.
+  - bugfix: Soul glimmer colour is now TGUI chat reactive.
