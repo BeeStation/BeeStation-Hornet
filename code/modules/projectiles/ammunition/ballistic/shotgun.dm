@@ -102,7 +102,7 @@
 	name = "improvised glass-packed shell"
 	desc = "An extremely weak shotgun shell that's been filled with shards of glass instead of metal pellets."
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_glass
-	materials = list(/datum/material/iron=100, /datum/material/glass=100)
+	custom_materials = list(/datum/material/iron=100, /datum/material/glass=100)
 	pellets = 5
 	variance = 15
 
