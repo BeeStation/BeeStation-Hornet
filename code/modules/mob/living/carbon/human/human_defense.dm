@@ -671,23 +671,19 @@
 		I.acid_act(acidpwr, acid_volume)
 	return 1
 
+///The point value is how much they affect the singularity's size
 /mob/living/carbon/human/singularity_act()
-	var/gain = 20
-
+	. = 20
 
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
-
 	if(mind)
 		if((mind.assigned_role == JOB_NAME_STATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
-			gain = 100
+			. = 100
 		if(mind.assigned_role == JOB_NAME_CLOWN)
-			gain = rand(-1000, 1000)
-	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
-	gib()
-
-	return(gain)
+			. = rand(-1000, 1000)
+	..()
 
 /mob/living/carbon/human/help_shake_act(mob/living/carbon/M)
 	if(!istype(M))
