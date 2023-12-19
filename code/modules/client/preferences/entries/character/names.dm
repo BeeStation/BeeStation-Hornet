@@ -129,7 +129,7 @@
 
 	group = NAME_SORT_ROBOT
 	name_type = "Cyborg name"
-	tooltip = "Used when you are a cyborg rather than a human."
+	tooltip = "Used when you are a cyborg."
 
 	allow_numbers = TRUE
 	can_randomize = FALSE
