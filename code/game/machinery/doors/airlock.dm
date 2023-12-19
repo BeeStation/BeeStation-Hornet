@@ -1154,7 +1154,7 @@
 		to_chat(user, "<span class='notice'>You carefully start removing [charge] from [src]...</span>")
 		if(!I.use_tool(src, user, 150, volume=50))
 			to_chat(user, "<span class='warning'>You slip and [charge] detonates!</span>")
-			charge.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(charge, EXPLODE_DEVASTATE)
 			user.Paralyze(60)
 			return
 		user.visible_message("<span class='notice'>[user] removes [charge] from [src].</span>", \
@@ -1192,7 +1192,7 @@
 		update_icon(AIRLOCK_OPENING)
 		visible_message("<span class='warning'>[src]'s panel is blown off in a spray of deadly shrapnel!</span>")
 		charge.forceMove(drop_location())
-		charge.ex_act(EXPLODE_DEVASTATE)
+		EX_ACT(charge, EXPLODE_DEVASTATE)
 		detonated = 1
 		charge = null
 		for(var/mob/living/carbon/human/H in orange(2,src))
