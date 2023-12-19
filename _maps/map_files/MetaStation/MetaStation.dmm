@@ -41286,19 +41286,19 @@
 /area/hallway/secondary/entry)
 "jtI" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -6;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 11
 	},
