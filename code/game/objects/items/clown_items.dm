@@ -72,11 +72,11 @@
 	icon_state = "soapsyndie"
 	cleanspeed = 5 //faster than mop so it is useful for traitors who want to clean crime scenes
 
-/obj/item/soap/suicide_act(mob/user)
+/obj/item/soap/suicide_act(mob/living/user)
 	user.say(";FFFFFFFFFFFFFFFFUUUUUUUDGE!!", forced="soap suicide")
 	user.visible_message("<span class='suicide'>[user] lifts [src] to [user.p_their()] mouth and gnaws on it furiously, producing a thick froth! [user.p_they(TRUE)]'ll never get that BB gun now!</span>")
 	new /obj/effect/particle_effect/foam(loc)
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/soap/proc/decreaseUses(mob/user)
 	uses--
@@ -99,7 +99,7 @@
 			qdel(target)
 			decreaseUses(user)
 
-	else if(ishuman(target) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	else if(ishuman(target) && user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 		var/mob/living/carbon/human/H = user
 		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>", "<span class='notice'>You wash \the [target]'s mouth out with [src.name]!</span>") //washes mouth out with soap sounds better than 'the soap' here			if(user.zone_selected == "mouth")
 		H.lip_style = null //removes lipstick
@@ -162,16 +162,16 @@
 	var/list/sound_list = list()
 	sound_list[sound_file] = 1
 	//LoadComponent so child types dont stack squeak components
-	LoadComponent(/datum/component/squeak, sound_list, 50)
+	LoadComponent(/datum/component/squeak, sound_list, 50, falloff_exponent = 20)
 
 /obj/item/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "honk", /datum/mood_event/honk)
 	return ..()
 
-/obj/item/bikehorn/suicide_act(mob/user)
+/obj/item/bikehorn/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] solemnly points [src] at [user.p_their()] temple! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 //air horn
 /obj/item/bikehorn/airhorn

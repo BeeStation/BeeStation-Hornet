@@ -10,20 +10,18 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	materials = list(/datum/material/iron=1000)
+	mats_per_unit = list(/datum/material/iron=1000)
 	max_amount = 50
 	merge_type = /obj/item/stack/rods
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	embedding = list()
 	novariants = TRUE
+	matter_amount = 2
 
 /obj/item/stack/rods/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to stuff \the [src] down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide!</span>")//it looks like theyre ur mum
 	return BRUTELOSS
-
-/obj/item/stack/rods/get_recipes()
-	return GLOB.rod_recipes
 
 /obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
@@ -33,13 +31,18 @@
 	update_icon()
 	AddElement(/datum/element/openspace_item_click_handler)
 
+/obj/item/stack/rods/get_main_recipes()
+	. = ..()
+	. += GLOB.rod_recipes
+
 /obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
 		target.attackby(src, user, click_parameters)
 
-/obj/item/stack/rods/update_icon()
+/obj/item/stack/rods/update_icon_state()
+	. = ..()
 	var/amount = get_amount()
-	if((amount <= 5) && (amount > 0))
+	if(amount <= 5)
 		icon_state = "rods-[amount]"
 	else
 		icon_state = "rods"

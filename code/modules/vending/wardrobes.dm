@@ -69,8 +69,8 @@
 					/obj/item/clothing/under/rank/medical/doctor/skirt= 4,
 					/obj/item/clothing/under/plasmaman/medical = 4,
 					/obj/item/clothing/head/helmet/space/plasmaman/medical = 4,
-					/obj/item/clothing/suit/toggle/labcoat/med = 4,
-					/obj/item/clothing/suit/toggle/labcoat/med/paramedic = 4,
+					/obj/item/clothing/suit/toggle/labcoat = 4,
+					/obj/item/clothing/suit/toggle/labcoat/paramedic = 4,
 					/obj/item/clothing/shoes/sneakers/white = 4,
 					/obj/item/clothing/head/soft/paramedic = 4,
 					/obj/item/clothing/suit/apron/surgical = 4,
@@ -159,7 +159,8 @@
 					/obj/item/clothing/under/plasmaman/mailman = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
 	)
-	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1)
+	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1,
+					/obj/item/clothing/suit/hooded/wintercoat/cargo/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	dept_req_for_free = ACCOUNT_CAR_BITFLAG
 /obj/item/vending_refill/wardrobe/cargo_wardrobe
@@ -457,6 +458,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/chemist = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/chemist = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/chemist = 2,
 					/obj/item/storage/backpack/chemistry = 2,
 					/obj/item/storage/backpack/satchel/chem = 2,
 					/obj/item/storage/bag/chemistry = 2,
@@ -478,6 +480,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/genetics = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/genetics = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/geneticist = 2,
 					/obj/item/storage/backpack/genetics = 2,
 					/obj/item/storage/backpack/satchel/gen = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/gene_wardrobe
@@ -497,6 +500,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/viro = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/virologist = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/virologist = 2,
 					/obj/item/clothing/mask/surgical = 2,
 					/obj/item/storage/backpack/virology = 2,
 					/obj/item/storage/backpack/satchel/vir = 2)
@@ -518,6 +522,7 @@
 					/obj/item/clothing/under/rank/security/detective/skirt = 2,
 					/obj/item/clothing/shoes/sneakers/brown = 2,
 					/obj/item/clothing/suit/det_suit = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/detective = 2,
 					/obj/item/clothing/head/fedora/det_hat = 2,
 					/obj/item/clothing/under/rank/security/detective/grey = 2,
 					/obj/item/clothing/under/rank/security/detective/grey/skirt = 2,

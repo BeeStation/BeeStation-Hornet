@@ -8,6 +8,7 @@
 
 /mob/living/Initialize(mapload)
 	. = ..()
+	register_init_signals()
 	if(unique_name)
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
@@ -63,7 +64,7 @@
 		return
 	if(buckled || now_pushing)
 		return
-	if((confused || is_blind()) && stat == CONSCIOUS && (mobility_flags & MOBILITY_STAND) && m_intent == "run" && !ismovable(A) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))  // ported from VORE, sue me
+	if(confused && stat == CONSCIOUS && (mobility_flags & MOBILITY_STAND) && m_intent == "run" && !ismovable(A) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))  // ported from VORE, sue me
 		APPLY_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
@@ -238,10 +239,18 @@
 	if((AM.move_resist * MOVE_FORCE_FORCEPUSH_RATIO) <= force)			//trigger move_crush and/or force_push regardless of if we can push it normally
 		if(force_push(AM, move_force, dir_to_target, push_anchored))
 			push_anchored = TRUE
+	if(ismob(AM))
+		var/mob/mob_to_push = AM
+		var/atom/movable/mob_buckle = mob_to_push.buckled
+		// If we can't pull them because of what they're buckled to, make sure we can push the thing they're buckled to instead.
+		// If neither are true, we're not pushing anymore.
+		if(mob_buckle && (mob_buckle.buckle_prevents_pull || (force < (mob_buckle.move_resist * MOVE_FORCE_PUSH_RATIO))))
+			now_pushing = FALSE
+			return
 	if((AM.anchored && !push_anchored) || (force < (AM.move_resist * MOVE_FORCE_PUSH_RATIO)))
 		now_pushing = FALSE
 		return
-	if (istype(AM, /obj/structure/window))
+	if(istype(AM, /obj/structure/window))
 		var/obj/structure/window/W = AM
 		if(W.fulltile)
 			for(var/obj/structure/window/win in get_step(W, dir_to_target))
@@ -288,7 +297,7 @@
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 
 	pulling = AM
-	AM.pulledby = src
+	AM.set_pulledby(src)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_START_PULL, AM, state, force)
 
@@ -309,14 +318,14 @@
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
-			if (L.getorgan(/obj/item/organ/tail) && zone_selected == BODY_ZONE_PRECISE_GROIN) //Does the target have a tail?
+			if (L.getorgan(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
 				M.visible_message("<span class ='warning'>[src] grabs [L] by [L.p_their()] tail!</span>",\
 								"<span class='warning'> [src] grabs you by the tail!</span>", null, null, src) //Message sent to area, Message sent to grabbee
 				to_chat(src, "<span class='notice'>You grab [L] by [L.p_their()] tail!</span>")  //Message sent to grabber
 			else
-				M.visible_message("<span class='warning'>[src] grabs [M] [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>", \
-								"<span class='warning'>[src] grabs you [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by your hands":"passively"]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
-				to_chat(src, "<span class='notice'>You grab [M] [(zone_selected == BODY_ZONE_L_ARM|| zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>") //Message sent to grabber
+				M.visible_message("<span class='warning'>[src] grabs [M] [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by their hands":"passively"]!</span>", \
+								"<span class='warning'>[src] grabs you [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by your hands":"passively"]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+				to_chat(src, "<span class='notice'>You grab [M] [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by their hands":"passively"]!</span>") //Message sent to grabber
 		if(!iscarbon(src))
 			M.LAssailant = null
 		else
@@ -403,8 +412,6 @@
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(incapacitated())
 		return FALSE
-	if(HAS_TRAIT(src, TRAIT_DEATHCOMA))
-		return FALSE
 	if(!..())
 		return FALSE
 	visible_message("<b>[src]</b> points at [A].", "<span class='notice'>You point at [A].</span>")
@@ -422,6 +429,7 @@
 		if (src.client)
 			client.give_award(/datum/award/achievement/misc/succumb, client.mob)
 
+		investigate_log("has succumbed to death.", INVESTIGATE_DEATHS)
 		death()
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_stasis = FALSE)
@@ -496,18 +504,24 @@
 		else
 			to_chat(src, "<span class='notice'>You fail to get up.</span>")
 
+///Proc to hook behavior to the change of value in the resting variable.
 /mob/living/proc/set_resting(rest, silent = TRUE)
+	if(rest == resting)
+		return
 	if(!silent)
 		if(rest)
 			to_chat(src, "<span class='notice'>You are now resting.</span>")
 		else
 			to_chat(src, "<span class='notice'>You get up.</span>")
+	. = rest
 	resting = rest
 	update_resting()
+
 
 /mob/living/proc/update_resting()
 	update_rest_hud_icon()
 	update_mobility()
+
 
 //Recursive function to find everything a mob is holding. Really shitty proc tbh.
 /mob/living/get_contents()
@@ -529,7 +543,7 @@
 	return FALSE
 
 // Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
-/mob/living/proc/can_inject()
+/mob/living/proc/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
 	return TRUE
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
@@ -538,10 +552,15 @@
 /mob/living/is_drawable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
 
+///Sets the current mob's health value. Do not call directly if you don't know what you are doing, use the damage procs, instead.
+/mob/living/proc/set_health(new_value)
+	. = health
+	health = new_value
+
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
 		return
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	staminaloss = getStaminaLoss()
 	update_stat()
 	med_hud_set_health()
@@ -640,12 +659,14 @@
 	SetSleeping(0, FALSE)
 	radiation = 0
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
-	bodytemperature = BODYTEMP_NORMAL
+	bodytemperature = get_body_temp_normal(apply_change=FALSE)
 	set_blindness(0)
 	set_blurriness(0)
 	set_dizziness(0)
 	cure_nearsighted()
-	cure_blind()
+	//Some eye logic
+	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+	cure_blind(null, eyes?.can_see)
 	cure_husk()
 	hallucination = 0
 	heal_overall_damage(INFINITY, INFINITY, INFINITY, null, TRUE) //heal brute and burn dmg on both organic and robotic limbs, and update health right away.
@@ -1122,7 +1143,7 @@
 		update_fire()
 
 /mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
-	fire_stacks = CLAMP(fire_stacks + add_fire_stacks, -20, 20)
+	fire_stacks = clamp(fire_stacks + add_fire_stacks, -20, 20)
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
 
@@ -1170,21 +1191,18 @@
 /mob/living/proc/update_mobility()
 	var/stat_softcrit = stat == SOFT_CRIT
 	var/stat_conscious = (stat == CONSCIOUS) || stat_softcrit
-	var/conscious = !IsUnconscious() && stat_conscious && !HAS_TRAIT(src, TRAIT_DEATHCOMA)
 	var/chokehold = pulledby && pulledby.grab_state >= GRAB_NECK
 	var/restrained = restrained()
 	var/has_legs = get_num_legs()
 	var/has_arms = get_num_arms()
 	var/paralyzed = IsParalyzed()
-	var/stun = IsStun()
-	var/knockdown = IsKnockdown()
 	var/ignore_legs = get_leg_ignore()
-	var/canmove = !IsImmobilized() && !stun && conscious && !paralyzed && !buckled && (!stat_softcrit || !pulledby) && !chokehold && !IsFrozen() && !IS_IN_STASIS(src) && (has_arms || ignore_legs || has_legs)
+	var/canmove = !HAS_TRAIT(src, TRAIT_IMMOBILIZED) && (has_arms || ignore_legs || has_legs)
 	if(canmove)
 		mobility_flags |= MOBILITY_MOVE
 	else
 		mobility_flags &= ~MOBILITY_MOVE
-	var/canstand_involuntary = conscious && !stat_softcrit && !knockdown && !chokehold && !paralyzed && (ignore_legs || has_legs) && !(buckled && buckled.buckle_lying)
+	var/canstand_involuntary = !HAS_TRAIT(src, TRAIT_FLOORED) && (ignore_legs || has_legs)
 	var/canstand = canstand_involuntary && !resting
 
 	if(buckled && buckled.buckle_lying != -1)
@@ -1211,7 +1229,7 @@
 
 	if(stat == UNCONSCIOUS)
 		drop_all_held_items()
-	var/canitem = !paralyzed && !stun && conscious && !chokehold && !restrained && has_arms
+	var/canitem = !paralyzed && !IsStun() && stat_conscious && !chokehold && !restrained && has_arms
 	if(canitem)
 		mobility_flags |= (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
 	else
@@ -1279,6 +1297,63 @@
 		if(client)
 			reset_perspective()
 		update_mobility() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+
+/mob/living/set_stat(new_stat)
+	. = ..()
+	if(isnull(.))
+		return
+	switch(.) //Previous stat.
+		if(CONSCIOUS)
+			if(stat >= UNCONSCIOUS)
+				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+			ADD_TRAIT(src, TRAIT_FLOORED, UNCONSCIOUS_TRAIT)
+		if(SOFT_CRIT)
+			if(stat >= UNCONSCIOUS)
+				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT) //adding trait sources should come before removing to avoid unnecessary updates
+			if(pulledby)
+				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+		if(UNCONSCIOUS)
+			cure_blind(UNCONSCIOUS_TRAIT)
+	switch(stat) //Current stat.
+		if(CONSCIOUS)
+			if(. >= UNCONSCIOUS)
+				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+			REMOVE_TRAIT(src, TRAIT_FLOORED, UNCONSCIOUS_TRAIT)
+		if(SOFT_CRIT)
+			if(pulledby)
+				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
+			if(. >= UNCONSCIOUS)
+				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+		if(UNCONSCIOUS)
+			become_blind(UNCONSCIOUS_TRAIT)
+
+///Reports the event of the change in value of the buckled variable.
+/mob/living/proc/set_buckled(new_buckled)
+	if(new_buckled == buckled)
+		return
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BUCKLED, new_buckled)
+	. = buckled
+	buckled = new_buckled
+	if(buckled)
+		if(!.)
+			if(!HAS_TRAIT(buckled, TRAIT_NO_IMMOBILIZE)) //check if the object being buckled to that would normally immobilize has the NO_Immobilize trait, i.e. Wheelchairs. People buckled to wheelchairs obviously have more free movement that those buckled to stasis beds
+				ADD_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
+			if(buckled.buckle_lying)
+				ADD_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+	else if(.)
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
+		REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+
+
+/mob/living/set_pulledby(new_pulledby)
+	. = ..()
+	if(. == FALSE) //null is a valid value here, we only want to return if FALSE is explicitly passed.
+		return
+	if(pulledby)
+		if(!. && stat == SOFT_CRIT)
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+	else if(. && stat == SOFT_CRIT)
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
 	if (registered_z != new_z)
@@ -1438,6 +1513,55 @@
 			layer = initial(layer)
 		if(.) //We weren't pone before, so we become dense and things can bump into us again.
 			density = initial(density)
+
+/**
+ * add_body_temperature_change Adds modifications to the body temperature
+ *
+ * This collects all body temperature changes that the mob is experiencing to the list body_temp_changes
+ * the aggrogate result is used to derive the new body temperature for the mob
+ *
+ * arguments:
+ * * key_name (str) The unique key for this change, if it already exist it will be overridden
+ * * amount (int) The amount of change from the base body temperature
+ */
+/mob/living/proc/add_body_temperature_change(key_name, amount)
+	body_temp_changes["[key_name]"] = amount
+
+/**
+ * remove_body_temperature_change Removes the modifications to the body temperature
+ *
+ * This removes the recorded change to body temperature from the body_temp_changes list
+ *
+ * arguments:
+ * * key_name (str) The unique key for this change that will be removed
+ */
+/mob/living/proc/remove_body_temperature_change(key_name)
+	body_temp_changes -= key_name
+
+/**
+ * get_body_temp_normal_change Returns the aggregate change to body temperature
+ *
+ * This aggregates all the changes in the body_temp_changes list and returns the result
+ */
+/mob/living/proc/get_body_temp_normal_change()
+	var/total_change = 0
+	if(body_temp_changes.len)
+		for(var/change in body_temp_changes)
+			total_change += body_temp_changes["[change]"]
+	return total_change
+
+/**
+ * get_body_temp_normal Returns the mobs normal body temperature with any modifications applied
+ *
+ * This applies the result from proc/get_body_temp_normal_change() against the BODYTEMP_NORMAL and returns the result
+ *
+ * arguments:
+ * * apply_change (optional) Default True This applies the changes to body temperature normal
+ */
+/mob/living/proc/get_body_temp_normal(apply_change=TRUE)
+	if(!apply_change)
+		return BODYTEMP_NORMAL
+	return BODYTEMP_NORMAL + get_body_temp_normal_change()
 
 //Used for applying color correction
 /mob/living/proc/apply_color_correction(datum/source, area/entered)

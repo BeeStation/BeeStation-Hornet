@@ -109,9 +109,15 @@
 			if(P.tool_behaviour == TOOL_SCREWDRIVER)
 				P.play_tool_sound(src)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
-				var/obj/B = new circuit.build_path (loc, circuit)
-				B.setDir(dir)
-				transfer_fingerprints_to(B)
+
+				var/obj/machinery/new_machine = new circuit.build_path(loc, src.contents)
+				new_machine.setDir(dir)
+				transfer_fingerprints_to(new_machine)
+
+				if(istype(new_machine, /obj/machinery/computer))
+					var/obj/machinery/computer/new_computer = new_machine
+					new_computer.anchored = anchored
+					new_computer.on_construction()
 				qdel(src)
 				return
 	if(user.a_intent == INTENT_HARM)

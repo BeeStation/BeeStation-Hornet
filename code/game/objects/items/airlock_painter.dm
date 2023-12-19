@@ -13,7 +13,7 @@
 
 	w_class = WEIGHT_CLASS_SMALL
 
-	materials = list(/datum/material/iron=50, /datum/material/glass=50)
+	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
@@ -89,7 +89,7 @@
 	else
 		return TRUE
 
-/obj/item/airlock_painter/suicide_act(mob/user)
+/obj/item/airlock_painter/suicide_act(mob/living/user)
 	var/obj/item/organ/lungs/L = user.getorganslot(ORGAN_SLOT_LUNGS)
 
 	if(can_use(user) && L)

@@ -48,7 +48,8 @@
 	*/
 
 	/// The zone this mob is currently targeting
-	var/zone_selected = BODY_ZONE_CHEST
+	/// Use select_bodyzone and get_combat_bodyzone to get this value
+	VAR_PRIVATE/zone_selected = BODY_ZONE_CHEST
 
 	var/computer_id = null
 	var/list/logging = list()
@@ -114,9 +115,9 @@
 	/// The last known IP of the client who was in this mob
 	var/lastKnownIP = null
 
-	/// movable atoms buckled to this mob
+	/// The atom that this mob is currently buckled to
 	var/atom/movable/buckled = null//Living
-	/// movable atom we are buckled to
+	/// The movable atom that we are currently in the process of buckling to, but haven't buckled with yet.
 	var/atom/movable/buckling
 
 	//Hands

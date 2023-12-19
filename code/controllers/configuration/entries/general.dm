@@ -83,6 +83,8 @@
 
 /datum/config_entry/flag/log_world_topic	// log all world.Topic() calls
 
+/datum/config_entry/flag/log_preferences	// log all preferences loading and changes
+
 /// log speech indicators(started/stopped speaking)
 /datum/config_entry/flag/log_speech_indicators
 

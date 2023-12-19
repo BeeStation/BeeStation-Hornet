@@ -15,7 +15,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throw_speed = 3
 	throw_range = 6
-	materials = list(/datum/material/iron=12000)
+	custom_materials = list(/datum/material/iron=12000)
 	attack_verb = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	//attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = IS_SHARP_ACCURATE
@@ -31,7 +31,7 @@
 	set_butchering()
 
 /obj/item/knife/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
+	if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
 		return eyestab(M,user)
@@ -42,11 +42,11 @@
 /obj/item/knife/proc/set_butchering()
 	AddComponent(/datum/component/butchering, 8 SECONDS - force, 100, force - 10) //bonus chance increases depending on force
 
-/obj/item/knife/suicide_act(mob/user)
+/obj/item/knife/suicide_act(mob/living/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
 						"<span class='suicide'>[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
 						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [src.name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/knife/ritual
 	name = "ritual knife"
@@ -65,7 +65,7 @@
 	flags_1 = CONDUCT_1
 	force = 15
 	throwforce = 10
-	materials = list(/datum/material/iron=18000)
+	custom_materials = list(/datum/material/iron=18000)
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 60
@@ -87,7 +87,7 @@
 	var/amount_per_transfer_from_this = 10
 	var/list/possible_transfer_amounts
 	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
-	materials = null
+	custom_materials = null
 
 /obj/item/knife/poison/Initialize(mapload)
 	. = ..()
@@ -137,7 +137,7 @@
 	embedding = list("pain_mult" = 4, "embed_chance" = 35, "fall_chance" = 10, "armour_block" = 40)
 	force = 15
 	throwforce = 15
-	materials = list()
+	custom_materials = null
 
 /obj/item/knife/combat/cyborg
 	name = "cyborg knife"
@@ -154,7 +154,7 @@
 	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
 	force = 8
 	throwforce = 12//fuck git
-	materials = list()
+	custom_materials = list()
 	attack_verb = list("shanked", "shivved")
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
@@ -174,6 +174,6 @@
 	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5, "armour_block" = 30) // Incentive to disengage/stop chasing when stuck
 	attack_verb = list("stuck", "shanked")
 
-/obj/item/knife/shank/suicide_act(mob/user)
+/obj/item/knife/shank/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS

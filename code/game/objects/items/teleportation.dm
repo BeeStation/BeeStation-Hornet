@@ -24,7 +24,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
-	materials = list(/datum/material/iron=400)
+	custom_materials = list(/datum/material/iron=400)
 	var/tracking_range = 20
 
 /obj/item/locator/ui_interact(mob/user, datum/tgui/ui)
@@ -109,7 +109,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=10000)
+	custom_materials = list(/datum/material/iron=10000)
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/active_portal_pairs
@@ -251,7 +251,7 @@
 			return DESTINATION_PORTAL
 	return FALSE
 
-/obj/item/hand_tele/suicide_act(mob/user)
+/obj/item/hand_tele/suicide_act(mob/living/user)
 	if(iscarbon(user))
 		user.visible_message("<span class='suicide'>[user] is creating a weak portal and sticking [user.p_their()] head through! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/mob/living/carbon/itemUser = user
@@ -263,7 +263,7 @@
 			itemUser.visible_message("<span class='suicide'>The portal snaps closed taking [user]'s head with it!</span>")
 		else
 			itemUser.visible_message("<span class='suicide'>[user] looks even further depressed as they realize they do not have a head...and suddenly dies of shame!</span>")
-		return (BRUTELOSS)
+		return BRUTELOSS
 
 /*
  * Syndicate Teleporter

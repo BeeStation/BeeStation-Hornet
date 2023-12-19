@@ -8,11 +8,12 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	))
 
 /obj/item/stack/rods/cyborg
-	materials = list()
+	mats_per_unit = null
 	is_cyborg = 1
 	cost = 250
 
-/obj/item/stack/rods/cyborg/update_icon()
-	return
+/obj/item/stack/rods/cyborg/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_blocker)
 
 STACKSIZE_MACRO(/obj/item/stack/rods)

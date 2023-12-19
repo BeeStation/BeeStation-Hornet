@@ -172,27 +172,17 @@
 				return
 
 			if(P.tool_behaviour == TOOL_SCREWDRIVER)
-				var/component_check = 1
+				var/component_check = TRUE
 				for(var/R in req_components)
 					if(req_components[R] > 0)
-						component_check = 0
+						component_check = FALSE
 						break
 				if(component_check)
 					P.play_tool_sound(src)
-					var/obj/machinery/new_machine = new circuit.build_path(loc)
-					if(new_machine.circuit)
-						QDEL_NULL(new_machine.circuit)
-					new_machine.circuit = circuit
-					new_machine.setAnchored(anchored)
-					new_machine.on_construction()
-					for(var/obj/O in new_machine.component_parts)
-						qdel(O)
-					new_machine.component_parts = list()
-					for(var/obj/O in src)
-						O.moveToNullspace()
-						new_machine.component_parts += O
-					circuit.moveToNullspace()
-					new_machine.RefreshParts()
+					var/obj/machinery/new_machine = new circuit.build_path(loc, src.contents)
+					if(istype(new_machine))
+						new_machine.anchored = anchored
+						new_machine.on_construction()
 					qdel(src)
 				return
 
@@ -226,12 +216,15 @@
 
 				for(var/obj/item/part in added_components)
 					if(istype(part,/obj/item/stack))
-						var/obj/item/stack/S = part
-						var/obj/item/stack/NS = locate(S.merge_type) in components //find a stack to merge with
-						if(NS)
-							S.merge(NS)
+						var/obj/item/stack/incoming_stack = part
+						for(var/obj/item/stack/merge_stack in components)
+							if(incoming_stack.can_merge(merge_stack))
+								incoming_stack.merge(merge_stack)
+								if(QDELETED(incoming_stack))
+									break
 					if(!QDELETED(part)) //If we're a stack and we merged we might not exist anymore
 						components += part
+						part.forceMove(src)
 					to_chat(user, "<span class='notice'>You add [part] to [src].</span>")
 				if(added_components.len)
 					replacer.play_rped_sound()

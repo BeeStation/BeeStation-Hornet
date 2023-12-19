@@ -111,6 +111,9 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// If this requires create_informed_default_value
 	var/informed = FALSE
 
+	/// Disables database writes. This can be useful for a testmerged preference
+	var/disable_serialization = FALSE
+
 /// Called on the saved input when retrieving.
 /// Also called by the value sent from the user through UI. Do not trust it.
 /// Input is the value inside the database, output is to tell other code
@@ -181,9 +184,12 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preferences/proc/get_preference_holder(datum/preference/preference_entry)
 	RETURN_TYPE(/datum/preferences_holder)
-	if(preference_entry.preference_type == PREFERENCE_CHARACTER)
-		return character_data
-	return player_data
+	switch(preference_entry.preference_type)
+		if(PREFERENCE_CHARACTER)
+			return character_data
+		if(PREFERENCE_PLAYER)
+			return player_data
+	return null
 
 /// Read a /datum/preference type and return its value, only using cached values and queueing any necessary writes.
 /datum/preferences/proc/read_preference(preference_typepath)
@@ -213,8 +219,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
 
-	if (preference_entry.preference_type == PREFERENCE_CHARACTER)
-		CRASH("read_player_preference called on PREFERENCE_CHARACTER type preference [preference_typepath].")
+	if (preference_entry.preference_type != PREFERENCE_PLAYER)
+		CRASH("read_player_preference called on [preference_entry.preference_type] type preference [preference_typepath].")
 
 	return player_data.read_preference(src, preference_entry)
 
@@ -232,9 +238,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
 
-	if (preference_entry.preference_type == PREFERENCE_PLAYER)
-		CRASH("read_character_preference called on PREFERENCE_PLAYER type preference [preference_typepath].")
-
+	if (preference_entry.preference_type != PREFERENCE_CHARACTER)
+		CRASH("read_character_preference called on [preference_entry.preference_type] type preference [preference_typepath].")
 	return character_data.read_preference(src, preference_entry)
 
 /// Set a /datum/preference entry.
@@ -258,7 +263,11 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	if (!preference.is_accessible(src, ignore_page = !in_menu))
 		return FALSE
 
+	log_preferences("[parent.ckey]: Updating preference [preference.type] TO \"[preference_value]\".")
+
 	write_preference(preference, preference_value)
+
+	log_preferences("[parent.ckey]: Applying updated preference [preference.type].")
 
 	if (preference.preference_type == PREFERENCE_PLAYER)
 		preference.apply_to_client_updated(parent, read_preference(preference.type))
@@ -521,7 +530,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		"step" = step,
 	)
 
-/// A prefernece whose value is always TRUE or FALSE
+/// A preference whose value is always TRUE or FALSE
 /datum/preference/toggle
 	abstract_type = /datum/preference/toggle
 
