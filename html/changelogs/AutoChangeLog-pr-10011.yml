@@ -1,6 +1,0 @@
-author: rkz, dragomagol
-delete-after: true
-changes:
-  - code_imp: Cleaned up the way ckeys are attributed in investigate logs
-  - code_imp: cleaned up singularity_act and passing gain values
-  - admin: All investigate logs will now contain dates

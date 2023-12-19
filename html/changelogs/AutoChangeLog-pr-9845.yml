@@ -1,8 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Adds in a preference for simplified bodyzone targetting, which makes the
-      bodyzone targetting system easier to use and usable without a numpad.
-  - tweak: You can now only start 1 surgery per mob.
-  - rscadd: Keybindings can now be hidden based on the value of preferences.
-  - bugfix: Fixes some incorrect logic inside of technophile bible healing.
