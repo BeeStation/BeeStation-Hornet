@@ -234,7 +234,7 @@
 	flags_1 = CONDUCT_1
 	force = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(/datum/material/iron=9000, /datum/material/glass=3000)
+	custom_materials = list(/datum/material/iron=9000, /datum/material/glass=3000)
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP
 	tool_behaviour = TOOL_SAW
