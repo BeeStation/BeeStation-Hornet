@@ -248,18 +248,16 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 
 #define HIS_GRACE_FORCE_BONUS 4 //! How much force is gained per kill.
 
-#define EXPLODE_NONE 0				//Don't even ask me why we need this.
-#define EXPLODE_DEVASTATE 1
-#define EXPLODE_HEAVY 2
-#define EXPLODE_LIGHT 3
-#define EXPLODE_GIB_THRESHOLD 50	//ex_act() with EXPLODE_DEVASTATE severity will gib mobs with less than this much bomb armor
-
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
 
 #define GRENADE_CLUMSY_FUMBLE 1
 #define GRENADE_NONCLUMSY_FUMBLE 2
 #define GRENADE_NO_FUMBLE 3
+
+#define BODY_GROUP_CHEST_HEAD "chesthead"
+#define BODY_GROUP_LEGS "legs"
+#define BODY_GROUP_ARMS "arms"
 
 #define BODY_ZONE_HEAD		"head"
 #define BODY_ZONE_CHEST		"chest"

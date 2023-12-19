@@ -198,10 +198,6 @@
 /obj/effect/turf_decal/sand,
 /turf/open/floor/plasteel,
 /area/ruin/powered/beach)
-"aO" = (
-/obj/structure/weightmachine/stacklifter,
-/turf/open/floor/plating/beach/sand,
-/area/ruin/powered/beach)
 "aP" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood,
@@ -759,7 +755,7 @@ bW
 ad
 ar
 ar
-aO
+bb
 ar
 bb
 ar
@@ -823,7 +819,7 @@ ar
 ap
 az
 ar
-aO
+bb
 ar
 bb
 ar

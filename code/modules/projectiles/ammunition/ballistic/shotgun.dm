@@ -6,16 +6,16 @@
 	icon_state = "blshell"
 	caliber = "shotgun"
 	var/high_power = TRUE
+	custom_materials = list(/datum/material/iron=4000)
 	projectile_type = /obj/projectile/bullet/shotgun_slug
-	materials = list(/datum/material/iron=4000)
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
 	desc = "A weak beanbag slug for riot control."
 	icon_state = "bshell"
 	high_power = FALSE
+	custom_materials = list(/datum/material/iron=250)
 	projectile_type = /obj/projectile/bullet/shotgun_beanbag
-	materials = list(/datum/material/iron=250)
 
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
@@ -37,8 +37,8 @@
 	name = "taser slug"
 	desc = "A stunning taser slug."
 	icon_state = "stunshell"
+	custom_materials = list(/datum/material/iron=250)
 	projectile_type = /obj/projectile/bullet/shotgun_stunslug
-	materials = list(/datum/material/iron=250)
 
 /obj/item/ammo_casing/shotgun/meteorslug
 	name = "meteorslug shell"
@@ -76,7 +76,7 @@
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_rubbershot
 	pellets = 6
 	variance = 20
-	materials = list(/datum/material/iron=4000)
+	custom_materials = list(/datum/material/iron=4000)
 
 /obj/item/ammo_casing/shotgun/incapacitate
 	name = "custom incapacitating shot"
@@ -86,7 +86,7 @@
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_incapacitate
 	pellets = 12//double the pellets, but half the stun power of each, which makes this best for just dumping right in someone's face.
 	variance = 20
-	materials = list(/datum/material/iron=4000)
+	custom_materials = list(/datum/material/iron=4000)
 
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
@@ -94,7 +94,7 @@
 	icon_state = "improvshell"
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_improvised
-	materials = list(/datum/material/iron=250)
+	custom_materials = list(/datum/material/iron=250)
 	pellets = 9
 	variance = 15
 
@@ -173,4 +173,4 @@
 	icon_state = "breacher"
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/shotgun_breaching
-	materials = list(/datum/material/iron=4000)
+	custom_materials = list(/datum/material/iron=4000)

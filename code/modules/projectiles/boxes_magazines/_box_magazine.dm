@@ -8,7 +8,7 @@
 	item_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	materials = list(/datum/material/iron = 30000)
+	custom_materials = list(/datum/material/iron = 30000)
 	throwforce = 2
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -26,8 +26,8 @@
 /obj/item/ammo_box/Initialize(mapload)
 	. = ..()
 	if (!bullet_cost)
-		for (var/material in materials)
-			var/material_amount = materials[material]
+		for (var/material in custom_materials)
+			var/material_amount = custom_materials[material]
 			LAZYSET(base_cost, material, (material_amount * 0.10))
 
 			material_amount *= 0.90 // 10% for the container
@@ -116,10 +116,13 @@
 		if(2)
 			icon_state = "[initial(icon_state)]-[shells_left ? "[max_ammo]" : "0"]"
 	desc = "[initial(desc)] There [(shells_left == 1) ? "is" : "are"] [shells_left] shell\s left!"
-	for (var/material in bullet_cost)
-		var/material_amount = bullet_cost[material]
-		material_amount = (material_amount*stored_ammo.len) + base_cost[material]
-		materials[material] = material_amount
+	if(length(bullet_cost))
+		var/temp_materials = custom_materials.Copy()
+		for (var/material in bullet_cost)
+			var/material_amount = bullet_cost[material]
+			material_amount = (material_amount*stored_ammo.len) + base_cost[material]
+			temp_materials[material] = material_amount
+		set_custom_materials(temp_materials)
 
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count(countempties = TRUE)
