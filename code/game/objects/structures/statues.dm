@@ -10,6 +10,9 @@
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/iron
+	CanAtmosPass = ATMOS_PASS_DENSITY
+	material_modifier = 0.5
+	material_flags = MATERIAL_EFFECTS | MATERIAL_AFFECT_STATISTICS
 	/// Beauty component mood modifier
 	var/impressiveness = 15
 	/// Art component subtype added to this statue

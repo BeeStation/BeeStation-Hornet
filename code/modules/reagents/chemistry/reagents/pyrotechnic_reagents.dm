@@ -53,7 +53,7 @@
 	if(isplatingturf(T))
 		var/turf/open/floor/plating/F = T
 		if(prob(10 + F.burnt + 5*F.broken)) //broken or burnt plating is more susceptible to being destroyed
-			F.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(F, EXPLODE_DEVASTATE)
 	if(isfloorturf(T))
 		var/turf/open/floor/F = T
 		if(prob(reac_volume))
@@ -67,7 +67,7 @@
 	if(iswallturf(T))
 		var/turf/closed/wall/W = T
 		if(prob(reac_volume))
-			W.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(W, EXPLODE_DEVASTATE)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(istype(M))
@@ -102,12 +102,25 @@
 	metabolization_rate = 0.05
 	taste_description = "salt"
 
+/datum/reagent/blackpowder/on_new(data)
+	. = ..()
+	if(holder?.my_atom)
+		RegisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT, PROC_REF(on_ex_act))
+
+/datum/reagent/blackpowder/Destroy()
+	if(holder?.my_atom)
+		UnregisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT)
+	return ..()
+
 /datum/reagent/blackpowder/on_mob_life(mob/living/carbon/M)
 	..()
 	if(isplasmaman(M))
 		M.hallucination += 5
 
-/datum/reagent/blackpowder/on_ex_act()
+/datum/reagent/blackpowder/proc/on_ex_act(atom/source, severity, target)
+	SIGNAL_HANDLER
+	if(source.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)
+		return
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(1 + round(volume/6, 1), location, 0, 0, message = 0)

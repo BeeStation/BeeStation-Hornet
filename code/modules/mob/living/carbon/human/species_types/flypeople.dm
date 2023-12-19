@@ -8,7 +8,7 @@
 	mutanttongue = /obj/item/organ/tongue/fly
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly
+	meat = /obj/item/food/meat/slab/human/mutant/fly
 	mutant_bodyparts = list("insect_type")
 	default_features = list("insect_type" = "fly", "body_size" = "Normal")
 	burnmod = 1.4
@@ -33,7 +33,8 @@
 		var/datum/reagent/consumable/nutri_check = chem
 		if(nutri_check.nutriment_factor > 0)
 			var/turf/pos = get_turf(H)
-			H.vomit(0, FALSE, FALSE, 2, TRUE)
+			H.vomit(10, FALSE, FALSE, 2, TRUE)
+			H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 			playsound(pos, 'sound/effects/splat.ogg', 50, 1)
 			H.visible_message("<span class='danger'>[H] vomits on the floor!</span>", \
 						"<span class='userdanger'>You throw up on the floor!</span>")

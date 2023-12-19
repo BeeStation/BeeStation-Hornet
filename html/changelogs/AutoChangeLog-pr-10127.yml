@@ -1,0 +1,12 @@
+author: Impish_Delights
+delete-after: true
+changes:
+  - balance: Lower damage for Shotgun Rubbershot (54 PB down from 72 PB). Additional
+      pellet ricochets, slightly reduced spread, damage drop-off now equal to buckshot.
+      Adds -20 AP.
+  - balance: Beanbag Slugs now deal 10 brute and 50 stamina, instead of 5 brute and
+      55 stamina. Adds -20 AP.
+  - balance: Lower damage for .38 rubber (34 down from 40). 1 less possible ricochet,
+      reduced damage decay from ricochet. Reduces negative AP to -15 (from -30).
+  - balance: WT-550 rubber bullets are now less-than-lethal (4 brute + 18 stamina)
+      and ricochet similar to other rubber ballistic rounds. Adds -20 AP.

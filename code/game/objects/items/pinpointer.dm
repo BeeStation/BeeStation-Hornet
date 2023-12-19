@@ -12,7 +12,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
-	materials = list(/datum/material/iron = 500, /datum/material/glass = 250)
+	custom_materials = list(/datum/material/iron = 500, /datum/material/glass = 250)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/active = FALSE
 	var/atom/movable/target //The thing we're searching for
@@ -75,12 +75,12 @@
 /obj/item/pinpointer/proc/scan_for_target()
 	return
 
-/obj/item/pinpointer/update_icon()
-	cut_overlays()
+/obj/item/pinpointer/update_overlays()
+	. = ..()
 	if(!active)
 		return
 	if(!target || (!isnull(jamming_resistance) && src.is_jammed(jamming_resistance)))
-		add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
+		. += "pinon[alert ? "alert" : ""]null[icon_suffix]"
 		return
 	var/turf/here = get_turf(src)
 	var/turf/there = get_turf(target)
@@ -101,15 +101,15 @@
 	if(pin_z_result)
 		var/result = compare_z(here_zlevel, there_zlevel)
 		if(isnull(result)) // null: no good to track z levels
-			add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
+			. += "pinon[alert ? "alert" : ""]null[icon_suffix]"
 			return
 		else if(!result) // FALSE: z-levels are in different groups. (i.e. Station v.s. Lavaland)
 			if(!tracks_grand_z)
-				add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
+				. += "pinon[alert ? "alert" : ""]null[icon_suffix]"
 				return
 			else
 				z_level_direction = "located at [SSorbits.get_orbital_map_name_from_z(there_zlevel) || scramble_message_replace_chars("???????", replaceprob=85)]"
-				add_overlay("pinon[alert ? "alert" : ""]z[icon_suffix]")
+				. += "pinon[alert ? "alert" : ""]z[icon_suffix]"
 				return
 		else // TRUE: z-levels are in the same group (i.e. multi-floored station)
 			z_level_direction = "located [abs(there_zlevel - here_zlevel)] floors [pin_z_result]"
@@ -131,13 +131,13 @@
 
 
 	// building overlays with sprite components
-	add_overlay(alert ? "pincomp_base_alert[icon_suffix]" : "pincomp_base[icon_suffix]")
+	. += alert ? "pincomp_base_alert[icon_suffix]" : "pincomp_base[icon_suffix]"
 	if(pin_z_result)
-		add_overlay("pincomp_z_[pin_z_result][icon_suffix]")
-	add_overlay("pincomp_arrow_[pin_xy_result][icon_suffix]")
+		. += "pincomp_z_[pin_z_result][icon_suffix]"
+	. += "pincomp_arrow_[pin_xy_result][icon_suffix]"
 	if(alert)
 		pin_xy_result = pin_xy_result=="direct" ? "direct_" : ""
-		add_overlay("pincomp_arrow_[pin_xy_result]alert[icon_suffix]")
+		. += "pincomp_arrow_[pin_xy_result]alert[icon_suffix]"
 
 /obj/item/pinpointer/proc/trackable(atom/target)
 	return checks_trackable_core(src, target, tracks_grand_z, jamming_resistance)

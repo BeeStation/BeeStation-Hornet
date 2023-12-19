@@ -464,7 +464,7 @@
 	result = /obj/item/switchblade/kitchen
 	reqs = list(/obj/item/stack/sheet/iron = 2,
 				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/kitchen/knife = 1,
+				/obj/item/knife = 1,
 				/obj/item/stack/cable_coil = 2)
 	tools = list(TOOL_WELDER)
 	time = 45
@@ -488,7 +488,7 @@
 	result = /obj/item/switchblade/plastitanium
 	reqs = list(/obj/item/weaponcrafting/stock = 1,
 				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/kitchen/knife = 1,
+				/obj/item/knife = 1,
 				/obj/item/stack/cable_coil = 2,
 				/obj/item/stack/sheet/mineral/plastitanium = 2)
 	tools = list(TOOL_WELDER)
@@ -788,9 +788,20 @@
 				/obj/item/bikehorn = 1)
 	category = CAT_MISC
 
+/datum/crafting_recipe/flash_ducky
+	name = "Toy Rubber Duck Mine"
+	result = /obj/item/deployablemine/traitor/toy
+	time = 20
+	reqs = list(/obj/item/bikehorn/rubberducky = 1,
+				/obj/item/assembly/flash/handheld = 1,
+				/obj/item/stack/cable_coil = 2,
+				/obj/item/assembly/prox_sensor)
+	blacklist = list(/obj/item/assembly/flash/handheld/strong)
+	category = CAT_MISC
+
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"
-	result = /obj/item/kitchen/knife/combat/bone
+	result = /obj/item/knife/combat/bone
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	category = CAT_PRIMAL
@@ -909,7 +920,7 @@
 	time = 30
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/aicard = 1,
-					/obj/item/reagent_containers/food/snacks/grown/potato = 1,
+					/obj/item/food/grown/potato = 1,
 					/obj/item/stack/cable_coil = 5)
 	category = CAT_MISC
 
@@ -919,7 +930,7 @@
 	time = 30
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/aicard = 1,
-					/obj/item/reagent_containers/food/snacks/grown/pumpkin = 1,
+					/obj/item/food/grown/pumpkin = 1,
 					/obj/item/stack/cable_coil = 5)
 	category = CAT_MISC
 
@@ -968,7 +979,7 @@
 	name = "Shank"
 	reqs = list(/obj/item/shard = 1,
 					/obj/item/stack/cable_coil = 10) // 1 glass shard + 10 cable; needs a wirecutter to snip the cable.
-	result = /obj/item/kitchen/knife/shank
+	result = /obj/item/knife/shank
 	tools = list(TOOL_WIRECUTTER)
 	time = 20
 	category = CAT_WEAPONRY
@@ -992,12 +1003,12 @@
 	result = /obj/item/clothing/accessory/poppy_pin
 	time = 5
 	reqs = list(/obj/item/stack/rods = 1,
-				/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 1)
+				/obj/item/food/grown/flower/poppy = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/poppy_pin_removal
 	name = "Poppy Pin Removal"
-	result = /obj/item/reagent_containers/food/snacks/grown/flower/poppy
+	result = /obj/item/food/grown/flower/poppy
 	time = 5
 	reqs = list(/obj/item/clothing/accessory/poppy_pin = 1)
 

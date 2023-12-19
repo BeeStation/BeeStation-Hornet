@@ -133,7 +133,7 @@
 	if("set_volume_rate" in signal.data)
 		var/number = text2num(signal.data["set_volume_rate"])
 		var/datum/gas_mixture/air_contents = airs[1]
-		volume_rate = CLAMP(number, 0, air_contents.return_volume())
+		volume_rate = clamp(number, 0, air_contents.return_volume())
 
 	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 2)
 

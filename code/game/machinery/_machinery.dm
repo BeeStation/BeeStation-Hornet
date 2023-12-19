@@ -120,7 +120,6 @@ Class Procs:
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
 	var/obj/item/circuitboard/circuit // Circuit to be created and inserted when the machinery is created
-	var/damage_deflection = 0
 
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
@@ -146,14 +145,17 @@ Class Procs:
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
 
-/obj/machinery/Initialize(mapload)
+/obj/machinery/Initialize(mapload, list/building_parts = null)
 	if(!armor)
 		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	. = ..()
 	GLOB.machines += src
 
-	if(ispath(circuit, /obj/item/circuitboard))
-		circuit = new circuit
+	if(building_parts)
+		InitializeOnMachineBuild(building_parts)
+		RefreshParts()
+	else if(ispath(circuit, /obj/item/circuitboard))
+		circuit = new circuit(src)
 		circuit.apply_default_parts(src)
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
@@ -166,6 +168,16 @@ Class Procs:
 		seller_department = dept_req_for_free
 
 	return INITIALIZE_HINT_LATELOAD
+
+/// This is important because every machine has different part component to store it to different variable when built when initialized
+/// but Init() proc can only handle the basic.
+/obj/machinery/proc/InitializeOnMachineBuild(list/building_parts)
+	component_parts = list()
+	for(var/atom/movable/each_part in building_parts)
+		each_part.forceMove(src)
+		component_parts += each_part
+		if(istype(each_part, /obj/item/circuitboard))
+			circuit = each_part
 
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
@@ -192,11 +204,9 @@ Class Procs:
 	GLOB.machines.Remove(src)
 	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
 		end_processing()
-	dropContents()
-	if(length(component_parts))
-		for(var/atom/A in component_parts)
-			qdel(A)
-		component_parts.Cut()
+	dump_inventory_contents()
+	QDEL_LIST(component_parts)
+	QDEL_NULL(circuit)
 	return ..()
 
 /obj/machinery/proc/locate_machinery()
@@ -240,26 +250,79 @@ Class Procs:
 	//Update power
 	power_change()
 
+/**
+  * Opens the machine.
+  *
+  * Will update the machine icon and any user interfaces currently open.
+  * Arguments:
+  * * drop - Boolean. Whether to drop any stored items in the machine. Does not include components.
+  */
 /obj/machinery/proc/open_machine(drop = TRUE)
 	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
 	state_open = TRUE
 	set_density(FALSE)
 	if(drop)
-		dropContents()
+		dump_inventory_contents()
 	update_icon()
 	updateUsrDialog()
 	ui_update()
 
-/obj/machinery/proc/dropContents(list/subset = null)
-	var/turf/T = get_turf(src)
-	for(var/atom/movable/A in contents)
-		if(subset && !(A in subset))
-			continue
-		A.forceMove(T)
-		if(isliving(A))
-			var/mob/living/L = A
-			L.update_mobility()
+/**
+  * Drop every movable atom in the machine's contents list, including any components and circuit.
+  */
+/obj/machinery/dump_contents()
+	// Start by calling the dump_inventory_contents proc. Will allow machines with special contents
+	// to handle their dropping.
+	dump_inventory_contents()
+
+	// Then we can clean up and drop everything else.
+	var/turf/this_turf = get_turf(src)
+	for(var/atom/movable/movable_atom in contents)
+		movable_atom.forceMove(this_turf)
+
+	// We'll have dropped the occupant, circuit and component parts as part of this.
 	set_occupant(null)
+	circuit = null
+	LAZYCLEARLIST(component_parts)
+
+/**
+  * Drop every movable atom in the machine's contents list that is not a component_part.
+  *
+  * Proc does not drop components and will skip over anything in the component_parts list.
+  * Call dump_contents() to drop all contents including components.
+  * Arguments:
+  * * subset - If this is not null, only atoms that are also contained within the subset list will be dropped.
+  */
+/obj/machinery/proc/dump_inventory_contents(list/subset = null)
+	var/turf/this_turf = get_turf(src)
+	for(var/atom/movable/movable_atom in contents)
+		if(subset && !(movable_atom in subset))
+			continue
+
+		if(movable_atom in component_parts)
+			continue
+
+		movable_atom.forceMove(this_turf)
+		if(isliving(movable_atom))
+			var/mob/living/living_mob = movable_atom
+			living_mob.update_mobility()
+
+		if(occupant == movable_atom)
+			occupant = null
+
+/**
+ * Puts passed object in to user's hand
+ *
+ * Puts the passed object in to the users hand if they are adjacent.
+ * If the user is not adjacent then place the object on top of the machine.
+ *
+ * Vars:
+ * * object (obj) The object to be moved in to the users hand.
+ * * user (mob/living) The user to recive the object
+ */
+/obj/machinery/proc/try_put_in_hand(obj/object, mob/living/user)
+	if(!user.CanReach(src) || !user.put_in_hands(object))
+		object.forceMove(drop_location())
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
@@ -411,8 +474,8 @@ Class Procs:
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		user.visible_message("<span class='danger'>[user.name] smashes against \the [src.name] with its paws.</span>", null, null, COMBAT_MESSAGE_RANGE)
-		take_damage(4, BRUTE, MELEE, 1)
+		var/damage = take_damage(4, BRUTE, MELEE, 1)
+		user.visible_message("<span class='danger'>[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]</span>", null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
@@ -461,14 +524,18 @@ Class Procs:
 		deconstruct(TRUE)
 
 /obj/machinery/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		on_deconstruction()
-		if(component_parts?.len)
-			spawn_frame(disassembled)
-			for(var/obj/item/I in component_parts)
-				I.forceMove(loc)
-				component_parts.Cut()
-	qdel(src)
+	if(flags_1 & NODECONSTRUCT_1)
+		return ..()
+
+	on_deconstruction()
+	if(!LAZYLEN(component_parts))
+		return ..() //We have no parts
+	spawn_frame(disassembled)
+
+	for(var/obj/item/I in component_parts)
+		I.forceMove(loc)
+	LAZYCLEARLIST(component_parts)
+	return ..()
 
 /**
  * Spawns a frame where this machine is. If the machine was not disassmbled, the
@@ -514,6 +581,17 @@ Class Procs:
 	if(A == occupant)
 		set_occupant(null)
 		update_icon()
+		updateUsrDialog()
+		return ..()
+
+	// The circuit should also be in component parts, so don't early return.
+	if(A == circuit)
+		circuit = null
+	if((A in component_parts) && !QDELETED(src))
+		component_parts.Remove(A)
+		// It would be unusual for a component_part to be qdel'd ordinarily.
+		deconstruct(FALSE)
+	return ..()
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
@@ -620,6 +698,13 @@ Class Procs:
 						break
 				for(var/obj/item/B in W.contents)
 					if(istype(B, P) && istype(A, P))
+						// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
+						if(istype(B, /obj/item/stock_parts/cell) && W.works_from_distance)
+							var/obj/item/stock_parts/cell/checked_cell = B
+							// If it's rigged or corrupted, max the charge. Then explode it.
+							if(checked_cell.rigged || checked_cell.corrupted)
+								checked_cell.charge = checked_cell.maxcharge
+								checked_cell.explode()
 						if(B.get_part_rating() > A.get_part_rating())
 							if(istype(B,/obj/item/stack)) //conveniently this will mean A is also a stack and I will kill the first person to prove me wrong
 								var/obj/item/stack/SA = A
@@ -632,7 +717,7 @@ Class Procs:
 							else
 								if(SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE, B, src))
 									component_parts += B
-									B.moveToNullspace()
+									B.forceMove(src)
 							SEND_SIGNAL(W, COMSIG_TRY_STORAGE_INSERT, A, null, null, TRUE)
 							component_parts -= A
 							to_chat(user, "<span class='notice'>[capitalize(A.name)] replaced with [B.name].</span>")
@@ -675,6 +760,8 @@ Class Procs:
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
+	if(circuit)
+		circuit.configure_machine(src)
 	return
 
 //called on deconstruction before the final deletion
@@ -697,6 +784,9 @@ Class Procs:
 	. = ..()
 	if (gone == occupant)
 		set_occupant(null)
+	if(gone == circuit)
+		LAZYREMOVE(component_parts, gone)
+		circuit = null
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.

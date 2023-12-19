@@ -154,3 +154,6 @@ require only minor tweaks.
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 /// Shelter spot has anchored objects that restrict deployment
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
+
+#define STARLIGHT_MODE_STARLIGHT "starlight"
+#define STARLIGHT_MODE_CYCLE "cycle"

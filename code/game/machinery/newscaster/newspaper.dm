@@ -24,7 +24,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 	var/wantedPhoto
 	var/creation_time
 
-/obj/item/newspaper/suicide_act(mob/user)
+/obj/item/newspaper/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is focusing intently on [src]! It looks like [user.p_theyre()] trying to commit sudoku... until [user.p_their()] eyes light up with realization!</span>")
 	user.say(";JOURNALISM IS MY CALLING! EVERYBODY APPRECIATES UNBIASED REPORTI-GLORF", forced="newspaper suicide")
 	var/mob/living/carbon/human/H = user
@@ -32,7 +32,6 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 	playsound(H.loc, 'sound/items/drink.ogg', rand(10,50), TRUE)
 	W.reagents.trans_to(H, W.reagents.total_volume, transfered_by = user)
 	user.visible_message("<span class='suicide'>[user] downs the contents of [W.name] in one gulp! Shoulda stuck to sudoku!</span>")
-
 	return TOXLOSS
 
 /obj/item/newspaper/attack_self(mob/user)

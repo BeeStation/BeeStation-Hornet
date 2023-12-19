@@ -23,7 +23,7 @@ Slimecrossing Weapons
 
 
 //Rainbow knife - Burning Rainbow
-/obj/item/kitchen/knife/rainbowknife
+/obj/item/knife/rainbowknife
 	name = "rainbow knife"
 	desc = "A strange, transparent knife which constantly shifts color. It hums slightly when moved."
 	icon = 'icons/obj/slimecrossing.dmi'
@@ -33,7 +33,7 @@ Slimecrossing Weapons
 	throwforce = 15
 	damtype = BRUTE
 
-/obj/item/kitchen/knife/rainbowknife/afterattack(atom/O, mob/user, proximity)
+/obj/item/knife/rainbowknife/afterattack(atom/O, mob/user, proximity)
 	if(proximity && istype(O, /mob/living))
 		damtype = pick(BRUTE, BURN, TOX, OXY, CLONE)
 	switch(damtype)

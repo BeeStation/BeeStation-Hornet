@@ -8,7 +8,7 @@
 	var/current_correction
 
 /datum/client_colour/area_color
-	colour = ""
+	colour = list(rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255))
 	priority = PRIORITY_LOW
 	fade_in = 10 SECONDS
 	fade_out = 10 SECONDS
