@@ -53,9 +53,13 @@
 		if(O.GetComponent(/datum/component/storage))
 			to_chat(user, "<span class='notice'>You can't make this item any smaller without compromising its storage functions!.</span>")
 			return
-		if(O.w_class == WEIGHT_CLASS_TINY || O.w_class < initial(O.w_class))
+		if(O.w_class < initial(O.w_class))
 			playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>[target] cannot be compressed smaller!.</span>")
+			return
+		if(O.w_class == WEIGHT_CLASS_TINY)
+			playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
+			to_chat(user, "<span class='notice'>[target] is already tiny, it would be a waste to shrink it further!.</span>")
 			return
 		playsound(get_turf(src), 'sound/weapons/flash.ogg', 50, 1)
 		user.visible_message("<span class='warning'>[user] is compressing [O] with their bluespace compression kit!</span>")
