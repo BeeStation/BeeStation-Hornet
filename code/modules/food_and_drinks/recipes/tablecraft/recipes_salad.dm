@@ -7,8 +7,8 @@
 	name = "Herb salad"
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris = 3,
-		/obj/item/reagent_containers/food/snacks/grown/apple = 1
+		/obj/item/food/grown/ambrosia/vulgaris = 3,
+		/obj/item/food/grown/apple = 1
 	)
 	result = /obj/item/food/salad/herbsalad
 	subcategory = CAT_SALAD
@@ -17,8 +17,8 @@
 	name = "Aesir salad"
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus = 3,
-		/obj/item/reagent_containers/food/snacks/grown/apple/gold = 1
+		/obj/item/food/grown/ambrosia/deus = 3,
+		/obj/item/food/grown/apple/gold = 1
 	)
 	result = /obj/item/food/salad/aesirsalad
 	subcategory = CAT_SALAD
@@ -27,8 +27,8 @@
 	name = "Valid salad"
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris = 3,
-		/obj/item/reagent_containers/food/snacks/grown/potato = 1,
+		/obj/item/food/grown/ambrosia/vulgaris = 3,
+		/obj/item/food/grown/potato = 1,
 		/obj/item/food/meatball = 1
 	)
 	result = /obj/item/food/salad/validsalad
@@ -42,7 +42,7 @@
 		/datum/reagent/consumable/blackpepper = 1,
 		/obj/item/reagent_containers/glass/bowl = 1,
 		/obj/item/food/monkeycube = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1
+		/obj/item/food/grown/banana = 1
 	)
 	result = /obj/item/food/soup/monkeysdelight
 	subcategory = CAT_SALAD
@@ -51,10 +51,10 @@
 	name = "Fruit salad"
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1,
-		/obj/item/reagent_containers/food/snacks/grown/apple = 1,
-		/obj/item/reagent_containers/food/snacks/grown/grapes = 1,
-		/obj/item/reagent_containers/food/snacks/watermelonslice = 2
+		/obj/item/food/grown/citrus/orange = 1,
+		/obj/item/food/grown/apple = 1,
+		/obj/item/food/grown/grapes = 1,
+		/obj/item/food/watermelonslice = 2
 
 	)
 	result = /obj/item/food/salad/fruit
@@ -64,10 +64,10 @@
 	name = "Jungle salad"
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/grown/apple = 1,
-		/obj/item/reagent_containers/food/snacks/grown/grapes = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 2,
-		/obj/item/reagent_containers/food/snacks/watermelonslice = 2
+		/obj/item/food/grown/apple = 1,
+		/obj/item/food/grown/grapes = 1,
+		/obj/item/food/grown/banana = 2,
+		/obj/item/food/watermelonslice = 2
 
 	)
 	result = /obj/item/food/salad/jungle
@@ -77,9 +77,9 @@
 	name = "Citrus delight"
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/lime = 1,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = 1,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1
+		/obj/item/food/grown/citrus/lime = 1,
+		/obj/item/food/grown/citrus/lemon = 1,
+		/obj/item/food/grown/citrus/orange = 1
 
 	)
 	result = /obj/item/food/salad/citrusdelight

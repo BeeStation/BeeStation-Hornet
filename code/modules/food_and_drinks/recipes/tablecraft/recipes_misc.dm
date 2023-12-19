@@ -7,7 +7,7 @@
 	name = "Candied apple"
 	reqs = list(
 		/datum/reagent/consumable/caramel = 5,
-		/obj/item/reagent_containers/food/snacks/grown/apple = 1
+		/obj/item/food/grown/apple = 1
 	)
 	result = /obj/item/food/candiedapple
 	subcategory = CAT_MISCFOOD
@@ -43,7 +43,7 @@
 /datum/crafting_recipe/food/chocoorange
 	name = "Choco orange"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1,
+		/obj/item/food/grown/citrus/orange = 1,
 		/obj/item/food/chocolatebar = 1,
 	)
 	result = /obj/item/food/chocoorange
@@ -53,7 +53,7 @@
 	name = "Loaded baked potato"
 	time = 40
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/grown/potato = 1,
+		/obj/item/food/grown/potato = 1,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/loadedbakedpotato
@@ -72,7 +72,7 @@
 	name = "Beans"
 	time = 40
 	reqs = list(/datum/reagent/consumable/ketchup = 5,
-		/obj/item/reagent_containers/food/snacks/grown/soybeans = 2
+		/obj/item/food/grown/soybeans = 2
 	)
 	result = /obj/item/food/canned/beans
 	subcategory = CAT_MISCFOOD
@@ -81,7 +81,7 @@
 	name ="Eggplant parmigiana"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 2,
-		/obj/item/reagent_containers/food/snacks/grown/eggplant = 1
+		/obj/item/food/grown/eggplant = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/eggplantparm
 	subcategory = CAT_MISCFOOD
@@ -89,12 +89,12 @@
 /datum/crafting_recipe/food/melonfruitbowl
 	name ="Melon fruit bowl"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/grown/watermelon = 1,
-		/obj/item/reagent_containers/food/snacks/grown/apple = 1,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia = 1
+		/obj/item/food/grown/watermelon = 1,
+		/obj/item/food/grown/apple = 1,
+		/obj/item/food/grown/citrus/orange = 1,
+		/obj/item/food/grown/citrus/lemon = 1,
+		/obj/item/food/grown/banana = 1,
+		/obj/item/food/grown/ambrosia = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/melonfruitbowl
 	subcategory = CAT_MISCFOOD
@@ -103,7 +103,7 @@
 	name ="Melon keg"
 	reqs = list(
 		/datum/reagent/consumable/ethanol/vodka = 25,
-		/obj/item/reagent_containers/food/snacks/grown/holymelon = 1,
+		/obj/item/food/grown/holymelon = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/vodka = 1
 	)
 	parts = list(/obj/item/reagent_containers/food/drinks/bottle/vodka = 1)
@@ -113,7 +113,7 @@
 /datum/crafting_recipe/food/honeybar
 	name = "Honey nut bar"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/grown/oat = 1,
+		/obj/item/food/grown/oat = 1,
 		/datum/reagent/consumable/honey = 5
 	)
 	result = /obj/item/reagent_containers/food/snacks/honeybar
@@ -135,7 +135,7 @@
 /datum/crafting_recipe/food/branrequests
 	name = "Bran Requests Cereal"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/grown/wheat = 1,
+		/obj/item/food/grown/wheat = 1,
 		/obj/item/reagent_containers/food/snacks/no_raisin = 1,
 	)
 	result = /obj/item/reagent_containers/food/snacks/branrequests
@@ -179,8 +179,8 @@
 	name = "Pingles"
 	reqs = list(
 		/obj/item/c_tube = 1,
-		/obj/item/reagent_containers/food/snacks/grown/potato/wedges = 1,
-		/obj/item/reagent_containers/food/snacks/onion_slice = 1,
+		/obj/item/food/grown/potato/wedges = 1,
+		/obj/item/food/onion_slice = 1,
 		/datum/reagent/consumable/cream = 10
 	)
 	result = /obj/item/reagent_containers/food/snacks/pingles

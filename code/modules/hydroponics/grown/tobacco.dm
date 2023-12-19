@@ -5,7 +5,7 @@
 	icon_state = "seed-tobacco"
 	species = "tobacco"
 	plantname = "Tobacco Plant"
-	product = /obj/item/reagent_containers/food/snacks/grown/tobacco
+	product = /obj/item/food/grown/tobacco
 	lifespan = 20
 	maturation = 5
 	production = 5
@@ -15,7 +15,7 @@
 	mutatelist = list(/obj/item/seeds/tobacco/space)
 	reagents_add = list(/datum/reagent/drug/nicotine = 0.03, /datum/reagent/consumable/nutriment = 0.03)
 
-/obj/item/reagent_containers/food/snacks/grown/tobacco
+/obj/item/food/grown/tobacco
 	seed = /obj/item/seeds/tobacco
 	name = "tobacco leaves"
 	desc = "Dry them out to make some smokes."
@@ -30,16 +30,17 @@
 	icon_state = "seed-stobacco"
 	species = "stobacco"
 	plantname = "Space Tobacco Plant"
-	product = /obj/item/reagent_containers/food/snacks/grown/tobacco/space
+	product = /obj/item/food/grown/tobacco/space
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/medicine/salbutamol = 0.05, /datum/reagent/drug/nicotine = 0.08, /datum/reagent/consumable/nutriment = 0.03)
 	rarity = 20
 
-/obj/item/reagent_containers/food/snacks/grown/tobacco/space
+/obj/item/food/grown/tobacco/space
 	seed = /obj/item/seeds/tobacco/space
 	name = "space tobacco leaves"
 	desc = "Dry them out to make some space-smokes."
 	icon_state = "stobacco_leaves"
+	bite_consumption_mod = 2
 	distill_reagent = null
 	wine_power = 50
 	discovery_points = 300
@@ -52,13 +53,13 @@
 	icon_state = "seed-lavatobacco"
 	species = "ashtobacco"
 	plantname = "Lavaland Tobacco Plant"
-	product = /obj/item/reagent_containers/food/snacks/grown/tobacco/lavaland
+	product = /obj/item/food/grown/tobacco/lavaland
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/medicine/salbutamol = 0.1, /datum/reagent/drug/nicotine = 0.08, /datum/reagent/toxin/lipolicide = 0.4)
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	rarity = 20
 
-/obj/item/reagent_containers/food/snacks/grown/tobacco/lavaland
+/obj/item/food/grown/tobacco/lavaland
 	seed = /obj/item/seeds/tobacco/lavaland
 	name = "lavaland tobacco leaves"
 	desc = "Despite being called lavaland tobacco this plant has little in common with regular tobacco."
