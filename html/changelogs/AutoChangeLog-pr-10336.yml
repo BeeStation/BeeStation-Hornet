@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Bluespace compression kit can now shrink items properly again, without
+      returning an error.
