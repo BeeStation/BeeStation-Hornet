@@ -34,7 +34,7 @@
 		return 0
 	var/gulp_amount = gulp_size
 	if(M == user)
-		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !beingChugged)
+		if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, precise_only = TRUE) && !beingChugged)
 			beingChugged = TRUE
 			user.visible_message("<span class='notice'>[user] starts chugging [src].</span>", \
 				"<span class='notice'>You start chugging [src].</span>")
@@ -213,7 +213,7 @@
 //	Formatting is the same as food.
 
 /obj/item/reagent_containers/food/drinks/coffee
-	name = "robust coffee"
+	name = "Robust coffee"
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
 	icon_state = "coffee"
 	list_reagents = list(/datum/reagent/consumable/coffee = 30)
@@ -221,6 +221,15 @@
 	resistance_flags = FREEZE_PROOF
 	isGlass = FALSE
 	foodtype = BREAKFAST
+
+/obj/item/reagent_containers/food/drinks/bubble_tea
+	name = "Bubble tea"
+	desc = "Refreshing! You aren't sure what those things in the bottom are."
+	icon_state = "bubble_tea"
+	list_reagents = list(/datum/reagent/consumable/bubble_tea = 50)
+	foodtype = SUGAR
+	spillable = TRUE
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
@@ -262,12 +271,15 @@
 	resistance_flags = FREEZE_PROOF
 	custom_price = 42
 
-
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
 	desc = "Just add 5ml of water, self heats! A taste that reminds you of your school years. Now new with salty flavour!"
 	icon_state = "ramen"
-	list_reagents = list(/datum/reagent/consumable/dry_ramen = 15, /datum/reagent/consumable/sodiumchloride = 3)
+	list_reagents = list(
+		/datum/reagent/consumable/dry_ramen = 15,
+		/datum/reagent/consumable/sodiumchloride = 3,
+		/datum/reagent/consumable/maltodextrin = 5
+	)
 	foodtype = GRAIN
 	isGlass = FALSE
 	custom_price = 38
@@ -488,7 +500,7 @@
 	return TOXLOSS
 
 /obj/item/reagent_containers/food/drinks/soda_cans/attack(mob/M, mob/user)
-	if(M == user && !src.reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == BODY_ZONE_HEAD)
+	if(M == user && !src.reagents.total_volume && user.a_intent == INTENT_HARM && user.is_zone_selected(BODY_ZONE_HEAD))
 		user.visible_message("<span class='warning'>[user] crushes the can of [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead.</span>")
 		playsound(user.loc,'sound/weapons/pierce.ogg', rand(10,50), 1)
 		var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)

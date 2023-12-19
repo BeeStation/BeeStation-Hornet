@@ -64,7 +64,7 @@
 /obj/structure/closet/secure_closet/freezer/meat/PopulateContents()
 	..()
 	for(var/i in 1 to 4)
-		new /obj/item/reagent_containers/food/snacks/meat/slab/monkey(src)
+		new /obj/item/food/meat/slab/monkey(src)
 
 /obj/structure/closet/secure_closet/freezer/meat/open
 	req_access = null
@@ -109,4 +109,4 @@
 
 /obj/structure/closet/secure_closet/freezer/cream_pie/PopulateContents()
 	..()
-	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+	new /obj/item/food/pie/cream(src)

@@ -655,7 +655,7 @@
 				if(length(elligible_organs))
 					var/obj/item/organ/O = pick(elligible_organs)
 					O.Remove(src)
-					visible_message("<span class='danger'>[src] vomits up their [O.name]!</span>", "<span class='danger'>You vomit up your [O.name]!</span>") //no "vomit up your the heart"
+					visible_message("<span class='danger'>[src] vomits up [p_their()] [O.name]!</span>", "<span class='danger'>You vomit up your [O.name]!</span>") //no "vomit up your the heart"
 					O.forceMove(drop_location())
 					if(prob(20))
 						O.animate_atom_living()
@@ -665,11 +665,14 @@
 	else
 		switch(rand(0,5))
 			if(0)
+				investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
 				gib()
 			if(1)
+				investigate_log("has been dusted by DNA instability.", INVESTIGATE_DEATHS)
 				dust()
 
 			if(2)
+				investigate_log("has been killed by DNA instability.", INVESTIGATE_DEATHS)
 				death()
 				petrify(INFINITY)
 			if(3)
@@ -678,6 +681,7 @@
 					if(BP)
 						BP.dismember()
 					else
+						investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
 						gib()
 				else
 					set_species(/datum/species/dullahan)

@@ -111,12 +111,12 @@
 	tool_behaviour = TOOL_DRILL
 	toolspeed = 1
 
-/obj/item/surgicaldrill/suicide_act(mob/user)
+/obj/item/surgicaldrill/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] rams [src] into [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living/carbon, gib), null, null, TRUE, TRUE), 25)
 	user.SpinAnimation(3, 10)
 	playsound(user, 'sound/machines/juicer.ogg', 20, TRUE)
-	return (MANUAL_SUICIDE)
+	return MANUAL_SUICIDE
 
 /obj/item/surgicaldrill/augment
 	name = "surgical drill"
@@ -174,10 +174,9 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP_ACCURATE
 
-/obj/item/scalpel/suicide_act(mob/user)
+/obj/item/scalpel/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat", "stomach")] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
-
+	return BRUTELOSS
 
 /obj/item/circular_saw
 	name = "circular saw"
@@ -234,8 +233,7 @@
 	attack_verb = list("slapped")
 
 /obj/item/surgical_drapes/attack(mob/living/M, mob/user)
-	if(!attempt_initiate_surgery(src, M, user))
-		..()
+	attempt_initiate_surgery(src, M, user)
 
 /obj/item/organ_storage //allows medical cyborgs to manipulate organs without hands
 	name = "organ storage bag"

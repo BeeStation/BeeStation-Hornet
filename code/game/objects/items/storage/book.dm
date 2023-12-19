@@ -40,9 +40,9 @@
 	. = ..()
 	AddComponent(/datum/component/anti_magic, FALSE, TRUE, _allowed_slots = ITEM_SLOT_HANDS)
 
-/obj/item/storage/book/bible/suicide_act(mob/user)
+/obj/item/storage/book/bible/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is offering [user.p_them()]self to [deity_name]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/storage/book/bible/attack_self(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -231,10 +231,10 @@
 		if(do_after(user, 40, target = sword))
 			playsound(src,'sound/effects/pray_chaplain.ogg',60,1)
 			for(var/obj/item/soulstone/SS in sword.contents)
-				SS.usability = TRUE
+				SS.required_role = null
 				for(var/mob/living/simple_animal/shade/EX in SS)
 					SSticker.mode.remove_cultist(EX.mind, 1, 0)
-					EX.icon_state = "ghost1"
+					EX.icon_state = "shade_holy"
 					EX.name = "Purified [EX.name]"
 				SS.release_shades(user)
 				qdel(SS)
@@ -244,14 +244,14 @@
 
 	else if(istype(A, /obj/item/soulstone) && !iscultist(user))
 		var/obj/item/soulstone/SS = A
-		if(SS.purified)
+		if(SS.theme == THEME_HOLY)
 			return
 		to_chat(user, "<span class='notice'>You begin to exorcise [SS].</span>")
 		playsound(src,'sound/hallucinations/veryfar_noise.ogg',40,1)
 		if(do_after(user, 40, target = SS))
 			playsound(src,'sound/effects/pray_chaplain.ogg',60,1)
-			SS.usability = TRUE
-			SS.purified = TRUE
+			SS.required_role = null
+			SS.theme = THEME_HOLY
 			SS.icon_state = "purified_soulstone"
 			for(var/mob/M in SS.contents)
 				if(M.mind)

@@ -257,11 +257,6 @@
 	)
 	foodtypes = GRAIN | FRUIT
 
-/obj/item/food/breadslice/custom
-	name = "bread slice"
-	icon_state = "tofubreadslice"
-	foodtypes = GRAIN
-
 /obj/item/food/baguette
 	name = "baguette"
 	desc = "Bon appetit!"

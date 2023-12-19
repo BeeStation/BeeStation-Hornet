@@ -78,7 +78,7 @@
 /obj/structure/rack,
 /obj/item/stack/cable_coil/blue,
 /obj/item/stack/cable_coil/blue,
-/obj/item/kitchen/knife/butcher,
+/obj/item/knife/butcher,
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"

@@ -28,9 +28,9 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 	contains_type = get_gift_type()
 
-/obj/item/a_gift/suicide_act(mob/user)
+/obj/item/a_gift/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] peeks inside [src] and cries [user.p_them()]self to death! It looks like [user.p_they()] [user.p_were()] on the naughty list...</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/a_gift/examine(mob/M)
 	. = ..()
@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 	var/obj/item/I = new contains_type(get_turf(M))
 	M.visible_message("<span class='notice'>[M] unwraps \the [src], finding \a [I] inside!</span>")
-	I.investigate_log("([I.type]) was found in a present by [key_name(M)].", INVESTIGATE_PRESENTS)
+	M.investigate_log("has unwrapped a present containing [I.type].", INVESTIGATE_PRESENTS)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 

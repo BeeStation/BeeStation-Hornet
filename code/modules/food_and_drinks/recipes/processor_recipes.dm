@@ -5,12 +5,12 @@
 	var/required_machine = /obj/machinery/processor
 
 /datum/food_processor_process/meat
-	input = /obj/item/reagent_containers/food/snacks/meat/slab
-	output = /obj/item/reagent_containers/food/snacks/meatball
+	input = /obj/item/food/meat/slab
+	output = /obj/item/food/meatball
 
 /datum/food_processor_process/bacon
-	input = /obj/item/reagent_containers/food/snacks/meat/rawcutlet
-	output = /obj/item/reagent_containers/food/snacks/meat/rawbacon
+	input = /obj/item/food/meat/rawcutlet
+	output = /obj/item/food/meat/rawbacon
 
 /datum/food_processor_process/potatowedges
 	input = /obj/item/reagent_containers/food/snacks/grown/potato/wedges
@@ -33,15 +33,15 @@
 	output = /obj/item/reagent_containers/food/snacks/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/reagent_containers/food/snacks/doughslice
+	input = /obj/item/food/doughslice
 	output = /obj/item/food/spaghetti/raw
 
 /datum/food_processor_process/corn
 	input = /obj/item/reagent_containers/food/snacks/grown/corn
-	output = /obj/item/reagent_containers/food/snacks/tortilla
+	output = /obj/item/food/tortilla
 
 /datum/food_processor_process/tortilla
-	input = /obj/item/reagent_containers/food/snacks/tortilla
+	input = /obj/item/food/tortilla
 	output = /obj/item/reagent_containers/food/snacks/cornchips
 
 /datum/food_processor_process/parsnip
@@ -55,4 +55,4 @@
 
 /datum/food_processor_process/fish
 	input = /obj/item/fish
-	output = /obj/item/reagent_containers/food/snacks/carpmeat/icantbelieveitsnotcarp
+	output = /obj/item/food/fishmeat

@@ -286,7 +286,7 @@
 		materials.set_local_size(total_storage)
 	var/total_rating = 1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating = CLAMP(total_rating - (M.rating * 0.1), 0, 1)
+		total_rating = clamp(total_rating - (M.rating * 0.1), 0, 1)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY
 	else
@@ -299,8 +299,8 @@
 	return ..()
 
 /obj/machinery/rnd/production/proc/do_print(path, amount, list/matlist, notify_admins)
-	if(notify_admins)
-		investigate_log("[key_name(usr)] built [amount] of [path] at [src]([type]).", INVESTIGATE_RESEARCH)
+	if(notify_admins && ismob(usr))
+		usr.investigate_log(" built [amount] of [path] at [src]([type]).", INVESTIGATE_RESEARCH)
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has built [amount] of [path] at \a [src]([type]).")
 	for(var/i in 1 to amount)
 		var/obj/item/I = new path(get_turf(src))
@@ -348,7 +348,7 @@
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return FALSE
 	var/power = 1000
-	amount = CLAMP(amount, 1, 10)
+	amount = clamp(amount, 1, 10)
 	for(var/M in D.materials)
 		power += round(D.materials[M] * amount / 35)
 	power = min(3000, power)

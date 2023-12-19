@@ -251,7 +251,7 @@
 			return DESTINATION_PORTAL
 	return FALSE
 
-/obj/item/hand_tele/suicide_act(mob/user)
+/obj/item/hand_tele/suicide_act(mob/living/user)
 	if(iscarbon(user))
 		user.visible_message("<span class='suicide'>[user] is creating a weak portal and sticking [user.p_their()] head through! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/mob/living/carbon/itemUser = user
@@ -263,7 +263,7 @@
 			itemUser.visible_message("<span class='suicide'>The portal snaps closed taking [user]'s head with it!</span>")
 		else
 			itemUser.visible_message("<span class='suicide'>[user] looks even further depressed as they realize they do not have a head...and suddenly dies of shame!</span>")
-		return (BRUTELOSS)
+		return BRUTELOSS
 
 /*
  * Syndicate Teleporter

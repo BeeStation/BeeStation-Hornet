@@ -22,8 +22,8 @@
 /area/ruin/unpowered)
 "D" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "G" = (
 /turf/closed/wall,
 /area/ruin/unpowered)

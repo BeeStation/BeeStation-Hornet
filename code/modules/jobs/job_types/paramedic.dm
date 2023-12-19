@@ -49,7 +49,7 @@
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	head = /obj/item/clothing/head/soft/paramedic
-	suit =  /obj/item/clothing/suit/toggle/labcoat/med/paramedic
+	suit =  /obj/item/clothing/suit/toggle/labcoat/paramedic
 	l_pocket = /obj/item/pinpointer/crew
 	r_pocket = /obj/item/sensor_device
 	suit_store = /obj/item/storage/firstaid/medical
