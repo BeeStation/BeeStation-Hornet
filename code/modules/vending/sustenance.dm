@@ -5,7 +5,7 @@
 	product_ads = "Sufficiently healthy.;Efficiently produced tofu!;Mmm! So good!;Have a meal.;You need food to live!;Have some more candy corn!;Try our new ice cups!"
 	icon_state = "sustenance"
 	light_color = LIGHT_COLOR_BLUEGREEN
-	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison = 24,
+	products = list(/obj/item/food/tofu/prison = 24,
 					/obj/item/reagent_containers/food/drinks/ice/prison = 12,
 					/obj/item/food/candy_corn/prison = 6)
 	contraband = list(/obj/item/knife/kitchen = 6,

@@ -56,6 +56,150 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">20 December 2023</h2>
+			<h3 class="author">rkz, EvilDragonFiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes material stacks not consuming properly in crafting/machine frames</li>
+			</ul>
+
+			<h2 class="date">19 December 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">More soul glimmer colours are added to Psyphoza. If a round started with more player clients, the round will have more colour pool. Max size 10, max pop size +91.</li>
+				<li class="bugfix">Soul glimmer colour is now TGUI chat reactive.</li>
+			</ul>
+			<h3 class="author">Horatio22,CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">Added new icons for the ventriloquist dummy</li>
+			</ul>
+			<h3 class="author">Impish_Delights updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Lower damage for Shotgun Rubbershot (54 PB down from 72 PB). Additional pellet ricochets, slightly reduced spread, damage drop-off now equal to buckshot. Adds -20 AP.</li>
+				<li class="balance">Beanbag Slugs now deal 10 brute and 50 stamina, instead of 5 brute and 55 stamina. Adds -20 AP.</li>
+				<li class="balance">Lower damage for .38 rubber (34 down from 40). 1 less possible ricochet, reduced damage decay from ricochet. Reduces negative AP to -15 (from -30).</li>
+				<li class="balance">WT-550 rubber bullets are now less-than-lethal (4 brute + 18 stamina) and ricochet similar to other rubber ballistic rounds. Adds -20 AP.</li>
+			</ul>
+			<h3 class="author">PinkSuzuky updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added 5 Winter Coats, Virologist, Geneticist, Chemist, Brig Physician and Detective. Made them available on the relevant vendors, with the exception of the Brig Physician Coat which can be acquired from the Brig Physician Locker.</li>
+				<li class="imageadd">Updated the sprites of the Miner Winter Coat and Cargo Winter coat.</li>
+				<li class="tweak">Changed some values on the Miner Winter Coat to make usable for mining.</li>
+				<li class="tweak">Made the Miner Winter Coat available inside the mining equipment lockers.</li>
+				<li class="tweak">Cargo Winter Coat now accepts Cargo related items in its item slot.</li>
+				<li class="code_imp">reorganized some lists on wintercoat code for readeability.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds in a preference for simplified bodyzone targetting, which makes the bodyzone targetting system easier to use and usable without a numpad.</li>
+				<li class="tweak">You can now only start 1 surgery per mob.</li>
+				<li class="rscadd">Keybindings can now be hidden based on the value of preferences.</li>
+				<li class="bugfix">Fixes some incorrect logic inside of technophile bible healing.</li>
+				<li class="rscadd">Adds a day/night cycle config setting for maps.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Bluespace compression kit can now shrink items properly again, without returning an error.</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added the ability for health analyzers to see embedded items inside of a person.4</li>
+				<li class="bugfix">Fixed embeds not properly being blocked by shields.</li>
+			</ul>
+			<h3 class="author">rkz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes Dish-drives dispensing their stock parts upon attack_hand</li>
+			</ul>
+			<h3 class="author">rkz, Mothblocks, Kylerace updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">speeds up init by ~0.8s by splitting registering lists of signals</li>
+				<li class="code_imp">documents component code</li>
+			</ul>
+			<h3 class="author">rkz, dragomagol updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Cleaned up the way ckeys are attributed in investigate logs</li>
+				<li class="code_imp">cleaned up singularity_act and passing gain values</li>
+				<li class="admin">All investigate logs will now contain dates</li>
+			</ul>
+			<h3 class="author">rkz, kitz-katz, willox, ninjanomnom, haukeschaumann, Qustinnus, TemporalOroborous updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds additional framework to basemats, Materials under the label 'basemat' include Iron, Titanium, Plastic, Uranium, Plasma, Silver and Gold.</li>
+				<li class="rscadd">Adds ability to craft chairs and tables out of any basemat material.</li>
+				<li class="tweak">Miner satchels now provide minor radiation protection from their contents, this is to prevent uranium ore from giving you cancer just for existing.</li>
+				<li class="refactor">lazy initializes the basemats subsystem to cut down on processing</li>
+				<li class="refactor">reduces overall unecessary lists in the basemats & custom_materials code</li>
+				<li class="bugfix">fixes a bug relating to duplicating materials</li>
+				<li class="bugfix">fixes a bug where basemats would exagerrate their material properties.</li>
+				<li class="bugfix">fixes a bug where basemats properties would be inherited by anything crafted with them in an auto/protolathe</li>
+			</ul>
+			<h3 class="author">rkz, qustinnus, Timberpoes, ShizCalev, cacogen, WeSoda25 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">chaplains enjoy the taste of Holy Melons, and get a mood event for it.</li>
+				<li class="rscadd">converts grown food to newfood</li>
+				<li class="code_imp">unit tests to check food edibility & icons</li>
+				<li class="code_imp">establishes junkiness framework for snacks</li>
+				<li class="bugfix">fixes incorrect microwave cooking paths for some meats</li>
+				<li class="bugfix">makes processors, microwaves, drying racks accept all food again</li>
+			</ul>
+
+			<h2 class="date">18 December 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Machines (and computers) will not needlessly create parts and circuit at Initialized() when it's made by a player.</li>
+				<li class="rscadd">Fake computer circuit board. Available from Arcade rewards. Use multitool to adjust the fake info.</li>
+			</ul>
+			<h3 class="author">MarkusLarsson421 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Meta: Added BZ Canister to Xenobio.</li>
+				<li class="tweak">Meta: Changed Xenobio cold room door to have a glass window.</li>
+				<li class="tweak">Meta: Changed Science break room door to be Science themed.</li>
+				<li class="tweak">Meta: Changed access of the southern Exploration door to be the same as the north maintenance door.</li>
+				<li class="bugfix">Meta: Fixed weird light placement in Medbay-Chapel Maints.</li>
+				<li class="rscadd">Meta: Added an O2 canister in Aux base for the purpose of refilling oxygen tanks once on lavaland, welding tank was moved to Aux base maintenance.</li>
+				<li class="rscadd">Meta: Added intercom to toxin testing room.</li>
+				<li class="tweak">Meta: Replaced Robotics Medical tools with a Medical Duffel bag.</li>
+				<li class="rscadd">Meta: Added welding tool, welding goggles and floor tiles to the janitor.</li>
+				<li class="tweak">Meta: Changed the flooring in maintenance areas on the station to be consistent with Medbay maintenance.</li>
+				<li class="balance">Meta: Replaced Brig Phys back walls with regular non-reinforced walls to allow break ins/outs and allow them to expand easier.</li>
+				<li class="rscadd">Meta: Added camera to toxins to allow AI to see the inner door.</li>
+				<li class="bugfix">Meta: Moved a useless box and closet out of the way in Exploration maints.</li>
+			</ul>
+			<h3 class="author">PestoVerde322, JohnFulpWillard updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Removed the grand majority of the Goon icon</li>
+				<li class="soundadd">Replaced some sounds with non-goon variants</li>
+				<li class="imageadd">added new icons for the marijuana, gym equipement, dish driver and vault terminal</li>
+				<li class="refactor">Gym equipment was reworked. You now buckle yourself to weight machines to use them, rather than clicking on it and getting stunned for a few seconds. It also means it works like a chair now.</li>
+				<li class="tweak">Gym equipment no longer breaks a sweat in no gravity.</li>
+			</ul>
+
+			<h2 class="date">17 December 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You can no longer use a hand tele to enter and promptly trap yourself in the heretic touhou shadow realm.</li>
+			</ul>
+			<h3 class="author">ClownMoff updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">spare full clown and mime outfit to the AutoDrobe.</li>
+				<li class="tweak">rearranges the organization of the autodrobe</li>
+			</ul>
+			<h3 class="author">DrDuckedGoose, PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes filters being applied multiple times to pscyhozia plane masters,</li>
+			</ul>
+			<h3 class="author">Varo, Naevi for helping me make the bluespace wings, PapaporoPaprito for the ported wings from Fulp updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added 4 new Moth wings and antennae: Rosy, Plasmafire, Brown, and Bluespace.</li>
+				<li class="bugfix">Fixed Luna moth's open wing sprites having the fluf misplaced.</li>
+			</ul>
+			<h3 class="author">rkz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">converted meat, monkeycubes to newfood</li>
+				<li class="tweak">moved meatbun from Bread recipes to Meat recipes</li>
+				<li class="rscadd">Adjusted meatdish & meatslab values to account for protein reagent</li>
+				<li class="tweak">converted a few extraneous meats to follow proper subtyping. Dolphin meat is now a meatslab instead of snowflake. Carp meat is now a subtype of fishmeat, rather than regular fishmeat being a subtype of carp meat</li>
+				<li class="bugfix">fixes psyphoza meat using the wrong typepath and stats</li>
+			</ul>
+
 			<h2 class="date">15 December 2023</h2>
 			<h3 class="author">@kit-katz (Sprites) @DrDuckedGoose (Code) @HowToLoLu (Code) updated:</h3>
 			<ul class="changes bgimages16">
@@ -835,74 +979,6 @@
 			<ul class="changes bgimages16">
 				<li class="code_imp">Cleaned up preference serialization and error handling. Cleaned up guest/databaseless default value generation.</li>
 				<li class="rscadd">Added logging to preference loading, saving, and edits for better debugging.</li>
-			</ul>
-
-			<h2 class="date">18 October 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Simple animals are no longer immortal</li>
-			</ul>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">New outfit preset; Bulletproof SecOff. Can be chosen via the select equipment menu, and through chameleon clothing</li>
-				<li class="balance">Mosin Nagant deals less damage (40 down from 60) but has armor penetration (30% AP)</li>
-				<li class="balance">Nagant Revolver deals less damage (55 down from 60) but has armor penetration (10% AP)</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Light mode stat panel atom tab will now be readable (Text when you alt click a tile)</li>
-			</ul>
-			<h3 class="author">Programs-The-Station updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes the Index Table Component not outputting the values of the table row.</li>
-			</ul>
-
-			<h2 class="date">17 October 2023</h2>
-			<h3 class="author">BeeLover66 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Some recipes that wouldn't get reagents from their ingredients now do</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Gun cooldown crosshair.</li>
-			</ul>
-			<h3 class="author">RKz, Rohesie updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">unconsciousness is now a trait, cleaned up its usage in mobility and stat, which should make it perform a lot quicker and generate less edge-cases</li>
-				<li class="bugfix">being woken up from unconsciousness should always clear trauma-induced monochromatic vision</li>
-				<li class="bugfix">moves a sleeping check in regenerative coma a few lines ahead. It's intended use in code that voluntarily sleeping provides less healing benefit than entering a coma through trauma/medicine.</li>
-				<li class="balance">Which... now technically makes it a balance change. It was always intended, but using the sleep verb will now heal you less than involuntary unconciousness, in terms of the regen rate of the regenerative coma</li>
-			</ul>
-
-			<h2 class="date">16 October 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">Modular Console on/off icon states are now separated into body and keyboard states instead of being combined</li>
-				<li class="code_imp">Added another bitflag for smoothing, SMOOTH_BITMASK_SKIP_CORNERS</li>
-				<li class="bugfix">Modular Consoles no longer look fully broken when only the CPU is broken</li>
-				<li class="bugfix">Fixed computers becoming invisible in certain arrangements</li>
-				<li class="bugfix">Some computers with special icons no longer become invisible</li>
-				<li class="bugfix">Computers now handle smoothing properly when acted on by Narsie or Ratvar</li>
-				<li class="bugfix">Broken computers now show up properly</li>
-			</ul>
-			<h3 class="author">Programs-The-Station updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes the Sabotage and Explosives Objective for "the telecommunications relay".</li>
-			</ul>
-
-			<h2 class="date">15 October 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Pizzaboxes now accept pizza being put in once again</li>
-			</ul>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Combat shotguns can now be toggled in-hand to function like manual pump-action shotguns</li>
-				<li class="rscadd">Combat shotguns will 'click' when cycling firing modes.</li>
-				<li class="bugfix">Compact combat shotgun will now cycle properly when fired one-handed</li>
-				<li class="code_imp">Fixes runtime when firing a ballistic gun without a magazine installed</li>
-				<li class="code_imp">Removes unneeded proc for automatic shotguns, functionally the same</li>
-				<li class="code_imp">Retypes bulldog to be a child of shotgun/automatic</li>
 			</ul>
 		</div>
 

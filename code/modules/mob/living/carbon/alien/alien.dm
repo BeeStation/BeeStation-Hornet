@@ -10,7 +10,7 @@
 	verb_say = "hisses"
 	initial_language_holder = /datum/language_holder/alien
 	bubble_icon = "alien"
-	type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab/xeno
+	type_of_meat = /obj/item/food/meat/slab/xeno
 	status_flags = CANUNCONSCIOUS|CANPUSH
 	gib_type = /obj/effect/decal/cleanable/xenoblood/xgibs
 	unique_name = 1

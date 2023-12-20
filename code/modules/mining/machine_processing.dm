@@ -24,7 +24,7 @@
 /obj/machinery/mineral/proc/register_input_turf()
 	input_turf = get_step(src, input_dir)
 	if(input_turf) // make sure there is actually a turf
-		RegisterSignal(input_turf, list(COMSIG_ATOM_CREATED, COMSIG_ATOM_ENTERED), PROC_REF(pickup_item))
+		RegisterSignals(input_turf, list(COMSIG_ATOM_CREATED, COMSIG_ATOM_ENTERED), PROC_REF(pickup_item))
 
 /// Unregisters signals that are registered the machine's input turf, if it has one.
 /obj/machinery/mineral/proc/unregister_input_turf()
@@ -220,7 +220,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 	proximity_monitor = new(src, 1)
 	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, TRUE, /obj/item/stack)
 	stored_research = new /datum/techweb/specialized/autounlocking/smelter
-	selected_material = getmaterialref(/datum/material/iron)
+	selected_material = SSmaterials.GetMaterialRef(/datum/material/iron)
 
 /obj/machinery/mineral/processing_unit/Destroy()
 	if(console)
