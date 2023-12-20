@@ -124,10 +124,6 @@
 				C.tint -= 2
 				H.update_tint()
 				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
-			//SKILLCHIPS, should we want them
-			//if(user && isturf(target))
-				//for(var/obj/effect/decal/cleanable/cleanable_decal in target)
-				//	user.mind.adjust_experience(/datum/skill/cleaning, round(cleanable_decal.beauty / CLEAN_SKILL_BEAUTY_ADJUSTMENT))
 			target.wash(CLEAN_SCRUB)
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 			decreaseUses(user)
