@@ -15,7 +15,7 @@
 
 /// Returns the station time in deciseconds
 /proc/station_time(display_only = FALSE, wtime=world.time)
-	return (((wtime - SSticker.round_start_time) * SSticker.station_time_rate_multiplier) + SSticker.gametime_offset) % 864000
+	return (((wtime - SSticker.round_start_time) * SSticker.station_time_rate_multiplier) + SSticker.gametime_offset) % DECISECONDS_IN_DAY
 
 /// Returns the station time in hh:mm:ss
 /proc/station_time_timestamp(format = "hh:mm:ss", wtime)
@@ -25,7 +25,7 @@
 	if(isnum_safe(force_set))
 		SSticker.gametime_offset = force_set
 		return
-	SSticker.gametime_offset = rand(0, 864000)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
+	SSticker.gametime_offset = rand(0, DECISECONDS_IN_DAY)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
 	if(prob(50))
 		SSticker.gametime_offset = FLOOR(SSticker.gametime_offset, 3600)
 	else

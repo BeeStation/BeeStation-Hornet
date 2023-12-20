@@ -28,16 +28,14 @@
 	icon_state = "donkpocket"
 	microwaved_type = /obj/item/food/donkpocket/warm
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtypes = GRAIN
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
-	/// What type of donk pocket we're warmed into via baking or microwaving.
-	//var/warm_type = /obj/item/food/donkpocket/warm
 	/// The lower end for how long it takes to bake
 	var/baking_time_short = 25 SECONDS
 	/// The upper end for how long it takes to bake
@@ -52,26 +50,39 @@
 	name = "warm Donk-pocket"
 	desc = "The heated food of choice for the seasoned traitor."
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/medicine/omnizine = 3,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtypes = GRAIN
 
-	// Warmed donk pockets will burn if you leave them in the oven or microwave.
-	//warm_type = /obj/item/reagent_containers/food/snacks/badrecipe
 	microwaved_type = /obj/item/reagent_containers/food/snacks/badrecipe
 	baking_time_short = 10 SECONDS
 	baking_time_long = 15 SECONDS
 
-/obj/item/food/dankpocket
+/obj/item/food/donkpocket/dankpocket
 	name = "\improper Dank-pocket"
 	desc = "The food of choice for the seasoned botanist."
 	icon_state = "dankpocket"
+	microwaved_type = /obj/item/food/donkpocket/warm/dankpocket
 	food_reagents = list(
+		/datum/reagent/drug/space_drugs = 2,
 		/datum/reagent/toxin/lipolicide = 3,
-		/datum/reagent/drug/space_drugs = 3,
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/maltodextrin = 4
+	)
+	tastes = list("meat" = 2, "dough" = 2)
+	foodtypes = GRAIN | VEGETABLES
+
+/obj/item/food/donkpocket/warm/dankpocket
+	name = "warm Dank-pocket"
+	desc = "The food of choice for the baked botanist."
+	icon_state = "dankpocket"
+	food_reagents = list(
+		/datum/reagent/medicine/omnizine = 1,
+		/datum/reagent/drug/space_drugs = 2,
+		/datum/reagent/toxin/lipolicide = 3,
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/maltodextrin = 4
 	)
@@ -83,14 +94,13 @@
 	desc = "The classic snack food, now with a heat-activated spicy flair."
 	icon_state = "donkpocketspicy"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/capsaicin = 2,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "spice" = 1)
 	foodtypes = GRAIN
 
-	//warm_type = /obj/item/food/donkpocket/warm/spicy
 	microwaved_type = /obj/item/food/donkpocket/warm/spicy
 
 /obj/item/food/donkpocket/warm/spicy
@@ -98,10 +108,10 @@
 	desc = "The classic snack food, now maybe a bit too spicy."
 	icon_state = "donkpocketspicy"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/consumable/capsaicin = 5,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "weird spices" = 2)
 	foodtypes = GRAIN
@@ -111,14 +121,13 @@
 	desc = "An east-asian take on the classic stationside snack."
 	icon_state = "donkpocketteriyaki"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/soysauce = 2,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "soy sauce" = 2)
 	foodtypes = GRAIN
 
-	//warm_type = /obj/item/food/donkpocket/warm/teriyaki
 	microwaved_type = /obj/item/food/donkpocket/warm/teriyaki
 
 /obj/item/food/donkpocket/warm/teriyaki
@@ -126,10 +135,10 @@
 	desc = "An east-asian take on the classic stationside snack, now steamy and warm."
 	icon_state = "donkpocketteriyaki"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/consumable/soysauce = 2,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "soy sauce" = 2)
 	foodtypes = GRAIN
@@ -139,14 +148,13 @@
 	desc = "Delicious, cheesy and surprisingly filling."
 	icon_state = "donkpocketpizza"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/tomatojuice = 2,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "cheese"= 2)
 	foodtypes = GRAIN
 
-	//warm_type = /obj/item/food/donkpocket/warm/pizza
 	microwaved_type = /obj/item/food/donkpocket/warm/pizza
 
 /obj/item/food/donkpocket/warm/pizza
@@ -154,10 +162,10 @@
 	desc = "Delicious, cheesy, and even better when hot."
 	icon_state = "donkpocketpizza"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/consumable/tomatojuice = 2,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "melty cheese"= 2)
 	foodtypes = GRAIN
@@ -174,7 +182,6 @@
 	tastes = list("banana" = 2, "dough" = 2, "children's antibiotics" = 1)
 	foodtypes = GRAIN
 
-	//warm_type = /obj/item/food/donkpocket/warm/honk
 	microwaved_type = /obj/item/food/donkpocket/warm/honk
 
 /obj/item/food/donkpocket/warm/honk
@@ -203,7 +210,6 @@
 	tastes = list("dough" = 2, "jam" = 2)
 	foodtypes = GRAIN
 
-	//warm_type = /obj/item/food/donkpocket/warm/berry
 	microwaved_type = /obj/item/food/donkpocket/warm/berry
 
 /obj/item/food/donkpocket/warm/berry
@@ -224,14 +230,13 @@
 	desc = "The choice to use real gondola meat in the recipe is controversial, to say the least." //Only a monster would craft this.
 	icon_state = "donkpocketgondola"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/tranquility = 5,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "inner peace" = 1)
 	foodtypes = GRAIN
 
-	//warm_type = /obj/item/food/donkpocket/warm/gondola
 	microwaved_type = /obj/item/food/donkpocket/warm/gondola
 
 /obj/item/food/donkpocket/warm/gondola
@@ -239,10 +244,10 @@
 	desc = "The choice to use real gondola meat in the recipe is controversial, to say the least."
 	icon_state = "donkpocketgondola"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/tranquility = 10,
-		/datum/reagent/consumable/maltodextrin = 3
+		/datum/reagent/consumable/maltodextrin = 4
 	)
 	tastes = list("meat" = 2, "dough" = 2, "inner peace" = 1)
 	foodtypes = GRAIN

@@ -149,7 +149,7 @@
 				if(prob(wallbreak_chance))
 					W.dismantle_wall(TRUE, TRUE)
 		else
-			loc.ex_act(amount_destruction)
+			EX_ACT(loc, amount_destruction)
 	else
 		qdel(src)
 

@@ -156,7 +156,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 30)
 					return
 				visible_message("<span class='boldwarning'>Something within [src] stirs...</span>")
-				var/list/candidates = pollCandidatesForMob("Do you want to play as a lavaland elite?", ROLE_LAVALAND_ELITE, null, 10 SECONDS, src)
+				var/list/candidates = poll_candidates_for_mob("Do you want to play as a lavaland elite?", ROLE_LAVALAND_ELITE, null, 10 SECONDS, src)
 				if(candidates.len)
 					audible_message("<span class='boldwarning'>The stirring sounds increase in volume!</span>")
 					elitemind = pick(candidates)

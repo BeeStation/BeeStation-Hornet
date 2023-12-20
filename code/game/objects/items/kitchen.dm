@@ -24,7 +24,7 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=80)
+	custom_materials = list(/datum/material/iron=80)
 	flags_1 = CONDUCT_1
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -50,7 +50,7 @@
 		icon_state = "fork"
 		forkload = null
 
-	else if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
+	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, simplified_probability = 30))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
 		return eyestab(M,user)

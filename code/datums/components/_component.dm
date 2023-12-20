@@ -1,12 +1,51 @@
+/**
+ * # Component
+ *
+ * The component datum
+ *
+ * A component should be a single standalone unit
+ * of functionality, that works by receiving signals from it's parent
+ * object to provide some single functionality (i.e a slippery component)
+ * that makes the object it's attached to cause people to slip over.
+ * Useful when you want shared behaviour independent of type inheritance
+ */
 /datum/component
+	/**
+	  * Defines how duplicate existing components are handled when added to a datum
+	  *
+	  * See [COMPONENT_DUPE_*][COMPONENT_DUPE_ALLOWED] definitions for available options
+	  */
 	var/dupe_mode = COMPONENT_DUPE_HIGHLANDER
+
+	/**
+	  * The type to check for duplication
+	  *
+	  * `null` means exact match on `type` (default)
+	  *
+	  * Any other type means that and all subtypes
+	  */
 	var/dupe_type
+
+	/// The datum this components belongs to
 	var/datum/parent
-	//only set to true if you are able to properly transfer this component
-	//At a minimum RegisterWithParent and UnregisterFromParent should be used
-	//Make sure you also implement PostTransfer for any post transfer handling
+
+	/**
+	  * Only set to true if you are able to properly transfer this component
+	  *
+	  * At a minimum [RegisterWithParent][/datum/component/proc/RegisterWithParent] and [UnregisterFromParent][/datum/component/proc/UnregisterFromParent] should be used
+	  *
+	  * Make sure you also implement [PostTransfer][/datum/component/proc/PostTransfer] for any post transfer handling
+	  */
 	var/can_transfer = FALSE
 
+/**
+ * Create a new component.
+ *
+ * Additional arguments are passed to [Initialize()][/datum/component/proc/Initialize]
+ *
+ * Arguments:
+ * * datum/P the parent datum this component reacts to signals from
+ */
 /datum/component/New(list/raw_args)
 	parent = raw_args[1]
 	var/list/arguments = raw_args.Copy(2)
@@ -17,6 +56,32 @@
 
 	_JoinParent(parent)
 
+/**
+ * Called during component creation with the same arguments as in new excluding parent.
+ *
+ * Do not call `qdel(src)` from this function, `return COMPONENT_INCOMPATIBLE` instead
+ */
+/datum/component/proc/Initialize(...)
+	return
+
+/**
+ * Properly removes the component from `parent` and cleans up references
+ *
+ * Arguments:
+ * * force - makes it not check for and remove the component from the parent
+ * * silent - deletes the component without sending a [COMSIG_COMPONENT_REMOVING] signal
+ */
+/datum/component/Destroy(force=FALSE, silent=FALSE)
+	if(!force && parent)
+		_RemoveFromParent()
+	if(parent && !silent)
+		SEND_SIGNAL(parent, COMSIG_COMPONENT_REMOVING, src)
+	parent = null
+	return ..()
+
+/**
+ * Internal proc to handle behaviour of components when joining a parent
+ */
 /datum/component/proc/_JoinParent()
 	var/datum/P = parent
 	//lazy init the parent's dc list
@@ -52,70 +117,125 @@
 
 	RegisterWithParent()
 
-// If you want/expect to be moving the component around between parents, use this to register on the parent for signals
-/datum/component/proc/RegisterWithParent()
-	return
-
-/datum/component/proc/Initialize(...)
-	return
-
-/datum/component/Destroy(force=FALSE, silent=FALSE)
-	if(!force && parent)
-		_RemoveFromParent()
-	if(parent && !silent)
-		SEND_SIGNAL(parent, COMSIG_COMPONENT_REMOVING, src)
-	parent = null
-	return ..()
-
+/**
+ * Internal proc to handle behaviour when being removed from a parent
+ */
 /datum/component/proc/_RemoveFromParent()
-	var/datum/P = parent
-	var/list/dc = P.datum_components
+	var/datum/parent = src.parent
+	var/list/parents_components = parent.datum_components
 	for(var/I in _GetInverseTypeList())
-		var/list/components_of_type = dc[I]
-		if(length(components_of_type))	//
+		var/list/components_of_type = parents_components[I]
+
+		if(length(components_of_type)) //
 			var/list/subtracted = components_of_type - src
-			if(subtracted.len == 1)	//only 1 guy left
-				dc[I] = subtracted[1]	//make him special
+
+			if(subtracted.len == 1) //only 1 guy left
+				parents_components[I] = subtracted[1] //make him special
 			else
-				dc[I] = subtracted
-		else	//just us
-			dc -= I
-	if(!dc.len)
-		P.datum_components = null
+				parents_components[I] = subtracted
+
+		else //just us
+			parents_components -= I
+
+	if(!parents_components.len)
+		parent.datum_components = null
 
 	UnregisterFromParent()
 
+/**
+ * Register the component with the parent object
+ *
+ * Use this proc to register with your parent object
+ *
+ * Overridable proc that's called when added to a new parent
+ */
+/datum/component/proc/RegisterWithParent()
+	return
+
+/**
+ * Unregister from our parent object
+ *
+ * Use this proc to unregister from your parent object
+ *
+ * Overridable proc that's called when removed from a parent
+ * *
+ */
 /datum/component/proc/UnregisterFromParent()
 	return
 
-/datum/proc/RegisterSignal(datum/target, sig_type_or_types, proctype, override = FALSE)
+/**
+ * Register to listen for a signal from the passed in target
+ *
+ * This sets up a listening relationship such that when the target object emits a signal
+ * the source datum this proc is called upon, will receive a callback to the given proctype
+ * Use PROC_REF(procname), TYPE_PROC_REF(type,procname) or GLOBAL_PROC_REF(procname) macros to validate the passed in proc at compile time.
+ * PROC_REF for procs defined on current type or it's ancestors, TYPE_PROC_REF for procs defined on unrelated type and GLOBAL_PROC_REF for global procs.
+ * Return values from procs registered must be a bitfield
+ *
+ * Arguments:
+ * * datum/target The target to listen for signals from
+ * * signal_type A signal name
+ * * proctype The proc to call back when the signal is emitted
+ * * override If a previous registration exists you must explicitly set this
+ */
+/datum/proc/RegisterSignal(datum/target, signal_type, proctype, override = FALSE)
 	if(QDELETED(src) || QDELETED(target))
 		return
 
-	var/list/procs = signal_procs
-	if(!procs)
-		signal_procs = procs = list()
-	var/list/target_procs = procs[target] || (procs[target] = list())
-	var/list/lookup = target.comp_lookup
-	if(!lookup)
-		target.comp_lookup = lookup = list()
+	if (islist(signal_type))
+		var/static/list/known_failures = list()
+		var/list/signal_type_list = signal_type
+		var/message = "([target.type]) is registering [signal_type_list.Join(", ")] as a list, the older method. Change it to RegisterSignals."
 
-	for(var/sig_type in (islist(sig_type_or_types) ? sig_type_or_types : list(sig_type_or_types)))
-		if(!override && target_procs[sig_type])
-			stack_trace("[sig_type] overridden on [target.type]. Use override = TRUE to suppress this warning")
+		if (!(message in known_failures))
+			known_failures[message] = TRUE
+			stack_trace("[target] [message]")
 
-		target_procs[sig_type] = proctype
-		var/list/looked_up = lookup[sig_type]
+		RegisterSignals(target, signal_type, proctype, override)
+		return
 
-		if(!looked_up) // Nothing has registered here yet
-			lookup[sig_type] = src
-		else if(looked_up == src) // We already registered here
-			continue
-		else if(!length(looked_up)) // One other thing registered here
-			lookup[sig_type] = list((looked_up) = TRUE, (src) = TRUE)
-		else // Many other things have registered here
-			looked_up[src] = TRUE
+	var/list/procs = (signal_procs ||= list())
+	var/list/target_procs = (procs[target] ||= list())
+	var/list/lookup = (target.comp_lookup ||= list())
 
+	if(!override && target_procs[signal_type])
+		var/override_message = "[signal_type] overridden. Use override = TRUE to suppress this warning.\nTarget: [target] ([target.type]) Proc: [proctype]"
+		// I need to split singals into their own logs eventually
+		//log_signal(override_message)
+		stack_trace(override_message)
+
+	target_procs[signal_type] = proctype
+	var/list/looked_up = lookup[signal_type]
+
+	if(isnull(looked_up)) // Nothing has registered here yet
+		lookup[signal_type] = src
+	else if(looked_up == src) // We already registered here
+		return
+	else if(!length(looked_up)) // One other thing registered here
+		lookup[signal_type] = list((looked_up) = TRUE, (src) = TRUE)
+	else // Many other things have registered here
+		looked_up[src] = TRUE
+
+/// Registers multiple signals to the same proc.
+/datum/proc/RegisterSignals(datum/target, list/signal_types, proctype, override = FALSE)
+	if(!islist(signal_types))
+		stack_trace("[target] called RegisterSignals() with non-list signal: [signal_types]")
+		RegisterSignal(target, signal_types, proctype, override)
+		return
+	for (var/signal_type in signal_types)
+		RegisterSignal(target, signal_type, proctype, override)
+
+/**
+ * Stop listening to a given signal from target
+ *
+ * Breaks the relationship between target and source datum, removing the callback when the signal fires
+ *
+ * Doesn't care if a registration exists or not
+ *
+ * Arguments:
+ * * datum/target Datum to stop listening to signals from
+ * * sig_typeor_types Signal string key or list of signal keys to stop listening to specifically
+ */
 /datum/proc/UnregisterSignal(datum/target, sig_type_or_types)
 	var/list/lookup = target.comp_lookup
 	if(!signal_procs || !signal_procs[target] || !lookup)
@@ -214,12 +334,10 @@
 	return null
 
 /datum/proc/GetComponents(c_type)
-	var/list/dc = datum_components
-	if(!dc)
-		return null
-	. = dc[c_type]
-	if(!length(.))
-		return list(.)
+	var/list/components = datum_components?[c_type]
+	if(!components)
+		return list()
+	return islist(components) ? components : list(components)
 
 /datum/proc/_AddComponent(list/raw_args)
 	var/new_type = raw_args[1]

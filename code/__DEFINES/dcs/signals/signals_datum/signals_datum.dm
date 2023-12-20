@@ -17,6 +17,11 @@
 /// Sent when the amount of materials in material_container changes
 #define COMSIG_MATERIAL_CONTAINER_CHANGED "material_container_changed"
 
+///from base of [/datum/reagents/proc/add_reagent] - Sent before the reagent is added: (reagenttype, amount, reagtemp, data, no_react)
+#define COMSIG_REAGENTS_PRE_ADD_REAGENT "reagents_pre_add_reagent"
+	/// Prevents the reagent from being added.
+	#define COMPONENT_CANCEL_REAGENT_ADD (1<<0)
+
 // /datum/species signals
 #define COMSIG_SPECIES_GAIN "species_gain"						//! from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
 #define COMSIG_SPECIES_LOSS "species_loss"						//! from datum/species/on_species_loss(): (datum/species/lost_species)
@@ -34,17 +39,6 @@
 
 //Creamed
 #define COMSIG_COMPONENT_CLEAN_FACE_ACT "clean_face_act"		//! called when you wash your face at a sink: (num/strength)
-
-//Food
-
-///from base of obj/item/reagent_containers/food/snacks/attack() & Edible component: (mob/living/eater, mob/feeder)
-#define COMSIG_FOOD_EATEN "food_eaten"
-
-///from base of Component/edible/On_Consume: (mob/living/eater, mob/living/feeder)
-#define COMSIG_FOOD_CONSUMED "food_consumed"
-
-#define COMSIG_ITEM_FRIED "item_fried"
-	#define COMSIG_FRYING_HANDLED (1<<0)
 
 //Gibs
 
