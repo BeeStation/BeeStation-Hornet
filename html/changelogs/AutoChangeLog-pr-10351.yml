@@ -1,0 +1,4 @@
+author: rkz, EvilDragonFiend
+delete-after: true
+changes:
+  - bugfix: fixes material stacks not consuming properly in crafting/machine frames
