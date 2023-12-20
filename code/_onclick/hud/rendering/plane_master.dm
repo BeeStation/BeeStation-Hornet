@@ -246,10 +246,10 @@
 
 /atom/movable/screen/plane_master/psychic/backdrop(mob/mymob)
 	. = ..()
-	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
-	filters += filter(type = "alpha", render_source = "psychic_mask")
-	filters += filter(type = "radial_blur", size = 0.0125)
-	filters += filter(type = "blur", size = 1.5)
+	add_filter("psychic_bloom", 1, list(type = "bloom", size = 2, threshold = rgb(85,85,85)))
+	add_filter("psychic_alpha_mask", 1, alpha_mask_filter(render_source = "psychic_mask"))
+	add_filter("psychic_radial_blur", 1, radial_blur_filter(size = 0.0125))
+	add_filter("psychic_blur", 1, gauss_blur_filter(size = 1.5))
 
 /atom/movable/screen/plane_master/anti_psychic
 	name = "anti psychic plane master"
@@ -273,8 +273,5 @@
 
 /atom/movable/screen/plane_master/blind_feature/backdrop(mob/mymob)
 	. = ..()
-	//prevent filter stocking when ghosting and such
-	remove_filter("glow")
 	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
-	remove_filter("mask")
 	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))

@@ -38,7 +38,7 @@
 	appearance_flags = TILE_BOUND | LONG_GLIDE | PIXEL_SCALE | KEEP_TOGETHER
 	max_integrity = 300
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
-	integrity_failure = 70
+	integrity_failure = 0.25
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
 	autoclose = TRUE
 	secondsElectrified = MACHINE_NOT_ELECTRIFIED //How many seconds remain until the door is no longer electrified. -1/MACHINE_ELECTRIFIED_PERMANENT = permanently electrified until someone fixes it.
@@ -640,7 +640,7 @@
 					SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_emergency", FLOAT_LAYER, FLOAT_PLANE, dir)
 			if(welded)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
-			if(obj_integrity <integrity_failure)
+			if(obj_integrity < integrity_failure * max_integrity)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_broken", FLOAT_LAYER, FLOAT_PLANE, dir)
 			else if(obj_integrity < (0.75 * max_integrity))
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_damaged", FLOAT_LAYER, FLOAT_PLANE, dir)
@@ -651,7 +651,7 @@
 			SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_denied", FLOAT_LAYER, FLOAT_PLANE, dir)
 			if(welded)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
-			if(obj_integrity <integrity_failure)
+			if(obj_integrity < integrity_failure * max_integrity)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_broken", FLOAT_LAYER, FLOAT_PLANE, dir)
 			else if(obj_integrity < (0.75 * max_integrity))
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_damaged", FLOAT_LAYER, FLOAT_PLANE, dir)
@@ -660,7 +660,7 @@
 			if(welded)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
 			SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks", FLOAT_LAYER, FLOAT_PLANE, dir)
-			if(obj_integrity <integrity_failure)
+			if(obj_integrity < integrity_failure * max_integrity)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_broken", FLOAT_LAYER, FLOAT_PLANE, dir)
 			else if(obj_integrity < (0.75 * max_integrity))
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "sparks_damaged", FLOAT_LAYER, FLOAT_PLANE, dir)
@@ -1154,7 +1154,7 @@
 		to_chat(user, "<span class='notice'>You carefully start removing [charge] from [src]...</span>")
 		if(!I.use_tool(src, user, 150, volume=50))
 			to_chat(user, "<span class='warning'>You slip and [charge] detonates!</span>")
-			charge.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(charge, EXPLODE_DEVASTATE)
 			user.Paralyze(60)
 			return
 		user.visible_message("<span class='notice'>[user] removes [charge] from [src].</span>", \
@@ -1192,7 +1192,7 @@
 		update_icon(AIRLOCK_OPENING)
 		visible_message("<span class='warning'>[src]'s panel is blown off in a spray of deadly shrapnel!</span>")
 		charge.forceMove(drop_location())
-		charge.ex_act(EXPLODE_DEVASTATE)
+		EX_ACT(charge, EXPLODE_DEVASTATE)
 		detonated = 1
 		charge = null
 		for(var/mob/living/carbon/human/H in orange(2,src))
