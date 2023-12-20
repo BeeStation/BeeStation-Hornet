@@ -386,11 +386,12 @@
 
 		Insert(initial(D.id), I)
 
-/datum/asset/spritesheet/vending
+/datum/asset/spritesheet_batched/vending
 	name = "vending"
-	cross_round_cachable = TRUE
+	// TODO remove this. for testing only
+	early = TRUE
 
-/datum/asset/spritesheet/vending/create_spritesheets()
+/datum/asset/spritesheet_batched/vending/collect_typepaths()
 	// initialising the list of items we need
 	var/target_items = list()
 	var/prize_dummy = list()
@@ -405,15 +406,21 @@
 		for(var/O in list(V.products, V.premium, V.contraband))
 			target_items |= O
 		qdel(V)
+	return target_items
 
-	// building icons for each item
-	for (var/k in target_items)
-		var/atom/item = k
-		var/icon/I = get_display_icon_for(item)
-		if(!I)
-			continue
-		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
-		Insert(imgid, I)
+/datum/asset/spritesheet_batched/vending/typepath_to_icon_entry(type)
+	var/atom/item = type
+	if(!item)
+		return null
+	var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
+	var/icon_file = initial(item.icon)
+	var/icon_state = initial(item.icon_state)
+	if(ispath(item, /obj/item))
+		var/obj/item/fake_item = item
+		if(initial(fake_item.vendor_icon_preview))
+			icon_state = initial(fake_item.vendor_icon_preview)
+			icon_file = initial(fake_item.icon)
+	return icon_entry(imgid, icon_file, icon_state, color=initial(item.color))
 
 /proc/get_display_icon_for(atom/item)
 	if (!ispath(item, /atom))
