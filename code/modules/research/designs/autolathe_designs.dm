@@ -565,7 +565,7 @@
 	name = "Hacksaw"
 	id = "hacksaw"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron=9000, /datum/material/glass=3000)
+	materials = list(/datum/material/iron=12000)
 	build_path = /obj/item/hacksaw
 	category = list("hacked", "Medical")
 
