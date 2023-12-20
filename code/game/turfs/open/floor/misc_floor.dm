@@ -202,18 +202,18 @@
 	icon_state = "black"
 
 /turf/open/floor/monotile
-	icon_state = "monotile"
+	icon_state = "grey_full"
 	floor_tile = /obj/item/stack/tile/mono
 
 /turf/open/floor/monotile/steel
 	icon_state = "steel_monotile"
 
 /turf/open/floor/monotile/dark
-	icon_state = "monotile_dark"
+	icon_state = "black_full"
 	floor_tile = /obj/item/stack/tile/mono/dark
 
 /turf/open/floor/monotile/light
-	icon_state = "monotile_light"
+	icon_state = "white_full"
 	floor_tile = /obj/item/stack/tile/mono/light
 
 /turf/open/floor/monofloor
