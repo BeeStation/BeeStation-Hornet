@@ -475,8 +475,7 @@
 				checking = checking.loc
 
 	if(mecha_flags & LIGHTS_ON)
-		var/lights_energy_drain = 2
-		use_power(lights_energy_drain*delta_time)
+		use_power(2)
 
 	for(var/b in occupants)
 		var/mob/living/occupant = b
