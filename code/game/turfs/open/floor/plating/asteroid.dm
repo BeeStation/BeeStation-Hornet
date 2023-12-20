@@ -143,11 +143,13 @@
 	environment_type = "snow"
 	flags_1 = NONE
 	planetary_atmos = TRUE
-	burnt_states = list("snow_dug")
 	use_burnt_literal = TRUE
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
 	digResult = /obj/item/stack/sheet/snow
+
+/turf/open/floor/plating/asteroid/snow/get_burnt_states()
+	return list("snow_dug")
 
 /turf/open/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)

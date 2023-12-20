@@ -4,7 +4,6 @@
 	light_range = 5
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light
-	broken_states = list("light_broken") //This is probably fine
 	use_broken_literal = TRUE
 	var/on = TRUE
 	var/state = 0//0 = fine, 1 = flickering, 2 = breaking, 3 = broken
@@ -14,6 +13,8 @@
 	tiled_dirt = FALSE
 	max_integrity = 250
 
+/turf/open/floor/light/get_damage_states()
+	return list("light_broken")
 
 /turf/open/floor/light/examine(mob/user)
 	. = ..()

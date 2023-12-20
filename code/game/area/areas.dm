@@ -137,9 +137,6 @@
 	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color
 
-	///The textures we allow in this area
-	var/list/turf_textures
-
 /**
   * A list of teleport locations
   *
@@ -661,3 +658,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		. = FALSE
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written
+
+/area/proc/get_turf_textures()
+	return list()

@@ -19,12 +19,8 @@
 	var/broken = FALSE
 	var/burnt = FALSE
 
-	var/list/broken_states = GLOB.default_turf_damage
-	var/list/broken_dirt_states = GLOB.default_turf_damage
 	//Do we just swap the state to one of the damage states
 	var/use_broken_literal = FALSE
-
-	var/list/burnt_states = GLOB.default_turf_burn
 	//Do we just swap the state to one of the damage states
 	var/use_burnt_literal = FALSE
 	
@@ -295,11 +291,11 @@
 		options += baseturfs
 	if(broken && !force || use_broken_literal || !length(options - GLOB.turf_underlay_blacklist) && !allow_base)
 		if(use_broken_literal)
-			icon_state = pick(broken_states)
+			icon_state = pick(get_damage_states())
 		return
 	var/damage_state
-	if(length(broken_states))
-		damage_state = pick(broken_states)
+	if(length(get_damage_states()))
+		damage_state = pick(get_damage_states())
 		//Damage mask
 		var/icon/mask = icon(broken_icon, "broken_[damage_state]")
 		add_filter("damage_mask", 1, alpha_mask_filter(icon = mask))
@@ -311,7 +307,7 @@
 		add_filter("turf_underlay", 2, layering_filter(icon = under_turf, flags = FILTER_UNDERLAY))
 		damage_overlays += "turf_underlay"
 	//Add some dirt 'n shit
-	if(length(broken_dirt_states) && damage_state)
+	if(length(get_damage_states()) && damage_state)
 		var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
 		add_filter("dirt_overlay", 3, layering_filter(icon = dirt, blend_mode = BLEND_MULTIPLY))
 		damage_overlays += "dirt_overlay"
@@ -322,12 +318,18 @@
 		LAZYINITLIST(damage_overlays)
 	if(burnt && !force || use_burnt_literal)
 		if(use_burnt_literal)
-			icon_state = pick(burnt_states)
+			icon_state = pick(get_burnt_states())
 		return
-	if(length(burnt_states))
-		var/burnt_state = pick(burnt_states)
+	if(length(get_burnt_states()))
+		var/burnt_state = pick(get_burnt_states())
 		//Add some burnt shit
 		var/icon/burnt_overlay = icon(broken_icon, "burnt_[burnt_state]")
 		add_filter("brunt_overlay", 4, layering_filter(icon = burnt_overlay))
 		damage_overlays += "brunt_overlay"
 	burnt = TRUE
+
+/turf/open/proc/get_damage_states()
+	return GLOB.default_turf_damage
+
+/turf/open/proc/get_burnt_states()
+	return GLOB.default_turf_burn
