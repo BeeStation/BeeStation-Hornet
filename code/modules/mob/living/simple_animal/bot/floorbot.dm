@@ -57,9 +57,9 @@
 			var/iterations = round(tilestack.amount/tilestack.max_amount) //round() without second arg floors the value
 			for(var/a in 1 to iterations)
 				if(a == iterations)
-					tilestack.change_stack(null, tilestack.amount - tilestack.max_amount)
+					tilestack.split_stack(null, tilestack.amount - tilestack.max_amount)
 				else
-					tilestack.change_stack(null, tilestack.max_amount)
+					tilestack.split_stack(null, tilestack.max_amount)
 		tilestack = null
 
 /mob/living/simple_animal/bot/floorbot/turn_on()
@@ -129,7 +129,7 @@
 			tiles.merge(tilestack, maxtiles)
 		else
 			if(tiles.amount > maxtiles)
-				tilestack = tilestack.change_stack(null, maxtiles)
+				tilestack = tilestack.split_stack(null, maxtiles)
 			else
 				tilestack = W
 			tilestack.forceMove(src)
