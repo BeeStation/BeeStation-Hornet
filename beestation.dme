@@ -3367,8 +3367,6 @@
 #include "code\modules\power\terminal.dm"
 #include "code\modules\power\tracker.dm"
 #include "code\modules\power\turbine.dm"
-#include "code\modules\power\antimatter\control.dm"
-#include "code\modules\power\antimatter\shielding.dm"
 #include "code\modules\power\apc\apc_appearance.dm"
 #include "code\modules\power\apc\apc_attack.dm"
 #include "code\modules\power\apc\apc_main.dm"
