@@ -76,7 +76,7 @@
 			controller.queue_behavior(/datum/ai_behavior/consume, pick(food_candidates))
 			return
 
-	if(prob(50))
+	if(!ismachinery(living_pawn.loc) && prob(50))
 		var/list/possible_targets = list()
 		for(var/atom/thing in view(2, living_pawn))
 			if(!thing.mouse_opacity)
