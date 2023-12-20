@@ -67729,7 +67729,7 @@
 "rwc" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/maintenance/starboard/fore)
 "rwe" = (

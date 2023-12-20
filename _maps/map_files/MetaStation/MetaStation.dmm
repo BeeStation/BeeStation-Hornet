@@ -53010,7 +53010,7 @@
 	amount = 5
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/maintenance/port)
 "nOA" = (
