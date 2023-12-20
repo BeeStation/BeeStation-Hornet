@@ -46,6 +46,7 @@
 /datum/symptom/radconversion
 	name = "Aptotic Culling"
 	desc = "The virus causes infected cells to die off when exposed to radiation, causing open wounds to appear on the host's flesh. The end result of this process is the removal of radioactive contamination from the host."
+	symptom_flags = SYMPTOM_DEAD_TICK_NECROTIC
 	stealth = 1
 	resistance = 1
 	stage_speed = 1
@@ -54,7 +55,7 @@
 	severity = 0 //this is, at base level, somewhat negative. low levels of radiation will become brute damage and a danger to a host, where otherwise they'd have no effect
 	symptom_delay_min = 1
 	symptom_delay_max = 1
-	var/toxheal = FALSE 
+	var/toxheal = FALSE
 	var/cellheal = FALSE
 	suffixes = list(" Aptosis")
 	threshold_desc = "<b>Stage Speed 6:</b> The disease also kills off contaminated cells, converting Toxin damage to Brute damage, at an efficient rate.<br>\

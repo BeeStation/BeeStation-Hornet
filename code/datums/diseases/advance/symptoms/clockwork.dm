@@ -1,6 +1,7 @@
 /datum/symptom/robotic_adaptation
 	name = "Biometallic Replication"
 	desc = "The virus can manipulate metal and silicate compounds, becoming able to infect robotic beings. The virus also provides a suitable substrate for nanites in otherwise inhospitable hosts"
+	symptom_flags = SYMPTOM_DEAD_TICK_WEAK
 	stealth = 0
 	resistance = 1
 	stage_speed = 4 //while the reference material has low speed, this virus will take a good while to completely convert someone
@@ -48,10 +49,10 @@
 	var/mob/living/carbon/human/H = A.affected_mob
 	switch(A.stage)
 		if(3, 4)
-			if(replaceorgans)
+			if(replaceorgans && HOST_ALIVE_OR_NECRO(H, A))
 				to_chat(H, "<span class='warning'><b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]</span>")
 		if(5)
-			if(replaceorgans || replacebody)
+			if((replaceorgans || replacebody) && HOST_ALIVE_OR_NECRO(H, A))
 				Replace(H)
 			ADD_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	return

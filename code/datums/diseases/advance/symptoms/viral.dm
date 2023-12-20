@@ -16,6 +16,7 @@ BONUS
 /datum/symptom/viraladaptation
 	name = "Viral Self-Adaptation"
 	desc = "The virus mimics the function of normal body cells, becoming harder to spot and to eradicate, but reducing its speed. This symptom discourages disease mutation"
+	symptom_flags = SYMPTOM_DEAD_TICK_WEAK
 	stealth = 3
 	resistance = 5
 	stage_speed = -3
@@ -48,6 +49,7 @@ BONUS
 	name = "Viral Evolutionary Acceleration"
 	desc = "The virus quickly adapts to spread as fast as possible both outside and inside a host. \
 	This, however, makes the virus easier to spot, and less able to fight off a cure. This symptom encourages disease mutation"
+	symptom_flags = SYMPTOM_DEAD_TICK_WEAK
 	stealth = -2
 	resistance = -3
 	stage_speed = 5
@@ -80,10 +82,10 @@ Bonus
 */
 
 /datum/symptom/viralreverse
-
 	name = "Viral Aggressive Metabolism"
 	desc = "The virus sacrifices its long term survivability to nearly instantly fully spread inside a host. \
 	The virus will start at the last stage, but will eventually decay and die off by itself."
+	symptom_flags = SYMPTOM_DEAD_TICK_WEAK
 	stealth = 1
 	resistance = 1
 	stage_speed = 3
@@ -140,6 +142,7 @@ Bonus
 /datum/symptom/viralincubate
 	name = "Viral Suspended Animation"
 	desc = "The virus has very little effect until it reaches its final stage"
+	symptom_flags = SYMPTOM_DEAD_TICK_WEAK
 	stealth = 4
 	resistance = -2
 	stage_speed = -2
@@ -169,7 +172,7 @@ Bonus
 			S.stopped = TRUE
 			captives += S
 		used = TRUE
-	
+
 
 /*
 //////////////////////////////////////
@@ -187,6 +190,7 @@ Bonus
 /datum/symptom/viralpower
 	name = "Viral power multiplier"
 	desc = "The virus has more powerful symptoms. May have unpredictable effects"
+	symptom_flags = SYMPTOM_DEAD_TICK_WEAK
 	stealth = 2
 	resistance = 2
 	stage_speed = 2
@@ -195,7 +199,7 @@ Bonus
 	prefixes = list("Super", "Mega", "Admin ")
 	var/maxpower
 	var/powerbudget
-	var/scramble = FALSE 
+	var/scramble = FALSE
 	var/used = FALSE
 	threshold_desc = "<b>Transmission 8:</b> Constantly scrambles the power of all unneutered symptoms.<br>\
 					  <b>Stage Speed 8</b> Doubles the power boost"
@@ -219,10 +223,10 @@ Bonus
 			if(S == src)
 				return
 			S.power += power
-			maxpower += S.power 
+			maxpower += S.power
 		if(scramble)
-			powerbudget += power 
-			maxpower += power 
+			powerbudget += power
+			maxpower += power
 			power = 0
 		used = TRUE
 	if(scramble)

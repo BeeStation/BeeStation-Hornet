@@ -45,6 +45,7 @@
 
 /datum/symptom/heal/chem
 	name = "Toxolysis"
+	symptom_flags = SYMPTOM_DEAD_TICK_NECROTIC
 	stealth = 0
 	resistance = -2
 	stage_speed = 2
@@ -175,6 +176,7 @@
 /datum/symptom/heal/surface
 	name = "Superficial Healing"
 	desc = "The virus accelerates the body's natural healing, causing the body to heal minor wounds quickly. Causes heavy scarring."
+	symptom_flags = SYMPTOM_DEAD_TICK_NECROTIC
 	stealth = -1
 	resistance = -2
 	stage_speed = -2
@@ -272,6 +274,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/EMP
 	name = "Organic Flux Induction"
 	desc = "Causes electromagnetic interference around the subject"
+	symptom_flags = SYMPTOM_DEAD_TICK_NECROTIC
 	stealth = 0
 	resistance = -1
 	stage_speed = -1
@@ -395,6 +398,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/teleport
 	name = "Thermal Retrostable Displacement"
 	desc = "When too hot or cold, the subject will return to a recent location at which they experienced safe homeostasis."
+	symptom_flags = SYMPTOM_DEAD_TICK_NECROTIC
 	stealth = 1
 	resistance = 2
 	stage_speed = -2
@@ -464,6 +468,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/growth
 	name = "Pituitary Disruption"
 	desc = "Causes uncontrolled growth in the subject."
+	symptom_flags = SYMPTOM_DEAD_TICK_ALWAYS
 	stealth = -3
 	resistance = -2
 	stage_speed = 1
@@ -497,6 +502,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(A.stage_rate >= 12)
 			tetsuo = TRUE
 			power = 3 //should make this symptom actually worth it
+			symptom_flags = SYMPTOM_DEAD_TICK_ALWAYS
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
 	if(!A.carrier && !A.dormant)
@@ -574,6 +580,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/vampirism
 	name = "Hemetophagy"
 	desc = "The host absorbs blood from external sources, and seemlessly reintegrates it into their own bloodstream, regardless of its bloodtype or how it was ingested. However, the virus also slowly consumes the host's blood"
+	symptom_flags = SYMPTOM_DEAD_TICK_WEAK
 	stealth = 1
 	resistance = -2
 	stage_speed = 1
@@ -599,7 +606,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	if(A.transmission >= 4)
 		severity -= 1
-	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes))
+	if((A.stealth >= 2) && (A.transmission >= 6) && IS_NECRO_DISEASE(A))
 		severity -= 1
 		bodies = list("Vampir", "Blood")
 
@@ -613,8 +620,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		maxbloodpoints += 50
 	if(A.stage_rate >= 7)
 		power += 1
-	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes)) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
+	if((A.stealth >= 2) && (A.transmission >= 6) && IS_NECRO_DISEASE(A)) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
 		vampire = TRUE
+		symptom_flags = SYMPTOM_DEAD_TICK_ALWAYS
 		maxbloodpoints += 50
 		power += 1
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)

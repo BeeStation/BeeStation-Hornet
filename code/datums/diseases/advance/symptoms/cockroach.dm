@@ -1,5 +1,4 @@
 /datum/symptom/cockroach
-
 	name = "SBG Syndrome"
 	desc = "Causes bluespace synchronicity with nearby air channels, making the roaches infesting the station's scrubbers crawl from the host's face"
 	stealth = 1

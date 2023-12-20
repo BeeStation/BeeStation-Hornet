@@ -16,7 +16,6 @@ Bonus
 */
 
 /datum/symptom/visionloss
-
 	name = "Hyphema"
 	desc = "The virus causes inflammation of the retina, leading to eye damage and eventually blindness."
 	stealth = -1

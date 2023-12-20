@@ -52,7 +52,7 @@
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 		if(5)
-			if(tendrils)
+			if(tendrils && HOST_ALIVE_OR_NECRO(M, A))
 				tendril(A)
 			M.dna.species.punchdamage = max(12, M.dna.species.punchdamage)
 			M.dna.species.brutemod = min(0.6, M.dna.species.brutemod)

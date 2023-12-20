@@ -44,3 +44,13 @@
 	} while(0)
 #define EXTRAPOLATOR_ACT_CHECK(target_list, wanted_action_priority) (##target_list[EXTRAPOLATOR_RESULT_ACT_PRIORITY] == ##wanted_action_priority)
 #define EXTRAPOLATOR_ACT_SET(target_list, wanted_action_priority) (##target_list[EXTRAPOLATOR_RESULT_ACT_PRIORITY] = ##wanted_action_priority)
+
+/// This symptom will tick in the dead body of a host if necrotic metabolism is present.
+#define SYMPTOM_DEAD_TICK_NECROTIC	(1 << 0)
+/// This symptom will pause processing when the host is dead, but without calling End.
+#define SYMPTOM_DEAD_TICK_WEAK		(1 << 1)
+/// This symptom will always tick in the dead body of a host.
+#define SYMPTOM_DEAD_TICK_ALWAYS	(1 << 2)
+
+#define IS_NECRO_DISEASE(disease)				(MOB_UNDEAD in disease.infectable_biotypes)
+#define HOST_ALIVE_OR_NECRO(host, disease)		(host.stat != DEAD || IS_NECRO_DISEASE(disease))

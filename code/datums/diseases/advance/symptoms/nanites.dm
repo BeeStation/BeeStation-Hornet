@@ -1,6 +1,7 @@
 /datum/symptom/nano_boost
 	name = "Nano-symbiosis"
 	desc = "The virus reacts to nanites in the host's bloodstream by enhancing their replication cycle. May cause unpredictable nanite behaviour. Heals the host's mechanical limbs"
+	symptom_flags = SYMPTOM_DEAD_TICK_NECROTIC
 	stealth = 0
 	resistance = 2
 	stage_speed = 2

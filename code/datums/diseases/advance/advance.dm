@@ -121,16 +121,30 @@
 	..()
 	if(carrier)
 		return
-
-	if(symptoms?.len)
-
+	var/list/active_symptoms = collect_active_symptoms()
+	if(length(active_symptoms))
 		if(!processing)
 			processing = TRUE
-			for(var/datum/symptom/S in symptoms)
+			for(var/datum/symptom/S in active_symptoms)
 				S.Start(src)
-
-		for(var/datum/symptom/S in symptoms)
+		for(var/datum/symptom/S in active_symptoms)
 			S.Activate(src)
+
+/datum/disease/advance/proc/should_process_dead()
+	for(var/datum/symptom/symptom in symptoms)
+		if(CHECK_BITFIELD(symptom.symptom_flags, SYMPTOM_DEAD_TICK_ALWAYS | SYMPTOM_DEAD_TICK_WEAK | SYMPTOM_DEAD_TICK_NECROTIC))
+			return TRUE
+	return FALSE
+
+/datum/disease/advance/proc/collect_active_symptoms(weak = FALSE)
+	var/mob/living/victim = affected_mob
+	if(!istype(victim) || victim.stat != DEAD)
+		return symptoms
+	. = list()
+	for(var/datum/symptom/symptom in symptoms)
+		if(!CHECK_BITFIELD(symptom.symptom_flags, SYMPTOM_DEAD_TICK_ALWAYS | SYMPTOM_DEAD_TICK_NECROTIC) && !(weak && CHECK_BITFIELD(symptom.symptom_flags, SYMPTOM_DEAD_TICK_WEAK)))
+			continue
+		. += symptom
 
 // Tell symptoms stage changed
 /datum/disease/advance/update_stage(new_stage)
@@ -279,7 +293,7 @@
 		visibility_flags |= HIDDEN_SCANNER
 	else
 		visibility_flags &= ~HIDDEN_SCANNER
-
+	process_dead = should_process_dead()
 	SetSpread()
 	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
 	cure_chance = 15 - clamp(resistance, -5, 5) // can be between 10 and 20

@@ -15,7 +15,6 @@ BONUS
 */
 
 /datum/symptom/vitiligo
-
 	name = "Vitiligo"
 	desc = "The virus destroys skin pigment cells, causing rapid loss of pigmentation in the host."
 	stealth = 2
@@ -351,6 +350,7 @@ Thresholds
 /datum/symptom/spiked
 	name = "Cornu Cutaneum"
 	desc = "The virus causes the host to unpredictably grow and shed sharp spines, damaging those near them."
+	symptom_flags = SYMPTOM_DEAD_TICK_WEAK // the spikes aren't gonna just instantly fall off when you croak
 	stealth = -3
 	resistance = 3
 	stage_speed = -3
@@ -395,7 +395,7 @@ Thresholds
 			if(prob(base_message_chance))
 				to_chat(H, "<span class='warning'> Your spines pierce your jumpsuit.</span>")
 		if(4, 5)
-			if(!done)
+			if(!done && HOST_ALIVE_OR_NECRO(H, A))
 				H.AddComponent(/datum/component/spikes, 5*power, armor, A.GetDiseaseID()) //removal is handled by the component
 				to_chat(H, "<span class='warning'> Your spines harden, growing sharp and lethal.</span>")
 				done = TRUE

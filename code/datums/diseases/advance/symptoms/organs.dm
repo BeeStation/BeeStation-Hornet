@@ -1,6 +1,7 @@
 /datum/symptom/mind_restoration //heals damage to the brain
 	name = "Mind Restoration"
 	desc = "The virus strengthens the bonds between neurons, reducing the duration of any ailments of the mind."
+	symptom_flags = SYMPTOM_DEAD_TICK_NECROTIC
 	stealth = -1
 	resistance = -2
 	stage_speed = 1
@@ -111,6 +112,7 @@
 /datum/symptom/organ_restoration //heals damage to other internal organs that get damaged far less often
 	name = "Organ Restoration"
 	desc = "The virus stimulates rapid cell growth in organ tissues, slowly repairing the host's organs over time."
+	symptom_flags = SYMPTOM_DEAD_TICK_NECROTIC
 	stealth = 2
 	resistance = 3
 	stage_speed = -2
