@@ -283,6 +283,7 @@
 /turf/open/floor/proc/auto_gen_variants(max)
 	if(!max)
 		return
-	variants += list(icon_state = 1)
+	if(icon_state && icon_state != "")
+		variants += list("[icon_state]" = 1)
 	for(var/i in 1 to max)
 		variants += list("[icon_state][i]" = 1)
