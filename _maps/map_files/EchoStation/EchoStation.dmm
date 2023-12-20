@@ -9306,8 +9306,8 @@
 "eHY" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
-/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -29407,7 +29407,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard)
 "qSK" = (
-/obj/structure/weightmachine/stacklifter,
+/obj/structure/weightmachine,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -29495,7 +29495,7 @@
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/storage)
 "qVP" = (
-/obj/item/reagent_containers/food/snacks/fishandchips,
+/obj/item/food/fishandchips,
 /obj/structure/chair/stool{
 	dir = 4
 	},
