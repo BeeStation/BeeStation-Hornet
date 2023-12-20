@@ -432,3 +432,11 @@
 			if(robot.mode == BOT_REPAIRING)
 				return TRUE
 	return FALSE
+
+#undef HULL_BREACH
+#undef LINE_SPACE_MODE
+#undef FIX_TILE
+#undef AUTO_TILE
+#undef PLACE_TILE
+#undef REPLACE_TILE
+#undef TILE_EMAG
