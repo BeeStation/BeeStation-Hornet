@@ -16,7 +16,7 @@
 
 	layer = BELOW_OBJ_LAYER
 	var/stored_points = 0
-	var/sheet_per_ore = 1
+	var/ore_multiplier = 1
 	var/list/ore_values = list(/datum/material/iron = 2, /datum/material/glass = 2, /datum/material/copper = 6, /datum/material/plasma = 19,  /datum/material/silver = 20, /datum/material/gold = 23, /datum/material/titanium = 38, /datum/material/uranium = 38, /datum/material/diamond = 63, /datum/material/bluespace = 63, /datum/material/bananium = 63)
 	/// Variable that holds a timer which is used for callbacks to `send_console_message()`. Used for preventing multiple calls to this proc while the ORM is eating a stack of ores.
 	var/console_notify_timer
@@ -31,21 +31,21 @@
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(stored_research)
-	materials = null
+	custom_materials = null
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
-	var/sheet_per_ore_temp = 1
+	var/ore_multiplier_temp = 1
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		sheet_per_ore_temp = 0.65 + (0.15 * B.rating)
+		ore_multiplier_temp = 0.65 + (0.35 * B.rating)
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		sheet_per_ore_temp += (0.20 * L.rating)
-	sheet_per_ore = round(sheet_per_ore_temp, 0.01)
+		ore_multiplier += (0.20 * L.rating)
+	ore_multiplier = round(ore_multiplier_temp, 0.01)
 
 /obj/machinery/mineral/ore_redemption/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Smelting <b>[sheet_per_ore]</b> sheet(s) per piece of ore.</span>"
+		. += "<span class='notice'>The status display reads: Smelting <b>[ore_multiplier]</b> sheet(s) per piece of ore.</span>"
 	if(panel_open)
 		. += "<span class='notice'>Alt-click to rotate the input and output direction.</span>"
 
@@ -66,15 +66,15 @@
 	if(!material_amount)
 		qdel(O) //no materials, incinerate it
 
-	else if(!mat_container.has_space(material_amount * sheet_per_ore * O.amount)) //if there is no space, eject it
+	else if(!mat_container.has_space(material_amount * O.amount)) //if there is no space, eject it
 		unload_mineral(O)
 
 	else
 		if(O?.refined_type)
 			stored_points += O.points * O.amount
-		var/mats = O.materials & mat_container.materials
+		var/mats = O.custom_materials & mat_container.materials
 		var/amount = O.amount
-		mat_container.insert_item(O, sheet_per_ore) //insert it
+		mat_container.insert_item(O, ore_multiplier) //insert it
 		materials.silo_log(src, "smelted", amount, "someone", mats)
 		qdel(O)
 

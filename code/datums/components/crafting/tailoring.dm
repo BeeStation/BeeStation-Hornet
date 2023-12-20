@@ -324,7 +324,7 @@
 	name = "Rainbow Flower Crown"
 	result = /obj/item/clothing/head/flowercrown/rainbowbunch
 	time = 20
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/rainbow = 5,
+	reqs = list(/obj/item/food/grown/flower/rainbow = 5,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING
 
@@ -340,7 +340,7 @@
 	name = "Poppy Crown"
 	result = /obj/item/clothing/head/flowercrown/poppy
 	time = 20
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 5,
+	reqs = list(/obj/item/food/grown/flower/poppy = 5,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING
 
@@ -348,6 +348,6 @@
 	name = "Lily Crown"
 	result = /obj/item/clothing/head/flowercrown/lily
 	time = 20
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/lily = 3,
+	reqs = list(/obj/item/food/grown/flower/lily = 3,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING
