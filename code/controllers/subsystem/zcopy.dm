@@ -155,7 +155,7 @@ SUBSYSTEM_DEF(zcopy)
 				break
 			continue
 
-		// If we're not at our most recent queue position, don't bother -- we're updating again later anyways.aw
+		// If we're not at our most recent queue position, don't bother -- we're updating again later anyways.
 		if (T.z_queued > 1)
 			T.z_queued -= 1
 			multiqueue_skips_turf += 1
