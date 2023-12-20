@@ -143,7 +143,7 @@
 			C.ban_cache[query_build_ban_cache.item[1]] = TRUE
 		qdel(query_build_ban_cache)
 
-/datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key, global_ban = TRUE)
+/datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key, global_ban = TRUE, force_cryo_after = FALSE)
 	var/suppressor
 	if(check_rights(R_SUPPRESS, FALSE))
 		suppressor = TRUE
@@ -181,7 +181,10 @@
 	<input type='checkbox' id='lastconn' name='lastconn' value='1' [(isnull(duration) && !player_ip) || (!player_cid) ? " checked": ""]>
 	<div class='inputbox'></div></label>
 	<label class='inputlabel checkbox'>Applies to Admins
-	<input class='redact_incompatible' type='checkbox' id='applyadmins' name='applyadmins' value='1'[applies_to_admins ? " checked": ""]>
+	<input class='redact_incompatible' type='checkbox' id='applyadmins' name='applyadmins' value='1' [applies_to_admins ? " checked": ""]>
+	<div class='inputbox'></div></label>
+	<label class='inputlabel checkbox'>Force Cryo Afterwards
+	<input class='redact_incompatible' type='checkbox' id='forcecryo' name='forcecryo' value='1' [force_cryo_after ? " checked": ""]>
 	<div class='inputbox'></div></label>
 	<input type='submit' value='Submit'>
 	<br>
@@ -399,6 +402,7 @@
 	var/page
 	var/admin_key
 	var/redact
+	var/force_cryo_after = FALSE
 	var/list/changes = list()
 	var/list/roles_to_ban = list()
 	if(href_list["redactioncheck"])
@@ -438,6 +442,8 @@
 		if(redact)
 			error_state += "Admin bans can not be suppressed."
 		applies_to_admins = TRUE
+	if(href_list["forcecryo"])
+		force_cryo_after = TRUE
 	switch(href_list["radioservban"])
 		if("local")
 			if(CONFIG_GET(flag/disable_local_bans))
@@ -514,9 +520,9 @@
 	if(edit_id)
 		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, page, admin_key, changes)
 	else
-		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban, redact)
+		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban, redact, force_cryo_after)
 
-/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, list/roles_to_ban, redact = 0)
+/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, list/roles_to_ban, redact = FALSE, force_cryo_after = FALSE)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
@@ -686,6 +692,8 @@
 				is_admin = TRUE
 			if(roles_to_ban[1] == "Server" && (!is_admin || (is_admin && applies_to_admins)))
 				qdel(i)
+	if(force_cryo_after)
+		force_cryo_ckey(player_ckey)
 
 /datum/admins/proc/unban_panel(player_key, admin_key, player_ip, player_cid, page = 0)
 	if(!check_rights(R_BAN))

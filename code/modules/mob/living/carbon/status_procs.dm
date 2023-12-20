@@ -15,7 +15,7 @@
 	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
 	ADD_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
-	//ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
+	ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
 	update_mobility()
 
 /mob/living/carbon/adjust_drugginess(amount)
@@ -89,3 +89,8 @@
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.cure_all_traumas(resilience, special_method)
+
+/mob/living/carbon/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color, var/can_see = TRUE)
+	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+	can_see = E?.can_see
+	return ..()

@@ -6,7 +6,7 @@
 	density = TRUE
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
-	integrity_failure = 50
+	integrity_failure = 0.25
 	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0)
 	pass_flags_self = LETPASSCLICKS
 	var/contents_initialised = FALSE
@@ -91,6 +91,7 @@
 				add_overlay("[icon_door]_open")
 			else
 				add_overlay("[icon_state]_open")
+	update_mob_alpha()
 
 /obj/structure/closet/proc/animate_door(var/closing = FALSE)
 	if(!door_anim_time)

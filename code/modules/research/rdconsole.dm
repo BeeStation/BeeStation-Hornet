@@ -138,7 +138,7 @@ Nothing else in the console has ID requirements.
 		return FALSE
 	var/list/price = TN.get_price(stored_research)
 	if(stored_research.can_afford(price))
-		investigate_log("[key_name(user)] researched [id]([json_encode(price)]) on techweb id [stored_research.id].", INVESTIGATE_RESEARCH)
+		user.investigate_log("researched [id]([json_encode(price)]) on techweb id [stored_research.id].", INVESTIGATE_RESEARCH)
 		if(stored_research == SSresearch.science_tech)
 			SSblackbox.record_feedback("associative", "science_techweb_unlock", 1, list("id" = "[id]", "name" = TN.display_name, "price" = "[json_encode(price)]", "time" = SQLtime()))
 		if(stored_research.research_node_id(id))
@@ -247,7 +247,7 @@ Nothing else in the console has ID requirements.
 		if(linked_destroy.loaded_item && (!QDELETED(linked_destroy.loaded_item)))
 			var/list/techyitems = techweb_item_boost_check(linked_destroy.loaded_item)
 			var/list/pointss = techweb_item_point_check(linked_destroy.loaded_item)
-			var/list/materials = linked_destroy.loaded_item.materials
+			var/list/materials = linked_destroy.loaded_item.custom_materials
 			var/list/matstuff = list()
 
 			if(length(techyitems))

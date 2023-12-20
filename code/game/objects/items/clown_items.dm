@@ -99,7 +99,7 @@
 			qdel(target)
 			decreaseUses(user)
 
-	else if(ishuman(target) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	else if(ishuman(target) && user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 		var/mob/living/carbon/human/H = user
 		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>", "<span class='notice'>You wash \the [target]'s mouth out with [src.name]!</span>") //washes mouth out with soap sounds better than 'the soap' here			if(user.zone_selected == "mouth")
 		H.lip_style = null //removes lipstick
@@ -162,7 +162,7 @@
 	var/list/sound_list = list()
 	sound_list[sound_file] = 1
 	//LoadComponent so child types dont stack squeak components
-	LoadComponent(/datum/component/squeak, sound_list, 50)
+	LoadComponent(/datum/component/squeak, sound_list, 50, falloff_exponent = 20)
 
 /obj/item/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "honk", /datum/mood_event/honk)

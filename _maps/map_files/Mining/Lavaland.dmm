@@ -174,10 +174,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
-"bf" = (
-/obj/effect/spawner/randomvend/cola,
-/turf/open/floor/plasteel,
-/area/mine/living_quarters)
 "bg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -251,6 +247,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/storage)
+"ca" = (
+/obj/effect/spawner/randomvend/snack,
+/turf/open/floor/plasteel,
+/area/mine/living_quarters)
 "cd" = (
 /obj/structure/chair{
 	dir = 8
@@ -422,17 +422,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/checker,
 /area/mine/living_quarters)
-"dx" = (
-/obj/docking_port/stationary{
-	dwidth = 3;
-	height = 6;
-	id = "laborcamp_away";
-	name = "labor camp";
-	roundstart_template = null;
-	width = 12
-	},
-/turf/open/floor/plating/lavaland,
-/area/lavaland/surface/outdoors/explored)
 "dG" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
@@ -918,7 +907,7 @@
 "gD" = (
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/snacks/tofu/prison,
+/obj/item/food/tofu/prison,
 /obj/item/knife/kitchen,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/item/kitchen/rollingpin,
@@ -926,6 +915,13 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/checker,
 /area/mine/living_quarters)
+"gG" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/east,
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "gH" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "labor";
@@ -1212,6 +1208,10 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"iy" = (
+/obj/effect/spawner/randomvend/cola,
+/turf/open/floor/plasteel,
+/area/mine/living_quarters)
 "iz" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -1536,25 +1536,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/carpet/black,
 /area/mine/science)
-"kq" = (
-/obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/beer{
-	desc = "Whatever it is, it reeks of foul, putrid froth.";
-	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing = 15);
-	name = "Delta-Down";
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/drinks/bottle/champagne,
-/obj/item/reagent_containers/food/drinks/bottle/cognac,
-/obj/item/reagent_containers/food/drinks/bottle/lizardwine,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/carpet/black,
-/area/mine/science)
 "ks" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -1725,10 +1706,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
-"lt" = (
-/obj/effect/spawner/randomvend/snack,
-/turf/open/floor/plasteel,
-/area/mine/living_quarters)
 "lu" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "lavasci"
@@ -1939,6 +1916,16 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating/lavaland,
 /area/mine/laborcamp)
+"nb" = (
+/obj/machinery/camera{
+	c_tag = "Sleeper Room";
+	dir = 8;
+	network = list("mine")
+	},
+/obj/structure/table,
+/obj/item/storage/firstaid/medical,
+/turf/open/floor/plasteel/white,
+/area/mine/living_quarters)
 "nf" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -2171,16 +2158,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"pf" = (
-/obj/machinery/camera{
-	c_tag = "Sleeper Room";
-	dir = 8;
-	network = list("mine")
-	},
-/obj/structure/table,
-/obj/item/storage/firstaid/medical/doctorbag,
-/turf/open/floor/plasteel/white,
-/area/mine/living_quarters)
 "pj" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -3821,15 +3798,6 @@
 	},
 /turf/open/floor/plating/lavaland,
 /area/lavaland/surface/outdoors)
-"Cw" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
-/turf/open/floor/plasteel/dark,
-/area/mine/eva)
 "Cz" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -5956,6 +5924,16 @@
 	},
 /turf/open/floor/engine,
 /area/mine/science)
+"Sm" = (
+/obj/docking_port/stationary{
+	dwidth = 3;
+	height = 6;
+	id = "laborcamp_away";
+	name = "labor camp";
+	width = 12
+	},
+/turf/open/floor/plating/lavaland,
+/area/lavaland/surface/outdoors/explored)
 "Sn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light{
@@ -6800,6 +6778,25 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"XP" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/food/drinks/beer{
+	desc = "Whatever it is, it reeks of foul, putrid froth.";
+	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing=15);
+	name = "Delta-Down";
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/drinks/bottle/champagne,
+/obj/item/reagent_containers/food/drinks/bottle/cognac,
+/obj/item/reagent_containers/food/drinks/bottle/lizardwine,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/carpet/black,
+/area/mine/science)
 "XR" = (
 /obj/machinery/airalarm{
 	dir = 8;
@@ -32572,7 +32569,7 @@ fM
 fM
 fM
 fM
-dx
+Sm
 Xy
 Qj
 FR
@@ -40539,7 +40536,7 @@ IJ
 IJ
 wS
 iC
-Cw
+gG
 sE
 Wn
 AF
@@ -43113,7 +43110,7 @@ pY
 MZ
 bg
 MZ
-bf
+iy
 ZH
 xl
 MC
@@ -43627,7 +43624,7 @@ ZH
 AI
 bg
 MZ
-lt
+ca
 ZH
 UV
 NL
@@ -44656,7 +44653,7 @@ MF
 nt
 MZ
 wz
-pf
+nb
 Rw
 iP
 uA
@@ -50046,7 +50043,7 @@ TY
 lv
 Yx
 Yx
-kq
+XP
 aB
 vP
 lv

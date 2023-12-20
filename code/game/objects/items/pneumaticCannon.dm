@@ -224,7 +224,7 @@
 	name = "improvised pneumatic cannon"
 	desc = "A gas-powered, object-firing cannon made out of common parts."
 	force = 5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	maxWeightClass = 7
 	gasPerThrow = 5
 	fire_mode = PCANNON_FIFO
@@ -275,9 +275,9 @@
 	range_multiplier = 3
 	fire_mode = PCANNON_FIFO
 	throw_amount = 1
-	maxWeightClass = 150	//50 pies. :^)
+	maxWeightClass = 200	//50 pies. :^)
 	clumsyCheck = FALSE
-	var/static/list/pie_typecache = typecacheof(/obj/item/reagent_containers/food/snacks/pie)
+	var/static/list/pie_typecache = typecacheof(/obj/item/food/pie)
 
 /obj/item/pneumatic_cannon/pie/Initialize(mapload)
 	. = ..()
@@ -286,8 +286,8 @@
 /obj/item/pneumatic_cannon/pie/selfcharge
 	automatic = TRUE
 	selfcharge = TRUE
-	charge_type = /obj/item/reagent_containers/food/snacks/pie/cream
-	maxWeightClass = 60	//20 pies.
+	charge_type = /obj/item/food/pie/cream
+	maxWeightClass = 80	//20 pies.
 
 /obj/item/pneumatic_cannon/pie/selfcharge/compact
 	name = "honkinator-4 compact pie cannon"
@@ -297,8 +297,8 @@
 /obj/item/pneumatic_cannon/pie/selfcharge/cyborg
 	name = "low velocity pie cannon"
 	automatic = FALSE
-	charge_type = /obj/item/reagent_containers/food/snacks/pie/cream/nostun
-	maxWeightClass = 6		//2 pies
+	charge_type = /obj/item/food/pie/cream/nostun
+	maxWeightClass = 8		//2 pies
 	charge_ticks = 2		//4 second/pie
 
 /obj/item/pneumatic_cannon/speargun
@@ -315,7 +315,7 @@
 	pressureSetting = 2
 	range_multiplier = 3
 	throw_amount = 1
-	maxWeightClass = 4 //a single magspear or spear
+	maxWeightClass = WEIGHT_CLASS_BULKY //a single magspear or spear
 	spin_item = FALSE
 	var/static/list/magspear_typecache = typecacheof(list(/obj/item/throwing_star/magspear, /obj/item/spear, /obj/item/stack/rods/fifty, /obj/item/stack/rods, /obj/item/stack/rods/twenty, /obj/item/stack/rods/ten, /obj/item/katana, /obj/item/katana/cursed, /obj/item/toy/katana, /obj/item/spear/explosive, /obj/item/clockwork/weapon/brass_spear))
 
@@ -333,7 +333,8 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 30
-	STR.max_combined_w_class = 120
+	STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.max_combined_w_class = STR.max_w_class*STR.max_items
 	STR.display_numerical_stacking = TRUE
 	STR.can_hold = typecacheof(list(
 		/obj/item/throwing_star/magspear

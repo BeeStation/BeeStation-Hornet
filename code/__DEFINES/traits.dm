@@ -128,9 +128,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_KNOCKEDOUT "knockedout"
 /// Prevents voluntary movement.
 #define TRAIT_IMMOBILIZED "immobilized"
-/* All to replace update_mobility with traits
 /// Prevents voluntary standing or staying up on its own.
 #define TRAIT_FLOORED "floored"
+/* All to replace update_mobility with traits
 /// Forces user to stay standing (ensures the unconscious/immobilized dont enter a lying position in cryopods)
 #define TRAIT_FORCED_STANDING "forcedstanding"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
@@ -326,6 +326,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BRAIN_TUMOR		"brain_tumor"
 #define TRAIT_PROSKATER			"pro_skater"
 
+///Trait for dryable items
+#define TRAIT_DRYABLE "trait_dryable"
+///Trait for dried items
+#define TRAIT_DRIED "trait_dried"
+/// Trait for customizable reagent holder
+//#define TRAIT_CUSTOMIZABLE_REAGENT_HOLDER "customizable_reagent_holder"
+/// Trait for allowing an item that isn't food into the customizable reagent holder
+//#define TRAIT_ODD_CUSTOMIZABLE_FOOD_INGREDIENT "odd_customizable_food_ingredient"
+
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"
 
@@ -335,7 +344,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // common trait sources
 #define TRAIT_GENERIC "generic"
 #define GENERIC_ITEM_TRAIT "generic_item"
-#define UNCONSCIOUS_BLIND "unconscious_blind"
+#define UNCONSCIOUS_TRAIT "unconscious"
 #define EYE_DAMAGE "eye_damage"
 #define GENETIC_MUTATION "genetic"
 #define OBESITY "obesity"
@@ -459,3 +468,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SUIT_SENSORS "suit_sensors"
 ///Mob is tracked by nanites, and on glob suit sensors list
 #define TRAIT_NANITE_SENSORS "nanite_sensors"
+
+/// Trait for psyphoza, flag for examine logic
+#define TRAIT_PSYCHIC_SENSE "psychic_sense"

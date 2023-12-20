@@ -13,7 +13,7 @@
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
-	materials = list(/datum/material/iron=1150, /datum/material/gold=2750)
+	custom_materials = list(/datum/material/iron=1150, /datum/material/gold=2750)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = IS_SHARP_ACCURATE
@@ -80,7 +80,7 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	clockwork_desc = "A razor-sharp spear made of a magnetic brass allow. It accelerates towards targets while on Reebe dealing increased damage."
 	icon_state = "ratvarian_spear"
-	embedding = list("max_damage_mult" = 15, "armour_block" = 80)
+	embedding = list("max_damage_mult" = 7.5, "armour_block" = 80)
 	throwforce = 36
 	force = 25
 	armour_penetration = 24

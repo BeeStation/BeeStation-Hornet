@@ -176,6 +176,38 @@
 	display_name = "red glasses"
 	path = /obj/item/clothing/glasses/red
 
+//BANDANAS (masks)
+
+/datum/gear/accessory/bandana
+	slot = ITEM_SLOT_MASK
+	subtype_path = /datum/gear/accessory/bandana
+	cost = 1500
+
+/datum/gear/accessory/bandana/red
+	display_name = "red bandana"
+	path = /obj/item/clothing/mask/bandana/red
+
+/datum/gear/accessory/bandana/blue
+	display_name = "blue bandana"
+	path = /obj/item/clothing/mask/bandana/blue
+
+/datum/gear/accessory/bandana/green
+	display_name = "green bandana"
+	path = /obj/item/clothing/mask/bandana/green
+
+/datum/gear/accessory/bandana/gold
+	display_name = "gold bandana"
+	path = /obj/item/clothing/mask/bandana/gold
+
+/datum/gear/accessory/bandana/black
+	display_name = "black bandana"
+	path = /obj/item/clothing/mask/bandana/black
+
+/datum/gear/accessory/bandana/skull
+	display_name = "skull bandana"
+	path = /obj/item/clothing/mask/bandana/skull
+	cost = 2000
+
 //LIPSTICK
 
 /datum/gear/accessory/cosmetics

@@ -135,7 +135,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/handlecable(obj/item/W, mob/user, params)
 	var/turf/T = get_turf(src)
-	if(T.intact)
+	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(d1 == UP || d2 == UP)
@@ -491,7 +491,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=10, /datum/material/glass=5)
+	mats_per_unit = list(/datum/material/iron=10, /datum/material/glass=5)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
@@ -502,7 +502,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/cyborg
 	is_cyborg = 1
-	materials = list()
+	mats_per_unit = null
 	cost = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
@@ -517,8 +517,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
-/obj/item/stack/cable_coil/get_recipes()
-	return GLOB.cable_coil_recipes
+/obj/item/stack/cable_coil/get_main_recipes()
+	. = ..()
+	. += GLOB.cable_coil_recipes
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
 	. = ..()
@@ -574,7 +575,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	if(!isturf(user.loc))
 		return
 
-	if(!isturf(T) || T.intact || !T.can_have_cabling())
+	if(!isturf(T) || T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !T.can_have_cabling())
 		to_chat(user, "<span class='warning'>You can only lay cables on top of exterior catwalks and plating!</span>")
 		return
 
@@ -657,7 +658,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 	var/turf/T = C.loc
 
-	if(!isturf(T) || T.intact)		// sanity checks, also stop use interacting with T-scanner revealed cable
+	if(!isturf(T) || T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE) // sanity checks, also stop use interacting with T-scanner revealed cable
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
@@ -677,20 +678,20 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 	// one end of the clicked cable is pointing towards us and no direction was supplied
 	if((C.d1 == dirn || C.d2 == dirn) && !forceddir)
-		if(!U.can_have_cabling())						//checking if it's a plating or catwalk
+		if(!U.can_have_cabling()) //checking if it's a plating or catwalk
 			if (showerror)
 				to_chat(user, "<span class='warning'>You can only lay cables on catwalks and plating!</span>")
 			return
-		if(U.intact)						//can't place a cable if it's a plating with a tile on it
+		if(U.underfloor_accessibility < UNDERFLOOR_INTERACTABLE) //can't place a cable if it's a plating with a tile on it
 			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
 			return
 		else
 			// cable is pointing at us, we're standing on an open tile
 			// so create a stub pointing at the clicked cable on our tile
 
-			var/fdirn = dir_inverse_multiz(dirn)		// the opposite direction
+			var/fdirn = dir_inverse_multiz(dirn) // the opposite direction
 
-			for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
+			for(var/obj/structure/cable/LC in U) // check to make sure there's not a cable there already
 				if(LC.d1 == fdirn || LC.d2 == fdirn)
 					if (showerror)
 						to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")

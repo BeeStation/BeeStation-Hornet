@@ -47,17 +47,20 @@
 
 	current_midround_rulesets = drafted_rules - rule
 
-	midround_injection_timer_id = addtimer(
-		CALLBACK(src, PROC_REF(execute_midround_rule), rule), \
-		ADMIN_CANCEL_MIDROUND_TIME, \
-		TIMER_STOPPABLE, \
-	)
+	if (!simulated)
+		midround_injection_timer_id = addtimer(
+			CALLBACK(src, PROC_REF(execute_midround_rule), rule), \
+			ADMIN_CANCEL_MIDROUND_TIME, \
+			TIMER_STOPPABLE, \
+		)
 
-	log_game("DYNAMIC: [rule] ruleset executing...")
-	message_admins("DYNAMIC: Executing midround ruleset [rule] in [DisplayTimeText(ADMIN_CANCEL_MIDROUND_TIME)]. \
-		<a href='?src=[REF(src)];cancelmidround=[midround_injection_timer_id]'>CANCEL</a> | \
-		<a href='?src=[REF(src)];differentmidround=[midround_injection_timer_id]'>SOMETHING ELSE</a>")
-	play_sound_to_all_admins('sound/effects/admin_alert.ogg')
+		log_game("DYNAMIC: [rule] ruleset executing...")
+		message_admins("DYNAMIC: Executing midround ruleset [rule] in [DisplayTimeText(ADMIN_CANCEL_MIDROUND_TIME)]. \
+			<a href='?src=[REF(src)];cancelmidround=[midround_injection_timer_id]'>CANCEL</a> | \
+			<a href='?src=[REF(src)];differentmidround=[midround_injection_timer_id]'>SOMETHING ELSE</a>")
+		play_sound_to_all_admins('sound/effects/admin_alert.ogg')
+	else
+		execute_midround_rule(rule)
 
 	return rule
 
@@ -67,7 +70,10 @@
 	midround_injection_timer_id = null
 	if (!rule.repeatable)
 		midround_rules = remove_from_list(midround_rules, rule.type)
-	addtimer(CALLBACK(src, PROC_REF(execute_midround_latejoin_rule), rule), rule.delay)
+	if (!simulated)
+		addtimer(CALLBACK(src, PROC_REF(execute_midround_latejoin_rule), rule), rule.delay)
+	else
+		execute_midround_latejoin_rule(rule)
 
 /// Executes a random latejoin ruleset from the list of drafted rules.
 /datum/game_mode/dynamic/proc/pick_latejoin_rule(list/drafted_rules)
@@ -83,6 +89,13 @@
 /datum/game_mode/dynamic/proc/execute_midround_latejoin_rule(sent_rule)
 	var/datum/dynamic_ruleset/rule = sent_rule
 	spend_midround_budget(rule.cost, threat_log, "[worldtime2text()]: [rule.ruletype] [rule.name]")
+	if (simulated)
+		if(rule.flags & ONLY_RULESET)
+			only_ruleset_executed = TRUE
+		executed_rules += rule
+		if (rule.persistent)
+			current_rules += rule
+		return TRUE
 	rule.pre_execute(current_players[CURRENT_LIVING_PLAYERS].len)
 	var/execute_result = rule.execute()
 	if(execute_result == DYNAMIC_EXECUTE_SUCCESS)
