@@ -36,7 +36,7 @@
 	///List of weakrefs to nearby closets
 	var/list/closets = list()
 
-	var/obj/item/radio/Radio //needed to send messages to sec radio
+	var/obj/item/radio/sec_radio //needed to send messages to sec radio
 
 	maptext_height = 26
 	maptext_width = 32
@@ -47,8 +47,8 @@
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
 
-	Radio = new/obj/item/radio(src)
-	Radio.listening = 0
+	sec_radio = new/obj/item/radio(src)
+	sec_radio.listening = FALSE
 
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
@@ -120,8 +120,8 @@
 		return 0
 
 	if(!forced)
-		Radio.set_frequency(FREQ_SECURITY)
-		Radio.talk_into(src, "Timer has expired. Releasing prisoner.", FREQ_SECURITY)
+		sec_radio.set_frequency(FREQ_SECURITY)
+		sec_radio.talk_into(src, "Timer has expired. Releasing prisoner.", FREQ_SECURITY)
 
 	timing = FALSE
 	activation_time = null

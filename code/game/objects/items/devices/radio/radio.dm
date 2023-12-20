@@ -220,23 +220,23 @@
 					recalculateChannels()
 				. = TRUE
 
-/obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
+/obj/item/radio/talk_into(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!spans)
-		spans = list(M.speech_span)
+		spans = list(talking_movable.speech_span)
 	if(!language)
-		language = M.get_selected_language()
-	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, M, message, channel, message_mods)
-	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), M, message, channel, spans.Copy(), language, message_mods)
+		language = talking_movable.get_selected_language()
+	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, talking_movable, message, channel, message_mods)
+	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), talking_movable, message, channel, spans.Copy(), language, message_mods)
 	return ITALICS | REDUCE_RANGE
 
-/obj/item/radio/proc/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
+/obj/item/radio/proc/talk_into_impl(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!on)
 		return // the device has to be on
-	if(!M || !message)
+	if(!talking_movable || !message)
 		return
 	if(wires.is_cut(WIRE_TX))  // Permacell and otherwise tampered-with radios
 		return
-	if(!M.IsVocal())
+	if(!talking_movable.IsVocal())
 		return
 
 	if(!radio_silent)//Radios make small static noises now
@@ -261,12 +261,12 @@
 
 	// From the channel, determine the frequency and get a reference to it.
 	var/freq
-	if(channel && channels)
-		if(channel == MODE_DEPARTMENT && channels.len > 0)
+	if(channel && channels && channels.len > 0)
+		if(channel == MODE_DEPARTMENT)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
-		if(istype(M, /mob) && !freq && channel != RADIO_CHANNEL_UPLINK)
-			to_chat(M, "<span class='warning'>You can't access this channel without an encryption key!</span>")
+		if(istype(talking_movable, /mob) && !freq && channel != RADIO_CHANNEL_UPLINK)
+			to_chat(talking_movable, "<span class='warning'>You can't access this channel without an encryption key!</span>")
 		if (!channels[channel]) // if the channel is turned off, don't broadcast
 			return
 	else
@@ -278,7 +278,7 @@
 		return
 
 	// Determine the identity information which will be attached to the signal.
-	var/atom/movable/virtualspeaker/speaker = new(null, M, src)
+	var/atom/movable/virtualspeaker/speaker = new(null, talking_movable, src)
 
 	// Construct the signal
 	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, message, spans, message_mods)
@@ -326,8 +326,8 @@
 	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
 		// try to avoid being heard double
 		if (loc == speaker && ismob(speaker))
-			var/mob/M = speaker
-			var/idx = M.get_held_index_of_item(src)
+			var/mob/talking_movable = speaker
+			var/idx = talking_movable.get_held_index_of_item(src)
 			// left hands are odd slots
 			if (idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
 				return
