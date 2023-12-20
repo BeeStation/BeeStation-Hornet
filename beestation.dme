@@ -300,7 +300,7 @@
 #include "code\_globalvars\religion.dm"
 #include "code\_globalvars\soul_glimmer.dm"
 #include "code\_globalvars\traits.dm"
-#include "code\_globalvars\turf_texture.dm"
+#include "code\_globalvars\turf.dm"
 #include "code\_globalvars\xenoartifact.dm"
 #include "code\_globalvars\lists\achievements.dm"
 #include "code\_globalvars\lists\admin.dm"

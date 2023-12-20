@@ -19,17 +19,17 @@
 	var/broken = FALSE
 	var/burnt = FALSE
 
-	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5", "damaged6", "damaged7")
-	var/list/broken_dirt_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5", "damaged6", "damaged7")
+	var/list/broken_states = GLOB.default_turf_damage
+	var/list/broken_dirt_states = GLOB.default_turf_damage
 	//Do we just swap the state to one of the damage states
 	var/use_broken_literal = FALSE
 
-	var/list/burnt_states = list("damaged1", "damaged2", "damaged3", "damaged4")
+	var/list/burnt_states = GLOB.default_turf_burn
 	//Do we just swap the state to one of the damage states
 	var/use_burnt_literal = FALSE
 	
 	//Refs to filters, for later removal
-	var/list/damage_overlays = list()
+	var/list/damage_overlays
 
 	///The variant tiles we can choose from (name = chance, name = chance, name = chance)
 	var/list/variants
@@ -286,6 +286,8 @@
 		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
 
 /turf/open/proc/break_tile(force, allow_base)
+	if(!damage_overlays)
+		LAZYINITLIST(damage_overlays)
 	var/list/options = list()
 	if(islist(baseturfs)) //Somehow 
 		options = baseturfs.Copy() //This is weird
@@ -316,6 +318,8 @@
 	broken = TRUE
 
 /turf/open/burn_tile(force)
+	if(!damage_overlays)
+		LAZYINITLIST(damage_overlays)
 	if(burnt && !force || use_burnt_literal)
 		if(use_burnt_literal)
 			icon_state = pick(burnt_states)

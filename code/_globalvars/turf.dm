@@ -1,5 +1,12 @@
 /*
-	Turf texture stuff
+	Turf stuff
+*/
+
+GLOBAL_LIST_INIT(default_turf_damage, list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5", "damaged6", "damaged7"))
+GLOBAL_LIST_INIT(default_turf_burn, list("damaged1", "damaged2", "damaged3", "damaged4"))
+
+/*
+	Rexture stuff
 */
 
 ///List of turf texture effect holders that have been made - This means we can just throw shit into vis_contents and avoid making 100s

@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/texture_mask_overlay
 
 	///What turf texture we use
-	var/list/turf_texture = list()
+	var/list/turf_texture
 
 	///Can this floor be an underlay, for turf damage
 	var/can_underlay = TRUE
@@ -152,7 +152,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		make_traction()
 
 	//Handle turf texture
-	add_turf_texture(turf_texture)
+	if(turf_texture)
+		add_turf_texture(turf_texture)
 
 	//Handle icon border
 	if(icon_x_offset || icon_y_offset)
@@ -565,8 +566,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 ///Add our relevant floor texture, if we can / need
 /turf/proc/add_turf_texture(list/textures, force)
-	if(!length(textures) || (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents) && !force)
-		return
+	if(!length(textures) || length(contents) && (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents))
+		if(!force) //readability
+			return
 	var/datum/turf_texture/turf_texture
 	for(var/datum/turf_texture/TF as() in textures)
 		var/area/A = loc
