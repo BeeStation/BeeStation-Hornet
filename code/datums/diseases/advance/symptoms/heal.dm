@@ -468,7 +468,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/growth
 	name = "Pituitary Disruption"
 	desc = "Causes uncontrolled growth in the subject."
-	symptom_flags = SYMPTOM_DEAD_TICK_ALWAYS
+	symptom_flags = SYMPTOM_DEAD_TICK_NECROTIC | SYMPTOM_DEAD_TICK_WEAK
 	stealth = -3
 	resistance = -2
 	stage_speed = 1

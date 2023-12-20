@@ -1,6 +1,7 @@
 /datum/symptom/necroseed
 	name = "Necropolis Seed"
 	desc = "An infantile form of the root of Lavaland's tendrils. Forms a symbiotic bond with the host, making them stronger and hardier, at the cost of speed. Should the disease be cured, the host will be severely weakened"
+	symptom_flags = SYMPTOM_DEAD_TICK_WEAK
 	stealth = 0
 	resistance = 3
 	stage_speed = -10
@@ -52,7 +53,7 @@
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 		if(5)
-			if(tendrils && HOST_ALIVE_OR_NECRO(M, A))
+			if(tendrils)
 				tendril(A)
 			M.dna.species.punchdamage = max(12, M.dna.species.punchdamage)
 			M.dna.species.brutemod = min(0.6, M.dna.species.brutemod)

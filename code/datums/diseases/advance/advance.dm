@@ -148,6 +148,9 @@
 
 // Tell symptoms stage changed
 /datum/disease/advance/update_stage(new_stage)
+	var/mob/living/victim = affected_mob
+	if(istype(victim) && !HOST_ALIVE_OR_NECRO(affected_mob, src))
+		return
 	..()
 	for(var/datum/symptom/S as() in symptoms)
 		S.on_stage_change(new_stage, src)

@@ -395,7 +395,7 @@ Thresholds
 			if(prob(base_message_chance))
 				to_chat(H, "<span class='warning'> Your spines pierce your jumpsuit.</span>")
 		if(4, 5)
-			if(!done && HOST_ALIVE_OR_NECRO(H, A))
+			if(!done)
 				H.AddComponent(/datum/component/spikes, 5*power, armor, A.GetDiseaseID()) //removal is handled by the component
 				to_chat(H, "<span class='warning'> Your spines harden, growing sharp and lethal.</span>")
 				done = TRUE
