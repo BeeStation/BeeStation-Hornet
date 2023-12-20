@@ -5103,6 +5103,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "brS" = (
@@ -8527,6 +8530,9 @@
 /area/security/nuke_storage)
 "cBK" = (
 /obj/machinery/vending/boozeomat/all_access,
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "cBN" = (
@@ -15395,6 +15401,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/janitor)
+"eUy" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "eUP" = (
 /obj/machinery/light_switch{
 	pixel_x = 1;
@@ -21069,10 +21088,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"gPi" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/security/detectives_office)
 "gPn" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -24897,6 +24912,12 @@
 "icT" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
@@ -30937,6 +30958,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "kgN" = (
@@ -31341,6 +31365,9 @@
 	},
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
@@ -32349,6 +32376,9 @@
 /obj/item/reagent_containers/food/drinks/flask/det,
 /obj/item/clothing/glasses/hud/security/sunglasses,
 /obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "kDz" = (
@@ -36221,6 +36251,9 @@
 	dir = 1;
 	sortType = 30
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "lRG" = (
@@ -39449,6 +39482,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/landmark/start/security_officer,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "mQi" = (
@@ -45226,6 +45262,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "oKx" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "oKN" = (
@@ -62371,6 +62410,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/toilet)
+"uAP" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
+/area/security/detectives_office)
 "uAY" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
 	dir = 8;
@@ -63563,6 +63609,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "uRZ" = (
@@ -64321,6 +64370,21 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/chapel/monastery)
+"veW" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/red,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "vfo" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/plasteel,
@@ -69074,14 +69138,14 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "wKc" = (
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
 /obj/machinery/computer/med_data{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
@@ -113404,7 +113468,7 @@ usR
 wAW
 icI
 tMp
-bhs
+eUy
 wwu
 fsF
 jxp
@@ -113666,7 +113730,7 @@ kyC
 vdU
 rOC
 kgL
-rOC
+veW
 mPV
 gTR
 vrj
@@ -113921,10 +113985,10 @@ dtI
 fZQ
 nXe
 nXe
-gPi
-bpE
-bpE
-bpE
+ubx
+lkB
+lkB
+lkB
 hmy
 duF
 sma
@@ -115460,8 +115524,8 @@ oya
 jKY
 aFG
 ubx
-ubx
-ubx
+uAP
+uAP
 ubx
 ubx
 anT
