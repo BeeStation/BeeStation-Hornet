@@ -39829,6 +39829,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "mJR" = (
@@ -45540,6 +45541,14 @@
 /obj/machinery/recharger,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"pJk" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/hallway/primary/starboard)
 "pJv" = (
 /turf/open/floor/grass,
 /area/hallway/primary/central)
@@ -100645,7 +100654,7 @@ aVz
 aVz
 aYJ
 aJI
-bbz
+pJk
 aYV
 aYV
 aYV
@@ -102444,7 +102453,7 @@ aVH
 aXn
 aYN
 aJI
-bbz
+pJk
 aYV
 aYV
 aYV
@@ -103218,7 +103227,7 @@ aRJ
 kRy
 aYV
 aYV
-aYV
+beE
 xJf
 xJf
 ddd
@@ -103990,7 +103999,7 @@ aYV
 aYV
 aYV
 aYV
-beE
+aYV
 xJf
 biE
 bpL
