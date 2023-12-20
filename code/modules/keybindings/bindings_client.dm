@@ -27,6 +27,8 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	// AZERTY support
 	"&" = 1, "É" = 1, "\"" = 1, "(" = 1, "È" = 1, "_" = 1, "Ç" = 1, "À" = 1, ")" = 1, "*" = 1, "$" = 1, "!" = 1, ":" = 1, "²" = 1, "Ù" = 1,
 	"é" = 1, "è" = 1, "ç" = 1, "à" = 1, "ù" = 1,
+	// Scrolling support
+	"ScrollUp" = 1, "ScrollDown" = 1,
 ))
 
 /proc/input_sanity_check(client/C, key)

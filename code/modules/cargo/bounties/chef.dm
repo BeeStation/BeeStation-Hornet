@@ -23,7 +23,7 @@
 	description = "Nanotrasen is remembering Saturn day. Ship onion rings to show the station's support."
 	reward = 3000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/onionrings)
+	wanted_types = list(/obj/item/food/onionrings)
 
 /datum/bounty/item/chef/icecreamsandwich
 	name = "Ice Cream Sandwiches"
@@ -81,7 +81,7 @@
 	name = "Cuban Carp"
 	description = "To celebrate the birth of Castro XXVII, ship one cuban carp to CentCom."
 	reward = 8000
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/cubancarp)
+	wanted_types = list(/obj/item/food/cubancarp)
 
 /datum/bounty/item/chef/hotdog
 	name = "Hot Dog"
@@ -114,7 +114,7 @@
 	description = "Remove all kebab from station you are best food. Ship to CentCom to remove from the premises."
 	reward = 3500
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/kebab)
+	wanted_types = list(/obj/item/food/kebab)
 
 /datum/bounty/item/chef/soylentgreen
 	name = "Soylent Green"
