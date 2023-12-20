@@ -138,7 +138,7 @@
 	var/color_correction = /datum/client_colour/area_color
 
 	///The textures we allow in this area
-	var/list/turf_textures = list()
+	var/list/turf_textures
 
 /**
   * A list of teleport locations

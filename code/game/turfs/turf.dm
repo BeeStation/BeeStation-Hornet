@@ -572,7 +572,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/datum/turf_texture/turf_texture
 	for(var/datum/turf_texture/TF as() in textures)
 		var/area/A = loc
-		if(TF in A?.turf_textures)
+		if(A?.turf_textures && (TF in A?.turf_textures))
 			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
 	if(turf_texture)
 		vis_contents += load_turf_texture(turf_texture)
