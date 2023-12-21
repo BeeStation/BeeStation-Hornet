@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_HOP = /obj/item/clothing/shoes/sneakers/brown,
 		DYE_CE = /obj/item/clothing/shoes/sneakers/brown,
 		DYE_RD = /obj/item/clothing/shoes/sneakers/brown,
-		DYE_CMO = /obj/item/clothing/shoes/sneakers/brown
+		DYE_CMO = /obj/item/clothing/shoes/sneakers/brown,
 		DYE_SECURITY = /obj/item/clothing/shoes/jackboots
 	),
 	DYE_REGISTRY_FANNYPACK = list(
@@ -121,10 +121,19 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	var/bloody_mess = 0
 	var/obj/item/color_source
 	var/max_wash_capacity = 5
+	var/datum/looping_sound/washing_machine/soundloop
+
+/obj/machinery/washing_machine/Initialize()
+	. = ..()
+	soundloop = new(src,  FALSE)
 
 /obj/machinery/washing_machine/ComponentInitialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
+
+/obj/machinery/microwave/Destroy()
+	QDEL_NULL(soundloop)
+	. = ..()
 
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
@@ -144,7 +153,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	busy = TRUE
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(wash_cycle)), 200)
-
+	soundloop.start()
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/machinery/washing_machine/process(delta_time)
@@ -181,6 +190,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(color_source)
 		color_source = null
 	update_icon()
+	soundloop.stop()
 
 /obj/item/proc/dye_item(dye_color, dye_key_override)
 	var/dye_key_selector = dye_key_override ? dye_key_override : dying_key
@@ -332,9 +342,11 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return
 
 	if(!state_open)
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 		open_machine()
 	else
 		state_open = FALSE //close the door
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 		update_icon()
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)

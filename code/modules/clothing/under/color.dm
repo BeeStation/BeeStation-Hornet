@@ -10,7 +10,6 @@
 	worn_icon_state = "jumpsuit"
 	worn_icon = 'icons/mob/clothing/uniform.dmi'
 	supports_variations = DIGITIGRADE_VARIATION
-	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/color/jumpskirt
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
@@ -19,6 +18,7 @@
 	fitted = FEMALE_UNIFORM_TOP
 	icon_state = "jumpskirt"
 	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"

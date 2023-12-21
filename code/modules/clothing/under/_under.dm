@@ -17,6 +17,7 @@
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
