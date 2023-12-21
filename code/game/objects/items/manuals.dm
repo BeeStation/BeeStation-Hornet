@@ -291,6 +291,7 @@
 	author = "Nanotrasen"
 	title = "Space Law"
 	page_link = "Space_Law"
+	dye_color = DYE_LAW
 
 /obj/item/book/manual/wiki/security_space_law/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] pretends to read \the [src] intently... then promptly dies of laughter!</span>")
@@ -457,6 +458,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Security Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Security"
+	dye_color = DYE_SECURITY
 
 /obj/item/book/manual/wiki/sopengineering
 	name = "Engineering Standard Operating Procedures"

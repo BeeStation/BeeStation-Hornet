@@ -161,6 +161,14 @@
 	name = "teal jumpskirt"
 	greyscale_colors = "#77f3b7"
 
+/obj/item/clothing/under/color/purple
+	name = "purple jumpsuit"
+	greyscale_colors = "#ad16eb"
+
+/obj/item/clothing/under/color/jumpskirt/purple
+	name = "purple jumpskirt"
+	greyscale_colors = "#ad16eb"
+
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"
 	greyscale_colors = "#9f70cc"
