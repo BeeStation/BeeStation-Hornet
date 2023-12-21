@@ -3,6 +3,16 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/science)
+"b" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
 "c" = (
 /obj/machinery/button/door{
 	id = "sciencecargo";
@@ -22,6 +32,12 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/science)
+"f" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/science)
 "g" = (
 /obj/machinery/computer/shuttle_flight/science,
 /turf/open/floor/mineral/titanium/white,
@@ -34,12 +50,33 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
+"k" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
+"l" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
 "n" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/item/toy/plush/moth/random,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "o" = (
@@ -67,7 +104,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/fans/tiny,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "s" = (
@@ -83,9 +122,21 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
+"v" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
 "x" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
@@ -94,13 +145,20 @@
 /area/shuttle/science)
 "A" = (
 /obj/machinery/modular_computer/console/preset/research,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
+"G" = (
+/obj/machinery/door/airlock/titanium/glass,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "H" = (
 /obj/machinery/door/poddoor{
 	id = "sciencecargo"
 	},
-/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "I" = (
@@ -114,6 +172,15 @@
 "K" = (
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
+"M" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
 "N" = (
 /obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/titanium/purple,
@@ -122,6 +189,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "S" = (
@@ -129,7 +199,17 @@
 /area/shuttle/science)
 "T" = (
 /obj/machinery/door/airlock/titanium/glass,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
+"W" = (
+/obj/machinery/airalarm/unlocked{
+	pixel_x = -25;
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 
 (1,1,1) = {"
@@ -147,7 +227,7 @@ a
 d
 c
 S
-K
+W
 t
 N
 h
@@ -158,9 +238,9 @@ y
 d
 g
 Q
-S
+l
 T
-S
+M
 J
 J
 y
@@ -168,10 +248,10 @@ y
 (4,1,1) = {"
 d
 A
-Q
-S
-T
-S
+b
+v
+G
+k
 J
 J
 y
@@ -189,7 +269,7 @@ y
 "}
 (6,1,1) = {"
 y
-y
+f
 r
 y
 t

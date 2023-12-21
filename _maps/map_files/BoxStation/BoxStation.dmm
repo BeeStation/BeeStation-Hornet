@@ -27193,6 +27193,13 @@
 	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
+"gGj" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/turf/open/floor/plating,
+/area/quartermaster/exploration_dock)
 "gGm" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/yellow/filled/corner{
@@ -39398,6 +39405,11 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/maintenance/central)
+"mxn" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/pipedispenser,
+/turf/open/floor/plasteel,
+/area/quartermaster/exploration_dock)
 "myL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -42731,6 +42743,13 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
+"oec" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/quartermaster/exploration_dock)
 "oed" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -60370,12 +60389,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "wZY" = (
@@ -115057,7 +115074,7 @@ jjp
 kVh
 tJF
 qOj
-ezu
+mxn
 gQd
 aaf
 aaa
@@ -115568,7 +115585,7 @@ iAO
 gQd
 wOv
 pqr
-xkR
+gGj
 wZj
 xkR
 gQd
@@ -115825,7 +115842,7 @@ gQd
 gQd
 tEj
 dOV
-xkR
+oec
 sad
 gQd
 gQd
@@ -116082,7 +116099,7 @@ aaa
 gQd
 xkR
 xkR
-xkR
+oec
 qqt
 xkR
 gQd

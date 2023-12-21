@@ -2625,11 +2625,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/medical/morgue)
-"aQE" = (
-/obj/machinery/airalarm/directional/west,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
+"aQw" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
 	},
+/turf/open/floor/plating,
+/area/science/shuttledock)
+"aQE" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -5858,7 +5861,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/pipedispenser,
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "bSd" = (
@@ -13022,6 +13025,10 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/exploration,
+/obj/machinery/airalarm/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
 	},
@@ -14087,8 +14094,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "eua" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
@@ -15168,21 +15175,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/item/radio/intercom{
-	pixel_x = -32;
-	pixel_y = -3
-	},
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
@@ -17600,6 +17600,10 @@
 /area/maintenance/department/medical/morgue)
 "frZ" = (
 /obj/machinery/suit_storage_unit/exploration,
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "fsb" = (
@@ -20327,12 +20331,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "ggs" = (
@@ -34548,6 +34550,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"kKB" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/science/shuttledock)
 "kKQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -69484,6 +69493,13 @@
 /area/security/main{
 	name = "Security Locker Room"
 	})
+"vKk" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/quartermaster/exploration_prep)
 "vKu" = (
 /obj/effect/landmark/start/geneticist,
 /turf/open/floor/plasteel/dark,
@@ -97426,7 +97442,7 @@ cMW
 rqR
 rqR
 rqR
-cMW
+vKk
 eff
 cMW
 yeA
@@ -97683,7 +97699,7 @@ pyA
 bUE
 mgc
 fPx
-rqR
+vKk
 nej
 cMW
 yeA
@@ -97940,7 +97956,7 @@ aAT
 clu
 kcG
 hff
-cMW
+vKk
 btz
 cMW
 lID
@@ -98206,7 +98222,7 @@ dCD
 pJg
 pJg
 dCD
-dCD
+kKB
 vPW
 dCD
 gsA
@@ -98463,7 +98479,7 @@ fVz
 uKR
 aSK
 naU
-pJg
+kKB
 kri
 dCD
 nku
@@ -98720,7 +98736,7 @@ vmg
 vmg
 vIk
 wnp
-dCD
+aQw
 ggn
 dCD
 yay

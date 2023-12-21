@@ -76,6 +76,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "h" = (
+/obj/structure/closet/crate/science/secure,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "i" = (
@@ -275,6 +276,7 @@
 	dir = 8;
 	pixel_x = 7
 	},
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "H" = (
@@ -441,6 +443,7 @@
 	dir = 4;
 	pixel_x = -6
 	},
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 

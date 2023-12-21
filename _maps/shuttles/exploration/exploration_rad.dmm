@@ -16,8 +16,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ao" = (
-/obj/machinery/telecomms/relay/preset/exploration,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/telecomms/relay/preset/mining{
+	name = "Exploration"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aW" = (
@@ -50,7 +52,6 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
-/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "dt" = (
@@ -63,11 +64,7 @@
 	name = "Vent Engine Room";
 	pixel_y = 24
 	},
-/obj/effect/turf_decal/delivery,
 /obj/item/stack/sheet/mineral/plasma/five,
-/obj/structure/closet{
-	anchored = 1
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -79,6 +76,16 @@
 	pixel_x = 4;
 	pixel_y = -3
 	},
+/obj/item/radio/headset/headset_exploration,
+/obj/item/radio/headset/headset_exploration,
+/obj/effect/turf_decal/box,
+/obj/structure/closet/crate/science,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/item/multitool,
+/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "eN" = (
@@ -104,9 +111,6 @@
 /obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -139,8 +143,9 @@
 	pixel_x = -16;
 	pixel_y = 16
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+/obj/effect/turf_decal/box/corners{
+	pixel_x = -16;
+	pixel_y = 16
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -186,9 +191,6 @@
 /area/shuttle/exploration)
 "tG" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "uw" = (
@@ -197,6 +199,15 @@
 	},
 /obj/machinery/light/small,
 /turf/open/floor/noslip/dark,
+/area/shuttle/exploration)
+"uD" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/box/corners{
+	dir = 4;
+	pixel_x = -16;
+	pixel_y = -16
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "uG" = (
 /obj/structure/cable/yellow{
@@ -209,9 +220,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/chair/stool/bar{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
@@ -230,7 +238,6 @@
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
 	width = 13
 	},
-/obj/structure/fans/tiny,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -245,6 +252,19 @@
 	pixel_y = 1
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Ac" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 1;
+	pixel_x = 16;
+	pixel_y = -16
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 8;
+	pixel_x = 16;
+	pixel_y = -16
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Ai" = (
 /obj/structure/chair/stool/bar{
@@ -281,10 +301,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
 "Fh" = (
-/obj/structure/closet/secure_closet/personal{
-	anchored = 1
-	},
-/obj/effect/turf_decal/delivery,
+/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "FA" = (
@@ -313,23 +330,20 @@
 	pixel_y = -27
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"GU" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/structure/closet/secure_closet/personal{
+	anchored = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Hc" = (
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 1;
-	initialize_directions = 1
-	},
 /obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet/personal{
+	anchored = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Iv" = (
@@ -342,16 +356,11 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"IS" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Jl" = (
 /obj/machinery/shower{
 	dir = 4
 	},
+/obj/structure/closet/crate/secure,
 /turf/open/floor/noslip/dark,
 /area/shuttle/exploration)
 "JE" = (
@@ -364,18 +373,14 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "JI" = (
-/obj/effect/turf_decal/delivery,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
 /obj/item/wrench,
 /obj/item/pickaxe,
-/obj/item/mining_scanner,
-/obj/structure/closet{
-	anchored = 1
-	},
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_y = 25
 	},
+/obj/item/mining_scanner,
+/obj/effect/turf_decal/box,
+/obj/structure/closet/crate,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "Ko" = (
@@ -418,9 +423,6 @@
 /obj/machinery/camera/autoname{
 	dir = 8;
 	network = list("ss13","sci")
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -491,15 +493,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
-/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"YV" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
-	},
-/turf/open/floor/plating,
 /area/shuttle/exploration)
 "ZB" = (
 /obj/structure/table,
@@ -511,7 +505,6 @@
 	pixel_x = 9;
 	pixel_y = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 
@@ -551,7 +544,7 @@ an
 Pc
 lu
 rN
-GU
+tu
 tG
 tu
 rT
@@ -566,8 +559,8 @@ Qe
 Qe
 Qe
 FA
+Ac
 tu
-IS
 FX
 Qe
 eL
@@ -581,7 +574,7 @@ Iv
 zr
 AX
 rN
-rN
+uD
 la
 Hc
 Qe
@@ -613,7 +606,7 @@ fY
 ZB
 PL
 uG
-Fh
+tu
 lq
 UF
 MY
@@ -623,8 +616,8 @@ gp
 (8,1,1) = {"
 fB
 Uf
-Uf
-YV
+lq
+lq
 Qe
 Qe
 zf
