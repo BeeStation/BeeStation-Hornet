@@ -175,7 +175,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	busy = FALSE
 	if(color_source)
-		qdel(color_source)
 		color_source = null
 	update_icon()
 
