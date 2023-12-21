@@ -189,15 +189,16 @@
 	burn_msg = burn_msg ? burn_msg : "burns"
 	bleed_msg = bleed_msg ? bleed_msg : "bleeding"
 
-	if (bleedsuppress)
-		return "[src] is [bleed_msg], but it is covered."
-	switch (bleed_rate)
-		if (BLEED_DEEP_WOUND to INFINITY)
-			return "[owner] is [bleed_msg] extremely quickly."
-		if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
-			return "[owner] is [bleed_msg] at a significant rate."
-		else
-			return "[owner] has some minor [bleed_msg] which look like it will stop soon."
+	if (is_bleeding())
+		if (bleedsuppress)
+			return "[src] is [bleed_msg], but it is covered."
+		switch (get_bleed_rate())
+			if (BLEED_DEEP_WOUND to INFINITY)
+				return "[src] is [bleed_msg] extremely quickly."
+			if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
+				return "[src] is [bleed_msg] at a significant rate."
+			else
+				return "[src] has some minor [bleed_msg] which look like it will stop soon."
 
 	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
 		if(temp)

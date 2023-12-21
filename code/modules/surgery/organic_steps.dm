@@ -95,6 +95,7 @@
 /datum/surgery_step/close/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(locate(/datum/surgery_step/saw) in surgery.steps)
 		target.heal_bodypart_damage(45,0)
+	target.cauterise_wounds()
 	return ..()
 
 

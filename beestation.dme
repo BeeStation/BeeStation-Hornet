@@ -3882,6 +3882,7 @@
 #include "code\modules\surgery\anesthetic_machine.dm"
 #include "code\modules\surgery\blood_filter.dm"
 #include "code\modules\surgery\brain_recalibration.dm"
+#include "code\modules\surgery\cauterize.dm"
 #include "code\modules\surgery\cavity_implant.dm"
 #include "code\modules\surgery\core_removal.dm"
 #include "code\modules\surgery\coronary_bypass.dm"
