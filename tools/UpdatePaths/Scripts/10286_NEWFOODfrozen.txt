@@ -1,0 +1,8 @@
+/obj/item/food/icecreamsandwich : /obj/item/reagent_containers/food/snacks/icecreamsandwich{@OLD}
+/obj/item/food/strawberryicecreamsandwich : /obj/item/reagent_containers/food/snacks/strawberryicecreamsandwich{@OLD}
+/obj/item/food/spacefreezy : /obj/item/reagent_containers/food/snacks/spacefreezy{@OLD}
+/obj/item/food/sundae : /obj/item/reagent_containers/food/snacks/sundae{@OLD}
+/obj/item/food/honkdae : /obj/item/reagent_containers/food/snacks/honkdae{@OLD}
+/obj/item/food/snowcones : /obj/item/reagent_containers/food/snacks/snowcones{@OLD}
+
+/obj/item/food/icecream : /obj/item/reagent_containers/food/snacks/icecream{@OLD}
