@@ -9941,7 +9941,7 @@
 	dir = 2;
 	pixel_y = 25
 	},
-/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit,
+/obj/item/food/grown/shell/gatfruit,
 /obj/item/gun/ballistic/automatic/pistol/deagle,
 /obj/item/gun/ballistic/revolver/russian,
 /turf/open/floor/plasteel/dark,
@@ -11117,7 +11117,7 @@
 /area/asteroid/paradice/surface)
 "fSh" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -25090,7 +25090,7 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
 /obj/structure/table/wood/fancy,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -27559,11 +27559,11 @@
 	pixel_x = 1;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_x = -12;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_x = 14;
 	pixel_y = 5
 	},
@@ -30970,7 +30970,7 @@
 /area/storage/primary)
 "rLQ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = 1;
 	pixel_y = 3
 	},

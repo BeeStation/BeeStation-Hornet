@@ -8,11 +8,11 @@
 /area/template_noop)
 "aR" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
@@ -20,11 +20,11 @@
 /area/template_noop)
 "cA" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
 /obj/item/storage/fancy/candle_box{
 	pixel_x = -3;
 	pixel_y = 17
