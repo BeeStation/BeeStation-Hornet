@@ -430,6 +430,7 @@
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	knockdown = 30
+	bleed_force = BLEED_SURFACE
 	var/chain
 
 /obj/projectile/hook/fire(setAngle)

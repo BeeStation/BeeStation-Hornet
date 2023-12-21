@@ -101,10 +101,11 @@
 					if(head)
 						head.add_mob_blood(src)
 						update_inv_head()
-		else if (I.damtype == BURN && is_bleeding())
+		else if (I.damtype == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
 			if (get_bleed_intensity() <= I.force)
 				cauterise_wounds()
 				to_chat(src, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
+				playsound(src, 'sound/surgery/cautery2.ogg', 70)
 			else if (user == src)
 				to_chat(src, "<span class='warning'>Your bleeding is too strong to be cauterized with [I]...</span>")
 
@@ -484,3 +485,18 @@
 			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
 	else if(getOxyLoss() <= 50)
 		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+
+/mob/living/carbon/bullet_act(obj/projectile/P, def_zone, piercing_hit)
+	var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
+	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
+		affecting = bodyparts[1]
+	if (P.bleed_force)
+		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = P.armour_penetration, silent = TRUE)
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(P.bleed_force * hit_amount)
+	if (P.damage_type == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
+		cauterise_wounds()
+		playsound(src, 'sound/surgery/cautery2.ogg', 70)
+		to_chat(src, "<span class='userdanger'>The heat from [P] cauterizes your bleeding!</span>")
+
+	return ..()

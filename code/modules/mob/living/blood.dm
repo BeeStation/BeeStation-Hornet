@@ -24,7 +24,7 @@
 			owner.add_splatter_floor(owner.loc, TRUE)
 		return
 	if (owner.bleedsuppress > 0)
-		owner.bleedsuppress = min(0, owner.bleedsuppress - tick_interval)
+		owner.bleedsuppress = max(0, owner.bleedsuppress - 1 SECONDS)
 		if (owner.stat != DEAD)
 			to_chat(owner, "<span class='warning'>Your bandage falls, and blood starts pouring out of your wounds.</span>")
 	if (owner.bleedsuppress > 0)
@@ -77,6 +77,7 @@
 
 /mob/living/carbon/proc/add_bleeding(bleed_level)
 	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
 	if (bleed)
 		bleed.bleed_rate = bleed.bleed_rate + max(min(bleed_level * bleed_level, sqrt(bleed_level)) / max(bleed.bleed_rate, 1),bleed_level - bleed.bleed_rate)
 	else
@@ -149,7 +150,9 @@
 		var/word = pick("dizzy","woozy","faint")
 
 		// Max-health
-		var/max_health = (getMaxHealth() * 2) * CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
+		var/desired_health = (getMaxHealth() * 2) * CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
+		// Make it so we only go unconcious at 25% blood remaining
+		desired_health = (desired_health ** 2.4) / ((getMaxHealth() * 2) ** 1.4)
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
@@ -166,7 +169,7 @@
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				if(!HAS_TRAIT(src, TRAIT_NODEATH))
 					death()
-		var/health_difference = clamp(getOxyLoss() - max_health, -5, 0)
+		var/health_difference = clamp(((getMaxHealth() * 2) - getOxyLoss()) - desired_health, 0, 5)
 		adjustOxyLoss(health_difference)
 
 /mob/living/proc/bleed(amt)
@@ -181,14 +184,11 @@
 				add_splatter_floor(src.loc)
 			else
 				add_splatter_floor(src.loc, 1)
-		update_damage_hud()
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
 	if(!(NOBLOOD in dna.species.species_traits))
 		..()
-
-
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
