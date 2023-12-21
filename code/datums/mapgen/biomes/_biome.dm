@@ -131,7 +131,6 @@
 	fauna_types = list(
 		/mob/living/simple_animal/crab,
 		/mob/living/simple_animal/butterfly,
-		/mob/living/simple_animal/hostile/gorilla,
 		/mob/living/simple_animal/hostile/lizard,
 		/mob/living/simple_animal/parrot,
 		/mob/living/simple_animal/sloth,
