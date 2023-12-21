@@ -79,6 +79,17 @@
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
 	icon_state = "sci_secure_crate"
 	icon_door = "sci_crate"
+	
+/obj/structure/closet/crate/secure/science/contraband
+	name = "\proper Exploration Contraband crate"
+	req_one_access = list(ACCESS_EXPLORATION, ACCESS_SECURITY)
+	icon_state = "weapon_crate"
+	icon_door = null
+	
+/obj/structure/closet/crate/science/secure/populate_contents_immediate()
+	..()
+	new /obj/item/reagent_containers/food/drinks/syndicatebeer(src)
+	new /obj/item/reagent_containers/food/drinks/syndicatebeer(src)
 
 /obj/structure/closet/crate/secure/owned
 	name = "private crate"

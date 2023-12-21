@@ -62,6 +62,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
+/obj/item/wrench,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "du" = (
@@ -364,11 +365,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/obj/structure/closet/crate/science,
-/obj/item/stack/sheet/mineral/plasma/twenty,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/multitool,
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "tF" = (
@@ -1051,14 +1048,10 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/box,
-/obj/structure/closet/crate/secure,
 /obj/item/stack/sheet/mineral/plastitanium{
 	amount = 30
 	},
-/obj/item/reagent_containers/food/drinks/syndicatebeer{
-	pixel_x = -8;
-	pixel_y = 2
-	},
+/obj/structure/closet/crate/secure/science/contraband,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "XD" = (
@@ -1155,10 +1148,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/closet/crate,
-/obj/item/pickaxe,
-/obj/item/gps/mining,
-/obj/item/mining_scanner,
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 
