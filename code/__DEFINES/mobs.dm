@@ -25,7 +25,9 @@
 #define BLEED_SURFACE 1.5			// Results in 60 blood loss
 #define BLEED_CUT 2.3				// Results in 140 bloos loss
 #define BLEED_DEEP_WOUND 2.4		// Death in 3 minutes if untreated
-#define BLEED_CRITICAL 4.8			// Death in 90 seconds if untreated
+#define BLEED_CRITICAL 3.6			// Death will come relatively quick if untreated
+
+#define BLEED_RATE_MULTIPLIER 1	// How quickly do we bleed out? A value of 1 means that if we have a bleed rate of 10, then we lose 5 blood per second.
 
 //Blood levels
 #define BLOOD_VOLUME_MAXIMUM		2000
