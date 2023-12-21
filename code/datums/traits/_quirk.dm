@@ -136,7 +136,9 @@
 
 /datum/quirk/proc/read_choice_preference(path)
 	var/client/qclient = GLOB.directory[ckey(quirk_holder.key)]
-	return qclient?.prefs.read_character_preference(path)
+	var/pref = qclient?.prefs.read_character_preference(path)
+	if(pref != "Random")
+		return pref
 
 /*
 
