@@ -67,6 +67,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ir" = (
@@ -79,6 +81,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "kp" = (
@@ -96,7 +100,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ll" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -212,14 +215,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"zN" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Ax" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
@@ -317,12 +312,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/closet/crate/science,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/multitool,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
+/obj/structure/closet/crate/science/mining,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Lt" = (
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Nc" = (
@@ -360,7 +355,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "OU" = (
-/obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -376,7 +370,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Qy" = (
-/obj/effect/turf_decal/bot,
 /obj/item/wrench,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -401,8 +394,6 @@
 /turf/template_noop,
 /area/template_noop)
 "SA" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
@@ -439,17 +430,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/item/stack/sheet/mineral/plasma/twenty,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Yi" = (
-/obj/structure/closet/crate,
-/obj/item/pickaxe,
-/obj/item/mining_scanner,
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/gps/mining/exploration,
+/obj/structure/closet/crate/secure/science/contraband,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ZX" = (
@@ -492,7 +480,7 @@ sz
 sT
 qX
 Hf
-Hf
+Lt
 ll
 Ax
 KU
@@ -514,7 +502,7 @@ Hf
 Hf
 Ax
 UK
-zN
+ts
 GH
 Rk
 hl

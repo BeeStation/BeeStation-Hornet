@@ -217,6 +217,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/closet/crate/secure/science/contraband,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "jR" = (
@@ -482,7 +484,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "um" = (
-/obj/item/storage/toolbox/mechanical,
 /obj/machinery/power/smes{
 	charge = 1e+006
 	},
@@ -680,20 +681,14 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "GI" = (
-/obj/structure/closet/crate/science,
-/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
 /obj/effect/turf_decal/bot,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/stack/sheet/mineral/plasma/twenty,
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "HU" = (
-/obj/structure/closet/crate,
-/obj/item/pickaxe,
 /obj/effect/turf_decal/bot,
-/obj/item/mining_scanner,
-/obj/item/gps/mining/exploration,
+/obj/structure/closet/crate/science/shuttle,
+/obj/item/stack/sheet/mineral/plasma/twenty,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "JG" = (

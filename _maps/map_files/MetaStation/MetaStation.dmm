@@ -45147,6 +45147,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"kjT" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/science/shuttledock)
 "kkc" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/closed/wall,
@@ -47676,12 +47683,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "liG" = (
@@ -72608,15 +72613,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
-"vqm" = (
-/obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/shuttledock)
 "vqq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -79826,6 +79822,9 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 6
 	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph{
+	pixel_x = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "ybb" = (
@@ -80456,6 +80455,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
+"ylL" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/science/shuttledock)
 "ylN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -119464,7 +119470,7 @@ mOA
 fAG
 fAG
 fAG
-vqm
+fAG
 xra
 yaR
 tkT
@@ -119721,7 +119727,7 @@ xQQ
 mIf
 oZK
 uEU
-mjJ
+kjT
 lik
 mjJ
 tVz
@@ -119978,7 +119984,7 @@ tVz
 mjJ
 kuN
 gRW
-mjJ
+ylL
 dgV
 mjJ
 sEf
@@ -120235,7 +120241,7 @@ aaa
 mjJ
 tVz
 tVz
-mjJ
+ylL
 iFu
 mjJ
 sEf

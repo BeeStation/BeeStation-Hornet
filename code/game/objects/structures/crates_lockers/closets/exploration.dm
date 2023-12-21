@@ -10,6 +10,7 @@
 	new /obj/item/radio/headset/headset_exploration(src)
 	new /obj/item/radio/headset/headset_exploration(src)
 	new /obj/item/radio/headset/headset_exploration(src)
+	new /obj/item/stack/sheet/mineral/plasma/ten(src)
 
 /obj/structure/closet/crate/science/mining
 	name = "\proper Mining Supplies crate"

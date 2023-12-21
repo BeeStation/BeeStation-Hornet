@@ -28,6 +28,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "bM" = (
@@ -63,12 +64,10 @@
 	desc = "A remote control switch.";
 	id = "ExploIFuckedUp";
 	name = "Vent Engine Room";
-	pixel_y = 24
-	},
-/obj/machinery/light/small{
-	dir = 1
+	pixel_y = 25
 	},
 /obj/effect/turf_decal/box,
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "eN" = (
@@ -77,6 +76,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "fB" = (
@@ -103,6 +103,7 @@
 "gt" = (
 /obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
 /obj/effect/decal/cleanable/oil,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "gQ" = (
@@ -261,6 +262,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/plasma,
+/obj/machinery/light/small,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "AX" = (
@@ -310,7 +312,7 @@
 	desc = "A remote control switch.";
 	id = "ExploIFuckedUp";
 	name = "Vent Engine Room";
-	pixel_y = -27
+	pixel_y = -25
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/bot,
@@ -360,6 +362,7 @@
 	pixel_y = 25
 	},
 /obj/effect/turf_decal/box,
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "Ko" = (
@@ -370,6 +373,7 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
 	},
+/obj/machinery/light/small,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "No" = (

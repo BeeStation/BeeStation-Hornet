@@ -25,6 +25,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/structure/railing,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ac" = (
@@ -68,7 +69,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/science/mining,
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ag" = (
@@ -80,10 +84,6 @@
 "ai" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
-	},
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -97,6 +97,11 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/science/mining,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -213,7 +218,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/airlock/shuttle,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -221,6 +225,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/machinery/door/airlock/shuttle/glass,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aB" = (
@@ -278,6 +283,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/structure/railing,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "aG" = (
@@ -404,19 +410,19 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/closet/crate/secure/science/contraband,
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "aY" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "aZ" = (
@@ -429,12 +435,13 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Qj" = (
+"Kq" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
+	dir = 1
 	},
-/obj/structure/closet/crate/science/shuttle,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/secure/science/contraband,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ry" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -513,7 +520,7 @@ ag
 ag
 ag
 aF
-aN
+Kq
 aG
 aT
 aL
@@ -524,7 +531,7 @@ aR
 aR
 an
 az
-Qj
+aX
 aX
 aE
 az

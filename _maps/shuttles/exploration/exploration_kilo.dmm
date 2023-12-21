@@ -2,7 +2,7 @@
 "aT" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/machinery/light,
-/obj/structure/closet/crate/secure,
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "dt" = (
@@ -22,7 +22,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/item/stack/sheet/mineral/plasma/twenty,
+/obj/item/stack/sheet/mineral/plasma/ten,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "fc" = (
@@ -119,9 +119,7 @@
 /area/shuttle/exploration)
 "ok" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/item/pickaxe,
-/obj/item/mining_scanner,
-/obj/structure/closet/crate,
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "pY" = (
@@ -286,15 +284,7 @@
 "Ij" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
-/obj/structure/closet/crate/science,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
-/obj/item/multitool,
+/obj/structure/closet/crate/secure/science/contraband,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "In" = (
