@@ -242,13 +242,42 @@
 	recoil = 1.5
 	var/slung = FALSE
 	var/reinforced = FALSE
+	var/barrel_stress = 0
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+
+	if(chambered.BB && !reinforced)
+		var/obj/item/ammo_casing/shotgun/S = chambered
+		if(prob(10 + barrel_stress) && S.high_power)	//Base 10% chance of misfiring. Goes up with each shot of high_power ammo
+			backfire(user)
+			return 0
+
+		else if (S.high_power)
+			barrel_stress += 5
+			if (barrel_stress == 10)
+				to_chat(user, "<span class='warning'>[src]'s barrel is left warped from the force of the shot!</span>")
+			else if (barrel_stress == 20)
+				to_chat(user, "<span class='danger'>[src]'s barrel begins to crack from the repeated strain!</span>")
+
+		else if (prob(5) && barrel_stress >= 30) // If the barrel is damaged enough to be cracked, flat 5% chance to detonate on low-power ammo as well.
+			backfire(user)
+			return 0
+	..()
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/proc/backfire(mob/living/user)
+	playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
+	to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
+
+	user.take_bodypart_damage(0,15) //The explosion already does enough damage.
+	explosion(src, 0, 0, 1, 1)
+
+	barrel_stress += 10 //Big damage to barrel, two explosions/misfires will destroy the gun entirely
+	qdel(chambered.BB)
+	chambered.BB = null //Spend the bullet when you misfire and it explodes. What's blowing up otherwise?
+
+	user.dropItemToGround(src)
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
-	if (istype(A, /obj/item/ammo_casing/shotgun))
-		var/obj/item/ammo_casing/shotgun/S = A
-		if (S.high_power && reinforced == FALSE)
-			to_chat(user, "<span class='warning'>This gun can't handle the pressure of \a [S.name] being fired!</span>")
-			return
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)
@@ -281,6 +310,15 @@
 		. += "It has a shoulder sling fashioned from spare cable attached."
 	else
 		. += "You could improvise a shoulder sling from some cabling..."
+
+	if (reinforced)
+		. += "The barrel has been reinforced for use with high-power ammunition."
+	else if (barrel_stress == 0)
+		. += "The barrel is in pristine condition."
+	else if (barrel_stress <= 25)
+		. += "The barrel seems to be warped mildly..."
+	else
+		. += "The barrel is cracked, and the warping is more severe!"
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn
 	name = "sawn-off improvised shotgun"
