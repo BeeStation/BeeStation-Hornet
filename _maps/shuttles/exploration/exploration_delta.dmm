@@ -69,6 +69,9 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/plasma,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ir" = (
@@ -131,9 +134,7 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 9
 	},
-/obj/machinery/telecomms/relay/preset/mining{
-	name = "Exploration"
-	},
+/obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "qX" = (
@@ -212,6 +213,13 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"wo" = (
+/obj/machinery/airalarm/unlocked{
+	dir = 1;
+	pixel_y = -25
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -499,7 +507,7 @@ Hf
 ts
 Hf
 Hf
-Hf
+wo
 Ax
 UK
 ts

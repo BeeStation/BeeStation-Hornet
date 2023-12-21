@@ -190,9 +190,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/telecomms/relay/preset/mining{
-	name = "Exploration"
-	},
+/obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aw" = (
@@ -268,6 +266,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/airalarm/unlocked{
+	pixel_x = 25;
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,

@@ -2,7 +2,10 @@
 "aT" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/machinery/light,
-/obj/structure/closet/crate/science/mining,
+/obj/machinery/airalarm/unlocked{
+	dir = 8;
+	pixel_x = 25
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "dt" = (
@@ -97,6 +100,7 @@
 /area/shuttle/exploration)
 "kU" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "mj" = (
@@ -116,11 +120,6 @@
 /obj/machinery/computer/objective,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"ok" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/structure/closet/crate/science/shuttle,
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "pY" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
@@ -338,6 +337,7 @@
 "Nz" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/railing,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "NL" = (
@@ -378,9 +378,7 @@
 "Qu" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/box,
-/obj/machinery/telecomms/relay/preset/mining{
-	name = "Exploration"
-	},
+/obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ro" = (
@@ -503,6 +501,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "ZV" = (
@@ -616,7 +615,7 @@ Qu
 Ij
 wG
 Ox
-ok
+pY
 aT
 wG
 dz

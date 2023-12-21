@@ -782,9 +782,7 @@
 /area/shuttle/exploration)
 "OG" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/telecomms/relay/preset/mining{
-	name = "Exploration"
-	},
+/obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "QG" = (

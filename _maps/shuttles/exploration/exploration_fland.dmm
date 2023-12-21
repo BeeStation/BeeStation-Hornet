@@ -837,9 +837,7 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/telecomms/relay/preset/mining{
-	name = "Exploration"
-	},
+/obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "Of" = (
