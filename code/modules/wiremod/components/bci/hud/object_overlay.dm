@@ -92,9 +92,9 @@
 
 	// Clear all overlays
 	if(COMPONENT_TRIGGERED_BY(signal_all_off, port))
-		for(var/atom/active_overlay in active_overlays)
+		for(var/active_overlay in active_overlays)
 			QDEL_NULL(active_overlays[active_overlay])
-			active_overlays.Remove(active_overlay)
+		active_overlays.Cut()
 
 /obj/item/circuit_component/object_overlay/proc/show_to_owner(atom/target_atom, mob/living/owner)
 	if(LAZYLEN(active_overlays) >= OBJECT_OVERLAY_LIMIT)
@@ -128,8 +128,8 @@
 /obj/item/circuit_component/object_overlay/proc/on_organ_removed(datum/source, mob/living/carbon/owner)
 	SIGNAL_HANDLER
 
-	for(var/atom/target_atom in active_overlays)
-		QDEL_NULL(active_overlays[target_atom])
-		active_overlays.Remove(target_atom)
+	for(var/active_overlay in active_overlays)
+		QDEL_NULL(active_overlays[active_overlay])
+	active_overlays.Cut()
 
 #undef OBJECT_OVERLAY_LIMIT
