@@ -66,23 +66,6 @@
 	// Not bleeding anymore, no need to hold wounds
 	human.stop_holding_wounds()
 
-/datum/status_effect/bleeding/get_examine_text()
-	var/mob/living/carbon/human/human = owner
-	var/bleed_msg = "bleeding"
-	if (istype(human))
-		var/list/harm_words = human.dna?.species.get_harm_descriptors()
-		bleed_msg = harm_words?["bleed"] || bleed_msg
-
-	if (owner.bleedsuppress)
-		return "[owner] has bandages around their [bleed_msg]."
-	switch (bleed_rate)
-		if (BLEED_DEEP_WOUND to INFINITY)
-			return "[owner] is [bleed_msg] extremely quickly."
-		if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
-			return "[owner] is [bleed_msg] at a significant rate."
-		else
-			return "[owner] has some minor [bleed_msg] which look like it will stop soon."
-
 /atom/movable/screen/alert/status_effect/bleeding
 	name = "Bleeding"
 	desc = "You are bleeding, find something to bandage the wound or you will die."
