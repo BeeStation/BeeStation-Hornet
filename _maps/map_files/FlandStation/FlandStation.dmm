@@ -1727,6 +1727,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "aww" = (

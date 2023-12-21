@@ -4641,20 +4641,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room)
-"aUU" = (
-/obj/machinery/button/door{
-	id = "sec Toilet 2";
-	name = "Toilet Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = -4;
-	pixel_y = 27;
-	specialfunctions = 4
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
-/area/security/prison)
 "aUX" = (
 /obj/machinery/light_switch{
 	pixel_y = -25
@@ -21665,14 +21651,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "eDW" = (
-/obj/machinery/button/door{
-	id = "sec Toilet 1";
-	name = "Toilet Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = -4;
-	pixel_y = 27;
-	specialfunctions = 4
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -86994,7 +86972,7 @@ acd
 xfy
 abF
 acd
-aUU
+eDW
 acd
 eDW
 acd

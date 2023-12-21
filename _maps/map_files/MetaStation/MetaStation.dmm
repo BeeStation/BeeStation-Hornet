@@ -20615,6 +20615,19 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/starboard/secondary)
+"coB" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel";
+	pixel_x = -27;
+	pixel_y = -7
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "cpd" = (
 /obj/effect/landmark/start/scientist,
 /obj/structure/cable/yellow{
@@ -101341,7 +101354,7 @@ udN
 oGB
 lOR
 xZm
-lOR
+coB
 hVy
 xBg
 pWX

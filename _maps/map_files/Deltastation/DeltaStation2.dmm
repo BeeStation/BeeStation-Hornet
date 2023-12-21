@@ -44880,20 +44880,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science/research)
-"hjU" = (
-/obj/machinery/button/door{
-	id = "sec Toilet 2";
-	name = "Toilet Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = -4;
-	pixel_y = 27;
-	specialfunctions = 4
-	},
-/obj/structure/toilet{
-	dir = 8
-	},
-/turf/open/floor/plasteel/freezer,
-/area/security/prison)
 "hkL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54094,6 +54080,12 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
+"kxM" = (
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "kxN" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
@@ -66622,14 +66614,6 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
 "oOz" = (
-/obj/machinery/button/door{
-	id = "sec Toilet 1";
-	name = "Toilet Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = -4;
-	pixel_y = 27;
-	specialfunctions = 4
-	},
 /obj/structure/toilet{
 	dir = 8
 	},
@@ -71624,6 +71608,9 @@
 	},
 /obj/structure/railing{
 	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -84372,6 +84359,9 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "vdk" = (
@@ -85634,6 +85624,9 @@
 /obj/item/stack/package_wrap,
 /obj/structure/railing{
 	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -146191,7 +146184,7 @@ aFm
 aAF
 tOj
 nEM
-xRZ
+kxM
 aFm
 aaa
 aaZ
@@ -149018,7 +149011,7 @@ aFm
 qHL
 cec
 aKV
-hjU
+oOz
 aKV
 oOz
 aFm
