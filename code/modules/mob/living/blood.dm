@@ -149,10 +149,10 @@
 		//Effects of bloodloss
 		var/word = pick("dizzy","woozy","faint")
 
-		// Max-health
+		// How much oxyloss we want to be on
 		var/desired_health = (getMaxHealth() * 2) * CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
 		// Make it so we only go unconcious at 25% blood remaining
-		desired_health = (desired_health ** 2.4) / ((getMaxHealth() * 2) ** 1.4)
+		desired_health = max(0, (getMaxHealth() * 2) - ((desired_health ** 2.4) / ((getMaxHealth() * 2) ** 1.4)))
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
@@ -169,7 +169,7 @@
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				if(!HAS_TRAIT(src, TRAIT_NODEATH))
 					death()
-		var/health_difference = clamp(((getMaxHealth() * 2) - getOxyLoss()) - desired_health, 0, 5)
+		var/health_difference = clamp(desired_health - getOxyLoss(), 0, 5)
 		adjustOxyLoss(health_difference)
 
 /mob/living/proc/bleed(amt)
