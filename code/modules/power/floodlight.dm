@@ -8,12 +8,13 @@
 	density = TRUE
 	var/state = FLOODLIGHT_NEEDS_WRENCHING
 
-/obj/structure/floodlight_frame/attackby(obj/item/O, mob/user, params)
+/obj/structure/floodlight_frame/item_interact(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_WRENCH && (state == FLOODLIGHT_NEEDS_WRENCHING))
 		to_chat(user, "<span class='notice'>You secure [src].</span>")
 		anchored = TRUE
 		state = FLOODLIGHT_NEEDS_WIRES
 		desc = "A bare metal frame looking vaguely like a floodlight. Requires wiring."
+		return TRUE
 	else if(istype(O, /obj/item/stack/cable_coil) && (state == FLOODLIGHT_NEEDS_WIRES))
 		var/obj/item/stack/S = O
 		if(S.use(5))
@@ -54,7 +55,7 @@
 /obj/machinery/power/floodlight/Initialize(mapload)
 	. = ..()
 	connect_to_network()
-	
+
 /obj/machinery/power/floodlight/process()
 	if(avail(active_power_usage))
 		add_load(active_power_usage)
