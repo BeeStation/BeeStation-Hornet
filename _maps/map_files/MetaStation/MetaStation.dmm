@@ -30547,7 +30547,7 @@
 /obj/structure/target_stake,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 8
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/shuttledock)
@@ -62514,16 +62514,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "rih" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/pipedispenser/disposal,
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
+	dir = 10
 	},
-/turf/open/floor/noslip/dark,
+/turf/open/floor/plasteel/grid/steel,
 /area/science/shuttledock)
 "riy" = (
 /obj/structure/cable/yellow{

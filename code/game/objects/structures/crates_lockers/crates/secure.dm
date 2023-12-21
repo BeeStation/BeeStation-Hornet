@@ -84,9 +84,8 @@
 	name = "\proper Exploration Contraband crate"
 	req_one_access = list(ACCESS_EXPLORATION, ACCESS_SECURITY)
 	icon_state = "weapon_crate"
-	icon_door_override = FALSE
 	
-/obj/structure/closet/crate/science/secure/populate_contents_immediate()
+/obj/structure/closet/crate/secure/science/contraband/populate_contents_immediate()
 	..()
 	new /obj/item/reagent_containers/food/drinks/syndicatebeer(src)
 	new /obj/item/reagent_containers/food/drinks/syndicatebeer(src)
