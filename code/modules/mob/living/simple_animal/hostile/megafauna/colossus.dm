@@ -489,7 +489,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		return
 	ActivationReaction(user, ACTIVATE_TOUCH)
 
-/obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/anomalous_crystal/on_attacked(obj/item/I, mob/living/user)
 	if(I.is_hot())
 		ActivationReaction(user, ACTIVATE_HEAT)
 	else

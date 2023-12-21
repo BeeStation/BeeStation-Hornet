@@ -211,9 +211,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	update_controls()
 	return
 
-/mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, params)
+/mob/living/simple_animal/bot/medbot/on_attacked(obj/item/I, mob/living/user, nonharmfulhit)
 	var/current_health = health
-	..()
+	. = ..()
 	if(health < current_health) //if medbot took some damage
 		step_to(src, (get_step_away(src,user)))
 

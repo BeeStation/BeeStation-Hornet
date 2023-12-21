@@ -615,10 +615,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	ui_update()
 	return
 
-/obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/modular_computer/item_interact(obj/item/item, mob/user, params)
 	// Check for ID first
 	if(istype(attacking_item, /obj/item/card/id) && InsertID(attacking_item))
-		return
+		return TRUE
 
 	// Scan a photo.
 	if(istype(attacking_item, /obj/item/photo))
@@ -630,19 +630,19 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 				messenger.ProcessPhoto()
 				to_chat(user, "<span class='notice'>You scan \the [pic] into \the [src]'s messenger.</span>")
 				ui_update()
-			return
+			return TRUE
 
 	// Insert items into the components
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]
 		if(H.try_insert(attacking_item, user))
 			ui_update()
-			return
+			return TRUE
 
 	// Insert a pAI card
 	if(can_store_pai && !stored_pai_card && istype(attacking_item, /obj/item/paicard))
 		if(!user.transferItemToLoc(attacking_item, src))
-			return
+			return TRUE
 		stored_pai_card = attacking_item
 		// If the pAI moves out of the PDA, remove the reference.
 		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
@@ -650,6 +650,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		to_chat(user, "<span class='notice'>You slot \the [attacking_item] into [src].</span>")
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 		update_icon()
+		return TRUE
 
 	// Insert new hardware
 	var/obj/item/computer_hardware/inserted_hardware = attacking_item
@@ -657,7 +658,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(install_component(inserted_hardware, user))
 			inserted_hardware.on_inserted(user)
 			ui_update()
-			return
+			return TRUE
 
 	if(attacking_item.tool_behaviour == TOOL_WRENCH)
 		if(length(all_components))
@@ -668,30 +669,30 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		user.balloon_alert(user, "disassembled")
 		relay_qdel()
 		qdel(src)
-		return
+		return TRUE
 
 	if(attacking_item.tool_behaviour == TOOL_WELDER)
 		if(obj_integrity == max_integrity)
 			to_chat(user, "<span class='warning'>\The [src] does not require repairs.</span>")
-			return
+			return TRUE
 
 		if(!attacking_item.tool_start_check(user, amount=1))
-			return
+			return TRUE
 
 		to_chat(user, "<span class='notice'>You begin repairing damage to \the [src]...</span>")
 		if(attacking_item.use_tool(src, user, 20, volume=50, amount=1))
 			obj_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 			update_icon()
-		return
+		return TRUE
 
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	// Check to see if we have an ID inside, and a valid input for money
 	if(card_slot?.GetID() && iscash(attacking_item))
 		var/obj/item/card/id/id = card_slot.GetID()
 		id.attackby(attacking_item, user) // If we do, try and put that attacking object in
-		return
-	..()
+		return TRUE
+	return ..()
 
 /// Handle when the pAI moves to exit the PDA
 /obj/item/modular_computer/proc/stored_pai_moved()

@@ -35,18 +35,18 @@
 	qdel(src)
 	user.put_in_hands(internal_paper_tmp)
 
-/obj/item/origami/paperplane/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/item/origami/paperplane/item_interact(obj/item/P, mob/living/carbon/human/user, params)
 	if(burn_paper_product_attackby_check(P, user))
-		return
+		return TRUE
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
-		return
+		return TRUE
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
 		internalPaper.attackby(P, user) //spoofed attack to update internal paper.
 		update_icon()
 		add_fingerprint(user)
-		return
+		return TRUE
 
 	return ..()
 

@@ -169,14 +169,17 @@
 	else
 		default_raw_text += "<i>[signature]</i>"
 
-/obj/item/paper/contract/infernal/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/item/paper/contract/infernal/item_interact(obj/item/P, mob/living/carbon/human/user, params)
 	add_fingerprint(user)
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		attempt_signature(user)
+		return TRUE
 	else if(istype(P, /obj/item/stamp))
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp, however the ink ignites as you release the stamp.</span>")
+		return TRUE
 	else if(P.is_hot())
 		user.visible_message("<span class='danger'>[user] brings [P] next to [src], but [src] does not catch fire!</span>", "<span class='danger'>[src] refuses to ignite!</span>")
+		return TRUE
 	else
 		return ..()
 

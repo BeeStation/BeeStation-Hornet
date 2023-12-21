@@ -350,38 +350,23 @@
 		discipline_slime(M)
 
 
-/mob/living/simple_animal/slime/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/slime/item_interact(obj/item/item, mob/user, params)
 	if(stat == DEAD && surgeries.len)
 		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user,user.a_intent))
-					return 1
+					return TRUE
 	if(istype(W, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
 		add_friendship(user, 1)
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
-		return
-	if(W.force > 0)
-		attacked += 10
-		if(prob(25))
-			user.do_attack_animation(src)
-			user.changeNext_move(CLICK_CD_MELEE)
-			to_chat(user, "<span class='danger'>[W] passes right through [src]!</span>")
-			return
-		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
-			Discipline = 0
-	if(W.force >= 3)
-		var/force_effect = 2 * W.force
-		if(is_adult)
-			force_effect = round(W.force/2)
-		if(prob(10 + force_effect))
-			discipline_slime(user)
+		return TRUE
 	if(istype(W, /obj/item/storage/bag/bio))
 		var/obj/item/storage/P = W
 		if(!effectmod)
 			to_chat(user, "<span class='warning'>The slime is not currently being mutated.</span>")
-			return
+			return TRUE
 		var/hasOutput = FALSE //Have we outputted text?
 		var/hasFound = FALSE //Have we found an extract to be added?
 		for(var/obj/item/slime_extract/S in P.contents)
@@ -402,8 +387,27 @@
 			else
 				to_chat(user, "<span class='notice'>You feed the slime some extracts from the bag.</span>")
 				playsound(src, 'sound/effects/attackblob.ogg', 50, 1)
-		return
-	..()
+		return TRUE
+	if(item.force > 0)
+		if(prob(25))
+			user.do_attack_animation(src)
+			user.changeNext_move(CLICK_CD_MELEE)
+			to_chat(user, "<span class='danger'>[W] passes right through [src]!</span>")
+			return TRUE
+	return ..()
+
+/mob/living/simple_animal/slime/on_attacked(obj/item/W, mob/living/user, nonharmfulhit)
+	if(W.force > 0)
+		attacked += 10
+		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
+			Discipline = 0
+	if(W.force >= 3)
+		var/force_effect = 2 * W.force
+		if(is_adult)
+			force_effect = round(W.force/2)
+		if(prob(10 + force_effect))
+			discipline_slime(user)
+	. = ..()
 
 /mob/living/simple_animal/slime/proc/spawn_corecross(mob/living/user)
 	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)

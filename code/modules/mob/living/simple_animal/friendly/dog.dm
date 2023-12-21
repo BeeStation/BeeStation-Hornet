@@ -268,14 +268,14 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			armorval *= 1 - min((inventory_back.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
 	return (1 - armorval) * 100
 
-/mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/pet/dog/corgi/item_interact(obj/item/item, mob/user, params)
 	if (istype(O, /obj/item/razor))
 		if (shaved)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
-			return
+			return TRUE
 		if (nofur)
 			to_chat(user, "<span class='warning'> You can't shave this corgi, it doesn't have a fur coat!</span>")
-			return
+			return TRUE
 		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
 		if(do_after(user, 50, target = src))
 			user.visible_message("[user] shaves [src]'s hair using \the [O].")
@@ -287,8 +287,9 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 				icon_state = icon_living
 			else
 				icon_state = icon_dead
-		return
-	..()
+		update_corgi_fluff()
+		return TRUE
+	. = ..()
 	update_corgi_fluff()
 
 //Corgis are supposed to be simpler, so only a select few objects can actually be put

@@ -134,46 +134,52 @@ By design, d1 is the smallest direction and d2 is the highest
 	add_atom_colour(cable_color, FIXED_COLOUR_PRIORITY)
 
 /obj/structure/cable/proc/handlecable(obj/item/W, mob/user, params)
+	add_fingerprint(user)
 	var/turf/T = get_turf(src)
 	if(T.intact)
-		return
+		return TRUE
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(d1 == UP || d2 == UP)
 			to_chat(user, "<span class='warning'>You must cut this cable from above.</span>")
-			return
+			return TRUE
 		if (shock(user, 50))
-			return
+			return TRUE
 		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
 		investigate_log("was cut by [key_name(usr)] in [AREACOORD(src)]", INVESTIGATE_WIRES)
 		deconstruct()
-		return
+		return TRUE
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
 		if (coil.get_amount() < 1)
 			to_chat(user, "<span class='warning'>Not enough cable!</span>")
-			return
+			return TRUE
 		coil.cable_join(src, user)
+		return TRUE
 
 	else if(istype(W, /obj/item/rcl))
 		var/obj/item/rcl/R = W
 		if(R.loaded)
 			R.loaded.cable_join(src, user)
 			R.is_empty(user)
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_MULTITOOL)
 		to_chat(user, get_power_info())
 		shock(user, 5, 0.2)
+		return TRUE
 
-	add_fingerprint(user)
+	return FALSE
 
 // Items usable on a cable :
 //   - Wirecutters : cut it duh !
 //   - Cable coil : merge cables
 //   - Multitool : get the power currently passing through the cable
 //
-/obj/structure/cable/attackby(obj/item/W, mob/user, params)
-	handlecable(W, user, params)
+/obj/structure/cable/item_interact(obj/item/W, mob/user, params)
+	if (handlecable(W, user, params))
+		return TRUE
+	return ..()
 
 /obj/structure/cable/examine(mob/user)
 	. = ..()

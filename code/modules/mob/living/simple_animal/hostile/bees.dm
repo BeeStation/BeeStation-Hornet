@@ -267,7 +267,7 @@
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 
-/obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
+/obj/item/queen_bee/item_interact(obj/item/item, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 		if(S.reagents.has_reagent(/datum/reagent/royal_bee_jelly)) //checked twice, because I really don't want royal bee jelly to be duped
@@ -290,7 +290,8 @@
 				name = queen.name
 			else
 				to_chat(user, "<span class='warning'>You don't have enough units of that chemical to modify the bee's DNA!</span>")
-	..()
+		return TRUE
+	return ..()
 
 
 /obj/item/queen_bee/bought/Initialize(mapload)

@@ -147,17 +147,20 @@
 		src.visible_message("The [src.name] was bruised!")
 		bruised = 1
 
-/mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/hostile/mushroom/item_interact(obj/item/item, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/mushroom))
 		if(stat == DEAD && !recovery_cooldown)
 			Recover()
 			qdel(I)
 		else
 			to_chat(user, "<span class='warning'>[src] won't eat it!</span>")
-		return
+		return TRUE
+	return ..()
+
+/mob/living/simple_animal/hostile/mushroom/on_attacked(obj/item/I, mob/living/user)
 	if(I.force)
 		Bruise()
-	..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/mushroom/attack_hand(mob/living/carbon/human/M)
 	..()

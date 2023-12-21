@@ -5,10 +5,6 @@
 // /atom signals
 ///from base of atom/proc/Initialize(mapload): sent any time a new atom is created
 #define COMSIG_ATOM_CREATED "atom_created"
-///! from base of atom/attackby(): (/obj/item, /mob/living, params)
-#define COMSIG_PARENT_ATTACKBY "atom_attackby"
-	///! Return this in response if you don't want afterattack to be called
-	#define COMPONENT_NO_AFTERATTACK 1
 ///! from base of atom/attack_hulk(): (/mob/living/carbon/human)
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 /// from base of atom/examine(): (/mob, list/examine_text)

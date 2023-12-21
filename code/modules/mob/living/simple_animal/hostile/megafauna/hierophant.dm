@@ -699,7 +699,7 @@ Difficulty: Hard
 /obj/effect/hierophant/ex_act()
 	return
 
-/obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
+/obj/effect/hierophant/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/H = I
 		if(H.timer > world.time)
@@ -720,5 +720,6 @@ Difficulty: Hard
 				INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
 		else
 			to_chat(user, "<span class='hierophant_warning'>You touch the beacon with the club, but nothing happens.</span>")
+		return TRUE
 	else
 		return ..()

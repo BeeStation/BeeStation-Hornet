@@ -57,15 +57,16 @@
 	qdel(src)
 	user.put_in_hands(internal_paper_tmp)
 
-/obj/item/origami/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/item/origami/item_interact(obj/item/P, mob/living/carbon/human/user, params)
 	..()
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
-		return
+		return TRUE
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on origami
 		internalPaper.attackby(P, user) //spoofed attack to update internal paper.
 		update_icon()
+		return TRUE
 
 	else if(P.is_hot())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
@@ -74,15 +75,17 @@
 			user.dropItemToGround(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
-			return
+			return TRUE
 
 		if(!(in_range(user, src))) //to prevent issues as a result of telepathically lighting a paper
-			return
+			return TRUE
 		user.dropItemToGround(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
+		return TRUE
 
 	add_fingerprint(user)
+	return ..()
 
 /obj/item/origami/papercrane
 	name = "paper crane"

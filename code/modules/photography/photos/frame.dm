@@ -11,16 +11,17 @@
 	pixel_shift = -32
 	var/obj/item/photo/displayed
 
-/obj/item/wallframe/picture/attackby(obj/item/I, mob/user)
+/obj/item/wallframe/picture/item_interact(obj/item/I, mob/user)
 	if(istype(I, /obj/item/photo))
 		if(!displayed)
 			if(!user.transferItemToLoc(I, src))
-				return
+				return TRUE
 			displayed = I
 			update_icon()
 		else
 			to_chat(user, "<span class=notice>\The [src] already contains a photo.</span>")
-	..()
+		return TRUE
+	return ..()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/wallframe/picture/attack_hand(mob/user)
@@ -111,19 +112,20 @@
 	else
 		return ..()
 
-/obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/sign/picture_frame/item_interact(obj/item/I, mob/user, params)
 	if(can_decon && (I.tool_behaviour == TOOL_SCREWDRIVER || I.tool_behaviour == TOOL_WRENCH))
 		to_chat(user, "<span class='notice'>You start unsecuring [name]...</span>")
 		if(I.use_tool(src, user, 30, volume=50))
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You unsecure [name].</span>")
 			deconstruct()
+		return TRUE
 
 	else if(I.tool_behaviour == TOOL_WIRECUTTER && framed)
 		framed.forceMove(drop_location())
 		framed = null
 		user.visible_message("<span class='warning'>[user] cuts away [framed] from [src]!</span>")
-		return
+		return TRUE
 
 	else if(istype(I, /obj/item/photo))
 		if(!framed)
@@ -134,8 +136,9 @@
 			update_icon()
 		else
 			to_chat(user, "<span class=notice>\The [src] already contains a photo.</span>")
+		return TRUE
 
-	..()
+	return ..()
 
 /obj/structure/sign/picture_frame/attack_hand(mob/user)
 	. = ..()

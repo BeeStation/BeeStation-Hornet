@@ -376,20 +376,20 @@
 		return
 	togglelock(user)
 
-/mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
+/mob/living/silicon/robot/item_interact(obj/item/I, mob/living/user)
 	if(length(user.progressbars))
 		if(W.tool_behaviour == TOOL_WELDER || istype(W, /obj/item/stack/cable_coil))
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, "<span class='notice'>You are already busy!</span>")
-			return
+			return TRUE
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(user == src)
 			to_chat(user, "<span class='warning'>You are unable to maneuver [W] properly to repair yourself, seek assistance!</span>")
-			return
+			return TRUE
 		if (!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
-			return
+			return TRUE
 		//repeatedly repairs until the cyborg is fully repaired
 		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 3 SECONDS))
 			W.use(1) //use one fuel for each repair step
@@ -403,7 +403,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!(getFireLoss() || getToxLoss()))
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
-			return
+			return TRUE
 		var/obj/item/stack/cable_coil/coil = W
 		while((getFireLoss() || getToxLoss()) && do_after(user, 30, target = src))
 			if(coil.use(1))
@@ -414,6 +414,7 @@
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
 			else
 				to_chat(user, "<span class='warning'>You need more cable to repair [src]!</span>")
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_CROWBAR)	// crowbar means open or close the cover
 		if(opened)
@@ -429,6 +430,7 @@
 					Paralyze(5 SECONDS)
 				opened = 1
 				update_icons()
+		return TRUE
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>Close the cover first!</span>")
@@ -441,17 +443,20 @@
 			to_chat(user, "<span class='notice'>You insert the power cell.</span>")
 		update_icons()
 		diag_hud_set_borgcell()
+		return TRUE
 
 	else if(is_wire_tool(W))
 		if (wiresexposed)
 			wires.interact(user)
 		else
 			to_chat(user, "<span class='warning'>You can't reach the wiring!</span>")
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER && opened && !cell)	// haxing
 		wiresexposed = !wiresexposed
 		to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"].")
 		update_icons()
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER && opened && cell)	// radio
 		if(shell)
@@ -461,50 +466,54 @@
 		else
 			to_chat(user, "<span class='warning'>Unable to locate a radio!</span>")
 		update_icons()
+		return TRUE
 
 	else if(W.tool_behaviour == TOOL_WRENCH && opened && !cell) //Deconstruction. The flashes break from the fall, to prevent this from being a ghetto reset module.
 		if(!lockcharge)
 			to_chat(user, "<span class='boldannounce'>[src]'s bolts spark! Maybe you should lock them down first!</span>")
 			spark_system.start()
-			return
+			return TRUE
 		else
 			to_chat(user, "<span class='notice'>You start to unfasten [src]'s securing bolts.</span>")
 			if(W.use_tool(src, user, 50, volume=50) && !cell)
 				user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
 				log_attack("[key_name(user)] deconstructed [name] at [AREACOORD(src)].")
 				deconstruct()
+		return TRUE
 
 	else if(istype(W, /obj/item/aiModule))
 		var/obj/item/aiModule/MOD = W
 		if(!opened)
 			to_chat(user, "<span class='warning'>You need access to the robot's insides to do that!</span>")
-			return
+			return TRUE
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>You need to close the wire panel to do that!</span>")
-			return
+			return TRUE
 		if(!cell)
 			to_chat(user, "<span class='warning'>You need to install a power cell to do that!</span>")
-			return
+			return TRUE
 		if(shell) //AI shells always have the laws of the AI
 			to_chat(user, "<span class='warning'>[src] is controlled remotely! You cannot upload new laws this way!</span>")
-			return
+			return TRUE
 		if(emagged || (connected_ai && lawupdate)) //Can't be sure which, metagamers
 			emote("buzz-[user.name]")
-			return
+			return TRUE
 		if(!mind) //A player mind is required for law procs to run antag checks.
 			to_chat(user, "<span class='warning'>[src] is entirely unresponsive!</span>")
-			return
+			return TRUE
 		MOD.install(laws, user) //Proc includes a success mesage so we don't need another one
-		return
+		return TRUE
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
 		if(radio)//sanityyyyyy
 			radio.attackby(W,user)//GTFO, you have your own procs
 		else
 			to_chat(user, "<span class='warning'>Unable to locate a radio!</span>")
+		return TRUE
 
 	else if (istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))			// trying to unlock the interface with an ID card
 		togglelock(user)
+		return TRUE
 
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
@@ -516,7 +525,7 @@
 			to_chat(user, "<span class='warning'>The upgrade is locked and cannot be used yet!</span>")
 		else
 			if(!user.temporarilyRemoveItemFromInventory(U))
-				return
+				return TRUE
 			if(U.action(src))
 				to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
 				to_chat(src, "----------------\nNew hardware detected...Identified as \"<b>[U]</b>\"...Setup complete.\n----------------")
@@ -535,10 +544,11 @@
 			to_chat(user, "<span class='warning'>The toner level of [src] is at its highest level possible!</span>")
 		else
 			if(!user.temporarilyRemoveItemFromInventory(W))
-				return
+				return TRUE
 			toner = tonermax
 			qdel(W)
 			to_chat(user, "<span class='notice'>You fill the toner level of [src] to its max capacity.</span>")
+		return TRUE
 
 	else if(istype(W, /obj/item/flashlight))
 		if(!opened)
@@ -548,17 +558,19 @@
 		else
 			if(!user.temporarilyRemoveItemFromInventory(W))
 				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand. You'll have to find a different light.</span>")
-				return
+				return TRUE
 			lamp_functional = TRUE
 			qdel(W)
 			to_chat(user, "<span class='notice'>You replace the headlamp bulbs.</span>")
+		return TRUE
 	else if(istype(W, /obj/item/computer_hardware/hard_drive/portable)) //Allows borgs to install new programs with human help
 		if(!modularInterface)
 			stack_trace("Cyborg [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 			create_modularInterface()
 		var/obj/item/computer_hardware/hard_drive/portable/floppy = W
 		if(modularInterface.install_component(floppy, user))
-			return
+			return TRUE
+		return TRUE
 	else
 		return ..()
 

@@ -76,17 +76,17 @@
 /obj/item/camera/attack_mob_target(mob/living/carbon/human/M, mob/user)
 	return
 
-/obj/item/camera/attackby(obj/item/I, mob/user, params)
+/obj/item/camera/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/camera_film))
 		if(pictures_left)
 			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
-			return
+			return TRUE
 		if(!user.temporarilyRemoveItemFromInventory(I))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		qdel(I)
 		pictures_left = pictures_max
-		return
+		return TRUE
 	if(istype(I, /obj/item/disk/holodisk))
 		if (!disk)
 			if(!user.transferItemToLoc(I, src))
@@ -96,8 +96,8 @@
 			disk = I
 		else
 			to_chat(user, "<span class='warning'>There's already a disk inside [src].</span>")
-		return TRUE //no afterattack
-	..()
+		return TRUE //no attack
+	return ..()
 
 /obj/item/camera/examine(mob/user)
 	. = ..()

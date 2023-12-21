@@ -23,20 +23,23 @@
 	if(P.tagname && !unique_pet)
 		fully_replace_character_name(null, "\proper [P.tagname]")
 
-/mob/living/simple_animal/pet/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/pet/item_interact(obj/item/item, mob/user, params)
 	if(istype(O, /obj/item/clothing/neck/petcollar) && !pcollar && collar_type)
 		add_collar(O, user)
-		return
+		return TRUE
 
 	if(istype(O, /obj/item/newspaper))
+		item.do_attack_animation(src)
+		add attack animation
 		if(!stat)
 			user.visible_message("[user] baps [name] on the nose with the rolled up [O].")
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2))
 					setDir(i)
 					sleep(1)
+		return TRUE
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/pet/Initialize(mapload)
 	. = ..()

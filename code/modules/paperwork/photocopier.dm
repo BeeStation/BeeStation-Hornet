@@ -389,9 +389,9 @@
 		object.forceMove(drop_location())
 	to_chat(user, "<span class='notice'>You take [object] out of [src]. [busy ? "The [src] comes to a halt." : ""]</span>")
 
-/obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
+/obj/machinery/photocopier/item_interact(obj/item/O, mob/user, params)
 	if(default_unfasten_wrench(user, O))
-		return
+		return TRUE
 
 	else if(istype(O, /obj/item/paper))
 		if(copier_empty())
@@ -406,35 +406,40 @@
 				do_insertion(O, user)
 		else
 			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+		return TRUE
 
 	else if(istype(O, /obj/item/photo))
 		if(copier_empty())
 			if(!user.temporarilyRemoveItemFromInventory(O))
-				return
+				return TRUE
 			paper_copy = O
 			do_insertion(O, user)
 		else
 			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+		return TRUE
 
 	else if(istype(O, /obj/item/documents))
 		if(copier_empty())
 			if(!user.temporarilyRemoveItemFromInventory(O))
-				return
+				return TRUE
 			document_copy = O
 			do_insertion(O, user)
 		else
 			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+		return TRUE
 
 	else if(istype(O, /obj/item/toner))
 		if(toner_cartridge)
 			to_chat(user, "<span class='warning'>[src] already has a toner cartridge inserted. Remove that one first.</span>")
-			return
+			return TRUE
 		O.forceMove(src)
 		toner_cartridge = O
 		to_chat(user, "<span class='notice'>You insert [O] into [src].</span>")
+		return TRUE
 
 	else if(istype(O, /obj/item/areaeditor/blueprints))
 		to_chat(user, "<span class='warning'>The Blueprint is too large to put into the copier. You need to find something else to record the document.</span>")
+		return TRUE
 	else
 		return ..()
 

@@ -58,9 +58,10 @@
 	else if(src != M)
 		return ..()
 
-/mob/living/simple_animal/shade/attackby(obj/item/O, mob/user, params)  //Marker -Agouri
+/mob/living/simple_animal/shade/item_interact(obj/item/item, mob/user, params)
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		SS.transfer_soul("SHADE", src, user)
+		return TRUE
 	else
 		. = ..()

@@ -98,22 +98,24 @@
 	add_fingerprint(user)
 	return ..()
 
-/obj/item/paper_bin/attackby(obj/item/I, mob/user, params)
+/obj/item/paper_bin/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/paper))
 		var/obj/item/paper/P = I
 		if(!user.transferItemToLoc(P, src))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
 		papers.Add(P)
 		total_paper++
 		update_icon()
+		return TRUE
 	else if(istype(I, /obj/item/pen) && !bin_pen)
 		var/obj/item/pen/P = I
 		if(!user.transferItemToLoc(P, src))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
 		bin_pen = P
 		update_icon()
+		return TRUE
 	else
 		return ..()
 
@@ -155,7 +157,7 @@
 /obj/item/paper_bin/bundlenatural/fire_act(exposed_temperature, exposed_volume)
 	qdel(src)
 
-/obj/item/paper_bin/bundlenatural/attackby(obj/item/W, mob/user)
+/obj/item/paper_bin/bundlenatural/item_interact(obj/item/W, mob/user)
 	if(W.is_sharp())
 		to_chat(user, "<span class='notice'>You snip \the [src], spilling paper everywhere.</span>")
 		var/turf/T = get_turf(src.loc)
@@ -170,5 +172,6 @@
 				P.forceMove(T)
 			CHECK_TICK
 		qdel(src)
+		return TRUE
 	else
-		..()
+		return ..()

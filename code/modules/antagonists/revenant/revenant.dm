@@ -224,7 +224,7 @@
 
 //damage, gibbing, and dying
 ///BACONTODO: Make this an on attack thing
-/mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/revenant/on_attacked(obj/item/I, mob/living/user, nonharmfulhit)
 	. = ..()
 	if(istype(W, /obj/item/nullrod))
 		visible_message("<span class='warning'>[src] violently flinches!</span>", \

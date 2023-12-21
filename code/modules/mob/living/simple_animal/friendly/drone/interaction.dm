@@ -78,7 +78,7 @@
 		to_chat(user, "<span class='warning'>You need to remain still to reactivate [src]!</span>")
 
 
-/mob/living/simple_animal/drone/attackby(obj/item/I, mob/user)
+/mob/living/simple_animal/drone/item_interact(obj/item/item, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER && stat != DEAD)
 		if(health < maxHealth)
 			to_chat(user, "<span class='notice'>You start to tighten loose screws on [src]...</span>")
@@ -89,7 +89,7 @@
 				to_chat(user, "<span class='warning'>You need to remain still to tighten [src]'s screws!</span>")
 		else
 			to_chat(user, "<span class='warning'>[src]'s screws can't get any tighter!</span>")
-		return //This used to not exist and drones who repaired themselves also stabbed the shit out of themselves.
+		return TRUE //This used to not exist and drones who repaired themselves also stabbed the shit out of themselves.
 	else if(I.tool_behaviour == TOOL_WRENCH && user != src) //They aren't required to be hacked, because laws can change in other ways (i.e. admins)
 		user.visible_message("<span class='notice'>[user] starts resetting [src]...</span>", \
 							 "<span class='notice'>You press down on [src]'s factory reset control...</span>")
@@ -97,9 +97,9 @@
 			user.visible_message("<span class='notice'>[user] resets [src]!</span>", \
 								 "<span class='notice'>You reset [src]'s directives to factory defaults!</span>")
 			update_drone_hack(FALSE)
-		return
+		return TRUE
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/drone/getarmor(def_zone, type, penetration)
 	var/armorval = 0

@@ -137,7 +137,8 @@
 	master = C
 	master.active_dummy = src
 
-/obj/effect/dummy/chameleon/attackby()
+/obj/effect/dummy/chameleon/on_attacked(obj/item/I, mob/living/user)
+	..()
 	master.disrupt()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE

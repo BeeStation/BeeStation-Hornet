@@ -45,22 +45,25 @@
 			I.forceMove(loc)
 	qdel(src)
 
-/obj/structure/filingcabinet/attackby(obj/item/P, mob/user, params)
+/obj/structure/filingcabinet/item_interact(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/documents))
 		if(!user.transferItemToLoc(P, src))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
 		icon_state = "[initial(icon_state)]-open"
 		sleep(5)
 		icon_state = initial(icon_state)
 		updateUsrDialog()
+		return TRUE
 	else if(P.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
 		if(P.use_tool(src, user, 20, volume=50))
 			to_chat(user, "<span class='notice'>You successfully [anchored ? "unwrench" : "wrench"] [src].</span>")
 			anchored = !anchored
+		return TRUE
 	else if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
+		return TRUE
 	else
 		return ..()
 

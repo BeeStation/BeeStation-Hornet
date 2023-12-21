@@ -106,7 +106,7 @@
 	. = ..()
 	update_icon()
 
-/turf/open/floor/grass/attackby(obj/item/C, mob/user, params)
+/turf/open/floor/grass/item_interact(obj/item/C, mob/user, params)
 	if((C.tool_behaviour == TOOL_SHOVEL) && params)
 		new ore_type(src, 2)
 		user.visible_message("[user] digs up [src].", "<span class='notice'>You [turfverb] [src].</span>")

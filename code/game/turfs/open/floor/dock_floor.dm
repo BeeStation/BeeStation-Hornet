@@ -35,7 +35,7 @@
 			return TRUE
 	return TRUE
 
-/turf/open/floor/dock/drydock/attackby(obj/item/C, mob/user, params)
+/turf/open/floor/dock/drydock/item_interact(obj/item/C, mob/user, params)
 	..()
 	var/can_build = CanBuildHere()
 	if(istype(C, /obj/item/stack/rods))

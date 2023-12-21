@@ -138,7 +138,7 @@
 	reached_target = FALSE
 	new_destination = null
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/item_interact(obj/item/item, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		. = ..()
 		if(open)
@@ -148,16 +148,16 @@
 	else if(istype(I, /obj/item/stock_parts/cell) && open)
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a power cell!</span>")
-			return
+			return TRUE
 		if(!user.transferItemToLoc(I, src))
-			return
+			return TRUE
 		cell = I
 		visible_message("<span class='notice'>[user] inserts \a [cell] into [src].</span>",
 						"<span class='notice'>You insert [cell] into [src].</span>")
 	else if(I.tool_behaviour == TOOL_CROWBAR && open && user.a_intent != INTENT_HARM)
 		if(!cell)
 			to_chat(user, "<span class='warning'>[src] doesn't have a power cell!</span>")
-			return
+			return TRUE
 		cell.add_fingerprint(user)
 		if(Adjacent(user) && !issilicon(user))
 			user.put_in_hands(cell)
@@ -178,6 +178,7 @@
 			return ..()
 	else
 		return ..()
+	return TRUE
 
 /mob/living/simple_animal/bot/mulebot/on_emag(atom/target, mob/user)
 	if(!emagged)

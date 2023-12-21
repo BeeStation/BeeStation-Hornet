@@ -176,19 +176,19 @@
 		fax_name = new_fax_name
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/fax/attackby(obj/item/item, mob/user, params)
+/obj/machinery/fax/item_interact(obj/item/item, mob/user, params)
 	if(jammed && clear_jam(item, user))
-		return
+		return TRUE
 	if(panel_open)
 		if(is_wire_tool(item))
 			wires.interact(user)
-		return
+		return TRUE
 	if(can_load_item(item))
 		if(!loaded_item_ref?.resolve())
 			loaded_item_ref = WEAKREF(item)
 			item.forceMove(src)
 			update_icon()
-		return
+		return TRUE
 	return ..()
 
 /**

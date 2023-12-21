@@ -897,7 +897,7 @@
 	cloth_golem = null
 	qdel(src)
 
-/obj/structure/cloth_pile/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/structure/cloth_pile/item_interact(obj/item/item, mob/user, params)
 	. = ..()
 
 	if(resistance_flags & ON_FIRE)
@@ -906,6 +906,7 @@
 	if(P.is_hot())
 		visible_message("<span class='danger'>[src] bursts into flames!</span>")
 		fire_act()
+		return TRUE
 
 /datum/species/golem/plastic
 	name = "Plastic Golem"

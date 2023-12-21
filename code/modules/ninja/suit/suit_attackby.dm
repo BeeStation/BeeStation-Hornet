@@ -1,6 +1,6 @@
 
 
-/obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/U, params)
+/obj/item/clothing/suit/space/space_ninja/item_interact(obj/item/W, mob/user, params)
 	if(U!=affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
 		return ..()
 
@@ -9,12 +9,12 @@
 			I.reagents.remove_reagent(/datum/reagent/uranium/radium, a_transfer)
 			a_boost++;
 			to_chat(U, "<span class='notice'>There are now [a_boost] adrenaline boosts remaining.</span>")
-			return
+			return TRUE
 		if(I.reagents.has_reagent(/datum/reagent/smoke_powder, a_transfer) && s_bombs < s_maxamount)
 			I.reagents.remove_reagent(/datum/reagent/smoke_powder, a_transfer)
 			s_bombs++;
 			to_chat(U, "<span class='notice'>There are now [s_bombs] smoke bombs remaining.</span>")
-			return
+			return TRUE
 
 
 	else if(istype(I, /obj/item/stock_parts/cell))
@@ -34,7 +34,7 @@
 				to_chat(U, "<span class='notice'>Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%</span>")
 			else
 				to_chat(U, "<span class='danger'>Procedure interrupted. Protocol terminated.</span>")
-		return
+		return TRUE
 
 	else if(istype(I, /obj/item/disk/tech_disk))//If it's a data disk, we want to copy the research on to the suit.
 		var/obj/item/disk/tech_disk/TD = I
@@ -48,5 +48,5 @@
 				to_chat(U, "<span class='userdanger'>ERROR</span>: Procedure interrupted. Process terminated.")
 		else
 			to_chat(U, "<span class='notice'>No research information detected.</span>")
-		return
+		return TRUE
 	return ..()

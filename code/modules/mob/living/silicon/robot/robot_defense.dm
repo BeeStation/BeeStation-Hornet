@@ -8,7 +8,7 @@
 		return TRUE
 	return ..()
 
-/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user, params)
+/mob/living/silicon/robot/on_attacked(obj/item/I, mob/living/user)
 	if(I.force && I.damtype != STAMINA_DAMTYPE && stat != DEAD) //only sparks if real damage is dealt.
 		spark_system.start()
 	return ..()

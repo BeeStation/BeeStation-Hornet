@@ -290,7 +290,7 @@
 		GLOB.total_chickens--
 	return ..()
 
-/mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/chicken/item_interact(obj/item/item, mob/user, params)
 	if(istype(O, food_type)) //feedin' dem chickens
 		if(!stat && eggsleft < 8)
 			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"
@@ -299,8 +299,9 @@
 			eggsleft += rand(1, 4)
 		else
 			to_chat(user, "<span class='warning'>[name] doesn't seem hungry!</span>")
+		return TRUE
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/chicken/Life()
 	. =..()

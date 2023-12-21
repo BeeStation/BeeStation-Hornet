@@ -50,17 +50,17 @@
 /obj/item/computer_hardware/proc/on_inserted()
 	return
 
-/obj/item/computer_hardware/attackby(obj/item/I, mob/living/user)
+/obj/item/computer_hardware/item_interact(obj/item/item, mob/user, params)
 	// Cable coil. Works as repair method, but will probably require multiple applications and more cable.
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/S = I
 		if(obj_integrity == max_integrity)
 			to_chat(user, "<span class='warning'>\The [src] doesn't seem to require repairs.</span>")
-			return 1
+			return TRUE
 		if(S.use(1))
 			to_chat(user, "<span class='notice'>You patch up \the [src] with a bit of \the [I].</span>")
 			obj_integrity = min(obj_integrity + 10, max_integrity)
-		return 1
+		return TRUE
 
 	if(try_insert(I, user))
 		return TRUE

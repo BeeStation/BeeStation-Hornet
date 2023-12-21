@@ -52,7 +52,7 @@
 			return
 
 //Mobs with objects
-/mob/living/simple_animal/turtle/attackby(obj/item/O, mob/living/user, params)
+/mob/living/simple_animal/turtle/on_attacked(obj/item/I, mob/living/user, nonharmfulhit)
 	if(!stat && !client && !istype(O, /obj/item/stack/medical))
 		if(O.force)
 			if(icon_state == icon_hiding)

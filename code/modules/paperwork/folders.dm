@@ -62,19 +62,22 @@
 	if(LAZYLEN(contents))
 		. += "folder_paper"
 
-/obj/item/folder/attackby(obj/item/W, mob/user, params)
+/obj/item/folder/item_interact(obj/item/W, mob/user, params)
 	if(burn_paper_product_attackby_check(W, user))
-		return
+		return TRUE
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/documents))
 		//Add paper, photo or documents into the folder
 		if(!user.transferItemToLoc(W, src))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
 		update_icon()
 		ui_update()
+		return TRUE
 	else if(istype(W, /obj/item/pen))
 		rename(user)
 		ui_update()
+		return TRUE
+	return ..()
 
 /obj/item/folder/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

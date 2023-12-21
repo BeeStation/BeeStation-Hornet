@@ -83,12 +83,13 @@
 	else
 		to_chat(user, "<span class='notice'>You turn off [src].</span>")
 
-/obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
-	..()
+/obj/item/hand_labeler/item_interact(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		qdel(I)
 		labels_left = initial(labels_left)	//Yes, it's capped at its initial value
+		return TRUE
+	..()
 
 /obj/item/hand_labeler/borg
 	name = "cyborg-hand labeler"

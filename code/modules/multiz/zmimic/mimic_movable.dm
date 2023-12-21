@@ -45,7 +45,7 @@
 /atom/movable/openspace/singularity_pull()
 	return
 
-/atom/movable/openspace/attackby(obj/item/W, mob/user, params)
+/atom/movable/openspace/item_interact(obj/item/item, mob/user, params)
 	return
 
 /atom/movable/openspace/fire_act(exposed_temperature, exposed_volume)
@@ -176,7 +176,7 @@
 		deltimer(destruction_timer)
 	return ..()
 
-/atom/movable/openspace/mimic/attackby(obj/item/W, mob/user)
+/atom/movable/openspace/mimic/item_interact(obj/item/item, mob/user, params)
 	to_chat(user, "<span class='notice'>\The [src] is too far away.</span>")
 	return TRUE
 
@@ -209,8 +209,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	zmm_flags = ZMM_IGNORE  // Only one of these should ever be visible at a time, the mimic logic will handle that.
 
-/atom/movable/openspace/turf_proxy/attackby(obj/item/W, mob/user)
-	return loc.attackby(W, user)
+/atom/movable/openspace/turf_proxy/item_interact(obj/item/W, mob/user, params)
+	return loc.item_interact(W, user)
 
 /atom/movable/openspace/turf_proxy/attack_hand(mob/user as mob)
 	return loc.attack_hand(user)
@@ -232,8 +232,8 @@
 	ASSERT(isturf(loc))
 	delegate = loc:below
 
-/atom/movable/openspace/turf_mimic/attackby(obj/item/W, mob/user)
-	loc.attackby(W, user)
+/atom/movable/openspace/turf_mimic/item_interact(obj/item/item, mob/user, params)
+	return loc.attackby(item, user)
 
 /atom/movable/openspace/turf_mimic/attack_hand(mob/user as mob)
 	to_chat(user, "<span class='notice'>You cannot reach \the [src] from here.</span>")

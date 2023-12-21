@@ -73,23 +73,26 @@
 		ui_update()
 	return TRUE
 
-/obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user)
-	. = ..()
+/obj/item/modular_computer/tablet/item_interact(obj/item/item, mob/user, params)
+	if(..())
+		return TRUE
 
 	if(is_type_in_list(attacking_item, contained_item))
 		if(attacking_item.w_class >= WEIGHT_CLASS_SMALL) // Prevent putting spray cans, pipes, etc (subtypes of pens/crayons)
-			return
+			return TRUE
 		if(inserted_item)
 			to_chat(user, "<span class='warning'>There is already \a [inserted_item] in \the [src]!</span>")
 		else
 			if(!user.transferItemToLoc(attacking_item, src))
-				return
+				return TRUE
 			to_chat(user, "<span class='notice'>You insert \the [attacking_item] into \the [src].</span>")
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 			update_icon()
+			return TRUE
 	if(!try_scan_paper(attacking_item, user))
-		return
+		return TRUE
+	return FALSE
 
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))

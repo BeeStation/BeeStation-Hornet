@@ -110,16 +110,18 @@
 	holder?.ui_update()
 	return TRUE
 
-/obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)
+/obj/item/computer_hardware/card_slot/item_interact(obj/item/I, mob/user, params)
 	if(..())
-		return
+		return TRUE
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(stored_card)
 			to_chat(user, "<span class='notice'>You press down on the manual eject button with \the [I].</span>")
 			try_eject(user)
-			return
+			return TRUE
 		swap_slot()
 		to_chat(user, "<span class='notice'>You adjust the connector to fit into [expansion_hw ? "an expansion bay" : "the primary ID bay"].</span>")
+		return TRUE
+	return FALSE
 
 /**
   *Swaps the card_slot hardware between using the dedicated card slot bay on a computer, and using an expansion bay.

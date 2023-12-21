@@ -13,12 +13,12 @@
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
 		playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/spider/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/spider/on_attacked(obj/item/I, mob/living/user)
+	..()
 	if(I.damtype != BURN)
 		if(prob(35))
 			user.transferItemToLoc(I, drop_location())
 			to_chat(user, "<span class='danger'>The [I] gets stuck in \the [src]!</span>")
-	return ..()
 
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(damage_flag == MELEE)

@@ -26,13 +26,13 @@
 	AddComponent(/datum/component/plumbing/simple_supply, TRUE)
 	update_appearance() //so the input/output pipes will overlay properly during init
 
-/obj/machinery/power/liquid_pump/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/liquid_pump/item_interact(obj/item/W, mob/user, params)
 	if(!powered)
 		if(!anchored)
 			if(default_deconstruction_screwdriver(user, "[initial(icon_state)]_open", "[initial(icon_state)]",W))
-				return
+				return TRUE
 		if(default_deconstruction_crowbar(W))
-			return
+			return TRUE
 	return ..()
 
 /obj/machinery/power/liquid_pump/wrench_act(mob/living/user, obj/item/I)

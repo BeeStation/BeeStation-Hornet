@@ -328,7 +328,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		icon_state = icon_living
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/living/user, params)
+/mob/living/simple_animal/parrot/item_interact(obj/item/item, mob/user, params)
 	if(!stat && !client && !istype(O, /obj/item/stack/medical) && !istype(O, /obj/item/reagent_containers/food/snacks/cracker))
 		if(O.force)
 			if(parrot_state == PARROT_PERCH)
@@ -342,6 +342,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 				parrot_state |= PARROT_FLEE
 			icon_state = icon_living
 			drop_held_item(0)
+			return TRUE
 	else if(istype(O, /obj/item/reagent_containers/food/snacks/cracker)) //Poly wants a cracker.
 		qdel(O)
 		if(health < maxHealth)
@@ -349,6 +350,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		speak_chance *= 1.27 // 20 crackers to go from 1% to 100%
 		speech_shuffle_rate += 10
 		to_chat(user, "<span class='notice'>[src] eagerly devours the cracker.</span>")
+		return TRUE
 	..()
 	return
 

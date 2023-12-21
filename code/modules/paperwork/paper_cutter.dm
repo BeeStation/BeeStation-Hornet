@@ -42,29 +42,29 @@
 		add_overlay("paper")
 
 
-/obj/item/papercutter/attackby(obj/item/P, mob/user, params)
+/obj/item/papercutter/item_interact(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/paper) && !storedpaper)
 		if(!user.transferItemToLoc(P, src))
-			return
+			return TRUE
 		playsound(loc, "pageturn", 60, 1)
 		to_chat(user, "<span class='notice'>You place [P] in [src].</span>")
 		storedpaper = P
 		update_icon()
-		return
+		return TRUE
 	if(istype(P, /obj/item/hatchet/cutterblade) && !storedcutter)
 		if(!user.transferItemToLoc(P, src))
-			return
+			return TRUE
 		to_chat(user, "<span class='notice'>You replace [src]'s [P].</span>")
 		P.forceMove(src)
 		storedcutter = P
 		update_icon()
-		return
+		return TRUE
 	if(P.tool_behaviour == TOOL_SCREWDRIVER && storedcutter)
 		P.play_tool_sound(src)
 		to_chat(user, "<span class='notice'>[storedcutter] has been [cuttersecured ? "unsecured" : "secured"].</span>")
 		cuttersecured = !cuttersecured
-		return
-	..()
+		return TRUE
+	return ..()
 
 /obj/item/papercutter/attack_hand(mob/user)
 	. = ..()
@@ -112,9 +112,9 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 
-/obj/item/paperslip/attackby(obj/item/I, mob/living/user, params)
+/obj/item/paperslip/item_interact(obj/item/I, mob/living/user, params)
 	if(burn_paper_product_attackby_check(I, user))
-		return
+		return TRUE
 	return ..()
 
 

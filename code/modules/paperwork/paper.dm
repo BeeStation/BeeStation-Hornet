@@ -365,15 +365,15 @@
 	add_fingerprint(user)
 	fire_act(I.return_temperature())
 
-/obj/item/paper/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/item/paper/item_interact(obj/item/attacking_item, mob/living/user, params)
 	if(burn_paper_product_attackby_check(attacking_item, user))
 		SStgui.close_uis(src)
-		return
+		return TRUE
 
 	// Enable picking paper up by clicking on it with the clipboard or folder
 	if(istype(attacking_item, /obj/item/clipboard) || istype(attacking_item, /obj/item/folder) || istype(attacking_item, /obj/item/paper_bin))
 		attacking_item.attackby(src, user)
-		return
+		return TRUE
 
 	// Handle writing items.
 	var/writing_stats = istype(attacking_item) ? attacking_item.get_writing_implement_details() : null
@@ -385,16 +385,16 @@
 	if(writing_stats["interaction_mode"] == MODE_WRITING)
 		if(get_total_length() >= MAX_PAPER_LENGTH)
 			to_chat(user, "<span class='warning'>This sheet of paper is full!</span>")
-			return
+			return TRUE
 
 		ui_interact(user)
-		return
+		return TRUE
 
 	// Handle stamping items.
 	if(writing_stats["interaction_mode"] == MODE_STAMPING)
 		to_chat(user, "<span class='notice'>You ready your stamp over the paper! </span>")
 		ui_interact(user)
-		return
+		return TRUE
 
 	ui_interact(user)
 	return ..()

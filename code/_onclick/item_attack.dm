@@ -33,8 +33,6 @@
  * damage_source level or deal_attack level.
  */
 /obj/item/proc/attack(mob/living/user, atom/target, params)
-	//if(item_flags & NOBLUDGEON)
-	//	return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(target)
 	// By default deal our generic attack
@@ -90,15 +88,7 @@
 		return FALSE
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
-// No comment
-/atom/proc/attackby(obj/item/W, mob/user, params)
-	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
-		return TRUE
-	return FALSE
-
-/mob/living/attackby(obj/item/I, mob/living/user, params)
-	if(..())
-		return TRUE
+/mob/living/item_interact(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || guaranteed_butcher_results)) //can we butcher it?
 		var/datum/component/butchering/butchering = I.GetComponent(/datum/component/butchering)
@@ -107,12 +97,12 @@
 			playsound(loc, butchering.butcher_sound, 50, TRUE, -1)
 			if(do_after(user, butchering.speed, src) && Adjacent(I))
 				butchering.Butcher(user, src)
-			return 1
+			return TRUE
 		else if(I.is_sharp() && !butchering) //give sharp objects butchering functionality, for consistency
 			I.AddComponent(/datum/component/butchering, 80 * I.toolspeed)
-			attackby(I, user, params) //call the attackby again to refresh and do the butchering check again
-			return
-	return I.attack_mob_target(src, user)
+			item_interact(I, user, params) //call the attackby again to refresh and do the butchering check again
+			return TRUE
+	return ..()
 
 
 /obj/item/proc/attack_mob_target(mob/living/M, mob/living/user)

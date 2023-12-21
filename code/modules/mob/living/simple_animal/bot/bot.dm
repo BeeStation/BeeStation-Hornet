@@ -324,17 +324,25 @@
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
-/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/on_attacked(obj/item/I, mob/living/user, nonharmfulhit)
+	if(I.force) //if force is non-zero
+		do_sparks(5, TRUE, src)
+	return ..()
+
+/mob/living/simple_animal/bot/item_interact(obj/item/item, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!locked)
 			open = !open
 			to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
 		else
 			to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
+		return TRUE
 	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda))
 		togglelock(user)
+		return TRUE
 	else if(istype(W, /obj/item/paicard))
 		insertpai(user, W)
+		return TRUE
 	else if((W.tool_behaviour == TOOL_HEMOSTAT) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
@@ -344,6 +352,7 @@
 				if (paicard)
 					user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
 					ejectpai(user)
+		return TRUE
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
@@ -357,10 +366,9 @@
 			if(W.use_tool(src, user, 0, volume=40))
 				adjustHealth(-10)
 				user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
+			return TRUE
 		else
-			if(W.force) //if force is non-zero
-				do_sparks(5, TRUE, src)
-			..()
+			return ..()
 
 /mob/living/simple_animal/bot/AltClick(mob/user)
 	..()

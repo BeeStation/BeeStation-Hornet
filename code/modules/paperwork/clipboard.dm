@@ -86,23 +86,28 @@
 	dat += "clipboard_over"
 	add_overlay(dat)
 
-/obj/item/clipboard/attackby(obj/item/weapon, mob/user, params)
+/obj/item/clipboard/item_interact(obj/item/weapon, mob/user, params)
 	var/obj/item/paper/toppaper = toppaper_ref?.resolve()
 	if(istype(weapon, /obj/item/paper))
 		//Add paper into the clipboard
 		if(!user.transferItemToLoc(weapon, src))
-			return
+			return TRUE
 		toppaper_ref = WEAKREF(weapon)
 		to_chat(user, "<span class='notice'>You clip [weapon] onto [src].</span>")
+		update_icon()
+		return TRUE
 	else if(istype(weapon, /obj/item/pen) && !pen)
 		//Add a pen into the clipboard, attack (write) if there is already one
 		if(!usr.transferItemToLoc(weapon, src))
-			return
+			return TRUE
 		pen = weapon
 		to_chat(usr, "<span class='notice'>You slot [weapon] into [src].</span>")
+		update_icon()
+		return TRUE
 	else if(toppaper)
-		toppaper.attackby(user.get_active_held_item(), user)
+		. = toppaper.item_interact(user.get_active_held_item(), user)
 	update_icon()
+	return ..()
 
 /obj/item/clipboard/attack_self(mob/user)
 	ui_interact(user)

@@ -68,7 +68,7 @@
 	text_dehack = "[name]'s software has been reset!"
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
-/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/cleanbot/item_interact(obj/item/item, mob/user, params)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
@@ -80,6 +80,7 @@
 				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
 			else
 				to_chat(user, "<span class='notice'>\The [src] doesn't seem to respect your authority.</span>")
+		return TRUE
 	else
 		return ..()
 
@@ -287,14 +288,14 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "larryframe"
 
-/obj/item/larryframe/attackby(obj/O, mob/user, params)
+/obj/item/larryframe/item_interact(obj/item/item, mob/user, params)
 	if(isprox(O))
 		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
 		qdel(O)
 		qdel(src)
 		user.put_in_hands(new /obj/item/bot_assembly/larry)
-	else
-		..()
+		return TRUE
+	return ..()
 
 /mob/living/simple_animal/bot/cleanbot/medbay
 	name = "Scrubs, MD"
@@ -381,7 +382,7 @@
 	target = null
 
 
-/mob/living/simple_animal/bot/cleanbot/larry/attackby(obj/item/I, mob/living/user)
+/mob/living/simple_animal/bot/cleanbot/larry/item_interact(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HELP)
 		if(istype(I, /obj/item/kitchen/knife) && !knife) //Is it a knife?
 			var/obj/item/kitchen/knife/newknife = I
@@ -390,6 +391,7 @@
 			message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
 			AddComponent(/datum/component/knife_attached_to_movable, knife.force)
 			update_icons()
+			return TRUE
 		else
 			return ..()
 	else
