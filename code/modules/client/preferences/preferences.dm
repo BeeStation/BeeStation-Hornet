@@ -249,10 +249,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /datum/preferences/ui_assets(mob/user)
 	var/list/assets = list(
-		get_asset_datum(/datum/asset/spritesheet/preferences),
-		get_asset_datum(/datum/asset/spritesheet/preferences_large),
-		get_asset_datum(/datum/asset/spritesheet/preferences_huge),
-		get_asset_datum(/datum/asset/spritesheet/preferences_loadout),
+		get_asset_datum(/datum/asset/spritesheet_batched/preferences),
+		get_asset_datum(/datum/asset/spritesheet_batched/preferences_large),
+		get_asset_datum(/datum/asset/spritesheet_batched/preferences_huge),
+		get_asset_datum(/datum/asset/spritesheet_batched/preferences_loadout),
 		get_asset_datum(/datum/asset/json/preferences),
 	)
 

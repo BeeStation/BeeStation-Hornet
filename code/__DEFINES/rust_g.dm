@@ -280,4 +280,6 @@
 #define rustg_worley_generate(region_size, threshold, node_per_region_chance, size, node_min, node_max) \
 	RUSTG_CALL(RUST_G, "worley_generate")(region_size, threshold, node_per_region_chance, size, node_min, node_max)
 
-#define rustg_iconforge_generate(file_path, spritesheet_name, sizes, sprites) RUSTG_CALL(RUST_G, "iconforge_generate")(file_path, spritesheet_name, sizes, sprites)
+#define rustg_iconforge_generate(file_path, spritesheet_name, entries) RUSTG_CALL(RUST_G, "iconforge_generate")(file_path, spritesheet_name, entries)
+#define rustg_iconforge_generate_async(file_path, spritesheet_name, entries) RUSTG_CALL(RUST_G, "iconforge_generate_async")(file_path, spritesheet_name, entries)
+#define rustg_iconforge_check(job_id) RUSTG_CALL(RUST_G, "iconforge_check")("[job_id]")

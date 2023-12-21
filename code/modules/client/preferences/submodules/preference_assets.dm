@@ -1,13 +1,12 @@
 /// Assets generated from `/datum/preference` icons
-/datum/asset/spritesheet/preferences
+/datum/asset/spritesheet_batched/preferences
 	name = PREFERENCE_SHEET_NORMAL
 	early = TRUE
-	cross_round_cachable = TRUE
 
-/datum/asset/spritesheet/preferences/create_spritesheets()
+/datum/asset/spritesheet_batched/preferences/create_spritesheets()
 	create_preferences_spritesheet(src, name)
 
-/proc/create_preferences_spritesheet(datum/asset/spritesheet/sheet, sheet_key)
+/proc/create_preferences_spritesheet(datum/asset/spritesheet_batched/sheet, sheet_key)
 	for (var/preference_key in GLOB.preference_entries_by_key)
 		var/datum/preference/choiced/preference = GLOB.preference_entries_by_key[preference_key]
 		if (!istype(preference))
@@ -22,36 +21,34 @@
 		var/list/choices = preference.get_choices_serialized()
 		for (var/preference_value in choices)
 			var/create_icon_of = choices[preference_value]
-			var/icon/icon
-			var/icon_state
+			var/datum/icon_batch_entry/icon
 			if (ispath(create_icon_of, /atom))
 				var/atom/atom_icon_source = create_icon_of
-				icon = initial(atom_icon_source.icon)
-				icon_state = initial(atom_icon_source.icon_state)
-			else if (isicon(create_icon_of))
+				icon = u_icon_entry(initial(atom_icon_source.icon), initial(atom_icon_source.icon_state))
+			else if (istype(create_icon_of, /datum/icon_batch_entry))
 				icon = create_icon_of
+			else if (isicon(create_icon_of))
+				CRASH("Icon given for preference [preference_key]:[preference_value]. This is not supported anymore, provide a /datum/icon_batch_entry instead.")
 			else
 				CRASH("[create_icon_of] is an invalid preference value (from [preference_key]:[preference_value]).")
-
-			sheet.Insert(preference.get_spritesheet_key(preference_value), icon, icon_state)
+			icon.sprite_name = preference.get_spritesheet_key(preference_value)
+			sheet.insert_icon(icon)
 
 /// This "large" spritesheet helps reduce mount lag from large PNG files.
-/datum/asset/spritesheet/preferences_large
+/datum/asset/spritesheet_batched/preferences_large
 	name = PREFERENCE_SHEET_LARGE
 	early = TRUE
-	cross_round_cachable = TRUE
 
-/datum/asset/spritesheet/preferences_large/create_spritesheets()
+/datum/asset/spritesheet_batched/preferences_large/create_spritesheets()
 	create_preferences_spritesheet(src, name)
 
 /// This "huge" spritesheet helps reduce mount lag from huge PNG files.
-/datum/asset/spritesheet/preferences_huge
+/datum/asset/spritesheet_batched/preferences_huge
 	name = PREFERENCE_SHEET_HUGE
 	early = TRUE
-	cross_round_cachable = TRUE
 
 
-/datum/asset/spritesheet/preferences_huge/create_spritesheets()
+/datum/asset/spritesheet_batched/preferences_huge/create_spritesheets()
 	// if someone ever hits this limit, you need to delete the game
 	// just delete it, it's too big. It needs to end (the year is probably 2053 or something)
 	create_preferences_spritesheet(src, name)
@@ -60,21 +57,21 @@
 /datum/preference/proc/get_spritesheet_key(value)
 	return "[db_key]___[sanitize_css_class_name(value)]"
 
-/datum/asset/spritesheet/preferences_loadout
+/datum/asset/spritesheet_batched/preferences_loadout
 	name = "preferences_loadout"
 	early = TRUE
 
-/datum/asset/spritesheet/preferences_loadout/create_spritesheets()
+/datum/asset/spritesheet_batched/preferences_loadout/create_spritesheets()
 	for(var/gear_id in GLOB.gear_datums)
 		var/datum/gear/G = GLOB.gear_datums[gear_id]
-		var/icon/regular_icon = get_display_icon_for(G.path)
+		var/regular_icon = get_display_icon_for("loadout_gear___[gear_id]", G.path)
 		if(!regular_icon)
 			continue
-		Insert("loadout_gear___[gear_id]", regular_icon)
-		var/icon/skirt_icon = get_display_icon_for(G.skirt_path)
+		insert_icon(regular_icon)
+		var/skirt_icon = get_display_icon_for("loadout_gear___[gear_id]_skirt", G.skirt_path)
 		if(!skirt_icon)
 			continue
-		Insert("loadout_gear___[gear_id]_skirt", skirt_icon)
+		insert_icon(skirt_icon)
 
 /// Sends information needed for shared details on individual preferences
 /datum/asset/json/preferences

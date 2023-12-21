@@ -1,9 +1,5 @@
 #define SPR_SIZE "size_id"
 #define SPR_IDX "position"
-#define SPR_ENTRY "icon"
-#define SPRSZ_COUNT "count"
-#define SPRSZ_WIDTH "width"
-#define SPRSZ_HEIGHT "height"
 
 /datum/asset/spritesheet_batched
 	_abstract = /datum/asset/spritesheet_batched
@@ -11,11 +7,24 @@
 	/// List of arguments to pass into queuedInsert
 	/// Exists so we can queue icon insertion, mostly for stuff like preferences
 	var/list/to_generate = list()
-	/// "32x32" -> list(10, 32, 32)
+	/// list("32x32")
 	var/list/sizes = list()
 	/// "foo_bar" -> list("32x32", 5, entry_obj)
 	var/list/sprites = list()
+
+	// "foo_bar" -> entry_obj
+	var/list/entries = list()
 	var/fully_generated = FALSE
+	/// If this asset should be fully loaded on new
+	/// Defaults to false so we can process this stuff nicely
+	var/load_immediately = FALSE
+
+/datum/asset/spritesheet_batched/proc/should_load_immediately()
+#ifdef DO_NOT_DEFER_ASSETS
+	return TRUE
+#else
+	return load_immediately
+#endif
 
 /// Override this in order to start the creation of the spritehseet.
 /// This is where you select a list of typepaths to perform operations or transformations on.
@@ -30,42 +39,29 @@
 	CRASH("collect_typepaths() not implemented for [type]!")
 
 /// Constructs a transformer, with optional color multiply pre-added.
-/datum/asset/spritesheet_batched/proc/transform(color=null)
+/datum/asset/spritesheet_batched/proc/colorize(color=null)
 	RETURN_TYPE(/datum/icon_transformer)
 	var/datum/icon_transformer/transform = new()
 	if(color)
-		transform.blend_color(color, BLEND_MULTIPLY)
+		transform.blend_color(color, ICON_MULTIPLY)
 	return transform
 
 /// Constructs an icon entry.
 /datum/asset/spritesheet_batched/proc/icon_entry(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE, datum/icon_transformer/transform=null, color=null)
 	return new /datum/icon_batch_entry(sprite_name, I, icon_state, dir, frame, moving, transform, color)
 
-/// Takes icon entries and generates a set of size ID and positions for the overall spritesheet
+/// Constructs an icon entry, with a blank sprite_name.
+/proc/u_icon_entry(icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE, datum/icon_transformer/transform=null, color=null)
+	return new /datum/icon_batch_entry("", I, icon_state, dir, frame, moving, transform, color)
+
 /datum/asset/spritesheet_batched/proc/insert_icon(datum/icon_batch_entry/entry)
-	if (!entry.icon_file)
-		to_chat(world, "Hey no icon exists 1")
-		return
-	var/icon/I = icon(entry.icon_file, icon_state=entry.icon_state, dir=entry.dir, frame=entry.frame, moving=entry.moving)
-	if(!I || !length(icon_states(I))) // direction or state specified doesn't exist
-		// TODO: log this to the world log in debug mode.
-		to_chat(world, "Hey no icon exists")
-		return
-	var/width = I.Width()
-	var/height = I.Height()
-	var/size_id = "[width]x[height]"
-	var/size = sizes[size_id]
-	var/sprite_name = entry.sprite_name
-
-	if (sprites[sprite_name])
-		CRASH("duplicate sprite \"[sprite_name]\" in sheet [name] ([type])")
-
-	if (size)
-		var/position = size[SPRSZ_COUNT]++
-		sprites[sprite_name] = list(SPR_SIZE = size_id, SPR_IDX = position, SPR_ENTRY = entry.to_list())
+	if(should_load_immediately())
+		queued_insert_icon(entry)
 	else
-		sizes[size_id] = size = list(SPRSZ_COUNT = 1, SPRSZ_WIDTH = width, SPRSZ_HEIGHT = height)
-		sprites[sprite_name] = list(SPR_SIZE = size_id, SPR_IDX = 0, SPR_ENTRY = entry.to_list())
+		to_generate += list(args.Copy())
+
+/datum/asset/spritesheet_batched/proc/queued_insert_icon(datum/icon_batch_entry/entry)
+	entries[entry.sprite_name] = entry.to_list()
 
 /datum/asset/spritesheet_batched/should_refresh()
 	return TRUE
@@ -77,7 +73,10 @@
 		CRASH("spritesheet [type] cannot register without a name")
 
 	create_spritesheets()
-	realize_spritesheets()
+	if(should_load_immediately())
+		realize_spritesheets(yield = FALSE)
+	else
+		SSasset_loading.queue_asset(src)
 
 /datum/asset/spritesheet_batched/proc/create_spritesheets()
 	var/list/paths = collect_typepaths()
@@ -87,10 +86,41 @@
 			continue
 		insert_icon(entry)
 
-/datum/asset/spritesheet_batched/proc/realize_spritesheets()
-	var/result = rustg_iconforge_generate("data/spritesheets/", name, json_encode(sizes), json_encode(sprites))
-	to_chat(world, result)
-	rustg_file_write(json_encode(sprites), "test.json")
+/datum/asset/spritesheet_batched/proc/insert_all_icons(prefix, icon/I, list/directions)
+	if (length(prefix))
+		prefix = "[prefix]-"
+
+	if (!directions)
+		directions = list(SOUTH)
+
+	for (var/icon_state_name in icon_states(I))
+		for (var/direction in directions)
+			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]-" : ""
+			insert_icon(icon_entry("[prefix][prefix2][icon_state_name]", I, icon_state_name, direction))
+
+/datum/asset/spritesheet_batched/proc/realize_spritesheets(yield)
+	if(fully_generated)
+		return
+	while(length(to_generate))
+		var/list/stored_args = to_generate[to_generate.len]
+		to_generate.len--
+		queued_insert_icon(arglist(stored_args))
+		if(yield && TICK_CHECK)
+			return
+	var/data_in = json_encode(entries)
+	var/job_id = rustg_iconforge_generate_async("data/spritesheets/", name, data_in)
+	var/job_result_str
+	UNTIL((job_result_str = rustg_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
+	if (job_result_str == RUSTG_JOB_ERROR)
+		CRASH("Spritesheet [name] JOB PANIC")
+	else if(!findtext(job_result_str, "{", 1, 2) != 0)
+		rustg_file_write(data_in, "[GLOB.log_directory]/spritesheet_debug_[name].json")
+		CRASH("Spritesheet [name] UNKNOWN ERROR: [job_result_str]")
+	//to_chat(world, job_result_str)
+	var/data = json_decode(job_result_str)
+	sizes = data["sizes"]
+	sprites = data["sprites"]
+
 	for(var/size_id in sizes)
 		SSassets.transport.register_asset("[name]_[size_id].png", fcopy_rsc("data/spritesheets/[name]_[size_id].png"))
 	var/res_name = "spritesheet_[name].css"
@@ -104,13 +134,15 @@
 	fully_generated = TRUE
 	// If we were ever in there, remove ourselves
 	SSasset_loading.dequeue_asset(src)
+	if(data["error"])
+		CRASH("Error during spritesheet generation for [name]: [data["error"]]")
 
 /datum/asset/spritesheet_batched/queued_generation()
-	realize_spritesheets()
+	realize_spritesheets(yield = TRUE)
 
 /datum/asset/spritesheet_batched/ensure_ready()
 	if(!fully_generated)
-		realize_spritesheets()
+		realize_spritesheets(yield = FALSE)
 	return ..()
 
 /datum/asset/spritesheet_batched/send(client/client)
@@ -134,20 +166,19 @@
 	var/list/out = list()
 
 	for (var/size_id in sizes)
-		var/size = sizes[size_id]
-		var/width = size[SPRSZ_WIDTH]
-		var/height = size[SPRSZ_HEIGHT]
+		var/size_split = splittext(size_id, "x")
+		var/width = text2num(size_split[1])
+		var/height = text2num(size_split[2])
 		out += ".[name][size_id]{display:inline-block;width:[width]px;height:[height]px;background:url('[get_background_url("[name]_[size_id].png")]') no-repeat;}"
 
 	for (var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
 		var/size_id = sprite[SPR_SIZE]
 		var/idx = sprite[SPR_IDX]
-		var/size = sizes[size_id]
 
-		var/width_small = size[SPRSZ_WIDTH]
-		var/height_small = size[SPRSZ_HEIGHT]
-		var/x = idx * width_small
+		var/size_split = splittext(size_id, "x")
+		var/width = text2num(size_split[1])
+		var/x = idx * width
 		var/y = 0
 
 		out += ".[name][size_id].[sprite_id]{background-position:-[x]px -[y]px;}"
@@ -198,7 +229,6 @@
 
 #undef SPR_SIZE
 #undef SPR_IDX
-#undef SPR_ENTRY
 #undef SPRSZ_COUNT
 #undef SPRSZ_WIDTH
 #undef SPRSZ_HEIGHT
