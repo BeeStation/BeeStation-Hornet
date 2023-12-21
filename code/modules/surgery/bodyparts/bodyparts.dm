@@ -67,8 +67,10 @@
 	var/mutation_color = ""
 	var/no_update = 0
 
-	var/animal_origin = null //for nonhuman bodypart (e.g. monkey)
-	var/dismemberable = 1 //whether it can be dismembered with a weapon.
+	//for nonhuman bodypart (e.g. monkey)
+	var/animal_origin = null
+	///whether it can be dismembered with a weapon.
+	var/dismemberable = 1
 
 	var/px_x = 0
 	var/px_y = 0
@@ -338,7 +340,7 @@
 				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 			last_maxed = TRUE
 		*/
-		set_disabled(TRUE)
+		set_disabled(FALSE)
 		return
 
 /* WOUNDS
