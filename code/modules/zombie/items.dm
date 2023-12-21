@@ -34,7 +34,7 @@
 	else if(isliving(target))
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			var/flesh_wound = ran_zone(user.zone_selected)
+			var/flesh_wound = ran_zone(user.get_combat_bodyzone(target))
 			if(H.check_shields(src, 0))
 				return
 			if(prob(100-H.getarmor(flesh_wound, MELEE, armour_penetration)))

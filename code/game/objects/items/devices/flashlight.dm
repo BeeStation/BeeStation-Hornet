@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	materials = list(/datum/material/iron=50, /datum/material/glass=20)
+	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_system = MOVABLE_LIGHT
 	light_range = 4
@@ -56,116 +56,120 @@
 
 /obj/item/flashlight/attack(mob/living/carbon/M, mob/living/carbon/human/user)
 	add_fingerprint(user)
-	if(istype(M) && on && (user.zone_selected in list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)))
-
-		if((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))	//too dumb to use flashlight properly
-			return ..()	//just hit them in the head
-
-		if(!user.IsAdvancedToolUser())
-			to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-			return
-
-		if(!M.get_bodypart(BODY_ZONE_HEAD))
-			to_chat(user, "<span class='warning'>[M] doesn't have a head!</span>")
-			return
-
-		if(light_power < 1)
-			to_chat(user, "<span class='warning'>\The [src] isn't bright enough to see anything!</span> ")
-			return
-
-		switch(user.zone_selected)
-			if(BODY_ZONE_PRECISE_EYES)
-				if((M.head && M.head.flags_cover & HEADCOVERSEYES) || (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) || (M.glasses && M.glasses.flags_cover & GLASSESCOVERSEYES))
-					to_chat(user, "<span class='notice'>You're going to need to remove that [(M.head && M.head.flags_cover & HEADCOVERSEYES) ? "helmet" : (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) ? "mask": "glasses"] first.</span>")
-					return
-
-				var/obj/item/organ/eyes/E = M.getorganslot(ORGAN_SLOT_EYES)
-				if(!E)
-					to_chat(user, "<span class='danger'>[M] doesn't have any eyes!</span>")
-					return
-
-				if(M == user)	//they're using it on themselves
-					if(M.flash_act(visual = 1))
-						M.visible_message("[M] directs [src] to [M.p_their()] eyes.", "<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
-					else
-						M.visible_message("[M] directs [src] to [M.p_their()] eyes.", "<span class='notice'>You wave the light in front of your eyes.</span>")
-				else
-					user.visible_message("<span class='warning'>[user] directs [src] to [M]'s eyes.</span>", \
-										 "<span class='danger'>You direct [src] to [M]'s eyes.</span>")
-					if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
-						to_chat(user, "<span class='warning'>[M]'s pupils don't react to the light!</span>")
-					else if(M.has_dna() && M.dna.check_mutation(XRAY))	//mob has X-ray vision
-						to_chat(user, "<span class='danger'>[M]'s pupils give an eerie glow!</span>")
-					else //they're okay!
-						to_chat(user, "<span class='notice'>[M]'s pupils narrow.</span>")
-
-			if(BODY_ZONE_PRECISE_MOUTH)
-
-				if(M.is_mouth_covered())
-					to_chat(user, "<span class='notice'>You're going to need to remove that [(M.head && M.head.flags_cover & HEADCOVERSMOUTH) ? "helmet" : "mask"] first.</span>")
-					return
-
-				var/their = M.p_their()
-
-				var/list/mouth_organs = new
-				for(var/obj/item/organ/O in M.internal_organs)
-					if(O.zone == BODY_ZONE_PRECISE_MOUTH)
-						mouth_organs.Add(O)
-				var/organ_list = ""
-				var/organ_count = LAZYLEN(mouth_organs)
-				if(organ_count)
-					for(var/I in 1 to organ_count)
-						if(I > 1)
-							if(I == mouth_organs.len)
-								organ_list += ", and "
-							else
-								organ_list += ", "
-						var/obj/item/organ/O = mouth_organs[I]
-						organ_list += (O.gender == "plural" ? O.name : "\an [O.name]")
-
-				var/pill_count = 0
-				for(var/datum/action/item_action/hands_free/activate_pill/AP in M.actions)
-					pill_count++
-
-				if(M == user)
-					var/can_use_mirror = FALSE
-					if(isturf(user.loc))
-						var/obj/structure/mirror/mirror = locate(/obj/structure/mirror, user.loc)
-						if(mirror)
-							switch(user.dir)
-								if(NORTH)
-									can_use_mirror = mirror.pixel_y > 0
-								if(SOUTH)
-									can_use_mirror = mirror.pixel_y < 0
-								if(EAST)
-									can_use_mirror = mirror.pixel_x > 0
-								if(WEST)
-									can_use_mirror = mirror.pixel_x < 0
-
-					M.visible_message("[M] directs [src] to [their] mouth.", \
-					"<span class='notice'>You point [src] into your mouth.</span>")
-					if(!can_use_mirror)
-						to_chat(user, "<span class='notice'>You can't see anything without a mirror.</span>")
-						return
-					if(organ_count)
-						to_chat(user, "<span class='notice'>Inside your mouth [organ_count > 1 ? "are" : "is"] [organ_list].</span>")
-					else
-						to_chat(user, "<span class='notice'>There's nothing inside your mouth.</span>")
-					if(pill_count)
-						to_chat(user, "<span class='notice'>You have [pill_count] implanted pill[pill_count > 1 ? "s" : ""].</span>")
-
-				else
-					user.visible_message("<span class='notice'>[user] directs [src] to [M]'s mouth.</span>",\
-										 "<span class='notice'>You direct [src] to [M]'s mouth.</span>")
-					if(organ_count)
-						to_chat(user, "<span class='notice'>Inside [their] mouth [organ_count > 1 ? "are" : "is"] [organ_list].</span>")
-					else
-						to_chat(user, "<span class='notice'>[M] doesn't have any organs in [their] mouth.</span>")
-					if(pill_count)
-						to_chat(user, "<span class='notice'>[M] has [pill_count] pill[pill_count > 1 ? "s" : ""] implanted in [their] teeth.</span>")
-
-	else
+	if (!istype(M) || !on || !user.is_zone_selected(BODY_ZONE_HEAD, precise = FALSE))
 		return ..()
+
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))	//too dumb to use flashlight properly
+		return ..()	//just hit them in the head
+
+	if(!user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		return
+
+	if(!M.get_bodypart(BODY_ZONE_HEAD))
+		to_chat(user, "<span class='warning'>[M] doesn't have a head!</span>")
+		return
+
+	if(light_power < 1)
+		to_chat(user, "<span class='warning'>\The [src] isn't bright enough to see anything!</span> ")
+		return
+
+	user.visible_message("<span class='notice'>[user] shines the light at [M]!</span>", ignored_mobs = list(user))
+
+	var/list/results = list()
+
+	results += "<span class='notice'><b>You shine the light at [M]...</b></span>"
+
+	/**
+	 * Handle mouth
+	 */
+
+	if(M.is_mouth_covered())
+		results += "<span class='notice'>[M.p_their()] mouth is covered by [(M.head && M.head.flags_cover & HEADCOVERSMOUTH) ? "a helmet" : "a mask"].</span>"
+	else
+		var/their = M.p_their()
+
+		var/list/mouth_organs = new
+		for(var/obj/item/organ/O in M.internal_organs)
+			if(O.zone == BODY_ZONE_PRECISE_MOUTH)
+				mouth_organs.Add(O)
+		var/organ_list = ""
+		var/organ_count = LAZYLEN(mouth_organs)
+		if(organ_count)
+			for(var/I in 1 to organ_count)
+				if(I > 1)
+					if(I == mouth_organs.len)
+						organ_list += ", and "
+					else
+						organ_list += ", "
+				var/obj/item/organ/O = mouth_organs[I]
+				organ_list += (O.gender == "plural" ? O.name : "\an [O.name]")
+
+		var/pill_count = 0
+		for(var/datum/action/item_action/hands_free/activate_pill/AP in M.actions)
+			pill_count++
+
+		if(M == user)
+			var/can_use_mirror = FALSE
+			if(isturf(user.loc))
+				var/obj/structure/mirror/mirror = locate(/obj/structure/mirror, user.loc)
+				if(mirror)
+					switch(user.dir)
+						if(NORTH)
+							can_use_mirror = mirror.pixel_y > 0
+						if(SOUTH)
+							can_use_mirror = mirror.pixel_y < 0
+						if(EAST)
+							can_use_mirror = mirror.pixel_x > 0
+						if(WEST)
+							can_use_mirror = mirror.pixel_x < 0
+
+			if(!can_use_mirror)
+				to_chat(user, "<span class='notice'>You can't see anything without a mirror.</span>")
+				return
+			if(organ_count)
+				results += "<span class='notice'>Inside your mouth [organ_count > 1 ? "are" : "is"] [organ_list].</span>"
+			else
+				results += "<span class='notice'>There's nothing inside your mouth.</span>"
+			if(pill_count)
+				results += "<span class='notice'>You have [pill_count] implanted pill[pill_count > 1 ? "s" : ""].</span>"
+
+		else
+			user.visible_message("<span class='notice'>[user] directs [src] to [M]'s mouth.</span>",\
+									"<span class='notice'>You direct [src] to [M]'s mouth.</span>")
+			if(organ_count)
+				results += "<span class='notice'>Inside [their] mouth [organ_count > 1 ? "are" : "is"] [organ_list].</span>"
+			else
+				results += "<span class='notice'>[M] doesn't have any organs in [their] mouth.</span>"
+			if(pill_count)
+				results += "<span class='notice'>[M] has [pill_count] pill[pill_count > 1 ? "s" : ""] implanted in [their] teeth.</span>"
+
+	/**
+	 * Handle eyes
+	 */
+
+	var/obj/item/organ/eyes/E = M.getorganslot(ORGAN_SLOT_EYES)
+
+	if((M.head && M.head.flags_cover & HEADCOVERSEYES) || (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) || (M.glasses && M.glasses.flags_cover & GLASSESCOVERSEYES))
+		results += "<span class='notice'>[M.p_their()] eyes are covered by [(M.head && M.head.flags_cover & HEADCOVERSEYES) ? "a helmet" : (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) ? "a mask": "some glasses"].</span>"
+	else if(!E)
+		results += "<span class='danger'>[M.p_they()] doesn't have any eyes!</span>"
+	else if(M == user)
+		//they're using it on themselves, give less of a report
+		if(M.flash_act(visual = 1))
+			to_chat(user, "<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
+		else
+			to_chat(user, "<span class='notice'>You wave the light in front of your eyes.</span>")
+		return
+	else
+		if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
+			results += "<span class='warning'>[M.p_their(TRUE)] pupils don't react to the light!</span>"
+		else if(M.has_dna() && M.dna.check_mutation(XRAY))	//mob has X-ray vision
+			results += "<span class='danger'>[M.p_their(TRUE)] pupils give an eerie glow!</span>"
+		else //they're okay!
+			results += "<span class='notice'>[M.p_their(TRUE)] pupils narrow.</span>"
+
+	to_chat(user, EXAMINE_BLOCK(jointext(results, "\n")))
 
 /obj/item/flashlight/pen
 	name = "penlight"
@@ -224,7 +228,7 @@
 	light_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags_1 = CONDUCT_1
-	materials = list()
+	custom_materials = null
 	on = TRUE
 
 
@@ -373,7 +377,7 @@
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
-	materials = list()
+	custom_materials = null
 	light_range = 6 //luminosity when on
 
 /obj/item/flashlight/emp
@@ -400,7 +404,7 @@
 	return TRUE
 
 /obj/item/flashlight/emp/attack(mob/living/M, mob/living/user)
-	if(on && (user.zone_selected in list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH))) // call original attack when examining organs
+	if(on && (user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, precise_only = TRUE))) // call original attack when examining organs
 		..()
 	return
 

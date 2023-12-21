@@ -167,9 +167,9 @@
 		eth_stomach.adjust_charge(60)
 		did_we_charge = TRUE
 
-	//if we're not targetting a robot part we stop early
-	var/obj/item/bodypart/bodypart = blessed.get_bodypart(chap.zone_selected)
-	if(!IS_ORGANIC_LIMB(bodypart))
+	//if we're not targeting a robot part we stop early
+	var/obj/item/bodypart/bodypart = blessed.get_bodypart(chap.get_combat_bodyzone(target, zone_context = BODYZONE_CONTEXT_ROBOTIC_LIMB_HEALING))
+	if(IS_ORGANIC_LIMB(bodypart))
 		if(!did_we_charge)
 			to_chat(chap, "<span class='warning'>[GLOB.deity] scoffs at the idea of healing such fleshy matter!</span>")
 		else
@@ -263,7 +263,7 @@
 	tgui_icon = "fish"
 	alignment = ALIGNMENT_NEUT
 	max_favor = 10000
-	desired_items = list(/obj/item/reagent_containers/food/snacks/meat/slab)
+	desired_items = list(/obj/item/food/meat/slab)
 	rites_list = list(/datum/religion_rites/summon_carp, /datum/religion_rites/flood_area, /datum/religion_rites/summon_carpsuit)
 	altar_icon_state = "convertaltar-blue"
 
@@ -277,7 +277,7 @@
 	return TRUE
 
 /datum/religion_sect/carp_sect/on_sacrifice(obj/item/N, mob/living/L) //and this
-	var/obj/item/reagent_containers/food/snacks/meat/meat = N
+	var/obj/item/food/meat/meat = N
 	if(!istype(meat)) //how...
 		return
 	adjust_favor(20, L)

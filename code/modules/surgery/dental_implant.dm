@@ -9,12 +9,12 @@
 	implements = list(/obj/item/reagent_containers/pill = 100)
 	time = 16
 
-/datum/surgery_step/insert_pill/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(target_zone)]...</span>",
-			"[user] begins to wedge \the [tool] in [target]'s [parse_zone(target_zone)].",
-			"[user] begins to wedge something in [target]'s [parse_zone(target_zone)].")
+/datum/surgery_step/insert_pill/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, "<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(surgery.location)]...</span>",
+			"[user] begins to wedge \the [tool] in [target]'s [parse_zone(surgery.location)].",
+			"[user] begins to wedge something in [target]'s [parse_zone(surgery.location)].")
 
-/datum/surgery_step/insert_pill/success(mob/user, mob/living/carbon/target, target_zone, var/obj/item/reagent_containers/pill/tool, datum/surgery/surgery)
+/datum/surgery_step/insert_pill/success(mob/user, mob/living/carbon/target, obj/item/reagent_containers/pill/tool, datum/surgery/surgery)
 	if(!istype(tool))
 		return 0
 
@@ -25,9 +25,9 @@
 	P.target = tool
 	P.Grant(target)	//The pill never actually goes in an inventory slot, so the owner doesn't inherit actions from it
 
-	display_results(user, target, "<span class='notice'>You wedge [tool] into [target]'s [parse_zone(target_zone)].</span>",
-			"[user] wedges \the [tool] into [target]'s [parse_zone(target_zone)]!",
-			"[user] wedges something into [target]'s [parse_zone(target_zone)]!")
+	display_results(user, target, "<span class='notice'>You wedge [tool] into [target]'s [parse_zone(surgery.location)].</span>",
+			"[user] wedges \the [tool] into [target]'s [parse_zone(surgery.location)]!",
+			"[user] wedges something into [target]'s [parse_zone(surgery.location)]!")
 	return 1
 
 /datum/action/item_action/hands_free/activate_pill

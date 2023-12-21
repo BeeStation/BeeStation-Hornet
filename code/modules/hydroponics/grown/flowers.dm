@@ -9,19 +9,20 @@
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 
-/obj/item/reagent_containers/food/snacks/grown/flower
+/obj/item/food/grown/flower
 	name = "generic flower"
 	desc = "You should not be seeing this"
 	slot_flags = ITEM_SLOT_HEAD
-	bitesize_mod = 3
-	foodtype = VEGETABLES | GROSS
+	bite_consumption_mod = 2
+	food_reagents = null //get the unit test off our back
+	foodtypes = VEGETABLES | GROSS
 
-/obj/item/reagent_containers/food/snacks/grown/flower/equipped(mob/user, slot)
+/obj/item/food/grown/flower/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
 
-/obj/item/reagent_containers/food/snacks/grown/flower/dropped(mob/living/carbon/user)
+/obj/item/food/grown/flower/dropped(mob/living/carbon/user)
 	..()
 	if(user.head != src)
 		return
@@ -35,18 +36,17 @@
 	icon_state = "seed-poppy"
 	species = "poppy"
 	plantname = "Poppy Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/flower/poppy
+	product = /obj/item/food/grown/flower/poppy
 	icon_grow = "poppy-grow"
 	icon_dead = "poppy-dead"
 	mutatelist = list(/obj/item/seeds/flower/geranium, /obj/item/seeds/flower/lily)
 	reagents_add = list(/datum/reagent/medicine/morphine = 0.15, /datum/reagent/medicine/bicaridine = 0.2, /datum/reagent/consumable/nutriment = 0.05)
 
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy
+/obj/item/food/grown/flower/poppy
 	seed = /obj/item/seeds/flower/poppy
 	name = "poppy"
 	desc = "Long-used as a symbol of rest, peace, and death."
 	icon_state = "poppy"
-	filling_color = "#FF6347"
 	distill_reagent = /datum/reagent/consumable/ethanol/vermouth
 
 // Lily
@@ -56,17 +56,16 @@
 	icon_state = "seed-lily"
 	species = "lily"
 	plantname = "Lily Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/flower/lily
+	product = /obj/item/food/grown/flower/lily
 	icon_grow = "lily-grow"
 	icon_dead = "lily-dead"
 	mutatelist = list(/obj/item/seeds/flower/trumpet)
 
-/obj/item/reagent_containers/food/snacks/grown/flower/lily
+/obj/item/food/grown/flower/lily
 	seed = /obj/item/seeds/flower/lily
 	name = "lily"
 	desc = "A beautiful white flower with rich symbolism. The lily is said to represent love and affection as well as purity and innocence in some cultures."
 	icon_state = "lily"
-	filling_color = "#fff8ea"
 	discovery_points = 300
 
 //Spacemans's Trumpet
@@ -76,7 +75,7 @@
 	icon_state = "seed-trumpet"
 	species = "spacemanstrumpet"
 	plantname = "Spaceman's Trumpet Plant"
-	product = /obj/item/reagent_containers/food/snacks/grown/flower/trumpet
+	product = /obj/item/food/grown/flower/trumpet
 	lifespan = 80
 	production = 5
 	maturation = 12
@@ -96,13 +95,12 @@
 	if(!nogenes)
 		unset_mutability(/datum/plant_gene/reagent/polypyr, PLANT_GENE_EXTRACTABLE)
 
-/obj/item/reagent_containers/food/snacks/grown/flower/trumpet
+/obj/item/food/grown/flower/trumpet
 	seed = /obj/item/seeds/flower/trumpet
 	name = "spaceman's trumpet"
 	desc = "A vivid flower that smells faintly of freshly cut grass. Touching the flower seems to stain the skin some time after contact, yet most other surfaces seem to be unaffected by this phenomenon."
 	icon_state = "spacemanstrumpet"
-	filling_color = "#8324f0"
-	foodtype = VEGETABLES
+	foodtypes = VEGETABLES
 	slot_flags = null
 
 // Geranium
@@ -112,17 +110,16 @@
 	icon_state = "seed-geranium"
 	species = "geranium"
 	plantname = "Geranium Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/flower/geranium
+	product = /obj/item/food/grown/flower/geranium
 	icon_grow = "geranium-grow"
 	icon_dead = "geranium-dead"
 	mutatelist = list(/obj/item/seeds/flower/forgetmenot)
 
-/obj/item/reagent_containers/food/snacks/grown/flower/geranium
+/obj/item/food/grown/flower/geranium
 	seed = /obj/item/seeds/flower/geranium
 	name = "geranium"
 	desc = "A cluster of small purple geranium flowers. They symbolize happiness, good health, wishes and friendship and are generally associated with positive emotions."
 	icon_state = "geranium"
-	filling_color = "#9325ee"
 	discovery_points = 300
 
 //Forget-Me-Not
@@ -132,7 +129,7 @@
 	icon_state = "seed-forget_me_not"
 	species = "forget_me_not"
 	plantname = "Forget-Me-Not Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/flower/forgetmenot
+	product = /obj/item/food/grown/flower/forgetmenot
 	endurance = 30
 	maturation = 5
 	yield = 4
@@ -142,13 +139,11 @@
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/medicine/kelotane = 0.2, /datum/reagent/consumable/nutriment = 0.05)
 
-/obj/item/reagent_containers/food/snacks/grown/flower/forgetmenot
+/obj/item/food/grown/flower/forgetmenot
 	seed = /obj/item/seeds/flower/forgetmenot
 	name = "forget-me-not"
 	desc = "A clump of small blue flowers, they are primarily associated with rememberance, respect and loyalty."
 	icon_state = "forget_me_not"
-	filling_color = "#4466ff"
-	bitesize_mod = 2
 	discovery_points = 300
 
 // Harebell
@@ -158,7 +153,7 @@
 	icon_state = "seed-harebell"
 	species = "harebell"
 	plantname = "Harebells"
-	product = /obj/item/reagent_containers/food/snacks/grown/flower/harebell
+	product = /obj/item/food/grown/flower/harebell
 	lifespan = 100
 	endurance = 20
 	maturation = 7
@@ -169,12 +164,11 @@
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.04)
 
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell
+/obj/item/food/grown/flower/harebell
 	seed = /obj/item/seeds/flower/harebell
 	name = "harebell"
 	desc = "\"I'll sweeten thy sad grave: thou shalt not lack the flower that's like thy face, pale primrose, nor the azured hare-bell, like thy veins; no, nor the leaf of eglantine, whom not to slander, out-sweeten'd not thy breath.\""
 	icon_state = "harebell"
-	filling_color = "#E6E6FA"
 	distill_reagent = /datum/reagent/consumable/ethanol/vermouth
 
 // Sunflower
@@ -238,22 +232,20 @@
 	plantname = "Moonflowers"
 	icon_grow = "moonflower-grow"
 	icon_dead = "sunflower-dead"
-	product = /obj/item/reagent_containers/food/snacks/grown/flower/moonflower
+	product = /obj/item/food/grown/flower/moonflower
 	genes = list(/datum/plant_gene/trait/glow/purple)
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/acetone = 0.08, /datum/reagent/consumable/ethanol/moonshine = 0.2, /datum/reagent/medicine/morphine = 0.3, /datum/reagent/consumable/nutriment = 0.02)
 	rarity = 20
 
-/obj/item/reagent_containers/food/snacks/grown/flower/moonflower
+/obj/item/food/grown/flower/moonflower
 	seed = /obj/item/seeds/sunflower/moonflower
 	name = "moonflower"
 	desc = "Store in a location at least 50 yards away from werewolves."
 	icon_state = "moonflower"
-	filling_color = "#E6E6FA"
-	bitesize_mod = 2
+	foodtypes = null
 	distill_reagent = /datum/reagent/consumable/ethanol/absinthe //It's made from flowers.
 	discovery_points = 300
-	foodtype = null
 
 // Novaflower
 /obj/item/seeds/sunflower/novaflower
@@ -287,7 +279,7 @@
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
 	discovery_points = 300
 
-/obj/item/grown/novaflower/add_juice()
+/obj/item/grown/novaflower/Initialize(mapload, obj/item/seeds/new_seed)
 	..()
 	force = round((5 + seed.potency / 5), 1)
 

@@ -10,7 +10,7 @@
 	icon_state = "flashbulb"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(/datum/material/iron = 150, /datum/material/glass = 100)
+	custom_materials = list(/datum/material/iron = 150, /datum/material/glass = 100)
 	flags_1 = CONDUCT_1
 	throw_speed = 3
 	throw_range = 7
@@ -83,7 +83,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(/datum/material/iron = 300, /datum/material/glass = 300)
+	custom_materials = list(/datum/material/iron = 300, /datum/material/glass = 300)
 	light_color = LIGHT_COLOR_WHITE
 	light_system = MOVABLE_LIGHT //Used as a flash here.
 	light_range = FLASH_LIGHT_RANGE

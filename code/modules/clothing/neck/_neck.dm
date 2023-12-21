@@ -63,8 +63,6 @@
 /obj/item/clothing/neck/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
 		if(user.a_intent == INTENT_HELP)
-			var/body_part = parse_zone(user.zone_selected)
-
 			var/heart_strength = "<span class='danger'>no</span>"
 			var/lung_strength = "<span class='danger'>no</span>"
 
@@ -84,8 +82,9 @@
 			if(M.stat == DEAD && heart && world.time - M.timeofdeath < DEFIB_TIME_LIMIT * 10)
 				heart_strength = "<span class='boldannounce'>a faint, fluttery</span>"
 
-			var/diagnosis = (body_part == BODY_ZONE_CHEST ? "You hear [heart_strength] pulse and [lung_strength] respiration." : "You faintly hear [heart_strength] pulse.")
-			user.visible_message("[user] places [src] against [M]'s [body_part] and listens attentively.", "<span class='notice'>You place [src] against [M]'s [body_part]. [diagnosis]</span>")
+			var/diagnosis = (user.is_zone_selected(BODY_ZONE_CHEST) ? "You hear [heart_strength] pulse and [lung_strength] respiration." : "You faintly hear [heart_strength] pulse.")
+			var/bodypart = parse_zone(user.is_zone_selected(BODY_ZONE_CHEST) ? BODY_ZONE_CHEST : user.get_combat_bodyzone(M))
+			user.visible_message("[user] places [src] against [M]'s [bodypart] and listens attentively.", "<span class='notice'>You place [src] against [M]'s [bodypart]. [diagnosis]</span>")
 			return
 	return ..(M,user)
 

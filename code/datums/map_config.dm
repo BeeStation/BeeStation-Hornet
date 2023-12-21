@@ -41,6 +41,13 @@
 	var/allow_night_lighting = TRUE
 
 	//======
+	// Starlight Settings
+	//======
+
+	var/starlight_mode = STARLIGHT_MODE_STARLIGHT
+	var/list/cycle_colours = null
+
+	//======
 	// planetary Settings
 	//======
 
@@ -163,6 +170,9 @@
 		map_link = json["map_link"]
 	else
 		log_world("map_link missing from json!")
+
+	starlight_mode = json["starlight"] || STARLIGHT_MODE_STARLIGHT
+	cycle_colours = json["starlight_colours"] || null
 
 	allow_custom_shuttles = json["allow_custom_shuttles"] != FALSE
 	allow_night_lighting = json["allow_night_lighting"] != FALSE

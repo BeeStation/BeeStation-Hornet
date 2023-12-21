@@ -25,7 +25,7 @@
 		var/ref = params["ref"]
 		var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
 		if (poi != null)
-			owner.ManualFollow(poi)
+			owner.check_orbitable(poi)
 		else
 			return TRUE
 
@@ -57,7 +57,7 @@
 			else if (M.mind == null)
 				npcs += list(serialized)
 			else
-				var/number_of_orbiters = M.orbiters?.orbiters?.len
+				var/number_of_orbiters = M.orbit_datum?.current_orbiters?.len
 				if (number_of_orbiters)
 					serialized["orbiters"] = number_of_orbiters
 

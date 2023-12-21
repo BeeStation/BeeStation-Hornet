@@ -133,7 +133,7 @@
 /datum/holoparasite_ability/weapon/dextrous/register_signals()
 	..()
 	RegisterSignal(owner, COMSIG_HOLOPARA_SETUP_HUD, PROC_REF(on_hud_setup))
-	RegisterSignal(owner, list(COMSIG_HOLOPARA_PRE_SNAPBACK, COMSIG_HOLOPARA_PRE_RECALL), PROC_REF(drop_items))
+	RegisterSignals(owner, list(COMSIG_HOLOPARA_PRE_SNAPBACK, COMSIG_HOLOPARA_PRE_RECALL), PROC_REF(drop_items))
 	RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	RegisterSignal(owner, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(owner, COMSIG_HOLOPARA_CAN_FIRE_GUN, PROC_REF(can_fire_gun))

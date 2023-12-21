@@ -114,7 +114,7 @@
 	linked_mobs[mob_linked] = action
 	action.Grant(mob_linked)
 
-	RegisterSignal(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_MINDSHIELD)), PROC_REF(unlink_mob))
+	RegisterSignals(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_MINDSHIELD)), PROC_REF(unlink_mob))
 
 	return TRUE
 

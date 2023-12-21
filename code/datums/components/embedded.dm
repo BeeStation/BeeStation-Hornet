@@ -89,7 +89,7 @@
 
 	limb.embedded_objects |= weapon // on the inside... on the inside...
 	weapon.forceMove(victim)
-	RegisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(weaponDeleted))
+	RegisterSignals(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(weaponDeleted))
 	victim.visible_message("<span class='danger'>[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] [victim]'s [limb.name]!</span>", "<span class='userdanger'>[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] your [limb.name]!</span>")
 
 	if(harmful)
@@ -256,7 +256,7 @@
 /datum/component/embedded/proc/checkRemoval(mob/living/carbon/victim, obj/item/I, mob/user)
 	SIGNAL_HANDLER
 
-	if(!istype(victim) || user.zone_selected != limb.body_zone || user.a_intent != INTENT_HELP)
+	if(!istype(victim) || user.is_zone_selected(limb.body_zone) || user.a_intent != INTENT_HELP)
 		return
 
 	var/damage_multiplier = 1

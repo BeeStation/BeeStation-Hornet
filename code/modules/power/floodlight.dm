@@ -43,7 +43,7 @@
 	icon_state = "floodlight"
 	density = TRUE
 	max_integrity = 100
-	integrity_failure = 80
+	integrity_failure = 0.8
 	idle_power_usage = 100
 	active_power_usage = 1000
 	var/list/light_setting_list = list(0, 5, 10, 15)
@@ -54,7 +54,7 @@
 /obj/machinery/power/floodlight/Initialize(mapload)
 	. = ..()
 	connect_to_network()
-	
+
 /obj/machinery/power/floodlight/process()
 	if(avail(active_power_usage))
 		add_load(active_power_usage)

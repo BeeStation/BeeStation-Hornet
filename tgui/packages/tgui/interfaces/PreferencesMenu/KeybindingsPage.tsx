@@ -18,6 +18,8 @@ const CATEGORY_SCALES = {
 type Keybinding = {
   name: string;
   description?: string;
+  pref_key?: string;
+  pref_value?: string;
 };
 
 type Keybindings = Record<string, Record<string, Keybinding>>;
@@ -416,6 +418,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
       );
     }
     const { act } = useBackend(this.context);
+    const { data } = useBackend<PreferencesMenuData>(this.context);
     const keybindings = this.state?.keybindings;
 
     if (!keybindings) {
@@ -439,37 +442,44 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
                 return [
                   category,
                   <Stack key={category} vertical fill>
-                    {sortKeybindings(Object.entries(keybindings)).map(([keybindingId, keybinding]) => {
-                      const keys = this.state.selectedKeybindings![keybindingId] || [];
+                    {sortKeybindings(Object.entries(keybindings))
+                      .filter(([keybindingId, keybinding]) => {
+                        return (
+                          !keybinding.pref_key ||
+                          data.character_preferences.game_preferences[keybinding.pref_key] === keybinding.pref_value
+                        );
+                      })
+                      .map(([keybindingId, keybinding]) => {
+                        const keys = this.state.selectedKeybindings![keybindingId] || [];
 
-                      const name = (
-                        <Stack.Item basis="25%">
-                          <KeybindingName keybinding={keybinding} />
-                        </Stack.Item>
-                      );
+                        const name = (
+                          <Stack.Item basis="25%">
+                            <KeybindingName keybinding={keybinding} />
+                          </Stack.Item>
+                        );
 
-                      return (
-                        <Stack.Item key={keybindingId}>
-                          <Stack fill>
-                            {name}
+                        return (
+                          <Stack.Item key={keybindingId}>
+                            <Stack fill>
+                              {name}
 
-                            {range(0, 3).map((key) => (
-                              <Stack.Item key={key} grow basis="10%">
-                                <KeybindingButton
-                                  currentHotkey={keys[key]}
-                                  typingHotkey={this.getTypingHotkey(keybindingId, key)}
-                                  onClick={this.getKeybindingOnClick(keybindingId, key)}
-                                />
+                              {range(0, 3).map((key) => (
+                                <Stack.Item key={key} grow basis="10%">
+                                  <KeybindingButton
+                                    currentHotkey={keys[key]}
+                                    typingHotkey={this.getTypingHotkey(keybindingId, key)}
+                                    onClick={this.getKeybindingOnClick(keybindingId, key)}
+                                  />
+                                </Stack.Item>
+                              ))}
+
+                              <Stack.Item shrink>
+                                <ResetToDefaultButton keybindingId={keybindingId} />
                               </Stack.Item>
-                            ))}
-
-                            <Stack.Item shrink>
-                              <ResetToDefaultButton keybindingId={keybindingId} />
-                            </Stack.Item>
-                          </Stack>
-                        </Stack.Item>
-                      );
-                    })}
+                            </Stack>
+                          </Stack.Item>
+                        );
+                      })}
                   </Stack>,
                 ];
               })}

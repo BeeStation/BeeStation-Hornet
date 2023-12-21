@@ -15,11 +15,6 @@ Mineral Sheets
 
 //the "/mineral" don't make sense, but i'm keeping it because holy shit changing a tons of name is going to be pain, if you're gonna replace it, do replace it with something like "/fancy" or "/random"
 
-/obj/item/stack/sheet/mineral/Initialize(mapload)
-	pixel_x = rand(-4, 4)
-	pixel_y = rand(-4, 4)
-	. = ..()
-
 /* Sandstone */
 
 /obj/item/stack/sheet/mineral/sandstone
@@ -30,12 +25,13 @@ Mineral Sheets
 	item_state = "sheet-sandstone"
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "sandstone"
 	merge_type = /obj/item/stack/sheet/mineral/sandstone
 
-/obj/item/stack/sheet/mineral/sandstone/get_recipes()
-	return GLOB.sandstone_recipes
+/obj/item/stack/sheet/mineral/sandstone/get_main_recipes()
+	. = ..()
+	. += GLOB.sandstone_recipes
 
 /* Diamond */
 
@@ -45,13 +41,15 @@ Mineral Sheets
 	item_state = "sheet-diamond"
 	singular_name = "diamond"
 	sheettype = "diamond"
-	materials = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/carbon = 20)
 	point_value = 25
 	merge_type = /obj/item/stack/sheet/mineral/diamond
+	material_type = /datum/material/diamond
 
-/obj/item/stack/sheet/mineral/diamond/get_recipes()
-	return GLOB.diamond_recipes
+/obj/item/stack/sheet/mineral/diamond/get_main_recipes()
+	. = ..()
+	. += GLOB.diamond_recipes
 
 /* Uranium */
 
@@ -61,13 +59,15 @@ Mineral Sheets
 	item_state = "sheet-uranium"
 	singular_name = "uranium rod"
 	sheettype = "uranium"
-	materials = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/uranium = 20)
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/uranium
+	material_type = /datum/material/uranium
 
-/obj/item/stack/sheet/mineral/uranium/get_recipes()
-	return GLOB.uranium_recipes
+/obj/item/stack/sheet/mineral/uranium/get_main_recipes()
+	. = ..()
+	. += GLOB.uranium_recipes
 
 /* Plasma */
 
@@ -79,17 +79,19 @@ Mineral Sheets
 	sheettype = "plasma"
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
-	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/toxin/plasma = 20)
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/plasma
+	material_type = /datum/material/plasma
 
 /obj/item/stack/sheet/mineral/plasma/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS//dont you kids know that stuff is toxic?
 
-/obj/item/stack/sheet/mineral/plasma/get_recipes()
-	return GLOB.plasma_recipes
+/obj/item/stack/sheet/mineral/plasma/get_main_recipes()
+	. = ..()
+	. += GLOB.plasma_recipes
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
@@ -114,13 +116,15 @@ Mineral Sheets
 	item_state = "sheet-gold"
 	singular_name = "gold bar"
 	sheettype = "gold"
-	materials = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/gold = 20)
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/gold
+	material_type = /datum/material/gold
 
-/obj/item/stack/sheet/mineral/gold/get_recipes()
-	return GLOB.gold_recipes
+/obj/item/stack/sheet/mineral/gold/get_main_recipes()
+	. = ..()
+	. += GLOB.gold_recipes
 
 /* Silver */
 
@@ -130,14 +134,16 @@ Mineral Sheets
 	item_state = "sheet-silver"
 	singular_name = "silver bar"
 	sheettype = "silver"
-	materials = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/silver = 20)
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/silver
+	material_type = /datum/material/silver
 	tableVariant = /obj/structure/table/optable
 
-/obj/item/stack/sheet/mineral/silver/get_recipes()
-	return GLOB.silver_recipes
+/obj/item/stack/sheet/mineral/silver/get_main_recipes()
+	. = ..()
+	. += GLOB.silver_recipes
 
 /* Copper */
 
@@ -147,14 +153,15 @@ Mineral Sheets
 	item_state = "sheet-copper"
 	singular_name = "copper bar"
 	sheettype = "copper"
-	materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/copper = 20)
 	point_value = 3
 	merge_type = /obj/item/stack/sheet/mineral/copper
 
 
-/obj/item/stack/sheet/mineral/copper/get_recipes()
-	return GLOB.copper_recipes
+/obj/item/stack/sheet/mineral/copper/get_main_recipes()
+	. = ..()
+	. += GLOB.copper_recipes
 
 /* Titanium */
 
@@ -169,13 +176,14 @@ Mineral Sheets
 	throw_speed = 1
 	throw_range = 3
 	sheettype = "titanium"
-	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/titanium
+	material_type = /datum/material/titanium
 
-
-/obj/item/stack/sheet/mineral/titanium/get_recipes()
-	return GLOB.titanium_recipes
+/obj/item/stack/sheet/mineral/titanium/get_main_recipes()
+	. = ..()
+	. += GLOB.titanium_recipes
 
 /* Plastitanium */
 
@@ -190,12 +198,14 @@ Mineral Sheets
 	throw_speed = 1
 	throw_range = 3
 	sheettype = "plastitanium"
-	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
 	point_value = 45
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_flags = NONE
 
-/obj/item/stack/sheet/mineral/plastitanium/get_recipes()
-	return GLOB.plastitanium_recipes
+/obj/item/stack/sheet/mineral/plastitanium/get_main_recipes()
+	. = ..()
+	. += GLOB.plastitanium_recipes
 
 /* Coal */
 

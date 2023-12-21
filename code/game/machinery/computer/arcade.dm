@@ -48,6 +48,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/hot_potato/harmless/toy = 1,
 		/obj/item/card/emagfake = 1,
 		/obj/item/disk/nuclear/fake/obvious = 1,
+		/obj/machinery/computer/fake = 1,
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
 		/obj/item/toy/plush/moth/random = 2,

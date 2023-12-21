@@ -392,7 +392,7 @@
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
 
 	LE.firer = src
-	LE.def_zone = ran_zone(zone_selected)
+	LE.def_zone = ran_zone(get_combat_bodyzone(A))
 	LE.preparePixelProjectile(A, src, params)
 	LE.fire()
 
@@ -473,6 +473,15 @@
 
 /mob/proc/MouseWheelOn(atom/A, delta_x, delta_y, params)
 	SEND_SIGNAL(src, COMSIG_MOB_MOUSE_SCROLL_ON, A, delta_x, delta_y, params)
+	if (!client)
+		return
+	// Send the hotkey action
+	if (delta_y > 0)
+		client.keyDown("ScrollUp")
+		client.keyUp("ScrollUp")
+	else if (delta_y < 0)
+		client.keyDown("ScrollDown")
+		client.keyUp("ScrollDown")
 
 /mob/dead/observer/proc/mouse_wheeled(atom/A, delta_x, delta_y, params)
 	SIGNAL_HANDLER

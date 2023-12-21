@@ -123,6 +123,7 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/under/rank/brig_physician(src)
 	new /obj/item/clothing/under/rank/brig_physician/skirt(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/brigphys(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"

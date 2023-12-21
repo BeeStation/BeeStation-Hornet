@@ -167,15 +167,12 @@
 	. = ..()
 	adjust_hacked(TRUE)
 
-/obj/machinery/modular_fabricator/autolathe/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+/obj/machinery/modular_fabricator/autolathe/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
 	. = ..()
-	switch(id_inserted)
-		if (/datum/material/iron)
-			flick("autolathe_o",src)//plays metal insertion animation
-		if(/datum/material/copper)
-			flick("autolathe_c",src)//plays metal insertion animation
-		else
-			flick("autolathe_r",src)//plays glass insertion animation by default otherwise
+	if(custom_materials && custom_materials.len && custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
+		flick("autolathe_r",src)//plays glass insertion animation by default otherwise
+	else
+		flick("autolathe_o",src)//plays metal insertion animation
 
 /obj/machinery/modular_fabricator/autolathe/set_default_sprite()
 	icon_state = "autolathe"

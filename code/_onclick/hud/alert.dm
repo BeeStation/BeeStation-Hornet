@@ -623,7 +623,7 @@ so as to remain in compliance with the most up-to-date laws."
 		if(NOTIFY_ATTACK)
 			target.attack_ghost(ghost_owner)
 		if(NOTIFY_ORBIT)
-			ghost_owner.ManualFollow(target)
+			ghost_owner.check_orbitable(target)
 
 //OBJECT-BASED
 

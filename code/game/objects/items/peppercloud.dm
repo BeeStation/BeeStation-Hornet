@@ -101,4 +101,4 @@
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 70, FALSE, -2)
 	playsound(src, 'sound/effects/smoke.ogg', 50, TRUE, -2)
 	smoke.start()
-	investigate_log("[key_name(user)] deployed a peppercloud at [COORD(center)].", INVESTIGATE_EXPERIMENTOR)
+	user.investigate_log("deployed a peppercloud at [COORD(center)].", INVESTIGATE_EXPERIMENTOR)

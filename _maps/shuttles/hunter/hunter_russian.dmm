@@ -949,11 +949,11 @@
 /obj/machinery/microwave{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/meat/slab/bear{
+/obj/item/food/meat/slab/bear{
 	pixel_y = 8;
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/food/snacks/meat/slab/bear{
+/obj/item/food/meat/slab/bear{
 	pixel_y = 1;
 	pixel_x = -3
 	},

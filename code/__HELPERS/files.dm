@@ -1,3 +1,10 @@
+/**
+ * For FTP requests. (i.e. downloading runtime logs.)
+ *
+ * However it'd be ok to use for accessing attack logs and such too, which are even laggier.
+ */
+GLOBAL_VAR_INIT(fileaccess_timer, 0)
+
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list("txt","log","htm", "html"))
 	if(IsAdminAdvancedProcCall())
 		log_admin_private("BROWSEFILES: Admin proc call blocked")

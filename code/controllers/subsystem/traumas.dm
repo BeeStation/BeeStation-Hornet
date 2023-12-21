@@ -114,12 +114,12 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/spear, /obj/item/clothing/mask/gas/old)),
 
 		"lizards"   = typecacheof(list(
-			/obj/item/toy/plush/lizardplushie, /obj/item/reagent_containers/food/snacks/kebab/tail,
+			/obj/item/toy/plush/lizardplushie, /obj/item/food/kebab/tail,
 			/obj/item/organ/tail/lizard, /obj/item/reagent_containers/food/drinks/bottle/lizardwine)),
 
 		"skeletons" = typecacheof(list(
 			/obj/item/organ/tongue/bone, /obj/item/clothing/suit/armor/bone, /obj/item/stack/sheet/bone,
-			/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/skeleton,
+			/obj/item/food/meat/slab/human/mutant/skeleton,
 			/obj/effect/decal/remains/human)),
 
 		"conspiracies" = typecacheof(list(
@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(traumas)
 		"anime" = typecacheof(list(
 			/obj/item/clothing/under/costume/schoolgirl,
 			/obj/item/katana,
-			/obj/item/reagent_containers/food/snacks/sashimi,
+			/obj/item/food/sashimi,
 			/obj/item/food/chawanmushi,
 			/obj/item/reagent_containers/food/drinks/bottle/sake,
 			/obj/item/throwing_star,

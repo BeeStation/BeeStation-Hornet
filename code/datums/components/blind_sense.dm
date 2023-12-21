@@ -95,7 +95,7 @@
 	var/_color = "#fff"
 	if(HAS_TRAIT(parent, TRAIT_PSYCHIC_SENSE) && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		_color = GLOB.SOUL_GLIMMER_COLORS[H.mind?.soul_glimmer]
+		_color = GLOB.soul_glimmer_colors[H.mind?.soul_glimmer]
 	M.color = _color
 
 	//Animate fade & delete

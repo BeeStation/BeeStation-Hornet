@@ -76,6 +76,8 @@
 #include "shuttle_width_height_correctness.dm"
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
+#include "food_edibility_check.dm"
+#include "food_icons.dm"
 #include "greyscale_config.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"

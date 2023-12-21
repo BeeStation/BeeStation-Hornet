@@ -3,7 +3,7 @@
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
 	bodyflag = FLAG_PSYPHOZA
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
+	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
 	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS)
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
@@ -204,7 +204,7 @@
 	//Reveal larger area of sense
 	dim_overlay()
 	//Blind sense stuffs
-	var/datum/component/blind_sense/BS = owner.GetComponent(/datum/component/blind_sense)	
+	var/datum/component/blind_sense/BS = owner.GetComponent(/datum/component/blind_sense)
 	if(BS)
 		for(var/mob/living/L in urange(9, owner, 1))
 			BS.highlight_object(L, "mob", L.dir)
@@ -220,7 +220,7 @@
 /datum/action/item_action/organ_action/psychic_highlight/proc/remove()
 	owner?.clear_fullscreen("psychic_highlight")
 	owner?.clear_fullscreen("psychic_highlight_mask")
-	owner?.clear_fullscreen("psychic_highlight_click_mask")	
+	owner?.clear_fullscreen("psychic_highlight_click_mask")
 	eyes = null
 	//This can get *tricky*
 	if(!QDELETED(overlay_change))

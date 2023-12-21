@@ -59,7 +59,7 @@
 	var/ui_buttons = null
 
 	/// How much this costs by itself. Keep this updated with /datum/design/integrated_circuit
-	materials = list(/datum/material/glass = 500, /datum/material/copper = 150)
+	custom_materials = list(/datum/material/glass = 500, /datum/material/copper = 150)
 
 /// Called when the option ports should be set up
 /obj/item/circuit_component/proc/populate_options()
@@ -360,5 +360,5 @@
 
 /obj/item/circuit_component/proc/get_material_cost()
 	. = list()
-	for(var/mat in materials)
-		.[mat] += materials[mat]
+	for(var/mat in custom_materials)
+		.[mat] += custom_materials[mat]

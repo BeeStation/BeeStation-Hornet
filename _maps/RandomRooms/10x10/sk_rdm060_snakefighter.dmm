@@ -51,7 +51,7 @@
 /area/template_noop)
 "i" = (
 /obj/structure/closet,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -236,11 +236,11 @@
 /area/template_noop)
 "L" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "N" = (

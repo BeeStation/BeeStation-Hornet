@@ -2,7 +2,13 @@
 	if(!message || !subject || SSticker.current_state == GAME_STATE_FINISHED)
 		return
 	var/F = file("[GLOB.log_directory]/[subject].html")
-	WRITE_FILE(F, "[time_stamp()] [REF(src)] ([x],[y],[z]) || [src] [message]<br>")
+	var/source = "[src]"
+
+	if(isliving(src))
+		var/mob/living/source_mob = src
+		source += " ([source_mob.ckey ? source_mob.ckey : "*no key*"])"
+
+	WRITE_FILE(F, "[time_stamp(format = "YYYY-MM-DD hh:mm:ss")] [REF(src)] ([x],[y],[z]) || [src] [message]<br>")
 
 /client/proc/investigate_show()
 	set name = "Investigate"
@@ -43,8 +49,9 @@
 
 	var/list/combined = sort_list(logs_present) + sort_list(logs_missing)
 
-	var/selected = input("Investigate what?", "Investigate") as null|anything in combined
-
+	var/selected = tgui_input_list(src, "Investigate what?", "Investigation", combined)
+	if(isnull(selected))
+		return
 	if(!(selected in combined) || selected == "---")
 		return
 

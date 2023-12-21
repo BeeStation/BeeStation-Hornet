@@ -59,12 +59,6 @@
 	else
 		return ..()
 
-/obj/effect/decal/cleanable/ex_act()
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			R.on_ex_act()
-	..()
-
 /obj/effect/decal/cleanable/fire_act(exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.expose_temperature(exposed_temperature)

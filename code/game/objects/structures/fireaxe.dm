@@ -7,7 +7,7 @@
 	density = FALSE
 	armor = list(MELEE = 50,  BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0)
 	max_integrity = 150
-	integrity_failure = 50
+	integrity_failure = 0.33
 	layer = ABOVE_WINDOW_LAYER
 	var/locked = TRUE
 	var/open = FALSE

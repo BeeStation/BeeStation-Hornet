@@ -89,7 +89,7 @@
 			each.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 			if(isitem(each))
 				var/obj/item/I = each
-				I.materials = null // we don't want to feed lathe with these items
+				I.custom_materials = null // we don't want to feed lathe with these items
 
 /obj/item/debug/omnitool/examine()
 	. = ..()

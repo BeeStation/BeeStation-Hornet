@@ -21,14 +21,18 @@
 	tastes = list("cheese" = 1)
 	foodtype = DAIRY
 
-/obj/item/reagent_containers/food/snacks/watermelonslice
+/obj/item/food/watermelonslice
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
 	icon_state = "watermelonslice"
-	filling_color = "#FF1493"
+	food_reagents = list(
+		/datum/reagent/water = 1,
+		/datum/reagent/consumable/nutriment/vitamin = 0.2,
+		/datum/reagent/consumable/nutriment = 1,
+	)
 	tastes = list("watermelon" = 1)
-	foodtype = FRUIT
-	/*food_flags = FOOD_FINGER_FOOD*/
+	foodtypes = FRUIT
+	food_flags = FOOD_FINGER_FOOD
 	juice_results = list(/datum/reagent/consumable/watermelonjuice = 5)
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -297,25 +301,23 @@
 	trash = /obj/item/stack/rods
 	/*food_flags = FOOD_FINGER_FOOD*/
 
-/obj/item/reagent_containers/food/snacks/onionrings
+/obj/item/food/onionrings
 	name = "onion rings"
 	desc = "Onion slices coated in batter."
 	icon_state = "onionrings"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
-	filling_color = "#C0C9A0"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	gender = PLURAL
 	tastes = list("batter" = 3, "onion" = 1)
-	foodtype = VEGETABLES
+	foodtypes = VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/pineappleslice
+/obj/item/food/pineappleslice
 	name = "pineapple slice"
 	desc = "A sliced piece of juicy pineapple."
 	icon_state = "pineapple_slice"
-	filling_color = "#F6CB0B"
 	juice_results = list(/datum/reagent/consumable/pineapplejuice = 3)
 	tastes = list("pineapple" = 1)
-	foodtype = FRUIT | PINEAPPLE
+	foodtypes = FRUIT | PINEAPPLE
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/crab_rangoon

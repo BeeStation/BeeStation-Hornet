@@ -10,17 +10,30 @@
 	self_delay = 3 SECONDS
 	dissolvable = FALSE
 
-/obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user, obj/item/bodypart/affecting)
+/obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user)
 	if(!ishuman(L))
 		return ..()
-	affecting = L.get_bodypart(check_zone(user.zone_selected))
+	var/datum/task/select_bodyzone = user.select_bodyzone(L, FALSE, BODYZONE_STYLE_MEDICAL)
+	select_bodyzone.continue_with(CALLBACK(src, PROC_REF(apply_part), L, user))
+	return TRUE
+
+/obj/item/reagent_containers/pill/patch/proc/apply_part(mob/living/L, mob/user, selected_target)
+	if (!selected_target)
+		return
+	if (!user.can_interact_with(L, TRUE))
+		balloon_alert(user, "[L] is too far away!")
+		return
+	if (!user.can_interact_with(src, TRUE))
+		balloon_alert(user, "[src] is too far away!")
+		return
+	var/obj/item/bodypart/affecting = L.get_bodypart(selected_target)
 	if(!affecting)
 		balloon_alert(user, "The limb is missing.")
 		return
 	if(!IS_ORGANIC_LIMB(affecting))
 		balloon_alert(user, "[src] doesn't work on robotic limbs.")
 		return
-	return ..()
+	perform_application(L, user, affecting)
 
 /obj/item/reagent_containers/pill/patch/canconsume(mob/eater, mob/user)
 	if(!iscarbon(eater))

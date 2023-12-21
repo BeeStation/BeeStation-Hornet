@@ -5,7 +5,7 @@
 	icon_state = "seed-grass"
 	species = "grass"
 	plantname = "Grass"
-	product = /obj/item/reagent_containers/food/snacks/grown/grass
+	product = /obj/item/food/grown/grass
 	lifespan = 40
 	endurance = 40
 	maturation = 2
@@ -18,21 +18,20 @@
 	mutatelist = list(/obj/item/seeds/grass/carpet, /obj/item/seeds/grass/fairy, /obj/item/seeds/grass/shamrock)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05)
 
-/obj/item/reagent_containers/food/snacks/grown/grass
+/obj/item/food/grown/grass
 	seed = /obj/item/seeds/grass
 	name = "grass"
 	desc = "Green and lush."
 	icon_state = "grassclump"
-	filling_color = "#32CD32"
-	bitesize_mod = 2
+	bite_consumption_mod = 0.5 // Grazing on grass
 	var/stacktype = /obj/item/stack/tile/grass
 	var/tile_coefficient = 0.02 // 1/50
 	wine_power = 15
 
-/obj/item/reagent_containers/food/snacks/grown/grass/attack_self(mob/user)
+/obj/item/food/grown/grass/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>You prepare the astroturf.</span>")
 	var/grassAmt = 1 + round(seed.potency * tile_coefficient) // The grass we're holding
-	for(var/obj/item/reagent_containers/food/snacks/grown/grass/G in user.loc) // The grass on the floor
+	for(var/obj/item/food/grown/grass/G in user.loc) // The grass on the floor
 		if(G.type != type)
 			continue
 		grassAmt += 1 + round(G.seed.potency * tile_coefficient)
@@ -47,21 +46,21 @@
 	icon_state = "seed-fairygrass"
 	species = "fairygrass"
 	plantname = "Fairygrass"
-	product = /obj/item/reagent_containers/food/snacks/grown/grass/fairy
+	product = /obj/item/food/grown/grass/fairy
 	icon_grow = "fairygrass-grow"
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/blue)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05, /datum/reagent/drug/space_drugs = 0.15)
 
-/obj/item/reagent_containers/food/snacks/grown/grass/fairy
+/obj/item/food/grown/grass/fairy
 	seed = /obj/item/seeds/grass/fairy
 	name = "fairygrass"
 	desc = "Glowing, and smells fainly of mushrooms."
 	icon_state = "fairygrassclump"
-	filling_color = "#3399ff"
+	bite_consumption_mod = 1
 	stacktype = /obj/item/stack/tile/fairygrass
 	discovery_points = 300
 
-/obj/item/reagent_containers/food/snacks/grown/grass/fairy/attack_self(mob/user)
+/obj/item/food/grown/grass/fairy/attack_self(mob/user)
 	var/datum/plant_gene/trait/glow/G = null
 	for(var/datum/plant_gene/trait/glow/gene in seed.genes)
 		G = gene
@@ -99,11 +98,11 @@
 	icon_state = "seed-carpet"
 	species = "carpet"
 	plantname = "Carpet"
-	product = /obj/item/reagent_containers/food/snacks/grown/grass/carpet
+	product = /obj/item/food/grown/grass/carpet
 	mutatelist = list()
 	rarity = 10
 
-/obj/item/reagent_containers/food/snacks/grown/grass/carpet
+/obj/item/food/grown/grass/carpet
 	seed = /obj/item/seeds/grass/carpet
 	name = "carpet"
 	desc = "The textile industry's dark secret."
@@ -118,28 +117,27 @@
 	icon_state = "seed-shamrock"
 	species = "shamrock"
 	plantname = "Shamrock Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/grass/shamrock
+	product = /obj/item/food/grown/grass/shamrock
 	mutatelist = list()
 	rarity = 10
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/nitrogen = 0.1, /datum/reagent/consumable/nutriment = 0.02)
 
-/obj/item/reagent_containers/food/snacks/grown/grass/shamrock
+/obj/item/food/grown/grass/shamrock
 	seed = /obj/item/seeds/grass/shamrock
 	name = "shamrock"
 	desc = "Luck of the irish."
 	icon_state = "shamrock"
 	slot_flags = ITEM_SLOT_HEAD
-	filling_color = "#245c39"
-	bitesize_mod = 3
+	bite_consumption_mod = 3
 	can_distill = FALSE
 
-/obj/item/reagent_containers/food/snacks/grown/grass/shamrock/equipped(mob/user, slot)
+/obj/item/food/grown/grass/shamrock/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
 
-/obj/item/reagent_containers/food/snacks/grown/grass/shamrock/dropped(mob/living/carbon/user)
+/obj/item/food/grown/grass/shamrock/dropped(mob/living/carbon/user)
 	..()
 	if(user.head != src)
 		return
@@ -147,11 +145,9 @@
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 //clover
-/obj/item/reagent_containers/food/snacks/grown/grass/shamrock/Initialize(mapload, /obj/item/seeds/new_seed)
+/obj/item/food/grown/grass/shamrock/Initialize(mapload, /obj/item/seeds/new_seed)
 	. = ..()
 	if(prob(0.001)) // 0.001% chance to be a clover
 		name = "four leafed clover"
 		desc = "A rare sought after trinket said to grant luck to it's holder."
 		icon_state = "clover"
-		filling_color = "#358a55"
-
