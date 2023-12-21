@@ -27,7 +27,7 @@
 	contraband = list(/obj/item/clothing/under/misc/patriotsuit = 3,
 		              /obj/item/bedsheet/patriot = 5,
 					  /obj/item/food/burger/superbite = 3) //U S A
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	default_price = 300
 	extra_price = 500

@@ -1033,6 +1033,7 @@
 	card_throw_speed = 6
 	embedding = list("pain_mult" = 1, "embed_chance" = 80, "max_damage_mult" = 8, "fall_chance" = 0, "embed_chance_turf_mod" = 15, "armour_block" = 60) //less painful than throwing stars
 	card_sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
 	resistance_flags = NONE

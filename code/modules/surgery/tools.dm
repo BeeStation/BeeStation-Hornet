@@ -150,6 +150,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 	tool_behaviour = TOOL_SCALPEL
 	toolspeed = 1
 
@@ -173,6 +174,7 @@
 	toolspeed = 0.5
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 
 /obj/item/scalpel/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat", "stomach")] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -196,6 +198,7 @@
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
 
@@ -220,6 +223,7 @@
 	toolspeed = 0.5
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
@@ -319,7 +323,8 @@
 	light_range = 1
 	light_color = LIGHT_COLOR_GREEN
 	sharpness = IS_SHARP_ACCURATE
-
+	// It cauterises the wound it causes
+	bleed_force = 0
 
 /obj/item/scalpel/advanced/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, TRUE)

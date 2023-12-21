@@ -102,6 +102,7 @@
 	colour = "crimson"
 	custom_materials = list(/datum/material/gold = 750)
 	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	resistance_flags = FIRE_PROOF
 	unique_reskin_icon = list("Oak" = "pen-fountain-o",
 						"Gold" = "pen-fountain-g",
@@ -242,6 +243,7 @@
 		embedding = list(embed_chance = EMBED_CHANCE, armour_block = 30)
 		throwforce = initial(throwforce)
 		sharpness = initial(sharpness)
+		bleed_force = initial(bleed_force)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 	else
@@ -254,6 +256,7 @@
 		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
 		throwforce = 35
 		sharpness = IS_SHARP
+		bleed_force = BLEED_CUT
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 	updateEmbedding()

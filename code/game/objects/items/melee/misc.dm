@@ -44,6 +44,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 
 /obj/item/melee/synthetic_arm_blade/Initialize(mapload)
 	. = ..()
@@ -67,6 +68,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
 	sharpness = IS_SHARP
+	bleed_force = BLEED_CUT
 	attack_verb = list("slashed", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)

@@ -1785,6 +1785,34 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/weakness = H.check_weakness(I, user)
 	apply_damage(I.force * weakness, I.damtype, def_zone, armor_block, H)
 
+	if (I.bleed_force)
+		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
+		var/hit_amount = (100 - armour_block) / 100
+		H.add_bleeding(I.bleed_force * hit_amount)
+		if(IS_ORGANIC_LIMB(affecting))
+			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
+			if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
+				user.add_mob_blood(H)
+			switch(hit_area)
+				if(BODY_ZONE_HEAD)
+					if(H.wear_mask)
+						H.wear_mask.add_mob_blood(H)
+						H.update_inv_wear_mask()
+					if(H.head)
+						H.head.add_mob_blood(H)
+						H.update_inv_head()
+					if(H.glasses && prob(33))
+						H.glasses.add_mob_blood(H)
+						H.update_inv_glasses()
+
+				if(BODY_ZONE_CHEST)
+					if(H.wear_suit)
+						H.wear_suit.add_mob_blood(H)
+						H.update_inv_wear_suit()
+					if(H.w_uniform)
+						H.w_uniform.add_mob_blood(H)
+						H.update_inv_w_uniform()
+
 	H.send_item_attack_message(I, user, hit_area)
 
 	if(!I.force)
@@ -1803,47 +1831,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
 
 	var/bloody = 0
-	if((I.damtype == BRUTE) && (I.force >= max(10, armor_block) || I.is_sharp()))
-		if(IS_ORGANIC_LIMB(affecting))
-			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
-			if(prob(I.force * 2))	//blood spatter!
-				bloody = 1
-				var/turf/location = H.loc
-				if(istype(location))
-					H.add_splatter_floor(location)
-				if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
-					user.add_mob_blood(H)
-
-		switch(hit_area)
-			if(BODY_ZONE_HEAD)
-				if(!I.is_sharp())
-					if(H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
-						var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
-						if(rev)
-							rev.remove_revolutionary(FALSE, user)
-
-				if(bloody)	//Apply blood
-					if(H.wear_mask)
-						H.wear_mask.add_mob_blood(H)
-						H.update_inv_wear_mask()
-					if(H.head)
-						H.head.add_mob_blood(H)
-						H.update_inv_head()
-					if(H.glasses && prob(33))
-						H.glasses.add_mob_blood(H)
-						H.update_inv_glasses()
-
-			if(BODY_ZONE_CHEST)
-				if(bloody)
-					if(H.wear_suit)
-						H.wear_suit.add_mob_blood(H)
-						H.update_inv_wear_suit()
-					if(H.w_uniform)
-						H.w_uniform.add_mob_blood(H)
-						H.update_inv_w_uniform()
-
+	if(I.damtype == BRUTE && (I.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
+		if(!I.is_sharp() && H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
+			var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
+			if(rev)
+				rev.remove_revolutionary(FALSE, user)
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
 			H.force_say(user)
+	else if (I.damtype == BURN && H.is_bleeding())
+		if (H.get_bleed_intensity() <= I.force)
+			H.cauterise_wounds()
+			to_chat(user, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
+		else if (user == src)
+			to_chat(user, "<span class='warning'>Your bleeding is too strong to be cauterized with [I]...</span>")
 	return TRUE
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)

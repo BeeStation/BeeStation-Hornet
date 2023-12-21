@@ -127,4 +127,5 @@
 	throw_speed = 4
 	attack_verb = list("mopped", "stabbed", "shanked", "jousted")
 	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 	embedding = list("armour_block" = 40)

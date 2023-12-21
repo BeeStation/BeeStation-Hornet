@@ -40,7 +40,7 @@
 	if(!iscarbon(M) && !isanimal(M))
 		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
 		return
-	
+
 	if(M in user.do_afters) //One at a time, please.
 		return
 
@@ -92,7 +92,7 @@
 	if(ishuman(C)) //apparently only humans bleed? funky.
 		var/mob/living/carbon/human/H = C
 		if(stop_bleeding)
-			if(!H.bleed_rate)
+			if(!H.is_bleeding())
 				to_chat(user, "<span class='warning'>[H] isn't bleeding!</span>")
 				return
 			if(H.bleedsuppress) //so you can't stack bleed suppression

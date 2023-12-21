@@ -164,7 +164,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/access = list()
 	var/registered_name// The name registered_name on the card
@@ -844,7 +844,7 @@ update_label("John Doe", "Clowny")
 	name = "paper nametag"
 	desc = "Some spare papers taped into a vague card shape, with a name scribbled on it. Seems trustworthy."
 	icon_state = "paper"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 0, BLEED = 0)
 	resistance_flags = null  // removes all resistance because its a piece of paper
 	access = list()
 	assignment = "Unknown"

@@ -95,7 +95,7 @@
 	desc = "It's a robust baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	soft_color = "sec"
-	armor = list(MELEE = 30,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 30,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30, BLEED = 10)
 	strip_delay = 60
 
 /obj/item/clothing/head/soft/sec/brig_physician

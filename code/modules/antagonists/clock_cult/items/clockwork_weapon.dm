@@ -17,6 +17,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = IS_SHARP_ACCURATE
+	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""
 	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS

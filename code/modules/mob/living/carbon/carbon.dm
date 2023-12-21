@@ -655,7 +655,7 @@
 		clear_fullscreen("critvision")
 
 	//Oxygen damage overlay
-	if(oxyloss)
+	if(oxyloss || blood_volume <= BLOOD_VOLUME_SAFE)
 		var/severity = 0
 		switch(oxyloss)
 			if(10 to 20)
@@ -672,6 +672,22 @@
 				severity = 6
 			if(45 to INFINITY)
 				severity = 7
+		var/blood_effect_ratio = CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_SAFE - BLOOD_VOLUME_SURVIVE))
+		switch(blood_effect_ratio)
+			if (0.9 to INFINITY)
+				severity = max(severity, 1)
+			if(0.8 to 0.9)
+				severity = max(severity, 2)
+			if(0.7 to 0.8)
+				severity = max(severity, 3)
+			if(0.6 to 0.7)
+				severity = max(severity, 4)
+			if(0.4 to 0.6)
+				severity = max(severity, 5)
+			if(0.2 to 0.4)
+				severity = max(severity, 6)
+			if(-INFINITY to 0.2)
+				severity = max(severity, 7)
 		overlay_fullscreen("oxy", /atom/movable/screen/fullscreen/oxy, severity)
 	else
 		clear_fullscreen("oxy")
@@ -755,7 +771,7 @@
 			else
 				set_stat(CONSCIOUS)
 			if(!is_blind())
-				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
 				B?.RemoveComponent()
 		update_mobility()
 	update_damage_hud()

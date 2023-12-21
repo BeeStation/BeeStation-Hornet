@@ -17,6 +17,16 @@
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
 
+// Bleed rates
+#define BLEED_RATE_MINOR 2.4		/// Point at which bleeding is considered minor (5/sec). Any bleed rates greater than this will not heal.
+#define BLEED_HEAL_RATE_MINOR 0.02 /// How quickly minor bleeds will stop bleeding (0.05/sec)
+
+// Bleed damage values
+#define BLEED_SURFACE 1.5			// Results in 60 blood loss
+#define BLEED_CUT 2.3				// Results in 140 bloos loss
+#define BLEED_DEEP_WOUND 2.4		// Death in 3 minutes if untreated
+#define BLEED_CRITICAL 4.8			// Death in 90 seconds if untreated
+
 //Blood levels
 #define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_SLIME_SPLIT	1120

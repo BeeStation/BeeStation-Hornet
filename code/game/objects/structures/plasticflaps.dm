@@ -3,7 +3,7 @@
 	desc = "Heavy duty, airtight, plastic flaps. Definitely can't get past those. No way."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "plasticflaps"
-	armor = list(MELEE = 100,  BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 100,  BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
 	density = FALSE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER

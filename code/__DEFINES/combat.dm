@@ -42,6 +42,8 @@
 #define MELEE "melee"
 /// Involves magic.
 #define MAGIC "magic"
+/// Bleed prevention
+#define BLEED "bleed"
 
 /*
 /// Involved in checking the likelihood of applying a wound to a mob.

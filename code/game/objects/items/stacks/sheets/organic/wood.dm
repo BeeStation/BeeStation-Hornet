@@ -17,7 +17,7 @@ Woods Sheets
 	item_state = "sheet-wood"
 	icon = 'icons/obj/stacks/organic.dmi'
 	sheettype = "wood"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0, BLEED = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/wood
 	grind_results = list(/datum/reagent/carbon = 20)
@@ -37,7 +37,7 @@ Woods Sheets
 	icon = 'icons/obj/stacks/organic.dmi'
 	force = 10
 	throwforce = 10
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0, BLEED = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/bamboo
 	grind_results = list("carbon" = 5)

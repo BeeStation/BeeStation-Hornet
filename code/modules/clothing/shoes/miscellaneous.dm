@@ -12,7 +12,7 @@
 	item_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 30, BLEED = 20)
 	strip_delay = 40
 	resistance_flags = NONE
 	permeability_coefficient = 0.05 //Thick soles, and covers the ankle
@@ -23,7 +23,7 @@
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	clothing_flags = NOSLIP
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50, STAMINA = 30, BLEED = 20)
 
 /obj/item/clothing/shoes/sandal
 	desc = "A pair of rather plain wooden sandals."
@@ -61,7 +61,7 @@
 	strip_delay = 30
 	equip_delay_other = 50
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 75, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 75, STAMINA = 0, BLEED = 0)
 	can_be_bloody = FALSE
 	custom_price = 100
 

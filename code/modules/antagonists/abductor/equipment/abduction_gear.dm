@@ -13,7 +13,7 @@
 	icon_state = "vest_stealth"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 15,  BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70, STAMINA = 30)
+	armor = list(MELEE = 15,  BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70, STAMINA = 30, BLEED = 40)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(
 		/obj/item/abductor,
@@ -28,8 +28,8 @@
 	/// Cooldown in seconds
 	var/combat_cooldown = 20
 	var/datum/icon_snapshot/disguise
-	var/stealth_armor = list(MELEE = 15,  BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70, STAMINA = 30)
-	var/combat_armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 90, ACID = 90, STAMINA = 60)
+	var/stealth_armor = list(MELEE = 15,  BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70, STAMINA = 30, BLEED = 40)
+	var/combat_armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 90, ACID = 90, STAMINA = 60, BLEED = 80)
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
 	. = ..()
@@ -876,5 +876,5 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien jumpsuit"
 	icon_state = "abductor-suit"
 	item_state = "bl_suit"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0, fire = 0, acid = 0, stamina = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0, fire = 0, acid = 0, STAMINA = 0, BLEED = 0)
 	can_adjust = 0

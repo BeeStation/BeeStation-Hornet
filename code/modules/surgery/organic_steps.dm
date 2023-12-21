@@ -26,7 +26,7 @@
 			display_results(user, target, "<span class='notice'>Blood pools around the incision in [H]'s [parse_zone(surgery.location)].</span>",
 				"Blood pools around the incision in [H]'s [parse_zone(surgery.location)].",
 				"")
-			H.bleed_rate += 3
+			H.add_bleeding(BLEED_CUT)
 	return TRUE
 
 /datum/surgery_step/incise/nobleed //silly friendly!

@@ -20,6 +20,7 @@
 	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = "swing_hit"
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = FALSE
 	tool_behaviour = TOOL_SAW

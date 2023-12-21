@@ -27,9 +27,7 @@
 	drop_limb()
 
 	C.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
-	var/turf/location = C.loc
-	if(istype(location))
-		C.add_splatter_floor(location)
+	C.add_bleeding(BLEED_CRITICAL)
 
 	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
 		return TRUE
@@ -62,7 +60,7 @@
 	. = list()
 	var/organ_spilled = 0
 	var/turf/T = get_turf(C)
-	C.add_splatter_floor(T)
+	C.add_bleeding(BLEED_CRITICAL)
 	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X

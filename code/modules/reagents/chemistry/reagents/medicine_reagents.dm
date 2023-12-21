@@ -1680,7 +1680,7 @@
 	if(prob(50))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			H.bleed_rate = max(H.bleed_rate - 1, 0)
+			H.suppress_bloodloss(2 SECONDS)
 	..()
 	. = 1
 

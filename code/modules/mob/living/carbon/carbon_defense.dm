@@ -77,6 +77,10 @@
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
+	if (I.bleed_force)
+		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(I.bleed_force * hit_amount)
 	if(I.force)
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
 		apply_damage(I.force, I.damtype, affecting, armour_block)
@@ -97,6 +101,12 @@
 					if(head)
 						head.add_mob_blood(src)
 						update_inv_head()
+		else if (I.damtype == BURN && is_bleeding())
+			if (get_bleed_intensity() <= I.force)
+				cauterise_wounds()
+				to_chat(src, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
+			else if (user == src)
+				to_chat(src, "<span class='warning'>Your bleeding is too strong to be cauterized with [I]...</span>")
 
 		//dismemberment
 		var/dismemberthreshold = (((affecting.max_damage * 2) / max(I.is_sharp(), 0.5)) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))

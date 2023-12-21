@@ -22,7 +22,7 @@
 	)
 
 /turf/closed/wall/r_wall/get_armour_list()
-	return list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0)
+	return list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0, BLEED = 0)
 
 /turf/closed/wall/r_wall/deconstruction_hints(mob/user)
 	switch(d_state)

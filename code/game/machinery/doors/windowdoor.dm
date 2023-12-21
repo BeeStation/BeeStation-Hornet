@@ -9,7 +9,7 @@
 	var/base_state = "left"
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0, BLEED = 0)
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
@@ -431,7 +431,7 @@
 	shards = 0
 	rods = 0
 	max_integrity = 50
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	operationdelay = 10
 	var/made_glow = FALSE

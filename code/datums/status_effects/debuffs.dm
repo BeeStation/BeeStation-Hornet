@@ -494,7 +494,7 @@
 
 /datum/status_effect/neck_slice/tick()
 	var/mob/living/carbon/human/H = owner
-	if(H.stat == DEAD || H.bleed_rate <= 8)
+	if(H.stat == DEAD || H.get_bleed_rate() < BLEED_CUT)
 		H.remove_status_effect(/datum/status_effect/neck_slice)
 	if(prob(10))
 		H.emote(pick("gasp", "gag", "choke"))
@@ -920,7 +920,7 @@
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
-	H.bleed_rate += 5
+	H.add_bleeding(BLEED_CUT)
 	return ..()
 
 /datum/status_effect/heretic_mark/ash

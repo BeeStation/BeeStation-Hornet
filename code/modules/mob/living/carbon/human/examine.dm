@@ -244,14 +244,6 @@
 	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[t_He] appear[p_s()] faint.\n"
 
-	if(bleedsuppress)
-		msg += "[t_He] [t_is] bandaged with something.\n"
-	else if(bleed_rate)
-		if(reagents.has_reagent(/datum/reagent/toxin/heparin, needs_metabolizing = TRUE))
-			msg += "<b>[t_He] [t_is] [bleed_msg] uncontrollably!</b>\n"
-		else
-			msg += "<B>[t_He] [t_is] [bleed_msg]!</B>\n"
-
 	if(reagents.has_reagent(/datum/reagent/teslium, needs_metabolizing = TRUE))
 		msg += "[t_He] [t_is] emitting a gentle blue glow!\n"
 

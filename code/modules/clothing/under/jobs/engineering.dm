@@ -5,7 +5,7 @@
 	icon_state = "chiefengineer"
 	item_state = "gy_suit"	//TODO replace it
 	worn_icon_state = "chiefengineer"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40, STAMINA = 0, BLEED = 10)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
@@ -13,7 +13,7 @@
 	name = "chief engineer's jumpskirt"
 	icon_state = "chiefengineer_skirt"
 	item_state = "gy_suit"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 7, FIRE = 80, ACID = 40, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 7, FIRE = 80, ACID = 40, STAMINA = 0, BLEED = 10)
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
@@ -41,7 +41,7 @@
 	name = "engineer's jumpsuit"
 	icon_state = "engine"
 	item_state = "engi_suit"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 60, ACID = 20, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 60, ACID = 20, STAMINA = 0, BLEED = 10)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/engineer/hazard

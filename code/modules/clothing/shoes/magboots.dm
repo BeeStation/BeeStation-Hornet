@@ -64,7 +64,7 @@
 	icon_state = "advmag0"
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN
-	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50, STAMINA = 30, BLEED = 40)
 	clothing_flags = NOSLIP
 
 /obj/item/clothing/shoes/magboots/commando/attack_self(mob/user) //Code for the passive no-slip of the commando magboots to always apply, kind of a shit code solution though.

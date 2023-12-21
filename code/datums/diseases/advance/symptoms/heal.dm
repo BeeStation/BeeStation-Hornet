@@ -647,9 +647,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				if(bloodpoints > 0)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						if(H.bleed_rate >= 2 && bruteheal && bloodpoints)
+						if(bruteheal && bloodpoints)
 							bloodpoints -= 1
-							H.bleed_rate = max(0, (H.bleed_rate - 2))
+							H.suppress_bloodloss(1 SECONDS)
 					if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood) //bloodloss is prioritized over healing brute
 						bloodpoints -= 1
 						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
@@ -687,7 +687,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				H.visible_message("<span class='warning'>[H.name]'s skin takes on a rosy hue as they begin moving. They live again!</span>", "<span class='userdanger'>As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood.</span>")
 				bloodpoints = 0
 				return 0
-			else if(bloodbag && bloodbag.blood_volume && (bloodbag.stat || bloodbag.bleed_rate))
+			else if(bloodbag && bloodbag.blood_volume && (bloodbag.stat || bloodbag.is_bleeding()))
 				if(get_dist(bloodbag, H) <= 1 && bloodbag.z == H.z)
 					var/amt = ((bloodbag.stat * 2) + 2) * power
 					var/excess = max(((min(amt, bloodbag.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 2), 0)
@@ -748,10 +748,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/mob/living/carbon/human/H = M
 		if(H.pulling && ishuman(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 			var/mob/living/carbon/human/C = H.pulling
-			if(!C.bleed_rate && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))//aggressive grab as a "vampire" starts the target bleeding
-				C.bleed_rate += 1
+			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))//aggressive grab as a "vampire" starts the target bleeding
+				C.add_bleeding(BLEED_SURFACE)
 				C.visible_message("<span class='warning'>Wounds open on [C.name]'s skin as [H.name] grips them tightly!</span>", "<span class='userdanger'>You begin bleeding at [H.name]'s touch!</span>")
-			if(C.blood_volume && C.can_inject() &&(C.bleed_rate && (!C.bleedsuppress || vampire )) && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))
+			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && (!C.bleedsuppress || vampire )) && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))
 				var/amt = (H.grab_state + C.stat + 2) * power
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
@@ -797,7 +797,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
 			if(NOBLOOD in C.dna.species.species_traits)
 				continue
-			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.bleed_rate && C.get_blood_id() == H.get_blood_id())
+			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.is_bleeding() && C.get_blood_id() == H.get_blood_id())
 				var/amt = (2 * power)
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4 * power), 0)

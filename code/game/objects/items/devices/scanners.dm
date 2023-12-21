@@ -453,8 +453,11 @@ GENE SCANNER
 		if(blood_id)
 			if(ishuman(C))
 				var/mob/living/carbon/human/H = C
-				if(H.bleed_rate)
-					message += "<span class='alert'><b>Subject is bleeding!</b></span>"
+				if(H.is_bleeding())
+					if (H.bleedsuppress)
+						message += "<span class='alert'><b>Subject is bleeding (Bandaged)!</b></span>"
+					else
+						message += "<span class='alert'><b>Subject is bleeding!</b></span>"
 			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 			var/blood_type = C.dna.blood_type
 			if(blood_id != /datum/reagent/blood)//special blood substance

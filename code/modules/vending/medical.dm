@@ -32,7 +32,7 @@
 				   /obj/item/pinpointer/crew = 2,
 				   /obj/item/healthanalyzer = 2,
 		           /obj/item/wrench/medical = 1)
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 	default_price = 25

@@ -18,6 +18,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	sharpness = IS_SHARP
+	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/datum/effect_system/spark_spread/spark_system

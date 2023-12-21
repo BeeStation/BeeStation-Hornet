@@ -34,7 +34,7 @@
 			display_results(user, target, "<span class='notice'>Blood pools around the incision in [H]'s heart.</span>",
 				"Blood pools around the incision in [H]'s heart.",
 				"")
-			H.bleed_rate += 10
+			H.add_bleeding(BLEED_DEEP_WOUND)
 			H.adjustBruteLoss(10)
 	return TRUE
 
@@ -44,7 +44,7 @@
 		display_results(user, target, "<span class='warning'>You screw up, cutting too deeply into the heart!</span>",
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest!</span>",
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest!</span>")
-		H.bleed_rate += 20
+		H.add_bleeding(BLEED_CRITICAL)
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 10)
 		H.adjustBruteLoss(10)
 
@@ -76,5 +76,5 @@
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest profusely!</span>",
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest profusely!</span>")
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
-		H.bleed_rate += 30
+		H.add_bleeding(BLEED_CRITICAL)
 	return FALSE

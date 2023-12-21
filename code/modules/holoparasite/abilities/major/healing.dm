@@ -139,7 +139,7 @@
 			carbon_target.blood_volume = min(carbon_target.blood_volume + actual_heal_amt, HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
 		if(ishuman(carbon_target))
 			var/mob/living/carbon/human/human_target = carbon_target
-			human_target.bleed_rate = max(human_target.bleed_rate - actual_heal_amt, 0)
+			human_target.suppress_bloodloss(actual_heal_amt * 5)
 
 	if(purge_toxins)
 		var/list/reagents_purged = list()

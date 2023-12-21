@@ -10,7 +10,7 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/explorer
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50, STAMINA = 20)
+	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50, STAMINA = 20, BLEED = 30)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
@@ -24,7 +24,7 @@
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
-	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50, STAMINA = 20)
+	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50, STAMINA = 20, BLEED = 30)
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
 
@@ -45,7 +45,7 @@
 	visor_flags_inv = HIDEFACIALHAIR
 	visor_flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	actions_types = list(/datum/action/item_action/adjust)
-	armor = list(MELEE = 10,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 10)
+	armor = list(MELEE = 10,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 10, BLEED = 10)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
@@ -68,7 +68,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	slowdown = 0
-	armor = list(MELEE = 70,  BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 40)
+	armor = list(MELEE = 70,  BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 40, BLEED = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
 	high_pressure_multiplier = 0.6
 
@@ -98,7 +98,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	clothing_flags = THICKMATERIAL // no space protection
-	armor = list(MELEE = 70,  BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 40)
+	armor = list(MELEE = 70,  BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 40, BLEED = 50)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	high_pressure_multiplier = 0.6
 

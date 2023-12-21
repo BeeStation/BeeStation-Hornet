@@ -16,7 +16,7 @@
 	throw_range = 4
 	custom_materials = list(/datum/material/iron = 500)
 	actions_types = list(/datum/action/item_action/set_internals)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30, STAMINA = 0, BLEED = 0)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
@@ -138,7 +138,7 @@
 			if(prob(50))
 				step(W, pick(GLOB.alldirs))
 		ADD_TRAIT(human_user, TRAIT_DISFIGURED, TRAIT_GENERIC)
-		human_user.bleed_rate = 5
+		human_user.add_bleeding(BLEED_CRITICAL)
 		human_user.gib_animation()
 		sleep(3)
 		human_user.adjustBruteLoss(1000) //to make the body super-bloody

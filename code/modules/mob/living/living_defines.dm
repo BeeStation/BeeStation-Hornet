@@ -26,6 +26,9 @@
 	///When the mob enters hard critical state and is fully incapacitated.
 	var/hardcrit_threshold = HEALTH_THRESHOLD_FULLCRIT
 
+	// How long should we supress bleeding for
+	var/bleedsuppress = 0
+
 	var/mobility_flags = MOBILITY_FLAGS_DEFAULT
 
 	var/resting = FALSE

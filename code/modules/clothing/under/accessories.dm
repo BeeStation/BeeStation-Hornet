@@ -227,7 +227,7 @@
 	desc = "An eccentric medal made of plasma."
 	icon_state = "plasma"
 	medaltype = "medal-plasma"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = -10, ACID = 0, STAMINA = 0) //It's made of plasma. Of course it's flammable.
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = -10, ACID = 0, STAMINA = 0, BLEED = 0) //It's made of plasma. Of course it's flammable.
 	custom_materials = list(/datum/material/plasma=1000)
 
 /obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -360,7 +360,7 @@
 	name = "bone talisman"
 	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
 	icon_state = "talisman"
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10)
+	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10, BLEED = 10)
 	attachment_slot = null
 
 /obj/item/clothing/accessory/skullcodpiece
@@ -368,7 +368,7 @@
 	desc = "A skull shaped ornament, intended to protect the important things in life."
 	icon_state = "skull"
 	above_suit = TRUE
-	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10)
+	armor = list(MELEE = 5,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25, STAMINA = 10, BLEED = 10)
 	attachment_slot = GROIN
 
 /obj/item/clothing/accessory/holster

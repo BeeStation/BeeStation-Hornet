@@ -2,18 +2,102 @@
 				BLOOD SYSTEM
 ****************************************************/
 
-/mob/living/carbon/human/proc/suppress_bloodloss(amount)
-	if(bleedsuppress)
-		return
+/datum/status_effect/bleeding
+	id = "ling_transformation"
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/bleeding
+	tick_interval = 1 SECONDS
+	var/bleed_rate = 0
+
+/datum/status_effect/bleeding/on_creation(mob/living/new_owner, bleed_rate)
+	. = ..()
+	if (.)
+		src.bleed_rate = bleed_rate
+
+/datum/status_effect/bleeding/tick()
+	if (owner.bleedsuppress > 0)
+		owner.bleedsuppress = min(0, owner.bleedsuppress - tick_interval)
+		if (owner.stat != DEAD)
+			to_chat(owner, "<span class='warning'>Your bandage falls, and blood starts pouring out of your wounds.</span>")
+	if (owner.bleedsuppress > 0)
+		linked_alert.name = "Bleeding (Bandaged)"
+		linked_alert.desc = "You have bandages covering your wounds."
+		linked_alert.icon_state = "bleed_bandage"
 	else
-		bleedsuppress = TRUE
-		addtimer(CALLBACK(src, PROC_REF(resume_bleeding)), amount)
+		if (bleed_rate < BLEED_RATE_MINOR)
+			linked_alert.name = "Bleeding (Light)"
+			linked_alert.desc = "You have some minor cuts that look like they will heal themselves if you don't run out of blood first."
+			linked_alert.icon_state = "bleed"
+		else
+			linked_alert.name = "Bleeding (Heavy)"
+			linked_alert.desc = "Your wounds are bleeding heavily and are unlikely to heal themselves. Seek medical attention immediately!"
+			linked_alert.icon_state = "bleed_heavy"
+	if (bleed_rate < BLEED_RATE_MINOR || owner.bleedsuppress)
+		bleed_rate -= BLEED_HEAL_RATE_MINOR
+		if (bleed_rate <= 0)
+			qdel(src)
+			return
+	owner.bleed(bleed_rate)
 
-/mob/living/carbon/human/proc/resume_bleeding()
-	bleedsuppress = 0
-	if(stat != DEAD && bleed_rate)
-		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+/datum/status_effect/bleeding/get_examine_text()
+	var/mob/living/carbon/human/human = owner
+	var/bleed_msg = "bleeding"
+	if (istype(human))
+		var/list/harm_words = human.dna?.species.get_harm_descriptors()
+		bleed_msg = harm_words?["bleed"] || bleed_msg
 
+	if (owner.bleedsuppress)
+		return "[owner] has bandages around their [bleed_msg]."
+	switch (bleed_rate)
+		if (BLEED_CUT to INFINITY)
+			return "[owner] is [bleed_msg] extremely quickly."
+		if (BLEED_RATE_MINOR to BLEED_CUT)
+			return "[owner] is [bleed_msg] at a significant rate."
+		else
+			return "[owner] has some minor [bleed_msg] which look like it will stop soon."
+
+/atom/movable/screen/alert/status_effect/bleeding
+	name = "Bleeding"
+	desc = "You are bleeding, find something to bandage the wound or you will die."
+	icon_state = "bleed"
+
+/mob/living/carbon/proc/is_bleeding()
+	return has_status_effect(STATUS_EFFECT_BLEED)
+
+/mob/living/carbon/proc/add_bleeding(bleed_level)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	if (bleed)
+		bleed.bleed_rate = bleed.bleed_rate + max(min(bleed_level * bleed_level, sqrt(bleed_level)) / max(bleed.bleed_rate, 1),bleed_level - bleed.bleed_rate)
+	else
+		apply_status_effect(STATUS_EFFECT_BLEED, bleed_level)
+	if (bleed_level >= BLEED_DEEP_WOUND)
+		blur_eyes(1)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "scream")
+		to_chat(src, "<span class='user_danger'>Blood starts rushing out of the open wound!</span>")
+	if(bleed_level >= BLEED_CUT)
+		add_splatter_floor(src.loc)
+	else
+		add_splatter_floor(src.loc, 1)
+
+/mob/living/carbon/proc/get_bleed_intensity()
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	if (!bleed)
+		return 0
+	return 3 ** bleed.bleed_rate
+
+/mob/living/carbon/proc/get_bleed_rate()
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	return bleed?.bleed_rate
+
+/mob/living/carbon/proc/cauterise_wounds()
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	if (bleed)
+		qdel(bleed)
+		return TRUE
+	return FALSE
+
+/mob/living/carbon/human/proc/suppress_bloodloss(amount)
+	bleedsuppress += amount
 
 /mob/living/carbon/monkey/handle_blood()
 	if(bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
@@ -27,13 +111,12 @@
 /mob/living/carbon/human/handle_blood()
 
 	if(NOBLOOD in dna.species.species_traits)
-		bleed_rate = 0
+		cauterise_wounds()
 		return
 
 	if(bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
-
 		//Blood regeneration if there is some space
-		if(blood_volume < BLOOD_VOLUME_NORMAL && !HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+		if(!is_bleeding() && blood_volume < BLOOD_VOLUME_NORMAL && !HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_POWERHUNGRY))
 			var/nutrition_ratio = 0
 			switch(nutrition)
 				if(0 to NUTRITION_LEVEL_STARVING)
@@ -72,28 +155,11 @@
 				if(!HAS_TRAIT(src, TRAIT_NODEATH))
 					death()
 
-		var/temp_bleed = 0
-		//Bleeding out
-		for(var/X in bodyparts)
-			var/obj/item/bodypart/BP = X
-			var/brutedamage = BP.brute_dam
-
-			//We want an accurate reading of .len
-			list_clear_nulls(BP.embedded_objects)
-			for(var/obj/item/embeddies in BP.embedded_objects)
-				if(!embeddies.isEmbedHarmless())
-					temp_bleed += 0.5
-
-			if(brutedamage >= 20)
-				temp_bleed += (brutedamage * 0.013)
-
-		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
-
-		if(bleed_rate && !bleedsuppress && !(HAS_TRAIT(src, TRAIT_FAKEDEATH)))
-			bleed(bleed_rate)
+/mob/living/proc/bleed(amt)
+	add_splatter_floor(src.loc, 1)
 
 //Makes a blood drop, leaking amt units of blood from the mob
-/mob/living/carbon/proc/bleed(amt)
+/mob/living/carbon/bleed(amt)
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
 		if(isturf(src.loc)) //Blood loss still happens in locker, floor stays clean
@@ -101,6 +167,7 @@
 				add_splatter_floor(src.loc)
 			else
 				add_splatter_floor(src.loc, 1)
+		update_damage_hud()
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
@@ -114,7 +181,7 @@
 
 /mob/living/carbon/human/restore_blood()
 	blood_volume = BLOOD_VOLUME_NORMAL
-	bleed_rate = 0
+	cauterise_wounds()
 
 /****************************************************
 				BLOOD TRANSFERS

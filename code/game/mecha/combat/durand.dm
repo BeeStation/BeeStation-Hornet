@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list(MELEE = 40,  BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 0)
+	armor = list(MELEE = 40,  BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 0, BLEED = 0)
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 40

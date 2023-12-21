@@ -170,7 +170,7 @@ Slimecrossing Items
 	icon_state = "frozen"
 	density = TRUE
 	max_integrity = 100
-	armor = list(MELEE = 30,  BULLET = 50, LASER = -50, ENERGY = -50, BOMB = 0, BIO = 100, RAD = 100, FIRE = -80, ACID = 30, STAMINA = 0)
+	armor = list(MELEE = 30,  BULLET = 50, LASER = -50, ENERGY = -50, BOMB = 0, BIO = 100, RAD = 100, FIRE = -80, ACID = 30, STAMINA = 0, BLEED = 0)
 
 /obj/structure/ice_stasis/Initialize(mapload)
 	. = ..()

@@ -10,7 +10,7 @@
 	active_power_usage = 4
 	max_integrity = 300
 	circuit = /obj/item/circuitboard/machine/igniter
-	armor = list(MELEE = 50,  BULLET = 30, LASER = 70, ENERGY = 50, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
+	armor = list(MELEE = 50,  BULLET = 30, LASER = 70, ENERGY = 50, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
 	resistance_flags = FIRE_PROOF
 	var/id = null
 	var/on = FALSE
