@@ -1,7 +1,7 @@
 /obj/item/clothing/shoes/sneakers
 	icon_state = "sneakers"
 	greyscale_colors = "#545454#ffffff"
-	custom_price = 20
+	custom_price = 20 // For all sneakers
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
 
