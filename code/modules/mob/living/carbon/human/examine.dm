@@ -191,14 +191,14 @@
 
 	if (is_bleeding())
 		if (bleedsuppress)
-			return "[src] is [bleed_msg], but it is covered."
+			msg += "[src] is [bleed_msg], but it is covered."
 		switch (get_bleed_rate())
 			if (BLEED_DEEP_WOUND to INFINITY)
-				return "[src] is [bleed_msg] extremely quickly."
+				msg += "<span class='warning'>[src] is [bleed_msg] extremely quickly.</span>"
 			if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
-				return "[src] is [bleed_msg] at a significant rate."
+				msg += "<span class='warning'>[src] is [bleed_msg] at a significant rate.</span>"
 			else
-				return "[src] has some minor [bleed_msg] which look like it will stop soon."
+				msg += "<span class='warning'>[src] has some minor [bleed_msg] which look like it will stop soon.</span>"
 
 	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
 		if(temp)
