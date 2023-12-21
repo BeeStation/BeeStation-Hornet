@@ -8,6 +8,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/bleeding
 	tick_interval = 1 SECONDS
 	var/bleed_rate = 0
+	var/time_applied = 0
 
 /datum/status_effect/bleeding/on_creation(mob/living/new_owner, bleed_rate)
 	. = ..()
@@ -15,6 +16,13 @@
 		src.bleed_rate = bleed_rate
 
 /datum/status_effect/bleeding/tick()
+	time_applied += tick_interval
+	if (time_applied < 1 SECONDS)
+		if(bleed_rate >= BLEED_DEEP_WOUND)
+			owner.add_splatter_floor(owner.loc)
+		else
+			owner.add_splatter_floor(owner.loc, TRUE)
+		return
 	if (owner.bleedsuppress > 0)
 		owner.bleedsuppress = min(0, owner.bleedsuppress - tick_interval)
 		if (owner.stat != DEAD)
@@ -34,9 +42,12 @@
 			linked_alert.icon_state = "bleed_heavy"
 	if (bleed_rate < BLEED_RATE_MINOR || owner.bleedsuppress)
 		bleed_rate -= BLEED_HEAL_RATE_MINOR
+		tick_interval = 1 SECONDS
 		if (bleed_rate <= 0)
 			qdel(src)
 			return
+	else
+		tick_interval = 2
 	owner.bleed(bleed_rate)
 
 /datum/status_effect/bleeding/get_examine_text()
@@ -136,24 +147,27 @@
 
 		//Effects of bloodloss
 		var/word = pick("dizzy","woozy","faint")
+
+		// Max-health
+		var/max_health = (getMaxHealth() * 2) * CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
 					to_chat(src, "<span class='warning'>You feel [word].</span>")
-				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 				if(prob(5))
 					blur_eyes(6)
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				adjustOxyLoss(5)
-				if(prob(15))
-					Unconscious(rand(20,60))
+				if(prob(30))
+					blur_eyes(6)
+					Unconscious(rand(5,10))
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				if(!HAS_TRAIT(src, TRAIT_NODEATH))
 					death()
+		var/health_difference = clamp(getOxyLoss() - max_health, -5, 0)
+		adjustOxyLoss(health_difference)
 
 /mob/living/proc/bleed(amt)
 	add_splatter_floor(src.loc, 1)
@@ -163,7 +177,7 @@
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
 		if(isturf(src.loc)) //Blood loss still happens in locker, floor stays clean
-			if(amt >= 10)
+			if(amt >= BLEED_DEEP_WOUND)
 				add_splatter_floor(src.loc)
 			else
 				add_splatter_floor(src.loc, 1)

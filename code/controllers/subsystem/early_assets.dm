@@ -6,7 +6,11 @@
 SUBSYSTEM_DEF(early_assets)
 	name = "Early Assets"
 	init_order = INIT_ORDER_EARLY_ASSETS
+#ifdef LOWMEMORYMODE
+	flags = SS_NO_FIRE | SS_NO_INIT
+#else
 	flags = SS_NO_FIRE
+#endif
 
 /datum/controller/subsystem/early_assets/Initialize(start_timeofday)
 	for (var/datum/asset/asset_type as anything in subtypesof(/datum/asset))
