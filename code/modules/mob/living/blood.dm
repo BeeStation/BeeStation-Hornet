@@ -7,6 +7,7 @@
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/bleeding
 	tick_interval = 1 SECONDS
+
 	var/bleed_rate = 0
 	var/time_applied = 0
 
@@ -32,6 +33,7 @@
 		linked_alert.name = "Bleeding (Bandaged)"
 		linked_alert.desc = "You have bandages covering your wounds. They will heal slowly if they are not cauterized."
 		linked_alert.icon_state = "bleed_bandage"
+		linked_alert.maptext = MAPTEXT("0.0/s")
 	else
 		if (bleed_rate < BLEED_RATE_MINOR)
 			linked_alert.name = "Bleeding (Light)"
@@ -41,6 +43,10 @@
 			linked_alert.name = "Bleeding (Heavy)"
 			linked_alert.desc = "Your wounds are bleeding heavily and are unlikely to heal themselves. Seek medical attention immediately! Click to apply pressure to the wounds."
 			linked_alert.icon_state = "bleed_heavy"
+		var/rate_string = "[round(bleed_rate, 0.1)]"
+		if (length(rate_string) == 1)
+			rate_string = "[rate_string].0"
+		linked_alert.maptext = MAPTEXT("[rate_string]/s")
 	if (bleed_rate < BLEED_RATE_MINOR || owner.bleedsuppress)
 		bleed_rate -= BLEED_HEAL_RATE_MINOR
 		tick_interval = 1 SECONDS
@@ -54,8 +60,7 @@
 	owner.bleed(bleed_rate * BLEED_RATE_MULTIPLIER)
 
 /datum/status_effect/bleeding/on_remove()
-	. = ..()
-	var/mob/living/carbon/human/human = usr
+	var/mob/living/carbon/human/human = owner
 	if (!istype(human))
 		return
 	// Not bleeding anymore, no need to hold wounds
@@ -71,9 +76,9 @@
 	if (owner.bleedsuppress)
 		return "[owner] has bandages around their [bleed_msg]."
 	switch (bleed_rate)
-		if (BLEED_CUT to INFINITY)
+		if (BLEED_DEEP_WOUND to INFINITY)
 			return "[owner] is [bleed_msg] extremely quickly."
-		if (BLEED_RATE_MINOR to BLEED_CUT)
+		if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
 			return "[owner] is [bleed_msg] at a significant rate."
 		else
 			return "[owner] has some minor [bleed_msg] which look like it will stop soon."
