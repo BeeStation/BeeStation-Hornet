@@ -248,6 +248,7 @@
 /obj/item/storage/toolbox/ammo
 	name = "ammo box"
 	desc = "It contains a few clips."
+	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "ammobox"
 	item_state = "ammobox"
 	drop_sound = 'sound/items/handling/ammobox_drop.ogg'

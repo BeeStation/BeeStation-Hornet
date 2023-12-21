@@ -16,7 +16,6 @@
 	var/has_opened_overlay = TRUE
 	var/has_closed_overlay = TRUE
 	var/icon_door = null
-	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/secure = FALSE //secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
 	var/opened = FALSE
 	var/welded = FALSE
@@ -137,7 +136,7 @@
 	for(var/I in 0 to num_steps)
 		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
 		var/matrix/M = get_door_transform(angle)
-		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+		var/door_state = angle >= 90 ? "[icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
 
 		if(I == 0)

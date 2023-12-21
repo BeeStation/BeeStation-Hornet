@@ -14,7 +14,7 @@
 	allow_dense = TRUE
 	dense_when_open = TRUE
 	delivery_icon = "deliverycrate"
-	door_anim_time = 4
+	door_anim_time = 3
 	door_anim_angle = 120 // how fast the angle should go?
 	door_hinge = 1 //how high the hinge should go?
 	open_sound = 'sound/machines/crate_open.ogg'
@@ -61,7 +61,7 @@
 	var/num_steps = door_anim_time / world.tick_lag
 	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"]
 	for(var/I in 0 to num_steps)
-		var/door_state = I == (closing ? num_steps : 0) ? "[icon_door || icon_state]_door" : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+		var/door_state = I == (closing ? num_steps : 0) ? "[icon_door || icon_state]_door" : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? "[icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = I == (closing ? num_steps : 0) ? ABOVE_MOB_LAYER : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? FLOAT_LAYER : ABOVE_MOB_LAYER
 		var/matrix/M = get_door_transform(I == (closing ? num_steps : 0) ? 0 : animation_math_list[closing ? num_steps - I : I], I == (closing ? num_steps : 0) ? 1 : animation_math_list[closing ?  2 * num_steps - I : num_steps + I])
 		if(I == 0)
