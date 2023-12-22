@@ -89,7 +89,7 @@
 			each.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 			if(isitem(each))
 				var/obj/item/I = each
-				I.materials = null // we don't want to feed lathe with these items
+				I.custom_materials = null // we don't want to feed lathe with these items
 
 /obj/item/debug/omnitool/examine()
 	. = ..()
@@ -158,7 +158,7 @@
 	matter = INFINITY
 	delay_mod = 0.1
 	ranged = TRUE
-	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 	canRturf = TRUE
 
 /obj/item/construction/rld/debug

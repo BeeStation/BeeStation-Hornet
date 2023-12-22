@@ -2849,12 +2849,6 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"arO" = (
-/obj/machinery/monkey_recycler,
-/obj/item/reagent_containers/food/snacks/monkeycube,
-/obj/item/reagent_containers/food/snacks/monkeycube,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "arP" = (
 /turf/closed/wall,
 /area/maintenance/fore)
@@ -4426,14 +4420,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
-"aHo" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/turf/open/floor/plasteel/chapel{
-	dir = 4
-	},
-/area/chapel/main)
 "aHp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -6155,7 +6141,7 @@
 /area/janitor)
 "aTM" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aTN" = (
@@ -20103,18 +20089,6 @@
 	},
 /turf/open/floor/plating,
 /area/storage/emergency/port)
-"cWW" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/cocoapod,
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/turf/open/floor/plasteel,
-/area/hydroponics/garden)
 "cYa" = (
 /obj/machinery/advanced_airlock_controller{
 	dir = 4;
@@ -20423,6 +20397,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
+"dfi" = (
+/obj/machinery/monkey_recycler,
+/obj/item/food/monkeycube,
+/obj/item/food/monkeycube,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "dfl" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/reagent_dispensers/fueltank,
@@ -39653,6 +39633,18 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
+"mDJ" = (
+/obj/structure/table/glass,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/cocoapod,
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/plasteel,
+/area/hydroponics/garden)
 "mEb" = (
 /obj/machinery/gravity_generator/main/station,
 /obj/effect/turf_decal/bot_white,
@@ -39840,6 +39832,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "mJR" = (
@@ -45551,6 +45544,14 @@
 /obj/machinery/recharger,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"pJk" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/hallway/primary/starboard)
 "pJv" = (
 /turf/open/floor/grass,
 /area/hallway/primary/central)
@@ -47721,6 +47722,14 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
+"qKR" = (
+/obj/structure/table/glass,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/harebell,
+/turf/open/floor/plasteel/chapel{
+	dir = 4
+	},
+/area/chapel/main)
 "qKT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -78013,7 +78022,7 @@ azF
 aAP
 vIU
 aAP
-cWW
+mDJ
 emv
 azF
 omw
@@ -82117,7 +82126,7 @@ alU
 amC
 amC
 amC
-arO
+dfi
 alU
 nrr
 iiF
@@ -100645,7 +100654,7 @@ aVz
 aVz
 aYJ
 aJI
-bbz
+pJk
 aYV
 aYV
 aYV
@@ -102444,7 +102453,7 @@ aVH
 aXn
 aYN
 aJI
-bbz
+pJk
 aYV
 aYV
 aYV
@@ -103218,7 +103227,7 @@ aRJ
 kRy
 aYV
 aYV
-aYV
+beE
 xJf
 xJf
 ddd
@@ -103990,7 +103999,7 @@ aYV
 aYV
 aYV
 aYV
-beE
+aYV
 xJf
 biE
 bpL
@@ -111167,7 +111176,7 @@ alP
 aCR
 bfb
 aCR
-aHo
+qKR
 aIE
 aKe
 aIE

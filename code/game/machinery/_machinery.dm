@@ -120,7 +120,6 @@ Class Procs:
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
 	var/obj/item/circuitboard/circuit // Circuit to be created and inserted when the machinery is created
-	var/damage_deflection = 0
 
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
@@ -146,13 +145,16 @@ Class Procs:
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
 
-/obj/machinery/Initialize(mapload)
+/obj/machinery/Initialize(mapload, list/building_parts = null)
 	if(!armor)
 		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	. = ..()
 	GLOB.machines += src
 
-	if(ispath(circuit, /obj/item/circuitboard))
+	if(building_parts)
+		InitializeOnMachineBuild(building_parts)
+		RefreshParts()
+	else if(ispath(circuit, /obj/item/circuitboard))
 		circuit = new circuit(src)
 		circuit.apply_default_parts(src)
 
@@ -166,6 +168,16 @@ Class Procs:
 		seller_department = dept_req_for_free
 
 	return INITIALIZE_HINT_LATELOAD
+
+/// This is important because every machine has different part component to store it to different variable when built when initialized
+/// but Init() proc can only handle the basic.
+/obj/machinery/proc/InitializeOnMachineBuild(list/building_parts)
+	component_parts = list()
+	for(var/atom/movable/each_part in building_parts)
+		each_part.forceMove(src)
+		component_parts += each_part
+		if(istype(each_part, /obj/item/circuitboard))
+			circuit = each_part
 
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
@@ -462,8 +474,8 @@ Class Procs:
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		user.visible_message("<span class='danger'>[user.name] smashes against \the [src.name] with its paws.</span>", null, null, COMBAT_MESSAGE_RANGE)
-		take_damage(4, BRUTE, MELEE, 1)
+		var/damage = take_damage(4, BRUTE, MELEE, 1)
+		user.visible_message("<span class='danger'>[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]</span>", null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
@@ -748,6 +760,8 @@ Class Procs:
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
+	if(circuit)
+		circuit.configure_machine(src)
 	return
 
 //called on deconstruction before the final deletion
