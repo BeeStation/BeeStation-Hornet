@@ -68,9 +68,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Ref to texture mask overlay
 	var/texture_mask_overlay
 
-	///What turf texture we use
-	var/list/turf_texture
-
 	///Can this floor be an underlay, for turf damage
 	var/can_underlay = TRUE
 
@@ -152,8 +149,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		make_traction()
 
 	//Handle turf texture
-	if(turf_texture)
-		add_turf_texture(turf_texture)
+	if(get_turf_texture())
+		add_turf_texture(get_turf_texture())
 
 	//Handle icon border
 	if(icon_x_offset || icon_y_offset)
@@ -593,3 +590,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			var/obj/O = each
 			for(var/mob/M in O.contents)
 				. += M
+
+/turf/proc/get_turf_texture()
+	return

@@ -10,6 +10,9 @@ GLOBAL_LIST_INIT(wood_big_turf_damage, list("damaged_woodbig1", "damaged_woodbig
 GLOBAL_LIST_INIT(turf_texture_hallway, list(/datum/turf_texture/hallway))
 GLOBAL_LIST_INIT(turf_texture_maint, list(/datum/turf_texture/maint, /datum/turf_texture/hallway, /datum/turf_texture/maint/tile))
 
+GLOBAL_LIST_INIT(turf_texture_plasteel, list(/datum/turf_texture/hallway, /datum/turf_texture/maint/tile))
+GLOBAL_LIST_INIT(turf_texture_plating, list(/datum/turf_texture/maint))
+
 /*
 	Rexture stuff
 */
