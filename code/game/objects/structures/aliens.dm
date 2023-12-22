@@ -116,7 +116,7 @@
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
 	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
-	icon_state = "weeds1-0"
+	icon_state = "weeds1-255"
 	base_icon_state = "weeds1"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
@@ -126,10 +126,10 @@
 	var/growth_cooldown_low = 150
 	var/growth_cooldown_high = 200
 	var/static/list/blacklisted_turfs
-
-/obj/structure/alien/weeds/Initialize(mapload)
 	pixel_x = -4
 	pixel_y = -4 //so the sprites line up right in the map editor
+
+/obj/structure/alien/weeds/Initialize(mapload)
 	. = ..()
 
 	if(!blacklisted_turfs)
@@ -176,15 +176,20 @@
 /obj/structure/alien/weeds/node
 	name = "glowing resin"
 	desc = "Blue bioluminescence shines from beneath the surface."
-	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
-	icon_state = "weednode-0"
+	icon = 'icons/mob/alien.dmi'
+	icon_state = "weednode"
 	base_icon_state = "weednode"
 	light_color = LIGHT_COLOR_BLUE
 	light_power = 0.5
 	var/lon_range = 4
 	var/node_range = NODERANGE
+	pixel_x = 0
+	pixel_y = 0
 
 /obj/structure/alien/weeds/node/Initialize(mapload)
+	pixel_x = -4
+	pixel_y = -4
+	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
 	. = ..()
 	set_light(lon_range)
 	var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in loc
