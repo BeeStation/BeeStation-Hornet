@@ -27194,10 +27194,10 @@
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "gGj" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "gGm" = (
@@ -42744,10 +42744,10 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "oec" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "oed" = (
@@ -46885,13 +46885,13 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "qqt" = (
-/obj/machinery/door/airlock/external,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "qqN" = (
@@ -50621,14 +50621,18 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
+/obj/machinery/light/small{
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
+	dir = 4;
+	name = "Air to Shuttle"
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
@@ -57406,6 +57410,13 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
+"vsQ" = (
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/quartermaster/exploration_dock)
 "vtj" = (
 /obj/machinery/light{
 	dir = 4
@@ -60385,14 +60396,14 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "wZj" = (
-/obj/machinery/door/airlock/external,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "wZY" = (
@@ -115587,7 +115598,7 @@ wOv
 pqr
 gGj
 wZj
-xkR
+gQd
 gQd
 gQd
 aaa
@@ -115845,7 +115856,7 @@ dOV
 oec
 sad
 gQd
-gQd
+gXs
 gXs
 aaa
 aaa
@@ -116099,11 +116110,11 @@ aaa
 gQd
 xkR
 xkR
-oec
+vsQ
 qqt
-xkR
 gQd
 gXs
+aaa
 aaa
 aaa
 aaa

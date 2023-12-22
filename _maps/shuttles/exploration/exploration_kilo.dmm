@@ -26,16 +26,7 @@
 	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/item/stack/sheet/mineral/plasma/ten,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration)
-"fc" = (
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "gl" = (
@@ -91,11 +82,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "kU" = (
@@ -136,8 +127,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
@@ -156,15 +147,15 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -216,8 +207,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
@@ -246,6 +237,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "AE" = (
@@ -274,16 +266,15 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "GJ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "Ij" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light,
 /obj/structure/closet/crate/secure/science/contraband,
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "In" = (
@@ -299,6 +290,16 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/table,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Jy" = (
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "Mi" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -338,6 +339,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing,
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "NL" = (
@@ -362,11 +364,10 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "Pd" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "PK" = (
@@ -390,6 +391,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "St" = (
@@ -398,6 +400,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "SQ" = (
@@ -497,16 +500,16 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ZG" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/structure/closet/crate/science/mining,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "ZV" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -571,7 +574,7 @@ hW
 XD
 Ro
 Pd
-fc
+wH
 dt
 uU
 PK
@@ -587,7 +590,7 @@ Nq
 Ze
 Av
 GJ
-Ta
+Jy
 dt
 uU
 PK

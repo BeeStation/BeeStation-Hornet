@@ -12,6 +12,7 @@
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/box,
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ab" = (
@@ -26,6 +27,7 @@
 	dir = 4
 	},
 /obj/structure/railing,
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ac" = (
@@ -49,7 +51,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -120,16 +122,24 @@
 	desc = "A remote control switch.";
 	id = "exploration2";
 	name = "Exploration Shuttle Shutters";
-	pixel_y = -32
+	pixel_y = -32;
+	pixel_x = 8
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = -32;
+	pixel_x = -8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ao" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -143,7 +153,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -166,6 +176,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "at" = (
@@ -224,13 +235,14 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/shuttle/glass,
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aB" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
@@ -245,11 +257,11 @@
 	minbodytemp = 2.7;
 	name = "Tom"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -286,6 +298,7 @@
 	dir = 8
 	},
 /obj/structure/railing,
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "aG" = (
@@ -321,12 +334,7 @@
 	dir = 5
 	},
 /obj/machinery/vendor/exploration,
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration";
-	name = "Exploration Shuttle Shutters";
-	pixel_y = -32
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aL" = (
@@ -380,7 +388,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
@@ -400,7 +408,7 @@
 	},
 /obj/item/storage/box/donkpockets,
 /obj/item/storage/box/donkpockets,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -425,6 +433,9 @@
 	dir = 5
 	},
 /obj/structure/closet/crate/science/shuttle,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "aZ" = (
@@ -437,6 +448,16 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"sJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/machinery/firealarm/directional/east,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
 "Kq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -447,7 +468,7 @@
 /area/shuttle/exploration)
 "Ry" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -533,7 +554,7 @@ aR
 aR
 an
 az
-aX
+sJ
 aX
 aE
 az

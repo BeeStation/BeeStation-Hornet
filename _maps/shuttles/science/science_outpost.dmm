@@ -7,25 +7,21 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "c" = (
-/obj/machinery/button/door{
-	id = "sciencecargo";
-	name = "Cargo Blast Door Toggle";
-	pixel_x = -24
-	},
 /obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/glasses/science,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "d" = (
@@ -33,49 +29,31 @@
 /turf/open/floor/plating,
 /area/shuttle/science)
 "f" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
-/turf/closed/wall/mineral/titanium,
+/turf/open/floor/plating,
 /area/shuttle/science)
 "g" = (
 /obj/machinery/computer/shuttle_flight/science,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/science)
-"h" = (
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
 	},
-/obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "k" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/science)
-"l" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "n" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light{
+/obj/item/toy/plush/moth/random,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/item/toy/plush/moth/random,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
@@ -88,6 +66,7 @@
 /obj/item/storage/toolbox/electrical,
 /obj/effect/turf_decal/box,
 /obj/item/pickaxe/emergency,
+/obj/machinery/light,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "r" = (
@@ -104,7 +83,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/white,
@@ -120,22 +99,14 @@
 "u" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/light,
 /turf/open/floor/mineral/titanium/purple,
-/area/shuttle/science)
-"v" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "x" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/white,
@@ -145,8 +116,8 @@
 /area/shuttle/science)
 "A" = (
 /obj/machinery/modular_computer/console/preset/research,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
@@ -173,11 +144,8 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "M" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
@@ -185,16 +153,34 @@
 /obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
+"P" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
 "Q" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "S" = (
+/obj/machinery/button/door{
+	id = "sciencecargo";
+	name = "Cargo Blast Door Toggle";
+	pixel_x = -24
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "T" = (
@@ -211,10 +197,20 @@
 	},
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
+"X" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
 
 (1,1,1) = {"
 y
-y
+d
 y
 y
 y
@@ -224,13 +220,13 @@ I
 a
 "}
 (2,1,1) = {"
-d
+y
 c
 S
 W
 t
 N
-h
+J
 o
 y
 "}
@@ -238,10 +234,10 @@ y
 d
 g
 Q
-l
+M
 T
 M
-J
+X
 J
 y
 "}
@@ -249,15 +245,15 @@ y
 d
 A
 b
-v
+k
 G
 k
-J
+P
 J
 y
 "}
 (5,1,1) = {"
-d
+y
 n
 x
 s
