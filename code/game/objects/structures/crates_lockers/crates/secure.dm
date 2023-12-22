@@ -54,7 +54,7 @@
 	icon_state = "weapon_crate"
 	icon_door_override = FALSE
 	
-/obj/structure/closet/crate/secure/contraband/populate_contents_immediate()
+/obj/structure/closet/crate/secure/weapon/contraband/populate_contents_immediate()
 	..()
 	new /obj/item/reagent_containers/food/drinks/syndicatebeer(src)
 	new /obj/item/reagent_containers/food/drinks/syndicatebeer(src)

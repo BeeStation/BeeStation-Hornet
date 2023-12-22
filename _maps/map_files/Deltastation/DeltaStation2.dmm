@@ -2650,6 +2650,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "aqE" = (
@@ -63640,6 +63641,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "nll" = (
@@ -68125,7 +68127,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/layer2,
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
+	name = "Station to Shuttle"
+	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "oOg" = (
@@ -80620,8 +80625,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/binary/volume_pump/layer2{
-	dir = 8
+	dir = 8;
+	name = "Station to Shuttle"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "tbO" = (
@@ -91983,6 +91990,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "wRG" = (
@@ -95415,6 +95423,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "xZF" = (

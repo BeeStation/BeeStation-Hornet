@@ -5569,9 +5569,11 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/components/binary/volume_pump/layer2{
-	dir = 1
+	dir = 1;
+	name = "Station to Shuttle"
 	},
 /obj/machinery/door/airlock/external/glass,
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/science)
 "Pm" = (

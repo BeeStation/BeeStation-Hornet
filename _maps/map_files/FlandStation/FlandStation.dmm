@@ -544,7 +544,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/turf/open/floor/plasteel/techmaint,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "ahG" = (
 /obj/structure/lattice,
@@ -1694,9 +1695,11 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/volume_pump/layer2{
-	dir = 8
+	dir = 8;
+	name = "Station to Shuttle"
 	},
-/turf/open/floor/plasteel/techmaint,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "awu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -27212,7 +27215,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "hef" = (
 /obj/structure/sign/poster/contraband/random,
@@ -32603,7 +32607,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/techmaint,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "iyX" = (
 /obj/effect/turf_decal/trimline/blue/line{
@@ -59399,7 +59404,8 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "pzy" = (
 /obj/structure/window/reinforced,
@@ -77066,7 +77072,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/layer2,
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
+	name = "Station to Shuttle"
+	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "tKO" = (
@@ -88350,7 +88358,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "wmM" = (
 /obj/effect/decal/cleanable/dirt,

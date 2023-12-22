@@ -46892,6 +46892,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external,
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "qqN" = (
@@ -50631,8 +50632,10 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/binary/volume_pump/layer2{
-	dir = 4
+	dir = 4;
+	name = "Station to Shuttle"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "saW" = (
@@ -60403,6 +60406,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external,
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "wZY" = (

@@ -7612,7 +7612,8 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "cim" = (
 /obj/machinery/light{
@@ -9260,9 +9261,11 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/components/binary/volume_pump/layer2{
-	dir = 1
+	dir = 1;
+	name = "Station to Shuttle"
 	},
 /obj/machinery/door/airlock/external/glass,
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "cPc" = (
@@ -10681,7 +10684,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "dld" = (
 /obj/effect/turf_decal/stripes/line,
@@ -30054,7 +30058,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "jJc" = (
 /obj/effect/turf_decal/tile/purple{
@@ -46895,7 +46900,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "piM" = (
 /obj/structure/table,
@@ -61302,9 +61308,11 @@
 	},
 /obj/machinery/advanced_airlock_controller/directional/south,
 /obj/machinery/atmospherics/components/binary/volume_pump/layer2{
-	dir = 8
+	dir = 8;
+	name = "Station to Shuttle"
 	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "tXx" = (
 /turf/closed/mineral/random,
@@ -62395,7 +62403,8 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "uoO" = (
 /obj/machinery/light,

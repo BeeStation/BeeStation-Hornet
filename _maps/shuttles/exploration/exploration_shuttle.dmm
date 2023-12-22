@@ -481,7 +481,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/secure/contraband,
+/obj/structure/closet/crate/secure/weapon/contraband,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "MB" = (
