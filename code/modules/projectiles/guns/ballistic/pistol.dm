@@ -98,6 +98,17 @@
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 
+//Pepperball Pistol, the ballistic green-shift sec alternative to the disabler; slighly higher damage, less ammo, EMP-proof, and able to be reloaded on the go.
+/obj/item/gun/ballistic/automatic/pistol/pepperball
+	name = "pepperball pistol"
+	desc = "An older NT-designed non-lethal sidearm. Its widespread use has been phased out with the introduction of energy weapons."
+	icon_state = "pistol"
+	mag_type = /obj/item/ammo_box/magazine/pepperball
+	fire_sound = 'sound/items/syringeproj.ogg'
+	vary_fire_sound = FALSE
+	fire_sound_volume = 60
+	equip_time = 2 SECONDS
+
 /obj/item/gun/ballistic/automatic/pistol/stickman
 	name = "flat gun"
 	desc = "A 2 dimensional gun.. what?"

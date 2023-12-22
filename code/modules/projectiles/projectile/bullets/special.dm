@@ -29,6 +29,8 @@
 
 /obj/projectile/bullet/pepperball
 	name = "pepperball"
-	damage = 0
-	stamina = 25
+	icon_state = pepperball
+	damage = 35 //Disabler is 28 damage, flat AP
+	damage_type = STAMINA
+	armour_penetration = -20
 	range = 15

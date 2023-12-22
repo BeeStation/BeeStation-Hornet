@@ -57,3 +57,11 @@
 	caliber = ".50"
 	max_ammo = 7
 	multiple_sprites = 1
+
+/obj/item/ammo_box/magazine/pepperball
+	name = "pepperball pistol magazine"
+	desc = "A gun magazine."
+	icon_state = "9x19p"
+	ammo_type = /obj/item/ammo_casing/caseless/pepperball
+	caliber = "pepperball"
+	max_ammo = 12

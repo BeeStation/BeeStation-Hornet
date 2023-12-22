@@ -15,4 +15,5 @@
 /obj/item/ammo_casing/caseless/pepperball
 	name = "pepperball"
 	caliber = "pepperball"
+	icon_state = "pepperball"
 	projectile_type = /obj/projectile/bullet/pepperball
