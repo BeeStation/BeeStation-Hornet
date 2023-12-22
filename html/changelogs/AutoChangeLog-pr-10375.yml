@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: fixed ImmediateInvokeAsync() proc that's called by KillEveryoneOnZLevel
+      signal
