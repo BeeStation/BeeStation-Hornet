@@ -97,7 +97,13 @@
 /** Updates the custom materials list of this stack.
   */
 /obj/item/stack/proc/update_custom_materials()
-	set_custom_materials(mats_per_unit, amount)
+	set_custom_materials(mats_per_unit, amount, is_update=TRUE)
+
+/**
+ * Override to make things like metalgen accurately set custom materials
+ */
+/obj/item/stack/set_custom_materials(list/materials, multiplier=1, is_update=FALSE)
+	return is_update ? ..() : set_mats_per_unit(materials, multiplier/(amount || 1))
 
 /obj/item/stack/on_grind()
 	for(var/i in 1 to length(grind_results)) //This should only call if it's ground, so no need to check if grind_results exists
@@ -411,7 +417,9 @@
 /obj/item/stack/proc/can_merge(obj/item/stack/check)
 	if(!istype(check, merge_type))
 		return FALSE
-	if(!check.is_cyborg && (mats_per_unit != check.mats_per_unit)) // Cyborg stacks don't have materials. This lets them recycle sheets and floor tiles.
+	if(mats_per_unit != check.mats_per_unit)
+		return FALSE
+	if(is_cyborg)	// No merging cyborg stacks into other stacks
 		return FALSE
 	return TRUE
 

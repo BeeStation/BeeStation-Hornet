@@ -82,8 +82,6 @@
 /obj/item/robot_module/proc/get_or_create_estorage(storage_type)
 	return (locate(storage_type) in storages) || new storage_type(src)
 
-	return new storage_type(src)
-
 /obj/item/robot_module/proc/add_module(obj/item/I, nonstandard, requires_rebuild)
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/sheet_module = I
@@ -97,7 +95,6 @@
 
 		if(istype(sheet_module.source))
 			sheet_module.cost = max(sheet_module.cost, 1) // Must not cost 0 to prevent div/0 errors.
-			sheet_module.set_mats_per_unit(null)
 			sheet_module.is_cyborg = TRUE
 
 	if(I.loc != src)

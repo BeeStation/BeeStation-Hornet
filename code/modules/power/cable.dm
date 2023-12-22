@@ -821,9 +821,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	icon_state = "coil2"
 
 /obj/item/stack/cable_coil/cut/Initialize(mapload)
-	. = ..()
 	if(!amount)
 		amount = rand(1,2)
+	. = ..()
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
