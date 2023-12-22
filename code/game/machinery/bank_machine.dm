@@ -4,11 +4,6 @@
 	icon_screen = "vault"
 	icon_keyboard = "ratvar_key1"
 	idle_power_usage = 100
-	icon_state = "computer" // remove these 5 when we start using our own icon.
-	base_icon_state = null
-	smoothing_flags = NONE
-	smoothing_groups = null
-	canSmoothWith = null
 	var/siphoning = FALSE
 	var/next_warning = 0
 	var/obj/item/radio/radio
