@@ -7,6 +7,9 @@
 /obj/machinery/computer/upload/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "Encrypted Upload")
+	if(!mapload)
+		log_game("A [name] was created at [AREACOORD(src)].")
+		message_admins("A [name] was created at [ADMIN_VERBOSEJMP(src)].")
 	GLOB.uploads_list += src
 
 /obj/machinery/computer/upload/Destroy()

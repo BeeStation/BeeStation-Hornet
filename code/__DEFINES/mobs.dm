@@ -284,7 +284,8 @@
 #define AI_OFF		3
 #define AI_Z_OFF	4
 
-//determines if a mob can smash through it
+/// An AI hint which tells the AI what it should break.
+/// Note that mobs being able to break walls and r-walls is determined by their attack force.
 #define ENVIRONMENT_SMASH_NONE			0
 #define ENVIRONMENT_SMASH_STRUCTURES	(1<<0) 	//crates, lockers, ect
 #define ENVIRONMENT_SMASH_WALLS			(1<<1)  //walls
@@ -419,6 +420,9 @@
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
 
+/// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
+/// The bigger the input layer, the deeper it will be (mutations layer is at the bottom, so has a float layer of FLOAT_LAYER - 0.1).
+#define CALCULATE_MOB_OVERLAY_LAYER(_layer) (FLOAT_LAYER - (_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 // Mob Overlays Indexes
 /// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;

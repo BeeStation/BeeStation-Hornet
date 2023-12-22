@@ -45,7 +45,7 @@
 	var/radio_enabled = TRUE //Determins if a carded AI can speak with its built in radio or not.
 	radiomod = ";" //AIs will, by default, state their laws on the internal radio.
 	var/obj/item/multitool/aiMulti
-	var/mob/living/simple_animal/bot/Bot
+	var/datum/weakref/bot_ref
 	var/mob/living/ai_tracking_target = null //current tracking target
 	var/reacquire_timer = null //saves the timer id for the tracking reacquire so we can delete it/check for its existence
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
@@ -98,6 +98,9 @@
 	var/display_icon_override
 
 	var/list/cam_hotkeys = new/list(9)
+
+	var/datum/robot_control/robot_control
+
 	var/cam_prev
 
 	var/atom/movable/screen/ai/modpc/interfaceButton
@@ -458,25 +461,6 @@
 		else
 			to_chat(src, "Target is not on or near any active cameras on the station.")
 		return
-	if(href_list["callbot"]) //Command a bot to move to a selected location.
-		if(call_bot_cooldown > world.time)
-			to_chat(src, "<span class='danger'>Error: Your last call bot command is still processing, please wait for the bot to finish calculating a route.</span>")
-			return
-		Bot = locate(href_list["callbot"]) in GLOB.alive_mob_list
-		if(!Bot || Bot.remote_disabled || control_disabled)
-			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
-		waypoint_mode = 1
-		to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
-		return
-	if(href_list["interface"]) //Remotely connect to a bot!
-		Bot = locate(href_list["interface"]) in GLOB.alive_mob_list
-		if(!Bot || Bot.remote_disabled || control_disabled)
-			return
-		Bot.attack_ai(src)
-	if(href_list["botrefresh"]) //Refreshes the bot control panel.
-		botcall()
-		return
-
 	if (href_list["ai_take_control"]) //Mech domination
 		var/obj/mecha/M = locate(href_list["ai_take_control"]) in GLOB.mechas_list
 		if (!M)
@@ -527,33 +511,11 @@
 	set category = "AI Commands"
 	set name = "Access Robot Control"
 	set desc = "Wirelessly control various automatic robots."
-	if(incapacitated())
-		return
 
-	if(control_disabled)
-		to_chat(src, "<span class='warning'>Wireless control is disabled.</span>")
-		return
-	var/turf/ai_current_turf = get_turf(src)
-	var/ai_Zlevel = ai_current_turf.get_virtual_z_level()
-	var/d
-	d += "<A HREF=?src=[REF(src)];botrefresh=1>Query network status</A><br>"
-	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='30%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
+	if(!robot_control)
+		robot_control = new(src)
 
-	for (Bot in GLOB.alive_mob_list)
-		if(Bot.get_virtual_z_level() == ai_Zlevel && !Bot.remote_disabled) //Only non-emagged bots on the same Z-level are detected!
-			var/bot_mode = Bot.get_mode()
-			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!)</span>" : ""] [Bot.name]</A> ([Bot.model])</td>"
-			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
-			d += "<td width='30%'>[bot_mode]</td>"
-			d += "<td width='30%'>[get_area_name(Bot, TRUE)]</td>"
-			d += "<td width='10%'><A HREF=?src=[REF(src)];interface=[REF(Bot)]>Interface</A></td>"
-			d += "<td width='10%'><A HREF=?src=[REF(src)];callbot=[REF(Bot)]>Call</A></td>"
-			d += "</tr>"
-			d = format_text(d)
-
-	var/datum/browser/popup = new(src, "botcall", "Remote Robot Control", 700, 400)
-	popup.set_content(d)
-	popup.open()
+	robot_control.ui_interact(src)
 
 /mob/living/silicon/ai/proc/set_waypoint(atom/A)
 	var/turf/turf_check = get_turf(A)
@@ -566,16 +528,16 @@
 		to_chat(src, "<span class='danger'>Selected location is not visible.</span>")
 
 /mob/living/silicon/ai/proc/call_bot(turf/waypoint)
-
-	if(!Bot)
+	var/mob/living/simple_animal/bot/bot = bot_ref?.resolve()
+	if(!bot)
 		return
 
-	if(Bot.calling_ai && Bot.calling_ai != src) //Prevents an override if another AI is controlling this bot.
+	if(bot.calling_ai && bot.calling_ai != src) //Prevents an override if another AI is controlling this bot.
 		to_chat(src, "<span class='danger'>Interface error. Unit is already in use.</span>")
 		return
 	to_chat(src, "<span class='notice'>Sending command to bot...</span>")
 	call_bot_cooldown = world.time + CALL_BOT_COOLDOWN
-	Bot.call_bot(src, waypoint)
+	bot.call_bot(src, waypoint)
 	call_bot_cooldown = 0
 
 /mob/living/silicon/ai/proc/alarm_triggered(datum/source, alarm_type, area/source_area)
@@ -919,7 +881,7 @@
 	if(istype(D) && D.display_icon(src))
 		language_icon = "[D.get_icon()] "
 
-	var/rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b>[treated_message]</span>"
+	var/rendered = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b>[treated_message]</span>"
 	show_message(rendered, 2)
 	speaker.create_private_chat_message(
 		message = raw_message,
@@ -928,7 +890,7 @@
 		includes_ghosts = FALSE) // ghosts already see this except for you...
 
 	// renders message for ghosts
-	rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
+	rendered = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
 	var/rendered_scrambled_message
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
 		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
@@ -939,7 +901,7 @@
 		else // ghost removed the language themselves
 			if(!rendered_scrambled_message)
 				rendered_scrambled_message = " <span class='message'>[each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
-				rendered_scrambled_message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[rendered_scrambled_message]</span>"
+				rendered_scrambled_message = "<span class='srt_radio holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[rendered_scrambled_message]</span>"
 			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
 
 
@@ -1003,10 +965,10 @@
 
 	if(!istype(apc) || QDELETED(apc) || apc.machine_stat & BROKEN)
 		to_chat(src, "<span class='danger'>Hack aborted. The designated APC no longer exists on the power network.</span>")
-		playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1, ignore_walls = FALSE)
+		playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, TRUE, ignore_walls = FALSE)
 	else if(apc.aidisabled)
 		to_chat(src, "<span class='danger'>Hack aborted. \The [apc] is no longer responding to our systems.</span>")
-		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 1, ignore_walls = FALSE)
+		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, TRUE, ignore_walls = FALSE)
 	else
 		malf_picker.processing_time += 10
 
@@ -1016,7 +978,7 @@
 		apc.coverlocked = TRUE
 		var/turf/T = get_turf(apc)
 		log_message("hacked APC [apc] at [AREACOORD(T)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
-		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1, ignore_walls = FALSE)
+		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, TRUE, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
 		apc.update_appearance()
 
