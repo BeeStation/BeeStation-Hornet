@@ -180,7 +180,7 @@
 				compare_to = thing
 				break
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
-		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.magic || armor.melee || armor.rad || armor.stamina)
+		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.magic || armor.melee || armor.rad || armor.stamina || armor.bleed)
 			readout += "<br /><b>ARMOR (I-X)</b>"
 			if(armor.bio || compare_to?.armor?.bio)
 				readout += "<br />TOXIN [armor_to_protection_class(armor.bio, compare_to?.armor?.bio)]"
@@ -200,6 +200,8 @@
 				readout += "<br />RADIATION [armor_to_protection_class(armor.rad, compare_to?.armor?.rad)]"
 			if(armor.stamina || compare_to?.armor?.stamina)
 				readout += "<br />STAMINA [armor_to_protection_class(armor.stamina, compare_to?.armor?.stamina)]"
+			if(armor.bleed || compare_to?.armor?.bleed)
+				readout += "<br />BLEEDING [armor_to_protection_class(armor.bleed, compare_to?.armor?.bleed)]"
 		if(armor.fire || armor.acid)
 			readout += "<br /><b>DURABILITY (I-X)</b>"
 			if(armor.fire || compare_to?.armor?.fire)
