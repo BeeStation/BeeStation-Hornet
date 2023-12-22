@@ -15,6 +15,10 @@
 	. = ..()
 	if (.)
 		src.bleed_rate = bleed_rate
+		var/rate_string = "[round(bleed_rate, 0.1)]"
+		if (length(rate_string) == 1)
+			rate_string = "[rate_string].0"
+		linked_alert.maptext = MAPTEXT("[rate_string]/s")
 
 /datum/status_effect/bleeding/tick()
 	time_applied += tick_interval
@@ -92,7 +96,6 @@
 		apply_status_effect(STATUS_EFFECT_BLEED, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		blur_eyes(1)
-		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "scream")
 		to_chat(src, "<span class='user_danger'>Blood starts rushing out of the open wound!</span>")
 	if(bleed_level >= BLEED_CUT)
 		add_splatter_floor(src.loc)
