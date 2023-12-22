@@ -29050,10 +29050,6 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
-"jkg" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/security/prison/shielded)
 "jki" = (
 /obj/structure/chair/office,
 /turf/open/floor/wood,
@@ -46202,10 +46198,6 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"oGA" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/ai_monitored/security/armory)
 "oGJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -65028,12 +65020,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
-"uGH" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/obj/structure/grille,
-/turf/open/space/basic,
-/area/space/nearstation)
 "uGJ" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron{
@@ -102861,7 +102847,7 @@ gsA
 gsA
 pia
 gsA
-oGA
+uYx
 wWq
 wjp
 hni
@@ -103118,7 +103104,7 @@ gsA
 gsA
 pia
 gsA
-oGA
+uYx
 uYx
 eAM
 wUi
@@ -104399,7 +104385,7 @@ gsA
 gsA
 gsA
 gsA
-uGH
+lfQ
 lfQ
 lfQ
 lfQ
@@ -104657,7 +104643,7 @@ gsA
 gsA
 gsA
 dac
-jkg
+ifC
 ifC
 ifC
 ifC
@@ -104914,7 +104900,7 @@ gsA
 gsA
 gsA
 lfQ
-jkg
+ifC
 gyr
 vRK
 gyr
