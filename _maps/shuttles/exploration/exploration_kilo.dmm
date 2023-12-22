@@ -48,6 +48,19 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
+"gZ" = (
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/exploration)
 "hz" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light,
@@ -76,7 +89,29 @@
 /obj/effect/turf_decal/box/corners,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/machinery/light,
+/obj/machinery/newscaster{
+	pixel_y = -25
+	},
 /turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
+"jz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = 25
+	},
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "jI" = (
 /obj/machinery/light{
@@ -84,9 +119,6 @@
 	},
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "kU" = (
@@ -130,6 +162,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "qZ" = (
@@ -154,8 +189,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -209,6 +247,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
@@ -273,8 +314,8 @@
 "Ij" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light,
-/obj/structure/closet/crate/secure/science/contraband,
 /obj/machinery/firealarm/directional/east,
+/obj/structure/closet/crate/secure/contraband,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "In" = (
@@ -365,9 +406,7 @@
 /area/shuttle/exploration)
 "Pd" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "PK" = (
@@ -428,6 +467,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "Ta" = (
@@ -502,15 +542,12 @@
 "ZG" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/structure/closet/crate/science/mining,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "ZV" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
@@ -519,12 +556,12 @@
 NL
 AZ
 wG
-wG
 vf
-MU
+AE
+jz
 MU
 gl
-wG
+AE
 ZV
 qZ
 AE
@@ -574,7 +611,7 @@ hW
 XD
 Ro
 Pd
-wH
+gZ
 dt
 uU
 PK
