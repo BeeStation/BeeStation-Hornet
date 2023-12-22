@@ -84,6 +84,7 @@
 
 	sharpness = initial(sharpness)
 	w_class = initial(w_class)
+	bleed_force = initial(bleed_force)
 	hitsound = "swing_hit"
 	STOP_PROCESSING(SSobj, src)
 	set_light_on(FALSE)
