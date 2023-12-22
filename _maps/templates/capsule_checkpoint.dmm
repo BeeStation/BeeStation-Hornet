@@ -4,7 +4,7 @@
 /obj/structure/railing/sec{
 	dir = 10
 	},
-/turf/template_noop,
+/turf/open/floor/pod,
 /area/template_noop)
 "k" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -16,7 +16,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/template_noop,
+/turf/open/floor/pod,
 /area/template_noop)
 "l" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -25,21 +25,21 @@
 	name = "checkpoint windoor"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/template_noop,
+/turf/open/floor/pod,
 /area/template_noop)
 "n" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/railing/sec{
 	dir = 6
 	},
-/turf/template_noop,
+/turf/open/floor/pod,
 /area/template_noop)
 "B" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/railing/sec{
 	dir = 5
 	},
-/turf/template_noop,
+/turf/open/floor/pod,
 /area/template_noop)
 "E" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -50,7 +50,7 @@
 /obj/structure/railing/sec{
 	dir = 9
 	},
-/turf/template_noop,
+/turf/open/floor/pod,
 /area/template_noop)
 "F" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -62,7 +62,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/template_noop,
+/turf/open/floor/pod,
 /area/template_noop)
 "N" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -74,11 +74,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/template_noop,
+/turf/open/floor/pod,
 /area/template_noop)
 "R" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/template_noop,
+/turf/open/floor/pod,
 /area/template_noop)
 
 (1,1,1) = {"
