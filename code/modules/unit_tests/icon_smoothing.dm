@@ -33,9 +33,6 @@
 		/turf/open/indestructible/hierophant,
 	)
 
-	///These need to be initialized to be tested properly
-	var/list/init_types = list(/turf/closed/mineral = TRUE)
-
 	//Don't touch these lists below unless you know what you're doing
 	//They control what icon states we're checking for in each test
 
