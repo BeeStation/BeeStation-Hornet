@@ -20,11 +20,10 @@
 	var/indicator_icon = "launchpad_target"
 
 /obj/machinery/launchpad/RefreshParts()
-	var/E = 0
+	var/efficiency = 0
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
-	range = initial(range)
-	range *= E
+		efficiency += M.rating
+	range = initial(range) * max(1, efficiency)
 	//Update to viewers
 	ui_update()
 
