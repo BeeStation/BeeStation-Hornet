@@ -1,6 +1,3 @@
-//These defines control what suffixes we're expecting to find for icons
-//Not every combination is valid, corner junctions must neighbor directional junctions.
-
 /datum/unit_test/smoothing
 	///A list of types to test. Their subtypes are tested as well.
 	var/list/types_to_test = list(
@@ -83,7 +80,7 @@
 /datum/unit_test/smoothing/Run()
 	for(var/P in types_to_test)
 		for(var/T in typesof(P))
-			var/atom/A = ispath(P, /turf) ? run_loc_floor_bottom_left.ChangeTurf(P) : allocate(T) //We don't need to delete the turf at the end of this.
+			var/atom/A = ispath(P, /turf) ? run_loc_floor_bottom_left.ChangeTurf(P) : allocate(T)
 			var/smooth_flags = A.smoothing_flags
 			var/icon/the_icon = A.icon
 			var/base_state = A.base_icon_state
@@ -91,7 +88,7 @@
 			if(!the_icon)
 				Fail("Atom subtype [A] has no icon, are you sure we should be testing this?")
 
-			else if(smooth_flags & SMOOTH_CORNERS) //If both are set for some reason, this version takes priority in the subsystem
+			else if(smooth_flags & SMOOTH_CORNERS)
 				corner_test(T, the_icon, smooth_flags)
 
 			else if(smooth_flags & SMOOTH_BITMASK)
@@ -101,7 +98,7 @@
 					bitmask_test(T, the_icon, smooth_flags, base_state)
 
 			if(istype(A, /turf))
-				new /turf/open/floor/plasteel(A)
+				run_loc_floor_bottom_left.ChangeTurf(/turf/open/floor/plasteel)
 
 /datum/unit_test/smoothing/proc/bitmask_test(atom_path, icon/the_icon, smooth_flags, base_state)
 	var/list/expected_suffixes = list(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
