@@ -1,13 +1,11 @@
 /datum/orbital_objective/artifact
 	name = "Artifact Recovery"
-	var/generated = FALSE
 	//The blackbox required to recover.
 	var/obj/item/xenoartifact/objective/linked_artifact
 	min_payout = 5000
 	max_payout = 25000
 
 /datum/orbital_objective/artifact/generate_objective_stuff(turf/chosen_turf)
-	generated = TRUE
 	linked_artifact = new(chosen_turf)
 	var/list/turfs = RANGE_TURFS(30, linked_artifact)
 	var/list/valid_turfs = list()
@@ -31,7 +29,7 @@
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/artifact/check_failed()
-	if(!generated)
+	if(!(linked_artifact?.flags_1 & INITIALIZED_1))
 		return FALSE
 	if(is_station_level(linked_artifact.z))
 		complete_objective()
