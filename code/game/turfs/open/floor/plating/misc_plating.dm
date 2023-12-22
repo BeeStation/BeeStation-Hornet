@@ -34,12 +34,13 @@
 	return
 
 /turf/open/floor/plating/ashplanet
-	icon = 'icons/turf/floors/ash.dmi'
+	icon = 'icons/turf/mining.dmi'
 	icon_state = "ash"
 	base_icon_state = "ash"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	gender = PLURAL
 	name = "ash"
+	var/smooth_icon = 'icons/turf/floors/ash.dmi'
 	desc = "The ground is covered in volcanic ash."
 	baseturfs = /turf/open/floor/plating/ashplanet/wateryrock //I assume this will be a chasm eventually, once this becomes an actual surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
@@ -56,6 +57,7 @@
 		var/matrix/M = new
 		M.Translate(-4, -4)
 		transform = M
+		icon = smooth_icon
 	. = ..()
 
 /turf/open/floor/plating/ashplanet/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
@@ -76,8 +78,8 @@
 /turf/open/floor/plating/ashplanet/rocky
 	gender = PLURAL
 	name = "rocky ground"
-	icon = 'icons/turf/floors/rocky_ash.dmi'
 	icon_state = "rockyash"
+	smooth_icon = 'icons/turf/floors/rocky_ash.dmi'
 	base_icon_state = null
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ASH_ROCKY)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ASH_ROCKY, SMOOTH_GROUP_CLOSED_TURFS)
@@ -91,7 +93,6 @@
 /turf/open/floor/plating/ashplanet/wateryrock
 	gender = PLURAL
 	name = "wet rocky ground"
-	icon = 'icons/turf/mining.dmi'
 	icon_state = "wateryrock"
 	smoothing_flags = NONE
 	canSmoothWith = null
