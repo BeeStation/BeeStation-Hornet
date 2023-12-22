@@ -68125,9 +68125,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
-	name = "Air to Shuttle"
-	},
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "oOg" = (
@@ -80609,10 +80607,6 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
-	dir = 8;
-	name = "Air to Shuttle"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -80624,6 +80618,9 @@
 /obj/machinery/advanced_airlock_controller/directional/south,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)

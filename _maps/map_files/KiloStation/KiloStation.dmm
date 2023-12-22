@@ -66702,9 +66702,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
-	dir = 4;
-	name = "Air to Shuttle"
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
+	dir = 4
 	},
 /obj/machinery/door/airlock/external,
 /turf/open/floor/plating/airless{
@@ -81129,10 +81128,10 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
 "ueM" = (

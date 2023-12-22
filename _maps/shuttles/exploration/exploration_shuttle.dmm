@@ -23,11 +23,8 @@
 	pixel_x = -32;
 	pixel_y = -1
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /obj/structure/railing,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ac" = (
@@ -84,6 +81,12 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ah" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ai" = (
@@ -170,13 +173,13 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "as" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
+	dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "at" = (
@@ -185,11 +188,11 @@
 /area/shuttle/exploration)
 "au" = (
 /obj/machinery/holopad,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -297,17 +300,17 @@
 	pixel_x = 32;
 	pixel_y = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /obj/structure/railing,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "aG" = (
 /obj/effect/turf_decal/caution{
 	dir = 8;
 	pixel_x = 7
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -329,6 +332,9 @@
 "aJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -355,6 +361,12 @@
 /area/shuttle/exploration)
 "aN" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -449,6 +461,9 @@
 	dir = 4;
 	pixel_x = -6
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "sJ" = (
@@ -468,6 +483,12 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/secure/contraband,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"MB" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Ry" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -544,7 +565,7 @@ aP
 aR
 ag
 ag
-ag
+MB
 aF
 Kq
 aG

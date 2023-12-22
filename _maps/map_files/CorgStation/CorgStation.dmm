@@ -9256,13 +9256,13 @@
 /area/maintenance/starboard/central)
 "cOY" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/glass,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
 	dir = 1
 	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "cPc" = (
@@ -61300,11 +61300,10 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
-	dir = 8;
-	name = "Air to Shuttle"
-	},
 /obj/machinery/advanced_airlock_controller/directional/south,
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "tXx" = (

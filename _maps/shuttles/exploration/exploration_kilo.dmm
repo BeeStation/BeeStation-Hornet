@@ -75,8 +75,13 @@
 	pixel_x = -6
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/table,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ie" = (
@@ -272,13 +277,8 @@
 "Av" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "AE" = (
@@ -308,14 +308,19 @@
 /area/shuttle/exploration)
 "GJ" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "Ij" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light,
 /obj/machinery/firealarm/directional/east,
-/obj/structure/closet/crate/secure/contraband,
+/obj/structure/closet/crate/secure/weapon/contraband,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "In" = (
@@ -372,8 +377,13 @@
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/table,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Nz" = (
@@ -406,7 +416,12 @@
 /area/shuttle/exploration)
 "Pd" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "PK" = (
@@ -424,13 +439,8 @@
 "Ro" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "St" = (

@@ -5568,9 +5568,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
-	dir = 1;
-	name = "Air to Shuttle"
+/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
+	dir = 1
 	},
 /obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plasteel/techmaint,
