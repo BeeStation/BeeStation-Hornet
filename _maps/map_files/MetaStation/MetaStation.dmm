@@ -32902,10 +32902,6 @@
 	name = "Brig Blast door"
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id = "Secure Gate";
-	name = "brig shutters"
-	},
 /turf/open/floor/plating,
 /area/security/prison)
 "fSM" = (
@@ -37586,7 +37582,7 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/bowl,
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -38453,7 +38449,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -45702,7 +45698,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -62157,7 +62153,7 @@
 	pixel_y = 6
 	},
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)

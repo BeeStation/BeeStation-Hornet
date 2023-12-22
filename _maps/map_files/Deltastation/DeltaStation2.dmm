@@ -17411,7 +17411,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -31800,6 +31800,12 @@
 "dFe" = (
 /turf/closed/wall,
 /area/crew_quarters/heads/cmo)
+"dFm" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "dFy" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -56804,6 +56810,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"lvt" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/railing{
+	pixel_y = 32
+	},
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
 "lvM" = (
 /obj/structure/table,
 /obj/item/storage/crayons,
@@ -71606,10 +71624,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/railing{
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/structure/railing{
 	dir = 1
 	},
 /turf/open/floor/prison,
@@ -72461,7 +72479,7 @@
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -85622,11 +85640,11 @@
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
-/obj/structure/railing{
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
+	},
+/obj/structure/railing{
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -148747,7 +148765,7 @@ aFm
 aFm
 aFm
 aFm
-xRZ
+dFm
 qaU
 tCs
 aFm
@@ -149514,7 +149532,7 @@ aad
 qYo
 aFm
 qWy
-qWy
+lvt
 qWy
 qWy
 qWy

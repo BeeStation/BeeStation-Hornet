@@ -21084,7 +21084,7 @@
 /area/hallway/primary/starboard)
 "gPh" = (
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -28373,6 +28373,15 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
+"jlW" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "jmv" = (
 /obj/machinery/light{
 	dir = 8
@@ -114016,7 +114025,7 @@ pyV
 noG
 noG
 iEb
-fLs
+jlW
 hwV
 lPh
 iuC

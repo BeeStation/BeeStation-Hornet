@@ -25812,7 +25812,7 @@
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -43742,7 +43742,7 @@
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -55167,7 +55167,7 @@
 "uDm" = (
 /obj/structure/closet/crate,
 /obj/structure/railing{
-	pixel_y = 32
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
