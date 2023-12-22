@@ -89825,10 +89825,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"xFL" = (
-/obj/structure/closet/crate/secure/weapon/contraband,
-/turf/open/floor/plating/asteroid/airless,
-/area/space/nearstation)
 "xFO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -139744,7 +139740,7 @@ cXK
 fVq
 aaa
 cmU
-xFL
+aeU
 ktS
 tnd
 viB

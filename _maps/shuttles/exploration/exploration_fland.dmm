@@ -69,7 +69,6 @@
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 4
 	},
-/obj/structure/closet/syndicate,
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
 "dH" = (
