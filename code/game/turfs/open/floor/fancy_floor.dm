@@ -240,6 +240,9 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
+	icon_x_offset = 0
+	icon_y_offset = 0
+
 /turf/open/floor/grass/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
 
@@ -279,6 +282,8 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	icon_x_offset = 0
+	icon_y_offset = 0
 
 /turf/open/floor/grass/fakebasalt/Initialize(mapload)
 	. = ..()

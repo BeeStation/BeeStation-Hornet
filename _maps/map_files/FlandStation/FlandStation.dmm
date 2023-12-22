@@ -42981,7 +42981,7 @@
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "lkH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -57751,7 +57751,7 @@
 /obj/machinery/shower{
 	pixel_y = 12
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/engine/engine_room)
 "pcO" = (
 /obj/structure/lattice/catwalk/over,
@@ -58039,7 +58039,7 @@
 /area/medical/genetics)
 "pgg" = (
 /obj/effect/turf_decal/pool,
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "pgi" = (
 /obj/effect/turf_decal/guideline/guideline_in_arrow_con/blue{
@@ -65043,7 +65043,7 @@
 /obj/effect/turf_decal/pool/corner{
 	dir = 1
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "qPp" = (
 /obj/machinery/holopad,
@@ -65059,7 +65059,7 @@
 /obj/machinery/status_display/ai{
 	pixel_y = -32
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "qPC" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -65093,7 +65093,7 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "qPS" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -80849,7 +80849,7 @@
 /obj/effect/turf_decal/pool/corner{
 	dir = 8
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "uFn" = (
 /obj/machinery/washing_machine,
@@ -81641,7 +81641,7 @@
 /obj/effect/turf_decal/pool{
 	dir = 4
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "uPd" = (
 /obj/effect/turf_decal/trimline/red/line{
@@ -89911,7 +89911,7 @@
 /area/maintenance/aft)
 "wHp" = (
 /obj/effect/turf_decal/pool/corner,
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "wHC" = (
 /obj/machinery/camera{
@@ -90020,7 +90020,7 @@
 /obj/effect/turf_decal/pool/corner{
 	dir = 4
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "wIf" = (
 /obj/structure/light_construct/small{
@@ -91495,7 +91495,7 @@
 /obj/effect/turf_decal/pool{
 	dir = 8
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "wYe" = (
 /obj/machinery/light/small{
@@ -91518,7 +91518,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "wYg" = (
 /obj/machinery/door/firedoor,
@@ -94863,7 +94863,7 @@
 /obj/effect/turf_decal/pool{
 	dir = 1
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "xDW" = (
 /obj/machinery/xenoartifact_inbox,
@@ -95265,7 +95265,7 @@
 	dir = 9;
 	name = "recreation camera"
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "xIK" = (
 /obj/effect/landmark/start/roboticist,
@@ -96465,7 +96465,7 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/east,
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "xUr" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted,

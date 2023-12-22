@@ -4,7 +4,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/template_noop)
 "b" = (
 /obj/structure/closet/radiation,

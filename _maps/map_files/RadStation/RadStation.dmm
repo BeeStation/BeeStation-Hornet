@@ -1138,7 +1138,7 @@
 /obj/effect/turf_decal/loading_area/white{
 	dir = 8
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/engine/atmos)
 "asO" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -1885,7 +1885,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/engine/engineering)
 "aFw" = (
 /obj/effect/turf_decal/stripes/line{
@@ -4773,7 +4773,7 @@
 	pixel_x = -32;
 	pixel_y = -3
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/engine/engineering)
 "bDj" = (
 /obj/structure/chair/office{
@@ -12660,7 +12660,7 @@
 /obj/effect/turf_decal/loading_area/white{
 	dir = 8
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/engine/atmos)
 "dXS" = (
 /obj/machinery/holopad,
@@ -18152,7 +18152,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/east,
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/engine/engineering)
 "fAX" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -26614,7 +26614,7 @@
 /obj/machinery/camera/autoname{
 	network = list("ss13","engine")
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/engine/engineering)
 "igG" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -31356,7 +31356,7 @@
 	name = "engineering security door"
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/engine/engineering)
 "jKK" = (
 /obj/machinery/telecomms/server/presets/engineering,
@@ -66828,7 +66828,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/engine/engineering)
 "uTj" = (
 /obj/effect/turf_decal/stripes/line{
