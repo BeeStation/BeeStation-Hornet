@@ -3,9 +3,9 @@
 	real_name = "Shade"
 	desc = "A bound spirit."
 	gender = PLURAL
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "shade"
-	icon_living = "shade"
+	icon = 'icons/mob/cult.dmi'
+	icon_state = "shade_cult"
+	icon_living = "shade_cult"
 	mob_biotypes = list(MOB_SPIRIT)
 	maxHealth = 40
 	health = 40

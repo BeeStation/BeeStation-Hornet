@@ -48,10 +48,10 @@
 	for(var/distrobuteinbag in 0 to 5)
 		var/type = pick(/obj/item/food/cookie/sugar/spookyskull,
 		/obj/item/food/cookie/sugar/spookycoffin,
-		/obj/item/reagent_containers/food/snacks/candy_corn,
+		/obj/item/food/candy_corn,
 		/obj/item/reagent_containers/food/snacks/candy,
-		/obj/item/reagent_containers/food/snacks/candiedapple,
-		/obj/item/reagent_containers/food/snacks/chocolatebar,
+		/obj/item/food/candiedapple,
+		/obj/item/food/chocolatebar,
 		/obj/item/organ/brain ) // OH GOD THIS ISN'T CANDY!
 		new type(src)
 

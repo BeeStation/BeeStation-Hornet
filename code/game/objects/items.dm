@@ -137,9 +137,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// In deciseconds, how long it takes to break out of an item by using resist. ex: handcuffs
 	var/breakouttime = 0
 
-	/// List of materials it contains as the keys and the quantities as the vals. Like when you pop it into an autolathe these are the materials you get out of it. Also used in microwaves to see if there is enough iron to make it explode. Oh yeah it's used for a ton of other things too. Less exciting things though.
-	var/list/materials
-
 	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/list/attack_verb
 	/// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
@@ -231,16 +228,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 
 /obj/item/Initialize(mapload)
-
-	materials =	typelist("materials", materials)
-
-	if(materials) //Otherwise, use the instances already provided.
-		var/list/temp_list = list()
-		for(var/i in materials) //Go through all of our materials, get the subsystem instance, and then replace the list.
-			var/amount = materials[i]
-			var/datum/material/M = getmaterialref(i)
-			temp_list[M] = amount
-		materials = temp_list
 
 	if (attack_verb)
 		attack_verb = typelist("attack_verb", attack_verb)
@@ -430,9 +417,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	// Extractable materials. Only shows the names, not the amounts.
 	research_msg += ".<br><font color='purple'>Extractable materials:</font> "
-	if (materials.len)
+	if (custom_materials.len)
 		sep = ""
-		for(var/mat in materials)
+		for(var/mat in custom_materials)
 			research_msg += sep
 			research_msg += CallMaterialName(mat)
 			sep = ", "
@@ -457,6 +444,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	if(anchored)
 		return
+
+	. = TRUE
 
 	if(resistance_flags & ON_FIRE)
 		var/mob/living/carbon/C = user
@@ -510,10 +499,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
+	. = FALSE
 	remove_outline()
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
+		return TRUE
 
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
@@ -1325,7 +1316,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				found_mats++
 
 		//if there's glass in it and the glass is more than 60% of the item, then we can shatter it
-		if(custom_materials[getmaterialref(/datum/material/glass)] >= total_material_amount * 0.60)
+		if(custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)] >= total_material_amount * 0.60)
 			if(prob(66)) //66% chance to break it
 				/// The glass shard that is spawned into the source item
 				var/obj/item/shard/broken_glass = new /obj/item/shard(loc)
@@ -1454,4 +1445,4 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			w_class = WEIGHT_CLASS_HUGE
 		else
 			return FALSE
-
+	return TRUE

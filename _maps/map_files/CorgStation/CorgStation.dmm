@@ -2956,19 +2956,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"aJQ" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "aJW" = (
 /obj/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
@@ -3483,7 +3470,7 @@
 "aPw" = (
 /obj/structure/table/reinforced,
 /obj/item/knife/kitchen,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -6470,16 +6457,6 @@
 	dir = 5
 	},
 /area/science/breakroom)
-"bNL" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/effect/landmark/event_spawn,
-/turf/open/floor/plasteel/grimy,
-/area/chapel/office)
 "bNP" = (
 /obj/structure/closet/cabinet,
 /turf/open/floor/plasteel/dark,
@@ -12807,6 +12784,13 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
+"dXu" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/nullrod,
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/chapel/office)
 "dXz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -12856,6 +12840,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"dYa" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/plasteel/grimy,
+/area/chapel/office)
 "dYA" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel/dark/telecomms,
@@ -15696,15 +15690,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
-"eYb" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/turf/open/floor/plasteel/grimy,
-/area/chapel/office)
 "eYf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -15929,6 +15914,18 @@
 /obj/effect/turf_decal/tile/brown,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"fbF" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "fbK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -18297,19 +18294,6 @@
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"fPC" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/chapel/monastery)
 "fPK" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plasteel/grimy,
@@ -19992,18 +19976,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
-"gtG" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "gtI" = (
 /obj/machinery/suit_storage_unit/captain,
 /obj/machinery/door/window/brigdoor/northright,
@@ -27162,6 +27134,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
+"iJB" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "iJI" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Experimentation Chamber";
@@ -36891,20 +36876,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/noslip/standard,
 /area/hallway/secondary/service)
-"lUR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/weightmachine/stacklifter,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/turf/open/floor/plasteel,
-/area/security/prison)
 "lUS" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/red{
@@ -41015,6 +40986,20 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"nlw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/weightmachine/weightlifter,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/security/prison)
 "nlB" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -46707,7 +46692,7 @@
 /area/maintenance/department/bridge)
 "pgJ" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/kitchen/rollingpin,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
@@ -47426,6 +47411,15 @@
 /obj/machinery/cell_charger,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
+"put" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
+/obj/item/food/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
+/turf/open/floor/plasteel/grimy,
+/area/chapel/office)
 "puA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -47435,6 +47429,19 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
+"puM" = (
+/obj/structure/table/wood,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/department/chapel/monastery)
 "pvh" = (
 /obj/structure/table/wood,
 /obj/item/camera,
@@ -50472,7 +50479,7 @@
 /area/crew_quarters/heads/hor)
 "qsX" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -58468,13 +58475,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"sVH" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
-/obj/item/nullrod,
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/turf/open/floor/plasteel/dark,
-/area/chapel/office)
 "sVQ" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -91904,8 +91904,8 @@ nCP
 nCP
 oxd
 qry
-bNL
-eYb
+dYa
+put
 cTE
 kFz
 wrU
@@ -92156,7 +92156,7 @@ aMT
 bLB
 nCP
 qHQ
-sVH
+dXu
 hWu
 nCP
 oxd
@@ -93961,7 +93961,7 @@ vDX
 vDX
 fWp
 fKG
-aJQ
+iJB
 jbr
 kvz
 tiU
@@ -94218,7 +94218,7 @@ fqH
 kco
 mPJ
 nwT
-gtG
+fbF
 jbr
 caj
 xgs
@@ -95761,7 +95761,7 @@ kco
 hNt
 iuR
 mkF
-fPC
+puM
 veT
 vcp
 jbr
@@ -113618,7 +113618,7 @@ aMT
 qBt
 anT
 vyE
-lUR
+nlw
 lxK
 cjA
 mTp
