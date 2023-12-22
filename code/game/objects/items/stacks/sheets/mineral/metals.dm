@@ -29,6 +29,8 @@ Metals Sheets
 	point_value = 2
 	material_type = /datum/material/iron
 	matter_amount = 4
+	cost = 500
+	source = /datum/robot_energy_storage/metal
 
 /obj/item/stack/sheet/iron/ratvar_act()
 	new /obj/item/stack/sheet/brass(loc, amount)
