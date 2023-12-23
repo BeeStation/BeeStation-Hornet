@@ -18,6 +18,14 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "s-casing"
 	item_flags = NONE
+	//Percent chance for bullets that embed to have the DROPDEL flag set on Initialize. There's an insane ammount of clutter otherwise.
+	var/vanish_chance = 45 //Lower = More likely to remain after falling out/failing to embed
+
+/obj/item/shrapnel/bullet/Initialize(mapload)
+	. = ..()
+
+	if(prob(vanish_chance)) //See if a bullet will remain after falling out/failing to embed
+		item_flags = DROPDEL
 
 /obj/item/shrapnel/bullet/c38 // .38 round
 	name = "\improper .38 bullet"
@@ -25,6 +33,12 @@
 /obj/item/shrapnel/bullet/c38/dumdum // .38 DumDum round
 	name = "\improper .38 DumDum bullet"
 	embedding = list(embed_chance=70, fall_chance=7, jostle_chance=7, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=5, jostle_pain_mult=6, rip_time=10)
+	vanish_chance = 60
+
+/obj/item/shrapnel/bullet/shotgun/glass // Improvised glasspack shell
+	name = "glass shard"
+	embedding = list(embed_chance=60, fall_chance=2, jostle_chance=10, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.3, pain_mult=2, jostle_pain_mult=3, rip_time=8)
+	vanish_chance = 75
 
 /obj/projectile/bullet/shrapnel
 	name = "flying shrapnel shard"
