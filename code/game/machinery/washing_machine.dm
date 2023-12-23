@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director/skirt,
 		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt,
-		DYE_REDCOAT = /obj/item/clothing/under/costume/denyed, //TODO /obj/item/clothing/under/costume/denyed
+		DYE_REDCOAT = /obj/item/clothing/under/costume/redcoat, //TODO /obj/item/clothing/under/costume/denyed
 		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer/skirt
 	),
 	DYE_REGISTRY_GLOVES = list(
