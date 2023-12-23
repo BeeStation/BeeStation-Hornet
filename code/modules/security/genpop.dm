@@ -303,11 +303,12 @@
 
 /obj/machinery/genpop_interface/proc/build_static_information()
 	var/crime_names = list()
-
 	// Generate the crime list
 	if (!crime_list)
 		crime_list = list()
-		if(!config_file) //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
+		 //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
+		if(!config_file)
+			message_admins("<span class='boldannounce'>Failed to read the space_law config file! Defaulting to hardcoded datums.</span>") //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
 			for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
 				// Ignore this crime, it is abstract
 				if (isnull(initial(crime_path.name)))
@@ -328,6 +329,11 @@
 		else
 			crime_list = json_decode(file2text(config_file))
 			//we need to get the names of each crime for the regex
+			for(var/key in crime_list)
+				var/value = crime_list[key]
+				for(var/second_key in value)
+					var/second_value = second_key["name"]
+					LAZYADD(crime_names, second_value)
 
 	if (valid_crime_name_regex)
 		return
