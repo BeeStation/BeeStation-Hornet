@@ -175,19 +175,20 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	. = ..()
 	if(!busy)
 		. += "<span class='notice'><b>Alt-click</b> it to start a wash cycle.</span>"
+	if(bloody_mess)
+		. += "<span class='notice'>[src] is dirty!</span>"
 
 /obj/machinery/washing_machine/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || busy)
 		return
 	if(state_open)
-		to_chat(user, "<span class='notice'>Close the door first.</span>")
-		return
-	if(bloody_mess)
-		to_chat(user, "<span class='warning'>[src] must be cleaned up first.</span>")
-		return
+		state_open = FALSE //close the door
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
+		update_icon()
 
 	busy = TRUE
 	update_icon()
+	bloody_mess = FALSE
 	addtimer(CALLBACK(src, PROC_REF(wash_cycle)), 200)
 	soundloop.start()
 	START_PROCESSING(SSfastprocess, src)
@@ -284,8 +285,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)
 	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	for(var/obj/effect/decal/cleanable/C in src)
-		qdel(C)
 	if(WM.color_source)
 		dye_item(WM.color_source.dye_color)
 
@@ -302,7 +301,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	. = ..()
 	if(.)
 		if(dye_color in dyes)
-			flippable = FALSE //Making Hats unflippable so it doesn't break the illusion of the dye if the result isn't really a cap
+			flippable = FALSE //Making Hats unflippable so it doesn't break the illusion of the dye if the result isn't a flippable hat
 		else
 			flippable = TRUE
 
