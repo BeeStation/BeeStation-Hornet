@@ -31,6 +31,15 @@
 	name = "pepperball"
 	icon_state = "pepperball"
 	damage = 35 //Disabler is 28 damage, flat AP
+	var/tile_dropoff = 0.5
 	damage_type = STAMINA
-	armour_penetration = -40
-	range = 18
+	armour_penetration = -20
+	range = 22
+
+/obj/projectile/bullet/pepperball/Range()
+	..()
+	if(damage > 0)
+		damage -= tile_dropoff
+
+	if(damage < 0)
+		qdel(src)
