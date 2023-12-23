@@ -127,10 +127,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	. = ..()
 	soundloop = new(src,  FALSE)
 
-/obj/machinery/washing_machine/ComponentInitialize()
-	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
-
 /obj/machinery/microwave/Destroy()
 	QDEL_NULL(soundloop)
 	. = ..()
@@ -238,6 +234,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/item/clothing/head/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
 	..()
 	held_mob.machine_wash(WM)
+	qdel(src)
 
 /mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/WM)
 	WM.bloody_mess = TRUE
@@ -303,6 +300,30 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if (!state_open)
 			to_chat(user, "<span class='warning'>Open the door first!</span>")
 			return TRUE
+		else if(bloody_mess)
+			if(istype(W, /obj/item/reagent_containers/spray))
+				var/obj/item/reagent_containers/spray/clean_spray = W
+				if(clean_spray.reagents.has_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this))
+					clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this,1)
+					playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+					user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
+					bloody_mess = 0
+					update_icon()
+				else
+					to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
+				return TRUE
+
+			if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/glass/rag))
+				var/cleanspeed = 50
+				if(istype(W, /obj/item/soap))
+					var/obj/item/soap/used_soap = W
+					cleanspeed = used_soap.cleanspeed
+				user.visible_message("[user] starts to clean \the [src].", "<span class='notice'>You start to clean \the [src]...</span>")
+				if(do_after(user, cleanspeed, target = src))
+					user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
+					bloody_mess = 0
+					update_icon()
+				return TRUE
 
 		if(bloody_mess)
 			to_chat(user, "<span class='warning'>[src] must be cleaned up first.</span>")
