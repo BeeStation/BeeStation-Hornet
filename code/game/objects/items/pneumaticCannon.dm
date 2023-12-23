@@ -150,9 +150,12 @@
 	if(!tank && checktank)
 		to_chat(user, "<span class='warning'>\The [src] can't fire without a source of gas.</span>")
 		return
-	if(tank && !tank.air_contents.remove(gasPerThrow * pressureSetting))
-		to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss and doesn't react!</span>")
-		return
+	if(tank)
+		if (!tank.air_contents.total_moles()) //If the tank's completetly empty, can't fire it.
+			playsound(src, 'sound/items/cig_snuff.ogg', 35, 1)
+			to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss and doesn't react!</span>")
+			return
+		tank.air_contents.remove(gasPerThrow * pressureSetting)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75) && clumsyCheck && iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.visible_message("<span class='warning'>[C] loses [C.p_their()] grip on [src], causing it to go off!</span>", "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")

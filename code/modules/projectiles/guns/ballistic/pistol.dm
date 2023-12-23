@@ -101,20 +101,25 @@
 //Pepperball Pistol, the ballistic green-shift sec alternative to the disabler; slighly higher damage, less ammo, EMP-proof, and able to be reloaded on the go.
 /obj/item/gun/ballistic/automatic/pistol/pepperball
 	name = "pepperball pistol"
-	desc = "An older NT-designed non-lethal sidearm. Its widespread use has been phased out with the introduction of energy weapons."
+	desc = "An older NT-designed non-lethal sidearm with an integral flashlight. Its widespread use has been phased out with the introduction of energy weapons."
 	icon_state = "pepperpistol"
 	w_class = WEIGHT_CLASS_SMALL
 	can_suppress = FALSE
 	tac_reloads = FALSE
+	flight_x_offset = 13
+	flight_y_offset = 12
 	mag_type = /obj/item/ammo_box/magazine/pepperball
 	var/obj/item/tank/internals/emergency_oxygen/air_tank
+	var/air_usage = 0.025
 	fire_sound = 'sound/items/syringeproj.ogg'
 	fire_sound_volume = 60
 	equip_time = 2 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/pepperball/Initialize(mapload)
-	. = ..()
 	install_tank(new /obj/item/tank/internals/emergency_oxygen/cold_air(src))
+	set_gun_light(new /obj/item/flashlight/seclite(src))
+	gun_light.light_range = 3
+	return ..()
 
 /obj/item/gun/ballistic/automatic/pistol/pepperball/update_icon()
 	..()
@@ -137,7 +142,7 @@
 			return
 		if (user.transferItemToLoc(A, src))
 			to_chat(user, "<span class='notice'>You attach \the [A] onto \the [src].</span>")
-			playsound(src, 'sound/items/screwdriver.ogg', 30)
+			playsound(src, 'sound/items/screwdriver.ogg', 25)
 			install_tank(A)
 			return
 	..()
@@ -151,11 +156,25 @@
 		to_chat(user, "<span class='notice'>You need be holding \the [src] to remove \the [air_tank]!</span>")
 		return
 	to_chat(user, "<span class='notice'>You detach \the [air_tank] from \the [src].</span>")
-	playsound(src, 'sound/items/screwdriver.ogg', 30)
+	playsound(src, 'sound/items/screwdriver.ogg', 25)
 	user.put_in_hands(air_tank)
 	weight_class_down()
 	air_tank = null
 	update_icon()
+
+/obj/item/gun/ballistic/automatic/pistol/pepperball/can_shoot()
+	if (!air_tank)
+		return FALSE
+	else
+		return chambered
+
+/obj/item/gun/ballistic/automatic/pistol/pepperball/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	if (air_tank)
+		if (!air_tank.air_contents.total_moles()) //If the tank's completetly empty, can't fire it.
+			playsound(src, 'sound/items/cig_snuff.ogg', 25, 1)
+			to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss as it fails to fire!</span>")
+			return
+	. = ..()
 
 /obj/item/gun/ballistic/automatic/pistol/stickman
 	name = "flat gun"
