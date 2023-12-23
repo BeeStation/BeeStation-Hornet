@@ -17,3 +17,4 @@
 	caliber = "pepperball"
 	icon_state = "pepperball"
 	projectile_type = /obj/projectile/bullet/pepperball
+	harmful = FALSE

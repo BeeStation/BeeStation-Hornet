@@ -102,12 +102,60 @@
 /obj/item/gun/ballistic/automatic/pistol/pepperball
 	name = "pepperball pistol"
 	desc = "An older NT-designed non-lethal sidearm. Its widespread use has been phased out with the introduction of energy weapons."
-	icon_state = "pistol"
+	icon_state = "pepperpistol"
+	w_class = WEIGHT_CLASS_SMALL
+	can_suppress = FALSE
+	tac_reloads = FALSE
 	mag_type = /obj/item/ammo_box/magazine/pepperball
+	var/obj/item/tank/internals/emergency_oxygen/air_tank
 	fire_sound = 'sound/items/syringeproj.ogg'
-	vary_fire_sound = FALSE
 	fire_sound_volume = 60
 	equip_time = 2 SECONDS
+
+/obj/item/gun/ballistic/automatic/pistol/pepperball/Initialize(mapload)
+	. = ..()
+	install_tank(new /obj/item/tank/internals/emergency_oxygen/cold_air(src))
+
+/obj/item/gun/ballistic/automatic/pistol/pepperball/update_icon()
+	..()
+
+	if (air_tank)
+		add_overlay("[icon_state]_[air_tank.icon_state]")
+
+/obj/item/gun/ballistic/automatic/pistol/pepperball/proc/install_tank(obj/item/tank/internals/emergency_oxygen/T) //Similar to installing a suppressor.
+	air_tank = T
+	weight_class_up()
+	update_icon()
+
+/obj/item/gun/ballistic/automatic/pistol/pepperball/attackby(obj/item/A, mob/user, params)
+	if (istype(A, /obj/item/tank/internals/emergency_oxygen))
+		if (!user.is_holding(src))
+			to_chat(user, "<span class='notice'>You need be holding \the [src] to fit \the [A] to it!</span>")
+			return
+		if (air_tank)
+			to_chat(user, "<span class='warning'>[src] already has an air tank installed!</span>")
+			return
+		if (user.transferItemToLoc(A, src))
+			to_chat(user, "<span class='notice'>You attach \the [A] onto \the [src].</span>")
+			playsound(src, 'sound/items/screwdriver.ogg', 30)
+			install_tank(A)
+			return
+	..()
+
+
+/obj/item/gun/ballistic/automatic/pistol/pepperball/AltClick(mob/user)
+	if (!air_tank)
+		to_chat(user, "<span class='warning'>There is no air tank installed on \the [src]!</span>")
+		return
+	if(!user.is_holding(src))
+		to_chat(user, "<span class='notice'>You need be holding \the [src] to remove \the [air_tank]!</span>")
+		return
+	to_chat(user, "<span class='notice'>You detach \the [air_tank] from \the [src].</span>")
+	playsound(src, 'sound/items/screwdriver.ogg', 30)
+	user.put_in_hands(air_tank)
+	weight_class_down()
+	air_tank = null
+	update_icon()
 
 /obj/item/gun/ballistic/automatic/pistol/stickman
 	name = "flat gun"

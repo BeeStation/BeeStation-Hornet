@@ -61,7 +61,14 @@
 /obj/item/ammo_box/magazine/pepperball
 	name = "pepperball pistol magazine"
 	desc = "A gun magazine."
-	icon_state = "9x19p"
+	icon_state = "peppermag"
 	ammo_type = /obj/item/ammo_casing/caseless/pepperball
 	caliber = "pepperball"
-	max_ammo = 12
+	max_ammo = 14
+
+/obj/item/ammo_box/magazine/pepperball/update_icon()
+	..()
+	if (ammo_count() >= 2)
+		icon_state = "peppermag-2"
+	else
+		icon_state = "peppermag-[ammo_count()]"

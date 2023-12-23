@@ -29,8 +29,8 @@
 
 /obj/projectile/bullet/pepperball
 	name = "pepperball"
-	icon_state = pepperball
+	icon_state = "pepperball"
 	damage = 35 //Disabler is 28 damage, flat AP
 	damage_type = STAMINA
-	armour_penetration = -20
-	range = 15
+	armour_penetration = -35
+	range = 18

@@ -212,3 +212,19 @@
 /obj/item/tank/internals/emergency_oxygen/clown/populate_gas()
 	air_contents.set_moles(GAS_O2, (9.99*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 	air_contents.set_moles(GAS_NITROUS, (0.01*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+
+/obj/item/tank/internals/emergency_oxygen/cold_air //Think paintball guns, with the CO2 tank attached
+	name = "mini air tank"
+	desc = "Used for powering NanoTrasen issued pepperball pistols, could be used as internals in a pinch however."
+	icon_state = "emergency_air"
+	volume = 1.5 //Slightly higher capacity than regular emergency air tanks, less than extended ones
+
+/obj/item/tank/internals/emergency_oxygen/cold_air/populate_gas() //Start at 1023 kPA of pressure, but chilled
+	air_contents.set_temperature(TCRYO)
+	air_contents.set_moles(GAS_O2, ((10)*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*TCRYO) * O2STANDARD)
+	air_contents.set_moles(GAS_N2, ((10)*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*TCRYO) * N2STANDARD)
+
+/obj/item/tank/internals/emergency_oxygen/cold_air/empty //Used for autolathe printing and the like
+
+/obj/item/tank/internals/emergency_oxygen/cold_air/empty/populate_gas()
+	return
