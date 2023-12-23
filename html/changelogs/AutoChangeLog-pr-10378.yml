@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: 'Reverted "Minor refactor to machine construction + Fake Computer Toy
-      #10146"'
