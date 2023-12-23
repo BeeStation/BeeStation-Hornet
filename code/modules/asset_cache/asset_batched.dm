@@ -238,3 +238,23 @@
 
 #undef SPR_SIZE
 #undef SPR_IDX
+
+/proc/get_display_icon_for(sprite_name, atom/A)
+	if (!ispath(A, /atom))
+		return FALSE
+	var/icon_file = initial(A.icon)
+	var/icon_state = initial(A.icon_state)
+	if(ispath(A, /obj/item))
+		var/obj/item/I = A
+		if(initial(I.vendor_icon_preview))
+			icon_state = initial(I.vendor_icon_preview)
+		if(initial(I.greyscale_config) && initial(I.greyscale_colors))
+			return gags_to_batch(sprite_name, I)
+	return new /datum/icon_batch_entry(sprite_name, icon_file, icon_state, color=initial(A.color))
+
+/proc/gags_to_batch(sprite_name, obj/item/path)
+	var/datum/greyscale_config/config = initial(path.greyscale_config)
+	var/colors = initial(path.greyscale_colors)
+	var/datum/icon_batch_entry/entry = SSgreyscale.GetColoredIconEntryByType(config, colors, initial(path.icon_state))
+	entry.sprite_name = sprite_name
+	return entry

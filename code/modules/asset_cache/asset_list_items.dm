@@ -276,39 +276,40 @@
 		"dna_extra.gif" = 'html/dna_extra.gif'
 	)
 
-/datum/asset/spritesheet/supplypods
+/datum/asset/spritesheet_batched/supplypods
 	name = "supplypods"
-	cross_round_cachable = TRUE
 
-/datum/asset/spritesheet/supplypods/create_spritesheets()
+/datum/asset/spritesheet_batched/supplypods/create_spritesheets()
 	for (var/style in 1 to length(GLOB.podstyles))
 		var/icon_file = 'icons/obj/supplypods.dmi'
 		var/states = icon_states(icon_file)
 		if (style == STYLE_SEETHROUGH)
-			Insert("pod_asset[style]", icon(icon_file, "seethrough-icon", SOUTH))
+			insert_icon(icon_entry("pod_asset[style]", icon_file, "seethrough-icon", SOUTH))
 			continue
 		var/base = GLOB.podstyles[style][POD_BASE]
 		if (!base)
-			Insert("pod_asset[style]", icon(icon_file, "invisible-icon", SOUTH))
+			insert_icon(icon_entry("pod_asset[style]", icon_file, "invisible-icon", SOUTH))
 			continue
-		var/icon/podIcon = icon(icon_file, base, SOUTH)
+		var/datum/icon_batch_entry/pod_icon = icon_entry("pod_asset[style]", icon_file, base, SOUTH)
+
 		var/door = GLOB.podstyles[style][POD_DOOR]
-		if (door)
-			door = "[base]_door"
-			if(door in states)
-				podIcon.Blend(icon(icon_file, door, SOUTH), ICON_OVERLAY)
+		if (door && ("[base]_door" in states))
+			pod_icon.blend_icon(u_icon_entry(icon_file, "[base]_door", SOUTH), ICON_OVERLAY)
+
 		var/shape = GLOB.podstyles[style][POD_SHAPE]
-		if (shape == POD_SHAPE_NORML)
-			var/decal = GLOB.podstyles[style][POD_DECAL]
-			if (decal)
-				if(decal in states)
-					podIcon.Blend(icon(icon_file, decal, SOUTH), ICON_OVERLAY)
-			var/glow = GLOB.podstyles[style][POD_GLOW]
-			if (glow)
-				glow = "pod_glow_[glow]"
-				if(glow in states)
-					podIcon.Blend(icon(icon_file, glow, SOUTH), ICON_OVERLAY)
-		Insert("pod_asset[style]", podIcon)
+		if (shape != POD_SHAPE_NORML)
+			insert_icon(pod_icon)
+			continue
+		var/decal = GLOB.podstyles[style][POD_DECAL]
+		if (decal && (decal in states))
+			pod_icon.blend_icon(u_icon_entry(icon_file, decal, SOUTH), ICON_OVERLAY)
+
+		var/glow = GLOB.podstyles[style][POD_GLOW]
+		if (glow && ("pod_glow_[glow]" in states))
+			pod_icon.blend_icon(u_icon_entry(icon_file, "pod_glow_[glow]", SOUTH), ICON_OVERLAY)
+
+		insert_icon(pod_icon)
+
 
 // Representative icons for each research design
 /datum/asset/spritesheet_batched/research_designs
@@ -396,18 +397,6 @@
 		return FALSE
 	var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 	return get_display_icon_for(imgid, item)
-
-/proc/get_display_icon_for(sprite_name, atom/item)
-	if (!ispath(item, /atom))
-		return FALSE
-	var/icon_file = initial(item.icon)
-	var/icon_state = initial(item.icon_state)
-	if(ispath(item, /obj/item))
-		var/obj/item/fake_item = item
-		if(initial(fake_item.vendor_icon_preview))
-			icon_state = initial(fake_item.vendor_icon_preview)
-			icon_file = initial(fake_item.icon)
-	return new /datum/icon_batch_entry(sprite_name, icon_file, icon_state, color=initial(item.color))
 
 /datum/asset/spritesheet_batched/crafting
 	name = "crafting"

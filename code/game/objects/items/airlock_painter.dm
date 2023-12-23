@@ -293,7 +293,7 @@
 
 /obj/item/airlock_painter/decal/ui_static_data(mob/user)
 	. = ..()
-	var/datum/asset/spritesheet/icon_assets = get_asset_datum(spritesheet_type)
+	var/datum/asset/spritesheet_batched/icon_assets = get_asset_datum(spritesheet_type)
 
 	.["icon_prefix"] = "[icon_assets.name]32x32"
 	.["supports_custom_color"] = supports_custom_color
