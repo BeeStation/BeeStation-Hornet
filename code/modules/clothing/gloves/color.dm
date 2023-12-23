@@ -220,6 +220,14 @@
 	item_state = "wgloves"
 	worn_icon_state = "wgloves"
 
+/obj/item/clothing/gloves/color/color_yellow
+	name = "yellow gloves"
+	desc = "A pair of gloves, they don't look special in any way."
+	icon_state = "white"
+	item_state = "wgloves"
+	worn_icon_state = "wgloves"
+	color = "#ffe14d"
+
 /obj/effect/spawner/lootdrop/gloves
 	name = "random gloves"
 	desc = "These gloves are supposed to be a random color..."

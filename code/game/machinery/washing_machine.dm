@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	DYE_REGISTRY_GLOVES = list(
 		DYE_RED = /obj/item/clothing/gloves/color/red,
 		DYE_ORANGE = /obj/item/clothing/gloves/color/orange,
-		DYE_YELLOW = /obj/item/clothing/gloves/color/yellow,
+		DYE_YELLOW = /obj/item/clothing/gloves/color/color_yellow,
 		DYE_GREEN = /obj/item/clothing/gloves/color/green,
 		DYE_BLUE = /obj/item/clothing/gloves/color/blue,
 		DYE_PURPLE = /obj/item/clothing/gloves/color/purple,
@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CAPTAIN = /obj/item/clothing/gloves/color/captain,
 		DYE_HOP = /obj/item/clothing/gloves/color/grey,
 		DYE_HOS = /obj/item/clothing/gloves/color/black,
-		DYE_CE = /obj/item/clothing/gloves/color/black,
+		DYE_CE = /obj/item/clothing/gloves/color/yellow,
 		DYE_RD = /obj/item/clothing/gloves/color/grey,
 		DYE_CMO = /obj/item/clothing/gloves/color/latex/nitrile,
 		DYE_REDCOAT = /obj/item/clothing/gloves/color/white,
@@ -87,6 +87,31 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CMO = /obj/item/clothing/shoes/sneakers/brown,
 		DYE_SECURITY = /obj/item/clothing/shoes/jackboots
 	),
+
+	DYE_REGISTRY_CAP = list(
+		DYE_RED = /obj/item/clothing/head/soft/red,
+		DYE_ORANGE = /obj/item/clothing/head/soft/orange,
+		DYE_YELLOW = /obj/item/clothing/head/soft/yellow,
+		DYE_GREEN = /obj/item/clothing/head/soft/green,
+		DYE_BLUE = /obj/item/clothing/head/soft/blue,
+		DYE_PURPLE = /obj/item/clothing/head/soft/purple,
+		DYE_BLACK = /obj/item/clothing/head/soft/black,
+		DYE_WHITE = /obj/item/clothing/head/soft,
+		DYE_RAINBOW = /obj/item/clothing/head/soft/rainbow,
+		DYE_MIME = /obj/item/clothing/head/beret,
+		DYE_CLOWN = /obj/item/clothing/head/kitty,
+		DYE_QM = /obj/item/clothing/head/soft/cargo,
+		DYE_LAW = /obj/item/clothing/head/bowler,
+		DYE_CAPTAIN = /obj/item/clothing/head/caphat,
+		DYE_HOP = /obj/item/clothing/head/hopcap,
+		DYE_HOS = /obj/item/clothing/head/HoS,
+		DYE_CE = /obj/item/clothing/head/hardhat/white,
+		DYE_RD = /obj/item/clothing/head/soft/purple,
+		DYE_CMO = /obj/item/clothing/head/soft,
+		DYE_REDCOAT = /obj/item/clothing/head/soft,
+		DYE_SECURITY = /obj/item/clothing/head/soft/sec
+	),
+
 	DYE_REGISTRY_FANNYPACK = list(
 		DYE_RED = /obj/item/storage/belt/fannypack/red,
 		DYE_ORANGE = /obj/item/storage/belt/fannypack/orange,
@@ -138,6 +163,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	. = ..()
 	soundloop = new(src,  FALSE)
 
+/obj/machinery/washing_machine/ComponentInitialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
+
 /obj/machinery/microwave/Destroy()
 	QDEL_NULL(soundloop)
 	. = ..()
@@ -180,10 +209,17 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		M.Translate(rand(-3, 3), rand(-1, 3))
 		animate(src, transform=M, time=2)
 
+/obj/machinery/washing_machine/proc/clean_blood()
+	SIGNAL_HANDLER
+
+	if(!busy)
+		bloody_mess = FALSE
+		update_icon()
+
 /obj/machinery/washing_machine/proc/wash_cycle()
 	for(var/X in contents)
 		var/atom/movable/AM = X
-		SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+		SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRONG)
 		AM.machine_wash(src)
 
 	busy = FALSE
@@ -218,6 +254,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		righthand_file = initial(target_type.righthand_file)
 		worn_icon = initial(target_type.worn_icon)
 
+	add_atom_colour(initial(target_type.color), FIXED_COLOUR_PRIORITY)
 	icon_state = initial(target_type.icon_state)
 	item_state = initial(target_type.item_state)
 	worn_icon_state = initial(target_type.worn_icon_state)
@@ -246,6 +283,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	gib()
 
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)
+	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	for(var/obj/effect/decal/cleanable/C in src)
+		qdel(C)
 	if(WM.color_source)
 		dye_item(WM.color_source.dye_color)
 
@@ -256,6 +296,22 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		can_adjust = initial(U.can_adjust)
 		if(!can_adjust && adjusted) //we deadjust the uniform if it's now unadjustable
 			toggle_jumpsuit_adjust()
+
+/obj/item/clothing/head/soft/dye_item(dye_color, dye_key)
+	var/list/dyes = list(DYE_MIME, DYE_CLOWN, DYE_LAW, DYE_CAPTAIN, DYE_HOP, DYE_HOS, DYE_CE)
+	. = ..()
+	if(.)
+		if(dye_color in dyes)
+			flippable = FALSE //Making Hats unflippable so it doesn't break the illusion of the dye if the result isn't really a cap
+		else
+			flippable = TRUE
+
+/obj/item/clothing/glasses/machine_wash(obj/machinery/washing_machine/WM)
+	if(HAS_TRAIT(src, TRAIT_SPRAYPAINTED))
+		flash_protect -= 1
+		tint -= 2
+		REMOVE_TRAIT(src, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
+	..()
 
 /obj/item/clothing/under/machine_wash(obj/machinery/washing_machine/WM)
 	freshly_laundered = TRUE
