@@ -245,7 +245,7 @@
 	new /obj/item/stack/cable_coil/white(src)
 
 /obj/item/storage/toolbox/ammo
-	name = "ammo box"
+	name = "ammo box (7.62mm)"
 	desc = "It contains a few clips."
 	icon_state = "ammobox"
 	item_state = "ammobox"
@@ -260,6 +260,23 @@
 	new /obj/item/ammo_box/a762(src)
 	new /obj/item/ammo_box/a762(src)
 	new /obj/item/ammo_box/a762(src)
+
+/obj/item/storage/toolbox/ammo/c38
+	name = "ammo box (.38)"
+	desc = "It contains a few boxes of bullets."
+
+/obj/item/storage/toolbox/ammo/c38/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 10
+	STR.max_items = 5
+
+/obj/item/storage/toolbox/ammo/c38/PopulateContents()
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
 
 //floorbot assembly
 /obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)

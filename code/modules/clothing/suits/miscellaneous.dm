@@ -267,6 +267,14 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
 
+/obj/item/clothing/suit/poncho/ponchoshame/outlaw
+	desc = "You broke the rules of the duel, and drew your gun before High Noon. This poncho will rest on your shoulders eternally, just like your shame."
+	icon_state = "ponchoshame_alt"
+	item_state = "ponchoshame_alt"
+	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 30, STAMINA = 35)
+	body_parts_covered = CHEST|GROIN
+	allowed = list(/obj/item/gun/ballistic/shotgun/lever_action, /obj/item/gun/ballistic/revolver)
+
 /obj/item/clothing/suit/whitedress
 	name = "white dress"
 	desc = "A fancy white dress."

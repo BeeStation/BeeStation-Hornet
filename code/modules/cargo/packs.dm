@@ -797,6 +797,77 @@
 		var/item = pick(contains)
 		new item(C)
 
+/datum/supply_pack/security/armory/western
+	name = "Western Frontier Crate"
+	desc = "Howdy Pardner, this here is the finest collection of frontier gear for the aspiring cowboy, sheriff, or Wild West desperado on this side of the solar system. Unfortunately, we've had to lock this down with Armory grade access to put the postmaster general at ease."
+	cost = 5000
+	contraband = TRUE
+	max_supply = 3
+	contains = list(/obj/item/ammo_box/c38/box,
+					/obj/item/storage/toolbox/ammo/c38,
+					/obj/item/mob_lasso,
+					/obj/item/clothing/shoes/workboots/mining,
+					/obj/item/clothing/gloves/botanic_leather,
+					/obj/item/clothing/head/cowboy,
+					/obj/item/clothing/head/sombrero,
+					/obj/item/clothing/head/sombrero/green,
+					/obj/item/storage/belt/bandolier/western,
+					/obj/item/gun/ballistic/shotgun/lever_action,
+					/obj/item/gun/ballistic/shotgun/lever_action)
+	var/wear_outer = list(/obj/item/clothing/suit/apron/overalls,
+					/obj/item/clothing/suit/poncho,
+					/obj/item/clothing/suit/poncho,
+					/obj/item/clothing/suit/poncho,
+					/obj/item/clothing/suit/poncho/green,
+					/obj/item/clothing/suit/poncho/red)
+	var/wear_under = list(/obj/item/clothing/under/misc/overalls,
+					/obj/item/clothing/under/misc/overalls,
+					/obj/item/clothing/under/misc/overalls,
+					/obj/item/clothing/under/suit/sl)
+	var/cursed = list(/obj/item/paper/crumpled/bloody/cursed_western)
+	crate_name = "western frontier crate"
+
+/datum/supply_pack/security/armory/western/fill(obj/structure/closet/crate/C)
+	/* Fill with stuff from cursed western crate later
+	if (rand(1))
+
+	else
+	*/
+	for(var/i in 1 to 7)
+		var/item = pick(contains)
+		new item(C)
+	for(var/i2 in 1 to 2)
+		var/item_outer = pick(wear_outer)
+		new item_outer(C)
+	for(var/i3 in 1 to 2)
+		var/item_under = pick(wear_under)
+		new item_under(C)
+	new /obj/item/clothing/mask/fakemoustache(C)
+	new /obj/item/clothing/mask/fakemoustache(C)
+
+/datum/supply_pack/security/armory/cursed_western
+	name = "Dead Frontier Crate"
+	desc = "Dig yourself two graves when you set out for revenger, Pardner."
+	cost = 500
+	contraband = TRUE
+	max_supply = 1
+	contains = list(/obj/item/clothing/head/helmet/outlaw,
+				/obj/item/clothing/mask/fakemoustache,
+				/obj/item/clothing/suit/poncho/ponchoshame/outlaw,
+				/obj/item/clothing/under/suit/sl,
+				/obj/item/clothing/shoes/workboots/mining,
+				/obj/item/clothing/gloves/color/black,
+				/obj/item/storage/belt/bandolier/western/filled,
+				/obj/item/paper/crumpled/bloody/cursed_western)
+	crate_name = "dead frontier crate"
+
+/datum/supply_pack/security/armory/cursed_western/fill(obj/structure/closet/crate/C)
+	. = ..()
+	if (prob(50))
+		new /obj/item/gun/ballistic/shotgun/lever_action(C)
+	else
+		new /obj/item/clothing/accessory/holster/detective(C)
+
 /datum/supply_pack/security/armory/smartmine
 	name = "Smart Mine Crate"
 	desc = "Contains three nonlethal pressure activated stun mines capable of ignoring mindshieled personnel. Requires Armory access to open."
