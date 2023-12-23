@@ -704,7 +704,7 @@
 
 /obj/item/storage/belt/bandolier/western
 	name = "sheriff's bandolier"
-	desc = "A bandolier specialized for holding .38 cartridges"
+	desc = "A bandolier that has been retrofitted for .38 cartridges"
 
 /obj/item/storage/belt/bandolier/ComponentInitialize()
 	. = ..()

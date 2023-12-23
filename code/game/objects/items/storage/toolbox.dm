@@ -262,7 +262,7 @@
 	new /obj/item/ammo_box/a762(src)
 
 /obj/item/storage/toolbox/ammo/c38
-	name = "ammo box (.38)"
+	name = "ammo crate (.38)"
 	desc = "It contains a few boxes of bullets."
 
 /obj/item/storage/toolbox/ammo/c38/ComponentInitialize()
