@@ -16,6 +16,12 @@
 	var/mix_message = "The solution begins to bubble." //The message shown to nearby people upon mixing, if applicable
 	var/mix_sound = 'sound/effects/bubbles.ogg' //The sound played upon mixing, if applicable
 
+// Extra checks for the reaction to occur.
+/datum/chemical_reaction/proc/can_react(datum/reagents/holder)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	return TRUE
+
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return
 	//I recommend you set the result amount to the total volume of all components.
