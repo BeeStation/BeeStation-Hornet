@@ -312,9 +312,9 @@
 
 	if (reinforced)
 		. += "The barrel has been reinforced for use with high-power ammunition."
-	else if (barrel_stress <= 5)
+	else if (barrel_stress < 10)
 		. += "The barrel is in pristine condition."
-	else if (barrel_stress <= 20)
+	else if (barrel_stress < 25)
 		. += "The barrel seems to be warped mildly..."
 	else
 		. += "The barrel is warped and cracked!"
