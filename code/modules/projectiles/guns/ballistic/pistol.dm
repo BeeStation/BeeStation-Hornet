@@ -101,7 +101,7 @@
 //Pepperball Pistol, the ballistic green-shift sec alternative to the disabler; slighly higher damage, less ammo, EMP-proof, and able to be reloaded on the go.
 /obj/item/gun/ballistic/automatic/pistol/pepperball
 	name = "pepperball pistol"
-	desc = "An older NT-designed non-lethal sidearm with an integral flashlight. Its widespread use has been phased out with the introduction of energy weapons."
+	desc = "An older gas-operated non-lethal sidearm. Its use on NanoTrasen stations has declined with the introduction of energy-based weaponary."
 	icon_state = "pepperpistol"
 	w_class = WEIGHT_CLASS_SMALL
 	can_suppress = FALSE
@@ -117,8 +117,6 @@
 
 /obj/item/gun/ballistic/automatic/pistol/pepperball/Initialize(mapload)
 	install_tank(new /obj/item/tank/internals/emergency_oxygen/cold_air(src))
-	set_gun_light(new /obj/item/flashlight/seclite(src))
-	gun_light.light_range = 3
 	return ..()
 
 /obj/item/gun/ballistic/automatic/pistol/pepperball/update_icon()
@@ -126,6 +124,16 @@
 
 	if (air_tank)
 		add_overlay("[icon_state]_[air_tank.icon_state]")
+
+/obj/item/gun/ballistic/automatic/pistol/pepperball/examine(mob/user)
+	. = ..()
+	if (air_tank)
+		var/D = "It has \a [air_tank] installed."
+		if(in_range(src, user) || isobserver(user))
+			D += " Its gauge reports \"[round(air_tank.air_contents.total_moles(), 0.01)] mol at [round(air_tank.air_contents.return_pressure(),0.01)] kPa.\""
+		. += D
+	else
+		. += "It requires an air tank to fire."
 
 /obj/item/gun/ballistic/automatic/pistol/pepperball/proc/install_tank(obj/item/tank/internals/emergency_oxygen/T) //Similar to installing a suppressor.
 	air_tank = T
@@ -174,6 +182,7 @@
 			playsound(src, 'sound/items/cig_snuff.ogg', 25, 1)
 			to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss as it fails to fire!</span>")
 			return
+		air_tank.air_contents.remove(air_usage)
 	. = ..()
 
 /obj/item/gun/ballistic/automatic/pistol/stickman
