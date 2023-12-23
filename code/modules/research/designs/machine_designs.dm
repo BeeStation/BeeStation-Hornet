@@ -720,6 +720,6 @@
 	name = "Machine Design (Prisoner Management Interface)"
 	desc = "The circuit board for a prisonner management interface."
 	id = "genpop_interface"
-	build_path = /obj/item/circuitboard/machine/genpop_interface
+	build_path = /obj/item/electronics/genpop_interface
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 	category = list("Misc. Machinery")

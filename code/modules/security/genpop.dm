@@ -260,8 +260,8 @@
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
-	circuit = /obj/item/circuitboard/machine/genpop_interface
 	var/time_to_screwdrive = 20
+	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
 	var/next_print = 0
 	var/desired_name //What is their name?
 	var/desired_details //Details of the crime
@@ -271,22 +271,28 @@
 	var/static/list/crime_list
 	var/static/regex/valid_crime_name_regex = null
 
-/obj/item/circuitboard/machine/genpop_interface
-	name = "Prisoner Management Interface (circuit)"
-	build_path = /obj/machinery/genpop_interface
+//Prisoner interface wallframe
+/obj/item/wallframe/genpop_interface
+	name = "\improper prisoner interface frame"
+	desc = "Frame used to build the prisoner interface."
+	icon = 'icons/obj/machines/genpop_display.dmi'
+	icon_state = "frame"
+	pixel_shift = 32
+	inverse = 1
+	result_path = /obj/machinery/genpop_interface
 
-/obj/machinery/genpop_interface/screwdriver_act(mob/living/user, obj/item/I)
-	if(..())
-		return TRUE
-	if(circuit && !(flags_1&NODECONSTRUCT_1))
-		to_chat(user, "<span class='notice'>You start to disconnect the monitor...</span>")
-		if(I.use_tool(src, user, time_to_screwdrive, volume=50))
-			deconstruct(TRUE, user) //drops one station bounced radio out of thin air, not ideal but no easily implemented solution thus far.
-	return TRUE
+/obj/item/electronics/genpop_interface
+	name = "prisoner interface circuitboard"
+	icon_state = "power_mod"
+	desc = "Central processing unit for the prisoner interface."
 
-/obj/machinery/genpop_interface/Initialize(mapload)
+/obj/machinery/genpop_interface/Initialize(mapload, nbuild)
 	. = ..()
 	update_icon()
+
+	if(nbuild)
+		buildstage = 0
+		panel_open = TRUE
 
 	if (!crime_list || !valid_crime_name_regex)
 		build_static_information()
@@ -321,7 +327,7 @@
 				))
 		else
 			crime_list = json_decode(file2text(config_file))
-			//create the categories of crime
+			//we need to get the names of each crime for the regex
 
 	if (valid_crime_name_regex)
 		return
@@ -331,8 +337,18 @@
 	valid_crime_name_regex = regex(regex_string, "gm")
 
 /obj/machinery/genpop_interface/update_icon()
+	if(buildstage< 2)
+		icon_state = "frame"
+		set_picture("ai_off")
+		return
+
+	if(panel_open)
+		set_picture("ai_off")
+		return
+
 	if(machine_stat & (NOPOWER))
 		icon_state = "frame"
+		set_picture("ai_off")
 		return
 
 	if(machine_stat & (BROKEN))
@@ -340,7 +356,82 @@
 		return
 	set_picture("genpop")
 
+/obj/machinery/genpop_interface/examine()
+	. = ..()
+	if(!panel_open)
+		. += "<span class='notice'>The prisoner interface panel is <b>screwed</b> in safely.</span>"
+	if(panel_open && buildstage == 2)
+		. += "<span class='notice'>The prisoner interface panel is open, the <b>wires</b> are exposed.\nThe interface cannot function with its panel <b>screwed open</b>.</span>"
+	if(buildstage == 1)
+		. += "<span class='notice'>The circuits are visible and ready to be <b>pried</b> off.\nIt is lacking proper <b>wiring</b></span>"
+	if(buildstage == 0)
+		.+= "<span class='notice'>The empty frame is ready to be <b>wrenched</b> off the wall.\nIt is lacking a <b>circuitboard</b>.</span>"
+
 /obj/machinery/genpop_interface/attackby(obj/item/C, mob/user)
+	switch(buildstage)
+		if(0)
+			if(istype(C, /obj/item/electronics/genpop_interface))
+				if(user.temporarilyRemoveItemFromInventory(C))
+					to_chat(user, "<span class='notice'>You insert the processing unit in the frame.</span>")
+					qdel(C)
+					buildstage = 1
+					return
+
+			if(C.tool_behaviour == TOOL_WRENCH)
+				to_chat(user, "<span class='notice'>You wrench the frame off the wall.</span>")
+				C.play_tool_sound(src)
+				new /obj/item/wallframe/genpop_interface( user.loc )
+				qdel(src)
+				return
+		if(1)
+			if(istype(C, /obj/item/stack/cable_coil))
+				var/obj/item/stack/cable_coil/cable = C
+				if(cable.get_amount() < 5)
+					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the prisoner interface!</span>")
+					return
+				user.visible_message("[user.name] wires theprisoner interface.</span>", \
+									"<span class='notice'>You start wiring the prisoner interface.</span>")
+				if (do_after(user, 20, target = src))
+					if (cable.get_amount() >= 5 && buildstage == 1)
+						cable.use(5)
+						to_chat(user, "<span class='notice'>You wire the prisoner interface.</span>")
+						buildstage = 2
+						update_icon()
+				return
+
+			if(C.tool_behaviour == TOOL_CROWBAR)
+				to_chat(user, "<span class='notice'>You start prying out the electronics off the frame.</span>")
+				if (C.use_tool(src, user, 20))
+					if (buildstage == 1)
+						to_chat(user, "<span class='notice'>You remove the prisoner interface electronics.</span>")
+						new /obj/item/electronics/genpop_interface( src.loc )
+						playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+						buildstage = 0
+						update_icon()
+				return
+		if(2)
+			if(C.tool_behaviour == TOOL_SCREWDRIVER)
+				if(panel_open)
+					to_chat(user, "<span class='notice'>You close the panel of the [src].</span>")
+					C.play_tool_sound(src)
+					panel_open = FALSE
+					update_icon()
+					return
+				else
+					to_chat(user, "<span class='notice'>You open the panel of the [src].</span>")
+					C.play_tool_sound(src)
+					panel_open = TRUE
+					update_icon()
+					return
+
+			if(C.tool_behaviour == TOOL_WIRECUTTER && panel_open)
+				C.play_tool_sound(src)
+				to_chat(user, "<span class='notice'>You cut the wires.</span>")
+				new /obj/item/stack/cable_coil(loc, 5)
+				buildstage = 1
+				update_icon()
+				return
+
 	if(!istype(C, /obj/item/card/id))
 		. = ..()
 	else
@@ -420,6 +511,8 @@
 
 
 /obj/machinery/genpop_interface/ui_act(action, params)
+	if(buildstage != 2 & panel_open)
+		return
 	if(isliving(usr))
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(..())
