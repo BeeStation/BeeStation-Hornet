@@ -120,6 +120,8 @@
 	return FALSE
 
 /mob/living/carbon/proc/hold_wounds()
+	if (IsUnconscious())
+		return
 	if (bleedsuppress)
 		balloon_alert(src, "Wounds already bandaged!")
 		return
