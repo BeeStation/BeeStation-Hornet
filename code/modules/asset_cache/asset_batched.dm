@@ -117,16 +117,15 @@
 		if(isnull(job_id))
 			var/data_in = json_encode(entries)
 			job_id = rustg_iconforge_generate_async("data/spritesheets/", name, data_in)
-		var/job_result_str
-		UNTIL((job_result_str = rustg_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
-		if (job_result_str == RUSTG_JOB_ERROR)
-			CRASH("Spritesheet [name] JOB PANIC")
-		else if(findtext(job_result_str, "{", 1, 2) == 0)
-			rustg_file_write(json_encode(entries), "[GLOB.log_directory]/spritesheet_debug_[name].json")
-			CRASH("Spritesheet [name] UNKNOWN ERROR: [job_result_str]")
+		UNTIL((data_out = rustg_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
 	else
 		var/data_in = json_encode(entries)
 		data_out = rustg_iconforge_generate("data/spritesheets/", name, data_in)
+	if (data_out == RUSTG_JOB_ERROR)
+		CRASH("Spritesheet [name] JOB PANIC")
+	else if(findtext(data_out, "{", 1, 2) == 0)
+		rustg_file_write(json_encode(entries), "[GLOB.log_directory]/spritesheet_debug_[name].json")
+		CRASH("Spritesheet [name] UNKNOWN ERROR: [data_out]")
 	var/data = json_decode(data_out)
 	sizes = data["sizes"]
 	sprites = data["sprites"]
@@ -137,7 +136,7 @@
 	var/fname = "data/spritesheets/[res_name]"
 
 	fdel(fname)
-	text2file(generate_css(), fname)
+	rustg_file_write(generate_css(), fname)
 	SSassets.transport.register_asset(res_name, fcopy_rsc(fname))
 	fdel(fname)
 
