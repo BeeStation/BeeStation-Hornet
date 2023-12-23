@@ -103,11 +103,9 @@
 	name = "pepperball pistol"
 	desc = "An older gas-operated non-lethal sidearm. Its use on NanoTrasen stations has declined with the introduction of energy-based weaponary."
 	icon_state = "pepperpistol"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	can_suppress = FALSE
 	tac_reloads = FALSE
-	flight_x_offset = 13
-	flight_y_offset = 12
 	mag_type = /obj/item/ammo_box/magazine/pepperball
 	var/obj/item/tank/internals/emergency_oxygen/air_tank
 	var/air_usage = 0.025

@@ -31,7 +31,7 @@
 	name = "pepperball"
 	icon_state = "pepperball"
 	damage = 35 //Disabler is 28 damage, flat AP
-	var/tile_dropoff = 0.5
+	var/tile_dropoff = 1
 	damage_type = STAMINA
 	armour_penetration = -20
 	range = 22
