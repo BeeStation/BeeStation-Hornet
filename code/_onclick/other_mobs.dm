@@ -162,6 +162,7 @@
 		var/armor = ML.run_armor_check(affecting, MELEE)
 		if(prob(75))
 			ML.apply_damage(rand(1,3), BRUTE, affecting, armor)
+			ML.add_bleeding(BLEED_SURFACE)
 			ML.visible_message("<span class='danger'>[name] bites [ML]!</span>", \
 							"<span class='userdanger'>[name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
 			if(armor >= 2)

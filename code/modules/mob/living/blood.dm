@@ -41,18 +41,22 @@
 	else
 		if (bleed_rate < BLEED_RATE_MINOR)
 			linked_alert.name = "Bleeding (Light)"
-			linked_alert.desc = "You have some minor cuts that look like they will heal themselves if you don't run out of blood first. Click to apply pressure to the wounds."
+			linked_alert.desc = "You have some minor cuts that look like they will heal themselves if you don't run out of blood first.[ishuman(owner) ? " Click to apply pressure to the wounds." : ""]"
 			linked_alert.icon_state = "bleed"
 		else
 			linked_alert.name = "Bleeding (Heavy)"
-			linked_alert.desc = "Your wounds are bleeding heavily and are unlikely to heal themselves. Seek medical attention immediately! Click to apply pressure to the wounds."
+			linked_alert.desc = "Your wounds are bleeding heavily and are unlikely to heal themselves. Seek medical attention immediately![ishuman(owner) ? " Click to apply pressure to the wounds." : ""]"
 			linked_alert.icon_state = "bleed_heavy"
 		var/rate_string = "[round(bleed_rate, 0.1)]"
 		if (length(rate_string) == 1)
 			rate_string = "[rate_string].0"
 		linked_alert.maptext = MAPTEXT("[rate_string]/s")
+	// Non-humans stop bleeding a lot quicker, even if it is not a minor cut
+	if (!ishuman(owner))
+		bleed_rate -= BLEED_HEAL_RATE_MINOR * 4
 	if (bleed_rate < BLEED_RATE_MINOR || owner.bleedsuppress)
-		bleed_rate -= BLEED_HEAL_RATE_MINOR
+		if (ishuman(owner))
+			bleed_rate -= BLEED_HEAL_RATE_MINOR
 		tick_interval = 1 SECONDS
 		if (bleed_rate <= 0)
 			qdel(src)

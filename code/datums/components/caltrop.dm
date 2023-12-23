@@ -63,6 +63,7 @@
 			damage *= 0.5
 
 		H.apply_damage(damage, BRUTE, picked_def_zone)
+		H.add_bleeding(BLEED_SURFACE)
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.
