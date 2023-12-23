@@ -3,13 +3,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
-/area/shuttle/exploration)
-"aP" = (
-/obj/structure/table,
-/obj/machinery/microwave,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aV" = (
 /obj/machinery/light{
@@ -19,6 +13,10 @@
 	pixel_y = 32
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"aY" = (
+/obj/structure/closet/secure_closet/personal,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "bb" = (
 /obj/machinery/light/small{
@@ -36,6 +34,11 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"bd" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon,
+/turf/template_noop,
+/area/shuttle/exploration)
 "ce" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -44,6 +47,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "df" = (
@@ -53,6 +57,9 @@
 /obj/structure/table,
 /obj/item/analyzer,
 /obj/item/wrench,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "dv" = (
@@ -61,11 +68,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/machinery/camera/autoname{
-	dir = 8;
-	name = "Exploration Shuttle";
-	network = list("exploration shuttle")
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -87,11 +89,12 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "eN" = (
+/obj/item/kirbyplants/random,
+/obj/machinery/firealarm/directional/west,
 /obj/machinery/airalarm/unlocked{
 	dir = 1;
 	pixel_y = -25
 	},
-/obj/item/kirbyplants/random,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "fu" = (
@@ -131,10 +134,6 @@
 /obj/machinery/holopad,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"ge" = (
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/shuttle/exploration)
 "gJ" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
@@ -167,16 +166,16 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "hP" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/purple/visible,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"iG" = (
-/obj/structure/chair/fancy/shuttle,
-/turf/open/floor/mineral/plastitanium,
+"jf" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "jj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -190,23 +189,28 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"jx" = (
+/obj/structure/table,
+/obj/item/gps/mining/exploration{
+	pixel_y = 4;
+	pixel_x = 4
+	},
+/obj/item/gps/mining/exploration,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
 "jB" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "jO" = (
-/obj/machinery/light{
+/obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "jR" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
@@ -219,14 +223,18 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"kx" = (
-/obj/machinery/computer/rdconsole,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
+"jT" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon,
+/turf/template_noop,
+/area/template_noop)
 "kH" = (
-/obj/effect/turf_decal/bot,
+/obj/machinery/telecomms/relay/preset/exploration,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "kI" = (
@@ -238,26 +246,21 @@
 	},
 /obj/machinery/door/airlock/shuttle,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"kO" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "lO" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -310,16 +313,6 @@
 /obj/machinery/door/airlock/external,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"nu" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 29
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"nK" = (
-/obj/item/bot_assembly/atmosbot,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "nY" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -335,10 +328,6 @@
 	pixel_y = 24
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"om" = (
-/mob/living/simple_animal/bot/atmosbot,
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "pd" = (
 /obj/effect/turf_decal/caution,
@@ -357,6 +346,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ru" = (
@@ -372,13 +362,22 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "sY" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"tb" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/obj/machinery/light,
+/obj/machinery/camera/autoname{
+	dir = 10;
+	name = "Exploration Shuttle";
+	network = list("exploration shuttle")
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "te" = (
 /obj/structure/cable/yellow{
@@ -391,12 +390,6 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"tt" = (
-/obj/machinery/computer/crew{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "tD" = (
 /obj/effect/turf_decal/caution{
@@ -432,6 +425,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "uL" = (
@@ -478,7 +472,7 @@
 /area/shuttle/exploration)
 "wc" = (
 /obj/structure/table,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "wo" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -489,17 +483,28 @@
 /obj/machinery/advanced_airlock_controller/directional/east,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"wq" = (
+/obj/machinery/suit_storage_unit/open,
+/obj/machinery/camera/autoname{
+	dir = 8;
+	name = "Exploration Shuttle";
+	network = list("exploration shuttle")
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "wA" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium,
+/obj/structure/closet/secure_closet/personal,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "xl" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium,
+/obj/structure/closet/secure_closet/personal,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "yh" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -511,6 +516,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "zk" = (
@@ -602,6 +608,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Cu" = (
@@ -657,6 +664,12 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"Er" = (
+/obj/machinery/computer/crew{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "Fr" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/mineral/titanium,
@@ -684,9 +697,7 @@
 	freqlock = 1;
 	pixel_y = 25
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Gu" = (
@@ -706,6 +717,10 @@
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/shuttle/exploration)
+"GA" = (
+/obj/machinery/door/firedoor,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
 "GI" = (
 /obj/structure/closet/crate/science,
 /obj/item/circuitboard/computer/shuttle/exploration_shuttle,
@@ -716,26 +731,27 @@
 /obj/item/gun/energy/e_gun/mini/exploration,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"GS" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/structure/curtain/directional,
+/turf/open/floor/plating,
+/area/shuttle/exploration)
 "GU" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/closet/crate/internals,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Hm" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 4;
-	pixel_y = 8
+"Hu" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"HU" = (
-/obj/machinery/telecomms/relay/preset/exploration,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "IE" = (
 /obj/structure/table,
@@ -744,6 +760,20 @@
 	},
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"IP" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/wooden,
+/obj/item/toy/cards/deck,
+/obj/item/toy/cards/deck/unum,
+/obj/item/toy/cards/deck/cas,
+/obj/item/toy/cards/deck/cas/black{
+	pixel_y = 3
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Jm" = (
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "JG" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
@@ -755,6 +785,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "JV" = (
@@ -772,14 +803,18 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ls" = (
-/obj/structure/table,
-/obj/item/gps/mining/exploration,
-/obj/item/gps/mining/exploration{
-	pixel_y = 4;
-	pixel_x = 4
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"Mj" = (
+/obj/machinery/computer/rdconsole{
+	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -811,6 +846,15 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"Oq" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
 "Py" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -834,11 +878,15 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "QL" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 6
 	},
 /turf/open/floor/plating,
+/area/shuttle/exploration)
+"QP" = (
+/obj/machinery/door/firedoor,
+/obj/structure/curtain/directional,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "Rl" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -854,18 +902,18 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Rs" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/wooden,
-/obj/item/toy/cards/deck,
-/obj/item/toy/cards/deck/unum,
-/obj/item/toy/cards/deck/cas,
+/obj/structure/table,
+/obj/machinery/microwave,
 /obj/machinery/light{
-	dir = 4
+	dir = 8
 	},
-/obj/item/toy/cards/deck/cas/black{
-	pixel_y = 3
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"Rt" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "SD" = (
 /obj/structure/cable/yellow{
@@ -902,12 +950,12 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "SR" = (
-/obj/machinery/camera/autoname{
-	dir = 10;
-	name = "Exploration Shuttle";
-	network = list("exploration shuttle")
-	},
-/obj/machinery/light,
+/obj/machinery/door/firedoor,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Tk" = (
+/obj/machinery/suit_storage_unit/open,
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Tz" = (
@@ -921,7 +969,7 @@
 	pixel_y = 4
 	},
 /obj/item/airlock_painter/decal/tile,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "TV" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -957,6 +1005,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "VO" = (
@@ -992,7 +1041,7 @@
 	name = "Exploration Intercom";
 	freerange = 1;
 	freqlock = 1;
-	pixel_x = -32
+	pixel_x = -25
 	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -1013,6 +1062,7 @@
 "YE" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "YF" = (
@@ -1027,17 +1077,29 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "YO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"ZB" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
+"YS" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/open/floor/mineral/plastitanium,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"ZB" = (
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "ZJ" = (
 /obj/machinery/door/poddoor{
@@ -1054,21 +1116,21 @@
 /area/template_noop)
 
 (1,1,1) = {"
-ZM
+jT
 Ay
 QG
 QG
 QG
 yh
-ge
+bd
 Gv
-ge
+bd
 yh
 QG
 QG
 QG
 Ay
-ZM
+jT
 "}
 (2,1,1) = {"
 Ay
@@ -1141,7 +1203,7 @@ gJ
 (6,1,1) = {"
 ZM
 jB
-kH
+fu
 jO
 kH
 df
@@ -1158,7 +1220,7 @@ ZM
 (7,1,1) = {"
 ZM
 jB
-Dn
+IP
 Dn
 Dn
 df
@@ -1175,7 +1237,7 @@ ZM
 (8,1,1) = {"
 ZM
 jB
-HU
+GI
 Dn
 Dn
 YE
@@ -1192,9 +1254,9 @@ ZM
 (9,1,1) = {"
 gJ
 gJ
-Dn
-Dn
-Dn
+df
+df
+df
 df
 Vs
 te
@@ -1209,100 +1271,100 @@ gJ
 (10,1,1) = {"
 gJ
 gJ
-GI
+Oq
 Rs
-fu
+jx
 df
-fO
+Rt
 te
 fO
 df
-Dn
+jf
 wA
-Dn
+aY
 gJ
 gJ
 "}
 (11,1,1) = {"
 gJ
 gJ
-df
-df
-df
-df
-nu
+Jm
+Jm
+Jm
+GA
+fO
 te
 fO
-Dn
-Dn
-Dn
-Dn
+QP
+Jm
+Jm
+Jm
 gJ
 gJ
 "}
 (12,1,1) = {"
 ZM
 jB
-Hm
 sY
-nY
-Dn
+sY
+Jm
+jB
 fO
 SG
 fO
-jB
+df
 Tz
-Dn
-Dn
-jB
+Jm
+Jm
+GS
 ZM
 "}
 (13,1,1) = {"
 ZM
 jB
-aP
 wc
 wc
-jB
+Jm
+GA
 fO
 SD
 fO
-Dn
-Dn
-Dn
-Dn
-jB
+QP
+Jm
+Jm
+Jm
+GS
 ZM
 "}
 (14,1,1) = {"
 ZM
 jB
 Ls
+Hu
 ZB
-ZB
-Dn
-fO
-te
-fO
 df
-Dn
+Vs
+te
+tb
+df
+aY
 xl
-Dn
-jB
+aY
+GS
 ZM
 "}
 (15,1,1) = {"
 gJ
 gJ
 df
-jB
 df
+jB
 df
 Gt
-te
+YS
 SR
 df
-jB
+df
 df
 df
 gJ
@@ -1346,22 +1408,22 @@ AN
 gJ
 gJ
 df
-nK
-fy
+fO
+Tk
 fy
 Fr
 gW
 Fr
-fy
-fy
-om
+wq
+Tk
+fO
 df
 gJ
 gJ
 "}
 (19,1,1) = {"
 ZM
-gJ
+bd
 gJ
 ru
 df
@@ -1373,7 +1435,7 @@ df
 df
 GU
 gJ
-gJ
+bd
 ZM
 "}
 (20,1,1) = {"
@@ -1398,13 +1460,13 @@ ZM
 ZM
 ZM
 jB
-kx
-kO
+Gb
+nY
 jj
 CE
 vg
-iG
-tt
+nY
+Vw
 jB
 ZM
 ZM
@@ -1416,11 +1478,11 @@ ZM
 ZM
 jB
 jB
-Gb
+Mj
 DX
 sD
 bc
-Vw
+Er
 jB
 jB
 ZM
