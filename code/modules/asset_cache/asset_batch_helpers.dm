@@ -21,7 +21,7 @@
 	if(isnull(transform) && !isnull(color) && uppertext(color) != "#FFFFFF")
 		var/datum/icon_transformer/T = new()
 		if(color)
-			T.blend_color(color, BLEND_MULTIPLY)
+			T.blend_color(color, ICON_MULTIPLY)
 		src.transform = T
 	else if(!isnull(transform))
 		src.transform = transform
@@ -74,16 +74,16 @@
 	return new_transformer
 
 /datum/icon_transformer/proc/blend_color(color, blend_mode)
-	transforms += list(list("type" = "BlendColorTransform", "color" = color, "blend_mode" = blend_mode))
+	transforms += list(list("type" = "BlendColor", "color" = color, "blend_mode" = blend_mode))
 
 /datum/icon_transformer/proc/blend_icon(datum/icon_batch_entry/icon_object, blend_mode)
-	transforms += list(list("type" = "BlendIconTransform", "icon" = icon_object.to_list(), "blend_mode" = blend_mode))
+	transforms += list(list("type" = "BlendIcon", "icon" = icon_object.to_list(), "blend_mode" = blend_mode))
 
 /datum/icon_transformer/proc/scale(width, height)
-	transforms += list(list("type" = "ScaleTransform", "width" = width, "height" = height))
+	transforms += list(list("type" = "Scale", "width" = width, "height" = height))
 
 /datum/icon_transformer/proc/crop(x1, y1, x2, y2)
-	transforms += list(list("type" = "CropTransform", "x1" = x1, "y1" = y1, "x2" = x2, "y2" = y2))
+	transforms += list(list("type" = "Crop", "x1" = x1, "y1" = y1, "x2" = x2, "y2" = y2))
 
 /datum/icon_transformer/proc/generate()
 	return transforms

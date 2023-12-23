@@ -15,7 +15,7 @@
 		var/datum/icon_batch_entry/icon_with_antennae = u_icon_entry('icons/mob/species/moth/bodyparts.dmi', "moth_head", dir = SOUTH)
 		icon_with_antennae.blend_icon(u_icon_entry(antennae.icon, "m_moth_antennae_[antennae.icon_state]_FRONT", dir = SOUTH), ICON_OVERLAY)
 		icon_with_antennae.scale(64, 64)
-		icon_with_antennae.crop(15, 64, 15 + 31, 64 - 31)
+		icon_with_antennae.crop(15, 64 - 31, 15 + 31, 64)
 		values[antennae.name] = icon_with_antennae
 
 	return values
@@ -34,7 +34,7 @@
 /datum/preference/choiced/moth_markings/init_possible_values()
 	var/list/values = list()
 
-	var/datum/icon_batch_entry/moth_body = u_icon_entry('icons/mob/moth_wings.dmi', "m_moth_wings_plain_BEHIND")
+	var/datum/icon_batch_entry/moth_body = u_icon_entry('icons/effects/effects.dmi', "nothing")
 
 	var/list/body_parts = list(
 		BODY_ZONE_HEAD,
@@ -44,7 +44,7 @@
 	)
 
 	for (var/body_part in body_parts)
-		var/gender = (body_part == "chest" || body_part == "head") ? "_m" : ""
+		var/gender = body_part == "chest" ? "_m" : ""
 		moth_body.blend_icon(u_icon_entry('icons/mob/species/moth/bodyparts.dmi', "moth_[body_part][gender]", dir = SOUTH), ICON_OVERLAY)
 
 	for (var/markings_name in GLOB.moth_markings_roundstart_list)
@@ -62,7 +62,7 @@
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
-		icon_with_markings.crop(15, 64, 15 + 31, 64 - 31)
+		icon_with_markings.crop(15, 64 - 31, 15 + 31, 64)
 
 		values[markings.name] = icon_with_markings
 
@@ -80,11 +80,13 @@
 	relevant_mutant_bodypart = "moth_wings"
 
 /datum/preference/choiced/moth_wings/init_possible_values()
-	return possible_values_for_sprite_accessory_list_for_body_part(
-		GLOB.moth_wings_roundstart_list,
-		"moth_wings",
-		list("BEHIND", "FRONT"),
-	)
+	var/list/values = list()
+	for (var/wings_name in GLOB.moth_wings_roundstart_list)
+		var/datum/sprite_accessory/wings = GLOB.moth_wings_roundstart_list[wings_name]
+		var/datum/icon_batch_entry/icon = u_icon_entry(wings.icon, "m_moth_wings_[wings.icon_state]_BEHIND")
+		values[wings.name] = icon
+	return values
+
 
 /datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["moth_wings"] = value

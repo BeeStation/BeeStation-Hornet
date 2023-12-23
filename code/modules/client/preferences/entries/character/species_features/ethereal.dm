@@ -18,7 +18,7 @@
 	ethereal_base.blend_icon(eyes, ICON_OVERLAY)
 
 	ethereal_base.scale(64, 64)
-	ethereal_base.crop(15, 64, 15 + 31, 64 - 31)
+	ethereal_base.crop(15, 64 - 31, 15 + 31, 64)
 
 	for (var/name in GLOB.color_list_ethereal)
 		var/color = GLOB.color_list_ethereal[name]

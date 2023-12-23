@@ -18,6 +18,11 @@
 	/// If this asset should be fully loaded on new
 	/// Defaults to false so we can process this stuff nicely
 	var/load_immediately = FALSE
+	/// If we should avoid propogating 'invalid dir' errors from rust-g. Because sometimes, you just don't know what dirs are valid.
+	var/ignore_dir_errors = FALSE
+
+	/// If there is currently an async job, its ID
+	var/job_id = null
 
 /datum/asset/spritesheet_batched/proc/should_load_immediately()
 #ifdef DO_NOT_DEFER_ASSETS
@@ -86,7 +91,7 @@
 			continue
 		insert_icon(entry)
 
-/datum/asset/spritesheet_batched/proc/insert_all_icons(prefix, icon/I, list/directions)
+/datum/asset/spritesheet_batched/proc/insert_all_icons(prefix, icon/I, list/directions, prefix_with_dirs = TRUE)
 	if (length(prefix))
 		prefix = "[prefix]-"
 
@@ -95,7 +100,7 @@
 
 	for (var/icon_state_name in icon_states(I))
 		for (var/direction in directions)
-			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]-" : ""
+			var/prefix2 = (directions.len > 1 && prefix_with_dirs) ? "[dir2text(direction)]-" : ""
 			insert_icon(icon_entry("[prefix][prefix2][icon_state_name]", I, icon_state_name, direction))
 
 /datum/asset/spritesheet_batched/proc/realize_spritesheets(yield)
@@ -107,17 +112,22 @@
 		queued_insert_icon(arglist(stored_args))
 		if(yield && TICK_CHECK)
 			return
-	var/data_in = json_encode(entries)
-	var/job_id = rustg_iconforge_generate_async("data/spritesheets/", name, data_in)
-	var/job_result_str
-	UNTIL((job_result_str = rustg_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
-	if (job_result_str == RUSTG_JOB_ERROR)
-		CRASH("Spritesheet [name] JOB PANIC")
-	else if(!findtext(job_result_str, "{", 1, 2) != 0)
-		rustg_file_write(data_in, "[GLOB.log_directory]/spritesheet_debug_[name].json")
-		CRASH("Spritesheet [name] UNKNOWN ERROR: [job_result_str]")
-	//to_chat(world, job_result_str)
-	var/data = json_decode(job_result_str)
+	var/data_out
+	if(yield || !isnull(job_id))
+		if(isnull(job_id))
+			var/data_in = json_encode(entries)
+			job_id = rustg_iconforge_generate_async("data/spritesheets/", name, data_in)
+		var/job_result_str
+		UNTIL((job_result_str = rustg_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
+		if (job_result_str == RUSTG_JOB_ERROR)
+			CRASH("Spritesheet [name] JOB PANIC")
+		else if(findtext(job_result_str, "{", 1, 2) == 0)
+			rustg_file_write(json_encode(entries), "[GLOB.log_directory]/spritesheet_debug_[name].json")
+			CRASH("Spritesheet [name] UNKNOWN ERROR: [job_result_str]")
+	else
+		var/data_in = json_encode(entries)
+		data_out = rustg_iconforge_generate("data/spritesheets/", name, data_in)
+	var/data = json_decode(data_out)
 	sizes = data["sizes"]
 	sprites = data["sprites"]
 
@@ -134,7 +144,7 @@
 	fully_generated = TRUE
 	// If we were ever in there, remove ourselves
 	SSasset_loading.dequeue_asset(src)
-	if(data["error"])
+	if(data["error"] && !(ignore_dir_errors && findtext(data["error"], "Invalid dir")))
 		CRASH("Error during spritesheet generation for [name]: [data["error"]]")
 
 /datum/asset/spritesheet_batched/queued_generation()
@@ -229,6 +239,3 @@
 
 #undef SPR_SIZE
 #undef SPR_IDX
-#undef SPRSZ_COUNT
-#undef SPRSZ_WIDTH
-#undef SPRSZ_HEIGHT

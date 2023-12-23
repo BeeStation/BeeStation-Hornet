@@ -17,7 +17,7 @@
 			var/datum/icon_batch_entry/screen_icon = u_icon_entry(screen.icon, "m_ipc_screen_[screen.icon_state]_ADJ", dir = SOUTH)
 			icon_with_screen.blend_icon(screen_icon, ICON_OVERLAY)
 		icon_with_screen.scale(64, 64)
-		icon_with_screen.crop(15, 64, 15 + 31, 64 - 31)
+		icon_with_screen.crop(15, 64 - 31, 15 + 31, 64)
 
 		values[screen.name] = icon_with_screen
 
@@ -74,7 +74,7 @@
 			var/datum/icon_batch_entry/antenna_icon = u_icon_entry(antenna.icon, "m_ipc_antenna_[antenna.icon_state]_[side]", dir = SOUTH)
 			icon_with_antennae.blend_icon(antenna_icon, ICON_OVERLAY)
 		icon_with_antennae.scale(64, 64)
-		icon_with_antennae.crop(15, 64, 15 + 31, 64 - 31)
+		icon_with_antennae.crop(15, 64 - 31, 15 + 31, 64)
 
 		values[antenna.name] = icon_with_antennae
 

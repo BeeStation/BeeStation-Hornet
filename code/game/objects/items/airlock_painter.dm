@@ -352,6 +352,7 @@
 
 /datum/asset/spritesheet_batched/decals
 	name = "floor_decals"
+	ignore_dir_errors = TRUE
 
 	var/preview_floor_icon = 'icons/turf/floors.dmi'
 	var/preview_floor_state = "floor"
@@ -456,6 +457,7 @@
 
 /datum/asset/spritesheet_batched/decals/tiles
 	name = "floor_tile_decals"
+	ignore_dir_errors = TRUE
 	painter_type = /obj/item/airlock_painter/decal/tile
 
 /datum/asset/spritesheet_batched/decals/tiles/insert_state(decal, dir, color)
@@ -475,7 +477,7 @@
 		render_alpha = text2num(tile_type.rgba_regex.group[2], 16)
 
 	var/datum/icon_batch_entry/colored_icon = u_icon_entry('icons/turf/decals.dmi', source_decal, dir=source_dir)
-	// TODO colored_icon.opacity(render_alpha * 0.008)
+	colored_icon.blend_color("#ffffff" + num2hex(render_alpha * 0.008, 2), ICON_MULTIPLY)
 	if(color == "custom")
 		colored_icon.blend_color("#0e0f0f", ICON_MULTIPLY)
 	else

@@ -49,7 +49,7 @@
 			antenna_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
 			icon_with_antennae.blend_icon(antenna_icon, ICON_OVERLAY)
 		icon_with_antennae.scale(64, 64)
-		icon_with_antennae.crop(15, 64, 15 + 31, 64 - 31)
+		icon_with_antennae.crop(15, 64 - 31, 15 + 31, 64)
 
 		values[antenna.name] = icon_with_antennae
 
@@ -78,7 +78,7 @@
 			headstripes_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
 			icon_with_headstripes.blend_icon(headstripes_icon, ICON_OVERLAY)
 		icon_with_headstripes.scale(64, 64)
-		icon_with_headstripes.crop(15, 64, 15 + 31, 64 - 31)
+		icon_with_headstripes.crop(15, 64 - 31, 15 + 31, 64)
 
 		values[headstripe.name] = icon_with_headstripes
 
