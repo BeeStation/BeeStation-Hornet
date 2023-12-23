@@ -1,5 +1,4 @@
 /obj/item/clothing/gloves/color
-	dying_key = DYE_REGISTRY_GLOVES
 
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves provide protection against electric shock."

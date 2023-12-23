@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RAINBOW = /obj/item/clothing/under/color/rainbow,
 		DYE_MIME = /obj/item/clothing/under/rank/civilian/mime,
 		DYE_CLOWN = /obj/item/clothing/under/rank/civilian/clown,
-		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster,
+		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck,
 		DYE_LAW = /obj/item/clothing/under/suit/black,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain,
 		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel,
@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director,
 		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer,
-		DYE_REDCOAT = /obj/item/clothing/under/costume/redcoat,
+		DYE_REDCOAT = /obj/item/clothing/under/costume/redcoat, //TODO /obj/item/clothing/under/costume/denyed
 		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer
 	),
 	DYE_REGISTRY_JUMPSKIRT = list(
@@ -33,6 +33,17 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_BLACK = /obj/item/clothing/under/color/jumpskirt/black,
 		DYE_WHITE = /obj/item/clothing/under/color/jumpskirt/white,
 		DYE_RAINBOW = /obj/item/clothing/under/color/jumpskirt/rainbow,
+		DYE_MIME = /obj/item/clothing/under/rank/civilian/mime/skirt,
+		DYE_CLOWN = /obj/item/clothing/under/rank/civilian/clown/sexy,
+		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck/skirt,
+		DYE_LAW = /obj/item/clothing/under/suit/black/skirt,
+		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain/skirt,
+		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt,
+		DYE_HOS = /obj/item/clothing/under/rank/security/head_of_security/skirt,
+		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt,
+		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director/skirt,
+		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt,
+		DYE_REDCOAT = /obj/item/clothing/under/costume/denyed, //TODO /obj/item/clothing/under/costume/denyed
 		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer/skirt
 	),
 	DYE_REGISTRY_GLOVES = list(

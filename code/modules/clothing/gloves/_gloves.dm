@@ -15,6 +15,7 @@
 	equip_delay_other = 40
 	// Path variable. If defined, will produced the type through interaction with wirecutters.
 	var/cut_type = null
+	dying_key = DYE_REGISTRY_GLOVES
 
 /obj/item/clothing/gloves/ComponentInitialize()
 	. = ..()
