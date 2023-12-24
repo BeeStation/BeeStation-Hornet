@@ -673,17 +673,17 @@
 	desc = "An adorable mothperson plushy. It's a teleporting bug!"
 	icon_state = "moffplush_bluespace"
 
-	/obj/item/toy/plush/moth/plasmafire
+/obj/item/toy/plush/moth/plasmafire
 	name = "plasmafire moth plushie"
 	desc = "An adorable mothperson plushy. It's a plasma bug!"
 	icon_state = "moffplush_plasmafire"
 
-	/obj/item/toy/plush/moth/brown
+/obj/item/toy/plush/moth/brown
 	name = "brown moth plushie"
 	desc = "An adorable mothperson plushy. It's a brown bug!"
 	icon_state = "moffplush_brown"
 
-	/obj/item/toy/plush/moth/rosy
+/obj/item/toy/plush/moth/rosy
 	name = "rosy moth plushie"
 	desc = "An adorable mothperson plushy. It's a cute bug!"
 	icon_state = "moffplush_rosy"
