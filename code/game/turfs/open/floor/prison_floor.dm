@@ -67,7 +67,7 @@
 	. = ..()
 
 /turf/open/floor/prison/attackby(obj/item/object, mob/living/user, params)
-	if(MAX_PRISON_PLATES && istype(object, /obj/item/stack/tile/plasteel))
+	if(plates< MAX_PRISON_PLATES && istype(object, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/sheet/I = object
 		I.use(1)
 		if(I.amount == 0)
@@ -76,9 +76,6 @@
 		update_icon_state()
 		return
 	. = ..()
-
-/turf/open/floor/prison/singularity_pull(S, current_size)
-	..()
 
 /turf/open/floor/prison/attack_paw(mob/user)
 	return attack_hand(user)
