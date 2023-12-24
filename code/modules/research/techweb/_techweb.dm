@@ -145,6 +145,17 @@
 		l[i] = amount
 	remove_point_list(l)
 
+/datum/techweb/proc/set_point_list(list/pointlist)
+	for(var/i in pointlist)
+		if(SSresearch.point_types[i] && pointlist[i] > 0)
+			research_points[i] = pointlist[i]
+
+/datum/techweb/proc/set_points_all(amount)
+	var/list/l = SSresearch.point_types.Copy()
+	for(var/i in l)
+		l[i] = amount
+	set_point_list(l)
+
 /datum/techweb/proc/modify_point_list(list/pointlist)
 	for(var/i in pointlist)
 		if(SSresearch.point_types[i] && pointlist[i] != 0)
