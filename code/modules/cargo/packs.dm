@@ -840,6 +840,7 @@
 /datum/supply_pack/security/armory/western/fill(obj/structure/closet/crate/C)
 	if (prob(7) && prob(7) && prob(7)) //0.000343% chance of rolling instead of normal contents //Jackpot Babey!!!
 		C.name = "cursed gunslinger crate"
+		C.color = COLOR_GRAY
 		for(var/item in cursed)
 			new item(C)
 	else
