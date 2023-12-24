@@ -153,6 +153,11 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CLOWN = /obj/item/gun/energy/laser,
 		DYE_SECURITY = /obj/item/food/grown/banana,
 		DYE_HOS = /obj/item/food/grown/banana
+	),
+	DYE_REGISTRY_PEEL = list(
+		DYE_CLOWN = /obj/item/caution,
+		DYE_SECURITY = /obj/item/grown/bananapeel,
+		DYE_HOS = /obj/item/grown/bananapeel
 	)
 ))
 
