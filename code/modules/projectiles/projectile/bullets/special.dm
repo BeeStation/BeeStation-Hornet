@@ -30,9 +30,9 @@
 /obj/projectile/bullet/pepperball
 	name = "pepperball"
 	icon_state = "pepperball"
-	damage = 30 //Disabler is 28 damage
+	damage = 0
+	stamina = 30 //Disabler is 28 damage
 	eyeblur = 2
-	damage_type = STAMINA
 	range = 22
 
 /obj/projectile/bullet/pepperball/on_hit(atom/target)
@@ -40,8 +40,7 @@
 		var/mob/living/carbon/T = target
 		if (T.is_eyes_covered())
 			eyeblur = 0
-			damage -= 10
+			stamina -= 13
 		if (T.is_mouth_covered())
-			damage -= 15
-		//check if face/eyes are covered bluh bluh
+			stamina -= 13
 	..()
