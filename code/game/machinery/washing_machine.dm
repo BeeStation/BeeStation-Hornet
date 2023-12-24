@@ -241,6 +241,8 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	busy = FALSE
 	if(color_source)
 		color_source = null
+		for(var/obj/item/book/manual/book in contents)
+			qdel(book)
 	update_icon()
 	soundloop.stop()
 

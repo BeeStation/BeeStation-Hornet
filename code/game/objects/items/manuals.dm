@@ -451,6 +451,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Command Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Command"
+	dye_color = DYE_BLUE
 
 /obj/item/book/manual/wiki/sopsecurity
 	name = "Security Standard Operating Procedures"
@@ -466,6 +467,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Engineering Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Engineering"
+	dye_color = DYE_ORANGE
 
 /obj/item/book/manual/wiki/sopsupply
 	name = "Supply Standard Operating Procedures"
@@ -473,6 +475,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Supply Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Supply"
+	dye_color = DYE_YELLOW
 
 /obj/item/book/manual/wiki/sopscience
 	name = "Science Standard Operating Procedures"
@@ -480,6 +483,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Science Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Science"
+	dye_color = DYE_PURPLE
 
 /obj/item/book/manual/wiki/sopmedical
 	name = "Medical Standard Operating Procedures"
@@ -487,6 +491,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Medical Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Medical"
+	dye_color = DYE_WHITE
 
 /obj/item/book/manual/wiki/sopservice
 	name = "Service Standard Operating Procedures"
@@ -494,3 +499,4 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Service Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Service"
+	dye_color = DYE_GREEN
