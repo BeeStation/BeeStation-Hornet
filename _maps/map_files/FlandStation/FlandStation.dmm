@@ -6902,6 +6902,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"bKl" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/rnd/server/master,
+/turf/open/floor/plasteel/techmaint,
+/area/science/server)
 "bKE" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/turf_decal/stripes/line{
@@ -131022,7 +131027,7 @@ yfq
 uEa
 nJU
 nJU
-uEa
+bKl
 ehQ
 xpn
 klv

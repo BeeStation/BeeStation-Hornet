@@ -28826,6 +28826,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"hwF" = (
+/obj/machinery/rnd/server/master,
+/turf/open/floor/circuit/telecomms/server,
+/area/science/server)
 "hwO" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
@@ -105557,7 +105561,7 @@ eao
 byf
 bzu
 bAz
-bzu
+hwF
 bDb
 bEm
 bEm

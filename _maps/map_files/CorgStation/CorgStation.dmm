@@ -40366,10 +40366,10 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "mZD" = (
-/obj/machinery/rnd/server,
 /obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 1
 	},
+/obj/machinery/rnd/server/master,
 /turf/open/floor/circuit,
 /area/science/server)
 "mZM" = (

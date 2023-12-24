@@ -63231,7 +63231,7 @@
 /area/ai_monitored/storage/eva)
 "rvR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/rnd/server,
+/obj/machinery/rnd/server/master,
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "rvY" = (

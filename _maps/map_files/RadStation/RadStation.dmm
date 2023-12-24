@@ -38091,7 +38091,7 @@
 /obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 8
 	},
-/obj/machinery/rnd/server,
+/obj/machinery/rnd/server/master,
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "lVr" = (

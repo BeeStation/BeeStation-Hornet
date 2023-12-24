@@ -146,3 +146,4 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		targetinfo = new/datum/objective_item/unique/docs_blue
 	explanation_text = "Do not give up or lose [targetinfo.name]."
 	steal_target = targetinfo.targetitem
+

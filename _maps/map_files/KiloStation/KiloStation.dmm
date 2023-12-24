@@ -82306,6 +82306,10 @@
 	icon_state = "platingdmg3"
 	},
 /area/science/shuttledock)
+"uKz" = (
+/obj/machinery/rnd/server/master,
+/turf/open/floor/circuit/green/telecomms/mainframe,
+/area/science/server)
 "uKA" = (
 /obj/effect/landmark/start/medical_doctor,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -130461,7 +130465,7 @@ sLI
 ydq
 cGo
 aZF
-baJ
+uKz
 bcz
 baJ
 bdi

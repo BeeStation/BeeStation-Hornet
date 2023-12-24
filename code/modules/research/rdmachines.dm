@@ -39,8 +39,6 @@
 
 /obj/machinery/rnd/attackby(obj/item/O, mob/user, params)
 	if (default_deconstruction_screwdriver(user, "[initial(icon_state)]_t", initial(icon_state), O))
-		if(linked_console)
-			disconnect_console()
 		return
 	if(default_deconstruction_crowbar(O))
 		return
@@ -53,6 +51,25 @@
 		return TRUE
 	else
 		return ..()
+
+/obj/machinery/rnd/crowbar_act(mob/living/user, obj/item/tool)
+	return default_deconstruction_crowbar(tool)
+
+/obj/machinery/rnd/screwdriver_act(mob/living/user, obj/item/tool)
+	var/success = default_deconstruction_screwdriver(user, "[initial(icon_state)]_t", initial(icon_state), tool)
+	if(success && linked_console)
+		disconnect_console()
+	return success
+
+/obj/machinery/rnd/multitool_act(mob/living/user, obj/item/tool)
+	if(panel_open)
+		wires.interact(user)
+		return TRUE
+
+/obj/machinery/rnd/wirecutter_act(mob/living/user, obj/item/tool)
+	if(panel_open)
+		wires.interact(user)
+		return TRUE
 
 //to disconnect the machine from the r&d console it's linked to
 /obj/machinery/rnd/proc/disconnect_console()
