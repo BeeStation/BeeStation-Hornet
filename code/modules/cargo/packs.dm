@@ -1068,7 +1068,7 @@
 /datum/supply_pack/engineering/fuel_rods
 	name = "Uranium Fuel Rod Crate"
 	desc = "A five nuclear reactor grade fuel rod crate. Don't forget to wear radiation protection!"
-	cost = 10000
+	cost = 3000
 	max_supply = 2
 	access_budget = ACCESS_ENGINE
 	contains = list(/obj/item/fuel_rod,
@@ -1289,6 +1289,18 @@
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
 	crate_name = "collector crate"
+
+/datum/supply_pack/engine/nuclearengine
+	name = "RBMK Nuclear Reactor Engine Crate"
+	desc = "Contains the board for an NT certified nuclear power engine! Don't forget to wear a radiation suit!"
+	cost = 7000
+	max_supply = 1
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
+	contains = list(/obj/machinery/atmospherics/components/trinary/nuclear_reactor)
+	crate_name = "nuclear engine crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	dangerous = TRUE
 
 /datum/supply_pack/engine/sing_gen
 	name = "Singularity Generator Crate"
