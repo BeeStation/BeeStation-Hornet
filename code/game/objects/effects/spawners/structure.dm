@@ -101,7 +101,6 @@ again.
 	name = "prison window spawner"
 	spawn_list = list(/obj/structure/grille/prison, /obj/structure/window/reinforced/fulltile)
 
-
 //reinforced shutter
 /obj/effect/spawner/structure/window/reinforced/shutter
 	name = "reinforced shutter window spawner"

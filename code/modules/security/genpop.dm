@@ -60,16 +60,10 @@
 	locked = FALSE
 	var/registered_name = null
 
-/obj/structure/closet/secure_closet/genpop/Initialize(mapload)
-	. = ..()
 
 /obj/structure/closet/secure_closet/genpop/attackby(obj/item/W, mob/user, params)
-	var/obj/item/card/id/I = null
 	if(istype(W, /obj/item/card/id))
-		I = W
-	else
-		I = W.GetID()
-	if(istype(I))
+		var/obj/item/card/id/I = W
 		if(broken)
 			to_chat(user, "<span class='danger'>It appears to be broken.</span>")
 			return
@@ -80,35 +74,34 @@
 		if(allowed(user) && !istype(I, /obj/item/card/id/prisoner))
 			locked = !locked
 			update_icon()
-			return TRUE
+			return
 		//Handle setting a new ID.
 		if(!registered_name)
 			if(istype(I, /obj/item/card/id/prisoner)) //Don't claim the locker for a sec officer mind you...
 				var/obj/item/card/id/prisoner/P = I
 				if(P.assigned_locker)
 					to_chat(user, "<span class='notice'>This ID card is already registered to a locker.</span>")
-					return FALSE
+					return
 				P.assigned_locker = src
 				registered_name = I.registered_name
 				desc = "Assigned to: [I.registered_name]."
 				say("Locker sealed. Assignee: [I.registered_name]")
-
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 				locked = TRUE
 				update_icon()
 			else
-				to_chat(user, "<span class='danger'>Invalid ID. Only prisoners / officers may use these lockers.</span>")
-			return FALSE
+				to_chat(user, "<span class='danger'>Invalid ID. Only prisoners and officers may use these lockers.</span>")
+			return
 		//It's an ID, and is the correct registered name.
 		if(istype(I) && (registered_name == I.registered_name))
 			var/obj/item/card/id/prisoner/ID = I
 			//Not a prisoner ID.
 			if(!istype(ID))
-				return FALSE
+				return
 			if(ID.served_time < ID.sentence)
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 80) //find another sound
 				say("DANGER: PRISONER HAS NOT COMPLETED SENTENCE. AWAIT SENTENCE COMPLETION. COMPLIANCE IS IN YOUR BEST INTEREST.")
-				return FALSE
+				return
 			visible_message("<span class='warning'>[user] slots [I] into [src]'s ID slot, freeing its contents!</span>")
 			registered_name = null
 			desc = initial(desc)
@@ -116,8 +109,14 @@
 			update_icon()
 			qdel(I)
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		else
+			say("Access Denied. If you are a released prisoner, please insert your prisoner ID.")
 			return
 		else
+		else
+			to_chat(user, "<span class='danger'>Access Denied.</span>")
+	else
+	else
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
 	else
 		return ..()
@@ -182,15 +181,16 @@
 /obj/machinery/turnstile/welder_act(mob/living/user, obj/item/I)
 	//Shamelessly copied airlock code
 	. = TRUE
-	if(circuit == null && user.a_intent == INTENT_HARM)
-		var/obj/item/weldingtool/W = I
-		if(W.welding)
-			if(W.use_tool(src, user, 40, volume=50))
-				to_chat(user, "<span class='notice'>You start slicing off the bars of the [src]")
-				new /obj/item/stack/rods/ten(get_turf(src))
-				qdel(src)
 	if(!I.tool_start_check(user, amount=0))
 		return
+	if(circuit == null && user.a_intent == INTENT_HARM)
+		var/obj/item/weldingtool/W = I
+		if(W.use_tool(src, user, 40, volume=50))
+			to_chat(user, "<span class='notice'>You start slicing off the bars of the [src]")
+			new /obj/item/stack/rods/ten(get_turf(src))
+			qdel(src)
+			return
+
 	if(obj_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>The turnstile doesn't need repairing.</span>")
 		return
@@ -225,13 +225,12 @@
 			return FALSE
 		else
 			allowed = allowed(mover.pulledby)
-	//Can't get piggyback rides out of jail (anticipated for gh#10205)
-	if(!allowed && mover.buckled_mobs)
-		var/mob/living/carbon/human/H = mover.buckled_mobs
-		if(istype(H.wear_id, /obj/item/card/id/prisoner) || istype(H.get_active_held_item(), /obj/item/card/id/prisoner))
-			return FALSE
-		else
-			allowed = allowed(mover.buckled_mobs)
+	if(mover.buckled_mobs) //Piggyback rides aren't allowed because they could allow escape way too easily
+		for(var/mob/living/carbon/human/H in mover.buckled_mobs)
+			if(istype(H.wear_id, /obj/item/card/id/prisoner) || istype(H.get_active_held_item(), /obj/item/card/id/prisoner))
+				return FALSE
+			else
+				allowed = allowed(mover.buckled_mobs)
 	if(allowed)
 		return TRUE
 	return FALSE
@@ -506,7 +505,7 @@
 	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence * 0.1, desired_crime, desired_name)
 	Radio.talk_into(src, "Prisoner [id.registered_name] has been incarcerated for [desired_sentence / 600 ] minutes.")
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
-	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/60]</p> <h2 id='description'>Description </h2> <p>[desired_details]</p> <p>WhiteRapids Military Council, disciplinary authority</p>")
+	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/600]</p> <h2 id='description'>Description </h2> <p>[desired_details]</p> <p>Nanotrasen Disciplinary council.</p>")
 	paperwork.update_appearance()
 	desired_name = null
 	desired_details = null
@@ -549,7 +548,11 @@
 			if (!desired_name)
 				return
 			if (!desired_details)
-				return
+				var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
+				if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
+					say("Please provide a correct description of the incident that led to their charge.")
+					return
+				desired_details = prisoner_details
 			var/desired_sentence = text2num(params["desired_sentence"])
 			if (!desired_sentence)
 				return
@@ -561,19 +564,18 @@
 
 		// For adjusting the time of pre-existing prisoners
 		if("adjust_time")
-			var/obj/item/card/id/prisoner/id = locate(params["id"])
+			var/obj/item/card/id/prisoner/id = locate() in GLOB.prisoner_ids
 			var/value = text2num(params["adjust"])
-			if(!istype(id) || id.access == ACCESS_PRISONER) //check for prisonner access too
+			if(!istype(id))
 				return
 			if(id.served_time >= id.sentence)
 				say("Prisoner has already served their time! Please apply another charge to sentence them with!")
 				return
 			if(value && isnum(value))
-				id.sentence += value
-				id.sentence = clamp(id.sentence,0,MAX_TIMER)
+				id.sentence = clamp(id.sentence + value , 0 , MAX_TIMER)
 
 		if("release")
-			var/obj/item/card/id/prisoner/id = locate(params["id"])
+			var/obj/item/card/id/prisoner/id = locate() in GLOB.prisoner_ids
 			if(!istype(id))
 				return
 			if(alert("Are you sure you want to release [id.registered_name]", "Prisoner Release", "Yes", "No") != "Yes")
@@ -583,7 +585,7 @@
 			usr.log_message("[key_name(usr)] has early-released [id] ([id.loc])", LOG_ATTACK)
 			id.served_time = id.sentence
 		if("escaped")
-			var/obj/item/card/id/prisoner/id = locate(params["id"])
+			var/obj/item/card/id/prisoner/id = locate() in GLOB.prisoner_ids
 			if(!istype(id))
 				return
 			if(alert("Do you want to reset the sentence of [id.registered_name]?", "Confirmation", "Yes", "No") != "Yes")
@@ -607,7 +609,7 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 
 /obj/item/card/id/prisoner/Initialize(mapload, _sentence, _crime, _name)
 	. = ..()
-	LAZYADD(GLOB.prisoner_ids, src)
+	GLOB.prisoner_ids += src
 	if(_crime)
 		crime = _crime
 	if(_sentence)
@@ -625,14 +627,13 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 
 /obj/item/card/id/prisoner/examine(mob/user)
 	. = ..()
-	var/floortime = FLOOR(served_time / 60, 1)
 	if(sentence)
-		. += "<span class='notice'>You have served [floortime] / [sentence  / 60] minutes.</span>"
+		. += "<span class='notice'>You have served [DisplayTimeText(served_time, 1)] out of [DisplayTimeText(sentence, 1)].</span>"
 	if(crime)
 		. += "<span class='warning'>It appears its holder was convicted of: <b>[crime]</b></span>"
 
-/obj/item/card/id/prisoner/process()
-	served_time ++ //Maybe 2?
+/obj/item/card/id/prisoner/process(delta_time)
+	served_time += delta_time
 	if(served_time >= sentence) //FREEDOM!
 		assignment = "Ex-Convict"
 		access = list(ACCESS_PRISONER)
