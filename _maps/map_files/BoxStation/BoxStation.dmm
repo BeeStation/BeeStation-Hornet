@@ -24354,7 +24354,6 @@
 	pixel_y = 8
 	},
 /obj/structure/table/glass,
-/obj/item/storage/box/syringes,
 /obj/item/hand_labeler,
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science{
@@ -56990,6 +56989,7 @@
 /obj/item/book/manual/wiki/grenades{
 	pixel_x = 6
 	},
+/obj/item/storage/box/syringes,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "vjP" = (
