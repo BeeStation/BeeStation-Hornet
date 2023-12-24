@@ -6,6 +6,8 @@
 #define DYE_REGISTRY_FANNYPACK "fannypack"
 #define DYE_REGISTRY_BEDSHEET "bedsheet"
 #define DYE_REGISTRY_DOUBLE_BEDSHEET "double_bedsheet"
+#define DYE_REGISTRY_GUN "weapon"
+#define DYE_REGISTRY_BANANA "banana"
 
 #define DYE_RED "red"
 #define DYE_ORANGE "orange"

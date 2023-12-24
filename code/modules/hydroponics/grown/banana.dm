@@ -25,6 +25,7 @@
 	foodtypes = FRUIT
 	juice_results = list(/datum/reagent/consumable/banana = 0)
 	distill_reagent = /datum/reagent/consumable/ethanol/bananahonk
+	dying_key = DYE_REGISTRY_BANANA
 
 /* Wounds
 /obj/item/food/grown/banana/generate_trash(atom/location)

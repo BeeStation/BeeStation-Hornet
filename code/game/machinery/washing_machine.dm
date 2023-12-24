@@ -143,6 +143,16 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RD = /obj/item/bedsheet/rd,
 		DYE_CMO = /obj/item/bedsheet/cmo,
 		DYE_COSMIC = /obj/item/bedsheet/cosmos
+	),
+	DYE_REGISTRY_GUN = list(
+		DYE_CLOWN = /obj/item/food/grown/banana,
+		DYE_SECURITY = /obj/item/gun/energy/laser/practice,
+		DYE_HOS = /obj/item/gun/energy/laser/practice
+	),
+	DYE_REGISTRY_BANANA = list(
+		DYE_CLOWN = /obj/item/gun/energy/laser,
+		DYE_SECURITY = /obj/item/food/grown/banana,
+		DYE_HOS = /obj/item/food/grown/banana
 	)
 ))
 
@@ -295,6 +305,16 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		can_adjust = initial(U.can_adjust)
 		if(!can_adjust && adjusted) //we deadjust the uniform if it's now unadjustable
 			toggle_jumpsuit_adjust()
+
+/obj/item/gun/energy/laser/practice/dye_item(dye_color, dye_key)
+	. = ..()
+	if(.)
+		cut_overlays()
+
+/obj/item/food/grown/banana/dye_item(dye_color, dye_key)
+	. = ..()
+	if(.)
+		add_overlay()
 
 /obj/item/clothing/head/soft/dye_item(dye_color, dye_key)
 	var/list/dyes = list(DYE_MIME, DYE_CLOWN, DYE_LAW, DYE_CAPTAIN, DYE_HOP, DYE_HOS, DYE_CE)
