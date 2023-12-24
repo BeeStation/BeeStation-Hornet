@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Fix stacked client colors not being removed, hopefully fixing the perma-monochrome
+      bug.

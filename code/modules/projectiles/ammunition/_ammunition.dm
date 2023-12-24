@@ -7,18 +7,28 @@
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(/datum/material/iron = 500)
-	var/fire_sound = null						//What sound should play when this ammo is fired
-	var/caliber = null							//Which kind of guns it can be loaded into
-	var/projectile_type = null					//The bullet type to create when New() is called
-	var/obj/projectile/BB = null 			//The loaded bullet
-	var/pellets = 1								//Pellets for spreadshot
-	var/variance = 0							//Variance for inaccuracy fundamental to the casing
-	var/randomspread = 0						//Randomspread for automatics
-	var/delay = 0								//Delay for energy weapons
-	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect	//the visual effect appearing when the ammo is fired.
+	custom_materials = list(/datum/material/iron = 500)
+	//What sound should play when this ammo is fired
+	var/fire_sound = null
+	//Which kind of guns it can be loaded into
+	var/caliber = null
+	//The bullet type to create when New() is called
+	var/projectile_type = null
+	//The loaded bullet
+	var/obj/projectile/BB = null
+	//Pellets for spreadshot
+	var/pellets = 1
+	//Variance for inaccuracy fundamental to the casing
+	var/variance = 0
+	//Randomspread for automatics
+	var/randomspread = 0
+	//Delay for energy weapons
+	var/delay = 0
+	//the visual effect appearing when the ammo is fired.
+	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect
 	var/heavy_metal = TRUE
-	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
+	//pacifism check for boolet, set to FALSE if bullet is non-lethal
+	var/harmful = TRUE
 	var/click_cooldown_override = 0
 	var/exists = TRUE
 
@@ -53,7 +63,8 @@
 		BB = new projectile_type(src, src)
 
 /obj/item/ammo_casing/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box))
+	//Regular boxes of ammo can sweep shells up from the floor, magazines that get insert into guns do not though
+	if(istype(I, /obj/item/ammo_box) && !istype(I, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/box = I
 		if(isturf(loc))
 			var/boolets = 0
