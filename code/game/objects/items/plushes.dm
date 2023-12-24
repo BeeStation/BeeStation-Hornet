@@ -720,7 +720,6 @@
 	name = "astronaut plushie"
 	desc = "Theres something suspicious about it. But you can't put your finger on what it is."
 	icon_state = "spessmanplush"
-	squeak_override = list('sound/effects/amongus.ogg'=1)
 
 /obj/item/toy/plush/flushed
 	name = "flushed plushie"
