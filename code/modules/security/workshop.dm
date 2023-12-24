@@ -29,8 +29,6 @@
 		if(!(initial(program.template_id) == "offline"))
 			LAZYADD(program_cache, list(info_this))
 
-/datum/map_template/holodeck/prison/update_blacklist(turf/placement, list/input_blacklist)
-	. = ..()
 
 /obj/machinery/computer/holodeck/prison/process(delta_time=2) //don't derez items that leave the area
 	if(damaged && DT_PROB(10, delta_time))
@@ -55,21 +53,6 @@
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		holo_effect.tick()
 	active_power_usage = 50 + spawned.len * 3 + effects.len * 5
-
-/obj/machinery/computer/holodeck/prison/power_change()
-	. = ..()
-
-/obj/machinery/computer/holodeck/prison/emp_act(severity)
-	. = ..()
-
-/obj/machinery/computer/holodeck/prison/ex_act(severity, target)
-	. = ..()
-
-/obj/machinery/computer/holodeck/prison/Destroy()
-	. = ..()
-
-/obj/machinery/computer/holodeck/prison/blob_act(obj/structure/blob/B)
-	. = ..()
 
 /obj/machinery/computer/holodeck/prison/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

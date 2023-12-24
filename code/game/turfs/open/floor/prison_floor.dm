@@ -1,3 +1,4 @@
+#define MAX_PRISON_PLATES 4
 
 /turf/open/floor/prison
 	name = "secure floor"
@@ -15,7 +16,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	var/plates_type = /obj/item/stack/tile/plasteel
-	var/plates = 4
+	var/plates = MAX_PRISON_PLATES
 	var/wrenching = FALSE
 
 /turf/open/floor/prison/examine(mob/user)
@@ -28,7 +29,8 @@
 /turf/open/floor/prison/burn_tile() // consider changing this
 	return //unburnable
 
-/turf/open/floor/prison/make_plating(force = 0) // I don't know what that is
+/turf/open/floor/prison/make_plating(force = 0)
+	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	if(force)
 		..()
 	return //unplateable
@@ -39,14 +41,12 @@
 /turf/open/floor/prison/crowbar_act(mob/living/user, obj/item/I)
 	if(plates != 0)
 		to_chat(user, "<span class='danger'> The reinforcement plates are still firmly in place!</span>")
-		return
+		return TRUE
 	else
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 		to_chat(user, "<span class='notice'>You begin prying open the tile...</span>")
 		do_after(user, 4 SECONDS)
-		new floor_tile(src, 1)
-		ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-		. = ..()
+		return ..()
 
 
 /turf/open/floor/prison/wrench_act(mob/living/user, obj/item/I)
@@ -67,9 +67,9 @@
 	. = ..()
 
 /turf/open/floor/prison/attackby(obj/item/object, mob/living/user, params)
-	if(plates !=4 && istype(object, /obj/item/stack/tile/plasteel))
+	if(MAX_PRISON_PLATES && istype(object, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/sheet/I = object
-		I.amount -=1
+		I.use(1)
 		if(I.amount == 0)
 			qdel(I)
 		plates += 1
@@ -79,19 +79,9 @@
 
 /turf/open/floor/prison/singularity_pull(S, current_size)
 	..()
-	if(current_size >= STAGE_FIVE)
-		if(floor_tile)
-			if(prob(30))
-				new floor_tile(src)
-				make_plating()
-		else if(prob(30))
-			ReplaceWithLattice()
 
 /turf/open/floor/prison/attack_paw(mob/user)
 	return attack_hand(user)
 
-/turf/open/floor/prison/attack_hand(mob/user)
-	. = ..()
-	if(.)
-		return
-	user.Move_Pulled(src)
+
+#undef MAX_PRISON_PLATES

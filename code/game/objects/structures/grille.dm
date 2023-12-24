@@ -323,19 +323,24 @@
 /obj/structure/grille/prison/deconstruct()
 	var/turf/T = get_turf(src)
 	var/obj/structure/cable/C = T.get_cable_node()
-	var/datum/powernet/P = C.powernet
-	if(initialized_device && P.avail != 0)
-		src.device.activate()
-		..()
-	else
+	if(C?.powernet)
+		var/datum/powernet/P = C.powernet
+		if(initialized_device && P.avail != 0)
+			src.device.activate()
+			..()
 		..()
 
 /obj/structure/grille/prison/obj_break()
 	var/turf/T = get_turf(src)
 	var/obj/structure/cable/C = T.get_cable_node()
-	var/datum/powernet/P = C.powernet
-	if(initialized_device && P.avail != 0)
-		src.device.activate()
-		..()
-	else
-		..()
+	if(C?.powernet)
+		var/datum/powernet/P = C.powernet
+		if(P)
+			if(initialized_device && P.avail != 0)
+				src.device.activate()
+				..()
+	..()
+
+/obj/structure/grille/prison/Destroy()
+	qdel(device)
+	..()

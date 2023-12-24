@@ -46,12 +46,13 @@
 
 /obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/cotton))
-		if(do_after(user, 3 SECONDS))
+		var/obj/item/stack/S = I
+		if(do_after(user, 3 SECONDS) && S.amount >=5)
 			var/obj/item/toy/plush/P = pick(subtypesof(/obj/item/toy/plush))
 			new P(get_turf(src))
 			to_chat(user, "<span class='notice'>You make a new plush.</span>")
+			S.use(5)
 			qdel(src)
-			qdel(I)
 			return
 	. = ..()
 
