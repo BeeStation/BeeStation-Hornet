@@ -112,8 +112,6 @@
 		else
 			say("Access Denied. If you are a released prisoner, please insert your prisoner ID.")
 			return
-		else
-			to_chat(user, "<span class='danger'>Access Denied.</span>")
 	else
 		return ..()
 
@@ -466,7 +464,7 @@
 	for(var/obj/item/card/id/prisoner/ID in GLOB.prisoner_ids)
 		var/list/id_info = list()
 		id_info["name"] = ID.registered_name
-		id_info["id"] = "\ref[ID]"
+		id_info["id"] = REF(ID)
 		id_info["served_time"] = ID.served_time
 		id_info["sentence"] = ID.sentence
 		id_info["crime"] = ID.crime
