@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Bluespace launchpad can no longer pull objects (but can send it). Bluespace
+      launch pad will now play an effect when pulling.
