@@ -112,6 +112,15 @@
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
 	w_class = WEIGHT_CLASS_SMALL
+	dying_key = DYE_REGISTRY_BERET
+
+/obj/item/clothing/head/beret/color
+	name = "white beret"
+	icon_state = "beret_white"
+
+/obj/item/clothing/head/beret/color/green
+	name = "green beret"
+	color = "#9ed63a"
 
 /obj/item/clothing/head/beret/vintage
 	name = "vintage beret"
@@ -168,10 +177,12 @@
 	name = "head of security beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "hosberetblack"
+	dying_key = DYE_REGISTRY_CAP
 
 /obj/item/clothing/head/HoS/beret/syndicate
 	name = "syndicate beret"
 	desc = "A black beret with thick armor padding inside. Stylish and robust."
+	dying_key = DYE_REGISTRY_CAP
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"

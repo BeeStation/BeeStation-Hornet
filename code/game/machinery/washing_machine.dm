@@ -112,6 +112,29 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_SECURITY = /obj/item/clothing/head/soft/sec
 	),
 
+	DYE_REGISTRY_BERET = list(
+		DYE_RED = /obj/item/clothing/head/beret/color/green,
+		DYE_ORANGE = /obj/item/clothing/head/beret/color/green,
+		DYE_YELLOW = /obj/item/clothing/head/beret/color/green,
+		DYE_GREEN = /obj/item/clothing/head/beret/color/green,
+		DYE_BLUE = /obj/item/clothing/head/beret/color/green,
+		DYE_PURPLE = /obj/item/clothing/head/beret/color/green,
+		DYE_BLACK = /obj/item/clothing/head/beret/black,
+		DYE_WHITE = /obj/item/clothing/head/beret/color,
+		DYE_RAINBOW = /obj/item/clothing/head/beret/color/green,
+		DYE_MIME = /obj/item/clothing/head/beret/color/green,
+		DYE_CLOWN = /obj/item/clothing/head/beret/color/green,
+		DYE_QM = /obj/item/clothing/head/beret/supply,
+		DYE_LAW = /obj/item/clothing/head/beret/color/green,
+		DYE_CAPTAIN = /obj/item/clothing/head/beret/color/green,
+		DYE_HOP = /obj/item/clothing/head/beret/color/green,
+		DYE_HOS = /obj/item/clothing/head/HoS/beret,
+		DYE_CE = /obj/item/clothing/head/beret/ce,
+		DYE_RD = /obj/item/clothing/head/beret/color/green,
+		DYE_CMO = /obj/item/clothing/head/beret/cmo,
+		DYE_SECURITY = /obj/item/clothing/head/beret/sec
+	),
+
 	DYE_REGISTRY_FANNYPACK = list(
 		DYE_RED = /obj/item/storage/belt/fannypack/red,
 		DYE_ORANGE = /obj/item/storage/belt/fannypack/orange,
