@@ -113,10 +113,6 @@
 			say("Access Denied. If you are a released prisoner, please insert your prisoner ID.")
 			return
 		else
-		else
-			to_chat(user, "<span class='danger'>Access Denied.</span>")
-	else
-	else
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
 	else
 		return ..()
