@@ -8359,6 +8359,16 @@
 "cKB" = (
 /turf/closed/wall,
 /area/medical/apothecary)
+"cKH" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "cKT" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light/small,
@@ -31388,6 +31398,15 @@
 /obj/item/book/manual/wiki/sopengineering,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
+"jXk" = (
+/obj/structure/chair/fancy/bench,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 8
+	},
+/obj/machinery/light/small,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "jXw" = (
 /obj/structure/bed/roller,
 /obj/effect/turf_decal/guideline/guideline_tri/blue{
@@ -36370,6 +36389,11 @@
 /area/science/lobby)
 "lBG" = (
 /obj/machinery/firealarm/directional/south,
+/obj/structure/chair/fancy/bench,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "lBH" = (
@@ -43774,6 +43798,11 @@
 /obj/machinery/fax/cargo,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
+"nOk" = (
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "nOl" = (
 /obj/effect/turf_decal/tile/neutral/half{
 	dir = 1
@@ -56672,6 +56701,19 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
+"rYS" = (
+/obj/machinery/door/window/eastleft{
+	base_state = "right";
+	dir = 1;
+	icon_state = "right";
+	name = "Holding Cell";
+	req_access_txt = "1"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "rYV" = (
 /obj/machinery/atmospherics/components/binary/valve,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -57428,6 +57470,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"smz" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "smL" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -61693,6 +61745,17 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
+"tDx" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	alpha = 180;
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "tDI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/circuit/telecomms/server,
@@ -102864,8 +102927,8 @@ cej
 dng
 uGi
 fVQ
-iXv
-iXv
+cKH
+rWM
 cUa
 qaV
 kEN
@@ -103121,8 +103184,8 @@ ovo
 nvT
 uGi
 fVQ
-iXv
-iXv
+smz
+jXk
 cUa
 evE
 biL
@@ -103378,7 +103441,7 @@ air
 uSr
 mue
 wAZ
-iXv
+rYS
 lBG
 cUa
 hKa
@@ -103635,8 +103698,8 @@ vHg
 rwB
 mky
 fVQ
-iXv
-iXv
+tDx
+nOk
 cUa
 plM
 usb

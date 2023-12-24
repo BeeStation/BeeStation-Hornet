@@ -22420,23 +22420,6 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/crew_quarters/locker)
-"cxj" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Gear Room";
-	req_one_access_txt = "1;4"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/space)
 "cxs" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/charcoal{
@@ -45219,13 +45202,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"hpp" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
 "hpt" = (
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/decal/cleanable/cobweb,
@@ -53948,6 +53924,14 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel,
 /area/security/brig)
+"ksU" = (
+/obj/docking_port/stationary/random{
+	id = "pod_lavaland2";
+	name = "lavaland";
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/space)
 "ktR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -56810,18 +56794,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
-"lvt" = (
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/railing{
-	pixel_y = 32
-	},
-/turf/open/floor/holofloor/plating,
-/area/holodeck/prison)
 "lvM" = (
 /obj/structure/table,
 /obj/item/storage/crayons,
@@ -60850,15 +60822,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/detectives_office)
-"mOk" = (
-/obj/docking_port/stationary{
-	dwidth = 1;
-	height = 4;
-	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
-	width = 3
-	},
-/turf/open/space/basic,
-/area/security/brig)
 "mOq" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom,
@@ -66074,11 +66037,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"oCw" = (
-/obj/structure/cable/white,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
 "oCD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -66197,6 +66155,25 @@
 	heat_capacity = 1e+006
 	},
 /area/maintenance/port)
+"oEL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/obj/docking_port/stationary{
+	dwidth = 1;
+	height = 4;
+	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
+	width = 3;
+	dir = 4
+	},
+/turf/open/floor/plating{
+	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
+	initial_temperature = 2.7;
+	luminosity = 2
+	},
+/area/space)
 "oFD" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -66279,13 +66256,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
-"oGD" = (
-/obj/docking_port/stationary/random{
-	id = "pod_lavaland2";
-	name = "lavaland"
-	},
-/turf/open/space/basic,
-/area/space)
 "oHc" = (
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/medical/morgue)
@@ -71173,10 +71143,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/security/brig)
-"qqQ" = (
-/obj/structure/fans/tiny/invisible,
-/turf/open/space/basic,
-/area/space/nearstation)
 "qqU" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -84580,6 +84546,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Interrogation room";
+	req_access_txt = "63"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "vge" = (
@@ -149532,7 +149504,7 @@ aad
 qYo
 aFm
 qWy
-lvt
+qWy
 qWy
 qWy
 qWy
@@ -150526,11 +150498,11 @@ sav
 sav
 sav
 aaa
-oGD
+aaa
 aaa
 aaa
 bTl
-mOk
+hbA
 jvV
 gUJ
 icb
@@ -151277,11 +151249,11 @@ aaa
 aaa
 aaa
 aaa
-fVm
-cxj
-hpp
-fVm
-fVm
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -151305,7 +151277,7 @@ fVm
 nOg
 bNj
 dIA
-dIA
+oEL
 ayU
 bNj
 bNj
@@ -151538,7 +151510,7 @@ aaa
 aaa
 aaa
 aaa
-fVm
+aaa
 aaa
 aaa
 aaa
@@ -151563,7 +151535,7 @@ nOg
 bNj
 aaa
 aaa
-qqQ
+sav
 bNj
 uBg
 aaa
@@ -151795,7 +151767,7 @@ aaa
 aaa
 aaa
 aaa
-fVm
+aaa
 aaa
 aaa
 aaa
@@ -152052,7 +152024,7 @@ aaa
 aaa
 aaa
 aaa
-fVm
+aaa
 aaa
 aaa
 aaa
@@ -152078,7 +152050,7 @@ nFS
 aaa
 aaa
 sav
-nFS
+sav
 aaa
 aad
 wiQ
@@ -152309,7 +152281,7 @@ aaa
 aaa
 aaa
 aaa
-fVm
+aaa
 aaa
 aaa
 aaa
@@ -152333,7 +152305,7 @@ aaa
 sav
 sav
 aaa
-aaa
+ksU
 aaa
 aaa
 aaa
@@ -152566,7 +152538,7 @@ aaa
 aaa
 aaa
 aaa
-oCw
+aaa
 aaa
 aaa
 aaa
@@ -152823,7 +152795,7 @@ aaa
 aaa
 aaa
 aaa
-fVm
+aaa
 aaa
 aaa
 aaa
@@ -153080,7 +153052,7 @@ aaa
 aaa
 aaa
 aaa
-oCw
+aaa
 aaa
 aaa
 aaa
@@ -153337,7 +153309,7 @@ aaa
 aaa
 aaa
 aaa
-fVm
+aaa
 aaa
 aaa
 aaa
@@ -153594,7 +153566,7 @@ aaa
 aaa
 aaa
 aaa
-fVm
+aaa
 aaa
 aaa
 aaa
@@ -153847,11 +153819,11 @@ aaa
 aaa
 aaa
 aaa
-fVm
-fVm
-hpp
-fVm
-fVm
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
