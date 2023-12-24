@@ -30,16 +30,18 @@
 /obj/projectile/bullet/pepperball
 	name = "pepperball"
 	icon_state = "pepperball"
-	damage = 35 //Disabler is 28 damage, flat AP
-	var/tile_dropoff = 1
+	damage = 30 //Disabler is 28 damage
+	eyeblur = 2
 	damage_type = STAMINA
-	armour_penetration = -20
 	range = 22
 
-/obj/projectile/bullet/pepperball/Range()
+/obj/projectile/bullet/pepperball/on_hit(atom/target)
+	if (iscarbon(target))
+		var/mob/living/carbon/T = target
+		if (T.is_eyes_covered())
+			eyeblur = 0
+			damage -= 10
+		if (T.is_mouth_covered())
+			damage -= 15
+		//check if face/eyes are covered bluh bluh
 	..()
-	if(damage > 0)
-		damage -= tile_dropoff
-
-	if(damage < 0)
-		qdel(src)
