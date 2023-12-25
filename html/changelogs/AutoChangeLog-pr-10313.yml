@@ -1,6 +1,0 @@
-author: Tyranicranger4
-delete-after: true
-changes:
-  - bugfix: Returning from the Ninja Dojo now accounts for (most) unsafe atmospheric
-      conditions
-  - bugfix: SecTech vendor restocker now has an actual name instead of being 'Generic'
