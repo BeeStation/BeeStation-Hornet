@@ -342,5 +342,5 @@
 	..()
 
 /obj/structure/grille/prison/Destroy()
-	qdel(device)
+	QDEL_NULL(device)
 	..()

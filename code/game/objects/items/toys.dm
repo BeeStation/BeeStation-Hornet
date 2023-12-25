@@ -38,7 +38,7 @@
  */
 /obj/item/toy/empty_plush //not a plushie subtype because of all the code regarding breeding and weird jokes, this is just a transitory state
 	name = "plush fabric"
-	desc = "An empty plush fabric. Ready to be stuffed with cotton"
+	desc = "An empty plush fabric. Ready to be stuffed with cotton."
 	icon = 'icons/obj/plushes.dmi'
 	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
