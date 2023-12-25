@@ -4,10 +4,9 @@
 	var/icon_state
 	var/dir
 	var/frame
-	var/moving
 	var/datum/icon_transformer/transform
 
-/datum/icon_batch_entry/New(sprite_name, icon/icon_file, icon_state="", dir=SOUTH, frame=1, moving=FALSE, datum/icon_transformer/transform=null, color=null)
+/datum/icon_batch_entry/New(sprite_name, icon/icon_file, icon_state="", dir=SOUTH, frame=1, datum/icon_transformer/transform=null, color=null)
 	src.sprite_name = sprite_name
 	if(!isicon(icon_file) || !isfile(icon_file) || "[icon_file]" == "/icon")
 		qdel(src)
@@ -17,7 +16,6 @@
 	src.icon_state = icon_state
 	src.dir = dir
 	src.frame = frame
-	src.moving = moving
 	if(isnull(transform) && !isnull(color) && uppertext(color) != "#FFFFFF")
 		var/datum/icon_transformer/T = new()
 		if(color)
@@ -29,7 +27,7 @@
 		src.transform = null
 
 /datum/icon_batch_entry/proc/copy()
-	var/datum/icon_batch_entry/new_entry = new(sprite_name, icon_file, icon_state, dir, frame, moving)
+	var/datum/icon_batch_entry/new_entry = new(sprite_name, icon_file, icon_state, dir, frame)
 	if(!isnull(src.transform))
 		new_entry.transform = src.transform.copy()
 	return new_entry
@@ -55,7 +53,7 @@
 	transform.crop(x1, y1, x2, y2)
 
 /datum/icon_batch_entry/proc/to_list()
-	return list("icon_file" = "[icon_file]", "icon_state" = icon_state, "dir" = dir, "frame" = frame, "moving" = moving, "transform" = !isnull(transform) ? transform.generate() : list())
+	return list("icon_file" = "[icon_file]", "icon_state" = icon_state, "dir" = dir, "frame" = frame, "transform" = !isnull(transform) ? transform.generate() : list())
 
 /datum/icon_batch_entry/proc/to_json()
 	return json_encode(to_list())

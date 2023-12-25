@@ -52,12 +52,12 @@
 	return transform
 
 /// Constructs an icon entry.
-/datum/asset/spritesheet_batched/proc/icon_entry(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE, datum/icon_transformer/transform=null, color=null)
-	return new /datum/icon_batch_entry(sprite_name, I, icon_state, dir, frame, moving, transform, color)
+/datum/asset/spritesheet_batched/proc/icon_entry(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, datum/icon_transformer/transform=null, color=null)
+	return new /datum/icon_batch_entry(sprite_name, I, icon_state, dir, frame, transform, color)
 
 /// Constructs an icon entry, with a blank sprite_name.
-/proc/u_icon_entry(icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE, datum/icon_transformer/transform=null, color=null)
-	return new /datum/icon_batch_entry("", I, icon_state, dir, frame, moving, transform, color)
+/proc/u_icon_entry(icon/I, icon_state="", dir=SOUTH, frame=1, datum/icon_transformer/transform=null, color=null)
+	return new /datum/icon_batch_entry("", I, icon_state, dir, frame, transform, color)
 
 /datum/asset/spritesheet_batched/proc/insert_icon(datum/icon_batch_entry/entry)
 	if(should_load_immediately())
