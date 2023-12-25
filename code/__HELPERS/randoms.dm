@@ -26,7 +26,17 @@
 		/obj/item/food/pizza,
 		/obj/item/food/pizzaslice,
 		/obj/item/food/salad,
-		/obj/item/food/spaghetti,
+		/obj/item/food/meat,
+		/obj/item/food/meat/slab,
+		/obj/item/food/soup,
+		/obj/item/food/grown,
+		/obj/item/food/grown/mushroom,
+		/obj/item/food/deepfryholder,
+		/obj/item/food/clothing,
+		/obj/item/food/grown/shell, //base types
+		/obj/item/food/bread,
+		/obj/item/food/grown/nettle,
+		/obj/item/food/grown/shell/gatfruit
 		)
 
 		var/list/unfiltered_allowed_food = subtypesof(/obj/item/food) - blocked
