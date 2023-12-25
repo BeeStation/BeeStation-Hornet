@@ -150,15 +150,8 @@
 
 /turf/closed/wall/clockwork/update_icon()
 	. = ..()
-	if(d_state == INTACT)
-		realappearance.icon_state = "clockwork_wall"
-		smoothing_flags = SMOOTH_BITMASK
-		QUEUE_SMOOTH_NEIGHBORS(src)
-		QUEUE_SMOOTH(src)
-	else
-		realappearance.icon_state = "clockwork_wall-[d_state]"
-		smoothing_flags = NUKE_ON_EXPLODING
-		clear_smooth_overlays()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 	realappearance.update_icon()
 	return
 

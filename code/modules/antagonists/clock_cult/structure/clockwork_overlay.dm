@@ -30,19 +30,14 @@
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_BRASS_WALLS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALLS)
 	layer = CLOSED_TURF_LAYER
 
-/obj/effect/clockwork/overlay/wall/Initialize(mapload)
+/obj/effect/clockwork/overlay/wall/update_icon_state()
 	. = ..()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	QUEUE_SMOOTH(src)
-
-/obj/effect/clockwork/overlay/wall/Destroy()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	return ..()
+	if(linked)
+		icon_state = "[base_icon_state]-[linked.smoothing_junction]" //Cheaper than smoothing ourselves
+	else
+		icon_state = initial(icon_state)
 
 /obj/effect/clockwork/overlay/floor
 	icon = 'icons/turf/floors.dmi'
