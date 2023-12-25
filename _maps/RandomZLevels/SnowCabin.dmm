@@ -920,10 +920,10 @@
 /area/awaymission/cabin)
 "cG" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
 "cH" = (
@@ -1360,8 +1360,8 @@
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
 "ea" = (
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
 /turf/open/floor/plating/ice/smooth,
 /area/awaymission/cabin/snowforest)
 "eb" = (
@@ -1815,15 +1815,6 @@
 "fj" = (
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
-"fk" = (
-/obj/item/food/burger/ghost{
-	desc = "I killed a burger for you. Hope you're grateful, bastards.";
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/awaymission/cabin/caves/mountain)
 "fl" = (
 /turf/open/floor/carpet,
 /area/awaymission/cabin/caves/mountain)
@@ -1990,11 +1981,6 @@
 	desc = "Jail.";
 	name = "Jail Cell 7217"
 	},
-/area/awaymission/cabin/caves/mountain)
-"gg" = (
-/obj/structure/weightmachine/stacklifter,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/engine,
 /area/awaymission/cabin/caves/mountain)
 "gh" = (
 /obj/structure/weightmachine/weightlifter,
@@ -3949,15 +3935,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
-"lr" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/knife/carrotshiv,
-/obj/effect/decal/cleanable/glitter/blue{
-	desc = "It looks like fancy glitter to me.";
-	name = "icy wind"
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/cabin/caves)
 "ls" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/melee/baseball_bat,
@@ -5021,6 +4998,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"yM" = (
+/obj/item/food/burger/ghost{
+	desc = "I killed a burger for you. Hope you're grateful, bastards.";
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/structure/table/wood,
+/turf/open/floor/wood,
+/area/awaymission/cabin/caves/mountain)
 "zK" = (
 /obj/structure/sign/poster/official/no_erp{
 	pixel_y = -32
@@ -5028,6 +5014,15 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"zP" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/knife/carrotshiv,
+/obj/effect/decal/cleanable/glitter/blue{
+	desc = "It looks like fancy glitter to me.";
+	name = "icy wind"
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/cabin/caves)
 "Bk" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 32
@@ -5107,7 +5102,7 @@
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
 "Ik" = (
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
+/obj/item/food/egg/rainbow{
 	desc = "Was an egg really worth this much effort?";
 	name = "easter egg"
 	},
@@ -5159,6 +5154,11 @@
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"NR" = (
+/obj/structure/weightmachine/weightlifter,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/engine,
 /area/awaymission/cabin/caves/mountain)
 "Pw" = (
 /obj/machinery/computer/secure_data{
@@ -14052,7 +14052,7 @@ fp
 Km
 TC
 fp
-gg
+NR
 gs
 gv
 gy
@@ -51987,7 +51987,7 @@ gx
 lf
 li
 le
-lr
+zP
 le
 ld
 gx
@@ -69295,7 +69295,7 @@ ab
 ab
 aj
 aj
-fk
+yM
 fj
 fj
 aj
