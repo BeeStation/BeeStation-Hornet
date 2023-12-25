@@ -716,10 +716,10 @@
 	icon_state = "gondolaplush"
 	squeak_override = list('sound/misc/null.ogg'=1)
 
-/obj/item/toy/plush/spessman
-	name = "astronaut plushie"
-	desc = "Theres something suspicious about it. But you can't put your finger on what it is."
-	icon_state = "spessmanplush"
+/obj/item/toy/plush/spessgondolaplush
+	name = "astronaut gondola plushie"
+	desc = "Look at it! Go Go Astronaut Gondola!"
+	icon_state = "spessgondolaplush"
 
 /obj/item/toy/plush/flushed
 	name = "flushed plushie"
