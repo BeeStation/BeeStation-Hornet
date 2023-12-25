@@ -46,7 +46,6 @@
 	baseturfs = /turf/open/floor/clockwork/reebe
 	max_integrity = 1000
 	damage_deflection = 0
-	var/obj/effect/clockwork/overlay/wall/realappearance
 	var/d_state = INTACT
 	flags_1 = NOJAUNT_1
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
@@ -57,14 +56,13 @@
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)
-	realappearance = new /obj/effect/clockwork/overlay/wall(src)
-	realappearance.linked = src
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src) //We already smooth ourself in /turf/Initialize()
 
 /turf/closed/wall/clockwork/Destroy()
-	if(realappearance)
-		qdel(realappearance)
-		realappearance = null
-	return ..()
+	. = ..()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/closed/wall/clockwork/ReplaceWithLattice()
 	..()
@@ -152,7 +150,6 @@
 	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	QUEUE_SMOOTH(src)
-	realappearance.update_icon()
 	return
 
 //=================================================
