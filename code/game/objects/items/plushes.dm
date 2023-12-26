@@ -776,7 +776,7 @@
 	if(!item_list)
 		item_list = list()
 		for(var/V in plushie_list)
-			var/obj/item/toy/plushie/I = V
+			var/obj/item/toy/plush/I = V
 			var/image/plushie_icon = image(initial(I.icon), initial(I.icon_state))
 			var/datum/radial_menu_choice/choice = new
 			choice.image = plushie_icon
