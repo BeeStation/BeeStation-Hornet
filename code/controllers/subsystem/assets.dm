@@ -26,6 +26,8 @@ SUBSYSTEM_DEF(assets)
 		if (type != initial(A._abstract))
 			load_asset_datum(type)
 
+	// Clean up cached icons, freeing memory.
+	rustg_iconforge_cleanup()
 	transport.Initialize(cache)
 	..()
 
