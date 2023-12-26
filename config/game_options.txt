@@ -669,7 +669,7 @@ DISABLE_LOCAL_BANS
 ##Uncomment to allow the virus extrapolator to isolate virus symptoms
 #ISOLATION_ALLOWED
 
-##Uncomment to allow Formaldehyde to be used to neuter viruses
+##Uncomment to allow Formaldehyde to be used to neuter viruses, as well as other utility chems (synaptizine, cryostylane) to function
 #NEUTER_ALLOWED
 
 ##Uncomment to allow viruses to be mixed to combine symptoms
