@@ -729,7 +729,7 @@
 /obj/item/choice_beacon/radial/plushie
 	name = "plushie delivery beacon"
 	desc = "Summon your new friend!"
-	icon_state = "gangtool-orange"
+	icon_state = "gangtool-plushie"
 	var/static/list/plushie_list
 
 /obj/item/choice_beacon/radial/plushie/Initialize(mapload)
