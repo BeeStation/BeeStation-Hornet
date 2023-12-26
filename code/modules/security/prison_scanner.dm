@@ -29,10 +29,10 @@
 			to_chat(user, "<span class='notice'>Scanner linked to [C.registered_name] succesfully!</span>")
 		if(linked_id != C.registered_name)
 			to_chat(user, "<span class='warning'>The scanner is already linked to [linked_id]'s ID!</span>")
-		else if(redeemable.len>=1)
+		else if(length(redeemable))
 			C.served_time += (15 * redeemable.len)
 			redeemable.Cut()
-			to_chat(user, "<span class='notice'>Items redeemed! You now have [(C.sentence - C.served_time)/60] minutes left to serve!</span>")
+			to_chat(user, "<span class='notice'>Items redeemed! You now have [DisplayTimeText(C.sentence - C.served_time, 1)] left to serve!</span>")
 			linked_id = null
 		else
 			to_chat(user, "<span class='warning'> No items to redeem!</span>")

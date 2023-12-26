@@ -29,31 +29,6 @@
 		if(!(initial(program.template_id) == "offline"))
 			LAZYADD(program_cache, list(info_this))
 
-
-/obj/machinery/computer/holodeck/prison/process(delta_time=2) //don't derez items that leave the area
-	if(damaged && DT_PROB(10, delta_time))
-		for(var/turf/holo_turf in linked)
-			if(DT_PROB(5, delta_time))
-				do_sparks(2, 1, holo_turf)
-				return
-	. = ..()
-	if(!. || program == offline_program)//we dont need to scan the holodeck if the holodeck is offline
-		return
-
-	if(!floorcheck()) //if any turfs in the floor of the holodeck are broken
-		emergency_shutdown()
-		damaged = TRUE
-		visible_message("The holodeck overloads!")
-		for(var/turf/holo_turf in linked)
-			if(DT_PROB(30, delta_time))
-				do_sparks(2, 1, holo_turf)
-			SSexplosions.lowturf += holo_turf
-			holo_turf.hotspot_expose(1000,500,1)
-
-	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
-		holo_effect.tick()
-	active_power_usage = 50 + spawned.len * 3 + effects.len * 5
-
 /obj/machinery/computer/holodeck/prison/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

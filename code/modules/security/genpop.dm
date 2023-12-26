@@ -1,6 +1,6 @@
 //From NSV13
 //Credit to oraclestation for the idea! This just a recode...
-// Recode CanAllowThrough() and machine_stat
+// Recode CanAllowThrough() at some point, it won't allow ridden vehicles
 
 /obj/machinery/turnstile
 	name = "turnstile"
@@ -25,6 +25,7 @@
 	COOLDOWN_DECLARE(shock_cooldown)
 	circuit = /obj/item/circuitboard/machine/turnstile
 	var/state = TURNSTILE_SECURED
+	var/obj/item/card/id/id_card //used in CanAllowThrough()
 
 /obj/item/circuitboard/machine/turnstile
 	name = "Turnstile circuitboard"
@@ -208,20 +209,22 @@
 	if(get_dir(loc, target) == dir) //Always let people through in one direction. Not used at the moment.
 		return TRUE
 	var/allowed = allowed(mover)
-	//Everyone with access can drag you out. Prisoners can't drag each other out.
+	//Ridden vehicles are blacklisted because they are items that have buckled mobs to them when this proc can only be called on mobs...
 	if(istype(mover, /obj/vehicle/ridden) && mover.buckled_mobs)
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50)
 		say("ERROR. For security reasons, wheelchairs and other ridden devices are not allowed through the turnstile.")
 		return FALSE
+	//Everyone with access can drag you out. Prisoners can't drag each other out
 	if(!allowed && mover.pulledby && ishuman(mover.pulledby))
 		var/mob/living/carbon/human/H = mover.pulledby
-		if(istype(H.wear_id, /obj/item/card/id/prisoner) || istype(H.get_active_held_item(), /obj/item/card/id/prisoner))
+		id_card = H.get_idcard(hand_first = TRUE)
+		if(ACCESS_PRISONER in id_card?.GetAccess())
 			return FALSE
 		else
 			allowed = allowed(mover.pulledby)
 	if(mover.buckled_mobs) //Piggyback rides aren't allowed because they could allow escape way too easily
 		for(var/mob/living/carbon/human/H in mover.buckled_mobs)
-			if(istype(H.wear_id, /obj/item/card/id/prisoner) || istype(H.get_active_held_item(), /obj/item/card/id/prisoner))
+			if(ACCESS_PRISONER in id_card?.GetAccess())
 				return FALSE
 			else
 				allowed = allowed(mover.buckled_mobs)
