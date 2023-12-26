@@ -25,7 +25,7 @@
 	COOLDOWN_DECLARE(shock_cooldown)
 	circuit = /obj/item/circuitboard/machine/turnstile
 	var/state = TURNSTILE_SECURED
-	var/obj/item/card/id/id_card //used in CanAllowThrough()
+
 
 /obj/item/circuitboard/machine/turnstile
 	name = "Turnstile circuitboard"
@@ -201,6 +201,7 @@
 		return
 
 /obj/machinery/turnstile/CanAllowThrough(atom/movable/mover, turf/target)
+	var/obj/item/card/id/id_card // used to check for prisoners trying to drag or piggyback others through the turnstile
 	. = ..()
 	if(. == TRUE)
 		return TRUE //Allow certain things declared with pass_flags_self through wihout side effects
