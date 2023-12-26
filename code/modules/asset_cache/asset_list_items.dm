@@ -412,7 +412,7 @@
 
 		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
 		var/datum/universal_icon/entry = get_display_icon_for(A)
-		entry.scale(48, 48)
+		entry.scale(42, 42)
 		insert_icon(imgid, entry)
 
 // basically admin debugging tool assets
