@@ -197,7 +197,7 @@
 #undef SPR_SIZE
 #undef SPR_IDX
 
-/// Gets the relevant universal icon for an atom, when displayed in TGUI. (see: vendor_icon_preview)
+/// Gets the relevant universal icon for an atom, when displayed in TGUI. (see: icon_state_preview)
 /proc/get_display_icon_for(atom/A)
 	if (!ispath(A, /atom))
 		return FALSE
@@ -205,8 +205,8 @@
 	var/icon_state = initial(A.icon_state)
 	if(ispath(A, /obj/item))
 		var/obj/item/I = A
-		if(initial(I.vendor_icon_preview))
-			icon_state = initial(I.vendor_icon_preview)
+		if(initial(I.icon_state_preview))
+			icon_state = initial(I.icon_state_preview)
 		if(initial(I.greyscale_config) && initial(I.greyscale_colors))
 			return gags_to_universal_icon(I)
 	return uni_icon(icon_file, icon_state, color=initial(A.color))
