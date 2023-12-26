@@ -342,6 +342,9 @@
 				if (machine)
 					item = machine
 
+			if (initial(item.greyscale_config) && initial(item.greyscale_colors))
+				insert_icon(initial(D.id), gags_to_universal_icon(item))
+				continue
 			if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
 				var/obj/item/bodypart/body_part = item
 				icon_file = initial(body_part.static_icon)

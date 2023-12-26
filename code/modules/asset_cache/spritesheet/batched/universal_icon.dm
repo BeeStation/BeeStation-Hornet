@@ -174,7 +174,7 @@
 /// Converts a GAGS item to a universal icon by generating blend operations.
 /proc/gags_to_universal_icon(obj/item/path)
 	RETURN_TYPE(/datum/universal_icon)
-	if(!ispath(path, /obj/item) || !initial(path.greyscale_config))
+	if(!ispath(path, /obj/item) || !initial(path.greyscale_config) || !initial(path.greyscale_colors))
 		CRASH("gags_to_universal_icon() received an invalid path!")
 	var/datum/greyscale_config/config = initial(path.greyscale_config)
 	var/colors = initial(path.greyscale_colors)
