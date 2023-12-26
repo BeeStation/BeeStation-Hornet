@@ -1,12 +1,13 @@
 /datum/orbital_objective/artifact
 	name = "Artifact Recovery"
-	//The blackbox required to recover.
-	var/obj/item/xenoartifact/objective/linked_artifact
+	var/datum/weakref/weakref_artifect
 	min_payout = 5000
 	max_payout = 25000
 
 /datum/orbital_objective/artifact/generate_objective_stuff(turf/chosen_turf)
-	linked_artifact = new(chosen_turf)
+	var/obj/item/xenoartifact/objective/linked_artifact = new(chosen_turf)
+	weakref_artifect = WEAKREF(linked_artifact)
+
 	var/list/turfs = RANGE_TURFS(30, linked_artifact)
 	var/list/valid_turfs = list()
 	for(var/turf/open/floor/F in turfs)
@@ -29,11 +30,20 @@
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/artifact/check_failed()
-	if(!(linked_artifact?.flags_1 & INITIALIZED_1))
+	. = TRUE // To return TRUE when CRASH
+
+	if(!weakref_artifect) // It looks fail-check is executed before we fully initialise the explo mission.
+		return FALSE
+	var/obj/item/xenoartifact/objective/linked_artifact = weakref_artifect.resolve()
+	if(!linked_artifact)
+		CRASH("Something's wrong with the explo mission weakref.")
+	if(QDELETED(linked_artifact)) // a deleted item means they'll never make it success.
+		return TRUE
+	if(!(linked_artifact?.flags_1 & INITIALIZED_1)) // We checked this too early.
 		return FALSE
 	if(is_station_level(linked_artifact.z))
 		complete_objective()
 		return FALSE
-	if(!QDELETED(linked_artifact))
-		return FALSE
-	return TRUE
+
+	// failsafe. It shouldn't happen.
+	CRASH("For unknown reason, check_failed() proc reached the end of the code. It shouldn't happen.")
