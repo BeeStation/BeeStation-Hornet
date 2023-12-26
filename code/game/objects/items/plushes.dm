@@ -726,7 +726,7 @@
 	desc = "Hgrgrhrhg cute."
 	icon_state = "flushplush"
 
-/obj/item/toy/plush/choice_beacon/radial/plushie
+/obj/item/choice_beacon/radial/plushie
 	name = "plushie delivery beacon"
 	desc = "Summon your new friend!"
 	icon_state = "gangtool-red"
