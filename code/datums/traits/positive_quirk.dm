@@ -89,7 +89,7 @@
 
 /datum/quirk/musician
 	name = "Musician"
-	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul. You get an instrument delivery beacon when joining the round."
+	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul. You start with a delivery beacon."
 	icon = "guitar"
 	value = 1
 	mob_trait = TRAIT_MUSICIAN
@@ -286,8 +286,8 @@
 
 /datum/quirk/plushielover
 	name = "Plushie lover"
-	desc = "You love your squishy friends so much. You get a plushie delivery beacon when joining the round."
-	icon = "guitar"
+	desc = "You love your squishy friends so much. You start with a plushie delivery beacon"
+	icon = "heart"
 	value = 1
 	mob_trait = TRAIT_PLUSHIELOVER
 	gain_text = "<span class='notice'>You can't wait to hug a plushie!.</span>"
