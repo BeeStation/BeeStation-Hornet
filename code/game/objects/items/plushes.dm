@@ -732,7 +732,7 @@
 	icon_state = "gangtool-red"
 	var/static/list/plushie_list
 
-/obj/item/toy/plush/choice_beacon/radial/plushie/Initialize(mapload)
+/obj/item/choice_beacon/radial/plushie/Initialize(mapload)
 	. = ..()
 	plushie_list = list(/obj/item/toy/plush/bubbleplush,
 							/obj/item/toy/plush/carpplushie,
@@ -752,7 +752,7 @@
 							/obj/item/toy/plush/spessgondolaplush,
 							)
 
-/obj/item/toy/plush/choice_beacon/radial/plushie/generate_options(mob/living/M)
+/obj/item/choice_beacon/radial/plushie/generate_options(mob/living/M)
 	var/list/item_list = generate_item_list()
 	if(!item_list.len)
 		return
@@ -770,7 +770,7 @@
 					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
 				return
 
-/obj/item/toy/plush/choice_beacon/radial/plushie/generate_item_list()
+/obj/item/choice_beacon/radial/plushie/generate_item_list()
 	var/static/list/item_list
 	if(!item_list)
 		item_list = list()
