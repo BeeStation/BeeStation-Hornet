@@ -12,9 +12,9 @@
 	for (var/screen_name in GLOB.ipc_screens_list)
 		var/datum/sprite_accessory/screen = GLOB.ipc_screens_list[screen_name]
 
-		var/datum/icon_batch_entry/icon_with_screen = u_icon_entry('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
+		var/datum/universal_icon/icon_with_screen = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 		if (screen.icon_state != "none")
-			var/datum/icon_batch_entry/screen_icon = u_icon_entry(screen.icon, "m_ipc_screen_[screen.icon_state]_ADJ", dir = SOUTH)
+			var/datum/universal_icon/screen_icon = uni_icon(screen.icon, "m_ipc_screen_[screen.icon_state]_ADJ", dir = SOUTH)
 			icon_with_screen.blend_icon(screen_icon, ICON_OVERLAY)
 		icon_with_screen.scale(64, 64)
 		icon_with_screen.crop(15, 64 - 31, 15 + 31, 64)
@@ -67,11 +67,11 @@
 	for (var/antenna_name in GLOB.ipc_antennas_list)
 		var/datum/sprite_accessory/antenna = GLOB.ipc_antennas_list[antenna_name]
 
-		var/datum/icon_batch_entry/icon_with_antennae = u_icon_entry('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
+		var/datum/universal_icon/icon_with_antennae = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 		if (antenna.icon_state != "none")
 			// weird snowflake shit
 			var/side = (antenna_name == "Light" || antenna_name == "Drone Eyes") ? "FRONT" : "ADJ"
-			var/datum/icon_batch_entry/antenna_icon = u_icon_entry(antenna.icon, "m_ipc_antenna_[antenna.icon_state]_[side]", dir = SOUTH)
+			var/datum/universal_icon/antenna_icon = uni_icon(antenna.icon, "m_ipc_antenna_[antenna.icon_state]_[side]", dir = SOUTH)
 			icon_with_antennae.blend_icon(antenna_icon, ICON_OVERLAY)
 		icon_with_antennae.scale(64, 64)
 		icon_with_antennae.crop(15, 64 - 31, 15 + 31, 64)
@@ -127,10 +127,10 @@
 	)
 	for (var/chassis_name in GLOB.ipc_chassis_list)
 		var/datum/sprite_accessory/chassis = GLOB.ipc_chassis_list[chassis_name]
-		var/datum/icon_batch_entry/icon_with_chassis = u_icon_entry('icons/effects/effects.dmi', "nothing")
+		var/datum/universal_icon/icon_with_chassis = uni_icon('icons/effects/effects.dmi', "nothing")
 
 		for (var/body_part in body_parts)
-			icon_with_chassis.blend_icon(u_icon_entry('icons/mob/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
+			icon_with_chassis.blend_icon(uni_icon('icons/mob/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
 		values[chassis.name] = icon_with_chassis
 

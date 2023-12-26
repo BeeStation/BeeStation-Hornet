@@ -371,9 +371,9 @@
 	// Special case due to icon_state names
 	var/icon_state_color = color == "yellow" ? "" : color
 
-	var/datum/icon_batch_entry/floor = icon_entry("[decal]_[dir]_[color]", preview_floor_icon, preview_floor_state)
-	floor.blend_icon(u_icon_entry('icons/turf/decals.dmi', "[decal][icon_state_color ? "_" : ""][icon_state_color]", dir), ICON_OVERLAY)
-	insert_icon(floor)
+	var/datum/universal_icon/floor = uni_icon(preview_floor_icon, preview_floor_state)
+	floor.blend_icon(uni_icon('icons/turf/decals.dmi', "[decal][icon_state_color ? "_" : ""][icon_state_color]", dir), ICON_OVERLAY)
+	insert_icon("[decal]_[dir]_[color]", floor)
 
 /datum/asset/spritesheet_batched/decals/create_spritesheets()
 	// Must actually create because initial(type) doesn't work for /lists for some reason.
@@ -476,13 +476,13 @@
 		render_color = tile_type.rgba_regex.group[1]
 		render_alpha = text2num(tile_type.rgba_regex.group[2], 16)
 
-	var/datum/icon_batch_entry/colored_icon = u_icon_entry('icons/turf/decals.dmi', source_decal, dir=source_dir)
+	var/datum/universal_icon/colored_icon = uni_icon('icons/turf/decals.dmi', source_decal, dir=source_dir)
 	colored_icon.blend_color("#ffffff" + num2hex(render_alpha * 0.008, 2), ICON_MULTIPLY)
 	if(color == "custom")
 		colored_icon.blend_color("#0e0f0f", ICON_MULTIPLY)
 	else
 		colored_icon.blend_color(render_color, ICON_MULTIPLY)
 
-	var/datum/icon_batch_entry/floor = icon_entry("[decal]_[dir]_[replacetext(color, "#", "")]", preview_floor_icon, preview_floor_state)
+	var/datum/universal_icon/floor = uni_icon(preview_floor_icon, preview_floor_state)
 	floor.blend_icon(colored_icon, ICON_OVERLAY)
-	insert_icon(floor)
+	insert_icon("[decal]_[dir]_[replacetext(color, "#", "")]", floor)

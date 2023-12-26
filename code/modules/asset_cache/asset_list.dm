@@ -193,12 +193,16 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	ensure_stripped()
 	for(var/size_id in sizes)
 		var/size = sizes[size_id]
-		SSassets.transport.register_asset("[name]_[size_id].png", size[SPRSZ_STRIPPED])
+		var/file_path = "[name]_[size_id].png"
+		var/file_hash = rustg_hash_file("md5", file_path)
+		SSassets.transport.register_asset(file_path, size[SPRSZ_STRIPPED], file_hash=file_hash)
 	var/res_name = "spritesheet_[name].css"
 	var/fname = "data/spritesheets/[res_name]"
 	fdel(fname)
-	text2file(generate_css(), fname)
-	SSassets.transport.register_asset(res_name, fcopy_rsc(fname))
+	var/css = generate_css()
+	rustg_file_write(css, fname)
+	var/css_hash = rustg_hash_string("md5", css)
+	SSassets.transport.register_asset(res_name, fcopy_rsc(fname), file_hash=css_hash)
 	fdel(fname)
 
 	if (CONFIG_GET(flag/cache_assets) && cross_round_cachable)
@@ -278,19 +282,23 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	return out.Join("\n")
 
 /datum/asset/spritesheet/proc/read_from_cache()
-	var/replaced_css = file2text("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css")
+	var/replaced_css = rustg_file_read("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css")
 
 	var/regex/find_background_urls = regex(@"background:url\('%(.+?)%'\)", "g")
 	while (find_background_urls.Find(replaced_css))
 		var/asset_id = find_background_urls.group[1]
-		var/asset_cache_item = SSassets.transport.register_asset(asset_id, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]")
+		var/file_path = "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]"
+		// Hashing it here is a *lot* faster.
+		var/hash = rustg_hash_file("md5", file_path)
+		var/asset_cache_item = SSassets.transport.register_asset(asset_id, file_hash=hash)
 		var/asset_url = SSassets.transport.get_asset_url(asset_cache_item = asset_cache_item)
 		replaced_css = replacetext(replaced_css, find_background_urls.match, "background:url('[asset_url]')")
 		LAZYADD(cached_spritesheets_needed, asset_id)
 
 	var/replaced_css_filename = "data/spritesheets/spritesheet_[name].css"
+	var/css_hash = rustg_hash_string("md5", replaced_css)
 	rustg_file_write(replaced_css, replaced_css_filename)
-	SSassets.transport.register_asset("spritesheet_[name].css", replaced_css_filename)
+	SSassets.transport.register_asset("spritesheet_[name].css", replaced_css_filename, file_hash=css_hash)
 
 	fdel(replaced_css_filename)
 
@@ -528,7 +536,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/json/register()
 	var/filename = "data/[name].json"
 	fdel(filename)
-	text2file(json_encode(generate()), filename)
+	rustg_file_write(json_encode(generate()), filename)
 	SSassets.transport.register_asset("[name].json", fcopy_rsc(filename))
 	fdel(filename)
 

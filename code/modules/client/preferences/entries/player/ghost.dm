@@ -44,14 +44,14 @@
 	var/list/values = list()
 
 	for (var/ghost_form in GLOB.ghost_forms)
-		values[ghost_form] = u_icon_entry('icons/mob/mob.dmi', ghost_form)
+		values[ghost_form] = uni_icon('icons/mob/mob.dmi', ghost_form)
 
 	return values
 
 /datum/preference/choiced/ghost_form/create_default_value()
 	return "ghost"
 
-/datum/preference/choiced/ghost_form/apply_to_client(client/client, datum/icon_batch_entry/value)
+/datum/preference/choiced/ghost_form/apply_to_client(client/client, datum/universal_icon/value)
 	var/mob/dead/observer/ghost = client.mob
 	if (!istype(ghost))
 		return

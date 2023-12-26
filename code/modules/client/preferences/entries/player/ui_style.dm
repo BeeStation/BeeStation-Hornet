@@ -11,9 +11,9 @@
 	for (var/style in GLOB.available_ui_styles)
 		var/icons = GLOB.available_ui_styles[style]
 
-		var/datum/icon_batch_entry/icon = u_icon_entry(icons, "hand_r")
+		var/datum/universal_icon/icon = uni_icon(icons, "hand_r")
 		icon.crop(1, 1, world.icon_size * 2, world.icon_size)
-		icon.blend_icon(u_icon_entry(icons, "hand_l"), ICON_OVERLAY)
+		icon.blend_icon(uni_icon(icons, "hand_l"), ICON_OVERLAY)
 
 		values[style] = icon
 

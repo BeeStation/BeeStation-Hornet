@@ -78,14 +78,14 @@
 
 /// Used to actualy create the layer using the given colors
 /// Do not override, use InternalGenerate instead
-/datum/greyscale_layer/proc/Generate_entry(list/colors, datum/icon_batch_entry/new_icon)
+/datum/greyscale_layer/proc/Generate_entry(list/colors, datum/universal_icon/new_icon)
 	var/list/processed_colors = list()
 	for(var/i in color_ids)
 		if(isnum(i))
 			processed_colors += colors[i]
 		else
 			processed_colors += i
-	var/datum/icon_batch_entry/copy_of_new_icon = isnull(new_icon) ? u_icon_entry('icons/effects/effects.dmi', "nothing") : new_icon.copy() // Layers shouldn't be modifying it directly, this is just for them to reference
+	var/datum/universal_icon/copy_of_new_icon = isnull(new_icon) ? uni_icon('icons/effects/effects.dmi', "nothing") : new_icon.copy() // Layers shouldn't be modifying it directly, this is just for them to reference
 	return InternalGenerate_entry(processed_colors, copy_of_new_icon)
 
 /// Override this to implement layers.
@@ -94,7 +94,7 @@
 
 /// Override this to implement layers.
 /// The colors var will only contain colors that this layer is configured to use.
-/datum/greyscale_layer/proc/InternalGenerate_entry(list/colors, datum/icon_batch_entry/new_icon)
+/datum/greyscale_layer/proc/InternalGenerate_entry(list/colors, datum/universal_icon/new_icon)
 	return new_icon
 
 ////////////////////////////////////////////////////////
@@ -130,9 +130,9 @@
 		generated_icon.Blend(colors[1], ICON_MULTIPLY)
 	return generated_icon
 
-/datum/greyscale_layer/icon_state/InternalGenerate_entry(list/colors, datum/icon_batch_entry/new_icon)
+/datum/greyscale_layer/icon_state/InternalGenerate_entry(list/colors, datum/universal_icon/new_icon)
 	. = ..()
-	var/datum/icon_batch_entry/generated_icon = u_icon_entry(icon_file, icon_state)
+	var/datum/universal_icon/generated_icon = uni_icon(icon_file, icon_state)
 	if(length(colors))
 		generated_icon.blend_color(colors[1], ICON_MULTIPLY)
 	return generated_icon
@@ -181,8 +181,8 @@
 		generated_icon = reference_type.Generate(colors.Join(), new_icon)
 	return icon(generated_icon, icon_state)
 
-/datum/greyscale_layer/reference/InternalGenerate_entry(list/colors, datum/icon_batch_entry/new_icon)
-	var/datum/icon_batch_entry/generated_icon = reference_type.Generate_entry(colors.Join(), new_icon)
+/datum/greyscale_layer/reference/InternalGenerate_entry(list/colors, datum/universal_icon/new_icon)
+	var/datum/universal_icon/generated_icon = reference_type.Generate_entry(colors.Join(), new_icon)
 	generated_icon = generated_icon.copy()
 	generated_icon.icon_state = icon_state
 	return generated_icon

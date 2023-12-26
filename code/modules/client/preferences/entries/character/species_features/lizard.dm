@@ -1,22 +1,22 @@
 /proc/generate_lizard_side_shots(list/sprite_accessories, key, include_snout = TRUE)
 	var/list/values = list()
 
-	var/datum/icon_batch_entry/lizard = u_icon_entry('icons/mob/species/lizard/bodyparts.dmi', "lizard_head", dir = EAST)
+	var/datum/universal_icon/lizard = uni_icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_head", dir = EAST)
 
-	var/datum/icon_batch_entry/eyes = u_icon_entry('icons/mob/human_face.dmi', "eyes", dir = EAST)
+	var/datum/universal_icon/eyes = uni_icon('icons/mob/human_face.dmi', "eyes", dir = EAST)
 	eyes.blend_color(COLOR_GRAY, ICON_MULTIPLY)
 	lizard.blend_icon(eyes, ICON_OVERLAY)
 
 	if (include_snout)
-		lizard.blend_icon(u_icon_entry('icons/mob/mutant_bodyparts.dmi', "m_snout_round_ADJ", dir = EAST), ICON_OVERLAY)
+		lizard.blend_icon(uni_icon('icons/mob/mutant_bodyparts.dmi', "m_snout_round_ADJ", dir = EAST), ICON_OVERLAY)
 
 	for (var/name in sprite_accessories)
 		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
 
-		var/datum/icon_batch_entry/final_icon = lizard.copy()
+		var/datum/universal_icon/final_icon = lizard.copy()
 
 		if (sprite_accessory.icon_state != "none")
-			var/datum/icon_batch_entry/accessory_icon = u_icon_entry(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_ADJ", dir = EAST)
+			var/datum/universal_icon/accessory_icon = uni_icon(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_ADJ", dir = EAST)
 			final_icon.blend_icon(accessory_icon, ICON_OVERLAY)
 
 		final_icon.crop(11, 20, 23, 32)
@@ -38,15 +38,15 @@
 /datum/preference/choiced/lizard_body_markings/init_possible_values()
 	var/list/values = list()
 
-	var/datum/icon_batch_entry/lizard = u_icon_entry('icons/mob/species/lizard/bodyparts.dmi', "lizard_chest_m", dir = SOUTH)
+	var/datum/universal_icon/lizard = uni_icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_chest_m", dir = SOUTH)
 
 	for (var/name in GLOB.body_markings_list)
 		var/datum/sprite_accessory/sprite_accessory = GLOB.body_markings_list[name]
 
-		var/datum/icon_batch_entry/final_icon = lizard.copy()
+		var/datum/universal_icon/final_icon = lizard.copy()
 
 		if (sprite_accessory.icon_state != "none")
-			var/datum/icon_batch_entry/body_markings_icon = u_icon_entry(
+			var/datum/universal_icon/body_markings_icon = uni_icon(
 				'icons/mob/mutant_bodyparts.dmi',
 				"m_body_markings_[sprite_accessory.icon_state]_ADJ",
 				dir = SOUTH
@@ -156,20 +156,20 @@
 		BODY_ZONE_PRECISE_R_HAND,
 		BODY_ZONE_R_LEG,
 	)
-	var/datum/icon_batch_entry/body_icon = u_icon_entry('icons/effects/effects.dmi', "nothing")
+	var/datum/universal_icon/body_icon = uni_icon('icons/effects/effects.dmi', "nothing")
 	for (var/body_part in body_parts)
 		var/gender = body_part == BODY_ZONE_CHEST ? "_m" : ""
-		body_icon.blend_icon(u_icon_entry('icons/mob/species/lizard/bodyparts.dmi', "lizard_[body_part][gender]", dir = EAST), ICON_OVERLAY)
+		body_icon.blend_icon(uni_icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_[body_part][gender]", dir = EAST), ICON_OVERLAY)
 	if(show_tail)
-		body_icon.blend_icon(u_icon_entry('icons/mob/mutant_bodyparts.dmi', "m_tail_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
+		body_icon.blend_icon(uni_icon('icons/mob/mutant_bodyparts.dmi', "m_tail_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
 
 	for (var/sprite_name in sprite_accessories)
 		var/datum/sprite_accessory/sprite = sprite_accessories[sprite_name]
-		var/datum/icon_batch_entry/icon_with_changes = body_icon.copy()
+		var/datum/universal_icon/icon_with_changes = body_icon.copy()
 
 		if (sprite_name != "None")
 			var/ex = key == "spines" ? "ADJ" : "BEHIND"
-			var/datum/icon_batch_entry/sprite_icon = u_icon_entry('icons/mob/mutant_bodyparts.dmi', "m_[key]_[sprite.icon_state]_[ex]", dir = EAST)
+			var/datum/universal_icon/sprite_icon = uni_icon('icons/mob/mutant_bodyparts.dmi', "m_[key]_[sprite.icon_state]_[ex]", dir = EAST)
 			icon_with_changes.blend_icon(sprite_icon, ICON_OVERLAY)
 		icon_with_changes.blend_color(COLOR_LIME, ICON_MULTIPLY)
 

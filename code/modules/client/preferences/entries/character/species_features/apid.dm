@@ -12,9 +12,9 @@
 	for (var/stripe_name in GLOB.apid_stripes_list)
 		var/datum/sprite_accessory/stripe = GLOB.apid_stripes_list[stripe_name]
 
-		var/datum/icon_batch_entry/icon_with_stripes = u_icon_entry('icons/mob/species/apid/bodyparts.dmi', "apid_chest_m", dir = SOUTH)
+		var/datum/universal_icon/icon_with_stripes = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_chest_m", dir = SOUTH)
 		if (stripe.icon_state != "none")
-			var/datum/icon_batch_entry/stripes_icon = u_icon_entry(stripe.icon, "m_apid_stripes_[stripe.icon_state]_ADJ", dir = SOUTH)
+			var/datum/universal_icon/stripes_icon = uni_icon(stripe.icon, "m_apid_stripes_[stripe.icon_state]_ADJ", dir = SOUTH)
 			stripes_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
 			icon_with_stripes.blend_icon(stripes_icon, ICON_OVERLAY)
 
@@ -43,9 +43,9 @@
 	for (var/antenna_name in GLOB.apid_antenna_list)
 		var/datum/sprite_accessory/antenna = GLOB.apid_antenna_list[antenna_name]
 
-		var/datum/icon_batch_entry/icon_with_antennae = u_icon_entry('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
+		var/datum/universal_icon/icon_with_antennae = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 		if (antenna.icon_state != "none")
-			var/datum/icon_batch_entry/antenna_icon = u_icon_entry(antenna.icon, "m_apid_antenna_[antenna.icon_state]_ADJ", dir = SOUTH)
+			var/datum/universal_icon/antenna_icon = uni_icon(antenna.icon, "m_apid_antenna_[antenna.icon_state]_ADJ", dir = SOUTH)
 			antenna_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
 			icon_with_antennae.blend_icon(antenna_icon, ICON_OVERLAY)
 		icon_with_antennae.scale(64, 64)
@@ -72,9 +72,9 @@
 	for (var/headstripe_name in GLOB.apid_headstripes_list)
 		var/datum/sprite_accessory/headstripe = GLOB.apid_headstripes_list[headstripe_name]
 
-		var/datum/icon_batch_entry/icon_with_headstripes = u_icon_entry('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
+		var/datum/universal_icon/icon_with_headstripes = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 		if (headstripe.icon_state != "none")
-			var/datum/icon_batch_entry/headstripes_icon = u_icon_entry(headstripe.icon, "m_apid_headstripes_[headstripe.icon_state]_ADJ", dir = SOUTH)
+			var/datum/universal_icon/headstripes_icon = uni_icon(headstripe.icon, "m_apid_headstripes_[headstripe.icon_state]_ADJ", dir = SOUTH)
 			headstripes_icon.blend_color(COLOR_YELLOW, ICON_MULTIPLY)
 			icon_with_headstripes.blend_icon(headstripes_icon, ICON_OVERLAY)
 		icon_with_headstripes.scale(64, 64)

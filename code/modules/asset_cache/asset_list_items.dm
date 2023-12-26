@@ -240,23 +240,23 @@
 /datum/asset/spritesheet_batched/medicine_containers/create_spritesheets()
 	var/dmi_file = 'icons/obj/medicine_containers.dmi'
 	for(var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
-		var/datum/icon_batch_entry/target_icon = icon_entry(each_pill_shape, dmi_file, each_pill_shape)
+		var/datum/universal_icon/target_icon = uni_icon(dmi_file, each_pill_shape)
 		if(!target_icon)
 			continue
 		target_icon.crop(11,10, 21,20)
 		target_icon.scale(22, 22)
-		insert_icon(target_icon)
+		insert_icon(each_pill_shape, target_icon)
 	for(var/each_patch_shape in PATCH_SHAPE_LIST)
-		var/datum/icon_batch_entry/target_icon = icon_entry(each_patch_shape, dmi_file, each_patch_shape)
+		var/datum/universal_icon/target_icon = uni_icon(dmi_file, each_patch_shape)
 		if(!target_icon)
 			continue
 		target_icon.crop(11,12, 21,22)
 		target_icon.scale(22, 22)
-		insert_icon(target_icon)
+		insert_icon(each_patch_shape, target_icon)
 
 //this exists purely to avoid meta by pre-loading all language icons.
 /datum/asset/language/register()
-	for(var/path in typesof(/datum/language))
+	for(var/path in subtypesof(/datum/language))
 		set waitfor = FALSE
 		var/datum/language/L = new path ()
 		L.get_icon()
@@ -284,119 +284,112 @@
 		var/icon_file = 'icons/obj/supplypods.dmi'
 		var/states = icon_states(icon_file)
 		if (style == STYLE_SEETHROUGH)
-			insert_icon(icon_entry("pod_asset[style]", icon_file, "seethrough-icon", SOUTH))
+			insert_icon("pod_asset[style]", uni_icon(icon_file, "seethrough-icon", SOUTH))
 			continue
 		var/base = GLOB.podstyles[style][POD_BASE]
 		if (!base)
-			insert_icon(icon_entry("pod_asset[style]", icon_file, "invisible-icon", SOUTH))
+			insert_icon("pod_asset[style]", uni_icon(icon_file, "invisible-icon", SOUTH))
 			continue
-		var/datum/icon_batch_entry/pod_icon = icon_entry("pod_asset[style]", icon_file, base, SOUTH)
+		var/datum/universal_icon/pod_icon = uni_icon(icon_file, base, SOUTH)
 
 		var/door = GLOB.podstyles[style][POD_DOOR]
 		if (door && ("[base]_door" in states))
-			pod_icon.blend_icon(u_icon_entry(icon_file, "[base]_door", SOUTH), ICON_OVERLAY)
+			pod_icon.blend_icon(uni_icon(icon_file, "[base]_door", SOUTH), ICON_OVERLAY)
 
 		var/shape = GLOB.podstyles[style][POD_SHAPE]
 		if (shape != POD_SHAPE_NORML)
-			insert_icon(pod_icon)
+			insert_icon("pod_asset[style]", pod_icon)
 			continue
 		var/decal = GLOB.podstyles[style][POD_DECAL]
 		if (decal && (decal in states))
-			pod_icon.blend_icon(u_icon_entry(icon_file, decal, SOUTH), ICON_OVERLAY)
+			pod_icon.blend_icon(uni_icon(icon_file, decal, SOUTH), ICON_OVERLAY)
 
 		var/glow = GLOB.podstyles[style][POD_GLOW]
 		if (glow && ("pod_glow_[glow]" in states))
-			pod_icon.blend_icon(u_icon_entry(icon_file, "pod_glow_[glow]", SOUTH), ICON_OVERLAY)
+			pod_icon.blend_icon(uni_icon(icon_file, "pod_glow_[glow]", SOUTH), ICON_OVERLAY)
 
-		insert_icon(pod_icon)
+		insert_icon("pod_asset[style]", pod_icon)
 
 
 // Representative icons for each research design
 /datum/asset/spritesheet_batched/research_designs
 	name = "design"
 
-/datum/asset/spritesheet_batched/research_designs/collect_typepaths()
-	return subtypesof(/datum/design)
+/datum/asset/spritesheet_batched/research_designs/create_spritesheets()
+	for (var/datum/design/D as() in subtypesof(/datum/design))
+		var/icon_file
+		var/icon_state
+		var/datum/icon_transformer/transform = null
 
-/datum/asset/spritesheet_batched/research_designs/typepath_to_icon_entry(type)
-	var/datum/design/D = type
-	if(!D)
-		return null
-
-	var/icon_file
-	var/icon_state
-	var/datum/icon_transformer/transform = null
-
-	if(initial(D.research_icon) && initial(D.research_icon_state)) //If the design has an icon replacement skip the rest
-		icon_file = initial(D.research_icon)
-		icon_state = initial(D.research_icon_state)
-	else
-		// construct the icon and slap it into the resource cache
-		var/atom/item = initial(D.build_path)
-		if (!ispath(item, /atom))
-			// biogenerator outputs to beakers by default
-			if (initial(D.build_type) & BIOGENERATOR)
-				item = /obj/item/reagent_containers/glass/beaker/large
-			else
-				return  // shouldn't happen, but just in case
-
-		// circuit boards become their resulting machines or computers
-		if (ispath(item, /obj/item/circuitboard))
-			var/obj/item/circuitboard/C = item
-			var/machine = initial(C.build_path)
-			if (machine)
-				item = machine
-
-		if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
-			var/obj/item/bodypart/body_part = item
-			icon_file = initial(body_part.static_icon)
+		if(initial(D.research_icon) && initial(D.research_icon_state)) //If the design has an icon replacement skip the rest
+			icon_file = initial(D.research_icon)
+			icon_state = initial(D.research_icon_state)
 		else
-			icon_file = initial(item.icon)
+			// construct the icon and slap it into the resource cache
+			var/atom/item = initial(D.build_path)
+			if (!ispath(item, /atom))
+				// biogenerator outputs to beakers by default
+				if (initial(D.build_type) & BIOGENERATOR)
+					item = /obj/item/reagent_containers/glass/beaker/large
+				else
+					continue  // shouldn't happen, but just in case
+					// hint^ it does fucking happen. this was giving me so much trouble
 
-		icon_state = initial(item.icon_state)
+			// circuit boards become their resulting machines or computers
+			if (ispath(item, /obj/item/circuitboard))
+				var/obj/item/circuitboard/C = item
+				var/machine = initial(C.build_path)
+				if (machine)
+					item = machine
 
-		if(initial(item.color))
-			transform = colorize(initial(item.color))
+			if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
+				var/obj/item/bodypart/body_part = item
+				icon_file = initial(body_part.static_icon)
+			else
+				icon_file = initial(item.icon)
 
-		// computers (and snowflakes) get their screen and keyboard sprites
-		if (ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
-			if(!transform)
-				transform = new()
-			var/obj/machinery/computer/C = item
-			var/screen = initial(C.icon_screen)
-			var/keyboard = initial(C.icon_keyboard)
-			if (screen)
-				transform.blend_icon(u_icon_entry(icon_file, icon_state), ICON_OVERLAY)
-			if (keyboard)
-				transform.blend_icon(u_icon_entry(icon_file, icon_state), ICON_OVERLAY)
-	return icon_entry(initial(D.id), icon_file, icon_state, transform=transform)
+			icon_state = initial(item.icon_state)
+
+			if(initial(item.color))
+				transform = color_transform(initial(item.color))
+
+			// computers (and snowflakes) get their screen and keyboard sprites
+			if (ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
+				if(!transform)
+					transform = new()
+				var/obj/machinery/computer/C = item
+				var/all_states = icon_states(icon_file)
+				var/screen = initial(C.icon_screen)
+				var/keyboard = initial(C.icon_keyboard)
+				if (screen && (screen in all_states))
+					transform.blend_icon(uni_icon(icon_file, screen), ICON_OVERLAY)
+				if (keyboard && (keyboard in all_states))
+					transform.blend_icon(uni_icon(icon_file, keyboard), ICON_OVERLAY)
+		insert_icon(initial(D.id), uni_icon(icon_file, icon_state, transform=transform))
 
 /datum/asset/spritesheet_batched/vending
 	name = "vending"
 
-/datum/asset/spritesheet_batched/vending/collect_typepaths()
+/datum/asset/spritesheet_batched/vending/create_spritesheets()
 	// initialising the list of items we need
 	var/target_items = list()
 	var/prize_dummy = list()
-	for(var/obj/machinery/vendor/V as() in typesof(/obj/machinery/vendor))
+	for(var/obj/machinery/vendor/V as() in subtypesof(/obj/machinery/vendor))
 		V = new V()
 		prize_dummy |= V.prize_list // prize_list is added by Init()
 		qdel(V)
 	for(var/datum/data/vendor_equipment/V as() in prize_dummy)
 		target_items |= V.equipment_path
-	for(var/obj/machinery/vending/V as() in typesof(/obj/machinery/vending))
+	for(var/obj/machinery/vending/V as() in subtypesof(/obj/machinery/vending))
 		V = new V() // It seems `initial(list var)` has nothing. need to make a type.
 		for(var/O in list(V.products, V.premium, V.contraband))
 			target_items |= O
 		qdel(V)
-	return target_items
-
-/datum/asset/spritesheet_batched/vending/typepath_to_icon_entry(type)
-	var/atom/item = type
-	if (!ispath(item, /atom))
-		return FALSE
-	var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
-	return get_display_icon_for(imgid, item)
+	for(var/atom/item as() in target_items)
+		if (!ispath(item, /atom))
+			return FALSE
+		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
+		insert_icon(imgid, get_display_icon_for(item))
 
 /datum/asset/spritesheet_batched/crafting
 	name = "crafting"
@@ -415,9 +408,9 @@
 		chached_list[A] = TRUE
 
 		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
-		var/datum/icon_batch_entry/entry = get_display_icon_for(imgid, A)
+		var/datum/universal_icon/entry = get_display_icon_for(A)
 		entry.scale(48, 48)
-		insert_icon(entry)
+		insert_icon(imgid, entry)
 
 // basically admin debugging tool assets
 /datum/asset/spritesheet_batched/tools
@@ -425,42 +418,40 @@
 
 /datum/asset/spritesheet_batched/tools/create_spritesheets()
 	var/list/cache_targets = list(
-		TOOL_CROWBAR = u_icon_entry('icons/obj/tools.dmi', "crowbar"),
-		TOOL_MULTITOOL = u_icon_entry('icons/obj/device.dmi', "multitool"),
-		TOOL_SCREWDRIVER = u_icon_entry('icons/obj/tools.dmi', "screwdriver_map"),
-		TOOL_WIRECUTTER = u_icon_entry('icons/obj/tools.dmi', "cutters_map"),
-		TOOL_WRENCH = u_icon_entry('icons/obj/tools.dmi', "wrench"),
-		TOOL_WELDER = u_icon_entry('icons/obj/tools.dmi', "welder"),
-		TOOL_ANALYZER = u_icon_entry('icons/obj/device.dmi', "analyzer"),
-		"wires" = u_icon_entry('icons/obj/power.dmi', "coil"),
+		TOOL_CROWBAR = uni_icon('icons/obj/tools.dmi', "crowbar"),
+		TOOL_MULTITOOL = uni_icon('icons/obj/device.dmi', "multitool"),
+		TOOL_SCREWDRIVER = uni_icon('icons/obj/tools.dmi', "screwdriver_map"),
+		TOOL_WIRECUTTER = uni_icon('icons/obj/tools.dmi', "cutters_map"),
+		TOOL_WRENCH = uni_icon('icons/obj/tools.dmi', "wrench"),
+		TOOL_WELDER = uni_icon('icons/obj/tools.dmi', "welder"),
+		TOOL_ANALYZER = uni_icon('icons/obj/device.dmi', "analyzer"),
+		"wires" = uni_icon('icons/obj/power.dmi', "coil"),
 
-		TOOL_RETRACTOR = u_icon_entry('icons/obj/surgery.dmi', "retractor"),
-		TOOL_HEMOSTAT = u_icon_entry('icons/obj/surgery.dmi', "hemostat"),
-		TOOL_CAUTERY = u_icon_entry('icons/obj/surgery.dmi', "cautery"),
-		TOOL_DRILL = u_icon_entry('icons/obj/surgery.dmi', "drill"),
-		TOOL_SCALPEL = u_icon_entry('icons/obj/surgery.dmi', "scalpel"),
-		TOOL_SAW = u_icon_entry('icons/obj/surgery.dmi', "saw"),
-		TOOL_BLOODFILTER = u_icon_entry('icons/obj/surgery.dmi', "bloodfilter"),
-		"drapes" = u_icon_entry('icons/obj/surgery.dmi', "surgical_drapes"),
+		TOOL_RETRACTOR = uni_icon('icons/obj/surgery.dmi', "retractor"),
+		TOOL_HEMOSTAT = uni_icon('icons/obj/surgery.dmi', "hemostat"),
+		TOOL_CAUTERY = uni_icon('icons/obj/surgery.dmi', "cautery"),
+		TOOL_DRILL = uni_icon('icons/obj/surgery.dmi', "drill"),
+		TOOL_SCALPEL = uni_icon('icons/obj/surgery.dmi', "scalpel"),
+		TOOL_SAW = uni_icon('icons/obj/surgery.dmi', "saw"),
+		TOOL_BLOODFILTER = uni_icon('icons/obj/surgery.dmi', "bloodfilter"),
+		"drapes" = uni_icon('icons/obj/surgery.dmi', "surgical_drapes"),
 
-		TOOL_MINING = u_icon_entry('icons/obj/mining.dmi', "minipick"),
-		TOOL_SHOVEL = u_icon_entry('icons/obj/mining.dmi', "shovel"),
-		"cultivator" = u_icon_entry('icons/obj/items_and_weapons.dmi', "cultivator"),
-		"spade" = u_icon_entry('icons/obj/mining.dmi', "spade"),
-		TOOL_RUSTSCRAPER = u_icon_entry('icons/obj/tools.dmi', "wirebrush"),
-		TOOL_ROLLINGPIN = u_icon_entry('icons/obj/kitchen.dmi', "rolling_pin"),
-		TOOL_BIKEHORN = u_icon_entry('icons/obj/items_and_weapons.dmi', "bike_horn"),
-		"debug_placeholder" = u_icon_entry('icons/obj/device.dmi', "hypertool")
+		TOOL_MINING = uni_icon('icons/obj/mining.dmi', "minipick"),
+		TOOL_SHOVEL = uni_icon('icons/obj/mining.dmi', "shovel"),
+		"cultivator" = uni_icon('icons/obj/items_and_weapons.dmi', "cultivator"),
+		"spade" = uni_icon('icons/obj/mining.dmi', "spade"),
+		TOOL_RUSTSCRAPER = uni_icon('icons/obj/tools.dmi', "wirebrush"),
+		TOOL_ROLLINGPIN = uni_icon('icons/obj/kitchen.dmi', "rolling_pin"),
+		TOOL_BIKEHORN = uni_icon('icons/obj/items_and_weapons.dmi', "bike_horn"),
+		"debug_placeholder" = uni_icon('icons/obj/device.dmi', "hypertool")
 	)
 	for(var/each in cache_targets)
-
-		var/datum/icon_batch_entry/entry = cache_targets[each]
+		var/datum/universal_icon/entry = cache_targets[each]
 		if(!entry)
-			stack_trace("Sometime's wrong to create an image asset in '/datum/asset/spritesheet_batched/tools'. [each] is null.")
+			stack_trace("Error creating asset for '/datum/asset/spritesheet_batched/tools'. [each]'s icon entry is null.")
 			continue
-		entry.sprite_name = each
 		entry.scale(32, 32)
-		insert_icon(entry)
+		insert_icon(each, entry)
 
 /datum/asset/simple/bee_antags
 	assets = list(
@@ -532,7 +523,7 @@
 	insert_all_icons("", 'icons/obj/stacks/minerals.dmi')
 
 	// Special bee edit to handle Bluespace Crystals
-	insert_icon(icon_entry("polycrystal", 'icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3"))
+	insert_icon("polycrystal", uni_icon('icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3"))
 
 /datum/asset/simple/pAI
 	assets = list(
@@ -566,14 +557,13 @@
 	name = "fish"
 
 /datum/asset/spritesheet_batched/fish/create_spritesheets()
-	for (var/path in subtypesof(/datum/aquarium_behaviour/fish))
-		var/datum/aquarium_behaviour/fish/fish_type = path
+	for (var/datum/aquarium_behaviour/fish/fish_type as() in subtypesof(/datum/aquarium_behaviour/fish))
 		var/fish_icon = initial(fish_type.icon)
 		var/fish_icon_state = initial(fish_type.icon_state)
 		var/id = sanitize_css_class_name("[fish_icon][fish_icon_state]")
 		if(entries[id]) //no dupes
 			continue
-		insert_icon(icon_entry(id, fish_icon, fish_icon_state))
+		insert_icon(id, uni_icon(fish_icon, fish_icon_state))
 
 /// Removes all non-alphanumerics from the text, keep in mind this can lead to id conflicts
 /proc/sanitize_css_class_name(name)
@@ -590,9 +580,8 @@
 	// pre-loading all lanugage icons also helps to avoid meta
 	insert_all_icons("language", 'icons/misc/language.dmi')
 	// catch languages which are pulling icons from another file
-	for(var/path in typesof(/datum/language))
-		var/datum/language/L = path
+	for(var/datum/language/L as() in subtypesof(/datum/language))
 		var/icon = initial(L.icon)
 		if (icon != 'icons/misc/language.dmi')
 			var/icon_state = initial(L.icon_state)
-			insert_icon(icon_entry("language-[icon_state]", icon, icon_state))
+			insert_icon("language-[icon_state]", uni_icon(icon, icon_state))

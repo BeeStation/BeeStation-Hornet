@@ -4,9 +4,6 @@
 /datum/asset/spritesheet_batched
 	_abstract = /datum/asset/spritesheet_batched
 	var/name
-	/// List of arguments to pass into queuedInsert
-	/// Exists so we can queue icon insertion, mostly for stuff like preferences
-	var/list/to_generate = list()
 	/// list("32x32")
 	var/list/sizes = list()
 	/// "foo_bar" -> list("32x32", 5, entry_obj)
@@ -31,42 +28,10 @@
 	return load_immediately
 #endif
 
-/// Override this in order to start the creation of the spritehseet.
-/// This is where you select a list of typepaths to perform operations or transformations on.
-/datum/asset/spritesheet_batched/proc/collect_typepaths()
-	SHOULD_CALL_PARENT(FALSE)
-	CRASH("collect_typepaths() not implemented for [type]!")
-
-/// Override this as the second step of creating a spritesheet.
-/// Provides an icon-schema in the form of a specialized list, given a typepath from collect_typepaths()
-/datum/asset/spritesheet_batched/proc/typepath_to_icon_entry(type)
-	SHOULD_CALL_PARENT(FALSE)
-	CRASH("collect_typepaths() not implemented for [type]!")
-
-/// Constructs a transformer, with optional color multiply pre-added.
-/datum/asset/spritesheet_batched/proc/colorize(color=null)
-	RETURN_TYPE(/datum/icon_transformer)
-	var/datum/icon_transformer/transform = new()
-	if(color)
-		transform.blend_color(color, ICON_MULTIPLY)
-	return transform
-
-/// Constructs an icon entry.
-/datum/asset/spritesheet_batched/proc/icon_entry(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, datum/icon_transformer/transform=null, color=null)
-	return new /datum/icon_batch_entry(sprite_name, I, icon_state, dir, frame, transform, color)
-
-/// Constructs an icon entry, with a blank sprite_name.
-/proc/u_icon_entry(icon/I, icon_state="", dir=SOUTH, frame=1, datum/icon_transformer/transform=null, color=null)
-	return new /datum/icon_batch_entry("", I, icon_state, dir, frame, transform, color)
-
-/datum/asset/spritesheet_batched/proc/insert_icon(datum/icon_batch_entry/entry)
-	if(should_load_immediately())
-		queued_insert_icon(entry)
-	else
-		to_generate += list(args.Copy())
-
-/datum/asset/spritesheet_batched/proc/queued_insert_icon(datum/icon_batch_entry/entry)
-	entries[entry.sprite_name] = entry.to_list()
+/datum/asset/spritesheet_batched/proc/insert_icon(sprite_name, datum/universal_icon/entry)
+	if(!istext(sprite_name) || length(sprite_name) == 0)
+		CRASH("Invalid sprite_name \"[sprite_name]\" given to insert_icon()! Providing non-strings will break icon generation.")
+	entries[sprite_name] = entry.to_list()
 
 /datum/asset/spritesheet_batched/should_refresh()
 	return TRUE
@@ -83,13 +48,10 @@
 	else
 		SSasset_loading.queue_asset(src)
 
+/// Call insert_icon or insert_all_icons here, building a spritesheet!
 /datum/asset/spritesheet_batched/proc/create_spritesheets()
-	var/list/paths = collect_typepaths()
-	for(var/path in paths)
-		var/datum/icon_batch_entry/entry = typepath_to_icon_entry(path)
-		if(!entry)
-			continue
-		insert_icon(entry)
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("create_spritesheets() not implemented for [type]!")
 
 /datum/asset/spritesheet_batched/proc/insert_all_icons(prefix, icon/I, list/directions, prefix_with_dirs = TRUE)
 	if (length(prefix))
@@ -101,17 +63,13 @@
 	for (var/icon_state_name in icon_states(I))
 		for (var/direction in directions)
 			var/prefix2 = (directions.len > 1 && prefix_with_dirs) ? "[dir2text(direction)]-" : ""
-			insert_icon(icon_entry("[prefix][prefix2][icon_state_name]", I, icon_state_name, direction))
+			insert_icon("[prefix][prefix2][icon_state_name]", uni_icon(I, icon_state_name, direction))
 
 /datum/asset/spritesheet_batched/proc/realize_spritesheets(yield)
 	if(fully_generated)
 		return
-	while(length(to_generate))
-		var/list/stored_args = to_generate[to_generate.len]
-		to_generate.len--
-		queued_insert_icon(arglist(stored_args))
-		if(yield && TICK_CHECK)
-			return
+	if(!length(entries))
+		CRASH("Spritesheet [name] ([type]) is empty! What are you doing?")
 	var/data_out
 	if(yield || !isnull(job_id))
 		if(isnull(job_id))
@@ -239,7 +197,8 @@
 #undef SPR_SIZE
 #undef SPR_IDX
 
-/proc/get_display_icon_for(sprite_name, atom/A)
+/// Gets the relevant universal icon for an atom, when displayed in TGUI. (see: vendor_icon_preview)
+/proc/get_display_icon_for(atom/A)
 	if (!ispath(A, /atom))
 		return FALSE
 	var/icon_file = initial(A.icon)
@@ -249,12 +208,7 @@
 		if(initial(I.vendor_icon_preview))
 			icon_state = initial(I.vendor_icon_preview)
 		if(initial(I.greyscale_config) && initial(I.greyscale_colors))
-			return gags_to_batch(sprite_name, I)
-	return new /datum/icon_batch_entry(sprite_name, icon_file, icon_state, color=initial(A.color))
+			return gags_to_universal_icon(I)
+	return uni_icon(icon_file, icon_state, color=initial(A.color))
 
-/proc/gags_to_batch(sprite_name, obj/item/path)
-	var/datum/greyscale_config/config = initial(path.greyscale_config)
-	var/colors = initial(path.greyscale_colors)
-	var/datum/icon_batch_entry/entry = SSgreyscale.GetColoredIconEntryByType(config, colors, initial(path.icon_state))
-	entry.sprite_name = sprite_name
-	return entry
+

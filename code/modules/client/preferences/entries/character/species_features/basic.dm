@@ -1,7 +1,7 @@
 /proc/generate_possible_values_for_sprite_accessories_on_head(accessories)
 	var/list/values = possible_values_for_sprite_accessory_list(accessories)
 
-	var/datum/icon_batch_entry/head_icon = u_icon_entry('icons/mob/human_parts_greyscale.dmi', "human_head_m")
+	var/datum/universal_icon/head_icon = uni_icon('icons/mob/human_parts_greyscale.dmi', "human_head_m")
 	head_icon.blend_color(skintone2hex("caucasian1", include_tag = TRUE), ICON_MULTIPLY)
 
 	for (var/name in values)
@@ -9,9 +9,9 @@
 		if (accessory == null || accessory.icon_state == null)
 			continue
 
-		var/datum/icon_batch_entry/final_icon = head_icon.copy()
+		var/datum/universal_icon/final_icon = head_icon.copy()
 
-		var/datum/icon_batch_entry/beard_icon = values[name]
+		var/datum/universal_icon/beard_icon = values[name]
 		beard_icon.blend_color("#42250a", ICON_MULTIPLY)
 		final_icon.blend_icon(beard_icon, ICON_OVERLAY)
 
@@ -129,31 +129,31 @@
 		BODY_ZONE_L_LEG,
 		BODY_ZONE_R_LEG,
 	)
-	var/datum/icon_batch_entry/body_icon = u_icon_entry('icons/effects/effects.dmi', "nothing")
+	var/datum/universal_icon/body_icon = uni_icon('icons/effects/effects.dmi', "nothing")
 	for (var/body_part in body_parts)
 		var/gender = body_part == BODY_ZONE_CHEST || body_part == BODY_ZONE_HEAD ? "_m" : ""
-		body_icon.blend_icon(u_icon_entry('icons/mob/human_parts_greyscale.dmi', "human_[body_part][gender]", dir = NORTH), ICON_OVERLAY)
+		body_icon.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_[body_part][gender]", dir = NORTH), ICON_OVERLAY)
 	body_icon.blend_color(skintone2hex("caucasian1", include_tag = TRUE), ICON_MULTIPLY)
-	var/datum/icon_batch_entry/jumpsuit_icon = u_icon_entry('icons/mob/clothing/uniform.dmi', "jumpsuit", dir = NORTH)
+	var/datum/universal_icon/jumpsuit_icon = uni_icon('icons/mob/clothing/uniform.dmi', "jumpsuit", dir = NORTH)
 	jumpsuit_icon.blend_color("#b3b3b3", ICON_MULTIPLY)
 	body_icon.blend_icon(jumpsuit_icon, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/hair_accessory = GLOB.hair_styles_list["Very Long Hair 2"]
-	var/datum/icon_batch_entry/hair_icon = u_icon_entry(hair_accessory.icon, hair_accessory.icon_state, dir = NORTH)
+	var/datum/universal_icon/hair_icon = uni_icon(hair_accessory.icon, hair_accessory.icon_state, dir = NORTH)
 	hair_icon.blend_color("#080501", ICON_MULTIPLY)
 
 	for (var/name in values)
 		var/datum/sprite_accessory/accessory = GLOB.hair_gradients_list[name]
 		if (accessory == null)
 			if(accessory.icon_state == null || accessory.icon_state == "none")
-				values[name] = u_icon_entry('icons/mob/landmarks.dmi', "x")
+				values[name] = uni_icon('icons/mob/landmarks.dmi', "x")
 			continue
 
-		var/datum/icon_batch_entry/final_icon = body_icon.copy()
-		var/datum/icon_batch_entry/base_hair_icon = hair_icon.copy()
-		var/datum/icon_batch_entry/gradient_hair_icon = u_icon_entry(hair_accessory.icon, hair_accessory.icon_state, dir = NORTH)
+		var/datum/universal_icon/final_icon = body_icon.copy()
+		var/datum/universal_icon/base_hair_icon = hair_icon.copy()
+		var/datum/universal_icon/gradient_hair_icon = uni_icon(hair_accessory.icon, hair_accessory.icon_state, dir = NORTH)
 
-		var/datum/icon_batch_entry/gradient_icon = values[name]
+		var/datum/universal_icon/gradient_icon = values[name]
 		gradient_icon.blend_icon(gradient_hair_icon, ICON_ADD)
 		gradient_icon.blend_color("#42250a", ICON_MULTIPLY)
 		base_hair_icon.blend_icon(gradient_icon, ICON_OVERLAY)
