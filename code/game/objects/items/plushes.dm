@@ -729,28 +729,29 @@
 /obj/item/choice_beacon/radial/plushie
 	name = "plushie delivery beacon"
 	desc = "Summon your new friend!"
-	icon_state = "gangtool-red"
+	icon_state = "gangtool-orange"
 	var/static/list/plushie_list
 
 /obj/item/choice_beacon/radial/plushie/Initialize(mapload)
 	. = ..()
-	plushie_list = list(/obj/item/toy/plush/bubbleplush,
-							/obj/item/toy/plush/carpplushie,
-							/obj/item/toy/plush/plushvar,
-							/obj/item/toy/plush/narplush,
-							/obj/item/toy/plush/snakeplushie,
-							/obj/item/toy/plush/lizardplushie,
-							/obj/item/toy/plush/slimeplushie,
-							/obj/item/toy/plush/nukeplushie,
-							/obj/item/toy/plush/awakenedplushie,
-							/obj/item/toy/plush/beeplushie,
-							/obj/item/toy/plush/crossed,
-							/obj/item/toy/plush/rouny,
-							/obj/item/toy/plush/runtime,
-							/obj/item/toy/plush/flushed,
-							/obj/item/toy/plush/gondola,
-							/obj/item/toy/plush/spessgondolaplush,
-							)
+	plushie_list = list(
+		/obj/item/toy/plush/bubbleplush,
+		/obj/item/toy/plush/carpplushie,
+		/obj/item/toy/plush/plushvar,
+		/obj/item/toy/plush/narplush,
+		/obj/item/toy/plush/snakeplushie,
+		/obj/item/toy/plush/lizardplushie,
+		/obj/item/toy/plush/slimeplushie,
+		/obj/item/toy/plush/nukeplushie,
+		/obj/item/toy/plush/awakenedplushie,
+		/obj/item/toy/plush/beeplushie,
+		/obj/item/toy/plush/crossed,
+		/obj/item/toy/plush/rouny,
+		/obj/item/toy/plush/runtime,
+		/obj/item/toy/plush/flushed,
+		/obj/item/toy/plush/gondola,
+		/obj/item/toy/plush/spessgondolaplush,
+		)
 
 /obj/item/choice_beacon/radial/plushie/generate_options(mob/living/M)
 	var/list/item_list = generate_item_list()
