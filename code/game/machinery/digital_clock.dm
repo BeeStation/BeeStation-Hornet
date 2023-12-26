@@ -18,7 +18,7 @@
 	desc = "Used to build digital clocks, just secure to the wall."
 	icon_state = "digital_clock"
 	icon = 'icons/obj/wallframe.dmi'
-	materials = list(/datum/material/iron = 700, /datum/material/glass = 400)
+	custom_materials = list(/datum/material/iron = 700, /datum/material/glass = 400)
 	result_path = /obj/machinery/digital_clock
 	pixel_shift = -28
 
