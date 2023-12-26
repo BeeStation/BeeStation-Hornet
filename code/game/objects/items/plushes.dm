@@ -751,7 +751,29 @@
 		/obj/item/toy/plush/flushed,
 		/obj/item/toy/plush/gondola,
 		/obj/item/toy/plush/spessgondolaplush,
-		)
+		/obj/item/toy/plush/moth/atlas,
+		/obj/item/toy/plush/moth/bluespace,
+		/obj/item/toy/plush/moth/brown,
+		/obj/item/toy/plush/moth/clockwork,
+		/obj/item/toy/plush/moth/deadhead,
+		/obj/item/toy/plush/moth/firewatch,
+		/obj/item/toy/plush/moth/gothic,
+		/obj/item/toy/plush/moth/lovers,
+		/obj/item/toy/plush/moth/luna,
+		/obj/item/toy/plush/moth/monarch,
+		/obj/item/toy/plush/moth/moonfly,
+		/obj/item/toy/plush/moth/plasmafire,
+		/obj/item/toy/plush/moth/poison,
+		/obj/item/toy/plush/moth/punished,
+		/obj/item/toy/plush/moth/ragged,
+		/obj/item/toy/plush/moth/rainbow,
+		/obj/item/toy/plush/moth/redish,
+		/obj/item/toy/plush/moth/rosy,
+		/obj/item/toy/plush/moth/royal,
+		/obj/item/toy/plush/moth/snow,
+		/obj/item/toy/plush/moth/whitefly,
+		/obj/item/toy/plush/moth/witchwing
+	)
 
 /obj/item/choice_beacon/radial/plushie/generate_options(mob/living/M)
 	var/list/item_list = generate_item_list()
