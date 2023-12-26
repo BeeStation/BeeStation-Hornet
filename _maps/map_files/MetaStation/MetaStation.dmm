@@ -456,7 +456,7 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "abm" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -14215,7 +14215,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "buT" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = 24
@@ -29980,7 +29980,7 @@
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "dTL" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
@@ -55320,7 +55320,7 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "oju" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
