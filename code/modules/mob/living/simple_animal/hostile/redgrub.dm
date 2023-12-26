@@ -172,7 +172,7 @@
 
 /mob/living/simple_animal/hostile/redgrub/harvest(mob/living/user) //used for extra objects etc. in butchering
 	for(var/i in 1 to growthstage)
-		var/obj/item/reagent_containers/food/snacks/meat/rawcutlet/grub/meat = new(src.loc)
+		var/obj/item/food/meat/rawcutlet/grub/meat = new(src.loc)
 		for(var/datum/disease/advance/A in grub_diseases)
 			if(A.spread_flags & DISEASE_SPREAD_FALTERED)
 				grub_diseases -= A
