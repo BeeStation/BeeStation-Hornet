@@ -332,17 +332,25 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/area/A = get_area(get_turf(src))
 	A.color_correction = color_correction
 
-
 // This will put directional windows to adjucant turfs if airs will likely be vaccuumed.
 // Putting this on a space turf is recommended. If you put this on an open tile, it will place directional windows anyway.
 // If a turf is not valid to put a tile, it will automatically make a turf for failsafe.
+// NOTE: This helper is specialised for space-proof, not just for standard mapping.
 /obj/effect/mapping_helpers/space_window_placer
 	name = "Placer: Spaceproof directional windows"
-	icon_state = "directional_window_placer"
+	icon_state = "space_directional_window_placer"
 	late = TRUE
+
+	/** Mapper options **/
+	/// Determines which window type it will create
 	var/window_type = /obj/structure/window/reinforced
 
+	/** internal code variables - not for mappers **/
+	/// used to skip a direction on a turf
+	var/skip_direction
+	/// there are a few stuff that "CanAtmosPass()" is not reliable
 	var/static/list/unliable_atmos_blockers
+
 
 /obj/effect/mapping_helpers/space_window_placer/Initialize(mapload)
 	. = ..()
@@ -352,19 +360,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/space_window_placer/LateInitialize()
 	. = ..()
 	if(!z || !x || !y)
-		CRASH("It's not unable to place directional windows - xyz is null.")
+		CRASH("It's not unable to place Spaceproof directional windoe placer - xyz is null.")
 
 	var/turf/my_turf = get_turf(src)
-	var/list/nearby_turfs = list(
-		my_turf.get_nearby_turf_by_dir(SOUTH),
-		my_turf.get_nearby_turf_by_dir(NORTH),
-		my_turf.get_nearby_turf_by_dir(WEST),
-		my_turf.get_nearby_turf_by_dir(EAST))
+	if(!my_turf)
+		CRASH("Spaceproof directional windoe placer failed to find a turf.")
 
 	// checks if turfs are fine to place a directional window
 	var/unliable_atmos_blocking
-	for(var/turf/each_turf in nearby_turfs)
-		if(!each_turf || isspaceturf(each_turf) || isopenspace(each_turf))
+	for(var/turf/each_turf in get_adjacent_open_turfs(my_turf))
+		if(isspaceturf(each_turf) || isopenspace(each_turf))
 			continue
 
 		if(!each_turf.CanAtmosPass(my_turf))
@@ -375,12 +380,22 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 			if(unliable_atmos_blocking)
 				break
 
+	var/list/nearby_turfs = list()
+	for(var/turf/each_turf in get_adjacent_open_turfs(my_turf))
+		if(unliable_atmos_blocking)
+			var/obj/effect/mapping_helpers/space_window_placer/nearby_placer = locate() in each_turf
+			if(nearby_placer) // we don't place windows there + give a value to skip directon
+				nearby_placer.skip_direction |= get_dir(each_turf, my_turf)
+				continue
+			if(skip_direction & get_dir(my_turf, each_turf))
+				continue
+		nearby_turfs += each_turf
+
+
 	// well, it's a bad idea to put a directional window here. Mapping failsafe process here.
 	if(unliable_atmos_blocking && (isspaceturf(my_turf) || isopenspace(my_turf)))
 		my_turf.PlaceOnTop(list(/turf/open/floor/plating, /turf/open/floor/plasteel), flags = CHANGETURF_INHERIT_AIR)
 		for(var/turf/each_turf in nearby_turfs)
-			if(!each_turf)
-				continue
 			if(isspaceturf(each_turf) || isopenspace(each_turf))
 				var/obj/d_glass = new window_type(my_turf)
 				d_glass.dir = get_dir(my_turf, each_turf)
@@ -394,10 +409,98 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 
 	// puts a directional window for each direction.
 	for(var/turf/each_turf in nearby_turfs)
-		if(!each_turf || !each_turf.CanAtmosPass(my_turf) || isspaceturf(each_turf) || isopenspace(each_turf))
+		if(!each_turf.CanAtmosPass(my_turf) || isspaceturf(each_turf) || isopenspace(each_turf))
 			continue
 
 		var/obj/d_glass = new window_type(each_turf)
 		d_glass.dir = get_dir(d_glass, my_turf)
 
 	qdel(src)
+
+/obj/effect/mapping_helpers/group_window_placer
+	name = "Placer: Grouped directional windows"
+	icon_state = "group_directional_window_placer"
+	late = TRUE
+
+	/** Mapper options **/
+	/// Determines which window type it will create.
+	/// Make a subtype of this mapping helper to change this value instead of manual change in DMM.
+	var/window_type = /obj/structure/window/reinforced
+	/// Directional window will not be placed to a direction from the adjacent turf where a fulltile glass exists.
+	/// If you set this TRUE, the windows will be placed.
+	var/place_onto_fulltile_window
+	/// Set TRUE to ignore group chain initialization
+	var/single
+
+	/** internal code variables - not for mappers **/
+	/// failsafe var to prevent it to run a code
+	var/to_be_initialized
+	/// a list of mappers that will be initialized together.
+	var/list/init_group
+
+/obj/effect/mapping_helpers/group_window_placer/LateInitialize()
+	. = ..()
+	if(to_be_initialized)
+		return
+
+	if(!z || !x || !y)
+		CRASH("It's not unable to use group_window_placer - xyz is null.")
+
+	var/turf/my_turf = get_turf(src)
+	if(!my_turf)
+		CRASH("group_window_placer failed to find a turf.")
+
+	if(single)
+		to_be_initialized = TRUE
+		finish_late_init(list(WEAKREF(src)))
+		return
+
+	init_group = list()
+	build_group(init_group)
+	finish_late_init()
+
+/obj/effect/mapping_helpers/group_window_placer/proc/build_group(list/chain_init_group)
+	if(to_be_initialized) // shouldn't reach here but just in case
+		return
+	to_be_initialized = TRUE
+	chain_init_group[WEAKREF(src)] = TRUE
+	for(var/turf/each_turf in get_adjacent_open_turfs(get_turf(src)))
+		var/obj/effect/mapping_helpers/group_window_placer/placer = locate() in each_turf
+		if(!placer || chain_init_group[WEAKREF(placer)] || placer.to_be_initialized)
+			continue
+		placer.build_group(chain_init_group)
+
+/obj/effect/mapping_helpers/group_window_placer/proc/finish_late_init()
+	for(var/datum/weakref/each_ref in init_group)
+		var/obj/effect/mapping_helpers/group_window_placer/each_placer = each_ref.resolve()
+		var/turf/my_turf = get_turf(each_placer)
+		var/list/nearby_turfs = list()
+		for(var/turf/each_turf in get_adjacent_open_turfs(my_turf))
+			if(each_turf.density)
+				continue
+			if(locate(/obj/effect/mapping_helpers/group_window_placer) in each_turf)
+				continue
+				// skip this - that direction should be connected
+			if(locate(/obj/effect/mapping_helpers/space_window_placer) in each_turf)
+				continue
+				// skip this - you won't want to have two directional window in the same directional spot.
+				// NOTE: this is "SPACE" window placer, not "GROUP"
+			if(place_onto_fulltile_window)
+				var/is_fulltile
+				for(var/obj/structure/window/window_on_turf in my_turf.contents)
+					if(window_on_turf.fulltile)
+						is_fulltile = TRUE
+						break
+				if(is_fulltile)
+					continue
+			nearby_turfs += each_turf
+
+		for(var/turf/each_turf in nearby_turfs)
+			var/obj/d_glass = new each_placer.window_type(my_turf)
+			d_glass.dir = get_dir(my_turf, each_turf)
+
+	for(var/datum/weakref/each_ref in init_group)
+		var/obj/effect/mapping_helpers/group_window_placer/each_placer = each_ref.resolve()
+		qdel(each_placer)
+	init_group.Cut()
+
