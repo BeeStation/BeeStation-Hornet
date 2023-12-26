@@ -726,6 +726,62 @@
 	desc = "Hgrgrhrhg cute."
 	icon_state = "flushplush"
 
+/obj/item/toy/plush/choice_beacon/radial/plushie
+	name = "plushie delivery beacon"
+	desc = "Summon your new friend!"
+	icon_state = "gangtool-red"
+	var/static/list/plushie_list
+
+/obj/item/toy/plush/choice_beacon/radial/plushie/Initialize(mapload)
+	. = ..()
+	plushie_list = list(/obj/item/toy/plush/bubbleplush,
+							/obj/item/toy/plush/carpplushie,
+							/obj/item/toy/plush/plushvar,
+							/obj/item/toy/plush/narplush,
+							/obj/item/toy/plush/snakeplushie,
+							/obj/item/toy/plush/lizardplushie,
+							/obj/item/toy/plush/slimeplushie,
+							/obj/item/toy/plush/nukeplushie,
+							/obj/item/toy/plush/awakenedplushie,
+							/obj/item/toy/plush/beeplushie,
+							/obj/item/toy/plush/crossed,
+							/obj/item/toy/plush/rouny,
+							/obj/item/toy/plush/runtime,
+							/obj/item/toy/plush/flushed,
+							/obj/item/toy/plush/gondola,
+							/obj/item/toy/plush/spessgondolaplush,
+							)
+
+/obj/item/toy/plush/choice_beacon/radial/plushie/generate_options(mob/living/M)
+	var/list/item_list = generate_item_list()
+	if(!item_list.len)
+		return
+	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+		for(var/V in plushie_list)
+			var/atom/A = V
+			if(initial(A.name) == choice)
+				spawn_option(A,M)
+				uses--
+				if(!uses)
+					qdel(src)
+				else
+					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
+					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+				return
+
+/obj/item/toy/plush/choice_beacon/radial/plushie/generate_item_list()
+	var/static/list/item_list
+	if(!item_list)
+		item_list = list()
+		for(var/V in plushie_list)
+			var/obj/item/toy/plushie/I = V
+			var/image/plushie_icon = image(initial(I.icon), initial(I.icon_state))
+			var/datum/radial_menu_choice/choice = new
+			choice.image = plushie_icon
+			item_list[initial(I.name)] = choice
+	return item_list
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////
