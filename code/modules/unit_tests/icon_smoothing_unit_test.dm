@@ -1,35 +1,4 @@
 /datum/unit_test/smoothing
-	///A list of types to test. Their subtypes are tested as well.
-	var/list/types_to_test = list(
-		/obj/structure/bed/nest,
-		/obj/structure/alien/resin,
-		/obj/structure/alien/weeds,
-		/obj/effect/clockwork/overlay/wall,
-		/obj/machinery/computer,
-		/obj/effect/temp_visual/elite_tumor_wall,
-		/obj/structure/falsewall,
-		/obj/structure/fluff/hedge,
-		/obj/effect/temp_visual/hierophant/wall,
-		/obj/structure/lattice,
-		/obj/machinery/modular_computer/console,
-		/obj/structure/barricade/sandbags,
-		/obj/machinery/power/solar_control,
-		/obj/structure/table,
-		/obj/structure/window,
-
-		/turf/open/floor/bamboo,
-		/turf/open/floor/carpet,
-		/turf/open/chasm,
-		/turf/open/floor/fakepit,
-		/turf/open/floor/holofloor/carpet,
-		/turf/open/lava/smooth,
-		/turf/closed/mineral,
-		/turf/open/floor/plating,
-		/turf/closed/indestructible/sandstone,
-		/turf/closed/wall,
-		/turf/open/indestructible/hierophant,
-	)
-
 	//Don't touch these lists below unless you know what you're doing
 	//They control what icon states we're checking for in each test
 
@@ -78,8 +47,13 @@
 	)
 
 /datum/unit_test/smoothing/Run()
+	var/list/types_to_test = subtypesof(/turf) + subtypesof(/obj) //This is going to be hell??
+
 	for(var/P in types_to_test)
-		for(var/T in typesof(P))
+		for(var/atom/T as() in typesof(P))
+			if(!(initial(T.smoothing_flags) & (SMOOTH_BITMASK | SMOOTH_CORNERS)))
+				continue
+
 			var/atom/A = ispath(P, /turf) ? run_loc_floor_bottom_left.ChangeTurf(P) : allocate(T)
 			var/smooth_flags = A.smoothing_flags
 			var/icon/the_icon = A.icon

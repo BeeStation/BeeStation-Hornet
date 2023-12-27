@@ -2,6 +2,9 @@
 /obj/machinery/computer/camera_advanced/shuttle_creator
 	name = "internal shuttle creator console"
 	desc = "You should not have access to this, please report this as a bug"
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	networks = list()
 	use_power = NO_POWER_USE
 	var/obj/item/shuttle_creator/owner_rsd
