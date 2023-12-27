@@ -47,7 +47,7 @@
 	)
 
 /datum/unit_test/smoothing/Run()
-	var/list/types_to_test = subtypesof(/turf) + subtypesof(/obj) //This is going to be hell??
+	var/list/types_to_test = subtypesof(/turf) + subtypesof(/obj)
 
 	for(var/P in types_to_test)
 		for(var/atom/T as() in typesof(P))
