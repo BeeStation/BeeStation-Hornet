@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Default bloom level lowered from 50% to 30%.
