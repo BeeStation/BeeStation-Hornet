@@ -27,6 +27,7 @@
 
 /obj/effect/clockwork/overlay/wall
 	name = "clockwork wall"
+	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
 	smoothing_flags = SMOOTH_BITMASK
