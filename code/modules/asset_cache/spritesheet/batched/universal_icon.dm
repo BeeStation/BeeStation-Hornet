@@ -85,12 +85,6 @@
 		src.transform.apply(self)
 	return self
 
-// These are defined in rustg. Don't change them :)
-#define BLEND_COLOR "BlendColor"
-#define BLEND_ICON "BlendIcon"
-#define CROP "Crop"
-#define SCALE "Scale"
-
 /datum/icon_transformer
 	var/list/transforms = null
 
@@ -102,9 +96,9 @@
 	RETURN_TYPE(/icon)
 	for(var/transform in src.transforms)
 		switch(transform["type"])
-			if(BLEND_COLOR)
+			if(RUSTG_ICONFORGE_BLEND_COLOR)
 				target.Blend(target["color"], target["blend_mode"])
-			if(BLEND_ICON)
+			if(RUSTG_ICONFORGE_BLEND_ICON)
 				var/datum/universal_icon/icon_object = target["icon"]
 				if(!istype(icon_object))
 					stack_trace("Invalid icon found in icon transformer during apply()! [icon_object]")
@@ -121,23 +115,23 @@
 	return new_transformer
 
 /datum/icon_transformer/proc/blend_color(color, blend_mode)
-	transforms += list(list("type" = BLEND_COLOR, "color" = color, "blend_mode" = blend_mode))
+	transforms += list(list("type" = RUSTG_ICONFORGE_BLEND_COLOR, "color" = color, "blend_mode" = blend_mode))
 
 /datum/icon_transformer/proc/blend_icon(datum/universal_icon/icon_object, blend_mode)
-	transforms += list(list("type" = BLEND_ICON, "icon" = icon_object, "blend_mode" = blend_mode))
+	transforms += list(list("type" = RUSTG_ICONFORGE_BLEND_ICON, "icon" = icon_object, "blend_mode" = blend_mode))
 
 /datum/icon_transformer/proc/scale(width, height)
-	transforms += list(list("type" = SCALE, "width" = width, "height" = height))
+	transforms += list(list("type" = RUSTG_ICONFORGE_SCALE, "width" = width, "height" = height))
 
 /datum/icon_transformer/proc/crop(x1, y1, x2, y2)
-	transforms += list(list("type" = CROP, "x1" = x1, "y1" = y1, "x2" = x2, "y2" = y2))
+	transforms += list(list("type" = RUSTG_ICONFORGE_CROP, "x1" = x1, "y1" = y1, "x2" = x2, "y2" = y2))
 
 /datum/icon_transformer/proc/to_list()
 	RETURN_TYPE(/list)
 	var/list/transforms_out = list()
 	for(var/transform in src.transforms.Copy())
 		var/this_transform = transform
-		if(transform["type"] == BLEND_ICON)
+		if(transform["type"] == RUSTG_ICONFORGE_BLEND_ICON)
 			var/datum/universal_icon/icon_object = this_transform["icon"]
 			if(!istype(icon_object))
 				stack_trace("Invalid icon found in icon transformer during to_list()! [icon_object]")
@@ -151,17 +145,12 @@
 	var/list/transforms = list()
 	for(var/transform in input)
 		var/this_transform = transform
-		if(transform["type"] == BLEND_ICON)
+		if(transform["type"] == RUSTG_ICONFORGE_BLEND_ICON)
 			this_transform["icon"] = universal_icon_from_list(transform["icon"])
 		transforms += list(this_transform)
 	var/datum/icon_transformer/transformer = new()
 	transformer.transforms = transforms
 	return transformer
-
-#undef BLEND_COLOR
-#undef BLEND_ICON
-#undef CROP
-#undef SCALE
 
 /// Constructs a transformer, with optional color multiply pre-added.
 /proc/color_transform(color=null)
@@ -180,3 +169,19 @@
 	var/colors = initial(path.greyscale_colors)
 	var/datum/universal_icon/entry = SSgreyscale.GetColoredIconEntryByType(config, colors, initial(path.icon_state))
 	return entry
+
+/// Gets the relevant universal icon for an atom, when displayed in TGUI. (see: icon_state_preview)
+/// Supports GAGS items and colored items.
+/proc/get_display_icon_for(atom/A)
+	if (!ispath(A, /atom))
+		return FALSE
+	var/icon_file = initial(A.icon)
+	var/icon_state = initial(A.icon_state)
+	if(ispath(A, /obj/item))
+		var/obj/item/I = A
+		if(initial(I.icon_state_preview))
+			icon_state = initial(I.icon_state_preview)
+		if(initial(I.greyscale_config) && initial(I.greyscale_colors))
+			return gags_to_universal_icon(I)
+	return uni_icon(icon_file, icon_state, color=initial(A.color))
+

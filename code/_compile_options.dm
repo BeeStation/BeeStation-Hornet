@@ -82,6 +82,7 @@
 
 //#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
+#warn WARNING: Compiling with LOWMEMORYMODE.
 #define FORCE_MAP "runtimestation"
 #endif
 

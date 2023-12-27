@@ -1,5 +1,9 @@
 #define SPR_SIZE "size_id"
 #define SPR_IDX "position"
+#define ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY "data/spritesheets/smart_cache"
+#define CACHE_WAIT "wait"
+#define CACHE_INVALID TRUE
+#define CACHE_VALID FALSE
 
 /datum/asset/spritesheet_batched
 	_abstract = /datum/asset/spritesheet_batched
@@ -11,7 +15,13 @@
 
 	// "foo_bar" -> entry_obj
 	var/list/entries = list()
+
+	/// JSON encoded version of entries.
+	var/entries_json = null
+
+	/// If this spritesheet exists in a completed state.
 	var/fully_generated = FALSE
+
 	/// If this asset should be fully loaded on new
 	/// Defaults to false so we can process this stuff nicely
 	var/load_immediately = FALSE
@@ -20,6 +30,17 @@
 
 	/// If there is currently an async job, its ID
 	var/job_id = null
+	/// If there is currently an async cache job, its ID.
+	var/cache_job_id = null
+
+	// Fields to store async cache task inputs.
+	var/cache_data = null
+	var/cache_sizes_data = null
+	var/cache_input_hash = null
+	var/cache_dmi_hashes = null
+	var/cache_dmi_hashes_json = null
+	/// Used to prevent async cache refresh jobs from looping on failure.
+	var/cache_result = null
 
 /datum/asset/spritesheet_batched/proc/should_load_immediately()
 #ifdef DO_NOT_DEFER_ASSETS
@@ -28,13 +49,54 @@
 	return load_immediately
 #endif
 
+/// Returns true if the cache should be invalidated/doesn't exist.
+/datum/asset/spritesheet_batched/should_refresh(yield)
+	. = CACHE_INVALID // in the case of any errors, we need to regenerate.
+	if(!fexists("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json"))
+		return CACHE_INVALID
+	if(isnull(cache_data) || isnull(cache_dmi_hashes_json))
+		cache_data = rustg_file_read("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
+		if(!findtext(cache_data, "{", 1, 2)) // cache isn't valid JSON
+			return CACHE_INVALID
+		var/cache_json = json_decode(cache_data)
+		cache_sizes_data = cache_json["sizes"]
+		cache_input_hash = cache_json["input_hash"]
+		cache_dmi_hashes = cache_json["dmi_hashes"]
+		if(!length(cache_dmi_hashes) || !length(cache_input_hash) || !length(cache_sizes_data))
+			return CACHE_INVALID
+		cache_dmi_hashes_json = json_encode(cache_dmi_hashes)
+	var/data_out
+
+	if(yield || !isnull(cache_job_id))
+		if(isnull(cache_job_id))
+			cache_job_id = rustg_iconforge_cache_valid_async(cache_input_hash, cache_dmi_hashes_json, entries_json)
+		. = CACHE_WAIT // if we return during this, WAIT!!
+		UNTIL((data_out = rustg_iconforge_check(cache_job_id)) != RUSTG_JOB_NO_RESULTS_YET)
+		cache_job_id = null
+		. = CACHE_INVALID // reset back to normal, invalid on CRASH
+	else
+		data_out = rustg_iconforge_cache_valid(cache_input_hash, cache_dmi_hashes_json, entries_json)
+	if (data_out == RUSTG_JOB_ERROR)
+		CRASH("Spritesheet [name] cache JOB PANIC")
+	else if(!findtext(data_out, "{", 1, 2))
+		rustg_file_write(cache_data, "[GLOB.log_directory]/spritesheet_cache_debug.[name].json")
+		rustg_file_write(entries_json, "[GLOB.log_directory]/spritesheet_debug_[name].json")
+		CRASH("Spritesheet [name] cache check UNKNOWN ERROR: [data_out]")
+	var/result = json_decode(data_out)
+	var/fail = result["fail_reason"]
+	if(length(fail))
+		if(findtextEx(fail, "ERROR:"))
+			CRASH("Spritesheet [name] cache check UNKNOWN [fail]")
+		// Can add a debug log here, listing failure reason. Not important right now though.
+		return CACHE_INVALID
+	// Populate the sizes list.
+	sizes = cache_sizes_data
+	return result["result"] == "1" ? CACHE_VALID : CACHE_INVALID
+
 /datum/asset/spritesheet_batched/proc/insert_icon(sprite_name, datum/universal_icon/entry)
-	if(!istext(sprite_name) || length(sprite_name) == 0)
+	if(!istext(sprite_name) || !length(sprite_name))
 		CRASH("Invalid sprite_name \"[sprite_name]\" given to insert_icon()! Providing non-strings will break icon generation.")
 	entries[sprite_name] = entry.to_list()
-
-/datum/asset/spritesheet_batched/should_refresh()
-	return TRUE
 
 /datum/asset/spritesheet_batched/register()
 	SHOULD_NOT_OVERRIDE(TRUE)
@@ -42,7 +104,9 @@
 	if (!name)
 		CRASH("spritesheet [type] cannot register without a name")
 
+	// Create our input data first, so we can compare to the cache.
 	create_spritesheets()
+
 	if(should_load_immediately())
 		realize_spritesheets(yield = FALSE)
 	else
@@ -70,38 +134,62 @@
 		return
 	if(!length(entries))
 		CRASH("Spritesheet [name] ([type]) is empty! What are you doing?")
+
+	if(isnull(entries_json))
+		entries_json = json_encode(entries)
+
+	if(isnull(cache_result))
+		cache_result = should_refresh(yield)
+		if(cache_result == CACHE_WAIT) // sleep interrupted by MC. We'll get queried again later.
+			cache_result = null
+			return
+
+	// read_from_cache returns false if config is disabled, otherwise it fully loads the spritesheet.
+	if (cache_result == CACHE_VALID && read_from_cache())
+		SSasset_loading.dequeue_asset(src)
+		fully_generated = TRUE
+		return
+	// Remove the cache, since it's invalid if we get to this point.
+	fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
+
+	var/do_cache = CONFIG_GET(flag/smart_cache_assets)
 	var/data_out
 	if(yield || !isnull(job_id))
 		if(isnull(job_id))
-			var/data_in = json_encode(entries)
-			job_id = rustg_iconforge_generate_async("data/spritesheets/", name, data_in)
+			job_id = rustg_iconforge_generate_async("data/spritesheets/", name, entries_json, do_cache)
 		UNTIL((data_out = rustg_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
 	else
-		var/data_in = json_encode(entries)
-		data_out = rustg_iconforge_generate("data/spritesheets/", name, data_in)
+		data_out = rustg_iconforge_generate("data/spritesheets/", name, entries_json, do_cache)
 	if (data_out == RUSTG_JOB_ERROR)
 		CRASH("Spritesheet [name] JOB PANIC")
-	else if(findtext(data_out, "{", 1, 2) == 0)
-		rustg_file_write(json_encode(entries), "[GLOB.log_directory]/spritesheet_debug_[name].json")
+	else if(!findtext(data_out, "{", 1, 2))
+		rustg_file_write(entries_json, "[GLOB.log_directory]/spritesheet_debug_[name].json")
 		CRASH("Spritesheet [name] UNKNOWN ERROR: [data_out]")
 	var/data = json_decode(data_out)
 	sizes = data["sizes"]
 	sprites = data["sprites"]
+	var/input_hash = data["sprites_hash"]
+	var/dmi_hashes = data["dmi_hashes"] // this only contains values if do_cache is TRUE.
 
 	for(var/size_id in sizes)
-		SSassets.transport.register_asset("[name]_[size_id].png", fcopy_rsc("data/spritesheets/[name]_[size_id].png"))
+		var/file_path = "data/spritesheets/[name]_[size_id].png"
+		var/file_hash = rustg_hash_file("md5", file_path)
+		SSassets.transport.register_asset("[name]_[size_id].png", fcopy_rsc(file_path), file_hash)
 	var/res_name = "spritesheet_[name].css"
 	var/fname = "data/spritesheets/[res_name]"
 
 	fdel(fname)
-	rustg_file_write(generate_css(), fname)
-	SSassets.transport.register_asset(res_name, fcopy_rsc(fname))
-	fdel(fname)
+	var/css = generate_css()
+	rustg_file_write(css, fname)
+	var/css_hash = rustg_hash_string("md5", css)
+	SSassets.transport.register_asset(res_name, fcopy_rsc(fname), file_hash=css_hash)
 
+	if (do_cache)
+		write_cache_meta(input_hash, dmi_hashes)
 	fully_generated = TRUE
 	// If we were ever in there, remove ourselves
 	SSasset_loading.dequeue_asset(src)
-	if(data["error"] && !(ignore_dir_errors && findtext(data["error"], "Invalid dir")))
+	if(data["error"] && !(ignore_dir_errors && findtext(data["error"], "is not in the set of valid dirs")))
 		CRASH("Error during spritesheet generation for [name]: [data["error"]]")
 
 /datum/asset/spritesheet_batched/queued_generation()
@@ -152,9 +240,32 @@
 
 	return out.Join("\n")
 
+/datum/asset/spritesheet_batched/proc/read_from_cache()
+	if(!CONFIG_GET(flag/smart_cache_assets))
+		return FALSE
+	var/css_fname = "data/spritesheets/spritesheet_[name].css"
+	var/css_hash = rustg_hash_file("md5", css_fname)
+	SSassets.transport.register_asset("spritesheet_[name].css", fcopy_rsc(css_fname), file_hash=css_hash)
+
+	// sizes gets filled during should_refresh()
+	for(var/size_id in sizes)
+		var/fname = "data/spritesheets/[name]_[size_id].png"
+		var/hash = rustg_hash_file("md5", fname)
+		SSassets.transport.register_asset("[name]_[size_id].png", fcopy_rsc(fname), file_hash=hash)
+
+	return TRUE
+
 /// Returns the URL to put in the background:url of the CSS asset
 /datum/asset/spritesheet_batched/proc/get_background_url(asset)
 	return SSassets.transport.get_asset_url(asset)
+
+/datum/asset/spritesheet_batched/proc/write_cache_meta(input_hash, dmi_hashes)
+	var/list/cache_data = list(
+		"input_hash" = input_hash,
+		"dmi_hashes" = dmi_hashes,
+		"sizes" = sizes
+	)
+	rustg_file_write(json_encode(cache_data), "[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
 
 /**
  * Third party helpers
@@ -196,19 +307,7 @@
 
 #undef SPR_SIZE
 #undef SPR_IDX
-
-/// Gets the relevant universal icon for an atom, when displayed in TGUI. (see: icon_state_preview)
-/proc/get_display_icon_for(atom/A)
-	if (!ispath(A, /atom))
-		return FALSE
-	var/icon_file = initial(A.icon)
-	var/icon_state = initial(A.icon_state)
-	if(ispath(A, /obj/item))
-		var/obj/item/I = A
-		if(initial(I.icon_state_preview))
-			icon_state = initial(I.icon_state_preview)
-		if(initial(I.greyscale_config) && initial(I.greyscale_colors))
-			return gags_to_universal_icon(I)
-	return uni_icon(icon_file, icon_state, color=initial(A.color))
-
-
+#undef ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY
+#undef CACHE_WAIT
+#undef CACHE_INVALID
+#undef CACHE_VALID

@@ -45,3 +45,10 @@ ASSET_CDN_URL http://localhost:7123/
 ## The cache is assumed to be cleared by TGS recompiling, which deletes `tmp`.
 ## This should be uncommented on production
 #CACHE_ASSETS
+
+## Enables 'smart' asset caching, for assets that support it.
+## This is a type of asset cache that automatically invalidates itself based on inputs to the asset generation.
+## It lowers the generation cost and is safe to enable on development and production.
+## This cache is only cleared by the game or manually, but it shouldn't affect the results.
+## This setting is independent of `CACHE_ASSETS`, they do not affect each other whatsoever.
+SMART_CACHE_ASSETS

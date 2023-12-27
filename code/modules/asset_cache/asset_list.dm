@@ -193,9 +193,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	ensure_stripped()
 	for(var/size_id in sizes)
 		var/size = sizes[size_id]
-		var/file_path = "[name]_[size_id].png"
+		var/file_path = size[SPRSZ_STRIPPED]
 		var/file_hash = rustg_hash_file("md5", file_path)
-		SSassets.transport.register_asset(file_path, size[SPRSZ_STRIPPED], file_hash=file_hash)
+		SSassets.transport.register_asset("[name]_[size_id].png", file_path, file_hash=file_hash)
 	var/res_name = "spritesheet_[name].css"
 	var/fname = "data/spritesheets/[res_name]"
 	fdel(fname)
