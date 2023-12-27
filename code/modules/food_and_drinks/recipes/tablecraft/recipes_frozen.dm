@@ -8,9 +8,9 @@
 	reqs = list(
 		/datum/reagent/consumable/cream = 5,
 		/datum/reagent/consumable/ice = 5,
-		/obj/item/reagent_containers/food/snacks/icecream = 1
+		/obj/item/food/icecream = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/icecreamsandwich
+	result = /obj/item/food/icecreamsandwich
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/strawberryicecreamsandwich
@@ -18,9 +18,9 @@
 	reqs = list(
 		/datum/reagent/consumable/cream = 5,
 		/datum/reagent/consumable/ice = 5,
-		/obj/item/reagent_containers/food/snacks/grown/berries = 2,
+		/obj/item/food/grown/berries = 2,
 	)
-	result = /obj/item/reagent_containers/food/snacks/strawberryicecreamsandwich
+	result = /obj/item/food/strawberryicecreamsandwich
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/spacefreezy
@@ -28,20 +28,20 @@
 	reqs = list(
 		/datum/reagent/consumable/bluecherryjelly = 5,
 		/datum/reagent/consumable/spacemountainwind = 15,
-		/obj/item/reagent_containers/food/snacks/icecream = 1
+		/obj/item/food/icecream = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/spacefreezy
+	result = /obj/item/food/spacefreezy
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/sundae
 	name ="Sundae"
 	reqs = list(
 		/datum/reagent/consumable/cream = 5,
-		/obj/item/reagent_containers/food/snacks/grown/cherries = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
-		/obj/item/reagent_containers/food/snacks/icecream = 1
+		/obj/item/food/grown/cherries = 1,
+		/obj/item/food/grown/banana = 1,
+		/obj/item/food/icecream = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/sundae
+	result = /obj/item/food/sundae
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/honkdae
@@ -49,11 +49,11 @@
 	reqs = list(
 		/datum/reagent/consumable/cream = 5,
 		/obj/item/clothing/mask/gas/clown_hat = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cherries = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 2,
-		/obj/item/reagent_containers/food/snacks/icecream = 1
+		/obj/item/food/grown/cherries = 1,
+		/obj/item/food/grown/banana = 2,
+		/obj/item/food/icecream = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/honkdae
+	result = /obj/item/food/honkdae
 	subcategory = CAT_ICE
 
 //////////////////////////SNOW CONES///////////////////////
@@ -64,7 +64,7 @@
 		/obj/item/reagent_containers/food/drinks/sillycup = 1,
 		/datum/reagent/consumable/ice = 15
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones
+	result = /obj/item/food/snowcones
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/pineapple_sc
@@ -74,7 +74,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/pineapplejuice = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/pineapple
+	result = /obj/item/food/snowcones/pineapple
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/lime_sc
@@ -84,7 +84,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/limejuice = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/lime
+	result = /obj/item/food/snowcones/lime
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/lemon_sc
@@ -94,7 +94,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/lemonjuice = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/lemon
+	result = /obj/item/food/snowcones/lemon
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/apple_sc
@@ -104,7 +104,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/applejuice = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/apple
+	result = /obj/item/food/snowcones/apple
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/grape_sc
@@ -114,7 +114,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/berryjuice = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/grape
+	result = /obj/item/food/snowcones/grape
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/orange_sc
@@ -124,7 +124,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/orangejuice = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/orange
+	result = /obj/item/food/snowcones/orange
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/blue_sc
@@ -134,7 +134,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/bluecherryjelly= 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/blue
+	result = /obj/item/food/snowcones/blue
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/red_sc
@@ -144,7 +144,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/cherryjelly= 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/red
+	result = /obj/item/food/snowcones/red
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/berry_sc
@@ -154,7 +154,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/berryjuice = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/berry
+	result = /obj/item/food/snowcones/berry
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/fruitsalad_sc
@@ -167,7 +167,7 @@
 		/datum/reagent/consumable/limejuice = 5,
 		/datum/reagent/consumable/lemonjuice = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/fruitsalad
+	result = /obj/item/food/snowcones/fruitsalad
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/mime_sc
@@ -177,7 +177,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/nothing = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/mime
+	result = /obj/item/food/snowcones/mime
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/clown_sc
@@ -187,7 +187,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/laughter = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/clown
+	result = /obj/item/food/snowcones/clown
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/soda_sc
@@ -197,7 +197,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/space_cola = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/soda
+	result = /obj/item/food/snowcones/soda
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/spacemountainwind_sc
@@ -207,7 +207,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/spacemountainwind = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/spacemountainwind
+	result = /obj/item/food/snowcones/spacemountainwind
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/pwrgame_sc
@@ -217,7 +217,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/pwr_game = 15
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/pwrgame
+	result = /obj/item/food/snowcones/pwrgame
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/honey_sc
@@ -227,7 +227,7 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/consumable/honey = 5
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/honey
+	result = /obj/item/food/snowcones/honey
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/rainbow_sc
@@ -237,5 +237,5 @@
 		/datum/reagent/consumable/ice = 15,
 		/datum/reagent/colorful_reagent = 1 //Harder to make
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones/rainbow
+	result = /obj/item/food/snowcones/rainbow
 	subcategory = CAT_ICE

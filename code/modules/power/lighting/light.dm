@@ -51,6 +51,7 @@
 
 	///More stress stuff.
 	var/turning_on = FALSE
+	var/roundstart_smoothing = FALSE
 
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
@@ -120,6 +121,9 @@
 		else
 			bulb_colour = A.lighting_colour_tube
 			brightness = A.lighting_brightness_tube
+
+	if(mapload || !SSticker.HasRoundStarted())
+		roundstart_smoothing = TRUE
 
 	if(nightshift_light_color == initial(nightshift_light_color))
 		nightshift_light_color = A.lighting_colour_night
@@ -204,6 +208,10 @@
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
+	if(roundstart_smoothing)
+		roundstart_smoothing = FALSE
+		quiet = TRUE
+		instant = TRUE
 	emergency_mode = FALSE
 	if(on)
 		if(instant)
