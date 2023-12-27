@@ -111,7 +111,7 @@
 	default_raw_text = "<h1>Source Code Theft & You - The Idiot's Guide to Crippling Nanotrasen Research & Development</h1><br>\
 	Rumour has it that Nanotrasen are using their R&D servers to perform theoretical simulations into alternate universes!<br>\
 	Recently, Nanotrasen has determined the existence of a universe similar to ours, and have been working to bridge the gap between the two.<br>\
-	They have compiled a one-of-a-kind scan of the extant universe into a project designated under the codename <b>Project Yog</b>.<br>\
+	They have compiled a one-of-a-kind scan of the extant universe into a project designated under the codename <b>Project YOG</b>.<br>\
 	This cannot be allowed to stand. Below is all our intel for stealing their source code and crippling their research efforts:<br>\
 	<ul>\
 	<li>Locate the physical R&D Server mainframes. Intel suggests these are stored in specially cooled rooms deep within their Science department.</li>\
