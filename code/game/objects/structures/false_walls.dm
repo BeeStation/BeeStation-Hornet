@@ -231,7 +231,7 @@
 	icon_state = "copper_wall-0"
 	base_icon_state = "copper_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_COPPER_WALLS, SMOOTH_GROUP_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_COPPER_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_COPPER_WALLS)
 	mineral = /obj/item/stack/sheet/mineral/copper
 	walltype = /turf/closed/wall/mineral/copper
@@ -325,7 +325,7 @@
 	icon_state = "bamboo-0"
 	base_icon_state = "bamboo"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_BAMBOO_WALLS, SMOOTH_GROUP_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BAMBOO_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BAMBOO_WALLS)
 	mineral = /obj/item/stack/sheet/bamboo
 	walltype = /turf/closed/wall/mineral/bamboo
@@ -386,7 +386,7 @@
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_BRASS_WALLS, SMOOTH_GROUP_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALLS)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1

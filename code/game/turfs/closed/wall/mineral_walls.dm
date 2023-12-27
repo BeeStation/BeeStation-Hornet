@@ -47,7 +47,7 @@
 	icon_state = "copper_wall-0"
 	base_icon_state = "copper_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_COPPER_WALLS, SMOOTH_GROUP_CLOSED_TURFS) //copper walls
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_COPPER_WALLS) //copper walls
 	canSmoothWith = list(SMOOTH_GROUP_COPPER_WALLS)
 	max_integrity = 350
 
@@ -198,7 +198,7 @@
 	sheet_type = /obj/item/stack/sheet/bamboo
 	hardness = 60
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_BAMBOO_WALLS, SMOOTH_GROUP_CLOSED_TURFS)
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BAMBOO_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BAMBOO_WALLS)
 	max_integrity = 100
 	damage_deflection = 0
