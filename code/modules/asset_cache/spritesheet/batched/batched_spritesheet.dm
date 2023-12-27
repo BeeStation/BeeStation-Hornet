@@ -57,12 +57,14 @@
 	if(isnull(cache_data) || isnull(cache_dmi_hashes_json))
 		cache_data = rustg_file_read("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
 		if(!findtext(cache_data, "{", 1, 2)) // cache isn't valid JSON
+			log_asset("Cache for spritesheet_[name] was not valid JSON. This is abnormal. Likely tampered with or IO failure.")
 			return CACHE_INVALID
 		var/cache_json = json_decode(cache_data)
 		cache_sizes_data = cache_json["sizes"]
 		cache_input_hash = cache_json["input_hash"]
 		cache_dmi_hashes = cache_json["dmi_hashes"]
 		if(!length(cache_dmi_hashes) || !length(cache_input_hash) || !length(cache_sizes_data))
+			log_asset("Cache for spritesheet_[name] did not contain the correct data. This is abnormal. Likely tampered with.")
 			return CACHE_INVALID
 		cache_dmi_hashes_json = json_encode(cache_dmi_hashes)
 	var/data_out
@@ -84,14 +86,15 @@
 		CRASH("Spritesheet [name] cache check UNKNOWN ERROR: [data_out]")
 	var/result = json_decode(data_out)
 	var/fail = result["fail_reason"]
-	if(length(fail))
+	if(length(fail) || result["result"] != "1")
 		if(findtextEx(fail, "ERROR:"))
 			CRASH("Spritesheet [name] cache check UNKNOWN [fail]")
-		// Can add a debug log here, listing failure reason. Not important right now though.
+		log_asset("Invalidated cache for spritesheet_[name]: [fail]")
 		return CACHE_INVALID
 	// Populate the sizes list.
 	sizes = cache_sizes_data
-	return result["result"] == "1" ? CACHE_VALID : CACHE_INVALID
+	log_asset("Validated cache for spritesheet_[name]!")
+	return CACHE_VALID
 
 /datum/asset/spritesheet_batched/proc/insert_icon(sprite_name, datum/universal_icon/entry)
 	if(!istext(sprite_name) || !length(sprite_name))
