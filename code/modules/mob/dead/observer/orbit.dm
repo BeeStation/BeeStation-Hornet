@@ -120,4 +120,4 @@
 	transform.scale(16, 16)
 
 	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
-		insert_icon("job-icon[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
+		insert_icon("job-icon-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
