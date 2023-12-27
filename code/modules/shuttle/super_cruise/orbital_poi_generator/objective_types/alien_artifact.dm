@@ -30,20 +30,15 @@
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/artifact/check_failed()
-	. = TRUE // To return TRUE when CRASH
-
 	if(!weakref_artifact) // It looks fail-check is executed before we fully initialise the explo mission.
 		return FALSE
 	var/obj/item/xenoartifact/objective/linked_artifact = weakref_artifact.resolve()
-	if(!linked_artifact)
-		CRASH("Something's wrong with the explo mission weakref.")
-	if(QDELETED(linked_artifact)) // a deleted item means they'll never make it success.
+	if(QDELETED(linked_artifact)) // failed to resolve or qdeleted means it never success
 		return TRUE
 	if(!(linked_artifact?.flags_1 & INITIALIZED_1)) // We checked this too early.
 		return FALSE
-	if(is_station_level(linked_artifact.z))
-		complete_objective()
+	if(!is_station_level(linked_artifact.z)) // It's not a real failure. Let's wait...
 		return FALSE
 
-	// failsafe. It shouldn't happen.
-	CRASH("For unknown reason, check_failed() proc reached the end of the code. It shouldn't happen.")
+	complete_objective()
+	return FALSE
