@@ -50,29 +50,29 @@
 	var/list/types_to_test = (subtypesof(/turf)) + (subtypesof(/obj))
 
 	for(var/P in types_to_test)
-		for(var/atom/T as() in typesof(P))
-			if(!(initial(T.smoothing_flags) & (SMOOTH_BITMASK | SMOOTH_CORNERS)))
-				continue
+		var/atom/A = P
+		if(!(initial(A.smoothing_flags) & (SMOOTH_BITMASK | SMOOTH_CORNERS)))
+			continue
 
-			var/atom/A = ispath(P, /turf) ? run_loc_floor_bottom_left.ChangeTurf(P) : allocate(T)
-			var/smooth_flags = A.smoothing_flags
-			var/icon/the_icon = A.icon
-			var/base_state = A.base_icon_state
+		A = ispath(P, /turf) ? run_loc_floor_bottom_left.ChangeTurf(P) : allocate(P)
+		var/smooth_flags = A.smoothing_flags
+		var/icon/the_icon = A.icon
+		var/base_state = A.base_icon_state
 
-			if(!the_icon)
-				Fail("Atom subtype [A] has no icon, are you sure we should be testing this?")
+		if(!the_icon)
+			Fail("Atom subtype [A] has no icon, are you sure we should be testing this?")
 
-			else if(smooth_flags & SMOOTH_CORNERS)
-				corner_test(T, the_icon, smooth_flags)
+		else if(smooth_flags & SMOOTH_CORNERS)
+			corner_test(P, the_icon, smooth_flags)
 
-			else if(smooth_flags & SMOOTH_BITMASK)
-				if(!base_state)
-					Fail("Atom subtype [A] has bitmask smoothing set, but has no base_icon_state!")
-				else
-					bitmask_test(T, the_icon, smooth_flags, base_state)
+		else if(smooth_flags & SMOOTH_BITMASK)
+			if(!base_state)
+				Fail("Atom subtype [A] has bitmask smoothing set, but has no base_icon_state!")
+			else
+				bitmask_test(P, the_icon, smooth_flags, base_state)
 
-			if(istype(A, /turf))
-				run_loc_floor_bottom_left.ChangeTurf(/turf/open/floor/plasteel)
+		if(istype(A, /turf))
+			run_loc_floor_bottom_left.ChangeTurf(/turf/open/floor/plasteel)
 
 /datum/unit_test/smoothing/proc/bitmask_test(atom_path, icon/the_icon, smooth_flags, base_state)
 	var/list/expected_suffixes = list(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
