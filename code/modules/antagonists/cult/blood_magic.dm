@@ -424,10 +424,13 @@
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
 		user.mob_light(_range = 3, _color = LIGHT_COLOR_BLOOD_MAGIC, _duration = 0.2 SECONDS)
+		var/henderson = FALSE
+		if(iscarbon(L))
+			var/mob/living/carbon/carbon_target = L
+			henderson = carbon_target.drunkenness >= 41 // you're not going to actually be able to fight very well at this point
 
 		var/anti_magic_source = L.anti_magic_check(holy = TRUE)
 		if(anti_magic_source)
-
 			L.mob_light(_range = 2, _color = LIGHT_COLOR_HOLY_MAGIC, _duration = 10 SECONDS)
 			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 			L.add_overlay(forbearance)
@@ -436,6 +439,10 @@
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
 									   "<span class='userdanger'>[GLOB.deity] protects you from the heresy of [user]!</span>")
+		else if(henderson)
+			to_chat(user, "<span class='cultitalic'>[L] is barely phased by your utterance, rambling with drunken annoyance instead!</span>")
+			to_chat(L, "<span class='cultitalic'>Eldritch horrors try to flood your thoughts, before being drowned out by an intense alcoholic haze!</span>") // yeah nobody's gonna be able to understand you through the slurring but it's funny anyways
+			L.say("MUCKLE DAMRED CULT! 'AIR EH NAMBLIES BE KEEPIN' ME WEE MEN!?!!", forced = "drunk cult stun")
 		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
