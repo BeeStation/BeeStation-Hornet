@@ -1,12 +1,12 @@
 /datum/orbital_objective/artifact
 	name = "Artifact Recovery"
-	var/datum/weakref/weakref_artifect
+	var/datum/weakref/weakref_artifact
 	min_payout = 5000
 	max_payout = 25000
 
 /datum/orbital_objective/artifact/generate_objective_stuff(turf/chosen_turf)
 	var/obj/item/xenoartifact/objective/linked_artifact = new(chosen_turf)
-	weakref_artifect = WEAKREF(linked_artifact)
+	weakref_artifact = WEAKREF(linked_artifact)
 
 	var/list/turfs = RANGE_TURFS(30, linked_artifact)
 	var/list/valid_turfs = list()
@@ -32,9 +32,9 @@
 /datum/orbital_objective/artifact/check_failed()
 	. = TRUE // To return TRUE when CRASH
 
-	if(!weakref_artifect) // It looks fail-check is executed before we fully initialise the explo mission.
+	if(!weakref_artifact) // It looks fail-check is executed before we fully initialise the explo mission.
 		return FALSE
-	var/obj/item/xenoartifact/objective/linked_artifact = weakref_artifect.resolve()
+	var/obj/item/xenoartifact/objective/linked_artifact = weakref_artifact.resolve()
 	if(!linked_artifact)
 		CRASH("Something's wrong with the explo mission weakref.")
 	if(QDELETED(linked_artifact)) // a deleted item means they'll never make it success.
