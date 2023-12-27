@@ -386,7 +386,7 @@
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_BRASS_WALLS, SMOOTH_GROUP_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALLS)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1

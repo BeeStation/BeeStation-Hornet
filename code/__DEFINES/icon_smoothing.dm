@@ -89,8 +89,8 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_SURVIVAL_TIANIUM_POD S_OBJ(14)		///turf/closed/wall/mineral/titanium/survival/pod, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/shuttle/survival_pod
 #define SMOOTH_GROUP_HIERO_WALL S_OBJ(15)				///obj/effect/temp_visual/elite_tumor_wall, /obj/effect/temp_visual/hierophant/wall
 #define SMOOTH_GROUP_BAMBOO_WALLS S_OBJ(16)			//![/turf/closed/wall/mineral/bamboo, /obj/structure/falsewall/bamboo]
-#define SMOOTH_GROUP_COPPER_WALLS S_OBJ(17)			///turf/closed/wall/mineral/copper
-#define SMOOTH_GROUP_BRASS_WALLS S_OBJ(18)				///turf/closed/wall/mineral/brass
+#define SMOOTH_GROUP_COPPER_WALLS S_OBJ(17)			///turf/closed/wall/mineral/copper, /obj/structure/falsewall/copper
+#define SMOOTH_GROUP_BRASS_WALLS S_OBJ(18)				///turf/closed/wall/clockwork, /obj/sturcture/falsewall/brass
 
 #define SMOOTH_GROUP_PAPERFRAME S_OBJ(20)				///obj/structure/window/paperframe, /obj/structure/mineral_door/paperframe
 #define SMOOTH_GROUP_CATWALK  S_OBJ(22) 				///obj/structure/lattice/catwalk

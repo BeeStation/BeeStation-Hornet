@@ -51,6 +51,8 @@
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BRASS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALLS)
 
 /turf/closed/wall/clockwork/Initialize(mapload)
 	. = ..()
