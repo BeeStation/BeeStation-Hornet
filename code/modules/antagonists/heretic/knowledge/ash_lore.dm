@@ -72,11 +72,13 @@
 
 /datum/heretic_knowledge/ashen_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
+	if(!ismob(target))
+		return
 
 	if(HAS_TRAIT(target, TRAIT_BLIND))
 		return
 
-	if(ismob(target) && !target.getorganslot(ORGAN_SLOT_EYES))
+	if(!target.getorganslot(ORGAN_SLOT_EYES))
 		return
 
 	to_chat(target, "<span class='danger'>A bright green light burns your eyes horrifically!</span>")
