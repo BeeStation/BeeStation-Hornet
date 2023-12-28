@@ -138,11 +138,12 @@
 		var/obj/item/wallframe/F = W
 		if(F.try_build(src, user))
 			F.attach(src, user)
-		return TRUE
+			return TRUE
+		return FALSE
 	//Poster stuff
-	else if(istype(W, /obj/item/poster))
-		place_poster(W,user)
-		return TRUE
+	else if(istype(W, /obj/item/poster) && Adjacent(user)) //no tk memes.
+		return place_poster(W,user)
+
 	return FALSE
 
 /turf/closed/wall/try_decon(obj/item/I, mob/user, turf/T)

@@ -569,11 +569,14 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 			furnish_delay = 20
 
 /obj/item/construction/rcd/proc/rcd_create(atom/A, mob/user)
+	//does this atom allow for rcd actions?
 	var/list/rcd_results = A.rcd_vals(user, src)
 	if(!rcd_results)
 		return FALSE
+	var/turf/target_turf = get_turf(A)
+	//start animation & check resource for the action
 	var/delay = rcd_results["delay"] * delay_mod
-	var/obj/effect/constructing_effect/rcd_effect = new(get_turf(A), delay, src.mode)
+	var/obj/effect/constructing_effect/rcd_effect = new(target_turf, delay, src.mode)
 	if(!checkResource(rcd_results["cost"], user))
 		qdel(rcd_effect)
 		return FALSE
