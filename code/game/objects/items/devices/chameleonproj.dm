@@ -70,7 +70,7 @@
 			vis_overlay_data["[count]"] = list("icon" = overlay.icon, "icon_state" = overlay.icon_state, "layer" = overlay.layer, "plane" = overlay.plane, "alpha" = overlay.alpha, "appearance_flags" = overlay.appearance_flags)
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
-	if(target.icon_state in icon_states_fast(target.icon))
+	if(target.icon_state in icon_states(target.icon))
 		return TRUE
 	return FALSE
 

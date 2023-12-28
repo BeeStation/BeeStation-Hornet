@@ -287,7 +287,7 @@
 /datum/asset/spritesheet/supplypods/create_spritesheets()
 	for (var/style in 1 to length(GLOB.podstyles))
 		var/icon_file = 'icons/obj/supplypods.dmi'
-		var/states = icon_states_fast(icon_file)
+		var/states = icon_states(icon_file)
 		if (style == STYLE_SEETHROUGH)
 			Insert("pod_asset[style]", icon(icon_file, "seethrough-icon", SOUTH))
 			continue
@@ -331,7 +331,7 @@
 			icon_file = initial(D.research_icon)
 			icon_state = initial(D.research_icon_state)
 			#ifdef UNIT_TESTS
-			if(!(icon_state in icon_states_fast(icon_file)))
+			if(!(icon_state in icon_states(icon_file)))
 				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
 			#endif
@@ -367,7 +367,7 @@
 
 			icon_state = initial(item.icon_state)
 			#ifdef UNIT_TESTS
-			if(!(icon_state in icon_states_fast(icon_file)))
+			if(!(icon_state in icon_states(icon_file)))
 				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
 			#endif
@@ -378,7 +378,7 @@
 				var/obj/machinery/computer/C = item
 				var/screen = initial(C.icon_screen)
 				var/keyboard = initial(C.icon_keyboard)
-				var/all_states = icon_states_fast(icon_file)
+				var/all_states = icon_states(icon_file)
 				if (screen && (screen in all_states))
 					I.Blend(icon(icon_file, screen, SOUTH, 1), ICON_OVERLAY)
 				if (keyboard && (keyboard in all_states))
@@ -430,7 +430,7 @@
 			icon_state = initial(fake_item.vendor_icon_preview)
 			icon_file = initial(fake_item.icon)
 	#ifdef UNIT_TESTS
-	var/icon_states_list = icon_states_fast(icon_file)
+	var/icon_states_list = icon_states(icon_file)
 	if (!(icon_state in icon_states_list))
 		var/icon_states_string
 		for (var/an_icon_state in icon_states_list)
@@ -470,7 +470,7 @@
 		var/icon_state = initial(A.icon_state_preview) || initial(A.icon_state)
 
 		#ifdef UNIT_TESTS
-		var/icon_states_list = icon_states_fast(icon_file)
+		var/icon_states_list = icon_states(icon_file)
 		if (!(icon_state in icon_states_list))
 			var/icon_states_string
 			for (var/an_icon_state in icon_states_list)

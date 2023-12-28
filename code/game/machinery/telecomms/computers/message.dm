@@ -92,7 +92,7 @@
 
 /obj/machinery/computer/message_monitor/ui_static_data(mob/user)
 	var/list/data = list()
-	data["emoji_names"] = icon_states_fast('icons/emoji.dmi')
+	data["emoji_names"] = icon_states('icons/emoji.dmi')
 	return data
 
 /obj/machinery/computer/message_monitor/ui_data(mob/user)

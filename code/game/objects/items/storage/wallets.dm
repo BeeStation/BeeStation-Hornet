@@ -43,7 +43,7 @@
 
 /obj/item/storage/wallet/proc/refreshID()
 	LAZYCLEARLIST(combined_access)
-
+	
 	if(!(front_id in src))
 		front_id = null
 	for(var/obj/item/card/id/I in contents)
@@ -64,7 +64,7 @@
 /obj/item/storage/wallet/update_icon()
 	var/new_state = "wallet"
 	if(front_id)
-		if("wallet_[front_id.icon_state]" in icon_states_fast(src.icon)) //fixes the bug that would make your wallet disappear with the new ids
+		if("wallet_[front_id.icon_state]" in icon_states(src.icon)) //fixes the bug that would make your wallet disappear with the new ids
 			new_state = "wallet_[front_id.icon_state]"
 		else
 			new_state = "wallet_id"

@@ -99,7 +99,7 @@
 
 /datum/computer_file/program/messenger/ui_static_data(mob/user)
 	var/list/data = list()
-	data["emoji_names"] = icon_states_fast('icons/emoji.dmi')
+	data["emoji_names"] = icon_states('icons/emoji.dmi')
 	return data
 
 /datum/computer_file/program/messenger/ui_act(action, list/params, datum/tgui/ui)
