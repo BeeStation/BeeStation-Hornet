@@ -96,7 +96,7 @@
 
 /datum/tgui_input_emoji/ui_static_data(mob/user)
 	return list(
-		"all_emojis" = icon_states(icon('icons/emoji.dmi'))
+		"all_emojis" = icon_states_fast('icons/emoji.dmi')
 	)
 
 /datum/tgui_input_emoji/ui_data(mob/user)

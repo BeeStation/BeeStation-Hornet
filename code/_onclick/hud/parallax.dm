@@ -155,7 +155,7 @@
 		var/newstate = initial(L.icon_state)
 		var/T = PARALLAX_LOOP_TIME / L.speed
 
-		if (newstate in icon_states(L.icon))
+		if (newstate in icon_states_fast(L.icon))
 			L.icon_state = newstate
 			L.update_o(C.view)
 

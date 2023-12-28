@@ -138,8 +138,7 @@
 	return sortTim(elements,cmp=GLOBAL_PROC_REF(cmp_xy_desc))
 
 /obj/effect/sliding_puzzle/proc/get_base_icon()
-	var/icon/I = new('icons/obj/puzzle.dmi')
-	var/list/puzzles = icon_states(I)
+	var/list/puzzles = icon_states_fast('icons/obj/puzzle.dmi')
 	var/puzzle_state = pick(puzzles)
 	var/icon/P = new('icons/obj/puzzle.dmi',puzzle_state)
 	return P

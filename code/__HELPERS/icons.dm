@@ -947,7 +947,7 @@ world
 		var/image/I = V
 		var/icon/image_overlay = new(I.icon,I.icon_state,direction)//Blend only works with icon objects.
 		//Make sure the overlay actually exists and is valid
-		if(!(I.icon_state in icon_states(I.icon)))
+		if(!(I.icon_state in icon_states_fast(I.icon)))
 			continue
 		//Colour
 		if(I.color)
@@ -1399,9 +1399,15 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	var/icon/I = getFlatIcon(thing)
 	return icon2html(I, target, sourceonly = sourceonly)
 
+/proc/icon_states_fast(icon)
+	if(istext(icon) || isfile(icon))
+		return json_decode(rustg_dmi_icon_states("[icon]"))
+	else
+		return icon_states(icon)
+
 //Returns TRUE if the given iconstate is located in the given file, otherwise returns false.
 /proc/icon_exists(file, state)
-	var/list/states = icon_states(file)
+	var/list/states = icon_states_fast(file)
 	if(states.Find(state))
 		return TRUE
 
