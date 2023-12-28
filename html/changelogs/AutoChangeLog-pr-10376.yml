@@ -1,6 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: is_station_level(z) macro now has a 0 index failproof
-  - bugfix: alien artifact explo mission no longer throws is_station_level() runtime
-      with 0z index with minor code change.
