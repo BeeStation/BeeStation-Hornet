@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: area_sound_manager no longer throws runtime
