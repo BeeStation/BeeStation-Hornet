@@ -745,7 +745,6 @@
 		/obj/item/toy/plush/runtime,
 		/obj/item/toy/plush/flushed,
 		/obj/item/toy/plush/gondola,
-		/obj/item/toy/plush/spessgondolaplush,
 		/obj/item/toy/plush/moth/atlas,
 		/obj/item/toy/plush/moth/bluespace,
 		/obj/item/toy/plush/moth/brown,
