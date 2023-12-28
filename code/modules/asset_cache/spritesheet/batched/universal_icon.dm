@@ -17,10 +17,12 @@
 	return new /datum/universal_icon(I, icon_state, dir, frame, transform, color)
 
 /datum/universal_icon/New(icon/icon_file, icon_state="", dir=SOUTH, frame=1, datum/icon_transformer/transform=null, color=null)
+	#ifdef UNIT_TESTS
+	// This check is kinda slow and shouldn't fail unless a developer makes a mistake. So it'll get caught in unit tests.
 	if(!isicon(icon_file) || !isfile(icon_file) || "[icon_file]" == "/icon")
-		qdel(src)
 		// bad! use 'icons/path_to_dmi.dmi' format only
 		CRASH("FATAL: universal_icon was provided icon_file: [icon_file] - icons provided to batched spritesheets MUST be DMI files, they cannot be /image, /icon, or other runtime generated icons.")
+	#endif
 	src.icon_file = icon_file
 	src.icon_state = icon_state
 	src.dir = dir
