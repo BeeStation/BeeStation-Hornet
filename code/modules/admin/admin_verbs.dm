@@ -196,7 +196,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	#endif
 	/client/proc/toggle_cdn,
 	/client/proc/check_timer_sources,
-	/client/proc/test_dview_to_lum_changes
+	/client/proc/test_dview_to_lum_changes,
+	/client/proc/cmd_regenerate_asset_cache,
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))

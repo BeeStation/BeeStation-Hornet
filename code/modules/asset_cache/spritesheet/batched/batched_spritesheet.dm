@@ -115,6 +115,9 @@
 	else
 		SSasset_loading.queue_asset(src)
 
+/datum/asset/spritesheet_batched/unregister()
+	CRASH("unregister() called on batched spritesheet! Bad!")
+
 /// Call insert_icon or insert_all_icons here, building a spritesheet!
 /datum/asset/spritesheet_batched/proc/create_spritesheets()
 	SHOULD_CALL_PARENT(FALSE)
