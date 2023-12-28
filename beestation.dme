@@ -239,6 +239,7 @@
 #include "code\__HELPERS\chat.dm"
 #include "code\__HELPERS\cmp.dm"
 #include "code\__HELPERS\colors.dm"
+#include "code\__HELPERS\construction.dm"
 #include "code\__HELPERS\dates.dm"
 #include "code\__HELPERS\datums.dm"
 #include "code\__HELPERS\dna.dm"
