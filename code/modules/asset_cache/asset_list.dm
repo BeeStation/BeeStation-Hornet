@@ -290,7 +290,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		var/file_path = "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]"
 		// Hashing it here is a *lot* faster.
 		var/hash = rustg_hash_file("md5", file_path)
-		var/asset_cache_item = SSassets.transport.register_asset(asset_id, file_hash=hash)
+		var/asset_cache_item = SSassets.transport.register_asset(asset_id, file_path, file_hash=hash)
 		var/asset_url = SSassets.transport.get_asset_url(asset_cache_item = asset_cache_item)
 		replaced_css = replacetext(replaced_css, find_background_urls.match, "background:url('[asset_url]')")
 		LAZYADD(cached_spritesheets_needed, asset_id)
