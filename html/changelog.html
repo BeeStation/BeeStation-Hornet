@@ -56,6 +56,35 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">28 December 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">is_station_level(z) macro now has a 0 index failproof</li>
+				<li class="bugfix">alien artifact explo mission no longer throws is_station_level() runtime with 0z index with minor code change.</li>
+				<li class="bugfix">area_sound_manager no longer throws runtime</li>
+			</ul>
+			<h3 class="author">That0nePerson, Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">You can now customize the prosthetic limb, phobia, junkie, multilingual, alcoholic, and smoker quirks!</li>
+			</ul>
+
+			<h2 class="date">27 December 2023</h2>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Made the fullbright on Reebe actually fullbright</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Default bloom level lowered from 50% to 30%.</li>
+			</ul>
+
+			<h2 class="date">25 December 2023</h2>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Returning from the Ninja Dojo now accounts for (most) unsafe atmospheric conditions</li>
+				<li class="bugfix">SecTech vendor restocker now has an actual name instead of being 'Generic'</li>
+			</ul>
+
 			<h2 class="date">24 December 2023</h2>
 			<h3 class="author">Absolucy updated:</h3>
 			<ul class="changes bgimages16">
@@ -63,6 +92,15 @@
 				<li class="tweak">The PanD.E.M.I.C will now copy properties such as faltering and immutability to newly made cultures.</li>
 				<li class="tweak">Virus mixing reactions (i.e virus food, mutagen, spaceacillin, etc) won't occur if there's no mutable virus in the blood its mixing with.</li>
 				<li class="code_imp">Cleaned up the PANDEMIC code a bit.</li>
+				<li class="bugfix">Fix stacked client colors not being removed, hopefully fixing the perma-monochrome bug.</li>
+			</ul>
+			<h3 class="author">Pink Suzuker updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Made all standard existing sneaker colours aviable on the ClothesMate vendor</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Bluespace launchpad can no longer pull objects (but can send it). Bluespace launch pad will now play an effect when pulling.</li>
 			</ul>
 
 			<h2 class="date">23 December 2023</h2>
@@ -849,66 +887,6 @@
 				<li class="bugfix">Suit Storage Units will no longer bend space and time to deposit items in the AI's "hands".</li>
 				<li class="bugfix">SSU radial menus close when you walk away</li>
 				<li class="code_imp">cleaned up beaker swapping code</li>
-			</ul>
-
-			<h2 class="date">26 October 2023</h2>
-			<h3 class="author">BeeLover66 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Square root of 2 is now only written as sqrt(2) in the code</li>
-			</ul>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Fixes spiderlings initializing twice</li>
-				<li class="bugfix">Blind people can't be flashed anymore</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Equipping guns will now provide a brief period where you are slowed and cannot fire the gun, represented by teh crosshair timer. (This is 2-4 seconds depending on the gun).</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed a typo in preference logging.</li>
-			</ul>
-			<h3 class="author">tontyGH updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">spawning characters will now have their quirks assigned regardless of what mob type they are</li>
-				<li class="bugfix">roundstart cyborgs should now keep the DNA and quirks of their character</li>
-			</ul>
-
-			<h2 class="date">25 October 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Lighteater can now destroy glowing decals.</li>
-			</ul>
-			<h3 class="author">Rkz, AlinaStarkova updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds new mapping helper for multi-directional airlock cycelinks. Changed three airlocks on Meta as a proof-of-concept.</li>
-			</ul>
-			<h3 class="author">Varo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">tweaked the following open wing sprites: monarch, luna,, whitefly, firewatch, deathhead, poison, ragged, moonfly, snow and witch wing</li>
-			</ul>
-
-			<h2 class="date">24 October 2023</h2>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Firefighter helmet now mechanically covers your face, as show by the sprite</li>
-			</ul>
-			<h3 class="author">RKz, Mothblocks updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">teleporter machinery now autolinks.</li>
-				<li class="code_imp">adds unit test to ensure this does not regress</li>
-			</ul>
-
-			<h2 class="date">23 October 2023</h2>
-			<h3 class="author">DrDuckedGoose updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added the ability to carve Pumpkin People's heads</li>
-				<li class="tweak">Pumpkin People are now pseudo-mute until carved</li>
-			</ul>
-			<h3 class="author">rkz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Whoever made all the batongs into pool noodles has been shot! (fixed immobilization not applying through stamcrit)</li>
 			</ul>
 		</div>
 
