@@ -187,6 +187,9 @@
 /turf/open/floor/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
+			var/obj/structure/girder/girder = locate() in src
+			if(girder)
+				return girder.rcd_vals(user, the_rcd)
 			return rcd_result_with_memory(
 				list("mode" = RCD_FLOORWALL, "delay" = 2 SECONDS, "cost" = 16),
 				src, RCD_MEMORY_WALL,
@@ -216,6 +219,9 @@
 /turf/open/floor/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
+			var/obj/structure/girder/girder = locate() in src
+			if(girder)
+				return girder.rcd_act(user, the_rcd, passed_mode)
 			to_chat(user, "<span class='notice'>You build a wall.</span>")
 			log_attack("[key_name(user)] has constructed a wall at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/overlapping_lattice = locate(/obj/structure/lattice) in get_turf(src)
