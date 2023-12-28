@@ -49,6 +49,7 @@
 	smoothing_flags = NONE
 	canSmoothWith = null
 	smoothing_groups = null
+	rcd_memory = null
 
 /turf/closed/wall/vault/rock
 	name = "rocky wall"
@@ -71,6 +72,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	desc = "A wall covered in a thick sheet of ice."
 	canSmoothWith = null
+	rcd_memory = null
 	hardness = 35
 	slicing_duration = 150 //welding through the ice+metal
 	bullet_sizzle = TRUE
