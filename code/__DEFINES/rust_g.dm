@@ -210,7 +210,7 @@
 /// list("type" = "BlendColor", "color" = "#ff0000", "blend_mode" = ICON_MULTIPLY)
 /// list("type" = "BlendIcon", "icon" = [SPRITE_OBJECT], "blend_mode" = ICON_OVERLAY)
 /// list("type" = "Scale", "width" = 32, "height" = 32)
-/// list("type" = "Crop", "x1" = 0, "y1" = 0, "x2" = 32, "y2" = 32)
+/// list("type" = "Crop", "x1" = 1, "y1" = 1, "x2" = 32, "y2" = 32) // (BYOND icons index from 1,1 to the upper bound, inclusive)
 ///
 /// Returns a SpritesheetResult as JSON, containing fields:
 /// list(
