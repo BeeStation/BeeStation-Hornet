@@ -28380,6 +28380,12 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
+/obj/structure/rack,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
 /turf/open/floor/prison,
 /area/security/prison)
 "jmv" = (
@@ -31229,7 +31235,7 @@
 /obj/docking_port/stationary{
 	dwidth = 2;
 	height = 5;
-	id = s;
+	id = "laborcamp_home";
 	name = "fore bay 1";
 	roundstart_template = /datum/map_template/shuttle/labour/box;
 	width = 9;
@@ -32244,7 +32250,7 @@
 	name = "Labour Shuttle";
 	req_access_txt = "2"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/security/brig)
 "kAt" = (
 /obj/machinery/camera/autoname{
@@ -50967,7 +50973,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Labour Shuttle"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/security/brig)
 "qGC" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -113219,7 +113225,7 @@ aMT
 aMT
 opr
 aMT
-aMT
+klp
 aMT
 aMT
 opr

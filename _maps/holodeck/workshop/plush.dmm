@@ -154,6 +154,10 @@
 /obj/item/stack/medical/gauze,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
+"W" = (
+/obj/machinery/seed_extractor,
+/turf/open/floor/holofloor/monotile/steel,
+/area/template_noop)
 "Z" = (
 /obj/structure/rack,
 /obj/item/wirecutters,
@@ -207,7 +211,7 @@ d
 (7,1,1) = {"
 L
 c
-d
+W
 P
 g
 "}
