@@ -18,7 +18,7 @@
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 6
 	multiple_sprites = 1
-	materials = list(/datum/material/iron = 20000)
+	custom_materials = list(/datum/material/iron = 20000)
 
 /obj/item/ammo_box/c38/trac
 	name = "speed loader (.38 TRAC)"
@@ -67,17 +67,44 @@
 	item_flags = DROPDEL
 	ammo_type = /obj/item/ammo_casing/caseless/mime/lethal
 
+/obj/item/ammo_box/pouch/c38
+	name = "ammo pouch (.38)"
+	ammo_type = /obj/item/ammo_casing/c38
+	max_ammo = 4
+
+/obj/item/ammo_box/pouch/c38/improv
+	name = "ammo pouch (improv .38)"
+	ammo_type = /obj/item/ammo_casing/c38/improv
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
 
+/obj/item/ammo_box/pouch/c9mm
+	name = "ammo pouch (9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	max_ammo = 6
+
+/obj/item/ammo_box/pouch/c9mm/improv
+	name = "ammo pouch (improv 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm/improv
+
 /obj/item/ammo_box/c10mm
 	name = "ammo box (10mm)"
 	icon_state = "10mmbox"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	max_ammo = 20
+
+/obj/item/ammo_box/pouch/c10mm
+	name = "ammo pouch (10mm)"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	max_ammo = 4
+
+/obj/item/ammo_box/pouch/c10mm/improv
+	name = "ammo pouch (improv 10mm)"
+	ammo_type = /obj/item/ammo_casing/c10mm/improv
 
 /obj/item/ammo_box/c45
 	name = "ammo box (.45)"
@@ -112,9 +139,9 @@
 	icon_state = "foambox"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 40
-	materials = list(/datum/material/iron = 500)
+	custom_materials = list(/datum/material/iron = 500)
 
 /obj/item/ammo_box/foambox/riot
 	icon_state = "foambox_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	materials = list(/datum/material/iron = 50000)
+	custom_materials = list(/datum/material/iron = 50000)

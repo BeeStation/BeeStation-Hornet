@@ -63,7 +63,7 @@
 	if(isliving(AM))
 		var/mob/living/M = AM
 		var/turf/T = get_turf(src)
-		investigate_log("([key_name(A)]) has been consumed by the BoH tear at [AREACOORD(T)].", INVESTIGATE_ENGINES)
+		M.investigate_log("has been consumed by the BoH tear at [AREACOORD(T)].", INVESTIGATE_ENGINES)
 		ghosts += M.ghostize(FALSE)
 	else if(!isobj(AM))
 		return
