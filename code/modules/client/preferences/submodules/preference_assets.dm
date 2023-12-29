@@ -28,8 +28,6 @@
 				CRASH("Icon given for preference [preference_key]:[preference_value]. This is not supported anymore, provide a /datum/universal_icon instead.")
 			else
 				CRASH("[create_icon_of] is an invalid preference value (from [preference_key]:[preference_value]).")
-			// all prefs assets are 32x32.
-			icon.scale(32, 32)
 			insert_icon(preference.get_spritesheet_key(preference_value), icon)
 
 /// This "large" spritesheet helps reduce mount lag from large PNG files.
