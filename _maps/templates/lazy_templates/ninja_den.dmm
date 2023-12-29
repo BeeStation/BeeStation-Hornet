@@ -338,6 +338,12 @@
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	locked = 0
 	},
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
 "uq" = (
@@ -498,7 +504,7 @@
 /area/centcom/holding)
 "Bv" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chawanmushi,
+/obj/item/food/chawanmushi,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "BE" = (
@@ -862,16 +868,11 @@
 /area/centcom/holding)
 "Ww" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
 "WJ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/sashimi,
+/obj/item/food/sashimi,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Xm" = (
@@ -1554,7 +1555,7 @@ ob
 ob
 RW
 Ra
-WJ
+Ne
 bU
 Ra
 Ra
@@ -1590,7 +1591,7 @@ ob
 uq
 Qm
 Ra
-Ne
+WJ
 bU
 Ra
 Ra

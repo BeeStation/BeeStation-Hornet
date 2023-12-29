@@ -3,7 +3,7 @@
 	plural_form = "Pumpkinpeople"
 	id = SPECIES_PUMPKINPERSON
 	sexes = 0
-	meat = /obj/item/reagent_containers/food/snacks/pumpkinpieslice
+	meat = /obj/item/food/pieslice/pumpkin
 	species_traits = list(NOEYESPRITES)
 	attack_verb = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -61,7 +61,7 @@
 	//Check if the item is sharp - give owner a random face if applicable
 	var/mob/living/carbon/human/M = _source
 	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
-	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.zone_selected == BODY_ZONE_HEAD)
+	if(_item.is_sharp() && head?.item_flags & ISCARVABLE && _user.a_intent == INTENT_HELP && _user.is_zone_selected(BODY_ZONE_HEAD))
 		to_chat(_user, "<span class='notice'>You begin to carve a face into [_source]...</span>")
 		//Do after for *flourish*
 		if(do_after(_user, 3 SECONDS))
@@ -81,7 +81,7 @@
 				P?.carved = TRUE
 		else
 			to_chat(_user, "<span class='warning'>You fail to carve a face into [_source]!</span>")
-		
+
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"
 	actions_types = list(/datum/action/item_action/organ_action/pumpkin_head_candy)
@@ -134,10 +134,10 @@
 	//Get a candy type
 	var/obj/item/type = pick(/obj/item/food/cookie/sugar/spookyskull,
 		/obj/item/food/cookie/sugar/spookycoffin,
-		/obj/item/reagent_containers/food/snacks/candy_corn,
+		/obj/item/food/candy_corn,
 		/obj/item/reagent_containers/food/snacks/candy,
-		/obj/item/reagent_containers/food/snacks/candiedapple,
-		/obj/item/reagent_containers/food/snacks/chocolatebar)
+		/obj/item/food/candiedapple,
+		/obj/item/food/chocolatebar)
 	//Make some candy & put it in the list
 	type = new type
 	available_candy += type

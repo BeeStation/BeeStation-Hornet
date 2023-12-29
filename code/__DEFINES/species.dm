@@ -25,6 +25,7 @@
 #define SPECIES_SNAILPERSON "snail"
 #define SPECIES_SUPERSOLDIER "supersoldier"
 #define SPECIES_VAMPIRE "vampire"
+#define SPECIES_PSYPHOZA "psyphoza"
 
 //Defines for Golem Species IDs
 #define SPECIES_GOLEM_ADAMANTINE "adamantine_golem"
@@ -71,6 +72,7 @@
 #define FLAG_FLY			(1<<9)
 #define FLAG_DEBUG_SPECIES	(1<<10)
 #define FLAG_MONKEY			(1<<11)
+#define FLAG_PSYPHOZA		(1<<12)
 
 // Defines for used in creating "perks" for the species preference pages.
 /// A key that designates UI icon displayed on the perk.

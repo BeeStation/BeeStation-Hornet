@@ -163,7 +163,7 @@
 
 	UNSETEMPTY(turf_blacklist)
 	parsed.turf_blacklist = turf_blacklist
-	var/datum/map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
+	var/datum/async_map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
 	map_placer.on_completion(CALLBACK(src, PROC_REF(on_placement_completed)))
 	var/list/generation_arguments =  list(T, init_atmos, parsed, finalize)
 	if (length(args) > 4)
@@ -171,7 +171,7 @@
 	map_placer.generate(arglist(generation_arguments))
 	return map_placer
 
-/datum/map_template/proc/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
+/datum/map_template/proc/on_placement_completed(datum/async_map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		maps_loading --

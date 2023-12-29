@@ -120,7 +120,7 @@
 /turf/open/floor/carpet,
 /area/wizard_station)
 "lJ" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime,
+/obj/item/food/meat/slab/human/mutant/slime,
 /turf/open/floor/grass,
 /area/wizard_station)
 "mi" = (
@@ -292,7 +292,7 @@
 /turf/open/floor/grass,
 /area/wizard_station)
 "yw" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
+/obj/item/food/meat/slab/corgi,
 /turf/open/floor/grass,
 /area/wizard_station)
 "zr" = (
@@ -381,10 +381,6 @@
 /turf/closed/indestructible/riveted/uranium,
 /area/wizard_station)
 "DT" = (
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
-	desc = "I bet you think you're pretty clever... well you are.";
-	name = "easter egg"
-	},
 /turf/open/space,
 /area/space)
 "EC" = (
@@ -542,7 +538,7 @@
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "Wy" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
 /turf/open/floor/grass,
 /area/wizard_station)
 "WL" = (
@@ -562,7 +558,7 @@
 /turf/open/floor/wood,
 /area/wizard_station)
 "ZM" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
 /turf/open/floor/grass,
 /area/wizard_station)
 "ZW" = (
