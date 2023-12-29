@@ -54,6 +54,8 @@
 	. = CACHE_INVALID // in the case of any errors, we need to regenerate.
 	if(!fexists("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json"))
 		return CACHE_INVALID
+	if(!fexists("data/spritesheets/spritesheet_[name].css"))
+		return CACHE_INVALID
 	if(isnull(cache_data) || isnull(cache_dmi_hashes_json))
 		cache_data = rustg_file_read("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
 		if(!findtext(cache_data, "{", 1, 2)) // cache isn't valid JSON
@@ -249,11 +251,17 @@
 /datum/asset/spritesheet_batched/proc/read_from_cache()
 	if(!CONFIG_GET(flag/smart_cache_assets))
 		return FALSE
+	// this is already guaranteed to exist.
 	var/css_fname = "data/spritesheets/spritesheet_[name].css"
-	var/css_hash = rustg_hash_file("md5", css_fname)
-	SSassets.transport.register_asset("spritesheet_[name].css", fcopy_rsc(css_fname), file_hash=css_hash)
 
 	// sizes gets filled during should_refresh()
+	for(var/size_id in sizes)
+		var/fname = "data/spritesheets/[name]_[size_id].png"
+		if(!fexists(fname))
+			return FALSE
+
+	var/css_hash = rustg_hash_file("md5", css_fname)
+	SSassets.transport.register_asset("spritesheet_[name].css", fcopy_rsc(css_fname), file_hash=css_hash)
 	for(var/size_id in sizes)
 		var/fname = "data/spritesheets/[name]_[size_id].png"
 		var/hash = rustg_hash_file("md5", fname)
