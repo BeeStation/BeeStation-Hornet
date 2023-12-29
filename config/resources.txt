@@ -40,11 +40,9 @@ ASSET_CDN_URL http://localhost:7123/
 ########################
 # Asset Caching Config #
 ########################
-## Assets can opt-in to caching their results into `tmp`.
-## This is important, as preferences assets take upwards of 30 seconds (without sleeps) to collect.
-## The cache is assumed to be cleared by TGS recompiling, which deletes `tmp`.
-## This should be uncommented on production.
-## In development, the cache can be manually cleared via the "Regenerate Asset Cache" verb.
+## Assets can opt-in to caching their results into `data/spritesheets/legacy_cache`.
+## This is useful, as preferences assets take upwards of 30 seconds (without sleeps) to collect.
+## The cache can be manually cleared via the "Regenerate Asset Cache" verb.
 ## This is on in development now, because it is only used by a few select spritesheets.
 CACHE_ASSETS
 
