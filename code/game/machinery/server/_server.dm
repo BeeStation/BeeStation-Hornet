@@ -6,7 +6,6 @@
 
     var/efficiency = 1 // 100%
     var/overheated_temp = T0C + 100
-    var/cooling_factor = 0.1
 
     var/datum/gas_mixture/server_air
 
