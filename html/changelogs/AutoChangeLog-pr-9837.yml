@@ -1,0 +1,6 @@
+author: RKz, Ghommie, Harmonym, haukeschuemann
+delete-after: true
+changes:
+  - rscadd: Examining art in the form of paintings or statues will allow your character
+      to render judgment. Be warned, the quality of the art will affect you emotionally,
+      whether in beauty or its utter trashiness.
