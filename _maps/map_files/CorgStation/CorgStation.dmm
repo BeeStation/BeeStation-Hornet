@@ -31225,6 +31225,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"klp" = (
+/obj/docking_port/stationary{
+	dwidth = 2;
+	height = 5;
+	id = s;
+	name = "fore bay 1";
+	roundstart_template = /datum/map_template/shuttle/labour/box;
+	width = 9;
+	dir = 8
+	},
+/turf/open/space/basic,
+/area/space)
 "klr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -113475,7 +113487,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
+klp
 aMT
 aMT
 duF
