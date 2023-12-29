@@ -256,9 +256,11 @@
 		message_admins("[key_name(src)] (job: [src.job ? "[src.job]" : "None"]) committed suicide at [AREACOORD(src)].")
 
 /mob/living/proc/canSuicide()
-	var/area/A = get_area(src)
-	if(A.area_flags & BLOCK_SUICIDE)
+	var/area/checkable = get_area(src)
+	if(checkable.area_flags & BLOCK_SUICIDE)
 		to_chat(src, "<span class='warning'>You can't commit suicide here! You can ghost if you'd like.</span>")
+		return
+
 	switch(stat)
 		if(CONSCIOUS)
 			return TRUE
