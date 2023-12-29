@@ -33,10 +33,8 @@
     calculate_temperature()
     if(server_air.return_temperature() > overheated_temp)
         efficiency = 0
-        icon_state = "server-off"
     else
         efficiency = clamp(1 - ((server_air.return_temperature() - T20C) / (overheated_temp - T20C)), 0, 1)
-        icon_state = "message_server"
         server_air.adjust_heat(heat_generation)
         heat_generation = 0
 
